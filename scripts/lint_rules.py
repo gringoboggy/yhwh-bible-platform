@@ -941,11 +941,13 @@ def check_render_coverage_no_regression() -> dict:
         "jdg",
         "jdt",
         "jos",
+        "jud",  # τ.6.x.NT.a
         "lev",
         "mq1",
         "mq2",
         "mq3",
         "num",
+        "phm",  # τ.6.x.NT.a
         "psa",
         "rut",
         "tob",
@@ -964,12 +966,14 @@ def check_render_coverage_no_regression() -> dict:
         "jdt",
         "jos",
         "jub",
+        "jud",  # τ.6.x.NT.a
         "lev",
         "mq1",
         "mq2",
         "mq3",
         "num",
         "paz",
+        "phm",  # τ.6.x.NT.a
         "psa",
         "rut",
         "sir",

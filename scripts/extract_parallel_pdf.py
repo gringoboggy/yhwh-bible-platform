@@ -520,6 +520,190 @@ def is_pericope_header(frag: str) -> bool:
     return PERICOPE_HEADER_RE.match(frag or "") is not None
 
 
+# τ.6.x.NT.a — NT-book section recognition + NT-specific pre-pass.
+#
+# The τ.7.x.v Matthew dry-run hit `renumber_against_floor` GROSS-overflow
+# (1178 parsed vs 1071 floor) because the OT-paragraph parser:
+#  (1) emitted `ክፍል N፡` pericope headers as spurious verses anyway when
+#      Tesseract emitted them WITHIN the `።`-bounded body text (the
+#      existing PERICOPE_HEADER_RE only catches them when at the START
+#      of a `።`-split fragment — but Tesseract often glues a leading
+#      pericope marker into the preceding sentence by collapsing line
+#      breaks, so the marker shows up mid-fragment, e.g.
+#      `…ጨርሷል። ክፍል ፪፡ ስለ ምድር ቅንቱ …` parses as a single fragment
+#      containing two scriptural "verses" + one header);
+#  (2) emitted `ምዕራፍ N` chapter markers as candidate verses too when
+#      they appeared on a line whose surrounding `።` punctuation was
+#      OCR-lost (rare but real on Mt-1 genealogy listing pages);
+#  (3) emitted inline cross-reference apparatus tokens
+#      (`(መዝ ፴፫፤፬)`, `[ዕብ ፪]`, etc.) as "verses" when the OT cross-ref
+#      heuristic missed them — NT inline apparatus is much denser than
+#      OT apparatus.
+#
+# This pre-pass surgically rejects/merges those three classes BEFORE
+# the body-text fragments enter the paragraph-mode `።` splitter.
+# Critically, it is GUARDED by `is_nt_book(section_name)` so OT books
+# (Sirach, Tobit, Ruth, …) are byte-identical through the pipeline.
+
+# All 26 NT sections reachable from the parallel-Bible-EOTC PDF.
+# (Colossians is excluded — declared present_in_pdf:false; the
+# alternate-source ingest is a separate δ.x ship.)
+NT_SECTION_NAMES: frozenset[str] = frozenset(
+    {
+        "matthew",
+        "mark",
+        "luke",
+        "john",
+        "acts",
+        "romans",
+        "first_corinthians",
+        "second_corinthians",
+        "galatians",
+        "ephesians",
+        "philippians",
+        "first_thessalonians",
+        "second_thessalonians",
+        "first_timothy",
+        "second_timothy",
+        "titus",
+        "philemon",
+        "hebrews",
+        "james",
+        "first_peter",
+        "second_peter",
+        "first_john",
+        "second_john",
+        "third_john",
+        "jude",
+        "revelation",
+    }
+)
+
+
+def is_nt_book(section_name: str | None) -> bool:
+    """Is this structural_map section name an NT book?
+
+    NT books need the τ.6.x.NT.a pre-pass for pericope-header /
+    chapter-marker / cross-reference-apparatus rejection. OT books
+    do NOT (the OT paragraph parser was tuned to OT prose at
+    τ.6.x.1.C and shipped 24 OT books at parity; running the NT
+    pre-pass on OT input would not change anything in practice
+    but the guard preserves bytewise output for the OT path).
+    """
+    return section_name in NT_SECTION_NAMES
+
+
+# Inline NT pericope marker — matches `ክፍል <sep> <numeral>` anywhere in
+# a fragment, not just at the start. Used by the NT pre-pass to split
+# fragments that contain an inline pericope header (and reject the
+# header portion + keep the surrounding body text).
+#
+# Capture window: the `ክፍል` keyword + separator + 1-4-char numeral +
+# optional title separator (`፡` / `።`) + the title-body of the header
+# itself. Header titles are typically short ("Section 2: Concerning
+# Faith" / "ስለ ምስጢረ ቅዱስ" ≈ "About the Holy Sacrament") so a 30-char
+# window is sufficient; we cap at 30 to avoid eating real body
+# verses on either side. The regex stops at any Ethiopic full-stop
+# (`።`) or paragraph-separator (`፨`) — these always end a header.
+INLINE_PERICOPE_RE = re.compile(r"\s*ክፍል[\s፡፣]+[፩-፼0-9]{1,4}[\s፡፣።]?[^።፨]{0,30}")
+
+# Inline NT chapter marker — matches `ምዕራፍ <sep> <numeral>` anywhere
+# (the existing CHAPTER_HEADER_RE_LENIENT uses an Ethiopic-punct
+# terminator; this version is for body-text spotting mid-fragment).
+INLINE_CHAPTER_MARKER_RE = re.compile(r"\s*ምዕራፍ[\s፡፣]+[፩-፼0-9]{1,4}[\s፡፣።]?")
+
+# Inline NT cross-reference apparatus — short parenthesized or bracketed
+# citation runs. The OT `is_cross_ref_fragment` heuristic only catches
+# these when they STAND ALONE between `።`s; the NT pre-pass strips them
+# inline so the surrounding body text still parses as a single verse.
+# Shape: opening `(` `[` `〔` or bare leading book-abbrev + 1-5 Ethiopic
+# letters + optional `.` + numerals + separators + closing bracket.
+INLINE_CROSS_REF_RE = re.compile(r"[\(\[〔]\s*[ሀ-ፗ]{1,5}\s*[\.,]?\s*[፩-፼\d]+(?:[፡፣፤፥፦፧፨\-\.,/\s]+[፩-፼\d]+)*\s*[\)\]〕]")
+
+
+def _nt_prepass(text: str) -> str:
+    """τ.6.x.NT.a — NT structure-aware pre-pass.
+
+    Operates on the FULL column text (post Ethiopic-numeral
+    normalization, pre `።`-split). Returns transformed text where:
+
+    1. Inline `ክፍል N፡ ስለ …` pericope-section headers are excised. The
+       header itself + up to ~80 chars of header-body text (e.g.
+       "Section 2: Concerning Faith") is replaced with a single space.
+       The surrounding scriptural text on either side is preserved
+       intact.
+
+    2. Inline `ምዕራፍ N` chapter markers that appear MID-PARAGRAPH (not
+       on their own line) are replaced with a single space so they do
+       not parse as candidate verses. (Standalone-line chapter markers
+       are still caught by the chapter-header walker upstream of this
+       pre-pass.)
+
+    3. Inline cross-reference apparatus `(መዝ ፴፫፤፬)`, `[ዕብ ፪]`, etc. is
+       excised — the OT path's `is_cross_ref_fragment` filter only
+       catches these when they STAND ALONE between `።`s; NT pages
+       glue them inside body sentences, so we strip them inline.
+
+    4. Colometric layout — POETIC LINE BREAKS (a verse-internal line
+       break that should NOT be a verse boundary; the Beatitudes /
+       Magnificat / Pauline doxologies use this). Heuristic: if a line
+       ends without `።` and the next non-blank line is non-empty and
+       starts with a SMALL LETTER (i.e. not a new sentence opener),
+       merge them with a single space. This is the inverse of the OT
+       pre-pass assumption (every line break is a sentence boundary).
+       For Tesseract Ethiopic output the cue is weak — we therefore
+       use a conservative rule: only merge when the prior line ends
+       in a NON-`።` Ethiopic punctuation mark (`፡`, `፣`, `፤`) which
+       signals "continuation" within a sentence.
+
+    OT books (Sirach, Tobit, Ruth, …) are NEVER given this
+    pre-pass — the caller guards via ``is_nt_book(section_name)``.
+    """
+    if not text:
+        return text
+
+    # Step 1+2+3: inline excisions. Order matters — strip the largest
+    # patterns first so that nested patterns don't fragment.
+    out = INLINE_PERICOPE_RE.sub(" ", text)
+    out = INLINE_CHAPTER_MARKER_RE.sub(" ", out)
+    out = INLINE_CROSS_REF_RE.sub(" ", out)
+
+    # Step 4: colometric merge. Walk line-by-line; if line[i] ends in a
+    # NON-`።` Ethiopic punctuation mark (continuation cue) AND line[i+1]
+    # is non-empty AND begins with an Ethiopic-letter (i.e. body
+    # content, not a structural marker), join them with a single space.
+    CONTINUATION_PUNCT = {"፡", "፣", "፤", "፥", "፦", ",", ";"}
+    lines = out.splitlines()
+    merged: list[str] = []
+    i = 0
+    while i < len(lines):
+        line = lines[i].rstrip()
+        if not line:
+            merged.append("")
+            i += 1
+            continue
+        # Look ahead: should we merge with the next non-empty line?
+        last_char = line[-1] if line else ""
+        if last_char in CONTINUATION_PUNCT and i + 1 < len(lines):
+            j = i + 1
+            # Skip blank lines (rare in OCR; preserve them by not merging
+            # across them — a blank line is a paragraph boundary).
+            if lines[j].strip():
+                next_line = lines[j].lstrip()
+                first_ch = next_line[0] if next_line else ""
+                # Only merge into Ethiopic-letter starts (excludes new
+                # `ምዕራፍ`/`ክፍል`/numeral/punctuation/Latin-character
+                # starts which are likely structural).
+                if 0x1200 <= ord(first_ch) <= 0x137F and first_ch not in "።፡፣፤፥፦፧፨":
+                    merged.append(line + " " + next_line)
+                    i = j + 1
+                    continue
+        merged.append(line)
+        i += 1
+
+    return "\n".join(merged)
+
+
 # Per-book expected verse-count floor for sanity-checking paragraph-mode
 # output. Source: Masoretic Text + LXX agreement (modern Bible verse-
 # count standard). Used by callers to validate τ.7.x.x ingest output;
@@ -1923,7 +2107,52 @@ MATTHEW_VERSE_COUNTS = {
 # γ-notes cross-validation, unlike the OT pseudepigrapha).
 
 
-def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
+# τ.6.x.NT.a — Philemon (`phm`). Single-chapter Pauline letter
+# (25 verses; KJV/UBS-NA). SMALLEST single-block NT book reachable
+# from the parallel-Bible-EOTC PDF (p2023-2024, 2 pages). FIRST
+# NT-renumber-overflow-honest-fail smoke book (the τ.7.x.v blocker
+# was hit on Matthew p1567-1635 by the OT-paragraph parser; the
+# τ.6.x.NT.a fix is the `_nt_prepass` structure-aware pre-pass
+# guarded by `is_nt_book()`). NT versification is highly
+# standardized — KJV/UBS-NA enumeration is authoritative.
+PHILEMON_VERSE_COUNTS = {
+    1: 25,
+}
+# Total Philemon verses = 25 (KJV/UBS-NA single-chapter; ELLR
+# Tewahedo Geʽez column agrees per the τ.6.x.NT.a structural scan).
+
+
+# τ.6.x.NT.a — 2 John (`2jn`). Single-chapter Johannine letter
+# (13 verses; KJV/UBS-NA). Lives in the 1-3 John combined-block
+# (p2058-2065); within-section split is needed before per-book
+# ingest, but the floor dict is shipped alongside Philemon for
+# infrastructure parity.
+SECOND_JOHN_VERSE_COUNTS = {
+    1: 13,
+}
+# Total 2 John verses = 13 (KJV/UBS-NA single-chapter).
+
+
+# τ.6.x.NT.a — 3 John (`3jn`). Single-chapter Johannine letter
+# (15 verses; KJV/UBS-NA). Lives in the 1-3 John combined-block
+# (p2058-2065); see SECOND_JOHN_VERSE_COUNTS above.
+THIRD_JOHN_VERSE_COUNTS = {
+    1: 15,
+}
+# Total 3 John verses = 15 (KJV/UBS-NA single-chapter).
+
+
+# τ.6.x.NT.a — Jude (`jud`). Single-chapter General Epistle
+# (25 verses; KJV/UBS-NA). Lives in its own section at p2073-2075
+# (3 pages, separate block from 1-3 John). Smallest separately-
+# blocked Catholic Epistle.
+JUDE_VERSE_COUNTS = {
+    1: 25,
+}
+# Total Jude verses = 25 (KJV/UBS-NA single-chapter).
+
+
+def _parse_paragraph_mode(text: str, *, is_nt: bool = False) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
     Walks chapter markers (lenient regex tolerates OCR-garbled
@@ -1931,7 +2160,20 @@ def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     by `።` sentence-terminator; filters cross-reference fragments;
     numbers verses sequentially. See module-level τ.6.x.1.C +
     τ.6.x.1.D blocks for the full design rationale.
+
+    ``is_nt=True`` (τ.6.x.NT.a) runs the structure-aware `_nt_prepass`
+    before splitting — strips inline `ክፍል N፡` pericope-section
+    headers, mid-paragraph `ምዕራፍ N` chapter markers, inline
+    cross-reference apparatus `(መዝ ፴፫፤፬)` etc., and merges
+    colometric-layout fragments. Required for NT books (Matthew,
+    Philemon, …) where the OT paragraph parser otherwise hits
+    GROSS-overflow at `renumber_against_floor`. OT books bypass
+    this pre-pass for bytewise compatibility with τ.7.x.a-o.
     """
+    # τ.6.x.NT.a — NT structure-aware pre-pass (no-op for OT books).
+    if is_nt:
+        text = _nt_prepass(text)
+
     # First pass: filter lines for ASCII page-header garbage. Keep
     # blank lines so paragraph structure (if any) is preserved for
     # downstream use; the splitter operates on full joined text.
@@ -2232,7 +2474,9 @@ def tesseract_extract_columns(
     return geez, amharic
 
 
-def parse_verses_from_text(text: str, *, paragraph_mode: bool = False) -> list[tuple[int, int, str]]:
+def parse_verses_from_text(
+    text: str, *, paragraph_mode: bool = False, is_nt: bool = False
+) -> list[tuple[int, int, str]]:
     """Parse one column's text into (chapter, verse, text) tuples.
 
     Strategy (single-line mode; ``paragraph_mode=False``, the default):
@@ -2266,7 +2510,7 @@ def parse_verses_from_text(text: str, *, paragraph_mode: bool = False) -> list[t
     text = normalize_verse_numerals(text)
 
     if paragraph_mode:
-        return _parse_paragraph_mode(text)
+        return _parse_paragraph_mode(text, is_nt=is_nt)
 
     chapter = 1
     verse = 0
@@ -2688,8 +2932,13 @@ def extract_section(
     finally:
         doc.close()
 
-    geez_verses = parse_verses_from_text(full_geez, paragraph_mode=paragraph_mode)
-    amh_verses = parse_verses_from_text(full_amh, paragraph_mode=paragraph_mode)
+    # τ.6.x.NT.a — NT books get the structure-aware pre-pass to
+    # reject inline `ክፍል N፡` pericope headers + cross-reference
+    # apparatus + merge colometric line breaks. OT books bypass
+    # (bytewise-identical to the τ.7.x.a-o ships).
+    nt_path = is_nt_book(section_name)
+    geez_verses = parse_verses_from_text(full_geez, paragraph_mode=paragraph_mode, is_nt=nt_path)
+    amh_verses = parse_verses_from_text(full_amh, paragraph_mode=paragraph_mode, is_nt=nt_path)
 
     # τ.7.x.a — Optional post-process renumbering against a known
     # verse-count floor. When the parser misses chapter markers (the
@@ -2896,6 +3145,14 @@ def _build_docstring_extra(
         floor_dict = ONE_ENOCH_VERSE_COUNTS
     elif renumber == "matthew":
         floor_dict = MATTHEW_VERSE_COUNTS
+    elif renumber == "philemon":
+        floor_dict = PHILEMON_VERSE_COUNTS
+    elif renumber == "second_john":
+        floor_dict = SECOND_JOHN_VERSE_COUNTS
+    elif renumber == "third_john":
+        floor_dict = THIRD_JOHN_VERSE_COUNTS
+    elif renumber == "jude":
+        floor_dict = JUDE_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -3001,6 +3258,10 @@ def main() -> int:
             "jubilees",
             "one_enoch",
             "matthew",
+            "philemon",
+            "second_john",
+            "third_john",
+            "jude",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -3089,6 +3350,18 @@ def main() -> int:
             "[1567,1635], the τ.7.x.q new-section pattern, NOT a "
             "Π.1 upgrade; Mark opens p1636, discovery-scan cross-"
             "validated). "
+            "Also the NT smoke books 'philemon' "
+            "(PHILEMON_VERSE_COUNTS, 1 ch / 25 v; KJV/UBS-NA; "
+            "τ.6.x.NT.a — SMALLEST single-block NT book; FIRST book "
+            "to ship with the NT-pre-pass mitigation for the τ.7.x.v "
+            "NT-overflow blocker), 'second_john' (SECOND_JOHN_VERSE_"
+            "COUNTS, 1 ch / 13 v; floor only — combined-block 1-3 "
+            "John needs a within-section splitter before ingest), "
+            "'third_john' (THIRD_JOHN_VERSE_COUNTS, 1 ch / 15 v; "
+            "same combined-block caveat), and 'jude' "
+            "(JUDE_VERSE_COUNTS, 1 ch / 25 v; separate "
+            "single-block at p2073-2075, τ.6.x.NT.a second-smoke "
+            "candidate after Philemon). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -3173,6 +3446,14 @@ def main() -> int:
         renumber_floor = ONE_ENOCH_VERSE_COUNTS
     elif args.renumber == "matthew":
         renumber_floor = MATTHEW_VERSE_COUNTS
+    elif args.renumber == "philemon":
+        renumber_floor = PHILEMON_VERSE_COUNTS
+    elif args.renumber == "second_john":
+        renumber_floor = SECOND_JOHN_VERSE_COUNTS
+    elif args.renumber == "third_john":
+        renumber_floor = THIRD_JOHN_VERSE_COUNTS
+    elif args.renumber == "jude":
+        renumber_floor = JUDE_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

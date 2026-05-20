@@ -1381,6 +1381,78 @@ structural_map:
       every prior book). ocr-tier3. Geʽez column deferred to
       τ.6.x.2.* under D4-c.
 
+  # ── τ.6.x.NT.a Philemon block — SMALLEST single-block NT book.
+  # NEW section (the τ.7.x.q baruch new-section pattern — Philemon
+  # was never Π.1-mapped). FIRST book to ship with the
+  # τ.6.x.NT.a NT-pre-pass mitigation for the τ.7.x.v NT-overflow
+  # blocker. Pauline letter; EOTC header is `ኀበ ፊልሞና` (Phm 1:1
+  # opening, the standard `ኀበ <toponym>` Pauline-letter pattern,
+  # cf. Romans `ኀበ ሰብአ ሮሜ`, 1-2 Cor `ኀበ ሰብአ ቆሮንቶስ`).
+  philemon:
+    book_codes: [phm]
+    pdf_page_range: [2023, 2024]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-20
+    verified_at_phase: τ.6.x.NT.a
+    chapter_count_expected: 1   # content/books.yaml `phm` ch_count: 1 (b75, "The Letter of Paul to Philemon")
+    notes: |
+      τ.6.x.NT.a — The Letter to Philemon (`phm`). SMALLEST
+      single-block NT book reachable from the parallel-Bible-EOTC
+      PDF (2 pp / 1 ch / 25 v). FIRST τ.6.x.NT.a smoke book —
+      ships with the structure-aware `_nt_prepass` mitigation
+      (guarded by `is_nt_book("philemon")` in
+      `scripts/extract_parallel_pdf.py`) for the τ.7.x.v
+      NT-overflow blocker: the OT-paragraph parser hit
+      GROSS-overflow on Matthew (1178 parsed vs 1071 floor)
+      because NT pericope headers `ክፍል N፡ …`, mid-paragraph
+      `ምዕራፍ N` chapter markers, and inline cross-reference
+      apparatus `(መዝ ፴፫፤፬)` were parsing as spurious verses.
+      The pre-pass strips/merges these patterns BEFORE the
+      `።`-split runs.
+
+      Header: `ኀበ ፊልሞና` (PDF p2023, the τ.6.x.NT.a Track-E
+      discovery scan; standard `ኀበ <toponym>` Pauline pattern).
+      End: p2024 — Hebrews opens p2025 (the next Pauline-bracket
+      block per the EOTC ordering convention; Hebrews sits inside
+      the Pauline block per Tewahedo tradition).
+
+      PHILEMON_VERSE_COUNTS (1 ch / 25 v) = standard KJV / UBS-NA
+      enumeration. Per the τ.7.x.v methodology note, NT
+      chapter/verse division is HIGHLY STANDARDIZED so the floor
+      is authoritative DIRECTLY (no γ-notes cross-validation).
+      ocr-tier3 per the τ.6.x.0b honesty contract; τ.6.x.3
+      reconciles the exact Ethiopic recension.
+
+  # ── τ.6.x.NT.a Jude block — SECOND single-block Catholic Epistle
+  # ship under τ.6.x.NT.a. Sits at p2073-2075 (3 PDF pages) — the
+  # NEXT separately-blocked single-book NT slot after Philemon
+  # (Hebrews, James, and 1-2 Peter intervene; the 1-3 John combined
+  # block at p2058-2065 is deferred pending a within-section
+  # splitter analogous to the meqabyan-trilogy hoisted-subsections
+  # pattern at τ.7.x.n). EOTC header is `መልእክት ይሁዳ`
+  # ("The Letter of Jude"); per the Track E discovery scan.
+  jude:
+    book_codes: [jud]
+    pdf_page_range: [2073, 2075]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-20
+    verified_at_phase: τ.6.x.NT.a
+    chapter_count_expected: 1   # content/books.yaml `jud` (b85), 1 ch / 25 v
+    notes: |
+      τ.6.x.NT.a — The Letter of Jude (`jud`). Single-chapter
+      General Epistle (25 v; KJV/UBS-NA). Sits at PDF p2073-2075,
+      between the 1-3 John combined block (p2058-2065, deferred —
+      within-section splitter required) and Revelation
+      (p2076-2106). Per Track E discovery scan, header is
+      `መልእክት ይሁዳ`. SECOND τ.6.x.NT.a smoke book — uses the same
+      `_nt_prepass` mitigation as Philemon (the τ.7.x.v
+      NT-overflow blocker).
+
+      JUDE_VERSE_COUNTS (1 ch / 25 v) = standard KJV / UBS-NA
+      enumeration. ocr-tier3 per the τ.6.x.0b honesty contract.
+
   laodiceans:
     book_codes: [lao]
     pdf_page_range: null
