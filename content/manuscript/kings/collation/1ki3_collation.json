@@ -1,0 +1,5094 @@
+{
+  "book": "1ki",
+  "chapter": 3,
+  "base_witness_recommended": "CAM",
+  "base_rationale": "CAM by the project decision of record (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)'; base=CAM ratified project-wide by the 2026-05-17 GO; spec-revision 2026-05-17 §3.3 clause 2) - extents not materially different (GG 27v / CAM 27v).",
+  "verses": [
+    {
+      "v": 1,
+      "gg_tokens": [
+        "ወተሐመዐ",
+        "ሰሎሞን",
+        "ሰፈርዖን",
+        "ንጉሥ",
+        "ግብጽ",
+        "ወነሥአ",
+        "ሰወለተ",
+        "ፈርዖን",
+        "ወእብተዋ",
+        "ውስተ",
+        "ሀገረ",
+        "ዳዊት",
+        "እስከ",
+        "ይፌጽም",
+        "ሕነፀ",
+        "ቤቶ",
+        "ወቤተ",
+        "እግዚአብሔር",
+        "ወአረፍተ",
+        "ኢየሩሳሌም",
+        "ዘቅጹራ"
+      ],
+      "cam_tokens": [
+        "ወፈሃራ",
+        "ሰሎምን",
+        "ለወለተ",
+        "ፈርዖን",
+        "ንጉሥ",
+        "ግብጽ",
+        "ወንሥእ",
+        "ለወለተ",
+        "ፈርዖን",
+        "ወአተዋ",
+        "ውስተ",
+        "ሀገረ",
+        "ዳዊት",
+        "እስከ",
+        "ይፌጽም",
+        "ነዲቀ",
+        "ቤቶ",
+        "ወቤተ",
+        "እግዚአብሔር",
+        "ወአረፍተ",
+        "ኢየሩሳሌም",
+        "ቅጾራ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተሐመዐ",
+          "cam": "ወፈሃራ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰሎሞን",
+          "cam": "ሰሎምን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰፈርዖን",
+          "cam": "ለወለተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ፈርዖን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ግብጽ",
+          "cam": "ግብጽ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወነሥአ",
+          "cam": "ወንሥእ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰወለተ",
+          "cam": "ለወለተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ፈርዖን",
+          "cam": "ፈርዖን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወእብተዋ",
+          "cam": "ወአተዋ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀገረ",
+          "cam": "ሀገረ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዳዊት",
+          "cam": "ዳዊት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እስከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይፌጽም",
+          "cam": "ይፌጽም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕነፀ",
+          "cam": "ነዲቀ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቤቶ",
+          "cam": "ቤቶ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወቤተ",
+          "cam": "ወቤተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአረፍተ",
+          "cam": "ወአረፍተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢየሩሳሌም",
+          "cam": "ኢየሩሳሌም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘቅጹራ",
+          "cam": "ቅጾራ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And Solomon made affinity with Pharaoh king of Egypt, and to...)"
+    },
+    {
+      "v": 2,
+      "gg_tokens": [
+        "ወባሕቱ",
+        "ሕዝብ",
+        "ይሰውዑ",
+        "ወየዓጥኑ",
+        "ውስተ",
+        "አድባር",
+        "እስመ",
+        "ኢተሐንጸ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "እስከ",
+        "ይእቲ",
+        "ዕስቱ"
+      ],
+      "cam_tokens": [
+        "እስም",
+        "ሕዝብ",
+        "የዓጥኑ",
+        "ውስተ",
+        "አድባር",
+        "ወአተሐንጾ",
+        "ቤተ",
+        "ለስም",
+        "እግዚአብሔር",
+        "እስከ",
+        "ዛቲ",
+        "ዕለት"
+      ],
+      "alignment": [
+        {
+          "gg": "ወባሕቱ",
+          "cam": "እስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕዝብ",
+          "cam": "ሕዝብ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይሰውዑ",
+          "cam": "የዓጥኑ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወየዓጥኑ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አድባር",
+          "cam": "አድባር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "ወአተሐንጾ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢተሐንጸ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቤተ",
+          "cam": "ቤተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እስከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "ዛቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዕስቱ",
+          "cam": "ዕለት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Only the people sacrificed in high places, because there was...)"
+    },
+    {
+      "v": 3,
+      "gg_tokens": [
+        "ወአፍቀሮ",
+        "ሰሎሞን",
+        "ለእግዚአብሔር",
+        "ከመ",
+        "ይሐር",
+        "በትእዛዘ",
+        "ዳዊት",
+        "አቡሁ",
+        "ወባሕቱ",
+        "ውስተ",
+        "አውግር",
+        "ይሰውዑ",
+        "ወየዓጥኑ"
+      ],
+      "cam_tokens": [
+        "ወአፍቀር",
+        "ሰሎሞን",
+        "ለእግዚአብሔር",
+        "ከመ",
+        "የሐር",
+        "በትእአዘ",
+        "ዳዊት",
+        "አቡሁ",
+        "ወባሕተ",
+        "ውስተ",
+        "አድባር",
+        "ይውዕ",
+        "ወያዓጥን"
+      ],
+      "alignment": [
+        {
+          "gg": "ወአፍቀሮ",
+          "cam": "ወአፍቀር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰሎሞን",
+          "cam": "ሰሎሞን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይሐር",
+          "cam": "የሐር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በትእዛዘ",
+          "cam": "በትእአዘ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "ዳዊት",
+          "cam": "ዳዊት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አቡሁ",
+          "cam": "አቡሁ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወባሕቱ",
+          "cam": "ወባሕተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አውግር",
+          "cam": "አድባር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይሰውዑ",
+          "cam": "ይውዕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወየዓጥኑ",
+          "cam": "ወያዓጥን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And Solomon loved the LORD, walking in the statutes of David...)"
+    },
+    {
+      "v": 4,
+      "gg_tokens": [
+        "ወተንሥአ",
+        "ወሐረ",
+        "ውስተ",
+        "ገባእን",
+        "ከመ",
+        "ይሰውዕ",
+        "በህየ",
+        "እስመ",
+        "ይእቲ",
+        "ትነውህ",
+        "ወመሰዋዕተ",
+        "ገብረ",
+        "ሰሎሞን",
+        "በገባእን"
+      ],
+      "cam_tokens": [
+        "ወተንሥአ",
+        "ወሐሬ",
+        "ንጉሥ",
+        "ውከት",
+        "ገባአን",
+        "ከመ",
+        "ይውዕ",
+        "በህየ",
+        "እስም",
+        "ይእቲ",
+        "ትውን",
+        "ወተዓቢ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተንሥአ",
+          "cam": "ወተንሥአ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሐረ",
+          "cam": "ወሐሬ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ውከት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "ገባእን",
+          "cam": "ገባአን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይሰውዕ",
+          "cam": "ይውዕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በህየ",
+          "cam": "በህየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "ይእቲ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትነውህ",
+          "cam": "ትውን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወመሰዋዕተ",
+          "cam": "ወተዓቢ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ገብረ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰሎሞን",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በገባእን",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the king went to Gibeon to sacrifice there; for that [wa...)"
+    },
+    {
+      "v": 5,
+      "gg_tokens": [
+        "ወአስተርአዮ",
+        "እግዚአብሔር",
+        "ለሰሎሞን",
+        "ሌሊተ",
+        "በህልም",
+        "ወይቤሉ",
+        "እግዚአብሔር",
+        "ለሰሎሞን",
+        "ስአል",
+        "ለከ",
+        "ስእሰተ",
+        "ዘታሰየ",
+        "ልብክ",
+        "ከመ",
+        "እሁብከ"
+      ],
+      "cam_tokens": [
+        "መሥዋዕተ",
+        "ሥዓ",
+        "ሰሎምን",
+        "ውስተ",
+        "ዛቲ",
+        "ምሥዋዕ",
+        "ወአስተርአየ",
+        "እግዚአብሔር",
+        "ለሰሎምን",
+        "በገባአን",
+        "በሬእየ",
+        "ሌሊት",
+        "ወይቤሎ",
+        "እግዚአብሔር",
+        "ለሰሎምን",
+        "ሰአል",
+        "ለከ",
+        "ብእቢት",
+        "ዘሃለየ",
+        "ልብከ",
+        "ከመ",
+        "አሀብከ"
+      ],
+      "alignment": [
+        {
+          "gg": "",
+          "cam": "መሥዋዕተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሥዓ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "",
+          "cam": "ሰሎምን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ውስተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዛቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ምሥዋዕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአስተርአዮ",
+          "cam": "ወአስተርአየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለሰሎሞን",
+          "cam": "ለሰሎምን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "በገባአን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "በሬእየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሌሊተ",
+          "cam": "ሌሊት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በህልም",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወይቤሉ",
+          "cam": "ወይቤሎ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለሰሎሞን",
+          "cam": "ለሰሎምን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስአል",
+          "cam": "ሰአል",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለከ",
+          "cam": "ለከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስእሰተ",
+          "cam": "ብእቢት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "ዘታሰየ",
+          "cam": "ዘሃለየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ልብክ",
+          "cam": "ልብከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እሁብከ",
+          "cam": "አሀብከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: ¶ In Gibeon the LORD appeared to Solomon in a dream by night...)"
+    },
+    {
+      "v": 6,
+      "gg_tokens": [
+        "ወይቤሎ",
+        "ሰሎሞን",
+        "አንተ",
+        "ገበርከ",
+        "ለገብርከ",
+        "ዳዊት",
+        "አቡየ",
+        "ምሕረተ",
+        "ዓቢየ",
+        "በከመ",
+        "ሐረ",
+        "ቅድሜከ",
+        "በ",
+        "ጽድቅ",
+        "ወበርትዕ",
+        "ወበንጹሕ",
+        "ልብ",
+        "ምስሌከ",
+        "ወዓቅብከ",
+        "ሎቱ",
+        "ዘንተ",
+        "ምሕረተ",
+        "ዓቢየ",
+        "ከመ",
+        "ታህብር",
+        "ሰወልዱ",
+        "ሳዕለ",
+        "መንበሩ",
+        "በዘቲ",
+        "ዕስት"
+      ],
+      "cam_tokens": [
+        "ወይቤሎ",
+        "ሰሎምን",
+        "አንተ",
+        "ገብርከ",
+        "ለገብርከ",
+        "ዳዊት",
+        "አቡየ",
+        "ምሕረተ",
+        "ዓቢየ",
+        "በከመ",
+        "ሐረከ",
+        "ቅድሜክ",
+        "በጽድቅ",
+        "ወርትዕ",
+        "ወበየዋህተ",
+        "ልብ",
+        "ምስሌክ",
+        "ወአቀብክ",
+        "ሎቱ",
+        "ዛተ",
+        "ምሕረተ",
+        "ዓቢየ",
+        "ወወሀብክ",
+        "ወልደ",
+        "ዘይነብር",
+        "ዲበ",
+        "መንበሩ",
+        "በዛቲ",
+        "ዕለት"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰሎሞን",
+          "cam": "ሰሎምን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አንተ",
+          "cam": "አንተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ገበርከ",
+          "cam": "ገብርከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለገብርከ",
+          "cam": "ለገብርከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዳዊት",
+          "cam": "ዳዊት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አቡየ",
+          "cam": "አቡየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምሕረተ",
+          "cam": "ምሕረተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዓቢየ",
+          "cam": "ዓቢየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በከመ",
+          "cam": "በከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሐረ",
+          "cam": "ሐረከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቅድሜከ",
+          "cam": "ቅድሜክ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በ",
+          "cam": "በጽድቅ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጽድቅ",
+          "cam": "ወርትዕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወበርትዕ",
+          "cam": "ወበየዋህተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወበንጹሕ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ልብ",
+          "cam": "ልብ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምስሌከ",
+          "cam": "ምስሌክ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወዓቅብከ",
+          "cam": "ወአቀብክ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሎቱ",
+          "cam": "ሎቱ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘንተ",
+          "cam": "ዛተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምሕረተ",
+          "cam": "ምሕረተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዓቢየ",
+          "cam": "ዓቢየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ወወሀብክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ታህብር",
+          "cam": "ወልደ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰወልዱ",
+          "cam": "ዘይነብር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሳዕለ",
+          "cam": "ዲበ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መንበሩ",
+          "cam": "መንበሩ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በዘቲ",
+          "cam": "በዛቲ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዕስት",
+          "cam": "ዕለት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And Solomon said, Thou hast shewed unto thy servant David my...)"
+    },
+    {
+      "v": 7,
+      "gg_tokens": [
+        "ወይእዜኒ",
+        "እግዚአ",
+        "አምላኪየ",
+        "አንገሥከ",
+        "ለገብርከ",
+        "ህየንተ",
+        "ዳዊት",
+        "አቡየ",
+        "ወአንስ",
+        "ሕፃን",
+        "ንኡስ",
+        "ወኢየአምር",
+        "ሙዓዕየ",
+        "ወሙባዕየ"
+      ],
+      "cam_tokens": [
+        "ወይእዜኒ",
+        "እግዚአ",
+        "አምላኪየ",
+        "አንተ",
+        "አንገሥከ",
+        "ለገብርከ",
+        "ህየንተ",
+        "ዳዊት",
+        "አቡየ",
+        "ወአነ",
+        "ሕፃን",
+        "ንኡስ",
+        "ወኢያአምር",
+        "ሙዓእየ",
+        "ወሙባእየ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይእዜኒ",
+          "cam": "ወይእዜኒ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚአ",
+          "cam": "እግዚአ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አምላኪየ",
+          "cam": "አምላኪየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አንተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አንገሥከ",
+          "cam": "አንገሥከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለገብርከ",
+          "cam": "ለገብርከ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ህየንተ",
+          "cam": "ህየንተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዳዊት",
+          "cam": "ዳዊት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አቡየ",
+          "cam": "አቡየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአንስ",
+          "cam": "ወአነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ሕፃን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንኡስ",
+          "cam": "ንኡስ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወኢየአምር",
+          "cam": "ወኢያአምር",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሙዓዕየ",
+          "cam": "ሙዓእየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሙባዕየ",
+          "cam": "ወሙባእየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And now, O LORD my God, thou hast made thy servant king inst...)"
+    },
+    {
+      "v": 8,
+      "gg_tokens": [
+        "ወገብርከ",
+        "ህሎ",
+        "ማእከስ",
+        "ሕዝብ",
+        "ዘኃረይከ",
+        "ሕዝበ",
+        "ብዙኃ",
+        "ዘኢይትሌስቀ",
+        "ሀቡ",
+        "ለገብርከ",
+        "ልበ",
+        "⟦illegible⟧",
+        "ዘይስምዕ",
+        "ወያአግብእ",
+        "ፍትሐ",
+        "በ",
+        "ጽድቅ",
+        "ለሕዝብክ",
+        "ወከመ",
+        "ያአምር",
+        "ሠናየ",
+        "እምእኩዱ",
+        "ወይፍልጥ",
+        "እስመ",
+        "እልቡ",
+        "ዘይክል",
+        "ኮናዶ",
+        "ለዝንቱ",
+        "ሕዝብክ",
+        "ከቡድ"
+      ],
+      "cam_tokens": [
+        "ወገብርከሰ",
+        "ሀሎ",
+        "በማእከለ",
+        "ሕዝብክ",
+        "ዘኀረይክ",
+        "ሕዝበ",
+        "ብዙኅ",
+        "ዘኢይትዐለቆ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወገብርከ",
+          "cam": "ወገብርከሰ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ህሎ",
+          "cam": "ሀሎ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ማእከስ",
+          "cam": "በማእከለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕዝብ",
+          "cam": "ሕዝብክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘኃረይከ",
+          "cam": "ዘኀረይክ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕዝበ",
+          "cam": "ሕዝበ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብዙኃ",
+          "cam": "ብዙኅ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘኢይትሌስቀ",
+          "cam": "ዘኢይትዐለቆ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀቡ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለገብርከ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ልበ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": true,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘይስምዕ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወያአግብእ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ፍትሐ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጽድቅ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለሕዝብክ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወከመ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ያአምር",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሠናየ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እምእኩዱ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወይፍልጥ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እልቡ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘይክል",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኮናዶ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለዝንቱ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕዝብክ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከቡድ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And thy servant [is] in the midst of thy people which thou h...)"
+    },
+    {
+      "v": 9,
+      "gg_tokens": [
+        "ወዓደም",
+        "ዝንቱ",
+        "ንገር",
+        "ቅድሜሁ",
+        "ለእግዚአብሔር",
+        "እስመ",
+        "ስአሉ",
+        "ስሎሞን",
+        "ዘንተ",
+        "ነገረ"
+      ],
+      "cam_tokens": [
+        "ሀብ",
+        "ለገብርከ",
+        "ልብ",
+        "በዘይስምዕ",
+        "ወየገብእ",
+        "ፍትሐ",
+        "ለሕዝብክ",
+        "ወከመ",
+        "ያእምር",
+        "ወይፍልጥ",
+        "ማእከለ",
+        "ሠናይ",
+        "ወእኩይ",
+        "እስም",
+        "አልቦ",
+        "ዘይክል",
+        "ኩንኖት",
+        "ለዝንቱ",
+        "ሕዝብ",
+        "ክቡድ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዓደም",
+          "cam": "ሀብ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "ለገብርከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንገር",
+          "cam": "ልብ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቅድሜሁ",
+          "cam": "በዘይስምዕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ወየገብእ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ፍትሐ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለሕዝብክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ያእምር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወይፍልጥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ማእከለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሠናይ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወእኩይ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስአሉ",
+          "cam": "አልቦ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስሎሞን",
+          "cam": "ዘይክል",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘንተ",
+          "cam": "ኩንኖት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ነገረ",
+          "cam": "ለዝንቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሕዝብ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ክቡድ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Give therefore thy servant an understanding heart to judge t...)"
+    },
+    {
+      "v": 10,
+      "gg_tokens": [
+        "ወኢሰአልከ",
+        "ለከ",
+        "ብዙኃ",
+        "መዋዕለ",
+        "ወኢሰአልከ",
+        "ለከ",
+        "ብዕለ",
+        "ወኢሰአልከ",
+        "ለከ",
+        "ነፍሰ",
+        "ፀርከ",
+        "አላ",
+        "ስእልከ",
+        "ከመ",
+        "ታእምር",
+        "ዕሚዳ",
+        "ፍትሕ",
+        "ናሁ",
+        "ገብርኩ",
+        "ስኬ",
+        "በከመ",
+        "ትቤ"
+      ],
+      "cam_tokens": [
+        "ወአደም",
+        "ዝንቱ",
+        "ነገር",
+        "ቅድሜሁ",
+        "ለእግዚአብሔር",
+        "እስም",
+        "ሰአለ",
+        "ሰሎምን",
+        "ዘንተ",
+        "ነገረ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወኢሰአልከ",
+          "cam": "ወአደም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለከ",
+          "cam": "ዝንቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብዙኃ",
+          "cam": "ነገር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መዋዕለ",
+          "cam": "ቅድሜሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወኢሰአልከ",
+          "cam": "ለእግዚአብሔር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለከ",
+          "cam": "እስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብዕለ",
+          "cam": "ሰአለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወኢሰአልከ",
+          "cam": "ሰሎምን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለከ",
+          "cam": "ዘንተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ነፍሰ",
+          "cam": "ነገረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ፀርከ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አላ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስእልከ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ታእምር",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዕሚዳ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ፍትሕ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ናሁ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ገብርኩ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስኬ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በከመ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትቤ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the speech pleased the Lord, that Solomon had asked this...)"
+    },
+    {
+      "v": 11,
+      "gg_tokens": [
+        "ወሀብኩከ",
+        "ልበ",
+        "ጠቢበ",
+        "ወለዓዊ",
+        "ከመ",
+        "አልቦ",
+        "ዘከነ",
+        "እምቅድሜከ",
+        "ወእምድኃሬከኒ",
+        "ኢዶትነሥአ",
+        "ዘከማከ"
+      ],
+      "cam_tokens": [
+        "ወይቤሎ",
+        "እግዚአብሔር",
+        "እስም",
+        "ሰአልከ",
+        "ለከ",
+        "እምኔየ",
+        "ዘንተ",
+        "ቃለ",
+        "ወኢሰአልከ",
+        "ለከ",
+        "ብዙኅ",
+        "መዋዕለ",
+        "ወኢሰአልከ",
+        "ለከ",
+        "ብዕለ",
+        "ወኢሰአልከ",
+        "ለከ",
+        "ነፍሰ",
+        "ፀርከ",
+        "አላ",
+        "ሰአልከ",
+        "ለከ",
+        "ከመ",
+        "ታእምር",
+        "ስሚዓ",
+        "ፍትሐ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሀብኩከ",
+          "cam": "ወይቤሎ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ልበ",
+          "cam": "እግዚአብሔር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጠቢበ",
+          "cam": "እስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወለዓዊ",
+          "cam": "ሰአልከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አልቦ",
+          "cam": "እምኔየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘከነ",
+          "cam": "ዘንተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እምቅድሜከ",
+          "cam": "ቃለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወእምድኃሬከኒ",
+          "cam": "ወኢሰአልከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢዶትነሥአ",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘከማከ",
+          "cam": "ብዙኅ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "መዋዕለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወኢሰአልከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ብዕለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወኢሰአልከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ነፍሰ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ፀርከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አላ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሰአልከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ታእምር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ስሚዓ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ፍትሐ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And God said unto him, Because thou hast asked this thing, a...)"
+    },
+    {
+      "v": 12,
+      "gg_tokens": [
+        "ወዘሂ",
+        "ኢሰአልከኒ",
+        "እኁበከ",
+        "ብዕሰ",
+        "ወክብረ",
+        "ከመ",
+        "ኢኮነ",
+        "ከማከ",
+        "ሰብእ",
+        "በመንግሥቱ",
+        "በኵሉ",
+        "መዋዕሊከ"
+      ],
+      "cam_tokens": [
+        "ናሁ",
+        "ገበርኩ",
+        "ለከ",
+        "በከመ",
+        "ትቤ",
+        "ናሁ",
+        "ወሀብኩክ",
+        "ልብ",
+        "ጠቢበ",
+        "ወለባዊ",
+        "ወአልቦ",
+        "ዘኮነ",
+        "እምቅድሜክ",
+        "እምድኅሬክኒ",
+        "ኢይትነሣእ",
+        "ዘከማክ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዘሂ",
+          "cam": "ናሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢሰአልከኒ",
+          "cam": "ገበርኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እኁበከ",
+          "cam": "ለከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብዕሰ",
+          "cam": "በከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወክብረ",
+          "cam": "ትቤ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ናሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢኮነ",
+          "cam": "ወሀብኩክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከማከ",
+          "cam": "ልብ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰብእ",
+          "cam": "ጠቢበ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በመንግሥቱ",
+          "cam": "ወለባዊ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በኵሉ",
+          "cam": "ወአልቦ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መዋዕሊከ",
+          "cam": "ዘኮነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "እምቅድሜክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "እምድኅሬክኒ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ኢይትነሣእ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዘከማክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Behold, I have done according to thy words: lo, I have given...)"
+    },
+    {
+      "v": 13,
+      "gg_tokens": [
+        "ወእመ",
+        "ሐርከ",
+        "በፍኖትየ",
+        "ወዐቀብከ",
+        "ትእዛዝየ",
+        "ወሥርዓትየ",
+        "በከመ",
+        "ሐረ",
+        "ዳዊት",
+        "አቡከ",
+        "አብዝኀ",
+        "መዋዕሊከ"
+      ],
+      "cam_tokens": [
+        "ወዘሂ",
+        "ኢሰአልክኒ",
+        "እሁብክ",
+        "ክብረ",
+        "ወብለ",
+        "ከመ",
+        "ኢኮነ",
+        "ሰብእ",
+        "ከማክ",
+        "በመንግሥት",
+        "በኩሉ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእመ",
+          "cam": "ወዘሂ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሐርከ",
+          "cam": "ኢሰአልክኒ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በፍኖትየ",
+          "cam": "እሁብክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወዐቀብከ",
+          "cam": "ክብረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትእዛዝየ",
+          "cam": "ወብለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሥርዓትየ",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በከመ",
+          "cam": "ኢኮነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሐረ",
+          "cam": "ሰብእ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዳዊት",
+          "cam": "ከማክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አቡከ",
+          "cam": "በመንግሥት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አብዝኀ",
+          "cam": "በኩሉ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መዋዕሊከ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And I have also given thee that which thou hast not asked, b...)"
+    },
+    {
+      "v": 14,
+      "gg_tokens": [
+        "ወንቅሐ",
+        "ሰሎሞን",
+        "ወአእመረ",
+        "ከመ",
+        "ሕልም",
+        "ውእቱ",
+        "ወተንሥአ",
+        "ወሐረ",
+        "ኢየሩሳሌም",
+        "ወቆመ",
+        "ቅድመ",
+        "ምሥዋዕ",
+        "ዘቅድመ",
+        "ታበተ",
+        "ሕጉ",
+        "ለእግዚአብሔር",
+        "በ",
+        "ጽዮን",
+        "ወአብአ",
+        "መሥዋዕተ",
+        "ሰላም",
+        "ወገብረ",
+        "ምስሐ",
+        "ዓቢየ",
+        "ሎቱ",
+        "ወለስብኡ"
+      ],
+      "cam_tokens": [
+        "መዋዕልክ",
+        "ለእመ",
+        "ሐርክ",
+        "በፍኖትየ",
+        "ወዓቀብክ",
+        "ትእዛዝየ",
+        "ወሥርዓትየ",
+        "ከመ",
+        "ሐረ",
+        "ዳዊት",
+        "አቡከ",
+        "አበዝኆ",
+        "መዋዕልክ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወንቅሐ",
+          "cam": "መዋዕልክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰሎሞን",
+          "cam": "ለእመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአእመረ",
+          "cam": "ሐርክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "በፍኖትየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕልም",
+          "cam": "ወዓቀብክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውእቱ",
+          "cam": "ትእዛዝየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወተንሥአ",
+          "cam": "ወሥርዓትየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሐረ",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢየሩሳሌም",
+          "cam": "ሐረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወቆመ",
+          "cam": "ዳዊት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "አቡከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምሥዋዕ",
+          "cam": "አበዝኆ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘቅድመ",
+          "cam": "መዋዕልክ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ታበተ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕጉ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጽዮን",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአብአ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መሥዋዕተ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰላም",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወገብረ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምስሐ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዓቢየ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሎቱ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወለስብኡ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And if thou wilt walk in my ways, to keep my statutes and my...)"
+    },
+    {
+      "v": 15,
+      "gg_tokens": [
+        "ወይእተ",
+        "አሚረ",
+        "መድአ",
+        "ዪ",
+        "እንስት",
+        "ዘመት",
+        "ዓብ",
+        "ንጉሥ",
+        "ወቆማ",
+        "ቅድሜሁ",
+        "ወትቤ",
+        "አሐቲ",
+        "ብእሲት",
+        "ክምዓኒ",
+        "እግዚእየ",
+        "እን"
+      ],
+      "cam_tokens": [
+        "ወነቅሕ",
+        "ሰሎምን",
+        "ወአእመረ",
+        "ከመ",
+        "ውእቱ",
+        "ሕልም",
+        "ወተንሥአ",
+        "ወሐረ",
+        "ኢየሩሳሌም",
+        "ወቆመ",
+        "ቅድመ",
+        "ታቦተ",
+        "ሕጉ",
+        "ለእግዚአብሔር",
+        "ወአብአ",
+        "መሥዋዕተ",
+        "ሰላም",
+        "ወገብረ",
+        "ምስሐ",
+        "ዓቢየ",
+        "ለኩሉ",
+        "አግብርቲሁ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይእተ",
+          "cam": "ወነቅሕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አሚረ",
+          "cam": "ሰሎምን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መድአ",
+          "cam": "ወአእመረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዪ",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": true,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንስት",
+          "cam": "ውእቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘመት",
+          "cam": "ሕልም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዓብ",
+          "cam": "ወተንሥአ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ወሐረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ኢየሩሳሌም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወቆማ",
+          "cam": "ወቆመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቅድሜሁ",
+          "cam": "ቅድመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወትቤ",
+          "cam": "ታቦተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አሐቲ",
+          "cam": "ሕጉ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ለእግዚአብሔር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ክምዓኒ",
+          "cam": "ወአብአ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚእየ",
+          "cam": "መሥዋዕተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እን",
+          "cam": "ሰላም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወገብረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ምስሐ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዓቢየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለኩሉ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አግብርቲሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And Solomon awoke; and, behold, [it was] a dream. And he cam...)"
+    },
+    {
+      "v": 16,
+      "gg_tokens": [
+        "ወዛቲ",
+        "ብእሲት",
+        "ንዓድር",
+        "ውስተ",
+        "፩",
+        "ቤት",
+        "ወወለድነ",
+        "በ",
+        "፪",
+        "መ",
+        "ከነ",
+        "ወእም",
+        "ሣልስት",
+        "ዕስት",
+        "እምዘ",
+        "ወለድነ",
+        "እን",
+        "ወለደት",
+        "ዛቲኒ",
+        "ብእሲት",
+        "ወንነብር",
+        "ኅቡረ",
+        "ወአልቦ",
+        "ምስሌነ",
+        "ወኢመኑሂ",
+        "ዘእንበለ",
+        "፪",
+        "እን"
+      ],
+      "cam_tokens": [
+        "ወይእቲ",
+        "አሚረ",
+        "መጻአ",
+        "ክልኤቱ",
+        "አንስት",
+        "ዘማት",
+        "ኀበ",
+        "ንጉሥ",
+        "ወቆማ",
+        "ቅድሜሁ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዛቲ",
+          "cam": "ወይእቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "አሚረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንዓድር",
+          "cam": "መጻአ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ክልኤቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "፩",
+          "cam": "አንስት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቤት",
+          "cam": "ዘማት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወወለድነ",
+          "cam": "ኀበ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በ",
+          "cam": "ንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "፪",
+          "cam": "ወቆማ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መ",
+          "cam": "ቅድሜሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከነ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወእም",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሣልስት",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዕስት",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እምዘ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወለድነ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እን",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወለደት",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዛቲኒ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወንነብር",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኅቡረ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአልቦ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምስሌነ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወኢመኑሂ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘእንበለ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "፪",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እን",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: ¶ Then came there two women, [that were] harlots, unto the k...)"
+    },
+    {
+      "v": 17,
+      "gg_tokens": [
+        "ወከተ",
+        "ውእቱ",
+        "ቤት",
+        "ወሞተ",
+        "ወልዱ",
+        "ለዛቲ",
+        "ብእሲት",
+        "በሌሊት",
+        "እስመ",
+        "ሰከበት",
+        "ሳዕሌሁ"
+      ],
+      "cam_tokens": [
+        "ወትቤ",
+        "አሐቲ",
+        "ብእሲት",
+        "ስምዓኒ",
+        "እግዚእየ",
+        "አነ",
+        "ወዛቲ",
+        "ብእሲት",
+        "ንነብር",
+        "ውስተ",
+        "አሐዱ",
+        "ቤት",
+        "ወወለድኩ",
+        "ቦ",
+        "መካን"
+      ],
+      "alignment": [
+        {
+          "gg": "ወከተ",
+          "cam": "ወትቤ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውእቱ",
+          "cam": "አሐቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቤት",
+          "cam": "ብእሲት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሞተ",
+          "cam": "ስምዓኒ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልዱ",
+          "cam": "እግዚእየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለዛቲ",
+          "cam": "አነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወዛቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በሌሊት",
+          "cam": "ንነብር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "ውስተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰከበት",
+          "cam": "አሐዱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሳዕሌሁ",
+          "cam": "ቤት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወወለድኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ቦ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "",
+          "cam": "መካን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the one woman said, O my lord, I and this woman dwell in...)"
+    },
+    {
+      "v": 18,
+      "gg_tokens": [
+        "ወተንሥአት",
+        "መንፈቀ",
+        "ሌሊት",
+        "ወነሥአት",
+        "ወልድየ",
+        "እምሕፅንየ",
+        "እንዘ",
+        "እነው",
+        "ም",
+        "ወአስከበ",
+        "ዱ",
+        "ውስተ",
+        "ሕፅና",
+        "ወለወልዳ",
+        "ዘሞተ",
+        "አስከበቶ",
+        "ውስተ",
+        "ሕፅንየ"
+      ],
+      "cam_tokens": [
+        "ወአመ",
+        "ሣልስት",
+        "ዕለት",
+        "ዘወለድኩ",
+        "አነ",
+        "ዛቲኒ",
+        "ብእሲት",
+        "ወለደት",
+        "ወንነብር",
+        "ሕቡረ",
+        "ወአልቦ",
+        "ካልእ",
+        "ምስሌነ",
+        "ወእምነሂ",
+        "እንበለ",
+        "ክልኤነ",
+        "ውስተ",
+        "ዝንቱ",
+        "ቤት"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተንሥአት",
+          "cam": "ወአመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መንፈቀ",
+          "cam": "ሣልስት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሌሊት",
+          "cam": "ዕለት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወነሥአት",
+          "cam": "ዘወለድኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "አነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እምሕፅንየ",
+          "cam": "ዛቲኒ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንዘ",
+          "cam": "ብእሲት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እነው",
+          "cam": "ወለደት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ም",
+          "cam": "ወንነብር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአስከበ",
+          "cam": "ሕቡረ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዱ",
+          "cam": "ወአልቦ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ካልእ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፅና",
+          "cam": "ምስሌነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወለወልዳ",
+          "cam": "ወእምነሂ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘሞተ",
+          "cam": "እንበለ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አስከበቶ",
+          "cam": "ክልኤነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፅንየ",
+          "cam": "ዝንቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ቤት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And it came to pass the third day after that I was delivered...)"
+    },
+    {
+      "v": 19,
+      "gg_tokens": [
+        "ወሰበ",
+        "ንቃሕኩ",
+        "በጽባሕ",
+        "ከመ",
+        "አጥቡ",
+        "ሕፃንየ",
+        "ረከብኩ",
+        "ዝኩ",
+        "ሞውተ",
+        "ወስበ",
+        "ጸብሐ",
+        "ወርኢክዎ",
+        "ወናሁ",
+        "ኢኮነ",
+        "ወልድየ",
+        "ዘወለድኩ"
+      ],
+      "cam_tokens": [
+        "ወሞት",
+        "ወልዳ",
+        "ለዛቲ",
+        "ብእሲት",
+        "በሌሊት",
+        "እስም",
+        "ስከበት",
+        "ሳዕሌሁ",
+        "ወተንሥት",
+        "መንፈቀ",
+        "ሌሊት",
+        "ወንሥእት",
+        "ወልድየ",
+        "እምነ",
+        "ሕፅንየ",
+        "ወእንዘ",
+        "ትነውም",
+        "አመትከ",
+        "ወአስከበቶ",
+        "ውስተ",
+        "ሕፅና"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሰበ",
+          "cam": "ወሞት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንቃሕኩ",
+          "cam": "ወልዳ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በጽባሕ",
+          "cam": "ለዛቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ብእሲት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አጥቡ",
+          "cam": "በሌሊት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፃንየ",
+          "cam": "እስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ረከብኩ",
+          "cam": "ስከበት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዝኩ",
+          "cam": "ሳዕሌሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሞውተ",
+          "cam": "ወተንሥት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወስበ",
+          "cam": "መንፈቀ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጸብሐ",
+          "cam": "ሌሊት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወርኢክዎ",
+          "cam": "ወንሥእት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወናሁ",
+          "cam": "ወልድየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢኮነ",
+          "cam": "እምነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "ሕፅንየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘወለድኩ",
+          "cam": "ወእንዘ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ትነውም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አመትከ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወአስከበቶ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ውስተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሕፅና",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And this woman’s child died in the night; because she overla...)"
+    },
+    {
+      "v": 20,
+      "gg_tokens": [
+        "ወትቤ",
+        "እንታ",
+        "ከቲ",
+        "ብእሲት",
+        "ኪአልቦ",
+        "ወልድየ",
+        "ዝንቱ",
+        "ሕያው",
+        "ወልድኪስ",
+        "ዘከቱ",
+        "ምውት",
+        "ተበሀላ",
+        "ከመዝ",
+        "በቅድመ",
+        "ንጉሥ"
+      ],
+      "cam_tokens": [
+        "ወወልድ",
+        "ዚአሃ",
+        "ዘሞተ",
+        "አስከበቶ",
+        "ውስተ",
+        "ሕፅንየ",
+        "ወኮንኩ",
+        "አህኩ",
+        "በጻሕ",
+        "ከመ",
+        "አጥቡ",
+        "ወልድየ",
+        "ረከብኩ",
+        "ዘክሙ",
+        "ምወት",
+        "ወሶበ",
+        "ጸብሐ",
+        "ርኢክም",
+        "ወናሁ",
+        "ኢከነ",
+        "ወልድየ",
+        "ዘወለድኩ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወትቤ",
+          "cam": "ወወልድ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንታ",
+          "cam": "ዚአሃ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከቲ",
+          "cam": "ዘሞተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "አስከበቶ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኪአልቦ",
+          "cam": "ውስተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "ሕፅንየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "ወኮንኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕያው",
+          "cam": "አህኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "ወልድኪስ",
+          "cam": "በጻሕ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘከቱ",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አጥቡ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ረከብኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዘክሙ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምውት",
+          "cam": "ምወት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ተበሀላ",
+          "cam": "ወሶበ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመዝ",
+          "cam": "ጸብሐ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በቅድመ",
+          "cam": "ርኢክም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ወናሁ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ኢከነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዘወለድኩ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And she arose at midnight, and took my son from beside me, w...)"
+    },
+    {
+      "v": 21,
+      "gg_tokens": [
+        "ወይቤሎን",
+        "ንጉሥ",
+        "እንቲኒ",
+        "ትብሊ",
+        "ዝንቱ",
+        "ሕያው",
+        "ወልድየ",
+        "ወወልዳ",
+        "ዚአሃ",
+        "ዘሞተ",
+        "ወእንቲኒ",
+        "ትብሊ",
+        "አልቦ",
+        "ወልደ",
+        "ዚአየ",
+        "ዝንቱ",
+        "ሕያው",
+        "ወወልደ",
+        "ዚአሃ",
+        "ዘሞተ"
+      ],
+      "cam_tokens": [
+        "ወትቤ",
+        "እንታክቲ",
+        "ብእሲት",
+        "ክልኤት",
+        "አልቦ",
+        "ዝንቱ",
+        "ወልድ",
+        "ሕያው",
+        "ወልድየ",
+        "ሊተ",
+        "ወወልድኪ",
+        "ዘክቲ",
+        "ምወት",
+        "ወትብሃላ",
+        "ከመ",
+        "ቅድመ",
+        "ንጉሥ",
+        "ወይቤሎ",
+        "ንጉሥ",
+        "አንቲኒ",
+        "ትብሊ",
+        "ዝንቱ",
+        "ሕያው",
+        "ወልድየ",
+        "ወወልድ",
+        "ዚአሃ",
+        "ዘሞተ",
+        "ወእንቲኒ",
+        "ትብሊ",
+        "አልቦ",
+        "ወልድ",
+        "ዚአየ",
+        "ሕያው",
+        "ወእቱ",
+        "ወልድ",
+        "ዚአሃ",
+        "ዘሞተ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤሎን",
+          "cam": "ወትቤ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "እንታክቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ብእሲት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ክልኤት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "አልቦ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዝንቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሕያው",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድየ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሊተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወወልድኪ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዘክቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": true
+        },
+        {
+          "gg": "",
+          "cam": "ምወት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወትብሃላ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ከመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ቅድመ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወይቤሎ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንቲኒ",
+          "cam": "አንቲኒ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትብሊ",
+          "cam": "ትብሊ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "ዝንቱ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕያው",
+          "cam": "ሕያው",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "ወልድየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወወልዳ",
+          "cam": "ወወልድ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዚአሃ",
+          "cam": "ዚአሃ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘሞተ",
+          "cam": "ዘሞተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወእንቲኒ",
+          "cam": "ወእንቲኒ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትብሊ",
+          "cam": "ትብሊ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አልቦ",
+          "cam": "አልቦ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልድ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዚአየ",
+          "cam": "ዚአየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕያው",
+          "cam": "ሕያው",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወወልደ",
+          "cam": "ወእቱ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዚአሃ",
+          "cam": "ዚአሃ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘሞተ",
+          "cam": "ዘሞተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And when I rose in the morning to give my child suck, behold...)"
+    },
+    {
+      "v": 22,
+      "gg_tokens": [
+        "ወይቤ",
+        "ንጉሥ",
+        "አምጽኡ",
+        "መጥባሕተ",
+        "ወአምጽኡ",
+        "መጥባሕተ",
+        "ቅድመ",
+        "ንጉሥ"
+      ],
+      "cam_tokens": [
+        "ወይቤ",
+        "ንጉሥ",
+        "አምጽኡ",
+        "ሊተ",
+        "መጥባሕተ",
+        "ወአምጽኡ",
+        "መጥባሕተ",
+        "ቅድመ",
+        "ንጉሥ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤ",
+          "cam": "ወይቤ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አምጽኡ",
+          "cam": "አምጽኡ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሊተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መጥባሕተ",
+          "cam": "መጥባሕተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወአምጽኡ",
+          "cam": "ወአምጽኡ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መጥባሕተ",
+          "cam": "መጥባሕተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "ቅድመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the other woman said, Nay; but the living [is] my son, a...)"
+    },
+    {
+      "v": 23,
+      "gg_tokens": [
+        "ወይቤ",
+        "ንጉሥ",
+        "ምትርዎ",
+        "ለዝንቱ",
+        "ሕፃን",
+        "ዘሕያው",
+        "ሰየ",
+        "ወሀቡ",
+        "መንፈቆ",
+        "ሰዛቲ",
+        "ወመንፈቆ",
+        "ሰእንታ",
+        "ክቲ",
+        "ብእሲት",
+        "ዘሕያው",
+        "ሐዕና"
+      ],
+      "cam_tokens": [
+        "ወይቤ",
+        "ንጉሥ",
+        "ምትሮ",
+        "ለዝንቱ",
+        "ሕፃን",
+        "ዘሕያው",
+        "ለክልኤሆሙ",
+        "መንፈቆ",
+        "ለዛቲ",
+        "ወመንፈቆ",
+        "ለእንታክቲ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤ",
+          "cam": "ወይቤ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ምትርዎ",
+          "cam": "ምትሮ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለዝንቱ",
+          "cam": "ለዝንቱ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ሕፃን",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘሕያው",
+          "cam": "ዘሕያው",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰየ",
+          "cam": "ለክልኤሆሙ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወሀቡ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "መንፈቆ",
+          "cam": "መንፈቆ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰዛቲ",
+          "cam": "ለዛቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወመንፈቆ",
+          "cam": "ወመንፈቆ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰእንታ",
+          "cam": "ለእንታክቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ክቲ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘሕያው",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሐዕና",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Then said the king, The one saith, This [is] my son that liv...)"
+    },
+    {
+      "v": 24,
+      "gg_tokens": [
+        "ወትቤሎ",
+        "ሰንጉሥ",
+        "እስመ",
+        "ተሀውከ",
+        "ማላዕና",
+        "በእንተ",
+        "ወልዳ",
+        "ወትቤ",
+        "አልቦ",
+        "እግዚእየ",
+        "ሀብ",
+        "ሕፃን",
+        "ሕያው",
+        "ወቀቲለሰ",
+        "ኢትቅትልዎ"
+      ],
+      "cam_tokens": [
+        "ወአውሥአት",
+        "እንታክቲ",
+        "ብእሲት",
+        "ዘሕያው",
+        "ሕፃን",
+        "ለንጉሥ",
+        "እስም",
+        "ተሃውክ",
+        "ከርሣ",
+        "በእንተ",
+        "ወልዳ",
+        "ወትቤ",
+        "እግዚእየ",
+        "ሀባ",
+        "ዘንተ",
+        "ወልድ",
+        "ሕያው",
+        "ወቅቲለሰ",
+        "ኢትቅትልዎ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወትቤሎ",
+          "cam": "ወአውሥአት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰንጉሥ",
+          "cam": "እንታክቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ብእሲት",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ዘሕያው",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሕፃን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ለንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ተሀውከ",
+          "cam": "ተሃውክ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ማላዕና",
+          "cam": "ከርሣ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "በእንተ",
+          "cam": "በእንተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወልዳ",
+          "cam": "ወልዳ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወትቤ",
+          "cam": "ወትቤ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "አልቦ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እግዚእየ",
+          "cam": "እግዚእየ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀብ",
+          "cam": "ሀባ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ዘንተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ወልድ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕያው",
+          "cam": "ሕያው",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወቀቲለሰ",
+          "cam": "ወቅቲለሰ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢትቅትልዎ",
+          "cam": "ኢትቅትልዎ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the king said, Bring me a sword. And they brought a swor...)"
+    },
+    {
+      "v": 25,
+      "gg_tokens": [
+        "ወትቤ",
+        "እንታ",
+        "ክቲ",
+        "ኢ",
+        "ይኩን",
+        "ሲተ",
+        "ወኢሳቲ",
+        "ክፍሉነ",
+        "ወእውሥአ"
+      ],
+      "cam_tokens": [
+        "ወትቤ",
+        "እንታክቲ",
+        "ኢይኩን",
+        "ሊተ",
+        "ወኢላቲ",
+        "አይከፍልኒ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወትቤ",
+          "cam": "ወትቤ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንታ",
+          "cam": "እንታክቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ክቲ",
+          "cam": "ኢይኩን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢ",
+          "cam": "ሊተ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይኩን",
+          "cam": "ወኢላቲ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሲተ",
+          "cam": "አይከፍልኒ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወኢሳቲ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ክፍሉነ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወእውሥአ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: And the king said, Divide the living child in two, and give ...)"
+    },
+    {
+      "v": 26,
+      "gg_tokens": [
+        "ንጉሥ",
+        "ወይቤ",
+        "ሀብዋ",
+        "ዘንተ",
+        "ሕፃን",
+        "ሕያው",
+        "ለዘቲ",
+        "ብእሲት",
+        "እንተ",
+        "ትቤ",
+        "ሀብዋ",
+        "ኪያሁ",
+        "ወቀቲልስስ",
+        "ኢ",
+        "ትቅልዎ",
+        "ይእቲ"
+      ],
+      "cam_tokens": [
+        "ወአውሥአ",
+        "ንጉሥ",
+        "ወይቤ",
+        "ሀብዋ",
+        "ዘንተ",
+        "ወልደ",
+        "ሕያው",
+        "ለዛቲ",
+        "ብእሲት",
+        "ወቅቲለሰ",
+        "ኢቲቅትል",
+        "ያእስም",
+        "ይእቲ",
+        "እሙ"
+      ],
+      "alignment": [
+        {
+          "gg": "",
+          "cam": "ወአውሥአ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወይቤ",
+          "cam": "ወይቤ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀብዋ",
+          "cam": "ሀብዋ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘንተ",
+          "cam": "ዘንተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ወልደ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሕያው",
+          "cam": "ሕያው",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ለዘቲ",
+          "cam": "ለዛቲ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እንተ",
+          "cam": "ወቅቲለሰ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትቤ",
+          "cam": "ኢቲቅትል",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀብዋ",
+          "cam": "ያእስም",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኪያሁ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወቀቲልስስ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኢ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ትቅልዎ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "ይእቲ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "እሙ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Then spake the woman whose the living child [was] unto the k...)"
+    },
+    {
+      "v": 27,
+      "gg_tokens": [
+        "እሙ",
+        "ወስምዐ",
+        "ኲሎሙ",
+        "እስራኤል",
+        "ዘንተ",
+        "ፍትሐ",
+        "ዘፈትሐ",
+        "ንጉሥ",
+        "ወፈርሁ",
+        "እምቅድሞ",
+        "ገጸ",
+        "ሰንጉሥ",
+        "እስመ",
+        "ርእዩ",
+        "ከመ",
+        "ጥበቡ",
+        "ስእግዚአብሔር",
+        "ሀሎ",
+        "ስዕሌሁ",
+        "ከመ",
+        "ይግበር",
+        "ኩነኔ",
+        "ርትዕ"
+      ],
+      "cam_tokens": [
+        "ወስምዑ",
+        "ኩሉ",
+        "እስራኤል",
+        "ዘንተ",
+        "ፍትሐ",
+        "ዘፈትሐ",
+        "ንጉሥ",
+        "ወፈርሁ",
+        "ኩሉ",
+        "እስራኤል",
+        "እምቅድመ",
+        "ገጹ",
+        "ለንጉሥ",
+        "እስም",
+        "ርእዩ",
+        "ከመ",
+        "ጥበበ",
+        "እግዚአብሔር",
+        "ሀሉ",
+        "ሳዕሌሁ",
+        "ከመ",
+        "ይግበርኔ",
+        "ወፍትሐ",
+        "ወእምዝ",
+        "ከነ",
+        "ንጉሥ",
+        "ሰሎምን"
+      ],
+      "alignment": [
+        {
+          "gg": "እሙ",
+          "cam": "",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወስምዐ",
+          "cam": "ወስምዑ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኲሎሙ",
+          "cam": "ኩሉ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስራኤል",
+          "cam": "እስራኤል",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘንተ",
+          "cam": "ዘንተ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ፍትሐ",
+          "cam": "ፍትሐ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ዘፈትሐ",
+          "cam": "ዘፈትሐ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ንጉሥ",
+          "cam": "ንጉሥ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ወፈርሁ",
+          "cam": "ወፈርሁ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ኩሉ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "እስራኤል",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እምቅድሞ",
+          "cam": "እምቅድመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ገጸ",
+          "cam": "ገጹ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሰንጉሥ",
+          "cam": "ለንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስም",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ርእዩ",
+          "cam": "ርእዩ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ጥበቡ",
+          "cam": "ጥበበ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ሀሎ",
+          "cam": "ሀሉ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ስዕሌሁ",
+          "cam": "ሳዕሌሁ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ይግበር",
+          "cam": "ይግበርኔ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ኩነኔ",
+          "cam": "ወፍትሐ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "ርትዕ",
+          "cam": "ወእምዝ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ከነ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ንጉሥ",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        },
+        {
+          "gg": "",
+          "cam": "ሰሎምን",
+          "class": "disagree",
+          "gg_flag": false,
+          "cam_flag": false
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "narrative beat present (KJV: Then the king answered and said, Give her the living child, ...)"
+    },
+    {
+      "v": 28,
+      "gg_tokens": [],
+      "cam_tokens": [],
+      "alignment": [],
+      "semantic_pass": false,
+      "semantic_note": "no legible witness content for this spine verse"
+    }
+  ],
+  "metrics": {
+    "ww_agreement_pct": 20.22,
+    "ww_agreement_basis": "111/549",
+    "ww_agreement_skeleton_pct": 28.78,
+    "ww_agreement_skeleton_basis": "158/549",
+    "ww_agreement_bothconfident_pct": 43.77,
+    "ww_agreement_bothconfident_basis": "158/361",
+    "semantic_pass_pct": 96.43,
+    "semantic_pass_basis": "27/28",
+    "uncertainty_pct": 1.74,
+    "uncertainty_basis": "8/461 (base=CAM)",
+    "lacuna_counts": {
+      "gg": 1,
+      "cam": 0,
+      "both": 0
+    },
+    "lacuna_counts_note": "1KI 3: spine = canonical 28-verse KJV enumeration; base=CAM (CAM by the project decision of record (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)'; base=CAM ratified project-wide by the 2026-05-17 GO; spec-revision 2026-05-17 §3.3 clause 2) - extents not materially different (GG 27v / CAM 27v).); witnesses' sense-objects mapped onto the spine by narrative content (never positional v==v); one-sided cells are class 'disagree' and counted in the (agree+disagree) denominator; lacuna = physical ⟦illegible⟧ only and excluded from every agreement denominator.",
+    "definitions": {
+      "strict": "exact literal token-string identity / (agree+disagree) aligned pairs",
+      "skeleton": "diacritic/order-folded + near-homograph-folded token equality (class==agree) / (agree+disagree) aligned pairs, full aligned denominator",
+      "both_confident": "skeleton-equal / aligned pairs where neither witness flagged that token uncertain or illegible (gap/insertion cells and lacuna rows also excluded from this denominator)"
+    }
+  }
+}
