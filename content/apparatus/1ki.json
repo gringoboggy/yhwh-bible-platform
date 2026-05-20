@@ -1,0 +1,444 @@
+[
+  {
+    "v": 1,
+    "base_reading": "ይነግሥ ላዕለ ኩሉ እስራኤል",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሰሎምን ንጉሥ ነግሠ ሳዕለ ኹሉ እስራኤል"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 2,
+    "base_reading": "ወእሉ እሙንቱ መላእክት ዘሎቱ አዛርያስ ወልደ ሳዶቅ ካህን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወእሉ ምንቱ መለእክቲ ሁ አዘርያስ ወልደ ሳዶቅ ካህን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 3,
+    "base_reading": "ኤልያብ ወአኪያ ደቂቀ ሱፋት ወኢዮሳፍጥ ወልደ አክያድ መዘክር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ኤልያብ ወአኪያ ደቂቀ ሁ ጻሐፍት ወኢዮሳፍጥ ወልደ አኪያድ መዝክር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 4,
+    "base_reading": "ወብንያስ ወልደ ዮዳሐ መልአከ ኃየሉ ሳዶቅ ወአብያታር ካህናት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወብንያስ ወልደ ዮዳሐ ሳዕለ ሰራዊት ሳዶቅ ወአብያታር ካህናት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 5,
+    "base_reading": "ወአዛርያስ ወልደ ናታን ላዕለ ስዶማን ወዛቡል ወልደ ናታን ካህን ዘእምታሕቲ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአርንያ ወልደ ናታን ሳዕለ እለይቀውሙ ናቤ ሁ ወዘባጥ ወልደ ናታን ካህን ዘእምታሕተ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 6,
+    "base_reading": "ወአክያል መገቤ ቤት ወአዶኒራም ወልደ አብዶድ ላዕለ ዓር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 7,
+    "base_reading": "ወቦ ሰሎምን ፲ ወ ፪ ቱ እደው ላዕለ ኩሉ እስራኤል ከመ ይሴስይዎ ለንጉሥ ወለኩሉ ቤቱ ለሰውርሐ ፩ ድ ብእሲ እስከ ይትፌጸም ፩ ድ አመተ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአኪያል መጋቤ ቤት ወኤልያብ ወልደ ካፋን ሳዕለ በሐውርት ወአደኒራም ወልደ ኤድራ ሳዕለ ዐራ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 8,
+    "base_reading": "ወዝንቱ ውእቱ አስማቲሆሙ ወልደ ሐር በደብረ ኤፍሬም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሲመ ስሎምን ፲ ወ ፪ ዐደው ሳዕለ እስራኤል እለ ይትመጻውሙ ግብርሙ ለንጉሥ ወልቤቱ ፬ ዐውር ዐ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 9,
+    "base_reading": "ወልደ ራኬብ በማኄላስ ወቤት ሳሚስ ወኤሎን ወቤተ ሄናን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ሰለሳ መት ያዊ ፬ ደ ምዕራ ወዝንቱ ውእቱ እክማቲ ሆሙ ቤእራ በደብራ ኤፍራም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 10,
+    "base_reading": "ወልደ ሄሁድ በአራቦት ወለሴክ ወኩሉ ምድረ ሔፈር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወልደ ሔኪብ በማኪማስ ወቤተ ሳኜ ወወቤተ ሳሚስ ወኤሎ በቤተ ሄናን ወልደ ኤሳት በቤርኒማስ ወበስምን ኾቄረስ ወብታ ረኪ ሕንዳን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 11,
+    "base_reading": "ለወልደ አሚናዳብ ኩልንፉር ወሐናጡፍ ወለተ ሰሎምን ኮነት ሎቱ ብእሲተ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወልደ አሚናዳብ በሐናጥፍን ጤ ብሊትች ወልታ ስሎምን ብእሲቱ በቀከ ወልደ አኪማ ከ ሳጻሕወመቅደ ወብኹሉ ቤተ ሳሆን ዘመንገለ ኤታን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 12,
+    "base_reading": "በዓናሳ ወልደ አኩሁድ ወታእናክ ወመቄዳ ወኩሉ ቤተ ሳኤን ዘመንገሌ አስትና ዘመትሕተ ኢይዝራኤል እምቤተ ሳኤን እስከ አቤል መሐለ እስከ ማእደተ ሉቅማ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 13,
+    "base_reading": "ወልደ ጋቤር በራሞት ዘገለአድ ውእቱ ወሰናሙ ሐውታኤር ወልደ ምናሴ ዝንቱ በገለአድ ውእቱ ወሰናሙ ሐቤል አርጌብ ዝንቱ በባሳን ፷ አህጉር ዓበይት እለ ቦን ቅጻሬ ዘመናስግቲሆን ብርት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ዘመትሕተ ኤስድርኤ ዘእምነ ቤስፋዱ ወኤቤል መሐሳ እስከ ማዕቤር ዘሉቃሚስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 14,
+    "base_reading": "ወአሄሮብ ወልደ ኤዳን ዘምናህም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወልደ ጋቤሐ ዘር ማት ዘጋላዓድ አህጥር ኤያዕር ዘምና ሴ ሎቱ ደወለ ኤርጳብ ዘባሳን ፷ አህጥር ባ ይተ እለ በን ቅጽርወ መዓፁት ወመናስግቱ ህነ ዘብርት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 15,
+    "base_reading": "ወአኪማሐስ ዘንፍታሌም ወውእቱ ነሥአ ለማሄማት ወለተ ሰሎምን ትኩኖ ብእሲተ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአኪናሐም ወልደ አኪልማሐን በኒኤእኒክ ወኬልማ ሴ ዘንፍታሌም ወውእቱ አውሰየ ስማሴማት ወለተ ስሎምን በሐሚ ዋልደ ኩሺ በአሴር ዘእምነ ራግበሐል እስከ አሐል በምድራ ማሕሳዶስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 16,
+    "base_reading": "በዓና ወልደ ኩሲ በአሴር ወብኤሎት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሳሚ ወልደ ኤሳ በብንያም ጊቤር ወልደ አደ በምድረ ጋድ ወበምድረ ሔሞን ንጉሥ ሐሴቦን ወአግ ንጉሥ ባሳን ወናሴፍ በምድረ ይሁዳ ወዮሳፍጥ ወልደ ፈሐሉል በይሰክር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 17,
+    "base_reading": "ወኢዮሳፍጥ ወልደ ፋሩኒ በይሳኮር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 18,
+    "base_reading": "ወሰሚ ወልደ ኤላ በብንያም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወእሉ ያገብኤ ለንጉሥ ስሎምን ግብሮሙ በአምታ ኩሉ ዘአዘዝሙ ወይሰርዑ ውስተ ማዕደ ንጉሥ ፮ ፮ በበወርኁ ወእቆዕው ወኢ መንተኒ ስምሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 19,
+    "base_reading": "ወጋቤር ወልደ ዑራ በምድረ ገለአድ ምድረ ሲዎን ንቱው አሞርዎን ወዐግ ንቱው ባሳን ወናዊብ ፬",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሐሰሪ ለአፍራኪ ወለጥርት ወይጻውሩ ወሰረገላተ ሁ ለንጉሥ ባባ ሀስው ወእኹሰሙ በበሰርዓታሙ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 20,
+    "base_reading": "ዝንቱ በምድረ ይሁዳ ወእስራኤል ከመ ኖዕ ባሕር ብዙኃን ይበልዑ ወስትዩ ወይትፌሥሑ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ይሁዳ ወእስራኤል ብዙኃን እሙንቱ ፈድፋደ ከመ ሮዓ ባሕር ብዝናሙ ይበልዑ ወይስትዩ ወይትፊሥሑ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 21,
+    "base_reading": "ወኮነ ሰሎምን ንቱው ላዕለ ኩሉ ነገሥታተ ምድር እምፈለገ ፍልጥኤም እስከ ፈለገ ግብጽ ያመጽኡ ሎቱ እምነ ወይትቀነዩ ለሰሎምን በኩሉ መዋዕለ ሕይወቱ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወስሎምን ኮነ ኹሉ መማግሥታት እምፈስግ ምድረ ኤሱፍሊ እክከ ደወስ ግብጽ ወየመጽኡ ለስሎምን እምኃ ወተቀንደ ሉቱ በኩሉ መዋዕለ ሕደወቱ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 22,
+    "base_reading": "ወኮነ ማእደ ሰሎምን ለለ ዕለት ዕለት ዘይትገበር ፴ በመስፈርት ቆርክ ስንዳሌ ፷ በመስፈርት ቆርስ ሐሪጽ ለትም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዝ ውእቱ ምሳሕ ለስሎምን ዘደትገበር ለለዕለቱ ፴ በ መስፈ ር ት ቆረስ ኩንዳለ ወ ፷ በመስፈ ር ት ቆረስ ሐ ረድ ወአልሕምት መግዘት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 23,
+    "base_reading": "ወ ፲ አልሕምት ንፁሓን ወ ፲ አልህምተ መራዕይ ወ ፮ አባግዓ ዘእንበለ ኃየል ወወይጠል ወመግዝእ ደዋርህ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 24,
+    "base_reading": "እስመ ውእቱ መኩንን ላዕለ ኩሉ ማእደተ ፈለግ እምነተፍሲሐ እስከ አዜብ ላዕለ ኩሉ ነገሥት እለ ማዕደተ ፈለግ ወኩሎሙ እለ ዓውዱ ስሰ ምስሌሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወ ፪ አስዋር ወ ፪ እባግዕ ዘእንበለ ኤያል ወይከንል ጻዋርሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 25,
+    "base_reading": "ወንበሩ ይሁዳ ወእስራኤል ተአሚኖሙ ታሕተ ወይኖሙ ወታሕተ በለሱ እምዳን እስከ ቤርሳቤሕ በኩሉ መዋዕሊሁ ለሰሎምን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "እስመ ውእቱ መከውን በኩሉ መዓደዊ ፈስግ እምራፉ እስከ ጋዘ በኩሉ መንግሥታት ዘመዓደዊ ፈስግ ወእንዕ ምክሌሁ ኹሎሙ እስ ይጻወልዎ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 26,
+    "base_reading": "ወቦ ለሰሎምን ፴ አፍራስ እለ ይስሕቡ ሰረገላተ ፲ ወ ፪ የ አፍራስ መራድ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወእስ ባውዱ ወእንብሩ ይሁዳ ወእስራኤል ኹሎሙ ተአምነዊ ታሕተ ወደኖሙ ወበስሙ ይበልዑ ወይስትዩ እምዳን እስከ ቤርሳቤሕ በኩሉ መዋዕለ ስሎምን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 27,
+    "base_reading": "ወይሤድዕሉ እደው ስደማነ ንቱሥ ሰሎምን ወኩሎሙ ያስተጋብኡ ማእደ ንቱሥ ሰሎምን ብእሲ ብእሲ በወርኁ ወአልቦ ዘየሐጽፅ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወቡ ስስሎምን ቯ ቯ ኤፍራስ እለ ይስሕቡ ሰረገሰት ቯ ዐ ፪ ኤፍራስ መርዶ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 28,
+    "base_reading": "ወእምነተን ወሰገሜን ወኃሠረ ይጸውሩ ለአፍራስ እለ ይስሕቡ ሠረገላተ ንቱሥ ወንዋየኒ ያበውኡ እምዓበ መካን ብእሲ በበ ሥርዓቱ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወወሀቦ እግዚአብሔር ለስሎምን ጥበበ ወእምር ብዙኅ ፈድፋደ ከመ ኆጻ ዘከን ፈረ ባሕር ወብዝ ኆ ጥበ ለስሎምን እምጥበቦሙ ለኹሎሙ ደቂቀ ቀደምት ወእሙንቱ ጠቢባን ግብጽ ወጠበ እምኹሉ ሰብእ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 29,
+    "base_reading": "ወወሀቦ እግዚእብሔር ጥበበ ወአእምሮ ወልቡና ለሰሎምን ብዙኃ ፈድፋዱ ወርኅበ ልቡ ከመ ኖዕ ባሕር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 30,
+    "base_reading": "ወብዝኃት ጥበቡ ለሰሎምን ፈድፋዱ እምጥበበ ኩሎሙ ደቂቀ ቀደም ወእምኩሎሙ ወቢዓነ ግብጽ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "እምታን ዘርያዊ ወእምነ እውናን ወእምክልተድ ወደራል ደቂተ ሰግድ ወበሕ ስም ውስተ ኹሉ አሕዛብ እስ ዋዉደ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 31,
+    "base_reading": "ወጠበበ እምኩሉ ሰብእ እምነ ኤታን አዝራኒ ወእምነ ሄማን ወኬልኤል ወደርደራ ደቂቀ ማሁል ወበጽሐ ስሙ ውስተ ኩሉ አሕዛብ እለ ዓውዱ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወንበበ ስሎምን ቯ ፫ ኤምሳለ ወ ቯ ፪ ወ ፮ መጾል ያ ወንበበ በእንተ ዕፀው እምዕፀ አርዝ ዘውስት ሊባኖስ እስከ ሕምሳ ሕስጴ ዘይወዕእ በአረፍት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 32,
+    "base_reading": "ወነበበ ሰሎምን ፫ የ ምሳሌቱ ፬ የ ማሕሌቱ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወንበበ በእንተ እንስስሐ ወበእንተ አዕዋፍ ወበእንተ ዘይትሐወከ ውስተ ምድር ወበእንተ አሣት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 33,
+    "base_reading": "ወነበበ በእንተ ዕፀው እምነ እርዘ ሊባኖስ እስከ ሐዛብ ዘይውዕእ ውስተ አረፍት ወነበበ በእንተ እንስሳ ወበእንተ አዕዋፍ ወበእንተ ዘይትሐወስ ውስተ ምድር ወበእንተ ዓሣታት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይመጽኡ እምኹሉ አሕዛብ ይከምዑ ጥበቢሁ ለስሎምን ወይነሥኤ እምነ እምኹሉ ነገሥት ምድር እስ ሰምዑ ጥበቢሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 34,
+    "base_reading": "ወይመጽኡ ኩሉ ሕዝብ ከመ ይስምዑ ጥበቦ ለሰሎምን ወኩሎሙ ነገሥተ ምድር ይመጽኡ ከመ ይስምዑ ጥበቦ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  }
+]
