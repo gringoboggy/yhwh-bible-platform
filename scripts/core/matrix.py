@@ -6,9 +6,9 @@ the symbol-toggle UI needs to display in every cell.
 
 Inputs (all read via cached config loaders):
     content/books.yaml      — 87 books
-    content/kinds.yaml      — 63 kinds with category mapping
-    content/categories.yaml — 14 categories
-    content/editions.yaml   — 5 edition profiles (kind filters + canon)
+    content/kinds.yaml      — 70 kinds with category mapping
+    content/categories.yaml — 15 categories
+    content/editions.yaml   — 11 edition profiles (kind filters + canon)
     content/canons.yaml     — canon → book-codes
     content/notes/*.py      — actual notes (1,371 today, growing)
 
