@@ -225,29 +225,11 @@ def append_to_notes_file(code, tuple_text):
 
 
 def run_injector(book):
-    """Run the appropriate injector (Strategy A or B) for this book."""
+    """Run the unified injector (scripts/inject.py) for this book. It replaces
+    the lost source_archive/add_commentary.py + kings_session/strategy_b_inject.py
+    and dispatches Strategy A/B internally."""
     code = book["code"]
-    strategy = book["strategy"]
-    if strategy == "A":
-        # add_commentary.py uses --book
-        cmd = [
-            sys.executable,
-            "source_archive/add_commentary.py",
-            "--book",
-            code,
-            "--epub-dir",
-            str(EPUB_DIR),
-        ]
-    else:
-        # strategy_b_inject.py uses --code (different convention)
-        cmd = [
-            sys.executable,
-            "kings_session/strategy_b_inject.py",
-            "--code",
-            code,
-            "--epub-dir",
-            str(EPUB_DIR),
-        ]
+    cmd = [sys.executable, "scripts/inject.py", "--book", code]
     print(f"\n→ running injector: {' '.join(cmd)}")
     result = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True)
     if result.returncode != 0:
@@ -369,9 +351,8 @@ def main():
         run_audit()
     else:
         print("\nNext steps:")
-        injector = "source_archive/add_commentary" if book["strategy"] == "A" else "kings_session/strategy_b_inject"
-        print(f"  python3 {injector}.py --book {args.book} --epub-dir epub_working --dry-run")
-        print("  python3 audit.py")
+        print(f"  python3 scripts/inject.py --book {args.book} --dry-run")
+        print("  python3 scripts/ebible.py verify")
 
 
 if __name__ == "__main__":

@@ -157,6 +157,21 @@ def canonical_book_shape(book: str) -> dict[int, int]:
     return dict(_book_shape_cached(book))
 
 
+def coord_in_canonical_extent(book: str, chapter: int, verse: int) -> bool:
+    """True if ``(book, chapter, verse)`` is within the book's canonical extent —
+    or the book has no known canonical shape (Tewahedo distinctives etc.), in
+    which case it can't be validated and is kept. The single boundary guard that
+    keeps impossible coordinates (e.g. Genesis 87:12, from OCR/parse noise) out
+    of the corpus, regardless of which source or detector produced them."""
+    try:
+        shape = canonical_book_shape(book)
+    except Exception:
+        return True  # unknown book code — can't validate, keep
+    if not shape:
+        return True
+    return chapter in shape and 1 <= verse <= shape[chapter]
+
+
 def canonical_count(book: str, chapter: int) -> int:
     """Per-chapter verse count for *(book, chapter)*. Raises ``KeyError``
     if the chapter is not in the canonical skeleton."""

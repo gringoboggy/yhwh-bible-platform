@@ -9485,17 +9485,6 @@ NOTES = [
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
-        16,
-        59,
-        "",
-        "",
-        "text-witness",
-        "Witness",
-        "MS.",
-        "<strong>Manuscript witness.</strong> that they had never formed part of it, and were never quoted or used on the same level as the books recognised as inspired. It is true that one verse has dropped out of a long list of towns (after Josh. 16. 59), in which was contained (as the Septuagint shows see Variorum ; fo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-        "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-    ),
-    (
         17,
         1,
         "",

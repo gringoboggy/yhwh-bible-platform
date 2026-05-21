@@ -6577,6 +6577,33 @@ class TestBatchInsertNotes:
         assert len(load_notes(p)) == 2
 
 
+class TestCoordGuard:
+    """canonical_verse_counts.coord_in_canonical_extent + the promote/batch
+    guards keep impossible coordinates (OCR/parse noise) out of the corpus."""
+
+    def test_coord_in_canonical_extent(self):
+        from scripts.core.canonical_verse_counts import coord_in_canonical_extent
+
+        assert coord_in_canonical_extent("gen", 1, 1) is True
+        assert coord_in_canonical_extent("gen", 23, 24) is False  # Gen 23 has 20 verses
+        assert coord_in_canonical_extent("gen", 99, 1) is False  # Gen has 50 chapters
+        assert coord_in_canonical_extent("zz", 99, 99) is True  # unknown code -> kept
+
+    def test_batch_insert_drops_out_of_range(self, tmp_path):
+        from scripts.core.notes_io import load_notes
+        from scripts.promote import batch_insert_notes
+
+        p = tmp_path / "gen.py"  # stem must be a canonical code for the shape lookup
+        p.write_text("NOTES = [\n]\n", encoding="utf-8")
+        new = [
+            {"ch": 1, "v": 1, "kind": "topic-nave", "body": "valid"},
+            {"ch": 23, "v": 24, "kind": "topic-nave", "body": "out of range"},
+        ]
+        assert batch_insert_notes(p, new) == 1
+        notes = load_notes(p)
+        assert len(notes) == 1 and notes[0][1] == 1
+
+
 class TestNavesCcelExtract:
     """extract_naves_ccel.expand_refs expands Nave's compressed reference
     syntax with book/chapter carry-forward (the bug-prone crux)."""

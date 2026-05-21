@@ -21574,17 +21574,6 @@ NOTES = [
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
-        23,
-        24,
-        "",
-        "",
-        "text-witness",
-        "Witness",
-        "MS.",
-        "<strong>Manuscript witness.</strong> nuscript was written in the fourth century, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-        "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-    ),
-    (
         24,
         1,
         "",

@@ -43,6 +43,7 @@ from scripts.find_anchor import load_existing_anchors  # noqa: E402
 from scripts.core.notes_io import ensure_backup, atomic_write  # noqa: E402  (Phase χ.6 fix)
 from scripts.core.html_sandbox import sandbox_ai_html  # noqa: E402  (Phase ξ.15)
 from scripts.core.matrix import AI_DRAFTED_KINDS  # noqa: E402  (Phase ξ.15)
+from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402  (coord guard)
 
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 
@@ -326,6 +327,8 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
         kind = n["kind"]
         body = n["body"]
         attribution = n.get("attribution")
+        if not coord_in_canonical_extent(book_path.stem, ch, v):
+            continue  # boundary guard: drop impossible coordinates (defense in depth)
         if skip_existing and body in existing_bodies.get((ch, v, kind), set()):
             continue
         used = used_suffixes.setdefault((ch, v), set())
@@ -393,6 +396,12 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
 
     chapter = c.get("chapter") or _chapter_from_id(c["id"])
     verse = c["verse"]
+
+    # Coordinate guard: never promote a note whose (book, ch, v) is beyond the
+    # book's canonical extent — OCR/parse noise (e.g. a detector resolving a
+    # garbled reference) must not land an unplaceable note in the corpus.
+    if not coord_in_canonical_extent(book, chapter, verse):
+        return False, ""
 
     # Compose attribution for the note tuple. Prefer a fully-formed
     # ``source_attribution`` string; fall back to ``source_name`` plus a

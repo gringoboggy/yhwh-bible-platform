@@ -12,7 +12,9 @@
 > 4. **Optimize: `promote.batch_insert_notes`** (TDD) — one read+write per book vs per-note O(n²); reused by both ingests.
 > 5. **`dev/MATRIX_MAP.md` updated** (71 kinds / 67,715 notes; ingestion pipeline; base-HTML gap marked resolved). The inject-tail spill resolver `inject.find_verse_region_b_spill` + `scripts/audit_base_html.py` shipped earlier in this arc (99.21%→99.48% pre-rebuild) — committed `d3acc4f` (spill) + uncommitted residual audit.
 >
-> **Source PDFs** (`Naves Topical Bible.pdf`, `eastons_bible_dictionary.pdf`) sit in the OUTER folder, OUTSIDE the git repo → not tracked. The committed `*_ccel_source.txt` extracts are the reproducible in-repo sources. **Still flagged, not addressed: 2 `text-witness` invalid-coord notes (gen 23:24, jos 16:59) + the latent `run.py`/`add_note.py` dead-injector dispatch.**
+> **Source PDFs** (`Naves Topical Bible.pdf`, `eastons_bible_dictionary.pdf`) sit in the OUTER folder, OUTSIDE the git repo → not tracked. The committed `*_ccel_source.txt` extracts are the reproducible in-repo sources.
+>
+> **FLAGGED ITEMS FIXED (follow-up commit, after `38b80d3`):** (a) the 2 invalid-coordinate `text-witness` notes (gen 23:24, jos 16:59) pruned; a corpus-wide scan confirms **0 invalid-coordinate notes of any kind**. (b) New boundary guard `canonical_verse_counts.coord_in_canonical_extent`, enforced in `promote.promote_candidate` + `promote.batch_insert_notes`, rejects out-of-canonical-extent coordinates from ANY source/detector (prevents recurrence; the Kenyon text-witness defect was the same class as the Nave's one). (c) The `run.py` + `add_note.py` dead-injector dispatch (lost `source_archive/add_commentary.py` + `kings_session/strategy_b_inject.py`) repointed to the unified `scripts/inject.py`; `set_reader_toc.py` stale build_toc advice updated. Remaining lost-path mentions are docstring/migration-history only (cleanup.py, README.md).
 
 > **➤➤➤ 2026-05-21 (LATER) INJECT-TAIL → 99.48% via boundary-aware spill resolver — READ FIRST; supersedes the 99.21% banner below.**
 >

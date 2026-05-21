@@ -198,7 +198,8 @@ def main():
     if not has_backup():
         print(
             "ERROR: no backup available; cannot restore full mode.\n"
-            "       Re-run scripts/build_toc.py (in source_archive/) to regenerate.",
+            "       Restore epub_working/nav.xhtml from git history (the build_toc.py\n"
+            "       regenerator was retired with source_archive/).",
             file=sys.stderr,
         )
         return 2

@@ -45,26 +45,26 @@ def run(cmd, cwd=None, capture=True):
 
 
 def parse_inject_summary(stdout, _code):
-    """Parse 'inserted=N already_present=M anchor_miss=K' or
-    'inserted=N already=M miss=K' from injector output."""
+    """Parse scripts/inject.py's TOTAL line — '… N scanned · M would-inject ·
+    K already in HTML' — into (inserted, already, miss). 'would-inject' is the
+    pending count; miss = the 'anchor text not found' tail."""
+    clean = re.sub(r"\x1b\[[0-9;]*m", "", stdout)
     m = re.search(
-        r"inserted\s*=\s*(\d+)[,\s]+already(?:_present)?\s*=\s*(\d+)"
-        r"[,\s]+(?:anchor_)?miss\s*=\s*(\d+)",
-        stdout,
+        r"(\d+)\s+scanned\s*·\s*(\d+)\s+(?:would[- ]inject|injected)\s*·\s*(\d+)\s+already",
+        clean,
     )
     if not m:
         return None
-    return int(m.group(1)), int(m.group(2)), int(m.group(3))
+    mm = re.search(r"(\d+)\s+note\(s\) had anchor", clean)
+    return int(m.group(2)), int(m.group(3)), (int(mm.group(1)) if mm else 0)
 
 
 def injector_cmd(book, dry_run):
+    # The unified scripts/inject.py replaces the lost source_archive/add_commentary.py
+    # (Strategy A) + kings_session/strategy_b_inject.py (Strategy B) — it dispatches
+    # by the book's strategy internally and uses epub_working/ as the target.
     code = book["code"]
-    strategy = book["strategy"]
-    epub = str(REPO_ROOT / "epub_working")
-    if strategy == "A":
-        cmd = [sys.executable, "source_archive/add_commentary.py", "--book", code, "--epub-dir", epub]
-    else:
-        cmd = [sys.executable, "kings_session/strategy_b_inject.py", "--code", code, "--epub-dir", epub]
+    cmd = [sys.executable, "scripts/inject.py", "--book", code]
     if dry_run:
         cmd.append("--dry-run")
     return cmd
