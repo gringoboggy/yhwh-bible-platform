@@ -53,6 +53,7 @@ from scripts.core.fetcher_config import (  # noqa: E402
 from scripts.core.notes_io import atomic_write  # noqa: E402  (ω.9)
 from scripts.core import http as _http  # noqa: E402  (ω.10)
 from scripts.core.http import DEFAULT_PD_SOURCES_ALLOWLIST  # noqa: E402  (ξ.10.1)
+from scripts.core.canonical_verse_counts import canonical_book_shape  # noqa: E402  (Nave's coord guard)
 
 SOURCES_DIR = REPO_ROOT / "content" / "sources"
 
@@ -376,6 +377,22 @@ def _parse_naves_ref(s: str) -> tuple[str, int, int] | None:
         return None
 
 
+def _naves_coord_in_extent(book: str, ch: int, vs: int) -> bool:
+    """True if (book, ch, vs) is within the book's canonical extent — or the
+    book has no known canonical shape (Tewahedo distinctives etc.), in which
+    case we can't validate and keep the ref. The upstream Nave's dump is
+    OCR-noisy and emits impossible coordinates (e.g. Genesis 87:12, Deut 81:7);
+    rejecting them here, at the boundary where external data enters the
+    pipeline, stops them becoming notes that can never inject."""
+    try:
+        shape = canonical_book_shape(book)
+    except Exception:
+        return True
+    if not shape:
+        return True
+    return ch in shape and 1 <= vs <= shape[ch]
+
+
 def _build_naves_indices(forward: dict[str, list]) -> dict:
     """Build the canonical cache shape from a forward index of
     {topic: [(book, ch, vs), ...]}. Builds the reverse index (verses)
@@ -401,6 +418,8 @@ def _build_naves_indices(forward: dict[str, list]) -> dict:
                     continue
                 book, ch, vs = parsed
             else:
+                continue
+            if not _naves_coord_in_extent(book, ch, vs):
                 continue
             cleaned.append([book, ch, vs])
             verses.setdefault(book, {}).setdefault(str(ch), {}).setdefault(str(vs), []).append(topic)

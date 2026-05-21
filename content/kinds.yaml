@@ -779,3 +779,17 @@ kinds:
     title_attr: "Nave's Topical Bible — topics this verse appears under"
     description: "Topical groupings drawn from Nave's Topical Bible (1896, PD). One verse appears under multiple topics; the candidate aggregates the top topics."
     phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # DICTIONARY  ⌂   (Bible-dictionary definitions; category: hist)
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: dict-easton
+    category: hist
+    symbol: "⌂"
+    note_class: "note-dict-easton"
+    marker_class: "marker-dict-easton"
+    label: "Dictionary"
+    title_attr: "Easton's Bible Dictionary — definition of a person, place, or term in this verse"
+    description: "Bible-dictionary definitions (people, places, terms) from Easton's Illustrated Bible Dictionary (1897, PD), attached to each entry's primary scripture reference."
+    phase: phase2

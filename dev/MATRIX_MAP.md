@@ -6,16 +6,18 @@
 > (`content/editions.yaml`) that drive the **build pipeline** — so the matrix and
 > the EPUB build are two consumers of one source of truth.
 >
-> Counts (verified 2026-05-20 via `dev/trace_matrix.py`): **11 editions · 5 canons
-> · 15 categories · 70 kinds · 87 books · 13 translation dirs**. Integrity:
-> **0 unresolved references.**
+> Counts (2026-05-21, after the reference-corpus rebuild): **11 editions · 5 canons
+> · 15 categories · 71 kinds · 87 books · 13 translation dirs · 67,715 notes**.
+> (Was 70 kinds / 52,973 notes on 2026-05-20; `dict-easton` added + Nave's rebuilt +
+> Easton's ingested — see "Reference-corpus ingestion" below.) Re-verify with
+> `dev/trace_matrix.py`; integrity target: **0 unresolved references.**
 
 ## Top → bottom (source leads to output)
 
 ```
 CONFIG  (content/*.yaml)  — the rows, columns, and leaves
   editions.yaml ......... 11 edition profiles      → the matrix ROWS
-  kinds.yaml ............ 70 kinds → category       → the matrix COLUMNS
+  kinds.yaml ............ 71 kinds → category       → the matrix COLUMNS
   categories.yaml ....... 15 categories             (column groups; AI-gate via enable_ai_notes)
   canons.yaml ........... 5 canons → book-code sets  (book filter; ethiopian = 87-book superset)
   books.yaml ............ 87 books                   (canonical spine / order)
@@ -116,10 +118,17 @@ Reverse-engineered 2026-05-21 while verifying the deliverable builds. The matrix
 notes/books ship per edition; the build turns that into the EPUB the user downloads:
 
 ```
-content/notes/<book>.py        (52,973 notes — SOURCE)
+content/notes/<book>.py        (67,715 notes — SOURCE; 2026-05-21 reference-corpus rebuild)
 content/translations/<id>/*.py (verse text as data — SOURCE; powers matrix/parallel/standalone)
         |
         v  inject   (ebible build step 1 = scripts/inject.py --all-books)
+        |   Strategy-A: id="v-<book>-<ch>-<v>" anchors.  Strategy-B (late canon):
+        |   find_chapter_region_b/find_verse_region_b on id="ch-<bxx>-c<ch>"; when a chapter's
+        |   verses spill across a split-file boundary, find_verse_region_b_spill resolves them
+        |   from the next file's head (guarded to the last-anchor chapter). Word-anchor miss →
+        |   verse-end fallback (resolve_marker_insertion). scripts/audit_base_html.py classifies
+        |   regular vs split-file-irregular chapters + enumerates the residual.
+        v
 epub_working/index_split_*.html   <== BASE SCRIPTURE HTML (calibre-split chunks; the scripture
         |                             TEXT source-of-truth, edited IN PLACE — NOT rendered from
         |                             translations. Notes land as id="note-X" paired with
@@ -132,15 +141,43 @@ per-edition working copy
 
 Health invariant: **paired=N/N** — every `href="#note-X"` has a matching `id="note-X"`. Check before/after any build.
 
-**THE GAP (2026-05-21):** `epub_working/` (the base scripture HTML) is a build artifact that is NOT
-in the current repo — never committed, now absent — so `inject` errors "no readable HTML files" and
-`ebible build` dies at step 1. The legacy injectors `run.py` references (`source_archive/`,
-`kings_session/`) are also gone. **Recovery source:** `…/Ethiopian_Bible_HANDOFF_v9_2026-05-05`
-contains `epub_working/index_split_*.html` (all 87 books' text, TOC-wired) + `source_archive/` +
-`kings_session/` + a built 4.6 MB EPUB. The 05-05 base text is TEXT-complete for the 87-book English
-canon; the current 52,973 notes re-inject fresh (injector is idempotent). The standalone Ge'ez/Amharic
-Bibles need their own base HTML (newer, separate).
+**THE GAP — RESOLVED (2026-05-21):** the base scripture HTML was recovered from the v28a-50 snapshot
+and COMMITTED (`5ee2ad1`) so it can no longer be silently lost; `ebible build` produces valid EPUBs
+again. The inject tail was then closed to ~99.5% by the Strategy-B spill resolver (see the inject step
+above); the residual is base-HTML versification/coverage (1 Enoch 37-108, the aes WEB↔KJV scheme),
+enumerated in `dev/AUDIT_2026-05-21-inject-tail-residual.md`. To re-derive a clean inject from scratch:
+`git checkout 5ee2ad1 -- epub_working/` then `inject --all-books` (idempotent; reflects the current
+corpus). NOTE — still latent: `run.py` / `add_note.py` reference the lost `source_archive/` +
+`kings_session/` injectors; superseded by `inject.py` but would fail if invoked (retire/repoint TODO).
 
-**Production risk it exposes:** the scripture base HTML is a large, hand-edited, UNCOMMITTED calibre
-artifact — losing it (as happened) blocks every build. Fix options in
-`dev/AUDIT_2026-05-21-smoother-running.md`.
+## Reference-corpus ingestion (PD reference works → notes)
+
+The reusable pipeline that turns a public-domain reference work into verse-keyed notes feeding the
+SOURCE above. Each source is a clean, committed text under `content/sources/`; a per-source parser
+builds the per-verse mapping; notes are written via one batched inserter. Coordinate validation drops
+impossible `(book, ch, v)` at the boundary so OCR/parse noise never reaches the corpus.
+
+```
+content/sources/<work>_source.txt   (clean committed text, extracted from a CCEL PDF)
+  Nave's Topical:  naves_ccel_source.txt   -> scripts/extract_naves_ccel.py
+                   (CCEL abbrevs; expand_refs carry-forward; note "Jud" = Judges, not Jude)
+                   -> fetch_sources._build_naves_indices  (canonical-range VALIDATION)
+                   -> content/sources/naves_topical.json  (4,604 topics / 100,983 refs)
+                   -> NaveTopicalDetector  -> 26,335 `topic-nave` notes
+  Easton's Dict:   eastons_ccel_source.txt -> scripts/extract_eastons_ccel.py
+                   (• headwords; FULL book names via EASTON_BOOK; first ch:v ref = primary verse)
+                   -> 3,779 `dict-easton` notes  (kind dict-easton, category hist)
+        |
+        v  scripts.promote.batch_insert_notes  (one read+write per book; per-verse free suffix +
+        |    dedup; reuses format_tuple_text/pick_free_suffix — replaces per-note O(n²) inserts)
+        v
+content/notes/<book>.py
+```
+
+**Data-quality guard:** `fetch_sources._naves_coord_in_extent` rejects coordinates beyond a book's
+canonical extent (`canonical_verse_counts.canonical_book_shape`); books with no canonical shape
+(Tewahedo distinctives) are kept unvalidated. This closed a defect where an OCR'd Nave's source had
+injected ~114 impossible-coordinate notes. **Book codes MUST match `content/notes/`** — the project
+uses `eze`/`joe`/`nah`/`jam`/`phi` (+ `jdg` Judges, `jud` Jude); a code mismatch silently drops a
+book's notes (caught + fixed for 5 books during the 2026-05-21 rebuild). Source provenance lives in
+`content/sources/ATTRIBUTIONS.md`.

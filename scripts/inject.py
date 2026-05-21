@@ -93,6 +93,8 @@ def glyph_for(kind: str) -> str:
         return "‖"
     if kind.startswith("text-") or kind.startswith("source-"):
         return "✧"
+    if kind.startswith("dict-"):
+        return "⌂"
     # Sensible default for unknown kinds
     return "◇"
 
@@ -121,6 +123,8 @@ def html_title_for(kind: str) -> str:
         return "Arabic"
     if kind.startswith("lang-"):
         return "Word"
+    if kind.startswith("dict-"):
+        return "Dictionary"
     return "Note"
 
 

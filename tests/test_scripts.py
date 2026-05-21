@@ -6516,6 +6516,129 @@ class TestNaveTopicalDetector:
         assert len(out) == 1
 
 
+class TestBatchInsertNotes:
+    """promote.batch_insert_notes inserts many notes in one read+write,
+    preserving existing tuples + assigning free per-verse suffixes."""
+
+    def _book(self, tmp_path):
+        p = tmp_path / "zz.py"
+        p.write_text(
+            "NOTES = [\n"
+            '    (\n        1, 1, "", "word", "lang-hebrew", "Hebrew",\n'
+            '        "Hebrew.",\n        "existing body 1",\n        "attr1",\n    ),\n'
+            '    (\n        2, 5, "", "", "xref-citation", "Cross-ref",\n'
+            '        "Cite.",\n        "existing body 2",\n        "attr2",\n    ),\n'
+            "]\n",
+            encoding="utf-8",
+        )
+        return p
+
+    def test_inserts_sorted_with_free_suffixes(self, tmp_path):
+        from scripts.core.notes_io import load_notes
+        from scripts.promote import batch_insert_notes
+
+        p = self._book(tmp_path)
+        new = [
+            {"ch": 1, "v": 1, "kind": "topic-nave", "body": "topics A", "attribution": "Nave"},
+            {"ch": 1, "v": 3, "kind": "topic-nave", "body": "topics B", "attribution": "Nave"},
+            {"ch": 3, "v": 1, "kind": "topic-nave", "body": "topics C", "attribution": "Nave"},
+        ]
+        assert batch_insert_notes(p, new) == 3
+        notes = load_notes(p)
+        assert len(notes) == 5
+        keys = [(t[0], t[1], t[2]) for t in notes]
+        assert keys == sorted(keys), keys
+        tn_11 = [t for t in notes if t[0] == 1 and t[1] == 1 and t[4] == "topic-nave"]
+        assert len(tn_11) == 1 and tn_11[0][2] == "a", tn_11
+        assert any(t[7] == "existing body 1" for t in notes)
+        assert any(t[7] == "existing body 2" for t in notes)
+
+    def test_multiple_new_on_same_verse_get_distinct_suffixes(self, tmp_path):
+        from scripts.core.notes_io import load_notes
+        from scripts.promote import batch_insert_notes
+
+        p = self._book(tmp_path)
+        new = [
+            {"ch": 1, "v": 1, "kind": "dict-easton", "body": "term X", "attribution": "Easton"},
+            {"ch": 1, "v": 1, "kind": "dict-easton", "body": "term Y", "attribution": "Easton"},
+        ]
+        batch_insert_notes(p, new)
+        notes = load_notes(p)
+        sufs = sorted(t[2] for t in notes if t[0] == 1 and t[1] == 1)
+        assert sufs == ["", "a", "b"], sufs
+
+    def test_dedup_skips_identical(self, tmp_path):
+        from scripts.core.notes_io import load_notes
+        from scripts.promote import batch_insert_notes
+
+        p = self._book(tmp_path)
+        new = [{"ch": 1, "v": 1, "kind": "lang-hebrew", "body": "existing body 1"}]
+        assert batch_insert_notes(p, new) == 0
+        assert len(load_notes(p)) == 2
+
+
+class TestNavesCcelExtract:
+    """extract_naves_ccel.expand_refs expands Nave's compressed reference
+    syntax with book/chapter carry-forward (the bug-prone crux)."""
+
+    def test_amram_line_full_expansion(self):
+        from scripts.extract_naves_ccel import expand_refs
+
+        t = expand_refs("-1. Father of Moses Ex 6:18; 20; Nu 26:58,59; 1Ch 6:3,18; 23:12,13")
+        assert ["exo", 6, 18] in t and ["exo", 6, 20] in t, t
+        assert ["num", 26, 58] in t and ["num", 26, 59] in t, t
+        assert ["1ch", 6, 3] in t and ["1ch", 6, 18] in t, t
+        assert ["1ch", 23, 12] in t and ["1ch", 23, 13] in t, t
+
+    def test_range_and_see_xref(self):
+        from scripts.extract_naves_ccel import expand_refs
+
+        assert expand_refs("-x Ge 5:1-5") == [["gen", 5, v] for v in range(1, 6)]
+        assert expand_refs("-See DIAMOND") == []
+
+    def test_jud_is_judges_not_jude(self):
+        from scripts.extract_naves_ccel import expand_refs
+
+        # CCEL "Jud" = Judges (jdg), NEVER Jude (jud) — a high-frequency mapping.
+        assert expand_refs("-x Jud 16:23") == [["jdg", 16, 23]]
+
+    def test_parse_text_topic_blocks(self):
+        from scripts.extract_naves_ccel import parse_text
+
+        text = "ADAMANT\n-A flint Eze 3:9; Zec 7:12\n-See DIAMOND\nAMRAPHEL\n-King of Shinar Ge 14:1,9\n"
+        fwd = parse_text(text)
+        assert fwd["ADAMANT"] == [["eze", 3, 9], ["zec", 7, 12]], fwd
+        assert fwd["AMRAPHEL"] == [["gen", 14, 1], ["gen", 14, 9]], fwd
+
+
+class TestEastonsCcelExtract:
+    """extract_eastons_ccel parses •-headword entries + full-name references."""
+
+    def test_first_ref_full_names(self):
+        from scripts.extract_eastons_ccel import first_ref
+
+        assert first_ref("son of Abigail (1 Chronicles 2:17; 2 Samuel 17:25)") == ("1ch", 2, 17)
+        assert first_ref("Lord of palm trees (Isaiah 28:21)") == ("isa", 28, 21)
+        assert first_ref("a place (Genesis 17)") is None  # chapter-only -> no verse
+        assert first_ref("Ezekiel saw (Ezekiel 1:1)") == ("eze", 1, 1)  # CORRECT code eze
+
+    def test_parse_entries_bullet_headwords(self):
+        from scripts.extract_eastons_ccel import parse_entries
+
+        text = "front\n•AMASA burden. son of Abigail (1 Chronicles 2:17).\n•BAAL-ZEBUB fly-Lord (2 Kings 1:2)."
+        heads = [h for h, _ in parse_entries(text)]
+        assert "AMASA" in heads and "BAAL-ZEBUB" in heads, heads
+
+    def test_build_notes_attaches_to_primary_verse(self):
+        from scripts.extract_eastons_ccel import build_notes
+
+        notes = build_notes([("AMASA", "AMASA burden. son of Abigail (1 Chronicles 2:17; 2 Samuel 17:25).")])
+        assert len(notes) == 1
+        n = notes[0]
+        assert (n["code"], n["ch"], n["v"], n["kind"]) == ("1ch", 2, 17, "dict-easton")
+        assert "AMASA" in n["body"] and '"' not in n["body"]
+
+
 class TestNavesFetchSourceUtilities:
     """Pure-function checks for the fetch_sources.py helpers introduced
     by χ.7. No network — these test the parser + index-builder in
@@ -6557,6 +6680,31 @@ class TestNavesFetchSourceUtilities:
         idx = self.fs._build_naves_indices(forward)
         assert idx["_meta"]["n_refs"] == 2  # garbage skipped
         assert "heb" in idx["verses"] and idx["verses"]["heb"]["11"]["1"] == ["Faith"]
+
+    def test_build_indices_drops_out_of_range_coords(self):
+        # The upstream Nave's dump is OCR-noisy and yields impossible
+        # coordinates (Genesis has 50 chapters, Deuteronomy 34); these must be
+        # rejected at the index-builder boundary so they never become notes
+        # that can never inject. Real canonical shapes drive the check.
+        forward = {
+            "Topic": [["gen", 1, 1], ["gen", 87, 12], ["deu", 81, 7], ["gen", 1, 999]],
+        }
+        idx = self.fs._build_naves_indices(forward)
+        assert idx["_meta"]["n_refs"] == 1, idx["_meta"]  # only gen 1:1 survives
+        assert idx["verses"]["gen"]["1"]["1"] == ["Topic"]
+        assert "87" not in idx["verses"].get("gen", {})  # invalid chapter dropped
+        assert "deu" not in idx["verses"]  # deu 81 (>34) dropped
+        assert "999" not in idx["verses"].get("gen", {}).get("1", {})  # invalid verse dropped
+
+    def test_build_indices_keeps_when_extent_unknown(self, monkeypatch):
+        # Tewahedo-distinctive books (or anything without a known canonical
+        # shape) can't be validated — the builder must KEEP their refs rather
+        # than silently drop content it can't verify.
+        monkeypatch.setattr(self.fs, "canonical_book_shape", lambda code: {})
+        forward = {"T": [["gen", 87, 12]]}
+        idx = self.fs._build_naves_indices(forward)
+        assert idx["_meta"]["n_refs"] == 1  # unknown extent -> kept
+        assert idx["verses"]["gen"]["87"]["12"] == ["T"]
 
     def test_naves_appears_in_attribution_doc(self, tmp_path, monkeypatch):
         """write_attributions includes the Nave's section so the

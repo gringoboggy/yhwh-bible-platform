@@ -2,6 +2,18 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. UNCOMMITTED — awaiting user "save".**
+>
+> Corpus **52,859 → 67,715 notes**; inject **99.76%** (66,173 injected + 1,381 base-baked / 67,715; 161 base-coverage residual); `ebible verify` **errors=0 / 24,015 paired**; valid EPUB; `trace_matrix` **0 unresolved refs**; `validate_taxonomy` 100% attributed; ruff-format (288) + lint_rules (12·2·0) clean.
+>
+> 1. **Nave's Topical REBUILT clean** from a user-supplied CCEL PDF → `content/sources/naves_ccel_source.txt` (NEW). The old index was OCR-noisy + under-extracted. New parser `scripts/extract_naves_ccel.py` (CCEL abbrevs, carry-forward `expand_refs`, "Jud"=Judges) → validated `naves_topical.json` (4,604 topics / 100,983 refs) → **26,335 `topic-nave` notes** (was 15,258), 0 garbled topics, 0 invalid coords, all 66 books. Fixed a 5-book code mismatch (`eze/joe/nah/jam/phi` had silently never received Nave's notes).
+> 2. **Easton's Bible Dictionary INGESTED** (new dimension) from a user-supplied CCEL PDF → `content/sources/eastons_ccel_source.txt` (NEW). `scripts/extract_eastons_ccel.py` (• headwords, full book-name refs, primary-verse anchor) → **3,779 `dict-easton` notes**. New kind `dict-easton` (category `hist`) in `content/kinds.yaml` + inject glyph ⌂.
+> 3. **Data-quality guard** `fetch_sources._naves_coord_in_extent` (TDD) rejects out-of-canonical-extent coords at the index boundary; earlier in this arc it + a prune removed 114 impossible-coordinate topic-nave notes.
+> 4. **Optimize: `promote.batch_insert_notes`** (TDD) — one read+write per book vs per-note O(n²); reused by both ingests.
+> 5. **`dev/MATRIX_MAP.md` updated** (71 kinds / 67,715 notes; ingestion pipeline; base-HTML gap marked resolved). The inject-tail spill resolver `inject.find_verse_region_b_spill` + `scripts/audit_base_html.py` shipped earlier in this arc (99.21%→99.48% pre-rebuild) — committed `d3acc4f` (spill) + uncommitted residual audit.
+>
+> **Source PDFs** (`Naves Topical Bible.pdf`, `eastons_bible_dictionary.pdf`) sit in the OUTER folder, OUTSIDE the git repo → not tracked. The committed `*_ccel_source.txt` extracts are the reproducible in-repo sources. **Still flagged, not addressed: 2 `text-witness` invalid-coord notes (gen 23:24, jos 16:59) + the latent `run.py`/`add_note.py` dead-injector dispatch.**
+
 > **➤➤➤ 2026-05-21 (LATER) INJECT-TAIL → 99.48% via boundary-aware spill resolver — READ FIRST; supersedes the 99.21% banner below.**
 >
 > **State correction:** the 99.21% inject-tail work the banner below calls "UNCOMMITTED — awaiting save" IS committed (`e05df31 build.inject-tail-99`); the working tree was clean at that commit before this session. (The banner was written pre-commit and never updated.)
@@ -20,7 +32,9 @@
 > - **Larger render efforts:** 1 Enoch 37-108 base-render gap (~25 verse-absent) · Strategy-B non-spill irregular layouts (98: mq1/2/3 Tewahedo, sir, jub, rom, mat, act, jhn) — per-book multi-file index or base re-render.
 > - Full breakdown + verse list: `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
 >
-> **NET this session:** Phases 1–3 + 5 done; placement **99.21% → 99.48% (+143)**; Phase-3 spill captured essentially ALL the mechanically-placeable tail. UNCOMMITTED on disk (code: `scripts/inject.py`, `scripts/audit_base_html.py` NEW, `tests/test_build_smoke.py` +8 tests; data: `epub_working/` 5 files re-injected; docs: this file, AUDIT, plan annotation). **Awaiting user "save"** to commit (memory `feedback_continue_not_save` — "continue" ≠ commit). Per-phase commit messages drafted in the plan's `save.cmd` steps.
+> **NET (inject-tail) — COMMITTED `d3acc4f`:** Phases 1–3 + 5; placement **99.21% → 99.48% (+143)** via the boundary-aware spill resolver; `scripts/inject.py` + `scripts/audit_base_html.py` (NEW) + 8 tests + `epub_working/` 5 files re-injected + AUDIT + plan annotation.
+>
+> **THEN (Nave's data-bug fix) — UNCOMMITTED, awaiting "save":** root-caused the `topic-nave` corpus-quality defect to `fetch_sources._build_naves_indices` accepting OCR-noisy out-of-range coordinates (Genesis 87, Deut 81, …) with no validation. **Fixed:** added `_naves_coord_in_extent` range-guard (TDD, +2 tests in `tests/test_scripts.py`); rebuilt `content/sources/naves_topical.json` (−118 refs / −6 garbage topics, 0 invalid remain); pruned **114** invalid `topic-nave` notes from 37 `content/notes/*.py` (ast-span removal, each file delta-verified). Corpus 52,973 → 52,859; placement **99.48% → 99.69%** (52,696 / 52,859); misses 277 → 163. Verified: 7+21+24 tests green, ruff-format + lint_rules clean. Full record: `dev/AUDIT_2026-05-21-inject-tail-residual.md` "Nave's data-bug fix". **Left for the owner:** 2 invalid `text-witness` notes (gen+jos, different provenance — flagged, not touched); the 163 residual stays editorial/large-render (aes versification, 1En 37-108 render, sir/jub/mq versification). Commit on user "save" (memory `feedback_continue_not_save`).
 
 > **➤➤➤ 2026-05-21 INJECT-TAIL CLOSED to 99.21% — READ FIRST (supersedes the CRASH #4 + RESUME banners below for NEXT-ACTION; ALL their work is committed — c701ae7 vision-pipeline, e0ac20e 1ki5 R1, 7a1aecf full inject — working tree was CLEAN at 7a1aecf before this session).**
 >

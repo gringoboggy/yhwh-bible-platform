@@ -273,6 +273,103 @@ def insert_note_into_book_file(
     return True
 
 
+def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing: bool = True) -> int:
+    """Insert many notes into a ``<book>.py`` NOTES list in ONE read+write.
+
+    Efficient alternative to calling ``insert_note_into_book_file`` per note
+    (which is O(filesize) each → O(n²) for a bulk promote). Existing tuples are
+    preserved byte-for-byte; new tuples are spliced at their sorted
+    ``(chapter, verse, suffix)`` positions. Suffixes are assigned free per verse,
+    considering both existing notes AND notes inserted earlier in this batch.
+
+    ``new_notes`` items are dicts with keys: chapter/ch, verse/v, kind, body
+    (required) and anchor, title, label, attribution (optional). Returns the
+    number inserted. ``skip_existing`` dedupes against an identical
+    (chapter, verse, kind, body) already present (mirrors ``note_already_exists``).
+    """
+    text = book_path.read_text(encoding="utf-8")
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return 0
+    notes_assign = None
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "NOTES" for t in node.targets):
+            notes_assign = node
+            break
+    if notes_assign is None or not isinstance(notes_assign.value, ast.List):
+        return 0
+
+    def suffix_rank(s: str) -> tuple:
+        return (0, "") if s == "" else (1, s)
+
+    existing: list[tuple] = []  # (ch, v, suffix, end_lineno) in file order
+    used_suffixes: dict[tuple, set] = {}
+    existing_bodies: dict[tuple, set] = {}
+    for tup in notes_assign.value.elts:
+        if not isinstance(tup, ast.Tuple) or len(tup.elts) < 8:
+            continue
+        try:
+            vals = ast.literal_eval(tup)
+        except (ValueError, SyntaxError):
+            continue
+        ch, v, suf, _anchor, kind = vals[0], vals[1], vals[2], vals[3], vals[4]
+        existing.append((ch, v, suf, tup.end_lineno))
+        used_suffixes.setdefault((ch, v), set()).add(suf)
+        existing_bodies.setdefault((ch, v, kind), set()).add(vals[7] if len(vals) > 7 else "")
+
+    list_open_line = notes_assign.value.lineno
+    inserts: list[tuple] = []  # (insert_after_lineno, sort_key, tuple_text)
+    for n in new_notes:
+        ch = n.get("chapter", n.get("ch"))
+        v = n.get("verse", n.get("v"))
+        kind = n["kind"]
+        body = n["body"]
+        attribution = n.get("attribution")
+        if skip_existing and body in existing_bodies.get((ch, v, kind), set()):
+            continue
+        used = used_suffixes.setdefault((ch, v), set())
+        suffix = pick_free_suffix(used)
+        used.add(suffix)
+        new_key = (ch, v, suffix_rank(suffix))
+        after = list_open_line
+        for ech, ev, esuf, eend in existing:
+            if (ech, ev, suffix_rank(esuf)) < new_key:
+                after = eend
+            else:
+                break
+        txt = format_tuple_text(
+            ch,
+            v,
+            suffix,
+            n.get("anchor", ""),
+            kind,
+            n.get("title", "Note"),
+            n.get("label", "Note"),
+            body,
+            attribution,
+        )
+        inserts.append((after, new_key, txt))
+
+    if not inserts:
+        return 0
+    lines = text.splitlines(keepends=True)
+    by_line: dict[int, list] = {}
+    for after, key, txt in inserts:
+        by_line.setdefault(after, []).append((key, txt))
+    for after in sorted(by_line, reverse=True):
+        group = [t for _, t in sorted(by_line[after], key=lambda x: x[0])]
+        lines[after:after] = group
+    new_text = "".join(lines)
+    try:
+        ast.parse(new_text)
+    except SyntaxError:
+        return 0
+    ensure_backup(book_path)
+    atomic_write(book_path, new_text)
+    return len(inserts)
+
+
 # ----------------------------------------------------------------------
 # Promote a single candidate
 # ----------------------------------------------------------------------
