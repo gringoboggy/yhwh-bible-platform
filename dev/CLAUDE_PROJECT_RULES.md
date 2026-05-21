@@ -1,12 +1,35 @@
 # Claude project rules — the Bible publishing platform
 
-**Last updated:** 2026-05-07 after φ.1.
+**Last updated:** 2026-05-21 (de-staled + indexed; corpus/plan/map pointers refreshed).
 **Purpose:** the durable, in-repo reference for how any Claude
 (or returning-user) should think about working on this project.
 Memory comes and goes; this doc is the source of truth.
 
 If anything in this doc conflicts with a one-off instruction from the
 user, the user wins for that turn — but the rule stays as written.
+
+## Rules map — which § governs what (jump here first)
+
+| § | Governs |
+|---|---|
+| **0** | Bootstrap protocol — read-order (RULES → SESSION_STATE → PLAN) + the always-there maps (MATRIX_MAP, REPO_MAP). |
+| **1** | North star — the builder demo; corpus depth; patristic-voice composition; the two standalone parallel Bibles; the self-upgrading matrix. |
+| **2** | Universal principles (carried from SCOPE 05-07/08). |
+| **3** | Sequencing rules (how to order work). |
+| **4** | Save semantics — "save" = local commit; checkpoint saves; "continue" ≠ "save". |
+| **5** | Phase / commit tracking. |
+| **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
+| **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |
+| **8** | Testing conventions — arc-close pin convention. |
+| **9** | **Mental models** — step-by-step recipes: add an edition feature / translation / popup language / per-book asset / uploadable binary / static route / meta-tool / aggregate API / feature endpoint / **corpus-growth (χ-cluster)** / four-tier defensive system / style knob / god-module extraction / Δ-family index-backed op. |
+| **10** | What this project is NOT (scope guardrails). |
+| **11** | Continuity protocol — keep `SESSION_STATE.md` current. |
+| **12** | Retrospective protocol — keep `CHANGELOG.md` + the rules current. |
+| **13** | Topic-shift protocol — audit before pivoting. |
+| **14** | Session-resume / state-uncertainty audit. |
+| **15** | **Chain of command** — the tier hierarchy (user > rules > skills > defaults) as a matrix. |
+
+Companion maps: `dev/MATRIX_MAP.md` (data-flow + base-HTML), `dev/REPO_MAP.md` (file/folder index), `dev/PLAN_2026-05-21.md` (roadmap), `dev/CHANGELOG.md` (shipped chronology).
 
 ---
 
@@ -24,12 +47,14 @@ Every fresh session begins by reading, in this order:
                                   phase-history only)
 ```
 
-**Always-there map (user-directed 2026-05-21):** for ANY "where does X
-live / how does data flow / what feeds the build" question about the
-editions × kinds matrix or the build pipeline, check `dev/MATRIX_MAP.md`
-FIRST — it traces CONFIG → loaders → matrix/build → consumers and names
-the exact module, so you don't grep blind. Companion: `dev/trace_matrix.py`
-re-verifies its counts + reference integrity.
+**Always-there maps (user-directed 2026-05-21):** for ANY "where does X
+live / how does data flow / what feeds the build" question, check the maps
+FIRST — never grep blind. `dev/MATRIX_MAP.md` traces the DATA-FLOW (config →
+loaders → matrix/build/inject → consumers + the base-HTML structure & coverage)
+and names the exact module; `dev/REPO_MAP.md` is the FILE/FOLDER index (every
+directory + what's in it). Companions re-verify them: `dev/trace_matrix.py`
+(matrix integrity) and `dev/trace_repo.py` (repo-map completeness) — the
+pre-commit `lint_rules.py` enforces both (`plan_coherence`, `repo_map_complete`).
 
 Then optionally — only when the user's ask implies them:
 - `dev/CHANGELOG.md` for chronological history of what shipped
@@ -80,18 +105,16 @@ build choices are visible before BUILD is clicked.
 
 The Ethiopian Tewahedo edition is the **superset** that all other
 editions filter from. **Original target corpus size: 35,000–40,000
-notes**; **actual corpus as of 2026-05-12: 51,394 notes** (147% of
-the original upper bound — the floor is met, with substantial
-headroom). Drawn from public-domain sources via the existing
-`prospect → promote` pipeline. Other editions are subsets; their
-note counts fall out automatically from canon + kind filtering.
+notes** — long since exceeded. **Live count: see `dev/SESSION_STATE.md`**
+(67,715 as of 2026-05-21; do NOT hard-code a figure here — it rots).
+Drawn from public-domain sources via the `prospect → promote` pipeline
+and the reference-corpus ingestion (`dev/MATRIX_MAP.md` → "Reference-corpus
+ingestion"). Other editions are subsets; their note counts fall out
+automatically from canon + kind filtering.
 
-Today's count: **52,459 notes** (post-2026-05-13 EOD, +1,065
-γ.4 patristic-promoted notes on top of the 51,394 hand-authored
-baseline). Corpus floor met with substantial headroom (148.5% of
-original upper bound). Continued growth via χ-AI-xrefs (LLM-backed
-thematic cross-references) and γ-cluster expansion (γ.4.x Tewahedo
-+ γ.6 Vulgate + γ.7 Targums) is **opportunistic, not blocking** —
+Corpus floor met with large headroom. Continued growth via reference-work
+ingestion (Nave's, Easton's, …), χ-AI-xrefs (LLM-backed thematic
+cross-references), and γ-cluster expansion is **opportunistic, not blocking** —
 the depth claim against every competing free Bible app is
 comfortably satisfied. Future γ-cluster ships add depth in specific
 dimensions (Tewahedo distinctive readings, manuscript-text-critical

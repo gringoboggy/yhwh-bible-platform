@@ -2,9 +2,9 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. UNCOMMITTED — awaiting user "save".**
+> **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. COMMITTED `38b80d3`; later arcs (re-audit + PLAN_2026-05-21, Track-D cleanups, base-HTML coverage audit, repo/rules maps) committed through `3c4a173`, plus one uncommitted map/rules batch — full chronology in `dev/CHANGELOG.md`.**
 >
-> Corpus **52,859 → 67,715 notes**; inject **99.76%** (66,173 injected + 1,381 base-baked / 67,715; 161 base-coverage residual); `ebible verify` **errors=0 / 24,015 paired**; valid EPUB; `trace_matrix` **0 unresolved refs**; `validate_taxonomy` 100% attributed; ruff-format (288) + lint_rules (12·2·0) clean.
+> Corpus **52,859 → 67,715 notes**; inject **99.76%** (66,173 injected + 1,381 base-baked / 67,715). The ~161-note residual is **verse-level versification, NOT coverage** — base-HTML coverage is COMPLETE (0 chapter gaps; all 87 books / 1,702 chapters; `audit_base_html.py --coverage`). `ebible verify` **errors=0 / 24,015 paired**; valid EPUB; `trace_matrix` **0 unresolved refs**; `validate_taxonomy` 100% attributed; ruff + lint_rules clean.
 >
 > 1. **Nave's Topical REBUILT clean** from a user-supplied CCEL PDF → `content/sources/naves_ccel_source.txt` (NEW). The old index was OCR-noisy + under-extracted. New parser `scripts/extract_naves_ccel.py` (CCEL abbrevs, carry-forward `expand_refs`, "Jud"=Judges) → validated `naves_topical.json` (4,604 topics / 100,983 refs) → **26,335 `topic-nave` notes** (was 15,258), 0 garbled topics, 0 invalid coords, all 66 books. Fixed a 5-book code mismatch (`eze/joe/nah/jam/phi` had silently never received Nave's notes).
 > 2. **Easton's Bible Dictionary INGESTED** (new dimension) from a user-supplied CCEL PDF → `content/sources/eastons_ccel_source.txt` (NEW). `scripts/extract_eastons_ccel.py` (• headwords, full book-name refs, primary-verse anchor) → **3,779 `dict-easton` notes**. New kind `dict-easton` (category `hist`) in `content/kinds.yaml` + inject glyph ⌂.

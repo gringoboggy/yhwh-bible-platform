@@ -6604,6 +6604,24 @@ class TestCoordGuard:
         assert len(notes) == 1 and notes[0][1] == 1
 
 
+class TestBaseCoverageAndRepoMap:
+    """Regression guards for the 2026-05-21 'find anything / nothing missing'
+    invariants: the base HTML stays chapter-complete, and dev/REPO_MAP.md keeps
+    documenting every top-level directory."""
+
+    def test_base_html_has_zero_chapter_gaps(self):
+        from scripts.audit_base_html import coverage_report
+
+        gaps = coverage_report()
+        assert gaps == {}, f"base HTML is missing chapters (was complete): {gaps}"
+
+    def test_repo_map_documents_every_top_level_dir(self):
+        from scripts.lint_rules import check_repo_map_complete
+
+        r = check_repo_map_complete()
+        assert r["status"] == "pass", r["violations"]
+
+
 class TestNavesCcelExtract:
     """extract_naves_ccel.expand_refs expands Nave's compressed reference
     syntax with book/chapter carry-forward (the bug-prone crux)."""

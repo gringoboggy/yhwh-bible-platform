@@ -95,7 +95,48 @@ def verse_absent_report() -> list[tuple[str, int, int]]:
     return sorted(rows)
 
 
+def coverage_report() -> dict[str, list[int]]:
+    """Per book, the chapters (1..ch_count) with NO anchor in the base HTML —
+    i.e. genuinely-missing scripture, the class of bug a stale 'truncated at
+    chN' note describes. Uses ``config`` ch_count (covers ALL 87 books, incl.
+    Tewahedo-distinctives with no KJV skeleton). Strategy-B: chapter anchor
+    ``id="ch-{bxx}-c{ch}"`` absent. Strategy-A: no verse anchor
+    ``id="v-{code}-{ch}-N"`` for the chapter. A book whose files are entirely
+    absent from this base is reported as ``["BOOK-ABSENT", ch_count]`` (e.g.
+    standalone editions render from their own HTML, not this base)."""
+    gaps: dict[str, list] = {}
+    for b in config.load_books():
+        code = b["code"]
+        n = b.get("ch_count", 0)
+        if not n:
+            continue
+        texts = _file_texts(b)
+        if not texts:
+            gaps[code] = ["BOOK-ABSENT", n]
+            continue
+        blob = "\n".join(texts.values())
+        strategy = b.get("strategy", "A")
+        bxx = b.get("bxx")
+        absent = []
+        for ch in range(1, n + 1):
+            if strategy == "B" and bxx:
+                present = f'id="ch-{bxx}-c{ch}"' in blob
+            else:
+                present = re.search(rf'id="v-{re.escape(code)}-{ch}-\d+"', blob) is not None
+            if not present:
+                absent.append(ch)
+        if absent:
+            gaps[code] = absent
+    return gaps
+
+
 def main() -> int:
+    if "--coverage" in sys.argv[1:]:
+        gaps = coverage_report()
+        for code, chs in sorted(gaps.items()):
+            print(f"  {code:5} {len(chs) if chs[0] != 'BOOK-ABSENT' else chs[1]:>4} ch absent: {chs}")
+        print(f"\nbooks with chapter-coverage gaps = {len(gaps)}")
+        return 0
     if "--verse-absent" in sys.argv[1:]:
         rows = verse_absent_report()
         for code, ch, v in rows:

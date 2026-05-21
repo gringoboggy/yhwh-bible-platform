@@ -1226,11 +1226,53 @@ def check_plan_coherence() -> dict:
     }
 
 
+def check_repo_map_complete() -> dict:
+    """Every non-hidden top-level directory must be documented in dev/REPO_MAP.md
+    — the file/folder index of record. Anti-rot mirror of dev/trace_repo.py, so the
+    "find anything from the map" guarantee can't silently lapse as the tree grows."""
+    repo_map = REPO / "dev" / "REPO_MAP.md"
+    skip = {
+        ".git",
+        "__pycache__",
+        "node_modules",
+        ".backups",
+        ".pytest_cache",
+        ".venv",
+        "venv",
+        ".ruff_cache",
+        ".mypy_cache",
+        ".sonar",
+        ".scannerwork",
+    }
+    if not repo_map.is_file():
+        return {
+            "id": "repo_map_complete",
+            "name": "Repo map documents every top-level dir",
+            "status": "warn",
+            "message": "dev/REPO_MAP.md missing",
+            "violations": [],
+        }
+    text = repo_map.read_text(encoding="utf-8")
+    undoc = [
+        p.name
+        for p in sorted(REPO.iterdir())
+        if p.is_dir() and not p.name.startswith(".") and p.name not in skip and (p.name + "/") not in text
+    ]
+    return {
+        "id": "repo_map_complete",
+        "name": "Repo map documents every top-level dir",
+        "status": "warn" if undoc else "pass",
+        "message": (f"{len(undoc)} top-level dir(s) not in REPO_MAP.md" if undoc else "all top-level dirs documented"),
+        "violations": [{"undocumented_dir": d} for d in undoc],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
     "encode_decode": check_encode_decode_round_trip,
     "docs": check_doc_cross_references,
+    "repo_map_complete": check_repo_map_complete,
     "freshness": check_session_state_freshness,
     # Drift-catching tier (added after a real drift event)
     "inflight": check_inflight_freshness,

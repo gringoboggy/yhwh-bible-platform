@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-05-21 (LATEST) — read FIRST.** Corpus **67,715 notes / 71 kinds / 11 editions / 87 books**; demo build LIVE — `inject` places **99.76%** (66,173 + 1,381 base-baked / 67,715), `ebible verify` **errors=0 / 24,015 paired**, valid EPUB. Health: `trace_matrix` **0 unresolved refs**, `validate_taxonomy` 100% attributed, ruff-format + `lint_rules` clean. Working tree clean at `a935701`.
+> **➤➤➤ 2026-05-21 (LATEST) — read FIRST.** Corpus **67,715 notes / 71 kinds / 11 editions / 87 books**; demo build LIVE — `inject` places **99.76%** (66,173 + 1,381 base-baked / 67,715), `ebible verify` **errors=0 / 24,015 paired**, valid EPUB. Health: `trace_matrix` **0 unresolved refs**, `validate_taxonomy` 100% attributed, ruff-format + `lint_rules` clean. Shipped chronology + latest commits: `dev/CHANGELOG.md`.
 >
-> **Re-arranged roadmap + full re-audit:** `dev/PLAN_2026-05-21.md` (supersedes `PLAN_2026-05-09.md`). Live task tracker / next-action: `dev/IN_FLIGHT.md`. Data-flow + integrity: `dev/MATRIX_MAP.md`. (This file was trimmed from ~896 KB on 2026-05-21; history in `dev/SESSION_STATE_archive_2026-05-21.md`.)
+> **The map layer (read for "where / how / what shipped"):** `dev/PLAN_2026-05-21.md` (forward roadmap; supersedes `PLAN_2026-05-09`) · `dev/IN_FLIGHT.md` (live task tracker) · `dev/MATRIX_MAP.md` (data-flow + base-HTML structure) · `dev/REPO_MAP.md` (file/folder index) · `dev/CHANGELOG.md` (shipped chronology). (This file was trimmed from ~896 KB on 2026-05-21; history in `dev/SESSION_STATE_archive_2026-05-21.md`.)
 
 ## What shipped (2026-05-21 arcs)
 
@@ -13,7 +13,7 @@
 
 ## Next (per dev/PLAN_2026-05-21.md, toward the 2026-06-07 deadline)
 
-1. **DEMO (north star)** — build is solid; remaining is user-side visual QA (browser + e-reader) + optional epubcheck/Java. The 161-note inject residual is base-HTML coverage (1 Enoch 37-108 render gap, aes WEB↔KJV versification) — NOT mechanically addable; documented in `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
+1. **DEMO (north star)** — build is solid; remaining is user-side visual QA (browser + e-reader) + optional epubcheck/Java. **Base-HTML coverage is COMPLETE** — all 87 books / 1,702 chapters present (verified `audit_base_html.py --coverage`; NO book truncated). The ~156-161-note inject residual is purely **verse-level versification** (the note's source numbers a verse the base chapter lacks: aes/1en/mq/sir/jub) — NOT mechanically addable. Map: `dev/MATRIX_MAP.md` → "Base-HTML structure & coverage".
 2. **MANUSCRIPT MARATHON — PAUSED** (the other major track): 1ki5 R2 spec-review held; then 1ki6 / 1sa2 (Kings/Samuel Geʽez dual-witness collation). HEAVY → script-based, single-chapter, OOM-aware (memory `feedback_concurrent_agent_cap`), check-in cadence (`feedback_marathon_pacing`).
 3. **CORPUS EXPANSION — opportunistic** (memory `corpus-reference-expansion`): more PD reference works via clean CCEL PDFs the user supplies (candidates: Matthew Henry / JFB commentary, Torrey's Topical, Vincent's Word Studies).
 4. **CLEANUP / UPGRADES** — see PLAN_2026-05-21 §upgrades (editorial note-key review, matrix vestigial-layering refactor, etc.).

@@ -1,5 +1,16 @@
 # Inject-tail residual audit (2026-05-21, after boundary-aware spill resolver)
 
+> **SUPERSEDED SNAPSHOT (pre-rebuild) — read this first.** This documents the **277**-note
+> residual at the 52,973-note corpus, BEFORE the 2026-05-21 reference-corpus rebuild.
+> **Current state (corpus 67,715, verified via `audit_base_html.py --coverage`): 0
+> chapter-coverage gaps** — all **87 books / 1,702 chapters** are present in the base HTML;
+> the residual is **~156-161 notes that are purely verse-level versification** (the note's
+> *source* numbers a verse the base chapter lacks): `aes` 73 · `1en` 31 · `mq1-3` 33 · `sir`
+> 10 · `jub` 9 (by kind `lang-hebrew` 83 / `comm-ethiopian` 70). The "class A — chapter-absent"
+> heading below was a **mis-label** (the aes note already corrected it to versification); no
+> book is truncated. Authoritative current map: `dev/MATRIX_MAP.md` → "Base-HTML structure &
+> coverage". The per-class adjudication below remains a useful reference.
+
 **Context:** `docs/superpowers/plans/2026-05-21-inject-tail-completion.md` Phases 1–3
 took EPUB note placement from **52,553 → 52,696 / 52,973 = 99.48%** (+143) via the
 boundary-aware Strategy-B spill resolver (`inject.find_verse_region_b_spill`). This

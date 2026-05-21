@@ -1,5 +1,12 @@
 # The Matrix — data-flow & integrity map
 
+> **Two companion maps:** THIS file maps the **data-flow** (config → matrix → build →
+> inject → ingestion + the base-HTML structure). For the **file/folder index** —
+> "where does any directory/file live and what's in it" — see **`dev/REPO_MAP.md`**
+> (regenerate/verify with `py dev/trace_repo.py`; the pre-commit `repo_map_complete`
+> check fails-soft if a new top-level dir is undocumented). To search note *content*,
+> use the SQLite+FTS index (`scripts/core/corpus_index.py` / `scripts/note_search.py`).
+>
 > Map for humans + future Claude. "The matrix" = the **editions × kinds count
 > grid** (`scripts/core/matrix.py`): "if I shipped edition X now, how many notes
 > of each kind would appear?" It is anchored on the same edition profiles
@@ -146,12 +153,33 @@ Health invariant: **paired=N/N** — every `href="#note-X"` has a matching `id="
 
 **THE GAP — RESOLVED (2026-05-21):** the base scripture HTML was recovered from the v28a-50 snapshot
 and COMMITTED (`5ee2ad1`) so it can no longer be silently lost; `ebible build` produces valid EPUBs
-again. The inject tail was then closed to ~99.5% by the Strategy-B spill resolver (see the inject step
-above); the residual is base-HTML versification/coverage (1 Enoch 37-108, the aes WEB↔KJV scheme),
-enumerated in `dev/AUDIT_2026-05-21-inject-tail-residual.md`. To re-derive a clean inject from scratch:
-`git checkout 5ee2ad1 -- epub_working/` then `inject --all-books` (idempotent; reflects the current
-corpus). NOTE — still latent: `run.py` / `add_note.py` reference the lost `source_archive/` +
-`kings_session/` injectors; superseded by `inject.py` but would fail if invoked (retire/repoint TODO).
+again. To re-derive a clean inject from scratch: `git checkout 5ee2ad1 -- epub_working/` then
+`inject --all-books` (idempotent; reflects the current corpus). The lost `source_archive/` +
+`kings_session/` injectors that `run.py`/`add_note.py` shelled out to were repointed to
+`scripts/inject.py` (commit `a935701`).
+
+### Base-HTML structure & coverage — how to find / verify any book's scripture text
+
+Per-book metadata: `config.get_book(code)` → `bxx` (canon position, 1-indexed — e.g. **1 Enoch = b16**),
+`strategy` (A or B), `ch_count`, `files` (which `index_split_*.html` hold the book). Two anchor schemes:
+
+| strategy | books | how a verse is located |
+|---|---|---|
+| **A** (early canon) | gen … rev (Protestant + most deutero) | verse anchor `id="v-{code}-{ch}-{v}"` |
+| **B** (late / Tewahedo) | 1en, 2en, jub, mq1-3, … | chapter anchor `id="ch-{bxx}-c{ch}"` + `<span class="vn">{v}</span>` (verses may spill across a split-file boundary → `find_verse_region_b_spill`) |
+
+Audit tools (`scripts/audit_base_html.py`, read-only, re-runnable):
+- `--coverage` — per book, canonical chapters (1..`ch_count`) with NO anchor in the base = genuinely-missing scripture.
+- `--verse-absent` — Strategy-A notes whose verse anchor is absent (versification gap).
+- *(default)* — Strategy-B chapters whose anchor region holds no verse spans (spill chapters).
+
+**Coverage state (verified 2026-05-21 via `--coverage`): 0 chapter gaps** — all **87 books / 1,702
+chapters** are present in the base HTML; **no book is truncated**. (The earlier "1 Enoch 37-108
+missing" note was a *stale pre-recovery artifact* — 1 Enoch has all 108 chapters in the v28a-50 base.)
+The inject residual is **~156-161 notes that are verse-level versification mismatches** — the note's
+*source* numbers a verse the base translation's chapter doesn't have, so it is **NOT addable content**:
+by book `aes` 73 · `1en` 31 · `mq1-3` 33 · `sir` 10 · `jub` 9; by kind `lang-hebrew` 83 ·
+`comm-ethiopian` 70 · `comm` 3. Detail: `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
 
 ## Reference-corpus ingestion (PD reference works → notes)
 
