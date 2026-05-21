@@ -82,13 +82,13 @@ VALIDATORS (gate everything):
 The reference graph is sound (0 dangling refs). The blemishes are cosmetic/structural,
 products of organic growth from the original 1-Bible builder:
 
-1. **Stale docstring** — `core/matrix.py` says "5 edition profiles" / "63 kinds"; actual
-   **11 / 70**. Code reads dynamically, so behavior is fine; only the doc lies.
-2. **`editions.yaml` comment drift** — section-header comments sit *above* the previous
-   edition's trailing `popup_languages_default` block, so the comment for edition N+1 appears
-   to caption edition N's last key (e.g. the "catholic / largest English market" header sits
-   above `ethiopian-tewahedo`'s `popup_languages_default`). Values are per-edition sensible, but
-   confirm `ethiopian-tewahedo`'s `[english, hebrew, greek]` popups are intended.
+1. **Stale docstring — RESOLVED (2026-05-21).** `core/matrix.py`'s docstring now reads
+   **71 kinds / 67,715 notes / 11 editions** (was "5 editions / 63 kinds", later "70 / 1,371").
+2. **`editions.yaml` comment drift — RESOLVED (2026-05-21).** The 3 drifted section-header blocks
+   (catholic / jewish / scholarly) sat above the *previous* edition's trailing
+   `popup_languages_default`; each moved to just above its own `- id:` (pure comment reorder, data
+   unchanged — verified 11 editions still load). `ethiopian-tewahedo`'s `[english, hebrew, greek]`
+   popups confirmed intended (unchanged).
 3. **Logic divergence — RESOLVED (2026-05-20).** "Which kinds ship in this edition" was implemented
    THREE times with drifting gates: `build_edition.compute_enabled_kinds` (phase gate, no ai-gate),
    `matrix._enabled_kinds_for_edition` (ai-gate, no phase gate), `config._kinds_in_edition` (phase
@@ -101,9 +101,12 @@ products of organic growth from the original 1-Bible builder:
    `config._kinds_in_edition` all delegate to it. Invariant pinned by
    `tests/test_enabled_kinds_unified.py` (matrix == build == config for every edition). Matrix counts
    dropped to the correct build-matching values; build output unchanged (`comm-ai` corpus = 0).
-4. **Vestigial ψ.35 layering** — `Matrix.enabled/potential/per_book` are now derived projections
-   kept only so old `m.enabled[ed]` reads keep working. A future slice could drop them for
-   `@cached_property`.
+4. **Vestigial ψ.35 layering — WON'T-FIX (assessed 2026-05-21).** `Matrix.enabled/potential/per_book`
+   are derived projections materialized in `__post_init__`. Converting to `@cached_property` is
+   blocked by `@dataclass(frozen=True)` (cached_property can't write its cache to a frozen instance
+   without un-freezing, which drops hashability/immutability) AND pointless — the class docstring
+   notes every call site reads all three projections, so laziness saves nothing. The eager +
+   `object.__setattr__` approach is the correct frozen-compatible solution; leave as-is.
 
 ## Re-run the integrity trace
 

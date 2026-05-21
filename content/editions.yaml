@@ -119,16 +119,16 @@ editions:
       - "rev=covers/_book_defaults/rev.jpg"
     notes: "Leads with comm-ethiopian and liturgy-ethiopian; foregrounds compare-pseudepigrapha (1 Enoch and Jubilees are canonical here). Book covers ingested 2026-05-12 from publisher's curated 66-cover set (Protestant canon scope; Ethiopic extras like 1en/jub/mq1-3 to be added in a future ingest)."
 
-  # ──────────────────────────────────────────────────────────────────
-  # Largest English-speaking religious market. Magisterial-friendly,
-  # includes deuterocanonical content, foregrounds Marian and patristic
-  # readings.
-  # ──────────────────────────────────────────────────────────────────
     popup_languages_default:
       - "english"
       - "hebrew"
       - "greek"
 
+  # ──────────────────────────────────────────────────────────────────
+  # Largest English-speaking religious market. Magisterial-friendly,
+  # includes deuterocanonical content, foregrounds Marian and patristic
+  # readings.
+  # ──────────────────────────────────────────────────────────────────
   - id: catholic-study
     canon: catholic
     time_filter_ceiling: null
@@ -199,14 +199,14 @@ editions:
     cover_image: "covers/evangelical-reformed.jpg"
     notes: "Foregrounds comm-reformation, comm-modern-critical, dist-typological, dev-application."
 
-  # ──────────────────────────────────────────────────────────────────
-  # Sophisticated, less competition. Foregrounds rabbinic, Hebrew,
-  # parashot. Excludes NT and Christian-distinctive content.
-  # ──────────────────────────────────────────────────────────────────
     popup_languages_default:
       - "english"
       - "greek"
 
+  # ──────────────────────────────────────────────────────────────────
+  # Sophisticated, less competition. Foregrounds rabbinic, Hebrew,
+  # parashot. Excludes NT and Christian-distinctive content.
+  # ──────────────────────────────────────────────────────────────────
   - id: jewish-study
     canon: tanakh
     title: "The Jewish Study Tanakh — Expanded"
@@ -235,14 +235,14 @@ editions:
     cover_image: "covers/jewish-study.jpg"
     notes: "Foregrounds comm-rabbinic, lang-hebrew, liturgy-torah-portion. Does not include NT books in build manifest (handled at book level, not kind level)."
 
-  # ──────────────────────────────────────────────────────────────────
-  # Smallest market, highest prestige. Includes everything; no
-  # tradition-leveling. The 'Oxford Annotated' position.
-  # ──────────────────────────────────────────────────────────────────
     popup_languages_default:
       - "english"
       - "hebrew"
 
+  # ──────────────────────────────────────────────────────────────────
+  # Smallest market, highest prestige. Includes everything; no
+  # tradition-leveling. The 'Oxford Annotated' position.
+  # ──────────────────────────────────────────────────────────────────
   - id: scholarly-academic
     canon: ethiopian
     title: "The Annotated Ethiopian Bible — Scholar's Edition"
