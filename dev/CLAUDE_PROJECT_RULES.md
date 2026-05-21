@@ -23,6 +23,13 @@ Every fresh session begins by reading, in this order:
                                   open phase; supersedes 2026-05-08)
 ```
 
+**Always-there map (user-directed 2026-05-21):** for ANY "where does X
+live / how does data flow / what feeds the build" question about the
+editions × kinds matrix or the build pipeline, check `dev/MATRIX_MAP.md`
+FIRST — it traces CONFIG → loaders → matrix/build → consumers and names
+the exact module, so you don't grep blind. Companion: `dev/trace_matrix.py`
+re-verifies its counts + reference integrity.
+
 Then optionally — only when the user's ask implies them:
 - `dev/CHANGELOG.md` for chronological history of what shipped
   when (skim it when the user references "last session" or

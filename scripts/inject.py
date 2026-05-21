@@ -307,43 +307,47 @@ def find_marker_insertion_point(verse_html: str, anchor: str) -> int | None:
             depth += 1
         elif c == ">":
             depth -= 1
-        elif depth == 0:
-            # We're in text content. Try matching anchor here.
-            if verse_html[i : i + len(target)] == target:
-                return i + len(target)
+        elif depth == 0 and verse_html[i : i + len(target)] == target:
+            # In text content and the anchor matches starting here.
+            return i + len(target)
         i += 1
     return None
 
 
-def find_notes_section_for_chapter(html: str, ch: int) -> tuple[int, int] | None:
-    """Return (start, end) of the `<aside class="notes-section">` block
-    that holds asides for the given chapter. Strategy: each chapter's
-    verses appear before its notes-section in document order; find the
-    chapter heading marker `id="ch-bNN-cM"` (or any `id="ch-…-c{ch}"`)
-    and then scan forward for the next `<aside class="notes-section">`.
+def resolve_marker_insertion(verse_html: str, anchor: str) -> tuple[int, bool]:
+    """Decide where a marker goes inside a verse region, never dropping the note.
 
-    Returns the byte range INSIDE the notes-section (between its opening
-    `>` and closing `</aside>`), where a new aside child should be
-    inserted in verse order.
+    Returns ``(offset, used_fallback)``:
+
+      - If the anchor word is found in the verse's rendered text, the
+        marker lands immediately after it (``used_fallback=False``).
+      - If the anchor word is NOT found — the note was authored against
+        wording the base text doesn't share (KJV ``LORD`` vs WEB
+        ``Yahweh``, ``firmament`` vs ``expanse``), or a base-HTML
+        verse-merge left this verse's slot empty — we fall back to
+        verse-end placement (``used_fallback=True``), the same position
+        used for verse-level (empty-anchor) notes. The note still renders
+        on its verse; only the marker's in-line position is approximate.
+
+    Empty / whitespace anchors are verse-level by design, so they always
+    resolve at verse end with ``used_fallback=False`` — that placement is
+    intentional, not a degraded match.
     """
-    # Find the chapter heading anchor
-    ch_marker_re = re.compile(r'<a\s+id="ch-b\d+-c' + str(ch) + r'"')
-    m = ch_marker_re.search(html)
-    if not m:
-        return None
-    # Find the first notes-section after the chapter heading
-    section_open = re.search(
-        r'<aside\s+class="notes-section"[^>]*>',
-        html[m.end() :],
-    )
-    if not section_open:
-        return None
-    open_start = m.end() + section_open.start()
-    inside_start = m.end() + section_open.end()
-    # Find matching </aside> — outer level. Naive but works because
-    # nested <aside> children are siblings, and the outer </aside>
-    # comes after all children. We scan with depth counting on `<aside`
-    # / `</aside>` tokens.
+    ins = find_marker_insertion_point(verse_html, anchor)
+    if ins is not None:
+        return ins, False
+    # Anchor text not present in this verse's rendered prose. Place the
+    # marker at verse end rather than discarding the note. The empty-anchor
+    # path of find_marker_insertion_point yields that trimmed end offset and
+    # never returns None, so the result is always a valid in-region index.
+    end = find_marker_insertion_point(verse_html, "")
+    return (end if end is not None else len(verse_html)), True
+
+
+def _aside_inside_range(html: str, inside_start: int) -> tuple[int, int] | None:
+    """Given the offset just past a `<aside ...>` opening tag, return
+    (inside_start, close_pos) for the matching `</aside>`. Depth-counts on
+    `<aside` / `</aside>` so nested aside children don't close early."""
     depth = 1
     pos = inside_start
     while depth > 0 and pos < len(html):
@@ -360,6 +364,82 @@ def find_notes_section_for_chapter(html: str, ch: int) -> tuple[int, int] | None
                 return (inside_start, next_close)
             pos = next_close + len("</aside>")
     return None
+
+
+def find_notes_section_for_chapter(html: str, ch: int, bxx: str | None = None) -> tuple[int, int] | None:
+    """Return (start, end) of the `<aside class="notes-section">` block
+    that holds asides for the given chapter — the byte range INSIDE the
+    section (between its opening `>` and closing `</aside>`).
+
+    Primary: find the chapter heading `id="ch-{bxx}-c{ch}"` then the next
+    notes-section after it. The base HTML renders chapter ids on either an
+    `<a class="ch-anchor">` (Genesis-style) or a `<p class="ch-heading">`
+    (Deuteronomy-style) element, so the heading is matched by its id on ANY
+    tag; the trailing `"` keeps `c1` from matching `c12`. When `bxx` is
+    known the match is scoped to it so a shared split file's other-book
+    `cN` can't capture the wrong section.
+
+    Fallback: a section synthesized by ensure_notes_section_a for a chapter
+    whose heading was stranded in the previous split file is tagged
+    `id="notes-{bxx}-c{ch}"`; match that directly so the synthesized
+    section is found on subsequent notes (idempotency).
+    """
+    book_pat = re.escape(bxx) if bxx else r"b\d+"
+    m = re.search(r'id="ch-' + book_pat + r"-c" + str(ch) + r'"', html)
+    if m:
+        section_open = re.search(r'<aside\s+class="notes-section"[^>]*>', html[m.end() :])
+        if section_open:
+            return _aside_inside_range(html, m.end() + section_open.end())
+    if bxx:
+        synth = re.search(
+            r'<aside\s+class="notes-section"\s+id="notes-' + re.escape(bxx) + r"-c" + str(ch) + r'"[^>]*>',
+            html,
+        )
+        if synth:
+            return _aside_inside_range(html, synth.end())
+    return None
+
+
+def ensure_notes_section_a(text: str, ch: int, bxx: str | None, after_pos: int) -> tuple[str, tuple[int, int] | None]:
+    """Ensure chapter ``ch`` has a notes-section in THIS file, creating one
+    if a file-split boundary dropped it.
+
+    Normally the section is found by find_notes_section_for_chapter. But when
+    a chapter's verses spill across a split-file boundary, the chapter heading
+    stays in the previous file while the verses (and their markers) open the
+    next file — which then has no ``ch-{bxx}-c{ch}`` heading and no section for
+    the chapter (gen 27 is the live case). Repair the split: insert an empty
+    notes-section tagged ``id="notes-{bxx}-c{ch}"`` just before the next
+    chapter heading after ``after_pos`` (the chapter's verse position), or
+    before ``</body>`` if the chapter is the file's last. The section carries
+    its OWN id (not a duplicate ``ch-{bxx}-c{ch}`` chapter anchor, which would
+    collide with the real heading in the previous file), and that id makes it
+    locatable on the next call, so this is idempotent across a book's notes.
+
+    Returns ``(possibly_modified_text, section_range_or_None)``.
+    """
+    existing = find_notes_section_for_chapter(text, ch, bxx)
+    if existing is not None:
+        return text, existing
+    if not bxx:
+        return text, None  # cannot synthesize a book-scoped section without bxx
+
+    nxt = re.search(r'id="ch-' + re.escape(bxx) + r'-c\d+"', text[after_pos:])
+    if nxt:
+        abs_id = after_pos + nxt.start()
+        insert_at = text.rfind("<", after_pos, abs_id)
+        if insert_at == -1:
+            insert_at = abs_id
+    else:
+        body = text.rfind("</body>")
+        insert_at = body if body != -1 else len(text)
+
+    block = (
+        f'<aside class="notes-section" id="notes-{bxx}-c{ch}" epub:type="footnotes" hidden="">\n'
+        '<hr class="notes-rule"/>\n<h3 class="notes-heading">Notes</h3>\n</aside>\n'
+    )
+    new_text = text[:insert_at] + block + text[insert_at:]
+    return new_text, find_notes_section_for_chapter(new_text, ch, bxx)
 
 
 def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: int, suffix: str, prefix: str) -> int:
@@ -444,6 +524,7 @@ def inject_book(book: dict, dry_run: bool) -> dict:
         "already_in": 0,
         "missing_anchor": [],
         "missing_section": 0,
+        "anchor_fallback": 0,
         "files_changed": [],
     }
 
@@ -512,21 +593,27 @@ def inject_book(book: dict, dry_run: bool) -> dict:
         v_start, v_end = verse_region
         verse_html = target_text[v_start:v_end]
 
-        # Locate marker insertion point
-        ins = find_marker_insertion_point(verse_html, anchor or "")
-        if ins is None:
-            stats["missing_anchor"].append(f"{ch}:{v}{suffix} anchor={anchor!r} not found in verse text")
-            continue
+        # Locate marker insertion point. If the anchor word isn't in this
+        # verse's rendered text (wording divergence from the base translation,
+        # or a base-HTML verse-merge), fall back to verse-end placement rather
+        # than dropping the note — the verse region exists, so the note belongs.
+        ins, used_fallback = resolve_marker_insertion(verse_html, anchor or "")
+        if used_fallback:
+            stats["anchor_fallback"] += 1
 
         # Build marker
         marker_html = build_marker(kind, full_id)
 
         # Locate / create notes-section (strategy-dispatched)
         if strategy == "A":
-            section = find_notes_section_for_chapter(target_text, ch)
+            # ensure_notes_section_a finds the chapter's section, or repairs a
+            # file-split boundary that dropped it (creating an anchor+section
+            # after the chapter's verses). It may mutate target_text.
+            target_text, section = ensure_notes_section_a(target_text, ch, bxx, v_start)
             if section is None:
                 stats["missing_section"] += 1
                 continue
+            file_texts[target_fname] = target_text
         else:  # strategy == "B" — single per-file section, create if absent
             ensured = ensure_notes_section_b(target_text)
             if ensured is None:
@@ -595,7 +682,14 @@ def main() -> None:
 
     print(f"\n{BOLD}inject{RESET} {DIM}{len(books)} book(s){'  (dry-run)' if args.dry_run else ''}{RESET}\n")
 
-    grand = {"scanned": 0, "injected": 0, "already_in": 0, "missing_anchor": 0, "missing_section": 0}
+    grand = {
+        "scanned": 0,
+        "injected": 0,
+        "already_in": 0,
+        "missing_anchor": 0,
+        "missing_section": 0,
+        "anchor_fallback": 0,
+    }
     files_changed: set = set()
     failed = []
 
@@ -617,16 +711,19 @@ def main() -> None:
         ai = stats["already_in"]
         ma = len(stats.get("missing_anchor", []))
         ms = stats.get("missing_section", 0)
+        fb = stats.get("anchor_fallback", 0)
         flag = GREEN + "✓" if inj or ai else DIM + "○"
         verb = "would inject" if args.dry_run else "injected"
         msg = f"  {flag}{RESET} {code:6}  {s:>4} src · {inj:>3} {verb} · {ai:>4} already in HTML"
+        if fb:
+            msg += f" · {DIM}{fb} verse-end fallback{RESET}"
         if ma:
             msg += f" · {YELLOW}{ma} anchor-not-found{RESET}"
         if ms:
             msg += f" · {RED}{ms} no-notes-section{RESET}"
         print(msg)
 
-        for k_ in ("scanned", "injected", "already_in", "missing_section"):
+        for k_ in ("scanned", "injected", "already_in", "missing_section", "anchor_fallback"):
             grand[k_] += stats.get(k_, 0)
         grand["missing_anchor"] += len(stats.get("missing_anchor", []))
         files_changed.update(stats["files_changed"])
@@ -637,6 +734,11 @@ def main() -> None:
         f"{grand['injected']} {'would-inject' if args.dry_run else 'injected'} · "
         f"{grand['already_in']} already in HTML"
     )
+    if grand["anchor_fallback"]:
+        print(
+            f"  {DIM}{grand['anchor_fallback']} note(s) placed at verse end "
+            f"(anchor word not in base text — note kept, position approximate){RESET}"
+        )
     if grand["missing_anchor"]:
         print(
             f"  {YELLOW}{grand['missing_anchor']} note(s) had anchor text "

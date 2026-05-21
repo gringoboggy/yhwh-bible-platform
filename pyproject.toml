@@ -58,6 +58,12 @@ mccabe.max-complexity = 12
 # clarity if forcibly split. Codified at ω.4x hygiene bundle
 # (2026-05-14) per AUDIT_2026-05-14-LIGHT-2 W-W2 finding.
 "scripts/build_edition.py" = ["E402", "E501", "C901"]
+# scripts/inject.py: inject_book (strategy-dispatched verse-region location
+# + marker/aside insertion with verse-end fallback) and main (per-book CLI
+# aggregation) are inherently-complex inject-pipeline orchestration — the
+# same category as build_edition.py above. Splitting them would scatter
+# cohesive pipeline logic for no readability gain, so C901 is ignored here.
+"scripts/inject.py" = ["E402", "C901"]
 # content/notes/*.py are pure data files — every entry is a tuple containing
 # a long HTML body string. E501 (line-too-long) is intrinsic to the format.
 # N999 (invalid module name) fires on books like "1ch.py" / "2ki.py" because
