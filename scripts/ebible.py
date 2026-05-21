@@ -12,7 +12,7 @@ Usage:
     ebible add gen 3 15 --kind comm-rabbinic --anchor "serpent"
     ebible inject [--book gen]             # source → master HTML
     ebible build [edition_id]              # inject + manifest + editions
-    ebible ship [--retail]                 # full integrity gate
+    ebible ship [--epubcheck]              # full integrity gate
     ebible test                            # run pytest
     ebible repl                            # python -i with helpers loaded
     ebible watch                           # auto-rebuild on note changes
@@ -49,13 +49,15 @@ def run_script(name: str, *extra_args: str, capture: bool = False) -> subprocess
     """Run a scripts/*.py with extra args."""
     cmd = [PYTHON, str(REPO / "scripts" / name), *extra_args]
     if capture:
-        return subprocess.run(cmd, capture_output=True, text=True, cwd=REPO)
-    return subprocess.run(cmd, cwd=REPO)
+        return subprocess.run(cmd, capture_output=True, text=True, cwd=REPO, stdin=subprocess.DEVNULL)
+    return subprocess.run(cmd, cwd=REPO, stdin=subprocess.DEVNULL)
 
 
 def git(*args: str, capture: bool = True) -> str:
     try:
-        r = subprocess.run(["git", *args], cwd=REPO, capture_output=capture, text=True, timeout=10)
+        r = subprocess.run(
+            ["git", *args], cwd=REPO, capture_output=capture, text=True, timeout=10, stdin=subprocess.DEVNULL
+        )
         return r.stdout.strip() if capture else ""
     except Exception:
         return ""
@@ -129,14 +131,6 @@ def cmd_status(_args) -> int:
     else:
         print(f"    {GREEN}clean{RESET}")
 
-    # ONIX TODOs (a quick scan)
-    print()
-    onix_path = REPO / "content" / "onix.py"
-    if onix_path.is_file():
-        text = onix_path.read_text()
-        todo_count = text.count("TODO_")
-        glyph = GREEN + "✓" if todo_count == 0 else YELLOW + "⚠"
-        print(f"  {BOLD}ONIX{RESET}       {glyph} {todo_count} TODO_ placeholder(s) remaining{RESET}")
     print()
     return 0
 
@@ -172,10 +166,6 @@ def cmd_doctor(_args) -> int:
     sc_summary = (r.stdout or "").splitlines()
     fail_lines = [line for line in sc_summary if "✗" in line and "CHECK(S) FAILED" not in line]
 
-    # 4. Pending ONIX TODOs?
-    onix_text = (REPO / "content" / "onix.py").read_text()
-    onix_todos = onix_text.count("TODO_")
-
     # Diagnosis & advice
     print()
     if notes_dirty:
@@ -193,25 +183,17 @@ def cmd_doctor(_args) -> int:
         print(f"  {RED}✗{RESET} ship-check has {len(fail_lines)} failing gate(s):")
         for line in fail_lines[:5]:
             print(f"    {DIM}{line.strip()}{RESET}")
-        if onix_todos > 0 and any("onix" in line.lower() for line in fail_lines):
-            print(f"    {DIM}→ Edit content/onix.py — fill in TODO_ placeholders{RESET}")
-        else:
-            print(f"    {DIM}→ ebible ship --verbose  (to see details){RESET}")
+        print(f"    {DIM}→ ebible ship --verbose  (to see details){RESET}")
         return 1
 
     if dirty.strip():
         print(f"  {GREEN}✓{RESET} ship-check is clean. Ready to commit.")
-        print(f"    {DIM}→ git add -A && git commit -m '...' && git tag v28a-N{RESET}")
+        print(f"    {DIM}→ git add -A && git commit -m '...'{RESET}")
         return 0
 
-    if onix_todos > 0:
-        print(f"  {YELLOW}⚠{RESET} {onix_todos} ONIX TODO_ placeholder(s) remain.")
-        print(f"    {DIM}→ Edit content/onix.py before retail submission.{RESET}")
-        return 0
-
-    print(f"  {GREEN}{BOLD}✓ All gates green. Ready to ship.{RESET}")
-    print(f"    {DIM}→ ebible ship --retail{RESET}")
-    print(f"    {DIM}→ Submit editions/ to retailer (Apple Books, KDP, Kobo).{RESET}")
+    print(f"  {GREEN}{BOLD}✓ All gates green.{RESET}")
+    print(f"    {DIM}→ ebible build   (inject notes → manifest → editions → epubcheck){RESET}")
+    print(f"    {DIM}→ the built EPUB is the deliverable — a free CC0 download.{RESET}")
     return 0
 
 
@@ -278,10 +260,10 @@ def cmd_build(args) -> int:
 
 
 def cmd_ship(args) -> int:
-    """Run ship-check (with --retail if requested)."""
+    """Run ship-check (with the opt-in epubcheck gate if requested)."""
     sargs = []
-    if args.retail:
-        sargs.append("--retail")
+    if args.epubcheck:
+        sargs.append("--epubcheck")
         eds_dir = find_latest_editions_dir()
         if eds_dir:
             sargs += ["--editions-dir", str(eds_dir)]
@@ -302,7 +284,7 @@ def cmd_test(args) -> int:
         cmd.append("-v")
     else:
         cmd.append("-q")
-    return subprocess.run(cmd, cwd=REPO).returncode
+    return subprocess.run(cmd, cwd=REPO, stdin=subprocess.DEVNULL).returncode
 
 
 # ============================================================
@@ -419,7 +401,7 @@ HELP_EXAMPLES: dict[str, list[str]] = {
     ],
     "inject": ["ebible inject --all-books", "ebible inject --book gen --dry-run"],
     "build": ["ebible build", "ebible build --version v28a-26", "ebible build --force --no-parallel"],
-    "ship": ["ebible ship", "ebible ship --retail --verbose"],
+    "ship": ["ebible ship", "ebible ship --epubcheck --verbose"],
     "test": ["ebible test", "ebible test --verbose"],
     "repl": ["ebible repl  # then: book_notes('gen')[0]"],
     "watch": ["ebible watch  # edits to content/notes/*.py auto-rebuild"],
@@ -516,7 +498,7 @@ def main() -> int:
     b.add_argument("--force", action="store_true")
 
     s = subs.add_parser("ship", help="run ship-check")
-    s.add_argument("--retail", action="store_true")
+    s.add_argument("--epubcheck", action="store_true")
     s.add_argument("--verbose", "-v", action="store_true")
 
     t = subs.add_parser("test", help="run pytest")

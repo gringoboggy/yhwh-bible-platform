@@ -3,15 +3,16 @@
 ship-check.py — Pre-flight integrity gate.
 
 Runs every integrity check the project has into a single command, with a
-single pass/fail bottom line. Use before any save, before any retailer
-submission, or as a CI gate.
+single pass/fail bottom line. Use before any save, or as a CI gate.
 
 Composition:
   1. verify.py             paired refs + asides; HTML structural correctness
   2. validate_taxonomy.py  source notes match taxonomy.yaml + categories.yaml
   3. manifest.py --status  SHA-256 corpus integrity
   4. inject.py --dry-run   no orphan source-vs-HTML drift
-  5. build_onix.py          all 5 ONIX records emit + TODO_* count
+  5. fix_xref_targets.py   no broken cross-references
+  6. pytest                unit + integration tests
+  7. epubcheck (opt-in)    EPUB 3 spec validity, via --epubcheck
 
 Exits 0 if everything passes, 1 otherwise. Output is concise — one line
 per check plus a final summary. Use --verbose for full sub-tool output.
@@ -35,7 +36,7 @@ PYTHON = sys.executable
 def run(label: str, cmd: list[str], verbose: bool, *, allow_warn_exit_code: bool = False) -> tuple[bool, str]:
     """Run a sub-tool. Returns (passed, summary_line). Stdout is shown
     only in verbose mode; otherwise we synthesise a 1-line summary."""
-    r = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO_ROOT)
+    r = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO_ROOT, stdin=subprocess.DEVNULL)
     if verbose:
         print(f"\n{DIM}--- {label} ---{RESET}")
         if r.stdout:
@@ -58,16 +59,13 @@ def main() -> None:
     p = argparse.ArgumentParser(description="Combined integrity gate.")
     p.add_argument("--verbose", "-v", action="store_true", help="show full sub-tool output")
     p.add_argument(
-        "--skip-onix", action="store_true", help="skip ONIX TODO_* check (e.g., when intentionally pre-submission)"
+        "--epubcheck", action="store_true", help="add the EPUB 3 spec-validation gate (epubcheck; needs Java)"
     )
-    p.add_argument(
-        "--retail", action="store_true", help="add EPUB-validation gate (epubcheck) — required pre-submission"
-    )
-    p.add_argument("--editions-dir", type=Path, help="directory of built EPUBs to validate (with --retail)")
+    p.add_argument("--editions-dir", type=Path, help="directory of built EPUBs to validate (with --epubcheck)")
     args = p.parse_args()
 
     print(
-        f"\n{BOLD}ship-check{RESET}  {DIM}pre-flight integrity gate{'  (retail mode)' if args.retail else ''}{RESET}\n"
+        f"\n{BOLD}ship-check{RESET}  {DIM}pre-flight integrity gate{'  (+epubcheck)' if args.epubcheck else ''}{RESET}\n"
     )
 
     results: list[tuple[str, bool, str]] = []
@@ -99,11 +97,6 @@ def main() -> None:
         ok = False
     results.append(("xref targets (cross-refs)", ok, summary))
 
-    # 6. build_onix.py — ONIX records + TODO_ placeholder presence check
-    if not args.skip_onix:
-        ok, summary = run("onix", [PYTHON, "scripts/build_onix.py"], args.verbose)
-        results.append(("onix metadata (TODO check)", ok, summary))
-
     # Tests: pytest unit + integration
     tests_dir = REPO_ROOT / "tests"
     if tests_dir.is_dir():
@@ -114,8 +107,8 @@ def main() -> None:
             summary = "skipped (pytest not installed)"
         results.append(("pytest (unit tests)", ok, summary))
 
-    # 7. (retail-only) epubcheck on built editions
-    if args.retail:
+    # 7. (opt-in) epubcheck on built editions — EPUB 3 spec validity
+    if args.epubcheck:
         cmd = [PYTHON, "scripts/epubcheck.py"]
         if args.editions_dir:
             cmd.extend(["--editions-dir", str(args.editions_dir)])

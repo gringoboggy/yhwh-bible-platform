@@ -312,3 +312,50 @@ class TestProjectRulesReflectPivot:
     def test_session_state_lists_build_tracker_console(self):
         text = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
         assert "/build-tracker" in text
+
+
+# ----------------------------------------------------------------------
+# Live tooling path — de-commercialized (audit 2026-05-21, P1)
+# ----------------------------------------------------------------------
+
+
+class TestLiveToolingDecommercialized:
+    """The Ω.0 pivot quarantined the commercial *modules* with
+    LOAD-BEARING-NO-LONGER banners, but the live CLI path
+    (ship-check.py + ebible.py doctor/status/ship) kept invoking
+    build_onix.py and printing "submit to Apple Books / KDP / Kobo"
+    retailer advice. The 2026-05-21 "smoother-running" audit (P1)
+    unwired that path; these pins keep it unwired so a future edit
+    can't silently re-commercialize the live tooling.
+    """
+
+    def _read(self, rel: str) -> str:
+        return (REPO / rel).read_text(encoding="utf-8")
+
+    def test_ship_check_does_not_invoke_build_onix(self):
+        text = self._read("scripts/ship-check.py")
+        assert "build_onix" not in text, "ship-check still runs the dead ONIX builder"
+        assert "skip-onix" not in text and "skip_onix" not in text, "stale --skip-onix flag survives"
+
+    def test_ship_check_has_no_commercial_framing(self):
+        low = self._read("scripts/ship-check.py").lower()
+        assert "retail" not in low, "ship-check still carries 'retail' framing"
+        assert "submission" not in low, "ship-check still references retailer submission"
+
+    def test_ebible_has_no_onix_or_retailer_advice(self):
+        text = self._read("scripts/ebible.py")
+        low = text.lower()
+        assert "onix" not in low, "ebible.py still references ONIX in the live path"
+        for term in ("Apple Books", "KDP", "Kobo"):
+            assert term not in text, f"ebible.py still names retailer {term!r}"
+        assert "retail" not in low, "ebible.py still carries 'retail' framing"
+
+    def test_ebible_subprocess_helpers_devnull_guarded(self):
+        # Windows WinError-6 hazard (memory feedback_w_w1_subprocess_devnull):
+        # non-interactive subprocesses must close stdin.
+        text = self._read("scripts/ebible.py")
+        assert "stdin=subprocess.DEVNULL" in text, "ebible subprocess helpers not DEVNULL-guarded"
+
+    def test_ship_check_run_helper_devnull_guarded(self):
+        text = self._read("scripts/ship-check.py")
+        assert "stdin=subprocess.DEVNULL" in text, "ship-check run() not DEVNULL-guarded"

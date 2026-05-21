@@ -1,9 +1,9 @@
 # ==============================================================================
 # .gitignore — what NOT to track in git
 # ==============================================================================
-# Tracked: source code, content notes, planning docs, configuration, rendered
-#          EPUB working files, ONIX metadata.
-# Not tracked: auto-generated caches, backups, system folders, system caches.
+# Tracked: source code, content notes, planning docs, configuration, the base
+#          EPUB working files (the scripture HTML that notes inject into).
+# Not tracked: auto-generated caches, backups, build output, system folders.
 # ==============================================================================
 
 # --- Python bytecode & caches ---
@@ -89,6 +89,14 @@ content/notes/.manifest.json
 /editions/*.epub
 /tmp/editions_*/
 /tmp/full_*/
+
+# --- Pre-pivot ONIX output (build_onix.py side-effect; Ω.0-dead) ---
+# epub_working/ holds the TRACKED base scripture HTML (the build source,
+# recovered 2026-05-21). Only the generated onix/ subtree is build output.
+# build_onix.py is quarantined (LOAD-BEARING-NO-LONGER) + removed from the
+# live ship-check path; this guards against a stray manual run leaving
+# untracked XML in the tree.
+epub_working/onix/
 
 # --- Outputs directory (delivery zips, not source-tracked) ---
 /mnt/user-data/outputs/
