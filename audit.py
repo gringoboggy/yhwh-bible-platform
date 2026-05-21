@@ -127,12 +127,10 @@ EPUB_DIR = ROOT / "epub_working"
 # already baked into epub_working/). Auto-discovers current state.
 SCRIPTS = sorted([p for p in (ROOT / "scripts").glob("*.py") if p.is_file()])
 SCRIPTS.extend(sorted([p for p in (ROOT / "scripts" / "core").glob("*.py") if p.is_file() and p.name != "__init__.py"]))
-SCRIPTS.extend(
-    [
-        ROOT / "kings_session" / "book_meta.py",
-        ROOT / "kings_session" / "strategy_b_inject.py",
-    ]
-)
+# (The legacy kings_session/{book_meta,strategy_b_inject}.py were intentionally
+# retired in the 2026-05-08 re-init; book metadata now lives in
+# content/books.yaml and injection in scripts/inject.py. Auto-discovery above
+# IS the current inventory — no hardcoded legacy entries.)
 
 
 # ============================================================================
@@ -521,13 +519,15 @@ def check_a10_round_trip():
 
 
 def _load_book_meta():
-    """Import kings_session/book_meta.py and return books dict."""
-    import importlib.util
+    """Return the {code: meta} books dict from content/books.yaml.
 
-    spec = importlib.util.spec_from_file_location("book_meta", ROOT / "kings_session" / "book_meta.py")
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.BOOKS  # external module exports BOOKS (uppercase)
+    Migrated 2026-05-21 from the retired kings_session/book_meta.py (lost in
+    the 2026-05-08 re-init). books.yaml — into which that module's BOOK_META
+    was generated — is now the single source of truth and carries the same
+    bp / bxx / ch_count fields the B-checks read."""
+    from scripts.core import config
+
+    return config.books_by_code()
 
 
 def _epub_text(filename):
