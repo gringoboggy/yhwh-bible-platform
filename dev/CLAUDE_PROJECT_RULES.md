@@ -18,9 +18,10 @@ Every fresh session begins by reading, in this order:
 1. dev/CLAUDE_PROJECT_RULES.md   (this file — rules + conventions)
 2. dev/SESSION_STATE.md          (live snapshot — what just shipped,
                                   what's next, current test count)
-3. dev/PLAN_2026-05-09.md        (master sequence doc — Track-based
-                                  with explicit Depends/Unblocks per
-                                  open phase; supersedes 2026-05-08)
+3. dev/PLAN_2026-05-21.md        (master sequence — re-arranged tracks
+                                  + current re-audit; supersedes
+                                  PLAN_2026-05-09, which is retained for
+                                  phase-history only)
 ```
 
 **Always-there map (user-directed 2026-05-21):** for ANY "where does X
