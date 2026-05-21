@@ -3038,7 +3038,7 @@ def main() -> None:
         print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
         if not args.dry_run:
             tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
-        print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
+            print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
 
     sys.exit(0 if failures == 0 else 1)
 
