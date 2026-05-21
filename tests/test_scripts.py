@@ -14270,11 +14270,13 @@ class TestOmega36AuditCleanup:
         assert "bisac_codes" in field_names, "C4 fix: bisac_codes must be in EDITIONS_SPEC"
 
     def test_plan_section7_lists_gamma4_sub_phase_ledger(self):
-        # Audit-C CRITICAL #1: PLAN §7 must list γ.4 sub-phases that
-        # were previously rolled up only under the parent γ.4 label.
+        # Audit-C CRITICAL #1: the γ.4 sub-phase ledger (previously rolled up
+        # under the parent γ.4 label) must remain documented. It lives in §7 of
+        # PLAN_2026-05-09, which was archived 2026-05-21 when PLAN_2026-05-21
+        # superseded it — the historical ledger is preserved there.
         from pathlib import Path
 
-        plan_path = Path(__file__).resolve().parent.parent / "dev" / "PLAN_2026-05-09.md"
+        plan_path = Path(__file__).resolve().parent.parent / "dev" / "archive" / "PLAN_2026-05-09.md"
         text = plan_path.read_text(encoding="utf-8")
         # Spot-check 6 sub-phase strings from the backfilled ledger.
         for label in [
