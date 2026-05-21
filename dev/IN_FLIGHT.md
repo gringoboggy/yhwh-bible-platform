@@ -2,6 +2,16 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **➤➤➤ 2026-05-21 CRASH #4 RECOVERY (user "superpowers on, whatever you were doing last crashed my computer") — READ FIRST; supersedes the RESUME banner below for NEXT-ACTION.**
+>
+> **Disk truth (verified this session, read-only):** HEAD = `e0ac20e` (1ki5 R1 fix-round) — committed & SAFE. All 17 marathon review files intact on disk. Clean `main`, no stash, zero committed-work loss.
+>
+> **The un-bannered work is the FIX for the crash — not its cause.** A session AFTER the 20:55 recovery commit (file mtimes 21:28–22:23, 2026-05-20) built a standalone manuscript-vision pipeline and never committed/bannered it. Uncommitted delta: NEW `scripts/core/{parallel,work_cache,manuscript_vision,manuscript_index}.py`, `scripts/build_manuscript_index.py`, `scripts/run_manuscript_{transcribe,review}_at_scale.py`, 7 new `tests/test_*`; MODIFIED `scripts/core/sources.py` (→116KB), `scripts/run_ai_{notes,xrefs}_at_scale.py` (adopt `parallel_map`). **All 17 byte-compile clean.**
+>
+> **Corrected diagnosis (read the code, not guessed):** the recurring OOM crash class is **agent-based** manuscript vision — Task/Agent subagents read LANCZOS-*upscaled* PNG crops, buffering 30–60 MB of image bytes in the parent harness for the agent's full ~20-min life; stack 2–3 heavy ones and the Rust allocator panics (`memory allocation of N bytes failed` — matches crashes #1–#4). `scripts/core/manuscript_vision.py` is the documented root-cause fix: run vision from a **standalone script** so image bytes go straight to the API and never enter the harness buffer, with hard caps — **never upscale**, longest edge ≤1568px (`MAX_IMAGE_EDGE`), ≤8 folios decoded (`lru_cache`). The runners are **single-chapter / one API call / ~2–4 capped images** — bounded and safe to run. The `parallel_map` adoption in AI-notes/xrefs is a separate I/O optimization (result-buffering already existed in the serial path; only adds ≤8 concurrent API calls).
+>
+> **NEXT-ACTION:** (1) verify the pipeline's tests ONE FILE AT A TIME (no broad sweep / no parallel subprocesses — memory `local_test_memory_pressure`) + `--dry-run` the runners (zero API/image); (2) commit the pipeline as a WIP checkpoint ONLY on user go-ahead; (3) the manuscript marathon then resumes via the **SCRIPT path** (`run_manuscript_transcribe/review_at_scale.py`), NOT the agent path — that retires the crash class. Until committed: no heavy AGENT dispatch. The RESUME banner's "dispatch R2 alone in BG" is HELD — R2 should re-run as a SCRIPT, not an agent.
+
 > **➤➤➤ 2026-05-21 RESUME-AFTER-ACCIDENTAL-CLOSE (user "superpowers on and continue. think i closed you by mistake") — 1ki5 R1 fix-round LANDED ON DISK in the prior session (witness mtime 20:43, ~10s after `_r1_fix_apply.py` helper). Validated this session: schema PASS (13 verses), NARRATIVE-class screen `[]` PASS, 103 manuscript tests green. Committing the R1 work + the prior session's trim/archive in one atomic crash-recovery commit. Then dispatching R2 spec-compliance review alone in BG per the workload-tiered cap (HEAVY = MAX 1 concurrent).**
 >
 > Landed on disk (now being committed):

@@ -1704,6 +1704,30 @@ or formulaic openings — the right answer is `{"proposals": []}`.
 """
 
 
+def _with_cache(inner: Callable, cache) -> Callable:
+    """Wrap a ``completion_fn`` so identical (model, system, user) inputs are
+    served from *cache* instead of re-calling the API.
+
+    Opt-in: only applied when an at-scale driver constructs a client with
+    ``cache=...``. The cached unit is the model's JSON response — the
+    expensive part — keyed by a content hash, so a re-run pays only for
+    verses whose text (or the model/prompt) changed. The default
+    construction path is byte-identical to before (no cache → no wrap).
+    """
+    from . import work_cache as _wc
+
+    def wrapped(system_prompt, user_message, *, model):
+        key = _wc.key_for(model, system_prompt, user_message)
+        hit = cache.get(key)
+        if hit is not None:
+            return json.loads(hit)
+        result = inner(system_prompt, user_message, model=model)
+        cache.put(key, json.dumps(result, ensure_ascii=False))
+        return result
+
+    return wrapped
+
+
 class AnthropicXrefClient:
     """LLM-backed proposer for thematic / typological / idiomatic
     cross-references. Phase χ-AI-xrefs (2026-05-08).
@@ -1731,6 +1755,7 @@ class AnthropicXrefClient:
         *,
         model: str = DEFAULT_AI_XREF_MODEL,
         completion_fn: Optional[Callable] = None,
+        cache=None,
     ) -> None:
         self.model = model
         if completion_fn is not None:
@@ -1767,6 +1792,11 @@ class AnthropicXrefClient:
         #    "cache_creation_input_tokens": int,
         #    "cache_read_input_tokens": int, "request_id": str | None}
         self.last_usage: Optional[dict] = None
+
+        # Opt-in response cache (at-scale --cache). Wrap last so it decorates
+        # whichever completion_fn was selected above.
+        if cache is not None:
+            self._completion_fn = _with_cache(self._completion_fn, cache)
 
     @property
     def attribution(self) -> str:
@@ -2673,6 +2703,7 @@ class AnthropicNoteClient:
         *,
         model: str = DEFAULT_AI_NOTE_MODEL,
         completion_fn: Optional[Callable] = None,
+        cache=None,
     ) -> None:
         self.model = model
         if completion_fn is not None:
@@ -2707,6 +2738,11 @@ class AnthropicNoteClient:
         # before paying for a full run. Same shape as
         # AnthropicXrefClient.last_usage.
         self.last_usage: Optional[dict] = None
+
+        # Opt-in response cache (at-scale --cache). Wrap last so it decorates
+        # whichever completion_fn was selected above.
+        if cache is not None:
+            self._completion_fn = _with_cache(self._completion_fn, cache)
 
     @property
     def attribution(self) -> str:

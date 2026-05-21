@@ -65,6 +65,8 @@ from scripts.core.sources import (  # noqa: E402
 )
 from scripts.core import translations  # noqa: E402
 from scripts.core import config  # noqa: E402
+from scripts.core.parallel import parallel_map  # noqa: E402
+from scripts.core.work_cache import WorkCache  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -174,6 +176,7 @@ def run_ai_xrefs(
     top_n: int,
     model: str,
     detector_factory=None,
+    workers: int = 1,
 ) -> dict:
     """Pure-function core of the driver. ``detector_factory`` is
     injectable for tests (default constructs a real
@@ -194,20 +197,29 @@ def run_ai_xrefs(
 
     detector = detector_factory()
 
+    # Gather targets up front so the per-verse API calls can run in parallel
+    # (they're I/O-bound). `parallel_map` returns results in INPUT order, so
+    # the aggregation below is deterministic and byte-identical to the serial
+    # path regardless of `workers`. workers<=1 keeps the original behavior.
+    targets = list(iter_target_verses(books, max_verses))
+    verses_processed = len(targets)
+
+    def _work(t):
+        book, chapter, verse_num, verse_text = t
+        return (book, chapter, detector.detect(book, chapter, verse_num, verse_text))
+
+    if workers and workers > 1:
+        processed = parallel_map(_work, targets, workers=workers)
+    else:
+        processed = [_work(t) for t in targets]
+
     # Group candidates by (book, chapter) for one merge-and-write pass
     # per chapter.
-    verses_processed = 0
     by_chapter: dict[tuple[str, int], list] = {}
     per_book: dict[str, dict] = {}
-
-    for book, chapter, verse_num, verse_text in iter_target_verses(
-        books,
-        max_verses,
-    ):
-        verses_processed += 1
+    for book, chapter, cands in processed:
         per_book.setdefault(book, {"verses": 0, "candidates": 0})
         per_book[book]["verses"] += 1
-        cands = detector.detect(book, chapter, verse_num, verse_text)
         if cands:
             by_chapter.setdefault((book, chapter), []).extend(cands)
             per_book[book]["candidates"] += len(cands)
@@ -278,6 +290,24 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help=(f"explicit acknowledgement of cost; required when --max-verses > {CONFIRM_COST_THRESHOLD}."),
     )
+    p.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help=(
+            "parallel API workers (default 1 = serial). The calls are "
+            "I/O-bound; 4-8 gives a large wall-clock speedup. Keep modest to "
+            "respect rate limits (the SDK retries 429s)."
+        ),
+    )
+    p.add_argument(
+        "--cache",
+        default=None,
+        help=(
+            "path to a SQLite response cache. Re-runs skip verses whose text "
+            "(and model/prompt) are unchanged, paying only for what changed."
+        ),
+    )
     return p.parse_args(argv)
 
 
@@ -323,9 +353,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     # Construct the detector once (validates the SDK + key); fail
-    # cleanly if the source is missing.
+    # cleanly if the source is missing. Opt-in response cache is shared
+    # across all workers (thread-safe).
+    cache = WorkCache(args.cache) if args.cache else None
     try:
-        client = AnthropicXrefClient(model=args.model)
+        client = AnthropicXrefClient(model=args.model, cache=cache)
     except SourceMissingError as e:
         print(f"{RED}REFUSING:{RESET} {e}")
         return 1
@@ -344,6 +376,7 @@ def main(argv: list[str] | None = None) -> int:
         top_n=args.top_n,
         model=args.model,
         detector_factory=detector_factory,
+        workers=args.workers,
     )
 
     print()
