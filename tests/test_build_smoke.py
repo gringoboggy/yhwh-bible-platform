@@ -266,3 +266,160 @@ class TestEnsureNotesSectionA:
         t2, _ = ensure_notes_section_a(t1, 27, "b00", 0)
         assert t2 == t1  # the second call creates nothing
         assert t1.count('id="notes-b00-c27"') == 1
+
+
+class TestAuditBaseHtml:
+    """audit_base_html.classify_book reports, per book, whether every
+    chapter's verse text is reachable from its chapter anchor (regular) or
+    whether scripture and the chapter anchor are split across files
+    (irregular). It must flag 1ch as irregular and gen as regular."""
+
+    def test_gen_is_regular(self):
+        from scripts.audit_base_html import classify_book
+
+        report = classify_book("gen")
+        assert report["irregular_chapters"] == [], report
+
+    def test_1ch_flags_chapter_3_irregular(self):
+        from scripts.audit_base_html import classify_book
+
+        report = classify_book("1ch")
+        # ch3's verse text is in a different split file than its ch anchor
+        assert 3 in report["irregular_chapters"], report
+
+    def test_verse_absent_report_lists_book_chapter_verse(self):
+        from scripts.audit_base_html import verse_absent_report
+
+        rows = verse_absent_report()
+        # every row is a concrete (book, ch, v) the WEB base does not contain
+        assert rows, "expected the Strategy-A versification gaps to be enumerated"
+        assert all(len(r) == 3 for r in rows)
+        assert all(isinstance(r[0], str) and isinstance(r[1], int) and isinstance(r[2], int) for r in rows)
+
+
+class TestVerseRegionBSpill:
+    """The real split-layout defect: a Strategy-B chapter whose ``ch-anchor``
+    sits at the END of split file N while its verses open file N+1 (jer 25,
+    1ch 3, isa 33, psa 73; psa 119 splits mid-chapter at v88/89). Split files
+    are SHARED between books (e.g. 2 Kings + 1 Chronicles share index_split_015),
+    so a full-document vn-walk would ingest the previous book's verses and
+    mis-number chapters — instead, ``find_verse_region_b_spill`` looks only at
+    the head of the NEXT file (start -> its first ``ch-{bxx}`` anchor), and
+    only for the chapter whose anchor is physically LAST in file N (the one
+    that actually spilled). That guard prevents a versification-miss on an
+    earlier chapter from borrowing the spilled chapter's verse v."""
+
+    # jer-like: CH24 (v1-10) then CH25 anchor at the very end of file A, no
+    # verses after it; all of CH25's verses (1,30,38) open file B's head.
+    FILE_A = (
+        '<a id="ch-b38-c24" class="ch-anchor"></a><p class="verse-p">'
+        '<span class="vn">1</span> word24a <span class="vn">10</span> word24j</p>'
+        '<a id="ch-b38-c25" class="ch-anchor"></a>'
+    )
+    FILE_B = (
+        '<body class="bible-body"><p class="verse-p">'
+        '<span class="vn">1</span> cup of wrath <span class="vn">30</span> the nations '
+        '<span class="vn">38</span> tail</p>'
+        '<a id="ch-b38-c26" class="ch-anchor"></a><p class="verse-p">'
+        '<span class="vn">1</span> ch26v1</p></body>'
+    )
+
+    def _texts(self):
+        return {"a.html": self.FILE_A, "b.html": self.FILE_B}
+
+    def test_full_spill_finds_verse_in_next_file_head(self):
+        from scripts import inject
+
+        hit = inject.find_verse_region_b_spill(["a.html", "b.html"], self._texts(), "a.html", "b38", 25, 30)
+        assert hit is not None, "spilled verse 25:30 should resolve in the next file's head"
+        fname, (s, e) = hit
+        assert fname == "b.html"
+        assert "the nations" in self.FILE_B[s:e]
+        assert "tail" not in self.FILE_B[s:e]  # region stops before verse 38
+
+    def test_guard_rejects_non_last_chapter(self):
+        from scripts import inject
+
+        # jer 24 has 10 verses; a note on a non-existent 24:30 must NOT borrow
+        # 25:30's verse from the spilled head. ch 24 is not the last anchor.
+        hit = inject.find_verse_region_b_spill(["a.html", "b.html"], self._texts(), "a.html", "b38", 24, 30)
+        assert hit is None, "non-last (non-spilled) chapter must never borrow the next file's verses"
+
+    def test_partial_mid_chapter_spill(self):
+        from scripts import inject
+
+        # psa 119-like: v1-88 sit under the anchor in file A; v89-176 open file B.
+        file_a = (
+            '<a id="ch-b30-c119" class="ch-anchor"></a><p class="verse-p">'
+            '<span class="vn">1</span> aleph <span class="vn">88</span> v88</p>'
+        )
+        file_b = (
+            '<body><p class="verse-p"><span class="vn">89</span> v89 '
+            '<span class="vn">100</span> hundred <span class="vn">176</span> last</p>'
+            '<a id="ch-b30-c120" class="ch-anchor"></a><p><span class="vn">1</span> psa120v1</p></body>'
+        )
+        texts = {"a.html": file_a, "b.html": file_b}
+        hit = inject.find_verse_region_b_spill(["a.html", "b.html"], texts, "a.html", "b30", 119, 100)
+        assert hit is not None
+        fname, (s, e) = hit
+        assert fname == "b.html" and "hundred" in file_b[s:e]
+        # a verse that is NOT in the spilled head (it lives under the anchor in
+        # file A) is not the spill resolver's job -> None, no false placement.
+        assert inject.find_verse_region_b_spill(["a.html", "b.html"], texts, "a.html", "b30", 119, 50) is None
+
+    def test_no_next_file_returns_none(self):
+        from scripts import inject
+
+        # host is the last file in the book -> nothing to spill into.
+        hit = inject.find_verse_region_b_spill(["a.html", "b.html"], self._texts(), "b.html", "b38", 26, 1)
+        assert hit is None
+
+
+class TestInjectIrregularLayout:
+    """End-to-end: a Strategy-B book whose chapter's ch-anchor ends one split
+    file while its verses open the next must still inject that chapter's note
+    — the marker into the verse's file, the aside into that file's notes-
+    section — instead of dropping it as 'verse region not parseable'."""
+
+    def test_spilled_chapter_note_injects(self, tmp_path, monkeypatch):
+        from scripts import inject
+
+        # file A: ch1 (anchor + verse) then ch2's anchor at the END, no verses.
+        a = (
+            '<html><body><a id="ch-b99-c1" class="ch-anchor"></a>'
+            '<p class="verse-p"><span class="vn">1</span> alpha</p>'
+            '<a id="ch-b99-c2" class="ch-anchor"></a></body></html>'
+        )
+        # file B: ch2's verse opens the file (the spill); ch3 follows; a per-file
+        # notes-section exists so the aside has a home.
+        b = (
+            '<html><body class="bible-body">'
+            '<p class="verse-p"><span class="vn">1</span> the deep word here</p>'
+            '<a id="ch-b99-c3" class="ch-anchor"></a>'
+            '<p class="verse-p"><span class="vn">1</span> gamma</p>'
+            '<aside class="notes-section" epub:type="footnotes" hidden="">'
+            '<hr class="notes-rule"/><h3 class="notes-heading">Notes</h3></aside>'
+            "</body></html>"
+        )
+        epub = tmp_path / "epub_working"
+        epub.mkdir()
+        (epub / "a.html").write_text(a, encoding="utf-8")
+        (epub / "b.html").write_text(b, encoding="utf-8")
+        monkeypatch.setattr(inject, "EPUB_DIR", epub)
+        book = {
+            "code": "zz",
+            "bxx": "b99",
+            "strategy": "B",
+            "ch_count": 3,
+            "files": ["a.html", "b.html"],
+            "id_prefix": "b99",
+        }
+        # one note on ch2 v1, anchored to a word that IS in the spilled verse
+        monkeypatch.setattr(
+            inject,
+            "load_notes",
+            lambda p: [(2, 1, "", "word", "lang-hebrew", "T", "L", "B")],
+        )
+        stats = inject.inject_book(book, dry_run=True)
+        assert stats["injected"] == 1, stats
+        assert len(stats["missing_anchor"]) == 0, stats

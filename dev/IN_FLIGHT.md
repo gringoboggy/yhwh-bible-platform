@@ -2,6 +2,26 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **➤➤➤ 2026-05-21 (LATER) INJECT-TAIL → 99.48% via boundary-aware spill resolver — READ FIRST; supersedes the 99.21% banner below.**
+>
+> **State correction:** the 99.21% inject-tail work the banner below calls "UNCOMMITTED — awaiting save" IS committed (`e05df31 build.inject-tail-99`); the working tree was clean at that commit before this session. (The banner was written pre-commit and never updated.)
+>
+> **This session executed `docs/superpowers/plans/2026-05-21-inject-tail-completion.md` Phases 1–3 (UNCOMMITTED — on disk, awaiting user "save"):**
+> - **Phase 1 — `scripts/audit_base_html.py`** (NEW, re-runnable detector): `classify_book` flags chapters whose `ch-{bxx}` anchor's region holds zero verse spans → 5 fully-stranded chapters (1ch:3, isa:33, jer:25, mq1:30, psa:73). +2 tests `TestAuditBaseHtml`.
+> - **DEVIATION FROM PLAN (evidence-driven, safer):** the plan's Phase-2 `build_verse_index_b` (full-document vn-span walk + reset-on-v1 chapter assignment) is **unsound** — split files are SHARED between books (verified: `index_split_015.html` holds all 25 of 2 Kings b11 + 1ch b12 ch1-3), so the walk would ingest the previous book's verses and mis-number chapters → silent mis-placement that `ebible verify` can't catch. Replaced with a **boundary-aware spill resolver** `inject.find_verse_region_b_spill(files, file_texts, host_fname, bxx, ch, v)`: the chapter anchors are reliable + ordered; the only defect is a chapter whose anchor ends file N while its verses open file N+1. When the conventional lookup fails, it reads only the head of the next file (start → its first `ch-{bxx}` anchor), with a **mis-placement guard** — only the chapter whose anchor is physically LAST in host_fname may spill, so a versification miss on an earlier chapter can't borrow the spilled verses. +5 tests `TestVerseRegionBSpill` + `TestInjectIrregularLayout`.
+> - **Phase 3 — wired into `inject_book` Strategy-B branch** (spill fallback when `find_verse_region_b` returns None). Real re-inject result: **placement 52,553 → 52,696 / 52,973 = 99.48% (+143)**; misses 420 → 277. Fully resolved: **jer (57→0), psa (24→0)**; mostly: isa (43→4), 1ch (29→5). `ebible verify` **errors=0 / 15790 paired** (was 15766); 24 smoke tests green; ruff clean; `build_one` → valid EPUB with the new notes. NO regression (placement strictly up; every prior note still placed). `epub_working/` is currently DIRTY with the 143 new notes (regenerable: `git checkout -- epub_working/` then `inject --all-books`).
+>
+> **Phase 5 DONE (documentation, no content change):** `verse_absent_report()` + `--verse-absent` added to `scripts/audit_base_html.py` (+1 test); full 277-note residual enumerated + adjudicated in `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
+>
+> **Phase 4 (aes render) — PREMISE REFUTED, NOT executed (verified against real data):** the base ALREADY renders aes (`b25`, `index_split_028.html`) as chapters **1–10** (WEB narrative ordering of the Greek Additions: `b25 c1` = Dream of Mordecai, `b25 c10` = canonical Esther 10). The 82 aes **notes** are keyed to the **KJV/Vulgate appendix scheme** (ch 10,11,13,14,15,16), so the 73 misses are notes on ch11–16 that the base renders under DIFFERENT numbers. Rendering would DUPLICATE the Additions. Correct fix = editorial WEB↔KJV verse concordance (re-key notes) — NOT a render, NOT a guess. Plan Phase 4 annotated ⛔; deferred to editorial.
+>
+> **REMAINING tail = 277, all NON-mechanically-addable (documented, deferred):**
+> - **Editorial (do not guess):** aes 73 (WEB↔KJV Esther-Additions concordance) · ~44 out-of-range/mis-keyed Strategy-A note coords (deu 81, gen 87, num 82, …) needing source `content/notes/*.py` fixes.
+> - **Larger render efforts:** 1 Enoch 37-108 base-render gap (~25 verse-absent) · Strategy-B non-spill irregular layouts (98: mq1/2/3 Tewahedo, sir, jub, rom, mat, act, jhn) — per-book multi-file index or base re-render.
+> - Full breakdown + verse list: `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
+>
+> **NET this session:** Phases 1–3 + 5 done; placement **99.21% → 99.48% (+143)**; Phase-3 spill captured essentially ALL the mechanically-placeable tail. UNCOMMITTED on disk (code: `scripts/inject.py`, `scripts/audit_base_html.py` NEW, `tests/test_build_smoke.py` +8 tests; data: `epub_working/` 5 files re-injected; docs: this file, AUDIT, plan annotation). **Awaiting user "save"** to commit (memory `feedback_continue_not_save` — "continue" ≠ commit). Per-phase commit messages drafted in the plan's `save.cmd` steps.
+
 > **➤➤➤ 2026-05-21 INJECT-TAIL CLOSED to 99.21% — READ FIRST (supersedes the CRASH #4 + RESUME banners below for NEXT-ACTION; ALL their work is committed — c701ae7 vision-pipeline, e0ac20e 1ki5 R1, 7a1aecf full inject — working tree was CLEAN at 7a1aecf before this session).**
 >
 > **Shipped this session (UNCOMMITTED — awaiting user "save"):** three inject-tail fixes in `scripts/inject.py` took note placement from 44,020 / 83.1% → **52,553 / 52,973 = 99.21%** (+8,533). All TDD-pinned in `tests/test_build_smoke.py` (16 tests, was 3), ruff-clean (added `scripts/inject.py`=["E402","C901"] per-file-ignore on the build_edition.py precedent + fixed pre-existing SIM102/F841), `ebible verify` errors=0 / 15766 fully-paired, build smoke = valid EPUB.

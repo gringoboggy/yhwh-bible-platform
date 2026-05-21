@@ -452,6 +452,19 @@ save.cmd "inject.irregular-layout: resolve Strategy-B verses via cross-file inde
 
 ## Phase 4 — Render the genuinely-absent deuterocanon chapters (aes, 110)
 
+> **⛔ PREMISE REFUTED 2026-05-21 — DO NOT EXECUTE AS WRITTEN.** The base did NOT
+> "simply never render aes's chapters." It renders aes (`b25`, `index_split_028.html`)
+> as **chapters 1–10** in the World English Bible narrative ordering of the Greek
+> Additions (`b25 c1` = Dream of Mordecai; `b25 c10` = canonical Esther 10's "the king
+> levied a tax"). The 82 aes **notes** are keyed to the **KJV/Vulgate appendix scheme**
+> (chapters 10, 11, 13, 14, 15, 16). So the 73 "chapter heading not in any file" misses
+> are notes on ch11–16, which the base renders under DIFFERENT numbers (1–10). Rendering
+> KJV ch11–16 into the base would graft a duplicate copy of the Additions. The correct
+> fix is an **editorial WEB↔KJV verse concordance** that re-keys the notes 10–16 → 1–10
+> (do NOT guess) — deferred to editorial review. See
+> `dev/AUDIT_2026-05-21-inject-tail-residual.md` §A. Phase 3's boundary-aware spill
+> resolver already captured the mechanically-placeable tail (+143 → 99.48%).
+
 The 110 chapter-absent-B is dominated by **aes = Additions to Esther (73)**; the rest are small (pro/isa/1jn/rev) and are versification artifacts handled in Phase 5. aes's English text exists at `content/translations/kjv/aes.py`; the base HTML simply never rendered those chapters.
 
 ### Task 5: Confirm aes is renderable, then render its chapters into the base HTML

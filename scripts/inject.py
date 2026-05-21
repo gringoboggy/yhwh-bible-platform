@@ -233,6 +233,53 @@ def find_verse_region_b(text: str, region_start: int, region_end: int, v: int) -
     return (start, end)
 
 
+def find_verse_region_b_spill(
+    files: list[str],
+    file_texts: dict[str, str],
+    host_fname: str,
+    bxx: str,
+    ch: int,
+    v: int,
+) -> tuple[str, tuple[int, int]] | None:
+    """Resolve a Strategy-B verse whose chapter spilled across a split-file
+    boundary. When chapter ``ch``'s ``ch-{bxx}-c{ch}`` anchor sits at the end
+    of ``host_fname`` and its verses open the NEXT split file, locate verse
+    ``v`` at that next file's head — from the file start up to its first
+    ``id="ch-{bxx}-c"`` anchor. Returns ``(next_fname, (v_start, v_end))`` or
+    None.
+
+    Split files are SHARED between books (e.g. 2 Kings + 1 Chronicles share
+    one split file), so a full-document vn-span walk would mis-number chapters
+    from the previous book's verses; this stays anchored to the chapter
+    headings instead. Mis-placement guard: only the chapter whose anchor is
+    physically LAST in ``host_fname`` actually spilled, so a versification
+    miss on an earlier chapter can never borrow the spilled chapter's verse v.
+    """
+    host_text = file_texts.get(host_fname, "")
+    anchors = [(m.start(), int(m.group(1))) for m in re.finditer(r'id="ch-' + re.escape(bxx) + r'-c(\d+)"', host_text)]
+    if not anchors:
+        return None
+    last_ch = max(anchors)[1]  # latest by byte offset == the chapter that spilled
+    if ch != last_ch:
+        return None
+    try:
+        i = files.index(host_fname)
+    except ValueError:
+        return None
+    if i + 1 >= len(files):
+        return None
+    nxt_fname = files[i + 1]
+    nxt_text = file_texts.get(nxt_fname)
+    if not nxt_text:
+        return None
+    nxt_anchor = re.search(r'id="ch-' + re.escape(bxx) + r'-c\d+"', nxt_text)
+    head_end = nxt_anchor.start() if nxt_anchor else len(nxt_text)
+    region = find_verse_region_b(nxt_text, 0, head_end, v)
+    if region is None:
+        return None
+    return (nxt_fname, region)
+
+
 def ensure_notes_section_b(text: str) -> tuple[str, tuple[int, int]] | None:
     """Strategy-B files often lack a ``<aside class="notes-section">`` block.
     Find existing or create one before ``</body>`` (or before a
@@ -586,6 +633,16 @@ def inject_book(book: dict, dry_run: bool) -> dict:
                 stats["missing_anchor"].append(f"{ch}:{v}{suffix} (chapter region not found)")
                 continue
             verse_region = find_verse_region_b(target_text, ch_region[0], ch_region[1], v)
+            if verse_region is None:
+                # Split-file boundary: this chapter's anchor ends the file but
+                # its verses opened the NEXT split file (jer 25, 1ch 3, isa 33,
+                # psa 73/119, …). Resolve the verse from that next file's head;
+                # the guard in find_verse_region_b_spill keeps a versification
+                # miss on an earlier chapter from borrowing the spilled verses.
+                spill = find_verse_region_b_spill(files, file_texts, target_fname, bxx, ch, v)
+                if spill is not None:
+                    target_fname, verse_region = spill
+                    target_text = file_texts[target_fname]
 
         if verse_region is None:
             stats["missing_anchor"].append(f"{ch}:{v}{suffix} (verse region not parseable)")
