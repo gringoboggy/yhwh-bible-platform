@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-21 — session (later) — inject-tail closure + reference-corpus rebuild (Nave's + Easton's) + coordinate guard + full re-audit
+
+**Context:** continued from the EPUB-builder revival. Closed the inject tail, then the user steered a clean rebuild of the OCR-noisy Nave's corpus from a CCEL PDF + ingestion of Easton's Bible Dictionary, then a full re-audit + plan re-arrangement. Toward the **2026-06-07 deadline**.
+
+**Shipped:**
+- **Inject-tail spill resolver (`d3acc4f`).** `inject.find_verse_region_b_spill` resolves Strategy-B chapters whose verses spill across a split-file boundary (jer/psa/isa/1ch), guarded to the last-anchor chapter (no mis-placement). `scripts/audit_base_html.py` classifies regular vs split-file-irregular layout + enumerates the residual. Placement 99.21% → 99.48%. +8 tests.
+- **Reference-corpus rebuild + Easton's (`38b80d3`).** Nave's Topical rebuilt clean from a user-supplied CCEL PDF (`scripts/extract_naves_ccel.py` → 26,335 `topic-nave`, was 15,258 OCR-noisy + under-extracted; fixed a 5-book code mismatch eze/joe/nah/jam/phi that had silently dropped their notes). Easton's Bible Dictionary ingested (`scripts/extract_eastons_ccel.py` → 3,779 `dict-easton`, new kind under category `hist`). New reusable `promote.batch_insert_notes` (one read+write per book, replaces per-note O(n²)). Corpus 52,859 → 67,715.
+- **Coordinate guard + dead-dispatch repoint (`a935701`).** `canonical_verse_counts.coord_in_canonical_extent` rejects out-of-canonical-extent coordinates at the `promote_candidate` + `batch_insert_notes` boundary (corpus-wide scan → 0 invalid-coordinate notes; pruned 2 Kenyon `text-witness`). `run.py`/`add_note.py` injector dispatch repointed from the lost `source_archive/`+`kings_session/` scripts to `scripts/inject.py`.
+- **Full re-audit + re-arranged plan (`7b88558`).** `dev/PLAN_2026-05-21.md` (4 productivity-ordered tracks + current health re-audit; supersedes PLAN_2026-05-09, moved to `dev/archive/`). SESSION_STATE trimmed 896 KB → lean + refreshed. `matrix.py` docstring refreshed (71 kinds / 67,715 notes).
+
+**Verified:** inject **99.76%** (66,173 + 1,381 / 67,715; 161 base-coverage residual), `ebible verify` **errors=0 / 24,015 paired**, valid EPUB, `trace_matrix` **0 unresolved refs**, `validate_taxonomy` 100% attributed, ruff-format + `lint_rules` clean.
+
+**Next (per `dev/PLAN_2026-05-21.md`):** [USER] visual QA of built EPUBs; resume the paused manuscript marathon (1ki5 R2, script-based, OOM-aware); opportunistic corpus expansion (more PD reference works via clean CCEL PDFs); Track-D cleanups.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** `d3acc4f` · `38b80d3` · `a935701` · `7b88558` + this CHANGELOG/inventory-hygiene commit.
+
+---
+
 ## 2026-05-21 — session — crash recovery + matrix cleanup + EPUB-builder REVIVED (base scripture HTML recovered + first valid build)
 
 **Context:** opened after a 4th harness OOM ("whatever you were doing last crashed my computer"). Recovered, then the user steered into a full hindsight cleanup + "is the deliverable actually buildable?" investigation toward the **2026-06-07 deadline** (free CC0 EPUB-builder demo).
