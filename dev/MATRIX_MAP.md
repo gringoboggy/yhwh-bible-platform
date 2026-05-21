@@ -87,19 +87,18 @@ products of organic growth from the original 1-Bible builder:
    to caption edition N's last key (e.g. the "catholic / largest English market" header sits
    above `ethiopian-tewahedo`'s `popup_languages_default`). Values are per-edition sensible, but
    confirm `ethiopian-tewahedo`'s `[english, hebrew, greek]` popups are intended.
-3. **Logic divergence (likely BUG, not just duplication)** — "which kinds ship in this edition"
-   is implemented THREE times with drifting gates:
-   - `build_edition.compute_enabled_kinds` — phase gate (`max_phase`), NO ai-notes gate, default phase `legacy`
-   - `matrix._enabled_kinds_for_edition` — ai-notes gate (`enable_ai_notes`/`comm-ai`), NO phase gate
-   - `config._kinds_in_edition` — phase gate, NO ai-notes gate, default phase `mvp`
-
-   Consequence: the matrix UI ignores `max_phase`, so it **over-counts** notes for the 10 editions
-   whose `max_phase` < `phase3` vs. what actually builds — despite `matrix.py`'s docstring claiming
-   it "mirrors the build". And the build ignores `enable_ai_notes`, so it would ship `comm-ai` notes
-   the matrix excludes. **Fix = ONE canonical resolver applying BOTH gates; collapse all three onto
-   it.** Highest-value structural fix in this subsystem (behavior-changing: matrix counts drop to
-   correct, build gains the ai double-opt-in — verify `comm-ai` corpus presence + update the tests
-   that pin each current variant).
+3. **Logic divergence — RESOLVED (2026-05-20).** "Which kinds ship in this edition" was implemented
+   THREE times with drifting gates: `build_edition.compute_enabled_kinds` (phase gate, no ai-gate),
+   `matrix._enabled_kinds_for_edition` (ai-gate, no phase gate), `config._kinds_in_edition` (phase
+   gate, no ai-gate). The matrix therefore **over-counted** vs. the actual build for the 10 editions
+   with `max_phase` < `phase3` (e.g. `ethiopian-tewahedo` showed 25 phase-gated kinds the EPUB never
+   contained, incl. its own explicitly-enabled `dist-typological`/`dist-mariological`).
+   **Fixed:** one canonical `config.enabled_kind_codes(edition, all_kinds)` applying BOTH gates
+   (precedence: explicit-`disabled_kinds` > phase gate > AI double-opt-in > `enabled_kinds`/category);
+   `matrix._enabled_kinds_for_edition`, `build_edition.compute_enabled_kinds`, and
+   `config._kinds_in_edition` all delegate to it. Invariant pinned by
+   `tests/test_enabled_kinds_unified.py` (matrix == build == config for every edition). Matrix counts
+   dropped to the correct build-matching values; build output unchanged (`comm-ai` corpus = 0).
 4. **Vestigial ψ.35 layering** — `Matrix.enabled/potential/per_book` are now derived projections
    kept only so old `m.enabled[ed]` reads keep working. A future slice could drop them for
    `@cached_property`.

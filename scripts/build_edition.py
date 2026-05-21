@@ -63,10 +63,6 @@ DIM = "\033[2m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
-# Phase ordering: anything at or below the edition's max_phase is allowed.
-# legacy always passes (it's the historical baseline).
-PHASE_ORDER = ["legacy", "mvp", "phase2", "phase3"]
-
 
 # ----------------------------------------------------------------------
 # Edition → kind set resolution
@@ -466,42 +462,17 @@ def apply_tradition_labels_to_html(
 
 
 def compute_enabled_kinds(edition: dict, all_kinds: list[dict]) -> tuple[set, set]:
-    """Returns (enabled_codes, disabled_codes) for this edition."""
-    enabled_categories = set(edition.get("enabled_categories") or [])
-    enabled_kinds_explicit = set(edition.get("enabled_kinds") or [])
-    disabled_kinds_explicit = set(edition.get("disabled_kinds") or [])
-    max_phase = edition.get("max_phase")
+    """Returns (enabled_codes, disabled_codes) for this edition.
 
-    if max_phase and max_phase not in PHASE_ORDER:
-        raise ValueError(f"edition {edition.get('id')!r}: unknown max_phase {max_phase!r}")
-    max_idx = PHASE_ORDER.index(max_phase) if max_phase else len(PHASE_ORDER) - 1
+    Delegates to the canonical resolver
+    :func:`scripts.core.config.enabled_kind_codes` so the build and the matrix
+    count grid never drift on "which kinds ship". ``disabled`` is the
+    complement of ``enabled`` over ``all_kinds``.
+    """
+    from scripts.core.config import enabled_kind_codes
 
-    enabled = set()
-    disabled = set()
-    for k in all_kinds:
-        code = k["code"]
-        kind_phase = k.get("phase", "legacy")
-
-        # Explicit disable wins
-        if code in disabled_kinds_explicit:
-            disabled.add(code)
-            continue
-
-        # Phase gate (legacy bypasses)
-        if kind_phase != "legacy" and PHASE_ORDER.index(kind_phase) > max_idx:
-            disabled.add(code)
-            continue
-
-        # Explicit enable
-        if code in enabled_kinds_explicit:
-            enabled.add(code)
-            continue
-
-        # Category gating
-        if k.get("category") in enabled_categories:
-            enabled.add(code)
-        else:
-            disabled.add(code)
+    enabled = enabled_kind_codes(edition, all_kinds)
+    disabled = {k["code"] for k in all_kinds} - enabled
     return enabled, disabled
 
 

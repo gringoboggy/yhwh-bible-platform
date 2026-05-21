@@ -376,52 +376,75 @@ def resolve_symbol(kind_code):
 
 _PHASE_ORDER = {"legacy": 0, "mvp": 1, "phase2": 2, "phase3": 3}
 
+# Kinds whose content is LLM-drafted and shipped only after human review.
+# Excluded by `enabled_kind_codes` unless the edition opts in with
+# `enable_ai_notes: true` — a deliberate double opt-in (listing the kind in
+# `enabled_kinds` is necessary but not sufficient). Single-element today; a
+# frozenset so future AI-drafted kinds gate through one place.
+AI_DRAFTED_KINDS: frozenset[str] = frozenset({"comm-ai"})
+
+
+def enabled_kind_codes(edition: dict, all_kinds) -> set[str]:
+    """Canonical resolver: the set of kind codes that ship in `edition`.
+
+    THE single source of truth for "which kinds ship in this edition",
+    delegated to by the matrix count grid
+    (`matrix._enabled_kinds_for_edition`), the EPUB build
+    (`build_edition.compute_enabled_kinds`), and `_kinds_in_edition` below.
+    Before this existed those three drifted apart — the matrix lacked the
+    phase gate and so over-counted vs. the actual build.
+
+    A kind ships iff it survives every gate, in order:
+      1. explicit `disabled_kinds` — always wins.
+      2. phase gate — drop kinds whose `phase` is later than the edition's
+         `max_phase` (default kind phase ``legacy`` always passes; an
+         explicitly-enabled kind is STILL phase-gated, matching the build).
+      3. AI double opt-in — drop `AI_DRAFTED_KINDS` unless `enable_ai_notes`
+         is true (even if the kind is explicitly enabled).
+      4. include if in explicit `enabled_kinds` OR its `category` is in
+         `enabled_categories`.
+
+    `all_kinds` is the kind list (dicts with `code`/`category`/`phase`),
+    passed in for testability. Raises ValueError on an unknown `max_phase`.
+    """
+    enabled_cats = set(edition.get("enabled_categories") or [])
+    explicit_enabled = set(edition.get("enabled_kinds") or [])
+    explicit_disabled = set(edition.get("disabled_kinds") or [])
+    allow_ai = bool(edition.get("enable_ai_notes"))
+
+    max_phase = edition.get("max_phase")
+    if max_phase and max_phase not in _PHASE_ORDER:
+        raise ValueError(f"edition {edition.get('id')!r}: unknown max_phase {max_phase!r}")
+    max_idx = _PHASE_ORDER[max_phase] if max_phase else max(_PHASE_ORDER.values())
+
+    out: set[str] = set()
+    for k in all_kinds:
+        code = k.get("code")
+        if code in explicit_disabled:
+            continue
+        phase = k.get("phase", "legacy")
+        if phase != "legacy" and _PHASE_ORDER.get(phase, 99) > max_idx:
+            continue
+        if code in AI_DRAFTED_KINDS and not allow_ai:
+            continue
+        if code in explicit_enabled or k.get("category") in enabled_cats:
+            out.add(code)
+    return out
+
 
 def _kinds_in_edition(edition_id):
     """Return list of kind dicts visible in a given edition profile.
 
-    Filter logic (matches editions.yaml documentation):
-      1. Start from kinds whose `category` is in `enabled_categories`
-         (or all kinds if `enabled_categories` is empty/missing).
-      2. Add any kinds explicitly listed in `enabled_kinds`.
-      3. Remove any kinds explicitly listed in `disabled_kinds`.
-      4. Filter out kinds whose `phase` is later than `max_phase`
-         (e.g. max_phase='phase2' excludes phase3 kinds).
-
-    Legacy kinds (`word`, `comm`, `source`, `parallel`) are always
-    included if their category is enabled — they're the safety net
-    for backwards compatibility.
-
-    Returns kind dicts in their kinds.yaml declaration order.
+    Thin wrapper over `enabled_kind_codes` (the canonical resolver) that
+    resolves the edition by id and preserves kinds.yaml declaration order.
     """
     eds = editions_by_id()
     if edition_id not in eds:
         raise KeyError(f"Unknown edition id {edition_id!r}. Known: {sorted(eds)}")
     ed = eds[edition_id]
-
-    enabled_cats = set(ed.get("enabled_categories") or [])
-    explicit_add = set(ed.get("enabled_kinds") or [])
-    explicit_remove = set(ed.get("disabled_kinds") or [])
-    max_phase = ed.get("max_phase")
-    max_phase_n = _PHASE_ORDER.get(max_phase, 99) if max_phase else 99
-
-    out = []
-    for k in load_kinds():
-        code = k.get("code")
-        cat = k.get("category")
-        # Step 1 + 2: included if category is enabled OR code is explicitly added
-        included = (not enabled_cats) or (cat in enabled_cats) or (code in explicit_add)
-        if not included:
-            continue
-        # Step 3: explicit removal wins
-        if code in explicit_remove:
-            continue
-        # Step 4: phase ceiling
-        kp = k.get("phase", "mvp")
-        if _PHASE_ORDER.get(kp, 99) > max_phase_n:
-            continue
-        out.append(k)
-    return out
+    all_kinds = load_kinds()
+    enabled = enabled_kind_codes(ed, all_kinds)
+    return [k for k in all_kinds if k.get("code") in enabled]
 
 
 if __name__ == "__main__":
