@@ -2,6 +2,12 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **➤➤➤ 2026-05-21 EPUB-BUILDER REVIVED — base scripture HTML recovered + committed; first valid build since the 05-08 re-init. READ FIRST.**
+>
+> The build was broken because the base HTML (`epub_working/index_split_*.html` — the World English Bible text that notes inject into) was never committed after the 2026-05-08 repo re-init, so it was lost. RECOVERED from the v28a-50 (2026-05-07) snapshot + COMMITTED so it can't be lost again. Verified: `ebible build ethiopian-tewahedo` → a 6.2 MB structurally-valid EPUB; `inject` lands ~83% of the 52,973 notes. Full story: `dev/CHANGELOG.md` (2026-05-21) + `dev/AUDIT_2026-05-21-smoother-running.md` + `dev/MATRIX_MAP.md`.
+>
+> **NEXT (audit-prioritized, toward the 2026-06-07 deadline):** (1) de-commercialize the tooling (`doctor`/`ship`/`onix` still give pre-pivot retail/ONIX advice); (2) fix the 290 unmatched note-refs (build_edition filtering); (3) close the inject tail (8,236 anchor-miss + 808 no-section — OT auto-note anchoring + chapters absent from the 05-07 base, e.g. 1 Enoch 37-108); (4) add an `ebible build` smoke test; (5) install Java for epubcheck cert. **The manuscript-marathon track below is PAUSED** — the demo build is the priority for the deadline.
+
 > **➤➤➤ 2026-05-21 CRASH #4 RECOVERY (user "superpowers on, whatever you were doing last crashed my computer") — READ FIRST; supersedes the RESUME banner below for NEXT-ACTION.**
 >
 > **Disk truth (verified this session, read-only):** HEAD = `e0ac20e` (1ki5 R1 fix-round) — committed & SAFE. All 17 marathon review files intact on disk. Clean `main`, no stash, zero committed-work loss.

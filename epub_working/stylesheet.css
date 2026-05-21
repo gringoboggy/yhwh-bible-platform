@@ -1,0 +1,531 @@
+/* Ethiopian Bible — Reading Stylesheet */
+
+body {
+  font-family: "Georgia", "Cambria", "Palatino", "Iowan Old Style", serif;
+  font-size: 1em;
+  line-height: 1.55;
+  color: #1F1A14;
+  margin: 0 1em;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* === BOOK / SECTION HEADINGS === */
+h1, h2, h3 {
+  font-family: "Georgia", "Cambria", "Palatino", serif;
+  color: #1F3864;
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+  page-break-before: always;
+  page-break-after: avoid;
+}
+
+h1 {
+  font-size: 1.8em;
+  margin: 1.2em 0 0.6em;
+}
+h2 {
+  font-size: 1.4em;
+  margin: 1.0em 0 0.5em;
+}
+h3 {
+  font-size: 1.15em;
+  margin: 0.8em 0 0.4em;
+}
+
+/* === PARAGRAPH BASE === */
+p {
+  margin: 0.6em 0;
+  text-indent: 0;
+}
+
+/* === CHAPTER NUMBER MARKER === */
+/* The original CSS had .ch-heading — a centered bold floating chapter number.
+   Make it a real chapter heading. */
+/* === VERSE NUMBERS === */
+/* === SEMANTIC CLASSES — migrated 2026-05-06 from auto-generated calibreN names === */
+.bible-body { font-size: 1em; margin: 0 1em; }
+.book-title {
+  display: block;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #1F3864;
+  text-align: center;
+  page-break-before: avoid;
+  margin: 1.2em 0 0.6em;
+  line-height: 1.2;
+}
+.section-heading, .section-heading, .section-heading, .section-heading {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #1F3864;
+  line-height: 1.2;
+}
+.bold-num { font-weight: bold; }
+.verse-p, .verse-p-flush, .verse-p, .verse-p {
+  display: block;
+  margin: 0.6em 0;
+  line-height: 1.55;
+  text-align: justify !important;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.right-p {
+  display: block;
+  margin: 0.6em 0;
+  line-height: 1.55;
+  text-align: right;
+}
+.verse-p-flush { text-indent: 0; }
+
+.wide-leading, .wide-leading, .wide-leading, .wide-leading { line-height: 1.55; }
+/* The verse-number spans were calibre10 (legacy) — now .verse-num-sup */
+.verse-num-sup {
+  font-size: 0.78em !important;
+  font-weight: bold !important;
+  color: #A52A2A !important;
+  vertical-align: 0.4em;        /* explicit super-shift; was: vertical-align: super; line-height: 0; */
+  margin-right: 0.1em;
+  letter-spacing: 0;
+}
+
+/* Centered/standalone elements */
+.ch-heading {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #1F3864;
+  margin: 0 0 0.6em;
+  page-break-before: always;
+  break-before: page;
+  page-break-after: avoid;
+  break-after: avoid;
+  page-break-inside: avoid;
+}
+/* .calibre14 was the legacy chapter heading class — all instances converted to .ch-heading */
+/* Italics, smaller, etc. */
+.cited-work, .cited-work { font-style: italic; }
+.float-right { float: right; }
+.small-text, .small-text, .small-text { font-size: 0.85em; }
+
+/* === TITLE PAGE === */
+/* === LINKS === */
+a {
+  color: #1F3864;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* === BLOCKQUOTE / POETRY (Psalms, Proverbs) === */
+blockquote {
+  margin: 0.8em 1.5em;
+  font-style: italic;
+}
+
+/* === COMMENTARY NOTES === */
+.note-ref { text-decoration: none; margin: 0 1px; }
+.note-ref sup {
+  font-size: 0.78em;
+  vertical-align: 0.4em;        /* explicit baseline-shift instead of "super" keyword */
+  font-weight: bold;
+  padding: 0.05em 0.18em;
+  border-radius: 0.2em;
+  /* removed: line-height: 0; vertical-align: super;
+     — that combo with padding+background causes iOS Apple Books to render
+     a vertical-bar artifact (the | shown before each marker). 2026-05-05. */
+}
+/* High-contrast symbol palette — each kind gets a distinct hue
+   plus a subtle tinted background so the symbols pop off the text. */
+.marker-comm   { color: #0B3D91; background: rgba(11, 61, 145, 0.12); }   /* deep royal blue — interpretive note */
+.marker-word   { color: #8B6508; background: rgba(184, 134, 11, 0.14); }  /* dark goldenrod — Hebrew/Greek word */
+.marker-source { color: #A0202C; background: rgba(160, 32, 44, 0.13); }  /* crimson — textual variant */
+
+.notes-section, .notes-rule { display: none; }
+.notes-heading { font-size: 1.2em; color: #0B3D91; text-align: left; margin: 0.5em 0 0.8em; page-break-before: avoid; }
+
+/* Popup body — clean block layout (v28a-2):
+   Back-arrow floats right, label becomes small-caps header line, body flows beneath. */
+.note { margin: 0.6em 0 0.9em; font-size: 0.94em; line-height: 1.55; text-align: left; text-indent: 0; padding: 0.35em 0 0.4em; }
+.note p { margin: 0; }
+.note-back { float: right; color: #8B6508; font-weight: 700; text-decoration: none; margin-left: 0.5em; opacity: 0.55; font-size: 1.05em; }
+.note-back:hover { opacity: 1; }
+
+/* Label as block header — small caps, slightly muted, sits above body. */
+.note-label { display: block; font-style: normal; font-variant-caps: small-caps; letter-spacing: 0.05em; font-weight: 700; font-size: 0.78em; color: #6E5840; margin: 0 0 0.35em 0; }
+
+/* Comm-kind notes: hide the label entirely. ~95% are 'Note' (boilerplate);
+   the left-border colour + symbol already convey the kind. The body's own
+   <strong> opener carries the topic. Avoids the visual bundling the
+   reader perceives as redundancy. */
+.note-comm > p > .note-label,
+[class*="note-comm-"] > p > .note-label { display: none; }
+
+/* Hide trivial / boilerplate labels via attribute matching — ‘Note’, ‘Note.’ */
+.note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: none; }
+
+.note-comm   { border-left: 3px solid #0B3D91; padding-left: 0.7em; }
+.note-word   { border-left: 3px solid #8B6508; padding-left: 0.7em; }
+.note-source { border-left: 3px solid #A0202C; padding-left: 0.7em; }
+
+.ch-anchor { display: inline; }  /* invisible inline chapter-target anchor */
+
+
+/* === VERSE NUMBERS — clean, single-class form for Apple Books compatibility === */
+.vn {
+  color: #A52A2A !important;
+  font-weight: bold !important;
+  font-size: 0.78em !important;
+  vertical-align: super;
+  line-height: 0;
+  margin-right: 0.18em;
+}
+
+
+/* === FORCE JUSTIFY on body paragraphs (Apple Books compatibility) === */
+body p {
+  text-align: justify;
+}
+body p.right-p {
+  text-align: right;
+}
+
+
+/* === CLICKABLE VERSE NUMBERS (Genesis & 1 Enoch, expand later) === */
+.vn-link {
+  text-decoration: none;
+  color: inherit;
+}
+/* Visually distinguish wrapped verse numbers using a deeper, slightly olive-tinged red
+   so they stay readable as bible verse markers but signal interactivity */
+.vn-link .vn {
+  color: #6E2532 !important;            /* deeper than standard .vn red */
+  border-bottom: 1px dotted #B8836A;    /* dotted underline = "I am tappable" */
+  padding-bottom: 0.05em;
+  cursor: pointer;
+}
+.vn-link:hover .vn,
+.vn-link:focus .vn,
+.vn-link:active .vn {
+  color: #8B0000 !important;
+  background-color: #F7EFE3;            /* faint parchment highlight on tap */
+  border-bottom-style: solid;
+}
+/* When a verse anchor is the navigation target, briefly highlight it
+   so the reader can see WHERE they were sent on a deep-link tap */
+.vn-link:target .vn {
+  background-color: #F1E4C7;
+  color: #5C2018 !important;
+  border-bottom: 1px solid #C9A645;
+  outline: 1px solid #C9A645;
+  outline-offset: 1px;
+}
+
+
+/* === VERSE-NUMBER FOOTNOTES (popover content) === */
+.verse-refs-section { display: none; }   /* hide the section unless rendered as popover */
+.vnote {
+  font-size: 0.92em;
+  line-height: 1.45;
+  color: #2A2A2A;
+}
+.vnote-text  { margin: 0.2em 0; }
+.vnote-empty { color: #888; font-style: italic; }
+.vnote-back  { color: #8B6508; text-decoration: none; margin-left: 0.3em; }
+/* ============================================================
+   Originals popovers (Hebrew + Greek)
+   Append to existing stylesheet.css. Do not replace anything.
+   Added: Phase A, May 2026
+   ============================================================ */
+
+.vnote-source-label {
+    font-size: 0.75em;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    color: #6B5B47;
+    margin-top: 0.6em;
+    margin-bottom: 0.1em;
+    font-style: normal;
+}
+
+.vnote-hebrew {
+    /* RTL direction is set via the inline dir="rtl" attribute on each <p>;
+       the CSS `direction` property is disallowed in EPUB 3 stylesheets. */
+    text-align: right;
+    font-family: "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif;
+    font-size: 1.05em;
+    line-height: 1.7;
+    margin: 0.1em 0 0.3em 0;
+    /* Slightly larger to keep vowel-pointing legible at small reader sizes */
+}
+
+.vnote-greek {
+    font-family: "SBL Greek", "GFS Didot", "Cardo", "Times New Roman", serif;
+    font-size: 1.0em;
+    line-height: 1.55;
+    margin: 0.1em 0 0.3em 0;
+}
+
+/* Make the source label sit closer to its language block */
+.vnote-source-label + .vnote-hebrew,
+.vnote-source-label + .vnote-greek {
+    margin-top: 0;
+}
+
+/* === Body typography (Wilson/Asher amplification, May 2026) === */
+/* "Religious" serif stack: Cardo (designed for biblical scholarship),
+   EB Garamond, Crimson Text, then system serifs. Most apps will fall
+   back to their default serif if these aren't present, which is also
+   fine — the key change is moving away from sans-serif and tightening
+   line-height to fit more per page. */
+body, body.bible-body, p, p.verse-p, p.ch-heading, p.verse-p-flush {
+  font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
+               Palatino, Georgia, "Times New Roman", serif !important;
+  line-height: 1.32 !important;
+  font-size: 0.95em;
+}
+p.verse-p { margin: 0.4em 0 !important; text-align: justify; hyphens: auto; }
+p.ch-heading { margin: 0.7em 0 0.3em 0 !important; }  /* chapter number paragraph */
+h1, h2, h3, h1.book-title {
+  font-family: "Cardo", "EB Garamond", Georgia, "Times New Roman", serif !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* === TOC visible page === */
+/* Phase γ (v28a-8): edge-tap fix + pill prettify.
+   - Hide native <details><summary> marker; add custom ::before chevron
+     positioned 0.5em from summary's left edge → ~1.4em from page edge,
+     well outside the reader's page-turn zone.
+   - Larger summary tap target (full row, ~0.55em vertical padding).
+   - Chevron rotates 90° when [open]; subtle hover/active backgrounds.
+   - Pills: bigger min-tap (~24px), softer borders, burgundy hover state. */
+.toc-wrap {
+  margin: 0.8em 0.9em;
+  font-family: "Cardo", "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: 0.9em;
+}
+.toc-wrap .toc-title {
+  font-size: 1.5em; text-align: center;
+  margin: 0.3em 0 0.7em; letter-spacing: 0.06em;
+  font-variant: small-caps;
+  color: #1a1a1a;
+}
+.toc-wrap ol.toc-books { list-style: none; padding-left: 0; margin: 0; }
+.toc-wrap li.toc-book {
+  margin: 0.5em 0;
+  page-break-inside: avoid;
+}
+
+/* Hide native disclosure marker (cross-browser) — we render our own */
+.toc-wrap details > summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 0.55em 0.6em 0.55em 1.8em;
+  border-radius: 0.25em;
+  -webkit-tap-highlight-color: rgba(201, 166, 69, 0.25);
+}
+.toc-wrap details > summary::-webkit-details-marker { display: none; }
+.toc-wrap details > summary::marker { content: ""; }
+
+/* Custom chevron — well inside the edge-tap zone */
+.toc-wrap details > summary::before {
+  content: "▸";
+  position: absolute;
+  left: 0.55em;
+  top: 50%;
+  width: 1em;
+  text-align: center;
+  transform: translateY(-50%);
+  font-size: 0.95em;
+  color: #7B0E0E;
+  transition: transform 0.15s ease;
+}
+.toc-wrap details[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Visual feedback on tap */
+.toc-wrap details > summary:hover {
+  background: rgba(201, 166, 69, 0.10);
+}
+.toc-wrap details > summary:active,
+.toc-wrap details[open] > summary {
+  background: rgba(201, 166, 69, 0.06);
+}
+
+/* Book title link inside summary — inherits summary's padding */
+.toc-wrap li.toc-book > details > summary > a,
+.toc-wrap li.toc-book > a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #7B0E0E;
+  display: inline;
+  padding: 0;
+}
+.toc-wrap li.toc-book > details > summary > a:hover,
+.toc-wrap li.toc-book > a:hover { text-decoration: underline; }
+
+/* Chapter pills — prettified */
+.toc-wrap ol.toc-chapters {
+  list-style: none;
+  padding-left: 1.85em;
+  margin: 0.35em 0 0.45em 0;
+  display: flex; flex-wrap: wrap;
+  gap: 0.3em 0.32em;
+  page-break-inside: avoid;
+}
+.toc-wrap ol.toc-chapters li { display: inline-block; }
+.toc-wrap ol.toc-chapters li a {
+  display: inline-block; min-width: 1.6em;
+  padding: 0.2em 0.5em;
+  border: 1px solid rgba(123, 14, 14, 0.22);
+  border-radius: 0.3em;
+  background: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  color: #2a1a1a;
+  font-size: 0.86em; font-weight: 500;
+  line-height: 1.5; text-align: center;
+  -webkit-tap-highlight-color: rgba(201, 166, 69, 0.25);
+}
+.toc-wrap ol.toc-chapters li a:hover,
+.toc-wrap ol.toc-chapters li a:active {
+  background: rgba(201, 166, 69, 0.22);
+  border-color: rgba(201, 166, 69, 0.65);
+  color: #7B0E0E;
+}
+
+/* === Cover, Introduction, Book Title pages — Phase C.9 === */
+/* Sentinel: PHASE_C9_FRONTMATTER_BLOCK */
+.cover-wrap { margin: 0; padding: 0; text-align: center; page-break-after: always; }
+.cover-wrap .cover-img { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; }
+.cover-body, .intro-body { margin: 0 !important; padding: 0 !important; page-break-after: always; }
+.intro-wrap {
+  padding: 1.4em 1.2em 1.2em 1.2em;
+  font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
+               Palatino, Georgia, "Times New Roman", serif;
+  text-align: left; page-break-after: always; page-break-inside: avoid;
+}
+.intro-title {
+  text-align: center; font-size: 1.7em; font-weight: 700; letter-spacing: 0.04em;
+  color: #0B3D91; margin: 0.1em 0 0.2em 0;
+}
+.intro-rule { text-align: center; color: #8B6508; font-size: 1.0em; margin: 0.4em 0 1.6em 0; }
+.intro-lede { font-size: 1.0em; line-height: 1.55; text-align: justify; hyphens: auto; margin: 0.6em 0 0.9em 0; }
+.intro-body-p { font-size: 0.95em; line-height: 1.5; text-align: justify; margin: 0.5em 0; color: #555; }
+.intro-divider { text-align: center; margin: 1.6em 0 1.2em 0; color: #8B6508; font-size: 0.9em; }
+.intro-divider span { display: inline-block; padding: 0 0.4em; }
+.intro-signoff { text-align: right; font-style: italic; font-size: 0.9em; color: #6a4a1f; margin-top: 1.4em; }
+.book-title-page {
+  page-break-before: always;
+  break-before: page;
+  page-break-after: always;
+  break-after: page;
+  text-align: center; padding: 1.2em 0.8em; margin: 0 0 1.4em 0;
+  font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
+               Palatino, Georgia, "Times New Roman", serif;
+}
+.book-title-frame {
+  display: inline-block; margin: 0 auto; max-width: 92%;
+  border: 1px solid rgba(11, 61, 145, 0.32);
+  border-radius: 0.4em; padding: 1.2em 0.9em 1.0em 0.9em;
+  background: rgba(184, 134, 11, 0.04);
+}
+.bookpage-eyebrow { font-variant: small-caps; letter-spacing: 0.22em; color: #8B6508; font-size: 0.78em; margin: 0 0 0.7em 0; font-style: italic; }
+.bookpage-title { font-size: 1.55em; font-weight: 700; color: #0B3D91; letter-spacing: 0.03em; margin: 0.1em 0 0.3em 0; line-height: 1.2; }
+.bookpage-subtitle { font-size: 0.92em; font-style: italic; color: #6a4a1f; margin: 0.2em 0 0.5em 0; }
+.bookpage-rule { color: #8B6508; font-size: 1.0em; margin: 0.5em 0 0.2em 0; }
+
+
+/* === BEGIN apply_style.py managed region — DO NOT EDIT BY HAND === */
+body, body.bible-body {
+  margin-left: 0.4em !important;
+  margin-right: 0.4em !important;
+}
+
+body, body.bible-body, p, p.verse-p, p.verse-p-flush, p.ch-heading,
+.note, .vnote, .toc-wrap {
+  font-family: "IM Fell English", "Goudy Bookletter 1911", "Sorts Mill Goudy", "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif !important;
+}
+
+/* "smart" flow — chapters share pages when room exists, but the chapter
+   heading + its first paragraph stay together (no orphan chapter number
+   stranded at the bottom of a page). */
+.ch-heading {
+  page-break-before: auto;
+  break-before: auto;
+  page-break-after: avoid;
+  break-after: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  margin-top: 1.4em;
+  orphans: 3;
+  widows: 3;
+}
+/* Apply orphans/widows to the verse paragraphs that follow chapter
+   headings, reinforcing the same intent across readers that respect the
+   text-level (rather than block-level) properties. */
+p.verse-p, p.verse-p-flush {
+  orphans: 3;
+  widows: 3;
+}
+/* === END apply_style.py managed region === */
+
+/* Added by scripts/add_kind.py — kind: parallel */
+.marker-parallel { color: #5C2E91; background: rgba(92, 46, 145, 0.13); }
+.note-parallel   { border-left: 3px solid #5C2E91; padding-left: 0.7em; }
+
+/* ──────────────────────────────────────────────────────────────────
+   Category-default styles (kinds.yaml v2 / categories.yaml).
+   These apply to every kind whose code uses a category prefix
+   (e.g. .marker-lang-hebrew, .note-comm-patristic). Legacy classes
+   above (marker-word, marker-comm, etc.) keep their explicit colors
+   and are unaffected because their names don't contain a category
+   prefix substring.
+   Per-kind overrides can be added below as needed.
+   ────────────────────────────────────────────────────────────────── */
+
+[class*="marker-lang-"]   { color: #8B6508; background: rgba(184, 134, 11, 0.14); }
+[class*="note-lang-"]     { border-left: 3px solid #8B6508; padding-left: 0.7em; }
+
+[class*="marker-text-"]   { color: #A0202C; background: rgba(160, 32, 44, 0.13); }
+[class*="note-text-"]     { border-left: 3px solid #A0202C; padding-left: 0.7em; }
+
+[class*="marker-xref-"]   { color: #5C2E91; background: rgba(92, 46, 145, 0.13); }
+[class*="note-xref-"]     { border-left: 3px solid #5C2E91; padding-left: 0.7em; }
+
+[class*="marker-hist-"]   { color: #8B5A2B; background: rgba(139, 90, 43, 0.13); }
+[class*="note-hist-"]     { border-left: 3px solid #8B5A2B; padding-left: 0.7em; }
+
+[class*="marker-lit-"]    { color: #4A5568; background: rgba(74, 85, 104, 0.13); }
+[class*="note-lit-"]      { border-left: 3px solid #4A5568; padding-left: 0.7em; }
+
+[class*="marker-comm-"]   { color: #0B3D91; background: rgba(11, 61, 145, 0.12); }
+[class*="note-comm-"]     { border-left: 3px solid #0B3D91; padding-left: 0.7em; }
+
+[class*="marker-compare-"] { color: #1F5E5E; background: rgba(31, 94, 94, 0.13); }
+[class*="note-compare-"]   { border-left: 3px solid #1F5E5E; padding-left: 0.7em; }
+
+[class*="marker-dev-"]    { color: #8C3F5F; background: rgba(140, 63, 95, 0.13); }
+[class*="note-dev-"]      { border-left: 3px solid #8C3F5F; padding-left: 0.7em; }
+
+[class*="marker-liturgy-"] { color: #8B6508; background: rgba(184, 134, 11, 0.14); }
+[class*="note-liturgy-"]   { border-left: 3px solid #B8860B; padding-left: 0.7em; }
+
+[class*="marker-apol-"]   { color: #2E5E3E; background: rgba(46, 94, 62, 0.13); }
+[class*="note-apol-"]     { border-left: 3px solid #2E5E3E; padding-left: 0.7em; }
+
+[class*="marker-modern-"] { color: #4A6FA5; background: rgba(74, 111, 165, 0.13); }
+[class*="note-modern-"]   { border-left: 3px solid #4A6FA5; padding-left: 0.7em; }
+
+[class*="marker-ped-"]    { color: #6B5B4A; background: rgba(107, 91, 74, 0.13); }
+[class*="note-ped-"]      { border-left: 3px solid #6B5B4A; padding-left: 0.7em; }
+
+[class*="marker-vis-"]    { color: #525E2C; background: rgba(82, 94, 44, 0.13); }
+[class*="note-vis-"]      { border-left: 3px solid #525E2C; padding-left: 0.7em; }
+
+[class*="marker-dist-"]   { color: #4A2E5C; background: rgba(74, 46, 92, 0.13); }
+[class*="note-dist-"]     { border-left: 3px solid #4A2E5C; padding-left: 0.7em; }

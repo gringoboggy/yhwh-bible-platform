@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-05-21 — session — crash recovery + matrix cleanup + EPUB-builder REVIVED (base scripture HTML recovered + first valid build)
+
+**Context:** opened after a 4th harness OOM ("whatever you were doing last crashed my computer"). Recovered, then the user steered into a full hindsight cleanup + "is the deliverable actually buildable?" investigation toward the **2026-06-07 deadline** (free CC0 EPUB-builder demo).
+
+**Shipped:**
+- **Manuscript-vision OOM fix (`c701ae7`).** Recovered + committed the un-bannered standalone at-scale vision pipeline (`scripts/core/manuscript_vision.py`, `parallel.py`, `work_cache.py`, the transcribe/review runners) that retires the agent-image-buffer OOM crash class — image bytes go to the API, never the harness buffer (never-upscale, ≤1568px, ≤8-folio `lru_cache`). 36 tests.
+- **Matrix divergence fix (`77cd262`).** "Which kinds ship in an edition" was implemented 3× with drifting phase/ai-notes gates → the matrix over-counted vs the build. Unified onto one canonical `config.enabled_kind_codes`; matrix/build/config all delegate (TDD; `tests/test_enabled_kinds_unified.py`). Map + reference tracer: `dev/MATRIX_MAP.md` + `dev/trace_matrix.py` (`829af7f`).
+- **`build_edition --dry-run` fix (`83bb9ef`).** UnboundLocalError on every edition (TDD + regression test).
+- **Full system audit** → `dev/AUDIT_2026-05-21-smoother-running.md`: DB sound (sqlite+FTS over `.py` source), safety net strong (3,374+ tests), tooling carries stale pre-pivot commercial cruft (doctor/ship/onix). P0 = the build was broken.
+- **EPUB BUILDER REVIVED (this commit).** Root cause: the base scripture HTML (`epub_working/index_split_*.html` — the World English Bible text notes inject into) was never committed after the 2026-05-08 re-init → lost; `inject` found "no readable HTML files". Recovered from the **v28a-50 (2026-05-07)** snapshot (the newest base in existence — `lessOLD`/05-16 + `YHWH-v2.2` lack it) and **committed it** (audit P1; `.gitignore` already intended `epub_working/` tracked). **Verified:** `ebible build ethiopian-tewahedo` → a 6.2 MB structurally-valid EPUB (mimetype-first-STORED, container/opf/nav/toc present, opens in readers); per-edition filtering works (28 kinds kept); `inject` lands ~83% of the 52,973 notes.
+
+**Known tail (incremental):** 290 unmatched note-refs per edition (build_edition strips refs/asides slightly out of sync: 14,940 vs 14,687); 8,236 anchor-miss + 808 no-section (OT auto-note anchoring + chapters absent from the 05-07 base, e.g. 1 Enoch 37-108). **Not** base-version drift (NT injects 94-97%, OT lower) → a fresh-rendered base (option B) would not help.
+
+**Next:** de-commercialize the tooling (doctor/ship/onix); fix the 290 unmatched; close the inject tail; add an `ebible build` smoke test; install Java for epubcheck cert.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT — base-HTML recovery + audit docs + CHANGELOG + IN_FLIGHT current.
+
+---
+
 ## 2026-05-20 — session — τ.6.x.4.c Kings marathon — system audit + matrix upgrades (U1+U2+U4) + 1 Kings 4 ✅ CALIBRATED (47 total / 4 calibrated / 43 pending)
 
 **Phases progressed:** τ.6.x.4.c Stage 1 / Task #6 advanced one chapter (1Ki4) AND received an audit-driven matrix upgrade. User asked for a full system audit of the Kings transcription marathon ("I am a bit confused… Kings is taking days longer than Samuel"). Audit clarified the misperception (Samuel only did calibration gate, 4/55 chapters; full marathon was deferred — Kings is doing the work Samuel never did, and is actually ahead of Samuel's pace in absolute chapter count) and identified root causes for 1Ki4's outlier convergence (7 GG rounds + 3 CAM rounds vs the 2–3 expected): chapter-genre mismatch (LIST class fired failure modes the NARRATIVE-tuned matrix didn't pre-screen for); schema rot in 1Ki4 witnesses (non-canonical `uncertain[]` markers + `✣` in tokens + extra top-level keys) that required a one-shot driver workaround; no write-time validation; no reviewer-context persistence.

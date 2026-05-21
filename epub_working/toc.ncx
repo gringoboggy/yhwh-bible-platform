@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+  <head>
+    <meta name="dtb:uid" content="urn:uuid:87c01b6b-0e5e-4c26-b5b1-1a1136081422"/>
+    <meta name="dtb:depth" content="2"/>
+    <meta name="dtb:generator" content="calibre (9.8.0)"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>The Ethiopian Bible</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="num_toc" playOrder="1">
+      <navLabel><text>Table of Contents</text></navLabel>
+      <content src="index_split_000.html#page_1"/>
+    </navPoint>
+    <navPoint id="num_book_0" playOrder="2">
+      <navLabel><text>The First Book of Moses, Genesis</text></navLabel>
+      <content src="index_split_000.html#bp-00"/>
+    </navPoint>
+    <navPoint id="num_book_1" playOrder="3">
+      <navLabel><text>The Second Book of Moses, Exodus</text></navLabel>
+      <content src="index_split_003.html#bp-01"/>
+    </navPoint>
+    <navPoint id="num_book_2" playOrder="4">
+      <navLabel><text>The Third Book of Moses, Leviticus</text></navLabel>
+      <content src="index_split_005.html#bp-02"/>
+    </navPoint>
+    <navPoint id="num_book_3" playOrder="5">
+      <navLabel><text>The Fourth Book of Moses, Numbers</text></navLabel>
+      <content src="index_split_007.html#bp-03"/>
+    </navPoint>
+    <navPoint id="num_book_4" playOrder="6">
+      <navLabel><text>The Fifth Book of Moses, Deuteronomy</text></navLabel>
+      <content src="index_split_008.html#bp-04"/>
+    </navPoint>
+    <navPoint id="num_book_5" playOrder="7">
+      <navLabel><text>The Book of Joshua</text></navLabel>
+      <content src="index_split_009.html#bp-05"/>
+    </navPoint>
+    <navPoint id="num_book_6" playOrder="8">
+      <navLabel><text>The Book of Judges</text></navLabel>
+      <content src="index_split_009.html#bp-06"/>
+    </navPoint>
+    <navPoint id="num_book_7" playOrder="9">
+      <navLabel><text>The Book of Ruth</text></navLabel>
+      <content src="index_split_010.html#bp-07"/>
+    </navPoint>
+    <navPoint id="num_book_8" playOrder="10">
+      <navLabel><text>The First Book of Samuel</text></navLabel>
+      <content src="index_split_010.html#bp-08"/>
+    </navPoint>
+    <navPoint id="num_book_9" playOrder="11">
+      <navLabel><text>The Second Book of Samuel</text></navLabel>
+      <content src="index_split_011.html#bp-09"/>
+    </navPoint>
+    <navPoint id="num_book_10" playOrder="12">
+      <navLabel><text>The First Book of Kings</text></navLabel>
+      <content src="index_split_012.html#bp-10"/>
+    </navPoint>
+    <navPoint id="num_book_11" playOrder="13">
+      <navLabel><text>The Second Book of Kings</text></navLabel>
+      <content src="index_split_015.html#bp-11"/>
+    </navPoint>
+    <navPoint id="num_book_12" playOrder="14">
+      <navLabel><text>The First Book of Chronicles</text></navLabel>
+      <content src="index_split_015.html#bp-12"/>
+    </navPoint>
+    <navPoint id="num_book_13" playOrder="15">
+      <navLabel><text>The Second Book of Chronicles</text></navLabel>
+      <content src="index_split_017.html#bp-13"/>
+    </navPoint>
+    <navPoint id="num_book_14" playOrder="16">
+      <navLabel><text>The Prayer of Manasses</text></navLabel>
+      <content src="index_split_018.html#bp-14"/>
+    </navPoint>
+    <navPoint id="num_book_15" playOrder="17">
+      <navLabel><text>The Book of Jubilees, or The Little Genesis</text></navLabel>
+      <content src="index_split_018.html#bp-15"/>
+    </navPoint>
+    <navPoint id="num_book_16" playOrder="18">
+      <navLabel><text>The Book of Enoch</text></navLabel>
+      <content src="index_split_020.html#bp-16"/>
+    </navPoint>
+    <navPoint id="num_book_17" playOrder="19">
+      <navLabel><text>The Second Book of Enoch, or Slavonic Enoch, or The Book of the Secrets of Enoch</text></navLabel>
+      <content src="index_split_022.html#bp-17"/>
+    </navPoint>
+    <navPoint id="num_book_18" playOrder="20">
+      <navLabel><text>The Book of Ezra</text></navLabel>
+      <content src="index_split_024.html#bp-18"/>
+    </navPoint>
+    <navPoint id="num_book_19" playOrder="21">
+      <navLabel><text>The Book of Nehemiah</text></navLabel>
+      <content src="index_split_025.html#bp-19"/>
+    </navPoint>
+    <navPoint id="num_book_20" playOrder="22">
+      <navLabel><text>The First Book of Esdras, or Ezra Kali</text></navLabel>
+      <content src="index_split_025.html#bp-20"/>
+    </navPoint>
+    <navPoint id="num_book_21" playOrder="23">
+      <navLabel><text>The Second Book of Esdras, or Ezra Sutu'el</text></navLabel>
+      <content src="index_split_025.html#bp-21"/>
+    </navPoint>
+    <navPoint id="num_book_22" playOrder="24">
+      <navLabel><text>The Book of Tobit</text></navLabel>
+      <content src="index_split_026.html#bp-22"/>
+    </navPoint>
+    <navPoint id="num_book_23" playOrder="25">
+      <navLabel><text>The Book of Judith</text></navLabel>
+      <content src="index_split_027.html#bp-23"/>
+    </navPoint>
+    <navPoint id="num_book_24" playOrder="26">
+      <navLabel><text>The Book of Esther</text></navLabel>
+      <content src="index_split_027.html#bp-24"/>
+    </navPoint>
+    <navPoint id="num_book_25" playOrder="27">
+      <navLabel><text>Additions to Esther, translated from the Greek Septuagint</text></navLabel>
+      <content src="index_split_028.html#bp-25"/>
+    </navPoint>
+    <navPoint id="num_book_26" playOrder="28">
+      <navLabel><text>The Book of Meqabyan I</text></navLabel>
+      <content src="index_split_028.html#bp-26"/>
+    </navPoint>
+    <navPoint id="num_book_27" playOrder="29">
+      <navLabel><text>The Book of Meqabyan II</text></navLabel>
+      <content src="index_split_029.html#bp-27"/>
+    </navPoint>
+    <navPoint id="num_book_28" playOrder="30">
+      <navLabel><text>The Book of Meqabyan III</text></navLabel>
+      <content src="index_split_029.html#bp-28"/>
+    </navPoint>
+    <navPoint id="num_book_29" playOrder="31">
+      <navLabel><text>The Book of Job</text></navLabel>
+      <content src="index_split_030.html#bp-29"/>
+    </navPoint>
+    <navPoint id="num_book_30" playOrder="32">
+      <navLabel><text>The Psalms</text></navLabel>
+      <content src="index_split_032.html#bp-30"/>
+    </navPoint>
+    <navPoint id="num_book_32" playOrder="33">
+      <navLabel><text>The Proverbs</text></navLabel>
+      <content src="index_split_035.html#bp-32"/>
+    </navPoint>
+    <navPoint id="num_book_33" playOrder="34">
+      <navLabel><text>The Wisdom of Solomon</text></navLabel>
+      <content src="index_split_036.html#bp-33"/>
+    </navPoint>
+    <navPoint id="num_book_34" playOrder="35">
+      <navLabel><text>Ecclesiastes or, The Preacher</text></navLabel>
+      <content src="index_split_037.html#bp-34"/>
+    </navPoint>
+    <navPoint id="num_book_35" playOrder="36">
+      <navLabel><text>The Song of Songs, or Song of Solomon</text></navLabel>
+      <content src="index_split_037.html#bp-35"/>
+    </navPoint>
+    <navPoint id="num_book_36" playOrder="37">
+      <navLabel><text>The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus</text></navLabel>
+      <content src="index_split_037.html#bp-36"/>
+    </navPoint>
+    <navPoint id="num_book_37" playOrder="38">
+      <navLabel><text>The Book of the Prophet Isaiah</text></navLabel>
+      <content src="index_split_039.html#bp-37"/>
+    </navPoint>
+    <navPoint id="num_book_38" playOrder="39">
+      <navLabel><text>The Book of Jeremiah</text></navLabel>
+      <content src="index_split_041.html#bp-38"/>
+    </navPoint>
+    <navPoint id="num_book_39" playOrder="40">
+      <navLabel><text>The Lamentations of Jeremiah</text></navLabel>
+      <content src="index_split_043.html#bp-39"/>
+    </navPoint>
+    <navPoint id="num_book_40" playOrder="41">
+      <navLabel><text>The Book of Baruch</text></navLabel>
+      <content src="index_split_044.html#bp-40"/>
+    </navPoint>
+    <navPoint id="num_book_41" playOrder="42">
+      <navLabel><text>The Letter of Jeremiah</text></navLabel>
+      <content src="index_split_044.html#bp-41"/>
+    </navPoint>
+    <navPoint id="num_book_42" playOrder="43">
+      <navLabel><text>4 Baruch, or Paralipomena of Jeremiah</text></navLabel>
+      <content src="index_split_045.html#bp-42"/>
+    </navPoint>
+    <navPoint id="num_book_43" playOrder="44">
+      <navLabel><text>The Book of Ezekiel</text></navLabel>
+      <content src="index_split_045.html#bp-43"/>
+    </navPoint>
+    <navPoint id="num_book_44" playOrder="45">
+      <navLabel><text>The Book of Daniel</text></navLabel>
+      <content src="index_split_047.html#bp-44"/>
+    </navPoint>
+    <navPoint id="num_book_45" playOrder="46">
+      <navLabel><text>The Song of the Three Holy Children, or The Prayer of Azariah</text></navLabel>
+      <content src="index_split_047.html#bp-45"/>
+    </navPoint>
+    <navPoint id="num_book_46" playOrder="47">
+      <navLabel><text>The History of Susanna</text></navLabel>
+      <content src="index_split_048.html#bp-46"/>
+    </navPoint>
+    <navPoint id="num_book_47" playOrder="48">
+      <navLabel><text>Bel and the Dragon</text></navLabel>
+      <content src="index_split_049.html#bp-47"/>
+    </navPoint>
+    <navPoint id="num_book_48" playOrder="49">
+      <navLabel><text>The Book of Hosea</text></navLabel>
+      <content src="index_split_049.html#bp-48"/>
+    </navPoint>
+    <navPoint id="num_book_49" playOrder="50">
+      <navLabel><text>The Book of Joel</text></navLabel>
+      <content src="index_split_050.html#bp-49"/>
+    </navPoint>
+    <navPoint id="num_book_50" playOrder="51">
+      <navLabel><text>The Book of Amos</text></navLabel>
+      <content src="index_split_050.html#bp-50"/>
+    </navPoint>
+    <navPoint id="num_book_51" playOrder="52">
+      <navLabel><text>The Book of Obadiah</text></navLabel>
+      <content src="index_split_050.html#bp-51"/>
+    </navPoint>
+    <navPoint id="num_book_52" playOrder="53">
+      <navLabel><text>The Book of Jonah</text></navLabel>
+      <content src="index_split_050.html#bp-52"/>
+    </navPoint>
+    <navPoint id="num_book_53" playOrder="54">
+      <navLabel><text>The Book of Micah</text></navLabel>
+      <content src="index_split_051.html#bp-53"/>
+    </navPoint>
+    <navPoint id="num_book_54" playOrder="55">
+      <navLabel><text>The Book of Nahum</text></navLabel>
+      <content src="index_split_051.html#bp-54"/>
+    </navPoint>
+    <navPoint id="num_book_55" playOrder="56">
+      <navLabel><text>The Book of Habakkuk</text></navLabel>
+      <content src="index_split_051.html#bp-55"/>
+    </navPoint>
+    <navPoint id="num_book_56" playOrder="57">
+      <navLabel><text>The Book of Zephaniah</text></navLabel>
+      <content src="index_split_051.html#bp-56"/>
+    </navPoint>
+    <navPoint id="num_book_57" playOrder="58">
+      <navLabel><text>The Book of Haggai</text></navLabel>
+      <content src="index_split_051.html#bp-57"/>
+    </navPoint>
+    <navPoint id="num_book_58" playOrder="59">
+      <navLabel><text>The Book of Zechariah</text></navLabel>
+      <content src="index_split_051.html#bp-58"/>
+    </navPoint>
+    <navPoint id="num_book_59" playOrder="60">
+      <navLabel><text>The Book of Malachi</text></navLabel>
+      <content src="index_split_051.html#bp-59"/>
+    </navPoint>
+    <navPoint id="num_book_60" playOrder="61">
+      <navLabel><text>The Good News According to Matthew</text></navLabel>
+      <content src="index_split_051.html#bp-60"/>
+    </navPoint>
+    <navPoint id="num_book_61" playOrder="62">
+      <navLabel><text>The Good News According to Mark</text></navLabel>
+      <content src="index_split_052.html#bp-61"/>
+    </navPoint>
+    <navPoint id="num_book_62" playOrder="63">
+      <navLabel><text>The Good News According to Luke</text></navLabel>
+      <content src="index_split_053.html#bp-62"/>
+    </navPoint>
+    <navPoint id="num_book_63" playOrder="64">
+      <navLabel><text>The Good News According to John</text></navLabel>
+      <content src="index_split_054.html#bp-63"/>
+    </navPoint>
+    <navPoint id="num_book_64" playOrder="65">
+      <navLabel><text>The Acts of the Apostles</text></navLabel>
+      <content src="index_split_055.html#bp-64"/>
+    </navPoint>
+    <navPoint id="num_book_65" playOrder="66">
+      <navLabel><text>Paul’s Letter to the Romans</text></navLabel>
+      <content src="index_split_056.html#bp-65"/>
+    </navPoint>
+    <navPoint id="num_book_66" playOrder="67">
+      <navLabel><text>Paul’s First Letter to the Corinthians</text></navLabel>
+      <content src="index_split_056.html#bp-66"/>
+    </navPoint>
+    <navPoint id="num_book_67" playOrder="68">
+      <navLabel><text>Paul’s Second Letter to the Corinthians</text></navLabel>
+      <content src="index_split_057.html#bp-67"/>
+    </navPoint>
+    <navPoint id="num_book_68" playOrder="69">
+      <navLabel><text>Paul’s Letter to the Galatians</text></navLabel>
+      <content src="index_split_058.html#bp-68"/>
+    </navPoint>
+    <navPoint id="num_book_69" playOrder="70">
+      <navLabel><text>Paul’s Letter to the Ephesians</text></navLabel>
+      <content src="index_split_058.html#bp-69"/>
+    </navPoint>
+    <navPoint id="num_book_70" playOrder="71">
+      <navLabel><text>Paul’s Letter to the Philippians</text></navLabel>
+      <content src="index_split_058.html#bp-70"/>
+    </navPoint>
+    <navPoint id="num_book_71" playOrder="72">
+      <navLabel><text>Paul’s Letter to the Colossians</text></navLabel>
+      <content src="index_split_058.html#bp-71"/>
+    </navPoint>
+    <navPoint id="num_book_72" playOrder="73">
+      <navLabel><text>Paul’s First Letter to the Thessalonians</text></navLabel>
+      <content src="index_split_058.html#bp-72"/>
+    </navPoint>
+    <navPoint id="num_book_73" playOrder="74">
+      <navLabel><text>Paul’s Second Letter to the Thessalonians</text></navLabel>
+      <content src="index_split_058.html#bp-73"/>
+    </navPoint>
+    <navPoint id="num_book_74" playOrder="75">
+      <navLabel><text>Paul’s First Letter to Timothy</text></navLabel>
+      <content src="index_split_058.html#bp-74"/>
+    </navPoint>
+    <navPoint id="num_book_75" playOrder="76">
+      <navLabel><text>Paul’s Second Letter to Timothy</text></navLabel>
+      <content src="index_split_059.html#bp-75"/>
+    </navPoint>
+    <navPoint id="num_book_76" playOrder="77">
+      <navLabel><text>Paul’s Letter to Titus</text></navLabel>
+      <content src="index_split_059.html#bp-76"/>
+    </navPoint>
+    <navPoint id="num_book_77" playOrder="78">
+      <navLabel><text>Paul’s Letter to Philemon</text></navLabel>
+      <content src="index_split_059.html#bp-77"/>
+    </navPoint>
+    <navPoint id="num_book_78" playOrder="79">
+      <navLabel><text>The Letter to the Hebrews</text></navLabel>
+      <content src="index_split_059.html#bp-78"/>
+    </navPoint>
+    <navPoint id="num_book_79" playOrder="80">
+      <navLabel><text>The Letter from James</text></navLabel>
+      <content src="index_split_059.html#bp-79"/>
+    </navPoint>
+    <navPoint id="num_book_80" playOrder="81">
+      <navLabel><text>Peter’s First Letter</text></navLabel>
+      <content src="index_split_059.html#bp-80"/>
+    </navPoint>
+    <navPoint id="num_book_81" playOrder="82">
+      <navLabel><text>Peter’s Second Letter</text></navLabel>
+      <content src="index_split_059.html#bp-81"/>
+    </navPoint>
+    <navPoint id="num_book_82" playOrder="83">
+      <navLabel><text>John’s First Letter</text></navLabel>
+      <content src="index_split_059.html#bp-82"/>
+    </navPoint>
+    <navPoint id="num_book_83" playOrder="84">
+      <navLabel><text>John’s Second Letter</text></navLabel>
+      <content src="index_split_059.html#bp-83"/>
+    </navPoint>
+    <navPoint id="num_book_84" playOrder="85">
+      <navLabel><text>John’s Third Letter</text></navLabel>
+      <content src="index_split_059.html#bp-84"/>
+    </navPoint>
+    <navPoint id="num_book_85" playOrder="86">
+      <navLabel><text>The Letter from Jude</text></navLabel>
+      <content src="index_split_059.html#bp-85"/>
+    </navPoint>
+    <navPoint id="num_book_86" playOrder="87">
+      <navLabel><text>Revelation</text></navLabel>
+      <content src="index_split_059.html#bp-86"/>
+    </navPoint>
+    <navPoint id="num_book_87" playOrder="88">
+      <navLabel><text>The First Epistle of Clement to the Corinthians</text></navLabel>
+      <content src="index_split_060.html#bp-87"/>
+    </navPoint>
+  </navMap>
+</ncx>

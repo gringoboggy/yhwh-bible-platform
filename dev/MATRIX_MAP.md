@@ -109,3 +109,38 @@ products of organic growth from the original 1-Bible builder:
 py dev/trace_matrix.py        # read-only; reuses the real config loaders; prints per-edition trace
 ```
 Exit is report-only today. Wire into `validate_taxonomy.py` / pre-commit if you want it enforced.
+
+## Build pipeline (downstream of the matrix) & the base-HTML gap
+
+Reverse-engineered 2026-05-21 while verifying the deliverable builds. The matrix decides WHICH
+notes/books ship per edition; the build turns that into the EPUB the user downloads:
+
+```
+content/notes/<book>.py        (52,973 notes — SOURCE)
+content/translations/<id>/*.py (verse text as data — SOURCE; powers matrix/parallel/standalone)
+        |
+        v  inject   (ebible build step 1 = scripts/inject.py --all-books)
+epub_working/index_split_*.html   <== BASE SCRIPTURE HTML (calibre-split chunks; the scripture
+        |                             TEXT source-of-truth, edited IN PLACE — NOT rendered from
+        |                             translations. Notes land as id="note-X" paired with
+        |                             href="#note-X"; verses carry id="v-<book>-<ch>-<v>".)
+        v  build_edition.py <id>   (filter notes per edition via config.enabled_kind_codes + canon)
+per-edition working copy
+        v  build_epub.py / build.sh   (mimetype-first store-only zip)
+<edition>.epub   (deliverable; dc:identifier = urn:yhwh:edition:<id> — CC0, not for sale)
+```
+
+Health invariant: **paired=N/N** — every `href="#note-X"` has a matching `id="note-X"`. Check before/after any build.
+
+**THE GAP (2026-05-21):** `epub_working/` (the base scripture HTML) is a build artifact that is NOT
+in the current repo — never committed, now absent — so `inject` errors "no readable HTML files" and
+`ebible build` dies at step 1. The legacy injectors `run.py` references (`source_archive/`,
+`kings_session/`) are also gone. **Recovery source:** `…/Ethiopian_Bible_HANDOFF_v9_2026-05-05`
+contains `epub_working/index_split_*.html` (all 87 books' text, TOC-wired) + `source_archive/` +
+`kings_session/` + a built 4.6 MB EPUB. The 05-05 base text is TEXT-complete for the 87-book English
+canon; the current 52,973 notes re-inject fresh (injector is idempotent). The standalone Ge'ez/Amharic
+Bibles need their own base HTML (newer, separate).
+
+**Production risk it exposes:** the scripture base HTML is a large, hand-edited, UNCOMMITTED calibre
+artifact — losing it (as happened) blocks every build. Fix options in
+`dev/AUDIT_2026-05-21-smoother-running.md`.
