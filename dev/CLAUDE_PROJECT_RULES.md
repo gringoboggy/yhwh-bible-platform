@@ -1866,7 +1866,7 @@ TIER 2  IN_FLIGHT.md tracker       ← STATE OF RECORD
 
 TIER 3  Continuous linter          ← FINAL backstop
         (scripts/lint_rules.py,     Surfaces drift to humans
-         8 invariant checks)        on every preflight run.
+         the invariant-check suite) on every preflight run.
                                     The auditable "did
                                     anything escape?"
 ```
