@@ -99,3 +99,22 @@ _VN_RE = re.compile(r'<span class="vn">(\d+)</span>')
 def verse_numbers_in_region(region: str) -> list[int]:
     """Verse numbers (in document order) inside one chapter region."""
     return [int(m.group(1)) for m in _VN_RE.finditer(region)]
+
+
+_SECTION_OPEN = '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
+
+
+def ensure_verse_refs_section(text: str) -> tuple[str, int]:
+    """Return ``(text, insertion_index)`` where ``insertion_index`` points at the
+    section's closing ``</section>`` (asides are inserted just before it). Creates
+    an empty section before ``</body>`` if none exists."""
+    pos = text.find(_SECTION_OPEN)
+    if pos != -1:
+        close = text.find("</section>", pos)
+        return text, close
+    body = text.rfind("</body>")
+    if body == -1:
+        body = len(text)
+    new_text = text[:body] + f"\n{_SECTION_OPEN}</section>\n" + text[body:]
+    pos = new_text.find(_SECTION_OPEN)
+    return new_text, new_text.find("</section>", pos)

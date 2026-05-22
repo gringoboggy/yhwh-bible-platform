@@ -145,3 +145,21 @@ class TestVerseSpansInChapter:
 
         start, end = chapter_region(self.HTML, bxx="b10", ch=1)
         assert verse_numbers_in_region(self.HTML[start:end]) == [1, 2]
+
+
+class TestEnsureVerseRefsSection:
+    def test_returns_existing_section_span(self):
+        from scripts.generate_verse_popups import ensure_verse_refs_section
+
+        text = 'x<section class="verse-refs-section" epub:type="footnotes" hidden=""></section></body>'
+        new_text, insert_at = ensure_verse_refs_section(text)
+        assert new_text == text  # already present, unchanged
+        assert text[insert_at : insert_at + len("</section>")] == "</section>"
+
+    def test_creates_section_before_body_close(self):
+        from scripts.generate_verse_popups import ensure_verse_refs_section
+
+        text = "<body><p>scripture</p></body></html>"
+        new_text, insert_at = ensure_verse_refs_section(text)
+        assert 'class="verse-refs-section"' in new_text
+        assert new_text[insert_at : insert_at + len("</section>")] == "</section>"
