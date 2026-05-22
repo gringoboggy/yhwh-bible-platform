@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-05-22 — session — verse-popup regeneration SHIPPED (coverage 24% → 90.5%)
+
+**Context:** executed the verse-popup regeneration plan subagent-driven (9 TDD tasks). Closes the demo-critical gap where verse popups existed for only 11 books / 24% of verses. Toward the **2026-06-07 deadline**.
+
+**Shipped:**
+- **New generator `scripts/generate_verse_popups.py`** (+ `tests/test_verse_popups.py`, 19 tests) — a re-runnable, idempotent base-preprocessing pass that wraps each verse number in the `<a class="vn-link" …>` popup anchor + builds a matching `<aside class="vnote">` (KJV English floor; Hebrew/Greek from the resolver where present, else harvested from the existing base). Commits: `8b9ec31` aside-builder · `aeee4ca` wrapper · `6b82142` harvest · `980b39d` chapter/verse location · `5c5c8b7` section · `a4c35ea`+`4cf8ef7` generate_book + vn-link fix · `3d6bef2` CLI+idempotency · `1c9b7f3` all-books data · `70ac7d3` regression pins.
+- **Coverage 9,689 → 36,556 verses (24% → 90.5%; 77 books at ~100%).** The 7 no-KJV books (Meqabyan I-III, 2 Enoch, Jubilees, 4 Baruch, 1 Clement) correctly remain unwrapped (deferred to the Ge'ez track). Versification-divergent deuterocanonical additions (Daniel 87%, Song of the Three 29%) partially covered — skipped where KJV numbering diverges from base (no fabrication).
+- **Critical review catch:** the planned wrapper omitted `class="vn-link"` (which `build_edition.py` + `inject.py` locate verses by); caught + fixed before the all-books run (`4cf8ef7`), so the new wrappers are recognized by the build pipeline + the note injector.
+- **Harvest-and-merge preserved original languages:** the 11 originally-wrapped books kept their Hebrew/Greek (2 Samuel: 582 Greek / 584 Hebrew of 585 asides) — uniform regen dropped nothing. The old Genesis 1:1/1:2 versification offset is corrected.
+- **`audit.py` B3 check** scoped to chapters that have verse spans (the new `v-…-1` anchors made this necessary to hold `ebible verify` at errors=0).
+
+**Verified:** 19 popup tests + 31 build-smoke pass; `ebible verify` **errors=0 / 24,015 paired**; ruff + `lint_rules` clean; idempotent re-run (byte-identical); **0 duplicate asides**; clean wrapper↔aside pairing (21 minor 1 Enoch `-x`-suffix orphans among verify's warnings).
+
+**Next:** [USER] e-reader check of the now-broadly-popup'd EPUB; deferred — acquire full Hebrew/Greek/Greek-NT PD datasets to upgrade the English floor; Ge'ez popups for the 7 no-KJV books.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT (closes the arc opened at `d2ad178`; IN_FLIGHT → idle).
+
+---
+
 ## 2026-05-22 — session — verse-popup-coverage characterization + regeneration spec & plan
 
 **Context:** continued from the EPUB-QA followups (`096c9b5`). The marker-density QA surfaced that verse popups cover only 11 books / 24% of verses; this session characterized the gap, then brainstormed → spec'd → planned the fix (no implementation code yet). Toward the **2026-06-07 deadline**.

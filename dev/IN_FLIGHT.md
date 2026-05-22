@@ -1,14 +1,10 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-> **➤➤➤ 2026-05-22 (LATEST) VERSE-POPUP REGENERATION — IMPLEMENTING (subagent-driven). READ FIRST.**
+> **➤➤➤ 2026-05-22 (LATEST) VERSE-POPUP REGENERATION — SHIPPED. Tracker idle.**
 >
-> The demo-critical verse-popup gap (popups on only 11 books / 24% of verses; lost generator + lost parallel-text data — full analysis in CHANGELOG 2026-05-22 + memory `epub-qa-followups`) is being closed. Spec + 9-task TDD plan COMMITTED: `docs/superpowers/specs/2026-05-22-verse-popup-regeneration-design.md` + `docs/superpowers/plans/2026-05-22-verse-popup-regeneration.md`.
->
-> **Building** `scripts/generate_verse_popups.py` + `tests/test_verse_popups.py` via the plan's 9 tasks: aside builder → idempotent verse-number wrapper → harvest existing he/gr → chapter-region/verse location (no `v-` anchor needed) → ensure verse-refs-section → `generate_book` orchestration (KJV English floor + resolver/harvest he/gr) → CLI + idempotency → run over all KJV-covered books + `ebible verify`/build-smoke gates → coverage + versification-alignment pins. Each task commits via `save.ps1`. The 6 Ethiopic-only books (no KJV) are deferred to the Ge'ez parallel-Bible track.
->
-> **Resume point if interrupted:** check which plan tasks have committed (`git log --oneline`), re-read the plan, continue the next unchecked task. The base HTML (`epub_working/`) is only modified at Task 8 (run-all) — before that, all work is in the new script + test files (safe, revertable).
+> The demo-critical verse-popup gap is CLOSED. `scripts/generate_verse_popups.py` (+ `tests/test_verse_popups.py`, 19 tests) regenerated verse popups across all KJV-covered books: coverage **24% → 90.5%** (9,689 → 36,556 verses; 77 books at ~100%). KJV English floor + harvest-merge-preserved Hebrew/Greek (the 11 originally-wrapped books kept their he/gr); old Gen 1:1/1:2 offset corrected; idempotent; `ebible verify` errors=0; build smoke green. Committed through `70ac7d3` (9 TDD tasks) + the finishing commit. Full story: CHANGELOG 2026-05-22 + spec/plan in `docs/superpowers/`. Deferred: acquire full he/gr/Greek-NT PD datasets to upgrade the English floor; Ge'ez popups for the 7 no-KJV books (Meqabyan I-III, 2 Enoch, Jubilees, 4 Baruch, 1 Clement).
 
 > **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. COMMITTED `38b80d3`; later arcs (re-audit + PLAN_2026-05-21, Track-D cleanups, base-HTML coverage audit, repo/rules maps) committed through `3c4a173`, plus one uncommitted map/rules batch — full chronology in `dev/CHANGELOG.md`.**
 >
