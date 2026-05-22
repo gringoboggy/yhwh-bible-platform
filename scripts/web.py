@@ -425,8 +425,8 @@ def api_edition_templates_list() -> dict:
 # PUBLISHING_LIST_FIELDS) STAY in web.py — editions.py lazy-imports
 # them at call time (B.3a pattern).
 from scripts.api.editions import (  # noqa: E402
-    _append_cloned_edition,
-    _patch_edition_kind_lists,
+    _append_cloned_edition as _append_cloned_edition,
+    _patch_edition_kind_lists as _patch_edition_kind_lists,
     api_apply_kind_to_all_editions,
     api_clone_edition,
     api_create_edition_from_template,
@@ -944,9 +944,9 @@ def api_delete(book_code: str, index: int) -> dict:
 # existing flat namespace stays the same.
 # ============================================================
 from scripts.api.scenarios import (  # noqa: E402
-    _resolve_scenario_recipe,  # internal helper, used by some tests
-    _scenario_path,  # internal helper, used by some tests
-    _SCENARIO_NAME_RE,  # constant, used by some tests
+    _resolve_scenario_recipe as _resolve_scenario_recipe,  # internal helper, used by some tests
+    _scenario_path as _scenario_path,  # internal helper, used by some tests
+    _SCENARIO_NAME_RE as _SCENARIO_NAME_RE,  # constant, used by some tests
     api_delete_scenario,
     api_export_scenario_yaml,
     api_get_scenario,
@@ -1309,8 +1309,8 @@ def api_sources_summary() -> dict:
 # keep working.
 # ============================================================
 from scripts.api.sources import (  # noqa: E402
-    _datetime_iso,
-    _sources_cache_dir,
+    _datetime_iso as _datetime_iso,
+    _sources_cache_dir as _sources_cache_dir,
     api_sources_cache_clear,
     api_sources_cache_fetch,
     api_sources_cache_fetch_all,
@@ -1327,7 +1327,7 @@ from scripts.api.sources import (  # noqa: E402
 # api_build_all_editions / api_download_export / EXPORTS_DIR.
 # ============================================================
 from scripts.api.exports import (  # noqa: E402
-    EXPORTS_DIR,
+    EXPORTS_DIR as EXPORTS_DIR,
     api_build_all_editions,
     api_download_export,
     api_export_build,
@@ -1674,8 +1674,8 @@ def api_covers() -> dict:
 # and scripts.web._cached_preflight / _compute_preflight_uncached
 # (test-side cache-clear + monkeypatch sites).
 from scripts.api.preflight import (  # noqa: E402
-    _cached_preflight,
-    _compute_preflight_uncached,
+    _cached_preflight as _cached_preflight,
+    _compute_preflight_uncached as _compute_preflight_uncached,
     api_preflight,
 )
 
@@ -1685,7 +1685,10 @@ from scripts.api.preflight import (  # noqa: E402
 # scripts.web._parse_multipart / _extract_boundary for callers
 # that still lazy-import from web (legacy api/covers.py +
 # api/sources.py paths will be updated in the same ship).
-from scripts.api.multipart import _extract_boundary, _parse_multipart  # noqa: E402
+from scripts.api.multipart import (  # noqa: E402
+    _extract_boundary as _extract_boundary,
+    _parse_multipart as _parse_multipart,
+)
 
 
 def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> dict:
@@ -2164,7 +2167,6 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
     """
     from scripts.core.translations import (
         list_translations,
-        has_translation,
         has_book,
         get_chapter,
     )

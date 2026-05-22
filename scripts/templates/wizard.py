@@ -14,6 +14,8 @@ from scripts.templates._design import (  # noqa: E402
     apply_design_system,
 )
 
+__all__ = ["WIZARD_HTML", "HEADER_NAV_LINKS", "BUYER_ARC_POLISH_CSS"]
+
 WIZARD_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>

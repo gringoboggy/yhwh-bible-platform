@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-22 — session — mark re-export hubs (`__all__` / redundant-alias) → clear F401 re-export debt (693 → 646)
+
+**Context:** follow-on to the Track D cleanup (`d73275b`), which left ~47 F401 "debt" on two intentional re-export surfaces rather than break them. This clears that debt the right way.
+
+**Fix:**
+- **`scripts/templates/*.py` (17 modules) → `__all__`:** each console template now declares `__all__ = ["<NAME>_HTML", "HEADER_NAV_LINKS", "BUYER_ARC_POLISH_CSS"]`, marking the design re-exports (required by `tests/test_v1_console_polish.py::test_design_module_imported`) as intentional public API so ruff F401 no longer flags them.
+- **`scripts/web.py` (13 re-exports) → redundant-alias:** the monolith's cross-module re-exports use the PEP-484 `from x import Name as Name` idiom (ruff-recognized intentional re-export) — chosen over `__all__` because a 13-name `__all__` would misrepresent web.py's large public surface and trap `import *`. One genuinely-unused function-local import (`has_translation`) was dropped (not a re-export).
+
+**Verified:** F401 / F822 / F811 / F821 all clean on both surfaces; re-exports still resolve (`hasattr` checks pass); `ruff format` clean; `lint_rules.py` 16/0/0; full `pytest tests/` **6462 passed / 0 failed**. ruff total **693 → 646** — the remaining 646 are intentional/inherent (E501 in HTML/data strings, C901 build-pipeline orchestrators, N8xx test-method/HTML-constant naming), triaged for a future config-ignore pass.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — Track D ruff lint cleanup (1071 → 693) + all-11-editions epubcheck validation
 
 **Context:** "continue" → Track A close-out, then "do track d". Two pieces of demo-readiness/cleanup; **no content / corpus / master-HTML / feature change.**

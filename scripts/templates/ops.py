@@ -15,6 +15,8 @@ from scripts.templates._design import (  # noqa: E402
     apply_design_system,
 )
 
+__all__ = ["OPS_HTML", "HEADER_NAV_LINKS", "BUYER_ARC_POLISH_CSS"]
+
 OPS_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
