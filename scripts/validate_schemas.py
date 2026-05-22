@@ -36,7 +36,7 @@ import json
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Optional, Union
+from typing import Any, Callable
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -74,9 +74,9 @@ class FieldSpec:
 
     name: str
     required: bool = True
-    type: Union[type, tuple[type, ...]] = str
-    item_type: Optional[type] = None
-    constraint: Optional[Callable[[Any], bool]] = None
+    type: type | tuple[type, ...] = str
+    item_type: type | None = None
+    constraint: Callable[[Any], bool] | None = None
     constraint_message: str = ""
 
 
@@ -277,7 +277,7 @@ BOOKS_SPEC = RecordSpec(
 # ----------------------------------------------------------------------
 
 
-def _records_from_yaml(path: Path) -> tuple[list[dict], Optional[str]]:
+def _records_from_yaml(path: Path) -> tuple[list[dict], str | None]:
     """Parse a project YAML via the custom `_parse_yaml_records` and
     return ``(records, error_or_none)``. Returns ``([], <msg>)`` on
     parse failure so the caller can roll up the error into the
@@ -295,7 +295,7 @@ def _records_from_yaml(path: Path) -> tuple[list[dict], Optional[str]]:
     return records, None
 
 
-def _records_from_pyyaml(path: Path) -> tuple[Any, Optional[str]]:
+def _records_from_pyyaml(path: Path) -> tuple[Any, str | None]:
     """Parse a YAML file via PyYAML (for files like canons.yaml that
     use a different shape than _parse_yaml_records expects)."""
     if not path.is_file():
@@ -552,7 +552,7 @@ _VALIDATORS = {
 
 def run_all(
     *,
-    only: Optional[str] = None,
+    only: str | None = None,
     strict_unknown: bool = False,
 ) -> dict:
     """Run every validator (or just the named one). Returns a dict
@@ -595,7 +595,7 @@ def run_all(
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="validate_schemas",
         description="ω.19 — validate every project YAML against an explicit schema.",

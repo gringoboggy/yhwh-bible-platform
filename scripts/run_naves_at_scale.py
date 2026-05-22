@@ -193,7 +193,7 @@ def main() -> int:
         f"{total_candidates} candidates · {total_files} candidate files"
     )
     print(f"Files written under: {CANDIDATES_DIR}")
-    print(f"Next step:  python3 scripts/batch_promote_xrefs.py --kind topic-nave")
+    print("Next step:  python3 scripts/batch_promote_xrefs.py --kind topic-nave")
     return 0
 
 

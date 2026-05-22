@@ -31,7 +31,6 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -61,7 +60,7 @@ def _is_lru_cache_decorator(node: ast.expr) -> bool:
 
 
 def discover_lru_caches(
-    root: Optional[Path] = None,
+    root: Path | None = None,
 ) -> list[dict]:
     """Walk every .py under `root` (default: scripts/). For each
     top-level `@lru_cache`-decorated function, return a record:
@@ -125,7 +124,7 @@ def discover_lru_caches(
 def find_clear_sites(
     func_name: str,
     *,
-    root: Optional[Path] = None,
+    root: Path | None = None,
 ) -> list[dict]:
     """Search the codebase for ``<func_name>.cache_clear()`` calls.
     Returns a list of `{file, line, snippet}` records.
@@ -180,7 +179,7 @@ _WHITELIST_RE = re.compile(r"^_\.([a-zA-Z_][a-zA-Z0-9_]*)\b")
 
 
 def load_whitelist(
-    path: Optional[Path] = None,
+    path: Path | None = None,
 ) -> set[str]:
     """Read the whitelist file. Each non-comment line beginning with
     `_.<name>` adds `<name>` to the whitelist. Same convention as
@@ -203,8 +202,8 @@ def load_whitelist(
 
 def audit(
     *,
-    root: Optional[Path] = None,
-    whitelist: Optional[set[str]] = None,
+    root: Path | None = None,
+    whitelist: set[str] | None = None,
 ) -> dict:
     """Walk every cached function; classify each as:
 
@@ -254,7 +253,7 @@ def audit(
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="audit_caches",
         description=(

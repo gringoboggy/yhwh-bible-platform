@@ -24,7 +24,6 @@ class TestOmega25BulkRename:
     def _seed_tree(content_dir, *, kind="comm-test", note_kind=None) -> dict:
         """Create a minimal content/ tree containing the kind in
         every supported file shape. Returns paths for assertions."""
-        from pathlib import Path
 
         if note_kind is None:
             note_kind = kind

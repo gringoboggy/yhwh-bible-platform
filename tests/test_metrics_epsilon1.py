@@ -137,7 +137,7 @@ class TestEpsilon1IterSince:
     def test_filters_by_iso_ts_string(self, monkeypatch, tmp_path):
         # ISO-8601 strings lex-sort identically to chronological
         # order, so >= on the string is a valid since-filter.
-        from scripts.core import event_log, metrics
+        from scripts.core import metrics
 
         log = _isolate(monkeypatch, tmp_path)
         log.parent.mkdir(parents=True, exist_ok=True)

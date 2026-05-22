@@ -53,7 +53,6 @@ import hashlib
 import hmac
 import os
 from datetime import datetime, timezone
-from typing import Optional
 
 
 LICENSE_PREFIX = "LK1"
@@ -65,7 +64,7 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def _get_signing_key(override: Optional[str] = None) -> Optional[str]:
+def _get_signing_key(override: str | None = None) -> str | None:
     """Resolve the active signing key. `override` wins; else the
     env var; else None (unconfigured)."""
     if override is not None:
@@ -95,8 +94,8 @@ def mint(
     edition_id: str,
     *,
     expires_iso: str,
-    secret: Optional[str] = None,
-    issued_at_iso: Optional[str] = None,
+    secret: str | None = None,
+    issued_at_iso: str | None = None,
 ) -> str:
     """Build a signed license key string.
 
@@ -137,8 +136,8 @@ def mint(
 def verify(
     license_str: str,
     *,
-    secret: Optional[str] = None,
-    now: Optional[datetime] = None,
+    secret: str | None = None,
+    now: datetime | None = None,
 ) -> dict:
     """Verify a license string. Returns an envelope dict:
 

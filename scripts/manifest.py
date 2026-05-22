@@ -147,7 +147,7 @@ def main() -> None:
     stored = load_manifest()
     if not stored:
         print(f"{YELLOW}⚠{RESET} no manifest found at {MANIFEST_PATH.relative_to(REPO_ROOT)}")
-        print(f"  run: python3 scripts/manifest.py --build")
+        print("  run: python3 scripts/manifest.py --build")
         sys.exit(2)
 
     report = verify_manifest(stored)

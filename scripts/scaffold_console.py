@@ -350,7 +350,7 @@ def apply_plan(
     inj = bulk_inject.insert(
         nav_target,
         nav_link,
-        before=f'<span id="corpus-progress"',
+        before='<span id="corpus-progress"',
         marker=f'href="{plan.route}"',
     )
 
@@ -397,22 +397,22 @@ def apply_plan(
 def format_plan_report(plan: ScaffoldPlan) -> str:
     """Human-readable dry-run output."""
     lines = [
-        f"Console scaffold plan",
-        f"=" * 50,
+        "Console scaffold plan",
+        "=" * 50,
         f"  name:           {plan.name}",
         f"  title:          {plan.title}",
         f"  route:          {plan.route}",
         f"  constant name:  {plan.constant_name}",
         f"  target file:    {plan.target_file}",
-        f"",
+        "",
     ]
     if plan.skipped_reason:
-        lines.append(f"  STATUS: WILL NOT RUN")
+        lines.append("  STATUS: WILL NOT RUN")
         lines.append(f"  reason: {plan.skipped_reason}")
     else:
-        lines.append(f"  STATUS: READY (--apply to commit)")
-        lines.append(f"")
-        lines.append(f"  Will:")
+        lines.append("  STATUS: READY (--apply to commit)")
+        lines.append("")
+        lines.append("  Will:")
         if TEMPLATES_DIR.is_dir() and plan.target_file == WEB_PY:
             constant_dest = f"scripts/templates/{plan.name.replace('-', '_')}.py"
         else:

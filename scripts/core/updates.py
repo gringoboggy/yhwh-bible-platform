@@ -35,7 +35,7 @@ from __future__ import annotations
 
 import re
 import xml.etree.ElementTree as ET
-from typing import Callable, Optional
+from typing import Callable
 
 __all__ = [
     "fetch_appcast",
@@ -114,7 +114,7 @@ def _parse_item(item: ET.Element) -> dict:
     }
 
 
-def _text(el: Optional[ET.Element]) -> str:
+def _text(el: ET.Element | None) -> str:
     if el is None or el.text is None:
         return ""
     return el.text.strip()
@@ -123,7 +123,7 @@ def _text(el: Optional[ET.Element]) -> str:
 def fetch_appcast(
     url: str,
     *,
-    http_fn: Optional[Callable[[str], bytes]] = None,
+    http_fn: Callable[[str], bytes] | None = None,
 ) -> dict:
     """Fetch + parse an appcast from ``url``.
 
@@ -162,7 +162,7 @@ def latest_version(appcast: dict) -> str:
     return max(versions, key=_version_key)
 
 
-def release_url(appcast: dict) -> Optional[str]:
+def release_url(appcast: dict) -> str | None:
     """Return the download URL for the latest item, or ``None``
     if no items / no enclosure URL."""
     latest = latest_version(appcast)

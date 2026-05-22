@@ -196,7 +196,7 @@ def main() -> None:
         sys.exit(0)
 
     if not args.apply:
-        print(f"\n  re-run with --apply to write changes")
+        print("\n  re-run with --apply to write changes")
         sys.exit(1)
 
     sys.exit(0)

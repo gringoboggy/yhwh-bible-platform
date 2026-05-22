@@ -36,7 +36,6 @@ Exit codes:
 """
 
 import argparse
-import ast
 import difflib
 import re
 import sys

@@ -40,7 +40,7 @@ import json
 import os
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 from . import sources
 
@@ -164,7 +164,7 @@ class AnthropicVisionClient:
         self,
         *,
         model: str = DEFAULT_VISION_MODEL,
-        completion_fn: Optional[Callable] = None,
+        completion_fn: Callable | None = None,
     ) -> None:
         self.model = model
         if completion_fn is not None:
@@ -190,7 +190,7 @@ class AnthropicVisionClient:
         # Telemetry from the most recent _default_completion_fn call. Stub
         # completion_fns leave this None; the real SDK path populates it so
         # a driver can verify cache hits before paying for a long run.
-        self.last_usage: Optional[dict] = None
+        self.last_usage: dict | None = None
 
     @property
     def attribution(self) -> str:

@@ -37,7 +37,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Optional
 
 import yaml
 
@@ -111,7 +110,7 @@ def load_templates() -> list[dict]:
     return sorted(templates, key=lambda t: t["template_id"])
 
 
-def get_template(template_id: str) -> Optional[dict]:
+def get_template(template_id: str) -> dict | None:
     """Return one template by id, or None if not found."""
     for t in load_templates():
         if t.get("template_id") == template_id:
@@ -173,7 +172,7 @@ def create_from_template(
     *,
     new_id: str,
     new_title: str,
-    editions_path: Optional[Path] = None,
+    editions_path: Path | None = None,
 ) -> dict:
     """Clone a template into editions.yaml as a new edition.
 

@@ -21,7 +21,7 @@ import hashlib
 import sqlite3
 import threading
 from datetime import datetime, timezone
-from typing import Callable, Optional
+from typing import Callable
 
 
 def key_for(*parts: object) -> str:
@@ -56,7 +56,7 @@ class WorkCache:
             )
             self._conn.commit()
 
-    def get(self, key: str) -> Optional[str]:
+    def get(self, key: str) -> str | None:
         with self._lock:
             row = self._conn.execute("SELECT value FROM cache WHERE key = ?", (key,)).fetchone()
         return row[0] if row else None

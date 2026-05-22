@@ -37,7 +37,7 @@ clock we need.
 from __future__ import annotations
 
 import time
-from typing import Any, Callable, Tuple
+from typing import Any, Callable
 
 
 # ----------------------------------------------------------------------
@@ -78,7 +78,7 @@ BUDGETS: dict[str, float] = {
 # ----------------------------------------------------------------------
 
 
-def measure(fn: Callable[..., Any], *args: Any, **kwargs: Any) -> Tuple[Any, float]:
+def measure(fn: Callable[..., Any], *args: Any, **kwargs: Any) -> tuple[Any, float]:
     """Run `fn(*args, **kwargs)` and return ``(result, elapsed_seconds)``.
 
     Uses ``time.perf_counter`` for the highest-resolution clock the

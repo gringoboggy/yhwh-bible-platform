@@ -64,7 +64,6 @@ import json
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 from . import notes_io
 
@@ -228,7 +227,7 @@ def set_blurbs(
 # --------------------------------------------------------------------
 
 
-def resolve_cover_path(edition: dict) -> Optional[Path]:
+def resolve_cover_path(edition: dict) -> Path | None:
     """Resolve `edition["cover_image"]` to an absolute Path under
     content/. Returns None when the field is empty or the resolved
     file doesn't exist on disk."""
@@ -290,7 +289,7 @@ def resize_cover(src_path: Path, target_size: tuple[int, int]) -> bytes:
 # --------------------------------------------------------------------
 
 
-def build_zip(edition: dict, blurbs: dict, *, now: Optional[datetime] = None) -> bytes:
+def build_zip(edition: dict, blurbs: dict, *, now: datetime | None = None) -> bytes:
     """Build the press-kit ZIP for one edition. Returns bytes.
 
     `edition` is the dict from `config.load_editions()`. `blurbs` is

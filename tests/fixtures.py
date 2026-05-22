@@ -119,8 +119,8 @@ def multipart_body(
             f'Content-Disposition: form-data; name="{field_name}"; '
             f'filename="{filename}"\r\n'
             f"Content-Type: {content_type}\r\n\r\n"
-        ).encode("utf-8")
+        ).encode()
         + file_bytes
-        + (f"\r\n--{boundary}--\r\n").encode("utf-8")
+        + (f"\r\n--{boundary}--\r\n").encode()
     )
     return body, ctype

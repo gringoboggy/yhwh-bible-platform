@@ -25,7 +25,7 @@ from __future__ import annotations
 import json
 import sqlite3
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Iterable
 
 _SCHEMA = """
 CREATE TABLE witness (
@@ -217,7 +217,7 @@ def load_witnesses(root: Path) -> list[dict]:
     return dedupe_witnesses(out)
 
 
-def build_from_tree(root: Path, *, db_path: Optional[str] = None) -> sqlite3.Connection:
+def build_from_tree(root: Path, *, db_path: str | None = None) -> sqlite3.Connection:
     """Build the index from every witness JSON under *root*.
 
     Returns an open connection (``:memory:`` unless *db_path* is given).
@@ -233,7 +233,7 @@ def build_from_tree(root: Path, *, db_path: Optional[str] = None) -> sqlite3.Con
 # ----------------------------------------------------------------------
 
 
-def open_markers(conn: sqlite3.Connection, marker: Optional[str] = None) -> list[sqlite3.Row]:
+def open_markers(conn: sqlite3.Connection, marker: str | None = None) -> list[sqlite3.Row]:
     """Every uncertain/damaged/illegible marker, across all chapters.
 
     Optional *marker* filters to one class. Ordered for triage:

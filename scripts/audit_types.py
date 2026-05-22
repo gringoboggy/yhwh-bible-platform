@@ -32,7 +32,6 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -50,7 +49,7 @@ def mypy_available() -> bool:
         return False
 
 
-def run_mypy(*, extra_args: Optional[list[str]] = None) -> dict:
+def run_mypy(*, extra_args: list[str] | None = None) -> dict:
     """Invoke `python -m mypy` as a subprocess; return a structured
     result. Reads the project's `[tool.mypy]` config from
     pyproject.toml — no path arguments are passed because the config
@@ -129,7 +128,7 @@ def audit() -> dict:
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="audit_types",
         description=(

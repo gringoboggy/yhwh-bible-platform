@@ -491,7 +491,7 @@ class TestTau7XAFullIngestCoverage:
 
     def test_chapter_1_first_verse_index(self):
         by_ch = self._by_chapter()
-        assert (1, 1) == (by_ch[1][0][0], 1)  # first entry's verse is 1
+        assert (by_ch[1][0][0], 1) == (1, 1)  # first entry's verse is 1
         # i.e., chapter 1 starts at verse 1, no off-by-one
 
     def test_chapter_1_through_42_fully_populated(self):

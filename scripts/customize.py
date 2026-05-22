@@ -195,7 +195,7 @@ def apply_edition_cover(edition_id: str, spec: dict, dry_run: bool) -> str:
         meta = EPUB_DIR / f"cover-{edition_id}.alt.txt"
         if not dry_run:
             atomic_write(meta, alt)
-        actions.append(f"alt= staged")
+        actions.append("alt= staged")
 
     return " · ".join(actions)
 

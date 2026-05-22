@@ -34,7 +34,6 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass, field
 from datetime import date as date_cls, datetime, timedelta, timezone
-from typing import Iterable, Optional
 
 from . import config
 from . import notes_io
@@ -113,7 +112,7 @@ def _seed_for_date(date_iso: str) -> int:
     return int.from_bytes(digest[:8], "big")
 
 
-def _book_codes_for_edition(edition_id: Optional[str]) -> list[str]:
+def _book_codes_for_edition(edition_id: str | None) -> list[str]:
     """Return the book-code list to draw from — the edition's canon,
     or every notes/*.py file in canonical order if no edition is given."""
     notes_dir = paths.notes_dir()
@@ -146,8 +145,8 @@ def _book_codes_for_edition(edition_id: Optional[str]) -> list[str]:
 def pick_verse_for_date(
     date_iso,
     *,
-    edition_id: Optional[str] = None,
-) -> Optional[VerseHeadline]:
+    edition_id: str | None = None,
+) -> VerseHeadline | None:
     """Deterministically pick a (book, chapter, verse) tuple that has
     at least one note attached for the given date.
 
@@ -165,7 +164,7 @@ def pick_verse_for_date(
     # Filter to kinds enabled in the edition (if any) so the daily
     # verse always has at least one displayable note for that
     # edition. Reuses the canonical helper from core/matrix.
-    enabled_kinds: Optional[set] = None
+    enabled_kinds: set | None = None
     if edition_id:
         from .matrix import _enabled_kinds_for_edition
 
@@ -249,8 +248,8 @@ def pick_verse_for_date(
 def verse_of_day(
     date_iso=None,
     *,
-    edition_id: Optional[str] = None,
-) -> Optional[dict]:
+    edition_id: str | None = None,
+) -> dict | None:
     """Pick today's (or any date's) verse + headline note(s).
     Returns the JSON-friendly dict the API + RSS layers consume.
     """
@@ -294,8 +293,8 @@ def rss_feed(
     *,
     days: int = 7,
     base_url: str = "",
-    edition_id: Optional[str] = None,
-    today: Optional[str] = None,
+    edition_id: str | None = None,
+    today: str | None = None,
 ) -> str:
     """Emit an RSS 2.0 XML string with one ``<item>`` per day for the
     last ``days`` days (today first, going back). Pure string output;

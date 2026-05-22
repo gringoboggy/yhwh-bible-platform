@@ -82,7 +82,7 @@ def find_latest_editions_dir() -> Path | None:
 
 def cmd_status(_args) -> int:
     """Print a one-screen health dashboard."""
-    from scripts.core import config, notes_io
+    from scripts.core import notes_io
 
     print(f"\n{BOLD}E-Bible status{RESET}  {DIM}{REPO}{RESET}\n")
 

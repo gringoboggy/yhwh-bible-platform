@@ -550,7 +550,8 @@ class TestQAMetaTool:
         assert "intentionally differs" in d["message"]
 
     def test_preflight_exposes_manuscript_check(self):
-        import importlib as il, scripts.web as web
+        import importlib as il
+        import scripts.web as web
 
         il.reload(web)
         pf = web._compute_preflight_uncached()

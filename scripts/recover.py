@@ -26,15 +26,13 @@ from __future__ import annotations
 
 import argparse
 import re
-import shutil
 import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 
-def _iso_to_dt(stamp: str) -> Optional[datetime]:
+def _iso_to_dt(stamp: str) -> datetime | None:
     """Parse ``20260509T173045Z`` → datetime. Returns None on
     malformed input."""
     if not isinstance(stamp, str) or len(stamp) < 16:
@@ -48,7 +46,7 @@ def _iso_to_dt(stamp: str) -> Optional[datetime]:
 @dataclass(frozen=True)
 class BackupRecord:
     path: Path
-    timestamp: Optional[datetime]
+    timestamp: datetime | None
     size_bytes: int
 
     def to_dict(self) -> dict:
@@ -95,7 +93,7 @@ def list_backups(path: Path | str) -> list[BackupRecord]:
 def restore_from_backup(
     path: Path | str,
     *,
-    from_path: Optional[Path | str] = None,
+    from_path: Path | str | None = None,
 ) -> dict:
     """Copy a `.bak` file back over ``path``. Backs up the current
     contents first (so a botched restore is itself recoverable).
@@ -316,7 +314,7 @@ def _cmd_flip_inflight(args) -> int:
     return 0
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="recover",
         description="ω.11 — recovery CLI for the YHWH platform.",

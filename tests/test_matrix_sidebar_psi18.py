@@ -165,7 +165,6 @@ class TestPsi18MatrixHtmlSidebar:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -354,7 +353,6 @@ class TestPsi181MatrixHtmlChapterDrilldown:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 

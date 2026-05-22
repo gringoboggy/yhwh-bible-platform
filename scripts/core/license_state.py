@@ -39,7 +39,6 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 from . import notes_io
 
@@ -139,7 +138,7 @@ def remove_license(edition_id: str) -> bool:
     return True
 
 
-def get_license(edition_id: str, state: Optional[dict] = None) -> Optional[str]:
+def get_license(edition_id: str, state: dict | None = None) -> str | None:
     """Return the stored license string for `edition_id` or None."""
     s = state if state is not None else load_licenses()
     eds = s.get("editions", {}) if isinstance(s, dict) else {}

@@ -33,7 +33,6 @@ written (shipping it would be distorted scripture — τ.6.x.0b).
 
 from __future__ import annotations
 
-import ast
 import sys
 from pathlib import Path
 

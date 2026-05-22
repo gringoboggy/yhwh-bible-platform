@@ -16,7 +16,7 @@ via ``ALL_DETECTORS``.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from . import sources
 from .html_sandbox import sandbox_ai_html
@@ -1009,7 +1009,7 @@ class PatristicCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.PatristicCommentary") -> str:
+    def _format_body(entry: sources.PatristicCommentary) -> str:
         """Render the entry's HTML body. Mirrors the other detectors'
         HTML shape: header line with the Father + work + year, then
         the summary paragraph."""
@@ -1104,7 +1104,7 @@ class EthiopianCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.EthiopianCommentary") -> str:
+    def _format_body(entry: sources.EthiopianCommentary) -> str:
         """Render the entry's HTML body. Mirrors γ.3's pattern.
 
         The summary text is already escape-safe by construction (no
@@ -1197,7 +1197,7 @@ class ProtestantCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.ProtestantCommentary") -> str:
+    def _format_body(entry: sources.ProtestantCommentary) -> str:
         """Render the entry's HTML body. Mirrors γ.3 / γ.4 pattern.
 
         The summary text is escape-safe by construction (no user-
@@ -1296,7 +1296,7 @@ class CatholicCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.CatholicCommentary") -> str:
+    def _format_body(entry: sources.CatholicCommentary) -> str:
         """Render the entry's HTML body. Mirrors γ.4's BC/AD pattern
         since some Catena Fathers (Origen d. 254 AD, Tertullian, etc.)
         sit near the AD transition.
@@ -1392,7 +1392,7 @@ class ReformationCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.ReformationCommentary") -> str:
+    def _format_body(entry: sources.ReformationCommentary) -> str:
         """Render the entry's HTML body. Mirrors χ.2 (plain year
         display, no BC/AD branching) — all magisterial Reformers are
         post-1500.
@@ -1485,7 +1485,7 @@ class RabbinicCommentaryDetector:
         return out
 
     @staticmethod
-    def _format_body(entry: "sources.RabbinicCommentary") -> str:
+    def _format_body(entry: sources.RabbinicCommentary) -> str:
         """Render the entry's HTML body. Mirrors χ.2 / χ.3 (plain year
         display, no BC/AD branching — all χ.5 seed voices are
         post-AD).

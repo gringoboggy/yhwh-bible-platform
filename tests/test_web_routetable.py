@@ -732,7 +732,6 @@ class TestOmega35A6DeleteTable:
         # inside api_delete. Smoke check via a synthetic match
         # (we don't actually call the handler against the real
         # corpus — that would mutate state).
-        import re as _re
 
         from scripts import web
 

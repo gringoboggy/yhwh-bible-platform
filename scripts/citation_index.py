@@ -42,7 +42,6 @@ Exit codes:
 """
 
 import argparse
-import ast
 import csv
 import re
 import sys

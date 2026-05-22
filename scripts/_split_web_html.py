@@ -78,9 +78,9 @@ def main(apply: bool) -> int:
         print("DRY-RUN — pass --apply to commit. Plan:")
         print(f"  1. Create {TEMPLATES_DIR}/__init__.py (empty)")
         print(f"  2. Create {len(constants)} files under {TEMPLATES_DIR}/")
-        print(f"  3. Replace each constant block in web.py with an import line")
-        print(f"  4. Re-export block (for `from scripts.web import X` callers)")
-        print(f"  5. Inserted imports block (sample):")
+        print("  3. Replace each constant block in web.py with an import line")
+        print("  4. Re-export block (for `from scripts.web import X` callers)")
+        print("  5. Inserted imports block (sample):")
         for line in imports_block.split("\n")[:5]:
             print(f"     {line}")
         if len(imports_block.split("\n")) > 5:

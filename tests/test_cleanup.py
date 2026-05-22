@@ -235,7 +235,6 @@ class TestOmega28BackupRetention:
         monkeypatch,
     ):
         from scripts import cleanup as _cu
-        from pathlib import Path
 
         # Synthetic .backups/ tree under a fake REPO_ROOT.
         repo = tmp_path / "repo"

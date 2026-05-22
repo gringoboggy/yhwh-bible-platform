@@ -23,10 +23,8 @@ Every class lazy-imports its dependencies inside test method
 bodies, so this file has no top-level imports from the project.
 """
 
-import json
 from pathlib import Path
 
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 

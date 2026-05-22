@@ -1638,7 +1638,7 @@ class TestDelta7NotesIoInvalidationHook:
         yaml_path.parent.mkdir(parents=True)
         notes_io.atomic_write(yaml_path, "editions:\n  - id: x\n")
 
-        assert corpus_index._FINGERPRINT_CACHE == sentinel
+        assert sentinel == corpus_index._FINGERPRINT_CACHE
 
     def test_writing_notes_file_via_bytes_variant_invalidates(self, tmp_path, monkeypatch):
         from scripts.core import corpus_index, notes_io
@@ -1677,7 +1677,7 @@ class TestDelta7NotesIoInvalidationHook:
         lookalike.parent.mkdir(parents=True)
         notes_io.atomic_write(lookalike, "NOTES = ()\n")
 
-        assert corpus_index._FINGERPRINT_CACHE == sentinel
+        assert sentinel == corpus_index._FINGERPRINT_CACHE
 
 
 # ---------- Phase Δ.2.1 : api_search_notes wire flip ------------------

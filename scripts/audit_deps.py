@@ -35,7 +35,6 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -50,7 +49,7 @@ _SEVERITY_RANK = {
 }
 
 
-def _which_pip_audit() -> Optional[str]:
+def _which_pip_audit() -> str | None:
     """Locate the pip-audit executable on PATH. Returns None if
     not installed."""
     return shutil.which("pip-audit")
@@ -66,7 +65,7 @@ def _severity_at_or_above(severity: str, threshold: str) -> bool:
 
 def run_pip_audit(
     *,
-    requirements_path: Optional[Path] = None,
+    requirements_path: Path | None = None,
     pip_audit_runner=None,
 ) -> dict:
     """Pure-function wrapper around ``pip-audit``.
@@ -190,7 +189,7 @@ def _summary_line(vuln: dict) -> str:
     )
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="audit_deps",
         description="ξ.11 — pip-audit wrapper for the YHWH platform.",

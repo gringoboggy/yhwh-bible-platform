@@ -23,6 +23,11 @@ extend-exclude = [
     "scripts.backup_*",
     "source_archive.backup_*",
     "_audit_state.json",
+    # vulture / cache-audit whitelist stubs: `_.attr` bare statements are the
+    # tool's "treat-as-used" idiom (see each file's docstring), not runnable
+    # source — linting them yields only false-positive F821 (undefined `_`).
+    ".vulture_whitelist.py",
+    ".cache_audit_whitelist.py",
 ]
 
 [tool.ruff.lint]

@@ -290,7 +290,7 @@ class TestDelta10CorpusIndexWired:
         from scripts.core import corpus_index
         from scripts.core.migrations import MIGRATIONS
 
-        assert corpus_index._SCHEMA == MIGRATIONS[0][2]
+        assert MIGRATIONS[0][2] == corpus_index._SCHEMA
 
 
 class TestDelta10RunMigrationsCli:

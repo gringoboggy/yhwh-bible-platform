@@ -57,9 +57,6 @@ Under test:
 from __future__ import annotations
 
 import ast
-import io
-import subprocess
-import sys
 from pathlib import Path
 from unittest.mock import MagicMock
 

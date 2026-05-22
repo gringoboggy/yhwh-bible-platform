@@ -22,7 +22,6 @@ Every class lazy-imports its dependencies inside test method
 bodies, so this file has no top-level imports from the project.
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -211,7 +210,6 @@ class TestLauncherScheduleBrowserOpen:
         cls.mod = importlib.import_module("scripts.launcher")
 
     def test_calls_opener_after_delay(self):
-        import time as _time
 
         seen = []
 
@@ -1260,7 +1258,7 @@ class TestTheta3UpdatesParseAppcast:
             f'<enclosure url="{url}" sparkle:version="{version}" length="12345" type="application/octet-stream" />'
             "</item>"
             "</channel></rss>"
-        ).encode("utf-8")
+        ).encode()
 
     def test_parses_valid_appcast(self):
         out = self.mod.parse_appcast(self._valid_xml())

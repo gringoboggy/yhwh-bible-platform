@@ -186,7 +186,7 @@ class TestOmega30AuditCaches:
         from scripts.audit_caches import audit
 
         result = audit()
-        assert result["ok"] is True, f"caches without clear paths:\n" + "\n".join(
+        assert result["ok"] is True, "caches without clear paths:\n" + "\n".join(
             f"  {c['file']}:{c['line']}  {c['func']}" for c in result["caches"] if c["status"] == "no_clear_path"
         )
         assert result["summary"]["no_clear_path"] == 0

@@ -38,7 +38,6 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -61,7 +60,7 @@ def run_vulture(
     *,
     paths: list[Path],
     min_confidence: int = 80,
-    whitelist: Optional[Path] = None,
+    whitelist: Path | None = None,
 ) -> dict:
     """Invoke vulture as a subprocess; return a structured result.
 
@@ -168,7 +167,7 @@ def audit(
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="audit_dead_code",
         description=(

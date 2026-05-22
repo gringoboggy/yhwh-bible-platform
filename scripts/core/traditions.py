@@ -25,9 +25,7 @@ pre-ψ.8 outputs — see CLAUDE_PROJECT_RULES §7.2 (additive-by-default).
 
 from __future__ import annotations
 
-import ast
 from pathlib import Path
-from typing import Optional
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_TRADITIONS_YAML = _REPO_ROOT / "content" / "traditions.yaml"
@@ -125,7 +123,7 @@ def note_tradition(tup: tuple) -> str:
 
 def edition_to_tradition(
     edition_id: str,
-    mapping: Optional[dict] = None,
+    mapping: dict | None = None,
 ) -> str:
     """Look up the tradition for an edition id.
 
@@ -180,7 +178,7 @@ def _parse_traditions_yaml(text: str) -> dict:
     won't break older callers).
     """
     out: dict = {}
-    in_section: Optional[str] = None
+    in_section: str | None = None
     for raw in text.splitlines():
         line = raw.rstrip()
         if not line or line.lstrip().startswith("#"):

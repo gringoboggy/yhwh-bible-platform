@@ -41,7 +41,7 @@ import logging
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 
 _log = logging.getLogger(__name__)
@@ -89,8 +89,8 @@ def _audit_dir() -> Path:
 
 def audit_log_path(
     *,
-    when: Optional[datetime] = None,
-    base_dir: Optional[Path] = None,
+    when: datetime | None = None,
+    base_dir: Path | None = None,
 ) -> Path:
     """Path to the current month's NDJSON file. Overridable via
     `base_dir` for tests; defaults to `_audit_dir()`."""
@@ -127,10 +127,10 @@ def append(
     endpoint: str,
     action: str = "",
     result: str = "ok",
-    base_dir: Optional[Path] = None,
-    when: Optional[datetime] = None,
+    base_dir: Path | None = None,
+    when: datetime | None = None,
     **fields: Any,
-) -> Optional[Path]:
+) -> Path | None:
     """Append one entry to the current month's audit log. Returns
     the file path on success, ``None`` on failure (with the
     underlying error logged).
@@ -171,7 +171,7 @@ def append(
         return None
 
 
-def verify_chain(*, base_dir: Optional[Path] = None) -> dict:
+def verify_chain(*, base_dir: Path | None = None) -> dict:
     """ξ.17 SEC-005 — walk every audit-log file (oldest first) and
     verify that each entry's ``prev_hash`` matches the sha256 of
     the previous line on disk.
@@ -238,7 +238,7 @@ def verify_chain(*, base_dir: Optional[Path] = None) -> dict:
 def read_recent(
     *,
     n: int = 50,
-    base_dir: Optional[Path] = None,
+    base_dir: Path | None = None,
 ) -> list[dict]:
     """Return the most recent ``n`` audit-log entries across all
     monthly files (newest first). Skips malformed lines silently

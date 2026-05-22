@@ -344,7 +344,7 @@ class TestTraditionLabelInjection:
         from scripts.core.traditions import CANONICAL_TRADITIONS
 
         for tid, expected_label in CANONICAL_TRADITIONS:
-            sample = f'<aside class="note note-doctrine" id="note-g0101a" epub:type="footnote"><p>x</p></aside>'
+            sample = '<aside class="note note-doctrine" id="note-g0101a" epub:type="footnote"><p>x</p></aside>'
             new, _ = self.be.apply_tradition_labels_to_html(
                 sample,
                 {"ref-g0101a": tid},
@@ -705,7 +705,7 @@ class TestTraditionsModule:
 
     def test_tradition_ids_matches_canonical(self):
         ids_from_tuple = {tid for tid, _ in self.t.CANONICAL_TRADITIONS}
-        assert self.t.TRADITION_IDS == ids_from_tuple
+        assert ids_from_tuple == self.t.TRADITION_IDS
 
     def test_default_tradition_is_cross(self):
         assert self.t.DEFAULT_TRADITION == "cross"

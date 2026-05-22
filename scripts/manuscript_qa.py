@@ -140,7 +140,7 @@ def _load_case(ref: str, suf: str):
     return gg, cam, golden
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def _collate_case(ref: str, suf: str, ch: int, book: str):
     """Load + collate ONE calibration ref exactly once per process.
 

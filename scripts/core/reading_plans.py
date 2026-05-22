@@ -29,7 +29,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Optional
 
 from . import paths
 
@@ -112,7 +111,7 @@ def list_plans() -> list[ReadingPlan]:
     return out
 
 
-def load_plan(plan_id: str) -> Optional[ReadingPlan]:
+def load_plan(plan_id: str) -> ReadingPlan | None:
     """Read one plan from disk. Returns ``None`` if the file is
     missing; raises ValueError on invalid id or malformed YAML."""
     _validate_id(plan_id)
@@ -153,7 +152,7 @@ def load_plan(plan_id: str) -> Optional[ReadingPlan]:
     )
 
 
-def parse_verse_ref(ref: str) -> Optional[dict]:
+def parse_verse_ref(ref: str) -> dict | None:
     """Parse a verse reference into structured fields.
 
     Returns a dict with ``{book, chapter, verses_start?, verses_end?,

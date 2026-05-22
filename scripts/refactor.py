@@ -51,7 +51,6 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -64,7 +63,7 @@ _REFACTOR_LOG = _CONTENT / ".refactor_log.yaml"
 # ----------------------------------------------------------------------
 
 
-def kind_target_files(content_dir: Optional[Path] = None) -> list[Path]:
+def kind_target_files(content_dir: Path | None = None) -> list[Path]:
     """Every file that may contain a kind reference. Order is
     deterministic for reproducible audit logs."""
     base = content_dir or _CONTENT
@@ -88,7 +87,7 @@ def kind_target_files(content_dir: Optional[Path] = None) -> list[Path]:
 def discover_kind_usage(
     old_code: str,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> dict:
     """Walk every target file; return a per-file count of references
     to ``old_code``. Pure read; no side effects."""
@@ -114,7 +113,7 @@ def compute_kind_rename_plan(
     old_code: str,
     new_code: str,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> dict:
     """Compute the file-level rewrite plan. Returns per-file
     `{path, kind, count, mutations: [...]}` records ready for
@@ -164,7 +163,7 @@ def validate_kind_rename(
     new_code: str,
     plan: dict,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> list[str]:
     """Sanity-check the rename. Returns a list of error strings;
     empty means safe to apply."""
@@ -216,8 +215,8 @@ def apply_kind_rename(
     plan: dict,
     *,
     dry_run: bool = False,
-    refactor_log_path: Optional[Path] = None,
-    now: Optional[datetime] = None,
+    refactor_log_path: Path | None = None,
+    now: datetime | None = None,
 ) -> dict:
     """Apply the rename plan atomically.
 
@@ -420,7 +419,7 @@ def _walk_kind_string_nodes(
         tree = ast.parse(text)
     except SyntaxError:
         return []
-    notes_list: Optional[ast.List] = None
+    notes_list: ast.List | None = None
     for node in tree.body:
         if isinstance(node, ast.Assign):
             for tgt in node.targets:
@@ -555,7 +554,7 @@ def _write_python_rewrite(
 
 
 def category_target_files(
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> list[Path]:
     """Every file that may contain a category reference. No
     notes/*.py — categories don't appear in note tuples."""
@@ -610,7 +609,7 @@ def _yaml_category_patterns(
 def discover_category_usage(
     old_id: str,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> dict:
     """Walk every category target file; return per-file ref counts.
     Note: the list-item pattern (`^\\s+- <id>$`) overlaps with the
@@ -636,7 +635,7 @@ def compute_category_rename_plan(
     old_id: str,
     new_id: str,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> dict:
     """Compute per-file rewrite plan for a category rename. Same
     shape as `compute_kind_rename_plan` but with `old_id` / `new_id`
@@ -682,7 +681,7 @@ def validate_category_rename(
     new_id: str,
     plan: dict,
     *,
-    content_dir: Optional[Path] = None,
+    content_dir: Path | None = None,
 ) -> list[str]:
     """Sanity-check the category rename. Same shape as
     `validate_kind_rename` with id-vs-code labelling."""
@@ -727,8 +726,8 @@ def apply_category_rename(
     plan: dict,
     *,
     dry_run: bool = False,
-    refactor_log_path: Optional[Path] = None,
-    now: Optional[datetime] = None,
+    refactor_log_path: Path | None = None,
+    now: datetime | None = None,
 ) -> dict:
     """Apply a category-rename plan atomically. Mirrors
     `apply_kind_rename`'s contract: backup-before-mutation +
@@ -804,8 +803,8 @@ def _append_refactor_log(
     old: str,
     new: str,
     files: list[str],
-    log_path: Optional[Path] = None,
-    now: Optional[datetime] = None,
+    log_path: Path | None = None,
+    now: datetime | None = None,
 ) -> str:
     """Append an entry to ``content/.refactor_log.yaml``. Returns
     the entry's id ("refactor-NNNN"). Creates the file on first
@@ -867,7 +866,7 @@ def _is_valid_kind_code(code: str) -> bool:
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="refactor",
         description=(
@@ -965,7 +964,7 @@ def _run_rename_kind(args) -> int:
         print(f"    {f['count']:4d}  {f['rel']}")
     print(f"\n  total: {plan['summary']['total_mutations']} mutation(s) across {plan['summary']['files']} file(s)")
     if dry_run:
-        print(f"\n  (dry-run — re-run with --apply to commit)")
+        print("\n  (dry-run — re-run with --apply to commit)")
     elif result["ok"]:
         print(f"\n  ✓ audit id {result['audit_id']}")
     else:
@@ -1021,7 +1020,7 @@ def _run_rename_category(args) -> int:
         print(f"    {f['count']:4d}  {f['rel']}")
     print(f"\n  total: {plan['summary']['total_mutations']} mutation(s) across {plan['summary']['files']} file(s)")
     if dry_run:
-        print(f"\n  (dry-run — re-run with --apply to commit)")
+        print("\n  (dry-run — re-run with --apply to commit)")
     elif result["ok"]:
         print(f"\n  ✓ audit id {result['audit_id']}")
     else:

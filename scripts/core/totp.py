@@ -48,7 +48,6 @@ import secrets
 import struct
 import time
 import urllib.parse
-from typing import Optional
 
 
 # RFC 6238 defaults — pinned so changing them is a deliberate decision.
@@ -114,14 +113,14 @@ def _hotp(secret_bytes: bytes, counter: int, *, digits: int = DEFAULT_DIGITS) ->
     return str(code).zfill(digits)
 
 
-def _time_counter(*, now: Optional[float] = None) -> int:
+def _time_counter(*, now: float | None = None) -> int:
     """Translate the current Unix time to a TOTP counter (30-second
     steps since the epoch). Inject `now` for deterministic tests."""
     current = now if now is not None else time.time()
     return int(current - DEFAULT_T0) // DEFAULT_STEP_SECONDS
 
 
-def current_code(secret: str, *, now: Optional[float] = None) -> str:
+def current_code(secret: str, *, now: float | None = None) -> str:
     """Return the current 6-digit TOTP code for `secret`.
 
     `now` is injectable for tests. Production callers leave it None
@@ -135,7 +134,7 @@ def verify_code(
     secret: str,
     code: str,
     *,
-    now: Optional[float] = None,
+    now: float | None = None,
     drift_steps: int = DEFAULT_DRIFT_STEPS,
 ) -> bool:
     """Check whether `code` is a valid TOTP for `secret` at `now` (or

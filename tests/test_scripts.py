@@ -2,7 +2,6 @@
 
 import importlib.util
 import json
-import sys
 from pathlib import Path
 
 import pytest
@@ -2250,7 +2249,8 @@ class TestEditionMeta:
     def test_phi1_invalidates_on_file_change(self, tmp_path):
         """When a notes file changes, the audit cache must rebuild
         rather than serve stale data — that's the whole point."""
-        import shutil, time
+        import shutil
+        import time
 
         path = REPO_ROOT / "content" / "notes" / "gen.py"
         backup = tmp_path / "gen.py.bak"
@@ -2284,7 +2284,9 @@ class TestEditionMeta:
         """The signature helper must read disk on each call, not
         memoize. Otherwise the per-endpoint caches above become
         stuck-stale rather than fresh-on-change."""
-        import shutil, time, tempfile, os
+        import time
+        import tempfile
+        import os
 
         path = REPO_ROOT / "content" / "editions.yaml"
         sig1 = self.web._files_signature(path)
@@ -2501,7 +2503,7 @@ class TestEditionMeta:
         boundary = "----b"
         body = (
             f'--{boundary}\r\nContent-Disposition: form-data; name="not-a-file"\r\n\r\nhello\r\n--{boundary}--\r\n'
-        ).encode("utf-8")
+        ).encode()
         r = self.web.api_upload_cover_main("catholic-study", body, f"multipart/form-data; boundary={boundary}")
         assert "error" in r
         assert "no file part" in r["error"]
@@ -3007,7 +3009,10 @@ class TestEditionMeta:
 
     def test_corpus_progress_route_registered(self):
         """A live HTTP smoke check verifying the route is wired."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -3226,7 +3231,11 @@ class TestEditionMeta:
 
     def test_preview_route_registered_and_method_post(self):
         """The route is POST-only because it takes a payload."""
-        import threading, urllib.request, urllib.error, json, time
+        import threading
+        import urllib.request
+        import urllib.error
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -3327,7 +3336,10 @@ class TestEditionMeta:
         back. Same backend endpoint as the publisher; this test
         confirms the wiring is reachable from the customize
         flow."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -3462,7 +3474,10 @@ class TestEditionMeta:
     def test_compare_route_serves_html_and_json(self):
         """Live HTTP smoke: GET /compare returns the HTML console,
         GET /api/compare returns JSON with the expected shape."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -3727,7 +3742,11 @@ class TestEditionMeta:
     def test_sample_route_serves_html_and_json_errors(self):
         """Live HTTP smoke: GET /api/sample/<id> returns 200+HTML
         on success, JSON+correct HTTP code on failure."""
-        import threading, urllib.request, urllib.error, time, json
+        import threading
+        import urllib.request
+        import urllib.error
+        import time
+        import json
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -3807,7 +3826,6 @@ class TestEditionMeta:
     def test_scaffold_console_dry_run_plan(self, tmp_path):
         """Build a plan against a fixture file; verify dry-run
         accurately predicts what would change."""
-        import importlib
         from scripts import scaffold_console
 
         target = tmp_path / "fake_web.py"
@@ -3915,12 +3933,11 @@ class TestEditionMeta:
     def test_scaffold_console_route_defaults_to_name(self):
         """Without --route the route is /<name>. Custom routes
         are accepted as long as they start with /."""
-        from scripts.scaffold_console import build_plan
 
         # No target file given — plan still computed before file checks
         # (but we need a target file for build_plan to not skip);
         # so use _normalize_name + _default_route instead
-        from scripts.scaffold_console import _normalize_name, _default_route
+        from scripts.scaffold_console import _default_route
 
         assert _default_route("foo") == "/foo"
         # Validation rejects non-slash routes (via the ValueError in
@@ -4020,7 +4037,6 @@ class TestEditionMeta:
         restore is itself reversible)."""
         # Use a real subdir under content/ for this test (so the
         # path-resolution logic actually engages); clean up after.
-        import importlib
         from scripts.core import notes_io
         from scripts.web import REPO, api_restore_backup
 
@@ -4058,7 +4074,10 @@ class TestEditionMeta:
     def test_backup_list_route_serves_json(self):
         """Live HTTP smoke: GET /api/backups?file=editions.yaml
         returns 200 + JSON with status:ok."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -4218,7 +4237,10 @@ class TestEditionMeta:
     def test_ops_route_serves_html_and_api(self):
         """Live HTTP smoke: /ops returns the page, /api/ops returns
         JSON with the 6 sections."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -4639,7 +4661,10 @@ class TestEditionMeta:
     def test_apihelp_route_serves_html_and_data(self):
         """Live HTTP smoke: /apihelp returns the page,
         /api/apihelp returns JSON with the documented shape."""
-        import threading, urllib.request, json, time
+        import threading
+        import urllib.request
+        import json
+        import time
         from http.server import HTTPServer
         from scripts.web import Handler
 
@@ -5412,7 +5437,8 @@ class TestPerNoteDisable:
 
     def test_build_filter_strips_disabled_notes(self, tmp_path):
         """End-to-end: disable a note, build filter strips both marker + aside."""
-        import shutil, importlib
+        import shutil
+        import importlib
 
         path = REPO_ROOT / "content" / "editions.yaml"
         backup = tmp_path / "editions.preserve.yaml"
@@ -5517,7 +5543,8 @@ class TestPublisherConsole:
             shutil.copy(backup, path)
 
     def test_save_list_round_trip(self, tmp_path):
-        import shutil, yaml
+        import shutil
+        import yaml
 
         path = REPO_ROOT / "content" / "editions.yaml"
         backup = tmp_path / "edns.yaml"
@@ -5548,7 +5575,8 @@ class TestPublisherConsole:
 
     def test_unset_editions_unchanged_after_save(self, tmp_path):
         """Saving one edition's publishing data must not affect siblings."""
-        import shutil, yaml
+        import shutil
+        import yaml
 
         path = REPO_ROOT / "content" / "editions.yaml"
         backup = tmp_path / "edns.yaml"
@@ -5577,7 +5605,8 @@ class TestPublisherConsole:
         assert "error" in bad
 
     def test_empty_list_resets(self, tmp_path):
-        import shutil, yaml
+        import shutil
+        import yaml
 
         path = REPO_ROOT / "content" / "editions.yaml"
         backup = tmp_path / "edns.yaml"
@@ -7248,7 +7277,6 @@ class TestMatrixSmoothness:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates import matrix
 
         cls.html = _matrix_html_and_js()
 
@@ -8920,7 +8948,6 @@ class TestPsi20DensityHeatmap:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -9003,7 +9030,6 @@ class TestPsi182MatrixChapterExpandAll:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -9115,7 +9141,6 @@ class TestPsi28MatrixKindFilter:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -9241,7 +9266,6 @@ class TestPsi29MatrixUndoRedoHelp:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -10102,7 +10126,6 @@ class TestPsi27MatrixScenariosUi:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -10347,7 +10370,6 @@ class TestPsi26MatrixBulkOpsUi:
 
     @classmethod
     def setup_class(cls):
-        from scripts.templates.matrix import MATRIX_HTML
 
         cls.html = _matrix_html_and_js()
 
@@ -10802,7 +10824,6 @@ class TestXi10SsrfAllowlist:
         from scripts.core.http import (
             DEFAULT_PD_SOURCES_ALLOWLIST,
             DEFAULT_AI_BACKEND_ALLOWLIST,
-            DEFAULT_DESKTOP_UPDATE_ALLOWLIST,
         )
 
         assert "archive.org" in DEFAULT_PD_SOURCES_ALLOWLIST
@@ -11004,7 +11025,6 @@ class TestOmega11Recovery:
 
     def test_list_backups_returns_records_newest_first(self, tmp_path):
         from scripts.recover import list_backups
-        from scripts.core import notes_io
 
         f = tmp_path / "test.yaml"
         f.write_text("v1", encoding="utf-8")
@@ -11258,12 +11278,10 @@ class TestOmega11Recovery:
 
     def test_cli_main_subcommands_present(self):
         # Smoke-check that argparse wires up all four subcommands.
-        from scripts.recover import main
 
         # `recover --help` exits 0; we can't easily capture argparse's
         # SystemExit + stdout, so instead check the parser by
         # introspection: each subcommand must be registered.
-        import argparse
         from scripts.recover import _cmd_list_backups, _cmd_restore, _cmd_verify_yaml, _cmd_flip_inflight
 
         # Just verify the command functions exist + are callable.
@@ -12692,7 +12710,6 @@ class TestXi13AuditLog:
         assert result == {"status": "ok", "got": 42}
 
     def test_decorator_logs_ok_status(self, tmp_path, monkeypatch):
-        import json
         from scripts.core import audit_log
 
         self._patch_audit_dir(monkeypatch, tmp_path)
@@ -14483,7 +14500,6 @@ class TestOmega38EditionCovers:
         )
 
     def test_generator_script_exists_and_is_importable(self):
-        from pathlib import Path
         import importlib.util
 
         script_path = self.repo / "scripts" / "generate_edition_covers.py"
@@ -14506,7 +14522,6 @@ class TestOmega38EditionCovers:
         # If two editions share a template (family, color) the
         # covers become visually indistinguishable on a wizard
         # picker. Pin uniqueness as a curation rule.
-        from pathlib import Path
         import importlib.util
 
         script_path = self.repo / "scripts" / "generate_edition_covers.py"

@@ -275,7 +275,7 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
     for tup in notes:
         ch, v, suffix, anchor, kind, title, label, body, *rest = tup
         attribution = rest[0] if rest else {}
-        lines.append(f"    (\n")
+        lines.append("    (\n")
         lines.append(f"        {ch}, {v}, {suffix!r},\n")
         lines.append(f"        {anchor!r},\n")
         lines.append(f"        {kind!r},\n")
@@ -283,7 +283,7 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
         lines.append(f"        {label!r},\n")
         lines.append(f"        {body!r},\n")
         lines.append(f"        {attribution!r},\n")
-        lines.append(f"    ),\n")
+        lines.append("    ),\n")
     lines.append("]\n")
     notes_io.atomic_write(path, "".join(lines))
     notes_io.clear_load_notes_cache()  # force re-read on next API call
@@ -3545,7 +3545,7 @@ def _safe_request(method):
 # Routes are migrated as `(path, handler_callable)` tuples. The
 # handlers are the existing pure-function `api_*` helpers — no
 # changes to handler signatures or call patterns.
-_SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
+_SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     ("/api/books", api_books),
     ("/api/kinds", api_kinds),
     ("/api/matrix", api_matrix),
@@ -3601,7 +3601,7 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
 #   - Handler takes the regex capture groups as positional args
 #   - Response is `_send_json(result)` with the standard
 #     "if status == 'error', translate to HTTP error" dance
-_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
+_REGEX_GET_ROUTES: list[tuple[re.Pattern, object]] = [
     (re.compile(r"^/api/reading-plans/([a-z0-9_-]+)$"), api_reading_plan_get),
     # Snapshots: order matters — /<ed>/<ver> must precede /<ed>
     (re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$"), api_snapshot_get),
@@ -3648,7 +3648,7 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
 # `_dispatch_table_result` for the standard error-translation
 # envelope, migrated branches deleted from legacy via ω.35-A.3-style
 # cleanup once the table is proven.
-_QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
+_QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, object]] = [
     # /api/snapshots/<ed>/<ver>/diff?against=<ver>
     (
         re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$"),
@@ -3691,7 +3691,7 @@ _QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
 # the parsed JSON payload, returns the response dict.
 # `_dispatch_table_result` was extended in ω.35-A.5 to handle
 # the `{ok: False}` legacy mutation-result shape (→ HTTP 400).
-_PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
+_PUT_ROUTES: list[tuple[re.Pattern, object]] = [
     (re.compile(r"^/api/notes/([a-z0-9]+)$"), lambda m, payload: api_save(m.group(1), payload)),
     # ω.35-A.10 — /api/edition/<id>/note-toggle MUST precede the
     # broader /api/edition/<id> below; both regex match on the same
@@ -3755,7 +3755,7 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
 # Order matters: more-specific patterns precede less-specific ones
 # (e.g. `/api/covers/<ed>/book/<book>` before `/api/covers/<ed>/main`
 # isn't needed because the suffixes differ, but the principle holds).
-_DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
+_DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
     # /api/notes/<book>/<idx> — note delete by 0-based index
     (re.compile(r"^/api/notes/([a-z0-9]+)/(\d+)$"), lambda m: api_delete(m.group(1), int(m.group(2)))),
     # /api/snapshots/<ed>/<ver> — uses status==error envelope (Δ-shape)
@@ -3815,7 +3815,7 @@ _DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
 #   — these read the raw body, not JSON; they need a `_MULTIPART_ROUTES`
 #   table with a distinct lambda signature `lambda m, body, ctype` and
 #   their own dispatch loop. Separate slice.
-_POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
+_POST_ROUTES: list[tuple[re.Pattern, object]] = [
     # /api/snapshots/<ed>/<ver>/restore — no payload; status==error
     # envelope. MUST precede /api/snapshots/<ed> (more specific).
     (
@@ -3922,7 +3922,7 @@ _POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
 # Handlers return the standard `{ok, ...}` or `{status, ...}` dict
 # shape and route through `_dispatch_table_result` like the other
 # tables — uniform on the response side.
-_MULTIPART_ROUTES: list[tuple[re.Pattern, int, "object"]] = [
+_MULTIPART_ROUTES: list[tuple[re.Pattern, int, object]] = [
     # /api/covers/<ed>/main — cover upload (main hero cover)
     (
         re.compile(r"^/api/covers/([a-z0-9-]+)/main$"),
@@ -3956,9 +3956,9 @@ _MULTIPART_ROUTES: list[tuple[re.Pattern, int, "object"]] = [
 
 def _dispatch_multipart_route(
     handler_self,
-    match: "re.Match",
+    match: re.Match,
     max_bytes: int,
-    handler: "object",
+    handler: object,
 ) -> None:
     """ω.35-A.9 helper — read a multipart body within a per-route
     size cap and route the result through the standard dispatch

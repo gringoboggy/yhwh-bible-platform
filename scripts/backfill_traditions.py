@@ -55,7 +55,6 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.core.traditions import (  # noqa: E402
     DEFAULT_TRADITION,
-    TRADITION_IDS,
     note_tradition,
     valid_tradition,
 )
@@ -180,7 +179,7 @@ def _print_audit(report: dict) -> None:
         f"  would rewrite:           {report['n_would_rewrite']:6d} {DIM}(derived ≠ cross AND not yet stamped){RESET}"
     )
     print()
-    print(f"  by tradition:")
+    print("  by tradition:")
     for tid in sorted(report["by_tradition"]):
         n = report["by_tradition"][tid]
         marker = GREEN if tid != DEFAULT_TRADITION else DIM

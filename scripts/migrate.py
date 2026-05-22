@@ -47,7 +47,7 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -61,7 +61,7 @@ _DEFAULT_STATE_PATH = _REPO / "content" / ".migration_state.yaml"
 
 
 def discover_migrations(
-    migrations_dir: Optional[Path] = None,
+    migrations_dir: Path | None = None,
 ) -> list[dict]:
     """Return every migration module under ``migrations_dir`` as a
     list of dicts ``[{id, name, path, module}]`` sorted by id.
@@ -107,7 +107,7 @@ def _load_migration_module(path: Path) -> Any:
 
 
 def load_state(
-    state_path: Optional[Path] = None,
+    state_path: Path | None = None,
 ) -> dict:
     """Read the migration ledger. Missing file → empty
     ``{applied: []}``."""
@@ -129,7 +129,7 @@ def load_state(
 
 def save_state(
     state: dict,
-    state_path: Optional[Path] = None,
+    state_path: Path | None = None,
 ) -> Path:
     """Write the migration ledger atomically. Backs up the prior
     contents via ``notes_io.ensure_backup`` first so a recoverable
@@ -178,8 +178,8 @@ def apply_up(
     migration: dict,
     state: dict,
     *,
-    state_path: Optional[Path] = None,
-    now: Optional[datetime] = None,
+    state_path: Path | None = None,
+    now: datetime | None = None,
 ) -> dict:
     """Apply one migration's ``up()``. Updates the ledger on success.
 
@@ -236,7 +236,7 @@ def apply_down(
     migration: dict,
     state: dict,
     *,
-    state_path: Optional[Path] = None,
+    state_path: Path | None = None,
 ) -> dict:
     """Reverse one migration's ``up()`` via its ``down()`` function.
     On success, removes the migration's ledger entry.
@@ -292,9 +292,9 @@ def apply_down(
 
 def run_up(
     *,
-    to: Optional[str] = None,
-    migrations_dir: Optional[Path] = None,
-    state_path: Optional[Path] = None,
+    to: str | None = None,
+    migrations_dir: Path | None = None,
+    state_path: Path | None = None,
 ) -> dict:
     """Apply every pending migration in id order, optionally stopping
     after id ``to``. Returns ``{ok, applied: [...], skipped: [...],
@@ -304,7 +304,7 @@ def run_up(
     pending = pending_migrations(state, migrations)
     applied: list[dict] = []
     skipped: list[dict] = []
-    failed: Optional[dict] = None
+    failed: dict | None = None
     for m in pending:
         if to is not None and m["id"] > to:
             break
@@ -331,9 +331,9 @@ def run_up(
 
 def run_down(
     *,
-    to: Optional[str] = None,
-    migrations_dir: Optional[Path] = None,
-    state_path: Optional[Path] = None,
+    to: str | None = None,
+    migrations_dir: Path | None = None,
+    state_path: Path | None = None,
 ) -> dict:
     """Roll back applied migrations in reverse id order, stopping
     when the next migration's id would be ≤ ``to`` (i.e. ``to`` is
@@ -344,7 +344,7 @@ def run_down(
     applied = applied_migrations(state, migrations)
     rolled: list[dict] = []
     skipped: list[dict] = []
-    failed: Optional[dict] = None
+    failed: dict | None = None
     for m in reversed(applied):
         if to is not None and m["id"] <= to:
             break
@@ -371,8 +371,8 @@ def run_down(
 
 def status(
     *,
-    migrations_dir: Optional[Path] = None,
-    state_path: Optional[Path] = None,
+    migrations_dir: Path | None = None,
+    state_path: Path | None = None,
 ) -> dict:
     """Snapshot of the migration world. Pure read; no writes."""
     migrations = discover_migrations(migrations_dir)
@@ -396,7 +396,7 @@ def status(
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="migrate",
         description=("ω.22 — versioned, idempotent migration runner for the project's content/ schema."),

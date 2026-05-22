@@ -40,17 +40,16 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional
 
 
 # Probe for Java + JAR at module import time so subsequent calls are
 # fast. The probe is cheap (one subprocess) and the result is stable
 # across a process lifetime.
-_JAVA_PROBE: Optional[bool] = None
-_JAR_PATH: Optional[Path] = None
+_JAVA_PROBE: bool | None = None
+_JAR_PATH: Path | None = None
 
 
-def _locate_jar() -> Optional[Path]:
+def _locate_jar() -> Path | None:
     """Find the epubcheck JAR. Prefers the env override
     ``EPUBCHECK_JAR``, falls back to the bundled JAR from the
     ``epubcheck`` PyPI package. Returns None if neither is present.

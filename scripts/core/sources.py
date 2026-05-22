@@ -23,7 +23,7 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _SOURCES = _REPO_ROOT / "content" / "sources"
@@ -120,7 +120,7 @@ class StrongsHebrew:
 
     def __init__(self) -> None:
         if not self.PATH.is_file():
-            raise SourceMissingError(f"Strong's Hebrew not cached. Run: python3 scripts/fetch_sources.py")
+            raise SourceMissingError("Strong's Hebrew not cached. Run: python3 scripts/fetch_sources.py")
         with self.PATH.open(encoding="utf-8") as f:
             self._data = json.load(f)
 
@@ -130,7 +130,7 @@ class StrongsHebrew:
     def __len__(self) -> int:
         return len(self._data)
 
-    def get(self, num: str) -> Optional[StrongsEntry]:
+    def get(self, num: str) -> StrongsEntry | None:
         d = self._data.get(num)
         if not d:
             return None
@@ -190,7 +190,7 @@ class StrongsGreek:
 
     def __init__(self) -> None:
         if not self.PATH.is_file():
-            raise SourceMissingError(f"Strong's Greek not cached. Run: python3 scripts/fetch_sources.py")
+            raise SourceMissingError("Strong's Greek not cached. Run: python3 scripts/fetch_sources.py")
         with self.PATH.open(encoding="utf-8") as f:
             self._data = json.load(f)
 
@@ -200,7 +200,7 @@ class StrongsGreek:
     def __len__(self) -> int:
         return len(self._data)
 
-    def get(self, num: str) -> Optional[StrongsGreekEntry]:
+    def get(self, num: str) -> StrongsGreekEntry | None:
         d = self._data.get(num)
         if not d:
             return None
@@ -256,7 +256,7 @@ class Tsk:
 
     def __init__(self) -> None:
         if not self.PATH.is_file():
-            raise SourceMissingError(f"TSK not cached. Run: python3 scripts/fetch_sources.py")
+            raise SourceMissingError("TSK not cached. Run: python3 scripts/fetch_sources.py")
         with self.PATH.open(encoding="utf-8") as f:
             self._data = json.load(f)
 
@@ -316,7 +316,7 @@ class NavesTopical:
 
     def __init__(self) -> None:
         if not self.PATH.is_file():
-            raise SourceMissingError(f"Nave's Topical not cached. Run: python3 scripts/fetch_sources.py")
+            raise SourceMissingError("Nave's Topical not cached. Run: python3 scripts/fetch_sources.py")
         with self.PATH.open(encoding="utf-8") as f:
             self._data = json.load(f)
         self._topics = self._data.get("topics", {})
@@ -1754,7 +1754,7 @@ class AnthropicXrefClient:
         self,
         *,
         model: str = DEFAULT_AI_XREF_MODEL,
-        completion_fn: Optional[Callable] = None,
+        completion_fn: Callable | None = None,
         cache=None,
     ) -> None:
         self.model = model
@@ -1782,7 +1782,7 @@ class AnthropicXrefClient:
         # Validation set: only book codes the platform actually has are
         # accepted from the model. Built lazily because importing
         # config at module-load time would be heavier than necessary.
-        self._valid_book_codes: Optional[set[str]] = None
+        self._valid_book_codes: set[str] | None = None
 
         # Telemetry from the most recent _default_completion_fn call.
         # Stub completion_fns leave this as None; the real SDK path
@@ -1791,7 +1791,7 @@ class AnthropicXrefClient:
         #   {"input_tokens": int, "output_tokens": int,
         #    "cache_creation_input_tokens": int,
         #    "cache_read_input_tokens": int, "request_id": str | None}
-        self.last_usage: Optional[dict] = None
+        self.last_usage: dict | None = None
 
         # Opt-in response cache (at-scale --cache). Wrap last so it decorates
         # whichever completion_fn was selected above.
@@ -2702,7 +2702,7 @@ class AnthropicNoteClient:
         self,
         *,
         model: str = DEFAULT_AI_NOTE_MODEL,
-        completion_fn: Optional[Callable] = None,
+        completion_fn: Callable | None = None,
         cache=None,
     ) -> None:
         self.model = model
@@ -2730,14 +2730,14 @@ class AnthropicNoteClient:
         # Validation set: only book codes the platform actually has are
         # accepted from the model. Built lazily because importing
         # config at module-load time would be heavier than necessary.
-        self._valid_book_codes: Optional[set[str]] = None
+        self._valid_book_codes: set[str] | None = None
 
         # Telemetry from the most recent _default_completion_fn call.
         # Stub completion_fns leave this as None; the real SDK path
         # populates it so the at-scale driver can verify cache hits
         # before paying for a full run. Same shape as
         # AnthropicXrefClient.last_usage.
-        self.last_usage: Optional[dict] = None
+        self.last_usage: dict | None = None
 
         # Opt-in response cache (at-scale --cache). Wrap last so it decorates
         # whichever completion_fn was selected above.
@@ -2762,8 +2762,8 @@ class AnthropicNoteClient:
         verse: int,
         verse_text: str,
         *,
-        tradition: Optional[str] = None,
-    ) -> Optional[dict]:
+        tradition: str | None = None,
+    ) -> dict | None:
         """Ask the model for a first-draft note for the given verse.
 
         Returns a dict with fields ``kind_class``, ``label``,

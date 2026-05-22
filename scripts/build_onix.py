@@ -361,7 +361,7 @@ def main() -> None:
     print(f"\n  output: {args.output_dir.relative_to(REPO_ROOT)}")
     if total_todos:
         print(f"  {YELLOW}⚠ {total_todos} TODO placeholder(s) remain across all files.{RESET}")
-        print(f"    These records are NOT submission-ready. Fill in TODO_* fields")
+        print("    These records are NOT submission-ready. Fill in TODO_* fields")
         print(f"    in {ONIX_CONFIG_PY.relative_to(REPO_ROOT)} before submitting to retailers.\n")
         sys.exit(1)
     print(f"  {GREEN}✓ all fields populated; records are submission-ready.{RESET}\n")

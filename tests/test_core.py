@@ -227,7 +227,8 @@ class TestCovers:
 
         We synthesize a 4x6 PNG by hand-crafting the header — no Pillow
         dependency, just the IHDR chunk every PNG must start with."""
-        import struct, zlib
+        import struct
+        import zlib
 
         # 8-byte signature
         sig = b"\x89PNG\r\n\x1a\n"

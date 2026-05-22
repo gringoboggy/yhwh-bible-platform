@@ -33,7 +33,6 @@ from __future__ import annotations
 
 import struct
 from pathlib import Path
-from typing import Optional
 
 REPO = Path(__file__).resolve().parent.parent.parent
 CONTENT = REPO / "content"
@@ -123,7 +122,7 @@ def encode_book_covers(per_book: dict[str, str]) -> list[str]:
 # ----------------------------------------------------------------------
 
 
-def _read_png_dimensions(data: bytes) -> Optional[tuple[int, int]]:
+def _read_png_dimensions(data: bytes) -> tuple[int, int] | None:
     """Return (width, height) for PNG bytes, or None if unparseable.
 
     PNG signature is 8 bytes; the IHDR chunk follows immediately and
@@ -142,7 +141,7 @@ def _read_png_dimensions(data: bytes) -> Optional[tuple[int, int]]:
         return None
 
 
-def _read_jpeg_dimensions(data: bytes) -> Optional[tuple[int, int]]:
+def _read_jpeg_dimensions(data: bytes) -> tuple[int, int] | None:
     """Return (width, height) for JPEG bytes, or None if unparseable.
 
     JPEGs are a stream of marker segments; we walk them looking for
@@ -203,7 +202,7 @@ def _detect_format(data: bytes, suffix: str) -> str:
     return suffix.lstrip(".").lower() or "unknown"
 
 
-def _read_webp_dimensions(data: bytes) -> Optional[tuple[int, int]]:
+def _read_webp_dimensions(data: bytes) -> tuple[int, int] | None:
     """Return (width, height) for WebP bytes, or None if unparseable.
 
     WebP files start ``RIFF<size>WEBP``; what follows is one of three
@@ -260,7 +259,7 @@ def _read_webp_dimensions(data: bytes) -> Optional[tuple[int, int]]:
     return None
 
 
-def read_image_meta(path_str: str) -> Optional[dict]:
+def read_image_meta(path_str: str) -> dict | None:
     """Inspect the file at ``path_str`` and return a small metadata
     dict, or ``None`` if the file does not exist.
 
@@ -301,7 +300,7 @@ def read_image_meta(path_str: str) -> Optional[dict]:
 
     suffix = p.suffix
     fmt = _detect_format(head, suffix)
-    dims: Optional[tuple[int, int]] = None
+    dims: tuple[int, int] | None = None
     if fmt == "png":
         dims = _read_png_dimensions(head)
     elif fmt == "jpeg":

@@ -301,9 +301,9 @@ def main() -> None:
     # ---- Output
     print(f"\n  {BOLD}{args.version} · {today}{RESET}")
     print(f"  {DIM}previous save: {last_version} (paired={last_paired}){RESET}\n")
-    print(f"  ledger row:")
+    print("  ledger row:")
     print(f"    {GREEN}{ledger_row}{RESET}\n")
-    print(f"  status line:")
+    print("  status line:")
     print(f"    {DIM}{status}{RESET}\n")
     print(f"  source notes: {n_source:,}    Δ paired: {delta_paired:+d}")
 

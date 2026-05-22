@@ -21,7 +21,7 @@ Stdlib only (``concurrent.futures``), per CLAUDE_PROJECT_RULES §10.
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
-from typing import Callable, Iterable, List, TypeVar
+from typing import Callable, Iterable, TypeVar
 
 T = TypeVar("T")
 R = TypeVar("R")
@@ -32,7 +32,7 @@ def parallel_map(
     items: Iterable[T],
     *,
     workers: int = 4,
-) -> List[R]:
+) -> list[R]:
     """Apply *fn* to each item across up to *workers* threads.
 
     Results are returned in **input order** regardless of completion order.

@@ -1,4 +1,4 @@
-"""τ.6.x.1 — Tesseract OCR engine wiring pins (2026-05-14).
+r"""τ.6.x.1 — Tesseract OCR engine wiring pins (2026-05-14).
 
 τ.6.x.1 wires the τ.6.x.0c-authorized Tesseract strategy into
 `scripts/extract_parallel_pdf.py`. This phase is Claude-side
@@ -60,7 +60,6 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 import yaml

@@ -606,7 +606,6 @@ class TestXi21RouteRegistration:
         assert routes["/api/auth/status"] is web.api_auth_status
 
     def test_three_post_routes_present(self):
-        import re
 
         from scripts import web
 

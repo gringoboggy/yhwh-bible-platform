@@ -41,7 +41,6 @@ from __future__ import annotations
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import pytest
 
@@ -529,7 +528,6 @@ class TestEpsilon7ExecTemplate:
 
 class TestEpsilon7RouteRegistration:
     def test_get_route_in_regex_table(self):
-        import re
 
         from scripts import web
 

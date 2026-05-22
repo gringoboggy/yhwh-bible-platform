@@ -33,7 +33,6 @@ import sys
 import time
 from collections import defaultdict
 from pathlib import Path
-from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -154,7 +153,7 @@ _DEFAULT_RETENTION = {
 
 
 def load_retention_policy(
-    config_path: Optional[Path] = None,
+    config_path: Path | None = None,
 ) -> dict:
     """Load `content/.backup_retention.yaml` (or another location for
     tests) and merge over `_DEFAULT_RETENTION`. Missing file or
@@ -219,7 +218,7 @@ def _backups_to_prune(
     backup_files: list[Path],
     rule: dict,
     *,
-    now: Optional[float] = None,
+    now: float | None = None,
 ) -> list[Path]:
     """Apply one rule to a list of backup files (already filtered to
     one stem). Returns the subset that should be deleted.
@@ -290,10 +289,10 @@ def plan_npm_logs(logs: list[Path]) -> tuple[list[Path], int]:
 
 def plan_backups(
     grouped: dict[Path, list[Path]],
-    keep: Optional[int] = None,
+    keep: int | None = None,
     *,
-    policy: Optional[dict] = None,
-    now: Optional[float] = None,
+    policy: dict | None = None,
+    now: float | None = None,
 ) -> tuple[list[Path], int]:
     """For each .backups/ dir, group files by stem, mark old/excess
     backups for deletion.

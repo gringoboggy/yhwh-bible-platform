@@ -70,7 +70,6 @@ import sqlite3
 import sys
 import time
 from pathlib import Path
-from typing import Optional
 
 from . import paths
 
@@ -272,9 +271,9 @@ def _compute_fingerprint() -> str:
         try:
             stat = p.stat()
         except OSError:
-            h.update(f"{p.stem}:missing\n".encode("utf-8"))
+            h.update(f"{p.stem}:missing\n".encode())
             continue
-        h.update(f"{p.stem}:{stat.st_size}:{stat.st_mtime_ns}\n".encode("utf-8"))
+        h.update(f"{p.stem}:{stat.st_size}:{stat.st_mtime_ns}\n".encode())
     return h.hexdigest()
 
 
@@ -298,7 +297,7 @@ _FINGERPRINT_TTL_SEC: float = 1.0
 # corpus test and return wrong results. Tagging the path lets the
 # cache survive across tests within a worker (faster) while still
 # auto-invalidating when the resolved path changes (correct).
-_FINGERPRINT_CACHE: Optional[tuple[float, str, str]] = None
+_FINGERPRINT_CACHE: tuple[float, str, str] | None = None
 
 
 def _compute_fingerprint_cached() -> str:
@@ -631,11 +630,11 @@ def _count_notes(path: Path) -> int:
 # ----------------------------------------------------------------------
 
 
-_CACHED_CONN: Optional[sqlite3.Connection] = None
+_CACHED_CONN: sqlite3.Connection | None = None
 # ω.34 / Δ.4.1 — track which path `_CACHED_CONN` was opened against
 # so test fixtures that monkeypatch `paths.user_data_root` don't
 # leave a stale connection pointing at a deleted tmp_path file.
-_CACHED_CONN_PATH: Optional[str] = None
+_CACHED_CONN_PATH: str | None = None
 
 
 def connection() -> sqlite3.Connection:
@@ -651,7 +650,7 @@ def connection() -> sqlite3.Connection:
     global _CACHED_CONN, _CACHED_CONN_PATH
     rebuild()  # Idempotent fast-path when fingerprint matches.
     current_path = str(_index_path())
-    if _CACHED_CONN is not None and _CACHED_CONN_PATH != current_path:
+    if _CACHED_CONN is not None and current_path != _CACHED_CONN_PATH:
         try:
             _CACHED_CONN.close()
         except sqlite3.Error:
@@ -698,7 +697,7 @@ def invalidate() -> None:
 # ----------------------------------------------------------------------
 
 
-def count_by_kind(*, book: Optional[str] = None, kinds: Optional[list[str]] = None) -> dict[str, int]:
+def count_by_kind(*, book: str | None = None, kinds: list[str] | None = None) -> dict[str, int]:
     """Return ``{kind: count}`` aggregated across the corpus (or a
     single book if `book` is given). Optional ``kinds`` filter
     restricts the result; empty filter means "all kinds in corpus."
@@ -717,7 +716,7 @@ def count_by_kind(*, book: Optional[str] = None, kinds: Optional[list[str]] = No
     return {row[0]: row[1] for row in conn.execute(sql, args)}
 
 
-def count_by_book(*, kinds: Optional[list[str]] = None) -> dict[str, int]:
+def count_by_book(*, kinds: list[str] | None = None) -> dict[str, int]:
     """Return ``{book_code: count}``. Optional `kinds` filter."""
     conn = connection()
     sql = "SELECT book_code, COUNT(*) FROM notes WHERE 1=1"
@@ -732,8 +731,8 @@ def count_by_book(*, kinds: Optional[list[str]] = None) -> dict[str, int]:
 
 def count_by_kind_and_book(
     *,
-    kinds: Optional[list[str]] = None,
-    books: Optional[list[str]] = None,
+    kinds: list[str] | None = None,
+    books: list[str] | None = None,
 ) -> dict[tuple[str, str], int]:
     """Return ``{(book_code, kind): count}``. Optional filters."""
     conn = connection()
@@ -1062,9 +1061,9 @@ def _make_excerpt(text: str, query: str, *, radius: int = 60) -> str:
 def search(
     query: str,
     *,
-    kind: Optional[str] = None,
-    book: Optional[str] = None,
-    edition_id: Optional[str] = None,
+    kind: str | None = None,
+    book: str | None = None,
+    edition_id: str | None = None,
     limit: int = 100,
 ) -> list[dict]:
     """Δ.2 — index-backed substring search across the corpus.
@@ -1089,8 +1088,8 @@ def search(
     q_lc = q.lower()
 
     # Resolve edition filter to (canon_book_set, enabled_kind_set)
-    canon_book_set: Optional[set[str]] = None
-    enabled_kind_set: Optional[set[str]] = None
+    canon_book_set: set[str] | None = None
+    enabled_kind_set: set[str] | None = None
     if edition_id:
         # Local imports to avoid a circular: matrix imports config,
         # config is fine here. We import lazily so this module stays
@@ -1224,8 +1223,8 @@ def search(
 def fts5_search(
     query: str,
     *,
-    kind: Optional[str] = None,
-    book: Optional[str] = None,
+    kind: str | None = None,
+    book: str | None = None,
     limit: int = 100,
 ) -> list[dict]:
     """Δ.12 — FTS5-backed search across notes.

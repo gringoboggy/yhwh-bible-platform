@@ -6,6 +6,23 @@
 
 ---
 
+## 2026-05-22 — session — Track D ruff lint cleanup (1071 → 693) + all-11-editions epubcheck validation
+
+**Context:** "continue" → Track A close-out, then "do track d". Two pieces of demo-readiness/cleanup; **no content / corpus / master-HTML / feature change.**
+
+**(1) All-11-editions epubcheck validation.** The canon-splice + OPF arc proved EPUB validity for 5 canon-shape representatives. Rebuilt all 11 editions from HEAD (`build_edition.py --all --force --no-parallel`) and ran epubcheck (Java 8 + the PyPI-bundled `epubcheck.jar`) on each → **every edition 0 fatals / 0 errors / 0 warnings / 0 infos**, including the 3 never individually checked before (scholarly-academic, coptic-orthodox, lutheran-confessional) and the 2 standalone placeholders. Closes the "5 canon shapes → 11 editions" coverage gap. Validation only — built EPUBs are gitignored output.
+
+**(2) Track D ruff lint cleanup — 1071 → 693 (−378), three verified batches:**
+- **Batch 1 — 265 semantically-null autofixes:** UP045 `Optional[X]`→`X | None` (168), F541 f-string-no-placeholder (38), UP037, E401, UP012, SIM300, UP006/UP007, UP033, W605.
+- **Batch 2 — F401 unused-import (reviewed):** the bulk were `typing.Optional` rendered unused by Batch 1's UP045. **The autofix stripped intentional re-exports from two hub surfaces — caught by the full suite and repaired** by reverting the hub + re-applying only Batch-1 rules: `scripts/web.py` (~13 names — `EXPORTS_DIR`, `_compute_preflight_uncached`, `_parse_multipart`/`_extract_boundary`, scenario/edition test helpers) and `scripts/templates/*.py` (`HEADER_NAV_LINKS` + `BUYER_ARC_POLISH_CSS`, required by the ψ.15/16 console-header-nav substitution). Those hubs' re-export imports are deliberately retained as F401 "debt" (removing them breaks the re-export contract; a future pass can mark them with an `as`-alias or `__all__`).
+- **Batch 3 — F821 undefined-name → 0:** found + fixed a **real latent bug** — `scripts/check_a11y.py` used `collections.Counter` (lines 262, 353) without importing it (a `NameError` on the report path); added the import and verified by running the script to completion. Excluded the vulture / cache-audit whitelist dotfiles from ruff in `pyproject.toml` (their `_.attr` bare statements are the tool's "treat-as-used" idiom, not runnable source → false-positive undefined-`_`).
+
+**Verified:** `ruff format --check` clean (337 files); `lint_rules.py` 16 pass / 0 warn / 0 fail; full `pytest tests/` **6462 passed / 0 failed**; all 11 editions epubcheck 0/0/0/0. Discovered (out of scope, not fixed): `check_a11y` reports 43 pre-existing `heading-skip` a11y warnings in the built HTML.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — fix OPF BISAC dc:subject (term/authority pairing) → all editions epubcheck-clean
 
 **Context:** after the footnote-orphan fix, catholic-study + anglican-bcp (the catholic-canon editions, which carry `bisac_codes`) still emitted 2 RSC-005 errors in `content.opf`: "A term property must be associated with a dc:subject when an authority is specified."

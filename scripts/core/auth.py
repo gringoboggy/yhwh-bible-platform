@@ -46,7 +46,6 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 from . import notes_io
 
@@ -115,7 +114,7 @@ def save_auth(state: dict) -> Path:
     return path
 
 
-def is_totp_enabled(state: Optional[dict] = None) -> bool:
+def is_totp_enabled(state: dict | None = None) -> bool:
     """True iff the auth state has an enabled TOTP block with a
     non-empty secret. `state` injectable for tests; production callers
     leave it None and the state is loaded fresh."""
@@ -126,7 +125,7 @@ def is_totp_enabled(state: Optional[dict] = None) -> bool:
     return bool(totp.get("enabled")) and bool(totp.get("secret", "").strip())
 
 
-def get_totp_secret(state: Optional[dict] = None) -> Optional[str]:
+def get_totp_secret(state: dict | None = None) -> str | None:
     """Return the enrolled TOTP secret (base32 string) or None if
     not enabled. `state` injectable for tests."""
     if not is_totp_enabled(state):
@@ -140,7 +139,7 @@ def enroll_totp(
     *,
     issuer: str = DEFAULT_ISSUER,
     label: str = DEFAULT_LABEL,
-    now: Optional[datetime] = None,
+    now: datetime | None = None,
 ) -> dict:
     """Persist the TOTP enrollment. Loads → mutates → saves. Returns
     the totp block as written.

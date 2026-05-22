@@ -40,10 +40,9 @@ Note tuple format (introduced v28a-4):
 
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from functools import lru_cache
-from typing import Optional
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _CONTENT = _REPO_ROOT / "content"
@@ -82,7 +81,7 @@ class NoteSpec:
     title: str
     label: str
     body_html: str
-    attribution: Optional[str] = None  # 9th field, optional during migration
+    attribution: str | None = None  # 9th field, optional during migration
 
     @classmethod
     def from_tuple(cls, tup: tuple) -> "NoteSpec":
@@ -123,7 +122,7 @@ class NoteSpec:
         return base + (self.attribution,)
 
 
-def note_attribution(tup: tuple) -> Optional[str]:
+def note_attribution(tup: tuple) -> str | None:
     """Return the attribution string for a note tuple, or None if absent.
     Convenience wrapper for code that doesn't need the full NoteSpec."""
     if not isinstance(tup, tuple) or len(tup) < 9:

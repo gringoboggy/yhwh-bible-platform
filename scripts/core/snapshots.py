@@ -39,7 +39,6 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 from . import config
 from . import notes_io
@@ -131,7 +130,7 @@ def _corpus_fingerprint() -> str:
             data = p.read_bytes()
         except OSError:
             data = b""
-        header = f"{p.stem}:{len(data)}\n".encode("utf-8")
+        header = f"{p.stem}:{len(data)}\n".encode()
         h.update(header)
         h.update(data)
         h.update(b"\n")
@@ -181,7 +180,7 @@ def list_snapshots(edition_id: str) -> list[SnapshotMeta]:
     return out
 
 
-def read_snapshot(edition_id: str, version: str) -> Optional[dict]:
+def read_snapshot(edition_id: str, version: str) -> dict | None:
     """Return the full snapshot record (edition + metadata).
 
     Returns ``None`` if the snapshot doesn't exist. Raises
@@ -225,8 +224,8 @@ def create_snapshot(
     edition_id: str,
     version: str,
     *,
-    label: Optional[str] = None,
-    notes: Optional[str] = None,
+    label: str | None = None,
+    notes: str | None = None,
     overwrite: bool = False,
 ) -> dict:
     """Create a snapshot of the named edition's current record.
@@ -337,7 +336,7 @@ def diff_snapshot(
     edition_id: str,
     version: str,
     *,
-    against_version: Optional[str] = None,
+    against_version: str | None = None,
 ) -> dict:
     """Compute a structural diff between a snapshot and either
     another snapshot or the live edition record.

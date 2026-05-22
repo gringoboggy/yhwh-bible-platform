@@ -50,7 +50,7 @@ import re
 import sys
 import time  # ω.23 — per-check timing for the --profile flag
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -751,12 +751,12 @@ def _find_urlopen_calls(tree: ast.AST) -> list[int]:
 # was ~87% of total lint wall time. Cache is module-level rather
 # than functools.lru_cache because we need an explicit clear hook
 # for run_all() to call between back-to-back invocations.
-_PARSE_CACHE: dict[str, tuple[Optional["ast.Module"], list[str]]] = {}
+_PARSE_CACHE: dict[str, tuple[ast.Module | None, list[str]]] = {}
 
 
 def _load_parsed_python(
     path: Path,
-) -> tuple[Optional["ast.Module"], list[str]]:
+) -> tuple[ast.Module | None, list[str]]:
     """Read + parse a Python file, returning ``(tree, lines)``.
 
     Returns ``(None, [])`` on read failure (`UnicodeDecodeError`,
@@ -1472,10 +1472,10 @@ def _fix_freshness(
         "ok": True,
         "applied": True,
         "message": (
-            f"freshness: synced SESSION_STATE.md mtime to "
-            f"CHANGELOG.md. NOTE: if SESSION_STATE's CONTENT was "
-            f"actually forgotten, this masks the drift; the fix "
-            f"is timestamp-only."
+            "freshness: synced SESSION_STATE.md mtime to "
+            "CHANGELOG.md. NOTE: if SESSION_STATE's CONTENT was "
+            "actually forgotten, this masks the drift; the fix "
+            "is timestamp-only."
         ),
         "changes": [
             {
@@ -1499,7 +1499,7 @@ FIXERS: dict[str, Callable[..., dict]] = {
 
 def run_fixers(
     *,
-    check_ids: Optional[list[str]] = None,
+    check_ids: list[str] | None = None,
     dry_run: bool = False,
 ) -> dict:
     """Run fixers for any failing/warning checks that have one

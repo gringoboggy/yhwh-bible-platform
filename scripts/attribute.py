@@ -495,7 +495,7 @@ def main() -> None:
     )
 
     if grand_breakdown:
-        print(f"\n  Attribution breakdown:")
+        print("\n  Attribution breakdown:")
         print(render_breakdown(grand_breakdown))
 
     print()

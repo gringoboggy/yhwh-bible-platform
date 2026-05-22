@@ -338,7 +338,7 @@ def main() -> None:
         enabled = [v for v in enabled if v.get("profile") == args.profile]
     if not enabled:
         print(f"{YELLOW}⚠ no enabled variants matching '{args.profile}'.{RESET}")
-        print(f"  Flip `enabled: true` in customization.yaml first.")
+        print("  Flip `enabled: true` in customization.yaml first.")
         sys.exit(0)
 
     defaults, ed_records = load_onix_metadata()

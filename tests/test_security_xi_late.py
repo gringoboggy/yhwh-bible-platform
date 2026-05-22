@@ -27,10 +27,8 @@ bodies, so this file has no top-level imports from the project.
 """
 
 import json
-import sys
 from pathlib import Path
 
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -1054,7 +1052,6 @@ class TestXi17Security:
     def test_no_python3_literal_in_handler_reachable_scripts(self):
         # Source-level pin: scripts that subprocess back into Python
         # use `sys.executable`, not the literal "python3" / 'python3'.
-        from pathlib import Path
 
         scripts_dir = REPO_ROOT / "scripts"
         offenders = []

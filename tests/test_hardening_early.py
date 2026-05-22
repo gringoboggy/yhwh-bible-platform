@@ -20,11 +20,8 @@ Every class lazy-imports its dependencies inside test method
 bodies, so this file has no top-level imports from the project.
 """
 
-import json
-import sys
 from pathlib import Path
 
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -653,7 +650,8 @@ class TestSafePath:
     def setup_method(self, method):
         # Each test gets its own scratch root + a real file under it
         # so resolve_under can canonicalize successfully.
-        import tempfile, os
+        import tempfile
+        import os
 
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
@@ -998,11 +996,11 @@ class TestHtmlSanitize:
 
     def test_safe_anchor_passes(self):
         out = self.sanitize('<a href="https://example.org" title="ref">x</a>')
-        assert '<a href="https://example.org" title="ref">x</a>' == out
+        assert out == '<a href="https://example.org" title="ref">x</a>'
 
     def test_relative_anchor_passes(self):
         out = self.sanitize('<a href="#footnote-1">[1]</a>')
-        assert '<a href="#footnote-1">[1]</a>' == out
+        assert out == '<a href="#footnote-1">[1]</a>'
 
     def test_mailto_passes(self):
         out = self.sanitize('<a href="mailto:x@example.org">x</a>')
@@ -1068,7 +1066,7 @@ class TestHtmlSanitize:
     def test_style_attribute_dropped(self):
         out = self.sanitize('<p style="color:red">red</p>')
         assert "style=" not in out.lower()
-        assert "<p>red</p>" == out
+        assert out == "<p>red</p>"
 
     def test_form_input_button_dropped(self):
         out = self.sanitize("<form><input name=x><button>go</button></form>after")
@@ -1081,7 +1079,7 @@ class TestHtmlSanitize:
         out = self.sanitize('<meta http-equiv="refresh" content="0;url=javascript:alert(1)"><p>x</p>')
         assert "<meta" not in out.lower()
         assert "javascript" not in out.lower()
-        assert "<p>x</p>" == out
+        assert out == "<p>x</p>"
 
     def test_link_rel_stylesheet_dropped(self):
         out = self.sanitize('<link rel="stylesheet" href="javascript:alert(1)"><p>x</p>')
@@ -1105,7 +1103,7 @@ class TestHtmlSanitize:
     def test_doctype_stripped(self):
         out = self.sanitize("<!DOCTYPE html><p>x</p>")
         assert "DOCTYPE" not in out
-        assert "<p>x</p>" == out
+        assert out == "<p>x</p>"
 
     def test_processing_instruction_stripped(self):
         # Even though html.parser handles PIs idiosyncratically on
@@ -1145,7 +1143,7 @@ class TestHtmlSanitize:
 
     def test_special_chars_escaped_in_text(self):
         out = self.sanitize("<p>1 < 2 & 3 > 0</p>")
-        assert "<p>1 &lt; 2 &amp; 3 &gt; 0</p>" == out
+        assert out == "<p>1 &lt; 2 &amp; 3 &gt; 0</p>"
 
     def test_quotes_escaped_in_attr(self):
         # Use a properly-quoted source: a title containing a quote

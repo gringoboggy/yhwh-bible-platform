@@ -43,7 +43,6 @@ from __future__ import annotations
 
 import html
 from pathlib import Path
-from typing import Optional
 
 from scripts.core import config, notes_io, translations
 

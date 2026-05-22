@@ -194,7 +194,7 @@ def main() -> None:
     if not args.quiet:
         print(f"\n  {book['title']}")
         print(f"  {DIM}{args.book.upper()} {args.ch}:{args.v} · {filename}{RESET}\n")
-        print(f"  Verse text:")
+        print("  Verse text:")
         for line in textwrap.wrap(verse_text, width=72, initial_indent="    ", subsequent_indent="    "):
             print(line)
         print()

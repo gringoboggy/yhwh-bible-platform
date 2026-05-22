@@ -25,7 +25,6 @@ from __future__ import annotations
 import html
 import re
 from dataclasses import dataclass
-from typing import Optional
 
 from . import config
 from . import notes_io
@@ -55,7 +54,7 @@ class SearchHit:
     title: str
     label: str
     excerpt: str
-    attribution: Optional[str]
+    attribution: str | None
     score: int
 
     def to_dict(self) -> dict:
@@ -160,9 +159,9 @@ def _best_excerpt_field(haystacks: dict, query_lc: str) -> str:
 def search_notes(
     query: str,
     *,
-    edition_id: Optional[str] = None,
-    kind: Optional[str] = None,
-    book: Optional[str] = None,
+    edition_id: str | None = None,
+    kind: str | None = None,
+    book: str | None = None,
     limit: int = 100,
 ) -> list[SearchHit]:
     """Search every note for `query` (case-insensitive substring).
@@ -188,8 +187,8 @@ def search_notes(
     # editions.yaml records are dicts (per config.load_editions). The
     # final enabled-kinds set is derived via the same precedence the
     # build pipeline uses so search results match what would ship.
-    enabled_kind_set: Optional[set] = None
-    canon_book_set: Optional[set] = None
+    enabled_kind_set: set | None = None
+    canon_book_set: set | None = None
     if edition_id:
         editions = config.load_editions()
         ed = next(

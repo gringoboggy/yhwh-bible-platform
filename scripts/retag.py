@@ -505,7 +505,7 @@ def main() -> None:
     )
 
     if grand_breakdown:
-        print(f"\n  Sub-kind breakdown:")
+        print("\n  Sub-kind breakdown:")
         for sk, n in sorted(grand_breakdown.items(), key=lambda kv: -kv[1]):
             print(f"      {n:>4}  {sk}")
 

@@ -53,7 +53,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Callable
 
 import yaml
 
@@ -71,7 +71,7 @@ _CONTENT = _REPO / "content"
 # ----------------------------------------------------------------------
 
 
-def check_notes_parse(*, content_root: Optional[Path] = None) -> dict:
+def check_notes_parse(*, content_root: Path | None = None) -> dict:
     """Every ``content/notes/*.py`` decodes cleanly via
     ``ast.literal_eval``. Flags files that snuck an arbitrary
     expression (function call, variable reference, comprehension)
@@ -128,7 +128,7 @@ def check_notes_parse(*, content_root: Optional[Path] = None) -> dict:
     )
 
 
-def check_translations_meta(*, content_root: Optional[Path] = None) -> dict:
+def check_translations_meta(*, content_root: Path | None = None) -> dict:
     """Every translation directory has a parseable ``_meta.yaml``
     with the required fields."""
     base = (content_root or _CONTENT) / "translations"
@@ -185,7 +185,7 @@ def check_translations_meta(*, content_root: Optional[Path] = None) -> dict:
 _BOOK_COVER_RE = re.compile(r"^([a-z0-9]+)=(.+)$")
 
 
-def check_cover_files(*, content_root: Optional[Path] = None) -> dict:
+def check_cover_files(*, content_root: Path | None = None) -> dict:
     """Every ``cover_image`` and per-book cover path in editions.yaml
     resolves to a file under ``content/covers/``. Path-traversal-safe."""
     base = content_root or _CONTENT
@@ -260,7 +260,7 @@ def check_cover_files(*, content_root: Optional[Path] = None) -> dict:
     )
 
 
-def check_candidates_json(*, content_root: Optional[Path] = None) -> dict:
+def check_candidates_json(*, content_root: Path | None = None) -> dict:
     """Every candidate JSON parses + has the top-level shape the
     promoter expects."""
     base = (content_root or _CONTENT) / "candidates"
@@ -305,7 +305,7 @@ def check_candidates_json(*, content_root: Optional[Path] = None) -> dict:
     )
 
 
-def check_orphan_notes(*, content_root: Optional[Path] = None) -> dict:
+def check_orphan_notes(*, content_root: Path | None = None) -> dict:
     """Every ``content/notes/*.py`` file's basename matches a book
     code in books.yaml. Stray files surface as orphans."""
     base = content_root or _CONTENT
@@ -376,8 +376,8 @@ _CHECKS: dict[str, Callable[..., dict]] = {
 
 def run_all(
     *,
-    only: Optional[str] = None,
-    content_root: Optional[Path] = None,
+    only: str | None = None,
+    content_root: Path | None = None,
 ) -> dict:
     """Run every sub-check (or just the named one). Returns
     ``{checks, summary}`` per the §9 meta-tool convention.
@@ -433,7 +433,7 @@ def _result(
     }
 
 
-def _find_module_assignment(tree: ast.AST, target_name: str) -> Optional[ast.AST]:
+def _find_module_assignment(tree: ast.AST, target_name: str) -> ast.AST | None:
     """Find ``<target_name> = <expr>`` at module level; return the
     RHS expression node, or None if not present."""
     for node in getattr(tree, "body", []):
@@ -466,7 +466,7 @@ def _path_resolves_inside(candidate: Path, safe_root: Path) -> bool:
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="check_content",
         description=(

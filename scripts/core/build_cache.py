@@ -45,7 +45,6 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent.parent
@@ -261,8 +260,8 @@ def compute_cache_key(
 def cache_lookup(
     key: str,
     *,
-    cache_dir: Optional[Path] = None,
-) -> Optional[Path]:
+    cache_dir: Path | None = None,
+) -> Path | None:
     """Path to the cached EPUB for ``key``, or None when no entry
     exists. Pure read; no side effects."""
     cdir = cache_dir or cache_dir_default()
@@ -274,7 +273,7 @@ def cache_store(
     key: str,
     src_path: Path,
     *,
-    cache_dir: Optional[Path] = None,
+    cache_dir: Path | None = None,
 ) -> Path:
     """Copy the file at ``src_path`` into the cache as ``<key>.epub``.
     Atomic via ``notes_io.atomic_write_bytes`` so concurrent readers
@@ -291,7 +290,7 @@ def cache_store(
     return target
 
 
-def cache_clear(*, cache_dir: Optional[Path] = None) -> int:
+def cache_clear(*, cache_dir: Path | None = None) -> int:
     """Remove every ``*.epub`` from the cache directory. Returns the
     count removed. Idempotent on a missing cache dir (returns 0)."""
     cdir = cache_dir or cache_dir_default()

@@ -112,7 +112,6 @@ class TestPi0CssClassEmission:
         """Call apply_style's internal CSS-generation entry point
         and return the stylesheet contents. Mirrors the production
         build path (no monkey-patching)."""
-        import importlib
 
         # apply_style.py keeps its CSS templates as module-level
         # strings; the cleanest way to test the templates without

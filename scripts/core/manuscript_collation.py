@@ -177,7 +177,7 @@ _KJV_DIR = os.path.join("content", "translations", "kjv")
 _VERSES_RE = re.compile(r"^VERSES\s*=\s*(\[.*\])\s*$", re.S | re.M)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def load_kjv_skeleton(book: str, chapter: int):
     """Return the KJV spine rows ``(chapter, verse, text)`` for one chapter.
 

@@ -390,7 +390,7 @@ class TestPsi7BEditionTemplates:
     def test_each_template_has_required_template_fields(self):
         # template_id, template_label, template_description
         for t in self.templates:
-            assert t.get("template_id"), f"missing template_id"
+            assert t.get("template_id"), "missing template_id"
             assert t.get("template_label"), f"{t['template_id']}: missing template_label"
             assert t.get("template_description"), f"{t['template_id']}: missing template_description"
 
