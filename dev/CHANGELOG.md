@@ -6,6 +6,23 @@
 
 ---
 
+## 2026-05-22 — session — verse-popup-coverage characterization + regeneration spec & plan
+
+**Context:** continued from the EPUB-QA followups (`096c9b5`). The marker-density QA surfaced that verse popups cover only 11 books / 24% of verses; this session characterized the gap, then brainstormed → spec'd → planned the fix (no implementation code yet). Toward the **2026-06-07 deadline**.
+
+**Shipped (this commit — planning + docs only):**
+- **Gap characterized.** Verse popups (the clickable verse → parallel-language `vnote` aside) exist for only 11 books — Genesis→2 Samuel (canonical-contiguous) + 1 Enoch = 9,689/40,406 verses (24%). Root cause: an unfinished generation pass frozen into the recovered 2026-05-07 base; **two losses** — the generator (no `epub:type="noteref"` emitter in the 351-commit history) AND the full parallel-text datasets (only Genesis stubs for `wlc`/`lxx-brenton-greek`; no Greek-NT source). NOT a build bug; the per-edition build only prunes existing popups. Logged to memory `epub-qa-followups` + SESSION_STATE.
+- **Design spec** `docs/superpowers/specs/2026-05-22-verse-popup-regeneration-design.md` — a re-runnable base-preprocessing generator; uniform regen of all KJV-covered books; KJV English floor + harvest-and-merge existing he/gr (so uniform regen never drops original-language content); versification fix (the Gen 1:1/1:2 offset); idempotency; `ebible verify` + build-smoke gates. Deferred: acquiring full Hebrew/Greek/Greek-NT PD datasets; Ge'ez popups for the 6 Ethiopic-only books (no KJV).
+- **Implementation plan** `docs/superpowers/plans/2026-05-22-verse-popup-regeneration.md` — 9 TDD tasks (`build_vnote_aside` → `wrap_verse_number` → `harvest_existing_langs` → `chapter_region`/verse location → `ensure_verse_refs_section` → `generate_book` → CLI/idempotency → run-all + gates → coverage/versification pins), each with concrete failing tests + real code, leveraging `translations.get_verse` / `config.books_by_code` / `notes_io`.
+
+**Verified:** spec + plan self-reviews clean; no code yet (planning only).
+
+**Next:** execute the plan (subagent-driven-development); IN_FLIGHT flipped active for the implementation arc.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — EPUB-QA followups: strip ONIX from package + per-file page titles + marker-density QA
 
 **Context:** post-`/clear` resume of the 2026-05-22 flagship EPUB visual-QA punch-list (baseline `b905e22`). On resume the working tree held two of three queued followups already implemented (uncommitted, TDD-complete from a prior session; IN_FLIGHT idle); this session verified them, judged the third, and saved. Toward the **2026-06-07 deadline**.

@@ -1,6 +1,14 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
+
+> **➤➤➤ 2026-05-22 (LATEST) VERSE-POPUP REGENERATION — IMPLEMENTING (subagent-driven). READ FIRST.**
+>
+> The demo-critical verse-popup gap (popups on only 11 books / 24% of verses; lost generator + lost parallel-text data — full analysis in CHANGELOG 2026-05-22 + memory `epub-qa-followups`) is being closed. Spec + 9-task TDD plan COMMITTED: `docs/superpowers/specs/2026-05-22-verse-popup-regeneration-design.md` + `docs/superpowers/plans/2026-05-22-verse-popup-regeneration.md`.
+>
+> **Building** `scripts/generate_verse_popups.py` + `tests/test_verse_popups.py` via the plan's 9 tasks: aside builder → idempotent verse-number wrapper → harvest existing he/gr → chapter-region/verse location (no `v-` anchor needed) → ensure verse-refs-section → `generate_book` orchestration (KJV English floor + resolver/harvest he/gr) → CLI + idempotency → run over all KJV-covered books + `ebible verify`/build-smoke gates → coverage + versification-alignment pins. Each task commits via `save.ps1`. The 6 Ethiopic-only books (no KJV) are deferred to the Ge'ez parallel-Bible track.
+>
+> **Resume point if interrupted:** check which plan tasks have committed (`git log --oneline`), re-read the plan, continue the next unchecked task. The base HTML (`epub_working/`) is only modified at Task 8 (run-all) — before that, all work is in the new script + test files (safe, revertable).
 
 > **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. COMMITTED `38b80d3`; later arcs (re-audit + PLAN_2026-05-21, Track-D cleanups, base-HTML coverage audit, repo/rules maps) committed through `3c4a173`, plus one uncommitted map/rules batch — full chronology in `dev/CHANGELOG.md`.**
 >
