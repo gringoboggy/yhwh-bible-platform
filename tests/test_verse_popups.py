@@ -222,3 +222,38 @@ class TestIdempotency:
         assert first["files_changed"], first
         second = g.generate_book("1ki", dry_run=False)
         assert second["files_changed"] == [], second
+
+
+class TestCoverageAfterGeneration:
+    def test_1ki_now_has_popups_in_base(self):
+        from scripts.generate_verse_popups import EPUB_DIR
+
+        blob = "".join(p.read_text(encoding="utf-8") for p in EPUB_DIR.glob("index_split_*.html"))
+        assert 'href="#vnote-1ki-1-1"' in blob
+        assert 'id="vnote-1ki-1-1"' in blob
+
+    def test_genesis_1_1_text_aligned(self):
+        # The uniform regen fixes the old Gen 1:1/1:2 offset: 1:1's aside must
+        # carry Genesis 1:1's KJV text, not be empty.
+        import re as _re
+
+        from scripts.core import translations as tx
+        from scripts.generate_verse_popups import EPUB_DIR
+
+        kjv_11 = tx.get_verse("kjv", "gen", 1, 1)
+        gen_file = (EPUB_DIR / "index_split_000.html").read_text(encoding="utf-8")
+        m = _re.search(r'<aside class="vnote" id="vnote-gen-1-1".*?</aside>', gen_file, _re.DOTALL)
+        assert m and kjv_11 and kjv_11.split()[0] in m.group(0)
+
+    def test_2sa_retains_greek_after_regen(self):
+        # Harvest-and-merge safety: 2 Samuel had LXX-Greek popups before the
+        # regen and the resolver has no 2sa Greek source, so the regen must have
+        # preserved the existing Greek (not dropped it).
+        import re as _re
+
+        from scripts.generate_verse_popups import EPUB_DIR
+
+        blob = "".join(p.read_text(encoding="utf-8") for p in EPUB_DIR.glob("index_split_*.html"))
+        asides_2sa = _re.findall(r'<aside class="vnote" id="vnote-2sa-[^"]+".*?</aside>', blob, _re.DOTALL)
+        assert asides_2sa, "no 2 Samuel vnote asides found"
+        assert any("vnote-greek" in a for a in asides_2sa), "2 Samuel lost its Greek popups — harvest-merge failed"
