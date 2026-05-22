@@ -86,6 +86,18 @@ class TestEbibleBuildProducesValidEpub:
             assert len(splits) >= 50, (
                 f"EPUB contains only {len(splits)} scripture split files — the base-HTML gap is back"
             )
+            # Ω.0: a CC0 give-away must not bundle commercial ONIX sales metadata.
+            onix_entries = [n for n in names if "onix" in n.split("/")]
+            assert not onix_entries, f"EPUB bundles commercial ONIX files: {onix_entries}"
+            # Per-file <title> must be the edition title, not calibre's default.
+            edition_title = config.editions_by_id()[self.EDITION]["title"]
+            sample = zf.read(splits[0]).decode("utf-8")
+            assert "<title>Converted Ebook</title>" not in sample, (
+                "chapter XHTML still carries calibre's default <title>Converted Ebook</title>"
+            )
+            assert f"<title>{edition_title}</title>" in sample, (
+                f"chapter <title> should be the edition title {edition_title!r}"
+            )
 
 
 class TestInjectAnchorFallback:
@@ -423,3 +435,87 @@ class TestInjectIrregularLayout:
         stats = inject.inject_book(book, dry_run=True)
         assert stats["injected"] == 1, stats
         assert len(stats["missing_anchor"]) == 0, stats
+
+
+class TestOnixExcludedFromPackage:
+    """Ω.0 free-public pivot: the EPUB is a CC0 give-away and must NOT carry
+    the commercial ONIX sales-metadata files. ``build_onix.py`` writes them to
+    ``epub_working/onix/`` (gitignored, but present on disk), and ``build_one``
+    copies the whole working tree into its temp build dir — so the packaging
+    walk (``build_epub.collect_files``) is the chokepoint that must drop them.
+    Excluding the directory name covers BOTH the per-edition build (via
+    ``build_one``) and a direct ``build_epub.py`` run."""
+
+    def test_should_skip_excludes_onix_directory(self):
+        from scripts.build_epub import should_skip
+
+        # Every file under an onix/ directory is commercial metadata — skip it.
+        assert should_skip(Path("onix/onix-ethiopian-tewahedo.xml")) is True
+        # Regression guard: scripture + structural files must still be packaged.
+        assert should_skip(Path("index_split_000.html")) is False
+        assert should_skip(Path("content.opf")) is False
+
+    def test_collect_files_omits_onix_xml(self, tmp_path):
+        from scripts.build_epub import collect_files
+
+        (tmp_path / "mimetype").write_text("application/epub+zip", encoding="utf-8")
+        (tmp_path / "index_split_000.html").write_text("<html></html>", encoding="utf-8")
+        onix_dir = tmp_path / "onix"
+        onix_dir.mkdir()
+        (onix_dir / "onix-ethiopian-tewahedo.xml").write_text("<ONIXMessage/>", encoding="utf-8")
+
+        files, _total, skipped = collect_files(tmp_path)
+        names = {p.name for p in files}
+        assert "index_split_000.html" in names, "scripture file must be packaged"
+        assert "onix-ethiopian-tewahedo.xml" not in names, "commercial ONIX must be excluded from the EPUB"
+        assert skipped >= 1
+
+
+class TestPerFilePageTitle:
+    """The base scripture chunks (epub_working/index_split_*.html) carry the
+    calibre-default ``<title>Converted Ebook</title>``. build_one must rewrite
+    it to the edition's own title (per-edition, matching OPF dc:title), without
+    clobbering the generated pages' already-correct titles, and XML-escaping
+    the title so it stays well-formed XHTML."""
+
+    def test_calibre_default_replaced_with_edition_title(self):
+        from scripts.build_edition import _retitle_html_pages
+
+        text = "<head>\n    <title>Converted Ebook</title>\n</head>"
+        new_text, n = _retitle_html_pages(text, "The Ethiopian Tewahedo Study Bible")
+        assert n == 1
+        assert "<title>The Ethiopian Tewahedo Study Bible</title>" in new_text
+        assert "Converted Ebook" not in new_text
+
+    def test_leaves_other_titles_untouched(self):
+        from scripts.build_edition import _retitle_html_pages
+
+        # Generated pages already have correct titles — must not be rewritten.
+        text = "<title>Copyright &amp; Credits</title>"
+        new_text, n = _retitle_html_pages(text, "My Edition")
+        assert n == 0
+        assert new_text == text
+
+    def test_title_is_xml_escaped(self):
+        from scripts.build_edition import _retitle_html_pages
+
+        # A title containing & / < must be escaped so the XHTML stays valid.
+        new_text, n = _retitle_html_pages("<title>Converted Ebook</title>", "Faith & <Reason>")
+        assert n == 1
+        assert "<title>Faith &amp; &lt;Reason&gt;</title>" in new_text
+
+    def test_idempotent(self):
+        from scripts.build_edition import _retitle_html_pages
+
+        once, _ = _retitle_html_pages("<title>Converted Ebook</title>", "Ed")
+        twice, n = _retitle_html_pages(once, "Ed")
+        assert twice == once
+        assert n == 0
+
+    def test_empty_title_is_noop(self):
+        from scripts.build_edition import _retitle_html_pages
+
+        text = "<title>Converted Ebook</title>"
+        new_text, n = _retitle_html_pages(text, "")
+        assert n == 0
+        assert new_text == text

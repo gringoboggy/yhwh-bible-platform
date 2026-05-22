@@ -31,7 +31,12 @@ DEFAULT_OUT = REPO_ROOT / "Ethiopian_Bible.epub"
 
 # Filenames / patterns excluded from the package.
 EXCLUDE_NAMES = {".DS_Store", "Thumbs.db"}
-EXCLUDE_DIR_NAMES = {"__pycache__"}
+# "onix": build_onix.py writes commercial ONIX sales metadata to
+# epub_working/onix/. The Ω.0 free-public pivot makes the EPUB a CC0
+# give-away that must not carry sales metadata, so it is dropped here at the
+# packaging chokepoint — covering both a direct build_epub.py run and the
+# per-edition build_one path (which copies the whole working tree to a temp dir).
+EXCLUDE_DIR_NAMES = {"__pycache__", "onix"}
 EXCLUDE_PREFIXES = ("notes.backup_",)
 
 

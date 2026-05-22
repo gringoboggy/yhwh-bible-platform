@@ -39,6 +39,7 @@ Exit codes:
 """
 
 import argparse
+import html
 import json
 import re
 import shutil
@@ -2534,6 +2535,20 @@ def _write_stats_sidecar(
     return sidecar
 
 
+def _retitle_html_pages(text: str, edition_title: str) -> tuple[str, int]:
+    """Replace the calibre-default ``<title>Converted Ebook</title>`` baked into
+    the base scripture chunks with the edition's own title (matching the OPF
+    dc:title). Only the exact calibre default is touched, so generated pages
+    (copyright, reading plans) keep their proper titles and the pass is
+    idempotent. The title is XML-escaped so a title containing ``&`` or ``<``
+    stays well-formed XHTML. Returns ``(new_text, n_replaced)``."""
+    needle = "<title>Converted Ebook</title>"
+    if not edition_title or needle not in text:
+        return text, 0
+    safe = html.escape(edition_title, quote=False)
+    return text.replace(needle, f"<title>{safe}</title>"), text.count(needle)
+
+
 def build_one(
     edition_id: str,
     output_dir: Path,
@@ -2616,6 +2631,7 @@ def build_one(
         "vnote_translations_missed": 0,
         "vnote_language_paragraphs_stripped": 0,
         "tradition_labels_applied": 0,
+        "page_titles_retitled": 0,
         "output_path": output_path,
         "size_mb": 0.0,
         "skipped": False,
@@ -2774,6 +2790,13 @@ def build_one(
                     ref_id_to_tradition,
                 )
                 stats["tradition_labels_applied"] += t_counts["labeled"]
+
+            # Per-file page title: the base scripture chunks carry calibre's
+            # default <title>Converted Ebook</title>. Rewrite it to this
+            # edition's title (the OPF dc:title is already correct; the chapter
+            # XHTML <title>s were not). Generated pages keep their own titles.
+            new_text, retitled = _retitle_html_pages(new_text, edition.get("title", ""))
+            stats["page_titles_retitled"] += retitled
 
             if new_text != text:
                 html_path.write_text(new_text, encoding="utf-8")

@@ -6,11 +6,31 @@
 
 ---
 
+## 2026-05-22 — session — EPUB-QA followups: strip ONIX from package + per-file page titles + marker-density QA
+
+**Context:** post-`/clear` resume of the 2026-05-22 flagship EPUB visual-QA punch-list (baseline `b905e22`). On resume the working tree held two of three queued followups already implemented (uncommitted, TDD-complete from a prior session; IN_FLIGHT idle); this session verified them, judged the third, and saved. Toward the **2026-06-07 deadline**.
+
+**Shipped:**
+- **Strip commercial ONIX from the package (`scripts/build_epub.py`).** `"onix"` added to `EXCLUDE_DIR_NAMES`, so `collect_files` drops `epub_working/onix/*.xml` at the packaging chokepoint — covering both a direct `build_epub.py` run and the per-edition `build_one` path (which copies the whole working tree to a temp dir). Completes the Ω.0 free-public de-commercialization at the packaging layer. +`TestOnixExcludedFromPackage` (2).
+- **Per-file page titles (`scripts/build_edition.py`).** New `_retitle_html_pages()` rewrites calibre's baked-in `<title>Converted Ebook</title>` to the edition title (XML-escaped, idempotent, replaces only the exact calibre default so generated pages keep their own titles); wired into `build_one`'s per-chapter pass with a new `page_titles_retitled` stat. +`TestPerFilePageTitle` (5).
+- **Build-smoke extended (`tests/test_build_smoke.py`).** The real-build EPUB test now also asserts no `onix/` entries and per-file `<title>` == edition title.
+- **Marker-density QA (followup #3 — judgment; no code change).** Built the maximized flagship (50/71 kinds, 7.20 MB) and measured inline-marker density across all 40,406 verses (count ties out to the `<sup class="marker-">` total = 41,127): mean **1.018**/verse, 46% of verses carry 0 markers, only **156 (0.39%) exceed 6**, real max **19** (Gen 1:2). By glyph-category: language ⌘ 69.2% · xref ‖ 15.0% · dict-easton ⌂ 9.2% · commentary ◇ 6.3% · textcrit ✧ 0.3%. The matrix-max dict-easton addition is ~9% of markers (≈1 glyph on already-rich verses); dense verses are dominated by pre-existing Hebrew word-study. **Verdict: no readability regression from the maximization.**
+
+**Verified:** `tests/test_build_smoke.py` **31/31 pass** (incl. real `build_one` → valid EPUB, now asserting no-ONIX + edition titles); `ruff format --check` + `ruff check` clean on the 3 files; `lint_rules` **16 pass / 0 warn / 0 fail**. A real build confirms ONIX absent + 61 pages retitled. Interpreter pythoncore-3.14.4 + PYTHONUTF8=1.
+
+**Flagged (out of QA scope — a later call):** verse-popup coverage is uneven by book — only ~9,689/40,406 verses (24%) carry the `epub:type="noteref"` verse-popup wrapper (2 Samuel has LXX-Greek verse popups; 1 Kings in the same split does not). Likely per-book popup-translation data coverage; confirm intended vs gap before the demo.
+
+**Next:** [USER] e-reader popup/pagination QA (freshly-built maximized flagship left at `_qa_build/`, outside the repo); then a next track — popup-coverage investigation / Track-D ruff lint cleanup / resume the manuscript marathon (1ki5 R2).
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — matrix maximization (surface orphaned corpus) + audit housekeeping
 
 **Context:** follow-up to a full project + environment audit (toward the **2026-06-07 deadline**). The audit found the editions×kinds matrix was under-surfacing the corpus: `topic-nave` (26,335 notes — 39% of the 67,715 corpus) shipped in **zero** editions because no edition enabled the `topic` category, and the flagship's vestigial `max_phase: mvp` gate silently dropped its own declared distinctives.
 
-**Shipped (UNCOMMITTED — awaiting "save"):**
+**Shipped (committed `b905e22`):**
 - **Matrix maximization (`content/editions.yaml`).** (a) `scholarly-academic` += `topic` category → the "includes everything" edition now reaches the full corpus (enabled notes **41,374 → 67,709** ≈ 67,715), finally matching `test_scholarly_edition_counts_full_corpus`'s long-documented intent. (b) `ethiopian-tewahedo` `max_phase: mvp → phase2` → the flagship now ships its declared `dist-typological`/`dist-mariological` + `dict-easton` (**37,495 → 41,285**), staying focused (no topical firehose — the flagship does not enable `topic`). Rationale: editions.yaml's ACADEMIC all-traditions posture + the §1 "deeper/more impressive" north star. Standalone Ge'ez/Amharic left at `mvp` (deferred τ.G build). TDD: `tests/test_enabled_kinds_unified.py::TestMatrixMaximization` (3 pins, red→green).
 - **Housekeeping (the 3 audit-flagged lint warns).** `IN_FLIGHT.md` tracker-state `active → idle` (the reference-corpus/inject-tail work it described is committed; tree clean at `e1e2f1b`). Logged the previously-unjournaled **ν.8 (Bilingual ToC)** phase — native Ge'ez/Amharic book labels in the ToC via `scripts/core/book_native_names.py` + `scripts/build_edition.py` — which had shipped in an earlier session without a CHANGELOG entry. Added a scope-addenda index to `dev/PLAN_2026-05-21.md` cross-referencing the 20 `dev/SCOPE_*-addendum-*.md` files.
 
@@ -18,7 +38,7 @@
 
 **Next:** EPUB visual QA (playwright); the global plugin/MCP-prune apply-list was handed to the user (self-modification-guarded settings).
 
-**Save tag (local only — remote deleted 2026-05-12; no push):** pending user "save".
+**Save tag (local only — remote deleted 2026-05-12; no push):** `b905e22`.
 
 ---
 
