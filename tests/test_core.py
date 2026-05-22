@@ -70,9 +70,7 @@ NOTES = [
 
         # Rewrite with one fewer note, then sleep enough for mtime resolution
         time.sleep(0.05)
-        new_text = sample_notes_module.read_text().replace(
-            "(\n        1, 2, '',", "# REMOVED: (\n        # 1, 2, '',", 1
-        )
+        sample_notes_module.read_text().replace("(\n        1, 2, '',", "# REMOVED: (\n        # 1, 2, '',", 1)
         # Easier: just write a single-note version
         sample_notes_module.write_text(
             'NOTES = [(1, 1, "", "a", "comm", "T", "L.", "<p>x</p>", {})]\n',

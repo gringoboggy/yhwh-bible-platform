@@ -501,16 +501,18 @@ class TestRunAIXrefsAtScaleDriver:
         stub client; ``proposals_per_verse`` is a callable
         (book,ch,vs,text) -> list[dict] for fine-grained control."""
         if proposals_per_verse is None:
-            proposals_per_verse = lambda b, c, v, t: [
-                {
-                    "target_book": "isa",
-                    "target_chapter": 1,
-                    "target_verse": v,
-                    "kind_subclass": "thematic",
-                    "reasoning": "stub",
-                    "confidence": 0.8,
-                },
-            ]
+
+            def proposals_per_verse(b, c, v, t):
+                return [
+                    {
+                        "target_book": "isa",
+                        "target_chapter": 1,
+                        "target_verse": v,
+                        "kind_subclass": "thematic",
+                        "reasoning": "stub",
+                        "confidence": 0.8,
+                    },
+                ]
 
         def factory():
             class StubClient:

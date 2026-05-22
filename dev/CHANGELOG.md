@@ -6,6 +6,29 @@
 
 ---
 
+## 2026-05-22 — session — Track D lint Tiers 1+2: mechanical cleanup + bug-hunt (646 → 511)
+
+**Context:** continuation of the user-approved Track D lint-triage sequence. Tier 1 = safe mechanical fixes; Tier 2 = "bug-hunt" the warning classes most likely to hide real defects.
+
+**Tier 1 — mechanical (108 cleared):**
+- UP035 + UP006/UP007 import modernization (22; `typing.List/Dict/Callable` → builtins / `collections.abc`).
+- SIM114 (2; if-with-same-arms).
+- B011 (66; `assert False` → `raise AssertionError` — survives `python -O`; all in tests).
+- B007 (15; unused loop control var → `_`-prefixed; the one tuple-unpack case ruff couldn't auto-rewrite was done manually).
+- E731 (6; `x = lambda …` → `def x(…)`; tests).
+
+**Tier 2 — bug-hunt (27 cleared; NO real product bug found):**
+- **B023** (4) — function-uses-loop-variable (late-binding footgun). **Investigated → all false positives:** each flagged lambda is passed to `re.sub(..., count=1)`, invoked synchronously within the iteration, so late binding can't occur. Fixed idiomatically by binding the loop vars as same-named default args (future-proofs a refactor that stores the lambda).
+- **F841** (16) — unused-variable. **Investigated → all benign:** dead assignments, a vestigial print-cover geometry calc (commercial-era code), validation-call discards. ruff's autofix correctly preserved side-effecting calls (`sub.add_parser("list")`, `main([])`) while dropping only the unused bindings; `prospect.get_book` validation kept manually.
+- **B904** (5) — exception chaining (`from e` where the original carries detail — YAML/syntax errors; `from None` for clean translations — lock-timeout, bad Content-Length).
+- **B905** (2) — `zip(..., strict=False)` (both intentional truncating zips, incl. the `order`/`order[1:]` adjacent-pairs idiom).
+
+**Verified:** `ruff format` clean; `lint_rules.py` 16/0/0; full `pytest tests/` **6462 passed / 0 failed**. ruff total **646 → 511** (this session overall: **1071 → 511**). The remaining 511 are intentional/inherent (E501 in HTML/data strings, C901 build-pipeline orchestrators, N8xx test-method/HTML-constant naming) — next is a `per-file-ignores` config pass so the count reflects only genuine issues.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — mark re-export hubs (`__all__` / redundant-alias) → clear F401 re-export debt (693 → 646)
 
 **Context:** follow-on to the Track D cleanup (`d73275b`), which left ~47 F401 "debt" on two intentional re-export surfaces rather than break them. This clears that debt the right way.

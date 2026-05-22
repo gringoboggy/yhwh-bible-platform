@@ -742,7 +742,7 @@ class TestOmega35A6DeleteTable:
                 # Verify the lambda's int(m.group(2)) call: by
                 # inspecting the source representation when
                 # possible.
-                src = handler.__code__.co_consts if hasattr(handler, "__code__") else ()
+                handler.__code__.co_consts if hasattr(handler, "__code__") else ()
                 # Heuristic: the lambda body should reference int()
                 # — we can't introspect deeply across versions, so
                 # just confirm the handler is callable with one arg.

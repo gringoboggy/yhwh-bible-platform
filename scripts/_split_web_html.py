@@ -123,7 +123,7 @@ def main(apply: bool) -> int:
     # insert one consolidated imports block at the top of the constants
     # area). Walk constants in REVERSE order so byte offsets remain valid.
     new_text = text
-    for name, decl_start, decl_end, _ in sorted(constants, key=lambda x: -x[1]):
+    for _name, decl_start, decl_end, _ in sorted(constants, key=lambda x: -x[1]):
         new_text = new_text[:decl_start] + new_text[decl_end:]
 
     # Insert the consolidated imports block at the position of the FIRST

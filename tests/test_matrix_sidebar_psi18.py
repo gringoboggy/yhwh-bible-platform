@@ -124,7 +124,7 @@ class TestPsi18ApiMatrixPerBookSurface:
             assert isinstance(ed_data["per_book"], dict)
 
     def test_response_includes_canon_book_order(self):
-        for ed_id, ed_data in self.api["matrix"].items():
+        for _ed_id, ed_data in self.api["matrix"].items():
             assert "canon_book_order" in ed_data
             order = ed_data["canon_book_order"]
             assert isinstance(order, list)

@@ -396,7 +396,7 @@ class TestOmega231AstCacheReuse:
         # under scripts/ that the AST-walk checks touched.
         assert len(lint_rules._PARSE_CACHE) > 10
         # Every cached value is the (tree | None, lines) shape.
-        for key, val in lint_rules._PARSE_CACHE.items():
+        for _key, val in lint_rules._PARSE_CACHE.items():
             assert isinstance(val, tuple)
             assert len(val) == 2
 
@@ -697,7 +697,7 @@ class TestOmega18LintFix:
         cl_mtime = self._cl.stat().st_mtime + 8 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         pre_ss = self._ss.stat().st_mtime
-        rc = main([])
+        main([])
         post_ss = self._ss.stat().st_mtime
         # Default mode might exit 0 or 1 depending on warnings;
         # what matters is it did NOT touch SESSION_STATE.

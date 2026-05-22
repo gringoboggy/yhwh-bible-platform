@@ -41,7 +41,8 @@ import logging
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 
 _log = logging.getLogger(__name__)

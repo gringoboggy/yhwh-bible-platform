@@ -505,8 +505,6 @@ class TestPsi7BEditionTemplates:
         shutil.copy(real_path, tmp_editions)
 
         # Patch the module-level path + clear caches
-        original_path = et.EDITIONS_PATH
-        original_load = None
         try:
             r = et.create_from_template(
                 "children",

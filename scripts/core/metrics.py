@@ -22,7 +22,7 @@ streaming. No N+1 or quadratic patterns.
 from __future__ import annotations
 
 from collections import Counter
-from typing import Iterator
+from collections.abc import Iterator
 
 from . import event_log
 

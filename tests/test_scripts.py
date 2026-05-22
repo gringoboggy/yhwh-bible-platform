@@ -934,7 +934,7 @@ class TestCanonFilter:
         """Subset chain: tanakh ⊂ protestant ⊂ catholic ⊂ orthodox ⊂ ethiopian."""
         c = self.mod.load_canons()
         order = ("tanakh", "protestant", "catholic", "orthodox", "ethiopian")
-        for smaller, larger in zip(order, order[1:]):
+        for smaller, larger in zip(order, order[1:], strict=False):
             s = set(c[smaller]["books"])
             l = set(c[larger]["books"])
             assert s <= l, f"{smaller} not a subset of {larger}: extras = {s - l}"
@@ -1276,7 +1276,7 @@ class TestMatrixAPI:
         assert "editions" in data
         assert "matrix" in data
         # Each edition has the expected sub-shape
-        for ed_id, m in data["matrix"].items():
+        for _ed_id, m in data["matrix"].items():
             assert "enabled" in m
             assert "potential" in m
             assert "total_enabled" in m
@@ -3772,7 +3772,7 @@ class TestEditionMeta:
                     f"http://127.0.0.1:{port}/api/sample/jewish-study?book=mat&from=1&to=1",
                     timeout=5,
                 )
-                assert False, "should have raised HTTPError"
+                raise AssertionError("should have raised HTTPError")
             except urllib.error.HTTPError as e:
                 assert e.code == 404
                 err_body = json.loads(e.read().decode())
@@ -3821,7 +3821,7 @@ class TestEditionMeta:
                 build_plan(bad, "Title")
             except ValueError:
                 continue
-            assert False, f"build_plan({bad!r}) should have raised ValueError"
+            raise AssertionError(f"build_plan({bad!r}) should have raised ValueError")
 
     def test_scaffold_console_dry_run_plan(self, tmp_path):
         """Build a plan against a fixture file; verify dry-run
@@ -3954,7 +3954,7 @@ class TestEditionMeta:
         except ValueError as e:
             assert "must start with /" in str(e)
             return
-        assert False, "should have raised ValueError"
+        raise AssertionError("should have raised ValueError")
 
     # ---------- Phase ω.1 : backup restore UI ----------
 
@@ -4299,7 +4299,7 @@ class TestEditionMeta:
                 make_png(*bad)
             except ValueError:
                 continue
-            assert False, f"make_png{bad} should have raised ValueError"
+            raise AssertionError(f"make_png{bad} should have raised ValueError")
 
     def test_shared_multipart_body_structure(self):
         """multipart_body produces a body the existing parser can
@@ -6405,7 +6405,7 @@ class TestNavesTopicalSourceLoader:
         except self.src.SourceMissingError as e:
             assert "fetch_sources.py" in str(e)
             return
-        assert False, "expected SourceMissingError"
+        raise AssertionError("expected SourceMissingError")
 
     def test_loader_reads_synthetic_cache(self, tmp_path, monkeypatch):
         """A minimal valid JSON cache loads cleanly and exposes both
@@ -7247,7 +7247,7 @@ class TestDesignSystem:
         except ValueError as e:
             assert "unknown status kind" in str(e)
             return
-        assert False, "expected ValueError"
+        raise AssertionError("expected ValueError")
 
     # ---- Placeholder states ----
 
@@ -7639,7 +7639,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "_fetchers.json" in str(e) or "not found" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_invalid_json(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7649,7 +7649,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "JSON" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_wrong_version(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7659,7 +7659,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "version" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_unknown_parser(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7686,7 +7686,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "nonexistent" in str(e) or "unknown parser" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_duplicate_id(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7721,7 +7721,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "duplicate" in str(e).lower()
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_empty_candidates(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7748,7 +7748,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "candidates" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_missing_required_field(self, tmp_path):
         # No 'license' on the source.
@@ -7775,7 +7775,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "license" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     def test_rejects_non_bool_required(self, tmp_path):
         p = tmp_path / "_fetchers.json"
@@ -7802,7 +7802,7 @@ class TestFetcherConfig:
         except self.fc.FetcherConfigError as e:
             assert "required" in str(e) and "bool" in str(e)
             return
-        assert False, "expected FetcherConfigError"
+        raise AssertionError("expected FetcherConfigError")
 
     # ---- Dispatcher integration ----
 
@@ -10552,7 +10552,7 @@ class TestOmega13PerfBudgets:
                 "config._parse_yaml_records(editions)",
                 0.100,
             )
-            assert False, "should have raised AssertionError"
+            raise AssertionError("should have raised AssertionError")
         except AssertionError as e:
             msg = str(e)
             assert "perf budget violation" in msg
@@ -10564,7 +10564,7 @@ class TestOmega13PerfBudgets:
 
         try:
             assert_under_budget("not.a.budget", 0.001)
-            assert False
+            raise AssertionError()
         except KeyError as e:
             assert "not.a.budget" in str(e)
             assert "perf_budgets.py" in str(e)
@@ -10578,7 +10578,7 @@ class TestOmega13PerfBudgets:
                 0.030,
                 multiplier=0.5,
             )
-            assert False, "should have raised"
+            raise AssertionError("should have raised")
         except AssertionError as e:
             assert "25.0 ms" in str(e)
 
@@ -10784,7 +10784,7 @@ class TestXi10SsrfAllowlist:
                 urlopen=shouldnt_be_called,
                 sleep_fn=lambda s: None,
             )
-            assert False, "should have raised SSRFBlockedError"
+            raise AssertionError("should have raised SSRFBlockedError")
         except SSRFBlockedError as e:
             assert e.host == "evil.example.com"
             assert "evil.example.com" in str(e)
@@ -10803,7 +10803,7 @@ class TestXi10SsrfAllowlist:
                 urlopen=self._mock_urlopen(b""),
                 sleep_fn=lambda s: None,
             )
-            assert False, "should have raised"
+            raise AssertionError("should have raised")
         except SSRFBlockedError as e:
             assert e.host == "evil-example.com"
 
@@ -10848,7 +10848,7 @@ class TestXi10SsrfAllowlist:
                 urlopen=self._mock_urlopen(b"{}"),
                 sleep_fn=lambda s: None,
             )
-            assert False
+            raise AssertionError()
         except SSRFBlockedError:
             pass
 
@@ -10925,7 +10925,9 @@ class TestXi11PipAudit:
         }
         import json as _json
 
-        runner = lambda exe, args: (1, _json.dumps(payload), "")
+        def runner(exe, args):
+            return (1, _json.dumps(payload), "")
+
         result = audit_deps.run_pip_audit(pip_audit_runner=runner)
         assert result["status"] == "ok"
         assert result["vulnerability_count"] == 2
@@ -10966,7 +10968,10 @@ class TestXi11PipAudit:
         from scripts import audit_deps
 
         monkeypatch.setattr(audit_deps, "_which_pip_audit", lambda: "/fake/pa")
-        runner = lambda exe, args: (5, "", "boom")
+
+        def runner(exe, args):
+            return (5, "", "boom")
+
         result = audit_deps.run_pip_audit(pip_audit_runner=runner)
         assert result["status"] == "error"
         assert result["code"] == "pip_audit_failed"
@@ -10975,11 +10980,14 @@ class TestXi11PipAudit:
         from scripts import audit_deps
 
         monkeypatch.setattr(audit_deps, "_which_pip_audit", lambda: "/fake/pa")
-        runner = lambda exe, args: (
-            0,
-            '{"dependencies": []}',
-            "",
-        )
+
+        def runner(exe, args):
+            return (
+                0,
+                '{"dependencies": []}',
+                "",
+            )
+
         monkeypatch.setattr(audit_deps, "_real_pip_audit_runner", runner)
         rc = audit_deps.main(["--severity", "HIGH"])
         assert rc == 0
@@ -11003,7 +11011,10 @@ class TestXi11PipAudit:
                 },
             ]
         }
-        runner = lambda exe, args: (1, _json.dumps(payload), "")
+
+        def runner(exe, args):
+            return (1, _json.dumps(payload), "")
+
         monkeypatch.setattr(audit_deps, "_real_pip_audit_runner", runner)
         rc = audit_deps.main(["--severity", "HIGH"])
         assert rc == 1
@@ -12288,7 +12299,7 @@ class TestXi3CspHeaders:
         # Each route's send_response(200) block sits within ~500 chars
         # of the Content-Type literal; verify _send_security_headers
         # appears in the same window.
-        for marker in (
+        for _marker in (
             r'"application/x-yaml',  # ψ.27 export
             "application/rss+xml",  # υ.8 RSS
             "application/octet-stream",  # not used directly,
@@ -13888,14 +13899,16 @@ class TestRunAINotesAtScaleDriver:
         """``draft_per_verse`` is a callable (book,ch,vs,text) -> dict|None
         that controls what the stub client returns for each verse."""
         if draft_per_verse is None:
-            draft_per_verse = lambda b, c, v, t: {
-                "kind_class": "study",
-                "label": "Stub.",
-                "body_html": "stub body",
-                "confidence": 0.8,
-                "sources_consulted": [],
-                "reviewer_flags": [],
-            }
+
+            def draft_per_verse(b, c, v, t):
+                return {
+                    "kind_class": "study",
+                    "label": "Stub.",
+                    "body_html": "stub body",
+                    "confidence": 0.8,
+                    "sources_consulted": [],
+                    "reviewer_flags": [],
+                }
 
         def factory():
             class StubClient:

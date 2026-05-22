@@ -18,7 +18,7 @@ publisher just hasn't set the keys yet.
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 from scripts.core import audit_log
 

@@ -51,7 +51,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable
 
 from scripts.core import config, notes_io
 
@@ -396,7 +396,7 @@ def _compute_matrix_via_file_walk() -> Matrix:
             ed_id = ed["id"]
             if code not in edition_canon[ed_id]:
                 continue
-            for kind_code, n in per_kind.items():
+            for kind_code, _n in per_kind.items():
                 # ψ.18.1: per-chapter breakdown; copy to detach from
                 # the helper's local dict so future calls can't mutate
                 # cached state.

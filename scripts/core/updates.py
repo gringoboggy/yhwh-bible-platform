@@ -35,7 +35,7 @@ from __future__ import annotations
 
 import re
 import xml.etree.ElementTree as ET
-from typing import Callable
+from collections.abc import Callable
 
 __all__ = [
     "fetch_appcast",

@@ -497,7 +497,7 @@ def _write_python_rewrite(
         key=lambda m: (m["lineno"], m["col_offset"]),
         reverse=True,
     )
-    new_code: str = mutations[0]["new"]
+    mutations[0]["new"]
     for m in by_position:
         # ast.Constant for a string literal sits between
         # (lineno, col_offset) and (end_lineno, end_col_offset).
@@ -532,7 +532,7 @@ def _write_python_rewrite(
     try:
         ast.parse(new_text)
     except SyntaxError as e:
-        raise RuntimeError(f"{path.name}: rewrite produced invalid Python: {e}")
+        raise RuntimeError(f"{path.name}: rewrite produced invalid Python: {e}") from e
     notes_io.atomic_write(path, new_text)
 
 

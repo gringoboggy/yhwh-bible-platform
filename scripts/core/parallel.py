@@ -21,7 +21,8 @@ Stdlib only (``concurrent.futures``), per CLAUDE_PROJECT_RULES §10.
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
-from typing import Callable, Iterable, TypeVar
+from typing import TypeVar
+from collections.abc import Callable, Iterable
 
 T = TypeVar("T")
 R = TypeVar("R")

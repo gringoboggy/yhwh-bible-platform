@@ -49,7 +49,7 @@ class TestStrongsGreekSourceLoader:
         except self.src.SourceMissingError as e:
             assert "fetch_sources.py" in str(e)
             return
-        assert False, "expected SourceMissingError"
+        raise AssertionError("expected SourceMissingError")
 
     def test_loader_reads_synthetic_cache(self, tmp_path, monkeypatch):
         cache = {

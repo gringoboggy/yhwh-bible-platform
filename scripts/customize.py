@@ -231,7 +231,7 @@ def find_book_div_target(book_code: str) -> tuple[Path, int] | None:
         return None
     text = first_file.read_text(encoding="utf-8")
     # Books are bp-00, bp-01, ... in canonical order. Match by data-book-idx.
-    bxx = book.get("bxx", "")
+    book.get("bxx", "")
     # bxx is e.g. b00, b01... but bp-N uses N starting at 00 sequentially.
     # Search for the div whose data-book-idx matches the book's index.
     # Simpler: take the first <div class="book-title-page"> that appears

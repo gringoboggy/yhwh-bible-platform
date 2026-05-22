@@ -55,7 +55,7 @@ import csv
 import io
 from collections import defaultdict
 from datetime import datetime, timezone
-from typing import Iterable, Iterator
+from collections.abc import Iterable, Iterator
 
 from . import event_log
 

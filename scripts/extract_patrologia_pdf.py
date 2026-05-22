@@ -718,7 +718,7 @@ def parse_patrologia_pages(
     current_chapter = 0  # 0 = none seen yet; bumps to 1 at first banner
     verse_in_chapter = 0
 
-    for page_idx, strips in enumerate(page_strips):
+    for _page_idx, strips in enumerate(page_strips):
         banner = strips.get("banner", "")
         body = strips.get(TARGET_GEEZ, "")
 

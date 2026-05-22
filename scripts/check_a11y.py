@@ -202,7 +202,7 @@ def check_heading_hierarchy(text: str) -> list[str]:
     levels = [int(m.group(1)) for m in HEADING_RE.finditer(text)]
     skips = []
     seen_max = 0  # highest level (lowest number) we've seen
-    for i, lvl in enumerate(levels):
+    for _i, lvl in enumerate(levels):
         if seen_max == 0:
             seen_max = lvl
             continue
@@ -210,9 +210,7 @@ def check_heading_hierarchy(text: str) -> list[str]:
         # than 1 step beyond what we've established.
         if lvl > seen_max + 1:
             skips.append(f"h{seen_max} → h{lvl} (skipped {seen_max + 1})")
-        if lvl < seen_max:
-            seen_max = lvl
-        elif lvl == seen_max + 1:
+        if lvl < seen_max or lvl == seen_max + 1:
             seen_max = lvl
     return skips
 

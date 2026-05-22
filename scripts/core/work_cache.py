@@ -21,7 +21,7 @@ import hashlib
 import sqlite3
 import threading
 from datetime import datetime, timezone
-from typing import Callable
+from collections.abc import Callable
 
 
 def key_for(*parts: object) -> str:

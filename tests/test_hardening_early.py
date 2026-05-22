@@ -51,7 +51,7 @@ class TestValidation:
         except self.v.ValidationError as e:
             assert "required" in str(e)
             return
-        assert False, "expected ValidationError"
+        raise AssertionError("expected ValidationError")
 
     def test_require_string_rejects_int(self):
         try:
@@ -59,14 +59,14 @@ class TestValidation:
         except self.v.ValidationError as e:
             assert "must be a string" in str(e)
             return
-        assert False, "expected ValidationError"
+        raise AssertionError("expected ValidationError")
 
     def test_require_string_rejects_empty_by_default(self):
         try:
             self.v.require_string("", name="x")
         except self.v.ValidationError:
             return
-        assert False, "expected ValidationError"
+        raise AssertionError("expected ValidationError")
 
     def test_require_string_allows_empty_when_opted_in(self):
         assert self.v.require_string("", name="x", allow_empty=True) == ""
@@ -77,14 +77,14 @@ class TestValidation:
         except self.v.ValidationError as e:
             assert "too long" in str(e)
             return
-        assert False, "expected ValidationError"
+        raise AssertionError("expected ValidationError")
 
     def test_require_short_string_caps_at_256(self):
         try:
             self.v.require_short_string("a" * 257, name="x")
         except self.v.ValidationError:
             return
-        assert False, "expected ValidationError"
+        raise AssertionError("expected ValidationError")
 
     # ---- validate_book_code ----
 
@@ -100,28 +100,28 @@ class TestValidation:
             self.v.validate_book_code("Gen")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_book_code_rejects_too_long(self):
         try:
             self.v.validate_book_code("genesis")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_book_code_rejects_path_traversal_attempt(self):
         try:
             self.v.validate_book_code("../etc")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_book_code_rejects_empty(self):
         try:
             self.v.validate_book_code("")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     # ---- validate_edition_id ----
 
@@ -140,28 +140,28 @@ class TestValidation:
             self.v.validate_edition_id("foo_bar")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_edition_id_rejects_leading_digit(self):
         try:
             self.v.validate_edition_id("1edition")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_edition_id_rejects_uppercase(self):
         try:
             self.v.validate_edition_id("Catholic-Study")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_edition_id_rejects_path_traversal(self):
         try:
             self.v.validate_edition_id("../foo")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     # ---- validate_kind_code ----
 
@@ -174,14 +174,14 @@ class TestValidation:
             self.v.validate_kind_code("Lang-Hebrew")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_kind_code_rejects_dot(self):
         try:
             self.v.validate_kind_code("lang.hebrew")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     # ---- validate_path_segment ----
 
@@ -194,35 +194,35 @@ class TestValidation:
             self.v.validate_path_segment("a/b")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_path_segment_rejects_backslash(self):
         try:
             self.v.validate_path_segment("a\\b")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_path_segment_rejects_dot(self):
         try:
             self.v.validate_path_segment(".")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_path_segment_rejects_dotdot(self):
         try:
             self.v.validate_path_segment("..")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_path_segment_rejects_nul(self):
         try:
             self.v.validate_path_segment("foo\x00.txt")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     # ---- chapter / verse ----
 
@@ -238,21 +238,21 @@ class TestValidation:
             self.v.validate_chapter(0)
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_chapter_rejects_negative(self):
         try:
             self.v.validate_chapter(-1)
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_chapter_rejects_oversized(self):
         try:
             self.v.validate_chapter(99999)
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_chapter_rejects_bool(self):
         # bool is a subclass of int but treating True as chapter 1
@@ -262,14 +262,14 @@ class TestValidation:
         except self.v.ValidationError as e:
             assert "bool" in str(e)
             return
-        assert False
+        raise AssertionError()
 
     def test_chapter_rejects_garbage_string(self):
         try:
             self.v.validate_chapter("not-a-number")
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     def test_verse_accepts_int(self):
         assert self.v.validate_verse(1) == 1
@@ -280,7 +280,7 @@ class TestValidation:
             self.v.validate_verse(0)
         except self.v.ValidationError:
             return
-        assert False
+        raise AssertionError()
 
     # ---- to_error_dict ----
 
@@ -294,7 +294,7 @@ class TestValidation:
             assert d["http"] == 400
             assert "out of range" in d["message"]
             return
-        assert False
+        raise AssertionError()
 
     def test_to_error_dict_custom_http(self):
         try:
@@ -517,7 +517,7 @@ class TestHttpRetryWrapper:
             assert e.attempts == 1  # NO retries on a 4xx
             assert e.last_exc.code == 404
             return
-        assert False, "expected HttpError"
+        raise AssertionError("expected HttpError")
 
     def test_does_not_retry_on_400(self):
         import urllib.error
@@ -539,7 +539,7 @@ class TestHttpRetryWrapper:
         except self.http.HttpError as e:
             assert e.attempts == 1
             return
-        assert False, "expected HttpError"
+        raise AssertionError("expected HttpError")
 
     # ---- exhausting retries ----
 
@@ -563,7 +563,7 @@ class TestHttpRetryWrapper:
             assert "URLError" in str(e)
             assert e.url == "https://x.org"
             return
-        assert False, "expected HttpError"
+        raise AssertionError("expected HttpError")
 
     def test_exhausts_retries_on_persistent_5xx(self):
         import urllib.error
@@ -582,7 +582,7 @@ class TestHttpRetryWrapper:
         except self.http.HttpError as e:
             assert e.attempts == 2  # 1 initial + 1 retry
             return
-        assert False, "expected HttpError"
+        raise AssertionError("expected HttpError")
 
     def test_backoff_is_exponential(self):
         """Three attempts (retries=2) → two sleeps with exponentially
@@ -630,7 +630,7 @@ class TestHttpRetryWrapper:
             assert isinstance(e.last_exc, urllib.error.URLError)
             assert e.__cause__ is e.last_exc  # `raise … from …`
             return
-        assert False, "expected HttpError"
+        raise AssertionError("expected HttpError")
 
 
 # ---------- Phase ξ.2 : path-traversal hardening --------------------
@@ -687,14 +687,14 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "empty" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_non_string(self):
         try:
             self.mod.resolve_under(self.root, 42)
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_oversized(self):
         try:
@@ -702,7 +702,7 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "long" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_dotdot(self):
         try:
@@ -710,14 +710,14 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert ".." in str(e)
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_dotdot_deeper(self):
         try:
             self.mod.resolve_under(self.root, "sub/../../escaped")
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_absolute_posix(self):
         try:
@@ -725,7 +725,7 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "absolute" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_absolute_windows_drive(self):
         try:
@@ -733,14 +733,14 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "absolute" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_unc(self):
         try:
             self.mod.resolve_under(self.root, "//host/share/foo")
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_hidden_segment(self):
         try:
@@ -748,14 +748,14 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "hidden" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_hidden_segment_in_middle(self):
         try:
             self.mod.resolve_under(self.root, "sub/.hidden/file")
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_nul_byte(self):
         try:
@@ -763,14 +763,14 @@ class TestSafePath:
         except self.mod.SafePathError as e:
             assert "control" in str(e).lower()
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     def test_rejects_other_control_char(self):
         try:
             self.mod.resolve_under(self.root, "ok\x01.txt")
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
     # ---- non-existent file is fine; existence is the caller's check ----
 
@@ -789,7 +789,7 @@ class TestSafePath:
             self.mod.resolve_under(nope, "ok.txt")
         except self.mod.SafePathError:
             return
-        assert False, "expected SafePathError"
+        raise AssertionError("expected SafePathError")
 
 
 # ---------- Phase ω.9 : atomic-write audit linter check --------------

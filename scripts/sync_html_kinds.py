@@ -177,7 +177,7 @@ def sync_book(book: dict, dry_run: bool) -> dict:
                     stats["already_ok"] += 1
                 else:
                     text = ref_re.sub(
-                        lambda mm: (
+                        lambda mm, new_note_class=new_note_class, new_marker_class=new_marker_class: (
                             f"{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}{new_marker_class}{mm.group(6)}"
                         ),
                         text,
@@ -195,7 +195,9 @@ def sync_book(book: dict, dry_run: bool) -> dict:
                 old = ma.group(2)
                 if old != new_note_class:
                     text = aside_re.sub(
-                        lambda mm: f"{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}",
+                        lambda mm, new_note_class=new_note_class: (
+                            f"{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}"
+                        ),
                         text,
                         count=1,
                     )

@@ -47,7 +47,7 @@ import argparse
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:

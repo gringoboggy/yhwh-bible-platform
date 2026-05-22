@@ -282,7 +282,7 @@ def main(argv: list[str] | None = None) -> int:
     p_replace.add_argument("--close-marker", required=True)
     p_replace.add_argument("--exempt", action="append", default=[])
 
-    p_list = sub.add_parser("list", help="List *_HTML constants in the file")
+    sub.add_parser("list", help="List *_HTML constants in the file")
 
     args = parser.parse_args(argv)
 

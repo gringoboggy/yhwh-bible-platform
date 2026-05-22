@@ -150,7 +150,7 @@ def generate_cover_pdf(
     back_x_start = bleed
     spine_x_start = bleed + trim_w
     front_x_start = bleed + trim_w + spine
-    front_x_end = bleed + trim_w + spine + trim_w
+    bleed + trim_w + spine + trim_w
 
     # Edition data
     ed = editions.get(edition_id, {})

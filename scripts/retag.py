@@ -362,7 +362,7 @@ def retag_book(book_path: Path, dry_run: bool) -> dict:
 
     # Translate (lineno, col_offset) → byte offset
     line_starts = [0]
-    for ch in text:
+    for _ch in text:
         line_starts.append(line_starts[-1] + 1)
     # Better: build a list of cumulative offsets per line
     line_offsets = [0]

@@ -59,7 +59,7 @@ from __future__ import annotations
 
 import os
 import re
-from typing import Callable
+from collections.abc import Callable
 
 
 # Env-var names — single source of truth so the api layer + the UI

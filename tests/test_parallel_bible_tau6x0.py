@@ -233,7 +233,7 @@ class TestTau6x0aExtractTool:
         result = mod.parse_verses_from_text(sample)
         # We expect: (1, 1, ...), (1, 2, ...), (2, 1, ...)
         chapters = [c for c, v, t in result]
-        verses = [v for c, v, t in result]
+        [v for c, v, t in result]
         assert 1 in chapters and 2 in chapters
         assert (1, 1) in [(c, v) for c, v, t in result]
         assert (1, 2) in [(c, v) for c, v, t in result]

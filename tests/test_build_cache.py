@@ -92,7 +92,6 @@ class TestOmega20ABuildCache:
 
         # Set up a tmp content dir mirroring the real one's structure.
         # We only need the files compute_cache_key reads.
-        repo_real = bc._REPO
         content_real = bc._CONTENT
         content_tmp = tmp_path / "content"
         content_tmp.mkdir()
@@ -128,7 +127,6 @@ class TestOmega20ABuildCache:
         from scripts.core import build_cache as bc
         import shutil
 
-        repo_real = bc._REPO
         content_real = bc._CONTENT
         content_tmp = tmp_path / "content"
         content_tmp.mkdir()

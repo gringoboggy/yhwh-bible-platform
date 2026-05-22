@@ -679,7 +679,7 @@ class TestEpsilon3ExecTemplate:
         # any sales-tbody. We don't grep over the entire file because
         # the events table legitimately uses tbody.innerHTML = '' to
         # clear; that's only on initial reset, not for user input.
-        for marker in (
+        for _marker in (
             "sales-by-channel-tbody",
             "sales-by-edition-tbody",
         ):
@@ -714,7 +714,7 @@ class TestEpsilon3RouteRegistration:
         # Dispatch one match to confirm the lambda calls api_sales_import.
         from scripts import web
 
-        for regex, max_bytes, handler in web._MULTIPART_ROUTES:
+        for regex, _max_bytes, handler in web._MULTIPART_ROUTES:
             m = regex.match("/api/sales/import/kdp")
             if m:
                 # Make a tiny invalid body — handler should run and

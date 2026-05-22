@@ -123,7 +123,7 @@ def load_plan(plan_id: str) -> ReadingPlan | None:
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     except yaml.YAMLError as e:
-        raise ValueError(f"malformed YAML in {plan_id}.yaml: {e}")
+        raise ValueError(f"malformed YAML in {plan_id}.yaml: {e}") from e
     if not isinstance(data, dict):
         raise ValueError(f"{plan_id}.yaml top level must be a mapping")
     entries_raw = data.get("entries") or []

@@ -206,7 +206,9 @@ def _acquire_rebuild_lock(*, timeout: float = 30.0):
                     break
                 except OSError:
                     if time.monotonic() >= deadline:
-                        raise TimeoutError(f"timed out acquiring rebuild lock at {lock_path} after {timeout}s")
+                        raise TimeoutError(
+                            f"timed out acquiring rebuild lock at {lock_path} after {timeout}s"
+                        ) from None
                     time.sleep(0.05)
         else:
             import fcntl
@@ -220,7 +222,9 @@ def _acquire_rebuild_lock(*, timeout: float = 30.0):
                     break
                 except (BlockingIOError, OSError):
                     if time.monotonic() >= deadline:
-                        raise TimeoutError(f"timed out acquiring rebuild lock at {lock_path} after {timeout}s")
+                        raise TimeoutError(
+                            f"timed out acquiring rebuild lock at {lock_path} after {timeout}s"
+                        ) from None
                     time.sleep(0.05)
         try:
             yield
@@ -1367,7 +1371,7 @@ def dashboard_stats(books: list[dict]) -> dict:
         `dashboard.gather_stats()`.
     """
     book_codes = [b["code"] for b in books if isinstance(b, dict) and b.get("code")]
-    book_by_code = {b["code"]: b for b in books if isinstance(b, dict) and b.get("code")}
+    {b["code"]: b for b in books if isinstance(b, dict) and b.get("code")}
 
     per_book: dict[str, dict] = {}
     per_kind: dict[str, int] = {}

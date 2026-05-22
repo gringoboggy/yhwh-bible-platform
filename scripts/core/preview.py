@@ -114,7 +114,7 @@ def _kind_symbol(kind_code: str, kinds_idx: dict, cats_idx: dict) -> str:
 
 def _render_note_aside(note: tuple, idx: int, kind_symbol: str) -> str:
     """Render one note as an inline aside (popup)."""
-    label = note[_NOTE_LABEL] if len(note) > _NOTE_LABEL else ""
+    note[_NOTE_LABEL] if len(note) > _NOTE_LABEL else ""
     title = note[_NOTE_TITLE] if len(note) > _NOTE_TITLE else ""
     body = note[_NOTE_BODY] if len(note) > _NOTE_BODY else ""
     attr = note[_NOTE_ATTR] if len(note) > _NOTE_ATTR else ""

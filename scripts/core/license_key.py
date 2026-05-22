@@ -165,7 +165,7 @@ def verify(
     if not license_str or not isinstance(license_str, str):
         return {"valid": False, "reason": "missing"}
 
-    parts = license_str.split(":")
+    license_str.split(":")
     # Expected: prefix(1) + edition(1) + expires(1) + issued(1) +
     # sig(1) = 5 colon-separated parts (the ISO timestamps don't
     # contain ':' — we serialise them via isoformat() which uses

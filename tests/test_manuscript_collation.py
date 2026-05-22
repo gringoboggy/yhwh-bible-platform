@@ -415,7 +415,7 @@ class TestReconcile:
         # violation. Every reconciled token is ⟦illegible⟧ or a base-own
         # token; a whole-verse base lacuna is marked gap=True.
         ILL = mc.ILLEGIBLE
-        for r, v in zip(recon, col["verses"]):
+        for r, v in zip(recon, col["verses"], strict=False):
             base_set = set(_base_tokens(col, v))
             assert set(r["geez"]) - {ILL} <= base_set, (v["v"], "fabricated/foreign token in running text")
             legible = [t for t in _base_tokens(col, v) if t not in ("", ILL)]

@@ -1389,7 +1389,7 @@ def _patch_yaml_entry(text: str, key_field: str, key_value: str, updates: dict[s
             quoted = f'"{esc}"'
         if field_re.search(new_body):
             new_body = field_re.sub(
-                lambda mm: f"{mm.group(1)}{quoted}{mm.group(3)}",
+                lambda mm, quoted=quoted: f"{mm.group(1)}{quoted}{mm.group(3)}",
                 new_body,
                 count=1,
             )
@@ -2981,7 +2981,7 @@ def _compute_attribution_audit_uncached() -> dict:
         if not path.is_file():
             continue
         notes = notes_io.load_notes(path) or []
-        for i, tup in enumerate(notes):
+        for _i, tup in enumerate(notes):
             if len(tup) < 9:
                 continue
             ch, vs, suffix, anchor, kind, title, label, body, attribution = tup[:9]
@@ -4322,7 +4322,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             length = int(length_header)
         except ValueError:
-            raise ValueError("invalid Content-Length")
+            raise ValueError("invalid Content-Length") from None
         if length < 0:
             raise ValueError("negative Content-Length")
         if not length:

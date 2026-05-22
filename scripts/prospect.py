@@ -126,7 +126,7 @@ def is_duplicate(c: Candidate, existing: list, kinds_index: dict) -> bool:
         return False
     cand_anchor_l = (c.anchor or "").strip().lower()
 
-    for tsuffix, tanchor, tkind, ttitle in existing:
+    for _tsuffix, tanchor, tkind, _ttitle in existing:
         ex_cat = _category_of(tkind, kinds_index)
         if ex_cat != cand_cat:
             continue
@@ -299,9 +299,9 @@ def main() -> None:
     if not args.all_chapters and args.chapter is None:
         p.error("specify chapter, or pass --all-chapters")
 
-    # Validate book
+    # Validate book (raises KeyError on unknown book)
     try:
-        book_meta = config.get_book(args.book)
+        config.get_book(args.book)
     except KeyError:
         print(f"{RED}✗ unknown book {args.book!r}{RESET}", file=sys.stderr)
         sys.exit(2)

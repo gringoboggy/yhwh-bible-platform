@@ -50,7 +50,7 @@ import re
 import sys
 import time  # ω.23 — per-check timing for the --profile flag
 from pathlib import Path
-from typing import Callable
+from collections.abc import Callable
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -732,9 +732,7 @@ def _find_urlopen_calls(tree: ast.AST) -> list[int]:
         def visit_Call(self, node: ast.Call) -> None:
             f = node.func
             is_urlopen = False
-            if isinstance(f, ast.Attribute) and f.attr == "urlopen":
-                is_urlopen = True
-            elif isinstance(f, ast.Name) and f.id == "urlopen":
+            if isinstance(f, ast.Attribute) and f.attr == "urlopen" or isinstance(f, ast.Name) and f.id == "urlopen":
                 is_urlopen = True
             if is_urlopen:
                 hits.append(node.lineno)
