@@ -933,6 +933,15 @@ def check_render_coverage_no_regression() -> dict:
     expected sets.
     """
     expected_geez = {
+        # τ.6.x.5.x Patrologia Orientalis track (printed bilingual Ge'ez+
+        # French critical editions) + τ.6.x.NT.c NT pre-pass — all rendered
+        # AFTER the 2026-05-20 baseline below.
+        "1ch",  # τ.6.x.5.x — Patrologia Orientalis
+        "2ch",  # τ.6.x.5.x — Patrologia Orientalis
+        "ezr",  # τ.6.x.5.x — Patrologia Orientalis
+        "neh",  # τ.6.x.5.x — Patrologia Orientalis
+        "job",  # τ.6.x.5.x — Patrologia Orientalis
+        "mat",  # τ.6.x.NT.c — NT pre-pass (honest ocr-tier3 partial)
         "1en",  # τ.6.x.2.u — FINAL book of OT catchup queue (2026-05-20)
         "2es",
         "4ba",  # τ.6.x.2.p
@@ -961,6 +970,7 @@ def check_render_coverage_no_regression() -> dict:
         "wis",  # τ.6.x.2.r
     }
     expected_amharic = {
+        "mat",  # τ.6.x.NT.c — NT pre-pass (honest ocr-tier3 partial)
         "1en",
         "2es",
         "4ba",
@@ -1267,6 +1277,96 @@ def check_repo_map_complete() -> dict:
     }
 
 
+# A string constant that IS a Greek-letter phase tag (e.g. "τ.7.x.b",
+# "τ.6.x.2.a-h", "ω.4x"). Anchored full-match so prose / marker strings
+# ("TRACKER-STATE: idle", "Next phase") never match.
+_PHASE_TAG_FULL = re.compile(r"^[Ͱ-Ͽ]\.[0-9A-Za-z][0-9A-Za-z.x+\-]*$")
+
+# The rolling state docs that get trimmed / archived for bootstrap-bandwidth
+# + OOM hygiene (Rule §11). Pinning a durable phase tag against these breaks
+# the moment the snapshot rolls (the ~45-pin breakage of 2026-05-21).
+_EPHEMERAL_DOCS = ("SESSION_STATE.md", "IN_FLIGHT.md")
+
+
+def check_no_ephemeral_doc_pins() -> dict:
+    """Tests must not pin a phase tag against the rolling state docs
+    (``dev/SESSION_STATE.md`` / ``dev/IN_FLIGHT.md``). Those are trimmed +
+    archived regularly, so such pins break when the snapshot rolls — the
+    failure class that broke ~45 phase pins on 2026-05-21. The durable phase
+    record is ``dev/CHANGELOG.md``; route phase pins through
+    ``tests.fixtures.assert_phase_recorded`` (which reads CHANGELOG).
+
+    A test is flagged when it BOTH (a) reads an ephemeral doc — via an inline
+    "SESSION_STATE.md"/"IN_FLIGHT.md" literal or a module const that points at
+    one — AND (b) asserts a phase-tag string constant. Reading an ephemeral
+    doc for a non-phase reason (e.g. the TRACKER-STATE marker check) is fine.
+
+    Waiver: ``# ephemeral-doc-waived: <reason>`` on the test's ``def`` line or
+    the line above it.
+    """
+    tests_dir = REPO / "tests"
+    if not tests_dir.is_dir():
+        return {
+            "id": "ephemeral_doc_pins",
+            "name": "No phase pins on rolling state docs",
+            "status": "pass",
+            "message": "tests/ not present",
+            "violations": [],
+        }
+
+    violations: list[dict] = []
+    for py in sorted(tests_dir.glob("*.py")):
+        try:
+            text = py.read_text(encoding="utf-8")
+            tree = ast.parse(text)
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            continue
+        lines = text.splitlines()
+
+        # Module-level consts whose value mentions an ephemeral doc path.
+        ephemeral_consts: set[str] = set()
+        for node in tree.body:
+            if isinstance(node, ast.Assign):
+                strs = [
+                    c.value for c in ast.walk(node.value) if isinstance(c, ast.Constant) and isinstance(c.value, str)
+                ]
+                if any(any(doc in s for doc in _EPHEMERAL_DOCS) for s in strs):
+                    for tgt in node.targets:
+                        if isinstance(tgt, ast.Name):
+                            ephemeral_consts.add(tgt.id)
+
+        for fn in ast.walk(tree):
+            if not isinstance(fn, ast.FunctionDef) or not fn.name.startswith("test"):
+                continue
+            str_consts = [n.value for n in ast.walk(fn) if isinstance(n, ast.Constant) and isinstance(n.value, str)]
+            names = {n.id for n in ast.walk(fn) if isinstance(n, ast.Name)}
+            reads_ephemeral = any(any(doc in s for doc in _EPHEMERAL_DOCS) for s in str_consts) or bool(
+                names & ephemeral_consts
+            )
+            has_phase_tag = any(_PHASE_TAG_FULL.match(s) for s in str_consts)
+            if not (reads_ephemeral and has_phase_tag):
+                continue
+            same = lines[fn.lineno - 1] if 0 < fn.lineno <= len(lines) else ""
+            prev = lines[fn.lineno - 2] if 1 < fn.lineno <= len(lines) else ""
+            if "ephemeral-doc-waived" in same or "ephemeral-doc-waived" in prev:
+                continue
+            violations.append({"file": f"tests/{py.name}", "test": fn.name, "line": fn.lineno})
+
+    return {
+        "id": "ephemeral_doc_pins",
+        "name": "No phase pins on rolling state docs",
+        "status": "fail" if violations else "pass",
+        "message": (
+            f"{len(violations)} test(s) pin a phase tag against a rolling state doc "
+            "(SESSION_STATE.md / IN_FLIGHT.md) — route through "
+            "tests.fixtures.assert_phase_recorded (reads CHANGELOG.md)"
+            if violations
+            else "no phase pins on rolling state docs (SESSION_STATE.md / IN_FLIGHT.md)"
+        ),
+        "violations": violations,
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -1278,6 +1378,9 @@ ALL_CHECKS = {
     "inflight": check_inflight_freshness,
     "untracked_phases": check_untracked_phases,
     "code_doc_sync": check_session_state_inventory,
+    # 2026-05-21 — complement to untracked_phases: phase pins must target the
+    # durable record (CHANGELOG), never the rolling SESSION_STATE/IN_FLIGHT.
+    "ephemeral_doc_pins": check_no_ephemeral_doc_pins,
     # ω.9 + ω.10 hardening tier
     "atomic_writes": check_atomic_writes,
     "external_http": check_external_http,

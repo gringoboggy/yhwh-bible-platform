@@ -424,20 +424,11 @@ class TestTau6X2ParallelColumnParity:
 
 
 class TestTau6X2StateDocs:
-    """SESSION_STATE, IN_FLIGHT, CHANGELOG, PLAN all reference the τ.6.x.2.a-h batch."""
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the old
+    # session_state / in_flight / plan_ledger pins read SESSION_STATE.md /
+    # IN_FLIGHT.md (rolling, trimmed) and the moved PLAN_2026-05-09.md. The
+    # durable phase record is CHANGELOG.md, which carries the batch tag.
+    def test_phase_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_session_state_mentions_tau6x2_batch(self):
-        txt = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-        assert "τ.6.x.2.a" in txt or "τ.6.x.2.h" in txt or "τ.6.x.2.a-h" in txt
-
-    def test_in_flight_mentions_tau6x2_batch(self):
-        txt = (REPO / "dev" / "IN_FLIGHT.md").read_text(encoding="utf-8")
-        assert "τ.6.x.2.a" in txt or "τ.6.x.2.h" in txt or "τ.6.x.2.a-h" in txt
-
-    def test_changelog_records_tau6x2_batch(self):
-        txt = (REPO / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")
-        assert "τ.6.x.2.a" in txt or "τ.6.x.2.h" in txt or "τ.6.x.2.a-h" in txt
-
-    def test_plan_ledger_records_tau6x2_batch(self):
-        txt = (REPO / "dev" / "PLAN_2026-05-09.md").read_text(encoding="utf-8")
-        assert "τ.6.x.2.a" in txt or "τ.6.x.2.h" in txt or "τ.6.x.2.a-h" in txt
+        assert_phase_recorded("τ.6.x.2.a-h")

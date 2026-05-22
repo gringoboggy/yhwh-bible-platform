@@ -903,7 +903,9 @@ class TestTau6X1PhaseCoverage:
     is listed as shipped (✓) in the PLAN parallel-bible track ledger."""
 
     CHANGELOG_PATH = REPO / "dev" / "CHANGELOG.md"
-    PLAN_PATH = REPO / "dev" / "PLAN_2026-05-09.md"
+    # PLAN_2026-05-09 archived to dev/archive/ on 2026-05-21 (superseded
+    # by PLAN_2026-05-21); the phase ledger it pins lives there now.
+    PLAN_PATH = REPO / "dev" / "archive" / "PLAN_2026-05-09.md"
 
     def test_changelog_mentions_tau6x1_ship(self):
         body = self.CHANGELOG_PATH.read_text(encoding="utf-8")

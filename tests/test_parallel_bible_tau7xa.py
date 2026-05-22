@@ -58,7 +58,9 @@ PILOT_ARTIFACT = REPO / "dev" / "PILOT_TAU7XA_OUTPUT.md"
 SESSION_STATE = REPO / "dev" / "SESSION_STATE.md"
 IN_FLIGHT = REPO / "dev" / "IN_FLIGHT.md"
 CHANGELOG = REPO / "dev" / "CHANGELOG.md"
-PLAN = REPO / "dev" / "PLAN_2026-05-09.md"
+# PLAN_2026-05-09 archived to dev/archive/ on 2026-05-21 (superseded by
+# PLAN_2026-05-21); the phase ledger it pins lives there now.
+PLAN = REPO / "dev" / "archive" / "PLAN_2026-05-09.md"
 GEEZ_TEWAHEDO = REPO / "content" / "translations" / "geez-tewahedo"
 AMHARIC_TEWAHEDO = REPO / "content" / "translations" / "amharic-tewahedo"
 
@@ -270,21 +272,15 @@ class TestTau7XAInFlight:
             "IN_FLIGHT must carry a valid TRACKER-STATE marker (idle or active)"
         )
 
-    def test_prior_task_is_tau7xa_0(self):
-        """Milestone-pin: τ.7.x.a.0 appears in IN_FLIGHT prior-task
-        chain at all (not necessarily in the first 5000 chars)."""
-        txt = IN_FLIGHT.read_text(encoding="utf-8")
-        assert "τ.7.x.a.0" in txt, "τ.7.x.a.0 must appear in IN_FLIGHT prior-task chain"
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the prior-
+    # task phase pins read the rolling, trimmed IN_FLIGHT.md. The τ.7.x.a.0
+    # PILOT ship and its τ.6.x.2.D predecessor are durable in CHANGELOG. (The
+    # tracker-state marker check above stays — it reads a structural marker,
+    # not a phase tag.)
+    def test_phases_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_tau6x2d_demoted_to_previous(self):
-        """Milestone-pin: τ.7.x.a.0 + τ.6.x.2.D both appear in
-        IN_FLIGHT. Ordering between them is no longer pinned
-        (subsequent ships push both further down without changing
-        their relative order — they remain in chronological
-        prior-task-chain order)."""
-        txt = IN_FLIGHT.read_text(encoding="utf-8")
-        assert "τ.7.x.a.0" in txt
-        assert "τ.6.x.2.D" in txt
+        assert_phase_recorded("τ.7.x.a.0", "τ.6.x.2.D")
 
 
 class TestTau7XASessionState:
@@ -292,19 +288,13 @@ class TestTau7XASessionState:
     Refactored from share-pin to milestone-pin at τ.6.x.1.C
     ship-time per `feedback_share_pin_pattern`."""
 
-    def test_headline_is_tau7xa_0(self):
-        """Milestone-pin: τ.7.x.a.0 appears anywhere in SESSION_STATE
-        (not specifically in the headline; subsequent ships prepend
-        new headlines)."""
-        txt = SESSION_STATE.read_text(encoding="utf-8")
-        assert "τ.7.x.a.0" in txt, "τ.7.x.a.0 must appear somewhere in SESSION_STATE"
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21):
+    # SESSION_STATE.md is a rolling snapshot (trimmed). The τ.7.x.a.0 PILOT
+    # ship and its τ.6.x.1.C next-phase are durably journaled in CHANGELOG.
+    def test_phase_and_next_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_session_state_next_phase_is_tau6x1c(self):
-        """The PILOT's next_phase=τ.6.x.1.C remains documented in
-        SESSION_STATE (anywhere; could be in current or prior
-        section)."""
-        txt = SESSION_STATE.read_text(encoding="utf-8")
-        assert "τ.6.x.1.C" in txt
+        assert_phase_recorded("τ.7.x.a.0", "τ.6.x.1.C")
 
 
 class TestTau7XAClosedArcInvariantPreservation:

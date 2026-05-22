@@ -204,7 +204,9 @@ class TestOmega19SchemaValidator:
         # + `compare-divergence-geez` (Geʽez divergence apparatus
         # inline-popup content-class commentary). The Π.1 audit caught
         # this floor was not bumped at δ.1.0 ship and corrected it here.
-        assert result["record_count"] == 70
+        # 70 → 71 with the Easton's Bible Dictionary ingest (2026-05-21):
+        # added `dict-easton` (category `hist`, ⌂ glyph).
+        assert result["record_count"] == 71
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

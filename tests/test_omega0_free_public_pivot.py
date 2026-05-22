@@ -310,8 +310,14 @@ class TestProjectRulesReflectPivot:
         assert "Ω.0" in text
 
     def test_session_state_lists_build_tracker_console(self):
+        # The build-tracker console (Ω.0 free-public pivot) must appear in
+        # SESSION_STATE's console inventory. Accept either the route
+        # (/build-tracker) or the canonical constant (BUILD_TRACKER_HTML) —
+        # the same equivalence scripts/lint_rules.py::check_session_state_
+        # inventory uses. The 2026-05-21 SESSION_STATE trim left the
+        # inventory keyed by constant name.
         text = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-        assert "/build-tracker" in text
+        assert "/build-tracker" in text or "BUILD_TRACKER_HTML" in text
 
 
 # ----------------------------------------------------------------------

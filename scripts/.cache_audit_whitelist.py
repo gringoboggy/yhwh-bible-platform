@@ -44,3 +44,14 @@ _.tsk
 # Anthropic API client built from ANTHROPIC_API_KEY env var.
 # Cleared by restarting the process, not by cache_clear().
 _._anthropic_client
+
+# ---- Read-once singletons over immutable manuscript / canonical data ----
+# §7.1 "project-internal published data" tier: the underlying files are
+# immutable within a process (KJV spine, folio image masters, calibration
+# witnesses), so the cache IS the value — clearing it would only force a
+# wasted re-read with no behavioral change. Each function's docstring
+# documents this rationale.
+_.load_kjv_skeleton  # scripts/core/manuscript_collation.py — KJV spine rows
+_._book_shape_cached  # scripts/core/canonical_verse_counts.py — shape derived from the KJV spine
+_.load_image  # scripts/core/manuscript_vision.py — immutable folio image masters
+_._collate_case  # scripts/manuscript_qa.py — immutable calibration witnesses + collation

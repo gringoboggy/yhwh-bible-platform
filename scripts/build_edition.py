@@ -1735,23 +1735,6 @@ def _bp_idx_to_code_map() -> dict[int, str]:
     return out
 
 
-def _bxx_idx_to_code_map() -> dict[int, str]:
-    """Build ``{bxx_index: book_code}`` from books.yaml.
-
-    Chapter anchors use ``ch-b{NN}-c{N}`` where NN is the bxx number
-    (e.g., b00=gen, b60=mat) — same numeric scheme as bp but a
-    different prefix. We keep the two maps separate so a parsing
-    mismatch is detectable.
-    """
-    out: dict[int, str] = {}
-    for i, book in enumerate(config.load_books()):
-        bxx = book.get("bxx", "")
-        m = re.match(r"b(\d+)", bxx)
-        idx = int(m.group(1)) if m else i
-        out[idx] = book["code"]
-    return out
-
-
 def _xml_escape_label(s: str) -> str:
     """Escape a ToC label for safe inclusion in XHTML <a> body text.
 
@@ -1802,7 +1785,6 @@ def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
         }
 
     bp_to_code = _bp_idx_to_code_map()
-    bxx_to_code = _bxx_idx_to_code_map()
 
     files_touched = 0
     book_labels_rewritten = 0

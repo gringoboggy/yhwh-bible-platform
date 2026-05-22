@@ -21,6 +21,42 @@ thin delegates if migration is gradual:
 from __future__ import annotations
 import struct
 import zlib
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# The single durable record of shipped phases. dev/SESSION_STATE.md and
+# dev/IN_FLIGHT.md are rolling snapshots that get trimmed for bootstrap-
+# bandwidth + OOM hygiene (Rule §11), and dated dev/PLAN_*.md ledgers get
+# moved under dev/archive/ when superseded — so NONE of them are safe to
+# pin a phase tag against. dev/CHANGELOG.md is the permanent chronology
+# (Rule §12). Route every "did phase X ship and get recorded" assertion
+# through assert_phase_recorded() so a future CHANGELOG move/rename is a
+# one-line fix instead of one-per-pin.
+DURABLE_PHASE_RECORD = REPO_ROOT / "dev" / "CHANGELOG.md"
+
+
+def assert_phase_recorded(*phase_tags: str) -> None:
+    """Assert every given phase tag appears in the durable phase record
+    (dev/CHANGELOG.md).
+
+    Single chokepoint for phase-ship pins. Do NOT assert phase tags
+    against dev/SESSION_STATE.md or dev/IN_FLIGHT.md — they are rolling
+    snapshots that are trimmed regularly, so such pins break the moment
+    the snapshot rolls (this helper exists because ~58 pins broke exactly
+    that way when SESSION_STATE/IN_FLIGHT were trimmed and PLAN_2026-05-09
+    was archived on 2026-05-21). The `no_ephemeral_doc_pins` check in
+    scripts/lint_rules.py enforces the rule going forward.
+    """
+    if not phase_tags:
+        raise AssertionError("assert_phase_recorded() requires at least one phase tag")
+    text = DURABLE_PHASE_RECORD.read_text(encoding="utf-8")
+    missing = [t for t in phase_tags if t not in text]
+    assert not missing, (
+        f"phase tag(s) {missing} not recorded in the durable phase record "
+        f"dev/{DURABLE_PHASE_RECORD.name} — every shipped phase must be "
+        f"journaled there (Rule §12). Add a CHANGELOG entry."
+    )
 
 
 def make_png(width: int, height: int) -> bytes:

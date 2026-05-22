@@ -39,7 +39,11 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parent.parent
-PLAN_DOC = REPO / "dev" / "PLAN_2026-05-09.md"
+# PLAN_2026-05-09 was superseded by PLAN_2026-05-21 and moved to
+# dev/archive/ on 2026-05-21. The ω.4x §2/§6 refresh content these tests
+# pin is preserved verbatim in the archived copy (frozen phase-history
+# ledger), so we read it from there.
+PLAN_DOC = REPO / "dev" / "archive" / "PLAN_2026-05-09.md"
 BUILD_EDITION = REPO / "scripts" / "build_edition.py"
 PYPROJECT = REPO / "pyproject.toml"
 

@@ -54,17 +54,24 @@ class TestGeezTewahedoCoverage:
         assert "1sa" in marathon, marathon
         assert "2sa" in marathon, marathon
 
-    def test_patrologia_books_appear_as_pending(self):
-        """1Ch, 2Ch, Ezr, Neh, Job have Patrologia PDFs on disk under
-        GAPS/ but aren't rendered yet. Tool flags them as patrologia
-        pending."""
+    def test_patrologia_books_now_rendered(self):
+        """1Ch, 2Ch, Ezr, Neh, Job were rendered into geez-tewahedo from
+        the Patrologia Orientalis printed bilingual critical editions
+        (τ.6.x.5.x). They were previously patrologia_pending; the tool now
+        reports them under rendered_books and they no longer appear in the
+        pending/missing sets."""
         from scripts.render_coverage import run_all
 
         rep = run_all()
         ge = rep["editions"]["geez-tewahedo"]
-        # Either as patrologia_pending OR as missing — tool's call
+        rendered = set(ge["rendered_books"])
+        patrologia = {"1ch", "2ch", "ezr", "neh", "job"}
+        assert patrologia <= rendered, (
+            f"Patrologia books should be rendered in geez-tewahedo; rendered={sorted(rendered)}"
+        )
+        # And they should no longer be reported as pending.
         pending = set(ge.get("patrologia_pending", [])) | set(ge.get("missing", []))
-        assert {"1ch", "2ch", "ezr", "neh", "job"} & pending
+        assert not (patrologia & pending), f"Patrologia books still reported pending: {sorted(patrologia & pending)}"
 
 
 class TestRunAllExitContract:

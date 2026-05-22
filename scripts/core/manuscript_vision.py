@@ -131,7 +131,7 @@ def crop_and_encode(
             max(1, int(round(crop.size[0] * scale))),
             max(1, int(round(crop.size[1] * scale))),
         )
-        crop = crop.resize(new_size, Image.LANCZOS)
+        crop = crop.resize(new_size, Image.Resampling.LANCZOS)
     # else: leave as-is. Never upscale.
 
     buf = io.BytesIO()

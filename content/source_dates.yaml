@@ -41,6 +41,10 @@ sources:
     year: 1897
     label: "Nave's Topical"
     note: "Orville J. Nave, first published 1897"
+  - prefix: "Easton's Illustrated Bible Dictionary"
+    year: 1897
+    label: "Easton's Bible Dictionary"
+    note: "M. G. Easton, Illustrated Bible Dictionary (3rd ed. 1897); ingested 2026-05-21."
 
   # 1900s — early-modern textual criticism.
   - prefix: "Frederic G. Kenyon"

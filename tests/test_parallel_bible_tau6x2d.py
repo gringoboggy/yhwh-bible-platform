@@ -66,7 +66,10 @@ PI2_CHECKLIST = REPO / "dev" / "PI2_PRE_FLIGHT_CHECKLIST.md"
 IN_FLIGHT = REPO / "dev" / "IN_FLIGHT.md"
 SESSION_STATE = REPO / "dev" / "SESSION_STATE.md"
 CHANGELOG = REPO / "dev" / "CHANGELOG.md"
-PLAN = REPO / "dev" / "PLAN_2026-05-09.md"
+# PLAN_2026-05-09 archived to dev/archive/ on 2026-05-21 (superseded by
+# PLAN_2026-05-21). Its §6 ledger — which still tracks the planned-not-yet-
+# shipped τ.6.x.3 reconciliation phase — lives there now.
+PLAN = REPO / "dev" / "archive" / "PLAN_2026-05-09.md"
 GEEZ_TEWAHEDO = REPO / "content" / "translations" / "geez-tewahedo"
 AMHARIC_TEWAHEDO = REPO / "content" / "translations" / "amharic-tewahedo"
 
@@ -304,43 +307,15 @@ class TestTau6X2DInFlight:
     """IN_FLIGHT.md prior-task block records τ.6.x.2.D as the most
     recent ship; τ.6.x.1.B is demoted to prior-task-previous."""
 
-    def _text(self) -> str:
-        return IN_FLIGHT.read_text(encoding="utf-8")
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the old
+    # prior-task pins read the rolling, trimmed IN_FLIGHT.md. The τ.6.x.2.D
+    # D-decision (publisher picks d1a/d2b/d3c/d4c) is durably journaled in
+    # CHANGELOG — that is the record worth pinning.
+    def test_d_decision_recorded_in_changelog(self):
+        from tests.fixtures import DURABLE_PHASE_RECORD, assert_phase_recorded
 
-    def test_prior_task_is_tau6x2d(self):
-        """Refactored from share-pin to milestone-pin at τ.6.x.1.C
-        ship-time per `feedback_share_pin_pattern` — the 800-char-window
-        pin breaks every time a new ship prepends a new prior-task; the
-        durable assertion is that τ.6.x.2.D ship narrative appears
-        somewhere in IN_FLIGHT (i.e., the τ.6.x.2.D ship is part of
-        the prior-task chain at all)."""
-        text = self._text()
-        assert "τ.6.x.2.D" in text, "IN_FLIGHT must record the τ.6.x.2.D ship somewhere in the prior-task chain"
-
-    def test_publisher_answer_recorded(self):
-        assert "d1a, d2b, d3c, d4c" in self._text()
-
-    def test_all_four_d_picks_in_prior_task(self):
-        text = self._text()
-        for pick in ("D1-a", "D2-b", "D3-c", "D4-c"):
-            assert pick in text, f"IN_FLIGHT prior-task must record {pick}"
-
-    def test_tau6x1b_demoted_to_previous(self):
-        """τ.6.x.1.B should appear under '## Prior task (previous)' OR
-        in some earlier-prior block. Refactored from share-pin to
-        milestone-pin at τ.7.x.a.0 ship-time per
-        `feedback_share_pin_pattern` — the 800-char-window pin breaks
-        every time a new ship pushes τ.6.x.2.D further down the chain;
-        the durable assertion is simply that τ.6.x.1.B appears in the
-        IN_FLIGHT prior-task chain at all."""
-        text = self._text()
-        prev_idx = text.find("## Prior task (previous)")
-        assert prev_idx >= 0, "IN_FLIGHT must have a Prior task (previous) section"
-        # τ.6.x.1.B appears somewhere in the prior-task-chain (the
-        # full text after "## Prior task (previous)"). This is the
-        # milestone-pin variant.
-        after = text[prev_idx:]
-        assert "τ.6.x.1.B" in after, "τ.6.x.1.B must appear somewhere in IN_FLIGHT's prior-task chain after τ.6.x.2.D"
+        assert_phase_recorded("τ.6.x.2.D")
+        assert "d1a, d2b, d3c, d4c" in DURABLE_PHASE_RECORD.read_text(encoding="utf-8")
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -352,26 +327,14 @@ class TestTau6X2DSessionState:
     """SESSION_STATE.md headline is τ.6.x.2.D D-DECISIONS
     CODIFICATION ship, with all four picks recorded."""
 
-    def _text(self) -> str:
-        return SESSION_STATE.read_text(encoding="utf-8")
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21):
+    # SESSION_STATE.md is a rolling snapshot (trimmed) and its "Next phase"
+    # pointer is ephemeral. The τ.6.x.2.D ship and its τ.7.x.a successor are
+    # durably journaled in CHANGELOG.
+    def test_phase_and_successor_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_headline_is_tau6x2d(self):
-        """Refactored from share-pin (current-headline assertion) to
-        milestone-pin (τ.6.x.2.D appears anywhere in SESSION_STATE) at
-        τ.7.x.a.0 ship-time per `feedback_share_pin_pattern` — the
-        first-2000-chars-headline pin breaks every time a new ship
-        prepends a new headline; the durable assertion is that
-        τ.6.x.2.D D-DECISIONS CODIFICATION ship narrative appears
-        somewhere in SESSION_STATE."""
-        text = self._text()
-        assert "τ.6.x.2.D D-DECISIONS CODIFICATION" in text, (
-            "SESSION_STATE must record the τ.6.x.2.D D-DECISIONS CODIFICATION ship narrative"
-        )
-
-    def test_session_state_next_phase_is_tau7xa(self):
-        text = self._text()
-        # The headline records the next-phase pointer per D4-c.
-        assert "Next phase" in text and "τ.7.x.a" in text
+        assert_phase_recorded("τ.6.x.2.D", "τ.7.x.a")
 
 
 # ──────────────────────────────────────────────────────────────────

@@ -522,11 +522,21 @@ class TestTau7XISkipTheGapInvariants:
                 f"that book is in the 438-802 dzamaragna gap and DEFERRED to a future ship"
             )
 
+    # The Patrologia Orientalis track (τ.6.x.5.x) later rendered 1ch/2ch/
+    # ezr/neh/job into geez-tewahedo from printed bilingual critical
+    # editions — so those are no longer skipped in GEEZ (they remain
+    # skipped in AMHARIC, which the test above still checks in full). Only
+    # the manuscript-marathon books stay render-pending in geez.
+    GEEZ_STILL_SKIPPED = ("1sa", "2sa", "1ki", "2ki")
+
     def test_skipped_books_not_in_geez_tewahedo(self):
-        """None of the 9 still-skipped books has a .py file in geez-tewahedo/."""
-        for book in self.SKIPPED_BOOKS:
+        """The manuscript-marathon books (render is post-marathon) still
+        have no .py in geez-tewahedo/. The Patrologia books (1ch/2ch/ezr/
+        neh/job) were rendered at τ.6.x.5.x and are intentionally excluded
+        from this skip-set."""
+        for book in self.GEEZ_STILL_SKIPPED:
             path = GEEZ_TEWAHEDO / f"{book}.py"
-            assert not path.exists(), f"Skip-the-gap invariant: geez-tewahedo/{book}.py must NOT exist after τ.7.x.i"
+            assert not path.exists(), f"geez-tewahedo/{book}.py must NOT exist (render is post-marathon)"
 
     def test_psalms_shipped_amharic(self):
         """The skip-the-gap decision succeeded only because Psalms
@@ -616,20 +626,11 @@ class TestTau7XIWisdomAndPoetryArcOpen:
 
 
 class TestTau7XIStateDocs:
-    """SESSION_STATE, IN_FLIGHT, CHANGELOG, PLAN all reference τ.7.x.i."""
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the
+    # old test_session_state_*/test_in_flight_*/test_plan_ledger_* pins
+    # read SESSION_STATE.md / IN_FLIGHT.md (rolling, trimmed) and the
+    # moved PLAN_2026-05-09.md. The durable phase record is CHANGELOG.md.
+    def test_phase_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_session_state_mentions_tau7xi(self):
-        txt = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-        assert "τ.7.x.i" in txt
-
-    def test_in_flight_mentions_tau7xi(self):
-        txt = (REPO / "dev" / "IN_FLIGHT.md").read_text(encoding="utf-8")
-        assert "τ.7.x.i" in txt
-
-    def test_changelog_records_tau7xi_entry(self):
-        txt = (REPO / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")
-        assert "τ.7.x.i" in txt
-
-    def test_plan_ledger_records_tau7xi(self):
-        txt = (REPO / "dev" / "PLAN_2026-05-09.md").read_text(encoding="utf-8")
-        assert "τ.7.x.i" in txt
+        assert_phase_recorded("τ.7.x.i")

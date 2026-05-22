@@ -420,14 +420,11 @@ class TestTau6X2NPriorArcsPreserved:
 
 
 class TestTau6X2NStateDocs:
-    def test_changelog(self):
-        assert "τ.6.x.2.n" in (REPO / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the
+    # old test_session_state_*/test_in_flight_*/test_plan_ledger_* pins
+    # read SESSION_STATE.md / IN_FLIGHT.md (rolling, trimmed) and the
+    # moved PLAN_2026-05-09.md. The durable phase record is CHANGELOG.md.
+    def test_phase_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_session_state(self):
-        assert "τ.6.x.2.n" in (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-
-    def test_in_flight(self):
-        assert "τ.6.x.2.n" in (REPO / "dev" / "IN_FLIGHT.md").read_text(encoding="utf-8")
-
-    def test_plan(self):
-        assert "τ.6.x.2.n" in (REPO / "dev" / "PLAN_2026-05-09.md").read_text(encoding="utf-8")
+        assert_phase_recorded("τ.6.x.2.n")

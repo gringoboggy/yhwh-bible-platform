@@ -207,9 +207,14 @@ class TestOmega34EpubEndToEnd:
             dry_run=False,
         )
 
-        # Build must succeed
-        assert result.get("ok") is True, f"build_one failed: {result.get('error')}"
-        epub_path = out_dir / result["filename"]
+        # Build must succeed. build_edition.build_one() returns the stats
+        # dict whose `output_path` is the freshly-built (or cache-restored)
+        # EPUB; it has no "ok"/"filename" key — that is api_export_build's
+        # separate response contract, not this function's. A cache hit /
+        # incremental skip is still a successful build with a real artifact
+        # at output_path.
+        epub_path = result["output_path"]
+        assert epub_path.is_file(), f"build_one did not produce an EPUB: {result}"
         assert epub_path.is_file(), f"EPUB not at expected path: {epub_path}"
         assert epub_path.stat().st_size > 0, "EPUB is empty"
 

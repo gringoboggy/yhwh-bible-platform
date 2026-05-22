@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-21 — session (later) — test suite green: 92 failures triaged to 4 root-cause classes + fixed (phase-pin chokepoint + lint guard)
+
+**Context:** the post-rebuild suite carried 92 failures. Reproduced the full list (serial run), triaged into four root-cause classes — **none a product-logic regression in the build/inject path** — and fixed each at root cause. Toward the **2026-06-07 deadline**.
+
+**Shipped:**
+- **Phase-pin chokepoint (root cause of ~77 failures).** Tests pinned durable phase-ship facts against the *rolling* state docs that had just been trimmed (`dev/SESSION_STATE.md` 896 KB→9 KB, `dev/IN_FLIGHT.md` 386 KB→11 KB) and the *moved* `dev/PLAN_2026-05-09.md` (→ `dev/archive/`). New `tests.fixtures.assert_phase_recorded(*tags)` reads the single durable record `dev/CHANGELOG.md`; ~20 `*StateDocs` classes were collapsed onto it (AST migration, dry-run-verified), PLAN-content pins repointed to the archived ledger, and the ephemeral-doc phase pins retired. The IN_FLIGHT *tracker-state* marker check was preserved (it reads a marker, not a phase tag).
+- **Lint guard (prevents recurrence).** `lint_rules.check_no_ephemeral_doc_pins` (registered in `ALL_CHECKS`, so it composes into `/preflight`) FAILS any future test that pins a phase tag against `SESSION_STATE.md`/`IN_FLIGHT.md`. Waiver: `# ephemeral-doc-waived: <reason>`. Verified 0 violations post-migration.
+- **Corpus-count refresh (2).** `dict-easton` brought the kind count 70→71 (`test_validate_schemas`); catalogued Easton's Illustrated Bible Dictionary (1897) in `content/source_dates.yaml` so time-travel coverage returns 91.3%→~96.8% (≥95% floor).
+- **Pre-existing code fixes (13 — fixed the code, not the test).** Removed dead `bxx_to_code` + its orphaned `_bxx_idx_to_code_map` (ruff F841, `build_edition.py`); `Image.LANCZOS`→`Image.Resampling.LANCZOS` (Pillow-10 mypy attr-defined, `manuscript_vision.py`); whitelisted 4 read-once immutable-data caches (`load_kjv_skeleton`/`_book_shape_cached`/`load_image`/`_collate_case`); corrected `test_v1_polish` to assert build_one's real `output_path` contract (it never returned `ok`/`filename` — that is `api_export_build`'s shape; the test had been *skipped* pre-base-HTML-recovery and only started running now); refreshed stale render-state pins (`tau7xv`/`tau7xi`/`test_render_coverage`) for the legitimate τ.6.x.5.x Patrologia (1ch/2ch/ezr/neh/job) + τ.6.x.NT.c Matthew renders and registered them in the render no-regression baseline; the build-tracker SESSION_STATE pin now accepts constant-or-route.
+
+**Verified:** full serial suite **6404 passed / 0 logic failures** (was 6373 passed + 92 failed). The lone full-run failure — `test_build_all_route_serves_json` — is a pre-existing flaky HTTP-socket abort (WinError 10053) under serial load: it passes cleanly in isolation and was NOT in the original 92. `lint_rules` clean incl. the new check; ruff-format clean. Net test count −60 (intentional: the redundant 4-doc StateDocs pins collapsed to 1 CHANGELOG pin each).
+
+**Next (unchanged):** [USER] visual QA of built EPUBs; resume the paused manuscript marathon (1ki5 R2, script-based, OOM-aware); opportunistic corpus expansion.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-21 — session (later) — inject-tail closure + reference-corpus rebuild (Nave's + Easton's) + coordinate guard + full re-audit
 
 **Context:** continued from the EPUB-builder revival. Closed the inject tail, then the user steered a clean rebuild of the OCR-noisy Nave's corpus from a CCEL PDF + ingestion of Easton's Bible Dictionary, then a full re-audit + plan re-arrangement. Toward the **2026-06-07 deadline**.

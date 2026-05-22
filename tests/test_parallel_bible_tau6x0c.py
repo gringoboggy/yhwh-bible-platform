@@ -559,7 +559,9 @@ class TestTau6X0cPhaseCoverage:
     and is no longer listed as a pending sub-phase in the PLAN."""
 
     CHANGELOG_PATH = REPO / "dev" / "CHANGELOG.md"
-    PLAN_PATH = REPO / "dev" / "PLAN_2026-05-09.md"
+    # PLAN_2026-05-09 archived to dev/archive/ on 2026-05-21 (superseded
+    # by PLAN_2026-05-21); the phase ledger it pins lives there now.
+    PLAN_PATH = REPO / "dev" / "archive" / "PLAN_2026-05-09.md"
 
     def test_changelog_mentions_tau6x0c_ship(self):
         body = self.CHANGELOG_PATH.read_text(encoding="utf-8")

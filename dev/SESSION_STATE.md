@@ -6,6 +6,7 @@
 
 ## What shipped (2026-05-21 arcs)
 
+- **Test suite GREEN** — triaged + fixed all 92 post-rebuild failures. Most were phase pins reading the trimmed `SESSION_STATE.md`/`IN_FLIGHT.md` + the moved `PLAN_2026-05-09.md` (→ `dev/archive/`); fixed at root cause via the new `tests.fixtures.assert_phase_recorded` chokepoint (reads CHANGELOG) + `lint_rules.check_no_ephemeral_doc_pins` guard. Plus `dict-easton` count refresh + 13 pre-existing code fixes. **6404 passed / 0 logic failures** (1 pre-existing flaky HTTP-socket test, `test_build_all_route_serves_json`, passes in isolation).
 - **Base-HTML recovered + committed** (`5ee2ad1`) — the lost WEB scripture HTML; `ebible build` makes valid EPUBs again.
 - **Inject-tail spill resolver** (`d3acc4f`) — `inject.find_verse_region_b_spill` resolves Strategy-B chapters whose verses spill across a split-file boundary (jer/psa/isa/1ch). `scripts/audit_base_html.py` classifies regular vs irregular layout. 99.21% → 99.48%.
 - **Reference-corpus rebuild + Easton's** (`38b80d3`): Nave's Topical rebuilt clean from a CCEL PDF (`extract_naves_ccel.py` → 26,335 `topic-nave`, was 15,258 OCR-noisy); Easton's Bible Dictionary ingested (`extract_eastons_ccel.py` → 3,779 `dict-easton`, new kind under `hist`). `promote.batch_insert_notes` (one write/book). Corpus 52,859 → 67,715.

@@ -137,14 +137,21 @@ class TestTau7XVStructuralMapMatthewNewSection:
 
 
 class TestTau7XVBlockerAndHonestDeferral:
-    def test_mat_py_NOT_created(self):
-        """mat.py must NOT exist — shipping the overflow output
-        would be distorted scripture (τ.6.x.0b). The honest
-        deferral, like the τ.7.x.s sus 'not created' pin."""
-        assert not (AMHARIC_TEWAHEDO / "mat.py").exists()
+    # τ.7.x.v DEFERRED mat.py here (the NT-renumber overflow would have
+    # shipped distorted scripture — τ.6.x.0b). That deferral was later
+    # RESOLVED at τ.6.x.NT.c (2026-05-20): Matthew now renders at an
+    # HONEST ocr-tier3 partial (953/1071 verses, ch 27-28 flagged missing
+    # in the module docstring) — an honest partial render, not the overflow
+    # output τ.7.x.v refused. The τ.7.x.v blocker's HISTORICAL record stays
+    # pinned in _source.yaml (the test_source_* tests below).
+    def test_mat_py_rendered_at_tau6x_nt_c(self):
+        """mat.py now EXISTS (deferral resolved at τ.6.x.NT.c)."""
+        assert (AMHARIC_TEWAHEDO / "mat.py").is_file()
 
-    def test_geez_mat_NOT_created(self):
-        assert not (GEEZ_TEWAHEDO / "mat.py").exists()
+    def test_geez_mat_rendered_at_tau6x_nt_c(self):
+        mat = GEEZ_TEWAHEDO / "mat.py"
+        assert mat.is_file()
+        assert 'INGEST_PHASE = "τ.6.x.NT.c"' in mat.read_text(encoding="utf-8")
 
     def test_source_tau7xv_is_pilot_discovery_blocker(self):
         t = _source_yaml()["ocr_strategy"]["tau7xv_ingest"]

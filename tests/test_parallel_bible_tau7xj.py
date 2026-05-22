@@ -578,18 +578,11 @@ class TestTau7XJKBackLinkChainAndPriorPinsPreserved:
 
 
 class TestTau7XJKStateDocs:
-    def test_session_state_mentions_both_phases(self):
-        txt = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-        assert "τ.7.x.j" in txt and "τ.7.x.k" in txt
+    # Doc-pins collapsed to the CHANGELOG chokepoint (2026-05-21): the
+    # old test_session_state_*/test_in_flight_*/test_plan_ledger_* pins
+    # read SESSION_STATE.md / IN_FLIGHT.md (rolling, trimmed) and the
+    # moved PLAN_2026-05-09.md. The durable phase record is CHANGELOG.md.
+    def test_phase_recorded_in_changelog(self):
+        from tests.fixtures import assert_phase_recorded
 
-    def test_in_flight_mentions_tau7xj(self):
-        txt = (REPO / "dev" / "IN_FLIGHT.md").read_text(encoding="utf-8")
-        assert "τ.7.x.j" in txt
-
-    def test_changelog_records_tau7xj_tau7xk(self):
-        txt = (REPO / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")
-        assert "τ.7.x.j" in txt and "τ.7.x.k" in txt
-
-    def test_plan_ledger_records_tau7xj(self):
-        txt = (REPO / "dev" / "PLAN_2026-05-09.md").read_text(encoding="utf-8")
-        assert "τ.7.x.j" in txt
+        assert_phase_recorded("τ.7.x.j", "τ.7.x.k")
