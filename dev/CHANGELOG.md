@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-22 — session — matrix maximization (surface orphaned corpus) + audit housekeeping
+
+**Context:** follow-up to a full project + environment audit (toward the **2026-06-07 deadline**). The audit found the editions×kinds matrix was under-surfacing the corpus: `topic-nave` (26,335 notes — 39% of the 67,715 corpus) shipped in **zero** editions because no edition enabled the `topic` category, and the flagship's vestigial `max_phase: mvp` gate silently dropped its own declared distinctives.
+
+**Shipped (UNCOMMITTED — awaiting "save"):**
+- **Matrix maximization (`content/editions.yaml`).** (a) `scholarly-academic` += `topic` category → the "includes everything" edition now reaches the full corpus (enabled notes **41,374 → 67,709** ≈ 67,715), finally matching `test_scholarly_edition_counts_full_corpus`'s long-documented intent. (b) `ethiopian-tewahedo` `max_phase: mvp → phase2` → the flagship now ships its declared `dist-typological`/`dist-mariological` + `dict-easton` (**37,495 → 41,285**), staying focused (no topical firehose — the flagship does not enable `topic`). Rationale: editions.yaml's ACADEMIC all-traditions posture + the §1 "deeper/more impressive" north star. Standalone Ge'ez/Amharic left at `mvp` (deferred τ.G build). TDD: `tests/test_enabled_kinds_unified.py::TestMatrixMaximization` (3 pins, red→green).
+- **Housekeeping (the 3 audit-flagged lint warns).** `IN_FLIGHT.md` tracker-state `active → idle` (the reference-corpus/inject-tail work it described is committed; tree clean at `e1e2f1b`). Logged the previously-unjournaled **ν.8 (Bilingual ToC)** phase — native Ge'ez/Amharic book labels in the ToC via `scripts/core/book_native_names.py` + `scripts/build_edition.py` — which had shipped in an earlier session without a CHANGELOG entry. Added a scope-addenda index to `dev/PLAN_2026-05-21.md` cross-referencing the 20 `dev/SCOPE_*-addendum-*.md` files.
+
+**Verified:** matrix pins 12/12; edition/matrix/build regression **762 passed / 0 failed** (341 in 8 edition/build files + 421 in the test_scripts matrix subset); `trace_matrix` **0 unresolved references**; build smoke → valid EPUB; `lint_rules` 0 fail. Interpreter pythoncore-3.14.4 + PYTHONUTF8=1.
+
+**Next:** EPUB visual QA (playwright); the global plugin/MCP-prune apply-list was handed to the user (self-modification-guarded settings).
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** pending user "save".
+
+---
+
 ## 2026-05-21 — session (later) — test suite green: 92 failures triaged to 4 root-cause classes + fixed (phase-pin chokepoint + lint guard)
 
 **Context:** the post-rebuild suite carried 92 failures. Reproduced the full list (serial run), triaged into four root-cause classes — **none a product-logic regression in the build/inject path** — and fixed each at root cause. Toward the **2026-06-07 deadline**.

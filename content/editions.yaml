@@ -48,7 +48,7 @@ editions:
     disabled_kinds:
       - comm-reformation
       - comm-contextual
-    max_phase: mvp
+    max_phase: phase2
     cover_image: "covers/ethiopian-tewahedo.jpg"
     book_covers:
       - "gen=covers/_book_defaults/gen.jpg"
@@ -259,6 +259,7 @@ editions:
       - apol
       - modern
       - dist
+      - topic
     max_phase: phase3
     cover_image: "covers/scholarly-academic.jpg"
     notes: "Includes everything available. The current project state is closest to this edition."

@@ -109,3 +109,35 @@ class TestThreeResolversAgree:
             via_config = {k["code"] for k in config._kinds_in_edition(eid)}
             assert via_matrix == via_build, f"matrix vs build mismatch for {eid}: {via_matrix ^ via_build}"
             assert via_matrix == via_config, f"matrix vs config mismatch for {eid}: {via_matrix ^ via_config}"
+
+
+class TestMatrixMaximization:
+    """2026-05-22 matrix-maximization fixes (audit finding).
+
+    Pins the intended end-state that vestigial gates had suppressed:
+    - scholarly-academic ('includes everything') must surface topic-nave,
+      which had been orphaned in zero editions (no edition enabled `topic`).
+    - the flagship ethiopian-tewahedo must actually ship its declared
+      dist-typological / dist-mariological distinctives and dict-easton,
+      which the vestigial `max_phase: mvp` gate silently dropped.
+    """
+
+    def setup_method(self):
+        self.kinds = config.load_kinds()
+        self.editions = config.load_editions()
+
+    def _edition(self, eid):
+        return next(e for e in self.editions if e["id"] == eid)
+
+    def test_scholarly_surfaces_topic_nave(self):
+        codes = config.enabled_kind_codes(self._edition("scholarly-academic"), self.kinds)
+        assert "topic-nave" in codes
+
+    def test_flagship_ships_declared_distinctives(self):
+        codes = config.enabled_kind_codes(self._edition("ethiopian-tewahedo"), self.kinds)
+        assert "dist-typological" in codes
+        assert "dist-mariological" in codes
+
+    def test_flagship_surfaces_eastons_dictionary(self):
+        codes = config.enabled_kind_codes(self._edition("ethiopian-tewahedo"), self.kinds)
+        assert "dict-easton" in codes

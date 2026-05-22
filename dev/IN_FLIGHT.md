@@ -1,6 +1,6 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
 > **➤➤➤ 2026-05-21 (LATEST) REFERENCE-CORPUS REBUILD + EXPANSION — READ FIRST; supersedes every banner below for state. COMMITTED `38b80d3`; later arcs (re-audit + PLAN_2026-05-21, Track-D cleanups, base-HTML coverage audit, repo/rules maps) committed through `3c4a173`, plus one uncommitted map/rules batch — full chronology in `dev/CHANGELOG.md`.**
 >
