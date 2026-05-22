@@ -4,6 +4,7 @@ docs/superpowers/specs/2026-05-22-verse-popup-regeneration-design.md."""
 
 from __future__ import annotations
 
+import argparse
 import html as _html
 import re
 from pathlib import Path
@@ -208,3 +209,26 @@ def generate_book(code: str, *, dry_run: bool) -> dict:
                 notes_io.ensure_backup(fpath)
                 notes_io.atomic_write(fpath, text)
     return stats
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Regenerate verse popups in epub_working/.")
+    ap.add_argument("--books", nargs="*", help="book codes; default = all KJV-covered")
+    ap.add_argument("--dry-run", action="store_true")
+    args = ap.parse_args()
+    codes = args.books or list(config.books_by_code())
+    total_w = total_a = 0
+    for code in codes:
+        s = generate_book(code, dry_run=args.dry_run)
+        if s.get("skipped_reason"):
+            print(f"  skip {code}: {s['skipped_reason']}")
+            continue
+        total_w += s["verses_wrapped"]
+        total_a += s["asides_built"]
+        print(f"  {code}: wrapped {s['verses_wrapped']}, asides {s['asides_built']}, files {len(s['files_changed'])}")
+    print(f"TOTAL wrapped {total_w}, asides {total_a}{' (dry-run)' if args.dry_run else ''}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

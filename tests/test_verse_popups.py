@@ -179,3 +179,21 @@ class TestGenerateBook:
 
         stats = generate_book("gen", dry_run=True)
         assert stats["verses_wrapped"] == 0, stats  # already wrapped
+
+
+class TestIdempotency:
+    def test_second_run_changes_nothing(self, tmp_path, monkeypatch):
+        import shutil
+
+        import scripts.generate_verse_popups as g
+
+        work = tmp_path / "epub_working"
+        work.mkdir()
+        for f in g.EPUB_DIR.glob("index_split_*.html"):
+            shutil.copy(f, work / f.name)
+        monkeypatch.setattr(g, "EPUB_DIR", work)
+
+        first = g.generate_book("1ki", dry_run=False)
+        assert first["files_changed"], first
+        second = g.generate_book("1ki", dry_run=False)
+        assert second["files_changed"] == [], second
