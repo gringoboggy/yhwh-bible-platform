@@ -92,3 +92,31 @@ class TestWrapVerseNumber:
         chunk = '<span class="vn">2</span>text with a stray "2" inside.'
         out, changed = wrap_verse_number(chunk, code="1ki", ch=1, vs=2, title="The First Book of Kings")
         assert out.count('id="v-1ki-1-2"') == 1
+
+
+class TestHarvestExistingLangs:
+    SAMPLE = (
+        '<aside class="vnote" id="vnote-gen-1-3" epub:type="footnote">'
+        "<p><strong>Genesis 1:3.</strong></p>"
+        '<p class="vnote-text">God said...</p>'
+        '<p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>'
+        '<p class="vnote-hebrew" dir="rtl" lang="he"><em>וַיֹּ֥אמֶר</em></p>'
+        '<p class="vnote-source-label">Greek (Septuagint / Brenton)</p>'
+        '<p class="vnote-greek" lang="grc">Καὶ εἶπεν</p>'
+        '<p><a href="#v-gen-1-3" class="vnote-back" title="Back">↩</a></p></aside>'
+    )
+
+    def test_extracts_inner_html_keyed_by_vnote_id(self):
+        from scripts.generate_verse_popups import harvest_existing_langs
+
+        got = harvest_existing_langs(self.SAMPLE)
+        assert got["vnote-gen-1-3"]["hebrew"] == "<em>וַיֹּ֥אמֶר</em>"
+        assert got["vnote-gen-1-3"]["greek"] == "Καὶ εἶπεν"
+
+    def test_absent_languages_are_none(self):
+        from scripts.generate_verse_popups import harvest_existing_langs
+
+        text = '<aside class="vnote" id="vnote-1ki-1-1" epub:type="footnote"><p class="vnote-text">x</p></aside>'
+        got = harvest_existing_langs(text)
+        assert got["vnote-1ki-1-1"]["hebrew"] is None
+        assert got["vnote-1ki-1-1"]["greek"] is None
