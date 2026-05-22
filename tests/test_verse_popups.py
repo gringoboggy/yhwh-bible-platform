@@ -69,8 +69,8 @@ class TestWrapVerseNumber:
         out, changed = wrap_verse_number(chunk, code="1ki", ch=1, vs=1, title="The First Book of Kings")
         assert changed is True
         assert (
-            '<a id="v-1ki-1-1" epub:type="noteref" '
-            'title="The First Book of Kings 1:1" href="#vnote-1ki-1-1">'
+            '<a class="vn-link" id="v-1ki-1-1" href="#vnote-1ki-1-1" '
+            'epub:type="noteref" title="The First Book of Kings 1:1">'
             '<span class="vn">1</span></a>'
         ) in out
 
@@ -78,8 +78,8 @@ class TestWrapVerseNumber:
         from scripts.generate_verse_popups import wrap_verse_number
 
         already = (
-            '<a id="v-1ki-1-1" epub:type="noteref" '
-            'title="The First Book of Kings 1:1" href="#vnote-1ki-1-1">'
+            '<a class="vn-link" id="v-1ki-1-1" href="#vnote-1ki-1-1" '
+            'epub:type="noteref" title="The First Book of Kings 1:1">'
             '<span class="vn">1</span></a>And king David was old.'
         )
         out, changed = wrap_verse_number(already, code="1ki", ch=1, vs=1, title="The First Book of Kings")

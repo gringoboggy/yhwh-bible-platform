@@ -53,8 +53,8 @@ def wrap_verse_number(chunk: str, *, code: str, ch: int, vs: int, title: str) ->
     if idx == -1:
         return chunk, False
     wrapper = (
-        f'<a id="v-{code}-{ch}-{vs}" epub:type="noteref" '
-        f'title="{_html.escape(title)} {ch}:{vs}" href="#vnote-{code}-{ch}-{vs}">'
+        f'<a class="vn-link" id="v-{code}-{ch}-{vs}" href="#vnote-{code}-{ch}-{vs}" '
+        f'epub:type="noteref" title="{_html.escape(title)} {ch}:{vs}">'
         f"{needle}</a>"
     )
     return chunk[:idx] + wrapper + chunk[idx + len(needle) :], True
