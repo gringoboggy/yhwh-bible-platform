@@ -98,3 +98,59 @@ class TestResyncGlyphs:
         assert '<sup class="marker-dist-typological">❖</sup>' in out
         assert '<a href="#ref-x" class="note-back" title="Back">❖</a>' in out
         assert n == 2
+
+
+class TestHtmlTitleDataDriven:
+    def test_topic_uses_descriptive_title(self):
+        from scripts.inject import html_title_for
+
+        t = html_title_for("topic-nave")
+        assert t != "Note"
+        assert "Nave" in t
+
+    def test_every_registered_kind_uses_its_title_attr(self):
+        from scripts.core import config
+        from scripts.inject import html_title_for
+
+        bad = {
+            c: (html_title_for(c), k["title_attr"])
+            for c, k in config.kinds_by_code().items()
+            if k.get("title_attr") and html_title_for(c) != k["title_attr"]
+        }
+        assert not bad, f"kinds whose tooltip != their title_attr: {bad}"
+
+    def test_lang_hebrew_uses_title_attr(self):
+        from scripts.inject import html_title_for
+
+        assert html_title_for("lang-hebrew") == "Hebrew word study"
+
+    def test_unregistered_falls_back_to_note(self):
+        from scripts.inject import html_title_for
+
+        assert html_title_for("totally-unknown-xyz") == "Note"
+
+
+class TestResyncTitles:
+    def test_resyncs_default_note_to_title_attr(self):
+        from scripts.inject import html_title_for
+        from scripts.resync_marker_glyphs import resync_titles
+
+        text = (
+            '<a class="note-ref note-topic-nave" id="ref-x" href="#note-x" '
+            'epub:type="noteref" title="Note"><sup class="marker-topic-nave">✦</sup></a>'
+        )
+        out, n = resync_titles(text)
+        assert f'title="{html_title_for("topic-nave")}"' in out
+        assert n == 1
+
+    def test_idempotent_when_already_correct(self):
+        from scripts.inject import html_title_for
+        from scripts.resync_marker_glyphs import resync_titles
+
+        correct = html_title_for("lang-hebrew")
+        text = (
+            '<a class="note-ref note-lang-hebrew" id="ref-y" href="#note-y" '
+            f'epub:type="noteref" title="{correct}"><sup class="marker-lang-hebrew">⌘</sup></a>'
+        )
+        out, n = resync_titles(text)
+        assert out == text and n == 0

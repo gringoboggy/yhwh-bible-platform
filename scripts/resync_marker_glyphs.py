@@ -20,7 +20,7 @@ import argparse
 import re
 
 from scripts.core import notes_io
-from scripts.inject import EPUB_DIR, glyph_for
+from scripts.inject import EPUB_DIR, glyph_for, html_title_for
 
 # Inline marker: <sup class="marker-{kind}">{glyph}</sup> — kind is in the class.
 _MARKER_RE = re.compile(r'(<sup class="marker-)([a-z0-9-]+)(">)(.*?)(</sup>)', re.DOTALL)
@@ -64,9 +64,31 @@ def resync_glyphs(text: str) -> tuple[str, int]:
     return text, changed
 
 
+# Marker open tag: <a class="note-ref note-{kind}" ... title="{tooltip}"><sup...
+_MARKER_TITLE_RE = re.compile(r'(<a class="note-ref note-)([a-z0-9-]+)("[^>]*\stitle=")([^"]*)(">)')
+
+
+def resync_titles(text: str) -> tuple[str, int]:
+    """Rewrite the ``title="…"`` tooltip on every note-ref marker in ``text`` to
+    the current ``html_title_for(kind)`` (kind read from the marker's class).
+    Returns ``(new_text, n_changed)``. Idempotent."""
+    changed = 0
+
+    def _fix(m: re.Match) -> str:
+        nonlocal changed
+        correct = html_title_for(m.group(2))
+        if m.group(4) != correct:
+            changed += 1
+        return f"{m.group(1)}{m.group(2)}{m.group(3)}{correct}{m.group(5)}"
+
+    return _MARKER_TITLE_RE.sub(_fix, text), changed
+
+
 def resync_file(path, *, dry_run: bool) -> int:
     text = path.read_text(encoding="utf-8")
-    new_text, n = resync_glyphs(text)
+    new_text, n_glyph = resync_glyphs(text)
+    new_text, n_title = resync_titles(new_text)
+    n = n_glyph + n_title
     if n and not dry_run:
         notes_io.ensure_backup(path)
         notes_io.atomic_write(path, new_text)

@@ -107,8 +107,14 @@ def glyph_for(kind: str) -> str:
     return "◇"
 
 
-# Short HTML title attribute (category label, not the popover title)
+# HTML title attribute — the marker's hover tooltip.
 def html_title_for(kind: str) -> str:
+    # Data-driven: the kind's title_attr in kinds.yaml is the canonical tooltip
+    # (all registered kinds define one). The hardcoded branches below remain only
+    # as a defensive fallback for kinds not present in the registry.
+    rec = config.kinds_by_code().get(kind)
+    if rec and rec.get("title_attr"):
+        return rec["title_attr"]
     if kind == "word":
         return "Word"
     if kind == "parallel" or kind.startswith("xref-") or kind.startswith("parallel-"):

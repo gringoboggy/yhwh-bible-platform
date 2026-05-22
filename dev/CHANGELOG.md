@@ -6,6 +6,21 @@
 
 ---
 
+## 2026-05-22 — session — marker tooltip fix: data-driven html_title_for + title resync
+
+**Context:** the symbol-system fix made `glyph_for` data-driven; `html_title_for` had the identical hardcoded shape — marker hover tooltips defaulted to "Note" for the 10 newer categories and returned terse labels for the other 5. Follow-on fix at the user's request.
+
+**Shipped:**
+- **`html_title_for` is now data-driven** (`scripts/inject.py`) — returns the kind's `title_attr` from `kinds.yaml` (all 71 kinds define one, e.g. `lang-hebrew` → "Hebrew word study", `topic-nave` → "Nave's Topical Bible — topics this verse appears under"); the hardcoded branches remain as a defensive fallback. TDD: `tests/test_marker_glyphs.py::TestHtmlTitleDataDriven` (4 pins).
+- **`resync_titles`** added to `scripts/resync_marker_glyphs.py` — rewrites the `title="…"` tooltip on every note-ref marker to `html_title_for(kind)` (kind read from the marker class). +`TestResyncTitles` (2 pins). Resynced **66,437** tooltips in the base.
+- Result: every marker's hover tooltip now matches its `title_attr`; the 10 newer categories no longer show the generic "Note".
+
+**Verified:** 17 marker-glyph/title tests pass; `ebible verify` **errors=0 / 24,015 paired**; build smoke 31 pass; ruff + `lint_rules` clean; resync idempotent (re-run = 0).
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — symbol-system fix: data-driven glyph_for + base glyph resync (5 → 15 symbols rendering)
 
 **Context:** a symbol-system audit found `inject.glyph_for` was a hardcoded 5-glyph prefix map (⌘/◇/‖/✧/⌂ + a `◇` default) that ignored the `symbol` field in `kinds.yaml`/`categories.yaml`. So although 15 category symbols are defined, only 5 rendered: 11 kinds collapsed to `◇`, most visibly **26,335 `topic-nave` notes showing `◇` (Commentary) instead of `✦` (Topical)**, and `hist-*` showing `◇` instead of `⌂` (only `dict-*` got `⌂`).
