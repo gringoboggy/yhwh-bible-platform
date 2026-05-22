@@ -1180,13 +1180,15 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     # Build BISAC subjects (in addition to the LCSH subjects below)
     bisac_meta = ""
     for code in pub["bisac_codes"]:
+        # EPUB3: a subject with property="authority" MUST be paired with a
+        # property="term" refining the same dc:subject id, else epubcheck
+        # RSC-005 ("A term property must be associated with a dc:subject when
+        # an authority is specified"). Emit both, refining the bisac- id.
+        esc = _xml_escape(code)
         bisac_meta += (
-            f"    <dc:subject>{_xml_escape(code)}</dc:subject>\n"
-            f'    <meta refines="#bisac-{_xml_escape(code)}" '
-            f'property="authority">BISAC</meta>\n'
-        ).replace(
-            f"<dc:subject>{_xml_escape(code)}</dc:subject>",
-            f'<dc:subject id="bisac-{_xml_escape(code)}">{_xml_escape(code)}</dc:subject>',
+            f'    <dc:subject id="bisac-{esc}">{esc}</dc:subject>\n'
+            f'    <meta refines="#bisac-{esc}" property="authority">BISAC</meta>\n'
+            f'    <meta refines="#bisac-{esc}" property="term">{esc}</meta>\n'
         )
 
     # WCAG 2.1 AA accessibility declarations + BCP-47 + DOI placeholder + LCSH

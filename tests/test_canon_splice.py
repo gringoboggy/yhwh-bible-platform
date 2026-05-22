@@ -53,3 +53,27 @@ def test_canon_splice_preserves_kept_aside_and_drops_orphaned_one(tmp_path):
     # Dropped book B: scripture/marker gone, and its now-orphaned aside removed.
     assert 'id="ref-b0101"' not in out, "dropped book B's marker should be spliced out"
     assert 'id="note-b0101"' not in out, "dropped book B's orphaned aside should be reconciled away"
+
+
+def test_patch_opf_bisac_subject_pairs_authority_and_term():
+    """epubcheck RSC-005: a BISAC ``dc:subject`` carrying ``property="authority"``
+    must ALSO carry a paired ``property="term"`` refining the same id — else
+    'A term property must be associated with a dc:subject when an authority is
+    specified'. patch_opf emitted authority without term (catholic/anglican)."""
+    opf = (
+        "<?xml version='1.0'?>\n"
+        '<package version="3.0">\n'
+        '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n'
+        '<dc:title>X</dc:title><dc:creator id="creator">Public Domain</dc:creator>\n'
+        '<meta refines="#creator" property="role" scheme="marc:relators">aut</meta>\n'
+        '<meta refines="#creator" property="file-as">Public Domain</meta>\n'
+        "<dc:date>2020-01-01</dc:date><dc:language>en</dc:language>\n"
+        "</metadata></package>"
+    )
+    edition = {"id": "cat", "title": "X", "bisac_codes": ["REL006150"]}
+    out = build_edition.patch_opf(opf, edition, "v1")
+    assert '<dc:subject id="bisac-REL006150">' in out
+    assert '<meta refines="#bisac-REL006150" property="authority">BISAC</meta>' in out
+    assert '<meta refines="#bisac-REL006150" property="term">REL006150</meta>' in out, (
+        "BISAC subject is missing the paired property='term' meta (epubcheck RSC-005)"
+    )

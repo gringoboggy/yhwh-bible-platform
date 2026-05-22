@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-22 — session — fix OPF BISAC dc:subject (term/authority pairing) → all editions epubcheck-clean
+
+**Context:** after the footnote-orphan fix, catholic-study + anglican-bcp (the catholic-canon editions, which carry `bisac_codes`) still emitted 2 RSC-005 errors in `content.opf`: "A term property must be associated with a dc:subject when an authority is specified."
+
+**Root cause:** `patch_opf`'s BISAC-subject emission wrote `<dc:subject id="bisac-CODE">CODE</dc:subject>` + `<meta refines="#bisac-CODE" property="authority">BISAC</meta>` but NO paired `property="term"` meta — which EPUB3 requires whenever an `authority` is specified.
+
+**Fix:** `patch_opf` now emits `<meta refines="#bisac-CODE" property="term">CODE</meta>` alongside the authority meta (and writes the id-bearing `dc:subject` directly, dropping an awkward `.replace`). TDD: `tests/test_canon_splice.py::test_patch_opf_bisac_subject_pairs_authority_and_term`.
+
+**Verified:** catholic-study + anglican-bcp epubcheck **0/0/0/0**. omega0 patch_opf (32) + build-smoke (31) regression green. **All editions across all five canon shapes are now epubcheck-clean (EPUB-3.3: 0 fatals / 0 errors / 0 warnings).**
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — clean orphaned footnotes in canon-spliced editions (book-splice no longer swallows the shared notes-section)
 
 **Context:** the flagship was epubcheck-clean, but smaller-canon editions (Reformed/Catholic/Tanakh/Orthodox) had ~2,373 orphaned note-ref markers (RSC-012 — `href="#note-X"` with no `id="note-X"`). Root cause in `build_edition.filter_books_for_canon`: every split file has ONE shared per-file notes-section (+ verse-refs-section) at its end holding asides for EVERY book in the file, and it falls inside the LAST book's `_BOOK_SEGMENT_RE` segment (which runs to `</body>`). When a smaller canon drops that last book, the segment **swallowed the shared notes-section** — taking KEPT books' asides with it while their inline markers survived → orphans. (Pass 2's dangling-link stripper missed them: its `>([^<]+)</a>` matches only plain-text links, not markers whose content is `<sup>glyph</sup>`.)
