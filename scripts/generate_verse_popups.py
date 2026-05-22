@@ -5,6 +5,7 @@ docs/superpowers/specs/2026-05-22-verse-popup-regeneration-design.md."""
 from __future__ import annotations
 
 import html as _html
+import re
 
 _EMPTY_TEXT = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
 
@@ -31,3 +32,22 @@ def build_vnote_aside(
         parts.append(f'\n  <p class="vnote-greek" lang="grc">{greek}</p>')
     parts.append(f'\n<p><a href="#v-{code}-{ch}-{vs}" class="vnote-back" title="Back">↩</a></p></aside>')
     return "".join(parts)
+
+
+def wrap_verse_number(chunk: str, *, code: str, ch: int, vs: int, title: str) -> tuple[str, bool]:
+    """Wrap the first bare ``<span class="vn">{vs}</span>`` in ``chunk`` with the
+    verse-popup noteref anchor. Idempotent: if a wrapper for this verse already
+    exists, return unchanged. ``chunk`` MUST be scoped to one verse region so the
+    head verse-number span is the right one. Returns ``(new_chunk, changed)``."""
+    if f'id="v-{code}-{ch}-{vs}"' in chunk:
+        return chunk, False
+    needle = f'<span class="vn">{vs}</span>'
+    idx = chunk.find(needle)
+    if idx == -1:
+        return chunk, False
+    wrapper = (
+        f'<a id="v-{code}-{ch}-{vs}" epub:type="noteref" '
+        f'title="{_html.escape(title)} {ch}:{vs}" href="#vnote-{code}-{ch}-{vs}">'
+        f"{needle}</a>"
+    )
+    return chunk[:idx] + wrapper + chunk[idx + len(needle) :], True

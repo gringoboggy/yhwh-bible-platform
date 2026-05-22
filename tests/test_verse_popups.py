@@ -59,3 +59,36 @@ class TestBuildVnoteAside:
         )
         assert "A &lt; B &amp;" in html
         assert '<p class="vnote-text">A &lt; B' in html
+
+
+class TestWrapVerseNumber:
+    def test_wraps_bare_span(self):
+        from scripts.generate_verse_popups import wrap_verse_number
+
+        chunk = '<p class="verse-p"><span class="vn">1</span>And king David was old.'
+        out, changed = wrap_verse_number(chunk, code="1ki", ch=1, vs=1, title="The First Book of Kings")
+        assert changed is True
+        assert (
+            '<a id="v-1ki-1-1" epub:type="noteref" '
+            'title="The First Book of Kings 1:1" href="#vnote-1ki-1-1">'
+            '<span class="vn">1</span></a>'
+        ) in out
+
+    def test_idempotent_when_already_wrapped(self):
+        from scripts.generate_verse_popups import wrap_verse_number
+
+        already = (
+            '<a id="v-1ki-1-1" epub:type="noteref" '
+            'title="The First Book of Kings 1:1" href="#vnote-1ki-1-1">'
+            '<span class="vn">1</span></a>And king David was old.'
+        )
+        out, changed = wrap_verse_number(already, code="1ki", ch=1, vs=1, title="The First Book of Kings")
+        assert changed is False
+        assert out == already
+
+    def test_only_first_matching_span_in_chunk(self):
+        from scripts.generate_verse_popups import wrap_verse_number
+
+        chunk = '<span class="vn">2</span>text with a stray "2" inside.'
+        out, changed = wrap_verse_number(chunk, code="1ki", ch=1, vs=2, title="The First Book of Kings")
+        assert out.count('id="v-1ki-1-2"') == 1
