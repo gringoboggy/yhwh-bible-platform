@@ -120,3 +120,28 @@ class TestHarvestExistingLangs:
         got = harvest_existing_langs(text)
         assert got["vnote-1ki-1-1"]["hebrew"] is None
         assert got["vnote-1ki-1-1"]["greek"] is None
+
+
+class TestVerseSpansInChapter:
+    HTML = (
+        '<p id="ch-b10-c1" class="ch-heading"><span class="bold-num">1</span></p>'
+        '<p class="verse-p"><span class="vn">1</span>First verse.</p>'
+        '<p class="verse-p"><span class="vn">2</span>Second verse.</p>'
+        '<p id="ch-b10-c2" class="ch-heading"><span class="bold-num">2</span></p>'
+        '<p class="verse-p"><span class="vn">1</span>Next chapter v1.</p>'
+        '<section class="verse-refs-section" epub:type="footnotes" hidden=""></section>'
+    )
+
+    def test_finds_chapter_1_region_bounds(self):
+        from scripts.generate_verse_popups import chapter_region
+
+        start, end = chapter_region(self.HTML, bxx="b10", ch=1)
+        slice_ = self.HTML[start:end]
+        assert "First verse." in slice_ and "Second verse." in slice_
+        assert "Next chapter v1." not in slice_
+
+    def test_lists_verse_numbers_in_order(self):
+        from scripts.generate_verse_popups import chapter_region, verse_numbers_in_region
+
+        start, end = chapter_region(self.HTML, bxx="b10", ch=1)
+        assert verse_numbers_in_region(self.HTML[start:end]) == [1, 2]

@@ -72,3 +72,30 @@ def harvest_existing_langs(text: str) -> dict[str, dict[str, str | None]]:
             "greek": gr.group(1) if gr else None,
         }
     return out
+
+
+def chapter_region(text: str, *, bxx: str, ch: int) -> tuple[int, int] | None:
+    """Byte range of chapter ``ch`` of book ``bxx`` in ``text`` — from its
+    heading anchor to the next chapter heading (any chapter), the verse-refs
+    section, or end of text. Returns None if the chapter heading is absent."""
+    anchor = f'id="ch-{bxx}-c{ch}"'
+    start = text.find(anchor)
+    if start == -1:
+        return None
+    after = start + len(anchor)
+    nxt = re.search(rf'id="ch-{re.escape(bxx)}-c\d+"', text[after:])
+    sect = text.find('<section class="verse-refs-section"', after)
+    end = len(text)
+    if nxt:
+        end = min(end, after + nxt.start())
+    if sect != -1:
+        end = min(end, sect)
+    return start, end
+
+
+_VN_RE = re.compile(r'<span class="vn">(\d+)</span>')
+
+
+def verse_numbers_in_region(region: str) -> list[int]:
+    """Verse numbers (in document order) inside one chapter region."""
+    return [int(m.group(1)) for m in _VN_RE.finditer(region)]
