@@ -232,6 +232,23 @@ def find_chapter_region_b(text: str, bxx: str, ch: int, ch_count: int) -> tuple[
             end_pos = ep
     except (ValueError, IndexError):
         pass
+    # ``end_pos`` (when set from an ``id="ch-…"`` find) points INSIDE the next
+    # chapter's opening tag — ``<a id="ch-…">`` puts the attribute at +3. Back
+    # up to that tag's ``<`` so the region never ends mid-tag; otherwise a
+    # verse-end-fallback marker for the chapter's last verse splices into the
+    # tag (``<a<a …note-ref…>``) and breaks XHTML well-formedness.
+    if end_pos < len(text):
+        tag_start = text.rfind("<", pos, end_pos)
+        if tag_start != -1:
+            end_pos = tag_start
+    # Never let the region include the per-file notes-section or the document
+    # epilogue — a verse-end-fallback marker for the LAST chapter would
+    # otherwise land among the footnotes or after </body></html>. (These
+    # boundaries are tag-starts, so they need no mid-tag back-up.)
+    for boundary in ('<aside class="notes-section"', "</body>"):
+        bp = text.find(boundary, pos)
+        if bp != -1 and bp < end_pos:
+            end_pos = bp
     return (pos, end_pos)
 
 
@@ -353,10 +370,25 @@ def find_marker_insertion_point(verse_html: str, anchor: str) -> int | None:
     function and is acceptable visually.
     """
     if not anchor or not anchor.strip():
-        # Trim trailing whitespace; insert at end
+        # Insert at the end of the verse region — but guard the region's edge.
+        # Strategy-B chapter-boundary / spill regions can over-run into the
+        # next chapter's `<a id="ch-…">` opening tag or the document epilogue;
+        # placing a marker there splits the tag (`<a<a …>`) or lands it after
+        # `</body>` ("junk after document element"). Both break XHTML.
         end = len(verse_html)
+        # 1) never past the document epilogue
+        body_close = verse_html.find("</body>")
+        if body_close != -1:
+            end = body_close
+        # 2) trim trailing whitespace
         while end > 0 and verse_html[end - 1] in " \t\n":
             end -= 1
+        # 3) if the region ended inside an unterminated `<…` open tag, back up
+        #    to that tag's `<` so the marker is never spliced mid-tag
+        last_open = verse_html.rfind("<", 0, end)
+        last_close = verse_html.rfind(">", 0, end)
+        if last_open > last_close:
+            end = last_open
         return end
 
     # Search for anchor in plain text (case-sensitive). The anchor field
@@ -525,13 +557,14 @@ def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: 
         existing_ch = int(m.group(1))
         existing_v = int(m.group(2))
         existing_s = m.group(3) or ""
-        if existing_ch != ch:
-            # Different chapter — should not happen if section is ours;
-            # treat as preceding ours so we land after them.
-            insertion = inside_start + m.end()
-            continue
-        existing_target = (existing_v, existing_s)
-        if existing_target < target:
+        # An existing aside PRECEDES our insertion when it belongs to a
+        # different chapter (treated as already-placed) OR when its
+        # (verse, suffix) sorts before ours. In BOTH cases we must land
+        # just after its closing </aside> — NEVER at m.end() (which is
+        # mid opening-tag, right after id="…"); splicing there splits the
+        # tag and produces malformed XHTML.
+        precedes = existing_ch != ch or (existing_v, existing_s) < target
+        if precedes:
             # find end of THIS aside (its </aside>) to land just after
             after_close = region.find("</aside>", m.end())
             if after_close < 0:
@@ -542,7 +575,7 @@ def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: 
                 after_close += 1
             insertion = inside_start + after_close
         else:
-            # existing_target >= target → insert before this one
+            # same chapter, (verse, suffix) >= target → insert before this one
             return inside_start + m.start()
     return insertion
 

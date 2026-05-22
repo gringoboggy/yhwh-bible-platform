@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-22 — session — fix malformed-XHTML inject bug (master HTML 58→0 malformed) + well-formedness gates
+
+**Context:** building a flagship EPUB for the [USER] e-reader check, a structural validation of the built EPUB found **58 of 65 XHTML content docs were not well-formed XML** (1,322+ split-tag sites). Every edition the project built shipped malformed markup that epubcheck + strict EPUB3 readers reject. It stayed invisible because `ebible verify` / `audit` B7 check marker↔aside **pairing**, not XML well-formedness (a mid-tag splice keeps href/id paired while breaking structure). A git bisect placed the corruption at the first inject (`7a1aecf`); the recovered base (`5ee2ad1`) was clean.
+
+**Root cause — three unsafe insertion offsets in `scripts/inject.py`, each landing mid-tag or past `</body>`:**
+1. **`find_aside_insertion_point`** — the `existing_ch != ch` branch set the offset to `m.end()` (just after `id="note-…"`, INSIDE the aside's opening tag), so a new aside spliced into a neighbour's start tag (`<aside …id="…"<aside …>`). Fixed: unified the two "this aside precedes ours" branches to always land after the existing `</aside>`.
+2. **`find_chapter_region_b`** — the chapter region ended at the next chapter's `id="ch-…"` ATTRIBUTE (inside its `<a>` tag) and ran to EOF for the last chapter; the verse-end fallback then spliced a marker mid-tag (`<a<a …note-ref…>`) or after `</body></html>`. Fixed: back the region end up to the tag's `<`, and cap it at the per-file notes-section / `</body>`.
+3. **verse-end fallback in `find_marker_insertion_point`** — placed markers at the raw region edge. Hardened to never land inside an unterminated `<…` tag or past `</body>` (defense-in-depth; also covers the `find_verse_region_b_spill` split-file edge, e.g. 1Ch 3:24).
+
+**Regenerated the master HTML** from the clean base (`git checkout 5ee2ad1 -- epub_working/` → `inject --all-books` [fixed] → `generate_verse_popups` → `resync_marker_glyphs`). Result: **0/61 files malformed** (was 58) and **feature-identical** to prior commit `ffa20c7` — note markers 67,555 · note asides 67,555 · vn-links 36,556 · vnote asides 36,535 · `<aside>` total 104,151 (all delta 0). The glyph resync touched only **290** glyphs (was 54,005): the fixed `glyph_for` now emits correct glyphs natively during inject, so only the base's pre-existing already-in notes needed it. Rebuilt flagship EPUB validates clean: **65/65 XHTML well-formed**, note markers == asides == 41,127 (**0 orphans**, was 512), 36,556 popups, OCF/OPF/nav all valid.
+
+**Guards added (defect-found ≠ defect-prevented — RULES §1 self-upgrading matrix):**
+- `tests/test_inject_wellformed.py` (NEW, 7 tests) — a unit pin for each of the three insertion fixes + an integration scan asserting every `epub_working/index_split_*.html` parses as well-formed XML.
+- **`audit.py` B8 — "Every content file is well-formed XML"** — so `ebible verify` (the routine no-Java gate) now catches this class, not just pairing (B7).
+
+**Verified:** 7 inject-wellformed + 17 marker-glyph tests pass; `audit --category B` exit 0 (B7 24,015/24,015 paired · B8 61 well-formed); flagship EPUB validator PASS; regeneration delta 0 across all feature metrics. NOTE: other editions previously built from the master HTML (incl. the standalone Ge'ez/Amharic builds in `exports/`) were also affected — rebuilding any edition now yields clean output.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — end-of-session audit + test-determinism fix (kill the build-all socket flake)
 
 **Context:** general audit before a fresh session. Health swept clean — git tree clean; `ebible verify` errors=0 / 24,015 paired; `trace_matrix` 0 unresolved; `lint_rules` 16/0/0; build smoke 31; marker-glyph 17, verse-popup 19, validate-schemas 49 all pass. `test_scripts.py` was 975 pass + 1 fail — the lone failure the long-documented `test_build_all_route_serves_json` flake (real build of every edition over a live socket → WinError 10053 under serial load; passes in isolation). PLAN Track-D prescribed mocking it if it recurred; it recurred.

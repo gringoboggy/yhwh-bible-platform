@@ -850,6 +850,29 @@ def check_b7_note_pairing():
     return issues
 
 
+def check_b8_wellformed_xml():
+    """B8: Every content file parses as well-formed XML.
+
+    EPUB3 serves XHTML, so malformed markup (e.g. an aside opening tag split
+    by a mid-tag splice) makes editions fail epubcheck and break on strict
+    readers. B7 pairing can stay green while structure is broken — a mid-tag
+    aside still has matching href/id — so well-formedness is a distinct gate.
+    Closes the hole that let 1,322 malformed asides ship undetected.
+    """
+    from xml.etree import ElementTree as ET
+
+    issues = []
+    files = sorted(EPUB_DIR.glob("index_split_*.html"))
+    for f in files:
+        try:
+            ET.fromstring(f.read_text(encoding="utf-8"))
+        except ET.ParseError as e:
+            issues.append(Issue("B", "B8", "ERROR", f.name, f"not well-formed XML: {e}"))
+    if not issues:
+        issues.append(Issue("B", "B8", "INFO", "<all>", f"{len(files)} content files well-formed"))
+    return issues
+
+
 CATEGORY_B_CHECKS = [
     ("B1", "Every book has a bp-NN title page", check_b1_title_pages),
     ("B2", "Every chapter has a ch-bXX-cN anchor", check_b2_chapter_anchors),
@@ -858,6 +881,7 @@ CATEGORY_B_CHECKS = [
     ("B5", "No duplicate IDs across content files", check_b5_id_collisions),
     ("B6", "Verse-marker style consistent within each book", check_b6_marker_consistency),
     ("B7", "Note refs ↔ asides paired", check_b7_note_pairing),
+    ("B8", "Every content file is well-formed XML", check_b8_wellformed_xml),
 ]
 
 
