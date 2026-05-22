@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-22 — session — Track D Tier 4: conservative config-ignore (template E501) → ruff 511 → 243
+
+**Context:** final step of the Track D lint sequence. Goal: make the ruff count reflect only GENUINE issues — without masking real backlog.
+
+**Analysis (why conservative — user-chosen scope):** of the 511, only the ~268 E501 in `scripts/templates/*.py` are unambiguously *inherent* (each console template is one giant embedded-HTML `r"""…"""` constant — Tailwind class lists / inline styles / data-attrs can't be wrapped without breaking the rendered page). The rest — C901 (complex functions), SIM105 (suppressible-except), N8xx (naming) — are genuine low-priority backlog, NOT noise; per-file-ignoring them would hide real work behind a clean-looking number.
+
+**Change:** one `per-file-ignores` entry added to `pyproject.toml` — `"scripts/templates/*.py" = ["E501"]` (only E501; every other rule still applies there). Config-only — no code touched.
+
+**Verified:** ruff total **511 → 243**; E501 in `scripts/templates` → 0; **19 non-template E501 + C901 + SIM105 + N8xx stay VISIBLE** (honest backlog, deliberately not masked); `ruff format` clean; `lint_rules.py` 16/0/0; config-aware tests (`test_omega4x_hygiene` + `test_lint_rules`) 64 passed. No full-suite run needed — config-only, no Python logic changed.
+
+**Session total:** ruff **1071 → 243** across 4 commits (safe autofixes + reviewed F401 + F821 incl. a real `check_a11y` Counter bug + re-export hubs marked + Tiers 1/2 mechanical & bug-hunt + this Tier-4 config). All 11 editions epubcheck-clean. The residual 243 is honest, visible backlog.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — Track D lint Tiers 1+2: mechanical cleanup + bug-hunt (646 → 511)
 
 **Context:** continuation of the user-approved Track D lint-triage sequence. Tier 1 = safe mechanical fixes; Tier 2 = "bug-hunt" the warning classes most likely to hide real defects.

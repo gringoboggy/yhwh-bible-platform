@@ -69,6 +69,14 @@ mccabe.max-complexity = 12
 # same category as build_edition.py above. Splitting them would scatter
 # cohesive pipeline logic for no readability gain, so C901 is ignored here.
 "scripts/inject.py" = ["E402", "C901"]
+# scripts/templates/*.py are console HTML template modules — each is one giant
+# r"""...""" HTML string constant. E501 (line-too-long) is intrinsic to embedded
+# HTML (Tailwind class lists, inline styles, data-* attributes); wrapping those
+# lines is a no-op or an active regression for the rendered page. (The other
+# rules still apply — only E501 is exempt here.) Codified at the Track-D Tier-4
+# config pass, 2026-05-22 (conservative scope: only this unambiguously-inherent
+# case is masked; C901/SIM105/N8xx stay visible as honest backlog).
+"scripts/templates/*.py" = ["E501"]
 # content/notes/*.py are pure data files — every entry is a tuple containing
 # a long HTML body string. E501 (line-too-long) is intrinsic to the format.
 # N999 (invalid module name) fires on books like "1ch.py" / "2ki.py" because
