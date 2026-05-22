@@ -83,6 +83,14 @@ KIND_TO_GLYPH = {
 
 # Sub-kind families inherit glyph from their family prefix
 def glyph_for(kind: str) -> str:
+    # Data-driven: a registered kind carries its own symbol in kinds.yaml — every
+    # category's symbol propagates to its kinds, and per-kind overrides (e.g.
+    # comm-ai's Ⓐ badge) are honored. This is the source of truth for all 15
+    # category symbols. The KIND_TO_GLYPH table + prefix ladder below remain only
+    # as a defensive fallback for kinds not present in the registry.
+    sym = config.kinds_by_code().get(kind, {}).get("symbol")
+    if sym:
+        return sym
     if kind in KIND_TO_GLYPH:
         return KIND_TO_GLYPH[kind]
     if kind.startswith("lang-"):

@@ -6,6 +6,23 @@
 
 ---
 
+## 2026-05-22 — session — symbol-system fix: data-driven glyph_for + base glyph resync (5 → 15 symbols rendering)
+
+**Context:** a symbol-system audit found `inject.glyph_for` was a hardcoded 5-glyph prefix map (⌘/◇/‖/✧/⌂ + a `◇` default) that ignored the `symbol` field in `kinds.yaml`/`categories.yaml`. So although 15 category symbols are defined, only 5 rendered: 11 kinds collapsed to `◇`, most visibly **26,335 `topic-nave` notes showing `◇` (Commentary) instead of `✦` (Topical)**, and `hist-*` showing `◇` instead of `⌂` (only `dict-*` got `⌂`).
+
+**Shipped:**
+- **`glyph_for` is now data-driven** (`scripts/inject.py`) — resolves the kind's `symbol` from `kinds.yaml` (every category's symbol propagates to its kinds; per-kind overrides like `comm-ai`'s `Ⓐ` are honored); the `KIND_TO_GLYPH` table + prefix ladder remain as a defensive fallback. TDD: `tests/test_marker_glyphs.py::TestGlyphForDataDriven` (7 pins, incl. `test_all_15_category_symbols_reachable`).
+- **`scripts/resync_marker_glyphs.py`** (NEW, re-runnable, idempotent) — rewrites the glyphs already in `epub_working/` to match `glyph_for`: the inline `<sup class="marker-{kind}">` and the note-back link in each `<aside class="note note-{kind}">` (the latter keyed by note id, robust to layout). +`TestResyncGlyphs` (4 pins). Resynced **54,005** glyphs in two passes (52,531 + a robustness-fix 1,474).
+- **Result — all 15 category symbols now render:** `✦` Topical **26,335** (was `◇`), `◇` Commentary corrected to its true **2,690** (was 29,038 inflated), and the 10 previously-collapsed categories (`⌇` lit, `☩` compare, `✶` dev, `☧` liturgy, `⚖` apol, `⊛` modern, `◯` ped, `❑` vis, `❖` dist, `✦` topic) now show their own glyphs. `comm-ai`'s `Ⓐ` badge now resolves (latent — 0 notes yet).
+
+**Verified:** 11 marker-glyph tests pass; `ebible verify` **errors=0 / 24,015 paired**; build smoke 31 pass; ruff + `lint_rules` clean; resync idempotent (re-run = 0); both inline markers and note-backs consistent with `glyph_for`.
+
+**Next:** [USER] e-reader check. Deferred — `html_title_for` has the same hardcoded shape (marker tooltips default to "Note" for the 10 categories); a parallel data-driven fix if wanted.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — verse-popup regeneration SHIPPED (coverage 24% → 90.5%)
 
 **Context:** executed the verse-popup regeneration plan subagent-driven (9 TDD tasks). Closes the demo-critical gap where verse popups existed for only 11 books / 24% of verses. Toward the **2026-06-07 deadline**.
