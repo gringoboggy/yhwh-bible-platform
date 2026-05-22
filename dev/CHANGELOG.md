@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-22 — session — flagship EPUB epubcheck-clean (0/0/0/0): fix RSC-005 nested-&lt;p&gt; + RSC-012 broken xref codes
+
+**Context:** with Java installed this session, the FIRST-EVER real `epubcheck` run on the (now well-formed) flagship surfaced 50 pre-existing validity errors the well-formedness fix didn't touch and a local XML-parse check can't see: **25× RSC-005** (illegal nested `<p>`) + **25× RSC-012** (undefined fragment / broken cross-ref links). Non-visual (readers tolerate both) but not retailer-grade. User chose to fix all.
+
+**RSC-005 — nested `<p>` (`inject.build_aside`):** the aside body was always wrapped in `<p>…</p>`, so note bodies carrying their OWN block `<p>` (patristic attribution-header + paragraph) became an illegal `<p>…<p>…</p></p>`. Fix: `build_aside` uses a `<div>` flow container when the sanitized body contains block content (`_BODY_HAS_BLOCK`) and keeps `<p>` for inline-only bodies (byte-identical for the ~67.5K inline notes). CSS mirror: extended `.note-comm > p > .note-label` to also match `> div >` so boilerplate-label hiding still applies. TDD: `tests/test_inject_wellformed.py` (+2).
+
+**RSC-012 — broken xref links:** 667 cross-ref link TARGETS across 48 `content/notes/*.py` used standard book-code abbreviations the project doesn't use — `php/jas/ezk/nam/jol` vs canonical `phi/jam/eze/nah/joe` — so the targets resolved to nothing. Fix: normalized all 667 `#vnote-CODE-` / `#v-CODE-` targets to canonical codes, then re-ran `fix_xref_targets --apply` → **resolved=1245, unresolved=0** (every cross-file target now carries a correct `index_split_NN.html#vnote-…` prefix). Also clears the long-documented ~190 "absent Ezekiel target" residual.
+
+**Regenerated** the master HTML from clean base (inject[fixed] → `generate_verse_popups` → `resync_marker_glyphs` → `fix_xref_targets`), rebuilt the flagship. **`epubcheck` (EPUB 3.3): No errors or warnings detected — 0 fatals / 0 errors / 0 warnings / 0 infos.** Master HTML 0/61 malformed; inject placement unchanged (66,173 + 1,381); 9 inject-wellformed + 17 marker-glyph + 19 verse-popup tests pass; `lint_rules` 16/0/0. The deliverable flagship EPUB is now retailer-grade clean. (Other editions rebuild clean from the same master; the stale standalone Ge'ez/Amharic EPUBs in `exports/` predate the fix.)
+
+**Toolchain:** Java installed this session enables `epubcheck` (W3C JAR at `…/site-packages/epubcheck/epubcheck.jar`); the pip `epubcheck` wrapper suppresses the summary line, so set `EPUBCHECK_JAR` to that path for `scripts/epubcheck.py` to parse it. `VOYAGE_API_KEY` (user-supplied) stashed in gitignored `.env` for the deferred embeddings track + documented in `.env.example`.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — fix malformed-XHTML inject bug (master HTML 58→0 malformed) + well-formedness gates
 
 **Context:** building a flagship EPUB for the [USER] e-reader check, a structural validation of the built EPUB found **58 of 65 XHTML content docs were not well-formed XML** (1,322+ split-tag sites). Every edition the project built shipped malformed markup that epubcheck + strict EPUB3 readers reject. It stayed invisible because `ebible verify` / `audit` B7 check marker↔aside **pairing**, not XML well-formedness (a mid-tag splice keeps href/id paired while breaking structure). A git bisect placed the corruption at the first inject (`7a1aecf`); the recovered base (`5ee2ad1`) was clean.

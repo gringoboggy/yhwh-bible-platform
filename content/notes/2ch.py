@@ -3124,7 +3124,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_043.html#ch-b39-c3">Lam 3:40</a> · <a href="index_split_040.html#ch-b37-c55">Isa 55:6</a> · <a href="#vnote-jas-4-9">Jas 4:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_043.html#ch-b39-c3">Lam 3:40</a> · <a href="index_split_040.html#ch-b37-c55">Isa 55:6</a> · <a href="index_split_059.html#vnote-jam-4-9">Jas 4:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3135,7 +3135,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_043.html#ch-b39-c3">Lam 3:40</a> · <a href="index_split_040.html#ch-b37-c55">Isa 55:6</a> · <a href="#vnote-jas-4-9">Jas 4:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_043.html#ch-b39-c3">Lam 3:40</a> · <a href="index_split_040.html#ch-b37-c55">Isa 55:6</a> · <a href="index_split_059.html#vnote-jam-4-9">Jas 4:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6028,7 +6028,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-jas-4-8">Jas 4:8</a> · <a href="index_split_017.html#ch-b13-c24">2Ch 24:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_017.html#ch-b13-c24">2Ch 24:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6039,7 +6039,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-jas-4-8">Jas 4:8</a> · <a href="index_split_017.html#ch-b13-c24">2Ch 24:20</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_017.html#ch-b13-c24">2Ch 24:20</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

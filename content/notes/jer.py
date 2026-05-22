@@ -308,7 +308,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-12-28">Ezk 12:28</a> · <a href="#vnote-ezk-12-25">Ezk 12:25</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-12-28">Ezk 12:28</a> · <a href="index_split_045.html#vnote-eze-12-25">Ezk 12:25</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-12-28">Ezk 12:28</a> · <a href="#vnote-ezk-12-25">Ezk 12:25</a> · <a href="#vnote-ezk-12-22">Ezk 12:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-12-28">Ezk 12:28</a> · <a href="index_split_045.html#vnote-eze-12-25">Ezk 12:25</a> · <a href="index_split_045.html#vnote-eze-12-22">Ezk 12:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -451,7 +451,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:7</a> · <a href="#vnote-ezk-3-8">Ezk 3:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:7</a> · <a href="index_split_045.html#vnote-eze-3-8">Ezk 3:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -462,7 +462,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:7</a> · <a href="#vnote-ezk-3-8">Ezk 3:8</a> · <a href="index_split_041.html#ch-b38-c15">Jer 15:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:7</a> · <a href="index_split_045.html#vnote-eze-3-8">Ezk 3:8</a> · <a href="index_split_041.html#ch-b38-c15">Jer 15:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -550,7 +550,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-16-60">Ezk 16:60</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-16-60">Ezk 16:60</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2640,7 +2640,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:29</a> · <a href="index_split_052.html#ch-b61-c13">Mrk 13:24</a> · <a href="#vnote-jol-3-15">Jol 3:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:29</a> · <a href="index_split_052.html#ch-b61-c13">Mrk 13:24</a> · <a href="index_split_050.html#vnote-joe-3-15">Jol 3:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3641,7 +3641,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-13-10">Ezk 13:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-13-10">Ezk 13:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8349,7 +8349,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-14-14">Ezk 14:14</a> · <a href="#vnote-ezk-14-20">Ezk 14:20</a> · <a href="index_split_041.html#ch-b38-c14">Jer 14:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-14-14">Ezk 14:14</a> · <a href="index_split_045.html#vnote-eze-14-20">Ezk 14:20</a> · <a href="index_split_041.html#ch-b38-c14">Jer 14:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8360,7 +8360,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-14-14">Ezk 14:14</a> · <a href="#vnote-ezk-14-20">Ezk 14:20</a> · <a href="index_split_041.html#ch-b38-c14">Jer 14:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-14-14">Ezk 14:14</a> · <a href="index_split_045.html#vnote-eze-14-20">Ezk 14:20</a> · <a href="index_split_041.html#ch-b38-c14">Jer 14:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8591,7 +8591,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_060.html#ch-b86-c10">Rev 10:9</a> · <a href="#vnote-ezk-3-1">Ezk 3:1</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:101</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_060.html#ch-b86-c10">Rev 10:9</a> · <a href="index_split_045.html#vnote-eze-3-1">Ezk 3:1</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:101</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8602,7 +8602,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_060.html#ch-b86-c10">Rev 10:9</a> · <a href="#vnote-ezk-3-1">Ezk 3:1</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:101</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_060.html#ch-b86-c10">Rev 10:9</a> · <a href="index_split_045.html#vnote-eze-3-1">Ezk 3:1</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:101</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9416,7 +9416,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c1">Psa 1:3</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:11</a> · <a href="#vnote-ezk-47-12">Ezk 47:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c1">Psa 1:3</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:11</a> · <a href="index_split_046.html#vnote-eze-47-12">Ezk 47:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9427,7 +9427,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c1">Psa 1:3</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:11</a> · <a href="#vnote-ezk-47-12">Ezk 47:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c1">Psa 1:3</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:11</a> · <a href="index_split_046.html#vnote-eze-47-12">Ezk 47:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11946,7 +11946,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c10">Jer 10:21</a> · <a href="index_split_051.html#ch-b58-c11">Zec 11:15</a> · <a href="#vnote-ezk-34-2">Ezk 34:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c10">Jer 10:21</a> · <a href="index_split_051.html#ch-b58-c11">Zec 11:15</a> · <a href="index_split_046.html#vnote-eze-34-2">Ezk 34:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -12100,7 +12100,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:30</a> · <a href="#vnote-php-3-9">Php 3:9</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:30</a> · <a href="index_split_058.html#vnote-phi-3-9">Php 3:9</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17248,7 +17248,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:16</a> · <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="#vnote-ezk-37-26">Ezk 37:26</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:16</a> · <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="index_split_046.html#vnote-eze-37-26">Ezk 37:26</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17259,7 +17259,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:16</a> · <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="#vnote-ezk-37-26">Ezk 37:26</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:16</a> · <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="index_split_046.html#vnote-eze-37-26">Ezk 37:26</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18425,7 +18425,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-ezk-11-19">Ezk 11:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-11-19">Ezk 11:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18480,7 +18480,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="#vnote-ezk-36-26">Ezk 36:26</a> · <a href="index_split_041.html#ch-b38-c24">Jer 24:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c31">Jer 31:31</a> · <a href="index_split_046.html#vnote-eze-36-26">Ezk 36:26</a> · <a href="index_split_041.html#ch-b38-c24">Jer 24:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

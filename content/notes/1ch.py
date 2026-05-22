@@ -10483,7 +10483,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:10</a> · <a href="#vnote-php-4-13">Php 4:13</a> · <a href="index_split_034.html#ch-b30-c100">Psa 100:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:10</a> · <a href="index_split_058.html#vnote-phi-4-13">Php 4:13</a> · <a href="index_split_034.html#ch-b30-c100">Psa 100:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16709,7 +16709,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="#vnote-jas-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16720,7 +16720,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="#vnote-jas-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

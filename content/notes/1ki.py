@@ -2155,7 +2155,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-jas-1-5">Jas 1:5</a> · <a href="index_split_013.html#ch-b10-c9">1Ki 9:2</a> · <a href="index_split_007.html#vnote-num-12-6">Num 12:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-5">Jas 1:5</a> · <a href="index_split_013.html#ch-b10-c9">1Ki 9:2</a> · <a href="index_split_007.html#vnote-num-12-6">Num 12:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2298,7 +2298,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="#vnote-jas-1-5">Jas 1:5</a> · <a href="index_split_059.html#ch-b78-c5">Heb 5:14</a> · <a href="index_split_036.html#ch-b32-c16">Pro 16:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-5">Jas 1:5</a> · <a href="index_split_059.html#ch-b78-c5">Heb 5:14</a> · <a href="index_split_036.html#ch-b32-c16">Pro 16:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -12605,7 +12605,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c4">Luk 4:25</a> · <a href="#vnote-jas-5-17">Jas 5:17</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c4">Luk 4:25</a> · <a href="index_split_059.html#vnote-jam-5-17">Jas 5:17</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

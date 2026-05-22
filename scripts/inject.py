@@ -158,6 +158,15 @@ def build_marker(kind: str, full_id: str) -> str:
     )
 
 
+# Block-level tags that may appear in a (sanitized) note body. A body carrying
+# its own block content cannot be wrapped in <p> (an illegal nested <p> that
+# epubcheck rejects, RSC-005) — build_aside uses a <div> flow container for it.
+_BODY_HAS_BLOCK = re.compile(
+    r"<(?:p|div|ul|ol|li|dl|dt|dd|blockquote|table|thead|tbody|tr|td|th|h[1-6]|hr|pre|figure)\b",
+    re.IGNORECASE,
+)
+
+
 def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
     """The `<aside class="note">…</aside>` element for the notes-section.
 
@@ -170,12 +179,17 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
 
     glyph = glyph_for(kind)
     safe_body = sanitize_html(body_html)
+    # Inline-only bodies keep the <p> wrapper (byte-identical to the historical
+    # corpus); a body with its own block content uses a <div> flow container so
+    # we never wrap a block element in <p> (epubcheck RSC-005). CSS mirrors both
+    # forms (.note-comm > p|div > .note-label).
+    wrap = "div" if _BODY_HAS_BLOCK.search(safe_body) else "p"
     return (
         f'<aside class="note note-{kind}" id="note-{full_id}" '
         f'epub:type="footnote">\n'
-        f'  <p><a href="#ref-{full_id}" class="note-back" title="Back">'
+        f'  <{wrap}><a href="#ref-{full_id}" class="note-back" title="Back">'
         f'{glyph}</a> <span class="note-label">{label}</span> '
-        f"{safe_body}</p>\n"
+        f"{safe_body}</{wrap}>\n"
         f"</aside>\n"
     )
 

@@ -1145,7 +1145,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-20-7">Lev 20:7</a> · <a href="index_split_009.html#vnote-jos-7-13">Jos 7:13</a> · <a href="#vnote-jol-2-16">Jol 2:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-20-7">Lev 20:7</a> · <a href="index_split_009.html#vnote-jos-7-13">Jos 7:13</a> · <a href="index_split_050.html#vnote-joe-2-16">Jol 2:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

@@ -123,6 +123,32 @@ def test_chapter_region_b_excludes_notes_section_and_epilogue():
     )
 
 
+def _has_nested_p(el, in_p=False):
+    tag = el.tag.split("}")[-1]
+    if tag == "p" and in_p:
+        return True
+    return any(_has_nested_p(c, in_p or tag == "p") for c in el)
+
+
+def test_build_aside_block_body_uses_div_no_nested_p():
+    """epubcheck RSC-005: build_aside wraps the note body in <p>…</p>, but
+    some bodies (patristic attribution header + paragraph) contain their own
+    block <p> — wrapping that in <p> yields an illegal nested <p>. A body with
+    block content must use a flow container (<div>), not <p>."""
+    body = "<strong>Ephrem the Syrian</strong> <em>Commentary</em> <small>(c. 360)</small><p>On the verse, the fathers teach.</p>"
+    out = inject.build_aside("comm-patristic", "g0101", "Note", body)
+    root = ET.fromstring(_XHTML.format(body=out))
+    assert not _has_nested_p(root), f"nested <p> in build_aside output:\n{out}"
+
+
+def test_build_aside_inline_body_keeps_p_wrapper():
+    """Inline-only bodies (the vast majority) must keep the <p> wrapper so the
+    regenerated asides stay byte-identical to the prior corpus."""
+    out = inject.build_aside("comm", "g0101", "Note", "plain <em>inline</em> commentary text")
+    assert "<div>" not in out
+    assert '<p><a href="#ref-g0101" class="note-back"' in out
+
+
 def test_all_master_html_is_wellformed_xml():
     """Integration guard: every ``epub_working/index_split_*.html`` must be
     well-formed XML. EPUB3 serves XHTML, so malformed markup makes editions

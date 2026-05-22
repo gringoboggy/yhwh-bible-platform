@@ -161,7 +161,9 @@ blockquote {
    <strong> opener carries the topic. Avoids the visual bundling the
    reader perceives as redundancy. */
 .note-comm > p > .note-label,
-[class*="note-comm-"] > p > .note-label { display: none; }
+.note-comm > div > .note-label,
+[class*="note-comm-"] > p > .note-label,
+[class*="note-comm-"] > div > .note-label { display: none; }
 
 /* Hide trivial / boilerplate labels via attribute matching — ‘Note’, ‘Note.’ */
 .note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: none; }

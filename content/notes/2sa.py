@@ -2225,7 +2225,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c2">Mat 2:6</a> · <a href="index_split_051.html#ch-b53-c5">Mic 5:4</a> · <a href="#vnote-ezk-34-23">Ezk 34:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c2">Mat 2:6</a> · <a href="index_split_051.html#ch-b53-c5">Mic 5:4</a> · <a href="index_split_046.html#vnote-eze-34-23">Ezk 34:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
