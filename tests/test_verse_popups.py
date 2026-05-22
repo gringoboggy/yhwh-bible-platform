@@ -165,11 +165,41 @@ class TestEnsureVerseRefsSection:
         assert new_text[insert_at : insert_at + len("</section>")] == "</section>"
 
 
-class TestGenerateBook:
-    def test_1ki_gains_wrappers_and_asides_dry_run(self):
-        from scripts.generate_verse_popups import generate_book
+def _make_unwrapped_work(tmp_path, monkeypatch, book_code: str = "1ki") -> "Path":
+    """Copy epub_working to a tmp dir, strip existing verse-popup anchors for
+    *book_code* so the generator has something to do, and monkeypatch EPUB_DIR."""
+    import re
+    import shutil
 
-        stats = generate_book("1ki", dry_run=True)
+    import scripts.generate_verse_popups as g
+
+    work = tmp_path / "epub_working"
+    work.mkdir()
+    for f in g.EPUB_DIR.glob("index_split_*.html"):
+        shutil.copy(f, work / f.name)
+
+    # Strip existing vn-link anchors so the generator can re-wrap them.
+    anchor_re = re.compile(
+        rf'<a class="vn-link" id="v-{re.escape(book_code)}-[^"]*"[^>]*>(<span class="vn">[^<]*</span>)</a>',
+        re.DOTALL,
+    )
+    for f in work.glob("index_split_*.html"):
+        text = f.read_text(encoding="utf-8")
+        stripped = anchor_re.sub(r"\1", text)
+        if stripped != text:
+            f.write_text(stripped, encoding="utf-8")
+
+    monkeypatch.setattr(g, "EPUB_DIR", work)
+    return work
+
+
+class TestGenerateBook:
+    def test_1ki_gains_wrappers_and_asides_dry_run(self, tmp_path, monkeypatch):
+        """After stripping existing wrappers, generate_book should re-wrap them."""
+        import scripts.generate_verse_popups as g
+
+        _make_unwrapped_work(tmp_path, monkeypatch, "1ki")
+        stats = g.generate_book("1ki", dry_run=True)
         assert stats["verses_wrapped"] > 500, stats  # 1Ki has 816 verses
         assert stats["asides_built"] == stats["verses_wrapped"], stats
         assert stats["files_changed"], stats
@@ -179,19 +209,14 @@ class TestGenerateBook:
 
         stats = generate_book("gen", dry_run=True)
         assert stats["verses_wrapped"] == 0, stats  # already wrapped
+        assert stats["asides_built"] > 0, stats  # but asides still rebuilt
 
 
 class TestIdempotency:
     def test_second_run_changes_nothing(self, tmp_path, monkeypatch):
-        import shutil
-
         import scripts.generate_verse_popups as g
 
-        work = tmp_path / "epub_working"
-        work.mkdir()
-        for f in g.EPUB_DIR.glob("index_split_*.html"):
-            shutil.copy(f, work / f.name)
-        monkeypatch.setattr(g, "EPUB_DIR", work)
+        _make_unwrapped_work(tmp_path, monkeypatch, "1ki")
 
         first = g.generate_book("1ki", dry_run=False)
         assert first["files_changed"], first

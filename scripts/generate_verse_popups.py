@@ -82,20 +82,28 @@ def harvest_existing_langs(text: str) -> dict[str, dict[str, str | None]]:
     return out
 
 
+_ANY_CHAPTER_RE = re.compile(r'id="ch-b\d+-c\d+"')
+
+
 def chapter_region(text: str, *, bxx: str, ch: int) -> tuple[int, int] | None:
     """Byte range of chapter ``ch`` of book ``bxx`` in ``text`` — from its
-    heading anchor to the next chapter heading (any chapter), the verse-refs
-    section, or end of text. Returns None if the chapter heading is absent."""
+    heading anchor to the next chapter heading (any book/chapter), the
+    verse-refs section, or end of text. Returns None if the chapter heading
+    is absent.
+
+    Using ANY next chapter anchor (not just same-book) prevents the last
+    chapter of a book from bleeding into the following book's content when
+    multiple books share a file."""
     anchor = f'id="ch-{bxx}-c{ch}"'
     start = text.find(anchor)
     if start == -1:
         return None
     after = start + len(anchor)
-    nxt = re.search(rf'id="ch-{re.escape(bxx)}-c\d+"', text[after:])
+    nxt = _ANY_CHAPTER_RE.search(text, after)
     sect = text.find('<section class="verse-refs-section"', after)
     end = len(text)
     if nxt:
-        end = min(end, after + nxt.start())
+        end = min(end, nxt.start())
     if sect != -1:
         end = min(end, sect)
     return start, end
@@ -135,6 +143,65 @@ def _strip_chapter_asides(text: str, code: str, ch: int) -> str:
     return pat.sub("", text)
 
 
+def _wrap_and_build_asides(
+    text: str,
+    region_html: str,
+    region_start: int,
+    region_end: int,
+    *,
+    code: str,
+    ch: int,
+    title: str,
+    harvested: dict,
+    stats: dict,
+) -> str:
+    """Wrap verse numbers in ``region_html`` and insert/refresh asides in ``text``.
+
+    Returns the updated full ``text``.  ``region_start``/``region_end`` are
+    the byte offsets of ``region_html`` inside ``text`` so we can splice the
+    wrapped region back in; pass ``region_start=0, region_end=len(region_html)``
+    for a preamble region that occupies the very beginning of the file.
+    """
+    # Wrap verse numbers in reverse order so earlier offsets stay valid.
+    # dict.fromkeys deduplicates while preserving order (multi-edition files
+    # repeat each <span class="vn"> N times per edition).
+    for vs in sorted(dict.fromkeys(verse_numbers_in_region(region_html)), reverse=True):
+        needle = f'<span class="vn">{vs}</span>'
+        vpos = region_html.find(needle)
+        if vpos == -1:
+            continue
+        # Idempotency: look 300 chars before the span for an existing anchor.
+        lookback = region_html[max(0, vpos - 300) : vpos]
+        if f'id="v-{code}-{ch}-{vs}"' in lookback:
+            continue
+        nxt = _VN_RE.search(region_html, vpos + len(needle))
+        vchunk = region_html[vpos : (nxt.start() if nxt else len(region_html))]
+        wrapped, changed = wrap_verse_number(vchunk, code=code, ch=ch, vs=vs, title=title)
+        if changed:
+            region_html = region_html[:vpos] + wrapped + region_html[vpos + len(vchunk) :]
+            stats["verses_wrapped"] += 1
+
+    # Splice updated region back into full text.
+    text = text[:region_start] + region_html + text[region_end:]
+
+    # Build/refresh asides for every unique verse in the region.
+    new_asides = []
+    for vs in dict.fromkeys(verse_numbers_in_region(region_html)):
+        vid = f"vnote-{code}-{ch}-{vs}"
+        eng = tx.get_verse("kjv", code, ch, vs)
+        he = tx.get_verse("wlc", code, ch, vs) or harvested.get(vid, {}).get("hebrew")
+        gr = tx.get_verse("lxx-brenton-greek", code, ch, vs) or harvested.get(vid, {}).get("greek")
+        new_asides.append(build_vnote_aside(code=code, ch=ch, vs=vs, title=title, english=eng, hebrew=he, greek=gr))
+        stats["asides_built"] += 1
+
+    if new_asides:
+        text = _strip_chapter_asides(text, code, ch)
+        text, insert_at = ensure_verse_refs_section(text)
+        text = text[:insert_at] + "\n".join(new_asides) + "\n" + text[insert_at:]
+
+    return text
+
+
 def generate_book(code: str, *, dry_run: bool) -> dict:
     book = config.books_by_code().get(code)
     if book is None:
@@ -152,6 +219,8 @@ def generate_book(code: str, *, dry_run: bool) -> dict:
         stats["skipped_reason"] = "missing bxx/files metadata"
         return stats
 
+    last_ch: int | None = None  # chapter last seen in the preceding file
+
     for fname in files:
         fpath = EPUB_DIR / fname
         if not fpath.is_file():
@@ -160,48 +229,48 @@ def generate_book(code: str, *, dry_run: bool) -> dict:
         harvested = harvest_existing_langs(text)
         original = text
 
+        # Handle cross-file chapter spillage: verse text for the last chapter
+        # of the previous file may continue at the start of this file without
+        # a repeating chapter anchor.  Process that preamble region as last_ch.
+        first_ch_anchor = _ANY_CHAPTER_RE.search(text)
+        preamble_end = first_ch_anchor.start() if first_ch_anchor else len(text)
+        if last_ch is not None and preamble_end > 0:
+            preamble = text[:preamble_end]
+            if _VN_RE.search(preamble):
+                text = _wrap_and_build_asides(
+                    text,
+                    preamble,
+                    0,
+                    preamble_end,
+                    code=code,
+                    ch=last_ch,
+                    title=title,
+                    harvested=harvested,
+                    stats=stats,
+                )
+                # Recalculate preamble_end since _strip_chapter_asides may
+                # have changed the text length.
+                new_first = _ANY_CHAPTER_RE.search(text)
+                preamble_end = new_first.start() if new_first else len(text)
+
         for ch in range(1, ch_count + 1):
             region = chapter_region(text, bxx=bxx, ch=ch)
             if region is None:
                 continue
+            last_ch = ch  # track for next file's preamble handling
             r_start, r_end = region
             region_html = text[r_start:r_end]
-            # Wrap verse numbers (right-to-left so earlier offsets stay valid).
-            for vs in sorted(verse_numbers_in_region(region_html), reverse=True):
-                needle = f'<span class="vn">{vs}</span>'
-                vpos = region_html.find(needle)
-                if vpos == -1:
-                    continue
-                # Idempotency: check if the wrapper anchor id already exists in
-                # the 300 chars immediately before the span (handles pre-existing
-                # wrappers where the anchor precedes the span in the HTML).
-                lookback = region_html[max(0, vpos - 300) : vpos]
-                if f'id="v-{code}-{ch}-{vs}"' in lookback:
-                    continue
-                nxt = _VN_RE.search(region_html, vpos + len(needle))
-                vchunk = region_html[vpos : (nxt.start() if nxt else len(region_html))]
-                wrapped, changed = wrap_verse_number(vchunk, code=code, ch=ch, vs=vs, title=title)
-                if changed:
-                    region_html = region_html[:vpos] + wrapped + region_html[vpos + len(vchunk) :]
-                    stats["verses_wrapped"] += 1
-            text = text[:r_start] + region_html + text[r_end:]
-
-            # Build/refresh asides for every verse the chapter actually has.
-            new_asides = []
-            for vs in verse_numbers_in_region(region_html):
-                vid = f"vnote-{code}-{ch}-{vs}"
-                eng = tx.get_verse("kjv", code, ch, vs)
-                he = tx.get_verse("wlc", code, ch, vs) or harvested.get(vid, {}).get("hebrew")
-                gr = tx.get_verse("lxx-brenton-greek", code, ch, vs) or harvested.get(vid, {}).get("greek")
-                new_asides.append(
-                    build_vnote_aside(code=code, ch=ch, vs=vs, title=title, english=eng, hebrew=he, greek=gr)
-                )
-                stats["asides_built"] += 1
-
-            if new_asides:
-                text = _strip_chapter_asides(text, code, ch)
-                text, insert_at = ensure_verse_refs_section(text)
-                text = text[:insert_at] + "\n".join(new_asides) + "\n" + text[insert_at:]
+            text = _wrap_and_build_asides(
+                text,
+                region_html,
+                r_start,
+                r_end,
+                code=code,
+                ch=ch,
+                title=title,
+                harvested=harvested,
+                stats=stats,
+            )
 
         if text != original:
             stats["files_changed"].append(fname)

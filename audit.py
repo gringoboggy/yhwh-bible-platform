@@ -606,22 +606,55 @@ def check_b2_chapter_anchors():
     return issues
 
 
+def _build_chapters_with_vn_spans(bxx_to_code: dict) -> set[tuple[str, int]]:
+    """Return set of (book_code, ch_num) pairs that have vn spans in their scope."""
+    big_text: list[str] = []
+    for f in sorted(EPUB_DIR.glob("index_split_*.html")):
+        with contextlib.suppress(Exception):
+            big_text.append(f.read_text(encoding="utf-8"))
+    combined = "\n".join(big_text)
+    ch_positions = []
+    for m in re.finditer(r'id="ch-(b\d+)-c(\d+)"', combined):
+        ch_positions.append((m.start(), m.group(1), int(m.group(2))))
+    ch_positions.sort()
+    chapters_with_vn_spans: set[tuple[str, int]] = set()
+    for i, (pos, bxx, ch_num) in enumerate(ch_positions):
+        end = ch_positions[i + 1][0] if i + 1 < len(ch_positions) else len(combined)
+        scope = combined[pos:end]
+        if re.search(r'<span class="vn">\d+</span>', scope):
+            code = bxx_to_code.get(bxx)
+            if code:
+                chapters_with_vn_spans.add((code, ch_num))
+    return chapters_with_vn_spans
+
+
 def check_b3_verse1_anchors():
-    """B3: Every chapter (where verse anchors exist) has its verse-1 anchor."""
+    """B3: Every chapter (where verse anchors exist) has its verse-1 anchor.
+
+    A chapter is "expected" to have a verse-1 anchor only if it has at least
+    one ``<span class="vn">`` marker in its chapter scope. Chapters whose
+    entire content is rendered inside ``<aside>`` note blocks (no vn spans)
+    are legitimately absent from the verse-popup system and are not flagged.
+    """
     issues = []
-    try:
+    books: dict = {}
+    with contextlib.suppress(Exception):
         books = _load_book_meta()
-    except Exception:
+    if not books:
         return issues
     all_text = _scan_all_epub_text()
     # Find verse-1 anchors per (code, ch). Strategy A pattern: id="v-CODE-CH-1"
-    by_code_ch1 = defaultdict(set)
-    code_with_v_anchors = set()
+    by_code_ch1: dict[str, set[int]] = defaultdict(set)
+    code_with_v_anchors: set[str] = set()
     for txt in all_text.values():
         for m in re.finditer(r'id="v-([a-z0-9]+)-(\d+)-1"', txt):
             code, ch = m.group(1), int(m.group(2))
             code_with_v_anchors.add(code)
             by_code_ch1[code].add(ch)
+
+    bxx_to_code = {meta.get("bxx"): code for code, meta in books.items() if meta.get("bxx")}
+    chapters_with_vn_spans = _build_chapters_with_vn_spans(bxx_to_code)
+
     # Only check books that have v- anchors at all (Strategy A and 1en)
     for code, meta in books.items():
         if code not in code_with_v_anchors:
@@ -630,7 +663,8 @@ def check_b3_verse1_anchors():
         if nch <= 0:
             continue
         present = by_code_ch1[code]
-        missing = [c for c in range(1, nch + 1) if c not in present]
+        # Only flag chapters that have vn spans (i.e. are expected to be wrapped)
+        missing = [c for c in range(1, nch + 1) if c not in present and (code, c) in chapters_with_vn_spans]
         if missing:
             issues.append(
                 Issue(
