@@ -2093,10 +2093,17 @@ def load_canons() -> dict:
 # Match a single book-title-page div + everything that follows until the
 # next book-title-page div or end of body. The `id="bp-NN"` capture tells
 # us which book this segment is.
+# A book's segment runs from its title page to the NEXT title page — OR to the
+# per-file shared footnote containers (the single `<aside class="notes-section">`
+# and `<section class="verse-refs-section">` at the file's end, which hold asides
+# / verse-popups for EVERY book in the file). Stopping at those keeps the LAST
+# book's segment from swallowing them when that book is dropped by a smaller
+# canon — otherwise kept books' asides vanish while their markers survive
+# (orphaned note-ref markers → epubcheck RSC-012).
 _BOOK_SEGMENT_RE = re.compile(
     r'<div class="book-title-page"[^>]*id="bp-(\d+)"[^>]*>'
     r".*?"
-    r'(?=<div class="book-title-page"|</body>|\Z)',
+    r'(?=<div class="book-title-page"|<aside class="notes-section"|<section class="verse-refs-section"|</body>|\Z)',
     re.DOTALL,
 )
 
@@ -2312,6 +2319,32 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 
             if new_text2 != text:
                 f.write_text(new_text2, encoding="utf-8")
+
+    # Pass 3: drop footnote asides orphaned by the splice. A dropped book's
+    # scripture (with its inline `id="ref-X"` markers) was spliced out, but its
+    # asides remain in the shared per-file notes-section (now preserved by
+    # _BOOK_SEGMENT_RE). Remove asides whose marker is gone so no dangling
+    # footnote is left; kept books' asides (marker present) are untouched.
+    # vnote popups are intentionally left intact — kept books' cross-references
+    # may legitimately target a dropped book's verse popup.
+    if dropped:
+        orphan_aside_re = re.compile(
+            r'<aside class="note [^"]*" id="note-([^"]+)"[^>]*>.*?</aside>\s*',
+            re.DOTALL,
+        )
+        for f in tmp.glob("*.html"):
+            text = f.read_text(encoding="utf-8")
+            ref_ids = set(re.findall(r'\bid="ref-([^"]+)"', text))
+
+            def _drop_orphan_aside(m: re.Match, _refs: set = ref_ids) -> str:
+                return m.group(0) if m.group(1) in _refs else ""
+
+            new_text, _ = orphan_aside_re.subn(_drop_orphan_aside, text)
+            if new_text != text:
+                removed = text.count('<aside class="note ') - new_text.count('<aside class="note ')
+                f.write_text(new_text, encoding="utf-8")
+                stats.setdefault("orphan_asides_removed", 0)
+                stats["orphan_asides_removed"] += removed
 
     return stats
 

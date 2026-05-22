@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-22 — session — clean orphaned footnotes in canon-spliced editions (book-splice no longer swallows the shared notes-section)
+
+**Context:** the flagship was epubcheck-clean, but smaller-canon editions (Reformed/Catholic/Tanakh/Orthodox) had ~2,373 orphaned note-ref markers (RSC-012 — `href="#note-X"` with no `id="note-X"`). Root cause in `build_edition.filter_books_for_canon`: every split file has ONE shared per-file notes-section (+ verse-refs-section) at its end holding asides for EVERY book in the file, and it falls inside the LAST book's `_BOOK_SEGMENT_RE` segment (which runs to `</body>`). When a smaller canon drops that last book, the segment **swallowed the shared notes-section** — taking KEPT books' asides with it while their inline markers survived → orphans. (Pass 2's dangling-link stripper missed them: its `>([^<]+)</a>` matches only plain-text links, not markers whose content is `<sup>glyph</sup>`.)
+
+**Fix (build-time only — no master-HTML change):**
+- `_BOOK_SEGMENT_RE` now stops at `<aside class="notes-section">` / `<section class="verse-refs-section">`, so the last book's segment can't swallow them → kept books' asides preserved.
+- New **Pass 3** in `filter_books_for_canon`: drops footnote asides whose `id="ref-X"` marker was spliced out (a dropped book's now-orphaned aside), leaving each edition with only its own footnotes. vnote popups left intact (kept books' cross-refs may legitimately target a dropped book's verse popup).
+
+**Verified — all 4 canon shapes epubcheck-clean re footnotes (0 RSC-012):** evangelical-reformed (protestant) orphans **2,373 → 0**, epubcheck **0/0/0/0**; jewish-study (tanakh) **0/0/0/0**; eastern-orthodox (orthodox) **0/0/0/0**; catholic-study (catholic) **0 RSC-012**. TDD `tests/test_canon_splice.py`; `TestCanonFilter` (12) + build-smoke (31) regression green.
+
+**FLAGGED (separate, not footnotes):** catholic-study + anglican-bcp (catholic canon) emit **2 RSC-005 OPF errors** — "A term property must be associated with a dc:subject when an authority is specified" — a BISAC-subject metadata bug in the OPF emission (`content.opf`), unrelated to the splice. Blocks those 2 editions from full epubcheck-clean; addressed next.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — flagship EPUB epubcheck-clean (0/0/0/0): fix RSC-005 nested-&lt;p&gt; + RSC-012 broken xref codes
 
 **Context:** with Java installed this session, the FIRST-EVER real `epubcheck` run on the (now well-formed) flagship surfaced 50 pre-existing validity errors the well-formedness fix didn't touch and a local XML-parse check can't see: **25× RSC-005** (illegal nested `<p>`) + **25× RSC-012** (undefined fragment / broken cross-ref links). Non-visual (readers tolerate both) but not retailer-grade. User chose to fix all.
