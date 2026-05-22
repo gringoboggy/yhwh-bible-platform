@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-22 — session — end-of-session audit + test-determinism fix (kill the build-all socket flake)
+
+**Context:** general audit before a fresh session. Health swept clean — git tree clean; `ebible verify` errors=0 / 24,015 paired; `trace_matrix` 0 unresolved; `lint_rules` 16/0/0; build smoke 31; marker-glyph 17, verse-popup 19, validate-schemas 49 all pass. `test_scripts.py` was 975 pass + 1 fail — the lone failure the long-documented `test_build_all_route_serves_json` flake (real build of every edition over a live socket → WinError 10053 under serial load; passes in isolation). PLAN Track-D prescribed mocking it if it recurred; it recurred.
+
+**Shipped:**
+- **`test_build_all_route_serves_json` made deterministic** (`tests/test_scripts.py`) — patches `scripts.api.exports.api_export_build` with a fast mock so `/api/build-all` returns its JSON shape instantly (no real subprocess builds over the socket). Preserves the test's intent (route + response shape) while removing the slow-build socket exposure that caused the flake. Timeout 120s→15s, runtime 12s→2.7s.
+
+**Audit verdict — ready for a fresh session:** no regressions from the symbol/tooltip/popup work; full `test_scripts.py` now green; IN_FLIGHT idle; bootstrap triad current.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — marker tooltip fix: data-driven html_title_for + title resync
 
 **Context:** the symbol-system fix made `glyph_for` data-driven; `html_title_for` had the identical hardcoded shape — marker hover tooltips defaulted to "Note" for the 10 newer categories and returned terse labels for the other 5. Follow-on fix at the user's request.

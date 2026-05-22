@@ -4484,55 +4484,63 @@ class TestEditionMeta:
         assert "simulated crash" in crashed[0]["error"]
 
     def test_build_all_route_serves_json(self):
-        """Live HTTP smoke: POST /api/build-all returns JSON with
-        the per_edition list (uses real build_edition; might
-        succeed or fail depending on environment, but the SHAPE
-        of the response is verified)."""
-        # We can't easily inject a mock through the HTTP layer,
-        # so this test just verifies the route exists and returns
-        # a JSON shape — it allows real builds to fail (most likely
-        # outcome in a test sandbox) since the spec accepts that.
-        import threading, urllib.request, urllib.error, json, time
+        """Live HTTP smoke: POST /api/build-all returns JSON with the
+        per_edition list and the expected shape. The per-edition build is
+        mocked (fast + deterministic) so this exercises the route + response
+        shape WITHOUT running real subprocess builds of every edition over
+        the socket — those made this test flaky (WinError 10053 socket abort)
+        under full-suite load."""
+        import json
+        import threading
+        import time
+        import urllib.error
+        import urllib.request
         from http.server import HTTPServer
+        from unittest import mock
+
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
-        port = srv.server_address[1]
-        t = threading.Thread(target=srv.serve_forever, daemon=True)
-        t.start()
-        time.sleep(0.1)
-        try:
-            req = urllib.request.Request(
-                f"http://127.0.0.1:{port}/api/build-all",
-                data=b'{"version":"v28a"}',
-                headers={"Content-Type": "application/json"},
-                method="POST",
-            )
-            try:
-                # Real builds in a CI sandbox almost always fail
-                # (no source.epub template, etc.) — that's fine,
-                # we just want to verify the orchestration ran
-                # and returned JSON of the right shape.
-                r = urllib.request.urlopen(req, timeout=120)
-                data = json.loads(r.read().decode())
-            except urllib.error.HTTPError as e:
-                # 500 (all-fail) is acceptable for this test;
-                # we just want to verify the JSON shape
-                if e.code == 500:
-                    data = json.loads(e.read().decode())
-                else:
-                    raise
-            # Required shape regardless of pass/fail
-            for key in ("success_count", "fail_count", "total_count", "per_edition"):
-                assert key in data, f"missing key: {key}"
-            assert isinstance(data["per_edition"], list)
-            from scripts.core import config
+        def _mock_build(edition_id, version="v28a"):
+            # Deterministic stand-in for api_export_build: report a failed
+            # build (matching the prior real-build-in-sandbox behavior) so the
+            # route returns its all-fail JSON shape instantly, with no real
+            # subprocess build and no slow socket exposure.
+            return {"ok": False, "error": "mocked build (no real subprocess in test)"}
 
-            if hasattr(config.load_editions, "cache_clear"):
-                config.load_editions.cache_clear()
-            assert data["total_count"] == len(config.load_editions())
-        finally:
-            srv.shutdown()
+        with mock.patch("scripts.api.exports.api_export_build", _mock_build):
+            srv = HTTPServer(("127.0.0.1", 0), Handler)
+            port = srv.server_address[1]
+            t = threading.Thread(target=srv.serve_forever, daemon=True)
+            t.start()
+            time.sleep(0.1)
+            try:
+                req = urllib.request.Request(
+                    f"http://127.0.0.1:{port}/api/build-all",
+                    data=b'{"version":"v28a"}',
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                try:
+                    r = urllib.request.urlopen(req, timeout=15)
+                    data = json.loads(r.read().decode())
+                except urllib.error.HTTPError as e:
+                    # 500 (all-fail) is the expected outcome with the mock;
+                    # we just verify the JSON shape.
+                    if e.code == 500:
+                        data = json.loads(e.read().decode())
+                    else:
+                        raise
+                # Required shape regardless of pass/fail
+                for key in ("success_count", "fail_count", "total_count", "per_edition"):
+                    assert key in data, f"missing key: {key}"
+                assert isinstance(data["per_edition"], list)
+                from scripts.core import config
+
+                if hasattr(config.load_editions, "cache_clear"):
+                    config.load_editions.cache_clear()
+                assert data["total_count"] == len(config.load_editions())
+            finally:
+                srv.shutdown()
 
     def test_export_html_has_build_all_button(self):
         """The /export console must surface the Build-all button

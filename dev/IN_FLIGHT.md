@@ -2,7 +2,9 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **➤➤➤ 2026-05-22 (LATEST) VERSE-POPUP REGENERATION — SHIPPED. Tracker idle.**
+> **➤➤➤ 2026-05-22 (LATEST) — IDLE / READY FOR A FRESH SESSION. Nothing in flight.**
+>
+> Arcs shipped this session (newest first; full detail in `dev/CHANGELOG.md` + `dev/SESSION_STATE.md`): **(1)** end-of-session audit — all green (`ebible verify` errors=0, `trace_matrix` 0, `lint_rules` 16/0/0, `test_scripts.py` green after fixing the build-all socket flake); **(2)** symbol-system + tooltip fix — `inject.glyph_for` and `html_title_for` made data-driven so all **15** marker symbols + their tooltips render (topic-nave `◇`→`✦`, etc.); **(3)** verse-popup regeneration (below) 24% → 90.5%. The popup summary is retained below for context.
 >
 > The demo-critical verse-popup gap is CLOSED. `scripts/generate_verse_popups.py` (+ `tests/test_verse_popups.py`, 19 tests) regenerated verse popups across all KJV-covered books: coverage **24% → 90.5%** (9,689 → 36,556 verses; 77 books at ~100%). KJV English floor + harvest-merge-preserved Hebrew/Greek (the 11 originally-wrapped books kept their he/gr); old Gen 1:1/1:2 offset corrected; idempotent; `ebible verify` errors=0; build smoke green. Committed through `70ac7d3` (9 TDD tasks) + the finishing commit. Full story: CHANGELOG 2026-05-22 + spec/plan in `docs/superpowers/`. Deferred: acquire full he/gr/Greek-NT PD datasets to upgrade the English floor; Ge'ez popups for the 7 no-KJV books (Meqabyan I-III, 2 Enoch, Jubilees, 4 Baruch, 1 Clement).
 
