@@ -6,6 +6,13 @@ from __future__ import annotations
 
 import html as _html
 import re
+from pathlib import Path
+
+from scripts.core import config, notes_io
+from scripts.core import translations as tx
+
+REPO = Path(__file__).resolve().parents[1]
+EPUB_DIR = REPO / "epub_working"
 
 _EMPTY_TEXT = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
 
@@ -118,3 +125,86 @@ def ensure_verse_refs_section(text: str) -> tuple[str, int]:
     new_text = text[:body] + f"\n{_SECTION_OPEN}</section>\n" + text[body:]
     pos = new_text.find(_SECTION_OPEN)
     return new_text, new_text.find("</section>", pos)
+
+
+def _strip_chapter_asides(text: str, code: str, ch: int) -> str:
+    """Remove existing ``vnote`` asides for (code, ch) so a regen replaces rather
+    than duplicates them."""
+    pat = re.compile(rf'<aside class="vnote" id="vnote-{re.escape(code)}-{ch}-\d+".*?</aside>\s*', re.DOTALL)
+    return pat.sub("", text)
+
+
+def generate_book(code: str, *, dry_run: bool) -> dict:
+    book = config.books_by_code().get(code)
+    if book is None:
+        return {"error": f"unknown book {code!r}"}
+    title = book["title"]
+    bxx = book.get("bxx")
+    ch_count = int(book.get("ch_count", 0) or 0)
+    files = book.get("files", [])
+    stats = {"code": code, "verses_wrapped": 0, "asides_built": 0, "files_changed": [], "skipped_reason": None}
+
+    if not tx.has_book("kjv", code):
+        stats["skipped_reason"] = "no KJV source (Ethiopic-only — deferred)"
+        return stats
+    if not bxx or not files:
+        stats["skipped_reason"] = "missing bxx/files metadata"
+        return stats
+
+    for fname in files:
+        fpath = EPUB_DIR / fname
+        if not fpath.is_file():
+            continue
+        text = fpath.read_text(encoding="utf-8")
+        harvested = harvest_existing_langs(text)
+        original = text
+
+        for ch in range(1, ch_count + 1):
+            region = chapter_region(text, bxx=bxx, ch=ch)
+            if region is None:
+                continue
+            r_start, r_end = region
+            region_html = text[r_start:r_end]
+            # Wrap verse numbers (right-to-left so earlier offsets stay valid).
+            for vs in sorted(verse_numbers_in_region(region_html), reverse=True):
+                needle = f'<span class="vn">{vs}</span>'
+                vpos = region_html.find(needle)
+                if vpos == -1:
+                    continue
+                # Idempotency: check if the wrapper anchor id already exists in
+                # the 300 chars immediately before the span (handles pre-existing
+                # wrappers where the anchor precedes the span in the HTML).
+                lookback = region_html[max(0, vpos - 300) : vpos]
+                if f'id="v-{code}-{ch}-{vs}"' in lookback:
+                    continue
+                nxt = _VN_RE.search(region_html, vpos + len(needle))
+                vchunk = region_html[vpos : (nxt.start() if nxt else len(region_html))]
+                wrapped, changed = wrap_verse_number(vchunk, code=code, ch=ch, vs=vs, title=title)
+                if changed:
+                    region_html = region_html[:vpos] + wrapped + region_html[vpos + len(vchunk) :]
+                    stats["verses_wrapped"] += 1
+            text = text[:r_start] + region_html + text[r_end:]
+
+            # Build/refresh asides for every verse the chapter actually has.
+            new_asides = []
+            for vs in verse_numbers_in_region(region_html):
+                vid = f"vnote-{code}-{ch}-{vs}"
+                eng = tx.get_verse("kjv", code, ch, vs)
+                he = tx.get_verse("wlc", code, ch, vs) or harvested.get(vid, {}).get("hebrew")
+                gr = tx.get_verse("lxx-brenton-greek", code, ch, vs) or harvested.get(vid, {}).get("greek")
+                new_asides.append(
+                    build_vnote_aside(code=code, ch=ch, vs=vs, title=title, english=eng, hebrew=he, greek=gr)
+                )
+                stats["asides_built"] += 1
+
+            if new_asides:
+                text = _strip_chapter_asides(text, code, ch)
+                text, insert_at = ensure_verse_refs_section(text)
+                text = text[:insert_at] + "\n".join(new_asides) + "\n" + text[insert_at:]
+
+        if text != original:
+            stats["files_changed"].append(fname)
+            if not dry_run:
+                notes_io.ensure_backup(fpath)
+                notes_io.atomic_write(fpath, text)
+    return stats

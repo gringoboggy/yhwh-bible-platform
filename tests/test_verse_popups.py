@@ -163,3 +163,19 @@ class TestEnsureVerseRefsSection:
         new_text, insert_at = ensure_verse_refs_section(text)
         assert 'class="verse-refs-section"' in new_text
         assert new_text[insert_at : insert_at + len("</section>")] == "</section>"
+
+
+class TestGenerateBook:
+    def test_1ki_gains_wrappers_and_asides_dry_run(self):
+        from scripts.generate_verse_popups import generate_book
+
+        stats = generate_book("1ki", dry_run=True)
+        assert stats["verses_wrapped"] > 500, stats  # 1Ki has 816 verses
+        assert stats["asides_built"] == stats["verses_wrapped"], stats
+        assert stats["files_changed"], stats
+
+    def test_genesis_is_idempotent_dry_run(self):
+        from scripts.generate_verse_popups import generate_book
+
+        stats = generate_book("gen", dry_run=True)
+        assert stats["verses_wrapped"] == 0, stats  # already wrapped
