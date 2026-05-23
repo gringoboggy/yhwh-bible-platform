@@ -2616,6 +2616,27 @@ def _retitle_html_pages(text: str, edition_title: str) -> tuple[str, int]:
     return text.replace(needle, f"<title>{safe}</title>"), text.count(needle)
 
 
+def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
+    """Swap the base master cover (``build_dir/cover.jpeg``) for the edition's
+    declared ``cover_image`` when it resolves to a real file under ``content/``.
+
+    Returns the applied ``cover_image`` path, or ``None`` when the edition
+    declares no cover / the file is missing / there's no master cover to
+    replace — in which case the master cover is kept. This is the §7.2
+    back-compat case (the 2 standalone bibles set ``cover_image: ""``, and any
+    edition without a cover stays byte-identical). Resolution + the content/
+    sandbox are reused from ``press_kit.resolve_cover_path`` (compose, don't
+    recompute). Mirrors the theme-override step in ``build_one``."""
+    from scripts.core.press_kit import resolve_cover_path
+
+    src = resolve_cover_path(edition)
+    dst = build_dir / "cover.jpeg"
+    if src is None or not dst.is_file():
+        return None
+    shutil.copyfile(src, dst)
+    return str(edition.get("cover_image") or "")
+
+
 def build_one(
     edition_id: str,
     output_dir: Path,
@@ -2819,6 +2840,16 @@ def build_one(
                 theme_handle.write(f"\n\n/* === theme: {theme_id} === */\n")
                 theme_handle.write(theme_css.read_text(encoding="utf-8"))
             stats["theme_applied"] = theme_id
+
+        # Per-edition cover (fixes visual-QA finding b): the base
+        # epub_working/cover.jpeg is the master cover; swap in the edition's
+        # declared cover_image when it resolves to a real file. 9/11 editions
+        # declare a curated cover; the 2 standalone bibles + any unset edition
+        # keep the master (§7.2 back-compat). The OPF already marks cover.jpeg
+        # as the cover-image; this replaces the BYTES it points at.
+        cover_applied = apply_edition_cover(edition, tmp)
+        if cover_applied:
+            stats["cover_applied"] = cover_applied
 
         for html_path in tmp.glob("*.html"):
             text = html_path.read_text(encoding="utf-8")

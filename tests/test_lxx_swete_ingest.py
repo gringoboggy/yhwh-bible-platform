@@ -79,7 +79,7 @@ class TestLxxSweteToKjvBookMapAndIdentity:
         # Dan Old-Greek vs Dat); no-base-home books (Pss Psalms-of-Solomon,
         # 1Ma-4Ma, Ode — though man/paz come from Ode/Dat respectively, both
         # deferred); 1En (no KJV skeleton + base render gap).
-        ["1Es", "Tbs", "Jdt", "Pss", "1En", "Ode", "1Ma", "2Ma", "3Ma", "4Ma", "Sus", "Bel", "Dan"],
+        ["Tbs", "Pss", "1En", "Ode", "1Ma", "2Ma", "3Ma", "4Ma", "Sus", "Bel", "Dan"],
     )
     def test_deferred_and_unused_books_omitted(self, book):
         """Books not yet in scope this pass map to None (deferred or no base home)."""
@@ -166,8 +166,8 @@ class TestLxxSweteToKjvDaniel:
         [
             (2, 1, ("dan", 2, 1)),  # identity
             (3, 23, ("dan", 3, 23)),  # pre-Addition
-            (3, 24, None),  # Prayer of Azariah begins (Addition)
-            (3, 90, None),  # Song of the Three ends (Addition)
+            (3, 24, ("paz", 1, 1)),  # Prayer of Azariah begins → relocated to paz (not dan)
+            (3, 90, ("paz", 1, 68)),  # Song of the Three ends → paz (see TestLxxSwetePrayerOfAzariah)
             (3, 91, ("dan", 3, 24)),  # narrative resumes
             (3, 97, ("dan", 3, 30)),
             (3, 98, ("dan", 4, 1)),  # doxology = KJV 4:1-3
@@ -535,6 +535,242 @@ class TestLxxSweteTobit:
 
         hits = [v for v in range(1, 18) if lxx_swete_to_kjv("Tob", 7, v) in {("tob", 7, 10), ("tob", 7, 12)}]
         assert hits == []
+
+
+class TestLxxSweteJudith:
+    """Judith (Swete Jdt→jdt). ch1-14 identity (per-chapter counts match AND ch14
+    verified verse-by-verse). The 15/16 song boundary diverges, content-aligned
+    against the real Greek↔KJV: G15:1-13 = KJV 15:1-13; G15:14 ("Judith began this
+    thanksgiving in all Israel...") = KJV 16:1 (the song-intro, pulled forward). Then
+    ch16 runs at offset +1 (G16:1 "Begin unto my God with timbrels" = KJV 16:2) until
+    a catch-up MERGE: G16:7 ("put off her widow's garment...anointed her face") +
+    G16:8 ("and bound her hair...linen garment to deceive him") are the two clauses of
+    KJV 16:8 (concatenated), after which offset 0 resumes and G16:25 = KJV 16:25."""
+
+    @pytest.mark.parametrize(
+        "lxx_ch,lxx_v,expected",
+        [
+            (1, 1, ("jdt", 1, 1)),  # book head identity (ch1-14 not reordered)
+            (14, 1, ("jdt", 14, 1)),
+            (14, 19, ("jdt", 14, 19)),  # last identity verse before the song boundary
+            (15, 1, ("jdt", 15, 1)),  # ch15 body identity
+            (15, 13, ("jdt", 15, 13)),  # last ch15 verse that stays in ch15
+            (15, 14, ("jdt", 16, 1)),  # song-intro pulled forward to KJV 16:1
+            (16, 1, ("jdt", 16, 2)),  # +1 offset begins ("Begin unto my God...")
+            (16, 6, ("jdt", 16, 7)),
+            (16, 7, ("jdt", 16, 8)),  # first clause of KJV 16:8
+            (16, 8, ("jdt", 16, 8)),  # second clause -> concatenated onto KJV 16:8
+            (16, 9, ("jdt", 16, 9)),  # offset 0 resumes ("Her sandals ravished...")
+            (16, 25, ("jdt", 16, 25)),  # last verse ("...nor a long time after her death")
+        ],
+    )
+    def test_judith_song_boundary(self, lxx_ch, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Jdt", lxx_ch, lxx_v) == expected
+
+    def test_every_kjv_judith_16_verse_receives_greek(self):
+        """The merge is exact: all 25 KJV jdt 16 verses get Greek (none orphaned),
+        and no Greek verse is misplaced outside the chapter."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        covered = set()
+        for v in range(1, 15):  # G15:1-14
+            m = lxx_swete_to_kjv("Jdt", 15, v)
+            if m and m[1] == 16:
+                covered.add(m[2])
+        for v in range(1, 26):  # G16:1-25
+            m = lxx_swete_to_kjv("Jdt", 16, v)
+            assert m is not None and m[0] == "jdt" and m[1] == 16
+            covered.add(m[2])
+        assert covered == set(range(1, 26))
+
+
+class TestLxxSwete1Esdras:
+    """1 Esdras (Swete 1Es→1es). ch4/7/9 identity (counts match). ch1/2/3/5/6/8 are
+    Greek-FEWER than the KJV (Apocrypha) enumeration — the Greek combines verses the
+    KJV splits, content-aligned against the real Greek↔KJV. Each combine leaves a KJV
+    verse with no Greek of its own (never fabricated); ch8 additionally has ONE Greek
+    SPLIT (G8:49+G8:50 = KJV 8:50, concatenated). Per chapter the net (merges−splits)
+    equals the KJV-minus-Greek count: ch1 +3, ch2 +5, ch3 +1, ch5 +3, ch6 +1, ch8 +4.
+    Merge loci (KJV verse with no Greek): ch1 K1:11/18/52; ch2 K2:7/20/21/23/29; ch3
+    K3:15; ch5 K5:42/55/60; ch6 K6:9; ch8 K8:44/57/64/66/94."""
+
+    @pytest.mark.parametrize(
+        "lxx_ch,lxx_v,expected",
+        [
+            # ch1 (+3): merges at G1:10=K1:10+11, G1:16=K1:17+18, G1:49=K1:51+52
+            (1, 1, ("1es", 1, 1)),
+            (1, 10, ("1es", 1, 10)),  # "priests and Levites stood comely" = KJV 1:10+11
+            (1, 11, ("1es", 1, 12)),  # offset +1 ("roasted the passover with fire")
+            (1, 16, ("1es", 1, 17)),  # = KJV 1:17+18
+            (1, 17, ("1es", 1, 19)),  # offset +2
+            (1, 49, ("1es", 1, 51)),  # = KJV 1:51+52
+            (1, 50, ("1es", 1, 53)),  # offset +3
+            (1, 55, ("1es", 1, 58)),  # last (the 70-years sabbath)
+            # ch2 (+5): G2:6=K6+7, G2:18=K19+20+21, G2:19=K22+23, G2:24=K28+29
+            (2, 6, ("1es", 2, 6)),
+            (2, 7, ("1es", 2, 8)),  # offset +1
+            (2, 18, ("1es", 2, 19)),  # = KJV 2:19+20+21 (triple)
+            (2, 19, ("1es", 2, 22)),  # offset +3; = KJV 2:22+23
+            (2, 20, ("1es", 2, 24)),  # offset +4
+            (2, 24, ("1es", 2, 28)),  # = KJV 2:28+29
+            (2, 25, ("1es", 2, 30)),  # offset +5 (last)
+            # ch3 (+1): G3:14=K3:14+15
+            (3, 14, ("1es", 3, 14)),
+            (3, 15, ("1es", 3, 16)),  # offset +1
+            (3, 23, ("1es", 3, 24)),  # last
+            # ch4 identity (63=63)
+            (4, 1, ("1es", 4, 1)),
+            (4, 63, ("1es", 4, 63)),
+            # ch5 (+3): G5:41=K41+42, G5:53=K54+55, G5:57=K59+60
+            (5, 41, ("1es", 5, 41)),
+            (5, 42, ("1es", 5, 43)),  # offset +1
+            (5, 53, ("1es", 5, 54)),  # = KJV 5:54+55
+            (5, 54, ("1es", 5, 56)),  # offset +2
+            (5, 57, ("1es", 5, 59)),  # = KJV 5:59+60
+            (5, 58, ("1es", 5, 61)),  # offset +3
+            (5, 70, ("1es", 5, 73)),  # last
+            # ch6 (+1): G6:8=K6:8+9
+            (6, 8, ("1es", 6, 8)),
+            (6, 9, ("1es", 6, 10)),  # offset +1
+            (6, 33, ("1es", 6, 34)),  # last
+            # ch7 identity (15=15)
+            (7, 1, ("1es", 7, 1)),
+            (7, 15, ("1es", 7, 15)),
+            # ch8 (+4): 5 merges + 1 split. G8:43=K43+44; G8:49+G8:50=K50 (split);
+            # G8:56=K56+57; G8:62=K63+64; G8:63=K65+66; G8:90=K93+94
+            (8, 43, ("1es", 8, 43)),  # = KJV 8:43+44
+            (8, 44, ("1es", 8, 45)),  # offset +1
+            (8, 49, ("1es", 8, 50)),  # first half of KJV 8:50
+            (8, 50, ("1es", 8, 50)),  # second half -> concatenated onto KJV 8:50 (offset back to 0)
+            (8, 51, ("1es", 8, 51)),
+            (8, 56, ("1es", 8, 56)),  # = KJV 8:56+57
+            (8, 57, ("1es", 8, 58)),  # offset +1
+            (8, 62, ("1es", 8, 63)),  # = KJV 8:63+64
+            (8, 63, ("1es", 8, 65)),  # offset +2; = KJV 8:65+66
+            (8, 64, ("1es", 8, 67)),  # offset +3
+            (8, 90, ("1es", 8, 93)),  # = KJV 8:93+94
+            (8, 91, ("1es", 8, 95)),  # offset +4
+            (8, 92, ("1es", 8, 96)),  # last
+            # ch9 identity (55=55)
+            (9, 1, ("1es", 9, 1)),
+            (9, 55, ("1es", 9, 55)),
+        ],
+    )
+    def test_1esdras_scattered_divisions(self, lxx_ch, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("1Es", lxx_ch, lxx_v) == expected
+
+    def test_kjv_combine_loci_receive_no_greek(self):
+        """The KJV verses the Greek combined into a neighbour get no Greek of their own
+        (never fabricated by splitting one source verse)."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        gaps = {1: {11, 18, 52}, 2: {7, 20, 21, 23, 29}, 3: {15}, 5: {42, 55, 60}, 6: {9}, 8: {44, 57, 64, 66, 94}}
+        for ch, gap_vs in gaps.items():
+            hit = {
+                kv for v in range(1, 100) for m in [lxx_swete_to_kjv("1Es", ch, v)] if m and m[1] == ch for kv in [m[2]]
+            }
+            assert gap_vs.isdisjoint(hit), f"ch{ch}: {gap_vs & hit} unexpectedly received Greek"
+
+    def test_ch8_split_concatenates_two_greek_into_kjv_8_50(self):
+        """The lone Greek split: G8:49 and G8:50 both land on KJV 8:50 (build_verses
+        concatenates them so the popup shows the whole verse)."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("1Es", 8, 49) == ("1es", 8, 50)
+        assert lxx_swete_to_kjv("1Es", 8, 50) == ("1es", 8, 50)
+
+
+class TestLxxSwetePrayerOfManasseh:
+    """The Prayer of Manasseh is Swete ``Ode 8`` (VERIFIED against the real source — NOT
+    the Rahlfs ``Ode 12`` numbering, which in THIS eliranwong digitization is the Nunc
+    Dimittis / Prayer of Simeon). Ode 8 = "Προσευχὴ Μαννασσή. Κύριε παντοκράτωρ
+    ἐπουράνιε..." with 15 verses, a CLEAN verse-for-verse identity onto KJV man 1 (the
+    Greek title rides in v1). Every other Swete Ode is a canticle with no project book
+    home (Song of Moses, Magnificat, Benedictus, Nunc Dimittis, ...) -> omit."""
+
+    @pytest.mark.parametrize(
+        "ode_v,expected",
+        [
+            (1, ("man", 1, 1)),  # "Prayer of Manasseh. O Lord almighty, God of our fathers..."
+            (2, ("man", 1, 2)),  # "who hast made heaven and earth"
+            (8, ("man", 1, 8)),  # "Thou therefore, O Lord, that art the God of the just"
+            (11, ("man", 1, 11)),  # "Now therefore I bow the knee of mine heart"
+            (15, ("man", 1, 15)),  # last ("I will praise thee for ever... Amen")
+            (16, None),  # out of extent (man 1 has 15 verses)
+        ],
+    )
+    def test_manasseh_from_ode_8_identity(self, ode_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Ode", 8, ode_v) == expected
+
+    @pytest.mark.parametrize("ch,vs", [(1, 1), (9, 26), (11, 46), (12, 29), (13, 68), (14, 1)])
+    def test_other_odes_have_no_project_home(self, ch, vs):
+        """Ode 12 in particular is the Nunc Dimittis here — it must NOT map to man."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Ode", ch, vs) is None
+
+
+class TestLxxSwetePrayerOfAzariah:
+    """The Prayer of Azariah / Song of the Three (paz) is the Theodotion-Daniel Addition
+    Dat 3:24-90 (already OMITTED from _DAN_SEGMENTS, so no fan-out conflict). Content-
+    aligned vs the real Greek↔KJV paz: the prayer G3:24-51 → paz 1:1-28 (offset −23);
+    G3:52 combines KJV 1:29+1:30 (1:30 gets no Greek) so the litany runs at offset −22;
+    the Benedicite REORDERS (angels/heavens swapped; the cold/frost/lightning block
+    permuted) and TWO source-empty verses G3:67/G3:68 leave KJV 1:46 + 1:49 without Greek.
+    Dat 3:1-23 + 3:91-100 still belong to dan (the cross-book intercept is bounded to
+    24-90)."""
+
+    @pytest.mark.parametrize(
+        "lxx_v,expected",
+        [
+            (24, ("paz", 1, 1)),  # "And they walked in the midst of the fire, praising God"
+            (25, ("paz", 1, 2)),  # "Then Azarias stood up and prayed"
+            (51, ("paz", 1, 28)),  # "the three, as out of one mouth, praised" (offset −23)
+            (52, ("paz", 1, 29)),  # = KJV 1:29+1:30 (1:30 unmapped); offset drops to −22
+            (53, ("paz", 1, 31)),  # "Blessed art thou in the temple of thine holy glory"
+            (57, ("paz", 1, 35)),  # "O all ye works of the Lord"
+            (58, ("paz", 1, 37)),  # angels — SWAPPED past heavens
+            (59, ("paz", 1, 36)),  # heavens — SWAPPED
+            (60, ("paz", 1, 38)),  # waters above the heaven
+            (66, ("paz", 1, 44)),  # fire and heat
+            (67, None),  # source-empty
+            (68, None),  # source-empty
+            (69, ("paz", 1, 45)),  # "cold and heat" -> winter and summer
+            (70, ("paz", 1, 50)),  # "hoarfrost and snows" -> frost and snow
+            (71, ("paz", 1, 47)),  # nights and days
+            (72, ("paz", 1, 48)),  # light and darkness
+            (73, ("paz", 1, 51)),  # lightnings and clouds
+            (74, ("paz", 1, 52)),  # the earth (offset −22 resumes, monotonic to the end)
+            (88, ("paz", 1, 66)),  # Ananias, Azarias, Misael
+            (90, ("paz", 1, 68)),  # last ("O all ye that worship the Lord")
+        ],
+    )
+    def test_azariah_from_theodotion_dat3(self, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Dat", 3, lxx_v) == expected
+
+    def test_dat3_addition_boundary_stays_in_daniel(self):
+        """Dat 3:23 (pre-Addition) and 3:91 (narrative resumes) still map to dan, not paz."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Dat", 3, 23) == ("dan", 3, 23)
+        assert lxx_swete_to_kjv("Dat", 3, 91) == ("dan", 3, 24)
+
+    def test_combine_and_empty_loci_receive_no_greek(self):
+        """KJV paz 1:30 (Greek-combined into 1:29) and 1:46/1:49 (the two source-empty
+        Benedicite verses) receive no Greek of their own."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        hit = {m[2] for v in range(24, 91) for m in [lxx_swete_to_kjv("Dat", 3, v)] if m and m[0] == "paz"}
+        assert {30, 46, 49}.isdisjoint(hit)
+        assert len(hit) == 65  # 65 of paz's 68 verses receive Greek
 
 
 class TestBuildVerses:

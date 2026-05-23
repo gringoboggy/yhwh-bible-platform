@@ -130,15 +130,18 @@ in **canon + note density**, not theme or cover):
    scholarly-academic does not use `scholarly.css`. Fix: assign a `theme:` per
    demo edition (and/or give the themes real overrides) + a test pinning that
    two differently-themed editions produce different stylesheets.
-2. **Per-edition COVER not applied.** Built `cover.jpeg` is byte-identical
-   (185,316 B) across all editions and equals the master
-   `epub_working/cover.jpeg`. Yet 9/11 editions declare distinct curated covers
-   (`content/covers/<id>.jpg`, 660–800 KB) that preflight validates and the
-   customize UI edits — but `build_edition.py` never reads `cover_image`, so the
-   declared cover never reaches the EPUB. (The 2 standalone bibles set
-   `cover_image: ""` on purpose.) Fix: wire `cover_image` into `build_one`
-   (validate → swap `cover.jpeg` → keep the OPF `cover-image` property) + a test
-   that a declared cover changes the output bytes.
+2. **Per-edition COVER not applied — ✅ FIXED 2026-05-23.** Built `cover.jpeg` was
+   byte-identical (185,316 B) across all editions and equalled the master
+   `epub_working/cover.jpeg`, even though 9/11 editions declare distinct curated
+   covers (`content/covers/<id>.jpg`, 660–800 KB). Root cause: `build_edition.py`
+   patched the OPF `cover-image` property but never replaced the bytes `cover.jpeg`
+   points at. Fixed: new `build_edition.apply_edition_cover(edition, build_dir)`
+   (reuses the sandboxed `press_kit.resolve_cover_path`) swaps the master for the
+   edition's `cover_image` right after the copytree, mirroring the theme-override
+   step; the 2 standalone bibles (`cover_image: ""`) + any unset edition keep the
+   master (§7.2 back-compat). `tests/test_covers.py` (helper unit tests + a
+   build-level test that the packaged `cover.jpeg` equals the edition's curated
+   cover). The OPF `cover-image` property is unchanged — only the bytes differ.
 
 **Observations (not bugs):**
 - NT + most OT popups are KJV-English-only; Hebrew/Greek appear only in the ~11

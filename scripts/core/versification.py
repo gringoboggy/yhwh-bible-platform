@@ -89,11 +89,13 @@ def wlc_to_kjv_map(path) -> dict[Coord, Coord]:
 # ===========================================================================
 
 # Swete book name -> project 3-letter code (the 39 standard OT books + the
-# identity-/single-segment-verified deuterocanon subset below; Daniel uses the
-# received Theodotion text ``Dat``, Song of Songs is ``Sol`` -> ``sng``).
-# Deuterocanon NOT yet here (deferred — need verified reorder tables): Jdt
-# (ch16 split+merge), 1Es (scattered), man (from Ode 12), paz (from Dat 3:24-90);
-# aes editorial; Tbs is the unused Tobit long recension; see dev/PLAN_2026-05-21.md.
+# content-verified deuterocanon subset below; Daniel uses the received Theodotion
+# text ``Dat``, Song of Songs is ``Sol`` -> ``sng``). The deuterocanon reorder pass
+# is COMPLETE: Jdt (15/16 song boundary), 1Es (scattered intra-chapter combines), and
+# the two cross-book canticles man (Swete Ode 8, via _cross_book) + paz (Theodotion
+# Dat 3:24-90, via _cross_book) are all mapped. Still out of scope: aes (editorial
+# WEB↔KJV concordance, not a Swete-map problem), 1En (no KJV skeleton + base render
+# gap), and the unused recension dups (Tbs Tobit-long, Old-Greek Sus/Bel/Dan).
 SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Gen": "gen",
     "Exo": "exo",
@@ -145,6 +147,8 @@ SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Epj": "lje",  # Letter of Jeremiah — single head split, then +1
     "Sir": "sir",  # Sirach — the 30:25-36:16a transposition + merges (_SIR_SEGMENTS)
     "Tob": "tob",  # Tobit (short recension) — ch6 offset + ch7 split/merge (_TOB_SEGMENTS)
+    "Jdt": "jdt",  # Judith — ch1-14 identity; the 15/16 song boundary (_JDT_SEGMENTS)
+    "1Es": "1es",  # 1 Esdras — scattered intra-chapter combines, ch1/2/3/5/6/8 (_1ES_SEGMENTS)
 }
 
 # Per-chapter LXX verse counts for Psalms (Swete), index == LXX chapter (0 unused).
@@ -497,6 +501,45 @@ _TOB_SEGMENTS: dict[int, list[_Seg]] = {
     7: [(1, 7, 7, 1), (8, 8, 7, 8), (9, 9, 7, 8), (10, 10, 7, 9), (11, 11, 7, 11), (12, _HI, 7, 13)],
 }
 
+# Judith (Swete Jdt): ch1-14 identity (per-chapter counts match; ch14 verified verse-
+# by-verse). The 15/16 hymn boundary diverges (content-aligned vs the real Greek↔KJV):
+# the song-intro Greek 15:14 ("Judith began this thanksgiving in all Israel") = KJV
+# 16:1, so KJV 16:1 receives no ch16 Greek of its own. ch16 then runs at offset +1
+# (Greek 16:1 "Begin unto my God with timbrels" = KJV 16:2) until a catch-up MERGE:
+# Greek 16:7 ("put off her widow's garment...anointed her face") + Greek 16:8 ("and
+# bound her hair...linen garment to deceive him") are the two clauses of KJV 16:8
+# (concatenated), after which offset 0 resumes (Greek 16:9-25 = KJV 16:9-25).
+_JDT_SEGMENTS: dict[int, list[_Seg]] = {
+    15: [(1, 13, 15, 1), (14, 14, 16, 1)],
+    16: [(1, 7, 16, 2), (8, 8, 16, 8), (9, _HI, 16, 9)],
+}
+
+# 1 Esdras (Swete 1Es): ch4/7/9 identity (counts match). ch1/2/3/5/6/8 are Greek-FEWER
+# than the KJV (Apocrypha) enumeration — the Greek combines verses the KJV splits, so a
+# combined KJV verse gets no Greek of its own (an unmapped verse in a remapped chapter
+# returns None — never fabricated). ALL boundaries content-aligned vs the real Swete↔KJV
+# (NOT memory). Per chapter the net combine count = KJV−Greek: ch1 +3, ch2 +5, ch3 +1,
+# ch5 +3, ch6 +1, ch8 +4. ch8 also has ONE Greek SPLIT (G8:49+G8:50 = KJV 8:50, the 2nd
+# half concatenated by build_verses). Offsets step up at each combine; the segment
+# kjv_v_lo encodes the running offset.
+_1ES_SEGMENTS: dict[int, list[_Seg]] = {
+    1: [(1, 10, 1, 1), (11, 16, 1, 12), (17, 49, 1, 19), (50, _HI, 1, 53)],
+    2: [(1, 6, 2, 1), (7, 18, 2, 8), (19, 19, 2, 22), (20, 24, 2, 24), (25, _HI, 2, 30)],
+    3: [(1, 14, 3, 1), (15, _HI, 3, 16)],
+    5: [(1, 41, 5, 1), (42, 53, 5, 43), (54, 57, 5, 56), (58, _HI, 5, 61)],
+    6: [(1, 8, 6, 1), (9, _HI, 6, 10)],
+    8: [
+        (1, 43, 8, 1),  # offset 0; G8:43 = KJV 8:43+44
+        (44, 49, 8, 45),  # offset +1; G8:49 = first half of KJV 8:50
+        (50, 50, 8, 50),  # the Greek SPLIT: G8:50 concatenated onto KJV 8:50 (offset back to 0)
+        (51, 56, 8, 51),  # G8:56 = KJV 8:56+57
+        (57, 62, 8, 58),  # offset +1; G8:62 = KJV 8:63+64
+        (63, 63, 8, 65),  # offset +2; G8:63 = KJV 8:65+66
+        (64, 90, 8, 67),  # offset +3; G8:90 = KJV 8:93+94
+        (91, _HI, 8, 95),  # offset +4; G8:91-92 = KJV 8:95-96
+    ],
+}
+
 _SEGMENT_BOOKS = {
     "jer": _JER_SEGMENTS,
     "dan": _DAN_SEGMENTS,
@@ -506,6 +549,8 @@ _SEGMENT_BOOKS = {
     "lje": _LJE_SEGMENTS,
     "sir": _SIR_SEGMENTS,
     "tob": _TOB_SEGMENTS,
+    "jdt": _JDT_SEGMENTS,
+    "1es": _1ES_SEGMENTS,
 }
 
 
@@ -521,12 +566,65 @@ def _apply_segments(code: str, table: dict[int, list[_Seg]], ch: int, vs: int) -
     return None  # a remapped chapter but an unmapped verse -> omit (never misplace)
 
 
+# Prayer of Azariah / Song of the Three (paz): the Theodotion-Daniel Addition Dat 3:24-90
+# (already OMITTED from _DAN_SEGMENTS, so no fan-out conflict). Per-verse segments in PAZ
+# coordinates (lxx_lo, lxx_hi, paz_ch | None, paz_v_lo). Content-aligned vs the real
+# Greek↔KJV paz (NOT memory): the prayer G3:24-51 → paz 1:1-28 (offset −23); G3:52 combines
+# KJV 1:29+1:30 (1:30 gets no Greek), dropping the litany to offset −22; the Benedicite
+# REORDERS — Greek angels/heavens are swapped vs KJV, and the cold/frost/lightning block is
+# permuted (G69 "cold&heat"→winter&summer 1:45, G70 "hoarfrost&snows"→1:50, G71→1:47,
+# G72→1:48, G73 "lightnings&clouds"→1:51); G3:67/G3:68 are source-EMPTY, leaving KJV 1:46
+# (dews&storms) + 1:49 (ice&cold) without Greek — exactly the two subjects the Greek omits.
+_PAZ_FROM_DAT3: list[_Seg] = [
+    (24, 51, 1, 1),  # Prayer of Azariah — offset −23
+    (52, 52, 1, 29),  # G52 = KJV 1:29+1:30 (1:30 unmapped); offset → −22
+    (53, 57, 1, 31),  # litany head (temple..works)
+    (58, 58, 1, 37),  # angels — swapped with heavens
+    (59, 59, 1, 36),  # heavens — swapped with angels
+    (60, 66, 1, 38),  # waters-above .. fire&heat
+    (67, 68, None, 0),  # source-EMPTY verses → omit
+    (69, 69, 1, 45),  # "cold and heat" → winter and summer
+    (70, 70, 1, 50),  # "hoarfrost and snows" → frost and snow
+    (71, 71, 1, 47),  # nights and days
+    (72, 72, 1, 48),  # light and darkness
+    (73, 73, 1, 51),  # lightnings and clouds
+    (74, 90, 1, 52),  # the earth .. all who worship — offset −22, monotonic to the end
+]
+
+
+def _cross_book(swete_book: str, ch: int, vs: int) -> Coord | None:
+    """Relocations where a Swete source's verses belong to a project book DIFFERENT from
+    any whole-book ``SWETE_BOOK_TO_CODE`` entry — returned as a full ``(code, ch, vs)``
+    BEFORE the regular per-book handling. Two cases, both content-verified:
+
+    - **Prayer of Manasseh (man):** Swete ``Ode 8`` (15 verses, clean identity onto KJV
+      man 1, the Greek title in v1). VERIFIED Ode 8 in THIS digitization — the Rahlfs
+      Ode-12 numbering does NOT apply (Ode 12 here is the Nunc Dimittis). Every other Ode
+      is a canticle with no project home (Song of Moses, Magnificat, Benedictus, ...).
+    - **Prayer of Azariah / Song of the Three (paz):** Theodotion ``Dat 3:24-90`` via
+      ``_PAZ_FROM_DAT3`` (prayer + the reordered Benedicite). Dat 3:1-23 / 3:91+ still
+      belong to dan (the regular path), so the intercept is bounded to 24-90."""
+    if swete_book == "Ode":
+        return ("man", 1, vs) if ch == 8 else None
+    if swete_book == "Dat" and ch == 3 and 24 <= vs <= 90:
+        for lo, hi, paz_ch, paz_v_lo in _PAZ_FROM_DAT3:
+            if lo <= vs <= hi:
+                return None if paz_ch is None else ("paz", paz_ch, paz_v_lo + (vs - lo))
+        return None
+    return None
+
+
 def lxx_swete_to_kjv(swete_book: str, ch: int, vs: int) -> Coord | None:
     """Map a Swete LXX coordinate to its canonical (KJV/project) coordinate.
 
     Returns ``(proj_code, chapter, verse)`` or ``None`` to omit the verse (a book
     outside the 39-OT scope, a dropped superscription / Addition / doublet, or a
     coordinate the canonical book doesn't contain)."""
+    cross = _cross_book(swete_book, ch, vs)
+    if cross is not None:
+        c_code, c_ch, c_v = cross
+        return cross if coord_in_canonical_extent(c_code, c_ch, c_v) else None
+
     code = SWETE_BOOK_TO_CODE.get(swete_book)
     if code is None:
         return None

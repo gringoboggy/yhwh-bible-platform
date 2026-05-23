@@ -191,17 +191,20 @@ stats:
   books: {len(by_code)}
   verses: {verse_total}
 notes: |
-  39 standard OT books + a verified deuterocanon subset (Wisdom, Susanna, Bel &
-  the Dragon, Baruch, Letter of Jeremiah, Sirach) of Swete's Septuagint, remapped
-  from LXX numbering to canonical KJV coordinates via
+  39 standard OT books + the COMPLETE content-verified deuterocanon subset (Wisdom,
+  Susanna, Bel & the Dragon, Baruch, Letter of Jeremiah, Sirach, Tobit, Judith,
+  1 Esdras, Prayer of Manasseh, Prayer of Azariah / Song of the Three) of Swete's
+  Septuagint, remapped from LXX numbering to canonical KJV coordinates via
   scripts/core/versification.lxx_swete_to_kjv (Psalms renumbering, Jeremiah's OAN
   reorder, Theodotion Daniel's Additions, Proverbs 24/29 reorder, the 1 Kings
-  20<->21 swap, the Baruch 3:34 split, the Letter-of-Jeremiah head split, and the
-  Sirach 30:25-36:16a block transposition + internal verse-merges). sus/bel use
-  the Theodotion recension (Sut/Bet) the KJV/Vulgate tradition follows. Still
-  deferred pending verified reorder tables (omitted here): Judith (ch16
-  split+merge), Tobit, 1 Esdras, Prayer of Manasseh, Prayer of Azariah, the Esther
-  Additions, the Exodus 36-39 tabernacle account, and the Sirach 41 litany tail.
+  20<->21 swap, the Baruch 3:34 + Letter-of-Jeremiah head splits, the Sirach
+  30:25-36:16a transposition, the Tobit ch6/7 boundary, the Judith 15/16 song
+  boundary, the 1 Esdras scattered intra-chapter combines, and the two cross-book
+  canticles man (Swete Ode 8) + paz (Theodotion Dat 3:24-90, with its reordered
+  Benedicite). sus/bel use the Theodotion recension (Sut/Bet) the KJV/Vulgate
+  tradition follows. Out of scope: aes (editorial WEB↔KJV concordance), 1En (no KJV
+  skeleton + base render gap), the Exodus 36-39 tabernacle account (LXX-reordered +
+  abbreviated), and the unused recension dups (Tbs, Old-Greek Sus/Bel/Dan).
   Greek is stored PLAIN (space-joined, NOT em-per-word). PD basis: Swete d. 1917;
   only the public-domain text is used (the repo's GPL transliteration/morphology
   layers are not). Regenerable: re-run the extractor.
