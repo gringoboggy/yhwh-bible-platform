@@ -110,8 +110,11 @@ def build_verses(vers_path, words_path) -> tuple[dict[str, list[tuple[int, int, 
 
     Returns ``({code: [(ch, vs, text), ...] sorted}, stats)``. Verses the map omits
     (out-of-scope books, dropped superscriptions, Additions, out-of-extent) are
-    counted in ``stats['omitted']``. Two LXX verses landing on one canonical coord
-    is a mapping bug — recorded in ``stats['collision_detail']``, first writer wins.
+    counted in ``stats['omitted']``. When the LXX splits ONE canonical verse into
+    two adjacent Greek verses (e.g. Sirach 34:10 = Greek 31:10 + 31:11, or Baruch
+    3:34 = Greek 3:34 + 3:35), both are mapped to the same canonical coord and
+    their Greek is CONCATENATED in source order — so the popup shows the WHOLE
+    verse, never a truncated half. The count is recorded in ``stats['merged']``.
     """
     from scripts.core.versification import lxx_swete_to_kjv
 
@@ -119,7 +122,7 @@ def build_verses(vers_path, words_path) -> tuple[dict[str, list[tuple[int, int, 
     words = parse_words(words_path)
     by_code: dict[str, dict[tuple[int, int], str]] = {}
     omitted = 0
-    collisions: list[tuple] = []
+    merged: list[tuple] = []
     for ref, text in reconstruct(vers, words):
         try:
             book, ch, vs = parse_ref(ref)
@@ -131,17 +134,21 @@ def build_verses(vers_path, words_path) -> tuple[dict[str, list[tuple[int, int, 
             omitted += 1
             continue
         code, kch, kvs = mapped
+        cleaned = _clean_greek(text)
         slot = by_code.setdefault(code, {})
         if (kch, kvs) in slot:
-            collisions.append((code, kch, kvs, ref))
+            # LXX-split canonical verse: concatenate the second half (source order
+            # is verse order, so the join reads correctly) instead of dropping it.
+            merged.append((code, kch, kvs, ref))
+            slot[(kch, kvs)] = (slot[(kch, kvs)] + " " + cleaned).strip()
             continue
-        slot[(kch, kvs)] = _clean_greek(text)
+        slot[(kch, kvs)] = cleaned
     out = {code: sorted((c, v, t) for (c, v), t in d.items()) for code, d in by_code.items()}
     stats = {
         "written": sum(len(v) for v in out.values()),
         "omitted": omitted,
-        "collisions": len(collisions),
-        "collision_detail": collisions[:20],
+        "merged": len(merged),
+        "merged_detail": merged[:20],
         "books": len(out),
     }
     return out, stats
@@ -185,18 +192,19 @@ stats:
   verses: {verse_total}
 notes: |
   39 standard OT books + a verified deuterocanon subset (Wisdom, Susanna, Bel &
-  the Dragon, Baruch, Letter of Jeremiah) of Swete's Septuagint, remapped from
-  LXX numbering to canonical KJV coordinates via
+  the Dragon, Baruch, Letter of Jeremiah, Sirach) of Swete's Septuagint, remapped
+  from LXX numbering to canonical KJV coordinates via
   scripts/core/versification.lxx_swete_to_kjv (Psalms renumbering, Jeremiah's OAN
   reorder, Theodotion Daniel's Additions, Proverbs 24/29 reorder, the 1 Kings
-  20<->21 swap, the Baruch 3:34 split, the Letter-of-Jeremiah head split). sus/bel
-  use the Theodotion recension (Sut/Bet) the KJV/Vulgate tradition follows. Still
+  20<->21 swap, the Baruch 3:34 split, the Letter-of-Jeremiah head split, and the
+  Sirach 30:25-36:16a block transposition + internal verse-merges). sus/bel use
+  the Theodotion recension (Sut/Bet) the KJV/Vulgate tradition follows. Still
   deferred pending verified reorder tables (omitted here): Judith (ch16
-  split+merge), Tobit, 1 Esdras, Sirach (the 30-36 Greek transposition), Prayer
-  of Manasseh, Prayer of Azariah, the Esther Additions, the Exodus 36-39
-  tabernacle account. Greek is stored PLAIN (space-joined, NOT em-per-word). PD
-  basis: Swete d. 1917; only the public-domain text is used (the repo's GPL
-  transliteration/morphology layers are not). Regenerable: re-run the extractor.
+  split+merge), Tobit, 1 Esdras, Prayer of Manasseh, Prayer of Azariah, the Esther
+  Additions, the Exodus 36-39 tabernacle account, and the Sirach 41 litany tail.
+  Greek is stored PLAIN (space-joined, NOT em-per-word). PD basis: Swete d. 1917;
+  only the public-domain text is used (the repo's GPL transliteration/morphology
+  layers are not). Regenerable: re-run the extractor.
 """
     (dest / "_meta.yaml").write_text(meta, encoding="utf-8")
 
@@ -207,12 +215,10 @@ def main(argv: list[str] | None = None) -> int:
         source / "00-Swete_versification.csv",
         source / "01-Swete_word_with_punctuations.csv",
     )
-    if stats["collisions"]:
-        print(f"WARNING: {stats['collisions']} coord collisions: {stats['collision_detail']}")
     write_translation(by_code, TRANSLATIONS_DIR / TRANSLATION_ID, stats["written"])
     print(
         f"wrote {stats['written']} verses across {stats['books']} books "
-        f"(omitted {stats['omitted']}; collisions {stats['collisions']}) -> {TRANSLATION_ID}/"
+        f"(omitted {stats['omitted']}; merged {stats['merged']} LXX-split verses) -> {TRANSLATION_ID}/"
     )
     return 0
 

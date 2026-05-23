@@ -79,7 +79,7 @@ class TestLxxSweteToKjvBookMapAndIdentity:
         # Dan Old-Greek vs Dat); no-base-home books (Pss Psalms-of-Solomon,
         # 1Ma-4Ma, Ode — though man/paz come from Ode/Dat respectively, both
         # deferred); 1En (no KJV skeleton + base render gap).
-        ["Sir", "1Es", "Tob", "Tbs", "Jdt", "Pss", "1En", "Ode", "1Ma", "2Ma", "3Ma", "4Ma", "Sus", "Bel", "Dan"],
+        ["1Es", "Tbs", "Jdt", "Pss", "1En", "Ode", "1Ma", "2Ma", "3Ma", "4Ma", "Sus", "Bel", "Dan"],
     )
     def test_deferred_and_unused_books_omitted(self, book):
         """Books not yet in scope this pass map to None (deferred or no base home)."""
@@ -372,7 +372,7 @@ class TestLxxSweteBaruch:
             (3, 1, ("bar", 3, 1)),  # identity within ch3 head
             (3, 33, ("bar", 3, 33)),  # last identity verse before the split
             (3, 34, ("bar", 3, 34)),  # Greek 3:34 = first clause of KJV 3:34
-            (3, 35, None),  # Greek 3:35 = second clause of KJV 3:34 -> omit (no own coord)
+            (3, 35, ("bar", 3, 34)),  # Greek 3:35 = second clause of KJV 3:34 -> concatenated onto 3:34
             (3, 36, ("bar", 3, 35)),  # "This is our God"
             (3, 37, ("bar", 3, 36)),  # "found out all the way of knowledge"
             (3, 38, ("bar", 3, 37)),  # "Afterward did he shew himself upon earth"
@@ -419,6 +419,124 @@ class TestLxxSweteLetterOfJeremiah:
         assert hits == []
 
 
+class TestLxxSweteSirach:
+    """Sirach — the Greek 30:25–36:16a block transposition + internal verse-merges,
+    all derived by content-aligning the real Swete text against the KJV (not memory).
+    Greek→KJV: G30:1-24=30; G30:25-40=33:16-31; G31=34 (5 merges); G32=35 (6 merges);
+    G33:1-13=36:1-11 (2 merges); G34=31; G35=32; G36:1-15=33:1-15; G36:16 conflated
+    seam→omit; G36:17-31=36:12-26. Each LXX-split verse's 2nd half is concatenated
+    onto its canonical coord (popup shows the whole verse). Minors ch20/23/41 all
+    identity (each Greek-fewer with only terminal KJV extras: KJV 20:32, 23:28,
+    41:23-24 have no Greek)."""
+
+    @pytest.mark.parametrize(
+        "lxx_ch,lxx_v,expected",
+        [
+            # identity outside the transposition
+            (1, 1, ("sir", 1, 1)),
+            (29, 28, ("sir", 29, 28)),
+            (37, 1, ("sir", 37, 1)),  # identity resumes cleanly after the swap
+            (51, 30, ("sir", 51, 30)),
+            # ch30: 1-24 identity (Greek 30:24 absorbs KJV 30:25); 25-40 → KJV 33:16-31
+            (30, 1, ("sir", 30, 1)),
+            (30, 24, ("sir", 30, 24)),
+            (30, 25, ("sir", 33, 16)),  # "as one that gathereth after the grapegatherers"
+            (30, 33, ("sir", 33, 24)),
+            (30, 40, ("sir", 33, 31)),
+            # ch31 → KJV 34, merges at G31:11/15/18/22/27 (2nd halves concatenated)
+            (31, 1, ("sir", 34, 1)),
+            (31, 10, ("sir", 34, 10)),
+            (31, 11, ("sir", 34, 10)),  # 2nd half -> concatenated onto KJV 34:10
+            (31, 12, ("sir", 34, 11)),
+            (31, 15, ("sir", 34, 13)),  # -> concatenated onto 34:13
+            (31, 16, ("sir", 34, 14)),
+            (31, 18, ("sir", 34, 15)),  # -> concatenated onto 34:15
+            (31, 19, ("sir", 34, 16)),
+            (31, 31, ("sir", 34, 26)),
+            # ch32 → KJV 35, merges at G32:2/4/15/19/23/25 (concatenated)
+            (32, 1, ("sir", 35, 1)),
+            (32, 2, ("sir", 35, 1)),  # 2nd half -> concatenated onto KJV 35:1
+            (32, 3, ("sir", 35, 2)),
+            (32, 5, ("sir", 35, 3)),
+            (32, 14, ("sir", 35, 12)),
+            (32, 26, ("sir", 35, 20)),
+            # ch33:1-13 → KJV 36:1-11, merges at G33:7/9 (concatenated)
+            (33, 1, ("sir", 36, 1)),
+            (33, 6, ("sir", 36, 6)),
+            (33, 7, ("sir", 36, 6)),  # 2nd half -> concatenated onto KJV 36:6
+            (33, 8, ("sir", 36, 7)),
+            (33, 13, ("sir", 36, 11)),
+            # ch34 → KJV 31, ch35 → KJV 32 (clean whole-chapter relocations)
+            (34, 1, ("sir", 31, 1)),
+            (34, 31, ("sir", 31, 31)),
+            (35, 1, ("sir", 32, 1)),
+            (35, 24, ("sir", 32, 24)),
+            # ch36: 1-15 → KJV 33:1-15; 16 conflated seam → omit; 17-31 → KJV 36:12-26
+            (36, 1, ("sir", 33, 1)),
+            (36, 15, ("sir", 33, 15)),
+            (36, 16, None),
+            (36, 17, ("sir", 36, 12)),
+            (36, 31, ("sir", 36, 26)),
+            # minors: ch20/23/41 all identity (Greek-fewer with terminal KJV extras)
+            (20, 1, ("sir", 20, 1)),
+            (20, 31, ("sir", 20, 31)),
+            (23, 1, ("sir", 23, 1)),
+            (23, 27, ("sir", 23, 27)),
+            (41, 1, ("sir", 41, 1)),
+            (41, 19, ("sir", 41, 19)),
+            (41, 20, ("sir", 41, 20)),  # litany aligns 1:1 — included, not omitted
+            (41, 22, ("sir", 41, 22)),  # last Greek verse; KJV 41:23-24 are terminal extras
+        ],
+    )
+    def test_sirach_transposition_and_minors(self, lxx_ch, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Sir", lxx_ch, lxx_v) == expected
+
+
+class TestLxxSweteTobit:
+    """Tobit (short recension Tob→tob). ch1-5, 8-14 identity (verified first+last).
+    ch6 is a clean offset −1: Greek 6:1 ("she ceased weeping") = the tail of KJV
+    5:22 (concatenated), then Greek 6:2-18 → KJV 6:1-17. ch7 is multi-divergence,
+    all content-verified: G7:1-7 identity; KJV 7:8 = G7:8+G7:9 (concatenated); G7:10
+    = the Greek-merge of KJV 7:9+7:10 (→7:9; KJV 7:10 unmapped); G7:11→7:11; KJV 7:12
+    absent in Greek; G7:12-17 → KJV 7:13-18."""
+
+    @pytest.mark.parametrize(
+        "lxx_ch,lxx_v,expected",
+        [
+            (1, 1, ("tob", 1, 1)),  # identity book head
+            (5, 22, ("tob", 5, 22)),  # ch5 last (identity)
+            (6, 1, ("tob", 5, 22)),  # "she ceased weeping" -> concatenated onto KJV 5:22
+            (6, 2, ("tob", 6, 1)),  # ch6 body offset −1
+            (6, 18, ("tob", 6, 17)),  # ch6 last
+            (7, 1, ("tob", 7, 1)),  # ch7 identity head
+            (7, 7, ("tob", 7, 7)),
+            (7, 8, ("tob", 7, 8)),  # KJV 7:8 first half
+            (7, 9, ("tob", 7, 8)),  # KJV 7:8 second half -> concatenated
+            (7, 10, ("tob", 7, 9)),  # Greek-merge of KJV 7:9+7:10 -> 7:9 (KJV 7:10 unmapped)
+            (7, 11, ("tob", 7, 11)),
+            (7, 12, ("tob", 7, 13)),  # KJV 7:12 absent in Greek
+            (7, 13, ("tob", 7, 14)),
+            (7, 17, ("tob", 7, 18)),  # ch7 last
+            (8, 1, ("tob", 8, 1)),  # ch8+ identity resumes
+            (14, 15, ("tob", 14, 15)),  # book last
+        ],
+    )
+    def test_tobit_ch6_ch7(self, lxx_ch, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Tob", lxx_ch, lxx_v) == expected
+
+    def test_kjv_7_10_and_7_12_have_no_greek(self):
+        """KJV tob 7:10 (Greek-merged into the same verse as 7:9) and 7:12 (absent in
+        the short Greek) receive no Greek of their own — never misplaced."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        hits = [v for v in range(1, 18) if lxx_swete_to_kjv("Tob", 7, v) in {("tob", 7, 10), ("tob", 7, 12)}]
+        assert hits == []
+
+
 class TestBuildVerses:
     def test_parse_ref(self):
         from scripts.extract_lxx_swete import parse_ref
@@ -447,4 +565,4 @@ class TestBuildVerses:
         assert by_code["gen"] == sorted(by_code["gen"])  # sorted by (ch, vs)
         text11 = next(t for c, v, t in by_code["gen"] if (c, v) == (1, 1))
         assert text11.startswith("ΕΝ ΑΡΧΗ") and "<em>" not in text11
-        assert stats["written"] >= 1 and stats["collisions"] == 0
+        assert stats["written"] >= 1 and stats["merged"] == 0

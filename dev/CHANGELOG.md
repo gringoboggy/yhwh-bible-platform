@@ -6,6 +6,36 @@
 
 ---
 
+## 2026-05-23 — session — Deuterocanon LXX cont. — TOBIT (+242 Greek popups): ch6 boundary offset + ch7 multi-divergence, content-verified
+
+**Context:** the deuterocanon reorder pass continued (after Sirach). Short recension `Tob` → `tob` (the KJV/Vulgate tradition; the long `Tbs` additionally diverges at ch10/11 and stays unused). Method as before: align the real Swete↔KJV text verse-by-verse, never guess.
+
+**Mapping (`_TOB_SEGMENTS`):** ch1–5 + 8–14 are IDENTITY (verified first+last of every chapter). **ch6** is a clean offset −1 — Greek 6:1 ("she ceased weeping") is the tail of KJV 5:22 (concatenated there: KJV 5:22 = "...he shall return safe. Then she made an end of weeping."), then Greek 6:2–18 → KJV 6:1–17. **ch7** is multi-divergence, fully content-verified: G7:1–7 identity; **KJV 7:8 = G7:8 + G7:9** (concatenated); **G7:10 is the Greek-MERGE of KJV 7:9 + 7:10** (→ 7:9, so KJV 7:10 gets no Greek — one source verse can't be split); G7:11 → 7:11; **KJV 7:12 is absent** in the short Greek; G7:12–17 → KJV 7:13–18. KJV 7:10 + 7:12 therefore receive no Greek (correctness, not effort).
+
+**Data + verification (categorize-every-diff):** re-ran the extractor — **25,277 verses across 46 books** (+242 Tobit = KJV's 244 minus the two unmapped; 0 out-of-extent; merged 16 = bar 1 + Sirach 13 + Tobit 2). `epub_working/` diff: Tobit is **pure additions** (index_split_026 +484, 0 deletions). Output read-verified (grep is unreliable for Greek here — Unicode NFC mismatch): tob 5:22 = G5:22+G6:1, tob 7:8 = G7:8+G7:9, ch6 offset −1, tob 7:9 = the merged KJV 7:9+7:10. `ebible verify` **errors=0 / 24,015 paired**; flagship `ethiopian-tewahedo` + canon-spliced `catholic-study` both **epubcheck 0/0/0/0**; `lint_rules` **16/0/0**; ruff clean; `tests/test_lxx_swete_ingest.py` **239** (16 Tobit loci + the 7:10/7:12-unmapped pin).
+
+**Deuterocanon status:** wis/sus/bel/bar/lje/sir/**tob** done. **Still deferred (§4.0):** Judith (ch16 split+merge), 1 Esdras (scattered), Prayer of Manasseh (Ode 12), Prayer of Azariah (Dan 3:24–90).
+
+**Save tag (local only):** committed with the Sirach work (this session's deuterocanon-reorder batch).
+
+---
+
+## 2026-05-23 — session — Deuterocanon LXX cont. — SIRACH (+1,388 Greek popups): the full Greek 30:25–36:16a transposition + internal merges, every boundary content-verified
+
+**Context:** the deuterocanon reorder pass (user chose "Sirach first"), continuing the LXX-Swete spine. Sirach is the hardest deuterocanon book — the famous Greek block transposition PLUS internal verse-division differences within the moved blocks. **Method:** the entire mapping was derived by content-aligning the **real Swete text against the real KJV** (proper-noun / distinctive-phrase seam matching), verse by verse — NOT from memory or a remembered standard table.
+
+**The transposition (`scripts/core/versification._SIR_SEGMENTS`), Greek→KJV — 9 anchors verified:** G30:1–24 identity (G30:24 absorbs KJV 30:25); **Block A** G30:25–40→KJV 33:16–31 (the grape-gatherer G30:25 = KJV 33:16), G31→KJV 34, G32→KJV 35, G33:1–13→KJV 36:1–11; **Block B** G34→KJV 31, G35→KJV 32, G36:1–15→KJV 33:1–15; G36:16 is the conflated seam (KJV 33:16a + 36:11b, both covered elsewhere) → omitted; G36:17–31→KJV 36:12–26; G37–51 identity. Internal verse-merges pinned verse-by-verse: ch31 (5: KJV 34:10/13/15/18/22 each = two Greek verses), ch32 (6), ch33 (2). Minors ch20/23/41 are plain IDENTITY — each Greek-fewer with only terminal KJV extras (KJV 20:32, 23:28, 41:23–24 have no Greek; ch20's empty G20:3 is skipped at reconstruct). The Sir 41 "be ashamed of" litany was verified to align **1:1** (NOT a division difference — an earlier instinct to omit its tail was wrong).
+
+**Completeness fix (LXX-split verses now CONCATENATED, not dropped):** when the LXX splits one KJV verse into two adjacent Greek verses (14 cases: Sirach's 13 + Baruch 3:34), `extract_lxx_swete.build_verses` now maps both halves to the same canonical coord and **joins their Greek in source order**, so the popup shows the WHOLE verse rather than a truncated first clause. This also retroactively improved the already-shipped **Baruch 3:34** (now shows G3:34 + G3:35 = the full "stars shined… when he calleth them, they say, Here we be…"). New stat `stats['merged']` (=14); the old "collision = bug, first-writer-wins-drop" semantics are replaced.
+
+**Data + verification (categorize-every-diff):** re-ran the extractor — **25,035 verses across 45 books** (was 23,647 / 44; +1,388 Sirach; 0 out-of-extent; merged 14). `epub_working/` diff: Sirach is **pure additions** (index_split_037 +940, 038 +1,768, 0 deletions); Baruch is a **1-line** change (3:34 concatenation). Spot-checked the output: sir 33:16 = grape-gatherer, sir 31:1 = "watching of riches" (Block B), sir 34:10 = G31:10+G31:11 concatenated, sir 36:12 = G36:17. `ebible verify` **errors=0 / 24,015 paired**; flagship `ethiopian-tewahedo` AND canon-spliced `catholic-study` (both carry Sirach) **epubcheck 0/0/0/0**; `lint_rules` **16/0/0**; ruff clean; `tests/test_lxx_swete_ingest.py` **223** (44 Sirach loci + the concatenation cases).
+
+**Still deferred (verified reorder tables pending, measured divergences in `dev/PLAN_2026-05-21.md` §4.0):** Judith (ch16 split+merge), Tobit (ch7 multi-divergence), 1 Esdras (scattered), Prayer of Manasseh (Ode 12), Prayer of Azariah (Dan 3:24–90 — offset shift + empty verses), Additions to Esther.
+
+**Save tag (local only):** awaiting user "save". (NOTE: this also re-touches the committed Baruch — `bar.py` + `epub_working/index_split_044.html` — via the concatenation improvement.)
+
+---
+
 ## 2026-05-23 — session — Deuterocanon LXX (Swete) — +754 Greek popups across 5 versification-verified books (wis/sus/bel/bar/lje); reorder-heavy books deferred with measured divergences
 
 **Context:** Phase 2 translation spine, the deuterocanon pass after the OT (Swete) + Greek-NT (Byzantine) ships. Same `extract_lxx_swete.py` driver + `lxx_swete_to_kjv` map, extended to the deuterocanon books that (a) have a project KJV skeleton + base-HTML render and (b) are present in the Swete source. **Scope discipline (memory `feedback_proper_clean_correct` / `feedback_reverify_conservative_nogo`): ship only versification verified-correct against the real Greek↔KJV text; defer anything needing a reorder table not yet verified** — broad-but-correct beats broad-but-guessed.

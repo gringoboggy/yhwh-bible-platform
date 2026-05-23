@@ -92,8 +92,8 @@ def wlc_to_kjv_map(path) -> dict[Coord, Coord]:
 # identity-/single-segment-verified deuterocanon subset below; Daniel uses the
 # received Theodotion text ``Dat``, Song of Songs is ``Sol`` -> ``sng``).
 # Deuterocanon NOT yet here (deferred — need verified reorder tables): Jdt
-# (ch16 split+merge), Tob (ch6/7), 1Es (scattered), Sir (30-36 transposition),
-# man (from Ode 12), paz (from Dat 3:24-90), aes; see dev/PLAN_2026-05-21.md.
+# (ch16 split+merge), 1Es (scattered), man (from Ode 12), paz (from Dat 3:24-90);
+# aes editorial; Tbs is the unused Tobit long recension; see dev/PLAN_2026-05-21.md.
 SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Gen": "gen",
     "Exo": "exo",
@@ -143,6 +143,8 @@ SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Bet": "bel",  # Bel & the Dragon (Theodotion, 42 v) — exact identity
     "Bar": "bar",  # Baruch — identity except the ch3 split
     "Epj": "lje",  # Letter of Jeremiah — single head split, then +1
+    "Sir": "sir",  # Sirach — the 30:25-36:16a transposition + merges (_SIR_SEGMENTS)
+    "Tob": "tob",  # Tobit (short recension) — ch6 offset + ch7 split/merge (_TOB_SEGMENTS)
 }
 
 # Per-chapter LXX verse counts for Psalms (Swete), index == LXX chapter (0 unused).
@@ -418,9 +420,10 @@ _1KI_SEGMENTS: dict[int, list[_Seg]] = {
 
 # Baruch: ch1/2/4/5 identity (exact counts; Greek 4:1 aligns). ch3 has ONE
 # verified split — KJV 3:34 ("stars shined... when he calleth them, they say,
-# Here we be...") = Greek 3:34 + 3:35, so KJV 3:35-37 = Greek 3:36-38.
+# Here we be...") = Greek 3:34 + 3:35 (both map to 3:34 → concatenated), so
+# KJV 3:35-37 = Greek 3:36-38.
 _BAR_SEGMENTS: dict[int, list[_Seg]] = {
-    3: [(1, 34, 3, 1), (35, 35, None, 0), (36, _HI, 3, 35)],
+    3: [(1, 34, 3, 1), (35, 35, 3, 34), (36, _HI, 3, 35)],
 }
 
 # Letter of Jeremiah (Swete Epj): single head split — KJV 1:1 + 1:2 = Greek G1
@@ -430,11 +433,69 @@ _LJE_SEGMENTS: dict[int, list[_Seg]] = {
     1: [(1, 1, 1, 1), (2, _HI, 1, 3)],
 }
 
+# Sirach (Swete `Sir`): the Greek 30:25–36:16a block transposition + the internal
+# verse-merges within the moved blocks (the Greek splits many KJV verses into two;
+# each 2nd half is omitted to avoid collisions). ALL boundaries derived by content-
+# aligning the real Swete text against the KJV (NOT memory) — anchors: G30:25 = the
+# grape-gatherer = KJV 33:16; G31:1=KJV34:1; G32:1=KJV35:1; G33:1=KJV36:1; G34:1=
+# KJV31:1; G35:1=KJV32:1; G36:1=KJV33:1; G36:17=KJV36:12. G36:16 conflates the seam
+# (KJV 33:16a + 36:11b, both covered elsewhere) → omit. Minors ch20/23/41 stay
+# identity — each is Greek-fewer with only TERMINAL KJV extras that have no Greek
+# (KJV 20:32, 23:28, 41:23-24; the ch20 empty G20:3 is skipped at reconstruct), so
+# plain identity places every Greek verse correctly (verified verse-by-verse incl.
+# the Sir 41 "be ashamed of" litany, which aligns 1:1 — NOT a division difference).
+_SIR_SEGMENTS: dict[int, list[_Seg]] = {
+    30: [(1, 24, 30, 1), (25, 40, 33, 16)],
+    31: [
+        (1, 10, 34, 1),
+        (11, 11, 34, 10),
+        (12, 14, 34, 11),
+        (15, 15, 34, 13),
+        (16, 17, 34, 14),
+        (18, 18, 34, 15),
+        (19, 21, 34, 16),
+        (22, 22, 34, 18),
+        (23, 26, 34, 19),
+        (27, 27, 34, 22),
+        (28, 31, 34, 23),
+    ],
+    32: [
+        (1, 1, 35, 1),
+        (2, 2, 35, 1),
+        (3, 3, 35, 2),
+        (4, 4, 35, 2),
+        (5, 14, 35, 3),
+        (15, 15, 35, 12),
+        (16, 18, 35, 13),
+        (19, 19, 35, 15),
+        (20, 22, 35, 16),
+        (23, 23, 35, 18),
+        (24, 24, 35, 19),
+        (25, 25, 35, 19),
+        (26, 26, 35, 20),
+    ],
+    33: [(1, 6, 36, 1), (7, 7, 36, 6), (8, 8, 36, 7), (9, 9, 36, 7), (10, 13, 36, 8)],
+    34: [(1, _HI, 31, 1)],
+    35: [(1, _HI, 32, 1)],
+    36: [(1, 15, 33, 1), (16, 16, None, 0), (17, _HI, 36, 12)],
+}
+
 # Esther: the six Greek Additions are each packed into one giant verse -> omit.
 _EST_OMIT: frozenset[tuple[int, int]] = frozenset({(1, 1), (3, 13), (4, 17), (5, 1), (8, 12), (10, 3)})
 # Exodus 36-39 (tabernacle construction) is reordered AND heavily abbreviated in
 # the LXX; deferred (omit rather than ship a guessed alignment).
 _EXO_DEFER_CHAPTERS: frozenset[int] = frozenset({36, 37, 38, 39})
+
+# Tobit (Swete short recension `Tob`): ch1-5 + 8-14 identity (verified first+last).
+# ch6 is a clean offset −1 — Greek 6:1 ("she ceased weeping") is the tail of KJV
+# 5:22 (concatenated there), then Greek 6:2-18 → KJV 6:1-17. ch7 multi-divergence,
+# content-verified: KJV 7:8 = G7:8+G7:9 (concatenated); G7:10 is the Greek-MERGE of
+# KJV 7:9+7:10 (→7:9, so KJV 7:10 gets no Greek — can't split one source verse);
+# G7:11→7:11; KJV 7:12 is absent in the short Greek; G7:12-17 → KJV 7:13-18.
+_TOB_SEGMENTS: dict[int, list[_Seg]] = {
+    6: [(1, 1, 5, 22), (2, _HI, 6, 1)],
+    7: [(1, 7, 7, 1), (8, 8, 7, 8), (9, 9, 7, 8), (10, 10, 7, 9), (11, 11, 7, 11), (12, _HI, 7, 13)],
+}
 
 _SEGMENT_BOOKS = {
     "jer": _JER_SEGMENTS,
@@ -443,6 +504,8 @@ _SEGMENT_BOOKS = {
     "1ki": _1KI_SEGMENTS,
     "bar": _BAR_SEGMENTS,
     "lje": _LJE_SEGMENTS,
+    "sir": _SIR_SEGMENTS,
+    "tob": _TOB_SEGMENTS,
 }
 
 
