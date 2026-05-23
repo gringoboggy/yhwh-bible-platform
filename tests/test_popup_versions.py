@@ -37,11 +37,12 @@ class TestVersionRegistry:
         assert pv.normalize_coord("lxx-greek", "psa", 23, 1) == ("psa", 23, 1)
         assert pv.normalize_coord("kjv", "gen", 1, 1) == ("gen", 1, 1)
 
-    def test_bakes_now_the_four_with_full_data(self):
-        # Phase 1 baked kjv/wlc/lxx-greek; Phase 2 added greek-nt (Byzantine NT).
-        for vid in ("kjv", "wlc", "lxx-greek", "greek-nt"):
+    def test_bakes_now_versions_with_full_data(self):
+        # Phase 1 baked kjv/wlc/lxx-greek; Phase 2 added greek-nt (Byzantine NT),
+        # then the translation spine: arabic (Van Dyck) + jps (JPS 1917 Tanakh).
+        for vid in ("kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps"):
             assert pv.bakes_now(vid), f"{vid} should bake (full data ingested)"
-        for vid in ("brenton-en", "douay", "jps", "vulgate", "arabic"):
+        for vid in ("brenton-en", "douay", "vulgate"):
             assert not pv.bakes_now(vid), f"{vid} must NOT bake until its full data lands"
 
     def test_trusted_html_flags(self):

@@ -48,6 +48,7 @@ import datetime as _dt
 import re
 import sys
 from collections import defaultdict
+from collections.abc import Callable
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -491,6 +492,41 @@ def split_baruch_letter_of_jeremiah(
 
 
 # ----------------------------------------------------------------------
+# Optional versification remap (for sources whose numbering != KJV)
+# ----------------------------------------------------------------------
+
+RemapFn = Callable[[str, int, int], tuple[str, int, int] | None]
+
+
+def apply_remap(
+    by_project_book: dict[str, list[tuple[int, int, str]]],
+    remap: RemapFn,
+) -> dict[str, list[tuple[int, int, str]]]:
+    """Remap every verse via ``remap(code, ch, vs) -> (code, ch, vs) | None``,
+    regroup by the (possibly new) book code, and CONCATENATE — in source-coordinate
+    order — any verses that land on the same canonical coordinate. This mirrors
+    ``scripts/extract_lxx_swete.build_verses``: when a source splits one canonical
+    verse across two adjacent source verses, the popup shows the WHOLE verse, never a
+    truncated half. ``None`` drops a verse (out-of-extent / unmapped); books left
+    empty are omitted.
+
+    Only called for the versification-divergent VPL ingests (Arabic tail-merges, JPS
+    Masoretic remap, Douay/Vulgate). With no remap (the kjv/web identity sources),
+    ``extract`` skips this entirely, so those extractions stay byte-identical."""
+    regrouped: dict[str, dict[tuple[int, int], str]] = {}
+    for code, verses in by_project_book.items():
+        for ch, vs, text in sorted(verses):
+            mapped = remap(code, ch, vs)
+            if mapped is None:
+                continue
+            ncode, nch, nvs = mapped
+            slot = regrouped.setdefault(ncode, {})
+            key = (nch, nvs)
+            slot[key] = (slot[key] + " " + text).strip() if key in slot else text
+    return {code: sorted((c, v, t) for (c, v), t in d.items()) for code, d in regrouped.items()}
+
+
+# ----------------------------------------------------------------------
 # Per-book Python file emission
 # ----------------------------------------------------------------------
 
@@ -572,13 +608,18 @@ def write_meta_yaml(meta_path: Path, info: dict) -> None:
 # ----------------------------------------------------------------------
 
 
-def extract(translation_id: str, dry_run: bool = False, report: bool = False) -> dict:
+def extract(translation_id: str, dry_run: bool = False, report: bool = False, remap: RemapFn | None = None) -> dict:
     """Top-level extraction entry point.
 
     For ``translation_id`` it expects the source files to be at
     ``content/translations/sources/<id>/`` already (use a separate
     fetcher to download). Returns a stats dict.
-    """
+
+    ``remap`` (optional): a ``(code, ch, vs) -> (code, ch, vs) | None`` adapter for
+    sources whose own numbering differs from the canonical KJV scheme. When given,
+    every verse is remapped to canonical coords and same-coord collisions are
+    concatenated (see ``apply_remap``). When omitted, verses are stored at the
+    source's own coordinates (identity — kjv/web)."""
     src_dir = TRANSLATIONS_DIR / "sources" / translation_id
     if not src_dir.is_dir():
         raise SystemExit(f"missing source dir: {src_dir}")
@@ -605,6 +646,10 @@ def extract(translation_id: str, dry_run: bool = False, report: bool = False) ->
             unmapped_codes.append(ebook)
             continue
         by_project_book[proj] = verses
+
+    # Versification remap (sources whose numbering != KJV); identity-store otherwise.
+    if remap is not None:
+        by_project_book = apply_remap(by_project_book, remap)
 
     total_verses = sum(len(v) for v in by_project_book.values())
     stats = {

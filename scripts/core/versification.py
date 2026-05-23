@@ -710,3 +710,79 @@ def byzantine_to_kjv(book: str, ch: int, vs: int) -> Coord | None:
     if not coord_in_canonical_extent(code, kjv_ch, kjv_v):
         return None
     return (code, kjv_ch, kjv_v)
+
+
+# ===========================================================================
+# Arabic Van Dyck (arb-vd) -> canonical KJV.
+#
+# Van Dyck uses KJV/English versification across all 66 Protestant books — a full
+# per-chapter probe vs the KJV skeleton (all 1189 chapters) agreed EVERYWHERE
+# except two tail-splits where Van Dyck carries one extra trailing verse that the
+# KJV folds into the preceding verse (content-aligned vs the real text):
+#   1 Timothy 6: AVD 6:22 ("Grace be with thee. Amen.")        folds onto KJV 6:21
+#   3 John 1:    AVD 1:15 ("Peace be to thee... by name.")     folds onto KJV 1:14
+# Both are applied as a same-book merge (extract_translation.apply_remap then
+# concatenates the two source verses in source order). NOTE: unlike the CSV-sourced
+# lxx/byzantine adapters (which take the SOURCE book name), this one takes the
+# PROJECT book code — it runs after extract_translation's eBible->project mapping.
+# ===========================================================================
+
+_ARABIC_TAIL_MERGE: dict[Coord, Coord] = {
+    ("1ti", 6, 22): ("1ti", 6, 21),
+    ("3jn", 1, 15): ("3jn", 1, 14),
+}
+
+
+def arabic_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
+    """Map an Arabic Van Dyck coordinate (already a project book code) to canonical
+    KJV. Identity except the two tail-merges; ``None`` for out-of-extent coords."""
+    mapped = _ARABIC_TAIL_MERGE.get((code, ch, vs), (code, ch, vs))
+    m_code, m_ch, m_vs = mapped
+    if not coord_in_canonical_extent(m_code, m_ch, m_vs):
+        return None
+    return mapped
+
+
+# ===========================================================================
+# Clementine Vulgate (Latin) + Douay-Rheims (English) -> canonical KJV.
+#
+# Both are 74-book Catholic, Vulgate-numbered; ONE shared map serves both (the
+# ~14 chapters where Douay's verse split differs from the Latin Vulgate are
+# handled per-source by the drivers, not here). Input ``code`` is already a
+# project book code (this runs after extract_translation's eBible->project map).
+#
+# Derived by content-aligning the ENGLISH Douay against the ENGLISH KJV (word
+# overlap), NOT identity-guessed and NOT from memory:
+#   - Psalms: the Septuagint/Vulgate numbering == the LXX scheme, so reuse the
+#     existing ``_psalm_map`` (content-verified vs the Douay); a few psalms whose
+#     Latin verse-division differs from the Greek get a per-psalm patch below.
+#   - Daniel/Esther additions, Sirach/Tobit/Judith recension splits, and the
+#     scattered single-verse offsets get per-book SEGMENT tables (added as each
+#     is content-verified). Everything else is identity.
+# ===========================================================================
+
+# Per-(code, vulgate_ch, vulgate_vs) -> (kjv_ch, kjv_vs) overrides where the Latin
+# verse-division diverges from both identity AND the reused LXX psalm map. Filled
+# as content-alignment verifies each; empty entries mean "still identity/psalm-map".
+_VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {}
+_VULGATE_SEGMENTS: dict[str, dict[int, list[_Seg]]] = {}
+_VULGATE_CROSS: dict[str, object] = {}  # code -> callable(ch,vs)->Coord|None for additions
+
+
+def vulgate_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
+    """Map a Clementine-Vulgate / Douay coordinate (project book code) to canonical
+    KJV. ``None`` to omit (no canonical slot / out-of-extent). WORK IN PROGRESS —
+    Psalms reuse the LXX map; other divergent books are identity until their
+    content-verified segment tables land below."""
+    if code == "psa":
+        mapped = _VULGATE_PSALM_FIXES.get((ch, vs)) or _psalm_map().get((ch, vs))
+    elif code in _VULGATE_SEGMENTS:
+        mapped = _apply_segments(code, _VULGATE_SEGMENTS[code], ch, vs)
+    else:
+        mapped = (ch, vs)  # identity
+    if mapped is None:
+        return None
+    kch, kvs = mapped
+    if not coord_in_canonical_extent(code, kch, kvs):
+        return None
+    return (code, kch, kvs)

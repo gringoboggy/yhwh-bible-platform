@@ -1842,21 +1842,31 @@ class TestEditionMeta:
     # ---------- Phase ν.2.7-B: per-book popup language picker ----------
 
     def test_customize_data_exposes_popup_languages_registry(self):
-        """The UI needs the language registry (id + label + has-data
-        flag) to render the matrix headers."""
+        """The UI needs the language registry (id + label + has-data flag) to
+        render the matrix headers. Every popup version is OFFERED for every
+        edition (the same universal pool — full customizability); ``has_data``
+        marks which ones actually have ingested text so the UI can gray out the
+        rest. ``has_data`` must be DATA-DRIVEN (``popup_versions.bakes_now``),
+        never a hardcoded list — otherwise a freshly-baked version (e.g. the
+        Phase-2 arabic/jps spine) wrongly shows as '(no data)'."""
+        from scripts.core import popup_versions as pv
+
         d = self.web.api_customize_data()
         assert "popup_languages" in d
-        ids = {L["id"] for L in d["popup_languages"]}
-        # The 3 languages with source data today must always be in the
-        # registry — they're the demo-critical ones.
+        by_id = {L["id"]: L for L in d["popup_languages"]}
+        # The demo-critical languages are always offered.
         for lid in ("english", "hebrew", "greek"):
-            assert lid in ids
-        # has_data is set per language
+            assert lid in by_id
+        # has_data tracks the real bake state for EVERY entry (aliases resolve
+        # to their version id: english→kjv, hebrew→wlc, greek→lxx-greek).
         for L in d["popup_languages"]:
-            if L["id"] in ("english", "hebrew", "greek"):
-                assert L["has_data"] is True
-            else:
-                assert L["has_data"] is False
+            expected = pv.bakes_now(pv.resolve_version_id(L["id"]) or L["id"])
+            assert L["has_data"] is expected, f"{L['id']}: has_data={L['has_data']} but bakes_now={expected}"
+        # Concrete: the baked spine is live; not-yet-baked versions are not.
+        for lid in ("english", "hebrew", "greek", "greek-nt", "arabic", "jps"):
+            assert by_id[lid]["has_data"] is True, f"{lid} is baked → has_data must be True"
+        for lid in ("douay", "vulgate", "brenton-en"):
+            assert by_id[lid]["has_data"] is False, f"{lid} not baked yet → has_data must be False"
 
     def test_customize_data_exposes_books_in_canonical_order(self):
         """Per CLAUDE_PROJECT_RULES.md §6.1, the books list shipped to

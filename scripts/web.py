@@ -1449,8 +1449,19 @@ def api_customize_data() -> dict:
     from scripts.core import matrix as _matrix
 
     books_canonical = [{"code": b["code"], "title": b.get("title", b["code"])} for b in config.load_books()]
+    # Every popup version is offered for every edition (one universal pool — full
+    # customizability); ``has_data`` marks which actually have ingested text so the
+    # UI can gray out the rest. Data-driven via popup_versions.bakes_now (aliases
+    # resolve to their version id) so it auto-tracks the spine as each version bakes
+    # — never a hardcoded list (which went stale across the WLC/LXX/NT/arabic/jps bakes).
+    from scripts.core import popup_versions as _pv
+
     popup_languages_registry = [
-        {"id": lid, "label": POPUP_LANGUAGES[lid]["label"], "has_data": lid in {"english", "hebrew", "greek"}}
+        {
+            "id": lid,
+            "label": POPUP_LANGUAGES[lid]["label"],
+            "has_data": _pv.bakes_now(_pv.resolve_version_id(lid) or lid),
+        }
         for lid in ALL_POPUP_LANGUAGES
     ]
     # Canon membership per edition — lets the UI filter the books
