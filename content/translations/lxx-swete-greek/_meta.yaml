@@ -12,14 +12,19 @@ source:
   fetched: 2026-05-23
   source_date: 1930
 stats:
-  books: 39
-  verses: 22893
+  books: 44
+  verses: 23647
 notes: |
-  39 standard OT books of Swete's Septuagint, remapped from LXX numbering to
-  canonical KJV coordinates via scripts/core/versification.lxx_swete_to_kjv
-  (Psalms renumbering, Jeremiah's OAN reorder, Theodotion Daniel's Additions,
-  Proverbs 24/29 reorder, the 1 Kings 20<->21 swap; the Esther Additions and the
-  Exodus 36-39 tabernacle account are omitted as non-canonical / unalignable).
-  Greek is stored PLAIN (space-joined, NOT em-per-word). PD basis: Swete d. 1917;
-  only the public-domain text is used (the repo's GPL transliteration/morphology
-  layers are not). Regenerable: re-run the extractor.
+  39 standard OT books + a verified deuterocanon subset (Wisdom, Susanna, Bel &
+  the Dragon, Baruch, Letter of Jeremiah) of Swete's Septuagint, remapped from
+  LXX numbering to canonical KJV coordinates via
+  scripts/core/versification.lxx_swete_to_kjv (Psalms renumbering, Jeremiah's OAN
+  reorder, Theodotion Daniel's Additions, Proverbs 24/29 reorder, the 1 Kings
+  20<->21 swap, the Baruch 3:34 split, the Letter-of-Jeremiah head split). sus/bel
+  use the Theodotion recension (Sut/Bet) the KJV/Vulgate tradition follows. Still
+  deferred pending verified reorder tables (omitted here): Judith (ch16
+  split+merge), Tobit, 1 Esdras, Sirach (the 30-36 Greek transposition), Prayer
+  of Manasseh, Prayer of Azariah, the Esther Additions, the Exodus 36-39
+  tabernacle account. Greek is stored PLAIN (space-joined, NOT em-per-word). PD
+  basis: Swete d. 1917; only the public-domain text is used (the repo's GPL
+  transliteration/morphology layers are not). Regenerable: re-run the extractor.

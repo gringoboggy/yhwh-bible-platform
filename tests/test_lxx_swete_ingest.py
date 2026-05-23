@@ -69,9 +69,20 @@ class TestLxxSweteToKjvBookMapAndIdentity:
         assert lxx_swete_to_kjv("Sol", 1, 1) == ("sng", 1, 1)  # Song of Songs
         assert lxx_swete_to_kjv("Dat", 1, 1) == ("dan", 1, 1)  # Theodotion Daniel
 
-    @pytest.mark.parametrize("book", ["Wis", "Sir", "1Es", "Tob", "Jdt", "Bar", "Pss", "1En", "Ode", "3Ma"])
-    def test_non_39_ot_books_omitted(self, book):
-        """Deuterocanon / recension-dups / Greek-1En are out of scope this pass -> None."""
+    @pytest.mark.parametrize(
+        "book",
+        # Still-deferred deuterocanon (need verified reorder tables — measured
+        # divergences recorded in dev/PLAN_2026-05-21.md): Sir (30-36 Greek
+        # transposition), 1Es (scattered intra-chapter divisions), Tob (ch6/7
+        # boundary), Jdt (ch16 split+merge). Plus: recension-dups not used
+        # (Tbs Tobit-long, Sus/Bel Old-Greek vs the Theodotion Sut/Bet we ship,
+        # Dan Old-Greek vs Dat); no-base-home books (Pss Psalms-of-Solomon,
+        # 1Ma-4Ma, Ode — though man/paz come from Ode/Dat respectively, both
+        # deferred); 1En (no KJV skeleton + base render gap).
+        ["Sir", "1Es", "Tob", "Tbs", "Jdt", "Pss", "1En", "Ode", "1Ma", "2Ma", "3Ma", "4Ma", "Sus", "Bel", "Dan"],
+    )
+    def test_deferred_and_unused_books_omitted(self, book):
+        """Books not yet in scope this pass map to None (deferred or no base home)."""
         from scripts.core.versification import lxx_swete_to_kjv
 
         assert lxx_swete_to_kjv(book, 1, 1) is None
@@ -311,6 +322,101 @@ class TestLxxSweteToKjvExodus:
         from scripts.core.versification import lxx_swete_to_kjv
 
         assert lxx_swete_to_kjv("Exo", ch, 1) is None
+
+
+class TestLxxSweteDeuterocanonIdentity:
+    """Deuterocanon books whose Swete versification matches the KJV skeleton
+    EXACTLY — verified by interior content-alignment (not just endpoints; the
+    Judith-16 split+merge proved exact-count can hide an internal shift). wis is
+    originally-Greek; sus/bel use the Theodotion recension (Sut/Bet) the KJV/
+    Vulgate tradition follows (the Old-Greek Sus=60/Bel match differently)."""
+
+    @pytest.mark.parametrize(
+        "swete_book,ch,vs,expected",
+        [
+            # Wisdom — verified at ch starts AND ends across 1/2/6/7/10/13/16/18/19
+            ("Wis", 1, 1, ("wis", 1, 1)),
+            ("Wis", 2, 24, ("wis", 2, 24)),
+            ("Wis", 10, 21, ("wis", 10, 21)),
+            ("Wis", 16, 29, ("wis", 16, 29)),
+            ("Wis", 19, 22, ("wis", 19, 22)),
+            ("Wis", 19, 23, None),  # out of extent (wis 19 has 22 verses)
+            # Susanna (Theodotion Sut) — verified at 1/15/30/45/60/64
+            ("Sut", 1, 1, ("sus", 1, 1)),
+            ("Sut", 1, 30, ("sus", 1, 30)),
+            ("Sut", 1, 64, ("sus", 1, 64)),
+            ("Sut", 1, 65, None),  # out of extent (sus has 64)
+            # Bel & the Dragon (Theodotion Bet) — verified at 1/10/20/31/42
+            ("Bet", 1, 1, ("bel", 1, 1)),
+            ("Bet", 1, 20, ("bel", 1, 20)),
+            ("Bet", 1, 42, ("bel", 1, 42)),
+            ("Bet", 1, 43, None),  # out of extent (bel has 42)
+        ],
+    )
+    def test_identity_deutero(self, swete_book, ch, vs, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv(swete_book, ch, vs) == expected
+
+
+class TestLxxSweteBaruch:
+    """Baruch ch1/2/4/5 are identity (exact counts; Greek 4:1 aligns); ch3 has ONE
+    verified split: KJV 3:34 ("stars shined... when he calleth them, they say,
+    Here we be...") = Greek 3:34 + 3:35 combined, so KJV 3:35-37 = Greek 3:36-38."""
+
+    @pytest.mark.parametrize(
+        "lxx_ch,lxx_v,expected",
+        [
+            (1, 1, ("bar", 1, 1)),  # identity ch1
+            (2, 35, ("bar", 2, 35)),  # identity ch2 (last)
+            (3, 1, ("bar", 3, 1)),  # identity within ch3 head
+            (3, 33, ("bar", 3, 33)),  # last identity verse before the split
+            (3, 34, ("bar", 3, 34)),  # Greek 3:34 = first clause of KJV 3:34
+            (3, 35, None),  # Greek 3:35 = second clause of KJV 3:34 -> omit (no own coord)
+            (3, 36, ("bar", 3, 35)),  # "This is our God"
+            (3, 37, ("bar", 3, 36)),  # "found out all the way of knowledge"
+            (3, 38, ("bar", 3, 37)),  # "Afterward did he shew himself upon earth"
+            (4, 1, ("bar", 4, 1)),  # identity resumes ch4
+            (5, 9, ("bar", 5, 9)),  # identity ch5 (last)
+        ],
+    )
+    def test_baruch_ch3_split(self, lxx_ch, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Bar", lxx_ch, lxx_v) == expected
+
+
+class TestLxxSweteLetterOfJeremiah:
+    """The Letter of Jeremiah (Swete ``Epj`` -> ``lje``) is a single chapter with
+    ONE verified split at the head: KJV 1:1 + 1:2 = Greek G1 (the heading absorbs
+    the 'because of your sins' statement), then a uniform +1 offset across all 72
+    Greek verses (verified at G2/G6/G35/G59/G72 vs the KJV English)."""
+
+    @pytest.mark.parametrize(
+        "lxx_v,expected",
+        [
+            (1, ("lje", 1, 1)),  # G1 -> KJV 1:1 (KJV 1:2 absorbed; no own Greek)
+            (2, ("lje", 1, 3)),  # offset +1 begins ("when ye come to Babylon...")
+            (6, ("lje", 1, 7)),  # "mine angel is with you"
+            (35, ("lje", 1, 36)),  # "save no man from death"
+            (59, ("lje", 1, 60)),  # "sun, moon, and stars... obedient"
+            (72, ("lje", 1, 73)),  # last verse "Better... the just man"
+            (73, None),  # no Greek 1:73 (Greek has 72) -> out of source
+        ],
+    )
+    def test_epj_single_head_split(self, lxx_v, expected):
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        assert lxx_swete_to_kjv("Epj", 1, lxx_v) == expected
+
+    def test_kjv_1_2_has_no_greek_source(self):
+        """KJV lje 1:2 is folded into Greek G1, so nothing maps onto it (KJV 1:2
+        gets no Greek popup; KJV 1:1 carries the Greek heading)."""
+        from scripts.core.versification import lxx_swete_to_kjv
+
+        # No Epj verse maps to (lje, 1, 2):
+        hits = [v for v in range(1, 73) if lxx_swete_to_kjv("Epj", 1, v) == ("lje", 1, 2)]
+        assert hits == []
 
 
 class TestBuildVerses:

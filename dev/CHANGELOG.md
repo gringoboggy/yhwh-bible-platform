@@ -6,6 +6,31 @@
 
 ---
 
+## 2026-05-23 — session — Deuterocanon LXX (Swete) — +754 Greek popups across 5 versification-verified books (wis/sus/bel/bar/lje); reorder-heavy books deferred with measured divergences
+
+**Context:** Phase 2 translation spine, the deuterocanon pass after the OT (Swete) + Greek-NT (Byzantine) ships. Same `extract_lxx_swete.py` driver + `lxx_swete_to_kjv` map, extended to the deuterocanon books that (a) have a project KJV skeleton + base-HTML render and (b) are present in the Swete source. **Scope discipline (memory `feedback_proper_clean_correct` / `feedback_reverify_conservative_nogo`): ship only versification verified-correct against the real Greek↔KJV text; defer anything needing a reorder table not yet verified** — broad-but-correct beats broad-but-guessed.
+
+**Shipped (5 books, all INTERIOR-verified — not just endpoints):**
+- **Wisdom (`wis`)** — Swete `Wis`, exact identity (originally-Greek; 19 ch / 436 v). Verified at chapter starts AND ends across 1/2/6/7/10/13/16/18/19.
+- **Susanna (`sus`)** — Swete `Sut` (Theodotion, 64 v exact; the Old-Greek `Sus`=60 is the wrong recension for the KJV/Vulgate tradition). Verified at 1/15/30/45/60/64.
+- **Bel & the Dragon (`bel`)** — Swete `Bet` (Theodotion, 42 v exact). Verified at 1/10/20/31/42.
+- **Baruch (`bar`)** — identity except ONE verified ch3 split: KJV 3:34 ("stars shined... when he calleth them, they say, Here we be...") = Greek 3:34 + 3:35 combined, so KJV 3:35-37 = Greek 3:36-38. Segment `3: [(1,34,3,1),(35,35,None,0),(36,_HI,3,35)]`.
+- **Letter of Jeremiah (`lje`)** — Swete `Epj`, one verified head split: KJV 1:1+1:2 = Greek G1 (the heading absorbs the "because of your sins" clause), then a uniform +1 across all 72 Greek verses (verified G2/G6/G35/G59/G72). Segment `1: [(1,1,1,1),(2,_HI,1,3)]`; KJV 1:2 receives no Greek of its own.
+
+**The interior-verification lesson (drove the scope):** per-chapter count agreement is necessary but NOT sufficient — **Judith ch16 matches 25=25 yet hides a split+merge** (KJV 16:1 = Greek 15:14; Greek 16:1 = KJV 16:2; but Greek 16:25 = KJV 16:25). Identity would have misplaced the song. Caught by interior content spot-checks → Judith DEFERRED, not shipped on the count match. Baruch self-flagged (38≠37); Judith did not — so every "identity" book was interior-verified, not trusted on counts.
+
+**Deferred (need verified reorder tables — measured divergences in `dev/PLAN_2026-05-21.md` §4.0):** Judith (ch16 split+merge) · Tobit (short `Tob` ch6/7 boundary; long `Tbs` also ch10/11) · 1 Esdras (scattered intra-chapter divisions, ch 1/2/3/5/6/8) · Sirach (the Greek 30:25–36:16a transposition + minor ch20/23/41) · Prayer of Manasseh (Swete Ode 12 = 32 v vs KJV 15) · Prayer of Azariah (Theodotion Dan 3:24-90 = 67 v vs KJV 68) · Additions to Esther `aes` (existing editorial residual) · 1 Enoch (no KJV skeleton + base render gap 37-108 + partial Greek). No-base-home: 1-4 Maccabees, Odes(≠12), Psalms of Solomon; OG-recension dups Dan/Sus/Bel/Tbs.
+
+**Driver + data:** re-ran `scripts/extract_lxx_swete.py` (no driver-code change — the new `SWETE_BOOK_TO_CODE` entries + `_BAR_SEGMENTS`/`_LJE_SEGMENTS` drive it). Full run: **23,647 verses across 44 books, 0 collisions, 0 out-of-extent** (was 22,893 / 39); ruff-formatted. **Byte-compat:** after `ruff format`, the 39 existing OT modules are byte-identical to committed (only the 5 new modules + `_meta.yaml` changed).
+
+**Verification (categorize-every-diff — ZERO corruption):** regenerated popups; the `epub_working/` diff is **+1508 insertions, 0 deletions, confined to the 5 deutero base files** (036/037 wis · 044 bar+lje · 048 sus · 049 bel) — each existing aside's KJV `vnote-text` UNCHANGED, with a `vnote-source-label` + `vnote-greek` Greek `<p>` added inside. Aside count unchanged (35,585; Greek added inside existing asides). `ebible verify` **errors=0 / 24,015 paired**; flagship `ethiopian-tewahedo` (all 5 deutero books) AND canon-spliced `catholic-study` (wis/bar/lje, splice-interaction check) both **epubcheck 0/0/0/0**; `lint_rules` **16/0/0**; `tests/test_lxx_swete_ingest.py` **178** (deutero identity + Baruch/Epj split loci + deferred-pin), popup/translation suites green (57).
+
+**Next (Phase 2 cont.):** the deferred deuterocanon reorder tables (Judith/Tobit/1 Esdras/Sirach/Manasseh/Azariah — divergences in PLAN §4.0), then Douay/JPS/Vulgate/Arabic.
+
+**Save tag (local only):** awaiting user "save".
+
+---
+
 ## 2026-05-23 — session — Greek NT (Byzantine Majority Text) FULL ingest (Phase 2 spine, sub-phase 3) — +7,951 Greek popups across all 27 NT books
 
 **Context:** Phase 2 translation spine, immediately after the LXX-Greek (Swete) OT ingest. **Source decision (changed mid-flight):** the roadmap spec locked Scrivener's TR 1894 (`byztxt/greektext-scrivener`), but on acquisition that source proved to be Robinson's **romanized, unaccented** transliteration (`paulov desmiov` = Παυλος δεσμιος) — which would put unaccented NT Greek next to the accented Swete LXX. User chose an **accented Unicode source**, so the ingest uses the **Robinson-Pierpont Byzantine Majority Text** (`byztxt/byzantine-majority-text`, `csv-unicode/ccat/no-variants`) — accented polytonic Greek Unicode, Public Domain (Unlicense). This also makes the registry's `byzantine-greek` translation_id accurate.

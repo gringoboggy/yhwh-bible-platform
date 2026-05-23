@@ -88,8 +88,12 @@ def wlc_to_kjv_map(path) -> dict[Coord, Coord]:
 # doublet, an out-of-extent coord, or a book outside this pass's 39-OT scope).
 # ===========================================================================
 
-# Swete book name -> project 3-letter code (the 39 standard OT books; Daniel uses
-# the received Theodotion text ``Dat``, Song of Songs is ``Sol`` -> ``sng``).
+# Swete book name -> project 3-letter code (the 39 standard OT books + the
+# identity-/single-segment-verified deuterocanon subset below; Daniel uses the
+# received Theodotion text ``Dat``, Song of Songs is ``Sol`` -> ``sng``).
+# Deuterocanon NOT yet here (deferred — need verified reorder tables): Jdt
+# (ch16 split+merge), Tob (ch6/7), 1Es (scattered), Sir (30-36 transposition),
+# man (from Ode 12), paz (from Dat 3:24-90), aes; see dev/PLAN_2026-05-21.md.
 SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Gen": "gen",
     "Exo": "exo",
@@ -130,6 +134,15 @@ SWETE_BOOK_TO_CODE: dict[str, str] = {
     "Hag": "hag",
     "Zec": "zec",
     "Mal": "mal",
+    # --- Deuterocanon (this pass) — versification verified by interior content
+    # alignment against the KJV (NOT memory). sus/bel take the Theodotion
+    # recension (Sut/Bet) the KJV/Vulgate tradition follows; bar+lje each carry
+    # one verified verse-split (see _BAR_SEGMENTS / _LJE_SEGMENTS).
+    "Wis": "wis",  # Wisdom of Solomon — exact identity (orig.-Greek), all 19 ch
+    "Sut": "sus",  # Susanna (Theodotion, 64 v) — exact identity
+    "Bet": "bel",  # Bel & the Dragon (Theodotion, 42 v) — exact identity
+    "Bar": "bar",  # Baruch — identity except the ch3 split
+    "Epj": "lje",  # Letter of Jeremiah — single head split, then +1
 }
 
 # Per-chapter LXX verse counts for Psalms (Swete), index == LXX chapter (0 unused).
@@ -403,13 +416,34 @@ _1KI_SEGMENTS: dict[int, list[_Seg]] = {
     21: [(1, _HI, 20, 1)],  # Ben-hadad = KJV 20
 }
 
+# Baruch: ch1/2/4/5 identity (exact counts; Greek 4:1 aligns). ch3 has ONE
+# verified split — KJV 3:34 ("stars shined... when he calleth them, they say,
+# Here we be...") = Greek 3:34 + 3:35, so KJV 3:35-37 = Greek 3:36-38.
+_BAR_SEGMENTS: dict[int, list[_Seg]] = {
+    3: [(1, 34, 3, 1), (35, 35, None, 0), (36, _HI, 3, 35)],
+}
+
+# Letter of Jeremiah (Swete Epj): single head split — KJV 1:1 + 1:2 = Greek G1
+# (the heading absorbs the "because of your sins" statement), then a uniform +1
+# offset across all 72 Greek verses (KJV 1:2 receives no Greek of its own).
+_LJE_SEGMENTS: dict[int, list[_Seg]] = {
+    1: [(1, 1, 1, 1), (2, _HI, 1, 3)],
+}
+
 # Esther: the six Greek Additions are each packed into one giant verse -> omit.
 _EST_OMIT: frozenset[tuple[int, int]] = frozenset({(1, 1), (3, 13), (4, 17), (5, 1), (8, 12), (10, 3)})
 # Exodus 36-39 (tabernacle construction) is reordered AND heavily abbreviated in
 # the LXX; deferred (omit rather than ship a guessed alignment).
 _EXO_DEFER_CHAPTERS: frozenset[int] = frozenset({36, 37, 38, 39})
 
-_SEGMENT_BOOKS = {"jer": _JER_SEGMENTS, "dan": _DAN_SEGMENTS, "pro": _PRO_SEGMENTS, "1ki": _1KI_SEGMENTS}
+_SEGMENT_BOOKS = {
+    "jer": _JER_SEGMENTS,
+    "dan": _DAN_SEGMENTS,
+    "pro": _PRO_SEGMENTS,
+    "1ki": _1KI_SEGMENTS,
+    "bar": _BAR_SEGMENTS,
+    "lje": _LJE_SEGMENTS,
+}
 
 
 def _apply_segments(code: str, table: dict[int, list[_Seg]], ch: int, vs: int) -> tuple[int, int] | None:
