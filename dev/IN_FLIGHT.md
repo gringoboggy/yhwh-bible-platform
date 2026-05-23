@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-> **➤➤➤ 2026-05-23 (LATEST) — TRANSLATION SPINE: Arabic + JPS SHIPPED (baked + fully verified, complete discrete units); Douay/Vulgate NEXT (large, scope measured — a fresh task, not in-flight). UNCOMMITTED — "continue" ≠ "save". Read FIRST.**
+> **➤➤➤ 2026-05-23 (LATEST) — TRANSLATION SPINE: Arabic + JPS SHIPPED + baked (committed `f6d90c6`); Douay/Vulgate GRIND IN PROGRESS (committed `c1bce0c`, dormant/not-yet-baked) — NT + all prophets + Genesis verified SHIFTS=0, recension omits done; ~50-80 alignments remain. RESUME at the "D/V GRIND IN PROGRESS" map below. Read FIRST.**
 >
 > **Shipped this session (on disk, NOT yet committed):**
 > - **NEW reusable infra — `extract_translation.apply_remap(by_project_book, remap)`** (+ optional `remap=` param on `extract()`): a `(code,ch,vs)->(code,ch,vs)|None` callback that remaps each verse to canonical KJV and CONCATENATES same-coord collisions in source order (mirrors `extract_lxx_swete.build_verses`). `remap=None` = byte-identical to before (PROVEN: re-extracted kjv → all 81 book .py files byte-identical; only `_meta` `fetched:` date moved). This is the foundation all four VPL translations use.
