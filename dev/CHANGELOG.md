@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-05-22 — session — matrix integrity audit (CLEAN) + visual-QA checklist teed up (pre-/clear checkpoint)
+
+**Context:** checkpoint before a `/clear` — a quick whole-matrix integrity audit + set up the next action so a fresh session resumes cleanly.
+
+**Matrix audit — CLEAN, no integrity fixes needed:**
+- `dev/trace_matrix.py` — **0 unresolved references** (all 11 editions' canon/categories/±kinds/popup/base translations resolve).
+- `validate_taxonomy` (`ebible taxonomy`) — **100% attributed (67,713 notes)**, schema sound.
+- `ebible verify` — **errors=0 / 24,015 paired** (67 warns + 558 infos are intentional WEB-PDF artifacts + heading-class counts, not defects).
+- `lint_rules.py` 16/0/0 · `ruff format` clean.
+- **Count reconciled:** live corpus = **67,713**; the SESSION_STATE headline had said 67,715 — a benign 2-note drift from the earlier text-witness coord-guard prune (`a935701`). Corrected the source-of-truth headline; historical docs left as point-in-time records.
+
+**Visual-QA setup:** new `dev/VISUAL_QA_CHECKLIST.md` — the teed-up NEXT action (Track A `[USER]`, the one demo item Claude can't self-verify): 5 representative editions (covering all 5 canon shapes + extremes), per-edition checks (verse popups / marker glyphs / theme / TOC order / canon correctness), and a fresh-build step. `SESSION_STATE.md` + `IN_FLIGHT.md` now point at it as ⏭ NEXT.
+
+**Docs-only commit** (no code changed) — verified via `lint_rules` + `ruff format`; no full-suite run required.
+
+**Save tag (local only — remote deleted 2026-05-12; no push):** THIS COMMIT.
+
+---
+
 ## 2026-05-22 — session — Track D Tier 4: conservative config-ignore (template E501) → ruff 511 → 243
 
 **Context:** final step of the Track D lint sequence. Goal: make the ruff count reflect only GENUINE issues — without masking real backlog.
