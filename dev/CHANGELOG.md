@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-22 — session — Per-edition themes SHIPPED (Phase 0 of the themes + multi-translation-popups arc)
+
+**Context:** after the visual-QA browser pass (below), the user directed "themes per edition" + "all popups several translations except amharic/ge'ez." Brainstormed → spec `docs/superpowers/specs/2026-05-22-themes-and-multitranslation-popups-design.md` → plan `docs/superpowers/plans/2026-05-22-per-edition-themes.md`. This entry = **Phase 0 (themes)**; the multi-translation popups are a separate, larger track (Plan B — not yet built; PD sources locked in the spec).
+
+**Root cause (visual-QA finding):** no edition set `theme:`, so all 11 fell back to the no-op `classic` → every EPUB shipped a byte-identical stylesheet; the 4 real themes reached no edition.
+
+**Shipped (TDD):**
+- `content/editions.yaml` — `theme:` on all 11: `classic` → ethiopian-tewahedo / anglican-bcp / standalone-geez / standalone-amharic; `scholarly` → scholarly-academic / jewish-study / lutheran-confessional; `devotional` → catholic-study / eastern-orthodox / coptic-orthodox; `modern` → evangelical-reformed.
+- `tests/test_themes.py` (NEW, 3 tests): config-mapping pin + theme-css-exists + integration pin (a `modern`-themed build's stylesheet carries the appended modern block).
+- No code change — the existing `build_edition` applicator (~L2782) already appends `content/themes/<theme>.css`; it just lacked the config to act on.
+
+**Verification:** 11 editions rebuilt clean; **4 distinct stylesheet hashes** grouped exactly per the map (was 1 identical); `validate_schemas` CLEAN (`theme` already a registered field); `lint_rules` 16/0/0; **epubcheck 0/0/0/0** on the 4 theme reps (classic/scholarly/devotional/modern).
+
+**Test delta:** +3 (`tests/test_themes.py`).
+**Save tag (local only — remote deleted 2026-05-12; no push):** pending user save.
+
+---
+
 ## 2026-05-22 — session — matrix integrity audit (CLEAN) + visual-QA checklist teed up (pre-/clear checkpoint)
 
 **Context:** checkpoint before a `/clear` — a quick whole-matrix integrity audit + set up the next action so a fresh session resumes cleanly.

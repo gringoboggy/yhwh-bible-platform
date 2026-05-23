@@ -30,6 +30,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: ethiopian-tewahedo
     canon: ethiopian
+    theme: classic
     title: "The Ethiopian Tewahedo Study Bible"
     short_title: "Ethiopian Tewahedo SB"
     target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
@@ -131,6 +132,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: catholic-study
     canon: catholic
+    theme: devotional
     time_filter_ceiling: null
     verse_popups: true
     verse_marker_glyph: ¶
@@ -175,6 +177,7 @@ editions:
       - REL006490
   - id: evangelical-reformed
     canon: protestant
+    theme: modern
     title: "The Reformed Study Bible — Expanded Canon"
     short_title: "Reformed SB"
     target_audience: "Evangelical / Reformed readers"
@@ -209,6 +212,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: jewish-study
     canon: tanakh
+    theme: scholarly
     title: "The Jewish Study Tanakh — Expanded"
     short_title: "Jewish Tanakh"
     target_audience: "Jewish readers, academic scholars of Hebrew Bible"
@@ -245,6 +249,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: scholarly-academic
     canon: ethiopian
+    theme: scholarly
     title: "The Annotated Ethiopian Bible — Scholar's Edition"
     short_title: "Scholar's Edition"
     target_audience: "Academic scholars, libraries, seminaries"
@@ -276,6 +281,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: eastern-orthodox
     canon: orthodox
+    theme: devotional
     title: "The Eastern Orthodox Study Bible"
     short_title: "Orthodox SB"
     target_audience: "Eastern Orthodox readers; LXX-leaning scholarship; Byzantine Rite parishes"
@@ -314,6 +320,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: anglican-bcp
     canon: catholic
+    theme: classic
     title: "The Anglican Study Bible — BCP Edition"
     short_title: "Anglican BCP"
     target_audience: "Anglican / Episcopal readers; BCP-tradition parishes; broad-church audience"
@@ -355,6 +362,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: lutheran-confessional
     canon: protestant
+    theme: scholarly
     title: "The Lutheran Confessional Study Bible"
     short_title: "Lutheran Confessional"
     target_audience: "Confessional Lutheran readers (LCMS, WELS, ELS, ILC); seminary students"
@@ -398,6 +406,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: coptic-orthodox
     canon: ethiopian
+    theme: devotional
     title: "The Coptic Orthodox Study Bible"
     short_title: "Coptic SB"
     target_audience: "Coptic Orthodox readers; Alexandrian theology; ascetic-monastic tradition; diaspora communities"
@@ -465,6 +474,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-geez
     canon: ethiopian
+    theme: classic
     title: "The Ge'ez Bible — Standalone Tewahedo Edition"
     short_title: "Ge'ez Bible"
     target_audience: "Builders rendering a Ge'ez-language standalone EOTC Bible with a faithful English back-translation as a reading aid; Tewahedo scholars; Ge'ez learners"
@@ -505,6 +515,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-amharic
     canon: ethiopian
+    theme: classic
     title: "The Amharic Bible — Standalone Tewahedo Edition"
     short_title: "Amharic Bible"
     target_audience: "Builders rendering an Amharic-language standalone EOTC Bible with a faithful English back-translation as a reading aid; Amharic-speaking readers; diaspora Tewahedo communities"
