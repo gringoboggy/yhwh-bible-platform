@@ -697,12 +697,56 @@ share-pin pattern with the durable count-milestone pattern.
 
 ### "Add a new translation"
 
-1. Source data → `content/translations/sources/<id>/`.
-2. Run `scripts/extract_translation.py <id>`.
-3. Verify with the resolver:
-   `from scripts.core import translations as t; t.list_translations()`.
-4. The customize console picks it up automatically — no UI work
-   needed unless the new translation has special metadata.
+**On-disk format.** A translation is `content/translations/<id>/`: a
+`_meta.yaml` (license + provenance) plus one `<book_code>.py` per book, each
+exposing `TRANSLATION = "<id>"`, `BOOK = "<code>"`, and
+`VERSES = [(chapter, verse, text), …]`. Loaded via `ast.literal_eval` only —
+never executed. **Coordinates are canonical (KJV/WEB) numbering**, because the
+base HTML the popups attach to is KJV-numbered; store each verse under the KJV
+coordinate so the popup lands on the right verse.
+
+**Two extractors, by source format:**
+- **eBible "verse per line" .txt** → `scripts/extract_translation.py <id>`
+  (its `TRANSLATIONS` registry documents each PD source). English / Latin /
+  Arabic / JPS / Douay / Brenton-English, etc.
+- **OSIS XML (morphhb, …)** → a dedicated per-source
+  `scripts/extract_<id>.py` (e.g. `scripts/extract_wlc_morphhb.py`). The shared
+  `scripts/core/versification.py` remaps the source's own verse numbering onto
+  canonical KJV — `wlc_to_kjv_map` reads morphhb's `VerseMap.xml`; add a
+  per-source map for each new original-language source. Validate every emitted
+  coord with `canonical_verse_counts.coord_in_canonical_extent` (0 out-of-extent).
+
+**Original-language house markup (the `<em>`-per-word format).** Hebrew/Greek
+verse text is **trusted pre-formatted HTML** (`popup_versions.is_trusted_html`
+→ passed to the aside renderer RAW, never escaped). The exact format, byte-pinned
+against the recovered base in `tests/test_wlc_ingest.py`: **each word wrapped in
+`<em>…</em>`, joined by single spaces**; morpheme `/` separators stripped;
+maqaf-joined words kept in ONE `<em>` (`אֶת־הָאוֹר`); sof-pasuq glued onto the
+last word (`…ךְ׃`); paseq is its own standalone `<em>׀</em>`; pe/samekh paragraph
+markers dropped; and **scribal special letters the source nests *inside* a `<w>`
+(large/suspended — the Shema, Lev 11:42, Judg 18:30, Num 27:5) must be fully
+captured — read the whole element, not just `.text`, or you silently drop
+letters.** Plain-text translations (English, etc.) are NOT trusted_html — they
+are HTML-escaped at render.
+
+**Formatting + committing (non-obvious — the pre-commit hook enforces it).** Both
+extractors emit **one line per verse** (grep-able). Before saving a new/re-run
+translation, run `python -m ruff format content/translations/<id>/`: ruff
+(line-length 120) wraps any verse tuple over the limit onto multiple lines — most
+em-per-word Hebrew/Greek verses wrap, matching how `kjv/*.py` is already stored.
+**Skip this and the pre-commit hook `ruff format --check .` blocks the commit.**
+ruff only reflows whitespace, never the string values, so the data + the baked
+popups are unchanged (re-verify with one `get_verse` call if paranoid).
+
+**Wiring it on:** flip the version's data on in
+`scripts/core/popup_versions.py` (an original-language slot already in the base
+lives in `_BAKED_NOW`; otherwise a version bakes once `get_verse` returns text)
+→ regenerate (`python -m scripts.generate_verse_popups`) → verify the coverage
+jump + spot-check sample verses + the named versification-divergence loci +
+`ebible verify errors=0` + flagship `epubcheck 0/0/0/0`. The `/customize` console
+discovers the translation automatically (no UI work unless it needs special
+metadata). Existing instance: WLC seed → full 39-book / 23,142-verse ingest
+(τ.5-A.x / Phase 2, 2026-05-23; `dev/CHANGELOG.md`).
 
 ### "Add a new popup language"
 
