@@ -18,28 +18,74 @@ EPUB_DIR = REPO / "epub_working"
 _EMPTY_TEXT = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
 
 
-def build_vnote_aside(
-    *, code: str, ch: int, vs: int, title: str, english: str | None, hebrew: str | None, greek: str | None
-) -> str:
-    """Build one ``<aside class="vnote">`` matching the recovered-base contract.
-    ``english`` is plain text (escaped here); ``hebrew``/``greek`` are trusted
-    pre-formatted HTML fragments (from the resolver or harvested asides)."""
+def build_vnote_aside(*, code: str, ch: int, vs: int, title: str, versions: list[dict]) -> str:
+    """Build one ``<aside class="vnote">`` from an ordered list of version dicts
+    ``{label, lang, dir, has_label_para, content_class, text}`` (list order =
+    render order; see scripts/core/popup_versions.py).
+
+    Byte-compatible with the recovered-base contract: a leading
+    ``has_label_para=False`` version (KJV) renders as a bare
+    ``<p class="vnote-text">`` glued directly to the citation; labeled versions
+    render an indented source-label + a ``dir``/``lang``-tagged content
+    paragraph. ``text`` is plain scripture text (escaped here — a no-op for the
+    plain unicode of Hebrew/Greek/etc., so it matches the old raw passing)."""
     vid = f"vnote-{code}-{ch}-{vs}"
     parts = [
         f'<aside class="vnote" id="{vid}" epub:type="footnote"><p><strong>{_html.escape(title)} {ch}:{vs}.</strong></p>'
     ]
-    if english:
-        parts.append(f'<p class="vnote-text">{_html.escape(english)}</p>')
-    else:
+    rendered = False
+    for v in versions:
+        text = v.get("text")
+        if not text:
+            continue
+        # Original-language sources (WLC/LXX) carry per-word <em> markup → pass
+        # raw; plain-text translations are escaped (matches the recovered base).
+        body = text if v.get("trusted_html") else _html.escape(text)
+        if v.get("has_label_para"):
+            dir_attr = f' dir="{v["dir"]}"' if v.get("dir") == "rtl" else ""
+            lang_attr = f' lang="{v["lang"]}"' if v.get("lang") else ""
+            parts.append(f'\n  <p class="vnote-source-label">{_html.escape(v["label"])}</p>')
+            parts.append(f'\n  <p class="{v["content_class"]}"{dir_attr}{lang_attr}>{body}</p>')
+        else:
+            parts.append(f'<p class="{v["content_class"]}">{body}</p>')
+        rendered = True
+    if not rendered:
         parts.append(_EMPTY_TEXT)
-    if hebrew:
-        parts.append('\n  <p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>')
-        parts.append(f'\n  <p class="vnote-hebrew" dir="rtl" lang="he">{hebrew}</p>')
-    if greek:
-        parts.append('\n  <p class="vnote-source-label">Greek (Septuagint / Brenton)</p>')
-        parts.append(f'\n  <p class="vnote-greek" lang="grc">{greek}</p>')
     parts.append(f'\n<p><a href="#v-{code}-{ch}-{vs}" class="vnote-back" title="Back">↩</a></p></aside>')
     return "".join(parts)
+
+
+def assemble_versions_for_verse(code: str, ch: int, vs: int, *, harvested: dict) -> list[dict]:
+    """Ordered version list for one verse: every registered version that has
+    text — live via ``translations.get_verse`` at the version's normalized
+    coordinate, or harvested from the prior aside — in registry render order.
+    A version with no text is simply omitted (graceful per-verse availability)."""
+    from scripts.core import popup_versions as pv
+
+    vid = f"vnote-{code}-{ch}-{vs}"
+    h = harvested.get(vid, {})
+    out: list[dict] = []
+    for version_id in sorted(pv.ALL_VERSION_IDS, key=lambda i: pv.VERSION_REGISTRY[i]["order"]):
+        if not pv.bakes_now(version_id):
+            continue  # full data not yet ingested; Phase 2 flips this on
+        spec = pv.VERSION_REGISTRY[version_id]
+        nb, nc, nv = pv.normalize_coord(version_id, code, ch, vs)
+        text = tx.get_verse(spec["translation_id"], nb, nc, nv) or h.get(version_id)
+        if not text:
+            continue
+        out.append(
+            {
+                "id": version_id,
+                "label": spec["label"],
+                "lang": spec["lang"],
+                "dir": spec["dir"],
+                "has_label_para": spec["has_label_para"],
+                "content_class": spec["content_class"],
+                "trusted_html": pv.is_trusted_html(version_id),
+                "text": text,
+            }
+        )
+    return out
 
 
 def wrap_verse_number(chunk: str, *, code: str, ch: int, vs: int, title: str) -> tuple[str, bool]:
@@ -62,23 +108,24 @@ def wrap_verse_number(chunk: str, *, code: str, ch: int, vs: int, title: str) ->
 
 
 _ASIDE_RE = re.compile(r'<aside class="vnote" id="(vnote-[^"]+)".*?</aside>', re.DOTALL)
-_HE_RE = re.compile(r'<p class="vnote-hebrew"[^>]*>(.*?)</p>', re.DOTALL)
-_GR_RE = re.compile(r'<p class="vnote-greek"[^>]*>(.*?)</p>', re.DOTALL)
 
 
 def harvest_existing_langs(text: str) -> dict[str, dict[str, str | None]]:
-    """Parse every existing ``vnote`` aside in ``text`` -> ``{vnote_id:
-    {"hebrew": html|None, "greek": html|None}}``. Used so a uniform regen never
-    drops original-language content the resolver can no longer reproduce."""
+    """Parse every existing ``vnote`` aside -> ``{vnote_id: {version_id: text|None}}``
+    for every registered version's content class, so a uniform regen never drops
+    content the resolver can no longer reproduce (e.g. an original ingested
+    before its translation file existed)."""
+    from scripts.core import popup_versions as pv
+
+    class_to_id = {spec["content_class"]: vid for vid, spec in pv.VERSION_REGISTRY.items()}
     out: dict[str, dict[str, str | None]] = {}
     for m in _ASIDE_RE.finditer(text):
         block = m.group(0)
-        he = _HE_RE.search(block)
-        gr = _GR_RE.search(block)
-        out[m.group(1)] = {
-            "hebrew": he.group(1) if he else None,
-            "greek": gr.group(1) if gr else None,
-        }
+        entry: dict[str, str | None] = {}
+        for cls, vid in class_to_id.items():
+            cm = re.search(rf'<p class="{re.escape(cls)}"[^>]*>(.*?)</p>', block, re.DOTALL)
+            entry[vid] = cm.group(1) if cm else None
+        out[m.group(1)] = entry
     return out
 
 
@@ -187,11 +234,8 @@ def _wrap_and_build_asides(
     # Build/refresh asides for every unique verse in the region.
     new_asides = []
     for vs in dict.fromkeys(verse_numbers_in_region(region_html)):
-        vid = f"vnote-{code}-{ch}-{vs}"
-        eng = tx.get_verse("kjv", code, ch, vs)
-        he = tx.get_verse("wlc", code, ch, vs) or harvested.get(vid, {}).get("hebrew")
-        gr = tx.get_verse("lxx-brenton-greek", code, ch, vs) or harvested.get(vid, {}).get("greek")
-        new_asides.append(build_vnote_aside(code=code, ch=ch, vs=vs, title=title, english=eng, hebrew=he, greek=gr))
+        versions = assemble_versions_for_verse(code, ch, vs, harvested=harvested)
+        new_asides.append(build_vnote_aside(code=code, ch=ch, vs=vs, title=title, versions=versions))
         stats["asides_built"] += 1
 
     if new_asides:

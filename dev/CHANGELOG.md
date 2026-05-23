@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-05-22 — session — Popup multi-version MODEL refactor (B1 / Phase 1) — ZERO output change
+
+**Context:** Phase 1 of the fully-customizable-builder roadmap (`docs/superpowers/specs/2026-05-22-fully-customizable-builder-roadmap.md`). The popup model moved from 3 fixed slots `{english,hebrew,greek}` to a shared **version registry**, so Phases 2–4 (translation data → per-book version-selection UI → per-note curation w/ source review) drop onto a verified-stable foundation. No reader-visible change.
+
+**Shipped (TDD):**
+- `scripts/core/popup_versions.py` (NEW) — single-source version registry (kjv/wlc/lxx-greek + future greek-nt/brenton-en/douay/jps/vulgate/arabic), legacy aliases (english→kjv / hebrew→wlc / greek→lxx-greek), `bakes_now` gate (only the 3 with full data bake today), `is_trusted_html` (original-language sources pass raw), identity `normalize_coord` versification seam.
+- `scripts/generate_verse_popups.py` — `build_vnote_aside` list-based; `harvest_existing_langs` harvests every registered version; `assemble_versions_for_verse` sources every baked version (registry order, text-only).
+- `scripts/build_edition.py` — `POPUP_LANGUAGES` folds in the registry (SUPERSET; legacy parallel-bible slots latin/geez/amharic/aramaic/coptic/syriac preserved); `_resolve_popup_languages` alias-aware; the stripper now keys on **content class** so a legacy alias never strips an active version's paragraph.
+- `tests/test_popup_versions.py` (NEW, 16) + `tests/test_scripts.py` resolve assertions updated to the version-id contract.
+
+**Key catches (the byte-compat pin earned its keep):** WLC Hebrew is pre-formatted HTML (per-word `<em>`) — uniform escaping would have corrupted every Hebrew popup → `is_trusted_html` raw passthrough. The Genesis-seed secondary translations would have baked into Genesis → `bakes_now` gate. `english`/`kjv` share `vnote-text` → content-class stripping.
+
+**Verification:** full regen of ALL books → `git diff epub_working/` EMPTY (byte-identical; 35,585 asides); build smoke 31; flagship **epubcheck 0/0/0/0**; popup tests 138 (16 + 29 + 93); `lint_rules` 16/0/0.
+
+**Deferred to Phase 2:** `.vnote-*` CSS for the new version classes (added with each source's data, where it is renderable + testable).
+
+**Save tag (local only):** pending user save.
+
+---
+
 ## 2026-05-22 — session — Per-edition themes SHIPPED (Phase 0 of the themes + multi-translation-popups arc)
 
 **Context:** after the visual-QA browser pass (below), the user directed "themes per edition" + "all popups several translations except amharic/ge'ez." Brainstormed → spec `docs/superpowers/specs/2026-05-22-themes-and-multitranslation-popups-design.md` → plan `docs/superpowers/plans/2026-05-22-per-edition-themes.md`. This entry = **Phase 0 (themes)**; the multi-translation popups are a separate, larger track (Plan B — not yet built; PD sources locked in the spec).

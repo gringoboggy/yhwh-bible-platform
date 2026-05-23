@@ -701,6 +701,29 @@ POPUP_LANGUAGES: dict[str, dict] = {
     "amharic": {"label": "Amharic", "content_class": "vnote-amharic", "has_label_para": True},
 }
 
+# B1: fold in the shared version registry (scripts/core/popup_versions.py) so the
+# build side and the bake share ONE source of truth for the multi-translation
+# popups. The legacy language ids above (english/hebrew/greek) alias to the
+# version ids (kjv/wlc/lxx-greek) in _resolve_popup_languages; the parallel-bible
+# / future-language slots above (latin/geez/amharic/aramaic/coptic/syriac) are
+# preserved untouched, so anglican-bcp + the standalone bibles don't regress.
+from scripts.core import popup_versions as _pv  # noqa: E402
+
+POPUP_LANGUAGES.update(
+    {
+        vid: {
+            "label": s["label"],
+            "content_class": s["content_class"],
+            "has_label_para": s["has_label_para"],
+        }
+        for vid, s in _pv.VERSION_REGISTRY.items()
+    }
+)
+# english/hebrew/greek stay as known ids (so save-validation still accepts them
+# + _resolve maps them to kjv/wlc/lxx-greek). They SHARE content classes with
+# those version ids; the stripper keys on content class (below) so an active
+# version is never stripped via its alias.
+
 ALL_POPUP_LANGUAGES: tuple[str, ...] = tuple(POPUP_LANGUAGES.keys())
 
 
@@ -724,7 +747,10 @@ def _resolve_popup_languages(edition: dict, book_code: str) -> set[str]:
         raw = edition.get("popup_languages_default")
     else:
         return set(ALL_POPUP_LANGUAGES)
-    return {lang for lang in (raw or []) if lang in POPUP_LANGUAGES}
+    # Map legacy language ids (english/hebrew/greek) to version ids
+    # (kjv/wlc/lxx-greek); registry ids + legacy slots resolve to themselves.
+    mapped = ((_pv.resolve_version_id(lang) or lang) for lang in (raw or []))
+    return {m for m in mapped if m in POPUP_LANGUAGES}
 
 
 def decode_per_book_languages(raw) -> dict[str, list[str]]:
@@ -887,7 +913,9 @@ def _apply_popup_languages_and_translation(
         # Step 1 — translation swap (only if english is active, the
         # translation is set, and the verse exists in it). When
         # english is being stripped we never bother fetching.
-        if translation_id and "english" in active_langs:
+        # 'kjv' is the resolved version id for the English slot (legacy
+        # 'english' aliases to it); the swap targets that vnote-text paragraph.
+        if translation_id and "kjv" in active_langs:
             verse_text = _tx.get_verse(translation_id, book, ch, vs)
             if verse_text is not None:
                 new_para = (
@@ -909,9 +937,13 @@ def _apply_popup_languages_and_translation(
             else:
                 stats["missed"] += 1
 
-        # Step 2 — strip languages NOT in the active set
+        # Step 2 — strip versions whose content class is NOT shown by any active
+        # version. Keying on content class (not id) means a legacy alias sharing
+        # a class with an active version id (english↔kjv → vnote-text) is never
+        # stripped out from under the active version.
+        active_classes = {POPUP_LANGUAGES[v]["content_class"] for v in active_langs if v in POPUP_LANGUAGES}
         for lang_id in ALL_POPUP_LANGUAGES:
-            if lang_id in active_langs:
+            if POPUP_LANGUAGES[lang_id]["content_class"] in active_classes:
                 continue
             body, n = _strip_language_paragraph(body, lang_id)
             stats["language_paragraphs_stripped"] += n

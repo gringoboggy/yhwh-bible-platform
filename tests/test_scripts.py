@@ -278,8 +278,8 @@ class TestBuildEdition:
     def test_resolve_popup_languages_uses_default(self):
         """When no per-book entry exists, the per-edition default wins."""
         ed = {"popup_languages_default": ["english", "hebrew"]}
-        assert self.mod._resolve_popup_languages(ed, "gen") == {"english", "hebrew"}
-        assert self.mod._resolve_popup_languages(ed, "mat") == {"english", "hebrew"}
+        assert self.mod._resolve_popup_languages(ed, "gen") == {"kjv", "wlc"}
+        assert self.mod._resolve_popup_languages(ed, "mat") == {"kjv", "wlc"}
 
     def test_resolve_popup_languages_per_book_overrides_default(self):
         ed = {
@@ -289,9 +289,9 @@ class TestBuildEdition:
             },
         }
         # Override
-        assert self.mod._resolve_popup_languages(ed, "dan") == {"english", "hebrew", "aramaic"}
+        assert self.mod._resolve_popup_languages(ed, "dan") == {"kjv", "wlc", "aramaic"}
         # Falls through to default
-        assert self.mod._resolve_popup_languages(ed, "gen") == {"english"}
+        assert self.mod._resolve_popup_languages(ed, "gen") == {"kjv"}
 
     def test_resolve_popup_languages_empty_per_book_means_no_languages(self):
         """An explicit empty list per book means 'no popup languages
@@ -303,7 +303,7 @@ class TestBuildEdition:
         }
         assert self.mod._resolve_popup_languages(ed, "tob") == set()
         # Other books still use the default
-        assert self.mod._resolve_popup_languages(ed, "gen") == {"english", "hebrew"}
+        assert self.mod._resolve_popup_languages(ed, "gen") == {"kjv", "wlc"}
 
     def test_resolve_popup_languages_back_compat_when_unset(self):
         """An edition with neither field gets ALL languages — the
@@ -316,7 +316,7 @@ class TestBuildEdition:
         rather than blowing up the build. Keeps publishers from
         trapping themselves with a misspelled language string."""
         ed = {"popup_languages_default": ["english", "klingon", "hebrew"]}
-        assert self.mod._resolve_popup_languages(ed, "gen") == {"english", "hebrew"}
+        assert self.mod._resolve_popup_languages(ed, "gen") == {"kjv", "wlc"}
 
     def test_strip_language_paragraph_removes_label_and_content(self):
         """For languages with source labels (Hebrew, Greek), both the
@@ -1949,7 +1949,7 @@ class TestEditionMeta:
 
             config.load_editions.cache_clear()
             cath_raw = next(e for e in config.load_editions() if e["id"] == "catholic-study")
-            assert _resolve_popup_languages(cath_raw, "gen") == {"english", "hebrew"}
+            assert _resolve_popup_languages(cath_raw, "gen") == {"kjv", "wlc"}
             assert _resolve_popup_languages(cath_raw, "tob") == set()
             # A book without an override falls through to the default
             assert _resolve_popup_languages(cath_raw, "jhn"), (
