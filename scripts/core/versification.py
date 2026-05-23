@@ -451,3 +451,67 @@ def lxx_swete_to_kjv(swete_book: str, ch: int, vs: int) -> Coord | None:
     if not coord_in_canonical_extent(code, kjv_ch, kjv_v):
         return None
     return (code, kjv_ch, kjv_v)
+
+
+# ===========================================================================
+# Greek NT (Robinson-Pierpont Byzantine Majority Text) -> canonical KJV.
+#
+# The Byzantine/ecclesiastical text uses KJV-standard versification, so the NT is
+# IDENTITY for all 27 books — the single-verse Byzantine omissions (Luke 17:36,
+# Acts 8:37 / 15:34 / 24:7) are gap-preserved in the source (KJV numbering kept).
+# The one reorder is the Romans doxology: the Byzantine text places KJV 16:25-27
+# at the end of chapter 14 (as 14:24-26). Verified against the real source.
+# ===========================================================================
+
+# byztxt CSV book code -> project 3-letter code (the 27 NT books). The apparatus
+# files (PA = Pericope Adulterae, ACT24 = Acts-24 variant) are not here -> omitted.
+_NT_BOOK_TO_CODE: dict[str, str] = {
+    "MAT": "mat",
+    "MAR": "mrk",
+    "LUK": "luk",
+    "JOH": "jhn",
+    "ACT": "act",
+    "ROM": "rom",
+    "1CO": "1co",
+    "2CO": "2co",
+    "GAL": "gal",
+    "EPH": "eph",
+    "PHP": "phi",
+    "COL": "col",
+    "1TH": "1th",
+    "2TH": "2th",
+    "1TI": "1ti",
+    "2TI": "2ti",
+    "TIT": "tit",
+    "PHM": "phm",
+    "HEB": "heb",
+    "JAM": "jam",
+    "1PE": "1pe",
+    "2PE": "2pe",
+    "1JO": "1jn",
+    "2JO": "2jn",
+    "3JO": "3jn",
+    "JUD": "jud",
+    "REV": "rev",
+}
+
+# Romans: the doxology KJV 16:25-27 sits at the end of ch14 (as 14:24-26) in the
+# Byzantine text; ch16 body (1-24) and every other chapter map identity.
+_ROM_SEGMENTS: dict[int, list[_Seg]] = {14: [(1, 23, 14, 1), (24, 26, 16, 25)]}
+
+
+def byzantine_to_kjv(book: str, ch: int, vs: int) -> Coord | None:
+    """Map a Robinson-Pierpont Byzantine NT coordinate to canonical KJV.
+
+    Identity for all 27 NT books except the Romans doxology reorder; ``None`` for
+    apparatus/non-NT files or out-of-extent coordinates."""
+    code = _NT_BOOK_TO_CODE.get(book)
+    if code is None:
+        return None
+    mapped = _apply_segments(code, _ROM_SEGMENTS, ch, vs) if code == "rom" else (ch, vs)
+    if mapped is None:
+        return None
+    kjv_ch, kjv_v = mapped
+    if not coord_in_canonical_extent(code, kjv_ch, kjv_v):
+        return None
+    return (code, kjv_ch, kjv_v)

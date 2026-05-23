@@ -2,13 +2,13 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **➤➤➤ 2026-05-23 (LATEST) — LXX-Greek (Swete) FULL ingest SHIPPED (Phase 2 spine, sub-phase 2). Awaiting user "save"; flagship epubcheck running as the final cert.**
+> **➤➤➤ 2026-05-23 (LATEST) — Greek NT (Byzantine) FULL ingest SHIPPED (Phase 2 spine, sub-phase 3). Awaiting user "save"; all-editions epubcheck running as the final cert. [LXX-Greek (Swete) committed `3ea1b24`.]**
 >
-> **DONE this session (uncommitted — awaiting "save"):** the full LXX-Greek (Swete) ingest. NEW `scripts/core/versification.lxx_swete_to_kjv` (137 mapping tests) + driver in `scripts/extract_lxx_swete.py` → `content/translations/lxx-swete-greek/` (39 books / 22,893 verses; 0 collisions / 0 out-of-extent). Registry repointed `lxx-greek`→`lxx-swete-greek`. Regen baked Greek onto all 39 OT books (`vnote-greek` 8,601→22,812); **categorize-every-diff proved KJV + Hebrew UNCHANGED** (only Greek changed). All structurally-reordered books (Psalms / Jeremiah-OAN / Theodotion-Daniel / 1Kings-swap / Proverbs / Esther-Additions) remapped from **content-aligned real data, NOT memory**; Exodus 36-39 (tabernacle) deferred. `ebible verify` errors=0 / 24,015 paired; `lint_rules` 16/0/0; ruff clean; 140 tests. Full story: `dev/CHANGELOG.md` 2026-05-23. Earlier this session: WLC Hebrew shipped (`fcd6217`).
+> **DONE this turn (uncommitted — awaiting "save"):** the full Greek-NT ingest. Source switched from the spec-locked Scrivener TR (romanized/unaccented) to the **Robinson-Pierpont Byzantine Majority Text** (accented Unicode, byztxt `csv-unicode/ccat/no-variants`, PD/Unlicense) per the user's accented-source choice. NEW `scripts/core/versification.byzantine_to_kjv` (25 tests): identity for all 27 NT books (Byzantine = KJV-standard; Luke 17:36 / Acts 8:37·15:34·24:7 gap-preserved) + the Romans-doxology reorder (RP 14:24-26 → 16:25-27). Driver `scripts/extract_byzantine_nt.py` → `content/translations/byzantine-greek/` (7,953 verses; 0 collisions / 0 out-of-extent; ¶ stripped). Registry `greek-nt` relabelled "Byzantine Majority Text" + added to `_BAKED_NOW`. Regen baked greek-nt onto all 27 NT books (`vnote-greek-nt` 0→7,951); **categorize-diff proved KJV + Hebrew + LXX-Greek UNCHANGED**. `ebible verify` errors=0 / 24,015 paired; `lint_rules` 16/0/0; ruff clean; 27 tests. Full story: `dev/CHANGELOG.md` 2026-05-23.
 >
-> **VERIFIED:** all 11 editions batch-epubcheck **errors=0 / warnings=0** (built from the regenerated base with the Swete Greek). **REMAINING:** commit on user "save" (continue ≠ save).
+> **VERIFIED:** all 11 editions **epubcheck 0 fatals / 0 errors** (the `ebible build --epubcheck` gate exited 0). Committed this session per user go-ahead.
 >
-> **NEXT (Phase 2 cont., next session):** Greek-NT (Textus Receptus) → deuterocanon LXX pass → Douay/JPS/Vulgate/Arabic. Editorial follow-ups: Exodus 36-39 tabernacle alignment + Esther Additions concordance (joins the `aes` deferral).
+> **NEXT (Phase 2 cont., next session):** deuterocanon LXX pass → Douay/JPS/Vulgate/Arabic. Editorial follow-ups: Exodus 36-39 tabernacle alignment + Esther Additions concordance (joins the `aes` deferral).
 >
 > **GOTCHAS:** do NOT run the full `tests/test_scripts.py` (it HANGS on build/socket smokes — run targeted `-k` subsets). `_acquire/` sits one level ABOVE the repo (gitignored; Glob skips it). Python = the pythoncore full path + `$env:PYTHONUTF8="1"`.
 >

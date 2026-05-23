@@ -37,15 +37,15 @@ class TestVersionRegistry:
         assert pv.normalize_coord("lxx-greek", "psa", 23, 1) == ("psa", 23, 1)
         assert pv.normalize_coord("kjv", "gen", 1, 1) == ("gen", 1, 1)
 
-    def test_bakes_now_only_the_three_with_full_data(self):
-        # Phase 1 bakes only kjv/wlc/lxx-greek (matching the recovered base).
-        for vid in ("kjv", "wlc", "lxx-greek"):
-            assert pv.bakes_now(vid), f"{vid} should bake in Phase 1"
-        for vid in ("greek-nt", "brenton-en", "douay", "jps", "vulgate", "arabic"):
+    def test_bakes_now_the_four_with_full_data(self):
+        # Phase 1 baked kjv/wlc/lxx-greek; Phase 2 added greek-nt (Byzantine NT).
+        for vid in ("kjv", "wlc", "lxx-greek", "greek-nt"):
+            assert pv.bakes_now(vid), f"{vid} should bake (full data ingested)"
+        for vid in ("brenton-en", "douay", "jps", "vulgate", "arabic"):
             assert not pv.bakes_now(vid), f"{vid} must NOT bake until its full data lands"
 
     def test_trusted_html_flags(self):
-        # Original-language sources carry per-word <em> markup -> raw passthrough.
+        # Original-language sources (WLC <em>-per-word; LXX/Byzantine plain accented) -> raw.
         for vid in ("wlc", "lxx-greek", "greek-nt"):
             assert pv.is_trusted_html(vid), f"{vid} should be trusted pre-formatted HTML"
         for vid in ("kjv", "douay", "jps", "vulgate", "arabic"):

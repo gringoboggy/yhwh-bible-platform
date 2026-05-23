@@ -45,7 +45,7 @@ VERSION_REGISTRY: dict[str, dict] = {
         "order": 30,
     },
     "greek-nt": {
-        "label": "Greek (Textus Receptus)",
+        "label": "Greek (Byzantine Majority Text)",
         "content_class": "vnote-greek-nt",
         "lang": "grc",
         "dir": "ltr",
@@ -105,12 +105,13 @@ _ALIASES = {"english": "kjv", "hebrew": "wlc", "greek": "lxx-greek"}
 
 ALL_VERSION_IDS: tuple[str, ...] = tuple(VERSION_REGISTRY.keys())
 
-# Versions whose FULL data is ingested AND already baked into the shared base
-# (epub_working/). Phase 1 bakes only these three (matching the recovered base),
-# so a regen stays byte-identical. Phase 2 flips each remaining version on here
-# as its full, versification-aligned PD data lands — seed-only data (e.g. the
-# Genesis-only douay/jps/vulgate/arabic samples) is deliberately NOT baked.
-_BAKED_NOW: frozenset[str] = frozenset({"kjv", "wlc", "lxx-greek"})
+# Versions whose FULL data is ingested AND baked into the shared base
+# (epub_working/). Phase 1 baked kjv/wlc/lxx-greek (matching the recovered base);
+# Phase 2 added the full original-language spine — lxx-greek (Swete OT) and
+# greek-nt (Byzantine NT). Each remaining version flips on here as its full,
+# versification-aligned PD data lands — seed-only data (e.g. the Genesis-only
+# douay/jps/vulgate/arabic samples) is deliberately NOT baked.
+_BAKED_NOW: frozenset[str] = frozenset({"kjv", "wlc", "lxx-greek", "greek-nt"})
 
 
 def bakes_now(version_id: str) -> bool:
@@ -120,10 +121,10 @@ def bakes_now(version_id: str) -> bool:
 
 # Versions passed through the aside renderer RAW (not HTML-escaped). WLC Hebrew
 # wraps each word in <em> for word-level styling, so it MUST be raw. LXX Greek
-# (Swete) is plain text but verified free of HTML-special chars at ingest (0 of
-# 22,893 verses contain <>&), so raw passthrough is a safe no-op and matches the
-# recovered-base contract (the old bake escaped english, passed hebrew/greek
-# raw). Each new source's format is verified at ingest before its id is added.
+# (Swete) and the Byzantine Greek-NT are plain accented text but verified free of
+# HTML-special chars at ingest (0 verses contain <>&), so raw passthrough is a
+# safe no-op and matches the recovered-base contract (the old bake escaped
+# english, passed hebrew/greek raw). Each source's format is verified at ingest.
 _TRUSTED_HTML: frozenset[str] = frozenset({"wlc", "lxx-greek", "greek-nt"})
 
 

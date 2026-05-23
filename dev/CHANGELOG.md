@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-23 — session — Greek NT (Byzantine Majority Text) FULL ingest (Phase 2 spine, sub-phase 3) — +7,951 Greek popups across all 27 NT books
+
+**Context:** Phase 2 translation spine, immediately after the LXX-Greek (Swete) OT ingest. **Source decision (changed mid-flight):** the roadmap spec locked Scrivener's TR 1894 (`byztxt/greektext-scrivener`), but on acquisition that source proved to be Robinson's **romanized, unaccented** transliteration (`paulov desmiov` = Παυλος δεσμιος) — which would put unaccented NT Greek next to the accented Swete LXX. User chose an **accented Unicode source**, so the ingest uses the **Robinson-Pierpont Byzantine Majority Text** (`byztxt/byzantine-majority-text`, `csv-unicode/ccat/no-variants`) — accented polytonic Greek Unicode, Public Domain (Unlicense). This also makes the registry's `byzantine-greek` translation_id accurate.
+
+**Versification, `scripts/core/versification.byzantine_to_kjv` (NEW; 25 tests):** the Byzantine/ecclesiastical text uses KJV-standard versification, so the NT is **identity for all 27 books** — verified against the real source: all 27 chapter counts match KJV, and the single-verse Byzantine omissions (Luke 17:36, Acts 8:37 / 15:34 / 24:7) are **gap-preserved** (KJV numbering kept, verse simply absent), so identity stays correct. The one reorder is the **Romans doxology** (KJV 16:25-27 sits at the end of ch14 as 14:24-26 in the Byzantine text) — a single segment maps RP 14:24-26 → 16:25-27. Reuses the LXX `_apply_segments` + `coord_in_canonical_extent` guard.
+
+**Driver `scripts/extract_byzantine_nt.py` (NEW; CSV `chapter,verse,text`):** strips the `¶` paragraph marker, remaps via `byzantine_to_kjv`, writes `content/translations/byzantine-greek/<code>.py` + `_meta.yaml`. The Pericope-Adulterae (`PA`) + Acts-24-variant (`ACT24`) apparatus files are not in the NT book map → omitted. Full run: **7,953 verses across 27 books** (= the NT total 7,957 minus the 4 gap-preserved omissions), **0 collisions, 0 out-of-extent**; ruff-formatted.
+
+**Registry:** `popup_versions` `greek-nt` → label "Greek (Byzantine Majority Text)", `translation_id="byzantine-greek"`, **added to `_BAKED_NOW`** (already in `_TRUSTED_HTML`; the text is plain accented Greek, 0 verses with `<>&`).
+
+**Verification (categorize-every-diff — ZERO corruption):** regenerated popups; the diff is **only `vnote-greek-nt`** — KJV (`vnote-text`), Hebrew (`vnote-hebrew`), and **LXX Greek (`vnote-greek`) all UNCHANGED**; `vnote-greek-nt` **0 → 7,951** asides across the 27 NT books. `ebible verify` **errors=0 / 24,015 paired**; **all 11 editions epubcheck 0 fatals / 0 errors** (the build's epubcheck gate exited 0; the text-only greek-nt addition on the LXX 0/0/0/0 base introduces no new warnings); `lint_rules` 16/0/0; ruff clean; **27 tests** in `tests/test_byzantine_nt_ingest.py` (+ `test_popup_versions` bakes-now updated to four).
+
+**Next (Phase 2 cont.):** the deuterocanon LXX pass, then Douay/JPS/Vulgate/Arabic. Editorial follow-ups still open: Exodus 36-39 tabernacle alignment + the Esther Additions concordance.
+
+**Save tag (local only):** awaiting user "save".
+
+---
+
 ## 2026-05-23 — session — LXX-Greek (Swete) FULL ingest (Phase 2 spine, sub-phase 2) — +14,211 Greek popups across all 39 OT books, every reorder content-verified
 
 **Context:** Phase 2 translation spine after WLC (`fcd6217`). Swete's LXX via the eliranwong/LXX-Swete-1930 digitization, **pure-PD path** (PD Greek text only — the `00` verse-index + `01` words; the GPL-3.0 transliteration/morphology layers are NOT used; Swete d. 1917, digitization adds no copyright — same basis as WLC's PD text vs morphhb's CC-BY morphology). **Scope: the 39 standard OT books** (deuterocanon next; Greek 1 Enoch / 3–4 Maccabees / Odes / Psalms-of-Solomon / duplicate recensions skipped); Daniel = Theodotion (`Dat`). Two user scope calls this session: **full Jeremiah OAN remap now** (not deferred) and **full remap of all reordered books now**. Plan: `docs/superpowers/plans/2026-05-23-lxx-swete-ingest.md`.
