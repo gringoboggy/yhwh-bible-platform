@@ -765,7 +765,49 @@ def arabic_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
 # verse-division diverges from both identity AND the reused LXX psalm map. Filled
 # as content-alignment verifies each; empty entries mean "still identity/psalm-map".
 _VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {}
-_VULGATE_SEGMENTS: dict[str, dict[int, list[_Seg]]] = {}
+
+# Per-book verse-segment tables (source = Vulgate/Douay numbering -> canonical KJV),
+# each content-aligned by reading the ENGLISH Douay against the ENGLISH KJV at the
+# divergence (NOT identity-guessed). Segment = (src_lo, src_hi, kjv_ch, kjv_v_lo); a
+# verse v in [lo,hi] -> (kjv_ch, kjv_v_lo + (v - lo)). A KJV verse that no segment
+# targets gets no Douay/Vulgate (the Vulgate folded it into a neighbour — like the
+# LXX cases). ``_HI`` = open upper bound. Chapters absent here map identity.
+_VULGATE_SEGMENTS: dict[str, dict[int, list[_Seg]]] = {
+    # ---- New Testament (verified Douay<->KJV, 2026-05-23) ----
+    "mat": {17: [(1, 14, 17, 1), (15, _HI, 17, 16)]},  # KJV 17:15 (the lunatic son) folded into Douay 17:14
+    "mrk": {
+        8: [(1, 38, 8, 1), (39, 39, 9, 1)],  # Douay 8:39 ("some standing here... taste death") = KJV 9:1
+        9: [(1, 49, 9, 2)],  # Douay 9:1-49 -> KJV 9:2-50 (KJV 9:1 supplied by Douay 8:39)
+    },
+    "jhn": {6: [(1, 51, 6, 1), (52, 52, 6, 51), (53, _HI, 6, 52)]},  # KJV 6:51 split into Douay 6:51+6:52
+    "act": {
+        7: [(1, 55, 7, 1), (56, _HI, 7, 57)],  # KJV 7:56 folded into Douay 7:55
+        14: [(1, 6, 14, 1), (7, _HI, 14, 8)],  # KJV 14:7 folded into Douay 14:6
+    },
+    "2co": {13: [(1, 12, 13, 1), (13, 13, 13, 14)]},  # KJV 13:13 folded into Douay 13:12
+    "rev": {12: [(1, 17, 12, 1), (18, 18, 13, 1)]},  # Douay 12:18 ("stood on the sand") = KJV 13:1 head
+    # ---- Old Testament (verified Douay<->KJV, 2026-05-23) ----
+    "gen": {
+        49: [(1, 31, 49, 1), (32, 32, 49, 33)],  # KJV 49:32 (field purchase) folded into Douay 49:30
+        50: [(1, 22, 50, 1), (23, _HI, 50, 24)],  # KJV 50:23 (Machir) folded into Douay 50:22
+    },
+    "jon": {2: [(1, 1, 1, 17), (2, _HI, 2, 1)]},  # Douay 2:1 ("great fish") = KJV 1:17 (cross-chapter)
+    "hag": {2: [(1, 1, 1, 15), (2, _HI, 2, 1)]},  # Douay 2:1 (24th-day date) = KJV 1:15 (cross-chapter)
+    "mic": {5: [(1, 11, 5, 1), (12, _HI, 5, 13)]},  # KJV 5:12 folded into Douay 5:11
+    "amo": {6: [(1, 10, 6, 1), (11, 11, 6, 10), (12, _HI, 6, 11)]},  # KJV 6:10 split into Douay 6:10+6:11
+    "hos": {
+        6: [(1, 1, 6, 1), (2, 2, 6, 1), (3, 3, 6, 2), (4, _HI, 6, 4)],  # K6:1=D6:1+D6:2; K6:3 folded into D6:3
+        14: [(1, 1, 13, 16), (2, _HI, 14, 1)],  # Douay 14:1 ("Let Samaria perish") = KJV 13:16 (cross-chapter)
+    },
+    "jer": {37: [(1, 4, 37, 1), (5, _HI, 37, 6)]},  # KJV 37:5 (Pharaoh's army) folded into Douay 37:4
+}
+
+# Books whose Vulgate text is a DIFFERENT RECENSION (not the Greek the KJV Apocrypha
+# follows) -> no verse-by-verse KJV correspondence, so OMIT entirely (documented, like
+# the LXX deferred aes). Confirmed by content (Douay Tob 1:1 "Tobias of the tribe..."
+# vs KJV "The book of the words of Tobit...") + whole-book identity-overlap 0.16-0.24.
+_VULGATE_OMIT: frozenset[str] = frozenset({"tob", "jdt", "sir"})
+
 _VULGATE_CROSS: dict[str, object] = {}  # code -> callable(ch,vs)->Coord|None for additions
 
 
@@ -774,6 +816,8 @@ def vulgate_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
     KJV. ``None`` to omit (no canonical slot / out-of-extent). WORK IN PROGRESS —
     Psalms reuse the LXX map; other divergent books are identity until their
     content-verified segment tables land below."""
+    if code in _VULGATE_OMIT:
+        return None  # different recension — no KJV-skeleton correspondence (documented)
     if code == "psa":
         mapped = _VULGATE_PSALM_FIXES.get((ch, vs)) or _psalm_map().get((ch, vs))
     elif code in _VULGATE_SEGMENTS:
