@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace"><osisText osisIDWork="OSHB" xml:lang="he"><div type="book" osisID="Deut"><chapter osisID="Deut.6">
+<verse osisID="Deut.6.4">
+          <w lemma="8085" n="1.0" morph="HVqv2ms" id="05WH5">שְׁמַ֖<seg type="x-large">ע</seg></w>
+          <note n="5">Large letter(s). Shown as large letters without a superscript note number. </note>
+          <w lemma="3478" n="1" morph="HNp" id="05Wu9">יִשְׂרָאֵ֑ל</w>
+          <w lemma="3068" morph="HNp" id="05Wfj">יְהוָ֥ה</w>
+          <w lemma="430" n="0.0" morph="HNcmpc/Sp1cp" id="05MRr">אֱלֹהֵ֖י/נוּ</w>
+          <w lemma="3068" morph="HNp" id="05d46">יְהוָ֥ה</w>
+          <seg type="x-paseq">׀</seg>
+          <w lemma="259" n="0" morph="HAcmsa" id="05vGY">אֶחָֽ<seg type="x-large">ד</seg></w><seg type="x-sof-pasuq">׃</seg>
+          <note n="5">Large letter(s). Shown as large letters without a superscript note number. </note>
+        </verse>
+</chapter></div></osisText></osis>

@@ -34,6 +34,16 @@ with ~23,000 verses but the discovery/meta contract stays.
 
 from __future__ import annotations
 
+import re
+
+
+def _consonants(s: str) -> str:
+    """Bare Hebrew consonants only — drops <em> markup, niqqud, te'amim and
+    punctuation, so a content pin matches the word regardless of vowel/accent
+    Unicode encoding. Byte-exact niqqud/te'amim fidelity is pinned separately in
+    tests/test_wlc_ingest.py (characterized against the recovered base)."""
+    return re.sub(r"[^א-ת]", "", s)
+
 
 class TestTau5aRegistry:
     """Both new translations registered in extract_translation.py."""
@@ -89,12 +99,13 @@ class TestTau5aDiscovery:
         assert translations.has_book("jps", "gen") is True
         assert translations.has_book("wlc", "gen") is True
 
-    def test_has_book_unknown_returns_false(self):
-        # Seed is Genesis only — other books shouldn't claim to exist.
+    def test_has_book_coverage_reflects_seed_vs_full(self):
+        # JPS is still a Genesis-only seed; WLC is now fully ingested (Phase 2),
+        # so it claims all 39 OT books while JPS does not.
         from scripts.core import translations
 
-        assert translations.has_book("jps", "exo") is False
-        assert translations.has_book("wlc", "exo") is False
+        assert translations.has_book("jps", "exo") is False  # jps: seed (gen only)
+        assert translations.has_book("wlc", "exo") is True  # wlc: full OT ingest
 
 
 class TestTau5aJpsSeed:
@@ -141,54 +152,58 @@ class TestTau5aJpsSeed:
         assert int(meta["source"]["source_date"]) == 1917
 
 
-class TestTau5aWlcSeed:
-    """WLC Hebrew Genesis 1:1-3 seed content + meta."""
+class TestTau5aWlcFull:
+    """WLC Hebrew — full 39-book ingest (Phase 2; supersedes the τ.5-A seed).
 
-    def test_three_verses_in_gen(self):
+    The 3-verse Genesis seed was replaced by the full morphhb ingest, exactly as
+    this file's module docstring anticipated. Verse text is now em-per-word with
+    cantillation (te'amim), so content pins strip te'amim before matching the
+    niqqud-level word. The discovery/meta contract is unchanged.
+    """
+
+    def test_full_genesis_matches_kjv_verse_count(self):
+        # WLC Genesis aligns to the KJV Genesis verse count (the 31/32 boundary
+        # shift preserves the total) — proof the full ingest replaced the seed.
         from scripts.core import translations
 
-        assert translations.book_verse_count("wlc", "gen") == 3
+        wlc = translations.book_verse_count("wlc", "gen")
+        assert wlc == translations.book_verse_count("kjv", "gen")
+        assert wlc > 1500  # a full book, not a 3-verse seed
 
     def test_gen_1_1_starts_with_bereshit(self):
-        # בְּרֵאשִׁית = "In the beginning" — the canonical opening of
-        # the Hebrew Bible. Pin its presence.
+        # בראשית = "In the beginning" — the canonical opening of the Hebrew Bible.
         from scripts.core import translations
 
         v = translations.get_verse("wlc", "gen", 1, 1)
         assert v is not None
-        assert "בְּרֵאשִׁית" in v
+        assert "בראשית" in _consonants(v)
 
     def test_gen_1_1_contains_elohim(self):
-        # אֱלֹהִים = "God" — the second-most-anchored word in the verse.
+        # אלהים = "God" — the second-most-anchored word in the verse.
         from scripts.core import translations
 
-        v = translations.get_verse("wlc", "gen", 1, 1)
-        assert "אֱלֹהִים" in v
+        assert "אלהים" in _consonants(translations.get_verse("wlc", "gen", 1, 1))
 
     def test_gen_1_3_yehi_or(self):
-        # יְהִי אוֹר = "Let there be light." Pin presence.
+        # יהי אור = "Let there be light." Pin the consonants' presence.
         from scripts.core import translations
 
-        v = translations.get_verse("wlc", "gen", 1, 3)
-        assert v is not None
-        assert "יְהִי" in v
-        assert "אוֹר" in v
+        v = _consonants(translations.get_verse("wlc", "gen", 1, 3))
+        assert "יהי" in v
+        assert "אור" in v
 
-    def test_text_is_hebrew_unicode(self):
-        # Every character should be in the Hebrew Unicode block
-        # (U+0590-U+05FF) or punctuation/whitespace.
+    def test_text_is_hebrew_block_or_markup(self):
+        # Every char is the Hebrew block (U+0590-U+05FF) or ASCII (the <em>
+        # word markup + spaces). Pins that no stray non-Hebrew text leaked in.
         from scripts.core import translations
 
-        for ch_num in (1, 2, 3):
-            v = translations.get_verse("wlc", "gen", 1, ch_num)
+        for vs in (1, 2, 3):
+            v = translations.get_verse("wlc", "gen", 1, vs)
             for c in v:
                 cp = ord(c)
-                # Hebrew block + ASCII whitespace/punctuation
-                # (some WLC texts include the maqaf "־" U+05BE which
-                # is in the Hebrew block).
                 in_hebrew = 0x0590 <= cp <= 0x05FF
                 in_ascii = cp <= 0x007F
-                assert in_hebrew or in_ascii, f"non-Hebrew/non-ASCII char {c!r} (U+{cp:04X}) in verse {ch_num}"
+                assert in_hebrew or in_ascii, f"non-Hebrew/non-ASCII char {c!r} (U+{cp:04X}) in verse {vs}"
 
     def test_meta_shape(self):
         from scripts.core import translations
@@ -200,9 +215,8 @@ class TestTau5aWlcSeed:
         assert meta["license"] == "Public Domain"
 
     def test_meta_documents_rtl_handling(self):
-        # The WLC meta should reference the RTL rendering pattern
-        # so future contributors know the popup pipeline handles it
-        # correctly via ν.2.7.
+        # The WLC meta references the RTL rendering pattern so future
+        # contributors know the popup pipeline handles it correctly.
         from scripts.core import translations
 
         meta = translations.translation_meta("wlc")
@@ -224,9 +238,9 @@ class TestTau5aPairing:
         assert "jps" in ids
         assert "wlc" in ids
 
-    def test_both_have_genesis_seed(self):
+    def test_genesis_coverage_seed_vs_full(self):
         from scripts.core import translations
 
-        # Same 3-verse coverage on both halves.
+        # JPS remains the 3-verse seed; WLC is now the full ingest (Phase 2).
         assert translations.book_verse_count("jps", "gen") == 3
-        assert translations.book_verse_count("wlc", "gen") == 3
+        assert translations.book_verse_count("wlc", "gen") > 1500

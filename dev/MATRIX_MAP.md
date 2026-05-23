@@ -65,6 +65,15 @@ VALIDATORS (gate everything):
 - **A book present / spliced out** <- `canons.yaml[edition.canon].books` (a subset of `books.yaml`).
 - **A verse popup** <- `popup_translation` (-> `translations/<id>/`) + `popup_languages_default`
   / `popup_languages_per_book`.
+- **Hebrew/Greek/… text inside a verse popup** <- the baked `translations/<id>/<book>.py`, sourced
+  per registered version by `generate_verse_popups.assemble_versions_for_verse` (registry order;
+  baked only when `popup_versions.bakes_now`). **Translation ingestion** is per-source:
+  `scripts/extract_<id>.py` (e.g. `extract_wlc_morphhb.py` — morphhb OSIS → `<em>`-per-word) →
+  `scripts/core/versification.py` remaps the source's own numbering to **canonical KJV** (the
+  `popup_versions.normalize_coord` seam; morphhb `VerseMap.xml` for WLC: Gen 31/32 boundary, Psalm
+  superscriptions) → per-book modules keyed by canonical coords, guarded at ingest by
+  `canonical_verse_counts.coord_in_canonical_extent`. **WLC = full 39-book / 23,142-verse ingest as
+  of 2026-05-23** (was a 3-verse seed); the other secondary translations are still Genesis seeds.
 - **Cover / OPF metadata** <- `cover_image`, `authors`, `bisac_codes` -> `patch_opf`.
 - **A count cell in the matrix UI** <- `matrix.compute_matrix().enabled[ed][kind]` <- `per_chapter`
   <- `notes_io.load_notes(notes/<book>.py)`.

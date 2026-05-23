@@ -6,6 +6,29 @@
 
 ---
 
+## 2026-05-23 — session — WLC Hebrew FULL ingest (τ.5-A.x / Phase 2 spine) — +23,142 Hebrew popups, every change a fix or addition
+
+**Context:** Phase 2 of the fully-customizable-builder roadmap (`docs/superpowers/specs/2026-05-22-fully-customizable-builder-roadmap.md`) — translation acquisition + ingestion, original-language spine first. This is the WLC (Westminster Leningrad Codex) Hebrew sub-phase: the long-deferred **τ.5-A.x** full ingest the τ.5-A seed `_meta` always pointed to. Source: the OpenScriptures **morphhb** OSIS clone (gitignored at `_acquire/morphhb/`, re-fetchable from github.com/openscriptures/morphhb).
+
+**Shipped (TDD; 42 tests in NEW `tests/test_wlc_ingest.py`):**
+- `scripts/extract_wlc_morphhb.py` (NEW) — morphhb OSIS → `<em>`-per-word transformer + KJV-versification remap + 39-book driver. `verse_to_em_html` strips `/` morpheme separators, glues maqaf-joined words into one `<em>`, attaches sof-pasuq to the last word, renders paseq standalone, drops pe/samekh markers, and reads scribal special letters nested *inside* `<w>` (large/suspended) while excluding `<note>`.
+- `scripts/core/versification.py` (NEW) — shared versification adapter; `wlc_to_kjv_map` loads morphhb `VerseMap.xml` (the WLC↔KJV difference catalogue). This is the seam `popup_versions.normalize_coord` documents.
+- `content/translations/wlc/` — seed (3 verses) → **full 39 books / 23,142 verses**, keyed by canonical KJV coordinates; `_meta.yaml` refreshed (PD license — only the PD WLC pointed text is redistributed; OSHB morphology CC-BY-4.0 not used).
+
+**Versification (the crux risk):** WLC is Masoretic-numbered, the base HTML KJV-numbered. Ingest-time remap via VerseMap handles the Genesis 31/32 boundary (WLC 32:1 → KJV 31:55) and Psalm superscriptions (Hebrew title = WLC v1, dropped where it has no KJV slot → off-by-one through the psalm). **0 out-of-extent** coordinates (`coord_in_canonical_extent` guard).
+
+**A real bug, caught by characterization + fixed (TDD):** the first transformer read only `<w>` leaf text → dropped scribal special letters nested inside words, mangling the **Shema** (שמע→שמ, אחד→אח), Lev 11:42, Judg 18:30, Num 27:5. Fixed (`_word_text` reads full nested text, excluding `<note>`); re-extracted + re-verified whole.
+
+**Verification (every changed base verse categorized — ZERO corruption):** vnote-hebrew popups **8,710 → 23,142**; of 16,187 changed verses: 14,432 added, 1,547 te'amim/Unicode-normalization, **175 versification corrections** (the old base placed Hebrew at raw Masoretic numbers — misaligned in shift zones like Exodus 8 — now fixed), 29 paragraph-marker drops, 4 special-letter fixes, **0 removed**. `ebible verify` errors=0 / 24,015 paired; flagship **epubcheck 0/0/0/0**; `lint_rules` 16/0/0.
+
+**Also (pre-existing cleanup):** `tests/test_translations_tau5a.py` updated seed→full (its own docstring anticipated this); removed two B1-orphaned classes from `tests/test_verse_popups.py` (pre-B1 `build_vnote_aside(english=…)` API; superseded by `tests/test_popup_versions.py`).
+
+**Next (Phase 2 cont.):** LXX-Greek (Brenton) → Greek-NT spine, then Douay/JPS/Vulgate/Arabic — flip each version's data on as it lands. Then Phase 3 (per-book version-selection UI).
+
+**Save tag (local only):** pending user save.
+
+---
+
 ## 2026-05-22 — session — Popup multi-version MODEL refactor (B1 / Phase 1) — ZERO output change
 
 **Context:** Phase 1 of the fully-customizable-builder roadmap (`docs/superpowers/specs/2026-05-22-fully-customizable-builder-roadmap.md`). The popup model moved from 3 fixed slots `{english,hebrew,greek}` to a shared **version registry**, so Phases 2–4 (translation data → per-book version-selection UI → per-note curation w/ source review) drop onto a verified-stable foundation. No reader-visible change.

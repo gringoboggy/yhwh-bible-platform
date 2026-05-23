@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace"><osisText osisIDWork="OSHB" xml:lang="he"><div type="book" osisID="Ps">
+<chapter osisID="Ps.3">
+        <verse osisID="Ps.3.1">
+          <w lemma="4210" morph="HNcmsa" id="19AxB">מִזְמ֥וֹר</w>
+          <w lemma="l/1732" n="1" morph="HR/Np" id="19Ap3">לְ/דָוִ֑ד</w>
+          <w lemma="b/1272" n="0.1" morph="HR/Vqc/Sp3ms" id="19CEu">בְּ֝/בָרְח֗/וֹ</w>
+          <w lemma="m/6440" n="0.0" morph="HR/Ncbpc" id="19zpy">מִ/פְּנֵ֤י</w>
+          <seg type="x-paseq">׀</seg>
+          <w lemma="53" morph="HNp" id="19FiN">אַבְשָׁל֬וֹם</w>
+          <w lemma="1121 a" n="0" morph="HNcmsc/Sp3ms" id="19cLk">בְּנֽ/וֹ</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.2">
+          <note>KJV:Ps.3.1</note>
+          <w lemma="3068" n="1.0" morph="HNp" id="1992v">יְ֭הוָה</w>
+          <w lemma="4100" morph="HTi" id="19j63">מָֽה</w><seg type="x-maqqef">־</seg><w lemma="7231" morph="HVqp3cp" id="19LFW">רַבּ֣וּ</w>
+          <w lemma="6862 c" n="1" morph="HNcmpc/Sp1cs" id="19FbT">צָרָ֑/י</w>
+          <w lemma="7227 a" n="0.0" morph="HAampa" id="19Bx7">רַ֝בִּ֗ים</w>
+          <w lemma="6965 b" morph="HVqrmpa" id="19btu">קָמִ֥ים</w>
+          <w lemma="5921 a" n="0" morph="HR/Sp1cs" id="19rTK">עָלָֽ/י</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.3">
+          <note>KJV:Ps.3.2</note>
+          <w lemma="7227 a" n="1.0" morph="HAampa" id="19SHw">רַבִּים֮</w>
+          <w lemma="559" morph="HVqrmpa" id="19VuH">אֹמְרִ֪ים</w>
+          <w lemma="l/5315" n="1" morph="HR/Ncbsc/Sp1cs" id="19Axb">לְ/נַ֫פְשִׁ֥/י</w>
+          <w lemma="369" morph="HTn" id="19xva">אֵ֤ין</w>
+          <w lemma="3444" morph="HNcfsa/Sh" id="19NrT">יְֽשׁוּעָ֓תָ/ה</w>
+          <w lemma="l" morph="HR/Sp3ms" id="19iAD">לּ֬/וֹ</w>
+          <w lemma="b/430" morph="HR/Ncmpa" id="19372">בֵֽ/אלֹהִ֬ים</w>
+          <w lemma="5542" n="0" morph="HTj" id="19FMU">סֶֽלָה</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.4">
+          <note>KJV:Ps.3.3</note>
+          <w lemma="c/859 a" morph="HC/Pp2ms" id="19SaV">וְ/אַתָּ֣ה</w>
+          <w lemma="3068" n="1.0" morph="HNp" id="194W9">יְ֭הוָה</w>
+          <w lemma="4043" morph="HNcbsa" id="19MmM">מָגֵ֣ן</w>
+          <w lemma="1157" n="1" morph="HR/Sp1cs" id="19wJn">בַּעֲדִ֑/י</w>
+          <w lemma="3519" n="0.0" morph="HNcbsc/Sp1cs" id="19CQo">כְּ֝בוֹדִ֗/י</w>
+          <w lemma="c/7311 a" morph="HC/Vhrmsa" id="19XyU">וּ/מֵרִ֥ים</w>
+          <w lemma="7218 a" n="0" morph="HNcmsc/Sp1cs" id="19BG4">רֹאשִֽׁ/י</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.5">
+          <note>KJV:Ps.3.4</note>
+          <w lemma="6963 a" n="1.0" morph="HNcmsc/Sp1cs" id="19YHH">ק֭וֹלִ/י</w>
+          <w lemma="413" morph="HR" id="19sHf">אֶל</w><seg type="x-maqqef">־</seg><w lemma="3068" morph="HNp" id="19iee">יְהוָ֣ה</w>
+          <w lemma="7121" n="1" morph="HVqi1cs" id="193eS">אֶקְרָ֑א</w>
+          <w lemma="c/6030 b" morph="HC/Vqw3ms/Sp1cs" id="19ddd">וַ/יַּֽעֲנֵ֨/נִי</w>
+          <w lemma="m/2022" morph="HR/Ncmsc" id="19hxo">מֵ/הַ֖ר</w>
+          <w lemma="6944" morph="HNcmsc/Sp3ms" id="19TW6">קָדְשׁ֣/וֹ</w>
+          <w lemma="5542" n="0" morph="HTj" id="19PVx">סֶֽלָה</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.6">
+          <note>KJV:Ps.3.5</note>
+          <w lemma="589" morph="HPp1cs" id="19PGK">אֲנִ֥י</w>
+          <w lemma="7901" n="2.0" morph="HVqp1cs" id="19U4a">שָׁכַ֗בְתִּי</w>
+          <w lemma="c/3462" n="2" morph="HC/Vqw1cs/Sh" id="19dSQ">וָֽ/אִ֫ישָׁ֥נָ/ה</w>
+          <w lemma="6974" n="1" morph="HVhp1cs" id="19Qbs">הֱקִיצ֑וֹתִי</w>
+          <w lemma="3588 a" morph="HC" id="19ndZ">כִּ֖י</w>
+          <w lemma="3068" morph="HNp" id="19Xa1">יְהוָ֣ה</w>
+          <w lemma="5564" n="0" morph="HVqi3ms/Sp1cs" id="193yJ">יִסְמְכֵֽ/נִי</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.7">
+          <note>KJV:Ps.3.6</note>
+          <w lemma="3808" morph="HTn" id="19B6c">לֹֽא</w><seg type="x-maqqef">־</seg><w lemma="3372" n="1.0" morph="HVqi1cs" id="19bju">אִ֭ירָא</w>
+          <w lemma="m/7233" morph="HR/Ncfpc" id="19cn3">מֵ/רִבְב֥וֹת</w>
+          <w lemma="5971 a" n="1" morph="HNcmsa" id="197mS">עָ֑ם</w>
+          <w lemma="834 a" morph="HTr" id="19dJe">אֲשֶׁ֥ר</w>
+          <w lemma="5439" n="0.0" morph="HNcbsa" id="19WvG">סָ֝בִ֗יב</w>
+          <w lemma="7896" morph="HVqp3cp" id="19RXg">שָׁ֣תוּ</w>
+          <w lemma="5921 a" n="0" morph="HR/Sp1cs" id="19pqY">עָלָֽ/י</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.8">
+          <note>KJV:Ps.3.7</note>
+          <w lemma="6965 b" morph="HVqv2ms/Sh" id="19n9v">ק֘וּמָ֤/ה</w>
+          <w lemma="3068" n="1.0.0" morph="HNp" id="19gYe">יְהוָ֨ה</w>
+          <seg type="x-paseq">׀</seg>
+          <w lemma="3467" morph="HVhv2ms/Sp1cs" id="19eXj">הוֹשִׁ֘יעֵ֤/נִי</w>
+          <w lemma="430" n="1.0" morph="HNcmpc/Sp1cs" id="198ro">אֱלֹהַ֗/י</w>
+          <w lemma="3588 a" morph="HC" id="19v5z">כִּֽי</w><seg type="x-maqqef">־</seg><w lemma="5221" morph="HVhp2ms" id="19bCC">הִכִּ֣יתָ</w>
+          <w lemma="853" morph="HTo" id="196By">אֶת</w><seg type="x-maqqef">־</seg><w lemma="3605" morph="HNcmsc" id="19CZB">כָּל</w><seg type="x-maqqef">־</seg><w lemma="341" morph="HVqrmpc/Sp1cs" id="19VTb">אֹיְבַ֣/י</w>
+          <w lemma="3895" n="1" morph="HNcbsa" id="196qf">לֶ֑חִי</w>
+          <w lemma="8127" morph="HNcbdc" id="19efz">שִׁנֵּ֖י</w>
+          <w lemma="7563" morph="HAampa" id="19QG5">רְשָׁעִ֣ים</w>
+          <w lemma="7665" n="0" morph="HVpp2ms" id="193k3">שִׁבַּֽרְתָּ</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+        <verse osisID="Ps.3.9">
+          <note>KJV:Ps.3.8</note>
+          <w lemma="l/3068" morph="HR/Np" id="191rL">לַ/יהוָ֥ה</w>
+          <w lemma="d/3444" n="1" morph="HTd/Ncfsa" id="19W2c">הַ/יְשׁוּעָ֑ה</w>
+          <w lemma="5921 a" morph="HR" id="19mL3">עַֽל</w><seg type="x-maqqef">־</seg><w lemma="5971 a" morph="HNcmsc/Sp2ms" id="19zfc">עַמְּ/ךָ֖</w>
+          <w lemma="1293" morph="HNcfsc/Sp2ms" id="19sYp">בִרְכָתֶ֣/ךָ</w>
+          <w lemma="5542" n="0" morph="HTj" id="19GvF">סֶּֽלָה</w><seg type="x-sof-pasuq">׃</seg>
+        </verse>
+      </chapter>
+</div></osisText></osis>

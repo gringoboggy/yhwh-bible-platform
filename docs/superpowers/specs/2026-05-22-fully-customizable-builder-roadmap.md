@@ -120,4 +120,6 @@ TDD throughout (RULES §8). Per phase: unit (pure functions) + integration (real
 
 ## 10. Immediate next step
 
-Resume **Phase 1 (B1)** with the two refinements (bake flag + superset `POPUP_LANGUAGES`), finishing Tasks 5–6, then the byte-compat verification. Phase 1 changes nothing the builder sees yet — it is the foundation everything else builds on.
+Phases 0 (themes), 1 (popup-model B1), and the first **Phase 2 spine sub-phase — WLC Hebrew** are SHIPPED (see `dev/CHANGELOG.md` 2026-05-22 / 2026-05-23). WLC established the reusable per-source pipeline: `scripts/extract_<id>.py` (OSIS/VPL parser → house markup) + `scripts/core/versification.py` (per-source coordinate remap to canonical KJV) → per-book modules under `content/translations/<id>/` → regen verse popups → verify coverage / sample / versification-loci + `coord_in_canonical_extent` guard + epubcheck.
+
+Next is **Phase 2 continued — LXX-Greek (Brenton)**, then Greek-NT, then Douay / JPS / Vulgate / Arabic. Each source reuses the WLC pipeline (its own extractor + versification table); each is independently useful, and a blocked source never blocks the others. Then Phase 3 (per-book version-selection UI) + Phase 4 (per-note curation + source review).
