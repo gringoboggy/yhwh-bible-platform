@@ -1,16 +1,16 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-> **➤➤➤ 2026-05-23 (LATEST) — Greek NT (Byzantine) FULL ingest SHIPPED (Phase 2 spine, sub-phase 3). Awaiting user "save"; all-editions epubcheck running as the final cert. [LXX-Greek (Swete) committed `3ea1b24`.]**
+> **➤➤➤ 2026-05-23 (LATEST) — IDLE / READY FOR A FRESH SESSION. Phase-2 original-language popup spine COMPLETE + committed; working tree CLEAN.**
 >
-> **DONE this turn (uncommitted — awaiting "save"):** the full Greek-NT ingest. Source switched from the spec-locked Scrivener TR (romanized/unaccented) to the **Robinson-Pierpont Byzantine Majority Text** (accented Unicode, byztxt `csv-unicode/ccat/no-variants`, PD/Unlicense) per the user's accented-source choice. NEW `scripts/core/versification.byzantine_to_kjv` (25 tests): identity for all 27 NT books (Byzantine = KJV-standard; Luke 17:36 / Acts 8:37·15:34·24:7 gap-preserved) + the Romans-doxology reorder (RP 14:24-26 → 16:25-27). Driver `scripts/extract_byzantine_nt.py` → `content/translations/byzantine-greek/` (7,953 verses; 0 collisions / 0 out-of-extent; ¶ stripped). Registry `greek-nt` relabelled "Byzantine Majority Text" + added to `_BAKED_NOW`. Regen baked greek-nt onto all 27 NT books (`vnote-greek-nt` 0→7,951); **categorize-diff proved KJV + Hebrew + LXX-Greek UNCHANGED**. `ebible verify` errors=0 / 24,015 paired; `lint_rules` 16/0/0; ruff clean; 27 tests. Full story: `dev/CHANGELOG.md` 2026-05-23.
+> **Shipped + committed this session:** WLC Hebrew (`fcd6217`) · LXX-Greek Swete OT (`3ea1b24`) · Greek-NT Byzantine (`4770256`). Greek/Hebrew verse popups now span the whole canon (OT Hebrew + Greek; NT Greek). Each was categorize-diff-verified (the KJV English floor was never altered — only the new language layer added), `ebible verify` errors=0 / 24,015 paired, all 11 editions epubcheck 0 fatals/0 errors, `lint_rules` 16/0/0.
 >
-> **VERIFIED:** all 11 editions **epubcheck 0 fatals / 0 errors** (the `ebible build --epubcheck` gate exited 0). Committed this session per user go-ahead.
+> **➤ RESUME PER `dev/PLAN_2026-05-21.md` §4.0 (ratified deadline-sequencing strategy, 2026-06-07):**
+> - **MARATHON = priority calendar track — needs USER go-ahead, paced (`feedback_marathon_pacing`).** Resume the Kings/Samuel Geʽez dual-witness collation; exact held state is in the **τ.6.x.4.c marathon banner below** (≈ 1Ki5 R2 → 1Ki6 → 1Sa2 …). It is the critical path + a north-star goal (the two standalone Geʽez/Amharic Bibles), so earliest start = most chapters by the deadline.
+> - **BOUNDED backlog = AUTONOMOUS ("continue" suffices), cleared in the gaps:** (1) finish the Phase-2 translation spine — **deuterocanon LXX** (Swete deutero books, fiddlier versification), then **Douay / JPS / Vulgate / Arabic** (seven1m/eBible; currently Genesis seeds); (2) the **cover bug** (`build_edition` never reads `cover_image` → every EPUB ships the master cover); (3) **Phase 3/4** (per-book version-selection UI + per-note curation). Translation pattern is proven: extractor → `versification.<x>_to_kjv` → driver → regen → categorize-diff → epubcheck → docs → save.
 >
-> **NEXT (Phase 2 cont., next session):** deuterocanon LXX pass → Douay/JPS/Vulgate/Arabic. Editorial follow-ups: Exodus 36-39 tabernacle alignment + Esther Additions concordance (joins the `aes` deferral).
->
-> **GOTCHAS:** do NOT run the full `tests/test_scripts.py` (it HANGS on build/socket smokes — run targeted `-k` subsets). `_acquire/` sits one level ABOVE the repo (gitignored; Glob skips it). Python = the pythoncore full path + `$env:PYTHONUTF8="1"`.
+> **GOTCHAS:** Python = `C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\python.exe` + `$env:PYTHONUTF8="1"`. Do NOT run the full `tests/test_scripts.py` (HANGS on build/socket smokes — use targeted `-k`). `_acquire/` is one level ABOVE the repo (gitignored; cloned sources there: morphhb, LXX-Swete-1930, byzantine-majority-text). epubcheck = Java 8 at `C:\Program Files\Java\jre1.8.0_491\bin` (off PATH); `ebible build <ed> --epubcheck` runs the full build-all + batch validate (~40 min, exits non-zero on errors). "continue" ≠ "save".
 >
 > **[Everything below is HISTORICAL — superseded by this banner for current state.]**
 
