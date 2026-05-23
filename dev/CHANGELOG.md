@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-23 — session — LXX-Greek (Swete) ingest STARTED (Phase 2 spine, sub-phase 2) — WIP checkpoint
+
+**Context:** continuing the Phase 2 translation spine after WLC (`fcd6217`). User picked Swete's LXX (via the eliranwong/LXX-Swete-1930 digitization) on the **pure-PD path**: extract only the PD Greek text (`00` verse-index + `01` words); skip the GPL-3.0 transliteration/morphology (Swete's text is PD by age; digitization adds no copyright — same basis as WLC's PD text vs morphhb's CC-BY morphology). **Scope: 39 standard OT books now** (deuterocanon next; Greek 1 Enoch / 3–4 Maccabees / Odes / Psalms-of-Solomon / duplicate recensions skipped); Daniel = Theodotion. Full plan: `docs/superpowers/plans/2026-05-23-lxx-swete-ingest.md`.
+
+**Shipped this checkpoint (TDD):**
+- `scripts/extract_lxx_swete.py` — verse-reconstruction core (`parse_versification` / `parse_words` / `reconstruct`): a verse = the word-list words between consecutive verse-start-ids, space-joined → **PLAIN Greek** (matching the base's `vnote-greek`, NOT WLC's em-per-word).
+- `tests/test_lxx_swete_ingest.py` (6 green) + faithful real-data fixtures (`tests/fixtures/swete_gen_*`).
+
+**NEXT (per the plan doc):** the LXX→KJV versification map in `scripts/core/versification.py` — book map (`Dat→dan` Theodotion), the standard Psalms remap (9→9+10, +1 offsets, 113/116/147 splits, 151 omit, superscription verse-offsets) + Jeremiah reorder + coord-guard omit; then driver → full run → repoint registry to `lxx-swete-greek` → regen → categorize-every-diff verify (Brenton→Swete replacement expected) → epubcheck.
+
+**Save tag (local only):** WIP checkpoint (reconstruction core; versification pending).
+
+---
+
 ## 2026-05-23 — session — WLC Hebrew FULL ingest (τ.5-A.x / Phase 2 spine) — +23,142 Hebrew popups, every change a fix or addition
 
 **Context:** Phase 2 of the fully-customizable-builder roadmap (`docs/superpowers/specs/2026-05-22-fully-customizable-builder-roadmap.md`) — translation acquisition + ingestion, original-language spine first. This is the WLC (Westminster Leningrad Codex) Hebrew sub-phase: the long-deferred **τ.5-A.x** full ingest the τ.5-A seed `_meta` always pointed to. Source: the OpenScriptures **morphhb** OSIS clone (gitignored at `_acquire/morphhb/`, re-fetchable from github.com/openscriptures/morphhb).
