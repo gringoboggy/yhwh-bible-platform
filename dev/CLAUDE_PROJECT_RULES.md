@@ -1657,6 +1657,31 @@ one when **any** of these triggers fire after work ships:
 If none of those fire, just log and move on. Retrospection is a
 tool, not a tax — don't run one for ritual's sake.
 
+### Learning capture — feed BOTH persistence layers at phase-close
+
+Lessons only compound if they outlive the session. There are TWO stores; a
+phase-close retrospective feeds whichever fit, and they must NOT duplicate:
+
+1. **In-repo docs** (project-specific, versioned, re-read every session via §0):
+   a reusable how-to → a §9 mental-model recipe; what-shipped / next / inventory
+   pointer → `dev/SESSION_STATE.md`; the dated journal → `dev/CHANGELOG.md`; a
+   data-flow or "where does X live" fact → `dev/MATRIX_MAP.md` / `dev/REPO_MAP.md`;
+   a rule that wobbled or went stale → fix it in THIS doc at the same commit (the
+   §1 self-upgrading-matrix rule).
+2. **Cross-session memory** (harness-level, loaded into every conversation):
+   durable user preferences, working-style feedback, environment gotchas, and
+   "this approach paid off / this trap cost time" lessons that are NOT tied to one
+   file. Update an existing memory before adding a new one; link related ones.
+
+**The split:** if a future Claude could re-derive it by reading the current repo,
+it goes in-repo (or nowhere); if it's a preference, a cross-cutting gotcha, or a
+*why* the code can't show, it goes to memory. **Cadence:** run this at every
+phase-close and on the retrospective triggers above — not per-commit. Capturing is
+cheap; re-discovering the lesson next session is not. (Example — 2026-05-23 WLC
+ingest: the §9 "Add a new translation" recipe + SESSION_STATE / CHANGELOG /
+MATRIX_MAP were updated in-repo; the test-suite hang-detection and the
+categorize-every-diff verification discipline were saved to cross-session memory.)
+
 ### Entry format
 
 Each entry is a self-contained block, readable without context:
