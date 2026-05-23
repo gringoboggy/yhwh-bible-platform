@@ -36,12 +36,12 @@ VERSION_REGISTRY: dict[str, dict] = {
         "order": 20,
     },
     "lxx-greek": {
-        "label": "Greek (Septuagint / Brenton)",
+        "label": "Greek (Septuagint / Swete)",
         "content_class": "vnote-greek",
         "lang": "grc",
         "dir": "ltr",
         "has_label_para": True,
-        "translation_id": "lxx-brenton-greek",
+        "translation_id": "lxx-swete-greek",
         "order": 30,
     },
     "greek-nt": {
@@ -118,12 +118,12 @@ def bakes_now(version_id: str) -> bool:
     return version_id in _BAKED_NOW
 
 
-# Versions whose source data is pre-formatted HTML — WLC Hebrew + LXX Greek wrap
-# each word in <em> for word-level styling, so their text passes through the
-# aside renderer RAW; plain-text translations are escaped. This matches the
+# Versions passed through the aside renderer RAW (not HTML-escaped). WLC Hebrew
+# wraps each word in <em> for word-level styling, so it MUST be raw. LXX Greek
+# (Swete) is plain text but verified free of HTML-special chars at ingest (0 of
+# 22,893 verses contain <>&), so raw passthrough is a safe no-op and matches the
 # recovered-base contract (the old bake escaped english, passed hebrew/greek
-# raw). Each new source's format is verified at ingest (Phase 2) before its id
-# is added here.
+# raw). Each new source's format is verified at ingest before its id is added.
 _TRUSTED_HTML: frozenset[str] = frozenset({"wlc", "lxx-greek", "greek-nt"})
 
 

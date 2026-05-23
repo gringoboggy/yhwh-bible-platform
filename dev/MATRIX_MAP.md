@@ -68,12 +68,16 @@ VALIDATORS (gate everything):
 - **Hebrew/Greek/… text inside a verse popup** <- the baked `translations/<id>/<book>.py`, sourced
   per registered version by `generate_verse_popups.assemble_versions_for_verse` (registry order;
   baked only when `popup_versions.bakes_now`). **Translation ingestion** is per-source:
-  `scripts/extract_<id>.py` (e.g. `extract_wlc_morphhb.py` — morphhb OSIS → `<em>`-per-word) →
-  `scripts/core/versification.py` remaps the source's own numbering to **canonical KJV** (the
-  `popup_versions.normalize_coord` seam; morphhb `VerseMap.xml` for WLC: Gen 31/32 boundary, Psalm
-  superscriptions) → per-book modules keyed by canonical coords, guarded at ingest by
-  `canonical_verse_counts.coord_in_canonical_extent`. **WLC = full 39-book / 23,142-verse ingest as
-  of 2026-05-23** (was a 3-verse seed); the other secondary translations are still Genesis seeds.
+  `scripts/extract_<id>.py` (`extract_wlc_morphhb.py` — morphhb OSIS → `<em>`-per-word; `extract_lxx_swete.py`
+  — Swete CSVs → PLAIN Greek) → `scripts/core/versification.py` remaps the source's own numbering to
+  **canonical KJV** (the `popup_versions.normalize_coord` seam) → per-book modules keyed by canonical
+  coords, guarded at ingest by `canonical_verse_counts.coord_in_canonical_extent`. The remap is
+  source-specific: `wlc_to_kjv_map` reads morphhb `VerseMap.xml` (WLC: Gen 31/32, Psalm superscriptions);
+  `lxx_swete_to_kjv` is a hand-built map (LXX: Psalms renumber, Jeremiah's OAN reorder, Theodotion
+  Daniel's Additions, the 1 Kings 20↔21 swap, Proverbs' 24/29 reorder, Esther's omitted Additions —
+  every reorder content-aligned against KJV, not memory). **WLC = full 39-book / 23,142-verse ingest;
+  LXX-Greek (Swete) = full 39-OT / 22,893-verse ingest (`vnote-greek` 8,601→22,812 baked), both
+  2026-05-23**; the other secondary translations are still Genesis seeds.
 - **Cover / OPF metadata** <- `cover_image`, `authors`, `bisac_codes` -> `patch_opf`.
 - **A count cell in the matrix UI** <- `matrix.compute_matrix().enabled[ed][kind]` <- `per_chapter`
   <- `notes_io.load_notes(notes/<book>.py)`.

@@ -6,17 +6,30 @@
 
 ---
 
-## 2026-05-23 — session — LXX-Greek (Swete) ingest STARTED (Phase 2 spine, sub-phase 2) — WIP checkpoint
+## 2026-05-23 — session — LXX-Greek (Swete) FULL ingest (Phase 2 spine, sub-phase 2) — +14,211 Greek popups across all 39 OT books, every reorder content-verified
 
-**Context:** continuing the Phase 2 translation spine after WLC (`fcd6217`). User picked Swete's LXX (via the eliranwong/LXX-Swete-1930 digitization) on the **pure-PD path**: extract only the PD Greek text (`00` verse-index + `01` words); skip the GPL-3.0 transliteration/morphology (Swete's text is PD by age; digitization adds no copyright — same basis as WLC's PD text vs morphhb's CC-BY morphology). **Scope: 39 standard OT books now** (deuterocanon next; Greek 1 Enoch / 3–4 Maccabees / Odes / Psalms-of-Solomon / duplicate recensions skipped); Daniel = Theodotion. Full plan: `docs/superpowers/plans/2026-05-23-lxx-swete-ingest.md`.
+**Context:** Phase 2 translation spine after WLC (`fcd6217`). Swete's LXX via the eliranwong/LXX-Swete-1930 digitization, **pure-PD path** (PD Greek text only — the `00` verse-index + `01` words; the GPL-3.0 transliteration/morphology layers are NOT used; Swete d. 1917, digitization adds no copyright — same basis as WLC's PD text vs morphhb's CC-BY morphology). **Scope: the 39 standard OT books** (deuterocanon next; Greek 1 Enoch / 3–4 Maccabees / Odes / Psalms-of-Solomon / duplicate recensions skipped); Daniel = Theodotion (`Dat`). Two user scope calls this session: **full Jeremiah OAN remap now** (not deferred) and **full remap of all reordered books now**. Plan: `docs/superpowers/plans/2026-05-23-lxx-swete-ingest.md`.
 
-**Shipped this checkpoint (TDD):**
-- `scripts/extract_lxx_swete.py` — verse-reconstruction core (`parse_versification` / `parse_words` / `reconstruct`): a verse = the word-list words between consecutive verse-start-ids, space-joined → **PLAIN Greek** (matching the base's `vnote-greek`, NOT WLC's em-per-word).
-- `tests/test_lxx_swete_ingest.py` (6 green) + faithful real-data fixtures (`tests/fixtures/swete_gen_*`).
+**The versification map (the crux), `scripts/core/versification.lxx_swete_to_kjv` (NEW):** maps every Swete coordinate to canonical KJV, `None` = omit. Built TDD; **137 mapping tests**. Most of the 39 books map IDENTITY (the `coord_in_canonical_extent` guard trims verse-level LXX overflow — same bar as WLC). The structurally-reordered books are remapped explicitly:
+- **Psalms** — full renumbering generated from a reviewed `_LXX_PSALM_COUNTS` table + canonical KJV counts: LXX 9 = KJV 9+10 and 113 = 114+115 (merges); 114+115 = 116 and 146+147 = 147 (splits); 10–112 → 11–113 and 116–145 → 117–146 (+1); **superscription offset** = LXX_count − KJV_count drops the leading title verse(s) (pervasive: ~60 psalms, incl. the 2-line titles of Pss 50/51/53/59); LXX 151 omitted. Emitted Psalms verse count is **exact** vs canonical (2461 = 2461).
+- **Jeremiah** — the full OAN reorder: LXX 25:14-19→MT 49:35-39 (Elam) + 26:1→49:34 (Elam dating) + 26:2-28→46 (Egypt); 27→50, 28→51 (Babylon); 29→47+49:7-22 (Philistines+Edom); 30→49:1-5/28-33/23-27 (Ammon/Kedar/Damascus); 31→48 (Moab); 32-51→25:15-45 (incl. 34→27 with its scattered MT-pluses + the 14:14 doublet omitted; 51→44+45 Baruch split); 1-24 + 52 identity.
+- **Daniel (Theodotion)** — 3:1-23 identity; 3:24-90 (Prayer of Azariah + Song of the Three) omitted; 3:91-97→3:24-30; 3:98-100→4:1-3; 4:1-34→4:4-37 (the +3 offset).
+- **1 Kings** — the 20↔21 swap (LXX 20 = Naboth = KJV 21; LXX 21 = Ben-hadad = KJV 20).
+- **Proverbs** — the 24/29 reorder: LXX 24 unpacks into KJV 24:1-22 + 30:1-14 + 24:23-34 + 30:15-33 + 31:1-9; LXX 29:28-49 → KJV 31:10-31 (the virtuous-woman acrostic).
+- **Esther** — identity, but the six Additions (packed into giant single verses 1:1, 3:13, 4:17, 5:1, 8:12, 10:3) omitted.
+- **Exodus** — 1-35 + 40 identity; **36-39 (tabernacle) deferred** — reordered AND heavily abbreviated in the LXX, not confidently verse-alignable, so omitted (never wrong) rather than guessed.
 
-**NEXT (per the plan doc):** the LXX→KJV versification map in `scripts/core/versification.py` — book map (`Dat→dan` Theodotion), the standard Psalms remap (9→9+10, +1 offsets, 113/116/147 splits, 151 omit, superscription verse-offsets) + Jeremiah reorder + coord-guard omit; then driver → full run → repoint registry to `lxx-swete-greek` → regen → categorize-every-diff verify (Brenton→Swete replacement expected) → epubcheck.
+**Method (no fabrication):** every reorder was derived by **content-aligning the real Swete source against the KJV text** (OAN proper nouns, the Daniel-3 seams, Psalm titles, Proverbs' Agur/Lemuel relocations) — NOT from memory. This caught a memory error mid-derivation (LXX Jer 26 is Egypt, not the chapter my recollection assumed) and the genuinely-ambiguous spans were omitted rather than guessed.
 
-**Save tag (local only):** WIP checkpoint (reconstruction core; versification pending).
+**Driver + data:** `scripts/extract_lxx_swete.py` driver (`build_verses` + `write_translation`) reconstructs → remaps → groups → writes `content/translations/lxx-swete-greek/<code>.py` (+ `_meta.yaml`). `_clean_greek` strips Swete's critical sigla (⸀⸂⸆…) and the digitization's `[n]` markers. Full run: **22,893 verses across 39 books, 0 coord collisions, 0 out-of-extent**; ruff-formatted (RULES §9).
+
+**Registry:** `popup_versions` `lxx-greek` → `translation_id="lxx-swete-greek"`, label "Greek (Septuagint / Swete)". The 3-verse Brenton seed (`lxx-brenton-greek`) is now dormant (kept on disk — its τ.γ.5 tests still pin it — but no longer wired into popups).
+
+**Verification (categorize-every-diff — ZERO corruption):** regenerated popups; the diff is **only Greek** — KJV (`vnote-text`) **UNCHANGED** (26,126 = 26,126) and Hebrew (`vnote-hebrew`) **UNCHANGED** (23,142 = 23,142); Greek `vnote-greek` **8,601 → 22,812** asides (Brenton/harvest replaced by Swete + added to the ~28 OT books that lacked it). 0 HTML-special chars in the Greek. `ebible verify` **errors=0 / 24,015 paired**; **all 11 editions batch-epubcheck `errors=0 · warnings=0`** (built from the regenerated base carrying the Swete Greek); `lint_rules` **16/0/0**; ruff clean; **140 tests** in `tests/test_lxx_swete_ingest.py`.
+
+**Next (Phase 2 cont.):** Greek-NT (Textus Receptus), then the deuterocanon LXX pass, then Douay/JPS/Vulgate/Arabic. Opportunistic editorial follow-ups: the Exodus 36-39 tabernacle alignment + the Esther Additions concordance (joins the existing `aes` deferral).
+
+**Save tag (local only):** awaiting user "save".
 
 ---
 
