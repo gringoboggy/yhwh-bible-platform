@@ -749,3 +749,33 @@ class TestRunNavesAtScaleDriver:
         assert merged["n_candidates"] == 2
         kinds = [c["kind"] for c in merged["candidates"]]
         assert "xref-citation" in kinds and "topic-nave" in kinds
+
+
+class TestLongBookHebrewBackfill:
+    """C1.chap — the `ch_count`-default-50 bug (`book_meta.get("chapters", 50)`,
+    wrong key) made the at-scale hebrew generator scan only chapters 1-50 of
+    every book, so the OT KJV books with MORE than 50 chapters
+    (Psalms 151 / Isaiah 66 / Jeremiah 52 / Sirach 51) carried NO auto
+    `lang-hebrew` past chapter 50. After the backfill (re-run at the original
+    `--min-confidence 0.65`) they must carry `lang-hebrew` in chapters >50.
+    Guards against the truncation recurring at the corpus-data level.
+    """
+
+    LONG_BOOKS = ("psa", "isa", "jer", "sir")
+
+    @staticmethod
+    def _hebrew_chapters(book: str) -> set:
+        from scripts.core.notes_io import load_notes
+
+        path = REPO_ROOT / "content" / "notes" / f"{book}.py"
+        return {
+            t[0] for t in (load_notes(path) or []) if isinstance(t, tuple) and len(t) >= 5 and t[4] == "lang-hebrew"
+        }
+
+    def test_long_books_have_hebrew_past_chapter_50(self):
+        max_ch = {b: max(self._hebrew_chapters(b), default=0) for b in self.LONG_BOOKS}
+        truncated = {b: mx for b, mx in max_ch.items() if mx <= 50}
+        assert not truncated, (
+            "these >50-chapter OT books still lack lang-hebrew past chapter 50 — the "
+            f"ch_count-default-50 truncation (highest hebrew chapter per book): {truncated}"
+        )

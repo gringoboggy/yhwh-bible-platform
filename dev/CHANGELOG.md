@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-24 (latest 5) — C1.chap hebrew backfill: psa/isa/jer/sir chapters 51+ (+2,151 notes)
+
+Closed the C1.chap data gap (owner-approved). The `ch_count`-default-50 bug had made the at-scale hebrew generator scan only chapters 1-50 of every book, so the four OT-KJV books with MORE than 50 chapters carried **zero** auto `lang-hebrew` past chapter 50. Re-ran `run_hebrew_at_scale.py --books psa,isa,jer,sir --min-confidence 0.65` (the code-fix that reads `ch_count` is already shipped) and promoted **chapters 51+ only**.
+
+- **Threshold pinned empirically:** the 0.7 default yields ZERO hebrew candidates; the original run used **0.65**, and at 0.65 the candidate count on chapters 1-50 EXACTLY matches the existing note counts (psa 840 / isa 1031 / jer 1332 / sir 1134) — so promotion dedup-skips all of 1-50 unchanged and adds only 51+.
+- **Added (scoped, kind-filtered via `batch_insert_notes`, dedup-safe):** psa +1662 (840→2502), isa +375 (1031→1406), jer +90 (1332→1422), sir +24 (1134→1158) = **+2,151 `lang-hebrew`**. Corpus **67,818 → 69,969**. Max hebrew chapter now equals each book's `ch_count` (psa 150 / isa 66 / jer 52 / sir 51).
+- **Isolation PROVEN content-level:** per-book kind-count diff vs HEAD shows ONLY `lang-hebrew` rose; comm-ethiopian / dict-easton / text-witness / topic-nave / xref-citation all byte-identical (the numstat deletions are git's tuple-boilerplate re-pairing, not content loss). `epub_working`: only the 6 split files of these 4 books changed (additive `inject --book`, NOT a regen).
+- **Built + valid:** flagship build carries the backfill (22,897 `lang-hebrew` asides == master), **epubcheck 0/0**. `ebible verify` errors=0 / 24,015 paired; `validate_taxonomy` 69,969/100%; `lint_rules` 16/0/0.
+- **TDD guard:** `tests/test_corpus_chi1.py::TestLongBookHebrewBackfill` (RED→GREEN) — asserts these >50-chapter books carry `lang-hebrew` past chapter 50; guards the truncation from recurring at the corpus-data level.
+- Regenerated candidate files were reverted (regenerable intermediates) to keep the commit focused on the deliverable.
+
+---
+
 ## 2026-05-24 (latest 4) — autonomous backlog: G1/G2 security fixes + accessibility check wired into preflight
 
 Two QUEUED audit items shipped autonomously (committed separately).
