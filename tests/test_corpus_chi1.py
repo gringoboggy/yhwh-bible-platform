@@ -262,12 +262,19 @@ class TestGreekWordDetector:
         d = self.det.GreekWordDetector()
         # John 1 ("word") — high confidence
         c_jhn = d.detect("jhn", 1, 1, "In the beginning was the Word")[0]
-        # James 1 — same keyword would land lower-confidence (not Joh/Rom 1-8)
-        c_jas = d.detect("jas", 1, 1, "the engrafted word, which is able")
-        c_jas = c_jas[0] if c_jas else None
         assert c_jhn.confidence >= 0.8
-        if c_jas:
-            assert c_jas.confidence < c_jhn.confidence
+        # Regression guard for the php/jas book-code bug: the CANONICAL codes
+        # for Philippians/James must be in NT_BOOKS so the Greek detector RUNS
+        # (and the Hebrew detector SKIPS) on them. The pre-fix code used the
+        # non-canonical php/jas, so real phi/jam were mis-routed — and the old
+        # test asserted on "jas" (which IS php/jas-shaped), masking the bug.
+        assert {"phi", "jam"} <= self.det.GreekWordDetector.NT_BOOKS
+        assert {"phi", "jam"} <= self.det.HebrewWordDetector.NT_BOOKS
+        # James 1 (canonical "jam") must receive a Greek candidate, lower
+        # confidence than John 1 (not Joh/Rom 1-8).
+        jam_cands = d.detect("jam", 1, 1, "the engrafted word, which is able")
+        assert jam_cands, "James (jam) is an NT book — must receive Greek candidates"
+        assert jam_cands[0].confidence < c_jhn.confidence
 
 
 class TestStrongsGreekFetchUtilities:
