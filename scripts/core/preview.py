@@ -53,12 +53,12 @@ NOTES_DIR = REPO / "content" / "notes"
 
 
 # Note tuple shape per CLAUDE_PROJECT_RULES §7.1 + scripts.core.matrix:
-#     (chapter, verse, suffix, anchor, kind, label, title, body, attribution)
+#     (chapter, verse, suffix, anchor, kind, title, label, body, attribution)
 _NOTE_CH = 0
 _NOTE_VERSE = 1
 _NOTE_KIND = 4
-_NOTE_LABEL = 5
-_NOTE_TITLE = 6
+_NOTE_TITLE = 5
+_NOTE_LABEL = 6
 _NOTE_BODY = 7
 _NOTE_ATTR = 8
 

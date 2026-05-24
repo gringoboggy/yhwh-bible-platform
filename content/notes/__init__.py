@@ -13,8 +13,6 @@ Programmatic access:
   for code in all_codes(): …
 """
 
-import importlib
-import importlib.util
 from pathlib import Path
 
 _HERE = Path(__file__).parent
@@ -26,12 +24,20 @@ def all_codes():
 
 
 def load_notes(code):
-    """Import content/notes/<code>.py and return its NOTES list."""
-    # Module names with a leading digit (e.g. '1en', '2ki') need importlib by path.
+    """Return the NOTES list from content/notes/<code>.py.
+
+    The module's data is parsed with ``ast.literal_eval`` (via
+    ``scripts.core.notes_io.load_notes``) — the file is NEVER executed,
+    so a corrupted or hostile notes module cannot run code (RULES §7.1).
+    """
     fname = _HERE / f"{code}.py"
     if not fname.exists():
         raise FileNotFoundError(f"No notes module for code {code!r}")
-    spec = importlib.util.spec_from_file_location(f"content.notes._{code}", fname)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.NOTES
+    # Lazy import mirrors notes_io's own corpus_index import — avoids any
+    # startup-order import cycle; cached in sys.modules after first call.
+    from scripts.core.notes_io import load_notes as _load_notes_ast
+
+    notes = _load_notes_ast(fname)
+    if notes is None:
+        raise ValueError(f"Notes module {code!r} could not be parsed as literal data")
+    return notes

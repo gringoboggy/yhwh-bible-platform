@@ -39,7 +39,7 @@ DIM = "\033[2m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
-VALID_PHASES = {"legacy", "mvp", "phase2", "phase3"}
+VALID_PHASES = config.VALID_PHASES  # C2.phase4: single source of truth (see config.py)
 KIND_REQUIRED_FIELDS = {
     "code",
     "category",

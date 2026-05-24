@@ -22429,7 +22429,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> e r.v.) "Who do f I men say that the Son of Man is ? " and the margin tells us that " Many ancient authorities read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li\ Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        '<strong>Manuscript witness.</strong> e r.v.) "Who do f I men say that the Son of Man is ? " and the margin tells us that " Many ancient authorities read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

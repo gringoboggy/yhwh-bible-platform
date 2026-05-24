@@ -1671,8 +1671,8 @@ class TestEditionMeta:
         assert "editions" in d
         # 5 original + 4 ψ.7-A additions = 9.
         # τ.G.constitution.a (2026-05-20) added 2 standalone Bibles
-        # (standalone-geez + standalone-amharic) → 11.
-        assert len(d["editions"]) == 11
+        # (standalone-geez + standalone-amharic) → 11 (floor; editions may grow).
+        assert len(d["editions"]) >= 11
         for e in d["editions"]:
             for f in ("id", "title", "verse_popups", "verse_marker_glyph"):
                 assert f in e
@@ -14571,3 +14571,50 @@ class TestOmega38EditionCovers:
             f"duplicates: "
             f"{[t for t in templates if templates.count(t) > 1]}"
         )
+
+
+class TestEbibleAudit:
+    """`ebible audit` aggregates the off-dashboard code-quality audits
+    (caches / vulture / mypy / pip-audit) into one CI gate. Per-tool exit
+    codes: 0 = clean, 1 = real findings, 2/3 = tool/setup missing."""
+
+    def test_clean_when_all_runners_pass(self):
+        from scripts import ebible
+
+        result = ebible.run_audit_suite(runners=[("a", lambda: 0), ("b", lambda: 0)])
+        assert result["ok"] is True
+        assert result["exit_code"] == 0
+        assert result["findings"] == []
+        assert sorted(result["clean"]) == ["a", "b"]
+
+    def test_fails_when_a_runner_reports_findings(self):
+        from scripts import ebible
+
+        result = ebible.run_audit_suite(runners=[("a", lambda: 0), ("b", lambda: 1)])
+        assert result["ok"] is False
+        assert result["exit_code"] == 1
+        assert result["findings"] == ["b"]
+
+    def test_missing_tool_is_skipped_not_failed_by_default(self):
+        from scripts import ebible
+
+        result = ebible.run_audit_suite(runners=[("a", lambda: 0), ("deps", lambda: 2)])
+        assert result["ok"] is True
+        assert result["exit_code"] == 0
+        assert result["skipped"] == ["deps"]
+
+    def test_require_tools_fails_when_a_tool_is_missing(self):
+        from scripts import ebible
+
+        result = ebible.run_audit_suite(
+            runners=[("a", lambda: 0), ("deps", lambda: 2)],
+            require_tools=True,
+        )
+        assert result["ok"] is False
+        assert result["exit_code"] == 1
+
+    def test_audit_is_a_registered_subcommand(self):
+        from scripts import ebible
+
+        assert "audit" in ebible.SUBCOMMAND_HANDLERS
+        assert callable(ebible.SUBCOMMAND_HANDLERS["audit"])

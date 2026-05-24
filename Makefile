@@ -2,7 +2,7 @@
 # All targets dispatch through `./ebible` (the unified CLI).
 # For richer subcommands (search, quality flags, etc.), call `./ebible` directly.
 
-.PHONY: help status doctor build build-force ship ship-full test repl watch \
+.PHONY: help status doctor build build-force ship ship-full audit test repl watch \
         inject manifest quality clean cleanup epubcheck \
         commit-ready
 
@@ -31,6 +31,10 @@ ship:
 # Full integrity gate (ship-check + the opt-in epubcheck gate)
 ship-full:
 	@./ebible ship --epubcheck
+
+# Code-quality CI gate (vulture/mypy/pip-audit/caches — kept off the live dashboard)
+audit:
+	@./ebible audit
 
 test:
 	@./ebible test

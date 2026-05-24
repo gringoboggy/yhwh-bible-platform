@@ -13,6 +13,7 @@ Usage:
     ebible inject [--book gen]             # source → master HTML
     ebible build [edition_id]              # inject + manifest + editions
     ebible ship [--epubcheck]              # full integrity gate
+    ebible audit [--require-tools]         # code-quality CI gate (vulture/mypy/pip-audit/caches)
     ebible test                            # run pytest
     ebible repl                            # python -i with helpers loaded
     ebible watch                           # auto-rebuild on note changes
@@ -288,6 +289,91 @@ def cmd_test(args) -> int:
 
 
 # ============================================================
+# subcommand: audit  (code-quality CI gate)
+# ============================================================
+
+# Shared per-tool exit-code contract for the audit_*.main() wrappers:
+#   0 = clean · 1 = real findings · 2/3 = tool or setup missing.
+_AUDIT_FINDING_RC = 1
+_AUDIT_MISSING_RCS = (2, 3)
+
+
+def _default_audit_runners() -> list[tuple[str, object]]:
+    """The off-dashboard code-quality audits, fast-first. Each entry is
+    ``(label, () -> exit_code)``. These wrap dev tools (vulture/mypy/
+    pip-audit) or shell out, which is exactly why they are kept OFF the
+    live /preflight dashboard (see scripts/api/preflight.py — only the
+    stdlib check_a11y is wired there). This is their automatic home."""
+    from scripts import audit_caches, audit_dead_code, audit_deps, audit_types
+
+    return [
+        ("cache invalidation", lambda: audit_caches.main([])),
+        ("dead code (vulture)", lambda: audit_dead_code.main([])),
+        ("types (mypy)", lambda: audit_types.main([])),
+        ("dependencies (pip-audit)", lambda: audit_deps.main([])),
+    ]
+
+
+def run_audit_suite(runners=None, *, require_tools: bool = False) -> dict:
+    """Run each audit runner, classify its exit code, aggregate a CI verdict.
+
+    Pure aggregator (no printing); ``runners`` is injectable for tests as a
+    list of ``(label, () -> exit_code)``. A runner returning 1 is a real
+    finding (fails the gate). A runner returning 2 or 3 means its tool/setup
+    is missing — skipped, and it does NOT fail the gate unless
+    ``require_tools`` is set (so CI can enforce full coverage).
+
+    Returns ``{ok, exit_code, results, clean, findings, skipped}``.
+    """
+    if runners is None:
+        runners = _default_audit_runners()
+    results: list[tuple[str, int]] = []
+    clean: list[str] = []
+    findings: list[str] = []
+    skipped: list[str] = []
+    for label, fn in runners:
+        rc = fn()
+        results.append((label, rc))
+        if rc == _AUDIT_FINDING_RC:
+            findings.append(label)
+        elif rc in _AUDIT_MISSING_RCS:
+            skipped.append(label)
+        else:
+            clean.append(label)
+    failed = bool(findings) or (require_tools and bool(skipped))
+    return {
+        "ok": not failed,
+        "exit_code": 1 if failed else 0,
+        "results": results,
+        "clean": clean,
+        "findings": findings,
+        "skipped": skipped,
+    }
+
+
+def cmd_audit(args) -> int:
+    """Run the off-dashboard code-quality audits as one CI gate."""
+    print(f"\n{BOLD}ebible audit{RESET}  {DIM}code-quality gate (off-dashboard checks){RESET}")
+    result = run_audit_suite(require_tools=getattr(args, "require_tools", False))
+
+    print(f"\n{BOLD}audit summary{RESET}")
+    print(
+        f"  {len(result['clean'])} clean · {len(result['findings'])} with findings · {len(result['skipped'])} skipped"
+    )
+    if result["skipped"]:
+        print(f"  {YELLOW}skipped (tool/setup missing):{RESET} {', '.join(result['skipped'])}")
+        print(f"    {DIM}install dev tools for full coverage: pipx install vulture mypy pip-audit{RESET}")
+    if result["findings"]:
+        print(f"  {RED}✗ findings in:{RESET} {', '.join(result['findings'])}")
+    elif result["ok"]:
+        print(f"  {GREEN}✓ all audits clean{RESET}")
+    else:
+        print(f"  {RED}✗ --require-tools: failing because audit(s) were skipped{RESET}")
+    print()
+    return result["exit_code"]
+
+
+# ============================================================
 # subcommand: repl
 # ============================================================
 
@@ -402,6 +488,7 @@ HELP_EXAMPLES: dict[str, list[str]] = {
     "inject": ["ebible inject --all-books", "ebible inject --book gen --dry-run"],
     "build": ["ebible build", "ebible build --version v28a-26", "ebible build --force --no-parallel"],
     "ship": ["ebible ship", "ebible ship --epubcheck --verbose"],
+    "audit": ["ebible audit", "ebible audit --require-tools  # strict CI: a missing dev tool fails"],
     "test": ["ebible test", "ebible test --verbose"],
     "repl": ["ebible repl  # then: book_notes('gen')[0]"],
     "watch": ["ebible watch  # edits to content/notes/*.py auto-rebuild"],
@@ -427,7 +514,7 @@ def cmd_help(args) -> int:
     else:
         print(f"\n{BOLD}ebible — unified CLI for the YHWH Ya' Way platform{RESET}\n")
         print(f"{DIM}Common workflows:{RESET}")
-        for cmd in ("status", "doctor", "add", "build", "ship", "test", "repl", "watch"):
+        for cmd in ("status", "doctor", "add", "build", "ship", "audit", "test", "repl", "watch"):
             ex = HELP_EXAMPLES[cmd][0]
             print(f"  {ex}")
         print()
@@ -458,7 +545,6 @@ PASS_THROUGHS: dict[str, str] = {
     "verify": "verify.py",
     "taxonomy": "validate_taxonomy.py",
     "customize": "customize.py",
-    "print": "print_cover.py",
     # Discoverable wrappers for previously-orphan tools (λ.4)
     "add-kind": "add_kind.py",
     "bibliography": "bibliography.py",
@@ -473,6 +559,21 @@ PASS_THROUGHS: dict[str, str] = {
 # ============================================================
 # main
 # ============================================================
+
+
+SUBCOMMAND_HANDLERS = {
+    "status": cmd_status,
+    "doctor": cmd_doctor,
+    "add": cmd_add,
+    "build": cmd_build,
+    "ship": cmd_ship,
+    "audit": cmd_audit,
+    "test": cmd_test,
+    "repl": cmd_repl,
+    "watch": cmd_watch,
+    "web": cmd_web,
+    "help": cmd_help,
+}
 
 
 def main() -> int:
@@ -500,6 +601,13 @@ def main() -> int:
     s = subs.add_parser("ship", help="run ship-check")
     s.add_argument("--epubcheck", action="store_true")
     s.add_argument("--verbose", "-v", action="store_true")
+
+    au = subs.add_parser("audit", help="code-quality audits (caches/vulture/mypy/pip-audit) — CI gate")
+    au.add_argument(
+        "--require-tools",
+        action="store_true",
+        help="fail if a dev tool (vulture/mypy/pip-audit) is not installed",
+    )
 
     t = subs.add_parser("test", help="run pytest")
     t.add_argument("--verbose", "-v", action="store_true")
@@ -538,19 +646,7 @@ def main() -> int:
     if not args.cmd:
         return cmd_help(argparse.Namespace(subcommand=None))
 
-    handlers = {
-        "status": cmd_status,
-        "doctor": cmd_doctor,
-        "add": cmd_add,
-        "build": cmd_build,
-        "ship": cmd_ship,
-        "test": cmd_test,
-        "repl": cmd_repl,
-        "watch": cmd_watch,
-        "web": cmd_web,
-        "help": cmd_help,
-    }
-    return handlers[args.cmd](args)
+    return SUBCOMMAND_HANDLERS[args.cmd](args)
 
 
 if __name__ == "__main__":

@@ -375,6 +375,13 @@ def resolve_symbol(kind_code):
 
 _PHASE_ORDER = {"legacy": 0, "mvp": 1, "phase2": 2, "phase3": 3}
 
+# Single source of truth for valid kind/edition phase values, shared by
+# validate_taxonomy + validate_schemas (C2.phase4 — they previously diverged:
+# validate_schemas accepted a "phase4" that _PHASE_ORDER rejects at runtime).
+# Derived from _PHASE_ORDER so the validators can never drift from what
+# edition max_phase resolution actually accepts.
+VALID_PHASES: frozenset[str] = frozenset(_PHASE_ORDER)
+
 # Kinds whose content is LLM-drafted and shipped only after human review.
 # Excluded by `enabled_kind_codes` unless the edition opts in with
 # `enable_ai_notes: true` — a deliberate double opt-in (listing the kind in

@@ -50,6 +50,8 @@ _CONTENT = _REPO / "content"
 if str(_REPO) not in sys.path:
     sys.path.insert(0, str(_REPO))
 
+from scripts.core import config  # noqa: E402
+
 
 # ----------------------------------------------------------------------
 # Tiny in-house schema framework
@@ -158,7 +160,7 @@ def _is_nonempty_string(v: Any) -> bool:
     return isinstance(v, str) and bool(v.strip())
 
 
-_PHASE_VALUES = {"mvp", "phase2", "phase3", "phase4", "legacy"}
+_PHASE_VALUES = config.VALID_PHASES  # C2.phase4: single source of truth (see config.py)
 
 EDITIONS_SPEC = RecordSpec(
     fields=[

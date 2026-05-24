@@ -8921,7 +8921,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> he Variorum Bible or the Revised Version will note many instances where this has happened. Thus in Matt. 11. 19 the Authorised Version has " But wisdom is justified of her children," as in Luke 7. 35 ; but the Revised Version tells us that the original text had " works " instead of " children " here, the truth being that the copyists of all \ except the earliest extant manuscripts have <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        '<strong>Manuscript witness.</strong> he Variorum Bible or the Revised Version will note many instances where this has happened. Thus in Matt. 11. 19 the Authorised Version has " But wisdom is justified of her children," as in Luke 7. 35 ; but the Revised Version tells us that the original text had " works " instead of " children " here, the truth being that the copyists of all except the earliest extant manuscripts have <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

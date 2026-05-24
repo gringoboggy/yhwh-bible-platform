@@ -92,6 +92,78 @@ NOTES = [
 
 
 # ============================================================
+# content/notes/__init__.py — the per-book NOTES loader
+# ============================================================
+
+
+class TestContentNotesLoader:
+    """`content.notes.load_notes(code)` must parse data, never execute it
+    (RULES §7.1: notes modules look like Python but must not be executable —
+    a corrupted or hostile data file must not run code)."""
+
+    def test_load_notes_does_not_execute_module_body(self):
+        """A hostile notes module that writes a sentinel file when its body
+        runs must NOT have that body executed by the loader."""
+        import content.notes as cn
+
+        notes_dir = Path(cn.__file__).parent
+        code = "_exec_canary"
+        mod_path = notes_dir / f"{code}.py"
+        canary = notes_dir / f"{code}.py.CANARY"
+        canary.unlink(missing_ok=True)
+        mod_path.write_text(
+            "import pathlib as _p\n"
+            "_p.Path(__file__ + '.CANARY').write_text('executed')\n"
+            "NOTES = [('gen', 1, 1, 'comm', 'T', 'body', 'src', 'tier')]\n",
+            encoding="utf-8",
+        )
+        try:
+            result = cn.load_notes(code)
+            assert not canary.exists(), "module body was executed — code ran (§7.1 violation)"
+            assert result == [("gen", 1, 1, "comm", "T", "body", "src", "tier")]
+        finally:
+            mod_path.unlink(missing_ok=True)
+            canary.unlink(missing_ok=True)
+
+    def test_load_notes_raises_for_unknown_code(self):
+        """Missing code must raise FileNotFoundError (contract preserved)."""
+        import content.notes as cn
+
+        with pytest.raises(FileNotFoundError):
+            cn.load_notes("_no_such_book_code")
+
+    def test_load_notes_returns_real_book_notes_list(self):
+        """A real book loads to a non-empty list of note tuples."""
+        import content.notes as cn
+
+        notes = cn.load_notes("gen")
+        assert isinstance(notes, list)
+        assert len(notes) >= 1
+        assert all(isinstance(n, tuple) for n in notes)
+
+    def test_notes_corpus_has_no_invalid_escape_sequences(self):
+        """No notes module may carry an invalid escape sequence (e.g. '\\ ').
+        These are OCR noise from reference-corpus ingest (Kenyon/Nave/Easton),
+        render a stray backslash, and break on a future Python. Guards the
+        luk/mat class from recurring on the next ingest."""
+        import warnings
+
+        import content.notes as cn
+
+        notes_dir = Path(cn.__file__).parent
+        offenders = []
+        for code in cn.all_codes():
+            path = notes_dir / f"{code}.py"
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always")
+                compile(path.read_text(encoding="utf-8"), str(path), "exec")
+                offenders += [
+                    f"{code}.py:{w.lineno}: {w.message}" for w in caught if issubclass(w.category, SyntaxWarning)
+                ]
+        assert not offenders, "invalid escape sequences in notes corpus:\n" + "\n".join(offenders)
+
+
+# ============================================================
 # html_utils.py
 # ============================================================
 
