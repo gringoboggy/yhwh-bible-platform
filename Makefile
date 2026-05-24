@@ -2,7 +2,7 @@
 # All targets dispatch through `./ebible` (the unified CLI).
 # For richer subcommands (search, quality flags, etc.), call `./ebible` directly.
 
-.PHONY: help status doctor build ship test repl watch \
+.PHONY: help status doctor build build-force ship ship-full test repl watch \
         inject manifest quality clean cleanup epubcheck \
         commit-ready
 
@@ -28,9 +28,9 @@ build-force:
 ship:
 	@./ebible ship
 
-# Full retail gate (all 8 sub-checks including epubcheck)
-ship-retail:
-	@./ebible ship --retail
+# Full integrity gate (ship-check + the opt-in epubcheck gate)
+ship-full:
+	@./ebible ship --epubcheck
 
 test:
 	@./ebible test

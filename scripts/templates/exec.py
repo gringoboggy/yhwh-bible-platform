@@ -198,7 +198,7 @@ EXEC_HTML = r"""<!DOCTYPE html>
                  class="theme-text-sm">
         </label>
         <button type="submit" id="sales-submit"
-                class="theme-bg-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
+                class="theme-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
           Import
         </button>
         <span id="sales-status" class="theme-text-xs theme-text-muted"></span>
@@ -295,7 +295,7 @@ EXEC_HTML = r"""<!DOCTYPE html>
 
       <div class="flex flex-wrap gap-3 items-center">
         <button id="press-kit-save" type="button"
-                class="theme-bg-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
+                class="theme-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
           Save blurbs
         </button>
         <button id="press-kit-download" type="button"

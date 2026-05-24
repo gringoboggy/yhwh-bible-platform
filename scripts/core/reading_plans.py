@@ -15,14 +15,14 @@ loose so plans can be hand-edited without a strict grammar.
 ``parse_verse_ref`` extracts ``(book_code, chapter)`` for the
 common case of "<book> <chapter>" / "<book> <chapter>:<verses>";
 plans that use unsupported shapes (cross-chapter ranges with
-explicit start/end verses) parse to ``None`` and the build-
-pipeline integration (ψ.19.1, deferred) will need richer parsing.
+explicit start/end verses) parse to ``None``; richer parsing for
+those remains a possible future enhancement.
 
 Per-edition opt-in: ``editions.yaml`` records may include an
-``enabled_reading_plans: [<id>, ...]`` list. The build pipeline
-will (in ψ.19.1) emit a ToC section per enabled plan; for now
-this is schema-only — opting in is a no-op until the build-time
-integration ships.
+``enabled_reading_plans: [<id>, ...]`` list. SHIPPED: the build
+pipeline emits a reading-plans page per enabled plan
+(``render_reading_plans_page`` / ``inject_reading_plans_page`` in
+build_edition.py), so opting in now renders a plan page in the EPUB.
 """
 
 from __future__ import annotations

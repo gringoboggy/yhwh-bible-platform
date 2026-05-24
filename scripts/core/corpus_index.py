@@ -1371,7 +1371,6 @@ def dashboard_stats(books: list[dict]) -> dict:
         `dashboard.gather_stats()`.
     """
     book_codes = [b["code"] for b in books if isinstance(b, dict) and b.get("code")]
-    {b["code"]: b for b in books if isinstance(b, dict) and b.get("code")}
 
     per_book: dict[str, dict] = {}
     per_kind: dict[str, int] = {}

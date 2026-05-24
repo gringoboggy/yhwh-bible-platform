@@ -36,7 +36,7 @@ def _normalize(num: str) -> str | None:
     s = num.strip()
     if not _VALID_INPUT.match(s):
         return None
-    digits = s.lstrip("GgH").lstrip("0")
+    digits = s.lstrip("Gg").lstrip("0")
     if not digits:
         return None  # input was 'G0' or '0' — Strong's numbers start at 1
     return f"G{digits}"

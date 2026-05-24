@@ -117,7 +117,7 @@ def main() -> None:
     except KeyboardInterrupt:
         print("\n  stopped.")
     except OSError as e:
-        if e.errno in (48, 98):  # EADDRINUSE on macOS / Linux
+        if e.errno in (48, 98, 10048):  # EADDRINUSE on macOS / Linux / Windows
             print(
                 f"{RED}ERROR: port {args.port} already in use. Try -p {args.port + 1}{RESET}",
                 file=sys.stderr,

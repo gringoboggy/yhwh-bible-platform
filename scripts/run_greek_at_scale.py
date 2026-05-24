@@ -145,7 +145,7 @@ def run_greek_for_book(book: str, *, min_confidence: float = 0.7) -> dict:
     # to a generous upper bound if absent (matches Hebrew driver).
     try:
         book_meta = config.get_book(book)
-        n_chapters = book_meta.get("chapters", 50) if book_meta else 50
+        n_chapters = book_meta.get("ch_count", 50) if book_meta else 50
     except KeyError:
         n_chapters = 50
 

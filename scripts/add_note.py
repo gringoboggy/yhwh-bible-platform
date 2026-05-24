@@ -231,7 +231,7 @@ def run_injector(book):
     code = book["code"]
     cmd = [sys.executable, "scripts/inject.py", "--book", code]
     print(f"\n→ running injector: {' '.join(cmd)}")
-    result = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True)
+    result = subprocess.run(cmd, cwd=str(REPO_ROOT), stdin=subprocess.DEVNULL, capture_output=True, text=True)
     if result.returncode != 0:
         err(f"injector failed (rc={result.returncode}):\nstdout: {result.stdout}\nstderr: {result.stderr}")
     print(result.stdout)
@@ -239,7 +239,13 @@ def run_injector(book):
 
 def run_audit():
     print("\n→ running audit ...")
-    result = subprocess.run([sys.executable, "audit.py", "--quiet"], cwd=str(REPO_ROOT), capture_output=True, text=True)
+    result = subprocess.run(
+        [sys.executable, "audit.py", "--quiet"],
+        cwd=str(REPO_ROOT),
+        stdin=subprocess.DEVNULL,
+        capture_output=True,
+        text=True,
+    )
     print(result.stdout)
     if "ERROR" in result.stdout or result.returncode != 0:
         err("audit reported new errors — investigate before proceeding")

@@ -6,32 +6,37 @@ incorporated.
 
 ---
 
-## 1. Original Editorial Work
+## 1. Original Editorial Work — Public Domain (CC0 1.0)
 
-**Copyright (c) 2026 TODO_COPYRIGHT_HOLDER. All rights reserved (or as
-otherwise specified in `LICENSE`).**
+**The original editorial work and code in this project are dedicated to
+the public domain by Bogdan Zorlescu under the Creative Commons CC0 1.0
+Universal Public Domain Dedication** (see `LICENSE`). No rights
+reserved; no permission and no attribution are required for any use,
+including commercial use, modification, and redistribution.
 
-The following are original to this project and protected by copyright:
+The following original components are covered by that CC0 dedication:
 
 | Component | Description | Year | Status |
 |---|---|---|---|
-| Editorial notes | 1,371 attributed annotations across 14 categories | 2026 | © project |
-| Cross-canon parallels | Selection, framing, theological synthesis | 2026 | © project |
-| Apparatus structure | 63-kind taxonomy, edition-filtering rules | 2026 | © project |
-| Per-edition selection | Which sub-kinds appear in each edition build | 2026 | © project |
-| Introduction matter | Per-book introductions, canon explanations | 2026 | © project |
-| Navigation & layout | TOC structure, ch-anchor scheme, popover design | 2026 | © project |
-| Code platform | scripts/, build pipeline | 2026 | © project |
+| Editorial notes | 67,713 attributed annotations across 15 categories / 71 kinds | 2026 | CC0 / public domain |
+| Cross-canon parallels | Selection, framing, theological synthesis | 2026 | CC0 / public domain |
+| Apparatus structure | 71-kind taxonomy, edition-filtering rules | 2026 | CC0 / public domain |
+| Per-edition selection | Which sub-kinds appear in each edition build | 2026 | CC0 / public domain |
+| Introduction matter | Per-book introductions, canon explanations | 2026 | CC0 / public domain |
+| Navigation & layout | TOC structure, ch-anchor scheme, popover design | 2026 | CC0 / public domain |
+| Code platform | scripts/, build pipeline | 2026 | CC0 / public domain |
 
-Even where a note paraphrases or distills public-domain commentary,
-the SELECTION, ARRANGEMENT, and EXPRESSION are original editorial work
-and carry copyright. Quoting more than ~50 words verbatim from any
-single editorial note for commercial purposes requires written
-permission.
+Even where a note distills public-domain commentary, the selection,
+arrangement, and expression were original editorial work — and they are
+likewise released to the public domain under CC0. Anyone may reuse any
+of it freely, in whole or in part, for any purpose, without credit.
 
 ---
 
 ## 2. Public-Domain Sources (Incorporated)
+
+These were already in the public domain before incorporation and remain
+so; they are reused here, not dedicated by this project.
 
 ### 2.1 Biblical text
 
@@ -44,17 +49,17 @@ permission.
 - Use in this work: Base text for all 87 books; verse-level structure
   preserved.
 
-### 2.2 Hebrew lexicon
+### 2.2 Hebrew & Greek lexicons
 
-**Strong's Exhaustive Concordance of the Bible — Hebrew Lexicon**
+**Strong's Exhaustive Concordance of the Bible — Hebrew & Greek Lexicons**
 - Author: James Strong (1822–1894)
 - First published: 1890
 - Public-domain status: Public domain in the United States and EU
   (>95 years since author's death; published before 1929).
-- Source: Multiple PD digitisations; project uses the standard JSON
-  export at `content/sources/strongs_hebrew.json`.
-- Use in this work: Hebrew-language `lang-hebrew` notes drawing on
-  Strong's numbers, transliteration, gloss definitions.
+- Source: Standard PD JSON exports at `content/sources/strongs_hebrew.json`
+  and `content/sources/strongs_greek.json`.
+- Use in this work: `lang-hebrew` / `lang-greek` word-study notes drawing
+  on Strong's numbers, transliteration, and gloss definitions.
 
 ### 2.3 Cross-references
 
@@ -66,7 +71,28 @@ permission.
 - Use in this work: Cross-canon parallel-passage suggestions powering
   `parallel`-kind notes.
 
-### 2.4 Patristic / classical commentary (cited where used)
+### 2.4 Reference works (topical / dictionary)
+
+**Nave's Topical Bible** (Orville J. Nave, 1896) and **Easton's Bible
+Dictionary** (M. G. Easton, 1893) — both public domain by age; rebuilt
+from clean CCEL digitisations (`content/sources/naves_ccel_source.txt`,
+`content/sources/eastons_ccel_source.txt`). Power the `topic-nave` and
+`dict-easton` notes.
+
+### 2.5 Verse-popup translations (originals)
+
+Each is public domain by age and/or its own dedication; per-source
+provenance (publisher, edition date, license, fetch date) is recorded in
+`content/translations/<id>/_meta.yaml`:
+
+- **Douay-Rheims** (Challoner revision) & **Clementine Vulgate** — PD by age.
+- **JPS Tanakh, 1917** — PD (US, pre-1929).
+- **Van Dyck Arabic, 1865** — PD by age.
+- **Westminster Leningrad Codex** (OpenScriptures morphhb) — PD/CC dedication.
+- **Swete Septuagint, 1930** & **Robinson-Pierpont Byzantine Majority
+  Text** (Unlicense / PD) — PD by age / dedication.
+
+### 2.6 Patristic / classical commentary (cited where used)
 
 When notes draw on PD-era commentary (Augustine, Chrysostom, Aquinas,
 Jerome, Calvin, Luther, etc.), provenance is captured per-note in the
@@ -85,43 +111,38 @@ not as a trademark.
 
 ## 4. Modern Translations & Commentary (Excluded)
 
-The project deliberately does NOT incorporate any modern (post-1929)
-copyrighted translation or commentary. If a future edition needs to
-quote modern scholarship:
-
-- Quotations must be ≤300 words from any single source per edition.
-- Each quotation must carry standard SBL-style attribution.
-- Bulk inclusion (>300 words) requires a paid licence from the
-  rights holder.
-
-This is enforced editorially. See `scripts/validate_attribution.py`
-for the technical check.
+To keep the whole work cleanly public-domain, the project deliberately
+does NOT incorporate any modern (post-1929) copyrighted translation or
+commentary. Only public-domain sources are ingested. This is enforced
+editorially; see `scripts/validate_attribution.py` for the technical
+check.
 
 ---
 
-## 5. Per-Edition Copyright Notice (for inclusion in EPUB front matter)
+## 5. Per-Edition Notice (for inclusion in EPUB front matter)
 
 Each edition's front matter should display:
 
 > **The [edition name]**
 >
-> Compiled and annotated by **TODO_CONTRIBUTOR_NAME**.
+> Compiled and annotated by **Bogdan Zorlescu**, and dedicated to the
+> public domain (CC0 1.0). No rights reserved — copy, share, and adapt
+> freely.
 >
 > Biblical text: World English Bible (Public Domain).
-> Hebrew lexicon: Strong's Hebrew Concordance, James Strong, 1890 (PD).
+> Hebrew/Greek lexicons: Strong's Concordance, James Strong, 1890 (PD).
 > Cross-references: Treasury of Scripture Knowledge, R. A. Torrey,
 > 1834 (PD).
 >
-> Editorial apparatus, selection, and arrangement: © 2026 TODO_COPYRIGHT_HOLDER.
-> All rights reserved.
->
-> Edition ID: urn:yhwh:edition:TODO_EDITION_ID
-> First published: TODO_PUBLICATION_DATE.
-> Published by TODO_PUBLISHER_NAME.
+> Original editorial apparatus, selection, and arrangement:
+> dedicated to the public domain under CC0 1.0 by Bogdan Zorlescu.
+> See LICENSE for details.
 
 ---
 
-## 6. Reporting Copyright Concerns
+## 6. Reporting
 
-If you believe this work incorporates copyrighted material without
-proper licence, contact: TODO_COPYRIGHT_CONTACT_EMAIL.
+This work intends to incorporate only public-domain material. If you
+believe it includes copyrighted material that is not in the public
+domain, please open an issue describing the source so it can be
+reviewed and, if necessary, removed.

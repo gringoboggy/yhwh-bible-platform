@@ -26,8 +26,8 @@ external deps per CLAUDE_PROJECT_RULES §10).
 
 | File | Records | Required fields | Notes |
 |---|---|---|---|
-| `content/editions.yaml` | one per edition (9 today) | `id` | every list field validated as `list[str]`; phase enum on `max_phase` |
-| `content/kinds.yaml` | one per kind (66) | `code`, `category` | phase enum: `{mvp, phase2, phase3, phase4, legacy}` |
+| `content/editions.yaml` | one per edition (11 today) | `id` | every list field validated as `list[str]`; phase enum on `max_phase` |
+| `content/kinds.yaml` | one per kind (71) | `code`, `category` | phase enum: `{mvp, phase2, phase3, phase4, legacy}` |
 | `content/categories.yaml` | one per category (15) | `id`, `label` | `sort_order` ≥ 0 |
 | `content/books.yaml` | one per book (87) | `code`, `title` | `ch_count` ≥ 0; `files` validated as `list[str]` |
 | `content/canons.yaml` | one canon entry per id (5) | `books` | parsed via PyYAML (different shape) |

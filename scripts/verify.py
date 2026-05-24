@@ -35,7 +35,7 @@ def main():
     if args.quiet:
         cmd += ["--quiet"]
 
-    result = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True)
+    result = subprocess.run(cmd, cwd=str(REPO_ROOT), stdin=subprocess.DEVNULL, capture_output=True, text=True)
     out = result.stdout
 
     # Strip ANSI codes for parsing

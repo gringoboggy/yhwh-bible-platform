@@ -25,9 +25,14 @@ v1.0.0 ships:
     Sparkle/WinSparkle data plane + DMG/MSI/AppImage builders)
   - 11/11 invariant linter checks; 1048 tests
 
-See dev/RELEASE_NOTES_v1.0.0.md for the full release notes,
-dev/CHANGELOG.md for the chronological history, and
-dev/PLAN_2026-05-09.md for the v1.x roadmap.
+The "v1.0.0 ships" block above is the historical v1.0.0 release
+manifest (tagged 2026-05-10). The project is now in v1.x, free-public
+CC0 phase Ω.0 (post-pivot, non-commercial). Current corpus/edition/
+test counts and the live roadmap live in dev/SESSION_STATE.md +
+dev/CHANGELOG.md (not this file).
+
+See dev/RELEASE_NOTES_v1.0.0.md for the full release notes and
+dev/CHANGELOG.md for the chronological history.
 
 Tag command (user-side):
   git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"

@@ -55,3 +55,9 @@ _.load_kjv_skeleton  # scripts/core/manuscript_collation.py — KJV spine rows
 _._book_shape_cached  # scripts/core/canonical_verse_counts.py — shape derived from the KJV spine
 _.load_image  # scripts/core/manuscript_vision.py — immutable folio image masters
 _._collate_case  # scripts/manuscript_qa.py — immutable calibration witnesses + collation
+
+# ---- Read-once singleton in scripts/core/versification.py ----
+# `_psalm_map()` builds the static LXX/Vulgate↔KJV psalm-renumbering
+# table once from constants (no inputs). The cache IS the value —
+# clearing it would only force a wasted, identical rebuild.
+_._psalm_map  # scripts/core/versification.py — static psalm-renumber table

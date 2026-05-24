@@ -497,7 +497,6 @@ def _write_python_rewrite(
         key=lambda m: (m["lineno"], m["col_offset"]),
         reverse=True,
     )
-    mutations[0]["new"]
     for m in by_position:
         # ast.Constant for a string literal sits between
         # (lineno, col_offset) and (end_lineno, end_col_offset).

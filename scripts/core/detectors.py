@@ -104,7 +104,6 @@ HEBREW_KEYWORD_MAP: dict[str, str] = {
     # Common biblical theological terms
     "covenant": "H1285",  # berit
     "blood": "H1818",  # dam
-    "soul": "H5315",  # nephesh
     "heart": "H3820",  # leb / lebab
     "righteousness": "H6664",  # tsedeq
     "righteous": "H6664",

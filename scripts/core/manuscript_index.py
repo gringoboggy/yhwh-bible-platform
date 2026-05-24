@@ -279,7 +279,10 @@ def token_counts(conn: sqlite3.Connection, *, limit: int = 50) -> list[sqlite3.R
 
 def summary(conn: sqlite3.Connection) -> dict:
     """Headline stats for the CLI report."""
-    one = lambda sql: conn.execute(sql).fetchone()[0]  # noqa: E731
+
+    def one(sql):
+        return conn.execute(sql).fetchone()[0]
+
     return {
         "witnesses": one("SELECT COUNT(*) FROM witness"),
         "verses": one("SELECT COUNT(*) FROM verse"),

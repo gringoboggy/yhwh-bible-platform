@@ -376,14 +376,15 @@ def api_import_scenario_yaml(yaml_text: str, *, name: str | None = None, overwri
             }
 
     SCENARIOS_DIR.mkdir(parents=True, exist_ok=True)
-    if path.is_file():
+    existed = path.is_file()
+    if existed:
         notes_io.ensure_backup(path)
     notes_io.atomic_write(path, yaml_text if yaml_text.endswith("\n") else yaml_text + "\n")
     return {
         "status": "ok",
         "name": candidate_name,
         "path": str(path.relative_to(REPO)),
-        "overwritten": overwrite and path.is_file(),
+        "overwritten": overwrite and existed,
     }
 
 

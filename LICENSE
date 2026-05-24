@@ -1,73 +1,59 @@
-PROJECT LICENSE
-================
+YHWH Bible Publishing Platform — Public Domain Dedication
+=========================================================
 
-This repository contains:
+This work is dedicated to the public domain.
 
-  1. ORIGINAL EDITORIAL WORK by the project compiler (notes, apparatus,
-     introductions, study aids, navigation structure, ONIX metadata, code).
 
-  2. PUBLIC-DOMAIN SOURCES (translation, lexicons, cross-references) which
-     remain in the public domain and carry no copyright restriction beyond
-     attribution. See COPYRIGHT.md for source-by-source provenance.
+ORIGINAL WORK — Creative Commons Zero v1.0 Universal (CC0 1.0)
+-------------------------------------------------------------
 
-────────────────────────────────────────────────────────────────────────
-LICENCE FOR ORIGINAL EDITORIAL WORK
-────────────────────────────────────────────────────────────────────────
+To the extent possible under law, Bogdan Zorlescu has waived all
+copyright and related or neighboring rights to the ORIGINAL editorial
+work and software in this repository — the study notes, cross-reference
+selections, apparatus and taxonomy, per-edition design, introductions,
+navigation/popover scheme, and all code under `scripts/` — dedicating
+them to the worldwide public domain under the Creative Commons CC0 1.0
+Universal Public Domain Dedication.
 
-Copyright (c) 2026 TODO_COPYRIGHT_HOLDER
+You may copy, modify, adapt, distribute, and use this work, including
+for commercial purposes, all without asking permission and without
+providing attribution. The work is provided without conditions.
 
-All rights reserved.
+  Full legal text: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+  Plain summary:   https://creativecommons.org/publicdomain/zero/1.0/
 
-[TODO: Replace with the licence terms you intend to ship under. Common
-options for a commercial multi-edition study Bible are:
+Attribution is NOT required. If you find this useful, a credit to
+"Bogdan Zorlescu / the YHWH Bible project" is appreciated as a courtesy
+— but it is entirely optional and creates no obligation of any kind.
 
-    Option A — All Rights Reserved (default for commercial sale)
-        "All rights reserved. No part of this work may be reproduced,
-        stored in a retrieval system, or transmitted in any form or by
-        any means without the prior written permission of the copyright
-        holder, except for brief quotations in critical reviews and
-        certain non-commercial uses permitted by copyright law."
 
-    Option B — Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
-        Permits commercial use, modification, and redistribution provided
-        attribution is given and derivative works carry the same licence.
-        Best for academic/community-oriented editions.
+INCORPORATED SOURCES — already in the public domain
+---------------------------------------------------
 
-    Option C — MIT (for code only; editorial content separately licenced)
-        Best if the platform code is open-source but the editorial
-        content is licenced under Option A.
+The biblical texts, lexicons, and cross-reference apparatus this work
+builds on were ALREADY in the public domain before incorporation —
+either by age or by their creators' own dedication — and remain so.
+They are NOT the subject of the CC0 dedication above (one cannot
+dedicate what one does not own); they are simply public-domain material
+reused here. Per-source provenance is documented in `COPYRIGHT.md` and,
+for each translation, in `content/translations/<id>/_meta.yaml`. In
+brief:
 
-    Option D — Custom commercial licence per retailer agreement.
-        Each retailer (Amazon KDP, Apple Books Connect, Kobo Writing Life)
-        has its own terms-of-service that effectively grant a distribution
-        licence. The underlying copyright remains with the holder.
+  - World English Bible (WEB) — dedicated to the public domain by
+    Rainbow Missions, Inc.
+  - Strong's Hebrew & Greek lexicons (James Strong, 1890) — PD by age.
+  - Treasury of Scripture Knowledge (R. A. Torrey, 1834) — PD by age.
+  - Douay-Rheims, Clementine Vulgate, JPS 1917, Van Dyck Arabic,
+    Westminster Leningrad Codex, Swete LXX, Byzantine Majority Text —
+    public domain by age and/or their own dedication; see COPYRIGHT.md
+    for per-source detail.
 
-Pick one and replace this section with the actual licence text.]
 
-────────────────────────────────────────────────────────────────────────
-LICENCE FOR PUBLIC-DOMAIN SOURCES
-────────────────────────────────────────────────────────────────────────
-
-The translation, lexicons, and cross-reference apparatus incorporated
-in this work are in the public domain in the United States and most
-jurisdictions worldwide. Specific provenance:
-
-  - World English Bible (WEB) — Public Domain. Released by Rainbow
-    Missions, Inc. with explicit dedication to the public domain.
-  - Strong's Exhaustive Concordance of the Bible (Hebrew portion) —
-    James Strong, 1890. Public domain by age (>95 years since author's
-    death).
-  - Treasury of Scripture Knowledge — R. A. Torrey, 1834. Public domain
-    by age.
-
-These sources may be freely incorporated into derivative works without
-permission. See COPYRIGHT.md for full attribution stack.
-
-────────────────────────────────────────────────────────────────────────
 DISCLAIMER
-────────────────────────────────────────────────────────────────────────
+----------
 
-This work is provided "as is" without warranty of any kind. The compiler
-makes no representation or warranty regarding the accuracy, completeness,
-or fitness for any particular purpose of the editorial apparatus or the
-underlying public-domain sources.
+This work is provided "as is", without warranty of any kind, express or
+implied. The dedicator makes no representation or warranty regarding the
+accuracy, completeness, or fitness for any particular purpose of the
+editorial apparatus or the underlying public-domain sources, and
+disclaims all liability arising from any use of this work.

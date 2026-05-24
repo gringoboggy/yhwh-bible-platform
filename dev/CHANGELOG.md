@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-24 — session — deep audit (every-file sweep) COMPLETE + 17 verified safe-fixes + matrix mint-cert
+
+**Context:** the deferred heavy parallel-subagent audit (memory `feedback_audit_cadence`), resumed after an accidental session close mid-sweep. Full ledger: `dev/AUDIT_2026-05-23-DEEP.md`. Read-phase partitions A–H collected (100% of tracked code/doc/config covered; generated data stores sampled + validator-proven), every crit/high finding personally spot-verified, ~110 findings dispositioned. No new phases — cleanup + certification only; forward QUEUED backlog → `dev/PLAN_2026-05-21.md` §4.1.
+
+**17 SAFE-FIX applied (verified, uncommitted; no content/corpus/build change):** dead-code (B1.3 duplicate `"soul"` key, B1.4 dead dict-comp, B2a.6 dead expr, C2.refactor dead stmt); latent bugs (A7 scenario `overwritten` always-True; **C1.chap** `"chapters"`→`"ch_count"` — was silently capping the at-scale Greek/Hebrew chapter scan at 50; A3 stray-`H` lstrip; C3a.errno Windows 10048; C3b.css undefined `theme-bg-accent`); Windows hygiene (B2b.2 + C2.devnull — 6× `stdin=DEVNULL`); T2 `_psalm_map` cache whitelist; C3a Makefile `ship-retail --retail`→`ship-full --epubcheck`; docstrings (B2b.3 reading-plans-shipped, B2b.8 lambda→def, C1.fixname, C1.toc); identity docs (VERSION pivot/historical banner, SCHEMAS edition/kind counts, PLAN corpus count 67,715→67,713). Each py_compile + ruff-format clean; **205 targeted tests green**; lint_rules 16/0/0.
+
+**Matrix mint-certified 2026-05-24** (post-spine + post-fixes): trace_matrix 0 unresolved · validate_taxonomy 67,713/100% · ebible verify errors=0 / 24,015 paired · test_enabled_kinds_unified 12 · **catholic-study build → epubcheck 0 errors / 0 warnings**. Regression gate: **7,064 tests collected (= baseline)**, every validator ≥ baseline.
+
+**Headline QUEUED (user go/no-go — detail in PLAN §4.1 + the audit ledger):** P0 **★BUGCLUSTER** non-canonical book-code drift (`php`/`jas`/…) — confirmed shipped corpus damage: Philippians + James carry **165 spurious `lang-hebrew`** notes + 0 `lang-greek`; fix = canonicalize codes + masking-test + **regen phi/jam** (with the C1.chap >50-chapter backfill). P1 **G1** `file://` SSRF + **G2** preview XSS (security HIGH, surgical) + **E.license/copyright** CC0 rewrite (needs the copyright-holder name). P2 **★C2.deadchecks** wire 4 audit tools into preflight.
+
+**State correction (E.sessionstate):** Douay/Vulgate are COMMITTED at `42a59e0` — the prior SESSION_STATE/IN_FLIGHT "UNCOMMITTED" banners were stale and are fixed this session. Uncommitted now = only the audit docs + these 17 safe-fixes, awaiting user "save".
+
+---
+
 ## 2026-05-23 — session — Douay-Rheims + Clementine Vulgate SHIPPED (TABLE-DRIVEN versification) — Phase-2 translation spine COMPLETE
 
 **Context:** the final two PD translations of the Phase-2 spine (`dev/PLAN_2026-05-21.md` §4.0). Spec `docs/superpowers/specs/2026-05-23-douay-vulgate-table-driven-design.md`; plan `docs/superpowers/plans/2026-05-23-douay-vulgate-table-driven.md`. Both share the Clementine/Septuagintal versification, so ONE shared `versification.vulgate_to_kjv` serves both. The prior plan (hand-aligning Douay-English↔KJV from weak ~0.5 word-overlap, chapter by chapter) was replaced by a **table-driven** method.

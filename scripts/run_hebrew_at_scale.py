@@ -143,7 +143,7 @@ def run_hebrew_for_book(book: str, *, min_confidence: float = 0.7) -> dict:
     # Discover chapters by scanning all verses
     try:
         book_meta = config.get_book(book)
-        n_chapters = book_meta.get("chapters", 50) if book_meta else 50
+        n_chapters = book_meta.get("ch_count", 50) if book_meta else 50
     except KeyError:
         # Deuterocanonical / non-canonical books may exist in KJV data
         # but not in config — assume up to 50 chapters and let

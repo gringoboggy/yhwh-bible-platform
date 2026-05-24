@@ -19,8 +19,8 @@ Behaviour
     Strips every chapter `<li>` (in nav.xhtml) and every nested `navPoint`
     (in toc.ncx). The reader-TOC will show only the 87 book titles plus the
     Table-of-Contents entry.
-    On first run, the current full state is saved to /home/claude/.toc_state/
-    so the operation is fully reversible.
+    On first run, the current full state is saved to the repo-relative
+    ``.toc_state/`` directory so the operation is fully reversible.
 
 - `set_reader_toc.py --mode full`:
     Restores chapters from the backup. Errors if no backup exists.

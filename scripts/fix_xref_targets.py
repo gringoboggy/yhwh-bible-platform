@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fix_vnote_xrefs.py — Repair broken cross-file ``#vnote-`` references.
+fix_xref_targets.py — Repair broken cross-file ``#vnote-`` references.
 
 The EPUB uses ``id="vnote-CODE-CH-V"`` for verse popover footnotes (rich
 asides containing the verse text + Hebrew/Greek originals + variants).

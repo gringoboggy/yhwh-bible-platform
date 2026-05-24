@@ -81,6 +81,7 @@ def _probe_java() -> bool:
         subprocess.run(
             ["java", "-version"],
             capture_output=True,
+            stdin=subprocess.DEVNULL,
             timeout=10,
             check=True,
         )
@@ -223,6 +224,7 @@ def run_epubcheck(
         proc = subprocess.run(
             cmd,
             capture_output=True,
+            stdin=subprocess.DEVNULL,
             timeout=timeout,
             text=True,
         )

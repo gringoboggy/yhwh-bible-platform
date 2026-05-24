@@ -175,7 +175,13 @@ def main():
         import subprocess
 
         print("\n→ running audit ...")
-        result = subprocess.run([sys.executable, "audit.py"], cwd=str(REPO_ROOT), capture_output=True, text=True)
+        result = subprocess.run(
+            [sys.executable, "audit.py"],
+            cwd=str(REPO_ROOT),
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+        )
         # Print last 8 lines
         print("\n".join(result.stdout.splitlines()[-8:]))
 
