@@ -6,6 +6,12 @@
 
 ---
 
+## 2026-05-24 (latest) — LICENSE reversed: CC0 → All Rights Reserved (Bogdan Zorlescu)
+
+The user asked "no one can steal/copy my program right?" — revealing the CC0 dedication (prior entry) was the **opposite** of their intent. Corrected the misconception (CC0 = anyone may freely copy/modify/sell, no credit), and they chose **copyright / lock it down**. `LICENSE` + `COPYRIGHT.md` rewritten from CC0 to **Copyright (c) 2026 Bogdan Zorlescu — all rights reserved** (original editorial work + all code; no copying/redistribution/modification/sale without written permission). The incorporated biblical texts/lexicons stay **public domain** and are documented as such (can't be owned). Nothing is published (no remote since 2026-05-12), so the licence remains freely changeable. ⚠ This restricts copying/redistribution, in tension with the 2026-05-14 "free public" pivot's free-*use* implication — a "free-to-use, all-rights-reserved" (freeware) grant can be added on request if the public should still run it for free.
+
+---
+
 ## 2026-05-24 (later) — book-code code-fix shipped + CC0 dedication + session playbook; phi/jam data-cleanup scoped
 
 **CC0 public-domain dedication (committed `637e793`).** Rewrote `LICENSE` + `COPYRIGHT.md` to dedicate the original editorial work + code to the public domain under **CC0 1.0 by Bogdan Zorlescu** (incorporated PD sources documented separately; counts refreshed 1,371→67,713). Resolves the E.license/E.copyright HIGH findings.

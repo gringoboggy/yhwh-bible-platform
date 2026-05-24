@@ -6,37 +6,38 @@ incorporated.
 
 ---
 
-## 1. Original Editorial Work — Public Domain (CC0 1.0)
+## 1. Original Editorial Work — Copyright, All Rights Reserved
 
-**The original editorial work and code in this project are dedicated to
-the public domain by Bogdan Zorlescu under the Creative Commons CC0 1.0
-Universal Public Domain Dedication** (see `LICENSE`). No rights
-reserved; no permission and no attribution are required for any use,
-including commercial use, modification, and redistribution.
+**Copyright (c) 2026 Bogdan Zorlescu. All rights reserved.** See `LICENSE`
+for the full terms.
 
-The following original components are covered by that CC0 dedication:
+The following original components are the copyrighted property of Bogdan
+Zorlescu. They may not be copied, reproduced, distributed, published,
+modified, sold, sublicensed, or used to create derivative works, in whole
+or in part, without prior written permission (excepting brief quotations
+and other uses permitted by applicable copyright law):
 
 | Component | Description | Year | Status |
 |---|---|---|---|
-| Editorial notes | 67,713 attributed annotations across 15 categories / 71 kinds | 2026 | CC0 / public domain |
-| Cross-canon parallels | Selection, framing, theological synthesis | 2026 | CC0 / public domain |
-| Apparatus structure | 71-kind taxonomy, edition-filtering rules | 2026 | CC0 / public domain |
-| Per-edition selection | Which sub-kinds appear in each edition build | 2026 | CC0 / public domain |
-| Introduction matter | Per-book introductions, canon explanations | 2026 | CC0 / public domain |
-| Navigation & layout | TOC structure, ch-anchor scheme, popover design | 2026 | CC0 / public domain |
-| Code platform | scripts/, build pipeline | 2026 | CC0 / public domain |
+| Editorial notes | 67,713 attributed annotations across 15 categories / 71 kinds | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Cross-canon parallels | Selection, framing, theological synthesis | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Apparatus structure | 71-kind taxonomy, edition-filtering rules | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Per-edition selection | Which sub-kinds appear in each edition build | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Introduction matter | Per-book introductions, canon explanations | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Navigation & layout | TOC structure, ch-anchor scheme, popover design | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Code platform | scripts/, build pipeline | 2026 | © Bogdan Zorlescu — all rights reserved |
 
 Even where a note distills public-domain commentary, the selection,
-arrangement, and expression were original editorial work — and they are
-likewise released to the public domain under CC0. Anyone may reuse any
-of it freely, in whole or in part, for any purpose, without credit.
+arrangement, and expression are original editorial work and carry
+copyright. For permission requests, contact the copyright holder.
 
 ---
 
 ## 2. Public-Domain Sources (Incorporated)
 
 These were already in the public domain before incorporation and remain
-so; they are reused here, not dedicated by this project.
+so; they are reused here, and the copyright above does NOT (and cannot)
+restrict them — anyone may use these underlying sources independently.
 
 ### 2.1 Biblical text
 
@@ -111,11 +112,10 @@ not as a trademark.
 
 ## 4. Modern Translations & Commentary (Excluded)
 
-To keep the whole work cleanly public-domain, the project deliberately
-does NOT incorporate any modern (post-1929) copyrighted translation or
-commentary. Only public-domain sources are ingested. This is enforced
-editorially; see `scripts/validate_attribution.py` for the technical
-check.
+The project deliberately does NOT incorporate any modern (post-1929)
+copyrighted translation or commentary. Only public-domain sources are
+ingested. This is enforced editorially; see
+`scripts/validate_attribution.py` for the technical check.
 
 ---
 
@@ -125,24 +125,22 @@ Each edition's front matter should display:
 
 > **The [edition name]**
 >
-> Compiled and annotated by **Bogdan Zorlescu**, and dedicated to the
-> public domain (CC0 1.0). No rights reserved — copy, share, and adapt
-> freely.
+> Compiled and annotated by **Bogdan Zorlescu**.
+> Editorial apparatus, selection, arrangement, and code:
+> © 2026 Bogdan Zorlescu. All rights reserved.
 >
 > Biblical text: World English Bible (Public Domain).
 > Hebrew/Greek lexicons: Strong's Concordance, James Strong, 1890 (PD).
 > Cross-references: Treasury of Scripture Knowledge, R. A. Torrey,
 > 1834 (PD).
 >
-> Original editorial apparatus, selection, and arrangement:
-> dedicated to the public domain under CC0 1.0 by Bogdan Zorlescu.
-> See LICENSE for details.
+> The underlying biblical texts and lexicons are in the public domain;
+> the original editorial work is copyrighted. See LICENSE.
 
 ---
 
 ## 6. Reporting
 
-This work intends to incorporate only public-domain material. If you
-believe it includes copyrighted material that is not in the public
-domain, please open an issue describing the source so it can be
-reviewed and, if necessary, removed.
+If you believe this work incorporates copyrighted material that is not in
+the public domain, or wish to request permission to reuse the original
+copyrighted work, contact the copyright holder.

@@ -1,59 +1,54 @@
-YHWH Bible Publishing Platform — Public Domain Dedication
-=========================================================
-
-This work is dedicated to the public domain.
+YHWH Bible Publishing Platform — Copyright & Licence
+====================================================
 
 
-ORIGINAL WORK — Creative Commons Zero v1.0 Universal (CC0 1.0)
--------------------------------------------------------------
+ORIGINAL WORK — All Rights Reserved
+-----------------------------------
 
-To the extent possible under law, Bogdan Zorlescu has waived all
-copyright and related or neighboring rights to the ORIGINAL editorial
-work and software in this repository — the study notes, cross-reference
+Copyright (c) 2026 Bogdan Zorlescu. All rights reserved.
+
+The original work in this repository — the study notes, cross-reference
 selections, apparatus and taxonomy, per-edition design, introductions,
-navigation/popover scheme, and all code under `scripts/` — dedicating
-them to the worldwide public domain under the Creative Commons CC0 1.0
-Universal Public Domain Dedication.
+the navigation/popover scheme, and ALL source code under `scripts/` — is
+the copyrighted property of Bogdan Zorlescu.
 
-You may copy, modify, adapt, distribute, and use this work, including
-for commercial purposes, all without asking permission and without
-providing attribution. The work is provided without conditions.
+No part of this original work may be reproduced, copied, distributed,
+published, modified, sold, sublicensed, or used to create derivative
+works, in whole or in part, by any means or in any form, without the
+prior written permission of the copyright holder — except for brief
+quotations in reviews and other uses expressly permitted by applicable
+copyright law (e.g. fair use / fair dealing).
 
-  Full legal text: https://creativecommons.org/publicdomain/zero/1.0/legalcode
-  Plain summary:   https://creativecommons.org/publicdomain/zero/1.0/
-
-Attribution is NOT required. If you find this useful, a credit to
-"Bogdan Zorlescu / the YHWH Bible project" is appreciated as a courtesy
-— but it is entirely optional and creates no obligation of any kind.
+All rights not expressly granted are reserved. For permission requests,
+contact the copyright holder.
 
 
-INCORPORATED SOURCES — already in the public domain
----------------------------------------------------
+INCORPORATED SOURCES — Public Domain (NOT owned by this project)
+---------------------------------------------------------------
 
 The biblical texts, lexicons, and cross-reference apparatus this work
-builds on were ALREADY in the public domain before incorporation —
-either by age or by their creators' own dedication — and remain so.
-They are NOT the subject of the CC0 dedication above (one cannot
-dedicate what one does not own); they are simply public-domain material
-reused here. Per-source provenance is documented in `COPYRIGHT.md` and,
-for each translation, in `content/translations/<id>/_meta.yaml`. In
-brief:
+builds on are in the PUBLIC DOMAIN (by age or by their creators' own
+dedication). The "all rights reserved" above applies ONLY to Bogdan
+Zorlescu's ORIGINAL contributions — it does NOT, and cannot, restrict
+these underlying public-domain sources, which anyone remains free to use
+independently:
 
-  - World English Bible (WEB) — dedicated to the public domain by
-    Rainbow Missions, Inc.
+  - World English Bible (WEB) — public domain (Rainbow Missions, Inc.).
   - Strong's Hebrew & Greek lexicons (James Strong, 1890) — PD by age.
   - Treasury of Scripture Knowledge (R. A. Torrey, 1834) — PD by age.
   - Douay-Rheims, Clementine Vulgate, JPS 1917, Van Dyck Arabic,
     Westminster Leningrad Codex, Swete LXX, Byzantine Majority Text —
-    public domain by age and/or their own dedication; see COPYRIGHT.md
-    for per-source detail.
+    public domain by age and/or their own dedication; see COPYRIGHT.md.
+
+Per-source provenance is documented in COPYRIGHT.md and in each
+`content/translations/<id>/_meta.yaml`.
 
 
 DISCLAIMER
 ----------
 
 This work is provided "as is", without warranty of any kind, express or
-implied. The dedicator makes no representation or warranty regarding the
-accuracy, completeness, or fitness for any particular purpose of the
-editorial apparatus or the underlying public-domain sources, and
-disclaims all liability arising from any use of this work.
+implied. The copyright holder makes no representation or warranty
+regarding the accuracy, completeness, or fitness for any particular
+purpose of the editorial apparatus or the underlying public-domain
+sources, and disclaims all liability arising from any use of this work.
