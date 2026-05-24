@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-24 (latest 7) — CORRECTION to the D.hang claim: full suite is completable but still SLOW (D.slow)
+
+Re-verified the prior entry's "full runs complete again" claim by actually running the full `tests/test_scripts.py` — it ran 48 minutes without finishing and was killed (process was CPU/Java-active, **not** deadlocked — confirming D.hang's deadlock fix holds). Diagnosis: fixing the deadlock let the suite run *past* the old hang point into tests that call the **real `api_preflight()`** (→ epubcheck/Java over every EPUB in `exports/`, 12 present, ~1.5 GB each) and real `build_one` — heavy operations never reached before. So the suite no longer HANGS, but a full run takes ~1 hour.
+
+**Correction:** the "never run full test_scripts.py" rule is *not fully retired* — the **deadlock** is gone (no indefinite hang; the 9 socket tests pass in 8.4s), but **targeted node-ids remain the practical choice** for iteration; a full run completes only with patience/CI. SESSION_PLAYBOOK §4 updated to say this accurately.
+
+**New follow-up — D.slow:** mock the real epubcheck/build in the heavy tests (`TestPreflightEpubcheck` aggregator tests + `build_one` smokes) — same deterministic-mock pattern already used for `test_ops`/`test_build_all` — to make a full-file run fast. Until then, the full suite is for patient/CI runs only.
+
+Lesson (per `feedback_reverify_conservative_nogo`): I committed the optimistic "full runs complete" wording before the full run confirmed it; the full run refuted the *practical* claim (not the deadlock fix). Verify the expensive claim before committing it.
+
+---
+
 ## 2026-05-24 (latest 6) — D.hang: test_scripts.py socket-deadlock fixed (full suite un-hangs)
 
 Fixed the standing **D.hang** (HIGH) — `tests/test_scripts.py` deadlocked the whole suite, forcing the long-standing "NEVER run the full test_scripts.py" rule. Root cause (per audit): 9 live-socket smoke tests used a single-thread `HTTPServer` + `serve_forever` daemon + `srv.shutdown()` in `finally` with no timeout. With HTTP/1.1 keep-alive, request 1's handler thread blocks reading the kept-alive connection, so the single-thread server can't accept request 2's new connection → request 2 times out → `shutdown()` deadlocks forever.
