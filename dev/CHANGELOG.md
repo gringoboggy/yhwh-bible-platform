@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-05-24 (latest 10) — Track C scope-cap + EPUB presentation overhaul (design approved, spec written)
+
+Two doc/design items this session; no code shipped (implementation follows after the user's `/clear`).
+
+- **Track C corpus-expansion SCOPE-CAPPED** (user decision 2026-05-24). The track is now a bounded list of five named reference works — Matthew Henry · JFB · Barnes · Torrey's New Topical Textbook · Vincent's Word Studies — all still IN scope (Henry seeded with χ.2 in `protestant_commentaries.json`; Torrey sourced on disk at `content/sources/torrey_ccel_source.txt`; JFB/Barnes/Vincent are PD + on CCEL, ingestable via the χ-cluster pipeline — NOT blocked on the user). DE-SCOPED: any reference work beyond those five, and the Voyage AI embeddings integration. Updated `PLAN_2026-05-21.md` §3 Track C + SESSION_STATE + memory; retired the recurring "user must supply a source PDF" mis-framing.
+- **EPUB presentation overhaul — design approved + spec written** (`docs/superpowers/specs/2026-05-24-epub-presentation-polish-design.md`), driven by a real Apple Books review of the flagship. Per RULES §2 the presentation choices become configurable per-edition builder settings with defaults: `marker_style` {numbers default (inline, "safe always"); badge deferred — injection point TBD}, `verse_popup_style` {cards default, stack}, `note_popup_style` {chip default, pills}, `title_page_style` {full-bleed default, framed}; verse-popup witnesses widened (default Hebrew + Greek (LXX/NT) + Latin + Arabic; English `kjv` dropped; JPS/Douay/Brenton selectable); category symbols moved into the notes; front matter consolidated to 2 pages ("YHWH Ya' Way Editions, 2026, © Bogdan Zorlescu", real computed counts, zero `TODO_`); per-book art wired onto title pages; technical fixes (left-align, cover `object-fit`, real counts). All 11 editions. 3-phase plan (Ph1 quick wins · Ph2 CSS/template-variant settings + numbers marker + widened popups + book art · Ph3 deferred badge). NEXT: `writing-plans` on the spec → implement Ph1–2. Brainstormed with the visual companion; reference mockups in `EPUB-design-options.html` + `.superpowers/brainstorm/`.
+
+---
+
 ## 2026-05-24 (latest 9) — deferred backlog cleared: §7.1 ast loader · escape-seq cleanup · `ebible audit` CI gate · P3/P4 tail
 
 Cleared the 5 items the prior session deferred for context budget (TDD throughout; gates all green).
