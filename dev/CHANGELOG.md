@@ -6,6 +6,12 @@
 
 ---
 
+## 2026-05-24 (latest 2) — program renamed to "YHWH Ya' Way"
+
+The user named the program **YHWH Ya' Way**. Rebranded "E-Bible" → "YHWH Ya' Way" across all LIVE user-facing surfaces: the 19 console page `<title>`s + the visible header brand, the CLI display strings (`ebible.py` status/REPL/help + `web.py` startup), the built-EPUB credits line, the `Makefile` header, `scripts/README.md` title, and the identity docs (`LICENSE`/`VERSION`/`RELEASE_NOTES`). 40 occurrences / 26 files (+ README + 3 identity docs). **Deliberately preserved:** the `ebible` CLI command name (renaming would break the Makefile + muscle memory), the `eBible.org` source attribution (the Bible-text source, not the brand), and historical records (this CHANGELOG, the SESSION_STATE archive, old handoff/spec) so project history stays truthful. **Verified:** py_compile clean (the "Ya' Way" apostrophe broke no strings — distinct from the `ebible`/`eBible.org` tokens, so the sweep was lexically safe), ruff-format clean, lint_rules 16/0/0, console-polish 82/82, scaffold generator + test pin consistent. Throwaway rebrand script deleted.
+
+---
+
 ## 2026-05-24 (latest) — LICENSE reversed: CC0 → All Rights Reserved (Bogdan Zorlescu)
 
 The user asked "no one can steal/copy my program right?" — revealing the CC0 dedication (prior entry) was the **opposite** of their intent. Corrected the misconception (CC0 = anyone may freely copy/modify/sell, no credit), and they chose **copyright / lock it down**. `LICENSE` + `COPYRIGHT.md` rewritten from CC0 to **Copyright (c) 2026 Bogdan Zorlescu — all rights reserved** (original editorial work + all code; no copying/redistribution/modification/sale without written permission). The incorporated biblical texts/lexicons stay **public domain** and are documented as such (can't be owned). Nothing is published (no remote since 2026-05-12), so the licence remains freely changeable. ⚠ This restricts copying/redistribution, in tension with the 2026-05-14 "free public" pivot's free-*use* implication — a "free-to-use, all-rights-reserved" (freeware) grant can be added on request if the public should still run it for free.

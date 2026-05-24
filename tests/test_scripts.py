@@ -3892,7 +3892,7 @@ class TestEditionMeta:
         text = target.read_text()
         # 1. New constant exists
         assert "GAMMA_HTML = r" in text
-        assert "<title>E-Bible · Gamma</title>" in text
+        assert "<title>YHWH Ya' Way · Gamma</title>" in text
         # 2. Route block registered
         assert 'if path == "/gamma"' in text
         # 3. Nav link injected into ALPHA_HTML (visible by counting

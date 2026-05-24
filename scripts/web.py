@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-web.py — Local web UI for editing the E-Bible note corpus.
+web.py — Local web UI for editing the YHWH Ya' Way note corpus.
 
 Lightweight HTTP server (stdlib only — no Flask, no install) that exposes
 content/notes/<code>.py as a browsable, editable list. Per-note edits go
@@ -2540,7 +2540,7 @@ def _render_sample_html(
         "</header>\n"
         f"{''.join(chapter_blocks)}\n"
         "<footer>\n"
-        "  Sample generated from the E-Bible publishing platform.\n"
+        "  Sample generated from the YHWH Ya' Way publishing platform.\n"
         "  This is a preview excerpt for evaluation.\n"
         "</footer>\n"
         "</body>\n</html>\n"
@@ -5182,7 +5182,7 @@ def _warm_corpus_index() -> dict:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Local web UI for the E-Bible note corpus.")
+    p = argparse.ArgumentParser(description="Local web UI for the YHWH Ya' Way note corpus.")
     p.add_argument("--host", default="127.0.0.1", help="bind address (default: 127.0.0.1, localhost-only)")
     p.add_argument("--port", type=int, default=8765)
     p.add_argument("--no-browser", action="store_true", help="don't auto-open the browser")
@@ -5190,7 +5190,7 @@ def main() -> int:
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     url = f"http://{args.host if args.host != '0.0.0.0' else 'localhost'}:{args.port}/"
-    print("\n  E-Bible web — note editor")
+    print("\n  YHWH Ya' Way web — note editor")
     print(f"  serving at: {url}")
     print("  Ctrl-C to stop\n")
 

@@ -205,7 +205,7 @@ def render_constant(plan: ScaffoldPlan, *, existing_consoles: list[str]) -> str:
         f'<html lang="en">\n'
         f"<head>\n"
         f'<meta charset="utf-8">\n'
-        f"<title>E-Bible · {plan.title}</title>\n"
+        f"<title>YHWH Ya' Way · {plan.title}</title>\n"
         f'<script src="https://cdn.tailwindcss.com"></script>\n'
         f"<style>\n"
         f'  body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }}\n'

@@ -23,7 +23,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>E-Bible · note editor</title>
+<title>YHWH Ya' Way · note editor</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
@@ -39,7 +39,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
 <body class="bg-slate-50 text-slate-900 h-screen flex flex-col">
 
 <header class="bg-slate-900 text-white px-4 py-2 flex items-center gap-4 shadow">
-  <h1 class="font-bold text-lg">E-Bible</h1>
+  <h1 class="font-bold text-lg">YHWH Ya' Way</h1>
   <span class="text-slate-400 text-sm">note editor</span>
   <span id="hdr-stats" class="text-slate-400 text-sm ml-auto"></span>
 </header>

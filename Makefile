@@ -1,4 +1,4 @@
-# E-Bible Makefile — common workflows for `make` users.
+# YHWH Ya' Way Makefile — common workflows for `make` users.
 # All targets dispatch through `./ebible` (the unified CLI).
 # For richer subcommands (search, quality flags, etc.), call `./ebible` directly.
 

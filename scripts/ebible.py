@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ebible — unified CLI for the E-Bible platform.
+ebible — unified CLI for the YHWH Ya' Way platform.
 
 Single entry point that wraps the 13 underlying scripts with named
 workflows, a status dashboard, a "doctor" next-action advisor, a watch
@@ -84,7 +84,7 @@ def cmd_status(_args) -> int:
     """Print a one-screen health dashboard."""
     from scripts.core import notes_io
 
-    print(f"\n{BOLD}E-Bible status{RESET}  {DIM}{REPO}{RESET}\n")
+    print(f"\n{BOLD}YHWH Ya' Way status{RESET}  {DIM}{REPO}{RESET}\n")
 
     # Notes
     notes_dir = REPO / "content" / "notes"
@@ -319,7 +319,7 @@ def book_notes(code):
     return load_notes(f"content/notes/{code}.py") or []
 
 print()
-print("ebible REPL — Python with E-Bible helpers loaded.")
+print("ebible REPL — Python with YHWH Ya' Way helpers loaded.")
 print("Available: config, BOOKS, EDITIONS, KINDS, load_notes(), all_notes(),")
 print("           book_notes(code), strip_tags, word_count, atomic_write.")
 print(f"Loaded {len(BOOKS)} books, {len(EDITIONS)} editions, {len(KINDS)} kinds.")
@@ -425,7 +425,7 @@ def cmd_help(args) -> int:
             print(f"  {ex}")
         print()
     else:
-        print(f"\n{BOLD}ebible — unified CLI for the E-Bible platform{RESET}\n")
+        print(f"\n{BOLD}ebible — unified CLI for the YHWH Ya' Way platform{RESET}\n")
         print(f"{DIM}Common workflows:{RESET}")
         for cmd in ("status", "doctor", "add", "build", "ship", "test", "repl", "watch"):
             ex = HELP_EXAMPLES[cmd][0]
@@ -476,7 +476,7 @@ PASS_THROUGHS: dict[str, str] = {
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(prog="ebible", description="Unified CLI for the E-Bible platform")
+    p = argparse.ArgumentParser(prog="ebible", description="Unified CLI for the YHWH Ya' Way platform")
     subs = p.add_subparsers(dest="cmd", required=False)
 
     subs.add_parser("status", help="health dashboard")

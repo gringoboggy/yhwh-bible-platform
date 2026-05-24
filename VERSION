@@ -1,7 +1,7 @@
 1.0.0
 
-YHWH Bible Publishing Platform — v1.0.0
-=======================================
+YHWH Ya' Way — v1.0.0
+=====================
 
 The semantic-version line above is read by the build scripts
 (dev/build_dmg.sh, dev/installer.iss, dev/build_appimage.sh) and

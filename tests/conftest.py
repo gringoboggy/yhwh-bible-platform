@@ -1,4 +1,4 @@
-"""Shared pytest fixtures for the E-Bible test suite."""
+"""Shared pytest fixtures for the YHWH Ya' Way test suite."""
 
 import hashlib
 import sys

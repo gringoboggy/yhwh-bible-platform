@@ -1,4 +1,4 @@
-"""scripts.core — the stable foundation library for the E-Bible platform.
+"""scripts.core — the stable foundation library for the YHWH Ya' Way platform.
 
 Modules in this package are imported by 30+ scripts across the codebase.
 Their public APIs are considered stable: breaking changes require a major

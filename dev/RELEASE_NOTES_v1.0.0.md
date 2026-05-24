@@ -12,7 +12,7 @@ everything below is metadata.
 
 ## What v1.0.0 is
 
-The YHWH Bible Publishing Platform — a desktop application for
+**YHWH Ya' Way** — a desktop application for
 non-technical publishers (parish priests, schoolteachers, lay
 editors, retail imprints) to produce study Bibles tuned for their
 tradition + audience without learning a CLI, build pipeline, or

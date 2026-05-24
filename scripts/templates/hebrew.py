@@ -29,7 +29,7 @@ HEBREW_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>E-Bible · Hebrew Interlinear</title>
+<title>YHWH Ya' Way · Hebrew Interlinear</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   /* γ.1: Hebrew text needs RTL direction + larger size for legibility. */
@@ -50,7 +50,7 @@ HEBREW_HTML = r"""<!DOCTYPE html>
 
 <header class="border-b theme-bg-surface theme-border">
   <div class="max-w-5xl mx-auto px-4 py-3 flex items-baseline gap-4 text-sm flex-wrap">
-    <strong class="text-base">E-Bible</strong>
+    <strong class="text-base">YHWH Ya' Way</strong>
     <!-- HEADER_NAV_LINKS -->
     <span id="corpus-progress" class="ml-auto text-xs theme-text-muted" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
   </div>

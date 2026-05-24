@@ -1,4 +1,4 @@
-# Ethiopian Bible — content + scripts system
+# YHWH Ya' Way — Ethiopian Tewahedo Bible builder (content + scripts system)
 
 > **Scope.** This project aims to ship the most comprehensive study Bible
 > ever assembled in EPUB format: the complete 87-book Ethiopian Tewahedo

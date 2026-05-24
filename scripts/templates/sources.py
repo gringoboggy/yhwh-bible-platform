@@ -21,7 +21,7 @@ SOURCES_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>E-Bible · Sources Navigator</title>
+<title>YHWH Ya' Way · Sources Navigator</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }

@@ -4,6 +4,8 @@
 >
 > **State correction (E.sessionstate):** any "UNCOMMITTED" label below on Douay/Vulgate/Arabic/JPS is STALE — those shipped at HEAD `42a59e0`. This 2026-05-24 line is the current state.
 >
+> **Program renamed → "YHWH Ya' Way"** (committed); `LICENSE` = all-rights-reserved (Bogdan Zorlescu). **▶ NEXT TASK (fresh session): the phi/jam corpus data-cleanup** — the work-order is the top banner of `dev/IN_FLIGHT.md`; full recipe in `dev/SESSION_PLAYBOOK.md` §7.
+>
 > **➤➤➤ 2026-05-21 (prior LATEST) — read FIRST.** Corpus **67,713 notes / 71 kinds / 11 editions / 87 books**; demo build LIVE — `inject` places **99.76%** (66,173 + 1,381 base-baked / 67,713), `ebible verify` **errors=0 / 24,015 paired**, valid EPUB — **ALL 11 editions epubcheck-clean (EPUB-3.3: 0 fatals/errors/warnings/infos — each of the 11 editions verified individually 2026-05-22, not just the 5 canon-shape reps)**; master HTML **0/61 malformed XML** (2026-05-22 inject-wellformedness + RSC-005 nested-`<p>` + RSC-012 xref-code fixes; `audit` **B8** gate added). Health: `trace_matrix` **0 unresolved refs**, `validate_taxonomy` 100% attributed, ruff-format + `lint_rules` clean. Shipped chronology + latest commits: `dev/CHANGELOG.md`.
 >
 > **The map layer (read for "where / how / what shipped"):** `dev/PLAN_2026-05-21.md` (forward roadmap; supersedes `PLAN_2026-05-09`) · `dev/IN_FLIGHT.md` (live task tracker) · `dev/MATRIX_MAP.md` (data-flow + base-HTML structure) · `dev/REPO_MAP.md` (file/folder index) · `dev/CHANGELOG.md` (shipped chronology) · **`dev/SESSION_PLAYBOOK.md`** (session lifecycle start→work→verify→finish-clean + the consolidated verification gates). (This file was trimmed from ~896 KB on 2026-05-21; history in `dev/SESSION_STATE_archive_2026-05-21.md`.)
