@@ -1101,6 +1101,92 @@ class TestXi17Security:
         # If it errors, it must NOT be on yaml_anchor_density
         assert result.get("code") != "yaml_anchor_density"
 
+
+class TestG2PreviewSanitizesNoteBody:
+    """G2 / B2a.7 — the /preview render path MUST sanitize note bodies.
+
+    `preview._render_note_aside` interpolated the note ``body`` into HTML
+    **unescaped** (a "publisher-trusted" comment that the deep audit
+    refuted — AI-authored bodies share the same note store, and the route
+    `GET /api/preview` is reachable UNAUTHENTICATED). It must mirror the
+    build-path sanitizer (`inject.build_aside` → `sanitize_html`), which
+    whitelists inline markup and strips `<script>`, `on*` handlers, etc.
+    Note tuple layout: (ch, v, suffix, anchor, kind, label, title, body, attr).
+    """
+
+    def test_script_tag_in_body_is_stripped(self):
+        from scripts.core.preview import _render_note_aside
+
+        note = (1, 1, "", "", "comm", "Label", "Title", "<script>alert(1)</script><em>ok</em>", "Attr")
+        out = _render_note_aside(note, 0, "*")
+        assert "<script" not in out.lower(), "preview must strip <script> from note bodies"
+        assert "alert(1)" not in out, "sanitize_html drops <script> content, not just the tag"
+        assert "<em>ok</em>" in out, "whitelisted inline markup must survive"
+
+    def test_event_handler_attribute_is_stripped(self):
+        from scripts.core.preview import _render_note_aside
+
+        note = (1, 1, "", "", "comm", "Label", "Title", '<a href="#" onclick="evil()">x</a>', "Attr")
+        out = _render_note_aside(note, 0, "*")
+        assert "onclick" not in out.lower(), "preview must strip on* event-handler attributes"
+
+
+class TestG1SchemeAllowlist:
+    """G1 / B2a.12 — the egress SSRF guard must enforce a SCHEME allowlist.
+
+    `_check_allowlist` returned (allowed) when the URL had no host, so
+    `file:///etc/passwd` bypassed the guard entirely → local-file read
+    (LFI). The fix adds a positive `{http, https}` scheme allowlist that
+    runs BEFORE the host-membership check, so a disallowed scheme can
+    never slip through via an allowlisted host.
+    """
+
+    def test_file_scheme_blocked(self):
+        from scripts.core.http import SSRFBlockedError, _check_allowlist
+
+        try:
+            _check_allowlist("file:///etc/passwd", {"data.example.com"})
+        except SSRFBlockedError:
+            return
+        raise AssertionError("file:// must be blocked by the scheme allowlist")
+
+    def test_non_http_scheme_blocked_even_with_allowlisted_host(self):
+        from scripts.core.http import SSRFBlockedError, _check_allowlist
+
+        # The host IS allowlisted, but ftp is not an allowed scheme — the
+        # scheme check must fire first.
+        try:
+            _check_allowlist("ftp://data.example.com/x", {"data.example.com"})
+        except SSRFBlockedError:
+            return
+        raise AssertionError("non-http(s) scheme must be blocked before the host check")
+
+    def test_hostless_http_blocked(self):
+        from scripts.core.http import SSRFBlockedError, _check_allowlist
+
+        try:
+            _check_allowlist("http:///nohost", {"data.example.com"})
+        except SSRFBlockedError:
+            return
+        raise AssertionError("hostless http URL must be blocked")
+
+    def test_allowlisted_https_host_still_allowed(self):
+        from scripts.core.http import _check_allowlist
+
+        # Regression: legitimate https egress to an allowlisted host (and a
+        # subdomain) must still pass without raising.
+        _check_allowlist("https://data.example.com/file.json", {"data.example.com"})
+        _check_allowlist("https://cdn.data.example.com/x", {"data.example.com"})
+
+    def test_offlist_host_still_blocked(self):
+        from scripts.core.http import SSRFBlockedError, _check_allowlist
+
+        try:
+            _check_allowlist("https://evil.com/x", {"data.example.com"})
+        except SSRFBlockedError:
+            return
+        raise AssertionError("off-allowlist host must still be blocked")
+
     # ---- SEC-005 — audit-log integrity chain + redaction ----
 
     def test_audit_log_appends_prev_hash(self, tmp_path):

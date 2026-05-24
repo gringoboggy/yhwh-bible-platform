@@ -123,11 +123,16 @@ def _render_note_aside(note: tuple, idx: int, kind_symbol: str) -> str:
     if title:
         pieces.append(f'<strong class="note-title">{html.escape(title)}</strong>')
     if body:
-        # Body can already contain HTML (some PD-source detectors
-        # emit minimal markup like <em>, <a>); pass through but
-        # don't re-escape. Note bodies are publisher-trusted per
-        # the project's threat model (§7.1 "loading data files").
-        pieces.append(f'<div class="note-body">{body}</div>')
+        # Sanitize at the preview boundary, mirroring the build path
+        # (inject.build_aside → sanitize_html). Bodies legitimately carry
+        # inline markup (em / a / strong / sup …) which is whitelisted;
+        # <script>, on* handlers, javascript: URLs etc. are stripped.
+        # The /api/preview GET route is UNAUTHENTICATED and AI-authored
+        # bodies share the note store, so "publisher-trusted" does not
+        # hold here (G2 / B2a.7).
+        from scripts.core.html_sanitize import sanitize_html
+
+        pieces.append(f'<div class="note-body">{sanitize_html(body)}</div>')
     if attr:
         pieces.append(f'<div class="note-attr">— {html.escape(attr)}</div>')
     inner = "".join(pieces)

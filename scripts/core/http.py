@@ -63,6 +63,12 @@ class SSRFBlockedError(Exception):
         self.allowlist = tuple(allowlist)
 
 
+# G1 / B2a.12 — only these egress schemes are permitted. Everything else
+# (file:, ftp:, data:, hostless/malformed) is rejected before any network
+# I/O, so a file:// URL can't bypass the host allowlist into a local-file read.
+_ALLOWED_SCHEMES = frozenset({"http", "https"})
+
+
 def _check_allowlist(url: str, allowlist) -> None:
     """Validate that `url`'s host is in `allowlist`. Allowlist may be
     a set / frozenset / tuple / list of host strings (lowercased,
@@ -77,19 +83,23 @@ def _check_allowlist(url: str, allowlist) -> None:
     flip; if a future contributor adds a new caller they MUST pass
     one (production won't tolerate "I forgot").
     """
-    if allowlist is None:
-        # Fail-closed: no allowlist = no egress. Empty frozenset
-        # surfaces in the error message so the caller knows what to
-        # do (add `allowlist=DEFAULT_PD_SOURCES_ALLOWLIST` etc.).
-        parsed = urllib.parse.urlparse(url)
-        host = (parsed.hostname or "<no-host>").lower()
-        raise SSRFBlockedError(url, host, frozenset())
     parsed = urllib.parse.urlparse(url)
+    scheme = parsed.scheme.lower()
     host = (parsed.hostname or "").lower()
+    # Scheme allowlist FIRST (G1/B2a.12): a disallowed scheme must never slip
+    # through via an allowlisted host (e.g. ftp://data.example.com), and a
+    # hostless file:/// URL must not fall through to a "no host → allow" path.
+    if scheme not in _ALLOWED_SCHEMES:
+        raise SSRFBlockedError(url, host or "<no-host>", allowlist if allowlist is not None else frozenset())
+    if allowlist is None:
+        # Fail-closed: no allowlist = no egress. Empty frozenset surfaces in
+        # the error message so the caller knows to pass one (e.g.
+        # `allowlist=DEFAULT_PD_SOURCES_ALLOWLIST`).
+        raise SSRFBlockedError(url, host or "<no-host>", frozenset())
     if not host:
-        # No host (e.g. file: URLs, malformed) — let the underlying
-        # urlopen raise its own error rather than swallow.
-        return
+        # An http(s) URL with no host is malformed — reject it (previously this
+        # returned/allowed, which is exactly what let file:// through to urlopen).
+        raise SSRFBlockedError(url, "<no-host>", {h.lower() for h in allowlist})
     allow_set = {h.lower() for h in allowlist}
     if host in allow_set:
         return
