@@ -991,7 +991,7 @@ def api_sources_for_book(book_code: str) -> dict:
     along with its source attribution. The core verification view.
 
     Note tuple shape (positional):
-        (chapter, verse, suffix, anchor, kind, label, title, body, attribution)
+        (chapter, verse, suffix, anchor, kind, title, label, body, attribution)
     """
     try:
         book = config.get_book(book_code)
@@ -4138,11 +4138,12 @@ class Handler(BaseHTTPRequestHandler):
             <script\\nsrc="...">  → <script nonce="X"\\nsrc="..."> (preserves
                                                             internal whitespace)
 
-        Tags that already have a `nonce=` attribute are skipped — the
-        regex's lookahead requires a non-name boundary character right
-        after `<script`, and the replacement adds the attribute
-        prefix, so re-running the helper on already-noncified HTML is
-        a no-op for any tag with an existing nonce."""
+        Idempotent: the regex adds `nonce="<value>"` to every `<script`
+        tag, then a post-process pass collapses any resulting duplicate
+        `nonce=` attribute (see below), so re-running on already-noncified
+        HTML is a no-op. (An earlier lookahead-based "skip tags that
+        already carry a nonce" design was dropped in favour of this simpler
+        sub-then-dedupe.)"""
 
         def add_nonce(match: re.Match) -> str:
             return f'<script nonce="{nonce}"'
@@ -4216,22 +4217,6 @@ class Handler(BaseHTTPRequestHandler):
             # If even the JSON send fails (broken pipe, etc.), there's
             # nothing else to do — the request is gone.
             pass
-
-    def _send_dict_result(self, result: dict):
-        """§9 'pure function + thin route adapter' — translate a
-        result dict ({status, code?, http?, message?, ...}) into an
-        HTTP response. Reused by any endpoint following that shape."""
-        if result.get("status") == "ok":
-            return self._send_json(result)
-        http_code = result.get("http") or 500
-        return self._send_json(
-            {
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-                **{k: v for k, v in result.items() if k not in ("status", "code", "http", "message")},
-            },
-            status=http_code,
-        )
 
     def _send_html(self, html: str):
         # ξ.18 — fresh per-request nonce + noncified body + strict CSP.
@@ -5059,91 +5044,6 @@ class Handler(BaseHTTPRequestHandler):
                 return _dispatch_multipart_route(self, m, max_bytes, handler)
         # Everything else: same as PUT — front-end uses POST for create
         return self.do_PUT()
-
-
-# ============================================================
-# Single-page HTML  (Tailwind via CDN, vanilla JS, no build step)
-# ============================================================
-
-
-# ============================================================
-# Matrix view (Phase μ.1) — read-only count grid in the browser
-# ============================================================
-
-
-# ============================================================
-# Sources Navigator (Phase μ.3) — browse notes by book/chapter
-# ============================================================
-
-
-# ============================================================
-# Export UI (Phase σ.1 + σ.2) — buyer-facing /export page
-# ============================================================
-
-
-# ============================================================
-# Customize UI (Phase ν.1) — edit symbols + labels for cats/kinds
-# ============================================================
-
-
-# ============================================================
-# Attribution Audit UI (Phase ξ.4) — quality control dashboard
-# ============================================================
-
-
-# ============================================================
-# Publisher Console UI (Phase π.1)
-# ============================================================
-
-
-# ============================================================
-# Bible Builder Wizard (Phase π.5) — the buyer-demo flow
-# ============================================================
-
-
-# ============================================================
-# PREFLIGHT_HTML — Phase ψ.2 UI
-# ============================================================
-#
-# /preflight console — single dashboard that aggregates every
-# readiness check into a "ship-ready / not ready" view, with
-# click-through links to the right console for each finding.
-#
-# Composes existing tools (api_attribution_audit, api_covers) plus
-# a few in-process checks; new checks added in api_preflight()
-# automatically render here without UI changes.
-
-
-#
-# /covers console — drag-drop cover upload per edition + per book.
-#
-# Layout per edition:
-#   - hero "main cover" slot (large thumbnail or placeholder)
-#   - canon-filtered grid of book slots in canonical order
-#     (Rule §6.1 — from DATA.books_canonical, NEVER sorted client-side)
-#
-# Behavior:
-#   - click a slot or drop a file → POST multipart to the upload
-#     endpoint that already exists from π.4-B backend
-#   - delete (×) on a populated slot → DELETE endpoint
-#   - validation feedback inline; 400s render as red error banner
-#   - thumbnails served via /content/covers/... (sandboxed file route)
-#   - each upload is its own transactional API call — the backend
-#     handles atomicity per-file (Rule from §9 mental model)
-
-
-# Phase ψ.4 — Translation comparison view (/compare).
-# Buyer-demo gold: side-by-side rendering of multiple translations
-# for a given book + chapter, no full EPUB build required.
-# Cross-linked into all 10 other consoles per Rule §6.2.
-
-
-# Phase ω.0.2 — generated by scripts/scaffold_console.py.
-# Console: /ops (Operator Dashboard)
-
-
-# Phase ω.0.2 — generated by scripts/scaffold_console.py.
-# Console: /apihelp (API Reference)
 
 
 def _warm_corpus_index() -> dict:
