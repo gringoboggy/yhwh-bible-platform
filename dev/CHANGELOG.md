@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-05-24 (latest 3) — phi/jam DATA-cleanup SHIPPED (the ★BUGCLUSTER follow-up), atomically
+
+Completed the one-time data correction the code-fix (`c41e6d2`) had set up. Corpus **67,713 → 67,818** (−165 +270 = **+105**).
+
+**Strip.** Removed the **165 spurious `lang-hebrew` notes** (Strong's-Hebrew word-studies the book-code drift mis-attached to the two *Greek* NT books) from `content/notes/phi.py` (76) + `jam.py` (89) via AST-span removal → **1,815 pure deletions, 0 insertions** (verified `git diff --numstat`; matches the playbook prediction exactly). Originals (topic/comm/dict) byte-preserved.
+
+**Greek.** `run_greek_at_scale.py --books phi,jam --min-confidence 0.65` → **270 candidates** (phi 156, jam 114; 0.65 was the original χ.1 threshold, not the 0.7 default). Promoted all **270/270** into the notes files.
+
+**Root-caused the promote misbehaviour (no residual promote.py bug).** Both reported symptoms trace to upstream causes already/now addressed — verified by reproduction, not assumption: (a) *"marked promoted but didn't insert"* = the old `book="php"`/`"jas"` candidates targeted a non-existent `php.py` (fixed by `c41e6d2`; with canonical codes, 270/270 insert); (b) *Hebrew-re-add quirk* = `run_greek_at_scale.write_queue` **merges + preserves all non-`lang-greek` candidates** from a pre-existing file, so a stale phi/jam file's Hebrew would survive a Greek run and get re-promoted. Mitigation: **cleared the 19 stale, git-tracked candidate files** (`phi`/`jam` + the legacy-code `php`/`jas`) before regenerating Greek-only ones.
+
+**Build regen — surgical, NOT bare-base (FINDING).** The playbook §7 "checkout the bare base → inject → generate_verse_popups → resync" is **lossy**: a from-bare-base regen wipes `harvest_existing_langs`-preserved popup content the resolver can't rebuild (proven — it dropped `vnote-paz-1-30`'s Douay + Vulgate translations) and re-qualifies ~88 unrelated xref hrefs. Instead, from HEAD's `epub_working`, **surgically removed only the 165 phi/jam `note-lang-hebrew` markers+asides** from `index_split_058` (phi=b70) / `_059` (jam=b79) and injected the 270 Greek. **Lossless + isolated: only those 2 files changed.**
+
+**Byte-compat proof (content-level, per the gotcha — line-diff is unreliable here).** Aside-by-id diff across all 61 files: ONLY phi/jam asides differ — 32 Hebrew removed + 133 Hebrew→Greek (same id reused) = 165 Hebrew gone; 137 Greek added + 133 = 270 Greek present; **0 other asides changed** (paz + every xref href byte-identical). Scoped counts: phi 156 / jam 114 Greek asides **and** markers, 0 Hebrew.
+
+**TDD guard.** New `tests/test_corpus_chi1.py::TestNTBookLanguageInvariant` (RED→GREEN): no NT book carries `lang-hebrew`; phi + jam carry `lang-greek` — the corpus-data complement to the existing detector-level `NT_BOOKS` guard.
+
+**Gates (all green):** `lint_rules` 16/0/0 · `ruff format --check` clean · `validate_taxonomy` 67,818/67,818 (100%) · `validate_schemas` 6/6 · `trace_matrix` 0 · `trace_repo` 0 undocumented · `ebible verify` errors=0 / 24,015 paired · `test_corpus_chi1` 23 · `test_enabled_kinds_unified` 12 · build catholic-study → **epubcheck 0 errors / 0 warnings**. Tests +2 (baseline 7,064 → 7,066).
+
+**Follow-up for the playbook:** SESSION_PLAYBOOK §7 + §3 should record that the bare-base regen is lossy for harvest-preserved content; the surgical removal (drop orphaned asides+markers in-place, then inject) is the correct lossless method when only a few books change.
+
+---
+
 ## 2026-05-24 (latest 2) — program renamed to "YHWH Ya' Way"
 
 The user named the program **YHWH Ya' Way**. Rebranded "E-Bible" → "YHWH Ya' Way" across all LIVE user-facing surfaces: the 19 console page `<title>`s + the visible header brand, the CLI display strings (`ebible.py` status/REPL/help + `web.py` startup), the built-EPUB credits line, the `Makefile` header, `scripts/README.md` title, and the identity docs (`LICENSE`/`VERSION`/`RELEASE_NOTES`). 40 occurrences / 26 files (+ README + 3 identity docs). **Deliberately preserved:** the `ebible` CLI command name (renaming would break the Makefile + muscle memory), the `eBible.org` source attribution (the Bible-text source, not the brand), and historical records (this CHANGELOG, the SESSION_STATE archive, old handoff/spec) so project history stays truthful. **Verified:** py_compile clean (the "Ya' Way" apostrophe broke no strings — distinct from the `ebible`/`eBible.org` tokens, so the sweep was lexically safe), ruff-format clean, lint_rules 16/0/0, console-polish 82/82, scaffold generator + test pin consistent. Throwaway rebrand script deleted.

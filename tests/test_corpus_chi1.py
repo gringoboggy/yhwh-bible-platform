@@ -277,6 +277,79 @@ class TestGreekWordDetector:
         assert jam_cands[0].confidence < c_jhn.confidence
 
 
+class TestNTBookLanguageInvariant:
+    """Corpus-data guard for the php/jas book-code bug — the DATA-cleanup
+    half (the code-fix half is TestGreekWordDetector's NT_BOOKS asserts).
+
+    The book-code drift (php/jas vs canonical phi/jam) wrongly attached
+    Strong's-Hebrew word-studies to the two Greek NT books Philippians
+    (phi) + James (jam) — 165 total — and simultaneously withheld Greek
+    from them. The Hebrew lexicon does not apply to the Greek NT: the
+    detectors enforce this by skipping NT_BOOKS, and the corpus must
+    agree. These invariants must hold corpus-wide after the cleanup.
+    """
+
+    # The 27-book NT canon (canonical 3-letter codes; see books.yaml).
+    NT_BOOKS = (
+        "mat",
+        "mrk",
+        "luk",
+        "jhn",
+        "act",
+        "rom",
+        "1co",
+        "2co",
+        "gal",
+        "eph",
+        "phi",
+        "col",
+        "1th",
+        "2th",
+        "1ti",
+        "2ti",
+        "tit",
+        "phm",
+        "heb",
+        "jam",
+        "1pe",
+        "2pe",
+        "1jn",
+        "2jn",
+        "3jn",
+        "jud",
+        "rev",
+    )
+
+    @staticmethod
+    def _kind_counts(book: str) -> dict:
+        """{kind: count} for a book's NOTES list, read via the project's
+        notes loader (literal-only; code in notes modules is never run)."""
+        from scripts.core.notes_io import load_notes
+
+        path = REPO_ROOT / "content" / "notes" / f"{book}.py"
+        counts: dict = {}
+        for tup in load_notes(path) or []:
+            if isinstance(tup, tuple) and len(tup) >= 5:
+                counts[tup[4]] = counts.get(tup[4], 0) + 1
+        return counts
+
+    def test_no_nt_book_carries_lang_hebrew(self):
+        offenders = {b: self._kind_counts(b).get("lang-hebrew", 0) for b in self.NT_BOOKS}
+        offenders = {b: n for b, n in offenders.items() if n}
+        assert not offenders, (
+            f"NT (Greek) books must not carry lang-hebrew notes — the php/jas "
+            f"book-code drift mis-routed Strong's-Hebrew here; offenders: {offenders}"
+        )
+
+    def test_philippians_and_james_carry_lang_greek(self):
+        for book in ("phi", "jam"):
+            n = self._kind_counts(book).get("lang-greek", 0)
+            assert n > 0, (
+                f"{book} is a Greek NT book — must carry lang-greek notes; the "
+                f"book-code bug withheld Greek from it (got {n})"
+            )
+
+
 class TestStrongsGreekFetchUtilities:
     """Pure-function checks for the χ.1 fetch_sources.py additions:
     parser is registered, parses synthetic JS-wrapped JSON, fetcher
