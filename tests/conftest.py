@@ -272,6 +272,48 @@ def _prebuilt_corpus_index_per_worker():
     yield
 
 
+# D.slow (2026-05-24) — the real `api_preflight()` runs epubcheck (Java,
+# ~1.5 GB, minutes) over every EPUB in the repo's exports/ dir. Several tests
+# call api_preflight() / _compute_preflight_uncached(); once the D.hang
+# deadlock fix let the suite actually reach them, a full run ballooned to ~1 hr
+# (killed at 48 min) on those epubcheck spawns. Stub run_epubcheck_on_dir to a
+# fast "empty" result ONLY for the real exports/ dir — every other dir
+# (TestEpubcheckWrapper's tmp fixtures, which test the wrapper itself) hits the
+# real function untouched. The preflight-integration tests already assume an
+# empty exports/ + expect a non-fail status, so the stub matches their contract.
+@pytest.fixture(scope="session", autouse=True)
+def _stub_exports_epubcheck():
+    try:
+        from scripts.core import epubcheck as ec
+    except ImportError:
+        yield
+        return
+
+    exports = (REPO_ROOT / "exports").resolve()
+    orig = ec.run_epubcheck_on_dir
+
+    def _wrapped(directory, *args, **kwargs):
+        try:
+            is_exports = Path(directory).resolve() == exports
+        except (OSError, ValueError):
+            is_exports = False
+        if is_exports:
+            return {
+                "status": "empty",
+                "n_epubs": 0,
+                "explanation": "epubcheck over exports/ is stubbed in the test session (D.slow); not validated here",
+                "totals": {"errors": 0, "warnings": 0},
+                "results": [],
+            }
+        return orig(directory, *args, **kwargs)
+
+    ec.run_epubcheck_on_dir = _wrapped
+    try:
+        yield
+    finally:
+        ec.run_epubcheck_on_dir = orig
+
+
 @pytest.fixture
 def repo_root() -> Path:
     """Path to the project root."""

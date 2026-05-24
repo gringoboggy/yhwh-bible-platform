@@ -1862,10 +1862,11 @@ class TestEditionMeta:
         for L in d["popup_languages"]:
             expected = pv.bakes_now(pv.resolve_version_id(L["id"]) or L["id"])
             assert L["has_data"] is expected, f"{L['id']}: has_data={L['has_data']} but bakes_now={expected}"
-        # Concrete: the baked spine is live; not-yet-baked versions are not.
-        for lid in ("english", "hebrew", "greek", "greek-nt", "arabic", "jps"):
+        # Concrete: the full Phase-2 popup spine is now live (douay + vulgate
+        # baked at 42a59e0); the dormant Brenton seed is not.
+        for lid in ("english", "hebrew", "greek", "greek-nt", "arabic", "jps", "douay", "vulgate"):
             assert by_id[lid]["has_data"] is True, f"{lid} is baked → has_data must be True"
-        for lid in ("douay", "vulgate", "brenton-en"):
+        for lid in ("brenton-en",):
             assert by_id[lid]["has_data"] is False, f"{lid} not baked yet → has_data must be False"
 
     def test_customize_data_exposes_books_in_canonical_order(self):
@@ -5275,10 +5276,16 @@ class TestThemes:
             css = themes_dir / f"{t['id']}.css"
             assert css.is_file(), f"theme {t['id']} missing CSS file"
 
-    def test_default_theme_is_classic(self):
+    def test_every_edition_has_a_registered_theme(self):
+        # Per-edition themes were assigned 2026-05-22 (4 distinct stylesheet
+        # groups), superseding the old "all editions default to classic". The
+        # durable invariant now: every edition's theme is one of the registered
+        # themes; the specific per-edition assignment is pinned in
+        # tests/test_themes.py.
+        valid = {t["id"] for t in self.web._load_themes()}
         d = self.web.api_customize_data()
         for e in d["editions"]:
-            assert e["theme"] == "classic", f"edition {e['id']} default theme should be classic, got {e['theme']!r}"
+            assert e["theme"] in valid, f"edition {e['id']} has unregistered theme {e['theme']!r}"
 
     def test_save_theme_round_trip(self, tmp_path):
         import shutil

@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-24 (latest 8) — D.slow DONE: full test_scripts.py now runs in 2.9 min (was ~1 hr), green
+
+Closed D.slow (the follow-up from the latest-7 correction). The ~1 hr full-suite time was the real `api_preflight()` running epubcheck (Java, ~1.5 GB) over every EPUB in `exports/` (12 present) — invoked by ~10 preflight-calling tests once D.hang let the suite reach them.
+
+- **Fix:** a session-autouse fixture `_stub_exports_epubcheck` in `tests/conftest.py` stubs `epubcheck.run_epubcheck_on_dir` to a fast "empty" result **only for the real `exports/` dir** (matched by resolved path). Every other dir — `TestEpubcheckWrapper`'s tmp fixtures, which test the wrapper's real logic — passes through untouched. The preflight-integration tests already assume an empty `exports/` + a non-fail status, so the stub matches their contract. (`build_one` was already `dry_run=True` — not a slow path.)
+- **2 pre-existing stale pins, exposed now that the suite actually completes** (both broke before this session; the hung suite never caught them): `test_default_theme_is_classic` asserted every edition's theme == "classic", but per-edition themes were assigned 2026-05-22 → renamed `test_every_edition_has_a_registered_theme` (asserts the theme is one of the registered set; the specific assignment stays pinned in `test_themes.py`). `test_customize_data_exposes_popup_languages_registry` asserted `douay`/`vulgate` `has_data is False`, but both were baked at `42a59e0` → moved to the baked-True list (only the dormant `brenton-en` seed stays False).
+- **Result:** `tests/test_scripts.py` → **976 passed in 2.9 min** (was indefinite hang, then ~1 hr after D.hang). SESSION_PLAYBOOK §4 updated: the "never run full test_scripts.py" rule is now genuinely retired. lint 16/0/0, ruff clean.
+
+---
+
 ## 2026-05-24 (latest 7) — CORRECTION to the D.hang claim: full suite is completable but still SLOW (D.slow)
 
 Re-verified the prior entry's "full runs complete again" claim by actually running the full `tests/test_scripts.py` — it ran 48 minutes without finishing and was killed (process was CPU/Java-active, **not** deadlocked — confirming D.hang's deadlock fix holds). Diagnosis: fixing the deadlock let the suite run *past* the old hang point into tests that call the **real `api_preflight()`** (→ epubcheck/Java over every EPUB in `exports/`, 12 present, ~1.5 GB each) and real `build_one` — heavy operations never reached before. So the suite no longer HANGS, but a full run takes ~1 hour.
