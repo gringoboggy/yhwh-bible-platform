@@ -577,6 +577,49 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
         }
     )
 
+    # 12. Accessibility audit (★C2.deadchecks wiring, 2026-05-24) — composes
+    # check_a11y.run_all() so WCAG 2.1 AA / EPUB-Accessibility 1.1 issues
+    # (missing page lang, image alt text, marker-colour contrast, heading-
+    # level skips, presentational <b>/<i>) surface on the readiness dashboard.
+    # It was a built-but-uninvoked "dead check". ERROR-severity → fail,
+    # WARN-severity → warn. Pure read-only scan of epub_working — no
+    # subprocess/network (unlike audit_dead_code/types/deps, which wrap
+    # vulture/mypy/pip-audit and stay manual/CLI-only). Wrapped per the §9
+    # meta-tool pattern so a broken checker warns, never 500s the dashboard.
+    try:
+        from scripts.check_a11y import run_all as _a11y_run_all
+
+        a11y = _a11y_run_all()
+        a_summary = a11y["summary"]
+        a_fail = a_summary.get("fail", 0)
+        a_warn = a_summary.get("warn", 0)
+        a_total = a_summary.get("total", 0)
+        if a_fail:
+            a_status, a_msg = "fail", (f"{a_fail} accessibility check(s) failed (of {a_total})")
+        elif a_warn:
+            a_status, a_msg = "warn", f"{a_warn} accessibility warning(s)"
+        else:
+            a_status, a_msg = "pass", f"all {a_total} accessibility check(s) pass"
+        a_details = [
+            {"check_id": c["id"], "name": c["name"], "status": c["status"], "message": c["message"]}
+            for c in a11y["checks"]
+            if c["status"] != "pass"
+        ]
+    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
+        a_status = "warn"
+        a_msg = f"accessibility audit failed to run: {e}"
+        a_details = []
+    checks.append(
+        {
+            "id": "accessibility",
+            "name": "Accessibility (WCAG 2.1 AA / EPUB Accessibility 1.1)",
+            "status": a_status,
+            "message": a_msg,
+            "details": a_details,
+            "jump_to": "/export",
+        }
+    )
+
     # Summary
     summary = {
         "total": len(checks),

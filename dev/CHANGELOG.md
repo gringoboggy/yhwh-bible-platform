@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-24 (latest 4) — autonomous backlog: G1/G2 security fixes + accessibility check wired into preflight
+
+Two QUEUED audit items shipped autonomously (committed separately).
+
+**G1/G2 HIGH security fixes (committed `0892270`).** *G1/B2a.12 SSRF→LFI:* `core/http.py:_check_allowlist` returned (allowed) when a URL had no host, so `file:///etc/passwd` bypassed the egress guard. Added a positive `{http, https}` **scheme allowlist**, checked BEFORE host membership, so a disallowed scheme can't slip through via an allowlisted host (`ftp://allowed-host`) and hostless/malformed URLs are rejected. *G2/B2a.7 preview XSS:* `core/preview.py:_render_note_aside` interpolated the note `body` **unescaped** on the unauthenticated `GET /api/preview` route, bypassing the build sanitizer — now routed through `sanitize_html` (matches `inject.build_aside`; whitelisted inline markup survives, script/on*-handlers stripped). The "publisher-trusted" comment was wrong (AI bodies share the store). TDD: `TestG1SchemeAllowlist` (5) + `TestG2PreviewSanitizesNoteBody` (2), RED→GREEN; security+hardening+archive-org suites 235 pass; the preview integration suites (test_web_filesplit + test_matrix_psi35) 127 pass.
+
+**★C2.deadchecks — accessibility check wired into preflight.** `check_a11y.py` gained the standard meta-tool `run_all() -> {checks, summary}` (reusing its existing pure check functions; `main()` untouched), and `scripts/api/preflight.py` now composes it (try/except-wrapped per §9) so WCAG 2.1 AA / EPUB-Accessibility issues (page-lang, img-alt, marker-contrast, heading-skips, presentational markup) surface on the readiness dashboard — it was a built-but-uninvoked dead check. TDD: `TestCheckA11yRunAll` (4 — shape, empty-dir-clean, flags missing lang+alt, conformant-passes). **Deliberate scope decision:** the other 3 dead `audit_*` tools were NOT wired into the live dashboard — `audit_deps` runs **pip-audit** (network + hang risk), `audit_types` wraps **mypy**, `audit_dead_code` wraps **vulture** (all external-dev-tool subprocesses, slow/absent in the runtime) — they belong in a manual `ebible audit` / CI gate, not a per-load web dashboard. Flagged for the owner.
+
+**C1.chap (>50-chapter backfill) — investigated, deferred to owner.** The `ch_count` code-fix is already applied (`run_hebrew/greek_at_scale.py:146`). The data backfill (re-run hebrew/greek at-scale for Psalms 51-150 / Isaiah / Jeremiah) would add **thousands of reviewer-draft notes** — a corpus-scale **content decision** the owner should weigh, so it was NOT executed unsupervised.
+
+Gates (both commits): `lint_rules` 16/0/0 · `ruff format --check` clean · `validate_taxonomy` 67,818/100% · targeted module tests green.
+
+---
+
 ## 2026-05-24 (latest 3) — phi/jam DATA-cleanup SHIPPED (the ★BUGCLUSTER follow-up), atomically
 
 Completed the one-time data correction the code-fix (`c41e6d2`) had set up. Corpus **67,713 → 67,818** (−165 +270 = **+105**).

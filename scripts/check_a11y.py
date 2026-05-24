@@ -225,6 +225,105 @@ def check_presentational(text: str) -> int:
 
 
 # ----------------------------------------------------------------------
+# Meta-tool API — run_all() (ω.26 family; CLAUDE_PROJECT_RULES §9)
+# ----------------------------------------------------------------------
+
+_CHECK_NAMES = {
+    "lang": "Page language (lang / xml:lang)",
+    "alt-text": "Image alt text",
+    "contrast": "Marker colour contrast (WCAG AA 4.5:1)",
+    "heading-skip": "Heading hierarchy (no skipped levels)",
+    "presentational": "Semantic markup (strong/em over b/i)",
+}
+
+
+def _contrast_violations(epub_dir: Path, bg_color: str | None) -> list[str]:
+    """Marker/note CSS rules whose foreground fails WCAG AA against the body
+    background. Reuses the same parsing the CLI uses; read-only."""
+    css_path = epub_dir / "stylesheet.css"
+    if not css_path.is_file():
+        return ["stylesheet.css: missing"]
+    css_text = css_path.read_text(encoding="utf-8")
+    bg_str = bg_color or find_body_bg(css_text, fallback="#ffffff")
+    bg_rgb = parse_color(bg_str)
+    if bg_rgb is None:
+        return [f"stylesheet.css: unparseable body bg {bg_str!r}"]
+    out: list[str] = []
+    rules = extract_marker_colors(css_text)
+    for sel in sorted(rules):
+        fg_str = rules[sel].get("color")
+        if not fg_str:
+            continue
+        fg_rgb = parse_color(fg_str)
+        if fg_rgb is None:
+            out.append(f".{sel}: unparseable color {fg_str!r}")
+            continue
+        ratio = contrast_ratio(fg_rgb, bg_rgb)
+        if ratio < 4.5:
+            out.append(f".{sel}: {fg_str} on {bg_str} = {ratio:.2f}:1 (need >= 4.5)")
+    return out
+
+
+def run_all(epub_dir: Path = EPUB_DIR, bg_color: str | None = None) -> dict:
+    """Run every accessibility check over the unpacked EPUB and return the
+    standard meta-tool payload ``{"checks": [...], "summary": {...}}`` (see
+    CLAUDE_PROJECT_RULES §9). ERROR-severity checks map to ``fail``,
+    WARN-severity to ``warn``. Pure + read-only: globs ``epub_dir``'s
+    ``*.html`` / ``*.xhtml`` + ``stylesheet.css`` — no subprocess / network,
+    so it is safe to compose into the /preflight dashboard.
+
+    When ``epub_dir`` has no HTML (a fresh checkout with no build), every
+    check is reported ``pass`` with a "nothing to audit" message so the
+    dashboard doesn't show a spurious red on a clean tree.
+    """
+    files = sorted(epub_dir.glob("*.html")) + sorted(epub_dir.glob("*.xhtml"))
+    violations: dict[str, list[str]] = {c: [] for c in CHECKS}
+    if files:
+        for f in files:
+            text = f.read_text(encoding="utf-8")
+            rel = f.name
+            res = check_lang(text)
+            if res:
+                violations["lang"].append(f"{rel}: {res}")
+            for snippet in check_images(text):
+                violations["alt-text"].append(f"{rel}: {snippet}")
+            for skip in check_heading_hierarchy(text):
+                violations["heading-skip"].append(f"{rel}: {skip}")
+            n = check_presentational(text)
+            if n:
+                violations["presentational"].append(f"{rel}: {n} <b>/<i> opening tag(s)")
+        violations["contrast"] = _contrast_violations(epub_dir, bg_color)
+
+    checks = []
+    for cid in CHECKS:
+        v = violations[cid]
+        if not files:
+            status, message = "pass", "no built EPUB to audit yet"
+        elif v:
+            status = "fail" if SEVERITY[cid] == "ERROR" else "warn"
+            message = f"{len(v)} {cid} issue(s)"
+        else:
+            status, message = "pass", f"no {cid} issues"
+        checks.append(
+            {
+                "id": cid,
+                "name": _CHECK_NAMES[cid],
+                "status": status,
+                "message": message,
+                "violations": v[:20],
+            }
+        )
+    summary = {
+        "total": len(checks),
+        "pass": sum(1 for c in checks if c["status"] == "pass"),
+        "warn": sum(1 for c in checks if c["status"] == "warn"),
+        "fail": sum(1 for c in checks if c["status"] == "fail"),
+    }
+    summary["clean"] = summary["fail"] == 0 and summary["warn"] == 0
+    return {"checks": checks, "summary": summary}
+
+
+# ----------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------
 
