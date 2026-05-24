@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-05-24 (latest 6) — D.hang: test_scripts.py socket-deadlock fixed (full suite un-hangs)
+
+Fixed the standing **D.hang** (HIGH) — `tests/test_scripts.py` deadlocked the whole suite, forcing the long-standing "NEVER run the full test_scripts.py" rule. Root cause (per audit): 9 live-socket smoke tests used a single-thread `HTTPServer` + `serve_forever` daemon + `srv.shutdown()` in `finally` with no timeout. With HTTP/1.1 keep-alive, request 1's handler thread blocks reading the kept-alive connection, so the single-thread server can't accept request 2's new connection → request 2 times out → `shutdown()` deadlocks forever.
+
+- **Fix (drop-in):** `HTTPServer` → `ThreadingHTTPServer` in all 9 socket tests (thread-per-connection + daemonic threads → no keep-alive block, clean shutdown). 8 of 9 then passed instantly.
+- **Second issue exposed:** `test_ops_route_serves_html_and_api` then *timed out* (not deadlocked) on `GET /api/ops` — that endpoint calls `api_preflight()`, which runs **epubcheck over every EPUB in `exports/`** (minutes; 12 EPUBs present). Mocked `scripts.web.api_preflight` to a fast stub in that one test (the route + response shape is what's under test; preflight has its own dedicated tests) — matching the `test_build_all_route_serves_json` deterministic-mock precedent. Bumped its urlopen timeouts 5s→15s.
+- **Verified:** all **9 formerly-deadlocking socket tests pass in 8.4s** (`-k` targeted) — previously an indefinite hang. Test-only change; no production code touched.
+- Updated `SESSION_PLAYBOOK.md` §4: the "never run full test_scripts.py (hangs)" rule is retired — the deadlock is fixed; full runs complete again (it's still the big monolith, so targeted node-ids stay faster for iteration).
+
+---
+
 ## 2026-05-24 (latest 5) — C1.chap hebrew backfill: psa/isa/jer/sir chapters 51+ (+2,151 notes)
 
 Closed the C1.chap data gap (owner-approved). The `ch_count`-default-50 bug had made the at-scale hebrew generator scan only chapters 1-50 of every book, so the four OT-KJV books with MORE than 50 chapters carried **zero** auto `lang-hebrew` past chapter 50. Re-ran `run_hebrew_at_scale.py --books psa,isa,jer,sir --min-confidence 0.65` (the code-fix that reads `ch_count` is already shipped) and promoted **chapters 51+ only**.

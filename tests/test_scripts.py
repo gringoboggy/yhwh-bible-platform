@@ -3023,10 +3023,10 @@ class TestEditionMeta:
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -3246,10 +3246,10 @@ class TestEditionMeta:
         import urllib.error
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -3350,10 +3350,10 @@ class TestEditionMeta:
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -3488,10 +3488,10 @@ class TestEditionMeta:
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -3757,10 +3757,10 @@ class TestEditionMeta:
         import urllib.error
         import time
         import json
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -4088,10 +4088,10 @@ class TestEditionMeta:
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -4246,35 +4246,41 @@ class TestEditionMeta:
 
     def test_ops_route_serves_html_and_api(self):
         """Live HTTP smoke: /ops returns the page, /api/ops returns
-        JSON with the 6 sections."""
+        JSON with the 6 sections. The preflight section is mocked fast —
+        the real api_preflight runs epubcheck over every EPUB in exports/
+        (minutes), which would time out this live-socket smoke; the route +
+        response shape is what's under test here (preflight has its own
+        dedicated tests)."""
         import threading
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
+        from unittest import mock
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
-        port = srv.server_address[1]
-        t = threading.Thread(target=srv.serve_forever, daemon=True)
-        t.start()
-        time.sleep(0.1)
-        try:
-            r = urllib.request.urlopen(
-                f"http://127.0.0.1:{port}/ops",
-                timeout=5,
-            )
-            assert r.status == 200
-            assert "Operator Dashboard" in r.read().decode()
-            r2 = urllib.request.urlopen(
-                f"http://127.0.0.1:{port}/api/ops",
-                timeout=5,
-            )
-            data = json.loads(r2.read().decode())
-            for s in ("corpus", "attribution", "preflight", "uptime", "disk", "save_tag"):
-                assert s in data
-        finally:
-            srv.shutdown()
+        with mock.patch("scripts.web.api_preflight", lambda: {"items": []}):
+            srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+            port = srv.server_address[1]
+            t = threading.Thread(target=srv.serve_forever, daemon=True)
+            t.start()
+            time.sleep(0.1)
+            try:
+                r = urllib.request.urlopen(
+                    f"http://127.0.0.1:{port}/ops",
+                    timeout=15,
+                )
+                assert r.status == 200
+                assert "Operator Dashboard" in r.read().decode()
+                r2 = urllib.request.urlopen(
+                    f"http://127.0.0.1:{port}/api/ops",
+                    timeout=15,
+                )
+                data = json.loads(r2.read().decode())
+                for s in ("corpus", "attribution", "preflight", "uptime", "disk", "save_tag"):
+                    assert s in data
+            finally:
+                srv.shutdown()
 
     # ---------- Phase ω.0.3 : shared test fixtures ----------
 
@@ -4527,7 +4533,7 @@ class TestEditionMeta:
         import time
         import urllib.error
         import urllib.request
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from unittest import mock
 
         from scripts.web import Handler
@@ -4540,7 +4546,7 @@ class TestEditionMeta:
             return {"ok": False, "error": "mocked build (no real subprocess in test)"}
 
         with mock.patch("scripts.api.exports.api_export_build", _mock_build):
-            srv = HTTPServer(("127.0.0.1", 0), Handler)
+            srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
             port = srv.server_address[1]
             t = threading.Thread(target=srv.serve_forever, daemon=True)
             t.start()
@@ -4675,10 +4681,10 @@ class TestEditionMeta:
         import urllib.request
         import json
         import time
-        from http.server import HTTPServer
+        from http.server import ThreadingHTTPServer
         from scripts.web import Handler
 
-        srv = HTTPServer(("127.0.0.1", 0), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         port = srv.server_address[1]
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()

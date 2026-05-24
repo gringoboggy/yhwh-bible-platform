@@ -54,7 +54,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 - **TDD** — failing test first (RED), then fix (GREEN). [`superpowers:test-driven-development`]
 - **Byte-compat invariant** — for any regen/refactor, PROVE zero unintended change: regen + `git diff` shows **only** the intended change (pure deletions/additions, no reformat churn). This has caught real bugs.
 - **Don't break the tree** — first programming project, hard deadline. Verify before claiming done; no `--no-verify`/shortcut bypasses.
-- **Tests one file at a time** (RAM pressure). **NEVER run the full `tests/test_scripts.py`** — it HANGS on live-socket smokes (a single-thread `HTTPServer` + `serve_forever` + `shutdown()` with no timeout). Use dedicated test files; even `-k` collects the whole monolith.
+- **Tests one file at a time** (RAM pressure). The full `tests/test_scripts.py` **no longer hangs** — the live-socket-smoke deadlock (D.hang) was fixed 2026-05-24 (9 tests moved to `ThreadingHTTPServer`; `test_ops` mocks the slow `api_preflight`). It is still the big monolith, so **targeted node-ids / `-k` are faster for iteration** (even `-k` collects the whole file). ⚠ Two OTHER test files are merely SLOW (not hung): `test_web_filesplit.py` + `test_matrix_psi35.py` (~23 min — live socket/build smokes); prefer targeted node-ids there too.
 - **`subprocess.run` → always `stdin=subprocess.DEVNULL`** on Windows (WinError 6).
 - **ruff-format before save** every file you generated/regenerated — **especially `content/translations/<id>/` stores** (recurs on every ingest) — or the pre-commit hook blocks (RULES §4).
 - **Grep is unreliable for Greek** (Unicode NFC mismatch) — verify Greek by Read.
