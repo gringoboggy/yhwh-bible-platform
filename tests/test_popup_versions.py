@@ -39,10 +39,11 @@ class TestVersionRegistry:
 
     def test_bakes_now_versions_with_full_data(self):
         # Phase 1 baked kjv/wlc/lxx-greek; Phase 2 added greek-nt (Byzantine NT),
-        # then the translation spine: arabic (Van Dyck) + jps (JPS 1917 Tanakh).
-        for vid in ("kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps"):
+        # then the translation spine: arabic (Van Dyck) + jps (JPS 1917 Tanakh),
+        # then douay (Douay-Rheims) + vulgate (Clementine Vulgate), table-driven.
+        for vid in ("kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps", "douay", "vulgate"):
             assert pv.bakes_now(vid), f"{vid} should bake (full data ingested)"
-        for vid in ("brenton-en", "douay", "vulgate"):
+        for vid in ("brenton-en",):
             assert not pv.bakes_now(vid), f"{vid} must NOT bake until its full data lands"
 
     def test_trusted_html_flags(self):
@@ -164,18 +165,18 @@ class TestAssembleVersionsForVerse:
         assert versions[1]["dir"] == "rtl"
 
     def test_unbaked_version_excluded_even_with_data(self, monkeypatch):
-        # douay has Genesis seed data, but bake=False -> it must NOT appear in
-        # the shared base until Phase 2 (this is the byte-compat guard).
+        # brenton-en has a registry entry + ingestible data, but bake=False -> it
+        # must NOT appear in the shared base (this is the byte-compat guard).
         import scripts.generate_verse_popups as gvp
         from scripts.core import translations as tx
 
         def fake_get_verse(tid, code, ch, vs):
-            return {"kjv": "In the beginning", "douay-rheims": "In the beginning God created"}.get(tid)
+            return {"kjv": "In the beginning", "lxx-brenton-english": "In the beginning God made"}.get(tid)
 
         monkeypatch.setattr(tx, "get_verse", fake_get_verse)
         ids = [v["id"] for v in gvp.assemble_versions_for_verse("gen", 1, 1, harvested={})]
         assert ids == ["kjv"], f"only baked versions expected, got {ids}"
-        assert "douay" not in ids
+        assert "brenton-en" not in ids
 
 
 class TestBuildSideRegistry:

@@ -77,10 +77,15 @@ VALIDATORS (gate everything):
   `lxx_swete_to_kjv` is a hand-built map (LXX: Psalms renumber, Jeremiah's OAN reorder, Theodotion
   Daniel's Additions, the 1 Kings 20↔21 swap, Proverbs' 24/29 reorder, Esther's omitted Additions —
   every reorder content-aligned against KJV, not memory); `byzantine_to_kjv` is near-identity (the NT
-  is KJV-standard) + the Romans-doxology reorder. **WLC = full 39-book / 23,142-verse ingest;
-  LXX-Greek (Swete) = full 39-OT / 22,893-verse ingest (`vnote-greek` 8,601→22,812 baked); Greek-NT
-  (Byzantine) = full 27-NT / 7,953-verse ingest (`vnote-greek-nt` 0→7,951 baked); all 2026-05-23**;
-  the other secondary translations are still Genesis seeds.
+  is KJV-standard) + the Romans-doxology reorder; `vulgate_to_kjv` (shared by `douay` + `vulgate`)
+  is TABLE-DRIVEN — segments generated from the Copenhagen Alliance `vul.json` (composed
+  vul→org→KJV), then gate-verified against the real Douay text (`_vg_verify` SHIFTS=0); `tob/jdt/sir`
+  omitted (divergent recension), Daniel additions → `paz/sus/bel` cross-book, Esther additions
+  auto-omit. **WLC = 39-book / 23,142-verse; LXX-Greek (Swete) = 39-OT / 22,893-verse (`vnote-greek`
+  8,601→22,812); Greek-NT (Byzantine) = 27-NT / 7,953-verse (`vnote-greek-nt` 0→7,951); Arabic
+  (Van Dyck) = 66-book / 31,102-verse; JPS (1917) = 39-book / 23,145-verse; Douay-Rheims + Clementine
+  Vulgate = 74-book / ~33,344-verse each (`vnote-douay`/`vnote-vulgate` +31,866/+31,865 baked); all
+  2026-05-23**. `brenton-en` is the remaining registry seed not yet baked.
 - **Cover / OPF metadata** <- `cover_image`, `authors`, `bisac_codes` -> `patch_opf`.
 - **A count cell in the matrix UI** <- `matrix.compute_matrix().enabled[ed][kind]` <- `per_chapter`
   <- `notes_io.load_notes(notes/<book>.py)`.

@@ -16,7 +16,7 @@ user, the user wins for that turn — but the rule stays as written.
 | **1** | North star — the builder demo; corpus depth; patristic-voice composition; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles (carried from SCOPE 05-07/08). |
 | **3** | Sequencing rules (how to order work). |
-| **4** | Save semantics — "save" = local commit; checkpoint saves; "continue" ≠ "save". |
+| **4** | Save semantics — "save" = local commit; checkpoint saves; "continue" ≠ "save". **⚠ BEFORE every save: `python -m ruff format <every file you generated/regenerated>` — ESPECIALLY `content/translations/<id>/` stores (recurs on EVERY ingest) — or the pre-commit hook `ruff format --check .` BLOCKS the commit. ruff reflows whitespace only (data + baked popups unchanged). Full rule: §7 "Formatting + committing".** |
 | **5** | Phase / commit tracking. |
 | **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
 | **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |

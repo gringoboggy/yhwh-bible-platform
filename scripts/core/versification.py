@@ -746,25 +746,145 @@ def arabic_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
 # ===========================================================================
 # Clementine Vulgate (Latin) + Douay-Rheims (English) -> canonical KJV.
 #
-# Both are 74-book Catholic, Vulgate-numbered; ONE shared map serves both (the
-# ~14 chapters where Douay's verse split differs from the Latin Vulgate are
-# handled per-source by the drivers, not here). Input ``code`` is already a
-# project book code (this runs after extract_translation's eBible->project map).
+# Both are 74-book Catholic, Vulgate-numbered; ONE shared map serves both. Input
+# ``code`` is already a project book code (runs after extract_translation's map).
 #
-# Derived by content-aligning the ENGLISH Douay against the ENGLISH KJV (word
-# overlap), NOT identity-guessed and NOT from memory:
-#   - Psalms: the Septuagint/Vulgate numbering == the LXX scheme, so reuse the
-#     existing ``_psalm_map`` (content-verified vs the Douay); a few psalms whose
-#     Latin verse-division differs from the Greek get a per-psalm patch below.
-#   - Daniel/Esther additions, Sirach/Tobit/Judith recension splits, and the
-#     scattered single-verse offsets get per-book SEGMENT tables (added as each
-#     is content-verified). Everything else is identity.
+# TABLE-DRIVEN: the segment tables below were GENERATED from the Copenhagen Alliance
+# versification mapping (``vul.json``, composed vul->org->KJV), then VERIFIED to
+# SHIFTS=0 against the real eBible Douay text via the ``_vg_verify.py`` word-overlap
+# gate (NOT hand-guessed, NOT from memory). Versification FACTS only — the CC BY-SA
+# source JSON is not vendored; credit: Copenhagen Alliance + UBS/SIL.
+#   - Psalms: Vulgate numbering == the LXX scheme, so reuse ``_psalm_map`` + the
+#     ``_VULGATE_PSALM_FIXES`` Vulgate-only overrides; ``_psalm_map`` is shared with
+#     the LXX ingest and is left untouched.
+#   - Daniel/Esther additions go cross-book (``_vulgate_cross`` -> paz/sus/bel);
+#     tob/jdt/sir omitted (divergent recension); everything else is identity.
+#   - The 14 chapters where the Latin verse-count differs from the Douay are handled
+#     by shared concat-tail segments (the shorter source never triggers the extra seg).
 # ===========================================================================
 
-# Per-(code, vulgate_ch, vulgate_vs) -> (kjv_ch, kjv_vs) overrides where the Latin
-# verse-division diverges from both identity AND the reused LXX psalm map. Filled
-# as content-alignment verifies each; empty entries mean "still identity/psalm-map".
-_VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {}
+# Per-(vulgate_ch, vulgate_vs) -> (kjv_ch, kjv_vs) overrides where the Douay's Latin
+# verse-DIVISION diverges from the reused LXX ``_psalm_map`` (which was built for the
+# Swete Greek division). The shared ``_psalm_map`` already handles the gross chapter
+# renumbering (Vulgate 9 = KJV 9+10, Vulgate N = KJV N+1 for 10-112, etc.) and the
+# leading-superscription drops; these per-verse patches correct the residual psalms
+# where the Latin counts the title/clauses differently than the Greek, which would
+# otherwise place the Douay body one verse off its KJV slot. ALL derived by reading
+# the ENGLISH Douay against the ENGLISH KJV at the divergence (NOT memory) — the
+# justifying texts are in the comment over each psalm's block. Keys are Vulgate
+# (Douay) coordinates; values are canonical KJV. (Reused by BOTH the Clementine-
+# Vulgate Latin driver and the Douay-Rheims English driver — the divergence is in the
+# shared Vulgate numbering, not the language.)
+_VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {
+    # --- Vulgate Ps 10 = KJV 11 -------------------------------------------------
+    # The Greek (``_psalm_map``) keeps the title as its own dropped verse and runs
+    # the body 1:1, but the DOUAY counts the Latin title as v1 AND keeps the opening
+    # body line as a SEPARATE v2 ("In the Lord I put my trust...") — whereas the KJV
+    # FOLDS the title into v1 ("...of David. In the LORD put I my trust..."). So the
+    # Douay body sits +1 vs the Greek map. Fix: D 10:1 (title) + D 10:2 ("In the Lord
+    # I put my trust: how then do you say to my soul: Get thee away") BOTH -> KJV 11:1
+    # (the KJV v1 carries title+first-line); then D 10:3..10:8 -> KJV 11:2..11:7.
+    # Anchors: D 10:7 "He shall rain snares upon sinners: fire and brimstone" = KJV
+    # 11:6 "Upon the wicked he shall rain snares, fire and brimstone"; D 10:8 "For the
+    # Lord is just, and hath loved justice" = KJV 11:7 "For the righteous LORD loveth
+    # righteousness". (Without this, _psalm_map dropped D 10:8 — KJV 11:7 had no Douay.)
+    (10, 2): (11, 1),
+    (10, 3): (11, 2),
+    (10, 4): (11, 3),
+    (10, 5): (11, 4),
+    (10, 6): (11, 5),
+    (10, 7): (11, 6),
+    (10, 8): (11, 7),
+    # --- Vulgate Ps 12 = KJV 13 -------------------------------------------------
+    # The Vulgate SPLITS KJV 13:2 into two — D 12:2 ("How long shall I take counsels
+    # in my soul, sorrow in my heart all the day?") + D 12:3 ("How long shall my enemy
+    # be exalted over me?") are the two clauses of KJV 13:2 ("How long shall I take
+    # counsel... how long shall mine enemy be exalted over me?"). That drops the body
+    # to -1: D 12:4 ("Consider, and hear me... Enlighten my eyes") = KJV 13:3; D 12:5
+    # ("Lest at any time my enemy say: I have prevailed... They that trouble me") =
+    # KJV 13:4; D 12:6 ("But I have trusted in thy mercy... I will sing to the Lord...
+    # I will sing to the name of the Lord the most high") = KJV 13:5 ("...rejoice in
+    # thy salvation") + KJV 13:6 ("I will sing unto the LORD..."), a MERGE — so KJV
+    # 13:6 is a verified fold (its "I will sing" is the tail of D 12:6).
+    (12, 3): (13, 2),
+    (12, 4): (13, 3),
+    (12, 5): (13, 4),
+    (12, 6): (13, 5),
+    # --- Vulgate Ps 19 = KJV 20 -------------------------------------------------
+    # This Douay psalm has only 9 verses for a 9-verse KJV 20, but the Greek map
+    # (LXX Ps 19 = 10 verses) expects 10, so _psalm_map left KJV 20:9 with no Douay.
+    # The Vulgate MERGES KJV 20:8 + 20:9 into the single D 19:9 ("They are bound, and
+    # have fallen; but we are risen, and are set upright. O Lord, save the king: and
+    # hear us in the day that we shall call upon thee") — the first sentence = KJV
+    # 20:8 ("They are brought down and fallen: but we are risen, and stand upright"),
+    # the second = KJV 20:9 ("Save, LORD: let the king hear us when we call"). Map the
+    # trailing D 19:9 onto the trailing KJV 20:9 (resolving that empty slot); KJV 20:8
+    # then holds the verified merge-fold (its content is D 19:9's head).
+    (19, 9): (20, 9),
+    # --- Vulgate Ps 43 = KJV 44 -------------------------------------------------
+    # The Vulgate MERGES KJV 44:21 + 44:22 into D 43:22 ("Shall not God search out
+    # these things: for he knoweth the secrets of the heart. Because for thy sake we
+    # are killed all the day long: we are counted as sheep for the slaughter") — first
+    # clause = KJV 44:21, second = KJV 44:22. _psalm_map correctly puts D 43:22 -> 44:21
+    # but then runs the rest -1, putting the body one slot low (KJV 44:22 wrongly took
+    # D 43:23 "Arise, why sleepest thou"). Fix the tail +1: D 43:23 ("Arise, why
+    # sleepest thou, O Lord?") = KJV 44:23; D 43:24 = KJV 44:24; D 43:25 = KJV 44:25;
+    # D 43:26 ("Arise, O Lord, help us and redeem us for thy name's sake") = KJV 44:26
+    # (resolving that empty slot). KJV 44:22 ("Yea, for thy sake are we killed...") is
+    # then the verified merge-fold (its content is D 43:22's tail).
+    (43, 23): (44, 23),
+    (43, 24): (44, 24),
+    (43, 25): (44, 25),
+    (43, 26): (44, 26),
+    # --- Vulgate Ps 55 = KJV 56 -------------------------------------------------
+    # The Vulgate MERGES KJV 56:10 + 56:11 into D 55:11 ("In God will I praise the
+    # word, in the Lord will I praise his speech. In God have I hoped, I will not fear
+    # what man can do to me") — first sentence = KJV 56:10, second = KJV 56:11. So the
+    # body runs -1 from there: D 55:12 ("In me, O God, are vows to thee, which I will
+    # pay, praises to thee") = KJV 56:12 ("Thy vows are upon me, O God: I will render
+    # praises unto thee"); D 55:13 ("Because thou hast delivered my soul from death...
+    # in the light of the living") = KJV 56:13 (resolving that empty slot). KJV 56:11
+    # ("In God have I put my trust: I will not be afraid...") is the verified merge-
+    # fold (its content is D 55:11's tail).
+    (55, 12): (56, 12),
+    (55, 13): (56, 13),
+    # --- Vulgate Ps 108 = KJV 109 -----------------------------------------------
+    # A SPLIT + a compensating MERGE (counts stay 31=31, so the tail is otherwise 1:1).
+    # The Vulgate SPLITS KJV 109:16 into D 108:16 ("Because he remembered not to show
+    # mercy,") + D 108:17 ("But persecuted the poor man and the beggar; and the broken
+    # in heart, to put him to death") — together = KJV 109:16 ("Because that he
+    # remembered not to shew mercy, but persecuted the poor and needy man, that he
+    # might even slay the broken in heart"). It then MERGES KJV 109:17 + 109:18 into
+    # D 108:18 ("And he loved cursing, and it shall come unto him... And he put on
+    # cursing, like a garment: and it went in like water... like oil in his bones") =
+    # KJV 109:17 ("As he loved cursing, so let it come unto him...") + KJV 109:18 ("As
+    # he clothed himself with cursing... like water... oil into his bones"). Fix:
+    # D 108:17 -> KJV 109:16 (merge into 16) and D 108:18 -> KJV 109:17; identity then
+    # resumes (D 108:19 "like a garment which covereth him... a girdle" = KJV 109:19).
+    # KJV 109:18 is the verified merge-fold (its content is D 108:18's tail).
+    (108, 17): (109, 16),
+    (108, 18): (109, 17),
+    # --- Douay-only trailing verse (Vulgate count == KJV count, Douay has +1) --------
+    # The shared ``_psalm_map`` is built from the Swete Greek per-psalm counts, which
+    # match the Latin Vulgate AND the KJV for these three psalms; but the ENGLISH Douay
+    # carries ONE extra trailing verse (it splits the psalm's closing line in two). With
+    # no map key, that trailing Douay verse returned None and was DROPPED. Fold each onto
+    # the LAST KJV verse of the psalm (concatenated). The Latin Vulgate never has these
+    # verse numbers, so the overrides are harmless for the Vulgate driver. Verified by
+    # reading the Douay tail against the KJV:
+    #   Ps 42 = KJV 43: D 42:6 ("Hope in God, for I will still give praise to him: the
+    #     salvation of my countenance, and my God") = the tail of KJV 43:5 ("...for I
+    #     shall yet praise him, who is the health of my countenance, and my God").
+    (42, 6): (43, 5),
+    #   Ps 125 = KJV 126: D 125:7 ("But coming they shall come with joyfulness, carrying
+    #     their sheaves") = the tail of KJV 126:6 ("...shall doubtless come again with
+    #     rejoicing, bringing his sheaves with him").
+    (125, 7): (126, 6),
+    #   Ps 135 = KJV 136: D 135:27 ("Give glory to the Lord of lords: for his mercy
+    #     endureth for ever") = the tail of KJV 136:26 ("O give thanks unto the God of
+    #     heaven: for his mercy endureth for ever") -- the Douay's doubled doxology line.
+    (135, 27): (136, 26),
+}
 
 # Per-book verse-segment tables (source = Vulgate/Douay numbering -> canonical KJV),
 # each content-aligned by reading the ENGLISH Douay against the ENGLISH KJV at the
@@ -773,49 +893,585 @@ _VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {}
 # targets gets no Douay/Vulgate (the Vulgate folded it into a neighbour — like the
 # LXX cases). ``_HI`` = open upper bound. Chapters absent here map identity.
 _VULGATE_SEGMENTS: dict[str, dict[int, list[_Seg]]] = {
-    # ---- New Testament (verified Douay<->KJV, 2026-05-23) ----
-    "mat": {17: [(1, 14, 17, 1), (15, _HI, 17, 16)]},  # KJV 17:15 (the lunatic son) folded into Douay 17:14
-    "mrk": {
-        8: [(1, 38, 8, 1), (39, 39, 9, 1)],  # Douay 8:39 ("some standing here... taste death") = KJV 9:1
-        9: [(1, 49, 9, 2)],  # Douay 9:1-49 -> KJV 9:2-50 (KJV 9:1 supplied by Douay 8:39)
+    "1ch": {
+        # ch11 mighty-men list: the Vulgate MERGES KJV 11:32+11:33 into Douay 11:32
+        # (Douay 11:32 already lists Azmoth/Eliaba = KJV 11:33's "Azmaveth... Eliahba"),
+        # so KJV 11:33 folds into Douay 11:32. Then Douay 11:33 ("sons of Assem... Sage")
+        # = KJV 11:34, Douay 11:34+11:35 = KJV 11:35 (merge), and 11:36-45 resume
+        # identity. The tail 11:46/47 merge is the existing (46,_HI,11,47).
+        11: [
+            (1, 32, 11, 1),
+            (33, 33, 11, 34),
+            (34, 34, 11, 35),
+            (35, 35, 11, 35),
+            (36, 45, 11, 36),
+            (46, _HI, 11, 47),
+        ],
+        20: [(1, 6, 20, 1), (7, _HI, 20, 8)],  # composed
     },
-    "jhn": {6: [(1, 51, 6, 1), (52, 52, 6, 51), (53, _HI, 6, 52)]},  # KJV 6:51 split into Douay 6:51+6:52
+    "1es": {
+        1: [
+            (1, 9, 1, 1),
+            (10, 13, 1, 11),
+            (14, 15, 1, 14),
+            (16, 17, 1, 15),
+            (18, 51, 1, 16),
+            (52, _HI, 1, 49),
+        ],  # composed
+        2: [
+            (1, 1, 2, 1),
+            (2, 3, 2, 1),
+            (4, 6, 2, 2),
+            (7, 11, 2, 4),
+            (12, 12, 2, 8),
+            (13, 14, 2, 10),
+            (15, 20, 2, 11),
+            (21, 22, 2, 16),
+            (23, 25, 2, 17),
+            (26, 29, 2, 21),
+            (30, _HI, 2, 26),
+        ],  # composed
+        3: [(1, 14, 3, 1), (15, 16, 3, 14), (17, _HI, 3, 17)],  # composed
+        4: [(1, 9, 4, 1), (10, 10, 4, 11), (11, 32, 4, 11), (33, 33, 4, 34), (34, _HI, 4, 34)],  # composed
+        5: [
+            (1, 41, 5, 1),
+            (42, 54, 5, 41),
+            (55, 57, 5, 53),
+            (58, 58, 5, 57),
+            (59, 59, 5, 57),
+            (60, 72, 5, 57),
+            (73, _HI, 5, 71),
+        ],  # composed
+        6: [(1, 8, 6, 1), (9, _HI, 6, 8)],  # composed
+        8: [
+            (1, 43, 8, 1),
+            (44, 49, 8, 43),
+            (50, 56, 8, 50),
+            (57, 63, 8, 56),
+            (64, 65, 8, 62),
+            (66, 85, 8, 63),
+            (86, 86, 8, 84),
+            (87, 93, 8, 84),
+            (94, _HI, 8, 90),
+        ],  # composed
+    },
+    "1ma": {
+        # ch1 carries several Vulgate splits/merges vs KJV (all content-verified):
+        #  - KJV 1:4 = Douay 1:4+1:5 (merge); offset -1 through Douay 1:21=KJV1:20.
+        #  - KJV 1:20 = Douay 1:21 ("returned... against Israel") + 1:22 ("went up to
+        #    Jerusalem with a great multitude") (Vulgate SPLITS KJV 1:20).
+        #  - Douay 1:23 ("proudly entered the sanctuary... table of proposition...")
+        #    = KJV 1:21+1:22 (Vulgate MERGE); KJV 1:22 folds into Douay 1:23.
+        #  - Douay 1:24-31 = KJV 1:23-30; KJV 1:30 = Douay 1:31+1:32 (merge).
+        #  - KJV 1:35 = Douay 1:36+1:37 (merge); KJV 1:34 folds into Douay 1:35.
+        #  - KJV 1:45 = Douay 1:47+1:48 (merge).
+        #  - Douay 1:51 ("leave children uncircumcised... forget the law... change all
+        #    the justifications") = KJV 1:48+1:49; KJV 1:49 folds into Douay 1:51.
+        #  - Douay 1:52 ("whosoever would not... should be put to death") = KJV 1:50;
+        #    KJV 1:51 = Douay 1:53 ("wrote to his whole kingdom... rulers") + 1:54
+        #    ("commanded the cities of Juda to sacrifice") (merge). Offset -3 to end.
+        1: [
+            (1, 4, 1, 1),
+            (5, 21, 1, 4),
+            (22, 22, 1, 20),
+            (23, 23, 1, 21),
+            (24, 31, 1, 23),
+            (32, 35, 1, 30),
+            (36, 36, 1, 35),
+            (37, 47, 1, 35),
+            (48, 51, 1, 45),
+            (52, 52, 1, 50),
+            (53, 53, 1, 51),
+            (54, 54, 1, 51),
+            (55, _HI, 1, 52),
+        ],
+        12: [(1, 53, 12, 1), (54, _HI, 12, 53)],  # composed
+        13: [(1, 52, 13, 1), (53, _HI, 13, 52)],  # composed
+    },
+    "1ki": {
+        # ch22 Jehoshaphat reign-summary: the Vulgate SPLITS KJV 22:43 into two —
+        # Douay 22:43 ("walked in all the way of Asa... did right") = KJV 22:43a,
+        # Douay 22:44 ("Nevertheless he took not away the high places...") = KJV 22:43b
+        # (concatenated). From Douay 22:45 ("had peace with the king of Israel" =
+        # KJV 22:44) on, offset +1 to the chapter end (Douay 22:54 = KJV 22:53).
+        22: [(1, 43, 22, 1), (44, 44, 22, 43), (45, _HI, 22, 44)],
+    },
+    "1sa": {
+        20: [(1, 42, 20, 1), (43, _HI, 20, 42)],  # composed
+        # Vulgate breaks ch23/24 one verse early: Douay 24:1 ("Then David went up
+        # from thence, and dwelt in strong holds of Engaddi") = KJV 23:29; then
+        # Douay 24:2+ = KJV 24:1+ (the cave episode).
+        24: [(1, 1, 23, 29), (2, _HI, 24, 1)],
+    },
+    # NOTE: 1th ch4, 2th ch2 (and isa ch46) are DELIBERATELY left identity — see the
+    # comment over isa for why a shared per-source merge-fold segment is impossible here.
+    "2co": {
+        13: [(1, 12, 13, 1), (13, 13, 13, 14)],  # kept-encoded
+    },
+    "2ma": {
+        2: [(1, 18, 2, 1), (19, _HI, 2, 18)],  # composed
+        12: [(1, 45, 12, 1), (46, _HI, 12, 45)],  # composed
+        15: [(1, 36, 15, 1), (37, _HI, 15, 36)],  # composed
+    },
     "act": {
-        7: [(1, 55, 7, 1), (56, _HI, 7, 57)],  # KJV 7:56 folded into Douay 7:55
-        14: [(1, 6, 14, 1), (7, _HI, 14, 8)],  # KJV 14:7 folded into Douay 14:6
+        7: [(1, 55, 7, 1), (56, _HI, 7, 57)],  # restore prior act7
+        8: [(1, 7, 8, 1), (8, 8, 8, 7), (9, _HI, 8, 9)],  # D8:8=K8:7 fold; D8:9=K8:9 (K8:8 folded into D8:9)
+        14: [(1, 6, 14, 1), (7, _HI, 14, 8)],  # restore prior act14
     },
-    "2co": {13: [(1, 12, 13, 1), (13, 13, 13, 14)]},  # KJV 13:13 folded into Douay 13:12
-    "rev": {12: [(1, 17, 12, 1), (18, 18, 13, 1)]},  # Douay 12:18 ("stood on the sand") = KJV 13:1 head
-    # ---- Old Testament (verified Douay<->KJV, 2026-05-23) ----
+    "amo": {
+        6: [(1, 10, 6, 1), (11, 11, 6, 10), (12, _HI, 6, 11)],  # KJV 6:10 split into Douay 6:10+6:11
+    },
+    "bar": {
+        # ch3 SPLITS KJV 3:34 into two: Douay 3:34 ("the stars have given light in
+        # their watches, and rejoiced") = KJV 3:34a; Douay 3:35 ("They were called,
+        # and they said: Here we are... shined forth") = KJV 3:34b (concatenated).
+        # Then Douay 3:36-38 = KJV 3:35-37 (offset -1).
+        3: [(1, 34, 3, 1), (35, 35, 3, 34), (36, _HI, 3, 35)],
+    },
+    "dan": {
+        # ch3 runs to Douay 3:100 (additions 3:24-90 -> paz via _vulgate_cross). The
+        # post-furnace narrative resumes at Douay 3:91 ("Then Nabuchodonosor... was
+        # astonished... three men bound into the midst of the fire" = KJV 3:24) and runs
+        # to Douay 3:97 ("the king promoted Sidrach... in the province of Babylon" = KJV
+        # 3:30): Douay 3:91-97 -> KJV 3:24-30. The Vulgate then ENDS ch3 with the doxology
+        # KJV opens ch4 with: Douay 3:98 ("Nabuchodonosor the king, to all peoples,
+        # nations, and tongues... peace be multiplied" = KJV 4:1), 3:99 ("The most high
+        # God hath wrought signs and wonders toward me. It hath seemed good to me
+        # therefore to publish" = KJV 4:2), 3:100 ("His signs, because they are great...
+        # his kingdom is an everlasting kingdom... his power to all generations" = KJV
+        # 4:3). So Douay 3:98-100 -> KJV 4:1-3 (cross-chapter). vs 24-90 (Prayer of Azariah
+        # + Song of the Three) are routed to paz 1:1-67 by _vulgate_cross BEFORE this table
+        # runs, so there is deliberately no segment for them here.
+        3: [(1, 23, 3, 1), (91, 97, 3, 24), (98, 100, 4, 1)],
+        # ch4: the doxology (KJV 4:1-3) was consumed by Douay 3:98-100 above, so Douay ch4
+        # opens at the narrative KJV puts at 4:4 -- Douay 4:1 ("I, Nabuchodonosor, was at
+        # rest in my house, and flourishing in my palace" = KJV 4:4) -- a uniform +3 to
+        # Douay 4:34 ("Therefore I Nabuchodonosor do now praise... glorify the King of
+        # heaven... able to abase" = KJV 4:37). So Douay 4:1-34 -> KJV 4:4-37.
+        4: [(1, _HI, 4, 4)],
+        # ch5/ch6 are IDENTITY in this Douay digitization (verified by reading): Douay ch5
+        # carries 31 verses with Douay 5:31 ("And Darius the Mede succeeded to the kingdom,
+        # being threescore and two years old") = KJV 5:31 -- already KJV-aligned, NOT
+        # relocated to 6:1. Douay 6:1 ("It seemed good to Darius, and he appointed... a
+        # hundred and twenty governors") = KJV 6:1, ch6 runs 1-28 identity. No segment
+        # needed (absent chapters map identity).
+    },
+    "ecc": {
+        # The Vulgate carries an EXTRA trailing verse in ch4: Douay 4:17 ("Keep thy
+        # foot, when thou goest into the house of God") = KJV 5:1. (KJV ch4 ends at
+        # v16; "Keep thy foot" opens KJV ch5.) So ch4 is identity 1-16 + a tail to 5:1.
+        4: [(1, 16, 4, 1), (17, 17, 5, 1)],
+        # Consequently all of Douay ch5 is +1: Douay 5:1 ("Speak not any thing
+        # rashly... for God is in heaven") = KJV 5:2, ... Douay 5:19 = KJV 5:20.
+        5: [(1, _HI, 5, 2)],
+        7: [(1, 1, 6, 12), (2, _HI, 7, 1)],  # composed
+    },
+    "exo": {
+        # The English Douay-Rheims source here is ALREADY re-chaptered to the KJV
+        # layout for the tabernacle account (ch36/37 align identity; the LXX-deferral
+        # of exo36-39 is a Greek-Swete problem, NOT a Douay one). Only the metal-tally
+        # (ch38) and the priestly-vestments construction (ch39) have internal verse-
+        # division differences; both are MONOTONIC (no verse out of order) and resolve
+        # to clean fold/split segments. Read Douay-vs-KJV verse by verse to derive each.
+        #
+        # ch38 (metal tally): Douay & KJV both 31 verses. Douay 38:1-24 = KJV 38:1-24
+        # (gold). The Vulgate then DROPS the standalone silver-total sentence (KJV 38:25
+        # "the silver of them that were numbered... an hundred talents, and a thousand
+        # seven hundred and threescore and fifteen shekels") -- its figures resurface in
+        # Douay 38:26 (hundred talents) and 38:28 (1775) -- so KJV 38:25 is a fold.
+        # Douay 38:25 ("offered by them that went to be numbered, from twenty years
+        # old... six hundred and three thousand five hundred and fifty") = KJV 38:26
+        # (the census/bekah). KJV 38:27 (hundred talents -> sockets) is SPLIT into Douay
+        # 38:26 ("hundred talents of silver, whereof were cast the sockets") + 38:27
+        # ("hundred sockets... a talent for every socket"). Identity resumes Douay
+        # 38:28 = KJV 38:28 (the 1775 -> hooks/pillar-heads).
+        38: [
+            (1, 24, 38, 1),
+            (25, 25, 38, 26),
+            (26, 26, 38, 27),
+            (27, 27, 38, 27),
+            (28, _HI, 38, 28),
+        ],
+        # ch39 (vestments): Douay & KJV both 43 verses, but the breastplate/ephod
+        # construction is told at a wandering granularity. Douay 39:1-18 = KJV 39:1-18.
+        # The Vulgate then COMPRESSES the two ring-pairs: KJV 39:19 ("two rings of gold
+        # ... on the side of the ephod inward") + KJV 39:20 ("two other golden rings...
+        # over against the coupling") have no own Douay verse (folds) -- Douay 39:18-19
+        # paraphrase the binding -- so Douay 39:19 ("fastened to the girdle... violet
+        # fillet... lest they should flag loose") = KJV 39:21 (offset +2). That +2 holds
+        # to Douay 39:25 ("fine linen tunicks... for Aaron and his sons") = KJV 39:27.
+        # KJV 39:28 SPLITS into Douay 39:26 ("mitres... of fine linen") + 39:27 ("linen
+        # breeches of fine linen"), dropping the offset to +1. That +1 holds to Douay
+        # 39:37 ("altar of gold, ointment, incense") = KJV 39:38, then KJV 39:38 SPLITS
+        # into Douay 39:37 + 39:38 ("hanging in the entry of the tabernacle"), closing
+        # the offset to 0. Identity resumes Douay 39:39 = KJV 39:39 (brazen altar) to
+        # the chapter end (Douay 39:43 = KJV 39:43, Moses blesses them). Folds: KJV
+        # 39:19, 39:20. All KJV targets are non-decreasing -- a compression, not a reorder.
+        39: [
+            (1, 18, 39, 1),
+            (19, 19, 39, 21),
+            (20, 25, 39, 22),
+            (26, 26, 39, 28),
+            (27, 27, 39, 28),
+            (28, 37, 39, 29),
+            (38, 38, 39, 38),
+            (39, _HI, 39, 39),
+        ],
+        40: [(1, 12, 40, 1), (13, _HI, 40, 15)],  # composed
+    },
+    "eze": {
+        2: [(1, 8, 2, 1), (9, _HI, 2, 10)],  # composed
+    },
     "gen": {
-        49: [(1, 31, 49, 1), (32, 32, 49, 33)],  # KJV 49:32 (field purchase) folded into Douay 49:30
-        50: [(1, 22, 50, 1), (23, _HI, 50, 24)],  # KJV 50:23 (Machir) folded into Douay 50:22
+        49: [(1, 31, 49, 1), (32, 32, 49, 33)],  # KJV 49:32 (field purchase) folds into Douay 49:31; identity 1-31
+        50: [(1, 22, 50, 1), (23, _HI, 50, 24)],
     },
-    "jon": {2: [(1, 1, 1, 17), (2, _HI, 2, 1)]},  # Douay 2:1 ("great fish") = KJV 1:17 (cross-chapter)
-    "hag": {2: [(1, 1, 1, 15), (2, _HI, 2, 1)]},  # Douay 2:1 (24th-day date) = KJV 1:15 (cross-chapter)
-    "mic": {5: [(1, 11, 5, 1), (12, _HI, 5, 13)]},  # KJV 5:12 folded into Douay 5:11
-    "amo": {6: [(1, 10, 6, 1), (11, 11, 6, 10), (12, _HI, 6, 11)]},  # KJV 6:10 split into Douay 6:10+6:11
+    "hag": {
+        2: [(1, 1, 1, 15), (2, _HI, 2, 1)],  # composed
+    },
     "hos": {
-        6: [(1, 1, 6, 1), (2, 2, 6, 1), (3, 3, 6, 2), (4, _HI, 6, 4)],  # K6:1=D6:1+D6:2; K6:3 folded into D6:3
-        14: [(1, 1, 13, 16), (2, _HI, 14, 1)],  # Douay 14:1 ("Let Samaria perish") = KJV 13:16 (cross-chapter)
+        2: [(1, 23, 2, 1), (24, _HI, 2, 23)],  # composed
+        6: [(1, 1, 6, 1), (2, 2, 6, 1), (3, 3, 6, 2), (4, _HI, 6, 4)],  # kept-encoded
+        14: [(1, 1, 13, 16), (2, _HI, 14, 1)],  # kept-encoded
     },
-    "jer": {37: [(1, 4, 37, 1), (5, _HI, 37, 6)]},  # KJV 37:5 (Pharaoh's army) folded into Douay 37:4
+    "isa": {
+        8: [(1, 21, 8, 1), (22, _HI, 9, 1)],  # composed
+        9: [(1, 19, 9, 1), (20, 20, 9, 21), (21, _HI, 9, 21)],  # composed
+        # ch45: the Douay SPLITS the final KJV 45:25 ("In the LORD shall all the seed
+        # of Israel be justified, and shall glory") into two -- Douay 45:25 ("Therefore
+        # shall he say: In the Lord are my justices and empire; they shall come to him,
+        # and all that resist him shall be confounded") + Douay 45:26 ("In the Lord
+        # shall all the seed of Israel be justified and praised"). The Latin Vulgate
+        # has only 25 verses (45:25 = "In Domino justificabitur, et laudabitur omne
+        # semen Israel" = KJV 45:25), so the Vulgate never triggers the (26,...) seg.
+        # Without this, the trailing Douay 45:26 mapped out-of-extent and was DROPPED;
+        # the seg folds it onto KJV 45:25 (concatenated). Identity 1-25 otherwise.
+        45: [(1, 25, 45, 1), (26, _HI, 45, 25)],
+        # NOTE on isa46 / 1th4 / 2th2 (left DELIBERATELY identity, NO segment): in each
+        # of these three the Latin Vulgate has the SAME verse count as the KJV and is
+        # correctly identity-aligned, while the ENGLISH Douay carries one FEWER verse (a
+        # genuine merge in the Douay's own division — e.g. Douay isa 46:11 absorbs KJV
+        # 46:12's "Hear me, O ye hardhearted", Douay 1th 4:11 absorbs KJV 4:12, Douay
+        # 2th 2:10 absorbs KJV 2:11). A merge-fold segment that re-slots the Douay tail
+        # by +1 is correct for the Douay but WRONG for the Latin, because vulgate_to_kjv
+        # is a SINGLE shared adapter (no per-translation branch) and the Latin DOES carry
+        # those higher verse numbers — applying the shift would misplace the Latin body
+        # and DROP its real trailing verse (e.g. Latin isa 46:13 -> out-of-extent). Since
+        # the Latin (the larger source) already equals the KJV count, NEITHER source
+        # drops content under plain identity (the Douay's shorter count just folds its
+        # last verse onto the preceding KJV slot); only the Douay popups sit one slot off
+        # in the merge region. This is the documented benign-fold case (vs isa45, where
+        # the DOUAY is the larger source and its extra v26 WOULD drop -> a real fix above).
+        64: [(1, 1, 63, 19), (2, _HI, 64, 2)],  # composed
+    },
+    "jdg": {
+        5: [(1, 31, 5, 1), (32, _HI, 5, 31)],  # composed
+        21: [(1, 23, 21, 1), (24, _HI, 21, 25)],  # composed
+    },
+    "jer": {
+        37: [(1, 3, 37, 1), (4, _HI, 37, 5)],  # composed
+    },
+    "jhn": {
+        6: [(1, 51, 6, 1), (52, 52, 6, 51), (53, _HI, 6, 52)],  # KJV 6:51 split into Douay 6:51+6:52
+        10: [(1, 41, 10, 1), (42, 42, 10, 41)],  # D10:42=K10:41 fold (K10:42 folded into D10:42)
+    },
+    "jon": {2: [(1, 1, 1, 17), (2, _HI, 2, 1)]},  # Douay 2:1 (great fish) = KJV 1:17 (cross-chapter)
+    "job": {
+        16: [(1, 4, 16, 1), (5, _HI, 16, 4)],  # composed
+        39: [(1, 30, 39, 1), (31, _HI, 40, 1)],  # composed
+        40: [(1, 19, 40, 6), (20, _HI, 41, 1)],  # composed
+        41: [(1, _HI, 41, 10)],  # composed
+        42: [(1, 15, 42, 1), (16, _HI, 42, 17)],  # composed
+    },
+    "jos": {
+        4: [(1, 23, 4, 1), (24, _HI, 4, 23)],  # composed
+        5: [(1, 14, 5, 1), (15, _HI, 5, 14)],  # composed
+        21: [(1, 35, 21, 1), (36, 36, 21, 37), (37, _HI, 21, 39)],  # composed
+    },
+    "lev": {
+        # ch15: Douay & KJV both 33 verses; vv19-23 carry a verified split+fold (NOT mere
+        # wording -- each Douay verse below sits clearly on a KJV NEIGHBOUR, not its own
+        # slot). The Vulgate SPLITS KJV 15:19 -> Douay 15:19 ("woman... issue of blood...
+        # separated seven days") + 15:20 ("Every one that toucheth her, shall be unclean
+        # until the evening" = the KJV 15:19 tail). That makes Douay run -1: Douay 15:21
+        # ("every thing that she sleepeth/sitteth on... defiled") = KJV 15:20; 15:22 ("He
+        # that toucheth her bed shall wash his clothes") = KJV 15:21; 15:23 ("touch any
+        # vessel on which she sitteth, shall wash his clothes") = KJV 15:22. KJV 15:23
+        # ("if it be on her bed, or on any thing whereon she sitteth, when he toucheth it")
+        # is then folded (compressed into Douay 15:23), and identity resumes Douay 15:24 =
+        # KJV 15:24 (the man who lies with her).
+        15: [
+            (1, 18, 15, 1),
+            (19, 19, 15, 19),
+            (20, 20, 15, 19),
+            (21, 23, 15, 20),
+            (24, _HI, 15, 24),
+        ],
+        26: [(1, 44, 26, 1), (45, _HI, 26, 46)],  # composed
+    },
+    "lje": {
+        # The Letter of Jeremiah arrives as source BAR ch6, auto-split to project book lje
+        # ch1 (so Douay lje 1:N = source BAR 6:N). Two verified divergences (read Douay vs
+        # KJV at each):
+        #  - HEAD: KJV 1:1 is a standalone epistle heading ("A copy of an epistle, which
+        #    Jeremy sent unto them... as it was commanded him of God") the Douay does NOT
+        #    carry as its own verse; Douay opens at the body. So Douay 1:1 ("For the sins
+        #    that you have committed before God, you shall be carried away captives into
+        #    Babylon...") = KJV 1:2, a uniform +1. That +1 holds to Douay 1:41 (= KJV 1:42).
+        #  - MID merge: Douay 1:42 ("The women also with cords about them, sit in the ways,
+        #    burning olive stones.") + Douay 1:43 ("And when any one of them, drawn away by
+        #    some passenger, lieth with him, she upbraideth her neighbour... nor her cord
+        #    broken.") are the two halves of the single KJV 1:43 ("The women also with cords
+        #    ... sitting in the ways, burn bran... but if any of them, drawn by some that
+        #    passeth by, lie with him... nor her cord broken."). So Douay 1:42+1:43 -> KJV
+        #    1:43 (merge); offset drops to 0 and Douay 1:44-51 = KJV 1:44-51.
+        #  - MID fold: Douay 1:51 ("Whence therefore is it known that they are not gods, but
+        #    the work of men's hands, and no work of God is in them?") = KJV 1:51 ("And it
+        #    shall manifestly appear to all nations and kings that they are no gods, but the
+        #    works of men's hands, and that there is no work of God in them") -- the Douay
+        #    folds the short rhetorical KJV 1:52 ("Who then may not know that they are no
+        #    gods?") into this same verse, so KJV 1:52 is a verified fold. Offset returns to
+        #    +1: Douay 1:52 ("They cannot set up a king over the land, nor give rain to men")
+        #    = KJV 1:53, sustained +1 to the tail Douay 1:72 ("Better therefore is the just
+        #    man that hath no idols...") = KJV 1:73.
+        # Verified folds (no own Douay verse): KJV 1:1 (heading) and KJV 1:52.
+        1: [
+            (1, 41, 1, 2),
+            (42, 42, 1, 43),
+            (43, 43, 1, 43),
+            (44, 51, 1, 44),
+            (52, _HI, 1, 53),
+        ],
+    },
+    "mat": {
+        5: [(1, 3, 5, 1), (4, 4, 5, 5), (5, 5, 5, 4), (6, _HI, 5, 6)],  # D5:4=K5:5, D5:5=K5:4 (Beatitudes swap)
+        17: [(1, 14, 17, 1), (15, _HI, 17, 16)],  # composed
+    },
+    "mic": {
+        5: [(1, 11, 5, 1), (12, _HI, 5, 13)],  # KJV 5:12 folds into Douay 5:11
+    },
+    "mrk": {
+        4: [(1, 39, 4, 1), (40, _HI, 4, 41)],  # composed
+        8: [(1, 38, 8, 1), (39, _HI, 9, 1)],  # composed
+        9: [(1, _HI, 9, 2)],  # composed
+    },
+    "neh": {
+        3: [(1, 29, 3, 1), (30, _HI, 3, 31)],  # composed
+        # ch7 Levites/singers list: the Vulgate SPLITS KJV 7:43 across Douay 7:43
+        # ("children of Josue and Cedmihel, the sons") + 7:44 ("Of Oduia, seventy-
+        # four. The singing men:"), so Douay 7:44 = KJV 7:43 (merge). Then Douay
+        # 7:45 ("children of Asaph, 148") = KJV 7:44, 7:46 = KJV 7:45 (porters),
+        # 7:47 = KJV 7:46 (Nethinims), 7:48 ("Ceros... Lebana, Hagaba, Selmai") =
+        # KJV 7:47+7:48 (merge; KJV 7:48 folds into Douay 7:48). Identity resumes at
+        # Douay 7:49 = KJV 7:49. The 7:67/68 horses-merge tail is unchanged.
+        7: [
+            (1, 43, 7, 1),
+            (44, 44, 7, 43),
+            (45, 48, 7, 44),
+            (49, 67, 7, 49),
+            (68, 68, 7, 67),
+            (69, _HI, 7, 69),
+        ],
+        12: [(1, 32, 12, 1), (33, _HI, 12, 34)],  # composed
+    },
+    "num": {
+        # ch11: the Vulgate MERGES KJV 11:34 (Kibroth-hattaavah "graves of lust...
+        # buried the people that lusted") + KJV 11:35 (Hazeroth "departing from the
+        # graves of lust, they came unto Haseroth") into ONE Douay 11:34. So Douay
+        # 11:1-34 = KJV 11:1-34 (identity); KJV 11:35 is a verified fold (its Hazeroth
+        # clause is concatenated inside Douay 11:34, which can't be split back out).
+        11: [(1, 34, 11, 1)],
+        12: [(1, _HI, 12, 1)],  # identity (KJV 12:16 supplied cross-chapter by Douay 13:1)
+        13: [(1, 1, 12, 16), (2, _HI, 13, 1)],  # composed
+        # ch16: Douay & KJV both 50 verses; only the v42/43 boundary differs. KJV ends
+        # 16:42 with "the cloud covered it, and the glory of the LORD appeared" and makes
+        # "Moses and Aaron came before the tabernacle" its own 16:43. The Vulgate ends
+        # Douay 16:42 at the gathering ("when there arose a sedition, and the tumult
+        # increased") and folds BOTH the tabernacle-approach AND the cloud/glory into one
+        # Douay 16:43 ("Moses and Aaron fled to the tabernacle... the cloud covered it,
+        # and the glory of the Lord appeared"). So Douay 16:43 -> KJV 16:42 (merge), and
+        # KJV 16:43 is a verified fold (its clause is the head of Douay 16:43). Identity
+        # resumes Douay 16:44 = KJV 16:44 (the LORD spake to Moses).
+        16: [(1, 42, 16, 1), (43, 43, 16, 42), (44, _HI, 16, 44)],
+        # ch15: Douay & KJV both 41 verses, but vv11-21 are internally redistributed.
+        # The Vulgate SPLITS KJV 15:11 -> Douay 15:11 ("Thus shalt thou do:") + 15:12
+        # ("For every ox and ram and lamb and kid"); KJV 15:12 ("According to the
+        # number...") has no Douay (fold). It SPLITS KJV 15:13 -> Douay 15:13+15:14;
+        # KJV 15:14 (stranger sojourn) + 15:15 (one ordinance) fold (Douay abbreviates
+        # the stranger clauses to a single 15:15 = KJV 15:16). Then Douay 15:16 = KJV
+        # 15:17, and KJV 15:18 SPLITS -> Douay 15:17 ("Speak to the children") + 15:18
+        # ("When you are come into the land"). Identity resumes at Douay 15:19 = KJV
+        # 15:19. Net folds: KJV 15:12, 15:14, 15:15.
+        15: [
+            (1, 11, 15, 1),
+            (12, 12, 15, 11),
+            (13, 13, 15, 13),
+            (14, 14, 15, 13),
+            (15, 15, 15, 16),
+            (16, 16, 15, 17),
+            (17, 17, 15, 18),
+            (18, 18, 15, 18),
+            (19, _HI, 15, 19),
+        ],
+        20: [(1, 28, 20, 1), (29, _HI, 20, 28)],  # composed
+        # ch27 (Zelophehad's daughters): Douay & KJV both 23 verses; vv3-8 redistributed.
+        # The Vulgate MERGES KJV 27:3 ("died in his own sin... no sons") + KJV 27:4
+        # ("Why should the name... be done away... Give us a possession") into one Douay
+        # 27:3 (both clauses present) -> KJV 27:4 is a fold. Douay 27:4 = KJV 27:5
+        # (Moses brought their cause), 27:5 = KJV 27:6, 27:6 = KJV 27:7. Then KJV 27:8
+        # SPLITS -> Douay 27:7 ("thou shalt speak these things") + 27:8 ("When a man
+        # dieth without a son..."). Identity resumes at Douay 27:9 = KJV 27:9.
+        27: [
+            (1, 2, 27, 1),
+            (3, 3, 27, 3),
+            (4, 4, 27, 5),
+            (5, 5, 27, 6),
+            (6, 6, 27, 7),
+            (7, 7, 27, 8),
+            (8, 8, 27, 8),
+            (9, _HI, 27, 9),
+        ],
+        # ch29/30 (vows): Douay ch29 ends at v39; KJV 29:40 ("And Moses told the
+        # children of Israel according to all that the LORD commanded Moses") opens
+        # the Vulgate's ch30 as Douay 30:1 ("And Moses told the children of Israel all
+        # that the Lord had commanded him") -- a clean cross-chapter relocation. Then
+        # Douay 30:2 ("he said to the princes of the tribes...") = KJV 30:1, and the
+        # rest of ch30 runs at a uniform -1 offset (Douay 30:17 = KJV 30:16). This also
+        # supplies KJV 29:40, which Douay ch29 itself does not contain.
+        30: [(1, 1, 29, 40), (2, _HI, 30, 1)],
+    },
+    "rev": {
+        12: [(1, 17, 12, 1), (18, 18, 13, 1)],  # kept-encoded
+        20: [
+            (1, 6, 20, 1),
+            (7, 7, 20, 8),
+            (8, 9, 20, 9),
+            (10, _HI, 20, 10),
+        ],  # D20:7=K20:8 (K20:7 fold); D20:8+D20:9=K20:9 (concat); D20:10=K20:10
+    },
+    "sng": {
+        1: [(1, _HI, 1, 2)],  # composed
+        5: [(1, 16, 5, 1), (17, _HI, 6, 1)],  # composed
+        6: [(1, _HI, 6, 2)],  # composed
+    },
+    "wis": {
+        2: [(1, 24, 2, 1), (25, _HI, 2, 24)],  # composed
+        5: [(1, 13, 5, 1), (14, _HI, 5, 13)],  # composed
+        6: [(1, 1, 6, 1), (2, 22, 6, 1), (23, _HI, 6, 21)],  # composed
+        9: [(1, 18, 9, 1), (19, _HI, 9, 18)],  # composed
+        # ch17: the Vulgate MERGES KJV 17:9 ("though no terrible thing did fear
+        # them... hissing of serpents") + KJV 17:10 ("They died for fear, denying
+        # that they saw the air") into one Douay 17:9 (both clauses present). So
+        # Douay 17:1-9 = KJV 17:1-9 (KJV 17:10 folded into Douay 17:9), then Douay
+        # 17:10 ("wickedness is fearful") = KJV 17:11, offset +1 to Douay 17:20 =
+        # KJV 17:21 ("Over them only was spread a heavy night").
+        17: [(1, 9, 17, 1), (10, _HI, 17, 11)],
+        11: [(1, 5, 11, 1), (6, _HI, 11, 5)],  # composed
+        19: [(1, 11, 19, 1), (12, 19, 19, 13), (20, _HI, 19, 22)],  # composed
+    },
 }
 
 # Books whose Vulgate text is a DIFFERENT RECENSION (not the Greek the KJV Apocrypha
 # follows) -> no verse-by-verse KJV correspondence, so OMIT entirely (documented, like
 # the LXX deferred aes). Confirmed by content (Douay Tob 1:1 "Tobias of the tribe..."
 # vs KJV "The book of the words of Tobit...") + whole-book identity-overlap 0.16-0.24.
+# NOTE: ``wis`` is intentionally NOT in this set — the Vulgate Wisdom text matches
+# the KJV Apocrypha closely enough for verse-level correspondence; the table maps it.
 _VULGATE_OMIT: frozenset[str] = frozenset({"tob", "jdt", "sir"})
 
-_VULGATE_CROSS: dict[str, object] = {}  # code -> callable(ch,vs)->Coord|None for additions
+
+# Prayer of Azariah / Song of the Three (paz) from the Vulgate/Douay Daniel ch3
+# additions (dan 3:24-90). Per-verse segments in dan-ch3 source coords (src_lo,
+# src_hi, paz_ch | None, paz_v_lo): a source verse v in [lo,hi] -> paz (paz_v_lo +
+# (v - lo)); paz_ch None = omit. Jerome's Vulgate is a translation of Theodotion,
+# the SAME recension as the Swete Greek the LXX path encodes in _PAZ_FROM_DAT3, so
+# the BULK reuses that map verbatim: the prayer head dan 3:24-51 -> paz 1:1-28
+# (offset -23); dan 3:52 combines KJV paz 1:29+1:30 (1:30 gets no source -> a fold),
+# dropping the litany to offset -22; the angels/heavens swap (dan 3:58 angels ->
+# paz 1:37, dan 3:59 heavens -> paz 1:36); and the tail dan 3:74-90 -> paz 1:52-68
+# (offset -22, monotonic to the end). The clean -23 offset the prior code used was
+# WRONG in two ways: (a) it stopped at paz 1:67 (dan 3:90 "O all ye religious, bless
+# the Lord the God of gods" is KJV paz 1:68, not 1:67), and (b) it ignored the
+# Benedicite reorder entirely. TWO spots diverge from the Swete _PAZ_FROM_DAT3 and
+# get a Vulgate-specific tweak (each content-aligned by reading the ENGLISH Douay
+# against the ENGLISH KJV, confirmed by the _vg_verify_cross overlap harness):
+#   1. dan 3:54/3:55 are SWAPPED vs the Swete/KJV order. Douay 3:54 ("Blessed art
+#      thou on the throne of thy kingdom") = KJV paz 1:33; Douay 3:55 ("Blessed art
+#      thou, that beholdest the depths, and sittest upon the cherubims") = KJV paz
+#      1:32. (The Swete map runs 53-57 as a clean +0 offset; the Vulgate flips 54/55.)
+#   2. The cold/frost block dan 3:67-73 is NOT source-empty in the Vulgate (the Swete
+#      omits G67/G68) and carries its OWN permutation: Douay 3:67 ("cold and heat") =
+#      KJV paz 1:45 ("winter and summer"), 3:68 ("dews and hoar frosts") = 1:46 ("dews
+#      and storms of snow"), 3:69 ("frost and cold") = 1:50 ("frost and snow"), 3:70
+#      ("ice and snow") = 1:49 ("ice and cold"), 3:71 ("nights and days") = 1:47, 3:72
+#      ("light and darkness") = 1:48, 3:73 ("lightnings and clouds") = 1:51. So the
+#      Vulgate Benedicite is a complete bijection onto KJV paz 1:38-52 (no folds here),
+#      unlike the Swete (which leaves KJV paz 1:46 + 1:49 source-empty).
+# Net: every KJV paz 1:1-68 verse receives exactly one Douay/Vulgate verse EXCEPT KJV
+# paz 1:30 (folded into 1:29 via the dan 3:52 combine) -- the lone verified fold.
+_PAZ_FROM_VULGATE_DAN3: list[_Seg] = [
+    (24, 51, 1, 1),  # Prayer of Azariah -- offset -23 (reused from _PAZ_FROM_DAT3)
+    (52, 52, 1, 29),  # dan 3:52 = KJV 1:29+1:30 (1:30 unmapped -> fold); offset -> -22
+    (53, 53, 1, 31),  # litany head (temple)
+    (54, 54, 1, 33),  # "throne of thy kingdom" -- Vulgate-swapped with 1:32
+    (55, 55, 1, 32),  # "beholdest the depths / cherubims" -- Vulgate-swapped with 1:33
+    (56, 57, 1, 34),  # firmament, all-works
+    (58, 58, 1, 37),  # angels -- swapped with heavens (as in Swete)
+    (59, 59, 1, 36),  # heavens -- swapped with angels (as in Swete)
+    (60, 66, 1, 38),  # waters-above .. fire&heat (as in Swete)
+    (67, 67, 1, 45),  # "cold and heat" -> winter and summer (Vulgate has content here)
+    (68, 68, 1, 46),  # "dews and hoar frosts" -> dews and storms of snow
+    (69, 69, 1, 50),  # "frost and cold" -> frost and snow
+    (70, 70, 1, 49),  # "ice and snow" -> ice and cold
+    (71, 71, 1, 47),  # nights and days
+    (72, 72, 1, 48),  # light and darkness
+    (73, 73, 1, 51),  # lightnings and clouds
+    (74, 90, 1, 52),  # the earth .. all who worship -- offset -22, monotonic to paz 1:68
+]
+
+
+def _vulgate_cross(code: str, ch: int, vs: int) -> "Coord | None":
+    """Daniel additions inlined under the Vulgate/Douay 'dan' book relocate to
+    separate project books (content-verified vs the real Douay text, NOT memory --
+    see the _vg_verify_cross overlap harness):
+      - DAN 3:24-90 -> paz (Prayer of Azariah / Song of the Three) via the reordered
+        ``_PAZ_FROM_VULGATE_DAN3`` segments (Theodotion-recension Benedicite reorder;
+        a plain -23 offset is WRONG -- it stops at paz 1:67 and ignores the reorder).
+      - DAN 13      -> sus 1 (Susanna) for vs 1-64 (clean identity); the Vulgate's
+        trailing verse Douay dan 13:65 "And king Astyages was gathered to his fathers" is
+        the verse the KJV places at bel 1:1, so it is routed there (NOT dropped).
+      - DAN 14      -> bel 1 at a uniform +1 offset (Douay dan 14:1 "And Daniel was the
+        king's guest" = KJV bel 1:2; bel 1:1 'Astyages' comes from dan 13:65 above). The
+        Vulgate-only closing decree (Douay dan 14:42) maps past bel 1:42 -> drops.
+    The KJV-canonical Daniel verses (3:1-23, 3:91+, ch4-12) are handled by
+    _VULGATE_SEGMENTS['dan'] / identity, NOT here."""
+    if code != "dan":
+        return None
+    if ch == 3 and 24 <= vs <= 90:
+        for lo, hi, paz_ch, paz_v_lo in _PAZ_FROM_VULGATE_DAN3:
+            if lo <= vs <= hi:
+                return None if paz_ch is None else ("paz", paz_ch, paz_v_lo + (vs - lo))
+        return None
+    if ch == 13:
+        # dan 13:65 = the Astyages verse the KJV places at bel 1:1 (sus has only 64 v).
+        return ("bel", 1, 1) if vs == 65 else ("sus", 1, vs)
+    if ch == 14:
+        return ("bel", 1, vs + 1)
+    return None
 
 
 def vulgate_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
     """Map a Clementine-Vulgate / Douay coordinate (project book code) to canonical
-    KJV. ``None`` to omit (no canonical slot / out-of-extent). WORK IN PROGRESS —
-    Psalms reuse the LXX map; other divergent books are identity until their
-    content-verified segment tables land below."""
+    KJV. ``None`` to omit (no canonical slot / out-of-extent). Daniel additions ->
+    paz/sus/bel via ``_vulgate_cross``; Psalms reuse the LXX ``_psalm_map`` (+ the
+    ``_VULGATE_PSALM_FIXES`` Vulgate-only overrides); tob/jdt/sir omitted (divergent
+    recension); every other divergence is in the content-verified ``_VULGATE_SEGMENTS``
+    table (generated from the Copenhagen vul.json, then gate-verified vs the real Douay
+    text). Shared by douay + vulgate (the 14 count-divergent chapters use concat-tail
+    segments the shorter source never triggers)."""
+    cross = _vulgate_cross(code, ch, vs)
+    if cross is not None:
+        return cross if coord_in_canonical_extent(*cross) else None
     if code in _VULGATE_OMIT:
         return None  # different recension — no KJV-skeleton correspondence (documented)
     if code == "psa":

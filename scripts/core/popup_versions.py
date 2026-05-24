@@ -108,12 +108,12 @@ ALL_VERSION_IDS: tuple[str, ...] = tuple(VERSION_REGISTRY.keys())
 # Versions whose FULL data is ingested AND baked into the shared base
 # (epub_working/). Phase 1 baked kjv/wlc/lxx-greek (matching the recovered base);
 # Phase 2 added the full original-language spine — lxx-greek (Swete OT) and
-# greek-nt (Byzantine NT) — then the modern-translation spine: arabic (Van Dyck,
-# 66 books, KJV-aligned + 2 tail-merges) and jps (JPS 1917, 39 Tanakh books,
-# eBible-renumbered to KJV = pure identity). Each remaining version flips on here as
-# its full, versification-aligned PD data lands — seed-only data (e.g. the
-# Genesis-only douay/vulgate samples) is deliberately NOT baked.
-_BAKED_NOW: frozenset[str] = frozenset({"kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps"})
+# greek-nt (Byzantine NT) — then the modern/Latin-translation spine: arabic
+# (Van Dyck) + jps (JPS 1917), and douay + vulgate (table-driven Vulgate->KJV
+# versification from the Copenhagen mapping; tob/jdt/sir omitted as a divergent
+# recension). brenton-en is the remaining registry entry not yet baked (its full
+# data hasn't landed).
+_BAKED_NOW: frozenset[str] = frozenset({"kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps", "douay", "vulgate"})
 
 
 def bakes_now(version_id: str) -> bool:

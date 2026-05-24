@@ -6,6 +6,32 @@
 
 ---
 
+## 2026-05-23 — session — Douay-Rheims + Clementine Vulgate SHIPPED (TABLE-DRIVEN versification) — Phase-2 translation spine COMPLETE
+
+**Context:** the final two PD translations of the Phase-2 spine (`dev/PLAN_2026-05-21.md` §4.0). Spec `docs/superpowers/specs/2026-05-23-douay-vulgate-table-driven-design.md`; plan `docs/superpowers/plans/2026-05-23-douay-vulgate-table-driven.md`. Both share the Clementine/Septuagintal versification, so ONE shared `versification.vulgate_to_kjv` serves both. The prior plan (hand-aligning Douay-English↔KJV from weak ~0.5 word-overlap, chapter by chapter) was replaced by a **table-driven** method.
+
+**Method — generate from an authoritative table, verify against real text.** Candidate `_VULGATE_SEGMENTS` were generated from the Copenhagen Alliance versification mapping (`vul.json`), composed **vul→org→KJV** (inverting `eng.json` — `org≈KJV` is FALSE at the eng↔org delta loci, so the composition is essential). Then every book was driven to **SHIFTS=0** against the REAL eBible Douay via `_vg_verify.py` (Jaccard word-overlap; a verse aligning better to a KJV neighbour than its own slot = a real misalignment). The table is a PROPOSER, the gate is the ORACLE — the eBible Douay diverges from the idealized Vulgate, so ~half the books still needed text-alignment and the gate caught every composed error.
+
+**Corrections the gate forced (composed≠truth):** `gen49` reverted to the hand-verified fold (composed off-by-one); `exo36-39` is NOT a reorder in this Douay (already KJV-chaptered, clean monotonic folds — overturning the LXX-deferral assumption); `dan` 3:98-100→KJV 4:1-3 + ch4 +3 offset (ch5/6 already identity — the composed boundary was wrong); `lje` head-offset+mid-merge+fold (not a clean +1); `mat5` Beatitudes swap (D5:4↔K5:5); `lev15` a real −1 offset (the old "wording-noise" note was wrong; only `lev25:14` is noise); 20 `_VULGATE_PSALM_FIXES` for superscription/merge offsets (Vulgate-only — the shared `_psalm_map` is untouched).
+
+**Cross-book Daniel additions (no Douay source book — caught by content spot-check, NOT the gate):** `dan 3:24-90→paz`, `dan 13→sus`, `dan 14→bel`. `paz` needed the Theodotion Benedicite REORDER (reused the LXX `_PAZ_FROM_DAT3` structure + 2 Vulgate-specific tweaks: the 3:54/55 swap and the cold/frost block being a full bijection, not source-empty); `bel` a +1 offset (the Vulgate lacks the Greek Astyages intro) with KJV bel 1:1 routed from the Susanna tail (Douay dan 13:65); `sus` clean identity. SHIFTS=0 via a dedicated `_vg_verify_cross` harness.
+
+**Inclusion policy:** `wis` INCLUDED (table maps it, gate-confirmed); `tob/jdt/sir` OMITTED (different recension — `vul.json` independently has no mapping); Esther Greek additions auto-omit (out of KJV extent); the 14 Douay≠Vulgate count-divergent chapters handled by shared concat-tail segments (the shorter source never triggers the extra seg; `isa45` + 3 psalms fixed, the rest benign folds).
+
+**Result:** `vulgate-clementine` + `douay-rheims` stores — **74 books each / 33,343 + 33,344 verses**, 0 out-of-extent. Baked (`douay`+`vulgate` → `popup_versions._BAKED_NOW`; regen). Categorize-diff by aside-id (`_aside_compare`): **+31,867 `vnote-douay` + 31,866 `vnote-vulgate`** across 33,768 asides / 52 files, **0 mismatches on any other version** (kjv/wlc/lxx-greek/greek-nt/arabic/jps byte-identical) — purely additive.
+
+**Verification:** `ebible verify` errors=0 / 24,015 paired; **epubcheck catholic-study + anglican-bcp 0/0/0/0**; `lint_rules` 16/0/0; ruff clean; `tests/test_vulgate_douay_ingest.py` 153 + `test_popup_versions.py` 16 (bake-pin updated; unbaked-guard re-pointed to `brenton-en`) + `test_lxx_swete_ingest.py` 333 (no `_psalm_map` regression). Final independent code review: no Critical/Important findings beyond 3 cleanups (dead `dan` segment removed + 2 stale comments), all applied. **Residual:** 8 SHIFTS across bar/1ma/1ch/neh/lev/psa, each PROVEN a Hebrew↔Latin transliteration/clause-boundary false-positive of the Jaccard gate (e.g. `1ch 3:14` "Amen…Josias"=KJV "Amon…Josiah"; chapter 1:1 D=K so no re-segmentation is possible) — NOT misplacements; forcing them to 0 would misplace correct verses.
+
+**License/credit:** versification FACTS from the Copenhagen Alliance `versification-specification` (`vul.json`/`eng.json`, CC BY-SA 4.0) — used as factual reference + re-expressed in the repo's own `_VULGATE_SEGMENTS` (uncopyrightable facts, as with `canonical_verse_counts`); the source JSON is NOT vendored (kept in the repo parent, outside git) so the repo stays CC0. Credit: Copenhagen Alliance + UBS/SIL. Throwaway tooling (`_vg_gen.py`, `_vg_verify.py`, `_vg_verify_cross.py`, `_aside_compare.py`, `_vrs_*.json`) lives in the repo parent (outside git).
+
+**PHASE-2 TRANSLATION SPINE COMPLETE** — WLC · LXX-Swete · Greek-NT (Byzantine) · deuterocanon · Arabic · JPS · Douay · Vulgate all baked.
+
+**Follow-ups (logged, NOT this arc):** (1) **Phase E** — Clementine appendix Latin for `man`/`1es`/`2es` (the post-NT appendix the eBible + Tweedale digital sources both omit), CLEAN-DIGITAL-FIRST (la.wikisource / Bibliotheca Augustana; vision-OCR fallback), as step 1 of (2) a **shared vision-OCR engine** arc (generalize `manuscript_vision.py` to printed PDFs) that also powers the Ge'ez/Amharic bulk-ingest; (3) re-verify the already-shipped WLC/LXX/Arabic/JPS segments against the table for `gen49`-type errors. (`2es` especially wants the Latin — its Greek is lost, the Latin is the primary witness.)
+
+**Save tag (local only):** awaiting user "save".
+
+---
+
 ## 2026-05-23 — session — Translation spine: Arabic (Van Dyck) + JPS (1917) SHIPPED; reusable `apply_remap` extract-time remap+concat; JPS runbook-assumption refuted
 
 **Context:** the autonomous Phase-2 translation-spine finish (`dev/PLAN_2026-05-21.md` §4.0 item 1; runbook `docs/superpowers/specs/2026-05-23-translation-spine-arc.md`) — bake the last four PD translations (Arabic / JPS / Douay / Vulgate) into the verse-popup spine. This session shipped the two tractable ones (Arabic, JPS) + the shared infrastructure; Douay/Vulgate (the large content-alignment) is scoped + deferred to fresh context.
