@@ -31,6 +31,8 @@ user, the user wins for that turn — but the rule stays as written.
 
 Companion maps: `dev/MATRIX_MAP.md` (data-flow + base-HTML), `dev/REPO_MAP.md` (file/folder index), `dev/PLAN_2026-05-21.md` (roadmap), `dev/CHANGELOG.md` (shipped chronology).
 
+**Lifecycle companion: `dev/SESSION_PLAYBOOK.md`** — the order-of-operations guide (session start → work → **verify** → finish-clean) with the **consolidated verification gates** ("what passing checks means") + the consolidated environment/gotcha list in one place. Read it when you need the session-end checklist or the exact gate commands; this RULES file remains the topic-organized authority on each rule.
+
 ---
 
 ## 0. Bootstrap protocol — read these three files first

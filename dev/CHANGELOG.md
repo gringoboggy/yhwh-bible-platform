@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-24 (later) — book-code code-fix shipped + CC0 dedication + session playbook; phi/jam data-cleanup scoped
+
+**CC0 public-domain dedication (committed `637e793`).** Rewrote `LICENSE` + `COPYRIGHT.md` to dedicate the original editorial work + code to the public domain under **CC0 1.0 by Bogdan Zorlescu** (incorporated PD sources documented separately; counts refreshed 1,371→67,713). Resolves the E.license/E.copyright HIGH findings.
+
+**Book-code drift code-fix (committed `c41e6d2`).** Canonicalized `php→phi` / `jas→jam` (+ `jol→joe` / `mar→mrk` / `joh→jhn` in link_xrefs) across `core/detectors.py` (both `NT_BOOKS` sets), `run_greek/hebrew_at_scale.py` (book lists), and `link_xrefs.py` (name-map values); TDD regression guard in `test_corpus_chi1.py` (RED→GREEN: asserts canonical `phi`/`jam` in both detectors' `NT_BOOKS`). This **prevents recurrence** of the ★BUGCLUSTER. Discovery: a `_normalize_book_code` layer means some legacy aliases are intentional — the fix is per-site, not a blind replace.
+
+**phi/jam DATA-cleanup — attempted, reverted to keep the tree source↔build mint-consistent; scoped as one ATOMIC follow-up** (`dev/SESSION_PLAYBOOK.md` §7). The strip of the 165 spurious `lang-hebrew` notes is clean (AST-span removal → 1,815 pure deletions, verified); but Greek generation needs `--min-confidence 0.65` (→ 270 candidates, not the 0.7 default), `promote.py --promote-top` misbehaved (marked candidates promoted without inserting + a Hebrew-re-add quirk to debug), and `epub_working` needs a regen-from-base (inject is additive — won't prune orphaned asides). Because these must land atomically and the code-fix already prevents recurrence, the data correction is deferred.
+
+**NEW `dev/SESSION_PLAYBOOK.md`** — lifecycle-ordered (start → work → **verify** → finish-clean) companion to RULES, consolidating the verification gates ("what passing checks means") + the environment/gotcha list in one place. Wired into the bootstrap (RULES §0 companion line + SESSION_STATE map layer).
+
+---
+
 ## 2026-05-24 — session — deep audit (every-file sweep) COMPLETE + 17 verified safe-fixes + matrix mint-cert
 
 **Context:** the deferred heavy parallel-subagent audit (memory `feedback_audit_cadence`), resumed after an accidental session close mid-sweep. Full ledger: `dev/AUDIT_2026-05-23-DEEP.md`. Read-phase partitions A–H collected (100% of tracked code/doc/config covered; generated data stores sampled + validator-proven), every crit/high finding personally spot-verified, ~110 findings dispositioned. No new phases — cleanup + certification only; forward QUEUED backlog → `dev/PLAN_2026-05-21.md` §4.1.
