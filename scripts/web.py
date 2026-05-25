@@ -1536,6 +1536,8 @@ def api_customize_data() -> dict:
                 "verse_popup_style": e.get("verse_popup_style", "cards"),
                 # §4.4 — note/aside popup layout (chip default / pills).
                 "note_popup_style": e.get("note_popup_style", "chip"),
+                # §4.1 — inline marker style (numbers default; badge deferred).
+                "marker_style": e.get("marker_style", "numbers"),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),

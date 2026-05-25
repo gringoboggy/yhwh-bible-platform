@@ -39,6 +39,11 @@ def resync_glyphs(text: str) -> tuple[str, int]:
 
     def _fix_marker(m: re.Match) -> str:
         nonlocal changed
+        # Wave-3 numbered markers (class marker-num) hold a footnote number, not
+        # a category glyph — leave them alone (glyph_for("num") would be the ◇
+        # default and would overwrite the number).
+        if m.group(2) == "num":
+            return m.group(0)
         correct = glyph_for(m.group(2))
         if m.group(4) != correct:
             changed += 1
@@ -52,6 +57,10 @@ def resync_glyphs(text: str) -> tuple[str, int]:
 
     def _fix_back(m: re.Match) -> str:
         nonlocal changed
+        # Wave-3 back-links are a fixed ↩ (the category symbol moved into a
+        # sibling note-sym); never revert ↩ to the kind glyph.
+        if m.group(4) == "↩":
+            return m.group(0)
         kind = id_to_kind.get(m.group(2))
         if kind is None:
             return m.group(0)

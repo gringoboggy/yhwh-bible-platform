@@ -228,6 +228,66 @@ class TestResyncHtml:
         assert stats["asides"] == 1
 
 
+class TestFilteredEditionStaysGapless:
+    """Numbering is base-wide, so a filtered edition (which removes some kinds'
+    markers) would otherwise read 1,3,4,7… build_one renumbers the survivors
+    per chapter after filter_html, so EVERY edition reads 1,2,3… This pins the
+    composition build_one performs (filter → renumber)."""
+
+    def test_renumber_after_filter_closes_the_gaps(self):
+        from scripts.build_edition import filter_html
+        from scripts.resync_marker_glyphs import renumber_markers
+
+        def m(kind, n):
+            return (
+                f'<a class="note-ref note-{kind}" id="ref-x{n}" href="#note-x{n}" '
+                f'epub:type="noteref" title="T"><sup class="marker-num">{n}</sup></a>'
+            )
+
+        doc = (
+            _ch("b74", 1)
+            + "<p>"
+            + m("comm-x", 1)
+            + m("lang-y", 2)
+            + m("comm-x", 3)
+            + m("lang-y", 4)
+            + m("comm-x", 5)
+            + "</p>"
+        )
+        filtered, _ = filter_html(doc, {"comm-x"})  # disable comm-x → drop markers 1,3,5
+        renumbered, _ = renumber_markers(filtered)
+        # the two surviving lang-y markers (orig 2 and 4) now read 1 and 2
+        assert 'id="ref-x2" href="#note-x2" epub:type="noteref" title="T"><sup class="marker-num">1</sup>' in renumbered
+        assert 'id="ref-x4" href="#note-x4" epub:type="noteref" title="T"><sup class="marker-num">2</sup>' in renumbered
+        assert 'marker-num">3</sup>' not in renumbered  # no gap left behind
+
+
+class TestBuildAsideEmitsNewFormat:
+    """The ‖ fix is at the SOURCE (build_aside, spec §12.4) so a future inject
+    never re-introduces the stray back-link glyph — and build_aside's output
+    must stay byte-identical to what the re-bake tool's rewrite_asides produces,
+    or the base and freshly-injected notes would diverge."""
+
+    def test_build_aside_back_link_is_return_arrow_with_legend_symbol(self):
+        from scripts.inject import build_aside
+
+        out = build_aside("comm-patristic", "g0101", "Note.", "body.")
+        assert 'class="note-back" title="Back">↩</a>' in out
+        assert 'title="Back">◇</a>' not in out  # no stray category glyph as back-link
+        assert '<a class="note-sym" href="legend.xhtml#legend-comm"' in out
+        assert ">◇</a>" in out  # the symbol now lives in the note-sym
+
+    def test_build_aside_matches_rewrite_asides_byte_for_byte(self):
+        from scripts.inject import build_aside
+        from scripts.resync_marker_glyphs import default_cat_label, default_kind_to_cat, rewrite_asides
+
+        # The OLD-format aside the recovered base holds for this same note...
+        old = _aside("comm-patristic", "g0101", "◇", "Note.", "body.")
+        rebaked, _ = rewrite_asides(old, kind_to_cat=default_kind_to_cat(), cat_label=default_cat_label())
+        # ...must equal what the NEW build_aside emits directly.
+        assert build_aside("comm-patristic", "g0101", "Note.", "body.") == rebaked
+
+
 # ----------------------------------------------------------------------
 # categorize_diff — the verifier
 # ----------------------------------------------------------------------

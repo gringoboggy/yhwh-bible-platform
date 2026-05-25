@@ -142,6 +142,23 @@ def html_title_for(kind: str) -> str:
     return "Note"
 
 
+def category_for(kind: str) -> str:
+    """The category id a kind belongs to (e.g. ``xref-citation`` → ``xref``).
+    Registered kinds carry their ``category`` in kinds.yaml; for anything
+    unregistered the prefix before the first ``-`` IS the category id by
+    convention (kinds are ``{category}-{sub}``)."""
+    rec = config.kinds_by_code().get(kind)
+    if rec and rec.get("category"):
+        return rec["category"]
+    return kind.split("-", 1)[0]
+
+
+def category_label(cat: str) -> str:
+    """Human label for a category id (e.g. ``xref`` → ``Cross-references``)."""
+    rec = config.categories_by_id().get(cat)
+    return rec["label"] if rec else cat
+
+
 # ----------------------------------------------------------------------
 # HTML builders
 # ----------------------------------------------------------------------
@@ -174,10 +191,19 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
     legitimately contain inline markup (em / strong / a / sup /
     span etc.) so we whitelist; <script>, on* handlers, javascript:
     URLs, etc. are stripped. See scripts/core/html_sanitize.py for
-    the threat model and whitelist."""
+    the threat model and whitelist.
+
+    Wave-3 (spec §4.4/§12.4): the back-link is a fixed ↩ (the stray ‖ was the
+    `xref` category glyph leaking here as the back-link char), and the category
+    symbol moves INTO the note as a clickable link to its "A Guide to the Notes"
+    legend row (``legend.xhtml#legend-{category}``). Kept byte-identical to
+    ``resync_marker_glyphs.rewrite_asides`` so a freshly-injected note matches
+    the re-baked base."""
     from scripts.core.html_sanitize import sanitize_html
 
     glyph = glyph_for(kind)
+    cat = category_for(kind)
+    cat_label = category_label(cat)
     safe_body = sanitize_html(body_html)
     # Inline-only bodies keep the <p> wrapper (byte-identical to the historical
     # corpus); a body with its own block content uses a <div> flow container so
@@ -187,8 +213,9 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
     return (
         f'<aside class="note note-{kind}" id="note-{full_id}" '
         f'epub:type="footnote">\n'
-        f'  <{wrap}><a href="#ref-{full_id}" class="note-back" title="Back">'
-        f'{glyph}</a> <span class="note-label">{label}</span> '
+        f'  <{wrap}><a href="#ref-{full_id}" class="note-back" title="Back">↩</a>'
+        f' <a class="note-sym" href="legend.xhtml#legend-{cat}" title="{cat_label}">{glyph}</a>'
+        f' <span class="note-label">{label}</span> '
         f"{safe_body}</{wrap}>\n"
         f"</aside>\n"
     )

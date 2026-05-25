@@ -99,6 +99,31 @@ class TestResyncGlyphs:
         assert '<a href="#ref-x" class="note-back" title="Back">❖</a>' in out
         assert n == 2
 
+    def test_leaves_numbered_marker_untouched(self):
+        # After the Wave-3 re-bake the inline marker holds a footnote NUMBER
+        # (class marker-num), not a category glyph. glyph_for("num") would be
+        # the ◇ default — resync_glyphs must NOT overwrite the number with it.
+        from scripts.resync_marker_glyphs import resync_glyphs
+
+        out, n = resync_glyphs('<sup class="marker-num">5</sup>')
+        assert out == '<sup class="marker-num">5</sup>'
+        assert n == 0
+
+    def test_leaves_return_arrow_back_link_untouched(self):
+        # The Wave-3 back-link is a fixed ↩ (the category symbol moved into a
+        # sibling note-sym). resync_glyphs must not revert ↩ to the kind glyph.
+        from scripts.resync_marker_glyphs import resync_glyphs
+
+        text = (
+            '<aside class="note note-topic-nave" id="note-g0101a" epub:type="footnote">\n'
+            '  <p><a href="#ref-g0101a" class="note-back" title="Back">↩</a> '
+            '<a class="note-sym" href="legend.xhtml#legend-topic" title="Topical">✦</a> '
+            '<span class="note-label">Topic.</span> body</p>\n</aside>'
+        )
+        out, n = resync_glyphs(text)
+        assert 'class="note-back" title="Back">↩</a>' in out
+        assert n == 0
+
 
 class TestHtmlTitleDataDriven:
     def test_topic_uses_descriptive_title(self):

@@ -139,6 +139,11 @@ blockquote {
 .marker-word   { color: #8B6508; background: rgba(184, 134, 11, 0.14); }  /* dark goldenrod — Hebrew/Greek word */
 .marker-source { color: #A0202C; background: rgba(160, 32, 44, 0.13); }  /* crimson — textual variant */
 
+/* Wave-3 marker_style=numbers (spec §4.1): the inline marker is a sequential
+   footnote NUMBER, not a category glyph — a clean superscript with no tinted
+   pill (the pill + tofu risk is why the glyphs moved into the notes). */
+.marker-num { color: #5C2E91; background: none; padding: 0 0.1em; font-weight: 600; }
+
 .notes-section, .notes-rule { display: none; }
 .notes-heading { font-size: 1.2em; color: #0B3D91; text-align: left; margin: 0.5em 0 0.8em; page-break-before: avoid; }
 
@@ -148,6 +153,12 @@ blockquote {
 .note p { margin: 0; }
 .note-back { float: right; color: #8B6508; font-weight: 700; text-decoration: none; margin-left: 0.5em; opacity: 0.55; font-size: 1.05em; }
 .note-back:hover { opacity: 1; }
+
+/* Wave-3 symbols-into-notes (spec §4.4): the category symbol moved out of the
+   running text and into the note as a clickable link to its "A Guide to the
+   Notes" legend row. Subtle ink before the label; tap to jump to its key. */
+.note-sym { text-decoration: none; color: #6E5840; margin-right: 0.2em; font-size: 1.05em; }
+.note-sym:hover { color: #5C2E91; }
 
 /* Label as block header — small caps, slightly muted, sits above body. */
 .note-label { display: block; font-style: normal; font-variant-caps: small-caps; letter-spacing: 0.05em; font-weight: 700; font-size: 0.78em; color: #6E5840; margin: 0 0 0.35em 0; }

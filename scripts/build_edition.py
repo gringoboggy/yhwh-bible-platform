@@ -1353,6 +1353,16 @@ def apply_verse_popup_style(stylesheet_css: str, style: str) -> str:
 # note relocation + stray-‖ removal are base-HTML changes tracked under the
 # separate symbols-into-notes Wave-3 task — not this layout setting.)
 NOTE_POPUP_STYLES = {"chip", "pills"}
+
+# §4.1 marker_style — inline note markers. "numbers" (default): superscript
+# footnote numbers, one per note (the inline category glyph is dropped so
+# nothing renders as tofu). This is realized BASE-WIDE by the re-bake
+# (resync_marker_glyphs renumbers the shared base), so the field is currently
+# declarative — it records the builder's choice and is forward-compat. "badge"
+# (a verse-end count opening a per-verse note list) is DEFERRED (spec §4.1 —
+# injection point TBD), so it is intentionally NOT yet a valid value.
+MARKER_STYLES = {"numbers"}
+
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
 # chip. All EPUB-3-allowed (display / padding / border-radius / background).
@@ -1361,12 +1371,13 @@ _NOTE_POPUP_CHIP_CSS = """
 .note .note-label { display: inline-block; padding: 0.02em 0.5em; border-radius: 0.8em; background: rgba(91, 46, 140, 0.08); }
 """
 # Appended when note_popup_style == "pills": in-note cross-reference links
-# (every <a> inside a .note that is NOT the .note-back glyph) become bordered,
-# rounded, tappable pills. EPUB-3-allowed (display / padding / margin / border /
-# border-radius / text-decoration).
+# (every <a> inside a .note that is NOT the .note-back glyph and NOT the
+# .note-sym category-symbol link) become bordered, rounded, tappable pills.
+# EPUB-3-allowed (display / padding / margin / border / border-radius /
+# text-decoration).
 _NOTE_POPUP_PILLS_CSS = """
 /* === §4.4 note_popup_style=pills — in-note cross-references as tappable pills === */
-.note a:not(.note-back) { display: inline-block; padding: 0.02em 0.55em; margin: 0.08em 0.12em; border: 1px solid #B8860B; border-radius: 0.9em; text-decoration: none; }
+.note a:not(.note-back):not(.note-sym) { display: inline-block; padding: 0.02em 0.55em; margin: 0.08em 0.12em; border: 1px solid #B8860B; border-radius: 0.9em; text-decoration: none; }
 """
 
 
@@ -2800,6 +2811,14 @@ def build_one(
         if cover_applied:
             stats["cover_applied"] = cover_applied
 
+        # Wave-3 marker_style=numbers: the base is numbered base-wide, so a
+        # filtered edition (which drops some kinds' markers) would read 1,3,4,7…
+        # Renumbering the survivors per chapter after filter_html keeps every
+        # edition at 1,2,3…. The same renumber pass that numbered the base; it is
+        # idempotent on an unfiltered file, so the superset flagship's build is
+        # byte-identical to a pre-renumber build.
+        from scripts.resync_marker_glyphs import renumber_markers
+
         for html_path in tmp.glob("*.html"):
             text = html_path.read_text(encoding="utf-8")
             new_text, counts = filter_html(
@@ -2813,6 +2832,9 @@ def build_one(
             stats["id_markers_removed"] += counts.get("id_markers", 0)
             stats["id_asides_removed"] += counts.get("id_asides", 0)
             stats["vn_links_disabled"] += counts.get("vn_links_disabled", 0)
+
+            # Close the numbering gaps left by the kind/id filter above.
+            new_text, _ = renumber_markers(new_text)
 
             # Phases ν.2.5-B + ν.2.7-A run as a single pass over the
             # vnote asides — translation swap and language stripping

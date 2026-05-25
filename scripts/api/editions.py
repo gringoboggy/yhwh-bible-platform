@@ -506,6 +506,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "cover_template",
         "verse_popup_style",
         "note_popup_style",
+        "marker_style",
         "reader_toc_collapsible",
         "reader_toc_default_open",
         "enabled_reading_plans",
@@ -575,6 +576,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         "cover_template",
         "verse_popup_style",
         "note_popup_style",
+        "marker_style",
         # ψ.37-C: time_filter_ceiling — stored as text in YAML
         # ("null" or a year like "1900"); the YAML loader parses
         # unquoted digits into ints and "null"/empty into None.
@@ -649,6 +651,14 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if v and v not in NOTE_POPUP_STYLES:
             return {"error": (f"unknown note_popup_style: {v!r}; valid: {sorted(NOTE_POPUP_STYLES)}")}
         payload["note_popup_style"] = v
+
+    if "marker_style" in payload:
+        from scripts.build_edition import MARKER_STYLES
+
+        v = (payload["marker_style"] or "").strip()
+        if v and v not in MARKER_STYLES:
+            return {"error": (f"unknown marker_style: {v!r}; valid: {sorted(MARKER_STYLES)} (badge is deferred)")}
+        payload["marker_style"] = v
 
     if "cover_image" in payload:
         err = _validate_cover_path(payload["cover_image"])

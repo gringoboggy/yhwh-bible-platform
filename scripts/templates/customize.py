@@ -411,6 +411,13 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Inline marker style</span>
+              <select class="label-input w-full" data-field="marker_style" title="how the inline note marker renders in the running text">
+                <option value="numbers" ${(e.marker_style||'numbers') === 'numbers' ? 'selected' : ''}>numbers · superscript footnote numbers</option>
+                <option value="badge" disabled>badge · verse-end count (coming soon)</option>
+              </select>
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Chapter number decoration</span>
               <select class="label-input w-full" data-field="chapter_number_decoration" title="decorative wrappers around the chapter number">
                 <option value="plain"        ${(e.chapter_number_decoration||'plain') === 'plain' ? 'selected' : ''}>plain · 1</option>
