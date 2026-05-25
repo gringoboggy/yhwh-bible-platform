@@ -75,6 +75,12 @@ def main() -> None:
     ok, summary = run("verify", [PYTHON, "scripts/verify.py", "--quiet"], args.verbose)
     results.append(("verify (note pairing)", ok, summary))
 
+    # 1b. check_nested_anchors.py — JVM-free nested-<a> guard. Catches the
+    # invalid <a>-in-<a> markup (epubcheck RSC-005) in the base HTML without
+    # needing a build + Java, so the class can never silently regress.
+    ok, summary = run("nested-anchors", [PYTHON, "scripts/check_nested_anchors.py"], args.verbose)
+    results.append(("nested <a> (RSC-005 guard)", ok, summary))
+
     # 2. validate_taxonomy.py
     ok, summary = run("taxonomy", [PYTHON, "scripts/validate_taxonomy.py"], args.verbose)
     results.append(("validate taxonomy", ok, summary))

@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-25 — EPUBCHECK CLEAN: nested-`<a>` (746 RSC-005) + a surfaced RSC-001 fixed
+
+The #1 CRITICAL handoff item (746 epubcheck RSC-005 nested-`<a>` errors, demo-affecting). The inherited root cause was **re-verified and refuted**; clearing the real cause then **unmasked** a second pre-existing error. catholic-study epubcheck went 1-error → **0/0/0/0**. Not yet committed (awaiting save).
+
+- **Nested-`<a>` (746 RSC-005) FIXED — root cause corrected.** The state docs blamed a `generate_verse_popups.py` `vchunk` over-scope. Refuted by reproduction + reading the bytes: `wrap_verse_number` only ever wraps the bare `<span class="vn">` needle (byte-identical at bake commit `b0bf913`), `inject.find_verse_region` matches only the clean span-only wrapper, and the offending word-study `note-ref`s aren't in `content/notes/`. Neither the baker nor inject creates the nesting — it is a **static artifact in the recovered base** (v28a-50 snapshot). Scope = 746 `note-ref`-nested-inside-`vn-link` across **8 files** (psa 033/034/035 · sir 038 · isa 040 · jer 042 · 2co+phi 058 · 1ti+jam 059), not the 2 the banner named. NEW `scripts/check_nested_anchors.py`: stdlib `html.parser` open-tag-stack detector + a byte-exact regex repair relocating each note-ref to a sibling *before* the `vn-link` (glyph order preserved). `--fix` → 746→0; byte-multiset conserved per file (pure reorder); only those 8 files changed. JVM-free `nested <a>` gate wired into `scripts/ship-check.py` (passes on clean base, exit-1 on broken). `tests/test_nested_anchors.py` (10, incl. a committed-base regression gate). 63 popup/presentation tests still green.
+- **RSC-001 `introduction.xhtml` FIXED (Phase-1 regression, surfaced by clearing the 746).** `build_edition._drop_placeholder_introduction` deleted the file + spine itemref but its manifest-item regex used `[^/]*`, which cannot cross the `application/xhtml+xml` slash → the manifest `<item>` survived → dangling reference to a deleted file. Fix `[^/]*`→`[^>]*`; added a fast unit test + **strengthened** `test_placeholder_introduction_dropped` (it asserted only the spine itemref + zip membership, missing the manifest item — the false-confidence gap that let this ship under a green Phase-1, which ran no epubcheck).
+- **VERIFIED:** rebuilt catholic-study → epubcheck **0 fatals / 0 errors / 0 warnings / 0 infos** (RSC-005=0, RSC-001=0); `ruff format --check .` clean. Touched: `scripts/check_nested_anchors.py` (NEW) · `scripts/ship-check.py` · `scripts/build_edition.py` · `tests/test_nested_anchors.py` (NEW) · `tests/test_presentation_polish.py` · 8× `epub_working/index_split_*.html`.
+
+---
+
 ## 2026-05-24 (latest 10) — Track C scope-cap + EPUB presentation overhaul (design approved, spec written)
 
 Two doc/design items this session; no code shipped (implementation follows after the user's `/clear`).

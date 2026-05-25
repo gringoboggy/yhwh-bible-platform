@@ -1879,9 +1879,12 @@ def _drop_placeholder_introduction(tmp: Path) -> None:
     opf_path = tmp / "content.opf"
     if opf_path.is_file():
         opf = opf_path.read_text(encoding="utf-8")
-        # Remove manifest item (matches any media-type variant)
+        # Remove manifest item (matches any media-type variant). NB: use
+        # [^>]* not [^/]* — the media-type "application/xhtml+xml" contains a
+        # '/', so [^/]* stops at it and leaves the item behind (→ a dangling
+        # reference to the deleted file = epubcheck RSC-001).
         opf = re.sub(
-            r'\n?\s*<item id="introduction" href="introduction\.xhtml"[^/]*/>\n?',
+            r'\n?\s*<item id="introduction" href="introduction\.xhtml"[^>]*/>\n?',
             "\n",
             opf,
         )

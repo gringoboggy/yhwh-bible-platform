@@ -398,6 +398,39 @@ class TestFrontMatterConsolidation:
                 "introduction itemref still in built content.opf spine — "
                 "_drop_placeholder_introduction may not have run"
             )
+            assert 'href="introduction.xhtml"' not in opf_text, (
+                "introduction manifest <item> still in built content.opf — "
+                "dangling reference to a removed file → epubcheck RSC-001"
+            )
+
+    def test_drop_introduction_removes_manifest_item(self, tmp_path):
+        """The manifest <item> (not just the spine itemref) must be removed —
+        its media-type ``application/xhtml+xml`` contains a '/', so a naive
+        ``[^/]*`` pattern stops at that slash and leaves the item behind,
+        dangling at a now-deleted file (epubcheck RSC-001)."""
+        from scripts.build_edition import _drop_placeholder_introduction
+
+        opf = tmp_path / "content.opf"
+        opf.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>\n<package><manifest>\n'
+            '    <item id="introduction" href="introduction.xhtml" media-type="application/xhtml+xml"/>\n'
+            '    <item id="about" href="about.xhtml" media-type="application/xhtml+xml"/>\n'
+            "  </manifest>\n  <spine>\n"
+            '    <itemref idref="introduction"/>\n'
+            '    <itemref idref="about"/>\n'
+            "  </spine>\n</package>\n",
+            encoding="utf-8",
+        )
+        (tmp_path / "introduction.xhtml").write_text("<html/>", encoding="utf-8")
+
+        _drop_placeholder_introduction(tmp_path)
+
+        result = opf.read_text(encoding="utf-8")
+        assert "introduction.xhtml" not in result, "manifest item to introduction.xhtml survived"
+        assert 'idref="introduction"' not in result, "spine itemref survived"
+        # neighbouring entries must be untouched
+        assert 'href="about.xhtml"' in result and 'idref="about"' in result
+        assert not (tmp_path / "introduction.xhtml").exists()
 
     def test_about_manifest_registered(self, tmp_path, monkeypatch):
         """FIX 4: about.xhtml must be registered in the OPF manifest."""
