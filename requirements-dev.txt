@@ -1,0 +1,15 @@
+# Dev + CI tooling — NOT runtime deps. The app itself runs on requirements.txt
+# (one dep: PyYAML). Install these for local development + the `make ci` gate:
+#
+#     pip install -r requirements-dev.txt
+#
+# Declared here so the CI / coverage tooling is reproducible and installing it
+# is not an "agent-chosen undeclared package" (CLAUDE_PROJECT_RULES §0 install
+# guard). mypy + ruff typically ship in the dev environment already; `coverage`
+# is the one `make ci` needs in order to enforce the coverage floor (until it's
+# installed, the floor step skips with a hint).
+
+pytest>=8.0,<10        # test runner (`make test`, `make ci`)
+ruff>=0.6,<1           # formatter + linter (`make ci`: format --check + check)
+mypy>=1.8,<3           # type checker (scripts/audit_types.py, `make ci`)
+coverage>=7.0,<8       # test-coverage measurement + floor (`make coverage`, `make ci`)

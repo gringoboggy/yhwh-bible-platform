@@ -4,7 +4,7 @@
 
 .PHONY: help status doctor build build-force ship ship-full audit test repl watch \
         inject manifest quality clean cleanup epubcheck \
-        commit-ready
+        commit-ready ci ci-fast
 
 # Default target — show the available recipes
 help:
@@ -65,3 +65,15 @@ cleanup:
 # "ready to commit" — runs ship-check + tests, exits non-zero on failure
 commit-ready: ship test
 	@echo "✓ ship-check + tests passed. Safe to commit."
+
+# W4.5 — local CI gate: ruff format-check · ruff check (report) · lint_rules ·
+# mypy (typed surface) · pytest · coverage floor. Composes the blocking gates
+# into one command (no git remote yet, so CI runs locally). Exits non-zero if
+# any blocking gate fails. The coverage floor activates once `coverage` is
+# installed (pip install -r requirements-dev.txt).
+ci:
+	@python scripts/ci.py
+
+# Fast pre-edit gate: everything except the test suite + coverage.
+ci-fast:
+	@python scripts/ci.py --no-tests

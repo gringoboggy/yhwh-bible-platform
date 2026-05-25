@@ -6,6 +6,21 @@
 
 ---
 
+## 2026-05-25 (cont.) — Wave 4 W4.5 (local CI gate + mypy clean + coverage floor) — WAVE 4 COMPLETE
+
+The final Wave-4 piece — solo-maintainability gates (no git remote yet, so CI runs locally via `make`).
+
+- **mypy now clean on the typed surface.** `scripts/audit_types.py` reported 13 errors, all in `scripts/inject.py:688-807` — one root cause: the `stats` bookkeeping dict (int counters + list accumulators) widened to `dict[str, object]`, so every `+= 1` / `.append()` was a type error. Fixed with a `stats: dict[str, Any]` annotation (annotation-only — runtime-identical; `inject` tests 13/13 unchanged). mypy is now a green BLOCKING gate.
+- **NEW `scripts/ci.py`** — the local CI gate (RULES §9 meta-tool: `run_all() -> {checks, summary}` + thin `main()`, injectable runner). Composes: `ruff format --check` (blocking) · `ruff check` (report-only — the project keeps a visible lint backlog) · `lint_rules` (blocking) · mypy via `audit_types` (blocking) · `pytest` (blocking) · a coverage floor (blocking **iff** `coverage` is installed, else a skipped warn with an install hint). Exits 0 only when every blocking gate passes. `tests/test_ci.py` (6, injected-runner — no real subprocesses).
+- **`make ci`** (full gate) + **`make ci-fast`** (`--no-tests`: format · lint · rules · mypy).
+- **NEW `requirements-dev.txt`** — declares the dev/CI tools (pytest, ruff, mypy, coverage) so installing them isn't an "agent-chosen undeclared package" (§0 install guard) and the coverage floor is reproducible. `coverage` is the one tool not yet installed; the floor activates after `pip install -r requirements-dev.txt`.
+
+**Verified:** `ci.py --no-tests` → CLEAN (format ✓ · lint warn/non-blocking · lint_rules 16/0/0 · mypy ✓ no type errors) · `test_ci.py` 6/6 · `inject` tests 13/13 · ruff clean on the new files.
+
+**▶ Wave 4 COMPLETE** (W4.1 frozen-build · W4.2 build-cap · W4.3 welcome-flow · W4.4 README+release · W4.5 CI/mypy/coverage). Per `dev/PLAN_2026-05-24-end-scope.md` the autonomous productionization stream is done; remaining end-scope work is the parallel Track B (manuscript marathon) + Track C (corpus), plus the [USER] real-reader presentation eyeball.
+
+---
+
 ## 2026-05-25 (cont.) — Wave 4 W4.4 (distribution README + release artifact) + W4.3 empty-state
 
 **W4.3 tail — `/export` no-editions empty-state.** Closed the last W4.3 gap: when `/api/matrix` returns no editions, the build console points the user to the wizard (DOM nodes, no `innerHTML`) instead of a dead "— loading —" select. `tests/test_build_ui_guardrails.py` → 5; browser-confirmed `/export` still renders + populates (0 JS errors). The separate persistent "getting-started card" is treated as subsumed by the first-run welcome overlay (a second always-on nudge would be redundant).
