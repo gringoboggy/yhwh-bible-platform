@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 3 prereq #3: marker re-bake transformer + categorize-diff verifier
+
+The last infrastructure prereq before the re-bake-dependent Wave-3 features. `scripts/resync_marker_glyphs.py` was documented as "does NOT exist," but it ALREADY EXISTED (the data-driven glyph/tooltip resync `resync_glyphs`/`resync_titles`, 17 tests) — prereq #3 EXTENDED it rather than overwriting, and that stale doc claim is corrected here. No corpus / no output change this commit (dry-run only; the actual base re-bake lands with features #4–#5). Gates: `tests/test_resync_markers.py` 20 + existing `test_marker_glyphs.py` 17 green · `lint_rules` 16/0/0 · ruff clean.
+
+- **`renumber_markers` / `rewrite_asides` / `resync_html` added to `scripts/resync_marker_glyphs.py`.** `renumber_markers` replaces each inline marker's category `<sup>` glyph with a per-chapter sequential footnote number (the counter resets at every `id="ch-bNN-cN"` heading; an aside cross-ref href `…#ch-…` does NOT reset it, lacking the `id="` prefix), dropping the inline glyph so nothing renders as tofu on a reader missing the symbol. `rewrite_asides` rewrites each aside's back-link to a fixed `↩` (killing the stray `‖` — the `xref` category glyph that was leaking as the back-link char) and moves the category symbol INTO the note as a clickable `<a class="note-sym" href="legend.xhtml#legend-{cat}">` link to its "A Guide to the Notes" legend row. Both idempotent. Added a `--rebake-numbers [--write]` CLI mode + `default_kind_to_cat`/`default_cat_label` config defaults. The pre-existing `resync_glyphs`/`resync_titles` are untouched.
+- **NEW `scripts/categorize_diff.py` — the categorize-diff verification technique.** `categorize` snapshots the baked note inventory (per-kind marker/aside counts + id→kind maps); `prove_marker_rebake(before, after)` proves a re-bake changed ONLY the intended regions: identical marker/aside id-sets (nothing added/dropped), identical id→kind maps (nothing recategorized), and byte-identical everywhere outside the blanked `<sup>` + back-link/note-sym regions. Returns `{"ok", "reason", …}`; the transformer self-verifies each file through it.
+- **Real-data smoke (read-only):** a dry-run `--rebake-numbers` over the base transformed **69,811 markers + 69,811 asides across 60 files** and the verifier ACCEPTED every file, with **zero writes**. The marker==aside parity confirms structural consistency.
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 3 prereqs 1–2: MATRIX_MAP presentation settings + build_edition → matter_pages split
 
 Infrastructure for the re-bake-dependent Wave-3 features (marker_style, symbols-into-notes, Nave's index). Prereqs #1–#2 of 3; prereq #3 (`resync_marker_glyphs` + categorize-diff verifier) and the features are the next stage (post-/clear). No corpus / no output change — a docs update + a verbatim code move. Gates: `lint_rules` 16/0/0 · ruff clean · `test_presentation_polish.py` 35/35 (identical to the pre-split baseline) · catholic-study rebuilt → epubcheck 0/0/0/0 · smoke-import confirms no circular import and that the re-exports are the same objects.

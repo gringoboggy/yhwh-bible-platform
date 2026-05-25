@@ -84,6 +84,146 @@ def resync_titles(text: str) -> tuple[str, int]:
     return _MARKER_TITLE_RE.sub(_fix, text), changed
 
 
+# ----------------------------------------------------------------------
+# Wave-3 re-bake: marker_style=numbers + symbols-into-notes (spec §4.1/§4.4/§12.4)
+#
+# A DISTINCT, one-time transform from the glyph/title resync above. ``inject.py``
+# runs base-wide, so the markers already baked carry the OLD presentation (inline
+# category glyph in the <sup>; the category glyph reused as the aside back-link —
+# the stray ‖). These functions rewrite the base in place to:
+#   marker:  <sup class="marker-{kind}">{glyph}</sup> → <sup class="marker-num">{N}</sup>
+#            (N = per-chapter sequential footnote number; inline glyph dropped → no tofu)
+#   aside :  ...title="Back">{glyph}</a> → ...title="Back">↩</a>
+#              <a class="note-sym" href="legend.xhtml#legend-{cat}" title="{label}">{glyph}</a>
+#            (fixed ↩ back-link; the category symbol moves INTO the note as a
+#            clickable link to its "A Guide to the Notes" legend row)
+# ----------------------------------------------------------------------
+
+# A chapter-heading anchor — the numbering reset boundary. Only ``id="ch-…"``
+# headings match; an aside cross-ref href ("…#ch-b73-c1") does NOT (it lacks the
+# ``id="`` prefix), so a mid-chapter cross-reference can never restart the count.
+_CH_ANCHOR_RE = re.compile(r'id="ch-b\d+-c\d+"')
+
+# A full inline marker. The <a> head (through its closing '>'), the kind, and the
+# <sup> glyph are captured; only the <sup> is rewritten so every attribute on the
+# anchor (id / href / epub:type / title / note-{kind}) survives byte-for-byte.
+_NUM_MARKER_RE = re.compile(
+    r'(?P<head><a class="note-ref note-(?P<kind>[^"]+)" id="ref-(?P<id>[^"]+)"[^>]*>)'
+    r'<sup class="marker-[^"]*">(?P<glyph>[^<]*)</sup>'
+    r"(?P<tail></a>)"
+)
+
+# An aside's back-link (the first child of the note body). The negative lookahead
+# keeps the rewrite idempotent: once a ``note-sym`` has been appended the back-link
+# is skipped on subsequent runs.
+_ASIDE_BACK_RE = re.compile(
+    r'(?P<pre><aside class="note note-(?P<kind>[^"]+)" id="note-(?P<id>[^"]+)" '
+    r'epub:type="footnote">\s*<(?:p|div)>'
+    r'<a href="#ref-(?P=id)" class="note-back" title="Back">)'
+    r"(?P<glyph>[^<]*)"
+    r'(?P<post></a>)(?! <a class="note-sym")'
+)
+
+
+def renumber_markers(text: str) -> tuple[str, int]:
+    """Replace each inline marker's category ``<sup>`` glyph with a sequential
+    footnote number, resetting the counter at every chapter heading. Returns
+    ``(new_text, markers_renumbered)``. Idempotent (numbers are stable)."""
+    chapter_pos = [m.start() for m in _CH_ANCHOR_RE.finditer(text)]
+    n_ch = len(chapter_pos)
+    out: list[str] = []
+    last = 0
+    counter = 0
+    ch_idx = 0
+    count = 0
+    for m in _NUM_MARKER_RE.finditer(text):
+        while ch_idx < n_ch and chapter_pos[ch_idx] <= m.start():
+            counter = 0  # crossed into a new chapter
+            ch_idx += 1
+        counter += 1
+        count += 1
+        out.append(text[last : m.start()])
+        out.append(f'{m.group("head")}<sup class="marker-num">{counter}</sup>{m.group("tail")}')
+        last = m.end()
+    out.append(text[last:])
+    return "".join(out), count
+
+
+def rewrite_asides(text: str, *, kind_to_cat: dict, cat_label: dict) -> tuple[str, int]:
+    """Rewrite each aside's back-link to a fixed ↩ and move the category symbol
+    into the note as a clickable ``legend.xhtml#legend-{cat}`` link. Returns
+    ``(new_text, asides_rewritten)``. Idempotent (the note-sym lookahead guards
+    a second pass)."""
+    count = 0
+
+    def _sub(m: re.Match) -> str:
+        nonlocal count
+        count += 1
+        kind = m.group("kind")
+        cat = kind_to_cat.get(kind, "?")
+        glyph = m.group("glyph")
+        label = cat_label.get(cat, cat)
+        return (
+            m.group("pre")
+            + "↩"
+            + m.group("post")
+            + f' <a class="note-sym" href="legend.xhtml#legend-{cat}" title="{label}">{glyph}</a>'
+        )
+
+    return _ASIDE_BACK_RE.sub(_sub, text), count
+
+
+def resync_html(text: str, *, kind_to_cat: dict, cat_label: dict) -> tuple[str, dict]:
+    """Apply both Wave-3 transforms (renumber markers, then rewrite asides)."""
+    text, m = renumber_markers(text)
+    text, a = rewrite_asides(text, kind_to_cat=kind_to_cat, cat_label=cat_label)
+    return text, {"markers": m, "asides": a}
+
+
+def default_kind_to_cat() -> dict:
+    """kind code → category id, from kinds.yaml (production default)."""
+    from scripts.core import config
+
+    return {k["code"]: k.get("category", "?") for k in config.load_kinds()}
+
+
+def default_cat_label() -> dict:
+    """category id → human label, from categories.yaml (production default)."""
+    from scripts.core import config
+
+    return {c["id"]: c["label"] for c in config.load_categories()}
+
+
+def _rebake_numbers_main(*, write: bool) -> int:
+    """One-time Wave-3 re-bake across the base, self-verified per file."""
+    from scripts.categorize_diff import prove_marker_rebake
+
+    kind_to_cat = default_kind_to_cat()
+    cat_label = default_cat_label()
+    tot_m = tot_a = changed = 0
+    for f in sorted(EPUB_DIR.glob("index_split_*.html")):
+        before = f.read_text(encoding="utf-8")
+        after, stats = resync_html(before, kind_to_cat=kind_to_cat, cat_label=cat_label)
+        if after == before:
+            continue
+        report = prove_marker_rebake(before, after)
+        if not report["ok"]:
+            print(f"REFUSED {f.name}: {report['reason']}")
+            return 1
+        tot_m += stats["markers"]
+        tot_a += stats["asides"]
+        changed += 1
+        print(f"  {f.name}: {stats['markers']} markers, {stats['asides']} asides")
+        if write:
+            notes_io.ensure_backup(f)
+            notes_io.atomic_write(f, after)
+    mode = "WROTE" if write else "DRY RUN"
+    print(f"{mode}: {changed} files, {tot_m} markers renumbered, {tot_a} asides rewritten")
+    if not write and changed:
+        print("re-run with --rebake-numbers --write to apply.")
+    return 0
+
+
 def resync_file(path, *, dry_run: bool) -> int:
     text = path.read_text(encoding="utf-8")
     new_text, n_glyph = resync_glyphs(text)
@@ -98,7 +238,15 @@ def resync_file(path, *, dry_run: bool) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Resync note-marker glyphs in epub_working/ to glyph_for.")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument(
+        "--rebake-numbers",
+        action="store_true",
+        help="Wave-3 one-time: renumber markers + move category symbols into notes (distinct from glyph resync)",
+    )
+    ap.add_argument("--write", action="store_true", help="with --rebake-numbers: actually write (default is a dry run)")
     args = ap.parse_args()
+    if args.rebake_numbers:
+        return _rebake_numbers_main(write=args.write)
     total = 0
     for f in sorted(EPUB_DIR.glob("index_split_*.html")):
         n = resync_file(f, dry_run=args.dry_run)
