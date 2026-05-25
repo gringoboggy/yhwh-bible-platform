@@ -662,7 +662,14 @@ def connection() -> sqlite3.Connection:
         _CACHED_CONN = None
         _CACHED_CONN_PATH = None
     if _CACHED_CONN is None:
-        _CACHED_CONN = sqlite3.connect(current_path)
+        # check_same_thread=False: the web server is a ThreadingHTTPServer and
+        # _warm_corpus_index() opens this connection in the main thread, while
+        # requests are served on worker threads — without this, every
+        # /customize + /matrix request 500'd with a cross-thread
+        # sqlite3.ProgrammingError. Safe because the index is read-only by
+        # convention (all writes go through a separate connection in rebuild()),
+        # and Python's sqlite3 serializes access in its default threadsafety mode.
+        _CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False)
         _CACHED_CONN.row_factory = sqlite3.Row
         _CACHED_CONN_PATH = current_path
     return _CACHED_CONN

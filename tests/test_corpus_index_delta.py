@@ -52,6 +52,35 @@ class TestDelta1CorpusIndex:
         lines = ["NOTES = (", *[f"    {n!r}," for n in notes], ")\n"]
         (notes_dir / f"{code}.py").write_text("\n".join(lines), encoding="utf-8")
 
+    # ---- thread-safety (ThreadingHTTPServer regression) ----
+
+    def test_cached_connection_is_usable_across_threads(self, tmp_path, monkeypatch):
+        """ThreadingHTTPServer serves each request in its own thread, so the
+        module-cached connection must be shareable across threads. Before the
+        check_same_thread=False fix, /customize + /matrix 500'd with
+        sqlite3.ProgrammingError because _warm_corpus_index() opened the
+        connection in a different thread than the one serving the request."""
+        import threading
+
+        nd, cd, ci = self._setup_isolated_corpus(tmp_path, monkeypatch)
+        self._write_book(nd, "gen", [(1, 1, "", "", "comm", "T", "L", "B")])
+        ci.rebuild(force=True)
+        # Create + cache the connection in THIS (main) thread.
+        ci.connection().execute("SELECT COUNT(*) FROM notes").fetchone()
+
+        errs: list[str] = []
+
+        def worker():
+            try:
+                ci.connection().execute("SELECT COUNT(*) FROM notes").fetchone()
+            except Exception as e:  # noqa: BLE001
+                errs.append(repr(e))
+
+        t = threading.Thread(target=worker)
+        t.start()
+        t.join()
+        assert not errs, f"cross-thread connection use raised: {errs}"
+
     # ---- build / fingerprint ----
 
     def test_rebuild_creates_index_with_correct_count(self, tmp_path, monkeypatch):
