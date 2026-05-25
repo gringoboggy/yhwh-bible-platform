@@ -2466,4 +2466,95 @@ def apply_design_system(html: str, current_route: str) -> str:
         "<!-- THEME_TOUR_JS -->",
         THEME_TOUR_JS,
     )
+    html = html.replace(
+        "<!-- WELCOME_OVERLAY_JS -->",
+        WELCOME_OVERLAY_JS,
+    )
     return html
+
+
+# ----------------------------------------------------------------------
+# W4.3 — first-run welcome overlay. A one-time modal shown on the root
+# editor console (what the launcher opens) when scripts.core.onboarding
+# reports first_run. "Start building" routes to /wizard; either button
+# marks onboarding complete server-side (POST /api/onboarding/complete)
+# so it never shows again. Built entirely with DOM nodes (no innerHTML)
+# — satisfies the XSS guard and needs no template markup. Injected via a
+# `<!-- WELCOME_OVERLAY_JS -->` marker; index.py substitutes it directly
+# (it bypasses apply_design_system), and the marker is also wired into
+# apply_design_system above so other consoles can opt in later.
+# ----------------------------------------------------------------------
+
+WELCOME_OVERLAY_JS = """<script>
+(function () {
+  'use strict';
+  function build(state) {
+    if (!state || !state.first_run) return;
+    if (document.getElementById('yhwh-welcome-backdrop')) return;
+    var backdrop = document.createElement('div');
+    backdrop.id = 'yhwh-welcome-backdrop';
+    backdrop.setAttribute('role', 'dialog');
+    backdrop.setAttribute('aria-modal', 'true');
+    backdrop.setAttribute('aria-label', 'Welcome');
+    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:1rem;font-family:system-ui,-apple-system,sans-serif;';
+
+    var card = document.createElement('div');
+    card.style.cssText = 'background:#fff;max-width:30rem;width:100%;border-radius:0.75rem;padding:1.75rem;box-shadow:0 20px 50px rgba(0,0,0,0.3);';
+
+    var h = document.createElement('h2');
+    h.textContent = "Welcome to YHWH Ya' Way";
+    h.style.cssText = 'font-size:1.5rem;font-weight:700;margin:0 0 0.5rem;color:#0f172a;';
+
+    var p = document.createElement('p');
+    p.textContent = 'Build your own study Bible: pick a tradition, choose which notes to include, and export an EPUB. The wizard walks you through it in a few steps.';
+    p.style.cssText = 'font-size:0.95rem;color:#475569;margin:0 0 1.25rem;line-height:1.5;';
+
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:0.75rem;flex-wrap:wrap;';
+
+    var start = document.createElement('button');
+    start.type = 'button';
+    start.textContent = 'Start building →';
+    start.style.cssText = 'background:#059669;color:#fff;font-weight:600;padding:0.625rem 1.25rem;border:none;border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
+
+    var skip = document.createElement('button');
+    skip.type = 'button';
+    skip.textContent = 'Explore on my own';
+    skip.style.cssText = 'background:none;color:#475569;padding:0.625rem 1rem;border:1px solid #cbd5e1;border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
+
+    function dismiss(goWizard) {
+      fetch('/api/onboarding/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}'
+      }).catch(function () {}).then(function () {
+        if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+        if (goWizard) window.location.href = '/wizard';
+      });
+    }
+    start.addEventListener('click', function () { dismiss(true); });
+    skip.addEventListener('click', function () { dismiss(false); });
+
+    row.appendChild(start);
+    row.appendChild(skip);
+    card.appendChild(h);
+    card.appendChild(p);
+    card.appendChild(row);
+    backdrop.appendChild(card);
+    (document.body || document.documentElement).appendChild(backdrop);
+  }
+
+  function check() {
+    fetch('/api/onboarding')
+      .then(function (r) { return r.json(); })
+      .then(build)
+      .catch(function () {});
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
+})();
+</script>"""

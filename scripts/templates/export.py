@@ -200,6 +200,32 @@ EXPORT_HTML = r"""<!DOCTYPE html>
 <script>
 let CURRENT_ID = null;
 
+// W4.3 — cross-button build lock. The server caps concurrent builds (HTTP 409
+// build_in_progress); the client mirrors that by disabling BOTH build buttons
+// while either build runs, so a second build can't even be launched from this
+// tab. Re-enabled when the build finishes (success, failure, or 409).
+function lockBuildButtons(locked) {
+  ['export-btn', 'build-all-btn'].forEach(function (id) {
+    const b = document.getElementById(id);
+    if (!b) return;
+    b.disabled = locked;
+    b.classList.toggle('opacity-50', locked);
+    b.classList.toggle('cursor-not-allowed', locked);
+  });
+}
+
+// W4.3 — set a build-status line as a single colored text node. Uses DOM
+// nodes (textContent), never innerHTML, so a server-supplied message (e.g. the
+// 409 "already building" text) can never inject markup.
+function setBuildStatus(el, text, colorClass) {
+  if (!el) return;
+  el.replaceChildren();
+  const span = document.createElement('span');
+  if (colorClass) span.className = colorClass;
+  span.textContent = text;
+  el.appendChild(span);
+}
+
 async function init() {
   // Pull edition list via /api/matrix (which already returns it)
   const res = await fetch('/api/matrix');
@@ -254,10 +280,10 @@ async function buildAllEditions() {
     : (s) => String(s == null ? '' : s).replace(/[&<>"']/g,
         c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  btn.disabled = true;
-  btn.classList.add('opacity-50', 'cursor-not-allowed');
+  lockBuildButtons(true);
   btn.textContent = 'Building…';
-  status.innerHTML = '<span class="text-slate-500">building all editions; this can take 1–3 minutes total…</span>';
+  const restore = () => { lockBuildButtons(false); btn.textContent = 'Build all 5 editions'; };
+  setBuildStatus(status, 'building all editions; this can take 1–3 minutes total…', 'text-slate-500');
   results.classList.add('hidden');
 
   let data;
@@ -268,18 +294,20 @@ async function buildAllEditions() {
       body: JSON.stringify({version: 'v28a'}),
     });
     data = await r.json();
+    // W4.3 — concurrent-build cap: a build is already running (HTTP 409).
+    if (r.status === 409) {
+      setBuildStatus(status, '⏳ ' + (data.message || 'A build is already running.'), 'text-amber-700');
+      restore();
+      return;
+    }
     if (!r.ok && !data.per_edition) {
-      status.innerHTML = `<span class="text-red-600">✗ ${escape(data.error || r.statusText)}</span>`;
-      btn.disabled = false;
-      btn.classList.remove('opacity-50', 'cursor-not-allowed');
-      btn.textContent = 'Build all 5 editions';
+      setBuildStatus(status, '✗ ' + (data.error || r.statusText), 'text-red-600');
+      restore();
       return;
     }
   } catch (e) {
-    status.innerHTML = `<span class="text-red-600">✗ network error: ${escape(e.message)}</span>`;
-    btn.disabled = false;
-    btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    btn.textContent = 'Build all 5 editions';
+    setBuildStatus(status, '✗ network error: ' + e.message, 'text-red-600');
+    restore();
     return;
   }
 
@@ -328,9 +356,7 @@ async function buildAllEditions() {
     results.classList.remove('hidden');
   }
 
-  btn.disabled = false;
-  btn.classList.remove('opacity-50', 'cursor-not-allowed');
-  btn.textContent = 'Build all 5 editions';
+  restore();
 }
 
 // Phase ψ.5 — open a sample-chapter HTML preview in a new tab.
@@ -445,9 +471,9 @@ document.getElementById('export-btn').addEventListener('click', exportNow);
 async function exportNow() {
   const btn = document.getElementById('export-btn');
   const status = document.getElementById('export-status');
-  btn.disabled = true;
-  btn.classList.add('opacity-60');
-  status.innerHTML = '<span class="pulsing">building EPUB · ~10-30 seconds · please wait …</span>';
+  lockBuildButtons(true);
+  const restore = () => lockBuildButtons(false);
+  setBuildStatus(status, 'building EPUB · ~10-30 seconds · please wait …', 'pulsing');
   try {
     const r = await fetch(`/api/export/build/${encodeURIComponent(CURRENT_ID)}`, {
       method: 'PUT',
@@ -455,11 +481,16 @@ async function exportNow() {
       body: JSON.stringify({version: 'v28a'}),
     });
     const data = await r.json();
+    // W4.3 — concurrent-build cap: a build is already running (HTTP 409).
+    if (r.status === 409) {
+      setBuildStatus(status, '⏳ ' + (data.message || 'A build is already running.'), 'text-amber-700');
+      restore();
+      return;
+    }
     if (!r.ok || data.error) {
       status.innerHTML = `<div class="text-red-600 font-medium">✗ ${data.error || 'build failed'}</div>` +
         (data.stderr ? `<pre class="text-xs bg-slate-100 p-2 mt-2 overflow-auto max-h-40">${data.stderr.replace(/[<>]/g, c => ({'<':'&lt;','>':'&gt;'}[c]))}</pre>` : '');
-      btn.disabled = false;
-      btn.classList.remove('opacity-60');
+      restore();
       return;
     }
     status.innerHTML = `
@@ -473,12 +504,10 @@ async function exportNow() {
       </div>`;
     // reload preview to update last_build
     loadPreview(CURRENT_ID);
-    btn.disabled = false;
-    btn.classList.remove('opacity-60');
+    restore();
   } catch (e) {
     status.innerHTML = `<div class="text-red-600">✗ ${e.message}</div>`;
-    btn.disabled = false;
-    btn.classList.remove('opacity-60');
+    restore();
   }
 }
 

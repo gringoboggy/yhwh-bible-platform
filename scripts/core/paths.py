@@ -287,6 +287,13 @@ def backups_dir() -> Path:
     return _build_output_root() / "epub_working" / ".backups"
 
 
+def state_dir() -> Path:
+    """Persistent UX/app state (e.g. the onboarding marker) — a sibling of
+    exports_dir() under the same frozen-aware writable data root, so it
+    survives app restarts and honors the YHWH_DATA_DIR override."""
+    return _build_output_root() / "state"
+
+
 # ----------------------------------------------------------------------
 # External-tool resolvers — Tesseract OCR (τ.6.x.0c).
 #

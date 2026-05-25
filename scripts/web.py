@@ -1333,6 +1333,7 @@ from scripts.api.exports import (  # noqa: E402
     api_export_build,
     api_export_preview,
 )
+from scripts.core import build_gate, onboarding  # noqa: E402 — W4.2 build cap + W4.3 onboarding
 
 
 # ============================================================
@@ -3576,7 +3577,24 @@ def _safe_request(method):
 # Routes are migrated as `(path, handler_callable)` tuples. The
 # handlers are the existing pure-function `api_*` helpers — no
 # changes to handler signatures or call patterns.
+# W4.3 — onboarding / first-run state endpoints. Thin adapters over
+# scripts.core.onboarding (§9 pure-function + thin-route pattern): GET reads
+# the welcome-flow state, POST marks it complete. Drives the first-run welcome
+# screen + the dismissible "getting started" card.
+def api_onboarding_state() -> dict:
+    """Read-only onboarding state: {"first_run": bool, "onboarded_at": iso|None}."""
+    return onboarding.onboarding_state()
+
+
+def api_onboarding_complete(m, payload) -> dict:
+    """Mark the first-run welcome flow complete (idempotent); return new state.
+    POST-table signature (m, payload) — neither is used."""
+    return onboarding.mark_onboarded()
+
+
 _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
+    # W4.3 — onboarding state (read-only first-run check for the welcome flow).
+    ("/api/onboarding", api_onboarding_state),
     ("/api/books", api_books),
     ("/api/kinds", api_kinds),
     ("/api/matrix", api_matrix),
@@ -3847,6 +3865,8 @@ _DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
 #   table with a distinct lambda signature `lambda m, body, ctype` and
 #   their own dispatch loop. Separate slice.
 _POST_ROUTES: list[tuple[re.Pattern, object]] = [
+    # W4.3 — mark the first-run welcome flow complete (idempotent).
+    (re.compile(r"^/api/onboarding/complete$"), api_onboarding_complete),
     # §4.6 — /api/covers/<ed>/template — recompose the edition's main cover
     # from one of the 25 design templates + the edition title. JSON body
     # {"cover_template": "<stem>"}. Distinct suffix from the /main multipart
@@ -4975,7 +4995,21 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 payload = self._read_body()
                 version = (payload or {}).get("version", "v28a")
-                result = api_export_build(m.group(1), version=version)
+                # W4.2 — hard concurrent-build cap: reject (409) rather than
+                # start a second heavy in-process build on this single-user
+                # desktop app. The internal per-edition builds inside
+                # build-all don't re-enter the gate (it's request-scoped).
+                try:
+                    with build_gate.build_slot():
+                        result = api_export_build(m.group(1), version=version)
+                except build_gate.BuildBusyError:
+                    return self._send_json(
+                        {
+                            "error": "build_in_progress",
+                            "message": "A build is already running. Wait for it to finish before starting another.",
+                        },
+                        status=409,
+                    )
                 status = 200 if result.get("ok") else 500
                 return self._send_json(result, status=status)
             except Exception as e:
@@ -4986,7 +5020,20 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 payload = self._read_body() or {}
                 version = payload.get("version", "v28a")
-                result = api_build_all_editions(version=version)
+                # W4.2 — one gate slot for the whole batch (build-all builds
+                # editions sequentially internally), so a concurrent single
+                # build or a second build-all is rejected with 409.
+                try:
+                    with build_gate.build_slot():
+                        result = api_build_all_editions(version=version)
+                except build_gate.BuildBusyError:
+                    return self._send_json(
+                        {
+                            "error": "build_in_progress",
+                            "message": "A build is already running. Wait for it to finish before starting another.",
+                        },
+                        status=409,
+                    )
                 status = 200 if result.get("success_count", 0) > 0 else 500
                 return self._send_json(result, status=status)
             except Exception as e:

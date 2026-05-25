@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-25 (cont.) — Wave 4 W4.2 (concurrent-build cap) + W4.3 first-run welcome flow (core)
+
+**W4.2 — concurrent-build cap (local resource safety).** The desktop app serves builds on a `ThreadingHTTPServer`; two BUILD clicks (or BUILD + Build-all) would run two heavy in-process frozen builds at once (each copies the ~122 MB base). NEW `scripts/core/build_gate.py` — a process-wide `BoundedSemaphore` admission gate sized by `YHWH_MAX_CONCURRENT_BUILDS` (default 1) with a non-blocking `build_slot()` context manager that raises `BuildBusyError` when full. Both build routes (`/api/export/build/<id>` + `/api/build-all`, which converge on one `do_PUT` bespoke block via the `do_POST → do_PUT` fallthrough) are wrapped → **HTTP 409 `build_in_progress`** when a build is already running, instead of starting a second. `tests/test_build_gate.py` (12: gate semantics incl. a real-threads contention test + 2 live-socket route-translation tests). `pyproject.toml` SIM117 per-file-ignore (the tests deliberately nest `with build_slot()` to hold slots simultaneously). Fixed 2 pre-existing stale `_POST_ROUTES` count/membership tests in `tests/test_web_routetable.py` (stale since the Wave-2 cover-template route; recent sweeps hadn't included that file).
+
+**W4.3 — full first-run welcome flow (core shipped; 2c card + empty-state remain).**
+- **Server state:** NEW `scripts/core/onboarding.py` (`onboarding_state` / `mark_onboarded` — idempotent, corrupt-marker-safe) persisting a JSON marker under NEW `paths.state_dir()` (frozen-aware, `YHWH_DATA_DIR`-honoring sibling of `exports_dir()`). `/state/` gitignored. Named to avoid clashing with `launcher.should_run_first_run_migration` (data migration vs UX state).
+- **Endpoints:** `GET /api/onboarding` + `POST /api/onboarding/complete` (route tables; `_POST_ROUTES` 13→14). `tests/test_onboarding.py` (15, incl. a live GET→POST→GET round-trip).
+- **2b build-UI guardrails** (`templates/export.py`): both build buttons disable while either build runs (cross-button/cross-tab mirror of the server cap); the 409 surfaces as a friendly "already building" message via a NEW safe-DOM `setBuildStatus` helper (`textContent`, never `innerHTML` — satisfies the XSS guard). `tests/test_build_ui_guardrails.py` (4). Browser-verified: 0 JS errors.
+- **2d first-run welcome overlay:** NEW reusable `WELCOME_OVERLAY_JS` in `templates/_design.py` (DOM-only modal), injected into `INDEX_HTML` (the root the launcher opens; it bypasses `apply_design_system`, so substituted directly — also wired into `apply_design_system` for future opt-in). On load it checks `GET /api/onboarding`; on first run it shows a "Welcome to YHWH Ya' Way" modal with "Start building →" (→ `/wizard`) and "Explore on my own", both POSTing `/api/onboarding/complete`. **Browser-verified end-to-end:** fresh `YHWH_DATA_DIR` → overlay shows → "Explore on my own" → marker written, `first_run`→false → reload stays clean; 0 JS errors.
+
+**Gates:** 31 new tests + 35 export + 89 route-table green · `lint_rules` 16/0/0 · `ruff format` clean · two live-browser passes (build console + first-run flow) clean. No corpus/base-HTML change.
+
+**▶ NEXT — W4.3 remainder** (2c dismissible "Getting started → wizard" card + `/export` no-editions empty-state — minor; the overlay now covers primary first-run guidance) then **W4.4** (distribution README + release artifact) + **W4.5** (CI/mypy/coverage).
+
+---
+
 ## 2026-05-25 (cont.) — Wave 4 (W4.1): the θ desktop binary is now a WORKING frozen builder
 
 The θ.1/θ.2 desktop app (launcher + PyWebView shell, originally built 2026-05-10) launched + served but had **never been verified to BUILD an EPUB when frozen** — its 125 unit tests mock all I/O, and the PLAN's "Wave 4" framing didn't realize the θ work existed. A real PyInstaller build + a new end-to-end smoke (`dev/smoke_desktop.py`) exposed four frozen-only failures, all now fixed; the smoke builds + persists a real EPUB.

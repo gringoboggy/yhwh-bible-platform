@@ -94,6 +94,11 @@ mccabe.max-complexity = 12
 # content/notes/.
 "kings_session/*.py" = ["E402", "E501", "N999"]
 "kings_session/**/*.py" = ["E402", "E501", "N999"]
+# tests/test_build_gate.py deliberately NESTS `with build_slot()` blocks to
+# hold multiple build slots at once — that simultaneity IS the concurrency
+# contract under test (prove the N+1th acquisition is rejected with BuildBusyError).
+# Combining them (SIM117) would change what the test exercises.
+"tests/test_build_gate.py" = ["SIM117"]
 
 [tool.ruff.format]
 quote-style = "double"

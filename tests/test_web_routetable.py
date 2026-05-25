@@ -911,12 +911,15 @@ class TestOmega35A7PostTable:
         # routes were also deferred from A.7, but A.8 moved them into
         # _POST_ROUTES — so they're no longer pinned here. Only
         # multipart-shape routes (which the helper can't handle yet)
-        # remain in legacy.
+        # remain in legacy. NOTE: the §4.6 cover-TEMPLATE route
+        # (/api/covers/<id>/template) is a JSON POST and DOES live in
+        # _POST_ROUTES — only the multipart cover UPLOADS (/main,
+        # /book/<code>) stay in legacy.
         from scripts import web
 
         table_patterns = [r.pattern for r, _ in web._POST_ROUTES]
-        assert not any("/covers/" in p for p in table_patterns), (
-            "multipart cover-upload routes must NOT be in _POST_ROUTES — they need a separate _MULTIPART_ROUTES table"
+        assert not any("/covers/" in p and ("/main" in p or "/book" in p) for p in table_patterns), (
+            "cover UPLOADS (/main, /book) are multipart — must NOT be in _POST_ROUTES"
         )
         # /upload uses multipart, but /fetch uses JSON — distinguish
         # them in the assertion.
@@ -1068,13 +1071,15 @@ class TestOmega35A8BespokeCleanup:
         assert any("/distribution/" in p for p in patterns)
         assert any("/license/" in p for p in patterns)
 
-    def test_post_table_has_twelve_entries_now(self):
+    def test_post_table_has_fourteen_entries_now(self):
         # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all),
         # ο.4 added 1 (archive-org upload), ξ.21 added 3 (auth/totp/
-        # begin + confirm + disable) → 12 entries.
+        # begin + confirm + disable), §4.6 added 1 (cover-template
+        # recompose — a JSON POST, 2026-05-25 Wave 2), W4.3 added 1
+        # (onboarding/complete) → 14 entries.
         from scripts import web
 
-        assert len(web._POST_ROUTES) == 12
+        assert len(web._POST_ROUTES) == 14
 
     def test_post_table_includes_sources_cache_routes(self):
         from scripts import web

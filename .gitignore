@@ -118,6 +118,13 @@ content/print_covers/*.pdf
 /Ethiopian_Bible*.epub
 /exports/
 
+# --- Per-user app/UX state (W4.3 onboarding marker, etc.) ---
+# paths.state_dir() == <data-root>/state; in dev that's <repo>/state. The
+# onboarding marker is per-user runtime state, not source — same category as
+# /exports/. Guards against a real local app run (which writes the marker)
+# leaving an untracked file for `git add -A` to sweep in.
+/state/
+
 # --- Parallel-Bible source PDF + Phase-4 handoff package ---
 # The 193MB source PDF (resolution_paths #5 — the designed in-repo
 # slot) + the project_maccabees_expansion/ handoff docs. Present-

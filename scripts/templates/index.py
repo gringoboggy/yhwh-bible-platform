@@ -16,7 +16,7 @@ button feedback the dashboard consoles got — universal UX wins
 that don't impose a layout.
 """
 
-from scripts.templates._design import BUYER_ARC_POLISH_CSS  # noqa: E402
+from scripts.templates._design import BUYER_ARC_POLISH_CSS, WELCOME_OVERLAY_JS  # noqa: E402
 
 INDEX_HTML = r"""<!DOCTYPE html>
 <html lang="en">
@@ -361,6 +361,7 @@ $('#add-btn').onclick = newNote;
 
 init();
 </script>
+<!-- WELCOME_OVERLAY_JS -->
 </body>
 </html>
 """
@@ -372,4 +373,10 @@ init();
 INDEX_HTML = INDEX_HTML.replace(
     "<!-- BUYER_ARC_POLISH_CSS -->",
     BUYER_ARC_POLISH_CSS,
+)
+# W4.3 — inject the first-run welcome overlay. INDEX bypasses
+# apply_design_system, so substitute the marker directly here.
+INDEX_HTML = INDEX_HTML.replace(
+    "<!-- WELCOME_OVERLAY_JS -->",
+    WELCOME_OVERLAY_JS,
 )
