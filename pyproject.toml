@@ -63,6 +63,12 @@ mccabe.max-complexity = 12
 # clarity if forcibly split. Codified at ω.4x hygiene bundle
 # (2026-05-14) per AUDIT_2026-05-14-LIGHT-2 W-W2 finding.
 "scripts/build_edition.py" = ["E402", "E501", "C901"]
+# scripts/matter_pages.py was extracted from build_edition.py (module split
+# 2026-05-25). It holds the same embedded front/back-matter HTML template
+# strings (copyright + reading-plans + credits + symbol legend) whose <p> lines
+# exceed 120 chars by design, plus inject_back_matter's inherent build-pipeline
+# complexity. Same exemptions as build_edition.py above, for the same reasons.
+"scripts/matter_pages.py" = ["E402", "E501", "C901"]
 # scripts/inject.py: inject_book (strategy-dispatched verse-region location
 # + marker/aside insertion with verse-end fallback) and main (per-book CLI
 # aggregation) are inherently-complex inject-pipeline orchestration — the

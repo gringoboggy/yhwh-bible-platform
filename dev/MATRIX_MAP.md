@@ -105,6 +105,18 @@ VALIDATORS (gate everything):
 | `max_phase` | phase tag on kinds | phase filter | not checked by tracer |
 | `traditions_default` / `_per_book` | `traditions.yaml` | build tradition filter | not checked by tracer |
 
+### Presentation / reader-styling fields (Wave 2–3 — editions.yaml; unset == default)
+
+| field | resolves against | consumed by | status |
+|---|---|---|---|
+| `title_page_style` | enum `{full-bleed, framed}` | build `apply_title_pages` (3432) + `patch_opf_book_images` (3500) | shipped 2026-05-25; default `full-bleed` |
+| `book_covers` (per-edition × per-book) | `content/covers/` override | `apply_title_pages` art resolution: override → `_book_defaults/<code>.jpg` → text-only | shipped 2026-05-25 |
+| `cover_template` | `core/covers.COVER_TEMPLATES` (25 stems = 5 designs × 5 colours) | `api_apply_cover_template` (api/covers 72) → `_compose_cover` → `covers/<id>.jpg` | shipped 2026-05-25; default `""` |
+| `verse_popup_style` | enum `{cards, stack}` | build `apply_verse_popup_style` (1395) — CSS append in `build_one` | shipped 2026-05-25; default `cards` |
+| `note_popup_style` | enum `{chip, pills}` | build `apply_note_popup_style` (1432) — CSS append in `build_one` | shipped 2026-05-25; default `chip` |
+| `marker_style` | enum `{numbers, badge}` | `inject.py::build_marker` (150) — base-wide re-bake; `badge` deferred | PLANNED Wave 3; default `numbers` |
+| `description` / `dedication` | free text (`EDITABLE_TEXT`) | About-this-Edition / optional Dedication front-matter pages | shipped Phase 1 |
+
 ## Findings — accreted, low-risk cleanup targets
 
 The reference graph is sound (0 dangling refs). The blemishes are cosmetic/structural,
@@ -201,6 +213,65 @@ The inject residual is **~156-161 notes that are verse-level versification misma
 *source* numbers a verse the base translation's chapter doesn't have, so it is **NOT addable content**:
 by book `aes` 73 · `1en` 31 · `mq1-3` 33 · `sir` 10 · `jub` 9; by kind `lang-hebrew` 83 ·
 `comm-ethiopian` 70 · `comm` 3. Detail: `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
+
+## Presentation / reader-styling pipeline (Wave 2–3)
+
+How a per-edition presentation choice reaches the EPUB. There are **two distinct
+delivery mechanisms** — knowing which one a setting uses tells you its risk and
+whether it needs an inject re-bake. (The fields themselves are in the "Presentation
+/ reader-styling fields" trace table above; design detail: the
+`docs/superpowers/specs/2026-05-24-epub-presentation-polish-design.md` §4/§7.)
+
+**(1) CSS-append — NO base re-bake (cheap · per-edition · reversible).** In
+`build_edition.build_one`, AFTER the canon filter and the `theme` override, a
+variant CSS block is **appended** to the edition's `stylesheet.css`; the popup /
+note / title-page HTML is byte-unchanged. Same mechanism as the theme override —
+so these settings never touch the shared base and need no inject re-run.
+- `verse_popup_style` cards|stack → `apply_verse_popup_style` (1395): `cards`
+  appends `_VERSE_POPUP_CARDS_CSS` (tinted witness cards, gold/purple spines on
+  `.vnote-hebrew`/`.vnote-greek`); `stack` = flat base (no append).
+- `note_popup_style` chip|pills → `apply_note_popup_style` (1432): `chip` appends a
+  tinted label-chip rule on `.note .note-label` (specificity 0,2,0 — beats base
+  `.note-label` 0,1,0, while the `note-comm-*` hide rule 0,2,1 still wins so
+  intentionally-hidden labels stay hidden); `pills` = bordered tappable pills on
+  `.note a:not(.note-back)` (the negative-space selector isolates in-note xrefs
+  from the back-link glyph — baked xrefs carry no class of their own).
+- `title_page_style` full-bleed|framed → `apply_title_pages` (3432) transforms each
+  kept book's `book-title-frame` div + the `.book-title-page.style-*` CSS;
+  `patch_opf_book_images` (3500) registers the art in the OPF (chain after
+  `patch_opf_fonts`). Art resolution: `book_covers` override →
+  `content/covers/_book_defaults/<code>.jpg` → text-only fallback.
+- `cover_template` → `api_apply_cover_template` (api/covers 72) recomposes
+  `covers/<id>.jpg` via `generate_edition_covers._compose_cover`; the build then
+  ships it through the existing `apply_edition_cover` (3521) cover-swap step.
+
+**(2) Base re-bake — shared base-HTML change (the riskier path).**
+`marker_style=numbers` (PLANNED) changes `inject.py::build_marker` (150), which
+runs **base-wide** (per-book, into the shared `epub_working/index_split_*.html`) —
+it is NOT a per-edition build-time toggle. Re-baking the shared base requires
+proving only the intended markers changed: the byte-multiset **categorize-diff
+verifier** + `scripts/resync_marker_glyphs.py` (Wave-3 prereqs). Same risk class as
+the popup-version bake. The stray `‖` is the `xref` category glyph
+(`categories.yaml:28`) reused as the `.note-back` char in `build_aside` (170); the
+fix gives the back-link a fixed `↩` (as `vnote-back` already does in
+`generate_verse_popups.py`) and renders the category symbol as a deliberate in-note
+element (spec §4.4 / §12.4).
+
+**§7 wiring (every enum field, per RULES §9):** `editions.yaml` (unset == default)
+→ `api_customize_data` loader → `api_save_edition_meta` enum validator →
+`/customize` control (`scripts/templates/customize.py`) → build read → tests
+(round-trip · invalid-rejected · back-compat · UI-present · per-option render).
+
+**Matter pages (built-in, NOT toggles)** — the `render_*_page` + `inject_*_page`
+family in `build_edition.py` (OPF manifest + spine appended; *prereq-2 extracts this
+family into `scripts/matter_pages.py`*):
+- Front: Title → optional Dedication → Colophon (real computed counts via
+  `core.matrix`; © Bogdan Zorlescu / "YHWH Ya' Way Editions") → "A Guide to the
+  Notes" (edition-aware symbol legend; rows anchored `id="legend-<cat>"`) →
+  About-this-Edition (`render_about_page` 2274 — auto-spec from resolved choices +
+  the editable `description`). The placeholder `introduction.xhtml` is dropped.
+- Back: Sources & Acknowledgments → Reference tables → Topical index (Nave's —
+  PLANNED Wave 3, composed from the 26,335 `topic-nave` notes) → Closing colophon.
 
 ## Reference-corpus ingestion (PD reference works → notes)
 

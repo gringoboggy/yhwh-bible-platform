@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 3 prereqs 1–2: MATRIX_MAP presentation settings + build_edition → matter_pages split
+
+Infrastructure for the re-bake-dependent Wave-3 features (marker_style, symbols-into-notes, Nave's index). Prereqs #1–#2 of 3; prereq #3 (`resync_marker_glyphs` + categorize-diff verifier) and the features are the next stage (post-/clear). No corpus / no output change — a docs update + a verbatim code move. Gates: `lint_rules` 16/0/0 · ruff clean · `test_presentation_polish.py` 35/35 (identical to the pre-split baseline) · catholic-study rebuilt → epubcheck 0/0/0/0 · smoke-import confirms no circular import and that the re-exports are the same objects.
+
+- **Prereq #1 — `dev/MATRIX_MAP.md` brought current.** Added the Wave 2–3 presentation enum settings (`title_page_style`, `cover_template`, `verse_popup_style`, `note_popup_style`, `marker_style` [planned], `book_covers`, `description`/`dedication`) to the Variable-trace table, plus a new "Presentation / reader-styling pipeline" section documenting the two delivery mechanisms — CSS-append (no re-bake: verse/note/title styles append a variant CSS block in `build_one`) vs base re-bake (`marker_style=numbers` changes `inject.build_marker` base-wide) — and the front/back-matter page family.
+- **Prereq #2 — split `scripts/build_edition.py` (4085 → 3123 lines, −962).** Extracted the front/back-matter `render_*`/`inject_*` family (18 functions: copyright, dedication, symbol-legend, about, sources, reference-tables, closing-colophon, reading-plans + `_drop_placeholder_introduction`) into NEW `scripts/matter_pages.py`, and the 3 shared helpers (`_xml_escape_text`, `_resolve_publishing`, `load_canons`) into NEW `scripts/epub_utils.py` (a neutral module → no circular import: `build_edition` → `matter_pages` → `epub_utils`, one-directional). All moved names are re-exported from `build_edition` (`# noqa: F401`) so existing `from scripts.build_edition import …` call sites are unchanged — a transparent move. `pyproject.toml`: extended the build_edition `E501`/`C901` per-file-ignore to `matter_pages.py` (same by-design long HTML-template lines + the inherent `inject_back_matter` complexity). The move is proven byte-identical by the 35/35 behavioral test + epubcheck 0/0/0/0 on a fresh catholic-study build.
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 3 (start): verse_popup_style + note_popup_style — CSS-only popup-layout settings
 
 The first, re-bake-FREE slice of Wave 3 (EPUB Presentation Phase 2). Two per-edition popup-layout toggles, each §7-wired exactly like `title_page_style` and applied at build time by APPENDING a variant CSS block to the edition stylesheet (the same mechanism as the theme override) — the popup/note HTML is unchanged, so NO base re-bake. The heavier Wave-3 items that DO require a re-bake (`marker_style`→numbers, symbols-into-notes, widened popups, Nave's back-matter) stay deferred behind their prereqs. Gates: 16 popup-style tests + 86 build-level regression (title-page/cover/presentation) · `lint_rules` 16/0/0 · ruff clean · catholic-study rebuilt → epubcheck 0/0/0/0 · shipped-stylesheet content-verified.
