@@ -29,7 +29,7 @@ user, the user wins for that turn — but the rule stays as written.
 | **14** | Session-resume / state-uncertainty audit. |
 | **15** | **Chain of command** — the tier hierarchy (user > rules > skills > defaults) as a matrix. |
 
-Companion maps: `dev/MATRIX_MAP.md` (data-flow + base-HTML), `dev/REPO_MAP.md` (file/folder index), `dev/PLAN_2026-05-21.md` (roadmap), `dev/CHANGELOG.md` (shipped chronology).
+Companion maps: `dev/MATRIX_MAP.md` (data-flow + base-HTML), `dev/REPO_MAP.md` (file/folder index), `dev/PLAN_2026-05-24-end-scope.md` (roadmap), `dev/CHANGELOG.md` (shipped chronology).
 
 **Lifecycle companion: `dev/SESSION_PLAYBOOK.md`** — the order-of-operations guide (session start → work → **verify** → finish-clean) with the **consolidated verification gates** ("what passing checks means") + the consolidated environment/gotcha list in one place. Read it when you need the session-end checklist or the exact gate commands; this RULES file remains the topic-organized authority on each rule.
 
@@ -43,10 +43,10 @@ Every fresh session begins by reading, in this order:
 1. dev/CLAUDE_PROJECT_RULES.md   (this file — rules + conventions)
 2. dev/SESSION_STATE.md          (live snapshot — what just shipped,
                                   what's next, current test count)
-3. dev/PLAN_2026-05-21.md        (master sequence — re-arranged tracks
-                                  + current re-audit; supersedes
-                                  PLAN_2026-05-09, which is retained for
-                                  phase-history only)
+3. dev/PLAN_2026-05-24-end-scope.md  (master sequence — deadline-aware
+                                  end-scope plan; PLAN_2026-05-21 is
+                                  retained in dev/archive/ for
+                                  Track B/C detail + phase-history)
 ```
 
 **Always-there maps (user-directed 2026-05-21):** for ANY "where does X

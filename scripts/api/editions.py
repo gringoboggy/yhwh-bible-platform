@@ -143,6 +143,8 @@ def _append_cloned_edition(
         ("popup_translation", src.get("popup_translation", "")),
         ("theme", src.get("theme", "classic")),
         ("notes", src.get("notes", "")),
+        ("description", src.get("description", "")),
+        ("dedication", src.get("dedication", "")),
         ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
     ]
     for fname, fval in scalar_fields:
@@ -503,6 +505,8 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "reader_toc_collapsible",
         "reader_toc_default_open",
         "enabled_reading_plans",
+        "description",
+        "dedication",
     }
 
     changes: list[dict] = []
@@ -567,6 +571,9 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         # ("null" or a year like "1900"); the YAML loader parses
         # unquoted digits into ints and "null"/empty into None.
         "time_filter_ceiling",
+        # Free-text front-matter fields (builder-editable via /customize).
+        "description",
+        "dedication",
     }
     EDITABLE_BOOL = {
         "verse_popups",
@@ -812,6 +819,8 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                     return {"error": f"{field} too long (max 200)"}
                 if field in {"target_audience", "notes"} and len(val) > 500:
                     return {"error": f"{field} too long (max 500)"}
+                if field in {"description", "dedication"} and len(val) > 4000:
+                    return {"error": f"{field} too long (max 4000)"}
                 if field == "popup_translation" and len(val) > 32:
                     return {"error": "popup_translation too long (max 32)"}
                 updates[field] = val

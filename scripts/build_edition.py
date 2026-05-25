@@ -1298,64 +1298,51 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
 # ----------------------------------------------------------------------
 
 
-def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
-    """Render an XHTML copyright/credits page for a given edition.
-
-    Pulls per-edition data (title, BISAC) from the edition record and
-    project-wide data (publisher, contributor, copyright year) from the
-    project defaults. TODO_* placeholders are left visible — they're
-    flagged by ship-check until filled in. Ω.0 pivot (2026-05-14):
-    ISBN removed; the copyright page now identifies the edition by its
-    URN (urn:yhwh:edition:<id>) instead.
-    """
-    pub = defaults.get("publisher", "TODO_PUBLISHER_NAME")
-    contributor = defaults.get("contributor", {}).get("name", "TODO_CONTRIBUTOR_FULL_NAME")
-    cyear = defaults.get("copyright_year", "TODO_YYYY")
-    pdate = defaults.get("publication_date", "TODO_YYYYMMDD")
+def render_copyright_page(
+    edition: dict,
+    publishing: dict,
+    version: str,
+    *,
+    annotation_count: int,
+    category_count: int,
+) -> str:
+    """Render the front colophon XHTML. Identity from ``publishing``
+    (_resolve_publishing), NOT the dead content/onix.py TODO_ defaults; counts
+    are the edition's REAL computed values (scripts.core.matrix). The long
+    description lives on the separate 'About this Edition' page; full source
+    credits live in the back-matter 'Sources & Acknowledgments' page — keep
+    this page compact."""
+    pub = publishing.get("publisher_name") or "YHWH Ya' Way Editions"
+    holder = (
+        publishing.get("copyright_holder") or (publishing.get("contributor") or {}).get("name") or "Bogdan Zorlescu"
+    )
+    cyear = str(publishing.get("copyright_year") or "2026")
     edition_title = edition.get("title_full", edition.get("title", "Untitled"))
     edition_subtitle = edition.get("title_subtitle", "")
     edition_urn = f"urn:yhwh:edition:{edition['id']}"
-    description = (edition.get("description", "") or "").strip()
+    pub_x = html.escape(pub)
+    holder_x = html.escape(holder)
+    ann = f"{annotation_count:,}"
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
 <head>
-  <title>Copyright &amp; Credits</title>
+  <title>Colophon</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
 </head>
 <body epub:type="copyright-page">
   <section class="copyright-page" epub:type="copyright-page">
-    <h1 class="copyright-title">{edition_title}</h1>
-    {f'<p class="copyright-subtitle">{edition_subtitle}</p>' if edition_subtitle else ""}
-
+    <h1 class="copyright-title">{html.escape(edition_title)}</h1>
+    {f'<p class="copyright-subtitle">{html.escape(edition_subtitle)}</p>' if edition_subtitle else ""}
     <hr class="copyright-rule"/>
-
-    <p class="copyright-compiler">Compiled and annotated by <strong>{contributor}</strong>.</p>
-
-    <h2 class="copyright-heading">Sources</h2>
-    <p>Biblical text: <strong>World English Bible</strong> (Public Domain), released by Rainbow Missions, Inc.</p>
-    <p>Hebrew lexicon: <strong>Strong's Exhaustive Concordance</strong>, James Strong, 1890 (Public Domain).</p>
-    <p>Cross-references: <strong>Treasury of Scripture Knowledge</strong>, R. A. Torrey, 1834 (Public Domain).</p>
-    <p>Patristic, rabbinic, and reformation-era commentary cited in editorial notes is drawn from public-domain sources whose authors died more than 95 years prior. Per-note attribution is preserved in the apparatus.</p>
-
-    <h2 class="copyright-heading">Editorial Apparatus</h2>
-    <p>Editorial notes, selection, arrangement, and presentation: &#169; {cyear} {pub}. All rights reserved.</p>
-    <p>The 1,371 annotations across 14 categories — including the Andemta-tradition references, cross-canon parallels, Hebrew/Greek/Ge'ez linguistic notes, and theological synthesis — represent original editorial work. Quotation of more than fifty consecutive words from any single annotation for commercial purposes requires written permission of the copyright holder.</p>
-
+    <p class="copyright-compiler"><strong>YHWH Ya&#8217; Way</strong> — published by <strong>{pub_x}</strong>, {cyear}.</p>
+    <p>&#169; {cyear} {holder_x}. All rights reserved. Editorial notes, selection, arrangement, and presentation are original editorial work; the underlying biblical texts and cited public-domain reference works retain their own public-domain status.</p>
+    <p>This edition carries <strong>{ann}</strong> annotations across <strong>{category_count} categories</strong> — a key to the symbols follows on the next page; full source credits are at the back.</p>
     <h2 class="copyright-heading">This Edition</h2>
-    <p><strong>Edition ID:</strong> {edition_urn}</p>
-    <p><strong>Publisher:</strong> {pub}</p>
-    <p><strong>Build:</strong> {version}</p>
-    <p><strong>Publication date:</strong> {pdate}</p>
-
-    {f'<h2 class="copyright-heading">About</h2><p>{description}</p>' if description else ""}
-
-    <hr class="copyright-rule"/>
-
-    <p class="copyright-disclaimer">This work is provided without warranty of any kind. The compiler makes no representation regarding the doctrinal positions of any tradition referenced in the editorial apparatus; cross-tradition synthesis is descriptive, not prescriptive.</p>
-
-    <p class="copyright-trademark"><em>"Ethiopian Tewahedo" is descriptive of the Ethiopian Orthodox Tewahedo Church and its canonical tradition; this edition is not affiliated with or endorsed by the Ethiopian Orthodox Tewahedo Church unless explicitly stated.</em></p>
+    <p><strong>Edition ID:</strong> {edition_urn}<br/>
+       <strong>Publisher:</strong> {pub_x}<br/>
+       <strong>Build:</strong> {html.escape(version)}</p>
   </section>
 </body>
 </html>
@@ -1877,33 +1864,69 @@ def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
     }
 
 
-def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
-    """Write copyright.xhtml into tmp_dir, register it in content.opf
-    (manifest + spine), and add a TOC entry to nav.xhtml. Edition-specific:
-    different title and BISAC per build (Ω.0 pivot: ISBN dropped)."""
-    # Load ONIX defaults so the page can render real publisher / contributor
-    # info when the user has filled it in.
-    onix_py = REPO_ROOT / "content" / "onix.py"
-    defaults: dict = {}
-    if onix_py.is_file():
-        import importlib.util
+def _drop_placeholder_introduction(tmp: Path) -> None:
+    """Remove the placeholder introduction.xhtml from OPF manifest, spine, and
+    nav.xhtml in the per-build temp directory.
 
-        spec = importlib.util.spec_from_file_location("_onix_cfg_b", onix_py)
-        # spec_from_file_location returns Optional[ModuleSpec]; treat
-        # None as "no defaults to load" rather than crashing the build.
-        if spec is not None and spec.loader is not None:
-            mod = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(mod)
-            defaults = getattr(mod, "DEFAULTS", {})
-            # If editions are also defined there, prefer the matching one's data
-            for ed in getattr(mod, "EDITIONS", []):
-                if ed.get("id") == edition.get("id"):
-                    edition = {**edition, **ed}
-                    break
+    The base epub_working/introduction.xhtml contains only placeholder text
+    ("About this edition — placeholder text. The full introduction will be
+    added later") and should never ship in a built EPUB. The file is left in
+    epub_working/ as a design anchor but is stripped from every built edition
+    here so it is not included in any EPUB output.
+
+    Called at the end of inject_copyright_page so it runs every build.
+    """
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        # Remove manifest item (matches any media-type variant)
+        opf = re.sub(
+            r'\n?\s*<item id="introduction" href="introduction\.xhtml"[^/]*/>\n?',
+            "\n",
+            opf,
+        )
+        # Remove spine itemref
+        opf = re.sub(
+            r'\n?\s*<itemref idref="introduction"/>\n?',
+            "\n",
+            opf,
+        )
+        opf_path.write_text(opf, encoding="utf-8")
+
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        # Remove any <li> linking to introduction.xhtml
+        nav = re.sub(
+            r'\n?\s*<li><a href="introduction\.xhtml">[^<]*</a></li>\n?',
+            "\n",
+            nav,
+        )
+        nav_path.write_text(nav, encoding="utf-8")
+
+    # Also remove the physical file from the build temp directory so
+    # build_epub.collect_files cannot pick it up as a zip member.
+    intro_file = tmp / "introduction.xhtml"
+    if intro_file.is_file():
+        intro_file.unlink()
+
+
+def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
+    """Write copyright.xhtml, register it in content.opf (manifest + spine after
+    titlepage) and nav.xhtml. Identity from _resolve_publishing; counts from
+    scripts.core.matrix (real, per-edition)."""
+    from scripts.core import matrix as _matrix
+
+    publishing = _resolve_publishing(edition)
+    edition_id = edition["id"]
+    annotation_count = _matrix.total_for_edition(edition_id)
+    category_count = sum(1 for n in _matrix.breakdown_by_category(edition_id).values() if n > 0)
 
     # 1) Write the page
-    html = render_copyright_page(edition, defaults, version)
-    (tmp / "copyright.xhtml").write_text(html, encoding="utf-8")
+    html_text = render_copyright_page(
+        edition, publishing, version, annotation_count=annotation_count, category_count=category_count
+    )
+    (tmp / "copyright.xhtml").write_text(html_text, encoding="utf-8")
 
     # 2) Patch OPF — add manifest item + insert into spine after titlepage
     opf_path = tmp / "content.opf"
@@ -1931,6 +1954,698 @@ def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
                 '<ol>\n      <li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>\n      <li>',
                 1,
             )
+            nav_path.write_text(nav, encoding="utf-8")
+
+    # 4) Drop the placeholder introduction page (never ships in a built EPUB)
+    _drop_placeholder_introduction(tmp)
+
+
+def render_dedication_page(edition: dict) -> str:
+    """Render the optional Dedication page. Only injected when the edition has a
+    non-empty `dedication` (see inject_dedication_page)."""
+    ded = (edition.get("dedication") or "").strip()
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Dedication</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="frontmatter">
+  <section class="dedication-page" epub:type="dedication">
+    <p class="dedication-text">{html.escape(ded)}</p>
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_dedication_page(tmp: Path, edition: dict, version: str) -> None:
+    """If the edition has a non-empty `dedication`, write dedication.xhtml and
+    place it in the front matter RIGHT AFTER the title page (before the colophon).
+    No-op when there's no dedication (back-compat: most editions have none)."""
+    if not (edition.get("dedication") or "").strip():
+        return
+    (tmp / "dedication.xhtml").write_text(render_dedication_page(edition), encoding="utf-8")
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        if "dedication.xhtml" not in opf:
+            _anchor_m = '<item id="titlepage" href="titlepage.xhtml"'
+            _new = opf.replace(
+                _anchor_m,
+                '<item id="dedication" href="dedication.xhtml" media-type="application/xhtml+xml"/>\n    ' + _anchor_m,
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF manifest anchor not found: {_anchor_m!r}")
+            opf = _new
+            _spine_anchor = '<itemref idref="titlepage"/>'
+            _new = opf.replace(
+                _spine_anchor,
+                _spine_anchor + '\n    <itemref idref="dedication"/>',
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF spine anchor not found: {_spine_anchor!r}")
+            opf = _new
+            opf_path.write_text(opf, encoding="utf-8")
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        if 'href="dedication.xhtml"' not in nav:
+            nav = nav.replace(
+                '<li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>',
+                '<li><a href="dedication.xhtml">Dedication</a></li>\n      <li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>',
+                1,
+            )
+            nav_path.write_text(nav, encoding="utf-8")
+
+
+def _legend_categories_for_edition(edition_id: str) -> list[dict]:
+    """Ordered list of {id, symbol, label, description, count} for the categories
+    that actually appear in this edition (count > 0), in categories.yaml
+    sort_order. Edition-aware: disabling a category (or a canon that excludes it)
+    drops its symbol from the guide."""
+    from scripts.core import config, matrix as _matrix
+
+    present = _matrix.breakdown_by_category(edition_id)  # {cat_id: count}
+    cats = sorted(config.load_categories(), key=lambda c: c.get("sort_order", 999))
+    return [
+        {
+            "id": c["id"],
+            "symbol": c.get("symbol", "•"),
+            "label": c.get("label", c["id"]),
+            "description": c.get("description", ""),
+            "count": present.get(c["id"], 0),
+        }
+        for c in cats
+        if present.get(c["id"], 0) > 0
+    ]
+
+
+def render_symbol_legend_page(edition: dict, categories: list[dict], version: str) -> str:
+    """Render the 'A Guide to the Notes' XHTML. `categories` is the ordered,
+    already-filtered list from _legend_categories_for_edition. Each row gets a
+    stable anchor id='legend-<category-id>' so in-note symbols (Phase 2) can link
+    to it. Spec 2026-05-24 §5.3."""
+    rows = []
+    for c in categories:
+        rows.append(
+            f'    <p class="legend-row" id="legend-{html.escape(c["id"])}">'
+            f'<span class="legend-sym">{html.escape(c["symbol"])}</span> '
+            f'<span class="legend-label">{html.escape(c["label"])}</span> '
+            f'<span class="legend-count">({c["count"]:,} notes)</span><br/>'
+            f'<span class="legend-desc">{html.escape(c["description"])}</span></p>'
+        )
+    body = "\n".join(rows) if rows else '    <p class="legend-row">This edition carries no annotations.</p>'
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>A Guide to the Notes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="frontmatter">
+  <section class="legend-page" epub:type="frontmatter">
+    <h1 class="legend-title">A Guide to the Notes</h1>
+    <p class="legend-intro">Each annotation in this edition opens with a symbol marking the kind of note. The symbols used in this edition are:</p>
+{body}
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_symbol_legend_page(tmp: Path, edition: dict, version: str) -> None:
+    """Write legend.xhtml, register it in the OPF (manifest + spine right after
+    copyright) and add a nav.xhtml TOC entry (also renaming the copyright TOC
+    label to 'Colophon' to match its page title)."""
+    categories = _legend_categories_for_edition(edition["id"])
+    html_text = render_symbol_legend_page(edition, categories, version)
+    (tmp / "legend.xhtml").write_text(html_text, encoding="utf-8")
+
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        if "legend.xhtml" not in opf:
+            _anchor_m = '<item id="copyright" href="copyright.xhtml" media-type="application/xhtml+xml"/>'
+            _new = opf.replace(
+                _anchor_m,
+                _anchor_m + '\n    <item id="legend" href="legend.xhtml" media-type="application/xhtml+xml"/>',
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF manifest anchor not found: {_anchor_m!r}")
+            opf = _new
+            _spine_anchor = '<itemref idref="copyright"/>'
+            _new = opf.replace(
+                _spine_anchor,
+                _spine_anchor + '\n    <itemref idref="legend"/>',
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF spine anchor not found: {_spine_anchor!r}")
+            opf = _new
+            opf_path.write_text(opf, encoding="utf-8")
+
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        if 'href="legend.xhtml"' not in nav:
+            nav = nav.replace(
+                '<li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>',
+                '<li><a href="copyright.xhtml">Colophon</a></li>\n'
+                '      <li><a href="legend.xhtml">A Guide to the Notes</a></li>',
+                1,
+            )
+            nav_path.write_text(nav, encoding="utf-8")
+
+
+# ----------------------------------------------------------------------
+# "About this Edition" front-matter page (2026-05-24)
+#
+# The LAST front-matter page (Title → Colophon → Guide → About). All
+# data is composed from the edition's resolved choices — canon, matrix
+# breakdown, popup witnesses, theme — so whatever the builder picked
+# shows up automatically. No hardcoded counts.
+# ----------------------------------------------------------------------
+
+
+def _about_specs_for_edition(edition_id: str) -> dict:
+    """Compose the data dict for render_about_page from this edition's config.
+
+    Returns::
+
+        {
+          "canon_label":        str,           # short canon name, e.g. "Catholic"
+          "book_count":         int,           # books in the edition's canon
+          "annotation_count":   int,           # total notes (matrix)
+          "category_count":     int,           # number of non-zero categories
+          "categories":         list[dict],    # [{label, count}, ...] sort_order
+          "witness_labels":     list[str],     # popup language human labels
+          "theme":              str,
+          "description":        str,           # empty string when absent
+        }
+    """
+    from scripts.core import config as _cfg
+    from scripts.core import matrix as _matrix
+    from scripts.core.popup_versions import VERSION_REGISTRY, resolve_version_id
+
+    edition = _cfg.editions_by_id()[edition_id]
+
+    # Canon name + book count
+    canon_id = edition.get("canon") or "protestant"
+    all_canons = load_canons()
+    canon_info = all_canons.get(canon_id, {})
+    # Use full label but strip any parenthetical annotation comment after '('
+    raw_label = canon_info.get("label") or canon_id.replace("-", " ").title()
+    canon_label = raw_label.split("(")[0].strip().rstrip(",")
+    book_count = len(canon_info.get("books") or [])
+
+    # Annotation counts from matrix
+    annotation_count = _matrix.total_for_edition(edition_id)
+    breakdown = _matrix.breakdown_by_category(edition_id)
+
+    # Categories: sorted by sort_order, count > 0 only
+    cats_meta = sorted(_cfg.load_categories(), key=lambda c: c.get("sort_order", 999))
+    categories = [
+        {"label": c.get("label", c["id"]), "count": breakdown.get(c["id"], 0)}
+        for c in cats_meta
+        if breakdown.get(c["id"], 0) > 0
+    ]
+    category_count = len(categories)
+
+    # Popup witness labels: resolve legacy aliases → registry labels
+    popup_raw = edition.get("popup_languages_default") or []
+    witness_labels: list[str] = []
+    seen_vids: set[str] = set()
+    for tok in popup_raw:
+        vid = resolve_version_id(str(tok))
+        if vid and vid not in seen_vids:
+            seen_vids.add(vid)
+            label = VERSION_REGISTRY.get(vid, {}).get("label") or vid
+            witness_labels.append(label)
+
+    return {
+        "canon_label": canon_label,
+        "book_count": book_count,
+        "annotation_count": annotation_count,
+        "category_count": category_count,
+        "categories": categories,
+        "witness_labels": witness_labels,
+        "theme": str(edition.get("theme") or ""),
+        "description": str(edition.get("description") or ""),
+    }
+
+
+def render_about_page(edition: dict, specs: dict, version: str) -> str:
+    """Render the 'About this Edition' XHTML.
+
+    ``specs`` is the dict from ``_about_specs_for_edition`` (or a synthetic
+    dict for unit tests). All user-facing text is html.escape'd. The page
+    uses a ``<section class="about-page">`` and mirrors the legend-page
+    structural style."""
+    edition_title = edition.get("title_full", edition.get("title", "Untitled"))
+
+    # Canon line
+    canon_line = (
+        f'<p class="about-canon">'
+        f"<strong>Canon:</strong> {html.escape(specs['canon_label'])}"
+        f" — {specs['book_count']:,} books</p>"
+    )
+
+    # Annotation summary line
+    ann_line = (
+        f'<p class="about-annotations">'
+        f"<strong>Annotations:</strong> {specs['annotation_count']:,} notes"
+        f" across {specs['category_count']} categories</p>"
+    )
+
+    # Per-category list
+    cat_items = []
+    for cat in specs.get("categories") or []:
+        cat_items.append(f'<li class="about-cat-item">{html.escape(cat["label"])} — {cat["count"]:,} notes</li>')
+    cats_block = (
+        ('<ul class="about-cat-list">\n    ' + "\n    ".join(cat_items) + "\n  </ul>")
+        if cat_items
+        else '<p class="about-cat-empty">No annotations in this edition.</p>'
+    )
+
+    # Witnesses line (omit if empty list)
+    witnesses = specs.get("witness_labels") or []
+    if witnesses:
+        witnesses_line = (
+            f'<p class="about-witnesses">'
+            f"<strong>Verse-popup witnesses:</strong> "
+            f"{html.escape(', '.join(witnesses))}</p>"
+        )
+    else:
+        witnesses_line = ""
+
+    # Theme line
+    theme_val = specs.get("theme") or ""
+    theme_line = f'<p class="about-theme"><strong>Theme:</strong> {html.escape(theme_val)}</p>' if theme_val else ""
+
+    # Optional description paragraph
+    desc = specs.get("description") or ""
+    desc_para = f'<p class="about-description">{html.escape(desc)}</p>' if desc else ""
+
+    body_parts = [canon_line, ann_line, cats_block]
+    if witnesses_line:
+        body_parts.append(witnesses_line)
+    if theme_line:
+        body_parts.append(theme_line)
+    if desc_para:
+        body_parts.append(desc_para)
+
+    body = "\n  ".join(body_parts)
+
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>About this Edition</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="frontmatter">
+  <section class="about-page" epub:type="frontmatter">
+    <h1 class="about-title">About this Edition</h1>
+    <p class="about-edition-name"><em>{html.escape(edition_title)}</em></p>
+  {body}
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_about_page(tmp: Path, edition: dict, version: str) -> None:
+    """Write about.xhtml and register it in OPF (manifest + spine after legend)
+    and nav.xhtml (TOC entry after legend). Guard against double-injection."""
+    specs = _about_specs_for_edition(edition["id"])
+    html_text = render_about_page(edition, specs, version)
+    (tmp / "about.xhtml").write_text(html_text, encoding="utf-8")
+
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        if "about.xhtml" not in opf:
+            _anchor_m = '<item id="legend" href="legend.xhtml" media-type="application/xhtml+xml"/>'
+            _new = opf.replace(
+                _anchor_m,
+                _anchor_m + '\n    <item id="about" href="about.xhtml" media-type="application/xhtml+xml"/>',
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF manifest anchor not found: {_anchor_m!r}")
+            opf = _new
+            _spine_anchor = '<itemref idref="legend"/>'
+            _new = opf.replace(
+                _spine_anchor,
+                _spine_anchor + '\n    <itemref idref="about"/>',
+            )
+            if _new == opf:
+                raise RuntimeError(f"OPF spine anchor not found: {_spine_anchor!r}")
+            opf = _new
+            opf_path.write_text(opf, encoding="utf-8")
+
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        if 'href="about.xhtml"' not in nav:
+            nav = nav.replace(
+                '<li><a href="legend.xhtml">A Guide to the Notes</a></li>',
+                '<li><a href="legend.xhtml">A Guide to the Notes</a></li>\n'
+                '      <li><a href="about.xhtml">About this Edition</a></li>',
+                1,
+            )
+            nav_path.write_text(nav, encoding="utf-8")
+
+
+# ----------------------------------------------------------------------
+# Back-matter pages (2026-05-24)
+#
+# Three end-of-book pages appended after the last biblical book:
+#   1. Sources & Acknowledgments  (sources.xhtml,     id=backsources)
+#   2. Reference Tables           (reftables.xhtml,   id=backreftables)
+#   3. Closing Colophon           (colophonend.xhtml, id=backcolophon)
+#
+# Spine order: backsources → backreftables → backcolophon (genuinely last).
+# A Topical Index will later be inserted before backcolophon — the seam
+# is clean because all three items are appended to </spine> in order.
+# ----------------------------------------------------------------------
+
+
+def _sources_sections() -> list[tuple[str, str]]:
+    """Return list of (heading, body_html) pairs for Sources & Acknowledgments.
+
+    Composed from ATTRIBUTIONS.md + popup_versions.py VERSION_REGISTRY.
+    All text is static (not per-edition). Returns pre-escaped HTML fragments
+    suitable for embedding in the XHTML body."""
+    from scripts.core.popup_versions import VERSION_REGISTRY
+
+    # Translation witnesses: list human labels of all registry versions
+    # (order by 'order' key ascending).
+    witnesses = sorted(VERSION_REGISTRY.values(), key=lambda v: v["order"])
+    witness_items = "".join(
+        f'\n        <li class="sources-item">{html.escape(w["label"])} — Public Domain</li>' for w in witnesses
+    )
+
+    sections: list[tuple[str, str]] = [
+        (
+            "Biblical Text",
+            "<p>World English Bible (WEB). Public Domain. "
+            "The WEB is a revision of the American Standard Version (1901) "
+            "placed in the public domain by Rainbow Missions, Inc.</p>",
+        ),
+        (
+            "Lexicons &amp; Reference Works",
+            "<p>The following public-domain reference works were used to compile annotations:</p>"
+            '<ul class="sources-list">'
+            '\n        <li class="sources-item">Strong&#x2019;s Exhaustive Concordance'
+            " (Hebrew &amp; Greek Dictionaries), James Strong, 1894. Public Domain."
+            " Digital edition: Open Scriptures, CC-BY-SA.</li>"
+            '\n        <li class="sources-item">Treasury of Scripture Knowledge (TSK),'
+            " Canne, Browne, Blayney, Scott et al., 1830s. Public Domain."
+            " Digital edition: OpenBible.info, CC-BY 4.0.</li>"
+            '\n        <li class="sources-item">Nave&#x2019;s Topical Bible,'
+            " Orville J. Nave, 1896. Public Domain.</li>"
+            '\n        <li class="sources-item">Easton&#x2019;s Bible Dictionary,'
+            " Matthew George Easton, 1897. Public Domain.</li>"
+            "\n      </ul>",
+        ),
+        (
+            "Commentary &amp; Canonical Voices",
+            "<p>Patristic and Ethiopian canonical commentary drawn from public-domain sources:</p>"
+            '<ul class="sources-list">'
+            '\n        <li class="sources-item">Cyril of Alexandria,'
+            " <em>Commentary on the Gospel of St. John</em>,"
+            " trans. Pusey &amp; Randell (1874&#x2013;1885). Public Domain.</li>"
+            '\n        <li class="sources-item">Ephrem the Syrian,'
+            " <em>Commentary on Genesis</em> and <em>Hymns on Paradise</em>,"
+            " Nicene and Post-Nicene Fathers Series II, vol. XIII (1898). Public Domain.</li>"
+            '\n        <li class="sources-item">Athanasius of Alexandria'
+            " &#x2014; selected writings from Nicene and Post-Nicene Fathers. Public Domain.</li>"
+            '\n        <li class="sources-item">1 Enoch (M&#xe4;&#x1e63;&#x1e25;afä H&#x113;nok),'
+            " trans. R. H. Charles (Oxford: Clarendon Press, 1912). Public Domain.</li>"
+            '\n        <li class="sources-item">Book of Jubilees (M&#xe4;&#x1e63;&#x1e25;afä Kuf&#x101;le),'
+            " trans. R. H. Charles (Adam and Charles Black, 1902). Public Domain.</li>"
+            '\n        <li class="sources-item">Mäqabyan (1&#x2013;3) &#x2014;'
+            " Ethiopian canonical texts, public-domain English translations.</li>"
+            "\n      </ul>",
+        ),
+        (
+            "Translation Witnesses",
+            "<p>Verse-popup witnesses baked into this volume"
+            " (all public domain):</p>"
+            f'<ul class="sources-list">{witness_items}\n      </ul>',
+        ),
+        (
+            "Attribution Statement",
+            "<p>Per-note attribution is preserved in the apparatus."
+            " All sources incorporated in this volume are in the public domain.</p>",
+        ),
+    ]
+    return sections
+
+
+def render_sources_page(version: str) -> str:
+    """Render Sources &amp; Acknowledgments XHTML (static; not per-edition)."""
+    sections_html_parts: list[str] = []
+    for heading, body_html in _sources_sections():
+        sections_html_parts.append(
+            f'  <section class="sources-section">\n'
+            f'    <h2 class="sources-heading">{heading}</h2>\n'
+            f"    {body_html}\n"
+            f"  </section>"
+        )
+    body = "\n\n".join(sections_html_parts)
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Sources &amp; Acknowledgments</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+  <section class="backmatter-page" epub:type="backmatter">
+    <h1 class="backmatter-title">Sources &amp; Acknowledgments</h1>
+
+{body}
+  </section>
+</body>
+</html>
+"""
+
+
+def render_reference_tables_page(version: str) -> str:
+    """Render Reference Tables XHTML (static study-Bible reference data)."""
+
+    def _table(caption: str, headers: list[str], rows: list[list[str]]) -> str:
+        th_cells = "".join(f"<th>{html.escape(h)}</th>" for h in headers)
+        tr_rows = "".join("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in row) + "</tr>" for row in rows)
+        return (
+            f'<table class="reftable">'
+            f'<caption class="reftable-caption">{html.escape(caption)}</caption>'
+            f"<thead><tr>{th_cells}</tr></thead>"
+            f"<tbody>{tr_rows}</tbody>"
+            f"</table>"
+        )
+
+    length_table = _table(
+        "Length",
+        ["Unit", "Approx. (imperial)", "Approx. (metric)"],
+        [
+            ["Handbreadth", "3 in", "7.6 cm"],
+            ["Span", "9 in", "23 cm"],
+            ["Cubit", "18 in", "45 cm"],
+            ["Long cubit", "21 in", "53 cm"],
+            ["Reed (6 cubits)", "9 ft", "2.7 m"],
+        ],
+    )
+    weight_table = _table(
+        "Weight",
+        ["Unit", "Approx."],
+        [
+            ["Gerah", "0.6 g"],
+            ["Beka (10 gerahs)", "6 g"],
+            ["Shekel (20 gerahs)", "11.4 g"],
+            ["Mina (50 shekels)", "0.6 kg"],
+            ["Talent (3,000 shekels)", "34 kg"],
+        ],
+    )
+    dry_table = _table(
+        "Dry Capacity",
+        ["Unit", "Approx."],
+        [
+            ["Omer", "2 L"],
+            ["Seah (3.3 omers)", "7.3 L"],
+            ["Ephah (10 omers)", "22 L"],
+            ["Homer / Cor (10 ephahs)", "220 L"],
+        ],
+    )
+    liquid_table = _table(
+        "Liquid Capacity",
+        ["Unit", "Approx."],
+        [
+            ["Log", "0.3 L"],
+            ["Hin (12 logs)", "3.7 L"],
+            ["Bath", "22 L"],
+        ],
+    )
+    money_table = _table(
+        "Money",
+        ["Unit", "Notes"],
+        [
+            ["Shekel", "Standard weight-based currency"],
+            ["Mina (50 shekels)", ""],
+            ["Talent (3,000 shekels)", ""],
+            ["Denarius", "Approx. one day's wage (NT)"],
+            ["Drachma", "Greek silver coin, similar to denarius"],
+            ["Mite / Lepton", "Smallest coin in NT usage"],
+        ],
+    )
+
+    calendar_rows = [
+        ["Nisan / Abib", "Mar–Apr", "Passover, Unleavened Bread"],
+        ["Iyar", "Apr–May", ""],
+        ["Sivan", "May–Jun", "Weeks / Pentecost"],
+        ["Tammuz", "Jun–Jul", ""],
+        ["Av", "Jul–Aug", ""],
+        ["Elul", "Aug–Sep", ""],
+        ["Tishri", "Sep–Oct", "Trumpets, Day of Atonement, Tabernacles"],
+        ["Cheshvan", "Oct–Nov", ""],
+        ["Kislev", "Nov–Dec", ""],
+        ["Tevet", "Dec–Jan", ""],
+        ["Shevat", "Jan–Feb", ""],
+        ["Adar", "Feb–Mar", ""],
+    ]
+    calendar_table = _table(
+        "Hebrew Calendar",
+        ["Month", "Approx. Gregorian", "Major Feasts"],
+        calendar_rows,
+    )
+
+    disclaimer = (
+        '<p class="reftable-note"><em>All values are approximate; measures varied by period and region.</em></p>'
+    )
+
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Reference Tables</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+  <section class="backmatter-page" epub:type="backmatter">
+    <h1 class="backmatter-title">Reference Tables</h1>
+    {disclaimer}
+
+    {length_table}
+
+    {weight_table}
+
+    {dry_table}
+
+    {liquid_table}
+
+    {money_table}
+
+    {calendar_table}
+  </section>
+</body>
+</html>
+"""
+
+
+def render_closing_colophon_page(edition: dict, version: str) -> str:
+    """Render the Closing Colophon XHTML — the genuinely last page of the EPUB."""
+    edition_title = html.escape(edition.get("title_full", edition.get("title", "Untitled")))
+    edition_id = html.escape(edition.get("id", "unknown"))
+    urn = f"urn:yhwh:edition:{edition_id}"
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Colophon</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+  <section class="backmatter-page colophon-end" epub:type="backmatter">
+    <h1 class="backmatter-title">{edition_title}</h1>
+    <p class="colophon-publisher">Published by YHWH Ya&#x2019; Way Editions</p>
+    <p class="colophon-version">Generated {html.escape(version)}</p>
+    <p class="colophon-urn"><code>{html.escape(urn)}</code></p>
+    <p class="colophon-closing">Prepared for study and devotion. <em>Soli Deo Gloria.</em></p>
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_back_matter(tmp: Path, edition: dict, version: str) -> None:
+    """Write sources.xhtml, reftables.xhtml, colophonend.xhtml and register
+    each in content.opf (manifest + spine, appended at END in order) and
+    nav.xhtml (TOC entries appended at the END of the main <ol>).
+
+    Spine order guaranteed: backsources → backreftables → backcolophon.
+    backcolophon is the very last spine item.
+    Guards against double-injection via per-file href check."""
+    # --- Write the three XHTML files ---
+    (tmp / "sources.xhtml").write_text(render_sources_page(version), encoding="utf-8")
+    (tmp / "reftables.xhtml").write_text(render_reference_tables_page(version), encoding="utf-8")
+    (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition, version), encoding="utf-8")
+
+    # --- Patch content.opf ---
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+
+        # Manifest: append all three items before </manifest>
+        new_manifest_items = ""
+        if "sources.xhtml" not in opf:
+            new_manifest_items += (
+                '\n    <item id="backsources" href="sources.xhtml" media-type="application/xhtml+xml"/>'
+            )
+        if "reftables.xhtml" not in opf:
+            new_manifest_items += (
+                '\n    <item id="backreftables" href="reftables.xhtml" media-type="application/xhtml+xml"/>'
+            )
+        if "colophonend.xhtml" not in opf:
+            new_manifest_items += (
+                '\n    <item id="backcolophon" href="colophonend.xhtml" media-type="application/xhtml+xml"/>'
+            )
+        if new_manifest_items:
+            opf = opf.replace("</manifest>", new_manifest_items + "\n  </manifest>")
+
+        # Spine: append all three itemrefs before </spine> (in order)
+        new_spine_items = ""
+        if 'idref="backsources"' not in opf:
+            new_spine_items += '\n    <itemref idref="backsources"/>'
+        if 'idref="backreftables"' not in opf:
+            new_spine_items += '\n    <itemref idref="backreftables"/>'
+        if 'idref="backcolophon"' not in opf:
+            new_spine_items += '\n    <itemref idref="backcolophon"/>'
+        if new_spine_items:
+            opf = opf.replace("</spine>", new_spine_items + "\n  </spine>")
+
+        opf_path.write_text(opf, encoding="utf-8")
+
+    # --- Patch nav.xhtml ---
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        new_nav_items = ""
+        if 'href="sources.xhtml"' not in nav:
+            new_nav_items += '\n      <li><a href="sources.xhtml">Sources &amp; Acknowledgments</a></li>'
+        if 'href="reftables.xhtml"' not in nav:
+            new_nav_items += '\n      <li><a href="reftables.xhtml">Reference Tables</a></li>'
+        if 'href="colophonend.xhtml"' not in nav:
+            new_nav_items += '\n      <li><a href="colophonend.xhtml">Colophon</a></li>'
+        if new_nav_items:
+            nav = nav.replace("</ol>", new_nav_items + "\n    </ol>", 1)
             nav_path.write_text(nav, encoding="utf-8")
 
 
@@ -2990,6 +3705,10 @@ def build_one(
 
         # Inject per-edition copyright/credits page
         inject_copyright_page(tmp, edition, version)
+        inject_dedication_page(tmp, edition, version)
+        inject_symbol_legend_page(tmp, edition, version)
+        inject_about_page(tmp, edition, version)
+        inject_back_matter(tmp, edition, version)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
         # when `enabled_reading_plans` is empty, preserving pre-ψ.19.1

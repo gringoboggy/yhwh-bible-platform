@@ -543,21 +543,19 @@ class TestBuildEdition:
     def test_render_copyright_page_substitutes_edition_data(self):
         # Ω.0 pivot (2026-05-14): ISBN dropped. The copyright page
         # now identifies the edition by URN (urn:yhwh:edition:<id>).
+        # 2026-05-24 colophon rewrite: identity from _resolve_publishing keys;
+        # sources/description moved to dedicated back/about pages.
         edition = {"id": "test-sample", "title_full": "The Sample Edition", "description": "desc"}
-        defaults = {
-            "publisher": "Test Pub",
+        publishing = {
+            "publisher_name": "Test Pub",
             "copyright_year": "2026",
-            "publication_date": "20260101",
-            "contributor": {"name": "Sample Editor"},
+            "copyright_holder": "Sample Editor",
         }
-        html = self.mod.render_copyright_page(edition, defaults, "v1")
+        html = self.mod.render_copyright_page(edition, publishing, "v1", annotation_count=500, category_count=7)
         assert "The Sample Edition" in html
         assert "urn:yhwh:edition:test-sample" in html
         assert "Sample Editor" in html
         assert "Test Pub" in html
-        # Static legal scaffolding is always present
-        assert "World English Bible" in html
-        assert "Strong" in html
         # Ω.0 pivot pin — no ISBN anywhere on the copyright page
         assert "ISBN" not in html
         assert "urn:isbn:" not in html

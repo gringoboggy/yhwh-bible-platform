@@ -6,9 +6,7 @@ body {
   line-height: 1.55;
   color: #1F1A14;
   margin: 0 1em;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  text-align: left;
 }
 
 /* === BOOK / SECTION HEADINGS === */
@@ -68,9 +66,7 @@ p {
   display: block;
   margin: 0.6em 0;
   line-height: 1.55;
-  text-align: justify !important;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  text-align: left !important;
 }
 .right-p {
   display: block;
@@ -186,9 +182,9 @@ blockquote {
 }
 
 
-/* === FORCE JUSTIFY on body paragraphs (Apple Books compatibility) === */
+/* === FORCE LEFT-ALIGN on body paragraphs (Apple Books compatibility) === */
 body p {
-  text-align: justify;
+  text-align: left;
 }
 body p.right-p {
   text-align: right;
@@ -288,7 +284,7 @@ body, body.bible-body, p, p.verse-p, p.ch-heading, p.verse-p-flush {
   line-height: 1.32 !important;
   font-size: 0.95em;
 }
-p.verse-p { margin: 0.4em 0 !important; text-align: justify; hyphens: auto; }
+p.verse-p { margin: 0.4em 0 !important; text-align: left; }
 p.ch-heading { margin: 0.7em 0 0.3em 0 !important; }  /* chapter number paragraph */
 h1, h2, h3, h1.book-title {
   font-family: "Cardo", "EB Garamond", Georgia, "Times New Roman", serif !important;
@@ -403,7 +399,7 @@ h1, h2, h3, h1.book-title {
 /* === Cover, Introduction, Book Title pages — Phase C.9 === */
 /* Sentinel: PHASE_C9_FRONTMATTER_BLOCK */
 .cover-wrap { margin: 0; padding: 0; text-align: center; page-break-after: always; }
-.cover-wrap .cover-img { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; }
+.cover-wrap .cover-img { display: block; width: auto; max-width: 100%; max-height: 100%; height: auto; object-fit: contain; margin: 0 auto; }
 .cover-body, .intro-body { margin: 0 !important; padding: 0 !important; page-break-after: always; }
 .intro-wrap {
   padding: 1.4em 1.2em 1.2em 1.2em;
@@ -416,8 +412,8 @@ h1, h2, h3, h1.book-title {
   color: #0B3D91; margin: 0.1em 0 0.2em 0;
 }
 .intro-rule { text-align: center; color: #8B6508; font-size: 1.0em; margin: 0.4em 0 1.6em 0; }
-.intro-lede { font-size: 1.0em; line-height: 1.55; text-align: justify; hyphens: auto; margin: 0.6em 0 0.9em 0; }
-.intro-body-p { font-size: 0.95em; line-height: 1.5; text-align: justify; margin: 0.5em 0; color: #555; }
+.intro-lede { font-size: 1.0em; line-height: 1.55; text-align: left; margin: 0.6em 0 0.9em 0; }
+.intro-body-p { font-size: 0.95em; line-height: 1.5; text-align: left; margin: 0.5em 0; color: #555; }
 .intro-divider { text-align: center; margin: 1.6em 0 1.2em 0; color: #8B6508; font-size: 0.9em; }
 .intro-divider span { display: inline-block; padding: 0 0.4em; }
 .intro-signoff { text-align: right; font-style: italic; font-size: 0.9em; color: #6a4a1f; margin-top: 1.4em; }
@@ -441,6 +437,53 @@ h1, h2, h3, h1.book-title {
 .bookpage-subtitle { font-size: 0.92em; font-style: italic; color: #6a4a1f; margin: 0.2em 0 0.5em 0; }
 .bookpage-rule { color: #8B6508; font-size: 1.0em; margin: 0.5em 0 0.2em 0; }
 
+/* === A Guide to the Notes (symbol legend) === */
+.legend-page { padding: 1.2em 0.8em; text-align: left; }
+.legend-title { font-size: 1.5em; text-align: center; margin: 0 0 0.4em; }
+.legend-intro { margin: 0 0 1em; }
+.legend-row { margin: 0 0 0.7em; line-height: 1.45; }
+.legend-sym { font-size: 1.15em; font-weight: 700; margin-right: 0.4em; }
+.legend-label { font-variant-caps: small-caps; letter-spacing: 0.04em; font-weight: 700; }
+.legend-count { color: #6E5840; font-size: 0.85em; }
+.legend-desc { color: #333; }
+
+/* === About this Edition page === */
+.about-page { padding: 1.2em 0.8em; text-align: left; }
+.about-title { font-size: 1.5em; text-align: center; margin: 0 0 0.4em; }
+.about-edition-name { text-align: center; font-style: italic; color: #4a3520; margin: 0 0 1em; }
+.about-canon { margin: 0 0 0.4em; }
+.about-annotations { margin: 0 0 0.8em; }
+.about-cat-list { margin: 0.2em 0 0.8em 1.4em; padding: 0; }
+.about-cat-item { margin: 0 0 0.25em; line-height: 1.4; }
+.about-cat-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
+.about-witnesses { margin: 0 0 0.4em; }
+.about-theme { margin: 0 0 0.4em; }
+.about-description { margin: 0.8em 0 0; font-style: italic; color: #333; }
+
+/* === Back-matter pages (Sources, Reference Tables, Closing Colophon) === */
+.backmatter-page { padding: 1.2em 0.8em; text-align: left; }
+.backmatter-title { font-size: 1.5em; text-align: center; margin: 0 0 0.6em; }
+.sources-section { margin: 0 0 1.2em; }
+.sources-heading { font-size: 1.1em; font-variant-caps: small-caps; letter-spacing: 0.04em;
+                   border-bottom: 1px solid #c8b89a; padding-bottom: 0.2em; margin: 0 0 0.4em;
+                   page-break-before: avoid; break-before: avoid; }
+.copyright-heading { page-break-before: avoid; break-before: avoid; }
+.sources-list { margin: 0.2em 0 0 1.2em; padding: 0; }
+.sources-item { margin: 0 0 0.3em; line-height: 1.45; }
+.reftable { width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.9em; }
+.reftable-caption { font-variant-caps: small-caps; letter-spacing: 0.04em; font-weight: 700;
+                    text-align: left; padding: 0 0 0.2em; margin: 0; }
+.reftable th { background: #f0ead8; border: 1px solid #c8b89a; padding: 0.25em 0.5em;
+               text-align: left; font-weight: 700; }
+.reftable td { border: 1px solid #ddd3bf; padding: 0.25em 0.5em; vertical-align: top; }
+.reftable tr:nth-child(even) td { background: #faf7f0; }
+.reftable-note { font-size: 0.85em; color: #666; font-style: italic; margin: 0 0 0.8em; }
+.colophon-end { text-align: center; padding: 2em 1em; }
+.colophon-publisher { font-size: 1.1em; color: #4a3520; margin: 0 0 0.4em; }
+.colophon-version { font-size: 0.85em; color: #888; margin: 0 0 0.2em; }
+.colophon-urn { font-size: 0.75em; color: #aaa; margin: 0 0 1.2em; }
+.colophon-urn code { font-family: monospace; }
+.colophon-closing { font-style: italic; color: #4a3520; margin: 1em 0 0; }
 
 /* === BEGIN apply_style.py managed region — DO NOT EDIT BY HAND === */
 body, body.bible-body {
@@ -531,3 +574,15 @@ p.verse-p, p.verse-p-flush {
 
 [class*="marker-dist-"]   { color: #4A2E5C; background: rgba(74, 46, 92, 0.13); }
 [class*="note-dist-"]     { border-left: 3px solid #4A2E5C; padding-left: 0.7em; }
+
+/* Dedication page (front matter) */
+.dedication-page {
+  text-align: center;
+  margin-top: 30%;
+  padding: 2em 1em;
+}
+.dedication-text {
+  font-style: italic;
+  font-size: 1.05em;
+  line-height: 1.7;
+}

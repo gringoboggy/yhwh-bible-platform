@@ -367,6 +367,8 @@ function renderEditions() {
           <input class="label-input" data-field="short_title" value="${escapeAttr(e.short_title)}" maxlength="100" placeholder="short title">
           <input class="label-input md:col-span-2" data-field="target_audience" value="${escapeAttr(e.target_audience)}" maxlength="500" placeholder="target audience">
           <input class="label-input md:col-span-2" data-field="notes" value="${escapeAttr(e.notes)}" maxlength="500" placeholder="editorial notes">
+          <textarea class="label-input md:col-span-2" data-field="description" maxlength="4000" placeholder="Edition description (shown on About page)" rows="3">${escapeAttr(e.description||'')}</textarea>
+          <textarea class="label-input md:col-span-2" data-field="dedication" maxlength="4000" placeholder="Dedication text (optional front-matter page)" rows="2">${escapeAttr(e.dedication||'')}</textarea>
         </div>
       </section>
 
@@ -633,7 +635,7 @@ function renderEditions() {
     </div>
   `).join('');
   wrap.querySelectorAll('[data-edition]').forEach(box => {
-    const inputs = box.querySelectorAll('input, select');
+    const inputs = box.querySelectorAll('input, select, textarea');
     const btn = box.querySelector('.ed-save');
     const previewBtn = box.querySelector('.ed-preview');
     inputs.forEach(inp => {
@@ -1112,7 +1114,7 @@ function markTraditionsDirty(box, state) {
 // dirty flag). Empty object means no changes.
 function buildCustomizePayload(box) {
   const payload = {};
-  box.querySelectorAll('input, select').forEach(i => {
+  box.querySelectorAll('input, select, textarea').forEach(i => {
     // Skip the popup-language section's checkboxes; those are
     // collected via box.popupLangsState below.
     if (!i.dataset.field) return;
@@ -1179,7 +1181,7 @@ async function saveEdition(box) {
       previewBtn.disabled = true;
       previewBtn.classList.add('opacity-50');
     }
-    box.querySelectorAll('input, select').forEach(i => {
+    box.querySelectorAll('input, select, textarea').forEach(i => {
       i.dataset.original = i.type === 'checkbox' ? String(i.checked) : i.value;
     });
     // Re-baseline popup-language original snapshot

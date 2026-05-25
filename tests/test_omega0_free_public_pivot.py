@@ -106,13 +106,12 @@ class TestBuildEditionUrnReplacesIsbn:
 
     def test_render_copyright_page_uses_urn_not_isbn(self):
         edition = {"id": "demo", "title_full": "Demo Edition"}
-        defaults = {
-            "publisher": "Demo Pub",
+        publishing = {
+            "publisher_name": "Demo Pub",
             "copyright_year": "2026",
-            "publication_date": "20260514",
-            "contributor": {"name": "Demo Editor"},
+            "copyright_holder": "Demo Editor",
         }
-        html = self.be.render_copyright_page(edition, defaults, "v1")
+        html = self.be.render_copyright_page(edition, publishing, "v1", annotation_count=100, category_count=5)
         assert "urn:yhwh:edition:demo" in html
         assert "ISBN" not in html
         assert "TODO_ISBN" not in html
