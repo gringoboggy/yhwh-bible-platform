@@ -63,11 +63,17 @@ class TestTau10aDiscovery:
         assert translations.has_book("arabic-vandyke", "gen") is True
 
 
-class TestTau10aSeed:
-    def test_three_verses(self):
+class TestTau10aFull:
+    """Arabic Van-Dyck — full ingest (the f6d90c6 translation spine: 66 books /
+    31,102 verses), superseding the τ.10-A 3-verse seed. The Gen 1:1-3 content
+    pins below still hold (the full text opens identically)."""
+
+    def test_full_genesis(self):
+        # A full book aligned to the KJV Genesis verse count — not a 3-verse seed.
         from scripts.core import translations
 
-        assert translations.book_verse_count("arabic-vandyke", "gen") == 3
+        assert translations.book_verse_count("arabic-vandyke", "gen") == translations.book_verse_count("kjv", "gen")
+        assert translations.book_verse_count("arabic-vandyke", "gen") > 1500
 
     def test_gen_1_1_starts_with_fi_albadi(self):
         # فِي ٱلْبَدْءِ = "In the beginning" — the canonical Arabic
@@ -137,19 +143,14 @@ class TestTau10aMetaShape:
 
 
 class TestPopupLanguageCoverageClosed:
-    """The closing test for the translation tier-1 wave.
+    """Every popup_languages_default value resolves to a popup version.
 
-    After this ship, every language declared in any edition's
-    popup_languages_default has at least one matching translation
-    in content/translations/ that could provide popup data.
-
-    The mapping:
-        english   → kjv (full) + jps (seed) + lxx-brenton-english
-                    (seed) + douay-rheims (seed) — multiple
-        hebrew    → wlc (seed)
-        greek     → lxx-brenton-greek (seed)
-        latin     → vulgate-clementine (seed)
-        arabic    → arabic-vandyke (seed) ← THIS SHIP
+    Originally (τ.10-A) this mapped language-family names to translation seeds.
+    EPUB Wave 3 #6 redefined popup_languages_default to hold popup-VERSION ids
+    directly (wlc/lxx-greek/greek-nt/vulgate/arabic), so the contract is now:
+    every declared value resolves via popup_versions.resolve_version_id (which
+    also honors the legacy aliases english→kjv, hebrew→wlc, greek→lxx-greek) —
+    that resolver is what actually furnishes a verse popup.
     """
 
     def _all_popup_languages(self) -> set[str]:
@@ -161,35 +162,19 @@ class TestPopupLanguageCoverageClosed:
                 out.add(str(lang).strip().lower())
         return out
 
-    def test_every_popup_language_has_a_translation(self):
-        # Map of expected popup-language → translation id(s) that
-        # would satisfy it.
-        from scripts.core import translations
+    def test_every_popup_language_resolves_to_a_popup_version(self):
+        # Wave 3 #6 contract: every declared popup_languages_default value must
+        # resolve to a registered popup version — directly (wlc/lxx-greek/
+        # greek-nt/vulgate/arabic) or via a legacy alias (english→kjv, etc.).
+        # popup_versions.resolve_version_id is the single source of truth for
+        # "this token furnishes a verse popup."
+        from scripts.core import popup_versions
 
-        registered = set(translations.list_translations())
-        # The mapping is the project's translation-language contract
-        # at this point in the τ-cluster. Future τ-phases (Ge'ez,
-        # GNT manuscript Greek, ASV+YLT, etc.) extend this without
-        # breaking the contract.
-        coverage = {
-            "english": registered.intersection({"kjv", "jps", "lxx-brenton-english", "douay-rheims"}),
-            "hebrew": registered.intersection({"wlc"}),
-            "greek": registered.intersection({"lxx-brenton-greek"}),
-            "latin": registered.intersection({"vulgate-clementine"}),
-            "arabic": registered.intersection({"arabic-vandyke"}),
-        }
-        # Every declared popup language must have a non-empty
-        # coverage set.
-        all_languages = self._all_popup_languages()
-        gaps = []
-        for lang in all_languages:
-            covering = coverage.get(lang, set())
-            if not covering:
-                gaps.append(lang)
+        gaps = [lang for lang in self._all_popup_languages() if popup_versions.resolve_version_id(lang) is None]
         assert not gaps, (
-            f"popup-language gaps remain: {gaps}. "
-            "Every declared popup_languages_default value should map to "
-            "at least one registered translation."
+            f"popup-language gaps remain: {gaps}. Every declared "
+            "popup_languages_default value must resolve to a registered popup "
+            "version (popup_versions.resolve_version_id)."
         )
 
     def test_eight_translations_after_this_ship(self):

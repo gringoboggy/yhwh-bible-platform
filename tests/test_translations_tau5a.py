@@ -14,9 +14,10 @@ Coverage:
 - TestTau5aDiscovery:                 list_translations() returns
   both new ids; has_translation() returns True; has_book(gen)
   returns True.
-- TestTau5aJpsSeed:                   Gen 1:1-3 seed loads; verse
-  text matches the JPS 1917 published English (literal text pin so
-  a future swap is detected); meta short_title pinned to "JPS".
+- TestTau5aJpsFull:                   JPS 1917 full ingest (the
+  f6d90c6 spine, superseding the seed); verse text matches the
+  published English (literal text pin so a future swap is
+  detected); meta short_title "JPS" + source_date 1917.
 - TestTau5aWlcSeed:                   Gen 1:1-3 seed loads; verse
   text contains the canonical Hebrew opening "בְּרֵאשִׁית" (in the
   beginning); meta short_title pinned to "WLC"; verse text is in
@@ -99,28 +100,35 @@ class TestTau5aDiscovery:
         assert translations.has_book("jps", "gen") is True
         assert translations.has_book("wlc", "gen") is True
 
-    def test_has_book_coverage_reflects_seed_vs_full(self):
-        # JPS is still a Genesis-only seed; WLC is now fully ingested (Phase 2),
-        # so it claims all 39 OT books while JPS does not.
+    def test_has_book_coverage_full_ot_ingest(self):
+        # Both JPS and WLC are now fully ingested (the f6d90c6 spine): each
+        # claims the full OT (has Exodus). Earlier JPS was a Genesis-only seed.
         from scripts.core import translations
 
-        assert translations.has_book("jps", "exo") is False  # jps: seed (gen only)
+        assert translations.has_book("jps", "exo") is True  # jps: full OT ingest
         assert translations.has_book("wlc", "exo") is True  # wlc: full OT ingest
 
 
-class TestTau5aJpsSeed:
-    """JPS 1917 Genesis 1:1-3 seed content + meta."""
+class TestTau5aJpsFull:
+    """JPS 1917 — full ingest (the f6d90c6 spine: 39 books / 23,145 verses),
+    superseding the τ.5-A 3-verse Genesis seed."""
 
-    def test_three_verses_in_gen(self):
+    def test_full_genesis_matches_kjv_verse_count(self):
+        # JPS aligns to the KJV Genesis verse count — proof the full ingest
+        # replaced the 3-verse seed.
         from scripts.core import translations
 
-        assert translations.book_verse_count("jps", "gen") == 3
+        assert translations.book_verse_count("jps", "gen") == translations.book_verse_count("kjv", "gen")
+        assert translations.book_verse_count("jps", "gen") > 1500
 
     def test_gen_1_1(self):
+        # The eBible eng-jps source renders the opening words of Genesis in caps
+        # ("IN THE beginning") — a typographic convention of the 1917 print
+        # edition preserved by the ingest. Pin the actual text (swap-detector).
         from scripts.core import translations
 
         v = translations.get_verse("jps", "gen", 1, 1)
-        assert v == "In the beginning God created the heaven and the earth."
+        assert v == "IN THE beginning God created the heaven and the earth."
 
     def test_gen_1_2_canonical_jps_phrasing(self):
         # JPS 1917 says "unformed and void" (distinct from KJV's
@@ -238,9 +246,9 @@ class TestTau5aPairing:
         assert "jps" in ids
         assert "wlc" in ids
 
-    def test_genesis_coverage_seed_vs_full(self):
+    def test_genesis_coverage_both_full(self):
         from scripts.core import translations
 
-        # JPS remains the 3-verse seed; WLC is now the full ingest (Phase 2).
-        assert translations.book_verse_count("jps", "gen") == 3
+        # Both halves of the Hebrew column are now full ingests (f6d90c6).
+        assert translations.book_verse_count("jps", "gen") > 1500
         assert translations.book_verse_count("wlc", "gen") > 1500

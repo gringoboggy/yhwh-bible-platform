@@ -69,6 +69,11 @@ def run_all(
     ``runner`` / ``coverage_installed`` are injectable for tests."""
     run = runner or _subprocess_runner
     if coverage_floor is None:
+        # Baseline measured 2026-05-25: scripts/ line coverage = 62% over the full
+        # serial suite (`coverage run --source=scripts -m pytest`). The floor is 60
+        # — a ~2-point ratchet just below measured, so coverage can't silently
+        # regress while leaving headroom for run-to-run drift. Raise it as coverage
+        # improves; override per-run via the COVERAGE_FLOOR env var.
         try:
             coverage_floor = int(os.environ.get("COVERAGE_FLOOR") or "60")
         except ValueError:

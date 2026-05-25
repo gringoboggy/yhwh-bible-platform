@@ -28,9 +28,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -107,6 +109,42 @@ def terminate_tree(proc: subprocess.Popen) -> None:
             proc.kill()
 
 
+def meipass_dirs(temp_dir: Path) -> set[Path]:
+    """Return the PyInstaller one-file extraction dirs (``_MEI*``) currently
+    present directly under ``temp_dir``."""
+    return {p for p in temp_dir.glob("_MEI*") if p.is_dir()}
+
+
+def _force_rmtree(path: Path, *, attempts: int = 5, delay: float = 0.3) -> bool:
+    """Recursively remove ``path``, tolerating the brief Windows file-handle
+    lag after a force-kill (the killed bootloader's handles can linger a
+    moment). Returns True once the tree is gone."""
+    for attempt in range(attempts):
+        try:
+            shutil.rmtree(path)
+        except FileNotFoundError:
+            return True
+        except OSError:
+            if attempt == attempts - 1:
+                shutil.rmtree(path, ignore_errors=True)
+            else:
+                time.sleep(delay)
+        if not path.exists():
+            return True
+    return not path.exists()
+
+
+def prune_new_meipass_dirs(before: set[Path], temp_dir: Path) -> list[Path]:
+    """Remove the ``_MEI*`` extraction dirs that appeared under ``temp_dir``
+    since the ``before`` snapshot, leaving any pre-existing one untouched (it
+    may belong to another running frozen process). Force-killing the binary
+    (``taskkill /F``) blocks PyInstaller's own cleanup, so without this each
+    smoke run leaks its extraction dir. Returns the dirs actually removed."""
+    new_dirs = meipass_dirs(temp_dir) - before
+    removed = [d for d in new_dirs if _force_rmtree(d)]
+    return sorted(removed)
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Smoke-test the packaged YHWH desktop binary.")
     p.add_argument("--exe", type=Path, default=Path("dist/YHWH.exe"), help="path to the built binary")
@@ -130,6 +168,13 @@ def main(argv: list[str] | None = None) -> int:
     cmd = [str(args.exe), "--shell", "browser", "--no-browser", "--port", str(port)]
     if args.skip_bootstrap:
         cmd.append("--skip-bootstrap")
+
+    # Snapshot the PyInstaller extraction dirs BEFORE launch so the teardown can
+    # remove only the dir THIS run leaks (taskkill /F blocks the bootloader's
+    # own cleanup) and never a pre-existing one from another frozen process.
+    temp_dir = Path(tempfile.gettempdir())
+    meipass_before = meipass_dirs(temp_dir)
+
     print(f"launching: {' '.join(cmd)}")
     proc = subprocess.Popen(
         cmd,
@@ -161,6 +206,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     finally:
         terminate_tree(proc)
+        leaked = prune_new_meipass_dirs(meipass_before, temp_dir)
+        if leaked:
+            print(f"cleaned {len(leaked)} leaked PyInstaller extraction dir(s) from {temp_dir}")
 
 
 if __name__ == "__main__":

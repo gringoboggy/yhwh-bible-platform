@@ -54,6 +54,10 @@ Thumbs.db
 *.log
 dashboard.html
 coverage_heatmap.html
+# coverage.py data + html (W4.5 coverage floor — regenerated each `make ci` run)
+.coverage
+.coverage.*
+htmlcov/
 
 # --- Subagent image-crop scratch (τ.6.x.4.c marathon footgun guard) ---
 # Transcribe/review/fix subagents crop+upscale the ~80MP manuscript

@@ -237,7 +237,7 @@ TRANSLATIONS: dict[str, dict] = {
             "publisher": "eBible.org",
             "url": "https://eBible.org/eng-jps/",
             "package": "eng-jps_vpl.zip",
-            "source_date": None,  # filled at extract time
+            "source_date": 1917,  # JPS 1917 edition (publication year)
         },
         "notes": (
             "Jewish Publication Society 1917 Tanakh — Public-Domain "

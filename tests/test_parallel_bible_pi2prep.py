@@ -277,18 +277,23 @@ class TestPi2PrepEthiopianTewahedoCurrentState:
         et = next((e for e in editions if e.get("id") == "ethiopian-tewahedo"), None)
         assert et is not None, "Π.2.prep: ethiopian-tewahedo edition must exist in editions.yaml"
 
-    def test_ethiopian_tewahedo_popup_languages_currently_3(self):
-        """Current state: english/hebrew/greek (3 languages). Π.2
-        will add geez+amharic (5 total). If this test fails, the
-        checklist's §5 diff is out-of-date and needs refresh BEFORE
-        Π.2 ship."""
+    def test_ethiopian_tewahedo_popup_languages_currently_5_witnesses(self):
+        """Current state: the 5-witness popup set wlc/lxx-greek/greek-nt/vulgate/
+        arabic, set by EPUB Wave 3 #6 (which dropped the English KJV and widened
+        popups to the original-language + Latin + Arabic witnesses). NOTE:
+        popup_languages_default now holds popup-VERSION ids, not the legacy
+        language-family names english/hebrew/greek. The earlier 'Π.2 will add
+        geez+amharic (5 total)' premise is SUPERSEDED — per the 2026-05-16
+        standalone-bibles decision the Ge'ez/Amharic Bibles carry their OWN popups
+        and are NOT wired into the other editions. This stays a drift-detector: if
+        it fails, refresh PI2_PRE_FLIGHT_CHECKLIST §5 against the new value."""
         data = yaml.safe_load(EDITIONS_YAML.read_text(encoding="utf-8"))
         editions = data["editions"]
         et = next(e for e in editions if e.get("id") == "ethiopian-tewahedo")
         pld = et.get("popup_languages_default") or []
-        assert sorted(pld) == sorted(["english", "hebrew", "greek"]), (
-            f"Π.2.prep: ethiopian-tewahedo.popup_languages_default expected "
-            f"['english','hebrew','greek'] at Π.2.prep ship time; got {pld!r}. "
+        assert sorted(pld) == sorted(["wlc", "lxx-greek", "greek-nt", "vulgate", "arabic"]), (
+            f"ethiopian-tewahedo.popup_languages_default expected the 5-witness set "
+            f"(Wave 3 #6: wlc/lxx-greek/greek-nt/vulgate/arabic); got {pld!r}. "
             f"If this changed via an upstream flip, refresh PI2_PRE_FLIGHT_CHECKLIST §5 diff."
         )
 

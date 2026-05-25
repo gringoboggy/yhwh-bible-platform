@@ -135,18 +135,22 @@ class TestTau3Discovery:
         assert "vulgate-clementine" in translations.list_translations()
 
 
-class TestTau3Seed:
-    def test_three_verses(self):
+class TestTau3Full:
+    """Clementine Vulgate — full ingest (f6d90c6), superseding the τ.3 seed."""
+
+    def test_full_genesis(self):
+        # Full book — the Vulgate's versification differs slightly from KJV's
+        # 1533 (gen=1530), so pin "> 1500" rather than an exact KJV match.
         from scripts.core import translations
 
-        assert translations.book_verse_count("vulgate-clementine", "gen") == 3
+        assert translations.book_verse_count("vulgate-clementine", "gen") > 1500
 
     def test_gen_1_1_in_principio(self):
         # The Vulgate's canonical opening. Pin verbatim.
         from scripts.core import translations
 
         v = translations.get_verse("vulgate-clementine", "gen", 1, 1)
-        assert v == "In principio creavit Deus caelum et terram."
+        assert v == "In principio creavit Deus cælum et terram."  # full Clementine uses the æ ligature
 
     def test_gen_1_3_fiat_lux(self):
         # Pin the most famous Latin Bible quotation. This is the
@@ -163,7 +167,7 @@ class TestTau3Seed:
         from scripts.core import translations
 
         v = translations.get_verse("vulgate-clementine", "gen", 1, 2)
-        assert "Spiritus Dei" in v
+        assert "spiritus Dei" in v  # lowercase mid-sentence in the full Clementine text
         assert "super aquas" in v
 
     def test_meta_short_title(self):
@@ -205,11 +209,14 @@ class TestTau2Discovery:
         assert "douay-rheims" in translations.list_translations()
 
 
-class TestTau2Seed:
-    def test_three_verses(self):
+class TestTau2Full:
+    """Douay-Rheims — full ingest (f6d90c6), superseding the τ.2 seed. The
+    Gen 1:1-3 content pins below still hold (the full text opens identically)."""
+
+    def test_full_genesis(self):
         from scripts.core import translations
 
-        assert translations.book_verse_count("douay-rheims", "gen") == 3
+        assert translations.book_verse_count("douay-rheims", "gen") > 1500
 
     def test_gen_1_1_dra_phrasing(self):
         # DRA's distinctive "created heaven, and earth" — note the

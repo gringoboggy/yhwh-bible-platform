@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-25 (cont.) — Post-Wave-4 TIER 1: coverage floor ACTIVATED + 12 latent test failures fixed + smoke-cleanup + Git-LFS decided
+
+Post-Wave-4 TIER 1 loose ends (per `dev/PLAN_2026-05-24-end-scope.md`). The headline: activating the W4.5 coverage floor ran the FIRST true whole-suite measurement (no file filter), which surfaced 12 latent failures that prior "full-suite green" sweeps — actually curated SUBSETS — had masked.
+
+- **TIER 1 #1 — coverage floor ACTIVATED.** `pip install -r requirements-dev.txt` (declared manifest, §0-clean) → `coverage 7.14.0`; the `make ci` coverage step is now live + BLOCKING. Measured **scripts/ line coverage = 62%** over the full serial suite. Set the floor to **60** in `scripts/ci.py` — a ~2-point ratchet just below measured (documented inline; override via `COVERAGE_FLOOR`). `.gitignore` += `.coverage` / `.coverage.*` / `htmlcov/`.
+- **12 latent test failures FIXED (4 files), one root-cause class** — stale state-pins that never followed their data forward: **(a) full translation ingests** (commit `f6d90c6`: JPS/WLC/Arabic/Vulgate/Douay went seed→full, but only WLC's pins had been updated to match) so JPS/Vulgate/Douay/Arabic still asserted the 3-verse seed; **(b) Wave 3 #6** repointed `popup_languages_default` to witness-ids (wlc/lxx-greek/greek-nt/vulgate/arabic). Fixed against verified reality — real verse counts, the actual ingested text (Vulgate's ae-ligature "caelum" + lowercase "spiritus Dei"; JPS's genuine all-caps "IN THE beginning"), and the popup-coverage test re-pointed to `popup_versions.resolve_version_id`. Files: `tests/test_translations_tau5a.py` · `test_translations_tau4_tau3_tau2.py` · `test_translations_tau10a.py` · `test_parallel_bible_pi2prep.py`.
+- **Root data defect fixed:** the JPS registry `source_date` was `None`, so its auto-generated `_meta.yaml` carried the *fetch* date (2026-05-23) instead of the publication year (every other translation had its year). Set `source_date: 1917` in `scripts/extract_translation.py` + `content/translations/jps/_meta.yaml`.
+- **TIER 1 #3 — smoke-desktop `_MEI*` self-cleanup (TDD).** `dev/smoke_desktop.py` now snapshots the temp dir's `_MEI*` PyInstaller extraction dirs before launch and removes only the dir THIS run leaks in the `finally` (force-kill blocks PyInstaller's own cleanup). New `meipass_dirs()` / `prune_new_meipass_dirs()` / `_force_rmtree()` (Windows file-lock retry) + `tests/test_smoke_desktop.py` (4 tests, RED→GREEN).
+- **TIER 1 #2 — Git-LFS decision: LEAVE AS-IS (no LFS).** Recorded in the PLAN + the backup memory: no git remote (LFS's benefit is moot) + `git bundle --all` (the E:/F: backup) captures only LFS *pointers* not the media (would silently break backups) + every file < GitHub's 100 MB/file limit.
+
+**Verified:** whole serial suite **7278 passed / 0 failed** (was 7266 passed + 12 failed) · `ci.py --no-tests` CLEAN (`ruff format --check` ✓ · `lint_rules` 16/0/0 · mypy ✓) · coverage gate `--fail-under=60` → PASS (62%). No content/corpus/base-HTML change (the JPS `_meta` source_date + registry are metadata only; the verse data is unchanged).
+
+**▶ NEXT — TIER 2** (opportunistic depth, non-blocking): Track C corpus (5 capped reference works) · 7 no-KJV-book popups · Phase E Latin appendix · code-debt (the visible ruff lint backlog incl. pre-existing E501s + wiring vulture/pip-audit). Then TIER 3 (parallel-Bibles arc, user-paced). The **[USER]** real-reader presentation eyeball remains open.
+
+---
+
 ## 2026-05-25 (cont.) — Wave 4 W4.5 (local CI gate + mypy clean + coverage floor) — WAVE 4 COMPLETE
 
 The final Wave-4 piece — solo-maintainability gates (no git remote yet, so CI runs locally via `make`).

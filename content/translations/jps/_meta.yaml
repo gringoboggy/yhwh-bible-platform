@@ -11,7 +11,7 @@ source:
   url: "https://eBible.org/eng-jps/"
   package: "eng-jps_vpl.zip"
   fetched: 2026-05-23
-  source_date: 2026-05-23
+  source_date: 1917
 stats:
   books: 39
   verses: 23145
