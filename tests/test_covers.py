@@ -80,3 +80,26 @@ class TestCoverReachesEpub:
             epub_cover = zf.read(cover_name)
 
         assert epub_cover == (COVERS / "catholic-study.jpg").read_bytes()
+
+
+class TestComposeCover:
+    """Title-only cover composition (spec §4.6, user-confirmed 2026-05-24):
+    the generated cover carries ONLY the edition title — no subtitle/short-title
+    and no publisher mark — recentered as a single block across designs."""
+
+    def test_editions_are_title_only_triples(self):
+        from scripts.generate_edition_covers import EDITIONS
+
+        # (edition_id, template_stem, title) — the dropped subtitle + publisher
+        # mark are no longer carried (their content moved to "About this Edition").
+        assert EDITIONS, "EDITIONS must not be empty"
+        assert all(len(row) == 3 for row in EDITIONS), (
+            f"title-only: every EDITIONS row must be a 3-tuple; got arities {sorted({len(r) for r in EDITIONS})}"
+        )
+
+    def test_compose_returns_final_dimensions(self):
+        from scripts.generate_edition_covers import FINAL_HEIGHT, FINAL_WIDTH, _compose_cover
+
+        img = _compose_cover("02_classical_corner_navy", "The Catholic Study Bible\nEthiopian Edition")
+        assert img.size == (FINAL_WIDTH, FINAL_HEIGHT)
+        assert img.mode == "RGB"

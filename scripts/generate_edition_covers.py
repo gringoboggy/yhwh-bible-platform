@@ -1,16 +1,20 @@
-"""Generate 9 edition main cover JPGs by compositing typography onto
-the existing `content/covers/templates/` family.
+"""Generate the 9 edition main cover JPGs by compositing the edition title
+onto the existing `content/covers/templates/` family.
 
-ω.38 (C6 closure — 2026-05-13).
+ω.38 (C6 closure — 2026-05-13); title-only recenter (Wave 2 — 2026-05-25).
 
 The audit (`AUDIT_2026-05-12-C`) flagged C6: `editions.yaml` declares
 `cover_image: "covers/<edition-id>.jpg"` for every edition, but those
-files did not exist — the wizard's BUILD step emitted EPUBs whose
-cover slot resolved to a missing path. This script generates the
-missing 9 main covers using the existing 25-template library
-(5 design families × 5 colors) by compositing each edition's
-title + short-title + publisher mark onto a tradition-appropriate
-template.
+files did not exist — the wizard's BUILD step emitted EPUBs whose cover
+slot resolved to a missing path. This script generates the 9 main covers
+from the 25-template library (5 design families × 5 colors) by compositing
+each edition's title onto a tradition-appropriate template.
+
+Per spec §4.6 (user-confirmed 2026-05-24) the cover is TITLE-ONLY: the
+former subtitle/short-title line and the "Bible Builder" publisher mark
+were dropped (that descriptive detail now lives on the "About this Edition"
+front-matter page), leaving a single centered title block that places
+cleanly across every design.
 
 Mapping rationale:
 
@@ -24,13 +28,9 @@ Mapping rationale:
 - lutheran-confessional→02_classical_corner_black(Lutheran black)
 - coptic-orthodox     → 01_ornate_leafy_brown    (Coptic earth tones)
 
-Note: 04_minimal_lines_* templates carry a central jewel/cross
-ornament that visually clashes with subtitle text; avoid for
-editions that need a subtitle line below the title.
-
-The colour-to-tradition mapping is editorially defensible; publishers
-can swap to a bespoke cover via `api_save_edition_meta` (the
-`cover_image` field accepts any path under `content/covers/`).
+The colour-to-tradition mapping is editorially defensible; publishers can
+swap to a bespoke cover via `api_save_edition_meta` (the `cover_image`
+field accepts any path under `content/covers/`).
 
 Run: `python scripts/generate_edition_covers.py`
 """
@@ -46,75 +46,19 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 COVERS_DIR = REPO_ROOT / "content" / "covers"
 TEMPLATES_DIR = COVERS_DIR / "templates"
 
-# Edition → (template stem, title, short_title, publisher mark).
-# Title is the full marketing title; short_title is the spine/badge
-# variant. Publisher mark sits at the bottom — "Bible Builder" by
-# default; per-edition overrides could come from editions.yaml in a
-# future iteration.
-EDITIONS: list[tuple[str, str, str, str, str]] = [
-    (
-        "ethiopian-tewahedo",
-        "05_missal_central_red",
-        "The Ethiopian Tewahedo\nStudy Bible",
-        "Tewahedo Study Bible",
-        "Bible Builder",
-    ),
-    (
-        "catholic-study",
-        "02_classical_corner_navy",
-        "The Catholic Study Bible\nEthiopian Edition",
-        "Catholic Study Bible",
-        "Bible Builder",
-    ),
-    (
-        "evangelical-reformed",
-        "03_beadline_black",
-        "The Reformed\nStudy Bible",
-        "Reformed Study Bible",
-        "Bible Builder",
-    ),
-    (
-        "jewish-study",
-        "02_classical_corner_brown",
-        "The Jewish\nStudy Tanakh",
-        "Jewish Study Tanakh",
-        "Bible Builder",
-    ),
-    (
-        "scholarly-academic",
-        "03_beadline_forest",
-        "The Annotated\nEthiopian Bible",
-        "Scholar's Edition",
-        "Bible Builder",
-    ),
-    (
-        "eastern-orthodox",
-        "01_ornate_leafy_red",
-        "The Eastern Orthodox\nStudy Bible",
-        "Orthodox Study Bible",
-        "Bible Builder",
-    ),
-    (
-        "anglican-bcp",
-        "03_beadline_navy",
-        "The Anglican Study Bible\nBCP Edition",
-        "Anglican BCP",
-        "Bible Builder",
-    ),
-    (
-        "lutheran-confessional",
-        "02_classical_corner_black",
-        "The Lutheran\nConfessional Study Bible",
-        "Lutheran Confessional",
-        "Bible Builder",
-    ),
-    (
-        "coptic-orthodox",
-        "01_ornate_leafy_brown",
-        "The Coptic Orthodox\nStudy Bible",
-        "Coptic Study Bible",
-        "Bible Builder",
-    ),
+# Edition → (template stem, title). The title's newline-separated lines
+# render as a centered block. Cover is title-only (see module docstring), so
+# no subtitle/short-title or publisher mark is carried here.
+EDITIONS: list[tuple[str, str, str]] = [
+    ("ethiopian-tewahedo", "05_missal_central_red", "The Ethiopian Tewahedo\nStudy Bible"),
+    ("catholic-study", "02_classical_corner_navy", "The Catholic Study Bible\nEthiopian Edition"),
+    ("evangelical-reformed", "03_beadline_black", "The Reformed\nStudy Bible"),
+    ("jewish-study", "02_classical_corner_brown", "The Jewish\nStudy Tanakh"),
+    ("scholarly-academic", "03_beadline_forest", "The Annotated\nEthiopian Bible"),
+    ("eastern-orthodox", "01_ornate_leafy_red", "The Eastern Orthodox\nStudy Bible"),
+    ("anglican-bcp", "03_beadline_navy", "The Anglican Study Bible\nBCP Edition"),
+    ("lutheran-confessional", "02_classical_corner_black", "The Lutheran\nConfessional Study Bible"),
+    ("coptic-orthodox", "01_ornate_leafy_brown", "The Coptic Orthodox\nStudy Bible"),
 ]
 
 # Final cover dimensions — match the existing _book_defaults pattern.
@@ -123,17 +67,19 @@ EDITIONS: list[tuple[str, str, str, str, str]] = [
 FINAL_WIDTH = 1024
 FINAL_HEIGHT = 1536
 
-# Title typography: warm cream/parchment so it reads against the
-# dark backgrounds and harmonises with the gold accents on each
-# template. Slight transparency in shadow gives subtle depth.
+# Title typography: warm cream/parchment reads against the dark template
+# backgrounds and harmonises with their gold accents; a soft drop-shadow
+# adds depth + legibility.
 TITLE_COLOR = (245, 230, 195)  # warm cream
 TITLE_SHADOW = (0, 0, 0, 130)
-PUBLISHER_COLOR = (210, 195, 165)  # muted gold
+# Title-only covers center a single block. Its vertical midpoint sits in the
+# upper third — above any central template ornament, below the top border —
+# so 1-, 2-, and 3-line titles all balance identically.
+TITLE_CENTER_Y = 540
+TITLE_LINE_SPACING = 18
 
-# Font paths — Times New Roman + Georgia ship with Windows.
+# Font path — Times New Roman bold ships with Windows.
 FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
-FONT_SUBTITLE_PATH = r"C:\Windows\Fonts\times.ttf"
-FONT_PUBLISHER_PATH = r"C:\Windows\Fonts\georgia.ttf"
 
 
 def _load_font(path: str, size: int) -> ImageFont.FreeTypeFont:
@@ -142,113 +88,53 @@ def _load_font(path: str, size: int) -> ImageFont.FreeTypeFont:
     p = Path(path)
     if p.is_file():
         return ImageFont.truetype(str(p), size=size)
-    # Cross-platform fallback — won't match Windows aesthetic but
+    # Cross-platform fallback — won't match the Windows aesthetic but
     # produces a readable cover.
     return ImageFont.load_default(size=size)
 
 
-def _draw_centered_text(
-    draw: ImageDraw.ImageDraw,
-    text: str,
-    font: ImageFont.FreeTypeFont,
-    *,
-    center_x: int,
-    y: int,
-    fill: tuple[int, int, int],
-    shadow: tuple[int, int, int, int] | None = None,
-    line_spacing: int = 14,
-) -> int:
-    """Draw multiline text centered on `center_x`, top-anchored at `y`.
-    Returns the final y-coordinate after the last line."""
-    lines = text.split("\n")
-    cy = y
-    for line in lines:
-        bbox = draw.textbbox((0, 0), line, font=font)
-        line_w = bbox[2] - bbox[0]
-        line_h = bbox[3] - bbox[1]
-        x = center_x - line_w // 2
-        if shadow is not None:
-            # Composite shadow via a separate transparent layer
-            shadow_layer = Image.new("RGBA", (line_w + 30, line_h + 30), (0, 0, 0, 0))
-            sd = ImageDraw.Draw(shadow_layer)
-            sd.text((15, 15), line, font=font, fill=shadow)
-            # Drop-shadow offset
-            draw._image.paste(  # type: ignore[attr-defined]
-                shadow_layer, (x - 15 + 4, cy - 15 + 4), shadow_layer
-            )
-        draw.text((x, cy), line, font=font, fill=fill)
-        cy += line_h + line_spacing
-    return cy
-
-
-def _generate_one(edition_id: str, template_stem: str, title: str, short_title: str, publisher_mark: str) -> Path:
-    """Composite typography onto one template; write the result to
-    `content/covers/<edition-id>.jpg`."""
+def _compose_cover(template_stem: str, title: str) -> Image.Image:
+    """Composite the TITLE ONLY onto a template; return the RGB cover at the
+    final dimensions. The title is a single block centered horizontally and
+    vertically about ``TITLE_CENTER_Y`` — measured with PIL's multiline bbox so
+    1-, 2-, and 3-line titles balance identically (no per-line bearing drift)."""
     template_path = TEMPLATES_DIR / f"{template_stem}.png"
     if not template_path.is_file():
         raise FileNotFoundError(f"template missing: {template_path}")
 
     base = Image.open(template_path).convert("RGB")
-    # Resize template to the final dimensions BEFORE compositing so
-    # the typography is laid out in the final coordinate space.
+    # Resize to final dimensions BEFORE compositing so the title is laid out
+    # in the final coordinate space.
     base = base.resize((FINAL_WIDTH, FINAL_HEIGHT), Image.LANCZOS)
     draw = ImageDraw.Draw(base, "RGBA")
+    font = _load_font(FONT_TITLE_PATH, 72)
 
-    # Title fits the top-third of the inner rectangle. The templates
-    # have ~12% borders, so the inner area runs roughly y=180 to
-    # y=1380 (out of 1536). Title centerline sits ~y=520.
-    font_title = _load_font(FONT_TITLE_PATH, 72)
-    font_subtitle = _load_font(FONT_SUBTITLE_PATH, 44)
-    font_publisher = _load_font(FONT_PUBLISHER_PATH, 32)
+    # Measure the whole block, then place its top-left so the block centers at
+    # (FINAL_WIDTH/2, TITLE_CENTER_Y). Subtracting bbox[0]/bbox[1] removes the
+    # font's left/top bearing, so the centering is exact.
+    bbox = draw.multiline_textbbox((0, 0), title, font=font, align="center", spacing=TITLE_LINE_SPACING)
+    block_w, block_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    x = (FINAL_WIDTH - block_w) // 2 - bbox[0]
+    y = TITLE_CENTER_Y - block_h // 2 - bbox[1]
 
-    title_y = 460
-    end_y = _draw_centered_text(
-        draw,
-        title,
-        font_title,
-        center_x=FINAL_WIDTH // 2,
-        y=title_y,
-        fill=TITLE_COLOR,
-        shadow=TITLE_SHADOW,
-        line_spacing=18,
-    )
+    draw.multiline_text((x + 4, y + 4), title, font=font, fill=TITLE_SHADOW, align="center", spacing=TITLE_LINE_SPACING)
+    draw.multiline_text((x, y), title, font=font, fill=TITLE_COLOR, align="center", spacing=TITLE_LINE_SPACING)
+    return base
 
-    # Subtitle / short-title sits beneath the title with a small gap.
-    subtitle_y = end_y + 50
-    _draw_centered_text(
-        draw,
-        short_title,
-        font_subtitle,
-        center_x=FINAL_WIDTH // 2,
-        y=subtitle_y,
-        fill=PUBLISHER_COLOR,
-        line_spacing=12,
-    )
 
-    # Publisher mark at the bottom — small, restrained, italic-ish
-    # spacing via the Georgia regular face.
-    bbox = draw.textbbox((0, 0), publisher_mark, font=font_publisher)
-    pub_w = bbox[2] - bbox[0]
-    pub_y = FINAL_HEIGHT - 200
-    draw.text(
-        ((FINAL_WIDTH - pub_w) // 2, pub_y),
-        publisher_mark,
-        font=font_publisher,
-        fill=PUBLISHER_COLOR,
-    )
-
+def _generate_one(edition_id: str, template_stem: str, title: str) -> Path:
+    """Compose the title-only cover and write it to ``content/covers/<id>.jpg``."""
+    base = _compose_cover(template_stem, title)
     out_path = COVERS_DIR / f"{edition_id}.jpg"
     base.save(out_path, "JPEG", quality=90, optimize=True)
     return out_path
 
 
 def generate_all() -> list[Path]:
-    """Generate every edition's main cover JPG; return the list of
-    paths produced (in the order shipped to disk)."""
+    """Generate every edition's main cover JPG; return the paths produced."""
     out: list[Path] = []
-    for edition_id, template_stem, title, short_title, mark in EDITIONS:
-        path = _generate_one(edition_id, template_stem, title, short_title, mark)
-        out.append(path)
+    for edition_id, template_stem, title in EDITIONS:
+        out.append(_generate_one(edition_id, template_stem, title))
     return out
 
 
