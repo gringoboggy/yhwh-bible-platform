@@ -1524,6 +1524,7 @@ def api_customize_data() -> dict:
                 # flag).
                 "enabled_reading_plans": list(e.get("enabled_reading_plans") or []),
                 "theme": e.get("theme", "classic"),
+                "title_page_style": e.get("title_page_style", "full-bleed"),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),

@@ -390,6 +390,13 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Book title page</span>
+              <select class="label-input w-full" data-field="title_page_style" title="how each book's title-page art is rendered">
+                <option value="full-bleed" ${(e.title_page_style||'full-bleed') === 'full-bleed' ? 'selected' : ''}>full-bleed · art fills the page</option>
+                <option value="framed"     ${e.title_page_style === 'framed' ? 'selected' : ''}>framed · art plate above the title</option>
+              </select>
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Chapter number decoration</span>
               <select class="label-input w-full" data-field="chapter_number_decoration" title="decorative wrappers around the chapter number">
                 <option value="plain"        ${(e.chapter_number_decoration||'plain') === 'plain' ? 'selected' : ''}>plain · 1</option>

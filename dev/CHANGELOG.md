@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 2: title-only covers + §4.5 per-book title-page art
+
+Two Wave-2 features after the morning's epubcheck fixes. Build-time + cover-asset only — no corpus change.
+
+- **Title-only edition covers + universal placement (`6e58570`).** Per spec §4.6 (user-confirmed): generated covers render ONLY the edition title (dropped the subtitle/short-title line + the "Bible Builder" mark — that detail lives on the About page). Recentered the single title block universally via PIL `multiline_textbbox` centering at `TITLE_CENTER_Y`, replacing the hardcoded `title_y=460` + per-line bbox drift. `EDITIONS` → `(id, template, title)` 3-tuples; removed the dead `_draw_centered_text` + subtitle/publisher fonts. Regenerated all 9 covers; visually verified two families. `TestComposeCover` + 6 cover unit tests + 62 `test_scripts` cover/generator pins green.
+- **§4.5 `title_page_style` (full-bleed default / framed) + per-book title-page art.** The 66 `content/covers/_book_defaults/<book>.jpg` now reach the EPUB. NEW `build_edition.apply_title_pages(tmp, edition, canon_books)` (called in `build_one` AFTER the canon filter so dropped books leave no orphan items) resolves each KEPT book's art (book_covers override → `_book_defaults` → text-only) and injects it into the book's `book-title-frame`: full-bleed = art fills the page with the title overlaid on a dark scrim panel, framed = a contained art plate. `patch_opf_book_images` (model: `patch_opf_fonts`) registers them in the OPF manifest; the `data-book-idx`↔`config.load_books()` mapping keys book→art. Setting §7-wired (`TITLE_PAGE_STYLES` const · `api_save_edition_meta` enum · `api_customize_data` default full-bleed · `/customize <select>`). CSS in `epub_working/stylesheet.css`. **VERIFIED:** `tests/test_title_page_style.py` 12 + 170 customize/editions regression; built catholic-study → epubcheck **0/0/0/0**, 66 art images packaged + OPF-registered, deutero text-only; Genesis full-bleed visually confirmed (Playwright); ruff clean. NEXT: §4.6 (25-design cover picker + upload affordances).
+
+---
+
 ## 2026-05-25 — EPUBCHECK CLEAN: nested-`<a>` (746 RSC-005) + a surfaced RSC-001 fixed
 
 The #1 CRITICAL handoff item (746 epubcheck RSC-005 nested-`<a>` errors, demo-affecting). The inherited root cause was **re-verified and refuted**; clearing the real cause then **unmasked** a second pre-existing error. catholic-study epubcheck went 1-error → **0/0/0/0**. Not yet committed (awaiting save).

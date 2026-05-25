@@ -1371,6 +1371,10 @@ CHAPTER_NUMBER_FORMATS = {
     "word",  # Forty-Two
     "word_chapter",  # Chapter Forty-Two
 }
+# §4.5 — per-book title-page rendering style. full-bleed = the per-book art
+# fills the page behind a dark scrim with the title overlaid; framed = the art
+# as a plate above the title text. Unset → "full-bleed" (the default).
+TITLE_PAGE_STYLES = {"full-bleed", "framed"}
 CHAPTER_NUMBER_DECORATIONS = {
     "plain": ("", ""),
     "dashes": ("— ", " —"),
@@ -3334,6 +3338,119 @@ def _retitle_html_pages(text: str, edition_title: str) -> tuple[str, int]:
     return text.replace(needle, f"<title>{safe}</title>"), text.count(needle)
 
 
+# ----------------------------------------------------------------------
+# §4.5 — per-book title-page art (full-bleed / framed)
+# ----------------------------------------------------------------------
+
+_BOOK_TITLE_PAGE_RE = re.compile(r'<div class="book-title-page"([^>]*)>\s*<div class="book-title-frame">')
+_BOOK_IMG_MEDIA = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png", "webp": "image/webp"}
+
+
+def _resolve_book_art(code: str, per_book: dict[str, str]) -> Path | None:
+    """Resolve a book's title-page art. Three-tier: uploaded override
+    (``book_covers``, relative to ``content/``) → ``content/covers/
+    _book_defaults/<code>.jpg`` → ``None`` (text-only title page)."""
+    content = REPO_ROOT / "content"
+    override = per_book.get(code, "")
+    if override:
+        p = Path(override)
+        if not p.is_absolute():
+            p = content / override
+        if p.is_file():
+            return p
+    default = content / "covers" / "_book_defaults" / f"{code}.jpg"
+    return default if default.is_file() else None
+
+
+def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) -> list[str]:
+    """Inject each KEPT book's title-page art into its ``book-title-frame`` in
+    the per-build ``tmp`` tree, per ``title_page_style`` (full-bleed default /
+    framed). Returns the OPF-relative image paths copied in (for
+    ``patch_opf_book_images``). Books with no resolvable art keep the text-only
+    title page. MUST run after canon filtering so dropped books leave no orphan
+    image manifest items. Every injected ``<img>`` carries descriptive ``alt``
+    (check_a11y requires it)."""
+    from scripts.core import covers
+
+    style = edition.get("title_page_style") or "full-bleed"
+    if style not in TITLE_PAGE_STYLES:
+        style = "full-bleed"
+    per_book = covers.decode_book_covers(edition.get("book_covers"))
+
+    idx_to_art: dict[int, tuple[str, str]] = {}
+    image_paths: list[str] = []
+    images_dir = tmp / "images"
+    for i, book in enumerate(config.load_books()):
+        code = book["code"]
+        if canon_books is not None and code not in canon_books:
+            continue
+        bp = book.get("bp", "")
+        idx = int(bp.split("-", 1)[1]) if bp.startswith("bp-") else i
+        art = _resolve_book_art(code, per_book)
+        if art is None:
+            continue
+        ext = art.suffix.lstrip(".").lower() or "jpg"
+        ext = "jpg" if ext == "jpeg" else ext
+        rel = f"images/book-{code}.{ext}"
+        images_dir.mkdir(exist_ok=True)
+        shutil.copy2(art, tmp / rel)
+        idx_to_art[idx] = (rel, f"Illustration — {book.get('title', code)}")
+        image_paths.append(rel)
+
+    if not idx_to_art:
+        return []
+
+    def _inject(m: re.Match) -> str:
+        attrs = m.group(1)
+        im = re.search(r'data-book-idx="(\d+)"', attrs)
+        if not im:
+            return m.group(0)
+        art = idx_to_art.get(int(im.group(1)))
+        if not art:
+            return m.group(0)  # text-only fallback (no art for this book)
+        src, alt = art
+        alt_x = html.escape(alt, quote=True)
+        if style == "framed":
+            return (
+                f'<div class="book-title-page"{attrs}>\n  <div class="book-title-frame">\n'
+                f'    <img class="bookpage-art" src="{src}" alt="{alt_x}"/>'
+            )
+        return (
+            f'<div class="book-title-page style-full-bleed"{attrs}>\n'
+            f'  <img class="bookpage-art-bleed" src="{src}" alt="{alt_x}"/>\n'
+            '  <div class="book-title-frame">'
+        )
+
+    for html_path in tmp.glob("*.html"):
+        text = html_path.read_text(encoding="utf-8")
+        new = _BOOK_TITLE_PAGE_RE.sub(_inject, text)
+        if new != text:
+            html_path.write_text(new, encoding="utf-8")
+
+    return sorted(set(image_paths))
+
+
+def patch_opf_book_images(opf_text: str, image_paths: list[str]) -> str:
+    """Register per-book title-page images in the OPF manifest (model:
+    ``patch_opf_fonts``). No-op when empty (byte-identical for art-less
+    editions); skips already-registered paths (idempotent)."""
+    if not image_paths:
+        return opf_text
+    new_items: list[str] = []
+    for rel in image_paths:
+        if f'href="{rel}"' in opf_text:
+            continue
+        ext = rel.rsplit(".", 1)[-1].lower()
+        media_type = _BOOK_IMG_MEDIA.get(ext, "image/jpeg")
+        stem = rel.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+        img_id = re.sub(r"[^A-Za-z0-9]+", "-", stem).strip("-").lower() or "bookimg"
+        new_items.append(f'<item id="{img_id}" href="{rel}" media-type="{media_type}"/>')
+    if not new_items:
+        return opf_text
+    insertion = "\n    " + "\n    ".join(new_items) + "\n  "
+    return opf_text.replace("</manifest>", f"{insertion}</manifest>", 1)
+
+
 def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
     """Swap the base master cover (``build_dir/cover.jpeg``) for the edition's
     declared ``cover_image`` when it resolves to a real file under ``content/``.
@@ -3622,6 +3739,7 @@ def build_one(
         canon_stats: dict = {"dropped_books": 0, "files_removed": 0, "cross_refs_stripped": 0, "files_touched": []}
         dropped_files: set[str] = set()
         dropped_bp_indices: set[int] = set()
+        canon_books: set[str] | None = None
         if canon_id:
             all_canons = load_canons()
             canon_def = all_canons.get(canon_id)
@@ -3646,6 +3764,11 @@ def build_one(
         stats["canon_files_removed"] = canon_stats["files_removed"]
         stats["canon_xrefs_stripped"] = canon_stats["cross_refs_stripped"]
 
+        # §4.5 — inject per-book title-page art (full-bleed/framed). After the
+        # canon filter so dropped books leave no orphan image manifest items.
+        book_image_paths = apply_title_pages(tmp, edition, canon_books)
+        stats["book_title_images"] = len(book_image_paths)
+
         # Patch OPF (kind-based + canon-based + φ.1 font-manifest)
         opf = tmp / "content.opf"
         if opf.is_file():
@@ -3656,6 +3779,7 @@ def build_one(
             # entries in the manifest. No-op when both knobs are empty
             # (preserves v1.0 byte-identical reproducibility).
             opf_text = patch_opf_fonts(opf_text)
+            opf_text = patch_opf_book_images(opf_text, book_image_paths)
             opf.write_text(opf_text, encoding="utf-8")
 
         # Patch nav.xhtml TOC (canon-based — drop dead links to files AND books)

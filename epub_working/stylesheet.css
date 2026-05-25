@@ -437,6 +437,26 @@ h1, h2, h3, h1.book-title {
 .bookpage-subtitle { font-size: 0.92em; font-style: italic; color: #6a4a1f; margin: 0.2em 0 0.5em 0; }
 .bookpage-rule { color: #8B6508; font-size: 1.0em; margin: 0.5em 0 0.2em 0; }
 
+/* === §4.5 per-book title-page art (full-bleed / framed) === */
+/* The per-book art (content/covers/_book_defaults/<book>.jpg) is a 2:3
+   portrait plate. */
+/* framed: a contained art plate above the title text, inside the border. */
+.bookpage-art { display: block; max-width: 58%; height: auto; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+/* full-bleed: the portrait art fills the page; the title sits OVER it on a
+   translucent dark panel near the bottom — legible against any art, and keeps
+   art + title on one page (a full-width stacked image would push the title to
+   the next page). */
+.book-title-page.style-full-bleed { position: relative; margin: 0; padding: 0; text-align: center; }
+.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; width: 100%; height: auto; margin: 0; }
+.book-title-page.style-full-bleed .book-title-frame {
+  position: absolute; left: 0; right: 0; bottom: 7%; margin: 0 auto; max-width: 82%;
+  border: none; border-radius: 0.45em; background: rgba(18, 14, 8, 0.62); padding: 0.75em 1em;
+}
+.book-title-page.style-full-bleed .bookpage-eyebrow { color: #e7d0a6; }
+.book-title-page.style-full-bleed .bookpage-title { color: #f7ecd2; }
+.book-title-page.style-full-bleed .bookpage-subtitle { color: #e3cca3; }
+.book-title-page.style-full-bleed .bookpage-rule { color: #d9bd86; }
+
 /* === A Guide to the Notes (symbol legend) === */
 .legend-page { padding: 1.2em 0.8em; text-align: left; }
 .legend-title { font-size: 1.5em; text-align: center; margin: 0 0 0.4em; }
