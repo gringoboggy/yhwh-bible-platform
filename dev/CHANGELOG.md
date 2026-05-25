@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 3 #6: drop the English KJV from verse popups + widen the default witnesses
+
+Spec §4.3/§12.3. The flagship's verse popups repeated the English KJV — which mismatches the WEB reading text the reader already sees inline — and showed only Hebrew + Greek. The default witness set is now **wlc + lxx-greek + greek-nt + vulgate + arabic** (Hebrew + Greek LXX/NT + Latin + Arabic); the redundant English is dropped wherever an original-language witness exists. `jps`/`douay`/`brenton-en` stay registry members, selectable per edition/book but off by default. A per-edition PRUNING change — NOT a base re-bake (the base bakes every witness; `build_one._resolve_popup_languages` prunes per edition). Gates: 9 popup-witness tests + 1057 (test_scripts+core) green · `lint_rules` 16/0/0 · ruff clean · ethiopian-tewahedo + catholic-study rebuilt → **epubcheck errors=0/warnings=0** · built-popup audit = **0 empty popups, 0 dangling vn-link hrefs**.
+
+- **`DEFAULT_POPUP_WITNESSES`** (`scripts/core/popup_versions.py`) = the 5-witness default with kjv excluded; `_resolve_popup_languages`'s unset-default fallback returns it (was: every baked version, incl. kjv).
+- **`content/editions.yaml`**: all 9 standard editions' `popup_languages_default` set to the 5 witnesses (replacing the tailored `english`(+`hebrew`/`greek`/`latin`/…) sets — the legacy `latin` id is replaced by the registry `vulgate`, fixing a no-op). The 2 standalone Bibles keep `[]` (they carry their EN back-translation via `popup_translation`). catholic-study's obsolete `popup_languages_per_book` (`gen=english,hebrew`; `mat=english,greek`) was cleared — the widened default already renders the right witnesses per verse.
+- **KJV-floor fallback (the one subtlety, caught during verification).** The popups reached 90.5% coverage via a KJV floor, so ~6% of verses carry ONLY the English. Dropping kjv there would empty the popup AND break note cross-references that target that vnote (epubcheck **RSC-012** — a first "remove the empty popup" attempt produced 23 such dangling-fragment errors in the flagship). So when a verse has no active original-language witness, `_apply_popup_languages_and_translation` KEEPS the English as a last resort; where a real witness exists, the redundant English is dropped as intended. 2,232 flagship / 1,279 catholic verses use the fallback; the built-popup audit confirms 0 empty + 0 dangling.
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 3 features #4+#5: marker_style=numbers + ‖ fix + symbols-into-notes (the base re-bake)
 
 The re-bake-dependent core of Wave 3. The shared base's **69,811 markers** now show sequential per-chapter footnote NUMBERS (no inline category glyph → no tofu on any device), and the **69,811 asides** carry a fixed `↩` back-link + the category symbol moved INTO the note as a clickable link to its "A Guide to the Notes" legend row. Every edition is gapless. Gates: byte-pins (build_aside / renumber / aside-rewrite) · `resync_glyphs` coexistence guards · **1057** (test_scripts+core+build_smoke) + **108** (nested-anchor real-base + presentation-polish + marker/popup) green · `lint_rules` 16/0/0 · ruff clean · ethiopian-tewahedo + catholic-study rebuilt → **epubcheck errors=0 / warnings=0** · gapless verified (**0 gaps across 2,845 chapters / 85,095 numbered markers**).

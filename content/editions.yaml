@@ -121,9 +121,11 @@ editions:
     notes: "Leads with comm-ethiopian and liturgy-ethiopian; foregrounds compare-pseudepigrapha (1 Enoch and Jubilees are canonical here). Book covers ingested 2026-05-12 from publisher's curated 66-cover set (Protestant canon scope; Ethiopic extras like 1en/jub/mq1-3 to be added in a future ingest)."
 
     popup_languages_default:
-      - "english"
-      - "hebrew"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
 
   # ──────────────────────────────────────────────────────────────────
   # Largest English-speaking religious market. Magisterial-friendly,
@@ -156,14 +158,13 @@ editions:
     cover_image: covers/catholic-study.jpg
     notes: Foregrounds comm-patristic, comm-catholic, dist-mariological, dist-typological, liturgy-christian-year.
     popup_languages_default:
-      - english
-      - hebrew
-      - greek
+      - wlc
+      - lxx-greek
+      - greek-nt
+      - vulgate
+      - arabic
     enabled_reading_plans:
     popup_languages_per_book:
-      - gen=english,hebrew
-      - tob=
-      - mat=english,greek
     traditions_per_book:
       - gen=catholic,cross
     traditions_default:
@@ -203,8 +204,11 @@ editions:
     notes: "Foregrounds comm-reformation, comm-modern-critical, dist-typological, dev-application."
 
     popup_languages_default:
-      - "english"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
 
   # ──────────────────────────────────────────────────────────────────
   # Sophisticated, less competition. Foregrounds rabbinic, Hebrew,
@@ -240,8 +244,11 @@ editions:
     notes: "Foregrounds comm-rabbinic, lang-hebrew, liturgy-torah-portion. Does not include NT books in build manifest (handled at book level, not kind level)."
 
     popup_languages_default:
-      - "english"
-      - "hebrew"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
 
   # ──────────────────────────────────────────────────────────────────
   # Smallest market, highest prestige. Includes everything; no
@@ -269,9 +276,11 @@ editions:
     cover_image: "covers/scholarly-academic.jpg"
     notes: "Includes everything available. The current project state is closest to this edition."
     popup_languages_default:
-      - "english"
-      - "hebrew"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
 
   # ──────────────────────────────────────────────────────────────────
   # ψ.7-A — Eastern Orthodox edition. Uses the orthodox canon
@@ -308,8 +317,11 @@ editions:
     cover_image: "covers/eastern-orthodox.jpg"
     notes: "Foregrounds comm-orthodox, comm-patristic, dist-typological, dist-mystical, liturgy-christian-year. LXX-leaning OT (text-lxx prominent). Excludes comm-reformation (rejects sola-scriptura), dist-mariological (Orthodox Marian theology differs structurally from Catholic), comm-modern-critical (post-Enlightenment hermeneutic conflicts with Patristic synthesis)."
     popup_languages_default:
-      - "english"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
     popup_translation: ""
 
   # ──────────────────────────────────────────────────────────────────
@@ -348,10 +360,11 @@ editions:
     cover_image: "covers/anglican-bcp.jpg"
     notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Apocrypha included as deuterocanonical (read but not doctrinally normative per Article VI). Excludes dist-mariological (Article XXII / 39 Articles posture) and dist-allegorical (Reformation-era Anglican preference for plain sense)."
     popup_languages_default:
-      - "english"
-      - "hebrew"
-      - "greek"
-      - "latin"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
     popup_translation: ""
 
   # ──────────────────────────────────────────────────────────────────
@@ -392,9 +405,11 @@ editions:
     cover_image: "covers/lutheran-confessional.jpg"
     notes: "Foregrounds comm-reformation, comm-patristic (Augustine + Cappadocian Fathers prized in Luther's tradition), dev-application, apol-harmonization, dist-typological. Apocrypha included via canon=protestant (which doesn't contain it; Lutheran practice typically appends as separate 'useful' section — handled via per-book toggling at build time). Excludes Catholic / Orthodox / Rabbinic commentary kinds (different magisterial postures)."
     popup_languages_default:
-      - "english"
-      - "hebrew"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
+      - "arabic"
     popup_translation: ""
 
   # ──────────────────────────────────────────────────────────────────
@@ -434,8 +449,10 @@ editions:
     cover_image: "covers/coptic-orthodox.jpg"
     notes: "Foregrounds comm-orthodox, comm-patristic, comm-ethiopian (shared monastic + ascetic heritage), dist-allegorical (Alexandrian school exegesis), dist-typological, dist-mystical, liturgy-ethiopian (shared liturgical roots). Excludes comm-reformation, comm-modern-critical, dist-mariological (Coptic Mariology has its own structure, distinct from Catholic). Pairs naturally with the existing ethiopian-tewahedo edition for a 'broader Egyptian church' demo."
     popup_languages_default:
-      - "english"
-      - "greek"
+      - "wlc"
+      - "lxx-greek"
+      - "greek-nt"
+      - "vulgate"
       - "arabic"
     popup_translation: ""
 

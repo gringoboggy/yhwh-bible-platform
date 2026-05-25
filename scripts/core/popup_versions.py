@@ -115,6 +115,14 @@ ALL_VERSION_IDS: tuple[str, ...] = tuple(VERSION_REGISTRY.keys())
 # data hasn't landed).
 _BAKED_NOW: frozenset[str] = frozenset({"kjv", "wlc", "lxx-greek", "greek-nt", "arabic", "jps", "douay", "vulgate"})
 
+# §4.3 — the default verse-popup witness set. The English KJV is deliberately
+# EXCLUDED: it duplicated/mismatched the WEB reading text. The default carries the
+# original-language spine (Hebrew + Greek LXX + Greek NT) plus the Latin and Arabic
+# witnesses; jps / douay / brenton-en remain registry members, selectable per
+# edition/book but OFF by default. Popups render only the witnesses that actually
+# exist for a given verse, so an OT-only edition silently omits greek-nt, etc.
+DEFAULT_POPUP_WITNESSES: tuple[str, ...] = ("wlc", "lxx-greek", "greek-nt", "vulgate", "arabic")
+
 
 def bakes_now(version_id: str) -> bool:
     """True if this version's full data is baked into the shared base today."""

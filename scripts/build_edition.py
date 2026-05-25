@@ -765,7 +765,11 @@ def _resolve_popup_languages(edition: dict, book_code: str) -> set[str]:
     elif edition.get("popup_languages_default") is not None:
         raw = edition.get("popup_languages_default")
     else:
-        return set(ALL_POPUP_LANGUAGES)
+        # §4.3 — an edition that sets no popup_languages_default gets the default
+        # witness set (Hebrew + Greek LXX/NT + Latin + Arabic), NOT every baked
+        # version. The English KJV is excluded (it duplicated the WEB reading
+        # text); jps/douay/brenton are opt-in. (Was: all baked versions incl. kjv.)
+        return {m for m in _pv.DEFAULT_POPUP_WITNESSES if m in POPUP_LANGUAGES}
     # Map legacy language ids (english/hebrew/greek) to version ids
     # (kjv/wlc/lxx-greek); registry ids + legacy slots resolve to themselves.
     mapped = ((_pv.resolve_version_id(lang) or lang) for lang in (raw or []))
@@ -915,6 +919,7 @@ def _apply_popup_languages_and_translation(
         "skipped_no_text_para": 0,
         "language_paragraphs_stripped": 0,
         "asides_seen": 0,
+        "kjv_fallbacks": 0,
     }
     short_label = translation_short or (translation_id.upper() if translation_id else "")
 
@@ -961,6 +966,16 @@ def _apply_popup_languages_and_translation(
         # a class with an active version id (english↔kjv → vnote-text) is never
         # stripped out from under the active version.
         active_classes = {POPUP_LANGUAGES[v]["content_class"] for v in active_langs if v in POPUP_LANGUAGES}
+        # §4.3 last-resort English: the popups were built on a KJV floor, so ~6%
+        # of verses carry ONLY the English (vnote-text). Dropping kjv there would
+        # empty the popup AND break any note cross-ref that targets this vnote
+        # (epubcheck RSC-012). So when NO active witness is present in this verse,
+        # KEEP the English as a fallback; where a real witness exists the
+        # redundant English is dropped as intended. Guarded by `active_classes`
+        # so the standalone Bibles (popup_languages_default = []) are untouched.
+        if active_classes and not any(f'class="{cc}"' in body for cc in active_classes):
+            active_classes = active_classes | {"vnote-text"}
+            stats["kjv_fallbacks"] += 1
         for lang_id in ALL_POPUP_LANGUAGES:
             if POPUP_LANGUAGES[lang_id]["content_class"] in active_classes:
                 continue
@@ -2849,6 +2864,7 @@ def build_one(
                 stats["vnote_translations_replaced"] += vp_counts["replaced"]
                 stats["vnote_translations_missed"] += vp_counts["missed"]
                 stats["vnote_language_paragraphs_stripped"] += vp_counts["language_paragraphs_stripped"]
+                stats["vnote_kjv_fallbacks"] = stats.get("vnote_kjv_fallbacks", 0) + vp_counts.get("kjv_fallbacks", 0)
 
             # Phase ψ.8.2-B — label surviving editorial-note asides with
             # their tradition. Skipped entirely when the edition has no

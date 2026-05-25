@@ -305,11 +305,14 @@ class TestBuildEdition:
         # Other books still use the default
         assert self.mod._resolve_popup_languages(ed, "gen") == {"kjv", "wlc"}
 
-    def test_resolve_popup_languages_back_compat_when_unset(self):
-        """An edition with neither field gets ALL languages — the
-        existing pre-ν.2.7 behavior preserved byte-identical."""
+    def test_resolve_popup_languages_default_witnesses_when_unset(self):
+        """§4.3 — an edition with neither field gets the DEFAULT witness set
+        (Hebrew + Greek LXX/NT + Latin + Arabic), NOT every baked version. The
+        English KJV is excluded; it duplicated the WEB reading text. (Was: all
+        languages, pre-§4.3.)"""
         out = self.mod._resolve_popup_languages({}, "gen")
-        assert out == set(self.mod.ALL_POPUP_LANGUAGES)
+        assert out == {"wlc", "lxx-greek", "greek-nt", "vulgate", "arabic"}
+        assert "kjv" not in out
 
     def test_resolve_popup_languages_drops_unknown_ids(self):
         """Typo-tolerance: unknown language ids are dropped silently
