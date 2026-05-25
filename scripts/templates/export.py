@@ -239,10 +239,21 @@ async function init() {
     sel.appendChild(o);
   }
   sel.addEventListener('change', () => loadPreview(sel.value));
-  if (data.editions.length) {
-    sel.value = data.editions[0].id;
-    await loadPreview(sel.value);
+  // W4.3 — no-editions empty-state: guide to the wizard (DOM nodes, no
+  // innerHTML) instead of leaving a dead "— loading —" select.
+  if (!data.editions.length) {
+    const lo = document.getElementById('loading');
+    lo.textContent = 'No editions yet — head to the ';
+    const wlink = document.createElement('a');
+    wlink.href = '/wizard';
+    wlink.className = 'text-blue-600 hover:underline font-medium';
+    wlink.textContent = 'wizard';
+    lo.appendChild(wlink);
+    lo.appendChild(document.createTextNode(' to create your first edition.'));
+    return;
   }
+  sel.value = data.editions[0].id;
+  await loadPreview(sel.value);
   // Phase ψ.5 — populate the sample-export edition select with the
   // same list (separate <select> so the user can preview a different
   // edition than the one being built without losing context)

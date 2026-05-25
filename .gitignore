@@ -125,6 +125,13 @@ content/print_covers/*.pdf
 # leaving an untracked file for `git add -A` to sweep in.
 /state/
 
+# --- PyInstaller desktop-app build output (W4.4; regenerable) ---
+# The frozen app (~400 MB) + its build temp, produced by
+# `pyinstaller dev/launcher.spec`. Ephemeral; never tracked. The spec that
+# produces them IS tracked (dev/launcher.spec).
+/build/
+/dist/
+
 # --- Parallel-Bible source PDF + Phase-4 handoff package ---
 # The 193MB source PDF (resolution_paths #5 — the designed in-repo
 # slot) + the project_maccabees_expansion/ handoff docs. Present-

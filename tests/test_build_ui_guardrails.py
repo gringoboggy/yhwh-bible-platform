@@ -43,3 +43,11 @@ class TestBuildUIGuardrails:
         # The build console builds the "already building" notice with a DOM
         # helper (textContent), never innerHTML — satisfies the XSS guard.
         assert "setBuildStatus" in EXPORT_HTML
+
+    def test_no_editions_empty_state_points_to_wizard(self):
+        from scripts.web import EXPORT_HTML
+
+        # When /api/matrix returns no editions, the console guides the user to
+        # the wizard instead of leaving a dead "— loading —" select. ("/wizard"
+        # alone is in every console's nav, so pin on the distinctive copy.)
+        assert "No editions yet" in EXPORT_HTML

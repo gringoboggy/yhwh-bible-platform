@@ -4,6 +4,22 @@ This directory caches public-domain reference works used by `scripts/prospect.py
 
 The source list is declarative — see `content/sources/_fetchers.json` for the URL + parser-kind table and `scripts/core/fetcher_config.py` for the loader/schema.
 
+## Images & fonts (non-text assets — see also)
+
+The visual assets are documented next to the files they describe, not in this
+directory. Cross-referenced here so this file is the single attribution index:
+
+- **Cover templates** (25 designs) — the publisher's own Midjourney-generated
+  art + a programmatic hue-shift pipeline: `content/covers/templates/README.md`.
+- **Per-book cover art** (the publisher's curated 66-cover set):
+  `content/covers/_book_defaults/README.md`.
+- **Embedded fonts** — policy is SIL Open Font License 1.1 only:
+  `content/assets/fonts/LICENSES.md` (+ `README.md`).
+
+The program itself is © 2026 Bogdan Zorlescu, all rights reserved (`LICENSE`);
+the cover art is the publisher's own generated work. The root `README.md` carries
+the consolidated licensing overview.
+
 ## Strong's Hebrew Dictionary
 
 Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.

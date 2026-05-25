@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-25 (cont.) — Wave 4 W4.4 (distribution README + release artifact) + W4.3 empty-state
+
+**W4.3 tail — `/export` no-editions empty-state.** Closed the last W4.3 gap: when `/api/matrix` returns no editions, the build console points the user to the wizard (DOM nodes, no `innerHTML`) instead of a dead "— loading —" select. `tests/test_build_ui_guardrails.py` → 5; browser-confirmed `/export` still renders + populates (0 JS errors). The separate persistent "getting-started card" is treated as subsumed by the first-run welcome overlay (a second always-on nudge would be redundant).
+
+**W4.4 — distribution README + release artifact.**
+- **NEW root `README.md`** — the user + dev on-ramp: what it is · use (desktop app) · run from source · the build-an-edition wizard flow · `./ebible` / `make` dev workflows · packaging the desktop app · project map · consolidated licensing/attributions.
+- **`content/sources/ATTRIBUTIONS.md`** — added an "Images & fonts" cross-reference section so it's the single attribution index (cover templates / book art / fonts were each already documented in their own dirs).
+- **`.gitignore`** — `/build/` + `/dist/` (PyInstaller output, regenerable).
+- **Release artifact:** `pyinstaller dev/launcher.spec` → `dist/YHWH.exe` (393 MB one-file, bundling this session's W4.2+W4.3 code). **Frozen-validated** headlessly: `/api/onboarding` → `first_run:true`, `/` + `/export` → HTTP 200 (the new onboarding module, build-gate import, and the updated consoles all work in the binary). Packaged to `E:\` + `F:\YHWH-v2.4-releases\YHWH-Yaway-2026-05-25-6d22477\` (YHWH.exe + README). C: build output cleaned afterward.
+
+**Gates:** `lint_rules` 16/0/0 · `ruff format` clean · frozen launch-probe green.
+
+**▶ NEXT — W4.5** (the last Wave-4 piece): CI / mypy / coverage floor — a `make ci` gate composing lint_rules + ruff + tests + mypy + a coverage floor; runs locally via `make` until a git remote exists.
+
+---
+
 ## 2026-05-25 (cont.) — Wave 4 W4.2 (concurrent-build cap) + W4.3 first-run welcome flow (core)
 
 **W4.2 — concurrent-build cap (local resource safety).** The desktop app serves builds on a `ThreadingHTTPServer`; two BUILD clicks (or BUILD + Build-all) would run two heavy in-process frozen builds at once (each copies the ~122 MB base). NEW `scripts/core/build_gate.py` — a process-wide `BoundedSemaphore` admission gate sized by `YHWH_MAX_CONCURRENT_BUILDS` (default 1) with a non-blocking `build_slot()` context manager that raises `BuildBusyError` when full. Both build routes (`/api/export/build/<id>` + `/api/build-all`, which converge on one `do_PUT` bespoke block via the `do_POST → do_PUT` fallthrough) are wrapped → **HTTP 409 `build_in_progress`** when a build is already running, instead of starting a second. `tests/test_build_gate.py` (12: gate semantics incl. a real-threads contention test + 2 live-socket route-translation tests). `pyproject.toml` SIM117 per-file-ignore (the tests deliberately nest `with build_slot()` to hold slots simultaneously). Fixed 2 pre-existing stale `_POST_ROUTES` count/membership tests in `tests/test_web_routetable.py` (stale since the Wave-2 cover-template route; recent sweeps hadn't included that file).
