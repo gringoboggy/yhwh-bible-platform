@@ -444,6 +444,58 @@ function renderEditions() {
         </div>
       </details>
 
+      <details class="covers-section mt-3 border border-slate-200 rounded bg-slate-50">
+        <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
+          Cover
+          <span class="text-slate-400 normal-case font-normal ml-2">
+            pick one of 25 designs · upload your own · per-book art
+          </span>
+        </summary>
+        <div class="covers-body px-3 pb-3 pt-1 space-y-3">
+          <div class="flex gap-4 items-start flex-wrap">
+            <div class="shrink-0">
+              <span class="block mb-1 text-xs font-medium text-slate-700">Current cover</span>
+              <img class="covers-current w-24 h-36 object-contain border border-slate-300 rounded bg-white"
+                   src="${e.cover_image ? '/content/' + escapeAttr(e.cover_image) : ''}"
+                   alt="current cover for ${escapeAttr(e.title)}">
+            </div>
+            <div class="flex-1 min-w-72">
+              <span class="block mb-1 text-xs font-medium text-slate-700">Pick a design
+                <span class="text-slate-400 font-normal">— composes this edition's title onto the design (applies immediately)</span></span>
+              <div class="covers-picker grid grid-cols-5 gap-1.5">
+                ${(DATA.cover_templates||[]).map(t => `
+                  <button type="button"
+                          class="covers-template-thumb border rounded overflow-hidden hover:ring-2 hover:ring-blue-400 ${t.stem === (e.cover_template||'') ? 'ring-2 ring-blue-600 border-blue-600' : 'border-slate-300'}"
+                          data-stem="${escapeAttr(t.stem)}" title="${escapeAttr(t.family_label)} · ${escapeAttr(t.color)}">
+                    <img class="block w-full h-auto" loading="lazy" src="${escapeAttr(t.thumb)}"
+                         alt="${escapeAttr(t.family_label)} ${escapeAttr(t.color)} cover design">
+                  </button>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Upload a main cover
+                <span class="text-slate-400 font-normal">(2:3 portrait, PNG/JPEG/WebP, ≤10 MB)</span></span>
+              <input type="file" class="covers-upload-main text-xs" accept="image/png,image/jpeg,image/webp">
+            </label>
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Upload per-book art</span>
+              <span class="flex gap-1.5">
+                <select class="label-input covers-book-select text-xs flex-1" title="which book this art is for">
+                  ${((DATA.edition_canon_books||{})[e.id]||[]).map(code => {
+                      const b = (DATA.books_canonical||[]).find(x => x.code === code);
+                      return `<option value="${escapeAttr(code)}">${escapeAttr(b ? b.title : code)}</option>`;
+                  }).join('')}
+                </select>
+                <input type="file" class="covers-upload-book text-xs" accept="image/png,image/jpeg,image/webp">
+              </span>
+            </label>
+          </div>
+          <p class="covers-status text-xs text-slate-500"></p>
+        </div>
+      </details>
+
       <details class="time-travel-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
           Time-traveling commentary
@@ -644,6 +696,12 @@ function renderEditions() {
   wrap.querySelectorAll('[data-edition]').forEach(box => {
     const inputs = box.querySelectorAll('input, select, textarea');
     const btn = box.querySelector('.ed-save');
+    // The psi11 "Preview" button also carries data-edition, so the selector
+    // above matches it as well. Skip any box that isn't a full edition card
+    // (no Save button) — otherwise the unguarded btn.addEventListener below
+    // throws on null and aborts the forEach, leaving every edition AFTER the
+    // first completely unwired (no save / popup-langs / traditions / covers).
+    if (!btn) return;
     const previewBtn = box.querySelector('.ed-preview');
     inputs.forEach(inp => {
       const original = inp.type === 'checkbox' ? String(inp.checked) : inp.value;
@@ -710,6 +768,10 @@ function renderEditions() {
       const anyInput = box.querySelector('input, select');
       if (anyInput) anyInput.dispatchEvent(evt);
     });
+    // §4.6 — Cover picker + uploads. Immediate-action panel (pick →
+    // server-side recompose; uploads → multipart), so it's wired
+    // independently of the Save button / dirty-check.
+    wireCoversSection(box, ed);
     btn.addEventListener('click', () => saveEdition(box));
     // Phase ν.5 — preview button click handler
     if (previewBtn) {
@@ -721,6 +783,105 @@ function renderEditions() {
       historyBtn.addEventListener('click', () => openHistoryModal(box));
     }
   });
+}
+
+// =====================================================================
+// §4.6 — Cover picker + upload affordances
+//
+// An immediate-action panel (NOT part of the save form). The static
+// markup (current-cover preview, the 25 thumbnails, the two file inputs,
+// the per-book select) is rendered in the renderEditions template above;
+// this function only attaches behaviour. Clicking a thumbnail recomposes
+// the edition's main cover server-side (POST /api/covers/<ed>/template,
+// which composes the edition title onto the chosen design + sets
+// cover_image/cover_template); the file inputs surface the existing
+// multipart upload endpoints (/main hero cover, /book/<code> per-book
+// art). Each action refreshes the preview in place (cache-busted) — no
+// innerHTML reassignment (textContent / .src / classList only).
+// =====================================================================
+
+function wireCoversSection(box, edition) {
+  const body = box.querySelector('.covers-body');
+  if (!body) return;
+  const edId = edition.id;
+  const statusEl = body.querySelector('.covers-status');
+  const currentImg = body.querySelector('.covers-current');
+  const coverSrc = path => path ? '/content/' + path + '?t=' + Date.now() : '';
+  const setStatus = (msg, ok) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = 'covers-status text-xs ' +
+      (ok === false ? 'text-red-600' : ok === true ? 'text-green-700' : 'text-slate-500');
+  };
+  const clearHighlight = () => body.querySelectorAll('.covers-template-thumb')
+    .forEach(t => t.classList.remove('ring-2', 'ring-blue-600', 'border-blue-600'));
+
+  // Pick a design → recompose the cover server-side.
+  body.querySelectorAll('.covers-template-thumb').forEach(thumb => {
+    thumb.addEventListener('click', async () => {
+      const stem = thumb.dataset.stem;
+      setStatus('Composing cover…');
+      try {
+        const r = await fetch('/api/covers/' + encodeURIComponent(edId) + '/template', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({cover_template: stem}),
+        });
+        const j = await r.json();
+        if (!r.ok || j.error) { setStatus('Failed: ' + (j.error || r.status), false); return; }
+        clearHighlight();
+        thumb.classList.add('ring-2', 'ring-blue-600', 'border-blue-600');
+        edition.cover_template = stem;
+        edition.cover_image = j.path;
+        if (currentImg) currentImg.src = coverSrc(j.path);
+        setStatus('Cover updated.', true);
+      } catch (err) { setStatus('Failed: ' + err, false); }
+    });
+  });
+
+  // Upload a main hero cover (multipart → /api/covers/<ed>/main).
+  const mainInput = body.querySelector('.covers-upload-main');
+  if (mainInput) {
+    mainInput.addEventListener('change', async () => {
+      const f = mainInput.files && mainInput.files[0];
+      if (!f) return;
+      setStatus('Uploading cover…');
+      const fd = new FormData(); fd.append('file', f);
+      try {
+        const r = await fetch('/api/covers/' + encodeURIComponent(edId) + '/main', {method: 'POST', body: fd});
+        const j = await r.json();
+        if (!r.ok || j.error) { setStatus('Upload failed: ' + (j.error || r.status), false); }
+        else {
+          edition.cover_image = j.path;
+          if (currentImg) currentImg.src = coverSrc(j.path);
+          clearHighlight();  // an uploaded cover supersedes any template pick
+          setStatus('Main cover uploaded.', true);
+        }
+      } catch (err) { setStatus('Upload failed: ' + err, false); }
+      mainInput.value = '';
+    });
+  }
+
+  // Upload per-book art (multipart → /api/covers/<ed>/book/<code>).
+  const bookInput = body.querySelector('.covers-upload-book');
+  const bookSelect = body.querySelector('.covers-book-select');
+  if (bookInput && bookSelect) {
+    bookInput.addEventListener('change', async () => {
+      const f = bookInput.files && bookInput.files[0];
+      if (!f) return;
+      const code = bookSelect.value;
+      setStatus('Uploading art for ' + code + '…');
+      const fd = new FormData(); fd.append('file', f);
+      try {
+        const r = await fetch('/api/covers/' + encodeURIComponent(edId) + '/book/' + encodeURIComponent(code),
+                              {method: 'POST', body: fd});
+        const j = await r.json();
+        if (!r.ok || j.error) { setStatus('Upload failed: ' + (j.error || r.status), false); }
+        else { setStatus('Per-book art uploaded for ' + code + '.', true); }
+      } catch (err) { setStatus('Upload failed: ' + err, false); }
+      bookInput.value = '';
+    });
+  }
 }
 
 // =====================================================================

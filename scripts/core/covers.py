@@ -49,6 +49,50 @@ def _covers_dir() -> Path:
 
 
 # ----------------------------------------------------------------------
+# Cover-template library (§4.6) — the 25-design picker source of truth
+# ----------------------------------------------------------------------
+# Five Midjourney design families × five colours = 25 PNG stems living in
+# content/covers/templates/<stem>.png. The /customize picker renders them as
+# clickable thumbnails; generate_edition_covers composes the edition title onto
+# the chosen one to (re)build the main cover. Declared here (PIL-free) so the
+# api_save_edition_meta enum validator can import COVER_TEMPLATES without
+# pulling in Pillow via generate_edition_covers.
+
+COVER_TEMPLATE_FAMILIES: list[tuple[str, str]] = [
+    ("01_ornate_leafy", "Ornate leafy"),
+    ("02_classical_corner", "Classical corner"),
+    ("03_beadline", "Beadline"),
+    ("04_minimal_lines", "Minimal lines"),
+    ("05_missal_central", "Missal central"),
+]
+COVER_TEMPLATE_COLORS: list[str] = ["black", "brown", "forest", "navy", "red"]
+COVER_TEMPLATES: frozenset[str] = frozenset(
+    f"{family}_{color}" for family, _label in COVER_TEMPLATE_FAMILIES for color in COVER_TEMPLATE_COLORS
+)
+
+
+def cover_template_catalog() -> list[dict]:
+    """The 25 templates as ordered picker rows (family-major, colour order
+    within each family). Each row: ``{stem, family, family_label, color,
+    thumb}`` where ``thumb`` is the same-origin static path the picker uses as
+    an ``<img src>`` (served by the sandboxed /content/covers/ route)."""
+    rows: list[dict] = []
+    for family, label in COVER_TEMPLATE_FAMILIES:
+        for color in COVER_TEMPLATE_COLORS:
+            stem = f"{family}_{color}"
+            rows.append(
+                {
+                    "stem": stem,
+                    "family": family,
+                    "family_label": label,
+                    "color": color,
+                    "thumb": f"/content/covers/templates/{stem}.png",
+                }
+            )
+    return rows
+
+
+# ----------------------------------------------------------------------
 # encode / decode for book_covers (list-of-strings on disk → dict in API)
 # ----------------------------------------------------------------------
 

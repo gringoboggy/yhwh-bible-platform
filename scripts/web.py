@@ -1469,6 +1469,10 @@ def api_customize_data() -> dict:
     # shows 39 rows and an Ethiopian shows 87.
     _mtx = _matrix.compute_matrix()
     edition_canon_books = {ed_id: sorted(books) for ed_id, books in _mtx.edition_canon_books.items()}
+    # §4.6 — the 25-design cover-template catalog (shared, not per-edition);
+    # the /customize cover picker renders one clickable thumbnail per row.
+    from scripts.core import covers as _covers
+
     return {
         "categories": [
             {
@@ -1525,6 +1529,9 @@ def api_customize_data() -> dict:
                 "enabled_reading_plans": list(e.get("enabled_reading_plans") or []),
                 "theme": e.get("theme", "classic"),
                 "title_page_style": e.get("title_page_style", "full-bleed"),
+                # §4.6 — which of the 25 cover templates the publisher last
+                # picked for this edition's main cover ("" = none picked yet).
+                "cover_template": e.get("cover_template", ""),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),
@@ -1546,6 +1553,7 @@ def api_customize_data() -> dict:
         "traditions": [{"id": tid, "label": label} for tid, label in _traditions_canonical_for_api()],
         "books_canonical": books_canonical,
         "edition_canon_books": edition_canon_books,
+        "cover_templates": _covers.cover_template_catalog(),
         # ψ.19 — registry of every reading plan available on disk.
         # The /customize Reading-plans card iterates this to render
         # toggle checkboxes; each edition's `enabled_reading_plans`
@@ -1781,6 +1789,7 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
 # _DELETE_ROUTES) and tests that reference `scripts.web.api_X` keep
 # working unchanged.
 from scripts.api.covers import (  # noqa: E402
+    api_apply_cover_template,
     api_delete_cover_book,
     api_delete_cover_main,
     api_upload_cover_book,
@@ -3832,6 +3841,14 @@ _DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
 #   table with a distinct lambda signature `lambda m, body, ctype` and
 #   their own dispatch loop. Separate slice.
 _POST_ROUTES: list[tuple[re.Pattern, object]] = [
+    # §4.6 — /api/covers/<ed>/template — recompose the edition's main cover
+    # from one of the 25 design templates + the edition title. JSON body
+    # {"cover_template": "<stem>"}. Distinct suffix from the /main multipart
+    # upload and the DELETE cover routes, so there's no ordering hazard.
+    (
+        re.compile(r"^/api/covers/([a-z0-9-]+)/template$"),
+        lambda m, payload: api_apply_cover_template(m.group(1), (payload.get("cover_template") or "")),
+    ),
     # /api/snapshots/<ed>/<ver>/restore — no payload; status==error
     # envelope. MUST precede /api/snapshots/<ed> (more specific).
     (

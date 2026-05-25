@@ -1834,8 +1834,19 @@ class TestEditionMeta:
         assert 'data-field="popup_translation"' in html
         # The fix that made <select> elements participate in dirty tracking
         # — without it, neither the new picker nor the existing theme
-        # dropdown would persist their changes.
-        assert "querySelectorAll('input, select')" in html
+        # dropdown would persist their changes. (Phase 1 widened the selector
+        # to include <textarea> for the description/dedication fields.)
+        assert "querySelectorAll('input, select, textarea')" in html
+
+    def test_edition_rebind_loop_skips_non_card_boxes(self):
+        """The psi11 "Preview" button also carries data-edition, so the rebind
+        loop's [data-edition] selector matches it too. Without a guard, the
+        unguarded btn.addEventListener throws on the first preview button and
+        aborts the forEach — leaving every edition AFTER the first completely
+        unwired (no save / popup-langs / traditions / covers). Found via
+        browser QA 2026-05-25 (only the first edition was interactive)."""
+        html = self.web.CUSTOMIZE_HTML
+        assert "if (!btn) return;" in html
 
     # ---------- Phase ν.2.7-B: per-book popup language picker ----------
 

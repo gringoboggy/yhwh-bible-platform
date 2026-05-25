@@ -61,6 +61,23 @@ EDITIONS: list[tuple[str, str, str]] = [
     ("coptic-orthodox", "01_ornate_leafy_brown", "The Coptic Orthodox\nStudy Bible"),
 ]
 
+
+def title_for_edition(edition_id: str) -> str:
+    """The cover title for ``edition_id`` — the bespoke (often multi-line)
+    title from ``EDITIONS`` when the edition is one of the nine mapped above,
+    else the edition's configured ``title`` from editions.yaml, else the id.
+
+    The /customize cover picker uses this to recompose a chosen template so
+    re-picking an edition's factory template reproduces its exact cover."""
+    for ed_id, _stem, title in EDITIONS:
+        if ed_id == edition_id:
+            return title
+    from scripts.core import config
+
+    ed = config.editions_by_id().get(edition_id, {})
+    return ed.get("title") or edition_id
+
+
 # Final cover dimensions — match the existing _book_defaults pattern.
 # Templates are 1792×2688; downscaling to 1024×1536 keeps file size
 # reasonable and matches what `epubcheck` expects for EPUB covers.
@@ -77,6 +94,17 @@ TITLE_SHADOW = (0, 0, 0, 130)
 # so 1-, 2-, and 3-line titles all balance identically.
 TITLE_CENTER_Y = 540
 TITLE_LINE_SPACING = 18
+# Auto-fit: a long title shrinks (TITLE_FONT_MAX→MIN in 4pt steps) until its
+# widest line fits within TITLE_MAX_WIDTH, so it never runs past the cover
+# edges. The margin keeps the block clear of the side ornaments most templates
+# carry. Short titles keep the full size, so well-fitting covers are unchanged.
+TITLE_FONT_MAX = 72
+TITLE_FONT_MIN = 28
+# Generous side margin so the title sits in the central "safe zone" (~71% of
+# the width) well clear of the templates' decorative border art — the longest
+# edition titles otherwise crowd the ornamental frame (user-reported 2026-05-25).
+TITLE_MARGIN_X = 150
+TITLE_MAX_WIDTH = FINAL_WIDTH - 2 * TITLE_MARGIN_X
 
 # Font path — Times New Roman bold ships with Windows.
 FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
@@ -93,6 +121,21 @@ def _load_font(path: str, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default(size=size)
 
 
+def _fit_title_font(title: str, draw: ImageDraw.ImageDraw) -> ImageFont.FreeTypeFont:
+    """Return the largest title font (TITLE_FONT_MAX→MIN in 4pt steps) whose
+    widest line fits within ``TITLE_MAX_WIDTH`` — so a long edition title shrinks
+    to stay clear of the cover edges instead of overrunning them. Falls back to
+    ``TITLE_FONT_MIN`` if even that overflows (degrade legibly, never overrun)."""
+    size = TITLE_FONT_MAX
+    while size > TITLE_FONT_MIN:
+        font = _load_font(FONT_TITLE_PATH, size)
+        bbox = draw.multiline_textbbox((0, 0), title, font=font, align="center", spacing=TITLE_LINE_SPACING)
+        if (bbox[2] - bbox[0]) <= TITLE_MAX_WIDTH:
+            return font
+        size -= 4
+    return _load_font(FONT_TITLE_PATH, TITLE_FONT_MIN)
+
+
 def _compose_cover(template_stem: str, title: str) -> Image.Image:
     """Composite the TITLE ONLY onto a template; return the RGB cover at the
     final dimensions. The title is a single block centered horizontally and
@@ -107,7 +150,7 @@ def _compose_cover(template_stem: str, title: str) -> Image.Image:
     # in the final coordinate space.
     base = base.resize((FINAL_WIDTH, FINAL_HEIGHT), Image.LANCZOS)
     draw = ImageDraw.Draw(base, "RGBA")
-    font = _load_font(FONT_TITLE_PATH, 72)
+    font = _fit_title_font(title, draw)
 
     # Measure the whole block, then place its top-left so the block centers at
     # (FINAL_WIDTH/2, TITLE_CENTER_Y). Subtracting bbox[0]/bbox[1] removes the

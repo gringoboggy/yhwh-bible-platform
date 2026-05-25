@@ -68,6 +68,58 @@ def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_
     return _save_cover_bytes(file_parts[0]["data"], edition_id, book_code)
 
 
+@audit_log.audit_endpoint(action="apply_cover_template")
+def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
+    """§4.6 — (re)compose an edition's main cover from one of the 25 design
+    templates + the edition title, write it to content/covers/<id>.jpg, and
+    point both cover_image and cover_template at the result.
+
+    Mirrors ``_save_cover_bytes``' validate → write → save-yaml transaction,
+    but the bytes come from ``generate_edition_covers._compose_cover`` rather
+    than an upload. Returns ``{"ok": True, ...}`` or ``{"error": "..."}``.
+    """
+    import io
+    from pathlib import Path
+
+    from scripts.api.editions import api_save_edition_meta
+    from scripts.core import config, covers as _covers, notes_io
+    from scripts.generate_edition_covers import _compose_cover, title_for_edition
+
+    stem = (template_stem or "").strip()
+    if stem not in _covers.COVER_TEMPLATES:
+        return {"error": f"unknown cover_template: {stem!r}"}
+    if edition_id not in config.editions_by_id():
+        return {"error": f"unknown edition: {edition_id}"}
+
+    REPO = Path(__file__).resolve().parent.parent.parent
+    rel_path = f"covers/{edition_id}.jpg"
+    abs_path = REPO / "content" / rel_path
+
+    # Compose the title-only cover onto the chosen template, to JPEG bytes.
+    try:
+        img = _compose_cover(stem, title_for_edition(edition_id))
+    except FileNotFoundError as e:
+        return {"error": str(e)}
+    buf = io.BytesIO()
+    img.save(buf, "JPEG", quality=90, optimize=True)
+
+    # Back up any existing cover, then write atomically (same as uploads).
+    if abs_path.exists():
+        notes_io.ensure_backup(abs_path)
+    try:
+        notes_io.atomic_write_bytes(abs_path, buf.getvalue())
+    except OSError as e:
+        return {"error": f"failed to write cover: {e}"}
+
+    # Record BOTH the resolved cover path and the chosen template stem. The
+    # cover_template enum-validation in api_save_edition_meta runs here.
+    save_result = api_save_edition_meta(edition_id, {"cover_image": rel_path, "cover_template": stem})
+    if not save_result.get("ok"):
+        return {"error": f"yaml save failed: {save_result.get('error')}"}
+
+    return {"ok": True, "edition_id": edition_id, "cover_template": stem, "path": rel_path}
+
+
 @audit_log.audit_endpoint(action="delete_cover_main")
 def api_delete_cover_main(edition_id: str) -> dict:
     """Phase π.4-B — clear an edition's main cover assignment + file."""
