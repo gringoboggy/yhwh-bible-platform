@@ -1375,6 +1375,73 @@ CHAPTER_NUMBER_FORMATS = {
 # fills the page behind a dark scrim with the title overlaid; framed = the art
 # as a plate above the title text. Unset → "full-bleed" (the default).
 TITLE_PAGE_STYLES = {"full-bleed", "framed"}
+# §4.2 verse_popup_style — original-language popup layout. "cards" (default):
+# each witness in a tinted card with a colored spine. "stack": the flat
+# source-label-over-text layout. CSS-only — applied by appending the variant's
+# rules to the edition stylesheet at build time (no base re-bake).
+VERSE_POPUP_STYLES = {"cards", "stack"}
+# CSS appended to an edition stylesheet when verse_popup_style == "cards" (the
+# default): layers tinted-card chrome + a colored spine onto the existing flat
+# .vnote-hebrew/.vnote-greek blocks. "stack" leaves the base flat layout. All
+# properties are EPUB-3-allowed (background / border / padding / border-radius).
+_VERSE_POPUP_CARDS_CSS = """
+/* === §4.2 verse_popup_style=cards — tinted witness cards with colored spines === */
+.vnote-hebrew, .vnote-greek { padding: 0.4em 0.6em; border-radius: 0.3em; }
+.vnote-hebrew { background: rgba(184, 134, 11, 0.07); border-left: 3px solid #B8860B; }
+.vnote-greek  { background: rgba(91, 46, 140, 0.06); border-left: 3px solid #5B2E8C; }
+"""
+
+
+def apply_verse_popup_style(stylesheet_css: str, style: str) -> str:
+    """Append the verse_popup_style variant CSS to an edition stylesheet.
+
+    "cards" (default) appends tinted-card-with-spine rules; "stack" is the flat
+    base layout (no append). Mirrors the theme-override append — the popup HTML
+    is unchanged, so this needs no base re-bake."""
+    style = (style or "cards").strip() or "cards"
+    if style == "cards":
+        return stylesheet_css + _VERSE_POPUP_CARDS_CSS
+    return stylesheet_css
+
+
+# §4.4 note_popup_style — note/aside popup layout. "chip" (default): the
+# category label renders as a tinted chip. "pills": in-note cross-references
+# render as bordered, tappable pills. CSS-only — appended to the edition
+# stylesheet at build time, targeting the EXISTING baked classes (.note-label
+# and in-note `a:not(.note-back)`), so no base re-bake. (The §4.4 symbol-into-
+# note relocation + stray-‖ removal are base-HTML changes tracked under the
+# separate symbols-into-notes Wave-3 task — not this layout setting.)
+NOTE_POPUP_STYLES = {"chip", "pills"}
+# Appended when note_popup_style == "chip" (the default): a rounded tinted
+# background on the category label so "Note." / "Topic." / "Cite." reads as a
+# chip. All EPUB-3-allowed (display / padding / border-radius / background).
+_NOTE_POPUP_CHIP_CSS = """
+/* === §4.4 note_popup_style=chip — category label as a tinted chip === */
+.note .note-label { display: inline-block; padding: 0.02em 0.5em; border-radius: 0.8em; background: rgba(91, 46, 140, 0.08); }
+"""
+# Appended when note_popup_style == "pills": in-note cross-reference links
+# (every <a> inside a .note that is NOT the .note-back glyph) become bordered,
+# rounded, tappable pills. EPUB-3-allowed (display / padding / margin / border /
+# border-radius / text-decoration).
+_NOTE_POPUP_PILLS_CSS = """
+/* === §4.4 note_popup_style=pills — in-note cross-references as tappable pills === */
+.note a:not(.note-back) { display: inline-block; padding: 0.02em 0.55em; margin: 0.08em 0.12em; border: 1px solid #B8860B; border-radius: 0.9em; text-decoration: none; }
+"""
+
+
+def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
+    """Append the note_popup_style variant CSS to an edition stylesheet.
+
+    "chip" (default) appends a tinted label-chip rule; "pills" appends a pill
+    rule for in-note cross-references. Both are CSS-only against the existing
+    baked classes (the popup HTML is unchanged), so neither needs a base
+    re-bake. Mirrors apply_verse_popup_style / the theme-override append."""
+    style = (style or "chip").strip() or "chip"
+    if style == "pills":
+        return stylesheet_css + _NOTE_POPUP_PILLS_CSS
+    return stylesheet_css + _NOTE_POPUP_CHIP_CSS
+
+
 CHAPTER_NUMBER_DECORATIONS = {
     "plain": ("", ""),
     "dashes": ("— ", " —"),
@@ -3675,6 +3742,28 @@ def build_one(
                 theme_handle.write(f"\n\n/* === theme: {theme_id} === */\n")
                 theme_handle.write(theme_css.read_text(encoding="utf-8"))
             stats["theme_applied"] = theme_id
+
+        # §4.2 verse_popup_style — append the cards/stack variant CSS (cards =
+        # default tinted-card chrome; stack = flat base). Same append-to-stylesheet
+        # mechanism as the theme override above; the popup HTML is unchanged.
+        if css_path.is_file():
+            vps = (edition.get("verse_popup_style") or "cards").strip() or "cards"
+            css_path.write_text(
+                apply_verse_popup_style(css_path.read_text(encoding="utf-8"), vps),
+                encoding="utf-8",
+            )
+            stats["verse_popup_style"] = vps
+
+        # §4.4 note_popup_style — append the chip/pills variant CSS (chip =
+        # default tinted label-chip; pills = bordered cross-reference pills).
+        # Same append-to-stylesheet mechanism; the note HTML is unchanged.
+        if css_path.is_file():
+            nps = (edition.get("note_popup_style") or "chip").strip() or "chip"
+            css_path.write_text(
+                apply_note_popup_style(css_path.read_text(encoding="utf-8"), nps),
+                encoding="utf-8",
+            )
+            stats["note_popup_style"] = nps
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's

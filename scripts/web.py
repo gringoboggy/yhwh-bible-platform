@@ -1532,6 +1532,10 @@ def api_customize_data() -> dict:
                 # §4.6 — which of the 25 cover templates the publisher last
                 # picked for this edition's main cover ("" = none picked yet).
                 "cover_template": e.get("cover_template", ""),
+                # §4.2 — original-language verse-popup layout (cards default / stack).
+                "verse_popup_style": e.get("verse_popup_style", "cards"),
+                # §4.4 — note/aside popup layout (chip default / pills).
+                "note_popup_style": e.get("note_popup_style", "chip"),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),

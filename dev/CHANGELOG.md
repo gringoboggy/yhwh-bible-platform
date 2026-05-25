@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 3 (start): verse_popup_style + note_popup_style — CSS-only popup-layout settings
+
+The first, re-bake-FREE slice of Wave 3 (EPUB Presentation Phase 2). Two per-edition popup-layout toggles, each §7-wired exactly like `title_page_style` and applied at build time by APPENDING a variant CSS block to the edition stylesheet (the same mechanism as the theme override) — the popup/note HTML is unchanged, so NO base re-bake. The heavier Wave-3 items that DO require a re-bake (`marker_style`→numbers, symbols-into-notes, widened popups, Nave's back-matter) stay deferred behind their prereqs. Gates: 16 popup-style tests + 86 build-level regression (title-page/cover/presentation) · `lint_rules` 16/0/0 · ruff clean · catholic-study rebuilt → epubcheck 0/0/0/0 · shipped-stylesheet content-verified.
+
+- **§4.2 `verse_popup_style` — original-language popup layout (`cards` default / `stack`).** `cards` appends tinted-witness-card chrome with colored spines (gold = Hebrew `.vnote-hebrew`, purple = Greek `.vnote-greek`); `stack` is the flat base (no append). NEW `build_edition.VERSE_POPUP_STYLES` + `_VERSE_POPUP_CARDS_CSS` + `apply_verse_popup_style`, called in `build_one` right after the theme-override append. §7-wired: allowed-field lists + enum validator in `scripts/api/editions.py`; `web.py api_customize_data` default `cards`; `/customize` `<select>`.
+- **§4.4 `note_popup_style` — note/aside popup layout (`chip` default / `pills`).** `chip` appends a tinted rounded label-chip rule (`.note .note-label`); `pills` appends a bordered-tappable-pill rule for in-note cross-references (`.note a:not(.note-back)` — the negative-space selector that isolates xref links from the back-link glyph, since baked xrefs carry no class of their own). NEW `build_edition.NOTE_POPUP_STYLES` + `_NOTE_POPUP_CHIP_CSS` / `_NOTE_POPUP_PILLS_CSS` + `apply_note_popup_style`, called in `build_one` after the verse-style append. Same §7 wiring. Selectors target the real classes from `inject.build_aside`; cascade-verified in the shipped stylesheet (`.note .note-label` 0,2,0 beats base `.note-label` 0,1,0 and is appended later; the `[class*="note-comm-"] > div > .note-label` hide rule 0,2,1 still out-ranks it, so intentionally-hidden commentary labels stay hidden).
+- **Scope note.** §4.4's spec ALSO moves the category symbols INTO the notes + drops the stray `‖`; those are base-HTML changes tracked under the separate symbols-into-notes Wave-3 task, NOT this layout-only setting. `tests/test_popup_styles.py` (16 = const · enum-reject · round-trip persist · loader default · UI-present · per-variant CSS append, ×2 settings).
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 2 §4.6: 25-design cover picker + uploads · title auto-fit · 3 QA-surfaced fixes
 
 §4.6 closes Wave 2 (the cover sub-project). Built the picker + a server-side recompose; live browser QA then surfaced three pre-existing bugs (one demo-critical) which are fixed here. Build-time / cover-asset only — no corpus change. Gates: 221 tests green · `lint_rules` 16/0/0 · ruff clean.

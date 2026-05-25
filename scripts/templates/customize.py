@@ -397,6 +397,20 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Verse-popup layout</span>
+              <select class="label-input w-full" data-field="verse_popup_style" title="how the original-language witnesses render inside a verse popup">
+                <option value="cards" ${(e.verse_popup_style||'cards') === 'cards' ? 'selected' : ''}>cards · each witness in a tinted card</option>
+                <option value="stack" ${e.verse_popup_style === 'stack' ? 'selected' : ''}>stack · flat, label above text</option>
+              </select>
+            </label>
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Note-popup layout</span>
+              <select class="label-input w-full" data-field="note_popup_style" title="how a study note renders inside its popup">
+                <option value="chip"  ${(e.note_popup_style||'chip') === 'chip' ? 'selected' : ''}>chip · category label as a tinted chip</option>
+                <option value="pills" ${e.note_popup_style === 'pills' ? 'selected' : ''}>pills · cross-references as tappable pills</option>
+              </select>
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Chapter number decoration</span>
               <select class="label-input w-full" data-field="chapter_number_decoration" title="decorative wrappers around the chapter number">
                 <option value="plain"        ${(e.chapter_number_decoration||'plain') === 'plain' ? 'selected' : ''}>plain · 1</option>
