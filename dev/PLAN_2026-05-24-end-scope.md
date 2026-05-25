@@ -12,6 +12,28 @@ detail) · `dev/CLAUDE_PROJECT_RULES.md` (rules).
 
 ---
 
+## ▶ Post-Wave-4 — ordered remaining backlog (user-prioritized 2026-05-25)
+
+**Wave 4 is COMPLETE** (W4.1 frozen-build · W4.2 concurrent-build cap · W4.3 first-run welcome flow · W4.4 README + release artifact · W4.5 local CI gate + mypy-clean + coverage floor). The autonomous productionization stream (Waves 0–4) is **done**. The user set the remaining work in this order:
+
+**TIER 1 — quick loose ends (next):**
+1. **Activate the W4.5 coverage floor** — `pip install -r requirements-dev.txt` so `coverage` is installed → the `make ci` coverage step goes live; set a `--fail-under` baseline from the first real measurement.
+2. **Git-LFS decision** for the ~159 MB cover templates — likely leave as-is (committed directly + working; LFS only matters if repo size becomes a problem).
+3. **`smoke_desktop.py` self-cleanup** — remove the orphaned `_MEI*` extraction dirs left after the smoke's `taskkill /F` blocks PyInstaller's auto-cleanup.
+
+**TIER 2 — opportunistic depth (NOT blocking — the product ships without these):**
+4. **Track C corpus** — the 5 capped reference works (Matthew Henry · JFB · Barnes · Torrey · Vincent) via the χ-cluster pipeline (§9). Voyage AI embeddings de-scoped.
+5. **7 no-KJV books' verse popups** (Meqabyan I-III · 2 Enoch · Jubilees · 4 Baruch · 1 Clement) — need PD/Geʽez source data.
+6. **Phase E** — the Clementine Latin appendix (`man`/`1es`/`2es`), clean-digital-first.
+7. **Code-debt hygiene** — the deep-audit P3/P4 tail (`dev/AUDIT_2026-05-23-DEEP.md`) + the visible ruff lint backlog + installing/wiring vulture + pip-audit (currently graceful-skipped in `make ci`).
+
+**TIER 3 — the parallel-Bibles arc (first-class north-star), user-prioritized LAST:**
+8. The two standalone Geʽez + Amharic Bibles (`dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`): (1) finish Geʽez rendering = the **Track B** Kings/Samuel manuscript marathon (user-paced, calendar-bound critical path) → (2) constitute the standalone editions → (3) finalize sources (Amharic from the parallel-Bible PDF; Geʽez gaps from `GAPS/`) → (4) English back-translation of the actual wording → (5) wire into their own verse popups.
+
+> This REORDERS the "marathon is primary" framing in the PARALLEL-tracks section below: with Wave 4 done, the user spends remaining Claude-time on the autonomous TIER-1 / TIER-2 work first and paces the TIER-3 marathon themselves. Separate and still open: the **[USER]** real-reader presentation eyeball (Apple Books / e-ink).
+
+---
+
 ## Guiding lens — the deadline is "losing Claude" (2026-06-07)
 
 Two consequences shape the order:
