@@ -2987,7 +2987,7 @@ def build_one(
         inject_dedication_page(tmp, edition, version)
         inject_symbol_legend_page(tmp, edition, version)
         inject_about_page(tmp, edition, version)
-        inject_back_matter(tmp, edition, version)
+        inject_back_matter(tmp, edition, version, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
         # when `enabled_reading_plans` is empty, preserving pre-ψ.19.1

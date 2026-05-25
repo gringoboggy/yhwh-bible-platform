@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-25 (cont.) — EPUB Wave 3 #7 (LAST item): Nave's topical-index back-matter page
+
+Spec §5.4 #4 — the final Wave-3 item, and the close of the EPUB presentation overhaul. A back-of-book topical concordance after Nave's Topical Bible (Orville J. Nave, 1896; PD), composed from the structured `content/sources/naves_topical.json` (4,604 topics / ~100k refs) via `sources.naves_topical()`. The build filters refs to the edition's canon, dedupes, orders them canonically, and renders an alphabetical topic→verses index appended after the Reference Tables and before the closing colophon. Default-on for every edition. Gates: 7 topical-index tests + `test_presentation_polish` (back-matter spine order extended) green · `lint_rules` 16/0/0 · ruff clean · ethiopian-tewahedo + catholic-study rebuilt → **epubcheck errors=0/warnings=0** · flagship topical page = **4,604 topics**, spine order `backsources → backreftables → backtopical → backcolophon` (colophon last).
+
+- NEW `build_topic_index(naves, canon_books, book_order)` + `render_topical_index_page(version, topic_index, book_abbrev)` in `scripts/matter_pages.py`. `build_topic_index` inverts Nave's into `[(topic, [canonical refs])]`, canon-filtered + deduped + canonically ordered; `render` emits the alphabetical XHTML (small-caps topic name + compact `Gen 1:1; …` refs).
+- `inject_back_matter` gained a `canon_books` param + writes `topical.xhtml`, registering `backtopical` in the OPF manifest + spine + nav BETWEEN `backreftables` and `backcolophon` (`build_one` threads `canon_books`). `SourceMissingError`-guarded (skips the page if Nave's isn't cached in the env).
+- `NavesTopical.topics()` accessor (sorted topic names) added to `scripts/core/sources.py`.
+- CSS: `.topical-intro` / `.topic-entry` (hanging indent) / `.topic-name` (small-caps purple) in `epub_working/stylesheet.css`.
+
+**Wave 3 (EPUB Presentation Phase 2) is COMPLETE** — the 3 infra prereqs + 7 features all shipped this session: prereqs (MATRIX_MAP refresh · `build_edition`→`matter_pages` split · `resync_marker_glyphs`+`categorize_diff`); features (#4 `marker_style=numbers` base re-bake · #5 `‖`→`↩` + symbols-into-notes legend links · #6 drop-KJV/widen popups · #7 this topical index).
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 3 #6: drop the English KJV from verse popups + widen the default witnesses
 
 Spec §4.3/§12.3. The flagship's verse popups repeated the English KJV — which mismatches the WEB reading text the reader already sees inline — and showed only Hebrew + Greek. The default witness set is now **wlc + lxx-greek + greek-nt + vulgate + arabic** (Hebrew + Greek LXX/NT + Latin + Arabic); the redundant English is dropped wherever an original-language witness exists. `jps`/`douay`/`brenton-en` stay registry members, selectable per edition/book but off by default. A per-edition PRUNING change — NOT a base re-bake (the base bakes every witness; `build_one._resolve_popup_languages` prunes per edition). Gates: 9 popup-witness tests + 1057 (test_scripts+core) green · `lint_rules` 16/0/0 · ruff clean · ethiopian-tewahedo + catholic-study rebuilt → **epubcheck errors=0/warnings=0** · built-popup audit = **0 empty popups, 0 dangling vn-link hrefs**.

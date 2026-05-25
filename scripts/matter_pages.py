@@ -770,17 +770,87 @@ def render_closing_colophon_page(edition: dict, version: str) -> str:
 """
 
 
-def inject_back_matter(tmp: Path, edition: dict, version: str) -> None:
-    """Write sources.xhtml, reftables.xhtml, colophonend.xhtml and register
-    each in content.opf (manifest + spine, appended at END in order) and
+def build_topic_index(naves, canon_books, book_order: dict[str, int]) -> list[tuple[str, list[tuple[str, int, int]]]]:
+    """Invert Nave's into a back-of-book topical index.
+
+    Returns ``[(topic, [(book, ch, vs), …]), …]`` — topics alphabetical, each
+    topic's refs deduped and in canonical order. ``canon_books`` (a set, or None
+    for "all books") filters refs to the edition's canon; a topic with no
+    in-canon ref is omitted. ``book_order`` maps a book code to its canonical
+    index (from ``config.load_books()``). ``naves`` is a ``sources.NavesTopical``
+    (injected for testing)."""
+    index: list[tuple[str, list[tuple[str, int, int]]]] = []
+    for topic in naves.topics():
+        seen: set[tuple[str, int, int]] = set()
+        refs: list[tuple[str, int, int]] = []
+        for hit in naves.verses_for(topic):
+            key = (hit.target_book, hit.target_chapter, hit.target_verse)
+            if canon_books is not None and key[0] not in canon_books:
+                continue
+            if key in seen:
+                continue
+            seen.add(key)
+            refs.append(key)
+        if refs:
+            refs.sort(key=lambda r: (book_order.get(r[0], 9999), r[1], r[2]))
+            index.append((topic, refs))
+    return index
+
+
+def render_topical_index_page(version: str, topic_index, book_abbrev) -> str:
+    """Render the Nave's topical-index back-matter XHTML. ``topic_index`` is the
+    output of ``build_topic_index``; ``book_abbrev(code) -> str`` formats a book
+    code for a verse reference (e.g. ``gen`` → ``Gen``)."""
+    rows: list[str] = []
+    for topic, refs in topic_index:
+        ref_str = "; ".join(f"{book_abbrev(b)} {c}:{v}" for b, c, v in refs)
+        rows.append(f'    <p class="topic-entry"><span class="topic-name">{html.escape(topic)}</span> {ref_str}</p>')
+    body = "\n".join(rows) if rows else '    <p class="topic-entry">This edition carries no topical index.</p>'
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Topical Index</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+  <section class="backmatter-page topical-index" epub:type="backmatter">
+    <h1 class="backmatter-title">Topical Index</h1>
+    <p class="topical-intro">A concordance of verses by theme, after Nave&#x2019;s Topical Bible (Orville J. Nave, 1896; public domain). Topics are listed alphabetically; only verses present in this edition are shown.</p>
+{body}
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[str] | None = None) -> None:
+    """Write sources.xhtml, reftables.xhtml, topical.xhtml, colophonend.xhtml and
+    register each in content.opf (manifest + spine, appended at END in order) and
     nav.xhtml (TOC entries appended at the END of the main <ol>).
 
-    Spine order guaranteed: backsources → backreftables → backcolophon.
-    backcolophon is the very last spine item.
+    Spine order guaranteed: backsources → backreftables → backtopical →
+    backcolophon. backcolophon is the very last spine item.
     Guards against double-injection via per-file href check."""
-    # --- Write the three XHTML files ---
+    # --- Write the back-matter XHTML files (sources → reftables → topical → colophon) ---
     (tmp / "sources.xhtml").write_text(render_sources_page(version), encoding="utf-8")
     (tmp / "reftables.xhtml").write_text(render_reference_tables_page(version), encoding="utf-8")
+    # §5.4 #4 — Nave's topical index, filtered to this edition's canon.
+    from scripts.core import config as _config
+    from scripts.core import sources as _sources
+
+    topical_ok = False
+    try:
+        naves = _sources.naves_topical()
+        book_order = {b["code"]: i for i, b in enumerate(_config.load_books())}
+        topic_index = build_topic_index(naves, canon_books, book_order)
+        (tmp / "topical.xhtml").write_text(
+            render_topical_index_page(version, topic_index, book_abbrev=str.title), encoding="utf-8"
+        )
+        topical_ok = True
+    except _sources.SourceMissingError:
+        topical_ok = False  # Nave's not cached in this env — skip the page entirely
     (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition, version), encoding="utf-8")
 
     # --- Patch content.opf ---
@@ -798,6 +868,10 @@ def inject_back_matter(tmp: Path, edition: dict, version: str) -> None:
             new_manifest_items += (
                 '\n    <item id="backreftables" href="reftables.xhtml" media-type="application/xhtml+xml"/>'
             )
+        if topical_ok and "topical.xhtml" not in opf:
+            new_manifest_items += (
+                '\n    <item id="backtopical" href="topical.xhtml" media-type="application/xhtml+xml"/>'
+            )
         if "colophonend.xhtml" not in opf:
             new_manifest_items += (
                 '\n    <item id="backcolophon" href="colophonend.xhtml" media-type="application/xhtml+xml"/>'
@@ -805,12 +879,14 @@ def inject_back_matter(tmp: Path, edition: dict, version: str) -> None:
         if new_manifest_items:
             opf = opf.replace("</manifest>", new_manifest_items + "\n  </manifest>")
 
-        # Spine: append all three itemrefs before </spine> (in order)
+        # Spine: append itemrefs before </spine> (sources → reftables → topical → colophon)
         new_spine_items = ""
         if 'idref="backsources"' not in opf:
             new_spine_items += '\n    <itemref idref="backsources"/>'
         if 'idref="backreftables"' not in opf:
             new_spine_items += '\n    <itemref idref="backreftables"/>'
+        if topical_ok and 'idref="backtopical"' not in opf:
+            new_spine_items += '\n    <itemref idref="backtopical"/>'
         if 'idref="backcolophon"' not in opf:
             new_spine_items += '\n    <itemref idref="backcolophon"/>'
         if new_spine_items:
@@ -827,6 +903,8 @@ def inject_back_matter(tmp: Path, edition: dict, version: str) -> None:
             new_nav_items += '\n      <li><a href="sources.xhtml">Sources &amp; Acknowledgments</a></li>'
         if 'href="reftables.xhtml"' not in nav:
             new_nav_items += '\n      <li><a href="reftables.xhtml">Reference Tables</a></li>'
+        if topical_ok and 'href="topical.xhtml"' not in nav:
+            new_nav_items += '\n      <li><a href="topical.xhtml">Topical Index</a></li>'
         if 'href="colophonend.xhtml"' not in nav:
             new_nav_items += '\n      <li><a href="colophonend.xhtml">Colophon</a></li>'
         if new_nav_items:

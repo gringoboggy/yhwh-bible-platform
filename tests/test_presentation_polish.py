@@ -271,10 +271,13 @@ class TestBackMatterReachesEpub:
             opf = zf.read(next(n for n in names if n.endswith("content.opf"))).decode("utf-8")
             assert any(n.endswith("sources.xhtml") for n in names)
             assert any(n.endswith("reftables.xhtml") for n in names)
+            assert any(n.endswith("topical.xhtml") for n in names)  # §5.4 #4 Nave's index
             assert any(n.endswith("colophonend.xhtml") for n in names)
         order = re.findall(r'<itemref idref="(\w+)"/>', opf)
-        # back matter appears at the very end, in order
+        # back matter appears at the very end, in order:
+        # sources -> reftables -> topical -> colophon (colophon last)
         assert order.index("backsources") < order.index("backreftables") < order.index("backcolophon")
+        assert order.index("backreftables") < order.index("backtopical") < order.index("backcolophon")
         assert order[-1] == "backcolophon", "closing colophon must be the last page"
 
 

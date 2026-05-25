@@ -352,6 +352,11 @@ class NavesTopical:
             if len(r) >= 3
         ]
 
+    def topics(self) -> list[str]:
+        """Every topic name, alphabetically — for enumerating the whole index
+        (the back-of-book topical index / coverage UIs)."""
+        return sorted(self._topics)
+
 
 # ----------------------------------------------------------------------
 # Patristic commentary corpus (γ.3 — 2026-05-11)
