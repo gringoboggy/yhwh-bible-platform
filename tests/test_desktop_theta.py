@@ -365,7 +365,10 @@ class TestLauncherMain:
         # --skip-bootstrap short-circuits.
         monkeypatch.setattr(sys, "frozen", True, raising=False)
         rc = self.mod.main(
-            ["--no-browser", "--port", "0", "--skip-bootstrap"],
+            # Force browser shell so the test pins migration behavior
+            # independent of whether PyWebView is installed (frozen + auto
+            # would pick native once pywebview is present — RULES §8).
+            ["--shell", "browser", "--no-browser", "--port", "0", "--skip-bootstrap"],
             server_factory=self._fake_factory(),
             migrate_fn=fake_migrate,
             serve_fn=lambda: None,
@@ -390,7 +393,10 @@ class TestLauncherMain:
             return {"copied": 5, "skipped": 0, "errors": []}
 
         rc = self.mod.main(
-            ["--no-browser", "--port", "0"],
+            # Force browser shell so the test pins migration behavior
+            # independent of whether PyWebView is installed (frozen + auto
+            # would pick native once pywebview is present — RULES §8).
+            ["--shell", "browser", "--no-browser", "--port", "0"],
             server_factory=self._fake_factory(),
             migrate_fn=fake_migrate,
             serve_fn=lambda: None,
@@ -1596,3 +1602,39 @@ class TestTheta3GenerateAppcast:
         assert "<rss" in out
         assert "9.9.9" in out
         assert "https://example.com/r" in out
+
+
+class TestBuildOutputRootResolution:
+    """W4.1 — paths._build_output_root() (the writable root for exports/, builds/,
+    backups) resolves: YHWH_DATA_DIR override > user_data_root when frozen >
+    content_root().parent in dev. Frozen must NOT root build output under the
+    read-only PyInstaller _MEIPASS extraction dir (it would vanish on exit)."""
+
+    def test_dev_uses_content_root_parent(self, monkeypatch):
+        from scripts.core import paths
+
+        monkeypatch.delenv("YHWH_DATA_DIR", raising=False)
+        monkeypatch.setattr(sys, "frozen", False, raising=False)
+        assert paths._build_output_root() == paths.content_root().parent
+
+    def test_frozen_uses_user_data_root(self, monkeypatch, tmp_path):
+        from scripts.core import paths
+
+        monkeypatch.delenv("YHWH_DATA_DIR", raising=False)
+        monkeypatch.setattr(sys, "frozen", True, raising=False)
+        monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path)
+        assert paths._build_output_root() == tmp_path
+
+    def test_yhwh_data_dir_env_overrides_even_when_frozen(self, monkeypatch, tmp_path):
+        from scripts.core import paths
+
+        target = tmp_path / "datadir"
+        monkeypatch.setenv("YHWH_DATA_DIR", str(target))
+        monkeypatch.setattr(sys, "frozen", True, raising=False)
+        assert paths._build_output_root() == target
+
+    def test_exports_dir_follows_the_root(self, monkeypatch, tmp_path):
+        from scripts.core import paths
+
+        monkeypatch.setenv("YHWH_DATA_DIR", str(tmp_path))
+        assert paths.exports_dir() == tmp_path / "exports"

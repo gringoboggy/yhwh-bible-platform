@@ -1,0 +1,14 @@
+# Desktop-binary build dependencies (Wave 4 — the θ.1 launcher + θ.2 PyWebView shell).
+#
+# These are BUILD/packaging deps, not runtime deps of the web app itself (the app
+# runs on the Python stdlib + PIL + PyYAML). They are declared here so the desktop
+# build is reproducible and the packages are not "agent-chosen" (see
+# dev/CLAUDE_PROJECT_RULES.md "Operational guard — package installs").
+#
+# Install into the build environment, then build:
+#     python -m pip install -r dev/requirements-desktop.txt
+#     python -m PyInstaller dev/launcher.spec --noconfirm      # -> dist/YHWH.exe
+#
+# Pinned to the versions verified building YHWH.exe on Python 3.14 (2026-05-25).
+pyinstaller==6.20.0
+pywebview==6.2.1

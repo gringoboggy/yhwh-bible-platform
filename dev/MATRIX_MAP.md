@@ -100,7 +100,7 @@ VALIDATORS (gate everything):
 | `enable_ai_notes` | gate for `AI_DRAFTED_KINDS` (`comm-ai`) | matrix + build kind gate | OK |
 | `popup_translation` | `translations/<id>/` | build `_replace_verse_popup_translation` | OK (`kjv`, `*-en`, `""`) |
 | `base_translation` | `translations/<id>/` | standalone build body (deferred τ.G.x.*) | OK |
-| `popup_languages_default` / `_per_book` | language ids | build `_apply_popup_languages_and_translation` | not ref-checked (lang names) |
+| `popup_languages_default` / `_per_book` | language ids | build `_resolve_popup_languages` → `_apply_popup_languages_and_translation` | unset → `DEFAULT_POPUP_WITNESSES` (5; `kjv` excluded — #6); last-resort English floor where no witness exists (RSC-012 guard); not ref-checked (lang names) |
 | `cover_image` | `content/covers/` | `patch_opf` / covers | OK (empty on standalones = skipped) |
 | `max_phase` | phase tag on kinds | phase filter | not checked by tracer |
 | `traditions_default` / `_per_book` | `traditions.yaml` | build tradition filter | not checked by tracer |
@@ -114,7 +114,7 @@ VALIDATORS (gate everything):
 | `cover_template` | `core/covers.COVER_TEMPLATES` (25 stems = 5 designs × 5 colours) | `api_apply_cover_template` (api/covers 72) → `_compose_cover` → `covers/<id>.jpg` | shipped 2026-05-25; default `""` |
 | `verse_popup_style` | enum `{cards, stack}` | build `apply_verse_popup_style` (1395) — CSS append in `build_one` | shipped 2026-05-25; default `cards` |
 | `note_popup_style` | enum `{chip, pills}` | build `apply_note_popup_style` (1432) — CSS append in `build_one` | shipped 2026-05-25; default `chip` |
-| `marker_style` | enum `{numbers, badge}` | `inject.py::build_marker` (150) — base-wide re-bake; `badge` deferred | PLANNED Wave 3; default `numbers` |
+| `marker_style` | enum `{numbers}` (`badge` deferred — declarative field) | `inject.build_marker`/`build_aside` emit numbers at source (base re-bake via `resync_marker_glyphs`); `build_one` runs a per-edition `renumber_markers` post-pass (gapless after the canon filter) | shipped 2026-05-25 (dfbff8a); default `numbers` |
 | `description` / `dedication` | free text (`EDITABLE_TEXT`) | About-this-Edition / optional Dedication front-matter pages | shipped Phase 1 |
 
 ## Findings — accreted, low-risk cleanup targets
@@ -246,12 +246,14 @@ so these settings never touch the shared base and need no inject re-run.
   ships it through the existing `apply_edition_cover` (3521) cover-swap step.
 
 **(2) Base re-bake — shared base-HTML change (the riskier path).**
-`marker_style=numbers` (PLANNED) changes `inject.py::build_marker` (150), which
+`marker_style=numbers` (shipped 2026-05-25, dfbff8a) changed `inject.build_marker` + `build_aside` (150/190), which
 runs **base-wide** (per-book, into the shared `epub_working/index_split_*.html`) —
 it is NOT a per-edition build-time toggle. Re-baking the shared base requires
 proving only the intended markers changed: the byte-multiset **categorize-diff
 verifier** + `scripts/resync_marker_glyphs.py` (Wave-3 prereqs). Same risk class as
-the popup-version bake. The stray `‖` is the `xref` category glyph
+the popup-version bake. Because each edition filters some markers, `build_one` runs a
+per-edition `renumber_markers` post-pass (after the canon filter) so footnote numbers
+stay gapless in every edition. The stray `‖` is the `xref` category glyph
 (`categories.yaml:28`) reused as the `.note-back` char in `build_aside` (170); the
 fix gives the back-link a fixed `↩` (as `vnote-back` already does in
 `generate_verse_popups.py`) and renders the category symbol as a deliberate in-note
@@ -263,15 +265,17 @@ element (spec §4.4 / §12.4).
 (round-trip · invalid-rejected · back-compat · UI-present · per-option render).
 
 **Matter pages (built-in, NOT toggles)** — the `render_*_page` + `inject_*_page`
-family in `build_edition.py` (OPF manifest + spine appended; *prereq-2 extracts this
-family into `scripts/matter_pages.py`*):
+family in `build_edition.py` (OPF manifest + spine appended; extracted into `scripts/matter_pages.py` at prereq #2,
+25e22cf, re-exported from `build_edition`):
 - Front: Title → optional Dedication → Colophon (real computed counts via
   `core.matrix`; © Bogdan Zorlescu / "YHWH Ya' Way Editions") → "A Guide to the
   Notes" (edition-aware symbol legend; rows anchored `id="legend-<cat>"`) →
   About-this-Edition (`render_about_page` 2274 — auto-spec from resolved choices +
   the editable `description`). The placeholder `introduction.xhtml` is dropped.
 - Back: Sources & Acknowledgments → Reference tables → Topical index (Nave's —
-  PLANNED Wave 3, composed from the 26,335 `topic-nave` notes) → Closing colophon.
+  shipped 2026-05-25, 61226c5: `inject_back_matter(…, canon_books)` → `build_topic_index`
+  (canon-filtered) → `render_topical_index_page`; 4,604 topics on the flagship; OPF
+  manifest + spine + nav updated) → Closing colophon.
 
 ## Reference-corpus ingestion (PD reference works → notes)
 

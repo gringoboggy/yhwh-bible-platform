@@ -27,7 +27,7 @@ work ships first.
 
 ---
 
-## Status — EPUB Presentation Phase 1 (in flight)
+## Status — Waves 0–3 SHIPPED 2026-05-25 (the Phase-1 detail below is historical)
 
 - ✅ DONE + verified: **left-align body text · cover fits the frame · colophon
   rewritten (real per-edition counts, no `TODO_`, no stale "1,371") · "A Guide to
@@ -37,7 +37,9 @@ work ships first.
   **Back matter** (Sources & Acknowledgments · Reference tables · Closing
   colophon) · **Phase-1 verification gate** (epubcheck reps · `ebible verify` ·
   lint · categorize-diff).
-- All Phase-1 changes are UNCOMMITTED in the working tree (awaiting a user "save").
+- ✅ Waves 1–3 are all COMMITTED (25e22cf→61226c5) + verified by the light post-Wave-3
+  audit (`dev/AUDIT_2026-05-25-wave3-FINDINGS.md`); **Wave 4 (downloadable desktop app)
+  is the next active wave.**
 
 ---
 
@@ -67,7 +69,7 @@ work ships first.
   existing `/api/covers/<edition>/main` pipeline) + **image alt-text**.
 - WHY: the cover is the first thing a user sees; 2a is foundational for 2b.
 
-### WAVE 3 — EPUB Presentation Phase 2 (configurable settings + base re-bake)
+### WAVE 3 — EPUB Presentation Phase 2 (configurable settings + base re-bake) — ✅ DONE 2026-05-25 (25e22cf→61226c5; verified by AUDIT_2026-05-25-wave3-FINDINGS.md)
 - The four `editions.yaml` enum settings (`marker_style` · `verse_popup_style` ·
   `note_popup_style` · `title_page_style`) · markers→numbers · symbols-into-notes
   (+ clickable symbol→glossary link) · `‖` fix · widened popups / drop-KJV ·
@@ -75,7 +77,7 @@ work ships first.
 - WHY later: deepest + riskiest (shared base-HTML re-bake), most Claude-dependent;
   each setting is independently shippable.
 
-### WAVE 4 — Productionization → DOWNLOADABLE DESKTOP APP (decided 2026-05-24)
+### WAVE 4 — Productionization → DOWNLOADABLE DESKTOP APP (decided 2026-05-24) — ◀ IN PROGRESS (2026-05-25): **W4.1 ✅ DONE** — the existing θ.1/θ.2 desktop binary now BUILDS when frozen (4 frozen-only fixes: in-process build, bundled `epub_working/`, `-X utf8`, persistent `YHWH_DATA_DIR` output) + a `dev/smoke_desktop.py` harness; smoke builds a persistent EPUB. **W4.2–W4.5 remain:** concurrent-build cap · onboarding/empty-state UX · distribution README + release artifact · CI/mypy/coverage
 **Delivery model = downloadable desktop app** (user 2026-05-24): package the existing
 web UI + local server so a user double-clicks to run it locally — no Python, no server.
 - **Packaging:** bundle Python + deps + assets into a one-folder/one-file app

@@ -6,6 +6,36 @@
 
 ---
 
+## 2026-05-25 (cont.) — Wave 4 (W4.1): the θ desktop binary is now a WORKING frozen builder
+
+The θ.1/θ.2 desktop app (launcher + PyWebView shell, originally built 2026-05-10) launched + served but had **never been verified to BUILD an EPUB when frozen** — its 125 unit tests mock all I/O, and the PLAN's "Wave 4" framing didn't realize the θ work existed. A real PyInstaller build + a new end-to-end smoke (`dev/smoke_desktop.py`) exposed four frozen-only failures, all now fixed; the smoke builds + persists a real EPUB.
+
+- **Manifest:** NEW `dev/requirements-desktop.txt` (pinned `pyinstaller==6.20.0` + `pywebview==6.2.1`) — declares the build deps (resolves the "agent-chosen / undeclared package" supply-chain flag).
+- **Trim:** `dev/launcher.spec` filters regenerable `content/candidates/` (~77 MB) + `content/translations/sources/` (~220 MB) out of the bundle; binary **579 → 397 MB**.
+- **Fix 1 — subprocess re-invocation (two layers).** `api_export_build` (api/exports.py) shelled `[sys.executable, build_edition.py]` and `build_one` (build_edition.py) shelled `[sys.executable, build_epub.py]`. Frozen, `sys.executable` is `YHWH.exe` (the launcher) → its argparse rejects the script path → build fails (returncode 2). Both now run **in-process when `sys.frozen`**; dev keeps the subprocess for `--all` GIL parallelism.
+- **Fix 2 — `epub_working/` not bundled.** The base HTML the build injects into wasn't in the spec → `WinError 3`. Now bundled, with its **2.6 GB `.backups/`** snapshot subtree filtered out (real base ~122 MB).
+- **Fix 3 — cp1252 encoding.** The codebase reads its UTF-8 corpus via `read_text()`/`open()` with no `encoding=`, relying on the dev `PYTHONUTF8=1`. A double-clicked binary has no such env, and PyInstaller's frozen interpreter **ignores the `PYTHONUTF8` env var** → charmap decode errors (e.g. on `kinds.yaml`'s symbols). Fixed globally by **`-X utf8`** in the spec's interpreter run-time options — no per-call code sweep.
+- **Fix 4 — ephemeral output.** Built EPUBs landed in the read-only/ephemeral `_MEIPASS`. `paths._build_output_root()` is now frozen-aware (`YHWH_DATA_DIR` env override → else `user_data_root()` when frozen → else repo root in dev), and `api/exports.EXPORTS_DIR` uses `paths.exports_dir()` — so builds **persist** in a per-user (or user-chosen) dir.
+- **Tests:** 2 launcher migration tests now pin `--shell browser` (they regressed once pywebview was installed — frozen + `--shell auto` picks native; RULES §8 state-independence). NEW `TestBuildOutputRootResolution` (4 tests) locks in the data-root resolution.
+
+**Smoke (frozen `YHWH.exe`, 396.8 MB, `YHWH_DATA_DIR=D:\…`):** launches + serves + builds `jewish-study` → a **16.36 MB EPUB persisted** to the configured data dir (not `_MEIPASS`). Dev gates: `ruff format` clean · **full dev re-sweep 1252 passed / 0 failed** (test_scripts + test_core + the Wave-3 files + test_desktop_theta, incl. the 4 new path-resolution tests).
+
+**▶ NEXT — W4.2–W4.5** (concurrent-build cap · onboarding/empty-state UX · distribution README + release artifact · CI/mypy/coverage), per the Wave-4 decomposition.
+
+---
+
+## 2026-05-25 (cont.) — Light post-Wave-3 audit: gates re-verified + a test-isolation fix + doc currency
+
+The light solo-Claude audit per `dev/AUDIT_2026-05-25-wave3-scope.md`, run from scratch at HEAD `8a48ed3`. **Verdict PASS** — full report in `dev/AUDIT_2026-05-25-wave3-FINDINGS.md`. Gates green from scratch: `lint_rules` 16/0/0 · `ruff format --check` clean · `verify` errors=0 (24,015/24,015 paired) · `validate_taxonomy` 69,969/69,969 (100%) · `trace_matrix` 0 · `trace_repo` 0 · epubcheck **0/0/0/0** on ethiopian-tewahedo (23.89 MB), catholic-study (23.28 MB), jewish-study (tanakh, 16.36 MB) · full test sweep **1123 passed / 0 failed**.
+
+- **Fixed a pre-existing test-isolation bug** (full-sweep-only; NOT a Wave-3 regression). `test_save_category_round_trip` / `test_save_kind_round_trip` (`tests/test_scripts.py`) repopulate the `load_categories` / `load_kinds` `@lru_cache(maxsize=1)` singletons via `api_save_*`, but their `finally` restored only the file — leaking a stale `lang→✎` into `test_marker_glyphs::test_all_15_category_symbols_reachable` (which then found no kind producing `✎`). Both round-trip tests now `cache_clear()` the loaders + `compute_matrix` in `finally` (RULES §7.1); the glyph test also clears them at its start (state-independent, RULES §8). Was 1 failed / 1122 passed → now **1123 passed**. Files were never corrupted on disk (cache-only).
+- **Doc currency (self-upgrading-matrix rule):** `dev/MATRIX_MAP.md` — 3 stale "PLANNED Wave 3" labels → shipped, plus the #6 drop-kjv-default + KJV-floor and #7 topical-index / per-edition-`renumber_markers` data-flows added; design spec §4.3 now documents the KJV-floor deviation; `dev/PLAN_2026-05-24-end-scope.md` marks Wave 3 ✅ DONE / Wave 4 ◀ NEXT.
+- **Recorded (not fixed in-session):** epubcheck must run with `--jar <bundled jar>` — auto-discovery resolves an unparseable `epubcheck.exe` PATH wrapper (the bundled jar validates clean). `ALL_POPUP_LANGUAGES` confirmed live (not dead code).
+
+**Wave 3 is closed and verified. ▶ NEXT: Wave 4** (productionization → downloadable desktop app).
+
+---
+
 ## 2026-05-25 (cont.) — EPUB Wave 3 #7 (LAST item): Nave's topical-index back-matter page
 
 Spec §5.4 #4 — the final Wave-3 item, and the close of the EPUB presentation overhaul. A back-of-book topical concordance after Nave's Topical Bible (Orville J. Nave, 1896; PD), composed from the structured `content/sources/naves_topical.json` (4,604 topics / ~100k refs) via `sources.naves_topical()`. The build filters refs to the edition's canon, dedupes, orders them canonically, and renders an alphabetical topic→verses index appended after the Reference Tables and before the closing colophon. Default-on for every edition. Gates: 7 topical-index tests + `test_presentation_polish` (back-matter spine order extended) green · `lint_rules` 16/0/0 · ruff clean · ethiopian-tewahedo + catholic-study rebuilt → **epubcheck errors=0/warnings=0** · flagship topical page = **4,604 topics**, spine order `backsources → backreftables → backtopical → backcolophon` (colophon last).

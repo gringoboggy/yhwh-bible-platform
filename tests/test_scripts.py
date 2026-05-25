@@ -1618,6 +1618,14 @@ class TestCustomize:
             assert text_cat["symbol"] == "✧"
         finally:
             shutil.copy(backup, path)
+            # api_save_category cleared + repopulated load_categories from the
+            # modified file; re-clear after restoring so the lru_cache singleton
+            # doesn't leak this test's symbol into later tests (RULES §7.1).
+            from scripts.core import config as _cfg
+            from scripts.core import matrix as _mx
+
+            _cfg.load_categories.cache_clear()
+            _mx.compute_matrix.cache_clear()
 
     def test_save_kind_round_trip(self, tmp_path):
         import shutil
@@ -1638,6 +1646,14 @@ class TestCustomize:
             assert h["label"] == "Hebrew word study (custom)"
         finally:
             shutil.copy(backup, path)
+            # Re-clear the caches api_save_kind repopulated from the modified file
+            # so later tests see the restored kinds.yaml, not this test's edit
+            # (RULES §7.1).
+            from scripts.core import config as _cfg
+            from scripts.core import matrix as _mx
+
+            _cfg.load_kinds.cache_clear()
+            _mx.compute_matrix.cache_clear()
 
     def test_unknown_category_rejected(self):
         r = self.web.api_save_category("not-real", {"symbol": "×"})

@@ -23,10 +23,15 @@ import re
 import sys
 from pathlib import Path
 
-from scripts.core import audit_log, config
+from scripts.core import audit_log, config, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
-EXPORTS_DIR = REPO / "exports"
+# Frozen-aware write anchor: paths.exports_dir() resolves to a writable,
+# PERSISTENT per-user dir when frozen (YHWH_DATA_DIR override, else
+# user_data_root), and to <repo>/exports in dev — keeping built EPUBs out of
+# the ephemeral PyInstaller _MEIPASS dir so they survive app exit. Tests may
+# monkeypatch this module attribute to redirect writes.
+EXPORTS_DIR = paths.exports_dir()
 
 
 def api_export_preview(edition_id: str) -> dict:
@@ -172,33 +177,49 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
         timeout_s = int(_os.environ.get("YHWH_BUILD_TIMEOUT_SECONDS") or "300")
     except ValueError:
         timeout_s = 300
-    try:
-        proc = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            cwd=str(REPO),
-            timeout=timeout_s,
-        )
-    except subprocess.TimeoutExpired as e:
-        _safe_emit("build_failure", edition_id=edition_id, reason="timeout", timeout_seconds=timeout_s)
-        return {
-            "error": "build timed out",
-            "code": "build_timeout",
-            "http": 504,
-            "timeout_seconds": timeout_s,
-            "stderr": (e.stderr or b"")[-2000:].decode("utf-8", errors="replace")
-            if isinstance(e.stderr, bytes)
-            else (e.stderr or "")[-2000:],
-        }
-    if proc.returncode != 0:
-        _safe_emit("build_failure", edition_id=edition_id, reason="nonzero_exit", returncode=proc.returncode)
-        return {
-            "error": "build failed",
-            "returncode": proc.returncode,
-            "stderr": proc.stderr[-2000:] if proc.stderr else "",
-            "stdout_tail": proc.stdout[-500:] if proc.stdout else "",
-        }
+    if getattr(sys, "frozen", False):
+        # Frozen binary: sys.executable is the launcher (YHWH.exe), not a Python
+        # interpreter, so the subprocess CLI re-invocation can't run (the
+        # launcher's argparse rejects the build_edition.py script path). Build
+        # IN-PROCESS instead — build_one runs build_epub in-process too when
+        # frozen (see build_edition.py). The subprocess timeout doesn't apply;
+        # a single-edition build is bounded by the corpus size.
+        from scripts import build_edition as _be
+
+        proc = None
+        try:
+            _be.build_one(edition_id, EXPORTS_DIR, version, config.load_kinds(), False, False)
+        except BaseException as e:  # incl. SystemExit from any build_epub.err() path
+            _safe_emit("build_failure", edition_id=edition_id, reason="in_process_exception")
+            return {"error": "build failed", "returncode": 1, "stderr": str(e)[-2000:]}
+    else:
+        try:
+            proc = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                cwd=str(REPO),
+                timeout=timeout_s,
+            )
+        except subprocess.TimeoutExpired as e:
+            _safe_emit("build_failure", edition_id=edition_id, reason="timeout", timeout_seconds=timeout_s)
+            return {
+                "error": "build timed out",
+                "code": "build_timeout",
+                "http": 504,
+                "timeout_seconds": timeout_s,
+                "stderr": (e.stderr or b"")[-2000:].decode("utf-8", errors="replace")
+                if isinstance(e.stderr, bytes)
+                else (e.stderr or "")[-2000:],
+            }
+        if proc.returncode != 0:
+            _safe_emit("build_failure", edition_id=edition_id, reason="nonzero_exit", returncode=proc.returncode)
+            return {
+                "error": "build failed",
+                "returncode": proc.returncode,
+                "stderr": proc.stderr[-2000:] if proc.stderr else "",
+                "stdout_tail": proc.stdout[-500:] if proc.stdout else "",
+            }
 
     pattern = f"Ethiopian_Bible_{edition_id}_{version}_*.epub"
     candidates = sorted(EXPORTS_DIR.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
@@ -214,7 +235,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
         "size_kb": round(st.st_size / 1024),
         "size_mb": round(st.st_size / 1024 / 1024, 2),
         "download_url": f"/api/export/download/{out.name}",
-        "build_log_tail": proc.stdout[-300:] if proc.stdout else "",
+        "build_log_tail": proc.stdout[-300:] if (proc and proc.stdout) else "",
     }
 
     # Phase ω.20-C — fold the build_one stats sidecar into the response

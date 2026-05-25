@@ -2996,21 +2996,34 @@ def build_one(
         stats["reading_plans_written"] = rp_stats.get("plans_written", 0)
         stats["reading_plans_total_days"] = rp_stats.get("total_days", 0)
 
-        # Build EPUB
-        result = subprocess.run(
-            [
-                sys.executable,
-                str(REPO_ROOT / "scripts" / "build_epub.py"),
-                str(output_path),
-                "--epub-dir",
-                str(tmp),
-                "--no-bump",  # don't update dc:date for filtered builds
-            ],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            raise RuntimeError(f"build_epub failed:\n{result.stderr or result.stdout}")
+        # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
+        # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking
+        # ``build_epub.py`` as a subprocess breaks (the launcher's argparse
+        # rejects the script path). Call build_epub IN-PROCESS when frozen;
+        # keep the subprocess in dev so ``--all`` builds still parallelize
+        # across processes (build_epub's zip step releases the GIL — see main()).
+        if getattr(sys, "frozen", False):
+            from scripts import build_epub as _build_epub
+
+            try:
+                _build_epub.build(tmp, output_path, bump=False)
+            except SystemExit as e:  # build_epub.err() may sys.exit; surface as a build error
+                raise RuntimeError(f"build_epub failed (exit {e.code})") from e
+        else:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(REPO_ROOT / "scripts" / "build_epub.py"),
+                    str(output_path),
+                    "--epub-dir",
+                    str(tmp),
+                    "--no-bump",  # don't update dc:date for filtered builds
+                ],
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode != 0:
+                raise RuntimeError(f"build_epub failed:\n{result.stderr or result.stdout}")
 
         stats["size_mb"] = output_path.stat().st_size / (1024 * 1024)
 

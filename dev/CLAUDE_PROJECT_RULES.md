@@ -8,6 +8,16 @@ Memory comes and goes; this doc is the source of truth.
 If anything in this doc conflicts with a one-off instruction from the
 user, the user wins for that turn — but the rule stays as written.
 
+**Operational guard — package installs under auto-mode (added 2026-05-25):** Before
+installing ANY package that is NOT already in a committed dependency manifest
+(`requirements*.txt`, `pyproject.toml` `[project]` / `[project.optional-dependencies]`,
+`package.json`), proactively **ask the user to turn auto mode OFF first**, then install
+once they confirm. Auto-mode soft-denies agent-chosen undeclared-package installs as a
+supply-chain risk (also wired in `~/.claude/settings.json` `autoMode.soft_deny`), so
+attempting one under auto hits a surprise mid-task denial. No pause is needed if the
+package is already declared in a manifest or the user explicitly asked to install it.
+The durable fix is to DECLARE build/tool deps in a manifest.
+
 ## Rules map — which § governs what (jump here first)
 
 | § | Governs |

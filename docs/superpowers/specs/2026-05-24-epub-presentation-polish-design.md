@@ -58,6 +58,7 @@ Each is an `editions.yaml` field, back-compat (unset → default), surfaced in `
 - **`jps`, `douay`, `brenton-en`:** available, **off by default**, selectable per edition/book.
 - Popups render **only witnesses that exist** for a given verse (OT vs NT vs canon coverage).
 - Already per-edition + per-book configurable; this change widens the default set and drops `kjv`.
+- **Last-resort English floor (impl refinement, shipped #6 — see §12 item 3):** the popups were baked on a KJV floor, so ~6% of verses carry *only* the English. Dropping `kjv` there would empty the popup AND break any note cross-reference targeting that vnote (epubcheck **RSC-012**). So the build keeps the English **only where no original-language witness exists for that verse** (`_apply_popup_languages_and_translation`, build_edition.py); everywhere a real witness is present, the redundant English is dropped as specified above. The two standalone Bibles (`popup_languages_default = []`) are unaffected.
 
 ### 4.4 `note_popup_style` — note/aside popup layout
 - **Options:** `chip` *(default)* · `pills`

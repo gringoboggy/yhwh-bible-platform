@@ -87,6 +87,9 @@ __all__ = [
 # ``YHWH_CONTENT_ROOT`` in the environment.
 _TEST_OVERRIDE: Path | None = None
 _ENV_VAR = "YHWH_CONTENT_ROOT"
+# Writable build-output root override (exports/, builds/, backups). Lets a
+# user relocate regenerable output to a roomier drive; honored in every mode.
+_DATA_DIR_ENV = "YHWH_DATA_DIR"
 
 
 def repo_root() -> Path:
@@ -249,15 +252,23 @@ def traditions_yaml() -> Path:
 
 
 def _build_output_root() -> Path:
-    """Where regenerable build output lives. Follows content_root()'s
-    parent so dev and installed installs both stay coherent — in dev
-    that's the repo root (where ``exports/`` lives today); in
-    installed mode it's ``user_data_root()/builds`` etc."""
-    cr = content_root()
-    # In dev, content/ is a sibling of exports/, builds/, epub_working/
-    # at the repo root. In installed mode, content/ is itself directly
-    # under user_data_root, so the build-output siblings live next to it.
-    return cr.parent
+    """Where regenerable build output (exports/, builds/, backups) lives.
+
+    Resolution (highest precedence first):
+      1. ``YHWH_DATA_DIR`` env var — relocate the writable data root to any
+         path (e.g. a roomier drive). Honored in every mode.
+      2. Frozen (PyInstaller binary): ``user_data_root()`` — a persistent,
+         writable per-user dir. The bundled ``content_root()`` lives under
+         PyInstaller's read-only/ephemeral ``_MEIPASS`` extraction dir, so
+         build output must NOT be rooted there (it would vanish on exit).
+      3. Dev: ``content_root().parent`` — the repo root, matching today's
+         layout (``exports/`` is a sibling of ``content/``)."""
+    env = os.environ.get(_DATA_DIR_ENV)
+    if env:
+        return Path(env).expanduser()
+    if getattr(sys, "frozen", False):
+        return user_data_root()
+    return content_root().parent
 
 
 def exports_dir() -> Path:

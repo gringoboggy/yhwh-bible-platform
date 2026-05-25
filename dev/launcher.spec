@@ -40,6 +40,11 @@ a = Analysis(
         # both .py modules and (potentially) sibling assets, so
         # bundle the whole directory.
         (str(ROOT / "scripts" / "templates"), "scripts/templates"),
+        # The base HTML the build pipeline injects notes into + filters per
+        # edition (build_edition copies epub_working/ → a tmp working dir).
+        # MUST be bundled or the frozen build fails with WinError 3. The huge
+        # epub_working/.backups/ snapshot subtree (~2.6 GB) is filtered below.
+        (str(ROOT / "epub_working"), "epub_working"),
     ],
     hiddenimports=[
         # ALL_DETECTORS dynamically registers detector classes;
@@ -72,6 +77,22 @@ a = Analysis(
     noarchive=False,
 )
 
+# Wave 4 (W4.1, 2026-05-25) — drop regenerable scratch data from the bundle so the
+# desktop binary ships only what the app actually reads at runtime:
+#   content/candidates/           — prospect->promote pipeline output (~77 MB, 1646 files)
+#   content/translations/sources/ — raw extractor source text/XML (~220 MB, 171 files)
+#   epub_working/.backups/        — base-HTML backup snapshots (~2.6 GB!)
+# The app uses the PROMOTED notes (content/notes/) + the per-id translation stores
+# (content/translations/<id>/) + the epub_working/ base, never the scratch/backup
+# subtrees. Filtering a.datas keeps the directory datas entries above simple while
+# excluding these large regenerable subtrees.
+_DROP_PREFIXES = ("content/candidates", "content/translations/sources", "epub_working/.backups")
+a.datas = [
+    (dst, src, typ)
+    for (dst, src, typ) in a.datas
+    if not dst.replace("\\", "/").startswith(_DROP_PREFIXES)
+]
+
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
@@ -80,7 +101,13 @@ exe = EXE(
     a.binaries,
     a.zipfiles,
     a.datas,
-    [],
+    # Run the bundled interpreter in UTF-8 mode. The codebase reads its
+    # UTF-8 corpus (kinds.yaml symbols, Hebrew/Greek notes, HTML) via
+    # read_text()/open() WITHOUT an explicit encoding, relying on the dev
+    # convention PYTHONUTF8=1. A double-clicked binary has no such env, and
+    # PyInstaller's frozen interpreter ignores the PYTHONUTF8 env var — so
+    # without -X utf8 reads default to cp1252 and fail (charmap decode error).
+    [("X utf8", None, "OPTION")],
     name="YHWH",
     debug=False,
     bootloader_ignore_signals=False,

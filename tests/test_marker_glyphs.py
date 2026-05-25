@@ -37,6 +37,11 @@ class TestGlyphForDataDriven:
         from scripts.core import config
         from scripts.inject import glyph_for
 
+        # State-independent (RULES §8): clear the config singletons so an earlier
+        # test that mutated categories/kinds can't leak a stale symbol in here.
+        config.load_categories.cache_clear()
+        config.load_kinds.cache_clear()
+
         cats = {c["id"]: c["symbol"] for c in config.load_categories()}
         produced = {glyph_for(k["code"]) for k in config.load_kinds()}
         missing = {cid: sym for cid, sym in cats.items() if sym not in produced}
