@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-26 (cont.) — TIER-3 marathon resumed: execution method ratified + paid-API de-scoped (audit/planning only)
+
+Opened TIER-3 (the Kings/Samuel Geʽez dual-manuscript marathon = "finish Geʽez rendering," PLAN step 1) after the pre-TIER-3 `/clear`. **Audit/planning session only — no vision run, no API spend, no code/corpus/base/build change** (doc-only commit). Tree was clean (no stray files).
+
+- **Paid script-path DE-SCOPED (user-directed).** `run_manuscript_{transcribe,review,collation}_at_scale.py` + `manuscript_vision.py` require the optional `anthropic` SDK + a funded `ANTHROPIC_API_KEY` (`requirements.txt` gates it as "the paid corpus-augmentation pass"). Verified on disk: `anthropic` NOT installed; `ANTHROPIC_API_KEY` NOT set (importing `scripts.core.sources` does not load it). No API budget → **out of scope**; the scripts stay as inert committed infra (NOT deleted, in case a key is ever funded).
+- **Marathon runs on the AGENT path** (Claude Max, no per-call cost) — the method that produced clean 1ki1–4.
+- **Crash root-cause refined (from file sizes):** the 4 OOM crashes were NOT the source images (GG folios 0.7 MB, CAM hi-res ~10 MB) — they were agents LANCZOS-upscaling WHOLE folios 4–8× (30–60 MB buffered/agent ~20 min) × 3 stacked ≈ 400k tokens → allocator panic. The vision pipeline downsamples >1568 px, so whole-page upscale was doubly wasteful (huge bytes + tiny fidel).
+- **RATIFIED METHOD** (codified in the plan's EXECUTION METHOD note + SESSION_STATE): zoom by **tight region crop** (one column/band, ≤1568 px — sharper AND ~1–3 MB) not whole-folio upscale · **MAX 1 heavy agent** · **auto-commit each step** · **`/clear` between heavy steps** · **unit = one agent-step, not a chapter**.
+- **Resume point (post-`/clear`): 1ki5 GG R2** — adversarial review of the R1-fixed `1ki5_witnessGG.json` (re-scrutinize the 4 AMBIGUOUS-PARCHMENT loci M-1…M-4; they may carry to C-7 CAM cross-ref per METHOD NOTE 4) → C-4 CUDL f128r → C-5/C-6 CAM → C-7/C-8 collate → C-9 flip `1ki:5→calibrated`. Manifest: 1ki:1–4 calibrated, rest pending.
+
+---
+
 ## 2026-05-26 (cont.) — Observed full-suite confirmation: 7,368 / 0 (truth-record update)
 
 Follow-on to the cycle-2 audit (below): re-ran the **entire** suite clean end-to-end to convert the post-fix "331 touched-files + unaffected-argument" into an *observed* single-pass green before the pre-TIER-3 `/clear`.
