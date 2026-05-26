@@ -1765,9 +1765,10 @@ Continuity pointers (links to relevant addenda or rule sections):
 
 ### Footnote — pre-summary audit (Tier 1, added after a real drift catch)
 
-Before claiming "shipped X" in any user-facing summary, run a
-4-point audit. Each item takes seconds; together they catch the
-drift class the user previously had to catch manually.
+Before claiming "shipped X" — or "done / committed / backed up /
+safe to /clear" — in any user-facing summary, run a 5-point audit.
+Each item takes seconds; together they catch the drift class the
+user previously had to catch manually.
 
 1. **Test count reconcile** — run
    `pytest --collect-only -q | tail -1` and verify the number
@@ -1784,15 +1785,29 @@ drift class the user previously had to catch manually.
 4. **Linter ack** — run `python3 scripts/lint_rules.py`; for
    ship summaries, every check should be `pass` (or have a known,
    acknowledged warn). Don't ship over a `fail`.
+5. **Commit/backup truth** — run `git log -1 --oneline` +
+   `git status --short`. Any "done / committed / backed up / safe
+   to /clear" claim MUST match git reality: HEAD shows this
+   session's work, and (for a backup claim) the `git bundle --all`
+   file exists on E:/F:. Uncommitted verified work → warn loudly
+   ("NOT committed/backed up — say 'save'"), never reassure. NEVER
+   defer a commit across a /clear (the next session resumes on
+   "continue", which is not a commit trigger). This is the gate the
+   other four don't cover — they verify work is *recorded*, not
+   that a commit/backup *happened*.
 
-Why these four specifically: each catches a different drift mode.
+Why these five specifically: each catches a different drift mode.
 Tests vs claim catches **counted-but-not-recorded** work. Phase
 mentions catch **shipped-but-not-journaled** work. In-flight
 catches **task-left-open**. Linter catches **structural drift**
-(cross-link, encoder order, doc references).
+(cross-link, encoder order, doc references). Git-truth catches
+**claimed-saved-but-uncommitted** work — the 2026-05-26 Torrey
+near-miss: the prior session reported the work "committed and
+backed up" while HEAD didn't reflect it and no bundle existed,
+and all four other points passed.
 
 The user caught me on (1) once and that was enough; the other
-three are preventive layers.
+four are preventive layers.
 
 ---
 
@@ -1912,6 +1927,17 @@ in a different state than its in-context mental model:
    count match the last claimed number?
 4. **Run `python3 scripts/lint_rules.py`** — any warnings or
    failures?
+5. **Run `git log -1 --oneline` + `git status --short`** — does
+   HEAD reflect the work the *last* session claimed it committed,
+   and are there uncommitted changes the user may believe were
+   already saved? This is the backstop for a prior session's false
+   "it's committed / backed up" sign-off (added after the
+   2026-05-26 Torrey near-miss: 21,762 verified notes were left
+   uncommitted on disk across a /clear despite a "committed +
+   backed up" claim — the resume audit's other four steps don't
+   look at git). If HEAD lags the last SESSION_STATE's described
+   state, surface it FIRST and offer to commit (it needs an
+   explicit "save").
 
 If any of these surface state Claude didn't expect, **revise the
 plan**. The user might think Claude is starting work that's

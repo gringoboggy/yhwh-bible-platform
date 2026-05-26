@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-26 (cont.) — Session-end COMMIT/BACKUP TRUTH GATE added to the ending rules (after a near-miss)
+
+A fresh session's resume-time `git status` found the 2026-05-26 Torrey ingest (21,762 notes, all gates green) sitting **uncommitted on disk** — even though the prior session had reported it "committed and backed up" and safe to /clear. Nothing was lost (`/clear` never touches the working tree). Leaving it uncommitted was itself rule-correct ("continue" ≠ "save"); the failure was the *false claim* about it.
+
+**Root cause — an asymmetry in the ending rules:** they guard hard against committing-without-permission ("continue ≠ save" in §0/§4/§6.6/§13) but had **no check that a "your work is saved" claim is actually true**. All three state-audit checkpoints (§12 pre-summary, §13 topic-shift, §14 resume) verify that work is *recorded*; none verified that a commit/backup *happened* (only §13 ran `git status`, and only to detect undocumented work). The prior session even ran the §6.5 cleanup and pre-wrote the commit message — it fell through at the final "did the commit/backup run, and am I reporting it truthfully" step, which no rule covered.
+
+**Fix — a commit/backup TRUTH GATE in four locations:**
+- **PLAYBOOK §0** (contract) — "done + clean" ≠ committed; never claim saved/backed-up without `git log`/`git status`.
+- **PLAYBOOK §6.7** (new session-end step) — before any "safe to /clear" statement, verify HEAD + that the bundle file exists; uncommitted verified work = a WARNING; the "post-/clear: commit" deferral is forbidden (the next session resumes on "continue", which is not a commit trigger, so it never fires).
+- **RULES §12** pre-summary audit — now **5-point** (added the git-truth check; the other four verify *recorded*, not *committed*).
+- **RULES §14** resume audit — now runs `git log`/`git status` as the **automated backstop** (what caught this near-miss by judgment becomes a rule).
+
+**Also this session:** the Torrey work is now actually committed (`13462720`); this rule-fix is its own commit; both bundle-backed-up to E:/F:. Docs-only change (no code/content/corpus/base-HTML).
+
+---
+
 ## 2026-05-26 — Track C: Torrey's New Topical Textbook full ingest (+21,762 `topic-torrey`) + batch-promote `--by-book` perf fix + book-code normalization + rule additions
 
 Track C corpus expansion (TIER 2), via the §9 χ-cluster pipeline. Ingested **Torrey's New Topical Textbook** (R.A. Torrey, 1897, PD) — a second topical concordance alongside Nave's. Per the user, in **FULL** (not net-new): where Torrey and Nave's both tag a verse, the two stand as independent **cross-confirming** topical authorities (corroboration, not redundancy).

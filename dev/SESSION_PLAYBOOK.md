@@ -10,7 +10,7 @@ Every session that touched code/content/docs ends with **all of these green** an
 
 `lint_rules 16/0/0` · `ruff format --check` clean · `ebible verify` errors=0 / 24,015 paired · `validate_taxonomy` 100% (67,713) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
-Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4).
+Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4). **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status` and reporting the TRUE state (§6.7). "Done + clean" here means gates-green + tree-consistent; it does NOT mean committed. Uncommitted verified work survives a /clear on disk but has no snapshot and is in no backup — say so plainly, never reassuringly.**
 
 ---
 
@@ -99,6 +99,7 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 4. **Run the §5 gates** — confirm green. Prove byte-compat for any regen.
 5. **Delete ALL junk + temp before committing.** `save.ps1` does `git add -A`, so any stray file gets swept into the commit. Remove: repo-parent throwaway probes (`_*.py`, `_probe_*`, `_vg_*`) + `_*epubcheck`/build temp dirs, orphaned PyInstaller `_MEI*` dirs, `hs_err_pid*`/`replay_pid*` JVM crash logs, and any unneeded `.bak` from `ensure_backup`. Then **`git status` must show ONLY the intended changes** — no stray/junk files. (Also frees RAM/disk on the 16 GB box — see §1.4.)
 6. **Only if the user said "save":** `& ".\save.ps1" -Message "<concise; no > < → glyphs>"` (PowerShell; does `git add -A` + commit; pre-commit hook runs; **push is disabled — no remote since 2026-05-12**). Otherwise leave it uncommitted on disk. **"continue" ≠ "save".**
+7. **⚠ COMMIT/BACKUP TRUTH GATE — before ANY "done / safe to stop / safe to /clear / committed / backed up" statement (RULES §12 audit point 5).** Run `git log -1 --oneline` + `git status --short` and report the ACTUAL state. NEVER claim committed/backed-up unless HEAD shows this session's work AND — for a backup claim — the `git bundle --all` file actually exists on E:/F:. If verified work is uncommitted, the sign-off is a **WARNING, not reassurance**: "⚠ This work is NOT committed or backed up — it lives only as uncommitted edits on disk; say 'save' to snapshot it." **Do NOT defer a commit to a future session** — "post-/clear: commit" is UNSAFE: the next session resumes on "continue", which is not a commit trigger (§6.6 / RULES §4), so the deferred commit never fires and the user believes they are saved when they are not. A "save" is complete only once the commit landed (verify HEAD) AND, if backing up, the bundle is written to the external drive (verify the file exists).
 
 ---
 
