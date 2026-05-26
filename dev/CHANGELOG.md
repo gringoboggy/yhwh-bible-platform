@@ -6,6 +6,14 @@
 
 ---
 
+## 2026-05-26 (cont.) — Rules-hygiene: explicit "mistakes & near-misses → codify a preventive guard" meta-rule (§12)
+
+User-requested check: does the project have an EXPLICIT rule that a mistake / near-miss / "should-not-happen" event must trigger learning + a preventive rule? Finding: the machinery existed but was scattered and skewed *technical* — §1 self-upgrading ("a defect a test would've caught → add the check"), §12 retrospective triggers ("a rule wobbled → codify/document"), the §12 dual-store learning-capture, and dozens of "Codified after the Nth instance" rules — but there was no single prominent rule covering the *behavioral / trust-affecting / near-miss* case (the commit/backup truth-gate itself was added reactively, not under an explicit mandate).
+
+- **Added §12 "Mistakes & near-misses → root-cause, then codify a preventive guard (always, same commit)":** any preventable failure (a defect, a false/over-stated claim, a destructive/surprise action, a near-miss) → brief post-mortem → cheapest durable guard at the SAME commit (test/lint/gate for repo-derivable technical defects; a rule line and/or cross-session memory for behavioral/process/judgment failures; a rule refinement for a wobbled rule) → recorded in the CHANGELOG. Cites the canonical instances (the §9 nested-anchor gate, the `coord_in_canonical_extent` boundary guard, the `find_verse_region_b` root-fix, the commit/backup truth gate). Generalizes the §1 self-upgrading rule from the "unlock" trigger to the "failure" trigger. Doc-only; no code change.
+
+---
+
 ## 2026-05-26 (cont.) — God-module split (2/2): `scripts/web.py` → 8 domain modules + server-core re-export hub
 
 Completed the TIER-2 #7 god-module splits. Split `scripts/web.py` (5,214 LOC) into 8 focused domain modules, leaving `web.py` (2,028 LOC) as the server core (the `Handler` class, route tables, dispatch helpers, `_warm_corpus_index`, `main`) plus a re-export hub. PURE RELOCATION of the module-level `api_*` route functions + helpers; the `Handler` class was NOT split. Same re-export-shim pattern as split (1/2) + `build_edition`→`matter_pages`.

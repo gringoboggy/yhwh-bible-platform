@@ -1758,6 +1758,41 @@ ingest: the §9 "Add a new translation" recipe + SESSION_STATE / CHANGELOG /
 MATRIX_MAP were updated in-repo; the test-suite hang-detection and the
 categorize-every-diff verification discipline were saved to cross-session memory.)
 
+### Mistakes & near-misses → root-cause, then codify a preventive guard (always, same commit)
+
+When something goes WRONG or nearly does — a defect shipped, a false or over-stated
+claim, a destructive/surprise action, a near-miss, or anything that "should not have
+happened and is preventable" — fixing the instance is NOT enough. Run a brief
+post-mortem and codify the cheapest durable guard so it cannot recur, **at the same
+commit** (never defer it to "next session" — the next session resumes on "continue",
+which never fires the deferred fix). This is non-negotiable for any preventable
+lesson; a genuine one-off that truly cannot recur just gets logged and skipped.
+
+1. **Root-cause first, never the symptom** (`superpowers:systematic-debugging` Iron
+   Law). Patching where it surfaced without finding *why* guarantees recurrence.
+2. **Pick the cheapest guard that makes recurrence impossible, by failure type:**
+   - *Technical defect a check could catch* → add the test / lint / gate (the §1
+     self-upgrading "defect found ≠ defect prevented" rule). Instances: the §9
+     nested-anchor gate (after the 14,568-instance base regression); the
+     `coord_in_canonical_extent` boundary guard (after out-of-extent notes); the
+     `find_verse_region_b` root-fix + its TDD pins (after the same nesting recurred).
+   - *Behavioral / process / judgment failure, or a* why *the code can't show* → a
+     rule line in THIS doc and/or a cross-session memory (per the dual-store split
+     above). Canonical instance: the commit/backup TRUTH GATE (§0 / §6.7 / §12 / §14
+     + the `verify-commit-backup-truth` memory), added after the 2026-05-26 Torrey
+     near-miss — verified work was reported "committed + backed up" while it sat
+     uncommitted on disk.
+   - *A rule that wobbled / an interpretation invented on the fly* → refine the rule
+     (§12 retrospective trigger 3 above).
+3. **Record it in the CHANGELOG** at that commit (what went wrong + the guard added)
+   so the lesson is auditable, not silently absorbed.
+
+The test of success: afterwards, the SAME mistake made the SAME way is caught
+automatically or forbidden explicitly — by a machine check where possible, by a rule
+where judgment is required. If no guard can make recurrence impossible, make it LOUD.
+This generalizes the §1 self-upgrading rule (which fires on a step *unlocking* the
+next) to the case where a *failure* is the trigger.
+
 ### Entry format
 
 Each entry is a self-contained block, readable without context:
