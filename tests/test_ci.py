@@ -72,3 +72,31 @@ class TestCIGate:
         ids = {c["id"] for c in r["checks"]}
         assert "tests" not in ids and "coverage" not in ids
         assert {"format", "lint", "rules", "types"} <= ids
+
+    def test_audit_and_deadcode_report_only_when_failing(self):
+        from scripts import ci
+
+        def runner(cmd):
+            j = " ".join(cmd)
+            # pip-audit finds a CVE (rc=1) and vulture finds dead code (rc=1):
+            # both are report-only and must WARN, never block the gate.
+            if "pip_audit" in j or "vulture" in j:
+                return (1, "finding")
+            return (0, "ok")
+
+        r = ci.run_all(runner=runner, coverage_installed=False, audit_installed=True, deadcode_installed=True)
+        audit = next(c for c in r["checks"] if c["id"] == "audit")
+        dead = next(c for c in r["checks"] if c["id"] == "deadcode")
+        assert audit["status"] == "warn" and audit["blocking"] is False
+        assert dead["status"] == "warn" and dead["blocking"] is False
+        assert r["summary"]["clean"] is True
+
+    def test_audit_deadcode_graceful_skip_when_uninstalled(self):
+        from scripts import ci
+
+        r = ci.run_all(runner=_all_ok, coverage_installed=False, audit_installed=False, deadcode_installed=False)
+        audit = next(c for c in r["checks"] if c["id"] == "audit")
+        dead = next(c for c in r["checks"] if c["id"] == "deadcode")
+        assert audit["status"] == "warn" and audit["blocking"] is False
+        assert dead["status"] == "warn" and dead["blocking"] is False
+        assert r["summary"]["clean"] is True

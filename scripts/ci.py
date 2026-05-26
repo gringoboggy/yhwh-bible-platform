@@ -5,6 +5,11 @@
   - ruff format --check        (BLOCKING — same as the pre-commit hook)
   - ruff check                 (report-only — the project keeps a visible
                                 lint backlog; never blocks)
+  - pip-audit                  (report-only — CVE scan of the shipped runtime
+                                deps in requirements.txt; warn, never blocks;
+                                graceful-skip if pip-audit/network unavailable)
+  - vulture                    (report-only — dead-code candidates in scripts/
+                                at high confidence; warn, never blocks)
   - scripts/lint_rules.py      (BLOCKING — the 16 project-rule checks)
   - scripts/audit_types.py     (BLOCKING — mypy on the typed surface)
   - pytest                     (BLOCKING — the test suite)
@@ -60,6 +65,8 @@ def run_all(
     run_tests: bool = True,
     coverage_floor: int | None = None,
     coverage_installed: bool | None = None,
+    audit_installed: bool | None = None,
+    deadcode_installed: bool | None = None,
 ) -> dict:
     """Run the gates and return ``{"checks": [...], "summary": {...}}``.
 
@@ -104,6 +111,58 @@ def run_all(
         blocking=False,
         message="clean" if rc == 0 else "lint backlog (non-blocking)",
     )
+
+    if audit_installed is None:
+        audit_installed = importlib.util.find_spec("pip_audit") is not None
+    if audit_installed:
+        # CVE scan of the SHIPPED runtime deps (requirements.txt). --no-deps audits
+        # the listed packages without a temp-env resolve. Report-only: it needs the
+        # online advisory DB (offline -> warn, not a false block), and a freshly
+        # disclosed CVE should be visible without blocking a local commit.
+        rc, out = run([_PY, "-m", "pip_audit", "-r", "requirements.txt", "--no-deps"])
+        add(
+            "audit",
+            "pip-audit (requirements.txt)",
+            rc == 0,
+            blocking=False,
+            message="no known vulnerabilities"
+            if rc == 0
+            else (out.strip().splitlines()[-1][-160:] if out.strip() else "findings/offline (non-blocking)"),
+        )
+    else:
+        add(
+            "audit",
+            "pip-audit",
+            False,
+            blocking=False,
+            skipped=True,
+            message="pip-audit not installed — pip install -r requirements-dev.txt",
+        )
+
+    if deadcode_installed is None:
+        deadcode_installed = importlib.util.find_spec("vulture") is not None
+    if deadcode_installed:
+        # Dead-code candidates at high confidence (low-noise; deep triage uses a
+        # lower confidence manually). vulture exits non-zero when it finds any;
+        # report-only so false positives never block.
+        rc, out = run([_PY, "-m", "vulture", "scripts/", "--min-confidence", "80"])
+        n = len([ln for ln in out.splitlines() if ln.strip()]) if out.strip() else 0
+        add(
+            "deadcode",
+            "vulture (scripts/, conf>=80)",
+            rc == 0,
+            blocking=False,
+            message="no dead code" if rc == 0 else f"{n} candidate(s) (non-blocking)",
+        )
+    else:
+        add(
+            "deadcode",
+            "vulture",
+            False,
+            blocking=False,
+            skipped=True,
+            message="vulture not installed — pip install -r requirements-dev.txt",
+        )
 
     rc, out = run([_PY, "scripts/lint_rules.py"])
     add(

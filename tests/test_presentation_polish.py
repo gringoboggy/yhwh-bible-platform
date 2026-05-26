@@ -292,9 +292,13 @@ class TestDedicationPage:
         md.parseString(out)
 
     def test_build_includes_dedication_after_title_when_set(self, tmp_path, monkeypatch):
-        import re, shutil, zipfile
+        import re
+        import shutil
+        import zipfile
         from pathlib import Path
-        import scripts.build_edition as be, scripts.web as web
+
+        import scripts.build_edition as be
+        import scripts.web as web
         from scripts.core import build_cache, config
 
         eds = Path(config.__file__).resolve().parents[2] / "content" / "editions.yaml"

@@ -712,7 +712,7 @@ class TestFixXrefTargets:
 # ============================================================
 
 
-class TestCustomize:
+class TestCustomizeScript:
     def setup_method(self):
         self.mod = _import_script("customize")
 
