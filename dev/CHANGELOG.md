@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-26 (cont.) — God-module split (1/2): `scripts/core/sources.py` → 5 focused modules + thin re-export hub
+
+Began the TIER-2 #7 god-module splits (user-unblocked 2026-05-26). Split `scripts/core/sources.py` (3,031 LOC) into five focused sub-modules behind a thin re-export hub, so every caller (`from scripts.core import sources; sources.X` AND `from scripts.core.sources import X`) is unchanged. PURE RELOCATION — no logic change, no de-dup, no rename. Same re-export-shim pattern as the `build_edition.py`→`matter_pages.py` split.
+
+- **New modules (`scripts/core/`):** `sources_base.py` (56 — `_REPO_ROOT`/`_SOURCES`, `_sources_dir`, `SourceMissingError`, `_BOOK_CODE_ALIASES`/`_normalize_book_code`) · `sources_lexicon.py` (552 — Strong's H/G, Tsk, Nave's, Torrey, Kenyon + accessors) · `sources_commentary.py` (507 — the 6 commentary dataclass+loader pairs + accessors) · `sources_ai_prompts.py` (920 — the xref/note model+TTL+system-prompt+output-schema constants) · `sources_ai_clients.py` (550 — `_with_cache`, `AnthropicXrefClient`/`AnthropicNoteClient` + `_anthropic_client` + accessors). Imports are one-directional (`sources_base` ← lexicon/commentary/ai_prompts ← ai_clients ← hub); no cycles.
+- **`sources.py` is now an 89-line hub:** the original module docstring + five `# noqa: F401` re-export blocks. Underscore names imported externally are re-exported too (`SourceMissingError`, `_normalize_book_code`, `_BOOK_CODE_ALIASES`, `_anthropic_client` — used by `manuscript_vision.py`/`prospect.py`/`run_ethiopian_at_scale.py` — and `_sources_dir`, asserted by `test_paths_omega5`).
+- **De-dup DEFERRED:** the B1.8 AI-client + B1.9 six-commentary-loader de-dup is a separate behavior-changing refactor — kept out of this pure relocation (it can fold into the new modules later, each with its own equivalence proof).
+- **Verification — relocation proven faithful by AST symbol-equality (a categorize-diff-style structural proof), not just tests:** a script parsed the original (`8bbb516:scripts/core/sources.py`) and the 5 new modules and compared `ast.unparse` of every top-level symbol → **57 original symbols == 57 new, 0 missing / 0 extra / 0 duplicated, 0 logic mismatch** (every function/class/constant byte-identical after AST normalization); `#`-comment count preserved (264→271). Runtime gates: import smoke (36 public names via hub + direct), 157 per-source/downstream/AI-client tests green (`test_patristic`/`test_rabbinic`/`test_torrey_ingest`/`test_topical_index`/`test_manuscript_vision`/`test_paths_omega5`/`test_corpus_chi_ai_xrefs`; the executing subagent's wider sweep added protestant/reformation/catholic/ethiopian/at_scale_wiring + a `test_scripts -k` slice = 1165 total), `lint_rules` 16/0/0, `ruff format --check` clean (ruff `check` unchanged: the same 2 C901 + 3 E501 pre-existing on the verbatim-moved code).
+- **Still pending:** the `web.py` (5,214 LOC) split — god-module split (2/2).
+
+---
+
 ## 2026-05-26 (cont.) — Root-fix `inject.py`: Strategy-B verse region ends before the next vn-link (closes the nested-`<a>` recurrence)
 
 Root-caused and fixed the *source* of the nested-`<a>` base regression (the 14,568 that `check_nested_anchors --fix` repaired earlier today). That `--fix` was a band-aid; this removes the cause so future ingests can't re-introduce the nesting. Done via systematic-debugging → TDD (superpowers chain). Closes the "Follow-up (deferred)" noted in the nested-`<a>` entry below.
