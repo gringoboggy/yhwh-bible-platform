@@ -50,7 +50,7 @@ class TestResolveDropsKjvAndWidens:
         for eid in STANDARD_EDITIONS:
             langs = _resolve_popup_languages(eds[eid], "gen")
             assert "kjv" not in langs, f"{eid} still resolves the English KJV into popups"
-            assert DEFAULT <= langs, f"{eid} missing a default witness: {sorted(DEFAULT - langs)}"
+            assert langs >= DEFAULT, f"{eid} missing a default witness: {sorted(DEFAULT - langs)}"
 
     def test_standalone_bibles_keep_no_interlanguage_popups(self):
         # The two standalone Bibles use popup_translation for their EN

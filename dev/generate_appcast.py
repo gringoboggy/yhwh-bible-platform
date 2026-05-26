@@ -38,7 +38,7 @@ import argparse
 import subprocess
 import sys
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable
 from xml.sax.saxutils import escape
 
 REPO_ROOT = Path(__file__).resolve().parent.parent

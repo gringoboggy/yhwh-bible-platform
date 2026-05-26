@@ -89,6 +89,14 @@ mccabe.max-complexity = 12
 # Python module names cannot start with a digit; the project loads these
 # explicitly via importlib so the strict naming rule is moot.
 "content/notes/*.py" = ["E501", "N999"]
+# content/translations/<id>/*.py are pure verse-text DATA modules (one tuple per
+# verse: (chapter, verse, "<text>")). Same data-not-code rationale as
+# content/notes/*.py above: E501 is intrinsic (many verse strings exceed 120 chars
+# and cannot be wrapped without altering the text); W605 fires on stray backslashes
+# inside OCR'd Geʽez/Amharic verse text (data artifacts, not code escapes — to be
+# cleaned when the TIER-3 standalone-Bible arc reprocesses them); N999 fires on
+# digit-leading book modules (1ch.py, 2ki.py) loaded via importlib.
+"content/translations/**/*.py" = ["E501", "W605", "N999"]
 # kings_session/ is legacy code retained as a fallback. Some files predate
 # the modern style sweep and use the same long-data-tuple pattern as
 # content/notes/.

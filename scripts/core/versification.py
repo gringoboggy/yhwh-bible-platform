@@ -1430,7 +1430,7 @@ _PAZ_FROM_VULGATE_DAN3: list[_Seg] = [
 ]
 
 
-def _vulgate_cross(code: str, ch: int, vs: int) -> "Coord | None":
+def _vulgate_cross(code: str, ch: int, vs: int) -> Coord | None:
     """Daniel additions inlined under the Vulgate/Douay 'dan' book relocate to
     separate project books (content-verified vs the real Douay text, NOT memory --
     see the _vg_verify_cross overlap harness):

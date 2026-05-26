@@ -39,7 +39,6 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Optional
 
 
 _REPO = Path(__file__).resolve().parent.parent
@@ -175,7 +174,7 @@ def run_build(
     edition_id: str,
     *,
     version: str = "v28a",
-    output_dir: Optional[Path] = None,
+    output_dir: Path | None = None,
 ) -> int:
     """Subprocess to `scripts/build_edition.py` for ``edition_id``.
     Returns the subprocess exit code (0 on success).
@@ -243,7 +242,7 @@ def _format_diff_summary(diff: dict[str, list[str]]) -> str:
 # ----------------------------------------------------------------------
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="watch",
         description=("ω.21 — watch project files; re-run lint (and optionally rebuild) on every change."),

@@ -154,7 +154,7 @@ class TestAssembleVersionsForVerse:
 
         # kjv + wlc have text for gen 1:1; every other translation returns None.
         def fake_get_verse(tid, code, ch, vs):
-            return {"kjv": "In the beginning", "wlc": "בְּרֵאשִׁית"}.get({"kjv": "kjv", "wlc": "wlc"}.get(tid, ""), None)
+            return {"kjv": "In the beginning", "wlc": "בְּרֵאשִׁית"}.get({"kjv": "kjv", "wlc": "wlc"}.get(tid, ""))
 
         monkeypatch.setattr(tx, "get_verse", fake_get_verse)
 
