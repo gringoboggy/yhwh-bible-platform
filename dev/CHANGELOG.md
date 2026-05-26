@@ -6,6 +6,23 @@
 
 ---
 
+## 2026-05-26 (cont.) — In-depth audit (cycle 2): full-suite sweep caught + fixed 10 stale pins; all gates green
+
+User-directed in-depth audit of the whole project / matrix / map / everything (the lighter solo-Claude audit per the cadence rule), run after the B1.8/B1.9 de-dup toward a pre-TIER-3 `/clear`. Full findings: `dev/AUDIT_2026-05-26-FINDINGS.md`. **Verdict: PASS — healthy, no CRITICAL/HIGH open.**
+
+- **First full-suite run since 2026-05-25 = 10 failed / 7,358 passed.** All 10 are **stale test-pins / uncatalogued data** from the three intervening ships (Torrey, the `web.py` split, Phase E) that were each gated on *targeted* tests, not the whole suite — **zero logic regressions, zero from the de-dup** (the de-dup's full surface is among the 7,358 passing). Fixed all 10:
+  - `test_matrix_psi35` B2/B3/B4 (×3): the ψ.35 markers moved with the matrix functions in the `bae92e4` web split → point the tests at `scripts/web_matrix.py`.
+  - `test_web_filesplit::test_api_covers_get_remains_in_web_py`: `api_covers` relocated to `web_covers.py` in `bae92e4` (still re-exported; route table intact) → assert `__module__ == "scripts.web_covers"`.
+  - `test_vulgate_douay_ingest` book-count: Phase E grew vulgate-clementine 74→77 (douay stayed 74) → per-store `EXPECTED_BOOK_COUNTS`.
+  - `test_audit_caches` (×3): Torrey's `torrey_topical()` `@lru_cache` was un-whitelisted → added to `.cache_audit_whitelist.py` (read-once PD singleton, like `tsk`).
+  - `test_time_travel_psi37` coverage + ceiling (×2): 21,762 Torrey notes uncatalogued in `source_dates.yaml` (coverage 97.3%→73.9%; year=None made the 2000-ceiling drop them) → added `prefix: "Torrey's New Topical Textbook"` year 1897 → coverage→97.6%, drop-count back in range.
+- **Verified:** the 10 node-ids green + the 5 touched files run in full = **331 passed**. The 7,358 are unaffected (only test/data/config changed — no product code).
+- **Fresh gates from scratch:** `ci.py --no-tests` CLEAN (ruff format ✓ · `lint_rules` 16/0/0 · mypy ✓ · vulture ✓ · pip-audit 0 CVEs) · `validate_taxonomy` **91,733/91,733 (100.0%)** · `ebible verify` **errors=0 / 32,264 paired** (88 warn / 615 info baseline) · MATRIX_MAP/REPO_MAP prose current.
+- **Reconciled the 2026-05-23 deep-audit ledger** (~95% resolved — added a reconciliation header to its top + earlier marked B1.8/B1.9 DONE). Remaining = a low-severity tail (stale docstrings/counts · 3 big refactors · quarantined-module cleanup · latent-SEC notes · TIER-3 provenance · 1 user-action: rotate the Voyage key) + the fabrication-deferred Phase-E chapters — see the findings doc. One real-but-low-urgency bug flagged for an attended fix: `add_kind.py` writes no `category:` (C2.addkind).
+- **NO corpus/base-HTML/build change** (test/data/config only).
+
+---
+
 ## 2026-05-26 (cont.) — Post-de-dup cleanup: Phase-E deferral re-verified, audit B1.6 note, F1 junk untracked
 
 Small follow-on cleanup after the B1.8/B1.9 de-dup, before an in-depth audit pass (user-directed two-cycle wrap toward a pre-TIER-3 /clear).

@@ -34,11 +34,12 @@ _._cached_publisher_data
 _._cached_covers
 _._cached_preflight
 
-# ---- Read-once singletons in scripts/core/sources.py ----
+# ---- Read-once singletons in scripts/core/sources.py (post-split: sources_lexicon.py) ----
 # Lazy-loaded PD source data; values don't change during a single
 # process. Reloading from disk on demand would just be wasted I/O.
 _.strongs_hebrew
 _.tsk
+_.torrey_topical  # Torrey's New Topical Textbook (1897 PD); read-once singleton like the above (Track C ingest)
 
 # ---- Env-dependent singleton in scripts/core/sources.py ----
 # Anthropic API client built from ANTHROPIC_API_KEY env var.

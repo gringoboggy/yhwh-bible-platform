@@ -494,12 +494,13 @@ class TestPsi35B2InternalConsumerMigrations:
     def test_migrated_files_carry_b2_markers(self):
         # Three of the four migrated files should carry a ψ.35-B2
         # comment marker preserving the original expression for
-        # future readers (api/preflight.py + web.py + api/exports.py).
+        # future readers (api/preflight.py + web_matrix.py + api/exports.py;
+        # the matrix functions moved from web.py to web_matrix.py in the bae92e4 split).
         from pathlib import Path
 
         ROOT = Path(__file__).resolve().parent.parent
         for relpath in (
-            "scripts/web.py",
+            "scripts/web_matrix.py",
             "scripts/api/exports.py",
             "scripts/api/preflight.py",
         ):
@@ -623,12 +624,13 @@ class TestPsi35B3ApiMatrixMigration:
 
     def test_api_matrix_b3_marker_present(self):
         # The migration marker `ψ.35-B3` must appear in
-        # scripts/web.py preserving the original raw-field
-        # expressions in source for future readers.
+        # scripts/web_matrix.py preserving the original raw-field
+        # expressions in source for future readers (the matrix functions
+        # moved from web.py to web_matrix.py in the bae92e4 split).
         from pathlib import Path
 
-        raw = (Path(__file__).resolve().parent.parent / "scripts" / "web.py").read_text(encoding="utf-8")
-        assert "ψ.35-B3" in raw, "scripts/web.py lost the ψ.35-B3 migration marker"
+        raw = (Path(__file__).resolve().parent.parent / "scripts" / "web_matrix.py").read_text(encoding="utf-8")
+        assert "ψ.35-B3" in raw, "scripts/web_matrix.py lost the ψ.35-B3 migration marker"
 
 
 # ---------- Phase ψ.35-B4 : per_book_kinds_dict + last raw read -------
@@ -720,8 +722,8 @@ class TestPsi35B4PerBookAccessor:
     def test_b4_marker_present(self):
         from pathlib import Path
 
-        raw = (Path(__file__).resolve().parent.parent / "scripts" / "web.py").read_text(encoding="utf-8")
-        assert "ψ.35-B4" in raw, "scripts/web.py lost the ψ.35-B4 migration marker"
+        raw = (Path(__file__).resolve().parent.parent / "scripts" / "web_matrix.py").read_text(encoding="utf-8")
+        assert "ψ.35-B4" in raw, "scripts/web_matrix.py lost the ψ.35-B4 migration marker"
 
 
 # ---------- Phase ψ.35-Final : redundant projections auto-derived -----

@@ -397,21 +397,20 @@ class TestOmega35B3aCoversExtraction:
         )
 
     def test_api_covers_get_remains_in_web_py(self):
-        # B.3a leaves api_covers() (the GET endpoint) in web.py
-        # because of its tangled response-cache infrastructure.
-        # Pin: the function is still defined in web.py (NOT in
-        # the new module).
+        # B.3a kept api_covers() (the GET endpoint) OUT of scripts/api/covers.py
+        # because of its tangled response-cache infrastructure. The bae92e4 web.py
+        # split later relocated it to scripts/web_covers.py (still NOT in api/covers,
+        # and still re-exported via the web.py hub so the route table is unchanged).
         import scripts.api.covers as covers_api
         import scripts.web as w
 
         assert not hasattr(covers_api, "api_covers"), (
-            "scripts.api.covers should NOT define api_covers() — it stays in web.py for B.3a"
+            "scripts.api.covers should NOT define api_covers() — it stays out of the api/ slice"
         )
         assert hasattr(w, "api_covers")
-        # And it should still be a real function (not a re-export)
-        # at this point. Check via __module__:
-        assert w.api_covers.__module__ == "scripts.web", (
-            f"api_covers should still live in scripts.web, got {w.api_covers.__module__}"
+        # It now lives in web_covers (post-bae92e4 split), re-exported via web.py:
+        assert w.api_covers.__module__ == "scripts.web_covers", (
+            f"api_covers should live in scripts.web_covers, got {w.api_covers.__module__}"
         )
 
     def test_web_py_does_not_define_cover_mutations_inline(self):

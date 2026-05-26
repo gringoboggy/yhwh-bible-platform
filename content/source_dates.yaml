@@ -45,6 +45,10 @@ sources:
     year: 1897
     label: "Easton's Bible Dictionary"
     note: "M. G. Easton, Illustrated Bible Dictionary (3rd ed. 1897); ingested 2026-05-21."
+  - prefix: "Torrey's New Topical Textbook"
+    year: 1897
+    label: "Torrey's New Topical"
+    note: "R.A. Torrey, New Topical Textbook (1897 PD); Track C ingest 2026-05-26 (+21,762 topic-torrey notes)."
 
   # 1900s — early-modern textual criticism.
   - prefix: "Frederic G. Kenyon"

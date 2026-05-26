@@ -8,11 +8,13 @@ REPO = Path(__file__).resolve().parents[1]
 VULGATE_DIR = REPO / "content" / "translations" / "vulgate-clementine"
 DOUAY_DIR = REPO / "content" / "translations" / "douay-rheims"
 
-# Both stores emit the same 74 project-book files: the eBible source carries 73 books,
-# the BAR ch6 -> lje split adds one (+1 = 74), and tob/jdt/sir are dropped entirely
+# douay-rheims emits 74 project-book files: the eBible source carries 73 books, the
+# BAR ch6 -> lje split adds one (+1 = 74), and tob/jdt/sir are dropped entirely
 # (_VULGATE_OMIT — different recension) while paz/sus/bel are already separate eBible
 # books that also receive the Daniel additions via the dan cross-book relocation.
-EXPECTED_BOOK_COUNT = 74
+# vulgate-clementine = 77: Phase E (2026-05-26) added the Clementine Latin
+# deuterocanonical appendix man/1es/2es (+3) — see scripts/extract_vulgate_appendix.py.
+EXPECTED_BOOK_COUNTS = {"vulgate-clementine": 77, "douay-rheims": 74}
 
 
 def _store_dir(store):
@@ -403,7 +405,8 @@ class TestVulgateDouayStores:
     @pytest.mark.parametrize("store", ["vulgate-clementine", "douay-rheims"])
     def test_store_has_expected_book_count(self, store):
         books = sorted(p.stem for p in _store_dir(store).glob("*.py"))
-        assert len(books) == EXPECTED_BOOK_COUNT, f"{store}: expected {EXPECTED_BOOK_COUNT}, got {len(books)}: {books}"
+        expected = EXPECTED_BOOK_COUNTS[store]
+        assert len(books) == expected, f"{store}: expected {expected}, got {len(books)}: {books}"
 
     @pytest.mark.parametrize("store", ["vulgate-clementine", "douay-rheims"])
     def test_all_coords_in_canonical_extent(self, store):

@@ -7,6 +7,10 @@
 
 ---
 
+> **➤ 2026-05-26 RECONCILIATION (read first — this 2026-05-23 ledger is now ~95% historical).** Nearly every finding has shipped. **Phase 3 (below) applied 17 SAFE-FIXes** inline (B1.3/B1.4/B2a.6/C2.refactor/B2b.2/A3/A7/C1.chap/C3a.errno/C3b.css/C2.devnull/T2/C3a.shipretail/B2b.3/B2b.8/C1.fixname/C1.toc). The headline CRITICAL/HIGH items all closed in later sessions: **★BUGCLUSTER-BOOKCODE** (code-fix `c41e6d2` + phi/jam corpus-regen `309c0f7` + 667-xref normalization → unresolved=0) · **G1/G2 security** (`0892270`) · **CC0 relicense** E.license/E.copyright (2026-05-24) · **★C2.deadchecks** (a11y→preflight `1ae0d23` + vulture/mypy/pip-audit→`scripts/ci.py`) · **A1/A6/A9/A12** (`fb50001`) · **A8 / A11 / B1.S** (god-module splits + the `_editions_index` de-dup) · **B1.8/B1.9** (`6e5adad`) · **B1.6 / F1** (`c45ca38`). **No CRITICAL/HIGH remains open.** Remaining = a low-severity tail: stale docstrings/counts needing per-item verification (C3b.docstrings · C2.misc · C2.stalecounts · F2 · F9 · E.version · E.schemas · E.dangling · E.readme · E.handoff) · big refactors (A.N error-envelope · C3b.atscaledup shared base · D.dup test-monolith) · quarantined-module cleanup (B2a.1/2 license_key · C3a.release/printcover/splitweb · F3 Brenton stubs) · latent-SEC notes (B2a.9/G4 positional-secret redaction · G5/C3b.bannerxss · B2a.13) · TIER-3 provenance (F5 geez/amharic-en `_meta`) · doc archival (E.archival) · one user-action (G3 — rotate the Voyage key). Fresh re-audit (all gates re-run from scratch) = `dev/AUDIT_2026-05-26-FINDINGS.md`.
+
+---
+
 ## Baseline (green, pre-audit — the regression anchor)
 
 Captured 2026-05-23 ~23:35 EDT.
