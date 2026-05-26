@@ -18,6 +18,19 @@ attempting one under auto hits a surprise mid-task denial. No pause is needed if
 package is already declared in a manifest or the user explicitly asked to install it.
 The durable fix is to DECLARE build/tool deps in a manifest.
 
+**Operational guard — sources are NOT missing (added 2026-05-26):** Before concluding that
+any corpus / ingest / translation / popup work is "blocked on missing sources" — or asking the
+user to supply a source — **STOP. Every source this project needs is already on-disk OR has a
+documented plan.** Look properly first, in this order: (1) read the plans — `dev/archive/PLAN_2026-05-21.md`
+§4.1 + `dev/AUDIT_2026-05-23-DEEP.md` (they inventory what exists + where); (2) check `content/sources/`,
+`content/translations/sources/`, `_acquire/` (one level above the repo, gitignored), the **top-level
+PDFs** (arbitrary filenames — do NOT grep by book name, you'll miss them), the `GAPS/` Geʽez folder,
+and the **web sources the plans name** (e.g. la.wikisource for the Clementine Latin appendix, archive.org
+for the patristic works); (3) verify CURRENT status against `dev/CHANGELOG.md`, not stale plan labels.
+This was a **3× recurring** mistake (Claude wrongly declared "blocked on sources" + asked the user to
+supply them, 2026-05-26). The ONLY legitimate source ask is a genuine licensing/credential gate (per the
+license-flagging rule) — never "I can't find it." (Memory: `sources-already-in-place`.)
+
 ## Rules map — which § governs what (jump here first)
 
 | § | Governs |
@@ -405,24 +418,31 @@ delegated this judgment; exercise it.
 
 ## 4. Save semantics
 
-- "Save" means **present the zip via the `present_files` tool**.
-  Building the zip on disk alone is not a save. Surface it for
-  download.
-- **Every save updates dev/SESSION_STATE.md** to reflect the
-  current state — last shipped phase, next phase, test count,
-  and any in-flight notes. This is non-negotiable for
-  continuity. See §11 (Continuity protocol).
-- Always ask slim-or-full before building, unless the user has
-  already specified one in the current turn.
-- **Slim** zip excludes regenerable artifacts:
-  `content/translations/sources/`, `epub_working/.backups/`,
-  `__pycache__/`, `.pytest_cache/`, `*.bak`, `*.tmp`, `.git/`.
-- **Full** zip is everything in the working tree. (If a prior
-  full save was much larger than the current full would be,
-  that's worth flagging — likely a missing `exports/`
-  directory.)
-- "Continue", "proceed", "go ahead", "push" are **not** save
-  commands. Don't auto-zip at the end of a phase or commit.
+- **"Save" = a local git commit** (run `save.ps1` through **PowerShell ONLY** — never the
+  Bash tool: the spaced repo path + `>`/arrow glyphs in a commit message break cmd and sweep
+  stray files via `git add -A`). The pre-commit hook runs `ruff format --check .` +
+  `lint_rules.py` — both must pass or the commit is BLOCKED (the hook does NOT run the test
+  suite; run the relevant tests yourself). The GitHub remote was deleted 2026-05-12, so a save
+  is a LOCAL commit only (`git push` fails until a remote is reconfigured).
+- **⚠ BEFORE every save:** `python -m ruff format` every file you generated/regenerated —
+  ESPECIALLY `content/translations/<id>/` stores (recurs on EVERY ingest) — or the hook blocks
+  the commit. (Full rule: §7 "Formatting + committing".)
+- **Every save updates dev/SESSION_STATE.md** (last shipped phase · next · test count ·
+  in-flight notes) — non-negotiable for continuity (§11) — and **VERIFY the commit actually
+  landed** with `git log`/`git status` before claiming "saved" (§12/§14 truth-gate). Never
+  report a save that didn't happen.
+- **"Backup" is a SEPARATE command from "save":** a commit is not a backup. Back up via
+  `git bundle --all` to the external **E:/F:** drives (NEVER C: — system drive is low), only
+  when the user says "backup".
+- "Continue", "proceed", "go ahead", "push" are **NOT** save commands (here "push" = "advance
+  to the next phase," not `git push`). Don't auto-commit at the end of a phase.
+
+> **DORMANT — Claude-Desktop-era zip flow (do NOT use unless the user explicitly says "zip"):**
+> before the Claude-Code transfer, "save" meant presenting a downloadable zip via the
+> `present_files` tool with a slim-or-full ask. That flow is dormant — never build a zip or ask
+> slim/full on a bare "save". If the user *explicitly* asks for a zip: **slim** excludes
+> regenerable artifacts (`content/translations/sources/`, `epub_working/.backups/`,
+> `__pycache__/`, `.pytest_cache/`, `*.bak`, `*.tmp`, `.git/`); **full** is the whole working tree.
 
 ### Checkpoint saves (added after a real instance)
 
@@ -1051,10 +1071,12 @@ PD source data        →  Detector class               →  Candidates JSON    
 
 **Steps:**
 
-1. **Acquire / verify the source data.** Check `content/sources/`
-   first — TSK and Strong's Hebrew already cache there. New
-   corpora go in the same directory or under `content/<source>/`.
-   Add to `scripts/core/sources.py` if a loader is needed.
+1. **Acquire / verify the source data.** (First see the top-of-file
+   "sources are NOT missing" guard for the full look-first inventory +
+   the "never conclude blocked / don't ask the user to supply" rule.)
+   Check `content/sources/` first — TSK and Strong's Hebrew already
+   cache there. New corpora go in the same directory or under
+   `content/<source>/`. Add to `scripts/core/sources.py` if a loader is needed.
    Update `content/sources/ATTRIBUTIONS.md` with the PD/CC notice.
 
 2. **Add the kind code** to `content/kinds.yaml` if the new
@@ -1097,10 +1119,22 @@ PD source data        →  Detector class               →  Candidates JSON    
    `build_edition.py` zips the PRE-BAKED `epub_working/` base, so a build
    will NOT contain the new notes until you bake them in. Run, in order:
    `inject --all-books` (additive — `--dry-run` first to confirm it only ADDS,
-   never deletes) → `ebible verify` (marker↔aside pairing) → rebuild a flagship
-   edition → `epubcheck 0/0/0/0`. **If the rebuilt EPUB is the same size as
-   before the change, you forgot to inject** — the notes are in no edition yet.
-   Commit the changed `epub_working/` split files alongside the notes.
+   never deletes) → **`python scripts/check_nested_anchors.py` (run `--fix` if it
+   reports any) + `pytest tests/test_nested_anchors.py`** → `ebible verify`
+   (marker↔aside pairing) → rebuild a flagship edition → `epubcheck 0/0/0/0`.
+   **If the rebuilt EPUB is the same size as before the change, you forgot to
+   inject** — the notes are in no edition yet. Commit the changed `epub_working/`
+   split files alongside the notes.
+   - **⚠ The nested-`<a>` check is MANDATORY — epubcheck does NOT replace it.**
+     `inject` can place a `note-ref` marker INSIDE a verse's `vn-link` anchor =
+     nested `<a>` (invalid base XHTML). The build converts `vn-link <a>`→`<span>`,
+     so the BUILT EPUB stays valid (epubcheck 0/0) even when the BASE carries
+     thousands of nested `<a>` — only `test_nested_anchors` catches it. It was
+     skipped after the Nave's/Easton's/Torrey ingests → **14,568** nested `<a>`
+     accumulated undetected (found + `--fix`-repaired 2026-05-26). Corollary: a
+     "full suite passed" claim from a CURATED SUBSET is NOT a green suite — name
+     the tests you actually ran, and include the base-invariant (`test_nested_anchors`)
+     + translation tests, not just `test_scripts`/`test_core`.
 
 9. **CHANGELOG entry** with cumulative corpus math:
    `Was: N notes → Now: M notes (+delta · X% of 35K target)`.

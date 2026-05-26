@@ -1,0 +1,15 @@
+{{titulus2
+|OperaeTitulus= Vulgata Clementina
+|OperaeWikiPagina= Vulgata Clementina
+|SubTitulus= Oratio Manassæ <br>regis Juda <br>cum captus teneretur in Babylone}}
+{{Liber
+|Ante= De apocryphis libris
+|AnteNomen= Vulgata Clementina/De apocryphis libris
+|Post= Liber Tertius Esdræ
+|PostNomen= Vulgata Clementina/Liber Tertius Esdrae
+}}
+
+==Caput 1==
+
+<sup>1</sup> Domine omnipotens, Deus patrum nostrorum, Abraham, et Isaac, et Jacob, et seminis eorum justi, <sup>2</sup> qui fecisti cælum, et terram cum omni ornatu eorum, <sup>3</sup> qui ligasti mare verbo præcepti tui, qui conclusisti abyssum, et signasti eam terribili et laudabili nomine tuo :
+<sup>4</sup> quem omnia pavent, et tremunt a vultu virtutis tuæ, quia importabilis est magnificentia gloriæ tuæ, <sup>5</sup> et insustentabilis ira comminationis tuæ super peccatores : <sup>6</sup> immensa vero et investigabilis misericordia promissionis tuæ : <sup>7</sup> quoniam tu es Dominus, altissimus, benignus, longanimis, et multum misericors, et pœnitens super malitias hominum. Tu Domine, secundum multitudinem bonitatis tuæ promisisti pœnitentiam, et remissionem iis, qui peccaverunt tibi, et multitudinem miserationum tuarum decrevisti pœnitentiam peccatoribus, in salutem. <sup>8</sup> Tu igitur Domine Deus justorum, non posuisti pœnitentiam justis, Abraham, et Isaac, et Jacob, iis qui tibi non peccaverunt : sed posuisti pœnitentiam propter me peccatorem : <sup>9</sup> quoniam peccavi super numerum arenæ maris : multiplicatæ sunt iniquitates meæ Domine, multiplicatæ sunt iniquitates meæ, et non sum dignus intueri et aspicere altitudinem cæli, præ multitudine iniquitatum mearum. <sup>10</sup> Incurvatus sum multo vinculo ferreo, ut non possim attollere caput meum, et non est respiratio mihi : quia excitavi iracundiam tuam, et malum coram te feci : non feci voluntatem tuam, et mandata tua non custodivi : statui abominationes, et multiplicavi offensiones. <sup>11</sup> Et nunc flecto genu cordis mei, precans a te bonitatem. <sup>12</sup> Peccavi Domine, peccavi, et iniquitates meas agnosco. <sup>13</sup> Quare peto rogans te, remitte mihi Domine, remitte mihi, et ne simul perdas me cum iniquitatibus meis, neque in æternum, iratus, reserves mala mihi, neque damnes me in infima terræ loca : <sup>14</sup> quia tu es Deus, Deus, inquam pœnitentium : et in me ostendes omnem bonitatem tuam, quia indignum salvabis me secundum magnam misericordiam tuam, <sup>15</sup> et laudabo te semper omnibus diebus vitæ meæ : quoniam te laudat omnis virtus cælorum, et tibi est gloria in sæcula sæculorum. Amen.

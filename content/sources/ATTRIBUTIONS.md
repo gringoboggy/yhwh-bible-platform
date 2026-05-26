@@ -53,6 +53,18 @@ Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain (US copyright l
 
 Source: Christian Classics Ethereal Library edition → `content/sources/torrey_ccel_source.txt` (extracted from the CCEL PDF); parser `scripts/extract_torrey_ccel.py` → `content/sources/torrey_topical.json` (628 topics). Notes carry kind `topic-torrey`.
 
+## Clementine Vulgate — deuterocanonical appendix (Latin)
+
+The Clementine Vulgate body (74 books) comes from the eBible.org `lat-clemvulg` package (see `content/translations/vulgate-clementine/_meta.yaml`). That package omits the post-NT appendix, so three deuterocanonical appendix books — Prayer of Manasseh (`man`), 3 Esdras (KJV 1 Esdras, `1es`) and 4 Esdras (KJV 2 Esdras, `2es`) — were fetched as raw wikitext from Wikisource's *Vulgata Clementina*. Public domain (Pope Clement VIII's 1592 authorized edition; the Wikisource transcription is itself PD).
+
+Source pages (raw wikitext, `?action=raw`):
+
+- <https://la.wikisource.org/wiki/Vulgata_Clementina/Oratio_Manasse> → `man`
+- <https://la.wikisource.org/wiki/Vulgata_Clementina/Liber_Tertius_Esdrae> → `1es`
+- <https://la.wikisource.org/wiki/Vulgata_Clementina/Liber_Quartus_Esdrae> → `2es`
+
+Cached at `content/translations/sources/vulgate-appendix/*.wiki`; parser `scripts/extract_vulgate_appendix.py`. The Clementine `1es`/`2es` versification diverges from the canonical KJV-Apocrypha numbering, so the parser carries a small, verified per-chapter correction table; three multi-shift name-list chapters (`1es` 5, `1es` 8, `2es` 14) are omitted pending a dedicated alignment pass rather than aligned by guess (no fabrication).
+
 ---
 
 ## Patristic and Tewahedo canonical commentary sources

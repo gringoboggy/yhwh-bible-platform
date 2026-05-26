@@ -84,8 +84,14 @@ VALIDATORS (gate everything):
   auto-omit. **WLC = 39-book / 23,142-verse; LXX-Greek (Swete) = 39-OT / 22,893-verse (`vnote-greek`
   8,601→22,812); Greek-NT (Byzantine) = 27-NT / 7,953-verse (`vnote-greek-nt` 0→7,951); Arabic
   (Van Dyck) = 66-book / 31,102-verse; JPS (1917) = 39-book / 23,145-verse; Douay-Rheims + Clementine
-  Vulgate = 74-book / ~33,344-verse each (`vnote-douay`/`vnote-vulgate` +31,866/+31,865 baked); all
-  2026-05-23**. `brenton-en` is the remaining registry seed not yet baked.
+  Vulgate = 74-book / ~33,344-verse body each (`vnote-douay`/`vnote-vulgate` +31,866/+31,865 baked,
+  2026-05-23)**. **Phase E (2026-05-26)** added the Clementine **77th**-book spine: the la.wikisource
+  deuterocanonical appendix `man`/`1es`/`2es` (Vulgate 74→77 books, +1,117 v → 34,460; `vnote-vulgate`
+  baked on those 3 books only, additive-proven). The appendix does NOT route through `vulgate_to_kjv`'s
+  Douay-tuned segments (they misalign la.wikisource's numbering — proven 1es 1:13); instead
+  `scripts/extract_vulgate_appendix.py` carries its own verified per-chapter `_JOIN_PREV` correction
+  table and DEFERS (omits + flags) 3 multi-shift name-list chapters (`1es` 5/8, `2es` 14). `brenton-en`
+  is the remaining registry seed not yet baked.
 - **Cover / OPF metadata** <- `cover_image`, `authors`, `bisac_codes` -> `patch_opf`.
 - **A count cell in the matrix UI** <- `matrix.compute_matrix().enabled[ed][kind]` <- `per_chapter`
   <- `notes_io.load_notes(notes/<book>.py)`.
