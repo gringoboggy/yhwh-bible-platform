@@ -780,6 +780,16 @@ kinds:
     description: "Topical groupings drawn from Nave's Topical Bible (1896, PD). One verse appears under multiple topics; the candidate aggregates the top topics."
     phase: phase2
 
+  - code: topic-torrey
+    category: topic
+    symbol: "✦"
+    note_class: "note-topic-torrey"
+    marker_class: "marker-topic-torrey"
+    label: "Topic"
+    title_attr: "Torrey's New Topical Textbook — topics this verse appears under"
+    description: "Topical groupings drawn from Torrey's New Topical Textbook (1897, PD) — a second topical authority alongside Nave's (where both tag a verse, that is cross-confirming corroboration). One verse appears under multiple topics; the candidate aggregates the top topics."
+    phase: phase2
+
   # ──────────────────────────────────────────────────────────────────
   # DICTIONARY  ⌂   (Bible-dictionary definitions; category: hist)
   # ──────────────────────────────────────────────────────────────────

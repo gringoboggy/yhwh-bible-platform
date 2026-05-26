@@ -47,6 +47,12 @@ Source URLs (tried in order):
 - <https://a.openbible.info/data/topic-votes.txt.zip> *(parser: `openbible-topics-tsv`)*
 - <https://www.ccel.org/n/nave/topical/topical.txt> *(parser: `ccel-text`)*
 
+## Torrey's New Topical Textbook
+
+Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain (US copyright lapsed; work first published 1897, author died 1928 — pre-1929 publication is the controlling factor). A second topical concordance (Reformed/Baptist editorial selection) ingested in FULL as the Track C corpus expansion (2026-05-25). Where it overlaps Nave's Topical Bible on a verse, the two stand as independent, cross-confirming topical authorities — corroboration, not redundancy.
+
+Source: Christian Classics Ethereal Library edition → `content/sources/torrey_ccel_source.txt` (extracted from the CCEL PDF); parser `scripts/extract_torrey_ccel.py` → `content/sources/torrey_topical.json` (628 topics). Notes carry kind `topic-torrey`.
+
 ---
 
 ## Patristic and Tewahedo canonical commentary sources

@@ -358,6 +358,80 @@ class NavesTopical:
         return sorted(self._topics)
 
 
+@dataclass(frozen=True)
+class TorreyTopicHit:
+    """One topical-concordance hit from Torrey's New Topical Textbook
+    (R.A. Torrey, 1897, public domain)."""
+
+    topic: str
+    target_book: str
+    target_chapter: int
+    target_verse: int
+
+    @property
+    def attribution(self) -> str:
+        return "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain."
+
+
+class TorreyTopical:
+    """Lazy loader for Torrey's New Topical Textbook — a second topical
+    concordance (1897, Reformed/Baptist editorial selection) alongside Nave's.
+    Same JSON cache shape and access pattern as ``NavesTopical``; written by
+    ``scripts/extract_torrey_ccel.py``.
+
+    JSON cache shape::
+
+        {
+          "_meta": {"n_topics": int, "n_refs": int, "source": str},
+          "topics": {"<topic>": [["<book>", <ch>, <vs>], ...]},
+          "verses": {"<book>": {"<ch>": {"<vs>": ["<topic>", ...]}}}
+        }
+
+    Raises ``SourceMissingError`` if the JSON cache is absent.
+    """
+
+    PATH = _SOURCES / "torrey_topical.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError("Torrey's New Topical not cached. Run: python3 scripts/extract_torrey_ccel.py")
+        with self.PATH.open(encoding="utf-8") as f:
+            self._data = json.load(f)
+        self._topics = self._data.get("topics", {})
+        self._verses = self._data.get("verses", {})
+
+    def __len__(self) -> int:
+        return len(self._topics)
+
+    @property
+    def n_topics(self) -> int:
+        return len(self._topics)
+
+    @property
+    def n_refs(self) -> int:
+        return self._data.get("_meta", {}).get("n_refs", 0)
+
+    def topics_for(self, book: str, chapter: int, verse: int, *, top_n: int = 5) -> list[str]:
+        """Return up to ``top_n`` topics tagged on this verse, in source
+        (alphabetical) order. The detector consolidates them into one
+        candidate per verse."""
+        topic_list = (self._verses.get(book, {}).get(str(chapter), {}).get(str(verse))) or []
+        return list(topic_list)[:top_n]
+
+    def verses_for(self, topic: str) -> list[TorreyTopicHit]:
+        """Return every verse tagged with this topic."""
+        raw = self._topics.get(topic) or []
+        return [
+            TorreyTopicHit(topic=topic, target_book=r[0], target_chapter=int(r[1]), target_verse=int(r[2]))
+            for r in raw
+            if len(r) >= 3
+        ]
+
+    def topics(self) -> list[str]:
+        """Every topic name, alphabetically — for enumerating the whole index."""
+        return sorted(self._topics)
+
+
 # ----------------------------------------------------------------------
 # Patristic commentary corpus (γ.3 — 2026-05-11)
 # ----------------------------------------------------------------------
@@ -947,6 +1021,12 @@ def tsk() -> Tsk:
 def naves_topical() -> NavesTopical:
     """Return the singleton NavesTopical instance (lazy-loaded once)."""
     return NavesTopical()
+
+
+@lru_cache(maxsize=1)
+def torrey_topical() -> TorreyTopical:
+    """Return the singleton TorreyTopical instance (lazy-loaded once)."""
+    return TorreyTopical()
 
 
 @lru_cache(maxsize=1)

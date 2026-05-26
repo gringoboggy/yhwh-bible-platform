@@ -1,8 +1,8 @@
 {
   "book": "jer",
   "chapter": 40,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 23,
+  "generated_at": "2026-05-26T04:35:16+00:00",
+  "n_candidates": 26,
   "candidates": [
     {
       "id": "jer-40-1-001",
@@ -347,6 +347,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "jer-40-4-024",
+      "verse": 4,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Liberality",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Liberality. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "jer-40-5-025",
+      "verse": 5,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.76,
+      "source_name": "Torrey: Liberality (+2 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Liberality, Presents, Travellers. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 3 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "jer-40-10-026",
+      "verse": 10,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Summer",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Summer. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"
     }
   ]

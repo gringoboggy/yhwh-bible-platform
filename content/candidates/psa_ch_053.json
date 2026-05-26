@@ -1,0 +1,53 @@
+{
+  "book": "psa",
+  "chapter": 53,
+  "generated_at": "2026-05-26T04:35:23+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "psa-53-4-001",
+      "verse": 4,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Character of the Wicked",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Character of the Wicked. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-53-5-002",
+      "verse": 5,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Fear, Unholy",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Fear, Unholy. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-53-1-003",
+      "verse": 1,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Fools",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Fools. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    }
+  ]
+}

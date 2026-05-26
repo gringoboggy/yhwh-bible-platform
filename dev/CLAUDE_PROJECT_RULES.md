@@ -1088,11 +1088,21 @@ PD source data        →  Detector class               →  Candidates JSON    
    in-process (avoids per-file subprocess overhead) and
    idempotent (dedup against existing notes).
 
-7. **Verify**: `pytest` passes (the `>= 1381` corpus floors
-   absorb growth), `lint_rules.py` passes, attribution audit
+7. **Verify (source-level)**: `pytest` passes (the `>= 1381` corpus
+   floors absorb growth), `lint_rules.py` passes, attribution audit
    shows the new notes attributed.
 
-8. **CHANGELOG entry** with cumulative corpus math:
+8. **⚠ BAKE-AND-PROVE GATE — a corpus change is NOT done until it is in a
+   build.** Promoting only writes the SOURCE (`content/notes/`);
+   `build_edition.py` zips the PRE-BAKED `epub_working/` base, so a build
+   will NOT contain the new notes until you bake them in. Run, in order:
+   `inject --all-books` (additive — `--dry-run` first to confirm it only ADDS,
+   never deletes) → `ebible verify` (marker↔aside pairing) → rebuild a flagship
+   edition → `epubcheck 0/0/0/0`. **If the rebuilt EPUB is the same size as
+   before the change, you forgot to inject** — the notes are in no edition yet.
+   Commit the changed `epub_working/` split files alongside the notes.
+
+9. **CHANGELOG entry** with cumulative corpus math:
    `Was: N notes → Now: M notes (+delta · X% of 35K target)`.
 
 **Why this works:**
@@ -1121,6 +1131,26 @@ seconds where the loop would take minutes.
 - χ.6+ HebrewWord (HebrewWordDetector + run_hebrew_at_scale.py):
   +8,412 notes
 - Together: 1,381 → 15,925 in one session via this pattern.
+- Torrey's New Topical Textbook (`TorreyTopicalDetector` + `run_torrey_at_scale.py`): +~21,800 notes (2026-05-26).
+
+### "Register a new note kind"
+
+Codified after Track C Torrey (2026-05-26) had to reverse-engineer these
+constraints mid-session. To add a `kind` to `content/kinds.yaml`:
+
+1. **Mirror a sibling** in the same `category` (copy its `symbol`,
+   `note_class`/`marker_class` shape, `label`, `phase`). Kinds SHARE their
+   category's symbol; `inject.glyph_for` reads the per-kind `symbol`.
+2. **Register only in a commit where the kind gains ≥1 note.** The `/preflight`
+   `empty_kinds` check warns on any registered kind with zero notes across all
+   editions (`scripts/api/preflight.py`), so ship the kind + its first notes
+   together.
+3. **Bump the count pins:** `record_count` in `tests/test_validate_schemas.py`
+   (= editions + kinds; +1 per new kind) and the `content/kinds.yaml — N kinds`
+   docstring in `scripts/core/matrix.py`.
+4. **Edition enablement is automatic by category** — a new kind is enabled
+   wherever its `category` is enabled (no `editions.yaml` edit needed); confirm
+   with a build.
 
 ### "Build a defensive system: use the four-tier shape"
 

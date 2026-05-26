@@ -571,6 +571,65 @@ class NaveTopicalDetector:
         ]
 
 
+class TorreyTopicalDetector:
+    """Generate ``topic-torrey`` candidates from Torrey's New Topical Textbook
+    (R.A. Torrey, 1897) — a second topical concordance alongside Nave's, with a
+    Reformed/Baptist editorial selection. Like ``NaveTopicalDetector`` it is
+    verse-text-agnostic (operates on (book, chapter, verse) tuples via
+    ``sources.torrey_topical()``) and produces one consolidated candidate per
+    verse; the reviewer picks one or two topics and writes a thematic note.
+
+    The underlying source is lazy-loaded; a verse with zero topics yields an
+    empty list (not a candidate)."""
+
+    name = "TorreyTopicalDetector"
+    kind = "topic-torrey"
+
+    def __init__(self, *, top_n: int = 5, min_topics: int = 1) -> None:
+        self.torrey = sources.torrey_topical()
+        self.top_n = top_n
+        self.min_topics = min_topics
+
+    def detect(self, book: str, chapter: int, verse: int, _verse_text: str) -> list[Candidate]:
+        topics = self.torrey.topics_for(book, chapter, verse, top_n=self.top_n)
+        if len(topics) < self.min_topics:
+            return []
+
+        confidence = min(0.55 + 0.07 * len(topics), 0.85)
+        topics_str = ", ".join(topics)
+        primary = topics[0]
+        attribution = "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain."
+        body = (
+            f"<strong>Topics.</strong> This verse appears under: "
+            f"{topics_str}. "
+            f"<em>[Reviewer: pick one topic (typically the first or most "
+            f"theologically loaded), write a 2–3 sentence thematic note, and "
+            f"discard the rest.]</em>"
+        )
+
+        return [
+            Candidate(
+                book=book,
+                chapter=chapter,
+                verse=verse,
+                kind=self.kind,
+                anchor="",
+                confidence=confidence,
+                source_name=f"Torrey: {primary}" + (f" (+{len(topics) - 1} more)" if len(topics) > 1 else ""),
+                source_attribution=attribution,
+                draft_title="Topic",
+                draft_label="Topic.",
+                draft_body=body,
+                detector=self.name,
+                reviewer_notes=(
+                    f"Torrey's New Topical lists {len(topics)} topic(s) for this "
+                    f"verse. Don't paste the comma-list as the final note — "
+                    f"pick the strongest theme and write a paragraph."
+                ),
+            )
+        ]
+
+
 # ----------------------------------------------------------------------
 # Kenyon textual-criticism detector (Phase χ.0)
 # ----------------------------------------------------------------------
@@ -1529,4 +1588,5 @@ ALL_DETECTORS = [
     CatholicCommentaryDetector,  # χ.4 — Catena Aurea seed
     ReformationCommentaryDetector,  # χ.3 — Calvin seed
     RabbinicCommentaryDetector,  # χ.5 — Rashi seed (CLOSES χ.2-5 cluster)
+    TorreyTopicalDetector,  # Track C — Torrey's New Topical Textbook (sibling of NaveTopicalDetector)
 ]

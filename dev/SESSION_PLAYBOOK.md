@@ -19,7 +19,8 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 1. **Read the bootstrap triad** (RULES §0): `dev/CLAUDE_PROJECT_RULES.md` → `dev/SESSION_STATE.md` → `dev/PLAN_2026-05-21.md` (incl. its **§4.1 forward refresh**). Then `dev/IN_FLIGHT.md` — check the `<!-- TRACKER-STATE: idle|active -->` marker.
 2. **Check auto-memory** — the `MEMORY.md` index (durable user prefs, gotchas, decisions).
 3. **"Where does X live / how does data flow?"** → read `dev/MATRIX_MAP.md` + `dev/REPO_MAP.md` **first**; never grep blind (RULES §0).
-4. **Set up the environment (§2) before running anything.**
+4. **Free RAM before heavy work (16 GB box — RAM-constrained).** Check free RAM (`(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory`); kill any **leaked** `python.exe`/`java.exe` from PRIOR sessions (a fresh session has none of its own running, so lingering ones are orphans from force-killed background tasks / OOM — sanity-check they aren't the user's own app); clear stale temp/build artifacts (repo-parent `_*` probe + `_*epubcheck` dirs, orphaned PyInstaller `_MEI*`, `hs_err_pid*`/`replay_pid*` JVM logs). Pairs with the §2 heavy-trio-sequential rule.
+5. **Set up the environment (§2) before running anything.**
 
 ---
 
@@ -31,6 +32,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 | UTF-8 | Always `$env:PYTHONUTF8="1"` (else ~72 tests fail with cp1252 errors). |
 | Shell | PowerShell. **`save.ps1` runs via PowerShell only**, never the Bash tool (spaced path + `>`/`→` glyphs become redirects → stray files). |
 | epubcheck | Java 8 at `C:\Program Files\Java\jre1.8.0_491\bin` (**off PATH** — prepend it); jar bundled in the PyPI `epubcheck` site-package. **One JVM at a time** (concurrent JVMs crash HotSpot → delete any `hs_err_pid*.log`/`replay_pid*.log` before continuing). |
+| RAM (16 GB) | Run the **heavy trio — `inject --all-books` / a full `build_edition` / the epubcheck JVM — ONE at a time, never in parallel** (nor alongside a broad pytest sweep), or risk MemoryError / HotSpot crash. Background a long one and wait for it before starting the next. |
 | Acquired sources | `_acquire/` is **one level above** the repo (gitignored). |
 | Throwaway probes | live in the **repo parent** (outside git); delete when done. |
 
@@ -85,6 +87,8 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 
 Build one edition fast: `& $py scripts\build_edition.py <edition> --force --output-dir <tmp>` (~3 min), then `& $py scripts\epubcheck.py --editions-dir <tmp>` with Java 8 prepended to `$env:PATH` (~1 min). Pick the hardest case (`catholic-study` = canon-spliced + popup-heavy).
 
+**⚠ After a CORPUS change, `inject` BEFORE you build.** `build_edition.py` zips the pre-baked `epub_working/` base; promoting notes alone does NOT put them in any build. Run `inject --all-books` first (RULES §9 step 8 — the bake-and-prove gate). **Tell-tale: if the rebuilt EPUB is the same size as before your change, you forgot to inject** — you just re-validated the old corpus.
+
 ---
 
 ## 6. SESSION END — finish clean, in this order (RULES §11/§12)
@@ -93,7 +97,8 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 2. **Update `SESSION_STATE.md` AND `CHANGELOG.md` together** — their mtimes must be within ~6h or the freshness check warns. Update the `IN_FLIGHT.md` banner + marker. (Don't pin durable phase tags onto SESSION_STATE/IN_FLIGHT — they roll.)
 3. **ruff-format** every generated/regenerated file.
 4. **Run the §5 gates** — confirm green. Prove byte-compat for any regen.
-5. **Only if the user said "save":** `& ".\save.ps1" -Message "<concise; no > < → glyphs>"` (PowerShell; does `git add -A` + commit; pre-commit hook runs; **push is disabled — no remote since 2026-05-12**). Otherwise leave it uncommitted on disk. **"continue" ≠ "save".**
+5. **Delete ALL junk + temp before committing.** `save.ps1` does `git add -A`, so any stray file gets swept into the commit. Remove: repo-parent throwaway probes (`_*.py`, `_probe_*`, `_vg_*`) + `_*epubcheck`/build temp dirs, orphaned PyInstaller `_MEI*` dirs, `hs_err_pid*`/`replay_pid*` JVM crash logs, and any unneeded `.bak` from `ensure_backup`. Then **`git status` must show ONLY the intended changes** — no stray/junk files. (Also frees RAM/disk on the 16 GB box — see §1.4.)
+6. **Only if the user said "save":** `& ".\save.ps1" -Message "<concise; no > < → glyphs>"` (PowerShell; does `git add -A` + commit; pre-commit hook runs; **push is disabled — no remote since 2026-05-12**). Otherwise leave it uncommitted on disk. **"continue" ≠ "save".**
 
 ---
 

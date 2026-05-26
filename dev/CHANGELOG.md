@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-26 — Track C: Torrey's New Topical Textbook full ingest (+21,762 `topic-torrey`) + batch-promote `--by-book` perf fix + book-code normalization + rule additions
+
+Track C corpus expansion (TIER 2), via the §9 χ-cluster pipeline. Ingested **Torrey's New Topical Textbook** (R.A. Torrey, 1897, PD) — a second topical concordance alongside Nave's. Per the user, in **FULL** (not net-new): where Torrey and Nave's both tag a verse, the two stand as independent **cross-confirming** topical authorities (corroboration, not redundancy).
+
+- **Corpus 69,969 → 91,733 notes (100% attributed)** — +21,762 `topic-torrey` (628 topics, 55,566 expanded refs).
+- **NEW pipeline (TDD, 20 tests `tests/test_torrey_ingest.py`):** `scripts/extract_torrey_ccel.py` (CCEL parser; reuses Nave's ref-grammar + adds a section-letter gate + frequency filter to split topics from structural sub-labels, forward/backward line-unwrap, Jdj→Judges, Contents-A–Z-run header-collapse, and legacy→canonical book-code normalization) → `content/sources/torrey_topical.json`; `TorreyTopical`/`torrey_topical()` (`scripts/core/sources.py`); `TorreyTopicalDetector` (`scripts/core/detectors.py` + `ALL_DETECTORS`); `scripts/run_torrey_at_scale.py` (`--net-new`/`--overlap-only`). `fetch_sources._build_naves_indices` got a `source=` kwarg (byte-compat for Nave's). New kind `topic-torrey` (category `topic`, ✦).
+- **PERF FIX — `batch_promote_xrefs.py --by-book`:** the per-candidate path rewrote each large book file once per candidate (O(candidates × filesize)) — 19,125 ran ~46 min before being killed. The new `--by-book` mode groups per book and inserts via `promote.batch_insert_notes` (one read+write per book): **21,764 promoted in 44 s**. Plus a missing-file guard.
+- **BOOK-CODE FIX (★BUGCLUSTER class):** the parser emitted the legacy code `jol` (Joel) for 56 verses (full-name "Joel" → old TSK alias map), which the per-candidate promote SILENTLY skipped (no `jol.py`); the `--by-book` path SURFACED it by crashing. Fixed with a `_LEGACY_TO_CANON` normalization (jol→joe, ezk→eze, …) in the parser.
+- **Baked + verified:** `inject --all-books` → 21,762 into `epub_working/` (51 files); flagship rebuilt → **epubcheck 0/0/0/0**; `ebible verify` errors=0 / 32,264 paired; `lint_rules` 16/0/0; `validate_taxonomy` 91,733/100%; `ruff format --check` clean; `record_count` pin 71→72.
+- **NOT YET in EPUB output:** topical notes are filtered from inline (Wave 3) + the topical-index back-matter is Nave's-only → Torrey is in the corpus + app, not yet the EPUB index. Follow-up (after TIER 2 #7): merge Nave's + Torrey in `scripts/matter_pages.py`'s topical index.
+- **Rule additions:** RULES §9 bake-and-prove gate + "register a new note kind" checklist; SESSION_PLAYBOOK §1.4 (session-start RAM hygiene) + §6.5 (session-end junk/temp cleanup); `matrix.py` "72 kinds".
+
+---
+
 ## 2026-05-25 (cont.) — Post-Wave-4 TIER 1: coverage floor ACTIVATED + 12 latent test failures fixed + smoke-cleanup + Git-LFS decided
 
 Post-Wave-4 TIER 1 loose ends (per `dev/PLAN_2026-05-24-end-scope.md`). The headline: activating the W4.5 coverage floor ran the FIRST true whole-suite measurement (no file filter), which surfaced 12 latent failures that prior "full-suite green" sweeps — actually curated SUBSETS — had masked.

@@ -6,7 +6,7 @@ the symbol-toggle UI needs to display in every cell.
 
 Inputs (all read via cached config loaders):
     content/books.yaml      — 87 books
-    content/kinds.yaml      — 71 kinds with category mapping
+    content/kinds.yaml      — 72 kinds with category mapping
     content/categories.yaml — 15 categories
     content/editions.yaml   — 11 edition profiles (kind filters + canon)
     content/canons.yaml     — canon → book-codes

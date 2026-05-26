@@ -1,0 +1,83 @@
+{
+  "book": "psa",
+  "chapter": 129,
+  "generated_at": "2026-05-26T04:35:22+00:00",
+  "n_candidates": 5,
+  "candidates": [
+    {
+      "id": "psa-129-7-001",
+      "verse": 7,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.85,
+      "source_name": "Torrey: Agriculture or Husbandry (+4 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Agriculture or Husbandry, Harvest, The, Hospitality, Purifications, Purifications. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 5 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-129-6-002",
+      "verse": 6,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.69,
+      "source_name": "Torrey: Grass (+1 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Grass, Hospitality. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 2 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-129-5-003",
+      "verse": 5,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Jews, The",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Jews, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-129-3-004",
+      "verse": 3,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Performed",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Performed. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-129-8-005",
+      "verse": 8,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.69,
+      "source_name": "Torrey: Salutations (+1 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Salutations, Salutations. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 2 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    }
+  ]
+}

@@ -393,10 +393,14 @@ def _naves_coord_in_extent(book: str, ch: int, vs: int) -> bool:
     return ch in shape and 1 <= vs <= shape[ch]
 
 
-def _build_naves_indices(forward: dict[str, list]) -> dict:
+def _build_naves_indices(forward: dict[str, list], *, source: str = "Nave's Topical Bible (1896, PD)") -> dict:
     """Build the canonical cache shape from a forward index of
     {topic: [(book, ch, vs), ...]}. Builds the reverse index (verses)
     and the meta block.
+
+    ``source`` labels ``_meta.source``; it defaults to Nave's so every existing
+    caller stays byte-identical. The Torrey's New Topical Textbook ingest (same
+    index shape) passes its own label.
 
     Tolerates ref tuples or list-of-3 elements."""
     topics = {}
@@ -430,7 +434,7 @@ def _build_naves_indices(forward: dict[str, list]) -> dict:
         "_meta": {
             "n_topics": len(topics),
             "n_refs": n_refs,
-            "source": "Nave's Topical Bible (1896, PD)",
+            "source": source,
         },
         "topics": topics,
         "verses": verses,

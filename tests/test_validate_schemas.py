@@ -206,7 +206,10 @@ class TestOmega19SchemaValidator:
         # this floor was not bumped at δ.1.0 ship and corrected it here.
         # 70 → 71 with the Easton's Bible Dictionary ingest (2026-05-21):
         # added `dict-easton` (category `hist`, ⌂ glyph).
-        assert result["record_count"] == 71
+        # 71 → 72 with Track C Torrey (2026-05-25): added `topic-torrey`
+        # (category `topic`, ✦ glyph — Torrey's New Topical Textbook, net-new
+        # vs Nave's).
+        assert result["record_count"] == 72
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

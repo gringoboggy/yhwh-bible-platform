@@ -1,0 +1,83 @@
+{
+  "book": "psa",
+  "chapter": 140,
+  "generated_at": "2026-05-26T04:35:22+00:00",
+  "n_candidates": 5,
+  "candidates": [
+    {
+      "id": "psa-140-3-001",
+      "verse": 3,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.76,
+      "source_name": "Torrey: Asp, or Adder (+2 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Asp, or Adder, Serpents, Slander. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 3 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-140-7-002",
+      "verse": 7,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.83,
+      "source_name": "Torrey: Head (+3 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Head, Providence of God, The, Shields, Warfare of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 4 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-140-2-003",
+      "verse": 2,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Heart, Character of the Unrenewed",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Heart, Character of the Unrenewed. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-140-12-004",
+      "verse": 12,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Poor, The",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Poor, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-140-13-005",
+      "verse": 13,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Torrey: Uprightness",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Uprightness. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    }
+  ]
+}

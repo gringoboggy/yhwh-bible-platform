@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 20,
-  "generated_at": "2026-05-09T05:19:42+00:00",
-  "n_candidates": 17,
+  "generated_at": "2026-05-26T04:35:22+00:00",
+  "n_candidates": 19,
   "candidates": [
     {
       "id": "psa-20-1-001",
@@ -257,6 +257,36 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-20-6-018",
+      "verse": 6,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.76,
+      "source_name": "Torrey: Anointing of the Holy Spirit (+2 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Anointing of the Holy Spirit, Heaven, Heaven. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 3 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-20-2-019",
+      "verse": 2,
+      "kind": "topic-torrey",
+      "anchor": "",
+      "confidence": 0.69,
+      "source_name": "Torrey: Holy of Holies (+1 more)",
+      "source_attribution": "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: Holy of Holies, Warfare of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "TorreyTopicalDetector",
+      "reviewer_notes": "Torrey's New Topical lists 2 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"
     }
   ]
