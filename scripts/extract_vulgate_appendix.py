@@ -89,13 +89,24 @@ _JOIN_PREV: dict[str, dict[int, set[int]]] = {
     "2es": {10: {60}, 16: {19}},
 }
 
-# Multi-shift / name-list chapters whose verse-perfect alignment cannot be certified
-# without guessing (multiple internal split+merge points through transliterated
-# name lists). Their Latin is OMITTED (never shipped misaligned) and surfaced for a
-# future dedicated versification pass — the no-guessing / no-fabrication carve-out.
+# Chapters whose verse-perfect alignment cannot be certified without guessing. Their
+# Latin is OMITTED (never shipped misaligned) and surfaced for a future dedicated
+# versification pass — the no-guessing / no-fabrication carve-out.
+#
+# RE-VERIFIED 2026-05-26 against the real Latin↔KJV text (deferral CONFIRMED — two
+# distinct, genuine un-alignable structures, neither expressible by `_JOIN_PREV`
+# without re-segmenting scripture by hand):
+#   * 2es 14 — SUB-VERSE splits: Latin v2 ("vox … de rubo … Esdra Esdra / Ecce ego
+#     Domine / Et dixit ad me") spans the tail of KJV 1, all of KJV 2, and the head of
+#     KJV 3; v42|43 is likewise mid-Latin-verse. Aligning would require cutting a single
+#     Latin verse mid-text → a synthetic verse division present in no source.
+#   * 1es 5, 1es 8 — NAME-LIST grouping divergence: the census/genealogy family lists
+#     pack a different number of families per verse than the KJV, and the transliterated
+#     names (Phœmo, Choraba, Aderectis, Azoroc, …) don't match KJV equivalents, so the
+#     internal split points can't be determined without guessing which group = which verse.
 _DEFER_CHAPTERS: dict[str, set[int]] = {
-    "1es": {5, 8},  # census list (ch5) + commission/genealogy (ch8): several internal shifts
-    "2es": {14},  # burning-bush opening split + mid-chapter shift + trailing gap
+    "1es": {5, 8},  # census list (ch5) + commission/genealogy (ch8): name-list grouping divergence
+    "2es": {14},  # burning-bush narrative: sub-verse split at the opening (vv1-3) + at vv42-43
 }
 
 

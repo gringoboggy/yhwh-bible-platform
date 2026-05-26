@@ -1475,6 +1475,10 @@ def vulgate_to_kjv(code: str, ch: int, vs: int) -> Coord | None:
     if code in _VULGATE_OMIT:
         return None  # different recension — no KJV-skeleton correspondence (documented)
     if code == "psa":
+        # B1.6: the `or` is correct because _VULGATE_PSALM_FIXES values are always real
+        # coords (typed tuple[int, int], never None/omit) — a present fix is always
+        # truthy and wins over the shared _psalm_map. If an omit (None) fix is ever
+        # needed, switch to an explicit `(ch, vs) in _VULGATE_PSALM_FIXES` membership test.
         mapped = _VULGATE_PSALM_FIXES.get((ch, vs)) or _psalm_map().get((ch, vs))
     elif code in _VULGATE_SEGMENTS:
         mapped = _apply_segments(code, _VULGATE_SEGMENTS[code], ch, vs)

@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-05-26 (cont.) — Post-de-dup cleanup: Phase-E deferral re-verified, audit B1.6 note, F1 junk untracked
+
+Small follow-on cleanup after the B1.8/B1.9 de-dup, before an in-depth audit pass (user-directed two-cycle wrap toward a pre-TIER-3 /clear).
+
+- **Phase-E deferred chapters RE-VERIFIED against the real Latin↔KJV text (per the re-verify-conservative-NO-GO rule) — deferral CONFIRMED correct.** Two distinct, genuine un-alignable structures, neither expressible without re-segmenting scripture by hand: **2es 14** — SUB-VERSE splits (Latin v2 "vox … de rubo … Esdra Esdra / Ecce ego Domine / Et dixit ad me" spans the tail of KJV 1, all of KJV 2, the head of KJV 3; v42|43 likewise mid-Latin-verse); **1es 5 / 1es 8** — NAME-LIST grouping divergence (the census/genealogy family lists pack a different number of families per verse than the KJV, and the transliterated names — Phœmo, Choraba, Aderectis, Azoroc … — don't match KJV equivalents, so split points can't be found without guessing). Recorded the per-chapter analysis in `scripts/extract_vulgate_appendix.py` `_DEFER_CHAPTERS` so a future session doesn't re-derive it. `_DEFER_CHAPTERS` value unchanged → extraction byte-identical.
+- **B1.6 (audit) — documented, no behavior change.** `versification.vulgate_to_kjv`'s psalm-fix `or` idiom is correct because `_VULGATE_PSALM_FIXES` values are always real coords (typed `tuple[int, int]`, never None/omit); added a comment noting the invariant + the `in`-membership switch to make if an omit fix is ever needed.
+- **F1 (audit) — untracked + gitignored `content/.refactor_log.yaml`.** A write-only `refactor.py` append-log nothing reads for logic; a 2026-05-10 test run that didn't override `refactor_log_path` had polluted it with 470 byte-identical `comm-test→comm-new` entries (5,171 lines, referencing non-existent `demo.yaml` files + kinds absent from kinds.yaml). `git rm --cached` + `.gitignore` entry + truncated the local copy to an `entries: []` stub; `refactor.py` recreates it on next real use.
+- **Verified:** `test_refactor` 29 green · `ci.py --no-tests` CLEAN (ruff format ✓ · `lint_rules` 16/0/0 — the removed log was not in REPO_MAP · mypy ✓ · vulture ✓ · pip-audit ✓). No corpus/base-HTML/build change.
+
+---
+
 ## 2026-05-26 (cont.) — De-dup B1.8 + B1.9: shared bases for the AI clients + the six commentary loaders
 
 Closed the two `scripts/core/sources_*` near-clone de-dups the god-module splits had deferred as "behavior-changing." Both are behavior-PRESERVING refactors done via TDD (superpowers): a characterization test pinning current behavior FIRST (green on the pre-refactor code), then consolidate, then prove still-green. Every public name, signature, dataclass field, error message, and default is unchanged; callers + the `sources` hub are untouched.
