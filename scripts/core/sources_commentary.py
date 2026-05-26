@@ -7,7 +7,13 @@ Catholic, Reformation, rabbinic), each a frozen dataclass entry plus a lazy
 loader indexing by (book, chapter, verse) and by author, with their singleton
 accessors.
 
-Extracted verbatim from ``sources.py`` (module split 2026-05-26).
+Extracted verbatim from ``sources.py`` (module split 2026-05-26). The six
+loaders — which differed only in their JSON path, their "person" field name
+(``father`` vs ``commentator``), the missing-cache message, and the
+``by_father``/``by_commentator`` accessor name — share one
+:class:`_CommentaryCorpus` base (de-dup B1.9, 2026-05-26). The six frozen
+dataclasses are kept distinct so each tradition keeps its own field name,
+provenance docstring, and ``isinstance`` identity.
 """
 
 from __future__ import annotations
@@ -15,6 +21,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from functools import lru_cache
+from pathlib import Path
 
 from .sources_base import SourceMissingError, _SOURCES, _normalize_book_code
 
@@ -49,69 +56,6 @@ class PatristicCommentary:
     attribution: str
 
 
-class PatristicCommentaries:
-    """Lazy loader for the Patristic commentary corpus. Cached on
-    first read. Raises ``SourceMissingError`` if the JSON cache file
-    is absent.
-
-    Two access patterns:
-      * ``for_verse(book, chapter, verse)`` — every commentary entry
-        targeting one specific verse (used by the detector).
-      * ``by_father(name)`` — every entry by a given Church Father
-        (e.g. ``"Augustine"``), for audit / coverage UIs.
-    """
-
-    PATH = _SOURCES / "patristic_commentaries.json"
-
-    def __init__(self) -> None:
-        if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Patristic commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with γ.3 (2026-05-11) — restore from git."
-            )
-        with self.PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-        # Index by (book, chapter, verse) for O(1) per-verse lookup.
-        self._by_verse: dict[tuple[str, int, int], list[PatristicCommentary]] = {}
-        # Also index by father name for the audit case.
-        self._by_father: dict[str, list[PatristicCommentary]] = {}
-        for entry in data.get("entries", []):
-            try:
-                pc = PatristicCommentary(
-                    book=str(entry["book"]),
-                    chapter=int(entry["chapter"]),
-                    verse=int(entry["verse"]),
-                    father=str(entry["father"]),
-                    work=str(entry.get("work", "")),
-                    year=int(entry.get("year", 0)),
-                    summary=str(entry["summary"]),
-                    attribution=str(entry["attribution"]),
-                )
-            except (KeyError, ValueError, TypeError):
-                # Malformed entry — skip silently. The schema is
-                # documented in the JSON's _meta block; this is
-                # defensive against hand-edit typos.
-                continue
-            key = (_normalize_book_code(pc.book), pc.chapter, pc.verse)
-            self._by_verse.setdefault(key, []).append(pc)
-            self._by_father.setdefault(pc.father, []).append(pc)
-
-    def __len__(self) -> int:
-        return sum(len(v) for v in self._by_verse.values())
-
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[PatristicCommentary]:
-        """Return every commentary entry attached to a specific verse,
-        in insertion order (which the JSON keeps as chronological per
-        father since most Fathers wrote sequentially). Returns an
-        empty list for verses with no commentary."""
-        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
-
-    def by_father(self, name: str) -> list[PatristicCommentary]:
-        """Return every entry by a given Church Father (case-sensitive).
-        Useful for coverage audits or a future per-Father console."""
-        return list(self._by_father.get(name, ()))
-
-
 # ----------------------------------------------------------------------
 # Ethiopian commentary corpus (γ.4 — 2026-05-11)
 # ----------------------------------------------------------------------
@@ -142,64 +86,6 @@ class EthiopianCommentary:
     year: int
     summary: str
     attribution: str
-
-
-class EthiopianCommentaries:
-    """Lazy loader for the Ethiopian commentary corpus. Cached on
-    first read. Raises ``SourceMissingError`` if the JSON cache file
-    is absent.
-
-    Two access patterns mirror `PatristicCommentaries`:
-      * ``for_verse(book, chapter, verse)`` — every entry attached to
-        the verse (used by the detector).
-      * ``by_father(name)`` — every entry by a given source (e.g.
-        ``"Ephrem the Syrian"``), for audit / coverage UIs.
-    """
-
-    PATH = _SOURCES / "ethiopian_commentaries.json"
-
-    def __init__(self) -> None:
-        if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Ethiopian commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with γ.4 (2026-05-11) — restore from git."
-            )
-        with self.PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-        self._by_verse: dict[tuple[str, int, int], list[EthiopianCommentary]] = {}
-        self._by_father: dict[str, list[EthiopianCommentary]] = {}
-        for entry in data.get("entries", []):
-            try:
-                ec = EthiopianCommentary(
-                    book=str(entry["book"]),
-                    chapter=int(entry["chapter"]),
-                    verse=int(entry["verse"]),
-                    father=str(entry["father"]),
-                    work=str(entry.get("work", "")),
-                    year=int(entry.get("year", 0)),
-                    summary=str(entry["summary"]),
-                    attribution=str(entry["attribution"]),
-                )
-            except (KeyError, ValueError, TypeError):
-                continue
-            key = (_normalize_book_code(ec.book), ec.chapter, ec.verse)
-            self._by_verse.setdefault(key, []).append(ec)
-            self._by_father.setdefault(ec.father, []).append(ec)
-
-    def __len__(self) -> int:
-        return sum(len(v) for v in self._by_verse.values())
-
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[EthiopianCommentary]:
-        """Return every entry attached to a specific verse, in insertion
-        order. Empty list when nothing matches."""
-        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
-
-    def by_father(self, name: str) -> list[EthiopianCommentary]:
-        """Return every entry by a given source (case-sensitive). The
-        'father' field is sometimes a tradition rather than a person
-        (e.g. '1 Enoch (Ethiopian tradition)') — that's deliberate;
-        the audit UI groups by it identically."""
-        return list(self._by_father.get(name, ()))
 
 
 # ----------------------------------------------------------------------
@@ -234,61 +120,6 @@ class ProtestantCommentary:
     year: int
     summary: str
     attribution: str
-
-
-class ProtestantCommentaries:
-    """Lazy loader for the Protestant commentary corpus. Cached on
-    first read. Raises ``SourceMissingError`` if the JSON cache file
-    is absent.
-
-    Two access patterns mirror the γ.3/γ.4 loaders:
-      * ``for_verse(book, chapter, verse)`` — every entry attached to
-        the verse (used by the detector).
-      * ``by_commentator(name)`` — every entry by a given expositor
-        (e.g. ``"Matthew Henry"``), for audit / coverage UIs.
-    """
-
-    PATH = _SOURCES / "protestant_commentaries.json"
-
-    def __init__(self) -> None:
-        if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Protestant commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with χ.2 (2026-05-12) — restore from git."
-            )
-        with self.PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-        self._by_verse: dict[tuple[str, int, int], list[ProtestantCommentary]] = {}
-        self._by_commentator: dict[str, list[ProtestantCommentary]] = {}
-        for entry in data.get("entries", []):
-            try:
-                pc = ProtestantCommentary(
-                    book=str(entry["book"]),
-                    chapter=int(entry["chapter"]),
-                    verse=int(entry["verse"]),
-                    commentator=str(entry["commentator"]),
-                    work=str(entry.get("work", "")),
-                    year=int(entry.get("year", 0)),
-                    summary=str(entry["summary"]),
-                    attribution=str(entry["attribution"]),
-                )
-            except (KeyError, ValueError, TypeError):
-                continue
-            key = (_normalize_book_code(pc.book), pc.chapter, pc.verse)
-            self._by_verse.setdefault(key, []).append(pc)
-            self._by_commentator.setdefault(pc.commentator, []).append(pc)
-
-    def __len__(self) -> int:
-        return sum(len(v) for v in self._by_verse.values())
-
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[ProtestantCommentary]:
-        """Return every entry attached to a specific verse, in insertion
-        order. Empty list when nothing matches."""
-        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
-
-    def by_commentator(self, name: str) -> list[ProtestantCommentary]:
-        """Return every entry by a given expositor (case-sensitive)."""
-        return list(self._by_commentator.get(name, ()))
 
 
 # ----------------------------------------------------------------------
@@ -328,63 +159,6 @@ class CatholicCommentary:
     year: int
     summary: str
     attribution: str
-
-
-class CatholicCommentaries:
-    """Lazy loader for the Catholic (Catena Aurea) commentary corpus.
-    Cached on first read. Raises ``SourceMissingError`` if the JSON
-    cache file is absent.
-
-    Two access patterns mirror γ.3/γ.4:
-      * ``for_verse(book, chapter, verse)`` — every entry attached to
-        the verse (used by the detector).
-      * ``by_father(name)`` — every entry by a given Church Father as
-        surfaced via the Catena (e.g. ``"Augustine"``), for audit /
-        coverage UIs.
-    """
-
-    PATH = _SOURCES / "catholic_commentaries.json"
-
-    def __init__(self) -> None:
-        if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Catholic commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with χ.4 (2026-05-12) — restore from git."
-            )
-        with self.PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-        self._by_verse: dict[tuple[str, int, int], list[CatholicCommentary]] = {}
-        self._by_father: dict[str, list[CatholicCommentary]] = {}
-        for entry in data.get("entries", []):
-            try:
-                cc = CatholicCommentary(
-                    book=str(entry["book"]),
-                    chapter=int(entry["chapter"]),
-                    verse=int(entry["verse"]),
-                    father=str(entry["father"]),
-                    work=str(entry.get("work", "")),
-                    year=int(entry.get("year", 0)),
-                    summary=str(entry["summary"]),
-                    attribution=str(entry["attribution"]),
-                )
-            except (KeyError, ValueError, TypeError):
-                continue
-            key = (_normalize_book_code(cc.book), cc.chapter, cc.verse)
-            self._by_verse.setdefault(key, []).append(cc)
-            self._by_father.setdefault(cc.father, []).append(cc)
-
-    def __len__(self) -> int:
-        return sum(len(v) for v in self._by_verse.values())
-
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[CatholicCommentary]:
-        """Return every entry attached to a specific verse, in insertion
-        order. Empty list when nothing matches."""
-        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
-
-    def by_father(self, name: str) -> list[CatholicCommentary]:
-        """Return every entry by a given Church Father (case-sensitive),
-        as surfaced through Aquinas's Catena Aurea."""
-        return list(self._by_father.get(name, ()))
 
 
 # ----------------------------------------------------------------------
@@ -432,61 +206,6 @@ class ReformationCommentary:
     attribution: str
 
 
-class ReformationCommentaries:
-    """Lazy loader for the Reformation commentary corpus. Cached on
-    first read. Raises ``SourceMissingError`` if the JSON cache file
-    is absent.
-
-    Two access patterns mirror χ.2 ProtestantCommentaries:
-      * ``for_verse(book, chapter, verse)`` — every entry attached to
-        the verse (used by the detector).
-      * ``by_commentator(name)`` — every entry by a given Reformer
-        (e.g. ``"John Calvin"``), for audit / coverage UIs.
-    """
-
-    PATH = _SOURCES / "reformation_commentaries.json"
-
-    def __init__(self) -> None:
-        if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Reformation commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with χ.3 (2026-05-12) — restore from git."
-            )
-        with self.PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-        self._by_verse: dict[tuple[str, int, int], list[ReformationCommentary]] = {}
-        self._by_commentator: dict[str, list[ReformationCommentary]] = {}
-        for entry in data.get("entries", []):
-            try:
-                rc = ReformationCommentary(
-                    book=str(entry["book"]),
-                    chapter=int(entry["chapter"]),
-                    verse=int(entry["verse"]),
-                    commentator=str(entry["commentator"]),
-                    work=str(entry.get("work", "")),
-                    year=int(entry.get("year", 0)),
-                    summary=str(entry["summary"]),
-                    attribution=str(entry["attribution"]),
-                )
-            except (KeyError, ValueError, TypeError):
-                continue
-            key = (_normalize_book_code(rc.book), rc.chapter, rc.verse)
-            self._by_verse.setdefault(key, []).append(rc)
-            self._by_commentator.setdefault(rc.commentator, []).append(rc)
-
-    def __len__(self) -> int:
-        return sum(len(v) for v in self._by_verse.values())
-
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[ReformationCommentary]:
-        """Return every entry attached to a specific verse, in insertion
-        order. Empty list when nothing matches."""
-        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
-
-    def by_commentator(self, name: str) -> list[ReformationCommentary]:
-        """Return every entry by a given Reformer (case-sensitive)."""
-        return list(self._by_commentator.get(name, ()))
-
-
 # ----------------------------------------------------------------------
 # Rabbinic commentary corpus (χ.5 — 2026-05-12)
 # ----------------------------------------------------------------------
@@ -527,58 +246,191 @@ class RabbinicCommentary:
     attribution: str
 
 
-class RabbinicCommentaries:
-    """Lazy loader for the rabbinic commentary corpus. Cached on first
-    read. Raises ``SourceMissingError`` if the JSON cache file is absent.
+# ----------------------------------------------------------------------
+# Shared loader (de-dup B1.9 — 2026-05-26)
+# ----------------------------------------------------------------------
 
-    Two access patterns mirror χ.2 / χ.3:
-      * ``for_verse(book, chapter, verse)`` — every entry attached to
-        the verse (used by the detector).
-      * ``by_commentator(name)`` — every entry by a given exegete
-        (e.g. ``"Rashi"``), for audit / coverage UIs.
+
+class _CommentaryCorpus:
+    """Lazy loader shared by the six verse-keyed commentary corpora.
+
+    Cached on first read by its singleton accessor. Raises
+    ``SourceMissingError`` if the JSON cache file is absent — the
+    graceful-degrade contract ``prospect.py``'s detector instantiation
+    relies on.
+
+    Each subclass declares four class attributes:
+
+      * ``ENTRY``        — the frozen dataclass for one entry.
+      * ``PATH``         — the JSON cache file under ``content/sources/``.
+      * ``PERSON_FIELD`` — ``"father"`` or ``"commentator"``; the one
+                           field whose name differs between traditions.
+      * ``_MISSING``     — a ``str.format(path=...)`` template for the
+                           SourceMissingError raised when ``PATH`` is absent.
+
+    and expose the tradition-appropriate ``by_father`` / ``by_commentator``
+    delegating to :meth:`by_person`. Two access patterns are shared:
+
+      * :meth:`for_verse` — every entry attached to one verse (the detector
+        path).
+      * the by-person accessor — every entry by a given author (audit /
+        coverage UIs).
+
+    Extracted from six ~90-line near-clones that differed only in the four
+    attributes above.
     """
 
-    PATH = _SOURCES / "rabbinic_commentaries.json"
+    ENTRY: type
+    PATH: Path
+    PERSON_FIELD: str
+    _MISSING: str
 
     def __init__(self) -> None:
         if not self.PATH.is_file():
-            raise SourceMissingError(
-                f"Rabbinic commentaries cache not present at {self.PATH}. "
-                "The seed corpus shipped with χ.5 (2026-05-12) — restore from git."
-            )
+            raise SourceMissingError(self._MISSING.format(path=self.PATH))
         with self.PATH.open(encoding="utf-8") as f:
             data = json.load(f)
-        self._by_verse: dict[tuple[str, int, int], list[RabbinicCommentary]] = {}
-        self._by_commentator: dict[str, list[RabbinicCommentary]] = {}
+        pf = self.PERSON_FIELD
+        # Index by (book, chapter, verse) for O(1) per-verse lookup, and
+        # by author name for the audit case. Insertion order is preserved
+        # (the JSON keeps entries chronological per author).
+        self._by_verse: dict[tuple[str, int, int], list] = {}
+        self._by_person: dict[str, list] = {}
         for entry in data.get("entries", []):
             try:
-                rb = RabbinicCommentary(
+                obj = self.ENTRY(
                     book=str(entry["book"]),
                     chapter=int(entry["chapter"]),
                     verse=int(entry["verse"]),
-                    commentator=str(entry["commentator"]),
                     work=str(entry.get("work", "")),
                     year=int(entry.get("year", 0)),
                     summary=str(entry["summary"]),
                     attribution=str(entry["attribution"]),
+                    **{pf: str(entry[pf])},
                 )
             except (KeyError, ValueError, TypeError):
+                # Malformed entry — skip silently. The schema is documented
+                # in the JSON's _meta block; this is defensive against
+                # hand-edit typos.
                 continue
-            key = (_normalize_book_code(rb.book), rb.chapter, rb.verse)
-            self._by_verse.setdefault(key, []).append(rb)
-            self._by_commentator.setdefault(rb.commentator, []).append(rb)
+            key = (_normalize_book_code(obj.book), obj.chapter, obj.verse)
+            self._by_verse.setdefault(key, []).append(obj)
+            self._by_person.setdefault(getattr(obj, pf), []).append(obj)
 
     def __len__(self) -> int:
         return sum(len(v) for v in self._by_verse.values())
 
-    def for_verse(self, book: str, chapter: int, verse: int) -> list[RabbinicCommentary]:
-        """Return every entry attached to a specific verse, in insertion
-        order. Empty list when nothing matches."""
+    def for_verse(self, book: str, chapter: int, verse: int) -> list:
+        """Return every commentary entry attached to a specific verse, in
+        insertion order. Empty list when nothing matches."""
         return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
+
+    def by_person(self, name: str) -> list:
+        """Return every entry by a given author (case-sensitive). Subclasses
+        expose this under the tradition-appropriate name (``by_father`` for
+        the Father corpora, ``by_commentator`` for the rest)."""
+        return list(self._by_person.get(name, ()))
+
+
+class PatristicCommentaries(_CommentaryCorpus):
+    """Patristic commentary corpus (γ.3 — 2026-05-11)."""
+
+    ENTRY = PatristicCommentary
+    PATH = _SOURCES / "patristic_commentaries.json"
+    PERSON_FIELD = "father"
+    _MISSING = (
+        "Patristic commentaries cache not present at {path}. "
+        "The seed corpus shipped with γ.3 (2026-05-11) — restore from git."
+    )
+
+    def by_father(self, name: str) -> list[PatristicCommentary]:
+        """Return every entry by a given Church Father (case-sensitive).
+        Useful for coverage audits or a future per-Father console."""
+        return self.by_person(name)
+
+
+class EthiopianCommentaries(_CommentaryCorpus):
+    """Ethiopian Tewahedo commentary corpus (γ.4 — 2026-05-11)."""
+
+    ENTRY = EthiopianCommentary
+    PATH = _SOURCES / "ethiopian_commentaries.json"
+    PERSON_FIELD = "father"
+    _MISSING = (
+        "Ethiopian commentaries cache not present at {path}. "
+        "The seed corpus shipped with γ.4 (2026-05-11) — restore from git."
+    )
+
+    def by_father(self, name: str) -> list[EthiopianCommentary]:
+        """Return every entry by a given source (case-sensitive). The
+        'father' field is sometimes a tradition rather than a person
+        (e.g. '1 Enoch (Ethiopian tradition)') — that's deliberate; the
+        audit UI groups by it identically."""
+        return self.by_person(name)
+
+
+class ProtestantCommentaries(_CommentaryCorpus):
+    """Post-Reformation Protestant commentary corpus (χ.2 — 2026-05-12)."""
+
+    ENTRY = ProtestantCommentary
+    PATH = _SOURCES / "protestant_commentaries.json"
+    PERSON_FIELD = "commentator"
+    _MISSING = (
+        "Protestant commentaries cache not present at {path}. "
+        "The seed corpus shipped with χ.2 (2026-05-12) — restore from git."
+    )
+
+    def by_commentator(self, name: str) -> list[ProtestantCommentary]:
+        """Return every entry by a given expositor (case-sensitive)."""
+        return self.by_person(name)
+
+
+class CatholicCommentaries(_CommentaryCorpus):
+    """Catholic (Catena Aurea) commentary corpus (χ.4 — 2026-05-12)."""
+
+    ENTRY = CatholicCommentary
+    PATH = _SOURCES / "catholic_commentaries.json"
+    PERSON_FIELD = "father"
+    _MISSING = (
+        "Catholic commentaries cache not present at {path}. "
+        "The seed corpus shipped with χ.4 (2026-05-12) — restore from git."
+    )
+
+    def by_father(self, name: str) -> list[CatholicCommentary]:
+        """Return every entry by a given Church Father (case-sensitive),
+        as surfaced through Aquinas's Catena Aurea."""
+        return self.by_person(name)
+
+
+class ReformationCommentaries(_CommentaryCorpus):
+    """16th c. magisterial Reformation commentary corpus (χ.3 — 2026-05-12)."""
+
+    ENTRY = ReformationCommentary
+    PATH = _SOURCES / "reformation_commentaries.json"
+    PERSON_FIELD = "commentator"
+    _MISSING = (
+        "Reformation commentaries cache not present at {path}. "
+        "The seed corpus shipped with χ.3 (2026-05-12) — restore from git."
+    )
+
+    def by_commentator(self, name: str) -> list[ReformationCommentary]:
+        """Return every entry by a given Reformer (case-sensitive)."""
+        return self.by_person(name)
+
+
+class RabbinicCommentaries(_CommentaryCorpus):
+    """Rabbinic-tradition commentary corpus (χ.5 — 2026-05-12)."""
+
+    ENTRY = RabbinicCommentary
+    PATH = _SOURCES / "rabbinic_commentaries.json"
+    PERSON_FIELD = "commentator"
+    _MISSING = (
+        "Rabbinic commentaries cache not present at {path}. "
+        "The seed corpus shipped with χ.5 (2026-05-12) — restore from git."
+    )
 
     def by_commentator(self, name: str) -> list[RabbinicCommentary]:
         """Return every entry by a given exegete (case-sensitive)."""
-        return list(self._by_commentator.get(name, ()))
+        return self.by_person(name)
 
 
 @lru_cache(maxsize=1)

@@ -9,7 +9,12 @@ schema constants live in ``sources_ai_prompts``; the construction contract
 (``SourceMissingError`` when neither SDK+key nor an injected
 ``completion_fn`` is available) comes from ``sources_base``.
 
-Extracted verbatim from ``sources.py`` (module split 2026-05-26).
+Extracted verbatim from ``sources.py`` (module split 2026-05-26). The two
+clients are siblings — identical SDK plumbing, caching discipline, telemetry
+shape, and defensive-degradation contract, differing only in the default
+model, the cache TTL, the output schema, the ``attribution`` text, and the
+public per-purpose method (``propose_xrefs`` vs ``draft_note``). That shared
+plumbing now lives in :class:`_AnthropicClient` (de-dup B1.8, 2026-05-26).
 """
 
 from __future__ import annotations
@@ -33,7 +38,7 @@ from .sources_ai_prompts import (
 
 
 # ----------------------------------------------------------------------
-# Anthropic-backed thematic xref client (Phase χ-AI-xrefs)
+# Shared SDK plumbing (de-dup B1.8 — 2026-05-26)
 # ----------------------------------------------------------------------
 
 
@@ -61,36 +66,44 @@ def _with_cache(inner: Callable, cache) -> Callable:
     return wrapped
 
 
-class AnthropicXrefClient:
-    """LLM-backed proposer for thematic / typological / idiomatic
-    cross-references. Phase χ-AI-xrefs (2026-05-08).
+class _AnthropicClient:
+    """Shared plumbing for the two Anthropic-backed source clients.
+
+    Subclasses declare three class attributes — ``DEFAULT_MODEL``,
+    ``_CACHE_TTL``, ``_OUTPUT_SCHEMA`` — and provide their own
+    ``attribution`` plus the public per-purpose method
+    (:meth:`AnthropicXrefClient.propose_xrefs` /
+    :meth:`AnthropicNoteClient.draft_note`).
 
     Construction contract mirrors the static-source loaders: raises
-    ``SourceMissingError`` when neither a real Anthropic SDK + API key
-    nor an injected ``completion_fn`` is available. ``prospect.py``'s
-    resilient detector instantiation catches that and skips the
-    detector silently — same graceful-degrade contract as
-    ``NaveTopical`` when its JSON cache is absent.
+    ``SourceMissingError`` when neither a real Anthropic SDK + API key nor
+    an injected ``completion_fn`` is available. ``prospect.py``'s resilient
+    detector instantiation catches that and skips the detector silently —
+    same graceful-degrade contract as ``NaveTopical`` when its JSON cache
+    is absent.
 
-    The injected ``completion_fn(system_prompt, user_message, *,
-    model)`` returns the parsed completion as a Python dict matching
-    the documented shape. Tests pass a stub fn so no real network
-    calls are made.
+    The injected ``completion_fn(system_prompt, user_message, *, model)``
+    returns the parsed completion as a Python dict matching the documented
+    shape. Tests pass a stub fn so no real network calls are made.
 
-    The default ``completion_fn`` uses the ``anthropic`` SDK with
-    prompt caching on the system prompt — repeated per-verse calls
-    only pay for the per-verse user message after the first call,
-    cutting cost roughly 10×.
+    The default ``completion_fn`` uses the ``anthropic`` SDK with prompt
+    caching on the system prompt — repeated per-verse calls only pay for
+    the per-verse user message after the first call, cutting cost roughly
+    10×.
     """
+
+    DEFAULT_MODEL: str
+    _CACHE_TTL: str
+    _OUTPUT_SCHEMA: dict
 
     def __init__(
         self,
         *,
-        model: str = DEFAULT_AI_XREF_MODEL,
+        model: str | None = None,
         completion_fn: Callable | None = None,
         cache=None,
     ) -> None:
-        self.model = model
+        self.model = self.DEFAULT_MODEL if model is None else model
         if completion_fn is not None:
             self._completion_fn = completion_fn
         else:
@@ -131,16 +144,113 @@ class AnthropicXrefClient:
         if cache is not None:
             self._completion_fn = _with_cache(self._completion_fn, cache)
 
-    @property
-    def attribution(self) -> str:
-        return f"Claude AI ({self.model}, Anthropic, 2026); reviewer-curated."
-
     def _valid_codes(self) -> set[str]:
         if self._valid_book_codes is None:
             from . import config as _cfg
 
             self._valid_book_codes = set(_cfg.books_by_code().keys())
         return self._valid_book_codes
+
+    def _default_completion_fn(
+        self,
+        system_prompt: str,
+        user_message: str,
+        *,
+        model: str,
+    ) -> dict:
+        """Real SDK call. Only reached when the constructor confirmed the
+        SDK + API key are available.
+
+        Uses three Anthropic SDK features for cost + correctness:
+
+        - **Prompt caching** (``self._CACHE_TTL`` TTL) on the system prompt
+          so per-verse calls only pay for the user message after the first
+          call. The 4096-token-minimum-prefix invariant for Haiku 4.5 is
+          satisfied by the padded system prompt.
+        - **Structured output** via ``output_config.format`` with the
+          subclass's ``self._OUTPUT_SCHEMA``. The model is forced to return
+          valid JSON of the documented shape — no regex-strip-fences hack,
+          no json.JSONDecodeError on stray prose.
+        - **Cached SDK client** at module level (see ``_anthropic_client()``
+          below) so the 31K-call full pass doesn't reconstruct the client
+          per verse.
+
+        Populates ``self.last_usage`` so the at-scale driver can verify
+        cache hits and report cost telemetry before committing to a long
+        paid run."""
+        client = _anthropic_client()
+        response = client.messages.create(
+            model=model,
+            max_tokens=2048,
+            system=[
+                {
+                    "type": "text",
+                    "text": system_prompt,
+                    "cache_control": {
+                        "type": "ephemeral",
+                        "ttl": self._CACHE_TTL,
+                    },
+                }
+            ],
+            messages=[{"role": "user", "content": user_message}],
+            output_config={
+                "format": {
+                    "type": "json_schema",
+                    "schema": self._OUTPUT_SCHEMA,
+                },
+            },
+        )
+        # Capture telemetry before parsing so cache-hit info survives
+        # even if the JSON parse fails downstream (it shouldn't — the
+        # schema enforces shape — but record it regardless).
+        usage = response.usage
+        self.last_usage = {
+            "input_tokens": getattr(usage, "input_tokens", 0),
+            "output_tokens": getattr(usage, "output_tokens", 0),
+            "cache_creation_input_tokens": getattr(
+                usage,
+                "cache_creation_input_tokens",
+                0,
+            ),
+            "cache_read_input_tokens": getattr(
+                usage,
+                "cache_read_input_tokens",
+                0,
+            ),
+            "request_id": getattr(response, "_request_id", None),
+        }
+        # output_config.format guarantees the first content block is
+        # text containing valid JSON matching the schema.
+        text = next(
+            (block.text for block in response.content if block.type == "text"),
+            "",
+        )
+        return json.loads(text)
+
+
+# ----------------------------------------------------------------------
+# Anthropic-backed thematic xref client (Phase χ-AI-xrefs — 2026-05-08)
+# ----------------------------------------------------------------------
+
+
+class AnthropicXrefClient(_AnthropicClient):
+    """LLM-backed proposer for thematic / typological / idiomatic
+    cross-references. Phase χ-AI-xrefs (2026-05-08).
+
+    Sibling of :class:`AnthropicNoteClient`; the shared SDK plumbing,
+    construction contract, cache TTL handling, telemetry shape, and
+    exception-handling contract live in :class:`_AnthropicClient`. This
+    class differs only in its default model, cache TTL, output schema,
+    ``attribution``, and the :meth:`propose_xrefs` public method.
+    """
+
+    DEFAULT_MODEL = DEFAULT_AI_XREF_MODEL
+    _CACHE_TTL = AI_XREF_CACHE_TTL
+    _OUTPUT_SCHEMA = AI_XREF_OUTPUT_SCHEMA
+
+    @property
+    def attribution(self) -> str:
+        return f"Claude AI ({self.model}, Anthropic, 2026); reviewer-curated."
 
     def propose_xrefs(
         self,
@@ -234,82 +344,6 @@ class AnthropicXrefClient:
             )
         return out
 
-    def _default_completion_fn(
-        self,
-        system_prompt: str,
-        user_message: str,
-        *,
-        model: str,
-    ) -> dict:
-        """Real SDK call. Only reached when the constructor confirmed
-        the SDK + API key are available.
-
-        Uses three Anthropic SDK features for cost + correctness:
-
-        - **Prompt caching with 1h TTL** on the system prompt so
-          per-verse calls only pay for the user message after the
-          first call. The 4096-token-minimum-prefix invariant for
-          Haiku 4.5 is satisfied by the padded system prompt above.
-        - **Structured output** via ``output_config.format`` with a
-          json_schema. The model is forced to return valid JSON of
-          the documented shape — no regex-strip-fences hack, no
-          json.JSONDecodeError on stray prose.
-        - **Cached SDK client** at module level (see
-          ``_anthropic_client()`` below) so the 31K-call full pass
-          doesn't reconstruct the client per verse.
-
-        Populates ``self.last_usage`` so the at-scale driver can
-        verify cache hits and report cost telemetry before
-        committing to a long paid run."""
-        client = _anthropic_client()
-        response = client.messages.create(
-            model=model,
-            max_tokens=2048,
-            system=[
-                {
-                    "type": "text",
-                    "text": system_prompt,
-                    "cache_control": {
-                        "type": "ephemeral",
-                        "ttl": AI_XREF_CACHE_TTL,
-                    },
-                }
-            ],
-            messages=[{"role": "user", "content": user_message}],
-            output_config={
-                "format": {
-                    "type": "json_schema",
-                    "schema": AI_XREF_OUTPUT_SCHEMA,
-                },
-            },
-        )
-        # Capture telemetry before parsing so cache-hit info survives
-        # even if the JSON parse fails downstream (it shouldn't —
-        # the schema enforces shape — but record it regardless).
-        usage = response.usage
-        self.last_usage = {
-            "input_tokens": getattr(usage, "input_tokens", 0),
-            "output_tokens": getattr(usage, "output_tokens", 0),
-            "cache_creation_input_tokens": getattr(
-                usage,
-                "cache_creation_input_tokens",
-                0,
-            ),
-            "cache_read_input_tokens": getattr(
-                usage,
-                "cache_read_input_tokens",
-                0,
-            ),
-            "request_id": getattr(response, "_request_id", None),
-        }
-        # output_config.format guarantees the first content block is
-        # text containing valid JSON matching the schema.
-        text = next(
-            (block.text for block in response.content if block.type == "text"),
-            "",
-        )
-        return json.loads(text)
-
 
 @lru_cache(maxsize=1)
 def _anthropic_client():
@@ -336,96 +370,33 @@ def anthropic_xref_client() -> AnthropicXrefClient:
 # ----------------------------------------------------------------------
 # AI-augmented note generator — Phase χ-AI-notes (2026-05-10)
 #
-# Sibling of AnthropicXrefClient. Same SDK plumbing, same caching
-# discipline, same defensive degradation contract. Different prompt
-# (proposes new note prose for a verse, not links between verses) and
-# different output schema.
+# Sibling of AnthropicXrefClient. Same SDK plumbing (shared via
+# _AnthropicClient), same caching discipline, same defensive degradation
+# contract. Different prompt (proposes new note prose for a verse, not
+# links between verses) and different output schema.
 #
 # See dev/SCOPE_2026-05-09-addendum-ai-notes.md for the full spec.
 # ----------------------------------------------------------------------
 
 
-class AnthropicNoteClient:
+class AnthropicNoteClient(_AnthropicClient):
     """LLM-backed first-draft note generator. Phase χ-AI-notes (2026-05-10).
 
-    Sibling of :class:`AnthropicXrefClient`. Same construction
-    contract: raises :class:`SourceMissingError` when neither a
-    real Anthropic SDK + API key nor an injected ``completion_fn``
-    is available. ``prospect.py``'s resilient detector
-    instantiation catches that and skips the detector silently —
-    same graceful-degrade contract as :class:`NaveTopical` when
-    its JSON cache is absent.
-
-    The injected ``completion_fn(system_prompt, user_message, *,
-    model)`` returns the parsed completion as a Python dict
-    matching the documented shape. Tests pass a stub fn so no
-    real network calls are made.
-
-    The default ``completion_fn`` uses the ``anthropic`` SDK with
-    prompt caching on the system prompt — repeated per-verse calls
-    only pay for the per-verse user message after the first call,
-    cutting cost roughly 10×. Distinct from
-    :class:`AnthropicXrefClient` only in prompt + schema; the
-    SDK plumbing, cache TTL, telemetry shape, and exception-
-    handling contract are identical.
+    Sibling of :class:`AnthropicXrefClient`; the shared SDK plumbing,
+    construction contract, cache TTL handling, telemetry shape, and
+    exception-handling contract live in :class:`_AnthropicClient`. This
+    class differs only in its default model, cache TTL, output schema,
+    ``attribution`` (which carries the AI-generated/human-reviewed
+    disclosure), and the :meth:`draft_note` public method.
     """
 
-    def __init__(
-        self,
-        *,
-        model: str = DEFAULT_AI_NOTE_MODEL,
-        completion_fn: Callable | None = None,
-        cache=None,
-    ) -> None:
-        self.model = model
-        if completion_fn is not None:
-            self._completion_fn = completion_fn
-        else:
-            # Validate the real-SDK preconditions before locking in the
-            # default fn — fail at construction time, not on first call.
-            if not os.environ.get("ANTHROPIC_API_KEY"):
-                raise SourceMissingError(
-                    "ANTHROPIC_API_KEY environment variable not set. "
-                    "Set it (export ANTHROPIC_API_KEY=...) or pass an "
-                    "injected completion_fn."
-                )
-            try:
-                import anthropic  # noqa: F401
-            except ImportError as e:
-                raise SourceMissingError(
-                    "The 'anthropic' Python SDK is not installed. "
-                    "Install it (pip install anthropic) or pass an "
-                    "injected completion_fn."
-                ) from e
-            self._completion_fn = self._default_completion_fn
-
-        # Validation set: only book codes the platform actually has are
-        # accepted from the model. Built lazily because importing
-        # config at module-load time would be heavier than necessary.
-        self._valid_book_codes: set[str] | None = None
-
-        # Telemetry from the most recent _default_completion_fn call.
-        # Stub completion_fns leave this as None; the real SDK path
-        # populates it so the at-scale driver can verify cache hits
-        # before paying for a full run. Same shape as
-        # AnthropicXrefClient.last_usage.
-        self.last_usage: dict | None = None
-
-        # Opt-in response cache (at-scale --cache). Wrap last so it decorates
-        # whichever completion_fn was selected above.
-        if cache is not None:
-            self._completion_fn = _with_cache(self._completion_fn, cache)
+    DEFAULT_MODEL = DEFAULT_AI_NOTE_MODEL
+    _CACHE_TTL = AI_NOTE_CACHE_TTL
+    _OUTPUT_SCHEMA = AI_NOTE_OUTPUT_SCHEMA
 
     @property
     def attribution(self) -> str:
         return f"Claude AI ({self.model}, Anthropic, 2026); reviewer-curated. AI-generated first draft, edited and approved by a human reviewer before publication."
-
-    def _valid_codes(self) -> set[str]:
-        if self._valid_book_codes is None:
-            from . import config as _cfg
-
-            self._valid_book_codes = set(_cfg.books_by_code().keys())
-        return self._valid_book_codes
 
     def draft_note(
         self,
@@ -541,78 +512,6 @@ class AnthropicNoteClient:
             "sources_consulted": sources_consulted,
             "reviewer_flags": reviewer_flags,
         }
-
-    def _default_completion_fn(
-        self,
-        system_prompt: str,
-        user_message: str,
-        *,
-        model: str,
-    ) -> dict:
-        """Real SDK call. Only reached when the constructor confirmed
-        the SDK + API key are available.
-
-        Mirrors :meth:`AnthropicXrefClient._default_completion_fn`:
-
-        - **Prompt caching with 1h TTL** on the system prompt so
-          per-verse calls only pay for the user message after the
-          first call. The 4096-token-minimum-prefix invariant for
-          Haiku 4.5 is satisfied by the padded system prompt above.
-        - **Structured output** via ``output_config.format`` with a
-          json_schema. The model is forced to return valid JSON of
-          the documented shape — no regex-strip-fences hack, no
-          json.JSONDecodeError on stray prose.
-        - **Cached SDK client** at module level (see
-          ``_anthropic_client()``).
-
-        Populates ``self.last_usage`` so the at-scale driver can
-        verify cache hits and report cost telemetry before
-        committing to a long paid run."""
-        client = _anthropic_client()
-        response = client.messages.create(
-            model=model,
-            max_tokens=2048,
-            system=[
-                {
-                    "type": "text",
-                    "text": system_prompt,
-                    "cache_control": {
-                        "type": "ephemeral",
-                        "ttl": AI_NOTE_CACHE_TTL,
-                    },
-                }
-            ],
-            messages=[{"role": "user", "content": user_message}],
-            output_config={
-                "format": {
-                    "type": "json_schema",
-                    "schema": AI_NOTE_OUTPUT_SCHEMA,
-                },
-            },
-        )
-        # Capture telemetry before parsing so cache-hit info survives
-        # even if the JSON parse fails downstream.
-        usage = response.usage
-        self.last_usage = {
-            "input_tokens": getattr(usage, "input_tokens", 0),
-            "output_tokens": getattr(usage, "output_tokens", 0),
-            "cache_creation_input_tokens": getattr(
-                usage,
-                "cache_creation_input_tokens",
-                0,
-            ),
-            "cache_read_input_tokens": getattr(
-                usage,
-                "cache_read_input_tokens",
-                0,
-            ),
-            "request_id": getattr(response, "_request_id", None),
-        }
-        text = next(
-            (block.text for block in response.content if block.type == "text"),
-            "",
-        )
-        return json.loads(text)
 
 
 @lru_cache(maxsize=1)

@@ -13739,6 +13739,55 @@ class TestAnthropicNoteClient:
         )
         assert client.last_usage is None
 
+    def test_default_completion_fn_wires_note_ttl_and_schema(self, monkeypatch):
+        # Sibling of TestAnthropicXrefClient's wiring pin (B1.8 de-dup
+        # target). The note client must wire its OWN constants (AI_NOTE_*)
+        # into the shared messages.create skeleton; a faked SDK client
+        # keeps this offline. After the de-dup to a shared base, a swapped
+        # class attr would surface the xref schema here and fail.
+        from scripts.core import sources_ai_clients as aic
+
+        captured = {}
+
+        class _FakeUsage:
+            input_tokens = 33
+            output_tokens = 44
+            cache_creation_input_tokens = 7
+            cache_read_input_tokens = 9
+
+        class _FakeBlock:
+            type = "text"
+            text = '{"note": null}'
+
+        class _FakeResponse:
+            usage = _FakeUsage()
+            content = [_FakeBlock()]
+            _request_id = "req_note_1"
+
+        class _FakeClient:
+            def __init__(self):
+                self.messages = self
+
+            def create(self, **kwargs):
+                captured.update(kwargs)
+                return _FakeResponse()
+
+        monkeypatch.setattr(aic, "_anthropic_client", lambda: _FakeClient())
+
+        client = self.src.AnthropicNoteClient(completion_fn=lambda s, u, *, model: {})
+        result = client._default_completion_fn("SYS-PROMPT", "USER-MSG", model="claude-haiku-4-5")
+
+        assert result == {"note": None}  # parses the response text as JSON
+        assert captured["model"] == "claude-haiku-4-5"
+        assert captured["max_tokens"] == 2048
+        assert captured["system"][0]["text"] == "SYS-PROMPT"
+        assert captured["system"][0]["cache_control"]["ttl"] == self.src.AI_NOTE_CACHE_TTL
+        assert captured["messages"] == [{"role": "user", "content": "USER-MSG"}]
+        assert captured["output_config"]["format"]["schema"] is self.src.AI_NOTE_OUTPUT_SCHEMA
+        assert client.last_usage["input_tokens"] == 33
+        assert client.last_usage["cache_read_input_tokens"] == 9
+        assert client.last_usage["request_id"] == "req_note_1"
+
 
 class TestAINoteDetector:
     """Detector-level checks for AINoteDetector. Stubbed clients —

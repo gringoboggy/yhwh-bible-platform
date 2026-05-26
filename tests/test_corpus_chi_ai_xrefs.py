@@ -314,6 +314,60 @@ class TestAnthropicXrefClient:
         assert len(out) == 1
         assert out[0]["target_chapter"] == 1
 
+    def test_default_completion_fn_wires_xref_ttl_and_schema(self, monkeypatch):
+        # The real-SDK call body is the B1.8 de-dup target: the xref and
+        # note clients share an identical messages.create skeleton differing
+        # ONLY in the cache TTL and the output schema. Pin that the xref
+        # client wires its OWN constants (AI_XREF_*), with a faked SDK
+        # client so no network call is made. After the de-dup to a shared
+        # base, a mis-wired class attr would flip these to the note
+        # constants and fail here.
+        from scripts.core import sources_ai_clients as aic
+
+        captured = {}
+
+        class _FakeUsage:
+            input_tokens = 11
+            output_tokens = 22
+            cache_creation_input_tokens = 5
+            cache_read_input_tokens = 3
+
+        class _FakeBlock:
+            type = "text"
+            text = '{"proposals": []}'
+
+        class _FakeResponse:
+            usage = _FakeUsage()
+            content = [_FakeBlock()]
+            _request_id = "req_xref_1"
+
+        class _FakeClient:
+            def __init__(self):
+                self.messages = self
+
+            def create(self, **kwargs):
+                captured.update(kwargs)
+                return _FakeResponse()
+
+        monkeypatch.setattr(aic, "_anthropic_client", lambda: _FakeClient())
+
+        # Inject a stub at construction (bypasses the SDK precondition),
+        # then call the real default fn directly to exercise the SDK body.
+        client = self.src.AnthropicXrefClient(completion_fn=lambda s, u, *, model: {})
+        result = client._default_completion_fn("SYS-PROMPT", "USER-MSG", model="claude-haiku-4-5")
+
+        assert result == {"proposals": []}  # parses the response text as JSON
+        assert captured["model"] == "claude-haiku-4-5"
+        assert captured["max_tokens"] == 2048
+        assert captured["system"][0]["text"] == "SYS-PROMPT"
+        assert captured["system"][0]["cache_control"]["ttl"] == self.src.AI_XREF_CACHE_TTL
+        assert captured["messages"] == [{"role": "user", "content": "USER-MSG"}]
+        assert captured["output_config"]["format"]["schema"] is self.src.AI_XREF_OUTPUT_SCHEMA
+        # Telemetry captured onto the instance for the at-scale driver.
+        assert client.last_usage["input_tokens"] == 11
+        assert client.last_usage["cache_read_input_tokens"] == 3
+        assert client.last_usage["request_id"] == "req_xref_1"
+
 
 class TestAIXrefDetector:
     """Detector-level checks for AIXrefDetector. Stubbed clients —
