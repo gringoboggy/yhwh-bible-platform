@@ -80,6 +80,45 @@ def test_chapter_region_b_end_lands_at_tag_start_not_inside_tag():
     )
 
 
+def test_verse_region_b_ends_before_next_vn_link_open_tag():
+    """Root cause of the 14,568 nested-<a> base regression: find_verse_region_b
+    ended verse N's region at the NEXT verse's ``<span class="vn">`` — but that
+    span sits INSIDE the next verse's ``<a class="vn-link">`` open tag, so the
+    region carried that trailing open tag. A verse-end marker then landed
+    between the ``<a class="vn-link">`` and its ``<span>`` (an ``<a>`` nested in
+    an ``<a>`` — invalid XHTML, epubcheck RSC-005). The region must end BEFORE
+    the next verse's vn-link open tag, mirroring Strategy A's find_verse_region."""
+    html = (
+        '<a class="vn-link" id="v-1ki-1-1"><span class="vn">1</span></a>And king David was old. '
+        '<a class="vn-link" id="v-1ki-1-2"><span class="vn">2</span></a>His servants said unto him.'
+    )
+    _v_start, v_end = inject.find_verse_region_b(html, 0, len(html), 1)
+    assert html[v_end:].startswith('<a class="vn-link" id="v-1ki-1-2"'), (
+        f"verse region must end at the next vn-link open tag, not inside it: {html[v_end : v_end + 40]!r}"
+    )
+
+
+def test_verse_level_marker_not_nested_in_next_vn_link():
+    """End-to-end: a verse-level (empty-anchor) note — exactly what topical
+    (Nave's / Torrey) and dictionary (Easton) notes are — injected into a
+    Strategy-B verse must NOT nest inside the next verse's vn-link anchor. This
+    reproduces the bulk of the 14,568 nested ``<a>`` the Torrey/Nave's/Easton
+    ingests accumulated in the base (they are verse-level notes on late-canon
+    Strategy-B books → the verse-end placement path)."""
+    from scripts.check_nested_anchors import find_nested_anchors
+
+    html = (
+        '<a class="vn-link" id="v-1ki-1-1"><span class="vn">1</span></a>And king David was old. '
+        '<a class="vn-link" id="v-1ki-1-2"><span class="vn">2</span></a>His servants said unto him.'
+    )
+    v_start, v_end = inject.find_verse_region_b(html, 0, len(html), 1)
+    seg = html[v_start:v_end]
+    ins, _used_fallback = inject.resolve_marker_insertion(seg, "")  # empty anchor = verse-level
+    marker = inject.build_marker("topic-nave", "b01010100")
+    spliced = html[:v_start] + seg[:ins] + marker + seg[ins:] + html[v_end:]
+    assert find_nested_anchors(spliced) == [], f"verse-level marker nested inside the next verse's vn-link:\n{spliced}"
+
+
 def _no_unclosed_tag_before(s: str, off: int) -> bool:
     """True iff offset ``off`` is NOT inside an unterminated ``<…`` open tag."""
     return s.rfind("<", 0, off) <= s.rfind(">", 0, off)

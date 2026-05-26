@@ -297,16 +297,29 @@ def find_chapter_region_b(text: str, bxx: str, ch: int, ch_count: int) -> tuple[
 def find_verse_region_b(text: str, region_start: int, region_end: int, v: int) -> tuple[int, int] | None:
     """Within a Strategy-B chapter region, locate verse ``v`` and return
     (verse_content_start, verse_content_end). Verse content is what
-    follows ``<span class="vn">v</span>`` up to the next vn span or
-    region end."""
+    follows ``<span class="vn">v</span>`` up to the next verse's vn-link
+    anchor (or region end if this is the chapter's last verse)."""
     needle = f'<span class="vn">{v}</span>'
     p = text.find(needle, region_start, region_end)
     if p == -1:
         return None
     start = p + len(needle)
-    # End: next vn span or region end
+    # End: the next verse's number span, or region end if this is the last verse.
     next_p = re.search(r'<span\s+class="vn">\d+</span>', text[start:region_end])
-    end = (start + next_p.start()) if next_p else region_end
+    if not next_p:
+        return (start, region_end)
+    end = start + next_p.start()
+    # The next verse's number span is normally wrapped in its own
+    # ``<a class="vn-link" …>`` anchor, which opens just BEFORE the span. End the
+    # region at that opening ``<a>`` — NOT between it and its span — so a
+    # verse-end marker lands as a SIBLING before the anchor, never nested inside
+    # it. An ``<a>`` in an ``<a>`` is invalid XHTML (epubcheck RSC-005) and was
+    # the root cause of the nested-<a> base regression that accumulated across
+    # the bulk verse-level ingests. Mirrors find_verse_region (Strategy A); a
+    # bare span with no wrapping anchor keeps the span boundary (conservative).
+    pre = re.search(r'<a\s+class="vn-link"[^>]*>\s*$', text[start:end])
+    if pre:
+        end = start + pre.start()
     return (start, end)
 
 

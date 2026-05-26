@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-26 (cont.) — Root-fix `inject.py`: Strategy-B verse region ends before the next vn-link (closes the nested-`<a>` recurrence)
+
+Root-caused and fixed the *source* of the nested-`<a>` base regression (the 14,568 that `check_nested_anchors --fix` repaired earlier today). That `--fix` was a band-aid; this removes the cause so future ingests can't re-introduce the nesting. Done via systematic-debugging → TDD (superpowers chain). Closes the "Follow-up (deferred)" noted in the nested-`<a>` entry below.
+
+- **Root cause (`scripts/inject.py` `find_verse_region_b`):** the Strategy-B verse-region locator ended verse N's region at the byte offset of the NEXT verse's `<span class="vn">N+1</span>`. But that span sits INSIDE its `<a class="vn-link">` open tag, so the region carried the next verse's anchor *open tag* at its tail. A verse-level (empty-anchor) marker — which is exactly what topical (Nave's/Torrey) and dictionary (Easton) notes are — is placed at the verse-region END, landing between the `<a class="vn-link">` and its `<span>` → `<a><a>…</a><span>…</span></a>`, an `<a>` nested in an `<a>`. This is the asymmetry with Strategy A's `find_verse_region`, which ends at the next vn-link's opening `<` (correct sibling placement). Confirmed empirically (a 2-verse repro reproduced the exact `_BROKEN_RE` shape) before any fix.
+- **Fix:** after locating the next `<span class="vn">`, back the region end up past an immediately-preceding `<a class="vn-link" …>` open tag (regex anchored to end-of-region), so the region ends BEFORE the next verse's anchor — mirroring Strategy A. A bare span with no wrapping anchor keeps the span boundary (conservative — no nesting risk there). The spill resolver (`find_verse_region_b_spill`) inherits the fix.
+- **TDD (`tests/test_inject_wellformed.py`, +2):** `test_verse_region_b_ends_before_next_vn_link_open_tag` (region boundary) + `test_verse_level_marker_not_nested_in_next_vn_link` (end-to-end: a verse-level inject yields 0 nested `<a>`, reproducing the `topic-nave` path). Both RED before the fix (the 2nd reproduced the exact broken markup), GREEN after.
+- **No re-bake:** the committed base is already clean (today's `--fix` → 0) and inject's `already_in` guard makes re-injection a no-op; a bare-base regen would be lossy (drops `harvest_existing_langs`-preserved popups). The fix is *preventive* — `check_nested_anchors --fix` is now a safety net, not a per-ingest necessity.
+- **Gates:** the 2 new tests + `test_inject_wellformed` (21, incl. the all-base well-formedness guard) + `test_nested_anchors` (incl. the committed-base-zero gate) + spill/irregular-layout (6) + marker/resync (42) all green · `check_nested_anchors` (no `--fix`) **0 across 61 files** (base untouched) · `lint_rules` **16/0/0** · `ruff format --check` clean.
+- **Uncommitted on disk** (awaiting "save"): `scripts/inject.py`, `tests/test_inject_wellformed.py`, this CHANGELOG + SESSION_STATE + IN_FLIGHT.
+
+---
+
 ## 2026-05-26 (cont.) — Fix 14,568-nested-`<a>` base regression (Torrey/Nave/Easton ingests) + rules-hygiene pass
 
 While running the Phase E regression suite, `tests/test_nested_anchors.py` came back RED on the committed base — **14,568 nested `<a>` across 39 split files** (`note-ref` markers sitting INSIDE `vn-link` verse anchors = invalid base XHTML). PROVEN pre-existing (delta=0 on the 3 Phase-E-touched files; present at HEAD in 38 untouched files), accumulated from the corpus ingests (Nave's / Easton's / **Torrey** = 21.7k notes injected into `epub_working`) whose gates never ran this test. Undetected because (a) `build_edition` converts the `vn-link <a>`→`<span>`, so built EPUBs stayed epubcheck-clean (0/0) despite the broken base, and (b) the recent "full suite passed" sweeps were curated subsets excluding it (same masking as the 2026-05-25 stale pins).
