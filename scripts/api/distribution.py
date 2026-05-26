@@ -46,11 +46,10 @@ def api_distribution_list() -> dict:
 
 
 def _editions_index() -> dict:
-    """{id: edition_dict} — cached one-call helper so the per-request
-    validation doesn't reparse editions.yaml twice."""
+    """{id: edition_dict}. Delegates to the shared config.editions_by_id()."""
     from scripts.core import config
 
-    return {str(e.get("id", "")): e for e in config.load_editions()}
+    return config.editions_by_id()
 
 
 @audit_log.audit_endpoint(action="distribution_mark")

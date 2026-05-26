@@ -26,7 +26,7 @@ from scripts.core import audit_log
 def _editions_index() -> dict:
     from scripts.core import config
 
-    return {str(e.get("id", "")): e for e in config.load_editions()}
+    return config.editions_by_id()
 
 
 def api_archive_org_status() -> dict:

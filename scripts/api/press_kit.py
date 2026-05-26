@@ -23,11 +23,10 @@ from scripts.core import audit_log
 
 
 def _editions_index() -> dict:
-    """{id: edition_dict}. Lazy import — same pattern as
-    api/distribution.py."""
+    """{id: edition_dict}. Delegates to the shared config.editions_by_id()."""
     from scripts.core import config
 
-    return {str(e.get("id", "")): e for e in config.load_editions()}
+    return config.editions_by_id()
 
 
 def api_press_kit_get(edition_id: str) -> dict:

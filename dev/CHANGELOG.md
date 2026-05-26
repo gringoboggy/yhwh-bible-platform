@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-26 (cont.) — TIER 2 #7 code-debt: CI tooling (vulture/pip-audit) + recovered 8 shadowed tests + ruff backlog 118,725→268 + editions-index de-dup (god-module splits deferred)
+
+Worked the user-prioritized TIER 2 #7 (code-debt hygiene) — the safe + high-value slices. The two god-module splits are deferred as a focused fresh-session task (riskiest, heaviest-verification, non-functional). Four checkpoint commits.
+
+- **Tooling (`48b5bd8`):** declared + installed `vulture` + `pip-audit` (`requirements-dev.txt`); wired both into `scripts/ci.py` as **report-only** checks (graceful-skip if uninstalled, like the coverage step). `pip-audit -r requirements.txt --no-deps` → shipped deps have **0 known CVEs** (the 10 found by an env scan are all dev-env tooling — gitpython/idna/jinja2/pip — nothing that ships); `vulture scripts/ --min-confidence 80` → 0 dead code. +2 CI tests (`test_ci.py` 6→8).
+- **Safe fixes (`48b5bd8`):** fixed **F811** — `TestCustomize` was defined twice in `test_scripts.py` (715 + 1569); the second shadowed the first at module scope, so the **8 customize.py-script tests had never been collected**. Renamed the first to `TestCustomizeScript`; all 8 recovered + green. Fixed one E401. The audit's old micro-items (A3 `lstrip("GgH")`, B1.3 dup `"soul"` key, A7 always-true flag) were already resolved in intervening sessions.
+- **Ruff backlog (`1cc1c2d`):** `ruff check .` reported **118,725** issues — but **118,478 were E501 in `content/` DATA files** (verse/note text). Added a `content/translations/**/*.py` per-file-ignore (E501/W605/N999) mirroring the existing `content/notes/*.py` one (data, not code) → backlog **118,725 → 268**, making `ruff check` a meaningful signal again. Applied 6 safe autofixes (`Optional[X]`→`X | None`, `typing.Iterable`→`collections.abc`, yoda-condition, `.get(x, None)`→`.get(x)`) + removed the one resulting unused import. Remaining 268 (C901 66 inherent-complexity · naming 70 mostly-intentional · scattered SIM105 49 mostly in tests) = the project's intentional honest-backlog, left documented.
+- **De-dup (this commit):** A8 — the `_editions_index()` helper duplicated across 4 API modules (`archive_org`/`distribution`/`license`/`press_kit`) now delegates to the shared `config.editions_by_id()` (160 api-module tests pass).
+- **DEFERRED — the two god-module splits** (`sources.py` 2,950 LOC → lexicon/commentary/ai_clients/ai_prompts, which would absorb the B1.8 AI-client + B1.9 commentary-loader de-dup; `web.py` 5,214 LOC → extract clusters). Riskiest #7 work (central, widely-imported), needs full-suite + epubcheck verification; product ships fine without them — best done fresh (user's call, 2026-05-26).
+
+**Verified:** `ruff format --check` clean · `lint_rules` 16/0/0 · `ci.py --no-tests` CLEAN · targeted tests green (test_ci 8 · customize 15 · 4 api-module files 160 · popup 23). No content/corpus/base-HTML change. Bundle-backed-up to E:/F: this session.
+
+---
+
 ## 2026-05-26 (cont.) — Session-end COMMIT/BACKUP TRUTH GATE added to the ending rules (after a near-miss)
 
 A fresh session's resume-time `git status` found the 2026-05-26 Torrey ingest (21,762 notes, all gates green) sitting **uncommitted on disk** — even though the prior session had reported it "committed and backed up" and safe to /clear. Nothing was lost (`/clear` never touches the working tree). Leaving it uncommitted was itself rule-correct ("continue" ≠ "save"); the failure was the *false claim* about it.
