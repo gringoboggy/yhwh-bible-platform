@@ -115,6 +115,7 @@ VALIDATORS (gate everything):
 | `verse_popup_style` | enum `{cards, stack}` | build `apply_verse_popup_style` (1395) — CSS append in `build_one` | shipped 2026-05-25; default `cards` |
 | `note_popup_style` | enum `{chip, pills}` | build `apply_note_popup_style` (1432) — CSS append in `build_one` | shipped 2026-05-25; default `chip` |
 | `marker_style` | enum `{numbers}` (`badge` deferred — declarative field) | `inject.build_marker`/`build_aside` emit numbers at source (base re-bake via `resync_marker_glyphs`); `build_one` runs a per-edition `renumber_markers` post-pass (gapless after the canon filter) | shipped 2026-05-25 (dfbff8a); default `numbers` |
+| `topical_index_source` | enum `{both, naves, torrey}` | `inject_back_matter` → `_write_topical_page`: `both` = `build_merged_topic_index` (casefold-union, `(N·T)`/`(N)`/`(T)` tags) + `render_merged_topical_index_page`; `naves`/`torrey` = `build_topic_index` + `render_topical_index_page(intro=…)` | shipped 2026-05-26; default `both` |
 | `description` / `dedication` | free text (`EDITABLE_TEXT`) | About-this-Edition / optional Dedication front-matter pages | shipped Phase 1 |
 
 ## Findings — accreted, low-risk cleanup targets
@@ -272,10 +273,16 @@ family in `build_edition.py` (OPF manifest + spine appended; extracted into `scr
   Notes" (edition-aware symbol legend; rows anchored `id="legend-<cat>"`) →
   About-this-Edition (`render_about_page` 2274 — auto-spec from resolved choices +
   the editable `description`). The placeholder `introduction.xhtml` is dropped.
-- Back: Sources & Acknowledgments → Reference tables → Topical index (Nave's —
-  shipped 2026-05-25, 61226c5: `inject_back_matter(…, canon_books)` → `build_topic_index`
-  (canon-filtered) → `render_topical_index_page`; 4,604 topics on the flagship; OPF
-  manifest + spine + nav updated) → Closing colophon.
+- Back: Sources & Acknowledgments → Reference tables → Topical index → Closing colophon.
+  Topical index: `inject_back_matter(…, canon_books)` → `_write_topical_page` reads the
+  `topical_index_source` edition field (default `both`, shipped 2026-05-26). `both` merges
+  Nave's (4,604 name-heavy topics) + Torrey (630 doctrinal topics) via
+  `build_merged_topic_index` (casefold-union; `(N·T)`/`(N)`/`(T)` source tags — measured
+  166 co-named themes, 162 co-citing ≥1 verse) → `render_merged_topical_index_page`.
+  `naves`/`torrey` modes use the single-source `build_topic_index` →
+  `render_topical_index_page(intro=…)`; the `naves` path is byte-identical to the
+  2026-05-25 61226c5 Nave's-only ship (defaulted `intro=` param). OPF manifest + spine + nav
+  updated. Both works are credited on the Sources & Acknowledgments page.
 
 ## Reference-corpus ingestion (PD reference works → notes)
 

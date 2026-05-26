@@ -64,10 +64,12 @@ from scripts.epub_utils import (  # noqa: E402, F401
     load_canons,
 )
 from scripts.matter_pages import (  # noqa: E402, F401
+    TOPICAL_INDEX_SOURCES,
     _about_specs_for_edition,
     _drop_placeholder_introduction,
     _legend_categories_for_edition,
     _sources_sections,
+    build_merged_topic_index,
     inject_about_page,
     inject_back_matter,
     inject_copyright_page,
@@ -78,6 +80,7 @@ from scripts.matter_pages import (  # noqa: E402, F401
     render_closing_colophon_page,
     render_copyright_page,
     render_dedication_page,
+    render_merged_topical_index_page,
     render_reading_plans_page,
     render_reference_tables_page,
     render_sources_page,

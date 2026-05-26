@@ -553,6 +553,8 @@ def _sources_sections() -> list[tuple[str, str]]:
             " Digital edition: OpenBible.info, CC-BY 4.0.</li>"
             '\n        <li class="sources-item">Nave&#x2019;s Topical Bible,'
             " Orville J. Nave, 1896. Public Domain.</li>"
+            '\n        <li class="sources-item">Torrey&#x2019;s New Topical Textbook,'
+            " R.A. Torrey, 1897. Public Domain.</li>"
             '\n        <li class="sources-item">Easton&#x2019;s Bible Dictionary,'
             " Matthew George Easton, 1897. Public Domain.</li>"
             "\n      </ul>",
@@ -770,6 +772,28 @@ def render_closing_colophon_page(edition: dict, version: str) -> str:
 """
 
 
+TOPICAL_INDEX_SOURCES = ("both", "naves", "torrey")
+
+
+def _norm_topic(t: str) -> str:
+    """Casefold + collapse whitespace + strip edge punctuation. No comma split
+    (Torrey's subtopics like 'Affliction, Consolation Under' must stay distinct)."""
+    t = " ".join(t.casefold().split())
+    return t.strip(" .;:-’'\"")
+
+
+def _title_topic(name: str) -> str:
+    """Title-case an ALL-CAPS / mixed Nave's topic for display: capitalize the
+    first letter of each space- and hyphen-delimited segment, lowercase the rest
+    (so 'ABED-NEGO' -> 'Abed-Nego', "GOD'S WILL" -> "God's Will")."""
+
+    def cap(seg: str) -> str:
+        return seg[:1].upper() + seg[1:].lower() if seg else seg
+
+    words = ["-".join(cap(s) for s in word.split("-")) for word in name.split(" ")]
+    return " ".join(words)
+
+
 def build_topic_index(naves, canon_books, book_order: dict[str, int]) -> list[tuple[str, list[tuple[str, int, int]]]]:
     """Invert Nave's into a back-of-book topical index.
 
@@ -797,10 +821,73 @@ def build_topic_index(naves, canon_books, book_order: dict[str, int]) -> list[tu
     return index
 
 
-def render_topical_index_page(version: str, topic_index, book_abbrev) -> str:
-    """Render the Nave's topical-index back-matter XHTML. ``topic_index`` is the
-    output of ``build_topic_index``; ``book_abbrev(code) -> str`` formats a book
-    code for a verse reference (e.g. ``gen`` → ``Gen``)."""
+def build_merged_topic_index(naves, torrey, canon_books, book_order: dict[str, int]):
+    """Merge two topical sources into a tagged back-of-book index.
+
+    Returns ``[(display, tag, [(book, ch, vs), …]), …]`` — sorted alphabetically
+    by ``display`` (casefold). ``tag`` is ``"N·T"`` (both works), ``"N"``
+    (Nave's only), or ``"T"`` (Torrey only), decided by which side has in-canon
+    verses. Topic names are matched by ``_norm_topic`` (casefold); a topic with no
+    in-canon ref is omitted. ``naves`` / ``torrey`` are ``sources.NavesTopical`` /
+    ``TorreyTopical`` (or None if a source is unavailable)."""
+
+    def collect(src):
+        groups: dict[str, dict] = {}
+        if src is None:
+            return groups
+        for topic in src.topics():
+            key = _norm_topic(topic)
+            g = groups.setdefault(key, {"names": [], "refs": set()})
+            g["names"].append(topic)
+            for hit in src.verses_for(topic):
+                ref = (hit.target_book, hit.target_chapter, hit.target_verse)
+                if canon_books is not None and ref[0] not in canon_books:
+                    continue
+                g["refs"].add(ref)
+        return groups
+
+    nav_g, tor_g = collect(naves), collect(torrey)
+    out: list[tuple[str, str, list[tuple[str, int, int]]]] = []
+    for key in set(nav_g) | set(tor_g):
+        nav_refs = nav_g.get(key, {}).get("refs", set())
+        tor_refs = tor_g.get(key, {}).get("refs", set())
+        all_refs = sorted(nav_refs | tor_refs, key=lambda r: (book_order.get(r[0], 9999), r[1], r[2]))
+        if not all_refs:
+            continue
+        tag = "N·T" if (nav_refs and tor_refs) else "N" if nav_refs else "T"
+        if key in tor_g:
+            display = sorted(tor_g[key]["names"])[0]  # Torrey is already Title Case
+        else:
+            display = _title_topic(sorted(nav_g[key]["names"])[0])
+        out.append((display, tag, all_refs))
+    out.sort(key=lambda e: e[0].casefold())
+    return out
+
+
+_NAVES_TOPICAL_INTRO = (
+    "A concordance of verses by theme, after Nave&#x2019;s Topical Bible "
+    "(Orville J. Nave, 1896; public domain). Topics are listed alphabetically; "
+    "only verses present in this edition are shown."
+)
+_TORREY_TOPICAL_INTRO = (
+    "A concordance of verses by theme, after Torrey&#x2019;s New Topical Textbook "
+    "(R.A. Torrey, 1897; public domain). Topics are listed alphabetically; "
+    "only verses present in this edition are shown."
+)
+_MERGED_TOPICAL_INTRO = (
+    "A concordance of verses by theme, drawn from Nave&#x2019;s Topical Bible "
+    "(Orville J. Nave, 1896) and Torrey&#x2019;s New Topical Textbook "
+    "(R.A. Torrey, 1897), both public domain. Topics marked (N·T) are "
+    "treated by both works; (N) Nave&#x2019;s only; (T) Torrey only. Only verses "
+    "present in this edition are shown."
+)
+
+
+def render_topical_index_page(version: str, topic_index, book_abbrev, *, intro: str = _NAVES_TOPICAL_INTRO) -> str:
+    """Render a single-source topical-index back-matter XHTML. ``topic_index`` is
+    the output of ``build_topic_index``; ``book_abbrev(code) -> str`` formats a book
+    code for a verse reference (e.g. ``gen`` → ``Gen``). ``intro`` is the source
+    attribution sentence (defaults to Nave's — byte-stable for existing builds)."""
     rows: list[str] = []
     for topic, refs in topic_index:
         ref_str = "; ".join(f"{book_abbrev(b)} {c}:{v}" for b, c, v in refs)
@@ -817,12 +904,71 @@ def render_topical_index_page(version: str, topic_index, book_abbrev) -> str:
 <body epub:type="backmatter">
   <section class="backmatter-page topical-index" epub:type="backmatter">
     <h1 class="backmatter-title">Topical Index</h1>
-    <p class="topical-intro">A concordance of verses by theme, after Nave&#x2019;s Topical Bible (Orville J. Nave, 1896; public domain). Topics are listed alphabetically; only verses present in this edition are shown.</p>
+    <p class="topical-intro">{intro}</p>
 {body}
   </section>
 </body>
 </html>
 """
+
+
+def render_merged_topical_index_page(version: str, merged_index, book_abbrev) -> str:
+    """Render the merged Nave's + Torrey topical index. ``merged_index`` is the
+    output of ``build_merged_topic_index`` — ``[(display, tag, refs), …]``."""
+    rows: list[str] = []
+    for topic, tag, refs in merged_index:
+        ref_str = "; ".join(f"{book_abbrev(b)} {c}:{v}" for b, c, v in refs)
+        rows.append(
+            f'    <p class="topic-entry"><span class="topic-name">{html.escape(topic)}</span>'
+            f' <span class="topic-src">({html.escape(tag)})</span> {ref_str}</p>'
+        )
+    body = "\n".join(rows) if rows else '    <p class="topic-entry">This edition carries no topical index.</p>'
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Topical Index</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+  <section class="backmatter-page topical-index" epub:type="backmatter">
+    <h1 class="backmatter-title">Topical Index</h1>
+    <p class="topical-intro">{_MERGED_TOPICAL_INTRO}</p>
+{body}
+  </section>
+</body>
+</html>
+"""
+
+
+def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey, version) -> bool:
+    """Write ``topical.xhtml`` per ``mode`` (naves | torrey | both; default both).
+    Returns True if a page was written. Degrades gracefully when a source is
+    unavailable: 'both' falls back to whichever single source is present; if
+    neither is present, nothing is written and False is returned."""
+    mode = (mode or "both").strip().lower()
+    out = tmp / "topical.xhtml"
+
+    def write_single(src, intro):
+        idx = build_topic_index(src, canon_books, book_order)
+        out.write_text(render_topical_index_page(version, idx, book_abbrev=str.title, intro=intro), encoding="utf-8")
+        return True
+
+    if mode == "naves":
+        return write_single(naves, _NAVES_TOPICAL_INTRO) if naves is not None else False
+    if mode == "torrey":
+        return write_single(torrey, _TORREY_TOPICAL_INTRO) if torrey is not None else False
+    # both (default)
+    if naves is not None and torrey is not None:
+        merged = build_merged_topic_index(naves, torrey, canon_books, book_order)
+        out.write_text(render_merged_topical_index_page(version, merged, book_abbrev=str.title), encoding="utf-8")
+        return True
+    if naves is not None:
+        return write_single(naves, _NAVES_TOPICAL_INTRO)
+    if torrey is not None:
+        return write_single(torrey, _TORREY_TOPICAL_INTRO)
+    return False
 
 
 def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[str] | None = None) -> None:
@@ -836,21 +982,26 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
     # --- Write the back-matter XHTML files (sources → reftables → topical → colophon) ---
     (tmp / "sources.xhtml").write_text(render_sources_page(version), encoding="utf-8")
     (tmp / "reftables.xhtml").write_text(render_reference_tables_page(version), encoding="utf-8")
-    # §5.4 #4 — Nave's topical index, filtered to this edition's canon.
+    # §5.4 #4 — topical index (Nave's + Torrey), filtered to this edition's canon.
     from scripts.core import config as _config
     from scripts.core import sources as _sources
 
-    topical_ok = False
-    try:
-        naves = _sources.naves_topical()
-        book_order = {b["code"]: i for i, b in enumerate(_config.load_books())}
-        topic_index = build_topic_index(naves, canon_books, book_order)
-        (tmp / "topical.xhtml").write_text(
-            render_topical_index_page(version, topic_index, book_abbrev=str.title), encoding="utf-8"
-        )
-        topical_ok = True
-    except _sources.SourceMissingError:
-        topical_ok = False  # Nave's not cached in this env — skip the page entirely
+    def _load(loader):
+        try:
+            return loader()
+        except _sources.SourceMissingError:
+            return None
+
+    book_order = {b["code"]: i for i, b in enumerate(_config.load_books())}
+    topical_ok = _write_topical_page(
+        tmp,
+        edition.get("topical_index_source"),
+        canon_books,
+        book_order,
+        naves=_load(_sources.naves_topical),
+        torrey=_load(_sources.torrey_topical),
+        version=version,
+    )
     (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition, version), encoding="utf-8")
 
     # --- Patch content.opf ---

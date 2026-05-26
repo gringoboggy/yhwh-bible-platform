@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-05-26 (cont.) — Surface Torrey in the EPUB Topical Index (Nave's + Torrey merge; default `both`)
+
+Closed the standing open item from the Torrey ingest: the 21,762 `topic-torrey` notes were in the corpus but invisible to an EPUB reader (topical notes are filtered from inline markers per Wave 3; the back-of-book index was Nave's-only). The back-of-book Topical Index now merges both topical authorities. Built via brainstorming → spec → TDD plan → execution (superpowers chain).
+
+- **Grounding (read-only analysis FIRST):** Nave's = 4,604 ALL-CAPS proper-name-heavy topics; Torrey = 630 Title-Case doctrinal topics. Exact-string overlap = **0** (pure caps mismatch); casefold overlap = **166** themes (26% of Torrey), of which **162 (98%) co-cite ≥1 verse**. → the merge is **complementary coverage with a corroboration core**, not redundancy — which shaped every design choice below.
+- **Design (spec `docs/superpowers/specs/2026-05-26-torrey-topical-index-merge-design.md`):** unified A–Z index, **casefold**-normalized matching (NOT comma-base — that would collapse Torrey's deliberate subtopics like "Affliction, Consolation Under"), `(N·T)`/`(N)`/`(T)` source tags, Title-Case display (Nave's `AARON`→`Aaron`), honest coverage-first intro (no over-promise of verse-by-verse agreement). New builder field `topical_index_source` ∈ {both, naves, torrey}, **default `both`** (user-approved — the intended output change that surfaces Torrey; a deliberate exception to §6.5 opt-in).
+- **Code (`scripts/matter_pages.py`):** `build_merged_topic_index` (casefold-union, tag = which side has in-canon verses) + `render_merged_topical_index_page` + `_write_topical_page` (mode branch with graceful source-missing degradation: `both`→single-source if one is absent) + `_norm_topic`/`_title_topic`/`TOPICAL_INDEX_SOURCES`. `render_topical_index_page` gained a defaulted `intro=` so the **`naves` path stays byte-identical to the 61226c5 ship**. Torrey credited in `_sources_sections`. Field wired the standard enum way: `build_edition` re-export + `api/editions.py` (allowed-lists + validator) + `web.py api_customize_data` (default `both`) + `templates/customize.py` `<select>`. `.topic-src` CSS. Torrey JSON already ships frozen (whole-`content/` bundle in `dev/launcher.spec`).
+- **Verified (TDD throughout):** NEW `tests/test_topical_merge.py` **28** · existing `test_topical_index.py` **7** (byte-compat of the single-source path) · `test_presentation_polish.py` **35** (real builds, spine order) · `lint_rules` **16/0/0** · `ruff format --check` clean. **Bake-and-prove (RULES §9):** rebuilt flagship ethiopian-tewahedo → **epubcheck errors=0/warnings=0**; the built `topical.xhtml` carries **5,068 topic entries (4,604 Nave's + 464 Torrey-only) with 167 `(N·T)` corroboration tags + Torrey credited** (was 4,604 Nave's-only). No corpus / base-HTML change.
+
+---
+
 ## 2026-05-26 (cont.) — TIER 2 #7 code-debt: CI tooling (vulture/pip-audit) + recovered 8 shadowed tests + ruff backlog 118,725→268 + editions-index de-dup (god-module splits deferred)
 
 Worked the user-prioritized TIER 2 #7 (code-debt hygiene) — the safe + high-value slices. The two god-module splits are deferred as a focused fresh-session task (riskiest, heaviest-verification, non-functional). Four checkpoint commits.

@@ -418,6 +418,14 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Topical index source</span>
+              <select class="label-input w-full" data-field="topical_index_source" title="which topical authority feeds the back-of-book Topical Index">
+                <option value="both"   ${(e.topical_index_source||'both') === 'both' ? 'selected' : ''}>both · Nave's + Torrey, merged (N·T tags)</option>
+                <option value="naves"  ${e.topical_index_source === 'naves' ? 'selected' : ''}>Nave's only</option>
+                <option value="torrey" ${e.topical_index_source === 'torrey' ? 'selected' : ''}>Torrey only</option>
+              </select>
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Chapter number decoration</span>
               <select class="label-input w-full" data-field="chapter_number_decoration" title="decorative wrappers around the chapter number">
                 <option value="plain"        ${(e.chapter_number_decoration||'plain') === 'plain' ? 'selected' : ''}>plain · 1</option>

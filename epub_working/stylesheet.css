@@ -495,10 +495,11 @@ h1, h2, h3, h1.book-title {
 .backmatter-page { padding: 1.2em 0.8em; text-align: left; }
 .backmatter-title { font-size: 1.5em; text-align: center; margin: 0 0 0.6em; }
 
-/* Topical index (Nave's) — compact alphabetical topic→verses entries. */
+/* Topical index (Nave's + Torrey) — compact alphabetical topic→verses entries. */
 .topical-intro { margin: 0 0 1em; font-size: 0.92em; color: #444; }
 .topic-entry { margin: 0 0 0.45em; line-height: 1.4; font-size: 0.9em; text-indent: -1.1em; padding-left: 1.1em; }
 .topic-name { font-variant-caps: small-caps; letter-spacing: 0.03em; font-weight: 700; color: #5C2E91; }
+.topic-src { font-size: 0.8em; color: #8a7a5c; font-weight: 400; font-variant-caps: normal; letter-spacing: 0; }
 .sources-section { margin: 0 0 1.2em; }
 .sources-heading { font-size: 1.1em; font-variant-caps: small-caps; letter-spacing: 0.04em;
                    border-bottom: 1px solid #c8b89a; padding-bottom: 0.2em; margin: 0 0 0.4em;

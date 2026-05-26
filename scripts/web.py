@@ -1539,6 +1539,8 @@ def api_customize_data() -> dict:
                 "note_popup_style": e.get("note_popup_style", "chip"),
                 # §4.1 — inline marker style (numbers default; badge deferred).
                 "marker_style": e.get("marker_style", "numbers"),
+                # Torrey merge — which topical authority feeds the back-of-book index.
+                "topical_index_source": e.get("topical_index_source", "both"),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),
