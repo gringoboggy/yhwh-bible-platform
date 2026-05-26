@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-05-26 (cont.) — Observed full-suite confirmation: 7,368 / 0 (truth-record update)
+
+Follow-on to the cycle-2 audit (below): re-ran the **entire** suite clean end-to-end to convert the post-fix "331 touched-files + unaffected-argument" into an *observed* single-pass green before the pre-TIER-3 `/clear`.
+
+- **`pytest tests/` serial, `PYTHONUTF8=1`, pythoncore-3.14 = 7,368 passed / 0 failed (27:37).** Zero `F`/`E`. The observed count matches the audit's deduced 7,368 exactly — the only post-fix changes were test/data/config (no product code the other 7,358 import), so the deduction was sound; this banks it as observed evidence.
+- **Doc-only commit:** SESSION_STATE / CHANGELOG / IN_FLIGHT truth-record update. No code/corpus/base/build change. Commit/backup #2 (the audit fixes) = `b0508789`.
+
+---
+
 ## 2026-05-26 (cont.) — In-depth audit (cycle 2): full-suite sweep caught + fixed 10 stale pins; all gates green
 
 User-directed in-depth audit of the whole project / matrix / map / everything (the lighter solo-Claude audit per the cadence rule), run after the B1.8/B1.9 de-dup toward a pre-TIER-3 `/clear`. Full findings: `dev/AUDIT_2026-05-26-FINDINGS.md`. **Verdict: PASS — healthy, no CRITICAL/HIGH open.**
