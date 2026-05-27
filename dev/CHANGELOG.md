@@ -6,6 +6,32 @@
 
 ---
 
+## 2026-05-27 (cont.) — Account switch + portability hardening (process / docs / harness only)
+
+**Phases shipped:** none — process / docs / harness only (no code / corpus / base-HTML / build / test change; +0 tests).
+**Save:** committed this session + E:/F: `git bundle --all` backup.
+
+What happened:
+- **Account switch context.** Old Anthropic account locked out — switched to a NEW one on the same Windows user (`bogda`). The new org has DISABLED Claude subscription access for Claude Code → must use API-key auth (`ANTHROPIC_API_KEY`). The current Claude Code session inherits the key via parent-process env; FRESH PowerShell/cmd terminals will hit the verbatim org-block message until `setx ANTHROPIC_API_KEY "sk-ant-..."` runs once and the terminal is reopened. This is the load-bearing fact a future Claude needs to know — durable record at `~/.claude/projects/.../memory/reference_account_switch.md`.
+- **Sonar + cockroachdb unwired** (`~/.claude/settings.json`, user-level — outside the repo). Removed entire `hooks` block (both PreToolUse `pretool-secrets.ps1` + UserPromptSubmit `prompt-secrets.ps1`, both calling `sonar hook ...` which 404'd internally on the SonarQube API — non-blocking but noisy on every prompt submit). Set `sonarqube@claude-plugins-official` and `cockroachdb@claude-plugins-official` plugins to `false`. CockroachDB's PostToolUse Write hook (`check-sql-files.py` at a stale `local-agent-mode-sessions/<uuid>/.../plugin_01J1ZUJcofzWJxiajSBsZ8US/scripts/check-sql-files.py`) was firing a blocking-but-non-fatal Python "can't open file" error on every Write tool call. The `~/.claude/hooks/sonar-secrets/*.ps1` files and the `sonar.exe` binary remain installed (user: "deal with later").
+- **Voyage API key scrubbed** from `.env` — `VOYAGE_API_KEY=` now empty. `.env` itself is gitignored, but this is hygiene; the key is no longer on disk in plaintext.
+- **`dev/cc-hooks/` shipped** — tracked source-of-truth + idempotent installer for the SessionStart bootstrap-triad hook (the one that injects "read the triad first" into every fresh session). The runtime hook script + its `.claude/settings.json` registration live in gitignored `.claude/` (`.gitignore:46`), so the 2026-05-27 prior commit `0f9748e5` (which claimed to add the hook "durably") only persisted the *docs* updates — the runtime files were per-machine local and would die on any fresh clone / wipe / new machine / new account. This commit closes that gap. Files: `bootstrap-triad.ps1` (verbatim copy of the runtime hook), `install_cc_hooks.ps1` (idempotent — copies to `.claude/hooks/`, patches `.claude/settings.json`, hash-checks for drift, `-Force` flag for explicit overwrite), `README.md` (fresh-machine bootstrap doc). Mirrors the existing `dev/git-hooks/` + `dev/install_hooks.cmd` pattern. Installer pipe-tested and idempotent (re-run reports "already installed and current").
+- **Cross-session memory note** added at `~/.claude/projects/C--Users-bogda-Documents-YHWH-v2-4-full/memory/reference_account_switch.md` + indexed in `MEMORY.md` — durable record so a future Claude isn't confused about the new auth path, the unwired sonar hooks, or where the tracked installer lives.
+
+Verified clean:
+- No API keys in tracked files. Regex scan for `sk-ant-`, `ghp_`, `AKIA`, `AIza`, `xox*`, and generic `*_API_KEY=...long-string` patterns across `scripts/`, `dev/`, root configs — only finding was the Voyage key in the gitignored `.env`, now blanked.
+- Git config has no embedded URL credentials. No remote configured (per the deleted-remote 2026-05-12).
+- The 2026-05-10 TruffleHog audit covers git history; nothing committed since would have re-introduced a key.
+
+Notable decision:
+- Tracked installer pattern over manual rehydration — same approach `dev/git-hooks/` + `dev/install_hooks.cmd` already uses for git pre-commit hooks. Fresh-machine onboarding for the Claude Code surface is now one command: `pwsh dev/cc-hooks/install_cc_hooks.ps1`.
+- Plugins disabled at user-settings level rather than uninstalled — reversible. User can re-enable later by flipping `false`→`true` without re-downloading.
+- Older `dev/*.md` runbooks (`MULTI_TRACK_RUNBOOK_2026-05-20.md`, `SESSION_PLAYBOOK.md`) still reference hardcoded `C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\python.exe` because of the broken Windows Store stub on THIS machine. NOT rewritten in this commit (would touch too many docs and is "deal with later" territory) — flagged in `dev/cc-hooks/README.md` with the `py -3` workaround for a clean machine.
+
+Marathon state UNCHANGED — 1ki6 calibration is in-flight, paused at C-2 commit (`3c3fa36c`); resume at C-3 (adversarial GG review) after /clear remains the next action. The triad-read hook is now durable across any future account/machine switch.
+
+---
+
 ## 2026-05-27 — Process fix: triad-read recurring-miss fixed durably + RULES coherence pass
 
 **Phases shipped:** none — process / docs / harness only (no code / corpus / base-HTML / build / test change; +0 tests).
