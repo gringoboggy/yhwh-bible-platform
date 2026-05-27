@@ -166,7 +166,7 @@
       "v": 4,
       "column": "f031r-M-L7",
       "line_start": 7,
-      "geez": "ወተሐንጸ ፡ ቤቱ ፡ በእበን ፡ ዓበይት ፡ እለ ፡ ኢኮና ፡ ውቁራት ፡ መፍ ፡ ወደቀ ፡ ንድቅ ✣ ወሦሉ ፡ ንዋየ ፡ ሐዲን ፡ ኢተዐምዓ ፡ በሀየ ፡ በውስተ ፡ ቤቱ ፡ እንዘ ፡ የሐንጽም ✣ ወደዴ ፡ ገቦ ፡ ዘታሕቱ ፡ መንገለ ፡ የማን ✣ ወበማዕርግ ፡ ዘየዓርጉ ፡ ኃበ ፡ ማዕከሳይ ፡ ወነቦ ፡ ሣልስ ✣ ወሐነጸ ፡ ለቤት ፡ ወፈፀሞ ✣ ወጠፈሮ ፡ በዕፀወ ፡ ቄድሮስ",
+      "geez": "ወተሐንጸ ፡ ቤቱ ፡ በእበን ፡ ዓበይት ፡ እለ ፡ ኢኮና ፡ ውቁራት ፡ መፍደሕ ፡ ወደቀ ፡ ንድቅ ✣ ወኩሉ ፡ ንዋየ ፡ ሐዲን ፡ ኢተዐምዓ ፡ በሀየ ፡ በውስተ ፡ ቤቱ ፡ እንዘ ፡ የሐንጽም ✣ ወደዴ ፡ ገቦ ፡ ዘታሕቱ ፡ መንገለ ፡ የማን ✣ ወበማዕርግ ፡ ዘየዓርጉ ፡ ኃበ ፡ ማዕከሳይ ፡ ወነቦ ፡ ሣልስ ✣ ወሐነጸ ፡ ለቤት ፡ ወፈፀሞ ✣ ወጠፈሮ ፡ በዕፀወ ፡ ቄድሮስ",
       "tokens": [
         "ወተሐንጸ",
         "ቤቱ",
@@ -175,10 +175,10 @@
         "እለ",
         "ኢኮና",
         "ውቁራት",
-        "መፍ",
+        "መፍደሕ",
         "ወደቀ",
         "ንድቅ",
-        "ወሦሉ",
+        "ወኩሉ",
         "ንዋየ",
         "ሐዲን",
         "ኢተዐምዓ",
@@ -209,12 +209,12 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "መፍ ፡ ወደቀ ፡ ንድቅ — 'finished/dressed stone' clause; the short token መፍ may be a line-break fragment of መፍድሕ or similar; resolution-limited"
+          "note": "C-3 R1 fix CONFIRMED on f031r-M L8: መፍ → መፍደሕ (one complete word መ-ፍ-ደ-ሕ ending L8, then ወደቀ begins L9; ink separator is the two-dot ፡, not ✣ — kept as ink)"
         },
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "ሦሉ ፡ ንዋየ ፡ ሐዲን ፡ ኢተዐምዓ ('no iron tool was heard') — ሐዲን (iron) and the verb at resolution limit"
+          "note": "C-3 R1 fix CONFIRMED on f031r-M L9: ወሦሉ → ወኩሉ (glyph is the 2-pronged ከ-base + u-mark = ኩ, matching ኩሎ in v5; NOT the 3-pronged ሠ-base of ሦ verified against ወእሠርዮ)"
         },
         {
           "token_index": 0,
@@ -227,13 +227,17 @@
       "v": 5,
       "column": "f031r-M-L14",
       "line_start": 14,
-      "geez": "ወሐነጸ ፡ ኩሎ ፡ ቤዶ ✣ ወእሠርዮ ፡ በማዕስርት ፡ በመስኖዶስ ፡ ዘዕፀወ ፡ ቄድሮስ ✣",
+      "geez": "ወሐነጸ ፡ ኩሎ ፡ ቤዶ ✣ ወእሠርዮ ፡ በማዕስርት ፡ ዘዘጋምክ ፡ በእመት ፡ ኑኁ ፡ ወእሠዎ ፡ በመስኖዶስ ፡ ዘዕፀወ ፡ ቄድሮስ ✣",
       "tokens": [
         "ወሐነጸ",
         "ኩሎ",
         "ቤዶ",
         "ወእሠርዮ",
         "በማዕስርት",
+        "ዘዘጋምክ",
+        "በእመት",
+        "ኑኁ",
+        "ወእሠዎ",
         "በመስኖዶስ",
         "ዘዕፀወ",
         "ቄድሮስ"
@@ -242,12 +246,17 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "እሠርዮ ('he lined/boarded it') — ሠ 1st-order vs ሥ at resolution limit"
+          "note": "እሠርዮ / ወእሠዎ ('he lined/boarded it') — ሠ 1st-order vs ሥ at resolution limit"
         },
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "በማዕስርት ፡ በመስኖዶስ — 'with boards/panels' loanword terms; orthography resolution-limited; a red rubric ❈ ክፍ ፡ [numeral] follows this clause"
+          "note": "C-1 OMISSION RESTORED (CONFIRMED on f031r-M L16-17): the dropped clause ዘዘጋምክ ፡ በእመት ፡ ኑኁ ፡ ወእሠዎ was present in clean black ink between በማዕስርት and በመስኖዶስ (original eye-skip on the near-identical verbs ወእሠርዮ→ወእሠዎ). በእመት ፡ ኑኁ ('cubits in height') certain; the word ዘዘጋምክ is present as a black-ink word but its vowels are resolution-limited (4th glyph ም/ሙ ambiguous)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በማዕስርት ፡ በመስኖዶስ — 'with boards/panels' loanword terms; orthography resolution-limited; a red rubric ❈ ክፍ ፡ ፲፪ follows this clause at f031r-M L18"
         }
       ]
     },
@@ -312,7 +321,7 @@
       "v": 7,
       "column": "f031r-M-L22",
       "line_start": 22,
-      "geez": "ወሐነፀ ፡ አረፍተ ፡ ቤቱ ፡ በዕፀወ ፡ ቄድሮስ ፡ እምድኃረ ✣ አረፋቲሁ ፡ ለቤት ፡ እስከ ፡ ጠፈሩ ፡ ወእስከ ፡ ሰራዊቱ ✣ ወሦሉ ፡ አረፋቲሁ ፡ በዕፀው ፡ እንተ ፡ ውስጥ ፡ ኩሎ ፡ ገለዎ ✣ ወእከተኃዘ ፡ እንተ ፡ ውስጥ ፡ ቤዶ ፡ በዕፀወ ፡ ጸውቄና ✣ በዘገበዋቲሁ ✣",
+      "geez": "ወሐነፀ ፡ አረፍተ ፡ ቤቱ ፡ በዕፀወ ፡ ቄድሮስ ፡ እምድኃረ ✣ አረፋቲሁ ፡ ለቤት ፡ እስከ ፡ ጠፈሩ ፡ ወእስከ ፡ ሰራዊቱ ✣ ወኩሉ ፡ አረፋቲሁ ፡ በዕፀው ፡ እንተ ፡ ውስጥ ፡ ኩሎ ፡ ገለዎ ✣ ወእከተኃዘ ፡ እንተ ፡ ውስጥ ፡ ቤዶ ፡ በዕፀወ ፡ ጸውቄና ✣ በዘገበዋቲሁ ✣",
       "tokens": [
         "ወሐነፀ",
         "አረፍተ",
@@ -326,7 +335,7 @@
         "ጠፈሩ",
         "ወእስከ",
         "ሰራዊቱ",
-        "ወሦሉ",
+        "ወኩሉ",
         "አረፋቲሁ",
         "በዕፀው",
         "እንተ",
@@ -346,6 +355,11 @@
           "token_index": 0,
           "marker": "uncertain",
           "note": "verse 7 preceded by a red rubric ❈ ክፍ ፡ [numeral] at f031r-M ~L22"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "C-3 R1 fix CONFIRMED on f031r-M L25: ወሦሉ → ወኩሉ (2-pronged ከ-base + u-mark = ኩ, same form as v4/v5; NOT the 3-pronged ሠ)"
         },
         {
           "token_index": 0,
@@ -445,7 +459,7 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "word splits across the f031r-M→f031r-R column turn (…ወእሠርገዎ continues at R top); continuity verified"
+          "note": "ወእሠርገዎ ('he adorned/overlaid it') closes v9 at the f031r-M column foot; the word is COMPLETE at the M-foot (C-3 R1: the earlier claim that it 'splits across the f031r-M→f031r-R column turn' was inaccurate and is removed); v10 opens a fresh clause at the f031r-R top"
         }
       ]
     },
@@ -487,7 +501,7 @@
       "v": 11,
       "column": "f031r-R-L5",
       "line_start": 5,
-      "geez": "ወገብረ ፡ በውሣጤ ፡ ዳቤር ፡ ፪ ኪሩቤሰ ፡ እምዕፀ ፡ ዘዴት ፡ ዘዓሥር ፡ በእመት ፡ ቆሙ ፡ ኃምስ ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ፡ ወኃምስ ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ✣ ክልኤቱ ✣ ወኮነ ፡ ዓሥር ፡ በእመት ፡ እምጽንፈ ፡ ክንፍ ፡ እስከ ፡ ጽንፈ ፡ ክንፍ ✣",
+      "geez": "ወገብረ ፡ በውሣጤ ፡ ዳቤር ፡ ፪ ኪሩቤሰ ፡ እምዕፀ ፡ ዘይት ፡ ዘዓሥር ፡ በእመት ፡ ቆሙ ፡ ኃምስ ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ፡ ወኃምስ ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ✣ ክልኤቱ ✣ ወኮነ ፡ ዓሥር ፡ በእመት ፡ እምጽንፈ ፡ ክንፍ ፡ እስከ ፡ ጽንፈ ፡ ክንፍ ✣",
       "tokens": [
         "ወገብረ",
         "በውሣጤ",
@@ -495,7 +509,7 @@
         "፪",
         "ኪሩቤሰ",
         "እምዕፀ",
-        "ዘዴት",
+        "ዘይት",
         "ዘዓሥር",
         "በእመት",
         "ቆሙ",
@@ -526,7 +540,7 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "ዘዴት ('olive') here vs ዘይት in v10 — internal spelling inconsistency; transcribed as inked"
+          "note": "C-3 R1 fix CONFIRMED on f031r-R L8: ዘዴት → ዘይት (middle glyph is the ይ-family — matches the v10 instance read ዘይት and the ይ in v13 ወይሰፍሑ/ይገምድዕ; distinct from the ደ-bowl of ዳ in ዳቤር; the scribe wrote ዘይት consistently, resolving the prior v10/v11 internal inconsistency)"
         }
       ]
     },
@@ -629,14 +643,14 @@
       "v": 14,
       "column": "f031r-R-L22",
       "line_start": 22,
-      "geez": "ወለኩሉ ፡ አረፍተ ፡ ቤቱ ፡ ዘዓውዱ ✣ አግስፈለ ፡ ወሥዕለ ✣ ሥዕለ ፡ ኪሩብ ✣ ወበቀልት ✣ ወጽጌያት ✣ በውሣጤ ፡ ወበእፍኤ ✣ ወምድረ ፡ ቤቱ ፡ እቀፈሎ ፡ በወርቅ ፡ ለውሣጤኒ ፡ ወለእፍኤኒ ✣",
+      "geez": "ወለኩሉ ፡ አረፍተ ፡ ቤቱ ፡ ዘዓውዱ ✣ አግስፈለ ፡ ወእሥዓላ ✣ ሥዕለ ፡ ኪሩብ ✣ ወበቀልት ✣ ወጽጌያት ✣ በውሣጤ ፡ ወበእፍኤ ✣ ወምድረ ፡ ቤቱ ፡ እቀፈሎ ፡ በወርቅ ፡ ለውሣጤኒ ፡ ወለእፍኤኒ ✣",
       "tokens": [
         "ወለኩሉ",
         "አረፍተ",
         "ቤቱ",
         "ዘዓውዱ",
         "አግስፈለ",
-        "ወሥዕለ",
+        "ወእሥዓላ",
         "ሥዕለ",
         "ኪሩብ",
         "ወበቀልት",
@@ -654,12 +668,12 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "አግስፈለ ፡ ወሥዕለ ('he carved and figured') — verb pair resolution-limited; could be ግልፈ/ቀልዓ"
+          "note": "C-3 R1 fix CONFIRMED on f031r-R L23: ወሥዕለ → ወእሥዓላ (5 glyphs ወ-እ-ሥ-ዓ-ላ: leading እ, ሠ/ሥ comb-base, ዓ, final ላ — the verb 'he engraved/figured it' between አግስፈለ and the noun ሥዕለ ፡ ኪሩብ; both ሥ-words show the 3-pronged comb-base)"
         },
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "በቀልት ('palm trees') ወጽጌያት ('and flowers') — standard temple-carving triad; a red rubric ክፍ ፡ [numeral] follows ወለእፍኤኒ"
+          "note": "በቀልት ('palm trees') ወጽጌያት ('and flowers') — standard temple-carving triad; a red rubric ❈ ክ ፡ ፲፪ follows ወለእፍኤኒ"
         }
       ]
     },
@@ -667,14 +681,14 @@
       "v": 15,
       "column": "f031r-R-L27",
       "line_start": 27,
-      "geez": "ወለኆኅተ ፡ ዳቤር ፡ ገብረ ፡ መዓፁተ ፡ እምዕፀ ፡ ዘዴት ✣ ወገብረ ፡ ፭ ህዋኃተ ፡ ለ፬ ኆኅት ፡ በዕፀ ፡ ጸውቄና ✣ ወመዓፁተ ፡ ሆሙ ፡ ለኆኅት ✣ ወድርኩቶን ፡ ወለክልኤትኒ ፡ ኆኃት ፡ ዘመዓፁቲሁ ፡ ወድርኩኩታቲሁ ✣ ወግሉፍ ፡ ውስቴቶን ፡ ኪሩብ ፡ ወበቀልት ፡ ወጽጌያት ✣ ወቀፈሎን ፡ ወርቀ ✣",
+      "geez": "ወለኆኅተ ፡ ዳቤር ፡ ገብረ ፡ መዓፁተ ፡ እምዕፀ ፡ ዘይት ✣ ወገብረ ፡ ፭ ህዋኃተ ፡ ለ፬ ኆኅት ፡ በዕፀ ፡ ጸውቄና ✣ ወመዓፁተ ፡ ሆሙ ፡ ለኆኅት ✣ ወድርኩቶን ፡ ወለክልኤትኒ ፡ ኆኃት ፡ ዘመዓፁቲሁ ፡ ወድርኩኩታቲሁ ✣ ወግሉፍ ፡ ውስቴቶን ፡ ኪሩብ ፡ ወበቀልት ፡ ወጽጌያት ✣ ወቀፈሎን ፡ ወርቀ ✣ ወከመሁ ፡ ግብረ ፡ ለኆኃት ፡ መቅደስ ፡ ፬ ህዋኃት ፡ እምዕፀ ፡ ዘይት ፡ ወ፭ መዓፁት ፡ እምዕፀ ፡ ጸውቄና ፡ እምስፈ ፡ ወለፈ ፡ ለአንቃጹ ✣",
       "tokens": [
         "ወለኆኅተ",
         "ዳቤር",
         "ገብረ",
         "መዓፁተ",
         "እምዕፀ",
-        "ዘዴት",
+        "ዘይት",
         "ወገብረ",
         "፭",
         "ህዋኃተ",
@@ -697,35 +711,90 @@
         "ወበቀልት",
         "ወጽጌያት",
         "ወቀፈሎን",
+        "ወርቀ",
+        "ወከመሁ",
+        "ግብረ",
+        "ለኆኃት",
+        "መቅደስ",
+        "፬",
+        "ህዋኃት",
+        "እምዕፀ",
+        "ዘይት",
+        "ወ",
+        "፭",
+        "መዓፁት",
+        "እምዕፀ",
+        "ጸውቄና",
+        "እምስፈ",
+        "ወለፈ",
+        "ለአንቃጹ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "door-leaf counts ፭ (5) ህዋኃተ and ፬ (4) ኆኅት / and in the restored tail ፬ ህዋኃት + ወ፭ መዓፁት read from red glyphs at the resolution limit"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "C-3 R1 fix CONFIRMED on f031r-R L29: ዘዴት → ዘይት (first instance; same ይ-family glyph as v10/v11)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "C-2 OMISSION RESTORED — R-FOOT TAIL (CONFIRMED on f031r-R L34-37): the passage ወከመሁ ፡ ግብረ ፡ ለኆኃት ፡ መቅደስ ፡ ፬ ህዋኃት ፡ እምዕፀ ፡ ዘይት ፡ ወ፭ መዓፁት ፡ እምዕፀ ፡ ጸውቄና ፡ እምስፈ ፡ ወለፈ ፡ ለአንቃጹ was present in clean ink at the f031r-R column foot (original eye-skip on the repeated ኪሩብ/ወበቀልት/ወጽጌያት/ወቀፈሎን ፡ ወርቀ); 'temple/nave doors' (መቅደስ) distinct from the preceding 'oracle' (ዳቤር) doors. NOTE: the tail's instance reads ወ፭ መዓፁት (final ት on the ink), not መዓፁተ; tail internal separators are the two-dot ፡ on the ink (not ✣)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ድርኩቶን / ድርኩኩታቲሁ ('their thresholds/hinges') and the tail terms ህዋኃት/ኆኅት ('openings/doors'), ጸውቄና ('cypress') at the resolution limit; the door narrative continues onto f031v-L (see v16)"
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": "f031v-L-L1",
+      "line_start": 1,
+      "geez": "ኆኃት ፡ ምስለ ፡ ድርኩኩቶን ✣ ወለክልኤት ፡ ኆኃት ✣ ፪ መዓፁቲሁ ✣ ወድርኩኩታቲሆን ✣ ወስዓስ ፡ ኪሩብ ✣ ወበቀልት ✣ ወጽጌያት ✣ ወቀፈሎን ✣ ወርቀ ✣",
+      "tokens": [
+        "ኆኃት",
+        "ምስለ",
+        "ድርኩኩቶን",
+        "ወለክልኤት",
+        "ኆኃት",
+        "፪",
+        "መዓፁቲሁ",
+        "ወድርኩኩታቲሆን",
+        "ወስዓስ",
+        "ኪሩብ",
+        "ወበቀልት",
+        "ወጽጌያት",
+        "ወቀፈሎን",
         "ወርቀ"
       ],
       "uncertain": [
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "door-leaf counts ፭ (5) ህዋኃተ and ፬ (4) ኆኅት read from red glyphs at the resolution limit; the door narrative spans the f031r-R→f031v-L folio turn (…ለአንቀጹ at R foot → ኆኃት ፡ ምስለ ፡ ድርኩኩቶን at v top), continuity verified"
+          "note": "C-2 OMISSION RESTORED — f031v-L TOP (CONFIRMED on f031v-L L1-5, currently entirely missing from the witness): the nave-door description continuing across the f031r-R-foot→f031v-L-top folio turn (original eye-skip on the repeated door-vocabulary). Segmented as its OWN verse (new v16) at the clean ✣ break after ለአንቃጹ at the folio turn, following the LXX sense-units (door-leaves + carvings + gilding, ≈ 3-Kgdms 6:34b-35); the current inner-court verse is renumbered to v17 and the founding-date verse to v18"
         },
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "ዘዴት ('olive') / ጸውቄና ('cypress') technical timbers; ህዋኃተ/ኆኅት ('openings/doors') — orthography resolution-limited"
-        },
-        {
-          "token_index": 0,
-          "marker": "uncertain",
-          "note": "ድርኩቶን / ድርኩኩታቲሁ ('their thresholds/hinges') and an intervening passage at the folio foot (…እምስፈ ፡ ወለፈ, possibly fractions እምኃምስ/ለራብዕ) at the resolution limit"
+          "note": "ወስዓስ — resolution-limited (ወ-ስ-ዓ-ስ; the two ሰ-order glyphs at the limit); ፪ መዓፁቲሁ ('2 its-leaves') the ፪ is a small red numeral; ኪሩብ ('cherubim') and the carving triad ወበቀልት ✣ ወጽጌያት follow"
         }
       ]
     },
     {
-      "v": 16,
-      "column": "f031v-L-L4",
-      "line_start": 4,
-      "geez": "ወውዱያት ✣ እስከ ፡ መዓርጉ ✣ ወነደቃ ፡ ለዓፀደ ፡ ውሣጤት ፡ ሠለስተ ፡ ዘውቅሮ ፡ ወጸታ ፡ በዕፀወ ፡ ቄድሮስ ✣",
+      "v": 17,
+      "column": "f031v-L-L5",
+      "line_start": 5,
+      "geez": "ወውዱያት ✣ እስከ ፡ መደርክን ✣ ወነደቃ ፡ ለዓፀደ ፡ ውሣጤት ፡ ሠለስተ ፡ ዘውቅሮ ፡ ወጸታ ፡ በዕፀወ ፡ ቄድሮስ ✣",
       "tokens": [
         "ወውዱያት",
         "እስከ",
-        "መዓርጉ",
+        "መደርክን",
         "ወነደቃ",
         "ለዓፀደ",
         "ውሣጤት",
@@ -739,17 +808,17 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "ወውዱያት ('and beaten/laid') እስከ ፡ መዓርጉ — clause closing the gilding; resolution-limited; a red rubric ❈ ክፍ ፡ [numeral] precedes ወነደቃ"
+          "note": "C-3 R1 fix CONFIRMED-WITH-CORRECTION on f031v-L L5-6: original መዓርጉ is REFUTED by the ink (the glyphs are clearly መ-ደ-ር-[ክ]-ን, NOT መ-ዓ-ር-ጉ). Transcribed as መደርክን ('threshold/lintel'), the word wrapping L5→L6 (መደርክ|ን). The 4th glyph reads ክ (ከ 6th order) on the visible ink — R1 proposed ኩ (matching the surrounding ድርኩኩቶን door-vocabulary) but the glyph sits in a faded right margin and lacks the clear top-right u-loop seen on the known ኩ of ድርኩኩቶን; ክ/ኩ 4th-glyph flagged uncertain for R2 (read as ink ክ, NOT harmonized to ኩ)"
         },
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "inner court: ሠለስተ (3) rows ዘውቅሮ ('of hewn [stone]') ወጸታ ('and a row'); ሠ 1st-order and ጸ/ፀ at resolution limit; a red rubric ❈ ክፍል ፡ [numeral] ❈ follows ቄድሮስ"
+          "note": "inner court: ሠለስተ (3) rows ዘውቅሮ ('of hewn [stone]') ወጸታ ('and a row'); ሠ 1st-order and ጸ/ፀ at resolution limit; a red rubric ❈ ክ ፡ ፲ወ፫ precedes ወነደቃ at f031v-L L6, and a red rubric ❈ ክፍል ፡ [numeral] ❈ follows ቄድሮስ"
         }
       ]
     },
     {
-      "v": 17,
+      "v": 18,
       "column": "f031v-L-L9",
       "line_start": 9,
       "geez": "ወበራብዕ ፡ ዓመት ✣ ሣረረ ፡ ለቤተ ፡ እግዚአብሐር ፡ በወርኃ ✣ ዜሳን ፡ በክልኤ ፡ ወርኁ ✣ በ፲ወ፩ ፡ ዓመት ✣ ወወርኁ ✣ ባዕድ ፡ ወውእቱ ፡ ሳምን ✣ ወርኁ ፡ ፊጸመ ፡ ቤት ፡ ወኩሎ ✣ ሥርዓቱ ✣ ወሐነጸ ፡ በ፯ ፡ ዓመት ✣",
@@ -801,5 +870,5 @@
       ]
     }
   ],
-  "transcription_notes": "Hand: GG-00106 careful 3-column book hand (LXX / 3-Kingdoms recension). Damage: generally clean; one faded word at f031r-M L19 rendered as the ⟦illegible⟧ sentinel; the Temple-dimension and door-count numerals are red and small (at the JPG resolution limit), transcribed as inked and flagged. Boundary START: 1Ki6 begins at f031r-L ~line 27, immediately after the red rubric ክፍል ፡ [numeral] ❈ that follows the close of 1Ki5 ('…ወወደይዎን'); incipit ወውእቱ ፡ ቤት ፡ ዘሐነፀ ፡ ሰሎምን ፡ ንጉሥ ፡ ለእግዚአብሐር ('And this is the house that Solomon the king built for the LORD') — i.e. this recension opens 1Ki6 with the Temple description, NOT the KJV 'in the 480th/fourth year' formula (that dating clause appears at the chapter END here). Boundary STOP: 1Ki6 ends at f031v-L line 14 with '…ወፈጸመ ፡ (ፊጸመ) ፡ ቤት ፡ ወኩሎ ፡ ሥርዓቱ ✣ ወሐነጸ ፡ በ፯ ፡ ዓመት' ('he finished the house and all its ordinances, and built it in seven years'); immediately after, the red rubric ክፍል ፡ ፴ ❈ introduces 1Ki7 with 'ወሐነጸ ፡ ቤዶ ፡ ሰሎምን ፡ በ፲ወ፫ ዓመት' ('Solomon built HIS OWN house in 13 years') + the House of the Forest of Lebanon (…ሊባናስ ፡ ፻ በእመት ኑኁ). The ክፍል ፡ ፴ rubric and everything after it is 1Ki7 and is NOT transcribed. Span actually transcribed: f031r-L (from ~L27) → f031r-M (full) → f031r-R (full) → f031v-L (L1–~L14). Read L→M→R within a folio, then the f031r-R-foot → f031v-L-top folio turn (running text continuous across every column/folio turn; verified, no skipped line). Scribal conventions per GG topology: small red inter-word marks = ፡ (wordspace); the larger body-cross ✣ is kept inline as a clause/sentence separator (the tokenizer strips it); the knot-cross ❈ follows each red ክፍል rubric. Intra-chapter red ክፍል/ክፍ rubrics are LITURGICAL subdivisions (not modern chapters) and were observed mid-chapter at: the chapter head (f031r-L ~L27), f031r-L foot (after ወለዳቢርሂ), f031r-M (after the cedar-lining clause ~L15; before the divine word ~L22; after በዘገበዋቲሁ ~L28), f031r-R (top before the altar; ~L4 before the cherubim; ~L26 before the doors), and f031v-L (~L6 before the inner court; ~L8). Their exact red numerals are at the JPG resolution limit (mostly ፳/፴ range, single-glyph) and are recorded here rather than as verse boundaries — the running narrative defines the chapter; the verse division below follows the LXX sense-units. Anti-harmonization watch (per GG topology §1/§2): the body-cross ✣ was NOT promoted to fidel እ in 2nd-person-suffix-ከ positions; ሠ/ሥ, ለ/ስ, ፈ/ረ, ቤ/በ, ኃ/ሐ and a/o vowel-order confusions were read as inked, not toward any printed form. Internal spelling variants (ዘይት vs ዘዴት for 'olive'; ዜሳን; ባዕድ for the month 'Bul') are transcribed as written and flagged. Blind transcription from the two GG images only (no second witness, no KJV/skeleton)."
+  "transcription_notes": "Hand: GG-00106 careful 3-column book hand (LXX / 3-Kingdoms recension). Damage: generally clean; one faded word at f031r-M L19 rendered as the ⟦illegible⟧ sentinel; the Temple-dimension and door-count numerals are red and small (at the JPG resolution limit), transcribed as inked and flagged. Boundary START: 1Ki6 begins at f031r-L ~line 27, immediately after the red rubric ክፍል ፡ [numeral] ❈ that follows the close of 1Ki5 ('…ወወደይዎን'); incipit ወውእቱ ፡ ቤት ፡ ዘሐነፀ ፡ ሰሎምን ፡ ንጉሥ ፡ ለእግዚአብሐር ('And this is the house that Solomon the king built for the LORD') — i.e. this recension opens 1Ki6 with the Temple description, NOT the KJV 'in the 480th/fourth year' formula (that dating clause appears at the chapter END here). Boundary STOP: 1Ki6 ends at f031v-L line 14 with '…ወፈጸመ ፡ (ፊጸመ) ፡ ቤት ፡ ወኩሎ ፡ ሥርዓቱ ✣ ወሐነጸ ፡ በ፯ ፡ ዓመት' ('he finished the house and all its ordinances, and built it in seven years'); immediately after, the red rubric ክፍል ፡ ፴ ❈ introduces 1Ki7 with 'ወሐነጸ ፡ ቤዶ ፡ ሰሎምን ፡ በ፲ወ፫ ዓመት' ('Solomon built HIS OWN house in 13 years') + the House of the Forest of Lebanon (…ሊባናስ ፡ ፻ በእመት ኑኁ). The ክፍል ፡ ፴ rubric and everything after it is 1Ki7 and is NOT transcribed. Span actually transcribed: f031r-L (from ~L27) → f031r-M (full) → f031r-R (full) → f031v-L (L1–~L14). Read L→M→R within a folio, then the f031r-R-foot → f031v-L-top folio turn (running text continuous across every column/folio turn; verified, no skipped line). Scribal conventions per GG topology: small red inter-word marks = ፡ (wordspace); the larger body-cross ✣ is kept inline as a clause/sentence separator (the tokenizer strips it); the knot-cross ❈ follows each red ክፍል rubric. Intra-chapter red ክፍል/ክፍ rubrics are LITURGICAL subdivisions (not modern chapters) and were observed mid-chapter at: the chapter head (f031r-L ~L27), f031r-L foot (after ወለዳቢርሂ), f031r-M (after the cedar-lining clause ~L15; before the divine word ~L22; after በዘገበዋቲሁ ~L28), f031r-R (top before the altar; ~L4 before the cherubim; ~L26 before the doors), and f031v-L (~L6 before the inner court; ~L8). Their exact red numerals are at the JPG resolution limit (mostly ፳/፴ range, single-glyph) and are recorded here rather than as verse boundaries — the running narrative defines the chapter; the verse division below follows the LXX sense-units. Anti-harmonization watch (per GG topology §1/§2): the body-cross ✣ was NOT promoted to fidel እ in 2nd-person-suffix-ከ positions; ሠ/ሥ, ለ/ስ, ፈ/ረ, ቤ/በ, ኃ/ሐ and a/o vowel-order confusions were read as inked, not toward any printed form. Internal spelling variants (ዘይት vs ዘዴት for 'olive'; ዜሳን; ባዕድ for the month 'Bul') are transcribed as written and flagged. Blind transcription from the two GG images only (no second witness, no KJV/skeleton). C-3 (R1 round, applied): re-read GG f031r/f031v for this chapter. CONFIRMED two dropped-scripture restorations on the parchment — (C1) v5: the clause ዘዘጋምክ ፡ በእመት ፡ ኑኁ ፡ ወእሠዎ (f031r-M L16-17), and (C2) the nave-door passage across the f031r-R-foot→f031v-L-top folio turn (R-foot tail appended to v15; the f031v-L-top portion segmented as a NEW verse v16 at the ✣ break after ለአንቃጹ, per LXX sense-units — the former v16 'inner court' is now v17 and the former v17 'founding dates' is now v18; total verses 17→18). Confirmed glyph corrections: v4 መፍ→መፍደሕ and v4/v7 ወሦሉ→ወኩሉ (ከ-base+u, not the ሠ comb-base); v11 & v15 ዘዴት→ዘይት (ይ-family, consistent with v10); v14 ወሥዕለ→ወእሥዓላ. v16(new-v17) original መዓርጉ is REFUTED by the ink and read መደርክን (4th glyph ክ/ኩ flagged). NOTE on the earlier v9 claim: ወእሠርገዎ is COMPLETE at the f031r-M column foot — it does NOT split across the M→R column turn (that earlier note was inaccurate and has been corrected). Separator fidelity: at several flagged junctions the inline mark reads as the two-dot ፡ on the ink (e.g. v4 መፍደሕ ፡ ወደቀ); restored C2 spans use ፡ internally as inked rather than the ✣ R1 proposed (token-neutral; flagged for R2)."
 }

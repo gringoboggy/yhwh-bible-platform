@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-05-27 (cont.) — 1ki6 C-3 GG witness reviewed-clean + rolling scope-ahead method wired
+
+**Phases shipped:** τ.6.x.4.c 1ki6 C-3 (GG adversarial review). Marathon step + method-doc work — manuscript-evidence JSON + plan/topology/lookahead docs; no product code / corpus-promote / base-HTML / build change (+0 tests).
+**Save:** committed this session + E:/F: `git bundle --all` backup; READY for /clear → resume 1ki6 C-4 (CAM hi-res pull) next session.
+
+**C-3 (1ki6 GG witness → reviewed-clean, now 18 v):** R1 adversarial review found **2 CRITICAL homoeoteleuton omissions** (v5 eye-skip `ወእሠርዮ→ወእሠርዎ`; the v15→v16 nave-doors passage dropped across the f031r-R→f031v-L FOLIO TURN) + 5 major glyph/harmonization fixes (v4 `መፍ→መፍደሕ`; v4/v7 `ወሦሉ→ወኩሉ` [ኩ 2-prong vs ሠ 3-prong]; v11/v15 `ዘዴት→ዘይት` [ይ-family, scribe consistent]; v14 `ወእሥዓላ`; v17 `መዓርጉ→መደርክን`). A fix-agent restored both omissions (each re-confirmed genuinely on the parchment) → the nave-doors passage became its own verse (17→18 v). R2 independently UPHELD all 6 fixes — **zero substantive defects, zero fabrication**, v6 `⟦illegible⟧` genuine, the 1ki6:1 LXX house-first incipit confirmed a genuine recension feature (not an error), STOP boundary confirmed (ends `…ወሐነጸ ፡ በ፯ ዓመት`, no bleed into the red `ክፍል ፴`/1Ki7). `validate_witness` OK · non-Ethiopic screen CLEAN · 18 v. AMBIGUOUS-PARCHMENT (→ C-7 CAM cross-ref): v17 `ክ/ኩ` + minor v16 glyphs. `GG_topology.md` appended (ኩ/ሠ + ይ/ደ-in-`ዘይት` references + the two homoeoteleuton worked examples + the ክ/ኩ §5 class). Manifest `1ki:6 in-progress` (chapter close is C-9).
+
+**Rolling scope-ahead — new validated workflow, wired into the method.** Introduced a rolling **text-only** scope-ahead pass: light agents (no image reads) running CONCURRENTLY beside the heavy vision agent — validated safe at **1 heavy + ≤2 light text-only = ~8 GB free, flat** (the OOM constraint is image-buffer bytes, not RAM or agent count; memory `feedback-concurrent-agent-cap` updated). Built per-chapter look-ahead dossiers for ALL remaining KINGS (1ki7–22 + 2ki1–25) → `dev/MARATHON_LOOKAHEAD.md`: class/rounds, KJV verse-ceiling, KNOWN LXX/recension divergences (1ki12 Miscellanies · 1ki14 minus · 1ki20↔21 swap · 2ki14–17 REGNAL block · 2ki17 syncretism expansion · 2ki18–20 Isaiah∥), folio-band estimates. Samuel scope still pending. **Wired into `docs/superpowers/plans/2026-05-17-kings-manuscript-collation.md`:** C-1 now consults MARATHON_LOOKAHEAD; new **METHOD NOTE 6 = the BLINDNESS RULE** (recension-content → controller + reviewers, NEVER the blind C-2/C-5 transcribers — that would induce the harmonization the cardinal rule forbids; only class-screens reach transcribers, via `chapter_profile`); + a **bounded-concurrent low-buffer CAM hi-res pre-pull** design (disk-only programmatic QC, RAM-gated; first live test next session during 1ki6's heavy CAM steps). **Env (context — outside this commit):** user dedicates machine RAM to sessions + authorized ending non-vital processes if RAM tightens; AV/security stays ON (my advice — no benefit to disabling + real project-risk near the deadline). Gates: `lint_rules` 15 pass / 1 benign warn / 0 fail; `ruff format --check` 1037 files clean.
+
+---
+
 ## 2026-05-27 (cont.) — Claude Code environment cleanup + §0 session-start health-check rule
 
 **Phases shipped:** none — harness / user-config cleanup + one in-repo doc rule (no code / corpus / base-HTML / build / test change; +0 tests).
