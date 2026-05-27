@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-27 — Process fix: triad-read recurring-miss fixed durably + RULES coherence pass
+
+**Phases shipped:** none — process / docs / harness only (no code / corpus / base-HTML / build / test change; +0 tests).
+**Save:** committed this session + E:/F: `git bundle --all` backup.
+
+What happened:
+- **Recurring miss (the trigger):** on a fresh-session "continue" I had — for the past few sessions — skipped the bootstrap triad, reading only a `git log` + the SESSION_STATE top banner before acting. **Root cause:** the `feedback-terse-bias-to-action` cross-session memory instructed "on continue, read SESSION_STATE top + IN_FLIGHT + git, then act," which overrode the §0 triad-read protocol.
+- **Fix (3 layers):** (1) a project **SessionStart hook** — `.claude/hooks/bootstrap-triad.ps1`, wired in `.claude/settings.json` (cwd `C:\Users\bogda\Documents\YHWH-v2.4-full`, the repo parent) — injects the triad-read reminder at every session start; this is the forcing function memory can't be (an automated per-session behavior needs a hook, per the update-config skill). (2) Reconciled the two memories: `feedback-terse-bias-to-action` now scopes terseness to AFTER the triad (the triad is the ~700-900-line minimum, not the bloat — the 2026-05-26 over-read was the marathon-plan + runner-code + question-rounds piled on top), and `reference-bootstrap` is strengthened + cites the hook. (3) **RULES §0** clarified: "continue / push / go ahead at a fresh session = read the triad first, THEN resume; a `git log` or SESSION_STATE-only peek is not a substitute."
+- **RULES coherence pass (user-requested):** read the entire 2161-line doc and fixed 4 internal contradictions/staleness — (a) §15 chain "4-point"→"5-point" checklist + added the missing `claimed-saved-but-uncommitted` drift class to the §15 coverage map (the §12 audit grew 4→5 with the git-truth gate but §15 was never updated); (b) §11 + §12 still described "save" as "building/surfacing a zip" / "before zipping" — contradicting §4's "save = local git commit (zip flow dormant)" — retargeted to "commit"; (c) §12 retrospective trigger-4 cited obsolete "in-memory rules (1–6 today) … a 7th rule" — replaced with the cross-session memory store described in "Learning capture" just below it; (d) §10's print-on-demand bullet (dated 2026-05-12, pre-pivot) said "focus remains digital retail" + "direct buyer consumption" — contradicting §1's 2026-05-14 free-public pivot — annotated as superseded (multi-format export survives as a FREE download; "buyer" now = "builder").
+
+Notable decision:
+- Enforced via a hook, NOT memory alone: "read the triad each session" is an automated per-session behavior, which memory/preferences cannot trigger — only a SessionStart hook can (the update-config skill's hook-vs-memory rule). The memory was reconciled too, but the hook is the load-bearing fix.
+- Harness artifacts (hook script, settings.json, the 2 memory files) live under `~/.claude`, OUTSIDE the git repo — so they are NOT in this commit or the `git bundle`; they persist on disk across /clear.
+
+Next: resume the Track-B Kings/Samuel Geʽez manuscript marathon at 1 Kings 6 C-1 (user-paced) after /clear.
+
+---
+
 ## 2026-05-26 (cont.) — TIER-3 marathon resumed: execution method ratified + paid-API de-scoped (audit/planning only)
 
 Opened TIER-3 (the Kings/Samuel Geʽez dual-manuscript marathon = "finish Geʽez rendering," PLAN step 1) after the pre-TIER-3 `/clear`. **Audit/planning session only — no vision run, no API spend, no code/corpus/base/build change** (doc-only commit). Tree was clean (no stray files).

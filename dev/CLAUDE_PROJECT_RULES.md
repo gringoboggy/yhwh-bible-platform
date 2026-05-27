@@ -72,6 +72,8 @@ Every fresh session begins by reading, in this order:
                                   Track B/C detail + phase-history)
 ```
 
+**"continue" / "push" / "go ahead" at the start of a fresh session DOES NOT bypass this read-order** (added 2026-05-27 — a recurring miss): those words mean *read the triad first, THEN resume the in-flight work*, never *skip to the task*. The triad (~700-900 lines) IS the minimum orientation; a `git log` or a SESSION_STATE-only peek is NOT a substitute for it. A project **SessionStart hook** (`.claude/hooks/bootstrap-triad.ps1`, wired in `.claude/settings.json` at the repo-parent cwd) now injects this reminder at every session start as a forcing function — memory alone can't enforce a per-session automated behavior; only a hook can.
+
 **Always-there maps (user-directed 2026-05-21):** for ANY "where does X
 live / how does data flow / what feeds the build" question, check the maps
 FIRST — never grep blind. `dev/MATRIX_MAP.md` traces the DATA-FLOW (config →
@@ -1617,7 +1619,11 @@ first. Treat new index-backed optimizations the same way:
   paperback / IngramSpark) is still deferred — the
   print-cover-customize wiring exists in content/
   customization.yaml but the build pipeline integration is
-  beyond v1.x.
+  beyond v1.x. **(Superseded by the 2026-05-14 free-public pivot —
+  see §1: no retail / sales / ISBN / POD. Multi-format export
+  (PDF / MOBI / HTML / TXT) survives only as a FREE download
+  option, never a retail product; "buyer" in older rules now
+  means the "builder" who makes their own free edition.)**
 - Not a real-time collab tool. One editor at a time. Git
   history covers the audit trail.
 - Not Flask / FastAPI / Django. Standard library only on the
@@ -1637,8 +1643,9 @@ Always update it when:
 1. **A phase ships** — record the new "last shipped" entry, bump
    the test count, refresh "next up".
 2. **A save is requested** — verify SESSION_STATE.md is current
-   BEFORE building the zip. If the save is full and the doc is
-   stale, the doc gets fixed first.
+   BEFORE committing. If the doc is stale, it gets fixed first
+   (in the same commit). (The Claude-Desktop-era zip flow is
+   dormant — see §4; "save" = a local git commit.)
 3. **A scope change happens** — corpus goal, north-star
    clarification, deferral or reactivation of a phase, etc.
 4. **An external dependency or assumption shifts** — e.g. a
@@ -1680,9 +1687,9 @@ Required sections (kept short — every line earns its place):
   not a journal.
 - Keep it under ~150 lines. If it grows past that, the rules
   doc or the plan probably needs the overflow.
-- When the user is on mobile and sends a save command, the
-  SESSION_STATE update can be inline with the save turn —
-  just do it before zipping. Don't ask permission.
+- When the user sends a save command, the SESSION_STATE update
+  can be inline with the save turn — just do it before
+  committing. Don't ask permission.
 
 ## 12. Retrospective protocol — keep CHANGELOG.md and the rules current
 
@@ -1699,8 +1706,8 @@ Always:
 - **At the end of any session that shipped ≥1 phase**, before
   pausing or saving. Even a one-line entry is fine if the
   session was small.
-- **Before any save command surfaces a zip**, ensure the entry
-  for that session exists.
+- **Before any save (commit)**, ensure the entry for that
+  session exists.
 
 What goes in an entry: see § "Entry format" below.
 
@@ -1724,9 +1731,10 @@ one when **any** of these triggers fire after work ships:
    §3 sequencing. If the resolution was good, codify it as a
    refinement to the rule. If bad, document the lesson.
 
-4. **A memory rule needed updating** — the in-memory rules
-   (1–6 today) are the cheapest possible reminder system; if a
-   new pattern justifies a 7th rule, add it.
+4. **A memory rule needed updating** — the cross-session memory
+   store (the `memory/` dir, see "Learning capture" below) is the
+   cheapest cross-session reminder system; add or update a memory
+   entry when a durable preference / gotcha / lesson appears.
 
 5. **A scope clarification happened** — the north star, corpus
    target, or any §1–§2 universal principle shifted. Update the
@@ -2065,7 +2073,7 @@ TIER 4  Behavioral protocols      ← FIRST line of defense
 
 TIER 1  Per-turn pre-summary      ← SECOND line
         audit (§12 footnote,        Catches drift before the
-         4-point checklist)         user reads the response.
+         5-point checklist)         user reads the response.
 
 TIER 2  IN_FLIGHT.md tracker       ← STATE OF RECORD
         (§11, §4 checkpoint        Persistent evidence across
@@ -2113,6 +2121,13 @@ one or more **secondary/backstop** owners.
   → Tier 3's lint check catches it on the next preflight
 - **pivot / state-uncertain** (e.g., resuming after compaction)
   → Tier 4's behavioral protocol catches it before any code runs
+- **claimed-saved-but-uncommitted** (e.g., a "committed + backed
+  up" claim while HEAD lags or no `git bundle` exists)
+  → Tier 1's git-truth check (pre-summary audit point 5) catches
+  it before the user reads the claim; the §14 resume audit
+  (Tier 4) is the cross-session backstop. (Added with the §12
+  5-point audit after the 2026-05-26 Torrey near-miss; kept out
+  of the grid above only to keep it readable.)
 
 ### When to escalate
 
