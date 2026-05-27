@@ -109,3 +109,11 @@ These classes cannot be resolved at the available image resolution (~4500 DPI eq
 ---
 
 **Reviewer pre-flight (every C-3 round):** read sections 1–5 above, then do the chapter-specific reading. After APPROVE, append newly-confirmed references to the relevant section. Do NOT remove or rewrite prior references — append + struck-through-if-refuted.
+
+
+## 1 Kings 5 confirmed findings (tau.6.x.4.c, 2026-05-26)
+
+From the C-3 R2 re-scrutiny (all Geez copied verbatim from the validated witness):
+
+- **so/ka confusion (new; add to section 2).** 1ki5 GG v6: R1 had the printed 'and-when' idiom; the ink is `ወከበ` (2nd glyph is ka -- tall stem + top hook, matching the ka-base of the next line's name; no sa-saucer/o-loop). A harmonization-prone pair not previously documented.
+- **Harmonization hides inside `uncertain`/AMBIGUOUS flags (same pattern as CAM).** GG 1ki5 R2 reverted 3 of the 4 AMBIGUOUS-PARCHMENT MAJORs that R1 had pushed toward the printed Bible: v1 -> inked `ወፈነዎሙ` (a real medial glyph R1 had deleted as 'phantom'), v1 -> inked `ንጉሠ` (1st-order, not the printed 6th-order), v6 -> inked `ወከበ`. **Reviewer rule: re-adjudicate every `uncertain`/AMBIGUOUS-flagged token against the ink -- the flag marks where the transcriber guessed, and guesses drift to the printed/standard form.** (Same pattern fired on CAM -- see CAM_topology 1ki5.)

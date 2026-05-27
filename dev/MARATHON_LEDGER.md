@@ -16,6 +16,7 @@
 | 1ki2  | NARRATIVE  | 2026-05-19 |   1  |     4     |     3      |     30     | 40fd8a8  | engine base SURFACE-TO-USER → segmentation-granularity artifact; user kept base=CAM |
 | 1ki3  | NARRATIVE  | 2026-05-19 |   1  |     5     |     1+adj  |     13     | (1ki3 final) | 5 fresh reviewer rounds + glyph adjudicator + 4 fixes (heaviest GG-side so far); CAM converged in 1+adj |
 | 1ki4  | LIST       | 2026-05-20 |   2  |     7     |     3      |    110     | 092afd3  | first LIST-class chapter (officer registry + wisdom names); chapter classifier built in response; schema-rot witnesses migrated post-C-7 to canonical schema |
+| 1ki5  | NARRATIVE  | 2026-05-26 |  ~1  |     2     |     2      |     15     | (1ki5 C-9) | R1 prior-session; this session = GG R2 (reverted 3 of 4 MAJOR harmonizations to inked glyphs) + CAM C-4..C-9. CAM located on f127v-R + f128r-L, NOT the arithmetic-predicted f128r+f128v (chapters span columns). CAM R1 found 5 (3 hid behind uncertain flags drifting to the printed Bible). semantic 100%, base=CAM, ww 12.6% (distinct-recension); 0 fabrication / lacuna 0 |
 
 **Rolling stats (post-1Ki4 close):**
 

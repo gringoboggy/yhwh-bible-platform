@@ -432,8 +432,11 @@ delegated this judgment; exercise it.
   landed** with `git log`/`git status` before claiming "saved" (§12/§14 truth-gate). Never
   report a save that didn't happen.
 - **"Backup" is a SEPARATE command from "save":** a commit is not a backup. Back up via
-  `git bundle --all` to the external **E:/F:** drives (NEVER C: — system drive is low), only
-  when the user says "backup".
+  `git bundle create <file> --all` (file BEFORE `--all`) to the external **E:/F:** drives
+  (NEVER C: — system drive is low). **Backup CADENCE (user-directed 2026-05-26): proactively
+  back up every 3rd commit** (track the count; bundle on commits 3, 6, 9, …), AND at every
+  `/clear` checkpoint, AND whenever the user says "backup". This supersedes the prior
+  "backup only on explicit command" rule.
 - "Continue", "proceed", "go ahead", "push" are **NOT** save commands (here "push" = "advance
   to the next phase," not `git push`). Don't auto-commit at the end of a phase.
 

@@ -70,3 +70,15 @@ Same as GG (`GG_topology.md` §5) plus CAM-specific:
 ---
 
 **Reviewer pre-flight (every C-6 round):** read §1–§5 of THIS file + §1–§5 of `GG_topology.md` (all the GG fidel-family classes apply to CAM too), then do the chapter-specific reading. After APPROVE, append newly-confirmed references to the relevant section.
+
+
+## 1 Kings 5 confirmed findings (tau.6.x.4.c, 2026-05-26)
+
+Appended at C-6 close per the self-upgrading-matrix rule (the C-6 reviewer ran read-only this session; controller appends; all Geez below is copied verbatim from the validated witness JSONs).
+
+- **Divine name is the 1st-order form `እግዚእብሔር`** (1st-order initial fidel), NOT the printed 4th-order spelling. Verified on the same line vs the wide 4th-order vowel of the following word (v3/4/5/12). Transcribe the inked 1st-order form; do NOT harmonize to the printed divine name.
+- **Column-edge / column-bottom / line-end is THE harmonization hotspot, and it hides inside `uncertain` flags.** On 1ki5 CAM, 3 of the 5 C-6 R1 errors were tokens the transcriber had FLAGGED `uncertain` while its guess drifted to the printed Bible, each at a column edge: v12 (col-bottom) inked `ጽኑዓ` (printed form differs at the first glyph); v8 (col-edge) inked `ኪራሲም` (ending misread); v17 (line-end) inked `ዘኢኮነ` (negation dropped). **Reviewer rule: treat every `uncertain`-flagged token as a SUSPECTED harmonization and re-adjudicate it against the ink** -- the flag marks exactly where the transcriber guessed, and guesses drift to the printed form.
+- **Dropped function/content words at line-junctions:** v15 had dropped the conjunction `ወ` before the 2nd myriad-numeral; v16 had dropped the content word `ስዶማን` at a line-junction. Trace running text across every column/line break.
+- **Myriad-numeral class:** large counts are red, bracketed numerals (`፸ ፻` / `፹ ፻` = 70k / 80k). The hundred-vs-myriad mark is at the resolution limit -- transcribe the inked hundred-mark + flag `damaged`; do NOT silently promote to a myriad mark.
+- **Correction-oval:** a hand-drawn ellipse may encircle a word (v1) with NO marginal replacement/caret -- transcribe the inked main-line glyphs + flag uncertain; do NOT smooth to the printed form.
+- **Segmentation:** CAM segmented 1ki5 into 18 verses (~ the printed division) vs GG's compressed 13 -- in this family CAM is the finer-segmented, printed-closer witness.
