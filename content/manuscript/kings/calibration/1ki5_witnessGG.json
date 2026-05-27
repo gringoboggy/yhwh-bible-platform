@@ -15,11 +15,11 @@
       "v": 1,
       "column": "f030v-M-L23",
       "line_start": 23,
-      "geez": "ወፈነሙ ፡ ኪራም ፡ ንጉሥ ፡ ጢሮስ ፡ ለደቁ ፡ ነበ ፡ ሰሎምን ፡ አበ ፡ ሰምዓ ፡ ከመ ፡ ቀብዕም ፡ ይነግሥ ፡ ህየንተ ፡ ዳዊት ፡ አቡሁ ፡ እስመ ፡ ያፈቅሮ ፡ ኪራም ፡ ለዳዊት ፡ በኩሉ ፡ መዋዕሊሁ",
+      "geez": "ወፈነዎሙ ፡ ኪራም ፡ ንጉሠ ፡ ጢሮስ ፡ ለደቁ ፡ ነበ ፡ ሰሎምን ፡ አበ ፡ ሰምዓ ፡ ከመ ፡ ቀብዕም ፡ ይነግሥ ፡ ህየንተ ፡ ዳዊት ፡ አቡሁ ፡ እስመ ፡ ያፈቅሮ ፡ ኪራም ፡ ለዳዊት ፡ በኩሉ ፡ መዋዕሊሁ",
       "tokens": [
-        "ወፈነሙ",
+        "ወፈነዎሙ",
         "ኪራም",
-        "ንጉሥ",
+        "ንጉሠ",
         "ጢሮስ",
         "ለደቁ",
         "ነበ",
@@ -48,12 +48,12 @@
         {
           "token_index": 0,
           "marker": "damaged",
-          "note": "R1 M-1 applied per review: ወፈነወሙ→ወፈነሙ (phantom medial ወ removed). Reviewer self-flagged AMBIGUOUS-PARCHMENT; Phase 2 re-verify pending."
+          "note": "R2 re-verified vs f030v-M (tight crop): REVERTED wefenemu to wefenewomu (ወፈነሙ to ወፈነዎሙ) - the medial glyph IS present (ዎ, o-glide before 3mp suffix ሙ); R1's 'phantom medial ወ' deletion was a harmonization. Parchment-faithful."
         },
         {
           "token_index": 0,
           "marker": "damaged",
-          "note": "R1 M-2 applied per review: ንጉሠ→ንጉሥ (1st-order ሠ → 6th-order ሥ, standard absolute-state form). Reviewer self-flagged AMBIGUOUS-PARCHMENT; Phase 2 re-verify pending."
+          "note": "R2 re-verified vs f030v-M: REVERTED to ንጉሠ - inked final glyph is the triple-lobe ሠ (1st order, sawt), no 6th-order descender; R1's ሥ was a printed-form absolute-state harmonization. ሠ/ሥ vowel-order class: also flagged for C-7 CAM cross-ref."
         },
         {
           "token_index": 0,
@@ -221,9 +221,9 @@
       "v": 6,
       "column": "f030v-R-L23",
       "line_start": 23,
-      "geez": "ወሶበ ፡ ሰምዓ ፡ ኪራም ፡ ቃለ ፡ ሰሎምን ፡ ተፈሥሐ ፡ ፈድፋደ ፡ ወይቤ ፡ ይትባረክ ፡ እግዚአብሐር ፡ ዮም ፡ ዘውሁቦ ፡ ለዳዊት ፡ ወልደ ፡ ጠቢበ ፡ ላዕለ ፡ ዝንቱ ፡ ሕዝብ ፡ ብዙኅ",
+      "geez": "ወከበ ፡ ሰምዓ ፡ ኪራም ፡ ቃለ ፡ ሰሎምን ፡ ተፈሥሐ ፡ ፈድፋደ ፡ ወይቤ ፡ ይትባረክ ፡ እግዚአብሐር ፡ ዮም ፡ ዘውሁቦ ፡ ለዳዊት ፡ ወልደ ፡ ጠቢበ ፡ ላዕለ ፡ ዝንቱ ፡ ሕዝብ ፡ ብዙኅ",
       "tokens": [
-        "ወሶበ",
+        "ወከበ",
         "ሰምዓ",
         "ኪራም",
         "ቃለ",
@@ -257,7 +257,7 @@
         {
           "token_index": 0,
           "marker": "damaged",
-          "note": "R1 M-3 applied per review: ወከበ→ወሶበ (standard Ge'ez idiom 'and when he heard'). Reviewer self-flagged AMBIGUOUS-PARCHMENT (ሶ/ከ confusion not in topology §2 explicitly); Phase 2 re-verify pending."
+          "note": "R2 re-verified vs f030v-R: REVERTED to ወከበ - 2nd glyph shows ከ structure (tall stem + top hook, matching the ከ-base of ኪ in ኪራም on the next line); no ሰ-saucer/o-loop. R1's ሶ was an 'and-when' idiom harmonization. Scribal anomaly vs expected ወሶበ: flagged for C-7 CAM cross-ref."
         }
       ]
     },
@@ -339,7 +339,7 @@
         {
           "token_index": 0,
           "marker": "damaged",
-          "note": "R1 M-4 applied per review: ወትህብሊ → ወትህብ (phantom ሊ removed; expected idiom 'ወትህብ ፡ ሲሳየ' = 'and you give food'). Reviewer self-flagged AMBIGUOUS-PARCHMENT; Phase 2/3 re-verify pending."
+          "note": "R2 CONFIRMED vs f030v-R: ወትህብ is correct - final ብ followed directly by the ፡ word-divider then ሲሳየ; no trailing ሊ. R1 fix stands."
         },
         {
           "token_index": 0,
@@ -563,5 +563,5 @@
       ]
     }
   ],
-  "transcription_notes": "Hand: GG-00106 careful 3-column book hand. Damage: clean (no significant ink loss). Boundary: 1Ki4 ends f030v-M just before rubric ክፍል ፡ ፳ ወ፬ (last words of ch.4: '...እምኩሉ ፡ ነገሥት ፡ ምድር ፡ እለ ፡ ሰምዑ ፡ ጥበቢሁ'). 1Ki5 begins f030v-M at red rubric ክፍል ፡ ፳ ወ፬ ❈ followed by 'ወፈነሙ ኪራም ንጉሥ ጢሮስ...' 1Ki5 ends f031r-L mid-bottom at '...ወእባነ ፡ ፫ ዓመተ' just before the next rubric (ክፍ ፡ ?) which introduces 'ወእምዝ አመ ኮነ ፬…' (1Ki6:1). No ምዕራፍ rubric appears on these folios — this MS segments by ክፍል only. The chapter 5 boundary is reconstructed from the natural narrative-unit break (Hiram-Solomon correspondence + temple-preparation levy). Intra-chapter rubrics observed: ክፍል ፡ ፳ ወ፬ (v1), ፳ ወ፭ (v2), ፳ ወ፮ (v6), ፴ (v10), ፴ (v12), ፴ (v13). Topology says the multi-፴ pattern is unusual; the third '፴' may actually be ፴ ወ፩/፪ at the resolution limit. Numeral discriminations resolved via stylistic cap-curl: ፴ (30) clearly distinct from ፫ (3) — verified at lines L9 (30,000 levy), L16 (70k/80k bearers/hewers); both 70k+80k match KJV/MT recension. Stylistic note: small red marks appear between every word position in this MS — read as ፡ (wordspace) per topology, except where the larger ✣ body-cross appears (confirmed instances v6, v7, v8 — see R1 fixes below). Larger ❈ knot crosses appear after each ክፍል rubric per topology §1. \n\nR1 fix-round (2026-05-20) applied per REVIEW_2026-05-20-1ki5-GG-R1.md:\n- CRITICALs (5): C-1 v6 ጠቢላሰ→ጠቢበ ፡ ላዕለ (line-break-split mis-merge); C-2 v7+v8 ✣→እ mis-parse class — four instances of 'ከእ' resolved to 'ከ ✣' (ዘበእከ ✣, መፍቅደከ ✣, እምሊባኖስከ ✣, ፈቀደከ ✣); C-3 v7 ዕወወለ ፡ ዘድሮን → ዕወወ ✣ ዘድሮና; C-4 v10 both ስኪራም→ለኪራም (ለ/ስ topology §2 family); C-5 v12 ወረነወ→ወፈነወ (new ፈ/ረ topology §2 family — to be appended to topology after APPROVE).\n- MAJORs (4): M-1 v1 ወፈነወሙ→ወፈነሙ (phantom medial ወ; reviewer-AMBIGUOUS, Phase 2 re-verify); M-2 v1 ንጉሠ→ንጉሥ (1st→6th order; reviewer-AMBIGUOUS, Phase 2 re-verify); M-3 v6 ወከበ→ወሶበ (and-when idiom; reviewer-AMBIGUOUS, Phase 2 re-verify); M-4 v8 ወትህብሊ→ወትህብ (phantom ሊ; reviewer-AMBIGUOUS, Phase 2 re-verify).\n- MINORs (6): N-1/N-2/N-3/N-5/N-6 left as-is per review's 'optional this round' guidance, surfaced as uncertain entries; N-4 v1+v2 non-idiomatic forms surfaced as honest variants.\n"
+  "transcription_notes": "Hand: GG-00106 careful 3-column book hand. Damage: clean (no significant ink loss). Boundary: 1Ki4 ends f030v-M just before rubric ክፍል ፡ ፳ ወ፬ (last words of ch.4: '...እምኩሉ ፡ ነገሥት ፡ ምድር ፡ እለ ፡ ሰምዑ ፡ ጥበቢሁ'). 1Ki5 begins f030v-M at red rubric ክፍል ፡ ፳ ወ፬ ❈ followed by 'ወፈነሙ ኪራም ንጉሥ ጢሮስ...' 1Ki5 ends f031r-L mid-bottom at '...ወእባነ ፡ ፫ ዓመተ' just before the next rubric (ክፍ ፡ ?) which introduces 'ወእምዝ አመ ኮነ ፬…' (1Ki6:1). No ምዕራፍ rubric appears on these folios — this MS segments by ክፍል only. The chapter 5 boundary is reconstructed from the natural narrative-unit break (Hiram-Solomon correspondence + temple-preparation levy). Intra-chapter rubrics observed: ክፍል ፡ ፳ ወ፬ (v1), ፳ ወ፭ (v2), ፳ ወ፮ (v6), ፴ (v10), ፴ (v12), ፴ (v13). Topology says the multi-፴ pattern is unusual; the third '፴' may actually be ፴ ወ፩/፪ at the resolution limit. Numeral discriminations resolved via stylistic cap-curl: ፴ (30) clearly distinct from ፫ (3) — verified at lines L9 (30,000 levy), L16 (70k/80k bearers/hewers); both 70k+80k match KJV/MT recension. Stylistic note: small red marks appear between every word position in this MS — read as ፡ (wordspace) per topology, except where the larger ✣ body-cross appears (confirmed instances v6, v7, v8 — see R1 fixes below). Larger ❈ knot crosses appear after each ክፍል rubric per topology §1. \n\nR1 fix-round (2026-05-20) applied per REVIEW_2026-05-20-1ki5-GG-R1.md:\n- CRITICALs (5): C-1 v6 ጠቢላሰ→ጠቢበ ፡ ላዕለ (line-break-split mis-merge); C-2 v7+v8 ✣→እ mis-parse class — four instances of 'ከእ' resolved to 'ከ ✣' (ዘበእከ ✣, መፍቅደከ ✣, እምሊባኖስከ ✣, ፈቀደከ ✣); C-3 v7 ዕወወለ ፡ ዘድሮን → ዕወወ ✣ ዘድሮና; C-4 v10 both ስኪራም→ለኪራም (ለ/ስ topology §2 family); C-5 v12 ወረነወ→ወፈነወ (new ፈ/ረ topology §2 family — to be appended to topology after APPROVE).\n- MAJORs (4): M-1 v1 ወፈነወሙ→ወፈነሙ (phantom medial ወ; reviewer-AMBIGUOUS, Phase 2 re-verify); M-2 v1 ንጉሠ→ንጉሥ (1st→6th order; reviewer-AMBIGUOUS, Phase 2 re-verify); M-3 v6 ወከበ→ወሶበ (and-when idiom; reviewer-AMBIGUOUS, Phase 2 re-verify); M-4 v8 ወትህብሊ→ወትህብ (phantom ሊ; reviewer-AMBIGUOUS, Phase 2 re-verify).\n- MINORs (6): N-1/N-2/N-3/N-5/N-6 left as-is per review's 'optional this round' guidance, surfaced as uncertain entries; N-4 v1+v2 non-idiomatic forms surfaced as honest variants.\n\n\nR2 fix-round (2026-05-26) - adversarial re-scrutiny of the 4 AMBIGUOUS-PARCHMENT MAJORs (M-1..M-4) vs f030v tight crops. 3 of 4 R1 fixes were harmonizations toward the printed Bible, now reverted to the inked glyphs:\n- M-1 v1 REVERT to ወፈነዎሙ (R1 had deleted a real medial ዎ).\n- M-2 v1 REVERT to ንጉሠ (inked 1st-order ሠ, not ሥ); ሠ/ሥ class carried to C-7 CAM cross-ref.\n- M-3 v6 REVERT to ወከበ (inked ከ, not ሶ); scribal anomaly carried to C-7 CAM cross-ref.\n- M-4 v8 CONFIRM ወትህብ (no trailing ሊ; R1 fix stands).\nTokens recomputed from geez; record re-validated against the HARD schema."
 }
