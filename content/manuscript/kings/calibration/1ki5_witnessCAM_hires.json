@@ -238,7 +238,7 @@
       "v": 8,
       "column": "f127v-R",
       "line_start": 26,
-      "geez": "ወለእከ ፡ ኪራም ፡ ኀበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል ፡ ሰማዕኩ ፡ ኹሎ ፡ ዘለአክ ፡ ኀቤየ ፡ አነ ፡ እገብር ፡ ኹሎ ፡ መፍቅደከ ፡ በዕፀወ ፡ እርዝ ፡ ወበዕፀወ ፡ ኪራብያ",
+      "geez": "ወለእከ ፡ ኪራም ፡ ኀበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል ፡ ሰማዕኩ ፡ ኹሎ ፡ ዘለአክ ፡ ኀቤየ ፡ አነ ፡ እገብር ፡ ኹሎ ፡ መፍቅደከ ፡ በዕፀወ ፡ እርዝ ፡ ወበዕፀወ ፡ ኪራሲም",
       "tokens": [
         "ወለእከ",
         "ኪራም",
@@ -257,13 +257,13 @@
         "በዕፀወ",
         "እርዝ",
         "ወበዕፀወ",
-        "ኪራብያ"
+        "ኪራሲም"
       ],
       "uncertain": [
         {
           "token_index": 17,
           "marker": "uncertain",
-          "note": "second timber-name; inked as a foreign word read '(ኪ/ሲ)ራብያ' (first fidel at zoom-edge) -- NOTE it is NOT the same word as 5:10's 'በርሲም'; transcribed as inked per the cardinal rule, not harmonised to v10"
+          "note": "R1 review (C-6): REVERTED to ኪራሲም -- inked ending is -ሲም, not -ብያ (look-alike misread at the zoom-edge). Same timber-word family as v10 በርሲም."
         }
       ]
     },
@@ -375,7 +375,7 @@
       "v": 12,
       "column": "f127v-R",
       "line_start": 40,
-      "geez": "ወወሀቦ ፡ እግዚእብሔር ፡ ጥበበ ፡ ለሰሎምን ፡ በከመ ፡ ይቤሎ ፡ ወኮነ ፡ ሰላም ፡ ማእከለ ፡ ሰሎምን ፡ ወማእከለ ፡ ኪራም ፡ ወተካየዱ ፡ ኪዳነ ፡ ክልኤሆሙ",
+      "geez": "ወወሀቦ ፡ እግዚእብሔር ፡ ጥበበ ፡ ለሰሎምን ፡ በከመ ፡ ይቤሎ ፡ ወኮነ ፡ ሰላም ፡ ማእከለ ፡ ሰሎምን ፡ ወማእከለ ፡ ኪራም ፡ ወተካየዱ ፡ ኪዳነ ፡ ጽኑዓ",
       "tokens": [
         "ወወሀቦ",
         "እግዚእብሔር",
@@ -391,13 +391,13 @@
         "ኪራም",
         "ወተካየዱ",
         "ኪዳነ",
-        "ክልኤሆሙ"
+        "ጽኑዓ"
       ],
       "uncertain": [
         {
           "token_index": 14,
           "marker": "uncertain",
-          "note": "'the two of them'; column-bottom, read 'ክልኤሆሙ'"
+          "note": "R1 review (C-6): REVERTED to ጽኑዓ -- inked first glyph is ጽ (sadey), not ክ; column-bottom; was harmonized to printed ክልኤሆሙ. 'ኪዳነ ጽኑዓ' = a firm covenant."
         }
       ]
     },
@@ -480,7 +480,7 @@
       "v": 15,
       "column": "f128r-L",
       "line_start": 4,
-      "geez": "ወቦ ፡ ለሰሎምን ፡ ፸ ፻ ፡ በዐሬ ፡ አርሶን ፡ ፹ ፻ ፡ ወቀርት ፡ እለ ፡ ውስተ ፡ ደብር",
+      "geez": "ወቦ ፡ ለሰሎምን ፡ ፸ ፻ ፡ በዐሬ ፡ አርሶን ፡ ወ ፹ ፻ ፡ ወቀርት ፡ እለ ፡ ውስተ ፡ ደብር",
       "tokens": [
         "ወቦ",
         "ለሰሎምን",
@@ -488,6 +488,7 @@
         "፻",
         "በዐሬ",
         "አርሶን",
+        "ወ",
         "፹",
         "፻",
         "ወቀርት",
@@ -507,12 +508,12 @@
           "note": "'burden-bearers'; read 'በዐሬ/ነሣእተ ጾር'"
         },
         {
-          "token_index": 7,
+          "token_index": 8,
           "marker": "damaged",
           "note": "numeral '፹ ፻' (red, ✣-bracketed); multiplier mark at resolution limit (80,000 expected)"
         },
         {
-          "token_index": 8,
+          "token_index": 9,
           "marker": "uncertain",
           "note": "'hewers/stonecutters'; read 'ወቀርት'"
         }
@@ -522,10 +523,11 @@
       "v": 16,
       "column": "f128r-L",
       "line_start": 5,
-      "geez": "ዘዘኀበ ፡ ንበለ ፡ መላእክት ፡ ሣዕለ ፡ ግብሪ ፡ ሰሎምን",
+      "geez": "ዘዘኀበ ፡ ንበለ ፡ ስዶማን ፡ መላእክት ፡ ሣዕለ ፡ ግብሪ ፡ ሰሎምን",
       "tokens": [
         "ዘዘኀበ",
         "ንበለ",
+        "ስዶማን",
         "መላእክት",
         "ሣዕለ",
         "ግብሪ",
@@ -538,7 +540,7 @@
           "note": "'except/those who'; junction with prev line ('...ደብር |ዘዘኀ-') faint"
         },
         {
-          "token_index": 3,
+          "token_index": 4,
           "marker": "uncertain",
           "note": "'over' (ላዕለ); read with ሣ/ላ ambiguity"
         }
@@ -548,7 +550,7 @@
       "v": 17,
       "column": "f128r-L",
       "line_start": 7,
-      "geez": "ወዓሥርዩ ፡ እለ ፡ የዓርት ፡ ውስተ ፡ ደብር ፡ ወይወርዱ ፡ ኸመ ፡ ይግበሩ ፡ ግብሮሙ ፡ ወእዘዘ ፡ ንጉሥ ፡ ያምጽኡ ፡ ዓበይተ ፡ እእባነ ፡ ወሠናያነ ፡ ለሐኒጸ ፡ ቤት ፡ እብነ ፡ ዘኮነ ፡ ውቁረ",
+      "geez": "ወዓሥርዩ ፡ እለ ፡ የዓርት ፡ ውስተ ፡ ደብር ፡ ወይወርዱ ፡ ኸመ ፡ ይግበሩ ፡ ግብሮሙ ፡ ወእዘዘ ፡ ንጉሥ ፡ ያምጽኡ ፡ ዓበይተ ፡ እእባነ ፡ ወሠናያነ ፡ ለሐኒጸ ፡ ቤት ፡ እብነ ፡ ዘኢኮነ ፡ ውቁረ",
       "tokens": [
         "ወዓሥርዩ",
         "እለ",
@@ -568,7 +570,7 @@
         "ለሐኒጸ",
         "ቤት",
         "እብነ",
-        "ዘኮነ",
+        "ዘኢኮነ",
         "ውቁረ"
       ],
       "uncertain": [
@@ -621,5 +623,5 @@
       ]
     }
   ],
-  "transcription_notes": "Cambridge UL MS Add. 1570 (CAM), dense 3-column Ethiopic book hand with red rubrication; 1588-89 CE. Hi-res CUDL folios. IMPORTANT LAYOUT FINDING (deviates from dispatch premise): the assigned folios f128r/f128v do NOT contain the body of 1Ki5. 1Ki5 actually begins on the PREVIOUS folio f127v (right column) and ENDS near the top of f128r left column; the rest of f128r and all of f128v are 1Ki6->1Ki7 (temple construction). Verified by vision: f127v-R top shows the 1Ki4 wisdom tail ('all peoples/kings came to hear his wisdom') then a red section rubric (klf 6) then 1Ki5:1 'ወፈነወ ኪራም ... ጢሮስ አግብርቲሁ ኀበ ሰሎምን' (Hiram of Tyre sent his servants to Solomon). 1Ki5 runs down the whole of f127v-R; the levy verse (5:13-14) SPLITS across the f127v-R-bottom -> f128r-L-top folio turn (f127v-R ends '...ወይፀኑ እምኔሆሙ', f128r-L line 1 resumes 'ደይ ፡ ውስተ ሊባኖስ ...'). 1Ki5 ENDS at f128r-L line 11 after '...ለሐኒጸ ቤት', followed by red rubric klf 9 and the 1Ki6:1 opening 'በ ፬፻ ወ ፹ ዓመት ... ወወጠነ ሐኒጸ ቤተ እግዚእብሔር' (in the 480th year... began to build the house) -- transcription STOPS there (did NOT enter ch6). Because the real ch5 is on f127v + f128r-L, this witness was transcribed from BOTH (same CAM manuscript witness; blindness not broken -- no GG/other-witness/printed-Bible consulted). f127v image used: MS-ADD-01570_f127v_1ki4_hires.jpg (the same physical folio also tagged _1ki3_). Intra-chapter red sub-rubrics observed: klf 6 (at ch5 start, f127v-R), klf 7 (5:12, f127v-R), klf 8 (5:17, f128r-L), klf 9 (ch5 end / ch6 start, f128r-L) -- these are liturgical subdivisions, not modern chapter marks. Divine name: the CAM hand writes 'እግዚእብሔር' (1st-order እ), NOT the printed 'እግዚአብሔር' (verified clearly at 5:3,4,5,12); transcribed as inked per the cardinal rule. Numeral stacks for the levy (70,000 / 80,000) and Hiram's payment (20,000 wheat measures) are written red and ✣-bracketed as '፸ ፻' / '፹ ፻' / '፳ ፻'; the hundred-vs-myriad multiplier mark is at the resolution limit and is flagged damaged (the magnitudes 70,000/80,000/20,000 are the narrative-expected values but the inked multiplier glyph is ambiguous). v1 has a faded scribal correction-oval at the 'ኪራም ... ጢሮስ' junction (the expected 'ንጉሠ' is not cleanly legible) -- flagged uncertain rather than smoothed to the printed form. No homoeoteleuton drop detected at the f127v->f128r turn (continuity proven glyph-by-glyph). Side-margin marginalia ignored per design-spec."
+  "transcription_notes": "Cambridge UL MS Add. 1570 (CAM), dense 3-column Ethiopic book hand with red rubrication; 1588-89 CE. Hi-res CUDL folios. IMPORTANT LAYOUT FINDING (deviates from dispatch premise): the assigned folios f128r/f128v do NOT contain the body of 1Ki5. 1Ki5 actually begins on the PREVIOUS folio f127v (right column) and ENDS near the top of f128r left column; the rest of f128r and all of f128v are 1Ki6->1Ki7 (temple construction). Verified by vision: f127v-R top shows the 1Ki4 wisdom tail ('all peoples/kings came to hear his wisdom') then a red section rubric (klf 6) then 1Ki5:1 'ወፈነወ ኪራም ... ጢሮስ አግብርቲሁ ኀበ ሰሎምን' (Hiram of Tyre sent his servants to Solomon). 1Ki5 runs down the whole of f127v-R; the levy verse (5:13-14) SPLITS across the f127v-R-bottom -> f128r-L-top folio turn (f127v-R ends '...ወይፀኑ እምኔሆሙ', f128r-L line 1 resumes 'ደይ ፡ ውስተ ሊባኖስ ...'). 1Ki5 ENDS at f128r-L line 11 after '...ለሐኒጸ ቤት', followed by red rubric klf 9 and the 1Ki6:1 opening 'በ ፬፻ ወ ፹ ዓመት ... ወወጠነ ሐኒጸ ቤተ እግዚእብሔር' (in the 480th year... began to build the house) -- transcription STOPS there (did NOT enter ch6). Because the real ch5 is on f127v + f128r-L, this witness was transcribed from BOTH (same CAM manuscript witness; blindness not broken -- no GG/other-witness/printed-Bible consulted). f127v image used: MS-ADD-01570_f127v_1ki4_hires.jpg (the same physical folio also tagged _1ki3_). Intra-chapter red sub-rubrics observed: klf 6 (at ch5 start, f127v-R), klf 7 (5:12, f127v-R), klf 8 (5:17, f128r-L), klf 9 (ch5 end / ch6 start, f128r-L) -- these are liturgical subdivisions, not modern chapter marks. Divine name: the CAM hand writes 'እግዚእብሔር' (1st-order እ), NOT the printed 'እግዚአብሔር' (verified clearly at 5:3,4,5,12); transcribed as inked per the cardinal rule. Numeral stacks for the levy (70,000 / 80,000) and Hiram's payment (20,000 wheat measures) are written red and ✣-bracketed as '፸ ፻' / '፹ ፻' / '፳ ፻'; the hundred-vs-myriad multiplier mark is at the resolution limit and is flagged damaged (the magnitudes 70,000/80,000/20,000 are the narrative-expected values but the inked multiplier glyph is ambiguous). v1 has a faded scribal correction-oval at the 'ኪራም ... ጢሮስ' junction (the expected 'ንጉሠ' is not cleanly legible) -- flagged uncertain rather than smoothed to the printed form. No homoeoteleuton drop detected at the f127v->f128r turn (continuity proven glyph-by-glyph). Side-margin marginalia ignored per design-spec.\n\nC-6 R1 adversarial-review fixes (2026-05-26) -- 5 substantive edits vs f127v-R + f128r-L; 3 had hidden behind uncertain flags drifting toward the printed Bible:\n- C1 v16 INSERT ስዶማን (dropped content word between ንበለ and መላእክት; clear at high zoom).\n- C2 v12 ክልኤሆሙ -> ጽኑዓ (inked ጽ not ክ; de-harmonized; 'ኪዳነ ጽኑዓ' = firm covenant).\n- M1 v8 ኪራብያ -> ኪራሲም (inked ending -ሲም; same timber-word family as v10 በርሲም).\n- M2 v17 ዘኮነ -> ዘኢኮነ (restored a clear ኢ negation: 'a stone which was NOT hewn').\n- M3 v15 INSERT ወ before the 2nd myriad-numeral (dropped conjunction).\nConfirmed clean by R1: v1 correction-oval (faithful ኪራም ንተ ወጢሮስ), divine name እግዚእብሔር (genuinely 1st-order እ), the 4 myriad-numerals (honest damaged flags; inked ፻ kept), f127v-R->f128r-L continuity (no omission/homoeoteleuton). Pending C-6 R2 targeted re-confirm of the 5 fixed loci."
 }
