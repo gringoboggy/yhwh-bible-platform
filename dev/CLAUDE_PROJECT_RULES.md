@@ -74,6 +74,13 @@ Every fresh session begins by reading, in this order:
 
 **"continue" / "push" / "go ahead" at the start of a fresh session DOES NOT bypass this read-order** (added 2026-05-27 — a recurring miss): those words mean *read the triad first, THEN resume the in-flight work*, never *skip to the task*. The triad (~700-900 lines) IS the minimum orientation; a `git log` or a SESSION_STATE-only peek is NOT a substitute for it. A project **SessionStart hook** (`.claude/hooks/bootstrap-triad.ps1`, wired in `.claude/settings.json` at the repo-parent cwd) now injects this reminder at every session start as a forcing function — memory alone can't enforce a per-session automated behavior; only a hook can.
 
+**Session-start environment-health check (after the triad — added 2026-05-27):** Once the triad is read, and *before* starting the in-flight work, do a quick environment pass and surface anything off — never silently mutate the environment:
+- **Updates** — check whether Claude Code itself and the enabled plugins have updates available; if so, tell the user and apply **only on their OK** (updates take effect after a restart). Do NOT force an auto-update mid-session: it can shift behavior under live work and cuts against the commit/backup discipline (§4). The *awareness* is the value; the *applying* waits for consent.
+- **MCP / tools** — confirm the enabled MCP servers connected this session (their tools are present; the user can eyeball `/mcp`); flag any that failed to start. The environment is **tokenless by design** (the user's standing "no external/API hooks, minimal plugins" preference): only local, no-login MCP servers are enabled (e.g. playwright, chrome-devtools, serena, context7), so a failed server means a missing local runtime (Node / Chrome / uv), **never** a login gate. Never re-add a login-required plugin or sonar to make a check "pass."
+- Fold the result into the same one-line post-triad confirmation: *phase · what's next · env OK (or the one thing that's off)*.
+
+Ordering is deliberately **after** the triad, not before: orientation is the cheap, established first ritual, and since updates need a restart it would be wasteful to update before re-reading. Keep this to a few seconds — a sanity check, not an audit. (A forcing-function copy can live in the `bootstrap-triad` SessionStart hook if this proves easy to skip.)
+
 **Always-there maps (user-directed 2026-05-21):** for ANY "where does X
 live / how does data flow / what feeds the build" question, check the maps
 FIRST — never grep blind. `dev/MATRIX_MAP.md` traces the DATA-FLOW (config →

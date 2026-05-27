@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-05-27 (cont.) — Claude Code environment cleanup + §0 session-start health-check rule
+
+**Phases shipped:** none — harness / user-config cleanup + one in-repo doc rule (no code / corpus / base-HTML / build / test change; +0 tests).
+**Save:** committed this session + E:/F: `git bundle --all` backup.
+
+What happened (the env work is OUTSIDE the repo — recorded here for context; only the §0 rule is in this commit):
+- **Global `~/.claude/settings.json` plugins trimmed ~100 → 62** (user: "turn on all that don't require login to external servers; everything else clean"). KEPT login-free local plugins only: superpowers, remember, 12 language LSPs, 4 local no-login MCP tools (playwright, chrome-devtools, serena, context7), the Claude-native dev/workflow skills, and the service *knowledge* packs. REMOVED ~30 login/token/remote-MCP plugins (notion, linear, sentry, atlassian, vercel, cloudflare, supabase, rootly, postman, sourcegraph, pagerduty, …), the noisy SessionStart/per-tool-hook plugins (outputai's 16 KB dump, dash0, agentforce-adlc, hookify, security-guidance, semgrep, data-engineering, hyperframes), and the learning + explanatory output-style plugins (user: "no learning mode"). Editing the global settings.json is classifier-blocked under auto mode (self-modification) — applied with the user toggling auto mode off.
+- **Sonar fully removed** (user: "i don't want sonar anymore"). Deleted the 115 MB CLI `C:\Users\bogda\AppData\Local\sonarqube-cli`, removed its `\bin` entry from the User PATH, deleted the `.claude/hooks/sonar-secrets/` scripts and the `.sonar` + `.scannerwork` scratch dirs (all untracked / gitignored — no tracked change). **Supersedes the prior entry's "the `*.ps1` files + the `sonar.exe` binary remain installed (deal with later)".**
+- **Repo-parent `.claude/settings.json`** (`…\YHWH-v2.4-full\.claude\settings.json`, outside the repo): removed the 3 irrelevant SaaS plugins (pagerduty, mongodb, posthog); KEPT the local `bootstrap-triad` SessionStart hook (no network).
+- **Auth clarified:** authenticated via subscription / OAuth (`~/.claude/.credentials.json` present); `ANTHROPIC_API_KEY` is NOT set and NOT needed. The prior "organization cancelled subscription" wall was pre-login; resolved once `/login` succeeded. **Updates the prior entry's "must use API-key auth" note** — the subscription path works on the new account.
+- **IN-REPO (this commit) — `dev/CLAUDE_PROJECT_RULES.md` §0:** new "session-start environment-health check (after the triad)" rule — at session start, check whether Claude Code + plugins have updates and surface them (apply only on user OK; NO forced mid-session auto-update), and verify the enabled MCP servers connected (`/mcp`); environment is tokenless-by-design, so a failed MCP server means a missing local runtime (Node / Chrome / uv), never a login gate.
+- **Cross-session memory** `feedback_no_external_hooks.md` (+ `MEMORY.md` index) records the standing "no external/API hooks, minimal plugins, no learning mode, sonar removed, launch from the repo-parent" preference.
+
+Verified clean:
+- `git status` before commit showed only intended doc changes (`CLAUDE_PROJECT_RULES.md` + `SESSION_STATE.md` + `IN_FLIGHT.md` + `CHANGELOG.md`); no untracked junk.
+- Global + repo-parent `settings.json` both re-parse as valid JSON; 62 plugins, no output-style, no sonar, no outputai.
+- Sonar absent from disk (CLI dir, hook scripts, `.sonar` / `.scannerwork`) and from the User PATH.
+
+Marathon UNCHANGED — resume **1ki6 C-3** (adversarial GG review) next session; launch from `…\YHWH-v2.4-full\`.
+
+---
+
 ## 2026-05-27 (cont.) — Account switch + portability hardening (process / docs / harness only)
 
 **Phases shipped:** none — process / docs / harness only (no code / corpus / base-HTML / build / test change; +0 tests).
