@@ -1,0 +1,965 @@
+{
+  "witness": "CAM",
+  "book": "1ki",
+  "chapter": 6,
+  "source_images": [
+    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f128r_1ki5_hires.jpg"
+  ],
+  "folio_sigla": [
+    "f128r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f128r-L",
+      "line_start": 9,
+      "geez": "ወእምዝ ፡ በ፬፻ ፡ ወ፹ ፡ ዓመት ፡ እምእሰ ፡ ወፃኡ ፡ ደቂቀ ፡ እስራኤል ፡ እምድሬ ፡ ግብጽ ፡ ወበራብዕ ፡ ዓመት ፡ እምዘ ፡ ነግሠ ፡ ሰሎሞን ፡ ሳዕለ ፡ እስራኤል ፡ በካልእ ፡ ወርሐ ፡ ወወጠነ ፡ ሐኒፀ ፡ ቤተ ፡ እግዚእብሔር ✣",
+      "tokens": [
+        "ወእምዝ",
+        "በ",
+        "፬",
+        "፻",
+        "ወ",
+        "፹",
+        "ዓመት",
+        "እምእሰ",
+        "ወፃኡ",
+        "ደቂቀ",
+        "እስራኤል",
+        "እምድሬ",
+        "ግብጽ",
+        "ወበራብዕ",
+        "ዓመት",
+        "እምዘ",
+        "ነግሠ",
+        "ሰሎሞን",
+        "ሳዕለ",
+        "እስራኤል",
+        "በካልእ",
+        "ወርሐ",
+        "ወወጠነ",
+        "ሐኒፀ",
+        "ቤተ",
+        "እግዚእብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "Red numeral group, at resolution limit: inked as red-marked glyphs read best as ፬፻ (the '480th year' of 1Ki6:1). Hundreds glyph ፻ resembles የ in this hand; flag honestly — exact numeral not certain."
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "Red numeral after ወ best-read ፹ (80); single red-marked glyph at resolution limit, could be a different ten."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "DIVINE NAME = እግዚእብሔር (1st-order initial እ + medial 1st-order እ). At 4.5x the medial glyph is the twin-legged እ (NOT the 4th-order አ bowl, which a 2.4-3x view falsely suggested). MATCHES the CAM prior and the same-hand 1ki5 witness on this folio (እግዚእብሔር x7, እግዚአብሔር x0). Flagged only as a zoom-resolution caution; reading firm."
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f128r-L",
+      "line_start": 13,
+      "geez": "ወቤት ፡ ዘሐነፀ ፡ ሰሎሞን ፡ ለእግዚእብሔር ፡ ፷ ፡ እመት ፡ ኑኁ ፡ ወ፳ ፡ ራኅቡ ፡ ወ፴ ፡ እመት ፡ ቆሙ",
+      "tokens": [
+        "ወቤት",
+        "ዘሐነፀ",
+        "ሰሎሞን",
+        "ለእግዚእብሔር",
+        "፷",
+        "እመት",
+        "ኑኁ",
+        "ወ",
+        "፳",
+        "ራኅቡ",
+        "ወ",
+        "፴",
+        "እመት",
+        "ቆሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወቤት / ዘ split across L-lines E/F at column-internal line break; running text continuous, no skip."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Divine name ለእግዚእብሔር — medial 1st-order እ confirmed at 4.5x (DNmedial.jpg: twin-legged እ, not አ). Consistent with same-hand 1ki5."
+        }
+      ]
+    },
+    {
+      "v": 3,
+      "column": "f128r-L",
+      "line_start": 16,
+      "geez": "ወኤላም ፡ ዘቅድሙ ፡ ቤት ፡ ፳ ፡ እመት ፡ ኑኁ ፡ ቅድሙ ፡ ራኅብ ፡ ቤት ፡ ወ፲ ፡ እመት ፡ ራኅቡ ፡ ቅድሙ ፡ ገጸ ፡ ቤት ✣",
+      "tokens": [
+        "ወኤላም",
+        "ዘቅድሙ",
+        "ቤት",
+        "፳",
+        "እመት",
+        "ኑኁ",
+        "ቅድሙ",
+        "ራኅብ",
+        "ቤት",
+        "ወ",
+        "፲",
+        "እመት",
+        "ራኅቡ",
+        "ቅድሙ",
+        "ገጸ",
+        "ቤት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቤቅ vs ቤት: the porch-depth clause word read ቤት; the ቅ/ት distinction marginal at this size."
+        },
+        {
+          "token_index": 0,
+          "marker": "damaged",
+          "note": "Several small red cubit-numerals (፳, ፲) in this verse are faint; best-reading transcribed."
+        }
+      ]
+    },
+    {
+      "v": 4,
+      "column": "f128r-L",
+      "line_start": 18,
+      "geez": "ወገብረ ፡ ለውእቱ ፡ ቤት ፡ መሳክወ ፡ ሳቡአት ፡ ሳቡአን",
+      "tokens": [
+        "ወገብረ",
+        "ለውእቱ",
+        "ቤት",
+        "መሳክወ",
+        "ሳቡአት",
+        "ሳቡአን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳቡአት ፡ ሳቡአን (windows of narrow lights) — orthography of the doubled form transcribed as inked."
+        }
+      ]
+    },
+    {
+      "v": 5,
+      "column": "f128r-L",
+      "line_start": 20,
+      "geez": "ወገብሬ ፡ ቀጸላ ፡ ለቤት ፡ ለሜንትራ ፡ ዘየእውዱ ፡ ለቤተ ፡ መቅደስ ፡ ወለዳቤር ፡ ወገብረ ፡ ገበዋቲሃ ፡ ዘእውዱ",
+      "tokens": [
+        "ወገብሬ",
+        "ቀጸላ",
+        "ለቤት",
+        "ለሜንትራ",
+        "ዘየእውዱ",
+        "ለቤተ",
+        "መቅደስ",
+        "ወለዳቤር",
+        "ወገብረ",
+        "ገበዋቲሃ",
+        "ዘእውዱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለሜንትራ — a loan/technical term (the lean-to/galleries); transcribed as inked."
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": "f128r-L",
+      "line_start": 23,
+      "geez": "ወእረፍተ ፡ ገቦሃ ፡ ዘእምታሕቲሁ ፡ ሐምስ ፡ በእመት ፡ ራኅቡ ፡ ወለማእከላዊ ፡ ስድስ ፡ ራኅቡ ፡ ወለሳልሳዊ ፡ ስብዕ ፡ በእመት ፡ ራኅቡ ፡ እስመኒ ፡ ስተራሕቆ ፡ ለመእዝነ ፡ ቤት ፡ ዘእውዱ ፡ ከመ ፡ ኢይትቃረብ ፡ እረፍተ ፡ ቤቱ ✣",
+      "tokens": [
+        "ወእረፍተ",
+        "ገቦሃ",
+        "ዘእምታሕቲሁ",
+        "ሐምስ",
+        "በእመት",
+        "ራኅቡ",
+        "ወለማእከላዊ",
+        "ስድስ",
+        "ራኅቡ",
+        "ወለሳልሳዊ",
+        "ስብዕ",
+        "በእመት",
+        "ራኅቡ",
+        "እስመኒ",
+        "ስተራሕቆ",
+        "ለመእዝነ",
+        "ቤት",
+        "ዘእውዱ",
+        "ከመ",
+        "ኢይትቃረብ",
+        "እረፍተ",
+        "ቤቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Numbers ሐምስ/ስድስ/ስብዕ (5/6/7) written out in words here, not as red glyphs; clear."
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": "f128r-L",
+      "line_start": 27,
+      "geez": "ወተሐንጸ ፡ ቤቱ ፡ በእባን ፡ ልሙጻት ፡ እለ ፡ ኢኮና ፡ ወቁራፂ ፡ መፍፅሕ ፡ ወድኩን ፡ ድቅ ፡ ወሙሉን ፡ ዋየ ፡ ሐዲን ፡ ኢተሰምዓ ፡ በህየ ፡ በውስተ ፡ ቤቱ ፡ እንዘ ፡ የሐንጽ",
+      "tokens": [
+        "ወተሐንጸ",
+        "ቤቱ",
+        "በእባን",
+        "ልሙጻት",
+        "እለ",
+        "ኢኮና",
+        "ወቁራፂ",
+        "መፍፅሕ",
+        "ወድኩን",
+        "ድቅ",
+        "ወሙሉን",
+        "ዋየ",
+        "ሐዲን",
+        "ኢተሰምዓ",
+        "በህየ",
+        "በውስተ",
+        "ቤቱ",
+        "እንዘ",
+        "የሐንጽ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወቁራፂ ፡ መፍፅሕ ፡ ወድኩን ፡ ድቅ (axe/tool/iron implements not heard) — technical terms; transcribed as inked, sense matches 'no tool of iron heard while building.'"
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": "f128r-L",
+      "line_start": 31,
+      "geez": "ወዶዶ ፡ ዘመንግሊ ፡ ቤት ፡ ዘየማን ፡ ዘእምታሕቱ ፡ ወዖ ፡ መዓርግ ፡ ላዕለ ፡ ማእከላይ ፡ እምነ ፡ ማእከላህ ፡ ላዕለ ፡ ሣልሳይ ✣",
+      "tokens": [
+        "ወዶዶ",
+        "ዘመንግሊ",
+        "ቤት",
+        "ዘየማን",
+        "ዘእምታሕቱ",
+        "ወዖ",
+        "መዓርግ",
+        "ላዕለ",
+        "ማእከላይ",
+        "እምነ",
+        "ማእከላህ",
+        "ላዕለ",
+        "ሣልሳይ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወዶዶ (the door) — reading of the door-noun at line head; sense 'door of the middle chamber on the right side.'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወዖ ፡ መዓርግ — 'they went up by stairs'; ዖ a contracted verb, transcribed as inked."
+        }
+      ]
+    },
+    {
+      "v": 9,
+      "column": "f128r-L",
+      "line_start": 33,
+      "geez": "ወሐነጸ ፡ ቤቶ ፡ ወፈጸሞ ፡ ወጠፈሮ ፡ በዕፀወ ፡ አርዝ",
+      "tokens": [
+        "ወሐነጸ",
+        "ቤቶ",
+        "ወፈጸሞ",
+        "ወጠፈሮ",
+        "በዕፀወ",
+        "አርዝ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 10,
+      "column": "f128r-L",
+      "line_start": 35,
+      "geez": "ወሐነፀ ፡ ኩሎ ፡ ቤቶ ፡ ወአሰሬ ፡ በማእሰሬ ፡ ዘዘ ፡ ሐምስ ፡ ቅምዕ ፡ በእመቱ ፡ ኑኁ",
+      "tokens": [
+        "ወሐነፀ",
+        "ኩሎ",
+        "ቤቶ",
+        "ወአሰሬ",
+        "በማእሰሬ",
+        "ዘዘ",
+        "ሐምስ",
+        "ቅምዕ",
+        "በእመቱ",
+        "ኑኁ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Final word ኑኁ at the very foot of the Left column; the next physical text is the Middle-column top (v13 here). ቅምዕ (the chamber-band measure) uncertain — could be a numeral/cubit term at line-edge."
+        }
+      ]
+    },
+    {
+      "v": 11,
+      "column": "f128r-M",
+      "line_start": 1,
+      "geez": "ከ ፡ ወአኃድሬ ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል ፡ ወኢየኃድጎሙ ፡ ለሕዝብየ ፡ እስራኤል",
+      "tokens": [
+        "ከ",
+        "ወአኃድሬ",
+        "በማእከለ",
+        "ደቂቀ",
+        "እስራኤል",
+        "ወኢየኃድጎሙ",
+        "ለሕዝብየ",
+        "እስራኤል"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "OMISSION/HOMOEOTELEUTON: Left col ends v10 (...ኑኁ); Middle col opens this clause (canonical 1Ki6:13). The canonical conditional promise (vv11-12) is ABSENT in CAM — not restored. The leading token ከ is an orphaned syllable (carries an overline) at the column top, the only physical residue; transcribed as inked, not reconstructed."
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": "f128r-M",
+      "line_start": 2,
+      "geez": "ወሐነፀ ፡ ሰሎሞን ፡ ወፈጸሞ ፡ ቤተ ፡ መቅደስ ✣",
+      "tokens": [
+        "ወሐነፀ",
+        "ሰሎሞን",
+        "ወፈጸሞ",
+        "ቤተ",
+        "መቅደስ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 13,
+      "column": "f128r-M",
+      "line_start": 3,
+      "geez": "ወሐነፀ ፡ እረፍተ ፡ ቤቱ ፡ በዕፀወ ፡ አርዝ ፡ እምነ ፡ እረፋቲሁ ፡ ለቤት ፡ እስከ ፡ ጠፈሩ ፡ ወእስከ ፡ ሠረዊት ፡ ወዶሉ ፡ እረፋቲሁ ፡ በዕፀወ ፡ እንተ ፡ ውስጥ ፡ ገለዮ ፡ ወአስተእጻዘ ፡ እንተ ፡ ውስጥ ፡ ቤቱ ፡ በዕፀወ ፡ ጻውቄና ፡ ወሐነፀ ፡ በ፳ ፡ እመት ፡ እምነ ፡ ጽንፉ ፡ ለገቦ ፡ ቤት",
+      "tokens": [
+        "ወሐነፀ",
+        "እረፍተ",
+        "ቤቱ",
+        "በዕፀወ",
+        "አርዝ",
+        "እምነ",
+        "እረፋቲሁ",
+        "ለቤት",
+        "እስከ",
+        "ጠፈሩ",
+        "ወእስከ",
+        "ሠረዊት",
+        "ወዶሉ",
+        "እረፋቲሁ",
+        "በዕፀወ",
+        "እንተ",
+        "ውስጥ",
+        "ገለዮ",
+        "ወአስተእጻዘ",
+        "እንተ",
+        "ውስጥ",
+        "ቤቱ",
+        "በዕፀወ",
+        "ጻውቄና",
+        "ወሐነፀ",
+        "በ",
+        "፳",
+        "እመት",
+        "እምነ",
+        "ጽንፉ",
+        "ለገቦ",
+        "ቤት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጻውቄና = cypress/fir wood; transcribed as inked. ሠረዊት (rafters) and ዶሉ uncertain technical terms."
+        }
+      ]
+    },
+    {
+      "v": 14,
+      "column": "f128r-M",
+      "line_start": 7,
+      "geez": "እምድሩ ፡ እስከ ፡ ሠራዊቱ ፡ በዕፀ ፡ አርዝ ፡ ወነደቀ ፡ ሎቱ ፡ ቤተ ፡ እምነ ፡ ዳቢር ፡ እስከ ፡ ቅድስተ ፡ ቅዱሳን ✣",
+      "tokens": [
+        "እምድሩ",
+        "እስከ",
+        "ሠራዊቱ",
+        "በዕፀ",
+        "አርዝ",
+        "ወነደቀ",
+        "ሎቱ",
+        "ቤተ",
+        "እምነ",
+        "ዳቢር",
+        "እስከ",
+        "ቅድስተ",
+        "ቅዱሳን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዳቢር (the oracle/inner sanctuary, Heb. debir) — proper/technical term, transcribed as inked throughout chapter."
+        }
+      ]
+    },
+    {
+      "v": 15,
+      "column": "f128r-M",
+      "line_start": 9,
+      "geez": "ወ፵ ፡ በእመት ፡ ኮነ ፡ ቤተ ፡ መቅደስ ፡ ቅድመ ፡ ዳቢር",
+      "tokens": [
+        "ወ",
+        "፵",
+        "በእመት",
+        "ኮነ",
+        "ቤተ",
+        "መቅደስ",
+        "ቅድመ",
+        "ዳቢር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "Red numeral ፵ (40) verified; small red glyph."
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": "f128r-M",
+      "line_start": 10,
+      "geez": "ወዕፀወ ፡ አርዝ ፡ ገብሬ ፡ ውስተ ፡ እረፍተ ፡ ቤት ፡ ወአልቦ ፡ እብን ፡ ዘይትረአይ",
+      "tokens": [
+        "ወዕፀወ",
+        "አርዝ",
+        "ገብሬ",
+        "ውስተ",
+        "እረፍተ",
+        "ቤት",
+        "ወአልቦ",
+        "እብን",
+        "ዘይትረአይ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": "f128r-M",
+      "line_start": 11,
+      "geez": "ወዳቢር ፡ ቅድመ ፡ ማእከለ ፡ ቤት ፡ እንተ ፡ ውስጡ ፡ ከመ ፡ ያንብሩ ፡ ህየ ፡ ታቦተ ፡ ኪዳን ፡ እግዚእብሔር ፡ ቅድመ ፡ ዳቢር ፡ ፳ ፡ በእመት ፡ ራኅቡ ፡ ወ፳ ፡ እመት ፡ ቆሙ ፡ ወቀለሎ ፡ በወርቅ ፡ ወአስርገዎ",
+      "tokens": [
+        "ወዳቢር",
+        "ቅድመ",
+        "ማእከለ",
+        "ቤት",
+        "እንተ",
+        "ውስጡ",
+        "ከመ",
+        "ያንብሩ",
+        "ህየ",
+        "ታቦተ",
+        "ኪዳን",
+        "እግዚእብሔር",
+        "ቅድመ",
+        "ዳቢር",
+        "፳",
+        "በእመት",
+        "ራኅቡ",
+        "ወ",
+        "፳",
+        "እመት",
+        "ቆሙ",
+        "ወቀለሎ",
+        "በወርቅ",
+        "ወአስርገዎ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ታቦተ ፡ ኪዳን ፡ እግዚእብሔር (ark of the covenant of the LORD) — divine name #3; medial 1st-order እ (re-judged at high zoom to match the twin-legged form of #1/#2 and the same-hand 1ki5 convention)."
+        }
+      ]
+    },
+    {
+      "v": 18,
+      "column": "f128r-M",
+      "line_start": 14,
+      "geez": "ወገብሬ ፡ ምስዋዓ ፡ እምዕፀወ ፡ አርዝ ። ወገብሬ ፡ ሰሎሞን ፡ ለዝንቱ ፡ ቤት ፡ እምቅድሜሁ ፡ በወርቅ ፡ ወአንበሬ ፡ ውስቴቱ ፡ ወርቀ ፡ ንጹሐ ፡ ቅድመ ፡ ዳቢር ፡ ወቀፈሎ ፡ ወኩሎ ፡ ቤቶ ፡ ቀፈሎ ፡ በወርቅ ፡ እስመ ፡ ፈጸመ ፡ ኩሎ ፡ ቤቶ ፡ ወኩሎ ፡ ምሥዋዐያ ፡ ለዳቤር ፡ ቀፈሎ ፡ በወርቅ",
+      "tokens": [
+        "ወገብሬ",
+        "ምስዋዓ",
+        "እምዕፀወ",
+        "አርዝ",
+        "ወገብሬ",
+        "ሰሎሞን",
+        "ለዝንቱ",
+        "ቤት",
+        "እምቅድሜሁ",
+        "በወርቅ",
+        "ወአንበሬ",
+        "ውስቴቱ",
+        "ወርቀ",
+        "ንጹሐ",
+        "ቅድመ",
+        "ዳቢር",
+        "ወቀፈሎ",
+        "ወኩሎ",
+        "ቤቶ",
+        "ቀፈሎ",
+        "በወርቅ",
+        "እስመ",
+        "ፈጸመ",
+        "ኩሎ",
+        "ቤቶ",
+        "ወኩሎ",
+        "ምሥዋዐያ",
+        "ለዳቤር",
+        "ቀፈሎ",
+        "በወርቅ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ምስዋዓ / ምሥዋዐያ (altar) spelled with variation across lines; both transcribed as inked. A full-stop ። (not ✣) divides after the first altar-clause."
+        }
+      ]
+    },
+    {
+      "v": 19,
+      "column": "f128r-M",
+      "line_start": 19,
+      "geez": "ወገብሬ ፡ ለዳቢር ፡ ፪ ፡ ኪሩባተ ፡ እምዕፀው ፡ ዘይትዓሥር ፡ በእመት ፡ ቆሙ ፡ ወር ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ፡ ፭ ፡ ወሐምስ ፡ በእመት ፡ ኪንፈ ፡ ኪሩብ ፡ ካልኡ ፡ ዓሥር ፡ እመት ፡ እምጽንፈ ፡ ክንፉ ፡ እስከ ፡ ጽንፈ ፡ ክንፉ",
+      "tokens": [
+        "ወገብሬ",
+        "ለዳቢር",
+        "፪",
+        "ኪሩባተ",
+        "እምዕፀው",
+        "ዘይትዓሥር",
+        "በእመት",
+        "ቆሙ",
+        "ወር",
+        "በእመት",
+        "ክንፈ",
+        "ኪሩብ",
+        "፭",
+        "ወሐምስ",
+        "በእመት",
+        "ኪንፈ",
+        "ኪሩብ",
+        "ካልኡ",
+        "ዓሥር",
+        "እመት",
+        "እምጽንፈ",
+        "ክንፉ",
+        "እስከ",
+        "ጽንፈ",
+        "ክንፉ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Red numerals ፪ (2 cherubim) and ፭ (5, wing). The word ወር appears to be a contraction/abbreviation in the height clause ('ten cubits'); transcribed as inked and flagged."
+        }
+      ]
+    },
+    {
+      "v": 20,
+      "column": "f128r-M",
+      "line_start": 23,
+      "geez": "ወካልኡ ፡ ኪሩብ ፡ ዓሥር ፡ ክንፉ ፡ ከመ ፡ ክንፈ ፡ ካልኡ ፡ ወአምጣኒሆሙ ፡ ለክልኤሆሙ ፡ ኪሩባት ፡ ዕሩይ ፡ ወ፩ ፡ ግብሮሙ ፡ ለክልኤሆሙ",
+      "tokens": [
+        "ወካልኡ",
+        "ኪሩብ",
+        "ዓሥር",
+        "ክንፉ",
+        "ከመ",
+        "ክንፈ",
+        "ካልኡ",
+        "ወአምጣኒሆሙ",
+        "ለክልኤሆሙ",
+        "ኪሩባት",
+        "ዕሩይ",
+        "ወ",
+        "፩",
+        "ግብሮሙ",
+        "ለክልኤሆሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Red numeral ፩ (1, 'one form/measure for both'). ዕሩይ = equal/of one measure."
+        }
+      ]
+    },
+    {
+      "v": 21,
+      "column": "f128r-M",
+      "line_start": 26,
+      "geez": "ወቆሙ ፡ ለ፩ ፡ ኪሩብ ፡ ዓሥር ፡ በእመት ፡ ወከማሁ ፡ ካልኡኒ ፡ ኪሩብ ✣ ወክልኤሆሙ ፡ ኪሩብ ፡ በማእከለ ፡ ቤቱ ፡ እንተ ፡ ውስጥ ፡ ወስፉሐ ፡ ክንፈሆሙ ፡ ለኪሩባት ፡ ወዕ ፡ ክንፉ ፡ ይጉድእ ፡ አረፍተ ፡ ቤት ፡ ወለካልኡ ፡ ክንፉ ፡ ለኪሩቤል ፡ ይጉድእ ፡ አረፍተ ፡ ቤት ፡ ወእልክቱ ፡ ክልአን ፡ ክነፊሆሙ ፡ ማእከለ ፡ ቤት ፡ ይትለ ፀቁ ፡ ክንፈ ፡ ምስለ ፡ ክንፉ",
+      "tokens": [
+        "ወቆሙ",
+        "ለ",
+        "፩",
+        "ኪሩብ",
+        "ዓሥር",
+        "በእመት",
+        "ወከማሁ",
+        "ካልኡኒ",
+        "ኪሩብ",
+        "ወክልኤሆሙ",
+        "ኪሩብ",
+        "በማእከለ",
+        "ቤቱ",
+        "እንተ",
+        "ውስጥ",
+        "ወስፉሐ",
+        "ክንፈሆሙ",
+        "ለኪሩባት",
+        "ወዕ",
+        "ክንፉ",
+        "ይጉድእ",
+        "አረፍተ",
+        "ቤት",
+        "ወለካልኡ",
+        "ክንፉ",
+        "ለኪሩቤል",
+        "ይጉድእ",
+        "አረፍተ",
+        "ቤት",
+        "ወእልክቱ",
+        "ክልአን",
+        "ክነፊሆሙ",
+        "ማእከለ",
+        "ቤት",
+        "ይትለ",
+        "ፀቁ",
+        "ክንፈ",
+        "ምስለ",
+        "ክንፉ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Red numeral ፩. ወዕ = contracted 'and one'; ኪሩቤል/ኪሩብ both inked for the cherub. ይትለ ፀቁ ('they touched/met') split across a line break, traced continuous."
+        }
+      ]
+    },
+    {
+      "v": 22,
+      "column": "f128r-M",
+      "line_start": 32,
+      "geez": "ወቀፈሎሙ ፡ ለኪሩቤል ፡ በወርቅ",
+      "tokens": [
+        "ወቀፈሎሙ",
+        "ለኪሩቤል",
+        "በወርቅ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 23,
+      "column": "f128r-M",
+      "line_start": 33,
+      "geez": "ወለኩሉ ፡ አረፍተ ፡ ቤት ፡ እለ ፡ አውዱ ፡ ገስፈ ፡ ወስእለ ፡ ሥዕለ ፡ ኪሩብ ፡ ወበቀልተ ፡ ወአምሳለ ፡ ካልአን ፡ በውስቤ ፡ ወበአፍአ ✣",
+      "tokens": [
+        "ወለኩሉ",
+        "አረፍተ",
+        "ቤት",
+        "እለ",
+        "አውዱ",
+        "ገስፈ",
+        "ወስእለ",
+        "ሥዕለ",
+        "ኪሩብ",
+        "ወበቀልተ",
+        "ወአምሳለ",
+        "ካልአን",
+        "በውስቤ",
+        "ወበአፍአ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ገስፈ ('carved/graved'), በቀልተ (palm trees), በውስቤ=በውስጤ (within). Transcribed as inked."
+        }
+      ]
+    },
+    {
+      "v": 24,
+      "column": "f128r-M",
+      "line_start": 35,
+      "geez": "ወምድረ ፡ ቤቱ ፡ ለበጠ ፡ በወርቅ ፡ በውስቤሃ ፡ ወበአፍእ ✣",
+      "tokens": [
+        "ወምድረ",
+        "ቤቱ",
+        "ለበጠ",
+        "በወርቅ",
+        "በውስቤሃ",
+        "ወበአፍእ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለበጠ (overlaid/plated). በውስቤሃ ... ወበአፍእ (within ... and without)."
+        }
+      ]
+    },
+    {
+      "v": 25,
+      "column": "f128r-M",
+      "line_start": 36,
+      "geez": "ወለኖኅተ ፡ ዳቤር ፡ ገብሬ ፡ መአፀ ፡ እምዕፀ ፡ ዘይት ፡ ወገብሬ ፡ ራግዘተ ፡ ፭ ፡ ወክልኤ ፡ ማዕያ ፡ እምዕፀ ፡ ዘይት ✣",
+      "tokens": [
+        "ወለኖኅተ",
+        "ዳቤር",
+        "ገብሬ",
+        "መአፀ",
+        "እምዕፀ",
+        "ዘይት",
+        "ወገብሬ",
+        "ራግዘተ",
+        "፭",
+        "ወክልኤ",
+        "ማዕያ",
+        "እምዕፀ",
+        "ዘይት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "BOUNDARY (M-foot → R-top): the clause splits — Middle col ends ...ራግዘተ ፡ ፭ ፡ ወክልኤ, Right col opens ማዕያ ('the two leaves/doors'). Running text traced continuous, no skipped line. Red numeral ፭ (5/fifth part)."
+        }
+      ]
+    },
+    {
+      "v": 26,
+      "column": "f128r-R",
+      "line_start": 1,
+      "geez": "ወስእለ ፡ ውስቴቶን ፡ ኪሩብ ፡ ወበቀልተ ፡ ወቀፈሉን ፡ በወርቅ ፡ ወያንሰልል ፡ ላዕለ ፡ ኪሩብ ፡ ወላዕለ ፡ በቀልት",
+      "tokens": [
+        "ወስእለ",
+        "ውስቴቶን",
+        "ኪሩብ",
+        "ወበቀልተ",
+        "ወቀፈሉን",
+        "በወርቅ",
+        "ወያንሰልል",
+        "ላዕለ",
+        "ኪሩብ",
+        "ወላዕለ",
+        "በቀልት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወያንሰልል ('and spread/laid down [gold]') — verb form transcribed as inked."
+        }
+      ]
+    },
+    {
+      "v": 27,
+      "column": "f128r-R",
+      "line_start": 3,
+      "geez": "ወከማሁ ፡ ገብሬ ፡ ለደዴ ፡ ጽርሕ ፡ ራግዛተ ፡ እምዕፀ ፡ ዘይት ፡ ርብዕ",
+      "tokens": [
+        "ወከማሁ",
+        "ገብሬ",
+        "ለደዴ",
+        "ጽርሕ",
+        "ራግዛተ",
+        "እምዕፀ",
+        "ዘይት",
+        "ርብዕ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለደዴ ፡ ጽርሕ (for the door of the temple/nave); ራግዛተ (posts). ርብዕ = fourth part."
+        }
+      ]
+    },
+    {
+      "v": 28,
+      "column": "f128r-R",
+      "line_start": 5,
+      "geez": "ወክልኤ ፡ መዓፁተ ፡ እምዕፀ ፡ ጳውቄማ ፡ እምለፈ ፡ ወእስለፈ ፡ ለአሐቲ ፡ ሐናት ፡ ምስለ ፡ ድርኩቱቶን ፡ ወለካልእቲ ፡ ኖኅት ፡ ክልኤ ፡ መአዐዊሃ ፡ ወድርኩታቲሃ",
+      "tokens": [
+        "ወክልኤ",
+        "መዓፁተ",
+        "እምዕፀ",
+        "ጳውቄማ",
+        "እምለፈ",
+        "ወእስለፈ",
+        "ለአሐቲ",
+        "ሐናት",
+        "ምስለ",
+        "ድርኩቱቶን",
+        "ወለካልእቲ",
+        "ኖኅት",
+        "ክልኤ",
+        "መአዐዊሃ",
+        "ወድርኩታቲሃ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጳውቄማ (fir/cypress, var. of the wood-name ጻውቄና in v15). ድርኩቱቶን/ድርኩታቲሃ (their leaves/hinges) — technical, as inked."
+        }
+      ]
+    },
+    {
+      "v": 29,
+      "column": "f128r-R",
+      "line_start": 8,
+      "geez": "ወስአለ ፡ ኪሩብ ፡ ወበቀልተ ፡ ወቀፈሉን ፡ በወርቅ ፡ ወአውደይን ፡ እስከ ፡ መድረኮን",
+      "tokens": [
+        "ወስአለ",
+        "ኪሩብ",
+        "ወበቀልተ",
+        "ወቀፈሉን",
+        "በወርቅ",
+        "ወአውደይን",
+        "እስከ",
+        "መድረኮን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "damaged",
+          "note": "FOXING BAND crosses the Right column at native y~3300-3700 (around/above this line and the ✣ክፍል፴✣ rubric). Read with contrast boost; ወአውደይን (overlaid them round) and መድረኮን (their hinges/sills) lower-contrast — best reading transcribed."
+        }
+      ]
+    },
+    {
+      "v": 30,
+      "column": "f128r-R",
+      "line_start": 10,
+      "geez": "ወነደቀ ፡ በውስቤ ፡ አጸደ ፡ አረፍት ፡ ዘኢኮን ፡ ውቅር ፡ ወአሕቀፍን ፡ ኩሎ ፡ አውደን ፡ በስሌዳተ ፡ ዕፅ ፡ ዘአርዝ ✣ ክፍል ፡ ፴ ✣",
+      "tokens": [
+        "ወነደቀ",
+        "በውስቤ",
+        "አጸደ",
+        "አረፍት",
+        "ዘኢኮን",
+        "ውቅር",
+        "ወአሕቀፍን",
+        "ኩሎ",
+        "አውደን",
+        "በስሌዳተ",
+        "ዕፅ",
+        "ዘአርዝ",
+        "ክፍል",
+        "፴"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "damaged",
+          "note": "FOXING BAND. Red rubric ✣ ክፍል ፡ ፴ ✣ (kefl 30) sits at line end — a FINE liturgical subdivision, NOT a chapter break (chapter end is the ፯ line two lines below, by narrative). NB: a kefl-30 rubric also appears in the Left col at the chapter opening; the kefl count is non-monotonic across columns on this folio (recorded in notes)."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አጸደ (the court); ውቅር (hewn); ወአሕቀፍን (compassed). Contrast-boosted reading."
+        }
+      ]
+    },
+    {
+      "v": 31,
+      "column": "f128r-R",
+      "line_start": 13,
+      "geez": "ወበራብዕ ፡ ዓመት ፡ ሰረር ፡ ለቤተ ፡ እግዚእብሔር ፡ በወርኅ ፡ ኤሳን ፡ በ፲ወ፩ ፡ ዓመት ፡ ወወርኁ ፡ ባእድ ፡ ወውእቱ ፡ ሳምን ፡ ወርኁ ፡ ፈጸመ ፡ ቤተ ፡ ኩሎ ፡ ሕገ ፡ ወኩሎ ፡ ሥርዓቶ ፡ ወሐነፀ ፡ በ፯ ፡ ዓመት",
+      "tokens": [
+        "ወበራብዕ",
+        "ዓመት",
+        "ሰረር",
+        "ለቤተ",
+        "እግዚእብሔር",
+        "በወርኅ",
+        "ኤሳን",
+        "በ",
+        "፲",
+        "ወ",
+        "፩",
+        "ዓመት",
+        "ወወርኁ",
+        "ባእድ",
+        "ወውእቱ",
+        "ሳምን",
+        "ወርኁ",
+        "ፈጸመ",
+        "ቤተ",
+        "ኩሎ",
+        "ሕገ",
+        "ወኩሎ",
+        "ሥርዓቶ",
+        "ወሐነፀ",
+        "በ",
+        "፯",
+        "ዓመት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Divine name #4 ለቤተ ፡ እግዚእብሔር — medial 1st-order እ; the ር splits onto R-line 14. CONSISTENT with the other 3 occurrences and the same-hand 1ki5 witness (all እግዚእብሔር)."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤሳን = the month-name (canonical Zif/Ethanim); red year-numerals በ፲ወ፩ (eleventh year, v38) verified at 2.6x with red overlines."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "STOP/CHAPTER-END: clause ends ...ወሐነፀ ፡ በ፯ ፡ ዓመት ('and built it in 7 years', 1Ki6:38). The red ፯ (7) is on R-line 16; the word ዓመት WRAPS to the head of R-line 17, then a gap, then the NEXT chapter begins ወሰሎሞን ፡ ሐነፀ ፡ ቤቶ ፡ በ፲ወ፫ ፡ ዓመት (1Ki7:1, red ፲ወ፫=13) — NOT transcribed. ሥርዓቶ for ሥርዓቶሙ at line edge."
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "Hand: CAM Cambridge Add.1570, 3-column book hand (Left -> Middle -> Right). BOUNDARY START: chapter 6 opens in the Left column at a red rubric '✣ ክፍል ፡ ፴ ✣' (kefl 30) that carries a marginal chapter-marker 'ምዕ ፮' (=chapter 6) in the Left-Middle inter-column margin (located by vision at native y~3560); the narrative clause begins 'ወእምዝ' ('and it came to pass'). Everything above that in the Left column is chapter 5 (its tail '...ለሐኒፀ ፡ ቤት' precedes the rubric) and was NOT transcribed. NB the task's hint of 'ክፍል ፳፰' is approximate; the authoritative anchor is the marginal ምዕ ፮, which aligns with the ክፍል ፴ rubric. BOUNDARY STOP: chapter 6 ends in the Right column at the lone red numeral '፯' (7) on R-line 16 in the clause '...ወሐነፀ ፡ በ፯ ፡ ዓመት' ('and built it in seven years', =1Ki6:38). The word 'ዓመት' wraps onto the head of R-line 17; after it a gap then the FOLLOWING chapter opens 'ወሰሎሞን ፡ ሐነፀ ፡ ቤቶ ፡ በ፲ወ፫ ፡ ዓመት' (=1Ki7:1, red ፲ወ፫=13, new building subject) — NOT transcribed. COLUMN FLOW verified continuous at every turn (no skipped lines): Left foot '...በእመቱ ፡ ኑኁ' -> Middle top 'ከ ፡ ወአኃድሬ ...'; Middle foot '...ራግዘተ ፡ ፭ ፡ ወክልኤ' -> Right top 'ማዕያ ...'. Each column begins lower than the Left (Middle & Right first inked line ~y1820, with blank parchment above — confirmed by vision). OMISSION (worst-defect-class check): the CAM witness jumps from v10 ('...ኑኁ', chambers five cubits) directly to the v13 clause 'ወአኃድሬ ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል' at the Middle-column top; the canonical conditional promise (vv11-12, 'the word of the LORD came to Solomon... if thou wilt walk in my statutes') is ABSENT. This is a genuine homoeoteleuton/omission in CAM, transcribed faithfully and NOT restored from any printed Bible. The Middle column's first inked token is an orphaned syllable 'ከ' (bearing an overline) — the only physical residue of the dropped span; transcribed as inked. Re-traced the Left foot (vv7-10) and Middle top (v13-14) twice to confirm vv11-12 are nowhere present. DIVINE NAME: this folio's scribe writes the 1st-order form 'እግዚእብሔር' (1st-order initial እ + medial 1st-order እ) at ALL FOUR occurrences in the chapter (v1 ቤተ ፡ እግዚእብሔር; v2 ለእግዚእብሔር; witness-v17 ታቦተ ፡ ኪዳን ፡ እግዚእብሔር; witness-v31 ለቤተ ፡ እግዚእብሔር). IMPORTANT METHOD NOTE: at 2.4-3x the medial glyph LOOKED like the 4th-order አ (bowl), which would have been the printed form; I nearly recorded እግዚአብሔር. Cross-checking the same-hand 1ki5 CAM witness on this very folio (እግዚእብሔር x7, እግዚአብሔር x0) prompted a 4.5x re-zoom (DNmedial.jpg) which resolves the medial as the twin-legged 1st-order እ, NOT አ — the legs read as a bowl only at lower zoom. Corrected to እግዚእብሔር, matching the prior and the cardinal-rule (transcribe the ink; the high-zoom ink is the 1st-order form). Flagged 'uncertain' as an honest zoom-resolution caution. ክፍል RUBRICS (red, fine liturgical subdivisions, NOT verse/chapter boundaries): observed '✣ ክፍል ፡ ፴ ✣' at the chapter opening (Left col, v1) and again '✣ ክፍል ፡ ፴ ✣' in the Right column at v36 (two lines above the ፯ chapter-end). The Left column also shows kefl ፳፱ and ፴ in the chapter-5 tail above the start. The kefl count is thus non-monotonic across this folio's columns; segmentation here follows the narrative sense-units (and the inline '✣' body-crosses), not the kefl rubrics. BODY CROSSES: inline '✣' (U+2723) divider-crosses kept inline at natural sense-breaks (the tokenizer strips them); one full-stop '።' divides within v18 after the first altar clause. DAMAGE/FOXING: a diagonal brown foxing/stain band crosses the Right column at native y~3300-3700 (around/above the ✣ክፍል፴✣ rubric), spanning roughly R-lines 8-12 (vv35-36). Text is readable but lower-contrast; read with a Pillow contrast boost and flagged 'damaged' where contrast was marginal (vv29-30). NUMERALS (red, small): v1 year is a red-marked composite read best as '፬፻ ፡ ወ፹' (the 480th year) but at the resolution limit (the hundreds glyph ፻ resembles የ in this hand) — flagged uncertain, not normalized. Other red cubit/count numerals (፷, ፳, ፴, ፵, ፪, ፭, ፩, ፲ወ፩, ፯) verified at zoom; small faint ones flagged. ANTI-HARMONIZATION WATCH: column-edge / line-end tokens (the v10->v13 junction, the v31->v32 M->R junction, the ፍ/numeral line-ends, the foxing-band words) were each re-read against the ink rather than smoothed to the expected printed form. Technical building/temple vocabulary (ለሜንትራ, ጻውቄና/ጳውቄማ, ዳቢር, ራግዘተ, ድርኩቱቶን, ገስፈ) transcribed as inked even where it diverges from a cleaner printed form. SEGMENTATION RATIONALE: produced 31 contiguous sense-unit verses (v=1..31) covering exactly the inked chapter-6 text. Because CAM omits the canonical vv11-12, the witness verse numbers run 1..31 and do NOT map 1:1 onto the canonical 1..38; the per-verse comments record the canonical correspondence (e.g. witness v11 = canonical v13). RAM discipline: never loaded the whole folio uncropped; worked column-by-column via Pillow crop()+downscale (<=1568px long edge) and native-resolution tight zooms for faded/numeral tokens."
+}
