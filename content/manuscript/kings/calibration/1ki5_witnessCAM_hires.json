@@ -1,0 +1,625 @@
+{
+  "witness": "CAM",
+  "book": "1ki",
+  "chapter": 5,
+  "source_images": [
+    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f127v_1ki4_hires.jpg",
+    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f128r_1ki5_hires.jpg"
+  ],
+  "folio_sigla": [
+    "f127v",
+    "f128r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f127v-R",
+      "line_start": 3,
+      "geez": "ወፈነወ ፡ ኪራም ፡ ንተ ፡ ወጢሮስ ፡ አግብርቲሁ ፡ ኀበ ፡ ሰሎምን ፡ ስብእ ፡ ሰምዐ ፡ ኸመ ፡ ቀብእዎ ፡ ኸመ ፡ ይንግሥ ፡ ህየንተ ፡ አቡሁ ፡ ዳዊት ፡ እስመ ፡ ያፈቅሮ ፡ ኪራም ፡ ለዳዊት ፡ በኹሉ ፡ መዋዕሊሁ",
+      "tokens": [
+        "ወፈነወ",
+        "ኪራም",
+        "ንተ",
+        "ወጢሮስ",
+        "አግብርቲሁ",
+        "ኀበ",
+        "ሰሎምን",
+        "ስብእ",
+        "ሰምዐ",
+        "ኸመ",
+        "ቀብእዎ",
+        "ኸመ",
+        "ይንግሥ",
+        "ህየንተ",
+        "አቡሁ",
+        "ዳዊት",
+        "እስመ",
+        "ያፈቅሮ",
+        "ኪራም",
+        "ለዳዊት",
+        "በኹሉ",
+        "መዋዕሊሁ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "scribal correction-oval over this junction; main-line glyphs read 'ኪራም ?ንተ ወጢሮስ'; relationship to expected 'ንጉሠ ጢሮስ' unresolved at the resolution limit"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "Tyre toponym; preceding word obscured by correction oval"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f127v-R",
+      "line_start": 7,
+      "geez": "ወለእከ ፡ ሰሎሞን ፡ ኀበ ፡ ኪራም ፡ እንዘ ፡ ይብል",
+      "tokens": [
+        "ወለእከ",
+        "ሰሎሞን",
+        "ኀበ",
+        "ኪራም",
+        "እንዘ",
+        "ይብል"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 3,
+      "column": "f127v-R",
+      "line_start": 8,
+      "geez": "አንተ ፡ ተአምር ፡ ለዳዊት ፡ አቡየ ፡ ኸመ ፡ ትስእን ፡ ሐኒፀ ፡ ቤት ፡ ለስመ ፡ እግዚእብሔር ፡ አምላኩ ፡ በእንተ ፡ ፀብእ ፡ ዘዓውዱ ፡ እስኪ ፡ አመ ፡ አግብአሙ ፡ እግዚእብሔር ፡ ታሕተ ፡ መከየደ ፡ እገሪሁ",
+      "tokens": [
+        "አንተ",
+        "ተአምር",
+        "ለዳዊት",
+        "አቡየ",
+        "ኸመ",
+        "ትስእን",
+        "ሐኒፀ",
+        "ቤት",
+        "ለስመ",
+        "እግዚእብሔር",
+        "አምላኩ",
+        "በእንተ",
+        "ፀብእ",
+        "ዘዓውዱ",
+        "እስኪ",
+        "አመ",
+        "አግብአሙ",
+        "እግዚእብሔር",
+        "ታሕተ",
+        "መከየደ",
+        "እገሪሁ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 4,
+      "column": "f127v-R",
+      "line_start": 11,
+      "geez": "ወይእዜኒ ፡ አዕረፈኒ ፡ እግዚእብሔር ፡ አምላኪየ ፡ እምነ ፡ እለ ፡ አውድየ ፡ አልቦ ፡ መስተቃርን ፡ ወአልቦ ፡ ዘያመጽእ ፡ እኪተ",
+      "tokens": [
+        "ወይእዜኒ",
+        "አዕረፈኒ",
+        "እግዚእብሔር",
+        "አምላኪየ",
+        "እምነ",
+        "እለ",
+        "አውድየ",
+        "አልቦ",
+        "መስተቃርን",
+        "ወአልቦ",
+        "ዘያመጽእ",
+        "እኪተ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": "f127v-R",
+      "line_start": 13,
+      "geez": "ናሁ ፡ እብል ፡ አነ ፡ ኸመ ፡ እሐንጽ ፡ ቤተ ፡ ለስመ ፡ እግዚእብሔር ፡ አምላኪየ ፡ ኸመ ፡ ይቤሎ ፡ እግዚእብሔር ፡ ለዳዊት ፡ አቡየ ፡ ወልድከ ፡ ዘእሁብ ፡ ዘይነብር ፡ ላዕለ ፡ መንበርከ ፡ ህየንቲከ ፡ ውእቱ ፡ የሐንፅ ፡ ቤተ ፡ ለስምየ",
+      "tokens": [
+        "ናሁ",
+        "እብል",
+        "አነ",
+        "ኸመ",
+        "እሐንጽ",
+        "ቤተ",
+        "ለስመ",
+        "እግዚእብሔር",
+        "አምላኪየ",
+        "ኸመ",
+        "ይቤሎ",
+        "እግዚእብሔር",
+        "ለዳዊት",
+        "አቡየ",
+        "ወልድከ",
+        "ዘእሁብ",
+        "ዘይነብር",
+        "ላዕለ",
+        "መንበርከ",
+        "ህየንቲከ",
+        "ውእቱ",
+        "የሐንፅ",
+        "ቤተ",
+        "ለስምየ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 15,
+          "marker": "uncertain",
+          "note": "line-end glyph faint; read 'ዘእሁብ(ከ)' (whom I will give thee)"
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": "f127v-R",
+      "line_start": 18,
+      "geez": "ወይእዜኒ ፡ አዝዝ ፡ ወይግዝሙ ፡ ሊተ ፡ ዕፀወ ፡ እርዘ ፡ እምሊባኖስ ፡ ወእግብርትየ ፡ ይኩኑ ፡ ምስለ ፡ እግብርቲከ ፡ ወእሁበሙ ፡ ዓስበ ፡ ለእግብርቲከ ፡ በኹሉ ፡ ዘትቤለኒ ፡ እስመ ፡ አንተ ፡ ተአምር ፡ ኸመ ፡ አልብነ ፡ ብእሲ ፡ ዘየአምር ፡ ገዘ ፡ ዕፀ ፡ ኸመ ፡ ስብእ ፡ ሲደናዊ",
+      "tokens": [
+        "ወይእዜኒ",
+        "አዝዝ",
+        "ወይግዝሙ",
+        "ሊተ",
+        "ዕፀወ",
+        "እርዘ",
+        "እምሊባኖስ",
+        "ወእግብርትየ",
+        "ይኩኑ",
+        "ምስለ",
+        "እግብርቲከ",
+        "ወእሁበሙ",
+        "ዓስበ",
+        "ለእግብርቲከ",
+        "በኹሉ",
+        "ዘትቤለኒ",
+        "እስመ",
+        "አንተ",
+        "ተአምር",
+        "ኸመ",
+        "አልብነ",
+        "ብእሲ",
+        "ዘየአምር",
+        "ገዘ",
+        "ዕፀ",
+        "ኸመ",
+        "ስብእ",
+        "ሲደናዊ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 27,
+          "marker": "uncertain",
+          "note": "Sidonian; final syllable at column-edge, read 'ሲደናዊ'"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": "f127v-R",
+      "line_start": 23,
+      "geez": "ወሰበ ፡ ሰምዓ ፡ ኪራም ፡ ቃለ ፡ ሰሎምን ፡ ተፈሥሐ ፡ ፈድፋደ ፡ ወይቤ ፡ ይትባረክ ፡ እግዚእብሔር ፡ ዘወሀቦ ፡ ለዳዊት ፡ ወልደ ፡ ጠቢበ ፡ ላዕለ ፡ ዝንቱ ፡ ሕዝብ ፡ ብዙኅ",
+      "tokens": [
+        "ወሰበ",
+        "ሰምዓ",
+        "ኪራም",
+        "ቃለ",
+        "ሰሎምን",
+        "ተፈሥሐ",
+        "ፈድፋደ",
+        "ወይቤ",
+        "ይትባረክ",
+        "እግዚእብሔር",
+        "ዘወሀቦ",
+        "ለዳዊት",
+        "ወልደ",
+        "ጠቢበ",
+        "ላዕለ",
+        "ዝንቱ",
+        "ሕዝብ",
+        "ብዙኅ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 15,
+          "marker": "uncertain",
+          "note": "read 'ዝንቱ' (this); mid-token vowel faint"
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": "f127v-R",
+      "line_start": 26,
+      "geez": "ወለእከ ፡ ኪራም ፡ ኀበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል ፡ ሰማዕኩ ፡ ኹሎ ፡ ዘለአክ ፡ ኀቤየ ፡ አነ ፡ እገብር ፡ ኹሎ ፡ መፍቅደከ ፡ በዕፀወ ፡ እርዝ ፡ ወበዕፀወ ፡ ኪራብያ",
+      "tokens": [
+        "ወለእከ",
+        "ኪራም",
+        "ኀበ",
+        "ሰሎምን",
+        "እንዘ",
+        "ይብል",
+        "ሰማዕኩ",
+        "ኹሎ",
+        "ዘለአክ",
+        "ኀቤየ",
+        "አነ",
+        "እገብር",
+        "ኹሎ",
+        "መፍቅደከ",
+        "በዕፀወ",
+        "እርዝ",
+        "ወበዕፀወ",
+        "ኪራብያ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 17,
+          "marker": "uncertain",
+          "note": "second timber-name; inked as a foreign word read '(ኪ/ሲ)ራብያ' (first fidel at zoom-edge) -- NOTE it is NOT the same word as 5:10's 'በርሲም'; transcribed as inked per the cardinal rule, not harmonised to v10"
+        }
+      ]
+    },
+    {
+      "v": 9,
+      "column": "f127v-R",
+      "line_start": 30,
+      "geez": "እግብርትየ ፡ ይወርዱ ፡ እምሊባኖስ ፡ ውስተ ፡ ባሕር ፡ ወእነ ፡ እሰይም ፡ ሐመረ ፡ ውስተ ፡ ባሕር ፡ እስኪ ፡ መካን ፡ ዘትረኩ ፡ ኀቤየ ፡ ወትትሜጠዉ ፡ እምህየ ፡ ወትንሥእ ፡ እንተ ፡ ወግብር ፡ ፈቃደከ ፡ ወትሁ ፡ ብሲሳየ ፡ ለሰብእ ፡ ቤትየ",
+      "tokens": [
+        "እግብርትየ",
+        "ይወርዱ",
+        "እምሊባኖስ",
+        "ውስተ",
+        "ባሕር",
+        "ወእነ",
+        "እሰይም",
+        "ሐመረ",
+        "ውስተ",
+        "ባሕር",
+        "እስኪ",
+        "መካን",
+        "ዘትረኩ",
+        "ኀቤየ",
+        "ወትትሜጠዉ",
+        "እምህየ",
+        "ወትንሥእ",
+        "እንተ",
+        "ወግብር",
+        "ፈቃደከ",
+        "ወትሁ",
+        "ብሲሳየ",
+        "ለሰብእ",
+        "ቤትየ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 12,
+          "marker": "uncertain",
+          "note": "read 'ዘትረኩ' (that thou appoint); junction faint"
+        },
+        {
+          "token_index": 16,
+          "marker": "uncertain",
+          "note": "read 'ወትንሥእ(ኦ)' (and thou shalt take); object-suffix unclear"
+        }
+      ]
+    },
+    {
+      "v": 10,
+      "column": "f127v-R",
+      "line_start": 37,
+      "geez": "ወወሀበ ፡ ኪራም ፡ ለሰሎምን ፡ ዕፀወ ፡ እርዝ ፡ ወዕፀ ፡ በርሲም ፡ ወኹሎ ፡ ዘፈቀደ",
+      "tokens": [
+        "ወወሀበ",
+        "ኪራም",
+        "ለሰሎምን",
+        "ዕፀወ",
+        "እርዝ",
+        "ወዕፀ",
+        "በርሲም",
+        "ወኹሎ",
+        "ዘፈቀደ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": "f127v-R",
+      "line_start": 37,
+      "geez": "ወሰሎምን ፡ ወሀበ ፡ ለኪራም ፡ ፳ ፻ ፡ በመስፈርተ ፡ ቆርስ ፡ ስርናየ ፡ በመስፈርተ ፡ ቤቱ ፡ ወ ፳ ፡ ቆርስ ፡ ቀብእ ፡ ዘይት ፡ ቅድወ ፡ ኸመዝ ፡ የሁብ ፡ ሰሎምን ፡ ለኪራም ፡ በበ ፡ እመት",
+      "tokens": [
+        "ወሰሎምን",
+        "ወሀበ",
+        "ለኪራም",
+        "፳",
+        "፻",
+        "በመስፈርተ",
+        "ቆርስ",
+        "ስርናየ",
+        "በመስፈርተ",
+        "ቤቱ",
+        "ወ",
+        "፳",
+        "ቆርስ",
+        "ቀብእ",
+        "ዘይት",
+        "ቅድወ",
+        "ኸመዝ",
+        "የሁብ",
+        "ሰሎምን",
+        "ለኪራም",
+        "በበ",
+        "እመት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "damaged",
+          "note": "numeral stack '፳ ፻' (red, between ✣); hundred-vs-myriad multiplier mark at resolution limit (value 20,000 expected)"
+        },
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "measure 'ቆር/ቆርስ' (kor); spelling at resolution limit"
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": "f127v-R",
+      "line_start": 40,
+      "geez": "ወወሀቦ ፡ እግዚእብሔር ፡ ጥበበ ፡ ለሰሎምን ፡ በከመ ፡ ይቤሎ ፡ ወኮነ ፡ ሰላም ፡ ማእከለ ፡ ሰሎምን ፡ ወማእከለ ፡ ኪራም ፡ ወተካየዱ ፡ ኪዳነ ፡ ክልኤሆሙ",
+      "tokens": [
+        "ወወሀቦ",
+        "እግዚእብሔር",
+        "ጥበበ",
+        "ለሰሎምን",
+        "በከመ",
+        "ይቤሎ",
+        "ወኮነ",
+        "ሰላም",
+        "ማእከለ",
+        "ሰሎምን",
+        "ወማእከለ",
+        "ኪራም",
+        "ወተካየዱ",
+        "ኪዳነ",
+        "ክልኤሆሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 14,
+          "marker": "uncertain",
+          "note": "'the two of them'; column-bottom, read 'ክልኤሆሙ'"
+        }
+      ]
+    },
+    {
+      "v": 13,
+      "column": "f127v-R",
+      "line_start": 43,
+      "geez": "ወገብረ ፡ ንጉሥ ፡ ሰሎምን ፡ ፀዋርያነ ፡ እምኩሉ ፡ እስራኤል ፡ ወኮኑ ፡ ፀዋርያን ፡ ፸ ፻ ፡ ብእሲ ፡ ወይፀኑ ፡ እምኔሆሙ",
+      "tokens": [
+        "ወገብረ",
+        "ንጉሥ",
+        "ሰሎምን",
+        "ፀዋርያነ",
+        "እምኩሉ",
+        "እስራኤል",
+        "ወኮኑ",
+        "ፀዋርያን",
+        "፸",
+        "፻",
+        "ብእሲ",
+        "ወይፀኑ",
+        "እምኔሆሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 9,
+          "marker": "damaged",
+          "note": "numeral '፸ ፻' (red, between ✣); hundred-vs-myriad mark at resolution limit (value 70,000 expected)"
+        }
+      ]
+    },
+    {
+      "v": 14,
+      "column": "f128r-L",
+      "line_start": 1,
+      "geez": "ደይ ፡ ውስተ ፡ ሊባኖስ ፡ በ ፩ ፡ ወርኁ ፡ ወያስተባቅርዮሙ ፡ ኸመ ፡ የህልዉ ፡ ፪ ፡ ወርኃ ፡ ውስተ ፡ ሊባኖስ ፡ ወ ፪ ፡ ወርኃ ፡ የህልዉ ፡ ውስቲ ፡ አብያቲሆሙ ፡ ወእዶኒራም ፡ መልአክ ፡ በዐርያን",
+      "tokens": [
+        "ደይ",
+        "ውስተ",
+        "ሊባኖስ",
+        "በ",
+        "፩",
+        "ወርኁ",
+        "ወያስተባቅርዮሙ",
+        "ኸመ",
+        "የህልዉ",
+        "፪",
+        "ወርኃ",
+        "ውስተ",
+        "ሊባኖስ",
+        "ወ",
+        "፪",
+        "ወርኃ",
+        "የህልዉ",
+        "ውስቲ",
+        "አብያቲሆሙ",
+        "ወእዶኒራም",
+        "መልአክ",
+        "በዐርያን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "cross-folio continuation: tail of the word begun at f127v-R bottom ('...ወይፀኑ እምኔሆሙ |ደይ'); verse splits across the f127v->f128r folio turn"
+        },
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "'and he made them relay/work in shifts'; long verb, mid-glyphs at resolution limit"
+        },
+        {
+          "token_index": 21,
+          "marker": "uncertain",
+          "note": "'over the levy/burden-bearers'; read 'በዐርያን'"
+        }
+      ]
+    },
+    {
+      "v": 15,
+      "column": "f128r-L",
+      "line_start": 4,
+      "geez": "ወቦ ፡ ለሰሎምን ፡ ፸ ፻ ፡ በዐሬ ፡ አርሶን ፡ ፹ ፻ ፡ ወቀርት ፡ እለ ፡ ውስተ ፡ ደብር",
+      "tokens": [
+        "ወቦ",
+        "ለሰሎምን",
+        "፸",
+        "፻",
+        "በዐሬ",
+        "አርሶን",
+        "፹",
+        "፻",
+        "ወቀርት",
+        "እለ",
+        "ውስተ",
+        "ደብር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "damaged",
+          "note": "numeral '፸ ፻' (red, ✣-bracketed); multiplier mark at resolution limit (70,000 expected)"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "'burden-bearers'; read 'በዐሬ/ነሣእተ ጾር'"
+        },
+        {
+          "token_index": 7,
+          "marker": "damaged",
+          "note": "numeral '፹ ፻' (red, ✣-bracketed); multiplier mark at resolution limit (80,000 expected)"
+        },
+        {
+          "token_index": 8,
+          "marker": "uncertain",
+          "note": "'hewers/stonecutters'; read 'ወቀርት'"
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": "f128r-L",
+      "line_start": 5,
+      "geez": "ዘዘኀበ ፡ ንበለ ፡ መላእክት ፡ ሣዕለ ፡ ግብሪ ፡ ሰሎምን",
+      "tokens": [
+        "ዘዘኀበ",
+        "ንበለ",
+        "መላእክት",
+        "ሣዕለ",
+        "ግብሪ",
+        "ሰሎምን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "'except/those who'; junction with prev line ('...ደብር |ዘዘኀ-') faint"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "'over' (ላዕለ); read with ሣ/ላ ambiguity"
+        }
+      ]
+    },
+    {
+      "v": 17,
+      "column": "f128r-L",
+      "line_start": 7,
+      "geez": "ወዓሥርዩ ፡ እለ ፡ የዓርት ፡ ውስተ ፡ ደብር ፡ ወይወርዱ ፡ ኸመ ፡ ይግበሩ ፡ ግብሮሙ ፡ ወእዘዘ ፡ ንጉሥ ፡ ያምጽኡ ፡ ዓበይተ ፡ እእባነ ፡ ወሠናያነ ፡ ለሐኒጸ ፡ ቤት ፡ እብነ ፡ ዘኮነ ፡ ውቁረ",
+      "tokens": [
+        "ወዓሥርዩ",
+        "እለ",
+        "የዓርት",
+        "ውስተ",
+        "ደብር",
+        "ወይወርዱ",
+        "ኸመ",
+        "ይግበሩ",
+        "ግብሮሙ",
+        "ወእዘዘ",
+        "ንጉሥ",
+        "ያምጽኡ",
+        "ዓበይተ",
+        "እእባነ",
+        "ወሠናያነ",
+        "ለሐኒጸ",
+        "ቤት",
+        "እብነ",
+        "ዘኮነ",
+        "ውቁረ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "red rubric-marked word at L7 head (red over-ticks); ambiguous between a marked word and a numeral expression; read 'ወዓሥርዩ'"
+        },
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "'who laboured/worked'; read 'የዓርት'"
+        },
+        {
+          "token_index": 19,
+          "marker": "uncertain",
+          "note": "'hewn/dug'; line-end, read 'ውቁረ'"
+        }
+      ]
+    },
+    {
+      "v": 18,
+      "column": "f128r-L",
+      "line_start": 9,
+      "geez": "ወወቀርጾን ፡ ደቁ ፡ ሰሎምን ፡ ወደቁ ፡ ኪራም ፡ ወሐገብሊም ፡ ወአስተዳለዉ ፡ ዕፀ ፡ ወአእባነ ፡ ለሐኒጸ ፡ ቤት",
+      "tokens": [
+        "ወወቀርጾን",
+        "ደቁ",
+        "ሰሎምን",
+        "ወደቁ",
+        "ኪራም",
+        "ወሐገብሊም",
+        "ወአስተዳለዉ",
+        "ዕፀ",
+        "ወአእባነ",
+        "ለሐኒጸ",
+        "ቤት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "'and they hewed/squared them'; read 'ወወቀርጾን'"
+        },
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "the Gebalites/Giblites (men of Gebal); inked 'ወሐገብ ሊም', read 'ወሐገብሊም'"
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "Cambridge UL MS Add. 1570 (CAM), dense 3-column Ethiopic book hand with red rubrication; 1588-89 CE. Hi-res CUDL folios. IMPORTANT LAYOUT FINDING (deviates from dispatch premise): the assigned folios f128r/f128v do NOT contain the body of 1Ki5. 1Ki5 actually begins on the PREVIOUS folio f127v (right column) and ENDS near the top of f128r left column; the rest of f128r and all of f128v are 1Ki6->1Ki7 (temple construction). Verified by vision: f127v-R top shows the 1Ki4 wisdom tail ('all peoples/kings came to hear his wisdom') then a red section rubric (klf 6) then 1Ki5:1 'ወፈነወ ኪራም ... ጢሮስ አግብርቲሁ ኀበ ሰሎምን' (Hiram of Tyre sent his servants to Solomon). 1Ki5 runs down the whole of f127v-R; the levy verse (5:13-14) SPLITS across the f127v-R-bottom -> f128r-L-top folio turn (f127v-R ends '...ወይፀኑ እምኔሆሙ', f128r-L line 1 resumes 'ደይ ፡ ውስተ ሊባኖስ ...'). 1Ki5 ENDS at f128r-L line 11 after '...ለሐኒጸ ቤት', followed by red rubric klf 9 and the 1Ki6:1 opening 'በ ፬፻ ወ ፹ ዓመት ... ወወጠነ ሐኒጸ ቤተ እግዚእብሔር' (in the 480th year... began to build the house) -- transcription STOPS there (did NOT enter ch6). Because the real ch5 is on f127v + f128r-L, this witness was transcribed from BOTH (same CAM manuscript witness; blindness not broken -- no GG/other-witness/printed-Bible consulted). f127v image used: MS-ADD-01570_f127v_1ki4_hires.jpg (the same physical folio also tagged _1ki3_). Intra-chapter red sub-rubrics observed: klf 6 (at ch5 start, f127v-R), klf 7 (5:12, f127v-R), klf 8 (5:17, f128r-L), klf 9 (ch5 end / ch6 start, f128r-L) -- these are liturgical subdivisions, not modern chapter marks. Divine name: the CAM hand writes 'እግዚእብሔር' (1st-order እ), NOT the printed 'እግዚአብሔር' (verified clearly at 5:3,4,5,12); transcribed as inked per the cardinal rule. Numeral stacks for the levy (70,000 / 80,000) and Hiram's payment (20,000 wheat measures) are written red and ✣-bracketed as '፸ ፻' / '፹ ፻' / '፳ ፻'; the hundred-vs-myriad multiplier mark is at the resolution limit and is flagged damaged (the magnitudes 70,000/80,000/20,000 are the narrative-expected values but the inked multiplier glyph is ambiguous). v1 has a faded scribal correction-oval at the 'ኪራም ... ጢሮስ' junction (the expected 'ንጉሠ' is not cleanly legible) -- flagged uncertain rather than smoothed to the printed form. No homoeoteleuton drop detected at the f127v->f128r turn (continuity proven glyph-by-glyph). Side-margin marginalia ignored per design-spec."
+}
