@@ -2,7 +2,7 @@
   "book": "1sa",
   "chapter": 17,
   "base_witness": "CAM",
-  "base_rationale": "CAM transmits the more complete recension (GG 20v vs CAM 58v; shorter < 0.70x longer -> material extent split, spec-revision 2026-05-17 §3.3 clause 1). base=CAM remains the project decision of record (2026-05-17 GO).",
+  "base_rationale": "CAM transmits the more complete recension (GG 550t vs CAM 884t; shorter < 0.70x longer -> material extent split by token/word count, spec-revision 2026-05-17 §3.3 clause 1). base=CAM remains the project decision of record (2026-05-17 GO).",
   "primary_verses": [
     {
       "geez_v": 1,

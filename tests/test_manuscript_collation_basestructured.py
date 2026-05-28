@@ -129,3 +129,35 @@ def test_samuel_kings_calibration_byte_stable_vs_head():
         encoding="utf-8",
     )
     assert r.returncode == 0, f"calibration witnesses/goldens changed vs HEAD:\n{r.stdout}{r.stderr}"
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+#  Phase A5 — token-extent fix for _pick_base (1ki2 GG→CAM)
+# ──────────────────────────────────────────────────────────────────────────────
+
+
+def test_pick_base_uses_token_extent_not_unit_count():
+    # Segmentation, NOT extent: GG many short units, CAM few long units, EQUAL tokens
+    # -> must NOT flip to GG; clause-2 decision-of-record -> CAM.
+    gg = {"verses": [{"tokens": ["a", "b"]} for _ in range(6)]}  # 6 units / 12 tokens
+    cam = {
+        "verses": [
+            {"tokens": ["a", "b", "c", "d", "e", "f"]},  # 2 units / 12 tokens
+            {"tokens": ["g", "h", "i", "j", "k", "l"]},
+        ]
+    }
+    base, rationale = mc._pick_base(gg, cam)
+    assert base == "CAM", rationale
+    # Real extent: GG materially MORE tokens -> clause-1 picks GG.
+    gg2 = {"verses": [{"tokens": ["x"] * 100}]}  # 100 tokens
+    cam2 = {"verses": [{"tokens": ["y"] * 20}]}  # 20 tokens (< 0.70*100)
+    base2, _ = mc._pick_base(gg2, cam2)
+    assert base2 == "GG"
+
+
+def test_1ki2_base_is_cam_after_token_extent_fix():
+    gg, cam = _load("1ki", 2)
+    out = mc.collate_base_structured(gg, cam, book="1ki", chapter=2)
+    assert out["base_witness"] == "CAM"  # was GG under the old unit-count rule
+    assert len(out["primary_verses"]) == 27  # CAM's own 27 units (not GG's 46)
+    assert mc.base_structured_ok(out, gg, cam)[0]

@@ -352,17 +352,25 @@ def _pick_base(gg_rec, cam_rec):
     decision of record; NO illegible/flagged-ratio derivation, NO fitted
     threshold. base=CAM is the user-ratified project decision
     (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)',
-    2026-05-17 GO). Returns (base, rationale)."""
-    gv = len(gg_rec["verses"])
-    cv = len(cam_rec["verses"])
-    bigger, smaller = max(gv, cv), min(gv, cv)
-    # Clause 1: materially-different extent -> the more complete recension.
+    2026-05-17 GO). Returns (base, rationale).
+
+    Material extent is measured by TOKEN (word) count, NOT verse-unit count.
+    Verse-unit count conflates segmentation granularity with content extent:
+    e.g. 1ki2 has GG=46 short units vs CAM=27 long units but nearly equal
+    token counts (GG 777t vs CAM 803t) — clause-1 on units wrongly picked GG.
+    Tokens are the honest measure of how much text each witness actually
+    transmits (Phase A5 fix, 2026-05-28).
+    """
+    gt = sum(len(v["tokens"]) for v in gg_rec["verses"])
+    ct = sum(len(v["tokens"]) for v in cam_rec["verses"])
+    bigger, smaller = max(gt, ct), min(gt, ct)
+    # Clause 1: materially-different extent (by token count) -> the more complete recension.
     if bigger and smaller < 0.70 * bigger:
-        base = "GG" if gv > cv else "CAM"
+        base = "GG" if gt > ct else "CAM"
         rationale = (
             f"{base} transmits the more complete recension "
-            f"(GG {gv}v vs CAM {cv}v; shorter < 0.70x longer -> material "
-            f"extent split, spec-revision 2026-05-17 §3.3 clause 1). "
+            f"(GG {gt}t vs CAM {ct}t; shorter < 0.70x longer -> material "
+            f"extent split by token/word count, spec-revision 2026-05-17 §3.3 clause 1). "
             f"base=CAM remains the project decision of record "
             f"(2026-05-17 GO)."
         )
@@ -379,7 +387,7 @@ def _pick_base(gg_rec, cam_rec):
         "(dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision "
         "(user)'; base=CAM ratified project-wide by the 2026-05-17 GO; "
         "spec-revision 2026-05-17 §3.3 clause 2) - extents not materially "
-        f"different (GG {gv}v / CAM {cv}v)."
+        f"different by token count (GG {gt}t / CAM {ct}t)."
     )
 
 

@@ -2,7 +2,7 @@
   "book": "1ki",
   "chapter": 4,
   "base_witness": "CAM",
-  "base_rationale": "CAM by the project decision of record (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)'; base=CAM ratified project-wide by the 2026-05-17 GO; spec-revision 2026-05-17 §3.3 clause 2) - extents not materially different (GG 28v / CAM 34v).",
+  "base_rationale": "CAM by the project decision of record (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)'; base=CAM ratified project-wide by the 2026-05-17 GO; spec-revision 2026-05-17 §3.3 clause 2) - extents not materially different by token count (GG 432t / CAM 416t).",
   "primary_verses": [
     {
       "geez_v": 1,
