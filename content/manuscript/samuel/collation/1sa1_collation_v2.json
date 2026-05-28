@@ -3020,6 +3020,293 @@
       "gg": 16,
       "cam": 0
     },
-    "kjv_coverage": null
+    "kjv_coverage": {
+      "base_verses": 28,
+      "anchored": 4,
+      "interpolated": 24,
+      "anchored_pct": 14.29
+    }
+  },
+  "kjv_xref": {
+    "1": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          2
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "2": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          4
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "3": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          5
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "4": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          6
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "5": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          8
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "6": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          10
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "7": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          11
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "8": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          12
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "9": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          14
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "10": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          16
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "11": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "12": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "13": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "14": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "15": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "16": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "17": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          17
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "18": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          18
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "19": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          19
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "20": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          20
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "21": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          21
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "22": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          22
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "23": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          23
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "24": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          24
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "25": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          25
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "26": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          26
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "27": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          27
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "28": {
+      "kjv": [
+        [
+          "1sa",
+          1,
+          28
+        ]
+      ],
+      "confidence": "interpolated"
+    }
   }
 }

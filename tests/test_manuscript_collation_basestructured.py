@@ -106,7 +106,7 @@ def test_v2_collation_exists_and_honest(book, chapter):
     assert out["book"] == book and out["chapter"] == chapter
     assert out["base_witness"] in {"CAM", "GG"}
     assert out["primary_verses"] and all("apparatus" in pv for pv in out["primary_verses"])
-    assert "metrics" in out and out["metrics"]["kjv_coverage"] is None
+    assert "metrics" in out
     gg, cam = _load(book, chapter)
     ok, reasons = mc.base_structured_ok(out, gg, cam)
     assert ok, f"{book}{chapter} honesty gate: {reasons}"  # 0 fabrication, honest lacunae
@@ -161,3 +161,54 @@ def test_1ki2_base_is_cam_after_token_extent_fix():
     assert out["base_witness"] == "CAM"  # was GG under the old unit-count rule
     assert len(out["primary_verses"]) == 27  # CAM's own 27 units (not GG's 46)
     assert mc.base_structured_ok(out, gg, cam)[0]
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+#  Phase B5 — kjv_xref integration into the 10 v2 collation files
+# ──────────────────────────────────────────────────────────────────────────────
+
+XREF_DONE = [
+    ("1ki", 1),
+    ("1ki", 2),
+    ("1ki", 3),
+    ("1ki", 4),
+    ("1ki", 5),
+    ("1ki", 6),
+    ("1sa", 1),
+    ("1sa", 3),
+    ("1sa", 17),
+    ("2sa", 11),
+]
+
+
+@pytest.mark.parametrize("book,chapter", XREF_DONE)
+def test_v2_has_kjv_xref(book, chapter):
+    import json
+
+    tr = "kings" if book in {"1ki", "2ki"} else "samuel"
+    out = json.load(
+        open(
+            f"content/manuscript/{tr}/collation/{book}{chapter}_collation_v2.json",
+            encoding="utf-8",
+        )
+    )
+    assert "kjv_xref" in out
+    assert set(out["kjv_xref"]) == {str(pv["geez_v"]) for pv in out["primary_verses"]}  # JSON keys are strings
+    cov = out["metrics"]["kjv_coverage"]
+    assert cov is not None and cov["base_verses"] == len(out["primary_verses"])
+    assert cov["anchored"] + cov["interpolated"] == cov["base_verses"]
+    for e in out["kjv_xref"].values():
+        assert e["confidence"] in {"anchored", "interpolated"} and e["kjv"]
+
+
+def test_1ki6_known_anchor_after_integration():
+    import json
+
+    out = json.load(
+        open(
+            "content/manuscript/kings/collation/1ki6_collation_v2.json",
+            encoding="utf-8",
+        )
+    )
+    assert out["kjv_xref"]["1"]["confidence"] == "anchored"
+    assert out["kjv_xref"]["1"]["kjv"][0] == ["1ki", 6, 1]

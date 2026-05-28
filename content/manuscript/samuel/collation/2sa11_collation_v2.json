@@ -3234,6 +3234,273 @@
       "gg": 0,
       "cam": 0
     },
-    "kjv_coverage": null
+    "kjv_coverage": {
+      "base_verses": 26,
+      "anchored": 16,
+      "interpolated": 10,
+      "anchored_pct": 61.54
+    }
+  },
+  "kjv_xref": {
+    "1": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "2": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "3": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "4": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "5": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "6": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "7": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "8": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "9": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "10": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "11": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "12": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "13": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "14": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "15": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "16": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "17": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "18": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "19": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "20": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "21": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "22": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "23": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "24": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "25": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          6
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "26": {
+      "kjv": [
+        [
+          "2sa",
+          11,
+          11
+        ]
+      ],
+      "confidence": "anchored"
+    }
   }
 }

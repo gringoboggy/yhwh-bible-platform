@@ -3431,6 +3431,343 @@
       "gg": 1,
       "cam": 0
     },
-    "kjv_coverage": null
+    "kjv_coverage": {
+      "base_verses": 33,
+      "anchored": 9,
+      "interpolated": 24,
+      "anchored_pct": 27.27
+    }
+  },
+  "kjv_xref": {
+    "1": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          1
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "2": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          2
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "3": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          3
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "4": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          4
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "5": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          5
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "6": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          6
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "7": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          7
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "8": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          8
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "9": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          9
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "10": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          10
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "11": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          11
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "12": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          12
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "13": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          13
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "14": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          14
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "15": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          15
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "16": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          16
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "17": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          17
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "18": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          19
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "19": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          20
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "20": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          21
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "21": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          23
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "22": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          24
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "23": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          24
+        ]
+      ],
+      "confidence": "anchored"
+    },
+    "24": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          25
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "25": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          27
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "26": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          28
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "27": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          30
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "28": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          31
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "29": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          32
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "30": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          34
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "31": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          35
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "32": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          37
+        ]
+      ],
+      "confidence": "interpolated"
+    },
+    "33": {
+      "kjv": [
+        [
+          "1ki",
+          6,
+          38
+        ]
+      ],
+      "confidence": "anchored"
+    }
   }
 }
