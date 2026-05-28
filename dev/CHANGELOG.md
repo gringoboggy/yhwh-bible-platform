@@ -6,6 +6,29 @@
 
 ---
 
+## 2026-05-28 — Phase A: Ge'ez own-versification engine re-architecture + 10-chapter re-collation
+
+**Phases shipped:** Phase A (A1, A2, A3, A4) of the Ge'ez own-versification plan (`docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md`).
+**Test delta:** +16 (new `tests/test_manuscript_collation_basestructured.py`: A1 ×1, A2 ×2, A3 ×2, A4 ×11). Engine regression `tests/test_manuscript_collation.py` 45/45 green; `manuscript_qa.py` exit 0.
+**Save tag:** commits `83ca93d4` (A1, amended for author-email), `b68f2e84` (A2), `1127f277` (A3), `2b25df8f` (A4), + this truth-record doc commit; E:/F: `git bundle --all` backup; RAM cleared.
+
+What shipped (executed via `superpowers:subagent-driven-development` — one implementer subagent per task with controller diff-verification + regression gating after each; a background CAM hi-res pre-pull lane ran throughout per the never-single-thread rule, extending the buffer through f134v / 1ki12):
+- **A1** `collate_base_structured(gg, cam, *, book, chapter)` in `scripts/core/manuscript_collation.py` — the base witness's own sense-units become the primary verses (no KJV spine, no `_map_objects_to_spine`). `_pick_base` and `collate()` unchanged.
+- **A2** per-verse `apparatus` aligning the other witness via ONE whole-chapter `align_verse(other_flat, base_flat)` + cell→base-verse cursor attribution (with a `bi == len(base_stream)` drift guard); classes {agree, disagree, lacuna, insertion}; module-level `tokens_conserved()` (every GG + CAM token, incl. ⟦illegible⟧, conserved exactly).
+- **A3** Ge'ez-internal `metrics` (`witness_agreement_pct`, `witness_agreement_basis`, `lacuna_counts`, `kjv_coverage: None` — informative, NO KJV pass/fail) + `base_structured_ok(out, gg, cam)` honesty gate (fails ONLY on broken token-conservation OR a blank base verse — never KJV coverage) + `manuscript_qa._SEMANTIC_PASS_FLOOR` demoted from a hard FAIL to an informative WARN (rev.6 — KJV is a secondary cross-ref, not a gate). The Samuel calibration goldens flow through the UNCHANGED `collate()`, so `TestCalibrationInvariants` + `TestQAMetaTool` stay green and `manuscript_qa.py` still exits 0.
+- **A4** driver `scripts/recollate_base_structured.py` re-collated the 10 done chapters (1ki1–6 + 1sa1/1sa3/1sa17/2sa11) → `content/manuscript/{kings,samuel}/collation/<ref>_collation_v2.json`. The 4 Samuel `*_collation.json` goldens are byte-stable (`git diff --quiet HEAD -- .../calibration` exit 0; 0 calibration paths in the commit). A4 also fixed a latent base=CAM assumption in `tokens_conserved` (surfaced by the base=GG chapter 1ki2).
+
+Notable decisions:
+- **Author git email** changed globally `bridge4.kaladin@icloud.com` → `gringo.boggy@icloud.com` (user lost access to the old one); the A1 commit was amended to the new author. Older history retains the old email; a full-history rewrite was offered and declined-by-default (metadata only, no remote).
+
+⚠ OPEN DECISION (surfaced for the next step, per `_pick_base`'s SURFACE-TO-USER rule):
+- **1ki2 elected base=GG** (GG 46 sense-units vs CAM 27). But the witnesses carry ≈equal content (GG 777 vs CAM 803 tokens) — the unit gap is verse SEGMENTATION (GG ~17 tok/v, CAM ~30 tok/v), not content extent. `_pick_base`'s material-extent clause keys on sense-UNIT count, so it flips to GG on granularity; by TOKEN extent CAM is marginally fuller, and a token-extent measure would yield base=CAM for all Kings+Samuel (aligning the project's base=CAM decision-of-record). The OLD KJV-spine 1ki2 collation ALSO used base=GG (pre-existing, not introduced by the redesign). Pending user decision before Phase C: keep base=GG, or refine `_pick_base` to token-extent (a gated engine change — re-verify R5 base=CAM for the Samuel goldens, then re-run the A4 driver to regenerate 1ki2's v2).
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` (Phase A done; B/C/D next), `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md`.
+
+---
+
 ## 2026-05-27 (cont.) — Ge'ez collation redesign: own-versification (spec + plan + RULES §2)
 
 **Phases shipped:** none executed — design / planning / rules only (no code / corpus / base / build / test change beyond docs + dropping one stale untracked artifact; +0 tests). The marathon witnesses are UNCHANGED + immutable.
