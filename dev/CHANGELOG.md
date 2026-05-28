@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-28 — Psalms EN batch 4: Ps 90-117 (26 chapters, 467 verses)
+
+**Phases shipped:** Psalms EN batch 4 — psa.py now covers 119/151 chapters (2,047 verses).
+**Test delta:** 0 (generic invariant; file stays 38).
+**Save tags:** this turn's commit + E:/F: `git bundle --all` backup (commit #3 since the last bundle).
+
+What shipped:
+- Reviewed EN for Ps 90-117 (26 ch, 467 v) merged into psa.py. 4 translator + 4 independent reviewer subagents; faithful to the LXX Ge'ez. 13 drifts fixed (e.g. fabricated "Sukkoth" Ps 107:8 removed, Ps 105:15 "leanness"→"satiety", Ps 106:12 "help"→"bury", Ps 97:9 fabrication removed).
+- Verify: total standalone EN paras 1,904→2,371 (324 KS unchanged + 2,047 psa); epubcheck 0/0/0/0; epub_working/ diff empty.
+
+Next: Batch 5 = Ps 118-151 (the last; continuous).
+
 ## 2026-05-28 — Psalms EN batch 3: Ps 61-89 (27 chapters, 529 verses)
 
 **Phases shipped:** Psalms EN batch 3 — psa.py now covers 93/151 chapters (1,580 verses).
