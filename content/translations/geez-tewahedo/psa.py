@@ -17,6 +17,7 @@ SOURCE_QUALITY = "digitized-critical-edition"
 SOURCE_PROVENANCE = "hacohen-geez"
 EXTRACTION_DATE = "2026-05-16"
 INGEST_PHASE = "τ.6.x.2.i"
+VERSIFICATION = "own"
 VERSES = [
     (1, 1, "ብፁዕ ፡ ብእሲ ፡ ዘኢሖረ ፡ በምክረ ፡ ረሲዓን ፤ ወዘኢቆመ ፡ ውስተ ፡ ፍኖተ ፡ ኃጥኣን ፤ ወዘኢነበረ ፡ ውስተ ፡ መንበረ ፡ መስተሳልቃን ።"),
     (1, 2, "ዘዳእሙ ፡ ሕገ ፡ እግዚአብሔር ፡ ሥምረቱ ፤ ወዘሕጎ ፡ ያነብብ ፡ መዕልተ ፡ ወሌሊተ ።"),

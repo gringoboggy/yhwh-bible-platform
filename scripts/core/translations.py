@@ -76,6 +76,27 @@ def load_book_verses_from_text(text: str) -> list[tuple[int, int, str]] | None:
     return []
 
 
+def _load_book_attr_from_text(text: str, attr: str) -> str | None:
+    """Parse a module-level string assignment (e.g. ``VERSIFICATION = "own"``)
+    and return its value. ``None`` if absent, on syntax error, or if the value
+    is not a string. Uses ``ast.literal_eval`` — never executes module code.
+    """
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return None
+    for node in tree.body:
+        if isinstance(node, ast.Assign):
+            for tgt in node.targets:
+                if isinstance(tgt, ast.Name) and tgt.id == attr:
+                    try:
+                        val = ast.literal_eval(node.value)
+                    except (ValueError, SyntaxError):
+                        return None
+                    return val if isinstance(val, str) else None
+    return None
+
+
 @functools.lru_cache(maxsize=256)
 def _load_book_cached(path_str: str, mtime_ns: int):
     try:
@@ -186,6 +207,23 @@ def translation_meta(translation: str) -> dict | None:
         return yaml.safe_load(p.read_text(encoding="utf-8")) or None
     except yaml.YAMLError:
         return None
+
+
+def versification_of(translation: str, book_code: str) -> str:
+    """Return the book's versification scheme: ``"own"`` or ``"canonical"``.
+
+    Defaults to ``"canonical"`` when the per-book ``VERSIFICATION`` attribute
+    is absent, so every existing translation/book (and the 9 KJV editions)
+    is unchanged. ``"own"`` marks a store whose ``(chapter, verse)`` keys are
+    the source's own numbering (e.g. the Ge'ez/LXX recension), NOT KJV-renumbered.
+    """
+    path = _book_path(translation, book_code)
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return "canonical"
+    val = _load_book_attr_from_text(text, "VERSIFICATION")
+    return val if val in ("own", "canonical") else "canonical"
 
 
 def clear_cache() -> None:
