@@ -327,3 +327,37 @@ class TestEnglishScaledKingsSamuel:
             assert len(en) == len(geez) > 0, f"{book} {ch}: en {len(en)} vs geez {len(geez)}"
             assert {v for v, _ in en} == {v for v, _ in geez}, f"{book} {ch}: coord mismatch"
             assert all(t.strip() for _v, t in en), f"{book} {ch}: empty EN rendering"
+
+
+class TestEnglishPsalmsProofBatch:
+    PROOF = (1, 21, 23, 36, 46, 68, 71, 101, 115, 144, 150)
+
+    def test_psa_en_mirrors_geez_source_order_incl_dups(self):
+        # EN store keys must mirror the Ge'ez store's per-chapter source order EXACTLY
+        # (incl. duplicate verse numbers + gaps), or occurrence-index keying misaligns.
+        geez = bs.chapter_verses_in_source_order("geez-tewahedo", "psa")
+        en = bs.chapter_verses_in_source_order("geez-tewahedo-en", "psa")
+        for ch in self.PROOF:
+            assert ch in en, f"Ps {ch} missing from EN store"
+            en_seq = [v for v, _ in en[ch]]
+            geez_seq = [v for v, _ in geez[ch]]
+            assert en_seq == geez_seq, f"Ps {ch}: EN seq {en_seq} != Ge'ez {geez_seq}"
+            assert all(t.strip() for _v, t in en[ch]), f"Ps {ch}: empty EN rendering"
+
+    def test_psa_en_versification_is_own(self):
+        assert tx.versification_of("geez-tewahedo-en", "psa") == "own"
+
+    def test_psa36_dup_verses_have_distinct_english(self):
+        # The keying-fix's real-data case: Ps 36 has two v24 and two v25, non-adjacent.
+        en = bs.chapter_verses_in_source_order("geez-tewahedo-en", "psa")[36]
+        v24 = [t for v, t in en if v == 24]
+        v25 = [t for v, t in en if v == 25]
+        assert len(v24) == 2 and len(v25) == 2
+        assert v24[0] != v24[1], "the two Ps 36:24 verses must carry distinct English"
+        assert v25[0] != v25[1], "the two Ps 36:25 verses must carry distinct English"
+
+    def test_psa_en_occurrence_map_disambiguates_dups(self):
+        m = bs.en_occurrence_map("geez-tewahedo-en", "psa")
+        assert {(24, 1), (24, 2), (25, 1), (25, 2)} <= set(m[36])
+        assert m[36][(24, 1)] != m[36][(24, 2)]
+        assert m[36][(25, 1)] != m[36][(25, 2)]

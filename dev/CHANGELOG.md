@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-28 — Psalms EN proof batch: 11 chapters (221 verses); occurrence-keying validated on real data
+
+**Phases shipped:** Psalms EN proof batch (the 8 dup-verse/irregular chapters + 3 normal) — `content/translations/geez-tewahedo-en/psa.py`.
+**Test delta:** +4 (`tests/test_build_standalone.py::TestEnglishPsalmsProofBatch` → file now 37).
+**Save tags:** this turn's commit; no E:/F: backup due (commit #2 since the last bundle).
+
+What shipped:
+- `geez-tewahedo-en/psa.py` — Ps 1, 21, 23, 36, 46, 68, 71, 101, 115, 144, 150 (221 verses); tier `ai-back-translation-reviewed-tier3`; VERSIFICATION="own". Verse keys mirror the Ge'ez store's source order EXACTLY (incl. duplicate verse numbers + preserved gaps).
+- Validates the occurrence-index keying (shipped earlier this session) on REAL data: the standalone EPUB renders distinct English on each duplicate verse — e.g. Ps 36's two v24 ("those who bless him inherit the earth" / "even if he falls he is not cast down") and two v25 ("Yahweh makes a man's steps firm" / "I have been young and grown old").
+- Method: 3 translator subagents (Opus) + 3 independent adversarial reviewer subagents per chapter group; faithful to the LXX Ge'ez (Ludolf 1701), NOT KJV/Hebrew; divine name "Yahweh"; [brackets] for genuine uncertainty. The reviews caught + fixed 13 real faithfulness drifts (e.g. Ps 36:7 "way"→"life", Ps 68:19 "enemies"→"reproach", Ps 23:7/9 "lift up"→"open" the gates).
+- Verify: total standalone EN paras 324→545 (324 Kings/Samuel UNCHANGED + 221 Psalms); Ps 36 = 40 paras; epubcheck 0/0/0/0; epub_working/ diff empty (9 KJV editions byte-stable).
+
+Next: the remaining ~140 Psalms (~2,300 verses) via the same translator+reviewer method (user-paced).
+
 ## 2026-05-28 — EN keying fix: source-order occurrence-index for dup-verse chapters (spec §10.6)
 
 **Phases shipped:** EN keying fix (the Psalms-readiness prerequisite) — the standalone back-translation now keys English by source-order occurrence, not the colliding `(ch, v)`.
