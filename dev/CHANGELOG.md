@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-28 — EN lane scaled: all collated Kings/Samuel (1 Kings 1-5 + Samuel)
+
+**Phases shipped:** EN scale (following the 1ki6 proof) — `geez-tewahedo-en` now covers all 10 collated own-vers chapters.
+**Test delta:** +1 (`tests/test_build_standalone.py::TestEnglishScaledKingsSamuel` → file now 31).
+**Save tags:** `dbe13575` (content + pin) · + truth-record; E:/F: `git bundle --all` backup.
+
+What shipped:
+- Reviewed English back-translations for **1 Kings 1-5** (158 verses) + **1 Samuel 1/3/17 + 2 Samuel 11** (133 verses) → `content/translations/geez-tewahedo-en/{1ki,1sa,2sa}.py`. With 1ki6 (proof), all **324 collated Kings/Samuel verses** now have faithful English; the EPUB's popups carry it (vnote-text == verse count per collated chapter), epubcheck 0/0/0/0, 9 editions byte-stable.
+- Method per chapter (the user's careful+reviewed choice): a translator subagent (Opus) writes the draft store directly → an INDEPENDENT reviewer subagent reads the Ge'ez fresh + fixes in-place. Controller verifies structurally + commits.
+- Regression pin `TestEnglishScaledKingsSamuel` asserts every collated chapter's EN matches the Ge'ez coords.
+
+Notable (the independent review caught real translator MT-drift — vindicating the careful+reviewed method):
+- **Numerals:** translators had imported KJV/Masoretic numbers absent from the Ge'ez — corrected to the literal Ge'ez (1ki 5:15 `፸፻` = 7,000 not 70,000; 5:11 = 2,000; 4:23 = 6) and removed fabricated figures (5:14 "10,000", 5:16 "3,300 over the people"). The Ge'ez numeral `tens+፻` is ×100 (70,000 would need `፼`); the KJV xref carries the comparison.
+- **Names:** translators had MT-smoothed corrupt Ge'ez name-tokens; the reviewer re-anchored to the actual Ge'ez + a "cf." note (1sa 17:12 Geth/cf.Bethlehem; 2sa 11:20 Jerubbaal/Thebez), and kept the Ge'ez reading where right (2sa 11:3 "daughter of Eliab").
+
+Continuity pointers:
+- spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` §10; plan `docs/superpowers/plans/2026-05-28-geez-en-backtranslation-plan.md`.
+- NEXT: Psalms EN needs source-order-position EN keying first (dup-verse chapters, spec §10.6), then ≈2522 verses.
+
+---
+
 ## 2026-05-28 — EN back-translation lane: 1 Kings 6 proof (English in the standalone popups)
 
 **Phases shipped:** EN proof E1–E4 of `docs/superpowers/plans/2026-05-28-geez-en-backtranslation-plan.md` (spec §10).
