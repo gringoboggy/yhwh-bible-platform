@@ -225,3 +225,21 @@ class TestDuplicateVerseIds:
         import xml.dom.minidom as md
 
         md.parseString(bs.wrap_xhtml_doc("Psalms 21", html).encode("utf-8"))  # well-formed
+
+
+class TestSourceOrderPreserved:
+    def test_psalm36_non_adjacent_dups_keep_source_order(self):
+        # The HaCohen Ge'ez Psalter stores Ps 36 with verses 24 & 25 each appearing
+        # twice, NON-adjacently (…24,25,24,25…). The render must keep that source order,
+        # NOT regroup to 24,24,25,25 (which translations.get_chapter's sort would do).
+        by_ch = bs.chapter_verses_in_source_order("geez-tewahedo", "psa")
+        nums = [v for v, _t in by_ch[36]]
+        assert nums != sorted(nums), "Ps 36 has non-adjacent dup verses; must not be pre-sorted"
+        i = nums.index(24)
+        assert nums[i : i + 4] == [24, 25, 24, 25], f"source order scrambled: {nums[i : i + 4]}"
+
+    def test_unique_numbered_chapter_unaffected(self):
+        # Kings has unique verse numbers → source order is already ascending (sanity).
+        by_ch = bs.chapter_verses_in_source_order("geez-tewahedo", "1ki")
+        nums = [v for v, _t in by_ch[6]]
+        assert nums == sorted(nums) and len(nums) == 33

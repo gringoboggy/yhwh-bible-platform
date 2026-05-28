@@ -168,6 +168,22 @@ def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) ->
     return opf_text
 
 
+def chapter_verses_in_source_order(translation: str, book: str) -> dict[int, list[tuple[int, str]]]:
+    """Group a book's verses by chapter, PRESERVING the store's source order within
+    each chapter. Unlike ``translations.get_chapter`` (which sorts by verse number),
+    this keeps non-adjacent duplicate verse numbers in their authored reading order:
+    the HaCohen Ge'ez Psalter stores Ps 36 as four distinct verses mis-numbered
+    24,25,24,25, and sorting would scramble them to 24,24,25,25. Faithfulness to the
+    source over tidy numbering. (The irregular psa numbering itself is a pre-existing
+    ingest artifact for a Phase-D data pass — the render only reflects the store.)"""
+    from scripts.core import translations as tx
+
+    by_ch: dict[int, list[tuple[int, str]]] = {}
+    for c, v, t in tx._load_book(translation, book) or []:
+        by_ch.setdefault(c, []).append((v, t))
+    return by_ch
+
+
 def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
     """Render a standalone Ge'ez Bible EPUB from the own-versification store.
     Returns {"status":"ok","output_path":str,"books":int,"chapters":int} or
@@ -198,11 +214,11 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         chapter_items: list[tuple[str, str]] = []  # (item_id, href) in spine order
         toc_entries: list[tuple[str, str]] = []  # (href, label)
         for book in books:
-            chs = sorted({c for (c, _v, _t) in (tx._load_book("geez-tewahedo", book) or [])})
+            by_ch = chapter_verses_in_source_order("geez-tewahedo", book)
             appmap_path = GEEZ_STORE / f"{book}_apparatus.json"
             appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
-            for ch in chs:
-                verses = tx.get_chapter("geez-tewahedo", book, ch)
+            for ch in sorted(by_ch):
+                verses = by_ch[ch]  # source order — NOT re-sorted by verse number (faithful)
                 frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}))
                 title = f"{_BOOK_TITLES.get(book, book)} {ch}"
                 href = f"geez_{book}_{ch}.xhtml"
