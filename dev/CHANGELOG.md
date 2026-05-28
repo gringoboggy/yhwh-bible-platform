@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-05-28 (cont.) — Phase D plan written + spec §11 correction (proof Esther→Wisdom; Patrologia→vision lane)
+
+**Phases shipped:** Phase-D implementation plan (`docs/superpowers/plans/2026-05-28-geez-phase-d-reingest-plan.md`) + spec §11 Correction. Doc-only. NO code/corpus/base/build/test change.
+**Why the correction:** a pre-plan feasibility read of `extract_patrologia_pdf.py` + `est_patrologia.py` found the PO PDFs are scans Tesseract-OCR'd → margin Ethiopic verse-numerals LOST + French apparatus bleeds into the verse text → own-versification NOT recoverable by a flag-bypass. Re-scoped the 6 Patrologia books to a vision-transcription lane (D1b, own plan); kept the clean HaCohen path as D1a + the proof; flipped the proof book Esther→Wisdom of Solomon (user-approved).
+**Plan shape:** generalize `ingest_hacohen.py` (per-book registry) → `parse_hacohen_wisdom` (TDD) → fetch/calibrate/ingest own-vers `wis.py` → `wis_apparatus.json` (geez→kjv xref) → add `wis` to `_STANDALONE_BOOKS` → epubcheck 0/0 + 9-editions byte-stable → EN lane → repeat Sirach; scale-out outlines for D1b Patrologia vision + D2 distinctive acquisition.
+**Next:** execute the Wisdom proof (Task 0 recon → Task 6 gate).
+
+---
+
 ## 2026-05-28 (cont.) — Phase D kickoff: design resolved + spec §11 (own-versification re-ingest)
 
 **Phases shipped:** Phase-D design (doc-only) — appended §11 "Phase D — resolved decisions" to `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md`. NO code/corpus/base/build/test change.
