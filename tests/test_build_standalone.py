@@ -52,3 +52,38 @@ class TestStandaloneStore:
         assert tx._load_book_attr_from_text(text, "VERSIFICATION") == "own"
         am = json.loads((tmp_path / "1ki_apparatus.json").read_text(encoding="utf-8"))
         assert "6" in am and "1" in am["6"] and am["6"]["1"]["kjv"] == [["1ki", 6, 1]]
+
+
+from scripts import build_standalone as bs
+
+
+class TestBodyRender:
+    def _sample(self):
+        verses = [(1, "ወእምዝ ፡ በ፬፻ ፡ ወ፹ ፡ ዓመት"), (2, "ወቤት ፡ ዘሐነፀ ፡ ሰሎሞን")]
+        appmap = {
+            "1": {
+                "kjv": [["1ki", 6, 1]],
+                "confidence": "anchored",
+                "apparatus": [{"base": "ወእምዝ", "other": "ወውእቱ", "class": "disagree"}],
+            },
+            "2": {"kjv": [["1ki", 6, 2]], "confidence": "interpolated", "apparatus": []},
+        }
+        return bs.render_chapter_body("1ki", 6, verses, appmap)
+
+    def test_verse_uses_own_number_and_vnlink(self):
+        html = self._sample()
+        assert '<a class="vn-link" id="v-1ki-6-1" href="#vnote-1ki-6-1"' in html
+        assert '<span class="vn">1</span>' in html
+        assert "ወእምዝ ፡ በ፬፻ ፡ ወ፹ ፡ ዓመት" in html
+
+    def test_popup_carries_kjv_xref_with_confidence(self):
+        html = self._sample()
+        assert '<aside class="vnote" id="vnote-1ki-6-1"' in html
+        assert "1 Kings 6:1" in html
+        assert "anchored" in html
+        assert "interpolated" in html
+
+    def test_popup_carries_apparatus_variants(self):
+        html = self._sample()
+        assert "ወውእቱ" in html
+        assert "vnote-text" not in html
