@@ -243,3 +243,12 @@ class TestSourceOrderPreserved:
         by_ch = bs.chapter_verses_in_source_order("geez-tewahedo", "1ki")
         nums = [v for v, _t in by_ch[6]]
         assert nums == sorted(nums) and len(nums) == 33
+
+
+class TestReviewedTier:
+    def test_reviewed_tier3_registered(self):
+        from scripts.core import provenance_tiers as pt
+
+        assert pt.is_known_tier("ai-back-translation-reviewed-tier3")
+        t = pt.tier_for("ai-back-translation-reviewed-tier3")
+        assert t.quality_rank == 3

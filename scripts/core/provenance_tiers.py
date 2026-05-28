@@ -124,6 +124,19 @@ TIERS: dict[str, ProvenanceTier] = {
         ),
         examples=("gen",),
     ),
+    "ai-back-translation-reviewed-tier3": ProvenanceTier(
+        code="ai-back-translation-reviewed-tier3",
+        quality_rank=3,
+        description=(
+            "LLM English back-translation of a CLEAN own-versification Ge'ez source "
+            "(manuscript-collation or critical-edition tier), with an independent "
+            "adversarial faithfulness review (translator + reviewer agents, R1/R2). "
+            "A reading-aid for the standalone Ge'ez/Amharic Bibles - faithful to the "
+            "Ge'ez wording, NOT KJV-aligned; higher than ai-back-translation-tier4 "
+            "(which back-translates noisy OCR with no review)."
+        ),
+        examples=("1ki", "1sa", "2sa", "psa"),
+    ),
 }
 
 # Convenience: tier codes ordered best-quality first.
