@@ -39,9 +39,7 @@ def _fmt_kjv_ref(ref: list) -> str:
     return f"{_BOOK_TITLES.get(bk, bk)} {ch}:{vs}"
 
 
-def _render_vnote(book: str, chapter: int, gv: int, app: dict) -> str:
-    nid = f"vnote-{book}-{chapter}-{gv}"
-    title = f"{_BOOK_TITLES.get(book, book)} {chapter}:{gv}"
+def _render_vnote(nid: str, title: str, app: dict) -> str:
     parts = [
         f'<aside class="vnote" id="{nid}" epub:type="footnote">',
         f"<p><strong>{_esc(title)}</strong></p>",
@@ -72,22 +70,27 @@ def _render_vnote(book: str, chapter: int, gv: int, app: dict) -> str:
 
 def render_chapter_body(book: str, chapter: int, verses: list[tuple[int, str]], appmap: dict) -> str:
     """``verses``: ``[(geez_v, geez_text), …]``; ``appmap``: ``{str(geez_v): {...}}``.
-    Returns the chapter body fragment (verse-p paragraphs + the hidden footnotes section)."""
+    Returns the chapter body fragment (verse-p paragraphs + the hidden footnotes
+    section). Repeated verse numbers within a chapter get unique anchor ids
+    (``…-N``, ``…-N-2``, …) while keeping the displayed number faithful to the source."""
     body = [
         f'<a id="ch-{book}-c{chapter}" class="ch-anchor"></a>',
         f'<p class="ch-heading"><span class="section-heading"><span class="bold-num">{chapter}</span></span></p>',
     ]
     asides = []
+    seen: dict[int, int] = {}
     for gv, text in verses:
-        vid = f"v-{book}-{chapter}-{gv}"
-        nid = f"vnote-{book}-{chapter}-{gv}"
+        seen[gv] = seen.get(gv, 0) + 1
+        suffix = "" if seen[gv] == 1 else f"-{seen[gv]}"
+        vid = f"v-{book}-{chapter}-{gv}{suffix}"
+        nid = f"vnote-{book}-{chapter}-{gv}{suffix}"
         title = f"{_BOOK_TITLES.get(book, book)} {chapter}:{gv}"
         body.append(
             f'<p class="verse-p"><a class="vn-link" id="{vid}" href="#{nid}" '
             f'epub:type="noteref" title="{_esc(title)}"><span class="vn">{gv}</span></a> '
             f"{_esc(text)}</p>"
         )
-        asides.append(_render_vnote(book, chapter, gv, appmap.get(str(gv), {})))
+        asides.append(_render_vnote(nid, title, appmap.get(str(gv), {})))
     body.append('<section class="verse-refs-section" epub:type="footnotes" hidden="">')
     body.extend(asides)
     body.append("</section>")

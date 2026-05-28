@@ -208,3 +208,20 @@ class TestDispatchGuard:
         except Exception:
             pass  # we only care that the standalone path was NOT taken
         assert tripped["v"] is False
+
+
+class TestDuplicateVerseIds:
+    def test_duplicate_verse_numbers_get_unique_ids(self):
+        verses = [(14, "first line"), (14, "second line")]
+        appmap = {"14": {"kjv": [["psa", 22, 14]], "confidence": "interpolated", "apparatus": []}}
+        html = bs.render_chapter_body("psa", 21, verses, appmap)
+        assert html.count('id="v-psa-21-14"') == 1  # first occurrence keeps the plain id
+        assert html.count('id="v-psa-21-14-2"') == 1  # second is disambiguated
+        assert html.count('id="vnote-psa-21-14"') == 1
+        assert html.count('id="vnote-psa-21-14-2"') == 1
+        assert html.count('href="#vnote-psa-21-14"') == 1
+        assert html.count('href="#vnote-psa-21-14-2"') == 1
+        assert html.count('<span class="vn">14</span>') == 2  # BOTH still display "14" (faithful)
+        import xml.dom.minidom as md
+
+        md.parseString(bs.wrap_xhtml_doc("Psalms 21", html).encode("utf-8"))  # well-formed
