@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-28 (cont.) — Phase D W0+D2 recon: HaCohen Wisdom has no verse markup; distinctive sources need vision
+
+**Phases shipped:** W0 (HaCohen Wisdom recon) + D2 (distinctive-source scan) — recon only; doc-only commit. NO code/corpus/base/build/test change (recon-cached HTML is gitignored).
+**W0 finding (verified firsthand vs cached `Sap 1.html`):** HaCohen Wisdom = clean Unicode Ge'ez, 19 ch, `Apocryphi/Sap%20{n}.html` (Dillmann 1894 plain-text digitization) — but NO per-verse markup (whole chapter in one `<p>`, no verse-number spans). Cannot give source-authoritative verse numbers → the "fast clean HaCohen Wisdom proof" premise refuted. (Greek-derived deuterocanon also has no own-vs-canonical divergence.)
+**D2 finding:** 1 Enoch (Charles 1906), Jubilees (Charles 1895), 4 Baruch (Dillmann 1866) on archive.org but scans w/ garbled Ethiopic OCR → NEEDS-VISION; 1 Enoch chs 1-71 partial clean Unicode (pseudepigrapha.org); Meqabyan NO-GO (no PD Ge'ez).
+**Reshape:** clean source-verse-numbered Ge'ez = Psalms (done) + marathon Kings/Samuel only; all other Phase-D books need vision-transcription (Patrologia + distinctive) or are HaCohen-apocrypha text-upgrades (reconstructed verses). Two calibrate-first recons caught two false premises before any ingest.
+**Next (user decides):** proof/first-lane — Patrologia vision (Esther/Job, rec) · HaCohen Wisdom text-upgrade · or continue the Kings/Samuel marathon. Plan W1-W6 on hold pending this.
+
+---
+
 ## 2026-05-28 (cont.) — Phase D plan written + spec §11 correction (proof Esther→Wisdom; Patrologia→vision lane)
 
 **Phases shipped:** Phase-D implementation plan (`docs/superpowers/plans/2026-05-28-geez-phase-d-reingest-plan.md`) + spec §11 Correction. Doc-only. NO code/corpus/base/build/test change.
