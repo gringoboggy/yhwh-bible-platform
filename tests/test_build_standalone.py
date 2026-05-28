@@ -277,7 +277,7 @@ class TestEnglishRender:
     def test_render_chapter_body_pulls_english_from_en_map(self):
         verses = [(1, "ወእምዝ"), (2, "ወቤት")]
         appmap = {"1": {"kjv": [], "apparatus": []}, "2": {"kjv": [], "apparatus": []}}
-        en_map = {"1": "And afterward"}
+        en_map = {(1, 1): "And afterward"}  # occurrence-keyed: (verse_number, nth_occurrence)
         html = bs.render_chapter_body("1ki", 6, verses, appmap, en_map)
         assert '<p class="vnote-text">And afterward</p>' in html
         assert html.count("vnote-text") == 1
@@ -285,6 +285,27 @@ class TestEnglishRender:
     def test_render_chapter_body_graceful_without_en_map(self):
         html = bs.render_chapter_body("1ki", 6, [(1, "ወእምዝ")], {"1": {"kjv": [], "apparatus": []}})
         assert "vnote-text" not in html
+
+    def test_dup_verse_numbers_get_distinct_english_by_occurrence(self):
+        # Ps 36-style: two DISTINCT verses share the number 24 (and 25), in source
+        # order. Each occurrence must receive its OWN English — keyed by
+        # (verse_number, nth_occurrence), not by the colliding verse number (spec §10.6).
+        verses = [(24, "ግዕዝ-A"), (25, "ግዕዝ-B"), (24, "ግዕዝ-C"), (25, "ግዕዝ-D")]
+        appmap: dict = {}
+        en_map = {(24, 1): "first-24", (25, 1): "first-25", (24, 2): "second-24", (25, 2): "second-25"}
+        html = bs.render_chapter_body("psa", 36, verses, appmap, en_map)
+        for en in ("first-24", "first-25", "second-24", "second-25"):
+            assert html.count(f'<p class="vnote-text">{en}</p>') == 1, f"missing/duplicated EN: {en}"
+        assert html.count("vnote-text") == 4  # every distinct verse got its own English
+
+    def test_en_occurrence_map_keys_dups_by_occurrence(self, monkeypatch):
+        # The loader builds {chapter: {(verse, occurrence): english}} in SOURCE order,
+        # so a dup-verse store (Ps 36-style) keys each distinct verse separately.
+        fake = [(36, 24, "A"), (36, 25, "B"), (36, 24, "C"), (36, 25, "D"), (37, 1, "E")]
+        monkeypatch.setattr(tx, "_load_book", lambda translation, book: fake)
+        m = bs.en_occurrence_map("geez-tewahedo-en", "psa")
+        assert m[36] == {(24, 1): "A", (25, 1): "B", (24, 2): "C", (25, 2): "D"}
+        assert m[37] == {(1, 1): "E"}
 
 
 class TestEnglish1Ki6:

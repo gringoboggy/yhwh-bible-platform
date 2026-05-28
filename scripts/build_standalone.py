@@ -78,9 +78,11 @@ def render_chapter_body(
     en_map: dict | None = None,
 ) -> str:
     """``verses``: ``[(geez_v, geez_text), …]``; ``appmap``: ``{str(geez_v): {...}}``.
-    ``en_map``: optional ``{str(geez_v): english_text}`` for back-translation paras.
-    Returns the chapter body fragment (verse-p paragraphs + the hidden footnotes
-    section). Repeated verse numbers within a chapter get unique anchor ids
+    ``en_map``: optional ``{(geez_v, occurrence): english_text}`` for back-translation
+    paras — keyed by (verse_number, nth-occurrence-in-source-order), so dup-verse
+    chapters (e.g. Ps 36's 24/25/24/25) attach each distinct English to its own verse
+    (spec §10.6). Returns the chapter body fragment (verse-p paragraphs + the hidden
+    footnotes section). Repeated verse numbers within a chapter get unique anchor ids
     (``…-N``, ``…-N-2``, …) while keeping the displayed number faithful to the source."""
     en_map = en_map or {}
     body = [
@@ -100,7 +102,7 @@ def render_chapter_body(
             f'epub:type="noteref" title="{_esc(title)}"><span class="vn">{gv}</span></a> '
             f"{_esc(text)}</p>"
         )
-        asides.append(_render_vnote(nid, title, appmap.get(str(gv), {}), en_map.get(str(gv))))
+        asides.append(_render_vnote(nid, title, appmap.get(str(gv), {}), en_map.get((gv, seen[gv]))))
     body.append('<section class="verse-refs-section" epub:type="footnotes" hidden="">')
     body.extend(asides)
     body.append("</section>")
@@ -194,6 +196,25 @@ def chapter_verses_in_source_order(translation: str, book: str) -> dict[int, lis
     return by_ch
 
 
+def en_occurrence_map(translation: str, book: str) -> dict[int, dict[tuple[int, int], str]]:
+    """Group a book's back-translation verses by chapter, keyed by
+    ``(verse_number, occurrence_index)`` in SOURCE ORDER. The occurrence index
+    disambiguates dup-verse chapters (the HaCohen Psalter stores Ps 36's distinct
+    verses mis-numbered 24/25/24/25): the 1st verse numbered 24 keys to ``(24, 1)``
+    and the 2nd to ``(24, 2)``, so each receives its own English. This aligns with
+    ``render_chapter_body``'s source-order iteration / occurrence counter, fixing the
+    ``(ch, v)``-collision flagged in spec §10.6. Unique-verse chapters key every verse
+    at occurrence 1 — byte-identical to plain verse keying."""
+    from scripts.core import translations as tx
+
+    by_ch: dict[int, dict[tuple[int, int], str]] = {}
+    occ: dict[tuple[int, int], int] = {}
+    for c, v, en in tx._load_book(translation, book) or []:
+        occ[(c, v)] = occ.get((c, v), 0) + 1
+        by_ch.setdefault(c, {})[(v, occ[(c, v)])] = en
+    return by_ch
+
+
 def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
     """Render a standalone Ge'ez Bible EPUB from the own-versification store.
     Returns {"status":"ok","output_path":str,"books":int,"chapters":int} or
@@ -227,12 +248,10 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
             by_ch = chapter_verses_in_source_order("geez-tewahedo", book)
             appmap_path = GEEZ_STORE / f"{book}_apparatus.json"
             appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
-            en_by_ch: dict[str, dict[str, str]] = {}
-            for c, v, en in tx._load_book("geez-tewahedo-en", book) or []:
-                en_by_ch.setdefault(str(c), {})[str(v)] = en
+            en_by_ch = en_occurrence_map("geez-tewahedo-en", book)
             for ch in sorted(by_ch):
                 verses = by_ch[ch]  # source order — NOT re-sorted by verse number (faithful)
-                frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}), en_by_ch.get(str(ch), {}))
+                frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}), en_by_ch.get(ch, {}))
                 title = f"{_BOOK_TITLES.get(book, book)} {ch}"
                 href = f"geez_{book}_{ch}.xhtml"
                 (tmp / href).write_text(wrap_xhtml_doc(title, frag), encoding="utf-8")

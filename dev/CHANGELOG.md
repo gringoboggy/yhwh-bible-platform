@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-28 — EN keying fix: source-order occurrence-index for dup-verse chapters (spec §10.6)
+
+**Phases shipped:** EN keying fix (the Psalms-readiness prerequisite) — the standalone back-translation now keys English by source-order occurrence, not the colliding `(ch, v)`.
+**Test delta:** +2 (`tests/test_build_standalone.py` → file now 33).
+**Save tags:** this turn's commit; no E:/F: backup due (commit #1 since the last bundle; cadence = every 3rd).
+
+What shipped:
+- New `build_standalone.en_occurrence_map(translation, book)` → `{chapter: {(verse, occurrence): english}}` in SOURCE ORDER; `render_chapter_body` looks up `(gv, seen[gv])`. Dup-verse chapters (the HaCohen Psalter's Ps 36 non-adjacent 24/25/24/25) now attach each distinct English to its own verse instead of colliding on the verse number.
+- Byte-identical for all shipped content: the 1ki/1sa/2sa EN stores have 0 dup-occurrence keys → every verse keys at occurrence 1 → identical to the prior `str(gv)` lookup. Rebuild = 324 EN paras unchanged, 1ki6=33, epubcheck 0/0/0/0, `epub_working/` diff empty.
+- TDD: RED (3 tests caught the collision — the dup-verse body rendered 4 distinct verses but no English attached; the helper was missing) → GREEN.
+
+Next: the Psalms EN proof batch (the 8 irregular/dup-verse chapters first) exercises this keying against real data before the remaining ~140.
+
 ## 2026-05-28 — EN lane scaled: all collated Kings/Samuel (1 Kings 1-5 + Samuel)
 
 **Phases shipped:** EN scale (following the 1ki6 proof) — `geez-tewahedo-en` now covers all 10 collated own-vers chapters.
