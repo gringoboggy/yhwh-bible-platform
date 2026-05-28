@@ -27,3 +27,28 @@ class TestVersificationAttr:
 
     def test_psalms_is_own_versified(self):
         assert tx.versification_of("geez-tewahedo", "psa") == "own"
+
+
+from scripts.core import standalone_store as ss
+
+
+class TestStandaloneStore:
+    def test_collation_to_entries_uses_own_numbering(self):
+        coll = json.loads((COLL / "1ki6_collation_v2.json").read_text(encoding="utf-8"))
+        verses, appmap = ss.collation_to_store_entries(coll)
+        assert len(verses) == 33  # CAM's own sense-units, NOT 38 KJV
+        assert verses[0] == (6, 1, coll["primary_verses"][0]["geez_text"])
+        assert appmap["1"]["kjv"] == [["1ki", 6, 1]]  # v1 anchored to KJV 6:1
+        assert appmap["1"]["confidence"] == "anchored"
+        assert appmap["1"]["apparatus"]  # the GG-vs-CAM variant rows
+
+    def test_build_book_store_writes_module_and_sidecar(self, tmp_path):
+        paths = [COLL / f"1ki{n}_collation_v2.json" for n in range(1, 7)]
+        res = ss.build_book_store("1ki", paths, tmp_path)
+        assert res["book"] == "1ki" and res["chapters"] == 6 and res["verses"] > 0
+        text = (tmp_path / "1ki.py").read_text(encoding="utf-8")
+        verses = tx.load_book_verses_from_text(text)
+        assert verses and all(len(t) == 3 for t in verses)
+        assert tx._load_book_attr_from_text(text, "VERSIFICATION") == "own"
+        am = json.loads((tmp_path / "1ki_apparatus.json").read_text(encoding="utf-8"))
+        assert "6" in am and "1" in am["6"] and am["6"]["1"]["kjv"] == [["1ki", 6, 1]]
