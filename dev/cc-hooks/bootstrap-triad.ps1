@@ -15,5 +15,15 @@ Terseness / bias-to-action applies to what comes AFTER: do not then read the
 whole tree, plans, or runner code "to be safe" -- pull deeper reading lazily,
 per step. After the triad, confirm in ONE line (which phase; what is next),
 reconcile dev/IN_FLIGHT.md if its TRACKER-STATE is active, then proceed.
+
+After the triad + BEFORE resuming work, also: (a) AGGRESSIVELY free RAM -- end
+every process NOT needed for Windows / the internet / Claude / Claude's toolchain.
+PROTECT (never kill): claude, the node/MCP processes, the pwsh+powershell+
+WindowsTerminal+explorer session tree, MsMpEng/AV, the svchost network stack.
+KILL (recoverable bloat): 0-window background browsers, msedgewebview2, iCloud/
+OneDrive sync, vendor updaters, M365Copilot/Widgets/AppActions/Cross-Device, the
+respawning shell hosts. See RULES section 0 "Session-start RAM clear". Then (b)
+the env-health check (Claude Code + plugin updates -- apply only on user OK; MCP
+servers connected). Report freed RAM in the one-line confirmation.
 ========================================================================
 '@

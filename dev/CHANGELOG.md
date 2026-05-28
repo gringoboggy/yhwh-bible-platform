@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-27 (cont.) — Session-start RAM-clear codified into the bootstrap protocol
+
+**Phases shipped:** none — process / rule / hook + cross-session-memory work (no code / corpus / base-HTML / build / test change; +0 tests).
+**Save:** committed this session + E:/F: `git bundle --all` backup; then CONTINUING into 1ki6 C-7 (user: "just continue after save/backup") — no /clear pause.
+
+User directive "make this part of bootstrap protocol" — promote the session-start RAM clear from an ad-hoc, pressure-gated step ("kill leaked python/java; end non-vital processes only if free RAM < ~3 GB") to a **standing, aggressive, every-session bootstrap step**: end every process NOT needed to run Windows / the network / Claude / Claude's own toolchain.
+
+- **Method (codified):** enumerate free RAM + the top process groups + a walk UP from `$PID` to map this session's own tree so it is never a target; **PROTECT** (the hard safety boundary) = Windows core (`svchost`/`dwm`/`Registry`/`Memory Compression`/`Secure System`/`csrss`/`lsass`/…), the session tree (`claude`/`pwsh`/`powershell`/`WindowsTerminal`/`explorer`), `node` (the local MCP servers + Claude's runtime), `MsMpEng` + all AV/security (**stays ON**), the `svchost` network stack; **KILL** (recoverable) = 0-window background browsers (a visible window may hold unsaved work → flag, don't kill) + `msedgewebview2`, cloud sync (`iCloud*`/`OneDrive`/`Dropbox`), vendor updaters (Intel DSA/`esrv`), optional MS apps (`M365Copilot`/`Widgets`/`AppActions`/Cross-Device/Phone Link), `SystemSettings`, the instantly-respawning shell hosts (`SearchHost`/`StartMenuExperienceHost`/`ShellExperienceHost`); report freed RAM. Runs without a per-session prompt under auto-mode (PROTECT-list = the safety boundary); pause only for a browser with open windows or an unfamiliar large consumer.
+- **First run (this session):** killed 21 process groups (Edge had 0 visible windows) → **~1.2 GB net freed (8.24 → 9.47 GB free, 60%)** before the marathon's heavy steps.
+- **Four layers:** `dev/CLAUDE_PROJECT_RULES.md` §0 (new "Session-start RAM clear" subsection) · `dev/SESSION_PLAYBOOK.md` §1.4 (rewritten from "kill leaked python/java" to the full policy) · `dev/cc-hooks/bootstrap-triad.ps1` **and** the runtime `.claude/hooks/bootstrap-triad.ps1` (identical; the hook now reinforces the step at session start — verified runs clean) · cross-session memory `session-hygiene` (the old "<3 GB / rarely worth the disruption" stance replaced).
+- **This commit = 3 tracked files** (RULES + PLAYBOOK + `dev/cc-hooks/bootstrap-triad.ps1`) + SESSION_STATE/CHANGELOG/IN_FLIGHT. The runtime hook + the memory file live outside the repo (gitignored `.claude/` / `~/.claude`) — not in this commit or the git bundle; they persist across `/clear` on their own. Editing the runtime hook trips the auto-mode self-modification classifier; the user toggles auto OFF for that one edit.
+
+Marathon UNCHANGED — resume **1ki6 C-7** (collate the two reviewed-clean witnesses → C-8 → C-9).
+
+---
+
 ## 2026-05-27 (cont.) — 1ki6 C-3 GG witness reviewed-clean + rolling scope-ahead method wired
 
 **Phases shipped:** τ.6.x.4.c 1ki6 C-3 (GG adversarial review). Marathon step + method-doc work — manuscript-evidence JSON + plan/topology/lookahead docs; no product code / corpus-promote / base-HTML / build change (+0 tests).
