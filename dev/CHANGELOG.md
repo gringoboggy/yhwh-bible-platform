@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-28 — Psalms EN COMPLETE: batch 5 (Ps 118-151) closes the Psalter — all 151 chapters / 2,531 verses
+
+**Phases shipped:** Psalms EN batch 5 + Psalter completion — `geez-tewahedo-en/psa.py` = all 151/151 chapters (2,531 verses).
+**Test delta:** 0 (generic invariant; file stays 38).
+**Save tags:** this turn's commit + E:/F: `git bundle --all` backup (/clear checkpoint).
+
+What shipped:
+- Reviewed EN for Ps 118-151 (32 ch, 484 v, incl. the 176-verse Ps 118 Torah acrostic) merged into psa.py, completing the entire Psalter.
+- WHOLE-PSALTER summary: 151 chapters / 2,531 verses, produced across 6 runs (proof + 5 batches) by translator subagents (Opus) + independent adversarial reviewers per chapter-group; faithful to the LXX Ge'ez (Ludolf 1701), NOT KJV/Hebrew; divine name "Yahweh"; source order mirrors the Ge'ez exactly (incl. dup verse numbers + gaps). ~92 faithfulness drifts caught + fixed by the reviews (incl. fabrications removed: "[my rock]" Ps 41:10, "Uriah" Ps 50:2, "Sukkoth" Ps 107:8; lexical/person/tense corrections; Torah-vocabulary consistency in Ps 118).
+- Verify: total standalone EN paras 2,855 (324 Kings/Samuel + 2,531 Psalms); 9 KJV editions byte-stable (epub_working/ diff empty); epubcheck 0/0/0/0; tests 38.
+- The standalone Ge'ez Bible's signature English-back-translation feature (RULES §1) is now complete for the collated Kings/Samuel chapters + the entire Psalter.
+
+Next (post-/clear): Phase D own-vers re-ingest of the ~36 KJV-renumbered geez books; the Amharic standalone Bible; the [USER] real-reader presentation eyeball.
+
 ## 2026-05-28 — Psalms EN batch 4: Ps 90-117 (26 chapters, 467 verses)
 
 **Phases shipped:** Psalms EN batch 4 — psa.py now covers 119/151 chapters (2,047 verses).
