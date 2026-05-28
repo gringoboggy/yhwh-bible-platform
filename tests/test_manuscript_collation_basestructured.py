@@ -34,3 +34,20 @@ def test_base_structured_primary_is_base_witness_units():
     assert out["base_witness"] == "CAM"
     assert len(out["primary_verses"]) == 33  # CAM's own units, not 38 KJV
     assert all(v["geez_text"] for v in out["primary_verses"])  # no empty rows
+
+
+def test_token_conservation_base_structured():
+    gg, cam = _load("1ki", 6)
+    out = mc.collate_base_structured(gg, cam, book="1ki", chapter=6)
+    assert mc.tokens_conserved(out, gg, cam)  # GG 433==433, CAM 500==500
+
+
+def test_apparatus_present_with_valid_classes():
+    gg, cam = _load("1ki", 6)
+    out = mc.collate_base_structured(gg, cam, book="1ki", chapter=6)
+    valid = {"agree", "disagree", "lacuna", "insertion"}
+    for pv in out["primary_verses"]:
+        assert "apparatus" in pv and isinstance(pv["apparatus"], list)
+        for cell in pv["apparatus"]:
+            assert set(cell) == {"base", "other", "class"}
+            assert cell["class"] in valid

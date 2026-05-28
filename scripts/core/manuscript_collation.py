@@ -488,12 +488,42 @@ def collate(gg, cam, kjv, *, book, chapter):
     }
 
 
-def collate_base_structured(gg, cam, *, book, chapter):
-    """Return the base witness's own sense-units as primary verses (Phase A1).
+def _classify_apparatus(other_tok: str, base_tok: str) -> str:
+    """Classify one base-structured apparatus cell (Phase A2).
 
-    Does NOT map onto the KJV spine. Primary verses are the base witness's
-    own sense-objects in reading order. No cross-witness apparatus or metrics
-    are built here — those are A2/A3. Pure (no I/O beyond already-loaded args).
+    Cell semantics: ``base_tok`` is the base witness's token, ``other_tok`` the
+    other witness's aligned token; ``""`` marks an indel on that side. Yields
+    exactly the class set {agree, disagree, lacuna, insertion}:
+
+    * either side illegible -> ``"lacuna"`` (a physical ⟦illegible⟧ slot);
+    * both present (neither illegible) -> ``"agree"`` if fold-equal else
+      ``"disagree"``;
+    * other present, base empty -> ``"insertion"`` (other adds a token the
+      base lacks);
+    * other empty, base present -> ``"disagree"`` (base token the other omits:
+      one-sided recensional minus; never ``"lacuna"``).
+    """
+    if other_tok == ILLEGIBLE or base_tok == ILLEGIBLE:
+        return "lacuna"
+    if other_tok != "" and base_tok != "":
+        return "agree" if fold_skeleton(other_tok) == fold_skeleton(base_tok) else "disagree"
+    if other_tok != "" and base_tok == "":
+        return "insertion"
+    # other_tok == "" and base_tok != ""
+    return "disagree"
+
+
+def collate_base_structured(gg, cam, *, book, chapter):
+    """Return the base witness's own sense-units as primary verses (Phase A1)
+    with the other witness aligned to them as a per-verse apparatus (Phase A2).
+
+    Does NOT map onto the KJV spine. Primary verses are the base witness's own
+    sense-objects in reading order (A1). The OTHER witness is aligned to that
+    spine by a SINGLE whole-chapter Ge'ez↔Ge'ez token alignment
+    (:func:`align_verse`), and each aligned cell is attributed to the base verse
+    its base token belongs to (A2 ``apparatus``). No metrics / agreement % /
+    KJV-coverage are built here — that is A3. Pure (no I/O beyond the
+    already-loaded args).
     """
     from scripts.core.manuscript_records import validate_witness
 
@@ -504,6 +534,7 @@ def collate_base_structured(gg, cam, *, book, chapter):
 
     base, rationale = _pick_base(gg, cam)
     base_rec = cam if base == "CAM" else gg
+    other_rec = gg if base == "CAM" else cam
 
     primary_verses = [
         {
@@ -514,6 +545,41 @@ def collate_base_structured(gg, cam, *, book, chapter):
         for v in base_rec["verses"]
     ]
 
+    # Flat base-token stream WITH verse attribution (primary_verses order) and
+    # the flat other-token stream in reading order.
+    base_stream = [(verse_idx, tok) for verse_idx, pv in enumerate(primary_verses) for tok in pv["tokens"]]
+    base_flat = [tok for (_, tok) in base_stream]
+    other_flat = [tok for v in other_rec["verses"] for tok in v["tokens"]]
+
+    # Align the WHOLE chapter ONCE. align_verse's first positional arg is the
+    # OTHER witness's tokens, the second the BASE witness's tokens, so each
+    # returned cell is (other_tok, base_tok) with "" for an indel.
+    cells = align_verse(other_flat, base_flat)
+
+    # Walk the cells, attributing each to the base verse its base token belongs
+    # to (a GG/other insertion attaches to the preceding base verse).
+    bi = 0
+    for other_tok, base_tok in cells:
+        if base_tok != "":
+            verse_idx = base_stream[bi][0]
+            bi += 1
+        else:
+            verse_idx = base_stream[bi - 1][0] if bi > 0 else 0
+        cls = _classify_apparatus(other_tok, base_tok)
+        primary_verses[verse_idx].setdefault("apparatus", []).append(
+            {"base": base_tok, "other": other_tok, "class": cls}
+        )
+
+    # Sanity guard: every base token consumed exactly once (do not silently
+    # continue on drift).
+    if bi != len(base_stream):
+        raise AssertionError(f"base-token cursor drift: consumed {bi} of {len(base_stream)} base tokens")
+
+    # Ensure EVERY primary verse carries an apparatus key (default [] for any
+    # verse that received no cells).
+    for pv in primary_verses:
+        pv.setdefault("apparatus", [])
+
     return {
         "book": book,
         "chapter": chapter,
@@ -521,6 +587,21 @@ def collate_base_structured(gg, cam, *, book, chapter):
         "base_rationale": rationale,
         "primary_verses": primary_verses,
     }
+
+
+def tokens_conserved(out, gg, cam) -> bool:
+    """Every evidence token of BOTH witnesses — INCLUDING ⟦illegible⟧ sentinels
+    — appears exactly once across the base-structured apparatus cells (Phase A2).
+
+    The base witness's tokens appear as each cell's ``base``; the other
+    witness's as ``other`` ("" indels are not evidence tokens and are excluded).
+    For 1ki6 this holds with GG 433==433 and CAM 500==500.
+    """
+    ev_gg = collections.Counter(t for v in gg["verses"] for t in v["tokens"])
+    ev_cam = collections.Counter(t for v in cam["verses"] for t in v["tokens"])
+    ap_gg = collections.Counter(c["other"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["other"] != "")
+    ap_cam = collections.Counter(c["base"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["base"] != "")
+    return ev_gg == ap_gg and ev_cam == ap_cam
 
 
 # ──────────────────────────────────────────────────────────────────────────────
