@@ -295,3 +295,14 @@ class TestEnglish1Ki6:
         assert {v for v, _ in en} == {v for v, _ in geez}  # EN coords == Ge'ez coords
         assert all(text.strip() for _v, text in en)  # no empty renderings
         assert tx.versification_of("geez-tewahedo-en", "1ki") == "own"
+
+
+class TestEnglishScaledKingsSamuel:
+    def test_all_collated_chapters_have_english_at_own_coords(self):
+        collated = [("1ki", c) for c in range(1, 7)] + [("1sa", c) for c in (1, 3, 17)] + [("2sa", 11)]
+        for book, ch in collated:
+            geez = tx.get_chapter("geez-tewahedo", book, ch)
+            en = tx.get_chapter("geez-tewahedo-en", book, ch)
+            assert len(en) == len(geez) > 0, f"{book} {ch}: en {len(en)} vs geez {len(geez)}"
+            assert {v for v, _ in en} == {v for v, _ in geez}, f"{book} {ch}: coord mismatch"
+            assert all(t.strip() for _v, t in en), f"{book} {ch}: empty EN rendering"
