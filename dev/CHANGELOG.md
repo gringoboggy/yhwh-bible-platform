@@ -6,6 +6,29 @@
 
 ---
 
+## 2026-05-28 — Phase B: Ge'ez→KJV partial-anchoring cross-reference tool
+
+**Phases shipped:** Phase B (B1–B5) of `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` (detailed plan: `docs/superpowers/plans/2026-05-28-geez-kjv-xref-plan.md`).
+**Test delta:** +19 (new `tests/test_geez_kjv_xref.py` ×8: B1 ×2, B2 ×1, B3 ×3, B4 ×2; `tests/test_manuscript_collation_basestructured.py` +11 B5 → file now 29). Engine regression `tests/test_manuscript_collation.py` 45/45 green (UNCHANGED).
+**Save tags:** B1 `7d8de28d` · B2 `434812ee` · B3 `f769e4b8` · B4 `cea51187` · B5 `4200979a` · + this truth-record doc commit; E:/F: `git bundle --all` backup; RAM cleared.
+
+What shipped (subagent-driven TDD — one implementer + controller diff-verification per task; single-lane, marathon paused + CAM buffer ample at f134v):
+- **B1** `scripts/core/geez_kjv_xref.py` (NEW, pure) — Ge'ez numeral parser: `numeral_token_value` + `verse_numerals` (maximal numeral runs incl. the `ወ` connector, hundreds/units composition; `፬ ፻ ፹`→480, `፷`→60).
+- **B2** `kjv_number_values` — KJV English number-word parser (cardinals + ordinals + score/threescore/fourscore + hundred/thousand; "four hundred and eightieth"→480, "threescore"→60).
+- **B3** `_GEEZ_KJV_NAMES` curated bilingual seed map + `proper_noun_hits` (word-start match so ኪሩብ→"cherubims"; leading ወ/በ/ለ/እም stripped). Curated, NOT transliteration — `ግብጽ` does not transliterate to "egypt".
+- **B4** `build_kjv_xref` + `kjv_coverage` — score each base verse against every KJV row (numeral ∩ + proper-noun hits), take the best as a candidate anchor, filter to a **max-total-score** non-decreasing backbone, interpolate the rest order-preservingly between two virtual endpoints; confidence `anchored`/`interpolated`. 1ki6 v1→6:1, v2→6:2.
+- **B5** `scripts/apply_kjv_xref.py` (NEW driver) — folded `kjv_xref` (keyed by `geez_v`) + `metrics["kjv_coverage"]` into all 10 v2 collations (augment-in-place, atomic rewrite; FileNotFoundError guard skips Ethiopian-only books). Coverage honest: 14–61% anchored per chapter (2sa11 62% / 1sa17 47% lead; narrative chapters lower; remainder interpolated + monotonic).
+
+Notable decision (a flaw caught + fixed mid-task — RULES §2 no-shortcuts):
+- B4's first cut used a **longest** non-decreasing subsequence to pick the anchor backbone — score-blind, so three spurious weak lone-proper-noun hits (pinning to kv=1) formed a longer flat chain than the chapter's two genuinely strong anchors and displaced them (1ki6 v2 failed to anchor). The implementer implemented the spec faithfully, detected the conflict, and STOPPED (NEEDS_CONTEXT) rather than special-case the test. Fixed to a **max-total-score** increasing subsequence (anchor strength decides, not count); the plan's B4 spec was corrected at the same commit.
+
+Invariants held: the manuscript witnesses + the 4 Samuel calibration goldens are byte-untouched — **0 `calibration/` paths in any B commit**; the KJV-spine `collate()` engine + its 45 tests are unchanged; `kjv_xref` is an informative sidecar (KJV is a secondary cross-reference, never the structure).
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` (Phases A+B done; C/D next), `docs/superpowers/plans/2026-05-28-geez-kjv-xref-plan.md` (the Phase-B detail), spec §3.3.
+
+---
+
 ## 2026-05-28 — Phase A: Ge'ez own-versification engine re-architecture + 10-chapter re-collation
 
 **Phases shipped:** Phase A (A1, A2, A3, A4) of the Ge'ez own-versification plan (`docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md`).
