@@ -82,3 +82,17 @@ Appended at C-6 close per the self-upgrading-matrix rule (the C-6 reviewer ran r
 - **Myriad-numeral class:** large counts are red, bracketed numerals (`፸ ፻` / `፹ ፻` = 70k / 80k). The hundred-vs-myriad mark is at the resolution limit -- transcribe the inked hundred-mark + flag `damaged`; do NOT silently promote to a myriad mark.
 - **Correction-oval:** a hand-drawn ellipse may encircle a word (v1) with NO marginal replacement/caret -- transcribe the inked main-line glyphs + flag uncertain; do NOT smooth to the printed form.
 - **Segmentation:** CAM segmented 1ki5 into 18 verses (~ the printed division) vs GG's compressed 13 -- in this family CAM is the finer-segmented, printed-closer witness.
+
+
+## 1 Kings 6 confirmed findings (tau.6.x.4.c, 2026-05-27)
+
+Appended at C-6 close (R1+R2+R3 adversarial, APPROVE CLEAN; controller appends per the self-upgrading-matrix rule). Geez verbatim from the validated 33-verse witness.
+
+- **The column-foot / pre-rubric SKIP class (the worst §2 class) fired TWICE on the 1ki6 blind pass.** The C-5 transcriber dropped (a) the divine promise canonical vv11-12 (`ወኮነ ፡ ቃሉ ፡ እግዚእብሔር ፡ ኃበ ፡ ሰሎምን … ዘተናገርኩ ፡ ምስለ ፡ ዳዊት ፡ አቡከ`) at the Left-column foot AFTER the inline red `✣ ክፍል ፡ ፴ወ፭ ✣` rubric, and (b) the cedar-fastening clause `ወእስር ፡ ለቤት ፡ በዕፀ ፡ አርዝ` (canonical 6:10b) also at the L-foot. Both were physically present in clean ink; restored at C-6 (R1 + R2). **Reinforced rule: a verse that ends right above a `ክፍል` rubric or at a column foot is THE prime skip site — trace EVERY line below the last transcribed word, through the rubric and across the L→M turn, before accepting any "minus."** (1ki1 had two such; 1ki6 adds two more.)
+- **An orphan syllable at a column TOP = a word split across the column turn, NOT an omission residue — but it is a RED FLAG to re-trace the prior column foot.** Here the M-top `ከ` was the tail of `አቡከ` (`…ዳዊት ፡ አቡ` | `ከ`); its presence correctly betrayed the dropped promise on the L-foot.
+- **`እ` (twin-leg, 6th-order) vs `አ` (single-bowl, 4th-order) is a reliable discriminator at native zoom ONLY when the glyph FEET/descenders are in-frame.** A feet-cropped `እ` reads falsely as the printed `አ` — this produced the v10 misread (`ወአሰሬ`/`በማእሰሬ`), corrected to the inked `ወእስር`/`በማእስር`. **Always include the descender band when adjudicating `እ`/`አ`.** Worked example: 1ki6 v10 `ወእስር`/`በማእስር` (`እ`) sit one line above `አርዝ` (`አ`) — clean adjacent contrast.
+- **CAM over-reads 5th-order `ሬ` where the ink is 6th-order `ር`** (v10 `ወእስር`/`በማእስር`; v13 `ወአኃድር`, not `ወአኃድሬ`) — verify verb/noun finals `ር`/`ሬ` against the ink.
+- **Divine name 1st-order `እግዚእብሔር` reconfirmed for 1ki6** (×5; twin-leg medial `እ`, independently verified on the f128r ink, not merely cross-witness). Do not harmonize to printed `አ`.
+- **Year-dating PLACEMENT is a GG↔CAM recension divergence (a C-7 collation point).** CAM opens 1ki6 v1 with the dating at the chapter HEAD — `ወእምዝ ፡ በ፬፻ ፡ ወ፹ ፡ ዓመት …` (480th year; printed/MT-closer) — right after the `ክፍል ፴ወ፭` rubric; GG (LXX / 3-Kingdoms) opens house-first and moves the year-dating to the chapter END (GG v18). The `፬፻` hundreds glyph resembles `የ` at the JPG resolution limit (AMBIGUOUS-PARCHMENT, honest-flag).
+- **Correction-oval at the incipit** brackets `ወእምዝ` (same scribal habit as 1ki5 v1) — transcribe the inked main-line glyphs; no marginal replacement.
+- **Segmentation:** CAM 1ki6 = 33 verses (printed-closer, year-first) vs GG's 18 (LXX-compressed, house-first) — CAM again the finer/fuller witness in this family.

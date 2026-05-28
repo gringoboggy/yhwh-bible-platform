@@ -300,35 +300,100 @@
       "v": 10,
       "column": "f128r-L",
       "line_start": 35,
-      "geez": "ወሐነፀ ፡ ኩሎ ፡ ቤቶ ፡ ወአሰሬ ፡ በማእሰሬ ፡ ዘዘ ፡ ሐምስ ፡ ቅምዕ ፡ በእመቱ ፡ ኑኁ",
+      "geez": "ወሐነፀ ፡ ኩሎ ፡ ቤቶ ፡ ወእስር ፡ በማእስር ፡ ዘዘ ፡ ሐምስ ፡ በእመት ፡ ኑኁ ፡ ወእስር ፡ ለቤት ፡ በዕፀ ፡ አርዝ",
       "tokens": [
         "ወሐነፀ",
         "ኩሎ",
         "ቤቶ",
-        "ወአሰሬ",
-        "በማእሰሬ",
+        "ወእስር",
+        "በማእስር",
         "ዘዘ",
         "ሐምስ",
-        "ቅምዕ",
-        "በእመቱ",
-        "ኑኁ"
+        "በእመት",
+        "ኑኁ",
+        "ወእስር",
+        "ለቤት",
+        "በዕፀ",
+        "አርዝ"
       ],
       "uncertain": [
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "Final word ኑኁ at the very foot of the Left column; the next physical text is the Middle-column top (v13 here). ቅምዕ (the chamber-band measure) uncertain — could be a numeral/cubit term at line-edge."
+          "note": "Final word ኑኁ at the very foot of the Left column. R1 fix: the phantom token ቅምዕ (no such word on the parchment) was deleted and በእመቱ corrected to በእመት (final glyph the 1st-order ት, matching every other በእመት in the chapter); both re-confirmed on the ink at native y~7110. The divine-promise text follows on the Left-column foot (new v11+v12), then the column turns to the Middle top."
         }
       ]
     },
     {
       "v": 11,
+      "column": "f128r-L",
+      "line_start": 40,
+      "geez": "ወኮነ ፡ ቃሉ ፡ እግዚእብሔር ፡ ኃበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል",
+      "tokens": [
+        "ወኮነ",
+        "ቃሉ",
+        "እግዚእብሔር",
+        "ኃበ",
+        "ሰሎምን",
+        "እንዘ",
+        "ይብል"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "RESTORED (R1): divine-promise opening that an original column-foot transcriber SKIP had dropped. On the Left-column foot, immediately after an inline red rubric '✣ ክፍል ፡ ፴ወ፭ ✣' (kefl 35), in clean ink (native y~7240-7440). Divine name independently confirmed 1st-order እግዚእብሔር (twin-legged medial እ, NOT printed አ) at high zoom — consistent with the other four chapter occurrences and the same-hand 1ki5 witness. Trailing separator after ይብል is the plain wordspace ፡ (not a ✣ cross)."
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": "f128r-L",
+      "line_start": 41,
+      "geez": "ዝንቱ ፡ ቤት ፡ ዘእንተ ፡ ተሐንጽ ፡ ሲተ ፡ እመ ፡ ሐርከ ፡ በሕግየ ፡ ወገበርከ ፡ ኩሎ ፡ ትእዛዝየ ፡ ከመ ፡ ትሐር ፡ ቦሙ ፡ ወአቀውም ፡ ቃልየ ፡ ምስሌክ ፡ ዘተናገርኩ ፡ ምስለ ፡ ዳዊት ፡ አቡከ",
+      "tokens": [
+        "ዝንቱ",
+        "ቤት",
+        "ዘእንተ",
+        "ተሐንጽ",
+        "ሲተ",
+        "እመ",
+        "ሐርከ",
+        "በሕግየ",
+        "ወገበርከ",
+        "ኩሎ",
+        "ትእዛዝየ",
+        "ከመ",
+        "ትሐር",
+        "ቦሙ",
+        "ወአቀውም",
+        "ቃልየ",
+        "ምስሌክ",
+        "ዘተናገርኩ",
+        "ምስለ",
+        "ዳዊት",
+        "አቡከ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "RESTORED (R1): the body of the conditional divine promise (canonical 1Ki6:12), in clean ink on the Left-column foot. The final word አቡከ ('thy father') ABSORBS the orphan ከ that opens the Middle-column top — a normal L->M word-split across the column turn, NOT an omission residue."
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "The verb spanning the L4->L5 line break (transcribed ወአቀውም, 'and I will establish', canonical 'I will perform my word with thee') is at the resolution limit at the line edge: the medial syllables (ቀው) sit in the column-edge fold, so the internal orthography is uncertain (best on-ink reading given)."
+        }
+      ]
+    },
+    {
+      "v": 13,
       "column": "f128r-M",
       "line_start": 1,
-      "geez": "ከ ፡ ወአኃድሬ ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል ፡ ወኢየኃድጎሙ ፡ ለሕዝብየ ፡ እስራኤል",
+      "geez": "ወአኃድር ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል ፡ ወኢየኃድጎሙ ፡ ለሕዝብየ ፡ እስራኤል",
       "tokens": [
-        "ከ",
-        "ወአኃድሬ",
+        "ወአኃድር",
         "በማእከለ",
         "ደቂቀ",
         "እስራኤል",
@@ -340,12 +405,12 @@
         {
           "token_index": 0,
           "marker": "uncertain",
-          "note": "OMISSION/HOMOEOTELEUTON: Left col ends v10 (...ኑኁ); Middle col opens this clause (canonical 1Ki6:13). The canonical conditional promise (vv11-12) is ABSENT in CAM — not restored. The leading token ከ is an orphaned syllable (carries an overline) at the column top, the only physical residue; transcribed as inked, not reconstructed."
+          "note": "Middle-column top (canonical 1Ki6:13, 'and I will dwell among the children of Israel...'). R1 re-segmentation: the leading orphan ከ that stood here is the TAIL of v12's አቡከ (a normal L->M word-split), so it has been moved into v12 and removed from this verse — the divine promise (now v11+v12) is present in clean ink on the Left-column foot, NOT an omission. Verb re-confirmed on the ink as ወአኃድር (final 1st-order... 6th-order ር, not 5th-order ሬ)."
         }
       ]
     },
     {
-      "v": 12,
+      "v": 14,
       "column": "f128r-M",
       "line_start": 2,
       "geez": "ወሐነፀ ፡ ሰሎሞን ፡ ወፈጸሞ ፡ ቤተ ፡ መቅደስ ✣",
@@ -359,7 +424,7 @@
       "uncertain": []
     },
     {
-      "v": 13,
+      "v": 15,
       "column": "f128r-M",
       "line_start": 3,
       "geez": "ወሐነፀ ፡ እረፍተ ፡ ቤቱ ፡ በዕፀወ ፡ አርዝ ፡ እምነ ፡ እረፋቲሁ ፡ ለቤት ፡ እስከ ፡ ጠፈሩ ፡ ወእስከ ፡ ሠረዊት ፡ ወዶሉ ፡ እረፋቲሁ ፡ በዕፀወ ፡ እንተ ፡ ውስጥ ፡ ገለዮ ፡ ወአስተእጻዘ ፡ እንተ ፡ ውስጥ ፡ ቤቱ ፡ በዕፀወ ፡ ጻውቄና ፡ ወሐነፀ ፡ በ፳ ፡ እመት ፡ እምነ ፡ ጽንፉ ፡ ለገቦ ፡ ቤት",
@@ -406,7 +471,7 @@
       ]
     },
     {
-      "v": 14,
+      "v": 16,
       "column": "f128r-M",
       "line_start": 7,
       "geez": "እምድሩ ፡ እስከ ፡ ሠራዊቱ ፡ በዕፀ ፡ አርዝ ፡ ወነደቀ ፡ ሎቱ ፡ ቤተ ፡ እምነ ፡ ዳቢር ፡ እስከ ፡ ቅድስተ ፡ ቅዱሳን ✣",
@@ -434,7 +499,7 @@
       ]
     },
     {
-      "v": 15,
+      "v": 17,
       "column": "f128r-M",
       "line_start": 9,
       "geez": "ወ፵ ፡ በእመት ፡ ኮነ ፡ ቤተ ፡ መቅደስ ፡ ቅድመ ፡ ዳቢር",
@@ -457,7 +522,7 @@
       ]
     },
     {
-      "v": 16,
+      "v": 18,
       "column": "f128r-M",
       "line_start": 10,
       "geez": "ወዕፀወ ፡ አርዝ ፡ ገብሬ ፡ ውስተ ፡ እረፍተ ፡ ቤት ፡ ወአልቦ ፡ እብን ፡ ዘይትረአይ",
@@ -475,7 +540,7 @@
       "uncertain": []
     },
     {
-      "v": 17,
+      "v": 19,
       "column": "f128r-M",
       "line_start": 11,
       "geez": "ወዳቢር ፡ ቅድመ ፡ ማእከለ ፡ ቤት ፡ እንተ ፡ ውስጡ ፡ ከመ ፡ ያንብሩ ፡ ህየ ፡ ታቦተ ፡ ኪዳን ፡ እግዚእብሔር ፡ ቅድመ ፡ ዳቢር ፡ ፳ ፡ በእመት ፡ ራኅቡ ፡ ወ፳ ፡ እመት ፡ ቆሙ ፡ ወቀለሎ ፡ በወርቅ ፡ ወአስርገዎ",
@@ -514,7 +579,7 @@
       ]
     },
     {
-      "v": 18,
+      "v": 20,
       "column": "f128r-M",
       "line_start": 14,
       "geez": "ወገብሬ ፡ ምስዋዓ ፡ እምዕፀወ ፡ አርዝ ። ወገብሬ ፡ ሰሎሞን ፡ ለዝንቱ ፡ ቤት ፡ እምቅድሜሁ ፡ በወርቅ ፡ ወአንበሬ ፡ ውስቴቱ ፡ ወርቀ ፡ ንጹሐ ፡ ቅድመ ፡ ዳቢር ፡ ወቀፈሎ ፡ ወኩሎ ፡ ቤቶ ፡ ቀፈሎ ፡ በወርቅ ፡ እስመ ፡ ፈጸመ ፡ ኩሎ ፡ ቤቶ ፡ ወኩሎ ፡ ምሥዋዐያ ፡ ለዳቤር ፡ ቀፈሎ ፡ በወርቅ",
@@ -559,7 +624,7 @@
       ]
     },
     {
-      "v": 19,
+      "v": 21,
       "column": "f128r-M",
       "line_start": 19,
       "geez": "ወገብሬ ፡ ለዳቢር ፡ ፪ ፡ ኪሩባተ ፡ እምዕፀው ፡ ዘይትዓሥር ፡ በእመት ፡ ቆሙ ፡ ወር ፡ በእመት ፡ ክንፈ ፡ ኪሩብ ፡ ፭ ፡ ወሐምስ ፡ በእመት ፡ ኪንፈ ፡ ኪሩብ ፡ ካልኡ ፡ ዓሥር ፡ እመት ፡ እምጽንፈ ፡ ክንፉ ፡ እስከ ፡ ጽንፈ ፡ ክንፉ",
@@ -599,7 +664,7 @@
       ]
     },
     {
-      "v": 20,
+      "v": 22,
       "column": "f128r-M",
       "line_start": 23,
       "geez": "ወካልኡ ፡ ኪሩብ ፡ ዓሥር ፡ ክንፉ ፡ ከመ ፡ ክንፈ ፡ ካልኡ ፡ ወአምጣኒሆሙ ፡ ለክልኤሆሙ ፡ ኪሩባት ፡ ዕሩይ ፡ ወ፩ ፡ ግብሮሙ ፡ ለክልኤሆሙ",
@@ -629,7 +694,7 @@
       ]
     },
     {
-      "v": 21,
+      "v": 23,
       "column": "f128r-M",
       "line_start": 26,
       "geez": "ወቆሙ ፡ ለ፩ ፡ ኪሩብ ፡ ዓሥር ፡ በእመት ፡ ወከማሁ ፡ ካልኡኒ ፡ ኪሩብ ✣ ወክልኤሆሙ ፡ ኪሩብ ፡ በማእከለ ፡ ቤቱ ፡ እንተ ፡ ውስጥ ፡ ወስፉሐ ፡ ክንፈሆሙ ፡ ለኪሩባት ፡ ወዕ ፡ ክንፉ ፡ ይጉድእ ፡ አረፍተ ፡ ቤት ፡ ወለካልኡ ፡ ክንፉ ፡ ለኪሩቤል ፡ ይጉድእ ፡ አረፍተ ፡ ቤት ፡ ወእልክቱ ፡ ክልአን ፡ ክነፊሆሙ ፡ ማእከለ ፡ ቤት ፡ ይትለ ፀቁ ፡ ክንፈ ፡ ምስለ ፡ ክንፉ",
@@ -683,7 +748,7 @@
       ]
     },
     {
-      "v": 22,
+      "v": 24,
       "column": "f128r-M",
       "line_start": 32,
       "geez": "ወቀፈሎሙ ፡ ለኪሩቤል ፡ በወርቅ",
@@ -695,7 +760,7 @@
       "uncertain": []
     },
     {
-      "v": 23,
+      "v": 25,
       "column": "f128r-M",
       "line_start": 33,
       "geez": "ወለኩሉ ፡ አረፍተ ፡ ቤት ፡ እለ ፡ አውዱ ፡ ገስፈ ፡ ወስእለ ፡ ሥዕለ ፡ ኪሩብ ፡ ወበቀልተ ፡ ወአምሳለ ፡ ካልአን ፡ በውስቤ ፡ ወበአፍአ ✣",
@@ -724,7 +789,7 @@
       ]
     },
     {
-      "v": 24,
+      "v": 26,
       "column": "f128r-M",
       "line_start": 35,
       "geez": "ወምድረ ፡ ቤቱ ፡ ለበጠ ፡ በወርቅ ፡ በውስቤሃ ፡ ወበአፍእ ✣",
@@ -745,7 +810,7 @@
       ]
     },
     {
-      "v": 25,
+      "v": 27,
       "column": "f128r-M",
       "line_start": 36,
       "geez": "ወለኖኅተ ፡ ዳቤር ፡ ገብሬ ፡ መአፀ ፡ እምዕፀ ፡ ዘይት ፡ ወገብሬ ፡ ራግዘተ ፡ ፭ ፡ ወክልኤ ፡ ማዕያ ፡ እምዕፀ ፡ ዘይት ✣",
@@ -773,7 +838,7 @@
       ]
     },
     {
-      "v": 26,
+      "v": 28,
       "column": "f128r-R",
       "line_start": 1,
       "geez": "ወስእለ ፡ ውስቴቶን ፡ ኪሩብ ፡ ወበቀልተ ፡ ወቀፈሉን ፡ በወርቅ ፡ ወያንሰልል ፡ ላዕለ ፡ ኪሩብ ፡ ወላዕለ ፡ በቀልት",
@@ -799,7 +864,7 @@
       ]
     },
     {
-      "v": 27,
+      "v": 29,
       "column": "f128r-R",
       "line_start": 3,
       "geez": "ወከማሁ ፡ ገብሬ ፡ ለደዴ ፡ ጽርሕ ፡ ራግዛተ ፡ እምዕፀ ፡ ዘይት ፡ ርብዕ",
@@ -822,7 +887,7 @@
       ]
     },
     {
-      "v": 28,
+      "v": 30,
       "column": "f128r-R",
       "line_start": 5,
       "geez": "ወክልኤ ፡ መዓፁተ ፡ እምዕፀ ፡ ጳውቄማ ፡ እምለፈ ፡ ወእስለፈ ፡ ለአሐቲ ፡ ሐናት ፡ ምስለ ፡ ድርኩቱቶን ፡ ወለካልእቲ ፡ ኖኅት ፡ ክልኤ ፡ መአዐዊሃ ፡ ወድርኩታቲሃ",
@@ -852,7 +917,7 @@
       ]
     },
     {
-      "v": 29,
+      "v": 31,
       "column": "f128r-R",
       "line_start": 8,
       "geez": "ወስአለ ፡ ኪሩብ ፡ ወበቀልተ ፡ ወቀፈሉን ፡ በወርቅ ፡ ወአውደይን ፡ እስከ ፡ መድረኮን",
@@ -875,7 +940,7 @@
       ]
     },
     {
-      "v": 30,
+      "v": 32,
       "column": "f128r-R",
       "line_start": 10,
       "geez": "ወነደቀ ፡ በውስቤ ፡ አጸደ ፡ አረፍት ፡ ዘኢኮን ፡ ውቅር ፡ ወአሕቀፍን ፡ ኩሎ ፡ አውደን ፡ በስሌዳተ ፡ ዕፅ ፡ ዘአርዝ ✣ ክፍል ፡ ፴ ✣",
@@ -909,7 +974,7 @@
       ]
     },
     {
-      "v": 31,
+      "v": 33,
       "column": "f128r-R",
       "line_start": 13,
       "geez": "ወበራብዕ ፡ ዓመት ፡ ሰረር ፡ ለቤተ ፡ እግዚእብሔር ፡ በወርኅ ፡ ኤሳን ፡ በ፲ወ፩ ፡ ዓመት ፡ ወወርኁ ፡ ባእድ ፡ ወውእቱ ፡ ሳምን ፡ ወርኁ ፡ ፈጸመ ፡ ቤተ ፡ ኩሎ ፡ ሕገ ፡ ወኩሎ ፡ ሥርዓቶ ፡ ወሐነፀ ፡ በ፯ ፡ ዓመት",
@@ -961,5 +1026,5 @@
       ]
     }
   ],
-  "transcription_notes": "Hand: CAM Cambridge Add.1570, 3-column book hand (Left -> Middle -> Right). BOUNDARY START: chapter 6 opens in the Left column at a red rubric '✣ ክፍል ፡ ፴ ✣' (kefl 30) that carries a marginal chapter-marker 'ምዕ ፮' (=chapter 6) in the Left-Middle inter-column margin (located by vision at native y~3560); the narrative clause begins 'ወእምዝ' ('and it came to pass'). Everything above that in the Left column is chapter 5 (its tail '...ለሐኒፀ ፡ ቤት' precedes the rubric) and was NOT transcribed. NB the task's hint of 'ክፍል ፳፰' is approximate; the authoritative anchor is the marginal ምዕ ፮, which aligns with the ክፍል ፴ rubric. BOUNDARY STOP: chapter 6 ends in the Right column at the lone red numeral '፯' (7) on R-line 16 in the clause '...ወሐነፀ ፡ በ፯ ፡ ዓመት' ('and built it in seven years', =1Ki6:38). The word 'ዓመት' wraps onto the head of R-line 17; after it a gap then the FOLLOWING chapter opens 'ወሰሎሞን ፡ ሐነፀ ፡ ቤቶ ፡ በ፲ወ፫ ፡ ዓመት' (=1Ki7:1, red ፲ወ፫=13, new building subject) — NOT transcribed. COLUMN FLOW verified continuous at every turn (no skipped lines): Left foot '...በእመቱ ፡ ኑኁ' -> Middle top 'ከ ፡ ወአኃድሬ ...'; Middle foot '...ራግዘተ ፡ ፭ ፡ ወክልኤ' -> Right top 'ማዕያ ...'. Each column begins lower than the Left (Middle & Right first inked line ~y1820, with blank parchment above — confirmed by vision). OMISSION (worst-defect-class check): the CAM witness jumps from v10 ('...ኑኁ', chambers five cubits) directly to the v13 clause 'ወአኃድሬ ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል' at the Middle-column top; the canonical conditional promise (vv11-12, 'the word of the LORD came to Solomon... if thou wilt walk in my statutes') is ABSENT. This is a genuine homoeoteleuton/omission in CAM, transcribed faithfully and NOT restored from any printed Bible. The Middle column's first inked token is an orphaned syllable 'ከ' (bearing an overline) — the only physical residue of the dropped span; transcribed as inked. Re-traced the Left foot (vv7-10) and Middle top (v13-14) twice to confirm vv11-12 are nowhere present. DIVINE NAME: this folio's scribe writes the 1st-order form 'እግዚእብሔር' (1st-order initial እ + medial 1st-order እ) at ALL FOUR occurrences in the chapter (v1 ቤተ ፡ እግዚእብሔር; v2 ለእግዚእብሔር; witness-v17 ታቦተ ፡ ኪዳን ፡ እግዚእብሔር; witness-v31 ለቤተ ፡ እግዚእብሔር). IMPORTANT METHOD NOTE: at 2.4-3x the medial glyph LOOKED like the 4th-order አ (bowl), which would have been the printed form; I nearly recorded እግዚአብሔር. Cross-checking the same-hand 1ki5 CAM witness on this very folio (እግዚእብሔር x7, እግዚአብሔር x0) prompted a 4.5x re-zoom (DNmedial.jpg) which resolves the medial as the twin-legged 1st-order እ, NOT አ — the legs read as a bowl only at lower zoom. Corrected to እግዚእብሔር, matching the prior and the cardinal-rule (transcribe the ink; the high-zoom ink is the 1st-order form). Flagged 'uncertain' as an honest zoom-resolution caution. ክፍል RUBRICS (red, fine liturgical subdivisions, NOT verse/chapter boundaries): observed '✣ ክፍል ፡ ፴ ✣' at the chapter opening (Left col, v1) and again '✣ ክፍል ፡ ፴ ✣' in the Right column at v36 (two lines above the ፯ chapter-end). The Left column also shows kefl ፳፱ and ፴ in the chapter-5 tail above the start. The kefl count is thus non-monotonic across this folio's columns; segmentation here follows the narrative sense-units (and the inline '✣' body-crosses), not the kefl rubrics. BODY CROSSES: inline '✣' (U+2723) divider-crosses kept inline at natural sense-breaks (the tokenizer strips them); one full-stop '።' divides within v18 after the first altar clause. DAMAGE/FOXING: a diagonal brown foxing/stain band crosses the Right column at native y~3300-3700 (around/above the ✣ክፍል፴✣ rubric), spanning roughly R-lines 8-12 (vv35-36). Text is readable but lower-contrast; read with a Pillow contrast boost and flagged 'damaged' where contrast was marginal (vv29-30). NUMERALS (red, small): v1 year is a red-marked composite read best as '፬፻ ፡ ወ፹' (the 480th year) but at the resolution limit (the hundreds glyph ፻ resembles የ in this hand) — flagged uncertain, not normalized. Other red cubit/count numerals (፷, ፳, ፴, ፵, ፪, ፭, ፩, ፲ወ፩, ፯) verified at zoom; small faint ones flagged. ANTI-HARMONIZATION WATCH: column-edge / line-end tokens (the v10->v13 junction, the v31->v32 M->R junction, the ፍ/numeral line-ends, the foxing-band words) were each re-read against the ink rather than smoothed to the expected printed form. Technical building/temple vocabulary (ለሜንትራ, ጻውቄና/ጳውቄማ, ዳቢር, ራግዘተ, ድርኩቱቶን, ገስፈ) transcribed as inked even where it diverges from a cleaner printed form. SEGMENTATION RATIONALE: produced 31 contiguous sense-unit verses (v=1..31) covering exactly the inked chapter-6 text. Because CAM omits the canonical vv11-12, the witness verse numbers run 1..31 and do NOT map 1:1 onto the canonical 1..38; the per-verse comments record the canonical correspondence (e.g. witness v11 = canonical v13). RAM discipline: never loaded the whole folio uncropped; worked column-by-column via Pillow crop()+downscale (<=1568px long edge) and native-resolution tight zooms for faded/numeral tokens."
+  "transcription_notes": "Hand: CAM Cambridge Add.1570, 3-column book hand (Left -> Middle -> Right). BOUNDARY START: chapter 6 opens in the Left column at a red rubric '✣ ክፍል ፡ ፴ወ፭ ✣' (kefl 35) that carries a marginal chapter-marker 'ምዕ ፮' (=chapter 6) in the Left-Middle inter-column margin (located by vision at native y~3560); the narrative clause begins 'ወእምዝ' ('and it came to pass'). Everything above that in the Left column is chapter 5 (its tail '...ለሐኒፀ ፡ ቤት' precedes the rubric) and was NOT transcribed. The authoritative anchor is the marginal ምዕ ፮, aligned with the ክፍል ፴ወ፭ rubric. BOUNDARY STOP: chapter 6 ends in the Right column at the lone red numeral '፯' (7) on R-line 16 in the clause '...ወሐነፀ ፡ በ፯ ፡ ዓመት' ('and built it in seven years', =1Ki6:38). The word 'ዓመት' wraps onto the head of R-line 17; after it a gap then the FOLLOWING chapter opens 'ወሰሎሞን ፡ ሐነፀ ፡ ቤቶ ፡ በ፲ወ፫ ፡ ዓመት' (=1Ki7:1, red ፲ወ፫=13, new building subject) — NOT transcribed. COLUMN FLOW verified continuous at every turn (no skipped lines): Left foot '...ዳዊት ፡ አቡ|ከ' -> Middle top 'ከ ...' (the ከ is the tail of አቡከ, a normal word-split across the column turn); Middle foot '...ራግዘተ ፡ ፭ ፡ ወክልኤ' -> Right top 'ማዕያ ...'. Each column begins lower than the Left (Middle & Right first inked line ~y1820, with blank parchment above — confirmed by vision). DIVINE PROMISE (corrected R1, was previously mis-recorded as a recension minus): the canonical conditional promise (vv11-12, 'the word of the LORD came to Solomon... this house which thou buildest, if thou wilt walk in my statutes... I will perform my word with thee which I spake unto David thy father') IS PRESENT in clean ink on the Left-column foot, immediately after the inline red rubric '✣ ክፍል ፡ ፴ወ፭ ✣' (native y~7240-7990). It was an original column-foot transcriber SKIP in the blind pass, now RESTORED as witness v11 (ወኮነ ፡ ቃሉ ፡ እግዚእብሔር ፡ ኃበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል) and v12 (ዝንቱ ፡ ቤት ... ምስለ ፡ ዳዊት ፡ አቡከ). The orphan ከ at the Middle-column top is NOT an omission residue: it is the tail of v12's final word አቡከ (a normal L->M word-split). Accordingly the witness now has 33 contiguous verses and witness v13 (ወአኃድር ፡ በማእከለ ፡ ደቂቀ ፡ እስራኤል ...) = canonical 1Ki6:13. DIVINE NAME: this folio's scribe writes the 1st-order form 'እግዚእብሔር' (1st-order initial እ + medial 1st-order እ) at every occurrence in the chapter, now FIVE: v1 ቤተ ፡ እግዚእብሔር; v2 ለእግዚእብሔር; the restored v11 ቃሉ ፡ እግዚእብሔር; witness-v17 ታቦተ ፡ ኪዳን ፡ እግዚእብሔር; witness-v31 ለቤተ ፡ እግዚእብሔር. The medial glyph is independently confirmed at high zoom as the twin-legged 1st-order እ (NOT the 4th-order አ bowl, which a 2.4-3x view falsely suggests); cross-checked against the same-hand 1ki5 CAM witness on this folio (እግዚእብሔር x7, እግዚአብሔር x0). Flagged 'uncertain' only as an honest zoom-resolution caution; reading firm. V10 FIX (R1): the blind pass had a phantom token ቅምዕ (no such word on the parchment) between ሐምስ and the cubit word, and read the cubit word as በእመቱ; both corrected on re-confirmation at native y~7110 — ቅምዕ deleted, በእመቱ -> በእመት (final 1st-order ት, matching every other በእመት in the chapter). ክፍል RUBRICS (red, fine liturgical subdivisions, NOT verse/chapter boundaries): '✣ ክፍል ፡ ፴ወ፭ ✣' (kefl 35) at the chapter opening (Left col, v1) and again before the divine promise on the Left-column foot; a further '✣ ክፍል ፡ ፴ ✣' appears in the Right column at witness-v30 (two lines above the ፯ chapter-end). The kefl count is non-monotonic across this folio's columns; segmentation follows the narrative sense-units (and the inline '✣' body-crosses), not the kefl rubrics. BODY CROSSES: inline '✣' (U+2723) divider-crosses kept inline at natural sense-breaks (the tokenizer strips them); one full-stop '።' divides within witness-v18 after the first altar clause. DAMAGE/FOXING: a diagonal brown foxing/stain band crosses the Right column at native y~3300-3700 (around/above the ✣ክፍል፴✣ rubric), spanning roughly R-lines 8-12 (witness-vv29-30 region). Text is readable but lower-contrast; read with a Pillow contrast boost and flagged 'damaged' where contrast was marginal. NUMERALS (red, small): v1 year is a red-marked composite read best as '፬፻ ፡ ወ፹' (the 480th year) but at the resolution limit (the hundreds glyph ፻ resembles የ in this hand) — flagged uncertain, not normalized. Other red cubit/count numerals (፷, ፳, ፴, ፵, ፪, ፭, ፩, ፲ወ፩, ፯) verified at zoom; small faint ones flagged. ANTI-HARMONIZATION WATCH: column-edge / line-end tokens (the L-foot->M-top junction, the M->R junction at witness-v25, the ፍ/numeral line-ends, the foxing-band words, the resolution-limited v12 verb ወአቀውም) were each re-read against the ink rather than smoothed to the expected printed form. Technical building/temple vocabulary (ለሜንትራ, ጻውቄና/ጳውቄማ, ዳቢር, ራግዘተ, ድርኩቱቶን, ገስፈ) transcribed as inked even where it diverges from a cleaner printed form. SEGMENTATION: 33 contiguous sense-unit verses (v=1..33) covering exactly the inked chapter-6 text; because the witness numbering is a continuous sense-unit run it does not map 1:1 onto the canonical 1..38 (per-verse comments record the canonical correspondence, e.g. witness v13 = canonical v13). RAM discipline: never loaded the whole folio uncropped; worked via Pillow crop()+downscale (<=1568px long edge) and native-resolution tight zooms for faded/numeral/edge tokens. C-6 R2 fix — v10: corrected ወአሰሬ/በማእሰሬ to the inked ወእስር/በማእስር (6th-order እ/ር), and restored the dropped column-foot clause ወእስር ፡ ለቤት ፡ በዕፀ ፡ አርዝ (canonical 6:10b cedar-fastening) present in clean ink before the ክፍል ፴ወ፭ rubric."
 }
