@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-28 (cont.) — Phase D kickoff: design resolved + spec §11 (own-versification re-ingest)
+
+**Phases shipped:** Phase-D design (doc-only) — appended §11 "Phase D — resolved decisions" to `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md`. NO code/corpus/base/build/test change.
+**Test delta:** 0.
+**Save tags:** this turn's doc-only commit (spec §11 + truth-record).
+
+What shipped:
+- Brainstormed + user-approved Phase-D scope (**option B**): **D1** = 8 clean-source books (6 Patrologia — PO PDFs already on disk in `GAPS/` + Sirach/Wisdom via HaCohen) · **D2** = 6 Tewahedo-distinctive to acquire from clean PD Ge'ez critical editions (1 Enoch + Jubilees first; Meqabyan I-III + 4 Baruch calibrate-first) · **18 deferred** OCR-only (narrative + `paz` + NT). Tally 8+6+18=32.
+- Mechanism: generalize `source_authoritative` — trust the source's own versification, NEVER `renumber_against_floor`, emit `VERSIFICATION="own"` (Patrologia mode + HaCohen per-book parsers + distinctive parsers).
+- Order (RULES §3): Esther (`est_patrologia`) proof → batch rest of D1 → D2 acquisition background lane → EN back-translation following per-book lane. Honesty gates unchanged (0 fabrication, calibrate-first per book, 9 KJV editions byte-stable, Samuel goldens + witnesses immutable).
+- Disk inventory verified the source map (GAPS Patrologia PDFs present; HaCohen cache = Psalms only; parallel-PDF Ge'ez OCR-garbled → the deferral basis).
+
+**Next:** writing-plans → `docs/superpowers/plans/2026-05-28-geez-phase-d-reingest-plan.md` → execute the Esther proof (TDD, subagent-driven-development).
+
+---
+
 ## 2026-05-28 — Psalms EN COMPLETE: batch 5 (Ps 118-151) closes the Psalter — all 151 chapters / 2,531 verses
 
 **Phases shipped:** Psalms EN batch 5 + Psalter completion — `geez-tewahedo-en/psa.py` = all 151/151 chapters (2,531 verses).

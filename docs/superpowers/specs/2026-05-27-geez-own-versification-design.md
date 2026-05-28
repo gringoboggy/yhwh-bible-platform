@@ -141,3 +141,47 @@ The standalone Ge'ez Bible's signature feature (§3.5, RULES §1): its verse pop
 5. **Proof scope = 1 Kings 6 (33 verses).** Translate + adversarial-review → `geez-tewahedo-en/1ki.py` (ch 6) → wire the renderer → rebuild the standalone EPUB → confirm the English appears in the 1ki6 popups → `epubcheck 0/0` + the 9-editions-byte-stable invariant holds. Then check in before scaling (Kings/Samuel ≈324 verses, then Psalms ≈2,522).
 
 6. **Full-scope note (deferred to the scaling step).** Dup-verse chapters (e.g. Ps 36's non-adjacent 24/25/24/25, per the Phase-C fix) need the EN keyed by source-order position, not just `(ch, v)`, so the two distinct verses get their two distinct English. The proof (1 Kings 6, unique verse numbers) does not hit this; the render's `chapter_verses_in_source_order` already iterates in source order, so the EN lookup must align to that iteration (an occurrence index), addressed when Psalms is scaled.
+
+---
+
+## 11. Phase D — resolved decisions (2026-05-28, brainstormed + user-approved)
+
+Phase D (§4, §7) is the data-gated own-versification re-ingest of the 32 KJV-renumbered `geez-tewahedo` store books. These decisions resolve its open points (scope, source mapping, ordering, honesty/deferral); the §3.4 own-vers-store architecture is unchanged. Detailed implementation plan to follow: `docs/superpowers/plans/2026-05-28-geez-phase-d-reingest-plan.md`.
+
+**Store state (verified on disk 2026-05-28).** 36 books: **4 already `own`** (`psa` via HaCohen/Ludolf; `1ki`/`1sa`/`2sa` via the marathon collations) + **32 KJV-renumbered** needing re-ingest — 6 `patrologia-printed-tier1` + 26 `ocr-tier3` (`parallel-bible-eotc`).
+
+1. **Scope = clean-source-first + distinctive-source acquisition (user, option B).** Three streams:
+   - **D1 — ready sources (8 books).** The 6 Patrologia books (`1ch`,`2ch`,`ezr`,`neh`,`est_patrologia`,`job`) — their Patrologia-Orientalis PDFs are already on disk under `GAPS/` — plus `sir` (51 ch) and `wis` (19 ch) from the authorized HaCohen/TAU site (the exact path that produced Psalms; not yet cached).
+   - **D2 — distinctive acquisition (parallel background lane).** Acquire clean PD Geʽez critical editions for the uniquely-Tewahedo books: **1 Enoch** (Charles, *The Ethiopic Version of the Book of Enoch*, 1906) and **Jubilees** (Charles, *Maṣḥafa Kufālē*, 1895) first — highest uniqueness value, PD by age, findable on archive.org — then **Meqabyan I–III** and **4 Baruch** pending a clean-source check.
+   - **Deferred (18 OCR-only).** The narrative OT (14: `gen`,`ex`,`lev`,`num`,`deu`,`jos`,`jdg`,`rut`,`est`,`2es`,`tob`,`jdt`,`bar`,`bel`), Prayer of Azariah (`paz` — HaCohen carries it only embedded in Daniel, not separately addressable), and the NT (`mat`,`phm`,`jud`) have ONLY the OCR-garbled `parallel-bible-eotc` PDF. Faithful own-versification is not recoverable from garbled OCR, so they stay `ocr-tier3`/canonical, **excluded from the own-vers standalone Bible**, documented honestly, and revisited only if a clean source is acquired. Never force-converted (forcing it = the KJV-numbering category error this redesign fixed, or fabricated verse boundaries). (The 6 Ethiopian-only books `1en`/`jub`/`mq1-3`/`4ba` are NOT in this deferred set — they are the D2 acquisition targets above. Tally: D1 8 + D2 6 + deferred 18 = 32.)
+
+2. **Source map (on-disk verified 2026-05-28).**
+
+   | Group | Books | Source edition | Location |
+   |---|---|---|---|
+   | Patrologia | `1ch`,`2ch` | PO-23 fasc-4 Grébaut 1932 | `GAPS/3_Chronicles/…Grebaut_1932.pdf` (47 MB) |
+   | Patrologia | `ezr`,`neh` | PO-13 fasc-5 Pereira 1919 | `GAPS/4_Ezra-Nehemiah/…Pereira_1919.pdf` (31 MB) |
+   | Patrologia | `est_patrologia` | PO-9 fasc-1 Pereira 1913 | `GAPS/5_Esther/…Pereira_1913.pdf` (40 MB) |
+   | Patrologia | `job` | PO-2 fasc-5 Pereira 1907 | `GAPS/6_Job/…Pereira_1907.pdf` (40 MB); HaCohen cross-validates |
+   | HaCohen | `sir`,`wis` | HaCohen/TAU digitized critical editions | fetchable (authorized); cache `content/translations/sources/hacohen-geez/` |
+   | Acquire (D2) | `1en`,`jub`,`mq1-3`,`4ba` | Charles 1906/1895 + TBD per book | web (archive.org), calibrate-first GO/NO-GO |
+
+3. **Architecture — generalize `source_authoritative` (refines §3.4).** One principle across all source families: *trust the source edition's own versification; do NOT call `renumber_against_floor`; emit `VERSIFICATION="own"`.* (Accuracy note: the §9 "COLOMETRIC-MERGE" label for the patrologia books was imprecise — they are KJV-renumbered via `extract_patrologia_pdf`'s `renumber_against_floor` wrapper over `canonical_book_shape`; the remedy is the same either way: bypass the floor-renumber, preserve the source's numbering.) Per family:
+   - **Patrologia** — add a `source_authoritative` path to `scripts/extract_patrologia_pdf.py` that preserves the PO edition's own chapter/verse structure instead of the `canonical_book_shape` floor-renumber.
+   - **HaCohen (`sir`,`wis`)** — add per-book parsers beside `parse_hacohen_psalter` (the 2026-05-16 external-source design built this to extend) → fetch→cache→parse→`source_authoritative`, calibrate-first per book.
+   - **Distinctive (D2)** — per-source parsers for the acquired Charles editions; same `source_authoritative` output.
+   - **Common output:** each book → `content/translations/geez-tewahedo/<book>.py` (`VERSIFICATION="own"`, a provenance tier matching its source class — patrologia-printed / digitized-critical-edition / a new one for the Charles editions) + a Geʽez→KJV xref sidecar via the Phase-B tool where KJV exists (Ethiopian-only books have no KJV → no xref; they stand alone). The standalone renderer picks each up by adding it to `build_standalone._STANDALONE_BOOKS`.
+
+4. **Ordering — proof-first, safest-first (RULES §3, sequencing delegated to Claude).**
+   1. **Proof = Esther (`est_patrologia`)** end-to-end (PDF on disk, self-contained): re-ingest own-vers → store + apparatus → Geʽez→KJV xref → add to the standalone → rebuild EPUB → `epubcheck 0/0` + the 9-editions byte-stable proof. Validates the generalized Patrologia `source_authoritative` path on one book before scaling.
+   2. **Batch the rest of D1** — the other 5 Patrologia (`job` early, since HaCohen cross-validates it) + `sir`/`wis` (HaCohen).
+   3. **D2 acquisition runs as a background lane throughout** (never-single-thread, RULES §2.5): verify+fetch 1 Enoch / Jubilees → calibrate-first GO/NO-GO → ingest as each confirms.
+   4. **EN back-translation follows per book as its own reviewed lane** (the Psalms/Kings translator+reviewer method, §10) — pipeline-first, EN-next; not blocking the own-vers ship.
+
+5. **EN back-translation = following lane, not inline (consistent with §9.1/§10).** Each newly own-versified book gets its faithful EN back-translation (translator + independent reviewer subagents, tier `ai-back-translation-reviewed-tier3`) AFTER its own-vers ship, at the user's pace — so the own-vers Bible grows in book-breadth first, with EN trailing per book.
+
+6. **Two-Esther resolution.** The store has both `est` (`ocr-tier3`, parallel-PDF) and `est_patrologia` (Patrologia). The standalone Bible uses the own-versified `est_patrologia`; the `ocr-tier3` `est` is superseded for the standalone (it remains available for any KJV-coordinate consumer). Final book-code/canon wiring is a plan detail.
+
+7. **Honesty gates (cardinal, unchanged).** 0 fabrication · calibrate-first GO/NO-GO per book (the source structure must parse cleanly or the book is deferred — never a silent renumber) · xref confidence tagged `anchored`/`interpolated` · each module records the exact edition, editor/digitizer, PD basis, fetch/ingest date, and tier · the 9 KJV editions stay byte-stable (they never enter `build_standalone`) · the witnesses + 4 Samuel goldens are immutable.
+
+8. **Scope boundaries / non-goals.** No change to the 9 KJV editions or any non-`geez-tewahedo` translation. The Amharic standalone Bible (same architecture) stays sequenced after the Geʽez breadth. The paid cross-language model stays de-scoped. Deferred OCR-only books are not force-converted. D2 acquisition is bounded to user-authorized PD sources; a book with no clean source is deferred, not faked.
