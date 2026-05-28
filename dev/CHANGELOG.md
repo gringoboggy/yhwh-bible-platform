@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-28 — Psalms EN batch 1: Ps 2-31 (28 chapters, 393 verses)
+
+**Phases shipped:** Psalms EN batch 1 — `geez-tewahedo-en/psa.py` now covers 39/151 chapters (614 verses).
+**Test delta:** +1 (generic `test_all_psa_en_chapters_mirror_geez_source_order` → file now 38).
+**Save tags:** this turn's commit; E:/F: `git bundle --all` backup (commit #3 since the last bundle).
+
+What shipped:
+- Reviewed English back-translation for Ps 2-31 (28 chapters, 393 verses), merged into `geez-tewahedo-en/psa.py` (now 39 chapters / 614 verses; tier `ai-back-translation-reviewed-tier3`; source order mirrors the Ge'ez store).
+- Method: 4 translator subagents (Opus) + 4 independent adversarial reviewers; faithful to the LXX Ge'ez (Ludolf 1701), NOT KJV/Hebrew; divine name "Yahweh". The reviews caught + fixed 20 real faithfulness drifts (e.g. Ps 16:13 "wicked"→"sword" per ኲናት, Ps 17:3 "horn of my life" not "salvation", Ps 9:38 "your"→"his ear", Ps 18:6 "champion"→"giant").
+- Verify: total standalone EN paras 545→938 (324 Kings/Samuel UNCHANGED + 614 Psalms); epubcheck 0/0/0/0; epub_working/ diff empty. Added a durable generic invariant test (every EN chapter mirrors the Ge'ez source order).
+
+Next: Batch 2 = Ps 32-67 (~28 chapters), same method.
+
 ## 2026-05-28 — Psalms EN proof batch: 11 chapters (221 verses); occurrence-keying validated on real data
 
 **Phases shipped:** Psalms EN proof batch (the 8 dup-verse/irregular chapters + 3 normal) — `content/translations/geez-tewahedo-en/psa.py`.

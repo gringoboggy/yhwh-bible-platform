@@ -361,3 +361,13 @@ class TestEnglishPsalmsProofBatch:
         assert {(24, 1), (24, 2), (25, 1), (25, 2)} <= set(m[36])
         assert m[36][(24, 1)] != m[36][(24, 2)]
         assert m[36][(25, 1)] != m[36][(25, 2)]
+
+    def test_all_psa_en_chapters_mirror_geez_source_order(self):
+        # Durable invariant across every batch: each EN chapter present mirrors the Ge'ez
+        # store's source order exactly (so occurrence-index keying never misaligns).
+        geez = bs.chapter_verses_in_source_order("geez-tewahedo", "psa")
+        en = bs.chapter_verses_in_source_order("geez-tewahedo-en", "psa")
+        assert en, "no Psalms EN present"
+        for ch, lst in en.items():
+            assert [v for v, _ in lst] == [v for v, _ in geez[ch]], f"Ps {ch}: EN seq != Ge'ez"
+            assert all(t.strip() for _v, t in lst), f"Ps {ch}: empty EN"
