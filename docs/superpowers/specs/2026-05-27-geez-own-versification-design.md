@@ -1,0 +1,107 @@
+# Ge'ez own-versification collation & standalone-Bible design
+
+**Created:** 2026-05-27. **Status:** architecture approved (brainstormed + user-approved this session); implementation plan to follow (`docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md`).
+
+**Supersedes:** the *structural* use of the KJV verse spine in the manuscript collation path. KJV is retained ONLY as a secondary cross-reference, never as the Ge'ez Bible's structure.
+
+**Companions:** `docs/superpowers/plans/2026-05-17-kings-manuscript-collation.md` (witness transcription/review mechanics — UNCHANGED), `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md` (the two-standalone-Bibles north star), `dev/CLAUDE_PROJECT_RULES.md` §1.
+
+---
+
+## 1. Problem & motivation
+
+The standalone Ge'ez Bible — a north-star goal: *"a full version with its own books and chapters"* — was being collated onto the **KJV verse spine**. KJV is a 66-book Protestant/Masoretic canon: it lacks the Ethiopian-only books entirely (Mäqabyan I–III, Jubilees, 1 Enoch, 4 Baruch, …), and even for shared books like Kings it imposes a **Masoretic versification foreign to the Ge'ez/LXX "3–4 Kingdoms" recension** the manuscripts actually follow.
+
+The implementation had drifted from the original spec intent (KJV as a *semantic anchor / sanity check*) into **KJV-as-structure**: `manuscript_collation._map_objects_to_spine` proportionally bins each witness's sense-units onto `load_kjv_skeleton`'s N rows, and `manuscript_qa._SEMANTIC_PASS_FLOOR = 95` *penalizes* a recension for not filling all KJV slots.
+
+**1 Kings 6 surfaced the category error:** CAM has 33 sense-units, GG 18, KJV 38 → 5 KJV rows are unfillable → 86.84% "semantic fail", despite **0 fabrication** and faithful, adversarially-reviewed witnesses. The data was honest; the *frame* was wrong — it measured a Ge'ez recension against a Masoretic ruler and called the difference a defect.
+
+**Decision (user, 2026-05-27):** the standalone Ge'ez Bible is structured on the **Ge'ez tradition's OWN versification (PRIMARY)**; KJV becomes a maintained **SECONDARY cross-reference** wherever the book exists in KJV.
+
+---
+
+## 2. Key facts grounding the design (codebase research, this session)
+
+- The KJV-coordinate assumption is **global**, baked at three layers:
+  1. **Ingest** — `scripts/extract_parallel_pdf.py::renumber_against_floor` *discards* the recension's own chapter/verse labels and refills KJV-derived `*_VERSE_COUNTS` floors. The current Ge'ez store is KJV-*reshaped*, not merely KJV-aligned.
+  2. **Translation store** — `scripts/core/translations.py` keys every verse on `(chapter, verse)` with no versification-scheme attribute.
+  3. **Build / popups** — the base HTML (`epub_working/`) is KJV-numbered WEB text; popups attach by KJV coordinate; `generate_verse_popups.py` skips any book lacking a KJV source ("Ethiopic-only — deferred").
+- **An own-versification precedent already exists:** Ge'ez **Psalms** was ingested with `source_authoritative: true` and **skips** `renumber_against_floor`, keeping its own Rahlfs/LXX numbering. This is the model to generalize.
+- The **witness JSONs store each manuscript's OWN sense-unit numbering** (GG `v:1..N`, CAM `v:1..M`); the KJV projection happens *downstream* inside `collate()`. Therefore **re-collation is mechanical from the existing witnesses — zero re-transcription.**
+- The **standalone build path is unbuilt**: `content/editions.yaml` has `standalone-geez` / `standalone-amharic` records (`standalone: true`, `base_translation: geez-tewahedo`) but `build_edition.py` only *skips* them; `base_translation` is read by nothing. Greenfield.
+- **Biggest risk = source data, not code:** Samuel & Kings are NOT in the Ge'ez store (the marathon IS their ingest); the other 15 store books are KJV-renumbered ocr-tier3 (~53–67% coverage) and need re-ingest from versification-preserving sources for true own-numbering.
+
+---
+
+## 3. Architecture — five layers (evidence → standalone Bible)
+
+### 3.1 Evidence (immutable, unchanged)
+The blind-transcribed, adversarially-reviewed witness JSONs at `content/manuscript/<track>/calibration/<ref>_witness{GG,CAM_hires}.json`, each in its OWN sense-unit numbering. **Sacrosanct — never re-transcribed.** The marathon's C-1…C-6 transcription/review mechanics (and the blindness + honesty contract) are UNCHANGED.
+
+### 3.2 Collation (re-architected) — `scripts/core/manuscript_collation.py`
+`collate()` produces a **base-witness-structured** collation:
+- **Primary verses = the base witness's sense-units.** Base chosen by the existing `_pick_base` decision-of-record (CAM by default; the fuller witness on a material-extent split). For 1ki6: CAM's 33 units ARE the 33 Ge'ez verses.
+- **The other witness aligns to the base by Ge'ez↔Ge'ez `align_verse`** (the existing Needleman-Wunsch fold-skeleton aligner — same-language, feasible) → an apparatus per base verse (agree / disagree / lacuna / insertion).
+- **Drop `_map_objects_to_spine`'s proportional KJV-binning** for the primary structure (it remains only as a fallback used by nothing in the new path).
+- **Retained HARD gates:** token-conservation (every witness token appears exactly once), lacuna-honesty (apparatus lacunae == witness `⟦illegible⟧` count), no-fabrication.
+- **Metrics become Ge'ez-internal:** witness-agreement % + lacuna counts. **KJV-coverage is recorded as an *informative* cross-ref statistic (via §3.3), NOT a pass/fail floor.** `_SEMANTIC_PASS_FLOOR` is replaced by: "every base sense-unit has legible content OR an honest lacuna, and the other witness's tokens are all conserved."
+- **Output shape** (`<ref>_collation.json`, re-shaped): `{book, chapter, base_witness, base_rationale, primary_verses: [{geez_v, geez_text, tokens, apparatus: [{base, other, class}], flags}], kjv_xref, metrics}`.
+
+### 3.3 Cross-reference (new tool) — `scripts/core/geez_kjv_xref.py`
+Partial cross-language anchoring (FULL Ge'ez→English semantic matching stays out of scope — the paid model is de-scoped):
+- **Hard anchors:** numerals (Ge'ez ፬፻፹ → 480 via a Ge'ez-numeral parser) + proper nouns (transliteration match: ሰሎሞን↔Solomon, ግብጽ↔Egypt, ሊባኖስ↔Lebanon, ኪሩብ↔cherub) matched against the KJV verse text, plus any reviewer-note KJV references parsed where present.
+- **Order-preserving interpolation** fills the unanchored base verses between hard anchors.
+- **Confidence per mapping:** `anchored` (a hard token matched) vs `interpolated` (positional). Recorded honestly — interpolation is never presented as certainty.
+- **Output:** a sidecar `kjv_xref: {geez_v: {kjv: [(book,ch,v),…], confidence}}` folded into the collation and (later) the store. **NEVER written into the immutable witnesses.**
+- **Ethiopian-only books** (no KJV): the xref is simply absent — the Ge'ez stands alone.
+
+### 3.4 Store (own-versification)
+The standalone Bible's text store keyed to **Ge'ez's own numbering**, generalizing the Psalms `source_authoritative: true` precedent (skip `renumber_against_floor`):
+- **Samuel/Kings:** the store is GENERATED from the base-structured collations (§3.2) — each base verse → a store verse at its own `(ch, geez_v)` coordinate, carrying the EN back-translation + the KJV xref.
+- **Loader change:** add an explicit `versification` attribute to the translation-store model (`own` vs the default canonical-KJV) in `scripts/core/translations.py` — small + localized.
+- The 15 existing KJV-renumbered store books need re-ingest for own-versification (Phase D, data-gated).
+
+### 3.5 Render (new path)
+A `standalone: true` branch in `build_one` (or a dedicated `scripts/build_standalone.py`) that:
+- Renders the Ge'ez Bible body **from the own-versification store** (Ge'ez verse N as the spine — NOT the KJV-numbered base HTML).
+- Popups carry: the EN back-translation (from the Ge'ez wording) + the KJV cross-reference ("KJV ref: 1 Kings 6:1") + the apparatus (other-witness variants) as study notes.
+- Reuses the EPUB/OPF/matter/cover infra (`build_epub.py`, `patch_opf`, matter pages).
+- **The 9 KJV editions are untouched** — the byte-stable invariant is preserved (they never read the standalone path).
+
+---
+
+## 4. Phased build sequence (clean-first, data-risk-last; parallelism noted)
+
+- **Phase A — collation engine re-architecture + re-collate.** Re-shape `collate()` to base-witness-primary; re-collate the **10 done chapters** (1ki1–6 + the 4 Samuel goldens 1sa1/1sa3/1sa17/2sa11) from existing witnesses. **The 4 Samuel `*_collation.json` calibration GOLDENS stay byte-stable** (new base-structured outputs go to clearly-named new files) so the engine-vs-hand invariant + `TestCalibrationInvariants` don't break. Embarrassingly parallel (per-chapter pure function). **No data risk.**
+- **Phase B — the geez→kjv cross-ref tool** (§3.3) + apply to the re-collated chapters. Parallel per chapter. Honest confidence tagging.
+- **Phase C — the standalone render path** (§3.5) + the first standalone Ge'ez Bible EPUB from Samuel/Kings (+ Psalms, which already has own-versification). End-to-end proof of the pipeline.
+- **Phase D — own-versification re-ingest of the 15 KJV-renumbered store books** (data-gated: the GAPS folder + clean PD critical editions per SCOPE §3/§4). Book-by-book as sources confirm. The real risk, isolated last.
+- **Cross-cutting — RULES codification:** the no-shortcuts principle + the never-single-thread / side-task-automation rule (§8).
+
+**Why this order:** Phases A–C carry **no data risk** (the marathon witnesses + the Psalms precedent suffice) → a complete, correct standalone Ge'ez Bible for Samuel/Kings ships *without* waiting on source acquisition; the data-gated breadth comes in D.
+
+**The marathon continues** (witness transcription for the remaining Kings/Samuel chapters) — but from now it feeds **base-witness-structured** collations, so 1ki6's "fail" simply dissolves.
+
+---
+
+## 5. Error handling & honesty gates
+- **Token conservation** (HARD) — unchanged.
+- **Lacuna honesty** (apparatus lacunae == witness `⟦illegible⟧`) — unchanged.
+- **No fabrication** (no output text absent from a witness) — unchanged, cardinal.
+- **Cross-ref confidence honesty** — `anchored` vs `interpolated` explicitly tagged; interpolation never shown as certainty.
+- The marathon's blind-transcription + adversarial-review honesty contract — UNCHANGED.
+
+## 6. Testing
+- Keep the 4 Samuel calibration goldens as the immutable engine-vs-hand reference; add NEW base-structured expectation tests (the base structure is deterministic from the witnesses).
+- Re-collation regression per chapter: token conservation, lacuna honesty, base-pick, apparatus completeness.
+- Cross-ref unit tests: the Ge'ez-numeral parser, the proper-noun transliteration matcher, interpolation monotonicity, confidence tagging; anchor cases drawn from 1ki6 (v1 = 480; vv11–12; v38 = 11th-year completion).
+- Standalone render: a build smoke (the Ge'ez Bible EPUB builds + epubcheck 0/0) + the 9-editions-byte-stable proof.
+
+## 7. Scope boundaries
+- **IN:** the collation re-architecture (§3.2), the cross-ref tool (§3.3), the own-versification store model (§3.4) + the standalone render path (§3.5), the re-collation of the 10 done chapters (Phase A), the RULES codification (§8).
+- **IN (data-gated, Phase D):** re-ingest of the 15 store books for own-versification.
+- **OUT (for now):** the Amharic standalone Bible's full ingest (same architecture applies; sequenced after the Ge'ez proof); the paid cross-language translation model (de-scoped); any change to the 9 KJV editions.
+
+## 8. Cross-cutting rules (to codify this session)
+- **No shortcuts / completeness-first.** There is time. Any task may be **paused** to do it right and complete. If a **better, more-complete** approach appears, **stop and re-plan** (thought-out, optimized, reorganized) rather than patching forward. Elevate to a top-level RULES principle.
+- **Never single-thread / side-task automation.** Always run **≥2 lanes**; when one side task completes, **auto-pick the next** from a maintained side-task backlog (CAM hi-res pre-pulls, base-structured re-collations, cross-ref anchoring, code-debt tail, doc-coherence, Phase-D source acquisition, …). Codify the backlog + the auto-pick rule so the project never idles a single lane.

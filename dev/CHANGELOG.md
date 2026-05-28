@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-05-27 (cont.) — Ge'ez collation redesign: own-versification (spec + plan + RULES §2)
+
+**Phases shipped:** none executed — design / planning / rules only (no code / corpus / base / build / test change beyond docs + dropping one stale untracked artifact; +0 tests). The marathon witnesses are UNCHANGED + immutable.
+**Save:** committed this session + E:/F: `git bundle --all` backup; READY for /clear → fresh session executes Phase A.
+
+**The pivot.** The user identified that the standalone Ge'ez Bible was being collated onto the **KJV verse spine** — a category error: KJV (66-book Masoretic) lacks the Ethiopian-only books and imposes a foreign versification on the Ge'ez/LXX "3–4 Kingdoms" recension. Surfaced concretely at 1ki6 (CAM 33 sense-units / GG 18 / KJV 38 → `_map_objects_to_spine` proportional binning leaves 5 unfillable KJV rows → `manuscript_qa._SEMANTIC_PASS_FLOOR=95` scored an honest 86.84% as a "fail" despite 0 fabrication + adversarially-clean witnesses). Brainstormed (superpowers) → user chose **option 2: Ge'ez-own-versification PRIMARY + a maintained KJV cross-reference SECONDARY**.
+
+- **Spec** `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` — the 5-layer architecture (immutable witnesses → base-structured collation → geez→kjv partial-anchoring cross-ref → own-versification store → standalone render path), grounded by codebase research: KJV-coordinate is global/3-layer (worst at ingest, `renumber_against_floor` discards recension divisions); the Ge'ez Psalms `source_authoritative` ingest is the own-versification precedent; witnesses store own sense-unit numbering so re-collation needs no re-transcription; the standalone build path is unbuilt; the 15 store books' source data is the real risk.
+- **Plan** `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` — Phase A detailed TDD (base-structured `collate` + apparatus + Ge'ez-internal metrics + re-collate 10 chapters; Samuel goldens immutable), B (cross-ref tool), C (render + first EPUB), D (data-gated re-ingest). Phases A–C carry no data risk.
+- **RULES §2** — principle 4 (no shortcuts — completeness over speed; any task may be paused; stop-and-redesign for a better/more-complete approach; momentum never overrides correctness) + principle 5 (never single-thread — ≥2 lanes + auto-pick-next from the enumerated side-task backlog).
+- **Dropped:** the stale untracked `content/manuscript/kings/collation/1ki6_collation.json` (old KJV-spined C-7 output; Phase A regenerates it base-structured).
+
+**Audit (clean):** `lint_rules` 15 pass / 1 benign warn (in-flight marker) / 0 fail; `trace_matrix` 0 unresolved; `trace_repo` 0 undocumented dirs. No junk swept (repo-parent throwaways are outside git; backups gitignored).
+
+**Also committed earlier this session (`90cb102`):** the aggressive session-start RAM-clear bootstrap codification.
+
+**▶ NEXT (post-/clear):** execute Phase A via subagent-driven-development.
+
+---
+
 ## 2026-05-27 (cont.) — Session-start RAM-clear codified into the bootstrap protocol
 
 **Phases shipped:** none — process / rule / hook + cross-session-memory work (no code / corpus / base-HTML / build / test change; +0 tests).

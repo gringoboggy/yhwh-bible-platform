@@ -396,6 +396,10 @@ yesterday's lesson.
    chapters within a book numbered ascending. This is a *hard*
    requirement, not a stylistic preference. See §6.
 
+4. **No shortcuts — completeness over speed (user-directed 2026-05-27; elevated to a top-level principle).** There is time; the deadline never licenses a shortcut. Always pick the most complete + correct path even when it is far more work, and **any task may be PAUSED to do it right**. If a **better, more-complete** approach surfaces mid-task, **STOP and re-plan it** (thought-out, optimized, reorganized) rather than patch forward on the inferior path. Momentum / bias-to-action never overrides correctness or completeness. *Canonical instance:* the 2026-05-27 Ge'ez-versification redesign — a 1ki6 KJV-binning patch was abandoned for a full base-witness own-versification re-architecture once the deeper, more-correct approach surfaced (`docs/superpowers/specs/2026-05-27-geez-own-versification-design.md`). Reinforces [[feedback_proper_clean_correct]] + [[feedback_extensive_answers]] + [[feedback_dont_self_narrow_scope]].
+
+5. **Never single-thread — always run ≥2 lanes (user-directed 2026-05-27).** The project should never be doing only one thing. Keep a background lane busy alongside the foreground, and **when one side task completes, auto-pick the next** from the backlog below — never drop to one lane. Respect the workload-tiered concurrency cap ([[feedback_concurrent_agent_cap]]: heavy >100k tokens MAX 1 · medium 30–100k MAX 2 · light <30k MAX 4) and keep image bytes OUT of the controller context (pre-pulls QC by dimensions only, never read tiles in). **Side-task backlog — pick the next when a lane frees; keep this current:** CAM hi-res pre-pull of upcoming chapters · base-structured re-collation of pending chapters · geez→kjv cross-ref anchoring · the deferred Phase-E Clementine chapters (1es 5/8, 2es 14) · the code-debt audit tail (`dev/AUDIT_2026-05-26-FINDINGS.md`) · doc-coherence (MATRIX_MAP / REPO_MAP / CHANGELOG currency) · test-coverage growth · Phase-D own-versification source acquisition.
+
 ## 3. Sequencing rules
 
 When the user delegates ordering ("do it all", "you decide",
