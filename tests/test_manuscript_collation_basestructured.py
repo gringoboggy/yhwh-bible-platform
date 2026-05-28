@@ -51,3 +51,20 @@ def test_apparatus_present_with_valid_classes():
         for cell in pv["apparatus"]:
             assert set(cell) == {"base", "other", "class"}
             assert cell["class"] in valid
+
+
+def test_metrics_are_geez_internal_no_kjv_gate():
+    gg, cam = _load("1ki", 6)
+    out = mc.collate_base_structured(gg, cam, book="1ki", chapter=6)
+    m = out["metrics"]
+    assert isinstance(m["witness_agreement_pct"], float)
+    assert set(m["lacuna_counts"]) == {"gg", "cam"}
+    assert m["kjv_coverage"] is None  # informative, not computed yet
+    assert "semantic_pass_pct" not in m and "semantic_pass_basis" not in m  # no KJV gate
+
+
+def test_recension_shorter_chapter_not_failed():
+    gg, cam = _load("1ki", 6)
+    out = mc.collate_base_structured(gg, cam, book="1ki", chapter=6)
+    ok, reasons = mc.base_structured_ok(out, gg, cam)
+    assert ok, reasons  # 1ki6 (CAM 33 / GG 18) is NOT a fail

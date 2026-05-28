@@ -580,12 +580,33 @@ def collate_base_structured(gg, cam, *, book, chapter):
     for pv in primary_verses:
         pv.setdefault("apparatus", [])
 
+    # Ge'ez-internal metrics (Phase A3). Computed from the A2 apparatus only —
+    # NO KJV spine, NO semantic-pass/KJV-slot pass-fail key. The base-structured
+    # path follows the Ge'ez/LXX tradition's OWN versification; KJV is demoted to
+    # a secondary cross-reference (kjv_coverage, filled in Phase B), NEVER the
+    # structure or a gate. Agreement is measured over the (agree+disagree)
+    # apparatus cells; lacuna_counts are the physical ⟦illegible⟧ tokens each
+    # witness carries.
+    agree = sum(1 for pv in primary_verses for c in pv["apparatus"] if c["class"] == "agree")
+    disagree = sum(1 for pv in primary_verses for c in pv["apparatus"] if c["class"] == "disagree")
+    den = agree + disagree
+    metrics = {
+        "witness_agreement_pct": _pct(agree, den),
+        "witness_agreement_basis": f"{agree}/{den}",
+        "lacuna_counts": {
+            "gg": sum(1 for v in gg["verses"] for t in v["tokens"] if t == ILLEGIBLE),
+            "cam": sum(1 for v in cam["verses"] for t in v["tokens"] if t == ILLEGIBLE),
+        },
+        "kjv_coverage": None,  # informative cross-ref statistic; filled in Phase B — NOT a gate
+    }
+
     return {
         "book": book,
         "chapter": chapter,
         "base_witness": base,
         "base_rationale": rationale,
         "primary_verses": primary_verses,
+        "metrics": metrics,
     }
 
 
@@ -602,6 +623,30 @@ def tokens_conserved(out, gg, cam) -> bool:
     ap_gg = collections.Counter(c["other"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["other"] != "")
     ap_cam = collections.Counter(c["base"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["base"] != "")
     return ev_gg == ap_gg and ev_cam == ap_cam
+
+
+def base_structured_ok(out, gg, cam) -> tuple[bool, list[str]]:
+    """Honesty gate for a base-structured collation. Returns (ok, reasons).
+    Fails ONLY on cardinal violations — never on KJV coverage (Phase A3).
+
+    The standalone Ge'ez Bible follows the Ge'ez/LXX tradition's OWN
+    versification; KJV is a secondary cross-reference, never the structure, so a
+    faithful shorter recension (e.g. 1ki6: CAM 33 / GG 18 / KJV 38) must PASS.
+    The two cardinal violations are (a) broken token conservation — fabrication
+    or dropped evidence tokens — and (b) a base verse left blank with neither
+    legible content NOR an honest ⟦illegible⟧ lacuna marker."""
+    reasons = []
+    # (a) token conservation broken == fabrication or dropped tokens (cardinal)
+    if not tokens_conserved(out, gg, cam):
+        reasons.append("token conservation broken (fabrication or dropped tokens)")
+    # (b) a base verse that is blank — no legible content AND no honest ⟦illegible⟧ marker
+    for pv in out["primary_verses"]:
+        toks = pv["tokens"]
+        legible = any(t and t != ILLEGIBLE for t in toks)
+        has_lacuna = any(t == ILLEGIBLE for t in toks)
+        if not legible and not has_lacuna:
+            reasons.append(f"v{pv['geez_v']}: blank base verse (no content, no honest lacuna marker)")
+    return (len(reasons) == 0, reasons)
 
 
 # ──────────────────────────────────────────────────────────────────────────────

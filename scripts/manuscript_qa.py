@@ -34,15 +34,20 @@ Checks emitted by ``run_all()``:
                           warn only if a 'calibrated' chapter lacks
                           GG or CAM folios.
   engine_metric_<ref>     one per 1sa1/1sa3/1sa17/2sa11 — the engine's
-                          own metrics held to the §4 bar (fail ONLY if
-                          semantic_pass_pct < 95 — the genuine
-                          fabrication/incoherence floor; warn if
+                          own metrics held to the §4 bar. rev.6 (Phase
+                          A3, Ge'ez own-versification redesign): this
+                          check NEVER fails — the KJV semantic-coverage
+                          floor is RETIRED as a hard fail and DEMOTED
+                          to an informative warn (KJV is a secondary
+                          cross-ref, never the structure or a gate, so
+                          a faithful shorter recension that does not
+                          fill enough KJV verse slots must not fail).
+                          warn if semantic_pass_pct < 95 (informative,
+                          former KJV floor) OR
                           ww_agreement_bothconfident_pct < 90 OR
-                          uncertainty_pct > 10 — both EXPECTED,
-                          GO-ratified signals, each named in the
-                          message as expected-not-a-failure; else
-                          pass). The message ALWAYS states all three
-                          numbers for transparency.
+                          uncertainty_pct > 10 — each named in the
+                          message; else pass. The message ALWAYS states
+                          all three numbers for transparency.
   engine_vs_hand_divergence
                           informational pass; message =
                           engine_vs_hand_report()'s honest divergence
@@ -81,12 +86,20 @@ if str(_REPO) not in sys.path:
 #
 # The authoritative bar is dev/CALIBRATION_2026-05-16-samuel-widened.md
 # §3-4 (the document that produced the 2026-05-17 GO this whole arc
-# cites). spec-revision rev.5 fixes exactly THREE engine-metric
-# conditions, with exactly ONE of them a fail:
+# cites). rev.6 (Phase A3 — Ge'ez own-versification redesign) RETIRES
+# the KJV semantic-coverage floor as a hard fail: the engine_metric
+# checks now have NO `fail` condition; all THREE sub-bar signals are
+# informative `warn`s:
 #   * "semantic high (≥95%)"            -> semantic_pass_pct floor;
-#     the GENUINE fabrication/incoherence floor. Calibration is 100%
-#     semantic on all four chapters, so any sub-95% is a real engine
-#     regression. THIS, AND ONLY THIS, is a `fail`.
+#     was the GENUINE fabrication/incoherence floor and a `fail`. rev.6
+#     DEMOTES it to a `warn`: the standalone Ge'ez Bible follows the
+#     Ge'ez/LXX tradition's OWN versification, KJV is demoted to a
+#     secondary cross-reference (never the structure), so a low
+#     semantic_pass_pct — a faithful shorter recension not filling
+#     enough KJV verse slots (e.g. 1 Kings 6: CAM 33 / GG 18 / KJV 38)
+#     — must NOT fail. The Ge'ez-internal honesty gate lives in
+#     manuscript_collation.base_structured_ok (token-conservation +
+#     no-blank-base-verse), NOT a KJV coverage threshold.
 #   * "both-confident materially <90%"  -> the CONFIRM / distinct-
 #     recension signal; an EXPECTED, GO-ratified `warn` (≥90% ~unity
 #     would be the *refutation* to surface).
@@ -111,7 +124,7 @@ if str(_REPO) not in sys.path:
 # `calibration_contract` (§4 failure-mode 4), not a token-ratio
 # ceiling; the warn just makes the (ratified) magnitude visible. The
 # message always states all three numbers for the reader.
-_SEMANTIC_PASS_FLOOR = 95.0  # semantic_pass_pct < this -> fail (the genuine floor)
+_SEMANTIC_PASS_FLOOR = 95.0  # semantic_pass_pct < this -> WARN, NOT fail (rev.6, Phase A3): the KJV semantic-coverage floor is INFORMATIVE only under the Ge'ez own-versification redesign — KJV is a secondary cross-ref, never the structure or a gate
 _WW_BOTHCONFIDENT_FLOOR = 90.0  # ww_agreement_bothconfident_pct < this -> warn (expected: distinct recensions)
 _UNCERTAINTY_WARN_CEIL = 10.0  # uncertainty_pct > this -> warn (rev.5; expected: MS-damage, GO-ratified)
 
@@ -412,16 +425,22 @@ def check_coverage() -> dict:
 
 def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
     """One ``engine_metric_<ref>`` check — the engine's OWN metrics
-    held to the design-spec §4 reference bar (semantics: rev.5).
+    held to the design-spec §4 reference bar (semantics: rev.6, Phase
+    A3 — Ge'ez own-versification redesign).
 
-      fail  iff semantic_pass_pct < 95 — the GENUINE
-            fabrication/incoherence floor (calibration is 100%
-            semantic on all four chapters, so sub-95% = a real
-            engine regression). NOTHING ELSE FAILS.
-      warn  (when not failing) iff ww_agreement_bothconfident_pct < 90
-            OR uncertainty_pct > 10. BOTH are EXPECTED, GO-ratified
-            signals; each fired condition is named in the message as
-            expected-not-a-failure:
+      fail  NOTHING. rev.6 retires the KJV semantic-coverage floor as
+            a hard fail: under the Ge'ez/LXX tradition's OWN
+            versification the standalone Ge'ez Bible is the structure
+            and KJV is demoted to a secondary cross-reference, so a
+            low semantic_pass_pct (a faithful shorter recension not
+            filling enough KJV verse slots) must NOT fail.
+      warn  iff semantic_pass_pct < 95 OR
+            ww_agreement_bothconfident_pct < 90 OR uncertainty_pct >
+            10. All three are INFORMATIVE; each fired condition is
+            named in the message:
+              · semantic_pass<95 — below the FORMER KJV-coverage
+                floor; informative only (KJV is a secondary cross-ref,
+                not a gate) under Ge'ez own-versification (rev.6).
               · W↔W<90  — distinct recensions; the 2026-05-17 GO
                 chose diplomatic-parallel.
               · unc>10  — MS-damage varies (§4 failure-mode-4); the
@@ -429,6 +448,13 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
                 enforced by the ⟦illegible⟧↔marker bijection, not a
                 token-ratio ceiling.
       pass  otherwise.
+
+    rev.6 (Phase A3): semantic_pass<95 is DEMOTED from ``fail`` to a
+    VISIBLE ``warn`` — the KJV semantic floor is now informative, NOT
+    a gate. The base-structured path (collate_base_structured) carries
+    Ge'ez-internal metrics with NO KJV pass/fail; this legacy
+    KJV-spine engine_metric check is held purely informative for the
+    same reason (KJV demoted to a secondary cross-reference).
 
     rev.5 (memory ``no-reassert-ratified-bar``): uncertainty>10 USED
     to be reported-not-gated; it is now a VISIBLE ``warn`` (parallel
@@ -466,30 +492,19 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
     # All three numbers are ALWAYS in the message (transparency), no
     # matter the status.
     nums = f"semantic_pass={sp}% ww_agreement_bothconfident={ww}% uncertainty={unc}%"
-    if sp < _SEMANTIC_PASS_FLOOR:
-        return {
-            "id": cid,
-            "name": name,
-            "status": "fail",
-            "message": (
-                f"{ref}: {nums} — design-spec §4 bar violated "
-                f"(semantic_pass {sp}% < {_SEMANTIC_PASS_FLOOR}% — the "
-                f"genuine fabrication/incoherence floor; calibration is "
-                f"100% semantic on all four, so this is a real engine "
-                f"regression)"
-            ),
-            "violations": [
-                {
-                    "ref": ref,
-                    "broke": f"semantic_pass {sp}% < {_SEMANTIC_PASS_FLOOR}%",
-                    "metrics": nums,
-                }
-            ],
-        }
-    # Not failing. Collect every EXPECTED, GO-ratified sub-bar signal
-    # and name each one in the message (rev.5: uncertainty>10 is now a
-    # VISIBLE warn parallel to W↔W<90, not buried in a pass message).
+    # NOTHING here FAILS any more (Ge'ez own-versification redesign, Phase A3):
+    # the KJV semantic-coverage floor is retired as a hard fail and DEMOTED to a
+    # `warn`. Collect every sub-bar signal — the former KJV semantic floor and
+    # the two EXPECTED, GO-ratified signals (W↔W<90, uncertainty>10) — and name
+    # each one in the message (rev.5: uncertainty>10 is a VISIBLE warn parallel
+    # to W↔W<90, not buried in a pass message).
     reasons: list[str] = []
+    if sp < _SEMANTIC_PASS_FLOOR:
+        reasons.append(
+            f"semantic_pass {sp}% below the former KJV-coverage floor "
+            f"({_SEMANTIC_PASS_FLOOR:.0f}%) — INFORMATIVE only under Ge'ez "
+            f"own-versification, KJV is a secondary cross-ref not a gate"
+        )
     if ww < _WW_BOTHCONFIDENT_FLOOR:
         reasons.append(
             f"W↔W <{_WW_BOTHCONFIDENT_FLOOR:.0f}% expected for distinct "
@@ -510,10 +525,7 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
             "id": cid,
             "name": name,
             "status": "warn",
-            "message": (
-                f"{ref}: {nums} — " + "; ".join(reasons) + " (semantic_pass meets the §4 'semantic high' ≥95% "
-                "genuine floor)"
-            ),
+            "message": (f"{ref}: {nums} — " + "; ".join(reasons)),
             "violations": [],
         }
     return {
