@@ -105,3 +105,19 @@ A `standalone: true` branch in `build_one` (or a dedicated `scripts/build_standa
 ## 8. Cross-cutting rules (to codify this session)
 - **No shortcuts / completeness-first.** There is time. Any task may be **paused** to do it right and complete. If a **better, more-complete** approach appears, **stop and re-plan** (thought-out, optimized, reorganized) rather than patching forward. Elevate to a top-level RULES principle.
 - **Never single-thread / side-task automation.** Always run **≥2 lanes**; when one side task completes, **auto-pick the next** from a maintained side-task backlog (CAM hi-res pre-pulls, base-structured re-collations, cross-ref anchoring, code-debt tail, doc-coherence, Phase-D source acquisition, …). Codify the backlog + the auto-pick rule so the project never idles a single lane.
+
+---
+
+## 9. Phase C — resolved decisions (2026-05-28, brainstormed + user-approved)
+
+Phase C is detailed + locked this session; its implementation plan is `docs/superpowers/plans/2026-05-28-geez-standalone-render-plan.md`. The §3.4–§3.5 architecture is unchanged — these decisions resolve the open points and refine two specifics.
+
+1. **EN back-translation = pipeline-first; EN as the next lane (user, 2026-05-28).** No own-versification content has English yet (`geez-tewahedo-en` holds only ocr-tier3 `gen`/`ex`/`lev`; Psalms + the 10 collated Kings/Samuel chapters have none). So Phase C ships the render path + proof EPUB with popups = **KJV cross-ref + variant apparatus** (data that already exists from Phases A/B), and the faithful EN back-translation (agent path + adversarial review, generalizing the Track-F method to own-vers content) follows as the **immediate next lane**, folded into the popups after. The render path must exist before EN can be wired regardless; this gives EN its own careful reviewed pass. The north-star "popups carry the EN of the actual Ge'ez wording" is unchanged — only **sequenced**. EN is **explicitly absent** in the first proof, **never faked from KJV**.
+
+2. **`versification` is PER-BOOK, not per-store (refines §3.4).** `geez-tewahedo` is a mixed store: `psa` (HaCohen critical edition) + the new Kings/Samuel = `own`; the other 32 ocr-tier3 books stay `canonical` until Phase D re-ingest. Implement as a `VERSIFICATION` book-module attribute (default `"canonical"`, opt-in `"own"`), read by `translations.versification_of(translation, book)` + surfaced in `translation_meta`. Default-unset = byte-identical for the 9 KJV editions + every existing translation.
+
+3. **Render architecture = dedicated `scripts/build_standalone.py` (refines §3.5).** It GENERATES the Ge'ez body XHTML from the own-vers store (Ge'ez verse *N* is the spine — there is no KJV-numbered base HTML to inject into), attaches per-verse popups (xref + apparatus), then reuses the shared `build_epub`/`patch_opf`/matter/cover machinery. build-all/matrix routes `standalone: true` editions here. Chosen over a `standalone: true` branch inside `build_one` so the 9-KJV-editions path is **literally untouched** and cannot regress the byte-stable invariant.
+
+4. **C2 store output.** The driver reads each `<ref>_collation_v2.json` → `content/translations/geez-tewahedo/{1ki,1sa,2sa}.py` (`VERSES=[(ch, geez_v, geez_text)]` at the base witness's own coordinate, `VERSIFICATION="own"`) + a `<book>_apparatus.json` sidecar carrying per-verse `kjv_xref` + apparatus for the popups. Collations only — the 4 Samuel goldens + the immutable witnesses are untouched.
+
+5. **First proof EPUB content (C4).** The 10 collated Kings/Samuel chapters (full pipeline: collation→store→xref→apparatus→render) + Psalms (a complete own-vers book; a cheap Ge'ez→KJV Psalms xref pass reusing the Phase-B tool gives its popups real cross-refs, since LXX vs KJV Psalms numbering genuinely diverges). Gate: `epubcheck 0/0` + the 9-editions-byte-stable proof (regen + `git diff`).
