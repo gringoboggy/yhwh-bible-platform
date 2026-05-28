@@ -39,11 +39,13 @@ def _fmt_kjv_ref(ref: list) -> str:
     return f"{_BOOK_TITLES.get(bk, bk)} {ch}:{vs}"
 
 
-def _render_vnote(nid: str, title: str, app: dict) -> str:
+def _render_vnote(nid: str, title: str, app: dict, english: str | None = None) -> str:
     parts = [
         f'<aside class="vnote" id="{nid}" epub:type="footnote">',
         f"<p><strong>{_esc(title)}</strong></p>",
     ]
+    if english:
+        parts.append(f'<p class="vnote-text">{_esc(english)}</p>')
     kjv = app.get("kjv") or []
     if kjv:
         refs = "; ".join(_fmt_kjv_ref(r) for r in kjv)
@@ -68,11 +70,19 @@ def _render_vnote(nid: str, title: str, app: dict) -> str:
     return "\n".join(parts)
 
 
-def render_chapter_body(book: str, chapter: int, verses: list[tuple[int, str]], appmap: dict) -> str:
+def render_chapter_body(
+    book: str,
+    chapter: int,
+    verses: list[tuple[int, str]],
+    appmap: dict,
+    en_map: dict | None = None,
+) -> str:
     """``verses``: ``[(geez_v, geez_text), …]``; ``appmap``: ``{str(geez_v): {...}}``.
+    ``en_map``: optional ``{str(geez_v): english_text}`` for back-translation paras.
     Returns the chapter body fragment (verse-p paragraphs + the hidden footnotes
     section). Repeated verse numbers within a chapter get unique anchor ids
     (``…-N``, ``…-N-2``, …) while keeping the displayed number faithful to the source."""
+    en_map = en_map or {}
     body = [
         f'<a id="ch-{book}-c{chapter}" class="ch-anchor"></a>',
         f'<p class="ch-heading"><span class="section-heading"><span class="bold-num">{chapter}</span></span></p>',
@@ -90,7 +100,7 @@ def render_chapter_body(book: str, chapter: int, verses: list[tuple[int, str]], 
             f'epub:type="noteref" title="{_esc(title)}"><span class="vn">{gv}</span></a> '
             f"{_esc(text)}</p>"
         )
-        asides.append(_render_vnote(nid, title, appmap.get(str(gv), {})))
+        asides.append(_render_vnote(nid, title, appmap.get(str(gv), {}), en_map.get(str(gv))))
     body.append('<section class="verse-refs-section" epub:type="footnotes" hidden="">')
     body.extend(asides)
     body.append("</section>")
@@ -217,9 +227,12 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
             by_ch = chapter_verses_in_source_order("geez-tewahedo", book)
             appmap_path = GEEZ_STORE / f"{book}_apparatus.json"
             appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
+            en_by_ch: dict[str, dict[str, str]] = {}
+            for c, v, en in tx._load_book("geez-tewahedo-en", book) or []:
+                en_by_ch.setdefault(str(c), {})[str(v)] = en
             for ch in sorted(by_ch):
                 verses = by_ch[ch]  # source order — NOT re-sorted by verse number (faithful)
-                frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}))
+                frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}), en_by_ch.get(str(ch), {}))
                 title = f"{_BOOK_TITLES.get(book, book)} {ch}"
                 href = f"geez_{book}_{ch}.xhtml"
                 (tmp / href).write_text(wrap_xhtml_doc(title, frag), encoding="utf-8")

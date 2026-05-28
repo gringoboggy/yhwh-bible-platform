@@ -252,3 +252,36 @@ class TestReviewedTier:
         assert pt.is_known_tier("ai-back-translation-reviewed-tier3")
         t = pt.tier_for("ai-back-translation-reviewed-tier3")
         assert t.quality_rank == 3
+
+
+class TestEnglishRender:
+    def test_vnote_emits_english_when_present(self):
+        v = bs._render_vnote(
+            "vnote-1ki-6-1",
+            "1 Kings 6:1",
+            {"kjv": [["1ki", 6, 1]], "confidence": "anchored", "apparatus": []},
+            english="And it happened in the four hundred and eightieth year...",
+        )
+        assert '<p class="vnote-text">And it happened in the four hundred and eightieth year...</p>' in v
+        assert "KJV cross-reference: 1 Kings 6:1" in v
+        assert v.index("vnote-text") < v.index("vnote-xref")
+
+    def test_vnote_no_english_when_absent(self):
+        v = bs._render_vnote("vnote-1ki-6-1", "1 Kings 6:1", {"kjv": [], "apparatus": []})
+        assert "vnote-text" not in v
+
+    def test_english_is_html_escaped(self):
+        v = bs._render_vnote("n", "t", {"kjv": [], "apparatus": []}, english="a & b < c")
+        assert "a &amp; b &lt; c" in v
+
+    def test_render_chapter_body_pulls_english_from_en_map(self):
+        verses = [(1, "ወእምዝ"), (2, "ወቤት")]
+        appmap = {"1": {"kjv": [], "apparatus": []}, "2": {"kjv": [], "apparatus": []}}
+        en_map = {"1": "And afterward"}
+        html = bs.render_chapter_body("1ki", 6, verses, appmap, en_map)
+        assert '<p class="vnote-text">And afterward</p>' in html
+        assert html.count("vnote-text") == 1
+
+    def test_render_chapter_body_graceful_without_en_map(self):
+        html = bs.render_chapter_body("1ki", 6, [(1, "ወእምዝ")], {"1": {"kjv": [], "apparatus": []}})
+        assert "vnote-text" not in html
