@@ -616,13 +616,26 @@ def tokens_conserved(out, gg, cam) -> bool:
 
     The base witness's tokens appear as each cell's ``base``; the other
     witness's as ``other`` ("" indels are not evidence tokens and are excluded).
-    For 1ki6 this holds with GG 433==433 and CAM 500==500.
+    For 1ki6 (base=CAM) this holds with GG 433==433 and CAM 500==500.
+    For 1ki2 (base=GG) this holds with GG 777==777 and CAM 803==803.
+
+    Witness assignment is derived from ``out["base_witness"]`` so the check is
+    correct regardless of which recension was elected base (Phase A4: clause-1
+    base=GG chapters such as 1ki2 use the swapped key assignment).
     """
     ev_gg = collections.Counter(t for v in gg["verses"] for t in v["tokens"])
     ev_cam = collections.Counter(t for v in cam["verses"] for t in v["tokens"])
-    ap_gg = collections.Counter(c["other"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["other"] != "")
-    ap_cam = collections.Counter(c["base"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["base"] != "")
-    return ev_gg == ap_gg and ev_cam == ap_cam
+    ap_base = collections.Counter(c["base"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["base"] != "")
+    ap_other = collections.Counter(
+        c["other"] for pv in out["primary_verses"] for c in pv["apparatus"] if c["other"] != ""
+    )
+    base_witness = out.get("base_witness", "CAM")
+    if base_witness == "CAM":
+        # base cells = CAM tokens; other cells = GG tokens
+        return ev_gg == ap_other and ev_cam == ap_base
+    else:
+        # base cells = GG tokens; other cells = CAM tokens
+        return ev_gg == ap_base and ev_cam == ap_other
 
 
 def base_structured_ok(out, gg, cam) -> tuple[bool, list[str]]:

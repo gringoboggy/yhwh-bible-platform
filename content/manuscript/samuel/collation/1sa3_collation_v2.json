@@ -1,0 +1,2192 @@
+{
+  "book": "1sa",
+  "chapter": 3,
+  "base_witness": "CAM",
+  "base_rationale": "CAM by the project decision of record (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)'; base=CAM ratified project-wide by the 2026-05-17 GO; spec-revision 2026-05-17 §3.3 clause 2) - extents not materially different (GG 21v / CAM 21v).",
+  "primary_verses": [
+    {
+      "geez_v": 1,
+      "geez_text": "ወዝንቱስ ፡ ወልዲ ፡ ሰሙኤል ፡ ሀለወ ፡ ይትለአኮ ፡ ለእግዚአብሔር ፡ ቅድመ ፡ ኤሊ ፡ ካህን ፡ ወክቡር ፡ ውእቱ ፡ ነገረ ፡ እግዚአብሔር ፡ በእማንቱ ፡ መዋዕል ፡ ወአልቦ ፡ ራእይ ፡ ዘይከውን ።",
+      "tokens": [
+        "ወዝንቱስ",
+        "ወልዲ",
+        "ሰሙኤል",
+        "ሀለወ",
+        "ይትለአኮ",
+        "ለእግዚአብሔር",
+        "ቅድመ",
+        "ኤሊ",
+        "ካህን",
+        "ወክቡር",
+        "ውእቱ",
+        "ነገረ",
+        "እግዚአብሔር",
+        "በእማንቱ",
+        "መዋዕል",
+        "ወአልቦ",
+        "ራእይ",
+        "ዘይከውን"
+      ],
+      "apparatus": [
+        {
+          "base": "ወዝንቱስ",
+          "other": "ወዝክቱሰ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወልዲ",
+          "other": "ወልድ",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ሀለወ",
+          "other": "ህሰወ",
+          "class": "disagree"
+        },
+        {
+          "base": "ይትለአኮ",
+          "other": "ይትለአከ",
+          "class": "agree"
+        },
+        {
+          "base": "ለእግዚአብሔር",
+          "other": "ስእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "ቅድመ",
+          "other": "ቅድመ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ካህን",
+          "other": "ካህን",
+          "class": "agree"
+        },
+        {
+          "base": "ወክቡር",
+          "other": "ወክቡር",
+          "class": "agree"
+        },
+        {
+          "base": "ውእቱ",
+          "other": "ውእቱ",
+          "class": "agree"
+        },
+        {
+          "base": "ነገረ",
+          "other": "ቃሉ",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "በእማንቱ",
+          "other": "በእማንቱ",
+          "class": "agree"
+        },
+        {
+          "base": "መዋዕል",
+          "other": "መዋዕል",
+          "class": "agree"
+        },
+        {
+          "base": "ወአልቦ",
+          "other": "ወአልቦ",
+          "class": "agree"
+        },
+        {
+          "base": "ራእይ",
+          "other": "ራእይ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘይከውን",
+          "other": "ዘይከውን",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 2,
+      "geez_text": "ወእምዝ ፡ በይእቲ ፡ ዕለት ፡ እንዘ ፡ ይነውም ፡ ኤሊ ፡ ውስተ ፡ መካኑ ፡ ወአዕይንቲሁ ፡ አኃዛ ፡ ይክበዳ ፡ ወአይክል ፡ ይርአይ ።",
+      "tokens": [
+        "ወእምዝ",
+        "በይእቲ",
+        "ዕለት",
+        "እንዘ",
+        "ይነውም",
+        "ኤሊ",
+        "ውስተ",
+        "መካኑ",
+        "ወአዕይንቲሁ",
+        "አኃዛ",
+        "ይክበዳ",
+        "ወአይክል",
+        "ይርአይ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወእምዝ",
+          "other": "ወእምዝ",
+          "class": "agree"
+        },
+        {
+          "base": "በይእቲ",
+          "other": "በይእቲ",
+          "class": "agree"
+        },
+        {
+          "base": "ዕለት",
+          "other": "ዕስት",
+          "class": "disagree"
+        },
+        {
+          "base": "እንዘ",
+          "other": "እንዘ",
+          "class": "agree"
+        },
+        {
+          "base": "ይነውም",
+          "other": "ይነውም",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ውስተ",
+          "other": "ውስት",
+          "class": "agree"
+        },
+        {
+          "base": "መካኑ",
+          "other": "መካኑ",
+          "class": "agree"
+        },
+        {
+          "base": "ወአዕይንቲሁ",
+          "other": "ወአዕይንቲሁ",
+          "class": "agree"
+        },
+        {
+          "base": "አኃዛ",
+          "other": "ኒ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "እኃ",
+          "class": "insertion"
+        },
+        {
+          "base": "ይክበዳ",
+          "other": "ይክብዳ",
+          "class": "agree"
+        },
+        {
+          "base": "ወአይክል",
+          "other": "ወኢይክል",
+          "class": "agree"
+        },
+        {
+          "base": "ይርአይ",
+          "other": "ርእየ",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 3,
+      "geez_text": "እምቅድመ ፡ ይጥፋእ ፡ ማኅቶተ ፡ እግዚአብሔር ፡ እምቤተ ፡ መቅደስ ። ወሰሙኤልስ ፡ ይነውም ፡ ውስተ ፡ ቢተ ፡ መቅደስ ፡ ኀበ ፡ ሀሎ ፡ ታቦተ ፡ እግዚአብሔር ።",
+      "tokens": [
+        "እምቅድመ",
+        "ይጥፋእ",
+        "ማኅቶተ",
+        "እግዚአብሔር",
+        "እምቤተ",
+        "መቅደስ",
+        "ወሰሙኤልስ",
+        "ይነውም",
+        "ውስተ",
+        "ቢተ",
+        "መቅደስ",
+        "ኀበ",
+        "ሀሎ",
+        "ታቦተ",
+        "እግዚአብሔር"
+      ],
+      "apparatus": [
+        {
+          "base": "እምቅድመ",
+          "other": "ወማሣጥቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ይጥፋእ",
+          "other": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "ማኅቶተ",
+          "other": "ኒ",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "ዓዲ",
+          "class": "disagree"
+        },
+        {
+          "base": "እምቤተ",
+          "other": "ኢየዐውኒ",
+          "class": "disagree"
+        },
+        {
+          "base": "መቅደስ",
+          "other": "ስአበ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወሰሙኤልስ",
+          "other": "ወሳሙኤልስ",
+          "class": "agree"
+        },
+        {
+          "base": "ይነውም",
+          "other": "ይነውም",
+          "class": "agree"
+        },
+        {
+          "base": "ውስተ",
+          "other": "ውስት",
+          "class": "agree"
+        },
+        {
+          "base": "ቢተ",
+          "other": "ቤተ",
+          "class": "agree"
+        },
+        {
+          "base": "መቅደስ",
+          "other": "መቀደስ",
+          "class": "agree"
+        },
+        {
+          "base": "ኀበ",
+          "other": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "base": "ሀሎ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ታቦተ",
+          "other": "ታበተ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 4,
+      "geez_text": "ወጸውዓ ፡ እግዚአብሔር ፡ ለሰሙኤል ፡ ወይቤሎ ፡ ሰሙኤል ፡ ሰሙኤል ፡ ወይቤሎ ፡ ነየ ፡ አነ ።",
+      "tokens": [
+        "ወጸውዓ",
+        "እግዚአብሔር",
+        "ለሰሙኤል",
+        "ወይቤሎ",
+        "ሰሙኤል",
+        "ሰሙኤል",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወጸውዓ",
+          "other": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ለሰሙኤል",
+          "other": "ስዓሙኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤ",
+          "class": "disagree"
+        },
+        {
+          "base": "ነየ",
+          "other": "ነየ",
+          "class": "agree"
+        },
+        {
+          "base": "አነ",
+          "other": "አነ",
+          "class": "agree"
+        },
+        {
+          "base": "",
+          "other": "⟦illegible⟧",
+          "class": "lacuna"
+        }
+      ]
+    },
+    {
+      "geez_v": 5,
+      "geez_text": "ወሮጸ ፡ ኀበ ፡ ኤሊ ፡ ወይቤሎ ፡ ነየ ፡ አነ ፡ መጻእኩ ፡ እስመ ፡ ጸዋዕከኒ ፡ ወይቤሎ ፡ ኢጸዋዕኩከ ፡ ግባእ ፡ ወስክብ ። ወሐረ ፡ ወስክብ ።",
+      "tokens": [
+        "ወሮጸ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕከኒ",
+        "ወይቤሎ",
+        "ኢጸዋዕኩከ",
+        "ግባእ",
+        "ወስክብ",
+        "ወሐረ",
+        "ወስክብ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወሮጸ",
+          "other": "ወርጸ",
+          "class": "agree"
+        },
+        {
+          "base": "ኀበ",
+          "other": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ነየ",
+          "other": "ነየ",
+          "class": "agree"
+        },
+        {
+          "base": "አነ",
+          "other": "አነ",
+          "class": "agree"
+        },
+        {
+          "base": "መጻእኩ",
+          "other": "መጸእኮኒ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "እስመ",
+          "class": "agree"
+        },
+        {
+          "base": "ጸዋዕከኒ",
+          "other": "ጸዋዕከኒ",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ኢጸዋዕኩከ",
+          "other": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ኢጸዋዕክ",
+          "class": "insertion"
+        },
+        {
+          "base": "ግባእ",
+          "other": "ግባእ",
+          "class": "agree"
+        },
+        {
+          "base": "ወስክብ",
+          "other": "ስክብ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወሐረ",
+          "other": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "base": "ወስክብ",
+          "other": "ወስከበ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 6,
+      "geez_text": "ወደገመ ፡ ዓዲ ፡ እግዚአብሔር ፡ ጸውዓዮ ፡ ለሰሙኤል ፡ ወይቤሎ ፡ ሰሙኤል ፡ ሰሙኤል ። ወተንሥአ ፡ ሰሙኤል ፡ ወሐረ ፡ ኀበ ፡ ኤሊ ፡ ወይቤ ፡ ነየ ፡ መጻእኩ ፡ እስመ ፡ ጸዋዕኮኒ ፡ ወይቤ ፡ ኢጸዋዕኩከ ፡ ወልድየ ፡ ግባእ ፡ ወስክብ ።",
+      "tokens": [
+        "ወደገመ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "ጸውዓዮ",
+        "ለሰሙኤል",
+        "ወይቤሎ",
+        "ሰሙኤል",
+        "ሰሙኤል",
+        "ወተንሥአ",
+        "ሰሙኤል",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤ",
+        "ነየ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕኮኒ",
+        "ወይቤ",
+        "ኢጸዋዕኩከ",
+        "ወልድየ",
+        "ግባእ",
+        "ወስክብ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወደገመ",
+          "other": "ወደግመ",
+          "class": "agree"
+        },
+        {
+          "base": "ዓዲ",
+          "other": "ዓዲ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ጸውዓዮ",
+          "other": "ጸውዓቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ለሰሙኤል",
+          "other": "ስሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወተንሥአ",
+          "other": "ወተንሥአ",
+          "class": "agree"
+        },
+        {
+          "base": "ሰሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወሐረ",
+          "other": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "base": "ኀበ",
+          "other": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "",
+          "other": "ዳግመ",
+          "class": "insertion"
+        },
+        {
+          "base": "ወይቤ",
+          "other": "ወይቤ",
+          "class": "agree"
+        },
+        {
+          "base": "ነየ",
+          "other": "ሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "መጻእኩ",
+          "other": "መነ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "መጸውዓኩ",
+          "class": "disagree"
+        },
+        {
+          "base": "ጸዋዕኮኒ",
+          "other": "እመ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወይቤ",
+          "other": "ጸዋዕኩ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ወይቤሎ",
+          "class": "insertion"
+        },
+        {
+          "base": "ኢጸዋዕኩከ",
+          "other": "ኢጸዋዕኩኩ",
+          "class": "agree"
+        },
+        {
+          "base": "ወልድየ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ግባእ",
+          "other": "ግባእ",
+          "class": "agree"
+        },
+        {
+          "base": "ወስክብ",
+          "other": "ወስክብ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 7,
+      "geez_text": "ወሰሙኤልስ ፡ ዓዲሁ ፡ ኢያእምሮ ፡ ለእግዚአብሔር ፡ እምቅድመ ፡ ዘ ፡ ወአትከሠተ ፡ ሎቱ ፡ ቃለ ፡ እግዚአብሔር ።",
+      "tokens": [
+        "ወሰሙኤልስ",
+        "ዓዲሁ",
+        "ኢያእምሮ",
+        "ለእግዚአብሔር",
+        "እምቅድመ",
+        "ዘ",
+        "ወአትከሠተ",
+        "ሎቱ",
+        "ቃለ",
+        "እግዚአብሔር"
+      ],
+      "apparatus": [
+        {
+          "base": "ወሰሙኤልስ",
+          "other": "ወሳሙኤልስ",
+          "class": "agree"
+        },
+        {
+          "base": "ዓዲሁ",
+          "other": "ዓዲሁ",
+          "class": "agree"
+        },
+        {
+          "base": "ኢያእምሮ",
+          "other": "ዶአመር",
+          "class": "disagree"
+        },
+        {
+          "base": "ለእግዚአብሔር",
+          "other": "ስእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "እምቅድመ",
+          "other": "እምቅድ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘ",
+          "other": "ዝ",
+          "class": "agree"
+        },
+        {
+          "base": "ወአትከሠተ",
+          "other": "ወእተከሠቱሎሙ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሎቱ",
+          "other": "ቃስ",
+          "class": "disagree"
+        },
+        {
+          "base": "ቃለ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 8,
+      "geez_text": "ወጸውዓ ፡ ዓዲ ፡ እግዚአብሔር ፡ ሳሙኤል ፡ ሥልስ ፡ ወተንሥአ ፡ ወሐረ ፡ ኀበ ፡ ኤሊ ፡ ወይቤሎ ፡ ነየ ፡ መጻእኩ ፡ እስመ ፡ ጸዋዕኮኒ ፡ ወሀለየ ፡ ኤሊ ፡ ከመ ፡ እግዚአብሔር ፡ ጸውዓ ፡ ለውእቱ ፡ ወልድ ።",
+      "tokens": [
+        "ወጸውዓ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "ሳሙኤል",
+        "ሥልስ",
+        "ወተንሥአ",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕኮኒ",
+        "ወሀለየ",
+        "ኤሊ",
+        "ከመ",
+        "እግዚአብሔር",
+        "ጸውዓ",
+        "ለውእቱ",
+        "ወልድ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወጸውዓ",
+          "other": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ዓዲ",
+          "other": "ዓዲ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "በሣልስ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሥልስ",
+          "other": "ሰዓሙኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "ወተንሥአ",
+          "other": "ወተንሥአ",
+          "class": "agree"
+        },
+        {
+          "base": "ወሐረ",
+          "other": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "base": "ኀበ",
+          "other": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ነየ",
+          "other": "ነየ",
+          "class": "agree"
+        },
+        {
+          "base": "መጻእኩ",
+          "other": "መጸዋዕከኒ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "እስመ",
+          "class": "agree"
+        },
+        {
+          "base": "ጸዋዕኮኒ",
+          "other": "ጸዋዕከኒ",
+          "class": "agree"
+        },
+        {
+          "base": "ወሀለየ",
+          "other": "ወሐሰየ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ጸውዓ",
+          "other": "ጸውዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ለውእቱ",
+          "other": "ሰውእቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወልድ",
+          "other": "ወልድ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 9,
+      "geez_text": "ወይቤሎ ፡ ኤሊ ፡ ለሳሙኤል ፡ ግባእ ፡ ክብ ፡ ወልድየ ፡ እምዘ ፡ ዘ ፡ ጸውዓከ ፡ በል ፡ እግዚእየ ፡ በል ፡ ቃልስ ፡ ወንግርኒ ፡ እስመ ፡ ይስምዓክ ፡ ገብርከ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ኤሊ",
+        "ለሳሙኤል",
+        "ግባእ",
+        "ክብ",
+        "ወልድየ",
+        "እምዘ",
+        "ዘ",
+        "ጸውዓከ",
+        "በል",
+        "እግዚእየ",
+        "በል",
+        "ቃልስ",
+        "ወንግርኒ",
+        "እስመ",
+        "ይስምዓክ",
+        "ገብርከ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ለሳሙኤል",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ግባእ",
+          "other": "ግባእ",
+          "class": "agree"
+        },
+        {
+          "base": "ክብ",
+          "other": "ወስክብ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወልድየ",
+          "other": "ወልድየ",
+          "class": "agree"
+        },
+        {
+          "base": "እምዘ",
+          "other": "ወለእመ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘ",
+          "other": "ይጸውዓክ",
+          "class": "disagree"
+        },
+        {
+          "base": "ጸውዓከ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "በል",
+          "other": "በል",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚእየ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "በል",
+          "other": "በል",
+          "class": "agree"
+        },
+        {
+          "base": "ቃልስ",
+          "other": "እግዚእዶ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወንግርኒ",
+          "other": "እስ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ይስምዓክ",
+          "other": "ይስምዓክ",
+          "class": "agree"
+        },
+        {
+          "base": "ገብርከ",
+          "other": "ገብርክ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 10,
+      "geez_text": "ወሐረ ፡ ሳሙኤል ፡ ወስክብ ፡ ውስተ ፡ መካኑ ። ወመጽአ ፡ እግዚአብሔር ፡ ወቆመ ፡ ወጸውዖ ፡ ከመ ፡ ቀዲሚ ፡ ወይቤሎ ፡ ሳሙኤል ፡ ሳሙኤል ፡ በል ፡ እግዚእየ ፡ እስመ ፡ ይስምዓክ ፡ ገብርከ ።",
+      "tokens": [
+        "ወሐረ",
+        "ሳሙኤል",
+        "ወስክብ",
+        "ውስተ",
+        "መካኑ",
+        "ወመጽአ",
+        "እግዚአብሔር",
+        "ወቆመ",
+        "ወጸውዖ",
+        "ከመ",
+        "ቀዲሚ",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ሳሙኤል",
+        "በል",
+        "እግዚእየ",
+        "እስመ",
+        "ይስምዓክ",
+        "ገብርከ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወሐረ",
+          "other": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወስክብ",
+          "other": "ወስከበ",
+          "class": "agree"
+        },
+        {
+          "base": "ውስተ",
+          "other": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "base": "መካኑ",
+          "other": "መካኑ",
+          "class": "agree"
+        },
+        {
+          "base": "ወመጽአ",
+          "other": "ወመጽእ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ወቆመ",
+          "other": "ወቆመ",
+          "class": "agree"
+        },
+        {
+          "base": "ወጸውዖ",
+          "other": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "ቀዲሚ",
+          "other": "ቀዳሚ",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "በል",
+          "other": "በል",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚእየ",
+          "other": "ግዚእዶ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "እስመ",
+          "class": "agree"
+        },
+        {
+          "base": "ይስምዓክ",
+          "other": "ይስምዓክ",
+          "class": "agree"
+        },
+        {
+          "base": "ገብርከ",
+          "other": "ገብርክ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 11,
+      "geez_text": "ወይቤሎ ፡ እግዚአብሔር ፡ ለሰሙኤል ፡ ናሁ ፡ አነ ፡ እገብር ፡ ቃልየ ፡ ዘነበብኩ ፡ ሳዕለ ፡ እስራኤል ፡ ከመ ፡ ሾሉ ፡ ዘሰምዓ ፡ ይእናዝ ፡ ክልኤሆን ፡ እዘኒሁ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "እግዚአብሔር",
+        "ለሰሙኤል",
+        "ናሁ",
+        "አነ",
+        "እገብር",
+        "ቃልየ",
+        "ዘነበብኩ",
+        "ሳዕለ",
+        "እስራኤል",
+        "ከመ",
+        "ሾሉ",
+        "ዘሰምዓ",
+        "ይእናዝ",
+        "ክልኤሆን",
+        "እዘኒሁ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ለሰሙኤል",
+          "other": "ለሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ናሁ",
+          "other": "ናሁ",
+          "class": "agree"
+        },
+        {
+          "base": "አነ",
+          "other": "እንእገብር",
+          "class": "disagree"
+        },
+        {
+          "base": "እገብር",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ቃልየ",
+          "other": "ቃልየ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘነበብኩ",
+          "other": "ዘነበብኩ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳዕለ",
+          "other": "ሳዕስ",
+          "class": "disagree"
+        },
+        {
+          "base": "እስራኤል",
+          "other": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "ሾሉ",
+          "other": "ኵሉ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘሰምዓ",
+          "other": "ዘሰምዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ይእናዝ",
+          "other": "የአጸ",
+          "class": "disagree"
+        },
+        {
+          "base": "ክልኤሆን",
+          "other": "ክልኤሆ",
+          "class": "disagree"
+        },
+        {
+          "base": "እዘኒሁ",
+          "other": "እዘኒሁ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 12,
+      "geez_text": "ወበይእቲ ፡ ዕለት ፡ አቀውም ፡ ሾሉ ፡ ዘነበብኩ ፡ ሳዕለ ፡ ኤሊ ፡ ወሳዕለ ፡ ቤቱ ፡ እእናዝኒ ።",
+      "tokens": [
+        "ወበይእቲ",
+        "ዕለት",
+        "አቀውም",
+        "ሾሉ",
+        "ዘነበብኩ",
+        "ሳዕለ",
+        "ኤሊ",
+        "ወሳዕለ",
+        "ቤቱ",
+        "እእናዝኒ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወበይእቲ",
+          "other": "ወበይእቲ",
+          "class": "agree"
+        },
+        {
+          "base": "ዕለት",
+          "other": "ዕስት",
+          "class": "disagree"
+        },
+        {
+          "base": "አቀውም",
+          "other": "አቀውም",
+          "class": "agree"
+        },
+        {
+          "base": "ሾሉ",
+          "other": "ኵሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘነበብኩ",
+          "other": "ዘነበብኩ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳዕለ",
+          "other": "ሳዕስ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ወሳዕለ",
+          "other": "ወሰስቤቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ቤቱ",
+          "other": "እሳግዕ",
+          "class": "disagree"
+        },
+        {
+          "base": "እእናዝኒ",
+          "other": "ወእፌጽም",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 13,
+      "geez_text": "ወእራጽም ፡ ወዜነውክዎ ፡ ክመ ፡ እትበቀሎ ፡ አነ ፡ ለቤቱ ፡ እስከ ፡ ለዓለም ፡ በኃጢአት ፡ ደቂቁ ፡ እስመ ፡ አሐሰሙ ፡ ቃለ ፡ ሳዕለ ፡ እግዚአብሔር ፡ ደቂቁ ፡ ወኢገሠጾሙ ።",
+      "tokens": [
+        "ወእራጽም",
+        "ወዜነውክዎ",
+        "ክመ",
+        "እትበቀሎ",
+        "አነ",
+        "ለቤቱ",
+        "እስከ",
+        "ለዓለም",
+        "በኃጢአት",
+        "ደቂቁ",
+        "እስመ",
+        "አሐሰሙ",
+        "ቃለ",
+        "ሳዕለ",
+        "እግዚአብሔር",
+        "ደቂቁ",
+        "ወኢገሠጾሙ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወእራጽም",
+          "other": "ወእይዳዕ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወዜነውክዎ",
+          "other": "ክም",
+          "class": "disagree"
+        },
+        {
+          "base": "ክመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "እትበቀሎ",
+          "other": "እትቤቆሎ",
+          "class": "agree"
+        },
+        {
+          "base": "አነ",
+          "other": "ስቤቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ለቤቱ",
+          "other": "ስዓስም",
+          "class": "disagree"
+        },
+        {
+          "base": "እስከ",
+          "other": "በዓጢአት",
+          "class": "disagree"
+        },
+        {
+          "base": "ለዓለም",
+          "other": "ዘየአመር",
+          "class": "disagree"
+        },
+        {
+          "base": "በኃጢአት",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ደቂቁ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "እስመ",
+          "other": "እስመ",
+          "class": "agree"
+        },
+        {
+          "base": "አሐሰሙ",
+          "other": "አሕሰሙ",
+          "class": "agree"
+        },
+        {
+          "base": "ቃለ",
+          "other": "ቃስዕ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሳዕለ",
+          "other": "ስእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "ደቂቊ",
+          "class": "disagree"
+        },
+        {
+          "base": "ደቂቁ",
+          "other": "ወኢገሠ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወኢገሠጾሙ",
+          "other": "ሙ",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 14,
+      "geez_text": "አኮኑ ፡ ከመ ፡ ግዘመሐልኩ ፡ ለቤቱ ፡ ኤሊ ፡ ከመ ፡ ኢይደመስስ ፡ ኃጢአት ፡ ወኃጢእት ፡ ቤቱ ፡ ኤሊ ፡ ኢበዕጣን ፡ ወኢበመሥዋዕት ፡ እስከ ፡ ለዓለም ።",
+      "tokens": [
+        "አኮኑ",
+        "ከመ",
+        "ግዘመሐልኩ",
+        "ለቤቱ",
+        "ኤሊ",
+        "ከመ",
+        "ኢይደመስስ",
+        "ኃጢአት",
+        "ወኃጢእት",
+        "ቤቱ",
+        "ኤሊ",
+        "ኢበዕጣን",
+        "ወኢበመሥዋዕት",
+        "እስከ",
+        "ለዓለም"
+      ],
+      "apparatus": [
+        {
+          "base": "አኮኑ",
+          "other": "ወበእንተ",
+          "class": "disagree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ዝ",
+          "class": "disagree"
+        },
+        {
+          "base": "ግዘመሐልኩ",
+          "other": "ጊ",
+          "class": "disagree"
+        },
+        {
+          "base": "ለቤቱ",
+          "other": "መሐልኩ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ስየ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ከመዝ",
+          "class": "insertion"
+        },
+        {
+          "base": "ከመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "ኢይደመስስ",
+          "other": "ኢይደመ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኃጢአት",
+          "other": "ሰስስ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወኃጢእት",
+          "other": "አቲቤቱ",
+          "class": "disagree"
+        },
+        {
+          "base": "ቤቱ",
+          "other": "ስኤሊ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ኢበዕጣን",
+          "other": "ኢበዕጣን",
+          "class": "agree"
+        },
+        {
+          "base": "ወኢበመሥዋዕት",
+          "other": "ወኢመ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ሥዋዕት",
+          "class": "insertion"
+        },
+        {
+          "base": "እስከ",
+          "other": "እስከ",
+          "class": "agree"
+        },
+        {
+          "base": "ለዓለም",
+          "other": "ሰዓስም",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 15,
+      "geez_text": "ወእምዝ ፡ ስብሕ ፡ ሳሙኤል ፡ እስከ ፡ ጸብሐ ፡ ወአርኆወ ፡ ኆኃተ ፡ ቤተ ፡ እግዚአብሔር ፡ ወፈርሐ ፡ ሳሙኤል ፡ ከመ ፡ ያይድዓ ፡ ለኤሊ ፡ ዘአስተርአየ ።",
+      "tokens": [
+        "ወእምዝ",
+        "ስብሕ",
+        "ሳሙኤል",
+        "እስከ",
+        "ጸብሐ",
+        "ወአርኆወ",
+        "ኆኃተ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወፈርሐ",
+        "ሳሙኤል",
+        "ከመ",
+        "ያይድዓ",
+        "ለኤሊ",
+        "ዘአስተርአየ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወእምዝ",
+          "other": "ወይም",
+          "class": "disagree"
+        },
+        {
+          "base": "ስብሕ",
+          "other": "ዝ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ስክበ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ሳዕሙኤል",
+          "class": "insertion"
+        },
+        {
+          "base": "እስከ",
+          "other": "እስከ",
+          "class": "agree"
+        },
+        {
+          "base": "ጸብሐ",
+          "other": "ጸብሕ",
+          "class": "agree"
+        },
+        {
+          "base": "",
+          "other": "ወነቅሐ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "በጽባሕ",
+          "class": "insertion"
+        },
+        {
+          "base": "ወአርኆወ",
+          "other": "ወአርኃው",
+          "class": "agree"
+        },
+        {
+          "base": "ኆኃተ",
+          "other": "ዎተ",
+          "class": "disagree"
+        },
+        {
+          "base": "ቤተ",
+          "other": "ቤተ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ወፈርሐ",
+          "other": "ወፈርሀ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ከመ",
+          "other": "አይድዓቆ",
+          "class": "disagree"
+        },
+        {
+          "base": "ያይድዓ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ለኤሊ",
+          "other": "ለኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘአስተርአየ",
+          "other": "ዘእስተርእዮ",
+          "class": "agree"
+        },
+        {
+          "base": "",
+          "other": "እግዚአብሔር",
+          "class": "insertion"
+        }
+      ]
+    },
+    {
+      "geez_v": 16,
+      "geez_text": "ወጸውዓ ፡ ኤሊ ፡ ለሳሙኤል ፡ ወይቤ ፡ ወልድየ ፡ ሳሙኤል ፡ ወይቤሎ ፡ ነየ ፡ አነ ።",
+      "tokens": [
+        "ወጸውዓ",
+        "ኤሊ",
+        "ለሳሙኤል",
+        "ወይቤ",
+        "ወልድየ",
+        "ሳሙኤል",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወጸውዓ",
+          "other": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ለሳሙኤል",
+          "other": "ሰዓሙኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "ወይቤ",
+          "other": "ወይቤሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወልድየ",
+          "other": "ወልድየ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤሎ",
+          "other": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "base": "",
+          "other": "ሳሙኤል",
+          "class": "insertion"
+        },
+        {
+          "base": "ነየ",
+          "other": "ነየ",
+          "class": "agree"
+        },
+        {
+          "base": "አነ",
+          "other": "አነ",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 17,
+      "geez_text": "ወይቤሎ ፡ ምንትኑ ፡ ነገሩ ፡ ዘነገርከ ፡ እትሣባእ ፡ እምኔየ ፡ ከመዝ ፡ ለይሬሲ ፡ ክ ፡ እግዚአብሔር ፡ ወከመግዘ ፡ ለትምጻእክ ፡ ለስእመ ፡ ህባእ ፡ ክ ፡ እምኔየ ፡ ቃለ ፡ እምኒ ፡ ኵሉ ፡ ዘነገሩክ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ምንትኑ",
+        "ነገሩ",
+        "ዘነገርከ",
+        "እትሣባእ",
+        "እምኔየ",
+        "ከመዝ",
+        "ለይሬሲ",
+        "ክ",
+        "እግዚአብሔር",
+        "ወከመግዘ",
+        "ለትምጻእክ",
+        "ለስእመ",
+        "ህባእ",
+        "ክ",
+        "እምኔየ",
+        "ቃለ",
+        "እምኒ",
+        "ኵሉ",
+        "ዘነገሩክ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወይቤሎ",
+          "other": "ወቤሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ምንትኑ",
+          "other": "ምንትኑ",
+          "class": "agree"
+        },
+        {
+          "base": "ነገሩ",
+          "other": "ነገሩ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘነገርከ",
+          "other": "ዘነገረክ",
+          "class": "agree"
+        },
+        {
+          "base": "እትሣባእ",
+          "other": "ኤትዳእ",
+          "class": "disagree"
+        },
+        {
+          "base": "እምኔየ",
+          "other": "እምኔየ",
+          "class": "agree"
+        },
+        {
+          "base": "ከመዝ",
+          "other": "ከመዝ",
+          "class": "agree"
+        },
+        {
+          "base": "ለይሬሲ",
+          "other": "ለይረሲክ",
+          "class": "disagree"
+        },
+        {
+          "base": "ክ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ወከመግዘ",
+          "other": "ወከመዝ",
+          "class": "disagree"
+        },
+        {
+          "base": "ለትምጻእክ",
+          "other": "ስትምጸ",
+          "class": "disagree"
+        },
+        {
+          "base": "ለስእመ",
+          "other": "እኪ",
+          "class": "disagree"
+        },
+        {
+          "base": "ህባእ",
+          "other": "ስስ",
+          "class": "disagree"
+        },
+        {
+          "base": "ክ",
+          "other": "ዓብእክ",
+          "class": "disagree"
+        },
+        {
+          "base": "እምኔየ",
+          "other": "እምኔየ",
+          "class": "agree"
+        },
+        {
+          "base": "ቃለ",
+          "other": "ቃስ",
+          "class": "disagree"
+        },
+        {
+          "base": "እምኒ",
+          "other": "እምኵሉ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኵሉ",
+          "other": "ዘነረክ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘነገሩክ",
+          "other": "ወዘሰማዕኩክ",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 18,
+      "geez_text": "ወስማዕከ ፡ ወአይድዓ ፡ ሳሙኤል ፡ ኵሉ ፡ ነገረ ፡ ወአልቦ ፡ ዘኀብአ ፡ እምኔሁ ፡ ወይቤ ፡ ኤሊ ፡ ይገብር ፡ እግዚአብሔር ፡ ኵሉ ፡ ዘአዲም ፡ ሎቱ ።",
+      "tokens": [
+        "ወስማዕከ",
+        "ወአይድዓ",
+        "ሳሙኤል",
+        "ኵሉ",
+        "ነገረ",
+        "ወአልቦ",
+        "ዘኀብአ",
+        "እምኔሁ",
+        "ወይቤ",
+        "ኤሊ",
+        "ይገብር",
+        "እግዚአብሔር",
+        "ኵሉ",
+        "ዘአዲም",
+        "ሎቱ"
+      ],
+      "apparatus": [
+        {
+          "base": "ወስማዕከ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ወአይድዓ",
+          "other": "ወአይድዓ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ኵሉ",
+          "other": "ሰኤሊ",
+          "class": "disagree"
+        },
+        {
+          "base": "ነገረ",
+          "other": "ቱሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "ዘነገሮ",
+          "class": "insertion"
+        },
+        {
+          "base": "ወአልቦ",
+          "other": "ወአልቦ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘኀብአ",
+          "other": "ዘኃብእ",
+          "class": "agree"
+        },
+        {
+          "base": "እምኔሁ",
+          "other": "እምኔሁ",
+          "class": "agree"
+        },
+        {
+          "base": "ወይቤ",
+          "other": "ወይቤ",
+          "class": "agree"
+        },
+        {
+          "base": "ኤሊ",
+          "other": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "base": "ይገብር",
+          "other": "ስይግበር",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ኵሉ",
+          "other": "ቱሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ዘአዲም",
+          "other": "ዘእደም",
+          "class": "agree"
+        },
+        {
+          "base": "ሎቱ",
+          "other": "ሎ",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 19,
+      "geez_text": "ወዓብየ ፡ ሳሙኤል ፡ ወእግዚአብሔር ፡ ሀሎ ፡ ምስሌሁ ፡ ወእልቦ ፡ ዘወድቀ ፡ እምኵሉ ፡ ቃሉ ፡ ቃሉ ፡ ወወድቀ ፡ ውስተ ፡ ምድር ።",
+      "tokens": [
+        "ወዓብየ",
+        "ሳሙኤል",
+        "ወእግዚአብሔር",
+        "ሀሎ",
+        "ምስሌሁ",
+        "ወእልቦ",
+        "ዘወድቀ",
+        "እምኵሉ",
+        "ቃሉ",
+        "ቃሉ",
+        "ወወድቀ",
+        "ውስተ",
+        "ምድር"
+      ],
+      "apparatus": [
+        {
+          "base": "ወዓብየ",
+          "other": "ወዓብየ",
+          "class": "agree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "base": "ወእግዚአብሔር",
+          "other": "ወህሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሀሎ",
+          "other": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "ምስሌሁ",
+          "other": "ምስሌሁ",
+          "class": "agree"
+        },
+        {
+          "base": "ወእልቦ",
+          "other": "ወአልቦ",
+          "class": "agree"
+        },
+        {
+          "base": "ዘወድቀ",
+          "other": "ዘወድቆ",
+          "class": "agree"
+        },
+        {
+          "base": "እምኵሉ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ቃሉ",
+          "other": "ቃሎ",
+          "class": "agree"
+        },
+        {
+          "base": "ቃሉ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ወወድቀ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "ውስተ",
+          "other": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "base": "ምድር",
+          "other": "ምድር",
+          "class": "agree"
+        }
+      ]
+    },
+    {
+      "geez_v": 20,
+      "geez_text": "ወእመሩ ፡ ኵሉ ፡ እስራኤል ፡ እምዳን ፡ እስከ ፡ ቤርሳቤሔ ፡ ከመ ፡ እመን ፡ ሳሙኤል ፡ ነቢ ፡ ይለእግዚአብሔር ።",
+      "tokens": [
+        "ወእመሩ",
+        "ኵሉ",
+        "እስራኤል",
+        "እምዳን",
+        "እስከ",
+        "ቤርሳቤሔ",
+        "ከመ",
+        "እመን",
+        "ሳሙኤል",
+        "ነቢ",
+        "ይለእግዚአብሔር"
+      ],
+      "apparatus": [
+        {
+          "base": "ወእመሩ",
+          "other": "ወአቱሎ",
+          "class": "disagree"
+        },
+        {
+          "base": "ኵሉ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "እስራኤል",
+          "other": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "base": "እምዳን",
+          "other": "እምዳን",
+          "class": "agree"
+        },
+        {
+          "base": "እስከ",
+          "other": "እስከ",
+          "class": "agree"
+        },
+        {
+          "base": "ቤርሳቤሔ",
+          "other": "በርሳቤሕ",
+          "class": "agree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ከመ",
+          "class": "agree"
+        },
+        {
+          "base": "እመን",
+          "other": "መሀይምኝ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "ሳሙኤይ",
+          "class": "disagree"
+        },
+        {
+          "base": "ነቢ",
+          "other": "ስእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "ይለእግዚአብሔር",
+          "other": "",
+          "class": "disagree"
+        }
+      ]
+    },
+    {
+      "geez_v": 21,
+      "geez_text": "ወደገመ ፡ እግዚአብሔር ፡ አርእዮ ፡ በሴሎም ፡ ከመ ፡ አስተርአየ ፡ እግዚአብሔር ፡ ለሳሙኤል ፡ በቃለ ፡ እግዚአብሔር ፡ ወተስምዓ ፡ ቃለ ፡ ሳሙኤል ፡ ውስተ ፡ ሾሉ ፡ እስራኤል ።",
+      "tokens": [
+        "ወደገመ",
+        "እግዚአብሔር",
+        "አርእዮ",
+        "በሴሎም",
+        "ከመ",
+        "አስተርአየ",
+        "እግዚአብሔር",
+        "ለሳሙኤል",
+        "በቃለ",
+        "እግዚአብሔር",
+        "ወተስምዓ",
+        "ቃለ",
+        "ሳሙኤል",
+        "ውስተ",
+        "ሾሉ",
+        "እስራኤል"
+      ],
+      "apparatus": [
+        {
+          "base": "ወደገመ",
+          "other": "ወደገመ",
+          "class": "agree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "አርእዮ",
+          "other": "አይድዓቆ",
+          "class": "disagree"
+        },
+        {
+          "base": "በሴሎም",
+          "other": "ወአርአዮ",
+          "class": "disagree"
+        },
+        {
+          "base": "ከመ",
+          "other": "ስተርአዮ",
+          "class": "disagree"
+        },
+        {
+          "base": "አስተርአየ",
+          "other": "",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "base": "ለሳሙኤል",
+          "other": "ወተአመነ",
+          "class": "disagree"
+        },
+        {
+          "base": "በቃለ",
+          "other": "ሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "እግዚአብሔር",
+          "other": "ነቢይ",
+          "class": "disagree"
+        },
+        {
+          "base": "ወተስምዓ",
+          "other": "ስእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "base": "ቃለ",
+          "other": "በውኩሉ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሳሙኤል",
+          "other": "እስራኤል",
+          "class": "disagree"
+        },
+        {
+          "base": "ውስተ",
+          "other": "እምአጽናፈ",
+          "class": "disagree"
+        },
+        {
+          "base": "ሾሉ",
+          "other": "ምድር",
+          "class": "disagree"
+        },
+        {
+          "base": "እስራኤል",
+          "other": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "base": "",
+          "other": "እጽናፉ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "ወልህቀ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "ወደዊቁስ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "ሐዊራ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "ሐሩት",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "እኪት",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "ቅድመ",
+          "class": "insertion"
+        },
+        {
+          "base": "",
+          "other": "እግዚአብሔር",
+          "class": "insertion"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "witness_agreement_pct": 56.47,
+    "witness_agreement_basis": "179/317",
+    "lacuna_counts": {
+      "gg": 1,
+      "cam": 0
+    },
+    "kjv_coverage": null
+  }
+}
