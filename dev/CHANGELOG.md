@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-28 — Psalms EN batch 3: Ps 61-89 (27 chapters, 529 verses)
+
+**Phases shipped:** Psalms EN batch 3 — psa.py now covers 93/151 chapters (1,580 verses).
+**Test delta:** 0 (generic invariant; file stays 38).
+**Save tags:** this turn's commit (no E:/F: backup due — commit #2 since the last bundle).
+
+What shipped:
+- Reviewed EN for Ps 61-89 (27 ch, 529 v) merged into psa.py. 4 translator + 4 independent reviewer subagents; faithful to the LXX Ge'ez. 16 drifts fixed (e.g. Ps 84:13 "what is good"→"his mercy", Ps 70:15 "[number]"→"[sum of] its workings", Ps 76:5 subject reversal).
+- Verify: total standalone EN paras 1,375→1,904 (324 KS unchanged + 1,580 psa); epubcheck 0/0/0/0; epub_working/ diff empty.
+
+Next: Batch 4 = Ps 90-117 (continuous).
+
 ## 2026-05-28 — Psalms EN batch 2: Ps 32-60 (27 chapters, 437 verses)
 
 **Phases shipped:** Psalms EN batch 2 — `geez-tewahedo-en/psa.py` now covers 66/151 chapters (1,051 verses).
