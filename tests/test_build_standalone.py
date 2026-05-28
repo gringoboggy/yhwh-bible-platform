@@ -149,3 +149,35 @@ class TestBuildStandalone:
             assert any(n == "geez_1ki_6.xhtml" for n in names)  # a generated body file is packaged
             assert not any("index_split_" in n for n in names)  # original body fully swapped out
         assert out["chapters"] == 10  # 6 (1ki) + 3 (1sa) + 1 (2sa)
+
+
+class TestDispatchGuard:
+    def test_build_one_routes_standalone(self, tmp_path, monkeypatch):
+        from scripts import build_edition as be
+
+        called = {}
+
+        def fake(edition_id, output_dir, version):
+            called["id"] = edition_id
+            return {"status": "ok", "output_path": str(tmp_path / "x.epub")}
+
+        monkeypatch.setattr("scripts.build_standalone.build_standalone", fake)
+        be.build_one("standalone-geez", tmp_path, "v28a", [], False, False)
+        assert called.get("id") == "standalone-geez"
+
+    def test_build_one_does_not_route_kjv_edition(self, tmp_path, monkeypatch):
+        from scripts import build_edition as be
+        from scripts.core import config
+
+        tripped = {"v": False}
+
+        def fake(*a, **k):
+            tripped["v"] = True
+            return {}
+
+        monkeypatch.setattr("scripts.build_standalone.build_standalone", fake)
+        try:
+            be.build_one("catholic-study", tmp_path, "v28a", config.load_kinds(), True, False)
+        except Exception:
+            pass  # we only care that the standalone path was NOT taken
+        assert tripped["v"] is False

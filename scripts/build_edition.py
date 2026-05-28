@@ -2611,6 +2611,14 @@ def build_one(
         raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
     edition = eds[edition_id]
 
+    # Phase C3d: standalone Bibles render from the own-versification store via a
+    # dedicated path; the 9 KJV editions never enter this branch, so their output
+    # is byte-identical to before. Single chokepoint — every build_one caller is routed.
+    if edition.get("standalone"):
+        from scripts import build_standalone
+
+        return build_standalone.build_standalone(edition_id, output_dir, version)
+
     enabled, disabled = compute_enabled_kinds(edition, all_kinds)
 
     # Phase ρ.1: per-edition disabled note IDs. Translate our note IDs
