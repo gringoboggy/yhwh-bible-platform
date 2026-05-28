@@ -6,6 +6,38 @@
 
 ---
 
+## 2026-05-28 — Phase C: standalone Ge'ez Bible render path + first proof EPUB
+
+**Phases shipped:** Phase C (C1–C4 + a review-caught fix) of `docs/superpowers/plans/2026-05-28-geez-standalone-render-plan.md`.
+**Test delta:** +23 (`tests/test_build_standalone.py`: versification ×6, store-gen ×2, body-render ×3, OPF/nav ×3, build ×1, dispatch-guard ×2, Psalms-xref ×3, dup-id ×1, source-order ×2).
+**Save tags:** planning `cc9dbed1` · C1 `5e8afdc8` · C2 `b51130e6` · C3a `4d233b75` · C3b `9756b0cf` · C3c `fc49ce77` · C3d `3bcc527c` · C4-code `4000a86d` · C4-fix(dup-id) `0b7cd0f3` · C4-fix(source-order) `89e3b59b` · + this truth-record; E:/F: `git bundle --all` backup.
+
+What shipped (concrete):
+- Per-book `VERSIFICATION` attr (`own`/`canonical`, default `canonical` → all existing translations + the 9 KJV editions unchanged) + `versification_of()` in `scripts/core/translations.py`; psa formalized `own` (C1).
+- `scripts/core/standalone_store.py`: own-versification Kings/Samuel store (`{1ki,1sa,2sa}.py`, 324 verses, tier `manuscript-collation-tier2`) + `*_apparatus.json` sidecars (per-verse KJV xref + manuscript apparatus), generated from the 10 base-structured v2 collations (C2).
+- `scripts/build_standalone.py`: greenfield Ge'ez body-XHTML generator (`render_chapter_body`/`_render_vnote`) + `wrap_xhtml_doc` + `patch_standalone_opf` (manifest/spine body-swap) + `_rewrite_nav`/`_rewrite_ncx` + `build_standalone()` orchestrator (copies the `epub_working` skeleton with `build_one`'s ignore, swaps the body, reuses `build_epub.build`/`patch_opf`/`apply_edition_cover`) (C3a–c).
+- `build_one` standalone dispatch guard — fires only for `edition.get("standalone")`, a no-op for the 9 KJV editions (C3d).
+- Psalms LXX→KJV chapter-correspondence xref (`lxx_psalms_to_kjv`, confidence `interpolated`) + the proof EPUB (C4).
+- **Proof EPUB:** standalone-geez = 4 books / 161 chapters (1ki1-6 + 1sa1/3/17 + 2sa11 + Psalms 1-151); popups = KJV xref + manuscript apparatus, NO English (the next lane, never faked from KJV); **epubcheck 0/0/0/0**.
+- **Byte-stable proven:** `epub_working/` untouched since pre-Phase-C (git-diff empty); catholic-study (KJV) builds + epubcheck 0/0/0/0; `lint_rules` clean.
+
+Notable decisions:
+- Pipeline-first (user, 2026-05-28): ship the render path + proof now with xref+apparatus popups; the faithful EN back-translation is the immediate NEXT lane (its own reviewed pass), never faked from KJV (spec §9.1).
+- Render architecture = dedicated `scripts/build_standalone.py`, not a branch in `build_one`, for maximal byte-stable isolation of the 9 KJV editions (spec §9.3).
+- `VERSIFICATION` is per-book (geez-tewahedo is a mixed store: psa + new Kings/Samuel = own; the other ~30 ocr-tier3 books = canonical until Phase D) (spec §9.2).
+
+Retrospective (triggered):
+- **Review-caught faithfulness bug:** the SDD final code-quality review caught that `translations.get_chapter`'s verse-number sort scrambled Ps 36's non-adjacent duplicate verses (source 24,25,24,25 → sorted 24,24,25,25). Fixed: `build_standalone` renders in SOURCE order via `chapter_verses_in_source_order` (never re-sorts); pin `TestSourceOrderPreserved`. Lesson: a faithful render preserves the store's authored order, never imposes canonical numbering.
+- **psa-data flag (Phase D):** the HaCohen Ge'ez Psalter store has irregular numbering in 8 chapters (Ps 36 missing v21/v23 + non-adjacent dup 24/25; Ps 21/46/68/71/101/115/144 adjacent dup verse numbers) — pre-existing ingest artifacts, now rendered faithfully; correcting the data is a Phase-D / psa-ingest concern, not Phase C.
+- **Subagent commit-method flag:** one fix subagent committed via `powershell.exe -ExecutionPolicy Bypass` + Bash-git (security-flagged); the commit was audited clean (only intended files, tree clean), but future subagent commits should route through `save.ps1` via PowerShell (or controller-side commits) to honor the [[feedback_savecmd_bash_hazard]] discipline.
+
+Continuity pointers:
+- `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` §3.4 / §3.5 / §9
+- `docs/superpowers/plans/2026-05-28-geez-standalone-render-plan.md`
+- Phase D readiness (from the background scan): cheapest re-ingests = 1ch/2ch/ezr/neh/job + est_patrologia (text already at patrologia-tier1; add `VERSIFICATION="own"` + bypass `renumber_against_floor`).
+
+---
+
 ## 2026-05-28 — Phase B: Ge'ez→KJV partial-anchoring cross-reference tool
 
 **Phases shipped:** Phase B (B1–B5) of `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` (detailed plan: `docs/superpowers/plans/2026-05-28-geez-kjv-xref-plan.md`).
