@@ -20,3 +20,11 @@ def test_verse_numerals_runs():
     assert 480 in gx.verse_numerals(toks)
     toks2 = ["፷", "እመት", "ኑኁ", "ወ", "፳", "ራኅቡ", "ወ", "፴", "እመት"]
     assert {60, 20, 30} <= gx.verse_numerals(toks2)
+
+
+def test_kjv_number_values():
+    assert 480 in gx.kjv_number_values("in the four hundred and eightieth year")
+    assert gx.kjv_number_values("threescore cubits was the length") == {60}
+    assert gx.kjv_number_values("the breadth thereof twenty cubits") == {20}
+    assert gx.kjv_number_values("and the height thereof thirty cubits") == {30}
+    assert gx.kjv_number_values("the house of the LORD") == set()
