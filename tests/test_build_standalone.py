@@ -285,3 +285,13 @@ class TestEnglishRender:
     def test_render_chapter_body_graceful_without_en_map(self):
         html = bs.render_chapter_body("1ki", 6, [(1, "ወእምዝ")], {"1": {"kjv": [], "apparatus": []}})
         assert "vnote-text" not in html
+
+
+class TestEnglish1Ki6:
+    def test_en_1ki6_covers_all_33_verses_at_own_coords(self):
+        geez = tx.get_chapter("geez-tewahedo", "1ki", 6)  # [(v, geez)]
+        en = tx.get_chapter("geez-tewahedo-en", "1ki", 6)  # [(v, english)]
+        assert len(en) == 33 and len(geez) == 33
+        assert {v for v, _ in en} == {v for v, _ in geez}  # EN coords == Ge'ez coords
+        assert all(text.strip() for _v, text in en)  # no empty renderings
+        assert tx.versification_of("geez-tewahedo-en", "1ki") == "own"
