@@ -265,3 +265,57 @@ def kjv_number_values(text: str) -> set[int]:
     # Flush any trailing run
     _flush_run()
     return result_set
+
+
+# ── B3: Ge'ez ↔ KJV proper-noun seed map + matcher ──────────────────────────
+
+# Curated bilingual map: Ge'ez surface form → lowercase KJV English term.
+# Ge'ez names do NOT transliterate to KJV English, so this is a hand-seeded
+# bilingual map covering Kings/Samuel recurring proper nouns.
+_GEEZ_KJV_NAMES: dict[str, str] = {
+    "ሰሎሞን": "solomon",
+    "እስራኤል": "israel",
+    "ግብጽ": "egypt",
+    "ሊባኖስ": "lebanon",
+    "ኪሩብ": "cherub",  # matches "cherub" / "cherubims"
+    "እግዚእብሔር": "lord",  # the divine name -> "LORD"
+    "ዳዊት": "david",
+    "ኢየሩሳሌም": "jerusalem",
+    "ሒራም": "hiram",
+    "ኪራም": "hiram",  # orthographic variant
+    "ይሁዳ": "judah",
+    "ሳኦል": "saul",
+    "ሳሙኤል": "samuel",
+}
+
+
+def proper_noun_hits(geez_tokens: list[str], kjv_text: str) -> set[str]:
+    """Return the set of KJV proper-noun terms found in *kjv_text* that
+    correspond to Ge'ez tokens in *geez_tokens*.
+
+    For each token the bare stem is obtained by stripping a single leading
+    Ge'ez prefix (tried longest-first via ``_GEEZ_PREFIXES``).  Both the raw
+    token and the prefix-stripped stem are looked up in ``_GEEZ_KJV_NAMES``.
+    A KJV term is included in the result only when it occurs at a word
+    boundary in *kjv_text* (so "cherub" matches inside "cherubims" but not
+    mid-word false hits).
+    """
+    kjv_lower = kjv_text.lower()
+    hits: set[str] = set()
+
+    for tok in geez_tokens:
+        # Collect candidates: raw token + prefix-stripped stem (if different)
+        candidates = [tok]
+        for prefix in _GEEZ_PREFIXES:
+            if tok.startswith(prefix):
+                stem = tok[len(prefix) :]
+                if stem:
+                    candidates.append(stem)
+                break  # only strip one prefix; stop after first match
+
+        for candidate in candidates:
+            term = _GEEZ_KJV_NAMES.get(candidate)
+            if term and re.search(r"\b" + re.escape(term), kjv_lower):
+                hits.add(term)
+
+    return hits
