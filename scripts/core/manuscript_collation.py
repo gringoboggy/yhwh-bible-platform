@@ -488,6 +488,41 @@ def collate(gg, cam, kjv, *, book, chapter):
     }
 
 
+def collate_base_structured(gg, cam, *, book, chapter):
+    """Return the base witness's own sense-units as primary verses (Phase A1).
+
+    Does NOT map onto the KJV spine. Primary verses are the base witness's
+    own sense-objects in reading order. No cross-witness apparatus or metrics
+    are built here — those are A2/A3. Pure (no I/O beyond already-loaded args).
+    """
+    from scripts.core.manuscript_records import validate_witness
+
+    for label, rec in (("GG", gg), ("CAM", cam)):
+        ok, errs = validate_witness(rec)
+        if not ok:
+            raise ValueError(f"invalid {label} witness record: {errs}")
+
+    base, rationale = _pick_base(gg, cam)
+    base_rec = cam if base == "CAM" else gg
+
+    primary_verses = [
+        {
+            "geez_v": v["v"],
+            "geez_text": v["geez"],
+            "tokens": list(v["tokens"]),
+        }
+        for v in base_rec["verses"]
+    ]
+
+    return {
+        "book": book,
+        "chapter": chapter,
+        "base_witness": base,
+        "base_rationale": rationale,
+        "primary_verses": primary_verses,
+    }
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 #  R8 — engine-vs-hand honest divergence (spec-revision 2026-05-17 §3.2 R8).
 #  A PURE no-I/O-to-disk-write helper: it reads the immutable calibration
