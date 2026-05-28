@@ -319,3 +319,108 @@ def proper_noun_hits(geez_tokens: list[str], kjv_text: str) -> set[str]:
                 hits.add(term)
 
     return hits
+
+
+# ── B4: anchor + monotonic interpolation mapping ─────────────────────────────
+
+
+def _max_weight_nondecreasing(cands: list[tuple[int, int, int]]) -> list[tuple[int, int]]:
+    """Keep the non-decreasing-by-``kv`` subsequence of MAXIMUM TOTAL SCORE
+    (so a few weak low-kv anchors can't displace the strong ones).
+
+    *cands* is a list of ``(base_idx, kv, score)`` triples in ascending
+    ``base_idx`` order.  Returns the subsequence whose ``kv`` values are
+    non-decreasing and whose sum of scores is maximised — i.e. the set of
+    candidate anchors that do not reorder the KJV spine AND collectively carry
+    the most evidential weight.  Ties in total score favour the first-found
+    (lowest-index) chain (deterministic).
+
+    Returns ``[(base_idx, kv), ...]`` (score dropped from output).
+    """
+    if not cands:
+        return []
+    n = len(cands)
+    dp = [c[2] for c in cands]  # best total score of a chain ending at i
+    prev = [-1] * n
+    for i in range(n):
+        for j in range(i):
+            if cands[j][1] <= cands[i][1] and dp[j] + cands[i][2] > dp[i]:
+                dp[i] = dp[j] + cands[i][2]
+                prev[i] = j
+    end = max(range(n), key=lambda k: dp[k])  # highest total score; ties → first
+    out: list[tuple[int, int]] = []
+    while end != -1:
+        out.append((cands[end][0], cands[end][1]))
+        end = prev[end]
+    return out[::-1]
+
+
+def build_kjv_xref(collation: dict, kjv_rows: list, book: str) -> dict:
+    """Map each base (Ge'ez) verse to its KJV verse(s) with confidence tags.
+
+    Composes the B1–B3 signals (Ge'ez numerals, KJV English numbers, bilingual
+    proper-noun hits) into a per-verse score against every KJV row of the
+    chapter, picks the best-scoring KJV verse as a candidate anchor, filters the
+    candidates to a monotonic (non-reordering) backbone, then linearly
+    interpolates every remaining base verse between confirmed anchors (with two
+    virtual endpoints so edges interpolate cleanly).
+
+    Returns ``{geez_v(int): {"kjv": [[book, chapter, kv], ...],
+    "confidence": "anchored" | "interpolated"}}``.  Guarantees: every base verse
+    has an entry; the ``kv`` sequence in base order is non-decreasing; anchored
+    entries reflect a real numeral/name match.
+    """
+    pv = collation["primary_verses"]
+    chapter = collation["chapter"]
+    n = len(pv)
+    if n == 0:
+        return {}
+
+    # 2. Score → candidate anchors.
+    cands: list[tuple[int, int, int]] = []
+    for i in range(n):
+        nums = verse_numerals(pv[i]["tokens"])
+        best_kv = None
+        best_score = 0
+        for kch, kv, ktext in kjv_rows:
+            score = len(nums & kjv_number_values(ktext)) + len(proper_noun_hits(pv[i]["tokens"], ktext))
+            # Highest score wins; on ties keep the LOWEST kv.
+            if score > best_score or (score == best_score and best_kv is not None and kv < best_kv):
+                best_score = score
+                best_kv = kv
+        if best_score > 0:
+            cands.append((i, best_kv, best_score))
+
+    # 3. Monotonic filter — anchors can't reorder the spine.
+    anchors = dict(_max_weight_nondecreasing(cands))
+
+    # 4. Interpolate every base verse with two virtual endpoints.
+    points = [(-1, 0)] + sorted(anchors.items()) + [(n, len(kjv_rows) + 1)]
+    result: dict = {}
+    for j in range(n):
+        if j in anchors:
+            kv = anchors[j]
+            confidence = "anchored"
+        else:
+            lo_i, lo_kv = max((p for p in points if p[0] < j), key=lambda p: p[0])
+            hi_i, hi_kv = min((p for p in points if p[0] > j), key=lambda p: p[0])
+            frac = (j - lo_i) / (hi_i - lo_i)
+            kv = lo_kv + round(frac * (hi_kv - lo_kv))
+            confidence = "interpolated"
+        # Clamp kv into the valid KJV verse range.
+        kv = max(1, min(kv, len(kjv_rows)))
+        result[pv[j]["geez_v"]] = {"kjv": [[book, chapter, kv]], "confidence": confidence}
+
+    return result
+
+
+def kjv_coverage(xref: dict) -> dict:
+    """Summarise the anchored vs interpolated split of a ``build_kjv_xref`` map."""
+    n = len(xref)
+    a = sum(1 for e in xref.values() if e["confidence"] == "anchored")
+    return {
+        "base_verses": n,
+        "anchored": a,
+        "interpolated": n - a,
+        "anchored_pct": round(a / n * 100, 2) if n else 0.0,
+    }

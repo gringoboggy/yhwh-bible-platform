@@ -1,6 +1,12 @@
 import importlib
+import json
 
 gx = importlib.import_module("scripts.core.geez_kjv_xref")
+
+
+def _load_v2(book, ch):
+    tr = "kings" if book in {"1ki", "2ki"} else "samuel"
+    return json.load(open(f"content/manuscript/{tr}/collation/{book}{ch}_collation_v2.json", encoding="utf-8"))
 
 
 def test_single_geez_numerals():
@@ -52,3 +58,36 @@ def test_proper_noun_prefix_and_forms():
 
 def test_proper_noun_no_false_hit():
     assert gx.proper_noun_hits(["ቤተ", "ወርሐ"], "solomon built the house") == set()
+
+
+# ── B4: build_kjv_xref + kjv_coverage ─────────────────────────────────────────
+
+
+def test_build_kjv_xref_1ki6_anchors():
+    from scripts.core.manuscript_collation import load_kjv_skeleton
+
+    col = _load_v2("1ki", 6)
+    kjv_rows = load_kjv_skeleton("1ki", 6)
+    xref = gx.build_kjv_xref(col, kjv_rows, "1ki")
+    # every base verse covered + honestly tagged
+    assert set(xref) == {pv["geez_v"] for pv in col["primary_verses"]}
+    for e in xref.values():
+        assert e["confidence"] in {"anchored", "interpolated"}
+        assert e["kjv"] and all(len(t) == 3 for t in e["kjv"])
+    # the two known hard anchors (480-year / temple dimensions)
+    assert xref[1]["confidence"] == "anchored" and xref[1]["kjv"] == [["1ki", 6, 1]]
+    assert xref[2]["confidence"] == "anchored" and [t[2] for t in xref[2]["kjv"]] == [2]
+    # monotonic non-decreasing KJV verse across base order
+    seq = [xref[pv["geez_v"]]["kjv"][0][2] for pv in col["primary_verses"]]
+    assert seq == sorted(seq)
+
+
+def test_kjv_coverage_shape():
+    from scripts.core.manuscript_collation import load_kjv_skeleton
+
+    col = _load_v2("1ki", 6)
+    xref = gx.build_kjv_xref(col, load_kjv_skeleton("1ki", 6), "1ki")
+    cov = gx.kjv_coverage(xref)
+    assert cov["base_verses"] == len(col["primary_verses"])
+    assert cov["anchored"] + cov["interpolated"] == cov["base_verses"]
+    assert cov["anchored"] >= 2  # at least v1 + v2 anchor
