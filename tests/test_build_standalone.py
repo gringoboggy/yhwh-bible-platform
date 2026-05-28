@@ -87,3 +87,49 @@ class TestBodyRender:
         html = self._sample()
         assert "ወውእቱ" in html
         assert "vnote-text" not in html
+
+
+class TestXhtmlDocAndOpf:
+    def test_wrap_xhtml_doc_is_wellformed(self):
+        import xml.dom.minidom as md
+
+        frag = bs.render_chapter_body("1ki", 6, [(1, "ወእምዝ")], {"1": {"kjv": [], "apparatus": []}})
+        doc = bs.wrap_xhtml_doc("1 Kings 6", frag)
+        md.parseString(doc.encode("utf-8"))  # raises if not well-formed XML
+        assert "xmlns:epub" in doc and "verse-p" in doc and 'class="bible-body"' in doc
+
+    def test_build_spine_manifest_lists_generated_files(self):
+        items = [("geez_1ki_6", "geez_1ki_6.xhtml")]
+        manifest, spine = bs.build_manifest_and_spine(items)
+        assert 'id="geez_1ki_6"' in manifest and 'href="geez_1ki_6.xhtml"' in manifest
+        assert 'media-type="application/xhtml+xml"' in manifest
+        assert 'idref="geez_1ki_6"' in spine
+
+    def test_patch_standalone_opf_drops_body_keeps_resources(self):
+        opf = (
+            "<package><manifest>\n"
+            '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>\n'
+            '<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n'
+            '<item id="css" href="stylesheet.css" media-type="text/css"/>\n'
+            '<item id="cover" href="cover.jpeg" media-type="image/jpeg"/>\n'
+            '<item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml"/>\n'
+            '<item id="id161" href="index_split_000.html" media-type="application/xhtml+xml"/>\n'
+            '<item id="id160" href="index_split_001.html" media-type="application/xhtml+xml"/>\n'
+            '</manifest>\n<spine toc="ncx">\n'
+            '<itemref idref="titlepage"/>\n<itemref idref="id161"/>\n<itemref idref="id160"/>\n'
+            "</spine></package>"
+        )
+        out = bs.patch_standalone_opf(opf, [("geez_1ki_6", "geez_1ki_6.xhtml")])
+        assert "index_split_000.html" not in out and "index_split_001.html" not in out
+        assert 'id="id161"' not in out and 'idref="id161"' not in out and 'idref="id160"' not in out
+        for keep in (
+            'id="css"',
+            'id="nav"',
+            'id="cover"',
+            'id="ncx"',
+            'id="titlepage"',
+            'idref="titlepage"',
+            '<spine toc="ncx">',
+        ):
+            assert keep in out, f"dropped a resource it should keep: {keep}"
+        assert 'id="geez_1ki_6"' in out and 'href="geez_1ki_6.xhtml"' in out and 'idref="geez_1ki_6"' in out

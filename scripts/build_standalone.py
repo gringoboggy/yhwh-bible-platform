@@ -92,3 +92,57 @@ def render_chapter_body(book: str, chapter: int, verses: list[tuple[int, str]], 
     body.extend(asides)
     body.append("</section>")
     return "\n".join(body)
+
+
+# Captured from epub_working/index_split_001.html <head> (C3b skeleton recon):
+# single-quoted XML decl, NO doctype, body class="bible-body", stylesheet.css.
+# Ge'ez body → xml:lang/lang="gez".
+_XHTML_HEAD = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" '
+    'xml:lang="gez" lang="gez">\n'
+    "<head>\n"
+    "<title>{title}</title>\n"
+    '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>\n'
+    '<link rel="stylesheet" type="text/css" href="stylesheet.css"/>\n'
+    "</head>\n"
+    '<body class="bible-body">\n'
+)
+_XHTML_TAIL = "\n</body>\n</html>\n"
+
+
+def wrap_xhtml_doc(title: str, body_fragment: str) -> str:
+    """Wrap a chapter body fragment into a complete, well-formed XHTML document
+    matching the epub_working skeleton's format."""
+    return _XHTML_HEAD.format(title=_esc(title)) + body_fragment + _XHTML_TAIL
+
+
+def build_manifest_and_spine(items: list[tuple[str, str]]) -> tuple[str, str]:
+    """``items``: ``[(item_id, href), …]`` for the generated chapter files (spine order).
+    Returns ``(manifest_items_xml, spine_itemrefs_xml)`` to splice into the skeleton OPF."""
+    manifest = "\n".join(f'<item id="{i}" href="{h}" media-type="application/xhtml+xml"/>' for i, h in items)
+    spine = "\n".join(f'<itemref idref="{i}"/>' for i, _ in items)
+    return manifest, spine
+
+
+def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) -> str:
+    """Replace the scripture-body portion of the skeleton manifest+spine with the
+    generated chapter files, RETAINING non-body resources (css/nav/ncx/cover/titlepage/
+    introduction). Body items are the ``index_split_*.html`` files; their spine itemrefs
+    reference the body item ids (e.g. ``id161``), so we collect those ids and drop their
+    itemrefs by id. Stdlib regex only (mirrors build_edition.patch_opf)."""
+    import re
+
+    # 1. collect the body manifest item ids (href matches index_split_NNN.html), both attr orders
+    body_ids = set(re.findall(r'<item\b[^>]*\bid="([^"]+)"[^>]*\bhref="index_split_\d+\.html"', opf_text))
+    body_ids |= set(re.findall(r'<item\b[^>]*\bhref="index_split_\d+\.html"[^>]*\bid="([^"]+)"', opf_text))
+    # 2. drop the body manifest items
+    opf_text = re.sub(r'\s*<item\b[^>]*href="index_split_\d+\.html"[^>]*/>', "", opf_text)
+    # 3. drop their spine itemrefs (by collected id — itemrefs don't contain the href)
+    for bid in body_ids:
+        opf_text = re.sub(r'\s*<itemref\b[^>]*idref="' + re.escape(bid) + r'"[^>]*/>', "", opf_text)
+    # 4. inject the generated manifest items + spine itemrefs
+    manifest_items, spine_items = build_manifest_and_spine(chapter_items)
+    opf_text = opf_text.replace("</manifest>", manifest_items + "\n</manifest>", 1)
+    opf_text = opf_text.replace("</spine>", spine_items + "\n</spine>", 1)
+    return opf_text
