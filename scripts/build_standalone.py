@@ -125,6 +125,23 @@ def build_manifest_and_spine(items: list[tuple[str, str]]) -> tuple[str, str]:
     return manifest, spine
 
 
+import shutil
+import tempfile
+import time
+
+EPUB_DIR = REPO / "epub_working"
+
+# Proof-EPUB book set: own-versification content only (Phase C scope).
+# Psalms is added by Task C4 (after its xref sidecar exists).
+_STANDALONE_BOOKS = ["1ki", "1sa", "2sa"]
+
+
+def _skeleton_ignore(_d: object, names: list[str]) -> list[str]:
+    """Replicate build_one's copytree ignore exactly:
+    exclude dot-dirs/dot-files (e.g. .backups/, .sonar/) and *.bak editor cruft."""
+    return [n for n in names if n.startswith(".") or n.endswith(".bak")]
+
+
 def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) -> str:
     """Replace the scripture-body portion of the skeleton manifest+spine with the
     generated chapter files, RETAINING non-body resources (css/nav/ncx/cover/titlepage/
@@ -146,3 +163,133 @@ def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) ->
     opf_text = opf_text.replace("</manifest>", manifest_items + "\n</manifest>", 1)
     opf_text = opf_text.replace("</spine>", spine_items + "\n</spine>", 1)
     return opf_text
+
+
+def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
+    """Render a standalone Ge'ez Bible EPUB from the own-versification store.
+    Returns {"status":"ok","output_path":str,"books":int,"chapters":int} or
+    {"status":"error","message":str}."""
+    from scripts import build_edition as be
+    from scripts import build_epub
+    from scripts.core import config
+    from scripts.core import translations as tx
+
+    edition = config.editions_by_id().get(edition_id)
+    if edition is None or not edition.get("standalone"):
+        return {"status": "error", "message": f"not a standalone edition: {edition_id}"}
+
+    books = [b for b in _STANDALONE_BOOKS if tx.has_book("geez-tewahedo", b)]
+    if not books:
+        return {"status": "error", "message": "no own-versification books found in geez-tewahedo"}
+
+    tmp = Path(tempfile.mkdtemp(prefix="standalone_"))
+    try:
+        # 1. copy the epub_working skeleton (same ignore as build_one)
+        shutil.copytree(EPUB_DIR, tmp, ignore=_skeleton_ignore, dirs_exist_ok=True)
+
+        # 2. remove the original scripture body files (we supply our own)
+        for f in tmp.glob("index_split_*.html"):
+            f.unlink()
+
+        # 3. generate the Ge'ez body files (one per chapter), in book/chapter order
+        chapter_items: list[tuple[str, str]] = []  # (item_id, href) in spine order
+        toc_entries: list[tuple[str, str]] = []  # (href, label)
+        for book in books:
+            chs = sorted({c for (c, _v, _t) in (tx._load_book("geez-tewahedo", book) or [])})
+            appmap_path = GEEZ_STORE / f"{book}_apparatus.json"
+            appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
+            for ch in chs:
+                verses = tx.get_chapter("geez-tewahedo", book, ch)
+                frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}))
+                title = f"{_BOOK_TITLES.get(book, book)} {ch}"
+                href = f"geez_{book}_{ch}.xhtml"
+                (tmp / href).write_text(wrap_xhtml_doc(title, frag), encoding="utf-8")
+                chapter_items.append((f"geez_{book}_{ch}", href))
+                toc_entries.append((href, title))
+
+        # 4. patch the OPF — metadata (best-effort) + body manifest/spine swap
+        opf_path = tmp / _find_opf(tmp)
+        opf_text = opf_path.read_text(encoding="utf-8")
+        try:
+            opf_text = be.patch_opf(opf_text, edition, version)
+        except Exception:  # noqa: BLE001 — metadata patch is best-effort for the proof
+            pass
+        opf_text = patch_standalone_opf(opf_text, chapter_items)
+        opf_path.write_text(opf_text, encoding="utf-8")
+
+        # 5. rewrite the EPUB3 nav + the legacy NCX to the standalone toc
+        _rewrite_nav(tmp, toc_entries)
+        _rewrite_ncx(tmp, toc_entries)
+
+        # 6. cover: standalone-geez sets cover_image="" → keep the master (no-op)
+        be.apply_edition_cover(edition, tmp)
+
+        # 7. package
+        output_dir.mkdir(parents=True, exist_ok=True)
+        ts = time.strftime("%Y%m%d_%H%M%S")
+        out_path = output_dir / f"Geez_Standalone_{edition_id}_{version}_{ts}.epub"
+        build_epub.build(tmp, out_path, bump=True)
+        return {
+            "status": "ok",
+            "output_path": str(out_path),
+            "books": len(books),
+            "chapters": len(chapter_items),
+        }
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def _find_opf(root: Path) -> str:
+    import re
+
+    container = (root / "META-INF" / "container.xml").read_text(encoding="utf-8")
+    m = re.search(r'full-path="([^"]+)"', container)
+    if not m:
+        raise ValueError("no rootfile full-path in container.xml")
+    return m.group(1)
+
+
+def _find_nav(root: Path) -> Path:
+    import re
+
+    opf_path = root / _find_opf(root)
+    opf_text = opf_path.read_text(encoding="utf-8")
+    m = re.search(r'<item\b[^>]*properties="[^"]*\bnav\b[^"]*"[^>]*href="([^"]+)"', opf_text)
+    if not m:
+        m = re.search(r'<item\b[^>]*href="([^"]+)"[^>]*properties="[^"]*\bnav\b[^"]*"', opf_text)
+    if not m:
+        raise ValueError("no nav item in OPF manifest")
+    return opf_path.parent / m.group(1)
+
+
+def _rewrite_nav(root: Path, toc_entries: list[tuple[str, str]]) -> None:
+    import re
+
+    nav_path = _find_nav(root)
+    nav_text = nav_path.read_text(encoding="utf-8")
+    lis = "\n".join(f'<li><a href="{h}">{_esc(label)}</a></li>' for h, label in toc_entries)
+    nav_text = re.sub(r"<ol>.*?</ol>", "<ol>\n" + lis + "\n</ol>", nav_text, count=1, flags=re.DOTALL)
+    nav_path.write_text(nav_text, encoding="utf-8")
+
+
+def _rewrite_ncx(root: Path, toc_entries: list[tuple[str, str]]) -> None:
+    import re
+
+    ncx_path = root / "toc.ncx"
+    if not ncx_path.is_file():
+        return
+    ncx_text = ncx_path.read_text(encoding="utf-8")
+    points = [
+        f'<navPoint id="np-{i}" playOrder="{i}">'
+        f"<navLabel><text>{_esc(label)}</text></navLabel>"
+        f'<content src="{h}"/></navPoint>'
+        for i, (h, label) in enumerate(toc_entries, start=1)
+    ]
+    ncx_text = re.sub(
+        r"<navMap>.*?</navMap>",
+        "<navMap>\n" + "\n".join(points) + "\n</navMap>",
+        ncx_text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    ncx_path.write_text(ncx_text, encoding="utf-8")

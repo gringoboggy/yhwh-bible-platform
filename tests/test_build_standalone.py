@@ -133,3 +133,19 @@ class TestXhtmlDocAndOpf:
         ):
             assert keep in out, f"dropped a resource it should keep: {keep}"
         assert 'id="geez_1ki_6"' in out and 'href="geez_1ki_6.xhtml"' in out and 'idref="geez_1ki_6"' in out
+
+
+class TestBuildStandalone:
+    def test_build_standalone_produces_epub(self, tmp_path):
+        out = bs.build_standalone("standalone-geez", tmp_path, "v28a")
+        assert out["status"] == "ok", out
+        epub = Path(out["output_path"])
+        assert epub.is_file() and epub.suffix == ".epub" and epub.stat().st_size > 10_000
+        import zipfile
+
+        with zipfile.ZipFile(epub) as z:
+            names = z.namelist()
+            assert names[0] == "mimetype"  # OCF: mimetype first
+            assert any(n == "geez_1ki_6.xhtml" for n in names)  # a generated body file is packaged
+            assert not any("index_split_" in n for n in names)  # original body fully swapped out
+        assert out["chapters"] == 10  # 6 (1ki) + 3 (1sa) + 1 (2sa)
