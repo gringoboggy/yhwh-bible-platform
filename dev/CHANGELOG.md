@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-05-28 — Psalms EN batch 2: Ps 32-60 (27 chapters, 437 verses)
+
+**Phases shipped:** Psalms EN batch 2 — `geez-tewahedo-en/psa.py` now covers 66/151 chapters (1,051 verses).
+**Test delta:** 0 (the generic source-order invariant covers the new chapters; file stays 38).
+**Save tags:** this turn's commit (no E:/F: backup due — commit #1 since the last bundle).
+
+What shipped:
+- Reviewed English back-translation for Ps 32-60 (27 chapters, 437 verses) merged into psa.py. Method: 4 translator + 4 independent reviewer subagents; faithful to the LXX Ge'ez, NOT KJV/Hebrew; "Yahweh". The reviews caught + fixed 22 real drifts, incl. two fabrications removed (Ps 41:10 "[my rock]", Ps 50:2 "Uriah") and lexical corrections (Ps 54:12 "usury"→"deceit", Ps 38:2 "ways"→"mouth", Ps 59:10 priest/washpot crux surfaced).
+- Verify: total standalone EN paras 938→1,375 (324 Kings/Samuel UNCHANGED + 1,051 Psalms); epubcheck 0/0/0/0; epub_working/ diff empty.
+
+Next: Batch 3 = Ps 61-100, same method.
+
 ## 2026-05-28 — Psalms EN batch 1: Ps 2-31 (28 chapters, 393 verses)
 
 **Phases shipped:** Psalms EN batch 1 — `geez-tewahedo-en/psa.py` now covers 39/151 chapters (614 verses).
