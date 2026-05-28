@@ -6,6 +6,31 @@
 
 ---
 
+## 2026-05-28 — EN back-translation lane: 1 Kings 6 proof (English in the standalone popups)
+
+**Phases shipped:** EN proof E1–E4 of `docs/superpowers/plans/2026-05-28-geez-en-backtranslation-plan.md` (spec §10).
+**Test delta:** +7 (`tests/test_build_standalone.py`: TestReviewedTier 1, TestEnglishRender 5, TestEnglish1Ki6 1 → file now 30).
+**Save tags:** EN-planning `ea0b2a78` · E1 `92f91a46` · E2 `da665fe4` · E3 `fe4be746` · + this E4 truth-record; E:/F: `git bundle --all` backup.
+
+What shipped:
+- New provenance tier `ai-back-translation-reviewed-tier3` (clean source + adversarial review — above the gen/ex/lev `tier4` OCR back-translations).
+- `build_standalone` renders an OPTIONAL `<p class="vnote-text">` English para in each vnote popup, sourced from the `geez-tewahedo-en` store keyed on own-vers coordinates. Graceful: EN-less popups render exactly as Phase C (the 160 non-1ki6 chapters + the 9 KJV editions are unaffected).
+- `content/translations/geez-tewahedo-en/1ki.py` (ch 6, 33 verses): a faithful English back-translation of the actual Ge'ez, produced by a translator agent (Opus) + an INDEPENDENT adversarial reviewer agent (cross-checked the Swete LXX Greek + Douay/Vulgate, the Ge'ez's textual ancestors). Faithful to the LXX/3-Kingdoms recension (NOT KJV-aligned — the reviewer vindicated this at vv1/19/20/33); "Yahweh" for እግዚእብሔር; `[brackets]` mark genuine textual uncertainty in the corrupt cherubim/door section (vv20–31). Reviewer verdict: "faithful enough to ship after 2 fixes" (v7 dropped tool `ድኩን ድቅ`, v21 over-supplied numeral on corrupt `ወር`) — applied to convergence.
+- Proof EPUB rebuilt: 1ki6 popups now carry the English (33 `vnote-text` paras) alongside the KJV xref + apparatus; `epubcheck 0/0/0/0`; `epub_working/` untouched → the 9 KJV editions stay byte-stable.
+
+Notable decisions:
+- Method = careful + adversarial review (user, 2026-05-28), mirroring the manuscript-marathon R1/R2 rigor — fitting for sacred text. The English is a **labeled AI reading-aid** (the `tier3` provenance), never a scholarly/KJV claim.
+- Proof-first (1 Kings 6 only); scaling (rest of Kings/Samuel, then Psalms) is user-paced. Psalms needs source-order-position EN keying for its dup-verse chapters (spec §10.6).
+
+Correction (carried forward from the deferred Phase-D verification):
+- The earlier Phase-D "cheap flag-only wins" claim was **REFUTED** on verification: the 6 patrologia books (1ch/2ch/ezr/neh/job/est_patrologia) are stored KJV-renumbered (COLOMETRIC-MERGE skeleton-fit), so they too need a genuine re-ingest via the `source_authoritative` bypass — not just a `VERSIFICATION="own"` flag. There are NO cheap Phase-D wins; every book needs real re-ingest preserving its own numbering.
+
+Continuity pointers:
+- `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` §10
+- `docs/superpowers/plans/2026-05-28-geez-en-backtranslation-plan.md`
+
+---
+
 ## 2026-05-28 — Phase C: standalone Ge'ez Bible render path + first proof EPUB
 
 **Phases shipped:** Phase C (C1–C4 + a review-caught fix) of `docs/superpowers/plans/2026-05-28-geez-standalone-render-plan.md`.
