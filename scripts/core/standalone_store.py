@@ -110,3 +110,54 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def lxx_psalms_to_kjv(lxx_ch: int) -> list[int]:
+    """Map a Septuagint/Ge'ez Psalm chapter to its KJV (Hebrew) chapter number(s).
+
+    The Ge'ez Psalter follows the LXX numbering, which diverges from KJV/Hebrew at
+    four well-known seams: LXX 9 = KJV 9+10; LXX 10-112 = KJV 11-113 (one behind);
+    LXX 113 = KJV 114+115; LXX 114+115 = KJV 116; LXX 116-145 = KJV 117-146; LXX
+    146+147 = KJV 147; the rest (1-8, 148-150) are identical. Returns the KJV
+    chapter(s) a given LXX chapter maps onto; empty for LXX 151 (the LXX-only Psalm,
+    absent from the KJV)."""
+    if 1 <= lxx_ch <= 8:
+        return [lxx_ch]
+    if lxx_ch == 9:
+        return [9, 10]
+    if 10 <= lxx_ch <= 112:
+        return [lxx_ch + 1]
+    if lxx_ch == 113:
+        return [114, 115]
+    if lxx_ch in (114, 115):
+        return [116]
+    if 116 <= lxx_ch <= 145:
+        return [lxx_ch + 1]
+    if lxx_ch in (146, 147):
+        return [147]
+    if 148 <= lxx_ch <= 150:
+        return [lxx_ch]
+    return []
+
+
+def build_psalms_apparatus(out_dir: Path = GEEZ_STORE) -> dict:
+    """Generate geez-tewahedo/psa_apparatus.json for the standalone render path.
+
+    Psalms is single-source (no manuscript apparatus); each own-vers (LXX) verse
+    gets a KJV cross-reference via lxx_psalms_to_kjv with confidence 'interpolated'
+    (chapter-anchored, verse-approximate — the LXX/KJV verse offset within a chapter
+    is not resolved here, so we never claim verse-exact precision). Returns a stats dict."""
+    from scripts.core import translations as tx
+
+    verses = tx._load_book("geez-tewahedo", "psa") or []
+    appmap: dict[str, dict] = {}
+    for ch, v, _t in verses:
+        kjv_chs = lxx_psalms_to_kjv(ch)
+        appmap.setdefault(str(ch), {})[str(v)] = {
+            "kjv": [["psa", kc, v] for kc in kjv_chs],
+            "confidence": "interpolated" if kjv_chs else None,
+            "apparatus": [],
+        }
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "psa_apparatus.json").write_text(json.dumps(appmap, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"chapters": len(appmap), "verses": sum(len(c) for c in appmap.values())}

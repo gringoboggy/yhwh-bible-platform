@@ -133,7 +133,7 @@ EPUB_DIR = REPO / "epub_working"
 
 # Proof-EPUB book set: own-versification content only (Phase C scope).
 # Psalms is added by Task C4 (after its xref sidecar exists).
-_STANDALONE_BOOKS = ["1ki", "1sa", "2sa"]
+_STANDALONE_BOOKS = ["1ki", "1sa", "2sa", "psa"]
 
 
 def _skeleton_ignore(_d: object, names: list[str]) -> list[str]:

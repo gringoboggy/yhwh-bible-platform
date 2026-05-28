@@ -148,7 +148,34 @@ class TestBuildStandalone:
             assert names[0] == "mimetype"  # OCF: mimetype first
             assert any(n == "geez_1ki_6.xhtml" for n in names)  # a generated body file is packaged
             assert not any("index_split_" in n for n in names)  # original body fully swapped out
-        assert out["chapters"] == 10  # 6 (1ki) + 3 (1sa) + 1 (2sa)
+        assert out["chapters"] == 161  # 6 (1ki) + 3 (1sa) + 1 (2sa) + 151 (psa)
+
+
+class TestPsalmsXref:
+    def test_lxx_psalms_mapping_known_seams(self):
+        f = ss.lxx_psalms_to_kjv
+        assert f(5) == [5]  # 1-8 identical
+        assert f(9) == [9, 10]  # LXX 9 = KJV 9+10
+        assert f(10) == [11]  # LXX one behind through the middle
+        assert f(112) == [113]
+        assert f(113) == [114, 115]  # LXX 113 = KJV 114+115
+        assert f(114) == [116] and f(115) == [116]  # LXX 114+115 = KJV 116
+        assert f(117) == [118]
+        assert f(146) == [147] and f(147) == [147]  # LXX 146+147 = KJV 147
+        assert f(150) == [150]  # 148-150 identical
+        assert f(151) == []  # LXX-only, not in KJV
+
+    def test_psa_in_standalone_book_set(self):
+        assert "psa" in bs._STANDALONE_BOOKS
+
+    def test_psa_apparatus_sidecar_exists_and_is_xref_only(self):
+        p = REPO / "content" / "translations" / "geez-tewahedo" / "psa_apparatus.json"
+        assert p.is_file()
+        am = json.loads(p.read_text(encoding="utf-8"))
+        any_ch = next(iter(am.values()))
+        any_v = next(iter(any_ch.values()))
+        assert "kjv" in any_v and any_v["apparatus"] == []  # xref only, no manuscript apparatus
+        assert any_v["confidence"] in ("interpolated", None)  # honest — never "anchored" for Psalms
 
 
 class TestDispatchGuard:
