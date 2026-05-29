@@ -358,6 +358,43 @@ def _render_strip_to_png(
     return out_path
 
 
+def render_body_for_vision(
+    pdf_page,
+    out_path: Path,
+    *,
+    dpi: int = 230,
+    geez_top_fraction: float = 0.45,
+    banner_top_fraction: float = 0.0,
+) -> Path:
+    """Render the banner+Ge'ez-body region of a PO page to a PNG for an Opus
+    VISION agent — EXCLUDING the apparatus band + the French translation (the
+    bottom of the page).
+
+    The D1b vision lane reads the printed Ge'ez body + recovers the source margin
+    verse-numerals (and the interleaved LXX Addition letters), which the Tesseract
+    OCR path loses. Unlike ``_render_strip_to_png(strip="geez")`` this KEEPS the
+    top banner (the French chapter/verse cross-check) and the right margin (the
+    verse numerals), and clips at ``geez_top_fraction`` of the page height
+    (default 0.45 — banner + body + margins; the apparatus band starts below it,
+    per the PO 9 Esther calibration 2026-05-28). ``dpi`` defaults to 230 so a
+    full-width strip lands ~1518 px — under the 1568 px vision downsample cap, so
+    no resolution is wasted. Pure render-to-PNG; no OCR.
+    """
+    import fitz
+
+    rect = pdf_page.rect
+    clip = fitz.Rect(
+        rect.x0,
+        rect.y0 + rect.height * banner_top_fraction,
+        rect.x1,
+        rect.y0 + rect.height * geez_top_fraction,
+    )
+    zoom = dpi / 72.0
+    pix = pdf_page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), clip=clip)
+    pix.save(str(out_path))
+    return out_path
+
+
 def tesseract_extract_strips(
     pdf_page,
     binary: Path,

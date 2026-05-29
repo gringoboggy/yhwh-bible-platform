@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-28 (cont.) — Phase D1b: Patrologia vision lane — calibration GO + scaffolding (Tasks 1-3)
+
+**Phases shipped:** D1b calibration (controller-side, GO) + scaffolding code (plan Tasks 1-3). Proof book = Esther (PO 9 fasc 1, Pereira 1913); linear-Job fallback not needed.
+**Calibration (verified firsthand):** PO Esther body legible at 230 DPI/≤1568px; margin verse-numerals + Addition letters recoverable; apparatus band visually separable. Pereira's own versification = int canonical chapters 1-10 interleaved with lettered Additions A-F — banners `III,9—B,1` + `B,5—III,15` show Addition B splits ch3 (3:13 → B:1-7 → 3:14). **LOCKED encoding:** canonical chapters stay int; each Addition's verses live inside the host int-chapter at source position with string labels (`A1..F11`) — verified renderer-safe (`render_chapter_body` never int-maths the verse #; `sorted(by_ch)` only sees ints; verse source-order preserved) + byte-stable (Kings/Samuel/Psalms unchanged). No renderer surgery. Record: `content/translations/sources/patrologia/_vision_notes.md`.
+**Scaffolding (TDD inline):** `render_body_for_vision` (extract_patrologia_pdf — banner+body strip render, apparatus excluded) · `write_book_module(versification=, filename=)` + `{ch!r},{v!r}` verse serialization (byte-identical for int coords [repr(int)==str(int)]; literal_eval-safe for string Addition labels) · NEW `scripts/core/po_vision_store.py` (own-vers writer, no renumber). Tests `tests/test_po_vision.py` 5 + `test_extract_patrologia_pdf` 69 = 74 passed; lint 15✓/1⚠/0✗; ruff clean.
+**Plan:** `docs/superpowers/plans/2026-05-28-geez-patrologia-vision-plan.md`.
+**Next:** Task 4 — heavy per-chapter vision transcription of Esther → own-vers `est_patrologia.py` → xref sidecar → standalone wiring → EN lane. E:/F: backup owed at next mount.
+
+---
+
 ## 2026-05-28 (cont.) — Phase D W0+D2 recon: HaCohen Wisdom has no verse markup; distinctive sources need vision
 
 **Phases shipped:** W0 (HaCohen Wisdom recon) + D2 (distinctive-source scan) — recon only; doc-only commit. NO code/corpus/base/build/test change (recon-cached HTML is gitignored).

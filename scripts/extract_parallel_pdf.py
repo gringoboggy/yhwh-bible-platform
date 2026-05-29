@@ -3203,6 +3203,8 @@ def write_book_module(
     source_provenance: str = "parallel-bible-eotc",
     source_yaml_ref: str = "content/translations/sources/parallel-bible-eotc/_source.yaml",
     tool: str = "scripts/extract_parallel_pdf.py",
+    versification: str | None = None,
+    filename: str | None = None,
 ) -> Path:
     """Write content/translations/<translation>/<book>.py with the
     verse data + provenance metadata.
@@ -3222,7 +3224,7 @@ def write_book_module(
         style ingests that have non-generic quality residue worth
         flagging in-line.
     """
-    out = TRANSLATIONS_DIR / translation / f"{book}.py"
+    out = TRANSLATIONS_DIR / translation / f"{filename or book}.py"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     lines = [
@@ -3245,6 +3247,8 @@ def write_book_module(
     lines.append(f"TRANSLATION = {translation!r}")
     lines.append(f"BOOK = {book!r}")
     lines.append(f"SOURCE_QUALITY = {source_quality!r}")
+    if versification:
+        lines.append(f"VERSIFICATION = {versification!r}")
     lines.append(f"SOURCE_PROVENANCE = {source_provenance!r}")
     lines.append(f"EXTRACTION_DATE = {extraction_date!r}")
     if ingest_phase:
@@ -3261,7 +3265,10 @@ def write_book_module(
         # generation ruff-format normalizes repr() output to the
         # identical double-quoted form prior books already carry, so
         # this is forward-correct with no churn on clean text.
-        lines.append(f"    ({ch}, {v}, {text!r}),")
+        # D1b: repr() the chapter AND verse too — byte-identical for int
+        # coords (repr(int) == str(int)) and literal_eval-safe for the
+        # string verse labels the Patrologia LXX Additions use (e.g. "B1").
+        lines.append(f"    ({ch!r}, {v!r}, {text!r}),")
     lines.append("]")
 
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
