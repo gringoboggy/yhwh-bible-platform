@@ -5,9 +5,15 @@
     "source": "Patrologia Orientalis 9 fasc. 1, Pereira 1913 (public domain)",
     "method": "Opus VISION transcription + independent Opus adversarial review (Phase D1b vision lane); own-versification, source numbering authoritative, NEVER renumbered against KJV; editorial apparatus band EXCLUDED",
     "status": "in-progress",
-    "page_range": [24, 65],
-    "units_done": ["p24"],
-    "p25_status": "Boundary RESOLVED (A5 completes across the p24->p25 break as ክልኤሆሙ; real A6 begins at ወበቀለ). A6-A13 glyph text PENDING a convergence pass per _vision_notes (h) -- NOT yet written to a page-25 entry.",
+    "page_range": [
+      24,
+      65
+    ],
+    "units_done": [
+      "p24",
+      "p25"
+    ],
+    "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...)."
   },
   "pages": {
@@ -16,17 +22,124 @@
       "title": "ዘአስቴር ።",
       "host_chapter": 1,
       "verses": [
-        {"ch": 1, "v": "A1", "text": "በካልእ ፡ ዓመት ፡ እምዘ ፡ ነግሠ ፡ አርጢርክስርክሴስ ፡ ዐቢይ ፡ አመ ፡ ቀዳሚት ፡ ዘነሳ ፡ ርእየ ፡ ሕልመ ፡ መርዶኬዎስ ፡ ዘኢያኢሩ ፡ ዘሴምዕ ፡ ዘቄስዩ ፡ እምነገደ ፡ ብንያም ፡ ብእሲ ፡ አይሁዳዊ ።"},
-        {"ch": 1, "v": "A2", "text": "ወይነብር ፡ ውስተ ፡ ሀገረ ፡ ሱሳ ፡ ወዐቢይ ፡ ብእሲ ፡ ወእቱ ፡ ወይፌውስ ፡ በዐጸደ ፡ ቤተ ፡ ንጉሥ ።"},
-        {"ch": 1, "v": "A3", "text": "እምነ ፡ ጊዋ ፡ ውእቱ ፡ ዘጌወወ ፡ ቡክድናጾር ፡ ንጉሠ ፡ ባቢሎን ፡ እምኢየሩሳሌም ፡ ምስለ ፡ ያክንዩ ፡ ንጉሠ ፡ ይሁዳ ።"},
-        {"ch": 1, "v": "A4", "text": "ወገዘንቱ ፡ ውእቱ ፡ ሕልሙ ፡ ወናሁ ፡ ቃል ፡ ወሁከት ፡ ወነጐድጓድ ፡ ወድልቅልቅ ፡ ወገዐጐአ ፡ ላዕለ ፡ ምድር ።"},
-        {"ch": 1, "v": "A5", "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ክ", "_partial": true, "_continues_on_page": 25, "_continuation_note": "Cut glyph corrected ከ->ክ (6th-order, verified at 5x). p25 tail = ልኤሆሙ ፡ ይትጋደሉ ፡ ወከነ ፡ ቃሎሙ ፡ ዐቢይ ። -> joined break-word ክልኤሆሙ ('both of them'); real A6 begins at ወበቀለ. Final A5 text + A6-A13 pending a convergence pass (see _vision_notes (f)-(h))."}
+        {
+          "ch": 1,
+          "v": "A1",
+          "text": "በካልእ ፡ ዓመት ፡ እምዘ ፡ ነግሠ ፡ አርጢርክስርክሴስ ፡ ዐቢይ ፡ አመ ፡ ቀዳሚት ፡ ዘነሳ ፡ ርእየ ፡ ሕልመ ፡ መርዶኬዎስ ፡ ዘኢያኢሩ ፡ ዘሴምዕ ፡ ዘቄስዩ ፡ እምነገደ ፡ ብንያም ፡ ብእሲ ፡ አይሁዳዊ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A2",
+          "text": "ወይነብር ፡ ውስተ ፡ ሀገረ ፡ ሱሳ ፡ ወዐቢይ ፡ ብእሲ ፡ ወእቱ ፡ ወይፌውስ ፡ በዐጸደ ፡ ቤተ ፡ ንጉሥ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A3",
+          "text": "እምነ ፡ ጊዋ ፡ ውእቱ ፡ ዘጌወወ ፡ ቡክድናጾር ፡ ንጉሠ ፡ ባቢሎን ፡ እምኢየሩሳሌም ፡ ምስለ ፡ ያክንዩ ፡ ንጉሠ ፡ ይሁዳ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A4",
+          "text": "ወገዘንቱ ፡ ውእቱ ፡ ሕልሙ ፡ ወናሁ ፡ ቃል ፡ ወሁከት ፡ ወነጐድጓድ ፡ ወድልቅልቅ ፡ ወገዐጐአ ፡ ላዕለ ፡ ምድር ።"
+        },
+        {
+          "ch": 1,
+          "v": "A5",
+          "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ክ",
+          "_partial": true,
+          "_continues_on_page": 25,
+          "_continuation_note": "Cut glyph corrected ከ->ክ (6th-order, verified at 5x). p25 tail = ልኤሆሙ ፡ ይትጋደሉ ፡ ወከነ ፡ ቃሎሙ ፡ ዐቢይ ። -> joined break-word ክልኤሆሙ ('both of them'); real A6 begins at ወበቀለ. Final A5 text + A6-A13 pending a convergence pass (see _vision_notes (f)-(h)).",
+          "_completed_in_page": 25,
+          "_assembly": "drop this partial at final assembly; use the complete A5 in pages['25']"
+        }
       ],
       "last_verse_complete": false,
       "canonical_1_1_reached": false,
-      "uncertain": [{"ref": "A2", "issue": "the 'he/it-is' word printed in 1st-order wae-form (ወእቱ) where 6th-order (ውእቱ) is expected; transcribed as printed. Scribe re-read leaned slightly toward ውእቱ but the wae/we 1st-vs-6th-order pair is genuinely low-contrast here; kept the converged as-printed wae-form + this flag."}],
-      "as_printed_oddities_preserved": ["A2 verb (ይፌውስ, yefeaws — 5th-order fe)", "A3 captivity words printed with gi/ge (ጊዋ, ዘጌወወ) not pe", "A4 opening word with an extra ga (ወገዘንቱ, wae-gae-zen-tu) vs expected ወዘንቱ wae-zentu"],
+      "uncertain": [
+        {
+          "ref": "A2",
+          "issue": "the 'he/it-is' word printed in 1st-order wae-form (ወእቱ) where 6th-order (ውእቱ) is expected; transcribed as printed. Scribe re-read leaned slightly toward ውእቱ but the wae/we 1st-vs-6th-order pair is genuinely low-contrast here; kept the converged as-printed wae-form + this flag."
+        }
+      ],
+      "as_printed_oddities_preserved": [
+        "A2 verb (ይፌውስ, yefeaws — 5th-order fe)",
+        "A3 captivity words printed with gi/ge (ጊዋ, ዘጌወወ) not pe",
+        "A4 opening word with an extra ga (ወገዘንቱ, wae-gae-zen-tu) vs expected ወዘንቱ wae-zentu"
+      ],
       "review": "Opus transcriber + independent Opus adversarial reviewer (verdict APPROVE WITH FIXES: A1 qi->qe (ዘቄስዩ), A5 u->ae (መጽአ), A2 printed wae-form (ወእቱ)) + this scribe pass re-read the image (title + 7 body line-strips + zoomed glyph-pair crops). Apparatus band (centered gloss + siglum-keyed M/N/Q rows) excluded."
+    },
+    "25": {
+      "banner": "LE LIVRE D'ESTHER. — A, 6-13",
+      "host_chapter": 1,
+      "verses": [
+        {
+          "ch": 1,
+          "v": "A5",
+          "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ክልኤሆሙ ፡ ይትጋደሉ ፡ ወከነ ፡ ቃሎሙ ፡ ዐቢይ ።",
+          "_assembled_from_pages": [
+            24,
+            25
+          ],
+          "_note": "complete verse: p24 first-part + p25 tail joined at the break-word ክልኤሆሙ"
+        },
+        {
+          "ch": 1,
+          "v": "A6",
+          "text": "ወበቃል ፡ ዚአሆሙ ፡ ተደለዉ ፡ ሕዝብ ፡ ለጸብእ ፡ ከመ ፡ ይጽብእዎሙ ፡ ለሕዝብ ፡ ጸድቃን ።"
+        },
+        {
+          "ch": 1,
+          "v": "A7",
+          "text": "ወርኁ ፡ ዕለተ ፡ ጽልመት ፡ ወቆበር ፡ ወስቃይ ፡ ወምንዳቤ ፡ ወሕማም ፡ ወሁከት ፡ ዐቢይ ፡ ውስተ ፡ ምድር ።"
+        },
+        {
+          "ch": 1,
+          "v": "A8",
+          "text": "ወተሀውኩ ፡ ጸድቃን ፡ ወኩሉ ፡ ሕዝብ ፡ ፈርሁ ፡ እምነ ፡ እኪዮሙ ፡ ወተደለዉ ፡ ለተሐጕሉ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A9",
+          "text": "ወጸርኁ ፡ ኀበ ፡ እግዚአብሔር ፡ ወእምነ ፡ ጽረኆሙ ፡ ከነ ፡ እምዘ ፡ እምን ፡ ንስቲት ፡ ነቅዕ ፡ ፈለግ ፡ ዐቢይ ፡ ዘብዙኅ ፡ ማየ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A10",
+          "text": "ወብርሃን ፡ ጸሐይ ፡ ወረቀ ፡ ወትሕታን ፡ ተላዕሉ ፡ ወበልዕዎሙ ፡ ለክቡራን ።"
+        },
+        {
+          "ch": 1,
+          "v": "A11",
+          "text": "ወተንሥአ ፡ መርዶክዮስ ፡ ወርእየ ፡ ዘንተ ፡ ሕልመ ፡ እስመ ፡ እግዚአብሔር ፡ ፈቀደ ፡ ይግብር ፡ ወዐቀበ ፡ ውስተ ፡ ልቡ ፡ ወፈቀደ ፡ ያእምሮ ፡ ኩሎ ፡ ነገሮ ፡ በሌሊት ።"
+        },
+        {
+          "ch": 1,
+          "v": "A12",
+          "text": "ወነበረ ፡ መርዶክዮስ ፡ ውስተ ፡ ዐጸድ ፡ ምስለ ፡ ገበታ ፡ ወተራ ፡ ፪ ፡ ኃጽዋኒሁ ፡ ለንጉሥ ፡ እለ ፡ የዐቅቡ ፡ ሀገረ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A13",
+          "text": "ወ",
+          "_partial": true,
+          "_continues_on_page": 26,
+          "_continuation_note": "A13 cut at the page edge (only the footnote-starred ወ printed); continues p26. Glyph text pending p26 transcription."
+        }
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": false,
+      "uncertain": [
+        {
+          "ref": "A8 እኪዮሙ",
+          "issue": "3rd glyph read ዮ (yo) not ቶ at max zoom; Pereira's French 'de leurs maux' (their evils) corroborates the lexeme. Kept ዮ."
+        },
+        {
+          "ref": "tsade 1st-vs-4th order (ጸ in ለጸብእ / ጸድቃን x2 / the ጸ-element of ጽረኆሙ)",
+          "issue": "Edition-wide calibration: this fount marks ONLY the 6th-order ጽ (short descending leg); it shows NO distinct 4th-order ጻ. 'righteous' is printed with the 1st-order flat ጸ base (identical to the certain ጸሐይ 'sun'; same-line minimal pair ዐጸድ 'court'=flat ጸ vs ኃጽዋኒሁ 'eunuchs'=descending-leg ጽ). Decided by glyph, NOT by standard orthography (which would expect ጻ). See _vision_notes (j)."
+        }
+      ],
+      "method": "3 independent Opus vision passes (2 blind transcribers + 1 adjudicator, glyph-by-glyph at high zoom per _vision_notes (h)) + 1 calibration pass (typesetter tsade-habit across pp.24/30/40/50/60 + Pereira's French translation band for word-identity, per _vision_notes (i)-(j)). Apparatus band + French excluded from the verse text.",
+      "review": "Divine name እግዚአብሔር (ሔ, 3rd order) confirmed by all 3 passes at max zoom (resolves the prior single-pass ሔ/ሐ divergence). Substantive readings settled by glyph AND corroborated by Pereira's French: A6 ወበቃል 'at their voice' (a leurs voix); A9 ዘብዙኅ ማየ 'much water' (grand fleuve...eaux abondantes); A10 ተላዕሉ 'were exalted' (les humbles furent exaltes); A12 ኃጽዋኒሁ 'his eunuchs' (les deux eunuques). Mordecai = መርዶክዮስ in A11+A12."
     }
   }
 }

@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-05-29 (later) — Phase D1b Task 4 — PO Esther p25 transcribed (3-pass convergence + calibration); calibration-reading method codified
+
+**Phase:** D1b (Patrologia vision lane) Task 4 · tracker ACTIVE (p26 next)
+**Test delta:** +0 (accumulator + docs only; no code/test change)
+**Save:** committed this turn + E:/F: backed up
+
+What shipped:
+- PO Esther **p25** (LXX Addition A: the A5 tail through A13) transcribed into `content/translations/sources/patrologia/est_patrologia_vision_transcript.json` (pages 24+25; Ethiopic-only codepoint-clean). A5 completed across the p24→p25 break (joined break-word `ክልኤሆሙ`); A6 begins `ወበቃል` ("at their voice", correcting the first-pass guess `ወበቀለ`); A6–A12 converged; A13 partial (`ወ`) continues p26.
+- **Method:** 2 blind Opus vision transcribers + 1 adjudicator (glyph-by-glyph at 600–3600 DPI-equiv crops) + 1 calibration pass. The **divine name `እግዚአብሔር` (ሔ, 3rd order)** is confirmed by all 3 passes — resolving the prior single-pass ሔ/ሐ divergence. Substantive readings corroborated by Pereira's own French (`ዘብዙኅ ማየ` much water; `ተላዕሉ` were exalted; `ኃጽዋኒሁ` eunuchs).
+- **Calibration-reading method codified** (`_vision_notes.md` rule (i), user-directed): Claude SHOULD read sibling pages (typesetter habits), the editor's own translation (word-identity), and grammars FIRST to read the print better — this is calibration, NOT harmonizing (only changing the printed wording toward a standard Bible is forbidden). Edition-wide tsade finding (rule (j)): this fount marks only the 6th-order ጽ (descending leg); no distinct 4th-order ጻ → "righteous" prints with 1st-order flat ጸ.
+- NO store/base/build/test change: `est_patrologia.py` untouched, the 9 KJV editions byte-stable.
+
+Notable decision:
+- An adjudicator mislabeled sibling-page calibration as "harmonizing" and left a resolvable glyph uncertain; the user corrected this, so the method is now standing rule (i) (cross-session memory `feedback_calibration_reading`).
+
+Continuity:
+- Plan `docs/superpowers/plans/2026-05-28-geez-patrologia-vision-plan.md`; decisions `_vision_notes.md`; RULES §1 (self-upgrading matrix).
+
 ## 2026-05-29 — Phase D1b Task 4 (p25 boundary + method upgrade) + `/reload-plugins` rule
 
 - **RULES §0 (user-directed):** after applying any plugin update, MUST run `/reload-plugins` so updated plugins load without losing conversation context (Claude Code *core* updates still need a full restart).
