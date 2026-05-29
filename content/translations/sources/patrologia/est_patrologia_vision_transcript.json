@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "book": "est",
+    "slot": "est_patrologia",
+    "source": "Patrologia Orientalis 9 fasc. 1, Pereira 1913 (public domain)",
+    "method": "Opus VISION transcription + independent Opus adversarial review (Phase D1b vision lane); own-versification, source numbering authoritative, NEVER renumbered against KJV; editorial apparatus band EXCLUDED",
+    "status": "in-progress",
+    "page_range": [24, 65],
+    "units_done": ["p24"],
+    "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...)."
+  },
+  "pages": {
+    "24": {
+      "banner": null,
+      "title": "ዘአስቴር ።",
+      "host_chapter": 1,
+      "verses": [
+        {"ch": 1, "v": "A1", "text": "በካልእ ፡ ዓመት ፡ እምዘ ፡ ነግሠ ፡ አርጢርክስርክሴስ ፡ ዐቢይ ፡ አመ ፡ ቀዳሚት ፡ ዘነሳ ፡ ርእየ ፡ ሕልመ ፡ መርዶኬዎስ ፡ ዘኢያኢሩ ፡ ዘሴምዕ ፡ ዘቄስዩ ፡ እምነገደ ፡ ብንያም ፡ ብእሲ ፡ አይሁዳዊ ።"},
+        {"ch": 1, "v": "A2", "text": "ወይነብር ፡ ውስተ ፡ ሀገረ ፡ ሱሳ ፡ ወዐቢይ ፡ ብእሲ ፡ ወእቱ ፡ ወይፌውስ ፡ በዐጸደ ፡ ቤተ ፡ ንጉሥ ።"},
+        {"ch": 1, "v": "A3", "text": "እምነ ፡ ጊዋ ፡ ውእቱ ፡ ዘጌወወ ፡ ቡክድናጾር ፡ ንጉሠ ፡ ባቢሎን ፡ እምኢየሩሳሌም ፡ ምስለ ፡ ያክንዩ ፡ ንጉሠ ፡ ይሁዳ ።"},
+        {"ch": 1, "v": "A4", "text": "ወገዘንቱ ፡ ውእቱ ፡ ሕልሙ ፡ ወናሁ ፡ ቃል ፡ ወሁከት ፡ ወነጐድጓድ ፡ ወድልቅልቅ ፡ ወገዐጐአ ፡ ላዕለ ፡ ምድር ።"},
+        {"ch": 1, "v": "A5", "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ከ", "_partial": true, "_continues_on_page": 25}
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": false,
+      "uncertain": [{"ref": "A2", "issue": "the 'he/it-is' word printed in 1st-order wae-form (ወእቱ) where 6th-order (ውእቱ) is expected; transcribed as printed. Scribe re-read leaned slightly toward ውእቱ but the wae/we 1st-vs-6th-order pair is genuinely low-contrast here; kept the converged as-printed wae-form + this flag."}],
+      "as_printed_oddities_preserved": ["A2 verb (ይፌውስ, yefeaws — 5th-order fe)", "A3 captivity words printed with gi/ge (ጊዋ, ዘጌወወ) not pe", "A4 opening word with an extra ga (ወገዘንቱ, wae-gae-zen-tu) vs expected ወዘንቱ wae-zentu"],
+      "review": "Opus transcriber + independent Opus adversarial reviewer (verdict APPROVE WITH FIXES: A1 qi->qe (ዘቄስዩ), A5 u->ae (መጽአ), A2 printed wae-form (ወእቱ)) + this scribe pass re-read the image (title + 7 body line-strips + zoomed glyph-pair crops). Apparatus band (centered gloss + siglum-keyed M/N/Q rows) excluded."
+    }
+  }
+}

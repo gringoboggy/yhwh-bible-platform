@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-05-28 (cont.) — Phase D1b Task 4 STARTED: Esther p24 calibration unit transcribed + adversarially reviewed (vision lane proven on live output)
+
+**Phase:** D1b Task 4 (heavy per-chapter vision transcription) — first live unit. NO store/base/build/test change yet (`est_patrologia.py` untouched); 9 KJV editions unaffected. `git status` footprint = the new accumulator JSON + `_vision_notes.md` + the D2 notes dir only.
+**Method proven end-to-end on real output:** controller renders the PO Esther body strip via `render_body_for_vision` (230 DPI, ≤1568px) → 1 blind Opus vision transcriber → 1 INDEPENDENT Opus adversarial reviewer → 1 Opus scribe re-reads the image + writes the artifacts to disk. Geʽez is sourced image→agent→disk, NEVER hand-typed (a hand-typed JSON was caught corrupting glyphs and discarded — lesson recorded: Claude must not hand-type Geʽez). MAX 1 heavy agent throughout; a light D2 background lane ran concurrently (RULES §2.5).
+**Result (p24):** title ("Of Esther") + LXX Addition A verses A1–A5; A5 splits across the page boundary (continues p25); editorial apparatus band EXCLUDED; canonical 1:1 NOT reached on p24. Reviewer caught 3 real corrections (A1 qi→qē; A5 ʾu→ʾä, singular; A2 wəʾətu printed as 1st-order wäʾətu [flagged]) + completed A5 to the page edge; the 3 as-printed oddities (A2 verb; A3 gi-for-captivity; A4 extra-ga opening) confirmed genuine, NOT harmonized. Controller codepoint validation: clean Ethiopic-only (0 Latin/sigla bleed, 0 stray codepoints).
+**Artifacts:** running accumulator `content/translations/sources/patrologia/est_patrologia_vision_transcript.json` (per-page, source order, split verses flagged, in-progress); self-upgrading-matrix failure-classes appended to `_vision_notes.md` (render title pages ≥0.55; verses can split a page; apparatus = centered gloss before siglum M/N/Q rows; low-contrast glyph pairs qi/qē · ʾu/ʾä · wə/wä). Background lane: D2 source-readiness note `docs/superpowers/notes/2026-05-28-d2-source-readiness.md` (1 Enoch 1–71 clean Unicode = conditional-GO; Jubilees + 1 Enoch 72–108 = need vision).
+**Session-start housekeeping:** RAM freed 8.1→9.2 GB; Claude Code 2.1.154 = latest; the owed E:/F: backup (HEAD `beaf720a`) created + verified on both drives (415.8 MB each).
+**Next:** continue Task 4 — render p25, complete A5 + A6.. + the start of canonical ch1; accumulate per-unit (per-unit commits) → Task-4 final write `est_patrologia.py` → Tasks 5–7.
+
+---
+
 ## 2026-05-28 (cont.) — Phase D1b: Patrologia vision lane — calibration GO + scaffolding (Tasks 1-3)
 
 **Phases shipped:** D1b calibration (controller-side, GO) + scaffolding code (plan Tasks 1-3). Proof book = Esther (PO 9 fasc 1, Pereira 1913); linear-Job fallback not needed.

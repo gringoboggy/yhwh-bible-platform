@@ -51,7 +51,7 @@ Canonical chapters (Roman, 1–10) **interleaved with the six LXX Additions A–
 ## Page → content map (calibrated so far; extend during transcription)
 | PDF page | Content (banner) |
 |---|---|
-| 24 | Addition **A** opens + canonical 1:1 (`ዘኣስቱር` title; margin `A`) |
+| 24 | Title `ዘአስቴር ።` ("Of Esther.") + Addition **A** vv.**1–5** (margin `A.1`–`A.5`; **A5 splits at the page edge mid-clause → continues on p25**). **Canonical 1:1 is NOT on p24** (Addition A is long; p24 holds only the title + A1–A5). |
 | 32 | `II, 14–19` (canonical ch 2) |
 | 35 | `III, 9 — B, 1` (canonical 3:9–13 → Addition **B** begins) |
 | 37 | `B, 5 — III, 15` (Addition B:5 → returns to canonical 3:14–15) |
@@ -62,6 +62,18 @@ Canonical chapters (Roman, 1–10) **interleaved with the six LXX Additions A–
 Body legible · margin verse-numbers recoverable · apparatus separable · Additions representable faithfully with the locked encoding + zero renderer surgery. Proceed to the per-chapter vision transcription (plan Task 4), MAX 1 heavy Opus agent, calibrate on canonical ch 1 (+ Addition A) first, per-chapter commits. Job (clean linear ch 1–42, no additions) remains the documented fallback but is **not** needed.
 
 ## Recurring vision failure-classes (append during Task-4 transcription)
-_(none yet — seed)_
-- e.g. "apparatus-bleed at a column foot when the body is short on a page" → instruct the transcriber to stop at the first siglum-keyed line.
-- e.g. "margin numeral X misread as Y at low contrast" → note the glyph pair.
+- **(a) Title/opening pages run TALLER than the body default.** On p24 the body (title + A1–A5) runs to **~0.58 of page height**, so the calibrated `geez_top_fraction=0.45` strip **truncates** it (cuts off the lower verses). → For opening/title pages render the body strip at **≥0.55** (p24 = 1518×1409 at 0.58, still **≤1568px**, under the vision downsample cap). Plain interior pages keep 0.45.
+- **(b) Verses can SPLIT across a page boundary.** A5 on p24 ends **mid-clause at the right page edge** — last visible glyph is a bare `ከ` with **no `።` terminator** — and continues on p25. → The transcript flags it `_partial=true` + `_continues_on_page`; the **Task-4 assembly step must concatenate the split parts** and **never emit a partial verse as complete**. (`last_verse_complete=false` is the per-page signal.)
+- **(c) Apparatus boundary on p24 = a CENTERED Ge'ez gloss line BEFORE the siglum-keyed rows.** Below the 7 body lines there is one **centered** smaller-type Ge'ez line (opens roughly `A. 1. በካልእ …` — it re-quotes the lemma being annotated), then the **siglum-keyed `M / N / O / P / Q` variant rows + French**. → **Exclude everything from that centered gloss line downward.** Also: the **small raised star-markers at word-starts** in the body (seen before A1, A2, A3, A4, A5 openings) are **footnote reference marks, NOT verse numerals** — verse numbers are the margin Arabic/letter labels only.
+- **(d) Low-contrast glyph pairs caught on p24 (note the actual pairs):**
+  - **qi vs qē** — A1 Kish proper noun: correct is **5th-order `ቄ`** (`ዘቄስዩ`), not 2nd-order `ቂ` (`ዘቂስዩ`).
+  - **2nd-order ʾu vs 4th-order ʾä** — A5 verb "came": correct is **4th-order `አ`** singular (`መጽአ`), not 2nd-order `ኡ`/`ʾu`.
+  - **6th-order wə vs 1st-order wä** — A2 "he/it-is": printed as **1st-order `ወ`** (`ወእቱ`) where 6th-order `ው` (`ውእቱ`) is expected (see (e); kept as printed + flagged).
+- **(e) As-printed oddities are NOT errors — preserve + flag, do not "correct" toward the expected form:**
+  - **A2** "he/it-is" `ወእቱ` (1st-order wä) vs expected `ውእቱ` (6th-order) — flagged uncertain.
+  - **A3** "captivity / was-carried-captive" printed with **gi/ge** (`ጊዋ`, `ዘጌወወ`), not ṗē.
+  - **A4** opening word `ወገዘንቱ` (wä-**gä**-zän-tu, an **extra ga**) vs expected `ወዘንቱ` (wä-zəntu).
+
+## Transcribed units (running — assembled into est_patrologia.py at the Task-4 final step)
+- **Accumulator file:** `est_patrologia_vision_transcript.json` (sibling of this notes file). Per-page, **source order**; split verses flagged `_partial=true` + `_continues_on_page`. The Task-4 final step concatenates split parts and writes `est_patrologia.py` from this accumulator. **Status: in-progress.**
+- **p24 — DONE.** Title `ዘአስቴር ።` + Addition **A vv. A1–A5** (host chapter int `1`, string labels `"A1".."A5"`). **A5 is partial → continues on p25** (must be concatenated, not emitted as complete). Pipeline: Opus **transcriber** + independent Opus **adversarial reviewer** + this **scribe re-read** of the image. **3 corrections applied** (A1 `qi→qē` `ዘቄስዩ`; A5 `ʾu→ʾä` `መጽአ`; A2 kept as-printed 1st-order wä `ወእቱ`, flagged uncertain). Apparatus band (centered gloss + siglum-keyed `M/N/O/P/Q` rows + French) excluded. Canonical 1:1 NOT yet reached.
