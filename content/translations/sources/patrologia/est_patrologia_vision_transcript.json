@@ -11,10 +11,12 @@
     ],
     "units_done": [
       "p24",
-      "p25"
+      "p25",
+      "p26"
     ],
     "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
-    "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...)."
+    "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...).",
+    "p26_status": "DONE -- A13 completed across the p25->p26 break (joined ወ+ሰምያሙ); A14-A17 close Addition A; canonical 1:1-1:4 begun (1:4 cut at ዕለ -> p27). RECOVERED from a crashed session (2 blind + adjudicator transcripts) + a controller re-verification pass; numeral 127 + long A17 French-anchored; 2 adjudicator over-reads corrected. Codepoint-clean."
   },
   "pages": {
     "24": {
@@ -123,7 +125,9 @@
           "text": "ወ",
           "_partial": true,
           "_continues_on_page": 26,
-          "_continuation_note": "A13 cut at the page edge (only the footnote-starred ወ printed); continues p26. Glyph text pending p26 transcription."
+          "_continuation_note": "A13 cut at the page edge (only the footnote-starred ወ printed); continues p26. Glyph text pending p26 transcription.",
+          "_completed_in_page": 26,
+          "_assembly": "drop this partial at final assembly; use the complete A13 in pages['26']"
         }
       ],
       "last_verse_complete": false,
@@ -140,6 +144,91 @@
       ],
       "method": "3 independent Opus vision passes (2 blind transcribers + 1 adjudicator, glyph-by-glyph at high zoom per _vision_notes (h)) + 1 calibration pass (typesetter tsade-habit across pp.24/30/40/50/60 + Pereira's French translation band for word-identity, per _vision_notes (i)-(j)). Apparatus band + French excluded from the verse text.",
       "review": "Divine name እግዚአብሔር (ሔ, 3rd order) confirmed by all 3 passes at max zoom (resolves the prior single-pass ሔ/ሐ divergence). Substantive readings settled by glyph AND corroborated by Pereira's French: A6 ወበቃል 'at their voice' (a leurs voix); A9 ዘብዙኅ ማየ 'much water' (grand fleuve...eaux abondantes); A10 ተላዕሉ 'were exalted' (les humbles furent exaltes); A12 ኃጽዋኒሁ 'his eunuchs' (les deux eunuques). Mordecai = መርዶክዮስ in A11+A12."
+    },
+    "26": {
+      "banner": "LE LIVRE D'ESTHER. — A, 14 — 1, 4.",
+      "host_chapter": 1,
+      "verses": [
+        {
+          "ch": 1,
+          "v": "A13",
+          "text": "ወሰምያሙ ፡ ምክሮሙ ፡ ዘይኔልዩ ፡ ወአእመረ ፡ ወጠየቀ ፡ ከመ ፡ አስተዳለዉ ፡ ማዕሌተ ፡ ይቅትልዎ ፡ ለአርጤርክስርክሴስ ፡ ንጉሥ ፡ ወነገሮ ፡ ለንጉሥ ፡ በእንቲአሆሙ ።",
+          "_assembled_from_pages": [
+            25,
+            26
+          ],
+          "_note": "complete A13: p25 footnote-starred lead ወ + this p26 continuation, joined ወ+ሰምያሙ = ወሰምያሙ. (Draft B initially dropped physical line 1 ሰምያሙ..ማዕሌ; the adjudicator + the other passes confirm it; ማዕሌተ splits ማዕሌ|ተ across lines 1-2.)"
+        },
+        {
+          "ch": 1,
+          "v": "A14",
+          "text": "ወሐተቶሙ ፡ ንጉሥ ፡ ለክልኤሆሙ ፡ ናጽዋኒሁ ፡ ወአምኑ ፡ ወተኩነኑ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A15",
+          "text": "ወጸሐፈ ፡ ንጉሥ ፡ ለገዝንቱ ፡ ነገር ፡ ውስተ ፡ ተዝካረ ፡ ነቢያት ፡ ወመርዶኬዎስኒ ፡ ጸሐፈ ፡ ለገዝንተ ፡ ነገር ።"
+        },
+        {
+          "ch": 1,
+          "v": "A16",
+          "text": "ወአዘዘ ፡ ንጉሥ ፡ ለመርዶኬዎስ ፡ ይጸመድ ፡ ውስተ ፡ ዐጸድ ፡ ወፈተቶ ፡ በበይነ ፡ ግዝንቱ ።"
+        },
+        {
+          "ch": 1,
+          "v": "A17",
+          "text": "ወሀገሰ ፡ ዘአመደቱ ፡ ብግያዊ ፡ ክቡር ፡ ውእቱ ፡ ወይቀውም ፡ ቅድመ ፡ ንጉሥ ፡ ወይፈቅድ ፡ ይግበር ፡ እኪተ ፡ ላዕለ ፡ መርዶኬዎስ ፡ ወላዕለ ፡ ሕዝቡ ፡ በእልክቱ ፡ ፪ ፡ ናጽዋኒሁ ፡ ለንጉሥ ።"
+        },
+        {
+          "ch": 1,
+          "v": "1",
+          "text": "ወእምድኅረ ፡ ዝንቱ ፡ ነገር ፡ በመዋዕሊሁ ፡ ለአርጤርክስርክሴስ ፡ ወውእቱ ፡ አርጤርክስርክሴስ ፡ ነግሠ ፡ ላዕለ ፡ ፻ወ፳ወ፯ ፡ በሐውርት ፡ እምነ ፡ ብሔረ ፡ ህንደኬ ።"
+        },
+        {
+          "ch": 1,
+          "v": "2",
+          "text": "ወበውእቱ ፡ መዋዕል ፡ አመ ፡ ነግሠ ፡ በሱሳ ፡ ሀገር ።"
+        },
+        {
+          "ch": 1,
+          "v": "3",
+          "text": "በሣልስ ፡ ዓም ፡ እምዘ ፡ ነግሠ ፡ ገብረ ፡ በዓለ ፡ ለአዕርክቲሁ ፡ ወበእንተ ፡ እለ ፡ ተርፉ ፡ አሕዛብ ፡ ወለፋርስ ፡ ወሜዶን ፡ ወለክቡራኒሆሙ ፡ ወለመላእክተ ፡ ሰራዊት ።"
+        },
+        {
+          "ch": 1,
+          "v": "4",
+          "text": "ወእምድኅረ ፡ ዝንቱ ፡ እምድኅረ ፡ አርአዮሙ ፡ ብዕለ ፡ መንግሥቱ ፡ ወክብረ ፡ ትፍሥሕቱ ፡ ወብዕሉ ፡ በ፻ ፡ ወ፹ ፡ ዕለ",
+          "_partial": true,
+          "_continues_on_page": 27,
+          "_continuation_note": "cut at the right page edge mid-word at ዕለ (= ዕለት 'days'); continues p27. Day-count በ፻ ፡ ወ፹ = 180, corroborated by the v4 apparatus gloss ዘምዕት ፡ ወስማንያ."
+        }
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": true,
+      "uncertain": [
+        {
+          "ref": "1:1 province count (LOAD-BEARING)",
+          "issue": "blind Draft B read a word ዩወጅወኒ; Draft A + adjudicator read the numeral ፻ወ፳ወ፯ (=127). Resolved to the NUMERAL -- decisive corroboration from Pereira's French 'régna sur cent vingt-sept provinces' + the token carries Geʽez numeral vinculum dots (፻/፳/፯); Draft B misread the ornamented numerals as letters."
+        },
+        {
+          "ref": "A17 head (MAJOR)",
+          "issue": "blind Draft A read a short head (ወሀቦ ፡ ንጉሥ ..); Draft B read the long head. Resolved to the LONG head -- decisive French 'Mais Hamâ, (fils) de Amadâtu, (de la tribu) de Begyà, qui était noble, et se tenait devant le roi ..' (Haman the Bougaean). As-printed ይግበር (1st-order) + ናጽዋኒሁ."
+        },
+        {
+          "ref": "A15 ለገዝንቱ (x2) + A16 ግዝንቱ",
+          "issue": "ገ/ግ-onset demonstrative: B + adjudicator + controller high-zoom crops read the ገ-onset; blind Draft A read plain ለዝንቱ / ግዕዘቱ. Took the ገ-onset form -- CORROBORATED by the documented p24 A4 edition oddity ወገዘንቱ (this fount prints 'this' with an extra ga). A's ግዕዘቱ ('his conduct') noted as a coherent A16 alternative."
+        },
+        {
+          "ref": "1:1 / 1:4 head ዝንቱ",
+          "issue": "both blind passes (A+B) AND a controller high-zoom crop read plain ዝንቱ (no ግ) at the canonical heads ወእምድኅረ ፡ ዝንቱ ፡ ነገር; the adjudicator alone read ግዝንቱ here (its g-onset over-read -- it also misread A15 ተዝካረ as ተገክረ). Kept plain ዝንቱ. The edition uses BOTH forms (cf. p24 A4 ወገዘንቱ vs the plain heads)."
+        },
+        {
+          "ref": "A15 ተዝካረ",
+          "issue": "the adjudicator returned ተገክረ; both blind transcribers AND a controller high-zoom crop read ተዝካረ ('record/memorial of the prophets', the meaningful word, ዝ+ካ not ገ+ክ). Corrected to ተዝካረ."
+        }
+      ],
+      "method": "RECOVERED from a crashed (OOM) session: 2 blind Opus transcribers + 1 Opus adjudicator (glyph-by-glyph high-zoom + Pereira's French band) had run before the crash; their transcripts were recovered, then a CONTROLLER re-verification pass (independent high-zoom crops of the contested glyphs, incl. a comparison vs the French-confirmed ግ in ብግያዊ) finished the convergence and corrected 2 adjudicator over-reads (ተገክረ->ተዝካረ; head demonstrative ግዝንቱ->ዝንቱ). Apparatus band + French excluded from the verse text; French used only as the calibration word-identity anchor.",
+      "review": "p26 = end of LXX Addition A (A13-A17) + start of canonical ch.1 (1:1-1:4, cut at ዕለ -> p27). French-anchored resolutions: 1:1 = numeral ፻ወ፳ወ፯ (127, 'cent vingt-sept'); A17 long head naming Haman son of Hammedatha the Bougaean ('Mais Hamâ .. de Begyà .. se tenait devant le roi'); Mordecai = መርዶኬዎስ in the body (French 'Mardokêwos'; cf. p24/p25 መርዶክዮስ/መርዶኬዎስ both); India = ህንደኬ (Hendakè). Divine name absent (narrative). Tsade per the edition rule (only 6th-order ጽ marked -> ናጽዋኒሁ; flat 1st-order ጸ in ይጸመድ/ዐጸድ/ጸሐፈ). The ገ-onset demonstrative (A15 ለገዝንቱ, A16 ግዝንቱ) matches the p24 A4 as-printed oddity ወገዘንቱ."
     }
   }
 }

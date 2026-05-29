@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-05-29 (cont.) — Phase D1b Task 4: PO Esther p26 — crash-recovery + controller re-verification
+
+- **Context.** The machine crashed (OOM; the user was logging into public wifi → RAM spike, not our lane's load) mid-p26, **after** the p25 commit `1f2c2393`. This session resumed, read the triad, freed RAM **9.62→10.66 GB** (28 background procs; no leaked python/java), and confirmed the working tree **clean** — the crash left **no committed p26 trace and no stray files** (swept the repo, `tests/`, `exports/`, and the parent dir).
+- **Recovery (no re-running the heavy vision).** The crashed session's p26 heavy passes had **completed**: its subagent transcripts (`…/79204e1c/subagents/agent-*.jsonl` = 2 blind Opus transcribers + 1 adjudicator) and the per-line/glyph **renders in OS temp** survived. Recovered the transcriptions + the French-anchored adjudication, then finished the page with a **controller re-verification pass** (own high-zoom crops of only the contested glyphs vs Pereira's French band).
+- **Content.** Wrote accumulator page `26` = Addition A `A13`(completion)–`A17` (**Addition A ENDS**) + canonical `1:1`–`1:4` (`1:4` cut mid-word at `ዕለ` → continues p27). `A13` joined p25's edge-cut `ወ` → `ወሰምያሙ…`. Ethiopic-only **codepoint-clean**; 5 `uncertain` flags. Accumulator now = pages 24+25+26.
+- **French-anchored resolutions.** `1:1` province count = **numeral `፻ወ፳ወ፯`** (127, "régna sur cent vingt-sept provinces" — Draft B's word `ዩወጅወኒ` was a numeral-misread); **A17 = the long head** naming Haman son of Hammedatha the Bougaean ("Mais Hamâ … de Begyà … se tenait devant le roi"); Mordecai `መርዶኬዎስ` ("Mardokêwos"); India `ህንደኬ` (Hendakè).
+- **2 adjudicator over-reads corrected** (controller crops + both blind passes agreed): `ተገክረ`→`ተዝካረ` ('record of the prophets'); canonical-head `ግዝንቱ`→plain `ዝንቱ`.
+- **Edition feature.** The demonstrative carries a ግ/ገ-onset at A15 `ለገዝንቱ` / A16 `ግዝንቱ` (corroborating the p24 A4 oddity `ወገዘንቱ`) but is plain `ዝንቱ` at the 1:1/1:4 heads — recorded per-occurrence, not unified.
+- **Self-upgrading matrix.** Added `_vision_notes` **(k)** dual-form demonstrative, **(l)** crash-recovery-convergence method, **(m)** adjudicator-over-read rule (re-verify any adjudicator deviation from a reading both blind passes agree on).
+- **No store/base/build/test change** — `est_patrologia.py` untouched; 9 KJV editions byte-stable. Change set = the accumulator JSON + `_vision_notes.md` + the three truth-records. **NEXT: p27** (continues canonical 1:4 → ch1).
+
+---
+
 ## 2026-05-29 (later) — Phase D1b Task 4 — PO Esther p25 transcribed (3-pass convergence + calibration); calibration-reading method codified
 
 **Phase:** D1b (Patrologia vision lane) Task 4 · tracker ACTIVE (p26 next)
