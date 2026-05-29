@@ -6,6 +6,14 @@
 
 ---
 
+## 2026-05-29 — Phase D1b Task 4 (p25 boundary + method upgrade) + `/reload-plugins` rule
+
+- **RULES §0 (user-directed):** after applying any plugin update, MUST run `/reload-plugins` so updated plugins load without losing conversation context (Claude Code *core* updates still need a full restart).
+- **Phase D1b vision lane — PO Esther p25 (LXX Addition A):** resolved a cross-page verse boundary — **A5 spans the p24→p25 break** (`…መጽአ ፡ ክ` [6th-order ክ, not ከ] + p25 `ልኤሆሙ` = `ክልኤሆሙ`, "both of them"); `ልኤሆሙ ፡ ይትጋደሉ ፡ ወከነ ፡ ቃሎሙ ፡ ዐቢይ ።` is A5's tail and real **A6 begins at `ወበቀለ`** (the p24-pass draft mis-labeled A5's tail as A6; the adversarial reviewer missed it).
+- **Method upgrade (self-upgrading matrix):** two independent Opus passes diverged on ~10 glyphs (incl. divine-name order `እግዚአብሔር`/`እግዚአብሐር`; `በሌሊት`/`በሰሊጥ`) → single-transcribe+review is insufficient for this faint 1913 print; adopt a per-page **convergence step** (≥2 transcriptions → glyph-by-glyph adjudication → flag true ambiguities `uncertain`). Verse-signals differ per page (p24 in-text Geʽez numerals; p25 margin line-numbers only; `✻`=footnotes). Findings + failure-classes (f)–(h) + corrected page-map → `content/translations/sources/patrologia/_vision_notes.md`.
+- Accumulator `est_patrologia_vision_transcript.json`: p24 A5 cut-glyph corrected `ከ→ክ` + a p25-status note; **A6–A13 pending the convergence pass (NOT written).** No store/base/build/test change; `est_patrologia.py` untouched; 9 KJV editions byte-stable.
+- Session-start housekeeping: RAM freed 783 MB (9.1→9.6 GB free); Claude Code 2.1.156 (current); HEAD `160668bd` + backup verified on E:/F:.
+
 ## 2026-05-28 (cont.) — Phase D1b Task 4 STARTED: Esther p24 calibration unit transcribed + adversarially reviewed (vision lane proven on live output)
 
 **Phase:** D1b Task 4 (heavy per-chapter vision transcription) — first live unit. NO store/base/build/test change yet (`est_patrologia.py` untouched); 9 KJV editions unaffected. `git status` footprint = the new accumulator JSON + `_vision_notes.md` + the D2 notes dir only.

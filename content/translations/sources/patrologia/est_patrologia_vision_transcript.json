@@ -7,6 +7,7 @@
     "status": "in-progress",
     "page_range": [24, 65],
     "units_done": ["p24"],
+    "p25_status": "Boundary RESOLVED (A5 completes across the p24->p25 break as ክልኤሆሙ; real A6 begins at ወበቀለ). A6-A13 glyph text PENDING a convergence pass per _vision_notes (h) -- NOT yet written to a page-25 entry.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...)."
   },
   "pages": {
@@ -19,7 +20,7 @@
         {"ch": 1, "v": "A2", "text": "ወይነብር ፡ ውስተ ፡ ሀገረ ፡ ሱሳ ፡ ወዐቢይ ፡ ብእሲ ፡ ወእቱ ፡ ወይፌውስ ፡ በዐጸደ ፡ ቤተ ፡ ንጉሥ ።"},
         {"ch": 1, "v": "A3", "text": "እምነ ፡ ጊዋ ፡ ውእቱ ፡ ዘጌወወ ፡ ቡክድናጾር ፡ ንጉሠ ፡ ባቢሎን ፡ እምኢየሩሳሌም ፡ ምስለ ፡ ያክንዩ ፡ ንጉሠ ፡ ይሁዳ ።"},
         {"ch": 1, "v": "A4", "text": "ወገዘንቱ ፡ ውእቱ ፡ ሕልሙ ፡ ወናሁ ፡ ቃል ፡ ወሁከት ፡ ወነጐድጓድ ፡ ወድልቅልቅ ፡ ወገዐጐአ ፡ ላዕለ ፡ ምድር ።"},
-        {"ch": 1, "v": "A5", "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ከ", "_partial": true, "_continues_on_page": 25}
+        {"ch": 1, "v": "A5", "text": "ወናሁ ፡ ፪ ፡ አክይስት ፡ ዐበይት ፡ ድልዋን ፡ መጽአ ፡ ክ", "_partial": true, "_continues_on_page": 25, "_continuation_note": "Cut glyph corrected ከ->ክ (6th-order, verified at 5x). p25 tail = ልኤሆሙ ፡ ይትጋደሉ ፡ ወከነ ፡ ቃሎሙ ፡ ዐቢይ ። -> joined break-word ክልኤሆሙ ('both of them'); real A6 begins at ወበቀለ. Final A5 text + A6-A13 pending a convergence pass (see _vision_notes (f)-(h))."}
       ],
       "last_verse_complete": false,
       "canonical_1_1_reached": false,
