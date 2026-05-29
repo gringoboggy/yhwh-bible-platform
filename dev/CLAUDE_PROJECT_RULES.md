@@ -31,6 +31,17 @@ This was a **3× recurring** mistake (Claude wrongly declared "blocked on source
 supply them, 2026-05-26). The ONLY legitimate source ask is a genuine licensing/credential gate (per the
 license-flagging rule) — never "I can't find it." (Memory: `sources-already-in-place`.)
 
+**Operational guard — re-Read the big truth-record MDs RIGHT BEFORE editing them (added 2026-05-28, user-directed):**
+`dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, and `dev/CHANGELOG.md` are large enough that the **Read tool returns a
+truncated/partial view** — and a *truncated* read does **NOT** satisfy the Edit tool's "must read first" gate. So an
+`Edit` attempted after only the session's earlier truncated read (or after an `offset` read that itself errors on the
+token cap) fails with *"File has not been read yet"* and wastes a round-trip. **Before editing any of these (or any file
+big enough to truncate on Read): do a fresh small-region `Read` of the exact lines you're about to change — e.g.
+`Read(path, limit=6)` for a top-of-file prepend — immediately before the `Edit`, in the same or the prior step.** These
+files are newest-entry-at-top, so a `limit=6` head read covers the usual prepend target; for a mid-file edit, read a
+small window around it. This is cheap and removes the retry loop entirely. (Cost three failed edits on the Task-4
+truth-record update, 2026-05-28, before a clean head-read fixed it. Memory: `reread-before-editing-big-md`.)
+
 ## Rules map — which § governs what (jump here first)
 
 | § | Governs |
