@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-30 (cont.) — Mint-cleanup PHASE 3 COMPLETE — archive sweep (56 dated docs → dev/archive/); `dev_doc_sprawl` + `doc_cross_references` GREEN
+
+**Phases shipped:** mint-cleanup Phase 3 (archive sweep)
+**Test delta:** none (pure `git mv` + 3 reference-path updates); `test_lint_guardrails` 36 green
+**Save tag:** local commit (this turn) + E:/F: backup
+
+What shipped:
+- **56 dated finished docs `git mv`'d to `dev/archive/`** (flat — matching the existing archive convention): the daily AUDIT_* (LIGHT/DEEP/EOD + `-samuel-calibration`/`-widened`/`-inject-tail`/`-smoother`/`-wave3`/`-23-DEEP`/`-26-FINDINGS`), 4 CALIBRATION_*, the SCOPE_2026-05-07/08/09/12 addenda + base `SCOPE_2026-05-08.md` + the `SCOPE_2026-05-16` parallel-bible end-state, and `SESSION_END_2026-05-12.md`. **dev/*.md: 86 → 30** (under the 40 budget).
+- **3 reference-path updates** so still-cited moved docs resolve: RULES §0.2 (`dev/AUDIT_2026-05-23-DEEP.md` → `dev/archive/`), RULES §2.5 (`dev/AUDIT_2026-05-26-FINDINGS.md` → `dev/archive/`), roadmap LANE P (`dev/SCOPE_2026-05-16-…` → `dev/archive/`).
+- **`dev/archive/README.md`** extended with a family+date index of the swept docs.
+- **Lint: 22 pass / 3 warn / 0 fail (EXIT 0)** — `dev_doc_sprawl` + `doc_cross_references` newly GREEN (the 20 Phase-2 doc-xref warns cleared as the archive-aware check resolved the moved SCOPEs). The 3 remaining warns: `commercial_orphans` + `commercial_terms` (Phase 4), `changelog_size` (manual month-roll). No code/corpus/test/build change.
+
+Notable decisions:
+- **Flat archive, not nested subdirs.** The mint plan proposed `dev/archive/{audits,calibration,…}/`, but the existing `dev/archive/` is flat — matched the established convention and put the family organization in the README index (lower risk: no cited-path breakage from a deeper move).
+- **Archived 3 still-referenced docs + updated their refs** rather than leaving them live. `dev_doc_sprawl` flags any dated candidate (count ≤ budget alone wasn't GREEN); the archive-aware `doc_cross_references` keeps the citations resolving — a minimal `dev/` beats a benign-but-noisy WARN.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (Phase 0–3 ✓; **Phase 4 next = decommercialize — CHECKPOINT first**)
+
+---
+
 ## 2026-05-30 (cont.) — Mint-cleanup PHASE 2 COMPLETE — master roadmap refreshed; `triad_plan_consistency` + `retired_terms` GREEN + ENFORCED
 
 **Phases shipped:** mint-cleanup Phase 2 (roadmap refresh)

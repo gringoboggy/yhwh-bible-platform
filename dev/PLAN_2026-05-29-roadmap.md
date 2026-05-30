@@ -134,7 +134,7 @@ unit = one agent-step, not a chapter). Locate folios by vision, not arithmetic. 
 
 ## LANE P — Parallel-Bible two-standalone end-state (TIER-3, last)
 
-End-state (`dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`,
+End-state (`dev/archive/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`,
 supersedes the popup-only framing of the archived `SCOPE_2026-05-14`): geez-tewahedo
 and amharic-tewahedo become **two full standalone Bible editions** alongside the 9
 canon/notes editions, each carrying — in **its own** verse popups — a faithful English

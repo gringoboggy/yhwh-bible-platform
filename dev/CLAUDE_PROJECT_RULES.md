@@ -18,7 +18,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
 2. **Sources are NOT missing** — never conclude corpus/ingest/translation/popup
    work is "blocked on missing sources" or ask the user to supply one. Look first,
    in order: the plans (`dev/archive/PLAN_2026-05-21.md` §4.1 +
-   `dev/AUDIT_2026-05-23-DEEP.md`); then `content/sources/`,
+   `dev/archive/AUDIT_2026-05-23-DEEP.md`); then `content/sources/`,
    `content/translations/sources/`, `_acquire/` (one level above the repo,
    gitignored), the top-level PDFs (arbitrary filenames — don't grep by book), the
    `GAPS/` Geʽez folder, the web sources the plans name; then verify current status
@@ -262,7 +262,7 @@ upgraded matrix, not re-discovering yesterday's lesson.
    lane frees; keep this current:** CAM hi-res pre-pull of upcoming chapters ·
    base-structured re-collation of pending chapters · geez→kjv cross-ref anchoring ·
    the deferred Phase-E Clementine chapters (1es 5/8, 2es 14) · the code-debt audit
-   tail (`dev/AUDIT_2026-05-26-FINDINGS.md`) · doc-coherence (MATRIX_MAP / REPO_MAP /
+   tail (`dev/archive/AUDIT_2026-05-26-FINDINGS.md`) · doc-coherence (MATRIX_MAP / REPO_MAP /
    CHANGELOG currency) · test-coverage growth · Phase-D own-versification source
    acquisition.
 
