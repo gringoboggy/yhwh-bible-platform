@@ -1456,7 +1456,10 @@ def check_truth_record_budget() -> dict:
         elif size > b["soft"]:
             violations.append({"file": rel, "bytes": size, "budget": b["soft"], "tier": "soft"})
         if b["max_entries"] is not None:
-            n = p.read_text(encoding="utf-8").count("➤➤➤")
+            # Count journal ENTRY-START lines (`> **➤➤➤`), not the bare glyph —
+            # an entry's prose may mention the marker, and a stable "## ➤➤➤"
+            # trailing heading is not an entry. Mirrors rotate_truth_records.
+            n = sum(1 for ln in p.read_text(encoding="utf-8").splitlines() if ln.startswith("> **➤➤➤"))
             if n > b["max_entries"]:
                 violations.append({"file": rel, "entries": n, "budget": b["max_entries"], "tier": "entries"})
     if not violations:
@@ -2024,8 +2027,31 @@ def _fix_freshness(
 # `(check_result, *, dry_run) -> dict` shape can be plugged in
 # safely. Empty entries are intentional — most checks need human
 # review and the right answer is "no auto-fix available."
+def _fix_truth_record_budget(check_result: dict, *, dry_run: bool = False) -> dict:
+    """Fixer for ``truth_record_budget`` — delegates to the rotator, which keeps
+    the newest entries + stable sections live and archives the rest. Reversible
+    via ``git restore`` (live trim) + deleting the appended archive batch."""
+    try:
+        from scripts.rotate_truth_records import rotate_all
+    except Exception as e:  # pragma: no cover — defensive
+        return {
+            "ok": False,
+            "applied": False,
+            "message": f"truth_record_budget: rotator unavailable ({e})",
+            "changes": [],
+        }
+    res = rotate_all(dry_run=dry_run)
+    return {
+        "ok": True,
+        "applied": res.get("applied", False),
+        "message": "truth_record_budget: " + res.get("message", ""),
+        "changes": res.get("changes", []),
+    }
+
+
 FIXERS: dict[str, Callable[..., dict]] = {
     "freshness": _fix_freshness,
+    "truth_record_budget": _fix_truth_record_budget,
 }
 
 

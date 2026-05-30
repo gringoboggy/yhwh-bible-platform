@@ -29,6 +29,20 @@ class TestTruthRecordBudget:
         assert r["status"] == "pass"
         assert r["violations"] == []
 
+    def test_warns_when_too_many_entries(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        # 3 entry-START lines (> max_entries=2), small file. Entry counting must be
+        # by entry-start line, not the bare glyph: an entry whose prose mentions
+        # the `> **➤➤➤` marker (escaped below) must still count as ONE entry.
+        body = "> **➤➤➤ 2026-05-29 — newest, splits on the `> **➤➤➤` marker**\n>\n"
+        body += "> **➤➤➤ 2026-05-28 — mid**\n>\n> **➤➤➤ 2026-05-27 — old**\n>\n"
+        (tmp_path / "dev" / "SESSION_STATE.md").write_text("# T\n\n" + body, encoding="utf-8")
+        r = lint_rules.check_truth_record_budget()
+        assert r["status"] == "warn"
+        ev = next(v for v in r["violations"] if v.get("tier") == "entries")
+        assert ev["entries"] == 3  # not 4 — the prose mention is not double-counted
+
     def test_registered_in_all_checks(self):
         assert "truth_record_budget" in lint_rules.ALL_CHECKS
 
