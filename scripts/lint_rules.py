@@ -1422,6 +1422,147 @@ def check_truth_record_budget() -> dict:
     }
 
 
+_COMMERCIAL_STEMS = ("sales", "license_key", "license_state", "onix", "build_onix", "print_cover")
+_COMMERCIAL_STEM_RE = re.compile(r"\b(" + "|".join(_COMMERCIAL_STEMS) + r")\b")
+
+
+def check_commercial_orphans() -> dict:
+    """The 2026-05-14 free-public pivot dropped commercial sale / ISBN / ONIX /
+    print. These module stems must not exist (or be imported) under scripts/
+    once Phase 4 removes them. Ships WARN while they still exist; PROMOTE the
+    breach branch to 'fail' in Phase 4 so reintroduction is permanently blocked.
+    (archive_org is intentionally NOT on the list — it is legit free distribution.)"""
+    scripts_dir = REPO / "scripts"
+    violations: list = []
+    if scripts_dir.is_dir():
+        for p in scripts_dir.rglob("*.py"):
+            if "archive" in p.parts:
+                continue
+            rel = str(p.relative_to(REPO))
+            if p.stem in _COMMERCIAL_STEMS:
+                violations.append({"kind": "module", "path": rel})
+                continue
+            try:
+                for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+                    stripped = line.lstrip()
+                    if (stripped.startswith("import ") or stripped.startswith("from ")) and _COMMERCIAL_STEM_RE.search(
+                        line
+                    ):
+                        violations.append({"kind": "import", "path": rel, "line": i})
+            except (OSError, UnicodeDecodeError):
+                continue
+    modules = sorted({v["path"] for v in violations})
+    return {
+        "id": "commercial_orphans",
+        "name": "No commercial-era orphan modules",
+        "status": "warn" if violations else "pass",  # PROMOTE to "fail" in Phase 4
+        "message": (
+            "no commercial-era orphan modules/imports under scripts/"
+            if not violations
+            else f"{len(violations)} commercial-era reference(s) remain (removed in Phase 4): " + ", ".join(modules)
+        ),
+        "violations": violations,
+    }
+
+
+def check_changelog_size() -> dict:
+    """CHANGELOG.md is append-only and the only un-rotated truth record. WARN
+    past a soft byte budget so a manual month-roll gets prompted. Do NOT
+    auto-rotate (check_untracked_phases substring-searches the live file)."""
+    p = REPO / "dev" / "CHANGELOG.md"
+    if not p.is_file():
+        return {
+            "id": "changelog_size",
+            "name": "CHANGELOG size",
+            "status": "pass",
+            "message": "no CHANGELOG.md",
+            "violations": [],
+        }
+    size = p.stat().st_size
+    budget = 1_500_000
+    breached = size > budget
+    return {
+        "id": "changelog_size",
+        "name": "CHANGELOG size",
+        "status": "warn" if breached else "pass",
+        "message": (
+            f"CHANGELOG.md is {size:,}B (> {budget:,}B) — consider a manual month-roll to "
+            "dev/archive/CHANGELOG_<month>.md"
+            if breached
+            else f"CHANGELOG.md {size:,}B within budget"
+        ),
+        "violations": ([{"file": "dev/CHANGELOG.md", "bytes": size, "budget": budget}] if breached else []),
+    }
+
+
+_DATED_DOC_RE = re.compile(r"^(AUDIT|SCOPE|CALIBRATION|PILOT|PROPOSAL|SESSION_END)_\d{4}-\d{2}-\d{2}")
+
+
+def check_dev_doc_sprawl() -> dict:
+    """The always-read dev/ dir should stay lean. WARN when it accumulates too
+    many .md files, and list dated single-event docs (AUDIT/SCOPE/CALIBRATION/
+    PILOT/PROPOSAL/SESSION_END) that belong in dev/archive/. WARN-only — which
+    docs stay live needs human judgment."""
+    dev = REPO / "dev"
+    budget = 40
+    mds = sorted(p.name for p in dev.glob("*.md")) if dev.is_dir() else []
+    dated = [n for n in mds if _DATED_DOC_RE.match(n)]
+    violations: list = []
+    if len(mds) > budget:
+        violations.append({"dev_md_count": len(mds), "budget": budget})
+    violations.extend({"archive_candidate": f"dev/{n}"} for n in dated)
+    return {
+        "id": "dev_doc_sprawl",
+        "name": "dev/ doc sprawl",
+        "status": "warn" if violations else "pass",
+        "message": (
+            f"dev/ has {len(mds)} .md files (budget {budget}); {len(dated)} dated docs are archive candidates"
+            if violations
+            else f"dev/ has {len(mds)} .md files within budget"
+        ),
+        "violations": violations,
+    }
+
+
+_ARC_TAG_RE = re.compile(r"(γ\.\d|ω\.\d|gamma\.\d|omega\.\d)")
+_PCT_RE = re.compile(r"\d+\.\d+%")
+
+
+def check_rules_no_frozen_stats() -> dict:
+    """Finished-arc statistics (voice-composition percentages, entry counts)
+    belong in CHANGELOG/archive, not the always-read rules. WARN when
+    CLAUDE_PROJECT_RULES.md carries too many frozen percentage tokens or
+    dated-arc-tag + percentage lines."""
+    p = REPO / "dev" / "CLAUDE_PROJECT_RULES.md"
+    if not p.is_file():
+        return {
+            "id": "rules_no_frozen_stats",
+            "name": "Rules carry no frozen stats",
+            "status": "pass",
+            "message": "no rules file",
+            "violations": [],
+        }
+    lines = p.read_text(encoding="utf-8").splitlines()
+    pct_tokens = sum(len(_PCT_RE.findall(ln)) for ln in lines)
+    arc_pct_lines = [i for i, ln in enumerate(lines, 1) if _ARC_TAG_RE.search(ln) and _PCT_RE.search(ln)]
+    violations: list = []
+    if pct_tokens > 8:
+        violations.append({"percentage_tokens": pct_tokens, "budget": 8})
+    violations.extend({"arc_stat_line": i} for i in arc_pct_lines)
+    return {
+        "id": "rules_no_frozen_stats",
+        "name": "Rules carry no frozen stats",
+        "status": "warn" if violations else "pass",
+        "message": (
+            f"CLAUDE_PROJECT_RULES.md has {pct_tokens} percentage tokens + {len(arc_pct_lines)} "
+            "dated-arc-stat lines (move finished-arc stats to CHANGELOG/archive)"
+            if violations
+            else "rules carry no frozen-arc statistics"
+        ),
+        "violations": violations,
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -1430,6 +1571,10 @@ ALL_CHECKS = {
     "repo_map_complete": check_repo_map_complete,
     "freshness": check_session_state_freshness,
     "truth_record_budget": check_truth_record_budget,
+    "commercial_orphans": check_commercial_orphans,
+    "changelog_size": check_changelog_size,
+    "dev_doc_sprawl": check_dev_doc_sprawl,
+    "rules_no_frozen_stats": check_rules_no_frozen_stats,
     # Drift-catching tier (added after a real drift event)
     "inflight": check_inflight_freshness,
     "untracked_phases": check_untracked_phases,
