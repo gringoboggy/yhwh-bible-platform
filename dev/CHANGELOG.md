@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-30 — Mint-cleanup PHASE 1 COMPLETE — bootstrap slimmed ~310KB (rotation + RULES slim)
+
+**Phases shipped:** mint-cleanup Phase 1 (1.1 rotator · 1.2 rotate+trim · 1.3 RULES slim)
+**Test delta:** `tests/test_rotate_truth_records.py` +9 (new); `test_lint_guardrails` 35; omega0 / lint_rules / ci green; no regressions
+**Save tag:** local commits `3d6ff0a6` (1.1), `3142ef20` (1.2), + this 1.3 commit
+
+What shipped:
+- **1.1 — `scripts/rotate_truth_records.py`** (the `truth_record_budget` FIXER): keeps the header + newest N journal entries (default 2 = the budget's max_entries) + the stable trailing sections live, archives older `> **➤➤➤` entries to `dev/archive/<NAME>_archive.md` (newest batch first, date-ranged) via `notes_io.atomic_write`. Registered in `lint_rules.FIXERS` so `lint_rules.py --fix` self-heals a breach. Also fixed `check_truth_record_budget` to count entry-START lines (`> **➤➤➤`), not the bare glyph (an entry's prose may mention the marker; a stable `## ➤➤➤` heading is not an entry).
+- **1.2 — rotation + trim:** ran the rotator (`--apply`) → SESSION_STATE **187KB→6.5KB** (70→2 entries), IN_FLIGHT **135KB→5.7KB** (65→2); trimmed the stale always-read stable sections (the "What shipped 2026-05-21" narrative + the deadline-framed "Next") to concise CHANGELOG/archive pointers; replaced IN_FLIGHT's stale "## ➤➤➤ ACTIVE — Kings marathon" block with the current mint state. The dangling SESSION_STATE→`PLAN_2026-05-24-epub-presentation-polish.md` pointer auto-resolved (moved to archive).
+- **1.3 — `CLAUDE_PROJECT_RULES.md` slim 115KB→78KB (~30k tokens = the plan target):** via an **adversarial-verified workflow** (1 drafter + 4 section-range reviewers comparing against the untouched original; `all_clean` — 0 lost invariants, 0 changed-meaning, 0 broken cross-refs; it even fixed a pre-existing dangling `§6.7` ref). Extracted finished-arc narrative (the γ.4 voice-composition stats, the §8.1 instance list, the §9 χ-cluster/ω.35-B/Δ-family per-instance tallies, dated operational-guard history) → `dev/archive/RULES_HISTORY.md`. Resolved the 6 verified contradictions (deadline framing → "completeness over speed" sans date; §0↔PLAYBOOK plan filename; `_ship_*.py` retention → one line; v28a-NN → "saves are git commits"; 7-minute budget → "stop at logical seams"; §0 RAM/env duplication → pointer to PLAYBOOK §1). Re-framed §1/§10 to free-public present tense (no strike-throughs); added the §10 `term-ref-ok` waiver; removed `sonar`.
+- **Lint after Phase 1: 19 pass / 6 warn / 0 fail** (was 16/9/0). Newly GREEN: `rules_no_frozen_stats`, `truth_record_budget` (RULES re-baselined to an 85KB soft — the 50KB was mis-calibrated for ~30k tokens of unicode-dense content), `docs`. The 6 remaining warns are deliberate Phase-2/4/6 forcing-functions.
+
+Notable decisions:
+- **RULES slim drafted+verified by workflow, not a blind rewrite.** The drafter wrote a `.slim.md` sibling (original untouched for comparison); 4 reviewers each owned a §-range; the controller fixed the §10 `term-ref-ok` line placement (markdown had wrapped ISBN/ONIX off the marker line) before swapping `.slim.md` → `CLAUDE_PROJECT_RULES.md`.
+- **`retired_terms` stays WARN (5 refs):** RULES's `sonar` is gone, but PLAYBOOK (deadline ×2), REPO_MAP (`sonar`), and the soon-archived PLAN (deadline ×2) still carry refs — cleared in Phase 2 (PLAN/PLAYBOOK) + Phase 6 (`.sonar` sweep), then `_ENFORCE_RETIRED_TERMS` flips to FAIL.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (Phase 0 ✓, Phase 1 ✓, Phase 2 next); `dev/archive/RULES_HISTORY.md` (extracted history)
+
+---
+
 ## 2026-05-29 (cont.) — Mint-cleanup PHASE 0 COMPLETE — all 11 anti-bloat guards live
 
 **Phases shipped:** mint-cleanup Phase 0 (guards) — tail (guards 6–11 + 2 upgrades + save gate)

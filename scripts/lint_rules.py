@@ -1433,7 +1433,11 @@ _ENFORCE_HARD_TRUTH_BUDGET = False  # ← Phase 1 flips this to True
 _TRUTH_BUDGETS = {
     "dev/SESSION_STATE.md": {"soft": 60_000, "hard": 120_000, "max_entries": 2},
     "dev/IN_FLIGHT.md": {"soft": 40_000, "hard": 120_000, "max_entries": 2},
-    "dev/CLAUDE_PROJECT_RULES.md": {"soft": 50_000, "hard": None, "max_entries": None},
+    # RULES re-baselined 2026-05-30 after the Phase-1 slim (115KB → 78KB ≈ ~30k
+    # tokens, the plan's target). Soft set just above the slimmed size so the guard
+    # is a re-bloat sentinel from the new baseline, not permanently red; WARN-only
+    # (curated, not auto-rotated). rules_no_frozen_stats is the finer anti-bloat check.
+    "dev/CLAUDE_PROJECT_RULES.md": {"soft": 85_000, "hard": None, "max_entries": None},
 }
 
 
