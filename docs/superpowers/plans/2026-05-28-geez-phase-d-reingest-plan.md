@@ -1,6 +1,6 @@
 # Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. **§11 + the §11 Correction**) FIRST, then the bootstrap triad (RULES → SESSION_STATE → end-scope PLAN).
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. **§11 + the §11 Correction**) FIRST, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0).
 
 **Goal:** Re-ingest KJV-renumbered Geʽez books to their OWN versification so they join the standalone Geʽez Bible — proven end-to-end on **Wisdom of Solomon** via the clean HaCohen path, then **Sirach**; the Patrologia vision-transcription lane (D1b) + the distinctive-source acquisition lane (D2) get their own detailed plans at their start.
 

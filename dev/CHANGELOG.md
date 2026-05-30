@@ -6,6 +6,33 @@
 
 ---
 
+## 2026-05-30 (cont.) — Mint-cleanup PHASE 2 COMPLETE — master roadmap refreshed; `triad_plan_consistency` + `retired_terms` GREEN + ENFORCED
+
+**Phases shipped:** mint-cleanup Phase 2 (roadmap refresh)
+**Test delta:** `test_lint_guardrails.py` 36 (3 WARN-tier asserts → state-aware `"fail" if _ENFORCE_* else "warn"` per RULES §8; renamed `test_warns_*`→`test_flags_*`); collected count unchanged
+**Save tag:** local commit (this turn) + E:/F: backup
+
+What shipped:
+- **New master roadmap `dev/PLAN_2026-05-29-roadmap.md`** replaces the archived `PLAN_2026-05-24-end-scope.md`: deadline-free, reality-accurate — standalone Ge'ez A–C **shipped** (4 books, epubcheck 0/0/0/0); Phase-D Esther own-vers vision lane = critical path (paused p28); the **own-vers §4 parallel-data-lane model** (render NOT gated on the marathon); the two-standalone-Bibles end-state; the carried-forward P0–P4/TIER backlog as LANE T. Lane-structured with a "Depends" table column; **no glyph-ledger headers / no greek ids after `**Depends:**`** so `plan_coherence` stays green (4/4 sub-checks).
+- **`git mv` → `dev/archive/`:** `PLAN_2026-05-24-end-scope.md` + `SCOPE_2026-05-14-parallel-bible.md` (PLAN_SINGULAR: exactly one live `dev/PLAN_*.md`).
+- **Triad plan-name synced** across RULES §0 (read-order block + companion-maps line) + SESSION_PLAYBOOK §1/§7 + REPO_MAP + both `bootstrap-triad.ps1` (runtime `.claude/hooks/` + tracked `dev/cc-hooks/`) + cc-hooks README (×2) → `triad_plan_consistency` PASS; flipped `_ENFORCE_TRIAD_PLAN`=True (lint_rules.py:1641).
+- **Retired-term refs cleared + ENFORCED:** PLAYBOOK ("hard deadline" §4, "Deadline: 2026-06-07" §7) + REPO_MAP (`sonar`/`SonarQube` tooling row) reworded; the 2 archived-PLAN refs left the top-level scan automatically. Flipped `_ENFORCE_RETIRED_TERMS`=True (lint_rules.py:1640) — pulled forward from the earlier Phase-6 prediction: the REPO_MAP edit is pure text, independent of the physical scanner-dir sweep.
+- **PLAYBOOK §7 de-staled:** dropped the deadline + the now-WRONG "script-based (not agents)" marathon note (the AGENT vision path is RATIFIED) + the historical phi/jam detail; now points at the new roadmap and the own-vers §4 lanes.
+- **Lint after Phase 2: 20 pass / 5 warn / 0 fail (EXIT 0).** `triad_plan_consistency` + `retired_terms` newly GREEN + FAIL-enforced. The 5 warns: `doc_cross_references` (the SCOPE_2026-05-07 addenda, unmasked by archiving the old plan's doc-index — exactly the Phase-3 archive targets; the check is archive-aware), `commercial_orphans` + `commercial_terms` (Phase 4), `dev_doc_sprawl` (Phase 3), `changelog_size` (manual month-roll). NO production code path touched.
+
+Notable decisions:
+- **Depends edges as a table column, not greek-tag `**Depends:**` lines.** `lint_plan`'s DEPENDS_VALID only validates greek-letter / χ-AI-xrefs / vX.Y.Z phase ids; the forward roadmap is organized by named arcs (mint-N, Phase-D, lanes A/M/P/T). Forcing greek tags purely to trip the regex would be the over-engineering the mint cleanup explicitly rejects — so dependency edges are encoded readably and `plan_coherence` passes (vacuously, as it did before).
+- **Archiving the old plan unmasked 20 doc-xref WARNs** — it had been listing the soon-to-archive SCOPEs as a doc-index crutch. Left as the Phase-3 forcing function rather than re-masking.
+
+Retrospective:
+- Rule applied: a guard flipped to FAIL-tier gets a **state-aware** test (`"fail" if _ENFORCE_* else "warn"`, RULES §8) so it tracks the one-way enforce ratchet instead of hard-coding a tier. Codified in the 3 renamed guardrail tests.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (Phase 0 ✓, 1 ✓, 2 ✓, 3 next)
+- `dev/PLAN_2026-05-29-roadmap.md` (the new live master roadmap)
+
+---
+
 ## 2026-05-30 — Mint-cleanup PHASE 1 COMPLETE — bootstrap slimmed ~310KB (rotation + RULES slim)
 
 **Phases shipped:** mint-cleanup Phase 1 (1.1 rotator · 1.2 rotate+trim · 1.3 RULES slim)

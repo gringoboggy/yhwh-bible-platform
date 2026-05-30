@@ -1,6 +1,6 @@
 # Ge'ez Standalone-Bible Render Path (Phase C) — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. §3.4–§3.5 + §9 "Phase C — resolved decisions") FIRST, then the bootstrap triad (RULES → SESSION_STATE → end-scope PLAN).
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. §3.4–§3.5 + §9 "Phase C — resolved decisions") FIRST, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0).
 
 **Goal:** Build a dedicated standalone-Bible render path that turns the own-versification Ge'ez data (the 10 base-structured Kings/Samuel collations + own-versified Psalms) into a valid standalone Ge'ez Bible EPUB whose verse popups carry the KJV cross-reference + the manuscript apparatus — while the 9 KJV editions stay byte-stable.
 

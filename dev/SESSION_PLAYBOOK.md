@@ -16,7 +16,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 
 ## 1. SESSION START — orient, in this order
 
-1. **Read the bootstrap triad** (RULES §0): `dev/CLAUDE_PROJECT_RULES.md` → `dev/SESSION_STATE.md` → `dev/PLAN_2026-05-21.md` (incl. its **§4.1 forward refresh**). Then `dev/IN_FLIGHT.md` — check the `<!-- TRACKER-STATE: idle|active -->` marker.
+1. **Read the bootstrap triad** (RULES §0): `dev/CLAUDE_PROJECT_RULES.md` → `dev/SESSION_STATE.md` → `dev/PLAN_2026-05-29-roadmap.md`. Then `dev/IN_FLIGHT.md` — check the `<!-- TRACKER-STATE: idle|active -->` marker.
 2. **Check auto-memory** — the `MEMORY.md` index (durable user prefs, gotchas, decisions).
 3. **"Where does X live / how does data flow?"** → read `dev/MATRIX_MAP.md` + `dev/REPO_MAP.md` **first**; never grep blind (RULES §0).
 4. **Free RAM before heavy work — AGGRESSIVE, every session (16 GB box; bootstrap-mandated, RULES §0).** End **every** process not needed for Windows / the network / Claude / Claude's toolchain — not just leaked runtimes. **PROTECT** (never kill — the safety boundary): Windows core (`svchost`/`dwm`/`Registry`/`Memory Compression`/`Secure System`/`csrss`/`lsass`/…), the session tree (`claude`/`pwsh`/`powershell`/`WindowsTerminal`/`explorer` — map it via a `$PID` parent-chain walk so it's never a target), `node` (MCP + runtime), `MsMpEng`+AV (**stays ON**), the network stack. **KILL** (recoverable): 0-window background browsers + `msedgewebview2`, cloud-sync (`iCloud*`/`OneDrive`/`Dropbox`), vendor updaters (Intel DSA/`esrv`), optional MS apps (`M365Copilot`/`Widgets`/`AppActions`/Cross-Device), `SystemSettings`, the respawning shell hosts (`SearchHost`/`StartMenuExperienceHost`/`ShellExperienceHost`), and any **leaked** `python`/`java` orphaned by a prior crash. Report reclaimed RAM. Also clear stale temp/build artifacts (repo-parent `_*` probe + `_*epubcheck` dirs, orphaned PyInstaller `_MEI*`, `hs_err_pid*`/`replay_pid*` JVM logs). Pairs with the §2 heavy-trio-sequential rule + the §6.5 session-end junk-sweep.
@@ -55,7 +55,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 
 - **TDD** — failing test first (RED), then fix (GREEN). [`superpowers:test-driven-development`]
 - **Byte-compat invariant** — for any regen/refactor, PROVE zero unintended change: regen + `git diff` shows **only** the intended change (pure deletions/additions, no reformat churn). This has caught real bugs.
-- **Don't break the tree** — first programming project, hard deadline. Verify before claiming done; no `--no-verify`/shortcut bypasses.
+- **Don't break the tree** — first programming project; correctness is the bar. Verify before claiming done; no `--no-verify`/shortcut bypasses.
 - **`tests/test_scripts.py` is runnable again** — **976 tests, ~2.9 min, green** (2026-05-24). Both blockers fixed: D.hang (9 socket tests → `ThreadingHTTPServer` + `test_ops` mocks `api_preflight`) and **D.slow** (a session-autouse conftest fixture, `_stub_exports_epubcheck`, stubs the real epubcheck/Java run over the populated `exports/` dir — minutes per call — while leaving `TestEpubcheckWrapper`'s tmp-dir calls real). The old "NEVER run the full test_scripts.py" rule is **retired** — a full run is a normal ~3 min now. `test_web_filesplit.py` (88 tests, ~11 s) and `test_matrix_psi35.py` (39, ~12 s) are **also fast now** — the same session-autouse `_stub_exports_epubcheck` conftest fixture covers them (their slowness was the same `api_preflight()`→epubcheck-over-`exports/` path; test_web_filesplit alone made 15 such calls). Targeted node-ids / `-k` are still faster for single-test iteration (RAM pressure: one file at a time).
 - **`subprocess.run` → always `stdin=subprocess.DEVNULL`** on Windows (WinError 6).
 - **ruff-format before save** every file you generated/regenerated — **especially `content/translations/<id>/` stores** (recurs on every ingest) — or the pre-commit hook blocks (RULES §4).
@@ -103,12 +103,12 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 
 ---
 
-## 7. CURRENT OPEN WORK (2026-05-24 — see `dev/PLAN_2026-05-21.md` §4.1 + `dev/AUDIT_2026-05-23-DEEP.md`)
+## 7. CURRENT OPEN WORK (see `dev/PLAN_2026-05-29-roadmap.md` for the full forward sequence)
 
-- **Deadline: 2026-06-07.**
-- **Critical path:** the Geʽez/Amharic Kings/Samuel manuscript marathon (Track B) — paced, **script-based** (`run_manuscript_*_at_scale.py`, not agents), OOM-aware.
-- **Audit QUEUED backlog (PLAN §4.1):** P0 ★BUGCLUSTER (code-fix `c41e6d2` + **data-cleanup DONE 2026-05-24** — see below) · **P0 C1.chap >50-ch backfill** (re-run hebrew/greek at-scale for Psalms 51-150 / Isaiah / Jeremiah — runner-key-50-default, now code-fixed; NEXT) · P1 security G1 `file://` SSRF + G2 preview-XSS (open; CC0→all-rights-reserved done) · P2 wire the 4 dead audit-checks (`audit_dead_code/caches/deps/types`) into preflight.
-- **✅ phi/jam DATA-cleanup — DONE 2026-05-24 (committed).** 165 spurious `lang-hebrew` stripped (AST-span, 1,815 pure deletions) + 270 `lang-greek` generated/promoted (phi 156, jam 114; `--min-confidence 0.65`); corpus 67,713→67,818. `epub_working` updated by the SURGICAL method (§3), NOT the lossy bare-base regen. TDD guard `TestNTBookLanguageInvariant`. All gates green. **Resolved findings (for the record):** the promote "didn't insert" symptom was the `book=php` code-drift (fixed by `c41e6d2` — 270/270 land with canonical codes); the "Hebrew-re-add" was `run_greek_at_scale.write_queue` merge-preserving stale non-greek candidates (mitigated by clearing the 19 stale `phi/jam/php/jas` candidate files first).
+- **No deadline — quality / completeness over speed** (RULES §2; memory `project_deadline`).
+- **Near-term spine:** mint cleanup Phase 2 (this) → 3 archive sweep → 4 decommercialize (CHECKPOINT first) → 5 enforce gates (remote + CI) → 6 polish; **Phase D1b** (PO Esther own-vers vision lane, paused at p28) resumes in parallel after Phase 2.
+- **Critical data lanes (own-vers §4 — parallel; neither blocks the standalone render):** the Kings/Samuel manuscript marathon + the Phase-D own-versification re-ingest. Method RATIFIED = the **AGENT** vision path (paid script-API out of scope; the old `run_manuscript_*_at_scale.py` script-path is retired), MAX 1 heavy agent, ≤1568px crops, per-unit commits.
+- **Backlog (corpus-correctness first):** the ★BUGCLUSTER book-code canonicalization + the >50-chapter at-scale backfill; then security / coverage / no-KJV-popups / Phase-E / code-debt per the roadmap's LANE T. Verify current state before re-scoping (several may be partly done since the old plan).
 
 ---
 

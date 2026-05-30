@@ -53,7 +53,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
 | **15** | **Chain of command** — the tier hierarchy (user > rules > skills > defaults) as a matrix. |
 
 Companion maps: `dev/MATRIX_MAP.md` (data-flow + base-HTML), `dev/REPO_MAP.md`
-(file/folder index), `dev/PLAN_2026-05-24-end-scope.md` (roadmap), `dev/CHANGELOG.md`
+(file/folder index), `dev/PLAN_2026-05-29-roadmap.md` (roadmap), `dev/CHANGELOG.md`
 (shipped chronology). **Lifecycle companion: `dev/SESSION_PLAYBOOK.md`** — the
 order-of-operations guide (session start → work → verify → finish-clean) with the
 consolidated verification gates + the environment/gotcha list in one place; read it
@@ -69,7 +69,7 @@ Every fresh session begins by reading, in this order:
 ```
 1. dev/CLAUDE_PROJECT_RULES.md       (this file — rules + conventions)
 2. dev/SESSION_STATE.md              (live snapshot — what shipped, what's next, test count)
-3. dev/PLAN_2026-05-24-end-scope.md  (master end-scope sequence; PLAN_2026-05-21
+3. dev/PLAN_2026-05-29-roadmap.md    (master forward sequence; PLAN_2026-05-21
                                       retained in dev/archive/ for Track B/C detail
                                       + phase-history)
 ```

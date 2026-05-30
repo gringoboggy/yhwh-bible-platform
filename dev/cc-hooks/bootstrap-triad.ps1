@@ -3,7 +3,7 @@ Write-Output @'
 Before any other tool call or response this session, READ THE TRIAD IN ORDER:
   1. YHWH v2.4/dev/CLAUDE_PROJECT_RULES.md       (rules + conventions + mental models)
   2. YHWH v2.4/dev/SESSION_STATE.md              (latest snapshot: shipped / next / test count)
-  3. YHWH v2.4/dev/PLAN_2026-05-24-end-scope.md  (master forward sequence)
+  3. YHWH v2.4/dev/PLAN_2026-05-29-roadmap.md    (master forward sequence)
 
 "continue" / "push" / "go ahead" at the start of a FRESH session MEANS:
 "read the triad first, THEN resume the in-flight work." It does NOT mean

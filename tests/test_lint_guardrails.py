@@ -166,14 +166,15 @@ class TestCommercialTerms:
 
 
 class TestRetiredTerms:
-    def test_warns_on_deadline_and_sonar(self, tmp_path, monkeypatch):
+    def test_flags_deadline_and_sonar(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         (tmp_path / "dev").mkdir()
         (tmp_path / "dev" / "SESSION_PLAYBOOK.md").write_text(
             "Deadline: 2026-06-07 (hard deadline). Run sonar before ship.\n", encoding="utf-8"
         )
         r = lint_rules.check_retired_terms()
-        assert r["status"] == "warn"
+        # FAIL-tier once Phase 2 flipped _ENFORCE_RETIRED_TERMS; WARN before (state-aware, RULES §8).
+        assert r["status"] == ("fail" if lint_rules._ENFORCE_RETIRED_TERMS else "warn")
         assert {v["term"] for v in r["violations"]} >= {"2026-06-07", "hard deadline", "sonar"}
 
     def test_passes_when_clean(self, tmp_path, monkeypatch):
@@ -206,18 +207,19 @@ class TestTriadPlanConsistency:
         self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=True, plan_live=True)
         assert lint_rules.check_triad_plan_consistency()["status"] == "pass"
 
-    def test_warns_when_playbook_diverges(self, tmp_path, monkeypatch):
+    def test_flags_when_playbook_diverges(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=False, plan_live=True)
         r = lint_rules.check_triad_plan_consistency()
-        assert r["status"] == "warn"
+        # FAIL-tier once Phase 2 flipped _ENFORCE_TRIAD_PLAN; WARN before (state-aware, RULES §8).
+        assert r["status"] == ("fail" if lint_rules._ENFORCE_TRIAD_PLAN else "warn")
         assert any("SESSION_PLAYBOOK" in v.get("issue", "") for v in r["violations"])
 
-    def test_warns_when_plan_archived(self, tmp_path, monkeypatch):
+    def test_flags_when_plan_archived(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=True, plan_live=False)
         r = lint_rules.check_triad_plan_consistency()
-        assert r["status"] == "warn"
+        assert r["status"] == ("fail" if lint_rules._ENFORCE_TRIAD_PLAN else "warn")
         assert any("not live" in v.get("issue", "") for v in r["violations"])
 
     def test_registered(self):

@@ -1637,8 +1637,8 @@ def check_rules_no_frozen_stats() -> dict:
 # becomes a hard FAIL and reintroduction is permanently blocked.
 # ----------------------------------------------------------------------
 _ENFORCE_COMMERCIAL = False  # ← Phase 4 (decommercialize) flips this
-_ENFORCE_RETIRED_TERMS = False  # ← Phase 1 (slim bootstrap) flips this once clean
-_ENFORCE_TRIAD_PLAN = False  # ← Phase 2 (roadmap refresh) flips this
+_ENFORCE_RETIRED_TERMS = True  # ← Phase 2 flipped (old PLAN archived + PLAYBOOK/REPO_MAP refs cleared)
+_ENFORCE_TRIAD_PLAN = True  # ← Phase 2 (roadmap refresh) flipped
 _ENFORCE_STRAY_ARTIFACTS = (
     True  # tree verified clean 2026-05-29 → FAIL-tier (blocks future junk; git-aware, gitignored scratch exempt)
 )

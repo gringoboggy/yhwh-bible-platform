@@ -7,7 +7,7 @@ Tracked source-of-truth for the per-project Claude Code hook + installer.
 
 | File | Role |
 |---|---|
-| `bootstrap-triad.ps1` | SessionStart hook — forces every fresh Claude session to read the triad (`dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_*-end-scope.md`) before acting. |
+| `bootstrap-triad.ps1` | SessionStart hook — forces every fresh Claude session to read the triad (`dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_2026-05-29-roadmap.md`) before acting. |
 | `install_cc_hooks.ps1` | Idempotent installer — copies the hook into the cwd-parent `.claude/hooks/` and patches `.claude/settings.json` to register it. |
 | `README.md` | This file. |
 
@@ -67,6 +67,6 @@ The hook output names them by relative path. They live at the repo root
 
 - `dev/CLAUDE_PROJECT_RULES.md` — rules, conventions, mental models
 - `dev/SESSION_STATE.md` — current snapshot (shipped / next / test count)
-- `dev/PLAN_2026-05-24-end-scope.md` — master forward sequence
+- `dev/PLAN_2026-05-29-roadmap.md` — master forward sequence
 - `dev/IN_FLIGHT.md` — current task tracker (read after the triad if its
   `TRACKER-STATE` is active)
