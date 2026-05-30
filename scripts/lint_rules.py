@@ -47,6 +47,7 @@ import json
 import ast  # ω.9 — AST-based atomic-writes audit
 import os  # ω.18 — os.utime for the freshness fixer
 import re
+import subprocess  # 2026-05-29 mint guard — git-aware stray-artifact scan
 import sys
 import time  # ω.23 — per-check timing for the --profile flag
 from pathlib import Path
@@ -358,36 +359,52 @@ def check_encode_decode_round_trip() -> dict:
 
 
 def check_doc_cross_references() -> dict:
-    """Every addendum referenced in PLAN exists on disk; every active
-    addendum in dev/ is mentioned in PLAN or SESSION_STATE.
+    """Every SCOPE addendum referenced in the live PLAN / SESSION_STATE exists on
+    disk **live OR in dev/archive/** (archive-aware — 2026-05-29 mint Task 0.6, so
+    the Phase-3 sweep can move docs without stranding their references); every
+    LIVE (non-archived) SCOPE addendum is referenced somewhere. Also validates
+    that ``dev/*.md`` links cited in the PLAN / SESSION_STATE / SECURITY / README
+    resolve (live or archived) — catches dangling pointers.
 
-    Auto-discovers the active PLAN by picking the lexicographically
-    latest ``dev/PLAN_*.md`` (date-suffixed → newest wins). Survives
-    PLAN refreshes without code changes. Falls back to PLAN_2026-05-07
-    if no date-stamped file is present.
+    Auto-discovers the active PLAN by picking the lexicographically latest
+    ``dev/PLAN_*.md``. Falls back to PLAN_2026-05-07 if none is present.
     """
-    plan_files = sorted((REPO / "dev").glob("PLAN_*.md"))
-    plan_path = plan_files[-1] if plan_files else (REPO / "dev" / "PLAN_2026-05-07.md")
-    plan = plan_path.read_text(encoding="utf-8")
-    session = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
-    referenced_text = plan + "\n" + session
+    dev = REPO / "dev"
 
-    # Find every "dev/SCOPE_..." reference in the PLAN+SESSION
+    def _read(p: Path) -> str:
+        return p.read_text(encoding="utf-8") if p.is_file() else ""
+
+    plan_files = sorted(dev.glob("PLAN_*.md"))
+    plan_path = plan_files[-1] if plan_files else (dev / "PLAN_2026-05-07.md")
+    referenced_text = _read(plan_path) + "\n" + _read(dev / "SESSION_STATE.md")
+
+    # Every "dev/SCOPE_..." reference in the PLAN+SESSION.
     referenced = set(re.findall(r"dev/SCOPE_[A-Za-z0-9_\-]+\.md", referenced_text))
 
-    # Actual addendum files in dev/
-    actual = set()
-    for p in (REPO / "dev").glob("SCOPE_*.md"):
-        actual.add(f"dev/{p.name}")
-
-    missing_on_disk = referenced - actual
-    orphan_files = actual - referenced
+    # Actual SCOPE files: LIVE (dev/ top level) + archived (dev/archive/** — by
+    # bare name, so a reference by bare name still resolves after the sweep).
+    actual_live = {f"dev/{p.name}" for p in dev.glob("SCOPE_*.md")}
+    archived_names = {p.name for p in dev.rglob("SCOPE_*.md")} - {Path(a).name for a in actual_live}
 
     violations: list[dict] = []
-    for ref in sorted(missing_on_disk):
-        violations.append({"issue": "referenced but missing on disk", "doc": ref})
-    for f in sorted(orphan_files):
-        violations.append({"issue": "exists but not referenced anywhere", "doc": f})
+    for ref in sorted(referenced):
+        bare = ref.split("/")[-1]
+        if ref not in actual_live and bare not in archived_names:
+            violations.append({"issue": "referenced but missing (live or archive)", "doc": ref})
+    for f in sorted(actual_live - referenced):
+        violations.append({"issue": "live but not referenced (archive candidate)", "doc": f})
+
+    # Dangling intra-repo dev/*.md links cited in the key docs.
+    link_text = "\n".join(
+        _read(p) for p in (plan_path, dev / "SESSION_STATE.md", dev / "SECURITY.md", REPO / "README.md")
+    )
+    archive_dir = dev / "archive"
+    for c in sorted(set(re.findall(r"dev/[A-Za-z0-9_\-/]+\.md", link_text))):
+        bare = c.split("/")[-1]
+        live_ok = (REPO / c).is_file()
+        archive_ok = archive_dir.is_dir() and any(archive_dir.rglob(bare))
+        if not live_ok and not archive_ok:
+            violations.append({"issue": "dangling dev/ link", "doc": c})
 
     return {
         "id": "docs",
@@ -396,9 +413,9 @@ def check_doc_cross_references() -> dict:
         "message": (
             f"{len(violations)} doc reference issue(s)"
             if violations
-            else f"all {len(actual)} scope addenda referenced consistently"
+            else f"all {len(actual_live)} live scope addenda referenced consistently"
         ),
-        "violations": violations,
+        "violations": violations[:40],
     }
 
 
@@ -1234,10 +1251,35 @@ def check_plan_coherence() -> dict:
     }
 
 
+# Repo-root-relative path prefixes for the REPO_MAP reverse-path check. Only
+# tokens that START with one of these are validated, so section-relative
+# citations (META-INF/container.xml, core/config.py, …) don't false-positive.
+_REPO_MAP_TOP_PREFIXES = (
+    "content/",
+    "scripts/",
+    "dev/",
+    "tests/",
+    "epub_working/",
+    "docs/",
+    "exports/",
+    "assets/",
+    "GAPS/",
+    "project_maccabees_expansion/",
+)
+
+
 def check_repo_map_complete() -> dict:
-    """Every non-hidden top-level directory must be documented in dev/REPO_MAP.md
-    — the file/folder index of record. Anti-rot mirror of dev/trace_repo.py, so the
-    "find anything from the map" guarantee can't silently lapse as the tree grows."""
+    """(1) Every non-hidden top-level dir is documented in dev/REPO_MAP.md; (2) every
+    backtick-quoted repo-root-relative path cited in the map still resolves on disk
+    (reverse-path drift — 2026-05-29 mint Task 0.7). Anti-rot mirror of
+    dev/trace_repo.py. Ships WARN; Phase 5 regenerates REPO_MAP post-deletion and
+    flips ``_ENFORCE_REPO_MAP`` so drift/missing becomes a hard FAIL.
+
+    Reverse-path validation is intentionally limited to tokens beginning with a
+    known top-level dir, and skips glob/placeholder tokens (``*``, ``<>``, ``{}``,
+    ``..``), so the freeform prose counts + section-relative paths in the map can't
+    produce false positives. (Brittle prose-COUNT parsing is deliberately NOT
+    attempted — path-existence drift is the robust, false-positive-free signal.)"""
     repo_map = REPO / "dev" / "REPO_MAP.md"
     skip = {
         ".git",
@@ -1261,17 +1303,32 @@ def check_repo_map_complete() -> dict:
             "violations": [],
         }
     text = repo_map.read_text(encoding="utf-8")
-    undoc = [
-        p.name
+    violations: list = [
+        {"undocumented_dir": p.name}
         for p in sorted(REPO.iterdir())
         if p.is_dir() and not p.name.startswith(".") and p.name not in skip and (p.name + "/") not in text
     ]
+    for tok in sorted(set(re.findall(r"`([^`\s]+)`", text))):
+        token = tok.rstrip("/")
+        if not token.startswith(_REPO_MAP_TOP_PREFIXES):
+            continue
+        if any(ch in token for ch in "*<>{}") or ".." in token:
+            continue
+        if not (REPO / token).exists():
+            violations.append({"dangling_path": tok})
+    n_dangle = sum(1 for v in violations if "dangling_path" in v)
+    n_undoc = len(violations) - n_dangle
+    status = "pass" if not violations else ("fail" if _ENFORCE_REPO_MAP else "warn")
     return {
         "id": "repo_map_complete",
         "name": "Repo map documents every top-level dir",
-        "status": "warn" if undoc else "pass",
-        "message": (f"{len(undoc)} top-level dir(s) not in REPO_MAP.md" if undoc else "all top-level dirs documented"),
-        "violations": [{"undocumented_dir": d} for d in undoc],
+        "status": status,
+        "message": (
+            "all top-level dirs documented + cited paths resolve"
+            if not violations
+            else f"{n_undoc} undocumented dir(s) + {n_dangle} dangling path(s) in REPO_MAP.md"
+        ),
+        "violations": violations[:50],
     }
 
 
@@ -1563,6 +1620,276 @@ def check_rules_no_frozen_stats() -> dict:
     }
 
 
+# ----------------------------------------------------------------------
+# 2026-05-29 mint-audit anti-bloat guards — Phase 0 tail
+#   commercial_terms · retired_terms · triad_plan_consistency · stray_artifacts
+#
+# Each ships WARN while a breach still exists — a pre-commit `fail` would brick
+# its own adding commit (the pre-commit hook blocks on any FAIL). The matching
+# cleanup phase flips the guard's ``_ENFORCE_*`` flag to True so the breach
+# becomes a hard FAIL and reintroduction is permanently blocked.
+# ----------------------------------------------------------------------
+_ENFORCE_COMMERCIAL = False  # ← Phase 4 (decommercialize) flips this
+_ENFORCE_RETIRED_TERMS = False  # ← Phase 1 (slim bootstrap) flips this once clean
+_ENFORCE_TRIAD_PLAN = False  # ← Phase 2 (roadmap refresh) flips this
+_ENFORCE_STRAY_ARTIFACTS = (
+    True  # tree verified clean 2026-05-29 → FAIL-tier (blocks future junk; git-aware, gitignored scratch exempt)
+)
+_ENFORCE_REPO_MAP = False  # ← Phase 5 (regenerate REPO_MAP) flips this
+
+
+# Curated, always-read PROCESS docs scanned by the term guards. Deliberately
+# EXCLUDES the append-only journal (CHANGELOG.md), the rolling state docs
+# (SESSION_STATE.md / IN_FLIGHT.md), and dev/archive/ — those legitimately
+# reference the commercial past and the retired deadline, so scanning them would
+# make these guards permanently un-greenable.
+_CURATED_DOC_NAMES = (
+    "CLAUDE_PROJECT_RULES.md",
+    "SESSION_PLAYBOOK.md",
+    "MATRIX_MAP.md",
+    "REPO_MAP.md",
+    "SCHEMAS.md",
+    "SECURITY.md",
+    "PERF_BUDGETS.md",
+    "ROADMAP_FUTURE.md",
+)
+
+# Line-level waiver — a line bearing this marker is exempt from the term scans
+# (e.g. the §10 "what this is NOT" pivot note, which must NAME the dropped
+# commercial surfaces to document the 2026-05-14 free-public pivot).
+_TERM_WAIVER = "term-ref-ok"
+
+
+def _curated_dev_docs() -> list[Path]:
+    """The curated process docs + the single live PLAN (never the journals)."""
+    dev = REPO / "dev"
+    if not dev.is_dir():
+        return []
+    docs = [dev / n for n in _CURATED_DOC_NAMES if (dev / n).is_file()]
+    docs += sorted(dev.glob("PLAN_*.md"))  # PLAN_SINGULAR → one live plan
+    return docs
+
+
+def _live_script_files() -> list[Path]:
+    """``*.py`` under scripts/, excluding dev/archive parts, ``test_`` files, and
+    ``lint_rules.py`` itself (which carries the denylist terms as literals)."""
+    sd = REPO / "scripts"
+    if not sd.is_dir():
+        return []
+    out: list[Path] = []
+    for p in sd.rglob("*.py"):
+        if "archive" in p.parts or p.name.startswith("test_") or p.name == "lint_rules.py":
+            continue
+        out.append(p)
+    return out
+
+
+_COMMERCIAL_TERMS = (
+    "royalty",
+    "royalties",
+    "KDP",
+    "retailer",
+    "Apple Books",
+    "Google Play",
+    "ISBN",
+    "ONIX",
+    "pricing",
+    "sales_record",
+)
+_COMMERCIAL_TERM_RE = re.compile(r"(?i)\b(" + "|".join(re.escape(t) for t in _COMMERCIAL_TERMS) + r")\b")
+
+
+def check_commercial_terms() -> dict:
+    """The 2026-05-14 free-public pivot dropped retail / ISBN / ONIX / store
+    distribution. Commercial vocabulary must not live in the always-read process
+    docs or in live code. Ships WARN while breaches remain; Phase 4 flips
+    ``_ENFORCE_COMMERCIAL`` so reintroduction becomes a hard FAIL. Allowlist: any
+    file whose name carries ``archive_org`` (legit free distribution) + any line
+    bearing the ``term-ref-ok`` waiver marker (the §10 pivot note)."""
+    violations: list = []
+    targets = [(p, str(p.relative_to(REPO)).replace("\\", "/")) for p in _curated_dev_docs()]
+    targets += [(p, str(p.relative_to(REPO)).replace("\\", "/")) for p in _live_script_files()]
+    for p, rel in targets:
+        if "archive_org" in p.name:
+            continue
+        try:
+            for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+                if _TERM_WAIVER in line:
+                    continue
+                m = _COMMERCIAL_TERM_RE.search(line)
+                if m:
+                    violations.append({"path": rel, "line": i, "term": m.group(0)})
+        except (OSError, UnicodeDecodeError):
+            continue
+    status = "pass" if not violations else ("fail" if _ENFORCE_COMMERCIAL else "warn")
+    return {
+        "id": "commercial_terms",
+        "name": "No commercial-era vocabulary",
+        "status": status,
+        "message": (
+            "no commercial vocabulary in process docs / live code"
+            if not violations
+            else f"{len(violations)} commercial-term reference(s) remain (removed in Phase 4)"
+        ),
+        "violations": violations[:40],
+    }
+
+
+_RETIRED_TERMS = ("2026-06-07", "hard deadline", "sonar")
+
+
+def check_retired_terms() -> dict:
+    """Retired project vocabulary must not live in the always-read process docs:
+    the dropped hard deadline (``2026-06-07`` / ``hard deadline`` — superseded by
+    the 'completeness over speed' principle) and the removed ``sonar`` tooling.
+    Ships WARN while breaches remain; Phase 1 flips ``_ENFORCE_RETIRED_TERMS``
+    once the slim makes it clean, so reintroduction becomes a hard FAIL."""
+    violations: list = []
+    for p in _curated_dev_docs():
+        rel = str(p.relative_to(REPO)).replace("\\", "/")
+        try:
+            for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+                if _TERM_WAIVER in line:
+                    continue
+                low = line.lower()
+                for t in _RETIRED_TERMS:
+                    if t.lower() in low:
+                        violations.append({"path": rel, "line": i, "term": t})
+        except (OSError, UnicodeDecodeError):
+            continue
+    status = "pass" if not violations else ("fail" if _ENFORCE_RETIRED_TERMS else "warn")
+    return {
+        "id": "retired_terms",
+        "name": "No retired vocabulary",
+        "status": status,
+        "message": (
+            "no retired vocabulary in process docs"
+            if not violations
+            else f"{len(violations)} retired-term reference(s) remain (removed in the slim)"
+        ),
+        "violations": violations[:40],
+    }
+
+
+_PLAN_FILE_RE = re.compile(r"PLAN_\d{4}-\d{2}-\d{2}[A-Za-z0-9_\-]*\.md")
+
+
+def check_triad_plan_consistency() -> dict:
+    """The bootstrap triad's PLAN reference must be consistent + live. The plan
+    named in the authoritative ``dev/cc-hooks/bootstrap-triad.ps1`` must also be
+    named in ``CLAUDE_PROJECT_RULES.md`` (§0) and ``SESSION_PLAYBOOK.md``, and
+    must resolve to a LIVE (non-archived) ``dev/<plan>``. Ships WARN; Phase 2
+    (roadmap refresh, names the new plan in all three) flips
+    ``_ENFORCE_TRIAD_PLAN`` so future divergence is a hard FAIL."""
+    dev = REPO / "dev"
+    hook = dev / "cc-hooks" / "bootstrap-triad.ps1"
+    rules = dev / "CLAUDE_PROJECT_RULES.md"
+    playbook = dev / "SESSION_PLAYBOOK.md"
+    violations: list = []
+    if not hook.is_file():
+        violations.append({"issue": "bootstrap-triad.ps1 not found", "path": "dev/cc-hooks/bootstrap-triad.ps1"})
+    else:
+        hook_plans = sorted(set(_PLAN_FILE_RE.findall(hook.read_text(encoding="utf-8"))))
+        if len(hook_plans) != 1:
+            violations.append(
+                {"issue": f"bootstrap hook names {len(hook_plans)} plans (expected 1)", "plans": hook_plans}
+            )
+        else:
+            canonical = hook_plans[0]
+            rules_txt = rules.read_text(encoding="utf-8") if rules.is_file() else ""
+            pb_txt = playbook.read_text(encoding="utf-8") if playbook.is_file() else ""
+            if canonical not in rules_txt:
+                violations.append({"issue": "triad plan not named in CLAUDE_PROJECT_RULES.md", "plan": canonical})
+            if canonical not in pb_txt:
+                violations.append({"issue": "triad plan not named in SESSION_PLAYBOOK.md", "plan": canonical})
+            if not (dev / canonical).is_file():
+                violations.append({"issue": "triad plan not live in dev/ (archived or missing)", "plan": canonical})
+    status = "pass" if not violations else ("fail" if _ENFORCE_TRIAD_PLAN else "warn")
+    return {
+        "id": "triad_plan_consistency",
+        "name": "Bootstrap-triad PLAN reference consistent + live",
+        "status": status,
+        "message": (
+            "triad PLAN reference consistent across hook / rules / playbook + live"
+            if not violations
+            else f"{len(violations)} triad-plan inconsistency(ies)"
+        ),
+        "violations": violations,
+    }
+
+
+_JUNK_SUFFIXES = (".tmp", ".bak", ".orig", ".rej", ".pyc", ".log")
+_STRAY_GLYPHS = (">", "<", "→", "➤", "»", "«")
+
+
+def _git_candidate_files() -> list[str] | None:
+    """Tracked + untracked-not-ignored files (repo-relative, forward-slash). None
+    if git is unavailable, so the caller can degrade gracefully. Gitignored
+    scratch (e.g. *.log build noise) is intentionally invisible — only files that
+    are or could be committed are stray candidates."""
+    try:
+        kw = dict(capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=30, cwd=str(REPO))
+        tracked = subprocess.run(["git", "ls-files"], **kw)
+        others = subprocess.run(["git", "ls-files", "--others", "--exclude-standard"], **kw)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if tracked.returncode != 0 or others.returncode != 0:
+        return None
+    return [ln for ln in (tracked.stdout + others.stdout).splitlines() if ln.strip()]
+
+
+def check_no_stray_artifacts() -> dict:
+    """No junk in the committable working tree: junk suffixes (``.tmp/.bak/.orig/
+    .rej/.pyc/.log``), zero-byte ``dev/*.md``, shell-glyph filenames (a botched
+    ``save.ps1`` sweeps ``>``/arrow chars in), and tracked ``.sonar``/
+    ``.scannerwork`` tooling. Git-aware (gitignored scratch is exempt). Ships WARN
+    until the tree is verified clean, then ``_ENFORCE_STRAY_ARTIFACTS`` → FAIL."""
+    files = _git_candidate_files()
+    if files is None:
+        return {
+            "id": "stray_artifacts",
+            "name": "No stray working-tree artifacts",
+            "status": "warn",
+            "message": "git unavailable — stray-artifact scan skipped",
+            "violations": [],
+        }
+    seen: set = set()
+    violations: list = []
+
+    def _add(rel: str, why: str) -> None:
+        key = (rel, why)
+        if key not in seen:
+            seen.add(key)
+            violations.append({"stray": rel, "why": why})
+
+    for rel in files:
+        name = rel.rsplit("/", 1)[-1]
+        if name.endswith(_JUNK_SUFFIXES):
+            _add(rel, "junk artifact")
+        if any(g in name for g in _STRAY_GLYPHS):
+            _add(rel, "shell-glyph filename")
+        if rel.startswith((".sonar/", ".scannerwork/")) or "/.sonar/" in rel or "/.scannerwork/" in rel:
+            _add(rel, "sonar tooling tracked")
+        if rel.startswith("dev/") and rel.endswith(".md"):
+            try:
+                if (REPO / rel).is_file() and (REPO / rel).stat().st_size == 0:
+                    _add(rel, "zero-byte doc")
+            except OSError:
+                pass
+    status = "pass" if not violations else ("fail" if _ENFORCE_STRAY_ARTIFACTS else "warn")
+    return {
+        "id": "stray_artifacts",
+        "name": "No stray working-tree artifacts",
+        "status": status,
+        "message": (
+            "no stray artifacts in the committable working tree"
+            if not violations
+            else f"{len(violations)} stray artifact(s)"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -1572,6 +1899,10 @@ ALL_CHECKS = {
     "freshness": check_session_state_freshness,
     "truth_record_budget": check_truth_record_budget,
     "commercial_orphans": check_commercial_orphans,
+    "commercial_terms": check_commercial_terms,
+    "retired_terms": check_retired_terms,
+    "triad_plan_consistency": check_triad_plan_consistency,
+    "stray_artifacts": check_no_stray_artifacts,
     "changelog_size": check_changelog_size,
     "dev_doc_sprawl": check_dev_doc_sprawl,
     "rules_no_frozen_stats": check_rules_no_frozen_stats,

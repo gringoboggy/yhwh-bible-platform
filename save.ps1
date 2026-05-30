@@ -4,6 +4,18 @@ if (-not $Message) {
     $Message = "saved on " + (Get-Date -Format "yyyy-MM-dd HH:mm")
 }
 
+# 2026-05-29 mint guard (Task 0.8) — defense-in-depth against a botched commit
+# message sweeping stray files via `git add -A` (the spaced-path / arrow-glyph
+# hazard). If more than 200 files would stage, list them and require --yes.
+$wouldStage = git status --porcelain
+$stageCount = (($wouldStage | Where-Object { $_ }) | Measure-Object).Count
+if ($stageCount -gt 200 -and $args -notcontains '--yes') {
+    Write-Host ("REFUSING: {0} files would stage (> 200). Review the list below; re-run with --yes to proceed." -f $stageCount) -ForegroundColor Red
+    $wouldStage | Select-Object -First 50
+    if ($stageCount -gt 50) { Write-Host ("... and {0} more" -f ($stageCount - 50)) -ForegroundColor DarkGray }
+    exit 1
+}
+
 git add -A
 
 $staged = git diff --cached --name-only

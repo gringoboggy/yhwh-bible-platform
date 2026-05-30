@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-05-29 (cont.) — Mint-cleanup PHASE 0 COMPLETE — all 11 anti-bloat guards live
+
+**Phases shipped:** mint-cleanup Phase 0 (guards) — tail (guards 6–11 + 2 upgrades + save gate)
+**Test delta:** `tests/test_lint_guardrails.py` +19 (16 → 35); `test_lint_rules`+`test_ci` 57 green (no regressions)
+**Save tag:** local commit (no remote)
+
+What shipped (the Phase-0 TAIL — guards 1–5 landed earlier this arc in `7ffb387e`/`b026413a`):
+- 4 new `lint_rules.ALL_CHECKS` checks: `commercial_terms` (147 commercial-vocab refs in curated docs/live code → WARN; `_ENFORCE_COMMERCIAL`→FAIL in Phase 4), `retired_terms` (`2026-06-07`/`hard deadline`/`sonar` in curated docs → WARN; `_ENFORCE_RETIRED_TERMS`→FAIL after the slim), `triad_plan_consistency` (the bootstrap-hook PLAN must be named in RULES §0 + PLAYBOOK and resolve live — caught PLAYBOOK still naming the archived `PLAN_2026-05-21.md`; WARN, `_ENFORCE_TRIAD_PLAN`→FAIL in Phase 2), `stray_artifacts` (git-aware junk/zero-byte-md/shell-glyph/`.sonar` scan — shipped **FAIL-tier** since the tree is clean).
+- 2 upgrades: `check_doc_cross_references` is now **archive-aware** (referenced SCOPE resolves live OR in `dev/archive/` — unblocks the Phase-3 sweep) + flags dangling `dev/*.md` links (caught SESSION_STATE → non-existent `PLAN_2026-05-24-epub-presentation-polish.md`); `check_repo_map_complete` now reverse-validates that backtick-quoted **repo-root-relative** paths resolve (skips globs/section-relative tokens to avoid false positives; WARN, `_ENFORCE_REPO_MAP`→FAIL in Phase 5).
+- `save.ps1`: a >200-file `git add -A` confirmation gate (`--yes` to override) — defense-in-depth against a botched commit sweeping strays.
+- Full lint after the tail: **16 pass · 9 warn · 0 fail** (the 9 warns are the deliberate forcing-functions the cleanup phases turn green); ruff-clean; no production code path touched.
+
+Notable decisions:
+- **Term-guards scan CURATED process docs only** (RULES, PLAYBOOK, MAPs, the live PLAN, SCHEMAS/SECURITY/PERF_BUDGETS/ROADMAP_FUTURE) — never the append-only CHANGELOG, the rolling SESSION_STATE/IN_FLIGHT, or `dev/archive/`. Those legitimately reference the commercial past + the retired deadline, so scanning them would make the guards permanently un-greenable. A line-level `term-ref-ok` waiver exempts the §10 pivot note.
+- **`repo_map_complete` count-drift was deliberately NOT implemented** as fragile prose-COUNT parsing (REPO_MAP states counts in freeform prose); path-existence drift is the robust, false-positive-free signal. Phase 5 regenerates REPO_MAP and flips it to FAIL.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (the 7-phase plan; Phase 0 ✅, Phase 1 underway)
+- RULES §9 "Add a meta-tool" / the lint-check contract; the `_ENFORCE_*` WARN-then-promote pattern
+
+---
+
 ## 2026-05-29 (cont.) — Phase D1b Task 4: PO Esther p27 — recovered from a double crash (a crashed recovery)
 
 - **Context — two undocumented crashes.** The documented p26-recovery had committed cleanly (HEAD `5a7556f5`, working tree clean). Since then the machine crashed **twice**, both mid-p27 (the user was travelling on flaky wifi). Session `2a3624ca` ran 2 blind Opus transcribers + an adjudicator on p27, then crashed (#1). Session `2e57d4aa` re-rendered the body/line/numeral/French crops into OS-temp `p27_recover/` and launched a finishing-adjudicator convergence **workflow** (`wf_fe98cd7b`) that **completed its converged StructuredOutput** before that session ALSO crashed (#2; the workflow's Verify phase never ran).

@@ -116,3 +116,169 @@ class TestRulesNoFrozenStats:
 
     def test_registered(self):
         assert "rules_no_frozen_stats" in lint_rules.ALL_CHECKS
+
+
+# ---------------------------------------------------------------------------
+# Phase 0 tail (2026-05-29 mint) — commercial_terms / retired_terms /
+# triad_plan_consistency / stray_artifacts + the two upgrades.
+# ---------------------------------------------------------------------------
+
+
+class TestCommercialTerms:
+    def test_warns_on_term_in_curated_doc(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        (tmp_path / "dev" / "SESSION_PLAYBOOK.md").write_text("Set the ISBN before upload.\n", encoding="utf-8")
+        r = lint_rules.check_commercial_terms()
+        assert r["status"] == "warn"
+        assert any(v["term"] == "ISBN" for v in r["violations"])
+
+    def test_waiver_marker_exempts_line(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        (tmp_path / "dev" / "CLAUDE_PROJECT_RULES.md").write_text(
+            "No ISBN / ONIX / retail — pivot dropped them. term-ref-ok\n", encoding="utf-8"
+        )
+        assert lint_rules.check_commercial_terms()["status"] == "pass"
+
+    def test_passes_when_clean(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        (tmp_path / "dev" / "MATRIX_MAP.md").write_text("Durable data-flow only.\n", encoding="utf-8")
+        assert lint_rules.check_commercial_terms()["status"] == "pass"
+
+    def test_registered(self):
+        assert "commercial_terms" in lint_rules.ALL_CHECKS
+
+
+class TestRetiredTerms:
+    def test_warns_on_deadline_and_sonar(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        (tmp_path / "dev" / "SESSION_PLAYBOOK.md").write_text(
+            "Deadline: 2026-06-07 (hard deadline). Run sonar before ship.\n", encoding="utf-8"
+        )
+        r = lint_rules.check_retired_terms()
+        assert r["status"] == "warn"
+        assert {v["term"] for v in r["violations"]} >= {"2026-06-07", "hard deadline", "sonar"}
+
+    def test_passes_when_clean(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        (tmp_path / "dev" / "CLAUDE_PROJECT_RULES.md").write_text("Completeness over speed.\n", encoding="utf-8")
+        assert lint_rules.check_retired_terms()["status"] == "pass"
+
+    def test_registered(self):
+        assert "retired_terms" in lint_rules.ALL_CHECKS
+
+
+class TestTriadPlanConsistency:
+    def _scaffold(self, root, *, plan_in_rules, plan_in_playbook, plan_live):
+        dev = root / "dev"
+        (dev / "cc-hooks").mkdir(parents=True)
+        plan = "PLAN_2026-05-29-roadmap.md"
+        (dev / "cc-hooks" / "bootstrap-triad.ps1").write_text(f"3. dev/{plan} (master sequence)\n", encoding="utf-8")
+        (dev / "CLAUDE_PROJECT_RULES.md").write_text(
+            f"§0 read dev/{plan}\n" if plan_in_rules else "§0 read the plan\n", encoding="utf-8"
+        )
+        (dev / "SESSION_PLAYBOOK.md").write_text(
+            f"triad: dev/{plan}\n" if plan_in_playbook else "triad: the plan\n", encoding="utf-8"
+        )
+        if plan_live:
+            (dev / plan).write_text("# roadmap\n", encoding="utf-8")
+
+    def test_passes_when_consistent_and_live(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=True, plan_live=True)
+        assert lint_rules.check_triad_plan_consistency()["status"] == "pass"
+
+    def test_warns_when_playbook_diverges(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=False, plan_live=True)
+        r = lint_rules.check_triad_plan_consistency()
+        assert r["status"] == "warn"
+        assert any("SESSION_PLAYBOOK" in v.get("issue", "") for v in r["violations"])
+
+    def test_warns_when_plan_archived(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(tmp_path, plan_in_rules=True, plan_in_playbook=True, plan_live=False)
+        r = lint_rules.check_triad_plan_consistency()
+        assert r["status"] == "warn"
+        assert any("not live" in v.get("issue", "") for v in r["violations"])
+
+    def test_registered(self):
+        assert "triad_plan_consistency" in lint_rules.ALL_CHECKS
+
+
+class TestStrayArtifacts:
+    def test_flags_junk(self, monkeypatch):
+        monkeypatch.setattr(
+            lint_rules, "_git_candidate_files", lambda: ["scripts/x.py", "scratch.tmp", "dev/notes.bak"]
+        )
+        r = lint_rules.check_no_stray_artifacts()
+        # FAIL-tier once the tree is verified clean (_ENFORCE_STRAY_ARTIFACTS);
+        # WARN beforehand. Tier-robust: a breach is at least surfaced.
+        assert r["status"] in {"warn", "fail"}
+        assert {v["stray"] for v in r["violations"]} == {"scratch.tmp", "dev/notes.bak"}
+
+    def test_passes_when_clean(self, monkeypatch):
+        monkeypatch.setattr(lint_rules, "_git_candidate_files", lambda: ["scripts/x.py", "dev/RULES.md"])
+        assert lint_rules.check_no_stray_artifacts()["status"] == "pass"
+
+    def test_skipped_when_git_unavailable(self, monkeypatch):
+        monkeypatch.setattr(lint_rules, "_git_candidate_files", lambda: None)
+        r = lint_rules.check_no_stray_artifacts()
+        assert r["status"] == "warn"
+        assert "git unavailable" in r["message"]
+
+    def test_registered(self):
+        assert "stray_artifacts" in lint_rules.ALL_CHECKS
+
+
+class TestDocCrossRefArchiveAware:
+    def test_archived_scope_satisfies_reference(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        dev = tmp_path / "dev"
+        (dev / "archive" / "scope").mkdir(parents=True)
+        (dev / "PLAN_2026-05-29-roadmap.md").write_text("see dev/SCOPE_pivot.md\n", encoding="utf-8")
+        (dev / "SESSION_STATE.md").write_text("snapshot\n", encoding="utf-8")
+        # The SCOPE lives ONLY in archive — must NOT be flagged as missing.
+        (dev / "archive" / "scope" / "SCOPE_pivot.md").write_text("scope\n", encoding="utf-8")
+        r = lint_rules.check_doc_cross_references()
+        assert not any("missing" in v["issue"] for v in r["violations"])
+
+    def test_dangling_link_flagged(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        dev = tmp_path / "dev"
+        dev.mkdir()
+        (dev / "PLAN_2026-05-29-roadmap.md").write_text("pointer dev/GHOST_DOC.md\n", encoding="utf-8")
+        (dev / "SESSION_STATE.md").write_text("x\n", encoding="utf-8")
+        r = lint_rules.check_doc_cross_references()
+        assert any(v["issue"] == "dangling dev/ link" for v in r["violations"])
+
+
+class TestRepoMapReversePath:
+    def test_dangling_cited_path_flagged(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        dev = tmp_path / "dev"
+        dev.mkdir()
+        (tmp_path / "scripts").mkdir()
+        (tmp_path / "scripts" / "real.py").write_text("x\n", encoding="utf-8")
+        (dev / "REPO_MAP.md").write_text(
+            "`scripts/` holds `scripts/real.py` and `scripts/gone.py`. Ignore `core/x.py`.\n",
+            encoding="utf-8",
+        )
+        r = lint_rules.check_repo_map_complete()
+        dangling = {v.get("dangling_path") for v in r["violations"] if "dangling_path" in v}
+        assert "scripts/gone.py" in dangling
+        assert "scripts/real.py" not in dangling
+        assert "core/x.py" not in dangling  # section-relative → not validated
+
+    def test_clean_map_passes(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        dev = tmp_path / "dev"
+        dev.mkdir()
+        (tmp_path / "scripts").mkdir()
+        (tmp_path / "scripts" / "real.py").write_text("x\n", encoding="utf-8")
+        (dev / "REPO_MAP.md").write_text("`dev/` and `scripts/` — see `scripts/real.py`.\n", encoding="utf-8")
+        assert lint_rules.check_repo_map_complete()["status"] == "pass"
