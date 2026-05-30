@@ -1365,6 +1365,63 @@ def check_no_ephemeral_doc_pins() -> dict:
     }
 
 
+# ----------------------------------------------------------------------
+# Anti-bloat guard (2026-05-29 mint-audit) — truth-record size budget.
+# Ships WARN-tier so it can be committed while the records are still over
+# budget; the hard ceiling promotes to FAIL once Phase 1 rotation brings
+# SESSION_STATE/IN_FLIGHT under budget (flip the flag below in that commit).
+# CLAUDE_PROJECT_RULES.md is WARN-only (curated, not auto-rotated).
+# ----------------------------------------------------------------------
+_ENFORCE_HARD_TRUTH_BUDGET = False  # ← Phase 1 flips this to True
+_TRUTH_BUDGETS = {
+    "dev/SESSION_STATE.md": {"soft": 60_000, "hard": 120_000, "max_entries": 2},
+    "dev/IN_FLIGHT.md": {"soft": 40_000, "hard": 120_000, "max_entries": 2},
+    "dev/CLAUDE_PROJECT_RULES.md": {"soft": 50_000, "hard": None, "max_entries": None},
+}
+
+
+def check_truth_record_budget() -> dict:
+    """Cap the always-read truth records by byte size + entry count so they
+    cannot silently re-bloat (the 2026-05-29 audit found the session triad
+    cost ~200k tokens). WARN at the soft ceiling; the hard ceiling promotes to
+    FAIL once Phase 1 rotation lands (see ``_ENFORCE_HARD_TRUTH_BUDGET``).
+    ``dev/CLAUDE_PROJECT_RULES.md`` is WARN-only (curated, not auto-rotated)."""
+    violations: list = []
+    has_hard = False
+    for rel, b in _TRUTH_BUDGETS.items():
+        p = REPO / rel
+        if not p.is_file():
+            continue
+        size = p.stat().st_size
+        if b["hard"] is not None and size > b["hard"]:
+            violations.append({"file": rel, "bytes": size, "budget": b["hard"], "tier": "hard"})
+            has_hard = True
+        elif size > b["soft"]:
+            violations.append({"file": rel, "bytes": size, "budget": b["soft"], "tier": "soft"})
+        if b["max_entries"] is not None:
+            n = p.read_text(encoding="utf-8").count("➤➤➤")
+            if n > b["max_entries"]:
+                violations.append({"file": rel, "entries": n, "budget": b["max_entries"], "tier": "entries"})
+    if not violations:
+        status = "pass"
+    elif has_hard and _ENFORCE_HARD_TRUTH_BUDGET:
+        status = "fail"
+    else:
+        status = "warn"
+    return {
+        "id": "truth_record_budget",
+        "name": "Truth-record size budget",
+        "status": status,
+        "message": (
+            "truth records within budget"
+            if not violations
+            else f"{len(violations)} truth-record budget breach(es) — "
+            "run `py -3 scripts/rotate_truth_records.py --apply` to archive old entries"
+        ),
+        "violations": violations,
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -1372,6 +1429,7 @@ ALL_CHECKS = {
     "docs": check_doc_cross_references,
     "repo_map_complete": check_repo_map_complete,
     "freshness": check_session_state_freshness,
+    "truth_record_budget": check_truth_record_budget,
     # Drift-catching tier (added after a real drift event)
     "inflight": check_inflight_freshness,
     "untracked_phases": check_untracked_phases,
