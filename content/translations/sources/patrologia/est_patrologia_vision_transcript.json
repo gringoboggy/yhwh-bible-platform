@@ -12,11 +12,13 @@
     "units_done": [
       "p24",
       "p25",
-      "p26"
+      "p26",
+      "p27"
     ],
     "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...).",
-    "p26_status": "DONE -- A13 completed across the p25->p26 break (joined ወ+ሰምያሙ); A14-A17 close Addition A; canonical 1:1-1:4 begun (1:4 cut at ዕለ -> p27). RECOVERED from a crashed session (2 blind + adjudicator transcripts) + a controller re-verification pass; numeral 127 + long A17 French-anchored; 2 adjudicator over-reads corrected. Codepoint-clean."
+    "p26_status": "DONE -- A13 completed across the p25->p26 break (joined ወ+ሰምያሙ); A14-A17 close Addition A; canonical 1:1-1:4 begun (1:4 cut at ዕለ -> p27). RECOVERED from a crashed session (2 blind + adjudicator transcripts) + a controller re-verification pass; numeral 127 + long A17 French-anchored; 2 adjudicator over-reads corrected. Codepoint-clean.",
+    "p27_status": "DONE -- canonical 1:4 completed across the p26->p27 break (mid-word joined ዕለ+ት = ዕለት 'days'); 1:5-1:8 transcribed (1:8 cut after ፈቃደ -> p28). RECOVERED from TWO consecutive crashed (OOM) sessions: the finishing-adjudicator convergence workflow (wf_fe98cd7b) had COMPLETED its converged StructuredOutput before the 2nd crash (the Verify phase never ran); recovered from the workflow agent transcript, cross-confirmed by the first adjudicator attempt's independent text, then a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral (printed ፫ ፸; Pereira's French 'trente mille' divergence flagged, not harmonized) and the v7/v8 boundary (the abundant-wine sentence opens v8) -- against the staged crops + French CONFIRMED the reading. No heavy vision agent re-run. Codepoint-clean."
   },
   "pages": {
     "24": {
@@ -200,7 +202,9 @@
           "text": "ወእምድኅረ ፡ ዝንቱ ፡ እምድኅረ ፡ አርአዮሙ ፡ ብዕለ ፡ መንግሥቱ ፡ ወክብረ ፡ ትፍሥሕቱ ፡ ወብዕሉ ፡ በ፻ ፡ ወ፹ ፡ ዕለ",
           "_partial": true,
           "_continues_on_page": 27,
-          "_continuation_note": "cut at the right page edge mid-word at ዕለ (= ዕለት 'days'); continues p27. Day-count በ፻ ፡ ወ፹ = 180, corroborated by the v4 apparatus gloss ዘምዕት ፡ ወስማንያ."
+          "_continuation_note": "cut at the right page edge mid-word at ዕለ (= ዕለት 'days'); continues p27. Day-count በ፻ ፡ ወ፹ = 180, corroborated by the v4 apparatus gloss ዘምዕት ፡ ወስማንያ.",
+          "_completed_in_page": 27,
+          "_assembly": "drop this partial at final assembly; use the complete 1:4 in pages['27']"
         }
       ],
       "last_verse_complete": false,
@@ -229,6 +233,63 @@
       ],
       "method": "RECOVERED from a crashed (OOM) session: 2 blind Opus transcribers + 1 Opus adjudicator (glyph-by-glyph high-zoom + Pereira's French band) had run before the crash; their transcripts were recovered, then a CONTROLLER re-verification pass (independent high-zoom crops of the contested glyphs, incl. a comparison vs the French-confirmed ግ in ብግያዊ) finished the convergence and corrected 2 adjudicator over-reads (ተገክረ->ተዝካረ; head demonstrative ግዝንቱ->ዝንቱ). Apparatus band + French excluded from the verse text; French used only as the calibration word-identity anchor.",
       "review": "p26 = end of LXX Addition A (A13-A17) + start of canonical ch.1 (1:1-1:4, cut at ዕለ -> p27). French-anchored resolutions: 1:1 = numeral ፻ወ፳ወ፯ (127, 'cent vingt-sept'); A17 long head naming Haman son of Hammedatha the Bougaean ('Mais Hamâ .. de Begyà .. se tenait devant le roi'); Mordecai = መርዶኬዎስ in the body (French 'Mardokêwos'; cf. p24/p25 መርዶክዮስ/መርዶኬዎስ both); India = ህንደኬ (Hendakè). Divine name absent (narrative). Tsade per the edition rule (only 6th-order ጽ marked -> ናጽዋኒሁ; flat 1st-order ጸ in ይጸመድ/ዐጸድ/ጸሐፈ). The ገ-onset demonstrative (A15 ለገዝንቱ, A16 ግዝንቱ) matches the p24 A4 as-printed oddity ወገዘንቱ."
+    },
+    "27": {
+      "banner": "LE LIVRE D'ESTHER. — I, 5-8.",
+      "host_chapter": 1,
+      "verses": [
+        {
+          "ch": 1,
+          "v": "4",
+          "text": "ወእምድኅረ ፡ ዝንቱ ፡ እምድኅረ ፡ አርአዮሙ ፡ ብዕለ ፡ መንግሥቱ ፡ ወክብረ ፡ ትፍሥሕቱ ፡ ወብዕሉ ፡ በ፻ ፡ ወ፹ ፡ ዕለት ።",
+          "_assembled_from_pages": [
+            26,
+            27
+          ],
+          "_note": "complete canonical 1:4: p26 head + this p27 two-glyph tail (ት ።) joined mid-word ዕለ+ት = ዕለት ('days'). Day-count በ፻ ፡ ወ፹ = 180 (Pereira's French 'cent quatre-vingts jours')."
+        },
+        {
+          "ch": 1,
+          "v": "5",
+          "text": "ወሰበ ፡ ተፈጸመ ፡ መዋዕለ ፡ መርዓ ፡ ገብረ ፡ ንጉሥ ፡ በዓለ ፡ ለእለ ፡ ተርፉ ፡ ሕዝብ ፡ እለ ፡ ተረክቡ ፡ ውስተ ፡ ሀገር ፡ በውስተ ፡ ዐጸድ ፡ ቤተ ፡ ንጉሥ ፡ ሰዱስ ፡ መዋዕለ ።"
+        },
+        {
+          "ch": 1,
+          "v": "6",
+          "text": "ወስርግዉ ፡ በሜላት ፡ ወበዓጌ ፡ ንጹሕ ፡ ወዐውድ ፡ በሜላት ፡ ውስተ ፡ አሕባል ፡ ቢስንስ ፡ በሕልቀተ ፡ ወርቅ ፡ ወብሩር ፡ ላዕለ ፡ አዕማደ ፡ እብን ፡ ዘጸርንስ ። ወዐሪታት ፡ ዘወርቅ ፡ ወብሩር ፡ ወጽፍጹፍ ፡ በእብን ፡ ዘሕብረ ፡ መረግድ ፡ ወበዕንቄ ፡ ጸፊዮ ፡ ወበእብነ ፡ ጸሪኑ ፡ ወጥቀ ፡ ሥናይ ፡ ጸፍጹፉ ፡ ዘዘ ፡ ዚአሁ ፡ ሕብሩ ፡ ዓሥሩ ፡ ወእንተ ፡ አወዱ ፡ ጽጌ ፡ ረዳ ፡ ሥራዕ ።"
+        },
+        {
+          "ch": 1,
+          "v": "7",
+          "text": "ወጽዋዓትኒ ፡ ዘወርቅ ፡ ወዘብሩር ፡ ወዘዕንቀሩ ፡ እንተ ፡ ራቁኖን ፡ ወቅልቅያን ፡ ድልው ፡ በሐሳብ ፡ ፫ ፡ ፸ ፡ መክሊት ።"
+        },
+        {
+          "ch": 1,
+          "v": "8",
+          "text": "ወወይን ፡ ብዙኅ ፡ ዘሥናይ ፡ መዐዘሁ ፡ ይሰቲ ፡ ውእቱ ፡ ንጉሥ ። ወበዓሉስ ፡ አኮ ፡ በሕገ ፡ ቀዳሚ ፡ ዘገብረ ፡ አላ ፡ በከመ ፡ ፈቀደ ፡ ውእቱ ፡ ንጉሥ ፡ ወአዘዘ ፡ ለመጉብቱ ፡ ይግብሩ ፡ ፈቃደ ፡",
+          "_partial": true,
+          "_continues_on_page": 28,
+          "_continuation_note": "v8 cut after ፈቃደ ፡ (trailing wordspace as printed); continues p28 ('sa propre [volonté]', Pereira's French). v7/v8 boundary: the abundant-wine sentence OPENS v8 (the left-margin '8' sits beside the ዘሥናይ wine line; a footnote ✻ precedes ወበዓሉስ) -- French-anchored: v8 = 'Et le vin était abondant ...', v7 ends '... talents.'"
+        }
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": true,
+      "uncertain": [
+        {
+          "ref": "1:7 numeral ፫ ፸ vs Pereira's French 'trente mille' (LOAD-BEARING)",
+          "issue": "The print unambiguously shows ፫ then the tens glyph ፸ (=3 and 70); controller high-zoom (numeral_only.png) confirms a double-pillar tens form, categorically NOT the ፻ hundreds form (Draft A's ፻=300 rejected). But Pereira's French translates 'à peu près trente mille talents' (~30,000), which the printed ፫ ፸ does not arithmetically yield. Per the read-the-print mandate the printed glyphs stand (፫ ፸); the print/French numeral divergence is flagged for a later editor (the apparatus M/N/O/P/Q numeral variants were in the excluded band)."
+        },
+        {
+          "ref": "1:5 ሕዝብ vs ሐዝብ ('people')",
+          "issue": "The ḥä(ሐ)/ḥə(ሕ) 1st-vs-6th-order pair is low-contrast in this 1913 fount and the glyph abuts the [148] folio number. Read 6th-order ሕ (also the standard lexical form ḥəzb 'people'); the prior crashed adjudicator leaned 1st-order ሐ. Recorded ሕዝብ. (Contrast: the v7 በሐሳብ ḥä is clearly the open 1st-order ሐ -- the fount does distinguish -- but this particular glyph is borderline.)"
+        },
+        {
+          "ref": "1:6 ጸፊዮ middle glyph (ፊ)",
+          "issue": "A transliterated foreign stone/material name; the ending ዮ and initial ጸ are firm, but the middle glyph (read ፊ) is a faint transliteration character with no lexical anchor, so its exact order is less certain than the surrounding letters."
+        }
+      ],
+      "method": "RECOVERED from TWO consecutive crashed (OOM) sessions. Session 2a3624ca ran 2 blind Opus transcribers + an adjudicator on p27 then crashed (crash #1 since the documented p26 incident); session 2e57d4aa re-rendered the body/line/numeral/French crops + launched a finishing-adjudicator convergence workflow (wf_fe98cd7b: 2 recovered blind drafts vs the image + Pereira's French) which COMPLETED its converged StructuredOutput before that session ALSO crashed (crash #2; the workflow's Verify phase never ran). This (3rd) session recovered the completed adjudication from the workflow agent transcript (cross-confirmed by the first adjudicator attempt's independent text) and did a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral and the v7/v8 boundary -- against the staged crops (numeral_only.png, boundary_L8L9.png) + the French (fra3.png): both CONFIRM the recovered reading. No heavy vision agent was re-run (which is what OOM'd both prior sessions). Apparatus band + French excluded from the verse text; French used only as the calibration word-identity / verse-numbering anchor.",
+      "review": "p27 = canonical Esther 1:4-tail (completes p26) + 1:5-1:8 (1:8 cut after ፈቃደ -> p28). French-anchored resolutions: v5 feast word = በዓለ (ayn 4th-order ዓ; both blind drafts misread as በኆለ/በኅለ); v7/v8 boundary = the abundant-wine sentence opens v8 (French v8 'Et le vin était abondant'; v7 ends '... talents'); v7 numeral = printed ፫ ፸ (controller-confirmed double-pillar tens form; French 'trente mille' divergence flagged, not harmonized). v6 (long) converged per-glyph from the 3x line crops (ወስርግዉ ዉ-5th, ወበዓጌ ጌ-ending, ወዐውድ, አሕባል final ል, ወዐሪታት ሪ-3rd, ጽፍጹፍ/ጸፍጹፉ both 6th-order ፍ, ጸፊዮ, ጸሪኑ, ወበእብነ construct ነ, አወዱ ወ-1st), French parallels (pierre de parenso=ዘጸርንስ, émeraude=ዘሕብረ መረግድ, fleurs de rose=ጽጌ ረዳ). Tsade per the edition rule (flat 1st-order ጸ; no distinct 4th-order ጻ). Day-count 1:4 = በ፻ ፡ ወ፹ = 180."
     }
   }
 }
