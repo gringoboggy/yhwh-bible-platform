@@ -48,6 +48,25 @@ def _covers_dir() -> Path:
     return paths.covers_dir()
 
 
+def _content_root() -> Path:
+    """Resolve content/ via the ω.5 paths resolver (mirrors press_kit)."""
+    from . import paths
+
+    return paths.content_root()
+
+
+def resolve_cover_path(edition: dict) -> Path | None:
+    """Resolve ``edition["cover_image"]`` to an absolute Path under content/.
+    Returns None when the field is empty or the resolved file doesn't exist on
+    disk. The ``cover_image`` path is stored relative to content/ (see the module
+    docstring + π.4-A). Relocated from press_kit in Phase 4 (decommercialize)."""
+    raw = str((edition or {}).get("cover_image", "")).strip()
+    if not raw:
+        return None
+    abs_path = _content_root() / raw
+    return abs_path if abs_path.is_file() else None
+
+
 # ----------------------------------------------------------------------
 # Cover-template library (§4.6) — the 25-design picker source of truth
 # ----------------------------------------------------------------------

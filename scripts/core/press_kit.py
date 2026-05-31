@@ -48,7 +48,6 @@ text clarity better than re-saving JPEGs.
     save_press_kit(state)                           atomic write
     get_blurbs(state, edition_id)                   per-edition dict
     set_blurbs(edition_id, **fields)                write helper
-    resolve_cover_path(edition)                     absolute Path or None
     resize_cover(src_path, target_size)             bytes (PNG)
     build_zip(edition, blurbs)                      bytes (the ZIP)
 
@@ -103,13 +102,6 @@ def _press_kit_path() -> Path:
     """Canonical state-file path. Function (not constant) so tests can
     monkeypatch via a single attribute — mirrors event_log + distribution."""
     return _REPO_ROOT / "content" / "press_kit.json"
-
-
-def _content_root() -> Path:
-    """Resolve content/. Lazy paths-aware lookup (ω.5 resolver)."""
-    from . import paths
-
-    return paths.content_root()
 
 
 def _now_iso() -> str:
@@ -223,21 +215,8 @@ def set_blurbs(
 
 
 # --------------------------------------------------------------------
-# Cover resolver + resizer.
+# Cover resizer.
 # --------------------------------------------------------------------
-
-
-def resolve_cover_path(edition: dict) -> Path | None:
-    """Resolve `edition["cover_image"]` to an absolute Path under
-    content/. Returns None when the field is empty or the resolved
-    file doesn't exist on disk."""
-    raw = str((edition or {}).get("cover_image", "")).strip()
-    if not raw:
-        return None
-    # The cover_image path is stored relative to content/ (see
-    # scripts/core/covers.py docstring + π.4-A).
-    abs_path = _content_root() / raw
-    return abs_path if abs_path.is_file() else None
 
 
 def resize_cover(src_path: Path, target_size: tuple[int, int]) -> bytes:
@@ -314,7 +293,9 @@ def build_zip(edition: dict, blurbs: dict, *, now: datetime | None = None) -> by
     edition_id = str(edition.get("id", ""))
     title = str(edition.get("title", edition_id))
     generated_at = (now or datetime.now(timezone.utc)).isoformat()
-    cover_path = resolve_cover_path(edition)
+    from . import covers
+
+    cover_path = covers.resolve_cover_path(edition)
 
     contents: list[str] = []
     buf = io.BytesIO()

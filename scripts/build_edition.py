@@ -2581,9 +2581,9 @@ def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
     replace — in which case the master cover is kept. This is the §7.2
     back-compat case (the 2 standalone bibles set ``cover_image: ""``, and any
     edition without a cover stays byte-identical). Resolution + the content/
-    sandbox are reused from ``press_kit.resolve_cover_path`` (compose, don't
+    sandbox are reused from ``covers.resolve_cover_path`` (compose, don't
     recompute). Mirrors the theme-override step in ``build_one``."""
-    from scripts.core.press_kit import resolve_cover_path
+    from scripts.core.covers import resolve_cover_path
 
     src = resolve_cover_path(edition)
     dst = build_dir / "cover.jpeg"

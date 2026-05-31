@@ -36,13 +36,13 @@ def api_press_kit_get(edition_id: str) -> dict:
     `limits` lets the UI render field-length counters without
     duplicating the core constants.
     """
-    from scripts.core import press_kit
+    from scripts.core import covers, press_kit
 
     state = press_kit.load_press_kit()
     blurbs = press_kit.get_blurbs(state, edition_id)
     editions_idx = _editions_index()
     edition = editions_idx.get(edition_id)
-    cover_present = bool(edition and press_kit.resolve_cover_path(edition))
+    cover_present = bool(edition and covers.resolve_cover_path(edition))
     return {
         "status": "ok",
         "edition_id": edition_id,

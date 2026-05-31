@@ -277,10 +277,11 @@ class TestEpsilon7ResizeCover:
 class TestEpsilon7BuildZip:
     def _edition_with_cover(self, tmp_path) -> dict:
         # Build a content/-relative cover_image path that resolves
-        # via the press_kit module's content-root helper.
-        from scripts.core import press_kit
+        # via the covers module's content-root helper (relocated from
+        # press_kit in Phase 4).
+        from scripts.core import covers
 
-        content_root = press_kit._content_root()
+        content_root = covers._content_root()
         covers_dir = content_root / "covers" / "ed-test"
         covers_dir.mkdir(parents=True, exist_ok=True)
         cover_path = covers_dir / "main.png"
@@ -321,7 +322,7 @@ class TestEpsilon7BuildZip:
     def test_zip_with_cover_includes_all_variants(self, monkeypatch, tmp_path):
         # Use a tmp content root so we don't touch the real
         # content/covers/.
-        from scripts.core import press_kit
+        from scripts.core import covers, press_kit
 
         _isolate_press_kit(monkeypatch, tmp_path)
 
@@ -331,7 +332,7 @@ class TestEpsilon7BuildZip:
         cover_dir.mkdir(parents=True)
         (cover_dir / "main.png").write_bytes(_make_test_png(480, 720))
 
-        monkeypatch.setattr(press_kit, "_content_root", lambda: fake_content)
+        monkeypatch.setattr(covers, "_content_root", lambda: fake_content)
 
         edition = {"id": "ed-test", "title": "Test", "cover_image": "covers/ed-test/main.png"}
         zip_bytes = press_kit.build_zip(edition, {})
