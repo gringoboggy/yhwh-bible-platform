@@ -501,11 +501,6 @@ from scripts.templates.wizard import WIZARD_HTML
 from scripts.api.greek import api_greek_lookup
 from scripts.api.hebrew import api_hebrew_lookup
 
-from scripts.api.distribution import (
-    api_distribution_list,
-    api_distribution_mark,
-    api_distribution_unmark,
-)
 from scripts.api.press_kit import (
     api_press_kit_get,
     api_press_kit_save,
@@ -594,8 +589,6 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     ("/api/edition-templates", api_edition_templates_list),
     # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
     ("/api/dev/templates-mtime", api_dev_templates_mtime),
-    # ε.6 — distribution checklist: per-edition × per-channel grid.
-    ("/api/distribution", api_distribution_list),
     # ο.4 — archive.org configuration status (does the publisher have
     # credentials set yet?). Never touches the network.
     ("/api/archive-org/status", api_archive_org_status),
@@ -737,13 +730,6 @@ _PUT_ROUTES: list[tuple[re.Pattern, object]] = [
         re.compile(r"^/api/edition-meta/([a-z0-9-]+)$"),
         lambda m, payload: api_save_edition_meta(m.group(1), payload),
     ),
-    # ε.6 — /api/distribution/<edition> — mark a channel shipped.
-    # Payload: {channel: <id>, url?, notes?, shipped_at?}.
-    # Ω.0 pivot: isbn parameter dropped (commercial dist deprecated).
-    (
-        re.compile(r"^/api/distribution/([a-z0-9-]+)$"),
-        lambda m, payload: api_distribution_mark(m.group(1), payload),
-    ),
     # ε.7 — /api/press-kit/<edition> — save per-edition blurbs.
     # Payload: {blurb_150?, blurb_500?, sample_chapter_html?}.
     (
@@ -800,12 +786,6 @@ _DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
     (
         re.compile(r"^/api/sources/cache/([a-z0-9_-]+)$"),
         lambda m: api_sources_cache_clear(m.group(1)),
-    ),
-    # ε.6 — /api/distribution/<edition>/<channel> — unmark shipped.
-    # Idempotent (already-absent returns ok:True, removed:False).
-    (
-        re.compile(r"^/api/distribution/([a-z0-9-]+)/([a-z_]+)$"),
-        lambda m: api_distribution_unmark(m.group(1), m.group(2)),
     ),
 ]
 

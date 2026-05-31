@@ -1,25 +1,22 @@
 """LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
-Tracks per-edition shipped-to-retailer-channel state (KDP / Apple /
-Google / archive.org / own_site). With no commercial channels in
-play, this checklist has no upcoming entries. The data file
-content/distribution.json is preserved on disk for archival/audit
-purposes. Retained per §7.4.
+Tracks per-edition distribution state for the surviving FREE surfaces
+(archive.org / own site). The commercial channels were removed in Phase 4
+(decommercialize); the data file content/distribution.json is preserved on
+disk for archival/audit purposes. Retained per §7.4.
 
 ε.6 — distribution channel checklist (2026-05-11).
 
-Month 5 #5. Tracks per-edition shipped-to-channel state so the
-publisher can answer "have I uploaded the May Catholic Study Bible to
-Apple Books yet?" without checking five vendor dashboards.
+Tracks per-edition shipped-to-channel state so the publisher can see
+which editions have been pushed to archive.org or their own site.
 
 **Storage**: `content/distribution.json` (machine-managed JSON; sibling
 to `content/sources/*.json`). Atomic write via `notes_io.atomic_write`
 with backup snapshot, so a partial write can never leave the file
 half-mutated.
 
-**Channels** (`DISTRIBUTION_CHANNELS`): kdp, apple, google,
-archive_org, own_site. Broader than ε.3 sales channels — archive.org
-and own_site don't have sales reports, but they're real distribution
-surfaces the publisher needs to track.
+**Channels** (`DISTRIBUTION_CHANNELS`): archive_org, own_site — the
+free distribution surfaces. archive.org auto-marks after a successful
+upload (scripts/api/archive_org.py); own_site is a manual mark.
 
 **Schema** (v1):
 
@@ -30,7 +27,6 @@ surfaces the publisher needs to track.
           "<channel_id>": {
             "shipped_at": "<iso-8601 utc>",
             "url": "<optional>",
-            "isbn": "<optional>",
             "notes": "<optional>"
           }
         }
@@ -69,17 +65,11 @@ from . import notes_io
 
 
 DISTRIBUTION_CHANNELS: tuple[str, ...] = (
-    "kdp",
-    "apple",
-    "google",
     "archive_org",
     "own_site",
 )
 
 CHANNEL_LABELS: dict[str, str] = {
-    "kdp": "KDP (Amazon)",
-    "apple": "Apple Books",
-    "google": "Google Play Books",
     "archive_org": "Archive.org",
     "own_site": "Own site",
 }
@@ -88,7 +78,7 @@ SCHEMA_VERSION = 1
 
 # Per-entry fields that callers may store. Anything else is dropped on
 # save (defensive against future schema drift from a stale client).
-ENTRY_FIELDS: tuple[str, ...] = ("shipped_at", "url", "isbn", "notes")
+ENTRY_FIELDS: tuple[str, ...] = ("shipped_at", "url", "notes")
 
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -199,7 +189,6 @@ def mark_shipped(
     channel_id: str,
     *,
     url: str | None = None,
-    isbn: str | None = None,
     notes: str | None = None,
     shipped_at: str | None = None,
 ) -> dict:
@@ -223,8 +212,6 @@ def mark_shipped(
         entry["shipped_at"] = shipped_at
     if url is not None:
         entry["url"] = url
-    if isbn is not None:
-        entry["isbn"] = isbn
     if notes is not None:
         entry["notes"] = notes
     channels[channel_id] = entry
@@ -266,7 +253,7 @@ def rollup(state: dict, editions: Iterable[dict]) -> dict:
           "channels": [{"id": str, "label": str}, ...],
           "editions": [{"id": str, "title": str,
                         "channels": {ch_id: {shipped: bool,
-                                             url?, isbn?, notes?,
+                                             url?, notes?,
                                              shipped_at?}}}],
           "by_channel_coverage": {ch_id: {"shipped": int, "total": int,
                                           "percent": float}},
