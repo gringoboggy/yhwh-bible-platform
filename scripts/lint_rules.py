@@ -1271,8 +1271,8 @@ def check_repo_map_complete() -> dict:
     """(1) Every non-hidden top-level dir is documented in dev/REPO_MAP.md; (2) every
     backtick-quoted repo-root-relative path cited in the map still resolves on disk
     (reverse-path drift — 2026-05-29 mint Task 0.7). Anti-rot mirror of
-    dev/trace_repo.py. Ships WARN; Phase 5 regenerates REPO_MAP post-deletion and
-    flips ``_ENFORCE_REPO_MAP`` so drift/missing becomes a hard FAIL.
+    dev/trace_repo.py. Phase 5 (2026-05-30) regenerated REPO_MAP post-deletion
+    and flipped ``_ENFORCE_REPO_MAP`` so drift/missing is now a hard FAIL.
 
     Reverse-path validation is intentionally limited to tokens beginning with a
     known top-level dir, and skips glob/placeholder tokens (``*``, ``<>``, ``{}``,
@@ -1641,7 +1641,7 @@ _ENFORCE_TRIAD_PLAN = True  # ← Phase 2 (roadmap refresh) flipped
 _ENFORCE_STRAY_ARTIFACTS = (
     True  # tree verified clean 2026-05-29 → FAIL-tier (blocks future junk; git-aware, gitignored scratch exempt)
 )
-_ENFORCE_REPO_MAP = False  # ← Phase 5 (regenerate REPO_MAP) flips this
+_ENFORCE_REPO_MAP = True  # Phase 5 — flipped; REPO_MAP regenerated post-deletion, drift/missing now FAILs
 
 
 # Curated, always-read PROCESS docs scanned by the term guards. Deliberately

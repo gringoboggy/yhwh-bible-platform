@@ -2,9 +2,10 @@
 # Pre-commit hook (ω.37 — 2026-05-10).
 #
 # Runs ruff format --check + the Tier-3 preflight aggregator
-# (scripts/lint_rules.py) on every commit. Catches the
-# "ruff drift" class of failures BEFORE they reach the test
-# suite (which surfaced 5+ times during ω.35-A/B sessions).
+# (scripts/lint_rules.py) + mypy (scripts/audit_types.py — the typed
+# surface scripts/core + build_edition.py) on every commit. Catches
+# the "ruff drift" + type-regression classes of failure BEFORE they
+# reach the test suite (drift surfaced 5+ times during ω.35-A/B).
 #
 # Activation (one-time per clone):
 #   git config core.hooksPath .githooks
@@ -93,6 +94,21 @@ if ! "$PYTHON" scripts/lint_rules.py >/tmp/lint_rules.out 2>&1 ; then
   echo "Full output: /tmp/lint_rules.out"
   echo "(Bypass with --no-verify if you know what you're doing.)"
   exit 1
+fi
+
+echo "[pre-commit] running scripts/audit_types.py (mypy) ..."
+"$PYTHON" scripts/audit_types.py >/tmp/audit_types.out 2>&1 && mypy_rc=0 || mypy_rc=$?
+if [ "$mypy_rc" -eq 1 ]; then
+  echo ""
+  echo "[pre-commit] mypy type errors. Last 30 lines:"
+  echo ""
+  tail -n 30 /tmp/audit_types.out
+  echo ""
+  echo "Full output: /tmp/audit_types.out"
+  echo "(Bypass with --no-verify if you know what you're doing.)"
+  exit 1
+elif [ "$mypy_rc" -eq 2 ]; then
+  echo "[pre-commit] mypy not installed — type check skipped (rc=2)."
 fi
 
 echo "[pre-commit] ok"

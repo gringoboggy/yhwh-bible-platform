@@ -1,7 +1,7 @@
 # Security policy
 
 > **Phase tags:** ξ.5 (this doc) · ξ.3 (CSP headers) · ξ.6 (secrets
-> management). See `dev/PLAN_2026-05-09.md` §5.4 for the full
+> management). See `dev/archive/PLAN_2026-05-09.md` §5.4 for the full
 > hardening roadmap (ξ.7-ξ.15 are planned successors).
 
 This document covers the YHWH Bible publishing platform's security

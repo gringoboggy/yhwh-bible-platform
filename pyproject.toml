@@ -6,7 +6,7 @@
 #   ruff format .         # normalise style
 #
 # Style decisions:
-#   - Line length 100 (black-default 88 is tight; 100 catches real outliers
+#   - Line length 120 (black-default 88 is tight; 120 catches real outliers
 #     while leaving long HTML-string templates untouched).
 #   - Double quotes throughout (PEP 8 / black default).
 #   - 4-space indent.

@@ -10655,24 +10655,37 @@ class TestXi10SsrfAllowlist:
             assert "allowlist=" in args, f"_http.get(...) call site missing allowlist=:\n  {args.strip()[:200]}"
 
     def test_xi111_pre_commit_hook_chains_audits(self):
-        # Pin: dev/git-hooks/pre-commit invokes every audit script.
-        # If a future contributor drops an audit from the chain, the
-        # pre-commit gate stops catching that drift class — surface
-        # the regression at test time.
+        # Pin the gate architecture (mint-5, 2026-05-30): the canonical
+        # committed pre-commit hook is .githooks/pre-commit (activated via
+        # core.hooksPath; the old dev/git-hooks/ copy-flow was retired). It
+        # runs the FAST deterministic subset (ruff-format + lint_rules + mypy);
+        # the FULL audit chain (pip-audit / vulture / mypy) lives in
+        # scripts/ci.py. If a future contributor drops a gate from either, the
+        # drift class stops being caught — surface that regression here.
         from pathlib import Path
 
         repo = Path(__file__).resolve().parent.parent
-        hook = repo / "dev" / "git-hooks" / "pre-commit"
-        assert hook.is_file()
-        text = hook.read_text(encoding="utf-8")
+
+        hook = repo / ".githooks" / "pre-commit"
+        assert hook.is_file(), "canonical hook .githooks/pre-commit missing"
+        hook_text = hook.read_text(encoding="utf-8")
+        for required in ("ruff format", "scripts/lint_rules.py", "scripts/audit_types.py"):
+            assert required in hook_text, f"pre-commit hook missing gate: {required}"
+
+        ci = repo / "scripts" / "ci.py"
+        assert ci.is_file()
+        ci_text = ci.read_text(encoding="utf-8")
+        # ci.py invokes the tools directly (-m pip_audit / -m vulture / -m pytest)
+        # plus the project wrappers lint_rules.py + audit_types.py.
         for required in (
+            "ruff",
+            "pip_audit",
+            "vulture",
             "scripts/lint_rules.py",
-            "scripts/audit_deps.py",
-            "scripts/audit_dead_code.py",
             "scripts/audit_types.py",
-            "scripts/audit_caches.py",
+            "pytest",
         ):
-            assert required in text, f"pre-commit hook missing chain entry: {required}"
+            assert required in ci_text, f"scripts/ci.py missing gate: {required}"
 
     def test_xi111_audit_waivers_file_present(self):
         from pathlib import Path
