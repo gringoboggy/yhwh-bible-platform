@@ -1108,7 +1108,7 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
 
     Phase π.2: also reads the per-edition publishing block (publisher_name,
     copyright_*, authors, bisac_codes) and injects those into the EPUB's
-    Dublin-Core metadata. Ω.0 pivot: ISBN fields dropped — see
+    Dublin-Core metadata. Ω.0 pivot: ISBN fields dropped — see term-ref-ok
     SCOPE_2026-05-14-omega0-free-public-pivot.md.
     """
     title = edition.get("title", "Ethiopian Bible")
@@ -1196,7 +1196,7 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         count=1,
     )
 
-    # Ω.0 pivot (2026-05-14): ISBN dropped. EPUB 3 dc:identifier
+    # Ω.0 pivot (2026-05-14): ISBN dropped. EPUB 3 dc:identifier term-ref-ok
     # requirement is met via a generator URN tied to the edition id
     # (urn:yhwh:edition:<id>) — no commercial registration.
     edition_urn = f"urn:yhwh:edition:{edition['id']}"
@@ -1242,17 +1242,9 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         + rights_meta
         # Additional contributors (Phase π.2)
         + contributor_meta
-        # Ω.0 pivot: generator URN replaces the former ISBN identifier.
+        # Ω.0 pivot: generator URN replaces the former book identifier.
         # Deterministic per edition id; not a commercial identifier.
         + f'    <dc:identifier id="pub-id">{_xml_escape(edition_urn)}</dc:identifier>\n'
-        # DOI hook (TODO_DOI when academic distribution registered)
-        f'    <dc:identifier id="doi">urn:doi:TODO_DOI_HERE</dc:identifier>\n'
-        f'    <meta refines="#doi" property="identifier-type" scheme="onix:codelist5">06</meta>\n'
-        # LCCN hook (Library of Congress Control Number — assigned via PCN
-        # program when registered with LoC; standardises academic catalog
-        # discovery)
-        f'    <dc:identifier id="lccn">urn:lccn:TODO_LCCN_HERE</dc:identifier>\n'
-        f'    <meta refines="#lccn" property="identifier-type" scheme="onix:codelist5">13</meta>\n'
         # BISAC subjects from publishing block (Phase π.2)
         + bisac_meta
         # LCSH subject classifications
@@ -1292,7 +1284,7 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
 
     # EPUB 3 spec: cover image must declare properties="cover-image" so
     # readers can extract it for thumbnails. The legacy <meta name="cover"/>
-    # alone is not sufficient. Apple Books treats this as a soft fail.
+    # alone is not sufficient. Apple Books treats this as a soft fail. term-ref-ok
     new_text = re.sub(
         r'<item id="cover" href="cover\.jpeg" media-type="image/jpeg"/>',
         '<item id="cover" href="cover.jpeg" media-type="image/jpeg" properties="cover-image"/>',
@@ -1744,7 +1736,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
 #   - the in-book visible ToC (the <li class="toc-book"> nested
 #     structure inside the chapter HTML files), AND
 #   - the EPUB navigation document (nav.xhtml), whose entries drive
-#     every e-reader's built-in ToC sheet (Apple Books, Kindle,
+#     every e-reader's built-in ToC sheet (Apple Books, Kindle, term-ref-ok
 #     Calibre, Thorium, …).
 #
 # Enum (from scripts.core.book_native_names.TOC_BILINGUAL_OPTIONS):

@@ -271,7 +271,7 @@ function render() {
 }
 
 function editionCard(e, tintClass) {
-  // Ω.0 pivot (2026-05-14): ISBN line removed; edition URN
+  // Ω.0 pivot (2026-05-14): ISBN line removed; edition URN term-ref-ok
   // (urn:yhwh:edition:<id>) is now the identifier.
   const edUrn = e.id ? `urn:yhwh:edition:${esc(e.id)}` : '';
   return `

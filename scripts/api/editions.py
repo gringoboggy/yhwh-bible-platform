@@ -135,7 +135,7 @@ def _append_cloned_edition(
     scalar_fields = [
         ("title", new_title),
         ("short_title", src.get("short_title", "")),
-        # Ω.0 pivot (2026-05-14): isbn field dropped from editions.yaml.
+        # Ω.0 pivot (2026-05-14): isbn field dropped from editions.yaml. term-ref-ok
         ("canon", src.get("canon", "")),
         ("target_audience", src.get("target_audience", "")),
         ("verse_popups", src.get("verse_popups", True)),

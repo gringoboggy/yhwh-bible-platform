@@ -6,38 +6,3 @@ book_title_pages:
     layout: null
   book_defaults: {}
   edition_overrides: {}
-# Ω.0 free-public pivot (2026-05-14): the project no longer sells
-# editions, so ALL print-cover commercial profiles below are
-# `enabled: false` and their `isbn_barcode: true` flags are inert.
-# The actual barcode/print-cover renderer (scripts/print_cover.py)
-# is LOAD-BEARING-NO-LONGER per §7.4 (banner-tagged, skipped at
-# boot). These stanzas are retained disabled for provenance only;
-# do NOT re-enable without reversing the Ω.0 north-star decision.
-# (Resolves AUDIT carry-forward F-DEEP2-3 — documents the dormant
-# stanzas as intentionally Ω.0-neutralized, not a live path.)
-print_covers:
-  variants:
-  - profile: kdp-6x9
-    enabled: false
-    trim_width_in: 6.0
-    trim_height_in: 9.0
-    bleed_in: 0.125
-    paper: white-50lb
-    include_back_blurb: true
-    isbn_barcode: true
-  - profile: ingramspark-7x10
-    enabled: false
-    trim_width_in: 7.0
-    trim_height_in: 10.0
-    bleed_in: 0.125
-    paper: cream-55lb
-    include_back_blurb: true
-    isbn_barcode: true
-  - profile: kdp-paperback-5x8
-    enabled: false
-    trim_width_in: 5.0
-    trim_height_in: 8.0
-    bleed_in: 0.125
-    paper: white-50lb
-    include_back_blurb: true
-    isbn_barcode: true

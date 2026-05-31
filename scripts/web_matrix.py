@@ -221,7 +221,7 @@ def _diff_edition_summary(ed: dict, mtx, kinds_idx: dict, books_idx: dict, canon
         "title": ed.get("title", ed_id),
         "short_title": ed.get("short_title", ed_id),
         "audience": ed.get("target_audience", ""),
-        # Ω.0 pivot: isbn dropped; URN derived from id.
+        # Ω.0 pivot: isbn dropped; URN derived from id. term-ref-ok
         "imprint": ed.get("imprint", ""),
         "canon_id": canon_id,
         "canon_label": canon_def.get("label", canon_id),

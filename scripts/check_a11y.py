@@ -2,7 +2,7 @@
 """
 check_a11y.py — Accessibility audit for the unpacked EPUB.
 
-Targets WCAG 2.1 AA and EPUB Accessibility 1.1 fundamentals. Apple Books
+Targets WCAG 2.1 AA and EPUB Accessibility 1.1 fundamentals. Apple Books term-ref-ok
 surfaces a11y issues directly to readers, and libraries / academic
 institutions increasingly require WCAG conformance before adopting an EPUB,
 so failing any of these checks is a real blocker for distribution.

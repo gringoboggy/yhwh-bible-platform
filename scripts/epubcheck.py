@@ -2,7 +2,7 @@
 """
 epubcheck.py — Wrapper around the W3C/IDPF ``epubcheck`` validator.
 
-Most retailers (Apple Books, Kobo, Google Play Books) run epubcheck
+Most retailers (Apple Books, Kobo, Google Play Books) run epubcheck term-ref-ok
 themselves before listing — failing there means rejection. This wrapper
 runs it locally and reports a compact summary in the same style as
 ``verify.py``. It catches:

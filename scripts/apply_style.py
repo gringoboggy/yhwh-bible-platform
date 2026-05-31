@@ -309,7 +309,7 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
     # are scoped narrowly enough that themes can override.
     #
     # The drop-cap uses ::first-letter, which is widely supported
-    # (Apple Books, Kobo, Calibre, ADE, modern Kindle). Older Kindle
+    # (Apple Books, Kobo, Calibre, ADE, modern Kindle). Older Kindle term-ref-ok
     # devices that don't honor ::first-letter quietly ignore it; the
     # paragraph still renders correctly with no fallback artifacts.
     #
@@ -364,7 +364,7 @@ h2 { margin-top: 1.8em; margin-bottom: 0.5em; }
 h3 { margin-top: 1.4em; margin-bottom: 0.4em; }
 
 /* Print-quality page margins (@page rules — honored by ADE,
-   Calibre, Apple Books PDF export). */
+   Calibre, Apple Books PDF export). term-ref-ok */
 @page {
   margin: 2.2cm 1.6cm 2.4cm 1.6cm;
 }

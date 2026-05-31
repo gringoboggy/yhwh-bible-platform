@@ -6,7 +6,7 @@ between "books-only" mode (87 entries: just the book titles) and "full" mode
 
 Why this script exists
 ----------------------
-Reader apps (Apple Books, Calibre, Thorium, Kindle, etc.) render the EPUB's
+Reader apps (Apple Books, Calibre, Thorium, Kindle, etc.) render the EPUB's term-ref-ok
 nav.xhtml and toc.ncx into their own UI sheet. Most of them DO NOT support
 collapsible/foldable nesting — they show the navigation as a flat or lightly-
 indented list. For an 87-book Bible with ~1700 chapter entries, this is

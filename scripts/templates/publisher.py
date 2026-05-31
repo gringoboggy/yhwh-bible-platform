@@ -343,7 +343,7 @@ function editionCard(e) {
 
       <fieldset class="md:col-span-2 border-l-4 border-emerald-200 pl-3">
         <legend class="text-sm font-semibold text-emerald-700 mb-2">Identifiers</legend>
-        <!-- Ω.0 pivot (2026-05-14): ISBN inputs removed. EPUB
+        <!-- term-ref-ok Ω.0 pivot (2026-05-14): ISBN inputs removed. EPUB
              dc:identifier is now auto-generated as
              urn:yhwh:edition:&lt;id&gt; at build time. -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">

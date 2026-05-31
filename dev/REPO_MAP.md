@@ -55,4 +55,4 @@
 
 - **`index_split_000.html`** = TOC/landing (book `<summary>`/nav links). **`index_split_001..060.html`** = the 87-book English scripture text in calibre-split chunks (edited IN PLACE; the inject target). Anchor schemes + book→`bxx` mapping + the verified 0-gap coverage: **see `MATRIX_MAP.md` "Base-HTML structure & coverage."**
 - **`content.opf`** (OPF metadata), **`toc.ncx`** (NCX), **`nav.xhtml`** (EPUB3 nav), `cover.jpeg`, 2 `.css`, `META-INF/container.xml`.
-- **`onix/`** (5 ONIX XML) — vestigial commercial metadata from the pre-pivot era (de-commercialized; not used by the free build).
+- **`onix/`** (5 ONIX XML) — vestigial commercial metadata from the pre-pivot era (de-commercialized; not used by the free build). <!-- term-ref-ok -->

@@ -364,7 +364,7 @@ def api_customize_data() -> dict:
                 "id": e["id"],
                 "title": e.get("title", e["id"]),
                 "short_title": e.get("short_title", ""),
-                # Ω.0 pivot: isbn field dropped. Front-end derives
+                # Ω.0 pivot: isbn field dropped. Front-end derives term-ref-ok
                 # the URN (urn:yhwh:edition:<id>) from the id.
                 "canon": e.get("canon", ""),
                 "target_audience": e.get("target_audience", ""),

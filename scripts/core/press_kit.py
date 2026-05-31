@@ -34,7 +34,7 @@ letterbox to preserve aspect ratio):
 | thumb   |  200 ×  300  | Catalogue rows, list views             |
 | web     |  600 ×  900  | Storefront product page                |
 | social  | 1080 × 1080  | Instagram / Twitter square             |
-| print   | 2400 × 3600  | KDP minimum print interior; high-res   |
+| print   | 2400 × 3600  | print/archival interior minimum; hi-res |
 
 Variants are PNG (lossless) — re-encoding from the source preserves
 text clarity better than re-saving JPEGs.

@@ -336,17 +336,6 @@ def cmd_status(cfg: dict) -> None:
         print(f"    edition_overrides: {DIM}(none){RESET}")
     print()
 
-    pc = cfg.get("print_covers", {}) or {}
-    variants = pc.get("variants") or []
-    enabled = [v for v in variants if v.get("enabled")]
-    print(f"  {BOLD}Print covers (POD){RESET}")
-    if enabled:
-        for v in enabled:
-            print(f'    {v["profile"]}: {v["trim_width_in"]}"×{v["trim_height_in"]}" bleed={v["bleed_in"]}"')
-    else:
-        print(f"    {DIM}(none enabled — flip enabled: true in customization.yaml to opt in){RESET}")
-    print()
-
 
 def cmd_validate(cfg: dict) -> int:
     errors = validate_assets(cfg)
@@ -441,9 +430,7 @@ def cmd_measure() -> int:
         pages += 1
     print(f"\n  {BOLD}page-count estimate{RESET}")
     print(f"    total words : {total_words:,}")
-    print(f"    @ {WORDS_PER_PAGE} wpp : {pages:,} pages (rounded to even)")
-    print(f"\n  {DIM}Update customization.yaml print_covers[N].page_count: {pages}{RESET}")
-    print(f"  {DIM}Then: ./ebible print [profile]{RESET}\n")
+    print(f"    @ {WORDS_PER_PAGE} wpp : {pages:,} pages (rounded to even)\n")
     return 0
 
 

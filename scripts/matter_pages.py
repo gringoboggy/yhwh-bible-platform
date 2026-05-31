@@ -28,7 +28,7 @@ def render_copyright_page(
     category_count: int,
 ) -> str:
     """Render the front colophon XHTML. Identity from ``publishing``
-    (_resolve_publishing), NOT the dead content/onix.py TODO_ defaults; counts
+    (_resolve_publishing), NOT the dead content/onix.py TODO_ defaults; counts term-ref-ok
     are the edition's REAL computed values (scripts.core.matrix). The long
     description lives on the separate 'About this Edition' page; full source
     credits live in the back-matter 'Sources & Acknowledgments' page — keep

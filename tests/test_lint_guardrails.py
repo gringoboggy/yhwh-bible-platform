@@ -139,12 +139,13 @@ class TestRulesNoFrozenStats:
 
 
 class TestCommercialTerms:
-    def test_warns_on_term_in_curated_doc(self, tmp_path, monkeypatch):
+    def test_flags_term_in_curated_doc(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         (tmp_path / "dev").mkdir()
         (tmp_path / "dev" / "SESSION_PLAYBOOK.md").write_text("Set the ISBN before upload.\n", encoding="utf-8")
         r = lint_rules.check_commercial_terms()
-        assert r["status"] == "warn"
+        # State-aware (RULES §8): FAIL once _ENFORCE_COMMERCIAL is flipped (Phase 4), else WARN.
+        assert r["status"] == ("fail" if lint_rules._ENFORCE_COMMERCIAL else "warn")
         assert any(v["term"] == "ISBN" for v in r["violations"])
 
     def test_waiver_marker_exempts_line(self, tmp_path, monkeypatch):

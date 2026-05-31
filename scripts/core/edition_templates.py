@@ -18,7 +18,7 @@ template-specific fields:
     enabled_categories, enabled_kinds, disabled_kinds,
     max_phase, cover_image, notes, popup_languages_default,
     popup_translation
-    (Ω.0 pivot 2026-05-14: isbn field dropped.)
+    (Ω.0 pivot 2026-05-14: isbn field dropped.) term-ref-ok
 
 Public API:
     load_templates() -> list[dict]

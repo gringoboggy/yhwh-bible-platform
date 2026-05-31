@@ -98,7 +98,7 @@ def api_export_preview(edition_id: str) -> dict:
             "title": edition.get("title", edition_id),
             "short_title": edition.get("short_title", edition_id),
             "canon": edition.get("canon"),
-            # Ω.0 pivot (2026-05-14): isbn dropped — front-ends derive
+            # Ω.0 pivot (2026-05-14): isbn dropped — front-ends derive term-ref-ok
             # the edition URN (urn:yhwh:edition:<id>) client-side.
             "target_audience": edition.get("target_audience", ""),
             "notes_field": edition.get("notes", ""),

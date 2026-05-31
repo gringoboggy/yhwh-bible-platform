@@ -6,6 +6,30 @@
 
 ---
 
+## 2026-05-30 (cont.) — MINT PHASE 4 COMPLETE — decommercialize (~5,300 LOC); `_ENFORCE_COMMERCIAL` flipped
+
+**Phases shipped:** mint-4 steps 4.1–4.5
+**Test delta:** +tests/test_opf_clean.py (4); deleted test_{license,sales,exec}_*.py; removed the /exec-UI test classes (6 files)
+**Save tag:** ab38f5c7 (4.1) · c0b99327 (4.2) · fd07cb65 (4.3) · 4212cb0f (4.4) · <4.5>; all pushed GitLab+GitHub
+
+What shipped:
+- **4.1** Banner-pin test → `TestCommercialModulesRemoved` (split 5-deleted vs `core/distribution.py` kept-with-banner).
+- **4.2** Relocated `press_kit.resolve_cover_path` → `core/covers.py` (+ `_content_root`); fixed 3 callers incl. `press_kit.build_zip`'s OWN internal use (recon missed it).
+- **4.3** Deleted 10 dead modules (~3,300 LOC): core/{license_key,license_state,sales}, api/{license,sales,exec}, templates/exec, build_onix, print_cover, content/onix. Removed all web.py imports/routes (/api/exec, /api/sales/*, /api/license/*, legacy /exec), the content/onix.py build sentinel, the EXEC_HTML route_for_constant + nav/command-palette entry, and the /exec-UI test classes across 6 files (the /exec console hosted the archive.org-upload + press-kit + tour UI — backends kept; re-surfacing the UI is a follow-up).
+- **4.4** Trimmed distribution free-only: `DISTRIBUTION_CHANNELS` → (archive_org, own_site); dropped kdp/apple/google + the isbn field; deleted `api/distribution.py` + its routes; `core/distribution.py` KEPT (archival, banner). Reworked test_distribution_epsilon6.
+- **4.5** Removed OPF DOI/LCCN/onix:codelist5 (kept the generator URN); added `tests/test_opf_clean.py`; applied 27 `term-ref-ok` waivers across 15 live files (all legitimate pivot-history / e-reader-compat / functional refs — verified NO live ISBN anywhere: zero data fields, UI inputs, or build output); reworded the press_kit KDP cover-variant; removed the vestigial print_covers POD config (KDP/IngramSpark) + customize.py display; cleaned stale deleted-module `.pyc`. **Flipped `_ENFORCE_COMMERCIAL`=False→True** — commercial-vocabulary reintroduction now hard-FAILs the pre-commit hook.
+
+Proof: flagship catholic-study EPUB builds (23.4 MB), **epubcheck 0/0/0/0**; built `content.opf` = URN + zero DOI/LCCN/onix/ISBN; `epub_working/` base untouched (only-intended-OPF-delta byte-stability); lint **24 pass / 1 warn / 0 fail**; `import scripts.web` clean; pytest --collect-only 7340 tests, 0 errors. KEPT: archive_org, auth/totp, press_kit, core/distribution.
+
+Notable decisions:
+- The /exec executive dashboard hosted the archive.org-upload + press-kit + tour UI; deleting it removes those buttons (backends intact) — re-surfacing on a surviving console is a flagged mint-6 follow-up, not blocking.
+- Term-guard self-brick (recon-flagged, expanded by direct grep): the 27 surviving commercial-term refs in KEPT files are all legitimate → waived with `term-ref-ok`, not removed.
+
+Continuity pointers:
+- docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md (Phase 4 ✓; next = mint-5 gates [REPO_MAP/MATRIX_MAP regen, mypy into pre-commit] + mint-6 polish)
+
+---
+
 ## 2026-05-30 (cont.) — REMOTE RESTORED (GitLab) + CI — 516 commits pushed off-machine; `.gitlab-ci.yml` added
 
 **Phases shipped:** mint-5 (partial) — git-remote restore + CI (pulled ahead of Phase 4 per user direction: backup BEFORE the destructive decommercialize)

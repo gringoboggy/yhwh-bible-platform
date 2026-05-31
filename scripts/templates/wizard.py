@@ -202,7 +202,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
            publisher, copyright + authors. Each fieldset gets a
            small uppercase label so the rhythm reads like a real
            form rather than a flat field list. Ω.0 pivot dropped
-           the former ISBN block. -->
+           the former ISBN block. term-ref-ok -->
 
       <fieldset class="psi11-group mb-4">
         <legend class="psi11-legend">Identity</legend>

@@ -79,7 +79,7 @@ this size.
 - ~~Print-on-demand pipeline~~ — **partially lifted 2026-05-12.**
   Print PDF for sample chapters (ε.7 press kits) + full-edition
   multi-format export (ψ.22 — PDF / MOBI / HTML / TXT) are in
-  scope. KDP paperback + IngramSpark integration are still
+  scope. KDP paperback + IngramSpark integration are still <!-- term-ref-ok -->
   deferred.
 - ~~Multi-language UI~~ — **lifted 2026-05-09 (PLAN θ.5).**
   Localized UI shells (Spanish, Portuguese, French, German) are

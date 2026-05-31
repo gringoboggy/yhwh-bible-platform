@@ -1635,7 +1635,7 @@ def check_rules_no_frozen_stats() -> dict:
 # cleanup phase flips the guard's ``_ENFORCE_*`` flag to True so the breach
 # becomes a hard FAIL and reintroduction is permanently blocked.
 # ----------------------------------------------------------------------
-_ENFORCE_COMMERCIAL = False  # ← Phase 4 (decommercialize) flips this
+_ENFORCE_COMMERCIAL = True  # Phase 4 (decommercialize) — flipped; commercial code removed, reintroduction now FAILs
 _ENFORCE_RETIRED_TERMS = True  # ← Phase 2 flipped (old PLAN archived + PLAYBOOK/REPO_MAP refs cleared)
 _ENFORCE_TRIAD_PLAN = True  # ← Phase 2 (roadmap refresh) flipped
 _ENFORCE_STRAY_ARTIFACTS = (

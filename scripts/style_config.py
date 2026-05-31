@@ -15,7 +15,7 @@ here intentionally cover only the things a non-developer would care about
 
 # Side margin between text and screen edge. CSS unit (em is recommended).
 # 1em ≈ default reader margin; 0.4em ≈ a study-Bible feel; 0.2em is almost
-# edge-to-edge. Some readers (e.g. Apple Books) override this with their own
+# edge-to-edge. Some readers (e.g. Apple Books) override this with their own term-ref-ok
 # slider; we set the default the EPUB ships with.
 MARGIN_SIDE = "0.4em"
 
@@ -91,7 +91,7 @@ TOC_CHAPTER_FORMAT = "num-only"
 
 # Collapsible book sections in the visible TOC page. When True, each book is
 # wrapped in an HTML5 <details>/<summary> element so the reader can collapse
-# the chapter list per book. Modern readers (Apple Books, Calibre, KOReader)
+# the chapter list per book. Modern readers (Apple Books, Calibre, KOReader) term-ref-ok
 # render <details> correctly; older / very-strict readers may show a flat
 # tree (graceful degradation — chapters remain visible and clickable).
 TOC_COLLAPSIBLE = True
