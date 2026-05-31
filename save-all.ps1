@@ -44,10 +44,14 @@ if ($DryRun) {
     if ($n -gt 0) { Write-Host ("  would commit {0} changed path(s)" -f $n) } else { Write-Host "  working tree clean - would skip commit, still push/bundle" }
 }
 else {
-    $saveArgs = @()
-    if ($Message) { $saveArgs += @('-Message', $Message) }
-    if ($Yes) { $saveArgs += '--yes' }
-    & "$PSScriptRoot\save.ps1" @saveArgs
+    # Hashtable splat for the NAMED -Message param (array splat would pass it
+    # positionally, so save.ps1 would receive the literal string "-Message").
+    # The --yes flag goes positionally into save.ps1's $args.
+    $named = @{}
+    if ($Message) { $named['Message'] = $Message }
+    $extra = @()
+    if ($Yes) { $extra += '--yes' }
+    & "$PSScriptRoot\save.ps1" @named @extra
     if ($LASTEXITCODE -ne 0) {
         Bad "commit (save.ps1 exit $LASTEXITCODE) - aborting before push/bundle"
         exit 1
