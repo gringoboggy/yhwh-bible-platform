@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-05-31 — MINT-7 audit COMPLETE — quality-pass scoped (correctness + code-debt + security + tests); execution pending
+
+After mint-6 closed the mint-cleanup arc (Phases 0–6), the user scoped a "mint-7" quality phase ("all of them"). A 15-agent audit workflow (`wf_365eda78`, 6 dimensions × find→verify) swept the now-cleaned tree; ~30 findings, 9 critical/high independently verified. NO code shipped yet — this records the audit + the saved plan; execution starts next session.
+
+- **Plan:** `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (Phases A–E, verifier-corrected fixes). **Raw findings + verifier reasoning:** `docs/superpowers/2026-05-31-mint-7-audit-findings.md`.
+- **Top findings (verifier-calibrated):** HIGH — rebuild `tsk_xrefs.json` to canonical book codes (~1,525 TSK xrefs unreachable for ezk/jol/nam/php/jas; mirror the Nave's fix); the AI at-scale drivers read the wrong YAML key (`chapters` vs `ch_count`), silently capping every book at 50 chapters (Psalms 51-150 etc. skipped); a stored-XSS sink in `/api/sample/` (note body unsanitized + the CSP-nonce injector noncifies an injected `<script>`). MEDIUM — Kenyon/`mar`/`_normalize_book_code` BUGCLUSTER completion, `run_xref` write_queue clobber, `content/auth.json` (TOTP secret) not gitignored, Build-All zip undownloadable, `at_scale_base` dedup, legacy `_send_json` paths, lint-check meta-test, slow-test markers, golden byte-stability gate. LOW — 56 stale legacy-coded candidate files (zero content impact — notes already exist under canonical codes; **delete, don't migrate**), orphaned helpers, doc-ref drift.
+- **Verifier corrections folded into the plan:** the legacy candidate files are stale DUPLICATES to delete (migrating would collide with live canonical files); do NOT normalize the QUERY inside `Tsk.refs_for` (the TSK data itself is legacy-keyed — fix the data/map, not the query).
+
+Lint 25 pass / 1 warn / 0 fail; no code/build/test change in this entry (audit + docs only).
+
 ## 2026-05-31 — MINT-6 (polish) COMPLETE — /distribution console · superpowers INDEX+lint · audit_caches→preflight · .sonar sweep · /exec scrub
 
 Final phase of the mint-cleanup plan (`docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md`). **LANE 0 — the mint-cleanup arc (Phases 0–6) — is now COMPLETE.** Additive only: no build-pipeline edit; the 9 KJV editions stay byte-stable; cross-link 17→18 consoles; `lint_rules` 0 fail throughout. Commits `451ac84c` · `3955d398` · `d33188ae` · `26289067` · `3ed0473b` (all local; push to GitLab+GitHub pending).
