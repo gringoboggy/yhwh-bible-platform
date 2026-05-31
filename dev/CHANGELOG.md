@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-31 — MINT-5 (enforce gates) COMPLETE — mypy in pre-commit, hook dedup, REPO_MAP regen + gate flip
+
+Phase 5 of the mint-cleanup plan (`docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md`). Config / docs / hooks / lint only — no production code path or build output touched. Shipped across commits `cd68fce5` + `874882a7` (both pushed GitLab + GitHub).
+
+- **mypy wired into the pre-commit gate** — `.githooks/pre-commit` now runs `scripts/audit_types.py` (mypy on `scripts/core` + `build_edition.py`) after ruff-format + `lint_rules.py`; graceful rc=2 skip when mypy is absent.
+- **Pre-commit hook de-duplication** — deleted the dormant `dev/git-hooks/pre-commit` (old audit-chain copy); rewrote `dev/install_hooks.cmd` to set `git config core.hooksPath .githooks` (the tracked canonical hook) instead of copying into `.git/hooks`. The full audit chain (pip-audit / vulture / mypy / pytest / coverage) lives in `scripts/ci.py`; the pre-commit hook runs the fast deterministic subset. Repointed `test_xi111_pre_commit_hook_chains_audits` to the new architecture.
+- **REPO_MAP regenerated + gate flipped** — refreshed stale counts in `dev/REPO_MAP.md` (tests 135→167, superpowers 7→23 plans / 6→16 specs, scripts 97→123 / core 56→65 / api 21→17 / templates 21→20; annotated `print_covers/` empty; updated the git-hooks reference) and flipped `_ENFORCE_REPO_MAP` to True in `scripts/lint_rules.py` — REPO_MAP dir/path drift is now a hard FAIL.
+- **pyproject + SECURITY fixes** — corrected the stale "Line length 100" comment to 120; fixed `dev/SECURITY.md`'s dead link (`dev/PLAN_2026-05-09.md` → `dev/archive/PLAN_2026-05-09.md`).
+- **CI / remote decisions** — GitLab (origin + `.gitlab-ci.yml`) is the documented CI home; a redundant GitHub Actions workflow was deliberately declined (GitHub stays a backup mirror). A `[project]`/`requires-python` table was deliberately NOT added (would duplicate the `VERSION` file + add packaging semantics to a non-packaged frozen-exe app; README documents "Python 3.14+"). `target-version` kept at py310 (broad-compat lint floor; bumping to py314 added 53 report-only ruff items for no gate benefit).
+
+Gates: ruff-format ✓ · mypy ✓ · `lint_rules` 24 pass / 1 warn (pre-existing CHANGELOG size) / 0 fail · `test_xi111` + 36 `test_lint_guardrails` ✓.
+
+**Known gap (backlog):** `scripts/audit_caches.py` (lru_cache-invalidation audit) is in neither the pre-commit hook nor `scripts/ci.py` — ungated since ω.37 (it lived only in the now-deleted dormant hook). Consider wiring it into `ci.py`.
+
 ## 2026-05-30 (cont.) — MINT PHASE 4 COMPLETE — decommercialize (~5,300 LOC); `_ENFORCE_COMMERCIAL` flipped
 
 **Phases shipped:** mint-4 steps 4.1–4.5
