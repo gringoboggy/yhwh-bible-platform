@@ -155,6 +155,7 @@ def check_cross_link_invariant() -> dict:
         "COMPARE_HTML": "/compare",
         "HEBREW_HTML": "/hebrew",  # γ.1
         "GREEK_HTML": "/greek",  # γ.2
+        "DISTRIBUTION_HTML": "/distribution",  # mint-6
     }
 
     # Filter consoles to ones we have routes for — the editor (INDEX)

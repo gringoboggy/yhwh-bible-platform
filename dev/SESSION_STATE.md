@@ -26,4 +26,4 @@ Local commit only via `save.cmd`/`save.ps1` (PowerShell; no remote — deleted 2
 
 ## Console inventory (web.py UI surface, 18)
 
-`APIHELP_HTML` · `AUDIT_HTML` · `AUDIT_LOG_HTML` · `BUILD_TRACKER_HTML` · `COMPARE_HTML` · `COVERS_HTML` · `CUSTOMIZE_HTML` · `DIFF_HTML` · `EXEC_HTML` · `EXPORT_HTML` · `GREEK_HTML` · `HEBREW_HTML` · `MATRIX_HTML` · `OPS_HTML` · `PREFLIGHT_HTML` · `PUBLISHER_HTML` · `SOURCES_HTML` · `WIZARD_HTML` (note editor served at `/` is `INDEX_HTML`). Each cross-links to the others (lint_rules check 6.2).
+`APIHELP_HTML` · `AUDIT_HTML` · `AUDIT_LOG_HTML` · `BUILD_TRACKER_HTML` · `COMPARE_HTML` · `COVERS_HTML` · `CUSTOMIZE_HTML` · `DIFF_HTML` · `DISTRIBUTION_HTML` · `EXPORT_HTML` · `GREEK_HTML` · `HEBREW_HTML` · `MATRIX_HTML` · `OPS_HTML` · `PREFLIGHT_HTML` · `PUBLISHER_HTML` · `SOURCES_HTML` · `WIZARD_HTML` (note editor served at `/` is `INDEX_HTML`). Each cross-links to the others (lint_rules check 6.2).

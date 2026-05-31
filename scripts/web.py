@@ -485,6 +485,7 @@ from scripts.templates.compare import COMPARE_HTML
 from scripts.templates.covers import COVERS_HTML
 from scripts.templates.customize import CUSTOMIZE_HTML
 from scripts.templates.diff import DIFF_HTML
+from scripts.templates.distribution import DISTRIBUTION_HTML
 from scripts.templates.export import EXPORT_HTML
 from scripts.templates.greek import GREEK_HTML
 from scripts.templates.hebrew import HEBREW_HTML
@@ -510,6 +511,7 @@ from scripts.api.archive_org import (
     api_archive_org_status,
     api_archive_org_upload,
 )
+from scripts.api.distribution import api_distribution_rollup
 from scripts.api.auth import (
     api_auth_status,
     api_auth_totp_begin,
@@ -592,6 +594,7 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     # ο.4 — archive.org configuration status (does the publisher have
     # credentials set yet?). Never touches the network.
     ("/api/archive-org/status", api_archive_org_status),
+    ("/api/distribution/rollup", api_distribution_rollup),
     # ξ.21 — admin-auth + 2FA enrollment status (read-only; never
     # reveals the secret).
     ("/api/auth/status", api_auth_status),
@@ -1752,6 +1755,11 @@ class Handler(BaseHTTPRequestHandler):
         # in do_POST; this route just serves the page shell.
         if path == "/covers" or path == "/covers.html":
             return self._send_html(COVERS_HTML)
+
+        # mint-6 — /distribution console: re-surfaces the free-distribution UI
+        # (archive.org upload + press kits) the deleted /exec console once hosted.
+        if path == "/distribution" or path == "/distribution.html":
+            return self._send_html(DISTRIBUTION_HTML)
 
         # Web favicon — serves the multi-resolution program icon
         # (.ico embedding 16/32/48/64/128/256 sizes) for browser
