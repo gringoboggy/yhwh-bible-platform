@@ -1,7 +1,7 @@
 """Δ.15 — append-only event log (2026-05-11).
 
 The lightweight foundation that ε.1 (metrics collector), ε.2
-(dashboard — removed mint-4), ε.3 (sales import), ε.5 (quarterly
+(dashboard — removed mint-4), ε.3 (sales import — removed Phase 4), ε.5 (quarterly
 auto-report), and the eventual ε.* analytics surface compose against.
 
 **Why append-only JSON Lines**:

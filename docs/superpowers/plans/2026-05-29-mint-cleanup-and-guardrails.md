@@ -213,7 +213,7 @@ def check_truth_record_budget():
 
 - [ ] **SessionEnd hygiene hook:** `dev/cc-hooks/session-end-hygiene.ps1` runs `python scripts/cleanup.py --apply --pycache-only` + `python scripts/lint_rules.py` and prints WARN/FAIL before save (advisory). Register via `install_cc_hooks.ps1` (Start + End, idempotent).
 - [ ] Sweep the 56 stale `.sonar` dirs (`Get-ChildItem -Recurse -Directory -Force -Filter .sonar | Remove-Item -Recurse -Force`) + root `*.log` scratch; remove the `.gitignore:72-75` sonar lines.
-- [ ] `docs/superpowers/INDEX.md` + `Status:` headers on the 22 plans/16 specs + `check_superpowers_coherence` (WARN→FAIL after backfill).
+- [x] `docs/superpowers/INDEX.md` + `Status:` headers on the 23 plans/16 specs + `check_superpowers_coherence` (mint-6: backfilled, _ENFORCE flag True).
 - [ ] **Optional / only if warranted:** lift the last inline `do_GET/do_POST` route bodies in `web.py` into the pure-`api_*`+table pattern; `changelog_size` WARN tier; a TypedDict view at the `notes_io` boundary (only if tuple-index churn bites).
 
 ---

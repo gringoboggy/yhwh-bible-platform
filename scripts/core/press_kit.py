@@ -5,7 +5,7 @@ sizes) + 150-word blurb + 500-word description + sample chapter HTML
 + manifest.
 
 **Use case**: the publisher submits one ZIP per edition to a reviewer,
-journalist, retail buyer, or catalogue site. Today this means
+journalist, curator, or catalogue site. Today this means
 hand-resizing the cover 4 times, copy-pasting blurbs from a notes
 app, and PDF-ing a sample chapter. After ε.7, the "Download press
 kit" action produces a complete deliverable.
@@ -32,7 +32,7 @@ letterbox to preserve aspect ratio):
 | Variant | Pixels       | Use case                               |
 |---------|--------------|----------------------------------------|
 | thumb   |  200 ×  300  | Catalogue rows, list views             |
-| web     |  600 ×  900  | Storefront product page                |
+| web     |  600 ×  900  | Archive / library listing              |
 | social  | 1080 × 1080  | Instagram / Twitter square             |
 | print   | 2400 × 3600  | print/archival interior minimum; hi-res |
 

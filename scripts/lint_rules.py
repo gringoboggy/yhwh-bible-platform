@@ -1367,6 +1367,12 @@ def check_superpowers_coherence() -> dict:
             violations.append({"file": rel, "issue": "missing **Status:** header (first 25 lines)"})
         if index_text is not None and f.name not in index_text:
             violations.append({"file": rel, "issue": "not listed in docs/superpowers/INDEX.md"})
+    # Reverse pass: every plans//specs path cited in INDEX.md must resolve on disk
+    # (catches a stale entry left behind after a plan/spec is deleted/renamed).
+    if index_text is not None:
+        for m in re.finditer(r"`((?:plans|specs)/[^`]+\.md)`", index_text):
+            if not (base / m.group(1)).is_file():
+                violations.append({"file": m.group(1), "issue": "listed in INDEX.md but not found on disk"})
     status = "pass" if not violations else ("fail" if _ENFORCE_SUPERPOWERS_COHERENCE else "warn")
     return {
         "id": "superpowers_coherence",

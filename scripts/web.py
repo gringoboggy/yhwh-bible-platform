@@ -594,7 +594,6 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     # ο.4 — archive.org configuration status (does the publisher have
     # credentials set yet?). Never touches the network.
     ("/api/archive-org/status", api_archive_org_status),
-    ("/api/distribution/rollup", api_distribution_rollup),
     # ξ.21 — admin-auth + 2FA enrollment status (read-only; never
     # reveals the secret).
     ("/api/auth/status", api_auth_status),
@@ -644,6 +643,10 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, object]] = [
     # present flag + field limits. The /download companion lives in
     # the legacy cascade because it returns binary (ZIP) bytes.
     (re.compile(r"^/api/press-kit/([a-z0-9-]+)$"), api_press_kit_get),
+    # mint-6 — distribution rollup. In the REGEX table (not _SIMPLE_GET_ROUTES)
+    # so its {status:error, http} envelope is translated by _dispatch_table_result
+    # (the simple table always sends 200). No capture groups → lambda *_ absorbs.
+    (re.compile(r"^/api/distribution/rollup$"), lambda *_: api_distribution_rollup()),
 ]
 
 

@@ -5,7 +5,7 @@ Two endpoints:
   credentials are configured + previews the identifier-prefix the
   uploader will use. Read-only; never touches the network.
 - `api_archive_org_upload(edition_id, payload)` — POST; composes
-  ε.7's `build_press_kit_zip` + `archive_org.upload_press_kit` +
+  ε.7's `press_kit.build_zip` (core) + `archive_org.upload_press_kit` +
   `distribution.mark_shipped(edition_id, "archive_org", url=...)` on
   successful push. Returns one envelope describing all three
   side-effects.

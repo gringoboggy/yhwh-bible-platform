@@ -350,6 +350,18 @@ class TestSuperpowersCoherence:
         assert r["status"] == "fail"
         assert any("INDEX" in str(v) for v in r["violations"])
 
+    def test_flags_stale_index_entry(self, tmp_path, monkeypatch):
+        # INDEX lists a plan that no longer exists on disk -> reverse-pass violation.
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n**Status:** shipped\n")],
+            index="# Index\n\n`plans/2026-05-16-x.md` `plans/2026-05-16-deleted.md`\n",
+        )
+        r = lint_rules.check_superpowers_coherence()
+        assert r["status"] == "fail"
+        assert any("not found on disk" in v.get("issue", "") for v in r["violations"])
+
     def test_passes_when_coherent(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         self._scaffold(

@@ -78,11 +78,13 @@ class TestDistributionConsoleTemplate:
 
 
 class TestDistributionWiring:
-    def test_rollup_in_simple_get_routes(self):
-        from scripts.web import _SIMPLE_GET_ROUTES
+    def test_rollup_wired_for_error_translation(self):
+        # In _REGEX_GET_ROUTES (dispatched via _dispatch_table_result) so the
+        # adapter's {status:error, http:500} envelope maps to a real HTTP 500
+        # — unlike the always-200 _SIMPLE_GET_ROUTES handlers.
+        from scripts.web import _REGEX_GET_ROUTES
 
-        paths = [p for p, _ in _SIMPLE_GET_ROUTES]
-        assert "/api/distribution/rollup" in paths
+        assert any(p.pattern == r"^/api/distribution/rollup$" for p, _ in _REGEX_GET_ROUTES)
 
     def test_distribution_html_on_web_module(self):
         from scripts import web
