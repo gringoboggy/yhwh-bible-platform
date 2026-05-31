@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-05-31 — mint-8 deep-audit round 1 (reusable engine built + run; findings + fixes plan synthesized)
+
+**Phases shipped:** mint-8 round 1 — audit tooling + triage ONLY (NO production-code fixes yet; deferred to next session at user direction)
+**Test delta:** 0 (tooling + docs only)
+**Save tag:** full 5-leg sync
+
+- **Built `.claude/workflows/deep-audit.js`** — a reusable, parameterized multi-agent audit Workflow (find → adversarially-verify → synthesize). Read-only finders (`feature-dev:code-reviewer` for bugs, `feature-dev:code-architect` for the optimization lens, `Explore` for the marathon-core boundary guard); adversarial skeptic panels scaled by severity (critical 3 / high 2 / else 1), default-to-refuted; severity calibration; phased-fixes synthesis + a completeness critic. 14 dimensions (9 bug lenses + the boundary guard + 4 optimization lenses). Syntax-checked before running. Invocable via `Workflow({scriptPath: ".../deep-audit.js"})` (named-workflow `args` plumbing did NOT propagate this run — note for next round; defaults cover the full deep scope anyway).
+- **RAN it** (round 1, depth=deep): **106 agents, ~4.80M subagent tokens, ~3.25 h** (`wf_1b2fdc14-4fd`). **70 deduped findings → 57 verified survivors / 13 refuted** (high 6 · med 20 · low 26 · info 5).
+- **Artifacts:** findings record `docs/superpowers/notes/2026-05-31-mint-8-findings.md` + raw JSON `docs/superpowers/notes/2026-05-31-mint-8-audit-raw.json`; phased fixes plan `docs/superpowers/plans/2026-05-31-mint-8-fixes-plan.md` (added to `docs/superpowers/INDEX.md`, 42 docs). mint-8 audit-plan status → ROUND 1 EXECUTED.
+- **Headline verified findings** (fixes DEFERRED): OPF wall-clock `<dc:date>` breaks build determinism + content-addressable cache (HIGH); 5× `subprocess.run` missing `stdin=subprocess.DEVNULL` incl. the live HTTP build endpoint; `inject.py` + `coverage.py` `(\d{2})(\d{2})` aside-ID regex can't parse chapters ≥100 (1 Enoch 100–108, latent); `write_book` serialises `attribution` as `{}` → 8-tuple notes become schema-violating 9-tuples on web-UI save; Tewahedo Exodus stores named `ex.py` instead of canonical `exo.py` (data unreachable); a dead test (`def` buried in a comment); 3 medium XSS/XML-injection (RSS feed CDATA + `/sources` truncateHTML); alphabetical canon sort violating §6.1; ALL_CHECKS=27-but-docs-say-26 + REPO_MAP/MATRIX_MAP count drift. **Optimization pass:** vision-transcription marathon CONFIRMED-optimal for current constraints; build-pipeline `compresslevel`/precompiled-regex quick wins; `render_coverage._CANONICAL_BOOKS` missing 7 of 87 books.
+- **Convergence loop:** NEXT SESSION implements the fixes (TDD, byte-stable, durable guards — prefer a commit-time `lint_rules` check for recurring invariants), then RE-RUNS `deep-audit` until a round returns zero new verified findings. No finding requires a marathon-core edit; the 9 KJV editions stay byte-stable.
+
+---
+
 ## 2026-05-31 — session-end close-out (env-health rule made explicit · CHANGELOG month-roll · stale-time-claim corrections)
 
 **Phases shipped:** housekeeping (no new feature phase)
