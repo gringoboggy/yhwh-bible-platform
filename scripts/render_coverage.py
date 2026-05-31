@@ -112,7 +112,7 @@ _CANONICAL_BOOKS = [
     "bel",
     # New Testament
     "mat",
-    "mar",
+    "mrk",  # mint-7 ★BUGCLUSTER: was "mar" (legacy) — canonical Mark is "mrk"
     "luk",
     "jhn",
     "act",

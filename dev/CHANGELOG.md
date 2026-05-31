@@ -6,6 +6,35 @@
 
 ---
 
+## 2026-05-31 — mint-7 Phase A — ★book-code BUGCLUSTER fixed (canonical TSK rebuild + central normalizer completed + commit-time guard)
+
+**Phases shipped:** mint-7 Phase A (A1–A5) + D4
+**Test delta:** +5 (new `TestBookCodeCanonicalization`; also strengthened `test_book_code_map_covers_canonical_set`)
+**Save tag:** local commit this session (5-leg push/backup pending user OK)
+
+What shipped:
+- **A1** — completed `_BOOK_CODE_ALIASES` (+`mar→mrk, jol→joe, ezk→eze, nam→nah, php→phi`); removed the stale `_BOOK_CODE_ALIASES_LONGFORM` comment.
+- **A2** — canonicalized `TSK_BOOK_REMAP`, the overriding `NAVES_BOOK_REMAP` entries (which re-introduced legacy values), and `KENYON_BOOK_NAME_TO_CODE`. **Rebuilt `tsk_xrefs.json` via a deterministic LOCAL key-remap** (legacy→canonical on both the top-level source keys and all 17,716 target codes) instead of a `--force tsk` re-fetch — preserves the exact data with no network/upstream drift; adversarially proven canonical + lossless (344,799 ref-tuples conserved, byte count unchanged). The **1,525 TSK xrefs** across ezk/jol/nam/php/jas are reachable again via canonical lookup (eze 1940/joe 378/nah 156/phi 1346/jam 1366).
+- **A3** — defense-in-depth `_normalize_book_code` in `CrossRefDetector.detect` (canonical `#vnote-` hrefs) + the run_xref/naves/torrey at-scale driver book-lists.
+- **A4** — deleted 56 stale legacy-coded candidate files (`ezk_/jol_/nam_*.json`; canonical `eze_/joe_/nah_` equivalents already exist — delete, not migrate).
+- **A5** — new `TestBookCodeCanonicalization` (canonical+notes-file meta-test over 5 maps incl. `_LEGACY_TO_CANON`; legacy-alias resolution + torrey-map equivalence; TSK data-level guard; render_coverage guard; lint-check unit test) + strengthened the Kenyon spot-check + a new **commit-time `bookcode_canonical` lint check** in `lint_rules.ALL_CHECKS` (screens 7 maps/lists incl. `link_xrefs.ABBREV`).
+- **D4** (freebie of A1) — `catholic_commentaries.json` `mar` catena entries (Bede/Gregory on Mark) now resolve under canonical `mrk`.
+- **Bonus** (found by a completeness sweep, NOT in the audit) — `render_coverage._CANONICAL_BOOKS` `"mar"`→`"mrk"` (same BUGCLUSTER class).
+
+Notable decisions:
+- **Local remap over `--force tsk` re-fetch** — determinism + no upstream drift; reaches the identical end-state a fixed-map rebuild would, with a reviewable diff.
+- **Did NOT re-run the xref driver** to generate/promote the now-reachable candidates — that's a separate human-reviewed content run (flagged), exactly like B1's AI content re-run.
+
+Retrospective (§12 triggers fired):
+- Added a **commit-time lint guard** (`bookcode_canonical`) because memory notes this BUGCLUSTER "recurs every ingest" and the pre-commit hook runs `lint_rules.py`, NOT pytest — so a pytest-only meta-test wouldn't fire at commit time. Cheapest durable guard that makes recurrence catchable where it actually happens.
+- **Adversarial verification (4-lens workflow `wf_f17387e2-96e`) before commit** caught 4 guard-completeness gaps (2 same-family maps uncovered, no commit-time enforcement, a redundant test, a stale comment) — all closed in the same ship. Lint 26✓/1⚠/0✗.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (Phase A ✅; next = C security)
+- memory `feedback_book_code_canonical` (★BUGCLUSTER)
+
+---
+
 ## 2026-05-31 — MINT-7 audit COMPLETE — quality-pass scoped (correctness + code-debt + security + tests); execution pending
 
 After mint-6 closed the mint-cleanup arc (Phases 0–6), the user scoped a "mint-7" quality phase ("all of them"). A 15-agent audit workflow (`wf_365eda78`, 6 dimensions × find→verify) swept the now-cleaned tree; ~30 findings, 9 critical/high independently verified. NO code shipped yet — this records the audit + the saved plan; execution starts next session.

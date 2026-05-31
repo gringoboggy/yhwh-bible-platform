@@ -193,6 +193,8 @@ def main() -> int:
 
     torrey = sources.torrey_topical()
     books = args.books.split(",") if args.books else sorted(torrey._verses.keys())
+    # Defense-in-depth: canonicalize legacy codes (mint-7 ★BUGCLUSTER).
+    books = [sources._normalize_book_code(b) for b in books]
     naves_keys = naves_covered_verses() if (args.net_new or args.overlap_only) else None
 
     mode = "DRY-RUN (no writes)" if args.dry_run else "writing candidates"

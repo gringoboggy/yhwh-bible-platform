@@ -155,6 +155,8 @@ def main() -> int:
         books = args.books.split(",")
     else:
         books = sorted(naves._verses.keys())
+    # Defense-in-depth: canonicalize legacy codes (mint-7 ★BUGCLUSTER).
+    books = [sources._normalize_book_code(b) for b in books]
 
     print(
         f"Running NaveTopicalDetector across {len(books)} books "

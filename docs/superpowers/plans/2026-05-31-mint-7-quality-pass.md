@@ -29,13 +29,32 @@ candidate files on disk are **stale duplicates**, and the live gap is **TSK** (w
 JSON was never rebuilt) + several **latent** detector maps that would silently drop
 notes the moment new content is prospected.
 
-- [ ] **A1 — Complete the central `_normalize_book_code`.** In `scripts/core/sources_base.py`
+> **✅ PHASE A COMPLETE (2026-05-31).** A1–A5 done + D4 freebie. `tsk_xrefs.json` rebuilt
+> by a **deterministic local key-remap** (no network re-fetch — preserves the exact data;
+> 17,716 target remaps; proven canonical + lossless: 344,799 ref-tuples conserved,
+> byte-count unchanged). The 1,525 TSK xrefs are reachable again (eze 1940 / joe 378 /
+> nah 156 / phi 1346 / jam 1366); the detector now emits `#vnote-eze-…` (was the broken
+> `#vnote-ezk-…`). 56 stale candidate files deleted. **Bonus catch (not in the audit):**
+> `render_coverage._CANONICAL_BOOKS` had `"mar"`→fixed to `"mrk"` (same BUGCLUSTER class).
+> **Guard hardened beyond plan:** added a **commit-time `bookcode_canonical` lint check**
+> (screens 7 maps/lists incl. `link_xrefs.ABBREV` + `_LEGACY_TO_CANON`) so the BUGCLUSTER
+> can't silently return between test runs; the meta-test now covers `_LEGACY_TO_CANON` and
+> pins it equivalent to the central normalizer. A 4-lens adversarial workflow
+> (`wf_f17387e2-96e`) verified the change (3 lenses phase-safe; the 4th's guard-gap
+> findings are all now closed). **DEFERRED (separate human-reviewed content run, like
+> B1):** actually *generating* the now-reachable xref candidates + promoting them — the
+> mint-7 fix is the code+data correctness, not a content run.
+
+- [x] **A1 — Complete the central `_normalize_book_code`.** In `scripts/core/sources_base.py`
   `_BOOK_CODE_ALIASES` (currently only joh→jhn, ps→psa, jas→jam) add the 4–5 missing
   real legacy codes: `mar→mrk, jol→joe, ezk→eze, nam→nah, php→phi` (mirror
   `extract_torrey_ccel._LEGACY_TO_CANON`, the canonical 8-entry list). Delete the stale
   `_BOOK_CODE_ALIASES_LONGFORM` comment (sources_base.py:59 — references a dict that
   doesn't exist). **Effort S.**
-- [ ] **A2 — Fix the source-of-truth maps to emit canonical codes.**
+- [x] **A2 — Fix the source-of-truth maps to emit canonical codes.** (Also fixed the
+  `NAVES_BOOK_REMAP.update()` block which *overrides* the inherited TSK values — it had its
+  own legacy `Phil/Php/Ezekiel/Joel/Nahum/Philippians/James` entries. Rebuilt via local
+  remap, NOT `--force tsk` re-fetch, to avoid network/upstream drift.)
   - `scripts/fetch_sources.py` `TSK_BOOK_REMAP` (~:153): `Ezek→eze, Joel→joe, Nah→nah,
     Phil→phi, Jas→jam` (also inherited by `NAVES_BOOK_REMAP`). Then **rebuild**
     `tsk_xrefs.json` (`python scripts/fetch_sources.py --force tsk`). This is the one
@@ -47,16 +66,16 @@ notes the moment new content is prospected.
   - **⚠ DO NOT** add `_normalize_book_code(book)` *inside* `Tsk.refs_for()` — the TSK
     DATA is legacy-keyed, so normalizing the QUERY (ezk→eze) returns 0 results. Fix the
     data/map, not the query. (This was the raw finding's wrong first-draft fix.)
-- [ ] **A3 — Normalize at detector/driver boundaries (defense-in-depth).**
+- [x] **A3 — Normalize at detector/driver boundaries (defense-in-depth).**
   `CrossRefDetector.detect()` (detectors.py:464) normalize `target_book` before building
   `href="#vnote-{target_book}-..."`. At-scale drivers (`run_xref/naves/torrey_at_scale.py`)
   apply `_normalize_book_code` to the book list iterated from source-JSON keys. **Effort S.**
-- [ ] **A4 — Delete the stale legacy-coded candidate files** (NOT migrate — `eze_ch_*` etc.
+- [x] **A4 — Delete the stale legacy-coded candidate files** (NOT migrate — `eze_ch_*` etc.
   already exist; renaming would collide). Remove the 56 git-tracked `ezk_ch_*.json` (incl.
   the impossible `ezk_ch_081`), `jol_ch_*.json`, `nam_ch_*.json` under `content/candidates/`.
   Optionally add a coord-validity sweep for the other out-of-extent OCR artifacts
   (deu_ch_081/082/097, num_ch_08x, isa_ch_080-087, jer_ch_082-087, …). **Effort S.**
-- [ ] **A5 — Guard it (TDD).** Meta-test: every value in `KENYON_BOOK_NAME_TO_CODE`,
+- [x] **A5 — Guard it (TDD + lint).** Meta-test: every value in `KENYON_BOOK_NAME_TO_CODE`,
   `TSK_BOOK_REMAP`, and the other book-name maps is in `config.books_by_code()` AND has a
   `content/notes/<code>.py` file (strengthen `test_scripts.py:8328` which only spot-checks
   9 codes). Consider a `lint_rules` check `bookcode_canonical` so the BUGCLUSTER can never
@@ -99,8 +118,9 @@ notes the moment new content is prospected.
   (build_edition.py:600, 5 tests, no caller) as a builder option OR mark not-yet-wired;
   wire the `ebible audit` aggregator (audit_caches/dead_code/types/deps) into `scripts/ci.py`
   / `.gitlab-ci.yml` (currently only audit_caches reaches preflight). **S–M.**
-- [ ] **D4 — `catholic_commentaries.json` 'mar'** — fixed by A1 (`mar→mrk` alias); 2 Catena
-  entries (Bede/Gregory on Mark) currently silent-drop on prospect. Verify after A1. **S.**
+- [x] **D4 — `catholic_commentaries.json` 'mar'** — DONE (freebie of A1's `mar→mrk` alias).
+  Verified end-to-end: `for_verse("mrk",1,1)` now returns the Bede-on-Mark catena entry
+  (Gregory-on-Mark 16:15 also resolves). 2 entries were silent-dropping before. **S.**
 
 ## Phase E — Tests + doc/data hygiene
 - [ ] **E1 — Lint-check meta-test.** 8 of 26 `ALL_CHECKS` have no unit test (encode_decode,

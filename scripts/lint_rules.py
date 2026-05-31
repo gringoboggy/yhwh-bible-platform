@@ -1953,6 +1953,85 @@ def check_no_stray_artifacts() -> dict:
     }
 
 
+def check_book_codes_canonical() -> dict:
+    """mint-7 ★BUGCLUSTER guard (memory ``feedback_book_code_canonical``).
+
+    Every book-code map / canonical-code list in the repo must emit only
+    CANONICAL codes — never a legacy alias (joh/ps/jas/mar/jol/ezk/nam/php).
+    A legacy code as a map VALUE silently routes detector candidates and
+    xref links to a non-existent ``content/notes/<code>.py`` file, so
+    ``promote`` drops them with only a warning. Memory notes this "recurs
+    every ingest", so it is pinned here at COMMIT time (the pre-commit hook
+    runs lint_rules.py, not the test suite). Cheap: dict-value iteration only.
+    """
+    import importlib
+
+    try:
+        from scripts.core.sources_base import _BOOK_CODE_ALIASES
+
+        legacy_codes = set(_BOOK_CODE_ALIASES.keys())
+    except Exception as exc:  # pragma: no cover — import guard
+        return {
+            "id": "bookcode_canonical",
+            "name": "Book-code canonicalization",
+            "status": "warn",
+            "message": f"could not load the alias table: {exc}",
+            "violations": [],
+        }
+
+    # (module, attribute) book-code MAPS (screen their .values()) and book-code
+    # LISTS (screen their members). Legacy codes legitimately appear as KEYS in
+    # the alias maps — only VALUES/members are screened.
+    map_specs = [
+        ("scripts.core.sources", "KENYON_BOOK_NAME_TO_CODE"),
+        ("scripts.fetch_sources", "TSK_BOOK_REMAP"),
+        ("scripts.fetch_sources", "NAVES_BOOK_REMAP"),
+        ("scripts.core.sources_base", "_BOOK_CODE_ALIASES"),
+        ("scripts.extract_torrey_ccel", "_LEGACY_TO_CANON"),
+        ("scripts.link_xrefs", "ABBREV"),
+    ]
+    list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
+
+    violations: list[dict] = []
+    screened = 0
+    for mod_name, attr in map_specs:
+        try:
+            values = set(getattr(importlib.import_module(mod_name), attr).values())
+        except Exception as exc:
+            violations.append({"map": f"{mod_name}.{attr}", "error": str(exc)})
+            continue
+        screened += 1
+        bad = sorted(legacy_codes & values)
+        if bad:
+            violations.append({"map": f"{mod_name}.{attr}", "legacy_values": bad})
+    for mod_name, attr in list_specs:
+        try:
+            values = set(getattr(importlib.import_module(mod_name), attr))
+        except Exception as exc:
+            violations.append({"map": f"{mod_name}.{attr}", "error": str(exc)})
+            continue
+        screened += 1
+        bad = sorted(legacy_codes & values)
+        if bad:
+            violations.append({"map": f"{mod_name}.{attr}", "legacy_values": bad})
+
+    if violations:
+        return {
+            "id": "bookcode_canonical",
+            "name": "Book-code canonicalization",
+            "status": "fail",
+            "message": "book-code map(s) emit legacy codes routing to non-existent notes files (★BUGCLUSTER) — canonicalize the values",
+            "violations": violations,
+        }
+    return {
+        "id": "bookcode_canonical",
+        "name": "Book-code canonicalization",
+        "status": "pass",
+        "message": f"{screened} book-code maps/lists emit only canonical codes (no legacy aliases)",
+        "violations": [],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -1987,6 +2066,9 @@ ALL_CHECKS = {
     # Whole-project audit 2026-05-20 — render coverage + provenance tiers
     "render_coverage": check_render_coverage_no_regression,
     "provenance_tier": check_provenance_tier_known,
+    # mint-7 ★BUGCLUSTER — book-code maps must emit canonical codes (commit-time
+    # guard for the every-ingest legacy-vs-canonical drift).
+    "bookcode_canonical": check_book_codes_canonical,
 }
 
 

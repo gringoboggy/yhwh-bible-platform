@@ -460,9 +460,13 @@ class CrossRefDetector:
         # One aggregated candidate per verse, with all top refs in the body.
         target_lines = []
         for r in refs:
+            # Defense-in-depth: canonicalize legacy target codes (ezk/jol/nam/php/jas)
+            # so popup hrefs match the canonical generate_verse_popups IDs even if an
+            # older legacy-keyed source JSON is ever loaded (mint-7 ★BUGCLUSTER).
+            tb = sources._normalize_book_code(r.target_book)
             target_lines.append(
-                f'<a href="#vnote-{r.target_book}-{r.target_chapter}-'
-                f'{r.target_verse}">{r.target_book.title()} '
+                f'<a href="#vnote-{tb}-{r.target_chapter}-'
+                f'{r.target_verse}">{tb.title()} '
                 f"{r.target_chapter}:{r.target_verse}</a>"
             )
         targets_str = " · ".join(target_lines)

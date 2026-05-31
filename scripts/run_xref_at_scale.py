@@ -138,6 +138,9 @@ def main() -> int:
         books = args.books.split(",")
     else:
         books = sorted(tsk_raw.keys())
+    # Defense-in-depth: canonicalize legacy codes so a re-run is self-correcting
+    # even if a source JSON is ever rebuilt with legacy keys (mint-7 ★BUGCLUSTER).
+    books = [sources._normalize_book_code(b) for b in books]
 
     print(
         f"Running CrossRefDetector across {len(books)} books "

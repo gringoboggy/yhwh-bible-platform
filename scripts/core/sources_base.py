@@ -55,13 +55,19 @@ _BOOK_CODE_ALIASES: dict[str, str] = {
     "joh": "jhn",  # John (legacy SBL short → OSIS canonical)
     "ps": "psa",  # Psalms (legacy SBL short → OSIS canonical)
     # ω.42 hygiene (γ.4.8 ship 2026-05-14) — resolves AUDIT_2026-05-13-DEEP
-    # D-W2 / γ.4.9.D pre-existing project-level inconsistency: the
-    # _BOOK_CODE_ALIASES_LONGFORM dict (further down this file) maps
-    # "james" → "jas", but content/notes/jam.py is the actual notes-file
-    # (no jas.py exists). Symmetric normalization here makes "jas"-typed
-    # source-JSON entries resolve to "jam" at both index-build and lookup
-    # time, matching the notes-file convention.
+    # D-W2 / γ.4.9.D pre-existing project-level inconsistency: content/notes/jam.py
+    # is the actual notes-file (no jas.py exists). Symmetric normalization here
+    # makes "jas"-typed source-JSON entries resolve to "jam" at both index-build
+    # and lookup time, matching the notes-file convention.
     "jas": "jam",  # James (SBL alias → notes-file canonical)
+    # mint-7 (2026-05-31) — complete the legacy→canonical set so the central
+    # normalizer matches extract_torrey_ccel._LEGACY_TO_CANON (the ★BUGCLUSTER
+    # fix). Each maps a legacy detector/source code to its content/notes/<code>.py.
+    "mar": "mrk",  # Mark (catholic_commentaries.json stores 2 Catena entries as "mar")
+    "jol": "joe",  # Joel
+    "ezk": "eze",  # Ezekiel
+    "nam": "nah",  # Nahum
+    "php": "phi",  # Philippians
 }
 
 

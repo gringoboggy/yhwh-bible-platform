@@ -8335,6 +8335,132 @@ class TestKenyonSourceLoader:
         # Spot-check the five-tradition seeds appear
         for must_have in ("gen", "exo", "psa", "mat", "rev", "1sa", "2ki", "1co", "rom"):
             assert must_have in seen_codes
+        # mint-7 ★BUGCLUSTER: every value must be canonical (no jol/php/jas
+        # dangling legacy codes — those routed Joel/Phil/James to non-existent
+        # notes files). The comprehensive cross-map guard lives in
+        # TestBookCodeCanonicalization below.
+        from scripts.core import config
+
+        non_canon = sorted(v for v in seen_codes if v not in set(config.books_by_code().keys()))
+        assert not non_canon, f"Kenyon map emits non-canonical codes: {non_canon}"
+
+
+class TestBookCodeCanonicalization:
+    """mint-7 ★BUGCLUSTER guard (memory ``feedback_book_code_canonical``).
+
+    Every book-code map must emit only *canonical* codes — those registered in
+    ``books.yaml`` AND backed by a ``content/notes/<code>.py`` file. A legacy
+    code that slips in (jol/ezk/nam/php/jas/mar) silently routes detector
+    candidates to a non-existent notes file, so ``batch_promote_xrefs`` drops
+    them with only a "no notes file" warning. The TSK variant of exactly this
+    bug shipped undetected until the mint-7 audit (``tsk_xrefs.json`` keyed
+    under legacy codes → ``refs_for`` returned ``[]`` for 5 whole books).
+    """
+
+    # Maps whose values must be canonical-with-a-notes-file. (link_xrefs.ABBREV
+    # and render_coverage._CANONICAL_BOOKS are screened by the lint check instead
+    # — they legitimately carry 1ma/2ma which have no notes file.)
+    BOOK_CODE_MAPS = (
+        "KENYON_BOOK_NAME_TO_CODE",
+        "TSK_BOOK_REMAP",
+        "NAVES_BOOK_REMAP",
+        "_BOOK_CODE_ALIASES",
+        "_LEGACY_TO_CANON",
+    )
+
+    def _maps(self):
+        from scripts.core import sources
+        from scripts.core.sources_base import _BOOK_CODE_ALIASES
+        from scripts.extract_torrey_ccel import _LEGACY_TO_CANON
+        from scripts.fetch_sources import NAVES_BOOK_REMAP, TSK_BOOK_REMAP
+
+        return {
+            "KENYON_BOOK_NAME_TO_CODE": sources.KENYON_BOOK_NAME_TO_CODE,
+            "TSK_BOOK_REMAP": TSK_BOOK_REMAP,
+            "NAVES_BOOK_REMAP": NAVES_BOOK_REMAP,
+            "_BOOK_CODE_ALIASES": _BOOK_CODE_ALIASES,
+            "_LEGACY_TO_CANON": _LEGACY_TO_CANON,
+        }
+
+    def test_every_map_value_is_canonical_with_notes_file(self):
+        import os
+
+        from scripts.core import config
+
+        repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        notes_dir = os.path.join(repo, "content", "notes")
+        codes = set(config.books_by_code().keys())
+        for name, mapping in self._maps().items():
+            for value in sorted(set(mapping.values())):
+                assert value in codes, f"{name} emits non-canonical code {value!r} (not in books.yaml)"
+                assert os.path.isfile(os.path.join(notes_dir, value + ".py")), (
+                    f"{name} emits {value!r} but content/notes/{value}.py does not exist"
+                )
+
+    def test_legacy_aliases_resolve_to_canonical(self):
+        from scripts.core.sources import _normalize_book_code
+        from scripts.extract_torrey_ccel import _LEGACY_TO_CANON
+
+        for legacy, canon in (
+            ("jol", "joe"),
+            ("ezk", "eze"),
+            ("nam", "nah"),
+            ("php", "phi"),
+            ("jas", "jam"),
+            ("mar", "mrk"),
+            ("joh", "jhn"),
+            ("ps", "psa"),
+        ):
+            assert _normalize_book_code(legacy) == canon, f"{legacy} should normalize to {canon}"
+        # The standalone CCEL extractor keeps its own _LEGACY_TO_CANON map; pin it
+        # equivalent to the central normalizer so the two cannot silently drift
+        # (the stale-comment hazard the mint-7 audit flagged).
+        for legacy, canon in _LEGACY_TO_CANON.items():
+            assert _normalize_book_code(legacy) == canon, (
+                f"_LEGACY_TO_CANON[{legacy!r}]={canon!r} disagrees with the central normalizer"
+            )
+
+    def test_bookcode_canonical_lint_check_passes(self):
+        # The commit-time guard (lint_rules) screens ALL book-code maps —
+        # including link_xrefs.ABBREV and render_coverage._CANONICAL_BOOKS that
+        # the "has notes file" meta-test can't cover (1ma/2ma have no notes
+        # file). Running it here also gives the lint check unit coverage.
+        from scripts.lint_rules import check_book_codes_canonical
+
+        result = check_book_codes_canonical()
+        assert result["status"] == "pass", result["violations"]
+
+    def test_render_coverage_canonical_books_has_no_legacy_codes(self):
+        # render_coverage._CANONICAL_BOOKS is a static canonical-code list; a
+        # legacy code ("mar" instead of "mrk") silently mis-reports that book's
+        # render coverage (mint-7 found exactly that). Guard against any legacy
+        # alias slipping into the list. (1ma/2ma are a separate, pre-existing
+        # Greek-Maccabees-vs-Tewahedo-Meqabyan discrepancy, not a legacy alias.)
+        from scripts.core.sources_base import _BOOK_CODE_ALIASES
+        from scripts.render_coverage import _CANONICAL_BOOKS
+
+        present = set(_BOOK_CODE_ALIASES.keys()) & set(_CANONICAL_BOOKS)
+        assert not present, f"_CANONICAL_BOOKS contains legacy codes: {sorted(present)}"
+        assert "mrk" in _CANONICAL_BOOKS, "canonical Mark code 'mrk' missing from _CANONICAL_BOOKS"
+
+    def test_tsk_xrefs_json_has_no_legacy_top_level_keys(self):
+        # Data-level guard: the live bug was tsk_xrefs.json keyed under legacy
+        # codes, so refs_for() returned [] for ezk/jol/nam/php/jas. After the
+        # mint-7 rebuild the keys (and all target_book codes) are canonical.
+        import json
+
+        import pytest
+
+        from scripts.core import sources
+
+        if not sources.Tsk.PATH.is_file():
+            pytest.skip("tsk_xrefs.json not cached")
+        data = json.loads(sources.Tsk.PATH.read_text(encoding="utf-8"))
+        legacy_present = {"ezk", "jol", "nam", "php", "jas"} & set(data.keys())
+        assert not legacy_present, f"tsk_xrefs.json still keyed under legacy codes: {sorted(legacy_present)}"
+        for canon in ("eze", "joe", "nah", "phi", "jam"):
+            assert canon in data, f"tsk_xrefs.json missing canonical key {canon!r}"
+            assert sources.tsk().refs_for(canon, 1, 1, min_votes=0) is not None
 
 
 class TestKenyonReferenceDetector:

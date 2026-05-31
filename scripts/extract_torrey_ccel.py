@@ -96,8 +96,11 @@ _HEADER = re.compile(r"[A-Z]")  # single-letter A–Z running section header
 # The shared CCEL ref-grammar yields LEGACY book codes when a ref uses a full
 # book name that falls through to the old TSK alias map (e.g. "Joel" → "jol").
 # The notes files use canonical codes (joe/eze/nah/phi/mrk/jhn/jam/psa), so
-# normalize — else those notes land nowhere (the ★BUGCLUSTER class; the central
-# _normalize_book_code covers only joh/ps/jas, so cover the full set here).
+# normalize — else those notes land nowhere (the ★BUGCLUSTER class). As of mint-7
+# the central sources._normalize_book_code covers this full legacy set too; this
+# local map is kept as defense-in-depth for the standalone CCEL extractor and is
+# pinned equivalent to the central normalizer by a test (and the bookcode_canonical
+# lint check screens both for legacy values).
 _LEGACY_TO_CANON = {
     "jol": "joe",
     "ezk": "eze",
