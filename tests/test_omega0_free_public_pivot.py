@@ -256,26 +256,34 @@ class TestBuildTrackerInConsoleList:
 
 
 # ----------------------------------------------------------------------
-# ONIX / sales / distribution / print_cover deprecation banners
+# ONIX / sales / distribution / print_cover removal (Phase 4 decommercialize)
 # ----------------------------------------------------------------------
 
 
-class TestObsoleteModulesCarryBanner:
-    """Per §7.4 obsolete-script convention: deprecated modules keep
-    a LOAD-BEARING-NO-LONGER banner so future readers know not to
-    wire them into new flows."""
+class TestCommercialModulesRemoved:
+    """Phase 4 (decommercialize): the dead commercial-era modules are DELETED
+    outright — the §7.4 LOAD-BEARING-NO-LONGER banner was only a transitional
+    measure. Only scripts/core/distribution.py survives, as an archival library
+    that still backs archive.org free distribution, and it keeps its banner."""
 
-    DEPRECATED = (
+    # Deleted on disk in Phase 4 — must not reappear.
+    REMOVED = (
         "scripts/build_onix.py",
         "content/onix.py",
         "scripts/core/sales.py",
-        "scripts/core/distribution.py",
         "scripts/api/distribution.py",
         "scripts/print_cover.py",
     )
 
-    @pytest.mark.parametrize("rel", DEPRECATED)
-    def test_banner_present(self, rel):
+    # Kept as an archival free-distribution library — banner must remain.
+    KEPT = ("scripts/core/distribution.py",)
+
+    @pytest.mark.parametrize("rel", REMOVED)
+    def test_deleted_modules_gone(self, rel):
+        assert not (REPO / rel).exists(), f"{rel} should be deleted in Phase 4 (decommercialize)"
+
+    @pytest.mark.parametrize("rel", KEPT)
+    def test_kept_module_carries_banner(self, rel):
         text = (REPO / rel).read_text(encoding="utf-8")
         assert "LOAD-BEARING-NO-LONGER" in text, f"{rel} missing Ω.0 deprecation banner"
         # Cross-reference to the pivot so future readers find context.
