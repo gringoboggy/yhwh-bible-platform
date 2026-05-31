@@ -3030,6 +3030,7 @@ def build_one(
                 ],
                 capture_output=True,
                 text=True,
+                stdin=subprocess.DEVNULL,
             )
             if result.returncode != 0:
                 raise RuntimeError(f"build_epub failed:\n{result.stderr or result.stdout}")

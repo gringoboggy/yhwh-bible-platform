@@ -189,6 +189,7 @@ def main() -> None:
         result = subprocess.run(
             [sys.executable, str(REPO_ROOT / "scripts" / "verify.py"), "--quiet"],
             cwd=str(REPO_ROOT),
+            stdin=subprocess.DEVNULL,
         )
         if result.returncode != 0:
             print(f"{RED}✗ verify.py reported errors — review the changes{RESET}", file=sys.stderr)

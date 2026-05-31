@@ -36,8 +36,7 @@ a fixes plan. See §5 for the script outline.
 
 **What already exists — do NOT rebuild (the STATIC audit tier is reusable today):**
 `scripts/ci.py` (ruff/lint/mypy/vulture/pip-audit/pytest/coverage), `ebible audit`
-(audit_caches/dead_code/types/deps), `scripts/lint_rules.py` (26 checks incl. the mint-7
-`bookcode_canonical`), `/preflight`. The GAP `deep-audit.js` fills is the **deep multi-agent**
+(audit_caches/dead_code/types/deps), `scripts/lint_rules.py` (28 checks (subprocess_stdin added mint-8; bookcode_canonical mint-7)), `/preflight`. The GAP `deep-audit.js` fills is the **deep multi-agent**
 audit (the mint-N style), which was ad-hoc each time.
 
 ---

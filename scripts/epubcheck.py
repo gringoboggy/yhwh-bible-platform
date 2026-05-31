@@ -158,7 +158,7 @@ def run_epubcheck(kind: str, path: str, epub_path: Path) -> subprocess.Completed
         cmd = [path, str(epub_path)]
     else:  # jar
         cmd = ["java", "-jar", path, str(epub_path)]
-    return subprocess.run(cmd, capture_output=True, text=True)
+    return subprocess.run(cmd, capture_output=True, text=True, stdin=subprocess.DEVNULL)
 
 
 def parse_summary(text: str) -> tuple[int, int, int, int] | None:

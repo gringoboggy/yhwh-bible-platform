@@ -393,7 +393,9 @@ class TestPhi1ClosedArcInvariantPreservation:
         # the Geʽez column to 8 ocr-tier3 books (gen+ex+lev+num+deu
         # +jos+jdg+rut). Same migration the companion
         # test_amharic_tewahedo_contains_gen_py received at τ.7.x.b.
-        # Durable invariant: gen.py present (Π.0 seed or successor).def test_amharic_tewahedo_contains_gen_py(self):
+        # Durable invariant: gen.py present (Π.0 seed or successor).
+
+    def test_amharic_tewahedo_contains_gen_py(self):
         """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
         `feedback_share_pin_pattern`. φ.1's original invariant
         (`files == ['gen.py']`) was the Π.0 seed state; τ.7.x.a + τ.7.x.b

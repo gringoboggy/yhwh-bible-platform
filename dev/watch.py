@@ -195,7 +195,7 @@ def run_build(
         "--version",
         version,
     ]
-    proc = subprocess.run(cmd, cwd=str(_REPO))
+    proc = subprocess.run(cmd, cwd=str(_REPO), stdin=subprocess.DEVNULL)  # W-W1: Windows pytest/PowerShell guard
     return proc.returncode
 
 

@@ -174,6 +174,7 @@ def _real_pip_audit_runner(executable: str, args: list[str]):
         text=True,
         cwd=str(_REPO),
         timeout=120,
+        stdin=subprocess.DEVNULL,
     )
     return proc.returncode, proc.stdout, proc.stderr
 

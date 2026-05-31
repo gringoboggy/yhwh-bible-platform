@@ -12,7 +12,7 @@ from __future__ import annotations
 class TestAllChecksMetaContract:
     """mint-7 E1 — every registered lint check must run on the committed tree
     without raising and return the standard {status, message, ...} shape, so a
-    check can never rot silently (8 of 26 ALL_CHECKS had no unit test before)."""
+    check can never rot silently (8 of 28 ALL_CHECKS had no unit test before)."""
 
     @classmethod
     def setup_class(cls):
@@ -33,9 +33,13 @@ class TestAllChecksMetaContract:
         assert not failing, f"lint check(s) failing on the committed tree: {failing}"
 
     def test_registry_not_silently_shrunk(self):
-        # Pin the registry size (26 at mint-7) so a check can't be dropped from
-        # ALL_CHECKS without a test noticing.
-        assert len(self.mod.ALL_CHECKS) >= 26, f"ALL_CHECKS shrank to {len(self.mod.ALL_CHECKS)}"
+        # Pin the registry size EXACTLY (28 at mint-8: +bookcode_canonical mint-7,
+        # +subprocess_stdin mint-8) so a check can't be dropped from ALL_CHECKS —
+        # or quietly added without updating this pin — without a test noticing.
+        assert len(self.mod.ALL_CHECKS) == 28, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 28"
+        # A duplicate key in the dict literal would silently collapse two checks
+        # into one; pin that the keys are unique.
+        assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))
 
 
 class TestOmega15PlanLinter:

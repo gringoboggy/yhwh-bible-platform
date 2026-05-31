@@ -65,6 +65,7 @@ def run_verify() -> tuple[int, int, int, int]:
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
+        stdin=subprocess.DEVNULL,
     )
     out = (r.stdout or "") + (r.stderr or "")
     plain = re.sub(r"\x1b\[[0-9;]*m", "", out)
@@ -81,6 +82,7 @@ def run_epubcheck(epub_path: Path) -> tuple[int, int] | None:
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
+        stdin=subprocess.DEVNULL,
     )
     out = (r.stdout or "") + (r.stderr or "")
     plain = re.sub(r"\x1b\[[0-9;]*m", "", out)
@@ -266,6 +268,7 @@ def main() -> None:
         r = subprocess.run(
             [sys.executable, str(SCRIPTS / "build_epub.py"), str(epub_path)],
             cwd=str(REPO_ROOT),
+            stdin=subprocess.DEVNULL,
         )
         if r.returncode != 0:
             print(f"{RED}ERROR: build_epub.py failed (rc={r.returncode}){RESET}", file=sys.stderr)

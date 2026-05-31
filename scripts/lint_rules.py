@@ -1999,6 +1999,10 @@ def check_book_codes_canonical() -> dict:
         ("scripts.core.sources_base", "_BOOK_CODE_ALIASES"),
         ("scripts.extract_torrey_ccel", "_LEGACY_TO_CANON"),
         ("scripts.link_xrefs", "ABBREV"),
+        # M16a (mint-8) — the CCEL extractors' book maps. Both already emit only
+        # canonical codes; screened here to block future legacy-alias drift.
+        ("scripts.extract_naves_ccel", "CCEL_ABBREV"),
+        ("scripts.extract_eastons_ccel", "EASTON_BOOK"),
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 
@@ -2042,6 +2046,134 @@ def check_book_codes_canonical() -> dict:
     }
 
 
+# ----------------------------------------------------------------------
+# subprocess-stdin guard (mint-8). On Windows pytest-from-PowerShell every
+# subprocess.run()/Popen()/call()/check_call()/check_output() must pass an
+# explicit ``stdin=`` (DEVNULL/PIPE/…) or it can hit WinError 6 (memory
+# ``feedback_w_w1_subprocess_devnull``). Pinned at COMMIT time (the pre-commit
+# hook runs lint_rules.py, not the test suite). AST-based so it never matches
+# its own docstring or a literal in surrounding prose.
+# ----------------------------------------------------------------------
+# ENFORCED (mint-8): every scripts/ + dev/ subprocess spawn now passes an
+# explicit stdin= (or is allowlisted/waived), so reintroduction is a hard FAIL.
+# This flag gates whether a breach blocks the commit (True) vs. surfaces as a
+# warning (False, the bring-up state every other mint guard used before its
+# cleanup landed). The check itself always flags a missing stdin.
+_ENFORCE_SUBPROCESS_STDIN = True  # all call sites pass stdin= as of mint-8
+
+# The subprocess attribute-call names that spawn a child process and therefore
+# inherit a stdin handle. ``DEVNULL``/``PIPE`` constants are NOT calls, so they
+# never match.
+_SUBPROCESS_SPAWN_CALLS = frozenset({"run", "Popen", "call", "check_call", "check_output"})
+
+# (repo-relative posix path, reason) allowlist — call sites that legitimately
+# want the inherited interactive stdin. ``scripts/ebible.py`` hosts the CLI's
+# interactive REPL (a child it spawns may read the terminal).
+_SUBPROCESS_STDIN_ALLOWLIST = {
+    "scripts/ebible.py": "interactive REPL",
+}
+
+# Line-level waiver — ``# subprocess-stdin-waived: <reason>`` on the call's own
+# line or the line above it opts a single call site out (mirrors ω.9/ω.10).
+_SUBPROCESS_STDIN_WAIVER = "subprocess-stdin-waived"
+
+
+def _find_subprocess_calls_missing_stdin(tree: ast.AST) -> list[int]:
+    """Return line numbers of subprocess spawn calls lacking an explicit
+    ``stdin=`` keyword. IMPORT-AWARE so a LOCAL helper named ``run`` (the
+    project has several: ci.py, ship-check.py, run.py, apply_kjv_xref.py …) is
+    NOT mistaken for ``subprocess.run``:
+
+    * ``subprocess.run(...)`` / ``<alias>.run(...)`` — an Attribute whose attr is
+      a spawn call AND whose value is the ``subprocess`` module (``subprocess``
+      is always recognized; ``import subprocess as sp`` adds ``sp``).
+    * a bare ``run(...)`` / ``Popen(...)`` ONLY when that name was bound via
+      ``from subprocess import run`` (optionally ``as`` an alias).
+
+    A ``**kwargs`` splat counts as supplying stdin (can't prove otherwise — don't
+    false-flag)."""
+    module_aliases = {"subprocess"}
+    bare_names: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for a in node.names:
+                if a.name == "subprocess":
+                    module_aliases.add(a.asname or "subprocess")
+        elif isinstance(node, ast.ImportFrom) and node.module == "subprocess":
+            for a in node.names:
+                if a.name in _SUBPROCESS_SPAWN_CALLS:
+                    bare_names.add(a.asname or a.name)
+
+    hits: list[int] = []
+
+    class Finder(ast.NodeVisitor):
+        def visit_Call(self, node: ast.Call) -> None:
+            f = node.func
+            is_spawn = (
+                isinstance(f, ast.Attribute)
+                and f.attr in _SUBPROCESS_SPAWN_CALLS
+                and isinstance(f.value, ast.Name)
+                and f.value.id in module_aliases
+            ) or (isinstance(f, ast.Name) and f.id in bare_names)
+            if is_spawn:
+                has_stdin = any(kw.arg == "stdin" or kw.arg is None for kw in node.keywords)
+                if not has_stdin:
+                    hits.append(node.lineno)
+            self.generic_visit(node)
+
+    Finder().visit(tree)
+    return hits
+
+
+def check_subprocess_stdin() -> dict:
+    """Every ``subprocess`` spawn call under scripts/ + dev/ must pass an
+    explicit ``stdin=`` keyword (Windows WinError 6 mitigation, W-W1 — memory
+    ``feedback_w_w1_subprocess_devnull``). Allowlist:
+    ``_SUBPROCESS_STDIN_ALLOWLIST`` (scripts/ebible.py — interactive REPL); a
+    ``# subprocess-stdin-waived: <reason>`` marker waives a single call site.
+
+    AST-based + import-aware detection (not regex) so the check never matches
+    its own docstring, surrounding string literals, or a local helper named
+    ``run``. ENFORCED as of mint-8 (``_ENFORCE_SUBPROCESS_STDIN`` True): a
+    missing stdin is a hard FAIL."""
+    violations: list[dict] = []
+    for sub in ("scripts", "dev"):
+        d = REPO / sub
+        if not d.is_dir():
+            continue
+        for py in sorted(d.rglob("*.py")):
+            rel = str(py.relative_to(REPO)).replace("\\", "/")
+            if rel in _SUBPROCESS_STDIN_ALLOWLIST:
+                continue
+            try:
+                text = py.read_text(encoding="utf-8")
+                tree = ast.parse(text, filename=str(py))
+            except (OSError, UnicodeDecodeError, SyntaxError):
+                continue
+            lines = text.splitlines()
+            for ln in _find_subprocess_calls_missing_stdin(tree):
+                same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+                prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+                if _SUBPROCESS_STDIN_WAIVER in same or _SUBPROCESS_STDIN_WAIVER in prev:
+                    continue
+                violations.append({"file": rel, "line": ln, "snippet": same.strip()[:120]})
+
+    status = "pass" if not violations else ("fail" if _ENFORCE_SUBPROCESS_STDIN else "warn")
+    return {
+        "id": "subprocess_stdin",
+        "name": "subprocess calls pass explicit stdin= (W-W1 WinError 6)",
+        "status": status,
+        "message": (
+            "all subprocess spawn calls pass an explicit stdin="
+            if not violations
+            else f"{len(violations)} subprocess call site(s) missing explicit stdin= "
+            "(W-W1 WinError 6) — add `stdin=subprocess.DEVNULL` or a "
+            "`# subprocess-stdin-waived: <reason>` marker"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2079,6 +2211,9 @@ ALL_CHECKS = {
     # mint-7 ★BUGCLUSTER — book-code maps must emit canonical codes (commit-time
     # guard for the every-ingest legacy-vs-canonical drift).
     "bookcode_canonical": check_book_codes_canonical,
+    # mint-8 — every subprocess spawn call passes an explicit stdin= (Windows
+    # WinError 6 / W-W1 mitigation; commit-time guard).
+    "subprocess_stdin": check_subprocess_stdin,
 }
 
 

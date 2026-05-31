@@ -332,7 +332,14 @@ def api_customize_data() -> dict:
     # list down to "only books in THIS edition" so a Tanakh edition
     # shows 39 rows and an Ethiopian shows 87.
     _mtx = _matrix.compute_matrix()
-    edition_canon_books = {ed_id: sorted(books) for ed_id, books in _mtx.edition_canon_books.items()}
+    # Canonical (books.yaml) order, not alphabetical (§6.1). The defensive tail
+    # appends — alphabetically — any codes not present in books_canonical so no
+    # edition book is ever silently dropped from the payload.
+    _book_order = [b["code"] for b in books_canonical]
+    edition_canon_books = {
+        ed_id: [c for c in _book_order if c in books] + [c for c in sorted(books) if c not in _book_order]
+        for ed_id, books in _mtx.edition_canon_books.items()
+    }
     # §4.6 — the 25-design cover-template catalog (shared, not per-edition);
     # the /customize cover picker renders one clickable thumbnail per row.
     from scripts.core import covers as _covers

@@ -155,7 +155,7 @@ notes the moment new content is prospected.
 ## Phase E — Tests + doc/data hygiene
 
 > **✅ PHASE E (E1/E2/E4 done; E3 shipped as a verifiable determinism gate). 2026-05-31.**
-> E1: `TestAllChecksMetaContract` in `test_lint_rules.py` runs all 26 `ALL_CHECKS` (asserts each
+> E1: `TestAllChecksMetaContract` in `test_lint_rules.py` runs all 28 `ALL_CHECKS` (asserts each
 > is callable, returns the `{status,message}` shape, and doesn't FAIL on the committed tree) +
 > pins the registry size — closes the 8-untested-checks gap. E2: added a `slow` pytest marker;
 > tagged `test_web_filesplit.py` + `test_matrix_psi35.py` module-level `slow` (deselect via
@@ -173,7 +173,7 @@ notes the moment new content is prospected.
 > `epub_working/` per edition). E2 leftovers (session-scope `compute_matrix` in psi35; the unused
 > `serial` marker) are minor — folded into mint-8.
 
-- [x] **E1 — Lint-check meta-test (DONE).** 8 of 26 `ALL_CHECKS` have no unit test (encode_decode,
+- [x] **E1 — Lint-check meta-test (DONE).** 8 of 28 `ALL_CHECKS` have no unit test (encode_decode,
   encoder_canonical_order, provenance_tier, render_coverage, ephemeral_doc_pins,
   plan_coherence, freshness, manuscript_witnesses). Add a meta-test iterating `ALL_CHECKS`
   + targeted tests for the correctness-critical ones. **M.**

@@ -41,7 +41,7 @@ def info(msg, color=""):
 
 
 def run(cmd, cwd=None, capture=True):
-    return subprocess.run(cmd, cwd=cwd or str(REPO_ROOT), capture_output=capture, text=True)
+    return subprocess.run(cmd, cwd=cwd or str(REPO_ROOT), capture_output=capture, text=True, stdin=subprocess.DEVNULL)
 
 
 def parse_inject_summary(stdout, _code):

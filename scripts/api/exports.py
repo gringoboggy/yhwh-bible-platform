@@ -200,6 +200,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
                 text=True,
                 cwd=str(REPO),
                 timeout=timeout_s,
+                stdin=subprocess.DEVNULL,
             )
         except subprocess.TimeoutExpired as e:
             _safe_emit("build_failure", edition_id=edition_id, reason="timeout", timeout_seconds=timeout_s)
