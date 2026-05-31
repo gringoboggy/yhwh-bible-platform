@@ -1,8 +1,8 @@
 """Δ.15 — append-only event log (2026-05-11).
 
 The lightweight foundation that ε.1 (metrics collector), ε.2
-(/exec dashboard), ε.3 (sales import), ε.5 (quarterly auto-report),
-and the eventual ε.* analytics surface compose against.
+(dashboard — removed mint-4), ε.3 (sales import), ε.5 (quarterly
+auto-report), and the eventual ε.* analytics surface compose against.
 
 **Why append-only JSON Lines**:
 - Trivially streamable and tail-able with standard tools.
@@ -32,7 +32,7 @@ server deployment so locks would be premature optimization.
 
 **Future ε.* extensions** (NOT in this module):
 - ε.1 metrics collector: composes `iter_events()` → KPI rollups.
-- ε.2 /exec dashboard: renders the rollups as tiles.
+- ε.2 dashboard (removed mint-4): rendered the rollups as tiles.
 - ε.5 quarterly auto-report: aggregates events into PDF.
 """
 

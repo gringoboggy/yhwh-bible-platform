@@ -69,10 +69,6 @@ htmlcov/
 _rev_tmp*/
 _scratch*/
 *_crop_tmp/
-# SonarQube scanner scratch (per memory `gaps-folder`: never git-add .sonar/;
-# it self-spawned inside the _rev_tmp dirs in the 75ba7b2 incident).
-.sonar/
-**/.sonar/
 
 # --- GAPS source images (moved into repo 2026-05-20 audit) ---
 # The manuscript source images (~1 GB: GG-00106 + Cambridge MS Add. 1570

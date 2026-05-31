@@ -1,8 +1,8 @@
 """ε.1 — metrics collector (2026-05-11).
 
-Read-side rollup queries over `scripts.core.event_log`. The /exec
-dashboard (ε.2), quarterly auto-report (ε.5), and any future
-analytics surface compose these. Lightweight by design — no
+Read-side rollup queries over `scripts.core.event_log`. The
+quarterly auto-report (ε.5) and any future analytics surface
+compose these. Lightweight by design — no
 external metrics service, no in-process state, just iter_events()
 + Python dicts.
 

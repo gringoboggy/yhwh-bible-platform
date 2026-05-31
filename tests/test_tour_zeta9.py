@@ -56,7 +56,7 @@ class TestZeta9MarkerSubstituted:
         from scripts.templates._design import apply_design_system
 
         html_in = "<html><head><!-- THEME_TOUR_JS --></head><body></body></html>"
-        out = apply_design_system(html_in, "/exec")
+        out = apply_design_system(html_in, "/ops")
         assert "<!-- THEME_TOUR_JS -->" not in out, "marker not substituted"
         assert "window.ebibleTour" in out, "THEME_TOUR_JS body not injected"
 

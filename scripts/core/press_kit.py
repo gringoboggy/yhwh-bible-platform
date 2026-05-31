@@ -7,8 +7,8 @@ sizes) + 150-word blurb + 500-word description + sample chapter HTML
 **Use case**: the publisher submits one ZIP per edition to a reviewer,
 journalist, retail buyer, or catalogue site. Today this means
 hand-resizing the cover 4 times, copy-pasting blurbs from a notes
-app, and PDF-ing a sample chapter. After ε.7, "Download press kit"
-on /exec produces a complete deliverable.
+app, and PDF-ing a sample chapter. After ε.7, the "Download press
+kit" action produces a complete deliverable.
 
 **Storage** — `content/press_kit.json` (machine-managed sparse JSON,
 sibling to `content/distribution.json` and `content/sources/*.json`).

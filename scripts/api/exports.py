@@ -127,7 +127,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
     blocks until the EPUB is ready or fails.
 
     ε.1 — emits `build_start` / `build_complete` / `build_failure`
-    events to the event log so the future /exec dashboard can roll up
+    events to the event log so a future dashboard can roll up
     build cadence + success rate. emit() failures are swallowed so a
     misconfigured event log can't break the build pipeline itself.
     """

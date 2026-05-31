@@ -21,8 +21,8 @@ Coverage:
 
 All tests use monkeypatch isolation of the event-log file.
 
-Pinning rationale: ε.1's rollups are the contract the /exec
-dashboard (ε.2) and quarterly auto-report (ε.5) consume. Drift
+Pinning rationale: ε.1's rollups are the contract the ε.2
+dashboard (removed mint-4) and quarterly auto-report (ε.5) consume. Drift
 in the shape of `summary_kpis()` or the bucket-counting logic
 would silently break the downstream UI.
 """

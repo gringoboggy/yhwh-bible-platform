@@ -30,8 +30,8 @@ def _editions_index() -> dict:
 
 
 def api_archive_org_status() -> dict:
-    """Configuration + identifier-preview surface for the /exec
-    Archive.org banner.
+    """Configuration + identifier-preview surface for the
+    Archive.org distribution banner.
 
     Returns `{status, configured, message, identifier_prefix,
     env_var_access, env_var_secret}`. The env var *names* are
