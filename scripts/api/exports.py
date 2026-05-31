@@ -403,9 +403,13 @@ def api_download_export(filename: str) -> tuple[bytes, str] | dict:
     Validates that the filename matches the expected build pattern so
     we never serve files outside the exports dir.
     """
-    if not re.match(r"^Ethiopian_Bible_[a-z0-9-]+_[a-z0-9]+_[\dT\-:Z]+\.epub$", filename):
+    is_epub = re.match(r"^Ethiopian_Bible_[a-z0-9-]+_[a-z0-9]+_[\dT\-:Z]+\.epub$", filename)
+    # mint-7 C3 — the Build-All combined download is All_Editions_<version>_<ts>.zip
+    # (exports.api_build_all_editions); without this shape every Build-All download 400s.
+    is_zip = re.match(r"^All_Editions_[a-z0-9]+_[\dT\-:Z]+\.zip$", filename)
+    if not (is_epub or is_zip):
         return {"error": "invalid export filename"}
     path = EXPORTS_DIR / filename
     if not path.is_file():
         return {"error": "file not found"}
-    return (path.read_bytes(), "application/epub+zip")
+    return (path.read_bytes(), "application/epub+zip" if is_epub else "application/zip")

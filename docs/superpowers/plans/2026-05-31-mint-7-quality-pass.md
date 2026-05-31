@@ -94,15 +94,23 @@ notes the moment new content is prospected.
   candidates + resetting ids. Copy the naves/torrey append-merge pattern (~15 lines). **Effort S.**
 
 ## Phase C — Security (single-user LOCAL app; integrity/secret focus)
-- [ ] **C1 — Stored XSS in `/api/sample/`.** `web_content.py:366-369` (`_render_sample_html`)
+
+> **✅ PHASE C COMPLETE (2026-05-31).** C1/C2/C3 done with tests. C1: `_render_sample_html`
+> now `sanitize_html(str(n[7] or ""))` (test `test_api_sample_html_sanitizes_note_body_xss`
+> proves a `<script>` body is stripped while `<em>` survives). C2: `content/auth.json` +
+> `distribution.json`/`press_kit.json` added to `.gitignore` (all three were untracked +
+> absent — pure prevention). C3: `api_download_export` now accepts `All_Editions_*.zip`
+> with `application/zip` mime (test proves the shape is accepted + a bogus zip still rejected).
+
+- [x] **C1 — Stored XSS in `/api/sample/`.** `web_content.py:366-369` (`_render_sample_html`)
   interpolates the note body verbatim; `_send_html` then noncifies every `<script>`,
   so an injected `<script>` from a note body gets a valid CSP nonce and executes. Wrap:
   `body = sanitize_html(str(n[7] or ""))` (mirror `preview.py:133-135`). **HIGH. Effort S.**
-- [ ] **C2 — `content/auth.json` not gitignored.** Stores the enrolled TOTP base32 secret;
+- [x] **C2 — `content/auth.json` not gitignored.** Stores the enrolled TOTP base32 secret;
   `save.ps1`'s `git add -A` would commit it on first 2FA enrollment. Add `content/auth.json`
   (and for consistency `content/distribution.json`, `content/press_kit.json` runtime-state)
   to `.gitignore`. **Effort S.**
-- [ ] **C3 — Build-All ZIP undownloadable.** `api_download_export` (exports.py:406) regex
+- [x] **C3 — Build-All ZIP undownloadable.** `api_download_export` (exports.py:406) regex
   only allows `Ethiopian_Bible_*.epub`; the combined zip is `All_Editions_*.zip` → every
   download 400s. Add the zip shape to the allowlist. **Effort S.**
 
@@ -142,8 +150,10 @@ notes the moment new content is prospected.
 
 ## Suggested order
 A (correctness/bugcluster) → C (security, cheap+important) → B (at-scale) → D (debt) → E
-(tests/doc). Save (5-leg) at each phase close; back up E:/F: every 3rd commit (automatic
-via `save-all.ps1`). Verify byte-stability after anything touching detectors/promote/build.
+(tests/doc). **Full save (`save-all.ps1` — all 5 legs to ALL sources) at each phase close
+and whenever anything important lands** (RULES §4 unified save semantics, 2026-05-31 — no
+local-only, no batching, no every-Nth cadence). Verify byte-stability after anything
+touching detectors/promote/build.
 
 ## Severity ledger (verifier-calibrated)
 - **HIGH:** TSK rebuild (A2), AI ch_count (B1), stored-XSS (C1).

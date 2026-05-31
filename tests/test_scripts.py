@@ -1463,6 +1463,19 @@ class TestExport:
         assert isinstance(r, dict)
         assert "error" in r
 
+    def test_download_accepts_build_all_zip_shape(self):
+        # mint-7 C3 — the Build-All combined download is All_Editions_<version>_<ts>.zip;
+        # the filename allowlist must accept that shape (else every Build-All
+        # download 400s with "invalid export filename").
+        r = self.web.api_download_export("All_Editions_v28a_20260101T000000Z.zip")
+        assert isinstance(r, dict)
+        # The file doesn't exist in the test env → "file not found" (the shape was
+        # ACCEPTED), NOT "invalid export filename" (which would mean the shape was rejected).
+        assert r.get("error") == "file not found", r
+        # A bogus zip name is still rejected by the allowlist.
+        r2 = self.web.api_download_export("Evil_All_Editions.zip")
+        assert r2.get("error") == "invalid export filename"
+
 
 # ============================================================
 # scripts/web.py — customization (Phase ν.1)
@@ -3599,6 +3612,27 @@ class TestEditionMeta:
         # Self-contained — no external CSS/JS deps
         assert "cdn.tailwindcss.com" not in html
         assert 'src="' not in html, "sample doc must not load remote scripts"
+
+    def test_api_sample_html_sanitizes_note_body_xss(self):
+        # mint-7 C1 — a <script> in a stored note body must be stripped from the
+        # sample HTML. _send_html later nonce-injects the doc, so an unsanitized
+        # <script> would receive a valid CSP nonce and execute (stored XSS).
+        from scripts.web_content import _render_sample_html
+
+        # Note tuple shape: (chapter, verse, suffix, anchor, kind, title, label, body_html)
+        note = (1, 1, "", "", "note-cyril", "Bede", "Cite", "<em>keep</em><script>alert(1)</script>")
+        html = _render_sample_html(
+            edition={"id": "x", "title": "X"},
+            book="gen",
+            all_books={"gen": {"title": "Genesis"}},
+            from_chapter=1,
+            to_chapter=1,
+            verses_by_chapter={1: [(1, "In the beginning")]},
+            notes=[note],
+            translation="kjv",
+        )
+        assert "<script" not in html.lower(), "note-body <script> must be sanitized out of the sample HTML"
+        assert "<em>keep</em>" in html, "legitimate inline markup must be preserved"
 
     def test_api_sample_html_unknown_edition(self):
         """Unknown edition_id surfaces 404 + clear error code."""

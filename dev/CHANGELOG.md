@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-05-31 — mint-7 Phase C (security) + UNIFIED save semantics (process change)
+
+**Phases shipped:** mint-7 Phase C (C1–C3)
+**Test delta:** +2 (sample-body XSS sanitize, Build-All zip allowlist)
+**Save tag:** full 5-leg sync to all sources (carries Phase A + C + the rule change)
+
+What shipped:
+- **C1** — stored XSS in `/api/sample/`: `_render_sample_html` now `sanitize_html`s the note body. The sample doc is later CSP-nonce-injected by `_send_html`, so an unsanitized `<script>` in a note body would have received a valid nonce and executed. Test `test_api_sample_html_sanitizes_note_body_xss` proves a `<script>` body is stripped while `<em>` survives. Mirrors `preview.py:133-135` / the `inject.build_aside` build path.
+- **C2** — `content/auth.json` (enrolled TOTP base32 secret) + `distribution.json`/`press_kit.json` runtime state added to `.gitignore` (all three untracked + absent — pure prevention against the save's `git add -A` sweeping the secret in on first 2FA enrollment).
+- **C3** — the Build-All combined download (`All_Editions_<version>_<ts>.zip`) added to `api_download_export`'s filename allowlist with `application/zip` mime; previously every Build-All download 400'd (`invalid export filename`). Test proves the zip shape is accepted + a bogus zip rejected.
+
+Process change (user-directed 2026-05-31, durable):
+- **UNIFIED SAVE SEMANTICS.** save = commit = push = backup = sync = ONE full 5-leg sync to ALL sources (local + GitLab + GitHub + E: + F:), **EVERY time** via `save-all.ps1`. NO local-only commit, NO batching the push, NO "back up every Nth commit" (that cadence was a marathon-transcription artifact — retired), NO asking permission to push. Claude self-triggers whenever something important lands OR on user command. RULES §4 rewritten; memory `reference_save` updated; the plan's every-3rd line removed; `gitkraken-hooks@gitkraken` recorded as a WANTED plugin (env-health check).
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (Phases A + C ✅; next = B at-scale)
+- RULES §4 (save semantics); memory `reference_save`
+
+---
+
 ## 2026-05-31 — mint-7 Phase A — ★book-code BUGCLUSTER fixed (canonical TSK rebuild + central normalizer completed + commit-time guard)
 
 **Phases shipped:** mint-7 Phase A (A1–A5) + D4

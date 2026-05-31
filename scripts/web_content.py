@@ -334,6 +334,8 @@ def _render_sample_html(
     """
     import html as _html
 
+    from scripts.core.html_sanitize import sanitize_html
+
     book_meta = all_books.get(book) or {}
     book_title = book_meta.get("title") or book.upper()
     edition_title = edition.get("title") or edition.get("short_title") or edition.get("id")
@@ -363,7 +365,12 @@ def _render_sample_html(
                     # n shape: (chapter, verse, suffix, anchor, kind,
                     #           title, label, body_html, attribution?)
                     title = _html.escape(str(n[5] or "Note"))
-                    body = str(n[7] or "")  # body is already HTML
+                    # Sanitize the stored note body before interpolating: the
+                    # /api/sample/ HTML is nonce-injected by _send_html, so an
+                    # unsanitized <script> in a note body would receive a valid CSP
+                    # nonce and execute (stored XSS). Mirror preview.py:133-135 and
+                    # the inject.build_aside build path (mint-7 C1).
+                    body = sanitize_html(str(n[7] or ""))
                     kind = _html.escape(str(n[4] or ""))
                     items.append(
                         f'<li class="note"><span class="kind">{kind}</span> <strong>{title}.</strong> {body}</li>'
