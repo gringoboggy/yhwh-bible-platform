@@ -60,18 +60,31 @@ def candidate_to_dict(c, idx: int) -> dict:
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
-    """Same output format as prospect.write_queue — promote.py works
-    on these unchanged."""
+    """Same output format as prospect.write_queue — promote.py works on these
+    unchanged. APPENDS rather than overwrites: multiple at-scale drivers (xref,
+    hebrew, naves, …) coexist on the same chapter file, so existing candidates
+    are preserved and new ones get fresh ids continuing from the existing tail.
+    (mint-7 B2 — this driver was the lone one of 9 that clobbered the file,
+    silently deleting other drivers' pending candidates and resetting ids.)"""
     if not candidates:
         return None
     CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
     out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
+
+    existing: list[dict] = []
+    if out_path.is_file():
+        try:
+            existing = json.loads(out_path.read_text(encoding="utf-8")).get("candidates", [])
+        except Exception:
+            existing = []
+
+    new_dicts = [candidate_to_dict(c, len(existing) + i) for i, c in enumerate(candidates, start=1)]
     payload = {
         "book": book,
         "chapter": chapter,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(candidates),
-        "candidates": [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)],
+        "n_candidates": len(existing) + len(new_dicts),
+        "candidates": existing + new_dicts,
     }
     out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path

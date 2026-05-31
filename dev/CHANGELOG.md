@@ -6,6 +6,21 @@
 
 ---
 
+## 2026-05-31 — mint-7 Phase B (at-scale coverage + integrity)
+
+**Phases shipped:** mint-7 Phase B (B1, B2)
+**Test delta:** +3 (high-chapter coverage, ch_count source-guard, run_xref append-merge)
+**Save tag:** full 5-leg sync to all sources
+
+What shipped:
+- **B1** — both AI at-scale drivers (`run_ai_xrefs_at_scale.py`, `run_ai_notes_at_scale.py`) now read `book_meta.get("ch_count", 50)`. They were reading the non-existent `"chapters"` key → always 50, silently skipping Psalms 51-150, Isaiah 51-66, Jeremiah 51-52, Sirach 51-65, 1 Enoch 51-108 on every full-corpus AI run. Tests: `test_iter_target_verses_covers_high_chapter_books` (Psalms now iterates all 150 chapters) + `test_ai_at_scale_drivers_use_ch_count_not_chapters` (source-scan guard pinning both files). **NOTE: the actual AI content fill-run for the now-reachable chapters is a SEPARATE, metered API run — NOT done here; mint-7 ships the code fix only (flagged).**
+- **B2** — `run_xref_at_scale.write_queue` now append-merges (read existing candidates, number new from the tail, write existing + new). It was the lone driver of 9 that clobbered the chapter file, silently deleting other drivers' pending candidates and resetting ids. `test_run_xref_write_queue_appends_not_overwrites` proves prior candidates survive + ids continue.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (Phases A + C + B ✅; next = D code-debt)
+
+---
+
 ## 2026-05-31 — mint-7 Phase C (security) + UNIFIED save semantics (process change)
 
 **Phases shipped:** mint-7 Phase C (C1–C3)

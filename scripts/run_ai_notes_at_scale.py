@@ -153,7 +153,9 @@ def iter_target_verses(books: list[str], max_verses: int):
             continue
         try:
             book_meta = config.get_book(book)
-            n_chapters = book_meta.get("chapters", 50) if book_meta else 50
+            n_chapters = (
+                book_meta.get("ch_count", 50) if book_meta else 50
+            )  # mint-7 B1: books.yaml key is ch_count (was "chapters" → always 50)
         except KeyError:
             n_chapters = 50
         for chapter in range(1, n_chapters + 1):

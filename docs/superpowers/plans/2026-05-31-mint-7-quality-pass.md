@@ -82,14 +82,23 @@ notes the moment new content is prospected.
   silently return. **Effort M.**
 
 ## Phase B — At-scale coverage + integrity
-- [ ] **B1 — AI at-scale chapter cap.** `run_ai_xrefs_at_scale.py:155` + `run_ai_notes_at_scale.py:156`
+
+> **✅ PHASE B COMPLETE (2026-05-31).** B1: both AI drivers now `book_meta.get("ch_count", 50)`
+> (was `"chapters"` → always 50) — `test_iter_target_verses_covers_high_chapter_books` proves
+> Psalms now iterates all 150 chapters + a source-scan guard pins both files. **The actual
+> AI content fill-run for the previously-skipped chapters is a SEPARATE, metered run — NOT
+> done here (code fix only, flagged).** B2: `run_xref_at_scale.write_queue` now append-merges
+> (was the lone clobbering driver of 9) — `test_run_xref_write_queue_appends_not_overwrites`
+> proves prior candidates survive + ids continue.
+
+- [x] **B1 — AI at-scale chapter cap.** `run_ai_xrefs_at_scale.py:155` + `run_ai_notes_at_scale.py:156`
   use `book_meta.get("chapters", 50)` — `books.yaml` key is `ch_count`, so it ALWAYS
   returns 50, silently skipping Psalms 51-150, Isaiah 51-66, Jeremiah 51-52, Sirach 51-65,
   1 Enoch 51-108, etc. Change to `ch_count` (one line each; siblings hebrew/greek are
   correct). Verify with `--books psa --dry-run` → 150 chapters. **HIGH. Effort S.**
   (NOTE: re-running the AI content at scale to actually fill the gap is a SEPARATE,
   possibly-metered content run — flag it; the code fix is what mint-7 ships.)
-- [ ] **B2 — `run_xref_at_scale.py` write_queue overwrites** (:62-77) — the lone driver of 9
+- [x] **B2 — `run_xref_at_scale.py` write_queue overwrites** (:62-77) — the lone driver of 9
   that clobbers instead of append-merges, silently deleting other drivers' pending
   candidates + resetting ids. Copy the naves/torrey append-merge pattern (~15 lines). **Effort S.**
 

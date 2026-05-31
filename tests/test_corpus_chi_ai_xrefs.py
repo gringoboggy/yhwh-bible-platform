@@ -655,6 +655,64 @@ class TestRunAIXrefsAtScaleDriver:
         for book, _ch, _vs, _text in verses:
             assert book == "jhn"
 
+    def test_iter_target_verses_covers_high_chapter_books(self):
+        # mint-7 B1 regression: the chapter cap read books.yaml's non-existent
+        # "chapters" key → always 50, silently skipping Psalms 51-150, Isaiah
+        # 51-66, etc. on every full-corpus AI run. With the ch_count fix all 150
+        # Psalm chapters are iterated.
+        chapters = {ch for _b, ch, _vs, _t in self.driver.iter_target_verses(["psa"], max_verses=10**9)}
+        assert max(chapters) == 150, f"expected Psalms to reach ch 150, got {max(chapters)} (chapter cap regressed?)"
+        assert len(chapters) == 150
+
+    def test_ai_at_scale_drivers_use_ch_count_not_chapters(self):
+        # Guard both AI drivers against re-introducing the wrong YAML key
+        # (books.yaml has ch_count, never "chapters"). Source-scan, since the
+        # functional symptom (silent under-coverage) is invisible at run time.
+        import pathlib
+
+        repo = pathlib.Path(__file__).resolve().parent.parent
+        for name in ("run_ai_xrefs_at_scale.py", "run_ai_notes_at_scale.py"):
+            src = (repo / "scripts" / name).read_text(encoding="utf-8")
+            assert 'get("chapters"' not in src, f"{name} uses the non-existent 'chapters' key (mint-7 B1)"
+            assert 'get("ch_count"' in src, f"{name} should read ch_count"
+
+    def test_run_xref_write_queue_appends_not_overwrites(self, tmp_path, monkeypatch):
+        # mint-7 B2: run_xref_at_scale.write_queue must APPEND (preserve other
+        # drivers' candidates on the same chapter file), not clobber + reset ids
+        # — it was the lone driver of 9 that overwrote.
+        import json
+
+        import scripts.run_xref_at_scale as xref
+        from scripts.core.detectors import Candidate
+
+        monkeypatch.setattr(xref, "CANDIDATES_DIR", tmp_path)
+
+        def cand(verse, body):
+            return Candidate(
+                book="gen",
+                chapter=1,
+                verse=verse,
+                kind="xref-citation",
+                anchor="",
+                confidence=0.9,
+                source_name="TSK",
+                source_attribution="TSK. PD.",
+                draft_title="Cross-ref",
+                draft_label="Cite.",
+                draft_body=body,
+                detector="CrossRefDetector",
+                reviewer_notes="",
+            )
+
+        p = xref.write_queue("gen", 1, [cand(1, "A1"), cand(2, "A2")])
+        assert json.loads(p.read_text(encoding="utf-8"))["n_candidates"] == 2
+
+        xref.write_queue("gen", 1, [cand(3, "B1")])
+        data = json.loads(p.read_text(encoding="utf-8"))
+        assert data["n_candidates"] == 3, "write_queue clobbered instead of appending"
+        assert [c["draft_body"] for c in data["candidates"]] == ["A1", "A2", "B1"]
+        assert len({c["id"] for c in data["candidates"]}) == 3  # ids continue from tail, no collision
+
     def test_run_ai_xrefs_writes_prospect_format(self, tmp_path, monkeypatch):
         cand_dir = tmp_path / "candidates"
         monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
