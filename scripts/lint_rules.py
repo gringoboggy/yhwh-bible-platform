@@ -627,7 +627,17 @@ def check_untracked_phases() -> dict:
             "message": "dev/CHANGELOG.md missing",
             "violations": [],
         }
+    # The editorial journal may be split across the live CHANGELOG + rolled
+    # archives (dev/archive/CHANGELOG*.md — month-rolls to keep the live file
+    # under the size budget). A phase is "tracked" if it appears in ANY of them.
     changelog_text = changelog_path.read_text(encoding="utf-8")
+    archive_dir = REPO / "dev" / "archive"
+    if archive_dir.is_dir():
+        for arch in sorted(archive_dir.glob("CHANGELOG*.md")):
+            try:
+                changelog_text += "\n" + arch.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                pass
     untracked = sorted(p for p in code_phases if p not in changelog_text)
     if not untracked:
         return {

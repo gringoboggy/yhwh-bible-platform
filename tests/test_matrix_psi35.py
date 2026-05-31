@@ -27,8 +27,11 @@ miscellaneous tests into ``test_misc.py`` or similar.
 
 import pytest
 
-# mint-7 E2 — this file re-walks the corpus / builds the matrix many times and
-# runs ~20+ min; mark the whole module slow so normal runs can deselect it.
+# mint-7 E2 — the slowest non-build test file (~87 s, measured 2026-05-31;
+# re-walks the corpus / rebuilds the matrix repeatedly); tagged slow so a
+# fast-iteration loop can deselect via `-m "not slow"`. (The "23 min" figure in
+# the old audit/memory was STALE — corrected 2026-05-31; a session-scoped
+# compute_matrix could shave it further, logged for mint-8.)
 pytestmark = pytest.mark.slow
 
 

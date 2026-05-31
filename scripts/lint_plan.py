@@ -188,6 +188,19 @@ def _all_known_phase_ids(plan_text: str) -> set[str]:
     )
 
 
+def _changelog_corpus() -> str:
+    """The full editorial journal = the live CHANGELOG + any rolled archives
+    (``dev/archive/CHANGELOG*.md``). Month-rolls move old entries to the archive,
+    so phase-shipped / phase-mention tracking must read BOTH (mint-7 close-out
+    2026-05-31 — else an archived phase reads as unshipped)."""
+    text = _read(REPO / "dev" / "CHANGELOG.md")
+    archive_dir = REPO / "dev" / "archive"
+    if archive_dir.is_dir():
+        for arch in sorted(archive_dir.glob("CHANGELOG*.md")):
+            text += "\n" + _read(arch)
+    return text
+
+
 def _changelog_shipped_phases() -> set[str]:
     """Every phase id that appears as SHIPPED in CHANGELOG.md.
 
@@ -204,7 +217,7 @@ def _changelog_shipped_phases() -> set[str]:
     session, not shipped). Restricting to ``**Phases shipped:**``
     eliminates the ambiguity.
     """
-    chl = _read(REPO / "dev" / "CHANGELOG.md")
+    chl = _changelog_corpus()
     shipped: set[str] = set()
     for line in chl.splitlines():
         if line.startswith("**Phases shipped:"):
@@ -220,7 +233,7 @@ def _changelog_phase_mentions() -> set[str]:
     AT LEAST been mentioned somewhere (handles inherited / legacy
     phases without strict ship-line evidence).
     """
-    chl = _read(REPO / "dev" / "CHANGELOG.md")
+    chl = _changelog_corpus()
     return set(PHASE_ID_RE.findall(chl))
 
 

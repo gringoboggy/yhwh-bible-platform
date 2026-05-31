@@ -90,17 +90,28 @@ FILE/FOLDER index. Companions re-verify them (`dev/trace_matrix.py`,
 `dev/trace_repo.py`); the pre-commit `lint_rules.py` enforces both
 (`plan_coherence`, `repo_map_complete`).
 
-**Post-triad env-health + RAM-clear step (after the triad, before in-flight work):**
-do a quick environment pass and an aggressive RAM clear — **see `dev/SESSION_PLAYBOOK.md`
-§1 for the full enumeration** (the env-health checks: Claude Code / plugin updates
-apply only on user OK + `/reload-plugins` after a plugin update; MCP/tools are
-tokenless local-only, a failed server = missing local runtime never a login gate; and
-the RAM-clear PROTECT-list / KILL-list / report procedure on this 16 GB box). Never
-silently mutate the environment; never re-add a login-required plugin to make a check
-pass. Fold the result into the one-line post-triad confirmation: *phase · what's next
-· env OK · RAM freed*. (Memory: `session-hygiene`; concurrency interplay:
-`feedback-concurrent-agent-cap`; the session-END junk sweep is the counterpart —
-PLAYBOOK §6.5.)
+**Post-triad env-health + RAM-clear step (after the triad, before in-flight work) — an
+EXPLICIT 4-point checklist, not a vague "pass"** (made explicit 2026-05-31 after it was
+found under-specified + half-skipped; detail: `dev/SESSION_PLAYBOOK.md` §1):
+1. **RAM-clear** — aggressive; PROTECT-list / KILL-list / report procedure (PLAYBOOK §1.4,
+   item 4). Report reclaimed RAM.
+2. **Git / remote state** — clean working tree; HEAD matches the last SESSION_STATE's
+   described state; both remotes wired (`origin` = GitLab, `github` = GitHub mirror).
+3. **Plugin / MCP sanity (baseline must hold)** — ~16 plugins, **NO telemetry /
+   external-scanner / login-required plugins** (the set removed in the env trim — memory
+   `no-external-hooks-minimal-plugins` names them);
+   **`gitkraken-hooks@gitkraken` is WANTED — do NOT flag it** (the one sanctioned external
+   hook); MCP = `chrome-devtools` + `playwright` available (a failed server = a missing
+   LOCAL runtime, never a login gate). Run `/reload-plugins` after any plugin change.
+4. **Version FRESHNESS — best-effort, NOT a hard gate.** Report the installed Claude Code
+   version; flag a CC/plugin update ONLY if the harness surfaces one. **"Is it the latest"
+   is NOT fully verifiable offline — do not block on it.** Apply any update ONLY on explicit
+   user OK, never silently.
+Never silently mutate the environment; never re-add a login-required plugin to make a check
+pass. Fold the result into the one-line post-triad confirmation: *phase · what's next ·
+env OK (or the gap) · RAM freed*. (Memory: `session-hygiene`, `no-external-hooks-minimal-plugins`;
+concurrency interplay: `feedback-concurrent-agent-cap`; the session-END junk sweep is the
+counterpart — PLAYBOOK §6.5.)
 
 Optionally, only when the user's ask implies them: `dev/CHANGELOG.md` (chronology);
 `dev/SCOPE_*-addendum-*.md` (feature spec); `HANDOFF_README_v7.md` (deep

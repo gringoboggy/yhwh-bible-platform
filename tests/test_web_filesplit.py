@@ -22,8 +22,11 @@ bodies, so this file has no top-level imports from the project.
 
 import pytest
 
-# mint-7 E2 — this file's live socket/build smokes run ~20+ min; mark the whole
-# module slow so normal runs can deselect via `-m "not slow"`.
+# mint-7 E2 — one of the two slowest non-build test files (~45 s, measured
+# 2026-05-31); tagged slow so a fast-iteration loop can deselect via
+# `-m "not slow"`. (The "23 min" figure in the old audit/memory was STALE — the
+# 2026-05-24 `_stub_exports_epubcheck` conftest fixture already killed the
+# epubcheck-over-exports cost; corrected 2026-05-31.)
 pytestmark = pytest.mark.slow
 
 

@@ -151,7 +151,7 @@ ignore_errors = false
 [tool.pytest.ini_options]
 markers = [
     "serial: test must run serially (mutates shared on-disk state — content/editions.yaml, scenarios, etc.)",
-    "slow: long-running test (~20+ min live socket/build smokes); deselect with -m 'not slow' (mint-7 E2)",
+    "slow: genuinely slow test — real edition builds (test_byte_stability_gate ~205s) or the two slowest non-build files (test_matrix_psi35 ~87s, test_web_filesplit ~45s); deselect with -m 'not slow' (mint-7 E2)",
 ]
 # pytest-xdist's `loadfile` distribution is the right default IF
 # `-n` is passed. We don't make `-n auto` the default itself — it
