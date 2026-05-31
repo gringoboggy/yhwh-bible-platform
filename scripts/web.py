@@ -485,7 +485,6 @@ from scripts.templates.compare import COMPARE_HTML
 from scripts.templates.covers import COVERS_HTML
 from scripts.templates.customize import CUSTOMIZE_HTML
 from scripts.templates.diff import DIFF_HTML
-from scripts.templates.exec import EXEC_HTML
 from scripts.templates.export import EXPORT_HTML
 from scripts.templates.greek import GREEK_HTML
 from scripts.templates.hebrew import HEBREW_HTML
@@ -502,13 +501,6 @@ from scripts.templates.wizard import WIZARD_HTML
 from scripts.api.greek import api_greek_lookup
 from scripts.api.hebrew import api_hebrew_lookup
 
-# ε.2 — /exec dashboard MVP.
-from scripts.api.exec import api_exec_dashboard
-from scripts.api.sales import (
-    SALES_UPLOAD_MAX_BYTES,
-    api_sales_import,
-    api_sales_rollup,
-)
 from scripts.api.distribution import (
     api_distribution_list,
     api_distribution_mark,
@@ -528,11 +520,6 @@ from scripts.api.auth import (
     api_auth_totp_begin,
     api_auth_totp_confirm,
     api_auth_totp_disable,
-)
-from scripts.api.license import (
-    api_license_remove,
-    api_license_set,
-    api_license_status,
 )
 # ============================================================
 # HTTP handler
@@ -607,10 +594,6 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     ("/api/edition-templates", api_edition_templates_list),
     # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
     ("/api/dev/templates-mtime", api_dev_templates_mtime),
-    # ε.2 — executive dashboard payload (6 KPI tiles + recent events).
-    ("/api/exec", api_exec_dashboard),
-    # ε.3 — sales rollup: per-channel + per-edition + MTD totals.
-    ("/api/sales/rollup", api_sales_rollup),
     # ε.6 — distribution checklist: per-edition × per-channel grid.
     ("/api/distribution", api_distribution_list),
     # ο.4 — archive.org configuration status (does the publisher have
@@ -619,9 +602,6 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     # ξ.21 — admin-auth + 2FA enrollment status (read-only; never
     # reveals the secret).
     ("/api/auth/status", api_auth_status),
-    # ξ.26 — per-edition license-key validity rollup (read-only;
-    # never reveals the signing secret or the actual license string).
-    ("/api/license/status", api_license_status),
 ]
 
 
@@ -770,12 +750,6 @@ _PUT_ROUTES: list[tuple[re.Pattern, object]] = [
         re.compile(r"^/api/press-kit/([a-z0-9-]+)$"),
         lambda m, payload: api_press_kit_save(m.group(1), payload),
     ),
-    # ξ.26 — /api/license/<edition> — store a license key for an
-    # edition. Verifies before persisting; refuses an invalid key.
-    (
-        re.compile(r"^/api/license/([a-z0-9-]+)$"),
-        lambda m, payload: api_license_set(m.group(1), payload),
-    ),
     # ω.35-A.10 — /api/editions/from-template — uses status==ok|error
     # shape. Standard helper covers it via status==error → http
     # envelope and fall-through 200.
@@ -832,12 +806,6 @@ _DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
     (
         re.compile(r"^/api/distribution/([a-z0-9-]+)/([a-z_]+)$"),
         lambda m: api_distribution_unmark(m.group(1), m.group(2)),
-    ),
-    # ξ.26 — /api/license/<edition> — remove a stored license.
-    # Idempotent (already-absent returns ok:True, removed:False).
-    (
-        re.compile(r"^/api/license/([a-z0-9-]+)$"),
-        lambda m: api_license_remove(m.group(1)),
     ),
 ]
 
@@ -997,14 +965,6 @@ _MULTIPART_ROUTES: list[tuple[re.Pattern, int, object]] = [
         re.compile(r"^/api/sources/cache/([a-z0-9_-]+)/upload$"),
         SOURCES_UPLOAD_MAX_BYTES,
         lambda m, body, ctype: api_sources_cache_upload(m.group(1), body, ctype),
-    ),
-    # ε.3 — /api/sales/import/<channel> — CSV upload of per-channel
-    # sales (KDP / Apple / Google). Channel is validated server-side
-    # against sales.KNOWN_CHANNELS; rows emit sales_record events.
-    (
-        re.compile(r"^/api/sales/import/([a-z]+)$"),
-        SALES_UPLOAD_MAX_BYTES,
-        lambda m, body, ctype: api_sales_import(m.group(1), body, ctype),
     ),
 ]
 
@@ -1800,11 +1760,6 @@ class Handler(BaseHTTPRequestHandler):
         # The JSON endpoint /api/hebrew/<num> is in _REGEX_GET_ROUTES.
         if path == "/hebrew" or path == "/hebrew.html":
             return self._send_html(HEBREW_HTML)
-
-        # ε.2 — /exec executive dashboard.
-        # JSON endpoint /api/exec is in _SIMPLE_GET_ROUTES.
-        if path == "/exec" or path == "/exec.html":
-            return self._send_html(EXEC_HTML)
 
         # γ.2 — Greek interlinear console (Strong's Greek lookup).
         # The JSON endpoint /api/greek/<num> is in _REGEX_GET_ROUTES.

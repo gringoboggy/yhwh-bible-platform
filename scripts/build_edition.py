@@ -1958,7 +1958,6 @@ def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path |
     sources.append(EPUB_DIR / "content.opf")
     sources.append(EPUB_DIR / "nav.xhtml")
     sources.append(EPUB_DIR / "stylesheet.css")
-    sources.append(REPO_ROOT / "content" / "onix.py")
     sources.append(REPO_ROOT / "content" / "editions.yaml")
     sources.append(REPO_ROOT / "scripts" / "build_edition.py")
     for s in sources:

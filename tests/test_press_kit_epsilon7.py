@@ -26,9 +26,6 @@ Coverage:
 - TestEpsilon7BuildZipHelper:        api_press_kit.build_press_kit_zip
   returns (filename, bytes) on success and error envelope on unknown
   edition.
-- TestEpsilon7ExecTemplate:          press-kit section present; per-
-  field counters wired; save + download buttons present; references
-  the right endpoints.
 - TestEpsilon7RouteRegistration:     GET /api/press-kit/<edition> in
   _REGEX_GET_ROUTES; PUT /api/press-kit/<edition> in _PUT_ROUTES.
 
@@ -480,46 +477,6 @@ class TestEpsilon7BuildZipHelper:
         assert isinstance(result, dict)
         assert result["status"] == "error"
         assert result["code"] == "unknown_edition"
-
-
-# --------------------------------------------------------------------
-# Template
-# --------------------------------------------------------------------
-
-
-class TestEpsilon7ExecTemplate:
-    @classmethod
-    def setup_class(cls):
-        from scripts.templates.exec import EXEC_HTML
-
-        cls.html = EXEC_HTML
-
-    def test_press_kit_section_present(self):
-        assert 'id="press-kit-section"' in self.html
-        assert 'id="press-kit-edition"' in self.html
-        assert 'id="press-kit-save"' in self.html
-        assert 'id="press-kit-download"' in self.html
-
-    def test_three_textareas_present(self):
-        for field in ("blurb_150", "blurb_500", "sample_chapter_html"):
-            assert f'id="press-kit-{field}"' in self.html
-            assert f'data-counter="{field}"' in self.html
-            assert f'data-limit="{field}"' in self.html
-
-    def test_js_helpers_present(self):
-        for fn in (
-            "loadPressKitEditions",
-            "loadPressKitFor",
-            "savePressKit",
-            "downloadPressKit",
-            "updatePressKitCounter",
-        ):
-            assert fn in self.html, f"missing {fn!r}"
-
-    def test_endpoints_referenced(self):
-        assert "/api/press-kit/" in self.html
-        # Download URL is constructed by string concat; pin the suffix.
-        assert "/download" in self.html
 
 
 # --------------------------------------------------------------------

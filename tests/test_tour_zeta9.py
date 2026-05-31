@@ -10,8 +10,8 @@ Coverage:
   <script> block, exports window.ebibleTour.{start, skip, next,
   back, startIfFirstRun, reset}.
 - TestZeta9MarkerSubstituted:      apply_design_system replaces
-  the THEME_TOUR_JS marker; the inverse holds (a template that
-  uses the marker gets the script body in the final HTML).
+  the THEME_TOUR_JS marker (a template that uses the marker gets
+  the script body in the final HTML).
 - TestZeta9MarkerDocumented:       apply_design_system's
   docstring lists the marker.
 - TestZeta9XssGuards:              the engine uses textContent
@@ -22,19 +22,12 @@ Coverage:
   override accepted.
 - TestZeta9Accessibility:          tooltip has role="dialog" +
   aria-modal + aria-labelledby; ESC key handler installed.
-- TestZeta9ExecWiring:             EXEC_HTML includes the
-  THEME_TOUR_JS marker (now substituted), declares 6 steps,
-  calls startIfFirstRun with the ebible_tour_exec_v1 key,
-  references the right selectors (#kpi-grid,
-  #sales-import-section, #distribution-section,
-  #press-kit-section).
 
 Pinning rationale: ζ.9 is invisible to test runners (DOM-only,
 no Python side), so the test suite pins the *string contents* of
-the engine + EXEC_HTML wiring. Behavioral tests would need a
-JS runner; the contract pinning catches regression at the level
-that matters (marker substitution + first-run gate + step
-selectors).
+the engine. Behavioral tests would need a JS runner; the
+contract pinning catches regression at the level that matters
+(marker substitution + first-run gate + step selectors).
 """
 
 from __future__ import annotations
@@ -66,15 +59,6 @@ class TestZeta9MarkerSubstituted:
         out = apply_design_system(html_in, "/exec")
         assert "<!-- THEME_TOUR_JS -->" not in out, "marker not substituted"
         assert "window.ebibleTour" in out, "THEME_TOUR_JS body not injected"
-
-    def test_consoles_with_marker_get_engine(self):
-        # Sanity: a console that opts into the tour (currently only
-        # /exec) ends up with the engine present in its compiled HTML.
-        from scripts.templates.exec import EXEC_HTML
-
-        assert "window.ebibleTour" in EXEC_HTML
-        # The marker itself must NOT survive the substitution.
-        assert "<!-- THEME_TOUR_JS -->" not in EXEC_HTML
 
 
 class TestZeta9MarkerDocumented:
@@ -170,66 +154,3 @@ class TestZeta9Accessibility:
         # branch.
         assert "addEventListener('keydown'" in self.js or 'addEventListener("keydown"' in self.js
         assert "'Escape'" in self.js or '"Escape"' in self.js
-
-
-class TestZeta9ExecWiring:
-    @classmethod
-    def setup_class(cls):
-        from scripts.templates.exec import EXEC_HTML
-
-        cls.html = EXEC_HTML
-
-    def test_tour_invoked_on_load(self):
-        assert "ebibleTour.startIfFirstRun" in self.html
-
-    def test_uses_per_exec_storage_key(self):
-        # Per-console key so /exec's tour and any future console's
-        # tour can be tracked independently.
-        assert "'ebible_tour_exec_v1'" in self.html
-
-    def test_has_six_steps(self):
-        # Pin step count so a future content refactor that
-        # accidentally drops a step (e.g. forgets the welcome
-        # modal) is caught.
-        # Count by 'title:' occurrences inside the steps array —
-        # each step has exactly one title.
-        # The IIFE block declares `var steps = [...]`; we scope
-        # the search to that block.
-        marker = "var steps = ["
-        start = self.html.find(marker)
-        assert start >= 0
-        end = self.html.find("];", start)
-        block = self.html[start:end]
-        title_count = block.count("title:")
-        assert title_count == 6, f"expected 6 steps, found {title_count}"
-
-    def test_steps_reference_canonical_selectors(self):
-        # Each tour step targets a real /exec section; if a future
-        # refactor renames the section IDs without updating the
-        # tour, the tour will silently render as a centred modal.
-        # Pin the expected selectors.
-        for selector in (
-            "#kpi-grid",
-            "#sales-import-section",
-            "#distribution-section",
-            "#press-kit-section",
-        ):
-            assert selector in self.html, f"tour step references missing selector {selector!r}"
-
-    def test_welcome_and_closing_are_centered_modals(self):
-        # First + last step have selector: null so they centre as
-        # modals. Pin that the steps array starts and ends with a
-        # `selector: null` entry.
-        marker = "var steps = ["
-        start = self.html.find(marker)
-        end = self.html.find("];", start)
-        block = self.html[start:end]
-        # Crude but effective: the block contains at least 2
-        # "selector: null" tokens.
-        assert block.count("selector: null") >= 2
-
-    def test_first_run_guard_present(self):
-        # startIfFirstRun() short-circuits when localStorage flag
-        # is set. Pin that the call wraps the steps array.
-        assert "if (!window.ebibleTour) return" in self.html
-        assert "startIfFirstRun" in self.html

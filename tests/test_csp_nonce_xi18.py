@@ -15,7 +15,8 @@ Coverage:
   nonce)` adds `nonce="X"` to every <script tag variant —
   no-attr, src=, async, multi-tag, mixed-attribute-order;
   idempotent on re-application; tags like <scripts> /
-  <scripting> NOT incorrectly matched (regex boundary check).
+  <scripting> NOT incorrectly matched (regex boundary check);
+  a real console template gets nonces.
 - TestXi18SendHtmlContract:       `_send_html` generates a fresh
   nonce per call, injects it into the HTML body, emits the
   strict CSP header carrying the matching nonce-X; consecutive
@@ -181,14 +182,14 @@ class TestXi18ScriptInjection:
         # And no leftover bare `<script>` either.
         assert "<script>" not in twice.replace('<script nonce="X">', "")
 
-    def test_real_exec_html_gets_nonces(self):
-        # Sanity: the actual /exec template has multiple <script>
+    def test_real_console_html_gets_nonces(self):
+        # Sanity: a real console template has multiple <script>
         # tags after design-system substitution. All must receive
         # nonces.
-        from scripts.templates.exec import EXEC_HTML
+        from scripts.templates.index import INDEX_HTML
         from scripts.web import Handler
 
-        out = Handler._inject_script_nonces(EXEC_HTML, "TESTNONCE")
+        out = Handler._inject_script_nonces(INDEX_HTML, "TESTNONCE")
         # At least one script tag was present and got nonced.
         assert 'nonce="TESTNONCE"' in out
         # No bare `<script>` (with `>` immediately after) survives.

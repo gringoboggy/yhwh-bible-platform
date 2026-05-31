@@ -26,9 +26,6 @@ Coverage:
 - TestEpsilon6ApiUnmark:             DELETE happy path; idempotent
   (already-absent returns ok:True, removed:False); unknown channel
   rejected.
-- TestEpsilon6ExecTemplateGrid:      EXEC_HTML defines the distribution
-  table, thead row id, coverage line id, and the JS render/toggle
-  pair.
 - TestEpsilon6RouteRegistration:    GET /api/distribution in
   _SIMPLE_GET_ROUTES; PUT /api/distribution/<edition> in _PUT_ROUTES;
   DELETE /api/distribution/<edition>/<channel> in _DELETE_ROUTES.
@@ -428,41 +425,6 @@ class TestEpsilon6ApiUnmark:
         result = api_distribution_unmark("ed-x", "kobo")
         assert result["ok"] is False
         assert result["error"] == "unknown_channel"
-
-
-# --------------------------------------------------------------------
-# Template
-# --------------------------------------------------------------------
-
-
-class TestEpsilon6ExecTemplateGrid:
-    @classmethod
-    def setup_class(cls):
-        from scripts.templates.exec import EXEC_HTML
-
-        cls.html = EXEC_HTML
-
-    def test_distribution_section_present(self):
-        assert 'id="distribution-section"' in self.html
-        assert 'id="distribution-table"' in self.html
-        assert 'id="distribution-thead-row"' in self.html
-        assert 'id="distribution-tbody"' in self.html
-        assert 'id="distribution-coverage-line"' in self.html
-
-    def test_js_render_and_toggle_present(self):
-        for fn in (
-            "renderDistribution",
-            "onDistributionCellClick",
-            "loadDistribution",
-        ):
-            assert fn in self.html, f"missing JS function {fn!r}"
-
-    def test_endpoints_referenced(self):
-        assert "/api/distribution" in self.html
-        # Mark and unmark are constructed dynamically — pin the
-        # method strings.
-        assert "'PUT'" in self.html or '"PUT"' in self.html
-        assert "'DELETE'" in self.html or '"DELETE"' in self.html
 
 
 # --------------------------------------------------------------------

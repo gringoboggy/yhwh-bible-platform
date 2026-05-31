@@ -29,8 +29,6 @@ Coverage:
   upload failure surfaces but distribution is NOT marked;
   distribution side-effect failure surfaces in envelope but
   upload itself is reported successful.
-- TestOmicron4ExecTemplate:          archive-org banner + upload
-  button present in EXEC_HTML; references the right endpoints.
 - TestOmicron4RouteRegistration:     GET /api/archive-org/status in
   _SIMPLE_GET_ROUTES; POST /api/archive-org/upload/<edition> in
   _POST_ROUTES with correct handler binding.
@@ -446,41 +444,6 @@ class TestOmicron4ApiUpload:
         assert result["distribution_marked"] is False
         assert result["distribution_error"] is not None
         assert "OSError" in result["distribution_error"]
-
-
-# --------------------------------------------------------------------
-# /exec template
-# --------------------------------------------------------------------
-
-
-class TestOmicron4ExecTemplate:
-    @classmethod
-    def setup_class(cls):
-        from scripts.templates.exec import EXEC_HTML
-
-        cls.html = EXEC_HTML
-
-    def test_banner_and_button_present(self):
-        assert 'id="archive-org-banner"' in self.html
-        assert 'id="archive-org-upload"' in self.html
-
-    def test_button_disabled_by_default(self):
-        # Until status confirms configured, the button must be disabled.
-        assert 'id="archive-org-upload"' in self.html
-        # Crude but precise: the disabled attr appears on the button element.
-        # Look for "Upload to archive.org" near a `disabled` attr in the same fragment.
-        upload_section_start = self.html.find('id="archive-org-upload"')
-        upload_section_end = self.html.find(">", upload_section_start)
-        opening_tag = self.html[upload_section_start:upload_section_end]
-        assert "disabled" in opening_tag
-
-    def test_js_helpers_present(self):
-        for fn in ("loadArchiveOrgStatus", "uploadToArchiveOrg"):
-            assert fn in self.html
-
-    def test_endpoints_referenced(self):
-        assert "/api/archive-org/status" in self.html
-        assert "/api/archive-org/upload/" in self.html
 
 
 # --------------------------------------------------------------------

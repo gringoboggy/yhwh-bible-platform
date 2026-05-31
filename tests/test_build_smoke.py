@@ -439,12 +439,12 @@ class TestInjectIrregularLayout:
 
 class TestOnixExcludedFromPackage:
     """Ω.0 free-public pivot: the EPUB is a CC0 give-away and must NOT carry
-    the commercial ONIX sales-metadata files. ``build_onix.py`` writes them to
-    ``epub_working/onix/`` (gitignored, but present on disk), and ``build_one``
-    copies the whole working tree into its temp build dir — so the packaging
-    walk (``build_epub.collect_files``) is the chokepoint that must drop them.
-    Excluding the directory name covers BOTH the per-edition build (via
-    ``build_one``) and a direct ``build_epub.py`` run."""
+    the commercial ONIX sales-metadata files. Legacy ONIX artifacts may still
+    linger under ``epub_working/onix/`` (gitignored, but present on disk), and
+    ``build_one`` copies the whole working tree into its temp build dir — so the
+    packaging walk (``build_epub.collect_files``) is the chokepoint that must
+    drop them. Excluding the directory name covers BOTH the per-edition build
+    (via ``build_one``) and a direct ``build_epub.py`` run."""
 
     def test_should_skip_excludes_onix_directory(self):
         from scripts.build_epub import should_skip
