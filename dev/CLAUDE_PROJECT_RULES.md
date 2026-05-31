@@ -39,7 +39,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
 | **1** | North star — the builder demo; corpus depth; patristic-voice invariant; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles. |
 | **3** | Sequencing rules (how to order work). |
-| **4** | Save semantics — "save" = local commit; checkpoint saves; "continue" ≠ "save". |
+| **4** | Save semantics — save = commit = push = backup = full 5-leg external sync (local commit + GitLab + GitHub + E: + F:); "continue"/"proceed"/"go ahead" ≠ save. |
 | **5** | Phase / commit tracking. |
 | **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
 | **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |
@@ -291,33 +291,45 @@ order. The user has delegated this judgment; exercise it.
 
 ## 4. Save semantics
 
-- **"Save" = a local git commit** (run `save.ps1` through **PowerShell ONLY** — never
-  the Bash tool: the spaced repo path + `>`/arrow glyphs in a commit message break cmd
-  and sweep stray files via `git add -A`). The pre-commit hook runs `ruff format
-  --check .` + `lint_rules.py` — both must pass or the commit is BLOCKED (the hook
-  does NOT run the test suite; run the relevant tests yourself). The GitHub remote was
-  deleted 2026-05-12, so a save is a LOCAL commit only (`git push` fails until a remote
-  is reconfigured).
+- **"Save" = "commit" = "push" = "backup" — all four words mean ONE thing: sync the
+  work to EVERY external destination** (user-directed 2026-05-31, durable; supersedes
+  the prior "save = local commit only / backup is separate / push = advance" split).
+  A full save has **five legs, every time**, in order:
+  1. **Local commit** via `save.ps1` through **PowerShell ONLY** — never the Bash tool
+     (the spaced repo path + `>`/arrow glyphs in a message break cmd and sweep stray
+     files via `git add -A`). The pre-commit hook runs `ruff format --check .` +
+     `lint_rules.py` + mypy; all must pass or the commit is BLOCKED (it does NOT run
+     the test suite — run the relevant tests yourself first).
+  2. **`git push origin`** (GitLab — the code home).
+  3. **`git push github`** (the GitHub mirror). Both remotes are private,
+     `gringoboggy/yhwh-bible-platform` (restored 2026-05-30; the old "remote deleted
+     2026-05-12 / push fails" note is RETIRED).
+  4. **`git bundle create <file> --all`** (file BEFORE `--all`) to external drive **E:**.
+  5. The same bundle copied to external drive **F:**. NEVER bundle to C: (system drive
+     low). Name: `YHWH-v2.4-repo-<date>-<label>-<shorthash>.bundle`.
+  **VERIFY every leg landed** before reporting done (`git log` / `git status -b`
+  ahead/behind = 0 after push / `git bundle verify`) — §12/§14 truth-gate. Never claim
+  a save/push/backup that didn't reach all five. If a drive is unmounted or a remote
+  push fails, say so explicitly and complete the legs that can run.
 - **⚠ BEFORE every save:** `python -m ruff format` every file you generated /
   regenerated — ESPECIALLY `content/translations/<id>/` stores (recurs on EVERY
-  ingest) — or the hook blocks the commit. ruff reflows whitespace only (data + baked
-  popups unchanged). Full rule: §7 "Formatting + committing".
+  ingest) — or the pre-commit hook blocks the commit. ruff reflows whitespace only.
+  Full rule: §7 "Formatting + committing".
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped phase · next · test
-  count · in-flight notes) — non-negotiable for continuity (§11) — and **VERIFY the
-  commit actually landed** with `git log`/`git status` before claiming "saved"
-  (§12/§14 truth-gate). Never report a save that didn't happen.
-- **"Backup" is a SEPARATE command from "save":** a commit is not a backup. Back up
-  via `git bundle create <file> --all` (file BEFORE `--all`) to the external **E:/F:**
-  drives (NEVER C: — system drive is low). **Backup CADENCE: proactively back up every
-  3rd commit** (bundle on commits 3, 6, 9, …), AND at every `/clear` checkpoint, AND
-  whenever the user says "backup".
-- "Continue", "proceed", "go ahead", "push" are **NOT** save commands (here "push" =
-  "advance to the next phase," not `git push`). Don't auto-commit at the end of a
-  phase.
+  count · in-flight notes) — non-negotiable for continuity (§11).
+- **"Continue", "proceed", "go ahead" are NOT save commands** — they mean *advance to
+  the next phase/step*, not save. (As of 2026-05-31 **"push" left this advance-only set
+  and became a SAVE word** per the rule above; only continue / proceed / go-ahead
+  remain advance-only.) Don't auto-save at the end of a phase on those words.
+  Mid-task per-step local commits during a long task are still fine; the five-leg full
+  sync fires whenever the user says save / commit / push / backup (and at `/clear`).
 - **Zip flow is DORMANT** (Claude-Desktop-era). Never build a zip or ask slim/full on
   a bare "save". Only if the user *explicitly* says "zip": slim excludes regenerable
   artifacts (`content/translations/sources/`, `epub_working/.backups/`, `__pycache__/`,
   `.pytest_cache/`, `*.bak`, `*.tmp`, `.git/`); full is the whole working tree.
+- **`save.ps1` currently runs leg 1 only** (commit); Claude chains legs 2–5. A unified
+  `save-all.ps1` that does all five is a worthwhile automation — build it when the user
+  opts in (the ~416 MB E:/F: bundle on every save is the cost to weigh).
 
 ### Checkpoint saves
 
