@@ -329,11 +329,19 @@ def rss_feed(
         label = (headline_note or {}).get("label") or ""
         title_text = f"{ref}" + (f" — {label}" if label else "")
         # RSS description is HTML; wrap in CDATA so consumers don't
-        # re-escape our pre-rendered tags.
+        # re-escape our pre-rendered tags. The note body is sanitized
+        # (mirroring the preview/build boundary — AI-authored bodies
+        # share the note store and the feed is unauthenticated, so
+        # <script>/on*/javascript: must be stripped), then any literal
+        # "]]>" is neutralized so a body cannot break out of the CDATA
+        # section and inject raw XML.
+        from scripts.core.html_sanitize import sanitize_html
+
+        safe_body = sanitize_html(body_html).replace("]]>", "]]&gt;") if body_html else ""
         description = (
             f"<p><strong>{_xml_escape(ref)}</strong></p>"
             + (f"<p><em>{_xml_escape(label)}</em></p>" if label else "")
-            + (body_html if body_html else "")
+            + safe_body
         )
         parts.extend(
             [

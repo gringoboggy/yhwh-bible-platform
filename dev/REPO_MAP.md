@@ -14,7 +14,7 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 168 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 169 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
 | `docs/superpowers/` | ✅ | `plans/` (23 implementation plans) + `specs/` (16 design specs) for the manuscript/ingest workstreams. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
@@ -27,9 +27,9 @@
 
 ## content/  — data + config (the heart)
 
-- **`*.yaml`** (config; loaded by `scripts/core/config.py`, mapped in `MATRIX_MAP.md`): `books.yaml` (87 books — code, `bxx` canon position, `strategy`, `ch_count`, `files`), `canons.yaml` (5 canon→book-sets), `categories.yaml` (15), `kinds.yaml` (71), `editions.yaml` (11 profiles), `traditions.yaml`, `themes.yaml`, `source_dates.yaml`, `customization.yaml`, etc.
+- **`*.yaml`** (config; loaded by `scripts/core/config.py`, mapped in `MATRIX_MAP.md`): `books.yaml` (87 books — code, `bxx` canon position, `strategy`, `ch_count`, `files`), `canons.yaml` (5 canon→book-sets), `categories.yaml` (15), `kinds.yaml` (72), `editions.yaml` (11 profiles), `traditions.yaml`, `themes.yaml`, `source_dates.yaml`, `customization.yaml`, etc.
 - **`notes/<book>.py`** — the corpus: 88 files, one per book, each a `NOTES = [ (ch,v,suffix,anchor,kind,title,label,body[,attribution]), … ]` list (**67,715 notes total**). `+ .manifest.json`.
-- **`translations/<id>/<book>.py`** — verse text as data, per translation (powers popups / parallel / standalone). 13 dirs: `kjv` (full, 81 books), `geez-tewahedo` (33), `amharic-tewahedo` (28), `geez-tewahedo-en` / `amharic-tewahedo-en` (EN back-translations), and partial pilots (`wlc`,`jps`,`lxx-brenton-{english,greek}`,`douay-rheims`,`vulgate-clementine`,`arabic-vandyke` — `gen.py` only). Each has `_meta.yaml`. Raw upstreams under `translations/sources/`.
+- **`translations/<id>/<book>.py`** — verse text as data, per translation (powers popups / parallel / standalone). 14 dirs: `kjv` (full, 81 books), `geez-tewahedo` (33), `amharic-tewahedo` (28), `geez-tewahedo-en` / `amharic-tewahedo-en` (EN back-translations), and partial pilots (`wlc`,`jps`,`lxx-brenton-{english,greek}`,`lxx-swete-greek`,`byzantine-greek`,`douay-rheims`,`vulgate-clementine`,`arabic-vandyke` — `gen.py` only). Each (except the two `-en` back-translation dirs) has `_meta.yaml`. Raw upstreams under `translations/sources/`.
 - **`sources/`** — provenance + ingest inputs: `ATTRIBUTIONS.md` (legal source registry — e.g. **1 Enoch = R. H. Charles 1912 English, from the Ge'ez**), `_fetchers.json`, `naves_ccel_source.txt` / `eastons_ccel_source.txt` (clean PD texts), `naves_topical.json`, `*_commentaries.json` (patristic corpora).
 - **`candidates/<book>_ch_NNN.json`** — 1,656 detector/prospect candidate queues (pre-promotion staging; `promote.py` / `batch_promote_xrefs.py` consume → `notes/`).
 - **`covers/`** — edition cover JPGs + `_book_defaults/` (66 per-book) + `templates/` (25 cover-art PNGs). **`title_pages/`** — per-book title art; **`print_covers/`** is empty (`.gitkeep` only; vestigial from the pre-2026-05-14 print/commercial era).
@@ -39,8 +39,8 @@
 
 - **`scripts/*.py`** (123) — CLI + pipeline + ingest + audit: `ebible.py` (top CLI), `inject.py` (notes→base HTML; Strategy A/B + spill resolver), `build_edition.py` / `build_epub.py` (filter + zip), `promote.py` / `prospect.py` (candidates→notes), `extract_naves_ccel.py` / `extract_eastons_ccel.py` / `run_*_at_scale.py` (ingest), `audit_base_html.py` (`--coverage` / `--verse-absent`), `lint_rules.py` (pre-commit), `web.py` (dev server + console routes), `note_search.py`, `set_reader_toc.py`, `add_note.py`, `run.py`.
 - **`scripts/core/`** (65) — the engine: `config.py` (cached YAML loaders + `get_book`), `matrix.py` (the count grid), `corpus_index.py` (SQLite+FTS), `canonical_verse_counts.py` (KJV skeleton + `coord_in_canonical_extent` guard), `notes_io.py` (load/atomic-write notes), `detectors.py` (candidate detectors), `html_sandbox.py`, `paths.py`, `validation.py`, `http.py` (the egress allowlist), `manuscript_vision.py`, etc.
-- **`scripts/api/`** (17) — web API route handlers (one per console area: `customize`, `editions`, `exports`, `preflight`, `sources`, `covers`, `auth`, `scenarios`, `archive_org`, `audit`…).
-- **`scripts/templates/`** (20) — the HTML console page templates (the `*_HTML` constants surfaced by `web.py`; see SESSION_STATE "Console inventory").
+- **`scripts/api/`** (18) — web API route handlers (one per console area: `customize`, `editions`, `exports`, `preflight`, `sources`, `covers`, `auth`, `scenarios`, `archive_org`, `audit`…).
+- **`scripts/templates/`** (21) — the HTML console page templates (the `*_HTML` constants surfaced by `web.py`; see SESSION_STATE "Console inventory").
 - **`scripts/migrations/`** (3) — one-shot data migrations.
 
 ## dev/  — docs + state
@@ -48,7 +48,7 @@
 - **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this).
 - **`AUDIT_*.md`** — dated audit reports. **`SCOPE_*.md`** — scope decisions/addenda.
 - **`*.py`** — `trace_matrix.py` (matrix integrity tracer), `trace_repo.py` (this map's structural tracer / anti-rot check).
-- **`archive/`** — superseded plans (`PLAN_2026-05-07/08/09`) + `ship_scripts/` (21 one-shot ship scripts) + old handoffs.
+- **`archive/`** — superseded plans (`PLAN_2026-05-07/08/09`, `PLAN_2026-05-21`, `PLAN_2026-05-24-end-scope`) + `ship_scripts/` (21 one-shot ship scripts) + old handoffs.
 - **`marathon_reviews/{1ki4,1ki5,1sa2}/`** — manuscript-collation review reports + crop/fix scripts. (The committed pre-commit hook now lives at repo-root `.githooks/pre-commit`, activated via `git config core.hooksPath .githooks`.)
 
 ## epub_working/  — base scripture HTML

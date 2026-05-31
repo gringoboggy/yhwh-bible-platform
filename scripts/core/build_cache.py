@@ -236,16 +236,30 @@ def compute_cache_key(
     )
 
     # 10. Templated EPUB input (epub_working/).
+    # Recurse the whole tree (META-INF/container.xml, OEBPS/, etc.) so
+    # the content-addressable key reflects every packed member, not just
+    # the top-level files. Reuse build_epub.should_skip so the cache-key
+    # file set tracks exactly what the packager includes (skips .git/
+    # __pycache__/ the legacy-metadata subtree, EXCLUDE_NAMES, and dotfile-prefixed
+    # components) — including ``mimetype``, which is packed first but is
+    # still a real input that affects the output. Labels use the POSIX
+    # relative path so subdir files get distinct, stable tokens.
     epub_dir = _REPO / "epub_working"
     if epub_dir.is_dir():
-        for entry in sorted(epub_dir.iterdir(), key=lambda p: p.name):
-            if entry.is_file() and not entry.name.startswith("."):
-                parts.append(
-                    (
-                        f"epub:{entry.name}",
-                        _hash_file(entry),
-                    )
+        from scripts import build_epub
+
+        for entry in sorted(epub_dir.rglob("*"), key=lambda p: p.as_posix()):
+            if not entry.is_file():
+                continue
+            rel = entry.relative_to(epub_dir)
+            if build_epub.should_skip(rel):
+                continue
+            parts.append(
+                (
+                    f"epub:{rel.as_posix()}",
+                    _hash_file(entry),
                 )
+            )
 
     parts.sort(key=lambda kv: kv[0])
     h = hashlib.sha256()

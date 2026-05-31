@@ -128,7 +128,7 @@ def tuple_to_dict(tup) -> dict:
         "title": title or "",
         "label": label or "",
         "body": body or "",
-        "attribution": attribution or {},
+        "attribution": attribution or "",
     }
 
 
@@ -143,7 +143,7 @@ def dict_to_tuple(d: dict) -> tuple:
         d.get("title", "") or "",
         d.get("label", "") or "",
         d["body"],
-        d.get("attribution") or {},
+        d.get("attribution") or None,
     )
 
 
@@ -169,9 +169,11 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
         header = f'"""Notes for book {book_code}."""\n\n'
 
     lines = [header, "NOTES = [\n"]
-    for tup in notes:
+    # Serialise in canonical note order (chapter, verse, suffix) so web-UI
+    # writes stay sorted. Bare-verse (suffix == "") sorts before suffixed.
+    for tup in sorted(notes, key=lambda t: (t[0], t[1], (0, "") if t[2] == "" else (1, t[2]))):
         ch, v, suffix, anchor, kind, title, label, body, *rest = tup
-        attribution = rest[0] if rest else {}
+        attribution = rest[0] if rest else None
         lines.append("    (\n")
         lines.append(f"        {ch}, {v}, {suffix!r},\n")
         lines.append(f"        {anchor!r},\n")
@@ -179,7 +181,11 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
         lines.append(f"        {title!r},\n")
         lines.append(f"        {label!r},\n")
         lines.append(f"        {body!r},\n")
-        lines.append(f"        {attribution!r},\n")
+        # Only emit the 9th (attribution) field when it is a real, non-empty
+        # string — never serialise an absent attribution as `{}`/None, which
+        # would turn an 8-field note into a schema-violating 9-field tuple.
+        if isinstance(attribution, str) and attribution.strip():
+            lines.append(f"        {attribution!r},\n")
         lines.append("    ),\n")
     lines.append("]\n")
     notes_io.atomic_write(path, "".join(lines))

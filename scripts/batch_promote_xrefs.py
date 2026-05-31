@@ -4,9 +4,14 @@
 Avoids the per-file subprocess overhead of looping
 `promote.py --promote-top N`. Calls promote_candidate() in-process.
 
+By default uses the by-book fast path (one file write per book via
+``batch_insert_notes``); pass ``--per-candidate`` to fall back to the slow
+``promote_candidate`` loop (one full file rewrite per candidate).
+
 Usage:
     python3 scripts/batch_promote_xrefs.py
     python3 scripts/batch_promote_xrefs.py --kind xref-citation
+    python3 scripts/batch_promote_xrefs.py --per-candidate
 """
 
 from __future__ import annotations
@@ -92,16 +97,16 @@ def main() -> int:
         "--max-per-file", type=int, default=None, help="cap how many candidates to promote per file (default: no cap)"
     )
     p.add_argument(
-        "--by-book",
+        "--per-candidate",
         action="store_true",
-        help="fast path: batch-insert per book (one file write per book, not one per candidate)",
+        help="slow path: one file-rewrite per candidate (default: by-book, one write per book)",
     )
     args = p.parse_args()
 
     files = sorted(CANDIDATES_DIR.glob("*.json"))
     print(f"Found {len(files)} candidate files. Filter: kind={args.kind!r}")
 
-    if args.by_book:
+    if not args.per_candidate:
         attempted, promoted, books_changed = promote_by_book(files, args.kind, args.max_per_file)
         print()
         print(f"Attempted: {attempted}")

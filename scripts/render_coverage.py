@@ -38,7 +38,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-# Canonical Tewahedo 81-book set, sourced from content/books.yaml. The
+# Canonical Tewahedo 87-book set, sourced from content/books.yaml. The
 # protestant subset is 66 books; LXX/Catholic add deuterocanonical;
 # Tewahedo additionally includes 1 Enoch, Jubilees, Meqabyan, etc.
 # This is the SUPERSET — every edition is a filter on this list.
@@ -50,6 +50,8 @@ REPO = Path(__file__).resolve().parent.parent
 # Some editions use legacy 2-letter codes; map to canonical 3-letter.
 _BOOK_ALIASES = {"ex": "exo", "1k": "1ki", "2k": "2ki"}
 
+# Order + codes mirror content/books.yaml (the runtime source of truth)
+# exactly — all 87 codes in canonical sequence.
 _CANONICAL_BOOKS = [
     # Pentateuch
     "gen",
@@ -67,26 +69,42 @@ _CANONICAL_BOOKS = [
     "2ki",
     "1ch",
     "2ch",
+    "man",  # The Prayer of Manasses
+    # Tewahedo distinctives (interleaved per books.yaml order)
+    "jub",
+    "1en",
+    "2en",  # Slavonic Enoch / Secrets of Enoch
     "ezr",
     "neh",
-    "est",
+    "1es",  # First Esdras / Ezra Kali
+    "2es",
     "tob",
     "jdt",
+    "est",
+    "aes",  # Additions to Esther (Greek Septuagint)
+    "mq1",
+    "mq2",
+    "mq3",
     # Wisdom + Poetry
     "job",
     "psa",
     "pro",
+    "wis",
     "ecc",
     "sng",
-    "wis",
     "sir",
     # Major + Minor Prophets
     "isa",
     "jer",
     "lam",
     "bar",
+    "lje",  # The Letter of Jeremiah
+    "4ba",
     "eze",
     "dan",
+    "paz",
+    "sus",  # The History of Susanna
+    "bel",
     "hos",
     "joe",
     "amo",
@@ -99,17 +117,6 @@ _CANONICAL_BOOKS = [
     "hag",
     "zec",
     "mal",
-    # Maccabees + Tewahedo distinctives
-    "1ma",
-    "2ma",
-    "1en",
-    "jub",
-    "mq1",
-    "mq2",
-    "mq3",
-    "2es",
-    "paz",
-    "bel",
     # New Testament
     "mat",
     "mrk",  # mint-7 ★BUGCLUSTER: was "mar" (legacy) — canonical Mark is "mrk"
@@ -138,8 +145,7 @@ _CANONICAL_BOOKS = [
     "3jn",
     "jud",
     "rev",
-    # Additional Tewahedo apocryphal (varies by enumeration)
-    "4ba",
+    "1cl",  # First Epistle of Clement to the Corinthians
 ]
 
 # Books with manuscript-collation track (τ.6.x.4.b/c) — render is

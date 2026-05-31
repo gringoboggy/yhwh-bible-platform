@@ -118,14 +118,29 @@ def _load_book(translation: str, book_code: str) -> list[tuple[int, int, str]] |
 
 
 @functools.lru_cache(maxsize=256)
-def _book_index(translation: str, book_code: str) -> dict[tuple[int, int], str] | None:
+def _book_index_cached(translation: str, book_code: str, mtime_ns: int) -> dict[tuple[int, int], str] | None:
     """Build a (chapter, verse) → text dict for one book. Cached so
     every popup lookup after the first is a single dict access.
+
+    The cache key includes ``mtime_ns`` (mirroring ``_load_book_cached``),
+    so a rewritten book file auto-invalidates this dict too — without it
+    the index froze for the process lifetime and ``_load_book``'s own
+    mtime freshness was defeated (a verse edited in the editor showed
+    stale popup text until restart).
     """
     verses = _load_book(translation, book_code)
     if verses is None:
         return None
     return {(c, v): t for (c, v, t) in verses}
+
+
+def _book_index(translation: str, book_code: str) -> dict[tuple[int, int], str] | None:
+    """Resolve the book file's mtime and delegate to the cached builder."""
+    try:
+        mtime_ns = _book_path(translation, book_code).stat().st_mtime_ns
+    except OSError:
+        return None
+    return _book_index_cached(translation, book_code, mtime_ns)
 
 
 # ----------------------------------------------------------------------
@@ -229,4 +244,4 @@ def versification_of(translation: str, book_code: str) -> str:
 def clear_cache() -> None:
     """Drop loader caches. Useful in tests or after bulk re-extraction."""
     _load_book_cached.cache_clear()
-    _book_index.cache_clear()
+    _book_index_cached.cache_clear()

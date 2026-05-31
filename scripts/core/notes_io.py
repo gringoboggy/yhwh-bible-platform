@@ -126,6 +126,11 @@ def _invalidate_corpus_index_if_notes_file(path: Path) -> None:
             from scripts.core import corpus_index
 
             corpus_index.invalidate()
+            # Also drop the load_notes parse cache: a rewrite within the
+            # same 1s mtime-resolution window keeps (path, mtime_ns)
+            # unchanged, so _load_notes_cached would otherwise serve the
+            # stale parse despite the corpus_index invalidation above.
+            clear_load_notes_cache()
     except Exception:  # noqa: BLE001
         pass
 

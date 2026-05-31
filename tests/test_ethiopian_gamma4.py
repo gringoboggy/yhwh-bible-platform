@@ -1171,13 +1171,16 @@ class TestGamma42EphremGenesisFirstWave:
     def test_voice_rebalance_achieved(self):
         # Per AUDIT_2026-05-12-B §ix recommendation: γ.4.2 first wave
         # was sequenced specifically to rebalance the corpus voice mix
-        # away from 93% Cyril dominance. Pin Cyril share now below 80%.
+        # away from 93% Cyril dominance. RULES §8.1 forbids share pins
+        # (a denominator-relative pin silently flips as the corpus grows
+        # via other fathers). Pin an ABSOLUTE Cyril ceiling instead; the
+        # Ephrem floor (test_ephrem_now_substantively_present) already
+        # guards the rebalance from the other side.
         cyril = self.ec.by_father("Cyril of Alexandria")
-        total = len(self.ec)
-        cyril_share = len(cyril) / total
-        assert cyril_share < 0.80, (
-            f"γ.4.2 wave-1 should rebalance Cyril share below 80%; actual {cyril_share:.1%} ({len(cyril)} of {total})"
-        )
+        # Live count at pin-time (2026-05-31) = 668; ceiling set just above
+        # with small headroom (700) so honest ongoing Cyril ingest doesn't
+        # trip it, but a runaway Cyril regression still fails.
+        assert len(cyril) <= 700, f"γ.4.2 wave-1 Cyril ceiling: expected ≤700 Cyril entries; found {len(cyril)}"
 
     def test_ephrem_genesis_chapter_coverage(self):
         # γ.4.2 wave-1 explicitly covers Gen 1-11 (creation through

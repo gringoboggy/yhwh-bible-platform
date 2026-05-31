@@ -32,8 +32,10 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import logging
 import re
 import sys
+import warnings
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -157,6 +159,9 @@ def format_tuple_text(
     # Helper: emit a Python string, preferring single quotes, escaping when
     # the string contains a single quote.
     def py_str(s: str) -> str:
+        # Escape embedded newlines so a body with a literal newline can't
+        # produce an unterminated (invalid) one-line Python string literal.
+        s = s.replace("\n", "\\n").replace("\r", "\\r")
         if "'" not in s:
             return f"'{s}'"
         if '"' not in s:
@@ -245,8 +250,7 @@ def insert_note_into_book_file(
         existing_key = (tch, tv, suffix_rank(tsuf))
         if existing_key < new_key:
             insert_after_lineno = tup.end_lineno  # last line of the tuple
-        else:
-            break
+        # else: keep scanning (existing list may be unsorted)
 
     if insert_after_lineno is None:
         # Insert at the start of the list (after `NOTES = [`)
@@ -291,7 +295,14 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
     text = book_path.read_text(encoding="utf-8")
     try:
         tree = ast.parse(text)
-    except SyntaxError:
+    except SyntaxError as exc:
+        logging.error(
+            "batch_insert_notes: skipping %s and dropping its %d pending note(s); "
+            "the file has a syntax error and could not be parsed: %s",
+            book_path,
+            len(new_notes),
+            exc,
+        )
         return 0
     notes_assign = None
     for node in tree.body:
@@ -324,6 +335,12 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
     for n in new_notes:
         ch = n.get("chapter", n.get("ch"))
         v = n.get("verse", n.get("v"))
+        if ch is None or v is None:
+            warnings.warn(
+                f"batch_insert_notes: dropping note for {book_path.stem!r} missing chapter/verse coordinates: {n!r}",
+                stacklevel=2,
+            )
+            continue
         kind = n["kind"]
         body = n["body"]
         attribution = n.get("attribution")
@@ -339,8 +356,7 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
         for ech, ev, esuf, eend in existing:
             if (ech, ev, suffix_rank(esuf)) < new_key:
                 after = eend
-            else:
-                break
+            # else: keep scanning (existing list may be unsorted)
         txt = format_tuple_text(
             ch,
             v,

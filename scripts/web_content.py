@@ -272,8 +272,11 @@ def api_sample_html(
     # --- Notes (compose notes_io + edition kind filter) ---
     notes_path = REPO / "content" / "notes" / f"{book}.py"
     all_notes = notes_io.load_notes(notes_path) if notes_path.is_file() else []
-    enabled_kinds = set(edition.get("enabled_kinds") or [])
-    disabled_kinds = set(edition.get("disabled_kinds") or [])
+    # Use the canonical kind resolver (the same one build_edition + the
+    # matrix call) so this preview's kind set is IDENTICAL to what the
+    # build emits — categories->kinds expansion, the max_phase gate, and
+    # the AI double-opt-in are all applied here, not re-hand-rolled.
+    enabled_codes = config.enabled_kind_codes(edition, config.load_kinds())
     in_range = []
     for n in all_notes:
         if not n or len(n) < 8:
@@ -282,12 +285,7 @@ def api_sample_html(
         if ch < f or ch > t:
             continue
         kind = n[4]
-        # Filter rule mirrors build_edition: a kind is included iff
-        # (enabled_kinds is empty OR kind in enabled_kinds) AND
-        # kind not in disabled_kinds.
-        if enabled_kinds and kind not in enabled_kinds:
-            continue
-        if kind in disabled_kinds:
+        if kind not in enabled_codes:
             continue
         in_range.append(n)
 
@@ -633,6 +631,29 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     # backup path — that's fine; the data we need is already in
     # snapshot_bytes.
     from scripts.core import notes_io
+
+    # Step 0.5: for .py notes files, validate the snapshot PARSES as a
+    # notes module BEFORE touching the live file. A corrupt snapshot
+    # (truncated/garbled .bak) would otherwise be written verbatim,
+    # leaving the source unparseable until manually fixed. Gate only
+    # .py notes; binary restores (covers/images) are untouched.
+    if abs_path.suffix == ".py":
+        try:
+            snapshot_text = snapshot_bytes.decode("utf-8")
+        except UnicodeDecodeError:
+            return {
+                "status": "error",
+                "code": "invalid_snapshot",
+                "http": 400,
+                "message": "snapshot is not valid UTF-8 text",
+            }
+        if notes_io.load_notes_from_text(snapshot_text) is None:
+            return {
+                "status": "error",
+                "code": "invalid_snapshot",
+                "http": 400,
+                "message": "snapshot does not parse as a notes file",
+            }
 
     pre_restore_backup = None
     if abs_path.is_file():

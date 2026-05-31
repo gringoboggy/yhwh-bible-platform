@@ -1,5 +1,5 @@
 # YHWH v2.4 "Mint" Cleanup + Automated Guardrails — Implementation Plan
-**Status:** in progress — Phases 0–5 shipped; Phase 6 (polish) active
+**Status:** COMPLETE — all Phases 0–6 shipped + synced 2026-05-31 (HEAD ad945f62)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: use `superpowers:subagent-driven-development` (recommended) to implement this plan phase-by-phase, fresh subagent per task, two-stage review between tasks. Steps use checkbox (`- [ ]`) syntax.
 

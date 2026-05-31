@@ -16,6 +16,7 @@ they do NOT touch the real ``content/notes/`` corpus.
 
 from __future__ import annotations
 
+import ast
 import sys
 from pathlib import Path
 
@@ -25,7 +26,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 import scripts.promote as promote_mod  # noqa: E402
-from scripts.promote import note_already_exists, promote_candidate  # noqa: E402
+from scripts.promote import format_tuple_text, note_already_exists, promote_candidate  # noqa: E402
 
 BOOK_FILE_TEMPLATE = '''"""Tmp test fixture for {book} notes."""
 
@@ -232,3 +233,75 @@ class TestPromoteCandidateIdempotency:
         # in double quotes).
         text = fake_book["path"].read_text(encoding="utf-8")
         assert text.count("repeat test</aside>") == 1, "expected exactly one occurrence of the body text in file"
+
+
+class TestFormatTupleTextNewlineSafety:
+    """Contract: a note body (or any field) containing a literal newline
+    must still emit a valid one-line Python string literal — otherwise the
+    spliced ``<book>.py`` module fails to parse and the whole batch is
+    silently dropped on the ast.parse guard. Regression for the
+    py_str newline-escape fix in promote.py.
+    """
+
+    def test_body_with_literal_newline_splices_into_valid_module(self):
+        line = format_tuple_text(
+            1,
+            1,
+            "",
+            "",
+            "note",
+            "Title",
+            "Label",
+            "first paragraph\nsecond paragraph",
+        )
+        module_src = "NOTES = [\n" + line + "]\n"
+        # A raw literal newline in the body would produce an unterminated
+        # string literal here; ast.parse must succeed.
+        tree = ast.parse(module_src)
+        assert tree is not None
+
+    def test_body_with_crlf_splices_into_valid_module(self):
+        line = format_tuple_text(
+            2,
+            3,
+            "a",
+            "",
+            "note",
+            "Title",
+            "Label",
+            "line one\r\nline two",
+            attribution="Some source. PD.",
+        )
+        module_src = "NOTES = [\n" + line + "]\n"
+        tree = ast.parse(module_src)
+        assert tree is not None
+
+
+class TestPromoteCandidateCoordinateGuard:
+    """Contract: promote_candidate refuses an out-of-extent coordinate.
+
+    A candidate whose (book, chapter, verse) lies outside the canonical
+    extent (e.g. gen verse 999) must be rejected with (False, '') — no
+    tuple is written. This guards the promote boundary against junk
+    coordinates leaking into the corpus. Standalone (no fake_book reuse):
+    its own tmp gen.py + NOTES_DIR redirect so it never touches the real
+    content/notes/ tree.
+    """
+
+    def test_out_of_extent_verse_is_rejected(self, tmp_path, monkeypatch):
+        # Minimal real-book fixture so the guard has a file to consult.
+        book_path = _write_book_file(tmp_path, "gen", "")
+        monkeypatch.setattr(promote_mod, "NOTES_DIR", book_path.parent)
+
+        c = _candidate(
+            chapter=1,
+            verse=999,  # well past Gen 1's extent — structurally invalid
+            body="<aside class='note-comm-ethiopian'>out-of-extent body</aside>",
+            attribution="Out-of-extent source. PD.",
+        )
+        ok, suffix = promote_candidate("gen", c)
+        assert ok is False
+        assert suffix == ""
+        # Guard must reject BEFORE writing — body never lands in the file.
+        text = book_path.read_text(encoding="utf-8")
+        assert "out-of-extent body" not in text

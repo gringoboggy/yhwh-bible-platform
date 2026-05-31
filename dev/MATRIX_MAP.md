@@ -14,7 +14,7 @@
 > the EPUB build are two consumers of one source of truth.
 >
 > Counts (2026-05-21, after the reference-corpus rebuild): **11 editions · 5 canons
-> · 15 categories · 71 kinds · 87 books · 13 translation dirs · 67,715 notes**.
+> · 15 categories · 72 kinds · 87 books · 14 translation dirs · 67,715 notes**.
 > (Was 70 kinds / 52,973 notes on 2026-05-20; `dict-easton` added + Nave's rebuilt +
 > Easton's ingested — see "Reference-corpus ingestion" below.) Re-verify with
 > `dev/trace_matrix.py`; integrity target: **0 unresolved references.**
@@ -24,11 +24,11 @@
 ```
 CONFIG  (content/*.yaml)  — the rows, columns, and leaves
   editions.yaml ......... 11 edition profiles      → the matrix ROWS
-  kinds.yaml ............ 71 kinds → category       → the matrix COLUMNS
+  kinds.yaml ............ 72 kinds → category       → the matrix COLUMNS
   categories.yaml ....... 15 categories             (column groups; AI-gate via enable_ai_notes)
   canons.yaml ........... 5 canons → book-code sets  (book filter; ethiopian = 87-book superset)
   books.yaml ............ 87 books                   (canonical spine / order)
-  translations/<id>/ .... 13 dirs                    (base_translation, popup_translation)
+  translations/<id>/ .... 14 dirs                    (base_translation, popup_translation)
   traditions / themes / customization / source_dates / edition_templates/* / scenarios/*
         |
         v
@@ -130,7 +130,7 @@ The reference graph is sound (0 dangling refs). The blemishes are cosmetic/struc
 products of organic growth from the original 1-Bible builder:
 
 1. **Stale docstring — RESOLVED (2026-05-21).** `core/matrix.py`'s docstring now reads
-   **71 kinds / 67,715 notes / 11 editions** (was "5 editions / 63 kinds", later "70 / 1,371").
+   **72 kinds / 67,715 notes / 11 editions** (was "5 editions / 63 kinds", later "70 / 1,371").
 2. **`editions.yaml` comment drift — RESOLVED (2026-05-21).** The 3 drifted section-header blocks
    (catholic / jewish / scholarly) sat above the *previous* edition's trailing
    `popup_languages_default`; each moved to just above its own `- id:` (pure comment reorder, data

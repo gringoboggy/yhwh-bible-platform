@@ -1,5 +1,5 @@
 # mint-7 — Quality Pass (correctness · code-debt · security · tests/hygiene)
-**Status:** in progress — audit COMPLETE (2026-05-31, 15-agent workflow `wf_365eda78`); plan written + findings saved; **execution PENDING (start Phase A next session)**.
+**Status:** COMPLETE — Phases A · C · B · D · E all shipped + synced 2026-05-31.
 
 > Source audit: 6-dimension multi-agent audit of the post-mint-cleanup tree, each
 > critical/high finding independently verified. Raw findings (with verifier

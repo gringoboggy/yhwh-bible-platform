@@ -61,11 +61,19 @@ from scripts.core.sources import (  # noqa: E402
     AnthropicNoteClient,
     SourceMissingError,
 )
-from scripts.core import translations  # noqa: E402
-from scripts.core import config  # noqa: E402
 from scripts.core.parallel import parallel_map  # noqa: E402
 from scripts.core.work_cache import WorkCache  # noqa: E402
-from scripts.core.at_scale_base import DIM, GREEN, RED, RESET, YELLOW, candidate_to_dict  # noqa: E402
+from scripts.core.at_scale_base import (  # noqa: E402
+    DIM,
+    GREEN,
+    RED,
+    RESET,
+    YELLOW,
+    candidate_to_dict,
+    iter_target_verses,
+    resolve_books,
+)
+from scripts.core.notes_io import atomic_write  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -107,44 +115,8 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "n_candidates": len(all_candidates),
         "candidates": all_candidates,
     }
-    out_path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
+    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
     return out_path
-
-
-def iter_target_verses(books: list[str], max_verses: int):
-    """Yield ``(book, chapter, verse, verse_text)`` tuples in
-    canonical book order, capped at ``max_verses`` total. Skips
-    books that aren't present in the KJV translation data. Mirrors
-    ``run_ai_xrefs_at_scale.iter_target_verses`` — kept separate to
-    allow per-driver targeting filters in the future (e.g. "only
-    verses with < N existing notes")."""
-    yielded = 0
-    for book in books:
-        if yielded >= max_verses:
-            return
-        if not translations.has_book("kjv", book):
-            continue
-        try:
-            book_meta = config.get_book(book)
-            n_chapters = (
-                book_meta.get("ch_count", 50) if book_meta else 50
-            )  # mint-7 B1: books.yaml key is ch_count (was "chapters" → always 50)
-        except KeyError:
-            n_chapters = 50
-        for chapter in range(1, n_chapters + 1):
-            if yielded >= max_verses:
-                return
-            verses = translations.get_chapter("kjv", book, chapter)
-            if not verses:
-                continue
-            for verse_num, verse_text in verses:
-                if yielded >= max_verses:
-                    return
-                yield (book, chapter, verse_num, verse_text)
-                yielded += 1
 
 
 def run_ai_notes(
@@ -293,16 +265,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         ),
     )
     return p.parse_args(argv)
-
-
-def resolve_books(books_arg: str | None) -> list[str]:
-    if books_arg:
-        return [b.strip() for b in books_arg.split(",") if b.strip()]
-    # Default: every KJV book in canonical order from books.yaml.
-    canonical = list(config.books_by_code().keys())
-    kjv_dir = REPO_ROOT / "content" / "translations" / "kjv"
-    available = {p.stem for p in kjv_dir.glob("*.py")}
-    return [b for b in canonical if b in available]
 
 
 def main(argv: list[str] | None = None) -> int:

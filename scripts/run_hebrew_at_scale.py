@@ -30,6 +30,7 @@ from scripts.core.detectors import HebrewWordDetector  # noqa: E402
 from scripts.core import translations  # noqa: E402
 from scripts.core import config  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, NT_BOOKS, RESET, candidate_to_dict  # noqa: E402
+from scripts.core.notes_io import atomic_write  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -58,7 +59,7 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "n_candidates": len(all_candidates),
         "candidates": all_candidates,
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
     return out_path
 
 

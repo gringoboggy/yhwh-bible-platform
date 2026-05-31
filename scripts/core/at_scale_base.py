@@ -7,11 +7,17 @@ Extracted (mint-7 D1) from the 10 ``run_*_at_scale.py`` drivers + ``prospect.py`
 
 ``write_queue`` is deliberately NOT here — each driver has its own append / dedup /
 overwrite semantics (the lone exception, ``run_xref``'s former clobber, was fixed in
-mint-7 B2). This module is a dependency-free leaf: it imports nothing from ``scripts``,
-so every driver + ``detectors.py`` can import it without a circular-import hazard.
+mint-7 B2). ``iter_target_verses`` / ``resolve_books`` ARE here (mint-8): both AI
+drivers held byte-identical copies whose copy-then-diverge history caused the mint-7
+B1 ``ch_count`` bug. This module is a dependency-free leaf: it imports nothing from
+``scripts`` at module top (the two shared helpers lazy-import ``translations`` /
+``config`` inside the function body), so every driver + ``detectors.py`` can import it
+without a circular-import hazard.
 """
 
 from __future__ import annotations
+
+from pathlib import Path
 
 # ANSI color codes for the drivers' progress output.
 GREEN = "\033[92m"
@@ -55,6 +61,65 @@ NT_BOOKS = frozenset(
         "rev",
     }
 )
+
+
+def iter_target_verses(books: list[str], max_verses: int):
+    """Yield ``(book, chapter, verse, verse_text)`` tuples in canonical book
+    order, capped at ``max_verses`` total. Skips books that aren't present in
+    the KJV translation data.
+
+    Shared by both AI drivers (``run_ai_notes_at_scale`` /
+    ``run_ai_xrefs_at_scale``); they were byte-identical copies whose
+    copy-then-diverge history produced the mint-7 B1 ``ch_count`` bug, so the
+    single implementation lives here now (mint-8). ``translations`` / ``config``
+    are imported lazily inside the function to keep this module the dependency-
+    free leaf its module docstring promises (no top-level ``scripts`` import →
+    no circular-import hazard for ``detectors.py`` et al.)."""
+    from scripts.core import config, translations
+
+    yielded = 0
+    for book in books:
+        if yielded >= max_verses:
+            return
+        if not translations.has_book("kjv", book):
+            continue
+        try:
+            book_meta = config.get_book(book)
+            n_chapters = (
+                book_meta.get("ch_count", 50) if book_meta else 50
+            )  # mint-7 B1: books.yaml key is ch_count (was "chapters" → always 50)
+        except KeyError:
+            n_chapters = 50
+        for chapter in range(1, n_chapters + 1):
+            if yielded >= max_verses:
+                return
+            verses = translations.get_chapter("kjv", book, chapter)
+            if not verses:
+                continue
+            for verse_num, verse_text in verses:
+                if yielded >= max_verses:
+                    return
+                yield (book, chapter, verse_num, verse_text)
+                yielded += 1
+
+
+def resolve_books(books_arg: str | None) -> list[str]:
+    """Resolve the ``--books`` CLI argument to a list of canonical book codes.
+
+    With an explicit arg, splits on commas. Otherwise returns every KJV book
+    in canonical order (from ``books.yaml``) that has a translation store on
+    disk. Shared by both AI drivers (mint-8 dedup). Lazy ``config`` import keeps
+    this module a dependency-free leaf."""
+    if books_arg:
+        return [b.strip() for b in books_arg.split(",") if b.strip()]
+    from scripts.core import config
+
+    # Default: every KJV book in canonical order from books.yaml.
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    canonical = list(config.books_by_code().keys())
+    kjv_dir = repo_root / "content" / "translations" / "kjv"
+    available = {p.stem for p in kjv_dir.glob("*.py")}
+    return [b for b in canonical if b in available]
 
 
 def candidate_to_dict(c, idx: int) -> dict:

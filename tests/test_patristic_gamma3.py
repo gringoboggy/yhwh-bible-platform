@@ -135,8 +135,10 @@ class TestGamma3PatristicCommentariesLoader:
         from scripts.core import sources
 
         pc = sources.patristic_commentaries()
-        # Matthew has no seed commentary yet
-        empty = pc.for_verse("mat", 1, 1)
+        # Structurally-impossible coordinate (RULES §8.1: don't assert a
+        # real verse is permanently uncommented — corpus growth would
+        # silently flip it). No such book/chapter/verse can ever exist.
+        empty = pc.for_verse("nonexistent-book-xyz", 99, 99)
         assert empty == []
 
     def test_by_father_lookup(self):
@@ -151,8 +153,9 @@ class TestGamma3PatristicCommentariesLoader:
         from scripts.core import sources
 
         pc = sources.patristic_commentaries()
-        # Origen isn't in the seed yet
-        empty = pc.by_father("Origen")
+        # Structurally-impossible father (RULES §8.1: don't assert a real
+        # father is permanently absent — ingest would silently flip it).
+        empty = pc.by_father("nonexistent-father-xyz")
         assert empty == []
 
     def test_loader_handles_missing_cache(self, tmp_path, monkeypatch):
@@ -222,10 +225,10 @@ class TestGamma3DetectorContract:
         from scripts.core import detectors
 
         d = detectors.PatristicCommentaryDetector()
-        # No NT verses in the seed yet
-        assert d.detect("mat", 1, 1, "") == []
-        # Genesis verse without commentary
-        assert d.detect("gen", 50, 1, "") == []
+        # Structurally-impossible coordinates (RULES §8.1: don't assert a
+        # real verse stays uncommented — corpus growth would flip it).
+        assert d.detect("nonexistent-book-xyz", 99, 99, "") == []
+        assert d.detect("gen", 99, 99, "") == []
 
     def test_detect_ignores_verse_text(self):
         # Unlike keyword detectors, this one looks up by

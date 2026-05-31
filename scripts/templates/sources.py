@@ -592,7 +592,7 @@ function escapeHTML(s) {
 function truncateHTML(html, n) {
   // Strip tags for the preview length calc, but allow a few semantic tags
   const stripped = (html || '').replace(/<[^>]+>/g, '');
-  if (stripped.length <= n) return html;
+  if (stripped.length <= n) return escapeHTML(stripped);
   return escapeHTML(stripped.slice(0, n)) + '<span class="text-slate-400">…</span>';
 }
 

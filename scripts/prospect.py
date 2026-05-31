@@ -48,6 +48,7 @@ from scripts.core.detectors import ALL_DETECTORS, Candidate  # noqa: E402
 from scripts.core.sources import SourceMissingError  # noqa: E402
 from scripts.find_anchor import find_verse_text, load_existing_anchors  # noqa: E402
 from scripts.core.at_scale_base import BOLD, DIM, GREEN, RED, RESET, YELLOW, candidate_to_dict  # noqa: E402
+from scripts.core.notes_io import atomic_write  # noqa: E402
 
 EPUB_DIR = REPO_ROOT / "epub_working"
 NOTES_DIR = REPO_ROOT / "content" / "notes"
@@ -149,7 +150,7 @@ def write_queue(book: str, chapter: int, candidates: list[Candidate]) -> Path:
         "n_candidates": len(candidates),
         "candidates": [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)],
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
     return out_path
 
 
