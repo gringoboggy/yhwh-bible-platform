@@ -327,9 +327,12 @@ order. The user has delegated this judgment; exercise it.
   a bare "save". Only if the user *explicitly* says "zip": slim excludes regenerable
   artifacts (`content/translations/sources/`, `epub_working/.backups/`, `__pycache__/`,
   `.pytest_cache/`, `*.bak`, `*.tmp`, `.git/`); full is the whole working tree.
-- **`save.ps1` currently runs leg 1 only** (commit); Claude chains legs 2–5. A unified
-  `save-all.ps1` that does all five is a worthwhile automation — build it when the user
-  opts in (the ~416 MB E:/F: bundle on every save is the cost to weigh).
+- **`save-all.ps1` (repo root) runs all five legs in one command** — `pwsh -File
+  save-all.ps1 -Message "..."` (`-DryRun` previews; `-Label <slug>` names the bundle;
+  `-Yes` allows a >200-file sweep). It delegates leg 1 to `save.ps1`, pushes both
+  remotes, bundles to E:+F:, **verifies each leg, and exits non-zero if any leg didn't
+  land** (a missing drive / failed push is reported, the other legs still run). Plain
+  `save.ps1` still does leg 1 (commit) only.
 
 ### Checkpoint saves
 
