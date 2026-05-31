@@ -1,0 +1,49 @@
+# .gitlab-ci.yml — YHWH v2.4 continuous integration.
+#
+# Restored alongside the git remote on 2026-05-30 (mint-5). Mirrors the local
+# gate `python scripts/ci.py` (W4.5) so CI and `make ci` enforce the SAME rules:
+#   ruff format --check + ruff check + pip-audit + vulture + lint_rules.py + mypy
+#   (+ pytest + coverage floor in the full run).
+#
+#   gate  — BLOCKING fast gate (scripts/ci.py --no-tests): format · lint · rules · mypy.
+#           Deterministic; this is the required green signal.
+#   tests — full suite + coverage floor (scripts/ci.py). allow_failure FOR NOW: the
+#           suite includes long live-socket/build smokes + epubcheck (needs a JRE)
+#           not yet proven on a clean Linux runner. Flip allow_failure to false once
+#           the first green run confirms it. (Deliberately visible — not a silent skip.)
+#
+# NOTE: GitLab.com shared runners may require account verification before any
+# pipeline runs. If pipelines stay "pending", verify the account / enable shared
+# runners under Settings → CI/CD → Runners.
+
+default:
+  image: python:3.13-slim
+  interruptible: true
+  before_script:
+    - python --version
+    - pip install -r requirements.txt -r requirements-dev.txt
+  cache:
+    key: "pip-$CI_COMMIT_REF_SLUG"
+    paths:
+      - .cache/pip
+
+variables:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+stages:
+  - gate
+  - test
+
+gate:
+  stage: gate
+  script:
+    - python scripts/ci.py --no-tests
+
+tests:
+  stage: test
+  allow_failure: true
+  script:
+    - python scripts/ci.py

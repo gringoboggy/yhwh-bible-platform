@@ -16,11 +16,12 @@
   - coverage floor             (BLOCKING **iff** `coverage` is installed;
                                 otherwise skipped with a hint)
 
-Solo-maintainability: there is no git remote yet (history is bundle-backed-up
-to E:/F:), so "CI" runs locally via `make ci`. The process exits 0 only when
-every BLOCKING step passes. Dev/CI tools are declared in `requirements-dev.txt`;
-`coverage` is optional — the floor activates after
-`pip install -r requirements-dev.txt`.
+Solo-maintainability: `make ci` / `python scripts/ci.py` runs these gates both
+locally AND in GitLab CI (`.gitlab-ci.yml`, against the restored remote
+gitlab.com/gringoboggy/yhwh-bible-platform); full history is also bundle-backed-up
+to E:/F:. The process exits 0 only when every BLOCKING step passes. Dev/CI tools
+are declared in `requirements-dev.txt`; `coverage` is optional — the floor
+activates after `pip install -r requirements-dev.txt`.
 
 The standard meta-tool shape (RULES §9): pure ``run_all() -> dict`` + a thin
 ``main()``. The subprocess runner is injectable so tests exercise the

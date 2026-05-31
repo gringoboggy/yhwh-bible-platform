@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-30 (cont.) — REMOTE RESTORED (GitLab) + CI — 516 commits pushed off-machine; `.gitlab-ci.yml` added
+
+**Phases shipped:** mint-5 (partial) — git-remote restore + CI (pulled ahead of Phase 4 per user direction: backup BEFORE the destructive decommercialize)
+**Test delta:** none (infra + CI config + a docstring; no code/corpus/build change)
+**Save tag:** local commit (this turn) + GitLab `origin/main` push (first off-machine git copy since 2026-05-12)
+
+What shipped:
+- **Git remote restored** — created private `gitlab.com/gringoboggy/yhwh-bible-platform` (glab CLI, account `gringoboggy`) and pushed all **516 commits** to `origin/main` (HEAD `61186815`, ~438 MB). No Git-LFS needed — largest historical blob is a 9.4 MB cover PNG, far under GitHub/GitLab's 100 MB/file limit. **Code home = GitLab** (the `gh`/GitHub account `bridge4kaladin-collab` is separate and unused for this repo).
+- **Toolchain installed** (winget, hash-verified): `glab` 1.100.0 (GitLab CLI) + `gk` 3.1.64 (GitKraken CLI). Auth: glab via a PAT (scopes `api`+`write_repository`, expires 2026-06-29). **Gotcha codified:** glab's own `git-credential` helper returns an *empty username* (it advertises the `authtype` capability), so GitLab HTTP Basic rejected it — bypassed by storing a `gringoboggy:<token>` credential in Windows Credential Manager (the `manager` helper); token never written to `.git/config` or echoed.
+- **`.gitlab-ci.yml`** — mirrors `scripts/ci.py` on `python:3.13-slim`: a BLOCKING `gate` job (`ci.py --no-tests`: ruff format-check · ruff check · pip-audit · vulture · lint_rules · mypy) + an `allow_failure` `tests` job (full `ci.py` incl. pytest + coverage floor). The tests job stays non-blocking until proven green on a clean Linux runner (epubcheck/JRE + the 23-min live-socket/build smokes); flip `allow_failure:false` after. Deliberately visible, not a silent skip.
+- **`scripts/ci.py` docstring** corrected (the stale "there is no git remote yet" line → CI now also runs in GitLab CI).
+
+Notable decisions:
+- **GitLab over the already-authenticated GitHub** — `gh` was ready with zero setup as `bridge4kaladin-collab`, but the user explicitly chose GitLab (twice), matching the `yhwhyaway.com` plan; did the extra glab + PAT setup rather than take the easy GitHub path.
+- **Remote sequenced BEFORE Phase 4** (user-directed) so the ~5,300-LOC decommercialize runs with an off-machine backup already in place.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (Phase 4 next = decommercialize; the remote+CI slice of Phase 5 landed early)
+
+---
+
 ## 2026-05-30 (cont.) — Mint-cleanup PHASE 3 COMPLETE — archive sweep (56 dated docs → dev/archive/); `dev_doc_sprawl` + `doc_cross_references` GREEN
 
 **Phases shipped:** mint-cleanup Phase 3 (archive sweep)
