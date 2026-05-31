@@ -14,7 +14,7 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 167 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 168 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
 | `docs/superpowers/` | ✅ | `plans/` (23 implementation plans) + `specs/` (16 design specs) for the manuscript/ingest workstreams. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |

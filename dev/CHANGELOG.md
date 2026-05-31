@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-05-31 — MINT-6 (polish) COMPLETE — /distribution console · superpowers INDEX+lint · audit_caches→preflight · .sonar sweep · /exec scrub
+
+Final phase of the mint-cleanup plan (`docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md`). **LANE 0 — the mint-cleanup arc (Phases 0–6) — is now COMPLETE.** Additive only: no build-pipeline edit; the 9 KJV editions stay byte-stable; cross-link 17→18 consoles; `lint_rules` 0 fail throughout. Commits `451ac84c` · `3955d398` · `d33188ae` · `26289067` · `3ed0473b` (all local; push to GitLab+GitHub pending).
+
+- **.sonar + log sweep + /exec scrub** (`451ac84c`) — deleted 59 untracked `.sonar` scanner dirs + 12 root `*.log`; removed the SonarQube patterns from `.gitignore` (so `stray_artifacts` now surfaces any reappearance instead of ignoring it); scrubbed dangling `/exec`-console references from live docstrings/comments (`press_kit`, `metrics`, `event_log`, `exports`, `api/archive_org`) + 2 tests. The `/exec` console was deleted in Phase 4; its history stays in this CHANGELOG.
+- **superpowers INDEX + coherence lint** (`3955d398` + `3ed0473b`) — backfilled `**Status:**` headers into 21 plans/specs (all 39 now carry one); generated `docs/superpowers/INDEX.md` (status-grouped: In-progress 7 / Planned-design 17 / Shipped 13 / Superseded 2); added `check_superpowers_coherence` to `ALL_CHECKS` — every plan/spec must carry a Status header AND be **bidirectionally** consistent with INDEX.md (files↔INDEX both ways); `_ENFORCE_SUPERPOWERS_COHERENCE` True. +9 tests.
+- **/distribution console** (`d33188ae` + `3ed0473b`) — new `/distribution` console re-surfacing the free-distribution UI (archive.org credential status + per-edition×channel rollup with upload + press-kit edit/download) that the deleted `/exec` console hosted (its `archive_org`/`press_kit` backends were KEPT in Phase 4). New `scripts/api/distribution.py` (`api_distribution_rollup` composes `distribution.rollup`; lives in `_REGEX_GET_ROUTES` so its error envelope §9-translates to a real HTTP status) + `scripts/templates/distribution.py` (mirrors `ops.py`; ω.0.6 defense prelude). Free channels only — no commercial surfaces. +12 tests.
+- **audit_caches → preflight** (`26289067`) — composed the built-but-uninvoked ω.30 cache-invalidation audit into `_compute_preflight_uncached` as check `cache_invalidation` (pure stdlib AST+re; warn-not-fail; `audit_dead_code/deps/types` stay CLI-only since they wrap external tools that would 500 the dashboard). Addresses the mint-5 backlog note. +2 tests.
+- **Adversarial review pass** (`3ed0473b`) — a 4-reviewer + per-finding-verifier workflow over the mint-6 diff confirmed 8 findings, all fixed: the rollup route now error-translates (§9); the coherence lint became bidirectional (reverse INDEX→disk pass); the INDEX bucket heuristic was fixed (design/approved entries no longer mis-grouped as "Shipped"); 4 doc-accuracy fixes (ε.3 sales-import removed-annotation; `archive_org` docstring `press_kit.build_zip`; press_kit de-commercialized prose; mint-plan 22→23 plans).
+
+DECLINED (minimal-hooks): the SessionEnd hygiene hook. The optional `web.py` route-table refactor is not warranted (roadmap: no `web.py` split for size).
+
+Gates: `lint_rules` 0 fail (the lone remaining warn is the pre-existing CHANGELOG size — a manual month-roll); affected-test runs green (distribution 12, superpowers 9, cache_invalidation 2, scrub-touched 31); `import scripts.web` clean; cross-link 18 consoles.
+
+Continuity: `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md` (Phases 0–6 ✓ — **mint cleanup COMPLETE**). Next critical path = Phase D1b Esther vision marathon (paused p28).
+
 ## 2026-05-31 — MINT-5 (enforce gates) COMPLETE — mypy in pre-commit, hook dedup, REPO_MAP regen + gate flip
 
 Phase 5 of the mint-cleanup plan (`docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md`). Config / docs / hooks / lint only — no production code path or build output touched. Shipped across commits `cd68fce5` + `874882a7` (both pushed GitLab + GitHub).
