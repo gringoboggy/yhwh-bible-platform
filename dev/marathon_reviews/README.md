@@ -31,8 +31,8 @@ dev/marathon_reviews/
 - `dev/AUDIT_*.md` — audits.
 - `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`,
   `dev/MARATHON_LEDGER.md` — durable cross-session state.
-- `dev/CLAUDE_PROJECT_RULES.md`, `dev/PLAN_2026-05-09.md` — bootstrap
-  triad.
+- `dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_2026-05-29-roadmap.md` —
+  bootstrap triad (the live master plan; `PLAN_2026-05-09.md` is archived. mint-7 E4).
 
 **Filename convention** (unchanged): `REVIEW_{YYYY-MM-DD}-{ref}-{WITNESS}-R{N}.md`
 for review rounds; `REVIEW_{YYYY-MM-DD}-{ref}-collation.md` for the C-8

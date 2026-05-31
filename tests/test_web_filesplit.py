@@ -20,6 +20,12 @@ Every class lazy-imports its dependencies inside test method
 bodies, so this file has no top-level imports from the project.
 """
 
+import pytest
+
+# mint-7 E2 — this file's live socket/build smokes run ~20+ min; mark the whole
+# module slow so normal runs can deselect via `-m "not slow"`.
+pytestmark = pytest.mark.slow
+
 
 class TestOmega35B1SnapshotsExtraction:
     """ω.35-B.1 — first slice of the web.py file split. Six

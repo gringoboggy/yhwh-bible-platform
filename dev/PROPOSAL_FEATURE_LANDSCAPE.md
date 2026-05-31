@@ -1,8 +1,11 @@
 # PROPOSAL — Feature landscape: from v1.0 to spotless + amazing
 
-> **Status:** planning document.
+> **Status:** HISTORICAL planning document (2026-05-10). Its inline `PLAN_2026-05-09.md`
+> references are to a plan since **archived**; the live master plan is
+> `dev/PLAN_2026-05-29-roadmap.md` (see the bootstrap triad in RULES §0). Kept for the
+> feature-landscape reasoning; not a current task ledger. (mint-7 E4.)
 > **Created:** 2026-05-10.
-> **Companion to:** `PLAN_2026-05-09.md` (the active plan ledger),
+> **Companion to:** `PLAN_2026-05-09.md` (archived — see above; the active plan is now `dev/PLAN_2026-05-29-roadmap.md`),
 > `PROPOSAL_AI_ARTWORK.md` (AI cover art / icon roadmap),
 > `AUDIT_2026-05-11.md` (engineering health audit).
 > **Audience:** publisher (decisions on tracks + budget), engineer

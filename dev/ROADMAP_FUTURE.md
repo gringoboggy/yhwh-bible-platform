@@ -72,7 +72,7 @@ this size.
   unchanged).
 - ~~Audio Bible / TTS rendering~~ — **lifted.** The ρ-cluster
   (ρ.1-ρ.5) is now scheduled per
-  `dev/SCOPE_2026-05-08-addendum-audio-epubs.md`. PD LibriVox
+  `dev/archive/SCOPE_2026-05-08-addendum-audio-epubs.md`. PD LibriVox
   recordings embedded via EPUB 3 native `<audio>`. Not TTS —
   curated PD human-narrated audio.
 - Mobile native apps (web is sufficient — unchanged).

@@ -9,6 +9,35 @@ target should land in this file rather than test_scripts.py.
 from __future__ import annotations
 
 
+class TestAllChecksMetaContract:
+    """mint-7 E1 — every registered lint check must run on the committed tree
+    without raising and return the standard {status, message, ...} shape, so a
+    check can never rot silently (8 of 26 ALL_CHECKS had no unit test before)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import lint_rules
+
+        cls.mod = lint_rules
+
+    def test_every_check_runs_returns_valid_shape_and_does_not_fail(self):
+        failing = {}
+        for cid, fn in self.mod.ALL_CHECKS.items():
+            assert callable(fn), f"{cid} is not callable"
+            r = fn()
+            assert isinstance(r, dict), f"{cid} returned {type(r).__name__}, not dict"
+            assert r.get("status") in {"pass", "warn", "fail"}, f"{cid} bad status {r.get('status')!r}"
+            assert "message" in r, f"{cid} missing 'message'"
+            if r.get("status") == "fail":
+                failing[cid] = r.get("message")
+        assert not failing, f"lint check(s) failing on the committed tree: {failing}"
+
+    def test_registry_not_silently_shrunk(self):
+        # Pin the registry size (26 at mint-7) so a check can't be dropped from
+        # ALL_CHECKS without a test noticing.
+        assert len(self.mod.ALL_CHECKS) >= 26, f"ALL_CHECKS shrank to {len(self.mod.ALL_CHECKS)}"
+
+
 class TestOmega15PlanLinter:
     """ω.15 — plan-coherence linter. Verifies the active PLAN_*.md
     stays coherent with CHANGELOG and Depends references."""

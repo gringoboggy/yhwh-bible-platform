@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-05-31 — mint-7 Phase E (tests/doc hygiene) — **mint-7 ARC COMPLETE** + mint-8 audit plan authored
+
+**Phases shipped:** mint-7 Phase E (E1–E4) — completes the mint-7 arc (A · C · B · D · E)
+**Test delta:** +3 (ALL_CHECKS meta-test ×2; byte-stability determinism gate ×1, behind `slow`)
+**Save tag:** full 5-leg sync to all sources
+
+What shipped:
+- **E1** — `TestAllChecksMetaContract` (test_lint_rules.py): runs every one of the 26 `ALL_CHECKS`, asserts each is callable + returns the `{status, message}` shape + does NOT fail on the committed tree, and pins the registry size. Closes the 8-untested-checks gap.
+- **E2** — added a `slow` pytest marker (pyproject.toml); tagged `test_web_filesplit.py` + `test_matrix_psi35.py` module-level `slow` so `-m "not slow"` deselects the ~23-min files (verified: 127 deselected). (compute_matrix session-scoping + the unused `serial` marker folded into mint-8.)
+- **E3** — byte-stability gate (`tests/test_byte_stability_gate.py`, behind `slow`): builds 3 multi-canon editions (ethiopian-87 / catholic-73 / jewish-39) to real EPUBs, asserts each valid+non-empty+has scripture + mutually DISTINCT, and that the flagship rebuilt is byte-DETERMINISTIC (content digest with the volatile generator URN + `dcterms:modified` normalized out). Verified (205 s). **Measured: one edition build = ~133 s** → a literal all-9 stored-golden was deferred as impractical-to-verify-inline (slow-loop) and the ~133 s/build LOGGED as a mint-8 optimization target. Determinism is the non-fragile core of byte-stability (a stored golden would be fragile against the per-build URN).
+- **E4** — fixed 3 stale doc refs: `ROADMAP_FUTURE.md:75` (`SCOPE…` → `dev/archive/…`); `PROPOSAL_FEATURE_LANDSCAPE.md` + `marathon_reviews/README.md` (`PLAN_2026-05-09` → archived / live roadmap).
+
+**mint-8 audit plan authored:** `docs/superpowers/plans/2026-05-31-mint-8-audit-plan.md` — broader + deeper dimensions (+ byte-stability, data-coordinate validity, concurrency/caching contracts, cross-module invariants, marathon-core boundary) + a user-directed **OPTIMIZATION** dimension (re-evaluate the project's OWN task-plans/tools vs Opus 4.8 / ultracode / Workflow orchestration — e.g. the ~133 s/build, the vision-transcription marathon method) + a reusable `.claude/workflows/deep-audit.js` tool (§5 outline) + the convergence loop (audit → fix → re-audit until CLEAN). Next session builds + runs it.
+
+**mint-7 ARC COMPLETE:** A (★book-code BUGCLUSTER) · C (security) · B (at-scale) · D (code-debt) · E (tests/doc). Lint 26✓/1⚠/0✗; 9 KJV editions byte-stable + now determinism-gated.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (all phases ✅)
+- `docs/superpowers/plans/2026-05-31-mint-8-audit-plan.md` (the convergence audit)
+
+---
+
 ## 2026-05-31 — mint-7 Phase D (code-debt + dead code)
 
 **Phases shipped:** mint-7 Phase D (D1, D2, D3; D4 shipped in Phase A)

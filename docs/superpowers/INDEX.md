@@ -4,13 +4,14 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**40 documents** — 24 plans · 16 specs.
+**41 documents** — 25 plans · 16 specs.
 
-## In progress (8)
+## In progress (9)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
-| 2026-05-31 | Plan | mint-7 — Quality Pass (correctness · code-debt · security · tests/hygiene) | `plans/2026-05-31-mint-7-quality-pass.md` | in progress — audit COMPLETE (2026-05-31, 15-agent workflow `wf_365eda78`); plan writte… |
+| 2026-05-31 | Plan | mint-8 — Deep audit (the convergence audit) + a reusable audit tool | `plans/2026-05-31-mint-8-audit-plan.md` | PLAN authored 2026-05-31; next session builds + runs the reusable `deep-audit.js` + the convergence loop (audit → fix → re-audit until clean) |
+| 2026-05-31 | Plan | mint-7 — Quality Pass (correctness · code-debt · security · tests/hygiene) | `plans/2026-05-31-mint-7-quality-pass.md` | COMPLETE — Phases A · C · B · D · E all shipped + synced 2026-05-31 |
 | 2026-05-29 | Plan | YHWH v2.4 "Mint" Cleanup + Automated Guardrails — Implementation Plan | `plans/2026-05-29-mint-cleanup-and-guardrails.md` | in progress — Phases 0–5 shipped; Phase 6 (polish) active |
 | 2026-05-28 | Plan | Ge'ez Phase D1b — Patrologia Vision-Transcription Lane (Esther proof) Impleme… | `plans/2026-05-28-geez-patrologia-vision-plan.md` | in progress — PO Esther vision marathon paused at p28 |
 | 2026-05-28 | Plan | Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Imp… | `plans/2026-05-28-geez-phase-d-reingest-plan.md` | in progress — Phase D own-versification re-ingest lane |

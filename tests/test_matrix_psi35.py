@@ -25,6 +25,12 @@ empty shells from ``test_scripts.py`` and merges leftover
 miscellaneous tests into ``test_misc.py`` or similar.
 """
 
+import pytest
+
+# mint-7 E2 — this file re-walks the corpus / builds the matrix many times and
+# runs ~20+ min; mark the whole module slow so normal runs can deselect it.
+pytestmark = pytest.mark.slow
+
 
 # ---------- Phase ψ.35-A : Matrix accessor methods --------------------
 
