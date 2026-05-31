@@ -13334,6 +13334,24 @@ class TestOmega29CheckContent:
             assert k in ch
         assert ch["status"] in ("pass", "warn", "fail")
 
+    def test_preflight_includes_cache_invalidation_check(self):
+        """Pin: api_preflight surfaces the audit_caches composition (mint-6
+        wired the built-but-uninvoked ω.30 cache-invalidation audit)."""
+        from scripts import web as web_mod
+
+        d = web_mod.api_preflight()
+        ids = {c["id"] for c in d["checks"]}
+        assert "cache_invalidation" in ids
+
+    def test_preflight_cache_invalidation_check_has_required_fields(self):
+        from scripts import web as web_mod
+
+        d = web_mod.api_preflight()
+        ci = next(c for c in d["checks"] if c["id"] == "cache_invalidation")
+        for k in ("id", "name", "status", "message", "details", "jump_to"):
+            assert k in ci
+        assert ci["status"] in ("pass", "warn", "fail")
+
     def test_check_content_module_pure_stdlib_plus_yaml(self):
         """Pin: scripts/check_content.py imports only stdlib + yaml.
         New external deps in this surface would silently expand the

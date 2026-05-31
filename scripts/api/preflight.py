@@ -620,6 +620,56 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
         }
     )
 
+    # 13. Cache-invalidation audit (ω.30 — composes audit_caches.audit()) so
+    # @lru_cache sites without a documented clear path surface on the readiness
+    # dashboard. It was a built-but-uninvoked "dead check" (mint-6 wired it). Pure
+    # stdlib AST + re scan of scripts/ (no subprocess/network — unlike
+    # audit_dead_code/types/deps, which wrap vulture/mypy/pip-audit and stay
+    # manual/CLI-only). A cache without a clear path is a warn (a developer-review
+    # signal), never a ship-blocker. Wrapped per the §9 meta-tool pattern so a
+    # broken audit renders a warn, never 500s the dashboard.
+    try:
+        from scripts.audit_caches import audit as _audit_caches
+
+        ac = _audit_caches()
+        ac_summary = ac.get("summary", {})
+        ac_total = ac_summary.get("total", 0)
+        ac_no_clear = ac_summary.get("no_clear_path", 0)
+        ac_clear = ac_summary.get("clear_path", 0)
+        ac_wl = ac_summary.get("whitelisted", 0)
+        if ac_no_clear:
+            ac_status, ac_msg = (
+                "warn",
+                (
+                    f"{ac_no_clear} @lru_cache(s) without a documented clear path "
+                    f"(of {ac_total}) — add a cache_clear() site or whitelist"
+                ),
+            )
+        else:
+            ac_status, ac_msg = (
+                "pass",
+                f"all {ac_total} caches accounted for: {ac_clear} clear-path, {ac_wl} whitelisted",
+            )
+        ac_details = [
+            {"func": c["func"], "file": c["file"], "line": c["line"]}
+            for c in ac.get("caches", [])
+            if c["status"] == "no_clear_path"
+        ]
+    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
+        ac_status = "warn"
+        ac_msg = f"cache-invalidation audit failed to run: {e}"
+        ac_details = []
+    checks.append(
+        {
+            "id": "cache_invalidation",
+            "name": "Cache invalidation (ω.30 — @lru_cache clear paths)",
+            "status": ac_status,
+            "message": ac_msg,
+            "details": ac_details,
+            "jump_to": "/preflight",
+        }
+    )
+
     # Summary
     summary = {
         "total": len(checks),
