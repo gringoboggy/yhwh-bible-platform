@@ -1,4 +1,5 @@
 # Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Implementation Plan
+**Status:** in progress — Phase D own-versification re-ingest lane
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. **§11 + the §11 Correction**) FIRST, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0).
 

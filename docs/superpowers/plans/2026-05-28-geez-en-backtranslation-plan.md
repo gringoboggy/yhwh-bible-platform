@@ -1,4 +1,5 @@
 # Ge'ez→English Back-Translation (1 Kings 6 Proof) Implementation Plan
+**Status:** shipped — EN core for Kings/Samuel (324 v) + all 151 Psalms
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` §10 (+ §3.5, §9.1) FIRST.
 

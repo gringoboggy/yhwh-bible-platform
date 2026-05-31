@@ -1,4 +1,5 @@
 # Inject-Tail Completion (base-HTML irregular-layout robustness) Implementation Plan
+**Status:** shipped — inject coverage ~99.76% via the boundary-aware spill resolver
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

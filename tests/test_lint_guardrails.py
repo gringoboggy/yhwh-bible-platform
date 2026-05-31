@@ -299,3 +299,89 @@ class TestRepoMapReversePath:
         (tmp_path / "scripts" / "real.py").write_text("x\n", encoding="utf-8")
         (dev / "REPO_MAP.md").write_text("`dev/` and `scripts/` — see `scripts/real.py`.\n", encoding="utf-8")
         assert lint_rules.check_repo_map_complete()["status"] == "pass"
+
+
+class TestSuperpowersCoherence:
+    """mint-6 — every docs/superpowers/{plans,specs}/*.md carries a Status header
+    and is listed in INDEX.md (anti-rot for the strategic-docs corpus)."""
+
+    def _scaffold(self, root, *, plans=(), specs=(), index=None):
+        base = root / "docs" / "superpowers"
+        (base / "plans").mkdir(parents=True)
+        (base / "specs").mkdir(parents=True)
+        for name, body in plans:
+            (base / "plans" / name).write_text(body, encoding="utf-8")
+        for name, body in specs:
+            (base / "specs" / name).write_text(body, encoding="utf-8")
+        if index is not None:
+            (base / "INDEX.md").write_text(index, encoding="utf-8")
+
+    def test_flags_missing_status_header(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n\nno status here\n")],
+            index="# Index\n\n`plans/2026-05-16-x.md`\n",
+        )
+        r = lint_rules.check_superpowers_coherence()
+        assert r["id"] == "superpowers_coherence"
+        assert r["status"] == "fail"  # _ENFORCE_SUPERPOWERS_COHERENCE ships True
+        assert any("Status" in v.get("issue", "") for v in r["violations"])
+
+    def test_flags_file_not_in_index(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n**Status:** shipped\n")],
+            index="# Index\n\n(nothing listed)\n",
+        )
+        r = lint_rules.check_superpowers_coherence()
+        assert r["status"] == "fail"
+        assert any("not listed" in v.get("issue", "") for v in r["violations"])
+
+    def test_flags_missing_index(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n**Status:** shipped\n")],
+            index=None,
+        )
+        r = lint_rules.check_superpowers_coherence()
+        assert r["status"] == "fail"
+        assert any("INDEX" in str(v) for v in r["violations"])
+
+    def test_passes_when_coherent(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n**Status:** shipped\n")],
+            specs=[("2026-05-16-y.md", "# Y\n**Created:** d. **Status:** design\n")],
+            index="# Index\n\n`plans/2026-05-16-x.md` `specs/2026-05-16-y.md`\n",
+        )
+        r = lint_rules.check_superpowers_coherence()
+        assert r["status"] == "pass"
+        assert r["violations"] == []
+
+    def test_warn_tier_when_enforcement_off(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        monkeypatch.setattr(lint_rules, "_ENFORCE_SUPERPOWERS_COHERENCE", False)
+        self._scaffold(
+            tmp_path,
+            plans=[("2026-05-16-x.md", "# X\n\nno status\n")],
+            index="# Index\n\n`plans/2026-05-16-x.md`\n",
+        )
+        assert lint_rules.check_superpowers_coherence()["status"] == "warn"
+
+    def test_no_files_passes(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "docs" / "superpowers" / "plans").mkdir(parents=True)
+        (tmp_path / "docs" / "superpowers" / "specs").mkdir(parents=True)
+        assert lint_rules.check_superpowers_coherence()["status"] == "pass"
+
+    def test_registered_in_all_checks(self):
+        assert "superpowers_coherence" in lint_rules.ALL_CHECKS
+
+    def test_real_repo_is_coherent(self):
+        # Integration: the live docs/superpowers corpus must stay coherent.
+        r = lint_rules.check_superpowers_coherence()
+        assert r["status"] == "pass", r["violations"]

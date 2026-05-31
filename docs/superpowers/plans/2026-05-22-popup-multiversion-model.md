@@ -1,4 +1,5 @@
 # Plan B1 — Popup Multi-Version Model Refactor Implementation Plan
+**Status:** shipped — ordered multi-version popup model + registry
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
 

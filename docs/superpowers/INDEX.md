@@ -1,0 +1,67 @@
+# Superpowers — Plans & Specs Index
+
+Status-grouped inventory of every strategic plan and design spec under `docs/superpowers/`. Each file carries a `**Status:**` header in its first lines; this index is generated from those headers and verified by the `superpowers_coherence` lint check (`scripts/lint_rules.py`).
+
+> **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
+
+**39 documents** — 23 plans · 16 specs.
+
+## In progress (7)
+
+| Date | Type | Title | Path | Status |
+|------|------|-------|------|--------|
+| 2026-05-29 | Plan | YHWH v2.4 "Mint" Cleanup + Automated Guardrails — Implementation Plan | `plans/2026-05-29-mint-cleanup-and-guardrails.md` | in progress — Phases 0–5 shipped; Phase 6 (polish) active |
+| 2026-05-28 | Plan | Ge'ez Phase D1b — Patrologia Vision-Transcription Lane (Esther proof) Impleme… | `plans/2026-05-28-geez-patrologia-vision-plan.md` | in progress — PO Esther vision marathon paused at p28 |
+| 2026-05-28 | Plan | Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Imp… | `plans/2026-05-28-geez-phase-d-reingest-plan.md` | in progress — Phase D own-versification re-ingest lane |
+| 2026-05-27 | Plan | Ge'ez Own-Versification Collation & Standalone-Bible — Implementation Plan | `plans/2026-05-27-geez-own-versification-plan.md` | in progress — Phases A–C shipped; Phase D re-ingest ongoing |
+| 2026-05-23 | Plan | Plan — LXX Greek (Swete) full ingest · Phase 2 spine, sub-phase 2 | `plans/2026-05-23-lxx-swete-ingest.md` | IN PROGRESS — reconstruction core DONE (committed as a WIP checkpoint); the versificati… |
+| 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
+| 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
+
+## Planned / design (13)
+
+| Date | Type | Title | Path | Status |
+|------|------|-------|------|--------|
+| 2026-05-27 | Spec | Ge'ez own-versification collation & standalone-Bible design | `specs/2026-05-27-geez-own-versification-design.md` | architecture approved (brainstormed + user-approved this session); implementation plan … |
+| 2026-05-26 | Plan | Phase E — Clementine Latin Appendix (`man`/`1es`/`2es`) Implementation Plan | `plans/2026-05-26-phase-e-clementine-latin.md` | open — LANE T backlog (man / 1es / 2es appendix) |
+| 2026-05-26 | Spec | Design — Phase E: Clementine Latin appendix (`man` / `1es` / `2es`) | `specs/2026-05-26-phase-e-clementine-latin-design.md` | awaiting user review |
+| 2026-05-26 | Spec | Design — Surface Torrey in the EPUB Topical Index (Nave's + Torrey merge) | `specs/2026-05-26-torrey-topical-index-merge-design.md` | awaiting user review |
+| 2026-05-23 | Spec | Deep Audit & Forward Plan — design spec (2026-05-23) | `specs/2026-05-23-deep-audit-and-forward-plan-design.md` | approved (design) — proceeding to writing-plans. |
+| 2026-05-23 | Spec | Douay-Rheims + Clementine Vulgate — table-driven versification ingest | `specs/2026-05-23-douay-vulgate-table-driven-design.md` | Design — approved (direction + scope), pending spec review |
+| 2026-05-22 | Spec | Master Roadmap — The Fully-Customizable Bible Builder | `specs/2026-05-22-fully-customizable-builder-roadmap.md` | DRAFT — awaiting user review (then per-phase `writing-plans` → execute) |
+| 2026-05-22 | Spec | Design — Per-edition themes + tradition-aware multi-translation verse popups | `specs/2026-05-22-themes-and-multitranslation-popups-design.md` | DRAFT — awaiting user review (then → writing-plans) |
+| 2026-05-22 | Spec | Verse-Popup Regeneration — Design Spec | `specs/2026-05-22-verse-popup-regeneration-design.md` | approved (design), pending implementation plan |
+| 2026-05-20 | Spec | NT Ge'ez source scope — Track E research spec (multi-track sweep 2026-05-20) | `specs/2026-05-20-nt-geez-source-scope.md` | SCOPING / RESEARCH. Sibling to |
+| 2026-05-20 | Spec | Patrologia Orientalis ingest — design spec (audit U-belt 2026-05-20) | `specs/2026-05-20-patrologia-ingest-design.md` | DESIGN — implementation pending. Companion to |
+| 2026-05-16 | Spec | Ge'ez colometric-merge — design spec | `specs/2026-05-16-geez-colometric-merge-design.md` | design approved (brainstorming), pre-implementation. |
+| 2026-05-16 | Spec | Ge'ez external PD-source ingest — design spec | `specs/2026-05-16-geez-external-source-ingest-design.md` | design (brainstorming spec-review loop — revises the |
+
+## Shipped (17)
+
+| Date | Type | Title | Path | Status |
+|------|------|-------|------|--------|
+| 2026-05-28 | Plan | Ge'ez→English Back-Translation (1 Kings 6 Proof) Implementation Plan | `plans/2026-05-28-geez-en-backtranslation-plan.md` | shipped — EN core for Kings/Samuel (324 v) + all 151 Psalms |
+| 2026-05-28 | Plan | Ge'ez→KJV Partial-Anchoring Cross-Reference Tool — Implementation Plan (Phase B) | `plans/2026-05-28-geez-kjv-xref-plan.md` | shipped — Ge'ez→KJV partial-anchoring xref tool (Phase B) |
+| 2026-05-28 | Plan | Ge'ez Standalone-Bible Render Path (Phase C) — Implementation Plan | `plans/2026-05-28-geez-standalone-render-plan.md` | shipped — standalone render path (Phase C); 4-book proof EPUB |
+| 2026-05-26 | Plan | Torrey Topical-Index Merge — Implementation Plan | `plans/2026-05-26-torrey-topical-index-merge.md` | shipped — Torrey topical index merged (full) |
+| 2026-05-24 | Plan | EPUB Presentation Polish Implementation Plan | `plans/2026-05-24-epub-presentation-polish.md` | shipped — CSS + front-matter polish + configurable reader settings |
+| 2026-05-24 | Spec | EPUB Presentation Polish — Configurable Reader Styling | `specs/2026-05-24-epub-presentation-polish-design.md` | Approved design (brainstorming complete; ready for implementation plan) |
+| 2026-05-23 | Plan | Deep Audit & Forward Plan — Implementation Plan | `plans/2026-05-23-deep-audit-and-forward-plan.md` | shipped — 8-agent audit synthesized; forward plan executed |
+| 2026-05-23 | Plan | Douay-Rheims + Clementine Vulgate (table-driven) Implementation Plan | `plans/2026-05-23-douay-vulgate-table-driven.md` | shipped — Douay-Rheims + Clementine Vulgate ingested |
+| 2026-05-22 | Plan | Per-Edition Themes Implementation Plan | `plans/2026-05-22-per-edition-themes.md` | shipped — per-edition theme CSS |
+| 2026-05-22 | Plan | Plan B1 — Popup Multi-Version Model Refactor Implementation Plan | `plans/2026-05-22-popup-multiversion-model.md` | shipped — ordered multi-version popup model + registry |
+| 2026-05-22 | Plan | Verse-Popup Regeneration Implementation Plan | `plans/2026-05-22-verse-popup-regeneration.md` | shipped — verse popups 24%→90.5% |
+| 2026-05-21 | Plan | Inject-Tail Completion (base-HTML irregular-layout robustness) Implementation… | `plans/2026-05-21-inject-tail-completion.md` | shipped — inject coverage ~99.76% via the boundary-aware spill resolver |
+| 2026-05-17 | Plan | Samuel Phase-2 — Dual-Manuscript Collation Tool — Implementation Plan | `plans/2026-05-17-samuel-phase2-collation-tool.md` | APPROVED & AUTHORIZED by the user at the τ.6.x.4.a-W widened-calibration gate (2026-05-… |
+| 2026-05-16 | Plan | Ge'ez External PD-Source Ingest Implementation Plan | `plans/2026-05-16-geez-external-source-ingest.md` | shipped — HaCohen path; Psalms own-versified (psa in the standalone) |
+| 2026-05-16 | Plan | Samuel Calibration Gate (Phase 1) Implementation Plan | `plans/2026-05-16-samuel-calibration-gate.md` | shipped — 1 Sam 1 calibration GO (τ.6.x.4.a) |
+| 2026-05-16 | Plan | Samuel Widened-Calibration Plan (τ.6.x.4.a-W) — saved 2026-05-16 | `plans/2026-05-16-samuel-widened-calibration.md` | APPROVED & QUEUED by the user at the 1 Sam 1 gate (2026-05-16). This is the accepted **… |
+| 2026-05-16 | Spec | Samuel & Kings — dual-manuscript Ge'ez collation: design spec | `specs/2026-05-16-samuel-kings-dual-manuscript-collation-design.md` | DESIGN APPROVED (brainstorming complete; pre-implementation). |
+
+## Superseded (2)
+
+| Date | Type | Title | Path | Status |
+|------|------|-------|------|--------|
+| 2026-05-17 | Plan | Samuel Phase-2 — Dual-Manuscript Collation Tool — Implementation Plan **v2** … | `plans/2026-05-17-samuel-phase2-collation-tool-v2.md` | superseded — by the 2026-05-27 own-versification re-architecture |
+| 2026-05-17 | Spec | Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction) | `specs/2026-05-17-samuel-phase2-collation-spec-revision.md` | superseded — engine spec; replaced by the 2026-05-27 own-versification design |
+

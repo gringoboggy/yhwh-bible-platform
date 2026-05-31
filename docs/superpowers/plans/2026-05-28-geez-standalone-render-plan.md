@@ -1,4 +1,5 @@
 # Ge'ez Standalone-Bible Render Path (Phase C) — Implementation Plan
+**Status:** shipped — standalone render path (Phase C); 4-book proof EPUB
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (esp. §3.4–§3.5 + §9 "Phase C — resolved decisions") FIRST, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0).
 

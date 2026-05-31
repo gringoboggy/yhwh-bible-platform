@@ -1,4 +1,5 @@
 # Samuel Phase-2 — Dual-Manuscript Collation Tool — Implementation Plan **v2** (rev. 2)
+**Status:** superseded — by the 2026-05-27 own-versification re-architecture
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans`, task-by-task. Steps use checkbox (`- [ ]`) syntax.
 

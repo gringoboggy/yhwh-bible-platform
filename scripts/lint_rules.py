@@ -1331,6 +1331,55 @@ def check_repo_map_complete() -> dict:
     }
 
 
+# Case-sensitive capital "Status:" (matches **Status:**, Status:, etc.). The
+# case-sensitivity avoids matching lowercase JSON "status": keys that appear in
+# the lint-contract code blocks embedded inside some of the plans themselves.
+_SUPERPOWERS_STATUS_RX = re.compile(r"\*{0,2}Status:\*{0,2}\s*\S")
+
+
+def check_superpowers_coherence() -> dict:
+    """Anti-rot for the strategic-docs corpus under docs/superpowers/:
+    (1) every plans/*.md + specs/*.md carries a ``**Status:**`` header in its
+    first 25 lines; (2) every such file is listed in docs/superpowers/INDEX.md
+    (which is generated from those headers). A new plan/spec that forgets a
+    Status header OR is never re-indexed is the drift signature. mint-6 backfilled
+    all 39; ``_ENFORCE_SUPERPOWERS_COHERENCE`` makes drift a hard FAIL."""
+    base = REPO / "docs" / "superpowers"
+    files = sorted(base.glob("plans/*.md")) + sorted(base.glob("specs/*.md"))
+    if not files:
+        return {
+            "id": "superpowers_coherence",
+            "name": "Superpowers plans/specs carry Status + are indexed",
+            "status": "pass",
+            "message": "no superpowers plans/specs to check",
+            "violations": [],
+        }
+    index = base / "INDEX.md"
+    index_text = index.read_text(encoding="utf-8") if index.is_file() else None
+    violations: list = []
+    if index_text is None:
+        violations.append({"missing": "docs/superpowers/INDEX.md"})
+    for f in files:
+        head = "".join(f.read_text(encoding="utf-8").splitlines(keepends=True)[:25])
+        rel = f"{f.parent.name}/{f.name}"
+        if not _SUPERPOWERS_STATUS_RX.search(head):
+            violations.append({"file": rel, "issue": "missing **Status:** header (first 25 lines)"})
+        if index_text is not None and f.name not in index_text:
+            violations.append({"file": rel, "issue": "not listed in docs/superpowers/INDEX.md"})
+    status = "pass" if not violations else ("fail" if _ENFORCE_SUPERPOWERS_COHERENCE else "warn")
+    return {
+        "id": "superpowers_coherence",
+        "name": "Superpowers plans/specs carry Status + are indexed",
+        "status": status,
+        "message": (
+            f"all {len(files)} plans/specs carry a Status header + are indexed"
+            if not violations
+            else f"{len(violations)} coherence issue(s) — add a **Status:** header / regenerate INDEX.md"
+        ),
+        "violations": violations[:50],
+    }
+
+
 # A string constant that IS a Greek-letter phase tag (e.g. "τ.7.x.b",
 # "τ.6.x.2.a-h", "ω.4x"). Anchored full-match so prose / marker strings
 # ("TRACKER-STATE: idle", "Next phase") never match.
@@ -1642,6 +1691,7 @@ _ENFORCE_STRAY_ARTIFACTS = (
     True  # tree verified clean 2026-05-29 → FAIL-tier (blocks future junk; git-aware, gitignored scratch exempt)
 )
 _ENFORCE_REPO_MAP = True  # Phase 5 — flipped; REPO_MAP regenerated post-deletion, drift/missing now FAILs
+_ENFORCE_SUPERPOWERS_COHERENCE = True  # mint-6 — all 39 plans/specs carry Status + indexed; drift now FAILs
 
 
 # Curated, always-read PROCESS docs scanned by the term guards. Deliberately
@@ -1902,6 +1952,7 @@ ALL_CHECKS = {
     "encode_decode": check_encode_decode_round_trip,
     "docs": check_doc_cross_references,
     "repo_map_complete": check_repo_map_complete,
+    "superpowers_coherence": check_superpowers_coherence,
     "freshness": check_session_state_freshness,
     "truth_record_budget": check_truth_record_budget,
     "commercial_orphans": check_commercial_orphans,

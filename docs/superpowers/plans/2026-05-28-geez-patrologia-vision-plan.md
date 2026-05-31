@@ -1,4 +1,5 @@
 # Ge'ez Phase D1b — Patrologia Vision-Transcription Lane (Esther proof) Implementation Plan
+**Status:** in progress — PO Esther vision marathon paused at p28
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read FIRST: the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` (§11 + the §11 Correction), the Patrologia ingest design `docs/superpowers/specs/2026-05-20-patrologia-ingest-design.md`, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0).
 

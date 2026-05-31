@@ -1,4 +1,5 @@
 # Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c)
+**Status:** in progress — LANE M dual-witness marathon, user-paced
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` to implement this plan task-by-task (fresh isolated subagent per transcription, two-stage review after each). Steps use checkbox (`- [ ]`) syntax for tracking. This is a **multi-session marathon** — execute continuously; the manifest is the durable cross-session state of record.
 

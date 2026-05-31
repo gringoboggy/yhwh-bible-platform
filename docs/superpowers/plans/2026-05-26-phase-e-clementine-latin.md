@@ -1,4 +1,5 @@
 # Phase E — Clementine Latin Appendix (`man`/`1es`/`2es`) Implementation Plan
+**Status:** open — LANE T backlog (man / 1es / 2es appendix)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
 

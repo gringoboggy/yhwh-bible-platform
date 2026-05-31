@@ -1,4 +1,5 @@
 # Ge'ez→KJV Partial-Anchoring Cross-Reference Tool — Implementation Plan (Phase B)
+**Status:** shipped — Ge'ez→KJV partial-anchoring xref tool (Phase B)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` §3.3 FIRST. This is **Phase B** of `docs/superpowers/plans/2026-05-27-geez-own-versification-plan.md` (Phase A — the base-structured collation engine + the 10 `_collation_v2.json` files — is COMPLETE).
 

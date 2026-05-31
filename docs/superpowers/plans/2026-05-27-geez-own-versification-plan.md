@@ -1,4 +1,5 @@
 # Ge'ez Own-Versification Collation & Standalone-Bible — Implementation Plan
+**Status:** in progress — Phases A–C shipped; Phase D re-ingest ongoing
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax. Read the companion spec `docs/superpowers/specs/2026-05-27-geez-own-versification-design.md` FIRST, then the bootstrap triad (RULES → SESSION_STATE → the live master roadmap PLAN named in RULES §0). The marathon plan `docs/superpowers/plans/2026-05-17-kings-manuscript-collation.md` (witness transcription/review mechanics) is UNCHANGED — this plan only changes what happens to the witnesses DOWNSTREAM (collation → cross-ref → store → render).
 

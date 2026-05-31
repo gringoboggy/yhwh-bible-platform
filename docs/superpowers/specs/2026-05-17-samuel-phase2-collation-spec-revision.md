@@ -1,4 +1,5 @@
 # Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction)
+**Status:** superseded — engine spec; replaced by the 2026-05-27 own-versification design
 
 **Date:** 2026-05-17 (rev. 5 — engine-metric uncertainty gate correction)
 
