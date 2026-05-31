@@ -431,24 +431,6 @@ def patch_css(css_path: Path, dry_run: bool) -> bool:
 NAV_CHAPTER_RE = re.compile(r'(<a\s+href="[^"]+#ch-b\d+-c(\d+)">)\s*(?:Chapter\s+)?(\d+)\s*(</a>)')
 
 
-def _chapter_label(book_code: str, book_title: str, ch_num: str) -> str:
-    fmt = style_config.TOC_CHAPTER_FORMAT
-    if fmt == "num-only":
-        return ch_num
-    if fmt == "chapter-num":
-        return f"Chapter {ch_num}"
-    if fmt == "code-num":
-        # Use first three letters of the title as a graceful default if the
-        # book code starts with a digit (e.g. "1ki" → "1Ki" looks odd; use
-        # the title-derived form instead).
-        return f"{book_code.title()} {ch_num}"
-    if fmt == "title-num":
-        # Use the canonical short name (last comma-separated component).
-        short = book_title.split(",")[-1].strip()
-        return f"{short} {ch_num}"
-    raise SystemExit(f"unknown TOC_CHAPTER_FORMAT: {fmt!r}")
-
-
 def patch_nav(nav_path: Path, dry_run: bool) -> bool:
     """Rewrite chapter labels in nav.xhtml per TOC_CHAPTER_FORMAT.
 

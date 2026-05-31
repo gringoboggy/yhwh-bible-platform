@@ -47,17 +47,11 @@ from scripts.core import config  # noqa: E402
 from scripts.core.detectors import ALL_DETECTORS, Candidate  # noqa: E402
 from scripts.core.sources import SourceMissingError  # noqa: E402
 from scripts.find_anchor import find_verse_text, load_existing_anchors  # noqa: E402
+from scripts.core.at_scale_base import BOLD, DIM, GREEN, RED, RESET, YELLOW, candidate_to_dict  # noqa: E402
 
 EPUB_DIR = REPO_ROOT / "epub_working"
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
-
-GREEN = "\033[92m"
-RED = "\033[91m"
-YELLOW = "\033[93m"
-DIM = "\033[2m"
-BOLD = "\033[1m"
-RESET = "\033[0m"
 
 
 # ----------------------------------------------------------------------
@@ -143,24 +137,6 @@ def is_duplicate(c: Candidate, existing: list, kinds_index: dict) -> bool:
 # ----------------------------------------------------------------------
 # Output
 # ----------------------------------------------------------------------
-
-
-def candidate_to_dict(c: Candidate, idx: int) -> dict:
-    return {
-        "id": f"{c.book}-{c.chapter}-{c.verse}-{idx:03d}",
-        "verse": c.verse,
-        "kind": c.kind,
-        "anchor": c.anchor,
-        "confidence": round(c.confidence, 3),
-        "source_name": c.source_name,
-        "source_attribution": c.source_attribution,
-        "draft_title": c.draft_title,
-        "draft_label": c.draft_label,
-        "draft_body": c.draft_body,
-        "detector": c.detector,
-        "reviewer_notes": c.reviewer_notes,
-        "status": "pending",
-    }
 
 
 def write_queue(book: str, chapter: int, candidates: list[Candidate]) -> Path:

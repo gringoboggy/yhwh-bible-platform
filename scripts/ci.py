@@ -183,6 +183,19 @@ def run_all(
         message=out.strip().splitlines()[-1][-200:] if out.strip() else "",
     )
 
+    # mint-7 D3: cache-invalidation audit (report-only). Built but previously only
+    # reached /preflight; now also in the CI gate alongside types/deadcode/deps.
+    rc, out = run([_PY, "scripts/audit_caches.py"])
+    add(
+        "caches",
+        "audit_caches (cache-invalidation contracts)",
+        rc == 0,
+        blocking=False,
+        message=(
+            out.strip().splitlines()[-1][-200:] if out.strip() else ("ok" if rc == 0 else "findings (non-blocking)")
+        ),
+    )
+
     if run_tests:
         rc, out = run([_PY, "-m", "pytest", "-q"])
         add(

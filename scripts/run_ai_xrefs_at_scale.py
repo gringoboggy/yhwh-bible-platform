@@ -67,14 +67,9 @@ from scripts.core import translations  # noqa: E402
 from scripts.core import config  # noqa: E402
 from scripts.core.parallel import parallel_map  # noqa: E402
 from scripts.core.work_cache import WorkCache  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, RED, RESET, YELLOW, candidate_to_dict  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
-
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RED = "\033[91m"
-DIM = "\033[2m"
-RESET = "\033[0m"
 
 # Cost per verse, in USD. Re-baselined 2026-05-08 after the
 # system-prompt padding fix (5000 cached tokens at 1h TTL +
@@ -88,25 +83,6 @@ COST_PER_VERSE_USD = 0.0023
 # Above this, the driver requires --confirm-cost to proceed. Keeps an
 # accidental full-corpus pass from costing $28 by surprise.
 CONFIRM_COST_THRESHOLD = 200
-
-
-def candidate_to_dict(c, idx: int) -> dict:
-    """Mirror prospect.py's candidate_to_dict — promote.py works unchanged."""
-    return {
-        "id": f"{c.book}-{c.chapter}-{c.verse}-{idx:03d}",
-        "verse": c.verse,
-        "kind": c.kind,
-        "anchor": c.anchor,
-        "confidence": round(c.confidence, 3),
-        "source_name": c.source_name,
-        "source_attribution": c.source_attribution,
-        "draft_title": c.draft_title,
-        "draft_label": c.draft_label,
-        "draft_body": c.draft_body,
-        "detector": c.detector,
-        "reviewer_notes": c.reviewer_notes,
-        "status": "pending",
-    }
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:

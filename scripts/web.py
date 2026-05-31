@@ -1674,19 +1674,17 @@ class Handler(BaseHTTPRequestHandler):
             )
             if result.get("status") == "ok":
                 return self._send_html(result["html"])
-            # Error path — return JSON with the spec'd HTTP status
+            # Error path — return JSON with the spec'd HTTP status (mint-7 D2:
+            # via _send_json so Content-Length + Cache-Control + security headers
+            # are set, like every other JSON route).
             http_code = result.get("http") or 500
-            self.send_response(http_code)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            payload = json.dumps(
+            return self._send_json(
                 {
                     "error": result.get("code") or "internal_error",
                     "message": result.get("message") or "",
-                }
-            ).encode("utf-8")
-            self.wfile.write(payload)
-            return
+                },
+                status=http_code,
+            )
 
         # Backup listing (Phase ω.1) — surface the .backups/
         # snapshots that already exist. Path-traversal-safe; only
@@ -1698,19 +1696,15 @@ class Handler(BaseHTTPRequestHandler):
             result = api_list_backups(file_arg)
             if result.get("status") == "ok":
                 return self._send_json(result)
+            # mint-7 D2: via _send_json for Content-Length + security headers.
             http_code = result.get("http") or 500
-            self.send_response(http_code)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.end_headers()
-            self.wfile.write(
-                json.dumps(
-                    {
-                        "error": result.get("code") or "internal_error",
-                        "message": result.get("message") or "",
-                    }
-                ).encode("utf-8")
+            return self._send_json(
+                {
+                    "error": result.get("code") or "internal_error",
+                    "message": result.get("message") or "",
+                },
+                status=http_code,
             )
-            return
 
         # Per-book cover status (Phase π.4-A) — read-only feed for
         # the upcoming /covers UI. Returns each edition's main + per-book

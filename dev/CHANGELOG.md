@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-05-31 — mint-7 Phase D (code-debt + dead code)
+
+**Phases shipped:** mint-7 Phase D (D1, D2, D3; D4 shipped in Phase A)
+**Test delta:** +3 (at_scale_base single-source guard, NT_BOOKS shared+canonical, candidate_to_dict shape)
+**Save tag:** full 5-leg sync to all sources
+
+What shipped:
+- **D1** — new dependency-free `scripts/core/at_scale_base.py` owns the single `candidate_to_dict` (was byte-identical across all 10 at-scale drivers + `prospect.py` — pre-verified by AST body-diff: 10 copies, 1 distinct body), the 27-code canonical `NT_BOOKS` frozenset (was 4 copies: `HebrewWordDetector` + `GreekWordDetector` class attrs + `run_hebrew` + `run_greek`), and the ANSI constants (incl. `BOLD`). `detectors.py` + all 10 drivers + `prospect.py` import from it; `write_queue` stays per-driver (driver-specific append/dedup semantics). Guard test pins every driver shares the ONE `candidate_to_dict`/`NT_BOOKS` object (`is`-identity); 2 tests reading the removed `NT_BOOKS` class-attr were updated to the shared module global.
+- **D2** — both legacy error paths (`/api/sample/` web.py:1678, `/api/backups` :1701) that hand-rolled `send_response`/`wfile.write` now use `_send_json` (Content-Length, Cache-Control: no-store, X-Content-Type-Options, CSP, Referrer-Policy).
+- **D3** — archived `scripts/_split_web_html.py` → `dev/archive/` (one-shot splitter, done 2026-05-23); deleted orphaned `apply_style._chapter_label` + `bulk_inject.find_template_files` (0 callers, verified); MARKED `_replace_verse_popup_translation` not-yet-wired (a real 5-test feature with no prod caller — wiring is a full edition-feature, deferred from the debt pass; kept, not deleted); wired `audit_caches` into `scripts/ci.py` (was only reaching `/preflight`).
+- **D4** — already shipped in Phase A (catholic `mar`→`mrk`).
+
+Verification: AST body-diff proved the 10 `candidate_to_dict` copies identical before unifying; ruff/mypy/lint(26✓/1⚠/0✗) clean; imports + F401/F811 clean; 58 + 65 regression tests pass across detectors / at-scale / sample / export / book-code.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-7-quality-pass.md` (Phases A + C + B + D ✅; next = E, then mint-8 prep)
+
+---
+
 ## 2026-05-31 — mint-7 Phase B (at-scale coverage + integrity)
 
 **Phases shipped:** mint-7 Phase B (B1, B2)

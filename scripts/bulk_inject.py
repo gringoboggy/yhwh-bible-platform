@@ -238,23 +238,6 @@ def list_constants(file_path: Path | str) -> list[str]:
     return [m.group(2) for m in HTML_CONSTANT_RE.finditer(text)]
 
 
-def find_template_files(repo_root: Path | str) -> list[Path]:
-    """Locate every Python file in the project that defines an
-    `*_HTML` constant. Post-split, this is `scripts/templates/*.py`;
-    pre-split fallback to `scripts/web.py`. Used by callers that
-    want to operate on every console's template (the scaffolder's
-    nav-rollout step is the canonical example).
-
-    Returns a sorted list of Path objects."""
-    root = Path(repo_root)
-    templates_dir = root / "scripts" / "templates"
-    if templates_dir.is_dir():
-        return sorted(p for p in templates_dir.glob("*.py") if p.name != "__init__.py")
-    # Pre-split fallback
-    web_py = root / "scripts" / "web.py"
-    return [web_py] if web_py.is_file() else []
-
-
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point. Two modes: --insert and --replace.
     See module docstring for semantics."""

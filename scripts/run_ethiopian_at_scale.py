@@ -40,32 +40,9 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core.detectors import EthiopianCommentaryDetector  # noqa: E402
 from scripts.core.sources import EthiopianCommentaries, _normalize_book_code  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, RESET, candidate_to_dict  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
-
-GREEN = "\033[92m"
-DIM = "\033[2m"
-RESET = "\033[0m"
-
-
-def candidate_to_dict(c, idx: int) -> dict:
-    """Mirror of prospect.py's candidate_to_dict — same shape so
-    promote.py / batch_promote_xrefs.py work unchanged."""
-    return {
-        "id": f"{c.book}-{c.chapter}-{c.verse}-{idx:03d}",
-        "verse": c.verse,
-        "kind": c.kind,
-        "anchor": c.anchor,
-        "confidence": round(c.confidence, 3),
-        "source_name": c.source_name,
-        "source_attribution": c.source_attribution,
-        "draft_title": c.draft_title,
-        "draft_label": c.draft_label,
-        "draft_body": c.draft_body,
-        "detector": c.detector,
-        "reviewer_notes": c.reviewer_notes,
-        "status": "pending",
-    }
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:

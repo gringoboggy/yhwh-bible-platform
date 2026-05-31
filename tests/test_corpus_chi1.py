@@ -231,11 +231,11 @@ class TestGreekWordDetector:
         assert out[0].source_name == "G2962"
 
     def test_nt_only_filter_excludes_ot(self):
-        d_class = self.det.GreekWordDetector
-        # Sanity-check the NT_BOOKS set
-        assert "jhn" in d_class.NT_BOOKS
-        assert "gen" not in d_class.NT_BOOKS
-        assert "psa" not in d_class.NT_BOOKS
+        # mint-7 D1: NT_BOOKS is now a single shared frozenset at module level
+        # (scripts.core.at_scale_base), imported by both word detectors.
+        assert "jhn" in self.det.NT_BOOKS
+        assert "gen" not in self.det.NT_BOOKS
+        assert "psa" not in self.det.NT_BOOKS
 
     def test_high_confidence_in_johannine_or_pauline_core(self, monkeypatch):
         self._stub_lex(
@@ -268,8 +268,8 @@ class TestGreekWordDetector:
         # (and the Hebrew detector SKIPS) on them. The pre-fix code used the
         # non-canonical php/jas, so real phi/jam were mis-routed — and the old
         # test asserted on "jas" (which IS php/jas-shaped), masking the bug.
-        assert {"phi", "jam"} <= self.det.GreekWordDetector.NT_BOOKS
-        assert {"phi", "jam"} <= self.det.HebrewWordDetector.NT_BOOKS
+        # mint-7 D1: NT_BOOKS shared at module level (both detectors import it).
+        assert {"phi", "jam"} <= self.det.NT_BOOKS
         # James 1 (canonical "jam") must receive a Greek candidate, lower
         # confidence than John 1 (not Joh/Rom 1-8).
         jam_cands = d.detect("jam", 1, 1, "the engrafted word, which is able")

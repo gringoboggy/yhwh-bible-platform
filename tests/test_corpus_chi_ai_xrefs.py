@@ -713,6 +713,85 @@ class TestRunAIXrefsAtScaleDriver:
         assert [c["draft_body"] for c in data["candidates"]] == ["A1", "A2", "B1"]
         assert len({c["id"] for c in data["candidates"]}) == 3  # ids continue from tail, no collision
 
+    def test_at_scale_base_is_the_single_candidate_to_dict_source(self):
+        # mint-7 D1: every at-scale driver + prospect must import the SHARED
+        # candidate_to_dict (not a local copy), so the candidate JSON shape can
+        # never drift between drivers again.
+        import importlib
+
+        from scripts.core import at_scale_base
+
+        drivers = [
+            "scripts.prospect",
+            "scripts.run_greek_at_scale",
+            "scripts.run_hebrew_at_scale",
+            "scripts.run_naves_at_scale",
+            "scripts.run_torrey_at_scale",
+            "scripts.run_ethiopian_at_scale",
+            "scripts.run_kenyon_at_scale",
+            "scripts.run_xref_at_scale",
+            "scripts.run_ai_xrefs_at_scale",
+            "scripts.run_ai_notes_at_scale",
+        ]
+        for name in drivers:
+            mod = importlib.import_module(name)
+            assert mod.candidate_to_dict is at_scale_base.candidate_to_dict, (
+                f"{name} has its own candidate_to_dict copy"
+            )
+
+    def test_at_scale_base_nt_books_shared_and_canonical(self):
+        import scripts.run_greek_at_scale as g
+        import scripts.run_hebrew_at_scale as h
+        from scripts.core import at_scale_base, config, detectors
+
+        # The Hebrew/Greek detectors + drivers all share the one NT_BOOKS object.
+        assert detectors.NT_BOOKS is at_scale_base.NT_BOOKS
+        assert h.NT_BOOKS is at_scale_base.NT_BOOKS
+        assert g.NT_BOOKS is at_scale_base.NT_BOOKS
+        # 27 canonical NT codes, all registered in books.yaml.
+        assert len(at_scale_base.NT_BOOKS) == 27
+        assert at_scale_base.NT_BOOKS <= set(config.books_by_code().keys())
+
+    def test_at_scale_base_candidate_to_dict_shape(self):
+        import types
+
+        from scripts.core.at_scale_base import candidate_to_dict
+
+        c = types.SimpleNamespace(
+            book="gen",
+            chapter=1,
+            verse=1,
+            kind="xref-citation",
+            anchor="",
+            confidence=0.912345,
+            source_name="s",
+            source_attribution="a",
+            draft_title="t",
+            draft_label="l",
+            draft_body="b",
+            detector="d",
+            reviewer_notes="r",
+        )
+        d = candidate_to_dict(c, 3)
+        assert d["id"] == "gen-1-1-003"
+        assert d["confidence"] == 0.912  # rounded to 3 places
+        assert d["status"] == "pending"
+        assert set(d.keys()) == {
+            "id",
+            "verse",
+            "kind",
+            "anchor",
+            "confidence",
+            "source_name",
+            "source_attribution",
+            "draft_title",
+            "draft_label",
+            "draft_body",
+            "detector",
+            "reviewer_notes",
+            "status",
+        }
+
     def test_run_ai_xrefs_writes_prospect_format(self, tmp_path, monkeypatch):
         cand_dir = tmp_path / "candidates"
         monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)

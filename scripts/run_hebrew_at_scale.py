@@ -29,62 +29,9 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import HebrewWordDetector  # noqa: E402
 from scripts.core import translations  # noqa: E402
 from scripts.core import config  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, NT_BOOKS, RESET, candidate_to_dict  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
-
-GREEN = "\033[92m"
-DIM = "\033[2m"
-RESET = "\033[0m"
-
-# Same OT-book set as HebrewWordDetector excludes from NT side
-NT_BOOKS = {
-    "mat",
-    "mrk",
-    "luk",
-    "jhn",
-    "act",
-    "rom",
-    "1co",
-    "2co",
-    "gal",
-    "eph",
-    "phi",
-    "col",
-    "1th",
-    "2th",
-    "1ti",
-    "2ti",
-    "tit",
-    "phm",
-    "heb",
-    "jam",
-    "1pe",
-    "2pe",
-    "1jn",
-    "2jn",
-    "3jn",
-    "jud",
-    "rev",
-}
-
-
-def candidate_to_dict(c, idx: int) -> dict:
-    """Mirror prospect.py's candidate_to_dict — promote.py works unchanged."""
-    return {
-        "id": f"{c.book}-{c.chapter}-{c.verse}-{idx:03d}",
-        "verse": c.verse,
-        "kind": c.kind,
-        "anchor": c.anchor,
-        "confidence": round(c.confidence, 3),
-        "source_name": c.source_name,
-        "source_attribution": c.source_attribution,
-        "draft_title": c.draft_title,
-        "draft_label": c.draft_label,
-        "draft_body": c.draft_body,
-        "detector": c.detector,
-        "reviewer_notes": c.reviewer_notes,
-        "status": "pending",
-    }
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:

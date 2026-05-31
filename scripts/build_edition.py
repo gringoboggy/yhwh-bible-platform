@@ -605,6 +605,13 @@ def _replace_verse_popup_translation(
     """Swap the English text inside every vnote aside with text from
     ``translation_id`` (Phase ν.2.5-B).
 
+    ⚠ NOT YET WIRED INTO THE BUILD (flagged mint-7 D3, 2026-05-31): a complete,
+    tested feature (5 tests in test_scripts.py) with no production caller yet.
+    Surfacing it is an edition-feature — editions.yaml schema + a /customize
+    control + a build_edition pass (RULES §9 "Add a new edition feature") — and
+    is deferred as out-of-scope for the mint-7 debt pass. KEPT, not deleted: it
+    is real tested behavior, not dead code.
+
     Each existing aside's ``<p class="vnote-text">…</p>`` is rewritten
     to be preceded by a source label and contain the chosen
     translation's verse. The Hebrew, Greek, citation header, and back

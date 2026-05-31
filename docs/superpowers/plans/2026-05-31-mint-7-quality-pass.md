@@ -124,12 +124,25 @@ notes the moment new content is prospected.
   download 400s. Add the zip shape to the allowlist. **Effort S.**
 
 ## Phase D — Code-debt + dead code
-- [ ] **D1 — `scripts/core/at_scale_base.py`** — extract the 10× copy-pasted `candidate_to_dict`,
+
+> **✅ PHASE D COMPLETE (2026-05-31).** D1: new `scripts/core/at_scale_base.py` (dependency-free
+> leaf) now owns the single `candidate_to_dict` (was byte-identical in all 10 drivers + prospect —
+> pre-verified via AST body-diff), the 27-code `NT_BOOKS` frozenset (was 4 copies: 2 detectors +
+> 2 drivers), and the ANSI constants (incl. `BOLD`). Guard test pins every driver shares the ONE
+> `candidate_to_dict`/`NT_BOOKS` object (`is`-identity) so the shape can't drift again; 2 tests that
+> read the removed `NT_BOOKS` class-attr updated to the shared module global. D2: both legacy
+> `_send_json`-bypass error paths (`/api/sample/`, `/api/backups`) now use `_send_json` (Content-Length
+> + security headers). D3: `_split_web_html.py`→`dev/archive/`; deleted orphaned `apply_style._chapter_label`
+> + `bulk_inject.find_template_files` (0 callers); `_replace_verse_popup_translation` MARKED not-yet-wired
+> (real tested feature — wiring is a full edition-feature, deferred); `audit_caches` wired into `ci.py`.
+> D4 already done. ruff/mypy/lint(26✓) clean; imports + F401/F811 clean; 58+65 regression tests pass.
+
+- [x] **D1 — `scripts/core/at_scale_base.py`** — extract the 10× copy-pasted `candidate_to_dict`,
   the 4× `NT_BOOKS` set, the 9× ANSI color constants; import in all drivers + `prospect.py`
   + `detectors.py`. write_queue stays per-driver (intentionally different). **Effort M.**
-- [ ] **D2 — Legacy error paths bypass `_send_json`.** `web.py:1678` (/api/sample/ error) +
+- [x] **D2 — Legacy error paths bypass `_send_json`.** `web.py:1678` (/api/sample/ error) +
   :1701 (/api/backups error) skip Content-Length + security headers; replace with `_send_json`. **S.**
-- [ ] **D3 — Dead code.** Archive `scripts/_split_web_html.py` → `dev/archive/` (split done,
+- [x] **D3 — Dead code.** Archive `scripts/_split_web_html.py` → `dev/archive/` (split done,
   flagged 2026-05-23); delete orphaned `apply_style._chapter_label` (:434) + `bulk_inject.find_template_files`
   (:241) (0 call sites); WIRE the built-but-uninvoked `_replace_verse_popup_translation`
   (build_edition.py:600, 5 tests, no caller) as a builder option OR mark not-yet-wired;

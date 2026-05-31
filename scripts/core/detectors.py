@@ -19,6 +19,7 @@ import re
 from dataclasses import dataclass
 
 from . import sources
+from .at_scale_base import NT_BOOKS
 from .html_sandbox import sandbox_ai_html
 
 
@@ -136,42 +137,11 @@ class HebrewWordDetector:
     name = "HebrewWordDetector"
     kind = "lang-hebrew"
 
-    # Verses in OT only — Hebrew lexicon doesn't apply to NT.
-    NT_BOOKS = {
-        "mat",
-        "mrk",
-        "luk",
-        "jhn",
-        "act",
-        "rom",
-        "1co",
-        "2co",
-        "gal",
-        "eph",
-        "phi",
-        "col",
-        "1th",
-        "2th",
-        "1ti",
-        "2ti",
-        "tit",
-        "phm",
-        "heb",
-        "jam",
-        "1pe",
-        "2pe",
-        "1jn",
-        "2jn",
-        "3jn",
-        "jud",
-        "rev",
-    }
-
     def __init__(self) -> None:
         self.lex = sources.strongs_hebrew()
 
     def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
-        if book in self.NT_BOOKS:
+        if book in NT_BOOKS:
             return []
         out = []
         text = verse_text.lower()
@@ -333,42 +303,11 @@ class GreekWordDetector:
     name = "GreekWordDetector"
     kind = "lang-greek"
 
-    # Verses in NT only — Greek lexicon applies to NT (and LXX, deferred).
-    NT_BOOKS = {
-        "mat",
-        "mrk",
-        "luk",
-        "jhn",
-        "act",
-        "rom",
-        "1co",
-        "2co",
-        "gal",
-        "eph",
-        "phi",
-        "col",
-        "1th",
-        "2th",
-        "1ti",
-        "2ti",
-        "tit",
-        "phm",
-        "heb",
-        "jam",
-        "1pe",
-        "2pe",
-        "1jn",
-        "2jn",
-        "3jn",
-        "jud",
-        "rev",
-    }
-
     def __init__(self) -> None:
         self.lex = sources.strongs_greek()
 
     def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
-        if book not in self.NT_BOOKS:
+        if book not in NT_BOOKS:
             return []
         out = []
         text = verse_text.lower()
