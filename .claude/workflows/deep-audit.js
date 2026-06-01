@@ -12,7 +12,7 @@ export const meta = {
 // ----------------------------------------------------------------------------
 // Parameters (all overridable via args; defaults tuned for the mint-8 first run)
 // ----------------------------------------------------------------------------
-const REPO = args?.repo ?? 'YHWH v2.4'            // repo root, relative to the session cwd
+const REPO = args?.repo ?? 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4'  // repo root (ABSOLUTE — cwd-independent; round-3 hardening after a cwd-ambiguity risk surfaced)
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
 const ROUND = args?.round ?? 3
 const NOW = args?.now ?? '2026-06-01'             // Date.now() is unavailable in scripts; stamp via args

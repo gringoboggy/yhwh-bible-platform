@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-06-01 — mint-10 round-3 re-audit: killed-run RECOVERY + continuation (checkpoint)
+
+**Status:** IN PROGRESS — recovery checkpoint commit; continuation `wf_4a2d0815-8c9` running; findings + indexed fixes-plan land post-synthesis.
+
+- **Killed run `wf_ba367edc-a4a`** (mint-10 round-3, 15 dims) ran 7.4h then died on terminal shutdown before any verify/synth (`result` null). Root cause of the "5h hang": 4-core N95 → Workflow concurrency cap = 2, so 2 slow finders (one ran 2.3h) held both slots while 52 verifies queued behind them.
+- **Recovered 46 candidate findings** from the 15 completed finder transcripts (7 high · 26 med · 12 low · 1 info across 11 dims; incl. 11 real pytest failures from the tests-run dim) → `docs/superpowers/notes/2026-06-01-mint-10-recovered-candidates.json`.
+- **New `.claude/workflows/deep-audit-continue.js`** — verify the 46 recovered candidates FIRST (barrier; cannot be starved by slow finders), then run the 4 finders that never completed (cross-module#1 + opt-build/ingest/render), then synthesize; verify+find pinned `sonnet` (cap=2 → Opus ~8h vs Sonnet ~3h; matches rounds 1–2 verify methodology).
+- Also lands last night's uncommitted `deep-audit.js` REPO→absolute hardening + the IN_FLIGHT mint-10 launch entry.
+- **NEXT (this session):** on synthesis → write `2026-06-01-mint-10-findings.md` + `-audit-raw.json` + indexed fixes-plan + finalize truth-record → 5-leg save → fresh session for the fixes. **mint-10 is the LAST audit round** (no mint-11 until project end, user-directed).
+
 ## 2026-06-01 — mint-9 deep-audit round 2 + fix batch (ALL 6 phases) + engine upgrade + memory sync
 
 **Phases shipped:** mint-9 Phases 1–6 (data-loss/filter HIGH · stale-cache/guards · behavior-changing correctness · concurrency/low-sev · at-scale dedup/test-debt · doc-truth/opt) + deep-audit ENGINE upgrade + cross-session MEMORY sync
