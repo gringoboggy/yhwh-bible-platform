@@ -4,13 +4,14 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**43 documents** — 27 plans · 16 specs.
+**44 documents** — 28 plans · 16 specs.
 
-## In progress (7)
+## In progress (8)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
 | 2026-05-31 | Plan | mint-9 — Phased fixes plan (deep-audit round 2) | `plans/2026-05-31-mint-9-fixes-plan.md` | EXECUTING 2026-05-31 — round-2 re-audit found 45 survivors; Phases 1–2 shipped, 3–6 in progress; then re-audit (round 3) to convergence |
+| 2026-06-01 | Plan | mint-10 — Phased fixes plan (round-3 re-audit, recovered + continued) | `plans/2026-06-01-mint-10-fixes-plan.md` | OPEN — 49 verified survivors (4 high / 13 medium / 22 low / 10 info) from mint-10 round 3. Source: killed run `wf_ba367edc-a4a` (find phase recovered) + continuation `wf_4a2d0815-8c9`… |
 | 2026-05-28 | Plan | Ge'ez Phase D1b — Patrologia Vision-Transcription Lane (Esther proof) Impleme… | `plans/2026-05-28-geez-patrologia-vision-plan.md` | in progress — PO Esther vision marathon paused at p28 |
 | 2026-05-28 | Plan | Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Imp… | `plans/2026-05-28-geez-phase-d-reingest-plan.md` | in progress — Phase D own-versification re-ingest lane |
 | 2026-05-27 | Plan | Ge'ez Own-Versification Collation & Standalone-Bible — Implementation Plan | `plans/2026-05-27-geez-own-versification-plan.md` | in progress — Phases A–C shipped; Phase D re-ingest ongoing |

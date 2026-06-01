@@ -8,7 +8,7 @@
 
 ## 2026-06-01 — mint-10 round-3 re-audit: killed-run RECOVERY + continuation (checkpoint)
 
-**Status:** IN PROGRESS — recovery checkpoint commit; continuation `wf_4a2d0815-8c9` running; findings + indexed fixes-plan land post-synthesis.
+**Status:** ✅ AUDIT COMPLETE — continuation `wf_4a2d0815-8c9` finished: **62 deduped → 49 verified survivors / 13 refuted** (4 high · 13 med · 22 low · 10 info). Artifacts: `2026-06-01-mint-10-{findings.md,audit-raw.json}` + indexed `plans/2026-06-01-mint-10-fixes-plan.md`. **NEXT = implement the 49-survivor fixes** (phased, TDD, byte-stable); mint-10 is the LAST audit round (no mint-11 until project end).
 
 - **Killed run `wf_ba367edc-a4a`** (mint-10 round-3, 15 dims) ran 7.4h then died on terminal shutdown before any verify/synth (`result` null). Root cause of the "5h hang": 4-core N95 → Workflow concurrency cap = 2, so 2 slow finders (one ran 2.3h) held both slots while 52 verifies queued behind them.
 - **Recovered 46 candidate findings** from the 15 completed finder transcripts (7 high · 26 med · 12 low · 1 info across 11 dims; incl. 11 real pytest failures from the tests-run dim) → `docs/superpowers/notes/2026-06-01-mint-10-recovered-candidates.json`.
