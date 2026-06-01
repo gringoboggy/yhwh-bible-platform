@@ -7017,23 +7017,32 @@ class TestGamma49DAthanasiusArcClose:
         # Cyril is at 48.86% (668/1367) — sub-50% but still plurality
         # at 3.34× next single-father. The trajectory is documented
         # in CHANGELOG / SESSION_STATE.
-        cyril_count = 0
-        jubilees_count = 0
+        #
+        # mint-9 #25: assert Cyril leads EVERY plausible challenger, not just
+        # Jubilees + Athanasius. A future Ephrem / 1-Enoch expansion wave could
+        # overtake Cyril while this test, checking only two rivals, stayed green.
+        # Count all single-father voices and compare Cyril to the strongest rival.
+        from collections import Counter
+
+        def _voice(father: str) -> str:
+            # Collapse tradition suffixes so "1 Enoch (Ethiopian tradition)" and
+            # "Jubilees (Ethiopian tradition)" group under one voice key.
+            for stem in ("Cyril of Alexandria", "Athanasius", "Ephrem", "1 Enoch", "Jubilees"):
+                if father == stem or father.startswith(stem):
+                    return stem
+            return father
+
+        counts: Counter = Counter()
         for verse_entries in self.ec._by_verse.values():
             for e in verse_entries:
-                if e.father == "Cyril of Alexandria":
-                    cyril_count += 1
-                elif e.father.startswith("Jubilees"):
-                    jubilees_count += 1
-        # Cyril must remain plurality-leader (single-father with highest count)
-        ath_count = len(self._all_athanasius())
-        assert cyril_count > jubilees_count, (
-            f"ω.41 §1: Cyril must remain single-father plurality-leader; "
-            f"Cyril={cyril_count} vs Jubilees={jubilees_count}"
-        )
-        assert cyril_count > ath_count, (
-            f"ω.41 §1: Cyril must remain plurality-leader over Athanasius even at arc-close; "
-            f"Cyril={cyril_count} vs Athanasius={ath_count}"
+                counts[_voice(e.father)] += 1
+
+        cyril_count = counts.get("Cyril of Alexandria", 0)
+        challengers = {v: c for v, c in counts.items() if v != "Cyril of Alexandria"}
+        top_rival, top_rival_count = max(challengers.items(), key=lambda kv: kv[1], default=("(none)", 0))
+        assert cyril_count > top_rival_count, (
+            f"ω.41 §1: Cyril must remain single-father plurality-leader over EVERY "
+            f"challenger; Cyril={cyril_count} vs strongest rival {top_rival}={top_rival_count}"
         )
 
     # ---- _meta sync pin (extension of γ.4.9.C pattern) ----
@@ -8529,17 +8538,19 @@ class TestGamma48FTier2AuditIntegration:
             f"γ.4.8.F: Cyril plurality must remain ≥2× next-single-father (Cyril {cyril} vs next {next_father})"
         )
 
-    # ---- Tewahedo-distinctive-canonical block share-floor pin ----
+    # ---- Tewahedo-distinctive-canonical block count-milestone pin ----
 
-    def test_tewahedo_distinctive_canonical_block_share_floor(self):
+    def test_tewahedo_distinctive_canonical_block_count_milestone(self):
         # Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan = Tewahedo-distinctive-
-        # canonical-block. Post-γ.4.8.F: (192 + 200 + 212) / 1579 = 38.25%.
-        # The v1.1-publisher-uniqueness-angle anchor (per memory
-        # `project_v1_terminus`) needs this block at strong position.
+        # canonical-block. Post-γ.4.8.F the block stood at 192 + 200 + 212 = 604.
+        # mint-9 #6 (RULES §8.1): pin the ABSOLUTE COUNT, not a share. A
+        # share-floor (the old `>= 0.38`) breaks mechanically whenever a later
+        # voice-broadening wave dilutes the share even though the historical
+        # achievement is preserved (memory `feedback_share_pin_pattern`). The
+        # count milestone records the achievement durably and only ever grows.
         all_entries = []
         for verse_entries in self.ec._by_verse.values():
             all_entries.extend(verse_entries)
-        total = len(all_entries)
         from collections import Counter
 
         counts = Counter(e.father for e in all_entries)
@@ -8548,11 +8559,10 @@ class TestGamma48FTier2AuditIntegration:
             + counts.get("Jubilees (Ethiopian tradition)", 0)
             + counts.get("1 Enoch (Ethiopian tradition)", 0)
         )
-        share = block / total if total else 0.0
-        assert share >= 0.38, (
-            f"γ.4.8.F: Tewahedo-distinctive-canonical block share ≥38% expected "
-            f"(supports v1.1 publisher-led uniqueness-angle anchor); "
-            f"got {block}/{total} = {share:.2%}"
+        assert block >= 600, (
+            f"γ.4.8.F: Tewahedo-distinctive-canonical block count milestone ≥600 expected "
+            f"(192+200+212=604 at the arc close; supports the v1.1 publisher-led "
+            f"uniqueness-angle anchor, memory project_v1_terminus); got {block}"
         )
 
     # ---- Tier-2-substance-named pins on _meta ----

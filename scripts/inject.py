@@ -201,12 +201,23 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
     legend row (``legend.xhtml#legend-{category}``). Kept byte-identical to
     ``resync_marker_glyphs.rewrite_asides`` so a freshly-injected note matches
     the re-baked base."""
+    import html as _html
+
     from scripts.core.html_sanitize import sanitize_html
 
     glyph = glyph_for(kind)
     cat = category_for(kind)
     cat_label = category_label(cat)
     safe_body = sanitize_html(body_html)
+    # mint-9 #37: the body is sanitized but the label + category title were
+    # interpolated raw. Every current label is HTML-clean (verified: 0 of 91,733
+    # contain <>&), so html.escape is a byte-identical no-op on the shipped
+    # corpus — but a future note label containing & or < would otherwise emit
+    # malformed XHTML (epubcheck RSC-005). resync_marker_glyphs.rewrite_asides
+    # does NOT touch the note-label span, so escaping here cannot desync the
+    # re-bake path. cat_label comes from categories.yaml (also clean today).
+    safe_label = _html.escape(str(label or ""))
+    safe_cat_label = _html.escape(str(cat_label or ""))
     # Inline-only bodies keep the <p> wrapper (byte-identical to the historical
     # corpus); a body with its own block content uses a <div> flow container so
     # we never wrap a block element in <p> (epubcheck RSC-005). CSS mirrors both
@@ -216,8 +227,8 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
         f'<aside class="note note-{kind}" id="note-{full_id}" '
         f'epub:type="footnote">\n'
         f'  <{wrap}><a href="#ref-{full_id}" class="note-back" title="Back">↩</a>'
-        f' <a class="note-sym" href="legend.xhtml#legend-{cat}" title="{cat_label}">{glyph}</a>'
-        f' <span class="note-label">{label}</span> '
+        f' <a class="note-sym" href="legend.xhtml#legend-{cat}" title="{safe_cat_label}">{glyph}</a>'
+        f' <span class="note-label">{safe_label}</span> '
         f"{safe_body}</{wrap}>\n"
         f"</aside>\n"
     )
@@ -622,13 +633,18 @@ def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: 
         existing_ch = int(m.group(1))
         existing_v = int(m.group(2))
         existing_s = m.group(3) or ""
-        # An existing aside PRECEDES our insertion when it belongs to a
-        # different chapter (treated as already-placed) OR when its
-        # (verse, suffix) sorts before ours. In BOTH cases we must land
-        # just after its closing </aside> — NEVER at m.end() (which is
-        # mid opening-tag, right after id="…"); splicing there splits the
-        # tag and produces malformed XHTML.
-        precedes = existing_ch != ch or (existing_v, existing_s) < target
+        # An existing aside PRECEDES our insertion when it sorts before ours
+        # by (chapter, verse, suffix). In a Strategy-B SHARED section several
+        # chapters' asides coexist, so we must compare the chapter too: a
+        # HIGHER-chapter aside does NOT precede a lower-chapter insertion
+        # (mint-9 #11 — the old `existing_ch != ch` treated every other-chapter
+        # aside as preceding, so a re-injected lower-chapter note landed AFTER a
+        # higher-chapter one). When it precedes we land just after its closing
+        # </aside> — NEVER at m.end() (mid opening-tag, right after id="…");
+        # splicing there splits the tag and produces malformed XHTML. For
+        # single-chapter (Strategy-A) sections existing_ch == ch always, so this
+        # is byte-identical to the old behaviour.
+        precedes = existing_ch < ch or (existing_ch == ch and (existing_v, existing_s) < target)
         if precedes:
             # find end of THIS aside (its </aside>) to land just after
             after_close = region.find("</aside>", m.end())

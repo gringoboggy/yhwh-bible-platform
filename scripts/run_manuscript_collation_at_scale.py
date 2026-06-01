@@ -97,10 +97,9 @@ PENDING_PROCEDURE = (
     "NOT run this marathon — it is the downstream effort (Phase-2.5/3)."
 )
 
-GREEN = "\033[92m"
-RED = "\033[91m"
-DIM = "\033[2m"
-RESET = "\033[0m"
+# mint-9 #19: ANSI colour constants come from the shared at_scale_base, not a
+# local redefinition. (This is a driver/launcher script, not marathon core.)
+from scripts.core.at_scale_base import DIM, GREEN, RED, RESET  # noqa: E402
 
 
 def _dirs(track: str) -> tuple[Path, Path]:

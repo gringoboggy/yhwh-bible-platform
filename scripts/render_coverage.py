@@ -11,8 +11,11 @@ pending — sorted by source track so the project can see at a glance:
   with a calibration_count showing partial progress.
 - **Patrologia Orientalis track** (PO 2/9/13/23 PDFs): 1ch, 2ch, ezr,
   neh, job rendered from printed bilingual Ge'ez+French critical
-  editions. Today they show up as ``patrologia_pending`` (PDFs exist
-  under ``GAPS/3_Chronicles/`` etc.).
+  editions. Ingest complete (τ.6.x.5.x): the per-book ``.py`` stores
+  exist under ``content/translations/geez-tewahedo/`` so ``_list_rendered``
+  returns them and the inventory shows them as **rendered**. (The
+  separate Phase-D *own-versification* re-ingest of these books — the
+  roadmap's D1b-batch — is a distinct lane and is still pending.)
 - **Parallel-PDF EOTC track** (τ.6.x.2 / τ.7.x): the bulk of OT +
   Apocrypha — already substantially rendered (geez 16 books, amharic
   24 books as of 2026-05-20).
@@ -153,7 +156,9 @@ _CANONICAL_BOOKS = [
 _MANUSCRIPT_TRACK_BOOKS = {"1sa", "2sa", "1ki", "2ki"}
 
 # Books with Patrologia Orientalis source PDFs (under GAPS/3..6/*.pdf).
-# Render is pending; printed bilingual Ge'ez+French critical edition.
+# Render COMPLETE (τ.6.x.5.x) — printed bilingual Ge'ez+French critical
+# edition; the per-book stores exist so these appear as rendered. (The
+# Phase-D own-versification re-ingest of the same books is a separate lane.)
 _PATROLOGIA_TRACK_BOOKS = {"1ch", "2ch", "ezr", "neh", "job"}
 
 

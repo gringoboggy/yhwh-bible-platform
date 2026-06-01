@@ -247,8 +247,11 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     if unknown:
         return {"error": f"unknown kind(s): {sorted(unknown)}"}
 
-    enabled_cats = set(edition.get("enabled_categories") or [])
-    baseline = {k["code"] for k in config.load_kinds() if k.get("category") in enabled_cats}
+    # The baseline MUST be phase/AI-gated (mint-9 #12): a max_phase-limited or
+    # AI-disabled edition never ships the gated-out kinds, so they must not fall
+    # into the computed disabled_kinds (which previously happened with a plain
+    # category-only baseline, corrupting disabled_kinds for such editions).
+    baseline = config.category_baseline_kinds(edition, config.load_kinds())
     new_enabled_kinds = sorted(new_enabled_set - baseline)
     new_disabled_kinds = sorted(baseline - new_enabled_set)
 

@@ -81,6 +81,16 @@ def build_verses(src_dir) -> tuple[dict[str, list[tuple[int, int, str]]], dict]:
 
 def write_translation(by_code: dict[str, list[tuple[int, int, str]]], dest_dir, verse_total: int) -> None:
     """Write ``<code>.py`` (TRANSLATION/BOOK/VERSES) for each book + ``_meta.yaml``."""
+    # mint-9 #36: this version is in popup_versions._TRUSTED_HTML (rendered RAW,
+    # not HTML-escaped). Enforce the no-markup precondition at ingest so a source
+    # change can't silently emit raw <>& into the EPUB and break XHTML (RSC-005).
+    for code, verses in by_code.items():
+        for c, v, t in verses:
+            if any(ch in t for ch in "<>&"):
+                raise ValueError(
+                    f"{TRANSLATION_ID} {code} {c}:{v}: trusted-html verse contains an HTML-special "
+                    f"character (<>&) but is rendered raw; refusing to write. Text: {t[:80]!r}"
+                )
     dest = Path(dest_dir)
     dest.mkdir(parents=True, exist_ok=True)
     for code in sorted(by_code):

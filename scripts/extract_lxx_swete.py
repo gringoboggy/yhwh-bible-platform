@@ -156,6 +156,18 @@ def build_verses(vers_path, words_path) -> tuple[dict[str, list[tuple[int, int, 
 
 def write_translation(by_code: dict[str, list[tuple[int, int, str]]], dest_dir, verse_total: int) -> None:
     """Write ``<code>.py`` (TRANSLATION/BOOK/VERSES) for each book + ``_meta.yaml``."""
+    # mint-9 #36: this version is in popup_versions._TRUSTED_HTML, so its verse
+    # text is rendered RAW (not HTML-escaped). The trust is only valid because
+    # the source is plain accented Greek with no markup — enforce that at ingest
+    # so a future source change can't silently start emitting raw <>& into the
+    # EPUB. Fail closed rather than ship an XHTML-breaking (RSC-005) popup.
+    for code, verses in by_code.items():
+        for c, v, t in verses:
+            if any(ch in t for ch in "<>&"):
+                raise ValueError(
+                    f"{TRANSLATION_ID} {code} {c}:{v}: trusted-html verse contains an HTML-special "
+                    f"character (<>&) but is rendered raw; refusing to write. Text: {t[:80]!r}"
+                )
     dest = Path(dest_dir)
     dest.mkdir(parents=True, exist_ok=True)
     for code in sorted(by_code):

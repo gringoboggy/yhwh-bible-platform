@@ -176,6 +176,25 @@ def api_sources_cache_fetch(
                 "http": 400,
                 "message": f"unknown parser: {parser_kind!r}",
             }
+        # mint-9 #35: defense-in-depth — validate the override host against the
+        # PD-sources allowlist HERE, at request-validation time, instead of
+        # relying solely on http.get's runtime SSRFBlockedError deep in the
+        # fetch. Fails closed with a clean 400 before any Source is constructed.
+        from scripts.core.http import (
+            DEFAULT_PD_SOURCES_ALLOWLIST,
+            SSRFBlockedError,
+            _check_allowlist,
+        )
+
+        try:
+            _check_allowlist(url_override, DEFAULT_PD_SOURCES_ALLOWLIST)
+        except SSRFBlockedError as exc:
+            return {
+                "status": "error",
+                "code": "ssrf_blocked",
+                "http": 400,
+                "message": str(exc),
+            }
         # Build a one-off Source with only the override candidate.
         src = Source(
             id=src.id,

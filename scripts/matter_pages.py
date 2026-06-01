@@ -120,15 +120,27 @@ def _drop_placeholder_introduction(tmp: Path) -> None:
         intro_file.unlink()
 
 
-def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
+def inject_copyright_page(
+    tmp: Path, edition: dict, version: str, *, annotation_count_override: int | None = None
+) -> None:
     """Write copyright.xhtml, register it in content.opf (manifest + spine after
     titlepage) and nav.xhtml. Identity from _resolve_publishing; counts from
-    scripts.core.matrix (real, per-edition)."""
+    scripts.core.matrix (real, per-edition).
+
+    ``annotation_count_override`` (mint-9 #8): the matrix total counts kind+canon
+    enabled notes but NOT the tradition/time ref-id filters, so for an edition
+    that actually strips notes via ``traditions_default``/``time_filter_ceiling``
+    the printed count would overstate what ships. build_one passes the corrected
+    count here; ``None`` (every standard / 9 KJV edition) keeps the matrix total
+    and the byte-identical code path.
+    """
     from scripts.core import matrix as _matrix
 
     publishing = _resolve_publishing(edition)
     edition_id = edition["id"]
-    annotation_count = _matrix.total_for_edition(edition_id)
+    annotation_count = (
+        annotation_count_override if annotation_count_override is not None else _matrix.total_for_edition(edition_id)
+    )
     category_count = sum(1 for n in _matrix.breakdown_by_category(edition_id).values() if n > 0)
 
     # 1) Write the page
@@ -477,10 +489,17 @@ def render_about_page(edition: dict, specs: dict, version: str) -> str:
 """
 
 
-def inject_about_page(tmp: Path, edition: dict, version: str) -> None:
+def inject_about_page(tmp: Path, edition: dict, version: str, *, annotation_count_override: int | None = None) -> None:
     """Write about.xhtml and register it in OPF (manifest + spine after legend)
-    and nav.xhtml (TOC entry after legend). Guard against double-injection."""
+    and nav.xhtml (TOC entry after legend). Guard against double-injection.
+
+    ``annotation_count_override`` (mint-9 #8): same tradition/time-filter
+    correction as ``inject_copyright_page``; ``None`` preserves the matrix total
+    and the byte-identical path for every standard / 9 KJV edition.
+    """
     specs = _about_specs_for_edition(edition["id"])
+    if annotation_count_override is not None:
+        specs = {**specs, "annotation_count": annotation_count_override}
     html_text = render_about_page(edition, specs, version)
     (tmp / "about.xhtml").write_text(html_text, encoding="utf-8")
 

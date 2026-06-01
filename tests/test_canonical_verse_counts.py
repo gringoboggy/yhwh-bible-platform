@@ -135,12 +135,19 @@ class TestKnownBookCounts:
 
 class TestCachingBehavior:
     def test_repeat_calls_are_cached(self):
-        """The helper is decorated with lru_cache; second call is a hit."""
+        """The helper is decorated with lru_cache; a second call is a real HIT.
+
+        mint-9 #38: the old assertion `info.hits >= 0` could never fail (hits is
+        a non-negative counter). Clear the cache, force a miss then a repeat, and
+        assert the hit count actually increased."""
         from scripts.core.canonical_verse_counts import (
-            canonical_book_shape,
             _book_shape_cached,
+            canonical_book_shape,
         )
 
-        canonical_book_shape("gen")
-        info = _book_shape_cached.cache_info()
-        assert info.hits >= 0  # at least the count is exposed; non-zero hits
+        _book_shape_cached.cache_clear()
+        canonical_book_shape("gen")  # miss (populates the cache)
+        hits_before = _book_shape_cached.cache_info().hits
+        canonical_book_shape("gen")  # must be a hit
+        hits_after = _book_shape_cached.cache_info().hits
+        assert hits_after == hits_before + 1, "repeat call should register exactly one cache hit"

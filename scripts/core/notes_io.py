@@ -131,6 +131,14 @@ def _invalidate_corpus_index_if_notes_file(path: Path) -> None:
             # unchanged, so _load_notes_cached would otherwise serve the
             # stale parse despite the corpus_index invalidation above.
             clear_load_notes_cache()
+            # mint-9 #10: compute_matrix is a maxsize=1 singleton derived from
+            # the notes corpus; a notes-file write must also drop it or the
+            # /matrix + /customize count grids serve stale numbers until the
+            # web process restarts (api/editions + api/customize already clear
+            # it after their own edits — this covers the editor save path too).
+            from scripts.core import matrix as _matrix
+
+            _matrix.compute_matrix.cache_clear()
     except Exception:  # noqa: BLE001
         pass
 

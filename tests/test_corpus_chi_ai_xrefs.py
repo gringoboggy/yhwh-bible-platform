@@ -665,16 +665,28 @@ class TestRunAIXrefsAtScaleDriver:
         assert len(chapters) == 150
 
     def test_ai_at_scale_drivers_use_ch_count_not_chapters(self):
-        # Guard both AI drivers against re-introducing the wrong YAML key
-        # (books.yaml has ch_count, never "chapters"). Source-scan, since the
-        # functional symptom (silent under-coverage) is invisible at run time.
+        # Guard against re-introducing the wrong YAML key (books.yaml has
+        # ch_count, never "chapters"). Source-scan, since the functional symptom
+        # (silent under-coverage) is invisible at run time.
+        #
+        # mint-9: the chapter-iteration logic was deduped into
+        # scripts/core/at_scale_base.iter_target_verses (mint-8 batch-1), so the
+        # `ch_count` read now lives THERE, not inline in each driver. The drivers
+        # must (a) never reintroduce the bad "chapters" key and (b) delegate to
+        # iter_target_verses; the canonical ch_count read is pinned in
+        # at_scale_base. (Previously this scanned the drivers for the literal
+        # ch_count read and went stale the moment the logic was factored out —
+        # a stale-test class the round-2 audit's tests dimension should flag.)
         import pathlib
 
         repo = pathlib.Path(__file__).resolve().parent.parent
         for name in ("run_ai_xrefs_at_scale.py", "run_ai_notes_at_scale.py"):
             src = (repo / "scripts" / name).read_text(encoding="utf-8")
             assert 'get("chapters"' not in src, f"{name} uses the non-existent 'chapters' key (mint-7 B1)"
-            assert 'get("ch_count"' in src, f"{name} should read ch_count"
+            assert "iter_target_verses" in src, f"{name} should iterate via at_scale_base.iter_target_verses"
+        base_src = (repo / "scripts" / "core" / "at_scale_base.py").read_text(encoding="utf-8")
+        assert 'get("ch_count"' in base_src, "at_scale_base.iter_target_verses must read ch_count (mint-7 B1)"
+        assert 'get("chapters"' not in base_src, "at_scale_base must not use the non-existent 'chapters' key"
 
     def test_run_xref_write_queue_appends_not_overwrites(self, tmp_path, monkeypatch):
         # mint-7 B2: run_xref_at_scale.write_queue must APPEND (preserve other

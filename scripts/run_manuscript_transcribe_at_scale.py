@@ -42,10 +42,8 @@ from scripts.core.manuscript_records import (  # noqa: E402
 )
 from scripts.run_manuscript_review_at_scale import load_topology  # noqa: E402
 
-GREEN = "\033[92m"
-RED = "\033[91m"
-DIM = "\033[2m"
-RESET = "\033[0m"
+# mint-9 #19: ANSI colour constants from the shared at_scale_base (driver, not core).
+from scripts.core.at_scale_base import DIM, GREEN, RED, RESET  # noqa: E402
 
 TRANSCRIBE_OUTPUT_SCHEMA: dict = {
     "type": "object",

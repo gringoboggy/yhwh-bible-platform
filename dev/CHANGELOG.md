@@ -6,10 +6,11 @@
 
 ---
 
-## 2026-06-01 — mint-9 deep-audit round 2 + fix batch (Phases 1–2; checkpoint)
+## 2026-06-01 — mint-9 deep-audit round 2 + fix batch (ALL 6 phases) + engine upgrade + memory sync
 
-**Phases shipped:** mint-9 Phase 1 (silent-data-loss & filter HIGH) + Phase 2 (stale-cache & guard hardening); Phases 3–6 in progress
-**Test delta:** +15 (9 in new `tests/test_mint9_phase1.py`, 6 in `tests/test_build_cache.py::TestMint9CacheKeyCoverage`)
+**Phases shipped:** mint-9 Phases 1–6 (data-loss/filter HIGH · stale-cache/guards · behavior-changing correctness · concurrency/low-sev · at-scale dedup/test-debt · doc-truth/opt) + deep-audit ENGINE upgrade + cross-session MEMORY sync
+**Test delta:** +~30 (new `tests/test_mint9_phase{1,3,4,5}.py` + 6 cache-key guards; net of the converted/un-stuck tests)
+**Save tag:** `b1a39485` (P1+P2 checkpoint) + this commit (P3–P6 + engine + memory)
 **Save tag:** checkpoint (this commit)
 
 What shipped (concrete, scannable):
@@ -21,17 +22,24 @@ What shipped (concrete, scannable):
 - **Phase 2 #23/#24** — `bookcode_canonical` lint now screens 3 translation-extraction maps (`versification.SWETE_BOOK_TO_CODE`, `versification._NT_BOOK_TO_CODE`, `extract_wlc_morphhb.OSIS_BOOK_TO_CODE` → 12 maps total). All canonical today; the commit-time guard blocks future legacy-alias drift in translation-file naming.
 - **Doc truth (#13/#14)** — INDEX + the mint-8 audit/fixes plan Status headers corrected to COMPLETE (the fixes shipped in batches 1–3); mint-9 fixes plan given a Status header + indexed. Coherence lint GREEN.
 - **Bonus** — fixed a pre-existing stale test: `test_build_cache.test_changelog_documents_omega20b` now reads the live CHANGELOG **+** `dev/archive/CHANGELOG*.md` (it broke silently when mint-7 month-rolled the log and ω.20-B migrated to the archive).
+- **Phase 3 (behavior-changing; byte-stability gate PASSED 253 s)** — #11 `inject.find_aside_insertion_point` `precedes` now compares `(chapter, verse, suffix)` (was `existing_ch != ch`, which mis-ordered a re-injected lower-chapter note after a higher-chapter aside in Strategy-B shared sections; byte-identical for single-chapter sections); #8 `inject_copyright_page`/`inject_about_page` gained `annotation_count_override` (build_one passes the tradition/time-filtered count; `None` for every standard/9-KJV edition → byte-identical matter pages); #12 new `config.category_baseline_kinds` (phase + AI gated) fixes `api_save_edition` putting phase-gated kinds into `disabled_kinds` for `max_phase`-limited editions.
+- **Phase 4 (concurrency & low-sev)** — #20 the `corpus_index._CACHED_CONN` reset moved INSIDE the rebuild lock; #10 a notes-file write now also clears the `compute_matrix` singleton; #37 `inject.build_aside` HTML-escapes the note label + category title (byte-identical — 0/91,733 labels carry `<>&`); #36 the LXX-Swete + Byzantine-NT extractors enforce the trusted-html no-markup precondition at ingest; #35 `api_sources_cache_fetch` validates `url_override` against the PD-sources allowlist (defense-in-depth, fails closed); #21/#22 `cross_refs_stripped` now counts only stripped links (`nonlocal`, not the `subn` total).
+- **Phase 5 (at-scale dedup & test/debt)** — #9 the naves/torrey/xref/ethiopian `write_queue` now dedups on `(verse, kind, draft_body)` (mirrors kenyon — a re-run before promote no longer appends duplicate candidates); #6 the γ.4.8.F share-floor pin → an absolute count-milestone (§8.1); #25 `test_cyril_remains_plurality_leader` now guards EVERY challenger (Ephrem/1-Enoch too) via a Counter; #38/#39 two tautological tests made real / removed; #18/#19 ANSI constants imported from `core.ui` / `at_scale_base` instead of redefined (7 files); + un-stuck a refactor-orphaned `ch_count` guard test (the read moved to `at_scale_base` in mint-8 — the test now pins it there).
+- **Phase 6 (doc-truth & opt)** — REPO_MAP counts corrected (182 test files, 27 plans, `notes/` subdir, SESSION_PLAYBOOK listed); `render_coverage` docstring/comment fixed (the 5 Patrologia books ARE rendered, not pending); `is_output_current` now watches `content/notes/*.py` so a direct `build_edition.py` run after a notes edit rebuilds (was a stale-EPUB gap).
+- **⚙ deep-audit ENGINE upgrade (user-directed — improve the tool from how rounds 1–2 missed their own findings):** `.claude/workflows/deep-audit.js` now (1) injects a `DEFERRED_BY_DESIGN` list into every agent so settled items are refuted not re-litigated; (2) instructs finders to sweep EVERY site of a pattern (the incomplete-fix lesson); (3) has a `tests-run` dimension that actually executes pytest (both rounds shipped a stale test a single run would have caught); (4) pins authoritative counts into synthesis (a prior synth hallucinated "36 findings"); (5) echoes `argsRound` at startup (the args-propagation papercut). Now 15 dimensions, node-syntax-validated, `ROUND` default→3.
 
 Notable decisions:
-- Checkpoint-saved after Phase 2 (a clean seam) before the more invasive Phase 3, which touches `epub_working` splice logic and needs regen + `git diff` byte-stability proofs. The `deep-audit.js` `ROUND→2` engine edit rides in this commit.
-- H5 `ex.py`→`exo` (#4/#5), `aes` ch11–16 (#14-class), and M8 compresslevel stay DEFERRED-by-design — their re-surfacing in round 2 is expected, not a convergence failure.
+- Checkpoint-saved after Phase 2 (commit `b1a39485`) before the build-path Phase 3; this commit carries P3–P6 + the engine upgrade + the memory sync.
+- H5 `ex.py`→`exo` (#4/#5), `aes` ch11–16, M8 compresslevel, and the two perf-hoist optimizations (filter_html / _resolve_popup_languages) stay DEFERRED-by-design — their re-surfacing in round 2 is expected, not a convergence failure. The engine now feeds these to future rounds so they're refuted, not re-reported.
 
-Retrospective (§12 trigger — incomplete-fix recurrence):
-- **#3 re-surfaced because round-1's fix was applied to one of two sibling `except SyntaxError` sites.** Lesson: when a fix targets a pattern (here: silent SyntaxError drops), grep ALL occurrences and fix the class, not just the flagged line. The mint-9 guard test now exercises the post-splice path directly so a future regression there fails loudly.
+Retrospective (§12 — incomplete-fix recurrence, codified):
+- **#3 re-surfaced because round-1 fixed 1 of 2 sibling `except SyntaxError` sites; a guard test went stale because a refactor moved the code it scanned.** Codified as the cross-session memory `fix-the-class-not-the-instance` AND enforced in the audit engine (sibling-sweep + tests-run). Lesson: when a fix targets a pattern, grep ALL sites; root-cause beneath the symptom; re-home tests after a refactor; run the suite before declaring clean.
+- **Cross-session memory synced** to the new system: new `fix-the-class-not-the-instance`; updated the deep-audit-tool, bookcode (12-map lint), W-W1 (commit-time lint), bootstrap/terse/sources/MEMORY (the roadmap was renamed `PLAN_2026-05-29-roadmap.md` at mint-2 — 4 memories still named the archived end-scope plan), and project_overview (stale counts).
 
 Continuity pointers:
 - `docs/superpowers/plans/2026-05-31-mint-9-fixes-plan.md` (the 6-phase plan)
-- §9 "self-upgrading matrix" (defect-found ≠ defect-prevented — the new guard test)
+- §9 "self-upgrading matrix" (defect-found ≠ defect-prevented); memory `fix-the-class-not-the-instance`
+- NEXT: deep-audit round 3 (engine `ROUND`→3) + the 4 approved local Claude-setup items (auto-format hook · truth-gate Stop hook · `/save`+`/audit` commands · Layer-1 doctrine doc).
 
 ## 2026-05-31 — mint-8 deep-audit round 1 (reusable engine built + run; findings + fixes plan synthesized)
 

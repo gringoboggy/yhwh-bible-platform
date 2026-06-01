@@ -438,6 +438,44 @@ def enabled_kind_codes(edition: dict, all_kinds) -> set[str]:
     return out
 
 
+def category_baseline_kinds(edition: dict, all_kinds) -> set[str]:
+    """The set of kinds a save-edition operation should treat as the BASELINE:
+    every kind whose `category` is enabled AND which survives the phase + AI
+    gates — but WITHOUT the explicit `enabled_kinds`/`disabled_kinds` layer
+    (that layer is exactly what the save operation is recomputing).
+
+    `api_save_edition` diffs the user's toggled set against this baseline to
+    derive the explicit enable/disable lists. The baseline MUST be phase- and
+    AI-gated (mint-9 #12): a `max_phase: phase2` edition never ships — nor shows
+    in the UI — a phase3 kind, so such a kind must not fall into the computed
+    `disabled_kinds`. Mirrors gates 2+3 of `enabled_kind_codes`, omitting gates
+    1 and the explicit-enable half of gate 4.
+
+    Raises ValueError on an unknown `max_phase` (same contract as
+    `enabled_kind_codes`).
+    """
+    enabled_cats = set(edition.get("enabled_categories") or [])
+    allow_ai = bool(edition.get("enable_ai_notes"))
+
+    max_phase = edition.get("max_phase")
+    if max_phase and max_phase not in _PHASE_ORDER:
+        raise ValueError(f"edition {edition.get('id')!r}: unknown max_phase {max_phase!r}")
+    max_idx = _PHASE_ORDER[max_phase] if max_phase else max(_PHASE_ORDER.values())
+
+    out: set[str] = set()
+    for k in all_kinds:
+        code = k.get("code")
+        if k.get("category") not in enabled_cats:
+            continue
+        phase = k.get("phase", "legacy")
+        if phase != "legacy" and _PHASE_ORDER.get(phase, 99) > max_idx:
+            continue
+        if code in AI_DRAFTED_KINDS and not allow_ai:
+            continue
+        out.add(code)
+    return out
+
+
 def _kinds_in_edition(edition_id):
     """Return list of kind dicts visible in a given edition profile.
 

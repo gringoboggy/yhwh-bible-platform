@@ -543,7 +543,7 @@ def rebuild(*, force: bool = False) -> dict:
         ``{rebuilt: bool, fingerprint: str, note_count: int,
         elapsed_ms: float}``
     """
-    global _FINGERPRINT_CACHE
+    global _FINGERPRINT_CACHE, _CACHED_CONN, _CACHED_CONN_PATH
     t0 = time.perf_counter()
     fp = _compute_fingerprint_cached()
     fp_path = _fingerprint_path()
@@ -599,15 +599,20 @@ def rebuild(*, force: bool = False) -> dict:
         # when the resolved path is monkeypatched by tests.
         _FINGERPRINT_CACHE = (time.monotonic(), fp, str(_notes_dir()))
 
-    # Reset any cached connection — it points at the old file now.
-    global _CACHED_CONN, _CACHED_CONN_PATH
-    if _CACHED_CONN is not None:
-        try:
-            _CACHED_CONN.close()
-        except sqlite3.Error:
-            pass
-        _CACHED_CONN = None
-        _CACHED_CONN_PATH = None
+        # Reset any cached connection — it points at the old file now.
+        # mint-9 #20: this MUST be inside the rebuild lock. Under the
+        # ThreadingHTTPServer a worker thread can be inside connection()
+        # between its `_CACHED_CONN is not None` check and its `.execute()`;
+        # closing the conn here without the lock raced that read and could
+        # surface a sqlite3.ProgrammingError on a closed connection. The lock
+        # serialises the reset against connection()'s own rebuild() call.
+        if _CACHED_CONN is not None:
+            try:
+                _CACHED_CONN.close()
+            except sqlite3.Error:
+                pass
+            _CACHED_CONN = None
+            _CACHED_CONN_PATH = None
 
     return {
         "rebuilt": True,

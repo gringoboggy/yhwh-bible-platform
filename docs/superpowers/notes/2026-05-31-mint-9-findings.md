@@ -1,8 +1,18 @@
 # mint-9 deep-audit — Round 2 (convergence re-audit) findings
 
-**Status:** Round-2 audit COMPLETE (record/reference). Convergence loop: NOT converged — 45 survivors. Phased plan → `../plans/2026-05-31-mint-9-fixes-plan.md`. Raw: `2026-05-31-mint-9-audit-raw.json`.
+**Status:** Round-2 audit COMPLETE; fixes Phases 1–6 SHIPPED (2026-06-01). Convergence loop: NOT converged at round 2 (45 survivors) → fixed → engine upgraded → round 3 pending. Phased plan → `../plans/2026-05-31-mint-9-fixes-plan.md`. Raw: `2026-05-31-mint-9-audit-raw.json`.
 
 > Generated 2026-05-31 by `.claude/workflows/deep-audit.js` round 2 (depth=deep, 14 dimensions). Run: **99 agents · ~4.67M subagent tokens · ~3.2 h** (`wf_e5e7a0d6-24a`).
+
+## ⚙ Engine meta-improvements applied after round 2 (the convergence loop improving its own tool)
+
+Round 2 exposed five ways the audit engine missed/half-implemented its own findings across rounds 1–2. All five are now fixed in `.claude/workflows/deep-audit.js` (now **15 dimensions**, node-syntax-validated):
+
+1. **Prior-round memory** — a `DEFERRED_BY_DESIGN` list (ex.py→exo, the aes ch11–16 residual, the declined compresslevel, the web.py/CSRF de-scopes) is injected into every agent's preamble; verifiers now refute a finding that merely re-raises a settled item. (Both rounds re-litigated these.)
+2. **Sibling-site sweep** — finders are instructed to grep EVERY occurrence of a flagged pattern and report the whole class, not the first site. (Round-1 #12/#3 re-surfaced because only 1 of 2 identical `except SyntaxError` sites was fixed.)
+3. **A `tests-run` dimension that actually executes pytest** — both rounds shipped a STALE test a single test run would have caught (`test_changelog_documents_omega20b` after the CHANGELOG month-roll; the `ch_count` source-scan after the at_scale_base refactor). Source-reading finders can't see a red test.
+4. **Authoritative counts in synthesis** — the synth exec-summary hallucinated "36 findings/5 high" for the real survivor set; the real counts are now pinned into the synth prompt with a "do not recompute" instruction.
+5. **Args-propagation visibility** — a startup `log()` echoes `argsRound` so it's obvious whether `args` propagated or the in-file defaults are running (the long-standing papercut that forces the in-file `ROUND` bump).
 
 > **66 deduped → 45 survivors / 21 refuted.** Severity (calibrated): high 6 · medium 8 · low 25 · info 6.
 

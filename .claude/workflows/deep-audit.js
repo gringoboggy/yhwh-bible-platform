@@ -1,11 +1,11 @@
 export const meta = {
   name: 'deep-audit',
-  description: 'Deep multi-agent audit: find -> adversarially verify -> synthesize (reusable, parameterized)',
-  whenToUse: 'Run a deep, broad codebase audit to convergence. Args: {dimensions?, scope?, depth?:normal|deep, round?, repo?, now?}. Each finding is independently refuted before it counts. Used by the mint-N convergence loop.',
+  description: 'Deep multi-agent audit: find -> adversarially verify -> synthesize (reusable, parameterized; carries prior-round memory + runs the test suite)',
+  whenToUse: 'Run a deep, broad codebase audit to convergence. Args: {dimensions?, scope?, depth?:normal|deep, round?, repo?, now?, deferred?:string[], priorSurvivors?:string[]}. Each finding is independently refuted before it counts; settled/deferred-by-design items are fed in so they are not re-litigated; one dimension actually RUNS pytest. Used by the mint-N convergence loop. NOTE: if invoked by name and args do not propagate, the in-file ROUND/NOW/DEFERRED defaults are what run — bump them in-file (the startup log echoes argsRound to confirm).',
   phases: [
-    { title: 'Find', detail: 'Per dimension, fan out read-only finder agents -> structured findings' },
-    { title: 'Verify', detail: 'Per finding, adversarial skeptics prompted to REFUTE (default-refuted)' },
-    { title: 'Synthesize', detail: 'Dedup, severity-calibrate, phased fixes plan + completeness critic' },
+    { title: 'Find', detail: 'Per dimension (incl. a tests-run dimension that executes pytest), fan out read-only finder agents -> structured findings' },
+    { title: 'Verify', detail: 'Per finding, adversarial skeptics prompted to REFUTE (default-refuted); a finding that re-raises a deferred-by-design item is refuted' },
+    { title: 'Synthesize', detail: 'Dedup, severity-calibrate, phased fixes plan (with authoritative counts) + completeness critic' },
   ],
 }
 
@@ -14,10 +14,28 @@ export const meta = {
 // ----------------------------------------------------------------------------
 const REPO = args?.repo ?? 'YHWH v2.4'            // repo root, relative to the session cwd
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 2
-const NOW = args?.now ?? '2026-05-31'             // Date.now() is unavailable in scripts; stamp via args
+const ROUND = args?.round ?? 3
+const NOW = args?.now ?? '2026-06-01'             // Date.now() is unavailable in scripts; stamp via args
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
+
+// ----------------------------------------------------------------------------
+// PRIOR-ROUND MEMORY (mint-9 engine upgrade — convergence loops must not
+// re-litigate settled decisions). Two failure modes the first two rounds hit:
+//   (1) deferred-BY-DESIGN items kept re-surfacing as "new" findings every round
+//       (ex.py->exo, the aes ch11-16 residual, the declined compresslevel), and
+//   (2) an incomplete fix re-surfaced because round-1 patched 1 of 2 sibling
+//       sites and the finder only ever reported the single instance, not the class.
+// Feed both as explicit context so verifiers down-rank settled items and finders
+// sweep ALL sites of a pattern. Override via args.deferred / args.priorSurvivors.
+// ----------------------------------------------------------------------------
+const DEFERRED_BY_DESIGN = args?.deferred ?? [
+  'ex.py -> exo.py rename for the 4 Tewahedo translation stores (geez/amharic + -en): DEFERRED to the tau.G standalone-build wiring. The data is latent (no live consumer until the standalone editions are wired). Do NOT propose the rename now; an additive _book_path alias is the only acceptable early action, and even that is optional. Re-flagging the rename as a NEW finding is wrong.',
+  'aes (Esther-Greek-additions) notes at KJV chapters 11-16 are uninjectable because the base HTML only renders chapters 1-10: this is a PARKED known-residual (roadmap "Parked / known-residual"), editorial not mechanical, guarded by html_chapter_count at the promote boundary. Re-flagging it as a NEW bug is wrong.',
+  'zip compresslevel 9->6: DECLINED on the merits (enlarges every EPUB 1-3% to save ~30s/build; quality output > build speed). Do NOT re-propose it.',
+  'Splitting scripts/web.py or scripts/build_edition.py for size alone: DECLINED (large files of small cohesive functions). CSRF / rate-limiting / public-server hardening: OUT OF SCOPE (single-user local app).',
+]
+const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
 
 // ----------------------------------------------------------------------------
 // Schemas (validated at the tool layer; the agent retries on mismatch)
@@ -89,8 +107,11 @@ Fast orientation (read what you need):
 - ${REPO}/dev/MATRIX_MAP.md   = data-flow map (config -> loaders -> matrix/build/inject -> consumers) + the base-HTML structure. Use this to find where things live; never grep blind.
 - ${REPO}/dev/REPO_MAP.md     = file/folder index.
 - ${REPO}/dev/CLAUDE_PROJECT_RULES.md = conventions (S7 code: lru_cache discipline, ast.literal_eval-not-exec, atomic writes; S6 UI: canonical book/chapter order; S8 tests; S9 mental models).
-- ${REPO}/dev/SESSION_STATE.md = current snapshot (mint-7 just shipped; mint-8 = this audit).
+- ${REPO}/dev/SESSION_STATE.md = current snapshot (read it for what just shipped; this is deep-audit round ${ROUND}).
 
+ALREADY-SETTLED / DEFERRED-BY-DESIGN (round ${ROUND} runs AFTER prior rounds' fixes — do NOT re-report these as new findings; a verifier MUST refute a finding that merely re-raises one of them):
+${DEFERRED_BY_DESIGN.map((d, i) => `  ${i + 1}. ${d}`).join('\n')}
+${PRIOR_SURVIVOR_TITLES.length ? `Prior-round findings already FIXED (confirm the fix held; only report a REGRESSION, not the original):\n${PRIOR_SURVIVOR_TITLES.map((t) => `  - ${t}`).join('\n')}\n` : ''}
 PROJECT FACTS (so you do not mis-flag intended design):
 - Single-user LOCAL desktop app. OUT OF SCOPE (do NOT flag): CSRF, rate-limiting, public-server / hosting hardening, multi-tenant auth.
 - KEEP PYTHON; NO database (data-as-Python-tuples is deliberate); do NOT propose splitting scripts/web.py or scripts/build_edition.py for size alone (large files of small cohesive functions).
@@ -101,7 +122,9 @@ OFF-LIMITS MARATHON CORE (read-only context — never propose edits that touch t
   scripts/build_standalone.py, scripts/core/manuscript_*.py, scripts/core/po_vision_store.py,
   content/manuscript/**, content/translations/sources/patrologia/**, GAPS/.
 
-OUTPUT DISCIPLINE: report only MATERIAL findings; do not pad with style nits or restate the de-scoped items above. Every finding needs file + line + a quoted snippet as evidence and a concrete fix. Prefer fewer, real, high-confidence findings over a long shallow list.`
+SWEEP THE WHOLE CLASS, NOT ONE SITE (load-bearing — a prior round shipped an incomplete fix because a finder reported ONE of two identical sites): when you find a defect that follows a PATTERN (a missing guard, a wrong key, a missing kwarg, a bad regex, an un-escaped interpolation), grep the repo for EVERY other occurrence of that same pattern and either fold them into ONE finding listing all sites, or file one finding per site. Never report just the first instance and stop. State in the evidence how many sites you checked and which.
+
+OUTPUT DISCIPLINE: report only MATERIAL findings; do not pad with style nits or restate the de-scoped / already-settled items above. Every finding needs file + line + a quoted snippet as evidence and a concrete fix. Prefer fewer, real, high-confidence findings over a long shallow list.`
 
 // ----------------------------------------------------------------------------
 // Dimensions (the default mint-8 set; override via args.dimensions)
@@ -151,6 +174,21 @@ const DEFAULT_DIMENSIONS = [
   {
     key: 'marathon-boundary', kind: 'guard', finders: 1,
     prompt: `GUARD CHECK (not a bug hunt). Verify the off-limits Ge'ez marathon core was NOT altered by the recent mint cleanup/audit commits. Off-limits: scripts/build_standalone.py, scripts/core/manuscript_*.py, scripts/core/po_vision_store.py, content/manuscript/**, content/translations/sources/patrologia/**, GAPS/. Use Bash: run "git -C '${REPO}' log --oneline -25 -- <each path>" and "git -C '${REPO}' status". Report a finding ONLY if a recent mint/audit commit touched the core unexpectedly OR the core has an outright internal inconsistency (e.g. a crash). Otherwise return an EMPTY findings list.`,
+  },
+  {
+    // mint-9 engine upgrade: ACTUALLY RUN THE TESTS. Rounds 1-2 each shipped a
+    // STALE test that a single pytest run would have caught (a guard scanning a
+    // file for a literal that had moved; a test reading the live CHANGELOG after
+    // a month-roll). Source-reading finders can't see a red test — execute them.
+    key: 'tests-run', kind: 'guard', finders: 1,
+    prompt: `EXECUTE THE TEST SUITE (not a source read — actually run pytest) and report every FAILURE or ERROR as a finding. This catches stale/broken tests that source-scanning misses (e.g. a guard that scans a file for a literal that moved during a refactor; a test asserting on a doc that was month-rolled).
+
+Run from the repo with the project's interpreter + env. Use Bash, one shard at a time to stay under memory limits (RULES: PYTHONUTF8=1, full pythoncore path, --basetemp under %LOCALAPPDATA%). Suggested fast pass (deselect the slow build tests):
+  cd "${REPO}"; set PYTHONUTF8=1; set PYTHONPATH=<repo abs path>
+  <pythoncore>/python.exe -m pytest tests/ -q -p no:cacheprovider -m "not slow" -x --basetemp="C:/Users/bogda/AppData/Local/Temp/yhwh-pytest/audit" 2>&1 | tail -40
+If a single -x run trips early, note the failure, then continue the rest with --deselect or by running the remaining files so you surface ALL failures, not just the first. (If the environment cannot run pytest at all, say so in ONE finding and stop — do not fabricate pass/fail.)
+
+For EACH failing/erroring test produce a finding: severity = high if it indicates a real code regression, medium if it is a STALE test (assertion drifted from reality — the code is right, the test is wrong), low for a flaky/env issue; file = the test file:line; evidence = the assertion + the actual vs expected; fix = correct the code OR update the stale test (say which). If the whole suite passes, return an EMPTY findings list (that is the success signal for this dimension).`,
   },
   // ---- OPTIMIZATION dimension (approach re-evaluation; targets the PROJECT'S WORK, not meta-tooling/env) ----
   {
@@ -246,7 +284,10 @@ Read the cited file/region. Check: (a) does the code actually do what the eviden
 // FIND + VERIFY pipeline (pipeline = each dimension verifies as soon as it is found;
 // no barrier between Find and Verify across dimensions)
 // ----------------------------------------------------------------------------
-log(`deep-audit round ${ROUND} | depth=${DEPTH} | ${DIMENSIONS.length} dimensions | repo=${REPO}`)
+// Startup param echo — makes it visible whether args propagated (the known
+// papercut: a named Workflow({name}) invocation may not pass args, so the
+// in-file defaults are what actually run; check this line to confirm).
+log(`deep-audit round ${ROUND} | depth=${DEPTH} | ${DIMENSIONS.length} dimensions | repo=${REPO} | argsRound=${args?.round ?? '(default)'} | deferred=${DEFERRED_BY_DESIGN.length}`)
 
 async function findDim(dim) {
   const n = finderCount(dim)
@@ -323,10 +364,15 @@ const optSurv = survForPlan.filter((f) => f.kind === 'optimization')
 
 let fixesPlanMarkdown = 'No surviving findings — nothing to plan.'
 if (survForPlan.length) {
+  const sevTally = survivors.reduce((a, f) => { a[f.finalSeverity] = (a[f.finalSeverity] || 0) + 1; return a }, {})
+  const COUNT_LINE = `ROUND ${ROUND}: ${verified.length} deduped findings -> ${survivors.length} verified survivors / ${dropped.length} refuted. By severity: ${JSON.stringify(sevTally)}. Bug/correctness/etc = ${bugSurv.length}; optimization = ${optSurv.length}.`
   fixesPlanMarkdown = await agent(
     `${PREAMBLE}
 
 You are SYNTHESIZING a phased fixes plan from the VERIFIED audit findings below (each already survived adversarial refutation). Write a concise, actionable Markdown plan — no preamble fluff.
+
+AUTHORITATIVE COUNTS (use these EXACT numbers in the executive summary — do NOT recompute or estimate your own totals; a prior synth hallucinated "36 findings" for a 57-survivor set):
+${COUNT_LINE}
 
 VERIFIED BUG/CORRECTNESS/SECURITY/DEBT/TEST/DOC FINDINGS (JSON):
 ${JSON.stringify(bugSurv, null, 1)}
@@ -335,7 +381,7 @@ VERIFIED OPTIMIZATION RECOMMENDATIONS (JSON):
 ${JSON.stringify(optSurv, null, 1)}
 
 Produce Markdown with these sections:
-1. "## Executive summary" — 3-5 sentences: how many findings, the most serious, overall codebase health.
+1. "## Executive summary" — 3-5 sentences using the AUTHORITATIVE COUNTS verbatim: how many findings, the most serious, overall codebase health.
 2. "## Phased fixes" — group the bug findings into phases ordered SAFEST/MOST-FOUNDATIONAL FIRST (additive + guard-adding before behavior-changing; security + silent-data-loss high priority). For each finding: a checkbox line with severity, title, file:line, the (corrected) fix, the test/guard to add, and whether it touches the build path (=> byte-stability proof obligation). Prefer a commit-time lint_rules check over a pytest-only guard for invariants that recur every ingest.
 3. "## Optimization decisions" — a table: Area | Verdict (confirmed-optimal / change) | Recommendation. Keep the marathon-core off-limits and the no-paid-API + byte-stability constraints explicit.
 4. "## Constraints carried" — never touch the marathon core; 9 KJV editions byte-stable; additive schema; atomic writes; 5-leg save per phase.

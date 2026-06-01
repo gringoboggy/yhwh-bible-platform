@@ -56,11 +56,9 @@ from scripts.core.manuscript_self_check import (  # noqa: E402
     screen_witness_for_class_failures,
 )
 
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RED = "\033[91m"
-DIM = "\033[2m"
-RESET = "\033[0m"
+# mint-9 #19: ANSI colour constants from the shared at_scale_base (driver, not
+# core); this driver also needs YELLOW.
+from scripts.core.at_scale_base import DIM, GREEN, RED, RESET, YELLOW  # noqa: E402
 
 _REVIEWER_CONTEXT = REPO_ROOT / "content" / "manuscript" / "_reviewer_context"
 

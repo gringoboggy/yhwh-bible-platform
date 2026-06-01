@@ -64,8 +64,8 @@ def test_driver_kings_track_accounting():
     assert rep["chapters_total"] == 47
     # Accounting invariants that hold throughout the marathon.
     assert rep["chapters_pending"] + rep["chapters_collated"] == 47
-    assert rep["chapters_collated"] >= 0
     # Positive pin: 1ki:1 is calibrated+collatable now, so at least one collated.
+    # (mint-9 #39: the prior `>= 0` line was redundant — this `>= 1` subsumes it.)
     assert rep["chapters_collated"] >= 1
     # Subset, not equality: a book drops out once all its chapters finish.
     assert {x["book"] for x in rep["pending_needs_transcription"]} <= {"1ki", "2ki"}

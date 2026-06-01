@@ -55,7 +55,22 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         except Exception:
             existing = []
 
-    new_dicts = [candidate_to_dict(c, len(existing) + i) for i, c in enumerate(candidates, start=1)]
+    # mint-9 #9: dedup against existing + within-run on (verse, kind, draft_body),
+    # mirroring run_kenyon_at_scale — a re-run before promote no longer appends
+    # byte-identical duplicate candidates.
+    seen = {(c.get("verse"), c.get("kind"), c.get("draft_body")) for c in existing}
+    new_dicts = []
+    next_idx = len(existing) + 1
+    for c in candidates:
+        d = candidate_to_dict(c, next_idx)
+        key = (d["verse"], d["kind"], d["draft_body"])
+        if key in seen:
+            continue
+        seen.add(key)
+        new_dicts.append(d)
+        next_idx += 1
+    if not new_dicts:
+        return None  # idempotent: nothing new to add
     payload = {
         "book": book,
         "chapter": chapter,

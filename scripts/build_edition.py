@@ -89,12 +89,17 @@ from scripts.matter_pages import (  # noqa: E402, F401
 
 EPUB_DIR = REPO_ROOT / "epub_working"
 
-GREEN = "\033[92m"
-RED = "\033[91m"
-YELLOW = "\033[93m"
-DIM = "\033[2m"
-BOLD = "\033[1m"
-RESET = "\033[0m"
+# mint-9 #18: ANSI colour constants live in scripts.core.ui — import (not
+# redefine) the single source of truth. Re-exported here (noqa: F401) so
+# existing `from scripts.build_edition import GREEN` callers keep working.
+from scripts.core.ui import (  # noqa: E402, F401
+    BOLD,
+    DIM,
+    GREEN,
+    RED,
+    RESET,
+    YELLOW,
+)
 
 
 # ----------------------------------------------------------------------
@@ -1964,6 +1969,11 @@ def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path |
     sources.append(EPUB_DIR / "stylesheet.css")
     sources.append(REPO_ROOT / "content" / "editions.yaml")
     sources.append(REPO_ROOT / "scripts" / "build_edition.py")
+    # mint-9 (opt): the notes corpus also feeds the build (filter/attribution),
+    # so a notes edit must invalidate a cached build. Watch every notes/*.py too
+    # or a direct `build_edition.py` run after editing notes serves a stale EPUB.
+    # Additive + conservative — it can only ever force a (correct) rebuild.
+    sources.extend((REPO_ROOT / "content" / "notes").glob("*.py"))
     for s in sources:
         if s.is_file() and s.stat().st_mtime > out_mtime:
             return None
@@ -2170,32 +2180,44 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         for f in tmp.glob("*.html"):
             text = f.read_text(encoding="utf-8")
 
+            # mint-9 #21/#22: count only links we actually STRIP, not every match.
+            # subn's return value is the total match count, but _check_anchor /
+            # _check_file_only leave kept links unchanged (return m.group(0)), so
+            # `+= n1` overcounted cross_refs_stripped by every surviving link.
+            # nonlocal counters incremented only on the strip branches fix the
+            # stat without touching the output bytes.
+            stripped_here = 0
+
             def _check_anchor(m: re.Match, fname: str = f.name) -> str:
+                nonlocal stripped_here
                 target_file, anchor, visible = m.group(1), m.group(2), m.group(3)
                 # Resolve target file: empty = same file
                 target = target_file if target_file else fname
                 if target not in id_inventory:
                     # File was dropped — strip wrapper
+                    stripped_here += 1
                     return visible
                 if anchor not in id_inventory[target]:
                     # Anchor was spliced out — strip wrapper
+                    stripped_here += 1
                     return visible
                 return m.group(0)
 
-            new_text, n1 = link_re.subn(_check_anchor, text)
-            stats["cross_refs_stripped"] += n1
+            new_text, _n1 = link_re.subn(_check_anchor, text)
 
             def _check_file_only(m: re.Match, fname: str = f.name) -> str:
+                nonlocal stripped_here
                 target_file, visible = m.group(1), m.group(2)
                 # Skip non-html refs (mailto, http, etc.)
                 if not target_file.endswith(".html") and not target_file.endswith(".xhtml"):
                     return m.group(0)
                 if target_file not in id_inventory and target_file != fname:
+                    stripped_here += 1
                     return visible  # strip
                 return m.group(0)
 
-            new_text2, n2 = file_only_re.subn(_check_file_only, new_text)
-            stats["cross_refs_stripped"] += n2
+            new_text2, _n2 = file_only_re.subn(_check_file_only, new_text)
+            stats["cross_refs_stripped"] += stripped_here
 
             if new_text2 != text:
                 f.write_text(new_text2, encoding="utf-8")
@@ -2999,11 +3021,22 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
-        # Inject per-edition copyright/credits page
-        inject_copyright_page(tmp, edition, version)
+        # Inject per-edition copyright/credits page.
+        # mint-9 #8: the matter pages print a note count from the matrix, which
+        # applies the kind+canon filter but NOT the tradition/time ref-id
+        # filters. When this edition actually strips notes via those filters,
+        # pass the corrected count so the printed total matches what ships.
+        # disabled_html_ref_ids is empty for every standard / 9 KJV edition →
+        # override stays None → byte-identical matter pages (back-compat).
+        _annot_override: int | None = None
+        if disabled_html_ref_ids:
+            from scripts.core import matrix as _matrix
+
+            _annot_override = _matrix.total_for_edition(edition_id) - len(disabled_html_ref_ids)
+        inject_copyright_page(tmp, edition, version, annotation_count_override=_annot_override)
         inject_dedication_page(tmp, edition, version)
         inject_symbol_legend_page(tmp, edition, version)
-        inject_about_page(tmp, edition, version)
+        inject_about_page(tmp, edition, version, annotation_count_override=_annot_override)
         inject_back_matter(tmp, edition, version, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op

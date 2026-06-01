@@ -14,9 +14,9 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 169 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 182 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
-| `docs/superpowers/` | ✅ | `plans/` (23 implementation plans) + `specs/` (16 design specs) for the manuscript/ingest workstreams. |
+| `docs/superpowers/` | ✅ | `plans/` (27 implementation plans) + `specs/` (16 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
 | `assets/icons/` | ✅ | App icons (PyWebView/desktop): `icon_{16..1024}.png`, `.ico`. |
 | `GAPS/` | ✅ (large) | Ge'ez gap-fill **manuscript images** (Cambridge MS Add. 1570: 1 Samuel ~155, 2 Kings ~42, + `-hires` crops) + PD **PDFs** (Patrologia Orientalis: Chronicles/Ezra-Neh/Esther/Job). Source material for the manuscript-collation track (NOT built into EPUBs). See memory `reference_gaps_folder`. |
@@ -45,7 +45,7 @@
 
 ## dev/  — docs + state
 
-- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this).
+- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this), `SESSION_PLAYBOOK.md` (session lifecycle + verification-gate commands).
 - **`AUDIT_*.md`** — dated audit reports. **`SCOPE_*.md`** — scope decisions/addenda.
 - **`*.py`** — `trace_matrix.py` (matrix integrity tracer), `trace_repo.py` (this map's structural tracer / anti-rot check).
 - **`archive/`** — superseded plans (`PLAN_2026-05-07/08/09`, `PLAN_2026-05-21`, `PLAN_2026-05-24-end-scope`) + `ship_scripts/` (21 one-shot ship scripts) + old handoffs.
