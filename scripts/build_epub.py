@@ -142,19 +142,21 @@ def build(epub_dir: Path, out_path: Path, *, bump: bool) -> None:
 
     with zipfile.ZipFile(out_path, "w", allowZip64=False) as zf:
         # mimetype must be first AND uncompressed for EPUB validation.
-        zf.write(
-            epub_dir / "mimetype",
-            arcname="mimetype",
-            compress_type=zipfile.ZIP_STORED,
-        )
+        # Pin date_time to the zip epoch minimum (1980-01-01) so the
+        # central directory is reproducible across checkouts regardless
+        # of each file's on-disk mtime (M14).
+        mz = zipfile.ZipInfo("mimetype")
+        mz.date_time = (1980, 1, 1, 0, 0, 0)
+        mz.compress_type = zipfile.ZIP_STORED
+        mz.external_attr = 0o644 << 16
+        zf.writestr(mz, (epub_dir / "mimetype").read_bytes())
         for path in files:
             arcname = str(path.relative_to(epub_dir)).replace("\\", "/")
-            zf.write(
-                path,
-                arcname=arcname,
-                compress_type=zipfile.ZIP_DEFLATED,
-                compresslevel=9,
-            )
+            zi = zipfile.ZipInfo(arcname)
+            zi.date_time = (1980, 1, 1, 0, 0, 0)
+            zi.compress_type = zipfile.ZIP_DEFLATED
+            zi.external_attr = 0o644 << 16
+            zf.writestr(zi, path.read_bytes(), compresslevel=9)
 
     out_size = out_path.stat().st_size
     info(f"\nBuilt: {out_path}  ({out_size / 1024 / 1024:.2f} MB)")

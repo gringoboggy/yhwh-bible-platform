@@ -34,6 +34,8 @@ _EDITIONS = ["ethiopian-tewahedo", "catholic-study", "jewish-study"]
 # Volatile, per-build OPF fields excluded from the content digest.
 _URN_RE = re.compile(r"urn:yhwh:edition:[^<\"']+")
 _MODIFIED_RE = re.compile(r"<meta[^>]*dcterms:modified[^>]*>[^<]*</meta>")
+_DATE_RE = re.compile(r"<dc:date>[^<]*</dc:date>")
+_RIGHTS_YEAR_RE = re.compile(r"(Copyright . )\d{4}")
 
 
 def _build(ed_id: str, out_dir: Path) -> Path:
@@ -59,6 +61,8 @@ def _content_digest(epub_path: Path) -> str:
                 text = data.decode("utf-8", "replace")
                 text = _URN_RE.sub("urn:yhwh:edition:NORMALIZED", text)
                 text = _MODIFIED_RE.sub("", text)
+                text = _DATE_RE.sub("<dc:date>NORMALIZED</dc:date>", text)
+                text = _RIGHTS_YEAR_RE.sub(r"\g<1>YYYY", text)
                 data = text.encode("utf-8")
             h.update(name.encode("utf-8"))
             h.update(b"\0")

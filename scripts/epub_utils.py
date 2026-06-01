@@ -4,7 +4,6 @@ matter_pages.py. Extracted (verbatim) from build_edition.py so the matter-page
 module can reuse them without a circular import.
 """
 
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -26,15 +25,13 @@ def _resolve_publishing(edition: dict) -> dict:
     the `PUBLISHING_DEFAULTS` dict in web.py so the /publisher UI and the
     build pipeline agree on what an unset edition looks like.
     """
-    now_year = datetime.now(timezone.utc).year
-    now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     defaults = {
         "publisher_name": "Independent",
         "publisher_url": "",
-        "copyright_year": str(now_year),
+        "copyright_year": "2026",
         "copyright_holder": "",
         "copyright_notice": "All rights reserved.",
-        "publication_date": now_date,
+        "publication_date": "2026-05-14",
         "language_code": "en",
         "cover_credit": "",
         "source_text_credit": "Scripture text based on the World English Bible (public domain).",

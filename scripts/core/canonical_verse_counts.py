@@ -189,3 +189,33 @@ def canonical_total(book: str) -> int:
 def canonical_chapters(book: str) -> int:
     """Total chapter count for *book*."""
     return len(canonical_book_shape(book))
+
+
+def html_chapter_count(book: str) -> int:
+    """Number of chapters the BASE HTML actually renders for *book* — the
+    promote-time ceiling for note chapter coordinates.
+
+    Notes whose chapter exceeds this count are uninjectable: the base HTML
+    has no chapter anchor to place them against (e.g. the ``aes`` ch 11-16
+    notes — a known, PARKED residual — where the base HTML only renders the
+    first 10 chapters). This helper backs a secondary promote guard that
+    rejects FUTURE above-extent notes; it does not touch the existing parked
+    residual (no corpus scan).
+
+    Source / limitation: this module has no base-HTML chapter-extent table
+    distinct from the canonical (KJV/LXX) skeleton, so the count is derived
+    from that skeleton via ``canonical_chapters``. For most books the base
+    HTML renders the full skeleton extent, so this is an exact ceiling. For
+    the few books where the base HTML renders FEWER chapters than the
+    skeleton lists (the aes case), this returns the skeleton's (larger)
+    count — i.e. a conservative upper bound that still rejects clearly
+    out-of-canon chapters but will not, by itself, reject the parked aes
+    11-16 coords. Books with no known skeleton (Tewahedo distinctives, or an
+    unknown/test book code) have no derivable extent here and return 0, which
+    the guards treat as "unknown — do not reject" (mirroring the keep-when-
+    unknown contract of ``coord_in_canonical_extent``).
+    """
+    try:
+        return canonical_chapters(book)
+    except Exception:
+        return 0  # unknown book code — no derivable extent; guards keep

@@ -490,6 +490,7 @@ editions:
   # continue` branch).
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-geez
+    language_code: gez
     canon: ethiopian
     theme: classic
     title: "The Ge'ez Bible — Standalone Tewahedo Edition"
@@ -531,6 +532,7 @@ editions:
   # (cited to that source); no reconstruction of the Amharic column.
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-amharic
+    language_code: amh
     canon: ethiopian
     theme: classic
     title: "The Amharic Bible — Standalone Tewahedo Edition"

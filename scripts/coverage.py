@@ -141,7 +141,10 @@ def count_injected(book):
         return 0, {}
     code = book["code"]
     id_prefix = book.get("id_prefix") or code
-    pat = re.compile(rf'id="note-{re.escape(id_prefix)}(\d{{2}})(\d{{2}})([a-z]?)"')
+    # Chapter group is \d+ (not fixed-width) so chapters >=100 are counted, e.g.
+    # 1En 100-108: id "note-1e10001" -> ch=100, v=01. Trailing \d{2} still anchors
+    # exactly 2 verse digits. (Mirrors inject._aside_existing_re; see findings H3/M13.)
+    pat = re.compile(rf'id="note-{re.escape(id_prefix)}(\d+)(\d{{2}})([a-z]?)"')
     seen = set()
     by_chapter = Counter()
     for fname in files:

@@ -45,7 +45,10 @@ from scripts.find_anchor import load_existing_anchors  # noqa: E402
 from scripts.core.notes_io import ensure_backup, atomic_write  # noqa: E402  (Phase χ.6 fix)
 from scripts.core.html_sandbox import sandbox_ai_html  # noqa: E402  (Phase ξ.15)
 from scripts.core.matrix import AI_DRAFTED_KINDS  # noqa: E402  (Phase ξ.15)
-from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402  (coord guard)
+from scripts.core.canonical_verse_counts import (  # noqa: E402  (coord guards)
+    coord_in_canonical_extent,
+    html_chapter_count,
+)
 
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 
@@ -346,6 +349,9 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
         attribution = n.get("attribution")
         if not coord_in_canonical_extent(book_path.stem, ch, v):
             continue  # boundary guard: drop impossible coordinates (defense in depth)
+        _html_chs = html_chapter_count(book_path.stem)
+        if _html_chs and ch > _html_chs:
+            continue  # base-HTML extent guard: chapter has no anchor to inject against
         if skip_existing and body in existing_bodies.get((ch, v, kind), set()):
             continue
         used = used_suffixes.setdefault((ch, v), set())
@@ -417,6 +423,14 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     # book's canonical extent — OCR/parse noise (e.g. a detector resolving a
     # garbled reference) must not land an unplaceable note in the corpus.
     if not coord_in_canonical_extent(book, chapter, verse):
+        return False, ""
+
+    # Base-HTML extent guard: never promote a note whose chapter is beyond the
+    # number of chapters the base HTML renders for this book — such a note has
+    # no chapter anchor to inject against and is uninjectable (the aes ch11-16
+    # parked residual is the motivating case; this stops FUTURE such coords).
+    _html_chs = html_chapter_count(book)
+    if _html_chs and chapter > _html_chs:
         return False, ""
 
     # Compose attribution for the note tuple. Prefer a fully-formed

@@ -1185,7 +1185,7 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     # for cross-script content (Hebrew, Greek, Aramaic, Ge'ez transliterations
     # in editorial notes). EPUB 3 permits multiple dc:language elements.
     primary_lang = pub["language_code"] or "en"
-    bcp47 = primary_lang if "-" in primary_lang else f"{primary_lang}-US"
+    bcp47 = "en-US" if primary_lang == "en" else primary_lang
     new_text = re.sub(
         r"<dc:language>en</dc:language>",
         (

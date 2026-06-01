@@ -43,6 +43,7 @@ Modes:
 from __future__ import annotations
 
 import argparse
+import functools
 import re
 import sys
 from pathlib import Path
@@ -594,6 +595,17 @@ def ensure_notes_section_a(text: str, ch: int, bxx: str | None, after_pos: int) 
     return new_text, find_notes_section_for_chapter(new_text, ch, bxx)
 
 
+@functools.lru_cache(maxsize=256)
+def _aside_existing_re(prefix: str) -> re.Pattern:
+    """Compiled pattern matching existing aside ids ``id="note-{prefix}{cc}{vv}{s}"``.
+    The CHAPTER group is ``\\d+`` (not fixed-width) so chapters >=100 parse:
+    a trailing ``\\d{2}`` still anchors exactly 2 verse digits, e.g. id
+    ``note-1e10001`` -> ch=100, v=01. Cached per prefix (one compile each)."""
+    return re.compile(
+        r'<aside\s+class="note\s+[^"]+"\s+id="note-' + re.escape(prefix) + r'(\d+)(\d{2})([a-z]?)"',
+    )
+
+
 def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: int, suffix: str, prefix: str) -> int:
     """Inside the chapter's notes-section, find the byte offset to insert
     a new aside such that asides remain in (verse, suffix) order. Returns
@@ -603,9 +615,7 @@ def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: 
     inside_start, inside_end = section
     region = html[inside_start:inside_end]
     # All existing aside ids: id="note-{prefix}{cc}{vv}{s}"
-    existing_re = re.compile(
-        r'<aside\s+class="note\s+[^"]+"\s+id="note-' + re.escape(prefix) + r'(\d{2})(\d{2})([a-z]?)"',
-    )
+    existing_re = _aside_existing_re(prefix)
     target = (v, suffix or "")
     insertion = inside_start  # default: just inside opening tag
     for m in existing_re.finditer(region):
