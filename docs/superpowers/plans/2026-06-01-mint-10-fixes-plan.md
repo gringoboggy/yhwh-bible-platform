@@ -1,6 +1,8 @@
 # Mint-10 fixes plan — round-3 re-audit (recovered + continued)
 
-**Status:** OPEN — 49 verified survivors (4 high / 13 medium / 22 low / 10 info) from mint-10 round 3. Source: killed run `wf_ba367edc-a4a` (find phase recovered) + continuation `wf_4a2d0815-8c9` (verify + 4 missing finders + synth). 62 deduped -> 49 survived / 13 refuted. **mint-10 is the LAST audit round (no mint-11 until project end).** Implementation pending.
+**Status:** OPEN — 49 verified survivors (4 high / 13 medium / 22 low / 10 info) from mint-10 round 3. Source: killed run `wf_ba367edc-a4a` (find phase recovered) + continuation `wf_4a2d0815-8c9` (verify + 4 missing finders + synth). 62 deduped -> 49 survived / 13 refuted. **mint-10 is the LAST audit round (no mint-11 until project end).**
+
+**Implementation status:** Phase-1 *stale-test green-up* SHIPPED 2026-06-01 (11 test files: DELETE/MULTIPART/PUT route-counts 8→6 / 4→3 / 12→10; `test_omega0` un-removes the live `api/distribution.py`; `test_lint_guardrails` state-aware; `url_override` allowlist host; 7 parallel-bible `SCOPE`→`dev/archive/` paths — 579 tests green). **REMAINING (fresh session):** Phase-1's two production items (`audit_log` month-rollover chain fix · `inject` lru_cache whitelist) + Phases 2–6 (build-path byte-stability work). Pick up from the phased list below.
 
 ---
 I'll synthesize the plan directly from the verified findings provided. The data is complete and authoritative; no file reads are needed.

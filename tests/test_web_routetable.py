@@ -1060,16 +1060,14 @@ class TestOmega35A8BespokeCleanup:
         assert captured["body"] == result  # full pass-through
 
     def test_delete_table_has_eight_entries_now(self):
-        # A.8 added the 6th DELETE entry (sources/cache/<id>);
-        # ε.6 added the 7th (distribution/<edition>/<channel>);
-        # ξ.26 added the 8th (license/<edition>).
+        # A.8 added the 6th DELETE entry (sources/cache/<id>). The ε.6
+        # distribution + ξ.26 license DELETE routes were never implemented
+        # (decommercialize / scope), so the floor is 6. (mint-10: was a stale 8.)
         from scripts import web
 
-        assert len(web._DELETE_ROUTES) == 8
+        assert len(web._DELETE_ROUTES) == 6
         patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
         assert any("/sources/cache/" in p for p in patterns)
-        assert any("/distribution/" in p for p in patterns)
-        assert any("/license/" in p for p in patterns)
 
     def test_post_table_has_fourteen_entries_now(self):
         # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all),
@@ -1189,10 +1187,11 @@ class TestOmega35A9MultipartTable:
     """
 
     def test_multipart_table_has_four_entries(self):
-        # ε.3 added /api/sales/import/<channel>; previous floor was 3.
+        # ε.3's /api/sales/import/<channel> was removed in the mint-4
+        # decommercialize; the floor is 3. (mint-10: was a stale 4.)
         from scripts import web
 
-        assert len(web._MULTIPART_ROUTES) == 4
+        assert len(web._MULTIPART_ROUTES) == 3
 
     def test_multipart_table_entries_shape(self):
         # Distinct 3-tuple shape: (regex, max_bytes, handler).
@@ -1403,11 +1402,12 @@ class TestOmega35A10BespokePutCleanup:
     """
 
     def test_put_table_has_twelve_entries(self):
-        # 6 from A.5 + 3 from A.10 + 1 from ε.6 (distribution mark)
-        # + 1 from ε.7 (press-kit save) + 1 from ξ.26 (license set)
+        # A.5 + A.10 baseline + ε.7 press-kit; the ε.6 distribution-mark and
+        # ξ.26 license PUT routes were never implemented, so the floor is 10.
+        # (mint-10: corrected from a stale 12 that expected future routes.)
         from scripts import web
 
-        assert len(web._PUT_ROUTES) == 12
+        assert len(web._PUT_ROUTES) == 10
 
     def test_put_table_includes_a10_routes(self):
         from scripts import web

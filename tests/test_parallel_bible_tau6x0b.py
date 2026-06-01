@@ -69,7 +69,7 @@ class TestTau6x0bScopeDecisionBlock:
     Option D authorization + Tesseract engine choice + Tesseract-not-
     installed verification recorded."""
 
-    SCOPE_PATH = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+    SCOPE_PATH = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
 
     def test_scope_doc_exists(self):
         assert self.SCOPE_PATH.is_file(), "SCOPE doc must exist for τ.6.x.0b pin"

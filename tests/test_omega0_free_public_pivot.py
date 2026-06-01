@@ -271,9 +271,11 @@ class TestCommercialModulesRemoved:
         "scripts/build_onix.py",
         "content/onix.py",
         "scripts/core/sales.py",
-        "scripts/api/distribution.py",
         "scripts/print_cover.py",
     )
+    # NOTE (mint-10): scripts/api/distribution.py is NOT removed — it is the
+    # live mint-6 archive.org distribution console module. (It is not in KEPT
+    # either; KEPT only tracks the banner-carrying core/distribution.py.)
 
     # Kept as an archival free-distribution library — banner must remain.
     KEPT = ("scripts/core/distribution.py",)

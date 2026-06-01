@@ -649,7 +649,7 @@ class TestPi1PhaseCoverage:
     of τ.6.x.0a) and in the test inventory."""
 
     def test_scope_doc_names_pi1(self):
-        scope = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+        scope = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
         assert scope.is_file()
         text = scope.read_text(encoding="utf-8")
         assert "Π.1" in text, "Π.1.9: SCOPE doc must name Π.1"

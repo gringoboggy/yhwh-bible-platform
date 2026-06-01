@@ -685,7 +685,7 @@ class TestTau6X1ScopeWiringSection:
     wiring section with the engine semantics, render path, pre-flight
     validation, and τ.6.x.2+ unblock pointer."""
 
-    SCOPE_PATH = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+    SCOPE_PATH = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
 
     def test_section_header_present(self):
         body = self.SCOPE_PATH.read_text(encoding="utf-8")

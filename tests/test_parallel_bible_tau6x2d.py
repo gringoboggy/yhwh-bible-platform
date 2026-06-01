@@ -61,7 +61,7 @@ import yaml
 
 REPO = Path(__file__).resolve().parent.parent
 SOURCE_YAML = REPO / "content" / "translations" / "sources" / "parallel-bible-eotc" / "_source.yaml"
-SCOPE = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+SCOPE = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
 PI2_CHECKLIST = REPO / "dev" / "PI2_PRE_FLIGHT_CHECKLIST.md"
 IN_FLIGHT = REPO / "dev" / "IN_FLIGHT.md"
 SESSION_STATE = REPO / "dev" / "SESSION_STATE.md"

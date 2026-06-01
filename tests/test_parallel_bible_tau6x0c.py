@@ -310,7 +310,7 @@ class TestTau6X0cScopeAdoptionRecorded:
     """The SCOPE doc §7.5 records the τ.6.x.0c verification block
     with the script/Ethiopic adoption decision."""
 
-    SCOPE_PATH = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+    SCOPE_PATH = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
 
     def test_scope_doc_exists(self):
         assert self.SCOPE_PATH.is_file()

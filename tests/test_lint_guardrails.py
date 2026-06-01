@@ -233,9 +233,10 @@ class TestStrayArtifacts:
             lint_rules, "_git_candidate_files", lambda: ["scripts/x.py", "scratch.tmp", "dev/notes.bak"]
         )
         r = lint_rules.check_no_stray_artifacts()
-        # FAIL-tier once the tree is verified clean (_ENFORCE_STRAY_ARTIFACTS);
-        # WARN beforehand. Tier-robust: a breach is at least surfaced.
-        assert r["status"] in {"warn", "fail"}
+        # State-aware (RULES §8): FAIL once the tree is verified clean
+        # (_ENFORCE_STRAY_ARTIFACTS truthy), WARN beforehand — matches the
+        # sibling guards at 148/178/216. (mint-10: was a lax `in {warn, fail}`.)
+        assert r["status"] == ("fail" if lint_rules._ENFORCE_STRAY_ARTIFACTS else "warn")
         assert {v["stray"] for v in r["violations"]} == {"scratch.tmp", "dev/notes.bak"}
 
     def test_passes_when_clean(self, monkeypatch):

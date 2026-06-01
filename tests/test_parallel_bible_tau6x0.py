@@ -85,7 +85,7 @@ class TestTau6x0SourcePivot:
         assert "project_maccabees_expansion" in joined, "must reference publisher-supplied path"
 
     def test_scope_doc_records_pivot(self):
-        path = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+        path = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
         assert path.is_file()
         body = path.read_text(encoding="utf-8")
         assert "τ.6.x.0" in body, "SCOPE doc must reference the τ.6.x.0 audit"

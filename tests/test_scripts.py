@@ -8060,10 +8060,10 @@ class TestSourcesCacheUI:
 
         result = self.w.api_sources_cache_fetch(
             sid,
-            url_override="https://my-mirror/example.json",
+            url_override="https://ebible.org/example.json",
             fetch_fn=stub_fetch,
         )
-        assert seen_urls == ["https://my-mirror/example.json"]
+        assert seen_urls == ["https://ebible.org/example.json"]
         # ok=False because stub returned False
         assert result["ok"] is False
 

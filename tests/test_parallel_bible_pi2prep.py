@@ -48,7 +48,7 @@ REPO = Path(__file__).resolve().parent.parent
 CHECKLIST = REPO / "dev" / "PI2_PRE_FLIGHT_CHECKLIST.md"
 EDITIONS_YAML = REPO / "content" / "editions.yaml"
 CANONS_YAML = REPO / "content" / "canons.yaml"
-SCOPE_DOC = REPO / "dev" / "SCOPE_2026-05-14-parallel-bible.md"
+SCOPE_DOC = REPO / "dev" / "archive" / "SCOPE_2026-05-14-parallel-bible.md"
 
 
 def _checklist_text() -> str:
