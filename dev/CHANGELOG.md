@@ -6,6 +6,33 @@
 
 ---
 
+## 2026-06-01 — mint-9 deep-audit round 2 + fix batch (Phases 1–2; checkpoint)
+
+**Phases shipped:** mint-9 Phase 1 (silent-data-loss & filter HIGH) + Phase 2 (stale-cache & guard hardening); Phases 3–6 in progress
+**Test delta:** +15 (9 in new `tests/test_mint9_phase1.py`, 6 in `tests/test_build_cache.py::TestMint9CacheKeyCoverage`)
+**Save tag:** checkpoint (this commit)
+
+What shipped (concrete, scannable):
+- **Re-ran `deep-audit.js` round 2** (`wf_e5e7a0d6-24a`, 99 agents · ~4.67M tokens · ~3.2h): 66 deduped → **45 survivors / 21 refuted** (high 6 · med 8 · low 25 · info 6). Down from round-1's 57 → not converged; the loop continues. Artifacts: `docs/superpowers/notes/2026-05-31-mint-9-{findings.md,audit-raw.json}` + INDEXED plan `…/plans/2026-05-31-mint-9-fixes-plan.md`.
+- **Phase 1 #2** — `_iter_note_ref_traditions` / `_iter_note_ref_attribution_years` / the `disabled_note_ids` block in `build_edition.py` now fall back to `book["bxx"]` when `id_prefix` is absent (mirrors `inject.py:674-677`). Strategy-B books (2ch, man, 2es, jub, … — 73 of 87) were silently surviving every tradition/time filter because their HTML ref-ids (`ref-b13…`) never matched the disabled set. Live on `catholic-study` (uses `traditions_default`).
+- **Phase 1 #3** — `promote.batch_insert_notes`' post-splice `ast.parse` guard now LOGS before dropping (was a bare `except SyntaxError: return 0` — a silent whole-batch drop). ROOT CAUSE fixed: `format_tuple_text.py_str` now escapes backslash FIRST, so a note body with a literal `\` (Windows paths, LaTeX) no longer produces invalid Python. Re-surfaced from round-1 #12 because batch-1 fixed only the file-PARSE site, not the post-SPLICE sibling.
+- **Phase 2 #1** — `build_cache.compute_cache_key` now hashes all 7 build-pipeline scripts (`_PIPELINE_SCRIPTS`: build_edition, matter_pages, epub_utils, resync_marker_glyphs, build_epub, style_config, inject) instead of only `build_edition.py`; editing any of the others used to serve a stale cached EPUB. `apply_style` intentionally excluded (not in the build path — verified).
+- **Phase 2 #7/#17** — cache key also hashes the active theme's `content/themes/<id>.css` (read live, outside `epub_working/`) and `content/source_dates.yaml` (read by the time-filter).
+- **Phase 2 #23/#24** — `bookcode_canonical` lint now screens 3 translation-extraction maps (`versification.SWETE_BOOK_TO_CODE`, `versification._NT_BOOK_TO_CODE`, `extract_wlc_morphhb.OSIS_BOOK_TO_CODE` → 12 maps total). All canonical today; the commit-time guard blocks future legacy-alias drift in translation-file naming.
+- **Doc truth (#13/#14)** — INDEX + the mint-8 audit/fixes plan Status headers corrected to COMPLETE (the fixes shipped in batches 1–3); mint-9 fixes plan given a Status header + indexed. Coherence lint GREEN.
+- **Bonus** — fixed a pre-existing stale test: `test_build_cache.test_changelog_documents_omega20b` now reads the live CHANGELOG **+** `dev/archive/CHANGELOG*.md` (it broke silently when mint-7 month-rolled the log and ω.20-B migrated to the archive).
+
+Notable decisions:
+- Checkpoint-saved after Phase 2 (a clean seam) before the more invasive Phase 3, which touches `epub_working` splice logic and needs regen + `git diff` byte-stability proofs. The `deep-audit.js` `ROUND→2` engine edit rides in this commit.
+- H5 `ex.py`→`exo` (#4/#5), `aes` ch11–16 (#14-class), and M8 compresslevel stay DEFERRED-by-design — their re-surfacing in round 2 is expected, not a convergence failure.
+
+Retrospective (§12 trigger — incomplete-fix recurrence):
+- **#3 re-surfaced because round-1's fix was applied to one of two sibling `except SyntaxError` sites.** Lesson: when a fix targets a pattern (here: silent SyntaxError drops), grep ALL occurrences and fix the class, not just the flagged line. The mint-9 guard test now exercises the post-splice path directly so a future regression there fails loudly.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-05-31-mint-9-fixes-plan.md` (the 6-phase plan)
+- §9 "self-upgrading matrix" (defect-found ≠ defect-prevented — the new guard test)
+
 ## 2026-05-31 — mint-8 deep-audit round 1 (reusable engine built + run; findings + fixes plan synthesized)
 
 **Phases shipped:** mint-8 round 1 — audit tooling + triage ONLY (NO production-code fixes yet; deferred to next session at user direction)

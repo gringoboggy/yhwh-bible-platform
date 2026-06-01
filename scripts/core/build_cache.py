@@ -50,6 +50,25 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parent.parent.parent
 _CONTENT = _REPO / "content"
 
+# Build-pipeline source scripts whose code affects EPUB output bytes (mint-9 #1).
+# build_one() orchestrates all of these; an edit to any must invalidate the
+# content-addressable cache. Verified call edges (build_edition.py): module-level
+# imports of epub_utils + matter_pages; call-time imports of style_config (:2264),
+# resync_marker_glyphs (:2852), build_epub (:3023). resync_marker_glyphs in turn
+# imports glyph helpers from inject.py, so inject's build-time logic is included.
+# Explicit list, NOT a glob — a scripts/**/*.py glob would bust the cache on
+# unrelated test/migration edits. apply_style is intentionally absent: it is only
+# referenced in comments, never called in the build path (confirmed mint-9).
+_PIPELINE_SCRIPTS = (
+    "build_edition.py",
+    "matter_pages.py",
+    "epub_utils.py",
+    "resync_marker_glyphs.py",
+    "build_epub.py",
+    "style_config.py",
+    "inject.py",
+)
+
 
 def cache_dir_default() -> Path:
     """The project's on-disk cache root: ``<repo>/exports/.cache/``."""
@@ -168,12 +187,22 @@ def compute_cache_key(
     for name in ("kinds.yaml", "categories.yaml", "books.yaml"):
         parts.append((f"config:{name}", _hash_file(_CONTENT / name)))
 
-    # 4. themes.yaml when the edition uses one.
-    if (edition.get("theme") or "").strip():
+    # 4. themes.yaml when the edition uses one. Also hash the theme's actual
+    # CSS file: build_edition.py:2806 reads content/themes/<theme_id>.css LIVE
+    # into stylesheet.css, but it lives outside epub_working/ so item 10 misses
+    # it — without this, editing a theme's CSS serves a stale EPUB (mint-9 #7).
+    theme_id = (edition.get("theme") or "").strip()
+    if theme_id:
         parts.append(
             (
                 "themes.yaml",
                 _hash_file(_CONTENT / "themes.yaml"),
+            )
+        )
+        parts.append(
+            (
+                f"theme_css:{theme_id}",
+                _hash_file(_CONTENT / "themes" / f"{theme_id}.css"),
             )
         )
 
@@ -228,12 +257,24 @@ def compute_cache_key(
             )
 
     # 9. The build pipeline source itself — code changes invalidate.
-    parts.append(
-        (
-            "build_edition.py",
-            _hash_file(_REPO / "scripts" / "build_edition.py"),
+    # build_one orchestrates more than build_edition.py: it calls matter_pages,
+    # epub_utils, resync_marker_glyphs, style_config (theme/font application) and
+    # hands packaging to build_epub. An edit to ANY of these changes the output
+    # bytes, so all must contribute to the key or a code-only edit serves a stale
+    # cached EPUB (mint-9 #1). Explicit allow-list, NOT a scripts/**/*.py glob —
+    # a glob would spuriously bust the cache on unrelated test/migration edits.
+    for script_name in _PIPELINE_SCRIPTS:
+        parts.append(
+            (
+                f"pipeline:{script_name}",
+                _hash_file(_REPO / "scripts" / script_name),
+            )
         )
-    )
+
+    # 9b. source_dates.yaml — read by compute_time_filtered_html_ref_ids for any
+    # edition with a time_filter_ceiling; not under epub_working/, so hash it
+    # directly or a date edit serves a stale time-filtered EPUB (mint-9 #17).
+    parts.append(("source_dates.yaml", _hash_file(_CONTENT / "source_dates.yaml")))
 
     # 10. Templated EPUB input (epub_working/).
     # Recurse the whole tree (META-INF/container.xml, OEBPS/, etc.) so

@@ -4,14 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**42 documents** — 26 plans · 16 specs.
+**43 documents** — 27 plans · 16 specs.
 
-## In progress (8)
+## In progress (7)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
-| 2026-05-31 | Plan | mint-8 — Deep audit (the convergence audit) + a reusable audit tool | `plans/2026-05-31-mint-8-audit-plan.md` | ROUND 1 EXECUTED 2026-05-31 — `deep-audit.js` built + run (106 agents, 57 verified findings); fixes-plan generated; NEXT = implement fixes → re-audit |
-| 2026-05-31 | Plan | mint-8 — Phased fixes plan (execute next session) | `plans/2026-05-31-mint-8-fixes-plan.md` | synthesized 2026-05-31, ready to execute; NOT yet started — the actionable backlog from the round-1 audit (39 grouped fixes + optimization decisions) |
+| 2026-05-31 | Plan | mint-9 — Phased fixes plan (deep-audit round 2) | `plans/2026-05-31-mint-9-fixes-plan.md` | EXECUTING 2026-05-31 — round-2 re-audit found 45 survivors; Phases 1–2 shipped, 3–6 in progress; then re-audit (round 3) to convergence |
 | 2026-05-28 | Plan | Ge'ez Phase D1b — Patrologia Vision-Transcription Lane (Esther proof) Impleme… | `plans/2026-05-28-geez-patrologia-vision-plan.md` | in progress — PO Esther vision marathon paused at p28 |
 | 2026-05-28 | Plan | Ge'ez Phase D — Own-Versification Re-ingest (HaCohen lane + Wisdom proof) Imp… | `plans/2026-05-28-geez-phase-d-reingest-plan.md` | in progress — Phase D own-versification re-ingest lane |
 | 2026-05-27 | Plan | Ge'ez Own-Versification Collation & Standalone-Bible — Implementation Plan | `plans/2026-05-27-geez-own-versification-plan.md` | in progress — Phases A–C shipped; Phase D re-ingest ongoing |
@@ -41,10 +40,12 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-16 | Spec | Ge'ez external PD-source ingest — design spec | `specs/2026-05-16-geez-external-source-ingest-design.md` | design (brainstorming spec-review loop — revises the |
 | 2026-05-16 | Spec | Samuel & Kings — dual-manuscript Ge'ez collation: design spec | `specs/2026-05-16-samuel-kings-dual-manuscript-collation-design.md` | DESIGN APPROVED (brainstorming complete; pre-implementation). |
 
-## Shipped (15)
+## Shipped (17)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-05-31 | Plan | mint-8 — Deep audit (the convergence audit) + a reusable audit tool | `plans/2026-05-31-mint-8-audit-plan.md` | COMPLETE — `deep-audit.js` built + run (round 1: 106 agents, 57 verified findings); fixes shipped in batches 1–3; convergence loop continues as mint-9 |
+| 2026-05-31 | Plan | mint-8 — Phased fixes plan (round-1 audit) | `plans/2026-05-31-mint-8-fixes-plan.md` | COMPLETE — all batches 1–3 shipped (852ed8a4 / cf05d8e3 / 1ae94084); byte-gate PASSED; lint 28✓. H5 ex.py→exo + M8 compresslevel deferred-by-design |
 | 2026-05-31 | Plan | mint-7 — Quality Pass (correctness · code-debt · security · tests/hygiene) | `plans/2026-05-31-mint-7-quality-pass.md` | COMPLETE — Phases A · C · B · D · E all shipped + synced 2026-05-31 |
 | 2026-05-29 | Plan | YHWH v2.4 "Mint" Cleanup + Automated Guardrails — Implementation Plan | `plans/2026-05-29-mint-cleanup-and-guardrails.md` | COMPLETE — all Phases 0–6 shipped + synced 2026-05-31 (HEAD ad945f62) |
 | 2026-05-28 | Plan | Ge'ez→English Back-Translation (1 Kings 6 Proof) Implementation Plan | `plans/2026-05-28-geez-en-backtranslation-plan.md` | shipped — EN core for Kings/Samuel (324 v) + all 151 Psalms |

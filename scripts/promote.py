@@ -162,9 +162,13 @@ def format_tuple_text(
     # Helper: emit a Python string, preferring single quotes, escaping when
     # the string contains a single quote.
     def py_str(s: str) -> str:
-        # Escape embedded newlines so a body with a literal newline can't
-        # produce an unterminated (invalid) one-line Python string literal.
-        s = s.replace("\n", "\\n").replace("\r", "\\r")
+        # Escape backslash FIRST (mint-9 #3 root cause), then embedded newlines,
+        # so a body containing a literal "\" or newline can't produce an invalid
+        # one-line Python string literal that silently drops the whole batch
+        # (batch_insert_notes' post-splice ast.parse guard). Order matters: the
+        # backslash pass must precede the \n/\r pass or it would double-escape
+        # the escape sequences this function introduces.
+        s = s.replace("\\", "\\\\").replace("\n", "\\n").replace("\r", "\\r")
         if "'" not in s:
             return f"'{s}'"
         if '"' not in s:
@@ -388,7 +392,19 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
     new_text = "".join(lines)
     try:
         ast.parse(new_text)
-    except SyntaxError:
+    except SyntaxError as exc:
+        # Mirror the file-parse guard at the top of this function (mint-9 #3):
+        # a post-splice SyntaxError means the GENERATED tuple text is invalid
+        # (e.g. a body containing characters format_tuple_text failed to
+        # escape), so the whole valid-but-undroppable batch was being discarded
+        # SILENTLY. Log loudly before returning 0 so the drop is never invisible.
+        logging.error(
+            "batch_insert_notes: generated invalid Python for %s; dropping its %d pending note(s) "
+            "rather than corrupt the file: %s",
+            book_path,
+            len(inserts),
+            exc,
+        )
         return 0
     ensure_backup(book_path)
     atomic_write(book_path, new_text)

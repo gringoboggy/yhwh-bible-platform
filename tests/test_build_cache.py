@@ -278,6 +278,90 @@ class TestOmega20ABuildCache:
         assert d.parent.name == "exports"
 
 
+class TestMint9CacheKeyCoverage:
+    """mint-9 #1/#7/#17 — the content-addressable key must cover EVERY input
+    that affects EPUB output bytes: all build-pipeline scripts (not just
+    build_edition.py), the active theme's CSS file, and source_dates.yaml.
+    Each test mutates one such input and asserts the key shifts; pre-fix the
+    key was blind to all of them and these tests fail."""
+
+    import shutil
+
+    def _tmp_repo(self, monkeypatch, tmp_path):
+        """Build a minimal tmp repo mirroring the layout compute_cache_key
+        reads (content/* + scripts/<pipeline>.py stubs), point _REPO and
+        _CONTENT at it, and return (repo, content)."""
+        import shutil
+
+        from scripts.core import build_cache as bc
+
+        repo = tmp_path / "repo"
+        content = repo / "content"
+        scripts_dir = repo / "scripts"
+        content.mkdir(parents=True)
+        scripts_dir.mkdir()
+        for name in ("editions.yaml", "kinds.yaml", "categories.yaml", "books.yaml", "canons.yaml", "themes.yaml"):
+            src = bc._CONTENT / name
+            if src.is_file():
+                shutil.copy(src, content / name)
+        (content / "notes").mkdir()
+        (content / "translations").mkdir()
+        (content / "reading_plans").mkdir()
+        (content / "themes").mkdir()
+        (content / "source_dates.yaml").write_text("prefixes: {}\n", encoding="utf-8")
+        # Stub every pipeline script so _hash_file finds a real file.
+        for sname in bc._PIPELINE_SCRIPTS:
+            (scripts_dir / sname).write_text(f"# stub {sname}\n", encoding="utf-8")
+        monkeypatch.setattr(bc, "_REPO", repo)
+        monkeypatch.setattr(bc, "_CONTENT", content)
+        return repo, content
+
+    def test_key_changes_when_each_pipeline_script_changes(self, monkeypatch, tmp_path):
+        from scripts.core import build_cache as bc
+
+        repo, _content = self._tmp_repo(monkeypatch, tmp_path)
+        for sname in bc._PIPELINE_SCRIPTS:
+            baseline = bc.compute_cache_key("ethiopian-tewahedo")
+            p = repo / "scripts" / sname
+            p.write_text(p.read_text(encoding="utf-8") + f"\n# bust {sname}\n", encoding="utf-8")
+            mutated = bc.compute_cache_key("ethiopian-tewahedo")
+            assert baseline != mutated, f"editing scripts/{sname} did not invalidate the cache key"
+
+    def test_pipeline_scripts_includes_matter_pages_and_build_epub(self):
+        # The whole point of #1: the cache once hashed ONLY build_edition.py.
+        from scripts.core import build_cache as bc
+
+        for required in ("build_edition.py", "matter_pages.py", "epub_utils.py", "build_epub.py"):
+            assert required in bc._PIPELINE_SCRIPTS
+
+    def test_key_changes_when_theme_css_changes(self, monkeypatch, tmp_path):
+        from scripts.core import build_cache as bc
+        from scripts.core import config as _config
+
+        repo, content = self._tmp_repo(monkeypatch, tmp_path)
+        # Force the edition to use a theme whose .css we control.
+        baseline_eds = _config.editions_by_id()
+        target = "ethiopian-tewahedo"
+        themed = {**baseline_eds[target], "theme": "mint9test"}
+        monkeypatch.setattr(_config, "editions_by_id", lambda: {**baseline_eds, target: themed})
+        css = content / "themes" / "mint9test.css"
+        css.write_text("body { color: black; }\n", encoding="utf-8")
+
+        baseline = bc.compute_cache_key(target)
+        css.write_text("body { color: red; }\n", encoding="utf-8")
+        mutated = bc.compute_cache_key(target)
+        assert baseline != mutated, "editing the theme CSS did not invalidate the cache key"
+
+    def test_key_changes_when_source_dates_changes(self, monkeypatch, tmp_path):
+        from scripts.core import build_cache as bc
+
+        _repo, content = self._tmp_repo(monkeypatch, tmp_path)
+        baseline = bc.compute_cache_key("ethiopian-tewahedo")
+        (content / "source_dates.yaml").write_text("prefixes: {Cyril: 430}\n", encoding="utf-8")
+        mutated = bc.compute_cache_key("ethiopian-tewahedo")
+        assert baseline != mutated, "editing source_dates.yaml did not invalidate the cache key"
+
+
 class TestOmega20BBuildCacheIntegration:
     """ω.20-B — build_cache wired into build_one. The integration is
     additive: when the cache is empty, behavior is identical to
@@ -456,9 +540,15 @@ class TestOmega20BBuildCacheIntegration:
     def test_changelog_documents_omega20b(self):
         from pathlib import Path
 
+        # mint-9: the live CHANGELOG is month-rolled — older phases migrate to
+        # dev/archive/CHANGELOG*.md (the untracked_phases lint reads both). A
+        # historical phase like ω.20-B may live only in an archive, so search
+        # the live log AND every archived one, not the live log alone.
         repo = Path(__file__).resolve().parent.parent
-        text = (repo / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")
-        assert "ω.20-B" in text, "CHANGELOG missing ω.20-B entry"
+        texts = [(repo / "dev" / "CHANGELOG.md").read_text(encoding="utf-8")]
+        for arch in sorted((repo / "dev" / "archive").glob("CHANGELOG*.md")):
+            texts.append(arch.read_text(encoding="utf-8"))
+        assert any("ω.20-B" in t for t in texts), "ω.20-B entry missing from live + archived CHANGELOGs"
 
 
 class TestOmega20CStatsSidecar:

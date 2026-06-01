@@ -2003,6 +2003,12 @@ def check_book_codes_canonical() -> dict:
         # canonical codes; screened here to block future legacy-alias drift.
         ("scripts.extract_naves_ccel", "CCEL_ABBREV"),
         ("scripts.extract_eastons_ccel", "EASTON_BOOK"),
+        # mint-9 #23/#24 — translation-extraction book maps. These name the
+        # per-book translation .py files (popup sources); a legacy alias here
+        # would silently misname a translation file. All canonical today.
+        ("scripts.core.versification", "SWETE_BOOK_TO_CODE"),
+        ("scripts.core.versification", "_NT_BOOK_TO_CODE"),
+        ("scripts.extract_wlc_morphhb", "OSIS_BOOK_TO_CODE"),
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 

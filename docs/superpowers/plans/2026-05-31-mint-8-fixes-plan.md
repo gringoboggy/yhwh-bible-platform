@@ -1,6 +1,6 @@
 # mint-8 — Phased fixes plan (execute next session)
 
-> **Status:** synthesized 2026-05-31 from the verified survivors of the mint-8 deep-audit round 1; ready to execute. Not yet started.
+> **Status:** COMPLETE — all batches 1–3 shipped 2026-05-31 (852ed8a4 / cf05d8e3 / 1ae94084); byte-stability gate PASSED + flagship epubcheck CLEAN; lint 28✓. H5 `ex.py`→`exo` + M8 compresslevel deferred-by-design. Convergence loop continued in mint-9 (round 2 → 45 survivors).
 > Source findings: `../notes/2026-05-31-mint-8-findings.md` · raw JSON: `../notes/2026-05-31-mint-8-audit-raw.json`. Engine: `.claude/workflows/deep-audit.js`.
 > **Convergence loop:** implement these fixes → RE-RUN deep-audit → repeat until a round returns zero new verified findings.
 

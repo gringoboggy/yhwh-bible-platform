@@ -14,8 +14,8 @@ export const meta = {
 // ----------------------------------------------------------------------------
 const REPO = args?.repo ?? 'YHWH v2.4'            // repo root, relative to the session cwd
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 1
-const NOW = args?.now ?? 'unstamped'              // Date.now() is unavailable in scripts; stamp via args
+const ROUND = args?.round ?? 2
+const NOW = args?.now ?? '2026-05-31'             // Date.now() is unavailable in scripts; stamp via args
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
 

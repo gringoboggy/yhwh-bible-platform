@@ -127,7 +127,11 @@ def _iter_note_ref_traditions():
             continue
         book_code = book_path.stem
         book = books_idx.get(book_code) or {}
-        prefix = book.get("id_prefix")
+        # Strategy-B books have no id_prefix; inject.py falls back to bxx as the
+        # id base (inject.py:674-677), so the live HTML ref-id is ref-<bxx><cc><vv>.
+        # Mirror that fallback here or these books' notes never match the disabled
+        # set and silently survive tradition/time filters (mint-9 #2).
+        prefix = book.get("id_prefix") or book.get("bxx")
         if not prefix:
             continue
         notes = load_notes(book_path) or []
@@ -323,7 +327,8 @@ def _iter_note_ref_attribution_years():
             continue
         book_code = book_path.stem
         book = books_idx.get(book_code) or {}
-        prefix = book.get("id_prefix")
+        # Strategy-B bxx fallback — see _iter_note_ref_traditions (mint-9 #2).
+        prefix = book.get("id_prefix") or book.get("bxx")
         if not prefix:
             continue
         notes = load_notes(book_path) or []
@@ -2633,7 +2638,10 @@ def build_one(
                 continue
             book_code = m.group(1)
             book = books_idx.get(book_code) or {}
-            prefix = book.get("id_prefix")
+            # Strategy-B bxx fallback — see _iter_note_ref_traditions (mint-9 #2).
+            # Without it, an explicit disabled_note_ids entry for a Strategy-B
+            # book (e.g. 2ch) is silently ignored and the note ships anyway.
+            prefix = book.get("id_prefix") or book.get("bxx")
             if not prefix:
                 continue
             ch = int(m.group(2))

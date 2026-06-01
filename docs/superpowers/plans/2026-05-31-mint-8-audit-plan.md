@@ -1,5 +1,5 @@
 # mint-8 — Deep audit (the convergence audit) + a reusable audit tool
-**Status:** ROUND 1 EXECUTED 2026-05-31 — `deep-audit.js` built + run (106 agents, ~4.80M tokens; 70 findings → 57 verified). Findings → `../notes/2026-05-31-mint-8-findings.md`; fixes plan → `2026-05-31-mint-8-fixes-plan.md`. **NEXT SESSION: implement the fixes, then RE-AUDIT (convergence loop).** (Original intent below.) **NEXT SESSION: build the
+**Status:** COMPLETE — `deep-audit.js` built + run (round 1: 106 agents, ~4.80M tokens; 70 findings → 57 verified); fixes shipped in batches 1–3; the convergence loop continues as mint-9 (round 2 → 45 survivors). Findings → `../notes/2026-05-31-mint-8-findings.md`; fixes plan → `2026-05-31-mint-8-fixes-plan.md`. (Original intent below.) **NEXT SESSION: build the
 reusable `deep-audit.js` workflow from this plan, RUN it, verify findings, implement fixes,
 then RE-AUDIT.** mint-8 is hopefully the last *new* audit for a while — but the process below
 runs to convergence, not to a fixed count.
