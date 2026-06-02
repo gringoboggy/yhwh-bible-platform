@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**48 documents** — 30 plans · 18 specs.
+**49 documents** — 31 plans · 18 specs.
 
-## In progress (9)
+## In progress (10)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-02 | Plan | Samuel/Kings Cloud Run — agent-path workflow + pilot + bounded run (P1–P4) | `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` | ready — corrected continuation of the cloud-draft spec (agent-path vision via the Max subscription, NOT the out-of-budget API drivers); P1 workflow + tests buildable now on the N95 (free); P2–P4 gated on the user's pricing-trigger |
 | 2026-06-02 | Plan | Samuel/Kings Folio Index (P0) — complete the dual-witness manifests | `plans/2026-06-02-samkings-folio-index-p0-plan.md` | ready — P0 of the Sam/Kings cloud-draft spec; vision-data task (complete `manuscript/{samuel,kings}/manifest.yaml` for ~92 pending chapters); completeness-gate test + per-book folio-mapping batches; supervised on the N95 before pod spend |
 | 2026-06-02 | Plan | mint-11 — Phased fixes plan (round-4 deep-audit) | `plans/2026-06-02-mint-11-fixes-plan.md` | IN PROGRESS 2026-06-02 — 30 survivors (13 med / 14 low / 3 info; NO high/crit); Phase 1 (6 stale tests) SHIPPED (200 green); Phases 0/2/3/4/5/6 + 2 empty-panel HIGH re-verifies remain |
 | 2026-06-01 | Plan | mint-10 — Phased fixes plan (round-3 re-audit, recovered + continued) | `plans/2026-06-01-mint-10-fixes-plan.md` | IN PROGRESS 2026-06-01 — Phase-1 leftovers + Phases 2–6 SHIPPED; only 4 opt-tier items remain (#11 ρ.1 filter + #12 _resolve_popup_languages hoist [both build-path → byte gate] + #13 render_coverage EN + #6 candidates_written stat). Then mint-10 = the LAST audit round (STOP) |
