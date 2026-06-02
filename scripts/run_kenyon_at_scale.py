@@ -38,6 +38,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import KenyonReferenceDetector  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, RESET, candidate_to_dict  # noqa: E402
 from scripts.core.notes_io import atomic_write  # noqa: E402
+from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -128,6 +129,10 @@ def main() -> int:
     by_chapter: dict[tuple[str, int], list] = {}
     for c in detector.iter_all_candidates():
         if book_filter and c.book not in book_filter:
+            continue
+        # mint-11: drop coords beyond the book's canonical extent (mirror naves/
+        # torrey/xref; promote's guard also blocks them — defense in depth).
+        if not coord_in_canonical_extent(c.book, c.chapter, c.verse):
             continue
         by_chapter.setdefault((c.book, c.chapter), []).append(c)
 

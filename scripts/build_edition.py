@@ -1992,6 +1992,16 @@ def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path |
     # or a direct `build_edition.py` run after editing notes serves a stale EPUB.
     # Additive + conservative — it can only ever force a (correct) rebuild.
     sources.extend((REPO_ROOT / "content" / "notes").glob("*.py"))
+    # mint-11 #25: compose the FULL build_cache pipeline-script set + the topical /
+    # source-date DATA the build reads, so this mtime check can't drift from
+    # build_cache._PIPELINE_SCRIPTS again (local import avoids any circular load).
+    # Additive + conservative — can only ever force a (correct) rebuild.
+    from scripts.core.build_cache import _PIPELINE_SCRIPTS as _PS
+
+    sources.extend(REPO_ROOT / "scripts" / s for s in _PS)
+    sources.append(REPO_ROOT / "content" / "source_dates.yaml")
+    sources.append(REPO_ROOT / "content" / "sources" / "naves_topical.json")
+    sources.append(REPO_ROOT / "content" / "sources" / "torrey_topical.json")
     for s in sources:
         if s.is_file() and s.stat().st_mtime > out_mtime:
             return None

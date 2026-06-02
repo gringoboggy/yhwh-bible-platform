@@ -74,6 +74,10 @@ _PIPELINE_SCRIPTS = (
     # cached EPUB. Paths are relative to scripts/ (the loop joins scripts/<name>).
     "core/popup_versions.py",
     "core/traditions.py",
+    # mint-11 #22 — source_dates.lookup_year CODE (the source_dates.yaml DATA is
+    # hashed separately at part 9b); a lookup_year algorithm change affects
+    # time-filtered editions' output, so it must invalidate the cache too.
+    "core/source_dates.py",
 )
 
 
@@ -262,7 +266,11 @@ def compute_cache_key(
     cover = (edition.get("cover_image") or "").strip()
     if cover:
         parts.append(("cover", _hash_file(_CONTENT / cover)))
-    for entry in edition.get("cover_image_per_book") or []:
+    # mint-11 HIGH: the real per-book-cover field is "book_covers"; a prior
+    # nonexistent field name meant per-book cover bytes were never hashed →
+    # a changed cover served a stale cached EPUB. The "code=path" entry format
+    # matches what web_covers writes (see covers.decode_book_covers).
+    for entry in edition.get("book_covers") or []:
         if not isinstance(entry, str) or "=" not in entry:
             continue
         book_code, _, path = entry.partition("=")

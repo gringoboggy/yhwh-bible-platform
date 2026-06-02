@@ -30,6 +30,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import CrossRefDetector  # noqa: E402
 from scripts.core import sources  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
+from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 TSK_PATH = REPO_ROOT / "content" / "sources" / "tsk_xrefs.json"
@@ -71,6 +72,11 @@ def run_xref_for_book(book: str, *, min_confidence: float = 0.6, min_votes: int 
             try:
                 verse = int(verse_str)
             except ValueError:
+                continue
+            # mint-11 #23: drop coords beyond the book's canonical extent before
+            # detection (mirror naves/torrey; promote's guard also blocks them —
+            # defense in depth; avoids generating out-of-extent candidate files).
+            if not coord_in_canonical_extent(book, chapter, verse):
                 continue
             # CrossRefDetector ignores verse_text (param underscored)
             cands = detector.detect(book, chapter, verse, _verse_text="")
