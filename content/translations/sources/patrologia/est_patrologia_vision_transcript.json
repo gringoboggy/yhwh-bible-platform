@@ -16,7 +16,8 @@
       "p27",
       "p28",
       "p29",
-      "p30"
+      "p30",
+      "p31"
     ],
     "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...).",
@@ -24,7 +25,8 @@
     "p27_status": "DONE -- canonical 1:4 completed across the p26->p27 break (mid-word joined ዕለ+ት = ዕለት 'days'); 1:5-1:8 transcribed (1:8 cut after ፈቃደ -> p28). RECOVERED from TWO consecutive crashed (OOM) sessions: the finishing-adjudicator convergence workflow (wf_fe98cd7b) had COMPLETED its converged StructuredOutput before the 2nd crash (the Verify phase never ran); recovered from the workflow agent transcript, cross-confirmed by the first adjudicator attempt's independent text, then a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral (printed ፫ ፸; Pereira's French 'trente mille' divergence flagged, not harmonized) and the v7/v8 boundary (the abundant-wine sentence opens v8) -- against the staged crops + French CONFIRMED the reading. No heavy vision agent re-run. Codepoint-clean.",
     "p28_status": "DONE -- canonical 1:8-tail (completes p27) + 1:9-1:16 (1:16 cut after ወይ -> p29). Method: TWO blind Opus vision passes (wf_d49c0422-6d2: transcriber A complete; transcriber B corroborated through v13 then HONESTLY refused to fabricate v14-16 after an image-payload limit) + a CONTROLLER full-strip read and targeted high-zoom crux crops (king's name, eunuch names, the ወለዢ token, the v12/13 margin boundary, the v14 princes + እቱተ) cross-checked vs Pereira's French translation band AND the printed apparatus (MNPQ sigla). A THIRD fresh pass (B2) was REJECTED as a witness -- it HARMONIZED to the standard LXX/Hebrew text instead of reading the glyphs (it fabricated v16's continuation, a verse physically CUT off the page, and substituted the standard eunuch names Mehuman..Carcas which contradict Pereira's own French). Resolved: v12/13 boundary = v13 starts at ወነገሮሙ (margin '13' at that line + LXX v13 carries both clauses + French); 3 princes = አርቄስዮስ/ስርስቲዮስ/ማግሌ (A's ማግሌቢኃር conflated ማግሌ with the next word ወመላእክቲሁ); v10 prints EIGHT ለ-tokens vs SEVEN French/LXX names (8th token ወለዢ has no French/apparatus counterpart -- preserved-as-printed + flagged). name1 = printed body ገማ though apparatus MNPQ read ለሐሙ + French 'Hamâ' (read-the-print, NOT harmonized). Codepoint-clean.",
     "p29_status": "DONE -- canonical 1:16-tail (completes p28) + 1:17-1:22 (END OF CHAPTER 1; v22 closes cleanly, NOT cut). ★A HARD page: the two blind Opus passes (wf_4620f47f-d9d) DIVERGED badly on the faint legal-decree prose of vv17-20 (pass B even DITTOGRAPHED 'all women honor their husbands rich and poor' across v19/v20/v21), so neither was reliable -> a CONTROLLER full-strip + 4-band + 4 half-width-zoom-tile read + a dedicated ADJUDICATOR agent (read its own zoom crops, reconciled A/B + Pereira's French + the printed apparatus + the controller draft). Key resolutions: queen = አስጢን (BOTH blind passes misread አስቴር/እስቴር -- glyph-confirmed); v16-tail last word = መገብተ 'governors' (both read መንግሥት; French 'gouverneurs'); v17 onset = ወነገሮሙ (not A's ወእንበየ); king = አርጥርክስርክሴስ (per-page variant; in v17, apparatus-lemma-confirmed); v17 carries a GENUINELY DOUBLED clause 'አበየቶ ፡ ለንጉሥ ... ወሶበ ፡ ዙቲ ፡ ዮም ፡ አበየቶ ፡ ለንጉሥ ፡ ለአርጥርክስርክሴስ' -- CONFIRMED by the apparatus (M/Q mark exactly that phrase 'o' = omitted, so the base prints it); v19/v20 boundary corrected (the queenship clause የሀብ..ትኄይሳ is v19; v20 onset = ወይሰምዕ); v22 verb = ይፈርህዎሙ 'that they fear them' (not A's ይዱርዝዎሙ; French 'craignissent'). Layout note: on this page the LEFT-margin numeral sits beside the line carrying the WRAPPED TAIL of the PRIOR verse, with the true verse onset marked by an asterisk inside that line (the asterisks remain footnote marks, but they happen to coincide with verse onsets here). CHAPTER 1 COMPLETE (vv1-22, pages 26-29). Faint-function-word uncertainties flagged (ወሶበ/ዙቲ v17, a few vv18-20 medials). Codepoint-clean.",
-    "p30_status": "DONE -- canonical 2:1-7 (CHAPTER 2 BEGINS; opens fresh, no carry-over). ★Another HARD page: pass A garbled (skipped v4, mis-segmented v5, rendered Nebuchadnezzar as 'ሮቦአምና'); pass B reliable on structure but wrong on many interior words (v2 interpolated, v3 garbled, ናቡከደነጾር misspelled). The faithful reading = a dedicated ADJUDICATOR agent (95 tool-uses; rendered its own high-zoom crops; reconciled A/B + Pereira's French + the printed apparatus). Key resolutions: ★QUEEN = አስጢን (Astin/Vashti) in v1 AND v4 -- BOTH passes misread አስቴር; and v7's አስቴር is GENUINELY Esther (Mordecai's ward) -- the page carries BOTH names, correctly distinguished. ★Demonstrative prints ግዘንቱ (ግ-onset) in v1+v4 -- the documented edition oddity (failure-class (k); the ch.1 head on p26 used plain ዝንቱ -- read per-occurrence, NOT unified). Genealogy: መርዶኬዎስ ፡ ወልደ ፡ ኢያኢሩስ ፡ ዘሴምዩ ፡ ዘቄስዩ ፡ ዘእምነገደ ፡ ብንያም (ዘ-connectives) + ናቡክድናጾር (Nebuchadnezzar). Margin: v4 IS separately numbered; v6+v7 SHARE a '6-7' label. v7 ends ...ወስማ ፡ አስቴር (PARTIAL -- ✅ CONFIRMED continues on p31: banner 'II,8-13' + p31 opens with the unnumbered v7-tail 'ወእምድኅረ ፡ ወዕእት...ሠናይት ፡ ራእይ' before the margin-8 onset; complete 2:7 assembled at p31). Codepoint-clean."
+    "p30_status": "DONE -- canonical 2:1-7 (CHAPTER 2 BEGINS; opens fresh, no carry-over). ★Another HARD page: pass A garbled (skipped v4, mis-segmented v5, rendered Nebuchadnezzar as 'ሮቦአምና'); pass B reliable on structure but wrong on many interior words (v2 interpolated, v3 garbled, ናቡከደነጾር misspelled). The faithful reading = a dedicated ADJUDICATOR agent (95 tool-uses; rendered its own high-zoom crops; reconciled A/B + Pereira's French + the printed apparatus). Key resolutions: ★QUEEN = አስጢን (Astin/Vashti) in v1 AND v4 -- BOTH passes misread አስቴር; and v7's አስቴር is GENUINELY Esther (Mordecai's ward) -- the page carries BOTH names, correctly distinguished. ★Demonstrative prints ግዘንቱ (ግ-onset) in v1+v4 -- the documented edition oddity (failure-class (k); the ch.1 head on p26 used plain ዝንቱ -- read per-occurrence, NOT unified). Genealogy: መርዶኬዎስ ፡ ወልደ ፡ ኢያኢሩስ ፡ ዘሴምዩ ፡ ዘቄስዩ ፡ ዘእምነገደ ፡ ብንያም (ዘ-connectives) + ናቡክድናጾር (Nebuchadnezzar). Margin: v4 IS separately numbered; v6+v7 SHARE a '6-7' label. v7 ends ...ወስማ ፡ አስቴር (PARTIAL -- ✅ CONFIRMED continues on p31: banner 'II,8-13' + p31 opens with the unnumbered v7-tail 'ወእምድኅረ ፡ ወዕእት...ሠናይት ፡ ራእይ' before the margin-8 onset; complete 2:7 assembled at p31). Codepoint-clean.",
+    "p31_status": "DONE -- canonical 2:7-tail (completes p30; assembled complete 2:7) + 2:8-13 (v13 cut at ፈቀ- -> p32). Method: 2 blind Opus passes (wf_2a5d7cec-149) MIXED reliability (A better on v9/v11/v12, B better on v10) -> dedicated ADJUDICATOR (102 tool-uses; own crops; A/B + French + apparatus). ★KEY read-the-print save: v12 -- pass A wrote ዘከርቤ ('of myrrh') but the GE'EZ HAS NO MYRRH; the print reads ቅብአ ፡ ዕፍረት ('perfumed oil') + በአፈዋት ፡ ወበቅብአ ፡ አንስት ('scents + women's oils'). Pereira's French 'myrrhe' is INTERPRETIVE -- A had harmonized to it; restored the print (extends (p): the editor's translation can be interpretive, not literal -- read the Ge'ez). Other resolutions: v8 onset ወሰበ ፡ አዘዘ ፡ ንጉሥ ('when the king ORDERED', not 'heard' -- both passes wrong); Susa = ሱሳ; eunuch = ጋይ (Gây/Hegai, x2); Mordecai = መርዶኬዎስ (both passes had መርዶክዮስ); v12 months in GE'EZ NUMERALS ፲ወ፪/፮ (not spelled out); v9/v10 boundary (kept-her-well clause is v9; v10 onset ወኢነገረት ፡ አስቴር). v8 typeset oddity: count word printed ብዙኃን + a standalone wrapped ፡ት፡ before አዋልደ (intended ብዙኃተ ፡ አዋልደ 'many girls') -- transcribed AS PRINTED + flagged. v7 name አስቴር split across the p30->p31 break (አስቴ|ር). Codepoint-clean."
   },
   "pages": {
     "24": {
@@ -546,6 +548,83 @@
       ],
       "method": "★A HARD page (faint + a dense genealogy). Pass A was GARBLED (skipped v4, mis-segmented v5, rendered Nebuchadnezzar as 'ሮቦአምና'); pass B was structurally reliable but wrong on many interior words (v2 interpolated material not on the page, v3 garbled, ናቡከደነጾር misspelled). Neither blind pass was trustworthy, so a dedicated ADJUDICATOR agent (95 tool-uses; rendered its OWN high-zoom crops band-by-band + the right-margin numeral column at 10x) produced the faithful reading by reconciling A/B + Pereira's French + the printed apparatus. Apparatus + French used as word-identity / verse-numbering anchors ONLY, EXCLUDED from the verse text. Codepoint-clean (Ethiopic-only).",
       "review": "p30 = canonical Esther 2:1-7 -- CHAPTER 2 BEGINS (the king's anger subsides + he forgets Astin; the servants propose gathering beautiful virgins; the search-decree; and Mordecai + his ward Esther introduced with genealogy). ★Two names correctly distinguished: the queen አስጢን (Astin/Vashti, vv1,4) vs Mordecai's ward አስቴር (Esther, v7) -- both blind passes conflated them. ★ግዘንቱ demonstrative (k) confirmed in the ch.2 head. Margin: 1,2,3,4,5,6-7 (v4 separately numbered; v6+v7 share the '6-7' label). Mordecai genealogy with ዘ-connectives; Nebuchadnezzar = ናቡክድናጾር. Tsade per the edition rule (6th-order leg in ጾ/ፄ). ⚠ v7-continuation to be verified at p31. The adjudicator-convergence step (added at p29) again proved decisive on a both-passes-unreliable page."
+    },
+    "31": {
+      "banner": "LE LIVRE D'ESTHER. — II, 8-13.",
+      "host_chapter": 2,
+      "verses": [
+        {
+          "ch": 2,
+          "v": "7",
+          "text": "ወሀለቡቱ ፡ ወለተ ፡ እንተ ፡ ሐፀና ፡ ወለተ ፡ አሚናዳብ ፡ እኁሁ ፡ ለአቡሁ ፡ ወስማ ፡ አስቴር ። ወእምድኅረ ፡ ወፅአት ፡ እምነ ፡ አዝማዲሃ ፡ ሐፀና ፡ ሎቱ ፡ ትኩኖ ፡ ብእሲቶ ፡ ወይእቲ ፡ ወለት ፡ ሠናይት ፡ ራእይ ።",
+          "_assembled_from_pages": [
+            30,
+            31
+          ],
+          "_note": "complete canonical 2:7: p30 head (cut at ...ወስማ ፡ አስቴ) + this p31 tail (ር ።[completing አስቴ+ር=አስቴር] ወእምድኅረ ፡ ወፅአት ... ሠናይት ፡ ራእይ ።) joined. The name አስቴር split across the p30->p31 break. 'reared' (ሐፀና) appears twice -- the LXX doubling ('he had a foster-daughter whom he reared ... and when her parents departed he reared her to be his wife'). ወፅአት = 'she went out/left' (French 'sortie de sa famille'; A had ወዕእት, B ditto)."
+        },
+        {
+          "ch": 2,
+          "v": "8",
+          "text": "ወሰበ ፡ አዘዘ ፡ ንጉሥ ፡ አስተጋብኡ ፡ ሎቱ ፡ ብዙኃን ፡ ት ፡ አዋልደ ፡ ውስተ ፡ ሱሳ ፡ ሀገር ፡ ኀበ ፡ ጋይ ። ወአምጽእዎ ፡ ለአስቴር ፡ ኀበ ፡ ጋይ ፡ ዐቃቤ ፡ አንስት ።",
+          "_note": "onset ወሰበ ፡ አዘዘ ፡ ንጉሥ ('when the king ORDERED' -- both blind passes had the wrong verb: A 'ሰምዐ' heard, B 'ሰሚዖ ፡ ቃለ'). Susa = ሱሳ (not B's ሱስን); eunuch = ጋይ (Gây/Hegai, appears x2). ⚠ TYPESET ODDITY: the count word prints ብዙኃን ፡ then a standalone wrapped ት ፡ before አዋልደ -- almost certainly a line-wrap split of the intended ብዙኃተ ፡ አዋልደ ('many girls'); transcribed AS PRINTED + flagged."
+        },
+        {
+          "ch": 2,
+          "v": "9",
+          "text": "ወአደመቶ ፡ ይእቲ ፡ ወለት ፡ ወረከበት ፡ ሞገሰ ፡ በቅድሜሁ ። ወአፍቀጠነ ፡ ውሂበታ ፡ ቅብአ ፡ ወመክፈልታ ፡ ወሰብዐ ፡ አዋልደ ፡ እለ ፡ ይትለአካ ፡ እምቤተ ፡ ንጉሥ ። ወሠናየ ፡ ዐቀባ ፡ እለ ፡ ሐፀና ፡ በውስተ ፡ ቤተ ፡ አንስት ።"
+        },
+        {
+          "ch": 2,
+          "v": "10",
+          "text": "ወኢነገረት ፡ አስቴር ፡ አዝማዲሃ ፡ ወኢብሕራ ፡ እስመ ፡ መርዶኬዎስ ፡ አዘዛ ፡ ከመ ፡ ኢታይድዕ ።",
+          "_note": "v10 onset = ወኢነገረት ፡ አስቴር (B's correct onset; pass A wrongly pulled the v9-tail 'kept her well' into v10). 'Esther did not declare her kindred nor her homeland, for Mordecai ordered her not to reveal.' Mordecai = መርዶኬዎስ (both passes had መርዶክዮስ; corrected per the glyphs + the p26 spelling + French 'Mardokêwos')."
+        },
+        {
+          "ch": 2,
+          "v": "11",
+          "text": "ወኮሉ ፡ አሚረ ፡ ይመጽእ ፡ መርዶኬዎስ ፡ ኀበ ፡ ዐጸደ ፡ ቤተ ፡ አንስት ፡ ከመ ፡ ይስምዕ ፡ ዜናሃ ፡ ለአስቴር ፡ ዘከመ ፡ ሀለወት ።"
+        },
+        {
+          "ch": 2,
+          "v": "12",
+          "text": "ወአመ ፡ በጽሐ ፡ ጊዜሆን ፡ ለእለክቱ ፡ ከመ ፡ ይባእ ፡ ኀበ ፡ ንጉሥ ፡ ወሶበ ፡ ተፈጸመ ፡ ፲ወ፪ ፡ አውራኅ ፡ እስመ ፡ መጠነዝ ፡ መዋዕል ፡ ይነብራ ፡ እንዘ ፡ ይትሐረሳ ፡ ወይሤንያ ፡ ፮ ፡ አውራኅ ፡ እንዘ ፡ ይትቀብአ ፡ ቅብአ ፡ ዕፍረት ፡ ወ፮ ፡ አውራኅ ፡ በአፈዋት ፡ ወበቅብአ ፡ አንስት ።",
+          "_note": "★READ-THE-PRINT SAVE: pass A wrote ዘከርቤ ('of myrrh') here, but the GE'EZ HAS NO MYRRH -- the print reads ቅብአ ፡ ዕፍረት ('perfumed oil') + በአፈዋት ፡ ወበቅብአ ፡ አንስት ('scents + women's oils'). Pereira's French 'myrrhe' is INTERPRETIVE; A had harmonized to it -- restored to the print. Months are GE'EZ NUMERALS: ፲ወ፪ (12) + ፮/ወ፮ (6+6), NOT spelled out (pass A had ዐሠርቱ ፡ ወክልኤቱ ... ስድስተ)."
+        },
+        {
+          "ch": 2,
+          "v": "13",
+          "text": "ወእምዝ ፡ እንከ ፡ ይእቲ ፡ አሚረ ፡ ይበውእ ፡ ኀበ ፡ ንጉሥ ፡ ወእንተ ፡ ውእቱ ፡ ፈቀ",
+          "_partial": true,
+          "_continues_on_page": 32,
+          "_completed_in_page": 32,
+          "_assembly": "drop this partial at final assembly; use the complete 2:13 in pages['32']",
+          "_note": "v13 cut at the page bottom mid-word at ...ፈቀ (= ፈቀደ 'desired/willed'?); continues p32. 'And after this, on the same day, she would go to the king, and whatever she...'"
+        }
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": true,
+      "chapter_2_begun": true,
+      "uncertain": [
+        {
+          "ref": "v12 NO myrrh (★read-the-print, extends (p))",
+          "issue": "Pass A harmonized to Pereira's French 'myrrhe' and wrote ዘከርቤ. The printed GE'EZ has no myrrh word: ቅብአ ፡ ዕፍረት ('perfumed oil') + በአፈዋት ፡ ወበቅብአ ፡ አንስት ('scents + women's oils'). The editor's French translation is INTERPRETIVE (it supplied 'myrrh' from the standard text) -- read the Ge'ez, not the French. Restored the print."
+        },
+        {
+          "ref": "v8 typeset oddity ብዙኃን ፡ ት ፡ አዋልደ",
+          "issue": "The count word prints ብዙኃን followed by a word-divider, then a STANDALONE ት (with its own divider), then አዋልደ. This is almost certainly a typeset line-wrap that fragmented the intended ብዙኃተ ('many', acc.) into ብዙኃ|ተ but set as ብዙኃን + ት. Transcribed AS PRINTED (ብዙኃን ፡ ት ፡ አዋልደ); the intended reading is ብዙኃተ ፡ አዋልደ ('many girls'). Flagged for a later editor."
+        },
+        {
+          "ref": "Mordecai spelling መርዶኬዎስ",
+          "issue": "Both blind passes read መርዶክዮስ (-kyos); the glyphs + the p26 spelling + Pereira's French 'Mardokêwos' give መርዶኬዎስ (-kēwos). Took መርዶኬዎስ. (The edition has used both መርዶክዮስ [p25] and መርዶኬዎስ [p26] across pages -- per-occurrence; here the glyph is ኬ.)"
+        },
+        {
+          "ref": "eunuch ጋይ / Susa ሱሳ / v11 length",
+          "issue": "Eunuch = ጋይ (Gây = Hegai; the leading h- elided as printed; x2). Susa = ሱሳ (pass A; not B's ሱስን). v11 = the SHORTER reading (B's side, French-matched: 'Mordecai came daily to the court to hear news of Esther'); pass A's fuller version refuted. v11 ወኮሉ ('every', French 'tous les jours') faint -- alt ወኩሎ."
+        }
+      ],
+      "method": "MIXED-reliability blind passes (Workflow wf_2a5d7cec-149): pass A French-matched on v9/v11/v12 but harmonized 'myrrh' into v12 + mis-segmented v10; pass B correct on v10 but garbled v9/v12. A dedicated ADJUDICATOR agent (102 tool-uses; rendered its own high-zoom crops + the margin column; reconciled A/B + Pereira's French + the printed apparatus) produced the faithful reading -- crucially restoring the print over the French where they diverge (the v12 'no-myrrh' save). French + apparatus = word-identity / verse-numbering anchors ONLY, EXCLUDED from the verse text. Codepoint-clean (Ethiopic-only).",
+      "review": "p31 = canonical Esther 2:7-tail (completes p30 -> assembled complete 2:7) + 2:8-13 (v13 cut at ...ፈቀ -> p32). Esther is gathered with the maidens to Susa under the eunuch Gây (Hegai), finds favor + receives oil/portion/seven maids (v9), conceals her people on Mordecai's order (v10), Mordecai paces the court daily for news (v11), the twelve-month beautifying regimen (v12). ★The v12 'no-myrrh' catch is a textbook read-the-print-over-the-editor's-translation moment (extends (p)): Pereira's French supplied 'myrrhe' but the Ge'ez says ዕፍረት ('scent/perfume') -- a near-harmonization the adjudicator reversed. Ge'ez numerals ፲ወ፪/፮ for the months. Mordecai spelled መርዶኬዎስ here. Tsade per the edition rule (ፀ in ሐፀና/ወፅአት/ይትሐረሳ with the 6th-order leg). The adjudicator-convergence step continues to be the decisive tool on these mixed/faint pages."
     }
   }
 }
