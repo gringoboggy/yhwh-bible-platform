@@ -231,11 +231,14 @@ def resize_cover(src_path: Path, target_size: tuple[int, int]) -> bytes:
     from PIL import Image
 
     # Pillow 9.1+ moved the resampling enum to Image.Resampling.LANCZOS;
-    # the bare Image.LANCZOS still works at runtime but mypy doesn't
-    # recognise it as a module attribute. Prefer the new name and fall
-    # back if running against an older Pillow.
+    # the bare Image.LANCZOS still works at runtime but isn't a statically
+    # known attribute. Prefer the new name; fall back via getattr so the
+    # access type-checks cleanly whether or not Pillow is installed. (A bare
+    # `# type: ignore[attr-defined]` here goes UNUSED when Pillow is absent
+    # — e.g. on the clean CI runner — and warn_unused_ignores then fails the
+    # gate, even though it's needed locally where Pillow is present.)
     resample = getattr(Image, "Resampling", None)
-    lanczos = resample.LANCZOS if resample is not None else Image.LANCZOS  # type: ignore[attr-defined]
+    lanczos = resample.LANCZOS if resample is not None else getattr(Image, "LANCZOS")
 
     target_w, target_h = target_size
     with Image.open(src_path) as raw_im:

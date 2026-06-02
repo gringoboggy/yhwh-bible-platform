@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-06-01 — GitLab SSH setup + CI gate green-up (mypy unused-ignore)
+
+**Status:** ✅ shipped. `origin` switched HTTPS→SSH (ed25519, agent-persisted, gitlab.com host keys pinned + fingerprint-verified). The blocking CI `gate` job now passes.
+**Save tag:** (this commit)
+
+What shipped (concrete, scannable):
+- **GitLab SSH key** — generated an ed25519 key (passphrase + ssh-agent; Windows `ssh-agent` set Automatic + started, key persists across reboots so `save-all.ps1` pushes stay prompt-free); pinned + SHA256-fingerprint-verified gitlab.com's RSA/ECDSA/ED25519 host keys into `~/.ssh/known_hosts`; wrote `~/.ssh/config` for gitlab.com; set git `core.sshCommand` → `C:/Windows/System32/OpenSSH/ssh.exe` (agent-aware). `git remote set-url origin git@gitlab.com:…` + `git fetch origin` over SSH verified. Infra only — the SSH setup changed no tracked repo files; the `github` mirror stays on HTTPS.
+- **CI gate fix (`scripts/core/press_kit.py:238`)** — the GitLab pipeline had been FAILING on every push because the blocking `gate` job's mypy step erred on a single `[unused-ignore]`. Root cause: the `# type: ignore[attr-defined]` on the `Image.LANCZOS` fallback is USED locally (Pillow 12.2 installed → `Image.LANCZOS` is a real attr-defined error) but UNUSED on the clean CI runner (Pillow not in `requirements*.txt` → `Image` is untyped → no error), and CI's mypy 2.1.0 is stricter on `warn_unused_ignores` than the local 2.0.0. Replaced the bare ignore with `getattr(Image, "LANCZOS")` — type-checks cleanly under mypy 2.0.0 AND 2.1.0, Pillow present OR absent. Runtime-identical to `Image.LANCZOS`.
+- **Verified:** local `python scripts/ci.py --no-tests` = `CLEAN 5 pass · 2 warn · 0 fail (blocking)`; reproduced the exact CI condition (throwaway venv + `mypy==2.1.0` + no Pillow) = `Success: no issues found in 67 source files`; 33/33 `tests/test_press_kit_epsilon7.py` pass.
+
+Retrospective (§12 trigger — a recurring failure made loud + root-caused):
+- Lesson: a bare `# type: ignore` on a third-party attribute access silently becomes UNUSED whenever that dependency is absent (a clean CI runner) or a newer mypy stops flagging it — and `warn_unused_ignores = true` then turns that into a blocking gate failure. Prefer `getattr(obj, "attr")` for optional/runtime-only attributes so the access needs no ignore under any env/version. Documented inline at the fix site.
+
 ## 2026-06-01 — mint-10 round-3 re-audit: killed-run RECOVERY + continuation (checkpoint)
 
 **Status:** ✅ AUDIT COMPLETE — continuation `wf_4a2d0815-8c9` finished: **62 deduped → 49 verified survivors / 13 refuted** (4 high · 13 med · 22 low · 10 info). Artifacts: `2026-06-01-mint-10-{findings.md,audit-raw.json}` + indexed `plans/2026-06-01-mint-10-fixes-plan.md`. **Phase-1 stale-test green-up SHIPPED** 2026-06-01 (11 test files — route-counts 8→6/4→3/12→10, `omega0` un-removes live `api/distribution.py`, `lint_guardrails` state-aware, `url_override` allowlist host, 7 parallel-bible `SCOPE`→`dev/archive/`; 579 green). **REMAINING fixes → fresh session:** Phase-1 production (`audit_log` month-rollover · `inject` whitelist) + Phases 2–6 (build-path byte-stability). mint-10 is the LAST audit round (no mint-11 until project end).
