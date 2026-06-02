@@ -310,34 +310,48 @@ async function findDim(dim) {
   return deduped
 }
 
+// Run `size` adversarial skeptics for one finding, then TOP UP any null votes
+// ONCE. ROUND-5 FIX (mint-11, 2026-06-02): a null vote means the sonnet verifier
+// skipped the forced StructuredOutput tool (~22% of agents — 21/95 — in round 4),
+// NOT that the finding is refuted; re-running only the missing skeptics recovers
+// the transient miss without pinning the whole verify stage to Opus (which would
+// reintroduce the ~8h runtime the 4-core cap=2 box can't afford). See
+// docs/superpowers/notes/2026-06-02-mint-11-findings.md "Engine lesson".
+async function runSkepticPanel(f, dim, size, atype) {
+  const spawn = (i, suffix) =>
+    agent(verifyPrompt(f, dim) + (size > 1 ? `\n\n[Skeptic ${i + 1}/${size} — verify independently.]` : '') + suffix, {
+      label: `verify:${dim.key}`,
+      phase: 'Verify',
+      schema: VERDICT_SCHEMA,
+      agentType: atype,
+      model: 'sonnet',  // pin verifiers to sonnet (cap=2 throughput; post-barrier synth stays on inherited Opus)
+    })
+  let panel = (await parallel(Array.from({ length: size }, (_, i) => () => spawn(i, '')))).filter(Boolean)
+  if (panel.length < size) {
+    const more = (await parallel(
+      Array.from({ length: size - panel.length }, (_, i) => () => spawn(i, '\n\n[Retry — the prior skeptic returned no structured verdict; reply ONLY via the structured-output tool.]'))
+    )).filter(Boolean)
+    panel = panel.concat(more)
+  }
+  return panel
+}
+
 async function verifyDim(findings, dim) {
   if (!findings || !findings.length) return []
   const atype = agentTypeForVerify(dim)
   return parallel(
     findings.map((f) => () => {
       const size = panelSize(f.severity, dim)
-      return parallel(
-        Array.from({ length: size }, (_, i) => () =>
-          agent(verifyPrompt(f, dim) + (size > 1 ? `\n\n[Skeptic ${i + 1}/${size} — verify independently.]` : ''), {
-            label: `verify:${dim.key}`,
-            phase: 'Verify',
-            schema: VERDICT_SCHEMA,
-            agentType: atype,
-            model: 'sonnet',  // mint-11: pin verifiers to sonnet (cap=2 throughput; post-barrier synth stays on inherited Opus)
-          })
-        )
-      ).then((votes) => {
-        const panel = votes.filter(Boolean)
+      return runSkepticPanel(f, dim, size, atype).then((panel) => {
         const refutes = panel.filter((v) => v.refuted).length
-        // ROUND-4 LESSON (mint-11, 2026-06-02): under sonnet ~22% of agents (21/95)
-        // skipped the forced StructuredOutput tool, so an all-null panel hits
-        // panel.length===0 here and AUTO-REFUTES a real finding (false negative — 2
-        // HIGH candidates were lost this way, recovered by hand). Round 5: re-run a
-        // null/empty panel ONCE before refuting, or carry an all-null finding as
-        // UNVERIFIED (not refuted); alternatively pin verify agents to opus. See
-        // docs/superpowers/notes/2026-06-02-mint-11-findings.md "Engine lesson".
-        const refuted = panel.length === 0 ? true : refutes > Math.floor(panel.length / 2)
-        return { ...f, panel, verdict: { refuted, refutes, panelSize: panel.length } }
+        // ROUND-5 FIX (mint-11): an empty panel even AFTER the top-up retry is NOT
+        // a refutation (the skeptics never reported). Carry the finding as
+        // UNVERIFIED — a survivor flagged for human triage — instead of silently
+        // auto-refuting it (the round-4 false-negative that lost 2 HIGHs). Only a
+        // real skeptic MAJORITY refutes.
+        const unverified = panel.length === 0
+        const refuted = unverified ? false : refutes > Math.floor(panel.length / 2)
+        return { ...f, panel, verdict: { refuted, unverified, refutes, panelSize: panel.length } }
       })
     })
   )
@@ -359,12 +373,14 @@ const survivors = verified
   .map((f) => ({ ...f, finalSeverity: calibrateSeverity(f) }))
   .sort((a, b) => (rank[b.finalSeverity] ?? 0) - (rank[a.finalSeverity] ?? 0))
 const dropped = verified.filter((f) => f && f.verdict.refuted)
+const unverifiedSurv = survivors.filter((f) => f && f.verdict.unverified)
 
-log(`verified: ${survivors.length} survived, ${dropped.length} refuted (of ${verified.length} deduped)`)
+log(`verified: ${survivors.length} survived (${unverifiedSurv.length} UNVERIFIED — empty skeptic panel after retry, needs manual triage), ${dropped.length} refuted (of ${verified.length} deduped)`)
 
 const survForPlan = survivors.map((f) => ({
   dimension: f.dimension, kind: f.kind, severity: f.finalSeverity,
   title: f.title, file: f.file, line: f.line, evidence: f.evidence,
+  unverified: !!f.verdict.unverified,
   fix: (f.panel || []).map((v) => v && v.corrected_fix).filter(Boolean)[0] || f.fix,
 }))
 
@@ -374,7 +390,7 @@ const optSurv = survForPlan.filter((f) => f.kind === 'optimization')
 let fixesPlanMarkdown = 'No surviving findings — nothing to plan.'
 if (survForPlan.length) {
   const sevTally = survivors.reduce((a, f) => { a[f.finalSeverity] = (a[f.finalSeverity] || 0) + 1; return a }, {})
-  const COUNT_LINE = `ROUND ${ROUND}: ${verified.length} deduped findings -> ${survivors.length} verified survivors / ${dropped.length} refuted. By severity: ${JSON.stringify(sevTally)}. Bug/correctness/etc = ${bugSurv.length}; optimization = ${optSurv.length}.`
+  const COUNT_LINE = `ROUND ${ROUND}: ${verified.length} deduped findings -> ${survivors.length} verified survivors / ${dropped.length} refuted (of the survivors, ${unverifiedSurv.length} are UNVERIFIED — their skeptic panel was empty even after a retry, so they need manual triage, not auto-confirmation). By severity: ${JSON.stringify(sevTally)}. Bug/correctness/etc = ${bugSurv.length}; optimization = ${optSurv.length}.`
   fixesPlanMarkdown = await agent(
     `${PREAMBLE}
 
@@ -426,6 +442,7 @@ return {
   survivors: survivors.map((f) => ({
     dimension: f.dimension, kind: f.kind, severity: f.finalSeverity, originalSeverity: f.severity,
     title: f.title, file: f.file, line: f.line, evidence: f.evidence, fix: f.fix,
+    unverified: !!f.verdict.unverified,  // round-5: empty skeptic panel after retry → human triage, not auto-confirmed
     verifierFix: (f.panel || []).map((v) => v && v.corrected_fix).filter(Boolean)[0] || '',
     panel: (f.panel || []).map((v) => ({ refuted: v.refuted, confidence: v.confidence, reasoning: v.reasoning })),
   })),

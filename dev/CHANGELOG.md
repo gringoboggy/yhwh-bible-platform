@@ -6,6 +6,20 @@
 
 ---
 
+## 2026-06-02 — mint-11 (deep-audit round 4 + all fix phases 0–6 + engine round-5 fix) — AUDIT ARC CLOSED
+
+**The mint-N deep-audit arc ends here.** Round 4 ran overnight sonnet-pinned (~3.9h, `wf_4b250c81-348`): 64 deduped findings → 30 survived / 34 refuted (NO high/crit — convergence). All fix phases shipped; per memory `audit_cadence` we STOP (no mint-12 until project END).
+
+**Phases 0–4 (5 checkpoints `257bfd51`→`d7804f13`, all 5-leg):** P0 doc/count corrections (corpus 67,715→91,733 ×5 sites; test/plan counts) · P1 6 stale Ge'ez-arc tests → green (200) · P2 test-assertion hardening (skip→assert; inflight active-branch) · P3 additive cache-key/invalidation guards (HIGH-#B `build_cache` cover-key `cover_image_per_book`→`book_covers`; `core/source_dates.py` into `_PIPELINE_SCRIPTS`; `is_output_current` composes `_PIPELINE_SCRIPTS`+data; coord-guard on run_xref/run_kenyon) · P4 silent-data-loss & atomicity (promote within-batch dedup; corpus_index fingerprint-before-swap; `update_book_floors` `len(None)` guard; `standalone_store` atomic writes ×3). 2 empty-panel HIGH auto-refutes hand-verified: #B real (FIXED in P3), #A LATENT.
+
+**Phases 5 + 6 + engine round-5 fix (THIS session, one closeout commit; byte-stability gate PASSED 213s):**
+- **P5a (DEFENSIVE):** `matter_pages.build_merged_topic_index` iterates `sorted()` keys + tiebreaks casefold-equal display names by the raw string. Empirically the merge invariant (each group's display casefolds to its own group key; distinct groups → distinct keys) already made the output deterministic, so this hardens the ordering contract against a future `_norm_topic`/strip-set change rather than fixing a live bug. Cross-launch 2×`PYTHONHASHSEED` subprocess determinism test added.
+- **P5b:** `build_cache._referenced_translations` maps each popup witness through `VERSION_REGISTRY[vid]["translation_id"]` to the real `content/translations/<dir>/` id; 4 of 5 default witnesses (lxx-greek/greek-nt/vulgate/arabic) had hashed a non-existent `<key>` dir (the `<missing>` token). One-time cache-key change; EPUB bytes unchanged.
+- **P6 (★re-verify-with-data — plan corrected):** the printed annotation-count override now subtracts only the disabled notes the matrix total ACTUALLY counted (in canon AND of an enabled kind), via the new `_count_in_scope_disabled_ref_ids` walk. A real-data probe proved the plan's prescribed canon-ONLY intersection insufficient — catholic-study + a 1700 time-ceiling: raw `−49,027`; canon-only `−47,362` (still negative); canon+enabled-kind `+825` (correct; kind-overlap term = 48,187 notes). No `max(0,…)` floor (≤ total by construction). Byte-identical for all 11 committed editions (each has an empty disabled set → override stays None; latent until a user sets a time/tradition filter via /customize).
+- **Engine (`.claude/workflows/deep-audit.js`):** `runSkepticPanel` tops up null skeptic votes ONCE (a null = a sonnet verifier skipped the forced StructuredOutput tool — ~22% / 21-of-95 in round 4 — NOT a refutation); a panel still empty after the retry is carried as **UNVERIFIED** (a survivor flagged for manual triage, threaded through the log / synth count / survivor JSON) instead of being silently auto-refuted. This closes the round-4 false-negative that lost 2 HIGHs. Verify stays sonnet-pinned (the 4-core cap=2 box can't afford the ~8h Opus runtime). node-validated.
+
+**Verification:** byte-stability gate PASSED 213s; +6 new tests (`tests/test_mint11_phase56.py`) + 119 affected-suite tests green (build_cache/topical/time-travel/mint9-3/mint11-3); lint 26✓/2⚠/0✗ (both warns pre-existing); mypy clean; ruff-format clean. Marathon core untouched. **▶ NEXT critical path: Phase D1b — PO Esther vision marathon (paused p28).**
+
 ## 2026-06-01 — mint-10 fix phases 4+5+6 (★BUGCLUSTER sweeps · console XSS · test/concurrency/docs)
 
 **Phases shipped:** mint-10 Phase 4 (at-scale ★BUGCLUSTER) + Phase 5 (console XSS hardening) + Phase 6 (test-robustness / concurrency / docs). **No build-path code changed → the 9 KJV editions are byte-stable by construction** (no byte gate required).

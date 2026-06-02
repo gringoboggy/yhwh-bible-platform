@@ -120,21 +120,34 @@ def _resolve_canon_books(edition: dict) -> list[str]:
 
 
 def _referenced_translations(edition: dict) -> list[str]:
-    """Translation ids the build pipeline will read for `edition`.
+    """Translation-data DIRECTORY ids the build pipeline will read for `edition`.
 
-    Each popup language/version id is resolved through
-    ``popup_versions.resolve_version_id`` first (mint-10): a legacy
-    language alias (e.g. an older id) maps to its real registry/
-    translation id, so the directory hash covers the data actually
-    read. Without this, an aliased id hashed to a non-existent
-    directory (the ``<missing>`` token) and a real translation-data
-    edit could silently miss the cache. Unknown ids fall back to the
-    raw token (the hash still degrades gracefully to ``<missing>``).
+    Each popup language/version token is resolved in two hops so the
+    directory hash covers the data actually read on disk:
+      1. ``popup_versions.resolve_version_id`` (mint-10) maps a legacy
+         language alias to its registry version id.
+      2. ``VERSION_REGISTRY[vid]["translation_id"]`` (mint-11) maps that
+         registry id to the actual ``content/translations/<dir>/`` id —
+         e.g. the registry key ``lxx-greek`` reads ``lxx-swete-greek``.
+    Without hop 2, four of the five default witnesses (lxx-greek,
+    greek-nt, vulgate, arabic) hashed a non-existent
+    ``content/translations/<key>/`` dir (the ``<missing>`` token), so a
+    real translation-data edit could silently miss the cache. Unknown ids
+    fall back to the raw token (still degrades gracefully to ``<missing>``).
     """
     from scripts.core import popup_versions as _pv
 
     def _resolved(token: str) -> str:
-        return _pv.resolve_version_id(token) or token
+        # mint-11 P5: map the registry version id to its actual translation-data
+        # DIRECTORY id. Popup tokens like "lxx-greek"/"greek-nt"/"vulgate"/
+        # "arabic" are registry KEYS, but their data lives under translation_id
+        # ("lxx-swete-greek"/"byzantine-greek"/"vulgate-clementine"/
+        # "arabic-vandyke"). Without this final hop, 4 of the 5 default witnesses
+        # resolved to a non-existent content/translations/<key>/ dir (the
+        # "<missing>" hash token), so a real translation-data edit could silently
+        # miss the content-cache key. Unknown ids degrade gracefully to the token.
+        vid = _pv.resolve_version_id(token) or token
+        return _pv.VERSION_REGISTRY.get(vid, {}).get("translation_id") or vid
 
     refs: set[str] = set()
     pt = (edition.get("popup_translation") or "").strip()

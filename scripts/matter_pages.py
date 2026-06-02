@@ -867,7 +867,11 @@ def build_merged_topic_index(naves, torrey, canon_books, book_order: dict[str, i
 
     nav_g, tor_g = collect(naves), collect(torrey)
     out: list[tuple[str, str, list[tuple[str, int, int]]]] = []
-    for key in set(nav_g) | set(tor_g):
+    # mint-11 P5: iterate keys in sorted order so two distinct topic keys that
+    # render to the same display string append in a stable order — without this
+    # the set-iteration order is PYTHONHASHSEED-dependent and topical.xhtml is
+    # not byte-stable across process launches.
+    for key in sorted(set(nav_g) | set(tor_g)):
         nav_refs = nav_g.get(key, {}).get("refs", set())
         tor_refs = tor_g.get(key, {}).get("refs", set())
         all_refs = sorted(nav_refs | tor_refs, key=lambda r: (book_order.get(r[0], 9999), r[1], r[2]))
@@ -879,7 +883,11 @@ def build_merged_topic_index(naves, torrey, canon_books, book_order: dict[str, i
         else:
             display = _title_topic(sorted(nav_g[key]["names"])[0])
         out.append((display, tag, all_refs))
-    out.sort(key=lambda e: e[0].casefold())
+    # mint-11 P5: tiebreak casefold-equal display names by the raw display string
+    # so the final order is fully deterministic (Python's sort is stable, so two
+    # entries with an equal casefold key would otherwise keep their append order,
+    # which the sorted() loop above now also pins).
+    out.sort(key=lambda e: (e[0].casefold(), e[0]))
     return out
 
 
