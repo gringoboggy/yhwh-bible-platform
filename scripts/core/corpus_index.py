@@ -514,8 +514,13 @@ def _build_to(path: Path) -> tuple[int, str]:
         # handle in the same process. Same atomicity guarantee on
         # POSIX. Eliminates the PermissionError class that surfaced
         # on Δ.1 equivalence tests under 8-worker xdist load.
+        # mint-11 #14: compute the fingerprint BEFORE the swap so it reflects the
+        # notes state the index was just built from. After tmp.replace, a notes
+        # edit landing in the gap would be recorded as a MATCH — masking the
+        # staleness so the index never rebuilds.
+        fp = _compute_fingerprint()
         tmp.replace(path)
-        return total, _compute_fingerprint()
+        return total, fp
     except Exception:
         conn.close()
         if tmp.is_file():

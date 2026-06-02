@@ -18,6 +18,7 @@ from __future__ import annotations
 import datetime
 import json
 import sys
+import warnings
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -35,7 +36,14 @@ def compute_floors() -> dict[str, int]:
     for p in sorted(NOTES_DIR.glob("*.py")):
         if p.stem == "__init__":
             continue
-        n = len(load_notes(p))
+        raw = load_notes(p)
+        if raw is None:
+            # mint-11 #3a: load_notes returns None on a parse failure; len(None)
+            # crashed here. Warn + skip so one bad notes file doesn't abort the
+            # whole floor recompute (and the failure is visible, not silent).
+            warnings.warn(f"update_book_floors: {p.stem} failed to parse — skipping its floor", stacklevel=2)
+            continue
+        n = len(raw)
         if n == 0:
             floors[p.stem] = 0
         elif n < 20:

@@ -364,6 +364,11 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
         used = used_suffixes.setdefault((ch, v), set())
         suffix = pick_free_suffix(used)
         used.add(suffix)
+        if skip_existing:
+            # mint-11 #2: mirror on-disk dedup WITHIN the batch — otherwise two
+            # identical (ch,v,kind,body) dicts in new_notes both pass the check
+            # above (existing_bodies wasn't updated) → a duplicate note is written.
+            existing_bodies.setdefault((ch, v, kind), set()).add(body)
         new_key = (ch, v, suffix_rank(suffix))
         after = list_open_line
         for ech, ev, esuf, eend in existing:

@@ -80,9 +80,11 @@ def build_book_store(book: str, collation_paths: list[Path], out_dir: Path) -> d
         all_verses.extend(verses)
         appmap[str(coll["chapter"])] = am
     all_verses.sort(key=lambda t: (t[0], t[1]))
+    from scripts.core.notes_io import atomic_write  # mint-11 #4: atomic corpus writes
+
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / f"{book}.py").write_text(_render_book_module(book, all_verses), encoding="utf-8")
-    (out_dir / f"{book}_apparatus.json").write_text(json.dumps(appmap, ensure_ascii=False, indent=2), encoding="utf-8")
+    atomic_write(out_dir / f"{book}.py", _render_book_module(book, all_verses))
+    atomic_write(out_dir / f"{book}_apparatus.json", json.dumps(appmap, ensure_ascii=False, indent=2))
     return {"book": book, "verses": len(all_verses), "chapters": len(appmap)}
 
 
@@ -158,6 +160,8 @@ def build_psalms_apparatus(out_dir: Path = GEEZ_STORE) -> dict:
             "confidence": "interpolated" if kjv_chs else None,
             "apparatus": [],
         }
+    from scripts.core.notes_io import atomic_write  # mint-11 #4: atomic corpus write
+
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "psa_apparatus.json").write_text(json.dumps(appmap, ensure_ascii=False, indent=2), encoding="utf-8")
+    atomic_write(out_dir / "psa_apparatus.json", json.dumps(appmap, ensure_ascii=False, indent=2))
     return {"chapters": len(appmap), "verses": sum(len(c) for c in appmap.values())}
