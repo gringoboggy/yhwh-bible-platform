@@ -7,9 +7,29 @@ Tracked source-of-truth for the per-project Claude Code hook + installer.
 
 | File | Role |
 |---|---|
-| `bootstrap-triad.ps1` | SessionStart hook — forces every fresh Claude session to read the triad (`dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_2026-05-29-roadmap.md`) before acting. |
+| `bootstrap-triad.ps1` | SessionStart hook — forces every fresh Claude session to read the triad (`dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_2026-05-29-roadmap.md`) before acting. **Also runs a non-fatal `memory_hygiene.py audit --quiet`** and surfaces any memory drift at session start. |
 | `install_cc_hooks.ps1` | Idempotent installer — copies the hook into the cwd-parent `.claude/hooks/` and patches `.claude/settings.json` to register it. |
+| `memory_hygiene.py` | Memory self-maintenance tool (see below). |
 | `README.md` | This file. |
+
+## Memory self-maintenance (`memory_hygiene.py` + the `memory-reconcile` workflow)
+
+Claude's out-of-repo auto-memory (`~/.claude/projects/<proj>/memory/`) drifts, bloats, and accumulates dead links over time, and — critically — **it lives outside the git repo, so the 5-leg save does NOT back it up.** This system keeps it clean, accurate, and durable. Everything is local, dependency-free, no external/API calls (honors the no-external-hooks stance), and **safe**: read-only by default, never a hard delete.
+
+```powershell
+py -3 dev/cc-hooks/memory_hygiene.py audit            # READ-ONLY: dead [[wikilinks]], orphans, index<->file gaps, size/line budgets
+py -3 dev/cc-hooks/memory_hygiene.py backup           # snapshot the memory dir -> verified .zip on E:/F: (never C:)
+py -3 dev/cc-hooks/memory_hygiene.py propose-prune    # READ-ONLY: list archive candidates (superseded markers); skips PROTECTED
+py -3 dev/cc-hooks/memory_hygiene.py archive <file>   # REVERSIBLE: move to memory/_archive/ + drop its index line (auto-backs-up first; refuses PROTECTED)
+```
+
+Safety rails ("securities in place"):
+- **`audit` / `propose-prune` never mutate.** `archive` moves to `_archive/` (reversible), is refused for PROTECTED memories (user_*, the doctrine/save/bootstrap/audit references), and **auto-backs-up first** unless `--no-backup`.
+- **Durability:** `backup` writes a verified zip to the external drives, never C:. Run it periodically; `archive` runs it automatically. (First snapshot: 2026-06-02.)
+- **Detection is automated:** the SessionStart hook runs `audit --quiet` every session and prints a `MEMORY HYGIENE` block only when a real warning exists, so drift gets reconciled continuously instead of in big manual sweeps.
+- **Deep semantic sweep:** `Workflow memory-reconcile` (`.claude/workflows/memory-reconcile.js`) cross-checks every memory's factual claims against the live repo (counts, paths, function names, statuses) and proposes fixes — read-only; you apply them after a backup. This is the expensive, multi-agent counterpart to the cheap deterministic `audit`.
+
+Tests: `tests/test_memory_hygiene.py`.
 
 ## Why a tracked copy
 

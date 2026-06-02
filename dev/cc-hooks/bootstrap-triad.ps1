@@ -27,3 +27,23 @@ the env-health check (Claude Code + plugin updates -- apply only on user OK; MCP
 servers connected). Report freed RAM in the one-line confirmation.
 ========================================================================
 '@
+
+# --- Memory self-maintenance (local, non-fatal): surface memory drift so it
+# gets reconciled. Read-only audit; prints ONLY when a real (warn) issue exists.
+# Never breaks session start (try/catch swallows all errors). See
+# dev/cc-hooks/memory_hygiene.py + the memory-reconcile workflow. ---
+try {
+    $hyg = $null
+    $cand1 = Join-Path $PSScriptRoot 'memory_hygiene.py'                                                            # source location
+    $cand2 = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'dev\cc-hooks\memory_hygiene.py'  # installed-copy location
+    if (Test-Path $cand1) { $hyg = $cand1 } elseif (Test-Path $cand2) { $hyg = $cand2 }
+    if ($hyg) {
+        $mem = & py -3 $hyg audit --quiet 2>$null
+        if ($mem) {
+            Write-Output ''
+            Write-Output '----- MEMORY HYGIENE (drift detected -- reconcile when convenient) -----'
+            Write-Output $mem
+            Write-Output 'Full report: py -3 "dev/cc-hooks/memory_hygiene.py" audit  |  Deep sweep: Workflow memory-reconcile  |  Back up: ...memory_hygiene.py backup'
+        }
+    }
+} catch { }

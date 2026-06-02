@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-06-02 — Claude memory hygiene + self-maintenance automation (out-of-repo memory)
+
+User-directed memory declutter + a self-pruning / self-updating system. **Reconciled the out-of-repo auto-memory against the live repo** via an 8-agent read-only sweep: of 70 memories, **deleted 9** stale/superseded, **trimmed** `user_boggy_partnership` to its project-relevant core, **reframed** `project_deadline` (the 2026-06-07 deadline was dropped → a "quality & cost over speed" operating doctrine), **fixed 21 drift findings + every dead `[[wikilink]]`** left by the deletions, and **rewrote `MEMORY.md`**. Final deterministic audit = **0 warnings**.
+
+**New self-maintenance tooling — all LOCAL, dependency-free, no external/API calls (honors no-external-hooks):**
+- `dev/cc-hooks/memory_hygiene.py` — `audit` (dead links · orphans · index↔file gaps · size budgets; READ-ONLY) · `backup` (verified `.zip` → E:/F:, never C:) · `propose-prune` (READ-ONLY candidates; skips a PROTECTED set) · `archive` (REVERSIBLE move to `_archive/` + auto-backup-first; refuses PROTECTED). + `tests/test_memory_hygiene.py` (10 tests).
+- `dev/cc-hooks/bootstrap-triad.ps1` — the SessionStart hook now also runs `audit --quiet`, so memory drift surfaces every session (non-fatal, wrapped).
+- `.claude/workflows/memory-reconcile.js` — the on-demand deep SEMANTIC sweep (every memory's claims vs the live repo), reusable like `deep-audit.js`.
+- **Security/durability:** the memory dir lives OUTSIDE the git repo, so the 5-leg save never covered it → established the **first off-machine memory backup** (E:/F:, 2026-06-02). Also swept a stale repo-parent `.claude/.sonar` dir.
+- **Method note:** the tool's first link-matcher had a false-negative (too-lenient substring quietly passed dead links) — caught by cross-checking a known-dead link, tightened to exact-or-suffix; it then surfaced **8 real dead links a hand-grep had missed**, plus a meta-token guard so memories that *discuss* the `[[name]]` format don't self-flag.
+
+Verified: ruff-format clean · lint 27✓/1⚠/0✗ · mypy clean · 10/10 hygiene tests. (Repo files only; no project build-path change.)
+
 ## 2026-06-02 — mint-11 (deep-audit round 4 + all fix phases 0–6 + engine round-5 fix) — AUDIT ARC CLOSED
 
 **The mint-N deep-audit arc ends here.** Round 4 ran overnight sonnet-pinned (~3.9h, `wf_4b250c81-348`): 64 deduped findings → 30 survived / 34 refuted (NO high/crit — convergence). All fix phases shipped; per memory `audit_cadence` we STOP (no mint-12 until project END).
