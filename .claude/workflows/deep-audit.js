@@ -14,8 +14,8 @@ export const meta = {
 // ----------------------------------------------------------------------------
 const REPO = args?.repo ?? 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4'  // repo root (ABSOLUTE — cwd-independent; round-3 hardening after a cwd-ambiguity risk surfaced)
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 3
-const NOW = args?.now ?? '2026-06-01'             // Date.now() is unavailable in scripts; stamp via args
+const ROUND = args?.round ?? 4              // mint-11 = round 4 (mint-9=2, mint-10=3); bump in-file, args don't reliably propagate
+const NOW = args?.now ?? '2026-06-02'             // Date.now() is unavailable in scripts; stamp via args
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
 
@@ -300,6 +300,7 @@ async function findDim(dim) {
         phase: 'Find',
         schema: FINDINGS_SCHEMA,
         agentType: atype,
+        model: 'sonnet',  // mint-11: pin finders to sonnet (4-core cap=2 -> ~3h not ~8h; audit_cadence memory)
       })
     })
   )
@@ -322,6 +323,7 @@ async function verifyDim(findings, dim) {
             phase: 'Verify',
             schema: VERDICT_SCHEMA,
             agentType: atype,
+            model: 'sonnet',  // mint-11: pin verifiers to sonnet (cap=2 throughput; post-barrier synth stays on inherited Opus)
           })
         )
       ).then((votes) => {
