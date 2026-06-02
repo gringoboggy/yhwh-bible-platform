@@ -19,7 +19,8 @@
       "p30",
       "p31",
       "p32",
-      "p33"
+      "p33",
+      "p34"
     ],
     "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...).",
@@ -30,7 +31,8 @@
     "p30_status": "DONE -- canonical 2:1-7 (CHAPTER 2 BEGINS; opens fresh, no carry-over). ★Another HARD page: pass A garbled (skipped v4, mis-segmented v5, rendered Nebuchadnezzar as 'ሮቦአምና'); pass B reliable on structure but wrong on many interior words (v2 interpolated, v3 garbled, ናቡከደነጾር misspelled). The faithful reading = a dedicated ADJUDICATOR agent (95 tool-uses; rendered its own high-zoom crops; reconciled A/B + Pereira's French + the printed apparatus). Key resolutions: ★QUEEN = አስጢን (Astin/Vashti) in v1 AND v4 -- BOTH passes misread አስቴር; and v7's አስቴር is GENUINELY Esther (Mordecai's ward) -- the page carries BOTH names, correctly distinguished. ★Demonstrative prints ግዘንቱ (ግ-onset) in v1+v4 -- the documented edition oddity (failure-class (k); the ch.1 head on p26 used plain ዝንቱ -- read per-occurrence, NOT unified). Genealogy: መርዶኬዎስ ፡ ወልደ ፡ ኢያኢሩስ ፡ ዘሴምዩ ፡ ዘቄስዩ ፡ ዘእምነገደ ፡ ብንያም (ዘ-connectives) + ናቡክድናጾር (Nebuchadnezzar). Margin: v4 IS separately numbered; v6+v7 SHARE a '6-7' label. v7 ends ...ወስማ ፡ አስቴር (PARTIAL -- ✅ CONFIRMED continues on p31: banner 'II,8-13' + p31 opens with the unnumbered v7-tail 'ወእምድኅረ ፡ ወዕእት...ሠናይት ፡ ራእይ' before the margin-8 onset; complete 2:7 assembled at p31). Codepoint-clean.",
     "p31_status": "DONE -- canonical 2:7-tail (completes p30; assembled complete 2:7) + 2:8-13 (v13 cut at ፈቀ- -> p32). Method: 2 blind Opus passes (wf_2a5d7cec-149) MIXED reliability (A better on v9/v11/v12, B better on v10) -> dedicated ADJUDICATOR (102 tool-uses; own crops; A/B + French + apparatus). ★KEY read-the-print save: v12 -- pass A wrote ዘከርቤ ('of myrrh') but the GE'EZ HAS NO MYRRH; the print reads ቅብአ ፡ ዕፍረት ('perfumed oil') + በአፈዋት ፡ ወበቅብአ ፡ አንስት ('scents + women's oils'). Pereira's French 'myrrhe' is INTERPRETIVE -- A had harmonized to it; restored the print (extends (p): the editor's translation can be interpretive, not literal -- read the Ge'ez). Other resolutions: v8 onset ወሰበ ፡ አዘዘ ፡ ንጉሥ ('when the king ORDERED', not 'heard' -- both passes wrong); Susa = ሱሳ; eunuch = ጋይ (Gây/Hegai, x2); Mordecai = መርዶኬዎስ (both passes had መርዶክዮስ); v12 months in GE'EZ NUMERALS ፲ወ፪/፮ (not spelled out); v9/v10 boundary (kept-her-well clause is v9; v10 onset ወኢነገረት ፡ አስቴር). v8 typeset oddity: count word printed ብዙኃን + a standalone wrapped ፡ት፡ before አዋልደ (intended ብዙኃተ ፡ አዋልደ 'many girls') -- transcribed AS PRINTED + flagged. v7 name አስቴር split across the p30->p31 break (አስቴ|ር). Codepoint-clean.",
     "p32_status": "DONE -- canonical 2:13-tail (completes p31; assembled complete 2:13) + 2:14-19 (v19 cut at ይጸመድ -> p33). Method: 2 blind Opus passes (wf_ca077bfd-c2d) BOTH faint/uncertain (A self-flagged LOW; B sharper on v14/v16) -> dedicated ADJUDICATOR (59 tool-uses, own 16-24x crops). ★★KEY: pass A FABRICATED two clauses by harmonizing toward the MT/French -- (1) v17 'ወአንገሣ ፡ ህየንተ ፡ አስጢን' ('made her queen instead of Astin') is NOT in the printed Ge'ez (which follows the LXX, ending v17 at ወአሰርገዋ ፡ አክሊለ ፡ አንስት ። 'adorned her with the women's crown'); (2) v19 'ወሶበ ፡ ተጋብኡ ፡ ደናግል ፡ ዳግመ' ('when the virgins gathered a 2nd time') is also absent -- v19 is just ወመርዶኬያስ ፡ ይጸመድ ('and Mordecai attended', LXX-consistent), CUT -> p33. The adjudicator's read-the-print restored both (extends (q): even a glyph-seeing pass can INTERPOLATE standard-text clauses; the LXX-based Ge'ez omits MT pluses). Confirmed: keeper = ጋይ (Gây/Hegai, NOT Shaashgaz); ናጽወ = 'eunuch'; v15 eunuch = ዝኩ ፡ ናጽው ('that eunuch', NOT a name -- A's ኄጊ + B's ጊጹ both wrong); Esther's father = አሚናዳብ (matches v7, NOT Abihail); v16 = TWELFTH month ፲ወ፪, month አዳር (Adar), 7th year (A's 'tenth' WRONG); king = አርጥርክስርክሴስ; v17 onset ወአደመቶ ('Esther pleased the king', French 'plut', NOT A's 'loved'). ★ORTHOGRAPHIC: the preposition ኀበ prints as ነበ throughout this page (ነበ ፡ ጋይ / ነበ ፡ ንጉሥ / በነበ ፡ ኵሉ) -- kept as printed. Mordecai spelled መርዶኪያስ (v15) / መርዶኬያስ (v19) per-occurrence. Codepoint-clean.",
-    "p33_status": "DONE -- canonical 2:19-tail (completes p32; assembled complete 2:19) + 2:20-23 + 3:1-2 (CHAPTER 2->3 boundary; 3:2 cut at ወመርዶኬ -> p34). ★A CLEAN HIGH-AGREEMENT page -- both blind passes (wf_9873986b-1ba) agreed strongly AND both honored the new (u) interpolation discipline (neither added the MT eunuch-names Bigthan/Teresh; the conspirators stay the unnamed ፪ ኅጽዋን). NO separate adjudicator needed -- CONTROLLER adjudication of the few minor divergences via the French + 2 targeted crops + the apparatus. ★DIVINE NAME እግዚአብሔር in 2:20 ('that she fear God', ትፍርሀ ፡ እግዚአብሔር; the ሔ 5th-order confirmed by both passes + a crop) -- the first divine name since Addition A. Cruxes resolved by crop: 3:1 demonstrative = ዝንቱ (PLAIN) though v23 prints ለግዝንቱ (ግ-onset) -- the edition mixes both forms per (k); Haman = ለሃማ (ሃ; French 'Hamâ'); ዘአመዳቱ (Hammedatha); ብግያዊ (the Bougaean). v20 ends with the LXX plus ወእስቴርሰ ፡ ኢኀደገት ፡ ሕጋ ። ('and Esther did not forsake her custom' -- IS printed, both passes have it -- NOT a fabrication). King = አርጤርክስርክሴስ. Mordecai per-occurrence መርዶኪዎስ (2:20-22) / መርዶኬዎስ (2:21,23; 3:2-cut). Codepoint-clean."
+    "p33_status": "DONE -- canonical 2:19-tail (completes p32; assembled complete 2:19) + 2:20-23 + 3:1-2 (CHAPTER 2->3 boundary; 3:2 cut at ወመርዶኬ -> p34). ★A CLEAN HIGH-AGREEMENT page -- both blind passes (wf_9873986b-1ba) agreed strongly AND both honored the new (u) interpolation discipline (neither added the MT eunuch-names Bigthan/Teresh; the conspirators stay the unnamed ፪ ኅጽዋን). NO separate adjudicator needed -- CONTROLLER adjudication of the few minor divergences via the French + 2 targeted crops + the apparatus. ★DIVINE NAME እግዚአብሔር in 2:20 ('that she fear God', ትፍርሀ ፡ እግዚአብሔር; the ሔ 5th-order confirmed by both passes + a crop) -- the first divine name since Addition A. Cruxes resolved by crop: 3:1 demonstrative = ዝንቱ (PLAIN) though v23 prints ለግዝንቱ (ግ-onset) -- the edition mixes both forms per (k); Haman = ለሃማ (ሃ; French 'Hamâ'); ዘአመዳቱ (Hammedatha); ብግያዊ (the Bougaean). v20 ends with the LXX plus ወእስቴርሰ ፡ ኢኀደገት ፡ ሕጋ ። ('and Esther did not forsake her custom' -- IS printed, both passes have it -- NOT a fabrication). King = አርጤርክስርክሴስ. Mordecai per-occurrence መርዶኪዎስ (2:20-22) / መርዶኬዎስ (2:21,23; 3:2-cut). Codepoint-clean.",
+    "p34_status": "DONE -- canonical 3:2-tail (completes p33 -> assembled 3:2) + 3:3-3:8 (3:8 cut at ...ዘኩሉ ፡ አሕዛብ -> p35). Method: 2 blind Opus passes (wf_7c0886f0-9e5) that DIVERGED + SHARED a misread -> CONTROLLER adjudication (clean crux crops + French + apparatus). ★v6 onset ወፈቀደ (BOTH passes misread ፈ->ረ). ★3:2 tail ends in the contrastive enclitic -ሰ (ወመርዶኬዎስሰ, cf. 2:20 ወእስቴርሰ). v4 carries a 2nd clause ('Mordecai is a Jew') that pass B under-read. v7 (faintest): year ፲ወ፪, lot ዕፁ cast for the 14th of Adar (LXX, not MT's 13th). Names: Mordecai መርዶኬዎስ, king አርጤርክስርክሴስ, Haman ሃማ. Codepoint-clean."
   },
   "pages": {
     "24": {
@@ -707,7 +709,10 @@
     "33": {
       "banner": "LE LIVRE D'ESTHER. — II, 20 — III, 2.",
       "host_chapter": 2,
-      "spans_chapters": [2, 3],
+      "spans_chapters": [
+        2,
+        3
+      ],
       "verses": [
         {
           "ch": 2,
@@ -779,6 +784,92 @@
       ],
       "method": "★A CLEAN HIGH-AGREEMENT page (Workflow wf_9873986b-1ba): the two blind Opus passes (each reading upscaled 1.7-3.0x crops) agreed strongly on structure + most glyphs AND both honored the (u) interpolation discipline. So NO separate adjudicator was needed -- the controller adjudicated the few minor divergences (the 3:1 demonstrative, Haman's spelling, the v20 ending, the v23 demonstrative) via Pereira's French + 2 targeted high-zoom crops + the printed apparatus (which confirmed the v20 verb lemma ኢኀደገት). French + apparatus = anchors ONLY, EXCLUDED from the verse text. Codepoint-clean (Ethiopic-only).",
       "review": "p33 = canonical Esther 2:19-tail (completes p32 -> assembled 2:19) + 2:20-23 + 3:1-2 (the ch.2->3 boundary; 3:2 cut -> p34). Esther keeps concealing her people, fearing GOD (★divine name እግዚአብሔር, 2:20) + keeping Mordecai's charge; the two unnamed eunuch-bodyguards plot to kill the king (2:21); Mordecai exposes it through Esther (2:22); the king hangs them + records it for Mordecai's memorial (2:23); THEN chapter 3 -- Haman (ሃማ son of Hammedatha the Bougaean) is exalted above all the king's friends (3:1), and all bow to him as commanded -- but Mordecai (cut -> p34) does not (3:2). ★This page is the positive counterpart to p32's fabrication-catch: given the (u) warning, BOTH passes stayed faithful to the LXX-Ge'ez (no MT eunuch-names, no pluses), letting the controller adjudicate directly -- a sign the discipline is now self-reinforcing. The divine name + the demonstrative-mixing (ዝንቱ/ግዝንቱ on one page) are the notable findings. Tsade per the edition rule."
+    },
+    "34": {
+      "banner": "LE LIVRE D'ESTHER. — III, 3-8.",
+      "host_chapter": 3,
+      "spans_chapters": [
+        3
+      ],
+      "chapter_3_begun": true,
+      "verses": [
+        {
+          "ch": 3,
+          "v": "2",
+          "text": "ወመርዶኬዎስሰ ፡ ባሕቲቱ ፡ ኢይሰግድ ፡ ሎቱ ።",
+          "_assembled_from_pages": [
+            33,
+            34
+          ],
+          "_note": "complete canonical 3:2: p33 head (cut mid-word at ወመርዶኬ) + this p34 tail (ዎስሰ ፡ ባሕቲቱ ፡ ኢይሰግድ ፡ ሎቱ ።) joined = ወመርዶኬዎስሰ. 'But Mordecai alone did not bow to him.' Final glyph of name = the CONTRASTIVE ENCLITIC -ሰ (1st-order ሰ, crop-confirmed), exactly paralleling 2:20's ወእስቴርሰ; both blind passes rendered the join ዎስስ (6th-order), corrected to ዎስሰ."
+        },
+        {
+          "ch": 3,
+          "v": "3",
+          "margin_numeral": "3",
+          "text": "ወይቤልዎ ፡ እለ ፡ ውስተ ፡ ዐጸደ ፡ ቤተ ፡ ንጉሥ ፡ አንተ ፡ መርዶኬዎስ ፡ ለምንት ፡ ኢትትኤዘዝ ፡ ለቃለ ፡ ንጉሥ ።",
+          "_note": "Both blind passes identical. Court = ዐጸደ (1st-order ጸ flat base; apparatus N ዓጸደ / Q ዓፅደ confirms). ኢትትኤዘዝ apparatus-confirmed (Q)."
+        },
+        {
+          "ch": 3,
+          "v": "4",
+          "margin_numeral": "4",
+          "text": "ወሁሎ ፡ አሚረ ፡ ይብልዎ ፡ ከመዝ ፡ ወየአቢ ፡ ሰሚዖቶሙ ፡ ወነገርዎ ፡ ለሃማ ፡ ከመ ፡ የአቢ ፡ መርዶኬዎስ ፡ ትኤዘዝ ፡ ንጉሥ ። ወነገርዎ ፡ ከመ ፡ መርዶኬዎስ ፡ አይሁዳዊ ፡ ውእቱ ።",
+          "_note": "Adjudicated: onset ወሁሎ (B; A's ወቱሉ wrong), ሰሚዖቶሙ (B; A's ሰሚያቶሙ wrong), ትኤዘዝ verb (B; A's noun ትእዘዝ wrong). ★The 2nd clause ወነገርዎ ፡ ከመ ፡ መርዶኬዎስ ፡ አይሁዳዊ ፡ ውእቱ ('they told that Mordecai was a Jew') is GENUINELY PRINTED (crop-confirmed, ends v4) — pass B UNDER-read it. A footnote ✻ precedes it (footnote mark, not a verse boundary — excluded from text). Plain demonstrative ከመዝ (no ግ/ገ-onset)."
+        },
+        {
+          "ch": 3,
+          "v": "5",
+          "margin_numeral": "5",
+          "text": "ወሶበ ፡ እእመረ ፡ ሃማ ፡ ከመ ፡ ኢይሰግድ ፡ ሎቱ ፡ መርዶኬዎስ ፡ ወተምዐ ፡ ጥቀ ።",
+          "_note": "Both blind passes identical. ወተምዐ ('was angry') ends in ዐ (ayin), not tsade."
+        },
+        {
+          "ch": 3,
+          "v": "6",
+          "margin_numeral": "6",
+          "text": "ወፈቀደ ፡ ያጥፍኦሙ ፡ ለኩሎሙ ፡ አይሁድ ፡ እለ ፡ ደወለ ፡ መንግሥቱ ፡ ለአርጤርክስርክሴስ ።",
+          "_note": "★Onset ወፈቀደ ('and he sought') — BOTH blind passes misread the ፈ as ረ (A ወሬቀየ, B ወረቀዩ); a crisp high-zoom crop settled ወፈቀደ. A shared-misread, caught only by the controller crop (the load-bearing lesson of this page)."
+        },
+        {
+          "ch": 3,
+          "v": "7",
+          "margin_numeral": "7",
+          "text": "ወገብረ ፡ በ፲ወ፪ ፡ ዓመት ፡ እምዘ ፡ ነግሠ ፡ አርጤርክስርክሴስ ፡ ወአስተዓጸወ ፡ ዕለተ ፡ እምዕለት ፡ ወወርኅ ፡ እምወርኅ ፡ ከመ ፡ ያጥፍእዎሙ ፡ ለዘመደ ፡ መርዶኬዎስ ፡ በእሕቲ ፡ ዕለት ። ወወረደ ፡ ዕፁ ፡ ላዕለ ፡ ዓሡሩ ፡ ወረቡዑ ፡ ለሠርቀ ፡ ወርኅ ፡ አዳር ።",
+          "_note": "Faintest verse; adjudicated by clean crops. Year = numeral በ፲ወ፪ ('12th'; French 'douzième'; B mis-saw it as letters). Cast-lots verb ወአስተዓጸወ (A's ዓ; B's ና wrong). The lot 'fell' = ወወረደ ፡ ዕፁ (ፁ 6th-order tsade-u; A's ዕው / B's ዕቡ both off). On the 14th (ዓሡሩ ፡ ወረቡዑ = 10+4) at the new-moon (ለሠርቀ, ሠ — A correct, B's ሁርቀ wrong) of Adar — LXX's 14th, not the MT's 13th. ያጥፍእዎሙ (B; A's ያጥፍእምሙ wrong). A footnote ✻ precedes ወወረደ (excluded)."
+        },
+        {
+          "ch": 3,
+          "v": "8",
+          "margin_numeral": "8",
+          "text": "ወነገረ ፡ ለአርጤርክስርክሴስ ፡ ወይቤሎ ፡ ሀሎ ፡ ሕዝብ ፡ ዐላዊ ፡ እምውስተ ፡ አሕዛብ ፡ ኩሉ ፡ መንግሥትከ ፡ ወሕገሙኒ ፡ ከልእ ፡ እምን ፡ ዘኩሉ ፡ አሕዛብ ፡",
+          "_partial": true,
+          "_continues_on_page": 35,
+          "_completed_in_page": 35,
+          "_note": "v8 cut at the page edge after ...ዘኩሉ ፡ አሕዛብ (continues p35). Haman accuses: 'there is a transgressing people (ሕዝብ ፡ ዐላዊ) among the peoples of all your kingdom, and their law is different from all peoples...'. Pass A read the full final 2 lines (controller-confirmed against u_v8last crop — NOT an over-read, the (q) guard holds); pass B stopped early at እምውስ."
+        }
+      ],
+      "last_verse_complete": false,
+      "method": "2 blind Opus vision passes (Workflow wf_7c0886f0-9e5, run SEQUENTIALLY = MAX-1-heavy) DIVERGED substantively and even SHARED a misread (v6 ፈ->ረ), so a CONTROLLER adjudication (crisp high-zoom crux crops + Pereira's French + the printed apparatus MNPQ) produced the faithful reading. Both passes honored the (u) Septuagint-length discipline (no MT pluses; verse endings verified).",
+      "review": "p34 = canonical Esther 3:2-tail (completes p33 -> assembled 3:2) + 3:3-3:8 (3:8 cut -> p35). Mordecai alone refuses to bow (3:2, contrastive -ሰ); the court officials challenge him (3:3); he persists and they report him to Haman as a Jew (3:4); Haman sees and rages (3:5, ወተምዐ ፡ ጥቀ); he resolves to destroy ALL the Jews in Artaxerxes' realm (3:6); the lot (ዕፁ) is cast for the 14th of Adar (3:7); Haman opens his accusation to the king about 'a transgressing people' (3:8, cut).",
+      "uncertain": [
+        {
+          "ref": "3:7 year numeral",
+          "issue": "Printed as a faint Ge'ez numeral cluster በ፲ወ፪ (12); value secure from Pereira's French ('douzième année') + LXX; the individual numeral glyphs are stylized/faint."
+        },
+        {
+          "ref": "3:6 ያጥፍኦሙ",
+          "issue": "Onset vowel ya/ye faint (A ያ / B የ); rendered ያጥፍኦሙ per the standard form; meaning ('to destroy them') secure."
+        },
+        {
+          "ref": "3:7 ወወርኅ / ወአስተዓጸወ",
+          "issue": "ወወርኅ final order ኅ vs ኀ and the cast-lots verb onset እ/አ are low-contrast; rendered as read; meaning secure (month-by-month; cast lots)."
+        },
+        {
+          "ref": "(u) discipline + B under-reads",
+          "issue": "Both passes honored LXX length (no MT pluses). The divergences were B UNDER-reading (dropped the v4 'Jew' clause; stopped v8 early) and a SHARED v6 misread — both corrected by controller crops, not by harmonizing."
+        }
+      ]
     }
   }
 }
