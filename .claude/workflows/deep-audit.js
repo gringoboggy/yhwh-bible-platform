@@ -329,6 +329,13 @@ async function verifyDim(findings, dim) {
       ).then((votes) => {
         const panel = votes.filter(Boolean)
         const refutes = panel.filter((v) => v.refuted).length
+        // ROUND-4 LESSON (mint-11, 2026-06-02): under sonnet ~22% of agents (21/95)
+        // skipped the forced StructuredOutput tool, so an all-null panel hits
+        // panel.length===0 here and AUTO-REFUTES a real finding (false negative — 2
+        // HIGH candidates were lost this way, recovered by hand). Round 5: re-run a
+        // null/empty panel ONCE before refuting, or carry an all-null finding as
+        // UNVERIFIED (not refuted); alternatively pin verify agents to opus. See
+        // docs/superpowers/notes/2026-06-02-mint-11-findings.md "Engine lesson".
         const refuted = panel.length === 0 ? true : refutes > Math.floor(panel.length / 2)
         return { ...f, panel, verdict: { refuted, refutes, panelSize: panel.length } }
       })
