@@ -4,7 +4,7 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**45 documents** — 29 plans · 16 specs.
+**46 documents** — 29 plans · 17 specs.
 
 ## In progress (8)
 
@@ -19,10 +19,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
 | 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
 
-## Planned / design (17)
+## Planned / design (18)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-02 | Spec | Tewahedo Re-Verification & Triaged Re-Ingest Program — design spec | `specs/2026-06-02-tewahedo-reverification-and-triaged-reingest-design.md` | design — direction approved (both tracks; sequencing A); shared substrate + Track-1 QA harness = P0; per-phase plans P0–P3 follow |
 | 2026-05-27 | Spec | Ge'ez own-versification collation & standalone-Bible design | `specs/2026-05-27-geez-own-versification-design.md` | architecture approved (brainstormed + user-approved this session); implementation plan … |
 | 2026-05-26 | Plan | Phase E — Clementine Latin Appendix (`man`/`1es`/`2es`) Implementation Plan | `plans/2026-05-26-phase-e-clementine-latin.md` | open — LANE T backlog (man / 1es / 2es appendix) |
 | 2026-05-26 | Spec | Design — Phase E: Clementine Latin appendix (`man` / `1es` / `2es`) | `specs/2026-05-26-phase-e-clementine-latin-design.md` | awaiting user review |
