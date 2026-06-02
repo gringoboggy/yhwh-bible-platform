@@ -146,6 +146,11 @@ def _append_cloned_edition(
         ("description", src.get("description", "")),
         ("dedication", src.get("dedication", "")),
         ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
+        # mint-10 #high — phase/AI kind-gate scalars. Use src.get(name) with no
+        # default so an absent field stays absent on the clone (None is skipped
+        # below), preserving the source's effective default exactly.
+        ("max_phase", src.get("max_phase")),
+        ("enable_ai_notes", src.get("enable_ai_notes")),
     ]
     for fname, fval in scalar_fields:
         if fval is None:
@@ -173,6 +178,18 @@ def _append_cloned_edition(
     tpb = src.get("traditions_per_book")
     if tpb:
         list_fields.append(("traditions_per_book", list(tpb)))
+    # mint-10 #high — the kind-gate LIST fields. Omitting these WAS the bug:
+    # a clone with no enabled_categories/enabled_kinds enabled ZERO kinds and
+    # therefore shipped 0 notes. Mirror the truthy-append pattern above.
+    ek = src.get("enabled_kinds")
+    if ek:
+        list_fields.append(("enabled_kinds", list(ek)))
+    ec = src.get("enabled_categories")
+    if ec:
+        list_fields.append(("enabled_categories", list(ec)))
+    dk = src.get("disabled_kinds")
+    if dk:
+        list_fields.append(("disabled_kinds", list(dk)))
 
     if override_book_covers is not None:
         if override_book_covers:

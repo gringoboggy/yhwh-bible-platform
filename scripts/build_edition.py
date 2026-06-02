@@ -338,12 +338,19 @@ def _iter_note_ref_attribution_years():
             continue
         notes = load_notes(book_path) or []
         for tup in notes:
-            if not isinstance(tup, tuple) or len(tup) < 9:
+            # mint-10 #high: the minimum valid note is 8-field; the
+            # attribution at [8] is OPTIONAL. The old `< 9` skip silently
+            # dropped EVERY legacy 8-field note from the time-filter walk,
+            # so a positive time_filter_ceiling never disabled them (it
+            # silently passed them through). Gate on the real minimum and
+            # read attribution defensively — mirrors _iter_note_ref_traditions
+            # (len(tup) < 8) and NoteSpec.from_tuple.
+            if not isinstance(tup, tuple) or len(tup) < 8:
                 continue
             ch = tup[0]
             vs = tup[1]
             suffix = tup[2] or ""
-            attribution = tup[8] or ""
+            attribution = (tup[8] if len(tup) > 8 else "") or ""
             try:
                 ch_i = int(ch)
                 vs_i = int(vs)
@@ -1969,6 +1976,17 @@ def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path |
     sources.append(EPUB_DIR / "stylesheet.css")
     sources.append(REPO_ROOT / "content" / "editions.yaml")
     sources.append(REPO_ROOT / "scripts" / "build_edition.py")
+    # mint-10: reach toward parity with build_cache._PIPELINE_SCRIPTS + the
+    # content configs the build reads, so editing any of them invalidates this
+    # cruder mtime-based "is the cached EPUB current?" check too (only bites on
+    # a cold content-addressable cache). Additive + conservative — can only ever
+    # force a (correct) rebuild, never skip one.
+    sources.append(REPO_ROOT / "scripts" / "matter_pages.py")
+    sources.append(REPO_ROOT / "scripts" / "epub_utils.py")
+    sources.append(REPO_ROOT / "content" / "kinds.yaml")
+    sources.append(REPO_ROOT / "content" / "categories.yaml")
+    sources.append(REPO_ROOT / "content" / "books.yaml")
+    sources.extend((REPO_ROOT / "content" / "themes").glob("*.css"))
     # mint-9 (opt): the notes corpus also feeds the build (filter/attribution),
     # so a notes edit must invalidate a cached build. Watch every notes/*.py too
     # or a direct `build_edition.py` run after editing notes serves a stale EPUB.

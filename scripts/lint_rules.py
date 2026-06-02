@@ -2009,6 +2009,11 @@ def check_book_codes_canonical() -> dict:
         ("scripts.core.versification", "SWETE_BOOK_TO_CODE"),
         ("scripts.core.versification", "_NT_BOOK_TO_CODE"),
         ("scripts.extract_wlc_morphhb", "OSIS_BOOK_TO_CODE"),
+        # mint-10 — the eBible verse-per-line extractor's book map names the
+        # per-book translation .py files (popup sources); a legacy alias here
+        # would silently misname a translation file. All canonical today
+        # (MAR→mrk, JOH→jhn, PHI→phi, JAM→jam, ESG→aes, PRM→man, 4ES→2es).
+        ("scripts.extract_translation", "EBIBLE_VPL_TO_PROJECT"),
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 

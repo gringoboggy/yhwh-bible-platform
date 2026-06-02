@@ -1177,6 +1177,44 @@ class TestXi17Security:
         assert result["checked"] == 2
         assert result["ungated_lines"] == 1
 
+    def test_verify_chain_continuous_across_month_rollover(self, tmp_path):
+        # Regression (mint-10): a new month's first line must chain to the
+        # PRIOR month's last line, not the genesis seed. verify_chain carries
+        # its expected hash *across* monthly files, so a genesis-seeded
+        # rollover used to read "broken". _last_line_hash now falls back to
+        # the most-recent prior monthly sibling when this month's file
+        # doesn't exist yet.
+        import hashlib
+        from datetime import datetime, timezone
+
+        from scripts.core import audit_log
+
+        may = datetime(2026, 5, 31, 12, 0, 0, tzinfo=timezone.utc)
+        jun = datetime(2026, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
+        audit_log.append(endpoint="a", action="x", result="ok", base_dir=tmp_path, when=may)
+        audit_log.append(endpoint="b", action="x", result="ok", base_dir=tmp_path, when=jun)
+
+        # Two separate monthly files were written (the rollover happened).
+        assert sorted(p.name for p in tmp_path.glob("*.ndjson")) == [
+            "2026-05.ndjson",
+            "2026-06.ndjson",
+        ]
+
+        # June's first prev_hash == sha256 of May's last line (continuous chain).
+        may_last = [ln for ln in (tmp_path / "2026-05.ndjson").read_text(encoding="utf-8").splitlines() if ln.strip()][
+            -1
+        ]
+        jun_first = json.loads(
+            [ln for ln in (tmp_path / "2026-06.ndjson").read_text(encoding="utf-8").splitlines() if ln.strip()][0]
+        )
+        assert jun_first["prev_hash"] == hashlib.sha256(may_last.encode("utf-8")).hexdigest()
+
+        # The whole chain verifies across the rollover.
+        result = audit_log.verify_chain(base_dir=tmp_path)
+        assert result["status"] == "ok"
+        assert result["checked"] == 2
+        assert result["first_break"] is None
+
     def test_audit_log_redacts_sensitive_kwargs(self, tmp_path):
         from scripts.core import audit_log
 

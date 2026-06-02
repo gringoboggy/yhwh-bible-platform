@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-06-01 — mint-10 fix phases 1(leftovers)+2+3 (audit-chain · build-cache completeness · silent-data-loss highs)
+
+**Phases shipped:** mint-10 Phase-1 production leftovers + Phase 2 (build-cache key completeness) + Phase 3 (silent-data-loss / clone-correctness highs)
+**Test delta:** +5 regression tests (3 in new `tests/test_mint10_phase3.py`; 1 cross-month rollover in `test_security_xi_late.py`; 1 `_PIPELINE_SCRIPTS` completeness pin in `test_build_cache.py`)
+**Save tag:** (this commit)
+
+What shipped (concrete, scannable):
+- **P1 — `audit_log` month-rollover hash chain** (`scripts/core/audit_log.py`): `verify_chain` carries its expected hash *across* monthly files, but `append` seeded each new month's first `prev_hash` from `_CHAIN_GENESIS` (the not-yet-existing month file), so the chain read "broken" at every rollover. `_last_line_hash` now falls back to the most-recent prior `*.ndjson` sibling (new helper `_prior_month_file`); only the very first audit line ever seeds from genesis. Regression test `test_verify_chain_continuous_across_month_rollover` (would have failed before).
+- **P1 — `inject._aside_existing_re` lru_cache** whitelisted in `scripts/.cache_audit_whitelist.py` (new "Pure-function compiled-regex caches" block) — `audit_caches` is now clean (38 caches: 25 clear-path / 13 whitelisted), resolving the only `no_clear_path` false-positive.
+- **P2 — build-cache key completeness** (`scripts/core/build_cache.py`; additive, byte-stable): `_PIPELINE_SCRIPTS` += `core/popup_versions.py` + `core/traditions.py` (their injected DATA affects output, not just code); `_referenced_translations` resolves each popup-language id through `popup_versions.resolve_version_id` (a legacy alias hashed to a missing dir → could miss a real translation-data edit); cache key += `content/sources/{naves,torrey}_topical.json` (topical back-matter source). `is_output_current` (`build_edition.py`) now also watches `matter_pages.py`, `epub_utils.py`, `content/{kinds,categories,books}.yaml`, and `content/themes/*.css`. `EBIBLE_VPL_TO_PROJECT` added to the `bookcode_canonical` lint (all values canonical today). `test_build_cache._tmp_repo` fixed to create parent dirs for `core/`-prefixed stubs + the completeness pin extended.
+- **P3 — `_iter_note_ref_attribution_years` 8-field skip (HIGH)** (`build_edition.py:341,346`): the `len(tup) < 9` guard skipped every 8-field legacy (undated) note, so a positive `time_filter_ceiling` silently failed to disable them (undated → should be disabled). Changed to `< 8` + defensive attribution read `(tup[8] if len(tup) > 8 else "") or ""`, mirroring `_iter_note_ref_traditions`. Sole `< 9` iteration site (confirmed). Unreachable for the 9 KJV editions (none set a ceiling) → byte-stable.
+- **P3 — `_append_cloned_edition` ships 0 notes (HIGH)** (`scripts/api/editions.py`): the clone omitted the kind-gate fields, so a cloned edition enabled zero kinds → 0 notes. Now carries `max_phase` + `enable_ai_notes` (scalars, `src.get(name)`→None-skipped to preserve the source's effective default) and `enabled_categories` / `enabled_kinds` / `disabled_kinds` (truthy-append, mirroring the popup/traditions lists).
+- **P3 — `promote.batch_insert_notes` silent drops** (`scripts/promote.py`): a `dropped` counter increments at both out-of-extent `continue`s (canonical-extent + base-HTML-extent guards) and `warnings.warn`s once after the loop when non-zero, matching the existing missing-coord warning.
+- **Verified:** byte-stability gate `tests/test_byte_stability_gate.py` PASSED (226s — 9 KJV editions byte-deterministic); `test_build_cache.py` 36 pass; `test_mint10_phase3.py` 3 pass; 34 time-filter + 34 clone/template tests pass; `audit_caches` clean; `lint_rules` 27✓/1⚠/0✗; mypy (typed surface) 0 errors; ruff-format clean.
+
+Retrospective (§12):
+- pattern: a hash chain that spans rotated files must seed each new file from the prior file's tail, not a per-file genesis — codified in `_last_line_hash`'s docstring + the rollover regression test.
+- pattern: a cache key / staleness check must cover DATA modules (popup_versions, traditions) + content configs, not only the orchestrator script — extended `_PIPELINE_SCRIPTS` + `is_output_current` + the completeness pin.
+
 ## 2026-06-01 — GitLab SSH setup + CI gate green-up (mypy unused-ignore)
 
 **Status:** ✅ shipped. `origin` switched HTTPS→SSH (ed25519, agent-persisted, gitlab.com host keys pinned + fingerprint-verified). The blocking CI `gate` job now passes.

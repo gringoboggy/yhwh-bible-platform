@@ -101,15 +101,41 @@ def audit_log_path(
     return base / f"{yyyy_mm}.ndjson"
 
 
+def _prior_month_file(path: Path) -> Path | None:
+    """The most-recent existing ``YYYY-MM.ndjson`` sibling that sorts
+    strictly before ``path``. Monthly filenames sort chronologically,
+    so the lexicographically-greatest earlier name is the prior month
+    (or any older file across a rotation gap). Returns ``None`` when no
+    earlier file exists.
+    """
+    try:
+        earlier = sorted(p for p in path.parent.glob("*.ndjson") if p.name < path.name)
+    except OSError:
+        return None
+    return earlier[-1] if earlier else None
+
+
 def _last_line_hash(path: Path) -> str:
     """ξ.17 SEC-005 — return the sha256 of the last line in `path`,
-    or ``_CHAIN_GENESIS`` if the file doesn't exist or is empty.
+    or ``_CHAIN_GENESIS`` only when there is no prior history at all.
+
+    When ``path`` does not exist yet — the first write of a new month —
+    fall back to the most-recent PRIOR monthly sibling's last-line hash
+    so the chain stays continuous across month rollovers. ``verify_chain``
+    carries its expected hash *across* files, so the new month's first
+    ``prev_hash`` must equal the previous month's last line, NOT the
+    genesis seed (otherwise the chain reads "broken" every rollover).
+    Only the very first audit line ever written (no file AND no prior
+    sibling) seeds from ``_CHAIN_GENESIS``.
 
     Reads the file once and walks lines from the end so the cost is
     bounded by the size of the trailing line, not the whole file.
     """
     if not path.is_file():
-        return _CHAIN_GENESIS
+        prior = _prior_month_file(path)
+        if prior is None:
+            return _CHAIN_GENESIS
+        path = prior
     try:
         # The file is line-oriented and append-only; reading it whole
         # is bounded by the monthly rotation. For NDJSON at <1 KB per
@@ -157,8 +183,10 @@ def append(
     try:
         path = audit_log_path(when=when, base_dir=base_dir)
         path.parent.mkdir(parents=True, exist_ok=True)
-        # Compute prev_hash from the file's current tail BEFORE
-        # writing this entry. New file → genesis seed.
+        # Compute prev_hash from the chain tail BEFORE writing this
+        # entry: this month's last line, or — on a new month's first
+        # write — the prior month's last line (continuous chain).
+        # Only the very first line ever seeds from genesis.
         entry["prev_hash"] = _last_line_hash(path)
         line = json.dumps(entry, ensure_ascii=False, default=str)
         # Append in text mode with a trailing newline.

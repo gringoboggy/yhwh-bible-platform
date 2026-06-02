@@ -339,6 +339,7 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
 
     list_open_line = notes_assign.value.lineno
     inserts: list[tuple] = []  # (insert_after_lineno, sort_key, tuple_text)
+    dropped = 0  # mint-10: out-of-extent notes silently skipped below; surfaced after the loop
     for n in new_notes:
         ch = n.get("chapter", n.get("ch"))
         v = n.get("verse", n.get("v"))
@@ -352,9 +353,11 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
         body = n["body"]
         attribution = n.get("attribution")
         if not coord_in_canonical_extent(book_path.stem, ch, v):
+            dropped += 1
             continue  # boundary guard: drop impossible coordinates (defense in depth)
         _html_chs = html_chapter_count(book_path.stem)
         if _html_chs and ch > _html_chs:
+            dropped += 1
             continue  # base-HTML extent guard: chapter has no anchor to inject against
         if skip_existing and body in existing_bodies.get((ch, v, kind), set()):
             continue
@@ -379,6 +382,13 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
             attribution,
         )
         inserts.append((after, new_key, txt))
+
+    if dropped:
+        warnings.warn(
+            f"batch_insert_notes: dropped {dropped} out-of-extent note(s) for {book_path.stem!r} "
+            f"(coordinates outside the book's canonical / base-HTML extent)",
+            stacklevel=2,
+        )
 
     if not inserts:
         return 0

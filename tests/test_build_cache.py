@@ -310,8 +310,12 @@ class TestMint9CacheKeyCoverage:
         (content / "themes").mkdir()
         (content / "source_dates.yaml").write_text("prefixes: {}\n", encoding="utf-8")
         # Stub every pipeline script so _hash_file finds a real file.
+        # mint-10: some entries are core/-prefixed (e.g. core/popup_versions.py),
+        # so create parent dirs before writing each stub.
         for sname in bc._PIPELINE_SCRIPTS:
-            (scripts_dir / sname).write_text(f"# stub {sname}\n", encoding="utf-8")
+            sp = scripts_dir / sname
+            sp.parent.mkdir(parents=True, exist_ok=True)
+            sp.write_text(f"# stub {sname}\n", encoding="utf-8")
         monkeypatch.setattr(bc, "_REPO", repo)
         monkeypatch.setattr(bc, "_CONTENT", content)
         return repo, content
@@ -329,9 +333,18 @@ class TestMint9CacheKeyCoverage:
 
     def test_pipeline_scripts_includes_matter_pages_and_build_epub(self):
         # The whole point of #1: the cache once hashed ONLY build_edition.py.
+        # mint-10 #2 added the core/ DATA modules (popup_versions, traditions)
+        # whose injected data also affects output bytes.
         from scripts.core import build_cache as bc
 
-        for required in ("build_edition.py", "matter_pages.py", "epub_utils.py", "build_epub.py"):
+        for required in (
+            "build_edition.py",
+            "matter_pages.py",
+            "epub_utils.py",
+            "build_epub.py",
+            "core/popup_versions.py",
+            "core/traditions.py",
+        ):
             assert required in bc._PIPELINE_SCRIPTS
 
     def test_key_changes_when_theme_css_changes(self, monkeypatch, tmp_path):

@@ -67,6 +67,13 @@ _PIPELINE_SCRIPTS = (
     "build_epub.py",
     "style_config.py",
     "inject.py",
+    # mint-10 #2 — core/ modules whose DATA the build injects (not just code):
+    # popup_versions drives POPUP_LANGUAGES + per-edition language stripping
+    # across all 9 popup editions; traditions supplies CANONICAL_TRADITIONS
+    # labels injected for catholic-study. Editing either used to serve a stale
+    # cached EPUB. Paths are relative to scripts/ (the loop joins scripts/<name>).
+    "core/popup_versions.py",
+    "core/traditions.py",
 )
 
 
@@ -109,21 +116,33 @@ def _resolve_canon_books(edition: dict) -> list[str]:
 
 
 def _referenced_translations(edition: dict) -> list[str]:
-    """Translation ids the build pipeline will read for `edition`."""
+    """Translation ids the build pipeline will read for `edition`.
+
+    Each popup language/version id is resolved through
+    ``popup_versions.resolve_version_id`` first (mint-10): a legacy
+    language alias (e.g. an older id) maps to its real registry/
+    translation id, so the directory hash covers the data actually
+    read. Without this, an aliased id hashed to a non-existent
+    directory (the ``<missing>`` token) and a real translation-data
+    edit could silently miss the cache. Unknown ids fall back to the
+    raw token (the hash still degrades gracefully to ``<missing>``).
+    """
+    from scripts.core import popup_versions as _pv
+
+    def _resolved(token: str) -> str:
+        return _pv.resolve_version_id(token) or token
+
     refs: set[str] = set()
     pt = (edition.get("popup_translation") or "").strip()
     if pt:
-        refs.add(pt)
+        refs.add(_resolved(pt))
     # popup_languages_default + popup_languages_per_book reference
-    # language ids; the build pipeline maps them to translation
-    # data. We treat each non-empty entry as a candidate translation
-    # id. The directory hash gracefully degrades if the id doesn't
-    # resolve to a real translation directory.
+    # language ids; the build pipeline maps them to translation data.
     langs = edition.get("popup_languages_default") or []
     if isinstance(langs, list):
         for lang in langs:
             if isinstance(lang, str) and lang.strip():
-                refs.add(lang.strip())
+                refs.add(_resolved(lang.strip()))
     per_book = edition.get("popup_languages_per_book") or []
     if isinstance(per_book, list):
         for entry in per_book:
@@ -132,7 +151,7 @@ def _referenced_translations(edition: dict) -> list[str]:
             _, _, langs_csv = entry.partition("=")
             for lang in langs_csv.split(","):
                 if lang.strip():
-                    refs.add(lang.strip())
+                    refs.add(_resolved(lang.strip()))
     return sorted(refs)
 
 
@@ -275,6 +294,13 @@ def compute_cache_key(
     # edition with a time_filter_ceiling; not under epub_working/, so hash it
     # directly or a date edit serves a stale time-filtered EPUB (mint-9 #17).
     parts.append(("source_dates.yaml", _hash_file(_CONTENT / "source_dates.yaml")))
+
+    # 9c. Topical-index JSONs (Nave's + Torrey) — the topical back-matter page
+    # is built from these; they live under content/sources/, NOT epub_working/,
+    # so re-running either extractor must bust the cache or a stale topical
+    # back-matter ships (mint-10).
+    parts.append(("naves_topical.json", _hash_file(_CONTENT / "sources" / "naves_topical.json")))
+    parts.append(("torrey_topical.json", _hash_file(_CONTENT / "sources" / "torrey_topical.json")))
 
     # 10. Templated EPUB input (epub_working/).
     # Recurse the whole tree (META-INF/container.xml, OEBPS/, etc.) so

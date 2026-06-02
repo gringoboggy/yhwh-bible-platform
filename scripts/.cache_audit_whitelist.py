@@ -62,3 +62,10 @@ _._collate_case  # scripts/manuscript_qa.py — immutable calibration witnesses 
 # table once from constants (no inputs). The cache IS the value —
 # clearing it would only force a wasted, identical rebuild.
 _._psalm_map  # scripts/core/versification.py — static psalm-renumber table
+
+# ---- Pure-function compiled-regex caches ----
+# Compiled-regex builders keyed only on their argument (e.g. a book-id
+# prefix) — pure functions of the key, no external/runtime state. The
+# cache IS the compiled pattern; clearing it would only force an
+# identical recompile. No write path can invalidate them.
+_._aside_existing_re  # scripts/inject.py — per-prefix existing-aside-id pattern (mint-8 hot-regex hoist; lru_cache(256))
