@@ -6,6 +6,8 @@
 
 ---
 
+> **⚙ Implementation reality (2026-06-02, post-codebase-exploration — supersedes any "build new tooling" reading below):** The dual-witness collation pipeline ALREADY EXISTS and is production-ready (`scripts/core/manuscript_{manifest,collation,reconcile,records,vision,chapter_class,rounds,self_check}.py` + the `run_manuscript_{transcribe,review,collation}_at_scale.py` track-parameterized drivers). Consequences: **(a)** the Phase-0 "folio index" = the EXISTING `content/manuscript/{samuel,kings}/manifest.yaml` (chapter → `{CAM:{folios,views}, GG:{folios,source_images}, status}`), seeded only for the 4 Samuel + 6 Kings calibration chapters → Phase 0 = COMPLETE it for the ~92 pending chapters (a vision task, **no new pipeline code**). **(b)** Phase 2's "dualwitness_chapter workflow" = the EXISTING at-scale drivers, run on the pod. **(c)** The two witnesses are **CAM (Cambridge Add. 1570) = base** and **GG (Gunda Gundē) = 2nd witness** (the §2/§3 prose below at first mislabeled the 2nd witness as "Cambridge"; CAM *is* Cambridge — corrected). **(d)** CAM hi-res is on disk only for the calibration chapters → Phase 0 must pull the rest via CUDL IIIF (`acquire_cudl_master.py`). P0 detail: `plans/2026-06-02-samkings-folio-index-p0-plan.md`.
+
 ## 1. Motivation
 
 The Samuel/Kings dual-witness Ge'ez collation is the highest-fidelity own-versification work in the project, but it is **~90 chapters / ~2,700 verses from done** (1sa ~107 v of ~810; 2sa ~26 of ~695; 1ki ~191 of ~816; 2ki **0** of ~719). On this N95 box the marathon is permanently throttled — 16 GB soldered RAM forces MAX-1-heavy vision + a Workflow concurrency cap of 2, and it is user-paced (per-page check-in). At that rate the full Sam/Kings sweep is a very long road.
@@ -17,7 +19,7 @@ The user has loaded **$17 of RunPod credit** (GitHub-linked) to test whether a c
 ## 2. The three keystone decisions (user-approved 2026-06-02)
 
 1. **Execution mode = draft-at-scale + auto-converge.** Run many chapters in parallel, autonomous (no per-page check-in). Per witness, 2 blind passes: where they **agree** → a clean draft; where they **diverge** → the chapter is **flagged for the Track-1 QA wave**. Maximizes volume while keeping a fidelity gate.
-2. **Witness scope = full dual-witness per chapter.** Each chapter gets the complete method — BOTH manuscripts (base = CAM; 2nd = Cambridge MS Add. 1570) read and collated into the diplomatic-parallel + apparatus. Higher cost per chapter, fewer chapters per dollar, but each finished chapter is collation-complete (honors the project's quality-over-speed doctrine).
+2. **Witness scope = full dual-witness per chapter.** Each chapter gets the complete method — BOTH manuscripts (base = **CAM** = Cambridge Add. 1570; 2nd witness = **GG** = Gunda Gundē) read and collated into the diplomatic-parallel + apparatus. Higher cost per chapter, fewer chapters per dollar, but each finished chapter is collation-complete (honors the project's quality-over-speed doctrine).
 3. **Architecture = Approach B (pre-index folios, then autonomous).** The brittle, gotcha-prone step — locating each chapter's CAM + Cambridge folios *by vision* (CAM packs ~1.5–2 chapters per folio across 3 columns; locate-by-vision-not-arithmetic, per memory `feedback_cam_folio_location`) — is solved **once, carefully, up front** as a reusable folio index. The autonomous pod loop then runs against that index, so folio-location errors can't compound unattended across 90 chapters.
 
 ## 3. Architecture — four phases
