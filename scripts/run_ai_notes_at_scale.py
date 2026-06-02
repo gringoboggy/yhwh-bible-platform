@@ -47,9 +47,7 @@ Output:
 from __future__ import annotations
 
 import argparse
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -69,11 +67,10 @@ from scripts.core.at_scale_base import (  # noqa: E402
     RED,
     RESET,
     YELLOW,
-    candidate_to_dict,
+    append_candidates,
     iter_target_verses,
     resolve_books,
 )
-from scripts.core.notes_io import atomic_write  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -91,32 +88,11 @@ CONFIRM_COST_THRESHOLD = 200
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
-    """Append ``comm-ai`` candidates to any existing per-chapter file
-    (merge-not-clobber). Existing non-``comm-ai`` candidates (TSK /
-    Hebrew / Greek / Nave / Kenyon / xref-thematic) are preserved
-    verbatim. Same merge contract as ``run_ai_xrefs_at_scale.py``."""
-    if not candidates:
-        return None
-    CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
-    existing_candidates = []
-    if out_path.exists():
-        try:
-            existing = json.loads(out_path.read_text(encoding="utf-8"))
-            existing_candidates = [c for c in existing.get("candidates", []) if c.get("kind") != "comm-ai"]
-        except Exception:
-            pass
-    new_dicts = [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=len(existing_candidates) + 1)]
-    all_candidates = existing_candidates + new_dicts
-    payload = {
-        "book": book,
-        "chapter": chapter,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(all_candidates),
-        "candidates": all_candidates,
-    }
-    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
-    return out_path
+    """Delegate to the shared ``at_scale_base.append_candidates`` (mint-10).
+    Previously PURGED existing ``comm-ai`` candidates before re-adding them,
+    which reset any prior ``promoted`` status back to ``pending``; now appends
+    with status-preserving ``(verse, kind, draft_body)`` dedup."""
+    return append_candidates(CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json", book, chapter, candidates)
 
 
 def run_ai_notes(

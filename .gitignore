@@ -149,6 +149,14 @@ content/.refactor_log.yaml
 /build/
 /dist/
 
+# --- Bundled Java runtime under scripts/core/ (NOT project source) ---
+# An Oracle JDK (~hundreds of MB of DLLs/exes/legal files) extracted under
+# scripts/core/. Java is a runtime dependency (epubcheck RSC-005/012 validation),
+# but the JDK is a downloadable redistributable, never project source — a
+# `git add -A` swept it into commit cc7d7c48 (2026-06-02); amended out + ignored
+# here so it can't re-enter git history. (Consider relocating it out of scripts/.)
+scripts/core/oracleJdk-26/
+
 # --- Parallel-Bible source PDF + Phase-4 handoff package ---
 # The 193MB source PDF (resolution_paths #5 — the designed in-repo
 # slot) + the project_maccabees_expansion/ handoff docs. Present-

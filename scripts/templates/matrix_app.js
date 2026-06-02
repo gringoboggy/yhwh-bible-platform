@@ -887,7 +887,7 @@ async function saveAsScenario() {
     });
     const result = await r.json();
     if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error || 'save failed'}</span>`;
+      status.innerHTML = `<span class="text-red-600">✗ ${escapeHTML(result.error || 'save failed')}</span>`;
       return;
     }
     status.innerHTML = `<span class="text-emerald-700">✓ scenario "${name}" saved</span>`;
@@ -1532,7 +1532,7 @@ async function saveActiveEdition() {
     });
     const result = await r.json();
     if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error || 'save failed'}</span>`;
+      status.innerHTML = `<span class="text-red-600">✗ ${escapeHTML(result.error || 'save failed')}</span>`;
       saveBtn.disabled = false;
       return;
     }

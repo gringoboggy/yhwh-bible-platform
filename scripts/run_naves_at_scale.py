@@ -20,9 +20,7 @@ Usage:
 
 from __future__ import annotations
 import argparse
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -30,60 +28,19 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core.detectors import NaveTopicalDetector  # noqa: E402
 from scripts.core import sources  # noqa: E402
-from scripts.core.at_scale_base import DIM, GREEN, RESET, candidate_to_dict  # noqa: E402
-from scripts.core.notes_io import atomic_write  # noqa: E402
+from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 NAVES_PATH = REPO_ROOT / "content" / "sources" / "naves_topical.json"
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
-    """Same output format as prospect.write_queue — promote.py works
-    on these unchanged. If a candidates file already exists for this
-    chapter, we *append* rather than overwrite — multiple at-scale
-    drivers (xref, hebrew, naves) need to coexist on the same chapter
-    file. New candidates get fresh ids; existing candidates are kept
-    as-is (their `status` field carries any prior promotion record).
-    """
-    if not candidates:
-        return None
-    CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
-
-    existing: list[dict] = []
-    if out_path.is_file():
-        try:
-            existing = json.loads(out_path.read_text(encoding="utf-8")).get("candidates", [])
-        except Exception:
-            existing = []
-
-    # mint-9 #9: dedup against BOTH existing candidates and within this run on
-    # (verse, kind, draft_body) — mirrors run_kenyon_at_scale. Re-running a
-    # driver before promote previously appended byte-identical candidates that
-    # promote then treats as distinct notes. ID numbering continues past
-    # `existing` so the chapter-wide NNN suffix stays unique.
-    seen = {(c.get("verse"), c.get("kind"), c.get("draft_body")) for c in existing}
-    new_dicts = []
-    next_idx = len(existing) + 1
-    for c in candidates:
-        d = candidate_to_dict(c, next_idx)
-        key = (d["verse"], d["kind"], d["draft_body"])
-        if key in seen:
-            continue
-        seen.add(key)
-        new_dicts.append(d)
-        next_idx += 1
-    if not new_dicts:
-        return None  # idempotent: nothing new to add
-    payload = {
-        "book": book,
-        "chapter": chapter,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(existing) + len(new_dicts),
-        "candidates": existing + new_dicts,
-    }
-    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
-    return out_path
+    """Delegate to the shared ``at_scale_base.append_candidates`` — append with
+    status-preserving ``(verse, kind, draft_body)`` dedup; new ids continue past
+    the existing tail; idempotent on re-run (mint-10: the 4 accumulator + 4
+    kind-replace drivers shared/duplicated this logic)."""
+    return append_candidates(CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json", book, chapter, candidates)
 
 
 def run_naves_for_book(book: str, *, min_confidence: float = 0.5, top_n: int = 5, min_topics: int = 1) -> dict:
@@ -109,6 +66,11 @@ def run_naves_for_book(book: str, *, min_confidence: float = 0.5, top_n: int = 5
             try:
                 verse = int(verse_str)
             except ValueError:
+                continue
+            # mint-10: drop coords beyond the book's canonical extent before
+            # detection (impossible chapter/verse; defense in depth — promote's
+            # guard already blocks them, and 5 stale candidate files traced here).
+            if not coord_in_canonical_extent(book, chapter, verse):
                 continue
             cands = detector.detect(book, chapter, verse, _verse_text="")
             for c in cands:

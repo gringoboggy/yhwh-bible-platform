@@ -106,6 +106,22 @@ def _word_text(el: ET.Element) -> str:
     return "".join(parts)
 
 
+def _assert_no_raw_markup(text: str) -> None:
+    """WLC is in ``popup_versions._TRUSTED_HTML`` — its verse HTML is rendered
+    RAW (not escaped). That trust is only valid because every RAW token is plain
+    Hebrew plus the house ``<em>``/maqaf/paseq markup added here. If a source
+    ``<w>``/``<seg>`` ever carried a literal ``<``, ``>``, or ``&`` it would break
+    the EPUB XHTML (RSC-005) when emitted raw — so fail CLOSED at ingest rather
+    than ship a broken popup (mint-10; mirrors extract_lxx_swete /
+    extract_byzantine_nt). The assembled ``<em>…</em>`` string is NOT guarded —
+    it legitimately contains ``<``/``>``."""
+    if any(ch in text for ch in "<>&"):
+        raise ValueError(
+            f"WLC ingest: a raw OSIS token contains an HTML-special character (<>&) but the "
+            f"verse is rendered as trusted HTML; refusing to emit. Token: {text[:80]!r}"
+        )
+
+
 def verse_to_em_html(verse_el: ET.Element) -> str:
     """Render one OSIS ``<verse>`` element as the project's em-per-word Hebrew.
 
@@ -131,6 +147,7 @@ def verse_to_em_html(verse_el: ET.Element) -> str:
         tag = _local(child.tag)
         if tag == "w":
             word = _word_text(child).replace("/", "")
+            _assert_no_raw_markup(word)
             if pending_join:
                 cur += word
                 pending_join = False
@@ -141,6 +158,7 @@ def verse_to_em_html(verse_el: ET.Element) -> str:
         elif tag == "seg":
             stype = child.get("type")
             seg_text = child.text or ""
+            _assert_no_raw_markup(seg_text)
             if stype == "x-maqqef":
                 cur += seg_text
                 pending_join = True

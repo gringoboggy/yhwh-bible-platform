@@ -231,7 +231,7 @@ function renderIssues() {
       <div class="px-4 py-3">
         <div class="flex items-baseline justify-between gap-2 flex-wrap">
           <div class="flex items-baseline gap-2 flex-wrap">
-            <span class="verse-anchor text-xs text-slate-500">${n.book} ${n.chapter}:${n.verse}${n.suffix || ''}</span>
+            <span class="verse-anchor text-xs text-slate-500">${n.book} ${n.chapter}:${n.verse}${escapeHTML(n.suffix || '')}</span>
             <span class="text-xs px-1.5 py-0.5 rounded font-mono bg-slate-100">${escapeHTML(n.kind)}</span>
             <span class="pill ${tagColor}">${n.classification}</span>
           </div>

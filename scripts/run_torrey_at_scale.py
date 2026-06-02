@@ -21,65 +21,27 @@ Usage:
 
 from __future__ import annotations
 import argparse
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import sources  # noqa: E402
+from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
 from scripts.core.detectors import TorreyTopicalDetector  # noqa: E402
-from scripts.core.at_scale_base import DIM, GREEN, RESET, candidate_to_dict  # noqa: E402
-from scripts.core.notes_io import atomic_write  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 TORREY_PATH = REPO_ROOT / "content" / "sources" / "torrey_topical.json"
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
-    """Same output format as prospect.write_queue — promote.py works on these
-    unchanged. Appends to any existing chapter file so multiple at-scale drivers
-    (xref, hebrew, naves, torrey) coexist on the same chapter; new candidates get
-    fresh ids, existing ones keep their prior `status`."""
-    if not candidates:
-        return None
-    CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
-
-    existing: list[dict] = []
-    if out_path.is_file():
-        try:
-            existing = json.loads(out_path.read_text(encoding="utf-8")).get("candidates", [])
-        except Exception:
-            existing = []
-
-    # mint-9 #9: dedup against existing + within-run on (verse, kind, draft_body),
-    # mirroring run_kenyon_at_scale — a re-run before promote no longer appends
-    # byte-identical duplicate candidates.
-    seen = {(c.get("verse"), c.get("kind"), c.get("draft_body")) for c in existing}
-    new_dicts = []
-    next_idx = len(existing) + 1
-    for c in candidates:
-        d = candidate_to_dict(c, next_idx)
-        key = (d["verse"], d["kind"], d["draft_body"])
-        if key in seen:
-            continue
-        seen.add(key)
-        new_dicts.append(d)
-        next_idx += 1
-    if not new_dicts:
-        return None  # idempotent: nothing new to add
-    payload = {
-        "book": book,
-        "chapter": chapter,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(existing) + len(new_dicts),
-        "candidates": existing + new_dicts,
-    }
-    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
-    return out_path
+    """Delegate to the shared ``at_scale_base.append_candidates`` — append with
+    status-preserving ``(verse, kind, draft_body)`` dedup; new ids continue past
+    the existing tail; idempotent on re-run (mint-10: the 4 accumulator + 4
+    kind-replace drivers shared/duplicated this logic)."""
+    return append_candidates(CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json", book, chapter, candidates)
 
 
 def naves_covered_verses() -> set[tuple[str, str, str]]:
@@ -128,6 +90,10 @@ def run_torrey_for_book(
             try:
                 verse = int(verse_str)
             except ValueError:
+                continue
+            # mint-10: drop coords beyond the book's canonical extent (defense in
+            # depth; matches run_naves_at_scale).
+            if not coord_in_canonical_extent(book, chapter, verse):
                 continue
             if naves_keys is not None:
                 covered = (book, chapter_str, verse_str) in naves_keys

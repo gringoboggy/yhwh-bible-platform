@@ -144,6 +144,15 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
     if edition_id not in config.editions_by_id():
         _safe_emit("build_failure", edition_id=edition_id, reason="unknown_edition")
         return {"error": f"unknown edition: {edition_id}"}
+    # mint-10: validate the version before it reaches a subprocess arg + a glob
+    # pattern (~line 225). List-form subprocess already blocks shell injection;
+    # this stops glob metachars from mis-discovering files. Reuses the single
+    # snapshots version regex (^[a-z0-9][a-z0-9._-]{0,40}$).
+    from scripts.core.snapshots import _VERSION_NAME_RE
+
+    if not _VERSION_NAME_RE.match(version or ""):
+        _safe_emit("build_failure", edition_id=edition_id, reason="invalid_version")
+        return {"error": f"invalid version: {version!r}"}
     _safe_emit("build_start", edition_id=edition_id, version=version)
 
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -313,6 +322,13 @@ def api_build_all_editions(
     """
     if build_one is None:
         build_one = api_export_build
+
+    # mint-10: validate version up front (defense in depth) — it reaches the
+    # combined-zip filename + glob below. Reuses the single snapshots version regex.
+    from scripts.core.snapshots import _VERSION_NAME_RE
+
+    if not _VERSION_NAME_RE.match(version or ""):
+        return {"error": f"invalid version: {version!r}"}
 
     eds = config.load_editions()
     edition_ids = [e["id"] for e in eds]

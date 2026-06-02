@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-06-01 — mint-10 fix phases 4+5+6 (★BUGCLUSTER sweeps · console XSS · test/concurrency/docs)
+
+**Phases shipped:** mint-10 Phase 4 (at-scale ★BUGCLUSTER) + Phase 5 (console XSS hardening) + Phase 6 (test-robustness / concurrency / docs). **No build-path code changed → the 9 KJV editions are byte-stable by construction** (no byte gate required).
+**Test delta:** +1 file `tests/test_mint10_phase4.py` (Phase-3's file landed in the prior commit) + 2 chi tests updated to the corrected contract.
+**Save tag:** (this commit)
+
+What shipped (concrete, scannable):
+- **P4 — at-scale write-path unification** (`scripts/core/at_scale_base.py` + the 8 drivers): new `append_candidates(out_path, book, chapter, candidates)` is the single status-preserving `(verse,kind,draft_body)`-dedup write path; all 8 `run_*_at_scale` drivers delegate `write_queue` to it. The 4 kind-replace drivers (hebrew/greek/ai_xrefs/ai_notes) previously PURGED their own kind before re-adding → reset a prior `promoted` status to `pending`; they now preserve it. The 4 accumulators (xref/naves/torrey/ethiopian) held a byte-identical copy now consolidated. `run_kenyon` keeps its full-reindex write.
+- **P4 — `_normalize_book_code` on `--books`:** `resolve_books` (ai_xrefs/ai_notes) + inline in hebrew/greek — a legacy CLI alias no longer writes candidates to a non-existent book file.
+- **P4 — naves/torrey `coord_in_canonical_extent` guard** in the detect loop; deleted 5 stale impossible-chapter candidate files (`content/candidates/{1ch_ch_038,1co_ch_035,1jn_ch_006,1sa_ch_034,1ti_ch_008}.json`); 31 imports orphaned by the delegation auto-removed (ruff F401).
+- **P5 — console XSS:** escaped reflected server errors + corpus-sourced fields via the templates' `escapeHTML`/`escapeAttr` (audit.py · sources.py · customize.py · export.py · matrix_app.js — 7+ sites). `extract_wlc_morphhb.verse_to_em_html` now fail-closes on a raw `<>&` token (mirrors extract_lxx_swete / extract_byzantine_nt). `api/exports.py` validates `version` (reuses `snapshots._VERSION_NAME_RE`) before it reaches a subprocess arg + glob (`api_export_build` + `api_build_all_editions`).
+- **P6 — tests/concurrency/docs:** cyril rebalance test ceiling (`<= 700`, 32 headroom) → durable non-Cyril FLOOR; cyril Meqabyan-arc-close plurality test → the all-5-rival Counter pattern (was 2-of-5); `corpus_index.connection()` guards check-then-create with a new `_CONN_LOCK` (fd-leak race under ThreadingHTTPServer); `web_helpers.html_ref_id_from_note_id` bxx fallback (Strategy-B editor nav); `batch_promote_xrefs.promote_by_book` marks promoted candidates so re-runs don't re-attempt; `_canons_index` gains `@lru_cache(maxsize=1)` (§7.1 + docstring fix); conftest dropped an unused `monkeypatch` autouse param; REPO_MAP `scripts/core` 65→66; INDEX mint-9 row → Shipped (18) + plan-file status COMPLETE.
+- **Verified:** at-scale 122 · cyril/promote/mint10 764 · corpus_index/web_helpers/core 151 · WLC/export 132 · build_cache 36 — all pass; lint 27✓/1⚠/0✗ (Superpowers coherence + REPO_MAP green); mypy 0 errors; ruff-format clean.
+
+Deferred to a fresh session (opt-tier; the 2 build-path items carry a byte-stability proof obligation — regen + `git diff` over the 9 editions, or `tests/test_byte_stability_gate.py`):
+- #11 ρ.1 `filter_html` two-stage disabled-ref-id scan (kills ~3.7M per-build `re.compile`); #12 `_resolve_popup_languages` per-file decode hoist; #13 `render_coverage` EN-lane coverage (+ test shape); #6 `candidates_written` pre-dedup stat (superseded by the P4 `append_candidates` return contract — re-confirm or drop). After these, **mint-10 is the LAST audit round — STOP (no mint-11 until project END).**
+
+Retrospective (§12):
+- ★BUGCLUSTER: an 8-driver write path had drifted into two variants (accumulate-with-dedup vs purge-and-reset-status); consolidated to one `append_candidates` helper + a guard test asserting all 8 delegate, and re-homed 2 tests (`test_corpus_chi1` / `test_corpus_chi_ai_xrefs`) that pinned the old purge contract.
+
 ## 2026-06-01 — mint-10 fix phases 1(leftovers)+2+3 (audit-chain · build-cache completeness · silent-data-loss highs)
 
 **Phases shipped:** mint-10 Phase-1 production leftovers + Phase 2 (build-cache key completeness) + Phase 3 (silent-data-loss / clone-correctness highs)

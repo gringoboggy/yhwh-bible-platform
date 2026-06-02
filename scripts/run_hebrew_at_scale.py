@@ -18,9 +18,7 @@ Usage:
 
 from __future__ import annotations
 import argparse
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -29,38 +27,18 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import HebrewWordDetector  # noqa: E402
 from scripts.core import translations  # noqa: E402
 from scripts.core import config  # noqa: E402
-from scripts.core.at_scale_base import DIM, GREEN, NT_BOOKS, RESET, candidate_to_dict  # noqa: E402
-from scripts.core.notes_io import atomic_write  # noqa: E402
+from scripts.core.sources import _normalize_book_code  # noqa: E402
+from scripts.core.at_scale_base import DIM, GREEN, NT_BOOKS, RESET, append_candidates  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
 
 def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
-    if not candidates:
-        return None
-    CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
-    # Read existing file if present (could have xref-citation candidates
-    # from a prior χ.6 run); merge by appending lang-hebrew candidates
-    # rather than overwriting.
-    existing_candidates = []
-    if out_path.exists():
-        try:
-            existing = json.loads(out_path.read_text(encoding="utf-8"))
-            existing_candidates = [c for c in existing.get("candidates", []) if c.get("kind") != "lang-hebrew"]
-        except Exception:
-            pass
-    new_dicts = [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=len(existing_candidates) + 1)]
-    all_candidates = existing_candidates + new_dicts
-    payload = {
-        "book": book,
-        "chapter": chapter,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(all_candidates),
-        "candidates": all_candidates,
-    }
-    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
-    return out_path
+    """Delegate to the shared ``at_scale_base.append_candidates`` (mint-10).
+    Previously PURGED existing ``lang-hebrew`` candidates before re-adding them,
+    which reset any prior ``promoted`` status back to ``pending``; now appends
+    with status-preserving ``(verse, kind, draft_body)`` dedup."""
+    return append_candidates(CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json", book, chapter, candidates)
 
 
 def run_hebrew_for_book(book: str, *, min_confidence: float = 0.7) -> dict:
@@ -136,7 +114,7 @@ def main() -> int:
     args = p.parse_args()
 
     if args.books:
-        books = args.books.split(",")
+        books = [_normalize_book_code(b.strip()) for b in args.books.split(",") if b.strip()]
     else:
         # All books we have KJV data for
         all_books = [Path(p).stem for p in (REPO_ROOT / "content/translations/kjv").glob("*.py")]

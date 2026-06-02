@@ -1,6 +1,6 @@
 # mint-9 (deep-audit round 2) — phased fixes plan
 
-**Status:** EXECUTING 2026-05-31 — Phase 1 (data-loss/filter HIGH) + Phase 2 (stale-cache/guards) shipped; Phases 3–6 in progress. NOT converged (45 survivors round 2); fixing then re-auditing (round 3). H5 `ex.py`→`exo` + `aes` ch11–16 + M8 compresslevel remain deferred-by-design.
+**Status:** COMPLETE — all 6 phases shipped 2026-06-01 (`b1a39485`+). Round-3 re-audit = mint-10 (`2026-06-01-mint-10-fixes-plan.md`). H5 `ex.py`→`exo` + `aes` ch11–16 + M8 compresslevel remain deferred-by-design.
 
 > Generated 2026-05-31 by `.claude/workflows/deep-audit.js` round 2. Counts: 66 deduped → 45 survived / 21 refuted (high 6 · med 8 · low 25 · info 6). Raw: `../notes/2026-05-31-mint-9-audit-raw.json`; survivor detail in `../notes/2026-05-31-mint-9-findings.md`. (The synthesizer's exec-summary "36 findings/5 high" line below is a synth mis-count of the round-1 set — the authoritative round-2 counts are this line's.)
 

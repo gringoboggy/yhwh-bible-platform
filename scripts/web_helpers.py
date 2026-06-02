@@ -18,6 +18,7 @@ via ``scripts.web``.
 from __future__ import annotations
 
 import ast
+import functools
 import re
 from pathlib import Path
 
@@ -259,7 +260,10 @@ def html_ref_id_from_note_id(nid: str, books_idx: dict | None = None) -> str | N
     book = books_idx.get(parsed["book"])
     if not book:
         return None
-    prefix = book.get("id_prefix")
+    # mint-10: Strategy-B books have no id_prefix; fall back to bxx as the id base
+    # (matches build_edition.py:139/336 + inject.py:691), or the web editor can't
+    # navigate to notes in 2ch/ezr/neh/… whose live HTML ref-id is ref-<bxx>…
+    prefix = book.get("id_prefix") or book.get("bxx")
     if not prefix:
         return None
     return f"ref-{prefix}{parsed['chapter']:02d}{parsed['verse']:02d}{parsed['suffix']}"
@@ -368,8 +372,14 @@ def _yaml_escape(s: str) -> str:
     return s.replace("\\", "\\\\").replace('"', '\\"')
 
 
+@functools.lru_cache(maxsize=1)
 def _canons_index() -> dict:
-    """Cached load of canons.yaml — returns {canon_id: {label, description, books}}."""
+    """Singleton load of canons.yaml — {canon_id: {label, description, books}}.
+
+    §7.1 project-internal published data: canons.yaml is config that ships via a
+    process restart, so it is cached for the process lifetime (mint-10: the prior
+    docstring claimed "Cached load" but there was no cache). A test that swaps
+    canons.yaml must call ``_canons_index.cache_clear()``."""
     canons_path = REPO / "content" / "canons.yaml"
     if not canons_path.is_file():
         return {}

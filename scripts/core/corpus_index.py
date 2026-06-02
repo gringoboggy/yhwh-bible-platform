@@ -68,6 +68,7 @@ import os
 import re
 import sqlite3
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -644,6 +645,11 @@ _CACHED_CONN: sqlite3.Connection | None = None
 # so test fixtures that monkeypatch `paths.user_data_root` don't
 # leave a stale connection pointing at a deleted tmp_path file.
 _CACHED_CONN_PATH: str | None = None
+# mint-10: a plain threading.Lock guarding the check-then-create in connection()
+# so a ThreadingHTTPServer race can't have two worker threads each open a
+# connection and leak one fd. NOT _acquire_rebuild_lock — that's the file lock
+# for the cross-process index rebuild; this guards only the in-process cache.
+_CONN_LOCK = threading.Lock()
 
 
 def connection() -> sqlite3.Connection:
@@ -659,25 +665,31 @@ def connection() -> sqlite3.Connection:
     global _CACHED_CONN, _CACHED_CONN_PATH
     rebuild()  # Idempotent fast-path when fingerprint matches.
     current_path = str(_index_path())
-    if _CACHED_CONN is not None and current_path != _CACHED_CONN_PATH:
-        try:
-            _CACHED_CONN.close()
-        except sqlite3.Error:
-            pass
-        _CACHED_CONN = None
-        _CACHED_CONN_PATH = None
-    if _CACHED_CONN is None:
-        # check_same_thread=False: the web server is a ThreadingHTTPServer and
-        # _warm_corpus_index() opens this connection in the main thread, while
-        # requests are served on worker threads — without this, every
-        # /customize + /matrix request 500'd with a cross-thread
-        # sqlite3.ProgrammingError. Safe because the index is read-only by
-        # convention (all writes go through a separate connection in rebuild()),
-        # and Python's sqlite3 serializes access in its default threadsafety mode.
-        _CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False)
-        _CACHED_CONN.row_factory = sqlite3.Row
-        _CACHED_CONN_PATH = current_path
-    return _CACHED_CONN
+    # mint-10: guard the check-then-create with _CONN_LOCK so two worker threads
+    # can't both observe `_CACHED_CONN is None` and each open a connection, leaking
+    # one fd. rebuild() stays OUTSIDE the lock (it has its own cross-process file
+    # lock); this lock is purely for the in-process cached connection.
+    with _CONN_LOCK:
+        if _CACHED_CONN is not None and current_path != _CACHED_CONN_PATH:
+            try:
+                _CACHED_CONN.close()
+            except sqlite3.Error:
+                pass
+            _CACHED_CONN = None
+            _CACHED_CONN_PATH = None
+        if _CACHED_CONN is None:
+            # check_same_thread=False: the web server is a ThreadingHTTPServer and
+            # _warm_corpus_index() opens this connection in the main thread, while
+            # requests are served on worker threads — without this, every
+            # /customize + /matrix request 500'd with a cross-thread
+            # sqlite3.ProgrammingError. Safe because the index is read-only by
+            # convention (all writes go through a separate connection in rebuild()),
+            # Python's sqlite3 serializes access in its default threadsafety mode,
+            # and _CONN_LOCK serializes the open itself.
+            _CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False)
+            _CACHED_CONN.row_factory = sqlite3.Row
+            _CACHED_CONN_PATH = current_path
+        return _CACHED_CONN
 
 
 def invalidate() -> None:

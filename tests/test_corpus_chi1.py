@@ -564,10 +564,12 @@ class TestRunGreekAtScaleDriver:
         kinds = [c["kind"] for c in merged["candidates"]]
         assert "xref-citation" in kinds and "lang-greek" in kinds
 
-    def test_driver_replaces_prior_lang_greek_candidates(self, tmp_path, monkeypatch):
-        """Re-running the driver against a chapter that already had
-        lang-greek candidates should drop the old ones and keep the
-        new (idempotent re-run pattern, mirrors run_hebrew_at_scale)."""
+    def test_driver_preserves_prior_lang_greek_candidates(self, tmp_path, monkeypatch):
+        """mint-10: re-running the driver against a chapter that already had
+        lang-greek candidates now PRESERVES them (and their status) and appends
+        any genuinely-new ones, deduping exact (verse, kind, draft_body) repeats.
+        The old purge-and-replace reset a prior ``promoted`` status back to
+        ``pending`` — see test_mint10_phase4 + at_scale_base.append_candidates."""
         cand_dir = tmp_path / "candidates"
         cand_dir.mkdir()
         prior = {
@@ -634,12 +636,13 @@ class TestRunGreekAtScaleDriver:
         self.driver.write_queue("jhn", 1, new)
 
         merged = json.loads(out_path.read_text(encoding="utf-8"))
-        # xref kept; old lang-greek dropped; one new lang-greek
+        # mint-10: xref kept; the prior lang-greek is PRESERVED (not purged) and
+        # the new, distinct lang-greek is appended → both coexist.
         kinds = [c["kind"] for c in merged["candidates"]]
         assert kinds.count("xref-citation") == 1
-        assert kinds.count("lang-greek") == 1
-        new_lg = next(c for c in merged["candidates"] if c["kind"] == "lang-greek")
-        assert new_lg["source_name"] == "G3056"
+        assert kinds.count("lang-greek") == 2
+        names = {c["source_name"] for c in merged["candidates"] if c["kind"] == "lang-greek"}
+        assert names == {"G99", "G3056"}  # prior G99 kept + new G3056 appended
 
 
 class TestRunNavesAtScaleDriver:

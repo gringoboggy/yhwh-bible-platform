@@ -482,7 +482,7 @@ async function loadBook(code) {
   const r = await fetch(`/api/sources/${encodeURIComponent(code)}`);
   const data = await r.json();
   if (data.error) {
-    area.innerHTML = `<div class="text-red-600">${data.error}</div>`;
+    area.innerHTML = `<div class="text-red-600">${escapeHTML(data.error)}</div>`;
     return;
   }
   CUR_NOTES = data.notes;
@@ -550,9 +550,9 @@ function renderNotes() {
             <div class="flex-1 ${dimClass}">
               <div class="flex items-baseline justify-between gap-2 flex-wrap">
                 <div class="flex items-baseline gap-2 flex-wrap">
-                  <span class="verse-anchor text-xs text-slate-500">${n.chapter}:${n.verse}${n.suffix || ''}${n.anchor ? ` ${n.anchor}` : ''}</span>
-                  <span class="symbol" title="${n.category_label}">${n.category_symbol}</span>
-                  <span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono">${n.kind}</span>
+                  <span class="verse-anchor text-xs text-slate-500">${n.chapter}:${n.verse}${escapeHTML(n.suffix || '')}${n.anchor ? ` ${escapeHTML(n.anchor)}` : ''}</span>
+                  <span class="symbol" title="${escapeAttr(n.category_label)}">${escapeHTML(n.category_symbol)}</span>
+                  <span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono">${escapeHTML(n.kind)}</span>
                   ${n.title && n.title !== 'Note' ? `<span class="text-sm font-medium">${escapeHTML(n.title)}</span>` : ''}
                 </div>
               </div>

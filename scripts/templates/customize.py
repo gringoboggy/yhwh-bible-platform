@@ -1361,7 +1361,7 @@ async function saveEdition(box) {
     });
     const result = await r.json();
     if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error}</span>`;
+      status.innerHTML = `<span class="text-red-600">✗ ${escapeHTML(result.error)}</span>`;
       return;
     }
     status.innerHTML = '<span class="text-emerald-700">✓ saved</span>';
@@ -1438,7 +1438,7 @@ async function previewEdition(box) {
       data = await r.json();
       if (!r.ok || (data && data.error)) {
         const msg = (data && data.error) ? data.error : `${r.status} ${r.statusText}`;
-        status.innerHTML = `<span class="text-red-600">✗ ${msg}</span>`;
+        status.innerHTML = `<span class="text-red-600">✗ ${escapeHTML(msg)}</span>`;
         return;
       }
     }
@@ -1788,7 +1788,7 @@ async function postSave(url, payload, tr, statusSel, btnSel, refreshFn) {
     });
     const result = await r.json();
     if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error}</span>`;
+      status.innerHTML = `<span class="text-red-600">✗ ${escapeHTML(result.error)}</span>`;
       return;
     }
     status.innerHTML = '<span class="text-emerald-700">✓ saved</span>';

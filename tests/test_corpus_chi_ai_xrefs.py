@@ -725,30 +725,37 @@ class TestRunAIXrefsAtScaleDriver:
         assert [c["draft_body"] for c in data["candidates"]] == ["A1", "A2", "B1"]
         assert len({c["id"] for c in data["candidates"]}) == 3  # ids continue from tail, no collision
 
-    def test_at_scale_base_is_the_single_candidate_to_dict_source(self):
-        # mint-7 D1: every at-scale driver + prospect must import the SHARED
-        # candidate_to_dict (not a local copy), so the candidate JSON shape can
-        # never drift between drivers again.
+    def test_at_scale_base_is_the_single_candidate_json_shape_source(self):
+        # mint-7 D1 + mint-10: the candidate-JSON shape has ONE source so it can
+        # never drift between drivers. prospect + run_kenyon build the dict
+        # directly via the shared candidate_to_dict; the 8 accumulator/kind-replace
+        # drivers delegate writes to the shared append_candidates (which itself
+        # calls candidate_to_dict) — neither path can fork the shape.
         import importlib
 
         from scripts.core import at_scale_base
 
-        drivers = [
-            "scripts.prospect",
+        dict_builders = ["scripts.prospect", "scripts.run_kenyon_at_scale"]
+        for name in dict_builders:
+            mod = importlib.import_module(name)
+            assert mod.candidate_to_dict is at_scale_base.candidate_to_dict, (
+                f"{name} has its own candidate_to_dict copy"
+            )
+
+        delegators = [
             "scripts.run_greek_at_scale",
             "scripts.run_hebrew_at_scale",
             "scripts.run_naves_at_scale",
             "scripts.run_torrey_at_scale",
             "scripts.run_ethiopian_at_scale",
-            "scripts.run_kenyon_at_scale",
             "scripts.run_xref_at_scale",
             "scripts.run_ai_xrefs_at_scale",
             "scripts.run_ai_notes_at_scale",
         ]
-        for name in drivers:
+        for name in delegators:
             mod = importlib.import_module(name)
-            assert mod.candidate_to_dict is at_scale_base.candidate_to_dict, (
-                f"{name} has its own candidate_to_dict copy"
+            assert mod.append_candidates is at_scale_base.append_candidates, (
+                f"{name} does not delegate to the shared append_candidates"
             )
 
     def test_at_scale_base_nt_books_shared_and_canonical(self):

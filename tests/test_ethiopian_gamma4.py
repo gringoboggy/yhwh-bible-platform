@@ -1169,18 +1169,25 @@ class TestGamma42EphremGenesisFirstWave:
         assert len(ephrem) >= 30, f"γ.4.2 wave-1 expected ≥30 Ephrem entries; found {len(ephrem)}"
 
     def test_voice_rebalance_achieved(self):
-        # Per AUDIT_2026-05-12-B §ix recommendation: γ.4.2 first wave
-        # was sequenced specifically to rebalance the corpus voice mix
-        # away from 93% Cyril dominance. RULES §8.1 forbids share pins
-        # (a denominator-relative pin silently flips as the corpus grows
-        # via other fathers). Pin an ABSOLUTE Cyril ceiling instead; the
-        # Ephrem floor (test_ephrem_now_substantively_present) already
-        # guards the rebalance from the other side.
-        cyril = self.ec.by_father("Cyril of Alexandria")
-        # Live count at pin-time (2026-05-31) = 668; ceiling set just above
-        # with small headroom (700) so honest ongoing Cyril ingest doesn't
-        # trip it, but a runaway Cyril regression still fails.
-        assert len(cyril) <= 700, f"γ.4.2 wave-1 Cyril ceiling: expected ≤700 Cyril entries; found {len(cyril)}"
+        # γ.4.2 wave-1 was sequenced to rebalance the corpus voice mix away from
+        # ~93% Cyril dominance. RULES §8.1 forbids share pins AND brittle ceilings
+        # (mint-10: the old `len(cyril) <= 700` had only 32 headroom and would flip
+        # on honest ongoing Cyril ingest — exactly the failure §8.1 warns about).
+        # Pin the durable FLOOR instead: the non-Cyril voices the rebalance added
+        # must stay substantively present. Cyril's plurality lead is guarded by
+        # test_cyril_remains_plurality_leader_*; the Ephrem floor guards that side.
+        cyril = 0
+        non_cyril = 0
+        for verse_entries in self.ec._by_verse.values():
+            for e in verse_entries:
+                if e.father == "Cyril of Alexandria":
+                    cyril += 1
+                else:
+                    non_cyril += 1
+        assert non_cyril >= 400, (
+            f"γ.4.2 rebalance: expected ≥400 non-Cyril entries (the rebalance "
+            f"beneficiaries); found {non_cyril} (Cyril={cyril})"
+        )
 
     def test_ephrem_genesis_chapter_coverage(self):
         # γ.4.2 wave-1 explicitly covers Gen 1-11 (creation through
@@ -8177,23 +8184,37 @@ class TestGamma48EMeqabyanArcClose:
         # at 42.63% (668/1567) — sub-50% but still plurality at 3.34×
         # next-single-father (Jubilees + Meqabyan tied at 200). The
         # trajectory is documented in CHANGELOG / SESSION_STATE.
-        cyril_count = 0
-        jubilees_count = 0
+        # mint-10 #2: assert Cyril leads EVERY plausible challenger (the γ.4.9.D
+        # Counter+_voice() pattern), not just Jubilees + Meqabyan — a future
+        # Ephrem / 1-Enoch expansion wave could overtake Cyril while a two-rival
+        # check stayed green.
+        from collections import Counter
+
+        def _voice(father: str) -> str:
+            for stem in (
+                "Cyril of Alexandria",
+                "Athanasius",
+                "Ephrem",
+                "1 Enoch",
+                "Jubilees",
+                "Meqabyan",
+            ):
+                if father == stem or father.startswith(stem):
+                    return stem
+            return father
+
+        counts: Counter = Counter()
         for verse_entries in self.ec._by_verse.values():
             for e in verse_entries:
-                if e.father == "Cyril of Alexandria":
-                    cyril_count += 1
-                elif e.father.startswith("Jubilees"):
-                    jubilees_count += 1
-        meq_count = len(self._all_meq())
-        # Cyril must remain plurality-leader (single-father with highest count)
-        assert cyril_count > meq_count, (
-            f"ω.41 §1: Cyril must remain plurality-leader over Meqabyan even at γ.4.8.E arc-close; "
-            f"Cyril={cyril_count} vs Meqabyan={meq_count}"
-        )
-        assert cyril_count > jubilees_count, (
-            f"ω.41 §1: Cyril must remain plurality-leader over Jubilees; "
-            f"Cyril={cyril_count} vs Jubilees={jubilees_count}"
+                counts[_voice(e.father)] += 1
+
+        cyril_count = counts.get("Cyril of Alexandria", 0)
+        challengers = {v: c for v, c in counts.items() if v != "Cyril of Alexandria"}
+        top_rival, top_rival_count = max(challengers.items(), key=lambda kv: kv[1], default=("(none)", 0))
+        assert cyril_count > top_rival_count, (
+            f"ω.41 §1: Cyril must remain single-father plurality-leader over EVERY "
+            f"challenger at the Meqabyan arc-close; Cyril={cyril_count} vs strongest "
+            f"rival {top_rival}={top_rival_count}"
         )
 
     # ---- Signature passage pins (8 arc-close anchors) ----

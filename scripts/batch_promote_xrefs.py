@@ -87,6 +87,28 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
             promoted += n
             books_changed += 1
             print(f"  ✓ {book}: {n} inserted ({len(notes)} candidates seen)")
+    # mint-10: mark the attempted candidates "promoted" in their queue files so a
+    # re-run doesn't re-attempt them. batch_insert_notes used skip_existing, so each
+    # attempted candidate is now either freshly inserted or already in the corpus —
+    # "promoted" either way (conservative mark-all of exactly the attempted slice,
+    # mirroring the kind/pending/max_per_file selection above).
+    from scripts.core.notes_io import atomic_write
+
+    for fp in files:
+        try:
+            data = json.loads(fp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        eligible = [
+            c
+            for c in data.get("candidates", [])
+            if c.get("status") == "pending" and (kind is None or c.get("kind") == kind)
+        ]
+        to_mark = eligible[:max_per_file] if max_per_file else eligible
+        if to_mark:
+            for c in to_mark:
+                c["status"] = "promoted"
+            atomic_write(fp, json.dumps(data, indent=2, ensure_ascii=False))
     return attempted, promoted, books_changed
 
 

@@ -499,7 +499,7 @@ async function exportNow() {
       return;
     }
     if (!r.ok || data.error) {
-      status.innerHTML = `<div class="text-red-600 font-medium">✗ ${data.error || 'build failed'}</div>` +
+      status.innerHTML = `<div class="text-red-600 font-medium">✗ ${(data.error || 'build failed').replace(/[<>]/g, c => ({'<':'&lt;','>':'&gt;'}[c]))}</div>` +
         (data.stderr ? `<pre class="text-xs bg-slate-100 p-2 mt-2 overflow-auto max-h-40">${data.stderr.replace(/[<>]/g, c => ({'<':'&lt;','>':'&gt;'}[c]))}</pre>` : '');
       restore();
       return;

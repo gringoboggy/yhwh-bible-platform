@@ -234,7 +234,9 @@ def _protected_paths_guard():
 # handles so the next test's invalidate()/rebuild()/replace()
 # cycle doesn't race.
 @pytest.fixture(autouse=True)
-def _disable_corpus_index_fingerprint_cache(monkeypatch):
+def _disable_corpus_index_fingerprint_cache():
+    # mint-10: dropped the unused `monkeypatch` param (dead since the TTL=0
+    # override was removed) — it spun up monkeypatch for ~200+ tests for nothing.
     import sqlite3
 
     try:
