@@ -1,7 +1,13 @@
 # D2 Source Readiness: 1 Enoch & Jubilees (Geez Unicode)
-**Date:** 2026-05-28  
+**Date:** 2026-05-28 (recon refresh 2026-06-02)  
 **Agent:** light text-only recon (no images/browsers downloaded)  
 **Scope:** assess whether clean, PD, Unicode Geez (ግዕዝ script) exists for own-versification Phase-D transcription
+**Status:** readiness recon only — NOT an ingest; no corpus/store/build files touched.
+
+> **⚠ 2026-06-02 RECON UPDATE (corrections to the original note):**
+> 1. **Charles 1906 Enoch scan DOES carry a real Ge'ez Unicode OCR layer** (re-OCR'd with **tesseract 5.3.0, Ethiopic**), of *moderate* quality — NOT Latin-only as §1(d) originally inferred-by-analogy. Verified by sampling `…/ethiopicversiono00charuoft_djvu.txt`: actual Ethiopic script (e.g. `ወይቤ፡ ሄኖሕ፡`) with chapter/verse headers ("I. 1-5", "V. 6-9"), plus sporadic char-substitution/diacritic errors. This **upgrades ch. 72–108 from pure NEEDS-VISION to parse-with-vision-correction** (a head-start, not a from-scratch marathon). The IA item is re-OCR'd since the original 2026-05-28 check, so the old "Latin-only" verdict is now stale.
+> 2. **OCP licensing nuance:** OCP declares the *manuscript text* PD, but the **encoding/tagging is CC BY-NC-ND 4.0** (per external catalog records) and its base text follows **Rylands Eth. MS 23 = Knibb's (in-copyright) 1978 edition**. For a free-distribution Bible, prefer re-segmenting the PD MS text ourselves over republishing OCP's encoded file. The **Charles 1906** path is unambiguous PD and sidesteps this.
+> 3. The OCP **TLS cert is still expired** (WebFetch HTTP→HTTPS fail; Playwright `ERR_CERT_DATE_INVALID`) — pulling OCP text will need cert-override or a Wayback snapshot. Original conclusions otherwise stand: **1 Enoch = GO (parse-first); Jubilees = NEEDS-VISION** (its IA OCR is confirmed *gibberish* Ge'ez, not Unicode).
 
 ---
 
@@ -39,14 +45,14 @@ The pseudepigrapha.org Geez text is **hand-encoded Unicode** (keyed from Knibb's
 - DjVu text layer: `https://archive.org/stream/Charles_The-Book-of-Enoch_part-1_1906/eth_1_djvu.txt`
 - Alternate 1912 translation: `https://archive.org/stream/bookofenochor1en00char/bookofenochor1en00char_djvu.txt`
 
-The 1906 edition is a **page-scan / photographic reproduction** of the Geez manuscript. The Ethiopic text portion was "printed directly from a photograph of the chief MS." (confirmed by scholarly description found in search snippets). The DjVu OCR layer extracts only the Latin-script apparatus (introductions, critical notes, English apparatus) as readable text; the Geez script pages appear as image raster in the scan. The DjVu `.txt` OCR layer will not contain Unicode Geez characters — confirmed by the analogous Jubilees PDF test (see §2), which showed only Latin character mappings in a Google Books-origin PDF of the same era. **VERDICT: image-only for the Geez portion; OCR-only (Latin apparatus).**
+The 1906 edition is a **page-scan / photographic reproduction** of the Geez manuscript. **CORRECTED 2026-06-02:** the IA item `ethiopicversiono00charuoft` has since been **re-OCR'd with tesseract 5.3.0 (Ethiopic)**, so its `_djvu.txt` text layer now **does contain actual Unicode Ge'ez** (verified sample: `ወይቤ፡ ሄኖሕ፡`, with "I. 1-5" / "V. 6-9" chapter/verse headers), at *moderate* accuracy (char-substitution, spacing, diacritic/footnote-marker errors). The original "Latin-only / image-only" verdict — inferred by analogy to the Jubilees PDF (§2) — is **stale**. **REVISED VERDICT: real Ge'ez Unicode OCR present; usable as a parse + targeted-vision-correction spine, NOT a full vision marathon.** (The Jubilees scan in §2 is genuinely gibberish; the two are NOT analogous.)
 
 ### (e) GO / NO-GO / NEEDS-VISION lean
 
 **NEEDS-VISION for ch. 72–108; CONDITIONAL-GO for ch. 1–71**
 
 - Ch. 1–71: pseudepigrapha.org has clean Unicode Geez from Rylands MS 23. Once SSL cert is live (or the text is fetched via curl/wget at transcription time), the Geez body exists and is clean. Verse markup will need to be mapped to EOTC versification but the text layer is present. **Lean: GO with caveat (verify SSL + verse-tag format).**
-- Ch. 72–108: no clean Unicode Geez source identified anywhere publicly. archive.org Charles 1906 provides only page-scan images. **VISION transcription of Charles 1906 scans (marathon method) required** — same as the Patrologia path already ratified in the project. **Lean: NEEDS-VISION.**
+- Ch. 72–108: **REVISED 2026-06-02** — Charles 1906 (`ethiopicversiono00charuoft`) now has a **moderate-quality Ge'ez Unicode OCR layer** (tesseract Ethiopic) with chapter/verse headers. This is no longer a from-scratch vision target: **parse the OCR + vision-correct the error spans**. **Lean upgraded: PARSE-WITH-VISION-CORRECTION** (head-start, not full marathon). OCP also hosts ch. 72–108 of the Astronomical/Dream/Epistle sections in some witnesses — verify once the cert is fixed.
 
 ---
 
@@ -88,18 +94,18 @@ No public Unicode Geez text source exists for Jubilees. All identified sources a
 | Book | Clean Unicode Geez? | Where | Chapter Coverage | Verse Numbers in Source | OCR/Clean Verdict | Phase-D Lean |
 |---|---|---|---|---|---|---|
 | 1 Enoch (ch. 1–71) | YES (conditional) | pseudepigrapha.org — SSL currently expired | ch. 1–71 (Rylands MS 23) | Unconfirmed; scholarly apparatus format | Clean Unicode (hand-keyed, Knibb-based) | CONDITIONAL-GO (verify SSL + verse format) |
-| 1 Enoch (ch. 72–108) | NO | Not found publicly | None identified | N/A | N/A — source is image scans only (Charles 1906) | NEEDS-VISION (Charles 1906 scans) |
+| 1 Enoch (ch. 72–108) | PARTIAL (OCR) | Charles 1906 IA scan, re-OCR'd | ch. 72–108 (full edition) | chapter/verse headers in OCR | **Moderate Ge'ez Unicode OCR (tesseract Ethiopic)** — corrected 2026-06-02 | PARSE-WITH-VISION-CORRECTION (Charles 1906) |
 | Jubilees (all 50 ch.) | NO | Not found publicly | None identified | N/A | Image-only (Charles 1895 scans confirmed) | NEEDS-VISION (Charles 1895 scans, printed typeface) |
 
 ---
 
 ## Recommended Next D2 Source Order
 
-**Priority 1 — 1 Enoch ch. 1–71 via pseudepigrapha.org:** Re-attempt text fetch once SSL cert renews (or use `--insecure` curl at transcription time); inspect verse-tagging format; map to EOTC versification. This is the lowest-effort path and yields the largest clean Geez block.
+**Priority 1 — 1 Enoch ch. 1–71 via pseudepigrapha.org:** Re-attempt text fetch once SSL cert renews (or use `--insecure` curl / Wayback at transcription time); inspect verse-tagging format; map to EOTC versification. Lowest-effort path, largest clean Geez block. **License caveat (2026-06-02):** OCP's *encoding/tagging* is **CC BY-NC-ND 4.0** and tracks **Knibb's in-copyright** edition of Rylands Eth. MS 23 — the underlying *MS text* is PD, but for a free-distribution Bible prefer **re-segmenting the PD MS text ourselves** over republishing OCP's encoded file. The fully-clean-PD alternative for the same block is **Charles 1906** (now with usable Ge'ez OCR — see Priority 3), which sidesteps the OCP license entirely.
 
 **Priority 2 — Jubilees (all 50 ch.) via Charles 1895 scans:** VISION-marathon against archive.org scans (`https://archive.org/details/CharlesEthiopicJubilees`). Printed typeface makes transcription more reliable than Patrologia MS folios. Load chapter by chapter per the ratified marathon method.
 
-**Priority 3 — 1 Enoch ch. 72–108 via Charles 1906 scans:** VISION-marathon against `https://archive.org/details/ethiopicversiono00charuoft`. Lower priority because ch. 1–71 already covers the canonical Parables section; ch. 72–108 completes the Tewahedo canon but is the largest and hardest remaining block.
+**Priority 3 — 1 Enoch ch. 72–108 via Charles 1906:** **REVISED 2026-06-02** — `https://archive.org/details/ethiopicversiono00charuoft` now has a moderate **Ge'ez Unicode OCR** layer (tesseract Ethiopic), so this is **parse-with-vision-correction**, not a from-scratch marathon. Charles 1906 is also the **clean-PD spine for ch. 1–71** (preferable to OCP's CC-BY-NC-ND encoding for free distribution): parse the whole 1906 OCR, vision-correct error spans, segment by the printed chapter/verse headers.
 
 ---
 

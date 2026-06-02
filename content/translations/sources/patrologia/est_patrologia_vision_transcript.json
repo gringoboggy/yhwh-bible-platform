@@ -13,12 +13,14 @@
       "p24",
       "p25",
       "p26",
-      "p27"
+      "p27",
+      "p28"
     ],
     "p25_status": "DONE -- A5 completed across the p24->p25 break (joined break-word ክልኤሆሙ); A6-A12 transcribed + 3-pass-converged + calibrated; A13 partial (ወ) continues p26. Codepoint-clean.",
     "encoding_note": "Per-page, SOURCE ORDER. Split verses (continuing across a page boundary) carry _partial=true + _continues_on_page on the first page; the Task-4 final assembly concatenates the parts before writing est_patrologia.py. Verse 'v' is a STRING label per the locked Additions encoding (Addition A -> 'A1'..'A17' inside host chapter int 1; canonical verses -> '1','2',...).",
     "p26_status": "DONE -- A13 completed across the p25->p26 break (joined ወ+ሰምያሙ); A14-A17 close Addition A; canonical 1:1-1:4 begun (1:4 cut at ዕለ -> p27). RECOVERED from a crashed session (2 blind + adjudicator transcripts) + a controller re-verification pass; numeral 127 + long A17 French-anchored; 2 adjudicator over-reads corrected. Codepoint-clean.",
-    "p27_status": "DONE -- canonical 1:4 completed across the p26->p27 break (mid-word joined ዕለ+ት = ዕለት 'days'); 1:5-1:8 transcribed (1:8 cut after ፈቃደ -> p28). RECOVERED from TWO consecutive crashed (OOM) sessions: the finishing-adjudicator convergence workflow (wf_fe98cd7b) had COMPLETED its converged StructuredOutput before the 2nd crash (the Verify phase never ran); recovered from the workflow agent transcript, cross-confirmed by the first adjudicator attempt's independent text, then a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral (printed ፫ ፸; Pereira's French 'trente mille' divergence flagged, not harmonized) and the v7/v8 boundary (the abundant-wine sentence opens v8) -- against the staged crops + French CONFIRMED the reading. No heavy vision agent re-run. Codepoint-clean."
+    "p27_status": "DONE -- canonical 1:4 completed across the p26->p27 break (mid-word joined ዕለ+ት = ዕለት 'days'); 1:5-1:8 transcribed (1:8 cut after ፈቃደ -> p28). RECOVERED from TWO consecutive crashed (OOM) sessions: the finishing-adjudicator convergence workflow (wf_fe98cd7b) had COMPLETED its converged StructuredOutput before the 2nd crash (the Verify phase never ran); recovered from the workflow agent transcript, cross-confirmed by the first adjudicator attempt's independent text, then a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral (printed ፫ ፸; Pereira's French 'trente mille' divergence flagged, not harmonized) and the v7/v8 boundary (the abundant-wine sentence opens v8) -- against the staged crops + French CONFIRMED the reading. No heavy vision agent re-run. Codepoint-clean.",
+    "p28_status": "DONE -- canonical 1:8-tail (completes p27) + 1:9-1:16 (1:16 cut after ወይ -> p29). Method: TWO blind Opus vision passes (wf_d49c0422-6d2: transcriber A complete; transcriber B corroborated through v13 then HONESTLY refused to fabricate v14-16 after an image-payload limit) + a CONTROLLER full-strip read and targeted high-zoom crux crops (king's name, eunuch names, the ወለዢ token, the v12/13 margin boundary, the v14 princes + እቱተ) cross-checked vs Pereira's French translation band AND the printed apparatus (MNPQ sigla). A THIRD fresh pass (B2) was REJECTED as a witness -- it HARMONIZED to the standard LXX/Hebrew text instead of reading the glyphs (it fabricated v16's continuation, a verse physically CUT off the page, and substituted the standard eunuch names Mehuman..Carcas which contradict Pereira's own French). Resolved: v12/13 boundary = v13 starts at ወነገሮሙ (margin '13' at that line + LXX v13 carries both clauses + French); 3 princes = አርቄስዮስ/ስርስቲዮስ/ማግሌ (A's ማግሌቢኃር conflated ማግሌ with the next word ወመላእክቲሁ); v10 prints EIGHT ለ-tokens vs SEVEN French/LXX names (8th token ወለዢ has no French/apparatus counterpart -- preserved-as-printed + flagged). name1 = printed body ገማ though apparatus MNPQ read ለሐሙ + French 'Hamâ' (read-the-print, NOT harmonized). Codepoint-clean."
   },
   "pages": {
     "24": {
@@ -290,6 +292,106 @@
       ],
       "method": "RECOVERED from TWO consecutive crashed (OOM) sessions. Session 2a3624ca ran 2 blind Opus transcribers + an adjudicator on p27 then crashed (crash #1 since the documented p26 incident); session 2e57d4aa re-rendered the body/line/numeral/French crops + launched a finishing-adjudicator convergence workflow (wf_fe98cd7b: 2 recovered blind drafts vs the image + Pereira's French) which COMPLETED its converged StructuredOutput before that session ALSO crashed (crash #2; the workflow's Verify phase never ran). This (3rd) session recovered the completed adjudication from the workflow agent transcript (cross-confirmed by the first adjudicator attempt's independent text) and did a CONTROLLER re-verification of the two load-bearing cruxes -- the v7 numeral and the v7/v8 boundary -- against the staged crops (numeral_only.png, boundary_L8L9.png) + the French (fra3.png): both CONFIRM the recovered reading. No heavy vision agent was re-run (which is what OOM'd both prior sessions). Apparatus band + French excluded from the verse text; French used only as the calibration word-identity / verse-numbering anchor.",
       "review": "p27 = canonical Esther 1:4-tail (completes p26) + 1:5-1:8 (1:8 cut after ፈቃደ -> p28). French-anchored resolutions: v5 feast word = በዓለ (ayn 4th-order ዓ; both blind drafts misread as በኆለ/በኅለ); v7/v8 boundary = the abundant-wine sentence opens v8 (French v8 'Et le vin était abondant'; v7 ends '... talents'); v7 numeral = printed ፫ ፸ (controller-confirmed double-pillar tens form; French 'trente mille' divergence flagged, not harmonized). v6 (long) converged per-glyph from the 3x line crops (ወስርግዉ ዉ-5th, ወበዓጌ ጌ-ending, ወዐውድ, አሕባል final ል, ወዐሪታት ሪ-3rd, ጽፍጹፍ/ጸፍጹፉ both 6th-order ፍ, ጸፊዮ, ጸሪኑ, ወበእብነ construct ነ, አወዱ ወ-1st), French parallels (pierre de parenso=ዘጸርንስ, émeraude=ዘሕብረ መረግድ, fleurs de rose=ጽጌ ረዳ). Tsade per the edition rule (flat 1st-order ጸ; no distinct 4th-order ጻ). Day-count 1:4 = በ፻ ፡ ወ፹ = 180."
+    },
+    "28": {
+      "banner": "LE LIVRE D'ESTHER. — I, 9-16.",
+      "host_chapter": 1,
+      "verses": [
+        {
+          "ch": 1,
+          "v": "8",
+          "text": "ወወይን ፡ ብዙኅ ፡ ዘሥናይ ፡ መዐዘሁ ፡ ይሰቲ ፡ ውእቱ ፡ ንጉሥ ። ወበዓሉስ ፡ አኮ ፡ በሕገ ፡ ቀዳሚ ፡ ዘገብረ ፡ አላ ፡ በከመ ፡ ፈቀደ ፡ ውእቱ ፡ ንጉሥ ፡ ወአዘዘ ፡ ለመጉብቱ ፡ ይግብሩ ፡ ፈቃደ ፡ ዚአሁ ፡ ወፈቃደ ፡ ሰብእ ።",
+          "_assembled_from_pages": [
+            27,
+            28
+          ],
+          "_note": "complete canonical 1:8: p27 head (cut after ፈቃደ ፡) + this p28 opening tail (ዚአሁ ፡ ወፈቃደ ፡ ሰብእ ።) joined. Pereira's French: '... sa propre [volonté] et la volonté des gens'. opening_tail confirmed identical by both blind passes A and B."
+        },
+        {
+          "ch": 1,
+          "v": "9",
+          "text": "ወአስጢን ፡ ንግሥት ፡ ገብረት ፡ በዓለ ፡ ለአንስት ፡ እለ ፡ ውስተ ፡ ቤተ ፡ መንግሥታ ፡ ኀበ ፡ አርጥርክስርክስዴስ ፡ ንጉሥ ።"
+        },
+        {
+          "ch": 1,
+          "v": "10",
+          "text": "ወበሳብዕት ፡ ዕለት ፡ ሶበ ፡ ተፈሥሐ ፡ ንጉሥ ፡ ይቤሎ ፡ ለገማ ፡ ወለባዛን ፡ ወለተራ ፡ ወለቡለዚ ፡ ወለዘትውልታ ፡ ወለዘአባጣ ፡ ወለተራብ ፡ ወለዢ ፡ ኃጽዋኒሁ ፡ ለንጉሥ ፡ እለ ፡ ይትለአክዎ ።"
+        },
+        {
+          "ch": 1,
+          "v": "11",
+          "text": "ከመ ፡ ያምጽእዋ ፡ ለንግሥት ፡ ወያንግሥዋ ፡ ወያሰረግውዋ ፡ አክሊለ ፡ ወያርእይዋ ፡ ለኩሉ ፡ መላእክተ ፡ ሕዝብ ፡ ሥና ፡ እስመ ፡ ሠናይት ፡ ይእቲ ።"
+        },
+        {
+          "ch": 1,
+          "v": "12",
+          "text": "ወአበየት ፡ ሰሚያቶ ፡ አስጢን ፡ ንግሥት ፡ ወኢፈቀደት ፡ ትምጽእ ፡ ምስለ ፡ ኃጽዋኒሁ ፡ ወተከዘ ፡ ንጉሥ ፡ ወተምዐ ።"
+        },
+        {
+          "ch": 1,
+          "v": "13",
+          "text": "ወነገሮሙ ፡ ለአዕርክቲሁ ፡ ዘከመ ፡ ትቤ ፡ አስጢን ። ወይቤሎሙ ፡ ግበሩ ፡ እንከሰ ፡ ሕገ ፡ ወኮነኔሁ ።",
+          "_note": "v13 starts at ወነገሮሙ (NOT in v12): margin '13' sits at this line; the LXX v13 carries BOTH 'he told his friends what Astin said' AND 'make a law and judgment'; Pereira's French agrees. Transcriber A had mis-split ወነገሮሙ..አስጢን into the end of v12 -- corrected."
+        },
+        {
+          "ch": 1,
+          "v": "14",
+          "text": "ወመጽአ ፡ ኀቤሁ ፡ አርቄስዮስ ፡ ወስርስቲዮስ ፡ ወማግሌ ፡ ወመላእክቲሁ ፡ ፋርስ ፡ ወሜዶን ፡ እለ ፡ ቅሩባን ፡ ኀበ ፡ ንጉሥ ፡ እለ ፡ ይነብሩ ፡ እቱተ ፡ ምስለ ፡ ንጉሥ ።"
+        },
+        {
+          "ch": 1,
+          "v": "15",
+          "text": "ወነገርዎ ፡ ለንጉሥ ፡ ሕገሙ ፡ ዘከመ ፡ ይሬስይዋ ፡ ለአስጢን ፡ ንግሥት ፡ እስመ ፡ ኢገብረት ፡ በከመ ፡ አዘዘሙ ፡ ንጉሥ ፡ ለኃጽዋን ።"
+        },
+        {
+          "ch": 1,
+          "v": "16",
+          "text": "ወይ",
+          "_partial": true,
+          "_continues_on_page": 29,
+          "_continuation_note": "v16 cut at the right page edge after ወይ (the onset of ወይቤ.., 'and [the speaker] said'); continues p29. Margin '16' sits beside this line. Pereira's French v16 begins 'Et ..'; the LXX names the speaker Memucan (Bougaios). Both faithful witnesses (transcriber A + controller) read only ወይ before the edge; the REJECTED B2 pass fabricated the rest from the standard text.",
+          "_completed_in_page": 29,
+          "_assembly": "drop this partial at final assembly; use the complete 1:16 in pages['29']"
+        }
+      ],
+      "last_verse_complete": false,
+      "canonical_1_1_reached": true,
+      "uncertain": [
+        {
+          "ref": "v10 eunuch list -- EIGHT ለ-tokens vs SEVEN names (LOAD-BEARING)",
+          "issue": "The printed Ge'ez body lists EIGHT ለ-prefixed tokens: ለገማ, ወለባዛን, ወለተራ, ወለቡለዚ, ወለዘትውልታ, ወለዘአባጣ, ወለተራብ, ወለዢ -- then ኃጽዋኒሁ ('eunuchs'). But Pereira's French translates only SEVEN names (Hamâ, Bâzân, Tarâ, Bugazê, Zatwellâ, Zaubâtâ, Tarâhâ) + 'les sept eunuques', and the LXX likewise has 7. The 8th token ወለዢ has NO French counterpart and NO apparatus variant; grammatically ወለዘ ('and to those [his eunuchs]') would yield exactly 7 names. Transcribed AS PRINTED (ወለዢ, a -i-bearing fidäl, NOT the numeral ፯ -- no vinculum) and flagged for a later editor with the physical volume to resolve ዢ vs ዘ vs ፯."
+        },
+        {
+          "ref": "v10 name1 ገማ (read-the-print)",
+          "issue": "The body clearly prints ለገማ (ገ, gä -- confirmed at high zoom). The apparatus reads ለሐሙ (M N P Q) and Pereira's French renders 'Hamâ' (ḥ-onset). Kept the PRINTED ገማ; did NOT harmonize toward ሐማ/ሐሙ. (Canonical instance of the read-the-print mandate vs the harmonizing trap -- see _vision_notes (i),(q).)"
+        },
+        {
+          "ref": "v10 name5 ዘትውልታ (labialization order)",
+          "issue": "The name spans ዘት (line 3 end) + ውልታ (line 4 start). The onset of the 2nd element is a LABIALIZED w-glyph (ው/ዉ), corroborated by French 'Zatwellâ' (w) + apparatus 'ዛተልወት' (P). Transcriber A misread it as ቡ (b -> ዘትቡልታ); corrected to the w-form. Exact order ው(6th)/ዉ(2nd) flagged uncertain."
+        },
+        {
+          "ref": "v10 name7 ተራብ vs ተራባ",
+          "issue": "Final order ብ(6th)/ባ(4th) low-contrast; the high-zoom crops + transcriber B read ተራብ (ብ), transcriber A read ተራባ (ባ); apparatus N has ታራባ. Recorded ተራብ; flagged."
+        },
+        {
+          "ref": "v9 king's name አርጥርክስርክስዴስ (per-page spelling variant)",
+          "issue": "This page spells the king አርጥርክስርክስዴስ (onset ጥ; ending ...ክስዴስ with ዴ -- the ending controller-confirmed at high zoom; agreed by transcriber A). This DIFFERS from p24 (አርጢርክስርክሴስ) and p26 (አርጤርክስርክሴስ, ending ...ክሴስ) -- a legitimate per-page fount inconsistency. The apparatus MNPQ carry ኮረክስርክሴ(ስ)-type variants; French 'Arterkserksès'. Kept as printed on this page; flagged."
+        },
+        {
+          "ref": "v14 third prince ማግሌ",
+          "issue": "Line 9 ends ...ወስርስቲዮስ ፡ ወማግሌ (margin 14), line 10 begins ወመላእክቲሁ ፡ ፋርስ. The 3rd prince = ማግሌ (then 'and the princes of Persia and Media'). Transcriber A's ማግሌቢኃር wrongly fused ማግሌ with the following word ወመላእክቲሁ. French 'Mâlêsâr' / LXX 'Malêsear' suggest a longer -sar form, so ማግሌ may be abbreviated/cut -- flagged."
+        },
+        {
+          "ref": "v14 እቱተ",
+          "issue": "እለ ፡ ይነብሩ ፡ እቱተ ፡ ምስለ ፡ ንጉሥ -- the word እቱተ (controller-confirmed at high zoom; A flagged it too) renders French 'à part' (apart/separately). An unusual form; transcribed as printed, flagged for the EN-lane translator."
+        },
+        {
+          "ref": "minor vowel-orders settled by majority + crop",
+          "issue": "v9 ገብረት (A+controller; B ገበረት), ኀበ (1st-order ኀ; A+controller; B ኃበ); v10 ወበሳብዕት (4th-order ሳ; B+controller+crop; A ሱብዕት); v11 ለኩሉ (B+crop; A ለኩቶሉ); v12 ሰሚያቶ (ቶ; B+controller; A ሰሚያዶ), ትምጽእ, ወተከዘ; v13 ግበሩ (A) + ወኮነኔሁ (ኮ; A+crop; B ኵናኔሁ). All low-contrast 1913-fount pairs; best-supported reading taken."
+        }
+      ],
+      "method": "TWO independent blind Opus vision passes (Workflow wf_d49c0422-6d2, run SEQUENTIALLY -- MAX-1-heavy per the OOM-scarred marathon discipline): transcriber A produced a complete, French-consistent pass; transcriber B corroborated A through v13 then HONESTLY refused to fabricate v14-16 after hitting an image-payload limit (marked them illegible). A THIRD fresh general-purpose Opus pass (B2) was dispatched for the missing v14-16 witness but was REJECTED WHOLESALE: it harmonized to the standard LXX/Hebrew text instead of reading the glyphs -- proven by (a) fabricating v16's continuation though v16 is physically CUT off the page after ወይ, and (b) substituting the standard Hebrew eunuch names (Mehuman..Carcas) which contradict Pereira's own French. The faithful second witness for v14-16 (and the adjudication of all A-vs-B divergences) was the CONTROLLER reading the full body strip + targeted high-zoom crux crops (king's name, eunuch names, the ወለዢ token, the v12/13 margin, the v14 princes + እቱተ), cross-checked against Pereira's French translation band AND the printed apparatus (MNPQ variant readings). Apparatus band + French EXCLUDED from the verse text (used only as calibration word-identity / verse-numbering anchors, per _vision_notes (i),(p),(r)). Codepoint-clean (Ethiopic-only).",
+      "review": "p28 = canonical Esther 1:8-tail (completes p27) + 1:9-1:16 (1:16 cut after ወይ -> p29). Vashti/Astin's feast for the women (v9), the seven (eight-printed) eunuchs summoned on the seventh day (v10), the order to display the queen (v11), her refusal and the king's wrath (v12), the king's consultation of his friends/wise men (v13-15). Key resolutions: v12/13 boundary = v13 begins at ወነገሮሙ (margin '13' at that line + LXX v13 carries both clauses + French) -- transcriber A's v12/13 split corrected; 3 princes (v14) = አርቄስዮስ / ስርስቲዮስ / ማግሌ; eunuchs (v10) printed as EIGHT ለ-tokens vs the French/LXX seven (8th token ወለዢ flagged, not harmonized away); name1 = printed ገማ though apparatus/French point to ሐማ/Hamâ (read-the-print). Divine name absent (narrative). Tsade per the edition rule: 6th-order ጽ (descending leg) in ኃጽዋኒሁ/ያምጽእዋ/ትምጽእ/ወመጽአ; no distinct 4th-order ጻ. ★NEW failure-class logged (_vision_notes (q)): a vision pass that cannot resolve the faint glyphs will HARMONIZE to the standard text -- detect by checking proper nouns vs Pereira's French + by spotting fabricated content for cut-off verses; REJECT such a pass. ★The printed apparatus (MNPQ) is a second calibration anchor alongside the French (_vision_notes (r))."
     }
   }
 }
