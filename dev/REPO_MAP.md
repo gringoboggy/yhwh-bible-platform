@@ -14,9 +14,9 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 182 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 186 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
-| `docs/superpowers/` | ✅ | `plans/` (27 implementation plans) + `specs/` (16 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
+| `docs/superpowers/` | ✅ | `plans/` (29 implementation plans) + `specs/` (16 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
 | `assets/icons/` | ✅ | App icons (PyWebView/desktop): `icon_{16..1024}.png`, `.ico`. |
 | `GAPS/` | ✅ (large) | Ge'ez gap-fill **manuscript images** (Cambridge MS Add. 1570: 1 Samuel ~155, 2 Kings ~42, + `-hires` crops) + PD **PDFs** (Patrologia Orientalis: Chronicles/Ezra-Neh/Esther/Job). Source material for the manuscript-collation track (NOT built into EPUBs). See memory `reference_gaps_folder`. |
@@ -28,7 +28,7 @@
 ## content/  — data + config (the heart)
 
 - **`*.yaml`** (config; loaded by `scripts/core/config.py`, mapped in `MATRIX_MAP.md`): `books.yaml` (87 books — code, `bxx` canon position, `strategy`, `ch_count`, `files`), `canons.yaml` (5 canon→book-sets), `categories.yaml` (15), `kinds.yaml` (72), `editions.yaml` (11 profiles), `traditions.yaml`, `themes.yaml`, `source_dates.yaml`, `customization.yaml`, etc.
-- **`notes/<book>.py`** — the corpus: 88 files, one per book, each a `NOTES = [ (ch,v,suffix,anchor,kind,title,label,body[,attribution]), … ]` list (**67,715 notes total**). `+ .manifest.json`.
+- **`notes/<book>.py`** — the corpus: 88 files, one per book, each a `NOTES = [ (ch,v,suffix,anchor,kind,title,label,body[,attribution]), … ]` list (**91,733 notes total**). `+ .manifest.json`.
 - **`translations/<id>/<book>.py`** — verse text as data, per translation (powers popups / parallel / standalone). 14 dirs: `kjv` (full, 81 books), `geez-tewahedo` (33), `amharic-tewahedo` (28), `geez-tewahedo-en` / `amharic-tewahedo-en` (EN back-translations), and partial pilots (`wlc`,`jps`,`lxx-brenton-{english,greek}`,`lxx-swete-greek`,`byzantine-greek`,`douay-rheims`,`vulgate-clementine`,`arabic-vandyke` — `gen.py` only). Each (except the two `-en` back-translation dirs) has `_meta.yaml`. Raw upstreams under `translations/sources/`.
 - **`sources/`** — provenance + ingest inputs: `ATTRIBUTIONS.md` (legal source registry — e.g. **1 Enoch = R. H. Charles 1912 English, from the Ge'ez**), `_fetchers.json`, `naves_ccel_source.txt` / `eastons_ccel_source.txt` (clean PD texts), `naves_topical.json`, `*_commentaries.json` (patristic corpora).
 - **`candidates/<book>_ch_NNN.json`** — 1,656 detector/prospect candidate queues (pre-promotion staging; `promote.py` / `batch_promote_xrefs.py` consume → `notes/`).

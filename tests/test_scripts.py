@@ -4725,9 +4725,13 @@ class TestEditionMeta:
         if m.group(1) == "idle":
             assert r["status"] == "pass"
             assert "idle" in r["message"].lower()
-        # When active, the status depends on freshness vs CHANGELOG —
-        # both pass and warn are valid; we just make sure it's
-        # reporting truthfully.
+        else:
+            # When active, the status depends on freshness vs CHANGELOG — all
+            # three are valid ("fail" is correct for a >4h orphaned task, so do
+            # NOT restrict to pass/warn). mint-11 #17: the active branch made no
+            # behavioral assertion; verify truthful, non-empty reporting.
+            assert r["status"] in ("pass", "warn", "fail"), r["status"]
+            assert r["message"], "active-state check must report a non-empty message"
 
     def test_untracked_phases_check_passes_with_legacy_allowlist(self):
         """Pre-CHANGELOG phases (β.1, ν.2.5, etc.) are allowlisted;

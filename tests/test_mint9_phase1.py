@@ -128,8 +128,12 @@ def test_strategy_b_book_emits_bxx_ref_ids() -> None:
     from scripts.core.notes_io import load_notes
 
     notes = load_notes(REPO_ROOT / "content" / "notes" / "2ch.py") or []
-    if not notes:
-        pytest.skip("2ch has no notes on disk in this checkout")
+    # mint-11 #16: was pytest.skip — but 2ch is a shipped Strategy-B book with real
+    # notes, so "no notes" means NOTES emptied or load_notes failed; that must FAIL
+    # this test (which exists to exercise the bxx-fallback ref-id path), not skip it.
+    assert notes, (
+        "2ch.py has no notes — NOTES empty or load_notes failed; the bxx-fallback test needs a real Strategy-B corpus"
+    )
     assert ref_ids, "Strategy-B book 2ch yielded no ref-ids (bxx fallback missing)"
     assert all(r.startswith(f"ref-{bxx}") for r in ref_ids), (
         f"2ch ref-ids must use the bxx prefix {bxx!r}: {sorted(ref_ids)[:3]}"
