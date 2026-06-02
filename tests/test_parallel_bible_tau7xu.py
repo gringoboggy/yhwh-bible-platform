@@ -284,7 +284,7 @@ class TestTau7XUCleanShipNoToolingDelta:
         """τ.7.x.u introduces NO writer change; the τ.7.x.t repr()
         fix remains in place and benefits this ship."""
         src = (REPO / "scripts" / "extract_parallel_pdf.py").read_text(encoding="utf-8")
-        assert "({ch}, {v}, {text!r})," in src
+        assert "({ch!r}, {v!r}, {text!r})," in src
 
     def test_1en_py_no_invalid_escape_sequence(self):
         """1en OCR had backslash artifacts; under the (τ.7.x.t)

@@ -5498,7 +5498,11 @@ class TestPublisherConsole:
         d = self.web.api_publisher_data()
         for e in d["editions"]:
             if e["publisher_name"] == "Independent":
-                assert e["language_code"] == "en"
+                # standalone-geez / standalone-amharic explicitly set a
+                # non-English language_code by design (gez/amh); their language
+                # field is independent of the publisher_name "unset" gate.
+                if e["id"] not in ("standalone-geez", "standalone-amharic"):
+                    assert e["language_code"] == "en"
                 assert isinstance(e["authors"], list)
 
     def test_save_text_round_trip(self, tmp_path):

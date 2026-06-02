@@ -248,7 +248,7 @@ class TestTau7XTJubCoverage:
 class TestTau7XTWriterSerializationFix:
     def test_writer_uses_repr_serialization(self):
         src = (REPO / "scripts" / "extract_parallel_pdf.py").read_text(encoding="utf-8")
-        assert "({ch}, {v}, {text!r})," in src, "write_book_module must serialize via repr()"
+        assert "({ch!r}, {v!r}, {text!r})," in src, "write_book_module must serialize via repr()"
         assert 'text.replace("\'", "\\\\\'")' not in src, "the old single-quote-only escaper must be gone"
 
     def test_jub_py_has_no_invalid_escape_sequence(self):

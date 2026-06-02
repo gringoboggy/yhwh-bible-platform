@@ -527,16 +527,22 @@ class TestTau7XISkipTheGapInvariants:
     # editions — so those are no longer skipped in GEEZ (they remain
     # skipped in AMHARIC, which the test above still checks in full). Only
     # the manuscript-marathon books stay render-pending in geez.
-    GEEZ_STILL_SKIPPED = ("1sa", "2sa", "1ki", "2ki")
+    GEEZ_STILL_SKIPPED = ("2ki",)
 
     def test_skipped_books_not_in_geez_tewahedo(self):
-        """The manuscript-marathon books (render is post-marathon) still
-        have no .py in geez-tewahedo/. The Patrologia books (1ch/2ch/ezr/
-        neh/job) were rendered at τ.6.x.5.x and are intentionally excluded
-        from this skip-set."""
+        """Updated mint-11 (2026-06-02): only 2ki remains render-pending in
+        geez-tewahedo (manuscript marathon). 1sa/2sa/1ki were rendered
+        (marathon + Patrologia) and now ship — asserted positively below. The
+        Patrologia books (1ch/2ch/ezr/neh/job) were rendered at τ.6.x.5.x and
+        are also intentionally excluded from this skip-set."""
         for book in self.GEEZ_STILL_SKIPPED:
             path = GEEZ_TEWAHEDO / f"{book}.py"
             assert not path.exists(), f"geez-tewahedo/{book}.py must NOT exist (render is post-marathon)"
+        # Positive: the now-rendered marathon books DO ship in geez-tewahedo.
+        for book in ("1sa", "2sa", "1ki"):
+            assert (GEEZ_TEWAHEDO / f"{book}.py").is_file(), (
+                f"geez-tewahedo/{book}.py should be shipped (marathon render)"
+            )
 
     def test_psalms_shipped_amharic(self):
         """The skip-the-gap decision succeeded only because Psalms

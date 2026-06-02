@@ -410,17 +410,20 @@ class TestTau6X2ParallelColumnParity:
             assert book_file in amharic_present, f"Parity: amharic missing {book_file}"
             assert book_file in geez_present, f"Parity: geez missing {book_file}"
 
-    def test_no_post_437_book_in_either_column(self):
-        """Per τ.7.x.h structural discovery: no τ.7.x.i+ ship yet
-        in either column (next book would need new publication-
-        format handler)."""
+    def test_post_437_books_shipped_in_geez_not_amharic(self):
+        """Updated mint-11 (2026-06-02): the next books (1sa/1ki/2sa) were
+        rendered into geez-tewahedo via the Patrologia + manuscript-marathon
+        tracks; amharic-tewahedo has NOT yet shipped them (still in the
+        post-437 publication-format gap)."""
         # 1 Samuel = 1sa; 1 Kingdoms = 1ki under LXX naming
-        for col_dir in (AMHARIC_TEWAHEDO, GEEZ_TEWAHEDO):
-            for next_book in ("1sa.py", "1ki.py", "2sa.py"):
-                assert not (col_dir / next_book).exists(), (
-                    f"τ.7.x.i+ must NOT exist yet: {col_dir.name}/{next_book} should not be created until "
-                    f"new publication-format handler is in place"
-                )
+        for next_book in ("1sa.py", "1ki.py", "2sa.py"):
+            assert (GEEZ_TEWAHEDO / next_book).is_file(), (
+                f"geez-tewahedo/{next_book} should be shipped (marathon/Patrologia render)"
+            )
+            assert not (AMHARIC_TEWAHEDO / next_book).exists(), (
+                f"amharic-tewahedo/{next_book} must NOT exist yet (post-437 gap, awaiting "
+                f"a new publication-format handler)"
+            )
 
 
 class TestTau6X2StateDocs:

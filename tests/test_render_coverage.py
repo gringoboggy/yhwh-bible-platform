@@ -39,20 +39,21 @@ class TestCoverageReportShape:
 
 class TestGeezTewahedoCoverage:
     def test_calibration_chapters_drive_partial_render(self):
-        """Samuel/Kings chapters have collated content but no rendered
-        py module yet (Phase-3 render is post-marathon). Tool should
-        report them as MARATHON-PENDING, not silently missing."""
+        """Updated mint-11 (2026-06-02): 2ki still has collated content but no
+        rendered py module (Phase-3 render is post-marathon) and must report as
+        MARATHON-PENDING, not silently missing. 1ki/1sa/2sa have since been
+        rendered (marathon + Patrologia) and now appear under rendered_books."""
         from scripts.render_coverage import run_all
 
         rep = run_all()
-        # 1ki + 2ki + 1sa + 2sa should appear as marathon_pending
-        # (collation exists, render does not)
-        marathon = rep["editions"]["geez-tewahedo"]["marathon_pending"]
-        assert "1ki" in marathon, marathon
+        ge = rep["editions"]["geez-tewahedo"]
+        marathon = ge["marathon_pending"]
         assert "2ki" in marathon, marathon
-        # 1sa, 2sa have calibration chapters but full render still pending
-        assert "1sa" in marathon, marathon
-        assert "2sa" in marathon, marathon
+        # 1ki/1sa/2sa were rendered and are no longer marathon_pending.
+        rendered = set(ge["rendered_books"])
+        for b in ("1ki", "1sa", "2sa"):
+            assert b in rendered, (b, sorted(rendered))
+            assert b not in marathon, (b, marathon)
 
     def test_patrologia_books_now_rendered(self):
         """1Ch, 2Ch, Ezr, Neh, Job were rendered into geez-tewahedo from
