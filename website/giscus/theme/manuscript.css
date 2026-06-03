@@ -1,0 +1,42 @@
+/* Self-hosted Giscus theme — maps Giscus's CSS variables onto the YHWH
+   manuscript palette so the comment widget reads as part of the site, with NO
+   third-party CSS. Served from our own origin and referenced by data-theme.
+
+   NOTE: this file is fetched cross-origin by the giscus.app iframe, so the host
+   must send  Access-Control-Allow-Origin: *  for /giscus/theme/* (see .htaccess).
+   The iframe can't use our self-hosted @font-face (cross-origin), so it falls
+   back to Georgia/serif — acceptable; we do NOT add a font CDN. */
+
+main {
+  --color-prettylights-syntax-comment: #574532;
+  --color-fg-default: #2B2118;
+  --color-fg-muted: #574532;
+  --color-fg-subtle: #6b5a44;
+  --color-canvas-default: #FBF6E9;
+  --color-canvas-subtle: #F4ECD8;
+  --color-canvas-overlay: #FBF6E9;
+  --color-border-default: #9A6E12;
+  --color-border-muted: #cdb98a;
+  --color-neutral-muted: rgba(154, 110, 18, 0.12);
+  --color-accent-fg: #243B6B;
+  --color-accent-emphasis: #243B6B;
+  --color-accent-muted: rgba(36, 59, 107, 0.4);
+  --color-accent-subtle: rgba(36, 59, 107, 0.1);
+  --color-btn-text: #FCF8EF;
+  --color-btn-bg: #7A1F2B;
+  --color-btn-border: rgba(94, 23, 34, 1);
+  --color-btn-hover-bg: #5E1722;
+  --color-btn-primary-text: #FCF8EF;
+  --color-btn-primary-bg: #7A1F2B;
+  --color-btn-primary-hover-bg: #5E1722;
+  --color-btn-primary-border: rgba(94, 23, 34, 1);
+  --color-social-reaction-bg-hover: rgba(154, 110, 18, 0.12);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+main .gsc-comment-box-tabs,
+main .gsc-comment-box-textarea {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+main a { color: #243B6B; }

@@ -177,3 +177,6 @@ content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf
 
 # Playwright MCP browser-automation scratch (screenshots/snapshots/logs)
 .playwright-mcp/
+
+# built website output (assembled by website/build.mjs; uploaded to host)
+website/dist/

@@ -6,11 +6,11 @@
 /* ---- self-hosted fonts (SIL Open Font License 1.1, no third-party CDN) ---- */
 @font-face {
   font-family: "EB Garamond"; font-style: normal; font-weight: 400; font-display: swap;
-  src: local("EB Garamond"), url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2");
+  src: url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "EB Garamond"; font-style: italic; font-weight: 400; font-display: swap;
-  src: local("EB Garamond Italic"), url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2");
+  src: url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2");
 }
 @font-face {
   font-family: "EB Garamond"; font-style: normal; font-weight: 600; font-display: swap;
@@ -38,6 +38,7 @@
   --indigo: #243B6B;        /* links / heading accent */
   --antique: #FCF8EF;       /* text on dark */
   --charcoal: #221C15;      /* footer ground */
+  --gold-foot: #C9B27A;     /* footer link gold — ~7:1 on charcoal (AA) */
   --maxw: 1100px;
 }
 * { box-sizing: border-box; }
@@ -130,7 +131,7 @@ a { color: var(--indigo); }
 /* footer */
 .site-foot { background: var(--charcoal); color: var(--antique); text-align: center; padding: 2rem 1.25rem; margin-top: 2rem; }
 .site-foot .cross { color: var(--gold); }
-.site-foot a { color: #C9B27A; }
+.site-foot a { color: var(--gold-foot); }
 .site-foot .src { color: #B7AC97; font-size: .95rem; }
 
 @media (max-width: 560px) {
@@ -147,7 +148,7 @@ a { color: var(--indigo); }
 .wordmark { text-decoration: none; color: var(--ink); }
 .wordmark:hover .yhwh { color: var(--red); }
 .site-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; justify-content: flex-end; }
-.site-nav a { text-decoration: none; color: var(--sepia); font-size: 1rem; padding: .2rem 0; border-bottom: 2px solid transparent; }
+.site-nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--sepia); font-size: 1rem; padding: .2rem 0; border-bottom: 2px solid transparent; }
 .site-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 
 /* hero extras */
@@ -222,4 +223,60 @@ a { color: var(--indigo); }
 @media (max-width: 560px) {
   .site-nav { justify-content: center; }
   .actions, .platforms, .give { justify-content: center; }
+}
+
+/* ============================================================
+   v2 additions — multi-page shell: roadmap · beta · releases · feedback,
+   the footer "Connect" row + header "Code" link. Manuscript-reverent, WCAG 2.2 AA.
+   ============================================================ */
+
+/* active nav link cue (non-color: a permanent gold underline + ink text) */
+.site-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--gold-line); }
+
+/* header "Code" link */
+.nav-code { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; color: var(--indigo); }
+.nav-code svg { width: 1.1em; height: 1.1em; fill: currentColor; }
+
+/* ── roadmap timeline ── */
+.roadmap-timeline { list-style: none; margin: 1rem 0 0; padding: 0 0 0 1.6rem; border-left: 2px solid var(--gold-line); display: grid; gap: 1.5rem; }
+.stage { position: relative; }
+.stage::before { content: ""; position: absolute; left: -1.95rem; top: .4rem; width: .7rem; height: .7rem; border-radius: 50%; background: var(--gold-line); box-shadow: 0 0 0 3px var(--parchment); }
+.stage.is-active::before { background: var(--red); }
+.stage h3 { margin: .35rem 0 .4rem; font-size: 1.3rem; color: var(--ink); line-height: 1.25; }
+.stage p { margin: 0; max-width: 46rem; color: var(--ink); }
+.stage-badge { display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .15rem .55rem; border-radius: 3px; }
+.is-shipped .stage-badge { color: var(--sepia); background: var(--vellum); border: 1px solid var(--gold-line); }
+.is-active .stage-badge { color: var(--antique); background: var(--red); border: 1px solid var(--red-dark); }
+
+/* fenced "with support, next" future group */
+.future-group .custom-list li { border-left-color: var(--gold-line); }
+
+/* ── beta page ── */
+.beta-hero { padding-top: 2.5rem; }
+.beta-medallion { display: block; margin: 0 auto 1rem; width: 160px; height: 160px; }
+.beta-ribbon { margin: .6rem 0 0; }
+.beta-ribbon a { color: var(--indigo); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--gold-line); }
+.beta-ribbon strong { color: var(--red); }
+
+/* checksum / verify-command monospace */
+code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .92em; }
+.verify-cmd { display: inline-block; background: var(--parchment); border: 1px solid var(--gold-line); border-radius: 3px; padding: .1rem .4rem; overflow-wrap: anywhere; }
+
+/* releases — latest card + beta badge */
+.latest-release { max-width: 46rem; border-top-color: var(--indigo); }
+.badge-beta { display: inline-block; margin: 0 0 .4rem; font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--indigo); border: 1px solid var(--gold-line); border-radius: 3px; padding: .12rem .5rem; }
+
+/* ── footer: creed + connect row + give ── */
+.foot-creed { margin: 0 0 .9rem; }
+.foot-connect { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem 1rem; margin: 0 0 .9rem; }
+.foot-connect a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; padding: .3rem .55rem; color: var(--gold-foot); text-decoration: none; }
+.foot-connect a:hover { color: var(--antique); }
+.foot-connect svg { width: 1.2em; height: 1.2em; fill: currentColor; }
+.foot-give { margin: 0 0 .6rem; color: #B7AC97; font-size: .98rem; }
+
+/* feedback / giscus container */
+.giscus { max-width: 46rem; margin-top: 1.5rem; min-height: 12rem; }
+
+@media (max-width: 560px) {
+  .foot-connect { gap: .1rem .6rem; }
 }

@@ -1,0 +1,48 @@
+# YHWH Ya' Way — Apache/LiteSpeed config for the static site (Spaceship cPanel).
+# Uploaded as part of dist/ into public_html.
+
+# ── HTTPS + canonical host (www) ─────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  # Send the bare apex to www (canonical matches <link rel="canonical"> + og:url)
+  RewriteCond %{HTTP_HOST} ^yhwhyaway\.com$ [NC]
+  RewriteRule ^ https://www.yhwhyaway.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ── Security headers + Content-Security-Policy ───────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+  # Strict default for the whole site: everything self-hosted, no third parties.
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'self'"
+
+  # The feedback page is the ONLY page that loads a third party (Giscus). Loosen
+  # the CSP just here to permit the giscus.app script + the GitHub comment frame.
+  # (If the widget mis-styles at launch, add  'unsafe-inline'  to style-src on this rule only.)
+  <Files "feedback.html">
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https://avatars.githubusercontent.com; font-src 'self'; style-src 'self'; script-src 'self' https://giscus.app; connect-src 'self' https://giscus.app; frame-src https://giscus.app https://github.com; form-action 'self'; frame-ancestors 'self'"
+  </Files>
+
+  # The Giscus iframe (giscus.app origin) fetches our self-hosted theme cross-origin,
+  # so it must be allowed by CORS — without this the widget silently falls back to a
+  # clashing default theme. Scope the header to the theme folder only.
+  <FilesMatch "^.*\.css$">
+    <If "%{REQUEST_URI} =~ m#^/giscus/theme/#">
+      Header always set Access-Control-Allow-Origin "*"
+    </If>
+  </FilesMatch>
+
+  # Long-cache the immutable, fingerprint-free assets conservatively.
+  <FilesMatch "\.(woff2|jpg|png)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# Friendly defaults
+DirectoryIndex index.html

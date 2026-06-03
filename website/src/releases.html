@@ -1,0 +1,56 @@
+<!--page
+title: Releases — YHWH Ya’ Way
+desc: Download the latest build of YHWH Ya’ Way and read the release notes. Free, for Windows, macOS, and Linux. Every release is published with a SHA-256 checksum.
+canonical: https://www.yhwhyaway.com/releases.html
+page: releases
+-->
+
+    <section class="band" aria-labelledby="rel-h">
+      <h2 id="rel-h" class="rule">Releases</h2>
+      <p class="prose">This is the first <strong>Public Beta</strong> — free, complete, and improving. New
+        builds are posted here as they’re ready; each one lists its version, date, and notes, and ships with a
+        <strong>SHA-256 checksum</strong> so you can verify your download.</p>
+
+      <!-- Latest-release card. The version/date below are the build-time fallback (always correct as of the
+           last deploy, and visible with JavaScript off). The small script at the bottom upgrades it live
+           from the serverless feed (latest.php), which reads the newest release server-side. -->
+      <div class="card card-static latest-release" id="latest-release">
+        <div class="card-body">
+          <p class="badge-beta">Latest</p>
+          <h3 id="latest-name">The first public beta is on its way</h3>
+          <p class="meta" id="latest-meta">Downloads activate the moment the first build is posted.</p>
+          <p class="prose" id="latest-links">
+            <a class="btn-ghost" href="beta.html">See the beta page →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band-alt" aria-labelledby="verify-h">
+      <h2 id="verify-h" class="rule">Verify your download (SHA-256)</h2>
+      <p class="prose">Each release includes a <code>SHA256SUMS.txt</code>. Comparing the checksum confirms the
+        file arrived complete and unaltered — it matches what was posted here.</p>
+      <ul class="custom-list">
+        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile &lt;file&gt; SHA256</code></li>
+        <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 &lt;file&gt;</code></li>
+        <li><strong>Linux:</strong> <code class="verify-cmd">sha256sum -c SHA256SUMS.txt</code></li>
+      </ul>
+    </section>
+
+    <section class="band" aria-labelledby="warn-h">
+      <h2 id="warn-h" class="rule">About the security warnings</h2>
+      <p class="prose">Builds are made by one person. The macOS build is notarized and should open cleanly; on
+        Windows you may see SmartScreen the first time — click <strong>More info → Run anyway</strong>. The
+        <a href="beta.html#warnings">beta page</a> explains this in full. <strong>You never need to disable
+        antivirus or system protections</strong>, and this project will never ask you to.</p>
+    </section>
+
+    <section class="band band-alt" aria-labelledby="history-h">
+      <h2 id="history-h" class="rule">Release history</h2>
+      <p class="helper">Newest first. Each entry links to its full notes.</p>
+      <!-- TODO at launch: add an <article class="card card-static"> per release, newest first, each linking
+           to its release-notes URL. The first entry will be v1.0.0-beta.1. -->
+      <p class="prose">No releases yet — the first public beta will appear here.</p>
+    </section>
+
+    <script src="releases.js" defer></script>
