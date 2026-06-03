@@ -30,8 +30,15 @@ Pure: no I/O.
 
 from __future__ import annotations
 
+import re
+
 from scripts.core.manuscript_collation import fold_skeleton
-from scripts.core.manuscript_records import _geez_to_tokens
+from scripts.core.manuscript_records import ILLEGIBLE, _geez_to_tokens
+
+# Rubric-only marks that are NOT verse text and which ``validate_witness``
+# rejects in ``geez`` (the body cross ✣ U+2723 IS kept, per the transcription
+# protocol). ❈ U+2748 is the rubric knot / section divider.
+_RUBRIC_ONLY = "❈"
 
 
 def _verse_map(model_out: dict) -> dict[int, dict]:
@@ -48,6 +55,75 @@ def _folded(geez: str) -> list[str]:
     return [fold_skeleton(t) for t in _geez_to_tokens(geez or "")]
 
 
+def sanitize_model_out(model_out: dict) -> dict:
+    """Normalise a raw vision pass to the witness contract (``validate_witness``)
+    before converge/assemble. Returns a NEW model_out; input is not mutated.
+
+    Raw vision output drifts from the contract in three ways the 1Ki1 proof
+    surfaced:
+    - **rubric-only marks in ``geez``** — ❈ (U+2748) is a section divider, not
+      verse text; strip it (the body cross ✣ U+2723 stays, per the protocol).
+    - **out-of-range ``token_index``** — the model counts words differently from
+      ``_geez_to_tokens`` (which strips ✣/separators and splits numerals), so
+      its ``uncertain[]`` indices can exceed the token count; clamp into range,
+      and drop entries when the verse has no tokens to attach to.
+    - **orphan ``illegible`` markers** — the model transcribes a best-guess glyph
+      rather than leaving a ⟦illegible⟧ lacuna, so an ``illegible`` marker with
+      no matching ⟦illegible⟧ token breaks the honesty bijection; downgrade such
+      markers to ``damaged`` (the note is preserved).
+    """
+    out_verses: list[dict] = []
+    for v in model_out.get("verses") or []:
+        if not isinstance(v, dict):
+            continue
+        geez = (v.get("geez") or "").replace(_RUBRIC_ONLY, " ")
+        geez = re.sub(r"  +", " ", geez).strip()
+        tokens = _geez_to_tokens(geez)
+        n = len(tokens)
+        unc_out: list[dict] = []
+        for u in v.get("uncertain") or []:
+            if not isinstance(u, dict):
+                continue
+            ti = u.get("token_index")
+            marker = u.get("marker", "uncertain")
+            if marker not in ("uncertain", "damaged", "illegible"):
+                marker = "uncertain"
+            # 'illegible' only survives if it actually points at a ⟦illegible⟧ token
+            if marker == "illegible" and not (isinstance(ti, int) and 0 <= ti < n and tokens[ti] == ILLEGIBLE):
+                marker = "damaged"
+            if not isinstance(ti, int) or n == 0:
+                continue  # no valid token to attach to → drop (keeps the draft valid)
+            ti = max(0, min(ti, n - 1))
+            unc_out.append({"token_index": ti, "marker": marker, "note": u.get("note", "")})
+        nv = dict(v)
+        nv["geez"] = geez
+        nv["uncertain"] = unc_out
+        out_verses.append(nv)
+    out = dict(model_out)
+    out["verses"] = out_verses
+    return out
+
+
+def renumber_verses(model_out: dict) -> dict:
+    """Renumber a pass's verses ``1..N`` by emission (reading) order so the
+    witness record satisfies ``validate_witness``'s contiguity rule. Returns a
+    NEW model_out; geez/content order is preserved — only the ``v`` index is
+    reset. The witness ``v`` is the witness's OWN reading sequence (not a
+    canonical number); ``collate_base_structured`` maps to the KJV spine by
+    content, so re-indexing is safe and only fixes vision gaps/jumps in the
+    model's own numbering."""
+    out = dict(model_out)
+    out_verses: list[dict] = []
+    for idx, v in enumerate(model_out.get("verses") or [], start=1):
+        if not isinstance(v, dict):
+            continue
+        nv = dict(v)
+        nv["v"] = idx
+        out_verses.append(nv)
+    out["verses"] = out_verses
+    return out
+
+
 def converge_passes(pass_a: dict, pass_b: dict) -> dict:
     """Converge two blind transcription passes. Returns a dict::
 
@@ -58,7 +134,13 @@ def converge_passes(pass_a: dict, pass_b: dict) -> dict:
     ``convergence_pct`` = fold-equal verses / all verses; ``identical_pct`` =
     glyph-identical verses / all verses. ``needs_qa`` is True iff any verse
     diverges (token-level, or present in only one pass).
+
+    Both passes are first run through :func:`sanitize_model_out`, so the
+    comparison and the returned ``accepted`` draft conform to the witness
+    contract (no rubric-only marks, in-range uncertain indices).
     """
+    pass_a = sanitize_model_out(pass_a)
+    pass_b = sanitize_model_out(pass_b)
     va, vb = _verse_map(pass_a), _verse_map(pass_b)
     all_v = sorted(set(va) | set(vb))
     divergent: list[dict] = []
@@ -85,6 +167,6 @@ def converge_passes(pass_a: dict, pass_b: dict) -> dict:
         "convergence_pct": round(fold_equal / n * 100, 2) if n else 0.0,
         "identical_pct": round(identical / n * 100, 2) if n else 0.0,
         "divergent_loci": divergent,
-        "accepted": pass_a,
+        "accepted": renumber_verses(pass_a),
         "verse_count": n,
     }

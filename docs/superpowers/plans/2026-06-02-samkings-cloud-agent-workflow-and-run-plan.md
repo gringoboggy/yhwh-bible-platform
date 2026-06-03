@@ -334,11 +334,25 @@ Prereqs: P0 green (folio index complete) + P1 green (workflow proven on a calibr
 
 ## Cost model + budget guard
 
-$17 ÷ $0.27/hr ≈ **63 pod-hours**. Vision = Max subscription = **$0 API**; the only $ is pod-time, so $/chapter = (wall-time/chapter ÷ chapters-in-flight) × $0.27. The pilot (P3) calibrates the real number; the guard makes "how far does $17 go" a measured, bounded experiment. Quota (Max weekly) is the only non-$ ceiling — the ledger reports any throttle. Stopped pod = $0.00/hr; never leave it running idle.
+$17 ÷ $0.27/hr ≈ **63 pod-hours**. Vision = Max subscription = **$0 API**; the only $ is pod-time, so $/chapter = (wall-time/chapter ÷ chapters-in-flight) × $0.27. The pilot (P3) calibrates the real number; the guard makes "how far does $17 go" a measured, bounded experiment. Quota (Max weekly) is the only non-$ ceiling — and the single resource the pod lane shares with any parallel N95 lane (Esther etc.), see **Parallel-operation protocol** below; the ledger reports any throttle. Stopped pod = $0.00/hr; never leave it running idle.
 
 ## Frugal pod lifecycle (standing rule)
 
 Pod runs ONLY during P2 smoke + P3 pilot + P4 run. Stop it (not Terminate) between work — `/workspace` (repo + GAPS + outputs) persists across Stop. Terminate only when the whole run is done and pulled back. P0 + P1 are 100% off-meter on the N95.
+
+---
+
+## Parallel-operation protocol — pod lane ∥ N95 lane (foolproof)
+
+The cloud lane's payoff is that while the pod transcribes Sam/Kings autonomously, **this N95 stays free for another lane** (Esther / P0 / anything). For that to be foolproof the two lanes must not collide on the only three things they could share — git history, files, and the Max quota. By these rules they don't:
+
+1. **Single committer = the N95; the pod NEVER pushes.** The pod writes its outputs ONLY to its durable `/workspace` volume (cluster network FS — survives Stop *and* crash). The N95 is the SOLE writer to GitLab/GitHub `main`: it `scp`-pulls completed chapters in batches and commits them via the 5-leg save. Every commit — pod results, Esther, anything — funnels through one machine, sequentially. So there is **no two-machine push race** against the protected `main`, and **no write credential ever sits on the rented box** (security). *(This promotes the former open-item (c) to a firm design decision — the pod is read-only w.r.t. the repo remotes.)*
+2. **The lanes are file-disjoint.** The pod lane writes ONLY Sam/Kings (`content/manuscript/{samuel,kings}/`, `content/translations/geez-tewahedo/{1sa,2sa,1ki,2ki}.py` + their `_apparatus.json`). The Esther lane writes ONLY `est`/Patrologia files. Different files ⇒ even when both land in the same N95 commit sequence there is **nothing to merge-reconcile**. Neither lane touches `epub_working/`, so the **9 KJV editions stay byte-stable** regardless (the standing invariant).
+3. **Shared Max quota = the one true shared ceiling, bounded on both sides.** RAM/CPU don't contend (different machines), but BOTH lanes draw inference from the one Max subscription — so the ceiling is *quota*, not hardware. The pod run carries a hard budget/chapter guard (P4 Step 1) and the ledger reports any throttle; the N95 Esther lane is user-paced. If quota binds, the throttling side **backs off and reports — never silently stalls**. Operating assumption: "two lanes, one quota"; the budget guard keeps the pod's share bounded.
+4. **Pull-back is idempotent + crash-safe.** A batch pull = `scp` the completed `*_witness*.json` + collation + manifest delta from `/workspace` → commit on the N95. Re-pulling an unchanged chapter is a no-op. `/workspace` is the durable source of truth between pulls, so a pod Stop/crash loses nothing and the N95 can pull whenever it next attends, independent of any in-flight Esther work.
+5. **Lifecycle-independent.** Stop/Start/Terminate of the pod has zero effect on N95 work and vice-versa. The N95 can run Esther through the entire pod run, only briefly interrupting itself to pull-and-commit a batch.
+
+**Net:** the pod is a detached, file-disjoint, **no-push** worker whose only coupling to the N95 is (a) a periodic one-way `scp` pull and (b) the shared, budget-bounded Max quota. Both lanes run start-to-finish in parallel with **no manual reconciliation step**.
 
 ---
 
@@ -350,4 +364,4 @@ Pod runs ONLY during P2 smoke + P3 pilot + P4 run. Stop it (not Terminate) betwe
 
 **Type consistency:** the witness-record shape (`witness/book/chapter/source_images/folio_sigla/verses[{v,column,line_start,geez,tokens,uncertain}]/transcription_notes`) matches `assemble_witness`; `converge_passes` consumes the `model_out` shape (`verses[{v,geez,...}]`) that the vision `agent()` returns under `TRANSCRIBE_OUTPUT_SCHEMA`; `collate_base_structured(gg,cam,book=,chapter=)` + `base_structured_ok(out,gg,cam)` + `fold_skeleton` + `manuscript_records.validate_witness`/`_geez_to_tokens` + `acquire_cudl_master.fetch_master` all match the verified module APIs. ✔
 
-**Open items to settle at execution (not blockers):** (a) the exact repo `conftest` import pattern for `core.manuscript_converge` (mirror an existing test); (b) whether the render step writes PNG to `/workspace/crops` or feeds `crop_and_encode` base64 directly into the agent prompt (PNG-on-disk preferred so the agent `Read`s a file); (c) the pod-side per-chapter backup is the durable `/workspace` volume + batched N95 pull (NOT a pod-side git push — avoids a write credential on the rented box; revisit only if unattended-crash durability proves insufficient).
+**Open items — RESOLVED during the P1 build (2026-06-02):** (a) import pattern = `from scripts.core import manuscript_converge` (matched an existing test); (b) the render step writes **PNG-on-disk** (`scripts/manuscript_render_crops.py`, ≤1568 px) so agents `Read` files — built + tested; (c) **single-committer / pod-never-pushes is now FIRM** (see the Parallel-operation protocol) — no write credential on the rented box, no two-machine `main` race. **New, resolved:** the Workflow tool's `args` do **not** reliably propagate on this harness, so the batch workflow reads its run-config from a **JSON file via a bootstrap agent** (the controller writes the file before launching) — robust on both the N95 and the pod, and the mechanism the foolproof parallel protocol's pull-back relies on.
