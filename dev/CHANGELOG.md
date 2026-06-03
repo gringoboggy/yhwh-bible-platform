@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-06-03 — Website v2 (Mac lane): static multi-page shell (build.mjs + 5 pages)
+
+**Work:** Rebuilt `website/` from the single-page prototype into a static MULTI-PAGE site, per a 12-agent design workflow and the user's locked decisions.
+**Save tag:** `4494a129` (pushed to GitLab + GitHub).
+
+What shipped:
+- **`website/build.mjs`** — dependency-free (Node core) partial-injector: shared `partials/head.html` (head + header + nav) and `partials/foot.html` (footer) are stamped into each `src/*.html` page → `website/dist/` (gitignored), with per-page front-matter (title/desc/canonical) and `aria-current` on the active nav link. Nav/footer edited in ONE place.
+- **5 pages:** `index` (migrated; hero CTA → beta; beta ribbon; `#get-it` rewritten — fixed the stale "unzip / no setup required" copy that described a non-existent zip; the real artifact is an installer) · `roadmap` (status-badged development-stages timeline + a fenced "with your support, next" group — no dates, no promises) · `beta` (the octagon program medallion `icons/icon_256.png`, honest unsigned-binary guidance — macOS notarized = clean, Windows SmartScreen interim; SHA-256 verify; run-from-source) · `releases` (auto-updating "latest version" card via `latest.php` with a static build-time fallback) · `feedback` (Giscus comments backed by GitHub Discussions, lazy-loaded + self-hosted theme; email offered first for non-GitHub visitors).
+- **Social:** footer "Connect" row (X · GitHub · GitLab · Email, inline SVG, 44px targets) + a header "Code" link.
+- **`latest.php`** — serverless releases feed: server-side, cached GitHub fetch so a visitor's IP never reaches api.github.com (no-tracking). **`.htaccess`** — HTTPS + apex→www + a strict Content-Security-Policy (with the one Giscus CORS rule + a feedback-page override). **`style.css`** — `--gold-foot` token (de-hard-coded the footer gold), dropped `@font-face local()`, 44px nav targets, new component blocks; WCAG 2.2 AA.
+- Pre-launch: downloads / live comments / version show tasteful "coming at launch" placeholders. The go-live swaps are documented in **`website/README.md`**.
+
+**★Host decided = Spaceship Web Hosting Essential (cPanel)** — verified on the Spaceship dashboard (free trial, auto-renew → CA$5.39/mo on Jun 29 2026; 20 GB; PHP/Node/cron). One box serves the static site + the PHP feed; replaces the earlier Cloudflare/GitHub-Pages assumption. Deploy = `node website/build.mjs` → upload `website/dist/` into `public_html`. (Memory: `reference_spaceship_hosting`.)
+
+**Locked user decisions:** full clean source published at launch (one-time history/email scrub) · first public version **v1.0.0-beta.1** · **notarize the macOS build now** (Apple Developer membership already paid) · contact via **mailto:gringo.boggy@yhwhyaway.com** (set up + live-test forwarding first).
+
+Notable: combined Windows' 2 Samuel completion (`f99983a1`) by clean fast-forward first — fully file-disjoint (`website/` vs `content/manuscript/`). Baton stays `windows` (P0 Kings); website is the disjoint Mac lane.
+
+Continuity pointers:
+- dev/SESSION_STATE.md + dev/IN_FLIGHT.md updated (website v2 shipped; next = deploy + launch swaps)
+- website/README.md = the build/deploy how-to + the launch checklist
+
 ## 2026-06-03 — Windows P0: 2 Samuel folio-index COMPLETE (both witnesses) + column-crop vision tool
 
 **Work:** P0 Sam/Kings folio-index — mapped all of 2 Samuel 1–24 in both witnesses (CAM base + GG), completing the book of Samuel.
