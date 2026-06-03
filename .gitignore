@@ -174,3 +174,6 @@ scripts/core/oracleJdk-26/
 # `git add -A` footgun — cf. commit 0045f86.)
 content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf
 /project_maccabees_expansion/
+
+# Playwright MCP browser-automation scratch (screenshots/snapshots/logs)
+.playwright-mcp/

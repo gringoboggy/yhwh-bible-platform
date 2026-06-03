@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<style>
+html,body{width:1280px;height:630px;}
+body{
+  font-family:"EB Garamond",Georgia,serif;
+  background:radial-gradient(120% 140% at 18% 8%, #FBF6E9 0%, #F4ECD8 46%, #EFE6CD 100%);
+  color:var(--ink);position:relative;overflow:hidden;
+}
+.frame{position:absolute;inset:34px;border:2px solid var(--gold-line);opacity:.55;}
+.frame::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold-line);opacity:.5;}
+/* faint Ge'ez backdrop, very low opacity */
+.wm{position:absolute;bottom:-58px;right:48px;font-family:"Noto Serif Ethiopic",serif;
+  font-size:300px;line-height:1;color:var(--gold);opacity:.06;white-space:nowrap;}
+.inner{position:absolute;inset:80px 90px;display:flex;flex-direction:column;justify-content:center;}
+.geez{font-family:"Noto Serif Ethiopic",serif;font-size:50px;color:var(--gold-line);
+  letter-spacing:.04em;margin-bottom:16px;}
+.kicker{font-variant:small-caps;letter-spacing:.34em;font-size:25px;color:var(--sepia);
+  text-transform:lowercase;margin-bottom:20px;}
+.title{font-weight:700;font-size:110px;line-height:.96;color:var(--ink);letter-spacing:.004em;}
+.rule{width:160px;height:3px;background:var(--gold);margin:26px 0 24px;}
+.tag{font-size:37px;color:var(--sepia);font-style:italic;max-width:1010px;line-height:1.28;}
+.facts{margin-top:30px;font-variant:small-caps;letter-spacing:.15em;font-size:24px;color:var(--gold-line);}
+.facts b{color:var(--red);font-weight:600;font-variant:small-caps;}
+.foot{position:absolute;left:90px;right:90px;bottom:62px;display:flex;justify-content:space-between;align-items:baseline;}
+.url{font-size:32px;color:var(--indigo);letter-spacing:.02em;}
+.verse{font-size:23px;color:var(--sepia);font-style:italic;opacity:.85;}
+</style></head>
+<body>
+  <div class="frame"></div>
+  <div class="wm" lang="gez">እግዚአብሔር</div>
+  <div class="inner">
+    <div class="geez" lang="gez">እግዚአብሔር</div>
+    <div class="kicker">a free, non-commercial program</div>
+    <div class="title">YHWH Ya’ Way</div>
+    <div class="rule"></div>
+    <div class="tag">Build your own customizable scholarly study Bible —<br>one 87-book superset, your canon, your notes, a clean EPUB.</div>
+    <div class="facts">87-book canon &nbsp;·&nbsp; <b>91,733</b> study notes &nbsp;·&nbsp; geʽez &amp; amharic manuscripts &nbsp;·&nbsp; epub&nbsp;3</div>
+  </div>
+  <div class="foot">
+    <div class="url">www.yhwhyaway.com</div>
+    <div class="verse">“…the word of our God endures forever.” — Isaiah 40:8</div>
+  </div>
+</body></html>

@@ -1,0 +1,11 @@
+@font-face{font-family:"EB Garamond";font-style:normal;font-weight:400;src:url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2");}
+@font-face{font-family:"EB Garamond";font-style:italic;font-weight:400;src:url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2");}
+@font-face{font-family:"EB Garamond";font-style:normal;font-weight:600;src:url("fonts/eb-garamond-latin-600-normal.woff2") format("woff2");}
+@font-face{font-family:"EB Garamond";font-style:normal;font-weight:700;src:url("fonts/eb-garamond-latin-700-normal.woff2") format("woff2");}
+@font-face{font-family:"Noto Serif Ethiopic";font-style:normal;font-weight:400;src:url("fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2") format("woff2");}
+:root{
+  --vellum:#F4ECD8; --parchment:#FBF6E9; --ink:#2B2118; --sepia:#574532;
+  --gold:#B8860B; --gold-bright:#C9972A; --gold-line:#9A6E12; --red:#7A1F2B;
+  --indigo:#243B6B; --antique:#FCF8EF; --charcoal:#221C15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}

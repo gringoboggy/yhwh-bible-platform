@@ -1,0 +1,23 @@
+<!doctype html><html lang="am"><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<style>
+html,body{width:1024px;height:1024px;}
+body{background:radial-gradient(circle at 50% 42%, #2E2417 0%, #221C15 55%, #14100A 100%);
+  position:relative;overflow:hidden;}
+.ring{position:absolute;inset:64px;border-radius:50%;border:7px solid var(--gold);opacity:.9;}
+.ring::after{content:"";position:absolute;inset:16px;border-radius:50%;border:2px solid var(--gold-line);opacity:.7;}
+.stack{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;}
+.name{font-family:"Noto Serif Ethiopic","Kefa",serif;font-size:132px;line-height:1;
+  color:var(--gold-bright);white-space:nowrap;letter-spacing:.005em;
+  text-shadow:0 6px 30px rgba(0,0,0,.5);}
+.sub{font-family:"EB Garamond",serif;font-weight:600;font-variant:small-caps;
+  letter-spacing:.30em;font-size:50px;color:var(--gold);opacity:.95;}
+.dot{color:var(--gold-line);}
+</style></head>
+<body>
+  <div class="ring"></div>
+  <div class="stack">
+    <div class="name" lang="gez">እግዚአብሔር</div>
+    <div class="sub">YHWH&nbsp;Ya’&nbsp;Way</div>
+  </div>
+</body></html>
