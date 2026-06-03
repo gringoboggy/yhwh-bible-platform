@@ -316,3 +316,42 @@ CAM f112v/f113r/f113v = the on-disk `view228/229/230` files; f114r–f117r folio
 | 31 | f116v, f117r | f017v |
 
 (Boundary-generous lists; status `pending`. Filled into the manifest this session.)
+
+## 15. CONFIRMED RESULTS — 2 Samuel 1–12, BOTH witnesses (2026-06-03, batch 1)
+
+★**Method upgrade this batch — column-tile crops.** Whole-folio `Read`s downsample a
+7760px CAM master / 2081px GG side so far that individual fidels are illegible (the
+first GG pass could only read rubric blocks, not names). The new reusable
+`scripts/manuscript_folio_crop.py` splits a folio into native-resolution column×row
+tiles (≤1568px each) which a vision agent `Read`s — restoring glyph-level legibility.
+Result: **CAM (base, 7760px) reads incipits + names at HIGH confidence**; **GG (2081px,
+~694px native column) is capped at rubric+order** (names not certifiable even cropped).
+This is exactly the §2 mutual-confirmation design: CAM supplies the names, GG
+cross-checks the order — both witnesses strictly canonical 1→12, no transposition.
+
+CAM penned folio numbers read at zoom: f117=፻፲፯, f118=፻፲፰, f119=፻፲፱, f120=፻፳, with
+per-column ምዕ chapter-number headers independently corroborating. 1 Samuel ends f117r-L;
+2 Samuel 1 begins f117r-M. CAM is tightly compressed (all of ch7–12 sit within
+f119r–f120v); GG runs ~1 chapter per column-side.
+
+| ch | CAM folios | CAM onset | GG folios | GG onset |
+|----|-----------|-----------|-----------|----------|
+| 1  | f117r, f117v | f117r-M (Amalekite reports Saul's death; lament) | f017v, f018r | f017v-R |
+| 2  | f117v        | f117v-L (Hebron; Abner/Joab; Gibeon pool)        | f018r, f018v | f018r-M |
+| 3  | f117v, f118r | f117v-R (Abner defects then slain; David mourns) | f018v        | f018v-M |
+| 4  | f118r        | f118r-M (Ish-bosheth murdered; Rechab & Baanah)  | f018v, f019r | f018v-R/f019r-L |
+| 5  | f118r, f118v | f118r-R (king over Israel; Jerusalem/Zion)       | f019r, f019v | f019r-R |
+| 6  | f118v, f119r | f118v-M (ark; Uzzah struck; Michal)              | f019v, f020r | f019v-M |
+| 7  | f119r, f119v | f119r-L (Nathan's covenant oracle)               | f020r, f020v | f020r-L |
+| 8  | f119v        | f119v-L (war-victories: Moab/Zobah/Edom)         | f020v, f021r | f020v-M |
+| 9  | f119v        | f119v-M→R (Mephibosheth at the table; Ziba)      | f021r        | f021r-L |
+| 10 | f119v, f120r | f119v-R (Ammon shames the envoys; Ammon+Syria)   | f021r, f021v | f021r-M/R |
+| 11 | f120r, f120v | f120r-M (Bathsheba; Uriah) — **calibrated**      | f021v, f022r | f021v-M — **calibrated** |
+| 12 | f120r, f120v | f120r-R→f120v (parable "thou art the man"; Solomon; Rabbah) | f022v, f023r | f022v-L |
+
+**2 Samuel 13 (Amnon & Tamar) seam:** CAM **f120v-R (top)** (incipit `ወእምድኅረዝ … አቤሴሎም
+… ትዕማር … አምኖን`); GG **f023r mid-column** (spaced/ruled section break). **Next batch =
+2sa 13–24** (CAM acquired through f125; GG on disk f023r–f028v). Both witnesses'
+boundary-generous folio lists filled in `samuel/manifest.yaml` (status `pending`; ch11
+left `calibrated`). Gate: image-existence GREEN; samuel has-folios pending 23→12
+(remaining = 2sa 13–24).
