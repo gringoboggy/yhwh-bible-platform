@@ -35,6 +35,7 @@ AUDIT_2026-05-14-LIGHT-2 recommendation set (after δ.1.x.A.0
 from __future__ import annotations
 
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -85,7 +86,7 @@ class TestOmega4xWW2BuildEditionRuffCheck:
         """Run `ruff check scripts/build_edition.py` and assert exit
         code 0 (zero errors after ω.4x fixes + per-file-ignores)."""
         result = subprocess.run(  # noqa: S603, S607 — local invocation, no untrusted input
-            ["py", "-m", "ruff", "check", str(BUILD_EDITION)],
+            [sys.executable, "-m", "ruff", "check", str(BUILD_EDITION)],
             stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
@@ -586,7 +587,7 @@ class TestOmega4xClosedArcInvariantPreservation:
         subprocess (avoids polluting the test harness with the
         build_edition module's import side-effects)."""
         result = subprocess.run(  # noqa: S603, S607
-            ["py", "-c", "import ast; ast.parse(open(r'scripts/build_edition.py', encoding='utf-8').read())"],
+            [sys.executable, "-c", "import ast; ast.parse(open(r'scripts/build_edition.py', encoding='utf-8').read())"],
             stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,

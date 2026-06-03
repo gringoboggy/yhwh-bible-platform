@@ -15,3 +15,18 @@ mypy>=1.8,<3           # type checker (scripts/audit_types.py, `make ci`)
 coverage>=7.0,<8       # test-coverage measurement + floor (`make coverage`, `make ci`)
 vulture>=2.0,<3        # dead-code finder (`make ci`: report-only, like ruff check)
 pip-audit>=2.0,<3      # dependency CVE scanner (`make ci`: audits requirements.txt)
+
+# ----------------------------------------------------------------------
+# Feature libraries (NOT pure tooling) — required for the FULL test suite to
+# pass and for the imaging / manuscript-OCR features. Declared here (so they
+# are not "agent-chosen undeclared" per §0) so a fresh dev env runs every test:
+#   • Pillow  — cover-template composition + manuscript folio-crop rendering
+#     (test_cover_templates / test_covers / test_press_kit_epsilon7 /
+#      test_scripts covers / test_manuscript_render_crops). NOTE: Pillow is also
+#      a RUNTIME dep of cover generation — consider promoting it to
+#      requirements.txt if the shipped builder needs cover rendering.
+#   • PyMuPDF — PDF page rendering (`fitz`) for the parallel-Bible OCR ingest
+#     (test_extract_patrologia_pdf / test_parallel_bible_pi1).
+# ----------------------------------------------------------------------
+Pillow>=12,<13
+PyMuPDF>=1.27,<2

@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**49 documents** — 31 plans · 18 specs.
+**50 documents** — 32 plans · 18 specs.
 
-## In progress (10)
+## In progress (11)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-03 | Plan | Mac second-lane bring-up + next steps | `plans/2026-06-03-mac-second-lane-bringup.md` | ready — Mac (2017 iMac) provisioned as a full 2nd lane **with push** (SSH → GitLab+GitHub; Windows pulls+combines, doesn't push); toolchain DONE (uv Py3.14 · claude CLI · VS Code · **Tesseract via conda-forge** — Homebrew unsupported on macOS 13) + GAPS & OCR PDFs in & verified; captures the bring-up, the 3 Mac-made cross-platform fixes (committed from the Mac), and the GAPS-unblocked work (Windows owns P0 folio-mapping) |
 | 2026-06-02 | Plan | Samuel/Kings Cloud Run — agent-path workflow + pilot + bounded run (P1–P4) | `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` | ready — corrected continuation of the cloud-draft spec (agent-path vision via the Max subscription, NOT the out-of-budget API drivers); P1 workflow + tests buildable now on the N95 (free); P2–P4 gated on the user's pricing-trigger |
 | 2026-06-02 | Plan | Samuel/Kings Folio Index (P0) — complete the dual-witness manifests | `plans/2026-06-02-samkings-folio-index-p0-plan.md` | ready — P0 of the Sam/Kings cloud-draft spec; vision-data task (complete `manuscript/{samuel,kings}/manifest.yaml` for ~92 pending chapters); completeness-gate test + per-book folio-mapping batches; supervised on the N95 before pod spend |
 | 2026-06-02 | Plan | mint-11 — Phased fixes plan (round-4 deep-audit) | `plans/2026-06-02-mint-11-fixes-plan.md` | IN PROGRESS 2026-06-02 — 30 survivors (13 med / 14 low / 3 info; NO high/crit); Phase 1 (6 stale tests) SHIPPED (200 green); Phases 0/2/3/4/5/6 + 2 empty-panel HIGH re-verifies remain |

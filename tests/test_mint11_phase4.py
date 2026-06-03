@@ -81,7 +81,10 @@ class TestMint11SourceGuards:
         src = (REPO / "scripts" / "core" / "corpus_index.py").read_text(encoding="utf-8")
         start = src.index("def _build_to(")
         end = src.index("\ndef ", start + 1)
-        body = src[start:end]
+        # Strip full-line comments so the comment that mentions `tmp.replace(path)`
+        # (it explains the Windows-atomic rename) cannot false-match ahead of the
+        # real call — this guard is about CODE order, not prose.
+        body = "\n".join(ln for ln in src[start:end].splitlines() if not ln.lstrip().startswith("#"))
         fp_pos = body.index("_compute_fingerprint()")
         swap_pos = body.index("tmp.replace(path)")
         assert fp_pos < swap_pos, "fingerprint must be computed before the atomic swap (mint-11 #14)"
