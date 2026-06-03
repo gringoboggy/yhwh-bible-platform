@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-06-03 — P0 Sam/Kings folio-index STARTED (N95, free): harvest backfill + 1sa 4-6 pilot proven
+
+User chose to run **P0 folio-mapping on this box (free), not the cheap RunPod pod** (RTX 4000 Ada @ $0.26/hr was the trigger). Rationale: the pod can't transcribe pending chapters until their folios are mapped, and folio-mapping is free N95 vision work; the pod stays off until the bulk transcription (P4) where its 7× parallelism pays off; pricing windows recur. Per the P0 plan `plans/2026-06-02-samkings-folio-index-p0-plan.md`.
+
+**Harvest backfill (free — no vision/IIIF; manifest↔reality drift fix):** prior marathon work left witness JSONs the manifest never reflected. Backfilled **1ki6** (GG f031r,f031v + CAM f128r — was `pending`/empty though fully transcribed → kings pending 42→41) and **1sa2** GG (f003v,f004r; CAM still needs IIIF). Commit `1535e74e`. (Harvest is now exhausted — only 1sa2 + 1ki6 had stray witness JSONs.)
+
+**1sa 4-6 pilot — P0 methodology PROVEN end-to-end on the N95 (Task 2):**
+- **GG-walk** (free, on disk): one blind Opus vision agent read f004r–f006v, content-anchored against KJV landmarks (Philistines / ark / Ashdod / Dagon / Beth-shemesh / Kirjath-jearim) — **1sa4=[f004r,f004v], 5=[f004v,f005r], 6=[f005r,f005v]**. ★Lesson: GG carries its own `ክፍል`/`ምዕራፍ` rubric numerals that do NOT equal modern chapter numbers → onsets must be content-anchored, not rubric/arithmetic.
+- **CAM IIIF acquire** (CUDL, network confirmed reachable from this box): fetched views 218/219/220 = f107v/f108r/f108v via `acquire_cudl_master.fetch_master` (~40 s/folio, 7760×10328, 30-tile stitch). A vision agent **VISION-CONFIRMED the penned folio numbers 107/108** (foliation by leaf, recto-numbered) → the view→folio arithmetic holds (the docstring mandates this check — the ToC mislabels Reigns). ch6 ends inside f108v (1sa7 onset = Kirjath-jearim/Abinadab/Eleazar). **CAM: 1sa4=[f107r,f107v], 5=[f107v,f108r], 6=[f108r,f108v]**.
+- Manifest filled (status stays `pending`); gate image-existence GREEN for 1sa4-6; samuel both-folios 51→48. Acquired hi-res stays in gitignored GAPS (pod upload later).
+
+**Remaining P0:** 48 samuel + 41 kings = **89 chapters** still need both-witness folios — all genuinely un-transcribed (harvest exhausted) → full GG-walk + CAM-IIIF. Pilot checkpoint reached; awaiting user GO for the bulk. ⚠ Commit coordination: the Mac lane commits/pushes first; N95 commits stay local until sync.
+
 ## 2026-06-02 — Claude memory hygiene + self-maintenance automation (out-of-repo memory)
 
 User-directed memory declutter + a self-pruning / self-updating system. **Reconciled the out-of-repo auto-memory against the live repo** via an 8-agent read-only sweep: of 70 memories, **deleted 9** stale/superseded, **trimmed** `user_boggy_partnership` to its project-relevant core, **reframed** `project_deadline` (the 2026-06-07 deadline was dropped → a "quality & cost over speed" operating doctrine), **fixed 21 drift findings + every dead `[[wikilink]]`** left by the deletions, and **rewrote `MEMORY.md`**. Final deterministic audit = **0 warnings**.
