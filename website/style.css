@@ -1,0 +1,117 @@
+/* YHWH — manuscript-reverent. Phase-1 prototype.
+   Palette contrast-verified for WCAG 2.2 AA: gold is used only on hairlines /
+   marks / large text, never as body text. Ethiopic falls to the OS font for
+   now (Kefa / Noto); self-hosted Noto Serif/Sans Ethiopic comes in Phase 2. */
+:root {
+  --vellum: #F4ECD8;        /* page ground */
+  --parchment: #FBF6E9;     /* card ground */
+  --ink: #2B2118;           /* body text — ~12:1 on vellum */
+  --sepia: #574532;         /* secondary text */
+  --gold: #B8860B;          /* accent rule / large marks only */
+  --gold-line: #9A6E12;     /* hairlines */
+  --red: #7A1F2B;           /* primary action */
+  --red-dark: #5E1722;
+  --indigo: #243B6B;        /* links / heading accent */
+  --antique: #FCF8EF;       /* text on dark */
+  --charcoal: #221C15;      /* footer ground */
+  --maxw: 1100px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--vellum);
+  color: var(--ink);
+  font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+:lang(gez), :lang(am) { font-family: "Noto Serif Ethiopic", "Kefa", serif; font-size: 1.12em; line-height: 1.7; }
+
+a { color: var(--indigo); }
+:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; border-radius: 2px; }
+
+.skip { position: absolute; left: -999px; top: 0; background: var(--red); color: var(--antique); padding: .6rem 1rem; z-index: 10; }
+.skip:focus { left: .5rem; top: .5rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* header */
+.site-head {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+  max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem;
+  border-bottom: 2px double var(--gold-line);
+}
+.wordmark { font-size: 1.4rem; letter-spacing: .12em; font-weight: 600; }
+.wordmark .cross { color: var(--gold); }
+.wordmark .grace { color: var(--sepia); font-size: .9em; }
+.lang a { margin-left: .9rem; text-decoration: none; color: var(--sepia); }
+.lang a[aria-current="true"] { color: var(--ink); border-bottom: 2px solid var(--gold); }
+
+/* hero */
+.hero { text-align: center; max-width: 760px; margin: 0 auto; padding: 3.5rem 1.25rem 2.5rem; }
+.cross-lg { font-size: 3rem; color: var(--gold); margin: 0 0 .5rem; }
+.hero h1 { font-size: clamp(3rem, 12vw, 6rem); letter-spacing: .22em; margin: 0; color: var(--ink); }
+.tagline { font-size: 1.4rem; color: var(--red); margin: .25rem 0 1rem; }
+.mission { color: var(--sepia); margin: 0 auto 1.75rem; max-width: 34rem; }
+.btn-ghost {
+  display: inline-block; text-decoration: none; color: var(--indigo);
+  border: 1px solid var(--gold-line); border-radius: 4px; padding: .7rem 1.4rem; font-size: 1.05rem;
+}
+.btn-ghost:hover { background: var(--parchment); }
+
+/* sections */
+.band { max-width: var(--maxw); margin: 0 auto; padding: 1.75rem 1.25rem; }
+.band-alt { background: var(--parchment); max-width: none; border-block: 2px double var(--gold-line); }
+.band-alt > * { max-width: var(--maxw); margin-inline: auto; }
+.rule { font-size: 1.6rem; color: var(--ink); margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 2px double var(--gold-line); }
+.helper { color: var(--sepia); margin: -.4rem 0 1.25rem; }
+.prose { max-width: 46rem; }
+
+/* grid + cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--parchment); border: 1px solid var(--gold-line);
+  border-top: 4px solid var(--red); border-radius: 3px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(34,28,21,.12);
+}
+.card-featured { flex-direction: row; flex-wrap: wrap; align-items: stretch; }
+.card-featured .cover { width: 200px; height: auto; }
+.card-featured .card-body { flex: 1 1 320px; }
+.cover { width: 100%; height: auto; display: block; aspect-ratio: 2 / 3; object-fit: cover; background: var(--vellum); }
+.cover-placeholder {
+  display: grid; place-items: center; text-align: center; aspect-ratio: 2 / 3;
+  background: var(--red); color: var(--antique); font-size: 1.5rem; line-height: 1.5;
+  border-bottom: 3px solid var(--gold);
+}
+.card-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.card h3 { margin: 0; font-size: 1.25rem; color: var(--ink); line-height: 1.25; }
+.card h3 .sub { color: var(--sepia); font-size: .85em; }
+.blurb { margin: 0; color: var(--ink); }
+.meta { margin: 0; color: var(--sepia); font-size: .95rem; font-style: italic; }
+.download {
+  margin-top: auto; align-self: flex-start; display: inline-block;
+  background: var(--red); color: var(--antique); text-decoration: none;
+  padding: .7rem 1.15rem; border-radius: 4px; font-size: 1rem; min-height: 44px;
+}
+.download:hover { background: var(--red-dark); }
+.download .size { opacity: .85; font-size: .9em; }
+/* whole-card clickable, accessible name stays on the link */
+.download::after { content: ""; position: absolute; inset: 0; }
+
+/* how-to + lists */
+.howto { padding-left: 1.2rem; max-width: 46rem; }
+.howto li { margin: .35rem 0; }
+
+/* footer */
+.site-foot { background: var(--charcoal); color: var(--antique); text-align: center; padding: 2rem 1.25rem; margin-top: 2rem; }
+.site-foot .cross { color: var(--gold); }
+.site-foot a { color: #C9B27A; }
+.site-foot .src { color: #B7AC97; font-size: .95rem; }
+
+@media (max-width: 560px) {
+  .card-featured { flex-direction: column; }
+  .card-featured .cover { width: 100%; }
+  .site-head { justify-content: center; text-align: center; }
+}
