@@ -1,25 +1,22 @@
 ---
-holder: mac
-from: windows
-turn: 3
-updated: 2026-06-03T17:51:10Z
-status: working
+holder: windows
+from: mac
+turn: 4
+updated: 2026-06-03
+status: idle
 ---
 
-## Done (turn 3, mac lane — this session)
-- **Public presence set up end-to-end via Playwright-MCP browser automation:**
-  - **GitHub** — profile name/bio/URL/location/timezone + GitLab social link, uploaded **avatar** (gold እግዚአብሔር), pinned **profile README** repo (`gringoboggy/gringoboggy`).
-  - **GitLab** — profile bio, **made public**, GitHub link, job title, www URL, avatar + status "Building yhwhyaway.com"; project description/topics/wiki/avatar (via API).
-  - **GitHub Sponsors** — rewrote short bio + introduction, opted-in to be featured, published **5 monthly tiers $1–$5 ("Sustainer", same reward)**. Stripe/bank/tax were already done; profile is **pending GitHub staff review**.
-- **Brand assets** (`brand/`): 1280×630 social card, square avatar, favicon (32/180/512) rendered via Chrome from EB-Garamond / Noto-Serif-Ethiopic; reproducible `sources/` + **`BIOS.md`** (per-surface bios + domain email `gringo.boggy@yhwhyaway.com`, `paypal.me/gringoboggy`, `ko-fi.com/gringoboggy`). Wired OG card + favicons into `website/index.html`.
-- **Tooling:** installed **Node LTS** (no-sudo, `~/.local`) + **Playwright MCP** (drives installed Chrome, persistent profile) on Mac — see [[reference_browser_automation_mac]].
-- **Pulled + rebased Windows turn-2** (`8b6cb947` 1sa 1–17 folio map · `683bf66e` monetization plan · `34aabec9`); file-disjoint, clean linear history.
+## Done (turn 4, windows lane — this session)
+- **P0 Sam/Kings: 1 SAMUEL COMPLETE (all 31 ch, both witnesses).** Added 1sa 18–31 via a GG companion pass + a CAM pass (incl. the session's **first CUDL-IIIF acquire** of CAM f114r–f117v — ★needs `PYTHONPATH=<repo>` or `scripts.core` import fails). Recension: GG (LXX) omits 18:1–5 (ch18 opens at the women's song); CAM (MT-fuller) ch18 = 18:1 covenant; 1 Samuel ends mid-folio (GG f017v / CAM f117r), 2 Samuel 1 immediately after. `samuel/manifest.yaml` 1sa 1–31 filled (boundary-generous folio lists, status `pending`); anchor index §14 added. Gate: image-existence GREEN; samuel has-folios now only 2sa pending (23). Commit `ab86dd87`.
+- Documented Mac's new `brand/` dir in `REPO_MAP.md` (it was failing `repo_map_complete` + blocking commits).
+- Pulled Mac's turn-3 (brand/identity kit; **GitHub Sponsors $1–$5 tiers PUBLISHED**, pending staff review; bootup env-health checks). **Took the baton → windows; full 5-leg save (PUSHED to GitLab+GitHub+E:+F:).**
 
-## Next (turn 3 continues / next session)
-- **Mac (website lane):** website repo (`gringoboggy.github.io`) + GitHub Pages + custom domain — *re-confirm before creating the public repo*; **Spaceship DNS** (needs user's API key + secret); wire support links (GitHub Sponsors / PayPal / Ko-fi) + `.github/FUNDING.yml`; rebuild site content + `build_site.py` + Pages deploy.
-- **Windows (P0 critical path):** continue folio-mapping **1sa 18–31 → 2sa 1–24 → 1ki 7–22 → 2ki 1–25** — READ `content/manuscript/_reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md` first; CAM needs CUDL-IIIF acquire for most remaining folios.
+## Next (fresh session — Windows P0 is the critical path)
+- **P0 2 Samuel (1–10, 12–24).** READ `content/manuscript/_reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md` FIRST (§9 = the 2sa unique-event table; method in §1). GG on disk: `GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f017v…f028v.jpg`. **CAM needs CUDL-IIIF acquire** — continue the view sequence past f117 (`scripts/acquire_cudl_master.py` with `$env:PYTHONPATH=<repo>`; anchor f106r=view215, 2 views/leaf; verify each by reading the penned recto number). 2sa 11 is calibrated (CAM f120r/v). Then 1ki 7–22 → 2ki 1–25. MAX-1 heavy vision; sub-batch check-ins; run the manifest gate per batch.
+- **Mac (website lane), file-disjoint, if it resumes:** website repo (`gringoboggy.github.io`) + GitHub Pages + **Spaceship DNS** (needs the user's API key + secret); wire support links (Sponsors / PayPal / Ko-fi) + `.github/FUNDING.yml`; rebuild site content + `build_site.py` + Pages deploy.
 
 ## Watch-outs
-- **Baton held by `mac` (status: working).** If a fresh session is Windows, `/resume --force` after confirming Mac is idle.
-- ⚠ CAM on-disk filename `_1SamN_` suffixes are ~+3 shifted — map by the penned FOLIO number, not the suffix.
+- **Baton held by `windows` (status: idle).** If the fresh session is Mac (website), `/resume --force` after confirming Windows is idle.
+- ⚠ CAM on-disk filename `_1SamN_` suffixes are ~+3 shifted — map by the penned FOLIO number, not the suffix. (Newly-acquired f114r+ are folio-named correctly.)
+- ⚠ `acquire_cudl_master.py` needs `$env:PYTHONPATH=<repo>` (it imports `scripts.core`).
 - ⚠ (Mac OCR) tests via Claude Bash need `export TMPDIR=/Volumes/MacHD2/<dir>`.
