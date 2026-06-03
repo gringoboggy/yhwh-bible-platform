@@ -16,7 +16,7 @@ machine. No account, no server, no cloud.
   Catholic, Eastern/Coptic Orthodox, Anglican, Lutheran, Reformed, and
   Jewish/Tanakh, plus two standalone Geʽez/Amharic Bibles. Each is a filtered
   view of the one superset.
-- **67,000+ study notes** (cross-references, Strong's Hebrew/Greek, patristic
+- **91,733 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
 - **Verse popups** in Hebrew (WLC), Greek (LXX + Byzantine NT), Latin
