@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-06-03 — Lane-Handoff Baton System SHIPPED (Windows↔Mac two-lane coordination)
+
+Brainstorm → spec → plan → build this session, after the manual Mac↔Windows handoff dance surfaced the need. **Turn-based baton:** the lane that holds the baton is the active worker, the **sole pusher**, and the **owner of SESSION_STATE/IN_FLIGHT/CHANGELOG** that turn — so pushes are clean fast-forwards (no clobber), work never strands, and truth-records never get dual-edited. User-chosen goals: no manual relay · nothing strands · shared task board (quota-safety deselected). Spec `specs/2026-06-03-lane-handoff-baton-system-design.md`, plan `plans/2026-06-03-lane-handoff-baton-system-plan.md`.
+
+- `scripts/lane_handoff.py` — pure-**stdlib** deterministic core (`parse`/`render`/`detect_lane`/`do_handoff`/`do_incoming`/`do_mark_seen`/`do_status`); 8 tests; mypy + ruff clean. No git side effects (the commands run git) → unit-testable.
+- `dev/LANE_HANDOFF.md` — the committed shared baton: YAML header (`holder`/`from`/`turn`/`updated`/`status`) + a Done/Next/Watch-outs task board. Only the holder writes it.
+- `.claude/commands/{handoff,resume,sync}.md` — thin git-orchestrating slash-command prompts (un-ignored in `.gitignore` so they travel to Mac).
+- **SessionStart incoming-check, both OSes:** `dev/cc-hooks/bootstrap-triad.ps1` (Windows) + new `dev/cc-hooks/bootstrap-triad.sh` (Mac) — read-only `git fetch` + a banner only when a baton is addressed to this lane (`turn` > last-seen). `.claude/settings.json` is empty `{}` (hooks are per-machine local) so there was no shared-OS hazard.
+- `.gitignore`: carve out `.claude/commands/`; ignore per-machine `dev/.lane[_seen]`. RULES §4: added the two-lane baton bullet (refines WHO pushes; does not relax "always push when you work").
+- **Verified end-to-end:** round-trip handoff → incoming-banner → mark-seen → silent; `.sh` syntax clean; no false banner at turn 0. **Mac adoption pending:** set `dev/.lane=mac`, wire the Mac local SessionStart to `bootstrap-triad.sh`, `chmod +x` it.
+
 ## 2026-06-03 — P0 Sam/Kings folio-index STARTED (N95, free): harvest backfill + 1sa 4-6 pilot proven
 
 User chose to run **P0 folio-mapping on this box (free), not the cheap RunPod pod** (RTX 4000 Ada @ $0.26/hr was the trigger). Rationale: the pod can't transcribe pending chapters until their folios are mapped, and folio-mapping is free N95 vision work; the pod stays off until the bulk transcription (P4) where its 7× parallelism pays off; pricing windows recur. Per the P0 plan `plans/2026-06-02-samkings-folio-index-p0-plan.md`.

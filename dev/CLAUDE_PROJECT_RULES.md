@@ -340,6 +340,14 @@ order. The user has delegated this judgment; exercise it.
   partial save is never a deliberate choice.
 - **GitLab `main` is PROTECTED** — never amend / rebase / force-push a pushed commit;
   fix FORWARD. (The GitHub mirror is force-alignable if the two ever diverge.)
+- **Two-lane (Windows + Mac) baton** — when both workstations are active, only the lane
+  that **HOLDS the baton** works + pushes this turn (commit + both remotes; the E:/F:
+  bundle legs are Windows-only and capture both lanes' pushed work when Windows bundles).
+  The holder also owns SESSION_STATE / IN_FLIGHT / CHANGELOG that turn (no dual-edit
+  conflicts). Pass with `/handoff`, pick up with `/resume`, `/sync` for mid-turn
+  durability; an incoming baton auto-surfaces at session start. This refines WHO pushes —
+  it does not relax "always push when you work." See
+  `docs/superpowers/specs/2026-06-03-lane-handoff-baton-system-design.md`.
 - **⚠ BEFORE saving:** `python -m ruff format` files you generated / regenerated (esp.
   `content/translations/<id>/` stores) or the pre-commit hook blocks the commit (§7).
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped · next · test count ·

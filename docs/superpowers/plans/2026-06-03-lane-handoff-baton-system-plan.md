@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** IN PROGRESS — building 2026-06-03 (Windows builds the baton; Mac on the website). 6 TDD tasks. Spec: `specs/2026-06-03-lane-handoff-baton-system-design.md`.
+**Status:** COMPLETE — built + tested 2026-06-03 (8 core tests green; mypy + ruff clean; end-to-end round-trip verified). **Mac adoption pending:** set `dev/.lane=mac`, wire the Mac local SessionStart to `dev/cc-hooks/bootstrap-triad.sh`, `chmod +x` it. Spec: `specs/2026-06-03-lane-handoff-baton-system-design.md`.
 
 **Goal:** A turn-based "baton" handoff so the Windows (N95) and Mac (iMac) Claude lanes pass work to each other over git with no manual relay, nothing stranded, and a shared task board.
 

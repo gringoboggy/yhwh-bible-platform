@@ -47,3 +47,23 @@ try {
         }
     }
 } catch { }
+
+# --- Lane-handoff baton incoming check (local, non-fatal): surface a baton the
+# OTHER workstation (Mac) handed to this lane. Read-only fetch + check; prints
+# ONLY when an incoming baton is pending. Never breaks session start. See
+# scripts/lane_handoff.py + docs/superpowers/specs/2026-06-03-lane-handoff-baton-system-design.md ---
+try {
+    $r1 = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+    $r2 = Join-Path $r1 'YHWH v2.4'
+    $repo = if (Test-Path (Join-Path $r1 'scripts\lane_handoff.py')) { $r1 }
+            elseif (Test-Path (Join-Path $r2 'scripts\lane_handoff.py')) { $r2 } else { $null }
+    if ($repo) {
+        git -C "$repo" fetch origin --quiet 2>$null
+        $banner = & py -3 (Join-Path $repo 'scripts\lane_handoff.py') incoming 2>$null
+        if ($LASTEXITCODE -eq 0 -and $banner) {
+            Write-Output ''
+            Write-Output $banner
+            Write-Output 'Run /resume to pull + combine the incoming work.'
+        }
+    }
+} catch { }
