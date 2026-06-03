@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**53 documents** — 34 plans · 19 specs.
+**54 documents** — 35 plans · 19 specs.
 
-## In progress (12)
+## In progress (13)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-03 | Plan | Monetization & Sustainability — donations / print / hosted service / grants | `plans/2026-06-03-monetization-and-sustainability-plan.md` | in progress — Phase 1 (support-the-mission links: PayPal/GitHub Sponsors/Ko-fi) being built by the Mac lane; Phases 2–4 roadmap sequenced by speed-to-cash (print-on-demand → hosted open-core builder → commissions+grants); **inviolable constraint: the Word/digital stays free — revenue only on convenience/artifacts/support** |
 | 2026-06-03 | Plan | Website — the YHWH builder program's home page (yhwhyaway.com) | `plans/2026-06-03-website-plan.md` | in progress — **RE-SCOPED**: the site is the builder PROGRAM's home page, NOT a download portal (no EPUBs); manuscript-reverent look CHOSEN; Phase-1 prototype shell built (`website/index.html`+`style.css`), CONTENT needs rebuild to the program-homepage framing; showcase + get-the-code + example gallery; plain HTML/CSS + `build_site.py` → GitLab Pages → yhwhyaway.com |
 | 2026-06-03 | Plan | Mac second-lane bring-up + next steps | `plans/2026-06-03-mac-second-lane-bringup.md` | ready — Mac (2017 iMac) provisioned as a full 2nd lane **with push** (SSH → GitLab+GitHub; Windows pulls+combines, doesn't push); toolchain DONE (uv Py3.14 · claude CLI · VS Code · **Tesseract via conda-forge** — Homebrew unsupported on macOS 13) + GAPS & OCR PDFs in & verified; captures the bring-up, the 3 Mac-made cross-platform fixes (committed from the Mac), and the GAPS-unblocked work (Windows owns P0 folio-mapping) |
 | 2026-06-02 | Plan | Samuel/Kings Cloud Run — agent-path workflow + pilot + bounded run (P1–P4) | `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` | ready — corrected continuation of the cloud-draft spec (agent-path vision via the Max subscription, NOT the out-of-budget API drivers); P1 workflow + tests buildable now on the N95 (free); P2–P4 gated on the user's pricing-trigger |
