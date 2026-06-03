@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<style>
+html,body{width:1500px;height:500px;}
+body{font-family:"EB Garamond",Georgia,serif;
+  background:radial-gradient(130% 150% at 22% 12%, #FBF6E9 0%, #F4ECD8 48%, #EFE6CD 100%);
+  color:var(--ink);position:relative;overflow:hidden;}
+.frame{position:absolute;inset:26px;border:2px solid var(--gold-line);opacity:.5;}
+.frame::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold-line);opacity:.45;}
+/* faint Ge'ez watermark, right side, clear of avatar (bottom-left) */
+.wm{position:absolute;top:-40px;right:40px;font-family:"Noto Serif Ethiopic",serif;
+  font-size:300px;line-height:1;color:var(--gold);opacity:.06;white-space:nowrap;}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding-bottom:46px;text-align:center;}
+.geez{font-family:"Noto Serif Ethiopic",serif;font-size:40px;color:var(--gold-line);letter-spacing:.05em;margin-bottom:10px;}
+.title{font-weight:700;font-size:104px;line-height:1;color:var(--ink);letter-spacing:.005em;}
+.rule{width:150px;height:3px;background:var(--gold);margin:22px 0 18px;}
+.tag{font-size:34px;color:var(--sepia);font-style:italic;}
+.url{margin-top:18px;font-variant:small-caps;letter-spacing:.22em;font-size:23px;color:var(--indigo);}
+</style></head>
+<body>
+  <div class="frame"></div>
+  <div class="wm" lang="gez">እግዚአብሔር</div>
+  <div class="center">
+    <div class="geez" lang="gez">እግዚአብሔር</div>
+    <div class="title">YHWH Ya’ Way</div>
+    <div class="rule"></div>
+    <div class="tag">Build your own customizable scholarly study Bible — free.</div>
+    <div class="url">www.yhwhyaway.com</div>
+  </div>
+</body></html>
