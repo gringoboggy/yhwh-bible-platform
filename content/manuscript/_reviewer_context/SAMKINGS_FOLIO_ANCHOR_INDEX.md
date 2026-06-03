@@ -355,3 +355,38 @@ f119r–f120v); GG runs ~1 chapter per column-side.
 boundary-generous folio lists filled in `samuel/manifest.yaml` (status `pending`; ch11
 left `calibrated`). Gate: image-existence GREEN; samuel has-folios pending 23→12
 (remaining = 2sa 13–24).
+
+## 16. CONFIRMED RESULTS — 2 Samuel 13–24, BOTH witnesses (2026-06-03, batch 2) — ★2 SAMUEL COMPLETE
+
+Same crop-based method (§15). **CAM (base) HIGH / name-confirmed throughout**, anchored
+on per-column **ምዕ** chapter-number headers + consecutive **ክፍል፡ጾ ፯/፰/፱** rubrics
+(ch22/23/24) + unique events. **GG cross-checked** on red **ከፍል** dividers + event order;
+the GG 19–24 pass additionally resolved anchor words by re-cropping the source JPGs at
+higher zoom + a red-rubric density scan (ኰኵሐ "rock" ch22, famine/Gibeonites ch21,
+last-words ch23, census/plague ch24). Both strictly canonical 13→24, no transposition.
+
+★**Book ends (continuous-folio, both witnesses):** 2 Samuel ends **CAM f125v col M**
+(book-divider `❖❀❖`; 1 Kings begins f126r — CAM leaves f125v-R blank) / **GG f028v col L**
+(colophon `ለዳግማዊ ነገሥት` + red 1Ki1:1 `ወዳዊትሰ ንጉሥ ልህቀ` — 1 Kings continuous on f028v).
+CAM penned folios f121–f125 confirmed.
+
+| ch | CAM folios | CAM onset | GG folios | GG onset |
+|----|-----------|-----------|-----------|----------|
+| 13 | f120v, f121r | f120v-R (ምዕ፲፫ — Amnon/Tamar) | f023r, f023v | f023r-M |
+| 14 | f121r, f121v | f121r-M (ምዕ፲፬ — Joab/Tekoa) | f023v, f024r | f023v-M |
+| 15 | f121v, f122r | f121v-R (ምዕ፲፭ — Absalom's revolt) | f024r | f024r |
+| 16 | f122r, f122v | f122r-M (ምዕ፲፮ — Ziba/Shimei) | f024r, f024v | f024r-R |
+| 17 | f122v        | f122v-M (ምዕ፲፯ — Ahithophel) | f024v, f025r | f024v-L |
+| 18 | f122v, f123r | f122v-R (ምዕ፲፰ — wood of Ephraim) | f025r, f025v | f025r |
+| 19 | f123r, f123v | f123v-M (Barzillai; damp-stain → MED-HIGH) | f025v | f025v-M |
+| 20 | f123v, f124r | f123v-R (Sheba/Bichri; Abel) | f025v, f026r, f026v | f025v-R |
+| 21 | f124r, f124v | f124r-M (famine; Gibeonites; Rizpah) | f026v, f027r | f026v-R |
+| 22 | f124v, f125r | f124v-M (Song = Ps 18; red ❖ stichs) | f027r, f027v | f027r-M |
+| 23 | f125r        | f125r-L (David's last words; the Thirty) | f027v, f028r | f027v-L |
+| 24 | f125r, f125v | f125r-R (census; Araunah's floor; altar) | f028r, f028v | f028r-M |
+
+**★2 SAMUEL COMPLETE (1–24, both witnesses) → SAMUEL COMPLETE (1sa 1–31 + 2sa 1–24).**
+Gate: samuel has-folios PASSES (0 pending). **Next P0 = KINGS** (1ki 7–22 + 2ki 1–25; GG
+on disk for all of Kings, CAM 1ki ≈ f126+ via CUDL-IIIF). ★GG name-read tip for Kings:
+the 735px column tiles cap most name reads, but re-cropping from the source JPGs at higher
+zoom + a red-ከፍል density scan recovers anchor words (GG 19–24 pass).

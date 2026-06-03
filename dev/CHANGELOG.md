@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-06-03 — Windows P0: 2 Samuel folio-index COMPLETE (both witnesses) + column-crop vision tool
+
+**Work:** P0 Sam/Kings folio-index — mapped all of 2 Samuel 1–24 in both witnesses (CAM base + GG), completing the book of Samuel.
+**Save tags:** `03ac235c` (2sa 1–12, rebased onto Mac's `ff9bfe14`) + this commit (2sa 13–24).
+
+What shipped:
+- **`scripts/manuscript_folio_crop.py`** — reusable native-resolution column-tile cropper (+ `tests/test_manuscript_folio_crop.py`, 5 tests). Fixes the core blocker: whole-folio `Read`s downsample a 7760px CAM / 2081px GG master so far that fidels go illegible; per-column native tiles (≤1568px) restore glyph-level legibility for chapter-onset anchoring.
+- **2 Samuel 1–24 mapped, both witnesses**, in 4 crop-based blind sub-batches (1–6, 7–12, 13–18, 19–24). CAM (base) HIGH / name-confirmed throughout — each onset corroborated by a per-column ምዕ chapter-number header + ክፍል፡ጾ rubric; penned folios f117–f125 verified. GG cross-checks canonical order (no transposition); GG names mostly capped by the 2081px source, but the 19–24 pass recovered anchor words via higher-zoom re-crops + a red-ከፍል density scan.
+- CAM 2 Samuel band f118–f125 acquired via CUDL-IIIF. Samuel ends CAM f125v col M / GG f028v col L (1 Kings continuous → f126r / f028v).
+- `content/manuscript/samuel/manifest.yaml` 2sa 1–10,12–24 filled (ch11 stays calibrated); `SAMKINGS_FOLIO_ANCHOR_INDEX.md` §15–§16 added.
+- Gate `test_samkings_manifest_complete.py`: **samuel has-folios PASSES (0 pending)**; image-existence GREEN. Remaining = Kings (41 ch).
+
+Notable: pulled + rebased onto Mac's `ff9bfe14` (FUNDING/SECURITY/brand) cleanly — fully file-disjoint two-lane work; re-claimed the windows baton (turn 6).
+
+Continuity pointers:
+- dev/SESSION_STATE.md + dev/IN_FLIGHT.md updated (next P0 = Kings: 1ki 7–22 + 2ki 1–25)
+- content/manuscript/_reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md §10–§11 (Kings anchor tables) + §15–§16
+
 ## 2026-06-03 — Website (Mac lane): Phase-1 prototype + RE-SCOPE to the program's home page
 
 5-agent planning workflow (`wf_a8cbf1ad-eb5`) → 3 design directions → user picked **manuscript-reverent** (illuminated-codex). Built a clickable Phase-1 prototype: `website/index.html` + `style.css` + 9 cover thumbnails (Pillow) + the plan doc + INDEX/REPO_MAP entries; served on `:8787` and reviewed.

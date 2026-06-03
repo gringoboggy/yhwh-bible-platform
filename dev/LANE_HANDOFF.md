@@ -1,12 +1,17 @@
 ---
-holder: mac
-from: windows
-turn: 5
+holder: windows
+from: mac
+turn: 6
 updated: 2026-06-03
-status: idle
+status: active
 ---
 
-## Done (this round — BOTH lanes wrapped, file-disjoint)
+## Done (turn 6 — Windows, file-disjoint from Mac's idle website lane)
+
+**Windows lane (turn 6) — P0:**
+- **★2 SAMUEL COMPLETE (1–24, both witnesses) → SAMUEL DONE.** Mapped 2sa 1–24 in 4 crop-based sub-batches; built reusable `scripts/manuscript_folio_crop.py` (native-res column tiles, fixes whole-folio downsample-to-illegible). CAM HIGH/name-confirmed (ምዕ headers + ክፍል፡ጾ rubrics; penned f117–f125), GG rubric+order cross-check (canonical, no transposition). `samuel/manifest.yaml` 2sa filled (11 calibrated); anchor index §15–§16. Gate: samuel has-folios PASSES (0 pending). Commits `03ac235c` + this commit. **NEXT = Kings.** (Pulled + rebased onto Mac's `ff9bfe14` cleanly — fully file-disjoint.)
+
+## Done (turn 5 — BOTH lanes wrapped, file-disjoint)
 
 **Windows lane (turn 4) — P0:**
 - **1 SAMUEL COMPLETE (all 31 ch, both witnesses).** Added 1sa 18–31 (GG companion pass + CAM pass, incl. the first **CUDL-IIIF acquire** of CAM f114r–f117v). Recension: GG (LXX) omits 18:1–5; CAM (MT-fuller) ch18 = 18:1 covenant; 1 Samuel ends mid-folio (GG f017v / CAM f117r), 2 Samuel 1 immediately after. `samuel/manifest.yaml` 1sa 1–31 filled (boundary-generous, status `pending`); anchor index §14 added. Gate: image-existence GREEN; samuel has-folios only 2sa pending (23). Commits `ab86dd87` + `f668218d`. Also documented Mac's `brand/` in `REPO_MAP.md`.
@@ -24,7 +29,7 @@ status: idle
 ## Next
 
 **Windows (P0 critical path):**
-- **2 Samuel (1–10, 12–24).** READ `content/manuscript/_reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md` FIRST (§9 = 2sa unique-event table). GG on disk: `GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f017v…f028v.jpg`. **CAM needs CUDL-IIIF acquire** past f117 (`scripts/acquire_cudl_master.py` with `$env:PYTHONPATH=<repo>`; anchor f106r=view215, 2 views/leaf; verify each by penned recto number). 2sa 11 calibrated (CAM f120r/v). Then 1ki 7–22 → 2ki 1–25. MAX-1 heavy vision; sub-batch check-ins; manifest gate per batch.
+- **2 Samuel — ✅ DONE (turn 6).** Next = **KINGS (1ki 7–22 + 2ki 1–25).** READ `content/manuscript/_reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md` FIRST (§10–§11 = Kings unique-event tables; §16 = method + book-end seams). GG 100% on disk: `GAPS/2_Kings/GG-00106/{1-Kings,2-Kings}/`. **CAM 1ki ≈ f126+ via CUDL-IIIF** (`scripts/acquire_cudl_master.py` with `$env:PYTHONPATH=<repo>`; f106r=view215, 2 views/leaf; verify each by penned recto number) — 1 Kings starts CAM f126r / GG f028v. Crop-based method (`manuscript_folio_crop.py`, CAM cols3×rows3 / GG cols3×rows2); MAX-1 heavy vision; sub-batch check-ins; manifest gate per batch.
 
 **Mac (website phase — option A "ship early"):**
 - **Website**: publish the Phase-1 shell at **yhwhyaway.com** (ship now, iterate live). Needs public **`gringoboggy.github.io`** repo + GitHub Pages + custom domain → **then write Spaceship DNS** (apex A/AAAA + www CNAME) with the DNS-only key (ready). RE-CONFIRM before creating the public repo.
@@ -33,7 +38,7 @@ status: idle
 - **After pre-release:** first Ko-fi feed post + X launch post. Optional later: GitHub repo social-preview upload.
 
 ## Watch-outs
-- **Baton: `mac`, status idle** — both lanes' work this round is committed + pushed (GitLab + GitHub). A fresh **mac** session continues the website phase; a **windows** session continues 2 Samuel — file-disjoint, so either can `/resume --force` if it sees the other as holder.
+- **Baton: `windows`, status active** (re-claimed turn 6 — windows completed 2 Samuel; Mac idle on the website phase, file-disjoint). Both lanes' work is committed + pushed (GitLab + GitHub). A fresh **mac** session continues the website phase (`/resume --force` since windows holds the baton — file-disjoint); a **windows** session continues Kings.
 - **Browser automation (mac):** Playwright MCP server was killed to free RAM (respawns on next browser tool call / reconnect). Persistent login profile `~/.yhwh-browser-profile` keeps GitHub/GitLab/X/Ko-fi/Spaceship sessions.
 - ⚠ CAM on-disk filename `_1SamN_` suffixes are ~+3 shifted — map by penned FOLIO number (newly-acquired f114r+ are correctly named).
 - ⚠ `acquire_cudl_master.py` needs `$env:PYTHONPATH=<repo>` (imports `scripts.core`).
