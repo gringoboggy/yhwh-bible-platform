@@ -26,8 +26,12 @@
 
   2:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f003v
+        - f004r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f003v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f004r.jpg
     CAM:
       folios: []
       views: []
