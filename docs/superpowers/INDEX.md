@@ -4,7 +4,7 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**50 documents** — 32 plans · 18 specs.
+**52 documents** — 33 plans · 19 specs.
 
 ## In progress (11)
 
@@ -22,10 +22,12 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
 | 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
 
-## Planned / design (19)
+## Planned / design (21)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-03 | Spec | Lane-Handoff Baton System — design | `specs/2026-06-03-lane-handoff-baton-system-design.md` | design — direction approved (baton / turn-based: holder = sole pusher + truth-record owner); no manual relay · nothing strands · shared task board |
+| 2026-06-03 | Plan | Lane-Handoff Baton System — implementation plan | `plans/2026-06-03-lane-handoff-baton-system-plan.md` | IN PROGRESS — building 2026-06-03; 6 TDD tasks (pure-Python core + /handoff·/resume·/sync + SessionStart incoming-check, win+mac) |
 | 2026-06-02 | Spec | Samuel/Kings Dual-Witness Draft-at-Scale on a Cloud Pod — design spec | `specs/2026-06-02-samkings-cloud-draft-at-scale-design.md` | design — approved (brainstorming complete: draft-at-scale + auto-converge · full dual-witness per chapter · Approach B pre-index folios); $17 RunPod-funded; pending spec review → writing-plans |
 | 2026-06-02 | Spec | Tewahedo Re-Verification & Triaged Re-Ingest Program — design spec | `specs/2026-06-02-tewahedo-reverification-and-triaged-reingest-design.md` | design — direction approved (both tracks; sequencing A); shared substrate + Track-1 QA harness = P0; per-phase plans P0–P3 follow |
 | 2026-05-27 | Spec | Ge'ez own-versification collation & standalone-Bible design | `specs/2026-05-27-geez-own-versification-design.md` | architecture approved (brainstormed + user-approved this session); implementation plan … |
