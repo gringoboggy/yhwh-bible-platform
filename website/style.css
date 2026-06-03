@@ -1,7 +1,31 @@
-/* YHWH — manuscript-reverent. Phase-1 prototype.
+/* YHWH — manuscript-reverent.
    Palette contrast-verified for WCAG 2.2 AA: gold is used only on hairlines /
-   marks / large text, never as body text. Ethiopic falls to the OS font for
-   now (Kefa / Noto); self-hosted Noto Serif/Sans Ethiopic comes in Phase 2. */
+   marks / large text, never as body text.
+   Fonts are self-hosted (SIL OFL 1.1) — see fonts/README.md + the OFL texts in fonts/. */
+
+/* ---- self-hosted fonts (SIL Open Font License 1.1, no third-party CDN) ---- */
+@font-face {
+  font-family: "EB Garamond"; font-style: normal; font-weight: 400; font-display: swap;
+  src: local("EB Garamond"), url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond"; font-style: italic; font-weight: 400; font-display: swap;
+  src: local("EB Garamond Italic"), url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("fonts/eb-garamond-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/eb-garamond-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Serif Ethiopic"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2") format("woff2");
+  unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F;
+}
+
 :root {
   --vellum: #F4ECD8;        /* page ground */
   --parchment: #FBF6E9;     /* card ground */
@@ -45,8 +69,7 @@ a { color: var(--indigo); }
 .wordmark { font-size: 1.4rem; letter-spacing: .12em; font-weight: 600; }
 .wordmark .cross { color: var(--gold); }
 .wordmark .grace { color: var(--sepia); font-size: .9em; }
-.lang a { margin-left: .9rem; text-decoration: none; color: var(--sepia); }
-.lang a[aria-current="true"] { color: var(--ink); border-bottom: 2px solid var(--gold); }
+/* (language selector removed — the section nav is used instead) */
 
 /* hero */
 .hero { text-align: center; max-width: 760px; margin: 0 auto; padding: 3.5rem 1.25rem 2.5rem; }
@@ -114,4 +137,89 @@ a { color: var(--indigo); }
   .card-featured { flex-direction: column; }
   .card-featured .cover { width: 100%; }
   .site-head { justify-content: center; text-align: center; }
+}
+
+/* ============================================================
+   Program-homepage additions (manuscript-reverent, WCAG 2.2 AA)
+   ============================================================ */
+
+/* header: wordmark is a link now; section nav replaces the lang nav */
+.wordmark { text-decoration: none; color: var(--ink); }
+.wordmark:hover .yhwh { color: var(--red); }
+.site-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; justify-content: flex-end; }
+.site-nav a { text-decoration: none; color: var(--sepia); font-size: 1rem; padding: .2rem 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
+
+/* hero extras */
+.hero h1 .yaway { display: block; font-size: clamp(1.4rem, 5vw, 2.2rem); letter-spacing: .14em; color: var(--red); margin-top: .35rem; }
+.creed { font-style: italic; max-width: 38rem; }
+.creed em { font-style: normal; color: var(--red); }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin: 0 0 1rem; }
+.btn-primary {
+  display: inline-block; text-decoration: none; background: var(--red); color: var(--antique);
+  border: 1px solid var(--red-dark); border-radius: 4px; padding: .8rem 1.6rem; font-size: 1.1rem; min-height: 44px;
+}
+.btn-primary:hover { background: var(--red-dark); }
+.fineprint { color: var(--sepia); font-size: .95rem; margin: .25rem 0 0; }
+
+/* stats band */
+.stats { padding-block: 1.5rem; }
+.stat-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.25rem; text-align: center;
+}
+.stat { display: flex; flex-direction: column; gap: .15rem; }
+.stat-num { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 600; color: var(--red); line-height: 1.05; }
+.stat-label { color: var(--sepia); font-size: .95rem; }
+
+/* feature grid */
+.feature-grid { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; }
+.feature { background: var(--parchment); border: 1px solid var(--gold-line); border-left: 4px solid var(--gold); border-radius: 3px; padding: 1rem 1.1rem; }
+.feature h3 { margin: 0 0 .4rem; font-size: 1.15rem; color: var(--indigo); line-height: 1.25; }
+.feature p { margin: 0; color: var(--ink); font-size: 1rem; line-height: 1.55; }
+
+/* customization list + honest callout */
+.custom-list { list-style: none; margin: .5rem 0 1.25rem; padding: 0; max-width: 46rem; display: grid; gap: .7rem; }
+.custom-list li { border-left: 3px solid var(--gold-line); padding-left: .9rem; }
+.callout { max-width: 46rem; background: var(--parchment); border: 1px solid var(--gold-line); border-left: 4px solid var(--red); border-radius: 3px; padding: 1rem 1.15rem; color: var(--ink); }
+
+/* sub-headings inside a section */
+.sub-h { font-size: 1.2rem; color: var(--red); margin: 1.25rem 0 .35rem; }
+
+/* ordered build steps */
+.steps { max-width: 46rem; margin: .5rem 0 1.25rem; padding-left: 1.4rem; }
+.steps li { margin: .4rem 0; padding-left: .25rem; }
+.steps li::marker { color: var(--gold-line); font-weight: 700; }
+
+/* provenance groups */
+.source-group { max-width: 48rem; padding: 1rem 0; border-top: 1px solid var(--gold-line); }
+.source-group:first-of-type { border-top: none; padding-top: .5rem; }
+.source-group h3 { margin: 0 0 .35rem; font-size: 1.2rem; color: var(--indigo); }
+.source-group p { margin: 0; color: var(--ink); }
+.footnote { color: var(--sepia); font-size: .95rem; font-style: italic; }
+
+/* editions gallery — showcase cards, no downloads */
+.gallery { margin-top: 1.25rem; }
+.card-static { cursor: default; }
+
+/* platform + donation button rows */
+.platforms, .give { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0 .5rem; }
+.btn-platform, .btn-give {
+  display: inline-flex; align-items: center; min-height: 44px;
+  text-decoration: none; background: var(--red); color: var(--antique);
+  border: 1px solid var(--red-dark); border-radius: 4px; padding: .7rem 1.25rem; font-size: 1.05rem;
+}
+.btn-platform:hover, .btn-give:hover { background: var(--red-dark); }
+.btn-give { background: var(--indigo); border-color: #182a4d; }
+.btn-give:hover { background: #182a4d; }
+/* pre-launch placeholder buttons (rendered as non-interactive spans until real URLs land) */
+.btn-platform.is-pending, .btn-give.is-pending { opacity: .62; cursor: not-allowed; }
+.btn-platform.is-pending:hover { background: var(--red); }
+.btn-give.is-pending:hover { background: var(--indigo); }
+.platform-note { color: var(--sepia); font-size: .95rem; margin: .35rem 0 0; max-width: 46rem; }
+.platform-note a { color: var(--indigo); }
+
+@media (max-width: 560px) {
+  .site-nav { justify-content: center; }
+  .actions, .platforms, .give { justify-content: center; }
 }
