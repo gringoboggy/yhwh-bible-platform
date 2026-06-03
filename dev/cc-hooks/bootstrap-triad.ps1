@@ -1,3 +1,35 @@
+# ---------------------------------------------------------------------------
+# LANE IDENTITY -- which Claude am I? (Mac vs Windows). Derived, not assumed:
+#   dev/.lane = authoritative per-machine marker (gitignored); OS cross-check.
+# This file is the WINDOWS bootstrap, so the expected lane is "windows"; warn
+# on any mismatch so a misconfigured machine is caught before it pushes/hands
+# off. Non-fatal (try/catch). Mirror of the Mac bootstrap-triad.sh banner.
+# ---------------------------------------------------------------------------
+try {
+    $scriptLane = 'windows'
+    $rr1 = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+    $rr2 = Join-Path $rr1 'YHWH v2.4'
+    $repoL = if     (Test-Path (Join-Path $rr1 'dev\.lane')) { $rr1 }
+             elseif (Test-Path (Join-Path $rr2 'dev\.lane')) { $rr2 }
+             elseif (Test-Path (Join-Path $rr1 'dev'))       { $rr1 }
+             elseif (Test-Path (Join-Path $rr2 'dev'))       { $rr2 } else { $rr1 }
+    $laneFile = Join-Path $repoL 'dev\.lane'
+    $lane = if (Test-Path $laneFile) { (Get-Content -Raw $laneFile).Trim() } else { '' }
+    $laneEff = if ($lane) { $lane } else { $scriptLane }
+    $osName  = if ($env:OS) { $env:OS } else { 'unknown' }
+    Write-Output '==================== LANE IDENTITY -- WHO AM I? ===================='
+    Write-Output ("  >>> You are {0} CLAUDE  (dev/.lane='{1}', OS={2})" -f $laneEff.ToUpper(), $(if ($lane) { $lane } else { '<missing>' }), $osName)
+    if (-not $lane) {
+        Write-Output ("  note: dev/.lane missing -> assuming this machine is the {0} lane." -f $scriptLane)
+        Write-Output ("        create it once with:  Set-Content -NoNewline dev/.lane '{0}'" -f $scriptLane)
+    } elseif ($lane -ne $scriptLane) {
+        Write-Output ("  !! MISMATCH: this is the WINDOWS bootstrap but dev/.lane says '{0}'." -f $lane)
+        Write-Output '     Confirm which lane you really are BEFORE pushing or handing off.'
+    }
+    Write-Output '  Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/CHANGELOG.'
+    Write-Output '==================================================================='
+} catch { }
+
 Write-Output @'
 ================ YHWH PROJECT BOOTSTRAP -- DO THIS FIRST ================
 Before any other tool call or response this session, READ THE TRIAD IN ORDER:
@@ -46,6 +78,21 @@ try {
             Write-Output 'Full report: py -3 "dev/cc-hooks/memory_hygiene.py" audit  |  Deep sweep: Workflow memory-reconcile  |  Back up: ...memory_hygiene.py backup'
         }
     }
+} catch { }
+
+# --- Env health (read-only, non-fatal): Claude Code version + plugins. Updates
+# apply ONLY on user OK (RULES section 0). MCP is NOT auto-listed: `claude mcp
+# list` health-checks by LAUNCHING each server -- run it manually to verify.
+# `claude --version`/`plugin list` don't start a session, so no hook recursion. ---
+try {
+    Write-Output ''
+    Write-Output '==================== ENV HEALTH ===================='
+    Write-Output ("  Claude Code: " + ((claude --version 2>$null) | Select-Object -First 1))
+    Write-Output '  Plugins:'
+    (claude plugin list 2>$null) | ForEach-Object { Write-Output ("    " + $_) }
+    Write-Output '  updates -> apply Claude Code / plugin updates only on user OK'
+    Write-Output "  MCP     -> run 'claude mcp list' to verify servers (not auto-run: it launches them)"
+    Write-Output '==================================================='
 } catch { }
 
 # --- Lane-handoff baton incoming check (local, non-fatal): surface a baton the

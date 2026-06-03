@@ -9,8 +9,40 @@
 # Make it executable once:  chmod +x dev/cc-hooks/bootstrap-triad.sh
 #
 # lane_handoff.py is pure stdlib (no third-party deps) so any python3 works.
-# Non-fatal throughout — never breaks session start.
+# bash 3.2-safe (macOS default) — no bash-4 features. Non-fatal throughout.
 set +e
+
+# repo = two levels up from this script's dir (dev/cc-hooks -> repo)
+SELF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$SELF/../.." && pwd)"
+
+# ---------------------------------------------------------------------------
+# LANE IDENTITY -- which Claude am I? (Mac vs Windows). Derived, not assumed:
+#   dev/.lane  = authoritative per-machine marker (gitignored)
+#   uname      = OS cross-check
+# This file is the MAC bootstrap, so the expected lane is "mac"; warn on any
+# mismatch so a misconfigured machine is caught before it pushes/hands off.
+# ---------------------------------------------------------------------------
+SCRIPT_LANE="mac"
+OS="$(uname -s 2>/dev/null)"
+LANE=""
+[ -f "$REPO/dev/.lane" ] && LANE="$(tr -d '[:space:]' < "$REPO/dev/.lane")"
+LANE_EFF="${LANE:-$SCRIPT_LANE}"
+LANE_UP="$(printf '%s' "$LANE_EFF" | tr '[:lower:]' '[:upper:]')"
+
+echo "==================== LANE IDENTITY -- WHO AM I? ===================="
+echo "  >>> You are ${LANE_UP} CLAUDE  (dev/.lane='${LANE:-<missing>}', uname=${OS:-?})"
+if [ -z "$LANE" ]; then
+  echo "  note: dev/.lane missing -> assuming this machine is the ${SCRIPT_LANE} lane."
+  echo "        create it once with:  printf '%s' '${SCRIPT_LANE}' > dev/.lane"
+elif [ "$LANE" != "$SCRIPT_LANE" ]; then
+  echo "  !! MISMATCH: this is the MAC bootstrap but dev/.lane says '${LANE}'."
+  echo "     Confirm which lane you really are BEFORE pushing or handing off."
+fi
+[ -n "$OS" ] && [ "$OS" != "Darwin" ] && \
+  echo "  !! NOTE: uname='${OS}' (expected 'Darwin' for the Mac lane)."
+echo "  Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/CHANGELOG."
+echo "==================================================================="
 
 cat <<'EOF'
 ================ YHWH PROJECT BOOTSTRAP (mac lane) -- DO THIS FIRST ================
@@ -26,9 +58,19 @@ it, /sync for mid-turn durability.
 ==================================================================================
 EOF
 
-# repo = two levels up from this script's dir (dev/cc-hooks -> repo)
-SELF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO="$(cd "$SELF/../.." && pwd)"
+# --- Env health (read-only): Claude Code version + plugins. Updates apply ONLY
+# on user OK (RULES section 0). MCP is NOT auto-listed: `claude mcp list` health-
+# checks by LAUNCHING each server (e.g. the Playwright/Chrome MCP) -- run it
+# manually to verify. `claude --version`/`plugin list` don't start a session, so
+# no hook recursion. ---
+echo ""
+echo "==================== ENV HEALTH ===================="
+echo "  Claude Code: $(claude --version 2>/dev/null | head -1)"
+echo "  Plugins:"
+claude plugin list 2>/dev/null | sed 's/^/    /' | head -20
+echo "  updates -> apply Claude Code / plugin updates only on user OK"
+echo "  MCP     -> run 'claude mcp list' to verify servers (not auto-run: it launches them)"
+echo "==================================================="
 
 # --- Lane-handoff baton incoming check (read-only fetch + check; prints only
 # when an incoming baton is pending) ---
