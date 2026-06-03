@@ -6,6 +6,13 @@
 
 ---
 
+## 2026-06-03 — Mac 2nd-lane FULLY PROVISIONED + baton adopted (→ website next)
+
+The Mac (2017 iMac) is now a complete 2nd lane. **Toolchain:** uv Python 3.14 venv · claude CLI · VS Code · **Tesseract OCR via conda-forge/micromamba** (macOS 13 is Homebrew-unsupported → from-source builds fail at glib/meson; conda-forge `tesseract 5.5.2` + `amh`/`script/Ethiopic` tessdata_best, **OCR-proven** on the parallel-Bible PDF) · GAPS (697 files) + the OCR/source PDFs placed & verified. **SSH push to GitLab `origin` + GitHub `github` wired** (passphrase ed25519 in macOS Keychain; `gh`/`glab` side-loaded to `~/.local/bin`; host keys pinned) — both lanes now push under the baton. 3 cross-platform test fixes landed (`f75029f2`: omega4x `sys.executable`, mint11 comment-strip, Pillow/PyMuPDF in `requirements-dev`).
+
+- **Full suite: 7,385 pass / 12 explained NON-regressions, zero real** — 5× `tau6x1` OCR (Claude-Bash sandbox `/tmp` artifact; pass ~7.5s with `TMPDIR` on MacHD2 / in a real terminal), 3× perf (slower-iMac budget delta), 2× `samkings_manifest` (the P0 WIP gate), 1× hardening backslash (Windows path semantics), 1× ruff-format (transient mid-edit; clean now).
+- **Baton adopted (Mac):** `dev/.lane=mac` set; Mac took the baton (turn 1). (The SessionStart auto-banner hook → `bootstrap-triad.sh` is pending user approval — auto-mode blocked the `settings.local.json` edit; the baton works without it via `/resume`.) **Next = plan + build the website** (file-disjoint from Windows' P0). Full Mac setup + the `TMPDIR`/OCR gotcha live in memory `reference_mac_dev_env`.
+
 ## 2026-06-03 — Lane-Handoff Baton System SHIPPED (Windows↔Mac two-lane coordination)
 
 Brainstorm → spec → plan → build this session, after the manual Mac↔Windows handoff dance surfaced the need. **Turn-based baton:** the lane that holds the baton is the active worker, the **sole pusher**, and the **owner of SESSION_STATE/IN_FLIGHT/CHANGELOG** that turn — so pushes are clean fast-forwards (no clobber), work never strands, and truth-records never get dual-edited. User-chosen goals: no manual relay · nothing strands · shared task board (quota-safety deselected). Spec `specs/2026-06-03-lane-handoff-baton-system-design.md`, plan `plans/2026-06-03-lane-handoff-baton-system-plan.md`.
