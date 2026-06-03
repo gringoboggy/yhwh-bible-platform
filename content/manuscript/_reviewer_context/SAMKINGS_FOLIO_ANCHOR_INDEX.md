@@ -390,3 +390,34 @@ Gate: samuel has-folios PASSES (0 pending). **Next P0 = KINGS** (1ki 7–22 + 2k
 on disk for all of Kings, CAM 1ki ≈ f126+ via CUDL-IIIF). ★GG name-read tip for Kings:
 the 735px column tiles cap most name reads, but re-cropping from the source JPGs at higher
 zoom + a red-ከፍል density scan recovers anchor words (GG 19–24 pass).
+
+## 17. CONFIRMED RESULTS — 1 Kings 7–18 (2026-06-03, Kings batch 1) — 1ki 7–12 FILLED; 1ki 13–18 GG done, CAM PENDING (★RESUME HERE)
+
+Crop-based method (§15). CAM 1 Kings on disk through f134v (chapter-suffixed filenames — map by penned folio, suffix is cosmetic) + **f135–f141 freshly CUDL-IIIF-acquired** (folio-named `_hires.jpg`; view = 215 + (folio−106)×2, so f135r=view273). GG 1 Kings 100% on disk (`GAPS/2_Kings/GG-00106/1-Kings/` f028v–f040v). **CAM HIGH/name-confirmed** (penned folios + ምዕ headers); **GG HIGH** via re-crop-from-source + red-ከፍል scan. ★LXX-plus blocks flagged: Hadad/Rezon expansion (ch11), the 12:24a–z Jeroboam miscellanies — event ORDER stays canonical.
+
+**★1ki 7–12 — FILLED in `kings/manifest.yaml` (both witnesses, this session):**
+| ch | CAM folios | GG folios |
+|----|-----------|-----------|
+| 7  | f129r,f129v | f031v,f032r |
+| 8  | f129v,f130r | f032r,f032v,f033r |
+| 9  | f130r,f130v,f131r | f033r,f033v |
+| 10 | f131r,f131v,f132r,f132v,f133r | f033v,f034r |
+| 11 | f133r,f133v,f134r | f034r,f034v |
+| 12 | f134r,f134v | f034v,f035r |
+ch12 CAM spills past f134v (12:32–13 onward on f135+). Seam: 1ki13 CAM ≈ f135 / GG f035r-R.
+
+**★1ki 13–18 — GG MAPPED (HIGH), CAM NOT YET DONE (the CAM pass was interrupted by a reboot):**
+GG onsets (kefl rubrics 53→81 ascending, order canonical, no transposition):
+| ch | GG onset | GG span (boundary-generous) |
+|----|----------|------------------------------|
+| 13 | f035r-R (man of God→Bethel altar) | f035r,f035v |
+| 14 | f035v-R (Abijah sick; Ahijah) | f035v,f036r |
+| 15 | f036r-M (Jeroboam dies→Nadab; Abijam/Asa) | f036r,f036v |
+| 16 | f036v-R (Jehu vs Baasha; Elah/Zimri/Omri/Ahab) | f036v,f037r,f037v |
+| 17 | f037v-L (Elijah; drought; Cherith) | f037v |
+| 18 | f037v-R (Obadiah; Carmel; fire; rain) | f037v,f038r,f038v |
+GG ch19 (Horeb/still-small-voice) seam = f038v-L; GG ch20 (Ben-hadad of Syria) starts f038v-R (LXX order, after ch19).
+
+**▶ RESUME (fresh session): run the CAM 1ki 13–18 vision pass** — crops already generated at `D:\yhwh-folio-crops\1ki_b3\CAM\` (CAM_f135r…f140v, cols3×rows3); thumbnails `…\2_Kings\Cambridge-Add-1570-hires\MS-ADD-01570_f135r…f140v_hires.jpg`; ch13 onset ≈ f135; penned-verify 135–140; anchor §10. Then `fill_manifest_entry.py --book 1ki` 13–18 both witnesses (GG from the table above) → gate. Then 1ki 19–22 (CAM needs f141+ IIIF beyond f141; GG on disk) → all 2ki (GG on disk; CAM all-IIIF from ~f147+).
+
+**★PARALLEL LANE READY — Samuel transcription (P4, paid-API):** Samuel is 100% folio-mapped, so the metered transcription run is now cheap + unblocked. `anthropic` SDK 0.105.2 installed. Driver `scripts/run_manuscript_transcribe_at_scale.py --book <bk> --chapter <N> --witness <GG|CAM> --image … --folio …` (validated via --dry-run; ~$0.15/chapter-witness on opus; output → `content/manuscript/samuel/calibration/<bk><ch>_witness<W>.json`). **NEEDS: `ANTHROPIC_API_KEY`** — put it in `~/.config/yhwh/anthropic.key` (gitignored) and load at runtime without printing. It runs as a separate process (API I/O), so it does NOT compete with the N95's local vision agents → run Samuel transcription in the background WHILE folio-mapping Kings. Skip the 4 calibration chapters (1sa 1,3,17; 2sa 11 — already transcribed).
