@@ -53,7 +53,7 @@ Pre-launch, downloads/comments/version show "coming at launch" placeholders. To 
    pick an OSI license in GitHub's dropdown ("source-available", not "open source").
    Repoint the header **Code** link (`partials/head.html`) and the download links
    (`src/beta.html`) at it.
-2. **First build** — produce the binaries, generate `SHA256SUMS.txt`, and publish the
+2. **First build** — produce the binaries, generate `SHA256SUMS.txt` (run `python3 scripts/gen_checksums.py <dist-dir>`), and publish the
    release as **v1.0.0-beta.1** (do not re-publish the old internal 1.0.0 tag publicly).
    Swap the `is-pending` download spans in `src/beta.html` for real `<a download>` links
    and paste the real SHA-256 lines.
