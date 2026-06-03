@@ -284,6 +284,35 @@ no transposition** (GG 2→3→…→17 strictly canonical). Files:
 GG anchors (not re-mapped, verified incidentally): ch1=f003r · ch3=f004r-L · ch17=f010v-L
 (onset 17:1 `ሰኩት ዘይሁዳ … አዜታ`) → f011r → f011v.
 
-**STATUS after the two passes:** CAM verified 7–17 (§12) · GG verified 2–17 (§13).
-Remaining for a consistent 1sa 1–17 fill = **CAM 1sa 1–6 re-verify** (running) → then the
-one-shot manifest rewrite.
+**STATUS:** 1sa 1–17 verified (CAM §12 + GG §13 + the CAM 1–6 re-verify) → manifest
+filled & committed (`8b6cb947`). 1sa 18–31 added below (§14). **1 Samuel is COMPLETE
+(1–31, both witnesses).** Next P0 batch = 2 Samuel.
+
+## 14. CONFIRMED RESULTS — 1 Samuel 18–31, BOTH witnesses (2026-06-03, HIGH confidence)
+
+Two cross-checked passes (GG 18–31 + CAM 18–31); orders strictly canonical, matching.
+★Recension: **GG (LXX) omits 18:1–5** (ch18 opens at the women's song 18:6) and runs
+~2 ch/side; **CAM (MT-fuller) ch18 opens at 18:1 (the covenant)**. **1 Samuel ENDS**
+mid-folio (GG f017v-M / CAM f117r-L) with a red book-divider; **2 Samuel 1 begins
+immediately after** (GG f017v / CAM f117r-M) — same continuous-folio behavior both
+witnesses. CAM penned folio numbers 113–117 confirmed (view231=f114r…238=f117v).
+CAM f112v/f113r/f113v = the on-disk `view228/229/230` files; f114r–f117r folio-named.
+
+| ch | CAM folios | GG folios |
+|----|-----------|-----------|
+| 18 | f112r, f112v | f011v |
+| 19 | f112v | f011v, f012r |
+| 20 | f112v, f113r | f012r, f012v |
+| 21 | f113r, f113v | f012v, f013r |
+| 22 | f113v | f013r, f013v |
+| 23 | f114r | f013v, f014r |
+| 24 | f114r, f114v | f014r, f014v |
+| 25 | f114v, f115r | f014v, f015r |
+| 26 | f115r, f115v | f015r, f015v |
+| 27 | f115v | f016r |
+| 28 | f115v, f116r | f016r, f016v |
+| 29 | f116r | f016v |
+| 30 | f116v | f017r, f017v |
+| 31 | f116v, f117r | f017v |
+
+(Boundary-generous lists; status `pending`. Filled into the manifest this session.)

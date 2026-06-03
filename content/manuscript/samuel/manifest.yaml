@@ -7,10 +7,11 @@
 #   status: calibrated | pending
 #
 # Calibration chapters (1sa 1, 3, 17; 2sa 11) seeded from the immutable witness JSONs.
-# P0 (2026-06-03): 1sa 2, 4-16 folio-mapped (CAM+GG) by verified dual-witness vision
-# passes (unique-event anchoring; see _reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md
-# §12-13). Folios are boundary-generous (onset->next-onset). status stays `pending`
-# (folios mapped, not yet transcribed). 1sa 18-31 + 2sa (exc. 11) still pending-empty.
+# P0 (2026-06-03): 1sa 1-31 COMPLETE for both witnesses (CAM + GG) via verified
+# dual-witness vision passes (unique-event anchoring; see
+# _reviewer_context/SAMKINGS_FOLIO_ANCHOR_INDEX.md). Folios are boundary-generous
+# (onset->next-onset). status stays `pending` (mapped, not transcribed). 2sa (exc. 11)
+# still pending-empty (next P0 batch).
 
 1sa:
   1:
@@ -294,128 +295,220 @@
 
   18:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f011v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f011v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f112r
+        - f112v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f112r_1Sam17_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view228_hires.jpg
     status: pending
 
   19:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f011v
+        - f012r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f011v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f012r.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f112v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view228_hires.jpg
     status: pending
 
   20:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f012r
+        - f012v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f012r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f012v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f112v
+        - f113r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view228_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view229_hires.jpg
     status: pending
 
   21:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f012v
+        - f013r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f012v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f013r.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f113r
+        - f113v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view229_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view230_hires.jpg
     status: pending
 
   22:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f013r
+        - f013v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f013r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f013v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f113v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_view230_hires.jpg
     status: pending
 
   23:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f013v
+        - f014r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f013v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f014r.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f114r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f114r_hires.jpg
     status: pending
 
   24:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f014r
+        - f014v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f014r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f014v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f114r
+        - f114v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f114r_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f114v_hires.jpg
     status: pending
 
   25:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f014v
+        - f015r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f014v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f015r.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f114v
+        - f115r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f114v_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f115r_hires.jpg
     status: pending
 
   26:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f015r
+        - f015v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f015r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f015v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f115r
+        - f115v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f115r_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f115v_hires.jpg
     status: pending
 
   27:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f016r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f016r.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f115v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f115v_hires.jpg
     status: pending
 
   28:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f016r
+        - f016v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f016r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f016v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f115v
+        - f116r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f115v_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f116r_hires.jpg
     status: pending
 
   29:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f016v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f016v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f116r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f116r_hires.jpg
     status: pending
 
   30:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f017r
+        - f017v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f017r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f017v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f116v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f116v_hires.jpg
     status: pending
 
   31:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f017v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f017v.jpg
     CAM:
-      folios: []
-      views: []
+      folios:
+        - f116v
+        - f117r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f116v_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f117r_hires.jpg
     status: pending
 
 2sa:
