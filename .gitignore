@@ -50,6 +50,12 @@ Thumbs.db
 # Carve-out: reusable project Workflows (e.g. deep-audit.js — the deep-audit engine)
 # are shared, version-controlled project artifacts, not per-machine state.
 !.claude/workflows/
+# Carve-out: shared slash commands (lane-handoff /handoff, /resume, /sync) travel with the repo.
+!.claude/commands/
+
+# --- Lane-handoff baton: per-machine identity (NOT committed — each box sets its own) ---
+dev/.lane
+dev/.lane_seen
 
 # --- Build / temp artifacts ---
 /tmp/
