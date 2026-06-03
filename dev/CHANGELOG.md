@@ -6,6 +6,13 @@
 
 ---
 
+## 2026-06-03 — Website (Mac lane): Phase-1 prototype + RE-SCOPE to the program's home page
+
+5-agent planning workflow (`wf_a8cbf1ad-eb5`) → 3 design directions → user picked **manuscript-reverent** (illuminated-codex). Built a clickable Phase-1 prototype: `website/index.html` + `style.css` + 9 cover thumbnails (Pillow) + the plan doc + INDEX/REPO_MAP entries; served on `:8787` and reviewed.
+
+- **★RE-SCOPED by the user:** the site is the **home page of the YHWH *program* (the Bible builder)**, NOT a download portal — **no EPUBs/downloads on it**. Decisions: showcase + get-the-code (open-source homepage) · an example-editions gallery (cover art as "what it builds") · keep the manuscript-reverent look. The prototype's download-portal CONTENT must be rebuilt to the program-homepage framing (CSS/shell reusable); this **removes** the old "export named EPUBs" Phase-0 blocker. The re-scope + corrected page structure are pinned at the top of `plans/2026-06-03-website-plan.md`.
+- Combined cleanly (rebase) with Windows' P0 (`3b367c53`/`1c546900`: 1sa 7–11 folio-mapping + `fill_manifest_entry.py`); pushed both remotes. Mac bring-up + full-suite triage in the entry below.
+
 ## 2026-06-03 — Mac 2nd-lane FULLY PROVISIONED + baton adopted (→ website next)
 
 The Mac (2017 iMac) is now a complete 2nd lane. **Toolchain:** uv Python 3.14 venv · claude CLI · VS Code · **Tesseract OCR via conda-forge/micromamba** (macOS 13 is Homebrew-unsupported → from-source builds fail at glib/meson; conda-forge `tesseract 5.5.2` + `amh`/`script/Ethiopic` tessdata_best, **OCR-proven** on the parallel-Bible PDF) · GAPS (697 files) + the OCR/source PDFs placed & verified. **SSH push to GitLab `origin` + GitHub `github` wired** (passphrase ed25519 in macOS Keychain; `gh`/`glab` side-loaded to `~/.local/bin`; host keys pinned) — both lanes now push under the baton. 3 cross-platform test fixes landed (`f75029f2`: omega4x `sys.executable`, mint11 comment-strip, Pillow/PyMuPDF in `requirements-dev`).

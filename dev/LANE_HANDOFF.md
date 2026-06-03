@@ -2,19 +2,21 @@
 holder: mac
 from: windows
 turn: 1
-updated: 2026-06-03T06:22:47Z
+updated: 2026-06-03T13:45:21Z
 status: working
 ---
 
-## Done (turn 0 → 1; windows built, mac picks up + combines)
-- **Windows:** built the lane-handoff baton system (this) — spec + plan + `scripts/lane_handoff.py` + 8 tests + `/handoff`·`/resume`·`/sync` + SessionStart incoming-check (win+mac). COMPLETE. Also P0 (file-disjoint): backfilled manifest folios from witness JSONs + samuel pilot 1sa 4–6.
-- **Mac (findings combined in):** 2nd-lane bring-up COMPLETE — toolchain (uv Py3.14 · claude CLI · VS Code), GAPS + OCR PDFs placed & verified, **Tesseract OCR via conda-forge** (macOS 13 = Homebrew-unsupported; `amh`+`script/Ethiopic` tessdata_best, OCR-proven on the parallel-Bible PDF), **SSH push to GitLab+GitHub wired** (gh/glab side-loaded, host keys pinned, passphrase ed25519 in Keychain), 3 cross-platform test fixes landed (`f75029f2`). **Full suite: 7,385 pass / 12 explained non-regressions, ZERO real** (5 tau6x1 OCR = Claude-Bash sandbox `/tmp` artifact → pass w/ `TMPDIR` on MacHD2; 3 perf = iMac budget delta; 2 samkings = the P0 WIP gate you own; 1 hardening backslash = Windows path semantics; 1 ruff = transient mid-edit, clean now).
-- **Mac adopted the baton:** `dev/.lane=mac` set. (The SessionStart auto-banner hook → `bootstrap-triad.sh` is PENDING user approval — auto-mode blocked the local-settings edit; the baton works without it via manual `/resume`.)
+## Done (turn 1, mac lane — this session)
+- **Mac 2nd-lane bring-up COMPLETE:** uv Py3.14 + deps · Tesseract OCR via conda-forge (macOS 13 = Homebrew-unsupported; `amh`+`script/Ethiopic`, OCR-proven) · GAPS + OCR PDFs placed & verified · SSH push to GitLab+GitHub wired (Keychain ed25519, gh/glab side-loaded, host keys pinned). 3 cross-platform test fixes landed. **Full suite: 7,385 pass / 12 explained non-regressions, ZERO real.**
+- **Adopted the baton** (`dev/.lane=mac`, turn 1). SessionStart auto-hook pending user approval (auto-mode blocked the settings.local.json edit).
+- **Website:** 5-agent plan → manuscript-reverent Phase-1 prototype (`website/`) → **★USER RE-SCOPE: the site is the YHWH PROGRAM's (builder's) home page, NOT a Bible-download portal — no EPUBs.** Decisions: showcase + get-the-code · example-editions gallery (no downloads) · keep the look. Prototype content needs rebuild to that framing.
+- **Combined Windows' P0** (1sa 7–11 mapping + `fill_manifest_entry.py`) by rebase + **pushed both remotes.**
 
-## Next (turn 1, mac holds)
-- **Plan + build the project WEBSITE** — file-disjoint from Windows' P0 / manuscript work (a `website/` subtree). Landing-page-first free-download portal for the Ethiopian Tewahedo Bible editions on `yhwhyaway.com`; static site → free GitLab/GitHub Pages; reuse the per-edition cover art in `content/covers/`. Starting with a one-page plan + a clickable prototype.
+## Next (turn 1, mac — for the new session)
+- **Rebuild `website/index.html` content to the program-homepage framing** per `plans/2026-06-03-website-plan.md` (follow its **⚠ RE-SCOPE block** at the top; ignore the superseded download-portal sections). Keep `style.css`. Then: self-host Noto Ethiopic fonts + generate the 2 missing covers (geez/amharic) + write `scripts/build_site.py` (reads `editions.yaml`) + deploy to GitLab Pages → yhwhyaway.com.
+- (Windows lane, file-disjoint:) continue P0 Sam/Kings folio-mapping.
 
 ## Watch-outs
-- ⚠ Running OCR tests through Claude's Bash needs `export TMPDIR=/Volumes/MacHD2/<dir>` (conda leptonica can't read the sandboxed `/tmp`). NOT an OCR defect — passes in a real terminal.
-- **Mac holds the baton this turn** → sole pusher + owns SESSION_STATE / IN_FLIGHT / CHANGELOG. Windows: `/resume` when the user switches back; P0 stays file-disjoint from the website.
-- Expected reds remain (not regressions): 3 perf (iMac hardware), 2 samkings (P0 WIP), 1 hardening backslash (Windows-only test).
+- ⚠ Running OCR tests through Claude's Bash needs `export TMPDIR=/Volumes/MacHD2/<dir>` (conda leptonica can't read the sandboxed `/tmp`). Not an OCR defect.
+- The website-plan doc's lower sections are the SUPERSEDED download-portal framing — the top **RE-SCOPE block** is the source of truth.
+- **Baton held by `mac`.** A new Mac session continues the website (holds the baton). If the new session is Windows and needs to push P0, `/resume --force` (Mac is idle) after confirming. Memory `reference_mac_dev_env` carries the full Mac setup.

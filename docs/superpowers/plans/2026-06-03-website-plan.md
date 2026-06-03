@@ -1,6 +1,22 @@
-# Website — Free-Download Portal (yhwhyaway.com) — Implementation Plan
+# Website — the YHWH Builder Program's Home Page (yhwhyaway.com) — Implementation Plan
 
-**Status:** in progress — 2026-06-03 (Mac lane). Direction CHOSEN by the user: **manuscript-reverent** (illuminated Ethiopian codex), built on warm-accessible's WCAG-2.2-AA contrast discipline. **Phase-1 clickable prototype BUILT + reviewed** (`website/index.html` + `style.css` + 9 cover thumbnails; the 11 editions; served on `:8787`). Tech = plain HTML/CSS + a small `build_site.py` generator (NO static-site generator); deploy free on **GitLab Pages → yhwhyaway.com** (GitHub `*.github.io` mirror). Planned by a 5-agent workflow (`wf_a8cbf1ad-eb5`).
+**Status:** in progress — 2026-06-03 (Mac lane). **★RE-SCOPED:** this is the **home page of the YHWH *program* (the Bible builder)**, NOT a download portal — NO EPUBs on it (see the ⚠ RE-SCOPE block below; the Model/editions/build-sequence sections further down are the SUPERSEDED download-portal plan, kept for reference). Direction CHOSEN: **manuscript-reverent** (look kept). Decisions: showcase + get-the-code · example-editions gallery (no downloads). Phase-1 prototype shell BUILT (`website/index.html`+`style.css`+9 cover thumbs); its CONTENT needs rebuilding to the program-homepage framing. Tech = plain HTML/CSS + a `build_site.py` generator; deploy free on **GitLab Pages → yhwhyaway.com**. Planned by a 5-agent workflow (`wf_a8cbf1ad-eb5`).
+
+## ⚠ RE-SCOPE 2026-06-03 — this is the PROGRAM's home page, not a download portal
+The original framing below (a "free-download portal" for finished EPUBs) is **WRONG / superseded.** The user clarified: **the site is the home page of the YHWH *program* — the free, open-source, fully-customizable Ethiopian Tewahedo Bible *builder* itself.** **No EPUBs / no download buttons on the site.** Confirmed decisions (2026-06-03):
+- **Purpose / CTA:** showcase the program + point to the open-source repo (GitLab/GitHub) to download & run it locally (an open-source-tool homepage). The live in-browser builder is NOT hosted yet.
+- **Example gallery:** YES — show the editions' cover art as a gallery of *what the builder produces* (no downloads).
+- **Look:** keep the **manuscript-reverent** style (user-approved); the prototype's `style.css`/shell is reusable.
+- This **removes** the old Phase-0 "export named EPUBs" blocker.
+
+**Corrected page structure** (rebuild `website/index.html` to this; keep `style.css`):
+1. **Hero** — the program + mission (a free, open tool that builds the deepest Ethiopian Tewahedo Bibles).
+2. **What it does** — pick your canon/tradition; the deepest free apparatus (1 Enoch, Jubilees, Meqabyan…); multi-translation verse popups; per-edition notes/themes; reading plans; clean EPUB output. (Optionally a screenshot of the builder console.)
+3. **Example-editions gallery** — the cover art as a showcase of presets the builder can generate (NO download buttons).
+4. **How to get & run it** — open-source; clone the GitLab/GitHub repo; run the builder locally (Python). Primary CTA = "View the code / Get started."
+5. **About & the faith** · **License (CC0)**.
+
+*(The sections below were the download-portal plan — IGNORE the download/Phase-0/Phase-4-wire-downloads parts; the tech stack, accessibility checklist, and the manuscript-reverent visual spec still apply.)*
 
 ## Model
 LANDING-PAGE-FIRST static download portal for the free Ethiopian Tewahedo Bible EPUBs — **not** the live builder. Free, CC0, **no commerce, no tracking, no signup**. The EPUB editions are the product; the page's one job is: find the right edition → download it.
