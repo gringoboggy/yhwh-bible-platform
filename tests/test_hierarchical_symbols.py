@@ -130,3 +130,34 @@ class TestCorpusIterator:
 
         for ref_id, note_id, *_ in list(be._iter_note_ref_symbols())[:200]:
             assert html_ref_id_from_note_id(note_id) == ref_id
+
+
+class TestSymbolCompute:
+    def test_overridden_kinds_from_tokens_and_force_on(self):
+        ed = _ed(
+            note_families_off_per_book=["psa=comm"],  # category → all comm kinds
+            note_families_on_per_chapter=["gen:1=xref-citation"],  # one kind
+            enabled_note_ids=["exo:3:2:comm-rabbinic"],  # one kind
+        )
+        ak = config.load_kinds()
+        ov = be._symbol_overridden_kinds(ed, ak)
+        comm_kinds = {k["code"] for k in ak if k.get("category") == "comm"}
+        assert comm_kinds <= ov  # category token expanded
+        assert "xref-citation" in ov  # kind token
+        assert "comm-rabbinic" in ov  # force-on kind
+
+    def test_compute_short_circuits_empty(self):
+        ed = _ed(enabled_categories=["xref"])  # no per-book/chapter token, no enabled_note_ids
+        assert be.compute_symbol_disabled_html_ref_ids(ed, config.load_kinds(), set()) == set()
+
+    def test_compute_disables_off_coordinate_only(self):
+        # xref ON edition-wide, OFF in exo only → exo xref ref-ids disabled, gen xref ref-ids not
+        ed = _ed(enabled_categories=["xref"], note_families_off_per_book=["exo=xref"])
+        ak = config.load_kinds()
+        ov = be._symbol_overridden_kinds(ed, ak)
+        disabled = be.compute_symbol_disabled_html_ref_ids(ed, ak, ov)
+        exo_prefix = config.books_by_code()["exo"].get("id_prefix") or config.books_by_code()["exo"].get("bxx")
+        gen_prefix = config.books_by_code()["gen"].get("id_prefix") or config.books_by_code()["gen"].get("bxx")
+        # at least one exo ref-id disabled; no gen ref-id disabled (xref still ON in gen)
+        assert any(r.startswith(f"ref-{exo_prefix}") for r in disabled)
+        assert not any(r.startswith(f"ref-{gen_prefix}") for r in disabled)

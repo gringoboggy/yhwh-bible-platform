@@ -43,6 +43,8 @@ import html
 import json
 import re
 import shutil
+
+_NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
 import subprocess
 import sys
 import tempfile
@@ -436,6 +438,75 @@ def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
             # No filter for this book — note survives.
             continue
         if tradition not in active:
+            out.add(ref_id)
+    return out
+
+
+def _symbol_overridden_kinds(edition: dict, all_kinds) -> set[str]:
+    """Kind codes touched by ANY per-book/per-chapter symbol token (category
+    tokens expanded to their kinds) ∪ kinds named by ``enabled_note_ids``.
+    These are resolved at ref-id granularity (so a per-coordinate ON can
+    re-include them); all OTHER edition-disabled kinds keep the efficient
+    whole-kind strip. Cheap — no corpus walk."""
+    cat_to_kinds: dict[str, set[str]] = {}
+    valid_kinds: set[str] = set()
+    for k in all_kinds:
+        code = k.get("code")
+        valid_kinds.add(code)
+        cat_to_kinds.setdefault(k.get("category"), set()).add(code)
+
+    out: set[str] = set()
+
+    def _absorb(tokens):
+        for t in tokens:
+            if t in cat_to_kinds:
+                # Category token → expand to every kind in that category.
+                # Checked BEFORE the kind-code path because ``comm`` is both a
+                # category id and a bare kind code; the category meaning wins
+                # (mirrors how enabled_kind_codes_for checks cat before code).
+                out.update(cat_to_kinds[t])
+            elif t in valid_kinds:
+                out.add(t)
+
+    for field in ("note_families_on_per_book", "note_families_off_per_book"):
+        for toks in decode_per_book_tokens(edition.get(field)).values():
+            _absorb(toks)
+    for field in ("note_families_on_per_chapter", "note_families_off_per_chapter"):
+        for toks in decode_per_chapter_tokens(edition.get(field)).values():
+            _absorb(toks)
+    for nid in edition.get("enabled_note_ids") or []:
+        m = _NOTE_ID_RE.match(nid)
+        if m:
+            out.add(m.group(5))
+    return out
+
+
+def compute_symbol_disabled_html_ref_ids(edition: dict, all_kinds, overridden_kinds: set[str]) -> set[str]:
+    """Phase ρ.3 — ref-ids of notes whose kind resolves OFF at their coordinate
+    under the per-book/per-chapter symbol overrides. Mirrors
+    ``compute_tradition_disabled_html_ref_ids``. Only processes notes whose kind
+    is in ``overridden_kinds`` (non-overridden kinds are handled by the edition-
+    wide whole-kind strip). SHORT-CIRCUITS to an empty set when nothing is
+    overridden, so standard builds never walk the corpus.
+
+    Individual ``disabled_note_ids`` / ``enabled_note_ids`` are applied in
+    ``build_one`` (force-on is subtracted from the final set), not here.
+    """
+    if not overridden_kinds:
+        return set()
+    from scripts.core.config import enabled_kind_codes_for
+
+    out: set[str] = set()
+    cache: dict[tuple, set[str]] = {}
+    for ref_id, _note_id, book, chapter, _verse, _suffix, kind, _cat in _iter_note_ref_symbols():
+        if kind not in overridden_kinds:
+            continue
+        key = (book, chapter)
+        enabled = cache.get(key)
+        if enabled is None:
+            enabled = enabled_kind_codes_for(edition, all_kinds, book, chapter)
+            cache[key] = enabled
+        if kind not in enabled:
             out.add(ref_id)
     return out
 
