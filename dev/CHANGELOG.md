@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: σ.2 + σ.3 — HOLY-BIBLE cover (overflow fixed) + the "Your Edition" first page + truthful glossary
+
+**Phases shipped:** σ.2 (σ.2.1–σ.2.3), σ.3 (σ.3.1–σ.3.2)
+**Test delta:** +new (`tests/test_cover_fit.py` 9; `tests/test_matter_pages_your_edition.py` 9; +2 guard tests in test_canon_splice)
+**Save tag:** (this session — 5-leg)
+
+What shipped (continuing the "Edition Cover + Truthful Front Matter" arc on top of σ.1's build-accurate counter):
+- **σ.2 — the cover.** New edition fields `cover_main_title` (default "HOLY BIBLE") + `display_name` (the builder's chosen subtitle; falls back to `title`; "" → no subtitle). `cover_text_for_edition(id) -> (main, subtitle)` replaces the hardcoded title strings. **Overflow-proof `fit_text_block`** (wrap-then-shrink, hard-break at the floor — *guarantees* every line ≤ the safe width; the old `_fit_title_font` returned min size without re-checking — that was the reported "title goes over the artwork border" bug). `_compose_cover` draws the main title + a rule + the subtitle within the safe band. All 9 standard editions' covers regenerated (byte-deterministic; byte-stability gate green). **Visually verified** — "HOLY BIBLE" + subtitle sit cleanly inside the border on multiple templates.
+- **σ.3 — the front matter.** The symbol **glossary** (`_legend_categories_for_edition`) now reads `edition_stats.resolved_note_counts(edition)["per_category"]` instead of the edition-wide matrix, so it honors the ρ.3 per-book/chapter/note choices (a force-on note surfaces its symbol; an all-off family drops it). New **"Your Edition" first page** (`render_your_edition_page`/`inject_your_edition_page`, reworked from the retired About page): the edition's `display_name`, the builder's `description` notes, an auto **always-truthful** "what's inside" (canon + note families + popup languages + book count + theme), the **total**, and a **per-book table** in canonical order — every count from the build-accurate counter. Placed FIRST after the cover. Front matter reordered `titlepage → your-edition → dedication → copyright → legend → scripture`; the old About page retired (no dangling imports/CSS). **epubcheck 0/0/0/0** (catholic-study), determinism gate PASS, nested-anchors 0/61; the page's total equals the real EPUB (41,792).
+
+Notable decisions:
+- σ.2/σ.3 **intentionally change** the cover + front-matter output for all editions (the goal). Determinism (build-twice) holds — not the latent-field invariant.
+- Two review follow-ups scheduled to their natural homes: the cover **vertical-overflow** edge (pathological custom input) → σ.4.4 (where the /customize input is introduced; +input maxlength); the **copyright page's** still-matrix-based "N annotations / M categories" → σ.6.2 (the count-reconcile phase, routed through `resolved_note_counts`).
+
+Continuity pointers:
+- `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` — **▶ NEXT: σ.4** (/customize identity control), then σ.5 (Ge'ez/Amharic covers), σ.6 (reconcile).
+- Per-book title-page art (builder-uploaded images per book) is the separate, already-shipped π.4-B feature (`book_covers` + `/covers` console + `apply_title_pages`) — unaffected by σ.
+
 ## 2026-06-04 — 🪟 Windows: σ.1 — build-accurate edition counter (foundation of the cover/front-matter arc)
 
 **Phases shipped:** σ.1.1, σ.1.2 (+ review fixes)
