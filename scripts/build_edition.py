@@ -1320,7 +1320,7 @@ def _apply_popup_languages_and_translation(
         closing = m.group(6)
 
         stats["asides_seen"] += 1
-        active_langs = _resolve_popup_languages(edition, book)
+        active_langs = _resolve_popup_languages(edition, book, chapter=ch, verse=vs)
 
         # Step 1 — translation swap (only if english is active, the
         # translation is set, and the verse exists in it). When
