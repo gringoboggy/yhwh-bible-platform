@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-06-04 — Website LIVE at www.yhwhyaway.com (Mac lane) — on GitHub Pages, NOT Spaceship
+
+**Outcome:** the website is **live and serving** (all 5 pages, HTTP 200; HTTPS cert auto-provisioning).
+
+**The pivot (why GitHub Pages):** Spaceship Web Hosting Essential proved **unreachable from this Mac** — the network blocks outbound ports **2083 (cPanel)** and **21 (FTP)**; only 443 works. Verified every route (cPanel SSO, the 24h cPanel access token, FTP, the dashboard File Manager, a phone-hotspot attempt) — all dead-ended at :2083. So we pivoted off Spaceship to a 443-deploy host.
+
+What shipped:
+- **GitHub Pages** publish repo `github.com/gringoboggy/yhwh-website` (NEW public, static; clean — no monorepo history, commits use the GH no-reply email). Built `website/dist/` (CNAME=www.yhwhyaway.com, `.nojekyll`; Spaceship-only `.htaccess`/`latest.php` dropped) pushed there; Pages enabled (status: built).
+- **Domain freed + repointed:** the apex `A` + `www CNAME` were **product-locked** by the Spaceship hosting (DNS API delete no-op'd, force-PUT refused, Advanced-DNS UI couldn't remove `group:product` records). Fixed by **disconnecting the domain from Spaceship web hosting** (Hosting Manager → Domain menu → Disconnect domain → Remove connection), which released them. Then the Spaceship **DNS API** (443) set apex `A` → 185.199.108–111.153 + `www CNAME` → `gringoboggy.github.io`.
+- **Email preserved** — Spacemail MX/SPF/DKIM/SRV verified intact before+after; full DNS backup at `/Volumes/MacHD2/yhwh-dns-backup-*.json`.
+- `runpodctl` installed on the Mac (`~/.local/bin`) + configured (RunPod API key) for the earlier pod work.
+
+Notable: Spaceship web hosting is now **unused for the site** (disconnected, reconnectable; cancel before Jun 29 or keep). Deploy henceforth = `node website/build.mjs` → push `dist/` to `gringoboggy/yhwh-website` (NOT a Spaceship upload). Memory updated: `reference_spaceship_hosting` + `project_website_launch` rewritten to the GitHub-Pages reality.
+
+**Still pending (launch swaps):** enable Enforce HTTPS once the cert lands; flip download buttons live (first beta build + `SHA256SUMS.txt`); Giscus go-live (+ pre-create the thread); email-forwarding test; donation links.
+
 ## 2026-06-03 — Website v2 (Mac lane): static multi-page shell (build.mjs + 5 pages)
 
 **Work:** Rebuilt `website/` from the single-page prototype into a static MULTI-PAGE site, per a 12-agent design workflow and the user's locked decisions.

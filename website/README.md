@@ -1,8 +1,12 @@
 # yhwhyaway.com — the website
 
 A small, static, **multi-page** site (no framework, no tracking, self-hosted fonts).
-The pages share one header/nav and one footer through a tiny build script, and a single
-PHP file provides the "latest version" feed. Hosted on **Spaceship Web Hosting (cPanel)**.
+The pages share one header/nav and one footer through a tiny build script. **Hosted on
+GitHub Pages** (repo `gringoboggy/yhwh-website`) — **live at www.yhwhyaway.com**.
+
+> `latest.php` + `.htaccess` are **Spaceship-only** (PHP / Apache) and are NOT used on
+> GitHub Pages — the publish step drops them and the releases card uses its static
+> fallback. They remain in case the site ever moves to a PHP host.
 
 ## How it's put together
 
@@ -30,12 +34,30 @@ That stitches `partials/` into each `src/` page, fills per-page title/descriptio
 marks the active nav link, and copies the assets — producing `website/dist/`.
 Preview by opening `website/dist/index.html` (or serve the folder).
 
-## Deploy it (Spaceship cPanel)
+## Deploy it (GitHub Pages)
 
-Upload the **contents of `website/dist/`** into `public_html` (cPanel File Manager,
-FTP, or cPanel Git). Only built files leave the repo — the rest of the monorepo never
-touches the server. `.htaccess` (included in dist/) sets HTTPS, the canonical `www`
-redirect, the Content-Security-Policy, and the one CORS header the comment theme needs.
+> **Why not Spaceship cPanel?** This Mac's network blocks the cPanel/FTP ports (2083/21);
+> only 443 gets out, so the site is published over git (443) to GitHub Pages instead.
+> The domain was disconnected from Spaceship web hosting to free its DNS; email (Spacemail)
+> stays. See memory `reference_spaceship_hosting`.
+
+Publish repo = **`github.com/gringoboggy/yhwh-website`** (public, static). To deploy an update:
+
+```
+node website/build.mjs                          # produce website/dist/
+PUB=/Volumes/MacHD2/yhwh-site-publish           # clean working copy of the publish repo
+rm -rf "$PUB"/*; cp -R website/dist/. "$PUB"/
+rm -f "$PUB/.htaccess" "$PUB/latest.php"        # Spaceship-only; not used on Pages
+printf 'www.yhwhyaway.com\n' > "$PUB/CNAME"     # custom domain
+: > "$PUB/.nojekyll"
+git -C "$PUB" add -A
+git -C "$PUB" -c user.email=gringoboggy@users.noreply.github.com commit -m "update site"
+git -C "$PUB" push
+```
+
+Served at **www.yhwhyaway.com** (DNS via the Spaceship DNS API: apex `A` → 185.199.108–111.153,
+`www CNAME` → `gringoboggy.github.io`). Commit with the GitHub no-reply email so personal
+email never enters public history.
 
 ## Edit it
 
