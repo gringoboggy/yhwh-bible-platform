@@ -151,6 +151,32 @@ class TestBuildStandalone:
         assert out["chapters"] == 161  # 6 (1ki) + 3 (1sa) + 1 (2sa) + 151 (psa)
 
 
+class TestStandaloneCoverReachesEpub:
+    """σ.5.3 — the standalone build must ship the composed Ethiopic-script
+    cover. build_standalone calls build_edition.apply_edition_cover, which (now
+    that cover_image is non-empty) swaps the base master cover.jpeg for the
+    edition's composed cover. Mirrors test_covers.TestCoverReachesEpub for the
+    standalone path."""
+
+    def test_standalone_geez_build_ships_composed_cover(self, tmp_path):
+        import zipfile
+
+        composed = REPO / "content" / "covers" / "standalone-geez.jpg"
+        assert composed.is_file(), "σ.5.2 cover must exist before the build can ship it"
+
+        out = bs.build_standalone("standalone-geez", tmp_path, "v28a")
+        assert out["status"] == "ok", out
+        epub = Path(out["output_path"])
+        with zipfile.ZipFile(epub) as z:
+            cover_name = next((n for n in z.namelist() if n.endswith("cover.jpeg")), None)
+            assert cover_name is not None, "no cover.jpeg in the standalone EPUB"
+            epub_cover = z.read(cover_name)
+
+        # The packaged cover is byte-identical to the composed standalone cover
+        # — not the base master cover that ships in epub_working/.
+        assert epub_cover == composed.read_bytes(), "standalone EPUB cover != composed standalone-geez.jpg"
+
+
 class TestPsalmsXref:
     def test_lxx_psalms_mapping_known_seams(self):
         f = ss.lxx_psalms_to_kjv
