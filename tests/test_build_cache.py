@@ -864,3 +864,77 @@ class TestOmega20CStatsSidecar:
         result = web_mod.api_export_build(edition_id, version=version)
         assert result.get("ok") is True
         assert "cache_hit" not in result
+
+
+class TestRho3CachePerChapterPerVerse:
+    """ρ.3 Phase B-5b — _referenced_translations must walk per-chapter
+    and per-verse popup language overrides, not only per-book.
+
+    Before the fix, a version id introduced *only* via
+    popup_languages_per_verse (or per_chapter) was invisible to the
+    translation-data hash, so editing that translation's files after an
+    initial build could produce a stale cached EPUB.
+
+    Test strategy: construct a minimal edition dict that references
+    'jps' (resolves to translation_id='jps'; content/translations/jps/
+    exists on disk) exclusively via per_verse / per_chapter overrides —
+    no popup_translation, no popup_languages_default, no per_book entry.
+    Assert that _referenced_translations() returns 'jps' in the set.
+    Also verify per_chapter variant using 'kjv' -> 'kjv'.
+    """
+
+    def test_per_verse_only_translation_is_included(self):
+        """A version id present only in popup_languages_per_verse must
+        appear in _referenced_translations().  Before the fix this
+        returned [] (empty), missing 'jps' entirely."""
+        from scripts.core.build_cache import _referenced_translations
+
+        edition = {
+            # No popup_translation, no default, no per_book.
+            "popup_languages_per_verse": ["gen:1:1=jps"],
+        }
+        refs = _referenced_translations(edition)
+        # 'jps' resolves: resolve_version_id('jps') -> 'jps';
+        # VERSION_REGISTRY['jps']['translation_id'] -> 'jps'.
+        assert "jps" in refs, (
+            f"_referenced_translations did not include 'jps' from popup_languages_per_verse; got: {refs}"
+        )
+
+    def test_per_chapter_only_translation_is_included(self):
+        """A version id present only in popup_languages_per_chapter must
+        appear in _referenced_translations()."""
+        from scripts.core.build_cache import _referenced_translations
+
+        edition = {
+            "popup_languages_per_chapter": ["gen:1=kjv"],
+        }
+        refs = _referenced_translations(edition)
+        # 'kjv' resolves: translation_id='kjv'.
+        assert "kjv" in refs, (
+            f"_referenced_translations did not include 'kjv' from popup_languages_per_chapter; got: {refs}"
+        )
+
+    def test_per_verse_comma_separated_langs_all_included(self):
+        """Multiple langs in one per-verse entry (comma-separated) are
+        all collected."""
+        from scripts.core.build_cache import _referenced_translations
+
+        edition = {
+            "popup_languages_per_verse": ["gen:1:1=jps,kjv"],
+        }
+        refs = _referenced_translations(edition)
+        assert "jps" in refs, f"'jps' missing from refs: {refs}"
+        assert "kjv" in refs, f"'kjv' missing from refs: {refs}"
+
+    def test_per_verse_does_not_duplicate_default_langs(self):
+        """If a lang appears in both popup_languages_default and
+        popup_languages_per_verse, it appears exactly once in the
+        sorted result (set semantics, no duplication)."""
+        from scripts.core.build_cache import _referenced_translations
+
+        edition = {
+            "popup_languages_default": ["jps"],
+            "popup_languages_per_verse": ["gen:1:1=jps"],
+        }
+        refs = _referenced_translations(edition)
+        assert refs.count("jps") == 1, f"'jps' duplicated in refs: {refs}"

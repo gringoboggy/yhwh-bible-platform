@@ -160,9 +160,19 @@ def _referenced_translations(edition: dict) -> list[str]:
         for lang in langs:
             if isinstance(lang, str) and lang.strip():
                 refs.add(_resolved(lang.strip()))
-    per_book = edition.get("popup_languages_per_book") or []
-    if isinstance(per_book, list):
-        for entry in per_book:
+    # per_book / per_chapter / per_verse all share the same flat-list
+    # format: ["<key>=<lang1>,<lang2>", ...].  Walk all three fields
+    # using the same inline parse so the translation-data hash covers
+    # version ids introduced via any granularity of override (ρ.3 B-5b).
+    for field in (
+        "popup_languages_per_book",
+        "popup_languages_per_chapter",
+        "popup_languages_per_verse",
+    ):
+        per_field = edition.get(field) or []
+        if not isinstance(per_field, list):
+            continue
+        for entry in per_field:
             if not isinstance(entry, str) or "=" not in entry:
                 continue
             _, _, langs_csv = entry.partition("=")
