@@ -1156,6 +1156,13 @@ function wireNoteShipsControls(row) {
 }
 
 // PUT the per-note override + refresh (mirrors C2-4's fetch/error handling).
+// Note-ship overrides write per-note state to a DISTINCT endpoint
+// (/note-override) and never touch the WORK symbol/popup maps, so they
+// deliberately bypass the scheduleSave debounce/in-flight coordinator. A
+// rapid note-toggle concurrent with an in-flight symbol/popup save is safe:
+// JS is single-threaded, each PUT body is built before any await, and the two
+// writes target different fields — the only effect is a harmless double
+// re-render. The re-seed below preserves any still-pending WORK fields.
 async function saveNoteOverride(noteId, state) {
   if (!CUR_EDITION) return;
   const snapEd = CUR_EDITION;

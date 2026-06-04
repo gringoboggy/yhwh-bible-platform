@@ -1129,8 +1129,11 @@ def _set_note_id_in_field(
     else:
         new_block = f"    {field}: []\n"
 
+    # Group 1 = the field header line (consumes an inline `: []` too, since
+    # `.*?\n` reaches the first newline); group 2 = the bulleted items (zero
+    # for the empty form). Together they span the whole existing list block.
     list_re = re.compile(
-        rf"^(    {re.escape(field)}:.*?\n)((?:      - [^\n]+\n)*|    {re.escape(field)}: \[\]\n)",
+        rf"^(    {re.escape(field)}:.*?\n)((?:      - [^\n]+\n)*)",
         re.MULTILINE,
     )
     if list_re.search(body):

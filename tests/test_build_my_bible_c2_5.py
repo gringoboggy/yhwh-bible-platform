@@ -130,6 +130,19 @@ class TestNoteOverrideAPI:
         assert r.get("ok"), r
         assert r.get("unchanged") is True
 
+    def test_unchanged_when_already_in_target_state(self, yaml_isolation):
+        # Re-asserting a state the note is already in is a no-op (both writes
+        # idempotent). Covers the "on→on" / "off→off" no-op paths.
+        ed = _import_editions()
+        ed.api_save_note_override(ED, {"note_id": NID_FAMILY_OFF, "state": "on"})
+        r = ed.api_save_note_override(ED, {"note_id": NID_FAMILY_OFF, "state": "on"})
+        assert r.get("ok"), r
+        assert r.get("unchanged") is True
+        ed.api_save_note_override(ED, {"note_id": NID_FAMILY_OFF, "state": "off"})
+        r = ed.api_save_note_override(ED, {"note_id": NID_FAMILY_OFF, "state": "off"})
+        assert r.get("ok"), r
+        assert r.get("unchanged") is True
+
     def test_bad_state(self, yaml_isolation):
         ed = _import_editions()
         r = ed.api_save_note_override(ED, {"note_id": NID_FAMILY_OFF, "state": "maybe"})
@@ -175,6 +188,19 @@ class TestNoteOverrideAPI:
 
 
 class TestShipsReadFlags:
+    def test_fixture_notes_exist_with_expected_family_state(self):
+        # Guard: these tests pin two specific gen 1 notes whose FAMILY state
+        # under `catholic-study` is fixed (NID_FAMILY_ON kind enabled,
+        # NID_FAMILY_OFF kind disabled). If the corpus or edition canon/kinds
+        # drift so the constants no longer hold, fail HERE with a clear message
+        # instead of a confusing KeyError deeper in the suite.
+        web = _import_web()
+        notes = {n["note_id"]: n for v in web.api_build_my_bible(ED, "gen", 1)["verses"] for n in v["notes"]}
+        assert NID_FAMILY_ON in notes, f"fixture note {NID_FAMILY_ON} no longer in {ED} gen 1 — update the constant"
+        assert NID_FAMILY_OFF in notes, f"fixture note {NID_FAMILY_OFF} no longer in {ED} gen 1 — update the constant"
+        assert notes[NID_FAMILY_ON]["kind_enabled"] is True, f"{NID_FAMILY_ON} family no longer ON for {ED}"
+        assert notes[NID_FAMILY_OFF]["kind_enabled"] is False, f"{NID_FAMILY_OFF} family no longer OFF for {ED}"
+
     def test_flags_present_and_correct_at_default(self):
         web = _import_web()
         r = web.api_build_my_bible(ED, "gen", 1)
