@@ -241,6 +241,112 @@ def encode_per_book_traditions(per_book: dict[str, list[str]]) -> list[str]:
     return out
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Per-book / per-chapter symbol-token helpers (Phase A — ρ.3)
+#
+# These mirror decode_per_book_traditions / encode_per_book_traditions above
+# but work with the open-ended token space of category ids ∪ kind codes
+# (e.g. "xref", "comm", "comm-patristic") rather than the fixed TRADITION_IDS
+# set.  Used by the hierarchical-customization symbol engine.
+# ──────────────────────────────────────────────────────────────────────────────
+
+
+def _valid_symbol_tokens() -> set[str]:
+    """The set of legal per-scope symbol tokens: category ids ∪ kind codes."""
+    from scripts.core import config as _cfg
+
+    cats = {c.get("id") for c in _cfg.load_categories()}
+    kinds = {k.get("code") for k in _cfg.load_kinds()}
+    return {t for t in (cats | kinds) if t}
+
+
+def decode_per_book_tokens(raw) -> dict[str, list[str]]:
+    """Decode ``note_families_{on,off}_per_book`` on-disk format.
+
+    Flat list of ``"<book>=<tok1>,<tok2>"`` strings (tokens are a category
+    id or a kind code). Empty value (``"gen="``) is meaningful: an explicit
+    empty override. Accepts None / [] / {} / list[str] / dict. Mirrors
+    ``decode_per_book_traditions``.
+    """
+    if raw is None or raw == [] or raw == {}:
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): list(v or []) for k, v in raw.items()}
+    out: dict[str, list[str]] = {}
+    for entry in raw:
+        if not isinstance(entry, str) or "=" not in entry:
+            continue
+        code, blob = entry.split("=", 1)
+        code = code.strip()
+        if not code:
+            continue
+        out[code] = [s.strip() for s in blob.split(",") if s.strip()] if blob.strip() else []
+    return out
+
+
+def encode_per_book_tokens(per_book: dict[str, list[str]]) -> list[str]:
+    """Inverse of decode_per_book_tokens. Sorts by canonical book order
+    (§6.1); drops unknown tokens (validate-at-write, like traditions)."""
+    if not per_book:
+        return []
+    from scripts.core import config as _cfg
+
+    valid = _valid_symbol_tokens()
+    book_order = list(_cfg.books_by_code().keys())
+    rank = {code: i for i, code in enumerate(book_order)}
+    out: list[str] = []
+    for code, toks in sorted(per_book.items(), key=lambda it: (rank.get(it[0], len(book_order) + 1), it[0])):
+        clean = [t for t in (toks or []) if t in valid]
+        out.append(f"{code}={','.join(clean)}")
+    return out
+
+
+def decode_per_chapter_tokens(raw) -> dict[str, list[str]]:
+    """Decode ``note_families_{on,off}_per_chapter``. Key is ``"<book>:<ch>"``;
+    otherwise identical to decode_per_book_tokens."""
+    if raw is None or raw == [] or raw == {}:
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): list(v or []) for k, v in raw.items()}
+    out: dict[str, list[str]] = {}
+    for entry in raw:
+        if not isinstance(entry, str) or "=" not in entry:
+            continue
+        key, blob = entry.split("=", 1)
+        key = key.strip()
+        if not key:
+            continue
+        out[key] = [s.strip() for s in blob.split(",") if s.strip()] if blob.strip() else []
+    return out
+
+
+def encode_per_chapter_tokens(per_chapter: dict[str, list[str]]) -> list[str]:
+    """Inverse of decode_per_chapter_tokens. Sorts by canonical book order
+    then NUMERIC chapter (so gen:2 precedes gen:10); drops unknown tokens."""
+    if not per_chapter:
+        return []
+    from scripts.core import config as _cfg
+
+    valid = _valid_symbol_tokens()
+    book_order = list(_cfg.books_by_code().keys())
+    rank = {code: i for i, code in enumerate(book_order)}
+
+    def _sort_key(item: tuple[str, list[str]]) -> tuple[int, str, int]:
+        key = item[0]
+        book, _, ch = key.partition(":")
+        try:
+            ch_n = int(ch)
+        except ValueError:
+            ch_n = 1 << 30
+        return (rank.get(book, len(book_order) + 1), book, ch_n)
+
+    out: list[str] = []
+    for key, toks in sorted(per_chapter.items(), key=_sort_key):
+        clean = [t for t in (toks or []) if t in valid]
+        out.append(f"{key}={','.join(clean)}")
+    return out
+
+
 def _resolve_traditions_for_book(edition: dict, book_code: str) -> set[str]:
     """Active tradition set for one (edition, book).
 
