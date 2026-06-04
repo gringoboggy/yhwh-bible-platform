@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-06-04 — ☁ Pod Samuel-transcription lane stood up + bulk launched · website note/creed reworded + deployed (HTTPS live) · Kings CAM-foliation bug found · per-book note selection queued #1
+
+**Pod (RunPod `tvdzqrdpyw95bf`).** Stood a fresh pod up end-to-end for the Sam/Kings draft-at-scale **agent path**: drove Chrome to read the live SSH string + start the pod; stored a RunPod API key (`~/.runpod/config.toml`) for Chrome-free stop/start; installed node + Claude Code; cloned the repo via SSH agent-forwarding (auto-mode hard-blocked the bulk-repo scp → used git-clone-from-GitLab, the sanctioned path); authed Claude Code to the Max subscription. Reworked the transcription to the agent path (`_pod_transcribe_driver.py`: N blind `claude -p` vision passes/witness → the existing deterministic `manuscript_finalize_chapter.py`). **★Finding: whole-folio 1568px crops are illegible (3–5px/char → honest `[illegible]`); native-res COLUMN TILES (`manuscript_folio_crop.py` 3×3) restore faithful reads** (GG proven — Hannah's prayer, 1sa2). **★Finding: the pod is rate-limit-bound, not core-bound** — the shared Max-subscription token rate is the ceiling (concurrency-4 → throttled garbage), so the pod offloads the N95 but gives ~no speedup; run concurrency-1. Launched the resumable bulk (`_pod_bulk_samuel.sh`, 51 ch, `nohup`, 4800s timeout) — ~25–30 ch within the $16 credit ("run till money runs out"); pod never pushes (results pulled + committed from the N95).
+
+**Website (Windows stepped into the Mac lane, user-directed).** Removed the "An honest word…" per-book-limitation callout + tightened the hero creed (de-quoted the user's raw words) in `website/src/index.html`; rebuilt + deployed from Windows to GitHub Pages (`gringoboggy/yhwh-website` `54c3544`); the custom-domain Let's Encrypt cert provisioned → **enabled Enforce HTTPS**; verified live (`https://www.yhwhyaway.com`). Mac handoff in `dev/LANE_HANDOFF.md` (turn 7) + `website/README.md` (multi-machine pull-before-deploy). Site commit `ee10b142`.
+
+**★Kings CAM-foliation bug.** The `1ki_b3` CAM crops (f135–140) are physically 1 Kings 22 → 2 Kings ~1–7, NOT 1ki 13–18 (penned folios correct; §17 chapter→folio assumption wrong; 1ki/2ki seam f135v→f136r) → §17 CAM 13–18 + the prior CAM 1ki 7–12 fill are suspect (GG independent — stands). Re-map CAM 1ki from the f126=1ki1 anchor; the manifest was not written with the bad data.
+
+**Next session #1 (user-directed, BEFORE manuscript):** build per-book note-family selection (currently edition-wide only via `config.enabled_kind_codes`); additive, mirroring the `*_per_book` pattern, byte-stable default.
+
 ## 2026-06-04 — Website LIVE at www.yhwhyaway.com (Mac lane) — on GitHub Pages, NOT Spaceship
 
 **Outcome:** the website is **live and serving** (all 5 pages, HTTP 200; HTTPS cert auto-provisioning).
