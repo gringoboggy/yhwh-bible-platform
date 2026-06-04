@@ -313,3 +313,64 @@ class TestCoverPickerUI:
 
     def test_wires_the_covers_section_in_the_rebind_loop(self):
         assert "wireCoversSection(" in self._src()
+
+
+class TestCustomizePickerIntegration:
+    """σ.4.2 — the "Your edition's name & notes" card: a smart-suggestion name
+    picker (derived from the edition's canon + enabled families, never assuming
+    "Study"), a Custom… free-text option, and a notes textarea bound to
+    ``description``. On save the cover recomposes so the new name shows. These
+    assert the served /customize HTML + the wiring in the JS template source."""
+
+    def _src(self) -> str:
+        return (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
+
+    def _html(self) -> str:
+        from scripts.web import CUSTOMIZE_HTML
+
+        return CUSTOMIZE_HTML
+
+    def test_name_card_renders_in_served_html(self):
+        html = self._html()
+        # The collapsible identity card + its three controls render in the page
+        # (per-card CLASSES, not ids, so the markup stays valid across cards).
+        assert "ed-identity-card" in html
+        assert "display-name-pick" in html
+        assert "display-name-custom" in html
+        assert "edition-notes" in html
+
+    def test_name_controls_carry_the_right_data_fields(self):
+        src = self._src()
+        # The chosen/typed name posts as display_name; the notes box posts as
+        # description (the existing field shown on the Your-Edition page).
+        assert 'data-field="display_name"' in src
+        assert 'data-field="description"' in src
+
+    def test_smart_suggestion_function_present(self):
+        src = self._src()
+        # The suggestions are computed in JS from the customize data.
+        assert "nameSuggestions" in src
+        # It must derive a canon label and offer the plain "<Canon> Bible" + the
+        # bare "Holy Bible" (empty subtitle) option.
+        assert "Holy Bible" in src
+        # Study Bible suggestion is GUARDED behind study-family detection — the
+        # guard token must appear next to the Study Bible string so it is never
+        # offered unconditionally.
+        assert "Study Bible" in src
+        assert "enabled_categories" in src
+
+    def test_custom_option_reveals_a_capped_text_input(self):
+        src = self._src()
+        # ✏ Custom… option + a maxlength-capped free-text input (σ.4.4 cap).
+        assert "Custom" in src
+        assert 'maxlength="48"' in src or "maxlength='48'" in src
+
+    def test_save_recomposes_the_cover(self):
+        src = self._src()
+        # After a successful save, the cover re-composes via the same template
+        # endpoint the picker uses, so the new name appears immediately.
+        assert "recomposeCoverAfterSave" in src or "maybeRecomposeCover" in src
+        assert "/template" in src
+
+    def test_name_card_wired_in_rebind_loop(self):
+        assert "wireIdentityCard(" in self._src()

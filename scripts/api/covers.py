@@ -84,13 +84,20 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
 
     from scripts.api.editions import api_save_edition_meta
     from scripts.core import config, covers as _covers, notes_io
-    from scripts.generate_edition_covers import _compose_cover, cover_text_for_edition
+    from scripts.generate_edition_covers import _compose_cover, cover_text_for_edition, template_for_edition
 
-    stem = (template_stem or "").strip()
-    if stem not in _covers.COVER_TEMPLATES:
-        return {"error": f"unknown cover_template: {stem!r}"}
     if edition_id not in config.editions_by_id():
         return {"error": f"unknown edition: {edition_id}"}
+
+    # σ.4.2 — an EMPTY stem means "recompose with whatever template this
+    # edition already uses" (the recompose-on-name-save path, where no template
+    # was explicitly picked). Resolve it to the edition's recorded/factory
+    # default. A non-empty-but-unknown stem is still rejected.
+    stem = (template_stem or "").strip()
+    if not stem:
+        stem = template_for_edition(edition_id)
+    if stem not in _covers.COVER_TEMPLATES:
+        return {"error": f"unknown cover_template: {stem!r}"}
 
     REPO = Path(__file__).resolve().parent.parent.parent
     rel_path = f"covers/{edition_id}.jpg"

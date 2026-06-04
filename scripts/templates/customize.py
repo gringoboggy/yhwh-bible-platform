@@ -367,10 +367,41 @@ function renderEditions() {
           <input class="label-input" data-field="short_title" value="${escapeAttr(e.short_title)}" maxlength="100" placeholder="short title">
           <input class="label-input md:col-span-2" data-field="target_audience" value="${escapeAttr(e.target_audience)}" maxlength="500" placeholder="target audience">
           <input class="label-input md:col-span-2" data-field="notes" value="${escapeAttr(e.notes)}" maxlength="500" placeholder="editorial notes">
-          <textarea class="label-input md:col-span-2" data-field="description" maxlength="4000" placeholder="Edition description (shown on About page)" rows="3">${escapeAttr(e.description||'')}</textarea>
           <textarea class="label-input md:col-span-2" data-field="dedication" maxlength="4000" placeholder="Dedication text (optional front-matter page)" rows="2">${escapeAttr(e.dedication||'')}</textarea>
         </div>
       </section>
+
+      <details class="ed-identity-card mt-3 border border-slate-200 rounded bg-slate-50" data-edition-id="${e.id}">
+        <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
+          Your edition's name &amp; notes
+          <span class="text-slate-400 normal-case font-normal ml-2">
+            the subtitle on the cover &amp; the note on your "Your Edition" page
+          </span>
+        </summary>
+        <div class="identity-body px-3 pb-3 pt-2 space-y-3">
+          <div>
+            <span class="block mb-1 text-xs font-medium text-slate-700">Edition name
+              <span class="text-slate-400 font-normal">— shows as the subtitle under "HOLY BIBLE" on the cover (leave blank for a cover with no subtitle)</span>
+            </span>
+            <!-- UI-only controls (no data-field). wireIdentityCard() syncs the
+                 chosen/typed value into the hidden display_name field below,
+                 which is the single source the save payload reads. Per-card
+                 CLASSES (not ids) so the markup stays valid across cards. -->
+            <select class="label-input w-full md:w-2/3 display-name-pick"
+                    title="pick a name suggested from what you built, or choose Custom to type your own"></select>
+            <input class="label-input w-full md:w-2/3 mt-2 display-name-custom hidden"
+                   maxlength="48" placeholder="type your edition's name (max 48 characters)">
+            <input type="hidden" data-field="display_name" class="display-name-value" value="${escapeAttr(e.display_name||'')}">
+          </div>
+          <div>
+            <span class="block mb-1 text-xs font-medium text-slate-700">Notes
+              <span class="text-slate-400 font-normal">— a short note shown on your "Your Edition" page (optional)</span>
+            </span>
+            <textarea class="label-input w-full edition-notes" data-field="description" maxlength="4000" rows="3"
+                      placeholder="e.g. why you built this edition, who it's for, what makes it yours">${escapeAttr(e.description||'')}</textarea>
+          </div>
+        </div>
+      </details>
 
       <details class="popup-langs-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
@@ -797,6 +828,10 @@ function renderEditions() {
       const anyInput = box.querySelector('input, select');
       if (anyInput) anyInput.dispatchEvent(evt);
     });
+    // σ.4.2 — wire the "Your edition's name & notes" card: the smart-name
+    // picker + Custom… input sync into the hidden display_name field (which
+    // participates in the standard dirty-check / payload above).
+    wireIdentityCard(box, ed);
     // §4.6 — Cover picker + uploads. Immediate-action panel (pick →
     // server-side recompose; uploads → multipart), so it's wired
     // independently of the Save button / dirty-check.
@@ -811,6 +846,131 @@ function renderEditions() {
     if (historyBtn) {
       historyBtn.addEventListener('click', () => openHistoryModal(box));
     }
+  });
+}
+
+// =====================================================================
+// σ.4.2 — "Your edition's name & notes" card
+//
+// The name picker is a <select> of suggestions DERIVED from what the
+// builder actually built — never a hardcoded "Study Bible". It pairs the
+// edition's canon label with the kind of edition we can infer:
+//   • "<Canon> Study Bible"  — only when study-type note families are on
+//   • "<Canon> Bible"        — the plain reading edition
+//   • "<Canon> Reading Bible"— when few/no note families are enabled
+//   • "Holy Bible"           — the bare option (empty subtitle → cover
+//                              shows just the main title)
+//   • "✏ Custom…"            — reveals a free-text input (capped at 48)
+// The select + custom input are UI-only; wireIdentityCard syncs the
+// resolved value into a hidden data-field="display_name" input so the
+// standard dirty-check + buildCustomizePayload pick it up unchanged.
+// =====================================================================
+
+// Friendly canon labels for the suggestion text. Unknown canons fall back
+// to a capitalised form of the raw id so a new canon still reads sanely.
+const CANON_LABELS = {
+  ethiopian: 'Ethiopian Tewahedo',
+  catholic:  'Catholic',
+  protestant:'Protestant',
+  tanakh:    'Hebrew',
+  orthodox:  'Eastern Orthodox',
+};
+
+// Note categories that signal a study/annotated edition (vs. a plain reading
+// Bible). If an edition enables ANY of these, "Study Bible" is offered;
+// otherwise it never is (the user's "never assume Study" requirement).
+const STUDY_CATEGORIES = ['comm', 'hist', 'lit', 'text', 'lang', 'apol', 'compare'];
+
+function canonLabel(canon) {
+  if (!canon) return '';
+  if (CANON_LABELS[canon]) return CANON_LABELS[canon];
+  return String(canon).charAt(0).toUpperCase() + String(canon).slice(1);
+}
+
+// Compute the ordered list of suggested names for one edition record. Pure
+// function of the edition's canon + enabled note families — so the list
+// reflects what was actually built, not an assumption.
+function nameSuggestions(edition) {
+  const label = canonLabel(edition.canon);
+  const cats = edition.enabled_categories || [];
+  const hasStudy = cats.some(c => STUDY_CATEGORIES.indexOf(c) !== -1);
+  const out = [];
+  if (label) {
+    if (hasStudy) {
+      // Study families on → lead with the Study Bible suggestion.
+      out.push(label + ' Study Bible');
+      out.push(label + ' Bible');
+    } else {
+      // No study families → a plain reading edition; never offer "Study".
+      out.push(label + ' Bible');
+      out.push(label + ' Reading Bible');
+    }
+  }
+  // Always offer the bare "Holy Bible" (= empty subtitle, cover shows only
+  // the main title) so the builder can opt into a subtitle-free cover.
+  out.push('Holy Bible');
+  // De-dup while preserving order.
+  return out.filter((v, i) => out.indexOf(v) === i);
+}
+
+const CUSTOM_NAME_SENTINEL = '✏ Custom…';  // "✏ Custom…"
+
+function wireIdentityCard(box, edition) {
+  const card = box.querySelector('.ed-identity-card');
+  if (!card) return;
+  const pick = card.querySelector('.display-name-pick');
+  const custom = card.querySelector('.display-name-custom');
+  const hidden = card.querySelector('.display-name-value');
+  if (!pick || !custom || !hidden) return;
+
+  const current = hidden.value || '';
+  const suggestions = nameSuggestions(edition);
+  // The current value, if it isn't one of the suggestions, becomes a
+  // pre-selected entry so re-opening the card shows the real name.
+  const options = suggestions.slice();
+  if (current && options.indexOf(current) === -1) options.unshift(current);
+
+  // Build the <option> list (escaped) + the Custom… sentinel last.
+  let html = options.map(s =>
+    `<option value="${escapeAttr(s)}"${s === current ? ' selected' : ''}>${escapeAttr(s)}</option>`
+  ).join('');
+  // "Holy Bible" maps to an EMPTY display_name (cover shows only the main
+  // title). We keep it visible in the dropdown but resolve it to "" on sync.
+  html += `<option value="${escapeAttr(CUSTOM_NAME_SENTINEL)}">${escapeAttr(CUSTOM_NAME_SENTINEL)}</option>`;
+  pick.innerHTML = html;
+
+  // If the current value matched nothing (e.g. blank), default the select to
+  // the top suggestion WITHOUT marking the field dirty — the hidden field
+  // keeps its real original value until the user actually changes something.
+  if (!current && options.length) pick.value = options[0];
+
+  // Resolve the visible select value to the stored display_name string.
+  // "Holy Bible" → "" (no subtitle); everything else is literal.
+  const resolve = label => (label === 'Holy Bible' ? '' : label);
+
+  const fireChange = () => {
+    // Push the resolved value into the hidden data-field input + fire the
+    // events the rebind loop listens for, so the dirty-check + payload update.
+    hidden.dispatchEvent(new Event('input', {bubbles: true}));
+    hidden.dispatchEvent(new Event('change', {bubbles: true}));
+  };
+
+  pick.addEventListener('change', () => {
+    if (pick.value === CUSTOM_NAME_SENTINEL) {
+      custom.classList.remove('hidden');
+      custom.value = (current && options.indexOf(current) === -1) ? current : '';
+      hidden.value = custom.value;
+      custom.focus();
+    } else {
+      custom.classList.add('hidden');
+      hidden.value = resolve(pick.value);
+    }
+    fireChange();
+  });
+
+  custom.addEventListener('input', () => {
+    hidden.value = custom.value;
+    fireChange();
   });
 }
 
@@ -1365,6 +1525,12 @@ async function saveEdition(box) {
       return;
     }
     status.innerHTML = '<span class="text-emerald-700">✓ saved</span>';
+    // σ.4.2 — if the cover text (name / main title) changed, recompose the
+    // cover so the new subtitle appears immediately (same endpoint the cover
+    // picker uses; an empty stem recomposes with the edition's current design).
+    if ('display_name' in payload || 'cover_main_title' in payload) {
+      maybeRecomposeCover(box, id);
+    }
     box.classList.remove('dirty');
     box.classList.add('saved');
     setTimeout(() => box.classList.remove('saved'), 1200);
@@ -1402,6 +1568,32 @@ async function saveEdition(box) {
   } catch (e) {
     status.innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;
   }
+}
+
+// σ.4.2 — recompose the edition's cover after a name/main-title save so the
+// new subtitle shows immediately. Reuses the cover-template endpoint the
+// picker calls; an empty cover_template recomposes with the edition's current
+// design (the server resolves the default). Best-effort: a failure here only
+// updates a status note — the name itself already saved, and the next build /
+// template-pick recomposes regardless.
+async function maybeRecomposeCover(box, id) {
+  const edition = DATA.editions.find(x => x.id === id) || {};
+  const stem = edition.cover_template || '';
+  try {
+    const r = await fetch('/api/covers/' + encodeURIComponent(id) + '/template', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({cover_template: stem}),
+    });
+    const j = await r.json();
+    if (r.ok && !j.error) {
+      edition.cover_template = j.cover_template;
+      edition.cover_image = j.path;
+      // Refresh the in-card cover preview (cache-busted) if it's visible.
+      const img = box.querySelector('.covers-current');
+      if (img && j.path) img.src = '/content/' + j.path + '?t=' + Date.now();
+    }
+  } catch (_) { /* non-fatal: the name saved; cover updates on next build */ }
 }
 
 // Phase ν.5 — change-impact preview. Build the same payload that
