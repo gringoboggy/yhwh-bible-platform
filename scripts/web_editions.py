@@ -48,8 +48,15 @@ def api_build_tracker(edition_id: str) -> dict:
 
     Shows the builder exactly what is enabled in a single edition:
     summary tile counts, per-book × per-chapter enabled-note density,
-    per-category and per-kind breakdowns. Composes the existing
-    matrix store (per_chapter is canonical post-ψ.35-Final).
+    per-category and per-kind breakdowns.
+
+    σ.6.1 — the total / per-book / per-(book,chapter) grid / per-category
+    / per-kind counts are sourced from ``edition_stats.resolved_note_counts``
+    (the build-accurate counter), NOT the edition-wide matrix. This makes the
+    live preview equal the built EPUB and honor the ρ.3 hierarchy: per-book /
+    per-chapter / per-note overrides AND the base-HTML coverage gate are all
+    reflected, where the old matrix path (canon + enabled-kind only) over-counted
+    by the base-coverage residual and ignored per-coordinate toggles.
 
     Returns:
         {
@@ -72,6 +79,7 @@ def api_build_tracker(edition_id: str) -> dict:
 
     Pinned by ``TestBuildTrackerEndpoint`` in test_scripts.py.
     """
+    from scripts.core import edition_stats
     from scripts.core import matrix as matrix_mod
 
     eds_by_id = config.editions_by_id()
@@ -85,11 +93,17 @@ def api_build_tracker(edition_id: str) -> dict:
     cats_idx = {c["id"]: c for c in config.load_categories()}
 
     canon_books = m.edition_canon_books.get(edition_id, set())
-    enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
-    per_chapter_ed = m.per_chapter.get(edition_id, {})
 
-    # Per-book: walk canon books in canonical order; sum enabled
-    # kinds' per_chapter counts.
+    # Build-accurate resolved counts (honors the ρ.3 hierarchy + base-coverage
+    # gate) — THE source of truth for every "what you built" surface (σ.1/σ.6).
+    rc = edition_stats.resolved_note_counts(edition)
+    per_book_counts = rc["per_book"]
+    per_book_chapter = rc["per_book_chapter"]
+    per_category_counts = rc["per_category"]
+    per_kind_counts = rc["per_kind"]
+
+    # Per-book: walk canon books in canonical order; build the per-chapter
+    # density array from the resolved per-(book, chapter) tally.
     book_order = list(books_idx.keys())  # already canonical from books.yaml
     per_book = []
     total_notes = 0
@@ -104,14 +118,11 @@ def api_build_tracker(edition_id: str) -> dict:
         chapters_in_canon_total += ch_count
         # by_chapter is a flat array (1-indexed → array index = ch-1).
         by_chapter = [0] * ch_count
-        for kind, by_book in per_chapter_ed.items():
-            if kind not in enabled_kinds:
-                continue
-            for ch_num, count in by_book.get(book_code, {}).items():
-                idx = int(ch_num) - 1
-                if 0 <= idx < ch_count:
-                    by_chapter[idx] += int(count)
-        book_total = sum(by_chapter)
+        for ch_num, count in per_book_chapter.get(book_code, {}).items():
+            idx = int(ch_num) - 1
+            if 0 <= idx < ch_count:
+                by_chapter[idx] += int(count)
+        book_total = per_book_counts.get(book_code, 0)
         book_chapters_covered = sum(1 for n in by_chapter if n > 0)
         total_notes += book_total
         chapters_covered_total += book_chapters_covered
@@ -128,18 +139,11 @@ def api_build_tracker(edition_id: str) -> dict:
             }
         )
 
-    # Per-category + per-kind aggregates (only kinds that are enabled
-    # AND have non-zero notes show up).
+    # Per-category + per-kind aggregates from the resolved counts (only kinds /
+    # categories with non-zero shipping notes appear).
     cat_totals: dict[str, int] = {}
     kind_rows: list[dict] = []
-    for kind, by_book in per_chapter_ed.items():
-        if kind not in enabled_kinds:
-            continue
-        kind_total = 0
-        for book_code, by_ch in by_book.items():
-            if book_code not in canon_books:
-                continue
-            kind_total += sum(int(v) for v in by_ch.values())
+    for kind, kind_total in per_kind_counts.items():
         if kind_total <= 0:
             continue
         kind_def = kinds_idx.get(kind, {})
@@ -154,16 +158,20 @@ def api_build_tracker(edition_id: str) -> dict:
             }
         )
     kind_rows.sort(key=lambda r: (-r["enabled_notes"], r["code"]))
+    # per_category from the resolved per-category tally (a kind with no
+    # registered category buckets under "" — surface it as the "?" sentinel the
+    # console already tolerates so the category sum still equals the total).
     per_category = [
         {
-            "id": cid,
-            "label": cats_idx.get(cid, {}).get("label", cid),
-            "enabled_notes": cat_totals[cid],
+            "id": (cid or "?"),
+            "label": cats_idx.get(cid, {}).get("label", cid or "?"),
+            "enabled_notes": n,
         }
-        for cid in sorted(cat_totals.keys(), key=lambda c: (-cat_totals[c], c))
+        for cid, n in sorted(per_category_counts.items(), key=lambda kv: (-kv[1], kv[0]))
+        if n > 0
     ]
 
-    popup_langs = list(edition.get("popup_languages_default") or [])
+    popup_langs = list(rc["popup_languages"])
 
     return {
         "edition": {

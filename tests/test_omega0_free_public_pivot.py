@@ -193,6 +193,137 @@ class TestBuildTrackerEndpoint:
             assert k["code"] in enabled, f"kind {k['code']} listed but not enabled"
 
 
+class TestBuildTrackerBuildAccurate:
+    """σ.6.1 — /build-tracker counts come from the build-accurate counter
+    (edition_stats.resolved_note_counts), so the live preview equals the built
+    EPUB and honors the ρ.3 hierarchy. The old edition-wide matrix path
+    over-counted by the base-coverage residual and ignored per-coordinate
+    overrides."""
+
+    def test_total_equals_resolved_note_counts(self):
+        from scripts.core import config, edition_stats
+        from scripts.web import api_build_tracker
+
+        ed = config.editions_by_id()["catholic-study"]
+        expected = edition_stats.resolved_note_counts(ed)["total"]
+        r = api_build_tracker("catholic-study")
+        assert r["summary"]["total_enabled_notes"] == expected
+        # per_book + per_category + per_kind all sum to the same total.
+        assert sum(b["enabled_notes"] for b in r["per_book"]) == expected
+        assert sum(c["enabled_notes"] for c in r["per_category"]) == expected
+        assert sum(k["enabled_notes"] for k in r["per_kind"]) == expected
+
+    def test_per_chapter_grid_matches_resolved(self):
+        from scripts.core import config, edition_stats
+        from scripts.web import api_build_tracker
+
+        ed = config.editions_by_id()["catholic-study"]
+        rc = edition_stats.resolved_note_counts(ed)
+        pbc = rc["per_book_chapter"]
+        r = api_build_tracker("catholic-study")
+        for b in r["per_book"]:
+            # each heat-grid cell (ch-1 → array idx) equals the resolved
+            # per-(book, chapter) count for that coordinate.
+            book_chs = pbc.get(b["book_code"], {})
+            for idx, n in enumerate(b["by_chapter"]):
+                assert n == book_chs.get(idx + 1, 0), f"{b['book_code']} ch{idx + 1}: grid {n} != resolved"
+
+    def test_override_edition_drops_book_count_and_agrees(self, tmp_path):
+        import shutil
+
+        from scripts.core import config, edition_stats
+        from scripts.web import api_build_tracker
+
+        yml = REPO / "content" / "editions.yaml"
+        backup = tmp_path / "ed.bak"
+        shutil.copy(yml, backup)
+
+        def _clear():
+            config.load_editions.cache_clear()
+            from scripts.core import matrix as m
+
+            m.compute_matrix.cache_clear()
+            edition_stats.resolved_note_counts.cache_clear()
+
+        try:
+            _clear()
+            before = api_build_tracker("catholic-study")
+            before_gen = next(b["enabled_notes"] for b in before["per_book"] if b["book_code"] == "gen")
+
+            import scripts.web as web
+
+            web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {"gen": ["xref"]}})
+            _clear()
+
+            after = api_build_tracker("catholic-study")
+            after_gen = next(b["enabled_notes"] for b in after["per_book"] if b["book_code"] == "gen")
+
+            # The dropped family lowers gen's count + the edition total.
+            assert after_gen < before_gen
+            assert after["summary"]["total_enabled_notes"] < before["summary"]["total_enabled_notes"]
+
+            # The live total still equals the build-accurate resolved total.
+            ed = config.editions_by_id()["catholic-study"]
+            assert after["summary"]["total_enabled_notes"] == edition_stats.resolved_note_counts(ed)["total"]
+        finally:
+            shutil.copy(backup, yml)
+            _clear()
+
+    def test_agrees_with_build_my_bible_per_coordinate(self, tmp_path):
+        """The build-tracker grid (resolved_note_counts) and the per-coordinate
+        /build-my-bible navigator must agree on which (book, chapter) coordinates
+        carry notes: a chapter the navigator reports has_notes=False (no enabled
+        note survives the hierarchy) must be a 0-cell in the tracker grid, and a
+        tracker cell with notes must be has_notes=True. Both resolve via the same
+        ρ.3 filter (compute_edition_filter_sets / enabled_kind_codes_for)."""
+        import shutil
+
+        from scripts.core import config, edition_stats
+        from scripts.web import api_build_my_bible, api_build_tracker
+
+        yml = REPO / "content" / "editions.yaml"
+        backup = tmp_path / "ed.bak"
+        shutil.copy(yml, backup)
+
+        def _clear():
+            config.load_editions.cache_clear()
+            from scripts.core import matrix as m
+
+            m.compute_matrix.cache_clear()
+            edition_stats.resolved_note_counts.cache_clear()
+
+        try:
+            _clear()
+            # Use an override edition so the agreement is non-trivial.
+            import scripts.web as web
+
+            web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {"gen": ["xref"]}})
+            _clear()
+
+            tracker = api_build_tracker("catholic-study")
+            ed = config.editions_by_id()["catholic-study"]
+            rc = edition_stats.resolved_note_counts(ed)
+            pbc = rc["per_book_chapter"]
+
+            # For gen, every chapter the navigator says has notes must be a
+            # non-zero resolved cell, and vice-versa (both honor the per-book OFF).
+            book = api_build_my_bible("catholic-study", book="gen")
+            gen_chs = pbc.get("gen", {})
+            for ch in book["chapters"]:
+                nav_has = bool(ch.get("has_notes"))
+                resolved_n = gen_chs.get(ch["num"], 0)
+                # has_notes is "any enabled-kind note exists" (matrix per_chapter,
+                # pre base-coverage gate); resolved_n is build-accurate. So
+                # resolved_n>0 ⇒ has_notes must be True (no note ships without one
+                # existing). The reverse can differ only by the base-coverage
+                # residual, so we assert the strong direction.
+                if resolved_n > 0:
+                    assert nav_has, f"gen ch{ch['num']}: tracker {resolved_n} notes but navigator has_notes=False"
+        finally:
+            shutil.copy(backup, yml)
+            _clear()
+
+
 class TestBuildTrackerBookEndpoint:
     def setup_method(self):
         from scripts.web import api_build_tracker_book

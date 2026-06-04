@@ -32,6 +32,12 @@ def test_resolved_counts_match_no_override_edition():
     assert sum(rc["per_category"].values()) == rc["total"]
     assert sum(rc["per_kind"].values()) == rc["total"]
     assert isinstance(rc["popup_languages"], list)
+    # σ.6.1 — per-(book, chapter) tally: every grand sum == total, and each
+    # book's inner-chapter sum == that book's per_book count.
+    pbc = rc["per_book_chapter"]
+    assert sum(sum(chs.values()) for chs in pbc.values()) == rc["total"]
+    for bk, n in rc["per_book"].items():
+        assert sum(pbc.get(bk, {}).values()) == n, f"per_book_chapter[{bk}] sum != per_book"
 
 
 def test_resolved_counts_honor_per_book_off(tmp_path):

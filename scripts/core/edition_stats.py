@@ -82,11 +82,14 @@ def resolved_note_counts(edition: dict) -> dict:
 
     Result keys::
 
-        total            int                   notes that actually ship
-        per_book         {book_code: count}    sums to total
-        per_category     {category_id: count}  sums to total
-        per_kind         {kind_code: count}    sums to total
-        popup_languages  sorted list[str]      every popup language that ships
+        total            int                       notes that actually ship
+        per_book         {book_code: count}        sums to total
+        per_book_chapter {book_code: {ch: count}}  per-(book, chapter) tally;
+                                                   the inner sums == per_book,
+                                                   the grand sum == total
+        per_category     {category_id: count}      sums to total
+        per_kind         {kind_code: count}        sums to total
+        popup_languages  sorted list[str]          every popup language that ships
 
     Honors the ρ.3 hierarchy because it reuses
     ``compute_edition_filter_sets`` — the same two sets ``filter_html`` strips
@@ -94,10 +97,12 @@ def resolved_note_counts(edition: dict) -> dict:
     """
     raw = _resolved_note_counts_cached(edition["id"], _edition_signature(edition["id"]))
     # Return a fresh copy: the cached object is shared across calls (lru_cache),
-    # so handing out the live dict would let a consumer corrupt the cache.
+    # so handing out the live dict would let a consumer corrupt the cache. The
+    # per_book_chapter inner dicts are copied too (nested mutable state).
     return {
         **raw,
         "per_book": dict(raw["per_book"]),
+        "per_book_chapter": {bk: dict(chs) for bk, chs in raw["per_book_chapter"].items()},
         "per_category": dict(raw["per_category"]),
         "per_kind": dict(raw["per_kind"]),
         "popup_languages": list(raw["popup_languages"]),
@@ -119,12 +124,13 @@ def _resolved_note_counts_cached(edition_id: str, _sig: tuple) -> dict:
     base_ref_ids = _base_html_ref_ids()
 
     per_book: dict[str, int] = {}
+    per_book_chapter: dict[str, dict[int, int]] = {}
     per_category: dict[str, int] = {}
     per_kind: dict[str, int] = {}
     total = 0
     # Yield shape (verified against build_edition._iter_note_ref_symbols):
     #   (ref_id, note_id, book_code, chapter, verse, suffix, kind, category)
-    for ref_id, _note_id, book, _ch, _vs, _suffix, kind, category in _iter_note_ref_symbols():
+    for ref_id, _note_id, book, ch, _vs, _suffix, kind, category in _iter_note_ref_symbols():
         if book not in canon_books:
             continue
         if kind in disabled_kinds:
@@ -139,6 +145,11 @@ def _resolved_note_counts_cached(edition_id: str, _sig: tuple) -> dict:
             continue
         total += 1
         per_book[book] = per_book.get(book, 0) + 1
+        # per-(book, chapter) tally: powers the /build-tracker heat-grid so the
+        # live per-chapter density equals the built EPUB (σ.6.1). chapter is an
+        # int from _iter_note_ref_symbols (int(tup[0])).
+        bk_ch = per_book_chapter.setdefault(book, {})
+        bk_ch[ch] = bk_ch.get(ch, 0) + 1
         per_kind[kind] = per_kind.get(kind, 0) + 1
         # category can be None if a kind lacks a registered category — bucket
         # those under "" so the per_category sum still equals total.
@@ -156,6 +167,7 @@ def _resolved_note_counts_cached(edition_id: str, _sig: tuple) -> dict:
     return {
         "total": total,
         "per_book": per_book,
+        "per_book_chapter": per_book_chapter,
         "per_category": per_category,
         "per_kind": per_kind,
         "popup_languages": sorted(langs),
