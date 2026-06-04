@@ -30,3 +30,11 @@ pip-audit>=2.0,<3      # dependency CVE scanner (`make ci`: audits requirements.
 # ----------------------------------------------------------------------
 Pillow>=12,<13
 PyMuPDF>=1.27,<2
+
+# ----------------------------------------------------------------------
+# Desktop binary build (θ-cluster) — produces the signed / notarized
+# .app / .dmg via `dev/build_desktop.sh` → `dev/launcher.spec` →
+# `dev/build_dmg.sh`. Declared here (not requirements.txt) so headless /
+# CI installs stay lean; only needed when building the desktop release.
+# ----------------------------------------------------------------------
+pyinstaller>=6.0,<7    # `pyinstaller dev/launcher.spec` → dist/YHWH.app

@@ -38,6 +38,7 @@ fi
 VERSION="$(cat VERSION 2>/dev/null | head -n1 | tr -d '[:space:]' || echo "dev")"
 APP_PATH="dist/YHWH.app"
 DMG_PATH="dist/YHWH-${VERSION}.dmg"
+ENTITLEMENTS="${ENTITLEMENTS:-$REPO_ROOT/dev/YHWH.entitlements}"
 
 if [[ ! -d "$APP_PATH" ]]; then
     echo "dist/YHWH.app not found — running PyInstaller first..."
@@ -47,10 +48,23 @@ fi
 # Optional code-sign the .app bundle.
 if [[ -n "${CODESIGN_IDENTITY:-}" ]]; then
     echo "Code-signing $APP_PATH with \"$CODESIGN_IDENTITY\"..."
-    codesign --deep --force --options=runtime \
-        --sign "$CODESIGN_IDENTITY" \
-        --timestamp \
-        "$APP_PATH"
+    # Hardened runtime (--options=runtime) is required for notarization; the
+    # entitlements let the frozen-Python app load its bundled unsigned dylibs
+    # and map executable memory under that runtime (see dev/YHWH.entitlements).
+    if [[ -f "$ENTITLEMENTS" ]]; then
+        echo "  entitlements: $ENTITLEMENTS"
+        codesign --deep --force --options=runtime \
+            --sign "$CODESIGN_IDENTITY" \
+            --entitlements "$ENTITLEMENTS" \
+            --timestamp \
+            "$APP_PATH"
+    else
+        echo "  (no entitlements file at $ENTITLEMENTS — signing without)"
+        codesign --deep --force --options=runtime \
+            --sign "$CODESIGN_IDENTITY" \
+            --timestamp \
+            "$APP_PATH"
+    fi
     codesign --verify --deep --strict --verbose=2 "$APP_PATH"
 fi
 

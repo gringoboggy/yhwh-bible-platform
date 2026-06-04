@@ -19,11 +19,27 @@
 # θ.2 will replace this single-file spec with a proper bundled .app
 # / .msi via PyWebView; θ.4 will sign + notarize.
 
+import sys
 from pathlib import Path
 
 # SPECPATH is set by PyInstaller to the directory containing this
 # spec file. The repo root is one level up.
 ROOT = Path(SPECPATH).resolve().parent
+
+
+# Version string for the .app bundle Info.plist — first non-blank line of
+# the repo VERSION file (the same source dev/build_dmg.sh + installer.iss
+# consume). Falls back to a sentinel if the file is somehow absent.
+def _read_version() -> str:
+    vf = ROOT / "VERSION"
+    if vf.is_file():
+        for _line in vf.read_text(encoding="utf-8").splitlines():
+            if _line.strip():
+                return _line.strip()
+    return "0.0.0"
+
+
+VERSION = _read_version()
 
 block_cipher = None
 
@@ -95,29 +111,85 @@ a.datas = [
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-exe = EXE(
-    pyz,
-    a.scripts,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    # Run the bundled interpreter in UTF-8 mode. The codebase reads its
-    # UTF-8 corpus (kinds.yaml symbols, Hebrew/Greek notes, HTML) via
-    # read_text()/open() WITHOUT an explicit encoding, relying on the dev
-    # convention PYTHONUTF8=1. A double-clicked binary has no such env, and
-    # PyInstaller's frozen interpreter ignores the PYTHONUTF8 env var — so
-    # without -X utf8 reads default to cp1252 and fail (charmap decode error).
-    [("X utf8", None, "OPTION")],
-    name="YHWH",
-    debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=False,
-    disable_windowed_traceback=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
-)
+# Run the bundled interpreter in UTF-8 mode. The codebase reads its UTF-8
+# corpus (kinds.yaml symbols, Hebrew/Greek notes, HTML) via read_text()/
+# open() WITHOUT an explicit encoding, relying on the dev convention
+# PYTHONUTF8=1. A double-clicked binary has no such env, and PyInstaller's
+# frozen interpreter ignores the PYTHONUTF8 env var — so without -X utf8
+# reads default to cp1252 and fail (charmap decode error).
+_EXE_OPTIONS = [("X utf8", None, "OPTION")]
+
+if sys.platform == "darwin":
+    # macOS — ONEDIR layout (EXE bootloader → COLLECT tree → BUNDLE .app).
+    # A onefile binary inside a .app "clashes with macOS's security"
+    # (PyInstaller's own deprecation warning): Gatekeeper can reject or
+    # flag the self-extracting single file even after notarization. onedir
+    # keeps each dylib individually signable inside the bundle, which is
+    # the layout Apple notarization + the hardened runtime expect.
+    # Codesigning + entitlements are applied post-build by dev/build_dmg.sh
+    # (opt-in via CODESIGN_IDENTITY), not here.
+    exe = EXE(
+        pyz,
+        a.scripts,
+        _EXE_OPTIONS,
+        exclude_binaries=True,  # onedir: binaries + datas live in COLLECT
+        name="YHWH",
+        debug=False,
+        bootloader_ignore_signals=False,
+        strip=False,
+        upx=False,
+        console=False,
+        disable_windowed_traceback=False,
+        target_arch=None,
+        codesign_identity=None,
+        entitlements_file=None,
+    )
+    coll = COLLECT(
+        exe,
+        a.binaries,
+        a.zipfiles,
+        a.datas,
+        strip=False,
+        upx=False,
+        upx_exclude=[],
+        name="YHWH",
+    )
+    app = BUNDLE(
+        coll,
+        name="YHWH.app",
+        icon=None,  # TODO: dev/YHWH.icns once a branded app icon is cut
+        bundle_identifier="com.yhwhyaway.yhwh",
+        version=VERSION,
+        info_plist={
+            "CFBundleName": "YHWH",
+            "CFBundleDisplayName": "YHWH Ya' Way",
+            "CFBundleShortVersionString": VERSION,
+            "CFBundleVersion": VERSION,
+            "NSHighResolutionCapable": True,
+            "LSMinimumSystemVersion": "10.15.0",
+            "NSHumanReadableCopyright": "Source-available; incorporates public-domain texts.",
+        },
+    )
+else:
+    # Windows / Linux — ONEFILE (single dist/YHWH.exe or ELF binary), the
+    # original θ.1 behavior; unaffected by the macOS .app restructure.
+    exe = EXE(
+        pyz,
+        a.scripts,
+        a.binaries,
+        a.zipfiles,
+        a.datas,
+        _EXE_OPTIONS,
+        name="YHWH",
+        debug=False,
+        bootloader_ignore_signals=False,
+        strip=False,
+        upx=False,  # UPX corrupts Mach-O code signatures (breaks notarization)
+        upx_exclude=[],
+        runtime_tmpdir=None,
+        console=False,
+        disable_windowed_traceback=False,
+        target_arch=None,
+        codesign_identity=None,
+        entitlements_file=None,
+    )

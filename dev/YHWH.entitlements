@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+      Hardened-runtime entitlements for the PyInstaller-frozen YHWH
+      launcher. Required for Developer ID signing + Apple notarization:
+
+        * disable-library-validation — load the bundled (Apple-unsigned)
+          Python .so / .dylib extension modules under the hardened runtime.
+        * allow-unsigned-executable-memory + allow-jit — the CPython
+          interpreter and the PyInstaller onefile bootloader map and
+          execute writable memory pages.
+        * allow-dyld-environment-variables — PyInstaller's bootloader sets
+          DYLD_* vars to locate the bundled libpython at launch.
+
+      The app is a local-only HTTP server bound to 127.0.0.1 (see
+      scripts/launcher.py), so a Developer-ID (non-sandboxed) build needs
+      no inbound/outbound network entitlement.
+    -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+</dict>
+</plist>
