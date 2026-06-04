@@ -32,6 +32,7 @@ editions:
     canon: ethiopian
     theme: classic
     title: "The Ethiopian Tewahedo Study Bible"
+    display_name: "Ethiopian Tewahedo Bible"
     short_title: "Ethiopian Tewahedo SB"
     target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
     enabled_categories:
@@ -140,6 +141,7 @@ editions:
     verse_marker_glyph: ¶
     popup_translation: kjv
     title: The Catholic Study Bible — Ethiopian Edition
+    display_name: Catholic Study Bible
     short_title: Catholic SB Ethiopian
     target_audience: Roman Catholic readers interested in the broader canon
     enabled_categories:
@@ -180,6 +182,7 @@ editions:
     canon: protestant
     theme: modern
     title: "The Reformed Study Bible — Expanded Canon"
+    display_name: "Reformed Study Bible"
     short_title: "Reformed SB"
     target_audience: "Evangelical / Reformed readers"
     enabled_categories:
@@ -218,6 +221,7 @@ editions:
     canon: tanakh
     theme: scholarly
     title: "The Jewish Study Tanakh — Expanded"
+    display_name: "Jewish Study Tanakh"
     short_title: "Jewish Tanakh"
     target_audience: "Jewish readers, academic scholars of Hebrew Bible"
     enabled_categories:
@@ -258,6 +262,7 @@ editions:
     canon: ethiopian
     theme: scholarly
     title: "The Annotated Ethiopian Bible — Scholar's Edition"
+    display_name: "Annotated Scholar's Bible"
     short_title: "Scholar's Edition"
     target_audience: "Academic scholars, libraries, seminaries"
     enabled_categories:
@@ -292,6 +297,7 @@ editions:
     canon: orthodox
     theme: devotional
     title: "The Eastern Orthodox Study Bible"
+    display_name: "Eastern Orthodox Bible"
     short_title: "Orthodox SB"
     target_audience: "Eastern Orthodox readers; LXX-leaning scholarship; Byzantine Rite parishes"
     enabled_categories:
@@ -334,6 +340,7 @@ editions:
     canon: catholic
     theme: classic
     title: "The Anglican Study Bible — BCP Edition"
+    display_name: "Anglican Study Bible"
     short_title: "Anglican BCP"
     target_audience: "Anglican / Episcopal readers; BCP-tradition parishes; broad-church audience"
     enabled_categories:
@@ -377,6 +384,7 @@ editions:
     canon: protestant
     theme: scholarly
     title: "The Lutheran Confessional Study Bible"
+    display_name: "Lutheran Study Bible"
     short_title: "Lutheran Confessional"
     target_audience: "Confessional Lutheran readers (LCMS, WELS, ELS, ILC); seminary students"
     enabled_categories:
@@ -423,6 +431,7 @@ editions:
     canon: ethiopian
     theme: devotional
     title: "The Coptic Orthodox Study Bible"
+    display_name: "Coptic Orthodox Bible"
     short_title: "Coptic SB"
     target_audience: "Coptic Orthodox readers; Alexandrian theology; ascetic-monastic tradition; diaspora communities"
     enabled_categories:

@@ -168,6 +168,15 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("canon", type=str, required=False),
         FieldSpec("title", type=str, required=False),
         FieldSpec("short_title", type=str, required=False),
+        # σ.2 (2026-06-04) — cover identity. ``display_name`` is the builder's
+        # short edition name, used as the cover subtitle beneath "HOLY BIBLE"
+        # (and the Your-Edition page heading in σ.3); ``cover_main_title``
+        # overrides the default "HOLY BIBLE" main line. Both optional / back-compat.
+        FieldSpec("display_name", type=str, required=False),
+        FieldSpec("cover_main_title", type=str, required=False),
+        # The factory cover-template stem chosen for this edition (§4.6 picker),
+        # persisted by api_apply_cover_template / api_save_edition_meta.
+        FieldSpec("cover_template", type=str, required=False),
         FieldSpec("target_audience", type=str, required=False),
         FieldSpec("notes", type=str, required=False),
         FieldSpec(
