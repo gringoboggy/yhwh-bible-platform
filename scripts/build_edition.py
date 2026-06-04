@@ -2487,6 +2487,10 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             _body_m = re.search(r"<body[^>]*>", text[:_first_bp])
             _lead_start = _body_m.end() if _body_m else 0
             _lead = text[_lead_start:_first_bp]
+            # Anchors are bxx-form (ch-b21-c7…) for all books. Strategy-A books
+            # (gen-deu) appear in every canon, so their leading spillover never
+            # needs stripping; any unrecognized prefix maps to None and trips
+            # the guard below (no strip). So the conservative default is safe.
             _lead_prefixes = set(re.findall(r'id="ch-(b\d+)-c', _lead))
             _lead_codes = {code_by_prefix.get(p) for p in _lead_prefixes}
             # Strip only when the leading region carries book content, every

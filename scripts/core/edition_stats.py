@@ -92,7 +92,16 @@ def resolved_note_counts(edition: dict) -> dict:
     ``compute_edition_filter_sets`` — the same two sets ``filter_html`` strips
     with.
     """
-    return _resolved_note_counts_cached(edition["id"], _edition_signature(edition["id"]))
+    raw = _resolved_note_counts_cached(edition["id"], _edition_signature(edition["id"]))
+    # Return a fresh copy: the cached object is shared across calls (lru_cache),
+    # so handing out the live dict would let a consumer corrupt the cache.
+    return {
+        **raw,
+        "per_book": dict(raw["per_book"]),
+        "per_category": dict(raw["per_category"]),
+        "per_kind": dict(raw["per_kind"]),
+        "popup_languages": list(raw["popup_languages"]),
+    }
 
 
 @lru_cache(maxsize=64)
@@ -154,8 +163,10 @@ def _resolved_note_counts_cached(edition_id: str, _sig: tuple) -> dict:
 
 
 def cache_clear() -> None:
-    """Drop the memoized counts (call after mutating an edition record)."""
+    """Drop the memoized counts (call after mutating an edition record) and the
+    base-HTML ref-id set (call after an ``epub_working/`` inject/bake)."""
     _resolved_note_counts_cached.cache_clear()
+    _base_html_ref_ids.cache_clear()
 
 
 resolved_note_counts.cache_clear = cache_clear  # type: ignore[attr-defined]
