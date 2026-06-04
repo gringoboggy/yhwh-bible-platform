@@ -1,0 +1,143 @@
+"""σ.4.1 — edition-identity API round-trip tests.
+
+The /customize console lets the builder name their edition (``display_name`` =
+the cover subtitle / Your-Edition heading) and set a fixed cover main title
+(``cover_main_title``, default "HOLY BIBLE"). This file proves both fields are:
+
+  - editable via ``api_save_edition_meta`` (persist to editions.yaml),
+  - surfaced back in ``api_customize_data``'s per-edition record (so the
+    console can pre-select the current name), and
+  - carried by ``api_clone_edition`` to a clone.
+
+Every test that writes editions.yaml backs it up + restores in a ``finally`` and
+clears the config/matrix caches, so ``git status --short content/editions.yaml``
+stays clean afterward (the σ-plan edition-mutation isolation rule).
+"""
+
+from __future__ import annotations
+
+import shutil
+from pathlib import Path
+
+from scripts.core import config
+
+REPO = Path(config.__file__).resolve().parents[2]
+EDITIONS_YAML = REPO / "content" / "editions.yaml"
+
+
+def _clear_caches() -> None:
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+
+# ---------------------------------------------------------------------------
+# σ.4.1 — round-trip: POST display_name + cover_main_title, re-read both
+# ---------------------------------------------------------------------------
+
+
+def test_save_and_read_back_display_name_and_cover_main_title(tmp_path):
+    from scripts.api.editions import api_save_edition_meta
+    from scripts.web import api_customize_data
+
+    backup = tmp_path / "ed.bak"
+    shutil.copy(EDITIONS_YAML, backup)
+    try:
+        _clear_caches()
+        res = api_save_edition_meta(
+            "catholic-study",
+            {"display_name": "My Custom Name", "cover_main_title": "SACRED SCRIPTURE"},
+        )
+        assert "error" not in res, res
+        assert "display_name" in res["updated"]
+        assert "cover_main_title" in res["updated"]
+
+        _clear_caches()
+        # Persisted to the edition record.
+        ed = config.editions_by_id()["catholic-study"]
+        assert ed.get("display_name") == "My Custom Name"
+        assert ed.get("cover_main_title") == "SACRED SCRIPTURE"
+
+        # Surfaced back through the customize data the console consumes.
+        data = api_customize_data()
+        rec = {e["id"]: e for e in data["editions"]}["catholic-study"]
+        assert rec["display_name"] == "My Custom Name"
+        assert rec["cover_main_title"] == "SACRED SCRIPTURE"
+    finally:
+        shutil.copy(backup, EDITIONS_YAML)
+        _clear_caches()
+
+
+def test_customize_data_surfaces_default_cover_main_title():
+    # cover_main_title is unset on disk for catholic-study → the record exposes
+    # "" so the console can default the field placeholder to HOLY BIBLE.
+    from scripts.web import api_customize_data
+
+    _clear_caches()
+    data = api_customize_data()
+    rec = {e["id"]: e for e in data["editions"]}["catholic-study"]
+    assert "display_name" in rec  # always present (its display_name is set)
+    assert "cover_main_title" in rec
+    assert isinstance(rec["cover_main_title"], str)
+
+
+def test_customize_data_surfaces_enabled_categories_for_suggestions():
+    # The smart-name suggestions need to know which note families this edition
+    # ships, so the per-edition record exposes enabled_categories.
+    from scripts.web import api_customize_data
+
+    _clear_caches()
+    data = api_customize_data()
+    rec = {e["id"]: e for e in data["editions"]}["catholic-study"]
+    assert isinstance(rec.get("enabled_categories"), list)
+    assert rec["enabled_categories"]  # catholic-study enables several categories
+
+
+def test_blank_display_name_persists_empty(tmp_path):
+    # Leaving the name blank → display_name "" → the cover shows only HOLY BIBLE
+    # (no subtitle). The empty string must round-trip, not fall back to title.
+    from scripts.api.editions import api_save_edition_meta
+
+    backup = tmp_path / "ed.bak"
+    shutil.copy(EDITIONS_YAML, backup)
+    try:
+        _clear_caches()
+        res = api_save_edition_meta("catholic-study", {"display_name": ""})
+        assert "error" not in res, res
+        _clear_caches()
+        ed = config.editions_by_id()["catholic-study"]
+        assert ed.get("display_name", "") == ""
+    finally:
+        shutil.copy(backup, EDITIONS_YAML)
+        _clear_caches()
+
+
+# ---------------------------------------------------------------------------
+# σ.4.1 — clone carries display_name + cover_main_title
+# ---------------------------------------------------------------------------
+
+
+def test_clone_carries_display_name_and_cover_main_title(tmp_path):
+    from scripts.api.editions import api_clone_edition, api_save_edition_meta
+
+    backup = tmp_path / "ed.bak"
+    shutil.copy(EDITIONS_YAML, backup)
+    new_id = "sigma41-clone-test"
+    try:
+        _clear_caches()
+        # Give the source distinctive values to prove they propagate.
+        api_save_edition_meta(
+            "catholic-study",
+            {"display_name": "Source Name For Clone", "cover_main_title": "WORD OF GOD"},
+        )
+        _clear_caches()
+        res = api_clone_edition({"source_id": "catholic-study", "new_id": new_id})
+        assert res.get("ok") is True, res
+        _clear_caches()
+        clone = config.editions_by_id()[new_id]
+        assert clone.get("display_name") == "Source Name For Clone"
+        assert clone.get("cover_main_title") == "WORD OF GOD"
+    finally:
+        shutil.copy(backup, EDITIONS_YAML)
+        _clear_caches()

@@ -145,6 +145,12 @@ def _append_cloned_edition(
         ("notes", src.get("notes", "")),
         ("description", src.get("description", "")),
         ("dedication", src.get("dedication", "")),
+        # σ.4 — edition-identity fields. Use src.get(name) with no default so an
+        # absent field stays absent on the clone (None is skipped below),
+        # preserving the source's effective default (HOLY BIBLE / title).
+        ("display_name", src.get("display_name")),
+        ("cover_main_title", src.get("cover_main_title")),
+        ("cover_template", src.get("cover_template")),
         ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
         # mint-10 #high — phase/AI kind-gate scalars. Use src.get(name) with no
         # default so an absent field stays absent on the clone (None is skipped
@@ -705,6 +711,14 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         # Free-text front-matter fields (builder-editable via /customize).
         "description",
         "dedication",
+        # σ.4 — edition-identity fields surfaced on the /customize name card.
+        # display_name = the cover subtitle + Your-Edition heading ("" → cover
+        # shows only the main title, no subtitle); cover_main_title = the fixed
+        # big cover line (default "HOLY BIBLE" when unset). Both feed the cover
+        # compositor, so api_save_edition_meta caps their length below (σ.4.4)
+        # to keep a pathological value from overrunning the cover frame.
+        "display_name",
+        "cover_main_title",
     }
     EDITABLE_BOOL = {
         "verse_popups",
@@ -1036,6 +1050,12 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                     return {"error": f"{field} too long (max 500)"}
                 if field in {"description", "dedication"} and len(val) > 4000:
                     return {"error": f"{field} too long (max 4000)"}
+                # σ.4.4 — the two cover-identity fields feed the compositor; cap
+                # them server-side (the console maxlength is the first line of
+                # defence, this is the can't-be-bypassed second one) so no value
+                # can push the cover text past its safe band.
+                if field in {"display_name", "cover_main_title"} and len(val) > 80:
+                    return {"error": f"{field} too long (max 80)"}
                 if field == "popup_translation" and len(val) > 32:
                     return {"error": "popup_translation too long (max 32)"}
                 updates[field] = val

@@ -375,6 +375,16 @@ def api_customize_data() -> dict:
                 "id": e["id"],
                 "title": e.get("title", e["id"]),
                 "short_title": e.get("short_title", ""),
+                # σ.4 — edition-identity fields for the /customize name card.
+                # display_name = cover subtitle / Your-Edition heading
+                # (falls back to title when absent; "" → main title only);
+                # cover_main_title = the fixed big cover line ("" → HOLY BIBLE).
+                "display_name": e.get("display_name", e.get("title", "")),
+                "cover_main_title": e.get("cover_main_title", ""),
+                # The smart-name suggestions derive "is this a study Bible?"
+                # from the note families this edition ships, so expose its
+                # enabled category ids (the JS never reads raw config).
+                "enabled_categories": list(e.get("enabled_categories") or []),
                 # Ω.0 pivot: isbn field dropped. Front-end derives term-ref-ok
                 # the URN (urn:yhwh:edition:<id>) from the id.
                 "canon": e.get("canon", ""),
