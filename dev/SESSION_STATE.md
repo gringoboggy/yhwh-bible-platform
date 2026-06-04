@@ -10,11 +10,11 @@
 - **Mint-cleanup arc COMPLETE (LANE 0, Phases 0–6)** — anti-bloat lint guards · bootstrap slim · roadmap refresh · archive sweep · decommercialize (~5,300 LOC) · enforce gates (mypy + remote/CI) · **polish (mint-6: `/distribution` console · superpowers INDEX+lint · `audit_caches`→preflight · sonar/`/exec` scrub)**. Plan `docs/superpowers/plans/2026-05-29-mint-cleanup-and-guardrails.md`.
 - Standalone Ge'ez Bible — Phases A-C shipped (`scripts/build_standalone.py`; 4 books; epubcheck 0/0/0/0; the 9 KJV editions byte-stable).
 - English back-translation of the Ge'ez — collated Kings/Samuel (324 v) + all 151 Psalms (`content/translations/geez-tewahedo-en/`).
-- Phase D own-versification re-ingest — Patrologia vision-transcription lane; PO Esther paused at p28 (see the top journal entries).
+- Phase D own-versification re-ingest — Patrologia vision-transcription lane; PO Esther paused ~p35 (see the top journal entries).
 
 ## Next
 
-> **Mint cleanup is COMPLETE.** Next critical path = **Phase D1b — PO Esther vision marathon (paused p28)** → finish Esther → ingest `est_patrologia` → Ge'ez→KJV xref → add to standalone → epubcheck 0/0 + 9 editions byte-stable; then D1b-batch (1ch/2ch/ezr/neh/job) + D2 distinctive sources. Background lanes (RULES §2.5, auto-pick when one frees): code-debt tail · doc-coherence currency · test-coverage growth · Phase-E Clementine (1es/2es). Quality/completeness over speed; no time-gating.
+> **Mint cleanup is COMPLETE.** Next critical path = **Phase D1b — PO Esther vision marathon (paused ~p35)** → finish Esther → ingest `est_patrologia` → Ge'ez→KJV xref → add to standalone → epubcheck 0/0 + 9 editions byte-stable; then D1b-batch (1ch/2ch/ezr/neh/job) + D2 distinctive sources. Background lanes (RULES §2.5, auto-pick when one frees): code-debt tail · doc-coherence currency · **truth-record rotation gap — `rotate_truth_records.py` only archives SESSION_STATE's `➤➤➤` marker, NOT IN_FLIGHT's `▶`, so IN_FLIGHT (~51 KB / 33 entries) can't auto-rotate → soft budget warn; teach the tool IN_FLIGHT's marker (TDD; structure is irregular) + rotate to clear it** · test-coverage growth · Phase-E Clementine (1es/2es). Quality/completeness over speed; no time-gating.
 
 ## Inventory pointers
 
