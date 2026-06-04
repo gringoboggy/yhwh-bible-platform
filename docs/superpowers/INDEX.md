@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**59 documents** — 38 plans · 21 specs.
+**60 documents** — 39 plans · 21 specs.
 
-## In progress (15)
+## In progress (16)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-04 | Plan | Edition Cover + Truthful Front Matter (σ.1–σ.6: build-accurate counter · HOLY BIBLE cover · Your Edition page · /customize identity · Ge'ez/Amharic covers · live-console reconcile) | `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` | IN PROGRESS 2026-06-04 — ready to execute (Windows lane; Mac paused). σ.1 (build-accurate `resolved_note_counts`) is the foundation; σ.2/σ.3 deliberately change cover + front matter (re-pin determinism). |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase C2: the `/build-my-bible` Navigator Console | `plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` | SHIPPED 2026-06-04 — C2-2…C2-6 done: the `/build-my-bible` navigator console (drill-down + breadcrumb; interactive symbol tri-state + popup checklists + per-note ships?-toggle; saves via `/api/edition-meta` + `/api/edition/<id>/note-override`). Byte-neutral; byte-stability gate + live Playwright QA passed; per-task + holistic review clean. C3 (polish) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase B: Popup-Language Engine | `plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md` | IN PROGRESS 2026-06-04 — ready to execute. Phase B of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Byte-stability gate = the ship bar. Phase A (symbols) shipped; Phase C (the `/build-my-bible` navigator) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase A: Symbol Engine | `plans/2026-06-04-hierarchical-customize-phaseA-symbol-engine.md` | IN PROGRESS 2026-06-04 — per-coordinate note-symbol resolution (Bible→book→chapter→individual) + `enabled_note_ids` force-on; 8 TDD tasks; byte-stable (9 KJV identical = ship gate); ready to execute. Phase B (popups) + Phase C (`/build-my-bible` navigator) follow |
