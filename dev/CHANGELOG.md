@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: σ.1 — build-accurate edition counter (foundation of the cover/front-matter arc)
+
+**Phases shipped:** σ.1.1, σ.1.2 (+ review fixes)
+**Test delta:** +new (`tests/test_edition_stats.py` 3 unit + 1 slow cross-check; +2 leading-spillover guard tests in `tests/test_canon_splice.py`)
+**Save tag:** (this session — 5-leg)
+
+What shipped — the first phase of the "Edition Cover + Truthful Front Matter" arc (spec `specs/2026-06-04-edition-cover-and-truthful-front-matter-design.md`, plan `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md`):
+- **σ.1.1** — extracted `compute_edition_filter_sets(edition) -> (disabled_kinds_for_filter, disabled_html_ref_ids)` from `build_one` (`scripts/build_edition.py`); pure refactor, **byte-stability determinism gate proven**, code-quality reviewed clean. Single source of truth for "what ships."
+- **σ.1.2** — `scripts/core/edition_stats.py::resolved_note_counts(edition)` → `{total, per_book, per_category, per_kind, popup_languages}`, **honoring the ρ.3 hierarchical per-book/chapter/note choices** by reusing those filter sets + a base-HTML coverage gate (`_base_html_ref_ids`). lru-cached on an edition signature; returns a fresh copy (cache-safe). This replaces the edition-wide matrix counts for every "what you built" surface (consumed by σ.3 front matter + σ.6 console).
+- **★Integrity cross-check** (`test_resolved_total_equals_built_epub_note_count`, slow): builds the EPUB and asserts the surviving note-ref count **equals** `resolved_note_counts` total — catholic-study 41,792 == 41,792, ethiopian-tewahedo 43,382 == 43,382. This pin is what guarantees the printed counts/glossary never lie.
+
+Bugs the cross-check exposed + fixed (build path):
+- **Canon-filter leading-spillover leak** (`filter_books_for_canon`): a multi-file book's continuation (2 Esdras ch7-16) that precedes the first book-title-page in a shared split file shipped ~339 **orphan note markers** (epubcheck RSC-012 risk) in canons that drop it. New leading-spillover guard strips that region **only when every book in it is dropped** (conservative — never touches a kept book's spillover; +2 fast unit tests; verified ethiopian-tewahedo keeps 2es intact).
+- **Stray duplicate base marker** `ref-1ch0103` (legit id is `ref-1c0103`) removed from `epub_working/index_split_015.html` (a dangling forward reference).
+
+Notable decision:
+- These build-path/base fixes **intentionally change** the built output of editions that drop 2 Esdras (catholic-study + others) — they stop shipping invalid orphan markers. This is a correctness fix, not a regression: the build-twice **determinism gate still passes** and nested-anchors is 0/61. (The "9-KJV-byte-identical" invariant from ρ.3 was about latent feature fields; this is a deliberate, reviewed output correction.)
+
+Continuity pointers:
+- `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` — **▶ NEXT: σ.2** (HOLY-BIBLE cover + overflow-proof fitter), then σ.3–σ.6.
+- Adversarial build-path review: APPROVE (guard correct + conservative across all 5 canons).
+
 ## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C2 (frontend) — the `/build-my-bible` navigator console
 
 **Phases shipped:** ρ.3 C2-2, C2-3, C2-4, C2-5, C2-6
