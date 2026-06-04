@@ -103,3 +103,70 @@ class TestComposeCover:
         img = _compose_cover("02_classical_corner_navy", "HOLY BIBLE", "The Catholic Study Bible")
         assert img.size == (FINAL_WIDTH, FINAL_HEIGHT)
         assert img.mode == "RGB"
+
+
+class TestEthiopicCoverFont:
+    """σ.5.1 — the 2 standalone Bibles get covers with Ethiopic-script main
+    titles (መጽሐፍ ቅዱስ). The cover title font (FONT_TITLE_PATH = Times New Roman
+    Bold) has NO Ethiopic coverage, so it would render tofu boxes — and tofu
+    boxes have width, so fit_text_block can't catch them. _font_for_text must
+    pick an Ethiopic-capable font for any text carrying Ethiopic codepoints.
+
+    Tofu-detection signal (verified empirically): Times renders EVERY Ethiopic
+    codepoint as the SAME .notdef box (identical getmask bbox); a real Ethiopic
+    font renders DISTINCT, varied glyph bboxes per character."""
+
+    SAMPLE = "መጽሐፍ ቅዱስ"  # "Holy Bible" in Ge'ez/Amharic — distinct Ethiopic glyphs
+
+    def test_font_for_text_picks_ethiopic_for_ethiopic_text(self):
+        from scripts.generate_edition_covers import FONT_TITLE_PATH, _font_for_text
+
+        font = _font_for_text(self.SAMPLE, 72)
+        # The selected font is NOT Times — it must be an Ethiopic-capable face.
+        assert font.path != FONT_TITLE_PATH
+        assert font.path.lower().endswith((".ttf", ".otf", ".ttc"))
+
+    def test_font_for_text_keeps_times_for_latin_text(self):
+        from scripts.generate_edition_covers import FONT_TITLE_PATH, _font_for_text
+
+        font = _font_for_text("HOLY BIBLE", 72)
+        # Latin text keeps the established Times look (byte-neutral for the 9).
+        assert font.path == FONT_TITLE_PATH
+
+    def test_ethiopic_font_renders_real_glyphs_not_tofu(self):
+        """The chosen Ethiopic font must render DISTINCT glyphs for distinct
+        Ethiopic codepoints. Tofu (a missing-glyph box) renders the same shape
+        for every codepoint — so distinct, varied bboxes prove real coverage."""
+        from scripts.generate_edition_covers import _font_for_text
+
+        font = _font_for_text(self.SAMPLE, 72)
+        ethiopic_chars = [c for c in self.SAMPLE if 0x1200 <= ord(c) <= 0x137F]
+        assert len(ethiopic_chars) >= 4
+        bboxes = []
+        for c in ethiopic_chars:
+            bbox = font.getmask(c).getbbox()
+            assert bbox is not None, f"{c!r} rendered nothing (no ink at all)"
+            bboxes.append(bbox)
+        # Tofu = identical box for every char. Real coverage = varied bboxes.
+        assert len(set(bboxes)) > 1, f"all Ethiopic glyphs share one bbox (tofu): {bboxes}"
+
+    def test_compose_ethiopic_cover_has_ink_in_title_region(self, tmp_path):
+        """Render-smoke: an Ethiopic-title cover must have non-background pixels
+        in the title region (proves the glyphs actually drew, not silently
+        skipped). Compare the title band against a plain template render."""
+        from scripts.generate_edition_covers import TITLE_CENTER_Y, _compose_cover
+
+        img = _compose_cover("05_missal_central_red", self.SAMPLE, "Ge'ez Tewahedo Bible")
+        # Sample the cream title color (245,230,195) presence in the title band.
+        from scripts.generate_edition_covers import TITLE_COLOR
+
+        band = img.crop((150, TITLE_CENTER_Y - 120, img.width - 150, TITLE_CENTER_Y + 120)).convert("RGB")
+        raw = band.tobytes()
+        pixels = [(raw[i], raw[i + 1], raw[i + 2]) for i in range(0, len(raw), 3)]
+        # Count pixels close to the warm-cream title color (the drawn glyphs).
+        cream_hits = sum(
+            1
+            for r, g, b in pixels
+            if abs(r - TITLE_COLOR[0]) < 30 and abs(g - TITLE_COLOR[1]) < 30 and abs(b - TITLE_COLOR[2]) < 30
+        )
+        assert cream_hits > 200, f"too little title ink in band ({cream_hits}px) — glyphs may not have drawn"

@@ -152,6 +152,53 @@ BOTTOM_SAFE_Y = FINAL_HEIGHT - 100  # 1436
 # Font path — Times New Roman bold ships with Windows.
 FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
 
+# σ.5.1 — Ethiopic-capable title font. The 2 standalone Bibles carry main
+# titles in Ge'ez/Amharic script (Ethiopic block U+1200–U+137F), and Times New
+# Roman has NO Ethiopic glyphs — it would render the title as tofu (.notdef)
+# boxes, which still have width so ``fit_text_block`` could not catch them.
+# Ethiopic text is therefore drawn in a system Ethiopic face. Nyala (the
+# primary Windows Ethiopic font) is the first choice; Ebrima (which also covers
+# Ethiopic) is the fallback for boxes that ship without Nyala; PIL's default is
+# the last resort. The first path that exists on disk wins.
+FONT_ETHIOPIC_CANDIDATES: tuple[str, ...] = (
+    r"C:\Windows\Fonts\nyala.ttf",  # Nyala — full Ethiopic coverage (primary)
+    r"C:\Windows\Fonts\ebrima.ttf",  # Ebrima — also covers Ethiopic (fallback)
+)
+
+# Ethiopic Unicode block (and its supplement is U+1380–U+139F; the core block
+# U+1200–U+137F covers every Ge'ez/Amharic syllable used in the cover titles).
+_ETHIOPIC_LO, _ETHIOPIC_HI = 0x1200, 0x137F
+
+
+def _font_path_ethiopic() -> str:
+    """The first available Ethiopic-capable font path (Nyala → Ebrima), or
+    ``FONT_TITLE_PATH`` if neither ships on this box (``_load_font`` then falls
+    back to PIL's default — degrade legibly rather than crash)."""
+    for cand in FONT_ETHIOPIC_CANDIDATES:
+        if Path(cand).is_file():
+            return cand
+    return FONT_TITLE_PATH
+
+
+def _has_ethiopic(text: str) -> bool:
+    """True iff ``text`` contains any codepoint in the Ethiopic block."""
+    return any(_ETHIOPIC_LO <= ord(c) <= _ETHIOPIC_HI for c in (text or ""))
+
+
+def _font_path_for_text(text: str) -> str:
+    """Pick the font *path* for ``text``: an Ethiopic face when the text carries
+    Ethiopic codepoints, else Times (``FONT_TITLE_PATH``). Threaded through the
+    fitter so width measurement and drawing use the SAME font (a Times-measured,
+    Ethiopic-drawn mismatch would break the fit guarantee)."""
+    return _font_path_ethiopic() if _has_ethiopic(text) else FONT_TITLE_PATH
+
+
+def _font_for_text(text: str, size: int) -> ImageFont.FreeTypeFont:
+    """Load the size-``size`` font appropriate for ``text`` — an Ethiopic face
+    for Ethiopic text, else Times. The σ.5.1 entrypoint the cover composer +
+    tests use to guarantee Ge'ez/Amharic titles render real glyphs, not tofu."""
+    return _load_font(_font_path_for_text(text), size)
+
 
 def _load_font(path: str, size: int) -> ImageFont.FreeTypeFont:
     """Load a Windows truetype font; fall back to PIL's default at the
@@ -228,6 +275,7 @@ def fit_text_block(
     *,
     max_pt: int,
     min_pt: int,
+    font_path: str | None = None,
 ) -> tuple[list[str], ImageFont.FreeTypeFont]:
     """Wrap-then-shrink text fitter with a HARD guarantee: every returned line's
     rendered width is ≤ ``max_width`` (HORIZONTAL fit only — the VERTICAL bound
@@ -239,22 +287,28 @@ def fit_text_block(
     wrapping alone, that word is hard-broken at ``min_pt`` so every final line
     still fits. Empty/blank text returns ``([], font@max_pt)``.
 
+    ``font_path`` selects the typeface (σ.5.1): None auto-picks via
+    ``_font_path_for_text`` (Ethiopic face for Ge'ez/Amharic titles, else
+    Times), so width measurement and the returned font are the SAME face — a
+    Times-measured / Ethiopic-drawn mismatch would void the fit guarantee.
+
     This replaces the old ``_fit_title_font``, whose bug was returning the
     minimum size *without re-checking fit* — letting long titles overrun the
     cover's gold border (the reported defect)."""
     text = (text or "").strip()
+    fp = font_path if font_path is not None else _font_path_for_text(text)
     if not text:
-        return [], _load_font(FONT_TITLE_PATH, max_pt)
+        return [], _load_font(fp, max_pt)
 
     for size in range(max_pt, min_pt - 1, -1):
-        font = _load_font(FONT_TITLE_PATH, size)
+        font = _load_font(fp, size)
         lines, all_fit = _wrap_at_size(draw, text, max_width, font)
         if all_fit:
             return lines, font
 
     # Floor reached: wrap at min_pt, then hard-break any line still too wide so
     # the guarantee holds even for a pathological single unbreakable word.
-    font = _load_font(FONT_TITLE_PATH, min_pt)
+    font = _load_font(fp, min_pt)
     raw_lines, _ = _wrap_at_size(draw, text, max_width, font)
     final: list[str] = []
     for line in raw_lines:
@@ -341,11 +395,21 @@ def _compose_cover_layout(main_title: str, subtitle: str = "") -> dict:
 
     band_h = BOTTOM_SAFE_Y - TOP_SAFE_Y
 
-    main_lines, main_font = fit_text_block(draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min)
+    # σ.5.1 — resolve each block's typeface ONCE (Ethiopic face for Ge'ez/Amharic
+    # titles, else Times) and thread it through every (re-)fit so measurement and
+    # drawing always use the same font.
+    main_fp = _font_path_for_text(main_title)
+    sub_fp = _font_path_for_text(subtitle)
+
+    main_lines, main_font = fit_text_block(
+        draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min, font_path=main_fp
+    )
     sub_lines: list[str] = []
     sub_font: ImageFont.FreeTypeFont | None = None
     if subtitle:
-        sub_lines, sub_font = fit_text_block(draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min)
+        sub_lines, sub_font = fit_text_block(
+            draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min, font_path=sub_fp
+        )
 
     # VERTICAL re-fit loop: shrink the subtitle first (it's the secondary line),
     # then the main, until the stack fits the band. Bounded by the pt ranges so
@@ -356,12 +420,16 @@ def _compose_cover_layout(main_title: str, subtitle: str = "") -> dict:
             sub_max -= 2
             if sub_max < sub_min:
                 sub_max = sub_min
-            sub_lines, sub_font = fit_text_block(draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min)
+            sub_lines, sub_font = fit_text_block(
+                draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min, font_path=sub_fp
+            )
         elif main_max > main_min:
             main_max -= 2
             if main_max < main_min:
                 main_max = main_min
-            main_lines, main_font = fit_text_block(draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min)
+            main_lines, main_font = fit_text_block(
+                draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min, font_path=main_fp
+            )
         else:
             break  # both at floor — drawn clamped to the band; nothing more to do
         total_h = _stack_height(main_font, len(main_lines), sub_font, len(sub_lines))
