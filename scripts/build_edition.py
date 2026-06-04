@@ -3007,32 +3007,22 @@ def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
     return str(edition.get("cover_image") or "")
 
 
-def build_one(
-    edition_id: str,
-    output_dir: Path,
-    version: str,
-    all_kinds: list[dict],
-    dry_run: bool = False,
-    force: bool = False,
-) -> dict:
-    # ω.20-C — wall-clock timing for the build_seconds field of the
-    # stats sidecar. Captured at function entry so the value covers
-    # cache-lookup time on hits and full-pipeline time on misses.
-    _t0 = time.perf_counter()
+def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
+    """Return (disabled_kinds_for_filter, disabled_html_ref_ids) — exactly the
+    two sets ``build_one`` uses to strip notes (via ``filter_html``). Single
+    source of truth for "what ships" so ``edition_stats.resolved_note_counts``
+    matches the built EPUB by construction.
 
-    eds = config.editions_by_id()
-    if edition_id not in eds:
-        raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
-    edition = eds[edition_id]
+    Folds in: edition-wide disabled kinds (minus symbol-overridden kinds),
+    explicit per-note ``disabled_note_ids``, the tradition + time filters, the
+    per-book/per-chapter symbol OFF overrides, minus the ``enabled_note_ids``
+    force-on (applied last).
 
-    # Phase C3d: standalone Bibles render from the own-versification store via a
-    # dedicated path; the 9 KJV editions never enter this branch, so their output
-    # is byte-identical to before. Single chokepoint — every build_one caller is routed.
-    if edition.get("standalone"):
-        from scripts import build_standalone
-
-        return build_standalone.build_standalone(edition_id, output_dir, version)
-
+    ``all_kinds`` is recomputed from ``config.load_kinds()`` — the same cached
+    list every ``build_one`` caller passes — so the result is identical to the
+    block this was extracted from.
+    """
+    all_kinds = config.load_kinds()
     enabled, disabled = compute_enabled_kinds(edition, all_kinds)
 
     # Phase ρ.1: per-edition disabled note IDs. Translate our note IDs
@@ -3100,6 +3090,45 @@ def build_one(
     # NOT be whole-kind-stripped (else a per-coordinate ON could never re-include
     # them). All other edition-disabled kinds keep the efficient whole-kind strip.
     disabled_kinds_for_filter = disabled - overridden_kinds
+
+    return disabled_kinds_for_filter, disabled_html_ref_ids
+
+
+def build_one(
+    edition_id: str,
+    output_dir: Path,
+    version: str,
+    all_kinds: list[dict],
+    dry_run: bool = False,
+    force: bool = False,
+) -> dict:
+    # ω.20-C — wall-clock timing for the build_seconds field of the
+    # stats sidecar. Captured at function entry so the value covers
+    # cache-lookup time on hits and full-pipeline time on misses.
+    _t0 = time.perf_counter()
+
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
+    edition = eds[edition_id]
+
+    # Phase C3d: standalone Bibles render from the own-versification store via a
+    # dedicated path; the 9 KJV editions never enter this branch, so their output
+    # is byte-identical to before. Single chokepoint — every build_one caller is routed.
+    if edition.get("standalone"):
+        from scripts import build_standalone
+
+        return build_standalone.build_standalone(edition_id, output_dir, version)
+
+    enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+
+    # Phases ρ.1 / ψ.8.2-A / ψ.37-B / ρ.3: the two filter sets that decide
+    # which notes ship are assembled by ``compute_edition_filter_sets`` (the
+    # single source of truth shared with ``edition_stats.resolved_note_counts``
+    # so the printed counts match the built EPUB by construction). ``enabled`` /
+    # ``disabled`` are kept above because the stats sidecar + the matter-page
+    # in-scope subtraction below still consume them.
+    disabled_kinds_for_filter, disabled_html_ref_ids = compute_edition_filter_sets(edition)
 
     # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
     # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
