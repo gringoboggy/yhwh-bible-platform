@@ -257,6 +257,67 @@ class TestApplyCoverTemplate:
                 cover.unlink()
             config.load_editions.cache_clear()
 
+    def test_recompose_uses_display_name_subtitle(self):
+        """σ.4.3 — the recompose composes via cover_text_for_edition, so the
+        builder's display_name (the subtitle) actually changes the rendered
+        cover. Two saves with different names → different cover bytes; both
+        differ from the no-subtitle (blank display_name) cover."""
+        from scripts.api.covers import api_apply_cover_template
+        from scripts.api.editions import api_save_edition_meta
+
+        edyaml = REPO / "content" / "editions.yaml"
+        cover = REPO / "content" / "covers" / "catholic-study.jpg"
+        ed_backup = edyaml.read_bytes()
+        cover_backup = cover.read_bytes() if cover.is_file() else None
+        try:
+
+            def _compose_with(display_name: str) -> bytes:
+                r = api_save_edition_meta("catholic-study", {"display_name": display_name})
+                assert "error" not in r, r
+                config.load_editions.cache_clear()
+                res = api_apply_cover_template("catholic-study", "03_beadline_navy")
+                assert res.get("ok") is True, res
+                return cover.read_bytes()
+
+            name_a = _compose_with("Distinctive Name Alpha")
+            name_b = _compose_with("A Totally Different Name Beta")
+            blank = _compose_with("")  # blank → no subtitle drawn
+            assert name_a != name_b, "display_name change did not change the composed cover"
+            assert name_a != blank, "subtitle vs no-subtitle covers should differ"
+            assert name_b != blank
+        finally:
+            edyaml.write_bytes(ed_backup)
+            if cover_backup is not None:
+                cover.write_bytes(cover_backup)
+            elif cover.is_file():
+                cover.unlink()
+            config.load_editions.cache_clear()
+
+    def test_empty_stem_recomposes_with_edition_default_template(self):
+        """σ.4.2 — the recompose-on-name-save path posts an empty stem; the
+        endpoint must resolve it to the edition's recorded/factory template
+        instead of erroring, so saving a name always refreshes the cover."""
+        from scripts.api.covers import api_apply_cover_template
+        from scripts.generate_edition_covers import template_for_edition
+
+        edyaml = REPO / "content" / "editions.yaml"
+        cover = REPO / "content" / "covers" / "catholic-study.jpg"
+        ed_backup = edyaml.read_bytes()
+        cover_backup = cover.read_bytes() if cover.is_file() else None
+        try:
+            res = api_apply_cover_template("catholic-study", "")
+            assert res.get("ok") is True, res
+            # Resolved to the edition's default (factory) template.
+            assert res["cover_template"] == template_for_edition("catholic-study")
+            assert cover.is_file() and cover.read_bytes()[:2] == b"\xff\xd8"
+        finally:
+            edyaml.write_bytes(ed_backup)
+            if cover_backup is not None:
+                cover.write_bytes(cover_backup)
+            elif cover.is_file():
+                cover.unlink()
+            config.load_editions.cache_clear()
+
 
 class TestApplyCoverTemplateRoute:
     def test_post_route_matches_and_dispatches(self, monkeypatch):
