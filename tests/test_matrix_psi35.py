@@ -458,15 +458,18 @@ class TestPsi35B2InternalConsumerMigrations:
             assert row.get("b_count") == b_dict.get(code, 0)
 
     def test_export_preview_summary_matches_dict_accessors(self):
-        # api_export_preview's notes_shipping / notes_potential
-        # must equal the new dict accessors' sums (they're now derived
-        # from them directly).
+        # σ.6.3 — notes_shipping is now the BUILD-ACCURATE total
+        # (edition_stats.resolved_note_counts), not the edition-wide matrix sum,
+        # so the export preview equals the built EPUB + honors the ρ.3 hierarchy.
+        # notes_potential stays matrix-based (legitimately "what's available").
         from scripts.api.exports import api_export_preview
+        from scripts.core import config, edition_stats
         from scripts.core import matrix as matrix_mod
 
         ep = api_export_preview("catholic-study")
         m = matrix_mod.compute_matrix()
-        assert ep["summary"]["notes_shipping"] == sum(m.enabled_kinds_dict("catholic-study").values())
+        expected_shipping = edition_stats.resolved_note_counts(config.editions_by_id()["catholic-study"])["total"]
+        assert ep["summary"]["notes_shipping"] == expected_shipping
         assert ep["summary"]["notes_potential"] == sum(m.potential_kinds_dict("catholic-study").values())
 
     def test_migrated_files_lack_raw_enabled_get_pattern(self):

@@ -39,9 +39,15 @@ def api_export_preview(edition_id: str) -> dict:
 
     The user-facing pitch: 'before you click Export, here's exactly
     what you're about to get — books, notes, kinds, file overview.'
-    Powered by the matrix layer (μ.0) so counts are guaranteed
-    consistent with what the build will actually emit.
+
+    σ.6.3 — ``notes_shipping`` + the ``category_breakdown`` counts come from
+    ``edition_stats.resolved_note_counts`` (the build-accurate counter), so the
+    preview equals the built EPUB and honors the ρ.3 hierarchy + base-coverage
+    gate. ``notes_potential`` + ``filtered_out_kinds`` stay matrix-based — they
+    legitimately mean "what's available / what you'd gain if toggled on", which
+    is edition-wide potential.
     """
+    from scripts.core import edition_stats
     from scripts.core import matrix as matrix_mod
 
     eds = config.editions_by_id()
@@ -59,17 +65,22 @@ def api_export_preview(edition_id: str) -> dict:
     canon_books = m.edition_canon_books.get(edition_id, set())
     enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
 
-    breakdown = matrix_mod.breakdown_by_category(edition_id)
+    # Build-accurate shipping counts (σ.6.3) — the total + per-category that the
+    # build will actually emit, honoring the full ρ.3 hierarchy + base-coverage.
+    rc = edition_stats.resolved_note_counts(edition)
+    notes_shipping = rc["total"]
     cats_idx = config.categories_by_id()
     cat_breakdown = []
-    for cid in sorted(breakdown, key=lambda x: -breakdown[x]):
+    for cid, count in sorted(rc["per_category"].items(), key=lambda kv: -kv[1]):
+        if count <= 0:
+            continue
         c = cats_idx.get(cid, {})
         cat_breakdown.append(
             {
-                "id": cid,
-                "label": c.get("label", cid),
+                "id": (cid or "?"),
+                "label": c.get("label", cid or "?"),
                 "symbol": c.get("symbol", "?"),
-                "count": breakdown[cid],
+                "count": count,
             }
         )
 
@@ -107,7 +118,7 @@ def api_export_preview(edition_id: str) -> dict:
             "books": len(canon_books),
             "kinds_enabled": len(enabled_kinds),
             "kinds_total": len(config.load_kinds()),
-            "notes_shipping": sum(enabled.values()),
+            "notes_shipping": notes_shipping,
             "notes_potential": sum(potential.values()),
         },
         "category_breakdown": cat_breakdown,

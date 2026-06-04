@@ -35,6 +35,14 @@ The 3rd rule means we ALSO produce a "potential" matrix that ignores
 the edition's filter — so the UI can show both "currently in" and
 "could be added" side by side.
 
+These counts are edition-wide POTENTIAL (canon + enabled-kind), NOT the
+build-accurate shipping counts — they ignore the ρ.3 per-book/chapter/note
+hierarchy and the base-HTML coverage gate. For "what actually ships in the built
+EPUB" use ``scripts.core.edition_stats.resolved_note_counts`` (σ.1); every
+user-facing "what you built" surface reads that. This module powers the dev
+matrix console + the edition-vs-edition diff, where edition-wide potential is the
+correct view.
+
 Public API:
     compute_matrix() -> Matrix
     note_counts_for_edition(edition_id) -> dict[kind_code, int]
@@ -412,19 +420,35 @@ def _compute_matrix_via_file_walk() -> Matrix:
 
 
 def note_counts_for_edition(edition_id: str) -> dict[str, int]:
-    """Return {kind_code: count} for the actually-shipping notes
-    in this edition. Disabled kinds are absent (treat as 0)."""
+    """Return {kind_code: count} of the edition-wide POTENTIAL notes per kind —
+    i.e. notes in this edition's canon whose kind is enabled edition-wide.
+    Disabled kinds are absent (treat as 0).
+
+    NOT the build-accurate shipping count: this applies only the canon +
+    enabled-kind filter, and ignores the ρ.3 per-book/chapter/note hierarchy AND
+    the base-HTML coverage gate. For "what actually ships in the built EPUB" use
+    ``scripts.core.edition_stats.resolved_note_counts`` (σ.1), which every
+    user-facing "what you built" surface (copyright page, symbol legend,
+    Your-Edition page, /build-tracker) now reads. This function powers the dev
+    matrix console + edition-vs-edition diff, where the edition-wide potential is
+    the right denominator."""
     return dict(compute_matrix().enabled.get(edition_id, {}))
 
 
 def total_for_edition(edition_id: str) -> int:
-    """Sum of all enabled kinds' counts for this edition."""
+    """Sum of all enabled kinds' edition-wide potential counts for this edition.
+
+    Edition-wide potential (canon + enabled-kind), NOT the build-accurate
+    shipping total — see ``note_counts_for_edition`` and
+    ``edition_stats.resolved_note_counts``."""
     return sum(compute_matrix().enabled.get(edition_id, {}).values())
 
 
 def breakdown_by_category(edition_id: str) -> dict[str, int]:
-    """{category_id: total_notes_in_that_category} for this edition.
-    Useful for the bar-visualization view in μ.2."""
+    """{category_id: edition-wide potential notes in that category} for this
+    edition. Edition-wide potential (canon + enabled-kind), NOT build-accurate
+    shipping counts — see ``edition_stats.resolved_note_counts`` for the latter.
+    Powers the dev matrix console's bar view + the edition-vs-edition diff."""
     counts = note_counts_for_edition(edition_id)
     kinds_index = config.kinds_by_code()
     out: dict[str, int] = {}
