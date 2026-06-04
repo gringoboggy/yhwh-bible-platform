@@ -390,34 +390,38 @@ def _popup_language_labels(stats: dict) -> list[str]:
     return out
 
 
+def _oxford_join(items: list[str]) -> str:
+    """Join a label list as a readable Oxford-comma series ('A', 'A and B',
+    'A, B, and C')."""
+    if not items:
+        return ""
+    if len(items) == 1:
+        return items[0]
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+    return ", ".join(items[:-1]) + ", and " + items[-1]
+
+
 def _whats_inside_sentence(edition: dict, stats: dict) -> str:
-    """A single truthful sentence describing the edition: canon + note families +
-    popup languages. Gracefully degrades when there are no notes / no popups.
-    Returns an html.escape'd fragment (callers embed it directly)."""
+    """A truthful description of the edition: canon + note families + popup
+    languages, as two clean sentences. Gracefully degrades when there are no
+    notes / no popups. Returns an html.escape'd fragment (callers embed it
+    directly)."""
     canon = _canon_label(edition)
     families = _category_labels_for_stats(stats)
     languages = _popup_language_labels(stats)
 
-    parts = [f"This edition includes the {html.escape(canon)} canon"]
     if families:
-        if len(families) == 1:
-            fam_str = families[0]
-        else:
-            fam_str = ", ".join(families[:-1]) + ", and " + families[-1]
-        parts.append(f" with {html.escape(fam_str)}")
+        first = f"This edition follows the {html.escape(canon)} canon and includes {html.escape(_oxford_join(families))} notes."
     else:
-        parts.append(" with no annotation notes")
+        first = f"This edition follows the {html.escape(canon)} canon and carries no annotation notes."
 
     if languages:
-        if len(languages) == 1:
-            lang_str = languages[0]
-        else:
-            lang_str = ", ".join(languages[:-1]) + ", and " + languages[-1]
-        parts.append(f", and {html.escape(lang_str)} verse popups")
+        second = f" Verses open in {html.escape(_oxford_join(languages))} popups."
     else:
-        parts.append(", and no verse popups")
+        second = " It has no verse popups."
 
-    return "".join(parts) + "."
+    return first + second
 
 
 def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
