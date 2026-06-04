@@ -155,6 +155,44 @@ def _iter_note_ref_traditions():
             yield ref_id, note_tradition(tup), book_code
 
 
+def _iter_note_ref_symbols():
+    """Walk every note tuple on disk and yield
+    ``(ref_id, note_id, book_code, chapter, verse, suffix, kind, category)``.
+
+    Sibling of ``_iter_note_ref_traditions`` that surfaces the chapter/verse/
+    kind/category baked into each note, for the Phase-ρ.3 per-coordinate symbol
+    resolver. ``note_id`` is the canonical ``book:ch:vs[suffix]:kind`` form;
+    ``ref_id`` is the compact HTML id ``ref-<prefix><cc><vv><suffix>`` (same
+    Strategy-B ``id_prefix``→``bxx`` fallback as the tradition walk).
+    """
+    from scripts.core.notes_io import load_notes
+
+    books_idx = config.books_by_code()
+    cat_by_kind = {k.get("code"): k.get("category") for k in config.load_kinds()}
+    notes_dir = REPO_ROOT / "content" / "notes"
+    for book_path in sorted(notes_dir.glob("*.py")):
+        if book_path.stem == "__init__" or book_path.stem.startswith("_"):
+            continue
+        book_code = book_path.stem
+        book = books_idx.get(book_code) or {}
+        prefix = book.get("id_prefix") or book.get("bxx")
+        if not prefix:
+            continue
+        for tup in load_notes(book_path) or []:
+            if not isinstance(tup, tuple) or len(tup) < 8:
+                continue
+            try:
+                ch_i = int(tup[0])
+                vs_i = int(tup[1])
+            except (TypeError, ValueError):
+                continue
+            suffix = tup[2] or ""
+            kind = tup[4]
+            ref_id = f"ref-{prefix}{ch_i:02d}{vs_i:02d}{suffix}"
+            note_id = f"{book_code}:{ch_i}:{vs_i}{suffix}:{kind}"
+            yield ref_id, note_id, book_code, ch_i, vs_i, suffix, kind, cat_by_kind.get(kind)
+
+
 # ---- Phase ψ.8.4: per-book tradition overrides ----------------------
 #
 # Mirrors the ν.2.7-A popup_languages_per_book pattern. Editions can

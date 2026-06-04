@@ -113,3 +113,20 @@ class TestResolverInvariant:
             base = config.enabled_kind_codes(ed, all_kinds)
             assert config.enabled_kind_codes_for(ed, all_kinds, "gen", 1) == base
             assert config.enabled_kind_codes_for(ed, all_kinds, "rev") == base
+
+
+class TestCorpusIterator:
+    def test_yields_8_tuple_with_chapter_kind_category(self):
+        rows = list(be._iter_note_ref_symbols())
+        assert rows, "expected the on-disk corpus to yield notes"
+        ref_id, note_id, book, chapter, verse, suffix, kind, category = rows[0]
+        assert ref_id.startswith("ref-")
+        assert note_id.count(":") == 3  # book:ch:vs[suffix]:kind
+        assert isinstance(chapter, int) and isinstance(verse, int)
+        assert note_id == f"{book}:{chapter}:{verse}{suffix}:{kind}"
+
+    def test_note_id_reparses_to_same_ref_id(self):
+        from scripts.web_helpers import html_ref_id_from_note_id
+
+        for ref_id, note_id, *_ in list(be._iter_note_ref_symbols())[:200]:
+            assert html_ref_id_from_note_id(note_id) == ref_id
