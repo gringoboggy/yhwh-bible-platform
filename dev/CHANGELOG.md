@@ -6,6 +6,14 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C1 — API write/read path for the per-coordinate fields
+
+**The save/read layer** for the 6 new per-coordinate edition fields (`note_families_on_per_book`/`note_families_off_per_book`, `note_families_on_per_chapter`/`note_families_off_per_chapter`, `popup_languages_per_chapter`, `popup_languages_per_verse`), so the Phase-C2 navigator UI can persist + read them. Byte-neutral (write layer only — no build-path change). Commit `68f1598b`.
+
+`scripts/api/editions.py`: added the 6 fields to the `EDITABLE` set + a shared **`_validate_keyed_list_field(field, raw, *, key_parts, valid_values, value_label, encode_fn)`** helper driven by a `_KEYED_LIST_FIELDS` dispatch table (validates composite keys — `book` / `book:ch` / `book:ch:vs`, book ∈ canon, positive-integer chapter/verse — and each value against category∪kind tokens or `ALL_POPUP_LANGUAGES`, dedupes, then calls the Phase-A/B encoders) — DRY vs the 6 near-duplicate inline blocks it would otherwise be; also added the 6 fields to `_append_cloned_edition` so cloned editions carry them. `scripts/web_editions.py`: `api_customize_data` now decodes all 6 for the UI. +56 tests (`tests/test_hierarchical_api.py`: round-trip + every rejection mode — non-dict, unknown book, malformed/wrong-arity key, non-numeric chapter/verse, unknown token/language; + decode-for-UI), regression green (edition-meta + traditions suites), lint 26✓/2⚠/0✗, mypy clean. (`enabled_note_ids` force-on write path deferred to C2's per-note UI.) **▶ NEXT: C2** — the `/build-my-bible` navigator console (drill-down UI for both dimensions) → C3 polish.
+
+---
+
 ## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase B (ρ.3 popup engine) COMPLETE — per-coordinate popup-language resolution, byte-stable
 
 **The second build phase of the "navigate-your-Bible" customization feature** (spec `docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Extends translation-popup language selection to resolve per (book, chapter, verse) — Bible → book → chapter → individual verse — most-specific-wins. Headless engine (UI/API = Phase C). Built subagent-driven TDD over 6 commits (`3969e1a6`→`45091d77`); plan `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md`.
