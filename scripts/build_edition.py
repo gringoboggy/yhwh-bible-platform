@@ -67,18 +67,16 @@ from scripts.epub_utils import (  # noqa: E402, F401
 )
 from scripts.matter_pages import (  # noqa: E402, F401
     TOPICAL_INDEX_SOURCES,
-    _about_specs_for_edition,
     _drop_placeholder_introduction,
     _legend_categories_for_edition,
     _sources_sections,
     build_merged_topic_index,
-    inject_about_page,
     inject_back_matter,
     inject_copyright_page,
     inject_dedication_page,
     inject_reading_plans_page,
     inject_symbol_legend_page,
-    render_about_page,
+    inject_your_edition_page,
     render_closing_colophon_page,
     render_copyright_page,
     render_dedication_page,
@@ -87,6 +85,7 @@ from scripts.matter_pages import (  # noqa: E402, F401
     render_reference_tables_page,
     render_sources_page,
     render_symbol_legend_page,
+    render_your_edition_page,
 )
 
 EPUB_DIR = REPO_ROOT / "epub_working"
@@ -3530,8 +3529,15 @@ def build_one(
             _annot_override = _matrix.total_for_edition(edition_id) - _in_scope_disabled
         inject_copyright_page(tmp, edition, version, annotation_count_override=_annot_override)
         inject_dedication_page(tmp, edition, version)
+        # σ.3.2 — the "Your Edition" page is the FIRST content page after the
+        # cover. It anchors its spine/nav insert at the titlepage and runs AFTER
+        # copyright + dedication (each of which also inserts after titlepage), so
+        # the last-runs-first ordering lands it immediately after titlepage:
+        # titlepage → your-edition → dedication → copyright → legend. Its
+        # build-accurate counts (resolved_note_counts) replace the retired About
+        # page, which carried the matrix-based summary.
+        inject_your_edition_page(tmp, edition, version)
         inject_symbol_legend_page(tmp, edition, version)
-        inject_about_page(tmp, edition, version, annotation_count_override=_annot_override)
         inject_back_matter(tmp, edition, version, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op

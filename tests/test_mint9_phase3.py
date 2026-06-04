@@ -137,12 +137,11 @@ def test_inject_copyright_page_accepts_override(tmp_path) -> None:
     assert sig.parameters["annotation_count_override"].default is None
 
 
-def test_inject_about_page_accepts_override() -> None:
-    import inspect
-
-    sig = inspect.signature(matter_pages.inject_about_page)
-    assert "annotation_count_override" in sig.parameters
-    assert sig.parameters["annotation_count_override"].default is None
+# NOTE (σ.3.2, 2026-06-04): the old About page was retired — its per-edition
+# summary now lives on the "Your Edition" page, whose counts come from the
+# build-accurate edition_stats.resolved_note_counts (corrected by construction,
+# so it needs no annotation_count_override). The former
+# test_inject_about_page_accepts_override was removed with inject_about_page.
 
 
 def test_render_copyright_uses_override_count() -> None:

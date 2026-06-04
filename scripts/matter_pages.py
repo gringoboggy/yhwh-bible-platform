@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Front/back-matter EPUB pages — the render_*/inject_* family extracted
 (verbatim) from build_edition.py. Each inject_* writes one XHTML page into the
-per-edition build tempdir; build_edition.build_one calls the six inject_* here.
+per-edition build tempdir; build_edition.build_one calls the inject_* here.
 """
 
 import html
@@ -29,10 +29,10 @@ def render_copyright_page(
 ) -> str:
     """Render the front colophon XHTML. Identity from ``publishing``
     (_resolve_publishing), NOT the dead content/onix.py TODO_ defaults; counts term-ref-ok
-    are the edition's REAL computed values (scripts.core.matrix). The long
-    description lives on the separate 'About this Edition' page; full source
-    credits live in the back-matter 'Sources & Acknowledgments' page — keep
-    this page compact."""
+    are the edition's REAL computed values (scripts.core.matrix). The builder's
+    own description + the per-edition summary live on the separate 'Your Edition'
+    page (the first page after the cover); full source credits live in the
+    back-matter 'Sources & Acknowledgments' page — keep this page compact."""
     pub = publishing.get("publisher_name") or "YHWH Ya' Way Editions"
     holder = (
         publishing.get("copyright_holder") or (publishing.get("contributor") or {}).get("name") or "Bogdan Zorlescu"
@@ -348,184 +348,193 @@ def inject_symbol_legend_page(tmp: Path, edition: dict, version: str) -> None:
             nav_path.write_text(nav, encoding="utf-8")
 
 
-def _about_specs_for_edition(edition_id: str) -> dict:
-    """Compose the data dict for render_about_page from this edition's config.
-
-    Returns::
-
-        {
-          "canon_label":        str,           # short canon name, e.g. "Catholic"
-          "book_count":         int,           # books in the edition's canon
-          "annotation_count":   int,           # total notes (matrix)
-          "category_count":     int,           # number of non-zero categories
-          "categories":         list[dict],    # [{label, count}, ...] sort_order
-          "witness_labels":     list[str],     # popup language human labels
-          "theme":              str,
-          "description":        str,           # empty string when absent
-        }
-    """
-    from scripts.core import config as _cfg
+def _edition_canon_book_count(edition_id: str) -> int:
+    """Number of books actually in this edition's canon (the build canon, from
+    ``matrix.compute_matrix().edition_canon_books``). Truthful to what ships —
+    the books the build emits, not the canon-yaml standard count."""
     from scripts.core import matrix as _matrix
-    from scripts.core.popup_versions import VERSION_REGISTRY, resolve_version_id
 
-    edition = _cfg.editions_by_id()[edition_id]
+    return len(_matrix.compute_matrix().edition_canon_books.get(edition_id, set()) or [])
 
-    # Canon name + book count
+
+def _canon_label(edition: dict) -> str:
+    """Short canon name for the 'What's inside' line — the canons.yaml label with
+    any parenthetical annotation stripped (e.g. 'Catholic Bible (73 books…)' →
+    'Catholic Bible')."""
     canon_id = edition.get("canon") or "protestant"
-    all_canons = load_canons()
-    canon_info = all_canons.get(canon_id, {})
-    # Use full label but strip any parenthetical annotation comment after '('
+    canon_info = load_canons().get(canon_id, {})
     raw_label = canon_info.get("label") or canon_id.replace("-", " ").title()
-    canon_label = raw_label.split("(")[0].strip().rstrip(",")
-    book_count = len(canon_info.get("books") or [])
+    return raw_label.split("(")[0].strip().rstrip(",")
 
-    # Annotation counts from matrix
-    annotation_count = _matrix.total_for_edition(edition_id)
-    breakdown = _matrix.breakdown_by_category(edition_id)
 
-    # Categories: sorted by sort_order, count > 0 only
+def _category_labels_for_stats(stats: dict) -> list[str]:
+    """Human labels of the note families that actually ship (``stats['per_category']``
+    keys with count>0), in categories.yaml sort_order. Skips the empty bucket
+    ('' = notes whose kind lacks a registered category) so the summary reads
+    cleanly."""
+    from scripts.core import config as _cfg
+
+    present = {cat for cat, n in (stats.get("per_category") or {}).items() if n > 0 and cat}
     cats_meta = sorted(_cfg.load_categories(), key=lambda c: c.get("sort_order", 999))
-    categories = [
-        {"label": c.get("label", c["id"]), "count": breakdown.get(c["id"], 0)}
-        for c in cats_meta
-        if breakdown.get(c["id"], 0) > 0
-    ]
-    category_count = len(categories)
-
-    # Popup witness labels: resolve legacy aliases → registry labels
-    popup_raw = edition.get("popup_languages_default") or []
-    witness_labels: list[str] = []
-    seen_vids: set[str] = set()
-    for tok in popup_raw:
-        vid = resolve_version_id(str(tok))
-        if vid and vid not in seen_vids:
-            seen_vids.add(vid)
-            label = VERSION_REGISTRY.get(vid, {}).get("label") or vid
-            witness_labels.append(label)
-
-    return {
-        "canon_label": canon_label,
-        "book_count": book_count,
-        "annotation_count": annotation_count,
-        "category_count": category_count,
-        "categories": categories,
-        "witness_labels": witness_labels,
-        "theme": str(edition.get("theme") or ""),
-        "description": str(edition.get("description") or ""),
-    }
+    return [c.get("label", c["id"]) for c in cats_meta if c["id"] in present]
 
 
-def render_about_page(edition: dict, specs: dict, version: str) -> str:
-    """Render the 'About this Edition' XHTML.
+def _popup_language_labels(stats: dict) -> list[str]:
+    """Human labels of the popup languages that ship (``stats['popup_languages']``),
+    via build_edition.POPUP_LANGUAGES; unknown tokens fall back to the raw id."""
+    from scripts.build_edition import POPUP_LANGUAGES
 
-    ``specs`` is the dict from ``_about_specs_for_edition`` (or a synthetic
-    dict for unit tests). All user-facing text is html.escape'd. The page
-    uses a ``<section class="about-page">`` and mirrors the legend-page
-    structural style."""
-    edition_title = edition.get("title_full", edition.get("title", "Untitled"))
+    out: list[str] = []
+    for tok in stats.get("popup_languages") or []:
+        out.append(POPUP_LANGUAGES.get(tok, {}).get("label") or tok)
+    return out
 
-    # Canon line
-    canon_line = (
-        f'<p class="about-canon">'
-        f"<strong>Canon:</strong> {html.escape(specs['canon_label'])}"
-        f" — {specs['book_count']:,} books</p>"
+
+def _whats_inside_sentence(edition: dict, stats: dict) -> str:
+    """A single truthful sentence describing the edition: canon + note families +
+    popup languages. Gracefully degrades when there are no notes / no popups.
+    Returns an html.escape'd fragment (callers embed it directly)."""
+    canon = _canon_label(edition)
+    families = _category_labels_for_stats(stats)
+    languages = _popup_language_labels(stats)
+
+    parts = [f"This edition includes the {html.escape(canon)} canon"]
+    if families:
+        if len(families) == 1:
+            fam_str = families[0]
+        else:
+            fam_str = ", ".join(families[:-1]) + ", and " + families[-1]
+        parts.append(f" with {html.escape(fam_str)}")
+    else:
+        parts.append(" with no annotation notes")
+
+    if languages:
+        if len(languages) == 1:
+            lang_str = languages[0]
+        else:
+            lang_str = ", ".join(languages[:-1]) + ", and " + languages[-1]
+        parts.append(f", and {html.escape(lang_str)} verse popups")
+    else:
+        parts.append(", and no verse popups")
+
+    return "".join(parts) + "."
+
+
+def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
+    """Render the 'Your Edition' XHTML — the FIRST content page after the cover.
+
+    It tells the builder exactly what they built:
+
+      * heading      = the builder's ``display_name`` (falls back to ``title``);
+      * notes        = the builder's ``description``, an italic blockquote IF set;
+      * what's inside = canon + book count + note families present + popup
+                        languages + theme (a truthful sentence, graceful when
+                        there are no notes / no popups);
+      * total        = ``stats['total']`` notes;
+      * per-book table = ``stats['per_book']`` in canonical book order, books
+                        with count>0 only.
+
+    ``stats`` is the build-accurate ``edition_stats.resolved_note_counts`` dict —
+    the same source the glossary uses — so every printed number equals the real
+    EPUB. All user-facing text is html.escape'd."""
+    from scripts.core import config as _cfg
+
+    heading = edition.get("display_name") or edition.get("title", "Untitled")
+
+    # Notes blockquote — only when the builder set a description.
+    desc = (edition.get("description") or "").strip()
+    notes_block = (
+        f'    <blockquote class="your-edition-notes"><em>{html.escape(desc)}</em></blockquote>\n' if desc else ""
     )
 
-    # Annotation summary line
-    ann_line = (
-        f'<p class="about-annotations">'
-        f"<strong>Annotations:</strong> {specs['annotation_count']:,} notes"
-        f" across {specs['category_count']} categories</p>"
+    # What's inside.
+    book_count = _edition_canon_book_count(edition["id"])
+    whats_inside = _whats_inside_sentence(edition, stats)
+    theme = str(edition.get("theme") or "").strip()
+    theme_clause = f" The presentation theme is <em>{html.escape(theme)}</em>." if theme else ""
+    inside_line = (
+        f'    <p class="your-edition-inside">{whats_inside}'
+        f" It spans <strong>{book_count:,}</strong> books.{theme_clause}</p>"
     )
 
-    # Per-category list
-    cat_items = []
-    for cat in specs.get("categories") or []:
-        cat_items.append(f'<li class="about-cat-item">{html.escape(cat["label"])} — {cat["count"]:,} notes</li>')
-    cats_block = (
-        ('<ul class="about-cat-list">\n    ' + "\n    ".join(cat_items) + "\n  </ul>")
-        if cat_items
-        else '<p class="about-cat-empty">No annotations in this edition.</p>'
+    # Total notes.
+    total = int(stats.get("total") or 0)
+    total_line = (
+        f'    <p class="your-edition-total"><strong>{total:,}</strong> {"note" if total == 1 else "notes"} in all.</p>'
     )
 
-    # Witnesses line (omit if empty list)
-    witnesses = specs.get("witness_labels") or []
-    if witnesses:
-        witnesses_line = (
-            f'<p class="about-witnesses">'
-            f"<strong>Verse-popup witnesses:</strong> "
-            f"{html.escape(', '.join(witnesses))}</p>"
+    # Per-book table — canonical book order (RULES §6.1), count>0 only.
+    per_book = stats.get("per_book") or {}
+    book_order = [b["code"] for b in _cfg.load_books()]
+    book_titles = _cfg.books_by_code()
+    rows: list[str] = []
+    for code in book_order:
+        n = per_book.get(code, 0)
+        if n <= 0:
+            continue
+        title = book_titles.get(code, {}).get("title", code)
+        rows.append(f'      <tr><td class="ye-book">{html.escape(title)}</td><td class="ye-count">{n:,}</td></tr>')
+    if rows:
+        table_block = (
+            '    <table class="your-edition-perbook">\n'
+            "      <thead><tr><th>Book</th><th>Notes</th></tr></thead>\n"
+            "      <tbody>\n" + "\n".join(rows) + "\n      </tbody>\n"
+            "    </table>"
         )
     else:
-        witnesses_line = ""
-
-    # Theme line
-    theme_val = specs.get("theme") or ""
-    theme_line = f'<p class="about-theme"><strong>Theme:</strong> {html.escape(theme_val)}</p>' if theme_val else ""
-
-    # Optional description paragraph
-    desc = specs.get("description") or ""
-    desc_para = f'<p class="about-description">{html.escape(desc)}</p>' if desc else ""
-
-    body_parts = [canon_line, ann_line, cats_block]
-    if witnesses_line:
-        body_parts.append(witnesses_line)
-    if theme_line:
-        body_parts.append(theme_line)
-    if desc_para:
-        body_parts.append(desc_para)
-
-    body = "\n  ".join(body_parts)
+        table_block = '    <p class="your-edition-perbook-empty">This edition carries no annotations.</p>'
 
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
 <head>
-  <title>About this Edition</title>
+  <title>Your Edition</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
 </head>
 <body epub:type="frontmatter">
-  <section class="about-page" epub:type="frontmatter">
-    <h1 class="about-title">About this Edition</h1>
-    <p class="about-edition-name"><em>{html.escape(edition_title)}</em></p>
-  {body}
+  <section class="your-edition-page" epub:type="frontmatter">
+    <h1 class="your-edition-title">{html.escape(heading)}</h1>
+{notes_block}{inside_line}
+{total_line}
+{table_block}
   </section>
 </body>
 </html>
 """
 
 
-def inject_about_page(tmp: Path, edition: dict, version: str, *, annotation_count_override: int | None = None) -> None:
-    """Write about.xhtml and register it in OPF (manifest + spine after legend)
-    and nav.xhtml (TOC entry after legend). Guard against double-injection.
+def inject_your_edition_page(tmp: Path, edition: dict, version: str) -> None:
+    """Write your-edition.xhtml and register it in OPF (manifest + spine RIGHT
+    AFTER titlepage, before copyright) and nav.xhtml (first TOC entry). Guards
+    against double-injection.
 
-    ``annotation_count_override`` (mint-9 #8): same tradition/time-filter
-    correction as ``inject_copyright_page``; ``None`` preserves the matrix total
-    and the byte-identical path for every standard / 9 KJV edition.
-    """
-    specs = _about_specs_for_edition(edition["id"])
-    if annotation_count_override is not None:
-        specs = {**specs, "annotation_count": annotation_count_override}
-    html_text = render_about_page(edition, specs, version)
-    (tmp / "about.xhtml").write_text(html_text, encoding="utf-8")
+    Counts come from ``edition_stats.resolved_note_counts`` (computed once here)
+    so the page is build-accurate and honors the ρ.3 hierarchy — the same source
+    the glossary uses."""
+    from scripts.core import edition_stats
+
+    stats = edition_stats.resolved_note_counts(edition)
+    html_text = render_your_edition_page(edition, stats, version)
+    (tmp / "your-edition.xhtml").write_text(html_text, encoding="utf-8")
 
     opf_path = tmp / "content.opf"
     if opf_path.is_file():
         opf = opf_path.read_text(encoding="utf-8")
-        if "about.xhtml" not in opf:
-            _anchor_m = '<item id="legend" href="legend.xhtml" media-type="application/xhtml+xml"/>'
+        if "your-edition.xhtml" not in opf:
+            _anchor_m = '<item id="titlepage" href="titlepage.xhtml"'
             _new = opf.replace(
                 _anchor_m,
-                _anchor_m + '\n    <item id="about" href="about.xhtml" media-type="application/xhtml+xml"/>',
+                '<item id="youredition" href="your-edition.xhtml" media-type="application/xhtml+xml"/>\n    '
+                + _anchor_m,
             )
             if _new == opf:
                 raise RuntimeError(f"OPF manifest anchor not found: {_anchor_m!r}")
             opf = _new
-            _spine_anchor = '<itemref idref="legend"/>'
+            _spine_anchor = '<itemref idref="titlepage"/>'
             _new = opf.replace(
                 _spine_anchor,
-                _spine_anchor + '\n    <itemref idref="about"/>',
+                _spine_anchor + '\n    <itemref idref="youredition"/>',
             )
             if _new == opf:
                 raise RuntimeError(f"OPF spine anchor not found: {_spine_anchor!r}")
@@ -535,11 +544,10 @@ def inject_about_page(tmp: Path, edition: dict, version: str, *, annotation_coun
     nav_path = tmp / "nav.xhtml"
     if nav_path.is_file():
         nav = nav_path.read_text(encoding="utf-8")
-        if 'href="about.xhtml"' not in nav:
+        if 'href="your-edition.xhtml"' not in nav:
             nav = nav.replace(
-                '<li><a href="legend.xhtml">A Guide to the Notes</a></li>',
-                '<li><a href="legend.xhtml">A Guide to the Notes</a></li>\n'
-                '      <li><a href="about.xhtml">About this Edition</a></li>',
+                "<ol>\n      <li>",
+                '<ol>\n      <li><a href="your-edition.xhtml">Your Edition</a></li>\n      <li>',
                 1,
             )
             nav_path.write_text(nav, encoding="utf-8")

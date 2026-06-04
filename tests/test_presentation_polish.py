@@ -159,70 +159,68 @@ class TestLegendReachesEpub:
         assert "◇" in legend  # catholic-study includes the comm category
 
 
-class TestAboutPagePure:
-    def _specs(self):
+# σ.3.2 (2026-06-04): the old About page was RETIRED. Its per-edition summary
+# now lives on the "Your Edition" page (the first content page after the cover),
+# driven by the build-accurate edition_stats.resolved_note_counts instead of the
+# edition-wide matrix. The detailed Your-Edition tests live in
+# tests/test_matter_pages_your_edition.py; these keep a presentation-polish
+# smoke-pin that the page reaches the EPUB and the About page is gone.
+
+
+class TestYourEditionReplacesAbout:
+    def _stats(self):
         return {
-            "canon_label": "Catholic",
-            "book_count": 73,
-            "annotation_count": 12345,
-            "category_count": 2,
-            "categories": [{"label": "Commentary / Tradition", "count": 2690}, {"label": "Apologetic", "count": 55}],
-            "witness_labels": ["Hebrew (Masoretic / WLC)", "Latin (Clementine Vulgate)"],
-            "theme": "devotional",
-            "description": "",
+            "total": 12345,
+            "per_book": {"gen": 12000, "mat": 345},
+            "per_category": {"comm": 12000, "xref": 345},
+            "per_kind": {"comm-patristic": 12000, "xref-citation": 345},
+            "popup_languages": ["wlc", "vulgate"],
         }
 
-    def test_renders_specs(self):
-        from scripts.build_edition import render_about_page
+    def test_renders_display_name_total_and_whats_inside(self):
+        from scripts.build_edition import render_your_edition_page
 
-        out = render_about_page({"id": "x", "title": "T"}, self._specs(), "v")
-        assert "About this Edition" in out
-        assert "Catholic" in out and "73" in out and "12,345" in out
-        assert "Commentary / Tradition" in out and "2,690 notes" in out
-        assert "Apologetic" in out and "55 notes" in out
+        ed = {"id": "catholic-study", "title": "T", "display_name": "Catholic Study Bible", "canon": "catholic"}
+        out = render_your_edition_page(ed, self._stats(), "v")
+        assert "Catholic Study Bible" in out
+        assert "12,345" in out
+        # What's inside surfaces the note families + popup languages by label.
+        assert "Commentary / Tradition" in out and "Cross-references" in out
         assert "Hebrew (Masoretic / WLC)" in out and "Latin (Clementine Vulgate)" in out
 
-    def test_description_optional(self):
-        from scripts.build_edition import render_about_page
+    def test_description_optional_blockquote(self):
+        from scripts.build_edition import render_your_edition_page
 
-        s = self._specs()
-        assert "SENTINEL_DESC" not in render_about_page({"id": "x", "title": "T"}, s, "v")
-        s2 = dict(s)
-        s2["description"] = "SENTINEL_DESC text"
-        assert "SENTINEL_DESC text" in render_about_page({"id": "x", "title": "T"}, s2, "v")
+        ed = {"id": "catholic-study", "title": "T", "canon": "catholic"}
+        assert "SENTINEL_DESC" not in render_your_edition_page(ed, self._stats(), "v")
+        ed2 = {**ed, "description": "SENTINEL_DESC text"}
+        out = render_your_edition_page(ed2, self._stats(), "v")
+        assert "SENTINEL_DESC text" in out and "<blockquote" in out
 
     def test_well_formed_xml(self):
         import xml.dom.minidom as md
-        from scripts.build_edition import render_about_page
+        from scripts.build_edition import render_your_edition_page
 
-        md.parseString(render_about_page({"id": "x", "title": "T & <co>"}, self._specs(), "v"))
-
-
-class TestAboutSpecs:
-    def test_specs_composed_for_edition(self):
-        from scripts.build_edition import _about_specs_for_edition
-
-        s = _about_specs_for_edition("catholic-study")
-        assert s["book_count"] > 0 and s["annotation_count"] > 0
-        assert s["category_count"] == len(s["categories"])
-        assert all(c["count"] > 0 for c in s["categories"])
-        assert isinstance(s["witness_labels"], list)
+        ed = {"id": "catholic-study", "title": "T & <co>", "canon": "catholic"}
+        md.parseString(render_your_edition_page(ed, self._stats(), "v"))
 
 
-class TestAboutReachesEpub:
-    def test_about_page_and_nav(self, tmp_path, monkeypatch):
+class TestYourEditionReachesEpub:
+    def test_your_edition_page_and_nav_about_gone(self, tmp_path, monkeypatch):
         import zipfile
         import scripts.build_edition as be
         from scripts.core import build_cache, config
 
         monkeypatch.setattr(build_cache, "cache_lookup", lambda *a, **k: None)
         monkeypatch.setattr(build_cache, "cache_store", lambda *a, **k: None)
-        stats = be.build_one("catholic-study", tmp_path, "about-test", config.load_kinds(), force=True)
+        stats = be.build_one("catholic-study", tmp_path, "your-ed-test", config.load_kinds(), force=True)
         with zipfile.ZipFile(stats["output_path"]) as zf:
             names = zf.namelist()
-            about = zf.read(next(n for n in names if n.endswith("about.xhtml"))).decode("utf-8")
+            assert not any(n.endswith("about.xhtml") for n in names), "old about.xhtml still shipped"
+            ye = zf.read(next(n for n in names if n.endswith("your-edition.xhtml"))).decode("utf-8")
             nav = zf.read(next(n for n in names if n.endswith("nav.xhtml"))).decode("utf-8")
-        assert "About this Edition" in about and 'href="about.xhtml"' in nav
+        assert "Your Edition" in ye and 'href="your-edition.xhtml"' in nav
+        assert 'href="about.xhtml"' not in nav
 
 
 class TestBackMatterPure:
@@ -439,8 +437,9 @@ class TestFrontMatterConsolidation:
         assert 'href="about.xhtml"' in result and 'idref="about"' in result
         assert not (tmp_path / "introduction.xhtml").exists()
 
-    def test_about_manifest_registered(self, tmp_path, monkeypatch):
-        """FIX 4: about.xhtml must be registered in the OPF manifest."""
+    def test_your_edition_manifest_registered(self, tmp_path, monkeypatch):
+        """σ.3.2: your-edition.xhtml (which replaced the retired About page) must be
+        registered in the OPF manifest."""
         import zipfile
 
         epub = self._build(tmp_path, monkeypatch)
@@ -449,9 +448,10 @@ class TestFrontMatterConsolidation:
             opf_names = [n for n in names if n.endswith("content.opf")]
             assert opf_names, "content.opf not found inside EPUB zip"
             opf_text = zf.read(opf_names[0]).decode("utf-8")
-            assert '<item id="about"' in opf_text, (
-                "about.xhtml not registered in OPF manifest — inject_about_page may have silently no-op'd (FIX 4)"
+            assert '<item id="youredition"' in opf_text, (
+                "your-edition.xhtml not registered in OPF manifest — inject_your_edition_page may have no-op'd"
             )
+            assert '<item id="about"' not in opf_text, "retired about.xhtml still in OPF manifest"
 
 
 # ──────────────────────────────────────────────────────────────

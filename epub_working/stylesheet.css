@@ -478,18 +478,17 @@ h1, h2, h3, h1.book-title {
 .legend-count { color: #6E5840; font-size: 0.85em; }
 .legend-desc { color: #333; }
 
-/* === About this Edition page === */
-.about-page { padding: 1.2em 0.8em; text-align: left; }
-.about-title { font-size: 1.5em; text-align: center; margin: 0 0 0.4em; }
-.about-edition-name { text-align: center; font-style: italic; color: #4a3520; margin: 0 0 1em; }
-.about-canon { margin: 0 0 0.4em; }
-.about-annotations { margin: 0 0 0.8em; }
-.about-cat-list { margin: 0.2em 0 0.8em 1.4em; padding: 0; }
-.about-cat-item { margin: 0 0 0.25em; line-height: 1.4; }
-.about-cat-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
-.about-witnesses { margin: 0 0 0.4em; }
-.about-theme { margin: 0 0 0.4em; }
-.about-description { margin: 0.8em 0 0; font-style: italic; color: #333; }
+/* === Your Edition page (σ.3.2 — first page after the cover) === */
+.your-edition-page { padding: 1.2em 0.8em; text-align: left; }
+.your-edition-title { font-size: 1.5em; text-align: center; margin: 0 0 0.6em; }
+.your-edition-notes { margin: 0 0 1em; padding: 0 1.2em; font-style: italic; color: #4a3520; border-left: 2px solid #c9b79c; }
+.your-edition-inside { margin: 0 0 0.6em; line-height: 1.5; }
+.your-edition-total { margin: 0 0 1em; }
+.your-edition-perbook { width: 100%; border-collapse: collapse; margin: 0.2em 0 0; }
+.your-edition-perbook th { text-align: left; font-variant-caps: small-caps; letter-spacing: 0.04em; border-bottom: 1px solid #c9b79c; padding: 0.2em 0.4em; }
+.your-edition-perbook td { padding: 0.15em 0.4em; line-height: 1.35; }
+.your-edition-perbook .ye-count { text-align: right; color: #6E5840; white-space: nowrap; }
+.your-edition-perbook-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
 
 /* === Back-matter pages (Sources, Reference Tables, Closing Colophon) === */
 .backmatter-page { padding: 1.2em 0.8em; text-align: left; }
