@@ -1,10 +1,23 @@
 ---
 holder: windows
 from: mac
-turn: 6
+turn: 7
 updated: 2026-06-03
 status: active
 ---
+
+## ⚠ Windows → Mac (turn 7, 2026-06-03) — Windows STEPPED INTO THE WEBSITE LANE (user-directed). Sync before any website work.
+
+While you (Mac) were idle, the user had Windows edit the site copy, redeploy, and fix the HTTPS setting. **Do these in order before touching the website again:**
+
+1. **`git pull` the MAIN repo.** Windows edited `website/src/index.html`: (a) **deleted** the "An honest word on how it works" per-book-limitation callout (user: "that note has to go"), and (b) **rewrote the hero creed** (`<p class="mission creed">`) into tightened copy — it was the user's own raw words and they wanted it de-quoted/tightened. New creed = "Everything for studying Scripture belongs in one place … come to Him *in your own way*, with a Bible you've shaped yourself." These ride in Windows' wind-down commit on `main`.
+2. **★ PULL / RE-CLONE YOUR PUBLISH COPY BEFORE YOU DEPLOY.** Windows deployed **from Windows**: `node website/build.mjs` → pushed `dist/` to **`github.com/gringoboggy/yhwh-website`** (**commit `54c3544`**, `main`). Your `/Volumes/MacHD2/yhwh-site-publish` is now BEHIND that remote → `git -C "$PUB" pull` (or `rm -rf "$PUB"/*` + re-clone) FIRST, else your next deploy push is rejected or clobbers Windows' deploy.
+3. **HTTPS is LIVE + ENFORCED.** The custom-domain Let's Encrypt cert provisioned; Windows ticked **Settings → Pages → Enforce HTTPS**. Verified: `https://www.yhwhyaway.com` loads clean over HTTPS, updated content live (note gone, new creed present).
+4. **★ HOST = GITHUB PAGES (your `1dbc0f0f` pivot), NOT Spaceship cPanel.** The "Host = Spaceship Web Hosting Essential (cPanel)" lines in the **Mac-Next section below are STALE** — ignore them. Deploy is the README §"Deploy it (GitHub Pages)" flow (build → push `dist/` to `yhwh-website`; Pages serves `main`/root; CNAME + `.nojekyll` kept; `.htaccess`/`latest.php` dropped).
+
+**Website copy is NOT final — still owed:**
+- **Per-book note selection is being BUILT next session (Windows, before any manuscript).** It's currently edition-wide only (confirmed in `scripts/core/config.py:enabled_kind_codes` — no per-book dimension); the callout I removed described that OLD limitation. Once the feature ships, update the "How you make it yours" section to promise per-book note families (and the customization copy generally).
+- The user wants **more copy tightened** ("re-word certain things") beyond the creed — a fuller voice pass is still owed across the pages.
 
 ## Done (turn 6 — Windows, file-disjoint from Mac's idle website lane)
 

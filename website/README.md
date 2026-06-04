@@ -43,6 +43,8 @@ Preview by opening `website/dist/index.html` (or serve the folder).
 
 Publish repo = **`github.com/gringoboggy/yhwh-website`** (public, static). To deploy an update:
 
+> ⚠ **Multi-machine:** either Windows or the Mac can deploy. **`git pull` (or re-clone) your publish working copy first** so you don't clobber the other lane's deploy. (Windows deployed `54c3544` from a fresh clone on 2026-06-03 — note removal + creed reword — and enabled Enforce HTTPS once the cert provisioned.)
+
 ```
 node website/build.mjs                          # produce website/dist/
 PUB=/Volumes/MacHD2/yhwh-site-publish           # clean working copy of the publish repo
