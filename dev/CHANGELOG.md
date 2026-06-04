@@ -6,6 +6,22 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase B (ρ.3 popup engine) COMPLETE — per-coordinate popup-language resolution, byte-stable
+
+**The second build phase of the "navigate-your-Bible" customization feature** (spec `docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Extends translation-popup language selection to resolve per (book, chapter, verse) — Bible → book → chapter → individual verse — most-specific-wins. Headless engine (UI/API = Phase C). Built subagent-driven TDD over 6 commits (`3969e1a6`→`45091d77`); plan `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md`.
+
+**New edition fields** (default-absent ⇒ byte-identical): `popup_languages_per_chapter` (`"book:ch=lang1,lang2"`) + `popup_languages_per_verse` (`"book:ch:vs=lang1,lang2"`), with `decode/encode_per_chapter_languages` + `decode/encode_per_verse_languages` mirroring the existing `decode_per_book_languages` (shared `_encode_keyed_languages` sorts by canonical book then numeric chapter/verse, filters unknown ids).
+
+**Engine.** `_resolve_popup_languages(edition, book_code, chapter=None, verse=None)` now resolves 5-tier: `popup_languages_per_verse["book:ch:vs"]` ▸ `popup_languages_per_chapter["book:ch"]` ▸ `popup_languages_per_book[book]` ▸ `popup_languages_default` ▸ `DEFAULT_POPUP_WITNESSES`. **Load-bearing invariants:** the legacy 2-arg form (and the 4-arg form with no per-chapter/verse fields) returns EXACTLY the pre-Phase-B result; the cascade uses `is None` membership checks so an explicit-empty override (`"gen:1:1="` → `[]`) correctly means "no popups on this verse" (distinct from absence); the legacy-id mapping (`resolve_version_id`) + `POPUP_LANGUAGES` filter are unchanged. The single call site (`_apply_popup_languages_and_translation`, where the per-verse vnote aside `id="vnote-<book>-<ch>-<vs>"` is processed) now threads `chapter=ch, verse=vs`; the per-verse vnote bake already existed, so only the `active_langs` input became verse-aware.
+
+**Stale-cache fix (found by the byte-stability review).** `scripts/core/build_cache.py:_referenced_translations()` walked only `popup_languages_default`/`_per_book` when collecting translation-data directories to hash into the build-cache key — it missed the two new per-chapter/verse fields. A builder who introduced a translation ONLY via a per-chapter/verse override, then edited that translation's data files (without touching the edition), could get a stale cached EPUB. Fixed by walking all three fields through the same inline parse (+4 regression tests; `test_build_cache` 36→40).
+
+**★Byte-stability PROVEN (the ship bar).** The byte-stability gate PASSED (187s — representative editions build valid + distinct, flagship rebuild deterministic); `epub_working/` untouched; nested-anchors clean (0/61); flagship `catholic-study` **epubcheck 0/0/0/0**; affected suites green (`test_hierarchical_popups` 12, `test_hierarchical_symbols` 21, `test_build_cache` 40). The 9 KJV editions are byte-identical (none sets the new fields — latent until opted in). +23 unit tests (`tests/test_hierarchical_popups.py`) + 1 slow end-to-end build test (`tests/test_hierarchical_popups_build.py`: a `popup_languages_per_verse=["gen:1:1=wlc"]` override strips Greek from Genesis 1:1's popup while Genesis 1:2 keeps both Hebrew + Greek). Also folded in the 2 Phase-A final-review nits (`_NOTE_ID_RE` moved out of the import block; dead test diagnostic removed).
+
+**▶ NEXT:** Phase C — the `/build-my-bible` navigator console (the Bible-navigation drill-down UI exposing BOTH dimensions — note symbols and translation popups — at all four levels) + the API write path (`scripts/api/editions.py`) for all the new per-coordinate fields.
+
+---
+
 ## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase A (ρ.3 symbol engine) COMPLETE — per-coordinate note-symbol resolution, byte-stable
 
 **The first build phase of the "navigate-your-Bible" customization feature** (spec `docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`). Per-coordinate resolution of note symbols across all four levels — Bible (edition) → book → chapter → individual note — composing most-specific-wins. Headless engine (no UI/API yet; that's Phase C). Built subagent-driven TDD over 6 commits (`8a751bc5`→`ea1f824e`, rebased onto the Mac lane's `2d4927ff`); plan `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseA-symbol-engine.md` (all 8 tasks).
