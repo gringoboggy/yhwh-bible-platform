@@ -8,7 +8,7 @@
 
 Every session that touched code/content/docs ends with **all of these green** and the tree **consistent** (source ↔ build agree):
 
-`lint_rules 16/0/0` · `ruff format --check` clean · `ebible verify` errors=0 / 24,015 paired · `validate_taxonomy` 100% (91,733) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
+`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,264 paired · `validate_taxonomy` 100% (91,733) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
 Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4). **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status` and reporting the TRUE state (§6.7). "Done + clean" here means gates-green + tree-consistent; it does NOT mean committed. Uncommitted verified work survives a /clear on disk but has no snapshot and is in no backup — say so plainly, never reassuringly.**
 
@@ -36,6 +36,8 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 | Acquired sources | `_acquire/` is **one level above** the repo (gitignored). |
 | Throwaway probes | live in the **repo parent** (outside git); delete when done. |
 
+> **🖥️ Mac lane (2nd machine):** the table above is the **Windows N95** lane. On the **Mac** (2017 iMac) the toolchain differs — Python = `.venv/bin/python` (uv-managed 3.14; **not** `python3` = system 3.9), tests via `.venv/bin/python -m pytest` (+ `export TMPDIR=/Volumes/MacHD2/…` for OCR tests run under the Bash tool), **no `save.ps1`** (save = `git commit` + `git push origin` (GitLab) + `git push github` (GitHub) over SSH), Tesseract via conda-forge. The 5-leg E:/F: bundle backup is **Windows-only**. See memory `reference_mac_dev_env`.
+
 ---
 
 ## 3. ARCHITECTURE — so changes land in the right place (RULES §1, MATRIX_MAP)
@@ -47,7 +49,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
   - **✅ SURGICAL method (lossless, isolated) — use this to remove orphaned notes:** from HEAD's `epub_working`, regex-remove the orphaned markers (`<a class="note-ref note-<kind>" …>…</a>`) AND asides (`<aside class="note note-<kind>" …>…</aside>`) from the affected book's split file(s) (find via `config.books_by_code()[code]['files']`), then `inject --book <code>` to add the replacement notes. No `generate_verse_popups` needed (notes don't affect verse-popups). Verify CONTENT-level by **aside-by-id diff** (HEAD vs working), never raw line-diff; only the changed book's split file(s) should differ. ⚠ split files are **shared** between books, so confirm the removed `<kind>` only belongs to the target book before a blanket regex (e.g. only phi/jam carry `lang-hebrew` among NT books).
 - **`ebible verify` checks marker↔aside *pairing*, NOT source-correspondence** — so a source/build mismatch (e.g. orphaned asides) passes verify **silently**. Keep source ↔ build consistent yourself.
 - **Matrix (editions × kinds):** every per-edition control flows through **one resolver** that `matrix == build == config` (`tests/test_enabled_kinds_unified.py`).
-- **Corpus scale:** 91,733 notes · 71 kinds · 15 categories · 87 books · 11 editions.
+- **Corpus scale:** 91,733 notes · 72 kinds · 15 categories · 87 books · 11 editions.
 
 ---
 
@@ -72,13 +74,13 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 
 | Gate | Command | Green = |
 |---|---|---|
-| Invariant linter | `& $py scripts\lint_rules.py` | **16 pass / 0 warn / 0 fail** |
+| Invariant linter | `& $py scripts\lint_rules.py` | **0 warn / 0 fail** (all checks pass; count grows as checks are added — assert the invariant, not a fixed N) |
 | Format | `& $py -m ruff format --check .` | all files formatted |
 | Matrix integrity | `& $py dev\trace_matrix.py` | 0 unresolved refs (11 editions) |
 | Repo-map complete | `& $py dev\trace_repo.py` | complete |
 | Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,733/91,733 (100%) |
 | Schemas | `& $py scripts\validate_schemas.py` | 6/6 ok |
-| Pairing | `& $py -m scripts.ebible verify` | errors=0 / 24,015 paired |
+| Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,264 paired |
 | Matrix==build==config | `& $py -m pytest tests\test_enabled_kinds_unified.py -q` | pass |
 | Touched modules | `& $py -m pytest tests\<file>.py -q` (per module) | pass |
 | Build cert (build/corpus touched) | build edition(s) + epubcheck (Java 8 on PATH, one JVM) | epubcheck **0/0/0/0** |
@@ -93,12 +95,12 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 
 ## 6. SESSION END — finish clean, in this order (RULES §11/§12)
 
-1. **§12 4-point pre-summary audit:** (a) test-count reconcile (≥ baseline **7,064** collected; itemize any intentional removals); (b) phase-mention scan (any new Greek-letter phase tag in code must appear in `CHANGELOG.md`); (c) `IN_FLIGHT.md` `TRACKER-STATE` marker correct; (d) linter ack (`lint_rules` 16/0/0).
+1. **§12 4-point pre-summary audit:** (a) test-count reconcile (≥ baseline **7,667** collected; itemize any intentional removals); (b) phase-mention scan (any new Greek-letter phase tag in code must appear in `CHANGELOG.md`); (c) `IN_FLIGHT.md` `TRACKER-STATE` marker correct; (d) linter ack (`lint_rules` 0 warn / 0 fail).
 2. **Update `SESSION_STATE.md` AND `CHANGELOG.md` together** — their mtimes must be within ~6h or the freshness check warns. Update the `IN_FLIGHT.md` banner + marker. (Don't pin durable phase tags onto SESSION_STATE/IN_FLIGHT — they roll.)
 3. **ruff-format** every generated/regenerated file.
 4. **Run the §5 gates** — confirm green. Prove byte-compat for any regen.
 5. **Delete ALL junk + temp before committing.** `save.ps1` does `git add -A`, so any stray file gets swept into the commit. Remove: repo-parent throwaway probes (`_*.py`, `_probe_*`, `_vg_*`) + `_*epubcheck`/build temp dirs, orphaned PyInstaller `_MEI*` dirs, `hs_err_pid*`/`replay_pid*` JVM crash logs, and any unneeded `.bak` from `ensure_backup`. Then **`git status` must show ONLY the intended changes** — no stray/junk files. (Also frees RAM/disk on the 16 GB box — see §1.4.)
-6. **Only if the user said "save":** `& ".\save.ps1" -Message "<concise; no > < → glyphs>"` (PowerShell; does `git add -A` + commit; pre-commit hook runs; **push is disabled — no remote since 2026-05-12**). Otherwise leave it uncommitted on disk. **"continue" ≠ "save".**
+6. **Only if the user said "save":** `& ".\save.ps1" -Message "<concise; no > < → glyphs>"` (PowerShell; does `git add -A` + commit; pre-commit hook runs; **then push to BOTH remotes — `git push origin` (GitLab) + `git push github` (GitHub); the remotes were restored 2026-05-30**). Otherwise leave it uncommitted on disk. **"continue" ≠ "save".**
 7. **⚠ COMMIT/BACKUP TRUTH GATE — before ANY "done / safe to stop / safe to /clear / committed / backed up" statement (RULES §12 audit point 5).** Run `git log -1 --oneline` + `git status --short` and report the ACTUAL state. NEVER claim committed/backed-up unless HEAD shows this session's work AND — for a backup claim — the `git bundle --all` file actually exists on E:/F:. If verified work is uncommitted, the sign-off is a **WARNING, not reassurance**: "⚠ This work is NOT committed or backed up — it lives only as uncommitted edits on disk; say 'save' to snapshot it." **Do NOT defer a commit to a future session** — "post-/clear: commit" is UNSAFE: the next session resumes on "continue", which is not a commit trigger (§6.6 / RULES §4), so the deferred commit never fires and the user believes they are saved when they are not. A "save" is complete only once the commit landed (verify HEAD) AND, if backing up, the bundle is written to the external drive (verify the file exists).
 
 ---
@@ -106,7 +108,7 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 ## 7. CURRENT OPEN WORK (see `dev/PLAN_2026-05-29-roadmap.md` for the full forward sequence)
 
 - **No deadline — quality / completeness over speed** (RULES §2; memory `project_deadline`).
-- **Near-term spine:** mint cleanup Phase 2 (this) → 3 archive sweep → 4 decommercialize (CHECKPOINT first) → 5 enforce gates (remote + CI) → 6 polish; **Phase D1b** (PO Esther own-vers vision lane, paused at p28) resumes in parallel after Phase 2.
+- **Critical path:** the **mint-cleanup arc (Phases 0–6) and the deep-audit arc are COMPLETE.** Current = **Phase D1b** (PO Esther own-vers vision lane, paused ~p35) → finish Esther → other Patrologia books (1ch/2ch/ezr/neh/job) → (TIER-3, last) the two standalone Geʽez/Amharic Bibles; plus the LANE T correctness/depth backlog (★bookcode-canonicalization tail · >50-ch at-scale backfill · security · Phase-E · code-debt). See `dev/PLAN_2026-05-29-roadmap.md`.
 - **Critical data lanes (own-vers §4 — parallel; neither blocks the standalone render):** the Kings/Samuel manuscript marathon + the Phase-D own-versification re-ingest. Method RATIFIED = the **AGENT** vision path (paid script-API out of scope; the old `run_manuscript_*_at_scale.py` script-path is retired), MAX 1 heavy agent, ≤1568px crops, per-unit commits.
 - **Backlog (corpus-correctness first):** the ★BUGCLUSTER book-code canonicalization + the >50-chapter at-scale backfill; then security / coverage / no-KJV-popups / Phase-E / code-debt per the roadmap's LANE T. Verify current state before re-scoping (several may be partly done since the old plan).
 
