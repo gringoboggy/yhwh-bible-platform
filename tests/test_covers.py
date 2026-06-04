@@ -1,8 +1,9 @@
 """Per-edition cover application — build_edition must swap the base master
 cover (epub_working/cover.jpeg) for the edition's declared cover_image so each
-built EPUB ships its own curated cover. Fixes visual-QA finding (b): 9/11
-editions declare a distinct cover that the build previously ignored. The 2
-standalone bibles (empty cover_image) + any unset edition keep the master."""
+built EPUB ships its own curated cover. Fixes visual-QA finding (b): the
+editions declare distinct covers the build previously ignored. As of σ.5 all
+11 editions declare a cover (9 curated + the 2 standalone Bibles' Ethiopic-
+script covers); any edition that declares none keeps the master."""
 
 from __future__ import annotations
 

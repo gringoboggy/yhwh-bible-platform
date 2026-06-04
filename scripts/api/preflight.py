@@ -101,11 +101,10 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
     #
     # τ.G.constitution.a (2026-05-20): standalone Bibles
     # (standalone-geez / standalone-amharic) are EXCLUDED from this
-    # check. Per CLAUDE_PROJECT_RULES §1 "Parallel-Bible end-state",
-    # standalone-Bible covers ship in a later τ.G.* phase (separate
-    # from the multi-tradition edition cover generator that closed
-    # at ω.38 C6). Carrying empty cover_image is the intended
-    # transitional state, not a preflight defect.
+    # check. As of σ.5 (2026-06-04) they DO carry composed Ethiopic-script
+    # covers, so the exclusion is now belt-and-suspenders (they'd pass) —
+    # retained because their cover lives via the build_standalone path, not
+    # the multi-tradition edition cover generator this check guards.
     standalone_ids = {e["id"] for e in editions if e.get("standalone")}
     covers = api_covers()
     no_main, broken_main = [], []

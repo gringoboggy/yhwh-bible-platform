@@ -3033,8 +3033,8 @@ def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
     Returns the applied ``cover_image`` path, or ``None`` when the edition
     declares no cover / the file is missing / there's no master cover to
     replace — in which case the master cover is kept. This is the §7.2
-    back-compat case (the 2 standalone bibles set ``cover_image: ""``, and any
-    edition without a cover stays byte-identical). Resolution + the content/
+    back-compat case (σ.5 gave the 2 standalone bibles composed covers; any
+    edition that declares no cover stays byte-identical). Resolution + the content/
     sandbox are reused from ``covers.resolve_cover_path`` (compose, don't
     recompute). Mirrors the theme-override step in ``build_one``."""
     from scripts.core.covers import resolve_cover_path
@@ -3343,9 +3343,10 @@ def build_one(
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
-        # declared cover_image when it resolves to a real file. 9/11 editions
-        # declare a curated cover; the 2 standalone bibles + any unset edition
-        # keep the master (§7.2 back-compat). The OPF already marks cover.jpeg
+        # declared cover_image when it resolves to a real file. All 11 editions
+        # now declare a cover (9 curated + the 2 standalone Bibles' Ethiopic-
+        # script covers, σ.5); any edition that declares none keeps the master
+        # (§7.2 back-compat). The OPF already marks cover.jpeg
         # as the cover-image; this replaces the BYTES it points at.
         cover_applied = apply_edition_cover(edition, tmp)
         if cover_applied:

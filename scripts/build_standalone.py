@@ -272,7 +272,10 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         _rewrite_nav(tmp, toc_entries)
         _rewrite_ncx(tmp, toc_entries)
 
-        # 6. cover: standalone-geez sets cover_image="" → keep the master (no-op)
+        # 6. cover: σ.5 (2026-06-04) gave both standalone Bibles a composed
+        #    Ethiopic-script cover (cover_image now points at content/covers/
+        #    standalone-{geez,amharic}.jpg), so apply_edition_cover copies it
+        #    into the EPUB as cover.jpeg (it no-ops only if cover_image is empty).
         be.apply_edition_cover(edition, tmp)
 
         # 7. package
