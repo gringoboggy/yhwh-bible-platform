@@ -1,56 +1,123 @@
 <!--page
-title: Releases — YHWH Ya’ Way
-desc: Download the latest build of YHWH Ya’ Way and read the release notes. Free, for Windows, macOS, and Linux. Every release is published with a SHA-256 checksum.
+title: Download & Releases — YHWH Ya’ Way
+desc: Get YHWH Ya’ Way — the first public beta of the free study-Bible builder for Windows, macOS, and Linux. Every release is posted here with a SHA-256 checksum. Runs entirely on your own computer; no account, no server, no cost.
 canonical: https://www.yhwhyaway.com/releases.html
 page: releases
 -->
 
-    <section class="band" aria-labelledby="rel-h">
-      <h2 id="rel-h" class="rule">Releases</h2>
-      <p class="prose">This is the first <strong>Public Beta</strong> — free, complete, and improving. New
-        builds are posted here as they’re ready; each one lists its version, date, and notes, and ships with a
-        <strong>SHA-256 checksum</strong> so you can verify your download.</p>
+    <!-- ───────────────────────── HERO ───────────────────────── -->
+    <section class="hero beta-hero" aria-labelledby="rel-title">
+      <img class="beta-medallion" src="icons/icon_256.png" width="160" height="160"
+           alt="YHWH Ya’ Way program icon" loading="eager">
+      <h1 id="rel-title">Download &amp; Releases</h1>
+      <p class="tagline">The first public build is almost here — early, free, and nearly ready to try.</p>
+      <p class="mission">This will be the very first release of YHWH Ya’ Way to the world: an early build,
+        complete enough to make real editions, with a few rough edges to expect — your feedback wanted. It is
+        free, runs entirely on your own computer, and keeps nothing — no account, no server, no tracking.
+        Downloads post here the moment the first build is ready.</p>
+    </section>
 
-      <!-- Latest-release card. The version/date below are the build-time fallback (always correct as of the
-           last deploy, and visible with JavaScript off). The small script at the bottom upgrades it live
-           from the serverless feed (latest.php), which reads the newest release server-side. -->
+    <!-- ──────────────── WHAT "BETA" MEANS ────────────────────── -->
+    <section class="band">
+      <p class="callout"><strong>What “beta” means here — and a word on warnings.</strong> This is an early
+        release, shared openly. Because it isn’t yet code-signed on every system, your computer may show you a
+        caution the first time you open it. That’s normal for small free software; below is exactly why it
+        happens and how to make sure your copy is genuine. You never have to turn off any protection to run it.</p>
+    </section>
+
+    <!-- ──────────────── GET THE BUILD (latest + downloads) ───── -->
+    <section class="band band-alt" aria-labelledby="get-build">
+      <h2 id="get-build" class="rule">Get the build</h2>
+
+      <!-- Latest-release card. The name/meta below are the build-time fallback (correct as of the last deploy,
+           visible with JS off). releases.js upgrades it live from latest.php once a build is posted; every
+           build is listed here, newest first. -->
       <div class="card card-static latest-release" id="latest-release">
         <div class="card-body">
           <p class="badge-beta">Latest</p>
-          <h3 id="latest-name">The first public beta is on its way</h3>
+          <h3 id="latest-name">v1.0.0-beta.1 — almost here</h3>
           <p class="meta" id="latest-meta">Downloads activate the moment the first build is posted.</p>
-          <p class="prose" id="latest-links">
-            <a class="btn-ghost" href="beta.html">See the beta page →</a>
-          </p>
+          <p class="prose" id="latest-links"></p>
         </div>
       </div>
+
+      <p class="prose">The first build is <strong>v1.0.0-beta.1</strong>, for Windows, macOS, and Linux.
+        Choose your system once downloads go live:</p>
+      <!-- TODO at launch: replace each <span class="btn-platform is-pending">…</span> with a real
+           <a class="btn-platform" href="https://github.com/<repo>/releases/latest" download>…</a> pointing at
+           the actual artifact, and delete the is-pending class. -->
+      <p class="platforms">
+        <span class="btn-platform is-pending">Windows installer (.exe)</span>
+        <span class="btn-platform is-pending">macOS (.dmg)</span>
+        <span class="btn-platform is-pending">Linux (x86_64 .AppImage)</span>
+      </p>
+      <p class="platform-note">Downloads go live the moment the first build is posted, and every build is
+        listed here, newest first. On Windows it is a normal installer — run it and follow the prompts. On
+        macOS, open the <code>.dmg</code> and drag <strong>YHWH</strong> into your Applications folder. On
+        Linux, make the AppImage executable and run it — no installation needed (the Linux build is x86_64; on
+        ARM, run from source).</p>
     </section>
 
-    <section class="band band-alt" aria-labelledby="verify-h">
-      <h2 id="verify-h" class="rule">Verify your download (SHA-256)</h2>
-      <p class="prose">Each release includes a <code>SHA256SUMS.txt</code>. Comparing the checksum confirms the
-        file arrived complete and unaltered — it matches what was posted here.</p>
+    <!-- ─────────────────── WARNINGS / TRUST ──────────────────── -->
+    <section class="band" aria-labelledby="warnings">
+      <h2 id="warnings" class="rule">If your computer shows a warning</h2>
+      <p class="prose">YHWH Ya’ Way is safe, but it is made by one person and not yet signed with a paid
+        certificate on every platform. Code-signing certificates are costly, and this is a free, non-commercial
+        project — so for now you may meet a first-run caution. Here is how to proceed honestly and safely.</p>
+
+      <h3 class="sub-h">Windows (SmartScreen)</h3>
+      <ol class="steps">
+        <li>Run the installer. If a blue “Windows protected your PC” screen appears, it is SmartScreen being
+          cautious about software it hasn’t seen many times yet — not a virus alert.</li>
+        <li>Click <strong>More info</strong>.</li>
+        <li>Click <strong>Run anyway</strong>, then follow the installer.</li>
+      </ol>
+
+      <h3 class="sub-h">macOS</h3>
+      <p class="prose">The macOS build is <strong>notarized by Apple</strong>, so it should open normally — just
+        drag it to Applications and launch it. If a future build ever isn’t notarized and macOS blocks it, go to
+        <strong>System&nbsp;Settings → Privacy &amp; Security</strong>, scroll down, and click
+        <strong>Open&nbsp;Anyway</strong> (that button appears only after you’ve tried to open the app once).</p>
+
+      <p class="callout"><strong>Never disable your antivirus or your system’s protections.</strong> You don’t
+        need to, and this project will never ask you to. The steps above just tell your computer to trust this
+        one program — nothing else changes.</p>
+    </section>
+
+    <!-- ─────────────────── VERIFY ─────────────────────────────── -->
+    <section class="band band-alt" aria-labelledby="verify">
+      <h2 id="verify" class="rule">Verify your download</h2>
+      <p class="prose">Every release is published with a <strong>SHA-256 checksum</strong> for each file, in a
+        <code>SHA256SUMS.txt</code> posted alongside the downloads. Comparing the checksum confirms your copy
+        downloaded completely and wasn’t altered in transit — it matches the file posted here. (It proves
+        integrity, not authorship; that is what code-signing adds.)</p>
+      <h3 class="sub-h">How to check</h3>
       <ul class="custom-list">
-        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile &lt;file&gt; SHA256</code></li>
-        <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 &lt;file&gt;</code></li>
+        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile YHWH-Setup-1.0.0-beta.1.exe SHA256</code></li>
+        <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 YHWH-1.0.0-beta.1.dmg</code></li>
         <li><strong>Linux:</strong> <code class="verify-cmd">sha256sum -c SHA256SUMS.txt</code></li>
       </ul>
+      <p class="platform-note">The published <code>SHA256SUMS.txt</code> for v1.0.0-beta.1 will appear here when
+        the build is posted.</p>
     </section>
 
-    <section class="band" aria-labelledby="warn-h">
-      <h2 id="warn-h" class="rule">About the security warnings</h2>
-      <p class="prose">Builds are made by one person. The macOS build is notarized and should open cleanly; on
-        Windows you may see SmartScreen the first time — click <strong>More info → Run anyway</strong>. The
-        <a href="beta.html#warnings">beta page</a> explains this in full. <strong>You never need to disable
-        antivirus or system protections</strong>, and this project will never ask you to.</p>
+    <!-- ─────────────────── RUN FROM SOURCE ───────────────────── -->
+    <section class="band" aria-labelledby="from-source">
+      <h2 id="from-source" class="rule">Prefer to run from source?</h2>
+      <p class="prose">The code is <strong>source-available</strong> — you may read it and run it yourself. With
+        <strong>Python&nbsp;3.14+</strong> installed, clone the repository and launch the program directly, with
+        no installer at all. The exact clone command and run instructions live with the source.</p>
+      <p class="platform-note">Source-available means the code is open to read and run; it is not released under
+        an open-source license (it remains © 2026 Bogdan Zorlescu, all rights reserved).</p>
     </section>
 
-    <section class="band band-alt" aria-labelledby="history-h">
-      <h2 id="history-h" class="rule">Release history</h2>
-      <p class="helper">Newest first. Each entry links to its full notes.</p>
-      <!-- TODO at launch: add an <article class="card card-static"> per release, newest first, each linking
-           to its release-notes URL. The first entry will be v1.0.0-beta.1. -->
-      <p class="prose">No releases yet — the first public beta will appear here.</p>
+    <!-- ─────────────────── FEEDBACK ──────────────────────────── -->
+    <section class="band band-alt" aria-labelledby="rel-feedback">
+      <h2 id="rel-feedback" class="rule">Tell me how it went</h2>
+      <p class="prose">Found a bug? Something confusing? A passage or attribution that looks wrong? I want to
+        hear it — that is what a beta is for. Leave a note on the
+        <a href="feedback.html">feedback page</a>, or simply email
+        <a href="mailto:gringo.boggy@yhwhyaway.com">gringo.boggy@yhwhyaway.com</a>.</p>
     </section>
 
     <script src="releases.js" defer></script>
