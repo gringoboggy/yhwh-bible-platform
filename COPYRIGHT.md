@@ -19,7 +19,7 @@ and other uses permitted by applicable copyright law):
 
 | Component | Description | Year | Status |
 |---|---|---|---|
-| Editorial notes | 67,713 attributed annotations across 15 categories / 71 kinds | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Editorial notes | 91,733 attributed annotations across 15 categories / 71 kinds | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Cross-canon parallels | Selection, framing, theological synthesis | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Apparatus structure | 71-kind taxonomy, edition-filtering rules | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Per-edition selection | Which sub-kinds appear in each edition build | 2026 | © Bogdan Zorlescu — all rights reserved |
@@ -29,7 +29,8 @@ and other uses permitted by applicable copyright law):
 
 Even where a note distills public-domain commentary, the selection,
 arrangement, and expression are original editorial work and carry
-copyright. For permission requests, contact the copyright holder.
+copyright. For permission requests, contact the copyright holder at
+gringo.boggy@yhwhyaway.com.
 
 ---
 
@@ -143,4 +144,4 @@ Each edition's front matter should display:
 
 If you believe this work incorporates copyrighted material that is not in
 the public domain, or wish to request permission to reuse the original
-copyrighted work, contact the copyright holder.
+copyrighted work, contact the copyright holder at gringo.boggy@yhwhyaway.com.
