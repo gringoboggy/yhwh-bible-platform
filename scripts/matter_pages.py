@@ -120,28 +120,26 @@ def _drop_placeholder_introduction(tmp: Path) -> None:
         intro_file.unlink()
 
 
-def inject_copyright_page(
-    tmp: Path, edition: dict, version: str, *, annotation_count_override: int | None = None
-) -> None:
+def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
     """Write copyright.xhtml, register it in content.opf (manifest + spine after
-    titlepage) and nav.xhtml. Identity from _resolve_publishing; counts from
-    scripts.core.matrix (real, per-edition).
+    titlepage) and nav.xhtml. Identity from _resolve_publishing.
 
-    ``annotation_count_override`` (mint-9 #8): the matrix total counts kind+canon
-    enabled notes but NOT the tradition/time ref-id filters, so for an edition
-    that actually strips notes via ``traditions_default``/``time_filter_ceiling``
-    the printed count would overstate what ships. build_one passes the corrected
-    count here; ``None`` (every standard / 9 KJV edition) keeps the matrix total
-    and the byte-identical code path.
+    σ.6.2 — the printed "N annotations across M categories" comes from
+    ``edition_stats.resolved_note_counts`` (the build-accurate counter), so the
+    copyright page == the symbol legend == the "Your Edition" page == the real
+    EPUB. This subsumes the retired mint-9 #8 ``annotation_count_override``
+    (which only corrected the tradition/time ref-id filters) AND adds the rest of
+    the ρ.3 hierarchy (per-book/chapter/note overrides) + the base-HTML coverage
+    gate — strictly more accurate. ``category_count`` counts the categories that
+    actually ship at least one note, matching ``_legend_categories_for_edition``
+    exactly.
     """
-    from scripts.core import matrix as _matrix
+    from scripts.core import edition_stats
 
     publishing = _resolve_publishing(edition)
-    edition_id = edition["id"]
-    annotation_count = (
-        annotation_count_override if annotation_count_override is not None else _matrix.total_for_edition(edition_id)
-    )
-    category_count = sum(1 for n in _matrix.breakdown_by_category(edition_id).values() if n > 0)
+    stats = edition_stats.resolved_note_counts(edition)
+    annotation_count = stats["total"]
+    category_count = len([n for n in stats["per_category"].values() if n > 0])
 
     # 1) Write the page
     html_text = render_copyright_page(

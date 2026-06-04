@@ -31,8 +31,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from scripts import build_edition as be  # noqa: E402
-from scripts.core import build_cache, config, matrix, popup_versions  # noqa: E402
+from scripts.core import build_cache, config, popup_versions  # noqa: E402
 from scripts.matter_pages import build_merged_topic_index  # noqa: E402
 
 
@@ -144,51 +143,18 @@ def test_referenced_translations_resolves_default_witnesses_to_existing_dirs():
 # --------------------------------------------------------------------------
 # Phase 6 — annotation-count canon + enabled-kind scope
 # --------------------------------------------------------------------------
-
-
-def _catholic_with_ceiling(ceiling):
-    ed = dict(next(e for e in config.load_editions() if e["id"] == "catholic-study"))
-    ed["time_filter_ceiling"] = ceiling
-    return ed
-
-
-def test_annotation_override_no_disabled_is_byte_identical_noop():
-    """Every committed edition currently has an EMPTY disabled set, so the
-    override path is not taken (stays None) → byte-identical matter pages."""
-    for ed in config.load_editions():
-        dids = be.compute_tradition_disabled_html_ref_ids(ed) | be.compute_time_filtered_html_ref_ids(ed)
-        assert not dids, f"{ed['id']} unexpectedly has a non-empty disabled set: {len(dids)}"
-
-
-def test_in_scope_disabled_scopes_to_canon_and_enabled_kind():
-    """With a time ceiling that disables most of the corpus, the raw subtraction
-    goes negative; the canon+enabled-kind scoped count keeps the override
-    non-negative and sensible."""
-    ed = _catholic_with_ceiling(1700)
-    canon_books = set(be.load_canons().get(ed["canon"], {}).get("books", []))
-    enabled, _disabled = be.compute_enabled_kinds(ed, config.load_kinds())
-    disabled_ids = be.compute_tradition_disabled_html_ref_ids(ed) | be.compute_time_filtered_html_ref_ids(ed)
-    assert disabled_ids, "synthetic 1700 ceiling should disable a large slice of the corpus"
-
-    total = matrix.total_for_edition("catholic-study")
-    raw = len(disabled_ids)
-    in_scope = be._count_in_scope_disabled_ref_ids(disabled_ids, canon_books, enabled)
-
-    # The old raw subtraction was provably broken (negative count).
-    assert total - raw < 0, "expected the raw subtraction to go negative on this scenario"
-    # The fix: scoped count is a strict subset → override stays in [0, total].
-    assert in_scope < raw, "scoping must drop out-of-canon and kind-disabled ref-ids"
-    override = total - in_scope
-    assert 0 <= override <= total, override
-    assert override > 0, "some pre-1700 (patristic/ancient) notes should still ship"
-
-
-def test_in_scope_disabled_empty_set_is_zero():
-    enabled, _ = be.compute_enabled_kinds(
-        next(e for e in config.load_editions() if e["id"] == "catholic-study"),
-        config.load_kinds(),
-    )
-    assert be._count_in_scope_disabled_ref_ids(set(), None, enabled) == 0
+#
+# RETIRED (σ.6.2, 2026-06-04): the printed annotation count no longer uses the
+# mint-9 #8 / mint-11 P6 ``annotation_count_override`` (matrix total minus the
+# in-scope disabled ref-ids). The copyright page now reads
+# ``edition_stats.resolved_note_counts`` directly — which honors the FULL ρ.3
+# hierarchy (per-book/chapter/note overrides) AND the base-HTML coverage gate,
+# strictly subsuming the old correction. The override param +
+# ``build_edition._count_in_scope_disabled_ref_ids`` were deleted, so the three
+# Phase-6 tests that pinned them were removed with this change. The build-accurate
+# count is now pinned by ``tests/test_edition_stats.py`` (resolved_note_counts +
+# the slow built-EPUB cross-check) and ``tests/test_mint9_phase3.py`` (copyright
+# count == resolved total == legend category count).
 
 
 if __name__ == "__main__":

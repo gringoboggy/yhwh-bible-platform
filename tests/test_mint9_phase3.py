@@ -12,10 +12,11 @@
     config.category_baseline_kinds (phase + AI gated).
 
 #8  the copyright/about matter pages printed the matrix note total, which omits
-    the tradition/time ref-id filters. inject_copyright_page/inject_about_page
-    now accept annotation_count_override; build_one passes the corrected count
-    only when the edition actually filters (override stays None otherwise →
-    byte-identical matter pages for the 9 KJV editions).
+    the tradition/time ref-id filters. SUPERSEDED by σ.6.2 (2026-06-04): the
+    copyright page now reads edition_stats.resolved_note_counts directly, which
+    honors the full ρ.3 hierarchy + the base-HTML coverage gate — strictly more
+    accurate than the retired annotation_count_override. These tests now pin
+    "copyright count == resolved total == legend category count".
 """
 
 from __future__ import annotations
@@ -123,30 +124,85 @@ def test_category_baseline_unknown_phase_raises() -> None:
 
 
 # ---------------------------------------------------------------------------
-# #8 — annotation_count_override plumbing (None = byte-identical path)
+# #8 — copyright counts via the build-accurate counter (σ.6.2)
 # ---------------------------------------------------------------------------
+#
+# RETIRED (σ.6.2, 2026-06-04): the mint-9 #8 ``annotation_count_override`` param
+# (and build_one's _annot_override / _count_in_scope_disabled_ref_ids block) are
+# gone. inject_copyright_page now reads edition_stats.resolved_note_counts
+# directly — which honors the FULL ρ.3 hierarchy (per-book/chapter/note
+# overrides) AND the base-HTML coverage gate, strictly subsuming the old
+# tradition/time-only correction. The tests below pin the new contract: the
+# printed copyright count == resolved total, and the printed category count ==
+# the symbol legend's category count (== Your-Edition total).
 
 
-def test_inject_copyright_page_accepts_override(tmp_path) -> None:
-    """The override param exists and, when None, the matter page is identical to
-    the no-override call (the 9 KJV editions' byte-stable path)."""
-    import inspect
+def _copyright_counts(tmp_path, edition) -> tuple[int, int]:
+    """Run inject_copyright_page into an empty temp dir (the OPF/nav patches
+    no-op without those files) and parse back the rendered annotation count +
+    category count from copyright.xhtml."""
+    import re
 
-    sig = inspect.signature(matter_pages.inject_copyright_page)
-    assert "annotation_count_override" in sig.parameters
-    assert sig.parameters["annotation_count_override"].default is None
-
-
-# NOTE (σ.3.2, 2026-06-04): the old About page was retired — its per-edition
-# summary now lives on the "Your Edition" page, whose counts come from the
-# build-accurate edition_stats.resolved_note_counts (corrected by construction,
-# so it needs no annotation_count_override). The former
-# test_inject_about_page_accepts_override was removed with inject_about_page.
+    matter_pages.inject_copyright_page(tmp_path, edition, "v28a")
+    text = (tmp_path / "copyright.xhtml").read_text(encoding="utf-8")
+    m = re.search(r"carries <strong>([\d,]+)</strong> annotations across <strong>(\d+) categories", text)
+    assert m, f"could not parse copyright counts from:\n{text}"
+    return int(m.group(1).replace(",", "")), int(m.group(2))
 
 
-def test_render_copyright_uses_override_count() -> None:
-    """render_copyright_page renders whatever annotation_count it's given — prove
-    the override value reaches the rendered HTML (the corrected, lower count)."""
+def test_copyright_count_equals_resolved_total(tmp_path) -> None:
+    """The printed annotation count == edition_stats.resolved_note_counts total
+    (build-accurate; == the real EPUB)."""
+    from scripts.core import edition_stats
+
+    ed = config.editions_by_id()["catholic-study"]
+    expected_total = edition_stats.resolved_note_counts(ed)["total"]
+    ann, _cat = _copyright_counts(tmp_path, ed)
+    assert ann == expected_total
+
+
+def test_copyright_category_count_matches_legend(tmp_path) -> None:
+    """The printed category count == the symbol legend's category count (both
+    derive from resolved_note_counts per_category, count>0) — even for an
+    override edition that zeroes a category."""
+    import shutil
+
+    from scripts.core import config as cfg
+    from scripts.core import edition_stats
+    from scripts.matter_pages import _legend_categories_for_edition
+
+    yml = REPO_ROOT / "content" / "editions.yaml"
+    backup = tmp_path / "ed.bak"
+    shutil.copy(yml, backup)
+
+    def _clear():
+        cfg.load_editions.cache_clear()
+        from scripts.core import matrix as m
+
+        m.compute_matrix.cache_clear()
+        edition_stats.resolved_note_counts.cache_clear()
+
+    try:
+        _clear()
+        import scripts.web as web
+
+        # Drop a whole category edition-wide so legend + copyright must agree on
+        # the reduced category count, not just the unfiltered default.
+        web.api_save_edition_meta("catholic-study", {"disabled_kinds": ["xref"]})
+        _clear()
+
+        ed = cfg.editions_by_id()["catholic-study"]
+        _ann, cat = _copyright_counts(tmp_path, ed)
+        legend_cats = len(_legend_categories_for_edition("catholic-study"))
+        assert cat == legend_cats, f"copyright {cat} categories != legend {legend_cats}"
+    finally:
+        shutil.copy(backup, yml)
+        _clear()
+
+
+def test_render_copyright_renders_given_count() -> None:
+    """render_copyright_page renders whatever annotation_count it's given — the
+    inject_* layer is what now sources it from resolved_note_counts."""
     eds = config.editions_by_id()
     ed = eds.get("catholic-study") or next(iter(eds.values()))
     pub = matter_pages._resolve_publishing(ed)

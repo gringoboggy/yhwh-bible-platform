@@ -608,69 +608,6 @@ def compute_time_filtered_html_ref_ids(edition: dict) -> set[str]:
     return out
 
 
-def _count_in_scope_disabled_ref_ids(
-    disabled_html_ref_ids: set[str],
-    canon_books: set[str] | None,
-    enabled_kinds: set[str],
-) -> int:
-    """Count the disabled ref-ids that ``matrix.total_for_edition`` ALSO counted.
-
-    mint-11 P6. ``disabled_html_ref_ids`` (the union of the explicit-, tradition-,
-    and time-filter sets) spans the whole 87-book corpus and ignores kind, but
-    ``total_for_edition`` is the count of notes that are both (a) in the edition's
-    canon and (b) of an *enabled* kind. So subtracting the raw ``len`` from the
-    total over-counts on BOTH axes and can drive the printed annotation count
-    negative. Only the disabled notes that were IN the total may be subtracted
-    from it — i.e. those in canon AND of an enabled kind.
-
-    Empirical proof (probe, 2026-06-02 — catholic-study with a 1700 time ceiling,
-    which has a restricted canon AND a disabled kind):
-    ``total 41,881``; raw subtraction → ``−49,027``; canon-only scope →
-    ``−47,362`` (still negative — canon-only is insufficient); canon+kind scope →
-    ``825`` (correct). The kind-overlap term alone was 48,187 notes.
-
-    By construction the returned count is ``≤ total_for_edition`` (it counts a
-    subset of the same canon∩enabled-kind notes), so the override never floors —
-    a negative would signal a real counting drift, not be silently masked.
-
-    Mirrors the walk shape of ``_iter_note_ref_attribution_years`` /
-    ``_iter_note_ref_traditions`` (same skip rules, same ref-id format); the three
-    near-identical walks are a consolidation candidate (LANE T code-debt).
-    """
-    if not disabled_html_ref_ids:
-        return 0
-    from scripts.core.notes_io import load_notes
-
-    books_idx = config.books_by_code()
-    notes_dir = REPO_ROOT / "content" / "notes"
-    n = 0
-    for book_path in sorted(notes_dir.glob("*.py")):
-        if book_path.stem == "__init__" or book_path.stem.startswith("_"):
-            continue
-        book_code = book_path.stem
-        if canon_books is not None and book_code not in canon_books:
-            continue
-        book = books_idx.get(book_code) or {}
-        # Strategy-B bxx fallback — mirror _iter_note_ref_traditions (mint-9 #2).
-        prefix = book.get("id_prefix") or book.get("bxx")
-        if not prefix:
-            continue
-        for tup in load_notes(book_path) or []:
-            if not isinstance(tup, tuple) or len(tup) < 8:
-                continue
-            if tup[4] not in enabled_kinds:  # tup[4] = kind (matrix.py:316)
-                continue
-            try:
-                ch_i = int(tup[0])
-                vs_i = int(tup[1])
-            except (TypeError, ValueError):
-                continue
-            ref_id = f"ref-{prefix}{ch_i:02d}{vs_i:02d}{tup[2] or ''}"
-            if ref_id in disabled_html_ref_ids:
-                n += 1
-    return n
-
-
 def build_ref_id_to_tradition_map(edition: dict) -> dict[str, str]:
     """Phase ψ.8.2-B (+ ψ.8.4) — ``{ref_id: tradition}`` for every note
     that survived the per-book tradition filter.
@@ -3166,8 +3103,8 @@ def build_one(
     # which notes ship are assembled by ``compute_edition_filter_sets`` (the
     # single source of truth shared with ``edition_stats.resolved_note_counts``
     # so the printed counts match the built EPUB by construction). ``enabled`` /
-    # ``disabled`` are kept above because the stats sidecar + the matter-page
-    # in-scope subtraction below still consume them.
+    # ``disabled`` are kept above because the stats sidecar below still consumes
+    # them (the σ.6.2 matter-page counts now come from resolved_note_counts).
     disabled_kinds_for_filter, disabled_html_ref_ids = compute_edition_filter_sets(edition)
 
     # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
@@ -3508,27 +3445,14 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
-        # Inject per-edition copyright/credits page.
-        # mint-9 #8: the matter pages print a note count from the matrix, which
-        # applies the kind+canon filter but NOT the tradition/time ref-id
-        # filters. When this edition actually strips notes via those filters,
-        # pass the corrected count so the printed total matches what ships.
-        # disabled_html_ref_ids is empty for every standard / 9 KJV edition →
-        # override stays None → byte-identical matter pages (back-compat).
-        # mint-11 P6: subtract only the disabled notes the matrix total ACTUALLY
-        # counted (in canon AND of an enabled kind). The tradition/time walks span
-        # all 87 books and ignore kind, so the old raw `len(...)` over-subtracted
-        # on both axes and could print a NEGATIVE count for a filtered edition
-        # (probe: catholic-study + a 1700 ceiling → raw −49,027, canon-only
-        # −47,362, canon+kind +825). No max(0,…) floor — the scoped count is
-        # ≤ total by construction, so a negative would be a real bug, not masked.
-        _annot_override: int | None = None
-        if disabled_html_ref_ids:
-            from scripts.core import matrix as _matrix
-
-            _in_scope_disabled = _count_in_scope_disabled_ref_ids(disabled_html_ref_ids, canon_books, enabled)
-            _annot_override = _matrix.total_for_edition(edition_id) - _in_scope_disabled
-        inject_copyright_page(tmp, edition, version, annotation_count_override=_annot_override)
+        # Inject per-edition copyright/credits page. σ.6.2 — its printed
+        # annotation/category counts come from edition_stats.resolved_note_counts
+        # (the build-accurate counter), so they equal the symbol legend, the
+        # "Your Edition" page, and the real EPUB. This retired the mint-9 #8
+        # annotation_count_override (which corrected only the tradition/time
+        # ref-id filters): resolved_note_counts subsumes it AND adds the rest of
+        # the ρ.3 hierarchy + the base-coverage gate — strictly more accurate.
+        inject_copyright_page(tmp, edition, version)
         inject_dedication_page(tmp, edition, version)
         # σ.3.2 — the "Your Edition" page is the FIRST content page after the
         # cover. It anchors its spine/nav insert at the titlepage and runs AFTER
