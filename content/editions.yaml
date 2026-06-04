@@ -492,17 +492,17 @@ editions:
   #     distinct from the multi-tradition notes editions; lets the
   #     build pipeline + consoles + matrix branch on standalone flow.
   #
-  # cover_image deliberately empty -- standalone-bible covers ship in a
-  # separate τ.G.* phase (ω.38 covers-main pin only enforces the 9
-  # existing editions' main covers; empty string is skipped per
-  # test_editions_yaml_points_at_existing_cover_files's `if not cover:
-  # continue` branch).
+  # cover: σ.5 (2026-06-04) gave the 2 standalone Bibles default composed
+  # covers with Ethiopic-script main titles (cover_template + cover_main_title
+  # below; rendered via generate_edition_covers' Ethiopic-aware font picker).
+  # Builder-overridable like every edition's cover.
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-geez
     language_code: gez
     canon: ethiopian
     theme: classic
     title: "The Ge'ez Bible — Standalone Tewahedo Edition"
+    display_name: "Ge'ez Tewahedo Bible"
     short_title: "Ge'ez Bible"
     target_audience: "Builders rendering a Ge'ez-language standalone EOTC Bible with a faithful English back-translation as a reading aid; Tewahedo scholars; Ge'ez learners"
     standalone: true
@@ -523,7 +523,12 @@ editions:
       - comm-reformation
       - comm-contextual
     max_phase: mvp
-    cover_image: ""
+    # σ.5 — default cover. cover_main_title is the Ge'ez "Holy Bible" (with the
+    # traditional ፡ word-divider); rendered through generate_edition_covers'
+    # Ethiopic-aware font picker (σ.5.1). Builder-overridable like every edition.
+    cover_template: "05_missal_central_red"
+    cover_main_title: "መጽሐፍ ፡ ቅዱስ"
+    cover_image: "covers/standalone-geez.jpg"
     notes: "Standalone Ge'ez Bible (full 87-book Tewahedo canon). Body text from content/translations/geez-tewahedo/; verse popups carry the faithful English back-translation from content/translations/geez-tewahedo-en/ (Track F, gen shipped τ.F.gen1.a). NOT a popup-language slot in any other edition (per CLAUDE_PROJECT_RULES §1) — this is scripture in its own right. The build-pipeline wiring (read base_translation as body + popup_translation as popups) is deferred to τ.G.x.*; this ship only constitutes the edition record."
     popup_languages_default: []
     popup_translation: geez-tewahedo-en
@@ -545,6 +550,7 @@ editions:
     canon: ethiopian
     theme: classic
     title: "The Amharic Bible — Standalone Tewahedo Edition"
+    display_name: "Amharic Tewahedo Bible"
     short_title: "Amharic Bible"
     target_audience: "Builders rendering an Amharic-language standalone EOTC Bible with a faithful English back-translation as a reading aid; Amharic-speaking readers; diaspora Tewahedo communities"
     standalone: true
@@ -565,7 +571,12 @@ editions:
       - comm-reformation
       - comm-contextual
     max_phase: mvp
-    cover_image: ""
+    # σ.5 — default cover. cover_main_title is the Amharic "Holy Bible"
+    # (መጽሐፍ ቅዱስ, space-separated as written in modern Amharic); rendered via the
+    # Ethiopic-aware font picker (σ.5.1). Builder-overridable like every edition.
+    cover_template: "01_ornate_leafy_brown"
+    cover_main_title: "መጽሐፍ ቅዱስ"
+    cover_image: "covers/standalone-amharic.jpg"
     notes: "Standalone Amharic Bible (full 87-book Tewahedo canon). Body text from content/translations/amharic-tewahedo/ (as-written-from-PDF per SCOPE_2026-05-16 §3); verse popups carry the faithful English back-translation from content/translations/amharic-tewahedo-en/ (Track F, gen shipped τ.F.gen1.a). NOT a popup-language slot in any other edition (per CLAUDE_PROJECT_RULES §1) — this is scripture in its own right. The build-pipeline wiring (read base_translation as body + popup_translation as popups) is deferred to τ.G.x.*; this ship only constitutes the edition record."
     popup_languages_default: []
     popup_translation: amharic-tewahedo-en
