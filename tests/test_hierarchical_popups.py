@@ -44,3 +44,44 @@ class TestPerVerseLangs:
     def test_roundtrip(self):
         d = {"gen:1:1": ["wlc", "lxx-greek"], "psa:119:1": ["wlc"]}
         assert be.decode_per_verse_languages(be.encode_per_verse_languages(d)) == d
+
+
+class TestResolvePopupLangs:
+    def _ed(self, **kw):
+        base = {"id": "t"}
+        base.update(kw)
+        return base
+
+    def test_no_override_two_arg_unchanged(self):
+        # Back-compat: the old 2-arg call must behave exactly as before.
+        ed = self._ed(popup_languages_default=["wlc", "lxx-greek"])
+        assert be._resolve_popup_languages(ed, "gen") == {"wlc", "lxx-greek"}
+
+    def test_no_per_scope_with_chapter_verse_equals_book(self):
+        ed = self._ed(popup_languages_per_book=["gen=wlc"])
+        # passing chapter/verse but no per-chapter/verse fields → same as per-book
+        assert be._resolve_popup_languages(ed, "gen", 1, 1) == be._resolve_popup_languages(ed, "gen")
+
+    def test_per_chapter_overrides_book(self):
+        ed = self._ed(
+            popup_languages_per_book=["gen=wlc,lxx-greek"],
+            popup_languages_per_chapter=["gen:1=wlc"],
+        )
+        assert be._resolve_popup_languages(ed, "gen", 1, 5) == {"wlc"}
+        assert be._resolve_popup_languages(ed, "gen", 2, 5) == {"wlc", "lxx-greek"}
+
+    def test_per_verse_overrides_chapter(self):
+        ed = self._ed(
+            popup_languages_per_chapter=["gen:1=wlc"],
+            popup_languages_per_verse=["gen:1:1=wlc,lxx-greek"],
+        )
+        assert be._resolve_popup_languages(ed, "gen", 1, 1) == {"wlc", "lxx-greek"}
+        assert be._resolve_popup_languages(ed, "gen", 1, 2) == {"wlc"}
+
+    def test_explicit_empty_verse_means_no_popups(self):
+        ed = self._ed(
+            popup_languages_per_book=["gen=wlc"],
+            popup_languages_per_verse=["gen:1:1="],
+        )
+        assert be._resolve_popup_languages(ed, "gen", 1, 1) == set()
+        assert be._resolve_popup_languages(ed, "gen", 1, 2) == {"wlc"}

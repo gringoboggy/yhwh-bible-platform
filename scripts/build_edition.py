@@ -1051,32 +1051,49 @@ POPUP_LANGUAGES.update(
 ALL_POPUP_LANGUAGES: tuple[str, ...] = tuple(POPUP_LANGUAGES.keys())
 
 
-def _resolve_popup_languages(edition: dict, book_code: str) -> set[str]:
-    """Resolve the active popup-language set for one (edition, book).
+def _resolve_popup_languages(edition: dict, book_code: str, chapter=None, verse=None) -> set[str]:
+    """Resolve the active popup-language set for one (edition, book[, chapter, verse]).
 
-    Order:
-      1. popup_languages_per_book[book_code]   if present
-      2. popup_languages_default               if present
-      3. all known languages                   (back-compat default)
+    Most-specific-wins (Phase ρ.3 / spec §3.4-popup):
+      1. popup_languages_per_verse["book:ch:vs"]   if present
+      2. popup_languages_per_chapter["book:ch"]    if present
+      3. popup_languages_per_book[book]            if present
+      4. popup_languages_default                   if present
+      5. DEFAULT_POPUP_WITNESSES                    (back-compat default)
 
-    Returns a set of language ids — only ids in POPUP_LANGUAGES are
-    retained; unknown ids are silently dropped (publisher typo or a
-    language we haven't registered yet).
+    Calling without chapter/verse (the legacy 2-arg form) skips tiers 1-2 and
+    behaves exactly as before — the invariant existing callers rely on. An
+    explicit empty list at any tier (``"gen:1:1="``) is a meaningful override
+    ("no popups on this verse"); ``is None`` checks preserve that vs absence.
+
+    Returns a set of language ids — only ids in POPUP_LANGUAGES are retained;
+    legacy ids (english/hebrew/greek) map to version ids via resolve_version_id.
     """
-    per_book = decode_per_book_languages(edition.get("popup_languages_per_book"))
-    raw: list[str] | None
-    if book_code in per_book:
-        raw = per_book[book_code]
-    elif edition.get("popup_languages_default") is not None:
-        raw = edition.get("popup_languages_default")
-    else:
-        # §4.3 — an edition that sets no popup_languages_default gets the default
-        # witness set (Hebrew + Greek LXX/NT + Latin + Arabic), NOT every baked
-        # version. The English KJV is excluded (it duplicated the WEB reading
-        # text); jps/douay/brenton are opt-in. (Was: all baked versions incl. kjv.)
-        return {m for m in _pv.DEFAULT_POPUP_WITNESSES if m in POPUP_LANGUAGES}
-    # Map legacy language ids (english/hebrew/greek) to version ids
-    # (kjv/wlc/lxx-greek); registry ids + legacy slots resolve to themselves.
+    raw: list[str] | None = None
+
+    if chapter is not None and verse is not None:
+        per_verse = decode_per_verse_languages(edition.get("popup_languages_per_verse"))
+        vkey = f"{book_code}:{chapter}:{verse}"
+        if vkey in per_verse:
+            raw = per_verse[vkey]
+
+    if raw is None and chapter is not None:
+        per_chapter = decode_per_chapter_languages(edition.get("popup_languages_per_chapter"))
+        ckey = f"{book_code}:{chapter}"
+        if ckey in per_chapter:
+            raw = per_chapter[ckey]
+
+    if raw is None:
+        per_book = decode_per_book_languages(edition.get("popup_languages_per_book"))
+        if book_code in per_book:
+            raw = per_book[book_code]
+        elif edition.get("popup_languages_default") is not None:
+            raw = edition.get("popup_languages_default")
+        else:
+            # §4.3 — no default → the default witness set (Hebrew + Greek LXX/NT
+            # + Latin + Arabic), NOT every baked version.
+            return {m for m in _pv.DEFAULT_POPUP_WITNESSES if m in POPUP_LANGUAGES}
+
     mapped = ((_pv.resolve_version_id(lang) or lang) for lang in (raw or []))
     return {m for m in mapped if m in POPUP_LANGUAGES}
 
