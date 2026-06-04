@@ -35,3 +35,81 @@ class TestPerChapterTokens:
     def test_chapter_tokens_roundtrip(self):
         d = {"gen:1": ["xref"], "gen:50": ["comm-patristic"]}
         assert be.decode_per_chapter_tokens(be.encode_per_chapter_tokens(d)) == d
+
+
+import scripts.core.config as config
+
+KINDS = [
+    {"code": "xref-citation", "category": "xref", "phase": "legacy"},
+    {"code": "comm-patristic", "category": "comm", "phase": "legacy"},
+    {"code": "comm-rabbinic", "category": "comm", "phase": "legacy"},
+    {"code": "future-kind", "category": "comm", "phase": "phase3"},
+    {"code": "comm-ai", "category": "comm", "phase": "legacy"},
+]
+
+
+def _ed(**kw):
+    base = {"id": "t", "enabled_categories": [], "enabled_kinds": [], "disabled_kinds": []}
+    base.update(kw)
+    return base
+
+
+class TestResolverPrecedence:
+    def test_no_override_equals_base(self):
+        ed = _ed(enabled_categories=["xref"])
+        assert config.enabled_kind_codes_for(ed, KINDS, "gen", 1) == config.enabled_kind_codes(ed, KINDS)
+
+    def test_book_off_removes_family(self):
+        ed = _ed(enabled_categories=["xref"], note_families_off_per_book=["exo=xref"])
+        assert "xref-citation" in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+        assert "xref-citation" not in config.enabled_kind_codes_for(ed, KINDS, "exo", 3)
+
+    def test_book_on_reenables_edition_disabled_family(self):
+        ed = _ed(enabled_categories=[], note_families_on_per_book=["gen=xref"])  # xref OFF edition-wide
+        assert "xref-citation" not in config.enabled_kind_codes_for(ed, KINDS, "exo", 1)
+        assert "xref-citation" in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+
+    def test_chapter_beats_book(self):
+        ed = _ed(
+            enabled_categories=["comm"],
+            note_families_off_per_book=["psa=comm"],
+            note_families_on_per_chapter=["psa:23=comm"],
+        )
+        assert "comm-patristic" not in config.enabled_kind_codes_for(ed, KINDS, "psa", 1)
+        assert "comm-patristic" in config.enabled_kind_codes_for(ed, KINDS, "psa", 23)
+
+    def test_kind_token_beats_category_token(self):
+        ed = _ed(
+            enabled_categories=["comm"],
+            note_families_off_per_book=["psa=comm"],
+            note_families_on_per_book=["psa=comm-patristic"],
+        )
+        got = config.enabled_kind_codes_for(ed, KINDS, "psa", 1)
+        assert "comm-patristic" in got  # kind ON wins over category OFF
+        assert "comm-rabbinic" not in got  # category OFF still applies to the rest
+
+    def test_off_beats_on_at_equal_specificity(self):
+        ed = _ed(
+            enabled_categories=[],
+            note_families_on_per_book=["gen=comm-patristic"],
+            note_families_off_per_book=["gen=comm-patristic"],
+        )
+        assert "comm-patristic" not in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+
+    def test_phase_gate_not_bypassed_by_family_on(self):
+        ed = _ed(max_phase="mvp", note_families_on_per_book=["gen=comm"])  # future-kind is phase3
+        assert "future-kind" not in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+        assert "comm-patristic" in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+
+    def test_ai_gate_not_bypassed_by_family_on(self):
+        ed = _ed(enable_ai_notes=False, note_families_on_per_book=["gen=comm-ai"])
+        assert "comm-ai" not in config.enabled_kind_codes_for(ed, KINDS, "gen", 1)
+
+
+class TestResolverInvariant:
+    def test_real_editions_unchanged_with_no_override(self):
+        all_kinds = config.load_kinds()
+        for ed in config.load_editions():
+            base = config.enabled_kind_codes(ed, all_kinds)
+            assert config.enabled_kind_codes_for(ed, all_kinds, "gen", 1) == base
+            assert config.enabled_kind_codes_for(ed, all_kinds, "rev") == base

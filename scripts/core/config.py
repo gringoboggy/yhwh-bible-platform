@@ -476,6 +476,85 @@ def category_baseline_kinds(edition: dict, all_kinds) -> set[str]:
     return out
 
 
+def _phase_ai_ok_kinds(edition: dict, all_kinds) -> set[str]:
+    """Kinds that pass the HARD gates (phase + AI), ignoring category/enable/
+    disable. A family-level per-book/chapter ON may only enable a kind in this
+    set — it can never bulk-enable a phase-gated or AI kind the edition forbids.
+    """
+    allow_ai = bool(edition.get("enable_ai_notes"))
+    max_phase = edition.get("max_phase")
+    if max_phase and max_phase not in _PHASE_ORDER:
+        raise ValueError(f"edition {edition.get('id')!r}: unknown max_phase {max_phase!r}")
+    max_idx = _PHASE_ORDER[max_phase] if max_phase else max(_PHASE_ORDER.values())
+    out: set[str] = set()
+    for k in all_kinds:
+        phase = k.get("phase", "legacy")
+        if phase != "legacy" and _PHASE_ORDER.get(phase, 99) > max_idx:
+            continue
+        if k.get("code") in AI_DRAFTED_KINDS and not allow_ai:
+            continue
+        out.add(k.get("code"))
+    return out
+
+
+def enabled_kind_codes_for(edition: dict, all_kinds, book: str, chapter=None) -> set[str]:
+    """Per-coordinate symbol resolution (Phase ρ.3).
+
+    Returns the set of kind codes enabled for ``(book, chapter)``, layering the
+    book- and chapter-level signed tokens over the edition default
+    (``enabled_kind_codes``). Most-specific-wins:
+        chapter-kind ▸ chapter-category ▸ book-kind ▸ book-category ▸ edition default
+    OFF beats ON at equal specificity. Phase/AI gates bound the family levels.
+
+    With NO book/chapter token for this coordinate, returns
+    ``enabled_kind_codes(edition, all_kinds)`` UNCHANGED (the invariant every
+    existing caller relies on).
+    """
+    from scripts.build_edition import decode_per_book_tokens, decode_per_chapter_tokens
+
+    base = enabled_kind_codes(edition, all_kinds)
+
+    on_book = set(decode_per_book_tokens(edition.get("note_families_on_per_book")).get(book, []))
+    off_book = set(decode_per_book_tokens(edition.get("note_families_off_per_book")).get(book, []))
+    ch_key = f"{book}:{chapter}" if chapter is not None else None
+    per_ch_on = decode_per_chapter_tokens(edition.get("note_families_on_per_chapter"))
+    per_ch_off = decode_per_chapter_tokens(edition.get("note_families_off_per_chapter"))
+    on_ch = set(per_ch_on.get(ch_key, [])) if ch_key else set()
+    off_ch = set(per_ch_off.get(ch_key, [])) if ch_key else set()
+
+    if not (on_book or off_book or on_ch or off_ch):
+        return base  # fast path — invariant: identical to the edition-wide resolver
+
+    gate_ok = _phase_ai_ok_kinds(edition, all_kinds)
+    out: set[str] = set()
+    for k in all_kinds:
+        code = k.get("code")
+        cat = k.get("category")
+        # most-specific-wins; OFF checked before ON at each step
+        decision = None  # True=ON, False=OFF, None=inherit
+        for on_set, off_set, key in (
+            (on_ch, off_ch, code),
+            (on_ch, off_ch, cat),
+            (on_book, off_book, code),
+            (on_book, off_book, cat),
+        ):
+            if key in off_set:
+                decision = False
+                break
+            if key in on_set:
+                decision = True
+                break
+        if decision is False:
+            continue
+        if decision is True:
+            if code in gate_ok:
+                out.add(code)
+        else:  # inherit
+            if code in base:
+                out.add(code)
+    return out
+
+
 def _kinds_in_edition(edition_id):
     """Return list of kind dicts visible in a given edition profile.
 
