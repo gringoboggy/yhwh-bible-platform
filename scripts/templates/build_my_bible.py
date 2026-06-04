@@ -144,8 +144,44 @@ BUILD_MY_BIBLE_HTML = r"""<!DOCTYPE html>
 let CUR_EDITION = '';     // edition id, '' = none chosen
 let CUR_BOOK = null;      // book code, null = edition (top) level
 let CUR_CHAPTER = null;   // chapter number, null = book level
+let CUR_VERSE = null;     // verse number, null = no verse focused (chapter level)
 let OVERVIEW = null;      // cached /api/build-my-bible/<ed> payload
 let BOOKS = [];           // books_canonical (already in §6.1 order — never sort)
+
+// ---- lazy per-level caches ------------------------------------------
+// Fetched book / chapter payloads are cached so re-visiting a level
+// never refetches. Cleared on edition change (see onEditionChange). The
+// edition overview itself is cached in OVERVIEW. Keys: book code for the
+// book cache; "<book>:<ch>" for the chapter cache.
+let BOOK_CACHE = new Map();    // book code -> /api/build-my-bible/<ed>/<book>
+let CHAPTER_CACHE = new Map(); // "<book>:<ch>" -> /…/<book>/<ch>
+
+// Title-lookup helpers — resolve a book code to its display title from
+// the cached overview, so breadcrumbs read "Bible ▸ Genesis" not a code.
+function bookTitle(code) {
+  const b = BOOKS.find(x => x.code === code);
+  return b ? b.title : code;
+}
+
+// Convenience alias for the shared ω.0.7 escaper (always present from the
+// UI-defense prelude; the fallback keeps a stale tab from crashing).
+function esc(s) {
+  return window.escapeHtml ? window.escapeHtml(s) : String(s == null ? '' : s);
+}
+
+// ---- category / popup-language label lookups ------------------------
+// Built once per edition from OVERVIEW so the read-only SYMBOLS / POPUPS
+// sections can show human labels + symbols beside resolved on/off state.
+// C2-4 reuses these maps to drive the interactive tri-state controls.
+function categoriesOrdered() {
+  // OVERVIEW.categories already arrives sorted by sort_order — never re-sort.
+  return (OVERVIEW && OVERVIEW.categories) || [];
+}
+function popupLangLabel(id) {
+  const langs = (OVERVIEW && OVERVIEW.popup_languages) || [];
+  const l = langs.find(x => x.id === id);
+  return l ? l.label : id;
+}
 
 // ---- fetch helpers ---------------------------------------------------
 // Thin wrappers over the C2-1 read API. They use window.safeFetch (the
@@ -180,37 +216,319 @@ async function fetchChapter(edition, book, chapter) {
                 '/' + encodeURIComponent(chapter));
 }
 
-// ---- render placeholders (filled in C2-3 / C2-4) ---------------------
-// Each renderer targets a fixed DOM node so later tasks only fill the
-// body. For now they paint neutral placeholders.
+// ---- spinner / small UI affordances ---------------------------------
+// Mirror sources.py's loading affordance — a neutral "loading …" line
+// painted into a target node while a level is being fetched.
+function spinnerInto(el, label) {
+  if (!el) return;
+  el.innerHTML = '<div class="text-slate-400 px-1 py-2">' + esc(label || 'loading …') + '</div>';
+}
 
+// On/off badge for a resolved symbol category. Read-only display.
+function symbolBadge(state) {
+  return state === 'on'
+    ? '<span class="text-xs px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-medium">on</span>'
+    : '<span class="text-xs px-1.5 py-0.5 rounded bg-slate-100 text-slate-400">off</span>';
+}
+
+// ---- breadcrumb ------------------------------------------------------
+// Bible ▸ Genesis ▸ Chapter 3 ▸ Verse 5 — every segment up to (but not
+// including) the current level is a clickable .crumb-link that pops back
+// up to that level. The active (deepest) segment is plain text.
 function renderBreadcrumb() {
-  // C2-3: Bible → book → chapter → verse, each step clickable to pop up.
   const el = document.getElementById('breadcrumb');
   if (!el) return;
   if (!CUR_EDITION) {
     el.innerHTML = '<span class="text-slate-400">pick an edition to begin</span>';
+    return;
   }
+  // Build the segment list. Each entry: {label, level} where level is the
+  // navigation target a click should restore.
+  const segs = [];
+  segs.push({ label: 'Bible', level: 'bible' });
+  if (CUR_BOOK) segs.push({ label: bookTitle(CUR_BOOK), level: 'book' });
+  if (CUR_CHAPTER != null) segs.push({ label: 'Chapter ' + CUR_CHAPTER, level: 'chapter' });
+  if (CUR_VERSE != null) segs.push({ label: 'Verse ' + CUR_VERSE, level: 'verse' });
+
+  const parts = [];
+  segs.forEach((s, i) => {
+    const isLast = i === segs.length - 1;
+    if (i > 0) parts.push('<span class="text-slate-300 px-0.5">▸</span>');
+    if (isLast) {
+      parts.push('<span class="text-slate-700 font-medium">' + esc(s.label) + '</span>');
+    } else {
+      parts.push(
+        '<span class="crumb-link text-blue-600" data-level="' + esc(s.level) + '">' +
+        esc(s.label) + '</span>'
+      );
+    }
+  });
+  el.innerHTML = parts.join('');
+  el.querySelectorAll('.crumb-link').forEach(seg => {
+    seg.addEventListener('click', () => goToLevel(seg.dataset.level));
+  });
 }
 
+// Pop back up to a named level (clicking a breadcrumb segment).
+function goToLevel(level) {
+  if (level === 'bible') {
+    CUR_BOOK = null; CUR_CHAPTER = null; CUR_VERSE = null;
+    renderBreadcrumb(); renderBookList(); renderLevelPanel();
+  } else if (level === 'book') {
+    CUR_CHAPTER = null; CUR_VERSE = null;
+    navToBook(CUR_BOOK);
+  } else if (level === 'chapter') {
+    CUR_VERSE = null;
+    navToChapter(CUR_CHAPTER);
+  }
+  // 'verse' is the deepest level — its crumb is never a link.
+}
+
+// ---- left book rail --------------------------------------------------
+// Renders BOOKS in canonical order (§6.1 — never client-sort). The
+// filter box narrows by title / code without reordering. Clicking a book
+// drills into the book (chapter) level.
 function renderBookList() {
-  // C2-3: render BOOKS (canonical order) into #book-list; clicking a
-  // book drills into the chapter grid.
   const el = document.getElementById('book-list');
   if (!el) return;
   if (!CUR_EDITION) {
     el.innerHTML = '<div class="text-slate-400 px-3 py-2">pick an edition above …</div>';
+    document.getElementById('book-count').textContent = '';
+    return;
   }
+  const filterText = (document.getElementById('book-filter').value || '').toLowerCase();
+  const filtered = BOOKS.filter(b =>
+    !filterText ||
+    (b.title || '').toLowerCase().includes(filterText) ||
+    (b.code || '').toLowerCase().includes(filterText)
+  );
+  document.getElementById('book-count').textContent =
+    filtered.length + ' of ' + BOOKS.length + ' books';
+
+  // Canonical order preserved — BOOKS arrives ordered; .filter keeps it.
+  el.innerHTML = filtered.map(b => `
+    <div class="book-row px-3 py-1.5 flex justify-between items-center ${b.code === CUR_BOOK ? 'active' : ''}"
+         data-book="${esc(b.code)}">
+      <span>${esc(b.title)}</span>
+      <span class="text-xs text-slate-400 font-mono">${b.ch_count} ch</span>
+    </div>
+  `).join('');
+  el.querySelectorAll('.book-row').forEach(row => {
+    row.addEventListener('click', () => navToBook(row.dataset.book));
+  });
 }
 
+// ---- right level panel ----------------------------------------------
+// Dispatches to the level-specific renderer based on the current
+// drill-down depth. Each renderer paints read-only resolved state into
+// fixed-id section containers so C2-4 / C2-5 can swap displays for
+// interactive controls without restructuring.
 function renderLevelPanel() {
-  // C2-3 / C2-4: render the active level (edition overview / chapter
-  // grid / verse list) plus its toggle controls into #level-panel.
   const el = document.getElementById('level-panel');
   if (!el) return;
   if (!CUR_EDITION) {
+    setLevelHeader('No edition selected', '');
     el.innerHTML = '<div class="text-slate-400">Pick an edition above to start building.</div>';
+    return;
   }
+  if (CUR_BOOK == null) {
+    renderBiblePanel(el);
+  } else if (CUR_CHAPTER == null) {
+    renderBookPanel(el);
+  } else {
+    renderChapterPanel(el);
+  }
+}
+
+function setLevelHeader(title, subtitle) {
+  const t = document.getElementById('level-title');
+  const s = document.getElementById('level-subtitle');
+  if (t) t.textContent = title;
+  if (s) s.textContent = subtitle || '';
+}
+
+// ---- Bible-level panel ----------------------------------------------
+// SYMBOLS section (resolved on/off per category) + POPUPS section
+// (resolved popup-language list). Read-only — C2-4 makes these the
+// interactive tri-state + checklist controls.
+function renderBiblePanel(el) {
+  const ed = (OVERVIEW && OVERVIEW.edition) || {};
+  setLevelHeader(ed.title || CUR_EDITION,
+    BOOKS.length + ' book(s) in this edition · pick a book on the left to drill in');
+  const resolved = (OVERVIEW && OVERVIEW.resolved_bible) || { symbols: {}, popups: [] };
+  el.innerHTML =
+    renderSymbolsSection(resolved.symbols, 'Bible') +
+    renderPopupsSection(resolved.popups, 'Bible');
+}
+
+// SYMBOLS section — one row per category with its symbol, label, and a
+// resolved on/off badge. Stable ids/classes so C2-4 can upgrade in place.
+/* C2-4 makes this interactive (tri-state inherit/on/off per category) */
+function renderSymbolsSection(symbols, scopeLabel) {
+  symbols = symbols || {};
+  const rows = categoriesOrdered().map(c => {
+    const state = symbols[c.id] || 'off';
+    return `
+      <div class="sym-row flex items-center justify-between gap-3 py-1.5 border-b border-slate-50"
+           data-category="${esc(c.id)}" data-state="${esc(state)}">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="symbol text-slate-600" title="${esc(c.description || c.label)}">${esc(c.symbol)}</span>
+          <span class="text-sm text-slate-700 truncate">${esc(c.label)}</span>
+        </div>
+        ${symbolBadge(state)}
+      </div>`;
+  }).join('');
+  return `
+    <section id="symbols-section" class="mb-6" data-scope="${esc(scopeLabel)}">
+      <h3 class="font-semibold text-slate-700 mb-1">Note symbols</h3>
+      <p class="text-xs text-slate-400 mb-2">resolved on/off per symbol family at the ${esc(scopeLabel)} level (read-only)</p>
+      ${rows || '<div class="text-slate-400 text-sm">no categories</div>'}
+    </section>`;
+}
+
+// POPUPS section — the resolved popup-language list as read-only chips.
+/* C2-4 makes this interactive (per-language checklist) */
+function renderPopupsSection(popups, scopeLabel) {
+  popups = popups || [];
+  const chips = popups.length
+    ? popups.map(id => `
+        <span class="popup-chip text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700"
+              data-lang="${esc(id)}">${esc(popupLangLabel(id))}</span>`).join('')
+    : '<span class="text-slate-400 text-sm">none</span>';
+  return `
+    <section id="popups-section" class="mb-2" data-scope="${esc(scopeLabel)}">
+      <h3 class="font-semibold text-slate-700 mb-1">Popup languages</h3>
+      <p class="text-xs text-slate-400 mb-2">translation-popup languages resolved at the ${esc(scopeLabel)} level (read-only)</p>
+      <div class="flex flex-wrap gap-1.5">${chips}</div>
+    </section>`;
+}
+
+// ---- Book-level panel -----------------------------------------------
+// Book title + chapter list. Each chapter is clickable (drills to the
+// chapter level), shows a "has notes" indicator + its resolved symbol /
+// popup badges. Chapters render 1..ch_count ascending (never sort).
+function renderBookPanel(el) {
+  const payload = BOOK_CACHE.get(CUR_BOOK);
+  if (!payload) { spinnerInto(el, 'loading book …'); return; }
+  const book = payload.book || {};
+  const chapters = payload.chapters || [];
+  setLevelHeader(book.title || CUR_BOOK,
+    book.ch_count + ' chapter(s) · pick a chapter to see its verses');
+
+  const grid = chapters.map(ch => {
+    const symsOn = countSymbolsOn(ch.resolved && ch.resolved.symbols);
+    const popN = (ch.resolved && ch.resolved.popups ? ch.resolved.popups.length : 0);
+    const dot = ch.has_notes
+      ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" title="has notes"></span>'
+      : '<span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-200" title="no notes"></span>';
+    return `
+      <button type="button"
+        class="chapter-cell text-left border border-slate-200 rounded px-2.5 py-1.5 hover:bg-slate-50 flex flex-col gap-1"
+        data-chapter="${ch.num}">
+        <div class="flex items-center justify-between">
+          <span class="font-medium text-sm">Ch ${ch.num}</span>
+          ${dot}
+        </div>
+        <div class="text-xs text-slate-400 tabular-nums">${symsOn} sym · ${popN} popup</div>
+      </button>`;
+  }).join('');
+
+  el.innerHTML = `
+    <section class="mb-2">
+      <p class="text-xs text-slate-400 mb-2">a filled dot marks chapters with notes; counts show resolved symbol families on + popup languages</p>
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">${grid}</div>
+    </section>`;
+  el.querySelectorAll('.chapter-cell').forEach(cell => {
+    cell.addEventListener('click', () => navToChapter(Number(cell.dataset.chapter)));
+  });
+}
+
+function countSymbolsOn(symbols) {
+  if (!symbols) return 0;
+  return Object.values(symbols).filter(v => v === 'on').length;
+}
+
+// ---- Chapter-level panel --------------------------------------------
+// Verse list (1..N ascending). Each verse shows its resolved symbols /
+// popups summary and its notes as a read-only list (symbol + kind +
+// title, with a faint marker if disabled / forced_on). Clicking a verse
+// focuses it (the individual level) — its notes expand, breadcrumb adds
+// "Verse N". No writable controls here (those land in C2-5).
+function renderChapterPanel(el) {
+  const key = CUR_BOOK + ':' + CUR_CHAPTER;
+  const payload = CHAPTER_CACHE.get(key);
+  if (!payload) { spinnerInto(el, 'loading chapter …'); return; }
+  const verses = payload.verses || [];
+  const noteTotal = verses.reduce((s, v) => s + (v.notes ? v.notes.length : 0), 0);
+  setLevelHeader(bookTitle(CUR_BOOK) + ' ' + CUR_CHAPTER,
+    verses.length + ' verse(s) · ' + noteTotal + ' note(s) · click a verse to focus its notes');
+
+  el.innerHTML = `
+    <section id="verse-list-section">
+      <ul class="space-y-2">
+        ${verses.map(v => renderVerseRow(v)).join('')}
+      </ul>
+    </section>`;
+  el.querySelectorAll('.verse-row').forEach(row => {
+    row.querySelector('.verse-head').addEventListener('click', () => {
+      const vs = Number(row.dataset.verse);
+      // Toggle focus: clicking the focused verse collapses it again.
+      CUR_VERSE = (CUR_VERSE === vs) ? null : vs;
+      renderBreadcrumb();
+      renderChapterPanel(el);
+    });
+  });
+}
+
+// One verse row. When focused (CUR_VERSE === v.vs) its notes expand to
+// the individual level; otherwise a compact summary line.
+function renderVerseRow(v) {
+  const focused = CUR_VERSE === v.vs;
+  const resolved = v.resolved || { symbols: {}, popups: [] };
+  const symsOn = countSymbolsOn(resolved.symbols);
+  const popN = (resolved.popups || []).length;
+  const notes = v.notes || [];
+  const head = `
+    <div class="verse-head cursor-pointer flex items-center justify-between gap-2 px-2 py-1 rounded hover:bg-slate-50 ${focused ? 'bg-slate-50' : ''}">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="verse-anchor text-xs ${focused ? 'text-blue-700 font-semibold' : 'text-slate-500'}">${CUR_CHAPTER}:${v.vs}</span>
+        ${notes.length
+          ? `<span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono text-slate-600">${notes.length} note${notes.length === 1 ? '' : 's'}</span>`
+          : '<span class="text-xs text-slate-300">no notes</span>'}
+      </div>
+      <span class="text-xs text-slate-400 tabular-nums whitespace-nowrap">${symsOn} sym · ${popN} popup</span>
+    </div>`;
+
+  // Notes list — read-only at the individual level. C2-5 adds the
+  // per-note disable / force-on checkboxes here.
+  /* C2-5 makes this interactive (per-note disable / force-on) */
+  let body = '';
+  if (focused) {
+    body = notes.length
+      ? `<ul class="mt-1 ml-4 space-y-1 border-l-2 border-slate-100 pl-3">
+           ${notes.map(n => renderNoteLine(n)).join('')}
+         </ul>`
+      : '<div class="mt-1 ml-4 text-xs text-slate-400">no notes attributed to this verse.</div>';
+  }
+  return `<li class="verse-row" data-verse="${v.vs}">${head}${body}</li>`;
+}
+
+// One read-only note line: symbol + kind + title, faint marker if the
+// note is disabled or forced-on in this edition. C2-5 swaps the marker
+// area for the writable checkboxes.
+function renderNoteLine(n) {
+  const stateMark = n.disabled
+    ? '<span class="text-xs text-amber-600 ml-1" title="disabled in this edition">(disabled)</span>'
+    : (n.forced_on
+        ? '<span class="text-xs text-emerald-600 ml-1" title="forced on in this edition">(forced on)</span>'
+        : '');
+  const dim = n.disabled ? 'opacity-50' : '';
+  return `
+    <li class="note-line flex items-start gap-2 ${dim}" data-note-id="${esc(n.note_id)}">
+      <span class="symbol text-slate-500" title="${esc(n.category)}">${esc(n.symbol)}</span>
+      <span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono text-slate-600">${esc(n.kind)}</span>
+      <span class="text-sm text-slate-700 flex-1 min-w-0">${esc(n.title || 'Note')}${stateMark}</span>
+    </li>`;
 }
 
 // ---- edition picker (the one live control in the shell) --------------
@@ -230,24 +548,105 @@ async function populateEditionPicker() {
   sel.addEventListener('change', onEditionChange);
 }
 
-// C2-3 fills this in (load overview, reset book/chapter, re-render the
-// three panels). The shell just records the selection + re-paints the
-// placeholders so the surface is honest about "nothing loaded yet".
+// Edition select → load + cache the overview, reset the drill-down to
+// the Bible level, clear the per-level caches, repaint all three panels.
 async function onEditionChange() {
   const sel = document.getElementById('edition-picker');
   CUR_EDITION = sel ? sel.value : '';
   CUR_BOOK = null;
   CUR_CHAPTER = null;
+  CUR_VERSE = null;
   OVERVIEW = null;
   BOOKS = [];
+  BOOK_CACHE = new Map();
+  CHAPTER_CACHE = new Map();
+
+  if (!CUR_EDITION) {
+    renderBreadcrumb();
+    renderBookList();
+    renderLevelPanel();
+    return;
+  }
+
+  // Spinners while the overview loads.
+  spinnerInto(document.getElementById('book-list'), 'loading books …');
+  spinnerInto(document.getElementById('level-panel'), 'loading edition …');
+  renderBreadcrumb();
+
+  try {
+    OVERVIEW = await fetchOverview(CUR_EDITION);
+  } catch (e) {
+    // banner already shown by safeFetch; reset to a clean empty state
+    CUR_EDITION = '';
+    OVERVIEW = null;
+    renderBreadcrumb();
+    renderBookList();
+    renderLevelPanel();
+    return;
+  }
+  BOOKS = (OVERVIEW && OVERVIEW.books_canonical) || [];  // already §6.1-ordered
   renderBreadcrumb();
   renderBookList();
+  renderLevelPanel();
+}
+
+// ---- drill-down navigation (lazy + cached) ---------------------------
+
+// Navigate to a book (the chapter list). Fetches + caches on first
+// visit; re-visits read straight from BOOK_CACHE (no refetch).
+async function navToBook(code) {
+  if (!code) return;
+  CUR_BOOK = code;
+  CUR_CHAPTER = null;
+  CUR_VERSE = null;
+  renderBreadcrumb();
+  renderBookList();  // move the active highlight
+
+  if (!BOOK_CACHE.has(code)) {
+    spinnerInto(document.getElementById('level-panel'), 'loading book …');
+    setLevelHeader(bookTitle(code), 'loading …');
+    let payload;
+    try {
+      payload = await fetchBook(CUR_EDITION, code);
+    } catch (e) {
+      return;  // banner shown; panel keeps its spinner-cleared state below
+    }
+    // Guard against a stale response if the user clicked away meanwhile.
+    if (CUR_BOOK !== code) return;
+    BOOK_CACHE.set(code, payload);
+  }
+  renderLevelPanel();
+}
+
+// Navigate to a chapter (the verse list). Lazy + cached by "book:ch".
+async function navToChapter(num) {
+  if (num == null) return;
+  CUR_CHAPTER = num;
+  CUR_VERSE = null;
+  renderBreadcrumb();
+
+  const key = CUR_BOOK + ':' + num;
+  if (!CHAPTER_CACHE.has(key)) {
+    spinnerInto(document.getElementById('level-panel'), 'loading chapter …');
+    setLevelHeader(bookTitle(CUR_BOOK) + ' ' + num, 'loading …');
+    let payload;
+    try {
+      payload = await fetchChapter(CUR_EDITION, CUR_BOOK, num);
+    } catch (e) {
+      return;  // banner shown
+    }
+    // Guard against a stale response if the user navigated away meanwhile.
+    if (CUR_BOOK == null || CUR_CHAPTER !== num) return;
+    CHAPTER_CACHE.set(key, payload);
+  }
   renderLevelPanel();
 }
 
 // ---- boot ------------------------------------------------------------
 async function init() {
   await populateEditionPicker();
+  const bf = document.getElementById('book-filter');
+  if (bf) bf.addEventListener('input', renderBookList);
   renderBreadcrumb();
   renderBookList();
   renderLevelPanel();
