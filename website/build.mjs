@@ -31,7 +31,7 @@ const DIST = join(ROOT, 'dist');
 
 // Static files/dirs copied verbatim into dist/ (the things the pages link to).
 const STATIC = [
-  'style.css', 'releases.js', 'fonts', 'covers', 'icons', 'giscus',
+  'style.css', 'releases.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus',
   'favicon-32.png', 'favicon-512.png', 'apple-touch-icon.png', 'social-card.png',
   '.htaccess', 'latest.php',
 ];

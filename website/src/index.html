@@ -57,7 +57,7 @@ page: home
           <h3>Toggle the notes you want</h3>
           <p>Turn whole families of study notes on or off for your edition: cross-references, Hebrew &amp; Greek
             word studies, historical and cultural background, literary analysis, commentary by tradition, and
-            more. (Setting them book-by-book, chapter-by-chapter, even verse-by-verse is being built now.)</p>
+            more — for the whole Bible, or down to a single book, chapter, or verse.</p>
         </li>
         <li class="feature">
           <h3>See the original languages</h3>
@@ -103,12 +103,13 @@ page: home
           title, publisher name, copyright, and the names of any editors or contributors.</li>
       </ul>
 
-      <p class="prose"><strong>And “yours” is meant to reach all the way down.</strong> The builder follows
-        the shape of a Bible — the whole, its books, each book’s chapters, down to a single verse. Today you
-        choose your notes for the edition as a whole (and you can already pick which original-language popups
-        appear per book); soon you’ll set them at any level: a kind of note or popup turned on across the whole
-        Bible, off in one book, back on for a single chapter, or one note changed by hand. That finer control
-        is being built now.</p>
+      <p class="prose"><strong>And “yours” reaches all the way down.</strong> The builder follows the shape
+        of a Bible — the whole, its books, each book’s chapters, down to a single verse — and you set your
+        notes and popups at any of those levels. Turn a family of notes on across the whole Bible, off in one
+        book, back on for a single chapter, or flip a single note by hand; choose which original-language
+        popups appear for the whole Bible, a book, a chapter, or one verse. The rule is simple — the most
+        specific choice wins — and a finished edition stays byte-for-byte identical to the standard one
+        wherever you change nothing.</p>
 
       <p class="prose">From one storehouse, you shape your own edition — your books, your notes, your
         tradition, your design.</p>
@@ -138,6 +139,42 @@ page: home
         Leningrad Codex), <strong>Greek</strong> (Septuagint and the Byzantine New Testament),
         <strong>Latin</strong> (Clementine Vulgate), and <strong>Arabic</strong> (Van Dyck translation). You choose which
         of these appear in each edition.</p>
+    </section>
+
+    <!-- ─────────────── READING THE NOTES (symbols + navigator) ─────────────── -->
+    <section class="band" aria-labelledby="reading-the-notes">
+      <h2 id="reading-the-notes" class="rule">Reading the notes — the symbols, and how you choose them</h2>
+      <p class="prose">Every study note appears in the text as a small inline symbol you can tap to open it. The
+        symbol tells you, at a glance, what <em>kind</em> of note it is — every note in a family shares one mark.
+        Finer kinds within a family (Patristic, Rabbinic, or Ethiopian commentary, all under ◇) are told apart by
+        a short label, not a different glyph, so the page stays calm.</p>
+      <ul class="legend-grid">
+        <li class="legend"><span class="glyph" aria-hidden="true">⌘</span><div><h3>Language</h3><p>Original-language word studies — Hebrew, Greek, Aramaic, Geʽez, Latin, Syriac, Arabic; grammar and rendering.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">✧</span><div><h3>Textual & critical</h3><p>Variant readings and manuscript witnesses — Dead Sea Scrolls, Septuagint, Samaritan, Ethiopic.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">‖</span><div><h3>Cross-references</h3><p>Internal parallels, Old-Testament-in-New citations, allusions and echoes, thematic links.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">⌂</span><div><h3>Historical & cultural</h3><p>Ancient Near-Eastern and Greco-Roman background, geography, persons, customs — and dictionary entries.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">⌇</span><div><h3>Literary</h3><p>Structure and form — chiasm, narrative, genre, poetry, source criticism.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">◇</span><div><h3>Commentary & tradition</h3><p>Interpretive readings — Patristic, Rabbinic, Orthodox, Catholic, Reformation, Ethiopian, and modern.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">☩</span><div><h3>Comparative religion</h3><p>Pseudepigrapha and Second-Temple, Qurʼanic, Gnostic, and Geʽez-divergence parallels.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">✶</span><div><h3>Devotional</h3><p>Life-application and prayer prompts for devotional reading.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">☧</span><div><h3>Liturgical</h3><p>Ethiopian Tewahedo and Christian-year lectionary placements, and Torah-portion readings.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">⚖</span><div><h3>Apologetic</h3><p>Harmonization of apparent contradictions and alleged difficulties.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">⊛</span><div><h3>Modern issues</h3><p>Ethics, and science-and-faith engagement.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">◯</span><div><h3>Pedagogical</h3><p>Section summaries and hard-passage flags.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">❑</span><div><h3>Visual & media</h3><p>Maps, genealogies, charts, and tables.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">❖</span><div><h3>Edition-distinctive</h3><p>Typological, allegorical, Marian, and mystical readings of particular traditions.</p></div></li>
+        <li class="legend"><span class="glyph" aria-hidden="true">✦</span><div><h3>Topical</h3><p>Topical-concordance groupings from Naveʼs and Torreyʼs — every verse on a theme.</p></div></li>
+      </ul>
+      <h3 class="sub-h">Choosing them — the navigator</h3>
+      <p class="prose">The builder’s navigator lets you walk your edition exactly like a Bible: the whole Bible,
+        then a book, then a chapter, then a single verse. At each level you toggle note-symbol families (and the
+        finer kinds inside them) and pick which original-language popups appear. The rule is <strong>most specific
+        wins</strong> — turn cross-references off across the whole Bible but back on just in Genesis, strip every
+        note from one hard chapter, or flip a single note on or off by hand. A bulk choice at a coarser level
+        clears the finer ones inside it, so you are never left with hidden, contradictory settings.</p>
+      <p class="callout"><strong>An honest note.</strong> The notes are real, drawn from named public-domain
+        sources — nothing is invented for you. AI-drafted commentary exists only as an opt-in kind, switched
+        <em>off</em> in every edition unless you deliberately turn it on, and reviewer-curated.</p>
     </section>
 
     <!-- ─────────────────── HOW IT WAS MADE ───────────────────── -->
@@ -188,7 +225,9 @@ page: home
       <div class="source-group">
         <h3>Cover art</h3>
         <p>The cover designs are the publisher’s own work — a master set generated with Midjourney and then
-          refined through a hue-shift process to create color variants — created originally for this project.</p>
+          refined through a hue-shift process into five styles across five colours, twenty-five designs in all.
+          The program composes your title onto the design you choose: “HOLY BIBLE” with your edition’s name
+          beneath it.</p>
       </div>
 
       <div class="source-group">
@@ -201,65 +240,18 @@ page: home
         text and reference can be traced.</p>
     </section>
 
-    <!-- ──────────────── EDITIONS GALLERY ─────────────────────── -->
-    <section class="band band-alt" aria-labelledby="editions-gallery">
-      <h2 id="editions-gallery" class="rule">Editions you can build</h2>
-      <p class="helper">A glimpse of what the builder produces. This is a gallery, not a store — nothing here
-        is for download. Each cover shows the kind of finished Bible you can make for yourself once you have
-        the program, shaped to the canon, notes, and look you choose. (The standalone Geʽez and Amharic
-        Bibles, shown last, are still being transcribed from the manuscripts and aren’t buildable yet.)</p>
-
-      <article class="card card-featured card-static">
-        <img class="cover" src="covers/ethiopian-tewahedo.jpg" alt="Cover of The Ethiopian Tewahedo Study Bible" width="400" height="600" loading="lazy">
-        <div class="card-body">
-          <h3>The Ethiopian Tewahedo Study Bible</h3>
-          <p class="blurb">The deepest edition the builder can make — the full 87-book Ethiopian canon,
-            including 1 Enoch, Jubilees, and Meqabyan, with cross-references and original-language popups.</p>
-          <p class="meta">Ethiopian canon &middot; 87 books</p>
-        </div>
-      </article>
-
+    <!-- ──────────────── COVER DESIGNS SHOWCASE ───────────────── -->
+    <section class="band" aria-labelledby="cover-designs">
+      <h2 id="cover-designs" class="rule">Choose your cover</h2>
+      <p class="helper">Five styles, five colours — twenty-five designs in all (a few shown here). Pick one and
+        the program letters your title onto it: “HOLY BIBLE” with your edition’s name beneath, sized to fit.
+        Prefer your own art? Import any image instead — for the whole Bible, or even a single book.</p>
       <div class="grid gallery">
-        <article class="card card-static">
-          <img class="cover" src="covers/catholic-study.jpg" alt="Cover of The Catholic Study Bible" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Catholic Study Bible</h3><p class="meta">Catholic canon</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/coptic-orthodox.jpg" alt="Cover of The Coptic Orthodox Study Bible" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Coptic Orthodox Study Bible</h3><p class="meta">Coptic Orthodox tradition</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/eastern-orthodox.jpg" alt="Cover of The Eastern Orthodox Study Bible" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Eastern Orthodox Study Bible</h3><p class="meta">Orthodox canon</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/anglican-bcp.jpg" alt="Cover of The Anglican Study Bible, Book of Common Prayer edition" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Anglican Study Bible</h3><p class="meta">Catholic canon &middot; BCP edition</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/evangelical-reformed.jpg" alt="Cover of The Reformed Study Bible" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Reformed Study Bible</h3><p class="meta">Protestant canon &middot; expanded</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/lutheran-confessional.jpg" alt="Cover of The Lutheran Confessional Study Bible" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Lutheran Confessional Study Bible</h3><p class="meta">Protestant canon</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/jewish-study.jpg" alt="Cover of The Jewish Study Tanakh" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Jewish Study Tanakh</h3><p class="meta">Tanakh &middot; 39 books</p></div>
-        </article>
-        <article class="card card-static">
-          <img class="cover" src="covers/scholarly-academic.jpg" alt="Cover of The Annotated Ethiopian Bible, Scholar’s Edition" width="400" height="600" loading="lazy">
-          <div class="card-body"><h3>The Annotated Ethiopian Bible</h3><p class="meta">Ethiopian canon &middot; scholar’s edition</p></div>
-        </article>
-        <article class="card card-static">
-          <div class="cover cover-placeholder" aria-hidden="true"><span lang="gez">መጽሐፍ<br>ቅዱስ</span></div>
-          <div class="card-body"><h3>The Geʽez Bible <span class="sub" lang="gez">ግዕዝ</span></h3><p class="meta">Standalone &middot; classical Geʽez</p></div>
-        </article>
-        <article class="card card-static">
-          <div class="cover cover-placeholder" aria-hidden="true"><span lang="am">መጽሐፍ<br>ቅዱስ</span></div>
-          <div class="card-body"><h3>The Amharic Bible <span class="sub" lang="am">አማርኛ</span></h3><p class="meta">Standalone &middot; Amharic</p></div>
-        </article>
+        <article class="card card-static"><img class="cover" src="showcase/01_ornate_leafy_red.jpg" alt="Ornate leafy cover design in red" width="800" height="1200" loading="lazy"><div class="card-body"><p class="meta">Ornate leafy · red</p></div></article>
+        <article class="card card-static"><img class="cover" src="showcase/02_classical_corner_navy.jpg" alt="Classical corner cover design in navy" width="800" height="1200" loading="lazy"><div class="card-body"><p class="meta">Classical corner · navy</p></div></article>
+        <article class="card card-static"><img class="cover" src="showcase/03_beadline_forest.jpg" alt="Beadline cover design in forest green" width="800" height="1200" loading="lazy"><div class="card-body"><p class="meta">Beadline · forest</p></div></article>
+        <article class="card card-static"><img class="cover" src="showcase/04_minimal_lines_brown.jpg" alt="Minimal lines cover design in brown" width="800" height="1200" loading="lazy"><div class="card-body"><p class="meta">Minimal lines · brown</p></div></article>
+        <article class="card card-static"><img class="cover" src="showcase/05_missal_central_black.jpg" alt="Missal central cover design in black" width="800" height="1200" loading="lazy"><div class="card-body"><p class="meta">Missal central · black</p></div></article>
       </div>
     </section>
 
