@@ -43,8 +43,6 @@ import html
 import json
 import re
 import shutil
-
-_NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
 import subprocess
 import sys
 import tempfile
@@ -56,6 +54,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import config  # noqa: E402
+
+_NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
 
 # Moved to scripts/epub_utils.py + scripts/matter_pages.py (module split 2026-05-25).
 # Re-exported here (noqa: F401) so existing `from scripts.build_edition import ...`

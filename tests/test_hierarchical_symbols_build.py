@@ -146,19 +146,6 @@ def test_per_book_off_strips_exo_xref_keeps_gen_xref(tmp_path, monkeypatch):
         f"(xref disabled for exo via note_families_off_per_book)"
     )
 
-    # Broader: no exo xref-citation ref-ids at all (id_prefix "e", 4 digits)
-    exo_xref_ids_in_epub = {rid for rid in ref_ids if re.match(r"ref-e\d{4}", rid)}
-    # NOTE: ref-e#### covers all exo notes (not just xref), but among the
-    # ref-e#### entries only those that are note markers survive — so we check
-    # that none of the known exo xref ref-ids are present rather than asserting
-    # zero exo ref-ids (other exo kinds like comm or hist are not disabled).
-    # The ref-e0112 / ref-e0117 checks above are the binding assertions.
-    # Extra diagnostic only:
-    exo_xref_survivors = {rid for rid in exo_xref_ids_in_epub if rid.startswith("ref-e")}
-    # We do NOT assert len==0 because non-xref exo notes (comm, hist, etc.) survive.
-    # The named checks above are sufficient for the scenario.
-    _ = exo_xref_survivors  # suppress unused-variable lint
-
 
 # ---------------------------------------------------------------------------
 # Scenario 2: per-book OFF + force-on for one pinned note

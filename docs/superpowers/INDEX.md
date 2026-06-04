@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**56 documents** — 36 plans · 20 specs.
+**57 documents** — 37 plans · 20 specs.
 
-## In progress (13)
+## In progress (14)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-04 | Plan | Hierarchical Customization — Phase B: Popup-Language Engine | `plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md` | IN PROGRESS 2026-06-04 — ready to execute. Phase B of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Byte-stability gate = the ship bar. Phase A (symbols) shipped; Phase C (the `/build-my-bible` navigator) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase A: Symbol Engine | `plans/2026-06-04-hierarchical-customize-phaseA-symbol-engine.md` | IN PROGRESS 2026-06-04 — per-coordinate note-symbol resolution (Bible→book→chapter→individual) + `enabled_note_ids` force-on; 8 TDD tasks; byte-stable (9 KJV identical = ship gate); ready to execute. Phase B (popups) + Phase C (`/build-my-bible` navigator) follow |
 | 2026-06-03 | Plan | Monetization & Sustainability — donations / print / hosted service / grants | `plans/2026-06-03-monetization-and-sustainability-plan.md` | in progress — Phase 1 (support-the-mission links: PayPal/GitHub Sponsors/Ko-fi) being built by the Mac lane; Phases 2–4 roadmap sequenced by speed-to-cash (print-on-demand → hosted open-core builder → commissions+grants); **inviolable constraint: the Word/digital stays free — revenue only on convenience/artifacts/support** |
 | 2026-06-03 | Plan | Website — the YHWH builder program's home page (yhwhyaway.com) | `plans/2026-06-03-website-plan.md` | in progress — **RE-SCOPED**: the site is the builder PROGRAM's home page, NOT a download portal (no EPUBs); manuscript-reverent look CHOSEN; Phase-1 prototype shell built (`website/index.html`+`style.css`), CONTENT needs rebuild to the program-homepage framing; showcase + get-the-code + example gallery; plain HTML/CSS + `build_site.py` → GitLab Pages → yhwhyaway.com |
