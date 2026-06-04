@@ -77,8 +77,14 @@ class TestConsoleHtmlShell:
         assert "/api/build-my-bible/" in self.html
 
     def test_uses_shared_escaper_not_raw_innerhtml(self):
-        # XSS-safety: server strings go through the shared ω.0.7 escaper.
+        # XSS-safety: the shared ω.0.7 escaper must back the local esc() helper
+        # AND the highest-risk server-supplied strings (note title/kind, book
+        # title) must actually be wrapped in esc() before innerHTML — not merely
+        # present somewhere in the file. (Integers like ch.num/v.vs are injected
+        # raw by design — they are server-built range() ints, never strings.)
         assert "window.escapeHtml" in self.html
+        for wrapped in ("esc(n.title", "esc(n.kind)", "esc(b.title)"):
+            assert wrapped in self.html, f"server string not escaped: {wrapped}"
 
 
 class TestApiThreeLevelsServeOk:

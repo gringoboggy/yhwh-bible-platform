@@ -596,6 +596,7 @@ async function onEditionChange() {
 // visit; re-visits read straight from BOOK_CACHE (no refetch).
 async function navToBook(code) {
   if (!code) return;
+  const snapEd = CUR_EDITION;  // snapshot before any await
   CUR_BOOK = code;
   CUR_CHAPTER = null;
   CUR_VERSE = null;
@@ -607,12 +608,14 @@ async function navToBook(code) {
     setLevelHeader(bookTitle(code), 'loading …');
     let payload;
     try {
-      payload = await fetchBook(CUR_EDITION, code);
+      payload = await fetchBook(snapEd, code);
     } catch (e) {
-      return;  // banner shown; panel keeps its spinner-cleared state below
+      renderLevelPanel();  // banner already shown; clear the spinner / restore state
+      return;
     }
-    // Guard against a stale response if the user clicked away meanwhile.
-    if (CUR_BOOK !== code) return;
+    // Guard against a stale response if the user clicked away (or switched
+    // edition) meanwhile.
+    if (CUR_EDITION !== snapEd || CUR_BOOK !== code) return;
     BOOK_CACHE.set(code, payload);
   }
   renderLevelPanel();
@@ -621,22 +624,27 @@ async function navToBook(code) {
 // Navigate to a chapter (the verse list). Lazy + cached by "book:ch".
 async function navToChapter(num) {
   if (num == null) return;
+  const snapEd = CUR_EDITION;  // snapshot before any await
+  const snapBook = CUR_BOOK;   // so a same-numbered chapter in another book
+                               // (clicked mid-fetch) can't clobber this one
   CUR_CHAPTER = num;
   CUR_VERSE = null;
   renderBreadcrumb();
 
-  const key = CUR_BOOK + ':' + num;
+  const key = snapBook + ':' + num;
   if (!CHAPTER_CACHE.has(key)) {
     spinnerInto(document.getElementById('level-panel'), 'loading chapter …');
-    setLevelHeader(bookTitle(CUR_BOOK) + ' ' + num, 'loading …');
+    setLevelHeader(bookTitle(snapBook) + ' ' + num, 'loading …');
     let payload;
     try {
-      payload = await fetchChapter(CUR_EDITION, CUR_BOOK, num);
+      payload = await fetchChapter(snapEd, snapBook, num);
     } catch (e) {
-      return;  // banner shown
+      renderLevelPanel();  // banner already shown; clear the spinner / restore state
+      return;
     }
-    // Guard against a stale response if the user navigated away meanwhile.
-    if (CUR_BOOK == null || CUR_CHAPTER !== num) return;
+    // Guard against a stale response if the user navigated away (or switched
+    // book/edition) meanwhile.
+    if (CUR_EDITION !== snapEd || CUR_BOOK !== snapBook || CUR_CHAPTER !== num) return;
     CHAPTER_CACHE.set(key, payload);
   }
   renderLevelPanel();
