@@ -12,15 +12,17 @@ machine. No account, no server, no cloud.
 
 ## What you get
 
-- **11 built-in editions across 5 canon shapes** — Ethiopian Tewahedo,
-  Catholic, Eastern/Coptic Orthodox, Anglican, Lutheran, Reformed, and
-  Jewish/Tanakh, plus two standalone Geʽez/Amharic Bibles. Each is a filtered
-  view of the one superset.
+- **Two standalone Geʽez &amp; Amharic Bibles** *(in progress)* — transcribed
+  directly from the manuscripts, each with a faithful English back-translation.
+  The project's distinctive heart.
+- **9 built-in study editions across 5 canon shapes** — Ethiopian Tewahedo,
+  Catholic, Eastern &amp; Coptic Orthodox, Anglican, Lutheran, Reformed, and
+  Jewish/Tanakh — each a filtered view of the one 87-book superset.
 - **91,733 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
-- **Verse popups** in Hebrew (WLC), Greek (LXX + Byzantine NT), Latin
-  (Clementine Vulgate), and Arabic (Van Dyck) — chosen per edition.
+- **Original-language verse popups** — Hebrew (WLC), Greek (LXX + Byzantine NT),
+  Latin (Clementine Vulgate), and Arabic (Van Dyck), chosen per edition.
 - A **wizard** plus customize / preview consoles, so a non-technical builder can
   produce their own edition without editing YAML or touching a CLI.
 - Output is a standards-clean **EPUB 3** (epubcheck reports 0 errors / 0
@@ -28,9 +30,10 @@ machine. No account, no server, no cloud.
 
 ## Quick start — use it
 
-**Desktop app (Windows):** download the latest release, unzip, and double-click
-**`YHWH.exe`**. The app opens in its own window; a first-run welcome guides you
-to the wizard. No Python required.
+**Desktop app:** once the first public beta is posted, download the build for
+your system — Windows (`.exe` installer), macOS (`.dmg`), or Linux
+(`.AppImage`) — and run it. The app opens in its own window; a first-run welcome
+guides you to the wizard. No Python required.
 
 > Want to build that release artifact yourself? See
 > [Packaging the desktop app](#packaging-the-desktop-app).
