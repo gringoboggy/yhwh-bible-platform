@@ -194,6 +194,7 @@ from scripts.api.editions import (  # noqa: E402, F401
     api_preview_edition_changes,
     api_save_edition,
     api_save_edition_meta,
+    api_save_note_override,
     api_save_note_toggle,
     api_save_publisher_meta,
 )
@@ -735,6 +736,14 @@ _PUT_ROUTES: list[tuple[re.Pattern, object]] = [
     (
         re.compile(r"^/api/edition/([a-z0-9-]+)/note-toggle$"),
         lambda m, payload: api_save_note_toggle(m.group(1), payload),
+    ),
+    # ρ.3 Phase C2-5 — /api/edition/<id>/note-override — atomic three-state
+    # per-note override (enabled_note_ids force-on / disabled_note_ids force-off,
+    # mutually exclusive). Distinct suffix from note-toggle above; both must
+    # precede the broader /api/edition/<id> pattern below.
+    (
+        re.compile(r"^/api/edition/([a-z0-9-]+)/note-override$"),
+        lambda m, payload: api_save_note_override(m.group(1), payload),
     ),
     (re.compile(r"^/api/edition/([a-z0-9-]+)$"), lambda m, payload: api_save_edition(m.group(1), payload)),
     (re.compile(r"^/api/scenarios/([a-z0-9_-]+)$"), lambda m, payload: api_save_scenario(m.group(1), payload)),

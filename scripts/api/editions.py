@@ -1073,6 +1073,88 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     }
 
 
+def _set_note_id_in_field(
+    edition_id: str,
+    nid: str,
+    present: bool,
+    *,
+    field: str,
+    anchor_field: str,
+) -> dict:
+    """ρ.3 — add or remove ``nid`` in one edition's ``field`` YAML list.
+
+    Shared write engine for ``disabled_note_ids`` (force-off) and
+    ``enabled_note_ids`` (force-on). ``present`` True ⇒ the id must be in the
+    list afterward; False ⇒ it must be absent. The list is kept sorted +
+    exceptions-only (rendered ``[]`` when empty) so unrelated editions stay
+    byte-stable. On no-op returns ``{"unchanged": True, "count": N}`` WITHOUT
+    writing; on a real change writes atomically (with a backup) and clears the
+    edition + matrix caches, returning ``{"changed": True, "count": N}``.
+
+    ``anchor_field`` is the sibling field whose line we insert BEFORE when the
+    target list does not yet exist in the block (e.g. ``disabled_kinds``), so a
+    brand-new list lands in a stable, valid position.
+
+    Field-parameterised so both the legacy note-toggle path and the new unified
+    note-override endpoint share one tested implementation (DRY). Validation of
+    the edition id + note id is the caller's responsibility (done once).
+    """
+    eds = config.editions_by_id()
+    edition = eds[edition_id]
+    current = list(edition.get(field) or [])
+    new_set = set(current)
+    if present:
+        new_set.add(nid)
+    else:
+        new_set.discard(nid)
+    new_list = sorted(new_set)
+
+    if new_list == sorted(current):
+        return {"unchanged": True, "count": len(new_list)}
+
+    path = REPO / "content" / "editions.yaml"
+    text = path.read_text(encoding="utf-8")
+
+    block_re = re.compile(
+        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    m = block_re.search(text)
+    if not m:
+        return {"error": f"edition {edition_id} not found in YAML"}
+    head, body = m.group(1), m.group(2)
+
+    if new_list:
+        new_block = f"    {field}:\n" + "\n".join(f'      - "{v}"' for v in new_list) + "\n"
+    else:
+        new_block = f"    {field}: []\n"
+
+    list_re = re.compile(
+        rf"^(    {re.escape(field)}:.*?\n)((?:      - [^\n]+\n)*|    {re.escape(field)}: \[\]\n)",
+        re.MULTILINE,
+    )
+    if list_re.search(body):
+        new_body = list_re.sub(new_block, body, count=1)
+    else:
+        # Prefer the sibling note-id field as anchor if it already exists (so
+        # the two individual-level lists sit together), else the declared
+        # anchor_field, else append to the block end.
+        sibling = "enabled_note_ids" if field == "disabled_note_ids" else "disabled_note_ids"
+        anchor_re = re.compile(rf"^(    (?:{re.escape(sibling)}|{re.escape(anchor_field)}):)", re.MULTILINE)
+        am = anchor_re.search(body)
+        new_body = (body[: am.start()] + new_block + body[am.start() :]) if am else (body + new_block)
+
+    new_text = text[: m.start()] + head + new_body + text[m.end() :]
+    notes_io.ensure_backup(path)
+    notes_io.atomic_write(path, new_text)
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+    return {"changed": True, "count": len(new_list)}
+
+
 @audit_log.audit_endpoint(action="save_note_toggle")
 def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
     """Add or remove a note ID from an edition's disabled_note_ids list (ρ.1)."""
@@ -1098,64 +1180,104 @@ def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
     if not html_ref:
         return {"error": f"could not resolve note_id to HTML ref: {nid}"}
 
-    edition = eds[edition_id]
-    current_disabled = list(edition.get("disabled_note_ids") or [])
-    new_set = set(current_disabled)
-    if enabled:
-        new_set.discard(nid)
-    else:
-        new_set.add(nid)
-    new_list = sorted(new_set)
-
-    if new_list == sorted(current_disabled):
-        return {"ok": True, "edition": edition_id, "unchanged": True, "disabled_count": len(new_list)}
-
-    path = REPO / "content" / "editions.yaml"
-    text = path.read_text(encoding="utf-8")
-
-    block_re = re.compile(
-        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
-        re.MULTILINE | re.DOTALL,
+    # enabled=True ⇒ note SHIPS ⇒ remove from disabled_note_ids (present=False);
+    # enabled=False ⇒ note OFF ⇒ add to disabled_note_ids (present=True).
+    res = _set_note_id_in_field(
+        edition_id,
+        nid,
+        present=not enabled,
+        field="disabled_note_ids",
+        anchor_field="disabled_kinds",
     )
-    m = block_re.search(text)
-    if not m:
-        return {"error": f"edition {edition_id} not found in YAML"}
-    head, body = m.group(1), m.group(2)
-
-    if new_list:
-        new_block = "    disabled_note_ids:\n" + "\n".join(f'      - "{nid}"' for nid in new_list) + "\n"
-    else:
-        new_block = "    disabled_note_ids: []\n"
-
-    list_re = re.compile(
-        r"^(    disabled_note_ids:.*?\n)((?:      - [^\n]+\n)*|    disabled_note_ids: \[\]\n)",
-        re.MULTILINE,
-    )
-    if list_re.search(body):
-        new_body = list_re.sub(new_block, body, count=1)
-    else:
-        anchor_re = re.compile(r"^(    disabled_kinds:)", re.MULTILINE)
-        am = anchor_re.search(body)
-        if am:
-            new_body = body[: am.start()] + new_block + body[am.start() :]
-        else:
-            new_body = body + new_block
-
-    new_text = text[: m.start()] + head + new_body + text[m.end() :]
-    notes_io.ensure_backup(path)
-    notes_io.atomic_write(path, new_text)
-    config.load_editions.cache_clear()
-    from scripts.core import matrix as matrix_mod
-
-    matrix_mod.compute_matrix.cache_clear()
+    if "error" in res:
+        return res
+    if res.get("unchanged"):
+        return {"ok": True, "edition": edition_id, "unchanged": True, "disabled_count": res["count"]}
 
     return {
         "ok": True,
         "edition": edition_id,
         "note_id": nid,
         "now_enabled": enabled,
-        "disabled_count": len(new_list),
+        "disabled_count": res["count"],
     }
+
+
+@audit_log.audit_endpoint(action="save_note_override")
+def api_save_note_override(edition_id: str, payload: dict) -> dict:
+    """ρ.3 Phase C2-5 — atomic three-state per-note override.
+
+    ``payload = {note_id, state}`` with ``state ∈ {"default","on","off"}``:
+
+    - ``"off"``     → add to ``disabled_note_ids``, remove from ``enabled_note_ids``.
+    - ``"on"``      → add to ``enabled_note_ids``, remove from ``disabled_note_ids``
+                      (force-on; the Phase-A build subtracts ``enabled_note_ids``
+                      LAST so it wins over everything — §3.4 level 1).
+    - ``"default"`` → remove from BOTH lists (revert to family resolution).
+
+    The two lists stay mutually exclusive (a note is in at most one). Returns
+    ``{"ok": True, "edition", "note_id", "state", "disabled_count", "enabled_count"}``
+    (plus ``"unchanged": True`` when nothing changed); ``{"error": ...}`` for an
+    unknown edition / bad note_id / bad state.
+    """
+    from scripts.web import html_ref_id_from_note_id, parse_note_id
+
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        return {"error": f"unknown edition: {edition_id}"}
+
+    nid = payload.get("note_id", "")
+    state = payload.get("state")
+    if state not in ("default", "on", "off"):
+        return {"error": "state must be one of: default, on, off"}
+
+    parsed = parse_note_id(nid)
+    if not parsed:
+        return {"error": f"invalid note_id format: {nid!r}"}
+
+    books = config.books_by_code()
+    if parsed["book"] not in books:
+        return {"error": f"unknown book: {parsed['book']}"}
+
+    html_ref = html_ref_id_from_note_id(nid, books)
+    if not html_ref:
+        return {"error": f"could not resolve note_id to HTML ref: {nid}"}
+
+    # Desired membership per list (mutually exclusive — at most one True).
+    want_disabled = state == "off"
+    want_enabled = state == "on"
+
+    # Apply both field-writes (each idempotent; a no-op when already in the
+    # target membership state). The order is harmless because each list is
+    # independent and resolution subtracts enabled LAST regardless.
+    changed = False
+    for field, anchor, want in (
+        ("disabled_note_ids", "disabled_kinds", want_disabled),
+        ("enabled_note_ids", "disabled_kinds", want_enabled),
+    ):
+        res = _set_note_id_in_field(edition_id, nid, present=want, field=field, anchor_field=anchor)
+        if "error" in res:
+            return res
+        if res.get("changed"):
+            changed = True
+
+    # Re-read authoritative counts (cache was cleared by any write above).
+    eds = config.editions_by_id()
+    edition = eds[edition_id]
+    disabled_count = len(edition.get("disabled_note_ids") or [])
+    enabled_count = len(edition.get("enabled_note_ids") or [])
+
+    out = {
+        "ok": True,
+        "edition": edition_id,
+        "note_id": nid,
+        "state": state,
+        "disabled_count": disabled_count,
+        "enabled_count": enabled_count,
+    }
+    if not changed:
+        out["unchanged"] = True
+    return out
 
 
 @audit_log.audit_endpoint(action="save_publisher_meta")

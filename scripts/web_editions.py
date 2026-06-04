@@ -770,6 +770,12 @@ def api_build_my_bible(
     disabled_ids = set(edition.get("disabled_note_ids") or [])
     enabled_ids = set(edition.get("enabled_note_ids") or [])
 
+    # ρ.3 Phase C2-5 — the FAMILY-resolved enabled-kind set for this (book,
+    # chapter) coordinate, computed ONCE (the per-note checkbox needs each
+    # note's RESOLVED ships state, not just the individual overrides). Read-API
+    # addition only — byte-neutral (no build/resolver/epub change).
+    chapter_enabled_kinds = config.enabled_kind_codes_for(edition, all_kinds, book, chapter)
+
     for n in all_notes:
         if n.get("chapter") != chapter:
             continue
@@ -777,14 +783,24 @@ def api_build_my_bible(
         kind_def = kinds_by_code.get(n.get("kind", ""), {})
         cat_def = cats_by_id.get(n.get("category", ""), {})
         note_id = n["note_id"]
+        note_kind = n.get("kind", "")
+        is_disabled = note_id in disabled_ids
+        is_forced_on = note_id in enabled_ids
+        kind_enabled = note_kind in chapter_enabled_kinds
         note_out = {
             "note_id": note_id,
-            "kind": n.get("kind", ""),
+            "kind": note_kind,
             "category": n.get("category", ""),
             "symbol": cat_def.get("symbol", kind_def.get("symbol", "?")),
             "title": (n.get("title") or n.get("anchor") or "")[:200],
-            "disabled": note_id in disabled_ids,
-            "forced_on": note_id in enabled_ids,
+            "disabled": is_disabled,
+            "forced_on": is_forced_on,
+            # FAMILY resolution at this coordinate (kind on/off ignoring the
+            # per-note individual overrides).
+            "kind_enabled": kind_enabled,
+            # Effective build outcome (§3.4 precedence: enabled_note_ids →
+            # disabled_note_ids → family). force-on wins absolutely.
+            "ships": is_forced_on or (kind_enabled and not is_disabled),
         }
         if vs_num not in notes_by_verse:
             notes_by_verse[vs_num] = []

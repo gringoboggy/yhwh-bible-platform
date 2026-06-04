@@ -1045,13 +1045,15 @@ function renderChapterPanel(el) {
       renderBreadcrumb();
       renderChapterPanel(el);
     });
-    // Wire the per-verse popup checklist for the focused verse (C2-4).
+    // Wire the per-verse popup checklist (C2-4) + per-note ships? checkboxes
+    // (C2-5) for the focused verse.
     const vsNum = Number(row.dataset.verse);
     if (CUR_VERSE === vsNum) {
       const vEntry = verses.find(v => v.vs === vsNum);
       const vInherited = (vEntry && vEntry.resolved && vEntry.resolved.popups) || [];
       const vKey = key + ':' + vsNum;
       wirePopupsControls(row, 'verse', vKey, vInherited);
+      wireNoteShipsControls(row);
     }
   });
 }
@@ -1075,9 +1077,9 @@ function renderVerseRow(v) {
       <span class="text-xs text-slate-400 tabular-nums whitespace-nowrap">${symsOn} sym · ${popN} popup</span>
     </div>`;
 
-  // Notes list — read-only at the individual level. C2-5 adds the
-  // per-note disable / force-on checkboxes here.
-  /* C2-5 makes this interactive (per-note disable / force-on) */
+  // Notes list — interactive at the individual level (C2-5): each note
+  // carries a "ships?" checkbox (force-on / force-off). Checkboxes are wired
+  // in renderChapterPanel (scoped to the focused verse row).
   let body = '';
   if (focused) {
     const notesBlock = notes.length
@@ -1096,22 +1098,102 @@ function renderVerseRow(v) {
   return `<li class="verse-row" data-verse="${v.vs}">${head}${body}</li>`;
 }
 
-// One read-only note line: symbol + kind + title, faint marker if the
-// note is disabled or forced-on in this edition. C2-5 swaps the marker
-// area for the writable checkboxes.
+// One interactive note line (C2-5): symbol + kind + title + a "ships?"
+// checkbox = whether this note ends up in the built EPUB. The checkbox
+// reflects the note's RESOLVED state (family on/off ∧ individual override)
+// via the server-computed `ships` flag; a faint label explains WHY it ships
+// (forced on / off via family / off via override / family on). Toggling
+// writes the right per-note override through PUT /api/edition/<ed>/note-override
+// (see wireNoteShipsControls). The data-* attributes carry the server flags
+// the wiring needs so the row stays the single source of per-note truth.
+function noteShipsLabel(n) {
+  // forced_on wins absolutely; then family-off; then per-note disable; else family.
+  if (n.forced_on) return '<span class="text-xs text-emerald-600 ml-1" title="force-on override — ships even though its family is off">(forced on)</span>';
+  if (!n.kind_enabled) return '<span class="text-xs text-slate-400 ml-1" title="this note\'s family is off at this coordinate">(off: family)</span>';
+  if (n.disabled) return '<span class="text-xs text-amber-600 ml-1" title="force-off override on this note">(off: override)</span>';
+  return '<span class="text-xs text-slate-400 ml-1" title="ships because its family is on">(family on)</span>';
+}
+
 function renderNoteLine(n) {
-  const stateMark = n.disabled
-    ? '<span class="text-xs text-amber-600 ml-1" title="disabled in this edition">(disabled)</span>'
-    : (n.forced_on
-        ? '<span class="text-xs text-emerald-600 ml-1" title="forced on in this edition">(forced on)</span>'
-        : '');
-  const dim = n.disabled ? 'opacity-50' : '';
+  const dim = n.ships ? '' : 'opacity-50';
   return `
-    <li class="note-line flex items-start gap-2 ${dim}" data-note-id="${esc(n.note_id)}">
+    <li class="note-line flex items-start gap-2 ${dim}" data-note-id="${esc(n.note_id)}"
+        data-ships="${n.ships ? '1' : '0'}" data-kind-enabled="${n.kind_enabled ? '1' : '0'}">
+      <label class="note-ships-label flex items-center gap-1 cursor-pointer select-none mt-0.5"
+             title="ships? — whether this note ends up in the built EPUB">
+        <input type="checkbox" class="note-ships-cb" data-note-id="${esc(n.note_id)}" ${n.ships ? 'checked' : ''}>
+      </label>
       <span class="symbol text-slate-500" title="${esc(n.category)}">${esc(n.symbol)}</span>
       <span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono text-slate-600">${esc(n.kind)}</span>
-      <span class="text-sm text-slate-700 flex-1 min-w-0">${esc(n.title || 'Note')}${stateMark}</span>
+      <span class="text-sm text-slate-700 flex-1 min-w-0">${esc(n.title || 'Note')}${noteShipsLabel(n)}</span>
     </li>`;
+}
+
+// Wire the per-note "ships?" checkboxes for the focused verse (C2-5). The
+// row's data-* flags + the checkbox's desired value pick the three-state
+// override to send (§3.4):
+//   desired ON  + family on  → "default" (drop any force-off)
+//   desired ON  + family off → "on"      (force-on the off-family note)
+//   desired OFF + family on  → "off"     (force-off)
+//   desired OFF + family off → "default" (drop any force-on)
+// On success we invalidate this chapter's cache + refetch OVERVIEW (so the
+// overrides maps are current) then re-render, preserving the focused verse.
+function wireNoteShipsControls(row) {
+  if (!row) return;
+  row.querySelectorAll('.note-ships-cb').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const line = cb.closest('.note-line');
+      if (!line) return;
+      const noteId = cb.dataset.noteId;
+      const kindEnabled = line.dataset.kindEnabled === '1';
+      const desired = cb.checked;  // new checkbox value = "should this ship?"
+      let state;
+      if (desired) state = kindEnabled ? 'default' : 'on';
+      else state = kindEnabled ? 'off' : 'default';
+      saveNoteOverride(noteId, state);
+    });
+  });
+}
+
+// PUT the per-note override + refresh (mirrors C2-4's fetch/error handling).
+async function saveNoteOverride(noteId, state) {
+  if (!CUR_EDITION) return;
+  const snapEd = CUR_EDITION;
+  const snapBook = CUR_BOOK;
+  const snapCh = CUR_CHAPTER;
+  setSaveStatus('saving…', null);
+  let result;
+  try {
+    const r = await fetch('/api/edition/' + encodeURIComponent(snapEd) + '/note-override', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({note_id: noteId, state: state}),
+    });
+    result = await r.json();
+    if (!r.ok || (result && result.error)) {
+      const msg = (result && result.error) ? result.error : (r.status + ' ' + r.statusText);
+      setSaveStatus('✗ ' + msg, false);
+      return;
+    }
+  } catch (e) {
+    setSaveStatus('✗ ' + (e && e.message ? e.message : String(e)), false);
+    return;
+  }
+  // Success — refetch OVERVIEW so overrides.disabled_note_ids / enabled_note_ids
+  // are current, then invalidate the chapter cache + re-render (the chapter
+  // payload carries the server-computed ships/forced_on/disabled flags).
+  try {
+    OVERVIEW = await fetchOverview(snapEd);
+  } catch (e) {
+    setSaveStatus('✓ saved (reload to refresh)', true);
+    return;
+  }
+  if (CUR_EDITION !== snapEd) return;  // user switched edition mid-save
+  BOOKS = (OVERVIEW && OVERVIEW.books_canonical) || BOOKS;
+  seedWorkFromOverview(_pendingFields);
+  if (snapBook != null && snapCh != null) CHAPTER_CACHE.delete(snapBook + ':' + snapCh);
+  setSaveStatus('✓ saved', true);
+  await reRenderCurrentLevel();
 }
 
 // ---- edition picker (the one live control in the shell) --------------
