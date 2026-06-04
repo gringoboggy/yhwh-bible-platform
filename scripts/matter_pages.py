@@ -246,10 +246,17 @@ def _legend_categories_for_edition(edition_id: str) -> list[dict]:
     """Ordered list of {id, symbol, label, description, count} for the categories
     that actually appear in this edition (count > 0), in categories.yaml
     sort_order. Edition-aware: disabling a category (or a canon that excludes it)
-    drops its symbol from the guide."""
-    from scripts.core import config, matrix as _matrix
+    drops its symbol from the guide.
 
-    present = _matrix.breakdown_by_category(edition_id)  # {cat_id: count}
+    σ.3.1 — driven by ``edition_stats.resolved_note_counts`` (the build-accurate
+    counter that honors the ρ.3 per-book/chapter/note hierarchy), NOT the
+    edition-wide ``matrix.breakdown_by_category`` it used before. So a family
+    turned off across the canon drops its symbol, while a single force-on note
+    of an otherwise-off family resurfaces it — exactly the symbols that ship."""
+    from scripts.core import config, edition_stats
+
+    edition = config.editions_by_id()[edition_id]
+    present = edition_stats.resolved_note_counts(edition)["per_category"]  # {cat_id: count}
     cats = sorted(config.load_categories(), key=lambda c: c.get("sort_order", 999))
     return [
         {
