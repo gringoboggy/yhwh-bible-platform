@@ -536,3 +536,270 @@ def api_disabled_notes_for_edition(edition_id: str) -> dict:
         "edition": edition_id,
         "disabled_note_ids": sorted(eds[edition_id].get("disabled_note_ids") or []),
     }
+
+
+def api_build_my_bible(
+    edition_id: str,
+    book: str | None = None,
+    chapter: int | None = None,
+) -> dict:
+    """ρ.3 Phase C2-1 — lazy 3-level read API for the /build-my-bible navigator.
+
+    Compose existing endpoints; RULES §9 (pure function, no corpus re-walk).
+
+    Levels:
+    - Edition (book=None): edition overview + books_canonical filtered to
+      canon, registries, overrides, resolved_bible.
+    - Book (book set, chapter=None): book info + per-chapter list with
+      has_notes + resolved state.
+    - Chapter (book + chapter set): chapter info + per-verse list with
+      notes (from api_sources_for_book filtered to chapter) + resolved state.
+
+    Returns ``{"error": "...", "http": 404}`` for unknown edition or book.
+    All returned structures are dicts / lists — never raises for expected
+    errors (RULES §9 pure-fn + thin-route contract).
+    """
+    # ------------------------------------------------------------------ imports
+    from scripts.build_edition import _resolve_popup_languages
+    from scripts.core import matrix as matrix_mod
+    from scripts.core import versification
+    from scripts.web_sources import api_sources_for_book
+
+    # ------------------------------------------------------------------ edition lookup
+    eds_by_id = config.editions_by_id()
+    if edition_id not in eds_by_id:
+        return {"error": f"unknown edition: {edition_id}", "http": 404}
+    edition = eds_by_id[edition_id]
+
+    m = matrix_mod.compute_matrix()
+    canon_set = m.edition_canon_books.get(edition_id, set())
+    enabled_kinds_set = m.edition_enabled_kinds.get(edition_id, set())
+    per_chapter_ed = m.per_chapter.get(edition_id, {})
+
+    all_kinds = config.load_kinds()
+    all_cats = config.load_categories()
+    kinds_by_code = config.kinds_by_code()
+    cats_by_id = config.categories_by_id()
+    books_by_code = config.books_by_code()
+
+    # canonical-ordered book list (books.yaml order)
+    all_books_ordered = config.load_books()
+    canon_books_ordered = [b for b in all_books_ordered if b["code"] in canon_set]
+
+    # ------------------------------------------------------------------ LEVEL helpers
+
+    def _symbols_for(bk: str, ch: int | None = None) -> dict[str, str]:
+        """Return {cat_id: "on"|"off"} for the given (book[, chapter]) coordinate."""
+        enabled = config.enabled_kind_codes_for(edition, all_kinds, bk, ch)
+        result: dict[str, str] = {}
+        for cat in all_cats:
+            cat_id = cat["id"]
+            any_on = any(k.get("code") in enabled and k.get("category") == cat_id for k in all_kinds)
+            result[cat_id] = "on" if any_on else "off"
+        return result
+
+    def _popups_for(bk: str, ch: int | None = None, vs: int | None = None) -> list[str]:
+        """Return sorted list of popup language ids for the given coordinate."""
+        langs = _resolve_popup_languages(edition, bk, ch, vs)
+        return sorted(langs)
+
+    def _has_notes_for_chapter(bk: str, ch: int) -> bool:
+        """Return True if the chapter has at least one enabled-kind note."""
+        for kind, by_book in per_chapter_ed.items():
+            if kind not in enabled_kinds_set:
+                continue
+            if by_book.get(bk, {}).get(ch, 0):
+                return True
+        return False
+
+    # ------------------------------------------------------------------ EDITION level
+    if book is None:
+        # Use first canon book as the anchor for resolved_bible
+        first_book = canon_books_ordered[0]["code"] if canon_books_ordered else ""
+
+        # Registries (from api_customize_data shape but targeted slices)
+        categories = [
+            {
+                "id": c["id"],
+                "label": c.get("label", c["id"]),
+                "symbol": c.get("symbol", "?"),
+                "description": c.get("description", ""),
+                "sort_order": c.get("sort_order", 999),
+            }
+            for c in sorted(all_cats, key=lambda x: x.get("sort_order", 999))
+        ]
+        kinds = [
+            {
+                "code": k["code"],
+                "category": k.get("category", "?"),
+                "label": k.get("label", k["code"]),
+                "symbol": k.get("symbol", ""),
+                "description": k.get("description", ""),
+                "phase": k.get("phase", "mvp"),
+            }
+            for k in all_kinds
+        ]
+        from scripts.build_edition import POPUP_LANGUAGES, ALL_POPUP_LANGUAGES
+        from scripts.core import popup_versions as _pv
+
+        popup_languages = [
+            {
+                "id": lid,
+                "label": POPUP_LANGUAGES[lid]["label"],
+                "has_data": _pv.bakes_now(_pv.resolve_version_id(lid) or lid),
+            }
+            for lid in ALL_POPUP_LANGUAGES
+        ]
+
+        # Overrides — the 6 decoded per-coordinate fields + disabled/enabled note ids
+        from scripts.build_edition import (
+            decode_per_book_tokens,
+            decode_per_chapter_tokens,
+            decode_per_chapter_languages,
+            decode_per_verse_languages,
+            decode_per_book_languages,
+        )
+
+        overrides = {
+            "note_families_on_per_book": decode_per_book_tokens(edition.get("note_families_on_per_book")),
+            "note_families_off_per_book": decode_per_book_tokens(edition.get("note_families_off_per_book")),
+            "note_families_on_per_chapter": decode_per_chapter_tokens(edition.get("note_families_on_per_chapter")),
+            "note_families_off_per_chapter": decode_per_chapter_tokens(edition.get("note_families_off_per_chapter")),
+            "popup_languages_per_chapter": decode_per_chapter_languages(edition.get("popup_languages_per_chapter")),
+            "popup_languages_per_verse": decode_per_verse_languages(edition.get("popup_languages_per_verse")),
+            "disabled_note_ids": sorted(edition.get("disabled_note_ids") or []),
+            "enabled_note_ids": sorted(edition.get("enabled_note_ids") or []),
+        }
+
+        # resolved_bible — edition-level resolved state using first canon book
+        resolved_bible: dict[str, object] = {
+            "symbols": _symbols_for(first_book) if first_book else {},
+            "popups": _popups_for(first_book) if first_book else [],
+        }
+
+        # books_canonical — ordered, filtered, with ch_count
+        books_canonical_out = [
+            {
+                "code": b["code"],
+                "title": b.get("title", b["code"]),
+                "ch_count": int(books_by_code.get(b["code"], {}).get("ch_count") or 0),
+            }
+            for b in canon_books_ordered
+        ]
+
+        return {
+            "edition": {
+                "id": edition_id,
+                "title": edition.get("title", edition_id),
+                "short_title": edition.get("short_title", edition_id),
+            },
+            "books_canonical": books_canonical_out,
+            "categories": categories,
+            "kinds": kinds,
+            "popup_languages": popup_languages,
+            "overrides": overrides,
+            "resolved_bible": resolved_bible,
+        }
+
+    # ------------------------------------------------------------------ BOOK level
+    if chapter is None:
+        # Validate book
+        if book not in canon_set:
+            # Could also be unknown book entirely
+            if book not in books_by_code:
+                return {"error": f"unknown book: {book}", "http": 404}
+            return {"error": f"book {book!r} not in edition {edition_id!r} canon", "http": 404}
+
+        book_def = books_by_code[book]
+        ch_count = int(book_def.get("ch_count") or 0)
+
+        chapters_out = []
+        for ch_num in range(1, ch_count + 1):
+            has_notes = _has_notes_for_chapter(book, ch_num)
+            chapters_out.append(
+                {
+                    "num": ch_num,
+                    "has_notes": has_notes,
+                    "resolved": {
+                        "symbols": _symbols_for(book, ch_num),
+                        "popups": _popups_for(book, ch_num),
+                    },
+                }
+            )
+
+        return {
+            "book": {
+                "code": book,
+                "title": book_def.get("title", book),
+                "ch_count": ch_count,
+            },
+            "chapters": chapters_out,
+        }
+
+    # ------------------------------------------------------------------ CHAPTER level
+    # Validate book
+    if book not in books_by_code:
+        return {"error": f"unknown book: {book}", "http": 404}
+    if book not in canon_set:
+        return {"error": f"book {book!r} not in edition {edition_id!r} canon", "http": 404}
+
+    book_def = books_by_code[book]
+    ch_count = int(book_def.get("ch_count") or 0)
+
+    # Validate chapter
+    if chapter < 1 or chapter > ch_count:
+        return {"error": f"chapter {chapter} out of range for {book} (1–{ch_count})", "http": 404}
+
+    try:
+        verse_count = versification.canonical_count(book, chapter)
+    except KeyError:
+        return {"error": f"chapter {chapter} not in canonical skeleton for {book}", "http": 404}
+
+    # Load notes for this book (lazy — api_sources_for_book loads from disk)
+    book_notes_data = api_sources_for_book(book)
+    all_notes = book_notes_data.get("notes", [])
+
+    # Index notes by (chapter, verse)
+    notes_by_verse: dict[int, list[dict]] = {}
+    disabled_ids = set(edition.get("disabled_note_ids") or [])
+    enabled_ids = set(edition.get("enabled_note_ids") or [])
+
+    for n in all_notes:
+        if n.get("chapter") != chapter:
+            continue
+        vs_num = n.get("verse", 0)
+        kind_def = kinds_by_code.get(n.get("kind", ""), {})
+        cat_def = cats_by_id.get(n.get("category", ""), {})
+        note_id = n["note_id"]
+        note_out = {
+            "note_id": note_id,
+            "kind": n.get("kind", ""),
+            "category": n.get("category", ""),
+            "symbol": cat_def.get("symbol", kind_def.get("symbol", "?")),
+            "title": (n.get("title") or n.get("anchor") or "")[:200],
+            "disabled": note_id in disabled_ids,
+            "forced_on": note_id in enabled_ids,
+        }
+        if vs_num not in notes_by_verse:
+            notes_by_verse[vs_num] = []
+        notes_by_verse[vs_num].append(note_out)
+
+    # Build verse list in canonical order
+    verses_out = []
+    for vs_num in range(1, verse_count + 1):
+        verse_notes = notes_by_verse.get(vs_num, [])
+        verses_out.append(
+            {
+                "vs": vs_num,
+                "resolved": {
+                    "symbols": _symbols_for(book, chapter),
+                    "popups": _popups_for(book, chapter, vs_num),
+                },
+                "notes": verse_notes,
+            }
+        )
+
+    return {
+        "chapter": chapter,
+        "verses": verses_out,
+    }

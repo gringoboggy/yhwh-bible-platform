@@ -123,6 +123,7 @@ from scripts.web_editions import (  # noqa: E402, F401
     _load_themes,
     _reading_plans_summary_for_api,
     _traditions_canonical_for_api,
+    api_build_my_bible,
     api_build_tracker,
     api_build_tracker_book,
     api_customize_data,
@@ -634,6 +635,15 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, object]] = [
     # 1-group pattern (regex table is sequential).
     (re.compile(r"^/api/build-tracker/([a-z0-9_-]+)/([a-z0-9_-]+)$"), api_build_tracker_book),
     (re.compile(r"^/api/build-tracker/([a-z0-9_-]+)$"), api_build_tracker),
+    # ρ.3 Phase C2-1 — /api/build-my-bible/<ed>[/<book>[/<ch>]]:
+    # 3-level lazy drill-down API for the /build-my-bible navigator.
+    # One combined regex; the lambda receives all 3 groups from
+    # `handler(*m.groups())` (optional groups return None when absent)
+    # and calls api_build_my_bible with the appropriate optional args.
+    (
+        re.compile(r"^/api/build-my-bible/([a-z0-9-]+)(?:/([a-z0-9]+))?(?:/(\d+))?$"),
+        lambda ed, bk, ch: api_build_my_bible(ed, book=bk or None, chapter=int(ch) if ch else None),
+    ),
     # γ.1: Strong's Hebrew lookup. Accepts 'H1' / 'h1' / '1' /
     # 'H0001' — the handler normalizes.
     (re.compile(r"^/api/hebrew/([Hh]?\d+)$"), api_hebrew_lookup),

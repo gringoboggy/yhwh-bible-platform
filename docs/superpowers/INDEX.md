@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**57 documents** — 37 plans · 20 specs.
+**58 documents** — 38 plans · 20 specs.
 
-## In progress (14)
+## In progress (15)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-04 | Plan | Hierarchical Customization — Phase C2: the `/build-my-bible` Navigator Console | `plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` | IN PROGRESS 2026-06-04 — ready to execute. Phase C2 of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §8). UX = drill-down + breadcrumb (user-chosen). Phases A/B/C1 shipped; C3 (polish) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase B: Popup-Language Engine | `plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md` | IN PROGRESS 2026-06-04 — ready to execute. Phase B of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Byte-stability gate = the ship bar. Phase A (symbols) shipped; Phase C (the `/build-my-bible` navigator) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase A: Symbol Engine | `plans/2026-06-04-hierarchical-customize-phaseA-symbol-engine.md` | IN PROGRESS 2026-06-04 — per-coordinate note-symbol resolution (Bible→book→chapter→individual) + `enabled_note_ids` force-on; 8 TDD tasks; byte-stable (9 KJV identical = ship gate); ready to execute. Phase B (popups) + Phase C (`/build-my-bible` navigator) follow |
 | 2026-06-03 | Plan | Monetization & Sustainability — donations / print / hosted service / grants | `plans/2026-06-03-monetization-and-sustainability-plan.md` | in progress — Phase 1 (support-the-mission links: PayPal/GitHub Sponsors/Ko-fi) being built by the Mac lane; Phases 2–4 roadmap sequenced by speed-to-cash (print-on-demand → hosted open-core builder → commissions+grants); **inviolable constraint: the Word/digital stays free — revenue only on convenience/artifacts/support** |
