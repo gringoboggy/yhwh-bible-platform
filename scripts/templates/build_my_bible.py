@@ -42,7 +42,7 @@ BUILD_MY_BIBLE_HTML = r"""<!DOCTYPE html>
   .book-row { cursor: pointer; user-select: none; }
   .book-row:hover { background: #f1f5f9; }
   .book-row.active { background: #dbeafe; font-weight: 600; }
-  .crumb-link { cursor: pointer; }
+  .crumb-link { cursor: pointer; }  /* used by renderBreadcrumb() — clickable crumbs land in C2-3 */
   .crumb-link:hover { text-decoration: underline; }
   .verse-anchor { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 </style>
@@ -154,6 +154,7 @@ let BOOKS = [];           // books_canonical (already in §6.1 order — never s
 async function apiGet(url) {
   if (window.safeFetch) return window.safeFetch(url);
   const r = await fetch(url);
+  if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
   return r.json();
 }
 
