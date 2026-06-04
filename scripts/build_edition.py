@@ -2405,12 +2405,22 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
     ``cross_refs_stripped`` for stats reporting.
     """
     code_by_idx: dict[int, str] = {}
+    code_by_prefix: dict[str, str] = {}
     for i, book in enumerate(all_books):
         # bp_idx parses from book["bp"] like "bp-15" → 15
         bp = book.get("bp", "")
         m = re.match(r"bp-(\d+)", bp)
         idx = int(m.group(1)) if m else i
         code_by_idx[idx] = book["code"]
+        # Strategy-B `bxx` fallback — same id_prefix→bxx ladder used by
+        # _iter_note_ref_symbols. The chapter anchors in the base HTML carry
+        # this prefix (``<a id="ch-<prefix>-cN">``); we use it to identify a
+        # dropped book's *spilled* segment when it has no book-title-page
+        # anchor in the file (a multi-file book whose continuation shares a
+        # file with a later kept book).
+        _prefix = book.get("id_prefix") or book.get("bxx")
+        if _prefix:
+            code_by_prefix[_prefix] = book["code"]
 
     book_codes = {b["code"] for b in all_books}
     dropped = book_codes - canon_books
@@ -2459,6 +2469,33 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         text = fpath.read_text(encoding="utf-8")
         original_len = len(text)
 
+        # Leading-spillover guard: a multi-file book's continuation can share a
+        # file with a *later* kept book and have NO book-title-page anchor of
+        # its own in that file (its title page lived in the prior, now-deleted
+        # file). _BOOK_SEGMENT_RE only matches segments that *begin* with a
+        # book-title-page div, so that leading orphan region (verse text +
+        # note-ref markers) would survive — shipping a dropped book's content
+        # (and orphan markers → epubcheck RSC-012). When the region before the
+        # first book-title-page belongs entirely to dropped books, splice it
+        # out. Identified via its chapter-anchor prefixes
+        # (``<a id="ch-<prefix>-c…">``) mapped back to book codes. The now-
+        # orphaned asides for these notes are removed by Pass 3 below (it drops
+        # any aside whose ``id="ref-…"`` marker is gone).
+        lead_spliced = False
+        _first_bp = text.find('<div class="book-title-page"')
+        if _first_bp > 0:
+            _body_m = re.search(r"<body[^>]*>", text[:_first_bp])
+            _lead_start = _body_m.end() if _body_m else 0
+            _lead = text[_lead_start:_first_bp]
+            _lead_prefixes = set(re.findall(r'id="ch-(b\d+)-c', _lead))
+            _lead_codes = {code_by_prefix.get(p) for p in _lead_prefixes}
+            # Strip only when the leading region carries book content, every
+            # prefix resolves to a known book, and every such book is dropped
+            # (never strip a kept book's spillover or an unrecognized prefix).
+            if _lead_prefixes and None not in _lead_codes and _lead_codes <= dropped:
+                text = text[:_lead_start] + text[_first_bp:]
+                lead_spliced = True
+
         def _maybe_drop(m: re.Match) -> str:
             idx = int(m.group(1))
             code = code_by_idx.get(idx)
@@ -2467,7 +2504,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             return m.group(0)  # keep
 
         new_text, n_subs = _BOOK_SEGMENT_RE.subn(_maybe_drop, text)
-        if n_subs > 0 and new_text != text:
+        if new_text != text or lead_spliced:
             fpath.write_text(new_text, encoding="utf-8")
             stats["segments_spliced"] += (original_len - len(new_text)) // 100  # rough chars
             stats["files_touched"].append(fname)
