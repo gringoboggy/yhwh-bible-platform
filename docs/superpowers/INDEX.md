@@ -4,16 +4,16 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**54 documents** — 35 plans · 19 specs.
+**56 documents** — 36 plans · 20 specs.
 
 ## In progress (13)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-04 | Plan | Hierarchical Customization — Phase A: Symbol Engine | `plans/2026-06-04-hierarchical-customize-phaseA-symbol-engine.md` | IN PROGRESS 2026-06-04 — per-coordinate note-symbol resolution (Bible→book→chapter→individual) + `enabled_note_ids` force-on; 8 TDD tasks; byte-stable (9 KJV identical = ship gate); ready to execute. Phase B (popups) + Phase C (`/build-my-bible` navigator) follow |
 | 2026-06-03 | Plan | Monetization & Sustainability — donations / print / hosted service / grants | `plans/2026-06-03-monetization-and-sustainability-plan.md` | in progress — Phase 1 (support-the-mission links: PayPal/GitHub Sponsors/Ko-fi) being built by the Mac lane; Phases 2–4 roadmap sequenced by speed-to-cash (print-on-demand → hosted open-core builder → commissions+grants); **inviolable constraint: the Word/digital stays free — revenue only on convenience/artifacts/support** |
 | 2026-06-03 | Plan | Website — the YHWH builder program's home page (yhwhyaway.com) | `plans/2026-06-03-website-plan.md` | in progress — **RE-SCOPED**: the site is the builder PROGRAM's home page, NOT a download portal (no EPUBs); manuscript-reverent look CHOSEN; Phase-1 prototype shell built (`website/index.html`+`style.css`), CONTENT needs rebuild to the program-homepage framing; showcase + get-the-code + example gallery; plain HTML/CSS + `build_site.py` → GitLab Pages → yhwhyaway.com |
 | 2026-06-03 | Plan | Mac second-lane bring-up + next steps | `plans/2026-06-03-mac-second-lane-bringup.md` | ready — Mac (2017 iMac) provisioned as a full 2nd lane **with push** (SSH → GitLab+GitHub; Windows pulls+combines, doesn't push); toolchain DONE (uv Py3.14 · claude CLI · VS Code · **Tesseract via conda-forge** — Homebrew unsupported on macOS 13) + GAPS & OCR PDFs in & verified; captures the bring-up, the 3 Mac-made cross-platform fixes (committed from the Mac), and the GAPS-unblocked work (Windows owns P0 folio-mapping) |
-| 2026-06-02 | Plan | Samuel/Kings Cloud Run — agent-path workflow + pilot + bounded run (P1–P4) | `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` | ready — corrected continuation of the cloud-draft spec (agent-path vision via the Max subscription, NOT the out-of-budget API drivers); P1 workflow + tests buildable now on the N95 (free); P2–P4 gated on the user's pricing-trigger |
 | 2026-06-02 | Plan | Samuel/Kings Folio Index (P0) — complete the dual-witness manifests | `plans/2026-06-02-samkings-folio-index-p0-plan.md` | ready — P0 of the Sam/Kings cloud-draft spec; vision-data task (complete `manuscript/{samuel,kings}/manifest.yaml` for ~92 pending chapters); completeness-gate test + per-book folio-mapping batches; supervised on the N95 before pod spend |
 | 2026-06-02 | Plan | mint-11 — Phased fixes plan (round-4 deep-audit) | `plans/2026-06-02-mint-11-fixes-plan.md` | IN PROGRESS 2026-06-02 — 30 survivors (13 med / 14 low / 3 info; NO high/crit); Phase 1 (6 stale tests) SHIPPED (200 green); Phases 0/2/3/4/5/6 + 2 empty-panel HIGH re-verifies remain |
 | 2026-06-01 | Plan | mint-10 — Phased fixes plan (round-3 re-audit, recovered + continued) | `plans/2026-06-01-mint-10-fixes-plan.md` | IN PROGRESS 2026-06-01 — Phase-1 leftovers + Phases 2–6 SHIPPED; only 4 opt-tier items remain (#11 ρ.1 filter + #12 _resolve_popup_languages hoist [both build-path → byte gate] + #13 render_coverage EN + #6 candidates_written stat). Then mint-10 = the LAST audit round (STOP) |
@@ -28,9 +28,9 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-04 | Spec | Hierarchical Edition Customization — navigate-your-Bible (4-level × 2-dimension) | `specs/2026-06-04-hierarchical-edition-customization-design.md` | APPROVED 2026-06-04 — 4 levels (Bible→book→chapter→individual) × 2 dimensions (note symbols + translation popups); Tier-1 + individual-note already ship; Phase A plan written + executing; Phases B (popups) / C (`/build-my-bible`) follow |
 | 2026-06-03 | Spec | Lane-Handoff Baton System — design | `specs/2026-06-03-lane-handoff-baton-system-design.md` | design — direction approved (baton / turn-based: holder = sole pusher + truth-record owner); no manual relay · nothing strands · shared task board |
 | 2026-06-03 | Plan | Lane-Handoff Baton System — implementation plan | `plans/2026-06-03-lane-handoff-baton-system-plan.md` | COMPLETE — built + tested 2026-06-03 (core 8 tests, /handoff·/resume·/sync, SessionStart incoming-check win+mac); Mac adoption pending (set dev/.lane=mac + wire local hook) |
-| 2026-06-02 | Spec | Samuel/Kings Dual-Witness Draft-at-Scale on a Cloud Pod — design spec | `specs/2026-06-02-samkings-cloud-draft-at-scale-design.md` | design — approved (brainstorming complete: draft-at-scale + auto-converge · full dual-witness per chapter · Approach B pre-index folios); $17 RunPod-funded; pending spec review → writing-plans |
 | 2026-06-02 | Spec | Tewahedo Re-Verification & Triaged Re-Ingest Program — design spec | `specs/2026-06-02-tewahedo-reverification-and-triaged-reingest-design.md` | design — direction approved (both tracks; sequencing A); shared substrate + Track-1 QA harness = P0; per-phase plans P0–P3 follow |
 | 2026-05-27 | Spec | Ge'ez own-versification collation & standalone-Bible design | `specs/2026-05-27-geez-own-versification-design.md` | architecture approved (brainstormed + user-approved this session); implementation plan … |
 | 2026-05-26 | Plan | Phase E — Clementine Latin Appendix (`man`/`1es`/`2es`) Implementation Plan | `plans/2026-05-26-phase-e-clementine-latin.md` | open — LANE T backlog (man / 1es / 2es appendix) |
@@ -73,10 +73,12 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-16 | Plan | Ge'ez External PD-Source Ingest Implementation Plan | `plans/2026-05-16-geez-external-source-ingest.md` | shipped — HaCohen path; Psalms own-versified (psa in the standalone) |
 | 2026-05-16 | Plan | Samuel Calibration Gate (Phase 1) Implementation Plan | `plans/2026-05-16-samuel-calibration-gate.md` | shipped — 1 Sam 1 calibration GO (τ.6.x.4.a) |
 
-## Superseded (2)
+## Superseded (4)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-02 | Plan | Samuel/Kings Cloud Run — agent-path workflow + pilot + bounded run (P1–P4) | `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` | ⛔ DROPPED 2026-06-04 — VM/cloud approach tried (RunPod Samuel bulk FAILED) then dropped by the user; pod terminated; Sam/Kings stays on the local agent-path marathon |
+| 2026-06-02 | Spec | Samuel/Kings Dual-Witness Draft-at-Scale on a Cloud Pod — design spec | `specs/2026-06-02-samkings-cloud-draft-at-scale-design.md` | ⛔ DROPPED 2026-06-04 — cloud-pod approach tried + failed + dropped by the user; pod terminated |
 | 2026-05-17 | Plan | Samuel Phase-2 — Dual-Manuscript Collation Tool — Implementation Plan **v2** … | `plans/2026-05-17-samuel-phase2-collation-tool-v2.md` | superseded — by the 2026-05-27 own-versification re-architecture |
 | 2026-05-17 | Spec | Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction) | `specs/2026-05-17-samuel-phase2-collation-spec-revision.md` | superseded — engine spec; replaced by the 2026-05-27 own-versification design |
 

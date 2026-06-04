@@ -1,6 +1,6 @@
 # Samuel/Kings Dual-Witness Draft-at-Scale on a Cloud Pod — Design Spec
 
-**Status:** design — approved (brainstorming complete, user-approved 2026-06-02: draft-at-scale + auto-converge · full dual-witness per chapter · Approach B pre-index folios). Pending spec review → `writing-plans`. The first concrete cloud-execution of the [[2026-06-02-tewahedo-reverification-and-triaged-reingest-design]] program's Track-2-scale, funded by a $17 RunPod credit.
+**Status:** ⛔ DROPPED 2026-06-04 — the cloud-pod draft-at-scale approach was tried (RunPod Samuel bulk, 2026-06-04) and **FAILED** (0 usable chapters), then **dropped by the user** (*"drop all the vm plans"*); the pod was terminated. Sam/Kings continues via the local agent-path marathon. Kept for history. *(Was: design — approved 2026-06-02; draft-at-scale + auto-converge · full dual-witness per chapter · Approach B pre-index folios.)*
 
 > Companion to: `specs/2026-06-02-tewahedo-reverification-and-triaged-reingest-design.md` (parent program), `specs/2026-05-16-samuel-kings-dual-manuscript-collation-design.md` (the dual-witness method), `plans/2026-05-17-samuel-phase2-collation-tool.md` (the authorized collation tool), `plans/2026-05-17-kings-manuscript-collation.md`. Hardware context: memory `reference_hardware_box_and_mac` + `reference_runpod_cloud_budget`.
 

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** ready (P1 buildable now on the N95, free) — the corrected continuation of `specs/2026-06-02-samkings-cloud-draft-at-scale-design.md`. Supersedes the spec's assumption that the existing at-scale drivers can run the cloud transcription as-is. Companion to the **P0** plan `plans/2026-06-02-samkings-folio-index-p0-plan.md` (folio index) and the bring-up runbook `notes/2026-06-02-runpod-bootstrap-runbook.md` (which P2 below corrects). **The pod run does NOT start until the user spots good pricing and explicitly says "feed it."**
+**Status:** ⛔ DROPPED 2026-06-04 — the VM/cloud-pod approach was tried (RunPod Samuel bulk, 2026-06-04) and **FAILED** (1sa2 ran 2h10m then CAM error; chapters 2–51 instant-failed; 0 usable output), then **dropped by the user** (*"drop all the vm plans, we're doing it all the way we have been"*); the pod was terminated. Sam/Kings continues on the **LOCAL agent-path marathon** (`plans/2026-05-17-kings-manuscript-collation.md`). Kept for history; do NOT resurrect without a new explicit user decision. *(Was: ready — P1 buildable on the N95, free.)*
 
 **Goal:** Produce collation-complete dual-witness Ge'ez drafts of the ~93 pending Samuel/Kings chapters on a rented cloud pod, with vision running on the Max subscription (zero API spend) and a hard budget guard — each chapter codepoint-clean, convergence-gated, and handed to the Track-1 QA wave where the two blind passes diverge.
 
