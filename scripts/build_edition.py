@@ -1157,6 +1157,72 @@ def encode_per_book_languages(per_book: dict[str, list[str]]) -> list[str]:
     return out
 
 
+def decode_per_chapter_languages(raw) -> dict[str, list[str]]:
+    """Decode ``popup_languages_per_chapter``. Key is ``"<book>:<ch>"``;
+    otherwise identical to ``decode_per_book_languages`` (explicit-empty
+    ``"gen:1="`` → ``[]`` is a meaningful override)."""
+    if raw is None or raw == [] or raw == {}:
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): list(v or []) for k, v in raw.items()}
+    out: dict[str, list[str]] = {}
+    for entry in raw:
+        if not isinstance(entry, str) or "=" not in entry:
+            continue
+        key, blob = entry.split("=", 1)
+        key = key.strip()
+        if not key:
+            continue
+        out[key] = [s.strip() for s in blob.split(",") if s.strip()] if blob.strip() else []
+    return out
+
+
+def decode_per_verse_languages(raw) -> dict[str, list[str]]:
+    """Decode ``popup_languages_per_verse``. Key is ``"<book>:<ch>:<vs>"``;
+    same parsing as ``decode_per_chapter_languages``."""
+    return decode_per_chapter_languages(raw)
+
+
+def _encode_keyed_languages(per_key: dict[str, list[str]], key_parts: int) -> list[str]:
+    """Shared encoder for the per-chapter (key_parts=2 → book:ch) and per-verse
+    (key_parts=3 → book:ch:vs) language maps. Sorts by canonical book order then
+    numeric chapter (then numeric verse); filters unknown ids against
+    POPUP_LANGUAGES (validate-at-write, like encode_per_book_languages)."""
+    if not per_key:
+        return []
+    from scripts.core import config as _cfg
+
+    book_order = list(_cfg.books_by_code().keys())
+    rank = {code: i for i, code in enumerate(book_order)}
+
+    def _sort_key(item):
+        parts = item[0].split(":")
+        book = parts[0]
+        nums = []
+        for p in parts[1:key_parts]:
+            try:
+                nums.append(int(p))
+            except ValueError:
+                nums.append(1 << 30)
+        return (rank.get(book, len(book_order) + 1), book, *nums)
+
+    out: list[str] = []
+    for key, langs in sorted(per_key.items(), key=_sort_key):
+        clean = [L for L in (langs or []) if L in POPUP_LANGUAGES]
+        out.append(f"{key}={','.join(clean)}")
+    return out
+
+
+def encode_per_chapter_languages(per_chapter: dict[str, list[str]]) -> list[str]:
+    """Inverse of decode_per_chapter_languages (key ``book:ch``)."""
+    return _encode_keyed_languages(per_chapter, key_parts=2)
+
+
+def encode_per_verse_languages(per_verse: dict[str, list[str]]) -> list[str]:
+    """Inverse of decode_per_verse_languages (key ``book:ch:vs``)."""
+    return _encode_keyed_languages(per_verse, key_parts=3)
+
+
 def _strip_language_paragraph(body: str, lang_id: str) -> tuple[str, int]:
     """Remove one language's paragraphs (label + content) from a vnote
     aside body. Returns (new_body, paragraphs_removed).
