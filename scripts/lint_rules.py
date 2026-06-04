@@ -150,6 +150,7 @@ def check_cross_link_invariant() -> dict:
         "COVERS_HTML": "/covers",
         "PREFLIGHT_HTML": "/preflight",
         "BUILD_TRACKER_HTML": "/build-tracker",  # Ω.0 free-public pivot (2026-05-14)
+        "BUILD_MY_BIBLE_HTML": "/build-my-bible",  # ρ.3 Phase C2 — navigator console
         "APIHELP_HTML": "/apihelp",
         "OPS_HTML": "/ops",
         "COMPARE_HTML": "/compare",

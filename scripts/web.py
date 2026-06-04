@@ -493,6 +493,7 @@ from scripts.templates.hebrew import HEBREW_HTML
 from scripts.templates.index import INDEX_HTML
 from scripts.templates.matrix import MATRIX_HTML
 from scripts.templates.build_tracker import BUILD_TRACKER_HTML
+from scripts.templates.build_my_bible import BUILD_MY_BIBLE_HTML
 from scripts.templates.ops import OPS_HTML
 from scripts.templates.preflight import PREFLIGHT_HTML
 from scripts.templates.publisher import PUBLISHER_HTML
@@ -1730,6 +1731,14 @@ class Handler(BaseHTTPRequestHandler):
         # _REGEX_GET_ROUTES (/api/build-tracker/<ed>[/<book>]).
         if path == "/build-tracker" or path == "/build-tracker.html":
             return self._send_html(BUILD_TRACKER_HTML)
+
+        # ρ.3 Phase C2 — /build-my-bible: the hierarchical-customization
+        # Navigator Console. Builders walk an edition like a Bible
+        # (book → chapter → verse) and tune note symbols + popup
+        # languages at every level. The lazy 3-level JSON feed lives in
+        # _REGEX_GET_ROUTES (/api/build-my-bible/<ed>[/<book>[/<ch>]]).
+        if path == "/build-my-bible" or path == "/build-my-bible.html":
+            return self._send_html(BUILD_MY_BIBLE_HTML)
         # ω.35-A.3 — /api/preflight migrated to _SIMPLE_GET_ROUTES.
 
         # Corpus progress widget (Phase ψ.3) — read-only feed for

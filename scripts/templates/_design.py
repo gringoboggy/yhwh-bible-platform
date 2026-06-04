@@ -2256,6 +2256,7 @@ CONSOLES: list[tuple[str, str]] = [
     ("/hebrew", "hebrew"),  # γ.1
     ("/greek", "greek"),  # γ.2
     ("/distribution", "distribution"),  # mint-6 — re-surface free distribution UI
+    ("/build-my-bible", "build my bible"),  # ρ.3 Phase C2 — hierarchical-customization navigator
 ]
 
 
