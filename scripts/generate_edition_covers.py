@@ -138,6 +138,17 @@ RULE_THICKNESS = 2
 TITLE_MARGIN_X = 150
 TITLE_MAX_WIDTH = FINAL_WIDTH - 2 * TITLE_MARGIN_X
 
+# σ.4.4 — VERTICAL safe band. fit_text_block guarantees only HORIZONTAL fit;
+# without a vertical bound a pathological main/subtitle (now enterable on the
+# /customize name card) could push the centered stack off the top or bottom,
+# where Pillow silently clips it. The drawn text block is clamped to stay
+# inside [TOP_SAFE_Y, BOTTOM_SAFE_Y]. These margins clear the templates'
+# top/bottom border ornament AND sit far outside every real cover's stack
+# (real top_y ≈ 419-450, bottom ≈ 630-662), so the clamp is a strict no-op for
+# the 9 shipped covers (byte-neutral) and only ever engages for absurd input.
+TOP_SAFE_Y = 100
+BOTTOM_SAFE_Y = FINAL_HEIGHT - 100  # 1436
+
 # Font path — Times New Roman bold ships with Windows.
 FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
 
@@ -219,7 +230,8 @@ def fit_text_block(
     min_pt: int,
 ) -> tuple[list[str], ImageFont.FreeTypeFont]:
     """Wrap-then-shrink text fitter with a HARD guarantee: every returned line's
-    rendered width is ≤ ``max_width``.
+    rendered width is ≤ ``max_width`` (HORIZONTAL fit only — the VERTICAL bound
+    is enforced separately by ``_compose_cover_layout`` via the safe band).
 
     For each size from ``max_pt`` down to ``min_pt`` (1pt steps), greedily
     word-wrap ``text`` into lines that each fit ``max_width``; the first size at
@@ -286,15 +298,111 @@ def _block_height(font: ImageFont.FreeTypeFont, n_lines: int) -> int:
     return n_lines * line_h + (n_lines - 1) * TITLE_LINE_SPACING
 
 
+def _stack_height(
+    main_font: ImageFont.FreeTypeFont,
+    n_main: int,
+    sub_font: ImageFont.FreeTypeFont | None,
+    n_sub: int,
+) -> int:
+    """Total height of the main + (rule + subtitle) stack, matching the layout
+    ``_compose_cover_layout`` / ``_draw_centered_block`` produce."""
+    total = _block_height(main_font, n_main)
+    if n_sub and sub_font is not None:
+        total += RULE_GAP + RULE_THICKNESS + SUBTITLE_GAP + _block_height(sub_font, n_sub)
+    return total
+
+
+def _compose_cover_layout(main_title: str, subtitle: str = "") -> dict:
+    """Lay out the cover text WITHOUT drawing it — the geometry half of
+    ``_compose_cover``, factored out so the vertical-overflow guard is unit-
+    testable on its pixel bounds (Pillow silently clips, so ``img.size`` proves
+    nothing — see ``tests/test_cover_fit.py``).
+
+    Returns ``{main_lines, main_font, main_top_y, sub_lines, sub_font,
+    sub_top_y, rule_y}``. ``sub_*`` are empty / None when there is no subtitle.
+
+    Two guarantees:
+      • HORIZONTAL — every line fits the safe width (``fit_text_block``).
+      • VERTICAL (σ.4.4) — the whole drawn stack stays inside the safe band
+        ``[TOP_SAFE_Y, BOTTOM_SAFE_Y]``. The stack is centered about
+        ``TITLE_CENTER_Y``; if that pushes its top above ``TOP_SAFE_Y`` it is
+        clamped down, and if the stack is still taller than the band the
+        subtitle then the main are progressively re-fit at smaller point sizes
+        until it fits (degrading legibly rather than clipping off-frame).
+
+    For every real cover the centered top sits far below ``TOP_SAFE_Y`` and the
+    short stack fits the band, so NONE of the clamp/re-fit branches engage —
+    the layout (and therefore the rendered bytes) is identical to pre-σ.4.4."""
+    draw = ImageDraw.Draw(Image.new("RGB", (FINAL_WIDTH, FINAL_HEIGHT)))
+    subtitle = (subtitle or "").strip()
+
+    main_max, main_min = TITLE_FONT_MAX, TITLE_FONT_MIN
+    sub_max, sub_min = SUBTITLE_FONT_MAX, SUBTITLE_FONT_MIN
+
+    band_h = BOTTOM_SAFE_Y - TOP_SAFE_Y
+
+    main_lines, main_font = fit_text_block(draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min)
+    sub_lines: list[str] = []
+    sub_font: ImageFont.FreeTypeFont | None = None
+    if subtitle:
+        sub_lines, sub_font = fit_text_block(draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min)
+
+    # VERTICAL re-fit loop: shrink the subtitle first (it's the secondary line),
+    # then the main, until the stack fits the band. Bounded by the pt ranges so
+    # it always terminates; at the floor we accept whatever fits best.
+    total_h = _stack_height(main_font, len(main_lines), sub_font, len(sub_lines))
+    while total_h > band_h:
+        if subtitle and sub_font is not None and sub_max > sub_min:
+            sub_max -= 2
+            if sub_max < sub_min:
+                sub_max = sub_min
+            sub_lines, sub_font = fit_text_block(draw, subtitle, TITLE_MAX_WIDTH, max_pt=sub_max, min_pt=sub_min)
+        elif main_max > main_min:
+            main_max -= 2
+            if main_max < main_min:
+                main_max = main_min
+            main_lines, main_font = fit_text_block(draw, main_title, TITLE_MAX_WIDTH, max_pt=main_max, min_pt=main_min)
+        else:
+            break  # both at floor — drawn clamped to the band; nothing more to do
+        total_h = _stack_height(main_font, len(main_lines), sub_font, len(sub_lines))
+
+    # Center about TITLE_CENTER_Y, then clamp the top into the safe band so the
+    # block never draws above the frame. (For real covers top_y ≫ TOP_SAFE_Y, so
+    # this max() is a strict no-op — byte-neutral.)
+    top_y = TITLE_CENTER_Y - total_h // 2
+    top_y = max(top_y, TOP_SAFE_Y)
+    # If the (clamped) bottom would still exceed the band — only possible when
+    # both fonts hit their floor on truly absurd input — pull the top up just
+    # enough to keep the bottom on-frame (never above TOP_SAFE_Y if avoidable).
+    if top_y + total_h > BOTTOM_SAFE_Y:
+        top_y = max(TOP_SAFE_Y, BOTTOM_SAFE_Y - total_h)
+
+    main_h = _block_height(main_font, len(main_lines))
+    rule_y = top_y + main_h + RULE_GAP if sub_lines else top_y + main_h
+    sub_top_y = rule_y + RULE_THICKNESS + SUBTITLE_GAP if sub_lines else rule_y
+
+    return {
+        "main_lines": main_lines,
+        "main_font": main_font,
+        "main_top_y": top_y,
+        "sub_lines": sub_lines,
+        "sub_font": sub_font,
+        "sub_top_y": sub_top_y,
+        "rule_y": rule_y,
+    }
+
+
 def _compose_cover(template_stem: str, main_title: str, subtitle: str = "") -> Image.Image:
     """Composite the cover text — a large ``main_title`` block, a short centered
     rule, then a smaller ``subtitle`` block — onto a template; return the RGB
     cover at the final dimensions.
 
-    The whole stack is vertically centered about ``TITLE_CENTER_Y``. Both blocks
-    are laid out with ``fit_text_block`` so NO line can run past the safe width
-    (the σ.2 overflow fix). An empty ``subtitle`` draws the main title only (no
-    rule, no subtitle region)."""
+    The whole stack is vertically centered about ``TITLE_CENTER_Y`` and laid out
+    by ``_compose_cover_layout``, which guarantees BOTH that no line runs past
+    the safe width (σ.2) AND that the drawn stack stays inside the vertical safe
+    band ``[TOP_SAFE_Y, BOTTOM_SAFE_Y]`` (σ.4.4 — clamp + shrink so a pathological
+    title can never be clipped off the top/bottom edge). An empty ``subtitle``
+    draws the main title only (no rule, no subtitle region)."""
     template_path = TEMPLATES_DIR / f"{template_stem}.png"
     if not template_path.is_file():
         raise FileNotFoundError(f"template missing: {template_path}")
@@ -305,37 +413,17 @@ def _compose_cover(template_stem: str, main_title: str, subtitle: str = "") -> I
     base = base.resize((FINAL_WIDTH, FINAL_HEIGHT), Image.LANCZOS)
     draw = ImageDraw.Draw(base, "RGBA")
 
-    main_lines, main_font = fit_text_block(
-        draw, main_title, TITLE_MAX_WIDTH, max_pt=TITLE_FONT_MAX, min_pt=TITLE_FONT_MIN
-    )
-    subtitle = (subtitle or "").strip()
-    sub_lines: list[str] = []
-    sub_font: ImageFont.FreeTypeFont | None = None
-    if subtitle:
-        sub_lines, sub_font = fit_text_block(
-            draw, subtitle, TITLE_MAX_WIDTH, max_pt=SUBTITLE_FONT_MAX, min_pt=SUBTITLE_FONT_MIN
-        )
+    layout = _compose_cover_layout(main_title, subtitle)
+    _draw_centered_block(draw, layout["main_lines"], layout["main_font"], layout["main_top_y"], TITLE_COLOR)
 
-    # Total stack height, then place its top so it centers at TITLE_CENTER_Y.
-    main_h = _block_height(main_font, len(main_lines))
-    total_h = main_h
-    if sub_lines and sub_font is not None:
-        sub_h = _block_height(sub_font, len(sub_lines))
-        total_h += RULE_GAP + RULE_THICKNESS + SUBTITLE_GAP + sub_h
-
-    top_y = TITLE_CENTER_Y - total_h // 2
-
-    y = _draw_centered_block(draw, main_lines, main_font, top_y, TITLE_COLOR)
-
-    if sub_lines and sub_font is not None:
-        rule_y = y + RULE_GAP
+    if layout["sub_lines"] and layout["sub_font"] is not None:
+        rule_y = layout["rule_y"]
         cx = FINAL_WIDTH // 2
         draw.rectangle(
             (cx - RULE_HALF_WIDTH, rule_y, cx + RULE_HALF_WIDTH, rule_y + RULE_THICKNESS - 1),
             fill=TITLE_COLOR,
         )
-        sub_top = rule_y + RULE_THICKNESS + SUBTITLE_GAP
-        _draw_centered_block(draw, sub_lines, sub_font, sub_top, SUBTITLE_COLOR)
+        _draw_centered_block(draw, layout["sub_lines"], layout["sub_font"], layout["sub_top_y"], SUBTITLE_COLOR)
 
     return base
 
