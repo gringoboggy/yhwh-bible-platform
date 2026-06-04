@@ -192,10 +192,17 @@ const WORK_FIELDS = [
 // (Re)build WORK as a deep clone of OVERVIEW.overrides so local edits never
 // mutate the cached server payload. Called on edition load + after a save's
 // refetch. Missing fields default to {} (a no-override edition).
-function seedWorkFromOverview() {
+function seedWorkFromOverview(preserve) {
   const ov = (OVERVIEW && OVERVIEW.overrides) || {};
+  const prev = WORK || {};
   WORK = {};
   for (const f of WORK_FIELDS) {
+    if (preserve && preserve.has && preserve.has(f) && prev[f]) {
+      // A toggle landed in this field while a save was in flight — keep the
+      // client mutation rather than clobbering it with the pre-toggle server state.
+      WORK[f] = prev[f];
+      continue;
+    }
     const m = ov[f] || {};
     const clone = {};
     for (const k of Object.keys(m)) clone[k] = Array.isArray(m[k]) ? m[k].slice() : [];
@@ -362,7 +369,7 @@ function inheritHint(state) {
 
 // =====================================================================
 // C2-4 — SAVE flow. The interactive controls mutate the WORK maps, then
-// call saveFields([...]) with the names of every field they touched. We
+// call scheduleSave([...]) with the names of every field they touched. We
 // POST/PUT the FULL current WORK map for each named field (absolute-replace
 // per field — see the WORK comment) and, on success, refetch OVERVIEW to
 // re-authoritative-seed WORK + resolved state, invalidate the per-level
@@ -371,7 +378,39 @@ function inheritHint(state) {
 // The shipped endpoint is PUT /api/edition-meta/<id> (api_save_edition_meta);
 // the body is the decoded {field: {key:[values]}} dict the server validates
 // + re-encodes; it answers {ok:true} | {error:"..."}.
+//
+// Autosave coordinator (debounce + serialize). Controls call scheduleSave();
+// a burst of toggles debounces into ONE PUT, and two saves never overlap — a
+// save's post-success re-seed pulls server state into WORK, which would clobber
+// a mutation made while the PUT was in flight. So: touched field names
+// accumulate in _pendingFields until the save actually fires (the PUT always
+// reflects the final WORK); the worker (saveFields) preserves still-pending
+// fields across the re-seed; and any toggle that lands during a save re-arms a
+// follow-up save afterward. Single-user local app, but C2-5 builds on this flow.
 // =====================================================================
+let _saveTimer = null;
+let _pendingFields = new Set();
+let _saveInFlight = false;
+
+function scheduleSave(fields) {
+  for (const f of (fields || [])) _pendingFields.add(f);
+  if (_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(runPendingSave, 250);
+}
+
+async function runPendingSave() {
+  _saveTimer = null;
+  if (_saveInFlight || _pendingFields.size === 0) return;  // an in-flight save re-arms this on finish
+  _saveInFlight = true;
+  const fields = Array.from(_pendingFields);
+  _pendingFields = new Set();
+  try {
+    await saveFields(fields);
+  } finally {
+    _saveInFlight = false;
+    if (_pendingFields.size > 0) scheduleSave([]);  // toggles arrived mid-save → save them next
+  }
+}
 
 // A small status line painted into #bmb-save-status (added to each panel's
 // header area). ok=true → green ✓, ok=false → red ✗, null → neutral.
@@ -387,8 +426,10 @@ function setSaveStatus(msg, ok) {
 async function saveFields(fields) {
   if (!CUR_EDITION || !WORK) return;
   // Build the payload: only the touched fields, each as its full current map.
+  // Snapshot (deep-copy) each map so a WORK mutation between here and the
+  // fetch can't alter what we send (the PUT body is a point-in-time state).
   const payload = {};
-  for (const f of fields) payload[f] = WORK[f] || {};
+  for (const f of fields) payload[f] = JSON.parse(JSON.stringify(WORK[f] || {}));
   setSaveStatus('saving…', null);
   let result;
   try {
@@ -420,7 +461,7 @@ async function saveFields(fields) {
   }
   if (CUR_EDITION !== snapEd) return;  // user switched edition mid-save
   BOOKS = (OVERVIEW && OVERVIEW.books_canonical) || BOOKS;
-  seedWorkFromOverview();
+  seedWorkFromOverview(_pendingFields);  // keep any field toggled during this PUT
   // Invalidate per-level caches so re-rendered resolved badges reflect the
   // save (the book/chapter payloads carry resolved state computed server-side).
   BOOK_CACHE = new Map();
@@ -444,6 +485,8 @@ async function reRenderCurrentLevel() {
     await navToBook(CUR_BOOK);
   } else {
     const keepVerse = CUR_VERSE;
+    // Brief flash: navToChapter paints the unfocused chapter, then we restore
+    // the focused verse below. Acceptable for a post-save refresh.
     await navToChapter(CUR_CHAPTER);  // refetches the cleared chapter payload; resets CUR_VERSE
     if (keepVerse != null && CUR_BOOK != null && CUR_CHAPTER != null) {
       CUR_VERSE = keepVerse;
@@ -732,7 +775,7 @@ function wireSymbolsControls(box, scope, key) {
       const touched = clearFinerSymbols(scope, key, categoryTokenSet(catId));
       setSymState(onField, offField, key, catId, state);
       touched.add(onField); touched.add(offField);
-      saveFields([...touched]);
+      scheduleSave([...touched]);
     });
   });
   // Kind-level tri-state: a single token; clears the SAME kind from finer
@@ -744,7 +787,7 @@ function wireSymbolsControls(box, scope, key) {
       const touched = clearFinerSymbols(scope, key, new Set([token]));
       setSymState(onField, offField, key, token, state);
       touched.add(onField); touched.add(offField);
-      saveFields([...touched]);
+      scheduleSave([...touched]);
     });
   });
 }
@@ -858,7 +901,7 @@ function wirePopupsControls(box, scope, key, inheritedSet) {
       popupSetExplicit(scope, key, [...cur]);
       const touched = clearFinerPopups(scope, key);
       touched.add(field);
-      saveFields([...touched]);
+      scheduleSave([...touched]);
     });
   });
 
@@ -869,7 +912,7 @@ function wirePopupsControls(box, scope, key, inheritedSet) {
       // Reverting a coarse scope to inherit does NOT need to touch finer
       // keys (the resolver falls through), but reverting still only changes
       // this one field — send it (absolute-replace).
-      saveFields([field]);
+      scheduleSave([field]);
     });
   }
 }
