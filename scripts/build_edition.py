@@ -2959,7 +2959,7 @@ def build_one(
     disabled_html_ref_ids: set[str] = set()
     if disabled_note_ids:
         books_idx = config.books_by_code()
-        note_id_re = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
+        note_id_re = _NOTE_ID_RE
         for nid in disabled_note_ids:
             m = note_id_re.match(nid)
             if not m:
@@ -2989,6 +2989,34 @@ def build_one(
     # disabled set. None/0/absent → no-op (set is empty); §7.2
     # byte-identical guarantee preserved.
     disabled_html_ref_ids |= compute_time_filtered_html_ref_ids(edition)
+
+    # Phase ρ.3: per-book / per-chapter symbol overrides → ref-ids, and the
+    # enabled_note_ids force-on (absolute finest — subtracted last).
+    overridden_kinds = _symbol_overridden_kinds(edition, all_kinds)
+    disabled_html_ref_ids |= compute_symbol_disabled_html_ref_ids(edition, all_kinds, overridden_kinds)
+
+    force_on_ref_ids: set[str] = set()
+    _enabled_nids = list(edition.get("enabled_note_ids") or [])
+    if _enabled_nids:
+        # books_idx may already be set from the disabled_note_ids block above;
+        # config.books_by_code() delegates to lru_cache(load_books) so the
+        # second call is free.
+        _fon_books_idx = config.books_by_code()
+        for nid in _enabled_nids:
+            m = _NOTE_ID_RE.match(nid)
+            if not m:
+                continue
+            _book = _fon_books_idx.get(m.group(1)) or {}
+            _prefix = _book.get("id_prefix") or _book.get("bxx")
+            if not _prefix:
+                continue
+            force_on_ref_ids.add(f"ref-{_prefix}{int(m.group(2)):02d}{int(m.group(3)):02d}{m.group(4)}")
+    disabled_html_ref_ids -= force_on_ref_ids
+
+    # Overridden kinds are resolved at ref-id granularity above, so they must
+    # NOT be whole-kind-stripped (else a per-coordinate ON could never re-include
+    # them). All other edition-disabled kinds keep the efficient whole-kind strip.
+    disabled_kinds_for_filter = disabled - overridden_kinds
 
     # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
     # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
@@ -3105,7 +3133,7 @@ def build_one(
             text = f.read_text(encoding="utf-8")
             _, counts = filter_html(
                 text,
-                disabled,
+                disabled_kinds_for_filter,
                 disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
             )
@@ -3183,7 +3211,7 @@ def build_one(
             text = html_path.read_text(encoding="utf-8")
             new_text, counts = filter_html(
                 text,
-                disabled,
+                disabled_kinds_for_filter,
                 disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
             )
