@@ -8,7 +8,7 @@
 
 **Tech Stack:** The project console stack — one `BaseHTTPRequestHandler` route in `scripts/web.py`, a `scripts/templates/build_my_bible.py` HTML template, Tailwind via CDN, plain ES6 (no build step). No new deps.
 
-**Status:** IN PROGRESS 2026-06-04 — ready to execute. Phase C2 of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §8). UX = drill-down + breadcrumb (user-chosen). Phases A/B/C1 shipped; C3 (polish) follows.
+**Status:** SHIPPED 2026-06-04 — C2-2…C2-6 complete (commits `ce591d93`→`48d0f21f`, rebased onto Mac's `2064b86d`). The `/build-my-bible` navigator console: drill-down + breadcrumb; interactive symbol tri-state (book+chapter) + popup checklists (book/chapter/verse) saving via `PUT /api/edition-meta/<id>`; verse-level per-note "ships?" toggle via `PUT /api/edition/<id>/note-override`; Bible level read-only w/ /matrix + /customize cross-links. Byte-neutral (no build-path change; byte-stability gate + `git diff epub_working` empty); live Playwright QA passed (all 4 levels, both save flows, 0 console errors); per-task spec+quality + final holistic review all clean. C3 (polish) follows. Phase C2 of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §8). UX = drill-down + breadcrumb (user-chosen).
 
 ---
 

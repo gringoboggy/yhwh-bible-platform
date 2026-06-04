@@ -67,13 +67,11 @@ class TestConsoleHtmlShell:
         assert "CHAPTER_CACHE" in self.html
 
     def test_read_only_section_markers_for_next_tasks(self):
-        # C2-4 has shipped (the symbol tri-state + popup checklists are now
-        # interactive), so its read-only marker is gone — its render
-        # functions are exercised by the interactive controls instead. The
-        # per-note disable/force-on row is still read-only (C2-5 owns it), so
-        # that marker must remain.
+        # Both C2-4 (symbol tri-state + popup checklists) and C2-5 (the per-note
+        # "ships?" row) have shipped, so neither forward-marker remains — every
+        # section in the navigator is now interactive.
         assert "C2-4 makes this interactive" not in self.html
-        assert "C2-5 makes this interactive" in self.html
+        assert "C2-5 makes this interactive" not in self.html
 
     def test_c2_4_interactive_controls_present(self):
         # The C2-4 interactive surface: tri-state symbol controls (book +

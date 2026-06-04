@@ -677,10 +677,26 @@ def api_build_my_bible(
             "enabled_note_ids": sorted(edition.get("enabled_note_ids") or []),
         }
 
-        # resolved_bible — edition-level resolved state using first canon book
+        # resolved_bible — the EDITION DEFAULT (Bible level), NOT any book's
+        # resolved state. The read-only Bible panel shows this, and the book
+        # level uses it as the "inherits …" baseline, so it must reflect the
+        # edition-wide default even when the first canon book carries per-book
+        # overrides. Reuses the SSOT resolvers: enabled_kind_codes (symbols,
+        # no book), and _resolve_popup_languages with a sentinel book code
+        # (never a valid per-book key — the write validator requires the key's
+        # book ∈ books_by_code) so it falls through to the default popup tier.
+        edition_default_kinds = config.enabled_kind_codes(edition, all_kinds)
+        default_symbols = {
+            cat["id"]: (
+                "on"
+                if any(k.get("code") in edition_default_kinds and k.get("category") == cat["id"] for k in all_kinds)
+                else "off"
+            )
+            for cat in all_cats
+        }
         resolved_bible: dict[str, object] = {
-            "symbols": _symbols_for(first_book) if first_book else {},
-            "popups": _popups_for(first_book) if first_book else [],
+            "symbols": default_symbols,
+            "popups": sorted(_resolve_popup_languages(edition, "\x00edition-default")),
         }
 
         # books_canonical — ordered, filtered, with ch_count

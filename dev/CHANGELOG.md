@@ -6,6 +6,31 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C2 (frontend) — the `/build-my-bible` navigator console
+
+**Phases shipped:** ρ.3 C2-2, C2-3, C2-4, C2-5, C2-6
+**Test delta:** +new (`test_build_my_bible_console.py`, `test_build_my_bible_c2_4.py`, `test_build_my_bible_c2_5.py`)
+**Save tag:** (this session — 5-leg)
+
+What shipped (the navigator FRONTEND — a builder navigates an edition *like a Bible*, Bible→book→chapter→verse, toggling note-symbol families/kinds + translation-popup languages at every level; subagent-driven: implementer + spec + code-quality review per task, 8 commits `ce591d93`→`48d0f21f` rebased onto Mac's `2064b86d`):
+- **C2-2** `/build-my-bible` console shell (`scripts/templates/build_my_bible.py`) + route in `web.py` + `CONSOLES` entry (§6.2 cross-link; console inventory 18→19).
+- **C2-3** lazy drill-down JS — Bible→book→chapter→verse with a clickable breadcrumb, BOOK/CHAPTER caches + stale-response guards, spinners, canonical order, XSS-safe.
+- **C2-4** interactive **symbol tri-state** (book + chapter; category → kind drill-down) + **popup-language checklists** (book/chapter/verse), saving via `PUT /api/edition-meta/<id>` (absolute-replace per field, from a JS `WORK` working copy; bulk-clears-finer per spec §3.2; debounced + serialized autosave so a re-seed can't clobber an in-flight edit). Read-API fix: `popup_languages_per_book` added to `api_build_my_bible` overrides.
+- **C2-5** verse-level per-note **"ships?" checkbox** + a new atomic `PUT /api/edition/<id>/note-override` (`default|on|off` → `enabled_note_ids` force-on / `disabled_note_ids` force-off, mutually exclusive, force-on wins) via a reusable `_set_note_id_in_field` helper (the shipped `api_save_note_toggle` path delegates to it, unchanged); server-computed `ships`/`kind_enabled` read flags.
+- **Bible (edition) level read-only** with cross-links to `/matrix` (symbols) + `/customize` (popups) — edition-wide editing already ships there.
+- **C2-6** verification + close: **byte-neutral** (no `build_one`/resolver/`config`/`epub_working` change; byte-stability gate PASSED; `git diff epub_working` empty ⇒ 9 KJV byte-identical by construction); **live Playwright visual QA** (all 4 levels render+navigate; book-level xref-OFF persisted + reflected as the verse-level note unchecked; verse Hebrew popup persisted; 0 console errors; `editions.yaml` restored byte-identical post-QA).
+
+Notable decisions:
+- New `/build-my-bible` console rather than overloading `/customize`/`/sources`/`/matrix` (each keeps its single concern; they write the same fields and stay valid faster paths). Spec §8 / §10.
+- Bible-level kept read-only (deferred edition-wide editing to C3) to avoid duplicating the existing `/matrix` + `/customize` editors.
+
+Holistic-review fixes (final cross-cutting review): `resolved_bible` now reflects the **edition default** (via `enabled_kind_codes` + the resolver's default tier), not the first canon book's resolved state, so the Bible panel + book-level inherit-hints are correct even when the first book carries overrides (+TDD pin); autosave timer cancelled on edition switch; `noteShipsLabel` precedence corrected (force-off override above family-off).
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` (SHIPPED)
+- `docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md` §3/§8
+- **▶ NEXT: Phase C3 polish** — /build-tracker resolved-state annotation · website "how you make it yours" copy · reconcile /customize+/sources to surface the new chapter/verse levels.
+
 ## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C2-1 — the `/build-my-bible` navigator read API
 
 `api_build_my_bible(edition_id, book=None, chapter=None)` in `scripts/web_editions.py` — the lazy 3-level drill-down data feed for the Phase-C2 navigator console (UX = **drill-down + breadcrumb**, user-chosen). COMPOSES existing data (RULES §9, no new corpus walk): **edition level** = registries (categories/kinds/popup_languages) + `books_canonical` filtered to the edition's canon + the 6 decoded per-coordinate overrides + `resolved_bible` (per-category on/off + popup set); **book level** = chapters with `has_notes` + per-chapter resolved state; **chapter level** = verses with per-verse resolved state + the individual notes (each tagged `disabled`/`forced_on`). Resolved state uses the REAL resolvers (`config.enabled_kind_codes_for`, `build_edition._resolve_popup_languages`) so the UI shows exactly what the build will do. Route `^/api/build-my-bible/<ed>(/<book>(/<ch>)?)?$` in `web.py` (thin adapter, dict-not-raise contract). Commit `eabd00bb`; +27 tests (`tests/test_build_my_bible_api.py`), lint/mypy clean, read-only / byte-neutral. Plan `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` (6 sub-tasks; C2-2…C2-6 = the navigator frontend).

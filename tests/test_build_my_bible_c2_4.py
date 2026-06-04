@@ -105,6 +105,35 @@ class TestOverridesIncludesPerBookPopups:
             assert ov["popup_languages_per_book"].get("gen") == ["wlc"]
 
 
+class TestResolvedBibleIsEditionDefault:
+    """resolved_bible reflects the EDITION DEFAULT (Bible level), not the first
+    canon book's resolved state — even when that first book carries per-book
+    overrides. The Bible panel + the book-level "inherits …" hints depend on
+    this (holistic-review fix)."""
+
+    def test_first_book_override_does_not_leak_into_resolved_bible(self, tmp_path):
+        from scripts.web_editions import api_build_my_bible
+
+        baseline = api_build_my_bible(EDITION)["resolved_bible"]
+        first_book = api_build_my_bible(EDITION)["books_canonical"][0]["code"]
+        with _IsolatedEdition(tmp_path) as web:
+            res = web.api_save_edition_meta(
+                EDITION,
+                {
+                    "note_families_off_per_book": {first_book: ["xref"]},
+                    "popup_languages_per_book": {first_book: ["wlc"]},
+                },
+            )
+            assert res.get("ok"), res
+            _clear_cache()
+            resolved = api_build_my_bible(EDITION)["resolved_bible"]
+            # The edition-wide default is untouched by a first-book override…
+            assert resolved["symbols"] == baseline["symbols"], "resolved_bible.symbols leaked a per-book override"
+            assert resolved["popups"] == baseline["popups"], "resolved_bible.popups leaked a per-book override"
+            # …while the FIRST book's own resolved state really did change.
+            assert _chapter_symbol(EDITION, first_book, 1, "xref") == "off"
+
+
 # ---------------------------------------------------------------------------
 # Symbol tri-state — book level
 # ---------------------------------------------------------------------------

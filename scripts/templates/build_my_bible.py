@@ -1107,10 +1107,11 @@ function renderVerseRow(v) {
 // (see wireNoteShipsControls). The data-* attributes carry the server flags
 // the wiring needs so the row stays the single source of per-note truth.
 function noteShipsLabel(n) {
-  // forced_on wins absolutely; then family-off; then per-note disable; else family.
+  // §3.4 precedence order: forced_on wins absolutely; then a per-note force-off
+  // (more specific than the family); then family-off; else family-on.
   if (n.forced_on) return '<span class="text-xs text-emerald-600 ml-1" title="force-on override — ships even though its family is off">(forced on)</span>';
-  if (!n.kind_enabled) return '<span class="text-xs text-slate-400 ml-1" title="this note\'s family is off at this coordinate">(off: family)</span>';
   if (n.disabled) return '<span class="text-xs text-amber-600 ml-1" title="force-off override on this note">(off: override)</span>';
+  if (!n.kind_enabled) return '<span class="text-xs text-slate-400 ml-1" title="this note\'s family is off at this coordinate">(off: family)</span>';
   return '<span class="text-xs text-slate-400 ml-1" title="ships because its family is on">(family on)</span>';
 }
 
@@ -1232,6 +1233,10 @@ async function onEditionChange() {
   BOOKS = [];
   BOOK_CACHE = new Map();
   CHAPTER_CACHE = new Map();
+  // Drop any autosave pending for the edition we're leaving — its field names
+  // don't belong to the new edition's WORK maps.
+  if (_saveTimer) { clearTimeout(_saveTimer); _saveTimer = null; }
+  _pendingFields = new Set();
 
   if (!CUR_EDITION) {
     renderBreadcrumb();
