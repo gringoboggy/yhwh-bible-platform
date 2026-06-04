@@ -631,6 +631,9 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "enabled_reading_plans",
         "description",
         "dedication",
+        # σ.4 — edition-identity fields (cover subtitle / "Your Edition" name + cover main title)
+        "display_name",
+        "cover_main_title",
         # ρ.3 Phase C1 — per-book/chapter/verse hierarchical-customization fields
         "note_families_on_per_book",
         "note_families_off_per_book",

@@ -114,6 +114,31 @@ def test_blank_display_name_persists_empty(tmp_path):
 
 
 # ---------------------------------------------------------------------------
+# σ.4 review fix — the Preview-changes path also recognizes the identity fields
+# ---------------------------------------------------------------------------
+
+
+def test_preview_recognizes_identity_fields():
+    # api_preview_edition_changes has its OWN EDITABLE set that didn't include
+    # the identity fields → "Preview changes" wrongly listed them as
+    # unknown_fields (while a direct Save persisted them fine). They must
+    # register as real changes, never as unknown. Read-only (no persistence).
+    from scripts.api.editions import api_preview_edition_changes
+
+    _clear_caches()
+    res = api_preview_edition_changes(
+        "catholic-study",
+        {"display_name": "Zzz Brand New Preview Name", "cover_main_title": "ZZZ MAIN TITLE"},
+    )
+    assert "error" not in res, res
+    assert "display_name" not in res.get("unknown_fields", [])
+    assert "cover_main_title" not in res.get("unknown_fields", [])
+    changed = {c["field"] for c in res["changes"]}
+    assert "display_name" in changed
+    assert "cover_main_title" in changed
+
+
+# ---------------------------------------------------------------------------
 # σ.4.1 — clone carries display_name + cover_main_title
 # ---------------------------------------------------------------------------
 

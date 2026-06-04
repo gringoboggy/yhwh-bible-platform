@@ -1525,10 +1525,12 @@ async function saveEdition(box) {
       return;
     }
     status.innerHTML = '<span class="text-emerald-700">✓ saved</span>';
-    // σ.4.2 — if the cover text (name / main title) changed, recompose the
+    // σ.4.2 — if the edition name (the cover subtitle) changed, recompose the
     // cover so the new subtitle appears immediately (same endpoint the cover
     // picker uses; an empty stem recomposes with the edition's current design).
-    if ('display_name' in payload || 'cover_main_title' in payload) {
+    // Only display_name has a console control today; a future cover_main_title
+    // control would add its key here.
+    if ('display_name' in payload) {
       maybeRecomposeCover(box, id);
     }
     box.classList.remove('dirty');
