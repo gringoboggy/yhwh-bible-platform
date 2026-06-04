@@ -178,6 +178,20 @@ def _append_cloned_edition(
     tpb = src.get("traditions_per_book")
     if tpb:
         list_fields.append(("traditions_per_book", list(tpb)))
+    # ρ.3 Phase C1 — per-book/chapter/verse hierarchical-customization fields.
+    # Mirror the truthy-append pattern; these are list[str] on-disk so they
+    # clone correctly when the source edition has them set.
+    for _hf in (
+        "note_families_on_per_book",
+        "note_families_off_per_book",
+        "note_families_on_per_chapter",
+        "note_families_off_per_chapter",
+        "popup_languages_per_chapter",
+        "popup_languages_per_verse",
+    ):
+        _hv = src.get(_hf)
+        if _hv:
+            list_fields.append((_hf, list(_hv)))
     # mint-10 #high — the kind-gate LIST fields. Omitting these WAS the bug:
     # a clone with no enabled_categories/enabled_kinds enabled ZERO kinds and
     # therefore shipped 0 notes. Mirror the truthy-append pattern above.
@@ -496,6 +510,84 @@ def api_clone_edition(payload: dict) -> dict:
     }
 
 
+def _validate_keyed_list_field(
+    field: str,
+    raw,
+    *,
+    key_parts: int,
+    valid_values: set[str],
+    value_label: str,
+    encode_fn,
+) -> "tuple[list[str] | None, str | None]":
+    """ρ.3 Phase C1 — DRY validator for the 6 per-book/chapter/verse fields.
+
+    ``key_parts`` is the expected number of colon-separated segments in
+    each map key:
+      - 1 → book only          (note_families_{on,off}_per_book)
+      - 2 → book:chapter       (note_families_{on,off}_per_chapter,
+                                 popup_languages_per_chapter)
+      - 3 → book:chapter:verse (popup_languages_per_verse)
+
+    Parts 1.. must be positive integers.  Part 0 must be in
+    ``config.books_by_code()``.  Values are validated against
+    ``valid_values``, deduplicated (preserving order), and passed to
+    ``encode_fn`` which returns the on-disk ``list[str]``.
+
+    Returns ``(encoded_list, None)`` on success or ``(None, error_message)``
+    on the first validation failure.
+    """
+    if raw is None:
+        raw = {}
+    if not isinstance(raw, dict):
+        return (None, f"{field} must be a mapping (dict), not {type(raw).__name__}")
+    valid_books = set(config.books_by_code().keys())
+    cleaned: dict[str, list[str]] = {}
+    for key, values in raw.items():
+        if not isinstance(key, str) or not key.strip():
+            return (None, f"{field}: keys must be non-empty strings")
+        key = key.strip()
+        parts = key.split(":")
+        if len(parts) != key_parts:
+            expected = ":".join(["<book>"] + ["<n>"] * (key_parts - 1))
+            return (
+                None,
+                f"{field}: key {key!r} has {len(parts)} part(s) but expected {key_parts} ({expected})",
+            )
+        book = parts[0]
+        if book not in valid_books:
+            return (None, f"{field}: unknown book code {book!r}")
+        for idx in range(1, key_parts):
+            seg = parts[idx]
+            try:
+                n = int(seg)
+            except (TypeError, ValueError):
+                part_name = "chapter" if idx == 1 else "verse"
+                return (None, f"{field}: key {key!r} — {part_name} must be a positive integer, got {seg!r}")
+            if n < 1:
+                part_name = "chapter" if idx == 1 else "verse"
+                return (None, f"{field}: key {key!r} — {part_name} must be ≥ 1, got {n}")
+        if values is None:
+            values = []
+        if not isinstance(values, list):
+            return (None, f"{field}[{key!r}] must be a list of {value_label}s")
+        deduped: list[str] = []
+        for v in values:
+            if not isinstance(v, str):
+                return (None, f"{field}[{key!r}] items must be strings, got {type(v).__name__}")
+            s = v.strip()
+            if not s:
+                continue
+            if s not in valid_values:
+                return (
+                    None,
+                    f"{field}[{key!r}]: unknown {value_label} {s!r}; available: {sorted(valid_values)}",
+                )
+            if s not in deduped:
+                deduped.append(s)
+        cleaned[key] = deduped
+    return (encode_fn(cleaned), None)
+
+
 def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
     """Compute the field-by-field diff between the current edition
     record and the proposed payload, without persisting anything."""
@@ -533,6 +625,13 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "enabled_reading_plans",
         "description",
         "dedication",
+        # ρ.3 Phase C1 — per-book/chapter/verse hierarchical-customization fields
+        "note_families_on_per_book",
+        "note_families_off_per_book",
+        "note_families_on_per_chapter",
+        "note_families_off_per_chapter",
+        "popup_languages_per_chapter",
+        "popup_languages_per_verse",
     }
 
     changes: list[dict] = []
@@ -761,7 +860,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             v = []
         if not isinstance(v, list):
             return {"error": "traditions_default must be a list of tradition ids"}
-        cleaned: list[str] = []
+        cleaned = []
         for item in v:
             if not isinstance(item, str):
                 return {"error": "traditions_default items must be strings"}
@@ -783,7 +882,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if not isinstance(v, list):
             return {"error": "enabled_reading_plans must be a list of plan ids"}
         valid_plans = {p.id for p in list_plans()}
-        cleaned: list[str] = []
+        cleaned = []
         for item in v:
             if not isinstance(item, str):
                 return {"error": "enabled_reading_plans items must be strings"}
@@ -837,7 +936,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if not isinstance(v, dict):
             return {"error": ("popup_languages_per_book must be a mapping of book_code → list-of-language-ids")}
         valid_books = set(config.books_by_code().keys())
-        cleaned_dict: dict[str, list[str]] = {}
+        cleaned_dict = {}
         for code, langs in v.items():
             if not isinstance(code, str) or not code.strip():
                 return {"error": "popup_languages_per_book book codes must be non-empty strings"}
@@ -861,6 +960,42 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                     book_langs.append(s)
             cleaned_dict[code] = book_langs
         list_field_updates["popup_languages_per_book"] = encode_per_book_languages(cleaned_dict)
+
+    # ρ.3 Phase C1 — per-book/chapter/verse hierarchical fields.
+    # All six share the same shape; _validate_keyed_list_field encodes the
+    # common validation (key shape + value membership + dedup + encode).
+    from scripts.build_edition import (
+        _valid_symbol_tokens,
+        encode_per_book_tokens,
+        encode_per_chapter_tokens,
+        encode_per_chapter_languages,
+        encode_per_verse_languages,
+    )
+
+    valid_tokens = _valid_symbol_tokens()
+
+    _KEYED_LIST_FIELDS: list[tuple[str, int, set, str, object]] = [
+        # (field_name, key_parts, valid_values, value_label, encode_fn)
+        ("note_families_on_per_book", 1, valid_tokens, "symbol token", encode_per_book_tokens),
+        ("note_families_off_per_book", 1, valid_tokens, "symbol token", encode_per_book_tokens),
+        ("note_families_on_per_chapter", 2, valid_tokens, "symbol token", encode_per_chapter_tokens),
+        ("note_families_off_per_chapter", 2, valid_tokens, "symbol token", encode_per_chapter_tokens),
+        ("popup_languages_per_chapter", 2, valid_langs, "popup language", encode_per_chapter_languages),
+        ("popup_languages_per_verse", 3, valid_langs, "popup language", encode_per_verse_languages),
+    ]
+    for _field, _key_parts, _valid_vals, _val_label, _encode_fn in _KEYED_LIST_FIELDS:
+        if _field in payload:
+            _encoded, _err = _validate_keyed_list_field(
+                _field,
+                payload[_field],
+                key_parts=_key_parts,
+                valid_values=_valid_vals,
+                value_label=_val_label,
+                encode_fn=_encode_fn,
+            )
+            if _err is not None:
+                return {"error": _err}
+            list_field_updates[_field] = _encoded
 
     if "book_covers" in payload:
         from scripts.core.covers import encode_book_covers

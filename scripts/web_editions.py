@@ -309,6 +309,10 @@ def api_customize_data() -> dict:
         POPUP_LANGUAGES,
         ALL_POPUP_LANGUAGES,
         decode_per_book_languages,
+        decode_per_book_tokens,
+        decode_per_chapter_tokens,
+        decode_per_chapter_languages,
+        decode_per_verse_languages,
     )
     from scripts.core import matrix as _matrix
 
@@ -418,6 +422,16 @@ def api_customize_data() -> dict:
                 # None (or absent) = no filter; int = drop notes whose
                 # source's circa-year > this.
                 "time_filter_ceiling": e.get("time_filter_ceiling"),
+                # ρ.3 Phase C1 — per-book/chapter/verse hierarchical
+                # customization fields decoded to JSON-friendly dicts for
+                # the UI.  On-disk format is list[str] ("gen=xref,comm");
+                # decoders mirror the per-book-languages pattern.
+                "note_families_on_per_book": decode_per_book_tokens(e.get("note_families_on_per_book")),
+                "note_families_off_per_book": decode_per_book_tokens(e.get("note_families_off_per_book")),
+                "note_families_on_per_chapter": decode_per_chapter_tokens(e.get("note_families_on_per_chapter")),
+                "note_families_off_per_chapter": decode_per_chapter_tokens(e.get("note_families_off_per_chapter")),
+                "popup_languages_per_chapter": decode_per_chapter_languages(e.get("popup_languages_per_chapter")),
+                "popup_languages_per_verse": decode_per_verse_languages(e.get("popup_languages_per_verse")),
             }
             for e in editions
         ],
