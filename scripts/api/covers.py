@@ -71,8 +71,9 @@ def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_
 @audit_log.audit_endpoint(action="apply_cover_template")
 def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
     """§4.6 — (re)compose an edition's main cover from one of the 25 design
-    templates + the edition title, write it to content/covers/<id>.jpg, and
-    point both cover_image and cover_template at the result.
+    templates + the edition's cover text ("HOLY BIBLE" + subtitle), write it to
+    content/covers/<id>.jpg, and point both cover_image and cover_template at
+    the result.
 
     Mirrors ``_save_cover_bytes``' validate → write → save-yaml transaction,
     but the bytes come from ``generate_edition_covers._compose_cover`` rather
@@ -83,7 +84,7 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
 
     from scripts.api.editions import api_save_edition_meta
     from scripts.core import config, covers as _covers, notes_io
-    from scripts.generate_edition_covers import _compose_cover, title_for_edition
+    from scripts.generate_edition_covers import _compose_cover, cover_text_for_edition
 
     stem = (template_stem or "").strip()
     if stem not in _covers.COVER_TEMPLATES:
@@ -95,9 +96,10 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
     rel_path = f"covers/{edition_id}.jpg"
     abs_path = REPO / "content" / rel_path
 
-    # Compose the title-only cover onto the chosen template, to JPEG bytes.
+    # Compose the HOLY-BIBLE + subtitle cover onto the chosen template, to JPEG.
+    main_title, subtitle = cover_text_for_edition(edition_id)
     try:
-        img = _compose_cover(stem, title_for_edition(edition_id))
+        img = _compose_cover(stem, main_title, subtitle)
     except FileNotFoundError as e:
         return {"error": str(e)}
     buf = io.BytesIO()

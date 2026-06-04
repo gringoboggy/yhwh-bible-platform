@@ -14720,14 +14720,17 @@ class TestOmega38EditionCovers:
         script_path = self.repo / "scripts" / "generate_edition_covers.py"
         assert script_path.is_file(), "ω.38: generate_edition_covers.py must exist for future regenerations"
         # Import the module to verify it's syntactically valid and
-        # the EDITIONS mapping covers all 9 expected ids.
+        # the EDITION_TEMPLATES mapping covers all 9 expected ids.
+        # (σ.2 2026-06-04: the hard-coded per-edition title strings were
+        # dropped; cover text now comes from editions.yaml. EDITION_TEMPLATES
+        # keeps each edition's factory template stem.)
         spec = importlib.util.spec_from_file_location("generate_edition_covers", script_path)
         assert spec is not None and spec.loader is not None
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        mapping_ids = {row[0] for row in module.EDITIONS}
+        mapping_ids = set(module.EDITION_TEMPLATES.keys())
         assert mapping_ids == set(self.EXPECTED_EDITIONS), (
-            f"ω.38: EDITIONS mapping in generator must cover every "
+            f"σ.2: EDITION_TEMPLATES mapping in generator must cover every "
             f"expected edition; missing: "
             f"{set(self.EXPECTED_EDITIONS) - mapping_ids}, "
             f"extra: {mapping_ids - set(self.EXPECTED_EDITIONS)}"
@@ -14744,9 +14747,9 @@ class TestOmega38EditionCovers:
         assert spec is not None and spec.loader is not None
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        templates = [row[1] for row in module.EDITIONS]
+        templates = list(module.EDITION_TEMPLATES.values())
         assert len(templates) == len(set(templates)), (
-            f"ω.38: every edition should use a unique template; "
+            f"σ.2: every edition should use a unique template; "
             f"duplicates: "
             f"{[t for t in templates if templates.count(t) > 1]}"
         )

@@ -118,60 +118,102 @@ class TestCoverTemplateLoader:
 
 
 class TestCoverTitleFit:
-    """The composed cover title must never run past the cover edges, even for
-    long edition titles — _compose_cover auto-shrinks the font to fit width."""
+    """σ.2 — the composed cover text must never run past the cover edges. The
+    fit_text_block wrap-then-shrink fitter GUARANTEES every line fits the safe
+    width (the σ.2 overflow fix). Deeper coverage lives in tests/test_cover_fit.py."""
 
     def _draw(self):
         from PIL import Image, ImageDraw
 
-        return ImageDraw.Draw(Image.new("RGB", (32, 32)))
+        return ImageDraw.Draw(Image.new("RGB", (1024, 1536)))
 
-    def test_every_real_edition_title_fits_within_cover_width(self):
-        # The actual guarantee the user cares about: no shipped edition title
-        # overruns the cover edges after auto-fit.
-        from scripts.generate_edition_covers import EDITIONS, TITLE_LINE_SPACING, TITLE_MAX_WIDTH, _fit_title_font
+    def test_every_real_edition_cover_text_fits_within_cover_width(self):
+        # The actual guarantee the user cares about: no shipped edition's cover
+        # text (HOLY BIBLE main + its subtitle) overruns the cover edges.
+        from scripts.core import config
+        from scripts.generate_edition_covers import (
+            SUBTITLE_FONT_MAX,
+            SUBTITLE_FONT_MIN,
+            TITLE_FONT_MAX,
+            TITLE_FONT_MIN,
+            TITLE_MAX_WIDTH,
+            cover_text_for_edition,
+            fit_text_block,
+        )
 
         draw = self._draw()
         overflowing = []
-        for _ed, _stem, title in EDITIONS:
-            font = _fit_title_font(title, draw)
-            bbox = draw.multiline_textbbox((0, 0), title, font=font, align="center", spacing=TITLE_LINE_SPACING)
-            if (bbox[2] - bbox[0]) > TITLE_MAX_WIDTH:
-                overflowing.append((title.replace("\n", " / "), bbox[2] - bbox[0]))
-        assert not overflowing, f"edition titles still overflow after fit: {overflowing}"
+        for ed_id in config.editions_by_id():
+            main, subtitle = cover_text_for_edition(ed_id)
+            main_lines, main_font = fit_text_block(
+                draw, main, TITLE_MAX_WIDTH, max_pt=TITLE_FONT_MAX, min_pt=TITLE_FONT_MIN
+            )
+            for line in main_lines:
+                w = draw.textbbox((0, 0), line, font=main_font)[2]
+                if w > TITLE_MAX_WIDTH:
+                    overflowing.append((ed_id, "main", line, w))
+            if subtitle:
+                sub_lines, sub_font = fit_text_block(
+                    draw, subtitle, TITLE_MAX_WIDTH, max_pt=SUBTITLE_FONT_MAX, min_pt=SUBTITLE_FONT_MIN
+                )
+                for line in sub_lines:
+                    w = draw.textbbox((0, 0), line, font=sub_font)[2]
+                    if w > TITLE_MAX_WIDTH:
+                        overflowing.append((ed_id, "subtitle", line, w))
+        assert not overflowing, f"cover text still overflows after fit: {overflowing}"
 
-    def test_a_title_too_wide_at_max_gets_shrunk(self):
-        from scripts.generate_edition_covers import TITLE_FONT_MAX, _fit_title_font
+    def test_a_subtitle_too_wide_at_max_gets_shrunk(self):
+        from scripts.generate_edition_covers import (
+            SUBTITLE_FONT_MAX,
+            SUBTITLE_FONT_MIN,
+            TITLE_MAX_WIDTH,
+            fit_text_block,
+        )
 
-        # A long single line that overflows at the max font must shrink.
-        font = _fit_title_font("The Catholic Study Bible Ethiopian Edition", self._draw())
-        assert font.size < TITLE_FONT_MAX
+        # A long subtitle that overflows at the max font must shrink/wrap.
+        lines, font = fit_text_block(
+            self._draw(),
+            "The Catholic Study Bible Ethiopian Edition Of Many Words",
+            TITLE_MAX_WIDTH,
+            max_pt=SUBTITLE_FONT_MAX,
+            min_pt=SUBTITLE_FONT_MIN,
+        )
+        assert font.size < SUBTITLE_FONT_MAX or len(lines) > 1
 
-    def test_short_title_keeps_the_max_font(self):
-        from scripts.generate_edition_covers import TITLE_FONT_MAX, _fit_title_font
+    def test_short_main_keeps_the_max_font(self):
+        from scripts.generate_edition_covers import TITLE_FONT_MAX, TITLE_FONT_MIN, TITLE_MAX_WIDTH, fit_text_block
 
-        font = _fit_title_font("Genesis", self._draw())
+        lines, font = fit_text_block(
+            self._draw(), "HOLY BIBLE", TITLE_MAX_WIDTH, max_pt=TITLE_FONT_MAX, min_pt=TITLE_FONT_MIN
+        )
         assert font.size == TITLE_FONT_MAX
+        assert lines == ["HOLY BIBLE"]
 
-    def test_compose_cover_fits_a_long_single_line_title(self):
-        # End-to-end: composing a real cover with a long one-line title must not
-        # raise and must still produce a full-size cover.
+    def test_compose_cover_fits_a_long_subtitle(self):
+        # End-to-end: composing a real cover with a long subtitle must not raise
+        # and must still produce a full-size cover.
         from scripts.generate_edition_covers import FINAL_HEIGHT, FINAL_WIDTH, _compose_cover
 
-        img = _compose_cover("03_beadline_navy", "The Catholic Study Bible Ethiopian Edition Of Many Words")
+        img = _compose_cover(
+            "03_beadline_navy", "HOLY BIBLE", "The Catholic Study Bible Ethiopian Edition Of Many Words"
+        )
         assert img.size == (FINAL_WIDTH, FINAL_HEIGHT)
 
 
-class TestTitleForEdition:
-    def test_known_edition_uses_the_bespoke_title(self):
-        from scripts.generate_edition_covers import title_for_edition
+class TestCoverTextForEdition:
+    def test_known_edition_default_main_and_subtitle(self):
+        from scripts.generate_edition_covers import cover_text_for_edition
 
-        assert title_for_edition("catholic-study") == "The Catholic Study Bible\nEthiopian Edition"
+        main, subtitle = cover_text_for_edition("catholic-study")
+        assert main == "HOLY BIBLE"
+        assert isinstance(subtitle, str) and subtitle
 
-    def test_unknown_edition_falls_back_to_the_id(self):
-        from scripts.generate_edition_covers import title_for_edition
+    def test_unknown_edition_defaults_to_holy_bible_no_subtitle(self):
+        from scripts.generate_edition_covers import cover_text_for_edition
 
-        assert title_for_edition("no-such-edition") == "no-such-edition"
+        main, subtitle = cover_text_for_edition("no-such-edition")
+        assert main == "HOLY BIBLE"
+        assert subtitle == ""
 
 
 class TestApplyCoverTemplate:
