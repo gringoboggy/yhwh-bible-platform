@@ -665,6 +665,12 @@ def api_build_my_bible(
             "note_families_off_per_book": decode_per_book_tokens(edition.get("note_families_off_per_book")),
             "note_families_on_per_chapter": decode_per_chapter_tokens(edition.get("note_families_on_per_chapter")),
             "note_families_off_per_chapter": decode_per_chapter_tokens(edition.get("note_families_off_per_chapter")),
+            # C2-4 — book-level popup writes use absolute-replace on the full
+            # per-book map, so the navigator needs the current decoded map
+            # here (the per-chapter / per-verse maps were already exposed;
+            # this fills the one gap). decode_per_book_languages is imported
+            # in the block above. Read-API addition only — byte-neutral.
+            "popup_languages_per_book": decode_per_book_languages(edition.get("popup_languages_per_book")),
             "popup_languages_per_chapter": decode_per_chapter_languages(edition.get("popup_languages_per_chapter")),
             "popup_languages_per_verse": decode_per_verse_languages(edition.get("popup_languages_per_verse")),
             "disabled_note_ids": sorted(edition.get("disabled_note_ids") or []),

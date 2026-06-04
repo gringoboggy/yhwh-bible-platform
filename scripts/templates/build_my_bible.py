@@ -121,6 +121,8 @@ BUILD_MY_BIBLE_HTML = r"""<!DOCTYPE html>
         <h2 id="level-title" class="font-semibold">No edition selected</h2>
         <div id="level-subtitle" class="text-xs text-slate-500"></div>
       </div>
+      <!-- C2-4 — autosave status line for the interactive controls. -->
+      <div id="bmb-save-status" class="text-xs" role="status" aria-live="polite"></div>
     </div>
     <div id="level-panel" class="p-4 text-sm text-slate-500">
       Pick an edition above to start building.
@@ -155,6 +157,126 @@ let BOOKS = [];           // books_canonical (already in §6.1 order — never s
 // book cache; "<book>:<ch>" for the chapter cache.
 let BOOK_CACHE = new Map();    // book code -> /api/build-my-bible/<ed>/<book>
 let CHAPTER_CACHE = new Map(); // "<book>:<ch>" -> /…/<book>/<ch>
+
+// ---- C2-4 working-copy override maps ---------------------------------
+// The interactive controls (book/chapter symbol tri-state, book/chapter/
+// verse popup checklists) write the EXISTING per-coordinate fields through
+// POST/PUT /api/edition-meta/<id> — and that endpoint is ABSOLUTE-REPLACE
+// per field: a field present in the payload replaces that ENTIRE map. So a
+// single-scope edit must send the WHOLE current map for the touched field
+// with one delta applied. We keep an authoritative working copy of every
+// override map here (seeded from OVERVIEW.overrides on load / after each
+// save), mutate it locally, and POST the full touched maps. On success we
+// refetch OVERVIEW to re-seed (authoritative) + invalidate the caches.
+//
+// Shape per field: { "<key>": ["<value>", ...] } — the decoded dict the
+// server validates + re-encodes. Keys: "<book>" / "<book>:<ch>" /
+// "<book>:<ch>:<vs>"; symbol values = category-id|kind-code tokens; popup
+// values = popup-language ids.
+let WORK = null;  // { note_families_on_per_book: {...}, ... } — null = not seeded
+
+// The seven override fields this console can write. The two book-level
+// popup absolute-set + the four signed symbol maps + the per-chapter /
+// per-verse popup maps. (disabled_note_ids / enabled_note_ids belong to
+// C2-5 and are left untouched.)
+const WORK_FIELDS = [
+  'note_families_on_per_book',
+  'note_families_off_per_book',
+  'note_families_on_per_chapter',
+  'note_families_off_per_chapter',
+  'popup_languages_per_book',
+  'popup_languages_per_chapter',
+  'popup_languages_per_verse',
+];
+
+// (Re)build WORK as a deep clone of OVERVIEW.overrides so local edits never
+// mutate the cached server payload. Called on edition load + after a save's
+// refetch. Missing fields default to {} (a no-override edition).
+function seedWorkFromOverview() {
+  const ov = (OVERVIEW && OVERVIEW.overrides) || {};
+  WORK = {};
+  for (const f of WORK_FIELDS) {
+    const m = ov[f] || {};
+    const clone = {};
+    for (const k of Object.keys(m)) clone[k] = Array.isArray(m[k]) ? m[k].slice() : [];
+    WORK[f] = clone;
+  }
+}
+
+// kinds belonging to a category (so a category bulk-flip can clear its
+// kinds' finer overrides + so the kind drill-down can render rows).
+function kindsForCategory(catId) {
+  return ((OVERVIEW && OVERVIEW.kinds) || []).filter(k => k.category === catId);
+}
+
+// Every valid symbol token for a category = the category id + all its kind
+// codes (used by bulk-clears-finer to strip the whole family from finer
+// scopes when the category is flipped).
+function categoryTokenSet(catId) {
+  const s = new Set([catId]);
+  for (const k of kindsForCategory(catId)) s.add(k.code);
+  return s;
+}
+
+// ---- C2-4 symbol tri-state helpers (on the WORK maps) ----------------
+// Tri-state per spec §3.3/§3.4: a token is ON if present in the on-map for
+// the scope key, OFF if in the off-map, else INHERIT (absent from both).
+function symStateAt(onField, offField, key, token) {
+  const on = (WORK[onField][key] || []);
+  const off = (WORK[offField][key] || []);
+  if (off.indexOf(token) !== -1) return 'off';
+  if (on.indexOf(token) !== -1) return 'on';
+  return 'inherit';
+}
+
+// Mutate one map's key-list (add or remove a token), pruning empty keys so
+// the encoded YAML stays exceptions-only (byte-stable when nothing is set).
+function _listAdd(map, key, token) {
+  let arr = map[key];
+  if (!arr) { arr = []; map[key] = arr; }
+  if (arr.indexOf(token) === -1) arr.push(token);
+}
+function _listRemove(map, key, token) {
+  const arr = map[key];
+  if (!arr) return;
+  const i = arr.indexOf(token);
+  if (i !== -1) arr.splice(i, 1);
+  if (arr.length === 0) delete map[key];
+}
+
+// Set a token's tri-state at a scope key. A token is never in both on+off
+// for the same key (the invariant): toggling to one removes it from the
+// other; inherit removes it from both.
+function setSymState(onField, offField, key, token, state) {
+  _listRemove(WORK[onField], key, token);
+  _listRemove(WORK[offField], key, token);
+  if (state === 'on') _listAdd(WORK[onField], key, token);
+  else if (state === 'off') _listAdd(WORK[offField], key, token);
+  // 'inherit' = absent from both (already removed above)
+}
+
+// ---- C2-4 popup-set helpers (on the WORK maps) -----------------------
+// Popups are an ABSOLUTE set per scope: a scope key present in its map wins
+// outright; absent → inherit the next-coarser resolved set.
+function popupSetField(scope) {
+  return scope === 'book' ? 'popup_languages_per_book'
+       : scope === 'chapter' ? 'popup_languages_per_chapter'
+       : 'popup_languages_per_verse';
+}
+function popupHasExplicit(scope, key) {
+  return Object.prototype.hasOwnProperty.call(WORK[popupSetField(scope)], key);
+}
+function popupExplicitSet(scope, key) {
+  return (WORK[popupSetField(scope)][key] || []).slice();
+}
+function popupSetExplicit(scope, key, langs) {
+  // Store an explicit (possibly empty) set — an empty array is meaningful
+  // here ("show no popups at this scope"), so we keep the key even when [].
+  WORK[popupSetField(scope)][key] = langs.slice();
+}
+function popupRevertToInherit(scope, key) {
+  delete WORK[popupSetField(scope)][key];
+}
 
 // Title-lookup helpers — resolve a book code to its display title from
 // the cached overview, so breadcrumbs read "Bible ▸ Genesis" not a code.
@@ -229,6 +351,116 @@ function symbolBadge(state) {
   return state === 'on'
     ? '<span class="text-xs px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-medium">on</span>'
     : '<span class="text-xs px-1.5 py-0.5 rounded bg-slate-100 text-slate-400">off</span>';
+}
+
+// A faint "inherits: on/off" hint shown beside an inherit-state tri-state,
+// so the builder sees what the value would be if left unset.
+function inheritHint(state) {
+  return '<span class="text-[10px] text-slate-400 italic ml-1" title="inherited from the level above">inherits ' +
+    (state === 'on' ? 'on' : 'off') + '</span>';
+}
+
+// =====================================================================
+// C2-4 — SAVE flow. The interactive controls mutate the WORK maps, then
+// call saveFields([...]) with the names of every field they touched. We
+// POST/PUT the FULL current WORK map for each named field (absolute-replace
+// per field — see the WORK comment) and, on success, refetch OVERVIEW to
+// re-authoritative-seed WORK + resolved state, invalidate the per-level
+// caches for correctness, and re-render the current level.
+//
+// The shipped endpoint is PUT /api/edition-meta/<id> (api_save_edition_meta);
+// the body is the decoded {field: {key:[values]}} dict the server validates
+// + re-encodes; it answers {ok:true} | {error:"..."}.
+// =====================================================================
+
+// A small status line painted into #bmb-save-status (added to each panel's
+// header area). ok=true → green ✓, ok=false → red ✗, null → neutral.
+function setSaveStatus(msg, ok) {
+  const el = document.getElementById('bmb-save-status');
+  if (!el) return;
+  if (!msg) { el.textContent = ''; el.className = 'text-xs'; return; }
+  el.textContent = msg;
+  el.className = 'text-xs ' +
+    (ok === false ? 'text-red-600' : ok === true ? 'text-emerald-700' : 'text-slate-500');
+}
+
+async function saveFields(fields) {
+  if (!CUR_EDITION || !WORK) return;
+  // Build the payload: only the touched fields, each as its full current map.
+  const payload = {};
+  for (const f of fields) payload[f] = WORK[f] || {};
+  setSaveStatus('saving…', null);
+  let result;
+  try {
+    const r = await fetch('/api/edition-meta/' + encodeURIComponent(CUR_EDITION), {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    result = await r.json();
+    if (!r.ok || (result && result.error)) {
+      const msg = (result && result.error) ? result.error : (r.status + ' ' + r.statusText);
+      setSaveStatus('✗ ' + msg, false);
+      return;
+    }
+  } catch (e) {
+    setSaveStatus('✗ ' + (e && e.message ? e.message : String(e)), false);
+    return;
+  }
+  // Success — re-seed authoritatively from the server so the next edit
+  // builds on the canonical state (and any validator normalization shows).
+  const snapEd = CUR_EDITION;
+  try {
+    OVERVIEW = await fetchOverview(snapEd);
+  } catch (e) {
+    // The write landed; only the refetch failed. Keep the local WORK as-is
+    // and surface a soft warning — a reload re-syncs.
+    setSaveStatus('✓ saved (reload to refresh)', true);
+    return;
+  }
+  if (CUR_EDITION !== snapEd) return;  // user switched edition mid-save
+  BOOKS = (OVERVIEW && OVERVIEW.books_canonical) || BOOKS;
+  seedWorkFromOverview();
+  // Invalidate per-level caches so re-rendered resolved badges reflect the
+  // save (the book/chapter payloads carry resolved state computed server-side).
+  BOOK_CACHE = new Map();
+  CHAPTER_CACHE = new Map();
+  setSaveStatus('✓ saved', true);
+  // Re-render the current level + reload the level payload if we're deeper
+  // than the Bible level (book/chapter panels read from the now-cleared caches).
+  await reRenderCurrentLevel();
+}
+
+// Re-render the active level after a save: the Bible level renders straight
+// from OVERVIEW; the book/chapter levels must refetch their (now-invalidated)
+// payloads first so the resolved badges are current. A focused verse is
+// preserved across the chapter re-render (navToChapter resets CUR_VERSE),
+// so saving a per-verse popup set doesn't collapse the verse the builder
+// is working in.
+async function reRenderCurrentLevel() {
+  if (CUR_BOOK == null) {
+    renderLevelPanel();
+  } else if (CUR_CHAPTER == null) {
+    await navToBook(CUR_BOOK);
+  } else {
+    const keepVerse = CUR_VERSE;
+    await navToChapter(CUR_CHAPTER);  // refetches the cleared chapter payload; resets CUR_VERSE
+    if (keepVerse != null && CUR_BOOK != null && CUR_CHAPTER != null) {
+      CUR_VERSE = keepVerse;
+      renderBreadcrumb();
+      renderChapterPanel(document.getElementById('level-panel'));
+    }
+  }
+}
+
+// Dirty-check (§6.4) — collect every interactive input/select in the panel.
+// The controls autosave on change (so "dirty" is transient), but the spec
+// requires the dirty pattern be honored where the codebase expects it: this
+// helper exists + is exercised so a future Save-button variant / test can
+// rely on `querySelectorAll('input, select')` finding the controls.
+function bmbDirtyControls(box) {
+  if (!box) return [];
+  return Array.from(box.querySelectorAll('input, select'));
 }
 
 // ---- breadcrumb ------------------------------------------------------
@@ -349,8 +581,12 @@ function setLevelHeader(title, subtitle) {
 
 // ---- Bible-level panel ----------------------------------------------
 // SYMBOLS section (resolved on/off per category) + POPUPS section
-// (resolved popup-language list). Read-only — C2-4 makes these the
-// interactive tri-state + checklist controls.
+// (resolved popup-language list). The Bible (edition) level stays
+// READ-ONLY in this task (C2-4): edition-wide symbol defaults are edited
+// on /matrix and edition-wide popup defaults on /customize, so we render
+// the resolved state read-only here + cross-link to those editors. Book /
+// chapter / verse levels get the interactive controls below. Edition-wide
+// writes from this console are deferred to C3.
 function renderBiblePanel(el) {
   const ed = (OVERVIEW && OVERVIEW.edition) || {};
   setLevelHeader(ed.title || CUR_EDITION,
@@ -362,8 +598,8 @@ function renderBiblePanel(el) {
 }
 
 // SYMBOLS section — one row per category with its symbol, label, and a
-// resolved on/off badge. Stable ids/classes so C2-4 can upgrade in place.
-/* C2-4 makes this interactive (tri-state inherit/on/off per category) */
+// resolved on/off badge. Read-only (Bible level only); drill into a book
+// for the interactive tri-state controls.
 function renderSymbolsSection(symbols, scopeLabel) {
   symbols = symbols || {};
   const rows = categoriesOrdered().map(c => {
@@ -381,13 +617,16 @@ function renderSymbolsSection(symbols, scopeLabel) {
   return `
     <section id="symbols-section" class="mb-6" data-scope="${esc(scopeLabel)}">
       <h3 class="font-semibold text-slate-700 mb-1">Note symbols</h3>
-      <p class="text-xs text-slate-400 mb-2">resolved on/off per symbol family at the ${esc(scopeLabel)} level (read-only)</p>
+      <p class="text-xs text-slate-400 mb-2">edition-wide resolved on/off per symbol family (read-only here) —
+        <a href="/matrix" class="text-blue-600 hover:underline">edit edition-wide on /matrix</a>,
+        or pick a book on the left to override per book / chapter.</p>
       ${rows || '<div class="text-slate-400 text-sm">no categories</div>'}
     </section>`;
 }
 
 // POPUPS section — the resolved popup-language list as read-only chips.
-/* C2-4 makes this interactive (per-language checklist) */
+// Read-only at the Bible level; drill into a book / chapter / verse for the
+// interactive language checklist.
 function renderPopupsSection(popups, scopeLabel) {
   popups = popups || [];
   const chips = popups.length
@@ -398,22 +637,284 @@ function renderPopupsSection(popups, scopeLabel) {
   return `
     <section id="popups-section" class="mb-2" data-scope="${esc(scopeLabel)}">
       <h3 class="font-semibold text-slate-700 mb-1">Popup languages</h3>
-      <p class="text-xs text-slate-400 mb-2">translation-popup languages resolved at the ${esc(scopeLabel)} level (read-only)</p>
+      <p class="text-xs text-slate-400 mb-2">edition-wide resolved translation-popup languages (read-only here) —
+        <a href="/customize" class="text-blue-600 hover:underline">edit edition-wide on /customize</a>,
+        or pick a book / chapter / verse to override.</p>
       <div class="flex flex-wrap gap-1.5">${chips}</div>
     </section>`;
 }
 
+// =====================================================================
+// C2-4 — interactive SYMBOL tri-state controls (book + chapter levels).
+//
+// One row per category: a tri-state select (inherit / on / off) seeded
+// from the WORK maps for this scope key, with a faint "inherits on/off"
+// hint = the resolved value it would take if left unset. Each category
+// row expands (a <details>) to per-kind tri-state selects (same scope key,
+// kind-code token). Tokens: category id at the category row, kind code at
+// the kind rows. Saving autosaves the touched field(s) (absolute-replace).
+//
+// scope = 'book' | 'chapter'; key = "<book>" | "<book>:<ch>".
+// inheritedSymbols = {cat_id: 'on'|'off'} the next-coarser resolved state
+// (what each category inherits when its tri-state is "inherit").
+// =====================================================================
+function renderSymbolsControls(scope, key, inheritedSymbols) {
+  inheritedSymbols = inheritedSymbols || {};
+  const onField = 'note_families_on_per_' + scope;
+  const offField = 'note_families_off_per_' + scope;
+
+  function triSelect(token, curState, cls) {
+    // curState ∈ inherit|on|off. Mark each <option> selected explicitly.
+    const opt = (val, label) =>
+      `<option value="${val}"${curState === val ? ' selected' : ''}>${label}</option>`;
+    return `<select class="${cls} text-xs border border-slate-300 rounded px-1 py-0.5"
+        data-token="${esc(token)}">
+        ${opt('inherit', 'inherit')}${opt('on', 'on')}${opt('off', 'off')}
+      </select>`;
+  }
+
+  const rows = categoriesOrdered().map(c => {
+    const catState = symStateAt(onField, offField, key, c.id);
+    const inh = inheritedSymbols[c.id] || 'off';
+    const kindRows = kindsForCategory(c.id).map(k => {
+      const kState = symStateAt(onField, offField, key, k.code);
+      return `
+        <div class="sym-kind-row flex items-center justify-between gap-3 py-1 pl-7 pr-1 border-b border-slate-50"
+             data-token="${esc(k.code)}">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-xs px-1.5 py-0.5 bg-slate-100 rounded font-mono text-slate-600">${esc(k.code)}</span>
+            <span class="text-xs text-slate-600 truncate">${esc(k.label)}</span>
+          </div>
+          ${triSelect(k.code, kState, 'sym-kind-tri')}
+        </div>`;
+    }).join('');
+    return `
+      <details class="sym-cat border-b border-slate-100" data-category="${esc(c.id)}">
+        <summary class="sym-row flex items-center justify-between gap-3 py-1.5 cursor-pointer list-none">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-slate-300 text-xs">▸</span>
+            <span class="symbol text-slate-600" title="${esc(c.description || c.label)}">${esc(c.symbol)}</span>
+            <span class="text-sm text-slate-700 truncate">${esc(c.label)}</span>
+            ${catState === 'inherit' ? inheritHint(inh) : ''}
+          </div>
+          ${triSelect(c.id, catState, 'sym-cat-tri')}
+        </summary>
+        <div class="sym-kinds pb-1">${kindRows || '<div class="text-xs text-slate-400 pl-7 py-1">no kinds in this family</div>'}</div>
+      </details>`;
+  }).join('');
+
+  const scopeWord = scope === 'book' ? 'this book' : 'this chapter';
+  return `
+    <section id="symbols-section" class="mb-6" data-scope="${esc(scope)}" data-scope-key="${esc(key)}">
+      <h3 class="font-semibold text-slate-700 mb-1">Note symbols</h3>
+      <p class="text-xs text-slate-400 mb-2">tri-state per family for ${scopeWord}: <em>inherit</em> (use the level above),
+        <em>on</em>, or <em>off</em>. Expand a family to override individual kinds.
+        Flipping a family clears its finer overrides in scope.</p>
+      ${rows || '<div class="text-slate-400 text-sm">no categories</div>'}
+    </section>`;
+}
+
+// Wire the symbol tri-state selects within a freshly-rendered panel.
+// scope/key identify the coordinate; bulk-clears-finer (§3.2) runs before
+// applying a category or kind flip.
+function wireSymbolsControls(box, scope, key) {
+  if (!box) return;
+  const onField = 'note_families_on_per_' + scope;
+  const offField = 'note_families_off_per_' + scope;
+
+  // Category-level tri-state: setting it also clears the category + its
+  // kinds from any FINER scope (chapter keys "book:*", or for a chapter
+  // scope, the verse map "book:ch:*") so the coarse decision wins cleanly.
+  box.querySelectorAll('.sym-cat-tri').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const catId = sel.dataset.token;
+      const state = sel.value;
+      const touched = clearFinerSymbols(scope, key, categoryTokenSet(catId));
+      setSymState(onField, offField, key, catId, state);
+      touched.add(onField); touched.add(offField);
+      saveFields([...touched]);
+    });
+  });
+  // Kind-level tri-state: a single token; clears the SAME kind from finer
+  // scopes (a kind decision at book level supersedes per-chapter kind set).
+  box.querySelectorAll('.sym-kind-tri').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const token = sel.dataset.token;
+      const state = sel.value;
+      const touched = clearFinerSymbols(scope, key, new Set([token]));
+      setSymState(onField, offField, key, token, state);
+      touched.add(onField); touched.add(offField);
+      saveFields([...touched]);
+    });
+  });
+}
+
+// Bulk-clears-finer for SYMBOLS (§3.2). Remove `tokens` from every FINER
+// symbol scope that falls within `key`. Returns the set of WORK field names
+// it mutated (so the caller folds them into the save payload — they too get
+// absolute-replaced). book key "gen" → clears note_families_*_per_chapter
+// keys "gen:*"; chapter key "gen:1" has no finer SYMBOL scope (verse-level
+// symbols are C2-5's note force-on/off, not in these maps).
+function clearFinerSymbols(scope, key, tokens) {
+  const touched = new Set();
+  if (scope !== 'book') return touched;  // only book → chapter is finer here
+  const prefix = key + ':';
+  for (const field of ['note_families_on_per_chapter', 'note_families_off_per_chapter']) {
+    const map = WORK[field];
+    for (const k of Object.keys(map)) {
+      if (k.indexOf(prefix) !== 0) continue;
+      const arr = map[k];
+      const kept = arr.filter(t => !tokens.has(t));
+      if (kept.length !== arr.length) {
+        touched.add(field);
+        if (kept.length === 0) delete map[k];
+        else map[k] = kept;
+      }
+    }
+  }
+  return touched;
+}
+
+// =====================================================================
+// C2-4 — interactive POPUP language checklist (book / chapter / verse).
+//
+// Popups are an ABSOLUTE set per scope. If the scope key is present in its
+// override map → that explicit set is edited; if absent → the scope INHERITS
+// the next-coarser resolved set (shown faint) and the first toggle CREATES
+// an explicit set seeded from the inherited set. A "↻ inherit" link removes
+// the key (revert to inherit). Flipping a coarser scope clears finer popup
+// keys in scope (§3.2).
+//
+// scope = 'book'|'chapter'|'verse'; key = "<book>"|"<book>:<ch>"|"<book>:<ch>:<vs>".
+// inheritedSet = the resolved popup list this scope would inherit (the
+// level payload's resolved.popups, which for an unset scope IS the inherited
+// value).
+// =====================================================================
+function renderPopupsControls(scope, key, inheritedSet) {
+  inheritedSet = inheritedSet || [];
+  const explicit = popupHasExplicit(scope, key);
+  const activeSet = explicit ? new Set(popupExplicitSet(scope, key)) : new Set(inheritedSet);
+  const langs = (OVERVIEW && OVERVIEW.popup_languages) || [];
+  const scopeWord = scope === 'book' ? 'this book' : scope === 'chapter' ? 'this chapter' : 'this verse';
+
+  const boxes = langs.length ? langs.map(L => {
+    const checked = activeSet.has(L.id);
+    const dim = L.has_data ? '' : 'opacity-50';
+    const noData = L.has_data ? '' : ' <span class="text-[10px] italic text-slate-400">(no data)</span>';
+    return `
+      <label class="text-sm flex items-center gap-1.5 ${dim}"
+             title="${L.has_data ? '' : 'no source data yet — selecting has no visible effect'}">
+        <input type="checkbox" class="popup-lang-cb" data-lang="${esc(L.id)}" ${checked ? 'checked' : ''}>
+        ${esc(L.label)}${noData}
+      </label>`;
+  }).join('') : '<span class="text-slate-400 text-sm">no popup languages registered</span>';
+
+  const stateLine = explicit
+    ? `<span class="text-emerald-700">explicit set for ${scopeWord}</span>
+       <button type="button" class="popup-revert ml-2 text-blue-600 hover:underline" title="remove this scope's override — fall back to the inherited set">↻ inherit</button>`
+    : `<span class="text-slate-400 italic">inheriting the set above — checking a box creates an override for ${scopeWord}</span>`;
+
+  // The per-verse instance uses a distinct id to avoid colliding with the
+  // chapter-level #popups-section when a verse is focused; wiring is always
+  // box-scoped so either works.
+  const sectionId = scope === 'verse' ? 'popups-section-verse' : 'popups-section';
+  return `
+    <section id="${sectionId}" class="popups-section mb-2" data-scope="${esc(scope)}" data-scope-key="${esc(key)}">
+      <h3 class="font-semibold text-slate-700 mb-1">Popup languages</h3>
+      <p class="text-xs text-slate-400 mb-2">${stateLine}</p>
+      <div class="flex flex-wrap gap-3 p-2 bg-slate-50 border border-slate-200 rounded">${boxes}</div>
+      ${scope !== 'verse'
+        ? '<p class="text-[10px] text-slate-400 mt-1 italic">Setting this clears finer popup exceptions in scope.</p>'
+        : ''}
+    </section>`;
+}
+
+// Wire the popup checklist within a freshly-rendered panel. Scopes its
+// queries to the matching .popups-section (by data-scope + data-scope-key)
+// so a chapter-panel call doesn't also grab a focused verse's checkboxes
+// nested inside it (both live under the same panel element).
+function wirePopupsControls(box, scope, key, inheritedSet) {
+  if (!box) return;
+  const field = popupSetField(scope);
+  // Find this scope's own section. CSS.escape guards keys with ':' so the
+  // attribute selector parses (book:ch:vs keys contain colons).
+  const escKey = (window.CSS && CSS.escape) ? CSS.escape(key) : key.replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+  let section = box.querySelector('.popups-section[data-scope="' + scope + '"][data-scope-key="' + escKey + '"]');
+  if (!section && box.matches && box.matches('.popups-section')) section = box;
+  if (!section) section = box;  // last-resort fallback
+
+  section.querySelectorAll('.popup-lang-cb').forEach(cb => {
+    cb.addEventListener('change', () => {
+      // First toggle on an inheriting scope seeds an explicit set from the
+      // inherited resolved set, then applies this box's change.
+      let cur;
+      if (popupHasExplicit(scope, key)) {
+        cur = new Set(popupExplicitSet(scope, key));
+      } else {
+        cur = new Set(inheritedSet || []);
+      }
+      if (cb.checked) cur.add(cb.dataset.lang);
+      else cur.delete(cb.dataset.lang);
+      popupSetExplicit(scope, key, [...cur]);
+      const touched = clearFinerPopups(scope, key);
+      touched.add(field);
+      saveFields([...touched]);
+    });
+  });
+
+  const revert = section.querySelector('.popup-revert');
+  if (revert) {
+    revert.addEventListener('click', () => {
+      popupRevertToInherit(scope, key);
+      // Reverting a coarse scope to inherit does NOT need to touch finer
+      // keys (the resolver falls through), but reverting still only changes
+      // this one field — send it (absolute-replace).
+      saveFields([field]);
+    });
+  }
+}
+
+// Bulk-clears-finer for POPUPS (§3.2). Setting an explicit popup set at a
+// coarser scope strips the finer popup overrides within that scope (their
+// presence would otherwise win over the new coarser set). Returns the WORK
+// field names it mutated. book "gen" → clears popup_languages_per_chapter
+// "gen:*" + popup_languages_per_verse "gen:*"; chapter "gen:1" → clears
+// popup_languages_per_verse "gen:1:*"; verse → nothing finer.
+function clearFinerPopups(scope, key) {
+  const touched = new Set();
+  const strip = (field, prefix) => {
+    const map = WORK[field];
+    for (const k of Object.keys(map)) {
+      if (k.indexOf(prefix) === 0) { delete map[k]; touched.add(field); }
+    }
+  };
+  if (scope === 'book') {
+    strip('popup_languages_per_chapter', key + ':');
+    strip('popup_languages_per_verse', key + ':');
+  } else if (scope === 'chapter') {
+    strip('popup_languages_per_verse', key + ':');
+  }
+  return touched;
+}
+
 // ---- Book-level panel -----------------------------------------------
-// Book title + chapter list. Each chapter is clickable (drills to the
-// chapter level), shows a "has notes" indicator + its resolved symbol /
-// popup badges. Chapters render 1..ch_count ascending (never sort).
+// Interactive book-level SYMBOL tri-state + POPUP checklist (C2-4), then
+// the chapter grid. Each chapter is clickable (drills to the chapter
+// level), shows a "has notes" indicator + its resolved symbol / popup
+// badges. Chapters render 1..ch_count ascending (never sort).
 function renderBookPanel(el) {
   const payload = BOOK_CACHE.get(CUR_BOOK);
   if (!payload) { spinnerInto(el, 'loading book …'); return; }
   const book = payload.book || {};
   const chapters = payload.chapters || [];
   setLevelHeader(book.title || CUR_BOOK,
-    book.ch_count + ' chapter(s) · pick a chapter to see its verses');
+    book.ch_count + ' chapter(s) · set this book\'s symbols / popups, or pick a chapter');
+
+  // Inherited baseline for the book level = the edition default (Bible
+  // resolved). For an inherit-state token at book level there is no book
+  // override, so its inherited value IS the edition default. The popup
+  // inherited set is likewise the edition-default resolved popup list.
+  const bibleResolved = (OVERVIEW && OVERVIEW.resolved_bible) || { symbols: {}, popups: [] };
 
   const grid = chapters.map(ch => {
     const symsOn = countSymbolsOn(ch.resolved && ch.resolved.symbols);
@@ -433,11 +934,16 @@ function renderBookPanel(el) {
       </button>`;
   }).join('');
 
-  el.innerHTML = `
-    <section class="mb-2">
-      <p class="text-xs text-slate-400 mb-2">a filled dot marks chapters with notes; counts show resolved symbol families on + popup languages</p>
+  el.innerHTML =
+    renderSymbolsControls('book', CUR_BOOK, bibleResolved.symbols) +
+    renderPopupsControls('book', CUR_BOOK, bibleResolved.popups) +
+    `<section class="mb-2 mt-4 border-t border-slate-200 pt-4">
+      <p class="text-xs text-slate-400 mb-2">a filled dot marks chapters with notes; counts show resolved symbol families on + popup languages — pick a chapter to override deeper</p>
       <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">${grid}</div>
     </section>`;
+
+  wireSymbolsControls(el, 'book', CUR_BOOK);
+  wirePopupsControls(el, 'book', CUR_BOOK, bibleResolved.popups);
   el.querySelectorAll('.chapter-cell').forEach(cell => {
     cell.addEventListener('click', () => navToChapter(Number(cell.dataset.chapter)));
   });
@@ -449,11 +955,11 @@ function countSymbolsOn(symbols) {
 }
 
 // ---- Chapter-level panel --------------------------------------------
-// Verse list (1..N ascending). Each verse shows its resolved symbols /
-// popups summary and its notes as a read-only list (symbol + kind +
-// title, with a faint marker if disabled / forced_on). Clicking a verse
-// focuses it (the individual level) — its notes expand, breadcrumb adds
-// "Verse N". No writable controls here (those land in C2-5).
+// Interactive chapter-level SYMBOL tri-state + POPUP checklist (C2-4),
+// then the verse list (1..N ascending). Each verse shows its resolved
+// symbols / popups summary and its notes as a read-only list. Clicking a
+// verse focuses it — its notes expand (read-only; C2-5 owns the per-note
+// checkboxes) AND its per-verse popup checklist appears (C2-4).
 function renderChapterPanel(el) {
   const key = CUR_BOOK + ':' + CUR_CHAPTER;
   const payload = CHAPTER_CACHE.get(key);
@@ -461,14 +967,33 @@ function renderChapterPanel(el) {
   const verses = payload.verses || [];
   const noteTotal = verses.reduce((s, v) => s + (v.notes ? v.notes.length : 0), 0);
   setLevelHeader(bookTitle(CUR_BOOK) + ' ' + CUR_CHAPTER,
-    verses.length + ' verse(s) · ' + noteTotal + ' note(s) · click a verse to focus its notes');
+    verses.length + ' verse(s) · ' + noteTotal + ' note(s) · set this chapter, or click a verse');
 
-  el.innerHTML = `
-    <section id="verse-list-section">
+  // Inherited baseline for the chapter level = the book's resolved state.
+  // The chapter's own resolved symbols (computed per-verse server-side, all
+  // identical for the chapter) give the inherit-state hint value; for the
+  // popup inherited set we use the book payload's chapter-entry resolved
+  // popups (== book-resolved when the chapter has no explicit override).
+  const chSymbols = (verses[0] && verses[0].resolved && verses[0].resolved.symbols) || {};
+  const bookPayload = BOOK_CACHE.get(CUR_BOOK);
+  let chInheritedPopups = [];
+  if (bookPayload && bookPayload.chapters) {
+    const chEntry = bookPayload.chapters.find(c => c.num === CUR_CHAPTER);
+    if (chEntry && chEntry.resolved && chEntry.resolved.popups) chInheritedPopups = chEntry.resolved.popups;
+  }
+
+  el.innerHTML =
+    renderSymbolsControls('chapter', key, chSymbols) +
+    renderPopupsControls('chapter', key, chInheritedPopups) +
+    `<section id="verse-list-section" class="mt-4 border-t border-slate-200 pt-4">
+      <p class="text-xs text-slate-400 mb-2">click a verse to focus its notes + set a per-verse popup set</p>
       <ul class="space-y-2">
         ${verses.map(v => renderVerseRow(v)).join('')}
       </ul>
     </section>`;
+
+  wireSymbolsControls(el, 'chapter', key);
+  wirePopupsControls(el, 'chapter', key, chInheritedPopups);
   el.querySelectorAll('.verse-row').forEach(row => {
     row.querySelector('.verse-head').addEventListener('click', () => {
       const vs = Number(row.dataset.verse);
@@ -477,6 +1002,14 @@ function renderChapterPanel(el) {
       renderBreadcrumb();
       renderChapterPanel(el);
     });
+    // Wire the per-verse popup checklist for the focused verse (C2-4).
+    const vsNum = Number(row.dataset.verse);
+    if (CUR_VERSE === vsNum) {
+      const vEntry = verses.find(v => v.vs === vsNum);
+      const vInherited = (vEntry && vEntry.resolved && vEntry.resolved.popups) || [];
+      const vKey = key + ':' + vsNum;
+      wirePopupsControls(row, 'verse', vKey, vInherited);
+    }
   });
 }
 
@@ -504,11 +1037,18 @@ function renderVerseRow(v) {
   /* C2-5 makes this interactive (per-note disable / force-on) */
   let body = '';
   if (focused) {
-    body = notes.length
+    const notesBlock = notes.length
       ? `<ul class="mt-1 ml-4 space-y-1 border-l-2 border-slate-100 pl-3">
            ${notes.map(n => renderNoteLine(n)).join('')}
          </ul>`
       : '<div class="mt-1 ml-4 text-xs text-slate-400">no notes attributed to this verse.</div>';
+    // C2-4 — interactive per-verse popup checklist (absolute set for this
+    // verse). The inherited set = this verse's resolved popups (the chapter/
+    // book/edition value it would take with no verse override). wirePopups-
+    // Controls is attached in renderChapterPanel (scoped to this verse row).
+    const vKey = CUR_BOOK + ':' + CUR_CHAPTER + ':' + v.vs;
+    const popupBlock = `<div class="mt-2 ml-4">${renderPopupsControls('verse', vKey, resolved.popups)}</div>`;
+    body = notesBlock + popupBlock;
   }
   return `<li class="verse-row" data-verse="${v.vs}">${head}${body}</li>`;
 }
@@ -585,6 +1125,7 @@ async function onEditionChange() {
     return;
   }
   BOOKS = (OVERVIEW && OVERVIEW.books_canonical) || [];  // already §6.1-ordered
+  seedWorkFromOverview();  // C2-4 — working copy of the override maps
   renderBreadcrumb();
   renderBookList();
   renderLevelPanel();

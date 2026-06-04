@@ -67,10 +67,38 @@ class TestConsoleHtmlShell:
         assert "CHAPTER_CACHE" in self.html
 
     def test_read_only_section_markers_for_next_tasks(self):
-        # The read-only sections C2-4 / C2-5 will make interactive must be
-        # marked so the next task knows where to swap displays for controls.
-        assert "C2-4 makes this interactive" in self.html
+        # C2-4 has shipped (the symbol tri-state + popup checklists are now
+        # interactive), so its read-only marker is gone — its render
+        # functions are exercised by the interactive controls instead. The
+        # per-note disable/force-on row is still read-only (C2-5 owns it), so
+        # that marker must remain.
+        assert "C2-4 makes this interactive" not in self.html
         assert "C2-5 makes this interactive" in self.html
+
+    def test_c2_4_interactive_controls_present(self):
+        # The C2-4 interactive surface: tri-state symbol controls (book +
+        # chapter) and popup checklists (book/chapter/verse) plus the save
+        # flow that PUTs the absolute-replace field maps.
+        for fn in (
+            "function renderSymbolsControls(",
+            "function wireSymbolsControls(",
+            "function renderPopupsControls(",
+            "function wirePopupsControls(",
+            "function saveFields(",
+            "function seedWorkFromOverview(",
+            "function clearFinerSymbols(",
+            "function clearFinerPopups(",
+        ):
+            assert fn in self.html, f"missing C2-4 JS fn: {fn}"
+        # The tri-state option set + the autosave PUT target.
+        assert "sym-cat-tri" in self.html
+        assert "sym-kind-tri" in self.html
+        assert "popup-lang-cb" in self.html
+        assert "/api/edition-meta/" in self.html
+        # Bible level stays read-only with cross-links to the edition-wide
+        # editors (no edition-wide writes from this console in C2-4).
+        assert 'href="/matrix"' in self.html
+        assert 'href="/customize"' in self.html
 
     def test_calls_the_three_read_api_levels(self):
         # The JS must target all three C2-1 endpoints (edition/book/chapter).
