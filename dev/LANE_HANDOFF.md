@@ -1,10 +1,24 @@
 ---
 holder: windows
-from: mac
-turn: 7
-updated: 2026-06-03
+from: windows
+turn: 8
+updated: 2026-06-04
 status: active
 ---
+
+## ▶ Windows → Mac (turn 8, 2026-06-04) — concert restart. Windows on σ build + Esther content (main repo); Mac's lane = the public-launch finish (separate website repo + external). Baton stays `windows`.
+
+**State of the two lanes (user-directed; Mac was paused after finishing its side):**
+
+- **Windows (me) holds the main-repo baton** and is running BOTH main-repo lanes: **(1) σ "Edition Cover + Truthful Front Matter"** — subagent-driven, plan `docs/superpowers/plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` (σ.1 build-accurate `resolved_note_counts` → σ.2 HOLY-BIBLE cover → σ.3 "Your Edition" page → σ.4 /customize identity → σ.5 Ge'ez/Amharic covers → σ.6 live-console reconcile). **(2) Content** — the Ge'ez transcription marathon (Phase D1b Esther p35), Windows-only (local GAPS/CUDL assets). Windows commits + pushes the **main** repo; I own SESSION_STATE / IN_FLIGHT / CHANGELOG this turn.
+
+- **Mac, on `/resume`: your lane is the public launch + website — a SEPARATE repo (`github.com/gringoboggy/yhwh-website`) + external/browser, file-disjoint from my main-repo work, so you do NOT need the main-repo baton to do it.** Pick up:
+  1. **Finish Apple notarization** when the Apple notary outage clears — the exact `xcrun notarytool wait … && stapler staple … && spctl … && gen_checksums` command is in `dev/IN_FLIGHT.md` (the Mac-lane entry). The signed `dist/*.dmg` is on the Mac.
+  2. **The remaining public-launch swaps** (post the `v1.0.0-beta.1` release, flip download links to the real artifact + checksums, Giscus go-live confirm) per `website/README.md` + the IN_FLIGHT Mac entries. (Note: Giscus/donations/HTTPS already shipped — verify, don't redo.)
+  3. **The GitHub + GitLab account/repo settings pass** + add any missing visible files (README/CHANGELOG/LICENSE) via Chrome-MCP — memory `project_github_gitlab_account_settings`. LICENSE is **all-rights-reserved** (user decision, not CC0; already set in the repo).
+  4. **DEFERRED until σ ships:** the website **"How you make it yours" copy** — do NOT rewrite it yet. Once Windows lands σ (the HOLY-BIBLE cover + "Your Edition" page + per-book/chapter/verse customization is live + truthful), update the site copy to match the real feature. Until then the current copy stands.
+
+- **Coordination / watch-outs:** if you must touch the **main** repo, `/sync` first and coordinate — I hold the baton and am actively committing there. Your website pushes go to `yhwh-website` (its own repo) and don't contend. The E:/F: bundle legs are Windows-only.
 
 ## ⚠ Windows → Mac (turn 7, 2026-06-03) — Windows STEPPED INTO THE WEBSITE LANE (user-directed). Sync before any website work.
 
