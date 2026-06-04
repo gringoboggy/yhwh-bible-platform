@@ -6,6 +6,12 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C2-1 — the `/build-my-bible` navigator read API
+
+`api_build_my_bible(edition_id, book=None, chapter=None)` in `scripts/web_editions.py` — the lazy 3-level drill-down data feed for the Phase-C2 navigator console (UX = **drill-down + breadcrumb**, user-chosen). COMPOSES existing data (RULES §9, no new corpus walk): **edition level** = registries (categories/kinds/popup_languages) + `books_canonical` filtered to the edition's canon + the 6 decoded per-coordinate overrides + `resolved_bible` (per-category on/off + popup set); **book level** = chapters with `has_notes` + per-chapter resolved state; **chapter level** = verses with per-verse resolved state + the individual notes (each tagged `disabled`/`forced_on`). Resolved state uses the REAL resolvers (`config.enabled_kind_codes_for`, `build_edition._resolve_popup_languages`) so the UI shows exactly what the build will do. Route `^/api/build-my-bible/<ed>(/<book>(/<ch>)?)?$` in `web.py` (thin adapter, dict-not-raise contract). Commit `eabd00bb`; +27 tests (`tests/test_build_my_bible_api.py`), lint/mypy clean, read-only / byte-neutral. Plan `docs/superpowers/plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` (6 sub-tasks; C2-2…C2-6 = the navigator frontend).
+
+---
+
 ## 2026-06-04 — 🪟 Windows: Hierarchical Customization Phase C1 — API write/read path for the per-coordinate fields
 
 **The save/read layer** for the 6 new per-coordinate edition fields (`note_families_on_per_book`/`note_families_off_per_book`, `note_families_on_per_chapter`/`note_families_off_per_chapter`, `popup_languages_per_chapter`, `popup_languages_per_verse`), so the Phase-C2 navigator UI can persist + read them. Byte-neutral (write layer only — no build-path change). Commit `68f1598b`.
