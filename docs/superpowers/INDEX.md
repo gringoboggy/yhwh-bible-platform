@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**63 documents** — 42 plans · 21 specs.
+**64 documents** — 43 plans · 21 specs.
 
-## In progress (19)
+## In progress (20)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | ★Forward plan — to launch (9 editions mint) and beyond | `plans/2026-06-05-forward-plan-to-launch.md` | ACTIVE 2026-06-05 — the master forward plan. Done-line = the 9 KJV editions mint (Ge'ez/Amharic = future updates). Spine: re-ingest #2–5 (Mac) → split audit + fix pass → [USER] device test → launch v1.0.0-beta.1 → post-launch Growth/Outreach + the Ge'ez/Amharic arc. Survey-grounded (editions-readiness · backlog-triage · website/socials) |
 | 2026-06-05 | Plan | Split deep-audit — round 5 end-of-project / beta sweep (run across both machines) | `plans/2026-06-05-split-audit-plan.md` | READY 2026-06-05 — auditor round-5 + current (new `rx-surfaces` dim) + split-ready (LANE win/mac); two fresh sessions run disjoint dims (N95=tests/builds · Mac=code-review) → merge on N95; runs AFTER Mac's re-ingest #2–5 (user: "#2–5 first") |
 | 2026-06-05 | Plan | RX Phase 4 — Kobo structural: compact TOC + build-time file-splitter | `plans/2026-06-05-rx-phase4-toc-and-filesplit-plan.md` | IN PROGRESS 2026-06-05 — Phase 4b file-splitter (`apply_file_split`) SHIPPED + epubcheck 0/0/0/0 (ethiopian-tewahedo → 227 pieces, max 472 KB from 5 MB; 0 broken links; default ON). Phase 4a (unwrap `<details>` TOC + drop `.toc-chapters` flexbox) + program-end gate remain |
 | 2026-06-05 | Plan | EPUB Reading-Experience Overhaul (Kobo device-QA: strip 88,773 `[Reviewer:]` scaffolds · deferred `badge` note-display · cross-reader/Kobo fixes · original-language font embed) | `plans/2026-06-05-epub-reading-experience-overhaul.md` | program plan 2026-06-05 — Layer A discovery (D1–D6) running · Layer B 5 phases (strip → CSS → fonts → Kobo structural → badge) · Layer C Mac compat-research; constraint = ALL notes/features ON (declutter via display) |
