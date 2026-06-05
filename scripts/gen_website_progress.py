@@ -11,12 +11,14 @@ import sys
 from html import escape
 from pathlib import Path
 
-# Stage precedence (highest achieved wins): ready > transcribed > source > none
-STAGE_RANK = {"none": 0, "source": 1, "transcribed": 2, "ready": 3}
-STAGE_BADGE = {"none": "◻", "source": "◐", "transcribed": "◑", "ready": "●"}
+# Stage precedence (highest achieved wins): ready > transcribed > source.
+# There is NO "not started" stage: the complete EOTC parallel Geʽez–Amharic Bible
+# (content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf) plus the
+# GAPS manuscript sources cover the whole canon, so every book has its source in hand.
+STAGE_RANK = {"source": 0, "transcribed": 1, "ready": 2}
+STAGE_BADGE = {"source": "◐", "transcribed": "◑", "ready": "●"}
 STAGE_LABEL = {
-    "none": "not started",
-    "source": "source gathered",
+    "source": "source in hand",
     "transcribed": "transcribed",
     "ready": "Bible-ready",
 }
@@ -87,7 +89,9 @@ def _bible_progress(repo: Path, books: list[dict], *, store: str, standalone: se
         elif code in has_source:
             stage = "source"
         else:
-            stage = "none"
+            # Whole canon is sourced (complete EOTC parallel Bible PDF + GAPS manuscripts);
+            # a book not yet in the store still has its source in hand. No "not started" state.
+            stage = "source"
         rows.append(
             {
                 "code": code,
@@ -141,7 +145,7 @@ def render_fragment(data: dict) -> str:
     g, a = data["geez"], data["amharic"]
     legend = (
         '<p class="pb-legend">'
-        + " ".join(f"{STAGE_BADGE[s]} {STAGE_LABEL[s]}" for s in ("none", "source", "transcribed", "ready"))
+        + " ".join(f"{STAGE_BADGE[s]} {STAGE_LABEL[s]}" for s in ("source", "transcribed", "ready"))
         + ' · <span class="pb-en">EN</span> English back-translation</p>'
     )
     return (
