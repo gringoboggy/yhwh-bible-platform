@@ -689,3 +689,62 @@ p.verse-p, p.verse-p-flush {
   font-size: 1.05em;
   line-height: 1.7;
 }
+
+/* === §4.1 marker_style=badge — one note-count badge per verse =============
+   The badge is a small tappable superscript pill carrying the count of that
+   verse's notes; tapping it opens the merged per-verse listing aside (the
+   native EPUB3 popup-footnote, no JS). Replaces the per-note superscripts so
+   scripture reads clean (Genesis 1: ~93 markers → ~31 badges) with every note
+   still ON. Build-time only (epub_working stays the canonical numbers form);
+   these rules are inert unless apply_badge_markers ran for the edition. */
+.verse-notes-badge { text-decoration: none; margin: 0 1px; }
+.marker-badge {
+  font-size: 0.72em;
+  vertical-align: 0.4em;        /* explicit baseline-shift — never the "super"
+                                   keyword + line-height:0 combo that triggers
+                                   the iOS Apple Books vertical-bar artifact. */
+  font-weight: 700;
+  color: #5C2E91;
+  background: rgba(92, 46, 145, 0.12);
+  padding: 0.05em 0.4em;
+  border-radius: 0.9em;
+  line-height: 1;
+}
+.verse-notes-badge:hover .marker-badge,
+.verse-notes-badge:focus .marker-badge {
+  color: #fff;
+  background: #5C2E91;
+}
+
+/* The merged per-verse listing aside (epub:type="footnote"). Hidden in the flow
+   like the per-note notes-section; the reader's popup engine surfaces it on a
+   badge tap. .vn-back = the verse header line (one back-link + "ch:v"); each
+   note is a .vn-item row reusing the existing .note-sym / .note-label styles. */
+.verse-notes {
+  margin: 0.6em 0 0.9em;
+  font-size: 0.94em;
+  line-height: 1.55;
+  text-align: left;
+  text-indent: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.verse-notes .vn-back { margin: 0 0 0.35em 0; font-weight: 700; color: #6E2532; }
+.verse-notes .vn-back .note-back {
+  float: right; color: #8B6508; font-weight: 700; text-decoration: none;
+  margin-left: 0.5em; opacity: 0.55; font-size: 1.05em;
+}
+.verse-notes .vn-back .note-back:hover { opacity: 1; }
+.vn-item {
+  margin: 0;
+  padding: 0.4em 0;
+  border-top: 1px solid rgba(110, 88, 64, 0.18);   /* a hairline divider between notes */
+}
+.vn-item:first-of-type { border-top: none; }
+/* The aside's own <p>/<div> flow wrapper is preserved inside each row (so the
+   markup stays balanced); collapse its margins so rows read as a tight list. */
+.vn-item > p, .vn-item > div { margin: 0; }
+/* The note-label reads inline as the row's lead-in here (not the block header
+   it is in a single-note popup), so the list stays compact. */
+.vn-item .note-label { display: inline; font-size: 0.82em; margin: 0 0.3em 0 0; }
+.vn-item .note-tradition-label { display: inline; font-size: 0.78em; font-style: italic; color: #6E5840; margin: 0 0.3em 0 0; }

@@ -1689,14 +1689,27 @@ def apply_verse_popup_style(stylesheet_css: str, style: str) -> str:
 # separate symbols-into-notes Wave-3 task — not this layout setting.)
 NOTE_POPUP_STYLES = {"chip", "pills"}
 
-# §4.1 marker_style — inline note markers. "numbers" (default): superscript
-# footnote numbers, one per note (the inline category glyph is dropped so
-# nothing renders as tofu). This is realized BASE-WIDE by the re-bake
-# (resync_marker_glyphs renumbers the shared base), so the field is currently
-# declarative — it records the builder's choice and is forward-compat. "badge"
-# (a verse-end count opening a per-verse note list) is DEFERRED (spec §4.1 —
-# injection point TBD), so it is intentionally NOT yet a valid value.
-MARKER_STYLES = {"numbers"}
+# §4.1 marker_style — how inline note markers render.
+#
+#   "numbers" — the historical per-note superscript NUMBER, one inline marker
+#     per note (the inline category glyph is dropped so nothing renders as
+#     tofu). Realized BASE-WIDE by the re-bake (resync_marker_glyphs numbers the
+#     shared base); the build's renumber_markers pass closes the gaps a kind/id
+#     filter leaves so every edition reads 1,2,3…
+#
+#   "badge" (DEFAULT, Phase 5) — clean scripture with ONE note-count badge per
+#     verse → tap → that verse's notes as a list, via the native EPUB3
+#     popup-footnote contract (noteref → footnote, NO JavaScript so it works on
+#     e-ink Kobo). The real cure for "too cluttered" (Genesis 1's ~93 markers
+#     collapse to ~31 verse badges) WITH every note still ON. Realized at BUILD
+#     TIME by apply_badge_markers() as a per-edition post-pass over the temp
+#     HTML — epub_working/ stays the canonical "numbers" form (no base re-bake).
+MARKER_STYLES = {"numbers", "badge"}
+
+# The code default when an edition pins no marker_style (badge is the §4.1
+# intended display; numbers stays selectable). Read by build_one + surfaced as
+# the /customize and api_customize_data default.
+DEFAULT_MARKER_STYLE = "badge"
 
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
@@ -1727,6 +1740,310 @@ def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     if style == "pills":
         return stylesheet_css + _NOTE_POPUP_PILLS_CSS
     return stylesheet_css + _NOTE_POPUP_CHIP_CSS
+
+
+# ----------------------------------------------------------------------
+# §4.1 marker_style=badge — build-time per-edition transform
+# ----------------------------------------------------------------------
+#
+# Collapse a verse's N per-note markers into ONE count badge, and merge that
+# verse's N per-note asides into ONE listing aside, using the native EPUB3
+# popup-footnote contract (noteref → footnote, no JS). Runs over the per-edition
+# temp HTML AFTER the kind/canon/tradition filter passes (so the file holds only
+# THIS edition's surviving notes); epub_working/ is never touched.
+#
+# Verse grouping is BY POSITION, not by parsing the marker id's ambiguous prefix:
+# we walk each book's verse regions with inject's proven locators
+# (find_verse_region / find_chapter_region_b+find_verse_region_b) and collect the
+# `id="ref-{full_id}"` markers that physically fall inside each region. That maps
+# every surviving marker to its (code, ch, v) — including verse-end-fallback
+# markers — exactly as the reader sees them.
+
+# One whole per-note inline marker element: <a class="note-ref note-X" id="ref-…"
+# …><sup …>glyph</sup></a>. note-ref content is only the <sup>, so .*? is tight.
+# Group 1 = full_id.
+_BADGE_MARKER_RE = re.compile(
+    r'<a class="note-ref note-[a-z][a-z0-9-]*" id="ref-([^"]+)"[^>]*>.*?</a>',
+    re.DOTALL,
+)
+
+# The per-note back-link (↩) inside an aside body. Dropped on merge — the merged
+# aside carries ONE back-link in its verse header instead.
+_NOTE_BACK_RE = re.compile(r'<a href="#ref-[^"]+" class="note-back"[^>]*>.*?</a>\s*', re.DOTALL)
+
+
+def _badge_extract_note_kind(marker_html: str) -> str:
+    """The kind token (e.g. ``lang-hebrew``) from a per-note marker element."""
+    m = re.match(r'<a class="note-ref note-([a-z][a-z0-9-]*)"', marker_html)
+    return m.group(1) if m else "comm"
+
+
+def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
+    """Turn one per-note aside's inner content into one merged ``.vn-item`` row.
+
+    Drops the per-note back-link (↩) but KEEPS everything else: the note-sym
+    symbol-link, the note-label, the body, and any tradition-label paragraph. The
+    inner content is already balanced XHTML — a single ``<p>``/``<div>`` flow
+    wrapper, optionally preceded by a ``<p class="note-tradition-label">`` — so we
+    wrap it whole in a ``<div class="vn-item note-{kind}">`` block (a <div> may
+    legally hold those <p>/<div> children) rather than unwrapping. Unwrapping is
+    unsafe: the tradition-label <p> makes two top-level elements, and a greedy
+    unwrap would splice their tags and break well-formedness (epubcheck RSC-016).
+    """
+    body = _NOTE_BACK_RE.sub("", inner, count=1).strip()
+    return f'<div class="vn-item note-{kind}">{body}</div>'
+
+
+def apply_badge_markers(tmp: Path, edition: dict) -> dict:
+    """Rewrite the per-edition temp HTML into badge mode (§4.1).
+
+    For every verse that still has ≥1 surviving note:
+      * replace its N inline ``note-ref`` markers with ONE
+        ``<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}"
+        href="#vnotes-{code}-{ch}-{v}" epub:type="noteref"
+        title="{N} notes"><sup class="marker-badge">{N}</sup></a>`` placed at the
+        LAST marker's position (≈ verse end), removing the others;
+      * merge its N per-note ``<aside class="note">`` elements into ONE
+        ``<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}"
+        epub:type="footnote">`` = a verse header (one back-link + ``ch:v``)
+        followed by each note as a ``.vn-item`` row, in document order.
+
+    Position-grouped via inject's verse-region locators so it works for both
+    strategies and respects the upstream kind/canon/tradition filter. Idempotent
+    and deterministic. epub_working/ is NOT modified (the temp tree is). Returns
+    ``{badges_inserted, asides_merged, notes_collapsed, files_touched}``.
+    """
+    from scripts import inject as _inject
+
+    stats = {"badges_inserted": 0, "asides_merged": 0, "notes_collapsed": 0, "files_touched": 0}
+
+    # Which split files actually survive in this edition's temp tree (canon
+    # filter may have deleted some). Load each once; keyed by file name.
+    present = {p.name for p in tmp.glob("*.html")}
+    file_texts: dict[str, str] = {}
+
+    def _text(fname: str) -> str | None:
+        if fname not in present:
+            return None
+        if fname not in file_texts:
+            file_texts[fname] = (tmp / fname).read_text(encoding="utf-8")
+        return file_texts[fname]
+
+    # Plan, per file, the list of (start, end, replacement) splices to apply.
+    # Two kinds of splice: (1) collapse a verse's markers → one badge; (2)
+    # collapse a verse's asides → one merged aside. Both are computed against the
+    # ORIGINAL file offsets, then applied together in one reverse-order pass per
+    # file so offsets never shift mid-apply.
+    edits: dict[str, list[tuple[int, int, str]]] = {}
+
+    for book in config.load_books():
+        code = book["code"]
+        strategy = book.get("strategy", "A")
+        bxx = book.get("bxx")
+        ch_count = book.get("ch_count", 0)
+        files = [f for f in book.get("files", []) if f in present]
+        if not files:
+            continue
+
+        # Iterate every (ch, v) the book could have; cheap because we only act on
+        # verses that actually carry surviving markers in this edition. A verse's
+        # markers AND asides are always co-located in one file (inject places
+        # them together), but a chapter can spill across a split-file boundary, so
+        # we process the chapter in EVERY file that holds its verses (normally
+        # exactly one) rather than guessing-and-break.
+        for ch in range(1, ch_count + 1):
+            for fname in files:
+                text = _text(fname)
+                if text is None:
+                    continue
+
+                # Locate this chapter's verses. The robust, spill-proof path is
+                # the per-verse v-{code}-{ch}-{v} anchor walk: it works for
+                # Strategy A AND any Strategy-B book that inject anchored (e.g.
+                # Kings, Chronicles) regardless of which split file the chapter
+                # heading lives in — so a chapter whose anchor spilled to the
+                # previous file (1ch 3) is still found by its verse anchors here.
+                # Only the anchor-less Strategy-B books (Jubilees, 1 Enoch) need
+                # the vn-span chapter-region fallback.
+                if f'id="v-{code}-{ch}-' in text:
+                    verse_iter = _badge_verses_strategy_a(text, code, ch)
+                elif strategy == "B":
+                    ch_region = _inject.find_chapter_region_b(text, bxx, ch, ch_count)
+                    if ch_region is None:
+                        continue
+                    verse_iter = _badge_verses_strategy_b(text, ch_region, code, bxx, ch)
+                else:
+                    continue
+
+                for v, (v_start, v_end) in verse_iter:
+                    verse_html = text[v_start:v_end]
+                    # Surviving markers in this verse, in document order.
+                    markers = list(_BADGE_MARKER_RE.finditer(verse_html))
+                    if not markers:
+                        continue
+
+                    full_ids = [m.group(1) for m in markers]
+                    kinds = [_badge_extract_note_kind(m.group(0)) for m in markers]
+                    n = len(full_ids)
+
+                    # --- (2) merged aside ---------------------------------------
+                    # Each note's aside may live anywhere in the chapter's
+                    # notes-section (same file). Collect them in marker order so
+                    # the merged list mirrors the reading order.
+                    rows: list[str] = []
+                    aside_spans: list[tuple[int, int]] = []
+                    ok = True
+                    for fid, kind in zip(full_ids, kinds, strict=True):
+                        am = re.search(
+                            r'<aside class="note note-[a-z][a-z0-9-]*" id="note-'
+                            + re.escape(fid)
+                            + r'"[^>]*>(.*?)</aside>',
+                            text,
+                            re.DOTALL,
+                        )
+                        if not am:
+                            # An orphan marker with no aside — bail on this verse
+                            # rather than emit a badge whose popup is short a row.
+                            ok = False
+                            break
+                        rows.append(_badge_aside_inner_to_row(am.group(1), kind))
+                        aside_spans.append((am.start(), am.end()))
+                    if not ok:
+                        continue
+
+                    merged_aside = (
+                        f'<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}" epub:type="footnote">\n'
+                        f'  <p class="vn-back"><a href="#vbadge-{code}-{ch}-{v}" class="note-back" '
+                        f'title="Back">↩</a> <strong>{ch}:{v}</strong></p>\n'
+                        + "".join(f"  {row}\n" for row in rows)
+                        + "</aside>\n"
+                    )
+
+                    # --- (1) one badge at the LAST marker's position ------------
+                    title = f"{n} note" if n == 1 else f"{n} notes"
+                    badge = (
+                        f'<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}" '
+                        f'href="#vnotes-{code}-{ch}-{v}" epub:type="noteref" '
+                        f'title="{title}"><sup class="marker-badge">{n}</sup></a>'
+                    )
+
+                    bucket = edits.setdefault(fname, [])
+                    # Replace the LAST marker with the badge; delete the others.
+                    last = markers[-1]
+                    bucket.append((v_start + last.start(), v_start + last.end(), badge))
+                    for m in markers[:-1]:
+                        bucket.append((v_start + m.start(), v_start + m.end(), ""))
+                    # Replace the FIRST aside (document order) with the merged
+                    # aside; delete the rest.
+                    aside_spans_sorted = sorted(aside_spans)
+                    first_aside = aside_spans_sorted[0]
+                    bucket.append((first_aside[0], first_aside[1], merged_aside))
+                    for sp in aside_spans_sorted[1:]:
+                        bucket.append((sp[0], sp[1], ""))
+
+                    stats["badges_inserted"] += 1
+                    stats["asides_merged"] += 1
+                    stats["notes_collapsed"] += n
+
+    # Apply every file's splices in one reverse-order pass (offsets stay valid).
+    for fname, splices in edits.items():
+        text = file_texts[fname]
+        # Deterministic: sort by start descending; ties broken by end so nested
+        # spans never interleave (markers/asides are disjoint, so ties are rare).
+        for start, end, repl in sorted(splices, key=lambda s: (s[0], s[1]), reverse=True):
+            text = text[:start] + repl + text[end:]
+        file_texts[fname] = text
+        (tmp / fname).write_text(text, encoding="utf-8")
+        stats["files_touched"] += 1
+
+    return stats
+
+
+def _badge_chapter_content_end(text: str, after: int) -> int:
+    """The byte offset where chapter content (verse prose + any trailing
+    verse-end-fallback markers) ends, starting from ``after``. Bounds the LAST
+    verse of a chapter, which can carry stray markers placed AFTER its closing
+    ``</p>`` but BEFORE the chapter's notes-section / the next chapter heading /
+    the document epilogue. Markers between ``</p>`` and that boundary still
+    belong to the last verse, so the region must reach them."""
+    end = len(text)
+    # The notes-section and </body> are themselves tag-starts, so their match
+    # offset IS the safe region end. The next chapter heading is an attribute
+    # INSIDE an opening tag (id="ch-…"), so back its offset up to that tag's '<'
+    # — only for that one boundary — so we never end mid-tag.
+    sec = re.search(r'<aside class="notes-section"', text[after:])
+    if sec:
+        end = min(end, after + sec.start())
+    body = text.find("</body>", after)
+    if body != -1:
+        end = min(end, body)
+    chh = re.search(r'id="ch-b\d+-c\d+"', text[after:])
+    if chh:
+        abs_chh = after + chh.start()
+        tag = text.rfind("<", after, abs_chh)
+        end = min(end, tag if tag != -1 else abs_chh)
+    return end
+
+
+def _badge_verses_strategy_a(text: str, code: str, ch: int):
+    """Yield ``(v, (start, end))`` for each verse of chapter ``ch`` in a
+    Strategy-A file, by walking its ``v-{code}-{ch}-{v}`` anchors in order. The
+    region for verse v runs from just after its vn-link close to just before the
+    NEXT vn-link's opening ``<a>`` (any verse). The chapter's LAST verse extends
+    to the chapter-content boundary so trailing verse-end-fallback markers (which
+    inject can place after the verse's ``</p>``) are still grouped with it."""
+    anchor_re = re.compile(
+        r'<a class="vn-link" id="v-'
+        + re.escape(code)
+        + r"-"
+        + str(ch)
+        + r'-(\d+)"[^>]*>\s*<span class="vn">\d+</span>\s*</a>'
+    )
+    matches = list(anchor_re.finditer(text))
+    for m in matches:
+        v = int(m.group(1))
+        start = m.end()
+        nxt = re.search(r'<a class="vn-link" id="v-', text[start:])
+        end = start + nxt.start() if nxt else _badge_chapter_content_end(text, start)
+        yield v, (start, end)
+
+
+def _badge_verses_strategy_b(text: str, ch_region: tuple[int, int], code: str, bxx: str, ch: int):
+    """Yield ``(v, (start, end))`` for each verse of a Strategy-B chapter region.
+
+    Two shapes coexist: verses wrapped in ``v-{code}-{ch}-{v}`` vn-link anchors
+    (post-inject Strategy-B, e.g. Kings) and bare ``<span class="vn">v</span>``
+    delimiters (anchor-less Strategy-B, e.g. Jubilees). Anchors are authoritative
+    when present; otherwise fall back to the vn-span walk."""
+    rs, re_ = ch_region
+    region = text[rs:re_]
+    anchor_re = re.compile(
+        r'<a class="vn-link" id="v-'
+        + re.escape(code)
+        + r"-"
+        + str(ch)
+        + r'-(\d+)"[^>]*>\s*<span class="vn">\d+</span>\s*</a>'
+    )
+    anchors = list(anchor_re.finditer(region))
+    if anchors:
+        for m in anchors:
+            v = int(m.group(1))
+            start = m.end()
+            nxt = re.search(r'<a class="vn-link" id="v-', region[start:])
+            end = (start + nxt.start()) if nxt else len(region)
+            yield v, (rs + start, rs + end)
+        return
+    # Anchor-less: walk <span class="vn">v</span> markers.
+    span_re = re.compile(r'<span class="vn">(\d+)</span>')
+    spans = list(span_re.finditer(region))
+    for i, m in enumerate(spans):
+        try:
+            v = int(m.group(1))
+        except ValueError:
+            continue
+        start = m.end()
+        end = spans[i + 1].start() if i + 1 < len(spans) else len(region)
+        yield v, (rs + start, rs + end)
 
 
 CHAPTER_NUMBER_DECORATIONS = {
@@ -3448,6 +3765,20 @@ def build_one(
         stats["toc_bilingual_style"] = bilingual_stats["toc_style"]
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
+
+        # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
+        # markers into ONE count badge + merge its asides into ONE per-verse
+        # listing aside. Runs AFTER every kind/canon/tradition filter + the
+        # renumber pass (so the temp HTML holds only THIS edition's surviving
+        # notes) and BEFORE the front/back-matter injection (which adds no
+        # bodymatter markers). Gated on marker_style; "numbers" leaves the temp
+        # HTML in its per-note form (byte-identical to the historical build).
+        marker_style = (edition.get("marker_style") or DEFAULT_MARKER_STYLE).strip() or DEFAULT_MARKER_STYLE
+        stats["marker_style"] = marker_style
+        if marker_style == "badge":
+            badge_stats = apply_badge_markers(tmp, edition)
+            stats["badges_inserted"] = badge_stats["badges_inserted"]
+            stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts

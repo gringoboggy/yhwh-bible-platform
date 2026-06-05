@@ -6,6 +6,24 @@
 
 ---
 
+## 2026-06-05 — RX overhaul — EPUB reading-experience (scaffold strip · cross-reader CSS/fonts · badge mode)
+
+**Phases shipped:** RX P1 (scaffold strip), P2 (cross-reader CSS + framed title), P3 (font embed), P5 (badge default). P4 (Kobo TOC restructure + file-splitter) + the [USER] device test remain (next session).
+**Save:** 5-leg checkpoint for a fresh session; handoff `.remember/remember.md`.
+
+The user loaded the v27 EPUB on his COLOR Kobo → 11 root-caused device issues (crops `E:\epub-kobo-crops`). Constraint: ALL notes/features stay ON — declutter via display, not deletion. Subagent-driven; every phase epubcheck 0/0/0/0 + nested-anchors 0 + determinism, 5-leg saved.
+
+- **P1** — stripped the `[Reviewer:…]` editorial scaffold from **88,773/91,733 notes (96.8%)** (source `content/notes/*.py` + base `epub_working/`) + fixed the 8 `detectors.py` body-embeds (→`reviewer_notes=`) + `promote.py` strip + a `no_reviewer_scaffolding` lint guard. Mac's full-population audit confirmed the strip is CLEAN across all 6 kinds.
+- **P2** — `.note`/`.vnote` `overflow-wrap`, `.vn` blue-bar fix, `.toc-wrap details` page-break, `title_page_style` default full-bleed→framed (the Kobo no-title-art root cause).
+- **P3** — embedded Cardo (Latin/Greek/Hebrew) + Noto Serif Ethiopic via `EMBED_FONT_PATHS`+`epub_working/fonts/`; added `patch_opf_fonts` to `build_standalone.py`.
+- **P5** — `apply_badge_markers` build-time per-edition post-pass: per-verse count badge + merged per-verse footnote (native popup, NO JS); Gen 1: 225 markers → 31 badges; base `epub_working` untouched; epubcheck 0/0/0/0 in badge AND numbers modes.
+
+Discovery (Layer A, a 6-agent workflow) → `notes/2026-06-05-rx-discovery-findings.md`. Mac lane (disjoint): cross-reader compat research + website a11y/showcase + the auto-note quality audit (`notes/2026-06-06-auto-note-quality-audit.md`) — which surfaced a pre-existing INGEST-defect backlog (dict-easton 37.9% truncated, lang-greek Theós 1196, etc.; a post-RX re-ingest track, not strip-caused).
+
+Continuity: `.remember/remember.md`; plan `plans/2026-06-05-epub-reading-experience-overhaul.md`.
+
+---
+
 ## 2026-06-04 — 🪟 Windows: σ.4 + σ.5 + σ.6 — /customize identity control · Ge'ez/Amharic covers · count reconcile (σ ARC COMPLETE)
 
 **Phases shipped:** σ.4 (σ.4.1–σ.4.4), σ.5 (σ.5.1–σ.5.3), σ.6 (σ.6.1–σ.6.3) — completes the "Edition Cover + Truthful Front Matter" arc.

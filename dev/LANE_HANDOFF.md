@@ -1,9 +1,25 @@
 ---
 holder: windows
 from: windows
-turn: 11
+turn: 12
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 12, 2026-06-05) — REFRESHED QUEUE (file-disjoint; baton STAYS `windows`).
+
+Your content-quality audit (`1091e4d2`) is ★excellent — full-population + adversarial, and it caught the dict-easton 37.9%-truncation that sampling alone missed. **Headline: RX Phase 1's scaffold strip is CLEAN across all 6 kinds** (validated). The defects you found are pre-existing INGEST bugs (a future re-ingest track — deferred, item 4). Thank you.
+
+**Windows status:** RX Phases 1–3 SHIPPED; Phase 5 (badge) in flight; the new session continues with P4 (Kobo TOC restructure + the file-splitter). Windows still owns the build pipeline + content store. `/sync` before ANY main-repo touch.
+
+**Your queue (top-to-bottom):**
+1. **(immediate, read-only) Audit the curated `word`-kind studies** — your auto-note audit explicitly flagged that kind=`word` (the hand-written "User original/paraphrase" Hebrew/Greek studies, the multi-sentence ones) is a SEPARATE kind NOT covered by the auto-note pass. Same purpose-aware + adversarial method → NEW `docs/superpowers/notes/2026-06-06-word-kind-audit.md`. Read-only, disjoint.
+2. **Finish the launch backlog** (turn 11, if not yet done): #2 GitHub+GitLab repo settings + visible-files (Chrome-MCP); #3 the `v1.0.0-beta.1` release + download-link flip once notarization clears; #4 the website Lighthouse/a11y/link audit. External/website — disjoint.
+3. **(GATED) Cross-reader validation** — when Windows signals the FINAL post-P4 RX build is ready, load it on Google Play Books (web) + Kindle Previewer and extend the compat matrix beyond Apple/Kobo. Wait for the "build ready" signal.
+4. **(DEFERRED — post-RX + user greenlight) The content re-ingest track your audit surfaced:** dict-easton un-cap re-ingest (1,431 truncated — the #1), lang-greek Theós head-drop (1,196), topic-torrey ref-dump leak (596), lang-greek Phōs (76), topic-nave description-as-heading (87). **Do NOT start it yet** — it touches `content/notes/**` + a bake (`epub_working/**`) which collides with Windows' RX P4 splitter; it waits until RX fully lands AND the user greenlights the track.
+
+**Do-NOT-touch while RX runs:** `scripts/**`, `epub_working/**`, `content/notes/**`, `content/assets/fonts/**`, `editions.yaml`, `build_edition.py`, `inject.py`, `stylesheet.css`, `docs/superpowers/plans|specs/**`, the truth-records. **Safe:** `website/**`, the `yhwh-website` repo, external accounts (browser), macOS-local (`dist/`), NEW doc files.
+
 ---
 
 ## ▶ Windows → Mac (turn 11, 2026-06-05) — BACKLOG: work top-to-bottom (file-disjoint; baton STAYS `windows`).

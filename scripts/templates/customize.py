@@ -442,10 +442,10 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs">
-              <span class="block mb-1 font-medium text-slate-700">Inline marker style</span>
-              <select class="label-input w-full" data-field="marker_style" title="how the inline note marker renders in the running text">
-                <option value="numbers" ${(e.marker_style||'numbers') === 'numbers' ? 'selected' : ''}>numbers · superscript footnote numbers</option>
-                <option value="badge" disabled>badge · verse-end count (coming soon)</option>
+              <span class="block mb-1 font-medium text-slate-700">Note marker style</span>
+              <select class="label-input w-full" data-field="marker_style" title="how each verse's notes are flagged in the running text">
+                <option value="badge"   ${(e.marker_style||'badge') === 'badge' ? 'selected' : ''}>badge · one count per verse, tap for the list</option>
+                <option value="numbers" ${e.marker_style === 'numbers' ? 'selected' : ''}>numbers · a superscript number per note</option>
               </select>
             </label>
             <label class="text-xs">

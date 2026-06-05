@@ -429,8 +429,10 @@ def api_customize_data() -> dict:
                 "verse_popup_style": e.get("verse_popup_style", "cards"),
                 # §4.4 — note/aside popup layout (chip default / pills).
                 "note_popup_style": e.get("note_popup_style", "chip"),
-                # §4.1 — inline marker style (numbers default; badge deferred).
-                "marker_style": e.get("marker_style", "numbers"),
+                # §4.1 — inline marker style. "badge" (one count badge per verse
+                # → tap → note list) is the default; "numbers" (per-note
+                # superscripts) stays selectable.
+                "marker_style": e.get("marker_style", "badge"),
                 # Torrey merge — which topical authority feeds the back-of-book index.
                 "topical_index_source": e.get("topical_index_source", "both"),
                 "notes": e.get("notes", ""),

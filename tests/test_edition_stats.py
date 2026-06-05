@@ -74,10 +74,14 @@ def _count_note_ref_markers_in_epub(epub_path) -> int:
     """Count surviving inline note-ref markers across the EPUB's content files.
 
     The build emits exactly one ``<a class="note-ref note-{kind}" id="ref-…">``
-    marker per shipped note (scripts.inject.build_marker). Asides use
-    ``class="note note-{kind}"`` and the legend page uses ``class="legend-…"`` —
-    neither matches the ``class="note-ref `` token, so this counts only the
-    inline note-ref markers, i.e. exactly the notes that ship.
+    marker per shipped note (scripts.inject.build_marker) IN ``numbers`` mode.
+    Asides use ``class="note note-{kind}"`` and the legend page uses
+    ``class="legend-…"`` — neither matches the ``class="note-ref `` token, so this
+    counts only the inline note-ref markers, i.e. exactly the notes that ship.
+    (This cross-check builds in ``numbers`` mode on purpose: ``badge`` mode — the
+    default — collapses a verse's markers into one count badge, so the per-note
+    marker proxy only holds in ``numbers`` mode. Which notes SHIP is identical in
+    both modes; only the inline display differs.)
     """
     import zipfile
 
@@ -100,6 +104,15 @@ def _build_catholic_study_and_count_note_refs(tmp_path, monkeypatch) -> int:
 
     monkeypatch.setattr(build_cache, "cache_lookup", lambda *a, **k: None)
     monkeypatch.setattr(build_cache, "cache_store", lambda *a, **k: None)
+
+    # Build in numbers mode so each shipped note carries its inline note-ref
+    # marker — the proxy this cross-check counts (badge mode, the default,
+    # collapses them per verse).
+    eds = dict(config.editions_by_id())
+    ed = dict(eds["catholic-study"])
+    ed["marker_style"] = "numbers"
+    eds["catholic-study"] = ed
+    monkeypatch.setattr(config, "editions_by_id", lambda: eds)
 
     all_kinds = config.load_kinds()
     stats = be.build_one("catholic-study", tmp_path, "stats-xcheck", all_kinds, force=True)

@@ -795,7 +795,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
 
         v = (payload["marker_style"] or "").strip()
         if v and v not in MARKER_STYLES:
-            return {"error": (f"unknown marker_style: {v!r}; valid: {sorted(MARKER_STYLES)} (badge is deferred)")}
+            return {"error": (f"unknown marker_style: {v!r}; valid: {sorted(MARKER_STYLES)}")}
         payload["marker_style"] = v
 
     if "topical_index_source" in payload:
