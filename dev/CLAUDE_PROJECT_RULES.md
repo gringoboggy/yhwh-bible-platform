@@ -23,7 +23,16 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    gitignored), the top-level PDFs (arbitrary filenames — don't grep by book), the
    `GAPS/` Geʽez folder, the web sources the plans name; then verify current status
    against `dev/CHANGELOG.md`. The only legitimate source ask is a genuine
-   licensing/credential gate. (Memory: `sources-already-in-place`.)
+   licensing/credential gate. **This also governs DISPLAY / STATUS / INVENTORY
+   surfaces, not just "is it blocked" decisions: never represent any book or item as
+   un-sourced or "not started" (no "none" stage). The floor for any per-book /
+   per-item status is "source in hand" — the whole canon is sourced (the EOTC
+   parallel Geʽez–Amharic Bible PDF + the `GAPS/` manuscripts). Audit every NEW
+   status/inventory/progress surface against this before shipping it.** This rule
+   keeps escaping (≥5 misses by 2026-06-05, "wasted many a token") precisely because
+   the bad "un-sourced" assumption gets re-encoded into each new surface — e.g. the
+   website progress generator `scripts/gen_website_progress.py` defaulted books to
+   "not started" until it was fixed (`555d548e`). (Memory: `sources-already-in-place`.)
 3. **Re-Read the big truth-record MDs right before editing them** —
    `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md` truncate on Read,
    and a truncated read does NOT satisfy the Edit "must read first" gate. Do a fresh
