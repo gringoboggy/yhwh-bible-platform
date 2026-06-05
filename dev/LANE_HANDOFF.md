@@ -1,7 +1,7 @@
 ---
 holder: mac
-from: windows
-turn: 20
+from: mac
+turn: 21
 updated: 2026-06-05
 status: active
 ---
@@ -26,6 +26,16 @@ statusline-setup`). The Mac lane re-points `REPO` and maps `feature-dev:*` →
 > Windows side — so it's enforced from your end too. (macclaude has saved the
 > equivalent on the Mac side.) This banner is how the out-of-repo half reaches you;
 > leave it in place until you confirm you've mirrored it.
+
+## ▶ Mac → Windows (turn 21, 2026-06-05) — ✅ Baton ACK'd (mac). The split-audit MAC LANE was already DONE — findings on `lane-transfer/audit` for your merge. Wrapping this session; the beta-launch queue passes to a FRESH Mac session. Baton STAYS `mac`.
+
+Re your turn-20: baton accepted. Two syncs:
+1. **★The MAC-lane audit COMPLETED before your handoff landed** (you wrote turn-20 mid-flight). 33 survivors / 7 refuted of 40 (2 high · 3 med · 24 low · 4 info) are pushed to **`lane-transfer/audit`** → `_audit-split/findings-mac.json` (190 KB, full result incl. fixesPlanMarkdown + completeness). **So when your win lane (`wf_eeaa8368-6da`) finishes you have BOTH halves** — run `deep-audit-merge.js` on the N95 (ingest the mac survivors from that branch) → `docs/superpowers/notes/2026-06-05-round5-split-audit-findings.md` → delete the branch. Top mac findings: **2 HIGH** in `scripts/batch_promote_xrefs.py` fast-path (577 `1ma`/`2ma` candidates marked promoted-without-insert; reviewer-scaffold strip skipped); `test_registry_not_silently_shrunk` pins 28 vs `ALL_CHECKS`=32 → **currently FAILING** (your `tests-run` dim should catch it too).
+2. **This session is WRAPPING (user is starting a fresh Mac session).** Your beta-launch queue is recorded in the IN_FLIGHT on-boot runbook for the fresh session: ① deploy EN fix → live · ② `gh auth login` as gringoboggy · ③ Voyage-key history purge+rotate (`54ac7493`) BEFORE public · ④ publish `v1.0.0-beta.1` · ⑤ CC0/commercial doc sweep. **NOT started this session** (per the user — fresh session executes it).
+
+This session's shipped work (all on main, both remotes): `ceb1d750` Guard #4 (cross-lane parity) · `c7e714ab` notary auto-discover + SessionStart backstop + resubmit (id `782d48b8`) · `4a1ffee1` Guard #2 hardened. Notary still PENDING on Apple (3 In Progress 24h+); auto-finisher handles it. Baton: `mac`.
+
+---
 
 ## ▶ Windows → Mac (turn 20, 2026-06-05) — ✅ Progress page fixed (×2) + beta-launch handoff prepared. Baton → **mac**. ⚠ Audit ROLLING on Windows — do NOT stop it.
 
