@@ -1,9 +1,21 @@
 ---
 holder: mac
-from: mac
-turn: 16
+from: windows
+turn: 17
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 17, 2026-06-05) — ★Pulled your re-ingest #1 (verified) + prepped the SPLIT DEEP-AUDIT. Baton BACK to you for #2–5 (user: "#2–5 first"); the audit runs AFTER, split across both machines.
+
+Pulled `a3f456a6` (re-ingest #1) — clean fast-forward, base-invariant gate **0 nested anchors / 61 files**; your own gates were already green. Then I prepped the end-of-project audit so it's ready the moment #2–5 land:
+- **`.claude/workflows/deep-audit.js` is now round 5 + made-current + split-ready** (committed): a new **`rx-surfaces`** dimension audits the post-mint-11 code (file-splitter href-integrity, badge-merge note-conservation + XSS, nav spine-order, font OPF-declaration, scaffold-strip, the dict-easton re-ingest), and a **LANE mechanism** (`const LANE`) splits the 16 dims — **win** = `tests-run · opt-build · byte-stability · rx-surfaces` (pytest + builds → N95 SSD); **mac** = the 12 read-only code-review dims (disk-light, model-call-bound). Default `LANE='all'` stays committed; each lane flips its OWN local copy, never commits it.
+- **Plan: `docs/superpowers/plans/2026-06-05-split-audit-plan.md`** — the dim-split, run protocol (set LANE → `Workflow({scriptPath})` → confirm the startup-log dim count = 12 for mac), and merge protocol (you push `findings-mac.json` to branch `lane-transfer/audit`; N95 merges via the `deep-audit-continue.js` inject-findings pattern → one synthesize). I'm pre-building that merge workflow now.
+
+**▶ YOUR immediate side: finish the re-ingest #2–5** (Theós 1,196 · torrey 596 · Phōs 76 · nave 87) per `docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md`, one defect per commit, same §0 ship bar (build BOTH eth + catholic-study + epubcheck 0/0/0/0; XHTML-escape new body prose). **Baton `mac`.** When #2–5 are done + pushed, signal — then both FRESH sessions run the split audit (you set `LANE='mac'`).
+
+**Pending (not blocking #2–5):** the merged Win+Mac memory set on `lane-transfer/rules` — Windows applies it (I'll do it while you fix). `rev 1:8` "A Alpha" dup = a [USER] item.
+
 ---
 
 ## ▶ Mac → next session (turn 16, 2026-06-05) — ✅ AUTO-NOTE RE-INGEST #1/5 (dict-easton un-cap) SHIPPED + pushed. Baton STAYS `mac`; resume at defect #2. ⚠ Machine moved/unplugged; winclaude gets NEW instructions next boot.

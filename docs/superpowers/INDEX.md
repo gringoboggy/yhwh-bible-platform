@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**62 documents** — 41 plans · 21 specs.
+**63 documents** — 42 plans · 21 specs.
 
-## In progress (18)
+## In progress (19)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | Split deep-audit — round 5 end-of-project / beta sweep (run across both machines) | `plans/2026-06-05-split-audit-plan.md` | READY 2026-06-05 — auditor round-5 + current (new `rx-surfaces` dim) + split-ready (LANE win/mac); two fresh sessions run disjoint dims (N95=tests/builds · Mac=code-review) → merge on N95; runs AFTER Mac's re-ingest #2–5 (user: "#2–5 first") |
 | 2026-06-05 | Plan | RX Phase 4 — Kobo structural: compact TOC + build-time file-splitter | `plans/2026-06-05-rx-phase4-toc-and-filesplit-plan.md` | IN PROGRESS 2026-06-05 — Phase 4b file-splitter (`apply_file_split`) SHIPPED + epubcheck 0/0/0/0 (ethiopian-tewahedo → 227 pieces, max 472 KB from 5 MB; 0 broken links; default ON). Phase 4a (unwrap `<details>` TOC + drop `.toc-chapters` flexbox) + program-end gate remain |
 | 2026-06-05 | Plan | EPUB Reading-Experience Overhaul (Kobo device-QA: strip 88,773 `[Reviewer:]` scaffolds · deferred `badge` note-display · cross-reader/Kobo fixes · original-language font embed) | `plans/2026-06-05-epub-reading-experience-overhaul.md` | program plan 2026-06-05 — Layer A discovery (D1–D6) running · Layer B 5 phases (strip → CSS → fonts → Kobo structural → badge) · Layer C Mac compat-research; constraint = ALL notes/features ON (declutter via display) |
 | 2026-06-04 | Plan | Edition Cover + Truthful Front Matter (σ.1–σ.6: build-accurate counter · HOLY BIBLE cover · Your Edition page · /customize identity · Ge'ez/Amharic covers · live-console reconcile) | `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` | SHIPPED 2026-06-04 — all 6 phases done (σ.1 build-accurate counter · σ.2 HOLY-BIBLE cover + overflow-proof fitter · σ.3 "Your Edition" page + glossary→counter · σ.4 /customize identity control · σ.5 Ge'ez/Amharic Ethiopic covers · σ.6 count reconcile). Per-task spec+code review + visual QA; epubcheck 0/0/0/0; determinism + cross-check green. Commits `4bb03ba6`…`663987af` etc. (5-leg pushed). |

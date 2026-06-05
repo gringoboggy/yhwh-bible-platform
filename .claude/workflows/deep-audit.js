@@ -14,8 +14,8 @@ export const meta = {
 // ----------------------------------------------------------------------------
 const REPO = args?.repo ?? 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4'  // repo root (ABSOLUTE — cwd-independent; round-3 hardening after a cwd-ambiguity risk surfaced)
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 4              // mint-11 = round 4 (mint-9=2, mint-10=3); bump in-file, args don't reliably propagate
-const NOW = args?.now ?? '2026-06-02'             // Date.now() is unavailable in scripts; stamp via args
+const ROUND = args?.round ?? 5              // round 5 = post-mint-11 END-OF-PROJECT / beta sweep, SPLIT across Win+Mac (mint-11=4, mint-10=3, mint-9=2); bump in-file, args don't reliably propagate
+const NOW = args?.now ?? '2026-06-05'             // Date.now() is unavailable in scripts; stamp via args
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
 
@@ -190,6 +190,12 @@ If a single -x run trips early, note the failure, then continue the rest with --
 
 For EACH failing/erroring test produce a finding: severity = high if it indicates a real code regression, medium if it is a STALE test (assertion drifted from reality — the code is right, the test is wrong), low for a flaky/env issue; file = the test file:line; evidence = the assertion + the actual vs expected; fix = correct the code OR update the stale test (say which). If the whole suite passes, return an EMPTY findings list (that is the success signal for this dimension).`,
   },
+  {
+    // round 5 (2026-06-05): the code shipped AFTER mint-11 — the dims above predate it and only UNDER-cover it.
+    key: 'rx-surfaces', kind: 'find', finders: 2,
+    prompt: `DIMENSION: RX / RE-INGEST SURFACES (code shipped AFTER mint-11; the other dims predate it). Audit the build-time post-passes + the auto-note re-ingest for silent data-loss / corruption / injection. In ${REPO}/scripts/build_edition.py read: apply_file_split (~2277 — splits index_split_*.html into ~0.4 MB pieces, rewrites ~39.5 K cross-piece hrefs, regenerates OPF manifest+spine + nav.xhtml + toc.ncx) — CHECK every cross-piece href + badge->footnote target still resolves (a wrong-offset/dropped href = a dead link only seen on a real e-reader), every cut is well-formed (the stack-aware reopen/close), and no piece is orphaned from the spine; apply_badge_markers (~1797 — collapses a verse's note-ref markers into ONE verse-notes-badge + MERGES that verse's asides into one <aside class=verse-notes>) — CHECK badge count == pre-collapse marker count (no note dropped/reordered) and the merged aside markup is built WITHOUT unescaped note-text interpolation (stored-XSS); enrich_nav_chapters (~2730 — nests chapter <ol> in nav.xhtml + child navPoints in toc.ncx) — CHECK it runs LAST among the nav passes (a NAV-011 out-of-spine-order bug was already caught here) + gapless playOrder; apply_reader_toc_transforms (~2610). Font embed (style_config.EMBED_FONT_PATHS + patch_opf_fonts in BOTH build_edition.py and build_standalone.py) — CHECK every @font-face url() is OPF-declared (else epubcheck undeclared-resource) and the src is not an injection vector. Scaffold-strip (the <em>[Reviewer:]</em> removal + the check_no_reviewer_scaffolding lint) — CHECK the strip regex is not over-greedy (could eat real body). The dict-easton re-ingest (scripts/_reingest_eastons.py + scripts/extract_eastons_ccel.py + the new check_no_truncated_easton guard + tests/test_easton_reingest.py) — CHECK the full-article bodies are XHTML-escaped (a literal < or > already broke epubcheck in 2 entries), the exact-old-body pairing rewrote the RIGHT note, and the truncation guard actually fails on a truncated body. These passes act on the BUILT EPUB — prefer BUILDING eth + catholic-study (canon-filtered, per the gate-caught canon bug) and inspecting (epubcheck + a cross-piece link scan), not just source-reading. NOTE: this dimension is LOCAL-BUILD-heavy -> it runs on the N95 (SSD) lane.`,
+    angles: ['Emphasize the file-splitter: cross-piece href integrity + well-formed cuts + spine completeness (silent dead-link data-loss).', 'Emphasize badge-merge note-conservation + unescaped-interpolation XSS, font @font-face OPF-declaration, and the dict-easton re-ingest XHTML-escape + body pairing.'],
+  },
   // ---- OPTIMIZATION dimension (approach re-evaluation; targets the PROJECT'S WORK, not meta-tooling/env) ----
   {
     key: 'opt-vision', kind: 'optimization', finders: 1,
@@ -209,7 +215,21 @@ For EACH failing/erroring test produce a finding: severity = high if it indicate
   },
 ]
 
-const DIMENSIONS = args?.dimensions ?? DEFAULT_DIMENSIONS
+// SPLIT-RUN across the two machines (2026-06-05 — see docs/superpowers/plans/2026-06-05-split-audit-plan.md).
+// Set LANE in-file per machine (args don't reliably propagate). 'win' = the SSD / LOCAL-COMPUTE-heavy dims
+// (they run pytest + builds — keep them on the N95's fast disk); 'mac' = the read-only code-review dims
+// (model-call-bound, disk-light — the Mac is HDD-bound). The two lanes use DIFFERENT resources (local disk
+// vs model calls) so they truly parallelize. 'all' (default) = the full made-current set on one machine.
+// Findings from each lane merge in ONE final synthesize on the N95 (deep-audit-continue.js is the
+// inject-findings precedent). Leave LANE='all' committed; each lane flips its OWN local copy, never commits it.
+const LANE = args?.lane ?? 'all'  // 'win' | 'mac' | 'all'
+const LANE_DIMS = {
+  win: ['tests-run', 'opt-build', 'byte-stability', 'rx-surfaces'],
+  mac: ['correctness', 'security', 'code-debt', 'tests', 'docs', 'data-validity',
+        'concurrency-caching', 'cross-module', 'marathon-boundary', 'opt-vision', 'opt-ingest', 'opt-render'],
+}
+const _laneSet = LANE === 'all' ? null : new Set(LANE_DIMS[LANE] || [])
+const DIMENSIONS = args?.dimensions ?? (_laneSet ? DEFAULT_DIMENSIONS.filter((d) => _laneSet.has(d.key)) : DEFAULT_DIMENSIONS)
 
 // ----------------------------------------------------------------------------
 // Helpers
