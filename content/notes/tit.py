@@ -627,7 +627,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conscience, Fall of Man, The, Fall of Man, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Conscience, Fall of Man, The, Fall of Man, The, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

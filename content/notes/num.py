@@ -21551,7 +21551,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Rebellion Against God, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Rebellion Against God, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

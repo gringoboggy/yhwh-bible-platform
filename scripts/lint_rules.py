@@ -2408,6 +2408,74 @@ def check_greek_gloss_quality() -> dict:
     }
 
 
+def check_no_torrey_topic_leak() -> dict:
+    """Auto-note re-ingest defects #3 + #5 (2026-06-06) — no ``topic-torrey`` body may
+    carry a leaked scripture ref-run or a mis-parsed sub-entry description in its topic
+    list. Both trace to two junk "topics" the CCEL parser admitted (a wrapped Zechariah
+    citation dump + the sentence-case "The king of Babylon … for his service against."
+    Tyre description); fixed in ``extract_torrey_ccel.py`` — this guard stops a regress.
+
+    A real Torrey topic is a Title-Case label with no internal period and no
+    chapter:verse run (verified false-positive-free: 0 of 628 topics contain ``.`` or a
+    ``\\d+:\\d+``). So the topic list between ``appears under: `` and the terminal ``.``
+    must contain neither. AST-based — screens only the body (8th tuple field).
+    """
+    notes_dir = REPO / "content" / "notes"
+    if not notes_dir.is_dir():
+        return {
+            "id": "no_torrey_topic_leak",
+            "name": "No topic-torrey ref-dump / description leak",
+            "status": "warn",
+            "message": "content/notes/ directory missing",
+            "violations": [],
+        }
+    region_re = re.compile(r"appears under: (.*)\.\s*$")
+    nn_re = re.compile(r"\d+:\d+")
+    violations: list[dict] = []
+    total = 0
+    for py in sorted(notes_dir.glob("*.py")):
+        if py.name == "__init__.py":
+            continue
+        try:
+            tree = ast.parse(py.read_text(encoding="utf-8"), filename=str(py))
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            continue
+        notes_list = _find_notes_list(tree)
+        if notes_list is None:
+            continue
+        cnt = 0
+        for elt in getattr(notes_list, "elts", []):
+            if not isinstance(elt, ast.Tuple) or len(elt.elts) < 8:
+                continue
+            kind, body = elt.elts[4], elt.elts[7]
+            if not (
+                isinstance(kind, ast.Constant)
+                and kind.value == "topic-torrey"
+                and isinstance(body, ast.Constant)
+                and isinstance(body.value, str)
+            ):
+                continue
+            m = region_re.search(body.value)
+            region = m.group(1) if m else ""
+            if "." in region or nn_re.search(region):
+                cnt += 1
+        if cnt:
+            total += cnt
+            violations.append({"file": str(py.relative_to(REPO)).replace("\\", "/"), "count": cnt})
+    return {
+        "id": "no_torrey_topic_leak",
+        "name": "No topic-torrey ref-dump / description leak",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "no topic-torrey body leaks a ref-run or sub-entry description"
+            if not violations
+            else f"{total} topic-torrey body(ies) across {len(violations)} file(s) carry a leaked "
+            "ref-run or description in the topic list — re-run scripts/_reingest_torrey_topics.py"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2458,6 +2526,9 @@ ALL_CHECKS = {
     # Auto-note re-ingest defects #2 + #4 (2026-06-06) — lang-greek glosses may not
     # drop the primary sense (θεός) or leak a Strong's etymology fragment (φῶς).
     "greek_gloss_quality": check_greek_gloss_quality,
+    # Auto-note re-ingest defects #3 + #5 (2026-06-06) — topic-torrey bodies may not
+    # leak a scripture ref-run or a mis-parsed sub-entry description into the topic list.
+    "no_torrey_topic_leak": check_no_torrey_topic_leak,
 }
 
 

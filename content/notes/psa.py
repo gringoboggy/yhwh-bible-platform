@@ -23210,7 +23210,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Christ, the King, Marriage, Presents, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Christ, the King, Marriage, Presents, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -38621,7 +38621,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -38654,7 +38654,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -38995,7 +38995,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Judgments, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Judgments, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -53933,7 +53933,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Holy Land, Rebellion Against God, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Holy Land, Rebellion Against God, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

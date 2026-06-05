@@ -5785,7 +5785,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Samaria the capital of, The king of Babylon to be rewarded with the spoil of Egypt for his service against., The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Samaria the capital of, Tyre, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -14244,7 +14244,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Forsaking God, Idols, mentioned in Scripture, Self-Will and Stubbornness, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Forsaking God, Idols, mentioned in Scripture, Self-Will and Stubbornness, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

@@ -4829,7 +4829,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Ephraim, Tribe Of, Protection, Samaria the capital of, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Ephraim, Tribe Of, Protection, Samaria the capital of, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -14652,7 +14652,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -14674,7 +14674,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -14707,7 +14707,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -14729,7 +14729,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -34628,7 +34628,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Gospel, The, Offence, Titles and Names of Christ, The king of Babylon to be rewarded with the spoil of Egypt for his service against..",
+        "<strong>Topics.</strong> This verse appears under: Gospel, The, Offence, Titles and Names of Christ, Tyre.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

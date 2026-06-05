@@ -204,6 +204,16 @@ def parse_text(text: str) -> dict[str, list]:
         # No-reference heading candidate.
         if not s[:1].isalpha():
             continue  # leftover wrapped-citation fragment, never a topic
+        if s.rstrip().endswith(".") or re.search(r"\d+:\d+", s):
+            # Not a real Torrey topic, so do NOT open a new topic here — but keep the
+            # current topic so its ref block continues across this corrupted line
+            # (the refs that follow belong to the current topic's entry, which this
+            # junk line interrupts). A real Title-Case topic never ends in a period
+            # and never carries a chapter:verse run; this rejects exactly two corrupted
+            # headings the source leaves: re-ingest defect #5 (the "The king of Babylon
+            # … for his service against." sub-entry description) and defect #3 (the
+            # "Zechariah 1:1  1:7 …" wrapped-citation dump that expand_refs can't split).
+            continue
         if s in sublabels:
             continue  # recurring structural sub-label
         if section is not None and s[0].upper() != section:

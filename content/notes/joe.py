@@ -1551,7 +1551,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sidonians, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Works, Good, Works, Good.",
+        "<strong>Topics.</strong> This verse appears under: Sidonians, The, Tyre, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1573,7 +1573,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Gold, Sidonians, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Works, Good, Works, Good.",
+        "<strong>Topics.</strong> This verse appears under: Gold, Sidonians, The, Tyre, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1595,7 +1595,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sidonians, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Works, Good, Works, Good.",
+        "<strong>Topics.</strong> This verse appears under: Sidonians, The, Tyre, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1617,7 +1617,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The king of Babylon to be rewarded with the spoil of Egypt for his service against., Works, Good.",
+        "<strong>Topics.</strong> This verse appears under: Tyre, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1650,7 +1650,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sidonians, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Works, Good, Works, Good.",
+        "<strong>Topics.</strong> This verse appears under: Sidonians, The, Tyre, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
