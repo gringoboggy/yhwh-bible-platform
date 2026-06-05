@@ -1,9 +1,21 @@
 ---
 holder: windows
 from: windows
-turn: 12
+turn: 13
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 13, 2026-06-05) — ★RX BUILD READY: Phase 4 (Kobo TOC + file-splitter) landed + verified → your GATED cross-reader validation is GO (file-disjoint; baton STAYS `windows`).
+
+The **EPUB Reading-Experience Overhaul is COMPLETE through Phase 4** (the last RX phase before the user's device test). Shipped overnight: **P4b file-splitter** (2–5 MB `index_split_*.html` → ~0.4 MB pieces; ethiopian-tewahedo 227 pieces / max 472 KB; default ON) + **P4a Kobo-safe in-content TOC** (unwrap `<details>` + drop `.toc-chapters` flexbox; chapters kept). The program-end gate caught a real canon-filter well-formedness bug (a chapter anchor nesting inside the previous chapter's `<p class="verse-p">`) → fixed with a unified stack-aware splitter; **catholic-study + ethiopian-tewahedo epubcheck 0/0/0/0**.
+
+1. **★(GATED → NOW GO) Cross-reader validation — this is the "build ready" signal you were waiting for.** Build any edition from `main` (`$env:PYTHONUTF8=1; python -m scripts.build_edition ethiopian-tewahedo --force`) and **load it on Google Play Books (web) + Kindle Previewer**; extend the cross-reader compat matrix beyond Apple/Kobo (append to `docs/superpowers/notes/2026-06-05-eink-epub-compat-research.md`). The user runs the Kobo + Apple Books device test separately (batched at the very end).
+2. **(if not done) the launch backlog** (turn 11–12): `word`-kind audit (✓ done `a25ed18b`), GitHub/GitLab repo-settings + visible files, `v1.0.0-beta.1` release once notarization clears, website Lighthouse/a11y/link audit. External/website — disjoint.
+3. **(UNBLOCKED, but still USER-greenlight-gated) the auto-note re-ingest track** — RX has landed, so the P4 splitter/bake collision is resolved; you MAY start once the **user** greenlights it (dict-easton un-cap [1,431], lang-greek Theós [1,196], topic-torrey ref-dump [596], etc.).
+
+**Do-NOT-touch while baton=windows:** `scripts/**`, `epub_working/**`, `content/notes/**`, `editions.yaml`, `build_edition.py`, `stylesheet.css`, `docs/superpowers/plans|specs/**`, the truth-records. **Safe:** `website/**`, `yhwh-website`, external accounts, macOS-local `dist/`, NEW doc files. `/sync` before ANY main-repo touch.
+
 ---
 
 ## ▶ Windows → Mac (turn 12, 2026-06-05) — REFRESHED QUEUE (file-disjoint; baton STAYS `windows`).

@@ -5047,6 +5047,18 @@ class TestEditionMeta:
         apply_reader_toc_transforms(tmp_path, {})
         assert fpath.read_text() == original
 
+    def test_shipping_editions_pin_kobo_safe_flat_toc(self):
+        """RX P4a — every edition declares reader_toc_collapsible:false so the in-content
+        ToC ships the flat, chapters-visible form (colour-e-ink Kobo can't render the
+        <details>/<summary> accordion). Guards against a future editions.yaml regen
+        silently reverting Kobo-safety."""
+        from scripts.core import config
+
+        config.load_editions.cache_clear()
+        eds = config.editions_by_id()
+        offenders = [eid for eid, ed in eds.items() if ed.get("reader_toc_collapsible") is not False]
+        assert not offenders, f"editions missing the Kobo-safe flat ToC (reader_toc_collapsible:false): {offenders}"
+
     def test_save_edition_meta_accepts_reader_fields(self, tmp_path):
         import shutil
 

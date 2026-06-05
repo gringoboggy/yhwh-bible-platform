@@ -450,11 +450,11 @@ h1, h2, h3, h1.book-title {
   list-style: none;
   padding-left: 1.85em;
   margin: 0.35em 0 0.45em 0;
-  display: flex; flex-wrap: wrap;
-  gap: 0.3em 0.32em;
   page-break-inside: avoid;
 }
-.toc-wrap ol.toc-chapters li { display: inline-block; }
+/* Kobo #11: e-ink readers don't implement flexbox — inline-block pills wrap on their
+   own; a per-pill margin replaces the flex `gap`. Harmless on readers that support flex. */
+.toc-wrap ol.toc-chapters li { display: inline-block; margin: 0.15em 0.16em; }
 .toc-wrap ol.toc-chapters li a {
   display: inline-block; min-width: 1.6em;
   padding: 0.2em 0.5em;

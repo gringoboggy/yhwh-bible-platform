@@ -125,52 +125,99 @@ class TestSplitHtmlDocumentUnit:
                 assert f'id="{frag}"' in text, f"bare #{frag} unresolved within its piece"
 
 
-class TestSubsplitChapter:
-    """A heavily-noted prose chapter is one giant <p class="verse-p"> of many verses;
-    ``_subsplit_chapter`` cuts it at inline verse anchors, closing/reopening the
-    paragraph so each sub-unit is well-formed."""
-
-    CHAP = (
-        '<a id="ch-b03-c7" class="ch-anchor"></a><p id="page_9" class="ch-heading"><span>7</span></p>\n'
-        '<p class="verse-p">'
-        + "".join(
-            f'<a class="vn-link" id="v-num-7-{v}" href="#vnote-num-7-{v}" epub:type="noteref"><span class="vn">{v}</span></a> '
-            f'verse {v} text<a class="note-ref note-word" id="ref-a{v}" href="#note-a{v}" epub:type="noteref"><sup>1</sup></a> '
-            for v in range(1, 6)
+# A two-chapter file mirroring the real Acts 21→22 shape that broke catholic-study: ch2's
+# anchor (and verses) are NESTED inside a <p class="verse-p"> (not a top-level sibling), so
+# a cut at the ch2 boundary lands INSIDE that paragraph. ch1 ends with the ch2 number as a
+# trailing section-heading inside ch1's own <p>. Heavy per-verse asides force a split.
+NESTED = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+    '<body class="bible-body">\n'
+    '<a id="ch-b00-c1" class="ch-anchor"></a><p id="page_1" class="ch-heading"><span class="bold-num">1</span></p>\n'
+    '<p class="verse-p">'
+    '<a class="vn-link" id="v-x-1-1" href="#vnote-x-1-1" epub:type="noteref"><span class="vn">1</span></a> ch1 v1'
+    '<a class="note-ref note-word" id="ref-a1" href="#note-a1" epub:type="noteref"><sup>1</sup></a> '
+    '<a class="vn-link" id="v-x-1-2" href="#vnote-x-1-2" epub:type="noteref"><span class="vn">2</span></a> ch1 v2'
+    '<a class="note-ref note-word" id="ref-a2" href="#note-a2" epub:type="noteref"><sup>1</sup></a> '
+    '<span class="section-heading"><span class="bold-num">2</span></span></p>\n'
+    '<p class="verse-p"><a id="ch-b00-c2" class="ch-anchor"></a>'
+    '<a class="vn-link" id="v-x-2-1" href="#vnote-x-2-1" epub:type="noteref"><span class="vn">1</span></a> ch2 v1'
+    '<a class="note-ref note-word" id="ref-a3" href="#note-a3" epub:type="noteref"><sup>1</sup></a> '
+    '<a class="vn-link" id="v-x-2-2" href="#vnote-x-2-2" epub:type="noteref"><span class="vn">2</span></a> ch2 v2'
+    '<a class="note-ref note-word" id="ref-a4" href="#note-a4" epub:type="noteref"><sup>1</sup></a></p>\n'
+    '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+    + "".join(
+        f'<aside class="note note-word" id="{aid}" epub:type="footnote"><p>{"X" * 200}</p></aside>\n'
+        for aid in (
+            "vnote-x-1-1",
+            "note-a1",
+            "vnote-x-1-2",
+            "note-a2",
+            "vnote-x-2-1",
+            "note-a3",
+            "vnote-x-2-2",
+            "note-a4",
         )
-        + "</p>\n"
     )
-    ASIDES = {}
-    for _v in range(1, 6):
-        ASIDES[f"vnote-num-7-{_v}"] = f'<aside class="note note-word" id="vnote-num-7-{_v}">popup {_v}</aside>'
-        ASIDES[f"note-a{_v}"] = f'<aside class="note note-word" id="note-a{_v}">' + ("X" * 200) + "</aside>"
+    + "</aside>\n"
+    "</body></html>"
+)
 
-    def test_subsplits_into_balanced_paragraph_pieces(self):
-        from scripts.build_edition import _subsplit_chapter
 
-        subs = _subsplit_chapter(self.CHAP, 400, self.ASIDES)
-        assert subs and len(subs) >= 2, "a >400B chapter of 5 noted verses must sub-split"
-        for s in subs:
-            assert len(re.findall(r"<p\b", s)) == s.count("</p>"), f"unbalanced <p> in sub-unit: {s[:80]!r}"
-        # non-first sub-units reopen the verse paragraph
-        for s in subs[1:]:
-            assert s.startswith('<p class="verse-p">'), "continuation sub-unit must reopen <p class=verse-p>"
-        # no verse lost or duplicated
-        joined = "".join(subs)
-        for v in range(1, 6):
-            assert joined.count(f'id="v-num-7-{v}"') == 1, f"verse {v} not preserved exactly once"
+class TestStackAwareSplit:
+    """The unified splitter may cut INSIDE a <p>/<div>; a stack-aware wrapper reopens what
+    a piece starts inside and closes what is still open at its end, so every piece is
+    well-formed — the bug that failed catholic-study (a chapter anchor nested in the
+    previous chapter's <p class="verse-p">)."""
 
-    def test_returns_none_for_div_chapter(self):
-        from scripts.build_edition import _subsplit_chapter
+    def test_nested_chapter_anchor_pieces_are_wellformed(self):
+        from scripts.build_edition import split_html_document
 
-        # poetry/quote chapters carry a <div>; we won't risk a mid-<div> cut
-        assert _subsplit_chapter('<div class="poetry">' + self.CHAP + "</div>", 100, self.ASIDES) is None
+        pieces = split_html_document(NESTED, "index_split_009", 500)
+        assert len(pieces) >= 2, "heavy per-verse asides must force a split"
+        for name, t in pieces:
+            assert len(re.findall(r"<p\b", t)) == t.count("</p>"), f"{name}: unbalanced <p>"
+            assert t.count("<aside") == t.count("</aside>"), f"{name}: unbalanced <aside>"
+            assert t.count("<body") == t.count("</body>"), f"{name}: unbalanced <body>"
+            assert t.rstrip().endswith("</html>")
+        # nothing lost: each chapter anchor + verse + aside survives exactly once
+        joined = "".join(t for _, t in pieces)
+        for marker in (
+            'id="ch-b00-c1"',
+            'id="ch-b00-c2"',
+            'id="v-x-2-1"',
+            'id="vnote-x-2-1"',
+            'id="note-a4"',
+        ):
+            assert joined.count(marker) == 1, f"{marker} count {joined.count(marker)} != 1"
 
-    def test_returns_none_when_single_verse(self):
-        from scripts.build_edition import _subsplit_chapter
+    def test_split_at_paragraph_reopens_verse_p(self):
+        from scripts.build_edition import split_html_document
 
-        one = '<a id="ch-b03-c7" class="ch-anchor"></a><p class="verse-p"><a class="vn-link" id="v-num-7-1" href="#note-a1">x</a></p>'
-        assert _subsplit_chapter(one, 1, {"note-a1": "<aside id='note-a1'>" + "X" * 999 + "</aside>"}) is None
+        d = dict(split_html_document(NESTED, "index_split_009", 500))
+        # if ch2 landed in its own piece, that piece reopens the <p class="verse-p"> it started inside
+        for name, t in d.items():
+            if 'id="ch-b00-c2"' in t and 'id="ch-b00-c1"' not in t:
+                body = t[t.index("<body") :]
+                assert '<p class="verse-p">' in body[: body.index('id="ch-b00-c2"')], (
+                    f"{name}: piece starting inside a verse-p must reopen it"
+                )
+
+    def test_stack_at_positions(self):
+        from scripts.build_edition import _stack_at_positions
+
+        c = '<div class="d"><p class="verse-p"><a id="x">hi</a></p></div>'
+        pos_in_a = c.index('<a id="x"')
+        pos_after = len(c)
+        st = _stack_at_positions(c, [0, pos_in_a, pos_after])
+        assert st[0] == []
+        assert [_n(t) for t in st[pos_in_a]] == ["div", "p"], "inside <div><p> the open stack is [div, p]"
+        assert st[pos_after] == [], "balanced content closes the stack"
+
+
+def _n(open_tag):
+    return re.match(r"<([a-zA-Z][a-zA-Z0-9:]*)", open_tag).group(1)
 
 
 class TestRewriteLinks:

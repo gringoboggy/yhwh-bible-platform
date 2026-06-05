@@ -2082,10 +2082,18 @@ FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter
 # only ch-anchor silently merges the ch-heading-form chapters into multi-MB units.
 _BOUNDARY_HARD_RE = re.compile(r'\bid="(?:bp-\d+|ch-b\d+-c\d+)"')
 
-# Inline verse anchors — used to SUB-split a single over-target chapter (its verses flow
-# many-per-paragraph, so the paragraph is closed/reopened around each cut).
+# Inline verse anchors — extra cut candidates so a heavily-noted chapter can split
+# between verses. A vn-link sits inside its <p class="verse-p"> (and a chapter anchor can
+# sit inside the PREVIOUS chapter's trailing <p class="verse-p">), so any cut may land
+# inside an open element — the stack-aware splitter closes/reopens whatever is open.
 _VN_LINK_RE = re.compile(r'<a class="vn-link" id="v-[^"]+"')
-_VERSE_P_OPEN_RE = re.compile(r'<p\b[^>]*class="verse-p[^>]*>')
+
+# Generic element scanner for the open-tag stack. Groups: leading '/', tag name, trailing
+# '/' (self-close). Non-greedy attrs so <br/>'s trailing slash is captured, not swallowed.
+_TAG_RE = re.compile(r"<(/?)([a-zA-Z][a-zA-Z0-9:]*)\b[^>]*?(/?)>", re.DOTALL)
+_VOID_ELEMENTS = frozenset(
+    {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+)
 
 # A child note aside inside a notes-section. The negative lookahead skips the
 # notes-section PARENT itself (class="notes-section", which may carry an id like
@@ -2135,70 +2143,55 @@ def _strip_notes_sections(body: str) -> tuple[str, list[tuple[str, str]]]:
     return content, asides
 
 
-def _subsplit_chapter(unit: str, target: int, aside_by_id: dict[str, str]) -> list[str] | None:
-    """Sub-split ONE over-target chapter unit at its inline verse anchors so no piece
-    is a multi-MB page. Each cut closes the open ``<p class="verse-p">`` and the next
-    sub-unit reopens it, keeping every sub-unit well-formed; a verse's markers and its
-    referenced asides stay together (the per-piece notes pass redistributes asides by
-    reference). Returns the sub-unit strings, or None when it can't sub-split safely
-    (fewer than 2 verses, or the chapter contains a ``<div>`` — poetry/quote blocks we
-    won't risk cutting through)."""
-    if "<div" in unit:
-        return None
-    vns = list(_VN_LINK_RE.finditer(unit))
-    if len(vns) < 2:
-        return None
-    pm = _VERSE_P_OPEN_RE.search(unit)
-    reopen = pm.group(0) if pm else '<p class="verse-p">'
-    # Verse segments: the chapter prefix + verse 1 lead seg 0; each later vn-link starts a seg.
-    cuts = [0, *[m.start() for m in vns[1:]]]
-    segs = [unit[cuts[i] : (cuts[i + 1] if i + 1 < len(cuts) else len(unit))] for i in range(len(cuts))]
+def _open_tag_name(open_tag: str) -> str:
+    """The element name from an open tag (``<p class="verse-p">`` → ``p``)."""
+    m = re.match(r"<([a-zA-Z][a-zA-Z0-9:]*)", open_tag)
+    return m.group(1) if m else ""
 
-    def _sw(s: str) -> int:
-        w = len(s)
-        for frag in re.findall(r'href="#([^"]+)"', s):
-            if frag in aside_by_id:
-                w += len(aside_by_id[frag])
-        return w
 
-    chunks: list[list[int]] = []
-    cur: list[int] = []
-    cw = 0
-    for i, s in enumerate(segs):
-        w = _sw(s)
-        if cur and cw + w > target:
-            chunks.append(cur)
-            cur, cw = [], 0
-        cur.append(i)
-        cw += w
-    if cur:
-        chunks.append(cur)
-    if len(chunks) <= 1:
-        return None
-
-    out: list[str] = []
-    for ci, chk in enumerate(chunks):
-        body = "".join(segs[i] for i in chk)
-        if ci > 0:
-            body = reopen + body  # reopen the paragraph this sub-unit continues
-        net = len(re.findall(r"<p\b", body)) - body.count("</p>")
-        if net > 0:
-            body = body + ("</p>" * net)  # close the paragraph this sub-unit leaves open
-        out.append(body)
+def _stack_at_positions(content: str, positions: list[int]) -> dict[int, list[str]]:
+    """For each position, the open-tag strings of the elements still OPEN just before it
+    (outermost→innermost), computed in one scan. The splitter uses this to make any cut
+    well-formed: reopen the elements a piece STARTS inside, close those still open where
+    it ENDS — so a cut landing inside a ``<p class="verse-p">`` (a verse anchor always; a
+    chapter anchor when it nests in the previous chapter's trailing paragraph) never
+    orphans an unterminated tag."""
+    want = sorted(set(positions))
+    out: dict[int, list[str]] = {}
+    pi = 0
+    stack: list[tuple[str, str]] = []  # (name, full-open-tag)
+    for m in _TAG_RE.finditer(content):
+        while pi < len(want) and want[pi] <= m.start():
+            out[want[pi]] = [t for _, t in stack]
+            pi += 1
+        closing, name, selfclose = m.group(1), m.group(2).lower(), m.group(3)
+        if closing:
+            for k in range(len(stack) - 1, -1, -1):
+                if stack[k][0] == name:
+                    del stack[k:]  # close this element (and any improperly-still-open descendants)
+                    break
+        elif not selfclose and name not in _VOID_ELEMENTS:
+            stack.append((name, m.group(0)))
+    while pi < len(want):
+        out[want[pi]] = [t for _, t in stack]
+        pi += 1
     return out
 
 
 def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
     """Split ONE ``index_split`` file's text into ~``target``-byte pieces.
 
-    Cuts the body only at top-level book/chapter boundaries (never mid-chapter). The
-    file's single trailing ``notes-section`` is parsed into its child asides, and each
-    piece is rebuilt with its own ``notes-section`` holding exactly the asides its
-    chapters reference (first referencer wins; the link-rewrite pass later promotes any
-    cross-piece reference to a cross-file link). Returns ``[(piece_filename, text), …]``;
-    a file at/under ``target`` (or without a usable structure) is returned unchanged
-    under its original ``{stem}.html`` name (zero churn — its inbound hrefs need no
-    rewrite)."""
+    Cuts at book/chapter boundaries and (for a heavily-noted chapter that alone exceeds
+    target) between verses. A cut may land INSIDE a ``<p class="verse-p">`` — a verse
+    anchor always is, and a chapter anchor can be nested in the previous chapter's
+    trailing paragraph — so a stack-aware wrapper reopens the elements each piece STARTS
+    inside and closes those still open where it ENDS, keeping every piece well-formed.
+    The file's asides (harvested from its notes-section(s) AND inline placements) are
+    redistributed into a per-piece ``notes-section`` holding exactly the asides that piece
+    references (first referencer wins; the link-rewrite pass later promotes any cross-piece
+    reference to a cross-file link), so the bare ``#id`` footnote/popup contract stays
+    same-file. Returns ``[(piece_filename, text), …]``; a file at/under ``target`` (or
+    without a usable structure) is returned unchanged (zero churn)."""
     if len(text) <= target:
         return [(f"{stem}.html", text)]
     parts = _split_head_body_tail(text)
@@ -2206,8 +2199,8 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
         return [(f"{stem}.html", text)]
     head, body, tail = parts
 
-    # Strip every notes-section block (leading spill-over + trailing) to recover pure
-    # chapter content, pooling all child asides for per-piece redistribution.
+    # Strip every note aside (notes-section blocks + inline) to pure prose, pooling them
+    # for per-piece redistribution by reference.
     content, harvested = _strip_notes_sections(body)
     aside_by_id: dict[str, str] = {}
     ordered_aside_ids: list[str] = []
@@ -2216,53 +2209,40 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
             aside_by_id[aid] = aside_html
             ordered_aside_ids.append(aid)
 
-    # Coarse units at HARD (book/chapter) boundaries — always top-level, safe to cut.
-    # Back each id= match up to its element's opening '<'.
-    hard = sorted({content.rfind("<", 0, m.start()) for m in _BOUNDARY_HARD_RE.finditer(content)} - {-1})
-    if not hard:
+    # Cut candidates: every book/chapter start (id="bp-"/"ch-…", backed up to its '<') +
+    # every verse anchor. The packer cuts ONLY at a candidate; the stack-aware wrapper
+    # below makes any such cut well-formed even when it lands inside a <p>/<div>.
+    cands: set[int] = set()
+    for m in _BOUNDARY_HARD_RE.finditer(content):
+        lt = content.rfind("<", 0, m.start())
+        if lt > 0:
+            cands.add(lt)
+    for m in _VN_LINK_RE.finditer(content):
+        if m.start() > 0:
+            cands.add(m.start())
+    if not cands:
         return [(f"{stem}.html", text)]
-    if hard[0] != 0:
-        hard = [0, *hard]  # leading preamble (e.g. the TOC block) is piece 0's start
-    coarse = [content[hard[i] : (hard[i + 1] if i + 1 < len(hard) else len(content))] for i in range(len(hard))]
+    cuts = [0, *sorted(cands), len(content)]
+    atoms = [content[cuts[i] : cuts[i + 1]] for i in range(len(cuts) - 1)]
 
-    def _ref_weight(s: str) -> int:
-        w = len(s)
-        for frag in re.findall(r'href="#([^"]+)"', s):
-            if frag in aside_by_id:
-                w += len(aside_by_id[frag])
-        return w
-
-    # Sub-split any single chapter that ALONE exceeds the target (a heavily-noted prose
-    # chapter is one giant <p class="verse-p"> of many verses) at its inline verse
-    # anchors, closing/reopening the paragraph so each sub-unit stays well-formed.
-    units: list[str] = []
-    for cu in coarse:
-        if _ref_weight(cu) > target:
-            subs = _subsplit_chapter(cu, target, aside_by_id)
-            if subs:
-                units.extend(subs)
-                continue
-        units.append(cu)
-
-    # A chapter/verse's NOTES (its asides, pooled from the notes-section) dominate its
-    # byte weight — the prose is small. Attribute each aside to the FIRST unit that
-    # references it (single O(total-refs) scan) so packing reflects real per-piece size.
-    aside_unit: dict[str, int] = {}
-    for ui, u in enumerate(units):
-        for frag in re.findall(r'href="#([^"]+)"', u):
-            if frag in aside_by_id and frag not in aside_unit:
-                aside_unit[frag] = ui
-    last_ui = len(units) - 1
-    unit_weight = [len(u) for u in units]
+    # Attribute each aside to the FIRST atom that references it (orphans → last); an atom's
+    # NOTES dominate its weight, so packing reflects real per-piece size.
+    aside_atom: dict[str, int] = {}
+    for ai, atom in enumerate(atoms):
+        for frag in re.findall(r'href="#([^"]+)"', atom):
+            if frag in aside_by_id and frag not in aside_atom:
+                aside_atom[frag] = ai
+    last_ai = len(atoms) - 1
+    atom_weight = [len(a) for a in atoms]
     for aid in ordered_aside_ids:
-        ui = aside_unit.setdefault(aid, last_ui)  # orphan asides → last unit
-        unit_weight[ui] += len(aside_by_id[aid])
+        ai = aside_atom.setdefault(aid, last_ai)
+        atom_weight[ai] += len(aside_by_id[aid])
 
-    # Greedy-pack whole units into pieces ≤ target (a lone over-weight unit stands alone).
+    # Greedy-pack atoms into pieces ≤ target (a lone over-weight atom stands alone).
     groups: list[list[int]] = []
     cur: list[int] = []
     cur_w = 0
-    for i, w in enumerate(unit_weight):
+    for i, w in enumerate(atom_weight):
         if cur and cur_w + w > target:
             groups.append(cur)
             cur, cur_w = [], 0
@@ -2271,22 +2251,26 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
     if cur:
         groups.append(cur)
     if len(groups) <= 1:
-        # Everything fit in one piece — no real split; keep the original.
         return [(f"{stem}.html", text)]
 
-    unit_to_group = {ui: gi for gi, g in enumerate(groups) for ui in g}
+    # Open-element stack at each piece boundary → reopen what a piece starts inside, close
+    # what is still open where it ends. Guarantees every piece is well-formed XHTML.
+    stack_at = _stack_at_positions(content, cuts)
+    atom_to_group = {ai: gi for gi, g in enumerate(groups) for ai in g}
     group_asides: list[list[str]] = [[] for _ in groups]
-    for aid in ordered_aside_ids:  # preserves document order within each piece
-        group_asides[unit_to_group[aside_unit[aid]]].append(aid)
+    for aid in ordered_aside_ids:  # document order within each piece
+        group_asides[atom_to_group[aside_atom[aid]]].append(aid)
 
     pieces: list[tuple[str, str]] = []
     for k, g in enumerate(groups):
-        gt = "".join(units[i] for i in g)
+        prefix = "".join(stack_at[cuts[g[0]]])  # reopen the elements this piece starts inside
+        suffix = "".join(f"</{_open_tag_name(t)}>" for t in reversed(stack_at[cuts[g[-1] + 1]]))
+        gt = "".join(atoms[i] for i in g)
         ids = group_asides[k]
         notes_html = (
             (_NOTES_SECTION_OPEN + "".join(aside_by_id[aid] + "\n" for aid in ids) + "</aside>\n") if ids else ""
         )
-        pieces.append((f"{stem}_{k:02d}.html", head + gt + notes_html + tail))
+        pieces.append((f"{stem}_{k:02d}.html", head + prefix + gt + suffix + notes_html + tail))
     return pieces
 
 
