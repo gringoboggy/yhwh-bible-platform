@@ -5,19 +5,19 @@
         "code": "gen",
         "name": "Genesis",
         "stage": "source",
-        "en": true
+        "en": false
       },
       {
         "code": "exo",
         "name": "Exodus",
         "stage": "source",
-        "en": true
+        "en": false
       },
       {
         "code": "lev",
         "name": "Leviticus",
         "stage": "source",
-        "en": true
+        "en": false
       },
       {
         "code": "num",
@@ -53,19 +53,19 @@
         "code": "1sa",
         "name": "The First Book of Samuel",
         "stage": "ready",
-        "en": true
+        "en": false
       },
       {
         "code": "2sa",
         "name": "The Second Book of Samuel",
         "stage": "ready",
-        "en": true
+        "en": false
       },
       {
         "code": "1ki",
         "name": "The First Book of Kings",
         "stage": "ready",
-        "en": true
+        "en": false
       },
       {
         "code": "2ki",

@@ -1,7 +1,7 @@
 ---
-holder: windows
+holder: mac
 from: windows
-turn: 19
+turn: 20
 updated: 2026-06-05
 status: active
 ---
@@ -26,6 +26,16 @@ statusline-setup`). The Mac lane re-points `REPO` and maps `feature-dev:*` →
 > Windows side — so it's enforced from your end too. (macclaude has saved the
 > equivalent on the Mac side.) This banner is how the out-of-repo half reaches you;
 > leave it in place until you confirm you've mirrored it.
+
+## ▶ Windows → Mac (turn 20, 2026-06-05) — ✅ Progress page fixed (×2) + beta-launch handoff prepared. Baton → **mac**. ⚠ Audit ROLLING on Windows — do NOT stop it.
+
+Saved + 5-leg pushed: (1) **"not started" REMOVED** from the Geʽez/Amharic progress page — every book is "source-in-hand" baseline (complete EOTC parallel Bible PDF + `GAPS/` cover the whole canon; **SETTLED, do not re-verify** — memory `sources-already-in-place`, reinforced by your Guard #2 hardening `4a1ffee1`); already LIVE. (2) **EN-flag fix** — the `EN` badge fired on file-exists, so stub back-translations (gen=4 rows, ex/lev/2sa=0) wrongly showed EN; `scripts/gen_website_progress.py` now needs ≥50 real verse rows + a transcribed/ready stage → **only Psalms shows EN**. Source saved; **needs a website redeploy** (Mac).
+
+**▶ Mac — finish the launch (FULL detail: `docs/superpowers/notes/2026-06-05-beta-launch-and-en-fix-handoff.md`):** ① deploy the EN fix to the live site; ② publish beta **`v1.0.0-beta.1`** — `dist/YHWH.exe` ready + **Microsoft-signed**, macOS `.dmg` auto-joins when Apple clears; **⚠ gh auth is PER-MACHINE — Mac must `gh auth login` as `gringoboggy`** (Windows is now authed; the wrong `bridge4kaladin-collab` was logged out); ③ **before source-public**: a secret-scan found `54ac7493` scrubbed a **Voyage key from `.env`** → purge it from history (filter-repo/BFG) + **rotate** it, THEN flip public (HEAD clean, `auth.json` never committed); ④ sweep stale **"CC0"/"commercial"** wording (`VERSION` etc.). `LICENSE` + `COPYRIGHT.md` are CORRECT (all-rights-reserved).
+
+**Audit:** `wf_eeaa8368-6da` (win lane) ROLLING — 5 finders cached, opt-build + verify + synthesize finishing. ⚠ TaskStop does NOT kill its pytest/build orphans (memory `audit-orphan-processes`). I mirrored Guard #4 (cross-lane parity) into Windows memory per the banner above. Baton → **mac**.
+
+---
 
 ## ▶ Windows → both lanes (turn 19, 2026-06-05) — ✅ Website factual-copy pass shipped (`a1e94035`, disjoint from the audit). Both lanes are GO for the split deep-audit on the latest `main`.
 

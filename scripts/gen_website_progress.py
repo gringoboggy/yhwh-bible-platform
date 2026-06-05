@@ -69,6 +69,24 @@ def _own_versified(repo: Path, store: str) -> set[str]:
     return out
 
 
+def _en_books(repo: Path, store: str, *, min_rows: int = 50) -> set[str]:
+    """Books whose English back-translation has REAL coverage (not a stub file).
+    A bare/near-empty file in the store must NOT light the 'EN' badge — the badge has to
+    mean a usable back-translation exists, and a back-translation can only exist once the
+    Geʽez itself is transcribed (so the stage gate in _bible_progress also applies)."""
+    d = repo / "content" / "translations" / store
+    out: set[str] = set()
+    if not d.is_dir():
+        return out
+    for p in d.glob("*.py"):
+        if p.stem == "_meta":
+            continue
+        rows = sum(1 for line in p.read_text(encoding="utf-8").splitlines() if re.match(r"\s*\(\d", line))
+        if rows >= min_rows:
+            out.add(_norm(p.stem))
+    return out
+
+
 def _display_name(title: str, code: str) -> str:
     """A short, public-friendly book name from the formal title."""
     # "The First Book of Moses, Genesis" -> "Genesis"; fall back to the code.
@@ -97,7 +115,7 @@ def _bible_progress(repo: Path, books: list[dict], *, store: str, standalone: se
                 "code": code,
                 "name": _display_name(rec.get("title", code), code),
                 "stage": stage,
-                "en": code in en,
+                "en": code in en and stage in ("transcribed", "ready"),
             }
         )
     counts = {s: sum(1 for r in rows if r["stage"] == s) for s in STAGE_RANK}
@@ -111,7 +129,7 @@ def compute_progress(repo_root: str | Path) -> dict:
 
     books = config.load_books()  # 87-book registry, canonical order
     standalone = _standalone_books()
-    en = _store_books(repo, "geez-tewahedo-en")
+    en = _en_books(repo, "geez-tewahedo-en")
     geez = _bible_progress(repo, books, store="geez-tewahedo", standalone=standalone, en=en)
     amharic = _bible_progress(repo, books, store="amharic-tewahedo", standalone=set(), en=set())
     return {"geez": geez, "amharic": amharic}

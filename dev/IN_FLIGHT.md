@@ -1,7 +1,9 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
+> **▶ ACTIVE 2026-06-05 (🪟 Windows → Mac handoff) — progress-page fixes saved; beta launch handed to Mac; AUDIT ROLLING on Windows.** Windows shipped the progress-page **"not started" removal** (LIVE) + the **EN-flag fix** (saved, needs redeploy) and prepared the full beta-launch handoff (`docs/superpowers/notes/2026-06-05-beta-launch-and-en-fix-handoff.md`). **Mac finishes:** EN site deploy · beta `v1.0.0-beta.1` publish (Windows `dist/YHWH.exe` MS-signed + ready; ⚠ **gh auth per-machine — Mac `gh auth login` as gringoboggy**) · source-public AFTER a Voyage-key history purge (`54ac7493`) + rotate · CC0/commercial doc sweep. LICENSE/COPYRIGHT correct (all-rights-reserved). **▶ Audit `wf_eeaa8368-6da` (win lane) ROLLING on Windows — do NOT stop** (TaskStop orphans pytest — [[audit-orphan-processes]]); when done, win survivors merge w/ Mac's `findings-mac.json` via `deep-audit-merge.js`. Baton → **mac**. `LANE_HANDOFF` turn 20.
+>
 > **▶ ON BOOT — fresh 🖥️ Mac session: this session's job is to RUN THE SPLIT DEEP-AUDIT (mac lane).** The re-ingest track #1–5 is COMPLETE; the audit is the next + only queued action. Read-only. Exact steps (per `docs/superpowers/plans/2026-06-05-split-audit-plan.md` + `LANE_HANDOFF` turn 19):
 > 1. **Sync:** `git fetch origin && git pull --ff-only origin main` → land on the latest `main` (≥ `97435401`); `git status` clean.
 > 2. **Set the lane LOCALLY (do NOT commit):** in `.claude/workflows/deep-audit.js` line ~225 change `const LANE = args?.lane ?? 'all'` → **`const LANE = 'mac'`**. LANE='all' must stay the committed default — this edit is read-only scaffolding and must NEVER reach `main`.
