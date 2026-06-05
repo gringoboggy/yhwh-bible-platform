@@ -13,7 +13,7 @@ and τ.6.x.1.D lenient chapter-marker regex tolerating OCR-garbled keywords).
 Renumbering: post-process renumbered against 'philemon' verse-count floor (τ.7.x.a+).
 Parser chapter labels discarded; verses assigned sequentially to canonical chapters.
 
-Coverage: 30/25 verses (120.0%) at ocr-tier3 quality.
+Coverage: 25/25 verses (100.0%) at ocr-tier3 quality.
 Chapters fully populated (1): 1.
 """
 
@@ -57,9 +57,4 @@ VERSES = [
     (1, 23, "መታዘዝሀን ተማምፔቼ ክዘዝኩህም አእንደምትጨምር ፳፳ .አውቄ ጻፍኩልህ።"),
     (1, 24, "| ከዚህም ጋር የማርፍበት ቤት አዘጋጅልኝ በናንተ ፳፪ ጸሎት እግዚአብሔር መንገዴን አቃንቶ ከናንተ ጋር እንደሚያገናኘኝ አምናለሁና።"),
     (1, 25, "ሮሜ ፲ድደ ቋ-ቋዩ፪።"),
-    (2, 1, "በኢየሱስ ክርስቶስ አምኖ ከኔ ጋር የተማረከ ኤጳ ፳፻ ፍራስ ቸር አለህ 7 ብትሃል።"),
-    (2, 2, "| | በሥራ የምንተባበር ማርቆስ አርስጥሮኮስ ዴማስና ፳8 ሉቃስም ሰላም ብለውሃል።"),
-    (2, 3, "የጌታችን የኢየሱስ ክርስቶስ ጸጋ ክናንተ ጋር ፳፳ ይሁን፣፤ አሜን።"),
-    (2, 4, "ሙሎ .፦-ፍሞ ዎመ በሮም ተጽፋ በአናሲሞስ እጅ ወደ ፊልሞና የተላ ከች መልእክት ተፈጸመች።"),
-    (2, 5, "ለእግዚአብሔር ምስጋና ይሁን ፤ አሜን።"),
 ]

@@ -13,7 +13,7 @@ and τ.6.x.1.D lenient chapter-marker regex tolerating OCR-garbled keywords).
 Renumbering: post-process renumbered against 'jude' verse-count floor (τ.7.x.a+).
 Parser chapter labels discarded; verses assigned sequentially to canonical chapters.
 
-Coverage: 29/25 verses (116.0%) at ocr-tier3 quality.
+Coverage: 25/25 verses (100.0%) at ocr-tier3 quality.
 Chapters fully populated (1): 1.
 """
 
@@ -85,12 +85,4 @@ VERSES = [
     (1, 23, "በኃጢአቱ ምክንያት የምትዘልፉት አለ፤0 የምትም ፳8ዩ ሩትም አለጳ።"),
     (1, 24, "ከአሳት የምታድኑት አለ፣ ተዘፅቶ ፈርቶ የሚድንም ፳፣ ኣለ፣ የቀደመ ስሕተታቻውን ጠልተው የዝሙት ርክሰት ልብሳቸውን የተዉም ኦሉ።"),
     (1, 25, "መድኃኒታችን እግዚአብሔርም በደል የሌላችሁ ፳9 አድርጎ ሊጠብቃችሁ ንጹሐን አድርጎ በደስታ በጌ ትነቱ ፊት ሊያቆማችሁ ይችላል ሖ፡ ፅ ተሰ 8 8፻።"),
-    (2, 1, "ክርስቲያን ሃይማኖትና ሥርዓት ገ፤ር) ‹ /ከ፣ፎ፪ርክ [ልከ ልበ4 ‹ ክፎ )፤ቲከር50163‹. (371 ተ. የይሁዳ መልአክት።"),
-    (
-        2,
-        2,
-        "ደ፻ሇ ለም ጳዶፈጠር ጀምሮ ዛሬም ዘወትርም ለዘለዓለ ፳ይዶ 5ፁም ክብርና ጌትነት በሚመጣውም ዓለም ሁሉ ይልና ሥልጣን ገንዘቡ ደ8ሚሆን በጌታችን ባመድ ሂዩታችን በኢየሱስ ክርስቶስ ሥልጣን አሜን።",
-    ),
-    (2, 3, "መሟክ፤“-ኑ--- የያፅቆብ ወንድም የይሁዳ መልእክት ተፈጸመች።"),
-    (2, 4, "ለአግዘ ኣብሔር ምስጋና ይሁን ለዘለዓለሙ አሜን።"),
 ]
