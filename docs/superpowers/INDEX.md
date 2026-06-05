@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**65 documents** — 43 plans · 22 specs.
+**66 documents** — 44 plans · 22 specs.
 
-## In progress (20)
+## In progress (21)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | Ge'ez & Amharic progress page — implementation | `plans/2026-06-05-geez-amharic-progress-page.md` | READY 2026-06-05 — 6 TDD tasks (store-derived stage generator → fragment render → `build.mjs` inline → page+nav → CSS → build+QA). Collision-free launch-prep; not on the audit critical path. |
 | 2026-06-05 | Plan | ★Forward plan — to launch (9 editions mint) and beyond | `plans/2026-06-05-forward-plan-to-launch.md` | ACTIVE 2026-06-05 — the master forward plan. Done-line = the 9 KJV editions mint (Ge'ez/Amharic = future updates). Spine: re-ingest #2–5 (Mac) → split audit + fix pass → [USER] device test → launch v1.0.0-beta.1 → post-launch Growth/Outreach + the Ge'ez/Amharic arc. Survey-grounded (editions-readiness · backlog-triage · website/socials) |
 | 2026-06-05 | Plan | Split deep-audit — round 5 end-of-project / beta sweep (run across both machines) | `plans/2026-06-05-split-audit-plan.md` | READY 2026-06-05 — auditor round-5 + current (new `rx-surfaces` dim) + split-ready (LANE win/mac); two fresh sessions run disjoint dims (N95=tests/builds · Mac=code-review) → merge on N95; runs AFTER Mac's re-ingest #2–5 (user: "#2–5 first") |
 | 2026-06-05 | Plan | RX Phase 4 — Kobo structural: compact TOC + build-time file-splitter | `plans/2026-06-05-rx-phase4-toc-and-filesplit-plan.md` | IN PROGRESS 2026-06-05 — Phase 4b file-splitter (`apply_file_split`) SHIPPED + epubcheck 0/0/0/0 (ethiopian-tewahedo → 227 pieces, max 472 KB from 5 MB; 0 broken links; default ON). Phase 4a (unwrap `<details>` TOC + drop `.toc-chapters` flexbox) + program-end gate remain |
