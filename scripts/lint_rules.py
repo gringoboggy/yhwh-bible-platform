@@ -2341,6 +2341,73 @@ def check_no_truncated_easton() -> dict:
     }
 
 
+def check_greek_gloss_quality() -> dict:
+    """Auto-note re-ingest defects #2 + #4 (2026-06-06) — no ``lang-greek`` gloss may
+    drop its primary sense (θεός head-drop) or leak a Strong's etymology fragment
+    (φῶς). Both trace to two malformed openscriptures entries, corrected via
+    ``sources_lexicon._GREEK_DEF_OVERRIDES``; this guard stops either from regressing.
+
+    Two cheap, false-positive-free signatures (verified against the full 7,669-note
+    population — only θεός / φῶς ever tripped them): the gloss (the text after
+    ``</strong>``) must NOT begin with ``figuratively,`` or ``compare `` (the
+    head-drop / etymology-leak shapes), and its round parens must balance (φῶς left a
+    dangling ``)``). AST-based — screens only the body (8th tuple field).
+    """
+    notes_dir = REPO / "content" / "notes"
+    if not notes_dir.is_dir():
+        return {
+            "id": "greek_gloss_quality",
+            "name": "lang-greek gloss quality",
+            "status": "warn",
+            "message": "content/notes/ directory missing",
+            "violations": [],
+        }
+    violations: list[dict] = []
+    total = 0
+    for py in sorted(notes_dir.glob("*.py")):
+        if py.name == "__init__.py":
+            continue
+        try:
+            tree = ast.parse(py.read_text(encoding="utf-8"), filename=str(py))
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            continue
+        notes_list = _find_notes_list(tree)
+        if notes_list is None:
+            continue
+        cnt = 0
+        for elt in getattr(notes_list, "elts", []):
+            if not isinstance(elt, ast.Tuple) or len(elt.elts) < 8:
+                continue
+            kind, body = elt.elts[4], elt.elts[7]
+            if not (
+                isinstance(kind, ast.Constant)
+                and kind.value == "lang-greek"
+                and isinstance(body, ast.Constant)
+                and isinstance(body.value, str)
+            ):
+                continue
+            b = body.value
+            gloss = b.split("</strong>", 1)[1].strip() if "</strong>" in b else b
+            if gloss.startswith(("figuratively,", "compare ")) or gloss.count("(") != gloss.count(")"):
+                cnt += 1
+        if cnt:
+            total += cnt
+            violations.append({"file": str(py.relative_to(REPO)).replace("\\", "/"), "count": cnt})
+    return {
+        "id": "greek_gloss_quality",
+        "name": "lang-greek gloss quality",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "no lang-greek gloss head-drop / etymology-leak / paren-imbalance"
+            if not violations
+            else f"{total} lang-greek gloss(es) across {len(violations)} file(s) drop the primary "
+            "sense, leak an etymology fragment, or have unbalanced parens — correct via "
+            "sources_lexicon._GREEK_DEF_OVERRIDES"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2388,6 +2455,9 @@ ALL_CHECKS = {
     # Auto-note re-ingest defect #1 (2026-06-06) — full Easton articles, no 480-char
     # truncation; guards the un-cap so a dict-easton body can never re-truncate.
     "no_truncated_easton": check_no_truncated_easton,
+    # Auto-note re-ingest defects #2 + #4 (2026-06-06) — lang-greek glosses may not
+    # drop the primary sense (θεός) or leak a Strong's etymology fragment (φῶς).
+    "greek_gloss_quality": check_greek_gloss_quality,
 }
 
 

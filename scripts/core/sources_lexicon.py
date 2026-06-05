@@ -110,6 +110,25 @@ class StrongsGreekEntry:
         )
 
 
+# Two openscriptures Greek entries carry a malformed ``strongs_def`` /
+# ``derivation`` split, so the substantive gloss is wrong when read from
+# ``strongs_def`` alone (the field every other entry uses correctly):
+#   * G2316 θεός — its primary "a deity ... the supreme Divinity" sense sits in
+#     ``derivation``; ``strongs_def`` holds only the tail "figuratively, a
+#     magistrate; by Hebraism, very", so the gloss dropped the head (1,196 notes,
+#     100% of θεός).
+#   * G5457 φῶς — a derivation fragment ("compare G5316 (φαίνω), G5346 (φημί))")
+#     leaked into the FRONT of ``strongs_def`` (76 notes; a dangling close-paren).
+# We curate the corrected substantive definition here rather than mutate the
+# vendored dump, so a future ``fetch_sources`` re-pull stays clean and the fix is
+# explicit + testable. See docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md
+# §2/§4 and 2026-06-06-auto-note-quality-audit.md.
+_GREEK_DEF_OVERRIDES = {
+    "G2316": "a deity, especially the supreme Divinity; figuratively, a magistrate; by Hebraism, very",
+    "G5457": "luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative)",
+}
+
+
 class StrongsGreek:
     """Lazy loader for the Strong's Greek lexicon (cached on first read).
 
@@ -149,7 +168,7 @@ class StrongsGreek:
             xlit=xlit,
             pron=d.get("pron", ""),
             derivation=d.get("derivation", ""),
-            definition=d.get("strongs_def", ""),
+            definition=_GREEK_DEF_OVERRIDES.get(num, d.get("strongs_def", "")),
             kjv_def=d.get("kjv_def", ""),
         )
 
