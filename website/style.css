@@ -307,3 +307,8 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .pb-source { background: var(--parchment); }
 .pb-none { opacity: .5; }
 .give-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .6rem; }
+
+/* the workshop photo (the story behind it) */
+figure.workshop { margin: 1.5rem 0; }
+.workshop img { width: 100%; height: auto; display: block; border-radius: 3px; border: 1px solid var(--gold-line); }
+.workshop figcaption { font-size: .85rem; color: var(--sepia); margin-top: .5rem; text-align: center; }

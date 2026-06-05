@@ -34,7 +34,7 @@ const DIST = join(ROOT, 'dist');
 // and do nothing on the static GitHub Pages host; the releases feed now reads the
 // GitHub Releases API client-side instead. See releases.js.)
 const STATIC = [
-  'style.css', 'releases.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus',
+  'style.css', 'releases.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus', 'workshop.jpg',
   'favicon-32.png', 'favicon-512.png', 'apple-touch-icon.png', 'social-card.png',
 ];
 

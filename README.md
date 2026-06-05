@@ -129,18 +129,15 @@ test a frozen build end-to-end with `python dev/smoke_desktop.py`.
 
 ## Support the work
 
-YHWH Ya' Way is free — the Word of God is for everyone, and it always will be.
-No paywall, no account, no tracking; the program and every Bible it builds are
-free now and free to come.
+YHWH Ya' Way is free — no paywall, no account, no tracking.
 
-If it blesses your study and you feel moved to give, a free-will offering helps
-the work go further — especially the slow, careful transcription of the
-standalone **Geʽez &amp; Amharic Bibles** from the original manuscripts. A gift
-is a thank-you that *accelerates* the free work; it never unlocks anything.
+Support is optional and funds continued work, especially the transcription of the
+standalone **Geʽez &amp; Amharic Bibles** from the manuscripts. It doesn't unlock
+anything.
 
 - **Ko-fi** — https://ko-fi.com/gringoboggy
 - **PayPal** — https://paypal.me/gringoboggy
-- **GitHub Sponsors** — coming once approved
+- **GitHub Sponsors** — https://github.com/sponsors/gringoboggy
 
 GitHub and GitLab also show a **Sponsor** button on this repository, configured
 in [`.github/FUNDING.yml`](.github/FUNDING.yml).
