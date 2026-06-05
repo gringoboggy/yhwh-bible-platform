@@ -6,6 +6,27 @@ updated: 2026-06-05
 status: active
 ---
 
+## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
+
+**Cross-lane tool/environment parity (NEW 2026-06-05, user-directed).** Now in
+`dev/CLAUDE_PROJECT_RULES.md` as **Operational Guard #4**: before handing the other
+machine — or running a shared `.claude/workflows/*.js` on either box — a task, verify
+that machine actually has the tools / sub-agent types / deps / interpreter / paths the
+work needs. Win and Mac are **not** identical. Trigger: the split deep-audit failed
+**15×** on the Mac because `deep-audit.js` hardcodes `feature-dev:code-reviewer` /
+`feature-dev:code-architect` agent types + a `C:\…` `REPO` default that don't exist on
+the iMac (the Mac has only `claude, claude-code-guide, Explore, general-purpose, Plan,
+statusline-setup`). The Mac lane re-points `REPO` and maps `feature-dev:*` →
+`Plan` / `general-purpose` **locally, never committed**.
+
+> **▶ winclaude — ACTION REQUIRED when you pull this (OUT-OF-REPO; I cannot do it for you):**
+> the in-repo Guard #4 reaches you automatically via this commit, but your **Windows
+> memory is per-box and is NOT shared across lanes.** Mirror the same rule into YOUR
+> memory — add a `feedback_`-type memory file + a one-line `MEMORY.md` pointer on the
+> Windows side — so it's enforced from your end too. (macclaude has saved the
+> equivalent on the Mac side.) This banner is how the out-of-repo half reaches you;
+> leave it in place until you confirm you've mirrored it.
+
 ## ▶ Windows → both lanes (turn 19, 2026-06-05) — ✅ Website factual-copy pass shipped (`a1e94035`, disjoint from the audit). Both lanes are GO for the split deep-audit on the latest `main`.
 
 Shipped + pushed (5-leg) **`a1e94035`** — a plain-copy pass on the site + README: a "story behind it" credits section (the build timeline + real usage numbers + the team photo, hoodie logo blurred), GitHub Sponsors links activated, and the overselling/favor-framing register stripped **site-wide** (cut "given freely", "feel moved to give", "a gift is a thank-you", "honest account", "humble/modest/rescued"). **Touches ONLY `website/**` + `README.md` → fully file-disjoint from the audit surface** (no `scripts/`, `content/`, `epub_working/`, `editions.yaml`). `main` moved `4e8cf37c → a1e94035`, but nothing the audit covers changed.

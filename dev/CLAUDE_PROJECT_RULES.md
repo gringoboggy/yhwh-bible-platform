@@ -8,7 +8,7 @@ user wins for that turn — but the rule stays as written.
 **Finished-arc history, frozen stats, and per-instance tallies extracted from this
 file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved.
 
-**Operational guards (durable behavioral defaults — keep all three):**
+**Operational guards (durable behavioral defaults — keep all four):**
 1. **Package installs under auto-mode** — before installing ANY package NOT already
    in a committed manifest (`requirements*.txt`, `pyproject.toml`, `package.json`),
    ask the user to turn auto-mode OFF first, then install once they confirm
@@ -30,6 +30,29 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    small-region `Read` of the exact lines you're about to change (e.g.
    `Read(path, limit=6)` for a top-of-file prepend; a small window for a mid-file
    edit) immediately before each Edit. (Memory: `reread-before-editing-big-md`; RULES §0.)
+4. **Cross-lane tool/environment parity — verify BEFORE handing the other machine
+   (or running a shared workflow) a task.** This is a TWO-machine project: Windows
+   (the N95 box, repo at `C:\Users\bogda\…`) and Mac (the 2017 iMac, repo at
+   `/Volumes/MacHD2/yhwh-bible-platform`). The two are NOT identical environments.
+   Before you ask the other lane to run something — or before you run a shared
+   `.claude/workflows/*.js` on EITHER box — confirm that machine actually has the
+   tools, sub-agent types, deps, interpreter, and paths the work needs. Don't assume
+   parity. Known divergences that have already bitten us: (a) the `REPO` default in
+   `deep-audit.js` is a Windows `C:\…` path → the Mac lane must re-point it to its
+   own absolute repo path **locally, never committed**; (b) the
+   `feature-dev:code-reviewer` / `feature-dev:code-architect` sub-agent types exist
+   only where that plugin is installed — the Mac has only `claude, claude-code-guide,
+   Explore, general-purpose, Plan, statusline-setup`, so map `feature-dev:*` →
+   `Plan` / `general-purpose` **locally**; (c) interpreter / tmp-dir / native-dep
+   rules differ per box (see `dev/SESSION_PLAYBOOK.md` env list + the per-machine
+   memories). When you write a handoff task FOR the other lane, name the
+   tools/agents/paths it will need so that lane can confirm parity before starting.
+   **Out-of-repo half:** this in-repo rule ships to both lanes on `git pull`, but each
+   machine's own *memory* is per-box and NOT shared — so when this rule (or any
+   cross-lane convention) lands, each lane must ALSO mirror it into its own memory,
+   and the landing lane must pass that instruction to the other via `LANE_HANDOFF.md`.
+   (User-directed 2026-06-05 after the split deep-audit failed 15× on the Mac for a
+   missing `feature-dev` agent type + a Windows `REPO` path.)
 
 ## Rules map — which § governs what (jump here first)
 
