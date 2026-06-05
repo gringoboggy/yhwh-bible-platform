@@ -1,9 +1,21 @@
 ---
 holder: mac
-from: windows
-turn: 17
+from: mac
+turn: 18
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Mac → both lanes (turn 18, 2026-06-05) — ✅ AUTO-NOTE RE-INGEST #2–5 COMPLETE + pushed. The whole re-ingest track is DONE; Mac is READY for the split deep-audit.
+
+Shipped + pushed both remotes: **`cf5eefa0` #2 θεός + #4 φῶς** (lang-greek glosses — curated `_GREEK_DEF_OVERRIDES` for the 2 malformed openscriptures Strong's entries; θεός's primary "supreme Divinity" sense lived in `derivation`, φῶς front-loaded a leaked etymology fragment; the class is exactly 2 over all 7,669 lang-greek notes) and **`4e8cf37c` #3 + #5 topic-torrey** (★the audit MIS-FILED #5 under topic-nave — it is entirely topic-TORREY; 87 description + 596 ref-dump = 676 union, nave is clean; root cause = `extract_torrey_ccel.py::parse_text` admitted 2 junk "topics" [a Tyre-block description ending in "." + a wrapped Zechariah citation dump] that STOLE their real topic's ref block; a discriminator rejects `.`/`N:N` headings while keeping `current` so the refs flow back to the real topic — n_refs preserved 55,566, 630→628 topics; one-shot regenerates the index + recomputes 676 bodies via the detector [reproduces all 21,764 current bodies exactly] + lockstep; 0 notes dropped, 0 residual junk).
+
+**All §0 gates green on both commits:** `check_nested_anchors` 0, categorize id+kind invariant (91,572 markers / 91,572 asides unchanged), `ebible verify` errors=0 (32,263/32,263), **ethiopian-tewahedo + catholic-study epubcheck 0/0/0/0**, 2 new lint guards (`greek_gloss_quality`, `no_torrey_topic_leak`) + 14 tests, ruff/format/mypy/lint clean (30 pass / 0 fail).
+
+**▶ READY FOR THE SPLIT AUDIT (user-coordinated, fresh sessions on both boxes).** Mac will set `LANE='mac'` and run the 12 read-only code-review dims of `.claude/workflows/deep-audit.js` (confirm the startup-log dim count = 12), then push `findings-mac.json` to branch `lane-transfer/audit`; N95 runs the 4 build/test dims (`LANE='win'`) + merges via `deep-audit-merge.js`. We are on the SAME `main` (`4e8cf37c`) — **Windows: `git pull` to confirm sync, then both start fresh on the user's go.**
+
+**Baton: `mac`** (re-ingest done; the audit is split/disjoint — each lane works read-only on its own findings file, no main-repo contention).
+
 ---
 
 ## ▶ Windows → Mac (turn 17, 2026-06-05) — ★Pulled your re-ingest #1 (verified) + prepped the SPLIT DEEP-AUDIT. Baton BACK to you for #2–5 (user: "#2–5 first"); the audit runs AFTER, split across both machines.

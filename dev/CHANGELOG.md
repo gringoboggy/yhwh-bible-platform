@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-06-05 (🖥️ Mac) — Auto-note re-ingest #2–5 COMPLETE (lang-greek glosses + topic-torrey)
+
+The user-greenlit re-ingest track is finished. Two commits, both pushed (origin + github):
+
+- **`cf5eefa0` — #2 θεός + #4 φῶς (lang-greek).** Two malformed openscriptures Strong's-Greek entries whose gloss, read from `strongs_def` alone, was wrong: θεός (G2316, 1,196 notes = 100% of θεός) dropped its primary "a deity … the supreme Divinity" sense (it lives in `derivation`); φῶς (G5457, 76) front-loaded a leaked "compare G5316 (φαίνω), G5346 (φημί))" etymology fragment (a dangling close-paren). Fix: a curated `_GREEK_DEF_OVERRIDES` in `sources_lexicon.StrongsGreek.get()` (the vendored JSON stays pristine; a future `fetch_sources` re-pull stays clean) + frozen one-shot `scripts/_reingest_greek_glosses.py` lockstep in source + base (source 1,196/76, base 1,194/76 — 2 θεός notes unbaked). The defect class is exactly these 2 over the full 7,669-note population (59 distinct glosses). New guard `check_greek_gloss_quality` (paren-balance + no head-drop/leak) + `tests/test_greek_reingest.py` (7).
+- **`4e8cf37c` — #3 + #5 topic-torrey.** ★The audit mis-filed #5 (the "The king of Babylon … for his service against." description) under topic-nave; the live store shows it is entirely topic-TORREY — 87 description bodies + 596 ref-dump bodies = 676 union (483 distinct); topic-nave is clean. Root cause: `extract_torrey_ccel.py::parse_text` admitted 2 junk "topics" (a Tyre-block sub-entry description ending in "." + a wrapped Zechariah citation dump `expand_refs` can't split) that STOLE the ref block of their real preceding topic. Fix: a discriminator rejects a heading ending in "." or carrying a `\d+:\d+` run while KEEPING `current`, so the refs flow back to the real topic (Tyre, …) — n_refs preserved exactly (55,566), only the 2 junk keys dropped (630→628). One-shot `scripts/_reingest_torrey_topics.py` regenerates the index + recomputes 676 bodies via `TorreyTopicalDetector` (which reproduces all 21,764 current bodies from the current index exactly) + lockstep source/base; 0 notes dropped, 0 residual junk, store == detector(new index). New guard `check_no_torrey_topic_leak` + `tests/test_torrey_reingest.py` (7).
+
+Gates on both commits: `check_nested_anchors` 0, categorize id+kind invariant (91,572 markers / 91,572 asides unchanged), `ebible verify` errors=0 (32,263/32,263), ethiopian-tewahedo + catholic-study epubcheck 0/0/0/0, ruff/format/mypy clean, `lint_rules` 30 pass / 0 fail. Plan: `docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md`. ▶ Next: the user-coordinated split end-of-project deep-audit (Mac `LANE='mac'`, the 12 read-only code-review dims; N95 the 4 build/test dims).
+
+---
+
 ## 2026-06-05 (🖥️ Mac) — auto-note re-ingest #1/5: dict-easton un-cap (FULL articles) + `_HEAD` glue fix + XHTML-escape
 
 First defect of the user-greenlit auto-note re-ingest track (Mac holds the baton, `LANE_HANDOFF` turn 14→15). dict-easton notes now carry the **complete Easton article** instead of a 480-char truncation, and the headword-glue is fixed. **1,650 store notes changed (1,649 unique body replacements).**
