@@ -78,7 +78,16 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.html'))) {
 
   // Assemble, then strip HTML comments from the shipped page (keeps the public
   // source clean and removes the leftover "TODO at launch" notes from the output).
-  const out = (pageHead + body.replace(/^\s*\n/, '') + foot)
+  // Inline the generated Ge'ez/Amharic progress fragment (build-time, static).
+  // Done BEFORE comment-stripping so the {{token}} is gone by output time.
+  let bodyFilled = body;
+  if (bodyFilled.includes('{{geez_progress}}')) {
+    const fragPath = join(SRC, 'data', 'geez-progress.html');
+    const frag = existsSync(fragPath) ? readFileSync(fragPath, 'utf8') : '<p>Progress data is being generated.</p>';
+    bodyFilled = fill(bodyFilled, 'geez_progress', frag);
+  }
+
+  const out = (pageHead + bodyFilled.replace(/^\s*\n/, '') + foot)
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/\n{3,}/g, '\n\n');
   writeFileSync(join(DIST, file), out, 'utf8');
@@ -95,7 +104,7 @@ for (const name of STATIC) {
 // Host + SEO files generated here so a clean dist/ is self-complete: a deploy can
 // never accidentally drop the custom domain (CNAME) or re-enable Jekyll (.nojekyll).
 const SITE = 'https://www.yhwhyaway.com';
-const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html'];
+const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html', '/geez.html'];
 writeFileSync(join(DIST, 'CNAME'), 'www.yhwhyaway.com\n');
 writeFileSync(join(DIST, '.nojekyll'), '');
 writeFileSync(

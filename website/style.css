@@ -287,3 +287,23 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .legend .glyph { flex: 0 0 1.7em; font-size: 1.7rem; line-height: 1.1; color: var(--gold); text-align: center; }
 .legend h3 { margin: 0 0 .2rem; font-size: 1.05rem; color: var(--indigo); }
 .legend p { margin: 0; font-size: .93rem; color: var(--ink); line-height: 1.5; }
+
+/* Geʽez & Amharic progress page */
+.pb-wrap { margin: 1.5rem 0; }
+.pb-bar-row { margin: .85rem 0; }
+.pb-bar-head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.pb-bar-sub { font-size: .85rem; color: var(--sepia); }
+.pb-bar { height: .55rem; background: rgba(43,33,24,.10); border-radius: 3px; overflow: hidden; margin-top: .3rem; }
+.pb-bar-fill { display: block; height: 100%; background: var(--gold); border-radius: 3px; }
+.pb-legend { font-size: .85rem; color: var(--sepia); margin: .85rem 0 1.25rem; }
+.pb-h { margin: 1.6rem 0 .6rem; font-size: 1.05rem; color: var(--indigo); }
+.pb-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .35rem; }
+.pb-cell { display: flex; align-items: center; gap: .4rem; padding: .32rem .5rem; border: 1px solid var(--gold-line); border-radius: 3px; font-size: .8rem; background: var(--parchment); }
+.pb-badge { font-size: .92rem; line-height: 1; color: var(--gold); }
+.pb-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+.pb-en { font-size: .6rem; font-weight: 700; color: var(--indigo); border: 1px solid currentColor; border-radius: 2px; padding: 0 .2rem; }
+.pb-ready { border-color: var(--gold); background: rgba(184,134,11,.12); }
+.pb-transcribed { background: rgba(184,134,11,.06); }
+.pb-source { background: var(--parchment); }
+.pb-none { opacity: .5; }
+.give-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .6rem; }
