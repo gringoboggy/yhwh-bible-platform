@@ -96,21 +96,21 @@ Served the built `dist/` locally and loaded the pages in a real browser:
 - **Email forwarding** for `gringo.boggy@yhwhyaway.com` (passkey-gated Spaceship/
   Spacemail) — the user is setting it up; `mailto:` works meanwhile.
 
-## Deploy status — built + committed; live push pending authorization
+## Deploy status — LIVE
 
-These fixes are built, audited clean, and committed to the monorepo `website/`
-(pushed to both remotes). The **live GitHub Pages deploy was NOT pushed** — auto-mode
-gated the production deploy of the public site as needing the owner's explicit
-authorization (correctly: pushing to `gringoboggy/yhwh-website` updates the live
-www.yhwhyaway.com). The current live site is unaffected and healthy; the deploy was
-verified locally (rsync into the publish repo keeps `CNAME` + `.nojekyll` intact),
-then the publish repo was reset to pristine.
+These fixes are built, audited clean, committed to the monorepo `website/` (both
+remotes), and **DEPLOYED to the live site** (`gringoboggy/yhwh-website` → `b89eafb`,
+www.yhwhyaway.com) on 2026-06-05 once the owner turned auto-mode off. (The first
+deploy attempt during the preceding autonomous run was correctly gated by auto-mode
+as a production action — a general "push at discretion" did not cover a live-site
+deploy; see the auto-mode guard memory.)
 
-To go live (the deploy is fully reproducible from the pushed source):
-`node website/build.mjs` → mirror `website/dist/` into `/Volumes/MacHD2/yhwh-site-publish`
-→ commit (GitHub no-reply email) → push (see `website/README.md` "Deploy it"). The
-change is additive and degrades gracefully (the releases feed keeps its static
-fallback until a public release exists), so it carries no visible-regression risk.
+**Production verified:** all pages + `sitemap.xml` + `404.html` + `CNAME` → 200 over
+HTTPS; an unknown path returns a real 404 (custom page); the custom domain survived
+(CNAME serves `www.yhwhyaway.com`); `releases.js` runs against the GitHub Releases
+API and falls back gracefully on the pre-launch 404 — the card + pending buttons
+render with no uncaught exception, confirmed in a real browser on the live site;
+`sitemap.xml` lists 4 URLs.
 
 *Read-only audit + cheap-win fixes — `website/**` only, file-disjoint from the
 Windows RX arc. Companion to the turn-11/12 launch backlog.*
