@@ -2046,6 +2046,364 @@ def _badge_verses_strategy_b(text: str, ch_region: tuple[int, int], code: str, b
         yield v, (rs + start, rs + end)
 
 
+# ----------------------------------------------------------------------
+# RX Phase 4b — build-time EPUB file-splitter (apply_file_split)
+# ----------------------------------------------------------------------
+#
+# The calibre-produced base ships 61 ``index_split_*.html`` files, several of them
+# 2-5 MB. Colour-e-ink Kobo can't reflow a multi-MB XHTML page (it crawls / crashes /
+# never shows the popups). This per-edition BUILD-TIME post-pass splits the big files
+# into ~0.4 MB pieces at top-level book/chapter boundaries, rewrites every cross-file
+# href to the piece that now holds the target id, distributes each file's single
+# trailing ``notes-section`` into per-piece notes-sections (so the bare ``#id``
+# footnote/popup contract stays SAME-FILE = native popups on every reader), and
+# regenerates the OPF manifest+spine + nav.xhtml + toc.ncx. epub_working/ (the
+# canonical 61-file base) is NEVER touched — like apply_badge_markers, this operates
+# only on the per-edition temp tree, so all base tooling (inject, nested-anchor base
+# check, marker resync) is unaffected.
+#
+# Runs LAST in build_one (after badge + every matter-page injection) so its
+# manifest/spine/nav regeneration is the final word before the zip. Gated on the
+# ``reader_file_split`` edition flag; a no-op (byte-identical) when unset.
+
+# Default ON (this RX arc makes the standard editions e-ink/Kobo-safe by default, like the
+# badge marker style); an edition may opt out with reader_file_split: false in editions.yaml.
+DEFAULT_READER_FILE_SPLIT = True
+
+FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter that
+# already exceeds it becomes its own (over-cap) piece — we never split mid-chapter,
+# because a verse's marker and its aside must stay in one file for the popup contract.
+
+# HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
+# and EVERY chapter start (id="ch-bNN-cMM"). A chapter's id is carried by EITHER its
+# <a class="ch-anchor"> (chapter 2+) OR a <p class="ch-heading"> (chapters that open a
+# page/split-file — e.g. Numbers c1/c13/c17). We match the id= attribute (not a "#…" href
+# target) and back up to the element's '<', so BOTH forms are caught by one rule — matching
+# only ch-anchor silently merges the ch-heading-form chapters into multi-MB units.
+_BOUNDARY_HARD_RE = re.compile(r'\bid="(?:bp-\d+|ch-b\d+-c\d+)"')
+
+# Inline verse anchors — used to SUB-split a single over-target chapter (its verses flow
+# many-per-paragraph, so the paragraph is closed/reopened around each cut).
+_VN_LINK_RE = re.compile(r'<a class="vn-link" id="v-[^"]+"')
+_VERSE_P_OPEN_RE = re.compile(r'<p\b[^>]*class="verse-p[^>]*>')
+
+# A child note aside inside a notes-section. The negative lookahead skips the
+# notes-section PARENT itself (class="notes-section", which may carry an id like
+# notes-b00-c27); children are class="note …" (verse-popup + editorial) or
+# class="verse-notes" (the badge-merged aside). Asides never nest asides, so .*? is tight.
+_CHILD_ASIDE_RE = re.compile(r'<aside class="(?!notes-section)[^"]*" id="([^"]+)"[^>]*>.*?</aside>', re.DOTALL)
+
+# A notes-section wrapper left empty after its child asides are harvested out.
+_EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*')
+
+_NOTES_SECTION_OPEN = '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+
+
+def _split_head_body_tail(text: str) -> tuple[str, str, str] | None:
+    """Return ``(head, body, tail)`` where head runs through the ``<body…>`` open tag
+    and tail is ``</body>`` to EOF. None when those markers are missing."""
+    bm = re.search(r"<body\b[^>]*>", text)
+    if not bm:
+        return None
+    body_start = bm.end()
+    body_close = text.rfind("</body>")
+    if body_close == -1 or body_close < body_start:
+        return None
+    return text[:body_start], text[body_start:body_close], text[body_close:]
+
+
+def _strip_notes_sections(body: str) -> tuple[str, list[tuple[str, str]]]:
+    """Harvest + remove EVERY note aside, leaving pure chapter prose.
+
+    The base mixes aside placement: most asides sit inside a
+    ``<aside class="notes-section">`` block (trailing, sometimes a leading spill-over),
+    but a large share are INLINE right after their verse. Stripping only the
+    notes-section blocks would leave the inline asides lumped in the prose — inflating a
+    chapter to multiple MB AND grouping a chapter's notes by physical position instead of
+    by the verse that references them. So we strip every leaf note aside wherever it sits
+    (a single non-greedy pass — leaf asides never nest), then drop the emptied
+    notes-section wrappers. Returns ``(prose, [(aside_id, aside_html), …])`` with the
+    pooled asides in document order for per-piece redistribution BY REFERENCE."""
+    asides: list[tuple[str, str]] = []
+
+    def _take(m: re.Match) -> str:
+        asides.append((m.group(1), m.group(0)))
+        return ""
+
+    content = _CHILD_ASIDE_RE.sub(_take, body)
+    content = _EMPTY_NOTES_SECTION_RE.sub("", content)
+    return content, asides
+
+
+def _subsplit_chapter(unit: str, target: int, aside_by_id: dict[str, str]) -> list[str] | None:
+    """Sub-split ONE over-target chapter unit at its inline verse anchors so no piece
+    is a multi-MB page. Each cut closes the open ``<p class="verse-p">`` and the next
+    sub-unit reopens it, keeping every sub-unit well-formed; a verse's markers and its
+    referenced asides stay together (the per-piece notes pass redistributes asides by
+    reference). Returns the sub-unit strings, or None when it can't sub-split safely
+    (fewer than 2 verses, or the chapter contains a ``<div>`` — poetry/quote blocks we
+    won't risk cutting through)."""
+    if "<div" in unit:
+        return None
+    vns = list(_VN_LINK_RE.finditer(unit))
+    if len(vns) < 2:
+        return None
+    pm = _VERSE_P_OPEN_RE.search(unit)
+    reopen = pm.group(0) if pm else '<p class="verse-p">'
+    # Verse segments: the chapter prefix + verse 1 lead seg 0; each later vn-link starts a seg.
+    cuts = [0, *[m.start() for m in vns[1:]]]
+    segs = [unit[cuts[i] : (cuts[i + 1] if i + 1 < len(cuts) else len(unit))] for i in range(len(cuts))]
+
+    def _sw(s: str) -> int:
+        w = len(s)
+        for frag in re.findall(r'href="#([^"]+)"', s):
+            if frag in aside_by_id:
+                w += len(aside_by_id[frag])
+        return w
+
+    chunks: list[list[int]] = []
+    cur: list[int] = []
+    cw = 0
+    for i, s in enumerate(segs):
+        w = _sw(s)
+        if cur and cw + w > target:
+            chunks.append(cur)
+            cur, cw = [], 0
+        cur.append(i)
+        cw += w
+    if cur:
+        chunks.append(cur)
+    if len(chunks) <= 1:
+        return None
+
+    out: list[str] = []
+    for ci, chk in enumerate(chunks):
+        body = "".join(segs[i] for i in chk)
+        if ci > 0:
+            body = reopen + body  # reopen the paragraph this sub-unit continues
+        net = len(re.findall(r"<p\b", body)) - body.count("</p>")
+        if net > 0:
+            body = body + ("</p>" * net)  # close the paragraph this sub-unit leaves open
+        out.append(body)
+    return out
+
+
+def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
+    """Split ONE ``index_split`` file's text into ~``target``-byte pieces.
+
+    Cuts the body only at top-level book/chapter boundaries (never mid-chapter). The
+    file's single trailing ``notes-section`` is parsed into its child asides, and each
+    piece is rebuilt with its own ``notes-section`` holding exactly the asides its
+    chapters reference (first referencer wins; the link-rewrite pass later promotes any
+    cross-piece reference to a cross-file link). Returns ``[(piece_filename, text), …]``;
+    a file at/under ``target`` (or without a usable structure) is returned unchanged
+    under its original ``{stem}.html`` name (zero churn — its inbound hrefs need no
+    rewrite)."""
+    if len(text) <= target:
+        return [(f"{stem}.html", text)]
+    parts = _split_head_body_tail(text)
+    if parts is None:
+        return [(f"{stem}.html", text)]
+    head, body, tail = parts
+
+    # Strip every notes-section block (leading spill-over + trailing) to recover pure
+    # chapter content, pooling all child asides for per-piece redistribution.
+    content, harvested = _strip_notes_sections(body)
+    aside_by_id: dict[str, str] = {}
+    ordered_aside_ids: list[str] = []
+    for aid, aside_html in harvested:
+        if aid not in aside_by_id:
+            aside_by_id[aid] = aside_html
+            ordered_aside_ids.append(aid)
+
+    # Coarse units at HARD (book/chapter) boundaries — always top-level, safe to cut.
+    # Back each id= match up to its element's opening '<'.
+    hard = sorted({content.rfind("<", 0, m.start()) for m in _BOUNDARY_HARD_RE.finditer(content)} - {-1})
+    if not hard:
+        return [(f"{stem}.html", text)]
+    if hard[0] != 0:
+        hard = [0, *hard]  # leading preamble (e.g. the TOC block) is piece 0's start
+    coarse = [content[hard[i] : (hard[i + 1] if i + 1 < len(hard) else len(content))] for i in range(len(hard))]
+
+    def _ref_weight(s: str) -> int:
+        w = len(s)
+        for frag in re.findall(r'href="#([^"]+)"', s):
+            if frag in aside_by_id:
+                w += len(aside_by_id[frag])
+        return w
+
+    # Sub-split any single chapter that ALONE exceeds the target (a heavily-noted prose
+    # chapter is one giant <p class="verse-p"> of many verses) at its inline verse
+    # anchors, closing/reopening the paragraph so each sub-unit stays well-formed.
+    units: list[str] = []
+    for cu in coarse:
+        if _ref_weight(cu) > target:
+            subs = _subsplit_chapter(cu, target, aside_by_id)
+            if subs:
+                units.extend(subs)
+                continue
+        units.append(cu)
+
+    # A chapter/verse's NOTES (its asides, pooled from the notes-section) dominate its
+    # byte weight — the prose is small. Attribute each aside to the FIRST unit that
+    # references it (single O(total-refs) scan) so packing reflects real per-piece size.
+    aside_unit: dict[str, int] = {}
+    for ui, u in enumerate(units):
+        for frag in re.findall(r'href="#([^"]+)"', u):
+            if frag in aside_by_id and frag not in aside_unit:
+                aside_unit[frag] = ui
+    last_ui = len(units) - 1
+    unit_weight = [len(u) for u in units]
+    for aid in ordered_aside_ids:
+        ui = aside_unit.setdefault(aid, last_ui)  # orphan asides → last unit
+        unit_weight[ui] += len(aside_by_id[aid])
+
+    # Greedy-pack whole units into pieces ≤ target (a lone over-weight unit stands alone).
+    groups: list[list[int]] = []
+    cur: list[int] = []
+    cur_w = 0
+    for i, w in enumerate(unit_weight):
+        if cur and cur_w + w > target:
+            groups.append(cur)
+            cur, cur_w = [], 0
+        cur.append(i)
+        cur_w += w
+    if cur:
+        groups.append(cur)
+    if len(groups) <= 1:
+        # Everything fit in one piece — no real split; keep the original.
+        return [(f"{stem}.html", text)]
+
+    unit_to_group = {ui: gi for gi, g in enumerate(groups) for ui in g}
+    group_asides: list[list[str]] = [[] for _ in groups]
+    for aid in ordered_aside_ids:  # preserves document order within each piece
+        group_asides[unit_to_group[aside_unit[aid]]].append(aid)
+
+    pieces: list[tuple[str, str]] = []
+    for k, g in enumerate(groups):
+        gt = "".join(units[i] for i in g)
+        ids = group_asides[k]
+        notes_html = (
+            (_NOTES_SECTION_OPEN + "".join(aside_by_id[aid] + "\n" for aid in ids) + "</aside>\n") if ids else ""
+        )
+        pieces.append((f"{stem}_{k:02d}.html", head + gt + notes_html + tail))
+    return pieces
+
+
+def apply_file_split(tmp: Path, edition: dict) -> dict:
+    """Split the per-edition temp tree's big ``index_split_*.html`` files into ~0.4 MB
+    pieces, remap every cross-file href, and regenerate the OPF manifest+spine +
+    nav.xhtml + toc.ncx. No-op (byte-identical) unless ``edition['reader_file_split']``.
+    Returns ``{files_split, pieces_created, hrefs_rewritten, largest_piece_kb}``."""
+    stats = {"files_split": 0, "pieces_created": 0, "hrefs_rewritten": 0, "largest_piece_kb": 0}
+    if not edition.get("reader_file_split", DEFAULT_READER_FILE_SPLIT):
+        return stats
+    target = int(edition.get("reader_file_split_target") or FILE_SPLIT_TARGET_DEFAULT)
+
+    src_files = sorted(tmp.glob("index_split_*.html"))
+    if not src_files:
+        return stats
+
+    # 1. Plan pieces per source file (in sorted, deterministic order).
+    plan: dict[str, list[tuple[str, str]]] = {}
+    for p in src_files:
+        plan[p.name] = split_html_document(p.read_text(encoding="utf-8"), p.stem, target)
+
+    # 2. Global maps: id → final piece file; original file → its first piece.
+    idmap: dict[str, str] = {}
+    filemap: dict[str, str] = {}
+    split_origs: set[str] = set()
+    for orig, pieces in plan.items():
+        filemap[orig] = pieces[0][0]
+        if not (len(pieces) == 1 and pieces[0][0] == orig):
+            split_origs.add(orig)
+        for pname, ptext in pieces:
+            for m in re.finditer(r'\bid="([^"]+)"', ptext):
+                idmap[m.group(1)] = pname
+
+    if not split_origs:
+        return stats  # nothing exceeded the target
+
+    full_re = re.compile(r'(href|src)="(index_split_\d+\.html)(?:#([^"]+))?"')
+    bare_re = re.compile(r'href="#([^"]+)"')
+
+    def rewrite_links(text: str, self_name: str) -> tuple[str, int]:
+        n = [0]
+
+        def _full(m: re.Match) -> str:
+            attr, orig, frag = m.group(1), m.group(2), m.group(3)
+            if frag:
+                newfile = idmap.get(frag, filemap.get(orig, orig))
+                out = f'{attr}="{newfile}#{frag}"'
+            else:
+                out = f'{attr}="{filemap.get(orig, orig)}"'
+            if out != m.group(0):
+                n[0] += 1
+            return out
+
+        def _bare(m: re.Match) -> str:
+            frag = m.group(1)
+            tgt = idmap.get(frag)
+            if tgt is None or tgt == self_name:
+                return m.group(0)
+            n[0] += 1
+            return f'href="{tgt}#{frag}"'
+
+        text = full_re.sub(_full, text)
+        text = bare_re.sub(_bare, text)
+        return text, n[0]
+
+    # 3. Materialise pieces: delete split originals, write each piece's RAW text.
+    for orig, pieces in plan.items():
+        if orig in split_origs:
+            (tmp / orig).unlink()
+        for pname, ptext in pieces:
+            (tmp / pname).write_text(ptext, encoding="utf-8")
+
+    # 4. Rewrite links in every content file (pieces + nav.xhtml + toc.ncx + matter
+    #    pages). content.opf is handled by the manifest/spine regen below.
+    for fp in sorted(tmp.iterdir()):
+        if fp.suffix not in (".html", ".xhtml", ".ncx"):
+            continue
+        txt = fp.read_text(encoding="utf-8")
+        new_txt, n = rewrite_links(txt, fp.name)
+        if new_txt != txt:
+            fp.write_text(new_txt, encoding="utf-8")
+        stats["hrefs_rewritten"] += n
+
+    # 5. Regenerate the OPF manifest + spine: expand each split file's single item /
+    #    itemref into its pieces' items / itemrefs, in order; preserve everything else.
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf_text = opf_path.read_text(encoding="utf-8")
+        for orig in sorted(split_origs):
+            item_m = re.search(rf'<item\b[^>]*\bhref="{re.escape(orig)}"[^>]*/>', opf_text)
+            if not item_m:
+                continue
+            old_item = item_m.group(0)
+            idm = re.search(r'\bid="([^"]+)"', old_item)
+            if not idm:
+                continue
+            old_id = idm.group(1)
+            new_items, new_refs = [], []
+            for j, (pname, _t) in enumerate(plan[orig]):
+                pid = f"{old_id}_{j:02d}"
+                new_items.append(f'<item id="{pid}" href="{pname}" media-type="application/xhtml+xml"/>')
+                new_refs.append(f'<itemref idref="{pid}"/>')
+            opf_text = opf_text.replace(old_item, "\n    ".join(new_items), 1)
+            opf_text = opf_text.replace(f'<itemref idref="{old_id}"/>', "\n    ".join(new_refs), 1)
+        opf_path.write_text(opf_text, encoding="utf-8")
+
+    # 6. Stats.
+    stats["files_split"] = len(split_origs)
+    stats["pieces_created"] = sum(len(plan[o]) for o in split_origs)
+    largest = 0
+    for fp in tmp.glob("index_split_*.html"):
+        largest = max(largest, fp.stat().st_size)
+    stats["largest_piece_kb"] = round(largest / 1024)
+    return stats
+
+
 CHAPTER_NUMBER_DECORATIONS = {
     "plain": ("", ""),
     "dashes": ("— ", " —"),
@@ -3806,6 +4164,16 @@ def build_one(
         rp_stats = inject_reading_plans_page(tmp, edition)
         stats["reading_plans_written"] = rp_stats.get("plans_written", 0)
         stats["reading_plans_total_days"] = rp_stats.get("total_days", 0)
+
+        # RX Phase 4b — file-split for e-ink (Kobo) speed. Runs LAST (after badge +
+        # every matter-page injection) so its OPF/nav/ncx regeneration is the final
+        # word before the zip: splits the 2-5 MB index_split_* into ~0.4 MB pieces,
+        # remaps every cross-file href, and rebuilds the manifest/spine/nav/ncx.
+        # No-op (byte-identical) unless the edition sets reader_file_split.
+        split_stats = apply_file_split(tmp, edition)
+        stats["files_split"] = split_stats["files_split"]
+        stats["pieces_created"] = split_stats["pieces_created"]
+        stats["largest_piece_kb"] = split_stats["largest_piece_kb"]
 
         # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
         # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking

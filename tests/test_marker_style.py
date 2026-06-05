@@ -233,6 +233,7 @@ class TestBadgeBuildIntegration:
         eds = dict(config.editions_by_id())
         ed = dict(eds[self.EDITION])
         ed["marker_style"] = marker_style
+        ed["reader_file_split"] = False  # keep this badge-focused build fast; splitting is tested in test_file_split
         eds[self.EDITION] = ed
         monkeypatch.setattr(config, "editions_by_id", lambda: eds)
 
