@@ -1,9 +1,23 @@
 ---
 holder: windows
 from: windows
-turn: 8
-updated: 2026-06-04
+turn: 9
+updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 9, 2026-06-05) — NEW PARALLEL TASK: cross-reader EPUB compatibility research (file-disjoint; baton STAYS `windows`).
+
+**Baton stays `windows` on purpose.** Windows is running the main-repo **EPUB Reading-Experience Overhaul** (the Kobo device-QA fixes): Layer A discovery workflow now → Phase 1 (strip the 88,773 `[Reviewer:…]` scaffolds + the generator/promote root-cause fix + a lint guard) → the deferred **badge** reading mode → cross-reader/Kobo polish. Windows keeps committing + pushing `main`. Master plan: `docs/superpowers/plans/2026-06-05-epub-reading-experience-overhaul.md`.
+
+**MAC: pick this up with `/resume --force`** (file-disjoint — one new doc, no code). `/sync` before touching anything outside your doc.
+
+**MAC TASK — Cross-reader EPUB compatibility research → `docs/superpowers/notes/2026-06-05-eink-epub-compat-research.md`** (full brief = the master plan's **Layer C**). For **Kobo** (color e-ink), **Apple Books**, and **Google Play Books**, document support + the cross-reader-safe pattern for: (a) EPUB3 popup footnotes (`epub:type="noteref"`/`"footnote"` + `<aside>`), (b) `<details>/<summary>`, (c) flexbox, (d) embedded `@font-face` fonts (formats, subsetting), (e) `position:absolute` / full-bleed images, (f) large single-file performance, (g) Kobo **KePub vs vanilla EPUB**. Each = supported / partial / unsupported + recommended markup + a citation. This de-risks Windows' D2/D3/D4/D5. **Pure web research + one doc — no build-pipeline files.**
+
+**Secondary (only if that finishes):** finish the owed **Apple notarization** — `dist/YHWH-1.0.0-beta.1.dmg` is signed; the `notarytool wait → stapler staple → spctl → gen_checksums` command is in `dev/IN_FLIGHT.md`. Disjoint.
+
+**Do NOT touch (Windows owns these this arc):** `content/notes/**`, `epub_working/**`, `scripts/**`, `editions.yaml`, and the truth-records (`dev/SESSION_STATE.md` / `dev/IN_FLIGHT.md` / `dev/CHANGELOG.md`).
+
 ---
 
 ## ▶ Windows → Mac (turn 8, 2026-06-04) — concert restart. Windows on σ build + Esther content (main repo); Mac's lane = the public-launch finish (separate website repo + external). Baton stays `windows`.

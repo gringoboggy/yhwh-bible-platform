@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**60 documents** — 39 plans · 21 specs.
+**61 documents** — 40 plans · 21 specs.
 
-## In progress (16)
+## In progress (17)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | EPUB Reading-Experience Overhaul (Kobo device-QA: strip 88,773 `[Reviewer:]` scaffolds · deferred `badge` note-display · cross-reader/Kobo fixes · original-language font embed) | `plans/2026-06-05-epub-reading-experience-overhaul.md` | program plan 2026-06-05 — Layer A discovery (D1–D6) running · Layer B 5 phases (strip → CSS → fonts → Kobo structural → badge) · Layer C Mac compat-research; constraint = ALL notes/features ON (declutter via display) |
 | 2026-06-04 | Plan | Edition Cover + Truthful Front Matter (σ.1–σ.6: build-accurate counter · HOLY BIBLE cover · Your Edition page · /customize identity · Ge'ez/Amharic covers · live-console reconcile) | `plans/2026-06-04-edition-cover-and-truthful-front-matter-plan.md` | SHIPPED 2026-06-04 — all 6 phases done (σ.1 build-accurate counter · σ.2 HOLY-BIBLE cover + overflow-proof fitter · σ.3 "Your Edition" page + glossary→counter · σ.4 /customize identity control · σ.5 Ge'ez/Amharic Ethiopic covers · σ.6 count reconcile). Per-task spec+code review + visual QA; epubcheck 0/0/0/0; determinism + cross-check green. Commits `4bb03ba6`…`663987af` etc. (5-leg pushed). |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase C2: the `/build-my-bible` Navigator Console | `plans/2026-06-04-hierarchical-customize-phaseC2-navigator.md` | SHIPPED 2026-06-04 — C2-2…C2-6 done: the `/build-my-bible` navigator console (drill-down + breadcrumb; interactive symbol tri-state + popup checklists + per-note ships?-toggle; saves via `/api/edition-meta` + `/api/edition/<id>/note-override`). Byte-neutral; byte-stability gate + live Playwright QA passed; per-task + holistic review clean. C3 (polish) follows. |
 | 2026-06-04 | Plan | Hierarchical Customization — Phase B: Popup-Language Engine | `plans/2026-06-04-hierarchical-customize-phaseB-popup-engine.md` | IN PROGRESS 2026-06-04 — ready to execute. Phase B of the hierarchical-customization spec (`docs/superpowers/specs/2026-06-04-hierarchical-edition-customization-design.md`, §6). Byte-stability gate = the ship bar. Phase A (symbols) shipped; Phase C (the `/build-my-bible` navigator) follows. |
