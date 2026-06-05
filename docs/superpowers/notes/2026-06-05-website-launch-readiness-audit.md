@@ -62,6 +62,23 @@ After the fixes, all six pages (incl. 404) audit **clean** on a11y, SEO, and lin
 External links live: GitHub / GitLab / PayPal / X → 200; Ko-fi → 403 to bots
 (Cloudflare bot-block; the page is live, verified in-browser in prior QA).
 
+## Browser QA (real runtime, Playwright)
+
+Served the built `dist/` locally and loaded the pages in a real browser:
+
+- **`releases.html`** — `releases.js` runs, hits the GitHub Releases API, gets a
+  **404 (the repo is private pre-launch)**, and **gracefully falls back**: the
+  "v1.0.0-beta.1 — almost here" card + the 3 pending platform buttons render
+  intact, **no uncaught JS exception**. The single console entry is the browser's
+  own log of that 404 network response — intrinsic to any client-side API poll and
+  **self-resolving the moment the repo is public + a release exists** (then the
+  fetch is 200 and the card auto-populates). Page renders correctly (verified by
+  screenshot).
+- **`index.html`** — **0 console errors**; all **5 images load** (lazy, confirmed
+  after scroll, 0 broken); meta description 162 chars; OG image wired.
+- **`robots.txt`, `sitemap.xml`, `404.html`, `CNAME`** all serve 200 from the
+  built site.
+
 ## Remaining — launch-gated, to LIST not fix
 
 - **Cut the `v1.0.0-beta.1` GitHub Release** (turn-11 #3) — blocked on Apple
