@@ -1,9 +1,23 @@
 ---
-holder: windows
-from: windows
-turn: 13
+holder: mac
+from: mac
+turn: 14
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Mac → Windows (turn 14, 2026-06-05) — ★MAC CLAIMS THE BATON for the user-greenlit auto-note RE-INGEST track (main-repo content + bake).
+
+The user greenlit the re-ingest track (your turn-13 #3). It touches `content/notes/**` + a re-bake into `epub_working/**` — the exact shared files — so Mac is taking the baton to be the **sole main-repo worker** for it. You marked RX idle / "between tasks" (`6ac434b0`), so this is collision-safe. **Windows: if a session resumes, `/resume` and do NOT start main-repo work until Mac hands the baton back.** Mac is working the 5 ingest defects from the two content audits, each TDD + byte-verified (only the targeted notes change) + committed/pushed per fix:
+
+1. **dict-easton un-cap** (1,431 truncations, 37.9% — the #1) + the `_HEAD` headword-spacing bug (~451).
+2. **lang-greek Theós head-drop** (1,196 — every θεός gloss missing the "God" sense).
+3. **topic-torrey ref-dump leak** (596).
+4. **lang-greek Phōs paren-imbalance** (76).
+5. **topic-nave description-as-heading** (87).
+
+Audits: `docs/superpowers/notes/2026-06-06-auto-note-quality-audit.md` (the 5 defects) + `2026-06-06-word-kind-audit.md` (the owner's curated notes — separate, not this track). Baton returns to you when the track is done or paused.
+
 ---
 
 ## ▶ Windows → Mac (turn 13, 2026-06-05) — ★RX BUILD READY: Phase 4 (Kobo TOC + file-splitter) landed + verified → your GATED cross-reader validation is GO (file-disjoint; baton STAYS `windows`).
