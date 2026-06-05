@@ -320,6 +320,116 @@ class TestRewriteLinks:
         assert (tmp / "index_split_007.html").read_text(encoding="utf-8") == before
 
 
+_TOC_PAGE = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml"><head><title>T</title></head><body>\n'
+    '<div class="toc-wrap"><h1 class="toc-title">Contents</h1><ol class="toc-books">\n'
+    '<li class="toc-book"><details><summary><a href="index_split_000.html#bp-00">Genesis</a></summary>'
+    '<ol class="toc-chapters"><li><a href="index_split_000.html#page_4">1</a></li>'
+    '<li><a href="index_split_001.html#page_9">2</a></li></ol></details></li>\n'
+    '<li class="toc-book"><details><summary><a href="index_split_003.html#bp-01">Exodus</a></summary>'
+    '<ol class="toc-chapters"><li><a href="index_split_003.html#page_70">1</a></li></ol></details></li>\n'
+    "</ol></div>\n</body></html>"
+)
+
+
+class TestBooksOnlyToc:
+    """reader_toc_books_only collapses the in-content ToC to book links only (drops the
+    per-book chapter pills); chapter nav moves to the native ToC (enriched below)."""
+
+    def test_books_only_keeps_books_drops_chapter_pills(self, tmp_path):
+        from scripts.build_edition import apply_reader_toc_transforms
+
+        (tmp_path / "index_split_000.html").write_text(_TOC_PAGE, encoding="utf-8")
+        s = apply_reader_toc_transforms(tmp_path, {"reader_toc_books_only": True})
+        assert s["books_transformed"] == 2
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert out.count('class="toc-book-label"') == 2, "both book labels kept"
+        assert "#bp-00" in out and "#bp-01" in out, "book anchors preserved"
+        assert "<details" not in out, "no <details> (Kobo-safe)"
+        assert 'class="toc-chapters"' not in out, "chapter pills dropped in book-list mode"
+
+
+class TestNativeTocChapterEnrichment:
+    """enrich_nav_chapters adds per-chapter entries under each book in nav.xhtml +
+    toc.ncx so one-tap chapter jump survives in the reader's native ToC."""
+
+    NAV = (
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+        "<head><title>Navigation</title></head><body>\n"
+        '<nav epub:type="toc" id="toc"><h2>Contents</h2><ol>\n'
+        '<li><a href="index_split_000.html#bp-00">Genesis</a></li>\n'
+        '<li><a href="index_split_003.html#bp-01">Exodus</a></li>\n'
+        "</ol></nav></body></html>\n"
+    )
+    NCX = (
+        "<?xml version='1.0' encoding='utf-8'?>\n"
+        '<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1"><head/>'
+        "<docTitle><text>T</text></docTitle><navMap>\n"
+        '<navPoint id="num_book_0" playOrder="1"><navLabel><text>Genesis</text></navLabel>'
+        '<content src="index_split_000.html#bp-00"/></navPoint>\n'
+        '<navPoint id="num_book_1" playOrder="2"><navLabel><text>Exodus</text></navLabel>'
+        '<content src="index_split_003.html#bp-01"/></navPoint>\n'
+        "</navMap></ncx>\n"
+    )
+    CONTENT = (
+        '<html><body class="bible-body">'
+        '<a id="ch-b00-c1" class="ch-anchor"></a>g1'
+        '<a id="ch-b00-c2" class="ch-anchor"></a>g2'
+        '<a id="ch-b01-c1" class="ch-anchor"></a>e1'
+        "</body></html>"
+    )
+
+    def _setup(self, tmp_path):
+        (tmp_path / "nav.xhtml").write_text(self.NAV, encoding="utf-8")
+        (tmp_path / "toc.ncx").write_text(self.NCX, encoding="utf-8")
+        (tmp_path / "index_split_000.html").write_text(self.CONTENT, encoding="utf-8")
+
+    def test_nav_and_ncx_get_chapter_entries(self, tmp_path):
+        from scripts.build_edition import enrich_nav_chapters
+
+        self._setup(tmp_path)
+        s = enrich_nav_chapters(tmp_path)
+        assert s["nav_chapters_added"] == 3 and s["ncx_chapters_added"] == 3
+        nav = (tmp_path / "nav.xhtml").read_text(encoding="utf-8")
+        # Genesis (bp-00) gets its 2 chapters nested; Exodus (bp-01) gets 1
+        assert '<ol class="toc-nav-chapters">' in nav
+        assert 'href="index_split_000.html#ch-b00-c1"' in nav
+        assert 'href="index_split_000.html#ch-b00-c2"' in nav
+        assert 'href="index_split_000.html#ch-b01-c1"' in nav
+        ncx = (tmp_path / "toc.ncx").read_text(encoding="utf-8")
+        assert 'id="num-ch-b00-c1"' in ncx and 'src="index_split_000.html#ch-b00-c1"' in ncx
+        # playOrder is gapless 1..5 (2 books + 3 chapters), depth-first
+        orders = [int(x) for x in re.findall(r'playOrder="(\d+)"', ncx)]
+        assert orders == list(range(1, len(orders) + 1)), f"playOrder not gapless: {orders}"
+
+    def test_no_op_without_chapter_anchors(self, tmp_path):
+        from scripts.build_edition import enrich_nav_chapters
+
+        (tmp_path / "nav.xhtml").write_text(self.NAV, encoding="utf-8")
+        (tmp_path / "toc.ncx").write_text(self.NCX, encoding="utf-8")
+        (tmp_path / "index_split_000.html").write_text("<html><body>no anchors</body></html>", encoding="utf-8")
+        s = enrich_nav_chapters(tmp_path)
+        assert s["nav_chapters_added"] == 0 and s["ncx_chapters_added"] == 0
+        assert (tmp_path / "nav.xhtml").read_text(encoding="utf-8") == self.NAV
+
+    def test_enrich_is_the_last_nav_pass_in_build_one(self):
+        """Regression: enrich_nav_chapters MUST run after every front/back-matter +
+        reading-plan nav injector and before the splitter. Those injectors insert <li>s
+        into the flat book <ol> at the first </ol>; once enrich nests a chapter <ol>
+        inside each book <li>, the first </ol> belongs to a book's chapters, so an
+        injector running afterwards lands its entry inside that book's chapter list →
+        an out-of-spine-order nav (epubcheck NAV-011). It must precede apply_file_split,
+        which remaps the chapter hrefs from index_split files to the final pieces."""
+        src = Path(__file__).resolve().parents[1].joinpath("scripts", "build_edition.py").read_text(encoding="utf-8")
+        body = src[src.index("def build_one(") :]
+        pos_enrich = body.index("enrich_nav_chapters(tmp)")
+        assert body.index("inject_back_matter(") < pos_enrich, "enrich must run AFTER inject_back_matter"
+        assert body.index("inject_reading_plans_page(") < pos_enrich, "enrich must run AFTER reading-plans"
+        assert pos_enrich < body.index("apply_file_split(tmp"), "enrich must run BEFORE apply_file_split"
+
+
 _MIN_OPF = """<?xml version="1.0"  encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uuid_id">
   <metadata/>

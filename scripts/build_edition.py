@@ -2618,6 +2618,12 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     collapsible = edition.get("reader_toc_collapsible")
     if collapsible is None:
         collapsible = True  # default: keep collapsible
+    # reader_toc_books_only — the most compact in-content ToC: just the book links, no
+    # per-book chapter pills (chapter nav lives in the reader's native ToC / the chapter
+    # headings). Implies the flat, non-<details> form.
+    books_only = bool(edition.get("reader_toc_books_only"))
+    if books_only:
+        collapsible = False
     default_open = bool(edition.get("reader_toc_default_open", False))
     ornament_code = (edition.get("book_toc_ornament") or "").strip()
     ornament_glyph = ""
@@ -2685,12 +2691,15 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
             # tail starts with whitespace + </summary>, then has the
             # chapter list, then closes </details></li>. We need to
             # extract everything between </summary> and </details>.
-            inner = re.sub(
-                r"^\s*</summary>(.*?)</details>\s*</li>\s*$",
-                r"\1",
-                tail,
-                flags=re.DOTALL,
-            )
+            if books_only:
+                inner = ""  # book-list-only: drop the chapter pills (chapter nav = native ToC)
+            else:
+                inner = re.sub(
+                    r"^\s*</summary>(.*?)</details>\s*</li>\s*$",
+                    r"\1",
+                    tail,
+                    flags=re.DOTALL,
+                )
             return f'{li_open}<p class="toc-book-label">{ornament_html}{anchor}</p>{inner}</li>'
 
     for fpath in sorted(tmp.glob("*.html")):
@@ -2707,6 +2716,84 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
         "details_unwrapped": details_unwrapped,
         "defaults_opened": defaults_opened,
     }
+
+
+# A flat book navPoint in toc.ncx (no children yet): label + a #bp-NN content target.
+_NCX_BOOK_NAVPOINT_RE = re.compile(
+    r"<navPoint\b[^>]*>\s*<navLabel>\s*<text>[^<]*</text>\s*</navLabel>\s*"
+    r'<content\s+src="index_split_\d+\.html#bp-(\d+)"\s*/>\s*</navPoint>'
+)
+# A book <li> in nav.xhtml: <li><a href="…#bp-NN">Book name</a></li>.
+_NAV_BOOK_LI_RE = re.compile(r'(<li[^>]*>)\s*(<a\s+href="index_split_\d+\.html#bp-(\d+)"[^>]*>[^<]*</a>)\s*</li>')
+
+
+def enrich_nav_chapters(tmp: Path) -> dict:
+    """Add per-chapter entries under each book in nav.xhtml + toc.ncx so the reader's
+    NATIVE table of contents keeps one-tap chapter navigation even when the in-content
+    ToC is book-list-only (``reader_toc_books_only``). Chapter links point at the
+    original ``index_split`` file holding each ``ch-bNN-cMM`` anchor; the later
+    ``apply_file_split`` pass remaps them to the final pieces. No-op (epubcheck-safe)
+    when nav files or chapter anchors are absent. Runs AFTER the canon filter (only
+    surviving books' chapters are present) and BEFORE the splitter."""
+    stats = {"nav_chapters_added": 0, "ncx_chapters_added": 0}
+
+    # ch-bNN-cMM → the index_split file currently holding it; grouped per book, sorted.
+    by_book: dict[int, list[tuple[int, str, str]]] = {}
+    seen: set[str] = set()
+    for p in sorted(tmp.glob("index_split_*.html")):
+        for m in re.finditer(r'\bid="ch-b(\d+)-c(\d+)"', p.read_text(encoding="utf-8")):
+            chid = f"ch-b{m.group(1)}-c{m.group(2)}"
+            if chid in seen:
+                continue
+            seen.add(chid)
+            by_book.setdefault(int(m.group(1)), []).append((int(m.group(2)), chid, p.name))
+    if not by_book:
+        return stats
+    for chs in by_book.values():
+        chs.sort()
+
+    nav = tmp / "nav.xhtml"
+    if nav.is_file():
+
+        def _nav(mm: re.Match) -> str:
+            chs = by_book.get(int(mm.group(3)))
+            if not chs:
+                return mm.group(0)
+            items = "".join(f'<li><a href="{f}#{cid}">{n}</a></li>' for n, cid, f in chs)
+            stats["nav_chapters_added"] += len(chs)
+            return f'{mm.group(1)}{mm.group(2)}\n<ol class="toc-nav-chapters">{items}</ol>\n</li>'
+
+        nav.write_text(_NAV_BOOK_LI_RE.sub(_nav, nav.read_text(encoding="utf-8")), encoding="utf-8")
+
+    ncx = tmp / "toc.ncx"
+    if ncx.is_file():
+        ncx_text = ncx.read_text(encoding="utf-8")
+
+        def _ncx(mm: re.Match) -> str:
+            block = mm.group(0)
+            chs = by_book.get(int(mm.group(1)))
+            if not chs:
+                return block
+            kids = "".join(
+                f'<navPoint id="num-{cid}" playOrder="0"><navLabel><text>{n}</text></navLabel>'
+                f'<content src="{f}#{cid}"/></navPoint>'
+                for n, cid, f in chs
+            )
+            stats["ncx_chapters_added"] += len(chs)
+            return block[: -len("</navPoint>")] + kids + "</navPoint>"
+
+        ncx_text = _NCX_BOOK_NAVPOINT_RE.sub(_ncx, ncx_text)
+        # EPUB-2 NCX requires gapless playOrder — renumber every navPoint depth-first.
+        counter = [0]
+
+        def _renum(_m: re.Match) -> str:
+            counter[0] += 1
+            return f'playOrder="{counter[0]}"'
+
+        ncx_text = re.sub(r'playOrder="\d+"', _renum, ncx_text)
+        ncx.write_text(ncx_text, encoding="utf-8")
+
+    return stats
 
 
 # ----------------------------------------------------------------------
@@ -4148,6 +4235,19 @@ def build_one(
         rp_stats = inject_reading_plans_page(tmp, edition)
         stats["reading_plans_written"] = rp_stats.get("plans_written", 0)
         stats["reading_plans_total_days"] = rp_stats.get("total_days", 0)
+
+        # RX P4a-2 — when the in-content ToC is book-list-only, enrich the NATIVE ToC
+        # (nav.xhtml + toc.ncx) to chapter level so one-tap chapter navigation survives
+        # in the reader's own ToC menu. MUST run LAST among the nav passes — after every
+        # front/back-matter + reading-plan insertion (each assumes a flat single-<ol>
+        # book list and inserts at the first </ol>; running before them would land their
+        # entries inside the first book's nested chapter <ol> → an out-of-spine-order
+        # nav, epubcheck NAV-011). Runs BEFORE the splitter, which remaps the chapter
+        # hrefs from the index_split files to the final pieces.
+        if edition.get("reader_toc_books_only"):
+            nav_ch = enrich_nav_chapters(tmp)
+            stats["nav_chapters_added"] = nav_ch["nav_chapters_added"]
+            stats["ncx_chapters_added"] = nav_ch["ncx_chapters_added"]
 
         # RX Phase 4b — file-split for e-ink (Kobo) speed. Runs LAST (after badge +
         # every matter-page injection) so its OPF/nav/ncx regeneration is the final

@@ -29,8 +29,10 @@ editions:
   # Includes the broader 87-book canon (already in this project).
   # ──────────────────────────────────────────────────────────────────
   - id: ethiopian-tewahedo
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: ethiopian
     theme: classic
     title: "The Ethiopian Tewahedo Study Bible"
@@ -136,8 +138,10 @@ editions:
   # readings.
   # ──────────────────────────────────────────────────────────────────
   - id: catholic-study
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: catholic
     theme: devotional
     time_filter_ceiling: null
@@ -183,8 +187,10 @@ editions:
       - REL006150
       - REL006490
   - id: evangelical-reformed
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: protestant
     theme: modern
     title: "The Reformed Study Bible — Expanded Canon"
@@ -224,8 +230,10 @@ editions:
   # parashot. Excludes NT and Christian-distinctive content.
   # ──────────────────────────────────────────────────────────────────
   - id: jewish-study
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: tanakh
     theme: scholarly
     title: "The Jewish Study Tanakh — Expanded"
@@ -267,8 +275,10 @@ editions:
   # tradition-leveling. The 'Oxford Annotated' position.
   # ──────────────────────────────────────────────────────────────────
   - id: scholarly-academic
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: ethiopian
     theme: scholarly
     title: "The Annotated Ethiopian Bible — Scholar's Edition"
@@ -304,8 +314,10 @@ editions:
   # Reformation-era posture; differs from Catholic Mariology.
   # ──────────────────────────────────────────────────────────────────
   - id: eastern-orthodox
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: orthodox
     theme: devotional
     title: "The Eastern Orthodox Study Bible"
@@ -349,8 +361,10 @@ editions:
   # streams; explicitly non-Marian per 39 Articles.
   # ──────────────────────────────────────────────────────────────────
   - id: anglican-bcp
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: catholic
     theme: classic
     title: "The Anglican Study Bible — BCP Edition"
@@ -395,8 +409,10 @@ editions:
   # foregrounded; confessional theology emphasized.
   # ──────────────────────────────────────────────────────────────────
   - id: lutheran-confessional
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: protestant
     theme: scholarly
     title: "The Lutheran Confessional Study Bible"
@@ -444,8 +460,10 @@ editions:
   # but shares broader Eastern hermeneutic.
   # ──────────────────────────────────────────────────────────────────
   - id: coptic-orthodox
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     canon: ethiopian
     theme: devotional
     title: "The Coptic Orthodox Study Bible"
@@ -516,8 +534,10 @@ editions:
   # Builder-overridable like every edition's cover.
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-geez
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     language_code: gez
     canon: ethiopian
     theme: classic
@@ -566,8 +586,10 @@ editions:
   # (cited to that source); no reconstruction of the Amharic column.
   # ──────────────────────────────────────────────────────────────────
   - id: standalone-amharic
-    # RX P4a — Kobo can't render <details>: ship the flat (chapters-visible) ToC
+    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
+    reader_toc_books_only: true
     language_code: amh
     canon: ethiopian
     theme: classic

@@ -1,9 +1,19 @@
 ---
 holder: mac
-from: mac
-turn: 14
+from: windows
+turn: 15
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 15, 2026-06-05) — RX P4a-2 FINISHING PUSH (native-ToC chapter enrichment + NAV-011 fix); baton STAYS with Mac for re-ingest.
+
+This is the Windows finishing push your turn-14 note told the fresh session to wait for. Shipped (user: "you can do it all"): the in-content ToC is now **book-list-only** (`reader_toc_books_only`, all 11 editions — just the book links, the compact form) and one-tap chapter nav **moved to the reader's NATIVE ToC** — `enrich_nav_chapters` adds per-chapter entries under each book in `nav.xhtml` + `toc.ncx`. The program-end gate caught a real **NAV-011** bug it introduced (the back-matter + reading-plan nav injectors insert at the FIRST `</ol>`, which after enrichment is a book's nested chapter `<ol>` → an out-of-spine-order nav); **fixed by making `enrich_nav_chapters` the LAST nav pass** — after every matter-page inject, before the splitter (which remaps chapter hrefs to pieces). Verified: ethiopian-tewahedo + catholic-study epubcheck **0/0/0/0**, native-nav chapter links resolve (0 broken), 0 spine-order violations, in-content chapter pills 0. +`tests/test_file_split.py` ordering guard.
+
+⚠ **Fresh Mac session — before ANY content edit:** `git fetch` + pull/rebase THIS finishing push FIRST. It touches `scripts/build_edition.py`, `content/editions.yaml`, `tests/`, and the truth records — file-disjoint from your `content/notes/**` + `epub_working/**` re-ingest **except the truth records**, which I updated for P4a-2 (rebase yours on top). Then begin dict-easton #1 per the re-ingest plan.
+
+**Baton: STAYS `mac`** (re-ingest). **Windows is DONE — the RX arc is fully complete; only the [USER] device test remains.** No further Windows main-repo work is queued.
+
 ---
 
 ## ▶ Mac → Windows (turn 14, 2026-06-05) — ★MAC CLAIMS THE BATON for the user-greenlit auto-note RE-INGEST track (main-repo content + bake).
