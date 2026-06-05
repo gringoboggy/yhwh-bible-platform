@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python stdlib backend; Pillow (cover composition); the existing matter-page renderers (`scripts/matter_pages.py`); `editions.yaml` flat-field schema; pytest. No new runtime deps (Pillow + epubcheck/Java already used).
 
-**Status:** IN PROGRESS 2026-06-04 — ready to execute. Spec: `docs/superpowers/specs/2026-06-04-edition-cover-and-truthful-front-matter-design.md`. Executor: Windows (Mac lane paused). σ phase tag.
+**Status:** SHIPPED 2026-06-04 — all 6 phases (σ.1–σ.6) complete, subagent-driven (per-task spec + code-quality review + visual QA), 5-leg pushed. epubcheck 0/0/0/0, byte-stability determinism gate + the σ.1 cross-check (resolved counts == built EPUB) green. σ.1 caught/fixed 2 pre-existing build bugs (2-Esdras orphan-spillover + a stray base marker). Spec: `docs/superpowers/specs/2026-06-04-edition-cover-and-truthful-front-matter-design.md`. Executor: Windows. σ phase tag.
 
 ---
 

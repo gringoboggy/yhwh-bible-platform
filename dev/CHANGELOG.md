@@ -6,6 +6,29 @@
 
 ---
 
+## 2026-06-04 — 🪟 Windows: σ.4 + σ.5 + σ.6 — /customize identity control · Ge'ez/Amharic covers · count reconcile (σ ARC COMPLETE)
+
+**Phases shipped:** σ.4 (σ.4.1–σ.4.4), σ.5 (σ.5.1–σ.5.3), σ.6 (σ.6.1–σ.6.3) — completes the "Edition Cover + Truthful Front Matter" arc.
+**Test delta:** +new (`test_edition_identity_api.py`, `test_cover_fit.py` Ethiopic + vertical-bounds, `test_edition_stats.py` per_book_chapter, build-tracker/copyright reroute pins; rewrote mint-9 #8 / mint-11 P6 count pins)
+**Save tag:** (this session — 5-leg)
+
+What shipped:
+- **σ.4 — `/customize` edition-identity control.** A "Your edition's name & notes" card: a name `<select>` of **smart suggestions derived from what was built** (canon + `enabled_categories`; "Study Bible" offered ONLY when study families are on — never spurious) + "✏ Custom…" (48-char cap) + a notes textarea (`description`); single hidden `display_name` field; **recompose-on-save**. `display_name`/`cover_main_title` → `EDITABLE_TEXT` + `api_customize_data` (+`enabled_categories`) + clone-carry + the preview `EDITABLE` set + an 80-char server cap. **σ.4.4 vertical-overflow guard** (`_compose_cover_layout`: clamp + re-fit to the safe band; pixel-bounds test) — byte-neutral for the 9 covers. Visually QA'd (Playwright, 0 console errors).
+- **σ.5 — Ge'ez/Amharic default covers.** Ethiopic-capable cover font (`_font_for_text`: Nyala→Ebrima→PIL-default for U+1200–U+137F text; threaded so measure==draw — overflow guarantee holds; Latin path byte-neutral). `standalone-geez` = `05_missal_central_red` / "መጽሐፍ ፡ ቅዱስ" / "Ge'ez Tewahedo Bible"; `standalone-amharic` = `01_ornate_leafy_brown` / "መጽሐፍ ቅዱስ" / "Amharic Tewahedo Bible"; both composed + the standalone build ships them. epubcheck 0/0/0/0; tofu empirically disproven; both covers visually confirmed (real Ethiopic glyphs).
+- **σ.6 — count reconcile + retire stale framing.** `resolved_note_counts` extended with `per_book_chapter`; `/build-tracker` + the **copyright page** + `api_export_preview` rerouted through it; **removed the redundant mint-9 #8 `_annot_override` + `_count_in_scope_disabled_ref_ids`**; fixed `matrix.py` "actually-shipping"→"potential" docstrings. All 5 "what you built" surfaces (copyright, legend, Your-Edition, build-tracker, export-preview) now agree + equal the real EPUB.
+
+Notable decisions:
+- σ.2/σ.3/σ.6 deliberately change the cover + front-matter + printed-count output for all editions (the goal); determinism (build-twice) holds — not the latent-field invariant.
+- Two review follow-ups were folded to their natural homes (cover vertical-edge → σ.4.4; copyright-page counts → σ.6.2) rather than patched in place.
+
+Retrospective:
+- The σ.1 cross-check (resolved counts == the built EPUB) earned its keep — it surfaced two pre-existing build/base bugs (the 2-Esdras orphan-spillover leak + a stray duplicate marker) that no other gate caught. Pattern: pin user-facing aggregates to the *actual build output*, not a parallel re-derivation.
+
+Continuity pointers:
+- `{specs,plans}/2026-06-04-edition-cover-and-truthful-front-matter-*.md` (SHIPPED).
+- **▶ NEXT SESSION: the Kobo device-QA issues** — `E:\epub-kobo-crops`; see memory `kobo-color-ereader-end-stage-qa` + `dev/IN_FLIGHT.md`.
+- Per-book title-page art (builder-uploaded per-book images) = the separate, already-shipped π.4-B feature (`book_covers` + `/covers` + `apply_title_pages`), unaffected by σ.
+
 ## 2026-06-04 — 🪟 Windows: σ.2 + σ.3 — HOLY-BIBLE cover (overflow fixed) + the "Your Edition" first page + truthful glossary
 
 **Phases shipped:** σ.2 (σ.2.1–σ.2.3), σ.3 (σ.3.1–σ.3.2)
