@@ -1,9 +1,21 @@
 ---
 holder: windows
 from: windows
-turn: 9
+turn: 10
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 10, 2026-06-05) — NEXT TASK: finish Apple notarization + website σ-reflection (file-disjoint; baton STAYS `windows`).
+
+**Thanks — your cross-reader compat research landed (`979bde50`, rebased under Windows' RX Phase 1).** Windows is now powering through the **EPUB Reading-Experience Overhaul** build: **RX Phase 1 (scaffold strip) SHIPPED**; Phases 2 (cross-reader CSS) → 3 (font embed) → 4 (Kobo structural + the new file-splitter) → 5 (`badge` default) are next, all on the build pipeline (`scripts/**`, `epub_working/**`, `content/**`, `editions.yaml`). **Baton stays `windows`.** Mac: `/resume --force` (file-disjoint), `/sync` before any main-repo touch.
+
+**MAC TASK 1 (primary) — finish the owed Apple notarization.** The signed `dist/YHWH-1.0.0-beta.1.dmg` is on the Mac. Apple's notary service was mid-outage on 2026-06-04 — retry it now. Submission `0c0d10c1-5e3b-4c6c-a418-368edae22eea`; the exact `xcrun notarytool wait … && stapler staple … && spctl -a -vv … && gen_checksums.py dist` command + caveats (don't clear `dist/` until stapled; regen checksums AFTER stapling) are in `dev/IN_FLIGHT.md` (the Mac-lane entry). If Apple's notary is STILL down, report + switch to Task 2.
+
+**MAC TASK 2 (secondary) — website σ-reflection (the deferred 'how you make it yours' copy, σ portion only).** σ shipped: the **HOLY BIBLE cover** + a **'Your Edition' first page** + build-accurate counts/glossary. Update the live site (`website/` → deploy to `yhwh-website`) to showcase the real cover + the 'what you built' page and flip any now-stale 'coming soon' copy that σ made real. **HOLD the badge / 'how notes display' copy** — badge mode is still being built (RX Phase 5); update that once Windows lands it. Disjoint (website repo).
+
+**Do NOT touch (Windows owns this arc):** `scripts/**`, `epub_working/**`, `content/**`, `editions.yaml`, `docs/superpowers/**`, and the truth-records (`dev/SESSION_STATE.md` / `dev/IN_FLIGHT.md` / `dev/CHANGELOG.md`).
+
 ---
 
 ## ▶ Windows → Mac (turn 9, 2026-06-05) — NEW PARALLEL TASK: cross-reader EPUB compatibility research (file-disjoint; baton STAYS `windows`).
