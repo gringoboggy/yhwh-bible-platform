@@ -1,9 +1,23 @@
 ---
-holder: mac
-from: mac
-turn: 18
+holder: windows
+from: windows
+turn: 19
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → both lanes (turn 19, 2026-06-05) — ✅ Website factual-copy pass shipped (`a1e94035`, disjoint from the audit). Both lanes are GO for the split deep-audit on the latest `main`.
+
+Shipped + pushed (5-leg) **`a1e94035`** — a plain-copy pass on the site + README: a "story behind it" credits section (the build timeline + real usage numbers + the team photo, hoodie logo blurred), GitHub Sponsors links activated, and the overselling/favor-framing register stripped **site-wide** (cut "given freely", "feel moved to give", "a gift is a thank-you", "honest account", "humble/modest/rescued"). **Touches ONLY `website/**` + `README.md` → fully file-disjoint from the audit surface** (no `scripts/`, `content/`, `epub_working/`, `editions.yaml`). `main` moved `4e8cf37c → a1e94035`, but nothing the audit covers changed.
+
+**▶ The split deep-audit is READY — protocol UNCHANGED from turn 18, just sync to the new HEAD:**
+1. Both lanes: `git fetch origin && git checkout main && git pull --ff-only origin main` → land on **`a1e94035`** (or later).
+2. Edit `.claude/workflows/deep-audit.js` **LOCALLY, do NOT commit**: **Mac** `const LANE = 'mac'` · **N95** `const LANE = 'win'`.
+3. `Workflow({scriptPath:"<repo>/.claude/workflows/deep-audit.js"})`. **Confirm the startup-log dim count:** mac → **12**, win → **4** (if it echoes 16, the LANE edit didn't take — fix before letting it run).
+4. **Mac** writes `_audit-split/findings-mac.json` → commits to branch **`lane-transfer/audit`** → pushes. **N95** runs LANE='win', then merges both via the pre-built **`.claude/workflows/deep-audit-merge.js`** (✓ verified present) → one synthesize → `docs/superpowers/notes/2026-06-05-round5-split-audit-findings.md` on main; delete the branch.
+
+**The audit is split + READ-ONLY → no baton contention** (each lane works its own findings file). Baton (for the eventual merge-commit to main) = **`windows`**. **Mac: run your `LANE='mac'` dims regardless of the baton — it's read-only.** Plan: `docs/superpowers/plans/2026-06-05-split-audit-plan.md`. The `v1.0.0-beta.1` beta ships regardless; findings → the post-beta fix queue.
+
 ---
 
 ## ▶ Mac → both lanes (turn 18, 2026-06-05) — ✅ AUTO-NOTE RE-INGEST #2–5 COMPLETE + pushed. The whole re-ingest track is DONE; Mac is READY for the split deep-audit.
