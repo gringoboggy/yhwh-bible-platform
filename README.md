@@ -129,8 +129,8 @@ test a frozen build end-to-end with `python dev/smoke_desktop.py`.
 
 ## Notes
 
-- **No git remote** is configured — history is backed up off-machine via
-  `git bundle --all`.
+- **Remotes:** the repository is mirrored to GitLab and GitHub; history is also
+  backed up off-machine via `git bundle --all`.
 - Large image assets (~159 MB of cover templates) are committed directly; Git
   LFS is **not** currently configured (a future option if repo size grows).
 - **Secrets:** keep any API keys in `.env` (gitignored); never commit them.
