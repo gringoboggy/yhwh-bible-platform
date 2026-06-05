@@ -14,7 +14,23 @@ directory. Cross-referenced here so this file is the single attribution index:
 - **Per-book cover art** (the publisher's curated 66-cover set):
   `content/covers/_book_defaults/README.md`.
 - **Embedded fonts** — policy is SIL Open Font License 1.1 only:
-  `content/assets/fonts/LICENSES.md` (+ `README.md`).
+  `content/assets/fonts/LICENSES.md` (+ `README.md`). As of the RX Phase 3
+  ship (2026-06-05) the EPUB build embeds the following OFL 1.1 fonts in
+  every edition (full, un-subset). The OFL permits embedding in document
+  containers (EPUB) and redistribution; no in-EPUB notice is required, and
+  this register satisfies the OFL attribution requirement for project use:
+  - **Cardo** — © David J. Perry, OFL 1.1. Covers Latin + Greek + Hebrew;
+    embedded in Regular / Italic / Bold to render the `.vnote-hebrew` and
+    `.vnote-greek` original-language popups legibly on readers (e.g. Kobo)
+    that lack SBL Hebrew / SBL Greek. Source:
+    <https://software.sil.org/cardo/> (and Google Fonts). Files:
+    `content/assets/fonts/Cardo-{Regular,Italic,Bold}.ttf`.
+  - **Noto Serif Ethiopic** — © Google Inc. (Noto Project), OFL 1.1.
+    Covers the Ethiopic syllabary; `@font-face` is `unicode-range`-scoped to
+    U+1200–137F so it renders only Ge'ez/Amharic fidel (the standalone
+    Ge'ez Bibles' body text) and never overrides Latin/Hebrew/Greek.
+    Source: <https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic>.
+    File: `content/assets/fonts/NotoSerifEthiopic-Regular.woff2`.
 
 The program itself is © 2026 Bogdan Zorlescu, all rights reserved (`LICENSE`);
 the cover art is the publisher's own generated work. The root `README.md` carries

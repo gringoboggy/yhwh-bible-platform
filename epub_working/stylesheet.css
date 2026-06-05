@@ -1,5 +1,50 @@
 /* Ethiopian Bible — Reading Stylesheet */
 
+/* === EMBEDDED ORIGINAL-LANGUAGE FONTS (RX Phase 3, 2026-06-05) ===
+   Hand-authored to fix device issue #7 (Hebrew/Greek render tiny/tofu on
+   Kobo and any reader lacking those scripts). These @font-face rules are
+   the manual counterpart of style_config.EMBED_FONT_PATHS; the build's
+   patch_opf_fonts() registers each url() target in the OPF manifest and
+   the build copytree ships the bytes from epub_working/fonts/.
+
+   NOTE: authored OUTSIDE the apply_style.py managed region on purpose —
+   apply_style.py is NOT run for this work (its managed region is stale).
+
+   - Cardo (David Perry, OFL 1.1): Latin + Greek + Hebrew, three faces.
+     No unicode-range, so any stack that names "Cardo" can use it.
+   - Noto Serif Ethiopic (Google, OFL 1.1): scoped to the Ethiopic block
+     so it ONLY activates for Ge'ez/Amharic codepoints — harmless to ship
+     in every edition. */
+@font-face {
+  font-family: "Cardo";
+  src: url("fonts/Cardo-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cardo";
+  src: url("fonts/Cardo-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cardo";
+  src: url("fonts/Cardo-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Serif Ethiopic";
+  src: url("fonts/NotoSerifEthiopic-Regular.woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1200-137F;
+}
+
 body {
   font-family: "Georgia", "Cambria", "Palatino", "Iowan Old Style", serif;
   font-size: 1em;
@@ -267,7 +312,10 @@ body p.right-p {
     /* RTL direction is set via the inline dir="rtl" attribute on each <p>;
        the CSS `direction` property is disallowed in EPUB 3 stylesheets. */
     text-align: right;
-    font-family: "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif;
+    /* "Cardo" first = the embedded OFL font that ships in every EPUB and
+       covers Hebrew (incl. vowel-pointing); guarantees a legible glyph on
+       readers lacking SBL Hebrew etc. (RX Phase 3 — fixes device #7). */
+    font-family: "Cardo", "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif;
     font-size: 1.05em;
     line-height: 1.7;
     margin: 0.1em 0 0.3em 0;
@@ -275,7 +323,10 @@ body p.right-p {
 }
 
 .vnote-greek {
-    font-family: "SBL Greek", "GFS Didot", "Cardo", "Times New Roman", serif;
+    /* "Cardo" first = the embedded OFL font (covers polytonic Greek) so
+       Greek originals are guaranteed legible on readers lacking SBL Greek
+       (RX Phase 3 — fixes device #7). */
+    font-family: "Cardo", "SBL Greek", "GFS Didot", "Times New Roman", serif;
     font-size: 1.0em;
     line-height: 1.55;
     margin: 0.1em 0 0.3em 0;
@@ -294,8 +345,13 @@ body p.right-p {
    fine — the key change is moving away from sans-serif and tightening
    line-height to fit more per page. */
 body, body.bible-body, p, p.verse-p, p.ch-heading, p.verse-p-flush {
-  font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
-               Palatino, Georgia, "Times New Roman", serif !important;
+  /* "Noto Serif Ethiopic" leads but is unicode-range-scoped to U+1200-137F,
+     so it ONLY renders Ge'ez/Amharic fidel (the standalone Ge'ez Bibles'
+     verse-p body text) and is inert for Latin, which falls through to the
+     embedded "Cardo" (RX Phase 3 — fixes device #7 for Ethiopic too). */
+  font-family: "Noto Serif Ethiopic", "Cardo", "EB Garamond", "Crimson Text",
+               "Palatino Linotype", Palatino, Georgia, "Times New Roman",
+               serif !important;
   line-height: 1.32 !important;
   font-size: 0.95em;
 }

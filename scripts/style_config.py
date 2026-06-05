@@ -59,11 +59,52 @@ EMBED_FONT_FAMILY = "IM Fell English"  # used as @font-face family name
 #          "family": "Noto Sans Ethiopic"},
 #     ]
 #
-# Π.0 itself does NOT enable Ethiopic embedding (font binary is staged
-# for download but not committed; the .vnote-geez and .vnote-amharic
-# CSS fall through to reader-supplied Ethiopic fonts via the font-family
-# fallback chain in apply_style.py).
-EMBED_FONT_PATHS: list[dict] = []
+# Π.0 itself did NOT enable embedding (font binaries were staged for
+# download but not committed).
+#
+# Phase 3 (RX overhaul, 2026-06-05) — original-language font embedding.
+# Fixes device issue #7 (Hebrew/Greek render tiny/tofu on Kobo and any
+# reader lacking those scripts). The OFL fonts now live committed under
+# ``content/assets/fonts/`` AND are copied into ``epub_working/fonts/``
+# (the build's ``shutil.copytree(EPUB_DIR, tmp)`` ships everything under
+# epub_working/, and patch_opf_fonts registers each href in the OPF
+# manifest, so the bytes + the manifest <item> + the @font-face all line
+# up — no epubcheck RSC-008/OPF dangling-resource error).
+#
+#   - **Cardo** (David Perry, OFL 1.1) covers Latin + Greek + **Hebrew**;
+#     embedded in 3 weights/styles (Regular / Italic / Bold) so the
+#     ``.vnote-hebrew`` / ``.vnote-greek`` original-language popups have a
+#     guaranteed glyph everywhere. No unicode-range → Cardo is a general
+#     serif available to every stack that names it.
+#   - **Noto Serif Ethiopic** (Google, OFL 1.1) covers the Ethiopic
+#     syllabary; scoped via ``unicode_range`` to U+1200–137F so it only
+#     activates for Ge'ez/Amharic codepoints. Safe to ship in every
+#     edition (it never overrides Latin/Hebrew/Greek text); the standalone
+#     Ge'ez Bibles get legible fidel without any per-edition wiring.
+#
+# Full (un-subset) fonts are embedded deliberately — ``fonttools`` is not
+# installed, and +~1.4 MB is negligible against the ~99 MB baseline while
+# avoiding an undeclared dependency install.
+#
+# The matching @font-face rules live in epub_working/stylesheet.css
+# (hand-authored OUTSIDE the apply_style.py managed region — do NOT run
+# apply_style.py; its managed region is stale). The font *bytes* must be
+# present under epub_working/fonts/ for the build's copytree to ship them.
+EMBED_FONT_PATHS: list[dict] = [
+    # Cardo — Latin + Greek + Hebrew (OFL 1.1, David Perry). Three faces.
+    {"path": "fonts/Cardo-Regular.ttf", "family": "Cardo", "weight": "normal", "style": "normal"},
+    {"path": "fonts/Cardo-Italic.ttf", "family": "Cardo", "weight": "normal", "style": "italic"},
+    {"path": "fonts/Cardo-Bold.ttf", "family": "Cardo", "weight": "bold", "style": "normal"},
+    # Noto Serif Ethiopic — scoped to the Ethiopic block so it only ever
+    # activates for Ge'ez/Amharic glyphs (OFL 1.1, Google).
+    {
+        "path": "fonts/NotoSerifEthiopic-Regular.woff2",
+        "family": "Noto Serif Ethiopic",
+        "weight": "normal",
+        "style": "normal",
+        "unicode_range": "U+1200-137F",
+    },
+]
 
 
 # ---------------------------------------------------------------------------

@@ -329,14 +329,26 @@ class TestPhi1ClosedArcInvariantPreservation:
     γ.4.8.E (Meqabyan 67/67), Meqabyan count ≥212, τ.6.x.0a +
     τ.6.x.0b translation-slot contracts."""
 
-    def test_embed_font_paths_defaults_to_empty(self):
-        """v1.0 reproducibility — EMBED_FONT_PATHS must remain [] at
-        φ.1 ship time. Binary font additions happen only when the
-        operator commits a binary AND updates style_config.py."""
+    def test_embed_font_paths_populated_at_rx_phase3(self):
+        """RX Phase 3 (2026-06-05) MIGRATED this pin. φ.1's original
+        invariant asserted EMBED_FONT_PATHS == [] (the Π.0 seed: infra
+        committed, binaries not yet). RX Phase 3 deliberately enables
+        original-language font embedding (device issue #7), so the list
+        is now populated with the committed OFL fonts. The durable
+        invariant is the MECHANISM (style_config drives patch_opf_fonts +
+        @font-face), proven by test_font_embed.py — not the empty default.
+
+        See `feedback_share_pin_pattern`: a pin may assert what HAS
+        shipped, never what has NOT yet. The empty-default assertion is
+        the latter once fonts ship, so it migrates to the populated state."""
         from scripts import style_config
 
-        assert style_config.EMBED_FONT_PATHS == [], (
-            f"φ.1: EMBED_FONT_PATHS must remain [] in committed config; got {style_config.EMBED_FONT_PATHS}"
+        families = {e.get("family") for e in style_config.EMBED_FONT_PATHS}
+        assert "Cardo" in families, (
+            f"RX Phase 3: EMBED_FONT_PATHS must register Cardo; got {style_config.EMBED_FONT_PATHS}"
+        )
+        assert "Noto Serif Ethiopic" in families, (
+            f"RX Phase 3: EMBED_FONT_PATHS must register Noto Serif Ethiopic; got {style_config.EMBED_FONT_PATHS}"
         )
 
     def test_embed_font_path_defaults_to_none(self):

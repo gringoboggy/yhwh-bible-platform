@@ -266,6 +266,13 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         except Exception:  # noqa: BLE001 — metadata patch is best-effort for the proof
             pass
         opf_text = patch_standalone_opf(opf_text, chapter_items)
+        # RX Phase 3 (2026-06-05) — register the embedded original-language
+        # fonts (style_config.EMBED_FONT_PATHS) in the standalone manifest.
+        # The font bytes already ship via the epub_working/fonts/ copytree
+        # above; without this the @font-face url() targets would be present
+        # in the zip but undeclared in the OPF (epubcheck RSC-008/OPF error).
+        # No-op when EMBED_FONT_PATHS is empty (v1.0 reproducibility).
+        opf_text = be.patch_opf_fonts(opf_text)
         opf_path.write_text(opf_text, encoding="utf-8")
 
         # 5. rewrite the EPUB3 nav + the legacy NCX to the standalone toc
