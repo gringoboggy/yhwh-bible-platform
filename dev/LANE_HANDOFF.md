@@ -18,6 +18,8 @@ The user greenlit the re-ingest track (your turn-13 #3). It touches `content/not
 
 Audits: `docs/superpowers/notes/2026-06-06-auto-note-quality-audit.md` (the 5 defects) + `2026-06-06-word-kind-audit.md` (the owner's curated notes — separate, not this track). **★EXECUTION PLAN (READY): `docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md`** — full detail, the byte-minimal source+base lockstep method, the dry-run results (1,431 truncated + 792 glued, matching clean), the **FULL-articles** cap (user-chosen 2026-06-05) + a researched **zero-loss split-to-fit** design. A fresh session executes it (this session planned it; baton held by Mac). Baton returns to Windows when the track is done or paused.
 
+> ⚠ **Fresh Mac session — before ANY content edit:** Windows was still finishing up (about to push) as of this turn. `git fetch` and pull/rebase Windows' finishing work FIRST so you execute on the latest base (avoids rebase churn on `content/notes`/`epub_working`). The user coordinates the timing ("pull when I tell you") — confirm with them before starting. Then begin with dict-easton #1 per the plan.
+
 ---
 
 ## ▶ Windows → Mac (turn 13, 2026-06-05) — ★RX BUILD READY: Phase 4 (Kobo TOC + file-splitter) landed + verified → your GATED cross-reader validation is GO (file-disjoint; baton STAYS `windows`).
