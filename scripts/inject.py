@@ -630,9 +630,21 @@ def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: 
     target = (v, suffix or "")
     insertion = inside_start  # default: just inside opening tag
     for m in existing_re.finditer(region):
-        existing_ch = int(m.group(1))
-        existing_v = int(m.group(2))
+        # _aside_existing_re's greedy chapter group steals digits from a 3-digit
+        # verse (Psalm 119:176 -> id ...119176: group(1)="1191", group(2)="76").
+        # Recombine both digit groups, then split on the KNOWN target chapter so
+        # verses >=100 parse: if the id begins with our ch the remainder is the
+        # verse; otherwise it is a different-chapter aside (only ever <100-verse
+        # chapters in a Strategy-B shared section) parsed by the fixed 2-digit tail.
+        digits = m.group(1) + m.group(2)
         existing_s = m.group(3) or ""
+        ch_str = f"{ch:02d}"
+        if digits.startswith(ch_str):
+            existing_ch = ch
+            existing_v = int(digits[len(ch_str) :])
+        else:
+            existing_ch = int(digits[:-2])
+            existing_v = int(digits[-2:])
         # An existing aside PRECEDES our insertion when it sorts before ours
         # by (chapter, verse, suffix). In a Strategy-B SHARED section several
         # chapters' asides coexist, so we must compare the chapter too: a

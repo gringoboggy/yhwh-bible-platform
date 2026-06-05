@@ -240,6 +240,7 @@ def check_encoder_canonical_order() -> dict:
     encoders = [
         ("scripts.build_edition", "encode_per_book_languages"),
         ("scripts.build_edition", "encode_per_book_traditions"),
+        ("scripts.build_edition", "encode_per_book_tokens"),
         ("scripts.core.covers", "encode_book_covers"),
     ]
 
@@ -264,6 +265,8 @@ def check_encoder_canonical_order() -> dict:
             sample = {"mat": ["english"], "tob": ["english"], "gen": ["english"]}
         elif fn_name == "encode_per_book_traditions":
             sample = {"mat": ["catholic"], "tob": ["cross"], "gen": ["protestant"]}
+        elif fn_name == "encode_per_book_tokens":
+            sample = {"mat": ["xref"], "tob": ["xref"], "gen": ["xref"]}
         else:
             sample = {"mat": "x", "tob": "y", "gen": "z"}
         try:
@@ -968,6 +971,9 @@ def check_render_coverage_no_regression() -> dict:
         "neh",  # τ.6.x.5.x — Patrologia Orientalis
         "job",  # τ.6.x.5.x — Patrologia Orientalis
         "mat",  # τ.6.x.NT.c — NT pre-pass (honest ocr-tier3 partial)
+        "1ki",  # τ.6.x.4.x — manuscript-collation track, rendered post-marathon
+        "1sa",  # τ.6.x.4.x — manuscript-collation track, rendered post-marathon
+        "2sa",  # τ.6.x.4.x — manuscript-collation track, rendered post-marathon
         "1en",  # τ.6.x.2.u — FINAL book of OT catchup queue (2026-05-20)
         "2es",
         "4ba",  # τ.6.x.2.p
@@ -997,6 +1003,7 @@ def check_render_coverage_no_regression() -> dict:
     }
     expected_amharic = {
         "mat",  # τ.6.x.NT.c — NT pre-pass (honest ocr-tier3 partial)
+        "mrk",  # τ.6.x.NT.c — NT pre-pass (canonical Mark)
         "1en",
         "2es",
         "4ba",
@@ -1024,11 +1031,18 @@ def check_render_coverage_no_regression() -> dict:
         "tob",
         "wis",
     }
+    # EN back-translation stores feeding the two standalone Bibles
+    # (RULES §1). File stems use legacy 2-letter codes ("ex" not "exo"),
+    # matching the on-disk names compared below.
+    expected_geez_en = {"gen", "ex", "lev", "1sa", "2sa", "1ki", "psa"}
+    expected_amharic_en = {"gen", "ex", "lev"}
     base = REPO / "content" / "translations"
     violations: list[dict] = []
     for edition, expected in (
         ("geez-tewahedo", expected_geez),
         ("amharic-tewahedo", expected_amharic),
+        ("geez-tewahedo-en", expected_geez_en),
+        ("amharic-tewahedo-en", expected_amharic_en),
     ):
         ed_dir = base / edition
         if not ed_dir.is_dir():
@@ -1058,7 +1072,8 @@ def check_render_coverage_no_regression() -> dict:
             "status": "pass",
             "message": (
                 f"geez-tewahedo {len(expected_geez)} + amharic-tewahedo "
-                f"{len(expected_amharic)} expected books all present"
+                f"{len(expected_amharic)} + geez-tewahedo-en {len(expected_geez_en)} "
+                f"+ amharic-tewahedo-en {len(expected_amharic_en)} expected books all present"
             ),
             "violations": [],
         }
@@ -2015,6 +2030,13 @@ def check_book_codes_canonical() -> dict:
         # would silently misname a translation file. All canonical today
         # (MAR→mrk, JOH→jhn, PHI→phi, JAM→jam, ESG→aes, PRM→man, 4ES→2es).
         ("scripts.extract_translation", "EBIBLE_VPL_TO_PROJECT"),
+        # The store-filename-stem -> canonical-code maps for the website
+        # progress generator and the render-coverage admin tool. These are the
+        # ONLY path that translates store stems to canonical codes there; a
+        # legacy alias as a VALUE would misroute coverage/progress. Canonical
+        # today (ex->exo, 1k->1ki, 2k->2ki); screened to block future drift.
+        ("scripts.gen_website_progress", "_STORE_ALIASES"),
+        ("scripts.render_coverage", "_BOOK_ALIASES"),
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 

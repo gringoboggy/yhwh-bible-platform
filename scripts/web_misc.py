@@ -97,7 +97,11 @@ def _safe_rss_base_url(proto_header: str, host_header: str) -> str:
 
     configured = (os.environ.get("YHWH_PUBLIC_BASE_URL") or "").strip()
     if configured:
-        # Operator opted in. Trust it but still strip any trailing slash.
+        # Operator opted in. Accept only http(s) schemes (block
+        # `javascript:`, `data:`, etc. that auto-navigating RSS readers
+        # could execute), then strip any trailing slash.
+        if not re.match(r"https?://", configured, re.IGNORECASE):
+            return "http://localhost"
         return configured.rstrip("/")
 
     # Proto: only "http" or "https" — anything else (`javascript`,

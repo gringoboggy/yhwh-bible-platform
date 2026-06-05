@@ -44,6 +44,52 @@ class TestAllChecksMetaContract:
         assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))
 
 
+class TestNoReviewerScaffoldingDetection:
+    """RX Phase 1 guard — ``check_no_reviewer_scaffolding_in_bodies`` must
+    actually DETECT a leak, not merely pass on the clean tree.
+
+    Before this test the check was covered only by the meta-contract (runs +
+    passes on the committed corpus). A broken detector (e.g.
+    ``_count_reviewer_scaffold_bodies`` always returning 0) would have slipped
+    through silently. Here we plant a violating ``content/notes/`` store under
+    a tmp REPO and assert the check FAILS — and that a clean store PASSES, so
+    the detector is shown to discriminate."""
+
+    _VIOLATING = (
+        "NOTES = [\n"
+        '    (1, 1, "", "anchor", "commentary", "Title", "note",\n'
+        '     "A real note. <em>[Reviewer: extend before promoting.]</em>",\n'
+        '     "Attribution"),\n'
+        "]\n"
+    )
+    _CLEAN = (
+        "NOTES = [\n"
+        '    (1, 1, "", "anchor", "commentary", "Title", "note",\n'
+        '     "A perfectly clean note body.",\n'
+        '     "Attribution"),\n'
+        "]\n"
+    )
+
+    def _run_against(self, tmp_path, monkeypatch, source: str) -> dict:
+        from scripts import lint_rules
+
+        notes_dir = tmp_path / "content" / "notes"
+        notes_dir.mkdir(parents=True)
+        (notes_dir / "gen.py").write_text(source, encoding="utf-8")
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        return lint_rules.check_no_reviewer_scaffolding_in_bodies()
+
+    def test_fails_on_reviewer_scaffold_in_body(self, tmp_path, monkeypatch):
+        result = self._run_against(tmp_path, monkeypatch, self._VIOLATING)
+        assert result["status"] == "fail", result
+        assert result["violations"], "expected a non-empty violations list"
+
+    def test_passes_on_clean_body(self, tmp_path, monkeypatch):
+        result = self._run_against(tmp_path, monkeypatch, self._CLEAN)
+        assert result["status"] == "pass", result
+        assert not result["violations"]
+
+
 class TestOmega15PlanLinter:
     """ω.15 — plan-coherence linter. Verifies the active PLAN_*.md
     stays coherent with CHANGELOG and Depends references."""

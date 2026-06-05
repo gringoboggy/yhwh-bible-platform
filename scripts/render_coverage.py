@@ -23,8 +23,10 @@ pending — sorted by source track so the project can see at a glance:
   Tewahedo canon has but the protestant KJV doesn't (e.g. mq1-3,
   jub, 1en, paz, etc.).
 
-Composes into ``api_preflight`` via the standard ``run_all()`` shape
-(rules §9).
+Intended to compose into ``api_preflight`` via the standard
+``run_all()`` shape (rules §9) — ``run_all()`` already returns that
+shape, but the preflight wiring is not yet implemented (no check in
+``scripts/api/preflight.py`` calls it today; this tool is CLI-only).
 
 CLI:
 
@@ -237,7 +239,16 @@ def run_all() -> dict:
     blocks) so api_preflight + lint_rules composers can fold it in.
     """
     editions = {}
-    for ed_name in ("kjv", "geez-tewahedo", "amharic-tewahedo"):
+    for ed_name in (
+        "kjv",
+        "geez-tewahedo",
+        "amharic-tewahedo",
+        # EN back-translation stores feeding the two standalone Bibles
+        # (RULES §1 north-star). Enumerated here so the inventory surfaces
+        # their render progress too.
+        "geez-tewahedo-en",
+        "amharic-tewahedo-en",
+    ):
         editions[ed_name] = _per_edition_report(ed_name)
 
     summary = {
@@ -253,6 +264,8 @@ def run_all() -> dict:
             editions["geez-tewahedo"]["manuscript_calibration_counts"].values()
         ),
         "patrologia_track_books_pdf_available": len(_PATROLOGIA_TRACK_BOOKS),
+        "geez_tewahedo_en_rendered": editions["geez-tewahedo-en"]["rendered_count"],
+        "amharic_tewahedo_en_rendered": editions["amharic-tewahedo-en"]["rendered_count"],
     }
 
     return {"summary": summary, "editions": editions}
@@ -265,6 +278,18 @@ def _pretty(rep: dict) -> str:
     lines.append(f"Canonical books: {s['canonical_books']}")
     lines.append(f"geez-tewahedo:   {s['geez_tewahedo_rendered']}/{s['canonical_books']} rendered")
     lines.append(f"amharic-tewahedo: {s['amharic_tewahedo_rendered']}/{s['canonical_books']} rendered")
+    lines.append(
+        f"geez-tewahedo-en (back-translation): {s['geez_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
+    )
+    lines.append(
+        f"amharic-tewahedo-en (back-translation): {s['amharic_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
+    )
+    lines.append(
+        f"geez-tewahedo-en (back-translation): {s['geez_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
+    )
+    lines.append(
+        f"amharic-tewahedo-en (back-translation): {s['amharic_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
+    )
     lines.append(
         f"manuscript track: {s['manuscript_track_chapters_calibrated']} chapters calibrated (4 books in flight)"
     )

@@ -14,9 +14,9 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 186 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 217 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
-| `docs/superpowers/` | ✅ | `plans/` (29 implementation plans) + `specs/` (16 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
+| `docs/superpowers/` | ✅ | `plans/` (44 implementation plans) + `specs/` (22 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
 | `assets/icons/` | ✅ | App icons (PyWebView/desktop): `icon_{16..1024}.png`, `.ico`. |
 | `GAPS/` | ✅ (large) | Ge'ez gap-fill **manuscript images** (Cambridge MS Add. 1570: 1 Samuel ~155, 2 Kings ~42, + `-hires` crops) + PD **PDFs** (Patrologia Orientalis: Chronicles/Ezra-Neh/Esther/Job). Source material for the manuscript-collation track (NOT built into EPUBs). See memory `reference_gaps_folder`. |
@@ -40,10 +40,10 @@
 
 ## scripts/  — code
 
-- **`scripts/*.py`** (123) — CLI + pipeline + ingest + audit: `ebible.py` (top CLI), `inject.py` (notes→base HTML; Strategy A/B + spill resolver), `build_edition.py` / `build_epub.py` (filter + zip), `promote.py` / `prospect.py` (candidates→notes), `extract_naves_ccel.py` / `extract_eastons_ccel.py` / `run_*_at_scale.py` (ingest), `audit_base_html.py` (`--coverage` / `--verse-absent`), `lint_rules.py` (pre-commit), `web.py` (dev server + console routes), `note_search.py`, `set_reader_toc.py`, `add_note.py`, `run.py`.
-- **`scripts/core/`** (66) — the engine: `config.py` (cached YAML loaders + `get_book`), `matrix.py` (the count grid), `corpus_index.py` (SQLite+FTS), `canonical_verse_counts.py` (KJV skeleton + `coord_in_canonical_extent` guard), `notes_io.py` (load/atomic-write notes), `detectors.py` (candidate detectors), `html_sandbox.py`, `paths.py`, `validation.py`, `http.py` (the egress allowlist), `manuscript_vision.py`, etc.
+- **`scripts/*.py`** (134) — CLI + pipeline + ingest + audit: `ebible.py` (top CLI), `inject.py` (notes→base HTML; Strategy A/B + spill resolver), `build_edition.py` / `build_epub.py` (filter + zip), `promote.py` / `prospect.py` (candidates→notes), `extract_naves_ccel.py` / `extract_eastons_ccel.py` / `run_*_at_scale.py` (ingest), `audit_base_html.py` (`--coverage` / `--verse-absent`), `lint_rules.py` (pre-commit), `web.py` (dev server + console routes), `note_search.py`, `set_reader_toc.py`, `add_note.py`, `run.py`.
+- **`scripts/core/`** (68) — the engine: `config.py` (cached YAML loaders + `get_book`), `matrix.py` (the count grid), `corpus_index.py` (SQLite+FTS), `canonical_verse_counts.py` (KJV skeleton + `coord_in_canonical_extent` guard), `notes_io.py` (load/atomic-write notes), `detectors.py` (candidate detectors), `html_sandbox.py`, `paths.py`, `validation.py`, `http.py` (the egress allowlist), `manuscript_vision.py`, etc.
 - **`scripts/api/`** (18) — web API route handlers (one per console area: `customize`, `editions`, `exports`, `preflight`, `sources`, `covers`, `auth`, `scenarios`, `archive_org`, `audit`…).
-- **`scripts/templates/`** (21) — the HTML console page templates (the `*_HTML` constants surfaced by `web.py`; see SESSION_STATE "Console inventory").
+- **`scripts/templates/`** (22) — the HTML console page templates (the `*_HTML` constants surfaced by `web.py`; see SESSION_STATE "Console inventory").
 - **`scripts/migrations/`** (3) — one-shot data migrations.
 
 ## dev/  — docs + state
@@ -58,4 +58,4 @@
 
 - **`index_split_000.html`** = TOC/landing (book `<summary>`/nav links). **`index_split_001..060.html`** = the 87-book English scripture text in calibre-split chunks (edited IN PLACE; the inject target). Anchor schemes + book→`bxx` mapping + the verified 0-gap coverage: **see `MATRIX_MAP.md` "Base-HTML structure & coverage."**
 - **`content.opf`** (OPF metadata), **`toc.ncx`** (NCX), **`nav.xhtml`** (EPUB3 nav), `cover.jpeg`, 2 `.css`, `META-INF/container.xml`.
-- **`onix/`** (5 ONIX XML) — vestigial commercial metadata from the pre-pivot era (de-commercialized; not used by the free build). <!-- term-ref-ok -->
+- ~~`onix/`~~ (deleted) — vestigial ONIX XML from the pre-pivot commercial era; removed in the 2026-05-14 de-commercialization (`fd07cb65`). The directory no longer exists on disk. <!-- term-ref-ok -->

@@ -66,8 +66,8 @@ function buildBody() {
           <summary>
             <input type="checkbox" class="cat-toggle mr-1.5" data-cat="${cat.id}"
               ${allEnabled ? 'checked' : ''} ${someEnabled && !allEnabled ? 'data-indeterminate="1"' : ''}>
-            <span class="symbol" style="color:#475569">${cat.symbol}</span>
-            <span>${cat.label}</span>
+            <span class="symbol" style="color:#475569">${escapeText(cat.symbol)}</span>
+            <span>${escapeText(cat.label)}</span>
             <span class="text-xs text-slate-400 ml-1">(${kindsInCat.length})</span>
           </summary>
         </details>
@@ -917,7 +917,7 @@ async function refreshScenarioList() {
         <div class="min-w-0 flex-1">
           <div class="font-medium truncate flex items-center gap-1.5" title="${(s.notes || '').replace(/"/g, '&quot;')}">
             ${s.builtin ? '<span class="text-[0.6rem] uppercase tracking-wide bg-slate-100 text-slate-600 border border-slate-200 rounded px-1 py-0.5">built-in</span>' : ''}
-            <span class="truncate">${s.label || s.name}</span>
+            <span class="truncate">${escapeText(s.label || s.name)}</span>
           </div>
           <div class="text-xs text-slate-500 font-mono truncate">${s.name} · from ${s.based_on || '—'} · ${(s.enabled_kinds || []).length} kinds</div>
         </div>
@@ -1195,7 +1195,7 @@ function refreshActiveEdition() {
     return `
       <div class="mb-1.5">
         <div class="flex justify-between text-xs">
-          <span><span class="symbol text-slate-500">${c.symbol}</span> ${c.label}</span>
+          <span><span class="symbol text-slate-500">${escapeText(c.symbol)}</span> ${escapeText(c.label)}</span>
           <span class="font-mono text-slate-500">${n.toLocaleString()} <span class="text-slate-400">(${pct}%)</span></span>
         </div>
         <div class="h-1.5 bg-slate-100 rounded overflow-hidden">
@@ -1399,7 +1399,7 @@ function renderSymbolTotals() {
       <summary class="cursor-pointer list-none">
         <div class="flex items-center gap-2 text-xs" title="${escapeAttr(r.tooltip)}">
           <span class="text-slate-400 text-[0.6rem] select-none psi181-arrow">▸</span>
-          <span class="symbol text-slate-700" style="font-size:1.1em">${r.symbol}</span>
+          <span class="symbol text-slate-700" style="font-size:1.1em">${escapeText(r.symbol)}</span>
           <span class="flex-1 truncate text-slate-700" title="${escapeAttr(r.code)}">${escapeText(r.label)}</span>
           <span class="font-mono text-slate-600 tabular-nums">${r.total.toLocaleString()}</span>
         </div>

@@ -8,7 +8,7 @@
 
 Every session that touched code/content/docs ends with **all of these green** and the tree **consistent** (source ↔ build agree):
 
-`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,264 paired · `validate_taxonomy` 100% (91,733) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
+`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,733) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
 Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4). **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status` and reporting the TRUE state (§6.7). "Done + clean" here means gates-green + tree-consistent; it does NOT mean committed. Uncommitted verified work survives a /clear on disk but has no snapshot and is in no backup — say so plainly, never reassuringly.**
 
@@ -80,7 +80,7 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 | Repo-map complete | `& $py dev\trace_repo.py` | complete |
 | Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,733/91,733 (100%) |
 | Schemas | `& $py scripts\validate_schemas.py` | 6/6 ok |
-| Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,264 paired |
+| Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,263 paired |
 | Matrix==build==config | `& $py -m pytest tests\test_enabled_kinds_unified.py -q` | pass |
 | Touched modules | `& $py -m pytest tests\<file>.py -q` (per module) | pass |
 | Build cert (build/corpus touched) | build edition(s) + epubcheck (Java 8 on PATH, one JVM) | epubcheck **0/0/0/0** |

@@ -577,6 +577,20 @@ class TestXi16Security:
         # Configured wins over evil host
         assert _safe_rss_base_url("http", "evil.com") == "https://bible.example.com/v1"
 
+    def test_rss_base_url_configured_rejects_nonhttp_scheme(self, monkeypatch):
+        # mint-11 audit: an operator-set base URL with a dangerous scheme must
+        # NOT be syndicated verbatim (auto-navigating RSS readers could execute
+        # `javascript:`/`data:`); fall back to http://localhost like the other
+        # guards. A scheme-less or non-http(s) value is rejected too.
+        from scripts.web import _safe_rss_base_url
+
+        for bad in ["javascript:alert(1)", "data:text/html,x", "vbscript:x", "evil.com", "ftp://h/x"]:
+            monkeypatch.setenv("YHWH_PUBLIC_BASE_URL", bad)
+            assert _safe_rss_base_url("http", "localhost") == "http://localhost", bad
+        # A legitimate https configured URL still passes (trailing slash stripped).
+        monkeypatch.setenv("YHWH_PUBLIC_BASE_URL", "https://bible.example.com/v1/")
+        assert _safe_rss_base_url("http", "evil.com") == "https://bible.example.com/v1"
+
     def test_rss_base_url_rejects_control_chars(self, monkeypatch):
         from scripts.web import _safe_rss_base_url
 

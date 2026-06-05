@@ -16,7 +16,7 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 
-from .sources_base import SourceMissingError, _SOURCES
+from .sources_base import SourceMissingError, _SOURCES, _normalize_book_code
 
 
 # ----------------------------------------------------------------------
@@ -295,6 +295,7 @@ class NavesTopical:
         (Nave alphabetised topics, so this is alphabetical). The detector
         consolidates them into one candidate per verse.
         """
+        book = _normalize_book_code(book)
         topic_list = (self._verses.get(book, {}).get(str(chapter), {}).get(str(verse))) or []
         return list(topic_list)[:top_n]
 
@@ -370,6 +371,7 @@ class TorreyTopical:
         """Return up to ``top_n`` topics tagged on this verse, in source
         (alphabetical) order. The detector consolidates them into one
         candidate per verse."""
+        book = _normalize_book_code(book)
         topic_list = (self._verses.get(book, {}).get(str(chapter), {}).get(str(verse))) or []
         return list(topic_list)[:top_n]
 
