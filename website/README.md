@@ -4,9 +4,11 @@ A small, static, **multi-page** site (no framework, no tracking, self-hosted fon
 The pages share one header/nav and one footer through a tiny build script. **Hosted on
 GitHub Pages** (repo `gringoboggy/yhwh-website`) — **live at www.yhwhyaway.com**.
 
-> `latest.php` + `.htaccess` are **Spaceship-only** (PHP / Apache) and are NOT used on
-> GitHub Pages — the publish step drops them and the releases card uses its static
-> fallback. They remain in case the site ever moves to a PHP host.
+> The releases card upgrades itself client-side from the **GitHub Releases API**
+> (`releases.js`) — no server needed. `build.mjs` emits `CNAME`, `.nojekyll`,
+> `robots.txt`, and `sitemap.xml` into `dist/`, so the built folder is self-complete
+> and a deploy can never drop the custom domain. (The old Spaceship-only `latest.php`
+> + `.htaccess` were removed — GitHub Pages is static and runs no PHP/Apache.)
 
 ## How it's put together
 
@@ -16,11 +18,10 @@ website/
   partials/foot.html   ← the shared footer (Connect row + give pointer) — edit ONCE
   src/*.html           ← each page's content + a tiny <!--page ...--> front-matter
   style.css            ← the one stylesheet (manuscript palette, WCAG AA)
-  releases.js          ← upgrades the "latest release" card from latest.php
-  latest.php           ← serverless feed: asks GitHub for the newest release (server-side)
+  releases.js          ← upgrades the "latest release" card from the GitHub Releases API
   giscus/              ← lazy-loader + self-hosted theme for the comment widget
   fonts/ covers/ icons/ + favicons + social-card.png   ← static assets
-  build.mjs            ← assembles everything into dist/
+  build.mjs            ← assembles pages into dist/ + emits CNAME/.nojekyll/robots.txt/sitemap.xml
   dist/                ← BUILT output (git-ignored) — this is what you upload
 ```
 
@@ -46,12 +47,11 @@ Publish repo = **`github.com/gringoboggy/yhwh-website`** (public, static). To de
 > ⚠ **Multi-machine:** either Windows or the Mac can deploy. **`git pull` (or re-clone) your publish working copy first** so you don't clobber the other lane's deploy. (Windows deployed `54c3544` from a fresh clone on 2026-06-03 — note removal + creed reword — and enabled Enforce HTTPS once the cert provisioned.)
 
 ```
-node website/build.mjs                          # produce website/dist/
-PUB=/Volumes/MacHD2/yhwh-site-publish           # clean working copy of the publish repo
-rm -rf "$PUB"/*; cp -R website/dist/. "$PUB"/
-rm -f "$PUB/.htaccess" "$PUB/latest.php"        # Spaceship-only; not used on Pages
-printf 'www.yhwhyaway.com\n' > "$PUB/CNAME"     # custom domain
-: > "$PUB/.nojekyll"
+node website/build.mjs                          # produce website/dist/ — self-complete
+                                                #   (includes CNAME, .nojekyll, robots, sitemap)
+PUB=/Volumes/MacHD2/yhwh-site-publish           # working copy of the publish repo
+git -C "$PUB" pull                              # don't clobber the other lane's deploy
+rsync -a --delete --exclude='.git' website/dist/ "$PUB"/   # mirror dist exactly
 git -C "$PUB" add -A
 git -C "$PUB" -c user.email=gringoboggy@users.noreply.github.com commit -m "update site"
 git -C "$PUB" push
@@ -81,11 +81,13 @@ Pre-launch, downloads/comments/version show "coming at launch" placeholders. To 
    release as **v1.0.0-beta.1** (do not re-publish the old internal 1.0.0 tag publicly).
    Swap the `is-pending` download spans in `src/beta.html` for real `<a download>` links
    and paste the real SHA-256 lines.
-3. **Releases feed** — set `$REPO` in `latest.php` and drop a read-only GitHub token in a
-   file outside `public_html` (see the comment in `latest.php`).
-4. **Comments** — install the Giscus app on the repo, PRE-CREATE the "Website feedback"
-   discussion, then fill the `data-repo` / `data-repo-id` / `data-category-id` on the
-   `.giscus` element in `src/feedback.html` from giscus.app.
+3. **Releases feed** — confirm the `REPO` constant in `releases.js` points at the public
+   repo hosting the release. It reads the public GitHub Releases API client-side, so once
+   the release is published the card + download buttons populate automatically — no token,
+   no server.
+4. **Comments** — ✅ DONE (live since 2026-06-04): Giscus app installed, the "Website
+   feedback" discussion pre-created, and the `data-*` values filled on the `.giscus`
+   element in `src/feedback.html`.
 5. **Email** — set up + live-test forwarding for `gringo.boggy@yhwhyaway.com` before
    relying on it as the no-account fallback.
 6. **Donations** — swap the `is-pending` give spans in `src/index.html` for the live

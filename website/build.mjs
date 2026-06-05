@@ -30,10 +30,12 @@ const PARTIALS = join(ROOT, 'partials');
 const DIST = join(ROOT, 'dist');
 
 // Static files/dirs copied verbatim into dist/ (the things the pages link to).
+// (.htaccess + latest.php are intentionally NOT shipped — they are Apache/PHP-only
+// and do nothing on the static GitHub Pages host; the releases feed now reads the
+// GitHub Releases API client-side instead. See releases.js.)
 const STATIC = [
   'style.css', 'releases.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus',
   'favicon-32.png', 'favicon-512.png', 'apple-touch-icon.png', 'social-card.png',
-  '.htaccess', 'latest.php',
 ];
 
 const head = readFileSync(join(PARTIALS, 'head.html'), 'utf8');
@@ -74,7 +76,12 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.html'))) {
     );
   }
 
-  writeFileSync(join(DIST, file), pageHead + body.replace(/^\s*\n/, '') + foot, 'utf8');
+  // Assemble, then strip HTML comments from the shipped page (keeps the public
+  // source clean and removes the leftover "TODO at launch" notes from the output).
+  const out = (pageHead + body.replace(/^\s*\n/, '') + foot)
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\n{3,}/g, '\n\n');
+  writeFileSync(join(DIST, file), out, 'utf8');
   console.log('built  dist/' + file);
 }
 
@@ -85,4 +92,23 @@ for (const name of STATIC) {
   console.log('copied ' + name);
 }
 
-console.log('\nDone → website/dist/   (upload its contents to public_html)');
+// Host + SEO files generated here so a clean dist/ is self-complete: a deploy can
+// never accidentally drop the custom domain (CNAME) or re-enable Jekyll (.nojekyll).
+const SITE = 'https://www.yhwhyaway.com';
+const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html'];
+writeFileSync(join(DIST, 'CNAME'), 'www.yhwhyaway.com\n');
+writeFileSync(join(DIST, '.nojekyll'), '');
+writeFileSync(
+  join(DIST, 'robots.txt'),
+  'User-agent: *\nAllow: /\n\nSitemap: ' + SITE + '/sitemap.xml\n',
+);
+writeFileSync(
+  join(DIST, 'sitemap.xml'),
+  '<?xml version="1.0" encoding="UTF-8"?>\n'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + PAGES.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')
+    + '\n</urlset>\n',
+);
+console.log('emitted CNAME, .nojekyll, robots.txt, sitemap.xml');
+
+console.log('\nDone → website/dist/   (push its contents to the GitHub Pages repo)');
