@@ -22,7 +22,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -33,7 +33,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -44,7 +44,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -55,7 +55,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -66,7 +66,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -77,7 +77,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -88,7 +88,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -99,7 +99,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -110,7 +110,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -121,7 +121,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -132,7 +132,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -143,7 +143,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -154,7 +154,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -165,7 +165,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -176,7 +176,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -187,7 +187,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -198,7 +198,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -209,7 +209,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -220,7 +220,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -231,7 +231,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -242,7 +242,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -253,7 +253,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -264,7 +264,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -275,7 +275,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -286,7 +286,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -297,7 +297,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -308,7 +308,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -330,7 +330,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -341,7 +341,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -352,7 +352,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -363,7 +363,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -374,7 +374,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -385,7 +385,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -396,7 +396,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -407,7 +407,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -418,7 +418,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -429,7 +429,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -440,7 +440,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -451,7 +451,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -462,7 +462,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -473,7 +473,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -484,7 +484,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -495,7 +495,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -506,7 +506,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -517,7 +517,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -528,7 +528,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -539,7 +539,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -550,7 +550,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -561,7 +561,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -572,7 +572,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -583,7 +583,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -594,7 +594,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -605,7 +605,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -616,7 +616,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -627,7 +627,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -638,7 +638,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -649,7 +649,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -660,7 +660,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -671,7 +671,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -682,7 +682,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -693,7 +693,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -704,7 +704,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -715,7 +715,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -726,7 +726,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -737,7 +737,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -748,7 +748,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -759,7 +759,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -770,7 +770,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -781,7 +781,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -792,7 +792,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -803,7 +803,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -814,7 +814,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -825,7 +825,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -836,7 +836,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -847,7 +847,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -858,7 +858,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -869,7 +869,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -880,7 +880,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -891,7 +891,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -902,7 +902,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -913,7 +913,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -924,7 +924,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -935,7 +935,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -946,7 +946,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -957,7 +957,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -968,7 +968,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -979,7 +979,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâphar (<em>כָּפַר</em>).</strong> to cover (specifically with bitumen); figuratively, to expiate or condone, to placate or cancel. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâphar (<em>כָּפַר</em>).</strong> to cover (specifically with bitumen); figuratively, to expiate or condone, to placate or cancel.",
         "Strong's H3722, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -990,7 +990,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1001,7 +1001,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1012,7 +1012,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1023,7 +1023,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1034,7 +1034,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1045,7 +1045,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1056,7 +1056,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1067,7 +1067,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1078,7 +1078,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1089,7 +1089,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1100,7 +1100,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1111,7 +1111,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1122,7 +1122,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1133,7 +1133,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1144,7 +1144,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1155,7 +1155,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1166,7 +1166,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâphar (<em>כָּפַר</em>).</strong> to cover (specifically with bitumen); figuratively, to expiate or condone, to placate or cancel. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâphar (<em>כָּפַר</em>).</strong> to cover (specifically with bitumen); figuratively, to expiate or condone, to placate or cancel.",
         "Strong's H3722, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1177,7 +1177,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1188,7 +1188,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1199,7 +1199,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1210,7 +1210,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1221,7 +1221,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1232,7 +1232,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1243,7 +1243,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1254,7 +1254,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1265,7 +1265,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1276,7 +1276,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1287,7 +1287,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1298,7 +1298,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1309,7 +1309,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1320,7 +1320,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1331,7 +1331,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1342,7 +1342,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1353,7 +1353,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1364,7 +1364,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1375,7 +1375,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1386,7 +1386,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1397,7 +1397,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1408,7 +1408,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1419,7 +1419,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1430,7 +1430,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1441,7 +1441,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1452,7 +1452,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1463,7 +1463,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1474,7 +1474,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1485,7 +1485,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1496,7 +1496,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1507,7 +1507,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1518,7 +1518,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1529,7 +1529,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1540,7 +1540,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1551,7 +1551,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1562,7 +1562,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1573,7 +1573,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1584,7 +1584,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1595,7 +1595,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1606,7 +1606,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1617,7 +1617,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1628,7 +1628,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1639,7 +1639,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1650,7 +1650,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1661,7 +1661,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1672,7 +1672,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1683,7 +1683,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1694,7 +1694,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1705,7 +1705,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1716,7 +1716,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1727,7 +1727,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1738,7 +1738,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1749,7 +1749,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1760,7 +1760,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1771,7 +1771,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1782,7 +1782,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1793,7 +1793,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1804,7 +1804,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1815,7 +1815,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1826,7 +1826,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1837,7 +1837,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1848,7 +1848,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1859,7 +1859,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1870,7 +1870,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1881,7 +1881,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1892,7 +1892,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1903,7 +1903,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1914,7 +1914,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1925,7 +1925,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1936,7 +1936,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1947,7 +1947,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1958,7 +1958,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1969,7 +1969,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1980,7 +1980,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1991,7 +1991,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2002,7 +2002,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2013,7 +2013,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2024,7 +2024,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2035,7 +2035,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2046,7 +2046,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2057,7 +2057,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2068,7 +2068,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2079,7 +2079,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2090,7 +2090,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2101,7 +2101,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2112,7 +2112,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2123,7 +2123,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2134,7 +2134,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2145,7 +2145,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2156,7 +2156,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2167,7 +2167,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2178,7 +2178,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2189,7 +2189,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2200,7 +2200,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2211,7 +2211,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2222,7 +2222,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2233,7 +2233,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2244,7 +2244,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2255,7 +2255,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2266,7 +2266,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2277,7 +2277,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2288,7 +2288,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2299,7 +2299,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2310,7 +2310,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2321,7 +2321,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2332,7 +2332,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2343,7 +2343,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2354,7 +2354,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2365,7 +2365,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2376,7 +2376,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2387,7 +2387,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2398,7 +2398,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2409,7 +2409,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2420,7 +2420,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2431,7 +2431,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2442,7 +2442,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2453,7 +2453,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2464,7 +2464,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2475,7 +2475,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2486,7 +2486,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2497,7 +2497,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2508,7 +2508,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2519,7 +2519,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2530,7 +2530,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2541,7 +2541,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2552,7 +2552,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2563,7 +2563,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2574,7 +2574,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2585,7 +2585,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2596,7 +2596,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2607,7 +2607,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2618,7 +2618,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2629,7 +2629,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2640,7 +2640,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2651,7 +2651,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2662,7 +2662,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2673,7 +2673,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2684,7 +2684,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2695,7 +2695,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2706,7 +2706,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2717,7 +2717,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2728,7 +2728,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2739,7 +2739,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2750,7 +2750,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2761,7 +2761,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2772,7 +2772,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2783,7 +2783,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2794,7 +2794,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2805,7 +2805,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2816,7 +2816,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness).",
         "Strong's H127, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2827,7 +2827,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2838,7 +2838,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2849,7 +2849,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2860,7 +2860,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2871,7 +2871,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2882,7 +2882,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2893,7 +2893,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2904,7 +2904,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness.",
         "Strong's H2822, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2915,7 +2915,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2926,7 +2926,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2937,7 +2937,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2948,7 +2948,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2959,7 +2959,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2970,7 +2970,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2981,7 +2981,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -2992,7 +2992,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3003,7 +3003,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3014,7 +3014,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3025,7 +3025,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3036,7 +3036,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3047,7 +3047,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3058,7 +3058,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3069,7 +3069,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3080,7 +3080,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3091,7 +3091,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3102,7 +3102,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3113,7 +3113,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3124,7 +3124,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3135,7 +3135,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3146,7 +3146,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3157,7 +3157,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3168,7 +3168,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3179,7 +3179,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3190,7 +3190,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3201,7 +3201,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss).",
         "Strong's H5175, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3212,7 +3212,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3223,7 +3223,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3234,7 +3234,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3245,7 +3245,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3256,7 +3256,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3267,7 +3267,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3278,7 +3278,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3289,7 +3289,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3300,7 +3300,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yᵉshûwʻâh (<em>יְשׁוּעָה</em>).</strong> something saved, i.e. (abstractly) deliverance; hence, aid, victory, prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yᵉshûwʻâh (<em>יְשׁוּעָה</em>).</strong> something saved, i.e. (abstractly) deliverance; hence, aid, victory, prosperity.",
         "Strong's H3444, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3311,7 +3311,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3322,7 +3322,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3333,7 +3333,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3344,7 +3344,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3355,7 +3355,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3366,7 +3366,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3377,7 +3377,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3388,7 +3388,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3399,7 +3399,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3410,7 +3410,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3421,7 +3421,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3432,7 +3432,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3443,7 +3443,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3454,7 +3454,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3465,7 +3465,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3476,7 +3476,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3487,7 +3487,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3498,7 +3498,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3509,7 +3509,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3520,7 +3520,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3531,7 +3531,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3542,7 +3542,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3553,7 +3553,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3564,7 +3564,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3575,7 +3575,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3586,7 +3586,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3597,7 +3597,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3608,7 +3608,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3619,7 +3619,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3630,7 +3630,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3641,7 +3641,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3652,7 +3652,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3663,7 +3663,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3674,7 +3674,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3685,7 +3685,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3696,7 +3696,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3707,7 +3707,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3718,7 +3718,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3729,7 +3729,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3740,7 +3740,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3751,7 +3751,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3762,7 +3762,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3773,7 +3773,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3784,7 +3784,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3795,7 +3795,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3806,7 +3806,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3817,7 +3817,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3828,7 +3828,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3839,7 +3839,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3850,7 +3850,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3861,7 +3861,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3872,7 +3872,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3883,7 +3883,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3894,7 +3894,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3905,7 +3905,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3916,7 +3916,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3927,7 +3927,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3938,7 +3938,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3949,7 +3949,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3960,7 +3960,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3971,7 +3971,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3982,7 +3982,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -3993,7 +3993,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4004,7 +4004,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4015,7 +4015,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4026,7 +4026,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4037,7 +4037,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness.",
         "Strong's H2822, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4048,7 +4048,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4059,7 +4059,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4070,7 +4070,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4081,7 +4081,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4092,7 +4092,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4103,7 +4103,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4114,7 +4114,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4125,7 +4125,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4136,7 +4136,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4147,7 +4147,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4158,7 +4158,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4169,7 +4169,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4180,7 +4180,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4191,7 +4191,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4202,7 +4202,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4213,7 +4213,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4224,7 +4224,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4235,7 +4235,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4246,7 +4246,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4257,7 +4257,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4268,7 +4268,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4279,7 +4279,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tselem (<em>צֶלֶם</em>).</strong> a phantom, i.e. (figuratively) illusion, resemblance; hence, a representative figure, especially an idol. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tselem (<em>צֶלֶם</em>).</strong> a phantom, i.e. (figuratively) illusion, resemblance; hence, a representative figure, especially an idol.",
         "Strong's H6754, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4290,7 +4290,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4301,7 +4301,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4312,7 +4312,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4323,7 +4323,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4334,7 +4334,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4345,7 +4345,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4356,7 +4356,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4367,7 +4367,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4378,7 +4378,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4389,7 +4389,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4400,7 +4400,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4411,7 +4411,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4422,7 +4422,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4433,7 +4433,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4444,7 +4444,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4455,7 +4455,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4466,7 +4466,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4477,7 +4477,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4488,7 +4488,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4499,7 +4499,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4510,7 +4510,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness.",
         "Strong's H2822, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4521,7 +4521,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4532,7 +4532,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4543,7 +4543,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4554,7 +4554,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4565,7 +4565,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4576,7 +4576,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4587,7 +4587,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4598,7 +4598,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4609,7 +4609,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4620,7 +4620,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4631,7 +4631,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4642,7 +4642,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4653,7 +4653,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4664,7 +4664,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4675,7 +4675,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4686,7 +4686,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4697,7 +4697,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness).",
         "Strong's H127, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4708,7 +4708,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4719,7 +4719,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4730,7 +4730,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4741,7 +4741,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4752,7 +4752,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4763,7 +4763,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4774,7 +4774,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4785,7 +4785,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4796,7 +4796,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4807,7 +4807,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4818,7 +4818,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4829,7 +4829,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4840,7 +4840,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4851,7 +4851,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4862,7 +4862,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4873,7 +4873,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4884,7 +4884,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4895,7 +4895,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4906,7 +4906,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4917,7 +4917,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4928,7 +4928,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4939,7 +4939,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4950,7 +4950,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4961,7 +4961,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4972,7 +4972,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4983,7 +4983,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -4994,7 +4994,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5005,7 +5005,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5016,7 +5016,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5027,7 +5027,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5038,7 +5038,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5049,7 +5049,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5060,7 +5060,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5071,7 +5071,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5082,7 +5082,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5093,7 +5093,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5104,7 +5104,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5115,7 +5115,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5126,7 +5126,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5137,7 +5137,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5148,7 +5148,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5159,7 +5159,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5170,7 +5170,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5181,7 +5181,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5192,7 +5192,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5203,7 +5203,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5214,7 +5214,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5225,7 +5225,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5236,7 +5236,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5247,7 +5247,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5258,7 +5258,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5269,7 +5269,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5280,7 +5280,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5291,7 +5291,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5302,7 +5302,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5313,7 +5313,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5324,7 +5324,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5335,7 +5335,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5346,7 +5346,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5357,7 +5357,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5368,7 +5368,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5379,7 +5379,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5390,7 +5390,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5401,7 +5401,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5412,7 +5412,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5423,7 +5423,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss).",
         "Strong's H5175, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5434,7 +5434,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5445,7 +5445,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain.",
         "Strong's H8414, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5456,7 +5456,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5467,7 +5467,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5478,7 +5478,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5489,7 +5489,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5500,7 +5500,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5511,7 +5511,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5522,7 +5522,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5533,7 +5533,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5544,7 +5544,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5555,7 +5555,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5566,7 +5566,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5577,7 +5577,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5588,7 +5588,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5599,7 +5599,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5610,7 +5610,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5621,7 +5621,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5632,7 +5632,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5643,7 +5643,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5654,7 +5654,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5665,7 +5665,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5676,7 +5676,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5687,7 +5687,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5698,7 +5698,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5709,7 +5709,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5720,7 +5720,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5731,7 +5731,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5742,7 +5742,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5753,7 +5753,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5764,7 +5764,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5775,7 +5775,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5786,7 +5786,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5797,7 +5797,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5808,7 +5808,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5819,7 +5819,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5830,7 +5830,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5841,7 +5841,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5852,7 +5852,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5863,7 +5863,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5874,7 +5874,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5885,7 +5885,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5896,7 +5896,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5907,7 +5907,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5918,7 +5918,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5929,7 +5929,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5940,7 +5940,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5951,7 +5951,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5962,7 +5962,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5973,7 +5973,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5984,7 +5984,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -5995,7 +5995,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6006,7 +6006,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6017,7 +6017,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6028,7 +6028,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness.",
         "Strong's H2822, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6039,7 +6039,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6050,7 +6050,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6061,7 +6061,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6072,7 +6072,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6083,7 +6083,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6094,7 +6094,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6105,7 +6105,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6116,7 +6116,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6127,7 +6127,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6138,7 +6138,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6149,7 +6149,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6160,7 +6160,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6171,7 +6171,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6182,7 +6182,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6193,7 +6193,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6204,7 +6204,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6215,7 +6215,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6226,7 +6226,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6237,7 +6237,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6248,7 +6248,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6259,7 +6259,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6270,7 +6270,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6281,7 +6281,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6292,7 +6292,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6303,7 +6303,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6314,7 +6314,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6325,7 +6325,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6336,7 +6336,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6347,7 +6347,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6358,7 +6358,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6369,7 +6369,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6380,7 +6380,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6391,7 +6391,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6402,7 +6402,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6413,7 +6413,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6424,7 +6424,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6435,7 +6435,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6446,7 +6446,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6457,7 +6457,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6468,7 +6468,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6479,7 +6479,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6490,7 +6490,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6501,7 +6501,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6512,7 +6512,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6523,7 +6523,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6534,7 +6534,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6545,7 +6545,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6556,7 +6556,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6567,7 +6567,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6578,7 +6578,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6589,7 +6589,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6600,7 +6600,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6611,7 +6611,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6622,7 +6622,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6633,7 +6633,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6644,7 +6644,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6655,7 +6655,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6666,7 +6666,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nâchâsh (<em>נָחָשׁ</em>).</strong> a snake (from its hiss).",
         "Strong's H5175, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6677,7 +6677,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6688,7 +6688,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6699,7 +6699,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6710,7 +6710,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6721,7 +6721,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6732,7 +6732,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6743,7 +6743,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6754,7 +6754,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6765,7 +6765,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6776,7 +6776,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6787,7 +6787,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6798,7 +6798,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6809,7 +6809,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6820,7 +6820,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6831,7 +6831,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6842,7 +6842,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6853,7 +6853,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6864,7 +6864,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6875,7 +6875,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6886,7 +6886,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6897,7 +6897,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6908,7 +6908,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6919,7 +6919,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6930,7 +6930,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6941,7 +6941,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6952,7 +6952,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6963,7 +6963,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6974,7 +6974,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6985,7 +6985,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -6996,7 +6996,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7007,7 +7007,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7018,7 +7018,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7029,7 +7029,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7040,7 +7040,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7051,7 +7051,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7062,7 +7062,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7073,7 +7073,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7084,7 +7084,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7095,7 +7095,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7106,7 +7106,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7117,7 +7117,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7128,7 +7128,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7139,7 +7139,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7150,7 +7150,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7161,7 +7161,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7172,7 +7172,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7183,7 +7183,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7194,7 +7194,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7205,7 +7205,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7216,7 +7216,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7227,7 +7227,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7238,7 +7238,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7249,7 +7249,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7260,7 +7260,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7271,7 +7271,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7282,7 +7282,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7293,7 +7293,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7304,7 +7304,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7315,7 +7315,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7326,7 +7326,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7337,7 +7337,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7348,7 +7348,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7359,7 +7359,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7370,7 +7370,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7381,7 +7381,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7392,7 +7392,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7403,7 +7403,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7414,7 +7414,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7425,7 +7425,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7436,7 +7436,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7447,7 +7447,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7458,7 +7458,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7469,7 +7469,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7480,7 +7480,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7491,7 +7491,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7502,7 +7502,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7513,7 +7513,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7524,7 +7524,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7535,7 +7535,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7546,7 +7546,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7557,7 +7557,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7568,7 +7568,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7579,7 +7579,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7590,7 +7590,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7601,7 +7601,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7612,7 +7612,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7623,7 +7623,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7634,7 +7634,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7645,7 +7645,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7656,7 +7656,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7667,7 +7667,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7678,7 +7678,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7689,7 +7689,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7700,7 +7700,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7711,7 +7711,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7722,7 +7722,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7733,7 +7733,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7744,7 +7744,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7755,7 +7755,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7766,7 +7766,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7777,7 +7777,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7788,7 +7788,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7799,7 +7799,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7810,7 +7810,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7821,7 +7821,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7832,7 +7832,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7843,7 +7843,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7854,7 +7854,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7865,7 +7865,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7876,7 +7876,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7887,7 +7887,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7898,7 +7898,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7909,7 +7909,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7920,7 +7920,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7931,7 +7931,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7942,7 +7942,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7953,7 +7953,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7964,7 +7964,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7975,7 +7975,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7986,7 +7986,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -7997,7 +7997,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8008,7 +8008,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8019,7 +8019,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8030,7 +8030,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8041,7 +8041,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8052,7 +8052,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8063,7 +8063,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8074,7 +8074,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8085,7 +8085,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8096,7 +8096,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8107,7 +8107,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8118,7 +8118,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8129,7 +8129,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8140,7 +8140,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8151,7 +8151,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8162,7 +8162,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8173,7 +8173,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8184,7 +8184,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8195,7 +8195,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8206,7 +8206,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8217,7 +8217,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8228,7 +8228,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8239,7 +8239,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8250,7 +8250,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8261,7 +8261,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8272,7 +8272,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8283,7 +8283,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8294,7 +8294,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8305,7 +8305,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădâmâh (<em>אֲדָמָה</em>).</strong> soil (from its general redness).",
         "Strong's H127, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8316,7 +8316,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8327,7 +8327,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8338,7 +8338,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8349,7 +8349,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8360,7 +8360,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8371,7 +8371,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8382,7 +8382,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin.",
         "Strong's H922, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8393,7 +8393,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8404,7 +8404,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8415,7 +8415,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dᵉmûwth (<em>דְּמוּת</em>).</strong> resemblance; concretely, model, shape; adverbially, like. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dᵉmûwth (<em>דְּמוּת</em>).</strong> resemblance; concretely, model, shape; adverbially, like.",
         "Strong's H1823, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8426,7 +8426,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8437,7 +8437,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8448,7 +8448,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8459,7 +8459,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8470,7 +8470,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8481,7 +8481,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8492,7 +8492,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8503,7 +8503,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8514,7 +8514,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8525,7 +8525,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8536,7 +8536,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8547,7 +8547,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8558,7 +8558,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8569,7 +8569,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8580,7 +8580,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8591,7 +8591,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8602,7 +8602,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8613,7 +8613,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8624,7 +8624,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8635,7 +8635,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8646,7 +8646,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8657,7 +8657,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8668,7 +8668,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8679,7 +8679,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin.",
         "Strong's H922, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8690,7 +8690,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8701,7 +8701,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8712,7 +8712,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8723,7 +8723,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8734,7 +8734,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8745,7 +8745,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8756,7 +8756,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8767,7 +8767,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8778,7 +8778,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8789,7 +8789,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8800,7 +8800,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8811,7 +8811,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8822,7 +8822,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8833,7 +8833,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8844,7 +8844,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8855,7 +8855,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8866,7 +8866,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8877,7 +8877,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8888,7 +8888,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8899,7 +8899,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8910,7 +8910,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8921,7 +8921,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8932,7 +8932,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8943,7 +8943,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8954,7 +8954,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8965,7 +8965,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8976,7 +8976,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8987,7 +8987,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -8998,7 +8998,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9009,7 +9009,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9020,7 +9020,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9031,7 +9031,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9042,7 +9042,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9053,7 +9053,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9064,7 +9064,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9075,7 +9075,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9086,7 +9086,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9097,7 +9097,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9108,7 +9108,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9119,7 +9119,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9130,7 +9130,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9141,7 +9141,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9152,7 +9152,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9163,7 +9163,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9174,7 +9174,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9185,7 +9185,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9196,7 +9196,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9207,7 +9207,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9218,7 +9218,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9229,7 +9229,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9240,7 +9240,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9251,7 +9251,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9262,7 +9262,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9273,7 +9273,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9284,7 +9284,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9295,7 +9295,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9306,7 +9306,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9317,7 +9317,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9328,7 +9328,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9339,7 +9339,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9350,7 +9350,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9361,7 +9361,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9372,7 +9372,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9383,7 +9383,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9394,7 +9394,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9405,7 +9405,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9416,7 +9416,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9427,7 +9427,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9438,7 +9438,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9449,7 +9449,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9460,7 +9460,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9471,7 +9471,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9482,7 +9482,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9493,7 +9493,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9504,7 +9504,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9515,7 +9515,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9526,7 +9526,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9537,7 +9537,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9548,7 +9548,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9559,7 +9559,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9570,7 +9570,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9581,7 +9581,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9592,7 +9592,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9603,7 +9603,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9614,7 +9614,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9625,7 +9625,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9636,7 +9636,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9647,7 +9647,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9658,7 +9658,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9669,7 +9669,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9680,7 +9680,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9691,7 +9691,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9702,7 +9702,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9713,7 +9713,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9724,7 +9724,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9735,7 +9735,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9746,7 +9746,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9757,7 +9757,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9768,7 +9768,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9779,7 +9779,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9790,7 +9790,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9801,7 +9801,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9812,7 +9812,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9823,7 +9823,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9834,7 +9834,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9845,7 +9845,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9856,7 +9856,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9867,7 +9867,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9878,7 +9878,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9889,7 +9889,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9900,7 +9900,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9911,7 +9911,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9922,7 +9922,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9933,7 +9933,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9944,7 +9944,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9955,7 +9955,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9966,7 +9966,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9977,7 +9977,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9988,7 +9988,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -9999,7 +9999,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10010,7 +10010,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10021,7 +10021,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10032,7 +10032,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10043,7 +10043,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10054,7 +10054,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10065,7 +10065,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10076,7 +10076,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10087,7 +10087,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10098,7 +10098,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10109,7 +10109,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10120,7 +10120,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10131,7 +10131,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10142,7 +10142,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10153,7 +10153,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10164,7 +10164,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10175,7 +10175,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10186,7 +10186,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10197,7 +10197,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10208,7 +10208,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10219,7 +10219,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10230,7 +10230,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10241,7 +10241,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10252,7 +10252,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10263,7 +10263,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10274,7 +10274,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10285,7 +10285,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10296,7 +10296,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10307,7 +10307,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10318,7 +10318,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10329,7 +10329,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10340,7 +10340,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10351,7 +10351,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10362,7 +10362,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10373,7 +10373,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10384,7 +10384,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10395,7 +10395,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10406,7 +10406,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10417,7 +10417,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman.",
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10428,7 +10428,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10439,7 +10439,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10450,7 +10450,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10461,7 +10461,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10472,7 +10472,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10483,7 +10483,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10494,7 +10494,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10505,7 +10505,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10516,7 +10516,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10527,7 +10527,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10538,7 +10538,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10549,7 +10549,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10560,7 +10560,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10571,7 +10571,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10582,7 +10582,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10593,7 +10593,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10604,7 +10604,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10615,7 +10615,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10626,7 +10626,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10637,7 +10637,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10648,7 +10648,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10659,7 +10659,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10670,7 +10670,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10681,7 +10681,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10692,7 +10692,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10703,7 +10703,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10714,7 +10714,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10725,7 +10725,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10736,7 +10736,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10747,7 +10747,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10758,7 +10758,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tᵉhôwm (<em>תְּהוֹם</em>).</strong> an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply).",
         "Strong's H8415, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10769,7 +10769,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10780,7 +10780,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10791,7 +10791,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10802,7 +10802,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10813,7 +10813,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10824,7 +10824,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10835,7 +10835,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10846,7 +10846,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10857,7 +10857,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10868,7 +10868,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10879,7 +10879,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10890,7 +10890,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10901,7 +10901,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10912,7 +10912,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10923,7 +10923,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10934,7 +10934,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10945,7 +10945,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10956,7 +10956,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10967,7 +10967,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10978,7 +10978,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -10989,7 +10989,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11000,7 +11000,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud.",
         "Strong's H6083, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11011,7 +11011,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11022,7 +11022,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11033,7 +11033,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11044,7 +11044,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11055,7 +11055,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11066,7 +11066,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11077,7 +11077,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11088,7 +11088,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11099,7 +11099,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11110,7 +11110,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11121,7 +11121,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11132,7 +11132,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11143,7 +11143,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11154,7 +11154,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11165,7 +11165,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah.",
         "Strong's H4899, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11176,7 +11176,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11187,7 +11187,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11198,7 +11198,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11209,7 +11209,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11220,7 +11220,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11231,7 +11231,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11242,7 +11242,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11253,7 +11253,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11264,7 +11264,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11275,7 +11275,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Yirʼâh (<em>יִרְאָה</em>).</strong> fear (also used as infinitive); morally, reverence.",
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11286,7 +11286,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11297,7 +11297,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11308,7 +11308,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11319,7 +11319,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11330,7 +11330,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11341,7 +11341,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11352,7 +11352,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tsedeq (<em>צֶדֶק</em>).</strong> the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity.",
         "Strong's H6664, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11363,7 +11363,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11374,7 +11374,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11385,7 +11385,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11396,7 +11396,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11407,7 +11407,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11418,7 +11418,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11429,7 +11429,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11440,7 +11440,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11451,7 +11451,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11462,7 +11462,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11473,7 +11473,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11484,7 +11484,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11495,7 +11495,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11506,7 +11506,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11517,7 +11517,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11528,7 +11528,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11539,7 +11539,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11550,7 +11550,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah.",
         "Strong's H4899, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11561,7 +11561,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11572,7 +11572,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11583,7 +11583,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11594,7 +11594,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11605,7 +11605,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11616,7 +11616,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11627,7 +11627,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah.",
         "Strong's H4899, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11638,7 +11638,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11649,7 +11649,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11660,7 +11660,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11671,7 +11671,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11682,7 +11682,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11693,7 +11693,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11704,7 +11704,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11715,7 +11715,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11726,7 +11726,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11737,7 +11737,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11748,7 +11748,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh).",
         "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11759,7 +11759,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11770,7 +11770,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11781,7 +11781,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11792,7 +11792,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11803,7 +11803,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11814,7 +11814,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11825,7 +11825,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11836,7 +11836,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11847,7 +11847,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11858,7 +11858,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender.",
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11869,7 +11869,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11880,7 +11880,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11891,7 +11891,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11902,7 +11902,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11913,7 +11913,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11924,7 +11924,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11935,7 +11935,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11946,7 +11946,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11957,7 +11957,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11968,7 +11968,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise).",
         "Strong's H157, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11979,7 +11979,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -11990,7 +11990,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12001,7 +12001,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12012,7 +12012,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12023,7 +12023,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12034,7 +12034,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12045,7 +12045,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12056,7 +12056,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12067,7 +12067,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Rûwach (<em>רוּחַ</em>).</strong> wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantiality; by extension, a region of the sky; by resemblance spirit, but only of a rational being (including its expression and functions).",
         "Strong's H7307, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12078,7 +12078,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12089,7 +12089,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12100,7 +12100,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12111,7 +12111,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12122,7 +12122,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12133,7 +12133,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12144,7 +12144,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12155,7 +12155,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bârâʼ (<em>בָּרָא</em>).</strong> (absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes).",
         "Strong's H1254, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12166,7 +12166,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12177,7 +12177,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12188,7 +12188,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12199,7 +12199,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12210,7 +12210,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12221,7 +12221,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12232,7 +12232,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12243,7 +12243,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12254,7 +12254,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary.",
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12265,7 +12265,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12276,7 +12276,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12287,7 +12287,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12298,7 +12298,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood).",
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12309,7 +12309,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12320,7 +12320,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12331,7 +12331,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12342,7 +12342,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12353,7 +12353,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12364,7 +12364,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12375,7 +12375,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12386,7 +12386,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12397,7 +12397,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12408,7 +12408,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12419,7 +12419,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12430,7 +12430,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12441,7 +12441,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12452,7 +12452,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12463,7 +12463,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.).",
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12474,7 +12474,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12485,7 +12485,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12496,7 +12496,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12507,7 +12507,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12518,7 +12518,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12529,7 +12529,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12540,7 +12540,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12551,7 +12551,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12562,7 +12562,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12573,7 +12573,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12584,7 +12584,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12595,7 +12595,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12606,7 +12606,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12617,7 +12617,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12628,7 +12628,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chokmâh (<em>חׇכְמָה</em>).</strong> wisdom (in a good sense).",
         "Strong's H2451, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12639,7 +12639,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12650,7 +12650,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12661,7 +12661,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12672,7 +12672,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12683,7 +12683,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12694,7 +12694,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12705,7 +12705,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12716,7 +12716,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12727,7 +12727,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12738,7 +12738,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental).",
         "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -12749,7 +12749,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chêçêd (<em>חֵסֵד</em>).</strong> kindness; by implication (towards God) piety; rarely (by opposition) reproof, or (subject.) beauty.",
         "Strong's H2617, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),

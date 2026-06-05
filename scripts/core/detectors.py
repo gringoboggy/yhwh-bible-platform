@@ -198,12 +198,9 @@ class HebrewWordDetector:
         sibling detector formatters; they're unused in this implementation."""
         lemma_part = f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
         xlit_part = entry.xlit or "—"
-        return (
-            f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> "
-            f"{entry.definition.strip().rstrip('.')}. "
-            f"<em>[Reviewer: extend this with context, theological "
-            f"reading, and any cross-canon resonance before promoting.]</em>"
-        )
+        # Reviewer guidance lives in the Candidate's reviewer_notes= field (set
+        # by the caller), never in the reader-facing body — RX Phase 1.
+        return f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> {entry.definition.strip().rstrip('.')}."
 
 
 # ----------------------------------------------------------------------
@@ -366,12 +363,9 @@ class GreekWordDetector:
         with ``HebrewWordDetector._format_body``; unused here."""
         lemma_part = f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
         xlit_part = entry.xlit or "—"
-        return (
-            f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> "
-            f"{entry.definition.strip().rstrip('.')}. "
-            f"<em>[Reviewer: extend this with context, theological "
-            f"reading, and any cross-canon resonance before promoting.]</em>"
-        )
+        # Reviewer guidance lives in the Candidate's reviewer_notes= field (set
+        # by the caller), never in the reader-facing body — RX Phase 1.
+        return f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> {entry.definition.strip().rstrip('.')}."
 
 
 # ----------------------------------------------------------------------
@@ -411,11 +405,8 @@ class CrossRefDetector:
         targets_str = " · ".join(target_lines)
         confidence = min(0.5 + (refs[0].votes / 200), 0.95)
 
-        body = (
-            f"<strong>Cross-references.</strong> {targets_str}. "
-            f"<em>[Reviewer: select 1–3 most relevant; rewrite as a "
-            f"thematic note rather than a list before promoting.]</em>"
-        )
+        # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
+        body = f"<strong>Cross-references.</strong> {targets_str}."
 
         return [
             Candidate(
@@ -483,13 +474,8 @@ class NaveTopicalDetector:
         topics_str = ", ".join(topics)
         primary = topics[0]
         attribution = "Nave's Topical Bible, Orville J. Nave (1896). Public domain."
-        body = (
-            f"<strong>Topics.</strong> This verse appears under: "
-            f"{topics_str}. "
-            f"<em>[Reviewer: pick one topic (typically the first or "
-            f"most theologically loaded), write a 2–3 sentence thematic "
-            f"note, and discard the rest.]</em>"
-        )
+        # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
+        body = f"<strong>Topics.</strong> This verse appears under: {topics_str}."
 
         return [
             Candidate(
@@ -542,13 +528,8 @@ class TorreyTopicalDetector:
         topics_str = ", ".join(topics)
         primary = topics[0]
         attribution = "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain."
-        body = (
-            f"<strong>Topics.</strong> This verse appears under: "
-            f"{topics_str}. "
-            f"<em>[Reviewer: pick one topic (typically the first or most "
-            f"theologically loaded), write a 2–3 sentence thematic note, and "
-            f"discard the rest.]</em>"
-        )
+        # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
+        body = f"<strong>Topics.</strong> This verse appears under: {topics_str}."
 
         return [
             Candidate(
@@ -645,13 +626,8 @@ class KenyonReferenceDetector:
                 "Manuscripts* (Eyre & Spottiswoode, London, 1895). "
                 "Public domain."
             )
-            body = (
-                f"<strong>Manuscript witness.</strong> "
-                f"{_xml_escape_text_for_kenyon(context)} "
-                f"<em>[Reviewer: trim to the relevant clause; the "
-                f"surrounding context is provided so you can judge "
-                f"which version / witness Kenyon is discussing.]</em>"
-            )
+            # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
+            body = f"<strong>Manuscript witness.</strong> {_xml_escape_text_for_kenyon(context)}"
             out.append(
                 Candidate(
                     book=book,
@@ -771,12 +747,10 @@ class AIXrefDetector:
                 f'{target_verse}">{target_book.title()} '
                 f"{target_chapter}:{target_verse}</a>"
             )
+            # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
             body = (
                 f"<strong>{subclass_label} cross-reference.</strong> "
-                f"{target_link}. {_xml_escape_text_for_kenyon(reasoning)} "
-                f"<em>[Reviewer: AI-proposed; verify the link is sound, "
-                f"trim the reasoning, and decide whether to keep before "
-                f"promoting.]</em>"
+                f"{target_link}. {_xml_escape_text_for_kenyon(reasoning)}"
             )
 
             out.append(
@@ -831,8 +805,9 @@ class AINoteDetector:
     a verse, not links between verses.
 
     Reviewer-flag invariant: every emitted candidate carries an
-    explicit ``[Reviewer: AI-generated, requires human approval]``
-    flag in the body so a draft can never be confused with a
+    explicit "AI-generated first-draft note … requires human approval"
+    flag in its ``reviewer_notes=`` field (RX Phase 1 moved this out of
+    the reader-facing body) so a draft can never be confused with a
     reviewed note in the editor / preview surface.
 
     ξ.15 sandbox: every model-emitted ``body_html`` and ``label`` is
@@ -898,12 +873,9 @@ class AINoteDetector:
         # mistake it for a reviewed note. The label is bolded by the
         # renderer so we don't bold it again here — match the
         # existing AIXrefDetector body shape.
-        body = (
-            f"<strong>{label}</strong> {body_html} "
-            f"<em>[Reviewer: AI-generated, requires human approval. "
-            f"Edit freely; discard if the draft does not earn its "
-            f"place. Class: {class_label}.]</em>"
-        )
+        # Reviewer guidance (incl. the AI-generated flag + class) lives in
+        # reviewer_notes= below, not the reader-facing body — RX Phase 1.
+        body = f"<strong>{label}</strong> {body_html}"
 
         # Reviewer notes — separate from the body, surfaced in the
         # candidate JSON for the queue. Includes the model's

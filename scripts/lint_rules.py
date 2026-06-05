@@ -2186,6 +2186,99 @@ def check_subprocess_stdin() -> dict:
     }
 
 
+def _find_notes_list(tree: ast.Module) -> ast.List | None:
+    """Return the value of the module-level ``NOTES = [...]`` assignment, or
+    ``None`` if absent / not a list literal. Helper for the RX-Phase-1 guard."""
+    for node in tree.body:
+        if not isinstance(node, ast.Assign):
+            continue
+        if any(isinstance(t, ast.Name) and t.id == "NOTES" for t in node.targets):
+            return node.value if isinstance(node.value, ast.List) else None
+    return None
+
+
+def _count_reviewer_scaffold_bodies(notes_list: ast.List) -> int:
+    """Count note tuples whose body (index 7) is a constant string carrying a
+    ``[reviewer:`` token (case-insensitive). Helper for the RX-Phase-1 guard."""
+    hits = 0
+    for elt in notes_list.elts:
+        # (chapter, verse, suffix, anchor, kind, title, label, body_html
+        # [, attribution]) — the body is index 7.
+        if not isinstance(elt, ast.Tuple) or len(elt.elts) < 8:
+            continue
+        body_node = elt.elts[7]
+        if (
+            isinstance(body_node, ast.Constant)
+            and isinstance(body_node.value, str)
+            and "[reviewer:" in body_node.value.lower()
+        ):
+            hits += 1
+    return hits
+
+
+def check_no_reviewer_scaffolding_in_bodies() -> dict:
+    """RX Phase 1 (2026-06-05) — no ``<em>[Reviewer:…]</em>`` editorial
+    scaffold may ship inside a note BODY.
+
+    The detectors/extractors historically embedded a trailing
+    ``<em>[Reviewer: …]</em>`` span directly in each note's ``body_html``
+    (the 8th tuple field of every ``NOTES`` entry under
+    ``content/notes/*.py``). That reviewer-guidance scaffold was meant for
+    the promote queue, not the reader — yet it leaked into 96.8% of shipped
+    note bodies (88,773 notes). The guidance's correct home is the
+    detector's ``reviewer_notes=`` field; this guard fails on any residual
+    ``[Reviewer:`` in a shipping body so the leak can never recur.
+
+    AST-based (not regex over the whole file) so it screens ONLY the actual
+    body field, never the file's docstring, comments, or this check's own
+    prose.
+    """
+    notes_dir = REPO / "content" / "notes"
+    violations: list[dict] = []
+    total = 0
+    files_with = 0
+    if not notes_dir.is_dir():
+        return {
+            "id": "no_reviewer_scaffolding",
+            "name": "No reviewer scaffolding in note bodies",
+            "status": "warn",
+            "message": "content/notes/ directory missing",
+            "violations": [],
+        }
+    for py in sorted(notes_dir.glob("*.py")):
+        if py.name == "__init__.py":
+            continue
+        try:
+            tree = ast.parse(py.read_text(encoding="utf-8"), filename=str(py))
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            continue
+        notes_list = _find_notes_list(tree)
+        if notes_list is None:
+            continue
+        file_hits = _count_reviewer_scaffold_bodies(notes_list)
+        if file_hits:
+            files_with += 1
+            total += file_hits
+            violations.append({"file": str(py.relative_to(REPO)).replace("\\", "/"), "count": file_hits})
+
+    status = "pass" if not violations else "fail"
+    return {
+        "id": "no_reviewer_scaffolding",
+        "name": "No reviewer scaffolding in note bodies",
+        "status": status,
+        "message": (
+            "no <em>[Reviewer:…]</em> scaffold in any shipping note body"
+            if not violations
+            else f"{total} note body(ies) across {files_with} file(s) still carry "
+            "an <em>[Reviewer:…]</em> editorial scaffold — strip it (the "
+            "guidance belongs in the detector's reviewer_notes= field, not the "
+            "reader-facing body)"
+        ),
+        # The grand total is the load-bearing signal; cap the per-file list.
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2226,6 +2319,10 @@ ALL_CHECKS = {
     # mint-8 — every subprocess spawn call passes an explicit stdin= (Windows
     # WinError 6 / W-W1 mitigation; commit-time guard).
     "subprocess_stdin": check_subprocess_stdin,
+    # RX Phase 1 (2026-06-05) — no <em>[Reviewer:…]</em> editorial scaffold
+    # may ship inside a reader-facing note body (the guidance's home is the
+    # detector's reviewer_notes= field). Hard FAIL.
+    "no_reviewer_scaffolding": check_no_reviewer_scaffolding_in_bodies,
 }
 
 

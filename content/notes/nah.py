@@ -22,7 +22,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Predictions of. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Predictions of.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -33,7 +33,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative.",
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -44,7 +44,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -55,7 +55,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Goat, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Goat, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -66,7 +66,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -77,7 +77,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud.",
         "Strong's H6083, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -88,7 +88,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: POWER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -99,7 +99,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Anger of God, The, Clouds, Power of God, The, Whirlwind. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Anger of God, The, Clouds, Power of God, The, Whirlwind.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -110,7 +110,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BASHAN, LEBANON. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BASHAN, LEBANON.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -121,7 +121,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Lebanon, Providence of God, The, Rivers, Rivers, Sea, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Lebanon, Providence of God, The, Rivers, Rivers, Sea, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -132,7 +132,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -143,7 +143,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: EARTHQUAKES, MOUNTAIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: EARTHQUAKES, MOUNTAIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -154,7 +154,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Denunciations against, Earthquakes, Mountains, Mountains. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Denunciations against, Earthquakes, Mountains, Mountains.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -165,7 +165,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Mountains, Rocks. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Anger of God, The, Mountains, Rocks.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -176,7 +176,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -187,7 +187,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -198,7 +198,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: FORT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: FORT.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -209,7 +209,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflicted Saints, Goodness of God, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflicted Saints, Goodness of God, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -220,7 +220,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Chôshek (<em>חֹשֶׁךְ</em>).</strong> the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness.",
         "Strong's H2822, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -231,7 +231,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -242,7 +242,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -253,7 +253,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -264,7 +264,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: DRUNKARD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: DRUNKARD.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -275,7 +275,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -286,7 +286,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -297,7 +297,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -308,7 +308,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -330,7 +330,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -341,7 +341,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tselem (<em>צֶלֶם</em>).</strong> a phantom, i.e. (figuratively) illusion, resemblance; hence, a representative figure, especially an idol. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tselem (<em>צֶלֶם</em>).</strong> a phantom, i.e. (figuratively) illusion, resemblance; hence, a representative figure, especially an idol.",
         "Strong's H6754, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -352,7 +352,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh, Nineveh, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh, Nineveh, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -363,7 +363,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well).",
         "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -374,7 +374,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace.",
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -385,7 +385,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -396,7 +396,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Christ, the Prophet. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Christ, the Prophet.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -407,7 +407,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: MUNITIONS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: MUNITIONS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -418,7 +418,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fortresses, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Fortresses, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -429,7 +429,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -440,7 +440,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -451,7 +451,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ARMIES, COLORS, SHIELD, SOLDIERS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ARMIES, COLORS, SHIELD, SOLDIERS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -462,7 +462,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Chariots, Lamps, Nineveh, Shields. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Chariots, Lamps, Nineveh, Shields.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -473,7 +473,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Lamps, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Lamps, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -484,7 +484,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PALACE, PALACE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PALACE, PALACE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -495,7 +495,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Gates, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Gates, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -506,7 +506,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: HUZZAB. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: HUZZAB.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -517,7 +517,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TABERING</strong> playing on a small drum or tabret. In Nahum 2:7, where alone it occurs, it means beating on the breast, as players beat on the tabret. <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>TABERING</strong> playing on a small drum or tabret. In Nahum 2:7, where alone it occurs, it means beating on the breast, as players beat on the tabret.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -528,7 +528,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Dove, The, Idols, mentioned in Scripture, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Dove, The, Idols, mentioned in Scripture, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -539,7 +539,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -550,7 +550,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh, Pools and Ponds. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh, Pools and Ponds.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -561,7 +561,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness.",
         "Strong's H3519, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -572,7 +572,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -583,7 +583,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain.",
         "Strong's H8414, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -594,7 +594,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Bôhûw (<em>בֹּהוּ</em>).</strong> a vacuity, i.e. (superficially) an undistinguishable ruin.",
         "Strong's H922, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -605,7 +605,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything.",
         "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -616,7 +616,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Lion, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Lion, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -627,7 +627,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: LION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: LION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -638,7 +638,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Caves, Lion, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Caves, Lion, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -649,7 +649,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -660,7 +660,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -671,7 +671,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Chariots. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Chariots.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -682,7 +682,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Lying, Nineveh, Nineveh, Sins, National, They who connive at. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Lying, Nineveh, Nineveh, Sins, National, They who connive at.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -693,7 +693,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WHIP. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WHIP.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -704,7 +704,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Chariots, Chariots, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Chariots, Chariots, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -715,7 +715,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Dead, The, Nineveh, Spear, Sword, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Dead, The, Nineveh, Spear, Sword, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -726,7 +726,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SORCERY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SORCERY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -737,7 +737,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -748,7 +748,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only).",
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -759,7 +759,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SORCERY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SORCERY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -770,7 +770,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -781,7 +781,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -792,7 +792,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Tôhûw (<em>תֹּהוּ</em>).</strong> a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain.",
         "Strong's H8414, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -803,7 +803,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -814,7 +814,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -825,7 +825,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: NO. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: NO.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -836,7 +836,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Cities, Seas mentioned in scripture. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Cities, Seas mentioned in scripture.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -847,7 +847,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: LUBIMS, PHUT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: LUBIMS, PHUT.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -858,7 +858,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -869,7 +869,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -880,7 +880,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fruit of, illustrative, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Fruit of, illustrative, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -891,7 +891,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land).",
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -902,7 +902,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WOMEN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WOMEN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -913,7 +913,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Nineveh, Woman. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Nineveh, Woman.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -924,7 +924,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen.",
         "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -935,7 +935,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BRICK, BRICK-KILN, MORTAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BRICK, BRICK-KILN, MORTAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -946,7 +946,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sieges, Sieges. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Sieges, Sieges.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -957,7 +957,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CANKERWORM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CANKERWORM.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -968,7 +968,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Insects, Locust, The, Locust, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Insects, Locust, The, Locust, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -979,7 +979,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve).",
         "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -990,7 +990,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CANKERWORM, COMMERCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CANKERWORM, COMMERCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1001,7 +1001,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Carried on by, Insects, Nineveh. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Carried on by, Insects, Nineveh.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1012,7 +1012,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: FENCE, GRASSHOPPER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: FENCE, GRASSHOPPER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1023,7 +1023,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hedges, Locust, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hedges, Locust, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1034,7 +1034,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1045,7 +1045,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>ʻâphâr (<em>עָפָר</em>).</strong> dust (as powdered or gray); hence, clay, earth, mud.",
         "Strong's H6083, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1056,7 +1056,7 @@ NOTES = [
         "lang-hebrew",
         "Hebrew",
         "Hebrew.",
-        "<strong>Shûwph (<em>שׁוּף</em>).</strong> properly, to gape, i.e. snap at; figuratively, to overwhelm. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Shûwph (<em>שׁוּף</em>).</strong> properly, to gape, i.e. snap at; figuratively, to overwhelm.",
         "Strong's H7779, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
@@ -1067,7 +1067,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: As a power, was. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: As a power, was.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),

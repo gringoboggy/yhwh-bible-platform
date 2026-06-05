@@ -22,7 +22,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -33,7 +33,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -44,7 +44,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -55,7 +55,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TIMOTHY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TIMOTHY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -66,7 +66,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Life, Eternal, Promises of God, The, Promises of God, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Life, Eternal, Promises of God, The, Promises of God, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -77,7 +77,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -88,7 +88,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -99,7 +99,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -110,7 +110,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude).",
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -121,7 +121,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Eirḗnē (<em>εἰρήνη</em>).</strong> peace (literally or figuratively); by implication, prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Eirḗnē (<em>εἰρήνη</em>).</strong> peace (literally or figuratively); by implication, prosperity.",
         "Strong's G1515, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -132,7 +132,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -143,7 +143,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -154,7 +154,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TIMOTHY, TIMOTHY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TIMOTHY, TIMOTHY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -165,7 +165,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -176,7 +176,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: OBEDIENCE, THANKFULNESS, TIMOTHY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: OBEDIENCE, THANKFULNESS, TIMOTHY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -187,7 +187,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Thanksgiving. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Thanksgiving.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -198,7 +198,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TIMOTHY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TIMOTHY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -209,7 +209,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Joy. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Joy.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -220,7 +220,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -231,7 +231,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHILDREN, EUNICE, FAITH, FAMILY, LOIS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHILDREN, EUNICE, FAITH, FAMILY, LOIS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -242,7 +242,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LOIS</strong> the maternal grandmother of Timothy. She is commended by Paul for her faith (2 Timothy 1:5). <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>LOIS</strong> the maternal grandmother of Timothy. She is commended by Paul for her faith (2 Timothy 1:5).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -253,7 +253,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TIMOTHY</strong> honouring God, a young disciple who was Paul’s companion in many of his journeyings. His mother, Eunice, and his grandmother, Lois, are mentioned as eminent for their piety (2 Timothy 1:5). We know nothing of his father but that he was a Greek (Acts 16:1). He is first brought into notice at the time of Paul’s second visit to Lystra (16:2), where he probably resided, and where it seems he was converted during Paul’s first visit to that place (1 Timothy 1:2; 2 Timothy 3:11).… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>TIMOTHY</strong> honouring God, a young disciple who was Paul’s companion in many of his journeyings. His mother, Eunice, and his grandmother, Lois, are mentioned as eminent for their piety (2 Timothy 1:5). We know nothing of his father but that he was a Greek (Acts 16:1). He is first brought into notice at the time of Paul’s second visit to Lystra (16:2), where he probably resided, and where it seems he was converted during Paul’s first visit to that place (1 Timothy 1:2; 2 Timothy 3:11).…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -264,7 +264,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Eye, The, Eye, The, Families, Parents, Should characterise. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Eye, The, Eye, The, Families, Parents, Should characterise.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -275,7 +275,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c4">1Ti 4:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:10</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c4">1Ti 4:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:10</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -286,7 +286,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c4">1Ti 4:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:10</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c4">1Ti 4:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:10</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -297,7 +297,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -308,7 +308,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: HAND, MIRACLES, TIMOTHY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: HAND, MIRACLES, TIMOTHY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Miraculous Gifts of the Holy Spirit. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Miraculous Gifts of the Holy Spirit.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -330,7 +330,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:18</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:18</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -341,7 +341,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:18</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:18</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -352,7 +352,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -363,7 +363,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -374,7 +374,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -385,7 +385,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Noûs (<em>νοῦς</em>).</strong> the intellect, i.e. mind (divine or human; in thought, feeling, or will); by implication, meaning. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Noûs (<em>νοῦς</em>).</strong> the intellect, i.e. mind (divine or human; in thought, feeling, or will); by implication, meaning.",
         "Strong's G3563, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -396,7 +396,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phóbos (<em>φόβος</em>).</strong> alarm or fright. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phóbos (<em>φόβος</em>).</strong> alarm or fright.",
         "Strong's G5401, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -407,7 +407,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: COURAGE, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: COURAGE, POWER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -418,7 +418,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Power of the Holy Spirit, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Power of the Holy Spirit, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -429,7 +429,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c1">Rom 1:16</a> · <a href="index_split_052.html#ch-b61-c8">Mrk 8:38</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c1">Rom 1:16</a> · <a href="index_split_052.html#ch-b61-c8">Mrk 8:38</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -440,7 +440,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -451,7 +451,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -462,7 +462,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel.",
         "Strong's G2098, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -473,7 +473,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: POWER, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: POWER, POWER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -484,7 +484,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Denial of Christ, Gospel, The, Power of God, The, Power of the Holy Spirit, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Denial of Christ, Gospel, The, Power of God, The, Power of the Holy Spirit, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -495,7 +495,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:8</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:4</a> · <a href="index_split_058.html#ch-b69-c1">Eph 1:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:8</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:4</a> · <a href="index_split_058.html#ch-b69-c1">Eph 1:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -506,7 +506,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:8</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:4</a> · <a href="index_split_058.html#ch-b69-c1">Eph 1:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:8</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:4</a> · <a href="index_split_058.html#ch-b69-c1">Eph 1:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -517,7 +517,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -528,7 +528,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude).",
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -539,7 +539,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sṓzō (<em>σώζω</em>).</strong> to save, i.e. deliver or protect (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sṓzō (<em>σώζω</em>).</strong> to save, i.e. deliver or protect (literally or figuratively).",
         "Strong's G4982, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -550,7 +550,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated).",
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -561,7 +561,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Call of God, The, Counsels and Purposes of God, The, Holiness, Righteousness, Salvation. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Call of God, The, Counsels and Purposes of God, The, Holiness, Righteousness, Salvation.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -572,7 +572,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -583,7 +583,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -594,7 +594,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel.",
         "Strong's G2098, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -605,7 +605,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -616,7 +616,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -627,7 +627,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Death, Natural, Gospel, The, Life, Eternal, Salvation. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Death, Natural, Gospel, The, Life, Eternal, Salvation.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -638,7 +638,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> 2. 1 ; 6. 20 ; 8. 7 ; 11. 24, 29 ; 15. 47. 2 Cor. 1. 20 ; 12. 1. Gal. 3. 1, 17; 4. 7 ; 5. 1. Eph. 3. 9, 14; 5. 30. Phil. 1. 16, 17. Col. 1. 2, 14; 2. 2, 18. 1 Thess. 1. 1. 1 Tim. 3. 3, 16 ; 6. 5, 19. 2 Tim. 1. 11. Heb. 7. 21. 1 Peter 4. 14. 1 John 4. 3 ; 5. 7, 8, 13. Jude 23. Rev. 1.8, 11 ; 2.3 ; 5.10 ; 11.17 ; 14.5 ; 16.7 ; 21,24; 22. 14. * The Eevisers' Greek text has beep edited by Archdeacon Palmer at <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        "<strong>Manuscript witness.</strong> 2. 1 ; 6. 20 ; 8. 7 ; 11. 24, 29 ; 15. 47. 2 Cor. 1. 20 ; 12. 1. Gal. 3. 1, 17; 4. 7 ; 5. 1. Eph. 3. 9, 14; 5. 30. Phil. 1. 16, 17. Col. 1. 2, 14; 2. 2, 18. 1 Thess. 1. 1. 1 Tim. 3. 3, 16 ; 6. 5, 19. 2 Tim. 1. 11. Heb. 7. 21. 1 Peter 4. 14. 1 John 4. 3 ; 5. 7, 8, 13. Jude 23. Rev. 1.8, 11 ; 2.3 ; 5.10 ; 11.17 ; 14.5 ; 16.7 ; 21,24; 22. 14. * The Eevisers' Greek text has beep edited by Archdeacon Palmer at",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -649,7 +649,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: HERALD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: HERALD.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -660,7 +660,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Apostles, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Apostles, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -671,7 +671,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:8</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:8</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -682,7 +682,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -693,7 +693,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE, POWER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -704,7 +704,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Assurance, Eye, The, Power of Christ, The, Privileges of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Assurance, Eye, The, Power of Christ, The, Privileges of Saints.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -715,7 +715,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c1">Tit 1:9</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:14</a> · <a href="index_split_058.html#vnote-phi-4-9">Php 4:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c1">Tit 1:9</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:14</a> · <a href="index_split_058.html#vnote-phi-4-9">Php 4:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -726,7 +726,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -737,7 +737,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -748,7 +748,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -759,7 +759,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: EXAMPLE, GOSPEL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: EXAMPLE, GOSPEL.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -770,7 +770,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines of the Gospel, The, Gospel, The, Gospel, The, Should be manifested. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines of the Gospel, The, Gospel, The, Gospel, The, Should be manifested.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -781,7 +781,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:17</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:17</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -792,7 +792,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated).",
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -803,7 +803,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Indwelling of the Holy Spirit, The, Should be manifested. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Indwelling of the Holy Spirit, The, Should be manifested.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -814,7 +814,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: APOSTASY, BACKSLIDERS, HERMOGENES, PHYGELLUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: APOSTASY, BACKSLIDERS, HERMOGENES, PHYGELLUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -825,7 +825,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PHYGELLUS</strong> fugitive, a Christian of Asia, who “turned away” from Paul during his second imprisonment at Rome (2 Timothy 1:15). Nothing more is known of him. <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>PHYGELLUS</strong> fugitive, a Christian of Asia, who “turned away” from Paul during his second imprisonment at Rome (2 Timothy 1:15). Nothing more is known of him.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -836,7 +836,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Forsaking God. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Forsaking God.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -847,7 +847,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -858,7 +858,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, CHAINS, HOSPITALITY, INTERCESSION, KINDNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, CHAINS, HOSPITALITY, INTERCESSION, KINDNESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -869,7 +869,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Missionaries, All Christians Should Be As, Prisons, Represented by the. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Missionaries, All Christians Should Be As, Prisons, Represented by the.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -880,7 +880,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, DILIGENCE, KINDNESS, ONESIPHORUS, ROME. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, DILIGENCE, KINDNESS, ONESIPHORUS, ROME.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -891,7 +891,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Diligence, Love to Man, Prisons. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Diligence, Love to Man, Prisons.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -902,7 +902,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -913,7 +913,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, EPHESUS, INTERCESSION, KINDNESS, THANKFULNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BENEFICENCE, EPHESUS, INTERCESSION, KINDNESS, THANKFULNESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -924,7 +924,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Mercy of God, The, Prisons. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Mercy of God, The, Prisons.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -935,7 +935,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c12">2Co 12:9</a> · <a href="index_split_058.html#ch-b69-c6">Eph 6:10</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c12">2Co 12:9</a> · <a href="index_split_058.html#ch-b69-c6">Eph 6:10</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -946,7 +946,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c12">2Co 12:9</a> · <a href="index_split_058.html#ch-b69-c6">Eph 6:10</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c12">2Co 12:9</a> · <a href="index_split_058.html#ch-b69-c6">Eph 6:10</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -957,7 +957,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -968,7 +968,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude).",
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -979,7 +979,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -990,7 +990,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Grace, Mills. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Grace, Mills.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1001,7 +1001,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1012,7 +1012,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a> · <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a> · <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1023,7 +1023,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Faithfulness, Mills. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Faithfulness, Mills.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1034,7 +1034,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c12">Heb 12:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c12">Heb 12:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1045,7 +1045,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c12">Heb 12:2</a> · <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c12">Heb 12:2</a> · <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1056,7 +1056,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1067,7 +1067,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHURCH, MINIAMIN, PARABLES, RIGHTEOUS, SOLDIERS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHURCH, MINIAMIN, PARABLES, RIGHTEOUS, SOLDIERS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1078,7 +1078,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Mills, Represented by the, Saints, Compared To, Saints, Compared To, Titles and Names of Ministers. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Mills, Represented by the, Saints, Compared To, Saints, Compared To, Titles and Names of Ministers.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1089,7 +1089,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_053.html#ch-b62-c8">Luk 8:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_053.html#ch-b62-c8">Luk 8:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1100,7 +1100,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_053.html#ch-b62-c8">Luk 8:14</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_053.html#ch-b62-c8">Luk 8:14</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1111,7 +1111,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1122,7 +1122,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: MINIAMIN, PARABLES, RIGHTEOUS, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: MINIAMIN, PARABLES, RIGHTEOUS, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1133,7 +1133,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Care, Overmuch, Election, Life, Natural, Mills, Represented by the. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Care, Overmuch, Election, Life, Natural, Mills, Represented by the.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1144,7 +1144,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b86-c3">Rev 3:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b86-c3">Rev 3:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1155,7 +1155,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CROWN, PARABLES, RIGHTEOUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CROWN, PARABLES, RIGHTEOUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1166,7 +1166,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Represented by the, Saints, Compared To. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Represented by the, Saints, Compared To.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1177,7 +1177,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AGRICULTURE, PARABLES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AGRICULTURE, PARABLES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1188,7 +1188,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Agriculture or Husbandry. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Agriculture or Husbandry.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1199,7 +1199,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1210,7 +1210,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1221,7 +1221,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Euangélion (<em>εὐαγγέλιον</em>).</strong> a good message, i.e. the gospel.",
         "Strong's G2098, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1232,7 +1232,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1243,7 +1243,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Resurrection of Christ, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Resurrection of Christ, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1254,7 +1254,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1265,7 +1265,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1276,7 +1276,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1287,7 +1287,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1298,7 +1298,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective).",
         "Strong's G1391, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1309,7 +1309,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sōtēría (<em>σωτηρία</em>).</strong> rescue or safety (physically or morally). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sōtēría (<em>σωτηρία</em>).</strong> rescue or safety (physically or morally).",
         "Strong's G4991, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1320,7 +1320,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1331,7 +1331,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: GLORY, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: GLORY, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1342,7 +1342,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial, Glory, Salvation, Salvation, Warfare of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial, Glory, Salvation, Salvation, Warfare of Saints.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1353,7 +1353,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:8</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:8</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1364,7 +1364,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:17</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:33</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:17</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:33</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1375,7 +1375,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Denial of Christ, Reward of Saints, The, Second Coming of Christ, The, Union With Christ. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Denial of Christ, Reward of Saints, The, Second Coming of Christ, The, Union With Christ.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1386,7 +1386,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1397,7 +1397,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:3</a> · <a href="index_split_058.html#ch-b72-c5">1Th 5:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:3</a> · <a href="index_split_058.html#ch-b72-c5">1Th 5:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1408,7 +1408,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1419,7 +1419,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Faithfulness of God, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Faithfulness of God, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1430,7 +1430,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1441,7 +1441,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: VANITY, WORDS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: VANITY, WORDS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1452,7 +1452,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Strife, Strife, Vanity. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Strife, Strife, Vanity.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1463,7 +1463,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:10</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:10</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1474,7 +1474,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:10</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:4</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:10</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1485,7 +1485,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1496,7 +1496,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1507,7 +1507,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1518,7 +1518,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TRUTH, WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TRUTH, WORD OF GOD.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1529,7 +1529,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The gospel as. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: The gospel as.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1540,7 +1540,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:9</a> · <a href="index_split_059.html#ch-b74-c6">1Ti 6:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:9</a> · <a href="index_split_059.html#ch-b74-c6">1Ti 6:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1551,7 +1551,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: VANITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: VANITY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1562,7 +1562,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Vanity. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Vanity.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1573,7 +1573,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1584,7 +1584,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CANKER, HYMENAEUS, MINIAMIN, MINIAMIN, PHILETUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CANKER, HYMENAEUS, MINIAMIN, MINIAMIN, PHILETUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1595,7 +1595,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CANKER</strong> a gangrene or mortification which gradually spreads over the whole body (2 Timothy 2:17). In James 5:3 “cankered” means “rusted” (R.V.) or tarnished. <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>CANKER</strong> a gangrene or mortification which gradually spreads over the whole body (2 Timothy 2:17). In James 5:3 “cankered” means “rusted” (R.V.) or tarnished.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1606,7 +1606,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PHILETUS</strong> amiable, with Hymenaeus, at Ephesus, said that the “resurrection was past already” (2 Timothy 2:17, 18). This was a Gnostic heresy held by the Nicolaitanes. (See ALEXANDER [4].) <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>PHILETUS</strong> amiable, with Hymenaeus, at Ephesus, said that the “resurrection was past already” (2 Timothy 2:17, 18). This was a Gnostic heresy held by the Nicolaitanes. (See ALEXANDER [4].)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1617,7 +1617,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1628,7 +1628,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Anástasis (<em>ἀνάστασις</em>).</strong> a standing up again, i.e. (literally) a resurrection from death (individual, genitive case or by implication, (its author)), or (figuratively) a (moral) recovery (of spiritual truth). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Anástasis (<em>ἀνάστασις</em>).</strong> a standing up again, i.e. (literally) a resurrection from death (individual, genitive case or by implication, (its author)), or (figuratively) a (moral) recovery (of spiritual truth).",
         "Strong's G386, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1639,7 +1639,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1650,7 +1650,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: MINIAMIN, PHILETUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: MINIAMIN, PHILETUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1661,7 +1661,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Resurrection, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Resurrection, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1672,7 +1672,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:14</a> · <a href="index_split_057.html#ch-b66-c8">1Co 8:3</a> · <a href="index_split_051.html#vnote-nah-1-7">Nam 1:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:14</a> · <a href="index_split_057.html#ch-b66-c8">1Co 8:3</a> · <a href="index_split_051.html#vnote-nah-1-7">Nam 1:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1683,7 +1683,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:14</a> · <a href="index_split_057.html#ch-b66-c8">1Co 8:3</a> · <a href="index_split_051.html#vnote-nah-1-7">Nam 1:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:14</a> · <a href="index_split_057.html#ch-b66-c8">1Co 8:3</a> · <a href="index_split_051.html#vnote-nah-1-7">Nam 1:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1694,7 +1694,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1705,7 +1705,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1716,7 +1716,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1727,7 +1727,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character).',
         "Strong's G3686, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1738,7 +1738,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, SEAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, SEAL.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1749,7 +1749,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Figuratively applied to, Seals, Seals, Sin, Wisdom of God, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Figuratively applied to, Seals, Seals, Sin, Wisdom of God, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1760,7 +1760,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c9">Rom 9:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c9">Rom 9:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1771,7 +1771,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PARABLES, RIGHTEOUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PARABLES, RIGHTEOUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1782,7 +1782,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hospitality, Saints, Compared To. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hospitality, Saints, Compared To.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1793,7 +1793,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c3">2Ti 3:17</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c3">2Ti 3:17</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1804,7 +1804,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PARABLES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PARABLES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1815,7 +1815,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sanctification, Titles and Names of Saints, Works, Good. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Sanctification, Titles and Names of Saints, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1826,7 +1826,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:11</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:11</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:11</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:11</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1837,7 +1837,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:11</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:11</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:11</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:11</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1848,7 +1848,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1859,7 +1859,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1870,7 +1870,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Eirḗnē (<em>εἰρήνη</em>).</strong> peace (literally or figuratively); by implication, prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Eirḗnē (<em>εἰρήνη</em>).</strong> peace (literally or figuratively); by implication, prosperity.",
         "Strong's G1515, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1881,7 +1881,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1892,7 +1892,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle.",
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1903,7 +1903,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: HEART. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: HEART.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1914,7 +1914,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Peace, Righteousness. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Peace, Righteousness.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1925,7 +1925,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Strife, Strife. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Strife, Strife.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1936,7 +1936,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1947,7 +1947,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:2</a> · <a href="index_split_059.html#vnote-jam-1-19">Jas 1:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b76-c3">Tit 3:2</a> · <a href="index_split_059.html#vnote-jam-1-19">Jas 1:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1958,7 +1958,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1969,7 +1969,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: GENTLENESS, MINIAMIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: GENTLENESS, MINIAMIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1980,7 +1980,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Meekness, Mills, Mills, Mills. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Meekness, Mills, Mills, Mills.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1991,7 +1991,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2002,7 +2002,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2013,7 +2013,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: GENTLENESS, TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: GENTLENESS, TRUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2024,7 +2024,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Meekness, Repentance, The gospel as. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Meekness, Repentance, The gospel as.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2035,7 +2035,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CAPTIVITY, GENTLENESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CAPTIVITY, GENTLENESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2046,7 +2046,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Bondage, Spiritual, Devil, The, Fall of Man, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Bondage, Spiritual, Devil, The, Fall of Man, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2057,7 +2057,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c3">2Pe 3:3</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c3">2Pe 3:3</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2068,7 +2068,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c3">2Pe 3:3</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c3">2Pe 3:3</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2079,7 +2079,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ACCUSATION, FALSE, INSTANCES OF. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ACCUSATION, FALSE, INSTANCES OF.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2090,7 +2090,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Selfishness. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Selfishness.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2101,7 +2101,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-2-21">Php 2:21</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:29</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-2-21">Php 2:21</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:29</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2112,7 +2112,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: INSTANCES OF, CHARACTER, CHARACTER, CHARACTER, CHARACTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: INSTANCES OF, CHARACTER, CHARACTER, CHARACTER, CHARACTER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2123,7 +2123,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Blasphemy, Character of the Wicked, Character of the Wicked, Character of the Wicked, Character of the Wicked. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Blasphemy, Character of the Wicked, Character of the Wicked, Character of the Wicked, Character of the Wicked.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2134,7 +2134,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ACCUSATION, FALSE, AFFECTIONS, INSTANCES OF, CHARACTER, CHARACTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ACCUSATION, FALSE, AFFECTIONS, INSTANCES OF, CHARACTER, CHARACTER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2145,7 +2145,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Affections, The, Character of the Wicked, Character of the Wicked, Character of the Wicked, Contempt. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Affections, The, Character of the Wicked, Character of the Wicked, Character of the Wicked, Contempt.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2156,7 +2156,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2167,7 +2167,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AMUSEMENTS AND WORLDLY PLEASURES, INSTANCES OF, CHARACTER, CHARACTER, CHARACTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AMUSEMENTS AND WORLDLY PLEASURES, INSTANCES OF, CHARACTER, CHARACTER, CHARACTER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2178,7 +2178,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Amusements and Pleasures, Worldly, Character of the Wicked, Character of the Wicked, Character of the Wicked. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Amusements and Pleasures, Worldly, Character of the Wicked, Character of the Wicked, Character of the Wicked.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2189,7 +2189,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c29">Isa 29:13</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_052.html#ch-b60-c23">Mat 23:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c29">Isa 29:13</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_052.html#ch-b60-c23">Mat 23:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2200,7 +2200,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c29">Isa 29:13</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_052.html#ch-b60-c23">Mat 23:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c29">Isa 29:13</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_052.html#ch-b60-c23">Mat 23:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2211,7 +2211,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHARACTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHARACTER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2222,7 +2222,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Alliance and Society With the Enemies of God, Character of the Wicked, Hyke or Upper Garment. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Alliance and Society With the Enemies of God, Character of the Wicked, Hyke or Upper Garment.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2233,7 +2233,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AFFECTIONS, CAPTIVITY, CHARACTER, SEDUCTION, WOMEN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AFFECTIONS, CAPTIVITY, CHARACTER, SEDUCTION, WOMEN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2244,7 +2244,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Affections, The, Character of the Wicked, Woman. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Affections, The, Character of the Wicked, Woman.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2255,7 +2255,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c4">2Ti 4:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2266,7 +2266,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2277,7 +2277,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Gnōsis (<em>γνῶσις</em>).</strong> knowing (the act), i.e. (by implication) knowledge. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Gnōsis (<em>γνῶσις</em>).</strong> knowing (the act), i.e. (by implication) knowledge.",
         "Strong's G1108, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2288,7 +2288,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2299,7 +2299,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2310,7 +2310,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHARACTER, JAMBRES, JANNES, TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHARACTER, JAMBRES, JANNES, TRUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2321,7 +2321,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JAMBRES</strong> one of those who opposed Moses in Egypt (2 Timothy 3:8). (See JANNES.) <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>JAMBRES</strong> one of those who opposed Moses in Egypt (2 Timothy 3:8). (See JANNES.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2332,7 +2332,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JANNES</strong> one of the Egyptians who “withstood Moses” (2 Timothy 3:8). <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>JANNES</strong> one of the Egyptians who “withstood Moses” (2 Timothy 3:8).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2343,7 +2343,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Character of the Wicked, Doctrines, False, The gospel as. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Character of the Wicked, Doctrines, False, The gospel as.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2354,7 +2354,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines, False. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines, False.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2365,7 +2365,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2376,7 +2376,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2387,7 +2387,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PATIENCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PATIENCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2398,7 +2398,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Patience. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Patience.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2409,7 +2409,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2420,7 +2420,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES, ANTIOCH, ICONIUM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES, ANTIOCH, ICONIUM.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2431,7 +2431,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions, Persecution. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions, Persecution.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2442,7 +2442,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c3">1Pe 3:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c3">1Pe 3:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2453,7 +2453,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c3">1Pe 3:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:12</a> · <a href="index_split_059.html#ch-b80-c2">1Pe 2:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c3">1Pe 3:14</a> · <a href="index_split_059.html#ch-b80-c4">1Pe 4:12</a> · <a href="index_split_059.html#ch-b80-c2">1Pe 2:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2464,7 +2464,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2475,7 +2475,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2486,7 +2486,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions, Gospel, The, Persecution. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions, Gospel, The, Persecution.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2497,7 +2497,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: DECEIT, SEDUCTION, SIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: DECEIT, SEDUCTION, SIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2508,7 +2508,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Deceit, Titles and Names of the Wicked. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Deceit, Titles and Names of the Wicked.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2519,7 +2519,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:13</a> · <a href="index_split_059.html#ch-b75-c2">2Ti 2:2</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c2">1Th 2:13</a> · <a href="index_split_059.html#ch-b75-c2">2Ti 2:2</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2530,7 +2530,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c119">Psa 119:98</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:45</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c119">Psa 119:98</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:45</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2541,7 +2541,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2552,7 +2552,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2563,7 +2563,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sōtēría (<em>σωτηρία</em>).</strong> rescue or safety (physically or morally). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sōtēría (<em>σωτηρία</em>).</strong> rescue or safety (physically or morally).",
         "Strong's G4991, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2574,7 +2574,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated).",
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2585,7 +2585,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHILDREN, CHILDREN, TIMOTHY, WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHILDREN, CHILDREN, TIMOTHY, WORD OF GOD.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2596,7 +2596,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SCRIPTURE</strong> invariably in the New Testament denotes that definite collection of sacred books, regarded as given by inspiration of God, which we usually call the Old Testament (2 Timothy 3:15, 16; John 20:9; Galatians 3:22; 2 Peter 1:20). It was God’s purpose thus to perpetuate his revealed will. From time to time he raised up men to commit to writing in an infallible record the revelation he gave. The “Scripture,” or collection of sacred writings, was thus enlarged from time to time as… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>SCRIPTURE</strong> invariably in the New Testament denotes that definite collection of sacred books, regarded as given by inspiration of God, which we usually call the Old Testament (2 Timothy 3:15, 16; John 20:9; Galatians 3:22; 2 Peter 1:20). It was God’s purpose thus to perpetuate his revealed will. From time to time he raised up men to commit to writing in an infallible record the revelation he gave. The “Scripture,” or collection of sacred writings, was thus enlarged from time to time as…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2607,7 +2607,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Children, Good, Children, Good, Eye, The, Salvation, Scriptures, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Children, Good, Children, Good, Eye, The, Salvation, Scriptures, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2618,7 +2618,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c15">Rom 15:4</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:12</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c15">Rom 15:4</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:12</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2629,7 +2629,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c15">Rom 15:4</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:12</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c15">Rom 15:4</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:12</a> · <a href="index_split_059.html#ch-b81-c1">2Pe 1:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2640,7 +2640,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2651,7 +2651,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2662,7 +2662,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: INSPIRATION, PROPHECY, SCRIPTURES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: INSPIRATION, PROPHECY, SCRIPTURES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2673,7 +2673,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>INSPIRATION</strong> that extraordinary or supernatural divine influence vouchsafed to those who wrote the Holy Scriptures, rendering their writings infallible. “All scripture is given by inspiration of God” (R.V., “Every scripture inspired of God”), 2 Timothy 3:16. This is true of all the “sacred writings,” not in the sense of their being works of genius or of supernatural insight, but as “theopneustic,” i.e., “breathed into by God” in such a sense that the writers were supernaturally guided to… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>INSPIRATION</strong> that extraordinary or supernatural divine influence vouchsafed to those who wrote the Holy Scriptures, rendering their writings infallible. “All scripture is given by inspiration of God” (R.V., “Every scripture inspired of God”), 2 Timothy 3:16. This is true of all the “sacred writings,” not in the sense of their being works of genius or of supernatural insight, but as “theopneustic,” i.e., “breathed into by God” in such a sense that the writers were supernaturally guided to…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2684,7 +2684,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines of the Gospel, The, Holiness, Holy Spirit, The, is God, Inspiration of the Holy Spirit, The, Perfection. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines of the Gospel, The, Holiness, Holy Spirit, The, is God, Inspiration of the Holy Spirit, The, Perfection.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2695,7 +2695,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c2">2Ti 2:21</a> · <a href="index_split_057.html#ch-b67-c9">2Co 9:8</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c2">2Ti 2:21</a> · <a href="index_split_057.html#ch-b67-c9">2Co 9:8</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2706,7 +2706,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2717,7 +2717,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness.",
         "Strong's G5046, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2728,7 +2728,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Holiness, Perfection, Scriptures, The, Titles and Names of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Holiness, Perfection, Scriptures, The, Titles and Names of Saints.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2739,7 +2739,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:42</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:42</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2750,7 +2750,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:42</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:42</a> · <a href="index_split_059.html#ch-b75-c4">2Ti 4:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2761,7 +2761,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2772,7 +2772,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2783,7 +2783,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2794,7 +2794,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Basileía (<em>βασιλεία</em>).</strong> properly, royalty, i.e. (abstractly) rule, or (concretely) a realm (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Basileía (<em>βασιλεία</em>).</strong> properly, royalty, i.e. (abstractly) rule, or (concretely) a realm (literally or figuratively).",
         "Strong's G932, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2805,7 +2805,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2816,7 +2816,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Christ is God, Devil, The, Judgment, The, Judgment, The, Second Coming of Christ, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Christ is God, Devil, The, Judgment, The, Judgment, The, Second Coming of Christ, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2827,7 +2827,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:14</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:15</a> · <a href="index_split_059.html#ch-b86-c3">Rev 3:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:14</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:15</a> · <a href="index_split_059.html#ch-b86-c3">Rev 3:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2838,7 +2838,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2849,7 +2849,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kairós (<em>καιρός</em>).</strong> an occasion, i.e. set or proper time. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kairós (<em>καιρός</em>).</strong> an occasion, i.e. set or proper time.",
         "Strong's G2540, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2860,7 +2860,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: DILIGENCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: DILIGENCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2871,7 +2871,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Diligence, Discipline of the Church, Mills, Reproof. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Diligence, Discipline of the Church, Mills, Reproof.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2882,7 +2882,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2893,7 +2893,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b75-c3">2Ti 3:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2904,7 +2904,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Doctrines of the Gospel, The, Denunciations against. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Doctrines of the Gospel, The, Denunciations against.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2915,7 +2915,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b58-c7">Zec 7:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b58-c7">Zec 7:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2926,7 +2926,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2937,7 +2937,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: FABLE, TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: FABLE, TRUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2948,7 +2948,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines, False, The gospel as. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines, False, The gospel as.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2959,7 +2959,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c2">2Ti 2:3</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c2">2Ti 2:3</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2970,7 +2970,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: MINIAMIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: MINIAMIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2981,7 +2981,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Mills, Mills, Titles and Names of Ministers, Watchfulness, Watchfulness. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Mills, Mills, Titles and Names of Ministers, Watchfulness, Watchfulness.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2992,7 +2992,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-1-23">Php 1:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-1-23">Php 1:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3003,7 +3003,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: DEATH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: DEATH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3014,7 +3014,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TIMOTHY</strong> , SECOND EPISTLE TO was probably written a year or so after the first, and from Rome, where Paul was for a second time a prisoner, and was sent to Timothy by the hands of Tychicus. In it he entreats Timothy to come to him before winter, and to bring Mark with him (comp. Phil. 2:22). He was anticipating that “the time of his departure was at hand” (2 Timothy 4:6), and he exhorts his “son Timothy” to all diligence and steadfastness, and to patience under persecution (1:6-15),… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>TIMOTHY</strong> , SECOND EPISTLE TO was probably written a year or so after the first, and from Rome, where Paul was for a second time a prisoner, and was sent to Timothy by the hands of Tychicus. In it he entreats Timothy to come to him before winter, and to bring Mark with him (comp. Phil. 2:22). He was anticipating that “the time of his departure was at hand” (2 Timothy 4:6), and he exhorts his “son Timothy” to all diligence and steadfastness, and to patience under persecution (1:6-15),…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3025,7 +3025,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sacrifices. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Sacrifices.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3036,7 +3036,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a> · <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b78-c12">Heb 12:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a> · <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b78-c12">Heb 12:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3047,7 +3047,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a> · <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b78-c12">Heb 12:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c6">1Ti 6:12</a> · <a href="index_split_057.html#ch-b66-c9">1Co 9:24</a> · <a href="index_split_059.html#ch-b78-c12">Heb 12:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3058,7 +3058,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3069,7 +3069,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE, CHURCH, DEATH, FIGHT OF FAITH, GAMES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE, CHURCH, DEATH, FIGHT OF FAITH, GAMES.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3080,7 +3080,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Eye, The, Mills, Perseverance, Represented by the. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Eye, The, Mills, Perseverance, Represented by the.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3091,7 +3091,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3102,7 +3102,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a> · <a href="index_split_059.html#ch-b86-c2">Rev 2:10</a> · <a href="index_split_059.html#ch-b80-c5">1Pe 5:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-12">Jas 1:12</a> · <a href="index_split_059.html#ch-b86-c2">Rev 2:10</a> · <a href="index_split_059.html#ch-b80-c5">1Pe 5:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3113,7 +3113,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3124,7 +3124,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3135,7 +3135,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3146,7 +3146,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively).",
         "Strong's G1342, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3157,7 +3157,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE, CROWN, DEATH, JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE, CROWN, DEATH, JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3168,7 +3168,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Death of Saints, The, Judgment, The, Love to Christ, Reward of Saints, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Death of Saints, The, Judgment, The, Love to Christ, Reward of Saints, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3179,7 +3179,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3190,7 +3190,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense).",
         "Strong's G25, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3201,7 +3201,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: APOSTASY, BACKSLIDERS, COVETOUSNESS, CRESCENS, DALMATIA. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: APOSTASY, BACKSLIDERS, COVETOUSNESS, CRESCENS, DALMATIA.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3212,7 +3212,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CRESCENS</strong> increasing, probably one of the seventy disciples of Christ. He was one of Paul’s assistants (2 Timothy 4:10), probably a Christian of Rome. <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>CRESCENS</strong> increasing, probably one of the seventy disciples of Christ. He was one of Paul’s assistants (2 Timothy 4:10), probably a Christian of Rome.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3223,7 +3223,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DALMATIA</strong> a mountainous country on the eastern shore of the Adriatic, a part of the Roman province of Illyricum. It still bears its ancient name. During Paul’s second imprisonment at Rome, Titus left him to visit Dalmatia (2 Timothy 4:10) for some unknown purpose. Paul had himself formerly preached in that region (Romans 15:19). The present Emperor of Austria bears, among his other titles, that of “King of Dalmatia.” The Beth-dagon of Joshua 19:27 was one of the border cities of… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>DALMATIA</strong> a mountainous country on the eastern shore of the Adriatic, a part of the Roman province of Illyricum. It still bears its ancient name. During Paul’s second imprisonment at Rome, Titus left him to visit Dalmatia (2 Timothy 4:10) for some unknown purpose. Paul had himself formerly preached in that region (Romans 15:19). The present Emperor of Austria bears, among his other titles, that of “King of Dalmatia.” The Beth-dagon of Joshua 19:27 was one of the border cities of…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3234,7 +3234,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DALMATIA</strong> a mountainous country on the eastern shore of the Adriatic, a part of the Roman province of Illyricum. It still bears its ancient name. During Paul’s second imprisonment at Rome, Titus left him to visit Dalmatia (2 Timothy 4:10) for some unknown purpose. Paul had himself formerly preached in that region (Romans 15:19). The present Emperor of Austria bears, among his other titles, that of “King of Dalmatia.” <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>DALMATIA</strong> a mountainous country on the eastern shore of the Adriatic, a part of the Roman province of Illyricum. It still bears its ancient name. During Paul’s second imprisonment at Rome, Titus left him to visit Dalmatia (2 Timothy 4:10) for some unknown purpose. Paul had himself formerly preached in that region (Romans 15:19). The present Emperor of Austria bears, among his other titles, that of “King of Dalmatia.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3245,7 +3245,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ILLYRICUM</strong> a country to the north-west of Macedonia, on the eastern shores of the Adriatic, now almost wholly comprehended in Dalmatia, a name formerly given to the southern part of Illyricum (2 Timothy 4:10). It was traversed by Paul in his third missionary journey (Romans 15:19). It was the farthest district he had reached in preaching the gospel of Christ. This reference to Illyricum is in harmony with Acts 20:2, inasmuch as the apostle’s journey over the parts of Macedonia would… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>ILLYRICUM</strong> a country to the north-west of Macedonia, on the eastern shores of the Adriatic, now almost wholly comprehended in Dalmatia, a name formerly given to the southern part of Illyricum (2 Timothy 4:10). It was traversed by Paul in his third missionary journey (Romans 15:19). It was the farthest district he had reached in preaching the gospel of Christ. This reference to Illyricum is in harmony with Acts 20:2, inasmuch as the apostle’s journey over the parts of Macedonia would…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3256,7 +3256,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Apostates. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Apostates.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3267,7 +3267,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: LUKE, MARK. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: LUKE, MARK.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3278,7 +3278,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: EPHESUS, TYCHICUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: EPHESUS, TYCHICUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3289,7 +3289,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CARPUS, CLOAK, DRESS, PARCHMENT, TROAS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CARPUS, CLOAK, DRESS, PARCHMENT, TROAS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3300,7 +3300,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PARCHMENT</strong> a skin prepared for writing on; so called from Pergamos (q.v.), where this was first done (2 Timothy 4:13). <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>PARCHMENT</strong> a skin prepared for writing on; so called from Pergamos (q.v.), where this was first done (2 Timothy 4:13).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3311,7 +3311,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Books, Gardens. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Books, Gardens.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3322,7 +3322,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3333,7 +3333,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ALEXANDER, BRASS, BRAZIER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ALEXANDER, BRASS, BRAZIER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3344,7 +3344,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Arts of The, Brass, or Copper, Metals. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Arts of The, Brass, or Copper, Metals.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3355,7 +3355,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3366,7 +3366,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES, MEEKNESS, PRISONERS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AFFLICTIONS AND ADVERSITIES, MEEKNESS, PRISONERS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3377,7 +3377,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial, Forgiveness of Injuries, Prayer, Intercessory. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflictions Made Beneficial, Forgiveness of Injuries, Prayer, Intercessory.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3388,7 +3388,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c5">1Pe 5:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c5">1Pe 5:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3399,7 +3399,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3410,7 +3410,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: LION, POWER, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: LION, POWER, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3421,7 +3421,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Afflicted Saints, Afflictions Made Beneficial, Beard, The, Lion, The, Power of Christ, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Afflicted Saints, Afflictions Made Beneficial, Beard, The, Lion, The, Power of Christ, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3432,7 +3432,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c121">Psa 121:7</a> · <a href="index_split_058.html#ch-b73-c3">2Th 3:3</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c121">Psa 121:7</a> · <a href="index_split_058.html#ch-b73-c3">2Th 3:3</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3443,7 +3443,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c121">Psa 121:7</a> · <a href="index_split_058.html#ch-b73-c3">2Th 3:3</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c121">Psa 121:7</a> · <a href="index_split_058.html#ch-b73-c3">2Th 3:3</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3454,7 +3454,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3465,7 +3465,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective).",
         "Strong's G1391, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3476,7 +3476,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Basileía (<em>βασιλεία</em>).</strong> properly, royalty, i.e. (abstractly) rule, or (concretely) a realm (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Basileía (<em>βασιλεία</em>).</strong> properly, royalty, i.e. (abstractly) rule, or (concretely) a realm (literally or figuratively).",
         "Strong's G932, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3487,7 +3487,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: POWER, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: POWER, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3498,7 +3498,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Power of Christ, The, Second Coming of Christ, The, Warfare of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Power of Christ, The, Second Coming of Christ, The, Warfare of Saints.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3509,7 +3509,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: AQUILA AND PRISCILLA, ONESIPHORUS, PRISCA, PRISCILLA. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: AQUILA AND PRISCILLA, ONESIPHORUS, PRISCA, PRISCILLA.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3520,7 +3520,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CORINTH, ERASTUS, MILETUS, TROPHIMUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CORINTH, ERASTUS, MILETUS, TROPHIMUS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3531,7 +3531,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MILETUS</strong> (Miletum, 2 Timothy 4:20), a seaport town and the ancient capital of Ionia, about 36 miles south of Ephesus. On his voyage from Greece to Syria, Paul touched at this port, and delivered that noble and pathetic address to the elders (“presbyters,” ver. 28) of Ephesus recorded in Acts 20:15-35. The site of Miletus is now some 10 miles from the coast. (See EPHESIANS, EPISTLE TO.) <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>MILETUS</strong> (Miletum, 2 Timothy 4:20), a seaport town and the ancient capital of Ionia, about 36 miles south of Ephesus. On his voyage from Greece to Syria, Paul touched at this port, and delivered that noble and pathetic address to the elders (“presbyters,” ver. 28) of Ephesus recorded in Acts 20:15-35. The site of Miletus is now some 10 miles from the coast. (See EPHESIANS, EPISTLE TO.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3542,7 +3542,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CLAUDIA, EUBULUS, LINUS, PUDENS, ROME. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CLAUDIA, EUBULUS, LINUS, PUDENS, ROME.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3553,7 +3553,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CLAUDIA</strong> a female Christian mentioned in 2 Timothy 4:21. It is a conjecture having some probability that she was a British maiden, the daughter of king Cogidunus, who was an ally of Rome, and assumed the name of the emperor, his patron, Tiberius Claudius, and that she was the wife of Pudens. <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>CLAUDIA</strong> a female Christian mentioned in 2 Timothy 4:21. It is a conjecture having some probability that she was a British maiden, the daughter of king Cogidunus, who was an ally of Rome, and assumed the name of the emperor, his patron, Tiberius Claudius, and that she was the wife of Pudens.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3564,7 +3564,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PUDENS</strong> bashful, a Christian at Rome, who sent his greetings to Timothy (2 Timothy 4:21). (See CLAUDIA.) <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>PUDENS</strong> bashful, a Christian at Rome, who sent his greetings to Timothy (2 Timothy 4:21). (See CLAUDIA.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3575,7 +3575,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Winter. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Winter.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3586,7 +3586,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title).",
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3597,7 +3597,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3608,7 +3608,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3619,7 +3619,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude).",
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3630,7 +3630,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Represented by the. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Represented by the.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),

@@ -22,7 +22,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c4">Act 4:20</a> · <a href="index_split_054.html#ch-b63-c20">Jhn 20:27</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c4">Act 4:20</a> · <a href="index_split_054.html#ch-b63-c20">Jhn 20:27</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -33,7 +33,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c4">Act 4:20</a> · <a href="index_split_054.html#ch-b63-c20">Jhn 20:27</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c4">Act 4:20</a> · <a href="index_split_054.html#ch-b63-c20">Jhn 20:27</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -44,7 +44,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -55,7 +55,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -66,7 +66,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -88,7 +88,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Apostles, The, Groves, Human Nature of Christ, The, Titles and Names of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Apostles, The, Groves, Human Nature of Christ, The, Titles and Names of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -99,7 +99,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:4</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:20</a> · <a href="index_split_059.html#ch-b74-c3">1Ti 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:4</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:20</a> · <a href="index_split_059.html#ch-b74-c3">1Ti 3:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -110,7 +110,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -121,7 +121,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -132,7 +132,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -143,7 +143,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Life, Eternal, Titles and Names of Christ, Titles and Names of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Life, Eternal, Titles and Names of Christ, Titles and Names of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -154,7 +154,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -165,7 +165,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:9</a> · <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a> · <a href="index_split_054.html#ch-b63-c17">Jhn 17:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c1">1Co 1:9</a> · <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a> · <a href="index_split_054.html#ch-b63-c17">Jhn 17:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -176,7 +176,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -187,7 +187,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -198,7 +198,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -209,7 +209,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: COMMUNION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: COMMUNION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -220,7 +220,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Communion of Saints, Communion of Saints, Communion of the Lord’s Supper, Communion of the Lord’s Supper, Doctrines of the Gospel, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Communion of Saints, Communion of Saints, Communion of the Lord’s Supper, Communion of the Lord’s Supper, Doctrines of the Gospel, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -231,7 +231,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -242,7 +242,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Grace, Joy, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Grace, Joy, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -253,7 +253,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c8">Jhn 8:12</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_040.html#ch-b37-c60">Isa 60:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c8">Jhn 8:12</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_040.html#ch-b37-c60">Isa 60:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -264,7 +264,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c8">Jhn 8:12</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_040.html#ch-b37-c60">Isa 60:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c8">Jhn 8:12</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_040.html#ch-b37-c60">Isa 60:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -275,7 +275,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -286,7 +286,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -297,7 +297,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively).",
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -308,7 +308,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Goat, The, Light, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Goat, The, Light, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:4</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:4</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -330,7 +330,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -341,7 +341,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively).",
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -352,7 +352,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Lying, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Lying, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -363,7 +363,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_059.html#ch-b86-c1">Rev 1:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_059.html#ch-b86-c1">Rev 1:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -374,7 +374,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_059.html#ch-b86-c1">Rev 1:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_059.html#ch-b86-c1">Rev 1:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -385,7 +385,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -396,7 +396,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -407,7 +407,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -418,7 +418,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -429,7 +429,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred.",
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -440,7 +440,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CLEANLINESS, SIN, WALKING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CLEANLINESS, SIN, WALKING.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -451,7 +451,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Atonement, The, Blindness, Spiritual, Communion of Saints, Pardon, Purifications. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Atonement, The, Blindness, Spiritual, Communion of Saints, Pardon, Purifications.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -462,7 +462,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c3">Rom 3:23</a> · <a href="index_split_037.html#ch-b34-c7">Ecc 7:20</a> · <a href="index_split_059.html#vnote-jam-3-2">Jas 3:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c3">Rom 3:23</a> · <a href="index_split_037.html#ch-b34-c7">Ecc 7:20</a> · <a href="index_split_059.html#vnote-jam-3-2">Jas 3:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -473,7 +473,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c3">Rom 3:23</a> · <a href="index_split_037.html#ch-b34-c7">Ecc 7:20</a> · <a href="index_split_059.html#vnote-jam-3-2">Jas 3:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c3">Rom 3:23</a> · <a href="index_split_037.html#ch-b34-c7">Ecc 7:20</a> · <a href="index_split_059.html#vnote-jam-3-2">Jas 3:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -484,7 +484,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -495,7 +495,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -506,7 +506,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fall of Man, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Fall of Man, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -517,7 +517,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c32">Psa 32:5</a> · <a href="index_split_036.html#ch-b32-c28">Pro 28:13</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c32">Psa 32:5</a> · <a href="index_split_036.html#ch-b32-c28">Pro 28:13</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -528,7 +528,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c32">Psa 32:5</a> · <a href="index_split_036.html#ch-b32-c28">Pro 28:13</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c32">Psa 32:5</a> · <a href="index_split_036.html#ch-b32-c28">Pro 28:13</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -539,7 +539,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CLEANLINESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CLEANLINESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -550,7 +550,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Confession of Sin, Faithfulness of God, The, Justice of God, The, Pardon, Pardon. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Confession of Sin, Faithfulness of God, The, Justice of God, The, Pardon, Pardon.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -561,7 +561,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -572,7 +572,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -583,7 +583,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TRUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -594,7 +594,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sin, Truth of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Sin, Truth of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -605,7 +605,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c2">1Ti 2:5</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:34</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c2">1Ti 2:5</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:34</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -616,7 +616,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c2">1Ti 2:5</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:34</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c2">1Ti 2:5</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:34</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -627,7 +627,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -638,7 +638,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively).",
         "Strong's G1342, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -649,7 +649,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -660,7 +660,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -671,7 +671,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ADVOCATE, JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ADVOCATE, JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -682,7 +682,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Privileges of Saints, Titles and Names of Christ, Titles and Names of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Privileges of Saints, Titles and Names of Christ, Titles and Names of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -693,7 +693,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -704,7 +704,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:18</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:14</a> · <a href="index_split_059.html#ch-b80-c3">1Pe 3:18</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:29</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -715,7 +715,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, PROPITIATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, PROPITIATION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -726,7 +726,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Atonement, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Atonement, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -737,7 +737,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:10</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:10</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -748,7 +748,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:6</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_059.html#vnote-jam-2-14">Jas 2:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:6</a> · <a href="index_split_059.html#ch-b76-c1">Tit 1:16</a> · <a href="index_split_059.html#vnote-jam-2-14">Jas 2:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -759,7 +759,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -770,7 +770,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Lying, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Lying, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -781,7 +781,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:23</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:21</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:23</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:21</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -792,7 +792,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -803,7 +803,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -814,7 +814,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -825,7 +825,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -836,7 +836,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Love of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Love of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -847,7 +847,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:21</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:15</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:21</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:15</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -858,7 +858,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:21</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:15</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c2">1Pe 2:21</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:15</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -869,7 +869,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Example of Christ, The, Holiness, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Example of Christ, The, Holiness, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -880,7 +880,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:11</a> · <a href="index_split_006.html#vnote-lev-19-18">Lev 19:18</a> · <a href="index_split_052.html#ch-b61-c12">Mrk 12:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:11</a> · <a href="index_split_006.html#vnote-lev-19-18">Lev 19:18</a> · <a href="index_split_052.html#ch-b61-c12">Mrk 12:29</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -891,7 +891,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -902,7 +902,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c5">Eph 5:8</a> · <a href="index_split_056.html#ch-b65-c13">Rom 13:12</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -913,7 +913,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alēthinós (<em>ἀληθινός</em>).</strong> truthful. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alēthinós (<em>ἀληθινός</em>).</strong> truthful.",
         "Strong's G228, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -924,7 +924,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -935,7 +935,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively).",
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -946,7 +946,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -957,7 +957,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -968,7 +968,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively).",
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -979,7 +979,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Hatred, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Hatred, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -990,7 +990,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phōs (<em>φῶς</em>).</strong> compare G5316 (φαίνω), G5346 (φημί)); luminousness (in the widest application, natural or artificial, abstract or concrete, literal or figurative).",
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1001,7 +1001,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1012,7 +1012,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Skótos (<em>σκότος</em>).</strong> shadiness, i.e. obscurity (literally or figuratively).",
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1023,7 +1023,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Degrees of, mentioned, Hatred, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Blindness, Spiritual, Degrees of, mentioned, Hatred, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1034,7 +1034,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:43</a> · <a href="index_split_055.html#ch-b64-c13">Act 13:38</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c10">Act 10:43</a> · <a href="index_split_055.html#ch-b64-c13">Act 13:38</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1045,7 +1045,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character).',
         "Strong's G3686, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1056,7 +1056,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1067,7 +1067,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Life, Spiritual, Pardon, Pardon, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Life, Spiritual, Pardon, Pardon, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1078,7 +1078,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1089,7 +1089,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Devil, The, Devil, The, Life, Spiritual, Life, Spiritual, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Devil, The, Devil, The, Life, Spiritual, Life, Spiritual, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1100,7 +1100,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c119">Psa 119:11</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:13</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c119">Psa 119:11</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:13</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1111,7 +1111,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1122,7 +1122,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1133,7 +1133,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1144,7 +1144,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Life, Spiritual, Life, Spiritual, Warfare of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Life, Spiritual, Life, Spiritual, Warfare of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1155,7 +1155,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-4">Jas 4:4</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-4">Jas 4:4</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1166,7 +1166,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-4">Jas 4:4</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-4">Jas 4:4</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1177,7 +1177,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1188,7 +1188,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1199,7 +1199,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1210,7 +1210,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c13">Rom 13:14</a> · <a href="index_split_058.html#ch-b68-c5">Gal 5:17</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:36</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c13">Rom 13:14</a> · <a href="index_split_058.html#ch-b68-c5">Gal 5:17</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:36</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1221,7 +1221,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c13">Rom 13:14</a> · <a href="index_split_058.html#ch-b68-c5">Gal 5:17</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:36</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c13">Rom 13:14</a> · <a href="index_split_058.html#ch-b68-c5">Gal 5:17</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:36</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1232,7 +1232,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such).",
         "Strong's G4561, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1243,7 +1243,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1254,7 +1254,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1265,7 +1265,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: EYE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: EYE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1276,7 +1276,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Pride, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Pride, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1287,7 +1287,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:35</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:35</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1298,7 +1298,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:35</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_057.html#ch-b66-c7">1Co 7:31</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:35</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:2</a> · <a href="index_split_057.html#ch-b66-c7">1Co 7:31</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1309,7 +1309,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1320,7 +1320,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:3</a> · <a href="index_split_059.html#ch-b83-c1">2Jn 1:7</a> · <a href="index_split_052.html#ch-b60-c24">Mat 24:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:3</a> · <a href="index_split_059.html#ch-b83-c1">2Jn 1:7</a> · <a href="index_split_052.html#ch-b60-c24">Mat 24:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1331,7 +1331,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PROPHECY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PROPHECY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1342,7 +1342,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ANTICHRIST</strong> against Christ, or an opposition Christ, a rival Christ. The word is used only by the apostle John. Referring to false teachers, he says (1 John 2:18, 22; 4:3; 2 John 1:7), “Even now are there many antichrists.” (1.) This name has been applied to the “little horn” of the “king of fierce countenance” (Daniel 7:24, 25; 8:23-25). (2.) It has been applied also to the “false Christs” spoken of by our Lord (Matthew 24:5, 23, 24). (3.) To the “man of sin” described by Paul (2… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>ANTICHRIST</strong> against Christ, or an opposition Christ, a rival Christ. The word is used only by the apostle John. Referring to false teachers, he says (1 John 2:18, 22; 4:3; 2 John 1:7), “Even now are there many antichrists.” (1.) This name has been applied to the “little horn” of the “king of fierce countenance” (Daniel 7:24, 25; 8:23-25). (2.) It has been applied also to the “false Christs” spoken of by our Lord (Matthew 24:5, 23, 24). (3.) To the “man of sin” described by Paul (2…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1353,7 +1353,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Antichrist, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Antichrist, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1364,7 +1364,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c20">Act 20:30</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c20">Act 20:30</a> · <a href="index_split_057.html#ch-b66-c11">1Co 11:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1375,7 +1375,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Apostates, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Apostates, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1386,7 +1386,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:27</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_057.html#ch-b67-c1">2Co 1:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:27</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_057.html#ch-b67-c1">2Co 1:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1397,7 +1397,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated).",
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1408,7 +1408,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ANOINTING, ANOINTING, SYMBOLS AND SIMILITUDES, UNCTION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ANOINTING, ANOINTING, SYMBOLS AND SIMILITUDES, UNCTION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1419,7 +1419,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>UNCTION</strong> (1 John 2:20,27; R.V., “anointing”). Kings, prophets, and priests were anointed, in token of receiving divine grace. All believers are, in a secondary sense, what Christ was in a primary sense, “the Lord’s anointed.” <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>UNCTION</strong> (1 John 2:20,27; R.V., “anointing”). Kings, prophets, and priests were anointed, in token of receiving divine grace. All believers are, in a secondary sense, what Christ was in a primary sense, “the Lord’s anointed.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1430,7 +1430,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Anointing of the Holy Spirit, Emblems of the Holy Spirit, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Anointing of the Holy Spirit, Emblems of the Holy Spirit, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1441,7 +1441,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1452,7 +1452,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b83-c1">2Jn 1:7</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:3</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b83-c1">2Jn 1:7</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:3</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1463,7 +1463,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1474,7 +1474,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1485,7 +1485,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1496,7 +1496,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Antichrist, Denial of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Antichrist, Denial of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1507,7 +1507,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:15</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:15</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1518,7 +1518,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1529,7 +1529,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1540,7 +1540,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Denial of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Denial of Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1551,7 +1551,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:23</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:23</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1562,7 +1562,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1573,7 +1573,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1584,7 +1584,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Union With Christ, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Union With Christ, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1595,7 +1595,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:28</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:28</a> · <a href="index_split_059.html#ch-b76-c3">Tit 3:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1606,7 +1606,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1617,7 +1617,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1628,7 +1628,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Life, Eternal, Promises of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Life, Eternal, Promises of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1639,7 +1639,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:20</a> · <a href="index_split_056.html#ch-b66-c2">1Co 2:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:20</a> · <a href="index_split_056.html#ch-b66-c2">1Co 2:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1650,7 +1650,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:20</a> · <a href="index_split_056.html#ch-b66-c2">1Co 2:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:26</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:20</a> · <a href="index_split_056.html#ch-b66-c2">1Co 2:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1661,7 +1661,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1672,7 +1672,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ANOINTING, CHARACTER, SYMBOLS AND SIMILITUDES, UNCTION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ANOINTING, CHARACTER, SYMBOLS AND SIMILITUDES, UNCTION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1683,7 +1683,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Anointing of the Holy Spirit, Anointing of the Holy Spirit, Anointing, Sacred, Character of Saints, Emblems of the Holy Spirit, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Anointing of the Holy Spirit, Anointing of the Holy Spirit, Anointing, Sacred, Character of Saints, Emblems of the Holy Spirit, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1694,7 +1694,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:17</a> · <a href="index_split_052.html#ch-b61-c8">Mrk 8:38</a> · <a href="index_split_058.html#ch-b72-c3">1Th 3:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:17</a> · <a href="index_split_052.html#ch-b61-c8">Mrk 8:38</a> · <a href="index_split_058.html#ch-b72-c3">1Th 3:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1705,7 +1705,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Parousía (<em>παρουσία</em>).</strong> a being near, i.e. advent (often, return; specially, of Christ to punish Jerusalem, or finally the wicked); (by implication) physically, aspect. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Parousía (<em>παρουσία</em>).</strong> a being near, i.e. advent (often, return; specially, of Christ to punish Jerusalem, or finally the wicked); (by implication) physically, aspect.",
         "Strong's G3952, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1716,7 +1716,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BOLDNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BOLDNESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1727,7 +1727,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Second Coming of Christ, The, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Second Coming of Christ, The, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1738,7 +1738,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1749,7 +1749,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:3</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:3</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1760,7 +1760,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1771,7 +1771,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively).",
         "Strong's G1342, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1782,7 +1782,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: New Birth, The, New Birth, The, Righteousness, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: New Birth, The, New Birth, The, Righteousness, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1793,7 +1793,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:26</a> · <a href="index_split_057.html#ch-b67-c6">2Co 6:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:26</a> · <a href="index_split_057.html#ch-b67-c6">2Co 6:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1804,7 +1804,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:26</a> · <a href="index_split_057.html#ch-b67-c6">2Co 6:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:26</a> · <a href="index_split_057.html#ch-b67-c6">2Co 6:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1815,7 +1815,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1826,7 +1826,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1837,7 +1837,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1848,7 +1848,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: IMAGE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: IMAGE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1859,7 +1859,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Adoption, Love of God, The, Titles and Names of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Adoption, Love of God, The, Titles and Names of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1870,7 +1870,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-21">Php 3:21</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:4</a> · <a href="index_split_057.html#ch-b66-c13">1Co 13:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-21">Php 3:21</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:4</a> · <a href="index_split_057.html#ch-b66-c13">1Co 13:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1881,7 +1881,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-21">Php 3:21</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:4</a> · <a href="index_split_057.html#ch-b66-c13">1Co 13:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-21">Php 3:21</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:4</a> · <a href="index_split_057.html#ch-b66-c13">1Co 13:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1892,7 +1892,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1903,7 +1903,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE, ASSURANCE, IMAGE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE, ASSURANCE, IMAGE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1925,7 +1925,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Adoption, Adoption, Assurance, Assurance, New Birth, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Adoption, Adoption, Assurance, Assurance, New Birth, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1936,7 +1936,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c7">2Co 7:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c7">2Co 7:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1947,7 +1947,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c7">2Co 7:1</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:6</a> · <a href="index_split_059.html#ch-b81-c3">2Pe 3:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c7">2Co 7:1</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:6</a> · <a href="index_split_059.html#ch-b81-c3">2Pe 3:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1958,7 +1958,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Elpís (<em>ἐλπίς</em>).</strong> expectation (abstractly or concretely) or confidence. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Elpís (<em>ἐλπίς</em>).</strong> expectation (abstractly or concretely) or confidence.",
         "Strong's G1680, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -1969,7 +1969,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHARACTER, IMAGE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHARACTER, IMAGE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -1980,7 +1980,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Adoption, Character of Saints, Example of Christ, The, Hope, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Adoption, Character of Saints, Example of Christ, The, Hope, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1991,7 +1991,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:17</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2002,7 +2002,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:17</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:20</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:17</a> · <a href="index_split_056.html#ch-b65-c3">Rom 3:20</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2013,7 +2013,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2024,7 +2024,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: CHURCH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: CHURCH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2035,7 +2035,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SIN</strong> is “any want of conformity unto or transgression of the law of God” (1 John 3:4; Romans 4:15), in the inward state and habit of the soul, as well as in the outward conduct of the life, whether by omission or commission (Romans 6:12-17; 7:5-24). It is “not a mere violation of the law of our constitution, nor of the system of things, but an offence against a personal lawgiver and moral governor who vindicates his law with penalties. The soul that sins is always conscious that… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>SIN</strong> is “any want of conformity unto or transgression of the law of God” (1 John 3:4; Romans 4:15), in the inward state and habit of the soul, as well as in the outward conduct of the life, whether by omission or commission (Romans 6:12-17; 7:5-24). It is “not a mere violation of the law of our constitution, nor of the system of things, but an offence against a personal lawgiver and moral governor who vindicates his law with penalties. The soul that sins is always conscious that…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2046,7 +2046,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Law of God, The, Sin, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Law of God, The, Sin, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2057,7 +2057,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c5">2Co 5:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c5">2Co 5:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2068,7 +2068,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2079,7 +2079,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Salvation, Sin, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Human Nature of Christ, The, Salvation, Sin, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2090,7 +2090,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b84-c1">3Jn 1:11</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:9</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b84-c1">3Jn 1:11</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:9</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2101,7 +2101,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Ignorance of God, Union With Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2112,7 +2112,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:29</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:29</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2123,7 +2123,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2134,7 +2134,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively).",
         "Strong's G1342, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2145,7 +2145,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Righteousness, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Righteousness, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2156,7 +2156,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c2">Heb 2:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c2">Heb 2:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2167,7 +2167,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c2">Heb 2:14</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:44</a> · <a href="index_split_058.html#ch-b71-c2">Col 2:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c2">Heb 2:14</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:44</a> · <a href="index_split_058.html#ch-b71-c2">Col 2:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2178,7 +2178,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2189,7 +2189,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2200,7 +2200,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2211,7 +2211,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: POWER, SATAN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: POWER, SATAN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2233,7 +2233,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Devil, The, Devil, The, Power of Christ, The, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Devil, The, Devil, The, Power of Christ, The, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2244,7 +2244,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:18</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:18</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2255,7 +2255,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:18</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:23</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c5">1Jn 5:18</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:23</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2266,7 +2266,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2277,7 +2277,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2288,7 +2288,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: New Birth, The, Sowing of, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: New Birth, The, Sowing of, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2299,7 +2299,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2310,7 +2310,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Dikaiosýnē (<em>δικαιοσύνη</em>).</strong> equity (of character or act); specially (Christian) justification.",
         "Strong's G1343, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2321,7 +2321,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Devil, The, Love to Man, Righteousness, Titles and Names of Saints, Titles and Names of the Wicked. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Devil, The, Love to Man, Righteousness, Titles and Names of Saints, Titles and Names of the Wicked.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2332,7 +2332,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:12</a> · <a href="index_split_059.html#ch-b83-c1">2Jn 1:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:12</a> · <a href="index_split_059.html#ch-b83-c1">2Jn 1:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2343,7 +2343,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2354,7 +2354,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c11">Heb 11:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c11">Heb 11:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2365,7 +2365,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Díkaios (<em>δίκαιος</em>).</strong> equitable (in character or act); by implication, innocent, holy (absolutely or relatively).",
         "Strong's G1342, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2376,7 +2376,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ABEL, CAIN, MOTIVE, PERSECUTION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ABEL, CAIN, MOTIVE, PERSECUTION.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2387,7 +2387,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Martyrdom, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Martyrdom, Righteousness, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2398,7 +2398,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2409,7 +2409,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hatred, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hatred, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2420,7 +2420,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2431,7 +2431,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2442,7 +2442,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2453,7 +2453,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Death, Spiritual, Life, Spiritual, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Death, Spiritual, Life, Spiritual, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2464,7 +2464,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c5">Mat 5:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c5">Mat 5:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2475,7 +2475,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2486,7 +2486,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2497,7 +2497,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BROTHER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BROTHER.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2508,7 +2508,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hatred, Life, Eternal, Murder, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hatred, Life, Eternal, Murder, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2519,7 +2519,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:9</a> · <a href="index_split_058.html#ch-b69-c5">Eph 5:2</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:9</a> · <a href="index_split_058.html#ch-b69-c5">Eph 5:2</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2530,7 +2530,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:9</a> · <a href="index_split_058.html#ch-b69-c5">Eph 5:2</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:9</a> · <a href="index_split_058.html#ch-b69-c5">Eph 5:2</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2541,7 +2541,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2552,7 +2552,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2563,7 +2563,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2574,7 +2574,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SUFFERING, WICKED (PEOPLE). <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SUFFERING, WICKED (PEOPLE).",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2585,7 +2585,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Example of Christ, The, Life, Natural, Love of Christ, The, Love of Christ, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Example of Christ, The, Life, Natural, Love of Christ, The, Love of Christ, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2596,7 +2596,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c13">Heb 13:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c13">Heb 13:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2607,7 +2607,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c13">Heb 13:16</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:7</a> · <a href="index_split_008.html#vnote-deu-15-7">Deu 15:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c13">Heb 13:16</a> · <a href="index_split_040.html#ch-b37-c58">Isa 58:7</a> · <a href="index_split_008.html#vnote-deu-15-7">Deu 15:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2618,7 +2618,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2629,7 +2629,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2640,7 +2640,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Communion of the Lord’s Supper, Liberality, Love to God, Poor, The, Riches. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Communion of the Lord’s Supper, Liberality, Love to God, Poor, The, Riches.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2651,7 +2651,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-15">Jas 2:15</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:9</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-15">Jas 2:15</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:9</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2662,7 +2662,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-15">Jas 2:15</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:9</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-15">Jas 2:15</a> · <a href="index_split_056.html#ch-b65-c12">Rom 12:9</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2673,7 +2673,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2684,7 +2684,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2695,7 +2695,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2706,7 +2706,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SINCERITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SINCERITY.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2717,7 +2717,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Should characterise, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Should characterise, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2728,7 +2728,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2739,7 +2739,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2750,7 +2750,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2761,7 +2761,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c139">Psa 139:1</a> · <a href="index_split_041.html#ch-b38-c17">Jer 17:10</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c139">Psa 139:1</a> · <a href="index_split_041.html#ch-b38-c17">Jer 17:10</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2772,7 +2772,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2783,7 +2783,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle.",
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2794,7 +2794,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2805,7 +2805,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:28</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:28</a> · <a href="index_split_059.html#ch-b78-c4">Heb 4:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2816,7 +2816,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2827,7 +2827,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle.",
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2838,7 +2838,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conscience, Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conscience, Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2849,7 +2849,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:7</a> · <a href="index_split_054.html#ch-b63-c9">Jhn 9:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:7</a> · <a href="index_split_054.html#ch-b63-c9">Jhn 9:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2860,7 +2860,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -2871,7 +2871,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Law of God, The, Prayer, Answers To, Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Law of God, The, Prayer, Answers To, Should be engaged in, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2882,7 +2882,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c6">Jhn 6:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c6">Jhn 6:29</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2893,7 +2893,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2904,7 +2904,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2915,7 +2915,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2926,7 +2926,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2937,7 +2937,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character).',
         "Strong's G3686, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2948,7 +2948,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Eye, The, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Eye, The, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2959,7 +2959,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c3">1Co 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b66-c3">1Co 3:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2970,7 +2970,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -2981,7 +2981,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Gift of the Holy Spirit, The, Law of God, The, Union With Christ, Union With Christ, Witness of the Holy Spirit. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Gift of the Holy Spirit, The, Law of God, The, Union With Christ, Union With Christ, Witness of the Holy Spirit.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2992,7 +2992,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:21</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:21</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3003,7 +3003,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:21</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:21</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:1</a> · <a href="index_split_059.html#ch-b74-c4">1Ti 4:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3014,7 +3014,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3025,7 +3025,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3036,7 +3036,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3047,7 +3047,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Prophesied, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Doctrines, False, Prophesied, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3058,7 +3058,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:14</a> · <a href="index_split_057.html#ch-b66-c12">1Co 12:3</a> · <a href="index_split_059.html#ch-b74-c3">1Ti 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:14</a> · <a href="index_split_057.html#ch-b66-c12">1Co 12:3</a> · <a href="index_split_059.html#ch-b74-c3">1Ti 3:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3069,7 +3069,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3080,7 +3080,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3091,7 +3091,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3102,7 +3102,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such).",
         "Strong's G4561, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3113,7 +3113,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Confessing Christ, Prophesied, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Confessing Christ, Prophesied, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3135,7 +3135,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3146,7 +3146,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> . 2 Cor. 1. 20 ; 12. 1. Gal. 3. 1, 17; 4. 7 ; 5. 1. Eph. 3. 9, 14; 5. 30. Phil. 1. 16, 17. Col. 1. 2, 14; 2. 2, 18. 1 Thess. 1. 1. 1 Tim. 3. 3, 16 ; 6. 5, 19. 2 Tim. 1. 11. Heb. 7. 21. 1 Peter 4. 14. 1 John 4. 3 ; 5. 7, 8, 13. Jude 23. Rev. 1.8, 11 ; 2.3 ; 5.10 ; 11.17 ; 14.5 ; 16.7 ; 21,24; 22. 14. * The Eevisers' Greek text has beep edited by Archdeacon Palmer at Oxford, and Dr. Scrivener at Cambridge <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        "<strong>Manuscript witness.</strong> . 2 Cor. 1. 20 ; 12. 1. Gal. 3. 1, 17; 4. 7 ; 5. 1. Eph. 3. 9, 14; 5. 30. Phil. 1. 16, 17. Col. 1. 2, 14; 2. 2, 18. 1 Thess. 1. 1. 1 Tim. 3. 3, 16 ; 6. 5, 19. 2 Tim. 1. 11. Heb. 7. 21. 1 Peter 4. 14. 1 John 4. 3 ; 5. 7, 8, 13. Jude 23. Rev. 1.8, 11 ; 2.3 ; 5.10 ; 11.17 ; 14.5 ; 16.7 ; 21,24; 22. 14. * The Eevisers' Greek text has beep edited by Archdeacon Palmer at Oxford, and Dr. Scrivener at Cambridge",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -3157,7 +3157,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3168,7 +3168,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3179,7 +3179,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3190,7 +3190,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such).",
         "Strong's G4561, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3201,7 +3201,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Antichrist, Confessing Christ, Denial of Christ, Human Nature of Christ, The, Prophesied. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Antichrist, Confessing Christ, Denial of Christ, Human Nature of Christ, The, Prophesied.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3212,7 +3212,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:37</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:37</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3223,7 +3223,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:37</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:31</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:37</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3234,7 +3234,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3245,7 +3245,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3256,7 +3256,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Warfare of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Warfare of Saints, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3267,7 +3267,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:17</a> · <a href="index_split_054.html#ch-b63-c10">Jhn 10:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:17</a> · <a href="index_split_054.html#ch-b63-c10">Jhn 10:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3278,7 +3278,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3289,7 +3289,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3300,7 +3300,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3311,7 +3311,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:8</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:8</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3322,7 +3322,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:8</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:20</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:8</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3333,7 +3333,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3344,7 +3344,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3355,7 +3355,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, New Birth, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, New Birth, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3366,7 +3366,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3377,7 +3377,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:16</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:7</a> · <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:16</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:7</a> · <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3388,7 +3388,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3399,7 +3399,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3410,7 +3410,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Goat, The, Ignorance of God, Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Goat, The, Ignorance of God, Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3421,7 +3421,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:11</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:32</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:11</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:32</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3432,7 +3432,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:11</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:32</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:11</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:32</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3443,7 +3443,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3454,7 +3454,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3465,7 +3465,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3476,7 +3476,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, WICKED (PEOPLE). <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, WICKED (PEOPLE).",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3498,7 +3498,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Atonement, The, Christ is God, Life, Spiritual, Love of God, The, Salvation. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Atonement, The, Christ is God, Life, Spiritual, Love of God, The, Salvation.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3509,7 +3509,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a> · <a href="index_split_056.html#ch-b65-c5">Rom 5:8</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a> · <a href="index_split_056.html#ch-b65-c5">Rom 5:8</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3520,7 +3520,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a> · <a href="index_split_056.html#ch-b65-c5">Rom 5:8</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a> · <a href="index_split_056.html#ch-b65-c5">Rom 5:8</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3531,7 +3531,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3542,7 +3542,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense).",
         "Strong's G25, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3553,7 +3553,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3564,7 +3564,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3575,7 +3575,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: PROPITIATION, WICKED (PEOPLE). <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: PROPITIATION, WICKED (PEOPLE).",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3586,7 +3586,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Atonement, The, Atonement, The, Love of God, The, Redemption, Salvation. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Atonement, The, Atonement, The, Love of God, The, Redemption, Salvation.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3597,7 +3597,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:12</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:13</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:12</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:13</a> · <a href="index_split_054.html#ch-b63-c13">Jhn 13:34</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3608,7 +3608,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3619,7 +3619,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense).",
         "Strong's G25, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3630,7 +3630,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3641,7 +3641,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3652,7 +3652,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3663,7 +3663,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3674,7 +3674,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3685,7 +3685,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3696,7 +3696,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3707,7 +3707,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3718,7 +3718,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3729,7 +3729,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Gift of the Holy Spirit, The, Is the means of, Union With Christ, Witness of the Holy Spirit. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Gift of the Holy Spirit, The, Is the means of, Union With Christ, Witness of the Holy Spirit.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3740,7 +3740,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3751,7 +3751,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3762,7 +3762,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3773,7 +3773,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3784,7 +3784,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c10">Rom 10:9</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:32</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c10">Rom 10:9</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:32</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3795,7 +3795,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3806,7 +3806,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3817,7 +3817,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Confessing Christ, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3828,7 +3828,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:24</a> · <a href="index_split_033.html#ch-b30-c36">Psa 36:7</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:24</a> · <a href="index_split_033.html#ch-b30-c36">Psa 36:7</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3839,7 +3839,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> d types are taken. The MS. in question is -ritten in double columns on a page measuring 20 inches by 14 . Here only part of one column can be shown (and that much reduced in scale), -- containing 1 John 4. 16 5. 10, and it will be seen that the famous interpolation in verse 8 relating to the Three Witnesses is here absent. As stated in the Variorum Bible, this text is found in no Greek manuscript, with <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        "<strong>Manuscript witness.</strong> d types are taken. The MS. in question is -ritten in double columns on a page measuring 20 inches by 14 . Here only part of one column can be shown (and that much reduced in scale), -- containing 1 John 4. 16 5. 10, and it will be seen that the famous interpolation in verse 8 relating to the Three Witnesses is here absent. As stated in the Variorum Bible, this text is found in no Greek manuscript, with",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -3850,7 +3850,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3861,7 +3861,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3872,7 +3872,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3883,7 +3883,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Goat, The, Love of God, The, Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Goat, The, Love of God, The, Love of God, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3894,7 +3894,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:28</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:28</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3905,7 +3905,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3916,7 +3916,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Krísis (<em>κρίσις</em>).</strong> decision (subjectively or objectively, for or against); by extension, a tribunal; by implication, justice (especially, divine law). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Krísis (<em>κρίσις</em>).</strong> decision (subjectively or objectively, for or against); by extension, a tribunal; by implication, justice (especially, divine law).",
         "Strong's G2920, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3927,7 +3927,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness.",
         "Strong's G5046, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3938,7 +3938,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: BOLDNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: BOLDNESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -3949,7 +3949,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Boldness, Holy, Judgment, The, Love to God, Second Coming of Christ, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Boldness, Holy, Judgment, The, Love to God, Second Coming of Christ, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3960,7 +3960,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3971,7 +3971,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b75-c1">2Ti 1:7</a> · <a href="index_split_056.html#ch-b65-c8">Rom 8:15</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3982,7 +3982,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -3993,7 +3993,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Phóbos (<em>φόβος</em>).</strong> alarm or fright. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Phóbos (<em>φόβος</em>).</strong> alarm or fright.",
         "Strong's G5401, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4004,7 +4004,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Téleios (<em>τέλειος</em>).</strong> complete (in various applications of labor, growth, mental and moral character, etc.); neuter (as noun, with G3588 (ὁ)) completeness.",
         "Strong's G5046, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4015,7 +4015,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4026,7 +4026,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4037,7 +4037,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4048,7 +4048,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:10</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:16</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4059,7 +4059,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4070,7 +4070,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agapáō (<em>ἀγαπάω</em>).</strong> to love (in a social or moral sense).",
         "Strong's G25, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4081,7 +4081,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4092,7 +4092,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:17</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4103,7 +4103,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:17</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:9</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:17</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:9</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4114,7 +4114,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4125,7 +4125,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4136,7 +4136,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hatred, Love to God, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hatred, Love to God, Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4147,7 +4147,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_006.html#vnote-lev-19-18">Lev 19:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_006.html#vnote-lev-19-18">Lev 19:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4158,7 +4158,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4169,7 +4169,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4180,7 +4180,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Love to Man, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4191,7 +4191,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:29</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:42</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:29</a> · <a href="index_split_054.html#ch-b63-c8">Jhn 8:42</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4202,7 +4202,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4213,7 +4213,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4224,7 +4224,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Eye, The, Love to God, Love to Man, New Birth, The, New Birth, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Eye, The, Love to God, Love to Man, New Birth, The, New Birth, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4235,7 +4235,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4246,7 +4246,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4257,7 +4257,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4268,7 +4268,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:10</a> · <a href="index_split_008.html#vnote-deu-7-9">Deu 7:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:15</a> · <a href="index_split_054.html#ch-b63-c15">Jhn 15:10</a> · <a href="index_split_008.html#vnote-deu-7-9">Deu 7:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4279,7 +4279,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast.",
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4290,7 +4290,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4301,7 +4301,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Law of God, The, Law of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Law of God, The, Law of God, The, Love to God, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4312,7 +4312,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:57</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a> · <a href="index_split_054.html#ch-b63-c16">Jhn 16:33</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:57</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a> · <a href="index_split_054.html#ch-b63-c16">Jhn 16:33</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4323,7 +4323,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:57</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a> · <a href="index_split_054.html#ch-b63-c16">Jhn 16:33</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:57</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a> · <a href="index_split_054.html#ch-b63-c16">Jhn 16:33</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4334,7 +4334,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself.",
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4345,7 +4345,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4356,7 +4356,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WAR, WAR, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WAR, WAR, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4367,7 +4367,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Example of Christ, The, Eye, The, Holy Spirit, The, is God, New Birth, The. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Example of Christ, The, Eye, The, Holy Spirit, The, is God, New Birth, The.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4378,7 +4378,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c4">1Jn 4:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4389,7 +4389,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4400,7 +4400,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4411,7 +4411,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WAR, WAR, WAR. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WAR, WAR, WAR.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4422,7 +4422,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Eye, The, Warfare of Saints, Warfare of Saints, Warfare of Saints. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Conduct, Christian, Eye, The, Warfare of Saints, Warfare of Saints, Warfare of Saints.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4433,7 +4433,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:26</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:26</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4444,7 +4444,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4455,7 +4455,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4466,7 +4466,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth.",
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4477,7 +4477,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred.",
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4488,7 +4488,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Witness of the Holy Spirit, Witness of the Holy Spirit, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Witness of the Holy Spirit, Witness of the Holy Spirit, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4499,7 +4499,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c28">Mat 28:19</a> · <a href="index_split_058.html#ch-b67-c13">2Co 13:14</a> · <a href="index_split_055.html#ch-b64-c5">Act 5:32</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c28">Mat 28:19</a> · <a href="index_split_058.html#ch-b67-c13">2Co 13:14</a> · <a href="index_split_055.html#ch-b64-c5">Act 5:32</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4510,7 +4510,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Lógos (<em>λόγος</em>).</strong> something said (including the thought); by implication, a topic (subject of discourse), also reasoning (the mental faculty) or motive; by extension, a computation; specially, (with the article in John) the Divine Expression (i.e. Christ).",
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4521,7 +4521,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote).',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4532,7 +4532,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated).",
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4543,7 +4543,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: WORD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: WORD.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4554,7 +4554,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Unity of God, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Unity of God, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4565,7 +4565,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit.",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4576,7 +4576,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Haîma (<em>αἷμα</em>).</strong> blood, literally (of men or animals), figuratively (the juice of grapes) or specially (the atoning blood of Christ); by implication, bloodshed, also kindred.",
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4587,7 +4587,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4598,7 +4598,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4609,7 +4609,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4620,7 +4620,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Holy Spirit, The, is God, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Holy Spirit, The, is God, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4631,7 +4631,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4642,7 +4642,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4653,7 +4653,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4664,7 +4664,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: TRUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4675,7 +4675,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Truth of God, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Truth of God, The, The king of Babylon to be rewarded with the spoil of Egypt for his service against., Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4686,7 +4686,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4697,7 +4697,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:25</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:25</a> · <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4708,7 +4708,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4719,7 +4719,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4730,7 +4730,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4741,7 +4741,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4752,7 +4752,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Excellency and Glory of Christ, The, Life, Eternal, Reward of Saints, The, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Excellency and Glory of Christ, The, Life, Eternal, Reward of Saints, The, Witness of the Holy Spirit, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4763,7 +4763,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4774,7 +4774,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a> · <a href="index_split_054.html#ch-b63-c5">Jhn 5:24</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c3">Jhn 3:36</a> · <a href="index_split_054.html#ch-b63-c5">Jhn 5:24</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4785,7 +4785,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4796,7 +4796,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4807,7 +4807,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4818,7 +4818,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Death, Spiritual, Death, Spiritual, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Death, Spiritual, Death, Spiritual, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4829,7 +4829,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c20">Jhn 20:31</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c20">Jhn 20:31</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4840,7 +4840,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c20">Jhn 20:31</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c20">Jhn 20:31</a> · <a href="index_split_054.html#ch-b63-c1">Jhn 1:12</a> · <a href="index_split_059.html#ch-b82-c3">1Jn 3:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4851,7 +4851,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Pisteúō (<em>πιστεύω</em>).</strong> to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially one's spiritual well-being to Christ).",
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4862,7 +4862,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4873,7 +4873,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4884,7 +4884,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4895,7 +4895,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4906,7 +4906,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Ónoma (<em>ὄνομα</em>).</strong> a "name" (literally or figuratively) (authority, character).',
         "Strong's G3686, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -4917,7 +4917,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4928,7 +4928,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Life, Eternal, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Life, Eternal, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4939,7 +4939,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:13</a> · <a href="index_split_042.html#ch-b38-c29">Jer 29:12</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:13</a> · <a href="index_split_042.html#ch-b38-c29">Jer 29:12</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4950,7 +4950,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:13</a> · <a href="index_split_042.html#ch-b38-c29">Jer 29:12</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c14">Jhn 14:13</a> · <a href="index_split_042.html#ch-b38-c29">Jer 29:12</a> · <a href="index_split_042.html#ch-b38-c33">Jer 33:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4961,7 +4961,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -4972,7 +4972,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Prayer, Prayer, Answers To, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Prayer, Prayer, Answers To, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -4983,7 +4983,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c11">Luk 11:9</a> · <a href="index_split_052.html#ch-b61-c11">Mrk 11:24</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c11">Luk 11:9</a> · <a href="index_split_052.html#ch-b61-c11">Mrk 11:24</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:29</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4994,7 +4994,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c11">Luk 11:9</a> · <a href="index_split_052.html#ch-b61-c11">Mrk 11:24</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c11">Luk 11:9</a> · <a href="index_split_052.html#ch-b61-c11">Mrk 11:24</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:29</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5005,7 +5005,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: ASSURANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: ASSURANCE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -5016,7 +5016,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Assurance, Prayer, Answers To, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Assurance, Prayer, Answers To, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5027,7 +5027,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c6">Heb 6:4</a> · <a href="index_split_010.html#vnote-1sa-2-25">1Sa 2:25</a> · <a href="index_split_041.html#ch-b38-c11">Jer 11:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c6">Heb 6:4</a> · <a href="index_split_010.html#vnote-1sa-2-25">1Sa 2:25</a> · <a href="index_split_041.html#ch-b38-c11">Jer 11:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5038,7 +5038,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5049,7 +5049,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5060,7 +5060,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SIN, UNPARDONABLE SIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SIN, UNPARDONABLE SIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -5071,7 +5071,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Offences Against the Holy Spirit, Pardon, Pardon, Prayer, Intercessory, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Offences Against the Holy Spirit, Pardon, Pardon, Prayer, Intercessory, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5082,7 +5082,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5093,7 +5093,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Hamartía (<em>ἁμαρτία</em>).</strong> a sin (properly abstract).",
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5104,7 +5104,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: SIN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: SIN.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -5115,7 +5115,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5126,7 +5126,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:9</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c3">1Jn 3:9</a> · <a href="index_split_059.html#ch-b82-c5">1Jn 5:4</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5137,7 +5137,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5148,7 +5148,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: New Birth, The, New Birth, The, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: New Birth, The, New Birth, The, Sin, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5159,7 +5159,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c4">2Co 4:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c4">2Co 4:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5170,7 +5170,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c4">2Co 4:4</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:2</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c4">2Co 4:4</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:2</a> · <a href="index_split_059.html#ch-b82-c4">1Jn 4:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5181,7 +5181,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5192,7 +5192,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fall of Man, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Fall of Man, The, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5203,7 +5203,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5214,7 +5214,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:45</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c17">Jhn 17:3</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:45</a> · <a href="index_split_054.html#ch-b63-c14">Jhn 14:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5225,7 +5225,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus.",
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5236,7 +5236,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very.",
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5247,7 +5247,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Zōḗ (<em>ζωή</em>).</strong> life (literally or figuratively).",
         "Strong's G2222, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5258,7 +5258,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
+        '<strong>Huiós (<em>υἱός</em>).</strong> a "son" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship.',
         "Strong's G5207, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5269,7 +5269,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Aiṓnios (<em>αἰώνιος</em>).</strong> perpetual (also used of past time, or past and future as well).",
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5280,7 +5280,7 @@ NOTES = [
         "lang-greek",
         "Greek",
         "Greek.",
-        "<strong>Alēthinós (<em>ἀληθινός</em>).</strong> truthful. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+        "<strong>Alēthinós (<em>ἀληθινός</em>).</strong> truthful.",
         "Strong's G228, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
@@ -5291,7 +5291,7 @@ NOTES = [
         "topic-nave",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, JESUS, THE CHRIST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: JESUS, THE CHRIST, JESUS, THE CHRIST.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
@@ -5313,7 +5313,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COMING OF CHRIST</strong> (1) with reference to his first advent “in the fulness of the time” (1 John 5:20; 2 John 1:7), or (2) with reference to his coming again the second time at the last day (Acts 1:11; 3:20, 21; 1 Thessalonians 4:15; 2 Timothy 4:1; Hebrews 9:28). The expression is used metaphorically of the introduction of the gospel into any place (John 15:22; Ephesians 2:17), the visible establishment of his kingdom in the world (Matthew 16:28), the conferring on his people of the peculiar… <em>[Reviewer: condense Easton's entry as needed.]</em>",
+        "<strong>Dictionary (Easton's).</strong> <strong>COMING OF CHRIST</strong> (1) with reference to his first advent “in the fulness of the time” (1 John 5:20; 2 John 1:7), or (2) with reference to his coming again the second time at the last day (Acts 1:11; 3:20, 21; 1 Thessalonians 4:15; 2 Timothy 4:1; Hebrews 9:28). The expression is used metaphorically of the introduction of the gospel into any place (John 15:22; Ephesians 2:17), the visible establishment of his kingdom in the world (Matthew 16:28), the conferring on his people of the peculiar…",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -5324,7 +5324,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Christ, Character Of, Christ is God, Excellency and Glory of Christ, The, Life, Eternal, Titles and Names of Christ. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Christ, Character Of, Christ is God, Excellency and Glory of Christ, The, Life, Eternal, Titles and Names of Christ.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5335,7 +5335,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c10">1Co 10:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c10">1Co 10:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5346,7 +5346,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Hyke or Upper Garment, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "<strong>Topics.</strong> This verse appears under: Hyke or Upper Garment, Zechariah 1:1   1:7   1:8   1:8   1:8   1:8   1:8   1:14   1:15   1:17   2:2   2:4   2:5   2:5   2:5   2:5   2:5   2:8   2:8 2:9   2:11   3:1   3:1   3:1   3:4   3:5   3:8   3:10   4:2   4:2   4:2   4:2   4:3   4:4-10   4:6   4:7   4:7 4:7   4:7-9   4:10   4:12   4:12   5:2   5:3   5:3   5:4   5:4   5:4   5:11   6:1   6:1   6:2   6:2   6:2   6:3 6:3   6:3   6:6   6:6   6:7   6:12   6:13   6:13   7:1   7:3   7:5   7:6   7:9   7:10   7:10   7:10   7:11 7:11   7:11   7:11   7:11-13   7:12   7:12   7:12-14   8:3   8:3   8:5   8:5   8:9   8:9   8:10   8:12 8:13   8:16   8:16   8:17   8:17   8:17   8:19   8:19   8:19   8:21   9:2-4   9:3   9:3   9:3   9:5   9:5 9:5   9:6   9:6   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:9   9:10   9:10   9:11   9:11   9:11 9:11   9:12   9:14   9:14   9:16   9:16   9:16   9:17   9:17   9:17   9:17   9:17   10:1   10:1   10:1 10:2   10:3   10:3   10:4   10:5   10:7   10:9   10:10   10:11   10:11   10:11   11:1   11:2   11:2   11:3 11:7   11:8   11:12   11:13   11:13   11:15-17   12:1   12:2   12:3   12:4   12:9   12:10   12:10 12:10   12:10   12:10   12:10   12:10   12:10   12:10   12:11   13:1   13:1   13:1   13:1   13:1   13:1 13:2   13:4   13:4   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:7   13:9   13:9   13:9   13:9 13:9   14:1   14:4   14:4   14:4   14:5   14:5   14:8   14:9   14:10   14:15   14:15   14:15   14:18 14:18   14:20   14:20   14:21.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),

@@ -809,13 +809,14 @@ class TestOmega341CrossRefDetector:
         assert c_high.confidence > c_low.confidence
         assert c_high.confidence <= 0.95  # ceiling
 
-    def test_detector_body_contains_reviewer_flag(self):
-        # Per the spec — the reviewer must rewrite the link list
-        # into a thematic note. The body must surface this.
+    def test_detector_reviewer_flag_lives_in_reviewer_notes(self):
+        # RX Phase 1: the reviewer guidance (rewrite the link list into a
+        # thematic note) no longer ships in the reader-facing body; it lives
+        # in reviewer_notes=. The body carries only the cross-reference list.
         det = self._make_detector_with_stub_tsk({("gen", 1, 1): [("jhn", 1, 1, 100, "TSK")]})
         c = det.detect("gen", 1, 1, "")[0]
-        assert "Reviewer" in c.draft_body
-        assert "thematic" in c.draft_body.lower() or "rewrite" in c.draft_body.lower()
+        assert "[Reviewer:" not in c.draft_body
+        assert "thematic" in c.reviewer_notes.lower() or "explain" in c.reviewer_notes.lower()
 
     def test_detector_anchor_links_to_target_verse(self):
         # The body wraps each ref in <a href="#vnote-<book>-<ch>-<v>">.

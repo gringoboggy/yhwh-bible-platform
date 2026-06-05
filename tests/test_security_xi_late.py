@@ -428,8 +428,11 @@ class TestXi15HtmlSandbox:
         )
         cands = det.detect("gen", 1, 1, "verse text")
         assert len(cands) == 1
-        # Reviewer-flag wrapping survives even with empty body
-        assert "Reviewer" in cands[0].draft_body
+        # RX Phase 1: the editorial scaffold no longer ships in the body, but
+        # the candidate is still emitted and the AI-generated reviewer flag
+        # survives in reviewer_notes= even with an empty (fully-sandboxed) body.
+        assert "[Reviewer:" not in cands[0].draft_body
+        assert "AI-generated" in cands[0].reviewer_notes
 
     # ---- promote.promote_candidate belt-and-braces ----
 

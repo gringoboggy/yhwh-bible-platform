@@ -52,6 +52,15 @@ from scripts.core.canonical_verse_counts import (  # noqa: E402  (coord guards)
 
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 
+# RX Phase 1 (2026-06-05) — defensive strip of the editorial-scaffold span that
+# detectors/extractors used to embed in note bodies. The root-cause fix lives in
+# detectors.py / extract_eastons_ccel.py (guidance now in reviewer_notes=), and a
+# lint guard blocks regressions; this is belt-and-braces so a FUTURE detector that
+# forgets can't leak the scaffold into a promoted body. The reviewer text has no
+# '<' before its closing </em>, so [^<]* is a safe body; leading \s* eats the
+# separating space. Idempotent — clean input is a no-op.
+_REVIEWER_SCAFFOLD_RE = re.compile(r"\s*<em>\[Reviewer:[^<]*</em>", re.IGNORECASE)
+
 GREEN = "\033[92m"
 RED = "\033[91m"
 YELLOW = "\033[93m"
@@ -480,6 +489,11 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     draft_body = c["draft_body"]
     if c["kind"] in AI_DRAFTED_KINDS:
         draft_body = sandbox_ai_html(draft_body)
+
+    # RX Phase 1 defensive strip — remove any residual <em>[Reviewer:…]</em>
+    # editorial scaffold before the body lands in content/notes/. Idempotent;
+    # see _REVIEWER_SCAFFOLD_RE for why the pattern is safe.
+    draft_body = _REVIEWER_SCAFFOLD_RE.sub("", draft_body)
 
     # N-W4 idempotency check — must happen AFTER the sandbox pass
     # (sandbox-pass output is what gets written to the file, so dedup

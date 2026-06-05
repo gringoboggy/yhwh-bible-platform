@@ -145,10 +145,11 @@ def build_notes(entries: list[tuple[str, str]]) -> list[dict]:
         rest = rest.replace("\\", "").replace('"', "'")  # keep the tuple literal valid
         if len(rest) > MAX_BODY:
             rest = rest[:MAX_BODY].rsplit(" ", 1)[0] + "…"
-        body = (
-            f"<strong>Dictionary (Easton's).</strong> <strong>{head}</strong> {rest} "
-            f"<em>[Reviewer: condense Easton's entry as needed.]</em>"
-        )
+        # No reviewer scaffold in the reader-facing body — RX Phase 1. (These
+        # dict-easton notes promote straight via batch_insert_notes, which has
+        # no reviewer_notes slot; the "condense as needed" guidance was trivial
+        # reviewer chatter and is simply dropped.)
+        body = f"<strong>Dictionary (Easton's).</strong> <strong>{head}</strong> {rest}"
         notes.append(
             {
                 "code": code,

@@ -472,7 +472,7 @@ class TestAIXrefDetector:
         cands = detector.detect("gen", 1, 1, "x")
         assert "Claude AI" in cands[0].source_attribution
 
-    def test_body_includes_reasoning_and_reviewer_note(self):
+    def test_body_includes_reasoning_and_reviewer_note_in_notes(self):
         client = self._stub_client(
             [
                 {
@@ -490,7 +490,10 @@ class TestAIXrefDetector:
         body = cands[0].draft_body
         assert "Typological" in body
         assert "prefigure the cross" in body
-        assert "Reviewer" in body
+        # RX Phase 1: the editorial scaffold no longer ships in the body; the
+        # reviewer guidance lives in reviewer_notes=.
+        assert "[Reviewer:" not in body
+        assert "AI-proposed" in cands[0].reviewer_notes
         # link is to the target verse
         assert "vnote-isa-53-5" in body
 

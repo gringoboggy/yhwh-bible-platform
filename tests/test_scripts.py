@@ -13998,10 +13998,12 @@ class TestAINoteDetector:
         assert "reviewer-curated" in attribution
         assert "AI-generated first draft" in attribution
 
-    def test_body_includes_label_class_and_reviewer_invariant(self):
-        # Reviewer-flag invariant: every emitted draft must carry
-        # explicit AI-generated language so the editor cannot mistake
-        # it for a reviewed note. Pre-condition for ξ.15 (sandbox).
+    def test_body_keeps_label_and_reviewer_invariant_lives_in_notes(self):
+        # RX Phase 1 (2026-06-05): the body carries the label + the drafted
+        # prose, but NOT the editorial scaffold. The reviewer-flag invariant
+        # (explicit AI-generated language so the editor cannot mistake a draft
+        # for a reviewed note) now lives in reviewer_notes=, not the
+        # reader-facing body.
         client = self._stub_client(
             {
                 "kind_class": "translation",
@@ -14015,11 +14017,15 @@ class TestAINoteDetector:
         detector = self.det.AINoteDetector(client=client)
         cands = detector.detect("rom", 12, 1, "I beseech you therefore")
         body = cands[0].draft_body
+        notes = cands[0].reviewer_notes
+        # Body: label + drafted content present, scaffold absent.
         assert "Logikēn latreian." in body
-        assert "Translation" in body  # class label
-        assert "Reviewer" in body
-        assert "AI-generated" in body
-        assert "requires human approval" in body
+        assert "Greek phrase Paul uses" in body
+        assert "[Reviewer:" not in body
+        assert "requires human approval" not in body
+        # Reviewer-flag invariant now lives in reviewer_notes=.
+        assert "AI-generated" in notes
+        assert "Translation" in notes  # class label
 
     def test_reviewer_notes_include_flags_and_sources(self):
         client = self._stub_client(
@@ -14057,7 +14063,12 @@ class TestAINoteDetector:
         )
         detector = self.det.AINoteDetector(client=client)
         cands = detector.detect("gen", 1, 1, "x")
-        assert "Background" in cands[0].draft_body  # explanatory → Background
+        # RX Phase 1: the class label no longer appears in the reader-facing
+        # body (it was inside the removed editorial scaffold); it surfaces in
+        # the source name + reviewer_notes. The body renders label + content.
+        assert cands[0].draft_body == "<strong>Test.</strong> stub"
+        assert "Background" in cands[0].source_name  # explanatory → Background
+        assert "Background" in cands[0].reviewer_notes
 
     def test_registered_in_ALL_DETECTORS(self):
         assert self.det.AINoteDetector in self.det.ALL_DETECTORS
