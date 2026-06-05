@@ -33,10 +33,12 @@ class TestAllChecksMetaContract:
         assert not failing, f"lint check(s) failing on the committed tree: {failing}"
 
     def test_registry_not_silently_shrunk(self):
-        # Pin the registry size EXACTLY (28 at mint-8: +bookcode_canonical mint-7,
-        # +subprocess_stdin mint-8) so a check can't be dropped from ALL_CHECKS —
+        # Pin the registry size EXACTLY (32 at mint-11 tail: 28 at mint-8
+        # [+bookcode_canonical mint-7, +subprocess_stdin mint-8], then
+        # +no_reviewer_scaffolding, +no_truncated_easton, +greek_gloss_quality,
+        # +no_torrey_topic_leak) so a check can't be dropped from ALL_CHECKS —
         # or quietly added without updating this pin — without a test noticing.
-        assert len(self.mod.ALL_CHECKS) == 28, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 28"
+        assert len(self.mod.ALL_CHECKS) == 32, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 32"
         # A duplicate key in the dict literal would silently collapse two checks
         # into one; pin that the keys are unique.
         assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))

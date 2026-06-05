@@ -461,13 +461,16 @@ def _build_to(path: Path) -> tuple[int, str]:
     # on Windows the old file stays locked while a connection is
     # open, so `path.unlink()` would PermissionError.
     global _CACHED_CONN, _CACHED_CONN_PATH
-    if _CACHED_CONN is not None:
-        try:
-            _CACHED_CONN.close()
-        except sqlite3.Error:
-            pass
-        _CACHED_CONN = None
-        _CACHED_CONN_PATH = None
+    # mint-11 audit MED: make the cached-conn close atomic w.r.t. connection()'s
+    # check-and-return by taking _CONN_LOCK (mirrors invalidate()/rebuild()).
+    with _CONN_LOCK:
+        if _CACHED_CONN is not None:
+            try:
+                _CACHED_CONN.close()
+            except sqlite3.Error:
+                pass
+            _CACHED_CONN = None
+            _CACHED_CONN_PATH = None
     tmp = path.with_suffix(path.suffix + ".tmp")
     if tmp.is_file():
         tmp.unlink()
@@ -612,13 +615,18 @@ def rebuild(*, force: bool = False) -> dict:
         # closing the conn here without the lock raced that read and could
         # surface a sqlite3.ProgrammingError on a closed connection. The lock
         # serialises the reset against connection()'s own rebuild() call.
-        if _CACHED_CONN is not None:
-            try:
-                _CACHED_CONN.close()
-            except sqlite3.Error:
-                pass
-            _CACHED_CONN = None
-            _CACHED_CONN_PATH = None
+        # mint-11 audit MED: ALSO take _CONN_LOCK — the rebuild lock alone does not
+        # serialise against connection()'s post-rebuild _CONN_LOCK section. Safe
+        # (no re-entrancy): connection() releases the rebuild lock before taking
+        # _CONN_LOCK, so the ordering is one-way (rebuild-lock → _CONN_LOCK).
+        with _CONN_LOCK:
+            if _CACHED_CONN is not None:
+                try:
+                    _CACHED_CONN.close()
+                except sqlite3.Error:
+                    pass
+                _CACHED_CONN = None
+                _CACHED_CONN_PATH = None
 
     return {
         "rebuilt": True,
@@ -710,13 +718,15 @@ def invalidate() -> None:
     """
     global _CACHED_CONN, _CACHED_CONN_PATH, _FINGERPRINT_CACHE
     _FINGERPRINT_CACHE = None
-    if _CACHED_CONN is not None:
-        try:
-            _CACHED_CONN.close()
-        except sqlite3.Error:
-            pass
-        _CACHED_CONN = None
-        _CACHED_CONN_PATH = None
+    # mint-11 audit MED: take _CONN_LOCK so the close is atomic w.r.t. connection().
+    with _CONN_LOCK:
+        if _CACHED_CONN is not None:
+            try:
+                _CACHED_CONN.close()
+            except sqlite3.Error:
+                pass
+            _CACHED_CONN = None
+            _CACHED_CONN_PATH = None
     fp_path = _fingerprint_path()
     if fp_path.is_file():
         try:

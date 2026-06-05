@@ -3908,13 +3908,18 @@ def build_one(
 
     # Decide whether the unified vnote pass is needed. It runs when
     # popups are on AND either (a) a translation is set OR (b) the
-    # edition has explicit popup_languages config that prunes some
-    # languages. If neither, the pass would be a no-op so we skip it
-    # to keep build times tight.
+    # edition has explicit popup_languages config in ANY of the five
+    # resolution tiers that _resolve_popup_languages consults
+    # (per-verse > per-chapter > per-book > default > DEFAULT). If none,
+    # the pass would be a no-op so we skip it to keep build times tight.
+    # mint-11 audit MED: per-chapter / per-verse were missing here, so an
+    # edition setting ONLY one of them silently skipped all language pruning.
     needs_vnote_pass = verse_popups_enabled and (
         bool(popup_translation_id)
         or edition.get("popup_languages_default") is not None
         or bool(edition.get("popup_languages_per_book"))
+        or bool(edition.get("popup_languages_per_chapter"))
+        or bool(edition.get("popup_languages_per_verse"))
     )
 
     # Phase ω.20-B — content-addressable cache key. Computed once per

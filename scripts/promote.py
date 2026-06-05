@@ -360,6 +360,10 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
             continue
         kind = n["kind"]
         body = n["body"]
+        # mint-11 audit HIGH-2 (defense-in-depth): batch_insert_notes is a public API
+        # any caller can hit without pre-stripping, so strip the editorial
+        # [Reviewer: …] scaffold here too. Idempotent; safe to double-apply.
+        body = _REVIEWER_SCAFFOLD_RE.sub("", body)
         attribution = n.get("attribution")
         if not coord_in_canonical_extent(book_path.stem, ch, v):
             dropped += 1

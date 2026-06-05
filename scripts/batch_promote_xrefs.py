@@ -23,7 +23,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.promote import promote_candidate, batch_insert_notes, NOTES_DIR  # noqa: E402
+from scripts.promote import promote_candidate, batch_insert_notes, NOTES_DIR, _REVIEWER_SCAFFOLD_RE  # noqa: E402
 from scripts.core.matrix import AI_DRAFTED_KINDS  # noqa: E402
 from scripts.core.html_sandbox import sandbox_ai_html  # noqa: E402
 
@@ -37,6 +37,10 @@ def _candidate_to_note(c: dict, chapter: int) -> dict:
     body = c["draft_body"]
     if c["kind"] in AI_DRAFTED_KINDS:
         body = sandbox_ai_html(body)
+    # mint-11 audit HIGH-2: strip the editorial [Reviewer: …] scaffold exactly as
+    # the slow promote_candidate() path does — otherwise the fast by-book path would
+    # write that instruction text verbatim into content/notes/<book>.py and every EPUB.
+    body = _REVIEWER_SCAFFOLD_RE.sub("", body)
     attribution = (c.get("source_attribution") or "").strip() or None
     if not attribution and c.get("source_name"):
         attribution = c["source_name"]
@@ -77,11 +81,17 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
             by_book.setdefault(data["book"], []).append(_candidate_to_note(c, data["chapter"]))
     promoted = 0
     books_changed = 0
+    # mint-11 audit HIGH-1: track which books were actually processed (notes file
+    # present) so the status-marking loop below never marks candidates "promoted"
+    # for a book we skipped. 1ma/2ma have no notes file — marking their pending
+    # candidates would silently drop them from the pipeline with no error.
+    successful_books: set[str] = set()
     for book, notes in sorted(by_book.items()):
         book_path = NOTES_DIR / f"{book}.py"
         if not book_path.is_file():
             print(f"  ⚠ {book}: no notes file ({book}.py) — skipping {len(notes)} candidate(s)")
             continue
+        successful_books.add(book)
         n = batch_insert_notes(book_path, notes, skip_existing=True)
         if n:
             promoted += n
@@ -92,12 +102,17 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
     # attempted candidate is now either freshly inserted or already in the corpus —
     # "promoted" either way (conservative mark-all of exactly the attempted slice,
     # mirroring the kind/pending/max_per_file selection above).
+    # mint-11 audit HIGH-1: ONLY mark books whose notes file actually existed
+    # (``successful_books``). Candidates for skipped missing-book queues stay
+    # "pending" instead of being silently lost.
     from scripts.core.notes_io import atomic_write
 
     for fp in files:
         try:
             data = json.loads(fp.read_text(encoding="utf-8"))
         except Exception:
+            continue
+        if data.get("book") not in successful_books:
             continue
         eligible = [
             c
