@@ -75,6 +75,12 @@ mccabe.max-complexity = 12
 # same category as build_edition.py above. Splitting them would scatter
 # cohesive pipeline logic for no readability gain, so C901 is ignored here.
 "scripts/inject.py" = ["E402", "C901"]
+# scripts/_reingest_eastons.py is a ONE-SHOT historical transform (auto-note
+# re-ingest defect #1). Its main() is a single cohesive run-once orchestration
+# (build old→new map → preconditions → lockstep source+base write); splitting it
+# adds no maintenance value for a throwaway, so C901 is ignored (same category as
+# the build-pipeline orchestration scripts above).
+"scripts/_reingest_eastons.py" = ["C901"]
 # scripts/templates/*.py are console HTML template modules — each is one giant
 # r"""...""" HTML string constant. E501 (line-too-long) is intrinsic to embedded
 # HTML (Tailwind class lists, inline styles, data-* attributes); wrapping those

@@ -2200,7 +2200,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ELEMENTS I</strong> n its primary sense, as denoting the first principles or constituents of things, it is used in 2 Peter 3:10: “The elements shall be dissolved.” In a secondary sense it denotes the first principles of any art or science. In this sense it is used in Galatians 4:3, 9; Colossians 2:8, 20, where the expressions, “elements of the world,” “week and beggarly elements,” denote that state of religious knowledge existing among the Jews before the coming of Christ, the rudiments of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ELEMENTS</strong> In its primary sense, as denoting the first principles or constituents of things, it is used in 2 Peter 3:10: “The elements shall be dissolved.” In a secondary sense it denotes the first principles of any art or science. In this sense it is used in Galatians 4:3, 9; Colossians 2:8, 20, where the expressions, “elements of the world,” “week and beggarly elements,” denote that state of religious knowledge existing among the Jews before the coming of Christ, the rudiments of religious teaching. They are “of the world,” because they are made up of types which appeal to the senses. They are “weak,” because insufficient; and “beggarly,” or “poor,” because they are dry and barren, not being accompanied by an outpouring of spiritual gifts and graces, as the gospel is.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

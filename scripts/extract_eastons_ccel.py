@@ -30,7 +30,6 @@ from scripts.promote import batch_insert_notes  # noqa: E402
 SOURCE = REPO_ROOT / "content" / "sources" / "eastons_ccel_source.txt"
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 ATTRIBUTION = "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain."
-MAX_BODY = 480
 
 # Full book names → project 3-letter codes (the CORRECT codes: eze/joe/nah/jam/phi).
 EASTON_BOOK = {
@@ -106,7 +105,11 @@ EASTON_BOOK = {
 }
 
 _REF = re.compile(r"(?P<book>(?:[123]\s)?[A-Z][a-z]+(?:\sof\s[A-Z][a-z]+)?)\s(?P<ch>\d+):(?P<v>\d+)")
-_HEAD = re.compile(r"^([A-Z][A-Z0-9'’\-]*(?:\s+[A-Z0-9'’\-]+)*)")
+# The continuation needs a negative lookahead `(?![a-z])` so a sentence-case word's
+# lead capital is NOT grabbed into the headword (`FOREST Hebrews…` must give head
+# `FOREST`, not `FOREST H` with body `ebrews…`). Genuine all-caps multiword heads
+# (`BURNT OFFERING`, `SONG OF SOLOMON`) are preserved (their words end on space/EOL).
+_HEAD = re.compile(r"^([A-Z][A-Z0-9'’\-]*(?:\s+[A-Z0-9'’\-]+(?![a-z]))*)")
 
 
 def first_ref(text: str) -> tuple[str, int, int] | None:
@@ -143,8 +146,14 @@ def build_notes(entries: list[tuple[str, str]]) -> list[dict]:
         code, c, v = ref
         rest = re.sub(r"\s+", " ", chunk[len(head) :]).strip()
         rest = rest.replace("\\", "").replace('"', "'")  # keep the tuple literal valid
-        if len(rest) > MAX_BODY:
-            rest = rest[:MAX_BODY].rsplit(" ", 1)[0] + "…"
+        # XHTML-escape the prose so a literal &/</> in an entry (e.g. a Greek betacode
+        # transliteration's `<`/`>`, or a `<> <>` separator) stays well-formed when the
+        # body is baked verbatim into the EPUB. The <strong> tags below are added AFTER,
+        # so they are not affected. (Heads are [A-Z0-9'’-] only — no escaping needed.)
+        rest = rest.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        # FULL article — NO length cap (user decision 2026-06-05). The old MAX_BODY=480
+        # truncation severed entries mid-sentence + baked a literal "…"; removed so each
+        # note carries the complete Easton entry.
         # No reviewer scaffold in the reader-facing body — RX Phase 1. (These
         # dict-easton notes promote straight via batch_insert_notes, which has
         # no reviewer_notes slot; the "condense as needed" guidance was trivial

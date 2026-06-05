@@ -671,7 +671,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PERGAMOS</strong> the chief city of Mysia, in Asia Minor. One of the “seven churches” was planted here (Revelation 1:11; 2:17). It was noted for its wickedness, insomuch that our Lord says “Satan’s seat” was there. The church of Pergamos was rebuked for swerving from the truth and embracing the doctrines of Balaam and the Nicolaitanes. Antipas, Christ’s “faithful martyr,” here sealed his testimony with his blood. This city stood on the banks of the river Caicus, about 20 miles from the sea.…",
+        "<strong>Dictionary (Easton's).</strong> <strong>PERGAMOS</strong> the chief city of Mysia, in Asia Minor. One of the “seven churches” was planted here (Revelation 1:11; 2:17). It was noted for its wickedness, insomuch that our Lord says “Satan’s seat” was there. The church of Pergamos was rebuked for swerving from the truth and embracing the doctrines of Balaam and the Nicolaitanes. Antipas, Christ’s “faithful martyr,” here sealed his testimony with his blood. This city stood on the banks of the river Caicus, about 20 miles from the sea. It is now called Bergama, and has a population of some twenty thousand, of whom about two thousand profess to be Christians. Parchment (q.v.) was first made here, and was called by the Greeks pergamene, from the name of the city.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1232,7 +1232,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NICOLAITANES T</strong> he church at Ephesus (Revelation 2:6) is commended for hating the “deeds” of the Nicolaitanes, and the church of Pergamos is blamed for having them who hold their “doctrines” (15). They were seemingly a class of professing Christians, who sought to introduce into the church a false freedom or licentiousness, thus abusing Paul’s doctrine of grace (comp. 2 Peter 2:15, 16, 19), and were probably identical with those who held the doctrine of Baalam (q.v.), Revelation 2:14.",
+        "<strong>Dictionary (Easton's).</strong> <strong>NICOLAITANES</strong> The church at Ephesus (Revelation 2:6) is commended for hating the “deeds” of the Nicolaitanes, and the church of Pergamos is blamed for having them who hold their “doctrines” (15). They were seemingly a class of professing Christians, who sought to introduce into the church a false freedom or licentiousness, thus abusing Paul’s doctrine of grace (comp. 2 Peter 2:15, 16, 19), and were probably identical with those who held the doctrine of Baalam (q.v.), Revelation 2:14.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1364,7 +1364,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SMYRNA</strong> myrrh, an ancient city of Ionia, on the western coast of Asia Minor, about 40 miles to the north of Ephesus. It is now the chief city of Anatolia, having a mixed population of about 200,000, of whom about one-third are professed Christians. The church founded here was one of the seven addressed by our Lord (Revelation 2:8-11). The celebrated Polycarp, a pupil of the apostle John, was in the second century a prominent leader in the church of Smyrna. Here he suffered…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SMYRNA</strong> myrrh, an ancient city of Ionia, on the western coast of Asia Minor, about 40 miles to the north of Ephesus. It is now the chief city of Anatolia, having a mixed population of about 200,000, of whom about one-third are professed Christians. The church founded here was one of the seven addressed by our Lord (Revelation 2:8-11). The celebrated Polycarp, a pupil of the apostle John, was in the second century a prominent leader in the church of Smyrna. Here he suffered martyrdom, A.D. 155.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2706,7 +2706,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>AMEN T</strong> his Hebrew word means firm, and hence also faithful (Revelation 3:14). In Isaiah 65:16, the Authorized Version has “the God of truth,” which in Hebrew is “the God of Amen.” It is frequently used by our Saviour to give emphasis to his words, where it is translated “verily.” Sometimes, only, however, in John’s Gospel, it is repeated, “Verily, verily.” It is used as an epithet of the Lord Jesus Christ (Revelation 3:14). It is found singly and sometimes doubly at the end of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>AMEN</strong> This Hebrew word means firm, and hence also faithful (Revelation 3:14). In Isaiah 65:16, the Authorized Version has “the God of truth,” which in Hebrew is “the God of Amen.” It is frequently used by our Saviour to give emphasis to his words, where it is translated “verily.” Sometimes, only, however, in John’s Gospel, it is repeated, “Verily, verily.” It is used as an epithet of the Lord Jesus Christ (Revelation 3:14). It is found singly and sometimes doubly at the end of prayers (Psalm 41:13; 72:19; 89:52), to confirm the words and invoke the fulfilment of them. It is used in token of being bound by an oath (Numbers 5:22; Deuteronomy 27:15-26; Nehemiah 5:13; 8:6; 1 Chronicles 16:36). In the primitive churches it was common for the general audience to say “Amen” at the close of the prayer (1 Corinthians 14:16). The promises of God are Amen; i.e., they are all true and sure (2 Corinthians 1:20).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2717,7 +2717,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LAODICEA T</strong> he city of this name mentioned in Scripture lay on the confines of Phrygia and Lydia, about 40 miles east of Ephesus (Revelation 3:14), on the banks of the Lycus. It was originally called Diospolis and then Rhoas, but afterwards Laodicea, from Laodice, the wife of Antiochus II., king of Syria, who rebuilt it. It was one of the most important and flourishing cities of Asia Minor. At a very early period it became one of the chief seats of Christianity (Colossians 2:1; 4:15;…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LAODICEA</strong> The city of this name mentioned in Scripture lay on the confines of Phrygia and Lydia, about 40 miles east of Ephesus (Revelation 3:14), on the banks of the Lycus. It was originally called Diospolis and then Rhoas, but afterwards Laodicea, from Laodice, the wife of Antiochus II., king of Syria, who rebuilt it. It was one of the most important and flourishing cities of Asia Minor. At a very early period it became one of the chief seats of Christianity (Colossians 2:1; 4:15; Revelation 1:11, etc.). It is now a deserted place, called by the Turks Eski-hissar or “old castle.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7007,7 +7007,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ACCUSER S</strong> atan is styled the “accuser of the brethren” (Revelation 12:10. Comp. Job 1:6; Zechariah 3:1), as seeking to uphold his influence among men by bringing false charges against Christians, with the view of weakening their influence and injuring the cause with which they are identified. He was regarded by the Jews as the accuser of men before God, laying to their charge the violations of the law of which they were guilty, and demanding their punishment. The same Greek word,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ACCUSER</strong> Satan is styled the “accuser of the brethren” (Revelation 12:10. Comp. Job 1:6; Zechariah 3:1), as seeking to uphold his influence among men by bringing false charges against Christians, with the view of weakening their influence and injuring the cause with which they are identified. He was regarded by the Jews as the accuser of men before God, laying to their charge the violations of the law of which they were guilty, and demanding their punishment. The same Greek word, rendered “accuser,” is found in John 8:10 (but omitted in the Revised Version); Acts 23:30, 35; 24:8; 25:16, 18, in all of which places it is used of one who brings a charge against another.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7656,7 +7656,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FOREHEAD T</strong> he practice common among Oriental nations of colouring the forehead or impressing on it some distinctive mark as a sign of devotion to some deity is alluded to in Revelation 13:16, 17; 14:9; 17:5; 20:4. The “jewel on thy forehead” mentioned in Ezekiel 16:12 (R.V., “a ring upon thy nose”) was in all probability the “nose-ring” (Isaiah 3:21). In Ezekiel 3:7 the word “impudent” is rightly rendered in the Revised Version “an hard forehead.” (See also ver. 8, 9.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>FOREHEAD</strong> The practice common among Oriental nations of colouring the forehead or impressing on it some distinctive mark as a sign of devotion to some deity is alluded to in Revelation 13:16, 17; 14:9; 17:5; 20:4. The “jewel on thy forehead” mentioned in Ezekiel 16:12 (R.V., “a ring upon thy nose”) was in all probability the “nose-ring” (Isaiah 3:21). In Ezekiel 3:7 the word “impudent” is rightly rendered in the Revised Version “an hard forehead.” (See also ver. 8, 9.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8767,7 +8767,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LIVING CREATURES</strong> as represented by Ezekiel (1-10) and John (Revelation 4, etc.), are the cherubim. They are distinguished from angels (Revelation 15:7); they join the elders in the “new song” (5:8, 9); they warn of danger from divine justice (Isaiah 6:3-5), and deliver the commission to those who execute it (Ezekiel 10:2, 7); they associate with the elders in their sympathy with the hundred and forty-four thousand who sing the new song (Revelation 14:3), and with the Church in the overthrow…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LIVING CREATURES</strong> as represented by Ezekiel (1-10) and John (Revelation 4, etc.), are the cherubim. They are distinguished from angels (Revelation 15:7); they join the elders in the “new song” (5:8, 9); they warn of danger from divine justice (Isaiah 6:3-5), and deliver the commission to those who execute it (Ezekiel 10:2, 7); they associate with the elders in their sympathy with the hundred and forty-four thousand who sing the new song (Revelation 14:3), and with the Church in the overthrow of her enemies (19:4). They are supposed to represent mercy, as distinguished from justice, mercy in its various instrumentalities, and especially as connected with the throne of God, the “throne of grace.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10208,7 +10208,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>THYINE WOOD</strong> mentioned only in Revelation 18:12 among the articles which would cease to be purchased when Babylon fell. It was called citrus, citron wood, by the Romans. It was the Callitris quadrivalvis of botanists, of the cone-bearing order of trees, and of the cypress tribe of this order. The name of this wood is derived from the Greek word thuein, “to sacrifice,” and it was so called because it was burnt in sacrifices, on account of its fragrance. The wood of this tree was reckoned…",
+        "<strong>Dictionary (Easton's).</strong> <strong>THYINE WOOD</strong> mentioned only in Revelation 18:12 among the articles which would cease to be purchased when Babylon fell. It was called citrus, citron wood, by the Romans. It was the Callitris quadrivalvis of botanists, of the cone-bearing order of trees, and of the cypress tribe of this order. The name of this wood is derived from the Greek word thuein, “to sacrifice,” and it was so called because it was burnt in sacrifices, on account of its fragrance. The wood of this tree was reckoned very valuable, and was used for making articles of furniture by the Greeks and Romans. Like the cedars of Lebanon, it is disappearing from the forests of Palestine.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -11385,7 +11385,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MILLENNIUM</strong> a thousand years; the name given to the era mentioned in Revelation 20:1-7. Some maintain that Christ will personally appear on earth for the purpose of establishing his kingdom at the beginning of this millennium. Those holding this view are usually called “millenarians.” On the other hand, it is maintained, more in accordance with the teaching of Scripture, we think, that Christ’s second advent will not be premillennial, and that the right conception of the prospects and…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MILLENNIUM</strong> a thousand years; the name given to the era mentioned in Revelation 20:1-7. Some maintain that Christ will personally appear on earth for the purpose of establishing his kingdom at the beginning of this millennium. Those holding this view are usually called “millenarians.” On the other hand, it is maintained, more in accordance with the teaching of Scripture, we think, that Christ’s second advent will not be premillennial, and that the right conception of the prospects and destiny of his kingdom is that which is taught, e.g., in the parables of the leaven and the mustard-seed. The triumph of the gospel, it is held, must be looked for by the wider and more efficient operation of the very forces that are now at work in extending the gospel; and that Christ will only come again at the close of this dispensation to judge the world at the “last day.” The millennium will thus precede his coming.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12606,7 +12606,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CHALCEDONY M</strong> entioned only in Revelation 21:19, as one of the precious stones in the foundation of the New Jerusalem. The name of this stone is derived from Chalcedon, where it is said to have been first discovered. In modern mineralogy this is the name of an agate-like quartz of a bluish colour. Pliny so names the Indian ruby. The mineral intended in Revelation is probably the Hebrew nophekh, translated “emerald” (Exodus 28:18; 39:11; Ezekiel 27:16; 28:13). It is rendered “anthrax” in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CHALCEDONY</strong> Mentioned only in Revelation 21:19, as one of the precious stones in the foundation of the New Jerusalem. The name of this stone is derived from Chalcedon, where it is said to have been first discovered. In modern mineralogy this is the name of an agate-like quartz of a bluish colour. Pliny so names the Indian ruby. The mineral intended in Revelation is probably the Hebrew nophekh, translated “emerald” (Exodus 28:18; 39:11; Ezekiel 27:16; 28:13). It is rendered “anthrax” in the LXX., and “carbunculus” in the Vulgate. (See CARBUNCLE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -13728,7 +13728,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>STAR</strong> , MORNING a name figuratively given to Christ (Revelation 22:16; comp. 2 Peter 1:19). When Christ promises that he will give the “morning star” to his faithful ones, he “promises that he will give to them himself, that he will give to them himself, that he will impart to them his own glory and a share in his own royal dominion; for the star is evermore the symbol of royalty (Matthew 2:2), being therefore linked with the sceptre (Numbers 24:17). All the glory of the world…",
+        "<strong>Dictionary (Easton's).</strong> <strong>STAR</strong> , MORNING a name figuratively given to Christ (Revelation 22:16; comp. 2 Peter 1:19). When Christ promises that he will give the “morning star” to his faithful ones, he “promises that he will give to them himself, that he will give to them himself, that he will impart to them his own glory and a share in his own royal dominion; for the star is evermore the symbol of royalty (Matthew 2:2), being therefore linked with the sceptre (Numbers 24:17). All the glory of the world shall end in being the glory of the Church.” Trench’s Comm.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

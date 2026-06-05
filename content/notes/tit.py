@@ -528,7 +528,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CRETE</strong> now called Candia, one of the largest islands in the Meditterranean, about 140 miles long and 35 broad. It was at one time a very prosperous and populous island, having a “hundred cities.” The character of the people is described in Paul’s quotation from “one of their own poets” (Epimenides) in his epistle to Titus: “The Cretans are alway liars, evil beasts, slow bellies” (Titus 1:12). Jews from Crete were in Jerusalem on the day of Pentecost (Acts 2:11). The island was…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CRETE</strong> now called Candia, one of the largest islands in the Meditterranean, about 140 miles long and 35 broad. It was at one time a very prosperous and populous island, having a “hundred cities.” The character of the people is described in Paul’s quotation from “one of their own poets” (Epimenides) in his epistle to Titus: “The Cretans are alway liars, evil beasts, slow bellies” (Titus 1:12). Jews from Crete were in Jerusalem on the day of Pentecost (Acts 2:11). The island was visited by Paul on his voyage to Rome (Acts 27). Here Paul subsequently left Titus (1:5) “to ordain elders.” Some have supposed that it was the original home of the Caphtorim (q.v.) or Philistines.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

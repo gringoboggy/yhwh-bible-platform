@@ -264,7 +264,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DIOTREPHES J</strong> ove-nourished, rebuked by John for his pride (3 John 1:9). He was a Judaizer, prating against John and his fellow-labourers “with malicious words” (7).",
+        "<strong>Dictionary (Easton's).</strong> <strong>DIOTREPHES</strong> Jove-nourished, rebuked by John for his pride (3 John 1:9). He was a Judaizer, prating against John and his fellow-labourers “with malicious words” (7).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

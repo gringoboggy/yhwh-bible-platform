@@ -44,7 +44,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MALACHI</strong> , PROPHECIES OF The contents of the book are comprised in four chapters. In the Hebrew text the third and fourth chapters (of the A.V.) form but one. The whole consists of three sections, preceded by an introduction (Malachi 1:1-5), in which the prophet reminds Israel of Jehovah’s love to them. The first section (1:6-2:9) contains a stern rebuke addressed to the priests who had despised the name of Jehovah, and been leaders in a departure from his worship and from the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MALACHI</strong> , PROPHECIES OF The contents of the book are comprised in four chapters. In the Hebrew text the third and fourth chapters (of the A.V.) form but one. The whole consists of three sections, preceded by an introduction (Malachi 1:1-5), in which the prophet reminds Israel of Jehovah’s love to them. The first section (1:6-2:9) contains a stern rebuke addressed to the priests who had despised the name of Jehovah, and been leaders in a departure from his worship and from the covenant, and for their partiality in administering the law. In the second (2:9-16) the people are rebuked for their intermarriages with idolatrous heathen. In the third (2:17-4:6) he addresses the people as a whole, and warns them of the coming of the God of judgment, preceded by the advent of the Messiah. This book is frequently referred to in the New Testament (Matthew 11:10; 17:12; Mark 1:2; 9:11, 12; Luke 1:17; Romans 9:13).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1188,7 +1188,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FULLER T</strong> he word “full” is from the Anglo-Saxon fullian, meaning “to whiten.” To full is to press or scour cloth in a mill. This art is one of great antiquity. Mention is made of “fuller’s soap” (Malachi 3:2), and of “the fuller’s field” (2 Kings 18:17). At his transfiguration our Lord’s rainment is said to have been white “so as no fuller on earth could white them” (Mark 9:3). En-rogel (q.v.), meaning literally “foot-fountain,” has been interpreted as the “fuller’s fountain,”…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FULLER</strong> The word “full” is from the Anglo-Saxon fullian, meaning “to whiten.” To full is to press or scour cloth in a mill. This art is one of great antiquity. Mention is made of “fuller’s soap” (Malachi 3:2), and of “the fuller’s field” (2 Kings 18:17). At his transfiguration our Lord’s rainment is said to have been white “so as no fuller on earth could white them” (Mark 9:3). En-rogel (q.v.), meaning literally “foot-fountain,” has been interpreted as the “fuller’s fountain,” because there the fullers trod the cloth with their feet.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1980,7 +1980,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MALACHI</strong> messenger or angel, the last of the minor prophets, and the writer of the last book of the Old Testament canon (Malachi 4:4, 5, 6). Nothing is known of him beyond what is contained in his book of prophecies. Some have supposed that the name is simply a title descriptive of his character as a messenger of Jehovah, and not a proper name. There is reason, however, to conclude that Malachi was the ordinary name of the prophet. He was contemporary with Nehemiah (comp. Malachi 2:8…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MALACHI</strong> messenger or angel, the last of the minor prophets, and the writer of the last book of the Old Testament canon (Malachi 4:4, 5, 6). Nothing is known of him beyond what is contained in his book of prophecies. Some have supposed that the name is simply a title descriptive of his character as a messenger of Jehovah, and not a proper name. There is reason, however, to conclude that Malachi was the ordinary name of the prophet. He was contemporary with Nehemiah (comp. Malachi 2:8 with Nehemiah 13:15; Malachi 2:10-16 with Nehemiah 13:23). No allusion is made to him by Ezra, and he does not mention the restoration of the temple, and hence it is inferred that he prophesied after Haggai and Zechariah, and when the temple services were still in existence (Malachi 1:10; 3:1, 10). It is probable that he delivered his prophecies about B.C. 420, after the second return of Nehemiah from Persia (Nehemiah 13:6), or possibly before his return.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

@@ -2519,7 +2519,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BRIER T</strong> his word occurs frequently, and is the translation of several different terms. (1.) Micah 7:4, it denotes a species of thorn shrub used for hedges. In Proverbs 15:19 the word is rendered “thorn” (Hebrews hedek, “stinging”), supposed by some to be what is called the “apple of Sodom” (q.v.). (2.) Ezekiel 28:24, sallon’, properly a “prickle,” such as is found on the shoots of the palm tree. (3.) Isaiah 55:13, probably simply a thorny bush. Some, following the Vulgate Version,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BRIER</strong> This word occurs frequently, and is the translation of several different terms. (1.) Micah 7:4, it denotes a species of thorn shrub used for hedges. In Proverbs 15:19 the word is rendered “thorn” (Hebrews hedek, “stinging”), supposed by some to be what is called the “apple of Sodom” (q.v.). (2.) Ezekiel 28:24, sallon’, properly a “prickle,” such as is found on the shoots of the palm tree. (3.) Isaiah 55:13, probably simply a thorny bush. Some, following the Vulgate Version, regard it as the “nettle.” (4.) Isaiah 5:6; 7:23-25, etc., frequently used to denote thorny shrubs in general. In 10:17; 27:4, it means troublesome men. (5.) In Hebrews 6:8 the Greek word (tribolos) so rendered means “three-pronged,” and denotes the land caltrop, a low throny shrub resembling in its spikes the military “crow-foot.” Comp. Matthew 7:16, “thistle.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

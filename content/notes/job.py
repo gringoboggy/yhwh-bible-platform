@@ -143,7 +143,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BIRTH-DAY T</strong> he observance of birth-days was common in early times (Job 1:4, 13, 18). They were specially celebrated in the land of Egypt (Genesis 40:20). There is no recorded instance in Scripture of the celebration of birth-days among the Jews. On the occasion of Herod’s birth-day John the Baptist was beheaded (Matthew 14:6).",
+        "<strong>Dictionary (Easton's).</strong> <strong>BIRTH-DAY</strong> The observance of birth-days was common in early times (Job 1:4, 13, 18). They were specially celebrated in the land of Egypt (Genesis 40:20). There is no recorded instance in Scripture of the celebration of birth-days among the Jews. On the occasion of Herod’s birth-day John the Baptist was beheaded (Matthew 14:6).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -242,7 +242,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DEVIL</strong> (Gr. diabolos), a slanderer, the arch-enemy of man’s spiritual interest (Job 1:6; Revelation 2:10; Zechariah 3:1). He is called also “the accuser of the brethen” (Revelation 12:10). In Leviticus 17:7 the word “devil” is the translation of the Hebrew sair, meaning a “goat” or “satyr” (Isaiah 13:21; 34:14), alluding to the wood-daemons, the objects of idolatrous worship among the heathen. In Deuteronomy 32:17 and Psalm 106:37 it is the translation of Hebrew shed, meaning Lord,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DEVIL</strong> (Gr. diabolos), a slanderer, the arch-enemy of man’s spiritual interest (Job 1:6; Revelation 2:10; Zechariah 3:1). He is called also “the accuser of the brethen” (Revelation 12:10). In Leviticus 17:7 the word “devil” is the translation of the Hebrew sair, meaning a “goat” or “satyr” (Isaiah 13:21; 34:14), alluding to the wood-daemons, the objects of idolatrous worship among the heathen. In Deuteronomy 32:17 and Psalm 106:37 it is the translation of Hebrew shed, meaning Lord, and idol, regarded by the Jews as a “demon,” as the word is rendered in the Revised Version. In the narratives of the Gospels regarding the “casting out of devils” a different Greek word (daimon) is used. In the time of our Lord there were frequent cases of demoniacal possession (Matthew 12:25-30; Mark 5:1-20; Luke 4:35; 10:18, etc.).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -253,7 +253,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SATAN</strong> adversary; accuser. When used as a proper name, the Hebrew word so rendered has the article “the adversary” (Job 1:6-12; 2:1-7). In the New Testament it is used as interchangeable with Diabolos, or the devil, and is so used more than thirty times. He is also called “the dragon,” “the old serpent” (Revelation 12:9; 20:2); “the prince of this world” (John 12:31; 14:30); “the prince of the power of the air” (Ephesians 2:2); “the God of this world” (2 Corinthians 4:4); “the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SATAN</strong> adversary; accuser. When used as a proper name, the Hebrew word so rendered has the article “the adversary” (Job 1:6-12; 2:1-7). In the New Testament it is used as interchangeable with Diabolos, or the devil, and is so used more than thirty times. He is also called “the dragon,” “the old serpent” (Revelation 12:9; 20:2); “the prince of this world” (John 12:31; 14:30); “the prince of the power of the air” (Ephesians 2:2); “the God of this world” (2 Corinthians 4:4); “the spirit that now worketh in the children of disobedience” (Ephesians 2:2). The distinct personality of Satan and his activity among men are thus obviously recognized. He tempted our Lord in the wilderness (Matthew 4:1-11). He is “Beelzebub, the prince of the devils” (12:24). He is “the constant enemy of God, of Christ, of the divine kingdom, of the followers of Christ, and of all truth; full of falsehood and all malice, and exciting and seducing to evil in every possible way.” His power is very great in the world. He is a “roaring lion, seeking whom he may devour” (1 Peter 5:8). Men are said to be “taken captive by him” (2 Timothy 2:26). Christians are warned against his “devices” (2 Corinthians 2:11), and called on to “resist” him (James 4:7). Christ redeems his people from “him that had the power of death, that is, the devil” (Hebrews 2:14). Satan has the “power of death,” not as Lord, but simply as executioner.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -572,7 +572,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ANGEL</strong> a word signifying, both in the Hebrew and Greek, a “messenger,” and hence employed to denote any agent God sends forth to execute his purposes. It is used of an ordinary messenger (Job 1:14: 1 Samuel 11:3; Luke 7:24; 9:52), of prophets (Isaiah 42:19; Hag. 1:13), of priests (Malachi 2:7), and ministers of the New Testament (Revelation 1:20). It is also applied to such impersonal agents as the pestilence (2 Samuel 24:16, 17; 2 Kings 19:35), the wind (Psalm 104:4). But its…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ANGEL</strong> a word signifying, both in the Hebrew and Greek, a “messenger,” and hence employed to denote any agent God sends forth to execute his purposes. It is used of an ordinary messenger (Job 1:14: 1 Samuel 11:3; Luke 7:24; 9:52), of prophets (Isaiah 42:19; Hag. 1:13), of priests (Malachi 2:7), and ministers of the New Testament (Revelation 1:20). It is also applied to such impersonal agents as the pestilence (2 Samuel 24:16, 17; 2 Kings 19:35), the wind (Psalm 104:4). But its distinctive application is to certain heavenly intelligences whom God employs in carrying on his government of the world. The name does not denote their nature but their office as messengers. The appearances to Abraham at Mamre (Genesis 18:2, 22. Comp. 19:1), to Jacob at Peniel (Genesis 32:24, 30), to Joshua at Gilgal (Joshua 5:13, 15), of the Angel of the Lord, were doubtless manifestations of the Divine presence, “foreshadowings of the incarnation,” revelations before the “fulness of the time” of the Son of God. (1.) The existence and orders of angelic beings can only be discovered from the Scriptures. Although the Bible does not treat of this subject specially, yet there are numerous incidental details that furnish us with ample information. Their personal existence is plainly implied in such passages as Genesis 16:7, 10, 11; Judges 13:1-21; Matthew 28:2-5; Hebrews 1:4, etc. These superior beings are very numerous. “Thousand thousands,” etc. (Daniel 7:10; Matthew 26:53; Luke 2:13; Hebrews 12:22, 23). They are also spoken of as of different ranks in dignity and power (Zechariah 1:9, 11; Daniel 10:13; 12:1; 1 Thessalonians 4:16; Jude 1:9; Ephesians 1:21; Colossians 1:16). (2.) As to their nature, they are spirits (Hebrews 1:14), like the soul of man, but not incorporeal. Such expressions as “like the angels” (Luke 20:36), and the fact that whenever angels appeared to man it was always in a human form (Genesis 18:2; 19:1, 10; Luke 24:4; Acts 1:10), and the titles that are applied to them (“sons of God,” Job 1:6; 38:7; Daniel 3:25; comp. 28) and to men (Luke 3:38), seem all to indicate some resemblance between them and the human race. Imperfection is ascribed to them as creatures (Job 4:18; Matthew 24:36; 1 Peter 1:12). As finite creatures they may fall under temptation; and accordingly we read of “fallen angels.” Of the cause and manner of their “fall” we are wholly ignorant. We know only that “they left their first estate” (Matthew 25:41; Revelation 12:7,9), and that they are “reserved unto judgement” (2 Peter 2:4). When the manna is called “angels’ food,” this is merely to denote its excellence (Psalm 78:25). Angels never die (Luke 20:36). They are possessed of superhuman intelligence and power (Mark 13:32; 2 Thessalonians 1:7; Psalm 103:20). They are called “holy” (Luke 9:26), “elect” (1 Timothy 5:21). The redeemed in glory are “like unto the angels” (Luke 20:36). They are not to be worshipped (Colossians 2:18; Revelation 19:10). (3.) Their functions are manifold. (a) In the widest sense they are agents of God’s providence (Exodus 12:23; Psalm 104:4; Hebrews 11:28; 1 Corinthians 10:10; 2 Samuel 24:16; 1 Chronicles 21:16; 2 Kings 19:35; Acts 12:23). (b) They are specially God’s agents in carrying on his great work of redemption. There is no notice of angelic appearances to man till after the call of Abraham. From that time onward there are frequent references to their ministry on earth (Genesis 18; 19; 24:7, 40; 28:12; 32:1). They appear to rebuke idolatry (Judges 2:1-4), to call Gideon (Judges 6:11, 12), and to consecrate Samson (13:3). In the days of the prophets, from Samuel downward, the angels appear only in their behalf (1 Kings 19:5; 2 Kings 6:17; Zechariah 1-6; Daniel 4:13, 23; 10:10, 13, 20, 21). The Incarnation introduces a new era in the ministrations of angels. They come with their Lord to earth to do him service while here. They predict his advent (Matthew 1:20; Luke 1:26-38), minister to him after his temptation and agony (Matthew 4:11; Luke 22:43), and declare his resurrection and ascension (Matthew 28:2-8; John 20:12, 13; Acts 1:10, 11). They are now ministering spirits to the people of God (Hebrews 1:14; Psalm 34:7; 91:11; Matthew 18:10; Acts 5:19; 8:26; 10:3; 12:7; 27:23). They rejoice over a penitent sinner (Luke 15:10). They bear the souls of the redeemed to paradise (Luke 16:22); and they will be the ministers of judgement hereafter on the great day (Matthew 13:39, 41, 49; 16:27; 24:31). The passages (Psalm 34:7, Matthew 18:10) usually referred to in support of the idea that every individual has a particular guardian angel have no such meaning. They merely indicate that God employs the ministry of angels to deliver his people from affliction and danger, and that the angels do not think it below their dignity to minister even to children and to the least among Christ’s disciples. The “angel of his presence” (Isaiah 63:9. Comp. Exodus 23:20, 21; 32:34; 33:2; Numbers 20:16) is probably rightly interpreted of the Messiah as the guide of his people. Others have supposed the expression to refer to Gabriel (Luke 1:19).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -737,7 +737,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CORNER T</strong> he angle of a house (Job 1:19) or a street (Proverbs 7:8). “Corners” in Nehemiah 9:22 denotes the various districts of the promised land allotted to the Israelites. In Numbers 24:17, the “corners of Moab” denotes the whole land of Moab. The “corner of a field” (Leviticus 19:9; 23:22) is its extreme part, which was not to be reaped. The Jews were prohibited from cutting the “corners,” i.e., the extremities, of the hair and whiskers running round the ears (Leviticus 19:27;…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CORNER</strong> The angle of a house (Job 1:19) or a street (Proverbs 7:8). “Corners” in Nehemiah 9:22 denotes the various districts of the promised land allotted to the Israelites. In Numbers 24:17, the “corners of Moab” denotes the whole land of Moab. The “corner of a field” (Leviticus 19:9; 23:22) is its extreme part, which was not to be reaped. The Jews were prohibited from cutting the “corners,” i.e., the extremities, of the hair and whiskers running round the ears (Leviticus 19:27; 21:5). The “four corners of the earth” in Isaiah 11:12 and Ezekiel 7:2 denotes the whole land. The “corners of the streets” mentioned in Matthew 6:5 means the angles where streets meet so as to form a square or place of public resort. The corner gate of Jerusalem (2 Kings 14:13; 2 Chronicles 26:9) was on the north-west side of the city. Corner-stone (Job 38:6; Isaiah 28:16), a block of great importance in binding together the sides of a building. The “head of the corner” (Psalm 118:22, 23) denotes the coping, the “coign of vantage”, i.e., the topstone of a building. But the word “corner stone” is sometimes used to denote some person of rank and importance (Isaiah 28:16). It is applied to our Lord, who was set in highest honour (Matthew 21:42). He is also styled “the chief corner stone” (Ephesians 2:20; 1 Peter 2:6-8). When Zechariah (10:4), speaking of Judah, says, “Out of him came forth the corner,” he is probably to be understood as ultimately referring to the Messiah as the “corner stone.” (See TEMPLE, SOLOMON’S.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1628,7 +1628,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LEVIATHAN</strong> a transliterated Hebrew word (livyathan), meaning “twisted,” “coiled.” In Job 3:8, Revised Version, and marg. of Authorized Version, it denotes the dragon which, according to Eastern tradition, is an enemy of light; in 41:1 the crocodile is meant; in Psalm 104:26 it “denotes any large animal that moves by writhing or wriggling the body, the whale, the monsters of the deep.” This word is also used figuratively for a cruel enemy, as some think “the Egyptian host, crushed by…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LEVIATHAN</strong> a transliterated Hebrew word (livyathan), meaning “twisted,” “coiled.” In Job 3:8, Revised Version, and marg. of Authorized Version, it denotes the dragon which, according to Eastern tradition, is an enemy of light; in 41:1 the crocodile is meant; in Psalm 104:26 it “denotes any large animal that moves by writhing or wriggling the body, the whale, the monsters of the deep.” This word is also used figuratively for a cruel enemy, as some think “the Egyptian host, crushed by the divine power, and cast on the shores of the Red Sea” (Psalm 74:14). As used in Isaiah 27:1, “leviathan the piercing [R.V. ‘swift’] serpent, even leviathan that crooked [R.V. marg. ‘winding’] serpent,” the word may probably denote the two empires, the Assyrian and the Babylonian.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2530,7 +2530,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MOTH H</strong> ebrews ‘ash, from a root meaning “to fall away,” as moth-eaten garments fall to pieces (Job 4:19; 13:28; Isaiah 50:9; 51:8; Hos. 5:12). Gr. ses, thus rendered in Matthew 6:19, 20; Luke 12:33. Allusion is thus made to the destruction of clothing by the larvae of the clothes-moth. This is the only lepidopterous insect referred to in Scripture.",
+        "<strong>Dictionary (Easton's).</strong> <strong>MOTH</strong> Hebrews ‘ash, from a root meaning “to fall away,” as moth-eaten garments fall to pieces (Job 4:19; 13:28; Isaiah 50:9; 51:8; Hos. 5:12). Gr. ses, thus rendered in Matthew 6:19, 20; Luke 12:33. Allusion is thus made to the destruction of clothing by the larvae of the clothes-moth. This is the only lepidopterous insect referred to in Scripture.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3267,7 +3267,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TABERNACLE</strong> (1.) A house or dwelling-place (Job 5:24; 18:6, etc.). (2.) A portable shrine (comp. Acts 19:24) containing the image of Moloch (Amos 5:26; marg. and R.V., “Siccuth”). (3.) The human body (2 Corinthians 5:1, 4); a tent, as opposed to a permanent dwelling. (4.) The sacred tent (Hebrews mishkan, “the dwelling-place”); the movable tent-temple which Moses erected for the service of God, according to the “pattern” which God himself showed to him on the mount (Exodus 25:9; Hebrews…",
+        "<strong>Dictionary (Easton's).</strong> <strong>TABERNACLE</strong> (1.) A house or dwelling-place (Job 5:24; 18:6, etc.). (2.) A portable shrine (comp. Acts 19:24) containing the image of Moloch (Amos 5:26; marg. and R.V., “Siccuth”). (3.) The human body (2 Corinthians 5:1, 4); a tent, as opposed to a permanent dwelling. (4.) The sacred tent (Hebrews mishkan, “the dwelling-place”); the movable tent-temple which Moses erected for the service of God, according to the “pattern” which God himself showed to him on the mount (Exodus 25:9; Hebrews 8:5). It is called “the tabernacle of the congregation,” rather “of meeting”, i.e., where God promised to meet with Israel (Exodus 29:42); the “tabernacle of the testimony” (Exodus 38:21; Numbers 1:50), which does not, however, designate the whole structure, but only the enclosure which contained the “ark of the testimony” (Exodus 25:16, 22; Numbers 9:15); the “tabernacle of witness” (Numbers 17:8); the “house of the Lord” (Deuteronomy 23:18); the “temple of the Lord” (Joshua 6:24); a “sanctuary” (Exodus 25:8). A particular account of the materials which the people provided for the erection and of the building itself is recorded in Exodus 25-40. The execution of the plan mysteriously given to Moses was intrusted to Bezaleel and Aholiab, who were specially endowed with wisdom and artistic skill, probably gained in Egypt, for this purpose (Exodus 35:30-35). The people provided materials for the tabernacle so abundantly that Moses was under the necessity of restraining them (36:6). These stores, from which they so liberally contributed for this purpose, must have consisted in a great part of the gifts which the Egyptians so readily bestowed on them on the eve of the Exodus (12:35, 36). The tabernacle was a rectangular enclosure, in length about 45 feet (i.e., reckoning a cubit at 18 inches) and in breadth and height about 15. Its two sides and its western end were made of boards of acacia wood, placed on end, resting in sockets of brass, the eastern end being left open (Exodus 26:22). This framework was covered with four coverings, the first of linen, in which figures of the symbolic cherubim were wrought with needlework in blue and purple and scarlet threads, and probably also with threads of gold (Exodus 26:1-6; 36:8-13). Above this was a second covering of twelve curtains of black goats’-hair cloth, reaching down on the outside almost to the ground (Exodus 26:7-11). The third covering was of rams’ skins dyed red, and the fourth was of badgers’ skins (Hebrews tahash, i.e., the dugong, a species of seal), Exodus 25:5; 26:14; 35:7, 23; 36:19; 39:34. Internally it was divided by a veil into two chambers, the exterior of which was called the holy place, also “the sanctuary” (Hebrews 9:2) and the “first tabernacle” (6); and the interior, the holy of holies, “the holy place,” “the Holiest,” the “second tabernacle” (Exodus 28:29; Hebrews 9:3, 7). The veil separating these two chambers was a double curtain of the finest workmanship, THE TABERNACLE IN THE WILDERNESS which was never A. The Tabernacle covered | C. Alter of Burnt-Offerings passed except by the B. Brazen Laver | D. Court of the Tabernacle high priest once a year, on the great Day of Atonement. The holy place was separated from the outer court which enclosed the tabernacle by a curtain, which hung over the six pillars which stood at the east end of the tabernacle, and by which it was entered. The order as well as the typical character of the services of the tabernacle are recorded in Hebrews 9; 10:19-22. The holy of holies, a cube of 10 cubits, contained the “ark of the testimony”, i.e., the oblong chest containing the two tables of stone, the pot of manna, and Aaron’s rod that budded. The holy place was the western and larger chamber of the tabernacle. Here were placed the table for the shewbread, the golden candlestick, and the golden altar of incense. Round about the tabernacle was a court, enclosed by curtains hung upon sixty pillars (Exodus 27:9-18). This court was 150 feet long and 75 feet broad. Within it were placed the altar of burnt offering, which measured 7 1/2 feet in length and breadth and 4 1/2 feet high, with horns at the four corners, and the laver of brass (Exodus 30:18), THE TABERNACLE UNVEILED which stood H. The Holy of Holies, containing the Ark (A) of the Covenant between the altar with the Shechinah (G) and the tabernacle. V. The Veil separating the Holy of Holies from the Holy Place. H.P. The Holy Place, containing the Golden Candlestick (C); the Table of Shewbread (T); and the Altar of the Incense. The whole tabernacle was completed in seven months. On the first day of the first month of the second year after the Exodus, it was formally set up, and the cloud of the divine presence descended on it (Exodus 39:22-43; 40:1-38). It cost 29 talents 730 shekels of gold, 100 talents 1,775 shekels of silver, 70 talents 2,400 shekels of brass (Exodus 38:24-31). The tabernacle was so constructed that it could easily be taken down and conveyed from place to place during the wanderings in the wilderness. The first encampment of the Israelites after crossing the Jordan was at Gilgal, and there the tabernacle remained for seven years (Joshua 4:19). It was afterwards removed to Shiloh (Joshua 18:1), where it remained during the time of the Judges, till the days of Eli, when the ark, having been carried out into the camp when the Israelites were at war with the Philistines, was taken by the enemy (1 Samuel 4), and was never afterwards restored to its place in the tabernacle. The old tabernacle erected by Moses in the wilderness was transferred to Nob (1 Samuel 21:1), and after the destruction of that city by Saul (22:9; 1 Chronicles 16:39, 40), to Gibeon. It is mentioned for the last time in 1 Chronicles 21:29. A new tabernacle was erected by David at Jerusalem (2 Samuel 6:17; 1 Chronicles 16:1), and the ark was brought from Perez-uzzah and deposited in it (2 Samuel 6:8-17; 2 Chronicles 1:4). The word thus rendered (‘ohel) in Exodus 33:7 denotes simply a tent, probably Moses’ own tent, for the tabernacle was not yet erected.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3421,7 +3421,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FODDER H</strong> ebrews belil, (Job 6:5), meaning properly a mixture or medley (Lat. farrago), “made up of various kinds of grain, as wheat, barley, vetches, and the like, all mixed together, and then sown or given to cattle” (Job 24:6, A.V. “corn,” R.V. “provender;” Isaiah 30:24, provender”).",
+        "<strong>Dictionary (Easton's).</strong> <strong>FODDER</strong> Hebrews belil, (Job 6:5), meaning properly a mixture or medley (Lat. farrago), “made up of various kinds of grain, as wheat, barley, vetches, and the like, all mixed together, and then sown or given to cattle” (Job 24:6, A.V. “corn,” R.V. “provender;” Isaiah 30:24, provender”).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3443,7 +3443,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SALT</strong> used to season food (Job 6:6), and mixed with the fodder of cattle (Isaiah 30:24, “clean;” in marg. of R.V. “salted”). All meat-offerings were seasoned with salt (Leviticus 2:13). To eat salt with one is to partake of his hospitality, to derive subsistence from him; and hence he who did so was bound to look after his host’s interests (Ezra 4:14, “We have maintenance from the king’s palace;” A.V. marg., “We are salted with the salt of the palace;” R.V., “We eat the salt of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SALT</strong> used to season food (Job 6:6), and mixed with the fodder of cattle (Isaiah 30:24, “clean;” in marg. of R.V. “salted”). All meat-offerings were seasoned with salt (Leviticus 2:13). To eat salt with one is to partake of his hospitality, to derive subsistence from him; and hence he who did so was bound to look after his host’s interests (Ezra 4:14, “We have maintenance from the king’s palace;” A.V. marg., “We are salted with the salt of the palace;” R.V., “We eat the salt of the palace”). A “covenant of salt” (Numbers 18:19; 2 Chronicles 13:5) was a covenant of perpetual obligation. New-born children were rubbed with salt (Ezekiel 16:4). Disciples are likened unto salt, with reference to its cleansing and preserving uses (Matthew 5:13). When Abimelech took the city of Shechem, he sowed the place with salt, that it might always remain a barren soil (Judges 9:45). Sir Lyon Playfair argues, on scientific grounds, that under the generic name of “salt,” in certain passages, we are to understand petroleum or its residue asphalt. Thus in Genesis 19:26 he would read “pillar of asphalt;” and in Matthew 5:13, instead of “salt,” “petroleum,” which loses its essence by exposure, as salt does not, and becomes asphalt, with which pavements were made. The Jebel Usdum, to the south of the Dead Sea, is a mountain of rock salt about 7 miles long and from 2 to 3 miles wide and some hundreds of feet high.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3960,7 +3960,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WHALE T</strong> he Hebrew word tan (plural, tannin) is so rendered in Job 7:12 (A.V.; but R.V., “sea-monster”). It is rendered by “dragons” in Deuteronomy 32:33; Psalm 91:13; Jeremiah 51:34; Psalm 74:13 (marg., “whales;” and marg. of R.V., “sea-monsters”); Isaiah 27:1; and “serpent” in Exodus 7:9 (R.V. marg., “any large reptile,” and so in ver. 10, 12). The words of Job (7:12), uttered in bitter irony, where he asks, “Am I a sea or a whale?” simply mean, “Have I a wild, untamable nature,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>WHALE</strong> The Hebrew word tan (plural, tannin) is so rendered in Job 7:12 (A.V.; but R.V., “sea-monster”). It is rendered by “dragons” in Deuteronomy 32:33; Psalm 91:13; Jeremiah 51:34; Psalm 74:13 (marg., “whales;” and marg. of R.V., “sea-monsters”); Isaiah 27:1; and “serpent” in Exodus 7:9 (R.V. marg., “any large reptile,” and so in ver. 10, 12). The words of Job (7:12), uttered in bitter irony, where he asks, “Am I a sea or a whale?” simply mean, “Have I a wild, untamable nature, like the waves of the sea, which must be confined and held within bounds, that they cannot pass?” “The serpent of the sea, which was but the wild, stormy sea itself, wound itself around the land, and threatened to swallow it up...Job inquires if he must be watched and plagued like this monster, lest he throw the world into disorder” (Davidson’s Job). The whale tribe are included under the general Hebrew name tannin (Genesis 1:21; Lamentations 4:3). “Even the sea-monsters [tanninim] draw out the breast.” The whale brings forth its young alive, and suckles them. It is to be noticed of the story of Jonah’s being “three days and three nights in the whale’s belly,” as recorded in Matthew 12:40, that here the Gr. ketos means properly any kind of sea-monster of the shark or the whale tribe, and that in the book of Jonah (1:17) it is only said that “a great fish” was prepared to swallow Jonah. This fish may have been, therefore, some great shark. The white shark is known to frequent the Mediterranean Sea, and is sometimes found 30 feet in length.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4301,7 +4301,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FLAG</strong> (Hebrews , or rather Egyptian, ahu, Job 8:11), rendered “meadow” in Genesis 41:2, 18; probably the Cyperus esculentus, a species of rush eaten by cattle, the Nile reed. It also grows in Palestine. In Exodus 2:3, 5, Isaiah 19:6, it is the rendering of the Hebrew suph, a word which occurs frequently in connection with yam; as yam suph, to denote the “Red Sea” (q.v.) or the sea of weeds (as this word is rendered, Jonah 2:5). It denotes some kind of sedge or reed which grows in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FLAG</strong> (Hebrews , or rather Egyptian, ahu, Job 8:11), rendered “meadow” in Genesis 41:2, 18; probably the Cyperus esculentus, a species of rush eaten by cattle, the Nile reed. It also grows in Palestine. In Exodus 2:3, 5, Isaiah 19:6, it is the rendering of the Hebrew suph, a word which occurs frequently in connection with yam; as yam suph, to denote the “Red Sea” (q.v.) or the sea of weeds (as this word is rendered, Jonah 2:5). It denotes some kind of sedge or reed which grows in marshy places. (See PAPER, REED.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4400,7 +4400,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SPIDER T</strong> he trust of the hypocrite is compared to the spider’s web or house (Job 8:14). It is said of the wicked by Isaiah that they “weave the spider’s web” (59:5), i.e., their works and designs are, like the spider’s web, vain and useless. The Hebrew word here used is ’akkabish, “a swift weaver.” In Proverbs 30:28 a different Hebrew word (semamith) is used. It is rendered in the Vulgate by stellio, and in the Revised Version by “lizard.” It may, however, represent the spider, of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SPIDER</strong> The trust of the hypocrite is compared to the spider’s web or house (Job 8:14). It is said of the wicked by Isaiah that they “weave the spider’s web” (59:5), i.e., their works and designs are, like the spider’s web, vain and useless. The Hebrew word here used is ’akkabish, “a swift weaver.” In Proverbs 30:28 a different Hebrew word (semamith) is used. It is rendered in the Vulgate by stellio, and in the Revised Version by “lizard.” It may, however, represent the spider, of which there are, it is said, about seven hundred species in Palestine.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4741,7 +4741,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ORION H</strong> ebrews Kesil; i.e., “the fool”, the name of a constellation (Job 9:9; 38:31; Amos 5:8) consisting of about eighty stars. The Vulgate renders thus, but the LXX. renders by Hesperus, i.e., “the evening-star,” Venus. The Orientals “appear to have conceived of this constellation under the figure of an impious giant bound upon the sky.” This giant was, according to tradition, Nimrod, the type of the folly that contends against God. In Isaiah 13:10 the plural form of the Hebrew…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ORION</strong> Hebrews Kesil; i.e., “the fool”, the name of a constellation (Job 9:9; 38:31; Amos 5:8) consisting of about eighty stars. The Vulgate renders thus, but the LXX. renders by Hesperus, i.e., “the evening-star,” Venus. The Orientals “appear to have conceived of this constellation under the figure of an impious giant bound upon the sky.” This giant was, according to tradition, Nimrod, the type of the folly that contends against God. In Isaiah 13:10 the plural form of the Hebrew word is rendered “constellations.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4752,7 +4752,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PLEIADES H</strong> ebrews kimah, “a cluster” (Job 9:9; 38:31; Amos 5:8, A.V., “seven stars;” R.V., “Pleiades”), a name given to the cluster of stars seen in the shoulder of the constellation Taurus.",
+        "<strong>Dictionary (Easton's).</strong> <strong>PLEIADES</strong> Hebrews kimah, “a cluster” (Job 9:9; 38:31; Amos 5:8, A.V., “seven stars;” R.V., “Pleiades”), a name given to the cluster of stars seen in the shoulder of the constellation Taurus.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -5236,7 +5236,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MEDIATOR</strong> one who intervenes between two persons who are at variance, with a view to reconcile them. This word is not found in the Old Testament; but the idea it expresses is found in Job 9:33, in the word “daysman” (q.v.), marg., “umpire.” This word is used in the New Testament to denote simply an internuncius, an ambassador, one who acts as a medium of communication between two contracting parties. In this sense Moses is called a mediator in Galatians 3:19. Christ is the one and…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MEDIATOR</strong> one who intervenes between two persons who are at variance, with a view to reconcile them. This word is not found in the Old Testament; but the idea it expresses is found in Job 9:33, in the word “daysman” (q.v.), marg., “umpire.” This word is used in the New Testament to denote simply an internuncius, an ambassador, one who acts as a medium of communication between two contracting parties. In this sense Moses is called a mediator in Galatians 3:19. Christ is the one and only mediator between God and man (1 Timothy 2:5; Hebrews 8:6; 9:15; 12:24). He makes reconciliation between God and man by his all-perfect atoning sacrifice. Such a mediator must be at once divine and human, divine, that his obedience and his sufferings might possess infinite worth, and that he might possess infinite wisdom and knowlege and power to direct all things in the kingdoms of providence and grace which are committed to his hands (Matthew 28:18; John 5:22, 25, 26, 27); and human, that in his work he might represent man, and be capable of rendering obedience to the law and satisfying the claims of justice (Hebrews 2:17, 18; 4:15, 16), and that in his glorified humanity he might be the head of a glorified Church (Romans 8:29). This office involves the three functions of prophet, priest, and king, all of which are discharged by Christ both in his estate of humiliation and exaltation. These functions are so inherent in the one office that the quality appertaining to each gives character to every mediatorial act. They are never separated in the exercise of the office of mediator.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8712,7 +8712,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GNASH H</strong> ebrews harak, meaning “to grate the teeth”, (Job 16:9; Psalm 112:10; Lamentations 2:16), denotes rage or sorrow. (See also Acts 7:54; Mark 9:18.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>GNASH</strong> Hebrews harak, meaning “to grate the teeth”, (Job 16:9; Psalm 112:10; Lamentations 2:16), denotes rage or sorrow. (See also Acts 7:54; Mark 9:18.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8745,7 +8745,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CHEEK S</strong> miting on the cheek was accounted a grievous injury and insult (Job 16:10; Lamentations 3:30; Micah 5:1). The admonition (Luke 6:29), “Unto him that smiteth thee on the one cheek offer also the other,” means simply, “Resist not evil” (Matthew 5:39; 1 Peter 2:19-23). Psalm 3:7 = that God had deprived his enemies of the power of doing him injury.",
+        "<strong>Dictionary (Easton's).</strong> <strong>CHEEK</strong> Smiting on the cheek was accounted a grievous injury and insult (Job 16:10; Lamentations 3:30; Micah 5:1). The admonition (Luke 6:29), “Unto him that smiteth thee on the one cheek offer also the other,” means simply, “Resist not evil” (Matthew 5:39; 1 Peter 2:19-23). Psalm 3:7 = that God had deprived his enemies of the power of doing him injury.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8844,7 +8844,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GALL</strong> (1) Hebrews mererah, meaning “bitterness” (Job 16:13); i.e., the bile secreted in the liver. This word is also used of the poison of asps (20:14), and of the vitals, the seat of life (25). (2.) Hebrews rosh. In Deuteronomy 32:33 and Job 20:16 it denotes the poison of serpents. In Hos. 10:4 the Hebrew word is rendered “hemlock.” The original probably denotes some bitter, poisonous plant, most probably the poppy, which grows up quickly, and is therefore coupled with wormwood…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GALL</strong> (1) Hebrews mererah, meaning “bitterness” (Job 16:13); i.e., the bile secreted in the liver. This word is also used of the poison of asps (20:14), and of the vitals, the seat of life (25). (2.) Hebrews rosh. In Deuteronomy 32:33 and Job 20:16 it denotes the poison of serpents. In Hos. 10:4 the Hebrew word is rendered “hemlock.” The original probably denotes some bitter, poisonous plant, most probably the poppy, which grows up quickly, and is therefore coupled with wormwood (Deuteronomy 29:18; Jeremiah 9:15; Lamentations 3:19). Comp. Jeremiah 8:14; 23:15, “water of gall,” Gesenius, “poppy juice;” others, “water of hemlock,” “bitter water.” (3.) Gr. chole (Matthew 27:34), the LXX. translation of the Hebrew rosh in Psalm 69; 21, which foretells our Lord’s sufferings. The drink offered to our Lord was vinegar (made of light wine rendered acid, the common drink of Roman soldiers) “mingled with gall,” or, according to Mark (15:23), “mingled with myrrh;” both expressions meaning the same thing, namely, that the vinegar was made bitter by the infusion of wormwood or some other bitter substance, usually given, according to a merciful custom, as an anodyne to those who were crucified, to render them insensible to pain. Our Lord, knowing this, refuses to drink it. He would take nothing to cloud his faculties or blunt the pain of dying. He chooses to suffer every element of woe in the bitter cup of agony given him by the Father (John 18:11).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9405,7 +9405,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CANDLE H</strong> ebrews ner, Job 18:6; 29:3; Psalm 18:28; Proverbs 24:20, in all which places the Revised Version and margin of Authorized Version have “lamp,” by which the word is elsewhere frequently rendered. The Hebrew word denotes properly any kind of candle or lamp or torch. It is used as a figure of conscience (Proverbs 20:27), of a Christian example (Matthew 5:14, 15), and of prosperity (Job 21:17; Proverbs 13:9).",
+        "<strong>Dictionary (Easton's).</strong> <strong>CANDLE</strong> Hebrews ner, Job 18:6; 29:3; Psalm 18:28; Proverbs 24:20, in all which places the Revised Version and margin of Authorized Version have “lamp,” by which the word is elsewhere frequently rendered. The Hebrew word denotes properly any kind of candle or lamp or torch. It is used as a figure of conscience (Proverbs 20:27), of a Christian example (Matthew 5:14, 15), and of prosperity (Job 21:17; Proverbs 13:9).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10076,7 +10076,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GRAVING</strong> (1.) Hebrews hatsabh. Job 19:24, rendered “graven,” but generally means hewn stone or wood, in quarry or forest. (2.) Hebrews harush. Jeremiah 17:1, rendered “graven,” and indicates generally artistic work in metal, wood, and stone, effected by fine instruments. (3.) Hebrews haqaq. Ezekiel 4:1, engraving a plan or map, rendered “pourtray;” Job 19:23, “written.” (4.) Hebrews pasal points rather to the sculptor’s or the carver’s art (Isaiah 30:22; 40:19; 41:7; 44:12-15). (5.)…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GRAVING</strong> (1.) Hebrews hatsabh. Job 19:24, rendered “graven,” but generally means hewn stone or wood, in quarry or forest. (2.) Hebrews harush. Jeremiah 17:1, rendered “graven,” and indicates generally artistic work in metal, wood, and stone, effected by fine instruments. (3.) Hebrews haqaq. Ezekiel 4:1, engraving a plan or map, rendered “pourtray;” Job 19:23, “written.” (4.) Hebrews pasal points rather to the sculptor’s or the carver’s art (Isaiah 30:22; 40:19; 41:7; 44:12-15). (5.) Pathah refers to intaglio work, the cutting and engraving of precious stones (Exodus 28:9-11, 21; Zechariah 3:9; Cant. 1:10, 11). (6.) Heret. In Exodus 32:4 rendered “graving tool;” and in Isaiah 8:1, “a pen.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10571,7 +10571,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>VIPER I</strong> n Job 20:16, Isaiah 30:6; 59:5, the Hebrews word eph’eh is thus rendered. The Hebrew word, however, probably denotes a species of poisonous serpents known by the Arabic name of ‘el ephah. Tristram has identified it with the sand viper, a species of small size common in sandy regions, and frequently found under stones by the shores of the Dead Sea. It is rapid in its movements, and highly poisonous. In the New Testament echidne is used (Matthew 3:7; 12:34; 23:33) for any…",
+        "<strong>Dictionary (Easton's).</strong> <strong>VIPER</strong> In Job 20:16, Isaiah 30:6; 59:5, the Hebrews word eph’eh is thus rendered. The Hebrew word, however, probably denotes a species of poisonous serpents known by the Arabic name of ‘el ephah. Tristram has identified it with the sand viper, a species of small size common in sandy regions, and frequently found under stones by the shores of the Dead Sea. It is rapid in its movements, and highly poisonous. In the New Testament echidne is used (Matthew 3:7; 12:34; 23:33) for any poisonous snake. The viper mentioned in Acts 28:3 was probably the vipera aspis, or the Mediterranean viper. (See ADDER.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12023,7 +12023,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FELLOWSHIP</strong> (1.) With God, consisting in the knowledge of his will (Job 22:21; John 17:3); agreement with his designs (Amos 3:2); mutual affection (Romans 8: 38, 39); enjoyment of his presence (Psalm 4:6); conformity to his image (1 John 2:6; 1:6); and participation of his felicity (1 John 1:3, 4; Ephesians 3:14-21). (2.) Of saints with one another, in duties (Romans 12:5; 1 Corinthians 12:1; 1 Thessalonians 5:17, 18); in ordinances (Hebrews 10:25; Acts 2:46); in grace, love, joy, etc.…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FELLOWSHIP</strong> (1.) With God, consisting in the knowledge of his will (Job 22:21; John 17:3); agreement with his designs (Amos 3:2); mutual affection (Romans 8: 38, 39); enjoyment of his presence (Psalm 4:6); conformity to his image (1 John 2:6; 1:6); and participation of his felicity (1 John 1:3, 4; Ephesians 3:14-21). (2.) Of saints with one another, in duties (Romans 12:5; 1 Corinthians 12:1; 1 Thessalonians 5:17, 18); in ordinances (Hebrews 10:25; Acts 2:46); in grace, love, joy, etc. (Malachi 3:16; 2 Corinthians 8:4); mutual interest, spiritual and temporal (Romans 12:4, 13; Hebrews 13:16); in sufferings (Romans 15:1, 2; Galatians 6:1, 2; Romans 12:15; and in glory (Revelation 7:9).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12958,7 +12958,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DWELL T</strong> ents were in primitive times the common dwellings of men. Houses were afterwards built, the walls of which were frequently of mud (Job 24:16; Matthew 6:19, 20) or of sun-dried bricks. God “dwells in light” (1 Timothy 6:16; 1 John 1:7), in heaven (Psalm 123:1), in his church (Psalm 9:11; 1 John 4:12). Christ dwelt on earth in the days of his humiliation (John 1:14). He now dwells in the hearts of his people (Ephesians 3:17-19). The Holy Spirit dwells in believers (1…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DWELL</strong> Tents were in primitive times the common dwellings of men. Houses were afterwards built, the walls of which were frequently of mud (Job 24:16; Matthew 6:19, 20) or of sun-dried bricks. God “dwells in light” (1 Timothy 6:16; 1 John 1:7), in heaven (Psalm 123:1), in his church (Psalm 9:11; 1 John 4:12). Christ dwelt on earth in the days of his humiliation (John 1:14). He now dwells in the hearts of his people (Ephesians 3:17-19). The Holy Spirit dwells in believers (1 Corinthians 3:16; 2 Timothy 1:14). We are exhorted to “let the word of God dwell in us richly” (Colossians 3:16; Psalm 119:11). Dwell deep occurs only in Jeremiah 49:8, and refers to the custom of seeking refuge from impending danger, in retiring to the recesses of rocks and caverns, or to remote places in the desert.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -13321,7 +13321,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SON OF MAN</strong> (1.) Denotes mankind generally, with special reference to their weakness and frailty (Job 25:6; Psalm 8:4; 144:3; 146:3; Isaiah 51:12, etc.). (2.) It is a title frequently given to the prophet Ezekiel, probably to remind him of his human weakness. (3.) In the New Testament it is used forty-three times as a distinctive title of the Saviour. In the Old Testament it is used only in Psalm 80:17 and Daniel 7:13 with this application. It denotes the true humanity of our Lord. He…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SON OF MAN</strong> (1.) Denotes mankind generally, with special reference to their weakness and frailty (Job 25:6; Psalm 8:4; 144:3; 146:3; Isaiah 51:12, etc.). (2.) It is a title frequently given to the prophet Ezekiel, probably to remind him of his human weakness. (3.) In the New Testament it is used forty-three times as a distinctive title of the Saviour. In the Old Testament it is used only in Psalm 80:17 and Daniel 7:13 with this application. It denotes the true humanity of our Lord. He had a true body (Hebrews 2:14; Luke 24:39) and a rational soul. He was perfect man.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -14245,7 +14245,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MINE T</strong> he process of mining is described in Job 28:1-11. Moses speaks of the mineral wealth of Palestine (Deuteronomy 8:9). Job 28:4 is rightly thus rendered in the Revised Version, “He breaketh open a shaft away from where men sojourn; they are forgotten of the foot [that passeth by]; they hang afar from men, they swing to and fro.” These words illustrate ancient mining operations.",
+        "<strong>Dictionary (Easton's).</strong> <strong>MINE</strong> The process of mining is described in Job 28:1-11. Moses speaks of the mineral wealth of Palestine (Deuteronomy 8:9). Job 28:4 is rightly thus rendered in the Revised Version, “He breaketh open a shaft away from where men sojourn; they are forgotten of the foot [that passeth by]; they hang afar from men, they swing to and fro.” These words illustrate ancient mining operations.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -14663,7 +14663,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GLASS</strong> was known to the Egyptians at a very early period of their national history, at least B.C. 1500. Various articles both useful and ornamental were made of it, as bottles, vases, etc. A glass bottle with the name of Sargon on it was found among the ruins of the north-west palace of Nimroud. The Hebrew word zekukith (Job 28:17), rendered in the Authorized Version “crystal,” is rightly rendered in the Revised Version “glass.” This is the only allusion to glass found in the Old…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GLASS</strong> was known to the Egyptians at a very early period of their national history, at least B.C. 1500. Various articles both useful and ornamental were made of it, as bottles, vases, etc. A glass bottle with the name of Sargon on it was found among the ruins of the north-west palace of Nimroud. The Hebrew word zekukith (Job 28:17), rendered in the Authorized Version “crystal,” is rightly rendered in the Revised Version “glass.” This is the only allusion to glass found in the Old Testament. It is referred to in the New Testament in Revelation 4:6; 15:2; 21:18, 21. In Job 37:18, the word rendered “looking-glass” is in the Revised Version properly rendered “mirror,” formed, i.e., of some metal. (Comp. Exodus 38:8: “looking-glasses” are brazen mirrors, R.V.). A mirror is referred to also in James 1:23.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -14707,7 +14707,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CORAL H</strong> ebrews ramoth, meaning “heights;” i.e., “high-priced” or valuable things, or, as some suppose, “that which grows high,” like a tree (Job 28:18; Ezekiel 27:16), according to the Rabbins, red coral, which was in use for ornaments. The coral is a cretaceous marine product, the deposit by minute polypous animals of calcareous matter in cells in which the animal lives. It is of numberless shapes as it grows, but usually is branched like a tree. Great coral reefs and coral islands…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CORAL</strong> Hebrews ramoth, meaning “heights;” i.e., “high-priced” or valuable things, or, as some suppose, “that which grows high,” like a tree (Job 28:18; Ezekiel 27:16), according to the Rabbins, red coral, which was in use for ornaments. The coral is a cretaceous marine product, the deposit by minute polypous animals of calcareous matter in cells in which the animal lives. It is of numberless shapes as it grows, but usually is branched like a tree. Great coral reefs and coral islands abound in the Red Sea, whence probably the Hebrews derived their knowledge of it. It is found of different colours, white, black, and red. The red, being esteemed the most precious, was used, as noticed above, for ornamental purposes.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -15664,7 +15664,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BY-WORD H</strong> ebrew millah (Job 30:9), a word or speech, and hence object of talk; Hebrew mashal (Psalm 44:14), a proverb or parable. When it denotes a sharp word of derision, as in Deuteronomy 28:37, 1 Kings 9:7, 2 Chronicles 7:20, the Hebrew sheninah is used. In Jeremiah 24:9 it is rendered “taunt.” C",
+        "<strong>Dictionary (Easton's).</strong> <strong>BY-WORD</strong> Hebrew millah (Job 30:9), a word or speech, and hence object of talk; Hebrew mashal (Psalm 44:14), a proverb or parable. When it denotes a sharp word of derision, as in Deuteronomy 28:37, 1 Kings 9:7, 2 Chronicles 7:20, the Hebrew sheninah is used. In Jeremiah 24:9 it is rendered “taunt.” C",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -15950,7 +15950,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DRAGON</strong> (1.) Hebrews tannim, plural of tan. The name of some unknown creature inhabiting desert places and ruins (Job 30:29; Psalm 44:19; Isaiah 13:22; 34:13; 43:20; Jeremiah 10:22; Micah 1:8; Malachi 1:3); probably, as translated in the Revised Version, the jackal (q.v.). (2.) Hebrews tannin. Some great sea monster (Jeremiah 51:34). In Isaiah 51:9 it may denote the crocodile. In Genesis 1:21 (Hebrews plural tanninim) the Authorized Version renders “whales,” and the Revised Version…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DRAGON</strong> (1.) Hebrews tannim, plural of tan. The name of some unknown creature inhabiting desert places and ruins (Job 30:29; Psalm 44:19; Isaiah 13:22; 34:13; 43:20; Jeremiah 10:22; Micah 1:8; Malachi 1:3); probably, as translated in the Revised Version, the jackal (q.v.). (2.) Hebrews tannin. Some great sea monster (Jeremiah 51:34). In Isaiah 51:9 it may denote the crocodile. In Genesis 1:21 (Hebrews plural tanninim) the Authorized Version renders “whales,” and the Revised Version “sea monsters.” It is rendered “serpent” in Exodus 7:9. It is used figuratively in Psalm 74:13; Ezekiel 29:3. In the New Testament the word “dragon” is found only in Revelation 12:3, 4, 7, 9, 16, 17, etc., and is there used metaphorically of “Satan.” (See WHALE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -16896,7 +16896,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ELIHU</strong> whose God is he. (1.) “The son of Barachel, a Buzite” (Job 32:2), one of Job’s friends. When the debate between Job and his friends is brought to a close, Elihu for the first time makes his appearance, and delivers his opinion on the points at issue (Job 32-37). (2.) The son of Tohu, and grandfather of Elkanah (1 Samuel 1:1). He is called also Eliel (1 Chronicles 6:34) and Eliab (6:27). (3.) One of the captains of thousands of Manasseh who joined David at Ziklag (1…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ELIHU</strong> whose God is he. (1.) “The son of Barachel, a Buzite” (Job 32:2), one of Job’s friends. When the debate between Job and his friends is brought to a close, Elihu for the first time makes his appearance, and delivers his opinion on the points at issue (Job 32-37). (2.) The son of Tohu, and grandfather of Elkanah (1 Samuel 1:1). He is called also Eliel (1 Chronicles 6:34) and Eliab (6:27). (3.) One of the captains of thousands of Manasseh who joined David at Ziklag (1 Chronicles 12:20). (4.) One of the family of Obed-edom, who were appointed porters of the temple under David (1 Chronicles 26:7).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -19503,7 +19503,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FROST</strong> (Hebrews kerah, from its smoothness) Job 37:10 (R.V., “ice”); Genesis 31:40; Jeremiah 36:30; rendered “ice” in Job 6:16, 38:29; and “crystal” in Ezekiel 1:22. “At the present day frost is entirely unknown in the lower portions of the valley of the Jordan, but slight frosts are sometimes felt on the sea-coast and near Lebanon.” Throughout Western Asia cold frosty nights are frequently succeeded by warm days. “Hoar frost” (Hebrews kephor, so called from its covering the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FROST</strong> (Hebrews kerah, from its smoothness) Job 37:10 (R.V., “ice”); Genesis 31:40; Jeremiah 36:30; rendered “ice” in Job 6:16, 38:29; and “crystal” in Ezekiel 1:22. “At the present day frost is entirely unknown in the lower portions of the valley of the Jordan, but slight frosts are sometimes felt on the sea-coast and near Lebanon.” Throughout Western Asia cold frosty nights are frequently succeeded by warm days. “Hoar frost” (Hebrews kephor, so called from its covering the ground) is mentioned in Exodus 16:14; Job 38:29; Psalm 147:16. In Psalm 78:47 the word rendered “frost” (R.V. marg., “great hail-stones”), hanamal, occurs only there. It is rendered by Gesenius, the Hebrew lexicographer, “ant,” and so also by others, but the usual interpretation derived from the ancient versions may be maintained.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -20493,7 +20493,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CONDUIT</strong> a water-course or channel (Job 38:25). The “conduit of the upper pool” (Isaiah 7:3) was formed by Hezekiah for the purpose of conveying the waters from the upper pool in the valley of Gihon to the west side of the city of David (2 Kings 18:17; 20:20; 2 Chronicles 32:30). In carrying out this work he stopped “the waters of the fountains which were without the city” i.e., “the upper water-course of Gihon”, and conveyed it down from the west through a canal into the city, so…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CONDUIT</strong> a water-course or channel (Job 38:25). The “conduit of the upper pool” (Isaiah 7:3) was formed by Hezekiah for the purpose of conveying the waters from the upper pool in the valley of Gihon to the west side of the city of David (2 Kings 18:17; 20:20; 2 Chronicles 32:30). In carrying out this work he stopped “the waters of the fountains which were without the city” i.e., “the upper water-course of Gihon”, and conveyed it down from the west through a canal into the city, so that in case of a siege the inhabitants of the city might have a supply of water, which would thus be withdrawn from the enemy. (See SILOAM.) There are also the remains of a conduit which conducted water from the so-called “Pools of Solomon,” beyond Bethlehem, into the city. Water is still conveyed into the city from the fountains which supplied these pools by a channel which crosses the valley of Hinnom.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -21758,7 +21758,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>THUNDER</strong> often referred to in Scripture (Job 40:9; Psalm 77:18; 104:7). James and John were called by our Lord “sons of thunder” (Mark 3:17). In Job 39:19, instead of “thunder,” as in the Authorized Version, the Revised Version translates (ra’amah) by “quivering main” (marg., “shaking”). Thunder accompanied the giving of the law at Sinai (Exodus 19:16). It was regarded as the voice of God (Job 37:2; Psalm 18:13; 81:7; comp. John 12:29). In answer to Samuel’s prayer (1 Samuel 12:17,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>THUNDER</strong> often referred to in Scripture (Job 40:9; Psalm 77:18; 104:7). James and John were called by our Lord “sons of thunder” (Mark 3:17). In Job 39:19, instead of “thunder,” as in the Authorized Version, the Revised Version translates (ra’amah) by “quivering main” (marg., “shaking”). Thunder accompanied the giving of the law at Sinai (Exodus 19:16). It was regarded as the voice of God (Job 37:2; Psalm 18:13; 81:7; comp. John 12:29). In answer to Samuel’s prayer (1 Samuel 12:17, 18), God sent thunder, and “all the people greatly feared,” for at such a season (the wheat-harvest) thunder and rain were almost unknown in Palestine.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

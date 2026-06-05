@@ -154,7 +154,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COLOSSAE</strong> or Colosse, a city of Phrygia, on the Lycus, which is a tributary of the Maeander. It was about 12 miles above Laodicea, and near the great road from Ephesus to the Euphrates, and was consequently of some mercantile importance. It does not appear that Paul had visited this city when he wrote his letter to the church there (Colossians 1:2). He expresses in his letter to Philemon (ver. 1:22) his hope to visit it on being delivered from his imprisonment. From Colossians 1:7;…",
+        "<strong>Dictionary (Easton's).</strong> <strong>COLOSSAE</strong> or Colosse, a city of Phrygia, on the Lycus, which is a tributary of the Maeander. It was about 12 miles above Laodicea, and near the great road from Ephesus to the Euphrates, and was consequently of some mercantile importance. It does not appear that Paul had visited this city when he wrote his letter to the church there (Colossians 1:2). He expresses in his letter to Philemon (ver. 1:22) his hope to visit it on being delivered from his imprisonment. From Colossians 1:7; 4:12 it has been concluded that Epaphras was the founder of the Colossian church. This town afterwards fell into decay, and the modern town of Chonas or Chonum occupies a site near its ruins.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1320,7 +1320,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>RECONCILATION</strong> a change from enmity to friendship. It is mutual, i.e., it is a change wrought in both parties who have been at enmity. (1.) In Colossians 1:21, 22, the word there used refers to a change wrought in the personal character of the sinner who ceases to be an enemy to God by wicked works, and yields up to him his full confidence and love. In 2 Corinthians 5:20 the apostle beseeches the Corinthians to be “reconciled to God”, i.e., to lay aside their enmity. (2.) Romans 5:10…",
+        "<strong>Dictionary (Easton's).</strong> <strong>RECONCILATION</strong> a change from enmity to friendship. It is mutual, i.e., it is a change wrought in both parties who have been at enmity. (1.) In Colossians 1:21, 22, the word there used refers to a change wrought in the personal character of the sinner who ceases to be an enemy to God by wicked works, and yields up to him his full confidence and love. In 2 Corinthians 5:20 the apostle beseeches the Corinthians to be “reconciled to God”, i.e., to lay aside their enmity. (2.) Romans 5:10 refers not to any change in our disposition toward God, but to God himself, as the party reconciled. Romans 5:11 teaches the same truth. From God we have received “the reconciliation” (R.V.), i.e., he has conferred on us the token of his friendship. So also 2 Corinthians 5:18, 19 speaks of a reconciliation originating with God, and consisting in the removal of his merited wrath. In Ephesians 2:16 it is clear that the apostle does not refer to the winning back of the sinner in love and loyalty to God, but to the restoration of God’s forfeited favour. This is effected by his justice being satisfied, so that he can, in consistency with his own nature, be favourable toward sinners. Justice demands the punishment of sinners. The death of Christ satisfies justice, and so reconciles God to us. This reconciliation makes God our friend, and enables him to pardon and save us. (See ATONEMENT.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4400,7 +4400,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PHILEMON</strong> an inhabitant of Colosse, and apparently a person of some note among the citizens (Colossians 4:9; Philemon 1:2). He was brought to a knowledge of the gospel through the instrumentality of Paul (19), and held a prominent place in the Christian community for his piety and beneficence (4-7). He is called in the epistle a “fellow-labourer,” and therefore probably held some office in the church at Colosse; at all events, the title denotes that he took part in the work of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>PHILEMON</strong> an inhabitant of Colosse, and apparently a person of some note among the citizens (Colossians 4:9; Philemon 1:2). He was brought to a knowledge of the gospel through the instrumentality of Paul (19), and held a prominent place in the Christian community for his piety and beneficence (4-7). He is called in the epistle a “fellow-labourer,” and therefore probably held some office in the church at Colosse; at all events, the title denotes that he took part in the work of spreading a knowledge of the gospel.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4444,7 +4444,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MARCUS C</strong> olossians 4:10; Philemon 1:24; 1 Peter 5:13; R.V., “Mark” (q.v.).",
+        "<strong>Dictionary (Easton's).</strong> <strong>MARCUS</strong> Colossians 4:10; Philemon 1:24; 1 Peter 5:13; R.V., “Mark” (q.v.).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

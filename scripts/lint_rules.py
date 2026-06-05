@@ -2279,6 +2279,68 @@ def check_no_reviewer_scaffolding_in_bodies() -> dict:
     }
 
 
+def check_no_truncated_easton() -> dict:
+    """Auto-note re-ingest defect #1 (2026-06-06) — no ``dict-easton`` note body may
+    end with a literal ``…``.
+
+    The old ``extract_eastons_ccel.MAX_BODY = 480`` cap severed 1,431 entries
+    mid-sentence and baked a trailing ``…``; the re-ingest
+    (``scripts/_reingest_eastons.py``) restored the FULL articles (user decision
+    2026-06-05). This guard fails on any residual truncation so the un-cap can never
+    silently regress. AST-based — screens only the body (8th tuple field) of
+    dict-easton notes, never the file's docstring/comments.
+    """
+    notes_dir = REPO / "content" / "notes"
+    if not notes_dir.is_dir():
+        return {
+            "id": "no_truncated_easton",
+            "name": "No truncated dict-easton bodies",
+            "status": "warn",
+            "message": "content/notes/ directory missing",
+            "violations": [],
+        }
+    violations: list[dict] = []
+    total = 0
+    for py in sorted(notes_dir.glob("*.py")):
+        if py.name == "__init__.py":
+            continue
+        try:
+            tree = ast.parse(py.read_text(encoding="utf-8"), filename=str(py))
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            continue
+        notes_list = _find_notes_list(tree)
+        if notes_list is None:
+            continue
+        cnt = 0
+        for elt in getattr(notes_list, "elts", []):
+            if not isinstance(elt, ast.Tuple) or len(elt.elts) < 8:
+                continue
+            kind, body = elt.elts[4], elt.elts[7]
+            if (
+                isinstance(kind, ast.Constant)
+                and kind.value == "dict-easton"
+                and isinstance(body, ast.Constant)
+                and isinstance(body.value, str)
+                and re.sub("<[^>]+>", "", body.value).rstrip().endswith("…")
+            ):
+                cnt += 1
+        if cnt:
+            total += cnt
+            violations.append({"file": str(py.relative_to(REPO)).replace("\\", "/"), "count": cnt})
+    return {
+        "id": "no_truncated_easton",
+        "name": "No truncated dict-easton bodies",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "no dict-easton body ends with '…'"
+            if not violations
+            else f"{total} dict-easton body(ies) across {len(violations)} file(s) still end "
+            "with '…' — re-ingest the full article (scripts/_reingest_eastons.py)"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2323,6 +2385,9 @@ ALL_CHECKS = {
     # may ship inside a reader-facing note body (the guidance's home is the
     # detector's reviewer_notes= field). Hard FAIL.
     "no_reviewer_scaffolding": check_no_reviewer_scaffolding_in_bodies,
+    # Auto-note re-ingest defect #1 (2026-06-06) — full Easton articles, no 480-char
+    # truncation; guards the un-cap so a dict-easton body can never re-truncate.
+    "no_truncated_easton": check_no_truncated_easton,
 }
 
 

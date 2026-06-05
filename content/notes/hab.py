@@ -1364,7 +1364,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CUSHAN</strong> probably a poetic or prolonged name of the land of Cush, the Arabian Cush (Habakkuk 3:7). Some have, however, supposed this to be the same as Chushan-rishathaim (Judges 3:8, 10), i.e., taking the latter part of the name as a title or local appellation, Chushan “of the two iniquities” (= oppressing Israel, and provoking them to idolatry), a Mesopotamian king, identified by Rawlinson with Asshur-ris-ilim (the father of Tiglathpileser I.); but incorrectly, for the empire of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CUSHAN</strong> probably a poetic or prolonged name of the land of Cush, the Arabian Cush (Habakkuk 3:7). Some have, however, supposed this to be the same as Chushan-rishathaim (Judges 3:8, 10), i.e., taking the latter part of the name as a title or local appellation, Chushan “of the two iniquities” (= oppressing Israel, and provoking them to idolatry), a Mesopotamian king, identified by Rawlinson with Asshur-ris-ilim (the father of Tiglathpileser I.); but incorrectly, for the empire of Assyria was not yet founded. He held Israel in bondage for eight years.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

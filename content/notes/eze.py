@@ -110,7 +110,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CHEBAR</strong> length, a river in the “land of the Chaldeans” (Ezekiel 1:3), on the banks of which were located some of the Jews of the Captivity (Ezekiel 1:1; 3:15, 23; 10:15, 20, 22). It has been supposed to be identical with the river Habor, the Chaboras, or modern Khabour, which falls into the Euphrates at Circesium. To the banks of this river some of the Israelites were removed by the Assyrians (2 Kings 17:6). An opinion that has much to support it is that the “Chebar” was the royal…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CHEBAR</strong> length, a river in the “land of the Chaldeans” (Ezekiel 1:3), on the banks of which were located some of the Jews of the Captivity (Ezekiel 1:1; 3:15, 23; 10:15, 20, 22). It has been supposed to be identical with the river Habor, the Chaboras, or modern Khabour, which falls into the Euphrates at Circesium. To the banks of this river some of the Israelites were removed by the Assyrians (2 Kings 17:6). An opinion that has much to support it is that the “Chebar” was the royal canal of Nebuchadnezzar, the Nahr Malcha, the greatest in Mesopotamia, which connected the Tigris with the Euphrates, in the excavation of which the Jewish captives were probably employed.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2101,7 +2101,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DRINK T</strong> he drinks of the Hebrews were water, wine, “strong drink,” and vinegar. Their drinking vessels were the cup, goblet or “basin,” the “cruse” or pitcher, and the saucer. To drink water by measure (Ezekiel 4:11), and to buy water to drink (Lamentations 5:4), denote great scarcity. To drink blood means to be satiated with slaughter. The Jews carefully strained their drinks through a sieve, through fear of violating the law of Leviticus 11:20, 23, 41, 42. (See Matthew 23:24.…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DRINK</strong> The drinks of the Hebrews were water, wine, “strong drink,” and vinegar. Their drinking vessels were the cup, goblet or “basin,” the “cruse” or pitcher, and the saucer. To drink water by measure (Ezekiel 4:11), and to buy water to drink (Lamentations 5:4), denote great scarcity. To drink blood means to be satiated with slaughter. The Jews carefully strained their drinks through a sieve, through fear of violating the law of Leviticus 11:20, 23, 41, 42. (See Matthew 23:24. “Strain at” should be “strain out.”)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2354,7 +2354,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BARBER F</strong> ound only once, in Ezekiel 5:1, where reference is made to the Jewish custom of shaving the head as a sign of mourning. The Nazarites were untouched by the razor from their birth (Numbers 6:5). Comp. Judges 16:19.",
+        "<strong>Dictionary (Easton's).</strong> <strong>BARBER</strong> Found only once, in Ezekiel 5:1, where reference is made to the Jewish custom of shaving the head as a sign of mourning. The Nazarites were untouched by the razor from their birth (Numbers 6:5). Comp. Judges 16:19.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3476,7 +3476,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SYNAGOGUE</strong> (Gr. sunagoge, i.e., “an assembly”), found only once in the Authorized Version of Psalm 74:8, where the margin of Revised Version has “places of assembly,” which is probably correct; for while the origin of synagogues is unknown, it may well be supposed that buildings or tents for the accommodation of worshippers may have existed in the land from an early time, and thus the system of synagogues would be gradually developed. Some, however, are of opinion that it was specially…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SYNAGOGUE</strong> (Gr. sunagoge, i.e., “an assembly”), found only once in the Authorized Version of Psalm 74:8, where the margin of Revised Version has “places of assembly,” which is probably correct; for while the origin of synagogues is unknown, it may well be supposed that buildings or tents for the accommodation of worshippers may have existed in the land from an early time, and thus the system of synagogues would be gradually developed. Some, however, are of opinion that it was specially during the Babylonian captivity that the system of synagogue worship, if not actually introduced, was at least reorganized on a systematic plan (Ezekiel 8:1; 14:1). The exiles gathered together for the reading of the law and the prophets as they had opportunity, and after their return synagogues were established all over the land (Ezra 8:15; Nehemiah 8:2). In after years, when the Jews were dispersed abroad, wherever they went they erected synagogues and kept up the stated services of worship (Acts 9:20; 13:5; 17:1; 17:17; 18:4). The form and internal arrangements of the synagogue would greatly depend on the wealth of the Jews who erected it, and on the place where it was built. “Yet there are certain traditional pecularities which have doubtless united together by a common resemblance the Jewish synagogues of all ages and countries. The arrangements for the women’s place in a separate gallery or behind a partition of lattice-work; the desk in the centre, where the reader, like Ezra in ancient days, from his ‘pulpit of wood,’ may ‘open the book in the sight of all of people and read in the book of the law of God distinctly, and give the sense, and cause them to understand the reading’ (Nehemiah 8:4, 8); the carefully closed ark on the side of the building nearest to Jerusalem, for the preservation of the rolls or manuscripts of the law; the seats all round the building, whence ‘the eyes of all them that are in the synagogue’ may ‘be fastened’ on him who speaks (Luke 4:20); the ‘chief seats’ (Matthew 23:6) which were appropriated to the ‘ruler’ or ‘rulers’ of the synagogue, according as its organization may have been more or less complete;”, these were features common to all the synagogues. Where perfected into a system, the services of the synagogue, which were at the same hours as those of the temple, consisted, (1) of prayer, which formed a kind of liturgy, there were in all eighteen prayers; (2) the reading of the Scriptures in certain definite portions; and (3) the exposition of the portions read. (See Luke 4:15, 22; Acts 13:14.) The synagogue was also sometimes used as a court of judicature, in which the rulers presided (Matthew 10:17; Mark 5:22; Luke 12:11; 21:12; Acts 13:15; 22:19); also as public schools. The establishment of synagogues wherever the Jews were found in sufficient numbers helped greatly to keep alive Israel’s hope of the coming of the Messiah, and to prepare the way for the spread of the gospel in other lands. The worship of the Christian Church was afterwards modelled after that of the synagogue. Christ and his disciples frequently taught in the synagogues (Matthew 13:54; Mark 6:2; John 18:20; Acts 13:5, 15, 44; 14:1; 17:2-4, 10, 17; 18:4, 26; 19:8). To be “put out of the synagogue,” a phrase used by John (9:22; 12:42; 16:2), means to be excommunicated.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3927,7 +3927,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TAMMUZ</strong> a corruption of Dumuzi, the Accadian sun-God (the Adonis of the Greeks), the husband of the goddess Ishtar. In the Chaldean calendar there was a month set apart in honour of this God, the month of June to July, the beginning of the summer solstice. At this festival, which lasted six days, the worshippers, with loud lamentations, bewailed the funeral of the God, they sat “weeping for Tammuz” (Ezekiel 8:14). The name, also borrowed from Chaldea, of one of the months of the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>TAMMUZ</strong> a corruption of Dumuzi, the Accadian sun-God (the Adonis of the Greeks), the husband of the goddess Ishtar. In the Chaldean calendar there was a month set apart in honour of this God, the month of June to July, the beginning of the summer solstice. At this festival, which lasted six days, the worshippers, with loud lamentations, bewailed the funeral of the God, they sat “weeping for Tammuz” (Ezekiel 8:14). The name, also borrowed from Chaldea, of one of the months of the Hebrew calendar.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4092,7 +4092,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>INKHORN T</strong> he Hebrew word so rendered means simply a round vessel or cup for containing ink, which was generally worn by writers in the girdle (Ezekiel 9:2, 3,11). The word “inkhorn” was used by the translators, because in former times in this country horns were used for containing ink.",
+        "<strong>Dictionary (Easton's).</strong> <strong>INKHORN</strong> The Hebrew word so rendered means simply a round vessel or cup for containing ink, which was generally worn by writers in the girdle (Ezekiel 9:2, 3,11). The word “inkhorn” was used by the translators, because in former times in this country horns were used for containing ink.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -6446,7 +6446,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FOX</strong> (Hebrews shu’al, a name derived from its digging or burrowing under ground), the Vulpes thaleb, or Syrian fox, the only species of this animal indigenous to Palestine. It burrows, is silent and solitary in its habits, is destructive to vineyards, being a plunderer of ripe grapes (Cant. 2:15). The Vulpes Niloticus, or Egyptian dog-fox, and the Vulpes vulgaris, or common fox, are also found in Palestine. The proverbial cunning of the fox is alluded to in Ezekiel 13:4, and in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FOX</strong> (Hebrews shu’al, a name derived from its digging or burrowing under ground), the Vulpes thaleb, or Syrian fox, the only species of this animal indigenous to Palestine. It burrows, is silent and solitary in its habits, is destructive to vineyards, being a plunderer of ripe grapes (Cant. 2:15). The Vulpes Niloticus, or Egyptian dog-fox, and the Vulpes vulgaris, or common fox, are also found in Palestine. The proverbial cunning of the fox is alluded to in Ezekiel 13:4, and in Luke 13:32, where our Lord calls Herod “that fox.” In Judges 15:4, 5, the reference is in all probability to the jackal. The Hebrew word shu’al through the Persian schagal becomes our jackal (Canis aureus), so that the word may bear that signification here. The reasons for preferring the rendering “jackal” are (1) that it is more easily caught than the fox; (2) that the fox is shy and suspicious, and flies mankind, while the jackal does not; and (3) that foxes are difficult, jackals comparatively easy, to treat in the way here described. Jackals hunt in large numbers, and are still very numerous in Southern Palestine.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7546,7 +7546,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JOB</strong> persecuted, an Arabian patriarch who resided in the land of Uz (q.v.). While living in the midst of great prosperity, he was suddenly overwhelmed by a series of sore trials that fell upon him. Amid all his sufferings he maintained his integrity. Once more God visited him with the rich tokens of his goodness and even greater prosperity than he had enjoyed before. He survived the period of trial for one hundred and forty years, and died in a good old age, an example to…",
+        "<strong>Dictionary (Easton's).</strong> <strong>JOB</strong> persecuted, an Arabian patriarch who resided in the land of Uz (q.v.). While living in the midst of great prosperity, he was suddenly overwhelmed by a series of sore trials that fell upon him. Amid all his sufferings he maintained his integrity. Once more God visited him with the rich tokens of his goodness and even greater prosperity than he had enjoyed before. He survived the period of trial for one hundred and forty years, and died in a good old age, an example to succeeding generations of integrity (Ezekiel 14:14, 20) and of submissive patience under the sorest calamities (James 5:11). His history, so far as it is known, is recorded in his book.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7953,7 +7953,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NAIL</strong> for fastening. (1.) Hebrew yathed, “piercing,” a peg or nail of any material (Ezekiel 15:3), more especially a tent-peg (Exodus 27:19; 35:18; 38:20), with one of which Jael (q.v.) pierced the temples of Sisera (Judges 4:21, 22). This word is also used metaphorically (Zechariah 10:4) for a prince or counsellor, just as “the battle-bow” represents a warrior. (2.) Masmer, a “point,” the usual word for a nail. The words of the wise are compared to “nails fastened by the masters…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NAIL</strong> for fastening. (1.) Hebrew yathed, “piercing,” a peg or nail of any material (Ezekiel 15:3), more especially a tent-peg (Exodus 27:19; 35:18; 38:20), with one of which Jael (q.v.) pierced the temples of Sisera (Judges 4:21, 22). This word is also used metaphorically (Zechariah 10:4) for a prince or counsellor, just as “the battle-bow” represents a warrior. (2.) Masmer, a “point,” the usual word for a nail. The words of the wise are compared to “nails fastened by the masters of assemblies” (Ecclesiastes 12:11, A.V.). The Revised Version reads, “as nails well fastened are the words of the masters,” etc. Others (as Plumptre) read, “as nails fastened are the masters of assemblies” (comp. Isaiah 22:23; Ezra 9:8). David prepared nails for the temple (1 Chronicles 22:3; 2 Chronicles 3:9). The nails by which our Lord was fixed to the cross are mentioned (John 20:25; Colossians 2:14). Nail of the finger (Hebrews tsipporen, “scraping”). To “pare the nails” is in Deuteronomy 21:12 (marg., “make,” or “dress,” or “suffer to grow”) one of the signs of purification, separation from former heathenism (comp. Leviticus 14:8; Numbers 8:7). In Jeremiah 17:1 this word is rendered “point.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8239,7 +8239,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BIRTH A</strong> s soon as a child was born it was washed, and rubbed with salt (Ezekiel 16:4), and then swathed with bandages (Job 38:9; Luke 2:7, 12). A Hebrew mother remained forty days in seclusion after the birth of a son, and after the birth of a daughter double that number of days. At the close of that period she entered into the tabernacle or temple and offered up a sacrifice of purification (Leviticus 12:1-8; Luke 2:22). A son was circumcised on the eighth day after his birth, being…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BIRTH</strong> As soon as a child was born it was washed, and rubbed with salt (Ezekiel 16:4), and then swathed with bandages (Job 38:9; Luke 2:7, 12). A Hebrew mother remained forty days in seclusion after the birth of a son, and after the birth of a daughter double that number of days. At the close of that period she entered into the tabernacle or temple and offered up a sacrifice of purification (Leviticus 12:1-8; Luke 2:22). A son was circumcised on the eighth day after his birth, being thereby consecrated to God (Genesis 17:10-12; comp. Romans 4:11). Seasons of misfortune are likened to the pains of a woman in travail, and seasons of prosperity to the joy that succeeds child-birth (Isaiah 13:8; Jeremiah 4:31; John 16:21, 22). The natural birth is referred to as the emblem of the new birth (John 3:3-8; Galatians 6:15; Titus 3:5, etc.).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9922,7 +9922,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BRANCH</strong> a symbol of kings descended from royal ancestors (Ezekiel 17:3, 10; Daniel 11:7); of prosperity (Job 8:16); of the Messiah, a branch out of the root of the stem of Jesse (Isaiah 11:1), the “beautiful branch” (4:2), a “righteous branch” (Jeremiah 23:5), “the Branch” (Zechariah 3:8; 6:12). Disciples are branches of the true vine (John 15:5, 6). “The branch of the terrible ones” (Isaiah 25:5) is rightly translated in the Revised Version “the song of the terrible ones,” i.e.,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BRANCH</strong> a symbol of kings descended from royal ancestors (Ezekiel 17:3, 10; Daniel 11:7); of prosperity (Job 8:16); of the Messiah, a branch out of the root of the stem of Jesse (Isaiah 11:1), the “beautiful branch” (4:2), a “righteous branch” (Jeremiah 23:5), “the Branch” (Zechariah 3:8; 6:12). Disciples are branches of the true vine (John 15:5, 6). “The branch of the terrible ones” (Isaiah 25:5) is rightly translated in the Revised Version “the song of the terrible ones,” i.e., the song of victory shall be brought low by the destruction of Babylon and the return of the Jews from captivity. The “abominable branch” is a tree on which a malefactor has been hanged (Isaiah 14:19). The “highest branch” in Ezekiel 17:3 represents Jehoiakim the king.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -18029,7 +18029,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>IVORY</strong> (Hebrews pl. shenhabbim, the “tusks of elephants”) was early used in decorations by the Egyptians, and a great trade in it was carried on by the Assyrians (Ezekiel 27:6; Revelation 18:12). It was used by the Phoenicians to ornament the box-wood rowing-benches of their galleys, and Hiram’s skilled workmen made Solomon’s throne of ivory (1 Kings 10:18). It was brought by the caravans of Dedan (Isaiah 21:13), and from the East Indies by the navy of Tarshish (1 Kings 10:22).…",
+        "<strong>Dictionary (Easton's).</strong> <strong>IVORY</strong> (Hebrews pl. shenhabbim, the “tusks of elephants”) was early used in decorations by the Egyptians, and a great trade in it was carried on by the Assyrians (Ezekiel 27:6; Revelation 18:12). It was used by the Phoenicians to ornament the box-wood rowing-benches of their galleys, and Hiram’s skilled workmen made Solomon’s throne of ivory (1 Kings 10:18). It was brought by the caravans of Dedan (Isaiah 21:13), and from the East Indies by the navy of Tarshish (1 Kings 10:22). Many specimens of ancient Egyptian and Assyrian ivory-work have been preserved. The word habbim is derived from the Sanscrit ibhas, meaning “elephant,” preceded by the Hebrew article (ha); and hence it is argued that Ophir, from which it and the other articles mentioned in 1 Kings 10:22 were brought, was in India.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -18491,7 +18491,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CANNEH M</strong> entioned only in Ezekiel 27:23. (See CALNEH.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>CANNEH</strong> Mentioned only in Ezekiel 27:23. (See CALNEH.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -19316,7 +19316,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TOPAZ H</strong> ebrews pitdah (Ezekiel 28:13; Revelation 21:20), a golden yellow or “green” stone brought from Cush or Ethiopia (Job 28:19). It was the second stone in the first row in the breastplate of the high priest, and had the name of Simeon inscribed on it (Exodus 28:17). It is probably the chrysolite of the moderns.",
+        "<strong>Dictionary (Easton's).</strong> <strong>TOPAZ</strong> Hebrews pitdah (Ezekiel 28:13; Revelation 21:20), a golden yellow or “green” stone brought from Cush or Ethiopia (Job 28:19). It was the second stone in the first row in the breastplate of the high priest, and had the name of Simeon inscribed on it (Exodus 28:17). It is probably the chrysolite of the moderns.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -20570,7 +20570,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LYDIA</strong> (1.) Ezekiel 30:5 (Hebrews Lud), a province in the west of Asia Minor, which derived its name from the fourth son of Shem (Genesis 10:22). It was bounded on the east by the greater Phrygia, and on the west by Ionia and the AEgean Sea. (2.) A woman of Thyatira, a “seller of purple,” who dwelt in Philippi (Acts 16:14, 15). She was not a Jewess but a proselyte. The Lord opened her heart as she heard the gospel from the lips of Paul (16:13). She thus became the first in Europe…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LYDIA</strong> (1.) Ezekiel 30:5 (Hebrews Lud), a province in the west of Asia Minor, which derived its name from the fourth son of Shem (Genesis 10:22). It was bounded on the east by the greater Phrygia, and on the west by Ionia and the AEgean Sea. (2.) A woman of Thyatira, a “seller of purple,” who dwelt in Philippi (Acts 16:14, 15). She was not a Jewess but a proselyte. The Lord opened her heart as she heard the gospel from the lips of Paul (16:13). She thus became the first in Europe who embraced Christianity. She was a person apparently of considerable wealth, for she could afford to give a home to Paul and his companions. (See THYATIRA.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -21208,7 +21208,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CEDAR</strong> (Hebrews e’rez, Gr. kedros, Lat. cedrus), a tree very frequently mentioned in Scripture. It was stately (Ezekiel 31:3-5), long-branched (Psalm 80:10; 92:12; Ezekiel 31:6-9), odoriferous (Cant. 4:11; Hos. 14:6), durable, and therefore much used for boards, pillars, and ceilings (1 Kings 6:9, 10; 7:2; Jeremiah 22:14), for masts (Ezekiel 27:5), and for carved images (Isaiah 44:14). It grew very abundantly in Palestine, and particularly on Lebanon, of which it was “the glory”…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CEDAR</strong> (Hebrews e’rez, Gr. kedros, Lat. cedrus), a tree very frequently mentioned in Scripture. It was stately (Ezekiel 31:3-5), long-branched (Psalm 80:10; 92:12; Ezekiel 31:6-9), odoriferous (Cant. 4:11; Hos. 14:6), durable, and therefore much used for boards, pillars, and ceilings (1 Kings 6:9, 10; 7:2; Jeremiah 22:14), for masts (Ezekiel 27:5), and for carved images (Isaiah 44:14). It grew very abundantly in Palestine, and particularly on Lebanon, of which it was “the glory” (Isaiah 35:2; 60:13). Hiram supplied Solomon with cedar trees from Lebanon for various purposes connected with the construction of the temple and the king’s palace (2 Samuel 5:11; 7:2, 7; 1 Kings 5:6, 8,10; 6:9, 10, 15, 16, 18, 20; 7:2, 3, 7, 11, 12; 9:11, etc.). Cedars were used also in the building of the second temple under Zerubbabel (Ezra 3:7). Of the ancient cedars of Lebanon there remain now only some seven or eight. They are not standing together. But beside them there are found between three hundred and four hundred of younger growth. They stand in an amphitheatre fronting the west, about 6,400 feet above the level of the sea. The cedar is often figuratively alluded to in the sacred Scriptures. “The mighty conquerors of olden days, the despots of Assyria and the Pharaohs of Egypt, the proud and idolatrous monarchs of Judah, the Hebrew commonwealth itself, the war-like Ammonites of patriarchal times, and the moral majesty of the Messianic age, are all compared to the towering cedar, in its royal loftiness and supremacy (Isaiah 2:13; Ezekiel 17:3, 22, 23, 31:3-9; Amos 2:9; Zechariah 11:1, 2; Job 40:17; Psalm 29:5; 80:10; 92:12, etc).”, Groser’s Scrip. Nat. Hist. (See BOX-TREE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26510,7 +26510,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ROSH</strong> (Ezekiel 38:2, 3; 39:1) is rendered “chief” in the Authorized Version. It is left untranslated as a proper name in the Revised Version. Some have supposed that the Russians are here meant, as one of the three Scythian tribes of whom Magog was the prince. They invaded the land of Judah in the days of Josiah. Herodotus, the Greek historian, says: “For twenty-eight years the Scythians ruled over Asia, and things were turned upside down by their violence and contempt.” (See…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ROSH</strong> (Ezekiel 38:2, 3; 39:1) is rendered “chief” in the Authorized Version. It is left untranslated as a proper name in the Revised Version. Some have supposed that the Russians are here meant, as one of the three Scythian tribes of whom Magog was the prince. They invaded the land of Judah in the days of Josiah. Herodotus, the Greek historian, says: “For twenty-eight years the Scythians ruled over Asia, and things were turned upside down by their violence and contempt.” (See BETHSHEAN.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26686,7 +26686,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WALL C</strong> ities were surrounded by walls, as distinguished from “unwalled villages” (Ezekiel 38:11; Leviticus 25:29-34). They were made thick and strong (Numbers 13:28; Deuteronomy 3:5). Among the Jews walls were built of stone, some of those in the temple being of great size (1 Kings 6:7; 7:9-12; 20:30; Mark 13:1, 2). The term is used metaphorically of security and safety (Isaiah 26:1; 60:18; Revelation 21:12-20). (See FENCE.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>WALL</strong> Cities were surrounded by walls, as distinguished from “unwalled villages” (Ezekiel 38:11; Leviticus 25:29-34). They were made thick and strong (Numbers 13:28; Deuteronomy 3:5). Among the Jews walls were built of stone, some of those in the temple being of great size (1 Kings 6:7; 7:9-12; 20:30; Mark 13:1, 2). The term is used metaphorically of security and safety (Isaiah 26:1; 60:18; Revelation 21:12-20). (See FENCE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -30261,7 +30261,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COR T</strong> his Hebrew word, untranslated, denotes a round vessel used as a measure both for liquids and solids. It was equal to one homer, and contained ten ephahs in dry and ten baths in liquid measure (Ezekiel 45:14). The Rabbins estimated the cor at forty-five gallons, while Josephus estimated it at about eighty-seven. In 1 Kings 4:22; 5:11; 2 Chronicles 2:10; 27:5, the original word is rendered “measure.”",
+        "<strong>Dictionary (Easton's).</strong> <strong>COR</strong> This Hebrew word, untranslated, denotes a round vessel used as a measure both for liquids and solids. It was equal to one homer, and contained ten ephahs in dry and ten baths in liquid measure (Ezekiel 45:14). The Rabbins estimated the cor at forty-five gallons, while Josephus estimated it at about eighty-seven. In 1 Kings 4:22; 5:11; 2 Chronicles 2:10; 27:5, the original word is rendered “measure.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -32164,7 +32164,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JEHOVAH-SHAMMAH J</strong> ehovah is there, the symbolical title given by Ezekiel to Jerusalem, which was seen by him in vision (Ezekiel 48:35). It was a type of the gospel Church.",
+        "<strong>Dictionary (Easton's).</strong> <strong>JEHOVAH-SHAMMAH</strong> Jehovah is there, the symbolical title given by Ezekiel to Jerusalem, which was seen by him in vision (Ezekiel 48:35). It was a type of the gospel Church.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),

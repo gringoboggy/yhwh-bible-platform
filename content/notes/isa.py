@@ -33,7 +33,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ISAIAH</strong> (Hebrews Yesh’yahu, i.e., “the salvation of Jehovah”). (1.) The son of Amoz (Isaiah 1:1; 2:1), who was apparently a man of humble rank. His wife was called “the prophetess” (8:3), either because she was endowed with the prophetic gift, like Deborah (Judges 4:4) and Huldah (2 Kings 22:14-20), or simply because she was the wife of “the prophet” (Isaiah 38:1). He had two sons, who bore symbolical names. He exercised the functions of his office during the reigns of Uzziah (or…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ISAIAH</strong> (Hebrews Yesh’yahu, i.e., “the salvation of Jehovah”). (1.) The son of Amoz (Isaiah 1:1; 2:1), who was apparently a man of humble rank. His wife was called “the prophetess” (8:3), either because she was endowed with the prophetic gift, like Deborah (Judges 4:4) and Huldah (2 Kings 22:14-20), or simply because she was the wife of “the prophet” (Isaiah 38:1). He had two sons, who bore symbolical names. He exercised the functions of his office during the reigns of Uzziah (or Azariah), Jotham, Ahaz, and Hezekiah (1:1). Uzziah reigned fifty-two years (B.C. 810-759), and Isaiah must have begun his career a few years before Uzziah’s death, probably B.C. 762. He lived till the fourteenth year of Hezekiah, and in all likelihood outlived that monarch (who died B.C. 698), and may have been contemporary for some years with Manasseh. Thus Isaiah may have prophesied for the long period of at least sixty-four years. His first call to the prophetical office is not recorded. A second call came to him “in the year that King Uzziah died” (Isaiah 6:1). He exercised his ministry in a spirit of uncompromising firmness and boldness in regard to all that bore on the interests of religion. He conceals nothing and keeps nothing back from fear of man. He was also noted for his spirituality and for his deep-toned reverence toward “the holy One of Israel.” In early youth Isaiah must have been moved by the invasion of Israel by the Assyrian monarch Pul (q.v.), 2 Kings 15:19; and again, twenty years later, when he had already entered on his office, by the invasion of Tiglath-pileser and his career of conquest. Ahaz, king of Judah, at this crisis refused to co-operate with the kings of Israel and Syria in opposition to the Assyrians, and was on that account attacked and defeated by Rezin of Damascus and Pekah of Samaria (2 Kings 16:5; 2 Chronicles 28:5, 6). Ahaz, thus humbled, sided with Assyria, and sought the aid of Tiglath-pileser against Israel and Syria. The consequence was that Rezin and Pekah were conquered and many of the people carried captive to Assyria (2 Kings 15:29; 16:9; 1 Chronicles 5:26). Soon after this Shalmaneser determined wholly to subdue the kingdom of Israel. Samaria was taken and destroyed (B.C. 722). So long as Ahaz reigned, the kingdom of Judah was unmolested by the Assyrian power; but on his accession to the throne, Hezekiah (B.C. 726), who “rebelled against the king of Assyria” (2 Kings 18:7), in which he was encouraged by Isaiah, who exhorted the people to place all their dependence on Jehovah (Isaiah 10:24; 37:6), entered into an alliance with the king of Egypt (Isaiah 30:2-4). This led the king of Assyria to threaten the king of Judah, and at length to invade the land. Sennacherib (B.C. 701) led a powerful army into Palestine. Hezekiah was reduced to despair, and submitted to the Assyrians (2 Kings 18:14-16). But after a brief interval war broke out again, and again Sennacherib (q.v.) led an army into Palestine, one detachment of which threatened Jerusalem (Isaiah 36:2-22; 37:8). Isaiah on that occasion encouraged Hezekiah to resist the Assyrians (37:1-7), whereupon Sennacherib sent a threatening letter to Hezekiah, which he “spread before the Lord” (37:14). The judgement of God now fell on the Assyrian host. “Like Xerxes in Greece, Sennacherib never recovered from the shock of the disaster in Judah. He made no more expeditions against either Southern Palestine or Egypt.” The remaining years of Hezekiah’s reign were peaceful (2 Chronicles 32:23, 27-29). Isaiah probably lived to its close, and possibly into the reign of Manasseh, but the time and manner of his death are unknown. There is a tradition that he suffered martyrdom in the heathen reaction in the time of Manasseh (q.v.). (2.) One of the heads of the singers in the time of David (1 Chronicles 25:3,15, “Jeshaiah”). (3.) A Levite (1 Chronicles 26:25). (4.) Ezra 8:7. (5.) Nehemiah 11:7.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -319,7 +319,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COTTAGE</strong> (1.) A booth in a vineyard (Isaiah 1:8); a temporary shed covered with leaves or straw to shelter the watchman that kept the garden. These were slight fabrics, and were removed when no longer needed, or were left to be blown down in winter (Job 27:18). (2.) A lodging-place (rendered “lodge” in Isaiah 1:8); a slighter structure than the “booth,” as the cucumber patch is more temporary than a vineyard (Isaiah 24:20). It denotes a frail structure of boughs supported on a few…",
+        "<strong>Dictionary (Easton's).</strong> <strong>COTTAGE</strong> (1.) A booth in a vineyard (Isaiah 1:8); a temporary shed covered with leaves or straw to shelter the watchman that kept the garden. These were slight fabrics, and were removed when no longer needed, or were left to be blown down in winter (Job 27:18). (2.) A lodging-place (rendered “lodge” in Isaiah 1:8); a slighter structure than the “booth,” as the cucumber patch is more temporary than a vineyard (Isaiah 24:20). It denotes a frail structure of boughs supported on a few poles, which is still in use in the East, or a hammock suspended between trees, in which the watchman was accustomed to sleep during summer. (3.) In Zephaniah 2:6 it is the rendering of the Hebrew keroth, which some suppose to denote rather “pits” (R.V. marg., “caves”) or “wells of water,” such as shepherds would sink.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -957,7 +957,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>REFINER T</strong> he process of refining metals is referred to by way of illustrations in Isaiah 1:25; Jeremiah 6:29; Zechariah 13:9; Malachi 3:2, 3.",
+        "<strong>Dictionary (Easton's).</strong> <strong>REFINER</strong> The process of refining metals is referred to by way of illustrations in Isaiah 1:25; Jeremiah 6:29; Zechariah 13:9; Malachi 3:2, 3.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2409,7 +2409,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CAULS I</strong> n Isaiah 3:18 this word (Hebrews shebisim), in the marg. “networks,” denotes network caps to contain the hair, worn by females. Others explain it as meaning “wreaths worn round the forehead, reaching from one ear to the other.”",
+        "<strong>Dictionary (Easton's).</strong> <strong>CAULS</strong> In Isaiah 3:18 this word (Hebrews shebisim), in the marg. “networks,” denotes network caps to contain the hair, worn by females. Others explain it as meaning “wreaths worn round the forehead, reaching from one ear to the other.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2519,7 +2519,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NOSE-JEWELS O</strong> nly mentioned in Isaiah 3:21, although refered to in Genesis 24:47, Proverbs 11:22, Hos. 2:13. They were among the most valued of ancient female ornaments. They “were made of ivory or metal, and occasionally jewelled. They were more than an inch in diameter, and hung upon the mouth. Eliezer gave one to Rebekah which was of gold and weighed half a shekel...At the present day the women in the country and in the desert wear these ornaments in one of the sides of the nostrils,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NOSE-JEWELS</strong> Only mentioned in Isaiah 3:21, although refered to in Genesis 24:47, Proverbs 11:22, Hos. 2:13. They were among the most valued of ancient female ornaments. They “were made of ivory or metal, and occasionally jewelled. They were more than an inch in diameter, and hung upon the mouth. Eliezer gave one to Rebekah which was of gold and weighed half a shekel...At the present day the women in the country and in the desert wear these ornaments in one of the sides of the nostrils, which droop like the ears in consequence.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2563,7 +2563,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WIMPLE I</strong> saiah 3:22, (R.V., “shawls”), a wrap or veil. The same Hebrew word is rendered “vail” (R.V., “mantle”) in Ruth 3:15.",
+        "<strong>Dictionary (Easton's).</strong> <strong>WIMPLE</strong> Isaiah 3:22, (R.V., “shawls”), a wrap or veil. The same Hebrew word is rendered “vail” (R.V., “mantle”) in Ruth 3:15.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3278,7 +3278,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>VIOL H</strong> ebrews nebel (Isaiah 5:12, R.V., “lute;” 14:11), a musical instrument, usually rendered “psaltery” (q.v.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>VIOL</strong> Hebrews nebel (Isaiah 5:12, R.V., “lute;” 14:11), a musical instrument, usually rendered “psaltery” (q.v.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -3333,7 +3333,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MEASURE S</strong> everal words are so rendered in the Authorized Version. (1.) Those which are indefinite. (a) Hok, Isaiah 5:14, elsewhere “statute.” (b) Mad, Job 11:9; Jeremiah 13:25, elsewhere “garment.” (c) Middah, the word most frequently thus translated, Exodus 26:2, 8, etc. (d) Mesurah, Leviticus 19:35; 1 Chronicles 23:29. (e) Mishpat, Jeremiah 30:11, elsewhere “judgment.” (f) Mithkoneth and token, Ezekiel 45:11. (g) In New Testament metron, the usual Greek word thus rendered (Matthew…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MEASURE</strong> Several words are so rendered in the Authorized Version. (1.) Those which are indefinite. (a) Hok, Isaiah 5:14, elsewhere “statute.” (b) Mad, Job 11:9; Jeremiah 13:25, elsewhere “garment.” (c) Middah, the word most frequently thus translated, Exodus 26:2, 8, etc. (d) Mesurah, Leviticus 19:35; 1 Chronicles 23:29. (e) Mishpat, Jeremiah 30:11, elsewhere “judgment.” (f) Mithkoneth and token, Ezekiel 45:11. (g) In New Testament metron, the usual Greek word thus rendered (Matthew 7:2; 23:32; Mark 4:24). (2.) Those which are definite. (a) ‘Eyphah, Deuteronomy 25:14, 15, usually “ephah.” (b) Ammah, Jeremiah 51:13, usually “cubit.” (c) Kor, 1 Kings 4:22, elsewhere “cor;” Greek koros, Luke 16:7. (d) Seah, Genesis 18:6; 1 Samuel 25:18, a seah; Greek saton, Matthew 13:33; Luke 13:21. (e) Shalish, “a great measure,” Isaiah 40:12; literally a third, i.e., of an ephah. (f) In New Testament batos, Luke 16:6, the Hebrew “bath;” and choinix, Revelation 6:6, the choenix, equal in dry commodities to one-eighth of a modius.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4004,7 +4004,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SERAPHIM</strong> mentioned in Isaiah 6:2, 3, 6, 7. This word means fiery ones, in allusion, as is supposed, to their burning love. They are represented as “standing” above the King as he sat upon his throne, ready at once to minister unto him. Their form appears to have been human, with the addition of wings. (See ANGELS.) This word, in the original, is used elsewhere only of the “fiery serpents” (Numbers 21:6, 8; Deuteronomy 8:15; comp. Isaiah 14:29; 30:6) sent by God as his instruments to…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SERAPHIM</strong> mentioned in Isaiah 6:2, 3, 6, 7. This word means fiery ones, in allusion, as is supposed, to their burning love. They are represented as “standing” above the King as he sat upon his throne, ready at once to minister unto him. Their form appears to have been human, with the addition of wings. (See ANGELS.) This word, in the original, is used elsewhere only of the “fiery serpents” (Numbers 21:6, 8; Deuteronomy 8:15; comp. Isaiah 14:29; 30:6) sent by God as his instruments to inflict on the people the righteous penalty of sin.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4092,7 +4092,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HOLINESS</strong> in the highest sense belongs to God (Isaiah 6:3; Revelation 15:4), and to Christians as consecrated to God’s service, and in so far as they are conformed in all things to the will of God (Romans 6:19, 22; Ephesians 1:4; Titus 1:8; 1 Peter 1:15). Personal holiness is a work of gradual development. It is carried on under many hindrances, hence the frequent admonitions to watchfulness, prayer, and perseverance (1 Corinthians 1:30; 2 Corinthians 7:1; Ephesians 4:23, 24). (See…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HOLINESS</strong> in the highest sense belongs to God (Isaiah 6:3; Revelation 15:4), and to Christians as consecrated to God’s service, and in so far as they are conformed in all things to the will of God (Romans 6:19, 22; Ephesians 1:4; Titus 1:8; 1 Peter 1:15). Personal holiness is a work of gradual development. It is carried on under many hindrances, hence the frequent admonitions to watchfulness, prayer, and perseverance (1 Corinthians 1:30; 2 Corinthians 7:1; Ephesians 4:23, 24). (See SANCTIFICATION.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4488,7 +4488,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TEIL TREE</strong> (an old name for the lime-tree, the tilia), Isaiah 6:13, the terebinth, or turpentine-tree, the Pistacia terebinthus of botanists. The Hebrew word here used (elah) is rendered oak (q.v.) in Genesis 35:4; Judges 6:11, 19; Isaiah 1:29, etc. In Isaiah 61:3 it is rendered in the plural “trees;” Hos. 4:13, “elm” (R.V., “terebinth”). Hos. 4:13, “elm” (R.V., “terebinth”). In 1 Samuel 17:2, 19 it is taken as a proper name, “Elah” (R.V. marg., “terebinth”). “The terebinth of Mamre,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>TEIL TREE</strong> (an old name for the lime-tree, the tilia), Isaiah 6:13, the terebinth, or turpentine-tree, the Pistacia terebinthus of botanists. The Hebrew word here used (elah) is rendered oak (q.v.) in Genesis 35:4; Judges 6:11, 19; Isaiah 1:29, etc. In Isaiah 61:3 it is rendered in the plural “trees;” Hos. 4:13, “elm” (R.V., “terebinth”). Hos. 4:13, “elm” (R.V., “terebinth”). In 1 Samuel 17:2, 19 it is taken as a proper name, “Elah” (R.V. marg., “terebinth”). “The terebinth of Mamre, or its lineal successor, remained from the days of Abraham till the fourth century of the Christian era, and on its site Constantine erected a Christian church, the ruins of which still remain.” This tree “is seldom seen in clumps or groves, never in forests, but stands isolated and weird-like in some bare ravine or on a hill-side where nothing else towers above the low brushwood” (Tristram).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4642,7 +4642,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FIREBRAND I</strong> saiah 7:4, Amos 4:11, Zechariah 3:2, denotes the burnt end of a stick (Hebrews ‘ud); in Judges 15:4, a lamp or torch, a flambeau (Hebrews lappid); in Proverbs 26:18 (comp. Ephesians 6:16), burning darts or arrows (Hebrews zikkim).",
+        "<strong>Dictionary (Easton's).</strong> <strong>FIREBRAND</strong> Isaiah 7:4, Amos 4:11, Zechariah 3:2, denotes the burnt end of a stick (Hebrews ‘ud); in Judges 15:4, a lamp or torch, a flambeau (Hebrews lappid); in Proverbs 26:18 (comp. Ephesians 6:16), burning darts or arrows (Hebrews zikkim).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4785,7 +4785,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DAMASCUS</strong> activity, the most ancient of Oriental cities; the capital of Syria (Isaiah 7:8; 17:3); situated about 133 miles to the north of Jerusalem. Its modern name is Esh-Sham; i.e., “the East.” The situation of this city is said to be the most beautiful of all Western Asia. It is mentioned among the conquests of the Egyptian king Thothmes III. (B.C. 1500), and in the Amarna tablets (B.C. 1400). It is first mentioned in Scripture in connection with Abraham’s victory over the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DAMASCUS</strong> activity, the most ancient of Oriental cities; the capital of Syria (Isaiah 7:8; 17:3); situated about 133 miles to the north of Jerusalem. Its modern name is Esh-Sham; i.e., “the East.” The situation of this city is said to be the most beautiful of all Western Asia. It is mentioned among the conquests of the Egyptian king Thothmes III. (B.C. 1500), and in the Amarna tablets (B.C. 1400). It is first mentioned in Scripture in connection with Abraham’s victory over the confederate kings under Chedorlaomer (Genesis 14:15). It was the native place of Abraham’s steward (15:2). It is not again noticed till the time of David, when “the Syrians of Damascus came to succour Hadadezer” (q.v.), 2 Samuel 8:5; 1 Chronicles 18:5. In the reign of Solomon, Rezon became leader of a band who revolted from Hadadezer (1 Kings 11:23), and betaking themselves to Damascus, settled there and made their leader king. There was a long war, with varying success, between the Israelites and Syrians, who at a later period became allies of Israel against Judah (2 Kings 15:37). The Syrians were at length subdued by the Assyrians, the city of Damascus was taken and destroyed, and the inhabitants carried captive into Assyria (2 Kings 16:7-9; comp. Isaiah 7:8). In this, prophecy was fulfilled (Isaiah 17:1; Amos 1:4; Jeremiah 49:24). The kingdom of Syria remained a province of Assyria till the capture of Nineveh by the Medes (B.C. 625), when it fell under the conquerors. After passing through various vicissitudes, Syria was invaded by the Romans (B.C. 64), and Damascus became the seat of the government of the province. In A.D. 37 Aretas, the king of Arabia, became master of Damascus, having driven back Herod Antipas. This city is memorable as the scene of Saul’s conversion (Acts 9:1-25). The street called “Straight,” in which Judas lived, in whose house Saul was found by Ananias, is known by the name Sultany, or “Queen’s Street.” It is the principal street of the city. Paul visited Damascus again on his return from Arabia (Galatians 1:16, 17). Christianity was planted here as a centre (Acts 9:20), from which it spread to the surrounding regions. In A.D. 634 Damascus was conquered by the growing Mohammedan power. In A.D. 1516 it fell under the dominion of the Turks, its present rulers. It is now the largest city in Asiatic Turkey. Christianity has again found a firm footing within its walls.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -5038,7 +5038,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>IMMANUEL G</strong> od with us. In the Old Testament it occurs only in Isaiah 7:14 and 8:8. Most Christian interpreters have regarded these words as directly and exclusively a prophecy of our Saviour, an interpretation borne out by the words of the evangelist Matthew (1:23).",
+        "<strong>Dictionary (Easton's).</strong> <strong>IMMANUEL</strong> God with us. In the Old Testament it occurs only in Isaiah 7:14 and 8:8. Most Christian interpreters have regarded these words as directly and exclusively a prophecy of our Saviour, an interpretation borne out by the words of the evangelist Matthew (1:23).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7348,7 +7348,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>EGG</strong> (Hebrews beytsah, “whiteness”). Eggs deserted (Isaiah 10:14), of a bird (Deuteronomy 22:6), an ostrich (Job 39:14), the cockatrice (Isaiah 59:5). In Luke 11:12, an egg is contrasted with a scorpion, which is said to be very like an egg in its appearance, so much so as to be with difficulty at times distinguished from it. In Job 6:6 (“the white of an egg”) the word for egg (hallamuth’) occurs nowhere else. It has been translated “purslain” (R.V. marg.), and the whole phrase…",
+        "<strong>Dictionary (Easton's).</strong> <strong>EGG</strong> (Hebrews beytsah, “whiteness”). Eggs deserted (Isaiah 10:14), of a bird (Deuteronomy 22:6), an ostrich (Job 39:14), the cockatrice (Isaiah 59:5). In Luke 11:12, an egg is contrasted with a scorpion, which is said to be very like an egg in its appearance, so much so as to be with difficulty at times distinguished from it. In Job 6:6 (“the white of an egg”) the word for egg (hallamuth’) occurs nowhere else. It has been translated “purslain” (R.V. marg.), and the whole phrase “purslain-broth”, i.e., broth made of that herb, proverbial for its insipidity; and hence an insipid discourse. Job applies this expression to the speech of Eliphaz as being insipid and dull. But the common rendering, “the white of an egg”, may be satisfactorily maintained.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7953,7 +7953,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>AXE</strong> used in the Authorized Version of Deuteronomy 19:5; 20:19; 1 Kings 6:7, as the translation of a Hebrew word which means “chopping.” It was used for felling trees (Isaiah 10:34) and hewing timber for building. It is the rendering of a different word in Judges 9:48, 1 Samuel 13:20, 21, Psalm 74:5, which refers to its sharpness. In 2 Kings 6:5 it is the translation of a word used with reference to its being made of iron. In Isaiah 44:12 the Revised Version renders by “axe” the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>AXE</strong> used in the Authorized Version of Deuteronomy 19:5; 20:19; 1 Kings 6:7, as the translation of a Hebrew word which means “chopping.” It was used for felling trees (Isaiah 10:34) and hewing timber for building. It is the rendering of a different word in Judges 9:48, 1 Samuel 13:20, 21, Psalm 74:5, which refers to its sharpness. In 2 Kings 6:5 it is the translation of a word used with reference to its being made of iron. In Isaiah 44:12 the Revised Version renders by “axe” the Hebrew maatsad, which means a “hewing” instrument. In the Authorized Version it is rendered “tongs.” It is also used in Jeremiah 10:3, and rendered “axe.” The “battle-axe” (army of Medes and Persians) mentioned in Jeremiah 51:20 was probably, as noted in the margin of the Revised Version, a “maul” or heavy mace. In Psalm 74:6 the word so rendered means “feller.” (See the figurative expression in Matthew 3:10; Luke 3:9.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -8349,7 +8349,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COCKATRICE</strong> the mediaeval name (a corruption of “crocodile”) of a fabulous serpent supposed to be produced from a cock’s egg. It is generally supposed to denote the cerastes, or “horned viper,” a very poisonous serpent about a foot long. Others think it to be the yellow viper (Daboia xanthina), one of the most dangerous vipers, from its size and its nocturnal habits (Isaiah 11:8; 14:29; 59:5; Jeremiah 8:17; in all which the Revised Version renders the Hebrew tziph’oni by “basilisk”). In…",
+        "<strong>Dictionary (Easton's).</strong> <strong>COCKATRICE</strong> the mediaeval name (a corruption of “crocodile”) of a fabulous serpent supposed to be produced from a cock’s egg. It is generally supposed to denote the cerastes, or “horned viper,” a very poisonous serpent about a foot long. Others think it to be the yellow viper (Daboia xanthina), one of the most dangerous vipers, from its size and its nocturnal habits (Isaiah 11:8; 14:29; 59:5; Jeremiah 8:17; in all which the Revised Version renders the Hebrew tziph’oni by “basilisk”). In Proverbs 23:32 the Hebrew tzeph’a is rendered both in the Authorized Version and the Revised Version by “adder;” margin of Revised Version “basilisk,” and of Authorized Version “cockatrice.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9240,7 +9240,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CONSTELLATION</strong> a cluster of stars, or stars which appear to be near each other in the heavens, and which astronomers have reduced to certain figures (as the “Great Bear,” the “Bull,” etc.) for the sake of classification and of memory. In Isaiah 13:10, where this word only occurs, it is the rendering of the Hebrew kesil, i.e., “fool.” This was the Hebrew name of the constellation Orion (Job 9:9; 38:31), a constellation which represented Nimrod, the symbol of folly and impiety. The word some…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CONSTELLATION</strong> a cluster of stars, or stars which appear to be near each other in the heavens, and which astronomers have reduced to certain figures (as the “Great Bear,” the “Bull,” etc.) for the sake of classification and of memory. In Isaiah 13:10, where this word only occurs, it is the rendering of the Hebrew kesil, i.e., “fool.” This was the Hebrew name of the constellation Orion (Job 9:9; 38:31), a constellation which represented Nimrod, the symbol of folly and impiety. The word some interpret by “the giant” in this place, “some heaven-daring rebel who was chained to the sky for his impiety.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9537,7 +9537,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BABYLON</strong> the Greek form of BABEL; Semitic form Babilu, meaning “The Gate of God.” In the Assyrian tablets it means “The city of the dispersion of the tribes.” The monumental list of its kings reaches back to B.C. 2300, and includes Khammurabi, or Amraphel (q.v.), the contemporary of Abraham. It stood on the Euphrates, about 200 miles above its junction with the Tigris, which flowed through its midst and divided it into two almost equal parts. The Elamites invaded Chaldea (i.e., Lower…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BABYLON</strong> the Greek form of BABEL; Semitic form Babilu, meaning “The Gate of God.” In the Assyrian tablets it means “The city of the dispersion of the tribes.” The monumental list of its kings reaches back to B.C. 2300, and includes Khammurabi, or Amraphel (q.v.), the contemporary of Abraham. It stood on the Euphrates, about 200 miles above its junction with the Tigris, which flowed through its midst and divided it into two almost equal parts. The Elamites invaded Chaldea (i.e., Lower Mesopotamia, or Shinar, and Upper Mesopotamia, or Accad, now combined into one) and held it in subjection. At length Khammu-rabi delivered it from the foreign yoke, and founded the new empire of Chaldea (q.v.), making Babylon the capital of the united kingdom. This city gradually grew in extent and grandeur, but in process of time it became subject to Assyria. On the fall of Nineveh (B.C. 606) it threw off the Assyrian yoke, and became the capital of the growing Babylonian empire. Under Nebuchadnezzar it became one of the most splendid cities of the ancient world. After passing through various vicissitudes the city was occupied by Cyrus, “king of Elam,” B.C. 538, who issued a decree permitting the Jews to return to their own land (Ezra 1). It then ceased to be the capital of an empire. It was again and again visited by hostile armies, till its inhabitants were all driven from their homes, and the city became a complete desolation, its very site being forgotten from among men. On the west bank of the Euphrates, about 50 miles south of Bagdad, there is found a series of artificial mounds of vast extent. These are the ruins of this once famous proud city. These ruins are principally (1) the great mound called Babil by the Arabs. This was probably the noted Temple of Belus, which was a pyramid about 480 feet high. (2) The Kasr (i.e., “the palace”). This was the great palace of Nebuchadnezzar. It is almost a square, each side of which is about 700 feet long. The little town of Hillah, near the site of Babylon, is built almost wholly of bricks taken from this single mound. (3) A lofty mound, on the summit of which stands a modern tomb called Amran ibn-Ali. This is probably the most ancient portion of the remains of the city, and represents the ruins of the famous hanging-gardens, or perhaps of some royal palace. The utter desolation of the city once called “The glory of kingdoms” (Isaiah 13:19) was foretold by the prophets (Isaiah 13:4-22; Jeremiah 25:12; 50:2, 3; Daniel 2:31-38). The Babylon mentioned in 1 Peter 5:13 was not Rome, as some have thought, but the literal city of Babylon, which was inhabited by many Jews at the time Peter wrote. In Revelation 14:8; 16:19; 17:5; and 18:2, “Babylon” is supposed to mean Rome, not considered as pagan, but as the prolongation of the ancient power in the papal form. Rome, pagan and papal, is regarded as one power. “The literal Babylon was the beginner and supporter of tyranny and idolatry...This city and its whole empire were taken by the Persians under Cyrus; the Persians were subdued by the Macedonians, and the Macedonians by the Romans; so that Rome succeeded to the power of old Babylon. And it was her method to adopt the worship of the false deities she had conquered; so that by her own act she became the heiress and successor of all the Babylonian idolatry, and of all that was introduced into it by the immediate successors of Babylon, and consequently of all the idolatry of the earth.” Rome, or “mystical Babylon,” is “that great city which reigneth over the kings of the earth” (17:18).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9548,7 +9548,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CHALDEES</strong> or Chaldeans, the inhabitants of the country of which Babylon was the capital. They were so called till the time of the Captivity (2 Kings 25; Isaiah 13:19; 23:13), when, particularly in the Book of Daniel (5:30; 9:1), the name began to be used with special reference to a class of learned men ranked with the magicians and astronomers. These men cultivated the ancient Cushite language of the original inhabitants of the land, for they had a “learning” and a “tongue” (1:4) of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CHALDEES</strong> or Chaldeans, the inhabitants of the country of which Babylon was the capital. They were so called till the time of the Captivity (2 Kings 25; Isaiah 13:19; 23:13), when, particularly in the Book of Daniel (5:30; 9:1), the name began to be used with special reference to a class of learned men ranked with the magicians and astronomers. These men cultivated the ancient Cushite language of the original inhabitants of the land, for they had a “learning” and a “tongue” (1:4) of their own. The common language of the country at that time had become assimilated to the Semitic dialect, especially through the influence of the Assyrians, and was the language that was used for all civil purposes. The Chaldeans were the learned class, interesting themselves in science and religion, which consisted, like that of the ancient Arabians and Syrians, in the worship of the heavenly bodies. There are representations of this priestly class, of magi and diviners, on the walls of the Assyrian palaces.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10109,7 +10109,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CONGREGATION</strong> , MOUNT OF THE (Isaiah 14:13), has been supposed to refer to the place where God promised to meet with his people (Exodus 25:22; 29:42, 43) i.e., the mount of the Divine presence, Mount Zion. But here the king of Babylon must be taken as expressing himself according to his own heathen notions, and not according to those of the Jews. The “mount of the congregation” will therefore in this case mean the northern mountain, supposed by the Babylonians to be the meeting-place of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CONGREGATION</strong> , MOUNT OF THE (Isaiah 14:13), has been supposed to refer to the place where God promised to meet with his people (Exodus 25:22; 29:42, 43) i.e., the mount of the Divine presence, Mount Zion. But here the king of Babylon must be taken as expressing himself according to his own heathen notions, and not according to those of the Jews. The “mount of the congregation” will therefore in this case mean the northern mountain, supposed by the Babylonians to be the meeting-place of their gods. In the Babylonian inscriptions mention is made of a mountain which is described as “the mighty mountain of Bel, whose head rivals heaven, whose root is the holy deep.” This mountain was regarded in their mythology as the place where the gods had their seat.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10450,7 +10450,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BITTERN</strong> is found three times in connection with the desolations to come upon Babylon, Idumea, and Nineveh (Isaiah 14:23; 34:11; Zephaniah 2:14). This bird belongs to the class of cranes. Its scientific name is Botaurus stellaris. It is a solitary bird, frequenting marshy ground. The Hebrew word (kippod) thus rendered in the Authorized Version is rendered “porcupine” in the Revised Version. But in the passages noted the kippod is associated with birds, with pools of water, and with…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BITTERN</strong> is found three times in connection with the desolations to come upon Babylon, Idumea, and Nineveh (Isaiah 14:23; 34:11; Zephaniah 2:14). This bird belongs to the class of cranes. Its scientific name is Botaurus stellaris. It is a solitary bird, frequenting marshy ground. The Hebrew word (kippod) thus rendered in the Authorized Version is rendered “porcupine” in the Revised Version. But in the passages noted the kippod is associated with birds, with pools of water, and with solitude and desolation. This favours the idea that not the “porcupine” but the “bittern” is really intended by the word.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -10747,7 +10747,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>KIR OF MOAB I</strong> saiah 15:1. The two strongholds of Moab were Ar and Kir, which latter is probably the Kir-haraseth (16:7) following.",
+        "<strong>Dictionary (Easton's).</strong> <strong>KIR OF MOAB</strong> Isaiah 15:1. The two strongholds of Moab were Ar and Kir, which latter is probably the Kir-haraseth (16:7) following.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -11220,7 +11220,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>KIR-HARASETH</strong> built fortress, a city and fortress of Moab, the modern Kerak, a small town on the brow of a steep hill about 6 miles from Rabbath-Moab and 10 miles from the Dead Sea; called also Kir-haresh, Kir-hareseth, Kir-heres (Isaiah 16:7, 11; Jeremiah 48:31, 36). After the death of Ahab, Mesha, king of Moab (see MOABITE STONE), threw off allegiance to the king of Israel, and fought successfully for the independence of his kingdom. After this Jehoram, king of Israel, in seeking to…",
+        "<strong>Dictionary (Easton's).</strong> <strong>KIR-HARASETH</strong> built fortress, a city and fortress of Moab, the modern Kerak, a small town on the brow of a steep hill about 6 miles from Rabbath-Moab and 10 miles from the Dead Sea; called also Kir-haresh, Kir-hareseth, Kir-heres (Isaiah 16:7, 11; Jeremiah 48:31, 36). After the death of Ahab, Mesha, king of Moab (see MOABITE STONE), threw off allegiance to the king of Israel, and fought successfully for the independence of his kingdom. After this Jehoram, king of Israel, in seeking to regain his supremacy over Moab, entered into an alliance with Jehoshaphat, king of Judah, and with the king of Edom. The three kings led their armies against Mesha, who was driven back to seek refuge in Kir-haraseth. The Moabites were driven to despair. Mesha then took his eldest son, who would have reigned in his stead, and offered him as a burnt-offering on the wall of the fortress in the sight of the allied armies. “There was great indignation against Israel: and they departed from him, and returned to their own land.” The invaders evacuated the land of Moab, and Mesha achieved the independence of his country (2 Kings 3:20-27).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -11308,7 +11308,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WINE-PRESS C</strong> onsisted of two vats or receptacles, (1) a trough (Hebrews gath, Gr. lenos) into which the grapes were thrown and where they were trodden upon and bruised (Isaiah 16:10; Lamentations 1:15; Joel 3:13); and (2) a trough or vat (Hebrews yekebh, Gr. hypolenion) into which the juice ran from the trough above, the gath (Nehemiah 13:15; Job 24:11; Isaiah 63:2, 3; Hag. 2:16; Joel 2:24). Wine-presses are found in almost every part of Palestine. They are “the only sure relics we have…",
+        "<strong>Dictionary (Easton's).</strong> <strong>WINE-PRESS</strong> Consisted of two vats or receptacles, (1) a trough (Hebrews gath, Gr. lenos) into which the grapes were thrown and where they were trodden upon and bruised (Isaiah 16:10; Lamentations 1:15; Joel 3:13); and (2) a trough or vat (Hebrews yekebh, Gr. hypolenion) into which the juice ran from the trough above, the gath (Nehemiah 13:15; Job 24:11; Isaiah 63:2, 3; Hag. 2:16; Joel 2:24). Wine-presses are found in almost every part of Palestine. They are “the only sure relics we have of the old days of Israel before the Captivity. Between Hebron and Beersheba they are found on all the hill slopes; they abound in southern Judea; they are no less common in the many valleys of Carmel; and they are numerous in Galilee.” The “treading of the wine-press” is emblematic of divine judgment (Isaiah 63:2; Lamentations 1:15; Revelation 14:19, 20).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12199,7 +12199,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>EGYPT</strong> the land of the Nile and the pyramids, the oldest kingdom of which we have any record, holds a place of great significance in Scripture. The Egyptians belonged to the white race, and their original home is still a matter of dispute. Many scholars believe that it was in Southern Arabia, and recent excavations have shown that the valley of the Nile was originally inhabited by a low-class population, perhaps belonging to the Nigritian stock, before the Egyptians of history…",
+        "<strong>Dictionary (Easton's).</strong> <strong>EGYPT</strong> the land of the Nile and the pyramids, the oldest kingdom of which we have any record, holds a place of great significance in Scripture. The Egyptians belonged to the white race, and their original home is still a matter of dispute. Many scholars believe that it was in Southern Arabia, and recent excavations have shown that the valley of the Nile was originally inhabited by a low-class population, perhaps belonging to the Nigritian stock, before the Egyptians of history entered it. The ancient Egyptian language, of which the latest form is Coptic, is distantly connected with the Semitic family of speech. Egypt consists geographically of two halves, the northern being the Delta, and the southern Upper Egypt, between Cairo and the First Cataract. In the Old Testament, Northern or Lower Egypt is called Mazor, “the fortified land” (Isaiah 19:6; 37: 25, where the A.V. mistranslates “defence” and “besieged places”); while Southern or Upper Egypt is Pathros, the Egyptian Pa-to-Res, or “the land of the south” (Isaiah 11:11). But the whole country is generally mentioned under the dual name of Mizraim, “the two Mazors.” The civilization of Egypt goes back to a very remote antiquity. The two kingdoms of the north and south were united by Menes, the founder of the first historical dynasty of kings. The first six dynasties constitute what is known as the Old Empire, which had its capital at Memphis, south of Cairo, called in the Old Testament Moph (Hos. 9:6) and Noph. The native name was Mennofer, “the good place.” The Pyramids were tombs of the monarchs of the Old Empire, those of Gizeh being erected in the time of the Fourth Dynasty. After the fall of the Old Empire came a period of decline and obscurity. This was followed by the Middle Empire, the most powerful dynasty of which was the Twelfth. The Fayyum was rescued for agriculture by the kings of the Twelfth Dynasty; and two obelisks were erected in front of the temple of the sun-God at On or Heliopolis (near Cairo), one of which is still standing. The capital of the Middle Empire was Thebes, in Upper Egypt. The Middle Empire was overthrown by the invasion of the Hyksos, or shepherd princes from Asia, who ruled over Egypt, more especially in the north, for several centuries, and of whom there were three dynasties of kings. They had their capital at Zoan or Tanis (now San), in the north-eastern part of the Delta. It was in the time of the Hyksos that Abraham, Jacob, and Joseph entered Egypt. The Hyksos were finally expelled about B.C. 1600, by the hereditary princes of Thebes, who founded the Eighteenth Dynasty, and carried the war into Asia. Canaan and Syria were subdued, as well as Cyprus, and the boundaries of the Egyptian Empire were fixed at the Euphrates. The Soudan, which had been conquered by the kings of the Twelfth Dynasty, was again annexed to Egypt, and the eldest son of the Pharaoh took the title of “Prince of Cush.” One of the later kings of the dynasty, Amenophis IV., or Khu-n-Aten, endeavoured to supplant the ancient state religion of Egypt by a new faith derived from Asia, which was a sort of pantheistic monotheism, the one supreme God being adored under the image of the solar disk. The attempt led to religious and civil war, and the Pharaoh retreated from Thebes to Central Egypt, where he built a new capital, on the site of the present Tell-el-Amarna. The cuneiform tablets that have been found there represent his foreign correspondence (about B.C. 1400). He surrounded himself with officials and courtiers of Asiatic, and more especially Canaanitish, extraction; but the native party succeeded eventually in overthrowing the government, the capital of Khu-n-Aten was destroyed, and the foreigners were driven out of the country, those that remained being reduced to serfdom. The national triumph was marked by the rise of the Nineteenth Dynasty, in the founder of which, Rameses I., we must see the “new king, who knew not Joseph.” His grandson, Rameses II., reigned sixty-seven years (B.C. 1348-1281), and was an indefatigable builder. As Pithom, excavated by Dr. Naville in 1883, was one of the cities he built, he must have been the Pharaoh of the Oppression. The Pharaoh of the Exodus may have been one of his immediate successors, whose reigns were short. Under them Egypt lost its empire in Asia, and was itself attacked by barbarians from Libya and the north. The Nineteenth Dynasty soon afterwards came to an end; Egypt was distracted by civil war; and for a short time a Canaanite, Arisu, ruled over it. Then came the Twentieth Dynasty, the second Pharaoh of which, Rameses III., restored the power of his country. In one of his campaigns he overran the southern part of Palestine, where the Israelites had not yet settled. They must at the time have been still in the wilderness. But it was during the reign of Rameses III. that Egypt finally lost Gaza and the adjoining cities, which were seized by the Pulista, or Philistines. After Rameses III., Egypt fell into decay. Solomon married the daughter of one of the last kings of the Twenty-first Dynasty, which was overthrown by Shishak I., the general of the Libyan mercenaries, who founded the Twenty-second Dynasty (1 Kings 11:40; 14:25, 26). A list of the places he captured in Palestine is engraved on the outside of the south wall of the temple of Karnak. In the time of Hezekiah, Egypt was conquered by Ethiopians from the Soudan, who constituted the Twenty-fifth Dynasty. The third of them was Tirhakah (2 Kings 19:9). In B.C. 674 it was conquered by the Assyrians, who divided it into twenty satrapies, and Tirhakah was driven back to his ancestral dominions. Fourteen years later it successfully revolted under Psammetichus I. of Sais, the founder of the Twenty-sixth Dynasty. Among his successors were Necho (2 Kings 23:29) and Hophra, or Apries (Jeremiah 37:5, 7, 11). The dynasty came to an end in B.C. 525, when the country was subjugated by Cambyses. Soon afterwards it was organized into a Persian satrapy. The title of Pharaoh, given to the Egyptian kings, is the Egyptian Per-aa, or “Great House,” which may be compared to that of “Sublime Porte.” It is found in very early Egyptian texts. The Egyptian religion was a strange mixture of pantheism and animal worship, the gods being adored in the form of animals. While the educated classes resolved their manifold deities into manifestations of one omnipresent and omnipotent divine power, the lower classes regarded the animals as incarnations of the gods. Under the Old Empire, Ptah, the Creator, the God of Memphis, was at the head of the Pantheon; afterwards Amon, the God of Thebes, took his place. Amon, like most of the other gods, was identified with Ra, the sun-God of Heliopolis. The Egyptians believed in a resurrection and future life, as well as in a state of rewards and punishments dependent on our conduct in this world. The judge of the dead was Osiris, who had been slain by Set, the representative of evil, and afterwards restored to life. His death was avenged by his son Horus, whom the Egyptians invoked as their “Redeemer.” Osiris and Horus, along with Isis, formed a trinity, who were regarded as representing the sun-God under different forms. Even in the time of Abraham, Egypt was a flourishing and settled monarchy. Its oldest capital, within the historic period, was Memphis, the ruins of which may still be seen near the Pyramids and the Sphinx. When the Old Empire of Menes came to an end, the seat of empire was shifted to Thebes, some 300 miles farther up the Nile. A short time after that, the Delta was conquered by the Hyksos, or shepherd kings, who fixed their capital at Zoan, the Greek Tanis, now San, on the Tanic arm of the Nile. All this occurred before the time of the new king “which knew not Joseph” (Exodus 1:8). In later times Egypt was conquered by the Persians (B.C. 525), and by the Greeks under Alexander the Great (B.C. 332), after whom the Ptolemies ruled the country for three centuries. Subsequently it was for a time a province of the Roman Empire; and at last, in A.D. 1517, it fell into the hands of the Turks, of whose empire it still forms nominally a part. Abraham and Sarah went to Egypt in the time of the shepherd kings. The exile of Joseph and the migration of Jacob to “the land of Goshen” occurred about 200 years later. On the death of Solomon, Shishak, king of Egypt, invaded Palestine (1 Kings 14:25). He left a list of the cities he conquered. A number of remarkable clay tablets, discovered at Tell-el-Amarna in Upper Egypt, are the most important historical records ever found in connection with the Bible. They most fully confirm the historical statements of the Book of Joshua, and prove the antiquity of civilization in Syria and Palestine. As the clay in different parts of Palestine differs, it has been found possible by the clay alone to decide where the tablets come from when the name of the writer is lost. The inscriptions are cuneiform, and in the Aramaic language, resembling Assyrian. The writers are Phoenicians, Amorites, and Philistines, but in no instance Hittites, though Hittites are mentioned. The tablets consist of official dispatches and letters, dating from B.C. 1480, addressed to the two Pharaohs, Amenophis III. and IV., the last of this dynasty, from the kings and governors of Phoenicia and Palestine. There occur the names of three kings killed by Joshua, Adoni-zedec, king of Jerusalem, Japhia, king of Lachish (Joshua 10:3), and Jabin, king of Hazor (11:1); also the Hebrews (Abiri) are said to have come from the desert. The principal prophecies of Scripture regarding Egypt are these, Isaiah 19; Jeremiah 43: 8-13; 44:30; 46; Ezekiel 29-32; and it might be easily shown that they have all been remarkably fulfilled. For example, the singular disappearance of Noph (i.e., Memphis) is a fulfilment of Jeremiah 46:19, Ezekiel 30:13.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12232,7 +12232,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PAPER T</strong> he expression in the Authorized Version (Isaiah 19:7), “the paper reeds by the brooks,” is in the Revised Version more correctly “the meadows by the Nile.” The words undoubtedly refer to a grassy place on the banks of the Nile fit for pasturage. In 2 John 1:12 the word is used in its proper sense. The material so referred to was manufactured from the papyrus, and hence its name. The papyrus (Hebrews gome) was a kind of bulrush (q.v.). It is mentioned by Job (8:11) and Isaiah…",
+        "<strong>Dictionary (Easton's).</strong> <strong>PAPER</strong> The expression in the Authorized Version (Isaiah 19:7), “the paper reeds by the brooks,” is in the Revised Version more correctly “the meadows by the Nile.” The words undoubtedly refer to a grassy place on the banks of the Nile fit for pasturage. In 2 John 1:12 the word is used in its proper sense. The material so referred to was manufactured from the papyrus, and hence its name. The papyrus (Hebrews gome) was a kind of bulrush (q.v.). It is mentioned by Job (8:11) and Isaiah (35:7). It was used for many purposes. This plant (Papyrus Nilotica) is now unknown in Egypt; no trace of it can be found. The unaccountable disappearance of this plant from Egypt was foretold by Isaiah (19:6, 7) as a part of the divine judgment on that land. The most extensive papyrus growths now known are in the marshes at the northern end of the lake of Merom.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12243,7 +12243,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>REED</strong> (1.) “Paper reeds” (Isaiah 19:7; R.V., “reeds”). Hebrews ‘aroth, properly green herbage growing in marshy places. (2.) Hebrews kaneh (1 Kings 14:15; Job 40:21; Isaiah 19:6), whence the Gr. kanna, a “cane,” a generic name for a reed of any kind. The reed of Egypt and Palestine is the Arundo donax, which grows to the height of 12 feet, its stalk jointed like the bamboo, “with a magnificent panicle of blossom at the top, and so slender and yielding that it will lie perfectly…",
+        "<strong>Dictionary (Easton's).</strong> <strong>REED</strong> (1.) “Paper reeds” (Isaiah 19:7; R.V., “reeds”). Hebrews ‘aroth, properly green herbage growing in marshy places. (2.) Hebrews kaneh (1 Kings 14:15; Job 40:21; Isaiah 19:6), whence the Gr. kanna, a “cane,” a generic name for a reed of any kind. The reed of Egypt and Palestine is the Arundo donax, which grows to the height of 12 feet, its stalk jointed like the bamboo, “with a magnificent panicle of blossom at the top, and so slender and yielding that it will lie perfectly flat under a gust of wind, and immediately resume its upright position.” It is used to illustrate weakness (2 Kings 18:21; Ezekiel 29:6), also fickleness or instability (Matthew 11:7; comp. Ephesians 4:14). A “bruised reed” (Isaiah 42:3; Matthew 12:20) is an emblem of a believer weak in grace. A reed was put into our Lord’s hands in derision (Matthew 27:29); and “they took the reed and smote him on the head” (30). The “reed” on which they put the sponge filled with vinegar (Matthew 27:48) was, according to John (19:29), a hyssop stalk, which must have been of some length, or perhaps a bunch of hyssop twigs fastened to a rod with the sponge. (See CANE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12287,7 +12287,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NET</strong> in use among the Hebrews for fishing, hunting, and fowling. The fishing-net was probably constructed after the form of that used by the Egyptians (Isaiah 19:8). There were three kinds of nets. (1.) The drag-net or hauling-net (Gr. sagene), of great size, and requiring many men to work it. It was usually let down from the fishing-boat, and then drawn to the shore or into the boat, as circumstances might require (Matthew 13:47, 48). (2.) The hand-net or casting-net (Gr.…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NET</strong> in use among the Hebrews for fishing, hunting, and fowling. The fishing-net was probably constructed after the form of that used by the Egyptians (Isaiah 19:8). There were three kinds of nets. (1.) The drag-net or hauling-net (Gr. sagene), of great size, and requiring many men to work it. It was usually let down from the fishing-boat, and then drawn to the shore or into the boat, as circumstances might require (Matthew 13:47, 48). (2.) The hand-net or casting-net (Gr. amphiblestron), which was thrown from a rock or a boat at any fish that might be seen (Matthew 4:18; Mark 1:16). It was called by the Latins funda. It was of circular form, “like the top of a tent.” (3.) The bag-net (Gr. diktyon), used for enclosing fish in deep water (Luke 5:4-9). The fowling-nets were (1) the trap, consisting of a net spread over a frame, and supported by a stick in such a way that it fell with the slightest touch (Amos 3:5, “gin;” Psalm 69:22; Job 18:9; Ecclesiastes 9:12). (2) The snare, consisting of a cord to catch birds by the leg (Job 18:10; Psalm 18:5; 116:3; 140:5). (3.) The decoy, a cage filled with birds as decoys (Jeremiah 5:26, 27). Hunting-nets were much in use among the Hebrews.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12320,7 +12320,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LINEN</strong> (1.) Hebrews , pishet, pishtah, denotes “flax,” of which linen is made (Isaiah 19:9); wrought flax, i.e., “linen cloth”, Leviticus 13:47, 48, 52, 59; Deuteronomy 22:11. Flax was early cultivated in Egypt (Exodus 9:31), and also in Palestine (Joshua 2:6; Hos. 2:9). Various articles were made of it: garments (2 Samuel 6:14), girdles (Jeremiah 13:1), ropes and thread (Ezekiel 40:3), napkins (Luke 24:12; John 20:7), turbans (Ezekiel 44:18), and lamp-wicks (Isaiah 42:3). (2.)…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LINEN</strong> (1.) Hebrews , pishet, pishtah, denotes “flax,” of which linen is made (Isaiah 19:9); wrought flax, i.e., “linen cloth”, Leviticus 13:47, 48, 52, 59; Deuteronomy 22:11. Flax was early cultivated in Egypt (Exodus 9:31), and also in Palestine (Joshua 2:6; Hos. 2:9). Various articles were made of it: garments (2 Samuel 6:14), girdles (Jeremiah 13:1), ropes and thread (Ezekiel 40:3), napkins (Luke 24:12; John 20:7), turbans (Ezekiel 44:18), and lamp-wicks (Isaiah 42:3). (2.) Hebrews buts, “whiteness;” rendered “fine linen” in 1 Chronicles 4:21; 15:27; 2 Chronicles 2:14; 3:14; Esther 1:6; 8:15, and “white linen” 2 Chronicles 5:12. It is not certain whether this word means cotton or linen. (3.) Hebrews bad; rendered “linen” Exodus 28:42; 39:28; Leviticus 6:10; 16:4, 23, 32; 1 Samuel 2:18; 2 Samuel 6:14, etc. It is uniformly used of the sacred vestments worn by the priests. The word is from a root signifying “separation.” (4.) Hebrews shesh; rendered “fine linen” Exodus 25:4; 26:1, 31, 36, etc. In Proverbs 31:22 it is rendered in Authorized Version “silk,” and in Revised Version “fine linen.” The word denotes Egyptian linen of peculiar whiteness and fineness (byssus). The finest Indian linen, the finest now made, has in an inch one hundred threads of warp and eighty-four of woof; while the Egyptian had sometimes one hundred and forty in the warp and sixty-four in the woof. This was the usual dress of the Egyptian priest. Pharaoh arrayed Joseph in a dress of linen (Genesis 41:42). (5.) Hebrews ‘etun. Proverbs 7:16, “fine linen of Egypt;” in Revised Version, “the yarn of Egypt.” (6.) Hebrews sadin. Proverbs 31:24, “fine linen;” in Revised Version, “linen garments” (Judges 14:12, 13; Isaiah 3:23). From this Hebrew word is probably derived the Greek word sindon, rendered “linen” in Mark 14:51, 52; 15:46; Matthew 27:59. The word “linen” is used as an emblem of moral purity (Revelation 15:6). In Luke 16:19 it is mentioned as a mark of luxury.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12430,7 +12430,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MEMPHIS</strong> only in Hos. 9:6, Hebrew Moph. In Isaiah 19:13; Jeremiah 2:16; 46:14, 19; Ezekiel 30:13, 16, it is mentioned under the name Noph. It was the capital of Lower, i.e., of Northern Egypt. From certain remains found half buried in the sand, the site of this ancient city has been discovered near the modern village of Minyet Rahinch, or Mitraheny, about 16 miles above the ancient head of the Delta, and 9 miles south of Cairo, on the west bank of the Nile. It is said to have been…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MEMPHIS</strong> only in Hos. 9:6, Hebrew Moph. In Isaiah 19:13; Jeremiah 2:16; 46:14, 19; Ezekiel 30:13, 16, it is mentioned under the name Noph. It was the capital of Lower, i.e., of Northern Egypt. From certain remains found half buried in the sand, the site of this ancient city has been discovered near the modern village of Minyet Rahinch, or Mitraheny, about 16 miles above the ancient head of the Delta, and 9 miles south of Cairo, on the west bank of the Nile. It is said to have been founded by Menes, the first king of Egypt, and to have been in circumference about 19 miles. “There are few remains above ground,” says Manning (The Land of the Pharaohs), “of the splendour of ancient Memphis. The city has utterly disappeared. If any traces yet exist, they are buried beneath the vast mounds of crumbling bricks and broken pottery which meet the eye in every direction. Near the village of Mitraheny is a colossal statue of Rameses the Great. It is apparently one of the two described by Herodotus and Diodorus as standing in front of the temple of Ptah. They were originally 50 feet in height. The one which remains, though mutilated, measures 48 feet. It is finely carved in limestone, which takes a high polish, and is evidently a portrait. It lies in a pit, which, during the inundation, is filled with water. As we gaze on this fallen and battered statue of the mighty conqueror who was probably contemporaneous with Moses, it is impossible not to remember the words of the prophet Isaiah, 19:13; 44:16-19, and Jeremiah, 46:19.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12617,7 +12617,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CANAAN</strong> , THE LANGUAGE OF mentioned in Isaiah 19:18, denotes the language spoken by the Jews resident in Palestine. The language of the Canaanites and of the Hebrews was substantially the same. This is seen from the fragments of the Phoenician language which still survive, which show the closest analogy to the Hebrew. Yet the subject of the language of the “Canaanites” is very obscure. The cuneiform writing of Babylon, as well as the Babylonian language, was taught in the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CANAAN</strong> , THE LANGUAGE OF mentioned in Isaiah 19:18, denotes the language spoken by the Jews resident in Palestine. The language of the Canaanites and of the Hebrews was substantially the same. This is seen from the fragments of the Phoenician language which still survive, which show the closest analogy to the Hebrew. Yet the subject of the language of the “Canaanites” is very obscure. The cuneiform writing of Babylon, as well as the Babylonian language, was taught in the Canaanitish schools, and the clay tablets of Babylonian literature were stored in the Canaanitish libraries. Even the Babylonian divinities were borrowed by the Canaanites.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12870,7 +12870,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SARGON</strong> (In the inscriptions, “Sarra-yukin” [the God] has appointed the king; also “Sarru-kinu,” the legitimate king.) On the death of Shalmaneser (B.C. 723), one of the Assyrian generals established himself on the vacant throne, taking the name of “Sargon,” after that of the famous monarch, the Sargon of Accad, founder of the first Semitic empire, as well as of one of the most famous libraries of Chaldea. He forthwith began a conquering career, and became one of the most powerful…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SARGON</strong> (In the inscriptions, “Sarra-yukin” [the God] has appointed the king; also “Sarru-kinu,” the legitimate king.) On the death of Shalmaneser (B.C. 723), one of the Assyrian generals established himself on the vacant throne, taking the name of “Sargon,” after that of the famous monarch, the Sargon of Accad, founder of the first Semitic empire, as well as of one of the most famous libraries of Chaldea. He forthwith began a conquering career, and became one of the most powerful of the Assyrian monarchs. He is mentioned by name in the Bible only in connection with the siege of Ashdod (Isaiah 20:1). At the very beginning of his reign he besieged and took the city of Samaria (2 Kings 17:6; 18:9-12). On an inscription found in the palace he built at Khorsabad, near Nieveh, he says, “The city of Samaria I besieged, I took; 27,280 of its inhabitants I carried away; fifty chariots that were among them I collected,” etc. The northern kingdom he changed into an Assyrian satrapy. He afterwards drove Merodach-baladan (q.v.), who kept him at bay for twelve years, out of Babylon, which he entered in triumph. By a succession of victories he gradually enlarged and consolidated the empire, which now extended from the frontiers of Egypt in the west to the mountains of Elam in the east, and thus carried almost to completion the ambitious designs of Tiglath-pileser (q.v.). He was murdered by one of his own soldiers (B.C. 705) in his palace at Khorsabad, after a reign of sixteen years, and was succeeded by his son Sennacherib.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -12914,7 +12914,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BAREFOOT T</strong> o go barefoot was a sign of great distress (Isaiah 20:2, 3, 4), or of some great calamity having fallen on a person (2 Samuel 15:30).",
+        "<strong>Dictionary (Easton's).</strong> <strong>BAREFOOT</strong> To go barefoot was a sign of great distress (Isaiah 20:2, 3, 4), or of some great calamity having fallen on a person (2 Samuel 15:30).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -13959,7 +13959,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SHEBNA</strong> tender youth, “treasurer” over the house in the reign of Hezekiah, i.e., comptroller or governor of the palace. On account of his pride he was ejected from his office, and Eliakim was promoted to it (Isaiah 22:15-25). He appears to have been the leader of the party who favoured an alliance with Egypt against Assyria. It is conjectured that “Shebna the scribe,” who was one of those whom the king sent to confer with the Assyrian ambassador (2 Kings 18:18, 26, 37; 19:2; Isaiah…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SHEBNA</strong> tender youth, “treasurer” over the house in the reign of Hezekiah, i.e., comptroller or governor of the palace. On account of his pride he was ejected from his office, and Eliakim was promoted to it (Isaiah 22:15-25). He appears to have been the leader of the party who favoured an alliance with Egypt against Assyria. It is conjectured that “Shebna the scribe,” who was one of those whom the king sent to confer with the Assyrian ambassador (2 Kings 18:18, 26, 37; 19:2; Isaiah 36:3, 11, 22; 37:2), was a different person.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -14300,7 +14300,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NILE</strong> dark; blue, not found in Scripture, but frequently referred to in the Old Testament under the name of Sihor, i.e., “the black stream” (Isaiah 23:3; Jeremiah 2:18) or simply “the river” (Genesis 41:1; Exodus 1:22, etc.) and the “flood of Egypt” (Amos 8:8). It consists of two rivers, the White Nile, which takes its rise in the Victoria Nyanza, and the Blue Nile, which rises in the Abyssinian Mountains. These unite at the town of Khartoum, whence it pursues its course for 1,800…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NILE</strong> dark; blue, not found in Scripture, but frequently referred to in the Old Testament under the name of Sihor, i.e., “the black stream” (Isaiah 23:3; Jeremiah 2:18) or simply “the river” (Genesis 41:1; Exodus 1:22, etc.) and the “flood of Egypt” (Amos 8:8). It consists of two rivers, the White Nile, which takes its rise in the Victoria Nyanza, and the Blue Nile, which rises in the Abyssinian Mountains. These unite at the town of Khartoum, whence it pursues its course for 1,800 miles, and falls into the Mediterranean through its two branches, into which it is divided a few miles north of Cairo, the Rosetta and the Damietta branch. (See EGYPT.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -15488,7 +15488,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LEES</strong> (Hebrews shemarim), from a word meaning to keep or preserve. It was applied to “lees” from the custom of allowing wine to stand on the lees that it might thereby be better preserved (Isaiah 25:6). “Men settled on their lees” (Zephaniah 1:12) are men “hardened or crusted.” The image is derived from the crust formed at the bottom of wines long left undisturbed (Jeremiah 48:11). The effect of wealthy undisturbed ease on the ungodly is hardening. They become stupidly secure…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LEES</strong> (Hebrews shemarim), from a word meaning to keep or preserve. It was applied to “lees” from the custom of allowing wine to stand on the lees that it might thereby be better preserved (Isaiah 25:6). “Men settled on their lees” (Zephaniah 1:12) are men “hardened or crusted.” The image is derived from the crust formed at the bottom of wines long left undisturbed (Jeremiah 48:11). The effect of wealthy undisturbed ease on the ungodly is hardening. They become stupidly secure (comp. Psalm 55:19; Amos 6:1). To drink the lees (Psalm 75:8) denotes severe suffering.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -17655,7 +17655,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CUMMIN</strong> (Hebrews kammon; i.e., a “condiment”), the fruit or seed of an umbelliferous plant, the Cuminum sativum, still extensively cultivated in the East. Its fruit is mentioned in Isaiah 28:25, 27. In the New Testament it is mentioned in Matthew 23:23, where our Lord pronounces a “woe” on the scribes and Pharisees, who were zealous in paying tithes of “mint and anise and cummin,” while they omitted the weightier matters of the law.” “It is used as a spice, both bruised, to mix with…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CUMMIN</strong> (Hebrews kammon; i.e., a “condiment”), the fruit or seed of an umbelliferous plant, the Cuminum sativum, still extensively cultivated in the East. Its fruit is mentioned in Isaiah 28:25, 27. In the New Testament it is mentioned in Matthew 23:23, where our Lord pronounces a “woe” on the scribes and Pharisees, who were zealous in paying tithes of “mint and anise and cummin,” while they omitted the weightier matters of the law.” “It is used as a spice, both bruised, to mix with bread, and also boiled, in the various messes and stews which compose an Oriental banquet.” Tristram, Natural History.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -17666,7 +17666,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FITCHES</strong> (Isaiah 28:25, 27), the rendering of the Hebrew ketsah, “without doubt the Nigella sativa, a small annual of the order Ranunculacece, which grows wild in the Mediterranean countries, and is cultivated in Egypt and Syria for its seed.” It is rendered in margin of the Revised Version “black cummin.” The seeds are used as a condiment. In Ezekiel 4:9 this word is the rendering of the Hebrew kussemeth (incorrectly rendered “rye” in the Authorized Version of Exodus 9:32 and Isaiah…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FITCHES</strong> (Isaiah 28:25, 27), the rendering of the Hebrew ketsah, “without doubt the Nigella sativa, a small annual of the order Ranunculacece, which grows wild in the Mediterranean countries, and is cultivated in Egypt and Syria for its seed.” It is rendered in margin of the Revised Version “black cummin.” The seeds are used as a condiment. In Ezekiel 4:9 this word is the rendering of the Hebrew kussemeth (incorrectly rendered “rye” in the Authorized Version of Exodus 9:32 and Isaiah 28:25, but “spelt” in the Revised Version). The reading “fitches” here is an error; it should be “spelt.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -17765,7 +17765,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HORSE</strong> always referred to in the Bible in connection with warlike operations, except Isaiah 28:28. The war-horse is described Job 39:19-25. For a long period after their settlement in Canaan the Israelites made no use of horses, according to the prohibition, Deuteronomy 17:16. David was the first to form a force of cavalry (2 Samuel 8:4). But Solomon, from his connection with Egypt, greatly multiplied their number (1 Kings 4:26; 10:26, 29). After this, horses were freely used in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HORSE</strong> always referred to in the Bible in connection with warlike operations, except Isaiah 28:28. The war-horse is described Job 39:19-25. For a long period after their settlement in Canaan the Israelites made no use of horses, according to the prohibition, Deuteronomy 17:16. David was the first to form a force of cavalry (2 Samuel 8:4). But Solomon, from his connection with Egypt, greatly multiplied their number (1 Kings 4:26; 10:26, 29). After this, horses were freely used in Israel (1 Kings 22:4; 2 Kings 3:7; 9:21, 33; 11:16). The furniture of the horse consisted simply of a bridle (Isaiah 30:28) and a curb (Psalm 32:9).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -19679,7 +19679,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TOPHET</strong> =Topheth, from Hebrews toph “a drum,” because the cries of children here sacrificed by the priests of Moloch were drowned by the noise of such an instrument; or from taph or toph, meaning “to burn,” and hence a place of burning, the name of a particular part in the valley of Hinnom. “Fire being the most destructive of all elements, is chosen by the sacred writers to symbolize the agency by which God punishes or destroys the wicked. We are not to assume from prophetical…",
+        "<strong>Dictionary (Easton's).</strong> <strong>TOPHET</strong> =Topheth, from Hebrews toph “a drum,” because the cries of children here sacrificed by the priests of Moloch were drowned by the noise of such an instrument; or from taph or toph, meaning “to burn,” and hence a place of burning, the name of a particular part in the valley of Hinnom. “Fire being the most destructive of all elements, is chosen by the sacred writers to symbolize the agency by which God punishes or destroys the wicked. We are not to assume from prophetical figures that material fire is the precise agent to be used. It was not the agency employed in the destruction of Sennacherib, mentioned in Isaiah 30:33...Tophet properly begins where the Vale of Hinnom bends round to the east, having the cliffs of Zion on the north, and the Hill of Evil Counsel on the south. It terminates at Beer ‘Ayub, where it joins the Valley of Jehoshaphat. The cliffs on the southern side especially abound in ancient tombs. Here the dead carcasses of beasts and every offal and abomination were cast, and left to be either devoured by that worm that never died or consumed by that fire that was never quenched.” Thus Tophet came to represent the place of punishment. (See HINNOM.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -20790,7 +20790,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LIME T</strong> he Hebrew word so rendered means “boiling” or “effervescing.” From Isaiah 33:12 it appears that lime was made in a kiln lighted by thorn-bushes. In Amos 2:1 it is recorded that the king of Moab “burned the bones of the king of Edom into lime.” The same Hebrew word is used in Deuteronomy 27:2-4, and is there rendered “plaster.” Limestone is the chief constituent of the mountains of Syria.",
+        "<strong>Dictionary (Easton's).</strong> <strong>LIME</strong> The Hebrew word so rendered means “boiling” or “effervescing.” From Isaiah 33:12 it appears that lime was made in a kiln lighted by thorn-bushes. In Amos 2:1 it is recorded that the king of Moab “burned the bones of the king of Edom into lime.” The same Hebrew word is used in Deuteronomy 27:2-4, and is there rendered “plaster.” Limestone is the chief constituent of the mountains of Syria.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -21626,7 +21626,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ROSE M</strong> any varieties of the rose proper are indigenous to Syria. The famed rose of Damascus is white, but there are also red and yellow roses. In Cant. 2:1 and Isaiah 35:1 the Hebrew word habatstseleth (found only in these passages), rendered “rose” (R.V. marg., “autumn crocus”), is supposed by some to mean the oleander, by others the sweet-scented narcissus (a native of Palestine), the tulip, or the daisy; but nothing definite can be affirmed regarding it. The “rose of Sharon” is…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ROSE</strong> Many varieties of the rose proper are indigenous to Syria. The famed rose of Damascus is white, but there are also red and yellow roses. In Cant. 2:1 and Isaiah 35:1 the Hebrew word habatstseleth (found only in these passages), rendered “rose” (R.V. marg., “autumn crocus”), is supposed by some to mean the oleander, by others the sweet-scented narcissus (a native of Palestine), the tulip, or the daisy; but nothing definite can be affirmed regarding it. The “rose of Sharon” is probably the cistus or rock-rose, several species of which abound in Palestine. “Mount Carmel especially abounds in the cistus, which in April covers some of the barer parts of the mountain with a glow not inferior to that of the Scottish heather.” (See MYRRH [2].)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23045,7 +23045,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HOOK</strong> (1.) Hebrews hah, a “ring” inserted in the nostrils of animals to which a cord was fastened for the purpose of restraining them (2 Kings 19:28; Isaiah 37:28, 29; Ezekiel 29:4; 38:4). “The Orientals make use of this contrivance for curbing their work-beasts...When a beast becomes unruly they have only to draw the cord on one side, which, by stopping his breath, punishes him so effectually that after a few repetitions he fails not to become quite tractable whenever he begins…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HOOK</strong> (1.) Hebrews hah, a “ring” inserted in the nostrils of animals to which a cord was fastened for the purpose of restraining them (2 Kings 19:28; Isaiah 37:28, 29; Ezekiel 29:4; 38:4). “The Orientals make use of this contrivance for curbing their work-beasts...When a beast becomes unruly they have only to draw the cord on one side, which, by stopping his breath, punishes him so effectually that after a few repetitions he fails not to become quite tractable whenever he begins to feel it” (Michaelis). So God’s agents are never beyond his control. (2.) Hakkah, a fish “hook” (Job 41:2, Hebrews Text, 40:25; Isaiah 19:8; Habakkuk 1:15). (3.) Vav, a “peg” on which the curtains of the tabernacle were hung (Exodus 26:32). (4.) Tsinnah, a fish-hooks (Amos 4:2). (5.) Mazleg, flesh-hooks (1 Samuel 2:13, 14), a kind of fork with three teeth for turning the sacrifices on the fire, etc. (6.) Mazmeroth, pruning-hooks (Isaiah 2:4; Joel 3:10). (7.) ‘Agmon (Job 41:2, Hebrews Text 40:26), incorrectly rendered in the Authorized Version. Properly a rush-rope for binding animals, as in Revised Version margin.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23078,7 +23078,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LIP</strong> besides its literal sense (Isaiah 37:29, etc.), is used in the original (saphah) metaphorically for an edge or border, as of a cup (1 Kings 7:26), a garment (Exodus 28:32), a curtain (26:4), the sea (Genesis 22:17), the Jordan (2 Kings 2:13). To “open the lips” is to begin to speak (Job 11:5); to “refrain the lips” is to keep silence (Psalm 40:9; 1 Peter 3:10). The “fruit of the lips” (Hebrews 13:15) is praise, and the “calves of the lips” thank-offerings (Hos. 14:2). To…",
+        "<strong>Dictionary (Easton's).</strong> <strong>LIP</strong> besides its literal sense (Isaiah 37:29, etc.), is used in the original (saphah) metaphorically for an edge or border, as of a cup (1 Kings 7:26), a garment (Exodus 28:32), a curtain (26:4), the sea (Genesis 22:17), the Jordan (2 Kings 2:13). To “open the lips” is to begin to speak (Job 11:5); to “refrain the lips” is to keep silence (Psalm 40:9; 1 Peter 3:10). The “fruit of the lips” (Hebrews 13:15) is praise, and the “calves of the lips” thank-offerings (Hos. 14:2). To “shoot out the lip” is to manifest scorn and defiance (Psalm 22:7). Many similar forms of expression are found in Scripture.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23276,7 +23276,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ESARHADDON A</strong> ssur has given a brother, successor of Sennacherib (2 Kings 19:37; Isaiah 37:38). He ascended the throne about B.C. 681. Nothing further is recorded of him in Scripture, except that he settled certain colonists in Samaria (Ezra 4:2). But from the monuments it appears that he was the most powerful of all the Assyrian monarchs. He built many temples and palaces, the most magnificent of which was the south-west palace at Nimrud, which is said to have been in its general design…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ESARHADDON</strong> Assur has given a brother, successor of Sennacherib (2 Kings 19:37; Isaiah 37:38). He ascended the throne about B.C. 681. Nothing further is recorded of him in Scripture, except that he settled certain colonists in Samaria (Ezra 4:2). But from the monuments it appears that he was the most powerful of all the Assyrian monarchs. He built many temples and palaces, the most magnificent of which was the south-west palace at Nimrud, which is said to have been in its general design almost the same as Solomon’s palace, only much larger (1 Kings 7:1-12). In December B.C. 681 Sennacherib was murdered by two of his sons, who, after holding Nineveh for forty-two days, were compelled to fly to Erimenas of Ararat, or Armenia. Their brother Esarhaddon, who had been engaged in a campaign against Armenia, led his army against them. They were utterly overthrown in a battle fought April B.C. 680, near Malatiyeh, and in the following month Esarhaddon was crowned at Nineveh. He restored Babylon, conquered Egypt, and received tribute from Manasseh of Judah. He died in October B.C. 668, while on the march to suppress an Egyptian revolt, and was succeeded by his son Assur-bani-pal, whose younger brother was made viceroy of Babylonia.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23705,7 +23705,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SWALLOW</strong> (1.) Hebrews sis (Isaiah 38:14; Jeremiah 8:7), the Arabic for the swift, which “is a regular migrant, returning in myriads every spring, and so suddenly that while one day not a swift can be seen in the country, on the next they have overspread the whole land, and fill the air with their shrill cry.” The swift (cypselus) is ordinarily classed with the swallow, which it resembles in its flight, habits, and migration. (2.) Hebrews deror, i.e., “the bird of freedom” (Psalm…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SWALLOW</strong> (1.) Hebrews sis (Isaiah 38:14; Jeremiah 8:7), the Arabic for the swift, which “is a regular migrant, returning in myriads every spring, and so suddenly that while one day not a swift can be seen in the country, on the next they have overspread the whole land, and fill the air with their shrill cry.” The swift (cypselus) is ordinarily classed with the swallow, which it resembles in its flight, habits, and migration. (2.) Hebrews deror, i.e., “the bird of freedom” (Psalm 84:3; Proverbs 26:2), properly rendered swallow, distinguished for its swiftness of flight, its love of freedom, and the impossibility of retaining it in captivity. In Isaiah 38:14 and Jeremiah 8:7 the word thus rendered (‘augr) properly means “crane” (as in the R.V.).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23980,7 +23980,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MERODACH-BALADAN M</strong> erodach has given a son, (Isaiah 39:1), “the hereditary chief of the Chaldeans, a small tribe at that time settled in the marshes at the mouth of the Euphrates, but in consequence of his conquest of Babylon afterwards, they became the dominant caste in Babylonia itself.” One bearing this name sent ambassadors to Hezekiah (B.C. 721). He is also called Berodach-baladan (2 Kings 20:12; 2 Chronicles 20:31). (See HEZEKIAH.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>MERODACH-BALADAN</strong> Merodach has given a son, (Isaiah 39:1), “the hereditary chief of the Chaldeans, a small tribe at that time settled in the marshes at the mouth of the Euphrates, but in consequence of his conquest of Babylon afterwards, they became the dominant caste in Babylonia itself.” One bearing this name sent ambassadors to Hezekiah (B.C. 721). He is also called Berodach-baladan (2 Kings 20:12; 2 Chronicles 20:31). (See HEZEKIAH.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -25531,7 +25531,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HAMMER</strong> (1.) Hebrews pattish, used by gold-beaters (Isaiah 41:7) and by quarry-men (Jeremiah 23:29). Metaphorically of Babylon (Jeremiah 50:23) or Nebuchadnezzar. (2.) Hebrews makabah, a stone-cutter’s mallet (1 Kings 6:7), or of any workman (Judges 4:21; Isaiah 44:12). (3.) Hebrews halmuth, a poetical word for a workman’s hammer, found only in Judges 5:26, where it denotes the mallet with which the pins of the tent of the nomad are driven into the ground. (4.) Hebrews mappets,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HAMMER</strong> (1.) Hebrews pattish, used by gold-beaters (Isaiah 41:7) and by quarry-men (Jeremiah 23:29). Metaphorically of Babylon (Jeremiah 50:23) or Nebuchadnezzar. (2.) Hebrews makabah, a stone-cutter’s mallet (1 Kings 6:7), or of any workman (Judges 4:21; Isaiah 44:12). (3.) Hebrews halmuth, a poetical word for a workman’s hammer, found only in Judges 5:26, where it denotes the mallet with which the pins of the tent of the nomad are driven into the ground. (4.) Hebrews mappets, rendered “battle-axe” in Jeremiah 51:20. This was properly a “mace,” which is thus described by Rawlinson: “The Assyrian mace was a short, thin weapon, and must either have been made of a very tough wood or (and this is more probable) of metal. It had an ornamented head, which was sometimes very beautifully modelled, and generally a strap or string at the lower end by which it could be grasped with greater firmness.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26037,7 +26037,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MYRTLE</strong> (Isaiah 41:19; Nehemiah 8:15; Zechariah 1:8), Hebrew hadas, known in the East by the name as, the Myrtus communis of the botanist. “Although no myrtles are now found on the mount (of Olives), excepting in the gardens, yet they still exist in many of the glens about Jerusalem, where we have often seen its dark shining leaves and white flowers. There are many near Bethlehem and about Hebron, especially near Dewir Dan, the ancient Debir. It also sheds its fragrance on the sides…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MYRTLE</strong> (Isaiah 41:19; Nehemiah 8:15; Zechariah 1:8), Hebrew hadas, known in the East by the name as, the Myrtus communis of the botanist. “Although no myrtles are now found on the mount (of Olives), excepting in the gardens, yet they still exist in many of the glens about Jerusalem, where we have often seen its dark shining leaves and white flowers. There are many near Bethlehem and about Hebron, especially near Dewir Dan, the ancient Debir. It also sheds its fragrance on the sides of Carmel and of Tabor, and fringes the clefts of the Leontes in its course through Galilee. We meet with it all through Central Palestine” (Tristram).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26048,7 +26048,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>OIL-TREE</strong> (Isaiah 41:19; R.V. marg., “oleaster”), Hebrews ‘etz shemen, rendered “olive tree” in 1 Kings 6:23, 31, 32, 33 (R.V., “olive wood”) and “pine branches” in Nehemiah 8:15 (R.V., “branches of wild olive”), was some tree distinct from the olive. It was probably the oleaster (Eleagnus angustifolius), which grows abundantly in almost all parts of Palestine, especially about Hebron and Samaria. “It has a fine hard wood,” says Tristram, “and yields an inferior oil, but it has no…",
+        "<strong>Dictionary (Easton's).</strong> <strong>OIL-TREE</strong> (Isaiah 41:19; R.V. marg., “oleaster”), Hebrews ‘etz shemen, rendered “olive tree” in 1 Kings 6:23, 31, 32, 33 (R.V., “olive wood”) and “pine branches” in Nehemiah 8:15 (R.V., “branches of wild olive”), was some tree distinct from the olive. It was probably the oleaster (Eleagnus angustifolius), which grows abundantly in almost all parts of Palestine, especially about Hebron and Samaria. “It has a fine hard wood,” says Tristram, “and yields an inferior oil, but it has no relationship to the olive, which, however, it resembles in general appearance.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26059,7 +26059,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PINE TREE H</strong> ebrews tidhar, mentioned along with the fir-tree in Isaiah 41:19; 60:13. This is probably the cypress; or it may be the stone-pine, which is common on the northern slopes of Lebanon. Some suppose that the elm, others that the oak, or holm, or ilex, is meant by the Hebrew word. In Nehemiah 8:15 the Revised Version has “wild olive” instead of “pine.” (See FIR.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>PINE TREE</strong> Hebrews tidhar, mentioned along with the fir-tree in Isaiah 41:19; 60:13. This is probably the cypress; or it may be the stone-pine, which is common on the northern slopes of Lebanon. Some suppose that the elm, others that the oak, or holm, or ilex, is meant by the Hebrew word. In Nehemiah 8:15 the Revised Version has “wild olive” instead of “pine.” (See FIR.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26070,7 +26070,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SHITTAH-TREE</strong> (Isaiah 41:19; R.V., “acacia tree”). Shittah wood was employed in making the various parts of the tabernacle in the wilderness, and must therefore have been indigenous in the desert in which the Israelites wandered. It was the acacia or mimosa (Acacia Nilotica and A. seyal). “The wild acacia (Mimosa Nilotica), under the name of sunt, everywhere represents the seneh, or senna, of the burning bush. A slightly different form of the tree, equally common under the name of seyal,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SHITTAH-TREE</strong> (Isaiah 41:19; R.V., “acacia tree”). Shittah wood was employed in making the various parts of the tabernacle in the wilderness, and must therefore have been indigenous in the desert in which the Israelites wandered. It was the acacia or mimosa (Acacia Nilotica and A. seyal). “The wild acacia (Mimosa Nilotica), under the name of sunt, everywhere represents the seneh, or senna, of the burning bush. A slightly different form of the tree, equally common under the name of seyal, is the ancient ‘shittah,’ or, as more usually expressed in the plural form, the ‘shittim,’ of which the tabernacle was made.” Stanley’s Sinai, etc. (Exodus 25:10, 13, 23, 28).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -26433,7 +26433,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ISLAND</strong> (Hebrews ‘i, “dry land,” as opposed to water) occurs in its usual signification (Isaiah 42:4, 10, 12, 15, comp. Jeremiah 47:4), but more frequently simply denotes a maritime region or sea-coast (Isaiah 20:6, R.V.,” coastland;” 23:2, 6; Jeremiah 2:10; Ezekiel 27:6, 7). (See CHITTIM.) The shores of the Mediterranean are called the “islands of the sea” (Isaiah 11:11), or the “isles of the Gentiles” (Genesis 10:5), and sometimes simply “isles” (Psalm 72:10); Ezekiel 26:15, 18;…",
+        "<strong>Dictionary (Easton's).</strong> <strong>ISLAND</strong> (Hebrews ‘i, “dry land,” as opposed to water) occurs in its usual signification (Isaiah 42:4, 10, 12, 15, comp. Jeremiah 47:4), but more frequently simply denotes a maritime region or sea-coast (Isaiah 20:6, R.V.,” coastland;” 23:2, 6; Jeremiah 2:10; Ezekiel 27:6, 7). (See CHITTIM.) The shores of the Mediterranean are called the “islands of the sea” (Isaiah 11:11), or the “isles of the Gentiles” (Genesis 10:5), and sometimes simply “isles” (Psalm 72:10); Ezekiel 26:15, 18; 27:3, 35; Daniel 11:18).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -28017,7 +28017,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CANE</strong> a tall sedgy plant with a hollow stem, growing in moist places. In Isaiah 43:24; Jeremiah 6:20, the Hebrew word kaneh is thus rendered, giving its name to the plant. It is rendered “reed” in 1 Kings 14:15; Job 40:21; Isaiah 19:6; 35:7. In Psalm 68:30 the expression “company of spearmen” is in the margin and the Revised Version “beasts of the reeds,” referring probably to the crocodile or the hippopotamus as a symbol of Egypt. In 2 Kings 18:21; Isaiah 36:6; Ezekiel 29:6, 7,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CANE</strong> a tall sedgy plant with a hollow stem, growing in moist places. In Isaiah 43:24; Jeremiah 6:20, the Hebrew word kaneh is thus rendered, giving its name to the plant. It is rendered “reed” in 1 Kings 14:15; Job 40:21; Isaiah 19:6; 35:7. In Psalm 68:30 the expression “company of spearmen” is in the margin and the Revised Version “beasts of the reeds,” referring probably to the crocodile or the hippopotamus as a symbol of Egypt. In 2 Kings 18:21; Isaiah 36:6; Ezekiel 29:6, 7, the reference is to the weak, fragile nature of the reed. (See CALAMUS.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -28072,7 +28072,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PARDON</strong> the forgiveness of sins granted freely (Isaiah 43:25), readily (Nehemiah 9:17; Psalm 86:5), abundantly (Isaiah 55:7; Romans 5:20). Pardon is an act of a sovereign, in pure sovereignty, granting simply a remission of the penalty due to sin, but securing neither honour nor reward to the pardoned. Justification (q.v.), on the other hand, is the act of a judge, and not of a sovereign, and includes pardon and, at the same time, a title to all the rewards and blessings promised in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>PARDON</strong> the forgiveness of sins granted freely (Isaiah 43:25), readily (Nehemiah 9:17; Psalm 86:5), abundantly (Isaiah 55:7; Romans 5:20). Pardon is an act of a sovereign, in pure sovereignty, granting simply a remission of the penalty due to sin, but securing neither honour nor reward to the pardoned. Justification (q.v.), on the other hand, is the act of a judge, and not of a sovereign, and includes pardon and, at the same time, a title to all the rewards and blessings promised in the covenant of life.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -28677,7 +28677,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CYPRESS</strong> (Hebrews tirzah, “hardness”), mentioned only in Isaiah 44:14 (R.V., “holm tree”). The oldest Latin version translates this word by ilex, i.e., the evergreen oak, which may possibly have been the tree intended; but there is great probability that our Authorized Version is correct in rendering it “cypress.” This tree grows abundantly on the mountains of Hermon. Its wood is hard and fragrant, and very durable. Its foliage is dark and gloomy. It is an evergreen (Cupressus…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CYPRESS</strong> (Hebrews tirzah, “hardness”), mentioned only in Isaiah 44:14 (R.V., “holm tree”). The oldest Latin version translates this word by ilex, i.e., the evergreen oak, which may possibly have been the tree intended; but there is great probability that our Authorized Version is correct in rendering it “cypress.” This tree grows abundantly on the mountains of Hermon. Its wood is hard and fragrant, and very durable. Its foliage is dark and gloomy. It is an evergreen (Cupressus sempervirens). “Throughout the East it is used as a funereal tree; and its dark, tall, waving plumes render it peculiarly appropriate among the tombs.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -29227,7 +29227,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>LOCK T</strong> he Hebrews usually secured their doors by bars of wood or iron (Isaiah 45:2; 1 Kings 4:3). These were the locks originally used, and were opened and shut by large keys applied through an opening in the outside (Judges 3:24). (See KEY.) Lock of hair (Judges 16:13, 19; Ezekiel 8:3; Numbers 6:5, etc.).",
+        "<strong>Dictionary (Easton's).</strong> <strong>LOCK</strong> The Hebrews usually secured their doors by bars of wood or iron (Isaiah 45:2; 1 Kings 4:3). These were the locks originally used, and were opened and shut by large keys applied through an opening in the outside (Judges 3:24). (See KEY.) Lock of hair (Judges 16:13, 19; Ezekiel 8:3; Numbers 6:5, etc.).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -30404,7 +30404,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NEBO</strong> proclaimer; prophet. (1.) A Chaldean God whose worship was introduced into Assyria by Pul (Isaiah 46:1; Jeremiah 48:1). To this idol was dedicated the great temple whose ruins are still seen at Birs Nimrud. A statue of Nebo found at Calah, where it was set up by Pul, king of Assyria, is now in the British Museum. (2.) A mountain in the land of Moab from which Moses looked for the first and the last time on the Promised Land (Deuteronomy 32:49; 34:1). It has been identified…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NEBO</strong> proclaimer; prophet. (1.) A Chaldean God whose worship was introduced into Assyria by Pul (Isaiah 46:1; Jeremiah 48:1). To this idol was dedicated the great temple whose ruins are still seen at Birs Nimrud. A statue of Nebo found at Calah, where it was set up by Pul, king of Assyria, is now in the British Museum. (2.) A mountain in the land of Moab from which Moses looked for the first and the last time on the Promised Land (Deuteronomy 32:49; 34:1). It has been identified with Jebel Nebah, on the eastern shore of the Dead Sea, near its northern end, and about 5 miles south-west of Heshbon. It was the summit of the ridge of Pisgah (q.v.), which was a part of the range of the “mountains of Abarim.” It is about 2,643 feet in height, but from its position it commands a view of Western Palestine. Close below it are the plains of Moab, where Balaam, and afterwards Moses, saw the tents of Israel spread along. (3.) A town on the east of Jordan which was taken possession of and rebuilt by the tribe of Reuben (Numbers 32:3,38; 1 Chronicles 5:8). It was about 8 miles south of Heshbon. (4.) The “children of Nebo” (Ezra 2:29; Nehemiah 7:33) were of those who returned from Babylon. It was a town in Benjamin, probably the modern Beit Nubah, about 7 miles north-west of Hebron.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -33022,7 +33022,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FLINT</strong> abounds in all the plains and valleys of the wilderness of the forty years’ wanderings. In Isaiah 50:7 and Ezekiel 3:9 the expressions, where the word is used, means that the “Messiah would be firm and resolute amidst all contempt and scorn which he would meet; that he had made up his mind to endure it, and would not shrink from any kind or degree of suffering which would be necessary to accomplish the great work in which he was engaged.” (Comp. Ezekiel 3:8, 9.) The words…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FLINT</strong> abounds in all the plains and valleys of the wilderness of the forty years’ wanderings. In Isaiah 50:7 and Ezekiel 3:9 the expressions, where the word is used, means that the “Messiah would be firm and resolute amidst all contempt and scorn which he would meet; that he had made up his mind to endure it, and would not shrink from any kind or degree of suffering which would be necessary to accomplish the great work in which he was engaged.” (Comp. Ezekiel 3:8, 9.) The words “like a flint” are used with reference to the hoofs of horses (Isaiah 5:28).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -33506,7 +33506,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WORM</strong> (1.) Hebrews sas (Isaiah 51:8), denotes the caterpillar of the clothes-moth. (2.) The manna bred worms (tola’im), but on the Sabbath there was not any worm (rimmah) therein (Exodus 16:20, 24). Here these words refer to caterpillars or larvae, which feed on corrupting matter. These two Hebrew words appear to be interchangeable (Job 25:6; Isaiah 14:11). Tola’im in some places denotes the caterpillar (Deuteronomy 28:39; Jonah 4:7), and rimmah, the larvae, as bred from putridity…",
+        "<strong>Dictionary (Easton's).</strong> <strong>WORM</strong> (1.) Hebrews sas (Isaiah 51:8), denotes the caterpillar of the clothes-moth. (2.) The manna bred worms (tola’im), but on the Sabbath there was not any worm (rimmah) therein (Exodus 16:20, 24). Here these words refer to caterpillars or larvae, which feed on corrupting matter. These two Hebrew words appear to be interchangeable (Job 25:6; Isaiah 14:11). Tola’im in some places denotes the caterpillar (Deuteronomy 28:39; Jonah 4:7), and rimmah, the larvae, as bred from putridity (Job 17:14; 21:26; 24:20). In Micah 7:17, where it is said, “They shall move out of their holes like worms,” perhaps serpents or “creeping things,” or as in the Revised Version, “crawling things,” are meant. The word is used figuratively in Job 25:6; Psalm 22:6; Isaiah 41:14; Mark 9:44, 46, 48; Isaiah 66:24.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -36872,7 +36872,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DOG</strong> frequently mentioned both in the Old and New Testaments. Dogs were used by the Hebrews as a watch for their houses (Isaiah 56:10), and for guarding their flocks (Job 30:1). There were also then as now troops of semi-wild dogs that wandered about devouring dead bodies and the offal of the streets (1 Kings 14:11; 16:4; 21:19, 23; 22:38; Psalm 59:6, 14). As the dog was an unclean animal, the terms “dog,” “dog’s head,” “dead dog,” were used as terms of reproach or of humiliation…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DOG</strong> frequently mentioned both in the Old and New Testaments. Dogs were used by the Hebrews as a watch for their houses (Isaiah 56:10), and for guarding their flocks (Job 30:1). There were also then as now troops of semi-wild dogs that wandered about devouring dead bodies and the offal of the streets (1 Kings 14:11; 16:4; 21:19, 23; 22:38; Psalm 59:6, 14). As the dog was an unclean animal, the terms “dog,” “dog’s head,” “dead dog,” were used as terms of reproach or of humiliation (1 Samuel 24:14; 2 Samuel 3:8; 9:8; 16:9). Paul calls false apostles “dogs” (Phil. 3:2). Those who are shut out of the kingdom of heaven are also so designated (Revelation 22:15). Persecutors are called “dogs” (Psalm 22:16). Hazael’s words, “Thy servant which is but a dog” (2 Kings 8:13), are spoken in mock humility=impossible that one so contemptible as he should attain to such power.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -37510,7 +37510,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CLAY T</strong> his word is used of sediment found in pits or in streets (Isaiah 57:20; Jeremiah 38:60), of dust mixed with spittle (John 9:6), and of potter’s clay (Isaiah 41:25; Nah. 3:14; Jeremiah 18:1-6; Romans 9:21). Clay was used for sealing (Job 38:14; Jeremiah 32:14). Our Lord’s tomb may have been thus sealed (Matthew 27:66). The practice of sealing doors with clay is still common in the East. Clay was also in primitive times used for mortar (Genesis 11:3). The “clay ground” in…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CLAY</strong> This word is used of sediment found in pits or in streets (Isaiah 57:20; Jeremiah 38:60), of dust mixed with spittle (John 9:6), and of potter’s clay (Isaiah 41:25; Nah. 3:14; Jeremiah 18:1-6; Romans 9:21). Clay was used for sealing (Job 38:14; Jeremiah 32:14). Our Lord’s tomb may have been thus sealed (Matthew 27:66). The practice of sealing doors with clay is still common in the East. Clay was also in primitive times used for mortar (Genesis 11:3). The “clay ground” in which the large vessels of the temple were cast (1 Kings 7:46; 2 Chronicles 4:17) was a compact loam fitted for the purpose. The expression literally rendered is, “in the thickness of the ground,”, meaning, “in stiff ground” or in clay.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -37719,7 +37719,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BULRUSH</strong> (1.) In Isaiah 58:5 the rendering of a word which denotes “belonging to a marsh,” from the nature of the soil in which it grows (Isaiah 18:2). It was sometimes platted into ropes (Job. 41:2; A.V., “hook,” R.V., “rope,” lit. “cord of rushes”). (2.) In Exodus 2:3, Isaiah 18:2 (R.V., “papyrus”) this word is the translation of the Hebrew gome, which designates the plant as absorbing moisture. In Isaiah 35:7 and Job 8:11 it is rendered “rush.” This was the Egyptian papyrus…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BULRUSH</strong> (1.) In Isaiah 58:5 the rendering of a word which denotes “belonging to a marsh,” from the nature of the soil in which it grows (Isaiah 18:2). It was sometimes platted into ropes (Job. 41:2; A.V., “hook,” R.V., “rope,” lit. “cord of rushes”). (2.) In Exodus 2:3, Isaiah 18:2 (R.V., “papyrus”) this word is the translation of the Hebrew gome, which designates the plant as absorbing moisture. In Isaiah 35:7 and Job 8:11 it is rendered “rush.” This was the Egyptian papyrus (papyrus Nilotica). It was anciently very abundant in Egypt. The Egyptians made garments and shoes and various utensils of it. It was used for the construction of the ark of Moses (Exodus 2:3, 5). The root portions of the stem were used for food. The inside bark was cut into strips, which were sewed together and dried in the sun, forming the papyrus used for writing. It is no longer found in Egypt, but grows luxuriantly in Palestine, in the marshes of the Huleh, and in the swamps at the north end of the Lake of Gennesaret. (See CANE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -38808,7 +38808,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CLOAK</strong> an upper garment, “an exterior tunic, wide and long, reaching to the ankles, but without sleeves” (Isaiah 59:17). The word so rendered is elsewhere rendered “robe” or “mantle.” It was worn by the high priest under the ephod (Exodus 28:31), by kings and others of rank (1 Samuel 15:27; Job 1:20; 2:12), and by women (2 Samuel 13:18). The word translated “cloke”, i.e., outer garment, in Matthew 5:40 is in its plural form used of garments in general (Matthew 17:2; 26:65). The…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CLOAK</strong> an upper garment, “an exterior tunic, wide and long, reaching to the ankles, but without sleeves” (Isaiah 59:17). The word so rendered is elsewhere rendered “robe” or “mantle.” It was worn by the high priest under the ephod (Exodus 28:31), by kings and others of rank (1 Samuel 15:27; Job 1:20; 2:12), and by women (2 Samuel 13:18). The word translated “cloke”, i.e., outer garment, in Matthew 5:40 is in its plural form used of garments in general (Matthew 17:2; 26:65). The cloak mentioned here and in Luke 6:29 was the Greek himation, Latin pallium, and consisted of a large square piece of wollen cloth fastened round the shoulders, like the abba of the Arabs. This could be taken by a creditor (Exodus 22:26,27), but the coat or tunic (Gr. chiton) mentioned in Matthew 5:40 could not. The cloak which Paul “left at Troas” (2 Timothy 4:13) was the Roman paenula, a thick upper garment used chiefly in travelling as a protection from the weather. Some, however, have supposed that what Paul meant was a travelling-bag. In the Syriac version the word used means a bookcase. (See Dress.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -39314,7 +39314,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CAMEL</strong> from the Hebrew gamal, “to repay” or “requite,” as the camel does the care of its master. There are two distinct species of camels, having, however, the common characteristics of being “ruminants without horns, without muzzle, with nostrils forming oblique slits, the upper lip divided and separately movable and extensile, the soles of the feet horny, with two toes covered by claws, the limbs long, the abdomen drawn up, while the neck, long and slender, is bent up and down,…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CAMEL</strong> from the Hebrew gamal, “to repay” or “requite,” as the camel does the care of its master. There are two distinct species of camels, having, however, the common characteristics of being “ruminants without horns, without muzzle, with nostrils forming oblique slits, the upper lip divided and separately movable and extensile, the soles of the feet horny, with two toes covered by claws, the limbs long, the abdomen drawn up, while the neck, long and slender, is bent up and down, the reverse of that of a horse, which is arched.” (1.) The Bactrian camel is distinguished by two humps. It is a native of the high table-lands of Central Asia. (2.) The Arabian camel or dromedary, from the Greek dromos, “a runner” (Isaiah 60:6; Jeremiah 2:23), has but one hump, and is a native of Western Asia or Africa. The camel was early used both for riding and as a beast of burden (Genesis 24:64; 37:25), and in war (1 Samuel 30:17; Isaiah 21:7). Mention is made of the camel among the cattle given by Pharaoh to Abraham (Genesis 12:16). Its flesh was not to be eaten, as it was ranked among unclean animals (Leviticus 11:4; Deuteronomy 14:7). Abraham’s servant rode on a camel when he went to fetch a wife for Isaac (Genesis 24:10, 11). Jacob had camels as a portion of his wealth (30:43), as Abraham also had (24:35). He sent a present of thirty milch camels to his brother Esau (32:15). It appears to have been little in use among the Jews after the conquest. It is, however, mentioned in the history of David (1 Chronicles 27:30), and after the Exile (Ezra 2:67; Nehemiah 7:69). Camels were much in use among other nations in the East. The queen of Sheba came with a caravan of camels when she came to see the wisdom of Solomon (1 Kings 10:2; 2 Chronicles 9:1). Benhadad of Damascus also sent a present to Elisha, “forty camels’ burden” (2 Kings 8:9). To show the difficulty in the way of a rich man’s entering into the kingdom, our Lord uses the proverbial expression that it was easier for a camel to go through the eye of a needle (Matthew 19:24). To strain at (rather, out) a gnat and swallow a camel was also a proverbial expression (Matthew 23:24), used with reference to those who were careful to avoid small faults, and yet did not hesitate to commit the greatest sins. The Jews carefully filtered their wine before drinking it, for fear of swallowing along with it some insect forbidden in the law as unclean, and yet they omitted openly the “weightier matters” of the law. The raiment worn by John the Baptist was made of camel’s hair (Matthew 3:4; Mark 1:6), by which he was distinguished from those who resided in royal palaces and wore soft raiment. This was also the case with Elijah (2 Kings 1:8), who is called “a hairy man,” from his wearing such raiment. “This is one of the most admirable materials for clothing; it keeps out the heat, cold, and rain.” The “sackcloth” so often alluded to (2 Kings 1:8; Isaiah 15:3; Zechariah 13:4, etc.) was probably made of camel’s hair.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -39325,7 +39325,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DROMEDARY</strong> (Isaiah 60:6), an African or Arabian species of camel having only one hump, while the Bactrian camel has two. It is distinguished from the camel only as a trained saddle-horse is distinguished from a cart-horse. It is remarkable for its speed (Jeremiah 2:23). Camels are frequently spoken of in partriarchal times (Genesis 12:16; 24:10; 30:43; 31:17, etc.). They were used for carrying burdens (Genesis 37:25; Judges 6:5), and for riding (Genesis 24:64). The hair of the camel…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DROMEDARY</strong> (Isaiah 60:6), an African or Arabian species of camel having only one hump, while the Bactrian camel has two. It is distinguished from the camel only as a trained saddle-horse is distinguished from a cart-horse. It is remarkable for its speed (Jeremiah 2:23). Camels are frequently spoken of in partriarchal times (Genesis 12:16; 24:10; 30:43; 31:17, etc.). They were used for carrying burdens (Genesis 37:25; Judges 6:5), and for riding (Genesis 24:64). The hair of the camel falls off of itself in spring, and is woven into coarse cloths and garments (Matthew 3:4). (See CAMEL.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -39336,7 +39336,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FRANKINCENSE</strong> (Hebrews lebonah; Gr. libanos, i.e., “white”), an odorous resin imported from Arabia (Isaiah 60:6; Jeremiah 6:20), yet also growing in Palestine (Cant. 4:14). It was one of the ingredients in the perfume of the sanctuary (Exodus 30:34), and was used as an accompaniment of the meat-offering (Leviticus 2:1, 16; 6:15; 24:7). When burnt it emitted a fragrant odour, and hence the incense became a symbol of the Divine name (Malachi 1:11; Cant. 1:3) and an emblem of prayer (Psalm…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FRANKINCENSE</strong> (Hebrews lebonah; Gr. libanos, i.e., “white”), an odorous resin imported from Arabia (Isaiah 60:6; Jeremiah 6:20), yet also growing in Palestine (Cant. 4:14). It was one of the ingredients in the perfume of the sanctuary (Exodus 30:34), and was used as an accompaniment of the meat-offering (Leviticus 2:1, 16; 6:15; 24:7). When burnt it emitted a fragrant odour, and hence the incense became a symbol of the Divine name (Malachi 1:11; Cant. 1:3) and an emblem of prayer (Psalm 141:2; Luke 1:10; Revelation 5:8; 8:3). This frankincense, or olibanum, used by the Jews in the temple services is not to be confounded with the frankincense of modern commerce, which is an exudation of the Norway spruce fir, the Pinus abies. It was probably a resin from the Indian tree known to botanists by the name of Boswellia serrata or thurifera, which grows to the height of forty feet.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -39556,7 +39556,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BOX-TREE</strong> (Hebrews teashshur), mentioned in Isaiah 60:13; 41:19, was, according to some, a species of cedar growing in Lebanon. The words of Ezekiel 27:6 literally translated are, “Thy benches they have made of ivory, the daughter of the ashur tree,” i.e., inlaid with ashur wood. The ashur is the box-tree, and accordingly the Revised Version rightly reads “inlaid in box wood.” This is the Buxus sempervirens of botanists. It is remarkable for the beauty of its evergreen foliage and for…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BOX-TREE</strong> (Hebrews teashshur), mentioned in Isaiah 60:13; 41:19, was, according to some, a species of cedar growing in Lebanon. The words of Ezekiel 27:6 literally translated are, “Thy benches they have made of ivory, the daughter of the ashur tree,” i.e., inlaid with ashur wood. The ashur is the box-tree, and accordingly the Revised Version rightly reads “inlaid in box wood.” This is the Buxus sempervirens of botanists. It is remarkable for the beauty of its evergreen foliage and for the utility of its hard and durable wood.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -42427,7 +42427,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MENI I</strong> saiah 65:11, marg. (A.V., “that number;” R.V., “destiny”), probably an idol which the captive Israelites worshipped after the example of the Babylonians. It may have been a symbol of destiny. LXX., tuche.",
+        "<strong>Dictionary (Easton's).</strong> <strong>MENI</strong> Isaiah 65:11, marg. (A.V., “that number;” R.V., “destiny”), probably an idol which the captive Israelites worshipped after the example of the Babylonians. It may have been a symbol of destiny. LXX., tuche.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -42944,7 +42944,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BULLOCK</strong> (1.) The translation of a word which is a generic name for horned cattle (Isaiah 65:25). It is also rendered “cow” (Ezekiel 4:15), “ox” (Genesis 12:16). (2.) The translation of a word always meaning an animal of the ox kind, without distinction of age or sex (Hos. 12:11). It is rendered “cow” (Numbers 18:17) and “ox” (Leviticus 17:3). (3.) Another word is rendered in the same way (Jeremiah 31:18). It is also translated “calf” (Leviticus 9:3; Micah 6:6). It is the same word…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BULLOCK</strong> (1.) The translation of a word which is a generic name for horned cattle (Isaiah 65:25). It is also rendered “cow” (Ezekiel 4:15), “ox” (Genesis 12:16). (2.) The translation of a word always meaning an animal of the ox kind, without distinction of age or sex (Hos. 12:11). It is rendered “cow” (Numbers 18:17) and “ox” (Leviticus 17:3). (3.) Another word is rendered in the same way (Jeremiah 31:18). It is also translated “calf” (Leviticus 9:3; Micah 6:6). It is the same word used of the “molten calf” (Exodus 32:4, 8) and “the golden calf” (1 Kings 12:28). (4.) In Judges 6:25; Isaiah 34:7, the Hebrew word is different. It is the customary word for bulls offered in sacrifice. In Hos. 14:2, the Authorized Version has “calves,” the Revised Version “bullocks.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -43175,7 +43175,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>IDOL</strong> (1.) Hebrews aven, “nothingness;” “vanity” (Isaiah 66:3; 41:29; Deuteronomy 32:21; 1 Kings 16:13; Psalm 31:6; Jeremiah 8:19, etc.). (2.) ‘Elil, “a thing of naught” (Psalm 97:7; Isaiah 19:3); a word of contempt, used of the gods of Noph (Ezekiel 30:13). (3.) ‘Emah, “terror,” in allusion to the hideous form of idols (Jeremiah 50:38). (4.) Miphletzeth, “a fright;” “horror” (1 Kings 15:13; 2 Chronicles 15:16). (5.) Bosheth, “shame;” “shameful thing” (Jeremiah 11:13; Hos. 9:10);…",
+        "<strong>Dictionary (Easton's).</strong> <strong>IDOL</strong> (1.) Hebrews aven, “nothingness;” “vanity” (Isaiah 66:3; 41:29; Deuteronomy 32:21; 1 Kings 16:13; Psalm 31:6; Jeremiah 8:19, etc.). (2.) ‘Elil, “a thing of naught” (Psalm 97:7; Isaiah 19:3); a word of contempt, used of the gods of Noph (Ezekiel 30:13). (3.) ‘Emah, “terror,” in allusion to the hideous form of idols (Jeremiah 50:38). (4.) Miphletzeth, “a fright;” “horror” (1 Kings 15:13; 2 Chronicles 15:16). (5.) Bosheth, “shame;” “shameful thing” (Jeremiah 11:13; Hos. 9:10); as characterizing the obscenity of the worship of Baal. (6.) Gillulim, also a word of contempt, “dung;” “refuse” (Ezekiel 16:36; 20:8; Deuteronomy 29:17, marg.). (7.) Shikkuts, “filth;” “impurity” (Ezekiel 37:23; Nah. 3:6). (8.) Semel, “likeness;” “a carved image” (Deuteronomy 4:16). (9.) Tselem, “a shadow” (Daniel 3:1; 1 Samuel 6:5), as distinguished from the “likeness,” or the exact counterpart. (10.) Temunah, “similitude” (Deuteronomy 4:12-19). Here Moses forbids the several forms of Gentile idolatry. (11.) ‘Atsab, “a figure;” from the root “to fashion,” “to labour;” denoting that idols are the result of man’s labour (Isaiah 48:5; Psalm 139:24, “wicked way;” literally, as some translate, “way of an idol”). (12.) Tsir, “a form;” “shape” (Isaiah 45:16). (13.) Matztzebah, a “statue” set up (Jeremiah 43:13); a memorial stone like that erected by Jacob (Genesis 28:18; 31:45; 35:14, 20), by Joshua (4:9), and by Samuel (1 Samuel 7:12). It is the name given to the statues of Baal (2 Kings 3:2; 10:27). (14.) Hammanim, “sun-images.” Hamman is a synonym of Baal, the sun-God of the Phoenicians (2 Chronicles 34:4, 7; 14:3, 5; Isaiah 17:8). (15.) Maskith, “device” (Leviticus 26:1; Numbers 33:52). In Leviticus 26:1, the words “image of stone” (A.V.) denote “a stone or cippus with the image of an idol, as Baal, Astarte, etc.” In Ezekiel 8:12, “chambers of imagery” (maskith), are “chambers of which the walls are painted with the figures of idols;” comp. ver. 10, 11. (16.) Pesel, “a graven” or “carved image” (Isaiah 44:10-20). It denotes also a figure cast in metal (Deuteronomy 7:25; 27:15; Isaiah 40:19; 44:10). (17.) Massekah, “a molten image” (Deuteronomy 9:12; Judges 17:3, 4). (18.) Teraphim, pl., “images,” family gods (penates) worshipped by Abram’s kindred (Joshua 24:14). Put by Michal in David’s bed (Judges 17:5; 18:14, 17, 18, 20; 1 Samuel 19:13). “Nothing can be more instructive and significant than this multiplicity and variety of words designating the instruments and inventions of idolatry.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

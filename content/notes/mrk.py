@@ -143,7 +143,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FORERUNNER J</strong> ohn the Baptist went before our Lord in this character (Mark 1:2, 3). Christ so called (Hebrews 6:20) as entering before his people into the holy place as their head and guide.",
+        "<strong>Dictionary (Easton's).</strong> <strong>FORERUNNER</strong> John the Baptist went before our Lord in this character (Mark 1:2, 3). Christ so called (Hebrews 6:20) as entering before his people into the holy place as their head and guide.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -671,7 +671,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FISHING</strong> , THE ART OF was prosecuted with great industry in the waters of Palestine. It was from the fishing-nets that Jesus called his disciples (Mark 1:16-20), and it was in a fishing-boat he rebuked the winds and the waves (Matthew 8:26) and delivered that remarkable series of prophecies recorded in Matthew 13. He twice miraculously fed multitudes with fish and bread (Matthew 14:19; 15:36). It was in the mouth of a fish that the tribute-money was found (Matthew 17:27). And he “ate…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FISHING</strong> , THE ART OF was prosecuted with great industry in the waters of Palestine. It was from the fishing-nets that Jesus called his disciples (Mark 1:16-20), and it was in a fishing-boat he rebuked the winds and the waves (Matthew 8:26) and delivered that remarkable series of prophecies recorded in Matthew 13. He twice miraculously fed multitudes with fish and bread (Matthew 14:19; 15:36). It was in the mouth of a fish that the tribute-money was found (Matthew 17:27). And he “ate a piece of broiled fish” with his disciples after his resurrection (Luke 24:42, 43; comp. Acts 1:3). At the Sea of Tiberias (John 21:1-14), in obedience to his direction, the disciples cast their net “on the right side of the ship,” and enclosed so many that “they were not able to draw it for the multitude of fishes.” Two kinds of fishing-nets are mentioned in the New Testament: (1.) The casting-net (Matthew 4:18; Mark 1:16). (2.) The drag-net or seine (Matthew 13:48). Fish were also caught by the fishing-hook (Matthew 17:27). (See NET.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1826,7 +1826,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CUSTOM</strong> a tax imposed by the Romans. The tax-gatherers were termed publicans (q.v.), who had their stations at the gates of cities, and in the public highways, and at the place set apart for that purpose, called the “receipt of custom” (Matthew 9: 9; Mark 2:14), where they collected the money that was to be paid on certain goods (Matthew 17:25). These publicans were tempted to exact more from the people than was lawful, and were, in consequence of their extortions, objects of great…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CUSTOM</strong> a tax imposed by the Romans. The tax-gatherers were termed publicans (q.v.), who had their stations at the gates of cities, and in the public highways, and at the place set apart for that purpose, called the “receipt of custom” (Matthew 9: 9; Mark 2:14), where they collected the money that was to be paid on certain goods (Matthew 17:25). These publicans were tempted to exact more from the people than was lawful, and were, in consequence of their extortions, objects of great hatred. The Pharisees would have no intercourse with them (Matthew 5:46, 47; 9:10, 11). A tax or tribute (q.v.) of half a shekel was annually paid by every adult Jew for the temple. It had to be paid in Jewish coin (Matthew 22:17-19; Mark 12:14, 15). Money-changers (q.v.) were necessary, to enable the Jews who came up to Jerusalem at the feasts to exchange their foreign coin for Jewish money; but as it was forbidden by the law to carry on such a traffic for emolument (Deuteronomy 23:19, 20), our Lord drove them from the temple (Matthew 21:12: Mark 11:15).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4059,7 +4059,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GERGESA</strong> =Gerasa, identified with the modern Khersa, “over against Galilee,” close to the lake. This was probably the scene of the miracle, Mark 5:1-20, etc. “From the base of the great plateau of Bashan, 2,000 feet or more overhead, the ground slopes down steeply, in places precipitously, to the shore. And at the foot of the declivity a bold spur runs out to the water’s edge. By it the frantic swine would rush on headlong into the lake and perish.” Porter’s Through Samaria. (See…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GERGESA</strong> =Gerasa, identified with the modern Khersa, “over against Galilee,” close to the lake. This was probably the scene of the miracle, Mark 5:1-20, etc. “From the base of the great plateau of Bashan, 2,000 feet or more overhead, the ground slopes down steeply, in places precipitously, to the shore. And at the foot of the declivity a bold spur runs out to the water’s edge. By it the frantic swine would rush on headlong into the lake and perish.” Porter’s Through Samaria. (See GADARA.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -4499,7 +4499,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JAIRUS</strong> a ruler of the synagogue at Capernaum, whose only daughter Jesus restored to life (Mark 5:22; Luke 8:41). Entering into the chamber of death, accompanied by Peter and James and John and the father and mother of the maiden, he went forward to the bed whereon the corpse lay, and said, Talitha cumi, i.e., “Maid, arise,” and immediately the spirit of the maiden came to her again, and she arose straightway; and “at once to strengthen that life which had come back to her, and to…",
+        "<strong>Dictionary (Easton's).</strong> <strong>JAIRUS</strong> a ruler of the synagogue at Capernaum, whose only daughter Jesus restored to life (Mark 5:22; Luke 8:41). Entering into the chamber of death, accompanied by Peter and James and John and the father and mother of the maiden, he went forward to the bed whereon the corpse lay, and said, Talitha cumi, i.e., “Maid, arise,” and immediately the spirit of the maiden came to her again, and she arose straightway; and “at once to strengthen that life which had come back to her, and to prove that she was indeed no ghost, but had returned to the realities of a mortal existence, he commanded to give her something to eat” (Mark 5:43).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -5346,7 +5346,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SANDALS M</strong> entioned only in Mark 6:9 and Acts 12:8. The sandal was simply a sole, made of wood or palm-bark, fastened to the foot by leathern straps. Sandals were also made of seal-skin (Ezekiel 16:10; lit. tahash, “leather;” A.V., “badger’s skin;” R.V., “sealskin,” or marg., “porpoise-skin”). (See SHOE.)",
+        "<strong>Dictionary (Easton's).</strong> <strong>SANDALS</strong> Mentioned only in Mark 6:9 and Acts 12:8. The sandal was simply a sole, made of wood or palm-bark, fastened to the foot by leathern straps. Sandals were also made of seal-skin (Ezekiel 16:10; lit. tahash, “leather;” A.V., “badger’s skin;” R.V., “sealskin,” or marg., “porpoise-skin”). (See SHOE.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -5489,7 +5489,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MACHAERUS</strong> the Black Fortress, was built by Herod the Great in the gorge of Callirhoe, one of the wadies 9 miles east of the Dead Sea, as a frontier rampart against Arab marauders. John the Baptist was probably cast into the prison connected with this castle by Herod Antipas, whom he had reproved for his adulterous marriage with Herodias. Here Herod “made a supper” on his birthday. He was at this time marching against Aretas, king of Perea, to whose daughter he had been married. During…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MACHAERUS</strong> the Black Fortress, was built by Herod the Great in the gorge of Callirhoe, one of the wadies 9 miles east of the Dead Sea, as a frontier rampart against Arab marauders. John the Baptist was probably cast into the prison connected with this castle by Herod Antipas, whom he had reproved for his adulterous marriage with Herodias. Here Herod “made a supper” on his birthday. He was at this time marching against Aretas, king of Perea, to whose daughter he had been married. During the revelry of the banquet held in the border fortress, to please Salome, who danced before him, he sent an executioner, who beheaded John, and “brought his head in a charger, and gave it to the damsel” (Mark 6:14-29). This castle stood “starkly bold and clear” 3,860 feet above the Dead Sea, and 2,546 above the Mediterranean. Its ruins, now called M’khaur, are still visible on the northern end of Jebel Attarus.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -6116,7 +6116,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>BETHSAIDA</strong> house of fish. (1.) A town in Galilee, on the west side of the sea of Tiberias, in the “land of Gennesaret.” It was the native place of Peter, Andrew, and Philip, and was frequently resorted to by Jesus (Mark 6:45; John 1:44; 12:21). It is supposed to have been at the modern ‘Ain Tabighah, a bay to the north of Gennesaret. (2.) A city near which Christ fed 5,000 (Luke 9:10; comp. John 6:17; Matthew 14:15-21), and where the blind man had his sight restored (Mark 8:22), on the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>BETHSAIDA</strong> house of fish. (1.) A town in Galilee, on the west side of the sea of Tiberias, in the “land of Gennesaret.” It was the native place of Peter, Andrew, and Philip, and was frequently resorted to by Jesus (Mark 6:45; John 1:44; 12:21). It is supposed to have been at the modern ‘Ain Tabighah, a bay to the north of Gennesaret. (2.) A city near which Christ fed 5,000 (Luke 9:10; comp. John 6:17; Matthew 14:15-21), and where the blind man had his sight restored (Mark 8:22), on the east side of the lake, two miles up the Jordan. It stood within the region of Gaulonitis, and was enlarged by Philip the tetrarch, who called it “Julias,” after the emperor’s daughter. Or, as some have supposed, there may have been but one Bethsaida built on both sides of the lake, near where the Jordan enters it. Now the ruins et-Tel.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -6347,7 +6347,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WASHING</strong> (Mark 7:1-9). The Jews, like other Orientals, used their fingers when taking food, and therefore washed their hands before doing so, for the sake of cleanliness. Here the reference is to the ablutions prescribed by tradition, according to which “the disciples ought to have gone down to the side of the lake, washed their hands thoroughly, ‘rubbing the fist of one hand in the hollow of the other, then placed the ten finger-tips together, holding the hands up, so that any…",
+        "<strong>Dictionary (Easton's).</strong> <strong>WASHING</strong> (Mark 7:1-9). The Jews, like other Orientals, used their fingers when taking food, and therefore washed their hands before doing so, for the sake of cleanliness. Here the reference is to the ablutions prescribed by tradition, according to which “the disciples ought to have gone down to the side of the lake, washed their hands thoroughly, ‘rubbing the fist of one hand in the hollow of the other, then placed the ten finger-tips together, holding the hands up, so that any surplus water might flow down to the elbow, and thence to the ground.’” To neglect to do this had come to be regarded as a great sin, a sin equal to the breach of any of the ten commandments. Moses had commanded washings oft, but always for some definite cause; but the Jews multiplied the legal observance till they formed a large body of precepts. To such precepts about ceremonial washing Mark here refers. (See ABLUTION.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -6754,7 +6754,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CORBAN</strong> a Hebrew word adopted into the Greek of the New Testament and left untranslated. It occurs only once (Mark 7:11). It means a gift or offering consecrated to God. Anything over which this word was once pronounced was irrevocably dedicated to the temple. Land, however, so dedicated might be redeemed before the year of jubilee (Leviticus 27:16-24). Our Lord condemns the Pharisees for their false doctrine, inasmuch as by their traditions they had destroyed the commandment which…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CORBAN</strong> a Hebrew word adopted into the Greek of the New Testament and left untranslated. It occurs only once (Mark 7:11). It means a gift or offering consecrated to God. Anything over which this word was once pronounced was irrevocably dedicated to the temple. Land, however, so dedicated might be redeemed before the year of jubilee (Leviticus 27:16-24). Our Lord condemns the Pharisees for their false doctrine, inasmuch as by their traditions they had destroyed the commandment which requires children to honour their father and mother, teaching them to find excuse from helping their parents by the device of pronouncing “Corban” over their goods, thus reserving them to their own selfish use.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7183,7 +7183,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SYROPHENICIAN</strong> “a Greek, a Syrophenician by nation” (Mark 7:26), i.e., a Gentile born in the Phoenician part of Syria. (See PHENICIA.) When our Lord retired into the borderland of Tyre and Sidon (Matthew 15:21), a Syro-phoenician woman came to him, and earnestly besought him, in behalf of her daughter, who was grievously afflicted with a demon. Her faith in him was severely tested by his silence (Matthew 15:23), refusal (24), and seeming reproach that it was not meet to cast the children’s…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SYROPHENICIAN</strong> “a Greek, a Syrophenician by nation” (Mark 7:26), i.e., a Gentile born in the Phoenician part of Syria. (See PHENICIA.) When our Lord retired into the borderland of Tyre and Sidon (Matthew 15:21), a Syro-phoenician woman came to him, and earnestly besought him, in behalf of her daughter, who was grievously afflicted with a demon. Her faith in him was severely tested by his silence (Matthew 15:23), refusal (24), and seeming reproach that it was not meet to cast the children’s bread to dogs (26). But it stood the test, and her petition was graciously granted, because of the greatness of her faith (28). T",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7623,7 +7623,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DALMANUTHA</strong> a place on the west of the Sea of Galilee, mentioned only in Mark 8:10. In the parallel passage it is said that Christ came “into the borders of Magdala” (Matthew 15:39). It is plain, then, that Dalmanutha was near Magdala, which was probably the Greek name of one of the many Migdols (i.e., watch-towers) on the western side of the lake of Gennesaret. It has been identified in the ruins of a village about a mile from Magdala, in the little open valley of ‘Ain-el-Barideh, “the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DALMANUTHA</strong> a place on the west of the Sea of Galilee, mentioned only in Mark 8:10. In the parallel passage it is said that Christ came “into the borders of Magdala” (Matthew 15:39). It is plain, then, that Dalmanutha was near Magdala, which was probably the Greek name of one of the many Migdols (i.e., watch-towers) on the western side of the lake of Gennesaret. It has been identified in the ruins of a village about a mile from Magdala, in the little open valley of ‘Ain-el-Barideh, “the cold fountain,” called el-Mejdel, possibly the “Migdal-el” of Joshua 19:38.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -7634,7 +7634,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DALMANUTHA</strong> a place on the west of the Sea of Galilee, mentioned only in Mark 8:10. In the parallel passage it is said that Christ came “into the borders of Magdala” (Matthew 15:39). It is plain, then, that Dalmanutha was near Magdala, which was probably the Greek name of one of the many Migdols (i.e., watch-towers) on the western side of the lake of Gennesaret. It has been identified in the ruins of a village about a mile from Magdala, in the little open valley of ‘Ain-el-Barideh, “the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DALMANUTHA</strong> a place on the west of the Sea of Galilee, mentioned only in Mark 8:10. In the parallel passage it is said that Christ came “into the borders of Magdala” (Matthew 15:39). It is plain, then, that Dalmanutha was near Magdala, which was probably the Greek name of one of the many Migdols (i.e., watch-towers) on the western side of the lake of Gennesaret. It has been identified in the ruins of a village about a mile from Magdala, in the little open valley of ‘Ain-el-Barideh, “the cold fountain,” called el-Mejdel, possibly the “Migdal-el” of Joshua 19:38.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -14806,7 +14806,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>SPIKENARD</strong> (Hebrews nerd), a much-valued perfume (Cant. 1:12; 4:13, 14). It was “very precious”, i.e., very costly (Mark 14:3; John 12:3,5). It is the root of an Indian plant, the Nardostachys jatamansi, of the family of Valeriance, growing on the Himalaya mountains. It is distinguished by its having many hairy spikes shooting out from one root. It is called by the Arabs sunbul Hindi, “the Indian spike.” In the New Testament this word is the rendering of the Greek nardos pistike. The…",
+        "<strong>Dictionary (Easton's).</strong> <strong>SPIKENARD</strong> (Hebrews nerd), a much-valued perfume (Cant. 1:12; 4:13, 14). It was “very precious”, i.e., very costly (Mark 14:3; John 12:3,5). It is the root of an Indian plant, the Nardostachys jatamansi, of the family of Valeriance, growing on the Himalaya mountains. It is distinguished by its having many hairy spikes shooting out from one root. It is called by the Arabs sunbul Hindi, “the Indian spike.” In the New Testament this word is the rendering of the Greek nardos pistike. The margin of the Revised Version in these passages has “pistic nard,” pistic being perhaps a local name. Some take it to mean genuine, and others liquid. The most probable opinion is that the word pistike designates the nard as genuine or faithfully prepared.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -15609,7 +15609,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ABBA T</strong> his Syriac or Chaldee word is found three times in the New Testament (Mark 14:36; Romans 8:15; Galatians 4:6), and in each case is followed by its Greek equivalent, which is translated “father.” It is a term expressing warm affection and filial confidence. It has no perfect equivalent in our language. It has passed into European languages as an ecclesiastical term, “abbot.”",
+        "<strong>Dictionary (Easton's).</strong> <strong>ABBA</strong> This Syriac or Chaldee word is found three times in the New Testament (Mark 14:36; Romans 8:15; Galatians 4:6), and in each case is followed by its Greek equivalent, which is translated “father.” It is a term expressing warm affection and filial confidence. It has no perfect equivalent in our language. It has passed into European languages as an ecclesiastical term, “abbot.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -16621,7 +16621,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>PRAETORIUM T</strong> he Greek word (praitorion) thus rendered in Mark 15:16 is rendered “common hall” (Matthew 27:27, marg., “governor’s house”), “judgment hall,” (John 18:28, 33, marg., “Pilate’s house”, 19:9; Acts 23:35), “palace” (Phil. 1:13). This is properly a military word. It denotes (1) the general’s tent or headquarters; (2) the governor’s residence, as in Acts 23:35 (R.V., “palace”); and (3) the praetorian guard (See PALACE), or the camp or quarters of the praetorian cohorts (Acts…",
+        "<strong>Dictionary (Easton's).</strong> <strong>PRAETORIUM</strong> The Greek word (praitorion) thus rendered in Mark 15:16 is rendered “common hall” (Matthew 27:27, marg., “governor’s house”), “judgment hall,” (John 18:28, 33, marg., “Pilate’s house”, 19:9; Acts 23:35), “palace” (Phil. 1:13). This is properly a military word. It denotes (1) the general’s tent or headquarters; (2) the governor’s residence, as in Acts 23:35 (R.V., “palace”); and (3) the praetorian guard (See PALACE), or the camp or quarters of the praetorian cohorts (Acts 28:16), the imperial guards in immediate attendance on the emperor, who was “praetor” or commander-in-chief.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -16786,7 +16786,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>MARK</strong> , GOSPEL ACCORDING TO It is the current and apparently well-founded tradition that Mark derived his information mainly from the discourses of Peter. In his mother’s house he would have abundant opportunities of obtaining information from the other apostles and their coadjutors, yet he was “the disciple and interpreter of Peter” specially. As to the time when it was written, the Gospel furnishes us with no definite information. Mark makes no mention of the destruction of…",
+        "<strong>Dictionary (Easton's).</strong> <strong>MARK</strong> , GOSPEL ACCORDING TO It is the current and apparently well-founded tradition that Mark derived his information mainly from the discourses of Peter. In his mother’s house he would have abundant opportunities of obtaining information from the other apostles and their coadjutors, yet he was “the disciple and interpreter of Peter” specially. As to the time when it was written, the Gospel furnishes us with no definite information. Mark makes no mention of the destruction of Jerusalem, hence it must have been written before that event, and probably about A.D. 63. The place where it was written was probably Rome. Some have supposed Antioch (comp. Mark 15:21 with Acts 11:20). It was intended primarily for Romans. This appears probable when it is considered that it makes no reference to the Jewish law, and that the writer takes care to interpret words which a Gentile would be likely to misunderstand, such as, “Boanerges” (3:17); “Talitha cumi” (5:41); “Corban” (7:11); “Bartimaeus” (10:46); “Abba” (14:36); “Eloi,” etc. (15:34). Jewish usages are also explained (7:3; 14:3; 14:12; 15:42). Mark also uses certain Latin words not found in any of the other Gospels, as “speculator” (6:27, rendered, A.V., “executioner;” R.V., “soldier of his guard”), “xestes” (a corruption of sextarius, rendered “pots,” 7:4, 8), “quadrans” (12:42, rendered “a farthing”), “centurion” (15:39, 44, 45). He only twice quotes from the Old Testament (1:2; 15:28). The characteristics of this Gospel are, (1) the absence of the genealogy of our Lord, (2) whom he represents as clothed with power, the “lion of the tribe of Judah.” (3.) Mark also records with wonderful minuteness the very words (3:17; 5:41; 7:11, 34; 14:36) as well as the position (9:35) and gestures (3:5, 34; 5:32; 9:36; 10:16) of our Lord. (4.) He is also careful to record particulars of person (1:29, 36; 3:6, 22, etc.), number (5:13; 6:7, etc.), place (2:13; 4:1; 7:31, etc.), and time (1:35; 2:1; 4:35, etc.), which the other evangelists omit. (5.) The phrase “and straightway” occurs nearly forty times in this Gospel; while in Luke’s Gospel, which is much longer, it is used only seven times, and in John only four times. “The Gospel of Mark,” says Westcott, “is essentially a transcript from life. The course and issue of facts are imaged in it with the clearest outline.” “In Mark we have no attempt to draw up a continuous narrative. His Gospel is a rapid succession of vivid pictures loosely strung together without much attempt to bind them into a whole or give the events in their natural sequence. This pictorial power is that which specially characterizes this evangelist, so that ‘if any one desires to know an evangelical fact, not only in its main features and grand results, but also in its most minute and so to speak more graphic delineation, he must betake himself to Mark.’” The leading principle running through this Gospel may be expressed in the motto: “Jesus came...preaching the gospel of the kingdom” (Mark 1:14). “Out of a total of 662 verses, Mark has 406 in common with Matthew and Luke, 145 with Matthew, 60 with Luke, and at most 51 peculiar to itself.” (See MATTHEW.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -17270,7 +17270,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CENTURION</strong> a Roman officer in command of a hundred men (Mark 15:39, 44, 45). Cornelius, the first Gentile convert, was a centurion (Acts 10:1, 22). Other centurions are mentioned in Matthew 8:5, 8, 13; Luke 7:2, 6; Acts 21:32; 22:25, 26; 23:17, 23; 24:23; 27:1, 6, 11, 31, 43; 28:16. A centurion watched the crucifixion of our Lord (Matthew 27:54; Luke 23:47), and when he saw the wonders attending it, exclaimed, “Truly this man was the Son of God.” “The centurions mentioned in the New…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CENTURION</strong> a Roman officer in command of a hundred men (Mark 15:39, 44, 45). Cornelius, the first Gentile convert, was a centurion (Acts 10:1, 22). Other centurions are mentioned in Matthew 8:5, 8, 13; Luke 7:2, 6; Acts 21:32; 22:25, 26; 23:17, 23; 24:23; 27:1, 6, 11, 31, 43; 28:16. A centurion watched the crucifixion of our Lord (Matthew 27:54; Luke 23:47), and when he saw the wonders attending it, exclaimed, “Truly this man was the Son of God.” “The centurions mentioned in the New Testament are uniformly spoken of in terms of praise, whether in the Gospels or in the Acts. It is interesting to compare this with the statement of Polybius (vi. 24), that the centurions were chosen by merit, and so were men remarkable not so much for their daring courage as for their deliberation, constancy, and strength of mind.”, Dr. Maclear’s N. T. Hist.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -18040,7 +18040,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GIFTS</strong> , SPIRITUAL (Gr. charismata), gifts supernaturally bestowed on the early Christians, each having his own proper gift or gifts for the edification of the body of Christ. These were the result of the extraordinary operation of the Spirit, as on the day of Pentecost. They were the gifts of speaking with tongues, casting out devils, healing, etc. (Mark 16:17, 18), usually communicated by the medium of the laying on of the hands of the apostles (Acts 8:17; 19:6; 1 Timothy 4:14).…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GIFTS</strong> , SPIRITUAL (Gr. charismata), gifts supernaturally bestowed on the early Christians, each having his own proper gift or gifts for the edification of the body of Christ. These were the result of the extraordinary operation of the Spirit, as on the day of Pentecost. They were the gifts of speaking with tongues, casting out devils, healing, etc. (Mark 16:17, 18), usually communicated by the medium of the laying on of the hands of the apostles (Acts 8:17; 19:6; 1 Timothy 4:14). These charismata were enjoyed only for a time. They could not continue always in the Church. They were suited to its infancy and to the necessities of those times.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

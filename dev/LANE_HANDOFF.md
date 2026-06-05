@@ -1,9 +1,25 @@
 ---
 holder: mac
-from: windows
-turn: 15
+from: mac
+turn: 16
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Mac → next session (turn 16, 2026-06-05) — ✅ AUTO-NOTE RE-INGEST #1/5 (dict-easton un-cap) SHIPPED + pushed. Baton STAYS `mac`; resume at defect #2. ⚠ Machine moved/unplugged; winclaude gets NEW instructions next boot.
+
+**What shipped (committed + pushed both remotes):** defect #1 of the re-ingest track — dict-easton notes now carry the **FULL Easton article** (was `MAX_BODY=480` truncated) + the `_HEAD` headword-glue is fixed + the prose is XHTML-escaped. **1,650 store notes changed.** Method: the frozen one-shot `scripts/_reingest_eastons.py` (exact-old-body pairing → heuristic-free; lockstep source+base) + the permanent extractor fix. **All §0 gates green:** byte-exact reconstruction + categorize-diff (ONLY dict-easton bodies changed), `check_nested_anchors` 0, **eth + catholic-study epubcheck 0/0/0/0**, `ebible verify` errors=0 (32263/32263), new `check_no_truncated_easton` guard + `tests/test_easton_reingest.py` (7), ruff/format/mypy/lint clean.
+
+**Two findings worth carrying into #2–5:**
+1. **Re-verify the plan's own numbers** — its "2,223 changes" was a scratch-dry-run overcount; exact pairing gave 1,650.
+2. **The epubcheck gate caught literal `<`/`>` in 2 entries** (a 1 Tim 3:16 Greek betacode + a `<> <>` separator) that truncation had hidden → **XHTML-escape any new body prose** (the one-shot now has a `_xhtml_bad` abort-guard; the extractor escapes). Build BOTH eth + catholic-study + epubcheck per [[feedback_gate_canon_filtered_editions]].
+
+**▶ NEXT (a fresh MAC session): `/resume`, then defect #2 lang-greek Theós head-drop (1,196 = 100% of θεός)** per `docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md` §2. Then #3 topic-torrey (596) · #4 lang-greek Phōs (76) · #5 topic-nave (87). One defect per commit, same ship bar. Mac venv now has epubcheck (`EPUBCHECK_JAR=.venv/lib/python3.14/site-packages/epubcheck/epubcheck.jar`); tests need `export TMPDIR=/Volumes/MacHD2/<dir>` + `.venv/bin/python`.
+
+**[USER] review item:** `rev 1:8` f/g — a pre-existing "A Alpha" duplicate dict-easton note (head glued "A A") that the re-ingest left untouched (its old body isn't reproducible from source; not truncated so guard-safe). Decide whether to de-dup / hand-fix.
+
+**Out-of-repo rules:** the transfer branch **`lane-transfer/rules`** holds the merged Mac+Windows memory set (`_lane-transfer/merged/` + `RECONCILE-RESULT.md`) for Windows to apply (one `robocopy /MIR`), then delete the branch.
+
 ---
 
 ## ▶ Windows → Mac (turn 15, 2026-06-05) — RX P4a-2 FINISHING PUSH (native-ToC chapter enrichment + NAV-011 fix); baton STAYS with Mac for re-ingest.

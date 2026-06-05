@@ -121,7 +121,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>ELIMELECH G</strong> od his king, a man of the tribe of Judah, of the family of the Hezronites, and kinsman of Boaz, who dwelt in Bethlehem in the days of the judges. In consequence of a great dearth he, with his wife Naomi and his two sons, went to dwell in the land of Moab. There he and his sons died (Ruth 1:2,3; 2:1,3; 4:3,9). Naomi afterwards returned to Palestine with her daughter Ruth.",
+        "<strong>Dictionary (Easton's).</strong> <strong>ELIMELECH</strong> God his king, a man of the tribe of Judah, of the family of the Hezronites, and kinsman of Boaz, who dwelt in Bethlehem in the days of the judges. In consequence of a great dearth he, with his wife Naomi and his two sons, went to dwell in the land of Moab. There he and his sons died (Ruth 1:2,3; 2:1,3; 4:3,9). Naomi afterwards returned to Palestine with her daughter Ruth.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1189,7 +1189,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>WINNOW C</strong> orn was winnowed, (1.) By being thrown up by a shovel against the wind. As a rule this was done in the evening or during the night, when the west wind from the sea was blowing, which was a moderate breeze and fitted for the purpose. The north wind was too strong, and the east wind came in gusts. (2.) By the use of a fan or van, by which the chaff was blown away (Ruth 3:2; Isaiah 30:24; Jeremiah 4:11, 12; Matthew 3:12).",
+        "<strong>Dictionary (Easton's).</strong> <strong>WINNOW</strong> Corn was winnowed, (1.) By being thrown up by a shovel against the wind. As a rule this was done in the evening or during the night, when the west wind from the sea was blowing, which was a moderate breeze and fitted for the purpose. The north wind was too strong, and the east wind came in gusts. (2.) By the use of a fan or van, by which the chaff was blown away (Ruth 3:2; Isaiah 30:24; Jeremiah 4:11, 12; Matthew 3:12).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -1586,7 +1586,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>VEIL</strong> , VAIL (1.) Hebrews mitpahath (Ruth 3:15; marg., “sheet” or “apron;” R.V., “mantle”). In Isaiah 3:22 this word is plural, rendered “wimples;” R.V., “shawls” i.e., wraps. (2.) Massekah (Isaiah 25:7; in Isaiah 28:20 rendered “covering”). The word denotes something spread out and covering or concealing something else (comp. 2 Corinthians 3:13-15). (3.) Masveh (Exodus 34:33, 35), the veil on the face of Moses. This verse should be read, “And when Moses had done speaking with…",
+        "<strong>Dictionary (Easton's).</strong> <strong>VEIL</strong> , VAIL (1.) Hebrews mitpahath (Ruth 3:15; marg., “sheet” or “apron;” R.V., “mantle”). In Isaiah 3:22 this word is plural, rendered “wimples;” R.V., “shawls” i.e., wraps. (2.) Massekah (Isaiah 25:7; in Isaiah 28:20 rendered “covering”). The word denotes something spread out and covering or concealing something else (comp. 2 Corinthians 3:13-15). (3.) Masveh (Exodus 34:33, 35), the veil on the face of Moses. This verse should be read, “And when Moses had done speaking with them, he put a veil on his face,” as in the Revised Version. When Moses spoke to them he was without the veil; only when he ceased speaking he put on the veil (comp. 2 Corinthians 3:13, etc.). (4.) Paroheth (Exodus 26:31-35), the veil of the tabernacle and the temple, which hung between the holy place and the most holy (2 Chronicles 3:14). In the temple a partition wall separated these two places. In it were two folding-doors, which are supposed to have been always open, the entrance being concealed by the veil which the high priest lifted when he entered into the sanctuary on the day of Atonement. This veil was rent when Christ died on the cross (Matthew 27:51; Mark 15:38; Luke 23:45). (5.) Tza’iph (Genesis 24:65). Rebekah “took a vail and covered herself.” (See also 38:14, 19.) Hebrew women generally appeared in public without veils (12:14; 24:16; 29:10; 1 Samuel 1:12). (6.) Radhidh (Cant. 5:7, R.V. “mantle;” Isaiah 3:23). The word probably denotes some kind of cloak or wrapper. (7.) Masak, the veil which hung before the entrance to the holy place (Exodus 26:36, 37).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -2182,7 +2182,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>JESSE</strong> firm, or a gift, a son of Obed, the son of Boaz and Ruth (Ruth 4:17, 22; Matthew 1:5, 6; Luke 3:32). He was the father of eight sons, the youngest of whom was David (1 Samuel 17:12). The phrase “stem of Jesse” is used for the family of David (Isaiah 11:1), and “root of Jesse” for the Messiah (Isaiah 11:10; Revelation 5:5). Jesse was a man apparently of wealth and position at Bethlehem (1 Samuel 17:17, 18, 20; Psalm 78:71). The last reference to him is of David’s procuring…",
+        "<strong>Dictionary (Easton's).</strong> <strong>JESSE</strong> firm, or a gift, a son of Obed, the son of Boaz and Ruth (Ruth 4:17, 22; Matthew 1:5, 6; Luke 3:32). He was the father of eight sons, the youngest of whom was David (1 Samuel 17:12). The phrase “stem of Jesse” is used for the family of David (Isaiah 11:1), and “root of Jesse” for the Messiah (Isaiah 11:10; Revelation 5:5). Jesse was a man apparently of wealth and position at Bethlehem (1 Samuel 17:17, 18, 20; Psalm 78:71). The last reference to him is of David’s procuring for him an asylum with the king of Moab (1 Samuel 22:3).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

@@ -275,7 +275,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>FEAR OF THE LORD THE</strong> is in the Old Testament used as a designation of true piety (Proverbs 1:7; Job 28:28; Psalm 19:9). It is a fear conjoined with love and hope, and is therefore not a slavish dread, but rather filial reverence. (Comp. Deuteronomy 32:6; Hos. 11:1; Isaiah 1:2; 63:16; 64:8.) God is called “the Fear of Isaac” (Genesis 31:42, 53), i.e., the God whom Isaac feared. A holy fear is enjoined also in the New Testament as a preventive of carelessness in religion, and as an incentive to…",
+        "<strong>Dictionary (Easton's).</strong> <strong>FEAR OF THE LORD THE</strong> is in the Old Testament used as a designation of true piety (Proverbs 1:7; Job 28:28; Psalm 19:9). It is a fear conjoined with love and hope, and is therefore not a slavish dread, but rather filial reverence. (Comp. Deuteronomy 32:6; Hos. 11:1; Isaiah 1:2; 63:16; 64:8.) God is called “the Fear of Isaac” (Genesis 31:42, 53), i.e., the God whom Isaac feared. A holy fear is enjoined also in the New Testament as a preventive of carelessness in religion, and as an incentive to penitence (Matthew 10:28; 2 Corinthians 5:11; 7:1; Phil. 2:12; Ephesians 5:21; Hebrews 12:28, 29).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -330,7 +330,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GRACE</strong> (1.) Of form or person (Proverbs 1:9; 3:22; Psalm 45:2). (2.) Favour, kindness, friendship (Genesis 6:8; 18:3; 19:19; 2 Timothy 1:9). (3.) God’s forgiving mercy (Romans 11:6; Ephesians 2:5). (4.) The gospel as distinguished from the law (John 1:17; Romans 6:14; 1 Peter 5:12). (5.) Gifts freely bestowed by God; as miracles, prophecy, tongues (Romans 15:15; 1 Corinthians 15:10; Ephesians 3:8). (6.) Christian virtues (2 Corinthians 8:7; 2 Peter 3:18). (7.) The glory hereafter…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GRACE</strong> (1.) Of form or person (Proverbs 1:9; 3:22; Psalm 45:2). (2.) Favour, kindness, friendship (Genesis 6:8; 18:3; 19:19; 2 Timothy 1:9). (3.) God’s forgiving mercy (Romans 11:6; Ephesians 2:5). (4.) The gospel as distinguished from the law (John 1:17; Romans 6:14; 1 Peter 5:12). (5.) Gifts freely bestowed by God; as miracles, prophecy, tongues (Romans 15:15; 1 Corinthians 15:10; Ephesians 3:8). (6.) Christian virtues (2 Corinthians 8:7; 2 Peter 3:18). (7.) The glory hereafter to be revealed (1 Peter 1:13).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -9075,7 +9075,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>TRUTH U</strong> sed in various senses in Scripture. In Proverbs 12:17, 19, it denotes that which is opposed to falsehood. In Isaiah 59:14, 15, Jeremiah 7:28, it means fidelity or truthfulness. The doctrine of Christ is called “the truth of the gospel” (Galatians 2:5), “the truth” (2 Timothy 3:7; 4:4). Our Lord says of himself, “I am the way, and the truth” (John 14:6).",
+        "<strong>Dictionary (Easton's).</strong> <strong>TRUTH</strong> Used in various senses in Scripture. In Proverbs 12:17, 19, it denotes that which is opposed to falsehood. In Isaiah 59:14, 15, Jeremiah 7:28, it means fidelity or truthfulness. The doctrine of Christ is called “the truth of the gospel” (Galatians 2:5), “the truth” (2 Timothy 3:7; 4:4). Our Lord says of himself, “I am the way, and the truth” (John 14:6).",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -11682,7 +11682,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>THORN</strong> (1.) Hebrews hedek (Proverbs 15:19), rendered “brier” in Micah 7:4. Some thorny plant, of the Solanum family, suitable for hedges. This is probably the so-called “apple of Sodom,” which grows very abundantly in the Jordan valley. “It is a shrubby plant, from 3 to 5 feet high, with very branching stems, thickly clad with spines, like those of the English brier, with leaves very large and woolly on the under side, and thorny on the midriff.” (2.) Hebrews kotz (Genesis 3:18;…",
+        "<strong>Dictionary (Easton's).</strong> <strong>THORN</strong> (1.) Hebrews hedek (Proverbs 15:19), rendered “brier” in Micah 7:4. Some thorny plant, of the Solanum family, suitable for hedges. This is probably the so-called “apple of Sodom,” which grows very abundantly in the Jordan valley. “It is a shrubby plant, from 3 to 5 feet high, with very branching stems, thickly clad with spines, like those of the English brier, with leaves very large and woolly on the under side, and thorny on the midriff.” (2.) Hebrews kotz (Genesis 3:18; Hos. 10:8), rendered akantha by the LXX. In the New Testament this word akantha is also rendered “thorns” (Matthew 7:16; 13:7; Hebrews 6:8). The word seems to denote any thorny or prickly plant (Jeremiah 12:13). It has been identified with the Ononis spinosa by some. (3.) Hebrews na’atzutz (Isaiah 7:19; 55:13). This word has been interpreted as denoting the Zizyphus spina Christi, or the jujube-tree. It is supposed by some that the crown of thorns placed in wanton cruelty by the Roman soldiers on our Saviour’s brow before his crucifixion was plaited of branches of this tree. It overruns a great part of the Jordan valley. It is sometimes called the lotus-tree. “The thorns are long and sharp and recurved, and often create a festering wound.” It often grows to a great size. (See CROWN OF THORNS.) (4.) Hebrews atad (Psalm 58:9) is rendered in the LXX. and Vulgate by Rhamnus, or Lycium Europoeum, a thorny shrub, which is common all over Palestine. From its resemblance to the box it is frequently called the box-thorn.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -15059,7 +15059,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>GIFT</strong> (1.) An gratuity (Proverbs 19:6) to secure favour (18:16; 21:14), a thank-offering (Numbers 18:11), or a dowry (Genesis 34:12). (2.) An oblation or proppitatory gift (2Sa 8:2,6; 1Ch 18:2,6; 2Ch 26:8; Psalm 45:12; 72:10). (3.) A bribe to a judge to obtain a favourable verdict (Exodus 23:8; Deuteronomy 16:19). (4.) Simply a thing given (Matthew 7:11; Luke 11:13; Ephesians 4:8); sacrifical (Matthew 5:23, 24; 8:4); eleemosynary (Luke 21:1); a gratuity (John 4:10; Acts 8:20). In…",
+        "<strong>Dictionary (Easton's).</strong> <strong>GIFT</strong> (1.) An gratuity (Proverbs 19:6) to secure favour (18:16; 21:14), a thank-offering (Numbers 18:11), or a dowry (Genesis 34:12). (2.) An oblation or proppitatory gift (2Sa 8:2,6; 1Ch 18:2,6; 2Ch 26:8; Psalm 45:12; 72:10). (3.) A bribe to a judge to obtain a favourable verdict (Exodus 23:8; Deuteronomy 16:19). (4.) Simply a thing given (Matthew 7:11; Luke 11:13; Ephesians 4:8); sacrifical (Matthew 5:23, 24; 8:4); eleemosynary (Luke 21:1); a gratuity (John 4:10; Acts 8:20). In Acts 2:38 the generic word dorea is rendered “gift.” It differs from the charisma (1 Corinthians 12:4) as denoting not miraculous powers but the working of a new spirit in men, and that spirit from God. The giving of presents entered largely into the affairs of common life in the East. The nature of the presents was as various as were the occasions: food (1 Samuel 9:7; 16:20), sheep and cattle (Genesis 32:13-15), gold (2 Samuel 18:11), jewels (Genesis 24:53), furniture, and vessels for eating and drinking (2 Samuel 17:28); delicacies, as spices, honey, etc. (1 Kings 10:25; 2 Kings 5: 22). The mode of presentation was with as much parade as possible: the presents were conveyed by the hands of servants (Judges 3:18), or still better, on the backs of beasts of burden (2 Kings 8:9). The refusal of a present was regarded as a high indignity; and this constituted the aggravated insult noticed in Matthew 22:11, the marriage robe having been offered and refused.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -19668,7 +19668,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>NETTLE</strong> (1.) Hebrews haral, “pricking” or “burning,” Proverbs 24:30, 31 (R.V. marg., “wild vetches”); Job 30:7; Zephaniah 2:9. Many have supposed that some thorny or prickly plant is intended by this word, such as the bramble, the thistle, the wild plum, the cactus or prickly pear, etc. It may probably be a species of mustard, the Sinapis arvensis, which is a pernicious weed abounding in corn-fields. Tristram thinks that this word “designates the prickly acanthus (Acanthus…",
+        "<strong>Dictionary (Easton's).</strong> <strong>NETTLE</strong> (1.) Hebrews haral, “pricking” or “burning,” Proverbs 24:30, 31 (R.V. marg., “wild vetches”); Job 30:7; Zephaniah 2:9. Many have supposed that some thorny or prickly plant is intended by this word, such as the bramble, the thistle, the wild plum, the cactus or prickly pear, etc. It may probably be a species of mustard, the Sinapis arvensis, which is a pernicious weed abounding in corn-fields. Tristram thinks that this word “designates the prickly acanthus (Acanthus spinosus), a very common and troublesome weed in the plains of Palestine.” (2.) Hebrews qimmosh, Isaiah 34:13; Hos. 9:6; Proverbs 24:31 (in both versions, “thorns”). This word has been regarded as denoting thorns, thistles, wild camomile; but probably it is correctly rendered “nettle,” the Urtica pilulifera, “a tall and vigorous plant, often 6 feet high, the sting of which is much more severe and irritating than that of our common nettle.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -20889,7 +20889,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>DOORS</strong> moved on pivots of wood fastened in sockets above and below (Proverbs 26:14). They were fastened by a lock (Judges 3:23, 25; Cant. 5:5) or by a bar (Judges 16:3; Job 38:10). In the interior of Oriental houses, curtains were frequently used instead of doors. The entrances of the tabernacle had curtains (Exodus 26:31-33, 36). The “valley of Achor” is called a “door of hope,” because immediately after the execution of Achan the Lord said to Joshua, “Fear not,” and from that…",
+        "<strong>Dictionary (Easton's).</strong> <strong>DOORS</strong> moved on pivots of wood fastened in sockets above and below (Proverbs 26:14). They were fastened by a lock (Judges 3:23, 25; Cant. 5:5) or by a bar (Judges 16:3; Job 38:10). In the interior of Oriental houses, curtains were frequently used instead of doors. The entrances of the tabernacle had curtains (Exodus 26:31-33, 36). The “valley of Achor” is called a “door of hope,” because immediately after the execution of Achan the Lord said to Joshua, “Fear not,” and from that time Joshua went forward in a career of uninterrupted conquest. Paul speaks of a “door opened” for the spread of the gospel (1 Corinthians 16:9; 2 Corinthians 2:12; Colossians 4:3). Our Lord says of himself, “I am the door” (John 10:9). John (Revelation 4:1) speaks of a “door opened in heaven.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -21054,7 +21054,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>COAL I</strong> t is by no means certain that the Hebrews were acquainted with mineral coal, although it is found in Syria. Their common fuel was dried dung of animals and wood charcoal. Two different words are found in Hebrew to denote coal, both occurring in Proverbs 26:21, “As coal [Hebrews peham; i.e., “black coal”] is to burning coal [Hebrews gehalim].” The latter of these words is used in Job 41:21; Proverbs 6:28; Isaiah 44:19. The words “live coal” in Isaiah 6:6 are more correctly…",
+        "<strong>Dictionary (Easton's).</strong> <strong>COAL</strong> It is by no means certain that the Hebrews were acquainted with mineral coal, although it is found in Syria. Their common fuel was dried dung of animals and wood charcoal. Two different words are found in Hebrew to denote coal, both occurring in Proverbs 26:21, “As coal [Hebrews peham; i.e., “black coal”] is to burning coal [Hebrews gehalim].” The latter of these words is used in Job 41:21; Proverbs 6:28; Isaiah 44:19. The words “live coal” in Isaiah 6:6 are more correctly “glowing stone.” In Lamentations 4:8 the expression “blacker than a coal” is literally rendered in the margin of the Revised Version “darker than blackness.” “Coals of fire” (2 Samuel 22:9, 13; Psalm 18:8, 12, 13, etc.) is an expression used metaphorically for lightnings proceeding from God. A false tongue is compared to “coals of juniper” (Psalm 120:4; James 3:6). “Heaping coals of fire on the head” symbolizes overcoming evil with good. The words of Paul (Romans 12:20) are equivalent to saying, “By charity and kindness thou shalt soften down his enmity as surely as heaping coals on the fire fuses the metal in the crucible.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23804,7 +23804,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HELL</strong> derived from the Saxon helan, to cover; hence the covered or the invisible place. In Scripture there are three words so rendered: (1.) Sheol, occurring in the Old Testament sixty-five times. This word sheol is derived from a root-word meaning “to ask,” “demand;” hence insatiableness (Proverbs 30:15, 16). It is rendered “grave” thirty-one times (Genesis 37:35; 42:38; 44:29, 31; 1 Samuel 2:6, etc.). The Revisers have retained this rendering in the historical books with the…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HELL</strong> derived from the Saxon helan, to cover; hence the covered or the invisible place. In Scripture there are three words so rendered: (1.) Sheol, occurring in the Old Testament sixty-five times. This word sheol is derived from a root-word meaning “to ask,” “demand;” hence insatiableness (Proverbs 30:15, 16). It is rendered “grave” thirty-one times (Genesis 37:35; 42:38; 44:29, 31; 1 Samuel 2:6, etc.). The Revisers have retained this rendering in the historical books with the original word in the margin, while in the poetical books they have reversed this rule. In thirty-one cases in the Authorized Version this word is rendered “hell,” the place of disembodied spirits. The inhabitants of sheol are “the congregation of the dead” (Proverbs 21:16). It is (a) the abode of the wicked (Numbers 16:33; Job 24:19; Psalm 9:17; 31:17, etc.); (b) of the good (Psalm 16:10; 30:3; 49:15; 86:13, etc.). Sheol is described as deep (Job 11:8), dark (10:21, 22), with bars (17:16). The dead “go down” to it (Numbers 16:30, 33; Ezekiel 31:15, 16, 17). (2.) The Greek word hades of the New Testament has the same scope of signification as sheol of the Old Testament. It is a prison (1 Peter 3:19), with gates and bars and locks (Matthew 16:18; Revelation 1:18), and it is downward (Matthew 11:23; Luke 10:15). The righteous and the wicked are separated. The blessed dead are in that part of hades called paradise (Luke 23:43). They are also said to be in Abraham’s bosom (Luke 16:22). (3.) Gehenna, in most of its occurrences in the Greek New Testament, designates the place of the lost (Matthew 23:33). The fearful nature of their condition there is described in various figurative expressions (Matthew 8:12; 13:42; 22:13; 25:30; Luke 16:24, etc.). (See HINNOM.)",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -23815,7 +23815,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HORSE-LEECH</strong> occurs only in Proverbs 30:15 (Hebrews ‘alukah); the generic name for any blood-sucking annelid. There are various species in the marshes and pools of Palestine. That here referred to, the Hoemopis, is remarkable for the coarseness of its bite, and is therefore not used for medical purposes. They are spoken of in the East with feelings of aversion and horror, because of their propensity to fasten on the tongue and nostrils of horses when they come to drink out of the pools.…",
+        "<strong>Dictionary (Easton's).</strong> <strong>HORSE-LEECH</strong> occurs only in Proverbs 30:15 (Hebrews ‘alukah); the generic name for any blood-sucking annelid. There are various species in the marshes and pools of Palestine. That here referred to, the Hoemopis, is remarkable for the coarseness of its bite, and is therefore not used for medical purposes. They are spoken of in the East with feelings of aversion and horror, because of their propensity to fasten on the tongue and nostrils of horses when they come to drink out of the pools. The medicinal leech (Hirudo medicinalis), besides other species of leeches, are common in the waters of Syria.",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
@@ -24134,7 +24134,7 @@ NOTES = [
         "dict-easton",
         "Dictionary",
         "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>CONEY</strong> (Hebrews shaphan; i.e., “the hider”), an animal which inhabits the mountain gorges and the rocky districts of Arabia Petraea and the Holy Land. “The conies are but a feeble folk, yet make they their houses in the rocks” (Proverbs 30:26; Psalm 104:18). They are gregarious, and “exceeding wise” (Proverbs 30:24), and are described as chewing the cud (Leviticus 11:5; Deuteronomy 14:7). The animal intended by this name is known among naturalists as the Hyrax Syriacus. It is…",
+        "<strong>Dictionary (Easton's).</strong> <strong>CONEY</strong> (Hebrews shaphan; i.e., “the hider”), an animal which inhabits the mountain gorges and the rocky districts of Arabia Petraea and the Holy Land. “The conies are but a feeble folk, yet make they their houses in the rocks” (Proverbs 30:26; Psalm 104:18). They are gregarious, and “exceeding wise” (Proverbs 30:24), and are described as chewing the cud (Leviticus 11:5; Deuteronomy 14:7). The animal intended by this name is known among naturalists as the Hyrax Syriacus. It is neither a ruminant nor a rodent, but is regarded as akin to the rhinoceros. When it is said to “chew the cud,” the Hebrew word so used does not necessarily imply the possession of a ruminant stomach. “The lawgiver speaks according to appearances; and no one can watch the constant motion of the little creature’s jaws, as it sits continually working its teeth, without recognizing the naturalness of the expression” (Tristram, Natural History of the Bible). It is about the size and color of a rabbit, though clumsier in structure, and without a tail. Its feet are not formed for digging, and therefore it has its home not in burrows but in the clefts of the rocks. “Coney” is an obsolete English word for “rabbit.”",
         "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (

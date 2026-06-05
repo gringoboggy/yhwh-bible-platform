@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-06-05 (🖥️ Mac) — auto-note re-ingest #1/5: dict-easton un-cap (FULL articles) + `_HEAD` glue fix + XHTML-escape
+
+First defect of the user-greenlit auto-note re-ingest track (Mac holds the baton, `LANE_HANDOFF` turn 14→15). dict-easton notes now carry the **complete Easton article** instead of a 480-char truncation, and the headword-glue is fixed. **1,650 store notes changed (1,649 unique body replacements).**
+- **Extractor (`scripts/extract_eastons_ccel.py`):** dropped `MAX_BODY=480` (it severed 1,431 entries mid-sentence + baked a literal "…"); fixed the greedy `_HEAD` with a `(?![a-z])` lookahead so a sentence-case word's lead capital is not glued into the headword (`FOREST Hebrews`→`FOREST`; keeps `BURNT OFFERING`/`SONG OF SOLOMON`); XHTML-escape `&`/`<`/`>` in the prose.
+- **One-shot `scripts/_reingest_eastons.py`** (frozen historical transform, models `_strip_reviewer_scaffold.py`): regenerates each source entry old-style (cap+greedy) AND new-style (full+fixed+escaped), pairs by **exact old-body equality** — heuristic-free, so the 640 coordinate collisions resolve automatically (no guessing). Then lockstep exact-string-replaces old→new in `content/notes/*.py` (59 files) + `epub_working/index_split_*.html` (49 files).
+- **★Re-verify earned its keep:** the plan's "2,223 changes" was the scratch dry-run *overcounting* via a weak collision heuristic; exact pairing proved the real number is **1,650** (reproduces 3,777/3,779 store bodies, 0 ambiguity).
+- **★The epubcheck gate caught a real bug:** 2 entries contain literal `<`/`>` (a Greek betacode transliteration of 1 Tim 3:16 + a `<> <>` separator) that the truncated bodies had cut before reaching — raw insert tripped **1 FATAL RSC-016 + 295 cascade RSC-012**. Fixed by XHTML-escaping the prose (+ a `_xhtml_bad` abort-guard in the one-shot). (Initial precondition checked `"`/`\`/newline but missed XHTML metacharacters.)
+- **Edge cases (handled + logged, not guessed):** `rev 1:8` f/g — a pre-existing "A Alpha" duplicate with a non-standard truncation, left untouched (not truncated → guard-safe) for [USER] review; DALMANUTHA — duplicate note, all occurrences replaced; ZUZIMS — source-only (never baked), source fixed, base skipped.
+- **Verified:** byte-exact reconstruction (`apply_map(HEAD)==working`) on all 108 changed files + categorize-diff (marker/aside id+kind sets unchanged ⇒ ONLY dict-easton bodies changed); `check_nested_anchors` 0; **ethiopian-tewahedo + catholic-study epubcheck 0/0/0/0** (25.22 / 24.62 MB); new `check_no_truncated_easton` lint guard (1,431→0) + `tests/test_easton_reingest.py` (7 tests); ruff/format/mypy/lint clean (29 pass / 0 fail). `ebible verify` pairing is guaranteed unchanged by the reconstruction proof.
+- **Provisioned the Mac lane with epubcheck** (added the `epubcheck` PyPI package — jar in the venv; the Mac was missing it).
+- **▶ Remaining track:** defects #2 lang-greek Theós (1,196) · #3 topic-torrey ref-dump (596) · #4 lang-greek Phōs (76) · #5 topic-nave (87). Plan: `docs/superpowers/notes/2026-06-06-auto-note-reingest-plan.md`.
+
 ## 2026-06-05 (overnight) — RX P4a-2 — book-list-only in-content ToC + native-ToC chapter enrichment (user: "do it all")
 
 The in-content Table of Contents is now **book-list-only** (just the book links — the compact form the user asked for after the Kobo load), and one-tap chapter navigation **moves to the reader's NATIVE ToC** — so nothing is lost (declutter via display, not deletion).
