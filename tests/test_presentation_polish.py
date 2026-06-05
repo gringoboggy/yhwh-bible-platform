@@ -505,3 +505,69 @@ class TestDedicationPageSignature:
         assert "version" not in sig.parameters, (
             "render_dedication_page must not have a `version` parameter (it was unused — FIX 5)"
         )
+
+
+# ──────────────────────────────────────────────────────────────
+# Phase 2 — cross-reader CSS quick wins (overhaul plan 2026-06-05)
+# ──────────────────────────────────────────────────────────────
+
+
+def _rule_body(css: str, selector: str) -> str:
+    """Return the declaration block (between the first { and its matching })
+    for the given CSS selector, so substring asserts don't bleed into a
+    neighbouring rule."""
+    sel_idx = css.find(selector)
+    assert sel_idx >= 0, f"selector {selector!r} not found in stylesheet.css"
+    open_idx = css.find("{", sel_idx)
+    assert open_idx >= 0, f"no opening brace after {selector!r}"
+    close_idx = css.find("}", open_idx)
+    assert close_idx >= 0, f"no closing brace after {selector!r}"
+    return css[open_idx + 1 : close_idx]
+
+
+class TestPhase2CrossReaderCSS:
+    """Phase 2 of the EPUB reading-experience overhaul: long-token wrapping in
+    note popups (Apple #8), the blue "│" verse-number artifact (Apple #9), and
+    the Apple TOC expand→next-page jump (Apple #10). This INTENTIONALLY changes
+    built CSS — pin the NEW output, not byte-identity."""
+
+    def test_note_wraps_long_tokens(self):
+        """Apple #8: .note must wrap long unbreakable tokens (Hebrew strings,
+        ref-chains) so the popup text can't overflow the box width."""
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".note ")
+        assert "overflow-wrap: break-word" in body, (
+            ".note must set overflow-wrap: break-word so long tokens wrap (Apple #8)"
+        )
+        assert "word-break: break-word" in body, ".note must set word-break: break-word (Apple #8)"
+
+    def test_vnote_wraps_long_tokens(self):
+        """Apple #8: .vnote (the verse-reference popup body) must also wrap."""
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".vnote {")
+        assert "overflow-wrap: break-word" in body, (
+            ".vnote must set overflow-wrap: break-word so long tokens wrap (Apple #8)"
+        )
+        assert "word-break: break-word" in body, ".vnote must set word-break: break-word (Apple #8)"
+
+    def test_vn_no_super_lineheight_artifact(self):
+        """Apple #9: the .vn verse-number rule must NOT pair vertical-align:super
+        with line-height:0 — that exact combo triggers the iOS Apple Books blue
+        vertical-bar ("│") artifact (documented at ~line 132). Use an explicit
+        baseline shift instead, mirroring .verse-num-sup / .note-ref sup."""
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".vn {")
+        assert "vertical-align: super" not in body, (
+            ".vn must not use vertical-align: super (iOS Apple Books │ artifact — Apple #9)"
+        )
+        assert "line-height: 0" not in body, (
+            ".vn must not use line-height: 0 (combines with super to cause the │ artifact — Apple #9)"
+        )
+        # the explicit baseline shift replacement must be present
+        assert "vertical-align:" in body, ".vn must keep an explicit vertical-align baseline shift"
+
+    def test_toc_details_avoids_page_break(self):
+        """Apple #10: expanding a book low on the page jumps the whole book +
+        pills to the next page; .toc-wrap details must avoid breaking inside."""
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".toc-wrap details {")
+        assert "page-break-inside: avoid" in body, ".toc-wrap details must set page-break-inside: avoid (Apple #10)"
+        assert "break-inside: avoid" in body, (
+            ".toc-wrap details must set break-inside: avoid (modern property — Apple #10)"
+        )

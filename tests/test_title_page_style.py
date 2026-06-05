@@ -3,7 +3,8 @@
 Spec: docs/superpowers/specs/2026-05-24-epub-presentation-polish-design.md §4.5 + §7.
 Mirrors the `chapter_number_format` enum field end-to-end: it lives in
 EDITABLE_TEXT, has an api_save_edition_meta enum-validation block, surfaces in
-api_customize_data (default "full-bleed"), and has a /customize <select>.
+api_customize_data (default "framed" — the cross-reader default since the
+2026-06-05 reading-experience overhaul), and has a /customize <select>.
 
 Build-time rendering (apply_title_pages) is covered separately once it lands."""
 
@@ -52,13 +53,15 @@ class TestTitlePageStyleValidator:
 
 
 class TestTitlePageStyleLoader:
-    def test_api_customize_data_defaults_to_full_bleed(self):
+    def test_api_customize_data_defaults_to_framed(self):
         from scripts.web import api_customize_data
 
         data = api_customize_data()
         eds = {e["id"]: e for e in data["editions"]}
-        # Unset on disk → the loader supplies the default.
-        assert eds["catholic-study"].get("title_page_style") == "full-bleed"
+        # Unset on disk → the loader supplies the default. Since the 2026-06-05
+        # reading-experience overhaul the cross-reader default is "framed"
+        # (full-bleed's position:absolute overlay defeats Kobo's engine).
+        assert eds["catholic-study"].get("title_page_style") == "framed"
 
 
 class TestTitlePageStyleUI:
@@ -112,12 +115,16 @@ class TestApplyTitlePages:
         assert "bookpage-art-bleed" in out
         assert out.index("bookpage-art-bleed") < out.index("book-title-frame")
 
-    def test_default_style_full_bleed_when_unset(self, tmp_path):
+    def test_default_style_framed_when_unset(self, tmp_path):
         from scripts.build_edition import apply_title_pages
 
         (tmp_path / "i.html").write_text(_book_title_page(0, "gen", "Genesis"), encoding="utf-8")
         apply_title_pages(tmp_path, {"id": "x"}, {"gen"})
-        assert "style-full-bleed" in (tmp_path / "i.html").read_text(encoding="utf-8")
+        out = (tmp_path / "i.html").read_text(encoding="utf-8")
+        # Cross-reader default since the 2026-06-05 reading-experience overhaul:
+        # framed (contained art plate inside the frame), NOT full-bleed.
+        assert "style-full-bleed" not in out
+        assert '<img class="bookpage-art" src="images/book-gen.jpg" alt="' in out
 
     def test_artless_book_is_unchanged(self, tmp_path):
         from scripts.build_edition import apply_title_pages

@@ -149,7 +149,7 @@ blockquote {
 
 /* Popup body — clean block layout (v28a-2):
    Back-arrow floats right, label becomes small-caps header line, body flows beneath. */
-.note { margin: 0.6em 0 0.9em; font-size: 0.94em; line-height: 1.55; text-align: left; text-indent: 0; padding: 0.35em 0 0.4em; }
+.note { margin: 0.6em 0 0.9em; font-size: 0.94em; line-height: 1.55; text-align: left; text-indent: 0; padding: 0.35em 0 0.4em; overflow-wrap: break-word; word-break: break-word; }
 .note p { margin: 0; }
 .note-back { float: right; color: #8B6508; font-weight: 700; text-decoration: none; margin-left: 0.5em; opacity: 0.55; font-size: 1.05em; }
 .note-back:hover { opacity: 1; }
@@ -187,8 +187,10 @@ blockquote {
   color: #A52A2A !important;
   font-weight: bold !important;
   font-size: 0.78em !important;
-  vertical-align: super;
-  line-height: 0;
+  vertical-align: 0.35em;        /* explicit baseline-shift — replaces the old
+                                    super-keyword-plus-zero-line-height combo that triggered an iOS
+                                    Apple Books vertical-bar artifact beside each verse number.
+                                    Mirrors .verse-num-sup / .note-ref sup. */
   margin-right: 0.18em;
 }
 
@@ -239,6 +241,8 @@ body p.right-p {
   font-size: 0.92em;
   line-height: 1.45;
   color: #2A2A2A;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .vnote-text  { margin: 0.2em 0; }
 .vnote-empty { color: #888; font-style: italic; }
@@ -326,6 +330,13 @@ h1, h2, h3, h1.book-title {
 .toc-wrap li.toc-book {
   margin: 0.5em 0;
   page-break-inside: avoid;
+}
+
+/* Apple #10: expanding a book low on the page must not jump the whole book +
+   its chapter pills to the next page. Harmless on readers that ignore it. */
+.toc-wrap details {
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 /* Hide native disclosure marker (cross-browser) — we render our own */

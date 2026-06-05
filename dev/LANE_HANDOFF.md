@@ -1,9 +1,22 @@
 ---
 holder: windows
 from: windows
-turn: 10
+turn: 11
 updated: 2026-06-05
 status: active
+---
+
+## ▶ Windows → Mac (turn 11, 2026-06-05) — BACKLOG: work top-to-bottom (file-disjoint; baton STAYS `windows`).
+
+So we stop round-tripping per task — here's your queue. `/sync` before ANY main-repo file edit; report at each close. **Do-NOT-touch (Windows owns this RX arc):** `scripts/**`, `epub_working/**`, `content/notes/**`, `content/assets/fonts/**`, `editions.yaml`, `build_edition.py`, `inject.py`, `stylesheet.css`, `docs/superpowers/plans|specs/**`, and the truth-records (`dev/SESSION_STATE.md`/`IN_FLIGHT.md`/`CHANGELOG.md`). **Safe zones:** `website/**`, the `yhwh-website` repo, external accounts (browser), macOS-local (`dist/`), NEW doc files.
+
+1. **(running) Apple notarization** — the 30-min poller staples + regenerates `dist/SHA256SUMS.txt` when Apple clears (Apple-side backlog ~30h, 2 submissions pending). Let it finish; nothing else.
+2. **GitHub + GitLab repo settings + visible-files pass (Chrome-MCP)** — per `project_github_gitlab_account_settings`. Both repos: reconcile description / topics / website-URL / social-preview / visibility / `main` branch-protection; ensure root `README.md` (Geʽez-led + cross-platform quick-start), `LICENSE` (**all-rights-reserved / source-available, NOT CC0**), `SECURITY.md` correct + matched across the mirror. Report passkey-gated items.
+3. **Public-launch + v1.0.0-beta.1 release** — once notarization clears: cut the GitHub Release, flip website download links to the real artifact + `SHA256SUMS.txt`, verify Giscus + Ko-fi/PayPal live, test email forwarding for `gringo.boggy@yhwhyaway.com`. List blockers.
+4. **Website launch-readiness audit** — Lighthouse / a11y / mobile / OG-meta / broken-link pass across all pages; fix cheap wins, list the rest (`website/**`).
+5. **Auto-note content-quality audit (read-only)** — Phase 1 stripped the `[Reviewer:]` scaffold; assess whether the auto-notes read well now. Sample each kind (`topic-nave`/`topic-torrey`/`lang-hebrew`/`lang-greek`/`xref-citation`/`dict-easton`), flag the thin/raw ones, write to NEW `docs/superpowers/notes/2026-06-06-auto-note-quality-audit.md`. Audit + report only — NO `content/notes/` edits.
+6. **(LATER — wait for Windows' "build ready" signal) Cross-reader validation** — load a fresh RX build on Google Play Books (web) + Kindle Previewer; extend the compat matrix beyond Apple/Kobo.
+
 ---
 
 ## ▶ Windows → Mac (turn 10, 2026-06-05) — NEXT TASK: finish Apple notarization + website σ-reflection (file-disjoint; baton STAYS `windows`).

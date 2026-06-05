@@ -1643,9 +1643,13 @@ CHAPTER_NUMBER_FORMATS = {
     "word",  # Forty-Two
     "word_chapter",  # Chapter Forty-Two
 }
-# §4.5 — per-book title-page rendering style. full-bleed = the per-book art
-# fills the page behind a dark scrim with the title overlaid; framed = the art
-# as a plate above the title text. Unset → "full-bleed" (the default).
+# §4.5 — per-book title-page rendering style. framed = the per-book art as a
+# contained plate above the title text, inside the border (cross-reader-safe:
+# display:inline-block, renders on Kobo + aligns on Apple); full-bleed = the
+# art fills the page behind a dark scrim with the title overlaid via
+# position:absolute (defeats Kobo's engine → no art; misaligns on Apple over a
+# variable-height image). Unset → "framed" (the cross-reader default, 2026-06-05
+# reading-experience overhaul). full-bleed stays available as an opt-in.
 TITLE_PAGE_STYLES = {"full-bleed", "framed"}
 # §4.2 verse_popup_style — original-language popup layout. "cards" (default):
 # each witness in a tinted card with a colored spine. "stack": the flat
@@ -2876,17 +2880,17 @@ def _resolve_book_art(code: str, per_book: dict[str, str]) -> Path | None:
 
 def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) -> list[str]:
     """Inject each KEPT book's title-page art into its ``book-title-frame`` in
-    the per-build ``tmp`` tree, per ``title_page_style`` (full-bleed default /
-    framed). Returns the OPF-relative image paths copied in (for
+    the per-build ``tmp`` tree, per ``title_page_style`` (framed default /
+    full-bleed opt-in). Returns the OPF-relative image paths copied in (for
     ``patch_opf_book_images``). Books with no resolvable art keep the text-only
     title page. MUST run after canon filtering so dropped books leave no orphan
     image manifest items. Every injected ``<img>`` carries descriptive ``alt``
     (check_a11y requires it)."""
     from scripts.core import covers
 
-    style = edition.get("title_page_style") or "full-bleed"
+    style = edition.get("title_page_style") or "framed"
     if style not in TITLE_PAGE_STYLES:
-        style = "full-bleed"
+        style = "framed"
     per_book = covers.decode_book_covers(edition.get("book_covers"))
 
     idx_to_art: dict[int, tuple[str, str]] = {}

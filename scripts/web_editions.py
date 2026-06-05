@@ -421,7 +421,7 @@ def api_customize_data() -> dict:
                 # flag).
                 "enabled_reading_plans": list(e.get("enabled_reading_plans") or []),
                 "theme": e.get("theme", "classic"),
-                "title_page_style": e.get("title_page_style", "full-bleed"),
+                "title_page_style": e.get("title_page_style", "framed"),
                 # §4.6 — which of the 25 cover templates the publisher last
                 # picked for this edition's main cover ("" = none picked yet).
                 "cover_template": e.get("cover_template", ""),
