@@ -79,11 +79,21 @@ External links live: GitHub / GitLab / PayPal / X → 200; Ko-fi → 403 to bots
 - **Email forwarding** for `gringo.boggy@yhwhyaway.com` (passkey-gated Spaceship/
   Spacemail) — the user is setting it up; `mailto:` works meanwhile.
 
-## Deploy
+## Deploy status — built + committed; live push pending authorization
 
-These fixes were built, audited clean, and deployed to GitHub Pages
-(`gringoboggy/yhwh-website`); the live site was re-verified (200/HTTPS, CNAME
-intact, robots/sitemap/404 serving). Source committed to the monorepo `website/`.
+These fixes are built, audited clean, and committed to the monorepo `website/`
+(pushed to both remotes). The **live GitHub Pages deploy was NOT pushed** — auto-mode
+gated the production deploy of the public site as needing the owner's explicit
+authorization (correctly: pushing to `gringoboggy/yhwh-website` updates the live
+www.yhwhyaway.com). The current live site is unaffected and healthy; the deploy was
+verified locally (rsync into the publish repo keeps `CNAME` + `.nojekyll` intact),
+then the publish repo was reset to pristine.
+
+To go live (the deploy is fully reproducible from the pushed source):
+`node website/build.mjs` → mirror `website/dist/` into `/Volumes/MacHD2/yhwh-site-publish`
+→ commit (GitHub no-reply email) → push (see `website/README.md` "Deploy it"). The
+change is additive and degrades gracefully (the releases feed keeps its static
+fallback until a public release exists), so it carries no visible-regression risk.
 
 *Read-only audit + cheap-win fixes — `website/**` only, file-disjoint from the
 Windows RX arc. Companion to the turn-11/12 launch backlog.*
