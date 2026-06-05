@@ -127,6 +127,24 @@ test a frozen build end-to-end with `python dev/smoke_desktop.py`.
 - **Fonts:** SIL Open Font License 1.1 only —
   [`content/assets/fonts/LICENSES.md`](content/assets/fonts/LICENSES.md).
 
+## Support the work
+
+YHWH Ya' Way is free — the Word of God is for everyone, and it always will be.
+No paywall, no account, no tracking; the program and every Bible it builds are
+free now and free to come.
+
+If it blesses your study and you feel moved to give, a free-will offering helps
+the work go further — especially the slow, careful transcription of the
+standalone **Geʽez &amp; Amharic Bibles** from the original manuscripts. A gift
+is a thank-you that *accelerates* the free work; it never unlocks anything.
+
+- **Ko-fi** — https://ko-fi.com/gringoboggy
+- **PayPal** — https://paypal.me/gringoboggy
+- **GitHub Sponsors** — coming once approved
+
+GitHub and GitLab also show a **Sponsor** button on this repository, configured
+in [`.github/FUNDING.yml`](.github/FUNDING.yml).
+
 ## Notes
 
 - **Remotes:** the repository is mirrored to GitLab and GitHub; history is also

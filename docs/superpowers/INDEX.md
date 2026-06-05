@@ -4,7 +4,7 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**64 documents** — 43 plans · 21 specs.
+**65 documents** — 43 plans · 22 specs.
 
 ## In progress (20)
 
@@ -31,10 +31,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
 | 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
 
-## Planned / design (22)
+## Planned / design (23)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Spec | Ge'ez & Amharic progress page — its own website page (per-book staged grid + manuscript-source links + free-will-funding) | `specs/2026-06-05-geez-amharic-progress-page-design.md` | APPROVED (design) 2026-06-05 — honest data-driven per-book progress for the Ge'ez/Amharic Bibles (◻ not started · ◐ source gathered · ◑ transcribed · ● Bible-ready); build-time `progress.json` from the real store so it can't over-claim; reinforces the launch transparency. Next: writing-plans. |
 | 2026-06-04 | Spec | Edition Cover + Truthful Front Matter (Holy Bible cover · "Your Edition" page · build-accurate counts/glossary · Ge'ez/Amharic default covers) | `specs/2026-06-04-edition-cover-and-truthful-front-matter-design.md` | APPROVED 2026-06-04 — brainstormed w/ visual companion; σ.1–σ.6 phasing; build-accurate counter honors the ρ.3 hierarchical choices. Next: writing-plans. |
 | 2026-06-04 | Spec | Hierarchical Edition Customization — navigate-your-Bible (4-level × 2-dimension) | `specs/2026-06-04-hierarchical-edition-customization-design.md` | APPROVED 2026-06-04 — 4 levels (Bible→book→chapter→individual) × 2 dimensions (note symbols + translation popups); Tier-1 + individual-note already ship; Phase A plan written + executing; Phases B (popups) / C (`/build-my-bible`) follow |
 | 2026-06-03 | Spec | Lane-Handoff Baton System — design | `specs/2026-06-03-lane-handoff-baton-system-design.md` | design — direction approved (baton / turn-based: holder = sole pusher + truth-record owner); no manual relay · nothing strands · shared task board |
