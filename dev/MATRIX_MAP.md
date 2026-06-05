@@ -189,7 +189,7 @@ epub_working/index_split_*.html   <== BASE SCRIPTURE HTML (calibre-split chunks;
         v  build_edition.py <id>   (filter notes per edition via config.enabled_kind_codes + canon)
 per-edition working copy
         v  build_epub.py / build.sh   (mimetype-first store-only zip)
-<edition>.epub   (deliverable; dc:identifier = urn:yhwh:edition:<id> — CC0, not for sale)
+<edition>.epub   (deliverable; dc:identifier = urn:yhwh:edition:<id> — free, not for sale; program © Bogdan Zorlescu all-rights-reserved, sources PD)
 ```
 
 Health invariant: **paired=N/N** — every `href="#note-X"` has a matching `id="note-X"`. Check before/after any build.

@@ -21,8 +21,8 @@ login-to-read.* Revenue attaches ONLY to:
 - **voluntary support** (donations — you give nothing up, supporters give freely),
 - **physical artifacts** (a printed book is an object with real cost; selling the
   object ≠ selling the text),
-- **convenience & labor** (a *hosted* builder, custom edition work — the open-source
-  code stays free; people pay for hosting/time, not for verses),
+- **convenience & labor** (a *hosted* builder, custom edition work — the source-available
+  code stays free to read/run; people pay for hosting/time, not for verses),
 - **grants** (third-party funding of public-domain scholarship & digitization).
 
 Scriptural footing (for the owner's peace of mind): "the labourer is worthy of his

@@ -2,7 +2,9 @@
 
 **Date:** 2026-05-09
 **Status:** prep complete; tagging is user-side
-**Tag command:** `git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate" && git push origin v1.0.0`
+**Tag command:** `git tag -a v1.0.0 -m "v1.0.0 — first public release candidate" && git push origin v1.0.0`
+
+> Note: v1.0.0 was an internal tag; the public launch is **v1.0.0-beta.1**, free and non-commercial. The program is © 2026 Bogdan Zorlescu, all rights reserved / source-available (see LICENSE).
 **Prior:** the session-handoff metadata file `VERSION` (originally
 a free-form snapshot from the v2.2 era) is now the canonical
 semver source for build tooling. Line 1 is the version string;
@@ -30,7 +32,7 @@ The buyer demo, end-to-end:
      notes, and verse popups in the languages they configured
 
 That demo works. v1.0.0 is the first release where it's
-commercially shippable.
+release-quality and ready to ship.
 
 ---
 

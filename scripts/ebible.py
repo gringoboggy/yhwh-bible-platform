@@ -194,7 +194,7 @@ def cmd_doctor(_args) -> int:
 
     print(f"  {GREEN}{BOLD}✓ All gates green.{RESET}")
     print(f"    {DIM}→ ebible build   (inject notes → manifest → editions → epubcheck){RESET}")
-    print(f"    {DIM}→ the built EPUB is the deliverable — a free CC0 download.{RESET}")
+    print(f"    {DIM}→ the built EPUB is the deliverable — a free download.{RESET}")
     return 0
 
 

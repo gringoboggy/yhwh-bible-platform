@@ -32,7 +32,7 @@ DEFAULT_OUT = REPO_ROOT / "Ethiopian_Bible.epub"
 # Filenames / patterns excluded from the package.
 EXCLUDE_NAMES = {".DS_Store", "Thumbs.db"}
 # "onix": build_onix.py writes commercial ONIX sales metadata to  term-ref-ok
-# epub_working/onix/. The Ω.0 free-public pivot makes the EPUB a CC0  term-ref-ok
+# epub_working/onix/. The Ω.0 free-public pivot makes the EPUB a free  term-ref-ok
 # give-away that must not carry sales metadata, so it is dropped here at the
 # packaging chokepoint — covering both a direct build_epub.py run and the
 # per-edition build_one path (which copies the whole working tree to a temp dir).

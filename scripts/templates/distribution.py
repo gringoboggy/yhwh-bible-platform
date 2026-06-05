@@ -53,7 +53,7 @@ DISTRIBUTION_HTML = r"""<!DOCTYPE html>
   <section class="bg-white rounded-lg border border-slate-200 p-4">
     <div class="flex items-center justify-between mb-2">
       <h2 class="text-sm font-semibold text-slate-700">Archive.org credentials</h2>
-      <span class="text-xs text-slate-400">free public-domain bookshelf — opensource collection (CC0)</span>
+      <span class="text-xs text-slate-400">free public-domain source bookshelf (archive.org)</span>
     </div>
     <div id="archive-status" class="text-sm text-slate-600">loading…</div>
   </section>

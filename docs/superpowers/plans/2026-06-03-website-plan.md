@@ -4,7 +4,7 @@
 
 ## ⚠ RE-SCOPE 2026-06-03 — this is the PROGRAM's home page, not a download portal
 The original framing below (a "free-download portal" for finished EPUBs) is **WRONG / superseded.** The user clarified: **the site is the home page of the YHWH *program* — the free, open-source, fully-customizable Ethiopian Tewahedo Bible *builder* itself.** **No EPUBs / no download buttons on the site.** Confirmed decisions (2026-06-03):
-- **Purpose / CTA:** showcase the program + point to the open-source repo (GitLab/GitHub) to download & run it locally (an open-source-tool homepage). The live in-browser builder is NOT hosted yet.
+- **Purpose / CTA:** showcase the program + point to the source-available repo (GitLab/GitHub) to download & run it locally (a source-available-tool homepage). The live in-browser builder is NOT hosted yet.
 - **Example gallery:** YES — show the editions' cover art as a gallery of *what the builder produces* (no downloads).
 - **Look:** keep the **manuscript-reverent** style (user-approved); the prototype's `style.css`/shell is reusable.
 - This **removes** the old Phase-0 "export named EPUBs" blocker.
@@ -13,8 +13,8 @@ The original framing below (a "free-download portal" for finished EPUBs) is **WR
 1. **Hero** — the program + mission (a free, open tool that builds the deepest Ethiopian Tewahedo Bibles).
 2. **What it does** — pick your canon/tradition; the deepest free apparatus (1 Enoch, Jubilees, Meqabyan…); multi-translation verse popups; per-edition notes/themes; reading plans; clean EPUB output. (Optionally a screenshot of the builder console.)
 3. **Example-editions gallery** — the cover art as a showcase of presets the builder can generate (NO download buttons).
-4. **How to get & run it** — open-source; clone the GitLab/GitHub repo; run the builder locally (Python). Primary CTA = "View the code / Get started."
-5. **About & the faith** · **License (CC0)**.
+4. **How to get & run it** — source-available; clone the GitLab/GitHub repo; run the builder locally (Python). Primary CTA = "View the code / Get started."
+5. **About & the faith** · **License (all-rights-reserved / source-available; underlying sources PD)**.
 
 *(The sections below were the download-portal plan — IGNORE the download/Phase-0/Phase-4-wire-downloads parts; the tech stack, accessibility checklist, and the manuscript-reverent visual spec still apply.)*
 

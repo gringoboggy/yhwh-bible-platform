@@ -86,7 +86,7 @@ class TestEbibleBuildProducesValidEpub:
             assert len(splits) >= 50, (
                 f"EPUB contains only {len(splits)} scripture split files — the base-HTML gap is back"
             )
-            # Ω.0: a CC0 give-away must not bundle commercial ONIX sales metadata.
+            # Ω.0: a free give-away must not bundle commercial ONIX sales metadata.
             onix_entries = [n for n in names if "onix" in n.split("/")]
             assert not onix_entries, f"EPUB bundles commercial ONIX files: {onix_entries}"
             # Per-file <title> must be the edition title, not calibre's default.
@@ -438,7 +438,7 @@ class TestInjectIrregularLayout:
 
 
 class TestOnixExcludedFromPackage:
-    """Ω.0 free-public pivot: the EPUB is a CC0 give-away and must NOT carry
+    """Ω.0 free-public pivot: the EPUB is a free give-away and must NOT carry
     the commercial ONIX sales-metadata files. Legacy ONIX artifacts may still
     linger under ``epub_working/onix/`` (gitignored, but present on disk), and
     ``build_one`` copies the whole working tree into its temp build dir — so the

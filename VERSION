@@ -27,13 +27,15 @@ v1.0.0 ships:
 
 The "v1.0.0 ships" block above is the historical v1.0.0 release
 manifest (tagged 2026-05-10). The project is now in v1.x, free-public
-CC0 phase Ω.0 (post-pivot, non-commercial). Current corpus/edition/
-test counts and the live roadmap live in dev/SESSION_STATE.md +
+phase Ω.0 (post-pivot, non-commercial); the program is © 2026 Bogdan
+Zorlescu, all rights reserved / source-available (see LICENSE), while the
+incorporated biblical texts/lexicons stay public domain. Current corpus/
+edition/test counts and the live roadmap live in dev/SESSION_STATE.md +
 dev/CHANGELOG.md (not this file).
 
 See dev/RELEASE_NOTES_v1.0.0.md for the full release notes and
 dev/CHANGELOG.md for the chronological history.
 
 Tag command (user-side):
-  git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"
+  git tag -a v1.0.0 -m "v1.0.0 — first public release candidate"
   git push origin v1.0.0
