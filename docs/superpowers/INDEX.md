@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**68 documents** — 45 plans · 23 specs.
+**69 documents** — 46 plans · 23 specs.
 
-## In progress (22)
+## In progress (23)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | Post-Beta Growth Plan — "eyes on the site & program" (faith-grassroots + SEO graft + deferred Show HN) | `plans/2026-06-05-post-beta-growth-plan.md` | READY 2026-06-05 — solo/low-bandwidth/no-ad-budget growth strategy, post-`v1.0.0-beta.1`. Two-funnel insight (faithful+heritage on Telegram/FB/YouTube/mailing-lists vs OSS/Bible-tech on GitHub/HN/search); hero = the rare manuscript reader. Phases: 0 readiness (About + explainer/SEO pages) → 1 passive compounding (Wikipedia/Wikisource/faith.tools) → 2 warm heritage intros (Beta maṣāḥǝft/AGADE/Digital Orientalist) → 3 faith core (Mahibere Kidusan/EOTC creators/subreddits) → 4 one Show HN → steady-state milestone-only. Inviolable guardrails: never mention donations in outreach, gift-not-pitch, doctrinal humility. Grounded in workflow `wf_16ef99cc-4bb`. |
 | 2026-06-05 | Plan | Website Chapter-Reader — on-site Geʽez/Amharic reader (3 tiers, copy-paste, manuscript-authentic) | `plans/2026-06-05-website-chapter-reader-plan.md` | SHIPPED (Phase 1, pushed to monorepo) 2026-06-05 — surfaces ONLY transcribed scripture (own-versified ◑/●, the progress map's own signal — never OCR ◐ drafts), growing as we progress. **165 reader pages**: 161 parallel Geʽez|English (psa/1ki/1sa/2sa, Psalms-led) + 4 book indexes; Tier B/C (Geʽez/Amharic-only) auto-fill as books reach ◑/●. Free copy-paste + Ethiopic-numeral/rubricated manuscript styling; verified (7 tests, 0 console errors, 0 dead links, byte-stable top-level). Static, dep-free, never over-claims; byte-disjoint from the EPUB pipeline. **LIVE deploy user-gated.** |
 | 2026-06-05 | Plan | Ge'ez & Amharic progress page — implementation | `plans/2026-06-05-geez-amharic-progress-page.md` | READY 2026-06-05 — 6 TDD tasks (store-derived stage generator → fragment render → `build.mjs` inline → page+nav → CSS → build+QA). Collision-free launch-prep; not on the audit critical path. |
 | 2026-06-05 | Plan | ★Forward plan — to launch (9 editions mint) and beyond | `plans/2026-06-05-forward-plan-to-launch.md` | ACTIVE 2026-06-05 — the master forward plan. Done-line = the 9 KJV editions mint (Ge'ez/Amharic = future updates). Spine: re-ingest #2–5 (Mac) → split audit + fix pass → [USER] device test → launch v1.0.0-beta.1 → post-launch Growth/Outreach + the Ge'ez/Amharic arc. Survey-grounded (editions-readiness · backlog-triage · website/socials) |
