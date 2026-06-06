@@ -106,6 +106,7 @@ clear → public flip + `v1.0.0-beta.1`.
 5. `book_native_names.NATIVE_NAMES` completeness: no guard that all 87 books have a record.
 6. Ingest pipeline (`extract_*.py`, `promote.py`, `prospect.py`, `batch_promote_xrefs.py`) not covered by any dimension.
 7. Web API surface (`scripts/api/*.py` beyond `editions.py`) — XSS / validation / error-path coverage not audited.
+8. **mypy gate is narrow** — `[tool.mypy] files` covered only `scripts/core` + `build_edition.py`; round-5 (Mac) added `scripts/validate_schemas.py` after fixing 2 invisible `type`-shadow errors there, but most of `scripts/*.py` is still type-unchecked. Expand outward as call sites annotate (ω.31.x). (Separately: `ruff check` — SIM/C901 etc. — is intentionally NOT a gate; only `ruff format --check` is. Those are non-enforced style/complexity debt under LANE T code-debt, not bugs.)
 
 ## Raw data
 - Win: the 15 survivors + the full phased fix plan are **embedded above** (the raw JSON was a transient artifact — re-derive from audit run `wf_eeaa8368-6da` if the per-finding verifier panels are ever needed).

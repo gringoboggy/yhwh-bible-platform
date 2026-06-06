@@ -137,7 +137,7 @@ check_untyped_defs = false
 disallow_untyped_defs = false
 strict_optional = false
 # Per-package overrides — start from scripts/core/ and expand outward.
-files = ["scripts/core", "scripts/build_edition.py"]
+files = ["scripts/core", "scripts/build_edition.py", "scripts/validate_schemas.py"]
 
 [[tool.mypy.overrides]]
 module = "scripts.*"

@@ -144,6 +144,19 @@ Design goal: the ONLY recurring obligation is light comment-tending + the pleasa
 
 Passive/compounding assets **first** (no presence needed, and they legitimize you) → warm amplifying intros **second** (they spread it free, but need credibility to land) → faith core **third** (patient relationships, the real long-term audience) → the one tech moment **last** (highest variance; needs the site to reward scrutiny + a real foundation so it doesn't read as drive-by promo). The SEO/content engine isn't a separate phase — it's grafted as a free byproduct of the About + explainer pages (Phase 0) and the guest post (Phase 2), so durable search traffic accrues with zero extra grind.
 
+## Prepared launch posts — queued, go live WITH the post-release batch (not before)
+
+User-directed (2026-06-06): these ship together with `v1.0.0-beta.1`, never standalone. Plain, sincere register; **no donation ask**.
+
+### Claude / Anthropic credit — chosen form: a 2-post thread (user picked "Option D")
+The project was built with Claude's help (reading the manuscripts + the code), disclosed openly on the About page — so a public thank-you is honest and on-ethos.
+
+> **1/** The Geʽez Bible — the scripture of the Ethiopian Orthodox Church — is now free to read online, transcribed from the original manuscripts with a literal English translation beside it. No paywall, no account. www.yhwhyaway.com
+>
+> **2/** I'm a first-time programmer; I couldn't have done this alone. Claude (@AnthropicAI) read the centuries-old manuscript script with me, line by line, and helped me build the site. Genuinely grateful. 🕊️
+
+*Alternatives kept (single-post, if a thread isn't wanted): a mission-first thank-you · a maker-story · a plain one-liner.* `@AnthropicAI` is the correct tag; confirm a dedicated Claude handle before posting. Posting is via Playwright (user logged into X) or by the user; **do not post before the release.**
+
 ## Self-review
 - **Coverage:** all four researched dimensions (audiences/channels, tactics, SEO/PR, positioning/ethics) map into the phases + guardrails + channel table; the two-funnel insight + hero-hook decision drive the sequencing.
 - **Ethos:** every step honors free-forever + plain/reverent + no-donations-in-outreach + doctrinal humility (the hard constraints) — and the guardrails are stated up front as inviolable.

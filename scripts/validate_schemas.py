@@ -31,6 +31,7 @@ of structure.
 from __future__ import annotations
 
 import argparse
+import builtins
 import dataclasses
 import json
 import sys
@@ -77,8 +78,12 @@ class FieldSpec:
 
     name: str
     required: bool = True
-    type: type | tuple[type, ...] = str
-    item_type: type | None = None
+    # NB: the field is named `type`, which shadows the builtin within the class
+    # body — annotate via `builtins.type` so the annotations on this and the next
+    # line resolve to the builtin, not to this field (round-5 audit: cleared 2
+    # mypy `valid-type`/`attr-defined` errors that were invisible to the gate).
+    type: builtins.type | tuple[builtins.type, ...] = str
+    item_type: builtins.type | None = None
     constraint: Callable[[Any], bool] | None = None
     constraint_message: str = ""
 

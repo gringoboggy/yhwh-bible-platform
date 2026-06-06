@@ -2,8 +2,9 @@
 """ω.31 — type-checking audit wrapper around `mypy`.
 
 Runs mypy against the project's typed surface (currently
-`scripts/core/` + `scripts/build_edition.py`; expanded in future
-ω.31.x phases as call-site annotations land). Returns 0 when no
+`scripts/core/`, `scripts/build_edition.py`, and `scripts/validate_schemas.py`
+— the exact set is the pyproject `[tool.mypy] files` list; expanded outward in
+future ω.31.x phases as call-site annotations land). Returns 0 when no
 type errors, 1 when real type errors remain. Suitable as a
 recurring lint check + a pre-commit gate.
 
@@ -160,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
 
     errors = result["errors"]
     if not errors:
-        print("  ✓ no type errors (mypy, scripts/core/ + scripts/build_edition.py)")
+        print("  ✓ no type errors (mypy, per pyproject [tool.mypy] files)")
         return 0
     print(f"  ✗ {len(errors)} type error(s):")
     for e in errors:
