@@ -512,9 +512,19 @@ class TestOmega231AstCacheReuse:
         a = run_all()
         b = run_all()
 
-        # Strip duration_ms (it varies per call by definition).
+        # Strip duration_ms (varies per call) and the inflight_freshness
+        # message/violations — they embed a live `age_hours` float that
+        # advances between the two back-to-back calls (wall-clock drift, not
+        # stale data leaking across the cache).
         def strip(out):
-            return [{k: v for k, v in c.items() if k != "duration_ms"} for c in out["checks"]]
+            rows = []
+            for c in out["checks"]:
+                d = {k: v for k, v in c.items() if k != "duration_ms"}
+                if d.get("id") == "inflight_freshness":
+                    d.pop("message", None)
+                    d.pop("violations", None)
+                rows.append(d)
+            return rows
 
         assert strip(a) == strip(b)
         assert a["summary"]["clean"] == b["summary"]["clean"]
@@ -618,8 +628,12 @@ class TestOmega18LintFix:
         import os as _os
         from scripts.lint_rules import _fix_freshness
 
-        # Force drift: bump CHANGELOG mtime 8h ahead.
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        # Force drift past the 6h threshold, robustly: anchor CHANGELOG 7h
+        # behind SESSION_STATE (the check measures abs drift, so direction
+        # is irrelevant; anchoring to _ss avoids flakiness when SESSION_STATE
+        # was just edited this session — the old `_cl + 8h` could fall under
+        # the threshold vs a freshly-touched SESSION_STATE).
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         # Capture pre-fix SESSION_STATE mtime so we can verify it's
         # unchanged after dry-run.
@@ -637,7 +651,7 @@ class TestOmega18LintFix:
         import os as _os
         from scripts.lint_rules import _fix_freshness
 
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         result = _fix_freshness({}, dry_run=False)
         assert result["ok"] is True
@@ -652,7 +666,7 @@ class TestOmega18LintFix:
         import os as _os
         from scripts.lint_rules import _fix_freshness
 
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         pre_ss = self._ss.stat().st_mtime
         result = _fix_freshness({}, dry_run=False)
@@ -719,7 +733,7 @@ class TestOmega18LintFix:
         from scripts.lint_rules import run_fixers
 
         # Force drift so freshness check fires.
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         result = run_fixers(check_ids=["freshness"], dry_run=False)
         assert len(result["checks"]) == 1
@@ -732,7 +746,7 @@ class TestOmega18LintFix:
         import os as _os
         from scripts.lint_rules import run_fixers
 
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         pre_ss = self._ss.stat().st_mtime
         result = run_fixers(check_ids=["freshness"], dry_run=True)
@@ -775,7 +789,7 @@ class TestOmega18LintFix:
 
         # Force drift so a fix would matter; default mode must
         # still NOT fix it.
-        cl_mtime = self._cl.stat().st_mtime + 8 * 3600
+        cl_mtime = self._ss.stat().st_mtime - 7 * 3600
         _os.utime(self._cl, (cl_mtime, cl_mtime))
         pre_ss = self._ss.stat().st_mtime
         main([])

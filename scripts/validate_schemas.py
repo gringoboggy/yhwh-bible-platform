@@ -213,6 +213,7 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("book_toc_ornament", type=str, required=False),
         FieldSpec("reader_toc_collapsible", type=bool, required=False),
         FieldSpec("reader_toc_default_open", type=bool, required=False),
+        FieldSpec("reader_toc_books_only", type=bool, required=False),
         # τ.G.constitution.a (2026-05-20) — standalone-Bible fields.
         # Per CLAUDE_PROJECT_RULES §1 "Parallel-Bible end-state — two
         # standalone Bibles", standalone-geez + standalone-amharic

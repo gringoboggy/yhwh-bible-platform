@@ -169,3 +169,52 @@ def test_per_verse_popup_override_changes_one_verse(tmp_path, monkeypatch):
         f"(lxx-greek is in popup_languages_default, no per-verse override for gen 1:2)\n"
         f"Aside text: {aside_1_2[:500]!r}"
     )
+
+
+def test_per_verse_override_alone_runs_the_vnote_pass(tmp_path, monkeypatch):
+    """Round-5 audit Phase-0 regression lock for ``needs_vnote_pass``.
+
+    Bug (now fixed, build_edition.py ~3917): the gate that decides whether the
+    popup-language pass runs checked only ``popup_languages_default`` /
+    ``_per_book``. An edition whose ONLY popup config was ``_per_chapter`` or
+    ``_per_verse`` was silently SKIPPED → the per-verse override never applied.
+
+    This locks the fix: with the default cleared to ``None``, the ONLY thing
+    that can trigger the pass is the per-verse override. If the gate regressed,
+    no vnote asides are emitted and the first assertion fails.
+
+    Setup:
+      - popup_languages_default = None        (so default/per-book can't trigger it)
+      - popup_languages_per_verse = ["gen:1:1=wlc"]
+    Expect:
+      gen 1:1 → wlc only (Hebrew; override applied ⇒ the pass ran)
+      gen 1:2 → DEFAULT_POPUP_WITNESSES = wlc+lxx-greek+… ⇒ Hebrew AND Greek
+    """
+    epub = _build(
+        _ED_ID,
+        tmp_path / "per_verse_only",
+        monkeypatch=monkeypatch,
+        extra_fields={
+            "popup_languages_default": None,
+            "popup_languages_per_verse": ["gen:1:1=wlc"],
+        },
+    )
+    content = _epub_xhtml_text(epub)
+    aside_1_1 = _extract_aside(content, _ASIDE_GEN_1_1)
+    aside_1_2 = _extract_aside(content, _ASIDE_GEN_1_2)
+
+    assert aside_1_1, (
+        f"No vnote aside id={_ASIDE_GEN_1_1!r} — with the default cleared, the per-verse "
+        f"override is the ONLY trigger; a missing aside means the needs_vnote_pass gate "
+        f"skipped this per-verse-only edition (the regressed bug)."
+    )
+    assert aside_1_2, f"Expected vnote aside id={_ASIDE_GEN_1_2!r}"
+
+    # gen 1:1 — per-verse override → Hebrew only (proves the pass ran + pruned)
+    assert _CLASS_HEBREW in aside_1_1, f"gen 1:1 should contain {_CLASS_HEBREW!r}\n{aside_1_1[:400]!r}"
+    assert _CLASS_GREEK not in aside_1_1, (
+        f"gen 1:1 should be wlc-only; Greek present ⇒ the per-verse override didn't apply\n{aside_1_1[:400]!r}"
+    )
+    # gen 1:2 — no override, default cleared → DEFAULT_POPUP_WITNESSES (Hebrew + Greek)
+    assert _CLASS_HEBREW in aside_1_2, f"gen 1:2 should contain {_CLASS_HEBREW!r}\n{aside_1_2[:400]!r}"
+    assert _CLASS_GREEK in aside_1_2, f"gen 1:2 should contain {_CLASS_GREEK!r}\n{aside_1_2[:400]!r}"

@@ -511,12 +511,20 @@ def _build_to(path: Path) -> tuple[int, str]:
         # Atomic swap. Δ.4.1 attempt #5 (2026-05-11) — switched from
         # `unlink + rename` to `tmp.replace(path)` because on Windows
         # the discrete unlink can race with a sibling worker's still-
-        # closing sqlite handle. `Path.replace()` calls `os.replace()`
-        # which is atomic (Win32 MoveFileEx with REPLACE_EXISTING) and
-        # tolerates a target file that's being released by another
-        # handle in the same process. Same atomicity guarantee on
-        # POSIX. Eliminates the PermissionError class that surfaced
-        # on Δ.1 equivalence tests under 8-worker xdist load.
+        # closing sqlite handle. `Path.replace()` calls `os.replace()`,
+        # which is atomic on POSIX and, on Windows, MoveFileEx with
+        # REPLACE_EXISTING.
+        # ⚠ CORRECTION (round-5 audit): the swap is NOT self-healing.
+        # MoveFileEx still FAILS with PermissionError (WinError 5) if ANY
+        # handle on the destination `path` is open — atomicity only
+        # guarantees a reader sees either the old or the new file, never a
+        # half-written one; it does NOT tolerate an open dest handle. What
+        # actually prevents the PermissionError here is closing every
+        # cached connection to `path` (the `_CACHED_CONN.close()` guards
+        # under `_CONN_LOCK`, mint-11) BEFORE this swap, so no open dest
+        # handle remains. That close-guarding — not `os.replace` — is what
+        # eliminated the PermissionError class on Δ.1 equivalence tests
+        # under 8-worker xdist load.
         # mint-11 #14: compute the fingerprint BEFORE the swap so it reflects the
         # notes state the index was just built from. After tmp.replace, a notes
         # edit landing in the gap would be recorded as a MATCH — masking the

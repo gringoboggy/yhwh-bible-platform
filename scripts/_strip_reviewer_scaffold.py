@@ -40,6 +40,9 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO))
+
+from scripts.core import notes_io  # noqa: E402  — crash-safe canonical writes
 
 # The one strip pattern, shared by every consumer (the promote.py defensive
 # strip and the lint guard reference this same shape). A leading \s* eats the
@@ -61,7 +64,8 @@ def _strip_dir(paths: list[Path], label: str) -> tuple[int, int]:
             continue
         new_text, n = SCAFFOLD_RE.subn("", text)
         if n:
-            p.write_text(new_text, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, new_text)
             files_changed += 1
             total_removed += n
             print(f"  {p.name}: -{n}")

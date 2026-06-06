@@ -35,6 +35,19 @@ can run + push concurrently (pull before push).**
 `git pull --ff-only` before every push. When both slices are green → the release gate is
 clear → public flip + `v1.0.0-beta.1`.
 
+> **✅ Mac slice DONE (2026-06-06):** Phase 2 atomic-write migrations (`_reingest_eastons.py`
+> ×2 + `_strip_reviewer_scaffold.py` → `notes_io.ensure_backup`+`atomic_write`); Phase 3 test
+> fixes (`validate_schemas` `reader_toc_books_only` FieldSpec → **test_validate_schemas 49
+> passed**; `TestOmega18LintFix` freshness anchored to `_ss−7h` ×6 + `two_back_to_back` strips
+> `inflight_freshness` message/violations → **test_lint_rules 12 passed**; `test_batch_promote_xrefs`
+> `'''`→`"""` already done); Phase 4 `corpus_index` comment correction + the `needs_vnote_pass`
+> regression test (written, `slow`-tagged — verify on the SSD). `lint_rules.py` CLEAN, `ruff
+> format` clean, mypy no-new-errors. **⏸ DEFERRED — the `check_atomic_writes` lint EXTENSION**
+> (catch `.write_text`/`.write_bytes`): its ~80-site sweep spans `build_edition.py` (win's file) +
+> `build_standalone.py`/`core/manuscript_*` (marathon core, off-limits) → NOT cleanly disjoint;
+> do it AFTER the win build-path lands, to avoid `build_edition.py` merge conflicts. The two
+> genuine canonical writers it would have caught are already migrated above.
+
 ---
 
 ## Win-lane fix plan (the phased queue — synthesizer output, verified against live source)

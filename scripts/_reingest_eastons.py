@@ -45,6 +45,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from scripts.core import notes_io  # noqa: E402  — crash-safe canonical writes
 from scripts.extract_eastons_ccel import SOURCE  # noqa: E402  — just the source path
 
 NOTES_DIR = REPO / "content" / "notes"
@@ -203,7 +204,8 @@ def main(argv: list[str] | None = None) -> int:
             if ob in new_text:
                 new_text = new_text.replace(ob, nb)
         if new_text != text:
-            p.write_text(new_text, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, new_text)
             src_written += 1
     for p, text in base_texts.items():
         new_text = text
@@ -213,7 +215,8 @@ def main(argv: list[str] | None = None) -> int:
                 new_text = new_text.replace(ob, nb)
                 base_repl += cnt
         if new_text != text:
-            p.write_text(new_text, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, new_text)
             base_written += 1
     print(f"\nWROTE: src={src_written} base={base_written} ({base_repl} occ); {len(base_miss)} src-only.")
     return 0
