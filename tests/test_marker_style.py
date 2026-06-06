@@ -150,16 +150,28 @@ class TestApplyBadgeMarkersUnit:
         # (b) exactly one badge per verse-that-has-notes; gen 1 has 31 such verses
         v1_badges = re.findall(r'id="vbadge-gen-1-\d+"', text)
         assert len(v1_badges) == 31, f"expected 31 gen-1 verse badges, got {len(v1_badges)}"
-        # The badge count is BY POSITION (the task's rule): a verse-end-fallback
-        # marker counts for the verse it physically renders in, not the verse its
-        # id encodes. Gen 1:1's region holds 15 markers (2 Hebrew word-notes whose
-        # KJV-anchor word isn't in the WEB text fell back into 1:2's region).
-        m = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-1"[^>]*title="(\d+) notes?"', text)
-        assert m and m.group(1) == "15", f"gen 1:1 badge count wrong: {m.group(1) if m else None}"
-        # The total notes collapsed across the chapter is conserved (= the base's
-        # per-note marker count for gen 1): nothing is dropped, only regrouped.
-        total = sum(int(x) for x in re.findall(r'id="vbadge-gen-1-\d+"[^>]*title="(\d+) notes?"', text))
-        assert total == 225, f"gen 1 badge counts must sum to the 225 base markers, got {total}"
+        # RX-beta2 ①: the badge glyph is the ◈ note-mark + a count (never a bare
+        # number that blends with the verse number / the translation marker).
+        for sup in re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text):
+            assert sup.startswith("◈"), f"badge sup missing the ◈ glyph: {sup!r}"
+        # RX-beta2 ②③: each badge's displayed count == the number of de-duped,
+        # grouped .vn-item rows in its merged aside, and the chapter total is
+        # CONSERVED-OR-LOWER vs the 225 raw base markers (dedup may drop byte-
+        # identical repeats — e.g. the gen 1:1 duplicate cross-ref — nothing else).
+        total = 0
+        for vv in re.findall(r'id="vbadge-gen-1-(\d+)"', text):
+            bm = re.search(rf'id="vbadge-gen-1-{vv}"[^>]*title="(\d+) notes?"', text)
+            am = re.search(
+                rf'<aside class="verse-notes" id="vnotes-gen-1-{vv}"[^>]*>(.*?)</aside>',
+                text,
+                re.DOTALL,
+            )
+            assert bm and am, f"gen 1:{vv} badge/aside missing"
+            cnt = int(bm.group(1))
+            rows = am.group(1).count('class="vn-item')
+            assert cnt == rows, f"gen 1:{vv} badge count {cnt} != {rows} rows in its aside"
+            total += cnt
+        assert 0 < total <= 225, f"gen 1 badge counts sum {total} should be in (0, 225]"
 
     def test_one_merged_aside_per_verse_with_notes(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
@@ -182,15 +194,17 @@ class TestApplyBadgeMarkersUnit:
         # (d) every badge href resolves to its vnotes aside id
         for vv in re.findall(r'href="#vnotes-gen-1-(\d+)"', text):
             assert f'id="vnotes-gen-1-{vv}"' in text, f"badge href #vnotes-gen-1-{vv} has no aside"
-        # the merged aside for v1 lists one .vn-item per note IN that verse's
-        # region (15, matching the badge count — see the position-grouping note).
+        # the merged aside for v1 lists one .vn-item per UNIQUE note in that verse's
+        # region; the count matches the badge (post-dedup, post-grouping).
         m = re.search(
             r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>',
             text,
             re.DOTALL,
         )
         assert m
-        assert m.group(1).count('class="vn-item') == 15
+        bm = re.search(r'id="vbadge-gen-1-1"[^>]*title="(\d+) notes?"', text)
+        assert bm
+        assert m.group(1).count('class="vn-item') == int(bm.group(1))
 
     def test_orphan_marker_verse_is_skipped_and_counted(self, tmp_path):
         # round-5 audit Phase 4 (LOW): a verse whose inline marker has no matching
@@ -251,6 +265,72 @@ class TestApplyBadgeMarkersUnit:
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
         twice = (tmp / fname).read_text(encoding="utf-8")
         assert twice == once, "apply_badge_markers is not idempotent"
+
+    def test_dedup_drops_byte_identical_note(self, tmp_path):
+        # RX-beta2 ②: a verse carrying two byte-identical-CONTENT notes (the
+        # duplicate-cross-ref class of bug) collapses to ONE row. Construct it by
+        # cloning a real note's marker + aside under a fresh id in gen 1.
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        target = None
+        for f in book["files"]:
+            t = (epub / f).read_text(encoding="utf-8")
+            (tmp / f).write_text(t, encoding="utf-8")
+            if target is None and 'id="v-gen-1-1"' in t:
+                target, ttext = f, t
+        assert target is not None
+        mk = re.search(r'<a class="note-ref note-([a-z0-9-]+)" id="ref-([^"]+)"[^>]*>.*?</a>', ttext, re.DOTALL)
+        assert mk
+        kind, fid = mk.group(1), mk.group(2)
+        am = re.search(
+            r'<aside class="note note-' + re.escape(kind) + r'" id="note-' + re.escape(fid) + r'"[^>]*>.*?</aside>',
+            ttext,
+            re.DOTALL,
+        )
+        assert am
+        dup_marker = mk.group(0).replace(f'id="ref-{fid}"', f'id="ref-{fid}DUP"')
+        dup_aside = am.group(0).replace(f'id="note-{fid}"', f'id="note-{fid}DUP"')
+        new = ttext.replace(mk.group(0), mk.group(0) + dup_marker, 1).replace(am.group(0), am.group(0) + dup_aside, 1)
+        (tmp / target).write_text(new, encoding="utf-8")
+        stats = apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        assert stats["notes_deduped"] >= 1, f"injected duplicate note was not de-duped: {stats}"
+
+    def test_badge_rows_grouped_by_category_order(self, tmp_path):
+        # RX-beta2 ③: within each merged aside, rows are ordered by the fixed
+        # category rank (most-useful first; the long topical block always last).
+        from scripts.build_edition import (
+            apply_badge_markers,
+            _POPUP_CATEGORY_RANK,
+            _POPUP_CATEGORY_FALLBACK_RANK,
+        )
+        from scripts.inject import category_for
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        checked = 0
+        for f in book["files"]:
+            text = (tmp / f).read_text(encoding="utf-8")
+            for aside in re.findall(r'<aside class="verse-notes"[^>]*>(.*?)</aside>', text, re.DOTALL):
+                kinds = re.findall(r'<div class="vn-item note-([a-z0-9-]+)">', aside)
+                if len(kinds) < 2:
+                    continue
+                ranks = [_POPUP_CATEGORY_RANK.get(category_for(k), _POPUP_CATEGORY_FALLBACK_RANK) for k in kinds]
+                assert ranks == sorted(ranks), f"badge rows not in category order in {f}: {kinds}"
+                if any(category_for(k) == "topic" for k in kinds):
+                    assert category_for(kinds[-1]) == "topic", "topical note not grouped last"
+                checked += 1
+        assert checked > 0, "no multi-note badge asides found to check grouping"
 
 
 # ----------------------------------------------------------------------

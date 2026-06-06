@@ -1800,6 +1800,29 @@ _BADGE_MARKER_RE = re.compile(
 # aside carries ONE back-link in its verse header instead.
 _NOTE_BACK_RE = re.compile(r'<a href="#ref-[^"]+" class="note-back"[^>]*>.*?</a>\s*', re.DOTALL)
 
+# RX-beta2 ③: fixed most-useful → least-useful category order for the badge
+# popup, with the long topical block always LAST. Document order is preserved
+# within a category (stable sort). Unknown categories sort just above topical.
+_POPUP_CATEGORY_ORDER = (
+    "hist",
+    "comm",
+    "xref",
+    "text",
+    "lang",
+    "lit",
+    "compare",
+    "apol",
+    "dev",
+    "liturgy",
+    "ped",
+    "modern",
+    "vis",
+    "dist",
+    "topic",
+)
+_POPUP_CATEGORY_RANK = {c: i for i, c in enumerate(_POPUP_CATEGORY_ORDER)}
+_POPUP_CATEGORY_FALLBACK_RANK = _POPUP_CATEGORY_ORDER.index("topic") - 1
+
 
 def _badge_extract_note_kind(marker_html: str) -> str:
     """The kind token (e.g. ``lang-hebrew``) from a per-note marker element."""
@@ -1844,7 +1867,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """
     from scripts import inject as _inject
 
-    stats = {"badges_inserted": 0, "asides_merged": 0, "notes_collapsed": 0, "files_touched": 0, "badges_skipped": 0}
+    stats = {
+        "badges_inserted": 0,
+        "asides_merged": 0,
+        "notes_collapsed": 0,
+        "files_touched": 0,
+        "badges_skipped": 0,
+        "notes_deduped": 0,
+    }
 
     # Which split files actually survive in this edition's temp tree (canon
     # filter may have deleted some). Load each once; keyed by file name.
@@ -1919,10 +1949,16 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # Each note's aside may live anywhere in the chapter's
                     # notes-section (same file). Collect them in marker order so
                     # the merged list mirrors the reading order.
-                    rows: list[str] = []
+                    # Collect each note's row; DEDUP exact repeats (a verse can carry
+                    # two byte-identical notes — e.g. duplicate cross-ref tuples — that
+                    # otherwise render twice; RX-beta2 ②) and GROUP by category in the
+                    # fixed most-useful → least order with the long topical block LAST
+                    # (RX-beta2 ③). Document order is preserved within a category.
+                    row_items: list[tuple[int, int, str]] = []  # (cat_rank, doc_order, row)
                     aside_spans: list[tuple[int, int]] = []
+                    seen_rows: set[str] = set()
                     ok = True
-                    for fid, kind in zip(full_ids, kinds, strict=True):
+                    for doc_i, (fid, kind) in enumerate(zip(full_ids, kinds, strict=True)):
                         am = re.search(
                             r'<aside class="note note-[a-z][a-z0-9-]*" id="note-'
                             + re.escape(fid)
@@ -1935,8 +1971,15 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             # rather than emit a badge whose popup is short a row.
                             ok = False
                             break
-                        rows.append(_badge_aside_inner_to_row(am.group(1), kind))
                         aside_spans.append((am.start(), am.end()))
+                        row = _badge_aside_inner_to_row(am.group(1), kind)
+                        norm = " ".join(row.split())
+                        if norm in seen_rows:
+                            stats["notes_deduped"] += 1
+                            continue
+                        seen_rows.add(norm)
+                        rank = _POPUP_CATEGORY_RANK.get(_inject.category_for(kind), _POPUP_CATEGORY_FALLBACK_RANK)
+                        row_items.append((rank, doc_i, row))
                     if not ok:
                         # round-5 audit Phase 4 (LOW): record the silent orphan-bail
                         # (a verse with a marker but no matching aside) so a build can
@@ -1945,6 +1988,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # byte-stable.
                         stats["badges_skipped"] += 1
                         continue
+
+                    # Stable category sort (document order preserved within a category).
+                    row_items.sort(key=lambda t: (t[0], t[1]))
+                    rows = [r for _, _, r in row_items]
+                    n_show = len(rows)
 
                     merged_aside = (
                         f'<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}" epub:type="footnote">\n'
@@ -1955,11 +2003,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     )
 
                     # --- (1) one badge at the LAST marker's position ------------
-                    title = f"{n} note" if n == 1 else f"{n} notes"
+                    # Glyph = ◈ note-mark + the unique-note count, so it reads as
+                    # "notes here" and never blends with the verse number / the
+                    # translation (verse-number) marker (RX-beta2 ①).
+                    title = f"{n_show} note" if n_show == 1 else f"{n_show} notes"
                     badge = (
                         f'<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}" '
                         f'href="#vnotes-{code}-{ch}-{v}" epub:type="noteref" '
-                        f'title="{title}"><sup class="marker-badge">{n}</sup></a>'
+                        f'title="{title}"><sup class="marker-badge">◈{n_show}</sup></a>'
                     )
 
                     bucket = edits.setdefault(fname, [])
@@ -4295,7 +4346,11 @@ def build_one(
         # entries inside the first book's nested chapter <ol> → an out-of-spine-order
         # nav, epubcheck NAV-011). Runs BEFORE the splitter, which remaps the chapter
         # hrefs from the index_split files to the final pieces.
-        if edition.get("reader_toc_books_only"):
+        # RX-beta2 ⑧: per-chapter native-ToC enrichment is now OPT-IN via
+        # ``reader_native_toc_chapters`` (default off). On long-chapter books it made
+        # the Kobo native ToC an endless scroll; book-level is now the default (the
+        # nav.xhtml/toc.ncx already carry the book-level entries from the canon patch).
+        if edition.get("reader_native_toc_chapters"):
             nav_ch = enrich_nav_chapters(tmp)
             stats["nav_chapters_added"] = nav_ch["nav_chapters_added"]
             stats["ncx_chapters_added"] = nav_ch["ncx_chapters_added"]

@@ -111,7 +111,10 @@ p {
   display: block;
   margin: 0.6em 0;
   line-height: 1.55;
-  text-align: left !important;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 .right-p {
   display: block;
@@ -349,13 +352,17 @@ body, body.bible-body, p, p.verse-p, p.ch-heading, p.verse-p-flush {
      so it ONLY renders Ge'ez/Amharic fidel (the standalone Ge'ez Bibles'
      verse-p body text) and is inert for Latin, which falls through to the
      embedded "Cardo" (RX Phase 3 — fixes device #7 for Ethiopic too). */
-  font-family: "Noto Serif Ethiopic", "Cardo", "EB Garamond", "Crimson Text",
+  /* RX-beta2: dropped "Cardo" from the BODY stack so the reader's native serif
+     wins (user: embedded Cardo looked less neat on Kobo than Kobo's own serif);
+     dropped !important so reader font/leading overrides work. Cardo stays on the
+     Heb/Grk popups (.vnote-hebrew/.vnote-greek) where glyph coverage needs it. */
+  font-family: "Noto Serif Ethiopic", "EB Garamond", "Crimson Text",
                "Palatino Linotype", Palatino, Georgia, "Times New Roman",
-               serif !important;
-  line-height: 1.32 !important;
-  font-size: 0.95em;
+               serif;
+  line-height: 1.45;
+  font-size: 1.05em;        /* Apple-tuned (plain EPUB); the Kobo .kepub gets a smaller size */
 }
-p.verse-p { margin: 0.4em 0 !important; text-align: left; }
+p.verse-p { margin: 0.4em 0 !important; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 p.ch-heading { margin: 0.7em 0 0.3em 0 !important; }  /* chapter number paragraph */
 h1, h2, h3, h1.book-title {
   font-family: "Cardo", "EB Garamond", Georgia, "Times New Roman", serif !important;
@@ -445,6 +452,21 @@ h1, h2, h3, h1.book-title {
 .toc-wrap li.toc-book > details > summary > a:hover,
 .toc-wrap li.toc-book > a:hover { text-decoration: underline; }
 
+/* books_only flat ToC (ethiopian-tewahedo et al.): after dropping the chapter
+   pills the book label is the ONLY link, but it sits inside a <p class="toc-book-label">
+   so the maroon/bold rule above (direct-child of li.toc-book) no longer matches —
+   it falls back to the global a{} (navy, no underline) and reads as plain text on a
+   grey Kobo. Restore the tappable affordance + a big tap row. (RX-beta2 ⑨) */
+.toc-wrap li.toc-book > p.toc-book-label {
+  margin: 0.5em 0;
+  padding: 0.25em 0;
+}
+.toc-wrap li.toc-book > p.toc-book-label > a {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #7B0E0E;
+}
+
 /* Chapter pills — prettified */
 .toc-wrap ol.toc-chapters {
   list-style: none;
@@ -510,10 +532,15 @@ h1, h2, h3, h1.book-title {
   border-radius: 0.4em; padding: 1.2em 0.9em 1.0em 0.9em;
   background: rgba(184, 134, 11, 0.04);
 }
-.bookpage-eyebrow { font-variant: small-caps; letter-spacing: 0.22em; color: #8B6508; font-size: 0.78em; margin: 0 0 0.7em 0; font-style: italic; }
-.bookpage-title { font-size: 1.55em; font-weight: 700; color: #0B3D91; letter-spacing: 0.03em; margin: 0.1em 0 0.3em 0; line-height: 1.2; }
-.bookpage-subtitle { font-size: 0.92em; font-style: italic; color: #6a4a1f; margin: 0.2em 0 0.5em 0; }
-.bookpage-rule { color: #8B6508; font-size: 1.0em; margin: 0.5em 0 0.2em 0; }
+/* RX-beta2 ⑩: explicit text-align:center — these are <p> elements, so the
+   `body p { text-align:left }` rule (Apple-Books compat) was DIRECTLY left-aligning
+   the eyebrow + subtitle while the <h1> title inherited center → the recurring
+   "BOOK I / subtitle left, title centred" misalignment. Class specificity (0,0,1,0)
+   beats `body p` (0,0,0,2), so this finally fixes it across all 87 books. */
+.bookpage-eyebrow { text-align: center; font-variant: small-caps; letter-spacing: 0.22em; color: #8B6508; font-size: 0.78em; margin: 0 0 0.7em 0; font-style: italic; }
+.bookpage-title { text-align: center; font-size: 1.55em; font-weight: 700; color: #0B3D91; letter-spacing: 0.03em; margin: 0.1em 0 0.3em 0; line-height: 1.2; }
+.bookpage-subtitle { text-align: center; font-size: 0.92em; font-style: italic; color: #6a4a1f; margin: 0.2em 0 0.5em 0; }
+.bookpage-rule { text-align: center; color: #8B6508; font-size: 1.0em; margin: 0.5em 0 0.2em 0; }
 
 /* === §4.5 per-book title-page art (full-bleed / framed) === */
 /* The per-book art (content/covers/_book_defaults/<book>.jpg) is a 2:3
@@ -596,7 +623,10 @@ body, body.bible-body {
 
 body, body.bible-body, p, p.verse-p, p.verse-p-flush, p.ch-heading,
 .note, .vnote, .toc-wrap {
-  font-family: "IM Fell English", "Goudy Bookletter 1911", "Sorts Mill Goudy", "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif !important;
+  /* RX-beta2: reconciled to the body stack above (was the dead IM Fell/Goudy
+     names forcing embedded Cardo via !important). Reader-native serif now wins;
+     Noto Serif Ethiopic stays range-scoped for Ge'ez/Amharic. */
+  font-family: "Noto Serif Ethiopic", "EB Garamond", "Crimson Text", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
 }
 
 /* "smart" flow — chapters share pages when room exists, but the chapter
@@ -748,3 +778,38 @@ p.verse-p, p.verse-p-flush {
    it is in a single-note popup), so the list stays compact. */
 .vn-item .note-label { display: inline; font-size: 0.82em; margin: 0 0.3em 0 0; }
 .vn-item .note-tradition-label { display: inline; font-size: 0.78em; font-style: italic; color: #6E5840; margin: 0 0.3em 0 0; }
+
+/* === RX-beta2 ②③④: tinted note CARDS in the badge popup =====================
+   Each note renders as its own soft category-tinted card so a verse's notes read
+   as distinct, scannable items instead of one run-together block. The left-accent
+   COLOUR comes from the existing per-category .note-* spine rules (we override only
+   border width/style here, so the category hue survives); we add the matching soft
+   fill. Grouping (most-useful → topical last) + dedup happen in apply_badge_markers. */
+.verse-notes .vn-item {
+  border-top: none;
+  margin: 0.5em 0;
+  padding: 0.5em 0.7em;
+  border-radius: 0.35em;
+  border-left-width: 4px;
+  border-left-style: solid;
+  background: #f3f1ec;                 /* neutral default; per-category fills below */
+}
+.verse-notes .vn-item.note-comm,
+.verse-notes .vn-item[class*="note-comm-"]    { background: #EAF0FA; }   /* commentary — blue */
+.verse-notes .vn-item.note-word,
+.verse-notes .vn-item[class*="note-lang-"]    { background: #F7F1E0; }   /* word study — gold */
+.verse-notes .vn-item.note-source,
+.verse-notes .vn-item[class*="note-text-"]    { background: #FAEDEE; }   /* textual / MS — crimson */
+.verse-notes .vn-item.note-parallel,
+.verse-notes .vn-item[class*="note-xref-"]    { background: #F1ECF8; }   /* cross-refs — violet */
+.verse-notes .vn-item[class*="note-hist-"]    { background: #F6EFE6; }   /* historical — umber */
+.verse-notes .vn-item[class*="note-lit-"]     { background: #EEF0F3; }   /* literary — slate */
+.verse-notes .vn-item[class*="note-compare-"] { background: #E9F2F2; }   /* comparative — teal */
+.verse-notes .vn-item[class*="note-dev-"]     { background: #F7ECF1; }   /* devotional — mauve */
+.verse-notes .vn-item[class*="note-liturgy-"] { background: #F7F1E0; }   /* liturgical — gold */
+.verse-notes .vn-item[class*="note-apol-"]    { background: #EAF2EC; }   /* apologetic — green */
+.verse-notes .vn-item[class*="note-modern-"]  { background: #ECF1F8; }   /* modern — blue */
+.verse-notes .vn-item[class*="note-ped-"]     { background: #F2EFEA; }   /* pedagogical — brown */
+.verse-notes .vn-item[class*="note-vis-"]     { background: #F0F2E8; }   /* visual — olive */
+.verse-notes .vn-item[class*="note-dist-"]    { background: #F1ECF5; }   /* edition-distinctive — purple */
+.verse-notes .vn-item[class*="note-topic-"]   { background: #EFF1F4; }   /* topical — slate-grey */
