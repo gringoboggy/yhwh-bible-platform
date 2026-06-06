@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**66 documents** — 44 plans · 22 specs.
+**68 documents** — 45 plans · 23 specs.
 
-## In progress (21)
+## In progress (22)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Plan | Website Chapter-Reader — on-site Geʽez/Amharic reader (3 tiers, copy-paste, manuscript-authentic) | `plans/2026-06-05-website-chapter-reader-plan.md` | BUILDING 2026-06-05 — surface ONLY the transcribed scripture (own-versified ◑/●, the progress map's own signal — never OCR ◐ drafts), growing as we progress: Geʽez+English parallel where EN exists, single-column Geʽez/Amharic where transcribed-but-not-yet-translated (English after full release). Today = 161 parallel chapters (psa/1ki/1sa/2sa, Psalms-led); Tier B/C = 0 now, auto-fill later. Free copy-paste + Ethiopic-numeral/rubricated manuscript styling. Static, dep-free, never over-claims; byte-disjoint from the EPUB pipeline. |
 | 2026-06-05 | Plan | Ge'ez & Amharic progress page — implementation | `plans/2026-06-05-geez-amharic-progress-page.md` | READY 2026-06-05 — 6 TDD tasks (store-derived stage generator → fragment render → `build.mjs` inline → page+nav → CSS → build+QA). Collision-free launch-prep; not on the audit critical path. |
 | 2026-06-05 | Plan | ★Forward plan — to launch (9 editions mint) and beyond | `plans/2026-06-05-forward-plan-to-launch.md` | ACTIVE 2026-06-05 — the master forward plan. Done-line = the 9 KJV editions mint (Ge'ez/Amharic = future updates). Spine: re-ingest #2–5 (Mac) → split audit + fix pass → [USER] device test → launch v1.0.0-beta.1 → post-launch Growth/Outreach + the Ge'ez/Amharic arc. Survey-grounded (editions-readiness · backlog-triage · website/socials) |
 | 2026-06-05 | Plan | Split deep-audit — round 5 end-of-project / beta sweep (run across both machines) | `plans/2026-06-05-split-audit-plan.md` | READY 2026-06-05 — auditor round-5 + current (new `rx-surfaces` dim) + split-ready (LANE win/mac); two fresh sessions run disjoint dims (N95=tests/builds · Mac=code-review) → merge on N95; runs AFTER Mac's re-ingest #2–5 (user: "#2–5 first") |
@@ -32,10 +33,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
 | 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
 
-## Planned / design (23)
+## Planned / design (24)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-05 | Spec | Website chapter-reader — "the Bible on the website" (on-site Geʽez/Amharic + literal-English reader from the progress pills) | `specs/2026-06-05-website-chapter-reader-design.md` | APPROVED (design) 2026-06-05 — surface the already-transcribed Geʽez/Amharic scripture (+ its literal English where done) on the site, statically generated from the same store the EPUBs use, clickable only where real text exists (Guard #2 by construction); free copy-paste; manuscript-authentic (Ethiopic numerals + rubrication). Three tiers (parallel / Geʽez-only / Amharic-only); grows as transcription progresses. |
 | 2026-06-05 | Spec | Ge'ez & Amharic progress page — its own website page (per-book staged grid + manuscript-source links + free-will-funding) | `specs/2026-06-05-geez-amharic-progress-page-design.md` | APPROVED (design) 2026-06-05 — honest data-driven per-book progress for the Ge'ez/Amharic Bibles (◻ not started · ◐ source gathered · ◑ transcribed · ● Bible-ready); build-time `progress.json` from the real store so it can't over-claim; reinforces the launch transparency. Next: writing-plans. |
 | 2026-06-04 | Spec | Edition Cover + Truthful Front Matter (Holy Bible cover · "Your Edition" page · build-accurate counts/glossary · Ge'ez/Amharic default covers) | `specs/2026-06-04-edition-cover-and-truthful-front-matter-design.md` | APPROVED 2026-06-04 — brainstormed w/ visual companion; σ.1–σ.6 phasing; build-accurate counter honors the ρ.3 hierarchical choices. Next: writing-plans. |
 | 2026-06-04 | Spec | Hierarchical Edition Customization — navigate-your-Bible (4-level × 2-dimension) | `specs/2026-06-04-hierarchical-edition-customization-design.md` | APPROVED 2026-06-04 — 4 levels (Bible→book→chapter→individual) × 2 dimensions (note symbols + translation popups); Tier-1 + individual-note already ship; Phase A plan written + executing; Phases B (popups) / C (`/build-my-bible`) follow |
