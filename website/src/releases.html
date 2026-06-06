@@ -10,11 +10,10 @@ page: releases
       <img class="beta-medallion" src="icons/icon_256.png" width="160" height="160"
            alt="YHWH Ya’ Way program icon" loading="eager">
       <h1 id="rel-title">Download &amp; Releases</h1>
-      <p class="tagline">The first public build is almost here — early, free, and nearly ready to try.</p>
-      <p class="mission">This will be the very first release of YHWH Ya’ Way to the world: an early build,
-        complete enough to make real editions, with a few rough edges to expect — your feedback wanted. It is
-        free, runs entirely on your own computer, and keeps nothing — no account, no server, no tracking.
-        Downloads post here the moment the first build is ready.</p>
+      <p class="tagline">The beta is live — free, runs on your own computer, no account, no tracking.</p>
+      <p class="mission">Download the ready-made <strong>Ethiopian Tewahedo Study Bible</strong> below, or the
+        desktop app to build your own editions. This is an early release — a few rough edges to expect, and
+        your feedback is wanted.</p>
     </section>
 
     <!-- ──────────────── WHAT "BETA" MEANS ────────────────────── -->
@@ -24,8 +23,23 @@ page: releases
         never asks you to turn off any protection.</p>
     </section>
 
+    <!-- ──────────────── READ THE ETHIOPIAN BIBLE (the one EPUB) ─ -->
+    <section class="band band-alt" aria-labelledby="bible-h">
+      <h2 id="bible-h" class="rule">Read the Ethiopian Bible</h2>
+      <p class="prose">The full <strong>Ethiopian Tewahedo Study Bible</strong> — the 81-book canon with study
+        notes, cross-references, manuscript witnesses, and original-language popups (Hebrew, Greek, Latin,
+        Arabic). One file, free to read, copy, and share. No app required — it opens in any e-reader.</p>
+      <p class="platforms">
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/YHWH-Ethiopian-Bible-v1.0.0-beta.2.epub" download>Ethiopian Bible — EPUB (Apple Books &amp; most readers)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/YHWH-Ethiopian-Bible-v1.0.0-beta.2.kepub.epub" download>Ethiopian Bible — Kobo (.kepub, for footnote popups)</a>
+      </p>
+      <p class="platform-note">On a <strong>Kobo</strong>, sideload the <code>.kepub.epub</code> — it turns on the
+        tap-to-read footnote popups. On Apple Books and most other readers, use the plain <code>.epub</code>.
+        Verify with <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
+    </section>
+
     <!-- ──────────────── GET THE BUILD (latest + downloads) ───── -->
-    <section class="band band-alt" aria-labelledby="get-build">
+    <section class="band" aria-labelledby="get-build">
       <h2 id="get-build" class="rule">Get the build</h2>
 
       <!-- Latest-release card. The name/meta below are the build-time fallback (correct as of the last deploy,
@@ -54,6 +68,24 @@ page: releases
     </section>
 
     <!-- Windows is Azure Trusted Signing–signed; macOS is Apple-notarized. -->
+
+    <!-- ──────────────── WHAT'S CHANGED (update log, keep ≤3) ─── -->
+    <section class="band band-alt" aria-labelledby="changelog-h">
+      <h2 id="changelog-h" class="rule">What’s changed</h2>
+      <h3 class="sub-h">v1.0.0-beta.2 — Ethiopian Bible, device-QA fixes</h3>
+      <ul class="prose">
+        <li>Restored verse text at chapter starts — fixed a verse-numbering error across 161 chapters.</li>
+        <li>Justified text; larger, reader-adjustable size; the reader’s own serif on e-ink readers.</li>
+        <li>Centred book title pages.</li>
+        <li>Note markers are now a ◈ symbol with a count; note popups de-duplicated, grouped by category, and colour-coded.</li>
+        <li>Clearly tappable in-content contents links; a book-level reader table of contents.</li>
+        <li>A Kobo <code>.kepub.epub</code> variant that turns on the footnote popups.</li>
+      </ul>
+      <h3 class="sub-h">v1.0.0-beta.1 — first public beta</h3>
+      <ul class="prose">
+        <li>First public release — the Ethiopian Tewahedo Study Bible plus the desktop builder app for Windows, macOS, and Linux.</li>
+      </ul>
+    </section>
 
     <!-- ─────────────────── VERIFY ─────────────────────────────── -->
     <section class="band band-alt" aria-labelledby="verify">
