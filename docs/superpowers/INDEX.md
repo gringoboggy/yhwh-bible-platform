@@ -4,12 +4,14 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**69 documents** — 46 plans · 23 specs.
+**71 documents** — 47 plans · 24 specs.
 
-## In progress (23)
+## In progress (25)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-06 | Spec | Beta Device-QA — Reader Presentation & Distribution Polish | `specs/2026-06-06-beta-device-qa-presentation-design.md` | Approved design 2026-06-06 — distinct note(◈)/translation markers · colour-coded tinted de-duped note cards · justify + per-device font (Apple larger / Kobo kepub smaller) · book-level native ToC + .kepub popups · clickable in-content ToC · centred title page · OCR de-hyphenation + structural audit · empty-page + front-matter fixes · website single-download + capped update log → cut v1.0.0-beta.2. |
+| 2026-06-06 | Plan | Beta Device-QA — Reader Presentation & Distribution Polish — Implementation Plan | `plans/2026-06-06-beta-device-qa-presentation-plan.md` | READY 2026-06-06 — 8 phases (CSS wins → note popup → native-ToC+kepub → structural audit → corpus cleanups → title page → website → v1.0.0-beta.2 release). macOS notarization Mac-gated. |
 | 2026-06-05 | Plan | Post-Beta Growth Plan — "eyes on the site & program" (faith-grassroots + SEO graft + deferred Show HN) | `plans/2026-06-05-post-beta-growth-plan.md` | READY 2026-06-05 — solo/low-bandwidth/no-ad-budget growth strategy, post-`v1.0.0-beta.1`. Two-funnel insight (faithful+heritage on Telegram/FB/YouTube/mailing-lists vs OSS/Bible-tech on GitHub/HN/search); hero = the rare manuscript reader. Phases: 0 readiness (About + explainer/SEO pages) → 1 passive compounding (Wikipedia/Wikisource/faith.tools) → 2 warm heritage intros (Beta maṣāḥǝft/AGADE/Digital Orientalist) → 3 faith core (Mahibere Kidusan/EOTC creators/subreddits) → 4 one Show HN → steady-state milestone-only. Inviolable guardrails: never mention donations in outreach, gift-not-pitch, doctrinal humility. Grounded in workflow `wf_16ef99cc-4bb`. |
 | 2026-06-05 | Plan | Website Chapter-Reader — on-site Geʽez/Amharic reader (3 tiers, copy-paste, manuscript-authentic) | `plans/2026-06-05-website-chapter-reader-plan.md` | SHIPPED (Phase 1, pushed to monorepo) 2026-06-05 — surfaces ONLY transcribed scripture (own-versified ◑/●, the progress map's own signal — never OCR ◐ drafts), growing as we progress. **165 reader pages**: 161 parallel Geʽez|English (psa/1ki/1sa/2sa, Psalms-led) + 4 book indexes; Tier B/C (Geʽez/Amharic-only) auto-fill as books reach ◑/●. Free copy-paste + Ethiopic-numeral/rubricated manuscript styling; verified (7 tests, 0 console errors, 0 dead links, byte-stable top-level). Static, dep-free, never over-claims; byte-disjoint from the EPUB pipeline. **LIVE deploy user-gated.** |
 | 2026-06-05 | Plan | Ge'ez & Amharic progress page — implementation | `plans/2026-06-05-geez-amharic-progress-page.md` | READY 2026-06-05 — 6 TDD tasks (store-derived stage generator → fragment render → `build.mjs` inline → page+nav → CSS → build+QA). Collision-free launch-prep; not on the audit critical path. |
