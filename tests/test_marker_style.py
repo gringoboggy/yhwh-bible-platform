@@ -192,6 +192,44 @@ class TestApplyBadgeMarkersUnit:
         assert m
         assert m.group(1).count('class="vn-item') == 15
 
+    def test_orphan_marker_verse_is_skipped_and_counted(self, tmp_path):
+        # round-5 audit Phase 4 (LOW): a verse whose inline marker has no matching
+        # aside must be SKIPPED (no badge with a popup short a row) AND counted in
+        # ``badges_skipped`` — not silently dropped. Construct the orphan by
+        # deleting exactly one of gen 1's asides while leaving its inline marker.
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        target = None
+        for f in book["files"]:
+            t = (epub / f).read_text(encoding="utf-8")
+            (tmp / f).write_text(t, encoding="utf-8")
+            if target is None and 'id="v-gen-1-1"' in t:
+                target = f
+        assert target is not None, "gen 1 base file not found"
+
+        text = (tmp / target).read_text(encoding="utf-8")
+        # Drop exactly ONE per-note aside (same file as its marker — inject
+        # co-locates them), orphaning that marker.
+        new_text, n = re.subn(
+            r'<aside class="note note-[a-z][a-z0-9-]*" id="note-[^"]+"[^>]*>.*?</aside>',
+            "",
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+        assert n == 1, "fixture: expected to remove exactly one aside"
+        (tmp / target).write_text(new_text, encoding="utf-8")
+
+        stats = apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        assert stats["badges_skipped"] >= 1, f"orphaned-marker verse was not counted as skipped: {stats}"
+        # Only the orphaned verse bails; the rest of gen 1 still badges normally.
+        assert stats["badges_inserted"] >= 1, f"expected the non-orphan verses to still badge: {stats}"
+
     def test_idempotent_and_no_nested_anchor(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
         from scripts.check_nested_anchors import find_nested_anchors

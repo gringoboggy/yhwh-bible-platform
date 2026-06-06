@@ -334,7 +334,8 @@ class TestMint9CacheKeyCoverage:
     def test_pipeline_scripts_includes_matter_pages_and_build_epub(self):
         # The whole point of #1: the cache once hashed ONLY build_edition.py.
         # mint-10 #2 added the core/ DATA modules (popup_versions, traditions)
-        # whose injected data also affects output bytes.
+        # whose injected data also affects output bytes. round-5 added the rest
+        # of the build-path core class (edition_stats was the flagged HIGH).
         from scripts.core import build_cache as bc
 
         for required in (
@@ -344,6 +345,19 @@ class TestMint9CacheKeyCoverage:
             "build_epub.py",
             "core/popup_versions.py",
             "core/traditions.py",
+            # round-5 class-complete additions (see TestCacheCoverageGuard).
+            "core/edition_stats.py",
+            "core/book_native_names.py",
+            "core/reading_plans.py",
+            "core/sources.py",
+            "core/covers.py",
+            "core/matrix.py",
+            # round-5 adversarial-review follow-up: the transitive output-shapers
+            # + the two mis-waived live-bake modules.
+            "core/config.py",
+            "core/translations.py",
+            "core/corpus_index.py",
+            "core/sources_lexicon.py",
         ):
             assert required in bc._PIPELINE_SCRIPTS
 
@@ -938,3 +952,151 @@ class TestRho3CachePerChapterPerVerse:
         }
         refs = _referenced_translations(edition)
         assert refs.count("jps") == 1, f"'jps' duplicated in refs: {refs}"
+
+
+class TestCacheCoverageGuard:
+    """round-5 audit (2026-06-05) — self-enforcing guard against the recurring
+    stale-cache class (mint-9 #1, mint-10 #2, mint-11 #22, round-5 HIGH + its
+    adversarial-review follow-up): a ``scripts/core`` module whose CODE can shape
+    build_one's EPUB output must appear in ``build_cache._PIPELINE_SCRIPTS`` OR be
+    waived here with a reason. A NEW unclassified build-path core module fails this
+    test, forcing a cache-coverage decision at the same commit (the bug recurred
+    once per build-path module added without updating the cache list).
+
+    The surface is the TRANSITIVE closure of ``scripts.core`` modules reachable
+    from the build_one orchestrators (the non-``core/`` entries of
+    _PIPELINE_SCRIPTS — build_edition, matter_pages, epub_utils,
+    resync_marker_glyphs, build_epub, style_config, inject), following both
+    absolute (``scripts.core.X``) and relative (``from . import X`` /
+    ``from .X import``) imports. The first round-5 pass scanned only the
+    orchestrators' DIRECT imports and missed two real holes the review caught —
+    matrix delegates the book-count build to corpus_index, and sources only
+    re-exports the topical classes defined in sources_lexicon — so the scan now
+    walks the whole closure, classifying every reachable core module.
+    """
+
+    # Build-path-closure modules whose CODE provably does NOT shape build_one's
+    # EPUB output — each waived with the reason it is safe to omit from
+    # _PIPELINE_SCRIPTS. If you add a build-path core module that genuinely shapes
+    # baked output, add core/<mod>.py to _PIPELINE_SCRIPTS instead of waiving here.
+    WAIVED = {
+        "build_cache": "the cache machinery itself; decides hit/miss, never emits EPUB bytes",
+        "notes_io": "atomic file-I/O primitives; no output-shaping logic (notes DATA hashed, part 5)",
+        "ui": "console/progress terminal helpers; nothing reaches the EPUB",
+        "html_sanitize": "inject-only, OFFLINE base generation; the base is hashed wholesale (part 10)",
+        "paths": "repo/content path constants; the DATA at those paths is hashed, no transform",
+        "migrate": "SQLite migration runner for corpus_index's derived index (rebuilt from hashed notes)",
+        "migrations": "corpus_index index-schema migration defs; derived index only, never baked",
+        "work_cache": "AI-work cache infra (Voyage, dropped); not on the build_one bake path",
+        "sources_base": "base for sources_* loaders; topical bake classes live standalone in sources_lexicon",
+        "sources_commentary": "commentary loaders feed OFFLINE note promotion; promoted notes hashed (part 5)",
+        "sources_ai_clients": "AI client infra (Voyage, dropped); re-exported via sources.py, not baked",
+        "sources_ai_prompts": "AI xref prompt templates (offline); not on the build_one bake path",
+    }
+
+    def _build_path_core_closure(self) -> dict[str, set[str]]:
+        """{core_module: {who pulls it}} — the TRANSITIVE closure of scripts.core
+        modules reachable from the build_one orchestrators, following absolute AND
+        (inside scripts/core/) relative imports."""
+        import ast
+        from collections import deque
+        from pathlib import Path
+        from scripts.core import build_cache as bc
+
+        scripts_dir = Path(bc.__file__).resolve().parent.parent  # .../scripts
+        core_dir = scripts_dir / "core"
+
+        def core_imports(path: Path) -> set[str]:
+            in_core = path.parent.name == "core"
+            found: set[str] = set()
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+            for node in ast.walk(tree):
+                if isinstance(node, ast.ImportFrom):
+                    mod = node.module or ""
+                    lvl = node.level or 0
+                    if lvl == 0:
+                        if mod == "scripts.core":
+                            found.update(a.name for a in node.names)  # from scripts.core import X
+                        elif mod.startswith("scripts.core."):
+                            found.add(mod.split(".")[2])  # from scripts.core.X import ...
+                    elif in_core and lvl == 1:  # relative import inside scripts/core/
+                        if mod:
+                            found.add(mod.split(".")[0])  # from .X import ...
+                        else:
+                            found.update(a.name for a in node.names)  # from . import X
+                elif isinstance(node, ast.Import):
+                    for alias in node.names:  # import scripts.core.X
+                        if alias.name.startswith("scripts.core."):
+                            found.add(alias.name.split(".")[2])
+            return {m for m in found if (core_dir / f"{m}.py").is_file()}
+
+        orchestrators = [n for n in bc._PIPELINE_SCRIPTS if not n.startswith("core/")]
+        closure: dict[str, set[str]] = {}
+        queue: deque[tuple[str, str]] = deque()
+        for orch in orchestrators:
+            for m in core_imports(scripts_dir / orch):
+                queue.append((m, orch))
+        while queue:
+            mod, via = queue.popleft()
+            if mod in closure:
+                closure[mod].add(via)
+                continue
+            closure[mod] = {via}
+            for m2 in core_imports(core_dir / f"{mod}.py"):
+                queue.append((m2, mod))
+        return closure
+
+    def test_every_build_path_core_module_is_covered_or_waived(self):
+        from scripts.core import build_cache as bc
+
+        pipeline = set(bc._PIPELINE_SCRIPTS)
+        closure = self._build_path_core_closure()
+        unclassified = [
+            f"{mod} (reached via {sorted(via)[:4]})"
+            for mod, via in sorted(closure.items())
+            if f"core/{mod}.py" not in pipeline and mod not in self.WAIVED
+        ]
+        assert not unclassified, (
+            "build-path core module(s) (transitive closure) neither in "
+            "build_cache._PIPELINE_SCRIPTS nor waived in TestCacheCoverageGuard.WAIVED:\n  "
+            + "\n  ".join(unclassified)
+            + "\nIf editing the module can change EPUB output, add core/<mod>.py to "
+            "_PIPELINE_SCRIPTS; if it provably cannot, add it to WAIVED with the reason."
+        )
+
+    def test_waived_modules_stay_honest(self):
+        # Every waiver must really be in the build-path core closure and NOT in
+        # _PIPELINE_SCRIPTS, so a stale waiver (module no longer reachable, or
+        # later promoted to the cache list) is caught instead of silently masking.
+        from scripts.core import build_cache as bc
+
+        pipeline = set(bc._PIPELINE_SCRIPTS)
+        closure = self._build_path_core_closure()
+        for waived in self.WAIVED:
+            assert waived in closure, (
+                f"WAIVED[{waived!r}] is no longer in the build-path core closure; remove the stale waiver."
+            )
+            assert f"core/{waived}.py" not in pipeline, (
+                f"WAIVED[{waived!r}] is now in _PIPELINE_SCRIPTS; remove the redundant waiver."
+            )
+
+    def test_round5_class_complete_additions_stay_covered(self):
+        # Positive pin: the round-5 additions — the HIGH edition_stats, its direct
+        # siblings, AND the transitive output-shapers the adversarial review
+        # surfaced (config/translations live-bake; corpus_index/sources_lexicon
+        # behind the matrix/sources shims) — must stay in the cache list.
+        from scripts.core import build_cache as bc
+
+        for mod in (
+            "core/edition_stats.py",
+            "core/book_native_names.py",
+            "core/reading_plans.py",
+            "core/sources.py",
+            "core/covers.py",
+            "core/matrix.py",
+            "core/config.py",
+            "core/translations.py",
+            "core/corpus_index.py",
+            "core/sources_lexicon.py",
+        ):
+            assert mod in bc._PIPELINE_SCRIPTS, f"{mod} dropped from _PIPELINE_SCRIPTS"

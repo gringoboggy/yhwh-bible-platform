@@ -1312,8 +1312,35 @@ def _apply_popup_languages_and_translation(
     return new_html, stats
 
 
+def _build_disabled_kind_res(disabled_kinds: set) -> tuple[re.Pattern | None, re.Pattern | None]:
+    """Build ONE marker regex + ONE aside regex matching ANY of ``disabled_kinds``
+    (a single anchored alternation), or ``(None, None)`` when nothing is disabled.
+
+    The consolidated form of ``filter_html``'s historical per-kind loop: every
+    ``note-ref`` / ``note`` element carries exactly one ``note-{kind}`` class
+    (mutually exclusive) and markers never nest, so removing all disabled kinds
+    in one alternation pass deletes the same element SET — and yields the same
+    total ``markers`` / ``asides`` counts — as deleting them kind by kind, at 2
+    scans per file instead of ~2N. Kinds are sorted so the compiled pattern is
+    deterministic; the trailing ``"`` after the group keeps a kind name that
+    prefixes another (e.g. ``xref`` vs ``xref-foo``) from mis-matching.
+    """
+    if not disabled_kinds:
+        return None, None
+    alt = "|".join(re.escape(k) for k in sorted(disabled_kinds))
+    marker_re = re.compile(rf'<a class="note-ref note-(?:{alt})"[^>]*>.*?</a>', re.DOTALL)
+    aside_re = re.compile(rf'<aside class="note note-(?:{alt})"[^>]*>.*?</aside>', re.DOTALL)
+    return marker_re, aside_re
+
+
 def filter_html(
-    html_text: str, disabled_kinds: set, disabled_html_ref_ids: set | None = None, verse_popups_enabled: bool = True
+    html_text: str,
+    disabled_kinds: set,
+    disabled_html_ref_ids: set | None = None,
+    verse_popups_enabled: bool = True,
+    *,
+    kind_marker_re: re.Pattern | None = None,
+    kind_aside_re: re.Pattern | None = None,
 ) -> tuple[str, dict]:
     """Strip note markers + asides whose kind is disabled OR whose ref-id is
     in the per-edition disabled-notes set. Returns (new_html, counts).
@@ -1329,20 +1356,22 @@ def filter_html(
     counts = {"markers": 0, "asides": 0, "id_markers": 0, "id_asides": 0, "vn_links_disabled": 0}
     new_text = html_text
 
-    # ---- Phase λ: filter by KIND (whole categories of notes)
-    for kind in disabled_kinds:
-        marker_re = re.compile(
-            rf'<a class="note-ref note-{re.escape(kind)}"[^>]*>.*?</a>',
-            re.DOTALL,
-        )
-        new_text, n = marker_re.subn("", new_text)
+    # ---- Phase λ: filter by KIND (whole categories of notes). ONE alternation
+    # over every disabled kind (2 scans/file) instead of recompiling + scanning
+    # per kind (~2N scans/file). Byte-identical — see _build_disabled_kind_res:
+    # mutually-exclusive per-element kind classes + non-nesting markers make the
+    # removed set + the totals independent of batching. build_one pre-builds the
+    # pair once per edition and passes it in; other callers get the in-function
+    # build from disabled_kinds.
+    # Build the pair here unless BOTH were supplied (they're always produced
+    # together by _build_disabled_kind_res, so `or` keeps a half-supplied pair
+    # from reaching a None.subn()).
+    if kind_marker_re is None or kind_aside_re is None:
+        kind_marker_re, kind_aside_re = _build_disabled_kind_res(disabled_kinds)
+    if kind_marker_re is not None:
+        new_text, n = kind_marker_re.subn("", new_text)
         counts["markers"] += n
-
-        aside_re = re.compile(
-            rf'<aside class="note note-{re.escape(kind)}"[^>]*>.*?</aside>',
-            re.DOTALL,
-        )
-        new_text, n = aside_re.subn("", new_text)
+        new_text, n = kind_aside_re.subn("", new_text)
         counts["asides"] += n
 
     # ---- Phase ρ.1: filter by individual note ID
@@ -1815,7 +1844,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """
     from scripts import inject as _inject
 
-    stats = {"badges_inserted": 0, "asides_merged": 0, "notes_collapsed": 0, "files_touched": 0}
+    stats = {"badges_inserted": 0, "asides_merged": 0, "notes_collapsed": 0, "files_touched": 0, "badges_skipped": 0}
 
     # Which split files actually survive in this edition's temp tree (canon
     # filter may have deleted some). Load each once; keyed by file name.
@@ -1909,6 +1938,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         rows.append(_badge_aside_inner_to_row(am.group(1), kind))
                         aside_spans.append((am.start(), am.end()))
                     if not ok:
+                        # round-5 audit Phase 4 (LOW): record the silent orphan-bail
+                        # (a verse with a marker but no matching aside) so a build can
+                        # surface "N verses skipped" instead of dropping a badge with
+                        # no diagnostic. Stat-only — never written into the EPUB, so
+                        # byte-stable.
+                        stats["badges_skipped"] += 1
                         continue
 
                     merged_aside = (
@@ -3856,6 +3891,12 @@ def build_one(
     # ``disabled`` are kept above because the stats sidecar below still consumes
     # them (the σ.6.2 matter-page counts now come from resolved_note_counts).
     disabled_kinds_for_filter, disabled_html_ref_ids = compute_edition_filter_sets(edition)
+    # Pre-compile the kind-filter regexes ONCE per edition — they're identical for
+    # every split file, so build them here instead of (re)compiling per kind per
+    # file inside filter_html. One marker alternation + one aside alternation over
+    # all disabled kinds; filter_html falls back to building them itself for
+    # callers that don't pass them.
+    _kind_marker_re, _kind_aside_re = _build_disabled_kind_res(disabled_kinds_for_filter)
 
     # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
     # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
@@ -3980,6 +4021,8 @@ def build_one(
                 disabled_kinds_for_filter,
                 disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
+                kind_marker_re=_kind_marker_re,
+                kind_aside_re=_kind_aside_re,
             )
             stats["markers_removed"] += counts["markers"]
             stats["asides_removed"] += counts["asides"]
@@ -4059,6 +4102,8 @@ def build_one(
                 disabled_kinds_for_filter,
                 disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
+                kind_marker_re=_kind_marker_re,
+                kind_aside_re=_kind_aside_re,
             )
             stats["markers_removed"] += counts["markers"]
             stats["asides_removed"] += counts["asides"]
@@ -4213,6 +4258,7 @@ def build_one(
             badge_stats = apply_badge_markers(tmp, edition)
             stats["badges_inserted"] = badge_stats["badges_inserted"]
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
+            stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts

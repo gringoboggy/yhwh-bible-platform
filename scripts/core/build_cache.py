@@ -78,6 +78,60 @@ _PIPELINE_SCRIPTS = (
     # hashed separately at part 9b); a lookup_year algorithm change affects
     # time-filtered editions' output, so it must invalidate the cache too.
     "core/source_dates.py",
+    # round-5 audit (2026-06-05) — close the WHOLE "build-path core module"
+    # class. edition_stats was the flagged HIGH instance: matter_pages bakes
+    # resolved_note_counts() into copyright/legend/your-edition pages, so editing
+    # edition_stats.py served a STALE EPUB. Per "fix the class, not the instance",
+    # the full audit of scripts.core imports made by the build_one orchestrators
+    # (build_edition/matter_pages/epub_utils/resync_marker_glyphs/build_epub/
+    # style_config/inject) added every sibling whose CODE shapes content BAKED
+    # into the EPUB and is NOT already covered by a data hash. (The drift guard
+    # is tests/test_build_cache.py::TestCacheCoverageGuard.) Each, with its bake
+    # site:
+    #   edition_stats      resolved_note_counts → copyright.xhtml / legend /
+    #                      your-edition page (matter_pages.py) — the round-5 HIGH.
+    #   book_native_names  format_toc_book_label → bilingual nav ToC
+    #                      (build_edition.apply_bilingual_toc).
+    #   reading_plans      load_plan → reading_plans.xhtml (matter_pages.py).
+    #   sources            NavesTopical/TorreyTopical → topical.xhtml back-matter
+    #                      (the topical JSON DATA is hashed at 9c; the loader CODE
+    #                      that structures it into the page is not).
+    #   covers             decode_book_covers/resolve_cover_path select + apply
+    #                      the cover in build_one (the image BYTES are hashed at
+    #                      part 8; the selection/decode CODE is not — and this
+    #                      module decodes book_covers itself, so a divergent
+    #                      covers.py would slip a different cover past the key).
+    #   matrix             compute_matrix().edition_canon_books → the per-edition
+    #                      book count printed in the matter pages (matter_pages.py
+    #                      _edition_canon_book_count).
+    "core/edition_stats.py",
+    "core/book_native_names.py",
+    "core/reading_plans.py",
+    "core/sources.py",
+    "core/covers.py",
+    "core/matrix.py",
+    # round-5 adversarial-review follow-up — the build-path core class is
+    # TRANSITIVE, not just the orchestrators' DIRECT imports. Two of the six
+    # above are thin shims whose real output-shaping code lives one module
+    # deeper, and two the first pass wrongly waived as "data-hashed" actually
+    # run output-shaping CODE live in build_one. (The full transitive closure is
+    # enforced by tests/test_build_cache.py::TestCacheCoverageGuard.)
+    #   config           enabled_kind_codes / enabled_kind_codes_for decide which
+    #                    kinds/notes are STRIPPED from the baked EPUB
+    #                    (compute_edition_filter_sets → filter_html) — code, not
+    #                    the kinds.yaml DATA that parts 1-5 hash.
+    #   translations     get_verse swaps verse text into popup vnote-text asides
+    #                    live in build_one (_apply_popup_languages_and_translation)
+    #                    for any popup_translation edition, incl. the Geʽez/Amharic
+    #                    EN back-translation popups — code, not the part-6 DATA.
+    #   corpus_index     builds Matrix.edition_canon_books → the matter-page book
+    #                    count (matrix.compute_matrix delegates here).
+    #   sources_lexicon  defines NavesTopical/TorreyTopical → topical.xhtml
+    #                    back-matter structuring (sources.py only re-exports them).
+    "core/config.py",
+    "core/translations.py",
+    "core/corpus_index.py",
+    "core/sources_lexicon.py",
 )
 
 

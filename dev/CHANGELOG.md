@@ -6,6 +6,38 @@
 
 ---
 
+## 2026-06-05 (🪟 Windows) — Round-5 audit WIN fix-slice: build-path cache-coverage + filter_html consolidation (release gate cleared)
+
+The Windows half of the release-gating round-5 fix-session. Build-path only; proven **byte-identical
+to HEAD** (before/after full-build digests for catholic-study / jewish-study / ethiopian-tewahedo
+unchanged; determinism/validity/distinct gate green).
+
+- **Phase 1 (HIGH — stale-EPUB cache miss).** `core/edition_stats.py` was absent from
+  `build_cache._PIPELINE_SCRIPTS`, yet `matter_pages` bakes `resolved_note_counts()` into the
+  copyright / symbol-legend / your-edition pages → editing it served a stale cached EPUB. Per
+  *fix-the-class*, audited the whole build-path `scripts.core` transitive closure (25 modules) and
+  added the **10** that shape baked output — `edition_stats`, `book_native_names`, `reading_plans`,
+  `sources`, `covers`, `matrix` (direct) plus `config`, `translations` (live-bake in `build_one`)
+  and `corpus_index`, `sources_lexicon` (the real code behind the `matrix`/`sources` shims) — and
+  waived the other 12 with reasons. Cache evicted (86 stale EPUBs). New transitive-closure
+  self-enforcing guard `TestCacheCoverageGuard` (in `tests/test_build_cache.py`, deliberately not
+  `lint_rules.py`, to keep the lanes file-disjoint) fails on any future unclassified build-path
+  core module.
+- **Phase 4 (LOW).** `apply_badge_markers` now records a `badges_skipped` / `badge_verses_skipped`
+  diagnostic at the orphan-marker bail (additive, never written into the EPUB). `filter_html`'s
+  per-kind removal loop became one pre-built marker + aside alternation (`_build_disabled_kind_res`,
+  ≈2N→2 scans/file), threaded through `build_one`; proven byte-identical by a direct
+  per-kind-reference test over the real corpus.
+- **Verification.** 43 build_cache + 4 filter-consolidation + 14 marker-style tests; ruff, lint_rules
+  (29✓/0✗), mypy clean; a 7-agent adversarial-review workflow that approved the byte-equivalence and
+  caught the two mis-waivers (`config`, `translations`) + the transitive guard blind spot — all
+  fixed before commit.
+
+Both lanes' fix-slices are now done (Mac `a49f1be7`, `30debc58`); the `v1.0.0-beta.1` release gate is
+clear pending the user's GO for the public flip + release.
+
+---
+
 ## 2026-06-05 (🖥️ Mac) — Auto-note re-ingest #2–5 COMPLETE (lang-greek glosses + topic-torrey)
 
 The user-greenlit re-ingest track is finished. Two commits, both pushed (origin + github):
