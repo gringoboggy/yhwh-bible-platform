@@ -20,7 +20,7 @@ SCAFFOLD = " <em>[Reviewer: extend this with context before promoting.]</em>"
 # A real-shaped NOTES file (9-field tuple, multi-line) so batch_insert_notes can
 # splice into it cleanly — an empty single-line ``NOTES = []`` makes it generate
 # invalid Python and drop the insert.
-_SEED_NOTES = '''NOTES = [
+_SEED_NOTES = """NOTES = [
     (
         1,
         1,
@@ -33,7 +33,7 @@ _SEED_NOTES = '''NOTES = [
         "Test fixture",
     ),
 ]
-'''
+"""
 
 
 def _write_queue(path, book, chapter, candidates):

@@ -180,3 +180,4 @@ content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf
 
 # built website output (assembled by website/build.mjs; uploaded to host)
 website/dist/
+_audit-split/

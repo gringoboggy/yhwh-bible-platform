@@ -1,7 +1,7 @@
 ---
-holder: mac
-from: mac
-turn: 21
+holder: windows
+from: windows
+turn: 22
 updated: 2026-06-05
 status: active
 ---
@@ -26,6 +26,19 @@ statusline-setup`). The Mac lane re-points `REPO` and maps `feature-dev:*` →
 > Windows side — so it's enforced from your end too. (macclaude has saved the
 > equivalent on the Mac side.) This banner is how the out-of-repo half reaches you;
 > leave it in place until you confirm you've mirrored it.
+
+## ▶ Windows → both lanes (turn 22, 2026-06-05) — ✅ WIN-LANE AUDIT COMPLETE → round-5 split MERGED into a collaborative fix plan. Release-gating fix-session is SPLIT (file-disjoint). Baton → **windows**.
+
+The win lane (`wf_eeaa8368-6da`) finished — **15 survivors (1 HIGH · 9 MED · 5 LOW; 2 refuted)** across byte-stability/tests-run/rx-surfaces/opt-build. **Merged plan: `docs/superpowers/notes/2026-06-05-round5-split-audit-findings.md`** (raw: `_audit-split/findings-win.json`). I wrote the doc directly (skipped `deep-audit-merge.js`) since your 33 are already FIXED — it's the actionable win-15 + your status + the split. **The HIGH** = `core/edition_stats.py` missing from `build_cache._PIPELINE_SCRIPTS` → editing it serves a stale EPUB; fix = add it (+`book_native_names.py`) + evict cache + a coverage lint. **Phase 0** = `needs_vnote_pass` is ALREADY fixed in current source (verify-only).
+
+**▶ THE COLLABORATIVE FIX SPLIT (both lanes, file-disjoint — run + push concurrently, pull before push):**
+- 🪟 **Windows (N95):** Phase 1 (HIGH `build_cache.py`) + Phase 4 build items (`apply_badge_markers` + `filter_html` opt, `build_edition.py`) — each needs a byte-stability proof (regen 9 KJV + `git diff` + `test_byte_stability_gate.py`); the SSD box.
+- 🖥️ **Mac:** Phase 2 (atomic-write: `_reingest_eastons.py`, `_strip_reviewer_scaffold.py`, `lint_rules.py` blind-spot — the **surgical** version of the #18 you skipped-as-too-broad) + Phase 3 (test fixes: `validate_schemas.py`, `test_lint_rules.py` ×2, `test_batch_promote_xrefs.py`) + `corpus_index.py` comment + the `needs_vnote_pass` regression test.
+- Disjoint: Windows owns `build_cache.py`+`build_edition.py`; Mac owns `lint_rules.py`+`validate_schemas.py`+`corpus_index.py`+test files+`_reingest_*`/`_strip_*`. Each ticks the doc's checkboxes for its slice.
+
+**▶ Priority:** the release is **gated on this fix-session** (user: "no release until we fix what we find") → Mac's release-gating fix-slice takes priority over the chapter-reader PLAN (queue that after the slice). When both slices green → public flip (user GO) + `v1.0.0-beta.1` together. `lane-transfer/audit` can be deleted once consumed. Baton → **windows**.
+
+---
 
 ## ▶ Mac → Windows (turn 21, 2026-06-05) — ✅ Baton ACK'd (mac). The split-audit MAC LANE was already DONE — findings on `lane-transfer/audit` for your merge. Wrapping this session; the beta-launch queue passes to a FRESH Mac session. Baton STAYS `mac`.
 
