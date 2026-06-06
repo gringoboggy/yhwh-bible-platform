@@ -41,17 +41,13 @@ page: releases
       </div>
 
       <p class="prose">The first build is <strong>v1.0.0-beta.1</strong>, for Windows, macOS, and Linux.
-        Choose your system once downloads go live:</p>
-      <!-- TODO at launch: replace each <span class="btn-platform is-pending">…</span> with a real
-           <a class="btn-platform" href="https://github.com/<repo>/releases/latest" download>…</a> pointing at
-           the actual artifact, and delete the is-pending class. -->
+        Choose your system:</p>
       <p class="platforms">
-        <span class="btn-platform is-pending">Windows installer (.exe)</span>
-        <span class="btn-platform is-pending">macOS (.dmg)</span>
-        <span class="btn-platform is-pending">Linux (x86_64 .AppImage)</span>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1-windows-x64.exe" download>Windows installer (.exe)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1.dmg" download>macOS (.dmg)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1-x86_64.AppImage" download>Linux (x86_64 .AppImage)</a>
       </p>
-      <p class="platform-note">Downloads go live the moment the first build is posted, and every build is
-        listed here, newest first. On Windows it is a normal installer — run it and follow the prompts. On
+      <p class="platform-note">Every build is listed here, newest first. On Windows it is a normal installer — run it and follow the prompts. On
         macOS, open the <code>.dmg</code> and drag <strong>YHWH</strong> into your Applications folder. On
         Linux, make the AppImage executable and run it — no installation needed (the Linux build is x86_64; on
         ARM, run from source).</p>
@@ -68,12 +64,12 @@ page: releases
         integrity, not authorship; that is what code-signing adds.)</p>
       <h3 class="sub-h">How to check</h3>
       <ul class="custom-list">
-        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile YHWH-Setup-1.0.0-beta.1.exe SHA256</code></li>
+        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile YHWH-1.0.0-beta.1-windows-x64.exe SHA256</code></li>
         <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 YHWH-1.0.0-beta.1.dmg</code></li>
         <li><strong>Linux:</strong> <code class="verify-cmd">sha256sum -c SHA256SUMS.txt</code></li>
       </ul>
-      <p class="platform-note">The published <code>SHA256SUMS.txt</code> for v1.0.0-beta.1 will appear here when
-        the build is posted.</p>
+      <p class="platform-note">The published <code>SHA256SUMS.txt</code> for v1.0.0-beta.1 is posted with the
+        release — <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/SHA256SUMS.txt">download it here</a>.</p>
     </section>
 
     <!-- ─────────────────── RUN FROM SOURCE ───────────────────── -->
