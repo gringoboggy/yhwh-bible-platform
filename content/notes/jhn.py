@@ -26037,7 +26037,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> r " damna- tion," and " love " for " charity " (notably in 1 Cor. 13). Others are attempts at slightly greater accuracy in reproducing the pre- cise tenses of the verbs used in the Greek, as when in John 17. 14 " the world hated them " is substituted for " the world hath hated them." Others, again, are due to the attempt made to represent the same Greek word, wherever it occurs, by the same English word, so',
+        '<strong>Manuscript witness.</strong> r " damnation," and " love " for " charity " (notably in 1 Cor. 13). Others are attempts at slightly greater accuracy in reproducing the precise tenses of the verbs used in the Greek, as when in John 17. 14 " the world hated them " is substituted for " the world hath hated them." Others, again, are due to the attempt made to represent the same Greek word, wherever it occurs, by the same English word, so',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

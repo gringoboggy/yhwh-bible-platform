@@ -5445,7 +5445,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> nking of when he said " The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart" (Jer. 17. 1), and it was upon a "great tablet" (Isa. 8. 1, R.V.) that Isaiah wrote the words " For Maher- shalal-hash-baz " ; but it was a " roll of a book " which Jeremiah took in order that Baruch might write therein with ink the words which the Lord ha',
+        '<strong>Manuscript witness.</strong> nking of when he said " The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart" (Jer. 17. 1), and it was upon a "great tablet" (Isa. 8. 1, R.V.) that Isaiah wrote the words " For Maher-shalal-hash-baz " ; but it was a " roll of a book " which Jeremiah took in order that Baruch might write therein with ink the words which the Lord ha',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

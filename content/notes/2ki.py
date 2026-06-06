@@ -835,7 +835,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> t con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original cont",
+        "<strong>Manuscript witness.</strong> t contains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original cont",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -14629,7 +14629,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> ephus, was Manasseh. This Manasseh, in indigna- tion at his expulsion, took refuge among the Samaritans, and set up among them a rival worehip to that at Jerusalem. The Samaritans, whom we know from 2 Kings 17. 24-41 to have been foreigners imported into the country of the Ten Tribes by the king of Assyria, and there, presumably, to have mingled with the scanty remnant of Israelites, had at first incorporated",
+        "<strong>Manuscript witness.</strong> ephus, was Manasseh. This Manasseh, in indignation at his expulsion, took refuge among the Samaritans, and set up among them a rival worehip to that at Jerusalem. The Samaritans, whom we know from 2 Kings 17. 24-41 to have been foreigners imported into the country of the Ten Tribes by the king of Assyria, and there, presumably, to have mingled with the scanty remnant of Israelites, had at first incorporated",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

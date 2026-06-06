@@ -13089,7 +13089,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> alf of the fifth century, and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutila- tion. It includes all four books of the Maccabees, for which it is the principal a",
+        "<strong>Manuscript witness.</strong> alf of the fifth century, and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutilation. It includes all four books of the Maccabees, for which it is the principal a",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

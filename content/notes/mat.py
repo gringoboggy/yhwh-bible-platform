@@ -24607,7 +24607,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> he several Bible� TM " 0 6 *\' authorities " quoted separately whenever there is any important conflict of evidence as to the exact reading of any passage. Thus at Matt. 19. 17, to the words "Why callest thou Me good ? " there is the following note : " So C A, Pesh. Theh. Mel. r marg. ; "Why askest thou me con- cerning the good ? B D L, Z. La. Ti. Tr. We. WH. r." The',
+        '<strong>Manuscript witness.</strong> he several Bible� TM " 0 6 *\' authorities " quoted separately whenever there is any important conflict of evidence as to the exact reading of any passage. Thus at Matt. 19. 17, to the words "Why callest thou Me good ? " there is the following note : " So C A, Pesh. Theh. Mel. r marg. ; "Why askest thou me concerning the good ? B D L, Z. La. Ti. Tr. We. WH. r." The',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -25575,7 +25575,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> t agi*ees with the Neutral group of manuscripts, sometimes with the Western, not unfrequently with the Alexandrian, and perhaps oftenest with the Syrian. The page exhibited in Plate XI. con- tains Matt. 20. 16-34 (eight lines being omitted from the bottom of the page), and a reference to the notes in the Variorum Bible will show that its readings here are of some interest. In '. 16 it is the chief autho",
+        "<strong>Manuscript witness.</strong> t agi*ees with the Neutral group of manuscripts, sometimes with the Western, not unfrequently with the Alexandrian, and perhaps oftenest with the Syrian. The page exhibited in Plate XI. contains Matt. 20. 16-34 (eight lines being omitted from the bottom of the page), and a reference to the notes in the Variorum Bible will show that its readings here are of some interest. In '. 16 it is the chief autho",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -25905,7 +25905,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> ne. The Doxology of the Lord's Prayer is omitted in the oldest copies of Matt. 6. 13 several copies omit Matt. 16. 2, 3 altogether ; a long additional passage is sometimes found after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it a",
+        "<strong>Manuscript witness.</strong> ne. The Doxology of the Lord's Prayer is omitted in the oldest copies of Matt. 6. 13 several copies omit Matt. 16. 2, 3 altogether ; a long additional passage is sometimes found after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an additional incident after Luke 6. 4, while it a",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

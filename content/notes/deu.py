@@ -26371,7 +26371,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> the new religion and the rival of Jerusalem. He had brought with him, it. is believed, the Hebrew Pentateuch, and this, Avith certain alterations (notably the substi- tution of Gerizim for Ebal in Dent. 27. 4 as the hill on which the memorial altar should be placed), became the sacred book of the THE SAMARITAN PENTATEUCH. 45 Samaritans. As we have seen in the last chapter, probably this",
+        "<strong>Manuscript witness.</strong> the new religion and the rival of Jerusalem. He had brought with him, it. is believed, the Hebrew Pentateuch, and this, Avith certain alterations (notably the substitution of Gerizim for Ebal in Dent. 27. 4 as the hill on which the memorial altar should be placed), became the sacred book of the THE SAMARITAN PENTATEUCH. 45 Samaritans. As we have seen in the last chapter, probably this",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -33955,7 +33955,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> s are added at the end of the verse, " And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals\' skins, and shall put them upon a frame " ; and in Dent. 32. 35 the first half of the verse runs " against the day of vengeance and recom- pence ; against the time when their foot shall slip." These are perhaps the most notable of the Samaritan variants, and it',
+        '<strong>Manuscript witness.</strong> s are added at the end of the verse, " And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals\' skins, and shall put them upon a frame " ; and in Dent. 32. 35 the first half of the verse runs " against the day of vengeance and recompence ; against the time when their foot shall slip." These are perhaps the most notable of the Samaritan variants, and it',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

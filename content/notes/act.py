@@ -29414,7 +29414,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> changes introduced by the Revisers are of this class, * The most striking single passage in the New Testament where the Revised Version has altered the interpretation of the Authorised Version is Acts 26. 28, where for the familiar "almost thou persuadest me to be a Christian" we find -- " With but little persuasion thou wouldest fain make me a Christian,"- un- questionably a more correct translation',
+        '<strong>Manuscript witness.</strong> changes introduced by the Revisers are of this class, * The most striking single passage in the New Testament where the Revised Version has altered the interpretation of the Authorised Version is Acts 26. 28, where for the familiar "almost thou persuadest me to be a Christian" we find -- " With but little persuasion thou wouldest fain make me a Christian,"- unquestionably a more correct translation',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

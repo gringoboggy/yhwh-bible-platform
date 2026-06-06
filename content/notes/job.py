@@ -1771,7 +1771,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> assages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places verses are sup- plied by the Septuagint which are not in the Hebrew ; in these it will be a matter for critics to",
+        "<strong>Manuscript witness.</strong> assages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places verses are supplied by the Septuagint which are not in the Hebrew ; in these it will be a matter for critics to",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -15609,7 +15609,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> n, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Proverbs, Ecclesiastes, Song of Solomon, "Wisdom, Ecclesiasti- cus. Minor Prophets, Major Prophets, Tobit, Judith, and the four books of the Maccabees. Until quite r',
+        '<strong>Manuscript witness.</strong> n, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Proverbs, Ecclesiastes, Song of Solomon, "Wisdom, Ecclesiasticus. Minor Prophets, Major Prophets, Tobit, Judith, and the four books of the Maccabees. Until quite r',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

@@ -1077,7 +1077,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> 151st), which is found in some other early manuscripts, and a number of canticles, or chants, extracted from other parts of the Bible (for instance, the songs of Moses, in Deut. 32, of Hannah, in 1 Sam. 2. 1-10, and the Magni- ficat) which were used in the services of the Church, The apo- cryphal Psalms of Solomon were originally added at the end of the New Testament, but the leaves containing them hav",
+        "<strong>Manuscript witness.</strong> 151st), which is found in some other early manuscripts, and a number of canticles, or chants, extracted from other parts of the Bible (for instance, the songs of Moses, in Deut. 32, of Hannah, in 1 Sam. 2. 1-10, and the Magnificat) which were used in the services of the Church, The apocryphal Psalms of Solomon were originally added at the end of the New Testament, but the leaves containing them hav",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

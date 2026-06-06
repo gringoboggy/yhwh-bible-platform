@@ -7623,7 +7623,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> is in the great Lauren- tian Library at Florence. It is a huge volume, each leaf measure- ing 19 in. by 13 in., written in large and beautifully clear -- letters. The passage shown in the Plate is Luke 4. 32 5. 6. An example of a correction may be seen in col. 2., 13 lines from the bottom, where tlie singulur imperative laxa has been altered by a corrector to the plural Jaxafe, which corresponds more e",
+        "<strong>Manuscript witness.</strong> is in the great Laurentian Library at Florence. It is a huge volume, each leaf measure- ing 19 in. by 13 in., written in large and beautifully clear -- letters. The passage shown in the Plate is Luke 4. 32 5. 6. An example of a correction may be seen in col. 2., 13 lines from the bottom, where tlie singulur imperative laxa has been altered by a corrector to the plural Jaxafe, which corresponds more e",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -8998,7 +8998,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> und after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection",
+        "<strong>Manuscript witness.</strong> und after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an additional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -16214,7 +16214,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> e. Go up higher ; and this shall be advantageous for thee." Matt. 21. 44 ("and whosoever shall fall on this stone," etc.) is omitted by D, one cursive (33), and the best copies of the Old D Latin. In Luke 10. 42, and the Old Latin omit the words, " one thing is needful, and." In Luke 22. 19, 20 the same authorities and the Old Syriac omit the second mention of the cup in the in- stitution of the Sacrament o',
+        '<strong>Manuscript witness.</strong> e. Go up higher ; and this shall be advantageous for thee." Matt. 21. 44 ("and whosoever shall fall on this stone," etc.) is omitted by D, one cursive (33), and the best copies of the Old D Latin. In Luke 10. 42, and the Old Latin omit the words, " one thing is needful, and." In Luke 22. 19, 20 the same authorities and the Old Syriac omit the second mention of the cup in the institution of the Sacrament o',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -30008,7 +30008,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> er by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection ; the version of the Lord's Prayer in Luke 11. 2-4 is much abbreviated in many cop",
+        "<strong>Manuscript witness.</strong> er by the two oldest copies of the original Greek ; one very ancient authority inserts an additional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection ; the version of the Lord's Prayer in Luke 11. 2-4 is much abbreviated in many cop",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
@@ -33110,7 +33110,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        '<strong>Manuscript witness.</strong> the same authorities and the Old Syriac omit the second mention of the cup in the in- stitution of the Sacrament of the Lord\'s Supper, thus reversing the D order of administration of the elements. In Luke 24. 6, and the Old Latin omit the words " He is not here, but is risen" ; they omit the whole of v. 12, with Peter\'s entry into the sepulchre ; they omit in v. 36 " and saith unto them. Peace be unto you',
+        '<strong>Manuscript witness.</strong> the same authorities and the Old Syriac omit the second mention of the cup in the institution of the Sacrament of the Lord\'s Supper, thus reversing the D order of administration of the elements. In Luke 24. 6, and the Old Latin omit the words " He is not here, but is risen" ; they omit the whole of v. 12, with Peter\'s entry into the sepulchre ; they omit in v. 36 " and saith unto them. Peace be unto you',
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
