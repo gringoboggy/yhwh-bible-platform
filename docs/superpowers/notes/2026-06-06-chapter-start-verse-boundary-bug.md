@@ -1,7 +1,7 @@
 # Chapter-start verse-boundary bug (CRITICAL follow-up)
 
 **Found:** 2026-06-06, during beta-2 device-QA (user-reported: "◈11◈2 2 A man of the house of Levi… happens A LOT at the beginning of most chapters / bibles-wide").
-**Status:** ROOT-CAUSED, **deferred** — needs a dedicated, verified re-anchoring pass (NOT a blind base regex; a wrong split corrupts scripture).
+**Status:** **FIXED for 161 chapters** (content-preserving, confidence-gated) via `scripts/_fix_chapter_verse_boundaries.py` (applied to the base 2026-06-06); **116 chapters FLAGGED** (archaic/genealogy/apocrypha wording the gate couldn't anchor unambiguously) remain for a follow-up pass — they are LEFT UNTOUCHED (never guessed). Verified: verse text correct on exo 2 / gen 1 / exo 13 / gen 25 / lev 4; idempotent (re-run FIX=0); `check_nested_anchors` 0; KJV/JPS-anchored split.
 **Pre-existing:** present in `v1.0.0-beta.1` (the recovered base), NOT introduced by the beta-2 polish. The beta-2 polish (P1–P4, commit `8fb606aa`) is independent and verified.
 
 ## Symptom
