@@ -147,7 +147,8 @@ for (const name of STATIC) {
 // Host + SEO files generated here so a clean dist/ is self-complete: a deploy can
 // never accidentally drop the custom domain (CNAME) or re-enable Jekyll (.nojekyll).
 const SITE = 'https://www.yhwhyaway.com';
-const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html', '/geez.html']
+const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html', '/geez.html',
+  '/about-the-geez-bible.html', '/ethiopian-bible-canon.html', '/copy-the-bible-text.html']
   .concat(readerUrls.sort());
 writeFileSync(join(DIST, 'CNAME'), 'www.yhwhyaway.com\n');
 writeFileSync(join(DIST, '.nojekyll'), '');
