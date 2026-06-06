@@ -32,9 +32,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          [ -f requirements.txt ] && pip install -r requirements.txt || true
-          [ -f requirements-dev.txt ] && pip install -r requirements-dev.txt || true
-          pip install pyinstaller pyyaml
+          pip install -r requirements.txt            # PyYAML (runtime config)
+          pip install Pillow pyinstaller==6.20.0      # PIL (cover rendering) + pinned PyInstaller
+          # pywebview is intentionally NOT installed for the Linux build: it pulls in
+          # the finicky GTK/WebKit native stack, and the launcher's `import webview`
+          # is wrapped in try/except — so the Linux build runs in web/browser mode
+          # (PyInstaller just warns about the unused 'webview' hidden import).
 
       - name: Build desktop binary (PyInstaller)
         run: |
@@ -55,11 +58,18 @@ jobs:
           chmod +x dev/build_appimage.sh
           bash dev/build_appimage.sh
 
-      - name: Upload AppImage to the release
+      - name: Upload AppImage + merge its checksum into the release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          TAG="${{ github.event.inputs.tag }}"
           APPIMAGE="$(ls dist/YHWH-*-x86_64.AppImage | head -n1)"
-          echo "Uploading $APPIMAGE to ${{ github.event.inputs.tag }}"
-          sha256sum "$APPIMAGE"
-          gh release upload "${{ github.event.inputs.tag }}" "$APPIMAGE" --clobber --repo "${{ github.repository }}"
+          BASENAME="$(basename "$APPIMAGE")"
+          HASH="$(sha256sum "$APPIMAGE" | awk '{print $1}')"
+          echo "AppImage: $BASENAME  ($HASH)"
+          # Merge the AppImage line into the release's existing SHA256SUMS.txt
+          gh release download "$TAG" -p SHA256SUMS.txt -O SHA256SUMS.txt --clobber || true
+          grep -v "  ${BASENAME}\$" SHA256SUMS.txt 2>/dev/null > sums.tmp || true
+          echo "${HASH}  ${BASENAME}" >> sums.tmp
+          sort -u sums.tmp -o SHA256SUMS.txt
+          gh release upload "$TAG" "$APPIMAGE" SHA256SUMS.txt --clobber --repo "${{ github.repository }}"
