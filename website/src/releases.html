@@ -19,10 +19,9 @@ page: releases
 
     <!-- ──────────────── WHAT "BETA" MEANS ────────────────────── -->
     <section class="band">
-      <p class="callout"><strong>What “beta” means here — and a word on warnings.</strong> This is an early
-        release, shared openly. Because it isn’t yet code-signed on every system, your computer may show you a
-        caution the first time you open it. That’s normal for small free software; below is exactly why it
-        happens and how to make sure your copy is genuine. You never have to turn off any protection to run it.</p>
+      <p class="callout"><strong>What “beta” means here.</strong> This is an early release, shared openly —
+        expect rough edges, and your feedback is welcome. It’s free, runs entirely on your own computer, and
+        never asks you to turn off any protection.</p>
     </section>
 
     <!-- ──────────────── GET THE BUILD (latest + downloads) ───── -->
@@ -58,31 +57,7 @@ page: releases
         ARM, run from source).</p>
     </section>
 
-    <!-- ─────────────────── WARNINGS / TRUST ──────────────────── -->
-    <section class="band" aria-labelledby="warnings">
-      <h2 id="warnings" class="rule">If your computer shows a warning</h2>
-      <p class="prose">YHWH Ya’ Way is safe, but it is made by one person and not yet signed with a paid
-        certificate on every platform. Code-signing certificates are costly, and this is a free, non-commercial
-        project — so for now you may meet a first-run caution. Here is how to proceed honestly and safely.</p>
-
-      <h3 class="sub-h">Windows (SmartScreen)</h3>
-      <ol class="steps">
-        <li>Run the installer. If a blue “Windows protected your PC” screen appears, it is SmartScreen being
-          cautious about software it hasn’t seen many times yet — not a virus alert.</li>
-        <li>Click <strong>More info</strong>.</li>
-        <li>Click <strong>Run anyway</strong>, then follow the installer.</li>
-      </ol>
-
-      <h3 class="sub-h">macOS</h3>
-      <p class="prose">The macOS build is <strong>notarized by Apple</strong>, so it should open normally — just
-        drag it to Applications and launch it. If a future build ever isn’t notarized and macOS blocks it, go to
-        <strong>System&nbsp;Settings → Privacy &amp; Security</strong>, scroll down, and click
-        <strong>Open&nbsp;Anyway</strong> (that button appears only after you’ve tried to open the app once).</p>
-
-      <p class="callout"><strong>Never disable your antivirus or your system’s protections.</strong> You don’t
-        need to, and this project will never ask you to. The steps above just tell your computer to trust this
-        one program — nothing else changes.</p>
-    </section>
+    <!-- Windows is Azure Trusted Signing–signed; macOS is Apple-notarized. -->
 
     <!-- ─────────────────── VERIFY ─────────────────────────────── -->
     <section class="band band-alt" aria-labelledby="verify">

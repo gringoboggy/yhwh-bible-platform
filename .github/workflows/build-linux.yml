@@ -1,0 +1,65 @@
+name: Build Linux AppImage
+
+# Linux can't be built on the Windows/Mac dev boxes (PyInstaller is per-OS), so the
+# Linux x86_64 AppImage is produced here on a GitHub-hosted Ubuntu runner and uploaded
+# to the chosen release. Run it manually from the Actions tab (workflow_dispatch).
+#
+# NOTE (first run): this is the initial scaffold — expect to iterate once on the Python
+# deps / PyInstaller hidden-imports / appimagetool FUSE flags. See dev/build_desktop.sh
+# + dev/build_appimage.sh for the underlying build.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the AppImage to"
+        required: true
+        default: "v1.0.0-beta.1"
+
+permissions:
+  contents: write
+
+jobs:
+  linux-appimage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          [ -f requirements.txt ] && pip install -r requirements.txt || true
+          [ -f requirements-dev.txt ] && pip install -r requirements-dev.txt || true
+          pip install pyinstaller pyyaml
+
+      - name: Build desktop binary (PyInstaller)
+        run: |
+          chmod +x dev/build_desktop.sh
+          PYTHON="$(which python)" bash dev/build_desktop.sh
+
+      - name: Fetch appimagetool
+        run: |
+          ARCH="$(uname -m)"
+          curl -fL -o "/tmp/appimagetool-${ARCH}.AppImage" \
+            "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${ARCH}.AppImage"
+          chmod +x "/tmp/appimagetool-${ARCH}.AppImage"
+
+      - name: Build AppImage
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: "1"   # GitHub runners have no FUSE
+        run: |
+          chmod +x dev/build_appimage.sh
+          bash dev/build_appimage.sh
+
+      - name: Upload AppImage to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APPIMAGE="$(ls dist/YHWH-*-x86_64.AppImage | head -n1)"
+          echo "Uploading $APPIMAGE to ${{ github.event.inputs.tag }}"
+          sha256sum "$APPIMAGE"
+          gh release upload "${{ github.event.inputs.tag }}" "$APPIMAGE" --clobber --repo "${{ github.repository }}"
