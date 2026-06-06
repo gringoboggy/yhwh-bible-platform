@@ -21,7 +21,7 @@
 import {
   readFileSync, writeFileSync, readdirSync, mkdirSync, rmSync, cpSync, existsSync,
 } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(fileURLToPath(import.meta.url)); // the website/ folder
@@ -34,7 +34,7 @@ const DIST = join(ROOT, 'dist');
 // and do nothing on the static GitHub Pages host; the releases feed now reads the
 // GitHub Releases API client-side instead. See releases.js.)
 const STATIC = [
-  'style.css', 'releases.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus', 'workshop.jpg',
+  'style.css', 'releases.js', 'reader.js', 'fonts', 'covers', 'showcase', 'icons', 'giscus', 'workshop.jpg',
   'favicon-32.png', 'favicon-512.png', 'apple-touch-icon.png', 'social-card.png',
 ];
 
@@ -48,8 +48,28 @@ const fill = (s, token, value) => s.split(`{{${token}}}`).join(value);
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 
-for (const file of readdirSync(SRC).filter((f) => f.endsWith('.html'))) {
-  const raw = readFileSync(join(SRC, file), 'utf8');
+// Collect every page under src/ (recursively) EXCEPT the data/ fragments, which are
+// inlined into pages rather than built as pages. Reader pages live in src/read/**.
+const DATA_DIR = join(SRC, 'data');
+function walkHtml(dir) {
+  const out = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, e.name);
+    if (e.isDirectory()) {
+      if (full === DATA_DIR) continue;
+      out.push(...walkHtml(full));
+    } else if (e.name.endsWith('.html')) {
+      out.push(relative(SRC, full).split(/[\\/]/).join('/'));
+    }
+  }
+  return out;
+}
+
+const builtPages = []; // dist-relative posix paths actually written (for the dead-link guard)
+const readerUrls = []; // '/read/...' urls for the sitemap
+
+for (const rel of walkHtml(SRC)) {
+  const raw = readFileSync(join(SRC, rel), 'utf8');
 
   // Pull the leading  <!--page  key: value  ... -->  front-matter.
   const fm = {};
@@ -76,10 +96,7 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.html'))) {
     );
   }
 
-  // Assemble, then strip HTML comments from the shipped page (keeps the public
-  // source clean and removes the leftover "TODO at launch" notes from the output).
   // Inline the generated Ge'ez/Amharic progress fragment (build-time, static).
-  // Done BEFORE comment-stripping so the {{token}} is gone by output time.
   let bodyFilled = body;
   if (bodyFilled.includes('{{geez_progress}}')) {
     const fragPath = join(SRC, 'data', 'geez-progress.html');
@@ -87,12 +104,38 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.html'))) {
     bodyFilled = fill(bodyFilled, 'geez_progress', frag);
   }
 
-  const out = (pageHead + bodyFilled.replace(/^\s*\n/, '') + foot)
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/\n{3,}/g, '\n\n');
-  writeFileSync(join(DIST, file), out, 'utf8');
-  console.log('built  dist/' + file);
+  // {{root}} = the depth-correct relative prefix back to dist/ root, so a page nested in
+  // read/geez/psa/ still finds style.css / fonts / the nav links. Top-level pages get ''
+  // (so their output is byte-identical to before this change). Filled on the FULL page so
+  // head assets, body reader-links, footer links, and the inlined fragment all resolve.
+  const root = '../'.repeat((rel.match(/\//g) || []).length);
+  let assembled = pageHead + bodyFilled.replace(/^\s*\n/, '') + foot;
+  assembled = fill(assembled, 'root', root);
+
+  // Strip HTML comments from the shipped page (keeps the public source clean).
+  const out = assembled.replace(/<!--[\s\S]*?-->/g, '').replace(/\n{3,}/g, '\n\n');
+  const dest = join(DIST, rel);
+  mkdirSync(dirname(dest), { recursive: true });
+  writeFileSync(dest, out, 'utf8');
+  builtPages.push(rel);
+  if (rel.startsWith('read/')) readerUrls.push('/' + rel);
+  console.log('built  dist/' + rel);
 }
+
+// Guard #2 backstop: every internal reader link must resolve to a page we actually
+// emitted. A reader page exists ONLY for a transcribed chapter, so a dead link can only
+// mean a generator/build bug — fail loudly rather than ship an over-claiming 404.
+const builtSet = new Set(builtPages);
+for (const rel of builtPages) {
+  const html = readFileSync(join(DIST, rel), 'utf8');
+  for (const mm of html.matchAll(/href="(?!https?:)([^"#]*?read\/[A-Za-z0-9_./-]+\.html)(?:#[^"]*)?"/g)) {
+    const target = relative(DIST, resolve(dirname(join(DIST, rel)), mm[1])).split(/[\\/]/).join('/');
+    if (!builtSet.has(target)) {
+      throw new Error(`dead reader link in ${rel}: "${mm[1]}" -> ${target} (no such page emitted)`);
+    }
+  }
+}
+console.log(`verified ${readerUrls.length} reader pages — 0 dead links`);
 
 for (const name of STATIC) {
   const from = join(ROOT, name);
@@ -104,7 +147,8 @@ for (const name of STATIC) {
 // Host + SEO files generated here so a clean dist/ is self-complete: a deploy can
 // never accidentally drop the custom domain (CNAME) or re-enable Jekyll (.nojekyll).
 const SITE = 'https://www.yhwhyaway.com';
-const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html', '/geez.html'];
+const PAGES = ['/', '/roadmap.html', '/releases.html', '/feedback.html', '/geez.html']
+  .concat(readerUrls.sort());
 writeFileSync(join(DIST, 'CNAME'), 'www.yhwhyaway.com\n');
 writeFileSync(join(DIST, '.nojekyll'), '');
 writeFileSync(

@@ -529,7 +529,13 @@
       "transcribed": 0,
       "ready": 4
     },
-    "total": 87
+    "total": 87,
+    "links": {
+      "1ki": "{{root}}read/geez/1ki.html",
+      "1sa": "{{root}}read/geez/1sa.html",
+      "2sa": "{{root}}read/geez/2sa.html",
+      "psa": "{{root}}read/geez/psa.html"
+    }
   },
   "amharic": {
     "books": [
@@ -1061,6 +1067,7 @@
       "transcribed": 0,
       "ready": 0
     },
-    "total": 87
+    "total": 87,
+    "links": {}
   }
 }
