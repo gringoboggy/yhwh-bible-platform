@@ -362,3 +362,6 @@ figure.workshop { margin: 1.5rem 0; }
 .rdx-cell a { display: block; text-decoration: none; color: var(--indigo); }
 .rdx-ready:hover, .rdx-ready:focus-within { background: rgba(184, 134, 11, .14); border-color: var(--gold); }
 .rdx-todo { opacity: .4; }
+.rdx-en { display: inline-block; margin-left: .25rem; font-size: .55rem; font-weight: 700; color: var(--indigo);
+  border: 1px solid currentColor; border-radius: .2rem; padding: 0 .15rem; vertical-align: middle; }
+.rdx-legend { font-size: .85rem; color: var(--sepia); margin: .5rem 0 0; }

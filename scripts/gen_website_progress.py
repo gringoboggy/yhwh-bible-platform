@@ -219,10 +219,12 @@ def _grid(rows: list[dict], links: dict[str, str] | None = None) -> str:
     links = links or {}
     cells = []
     for r in rows:
-        en = ' <span class="pb-en" title="English back-translation available">EN</span>' if r["en"] else ""
+        # No EN badge at the BOOK level — it lives on the chapter cells inside the book
+        # (a partial book can be all-English yet not clear the book-level threshold, which
+        # mislabels it). See render_book_index.
         inner = (
             f'<span class="pb-badge" aria-hidden="true">{STAGE_BADGE[r["stage"]]}</span>'
-            f'<span class="pb-name">{_t(r["name"])}</span>{en}'
+            f'<span class="pb-name">{_t(r["name"])}</span>'
         )
         href = links.get(r["code"])
         extra = ""
@@ -242,7 +244,7 @@ def render_fragment(data: dict) -> str:
     legend = (
         '<p class="pb-legend">'
         + " ".join(f"{STAGE_BADGE[s]} {STAGE_LABEL[s]}" for s in ("source", "transcribed", "ready"))
-        + ' · <span class="pb-en">EN</span> English back-translation</p>'
+        + "</p>"
     )
     hint = (
         '<p class="pb-hint">A <strong>● Bible-ready</strong> book is a link — open it to read the '
@@ -416,16 +418,24 @@ def render_book_index(
     geez_name: str | None,
     total_ch: int,
     ready_chs: list[int],
-    n_parallel: int,
+    parallel_chs: list[int],
 ) -> str:
     ready = set(ready_chs)
+    parallel = set(parallel_chs)
     cells = []
     for c in range(1, total_ch + 1):
         eth = f'<span class="eth" lang="gez" aria-hidden="true">{ethiopic_numeral(c)}</span>'
         if c in ready:
+            # The English indicator lives HERE, per chapter — every transcribed chapter
+            # says for itself whether it carries the English translation, so it can never
+            # mislabel a partly-transcribed book the way a single book-level badge would.
+            par = c in parallel
+            en = '<span class="rdx-en" title="with a literal English translation">EN</span>' if par else ""
+            kind = "Geʽez &amp; English" if par else "Geʽez only"
+            cls = "rdx-cell rdx-ready rdx-parallel" if par else "rdx-cell rdx-ready"
             cells.append(
-                f'<li class="rdx-cell rdx-ready"><a href="{{{{root}}}}read/{slug}/{norm}/{c}.html" '
-                f'title="{_t(book_label)} {c}">{eth}{c}</a></li>'
+                f'<li class="{cls}"><a href="{{{{root}}}}read/{slug}/{norm}/{c}.html" '
+                f'title="{_t(book_label)} {c} — {kind}">{eth}{c}{en}</a></li>'
             )
         else:
             cells.append(
@@ -435,14 +445,21 @@ def render_book_index(
     grid = '<ol class="rdx-grid">' + "".join(cells) + "</ol>"
     bk_geez = f'<span lang="gez">{_t(geez_name)}</span> · ' if geez_name else ""
     done = len(ready_chs)
-    parallel_line = " with a literal English translation" if n_parallel else ""
+    n_parallel = len(parallel)
+    legend = ""
+    if done:
+        extra = " · others are Geʽez only (English coming)" if n_parallel < done else ""
+        legend = (
+            f'<p class="rdx-legend"><span class="rdx-en">EN</span> Geʽez with a literal English translation{extra}</p>'
+        )
     body = (
         '<section class="band rdr">'
         '<div class="rdr-top"><a href="{{root}}geez.html">↩ Geʽez &amp; Amharic progress</a></div>'
         f'<h1 class="rule">{bk_geez}{_t(book_label)}</h1>'
-        f'<p class="prose">Open any chapter to read it in Geʽez{parallel_line}. '
-        "Faint chapters are not yet transcribed — they fill in as the work proceeds.</p>"
+        '<p class="prose">Open any chapter to read it in Geʽez (with a literal English translation '
+        "where it’s ready). Faint chapters are not yet transcribed — they fill in as the work proceeds.</p>"
         + _reader_bar(done, total_ch, f"{done} of {total_ch} chapters readable")
+        + legend
         + grid
         + "</section>"
     )
@@ -481,7 +498,7 @@ def write_reader_pages(repo_root: str | Path) -> int:
             present = sorted(geez_by_ch)
             if not present:
                 continue
-            n_parallel = sum(1 for c in present if _is_parallel(geez_by_ch[c], en_by_ch.get(c)))
+            parallel_chs = [c for c in present if _is_parallel(geez_by_ch[c], en_by_ch.get(c))]
             ch_count = rec.get("ch_count") or max(present)
             total_ch = max(ch_count, max(present))
 
@@ -509,7 +526,7 @@ def write_reader_pages(repo_root: str | Path) -> int:
                     geez_name=geez_name,
                     total_ch=total_ch,
                     ready_chs=present,
-                    n_parallel=n_parallel,
+                    parallel_chs=parallel_chs,
                 ),
                 encoding="utf-8",
             )

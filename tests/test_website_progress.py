@@ -78,6 +78,7 @@ def test_only_transcribed_books_are_clickable():
     assert 'class="pb-link"' in frag
     assert 'href="{{root}}read/geez/psa.html"' in frag
     assert frag.count('class="pb-cell') == 87 * 2
+    assert 'class="pb-en"' not in frag  # EN moved OFF the book pills (onto chapter cells)
 
 
 def test_render_reader_chapter_parallel_escapes_and_pairs():
@@ -123,7 +124,8 @@ def test_render_reader_chapter_solo_has_no_english():
     assert 'class="rdr-prev"' not in html  # only ready chapter → no prev/next
 
 
-def test_render_book_index_marks_ready_and_todo():
+def test_render_book_index_marks_ready_todo_and_en_per_chapter():
+    # all 6 ready chapters carry English -> each chapter cell gets the EN chip
     html = gp.render_book_index(
         slug="geez",
         norm="1ki",
@@ -131,8 +133,22 @@ def test_render_book_index_marks_ready_and_todo():
         geez_name=None,
         total_ch=22,
         ready_chs=[1, 2, 3, 4, 5, 6],
-        n_parallel=6,
+        parallel_chs=[1, 2, 3, 4, 5, 6],
     )
-    assert html.count('class="rdx-cell rdx-ready"') == 6
+    assert html.count("rdx-cell rdx-ready") == 6
     assert html.count('class="rdx-cell rdx-todo"') == 16  # 22 − 6 not yet transcribed
+    assert html.count('class="rdx-en"') >= 6  # EN on every parallel chapter (+legend)
     assert "6 of 22 chapters readable" in html
+
+    # a ready chapter WITHOUT English shows no EN chip and is labelled "Geʽez only"
+    mixed = gp.render_book_index(
+        slug="geez",
+        norm="job",
+        book_label="Job",
+        geez_name=None,
+        total_ch=3,
+        ready_chs=[1, 2, 3],
+        parallel_chs=[1, 2],
+    )
+    assert mixed.count("rdx-cell rdx-ready rdx-parallel") == 2  # only ch1,2 are parallel
+    assert "Geʽez only" in mixed  # ch3 + the legend note
