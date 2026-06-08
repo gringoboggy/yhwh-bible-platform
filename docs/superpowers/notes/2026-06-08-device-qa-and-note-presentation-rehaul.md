@@ -7,6 +7,29 @@ in force) — nothing applied yet. Build/app items routed to the WIN lane (build
 domain) per RULES guard #6; the note-presentation rehaul (4+5) is a Mac-led design,
 build-time + completeness-preserving + configurable.
 
+## ⚠ Relationship to the EXISTING 2026-06-06 device-QA plan + spec — RECONCILE, don't duplicate
+A phased plan + design spec already exist (2 days prior) and cover MOST of today's findings —
+`docs/superpowers/plans/2026-06-06-beta-device-qa-presentation-plan.md` (8 phases) +
+`docs/superpowers/specs/2026-06-06-beta-device-qa-presentation-design.md`. Map onto them; do
+NOT plan from scratch:
+- **Already covered there:** justify typography (Plan Ph1 / spec 3.4) = finding 1b · ToC
+  affordance + clickable in-content ToC (Ph1/Ph3 / spec 3.5) = findings 1 + 1c · native ToC
+  book-level (Ph3) = 1c · **note popup grouping + dedup + tinted cards (Ph2 / spec 3.2) =
+  findings 4 + 5 — already DESIGNED there**; fold my staged S1–S4 in as implementation detail ·
+  book title-page alignment, render-first (Ph6 / spec 3.6) = finding 3 · configurability
+  (spec 4 / RULES §2) = the toggles.
+- **NEW from the 2026-06-08 run (ADD to the plan):** finding 2 (Your-Edition stats popup layout
+  bug) · finding 6 (desktop-app top-nav prettify — the builder UI, not the EPUB) · finding 7
+  (⭐ HIGH — macOS .dmg opens a browser, not a native window; the 06-06 Phase 8 is notarization-
+  release, NOT this).
+- **Refinements today adds to already-covered items:** justify must be prose-WHITELIST-scoped
+  (never titles/headers); the expandable pill ToC as an explicit on/off toggle WITH user
+  instructions; native-ToC incipit labels vs "1,2,3"; the concrete redundancy evidence
+  (Ephrem ×3, twin בְּרֵאשִׁית/בָּרָא, duplicate Topic terms).
+- **Action:** whoever plans should UPDATE the 2026-06-06 plan with the 3 new items + these
+  refinements — this doc is the 06-08 device-run EVIDENCE + design detail feeding that plan, not
+  a competing plan.
+
 ## The wins (user)
 "Very close to the vision." Dark themes look great (IMG_0167). Notes cleaned up a lot.
 **No more random empty pages.** "Very very very decent." "Just about almost perfect."
