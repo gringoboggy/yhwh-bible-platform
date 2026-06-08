@@ -1,7 +1,7 @@
 # YHWH Ya' Way
 
 A free, **local** desktop app for building **custom study Bibles**. Start from
-the Ethiopian Tewahedo 87-book superset (tens of thousands of study notes,
+the Ethiopian Tewahedo 83-book superset (tens of thousands of study notes,
 multi-language verse popups), pick a tradition, choose which note kinds and
 books to include, theme it, and export a standards-clean EPUB — all on your own
 machine. No account, no server, no cloud.
@@ -17,7 +17,7 @@ machine. No account, no server, no cloud.
   The project's distinctive heart.
 - **9 built-in study editions across 5 canon shapes** — Ethiopian Tewahedo,
   Catholic, Eastern &amp; Coptic Orthodox, Anglican, Lutheran, Reformed, and
-  Jewish/Tanakh — each a filtered view of the one 87-book superset.
+  Jewish/Tanakh — each a filtered view of the one 83-book superset.
 - **91,733 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
