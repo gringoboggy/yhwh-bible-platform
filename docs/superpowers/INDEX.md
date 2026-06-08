@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**71 documents** — 47 plans · 24 specs.
+**72 documents** — 48 plans · 24 specs.
 
-## In progress (25)
+## In progress (26)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-08 | Plan | Round-6 split deep-audit — refreshed auditor + lane split + Mac meantime-backlog | `plans/2026-06-08-round6-split-audit-plan.md` | READY 2026-06-08 — round-6 engine current (+`dist-packaging`/`website-deploy` dims, `rx-surfaces`→v0.0.3 post-passes + re-ingests, cross-lane parity baked = flip ONE `LANE` line); split win=4 heavy / mac=14 read-only; FINDINGS-ONLY (stop before fixes); includes the Mac meantime-backlog. |
 | 2026-06-06 | Spec | Beta Device-QA — Reader Presentation & Distribution Polish | `specs/2026-06-06-beta-device-qa-presentation-design.md` | Approved design 2026-06-06 — distinct note(◈)/translation markers · colour-coded tinted de-duped note cards · justify + per-device font (Apple larger / Kobo kepub smaller) · book-level native ToC + .kepub popups · clickable in-content ToC · centred title page · OCR de-hyphenation + structural audit · empty-page + front-matter fixes · website single-download + capped update log → cut v1.0.0-beta.2. |
 | 2026-06-06 | Plan | Beta Device-QA — Reader Presentation & Distribution Polish — Implementation Plan | `plans/2026-06-06-beta-device-qa-presentation-plan.md` | READY 2026-06-06 — 8 phases (CSS wins → note popup → native-ToC+kepub → structural audit → corpus cleanups → title page → website → v1.0.0-beta.2 release). macOS notarization Mac-gated. |
 | 2026-06-05 | Plan | Post-Beta Growth Plan — "eyes on the site & program" (faith-grassroots + SEO graft + deferred Show HN) | `plans/2026-06-05-post-beta-growth-plan.md` | READY 2026-06-05 — solo/low-bandwidth/no-ad-budget growth strategy, post-`v1.0.0-beta.1`. Two-funnel insight (faithful+heritage on Telegram/FB/YouTube/mailing-lists vs OSS/Bible-tech on GitHub/HN/search); hero = the rare manuscript reader. Phases: 0 readiness (About + explainer/SEO pages) → 1 passive compounding (Wikipedia/Wikisource/faith.tools) → 2 warm heritage intros (Beta maṣāḥǝft/AGADE/Digital Orientalist) → 3 faith core (Mahibere Kidusan/EOTC creators/subreddits) → 4 one Show HN → steady-state milestone-only. Inviolable guardrails: never mention donations in outreach, gift-not-pitch, doctrinal humility. Grounded in workflow `wf_16ef99cc-4bb`. |

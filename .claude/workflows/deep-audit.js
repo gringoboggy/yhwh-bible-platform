@@ -12,10 +12,28 @@ export const meta = {
 // ----------------------------------------------------------------------------
 // Parameters (all overridable via args; defaults tuned for the mint-8 first run)
 // ----------------------------------------------------------------------------
-const REPO = args?.repo ?? 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4'  // repo root (ABSOLUTE — cwd-independent; round-3 hardening after a cwd-ambiguity risk surfaced)
+// ----- LANE (set THIS ONE line in-file per machine; args don't reliably propagate) -----
+// CROSS-LANE PARITY IS BAKED IN (round 6): flipping LANE also auto-picks the right
+// REPO path AND the right sub-agent types for that box — so each machine edits ONLY
+// this line. (Round 5 needed 3 separate local edits — REPO + 2 agent types — which
+// caused the split deep-audit to fail 15× on the Mac. Fixed: one knob.)
+const LANE = args?.lane ?? 'all'  // 'win' | 'mac' | 'all'  ('all' = full set on the N95)
+const REPO_BY_LANE = {
+  win: 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4',
+  mac: '/Volumes/MacHD2/yhwh-bible-platform',
+}
+// The Mac does NOT have the feature-dev:* sub-agents (only: claude, claude-code-guide,
+// Explore, general-purpose, Plan, statusline-setup). Map review->general-purpose,
+// architect->Plan there. 'all'/'win' use feature-dev:* on the N95.
+const AGENTS_BY_LANE = {
+  win: { review: 'feature-dev:code-reviewer', architect: 'feature-dev:code-architect', guard: 'Explore' },
+  mac: { review: 'general-purpose', architect: 'Plan', guard: 'Explore' },
+}
+const _AG = AGENTS_BY_LANE[LANE === 'mac' ? 'mac' : 'win']
+const REPO = args?.repo ?? (REPO_BY_LANE[LANE] ?? REPO_BY_LANE.win)  // ABSOLUTE — cwd-independent
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 5              // round 5 = post-mint-11 END-OF-PROJECT / beta sweep, SPLIT across Win+Mac (mint-11=4, mint-10=3, mint-9=2); bump in-file, args don't reliably propagate
-const NOW = args?.now ?? '2026-06-05'             // Date.now() is unavailable in scripts; stamp via args
+const ROUND = args?.round ?? 6              // round 6 = post-v0.0.3 / v1.0.0-readiness sweep, SPLIT across Win+Mac (round 4 = mint-11; round 5 = the 2026-06-05 split); bump in-file, args don't reliably propagate
+const NOW = args?.now ?? '2026-06-08'             // Date.now() is unavailable in scripts; stamp via args
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
 
@@ -34,6 +52,10 @@ const DEFERRED_BY_DESIGN = args?.deferred ?? [
   'aes (Esther-Greek-additions) notes at KJV chapters 11-16 are uninjectable because the base HTML only renders chapters 1-10: this is a PARKED known-residual (roadmap "Parked / known-residual"), editorial not mechanical, guarded by html_chapter_count at the promote boundary. Re-flagging it as a NEW bug is wrong.',
   'zip compresslevel 9->6: DECLINED on the merits (enlarges every EPUB 1-3% to save ~30s/build; quality output > build speed). Do NOT re-propose it.',
   'Splitting scripts/web.py or scripts/build_edition.py for size alone: DECLINED (large files of small cohesive functions). CSRF / rate-limiting / public-server hardening: OUT OF SCOPE (single-user local app).',
+  'Book count is 83 (the shipped superset), NOT 87: the raw registry is 87 but 4 additions fold into Daniel/Esther (empty "Additions to Esther" dropped; paz/sus/bel demoted to inline appendix headings; per-edition eyebrow renumber). The 87->83 fold is a FEATURE (v0.0.3), not a defect — do NOT flag an "87 vs 83 mismatch".',
+  'ONE Bible ships — the Ethiopian superset (user-directed, supersedes the old "2 EPUBs / catholic-study-as-2nd-Bible" idea). The Geez/Amharic STANDALONE Bibles are a FUTURE update, out of scope for this round. Do NOT flag a "missing 2nd Bible".',
+  'The ~205 hidden orphan aes vnote-asides in index_split_028 are a KNOWN epubcheck-clean residual: the canon-splice leaves trailing shared-file asides that are invisible to readers. Do NOT re-flag as a new bug.',
+  'The recurring book TITLE-PAGE misalignment (Kobo/Apple device-QA) is a KNOWN open item, but the CSS is ALREADY text-align:center everywhere — so do NOT propose a blind CSS re-centering (that "fix" has failed many times). It needs a RENDER-then-diagnose pass (screenshot the actual title page, find the one off element). Flag the offending element only if you can cite it from a render; otherwise leave it.',
 ]
 const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
 
@@ -117,6 +139,8 @@ PROJECT FACTS (so you do not mis-flag intended design):
 - KEEP PYTHON; NO database (data-as-Python-tuples is deliberate); do NOT propose splitting scripts/web.py or scripts/build_edition.py for size alone (large files of small cohesive functions).
 - Voyage-embeddings INTEGRATION is dropped (only key-rotation security survives). Commercial surfaces were already removed.
 - The 9 KJV editions MUST build byte-stable; schema changes must be additive (byte-identical when unset); writes go through notes_io.atomic_write / ensure_backup.
+- SHIPPED STATE (v0.0.3, 2026-06-07): the full-notes Ethiopian Bible (~91.5K notes) + Win/Linux/macOS desktop builders + the live website. Book count is 83 (the superset; raw registry 87, 4 fold into Daniel/Esther — never flag 83-vs-87). ONE Bible ships (Ethiopian superset); the Geez/Amharic standalones are a FUTURE update (out of scope). "deploy" = REBUILD from source THEN publish (a stale-artifact ship is a real defect — see the dist-packaging dim).
+- SAVE CADENCE (RULES s4, 2026-06-08): fixes land as LOCAL COMMITS; the full 5-leg push happens only at a milestone. This audit is FINDINGS-ONLY — produce the plan, do NOT apply fixes.
 
 OFF-LIMITS MARATHON CORE (read-only context — never propose edits that touch these; flagging them as a *defect* is itself out of scope unless it is an outright crash):
   scripts/build_standalone.py, scripts/core/manuscript_*.py, scripts/core/po_vision_store.py,
@@ -193,8 +217,18 @@ For EACH failing/erroring test produce a finding: severity = high if it indicate
   {
     // round 5 (2026-06-05): the code shipped AFTER mint-11 — the dims above predate it and only UNDER-cover it.
     key: 'rx-surfaces', kind: 'find', finders: 2,
-    prompt: `DIMENSION: RX / RE-INGEST SURFACES (code shipped AFTER mint-11; the other dims predate it). Audit the build-time post-passes + the auto-note re-ingest for silent data-loss / corruption / injection. In ${REPO}/scripts/build_edition.py read: apply_file_split (~2277 — splits index_split_*.html into ~0.4 MB pieces, rewrites ~39.5 K cross-piece hrefs, regenerates OPF manifest+spine + nav.xhtml + toc.ncx) — CHECK every cross-piece href + badge->footnote target still resolves (a wrong-offset/dropped href = a dead link only seen on a real e-reader), every cut is well-formed (the stack-aware reopen/close), and no piece is orphaned from the spine; apply_badge_markers (~1797 — collapses a verse's note-ref markers into ONE verse-notes-badge + MERGES that verse's asides into one <aside class=verse-notes>) — CHECK badge count == pre-collapse marker count (no note dropped/reordered) and the merged aside markup is built WITHOUT unescaped note-text interpolation (stored-XSS); enrich_nav_chapters (~2730 — nests chapter <ol> in nav.xhtml + child navPoints in toc.ncx) — CHECK it runs LAST among the nav passes (a NAV-011 out-of-spine-order bug was already caught here) + gapless playOrder; apply_reader_toc_transforms (~2610). Font embed (style_config.EMBED_FONT_PATHS + patch_opf_fonts in BOTH build_edition.py and build_standalone.py) — CHECK every @font-face url() is OPF-declared (else epubcheck undeclared-resource) and the src is not an injection vector. Scaffold-strip (the <em>[Reviewer:]</em> removal + the check_no_reviewer_scaffolding lint) — CHECK the strip regex is not over-greedy (could eat real body). The dict-easton re-ingest (scripts/_reingest_eastons.py + scripts/extract_eastons_ccel.py + the new check_no_truncated_easton guard + tests/test_easton_reingest.py) — CHECK the full-article bodies are XHTML-escaped (a literal < or > already broke epubcheck in 2 entries), the exact-old-body pairing rewrote the RIGHT note, and the truncation guard actually fails on a truncated body. These passes act on the BUILT EPUB — prefer BUILDING eth + catholic-study (canon-filtered, per the gate-caught canon bug) and inspecting (epubcheck + a cross-piece link scan), not just source-reading. NOTE: this dimension is LOCAL-BUILD-heavy -> it runs on the N95 (SSD) lane.`,
+    prompt: `DIMENSION: RX / RE-INGEST SURFACES (code shipped AFTER mint-11; the other dims predate it). Audit the build-time post-passes + the auto-note re-ingest for silent data-loss / corruption / injection. In ${REPO}/scripts/build_edition.py read: apply_file_split (~2277 — splits index_split_*.html into ~0.4 MB pieces, rewrites ~39.5 K cross-piece hrefs, regenerates OPF manifest+spine + nav.xhtml + toc.ncx) — CHECK every cross-piece href + badge->footnote target still resolves (a wrong-offset/dropped href = a dead link only seen on a real e-reader), every cut is well-formed (the stack-aware reopen/close), and no piece is orphaned from the spine; apply_badge_markers (~1797 — collapses a verse's note-ref markers into ONE verse-notes-badge + MERGES that verse's asides into one <aside class=verse-notes>) — CHECK badge count == pre-collapse marker count (no note dropped/reordered) and the merged aside markup is built WITHOUT unescaped note-text interpolation (stored-XSS); enrich_nav_chapters (~2730 — nests chapter <ol> in nav.xhtml + child navPoints in toc.ncx) — CHECK it runs LAST among the nav passes (a NAV-011 out-of-spine-order bug was already caught here) + gapless playOrder; apply_reader_toc_transforms (~2610). Font embed (style_config.EMBED_FONT_PATHS + patch_opf_fonts in BOTH build_edition.py and build_standalone.py) — CHECK every @font-face url() is OPF-declared (else epubcheck undeclared-resource) and the src is not an injection vector. Scaffold-strip (the <em>[Reviewer:]</em> removal + the check_no_reviewer_scaffolding lint) — CHECK the strip regex is not over-greedy (could eat real body). The dict-easton re-ingest (scripts/_reingest_eastons.py + scripts/extract_eastons_ccel.py + the new check_no_truncated_easton guard + tests/test_easton_reingest.py) — CHECK the full-article bodies are XHTML-escaped (a literal < or > already broke epubcheck in 2 entries), the exact-old-body pairing rewrote the RIGHT note, and the truncation guard actually fails on a truncated body. EXTEND the re-ingest checks beyond dict-easton to the lang-greek (Theós/Phōs head-drop + paren-imbalance) + topic-torrey (ref-dump leak) + topic-nave re-ingests, and confirm each lint guard (greek_gloss_quality, no_torrey_topic_leak, check_no_truncated_easton) actually FAILS on its defect (not tautological). ALSO audit the v0.0.3 post-passes shipped AFTER round 5 (search build_edition.py by function name — line numbers have drifted): apply_superscriptions (Psalm/incipit superscription wrapping — CHECK no verse text dropped or duplicated); apply_appendix_demotion_and_renumber (drops empty "Additions to Esther" from every canon, demotes Daniel additions paz/sus/bel to inline appendix headings, per-edition "BOOK <roman>" eyebrow renumber to 83 books — CHECK the renumber is GAPLESS on a CANON-FILTERED edition and no book is lost/duplicated); the cross-verse DEDUP of byte-identical note bodies per book (CHECK it removes only TRUE byte-identical duplicates, never a distinct note); the alt-book-name (", or …") removal in books.yaml + base HTML (CHECK no anchor/id/href broke). These passes act on the BUILT EPUB — prefer BUILDING eth + catholic-study (canon-filtered, per the gate-caught canon bug) and inspecting (epubcheck + a cross-piece link scan), not just source-reading. NOTE: this dimension is LOCAL-BUILD-heavy -> it runs on the N95 (SSD) lane.`,
     angles: ['Emphasize the file-splitter: cross-piece href integrity + well-formed cuts + spine completeness (silent dead-link data-loss).', 'Emphasize badge-merge note-conservation + unescaped-interpolation XSS, font @font-face OPF-declaration, and the dict-easton re-ingest XHTML-escape + body pairing.'],
+  },
+  {
+    // round 6 (2026-06-08): the desktop builders + release pipeline shipped for v0.0.x — no prior dim covers them. READ-ONLY review (do NOT run builds); mac lane.
+    key: 'dist-packaging', kind: 'find', finders: 1,
+    prompt: `DIMENSION: DISTRIBUTION / PACKAGING (the desktop builders + release pipeline; shipped for v0.0.x — the other dims predate it). READ-ONLY review — do NOT run a build. Hunt for: (a) VERSION DRIFT + STALE-ARTIFACT ships — the user's rule is "deploy" = REBUILD from source THEN publish; a builder that bundles a stale \`editions.yaml\`/\`VERSION\` ships the wrong Bibles. CHECK \`VERSION\` (currently 0.0.3) is read consistently by every builder and the bundled \`content/editions.yaml\` is the FULL-notes one; no hard-coded stale version string. (b) SECRET LEAKAGE in build scripts — \`dev/sign_windows.ps1\` (Azure Trusted Signing: the data-plane role + \`-ObjectId\` usage; no signing secret / token committed or echoed), \`dev/build_dmg.sh\` (notarization creds via keychain/env, never inline; staple step present), the macOS identity. (c) CHECKSUM / RELEASE-MERGE correctness — the \`SHA256SUMS.txt\` merge step (\`gen_checksums\`) lists EVERY shipped asset and is re-uploaded \`--clobber\`; the launcher's pywebview/\`webview\` import stays \`try/except\` so a headless CI build still works (\`.github/workflows/build-linux.yml\` AppImage). Read \`dev/launcher.spec\`, the launcher entry, \`dev/sign_windows.ps1\`, \`dev/build_dmg.sh\`, \`.github/workflows/build-linux.yml\`. Report drift / stale-ship / secret findings with file:line.`,
+  },
+  {
+    // round 6 (2026-06-08): the public website + progress generator shipped for launch — READ-ONLY review; mac lane.
+    key: 'website-deploy', kind: 'find', finders: 1,
+    prompt: `DIMENSION: WEBSITE / PUBLIC SURFACE (\`website/**\` + the progress generator; shipped for the public launch). READ-ONLY review. Hunt for: (a) the "sources are NOT missing" DISPLAY guard (RULES guard #2) — \`scripts/gen_website_progress.py\` must NEVER show a book as "not started" / un-sourced (the floor is "source in hand"); the EN-flag must require >=50 real verse rows + a transcribed/ready stage (a stub back-translation must NOT light up EN); the 83-book superset must exclude the 4 folded books via \`_SUPERSET_EXCLUDE\` (NEVER surface 87). (b) STALE / BROKEN download links + checksums in \`website/src/releases.html\` + \`releases.js\` (every asset link resolves; \`SHA256SUMS.txt\` referenced; no \`is-pending\` placeholder left live; no "Windows follows shortly"/"coming soon"/stale-version copy now that all 3 platforms ship). (c) the 83-book count is consistent across the page body + \`<meta>\`/\`og:\`/\`twitter:\` description tags + the social card (\`brand/sources/card.html\` -> \`social-card.png\`) per the RULES "a claim/count lives in MORE than the page HTML" corollary. (d) \`website/build.mjs\` partial-injection correctness (no unescaped interpolation; every page built). Report with file:line; cite the stale value + the correct one.`,
   },
   // ---- OPTIMIZATION dimension (approach re-evaluation; targets the PROJECT'S WORK, not meta-tooling/env) ----
   {
@@ -222,11 +256,15 @@ For EACH failing/erroring test produce a finding: severity = high if it indicate
 // vs model calls) so they truly parallelize. 'all' (default) = the full made-current set on one machine.
 // Findings from each lane merge in ONE final synthesize on the N95 (deep-audit-continue.js is the
 // inject-findings precedent). Leave LANE='all' committed; each lane flips its OWN local copy, never commits it.
-const LANE = args?.lane ?? 'all'  // 'win' | 'mac' | 'all'
+// LANE is defined at the top of the file (parity bake). win = the LOCAL-COMPUTE-heavy
+// dims (pytest + builds → the N95's fast SSD); mac = the read-only, model-call-bound
+// code-review dims (disk-light → fine on the HDD-bound iMac). Different bottlenecks ⇒
+// they truly parallelize. round 6 adds dist-packaging + website-deploy to the mac set.
 const LANE_DIMS = {
   win: ['tests-run', 'opt-build', 'byte-stability', 'rx-surfaces'],
   mac: ['correctness', 'security', 'code-debt', 'tests', 'docs', 'data-validity',
-        'concurrency-caching', 'cross-module', 'marathon-boundary', 'opt-vision', 'opt-ingest', 'opt-render'],
+        'concurrency-caching', 'cross-module', 'marathon-boundary', 'dist-packaging',
+        'website-deploy', 'opt-vision', 'opt-ingest', 'opt-render'],
 }
 const _laneSet = LANE === 'all' ? null : new Set(LANE_DIMS[LANE] || [])
 const DIMENSIONS = args?.dimensions ?? (_laneSet ? DEFAULT_DIMENSIONS.filter((d) => _laneSet.has(d.key)) : DEFAULT_DIMENSIONS)
@@ -235,14 +273,14 @@ const DIMENSIONS = args?.dimensions ?? (_laneSet ? DEFAULT_DIMENSIONS.filter((d)
 // Helpers
 // ----------------------------------------------------------------------------
 function agentTypeForFind(dim) {
-  if (dim.kind === 'optimization') return 'feature-dev:code-architect'
-  if (dim.kind === 'guard') return 'Explore'
-  return 'feature-dev:code-reviewer'
+  if (dim.kind === 'optimization') return _AG.architect
+  if (dim.kind === 'guard') return _AG.guard
+  return _AG.review
 }
 function agentTypeForVerify(dim) {
-  if (dim.kind === 'optimization') return 'feature-dev:code-architect'
-  if (dim.kind === 'guard') return 'Explore'
-  return 'feature-dev:code-reviewer'
+  if (dim.kind === 'optimization') return _AG.architect
+  if (dim.kind === 'guard') return _AG.guard
+  return _AG.review
 }
 function finderCount(dim) {
   return DEPTH === 'deep' ? (dim.finders ?? 1) : 1
@@ -429,7 +467,7 @@ Produce Markdown with these sections:
 1. "## Executive summary" — 3-5 sentences using the AUTHORITATIVE COUNTS verbatim: how many findings, the most serious, overall codebase health.
 2. "## Phased fixes" — group the bug findings into phases ordered SAFEST/MOST-FOUNDATIONAL FIRST (additive + guard-adding before behavior-changing; security + silent-data-loss high priority). For each finding: a checkbox line with severity, title, file:line, the (corrected) fix, the test/guard to add, and whether it touches the build path (=> byte-stability proof obligation). Prefer a commit-time lint_rules check over a pytest-only guard for invariants that recur every ingest.
 3. "## Optimization decisions" — a table: Area | Verdict (confirmed-optimal / change) | Recommendation. Keep the marathon-core off-limits and the no-paid-API + byte-stability constraints explicit.
-4. "## Constraints carried" — never touch the marathon core; 9 KJV editions byte-stable; additive schema; atomic writes; 5-leg save per phase.
+4. "## Constraints carried" — never touch the marathon core; 9 KJV editions byte-stable; additive schema; atomic writes; **bandwidth-first save cadence (RULES §4): LOCAL-COMMIT per fix, full 5-leg sync only at a milestone**; and this audit is FINDINGS-ONLY — produce the plan, STOP before applying any fix (user marching order 2026-06-08).
 Return ONLY the Markdown.`,
     { label: 'synth:fixes-plan', phase: 'Synthesize' }
   )
@@ -444,7 +482,7 @@ ${DIMENSIONS.map((d) => { const v = verified.filter((f) => f.dimension === d.key
 Surviving finding titles: ${survivors.map((f) => f.title).join(' | ') || '(none)'}
 
 As a COMPLETENESS CRITIC, identify what this round likely MISSED — a subtree/module/data-set not searched, an invariant not checked, a failure mode a single-pass finder would skip, or a dimension that returned suspiciously little. Return concrete gaps + a finder lens for each (these seed the next convergence round). Be specific to THIS codebase, not generic.`,
-  { label: 'synth:completeness-critic', phase: 'Synthesize', schema: COMPLETENESS_SCHEMA, agentType: 'feature-dev:code-reviewer' }
+  { label: 'synth:completeness-critic', phase: 'Synthesize', schema: COMPLETENESS_SCHEMA, agentType: _AG.review }
 )
 
 return {

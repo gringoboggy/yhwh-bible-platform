@@ -1,20 +1,20 @@
 export const meta = {
   name: 'deep-audit-merge',
-  description: 'Merge the two SPLIT-lane deep-audit results (win + mac) into ONE synthesized phased fixes plan (round 5). Paste each lane\'s survivors into the in-file constants below, then run on the N95.',
+  description: 'Merge the two SPLIT-lane deep-audit results (win + mac) into ONE synthesized phased fixes plan (round 6). Paste each lane\'s survivors into the in-file constants below, then run on the N95.',
   phases: [{ title: 'Synthesize', detail: 'dedup the union of both lanes\' survivors -> one phased fixes plan + completeness critic' }],
 }
 
 // Runs on the N95 AFTER both lanes finish their split deep-audit (see
-// docs/superpowers/plans/2026-06-05-split-audit-plan.md). Workflow scripts have no
+// docs/superpowers/plans/2026-06-08-round6-split-audit-plan.md). Workflow scripts have no
 // filesystem access, so — like deep-audit-continue.js — each lane's survivors are
 // pasted as in-file literals. Procedure:
 //   1. win lane: JSON.parse(<win output>).result.survivors  -> paste into WIN_SURVIVORS
 //   2. mac lane: pull branch lane-transfer/audit -> findings-mac.json .survivors -> MAC_SURVIVORS
 //   3. run Workflow({scriptPath: '.../deep-audit-merge.js'}); write result.fixesPlanMarkdown to
-//      docs/superpowers/notes/2026-06-05-round5-split-audit-findings.md
+//      docs/superpowers/notes/2026-06-08-round6-split-audit-findings.md
 const REPO = 'C:/Users/bogda/Documents/YHWH-v2.4-full/YHWH v2.4'
-const ROUND = 5
-const NOW = '2026-06-05'
+const ROUND = 6
+const NOW = '2026-06-08'
 
 // ============================================================================
 // PASTE EACH LANE'S survivors[] HERE before running:
@@ -30,7 +30,7 @@ function dedupe(findings) {
   return out
 }
 
-const PREAMBLE = `You are finalizing the YHWH v2.4 deep-audit (round ${ROUND}, ${NOW}) — a SPLIT run merged on the N95: the win lane ran tests-run/opt-build/byte-stability/rx-surfaces (pytest + builds), the mac lane ran the 12 read-only code-review dims. Repo root "${REPO}/". CONSTRAINTS: single-user LOCAL app (do NOT raise CSRF/rate-limit/hosting); KEEP PYTHON / no DB; the 9 KJV editions MUST build byte-stable (additive schema; writes via notes_io.atomic_write); never touch the off-limits marathon core (build_standalone.py, core/manuscript_*, GAPS/). The Geez/Amharic standalone Bibles are a FUTURE update — out of scope for the "9/11 editions mint" done-line.`
+const PREAMBLE = `You are finalizing the YHWH v2.4 deep-audit (round ${ROUND}, ${NOW}) — a SPLIT run merged on the N95: the win lane ran tests-run/opt-build/byte-stability/rx-surfaces (pytest + builds), the mac lane ran the 14 read-only code-review dims (incl. the round-6 dist-packaging + website-deploy). Repo root "${REPO}/". CONSTRAINTS: single-user LOCAL app (do NOT raise CSRF/rate-limit/hosting); KEEP PYTHON / no DB; the 9 KJV editions MUST build byte-stable (additive schema; writes via notes_io.atomic_write); never touch the off-limits marathon core (build_standalone.py, core/manuscript_*, GAPS/). Book count is 83 (the superset; never 87). ONE Bible ships; the Geez/Amharic standalones are a FUTURE update — out of scope. This is FINDINGS-ONLY: produce the merged plan, do NOT apply fixes.`
 
 const all = dedupe([...WIN_SURVIVORS, ...MAC_SURVIVORS])
   .map((f) => ({ ...f, finalSeverity: f.severity || 'medium' }))
