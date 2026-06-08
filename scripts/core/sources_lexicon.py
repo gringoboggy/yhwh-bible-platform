@@ -303,7 +303,9 @@ class NavesTopical:
         """Return every verse tagged with this topic."""
         raw = self._topics.get(topic) or []
         return [
-            NaveTopicHit(topic=topic, target_book=r[0], target_chapter=int(r[1]), target_verse=int(r[2]))
+            NaveTopicHit(
+                topic=topic, target_book=_normalize_book_code(r[0]), target_chapter=int(r[1]), target_verse=int(r[2])
+            )
             for r in raw
             if len(r) >= 3
         ]
@@ -379,7 +381,9 @@ class TorreyTopical:
         """Return every verse tagged with this topic."""
         raw = self._topics.get(topic) or []
         return [
-            TorreyTopicHit(topic=topic, target_book=r[0], target_chapter=int(r[1]), target_verse=int(r[2]))
+            TorreyTopicHit(
+                topic=topic, target_book=_normalize_book_code(r[0]), target_chapter=int(r[1]), target_verse=int(r[2])
+            )
             for r in raw
             if len(r) >= 3
         ]

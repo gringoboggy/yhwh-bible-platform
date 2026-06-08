@@ -62,14 +62,24 @@ CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
 def discover_verses(book: str, chapter: int) -> list[tuple[int, str]]:
     """Return [(verse_num, verse_text), ...] for a chapter, in order."""
-    out = []
-    # Chapters cap at ~150 verses (Psalm 119); cheap to scan upper bound.
+    out: list[tuple[int, str]] = []
+    # Verse numbering can have INTERNAL gaps, so a single missing verse must NOT
+    # end the scan (the old break-on-first-miss truncated such chapters): e.g. the
+    # base has 1En 89 = {1-57, 68-76}, a 10-verse hole. Skip holes and stop only
+    # after a long run of consecutive misses — wide enough to span the known gaps
+    # (max seen: 10), bounded so we don't re-glob the HTML for all 199 verses of
+    # every chapter (find_verse_text re-reads the files). Longest real chapter is
+    # Psalm 119 (176 verses), so 199 is a generous upper bound. Byte-identical
+    # output on the contiguous base (misses reset on every hit).
+    misses = 0
     for v in range(1, 200):
         text, _ = find_verse_text(EPUB_DIR, book, chapter, v)
         if text is None:
-            # Stop scanning at first missing verse — verse numbering is
-            # contiguous within a chapter.
-            break
+            misses += 1
+            if misses >= 20:
+                break
+            continue
+        misses = 0
         out.append((v, text))
     return out
 

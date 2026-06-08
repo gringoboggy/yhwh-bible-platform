@@ -123,5 +123,21 @@ def test_notes_write_clears_compute_matrix_cache(tmp_path, monkeypatch) -> None:
     assert called["n"] >= 1, "compute_matrix.cache_clear must be called on a notes-file write"
 
 
+def test_notes_write_clears_edition_stats_cache(tmp_path, monkeypatch) -> None:
+    # v0.1.0 audit Phase 2 (the mint-9 #10 TWIN): a notes-file write must also drop
+    # edition_stats's resolved_note_counts lru_cache, or the baked front-matter counts
+    # (copyright / legend / "Your Edition" pages) serve stale numbers until restart.
+    from scripts.core import edition_stats
+    from scripts.core import notes_io
+
+    called = {"n": 0}
+    monkeypatch.setattr(edition_stats, "cache_clear", lambda: called.__setitem__("n", called["n"] + 1))
+    fake = tmp_path / "notes" / "gen.py"
+    fake.parent.mkdir(parents=True)
+    fake.write_text("NOTES = []\n", encoding="utf-8")
+    notes_io._invalidate_corpus_index_if_notes_file(fake)
+    assert called["n"] >= 1, "edition_stats.cache_clear must be called on a notes-file write"
+
+
 if __name__ == "__main__":  # pragma: no cover
     sys.exit(pytest.main([__file__, "-q"]))

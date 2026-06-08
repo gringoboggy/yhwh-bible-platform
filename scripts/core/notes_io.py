@@ -139,6 +139,15 @@ def _invalidate_corpus_index_if_notes_file(path: Path) -> None:
             from scripts.core import matrix as _matrix
 
             _matrix.compute_matrix.cache_clear()
+            # v0.1.0 audit Phase 2 (the mint-9 #10 twin): edition_stats's
+            # resolved_note_counts is an lru_cache keyed on an edition signature
+            # that does NOT include the notes-corpus mtime, so a runtime notes
+            # write leaves the baked front-matter counts (copyright / legend /
+            # "Your Edition" pages) stale until restart. Drop it here too —
+            # edition_stats never imports notes_io, so this is DAG-safe.
+            from scripts.core import edition_stats as _edition_stats
+
+            _edition_stats.cache_clear()
     except Exception:  # noqa: BLE001
         pass
 
