@@ -189,12 +189,21 @@ def _bible_progress(repo: Path, books: list[dict], *, store: str, standalone: se
     return {"books": rows, "counts": counts, "total": len(rows)}
 
 
+# Books the shipped editions fold into a parent or drop, so they are NOT standalone
+# pills on the public tracker. The Greek additions to Daniel (build_edition.APPENDIX_BOOKS
+# = paz/sus/bel) fold inline into Daniel, and the empty "Additions to Esther" (aes) is
+# removed. Excluding them turns the raw 87-book registry into the 83-book superset the
+# program actually publishes — keep this in sync with build_edition.APPENDIX_BOOKS.
+_SUPERSET_EXCLUDE = {"paz", "sus", "bel", "aes"}
+
+
 def compute_progress(repo_root: str | Path) -> dict:
     repo = Path(repo_root)
     sys.path.insert(0, str(repo))
     from scripts.core import config
 
-    books = config.load_books()  # 87-book registry, canonical order
+    # 83-book superset = canonical-order registry minus the folded/dropped additions.
+    books = [b for b in config.load_books() if b["code"] not in _SUPERSET_EXCLUDE]
     standalone = _standalone_books()
     en = _en_books(repo, "geez-tewahedo-en")
     geez = _bible_progress(repo, books, store="geez-tewahedo", standalone=standalone, en=en)

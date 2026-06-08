@@ -93,7 +93,7 @@
       },
       {
         "code": "jub",
-        "name": "or The Little Genesis",
+        "name": "The Book of Jubilees",
         "stage": "source",
         "en": false
       },
@@ -105,7 +105,7 @@
       },
       {
         "code": "2en",
-        "name": "or The Book of the Secrets of Enoch",
+        "name": "The Second Book of Enoch",
         "stage": "source",
         "en": false
       },
@@ -123,13 +123,13 @@
       },
       {
         "code": "1es",
-        "name": "or Ezra Kali",
+        "name": "The First Book of Esdras",
         "stage": "source",
         "en": false
       },
       {
         "code": "2es",
-        "name": "or Ezra Sutu'el",
+        "name": "The Second Book of Esdras",
         "stage": "source",
         "en": false
       },
@@ -148,12 +148,6 @@
       {
         "code": "est",
         "name": "The Book of Esther",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "aes",
-        "name": "translated from the Greek Septuagint",
         "stage": "source",
         "en": false
       },
@@ -266,20 +260,516 @@
         "en": false
       },
       {
-        "code": "paz",
-        "name": "or The Prayer of Azariah",
+        "code": "hos",
+        "name": "The Book of Hosea",
         "stage": "source",
         "en": false
       },
       {
-        "code": "sus",
-        "name": "The History of Susanna",
+        "code": "joe",
+        "name": "The Book of Joel",
         "stage": "source",
         "en": false
       },
       {
-        "code": "bel",
-        "name": "Bel and the Dragon",
+        "code": "amo",
+        "name": "The Book of Amos",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "oba",
+        "name": "The Book of Obadiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jon",
+        "name": "The Book of Jonah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mic",
+        "name": "The Book of Micah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "nah",
+        "name": "The Book of Nahum",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "hab",
+        "name": "The Book of Habakkuk",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "zep",
+        "name": "The Book of Zephaniah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "hag",
+        "name": "The Book of Haggai",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "zec",
+        "name": "The Book of Zechariah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mal",
+        "name": "The Book of Malachi",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mat",
+        "name": "The Good News According to Matthew",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mrk",
+        "name": "The Good News According to Mark",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "luk",
+        "name": "The Good News According to Luke",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jhn",
+        "name": "The Good News According to John",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "act",
+        "name": "The Acts of the Apostles",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "rom",
+        "name": "Paul’s Letter to the Romans",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1co",
+        "name": "Paul’s First Letter to the Corinthians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2co",
+        "name": "Paul’s Second Letter to the Corinthians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "gal",
+        "name": "Paul’s Letter to the Galatians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "eph",
+        "name": "Paul’s Letter to the Ephesians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "phi",
+        "name": "Paul’s Letter to the Philippians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "col",
+        "name": "Paul’s Letter to the Colossians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1th",
+        "name": "Paul’s First Letter to the Thessalonians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2th",
+        "name": "Paul’s Second Letter to the Thessalonians",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1ti",
+        "name": "Paul’s First Letter to Timothy",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2ti",
+        "name": "Paul’s Second Letter to Timothy",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "tit",
+        "name": "Paul’s Letter to Titus",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "phm",
+        "name": "Paul’s Letter to Philemon",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "heb",
+        "name": "The Letter to the Hebrews",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jam",
+        "name": "The Letter from James",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1pe",
+        "name": "Peter’s First Letter",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2pe",
+        "name": "Peter’s Second Letter",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1jn",
+        "name": "John’s First Letter",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2jn",
+        "name": "John’s Second Letter",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "3jn",
+        "name": "John’s Third Letter",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jud",
+        "name": "The Letter from Jude",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "rev",
+        "name": "Revelation",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1cl",
+        "name": "The First Epistle of Clement to the Corinthians",
+        "stage": "source",
+        "en": false
+      }
+    ],
+    "counts": {
+      "source": 79,
+      "transcribed": 0,
+      "ready": 4
+    },
+    "total": 83,
+    "links": {
+      "1ki": "{{root}}read/geez/1ki.html",
+      "1sa": "{{root}}read/geez/1sa.html",
+      "2sa": "{{root}}read/geez/2sa.html",
+      "psa": "{{root}}read/geez/psa.html"
+    }
+  },
+  "amharic": {
+    "books": [
+      {
+        "code": "gen",
+        "name": "Genesis",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "exo",
+        "name": "Exodus",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "lev",
+        "name": "Leviticus",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "num",
+        "name": "Numbers",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "deu",
+        "name": "Deuteronomy",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jos",
+        "name": "The Book of Joshua",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jdg",
+        "name": "The Book of Judges",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "rut",
+        "name": "The Book of Ruth",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1sa",
+        "name": "The First Book of Samuel",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2sa",
+        "name": "The Second Book of Samuel",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1ki",
+        "name": "The First Book of Kings",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2ki",
+        "name": "The Second Book of Kings",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1ch",
+        "name": "The First Book of Chronicles",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2ch",
+        "name": "The Second Book of Chronicles",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "man",
+        "name": "The Prayer of Manasses",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jub",
+        "name": "The Book of Jubilees",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1en",
+        "name": "The Book of Enoch",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2en",
+        "name": "The Second Book of Enoch",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "ezr",
+        "name": "The Book of Ezra",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "neh",
+        "name": "The Book of Nehemiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "1es",
+        "name": "The First Book of Esdras",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "2es",
+        "name": "The Second Book of Esdras",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "tob",
+        "name": "The Book of Tobit",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jdt",
+        "name": "The Book of Judith",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "est",
+        "name": "The Book of Esther",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mq1",
+        "name": "The Book of Meqabyan I",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mq2",
+        "name": "The Book of Meqabyan II",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "mq3",
+        "name": "The Book of Meqabyan III",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "job",
+        "name": "The Book of Job",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "psa",
+        "name": "The Psalms",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "pro",
+        "name": "The Proverbs",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "wis",
+        "name": "The Wisdom of Solomon",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "ecc",
+        "name": "The Preacher",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "sng",
+        "name": "or Song of Solomon",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "sir",
+        "name": "or Ecclesiasticus",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "isa",
+        "name": "The Book of the Prophet Isaiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "jer",
+        "name": "The Book of Jeremiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "lam",
+        "name": "The Lamentations of Jeremiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "bar",
+        "name": "The Book of Baruch",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "lje",
+        "name": "The Letter of Jeremiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "4ba",
+        "name": "or Paralipomena of Jeremiah",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "eze",
+        "name": "The Book of Ezekiel",
+        "stage": "source",
+        "en": false
+      },
+      {
+        "code": "dan",
+        "name": "The Book of Daniel",
         "stage": "source",
         "en": false
       },
@@ -527,547 +1017,9 @@
     "counts": {
       "source": 83,
       "transcribed": 0,
-      "ready": 4
-    },
-    "total": 87,
-    "links": {
-      "1ki": "{{root}}read/geez/1ki.html",
-      "1sa": "{{root}}read/geez/1sa.html",
-      "2sa": "{{root}}read/geez/2sa.html",
-      "psa": "{{root}}read/geez/psa.html"
-    }
-  },
-  "amharic": {
-    "books": [
-      {
-        "code": "gen",
-        "name": "Genesis",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "exo",
-        "name": "Exodus",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "lev",
-        "name": "Leviticus",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "num",
-        "name": "Numbers",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "deu",
-        "name": "Deuteronomy",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jos",
-        "name": "The Book of Joshua",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jdg",
-        "name": "The Book of Judges",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "rut",
-        "name": "The Book of Ruth",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1sa",
-        "name": "The First Book of Samuel",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2sa",
-        "name": "The Second Book of Samuel",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1ki",
-        "name": "The First Book of Kings",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2ki",
-        "name": "The Second Book of Kings",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1ch",
-        "name": "The First Book of Chronicles",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2ch",
-        "name": "The Second Book of Chronicles",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "man",
-        "name": "The Prayer of Manasses",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jub",
-        "name": "or The Little Genesis",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1en",
-        "name": "The Book of Enoch",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2en",
-        "name": "or The Book of the Secrets of Enoch",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "ezr",
-        "name": "The Book of Ezra",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "neh",
-        "name": "The Book of Nehemiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1es",
-        "name": "or Ezra Kali",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2es",
-        "name": "or Ezra Sutu'el",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "tob",
-        "name": "The Book of Tobit",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jdt",
-        "name": "The Book of Judith",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "est",
-        "name": "The Book of Esther",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "aes",
-        "name": "translated from the Greek Septuagint",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mq1",
-        "name": "The Book of Meqabyan I",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mq2",
-        "name": "The Book of Meqabyan II",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mq3",
-        "name": "The Book of Meqabyan III",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "job",
-        "name": "The Book of Job",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "psa",
-        "name": "The Psalms",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "pro",
-        "name": "The Proverbs",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "wis",
-        "name": "The Wisdom of Solomon",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "ecc",
-        "name": "The Preacher",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "sng",
-        "name": "or Song of Solomon",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "sir",
-        "name": "or Ecclesiasticus",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "isa",
-        "name": "The Book of the Prophet Isaiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jer",
-        "name": "The Book of Jeremiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "lam",
-        "name": "The Lamentations of Jeremiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "bar",
-        "name": "The Book of Baruch",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "lje",
-        "name": "The Letter of Jeremiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "4ba",
-        "name": "or Paralipomena of Jeremiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "eze",
-        "name": "The Book of Ezekiel",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "dan",
-        "name": "The Book of Daniel",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "paz",
-        "name": "or The Prayer of Azariah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "sus",
-        "name": "The History of Susanna",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "bel",
-        "name": "Bel and the Dragon",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "hos",
-        "name": "The Book of Hosea",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "joe",
-        "name": "The Book of Joel",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "amo",
-        "name": "The Book of Amos",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "oba",
-        "name": "The Book of Obadiah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jon",
-        "name": "The Book of Jonah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mic",
-        "name": "The Book of Micah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "nah",
-        "name": "The Book of Nahum",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "hab",
-        "name": "The Book of Habakkuk",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "zep",
-        "name": "The Book of Zephaniah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "hag",
-        "name": "The Book of Haggai",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "zec",
-        "name": "The Book of Zechariah",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mal",
-        "name": "The Book of Malachi",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mat",
-        "name": "The Good News According to Matthew",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "mrk",
-        "name": "The Good News According to Mark",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "luk",
-        "name": "The Good News According to Luke",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jhn",
-        "name": "The Good News According to John",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "act",
-        "name": "The Acts of the Apostles",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "rom",
-        "name": "Paul’s Letter to the Romans",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1co",
-        "name": "Paul’s First Letter to the Corinthians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2co",
-        "name": "Paul’s Second Letter to the Corinthians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "gal",
-        "name": "Paul’s Letter to the Galatians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "eph",
-        "name": "Paul’s Letter to the Ephesians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "phi",
-        "name": "Paul’s Letter to the Philippians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "col",
-        "name": "Paul’s Letter to the Colossians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1th",
-        "name": "Paul’s First Letter to the Thessalonians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2th",
-        "name": "Paul’s Second Letter to the Thessalonians",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1ti",
-        "name": "Paul’s First Letter to Timothy",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2ti",
-        "name": "Paul’s Second Letter to Timothy",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "tit",
-        "name": "Paul’s Letter to Titus",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "phm",
-        "name": "Paul’s Letter to Philemon",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "heb",
-        "name": "The Letter to the Hebrews",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jam",
-        "name": "The Letter from James",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1pe",
-        "name": "Peter’s First Letter",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2pe",
-        "name": "Peter’s Second Letter",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1jn",
-        "name": "John’s First Letter",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "2jn",
-        "name": "John’s Second Letter",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "3jn",
-        "name": "John’s Third Letter",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "jud",
-        "name": "The Letter from Jude",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "rev",
-        "name": "Revelation",
-        "stage": "source",
-        "en": false
-      },
-      {
-        "code": "1cl",
-        "name": "The First Epistle of Clement to the Corinthians",
-        "stage": "source",
-        "en": false
-      }
-    ],
-    "counts": {
-      "source": 87,
-      "transcribed": 0,
       "ready": 0
     },
-    "total": 87,
+    "total": 83,
     "links": {}
   }
 }
