@@ -2627,6 +2627,58 @@ def check_no_torrey_topic_leak() -> dict:
     }
 
 
+def check_candidate_extent() -> dict:
+    """v0.1.0 audit Phase 0 — no candidate in content/candidates/*.json may carry a
+    coordinate outside its book's canonical extent.
+
+    The promote boundary already drops out-of-extent coords
+    (``coord_in_canonical_extent`` in promote.promote_candidate / batch_insert_notes),
+    so these never SHIP; this guard stops the out-of-extent class from silently
+    RE-ACCUMULATING in the staging area (114 such orphans — incl. the aes coords the
+    old broken guard let pass — were cleaned at v0.1.0 STAGE B). Pairs with the
+    aes/_book_shape_cached fix that made coord_in_canonical_extent correct for
+    non-1-start books."""
+    cand_dir = REPO / "content" / "candidates"
+    if not cand_dir.is_dir():
+        return {
+            "id": "candidate_extent",
+            "name": "Candidate coords within canonical extent",
+            "status": "warn",
+            "message": "content/candidates/ directory missing",
+            "violations": [],
+        }
+    from scripts.core.canonical_verse_counts import coord_in_canonical_extent
+
+    violations: list[dict] = []
+    for f in sorted(cand_dir.glob("*_ch_*.json")):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        book = d.get("book") or f.stem.split("_ch_")[0]
+        ch_top = d.get("chapter")
+        for c in d.get("candidates", []):
+            try:
+                ch = int(c.get("chapter", ch_top))
+                v = int(c["verse"])
+            except (TypeError, ValueError, KeyError):
+                continue
+            if not coord_in_canonical_extent(book, ch, v):
+                violations.append({"file": f.name, "coord": f"{book} {ch}:{v}"})
+    return {
+        "id": "candidate_extent",
+        "name": "Candidate coords within canonical extent",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "no out-of-extent candidate coords"
+            if not violations
+            else f"{len(violations)} candidate(s) carry out-of-extent coords — drop them "
+            "(promote already rejects them; they can't ship, but must not re-accumulate)"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2680,6 +2732,10 @@ ALL_CHECKS = {
     # Auto-note re-ingest defects #3 + #5 (2026-06-06) — topic-torrey bodies may not
     # leak a scripture ref-run or a mis-parsed sub-entry description into the topic list.
     "no_torrey_topic_leak": check_no_torrey_topic_leak,
+    # v0.1.0 audit Phase 0 — no content/candidates/*.json coord may fall outside its
+    # book's canonical extent (regression guard for the STAGE-B 114-orphan cleanup;
+    # promote already drops them, so this is staging-hygiene defense-in-depth).
+    "candidate_extent": check_candidate_extent,
 }
 
 

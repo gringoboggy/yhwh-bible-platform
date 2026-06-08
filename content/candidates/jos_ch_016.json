@@ -2,23 +2,8 @@
   "book": "jos",
   "chapter": 16,
   "generated_at": "2026-05-26T04:35:17+00:00",
-  "n_candidates": 17,
+  "n_candidates": 16,
   "candidates": [
-    {
-      "id": "jos-16-59-002",
-      "verse": 59,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> that they had never formed part of it, and were never quoted or used on the same level as the books recognised as inspired. It is true that one verse has dropped out of a long list of towns (after Josh. 16. 59), in which was contained (as the Septuagint shows see Variorum ; fo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
-      "status": "pending"
-    },
     {
       "id": "jos-16-1-002",
       "verse": 1,

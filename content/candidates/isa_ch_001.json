@@ -2,7 +2,7 @@
   "book": "isa",
   "chapter": 1,
   "generated_at": "2026-05-26T04:35:14+00:00",
-  "n_candidates": 89,
+  "n_candidates": 88,
   "candidates": [
     {
       "id": "isa-1-2-001",
@@ -855,21 +855,6 @@
       "draft_title": "Topic",
       "draft_label": "Topic.",
       "draft_body": "<strong>Topics.</strong> This verse appears under: NATIONAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
-      "id": "isa-1-81-058",
-      "verse": 81,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: TOW",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: TOW. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"

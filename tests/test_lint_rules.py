@@ -33,12 +33,12 @@ class TestAllChecksMetaContract:
         assert not failing, f"lint check(s) failing on the committed tree: {failing}"
 
     def test_registry_not_silently_shrunk(self):
-        # Pin the registry size EXACTLY (32 at mint-11 tail: 28 at mint-8
-        # [+bookcode_canonical mint-7, +subprocess_stdin mint-8], then
-        # +no_reviewer_scaffolding, +no_truncated_easton, +greek_gloss_quality,
-        # +no_torrey_topic_leak) so a check can't be dropped from ALL_CHECKS —
-        # or quietly added without updating this pin — without a test noticing.
-        assert len(self.mod.ALL_CHECKS) == 32, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 32"
+        # Pin the registry size EXACTLY (33: 32 at mint-11 tail [28 at mint-8 +
+        # bookcode_canonical/subprocess_stdin/no_reviewer_scaffolding/
+        # no_truncated_easton/greek_gloss_quality/no_torrey_topic_leak], then
+        # +candidate_extent at v0.1.0 audit Phase 0) so a check can't be dropped
+        # from ALL_CHECKS — or quietly added without updating this pin — unnoticed.
+        assert len(self.mod.ALL_CHECKS) == 33, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 33"
         # A duplicate key in the dict literal would silently collapse two checks
         # into one; pin that the keys are unique.
         assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))
@@ -254,6 +254,40 @@ class TestReingestGuardsFireOnDefect:
             "Topic body appears under: Tyre, Babylon, Egypt.",
         )
         assert r["status"] == "pass", r
+
+
+class TestCandidateExtentGuard:
+    """v0.1.0 audit Phase 0 — `check_candidate_extent` must FAIL on a planted
+    out-of-extent candidate coord and PASS on a clean one (the regression guard
+    for the STAGE-B 114-orphan cleanup)."""
+
+    def _run(self, tmp_path, monkeypatch, chapter: int, verse: int):
+        import json
+
+        from scripts import lint_rules
+
+        cand_dir = tmp_path / "content" / "candidates"
+        cand_dir.mkdir(parents=True)
+        payload = {
+            "book": "gen",
+            "chapter": chapter,
+            "n_candidates": 1,
+            "candidates": [{"verse": verse, "kind": "note", "draft_body": "x"}],
+        }
+        (cand_dir / f"gen_ch_{chapter:03d}.json").write_text(json.dumps(payload), encoding="utf-8")
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        return lint_rules.check_candidate_extent()
+
+    def test_fails_on_out_of_extent_candidate(self, tmp_path, monkeypatch):
+        # Genesis has 50 chapters → chapter 99 is out of extent.
+        r = self._run(tmp_path, monkeypatch, 99, 1)
+        assert r["status"] == "fail", r
+        assert r["violations"], r
+
+    def test_passes_on_in_extent_candidate(self, tmp_path, monkeypatch):
+        r = self._run(tmp_path, monkeypatch, 1, 1)  # gen 1:1 is valid
+        assert r["status"] == "pass", r
+        assert not r["violations"]
 
 
 class TestOmega15PlanLinter:

@@ -2,7 +2,7 @@
   "book": "1ch",
   "chapter": 3,
   "generated_at": "2026-05-09T06:06:26+00:00",
-  "n_candidates": 26,
+  "n_candidates": 24,
   "candidates": [
     {
       "id": "1ch-3-1-001",
@@ -345,36 +345,6 @@
       "draft_title": "Topic",
       "draft_label": "Topic.",
       "draft_body": "<strong>Topics.</strong> This verse appears under: JOTHAM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
-      "id": "1ch-3-31-024",
-      "verse": 31,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: SHESHAN",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: SHESHAN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
-      "id": "1ch-3-49-025",
-      "verse": 49,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: SHEVA",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: SHEVA. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"

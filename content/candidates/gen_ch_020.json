@@ -2,7 +2,7 @@
   "book": "gen",
   "chapter": 20,
   "generated_at": "2026-05-26T04:35:13+00:00",
-  "n_candidates": 38,
+  "n_candidates": 35,
   "candidates": [
     {
       "id": "gen-20-3-001",
@@ -305,21 +305,6 @@
       "status": "pending"
     },
     {
-      "id": "gen-20-35-021",
-      "verse": 35,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: ESAU",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: ESAU. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
       "id": "gen-20-5-022",
       "verse": 5,
       "kind": "topic-nave",
@@ -395,21 +380,6 @@
       "status": "pending"
     },
     {
-      "id": "gen-20-20-027",
-      "verse": 20,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: MARRIAGE",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: MARRIAGE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
       "id": "gen-20-4-028",
       "verse": 4,
       "kind": "topic-nave",
@@ -420,21 +390,6 @@
       "draft_title": "Topic",
       "draft_label": "Topic.",
       "draft_body": "<strong>Topics.</strong> This verse appears under: NATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
-      "detector": "NaveTopicalDetector",
-      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-20-29-029",
-      "verse": 29,
-      "kind": "topic-nave",
-      "anchor": "",
-      "confidence": 0.62,
-      "source_name": "Nave: PEACE",
-      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-      "draft_title": "Topic",
-      "draft_label": "Topic.",
-      "draft_body": "<strong>Topics.</strong> This verse appears under: PEACE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"

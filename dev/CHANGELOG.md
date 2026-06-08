@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-06-08 — v0.1.0 STAGE B — data-validity cluster CLOSED (candidate cleanup + extent lint + gap-#4 answered)
+
+**Phases shipped:** v0.1.0 STAGE B Phase 2 data-validity cluster + Phase 0 #2 candidate-extent lint.
+**Test delta:** +3 (`TestCandidateExtentGuard` ×2 + the bumped ALL_CHECKS=33 registry pin).
+**Save tag:** this commit (5-leg milestone — session-boundary; the user starts a new session next).
+
+What shipped:
+- **Promote-boundary trace (completeness gap #4):** confirmed `promote.py` validates coords on the way IN — `coord_in_canonical_extent` at `promote.py:368` (promote_candidate) + `:469` (batch_insert_notes) — so out-of-extent coords are blocked at the promote boundary.
+- **Published-store out-of-extent sweep (gap #4, real loader over all 91,733 notes):** found exactly **3** out-of-extent notes — `aes` 10:11-13, all `lang-hebrew` (spurious ʼĕlôhîym glosses; aes is a Greek addition with no Hebrew source), which leaked via the OLD broken aes guard. **All 3 are NON-shipping** (no `note-aes101[123]` marker in `epub_working/` → never injected; part of the documented parked residual). ⇒ **the program ships ZERO out-of-extent coordinates.** Left in place (parked-residual policy + removal would ripple the 91,733 count and is editorial).
+- **Candidate cleanup:** removed **114** out-of-extent candidates from `content/candidates/` (39 fully-orphan files deleted + 44 partial files rewritten; 1605→1566 files). The audit's "111" was the predicted undercount — once the aes guard went live, aes contributed 3 more. Re-serialized via `notes_io.atomic_write` + `json.dumps(indent=2, ensure_ascii=False)` → minimal per-file churn. No shipped-Bible impact (candidates are pre-promote staging; promote already drops out-of-extent coords).
+- **`candidate_extent` lint (Phase 0 #2):** new `check_candidate_extent` registered in `ALL_CHECKS` (32→33) — asserts no `content/candidates/*.json` coord falls outside its book's canonical extent; ships GREEN as the regression guard so the orphan class can't re-accumulate. +`TestCandidateExtentGuard` (plant out-of-extent → fail, clean → pass) + bumped the `test_registry_not_silently_shrunk` pin.
+
+Notable decisions:
+- Did NOT remove the 3 legacy aes store notes — per the audit's additive/no-content-edit constraint + the roadmap's parked-residual policy + the count-ripple; documented instead. The now-fixed aes guard + the promote boundary prevent any FUTURE leak.
+- Recounted the candidate orphans against the LIVE (post-aes-fix) guard rather than trusting the audit's pre-fix "111" — the gap's undercount prediction confirmed (114).
+
+Continuity pointers:
+- **NEXT SESSION:** the 3 real-build re-verifications (font-embed byte/epubcheck · post-pass×canon-filter×file-split · published-store DONE) → 2 STAGE-A clone-hoists → STAGE C (Mac's render diagnosis + extra-popup Addendum A) → D/E (Mac proved the native-window deps) → F (outward+release).
+- docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md · dev/LANE_HANDOFF.md turn 36 (Mac idle, native-window proven).
+
 ## 2026-06-08 — v0.1.0 STAGE A tail + STAGE B (keystone + build-free latent holes)
 
 **Phases shipped:** v0.1.0 STAGE A Phase 5 completed; STAGE B Phase 2 keystone + the build-free latent-hole closures.
