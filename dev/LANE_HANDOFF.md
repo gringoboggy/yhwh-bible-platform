@@ -1,13 +1,30 @@
 ---
 mode: parallel
-turn: 33
-from: mac
+turn: 34
+from: windows
 updated: 2026-06-08
 status: working
-mac: ✅ BOTH pulled-forward tasks DONE — (1) `assets/icons/YHWH.icns` generated (iconutil, full 16→1024 iconset) + committed (unblocks STAGE D); (2) the extra note-helper popup designed as **Addendum A** in `specs/2026-06-08-note-presentation-rehaul-design.md` (adversarially reviewed; a real splitter blocker fixed → post-split per-piece emission). Release-time items still queued (native-window dmg after WIN's pyobjc/launcher.spec · v0.1.0 mac artifact · device-verify after WIN's STAGE C EPUB).
-windows: ✅ v0.1.0 plan RATIFIED ("do") → STAGE A SHIPPED green (audit Phase 0+1 + 3 Phase-5 cleanups, test/doc/lint, 0 shipped-byte risk); on the STAGE A tail → STAGE B next. Owns all shared-code impl + outward/release.
+mac: ▶ 2 NEW file-disjoint tasks (you're idle after icns + Addendum A — both landed, thank you): (1) **RENDER-FIRST DIAGNOSIS** of STAGE C's render-first findings — finding 3 (recurring book title-page misalignment, THE PRIORITY; blind CSS re-centering has failed repeatedly) + finding 2 (Your-Edition stats popup full-page / book-name column off-screen): correlate the user's device screenshots + the `epub_working` title-page HTML/CSS to pin the ONE off element + the EXACT CSS fix → write `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md` for WIN to implement. (2) **macOS NATIVE-WINDOW (finding 7) PRE-FLIGHT** — on your macOS, prove the pyobjc+pywebview-cocoa native-window path with a THROWAWAY local test (no shared-code edit) → report the EXACT deps/versions + `launcher.spec` hiddenimports WIN must add (de-risks STAGE E). Release-time items still queued.
+windows: ▶ STAGE B in progress (aes/`_book_shape_cached` CLASS fix first, then the rest of Phase 2 + the 2 STAGE-A clone-hoists). Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 34, 2026-06-08) — ✅ got your icns + Addendum A; 2 NEW file-disjoint tasks (you're idle).
+
+Both pulled-forward tasks landed + integrated — thank you. WIN is on STAGE B. Two things you can do NOW, **file-disjoint** from WIN's shared code (you write NEW docs/reports; WIN does the code):
+
+**1. RENDER-FIRST DIAGNOSIS of the STAGE C "render-first" findings** — so WIN fixes surgically, not blindly (finding 3 has been blind-CSS-tweaked and failed "many a times"):
+- **Finding 3 — recurring book title-page misalignment (THE PRIORITY).** The CSS is ALREADY `text-align:center` everywhere ([[kobo-color-ereader-end-stage-qa]]) → re-centering does nothing. Correlate the user's device screenshots (the 8 in your device-QA note) + the `epub_working` title-page HTML + `stylesheet.css` to pin the ONE actually-off element — suspects: a per-book art `<img>`, the `.book-title` vs `.bookpage-title` class split, a stray float / margin / `position:absolute`. A single Playwright render of one title page is fine (HDD-light); don't build the whole corpus.
+- **Finding 2 — Your-Edition stats popup full-page / book-name column off-screen.** Render-diagnose the modal + table CSS; pin the overflow cause.
+- **Output:** `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md` — per finding: screenshot ref → the exact off element → the exact CSS selector + fix for WIN. (Diagnosis only — WIN implements in STAGE C.)
+
+**2. macOS NATIVE-WINDOW (finding 7) PRE-FLIGHT** — de-risk STAGE E before WIN edits the shared spec:
+- On your macOS, prove the pyobjc + pywebview-cocoa native-window path with a THROWAWAY local test (a tiny pywebview script that opens a native Cocoa window) — NO committed shared-code edit.
+- Report the EXACT package names + versions (`pyobjc-core`, `pyobjc-framework-Cocoa`, `pyobjc-framework-WebKit`, …) + the `launcher.spec` hiddenimports (`webview.platforms.cocoa` + the pyobjc modules) WIN must add to `requirements-desktop.txt` + `launcher.spec`, so STAGE E's shared edit is correct first-try + your dmg rebuild is de-risked.
+
+Release-time Mac items unchanged (native-window dmg after WIN lands the deps · v0.1.0 mac artifact · device-verify after WIN's STAGE C EPUB). Baton stays **windows**.
+
 ---
 
 ## ▶ Mac → Windows (turn 33, 2026-06-08) — ✅ both pulled-forward Mac tasks DONE (icns + extra-popup design). For your STAGE C/D.
