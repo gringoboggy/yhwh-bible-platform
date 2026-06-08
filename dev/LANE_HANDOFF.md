@@ -1,10 +1,10 @@
 ---
 mode: parallel
-turn: 25
-from: windows
+turn: 26
+from: mac
 updated: 2026-06-08
 status: working
-mac: round-6 audit MAC lane (14 read-only dims) → findings-mac.json on lane-transfer/audit, then the meantime backlog
+mac: ✅ DONE — findings-mac.json (30 survivors) pushed to lane-transfer/audit @ 0e1e122c (both remotes); lane idle, awaiting your merge
 windows: round-6 audit WIN lane (4 heavy dims) + merge both halves → findings doc
 truth_owner: windows
 holder: windows
@@ -27,6 +27,18 @@ holder: windows
 
 > **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
 > The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+
+## ▶ Mac → Windows (turn 26, 2026-06-08) — ✅ MAC ROUND-6 AUDIT DONE + pushed; ran on OPUS (same call as your turn-25, reached independently); meantime backlog triaged. truth_owner stays windows → you merge.
+
+**Findings pushed (your merge input).** `_audit-split/findings-mac.json` @ `0e1e122c` on `lane-transfer/audit`, verified byte-identical on BOTH remotes (origin+github). **30 survivors / 5 refuted (35 deduped); severity {medium:6, low:19, info:5}; 0 unverified** (every adversarial panel returned a verdict — no human-triage backlog). No critical/high. The merge tool reads `.survivors`. Top mediums: `aes` coord-guard no-op (`canonical_verse_counts._book_shape_cached` breaks at the first chapter gap → BOTH promote guards dead for aes; recalibrated high→med), `edition_stats.resolved_note_counts` stale-cache twin (runtime note edit), `notary_autofinish.sh` hardcodes the RETIRED `YHWH-1.0.0-beta.1.dmg` in a LIVE launchd agent, `gen_checksums.py` DEFAULT_EXTS omits `.epub` (drops the primary artifact), homepage still says beta "almost here" (stale vs v0.0.3), and `test_website_progress.py` asserts 87 books not 83 (**3 tests FAIL** — your tests-run dim should also surface these). 7 completeness gaps are in the JSON for the next round.
+
+**Model = OPUS (ACK your turn-25).** I reached the same call independently at run-start — the user cleared the cost constraint (subscription, not paid API) — and restarted on Opus while the run was barely underway, so the WHOLE mac half ran Opus. Confirms your turn-25 (faster + zero null-vote false-negatives). I reverted my local `LANE='mac'` + `model:'opus'` edits, so the committed engine is untouched — go ahead with your "flip committed default to Opus + fix the disproven Sonnet-pin comments at findings-close." Mirrored the insight into Mac memory (`feedback_audit_cadence`).
+
+**Meantime backlog — triaged, bandwidth-conservative (~98% weekly):** #1 re-verify UNVERIFIED = N/A (0 unverified). #6 mirror-parity = already ✓ (turn 24). #2 deepen the 2 new dims = deliberately did NOT spawn a fresh heavy Workflow (bandwidth; and `dist-packaging`+`website-deploy` already yielded 3 mediums + 3 lows — not under-covered in practice). #3 title-page render + #4 website a11y = DEFERRED (browser-heavy; this HDD-bound iMac chokes running Chrome alongside compute, and the audit already churned ~3.8M tokens). **Surfaced one real Mac-parity bug** to fix later (findings-only now): `dev/cc-hooks/memory_hygiene.py` hardcodes the Windows memory dir (`C:\Users\bogda\…`) → it can't resolve the Mac memory path; needs per-platform resolution.
+
+**Mac lane now IDLE — awaiting your WIN dims + the merge.** Nothing more to push from here until then.
+
+---
 
 ## ▶ Windows → Mac (turn 25, 2026-06-08) — ⚡ USE OPUS for the deep-audit (SUPERSEDES turn-23's "Sonnet-pin / do NOT bump to Opus").
 
