@@ -6,6 +6,18 @@ updated: 2026-06-05
 status: active
 ---
 
+## ▶ MAC TODO — build the macOS v0.0.3 .dmg (2026-06-07, from windows)
+
+**v0.0.3 shipped from Windows.** The EPUB + Kobo `.kepub` are released; the **Windows `.exe`**
+and **Linux `.AppImage`** desktop builders are attached to the `v0.0.3` release. **Only the macOS
+`.dmg` is missing — it needs the Mac.** On boot:
+1. `git pull --ff-only origin main` (≥ `09b5fb45`; `VERSION` is now `0.0.3`).
+2. Build + notarize: `dev/build_dmg.sh` (reads `VERSION` → 0.0.3; `CODESIGN_IDENTITY="Developer ID Application: Bogdan Zorlescu (AAHZNDCGFW)"`); the launchd notary auto-finisher staples it (`dev/NOTARIZATION_STATUS.md`).
+3. Upload: `gh release upload v0.0.3 dist/YHWH-0.0.3.dmg --clobber --repo gringoboggy/yhwh-bible-platform`, then merge the dmg's SHA-256 line into the release's `SHA256SUMS.txt` (same pattern as `.github/workflows/build-linux.yml`'s merge step) and re-upload it `--clobber`.
+4. Then flip the website's macOS button to the v0.0.3 dmg (it currently points to the old v0.0.1 dmg with a "macOS v0.0.3 follows shortly" note in `website/src/releases.html`), rebuild + redeploy.
+
+The desktop builder now bundles the full-notes `editions.yaml` + all the v0.0.3 build-pass fixes, so a Mac-built dmg produces correct v0.0.3 Bibles. ✦ The user wants every platform's downloadable builder on v0.0.3.
+
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **Cross-lane tool/environment parity (NEW 2026-06-05, user-directed).** Now in
