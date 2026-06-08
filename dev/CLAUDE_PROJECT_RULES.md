@@ -75,6 +75,20 @@ A stale on-disk artifact is NOT a deploy — rebuild it first so what ships refl
 the latest source. "Deploy v0.0.x" = produce that version's binaries fresh, attach
 them, AND flip the live site to them. (Both lanes; memory: `feedback_deploy_means_build_and_deploy`.)
 
+**Corollary — a user-facing CLAIM/COUNT lives in MORE than the page HTML.** When you
+change a headline number or claim (e.g. the book count: it is **83** — the shipped
+superset; the raw registry is 87 but four additions fold into Daniel/Esther — NEVER
+say 87), you must update ALL of: (a) the page body; (b) the `<meta name="description">`
+/ `og:description` / `twitter:description` tags; (c) **the social-card image itself**
+— `brand/sources/card.html` has the text baked in and is rendered to
+`website/social-card.png` + `brand/social-card.png` (re-render at 1280×630 via a local
+`python3 -m http.server` + Playwright screenshot, then rebuild so `dist/` picks it up);
+(d) the GitHub + GitLab repo descriptions; (e) the in-app/tracker generators
+(`scripts/gen_website_progress.py` excludes the folded books via `_SUPERSET_EXCLUDE`).
+Link previews on X/iMessage/Slack use `og:image` (the baked card) and are **cached
+hard** — after fixing it, re-scrape via the platform's card validator or the old card
+persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)
+
 ## Rules map — which § governs what (jump here first)
 
 | § | Governs |
