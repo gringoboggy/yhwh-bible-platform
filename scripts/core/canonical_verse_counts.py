@@ -34,8 +34,8 @@ from .manuscript_collation import load_kjv_skeleton
 # Books WITH a KJV / LXX skeleton in content/translations/kjv/. These
 # are the canonical-anchored books — use ``canonical_count()`` for them.
 # Tewahedo-distinctive books WITHOUT a KJV skeleton (mq1, mq2, mq3, 1en,
-# jub, 4ba) have hand-typed VERSE_COUNTS in scripts/extract_parallel_pdf.py
-# — see ``TEWAHEDO_DISTINCTIVE_NO_KJV`` below.
+# jub, 4ba; + 1cl, 2en) — the first six have hand-typed VERSE_COUNTS in
+# scripts/extract_parallel_pdf.py; see ``TEWAHEDO_DISTINCTIVE_NO_KJV`` below.
 #
 # Note: NT Mark uses code "mrk" (not "mar"); Letter-of-Jeremiah "lje";
 # Susanna "sus"; Prayer-of-Manasseh "man"; Additions-to-Esther "aes" —
@@ -132,22 +132,27 @@ CANONICAL_BOOKS = (
 
 # Tewahedo-distinctive books without a KJV skeleton — verse counts live
 # in scripts/extract_parallel_pdf.py's hand-typed dicts.
-TEWAHEDO_DISTINCTIVE_NO_KJV = ("mq1", "mq2", "mq3", "1en", "jub", "4ba")
+TEWAHEDO_DISTINCTIVE_NO_KJV = ("mq1", "mq2", "mq3", "1en", "jub", "4ba", "1cl", "2en")
 
 
 @lru_cache(maxsize=1024)
 def _book_shape_cached(book: str) -> tuple:
-    """Cached body for ``canonical_book_shape``. Returns tuple for hashability."""
+    """Cached body for ``canonical_book_shape``. Returns tuple for hashability.
+
+    Scans chapters 1..200 and SKIPS empty chapters (``continue``, not ``break``)
+    so a book whose KJV skeleton does NOT start at chapter 1 — or has an internal
+    chapter gap — is captured in full. The old break-on-first-empty truncated such
+    a book to ``{}`` (``aes``'s skeleton runs 10..16 → ch 1 empty → break → empty
+    shape), which silently made ``coord_in_canonical_extent`` a NO-OP for it (the
+    ``if not shape: return True`` keep-all path). Byte-identical for the contiguous
+    1-start books — the empties past the last chapter are simply skipped, not
+    appended — and robust for the whole non-1-start / internally-gapped class, not
+    just the one ``aes`` instance."""
     out: list[tuple[int, int]] = []
-    ch = 1
-    while True:
+    for ch in range(1, 201):
         skel = load_kjv_skeleton(book, ch)
-        if not skel:
-            break
-        out.append((ch, len(skel)))
-        ch += 1
-        if ch > 200:  # defensive bound
-            break
+        if skel:
+            out.append((ch, len(skel)))
     return tuple(out)
 
 
@@ -203,19 +208,20 @@ def html_chapter_count(book: str) -> int:
     residual (no corpus scan).
 
     Source / limitation: this module has no base-HTML chapter-extent table
-    distinct from the canonical (KJV/LXX) skeleton, so the count is derived
-    from that skeleton via ``canonical_chapters``. For most books the base
-    HTML renders the full skeleton extent, so this is an exact ceiling. For
-    the few books where the base HTML renders FEWER chapters than the
-    skeleton lists (the aes case), this returns the skeleton's (larger)
-    count — i.e. a conservative upper bound that still rejects clearly
-    out-of-canon chapters but will not, by itself, reject the parked aes
-    11-16 coords. Books with no known skeleton (Tewahedo distinctives, or an
-    unknown/test book code) have no derivable extent here and return 0, which
-    the guards treat as "unknown — do not reject" (mirroring the keep-when-
-    unknown contract of ``coord_in_canonical_extent``).
+    distinct from the canonical (KJV/LXX) skeleton, so the ceiling is the
+    HIGHEST chapter number in that skeleton (``max`` of the shape keys), NOT the
+    chapter COUNT. For a contiguous 1-start book the two are equal; for a book
+    whose skeleton does not start at 1 / has a gap (``aes``: chapters 10..16) the
+    max (16) is the true ceiling, whereas the count (7) would wrongly reject the
+    real aes 10..16 coords. A conservative upper bound that rejects clearly
+    out-of-canon chapters (aes ch 17+) but does not, by itself, reject the parked
+    aes 11-16 coords — their injectability is the inject pipeline's concern, not
+    this guard's. Books with no known skeleton (Tewahedo distinctives, or an
+    unknown/test book code) have no derivable extent and return 0, which the
+    guards treat as "unknown — do not reject" (mirroring ``coord_in_canonical_extent``).
     """
     try:
-        return canonical_chapters(book)
+        shape = canonical_book_shape(book)
+        return max(shape) if shape else 0
     except Exception:
         return 0  # unknown book code — no derivable extent; guards keep

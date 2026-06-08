@@ -32,9 +32,16 @@ class TestCanonicalCoverage:
                     assert 1 <= count <= 200, (book, ch, count)
             else:
                 scaffold_only.append(book)
-        # >= 70 KJV-anchored books should be USABLE; scaffold-only are
-        # documented (aes/Additions-to-Esther is one known stub).
+        # >= 70 KJV-anchored books are USABLE; scaffold-only = a genuinely empty
+        # placeholder kjv/<book>.py (no VERSES yet), if any. aes is NOT scaffold-
+        # only — its KJV skeleton runs chapters 10..16 (non-1-start), now captured
+        # in full by the _book_shape_cached range-scan fix (it was wrongly empty
+        # before, which made coord_in_canonical_extent a no-op for aes).
         assert len(usable) >= 70, (len(usable), scaffold_only)
+        # aes pin: the one non-1-start book must resolve to its real {10..16} shape.
+        aes_shape = canonical_book_shape("aes")
+        assert sorted(aes_shape) == [10, 11, 12, 13, 14, 15, 16], aes_shape
+        assert "aes" in usable and "aes" not in scaffold_only
 
     def test_canonical_books_count(self):
         from scripts.core.canonical_verse_counts import (
@@ -45,8 +52,8 @@ class TestCanonicalCoverage:
         # KJV-anchored canonical set
         assert len(CANONICAL_BOOKS) >= 75
         assert len(set(CANONICAL_BOOKS)) == len(CANONICAL_BOOKS)  # no duplicates
-        # Tewahedo distinctives are tracked separately
-        assert len(TEWAHEDO_DISTINCTIVE_NO_KJV) == 6
+        # Tewahedo distinctives are tracked separately (mq1-3, 1en, jub, 4ba, 1cl, 2en)
+        assert len(TEWAHEDO_DISTINCTIVE_NO_KJV) == 8
         # The two sets do not overlap (KJV-anchored vs not)
         assert not (set(CANONICAL_BOOKS) & set(TEWAHEDO_DISTINCTIVE_NO_KJV))
 

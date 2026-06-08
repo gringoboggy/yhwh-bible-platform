@@ -21,6 +21,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import promote  # noqa: E402
 from scripts.core.canonical_verse_counts import (  # noqa: E402
     canonical_chapters,
+    coord_in_canonical_extent,
     html_chapter_count,
 )
 
@@ -38,8 +39,52 @@ def _write_book(notes_dir: Path, book: str) -> Path:
 def test_html_chapter_count_matches_books_yaml_for_gen() -> None:
     """gen renders all 50 of its (KJV-skeleton) chapters in the base HTML."""
     assert html_chapter_count("gen") == 50
-    # The helper currently mirrors the canonical/skeleton chapter count.
-    assert html_chapter_count("gen") == canonical_chapters("gen")
+    # (Dropped the tautological `== canonical_chapters("gen")` pin — for a
+    # contiguous 1-start book max(shape) == len(shape), so it could never fail;
+    # aes is the case that distinguishes them — pinned below.)
+
+
+def test_aes_extent_after_book_shape_fix() -> None:
+    """aes (the one non-1-start book: KJV skeleton chapters 10..16). The coord
+    guard was a NO-OP for aes before _book_shape_cached's range-scan fix, and
+    html_chapter_count now returns max(shape), not the chapter count."""
+    assert html_chapter_count("aes") == 16  # max(shape) — the true ceiling
+    assert canonical_chapters("aes") == 7  # len(shape) — distinct from the ceiling
+    assert coord_in_canonical_extent("aes", 16, 24) is True  # last verse, in extent
+    assert coord_in_canonical_extent("aes", 9, 1) is False  # below the 10..16 skeleton
+    assert coord_in_canonical_extent("aes", 17, 1) is False  # above the ceiling
+    assert coord_in_canonical_extent("aes", 99, 1) is False  # impossible
+
+
+def test_promote_aes_rejects_above_ceiling_accepts_in_extent(tmp_path, monkeypatch) -> None:
+    """Promote: an aes ch-17 note is rejected (above the 16-chapter ceiling); an
+    aes ch-11 note is accepted (within the 10..16 skeleton)."""
+    notes_dir = tmp_path / "notes"
+    book_path = _write_book(notes_dir, "aes")
+    monkeypatch.setattr(promote, "NOTES_DIR", notes_dir)
+    rejected = {
+        "id": "aes-17-1-001",
+        "chapter": 17,
+        "verse": 1,
+        "kind": "note",
+        "draft_body": "above aes ceiling",
+        "draft_title": "X",
+        "draft_label": "X",
+        "anchor": "",
+    }
+    assert promote.promote_candidate("aes", rejected)[0] is False
+    accepted = {
+        "id": "aes-11-1-001",
+        "chapter": 11,
+        "verse": 1,
+        "kind": "note",
+        "draft_body": "valid aes ch11 note",
+        "draft_title": "X",
+        "draft_label": "X",
+        "anchor": "",
+    }
+    assert promote.promote_candidate("aes", accepted)[0] is True
+    assert "valid aes ch11 note" in book_path.read_text(encoding="utf-8")
 
 
 def test_promote_candidate_rejects_chapter_above_html_extent(tmp_path, monkeypatch) -> None:
