@@ -76,7 +76,7 @@
       <content src="index_split_018.html#bp-14"/>
     </navPoint>
     <navPoint id="num_book_15" playOrder="17">
-      <navLabel><text>The Book of Jubilees, or The Little Genesis</text></navLabel>
+      <navLabel><text>The Book of Jubilees</text></navLabel>
       <content src="index_split_018.html#bp-15"/>
     </navPoint>
     <navPoint id="num_book_16" playOrder="18">
@@ -84,7 +84,7 @@
       <content src="index_split_020.html#bp-16"/>
     </navPoint>
     <navPoint id="num_book_17" playOrder="19">
-      <navLabel><text>The Second Book of Enoch, or Slavonic Enoch, or The Book of the Secrets of Enoch</text></navLabel>
+      <navLabel><text>The Second Book of Enoch</text></navLabel>
       <content src="index_split_022.html#bp-17"/>
     </navPoint>
     <navPoint id="num_book_18" playOrder="20">
@@ -96,11 +96,11 @@
       <content src="index_split_025.html#bp-19"/>
     </navPoint>
     <navPoint id="num_book_20" playOrder="22">
-      <navLabel><text>The First Book of Esdras, or Ezra Kali</text></navLabel>
+      <navLabel><text>The First Book of Esdras</text></navLabel>
       <content src="index_split_025.html#bp-20"/>
     </navPoint>
     <navPoint id="num_book_21" playOrder="23">
-      <navLabel><text>The Second Book of Esdras, or Ezra Sutu'el</text></navLabel>
+      <navLabel><text>The Second Book of Esdras</text></navLabel>
       <content src="index_split_025.html#bp-21"/>
     </navPoint>
     <navPoint id="num_book_22" playOrder="24">
@@ -192,7 +192,7 @@
       <content src="index_split_047.html#bp-44"/>
     </navPoint>
     <navPoint id="num_book_45" playOrder="46">
-      <navLabel><text>The Song of the Three Holy Children, or The Prayer of Azariah</text></navLabel>
+      <navLabel><text>The Prayer of Azariah and the Song of the Three Holy Children</text></navLabel>
       <content src="index_split_047.html#bp-45"/>
     </navPoint>
     <navPoint id="num_book_46" playOrder="47">

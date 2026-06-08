@@ -182,7 +182,7 @@ books:
       - "index_split_018.html"
 
   - code: jub
-    title: "The Book of Jubilees, or The Little Genesis"
+    title: "The Book of Jubilees"
     bxx: "b15"
     bp: "bp-15"
     next_bp: "bp-16"
@@ -206,7 +206,7 @@ books:
       - "index_split_022.html"
 
   - code: 2en
-    title: "The Second Book of Enoch, or Slavonic Enoch, or The Book of the Secrets of Enoch"
+    title: "The Second Book of Enoch"
     bxx: "b17"
     bp: "bp-17"
     next_bp: "bp-18"
@@ -238,7 +238,7 @@ books:
       - "index_split_025.html"
 
   - code: 1es
-    title: "The First Book of Esdras, or Ezra Kali"
+    title: "The First Book of Esdras"
     bxx: "b20"
     bp: "bp-20"
     next_bp: "bp-21"
@@ -248,7 +248,7 @@ books:
       - "index_split_025.html"
 
   - code: 2es
-    title: "The Second Book of Esdras, or Ezra Sutu'el"
+    title: "The Second Book of Esdras"
     bxx: "b21"
     bp: "bp-21"
     next_bp: "bp-22"
@@ -493,7 +493,7 @@ books:
       - "index_split_047.html"
 
   - code: paz
-    title: "The Song of the Three Holy Children, or The Prayer of Azariah"
+    title: "The Prayer of Azariah and the Song of the Three Holy Children"
     bxx: "b45"
     bp: "bp-45"
     next_bp: "bp-46"

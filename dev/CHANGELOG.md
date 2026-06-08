@@ -6,6 +6,36 @@
 
 ---
 
+## 2026-06-07 (🪟 Windows) — v0.0.3: full-notes Ethiopian Bible + device-QA fixes (versioning reset to v0.0.x)
+
+Autonomous device-QA session on the live beta. **Versioning reset per the user:** the former
+`v1.0.0-beta.1`/`v1.0.0-beta.2` are now **v0.0.1**/**v0.0.2**; this release is **v0.0.3**; the first
+full release will be **v1.0.0** (then v1.0.x patches, v1.1.x big updates, v2.0.0 overhaul).
+
+- **(h) full apparatus** — `ethiopian-tewahedo` now enables every note category + phase3 (comm-ai
+  stays opt-in off) → **91,563 notes**, all original-language popups. Cross-verse dedup of
+  byte-identical note bodies per book (excl. xref/topic — kills the repeated manuscript-witness
+  blurb). Note text justified. (Apple Books strips popover backgrounds, so the per-category tint
+  can't be relied on there; the glyph + label + name text remain the cross-reader distinction.)
+- **(g)** Psalm/incipit superscriptions wrapped in `.superscription` (new `apply_superscriptions`
+  build pass) — read as headings, not verse text (109 wrapped).
+- **(f)** empty "Additions to Esther" dropped from every canon; Daniel additions (paz/sus/bel)
+  demoted to inline appendix headings; `BOOK <roman>` eyebrows renumbered per edition
+  (`apply_appendix_demotion_and_renumber`) — no gaps, and canon-filtered editions no longer show the
+  superset's numbers. Ethiopian = **83 numbered books**.
+- **(e)** removed ", or …" alternate book names (books.yaml + base HTML nav/ncx/ToC/title pages).
+- **(b)** in-content ToC always shows book + chapter pills.
+- **(d)** front-matter: no blank leading pages (front-matter heading page-break override); colophon
+  compacted to fit one screen.
+- **(a)** Your-Edition per-book table: `table-layout:fixed`, never link-coloured (no column split).
+- **website**: book count 87→83, v0.0.3 naming + changelog, de-duped the live release card
+  (`releases.js` no longer re-lists every asset).
+
+Built + verified `ethiopian-tewahedo` v0.0.3 (25.66 MB EPUB + 32.61 MB kepub), **epubcheck 0/0/0/0**.
+Disk: freed ~1.9 GB on C: (sonar-scanner + rebuildable dist/build/exports/caches).
+
+---
+
 ## 2026-06-05 (🪟 Windows) — Round-5 audit WIN fix-slice: build-path cache-coverage + filter_html consolidation (release gate cleared)
 
 The Windows half of the release-gating round-5 fix-session. Build-path only; proven **byte-identical

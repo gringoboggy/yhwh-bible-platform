@@ -350,9 +350,14 @@ def _edition_canon_book_count(edition_id: str) -> int:
     """Number of books actually in this edition's canon (the build canon, from
     ``matrix.compute_matrix().edition_canon_books``). Truthful to what ships —
     the books the build emits, not the canon-yaml standard count."""
+    from scripts.build_edition import APPENDIX_BOOKS
     from scripts.core import matrix as _matrix
 
-    return len(_matrix.compute_matrix().edition_canon_books.get(edition_id, set()) or [])
+    # beta-3 (f): appendix books (the Daniel additions) ship as appendices, not
+    # standalone numbered books, so they don't count toward "spans N books".
+    appendix = set(APPENDIX_BOOKS)
+    canon = _matrix.compute_matrix().edition_canon_books.get(edition_id) or set()
+    return len([b for b in canon if b not in appendix])
 
 
 def _canon_label(edition: dict) -> str:

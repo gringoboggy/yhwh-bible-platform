@@ -26,16 +26,16 @@ page: releases
     <!-- ──────────────── READ THE ETHIOPIAN BIBLE (the one EPUB) ─ -->
     <section class="band band-alt" aria-labelledby="bible-h">
       <h2 id="bible-h" class="rule">Read the Ethiopian Bible</h2>
-      <p class="prose">The full <strong>Ethiopian Tewahedo Study Bible</strong> — the 81-book canon with study
-        notes, cross-references, manuscript witnesses, and original-language popups (Hebrew, Greek, Latin,
-        Arabic). One file, free to read, copy, and share. No app required — it opens in any e-reader.</p>
+      <p class="prose">The full <strong>Ethiopian Tewahedo Study Bible</strong> — the 83-book canon with the complete
+        study apparatus (over 91,000 notes: cross-references, manuscript witnesses, commentary, word
+        studies, topical indexes and more) and original-language popups (Hebrew, Greek, Latin, Arabic). One file, free to read, copy, and share. No app required — it opens in any e-reader.</p>
       <p class="platforms">
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/YHWH-Ethiopian-Bible-v1.0.0-beta.2.epub" download>Ethiopian Bible — EPUB (Apple Books &amp; most readers)</a>
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/YHWH-Ethiopian-Bible-v1.0.0-beta.2.kepub.epub" download>Ethiopian Bible — Kobo (.kepub, for footnote popups)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/YHWH-Ethiopian-Bible-v0.0.3.epub" download>Ethiopian Bible — EPUB (Apple Books &amp; most readers)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/YHWH-Ethiopian-Bible-v0.0.3.kepub.epub" download>Ethiopian Bible — Kobo (.kepub, for footnote popups)</a>
       </p>
       <p class="platform-note">On a <strong>Kobo</strong>, sideload the <code>.kepub.epub</code> — it turns on the
         tap-to-read footnote popups. On Apple Books and most other readers, use the plain <code>.epub</code>.
-        Verify with <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.2/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
+        Verify with <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
     </section>
 
     <!-- ──────────────── GET THE BUILD (latest + downloads) ───── -->
@@ -48,13 +48,13 @@ page: releases
       <div class="card card-static latest-release" id="latest-release">
         <div class="card-body">
           <p class="badge-beta">Latest</p>
-          <h3 id="latest-name">v1.0.0-beta.2 — Ethiopian Bible (device-QA fixes)</h3>
+          <h3 id="latest-name">v0.0.3 — Ethiopian Bible (device-QA fixes)</h3>
           <p class="meta" id="latest-meta">The latest beta. Download the Ethiopian Bible above, or the desktop app below.</p>
           <p class="prose" id="latest-links"></p>
         </div>
       </div>
 
-      <p class="prose">The desktop builder app is <strong>v1.0.0-beta.1</strong>, for Windows, macOS, and Linux.
+      <p class="prose">The desktop builder app is <strong>v0.0.1</strong>, for Windows, macOS, and Linux.
         Choose your system:</p>
       <p class="platforms">
         <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1-windows-x64.exe" download>Windows installer (.exe)</a>
@@ -72,18 +72,21 @@ page: releases
     <!-- ──────────────── WHAT'S CHANGED (update log, keep ≤3) ─── -->
     <section class="band band-alt" aria-labelledby="changelog-h">
       <h2 id="changelog-h" class="rule">What’s changed</h2>
-      <h3 class="sub-h">v1.0.0-beta.2 — Ethiopian Bible, device-QA fixes</h3>
+      <h3 class="sub-h">v0.0.3 — the full study Bible + device-QA fixes</h3>
       <ul class="prose">
-        <li>Restored verse text at chapter starts — fixed a verse-numbering error across 161 chapters.</li>
-        <li>Justified text; larger, reader-adjustable size; the reader’s own serif on e-ink readers.</li>
-        <li>Centred book title pages.</li>
-        <li>Note markers are now a ◈ symbol with a count; note popups de-duplicated, grouped by category, and colour-coded.</li>
-        <li>Clearly tappable in-content contents links; a book-level reader table of contents.</li>
-        <li>A Kobo <code>.kepub.epub</code> variant that turns on the footnote popups.</li>
+        <li>The complete apparatus: every category of study note is now on — <strong>over 91,000 notes</strong> and all original-language popups (Hebrew, Greek, Latin, Arabic).</li>
+        <li>Chapter-start titles (Psalm superscriptions such as “A Prayer of David”) now read as headings, not as verse text.</li>
+        <li>Additions that aren’t separate books — the Greek additions to Daniel, and the empty “Additions to Esther” — are folded into their book or removed; books are numbered cleanly, with no gaps.</li>
+        <li>The in-book contents always shows each book with its chapter links; cleaner book titles (no “or …” alternates).</li>
+        <li>Justified note text; repeated notes de-duplicated; tidier front matter (no blank pages; the colophon fits one screen).</li>
       </ul>
-      <h3 class="sub-h">v1.0.0-beta.1 — first public beta</h3>
+      <h3 class="sub-h">v0.0.2 — earlier device-QA pass</h3>
       <ul class="prose">
-        <li>First public release — the Ethiopian Tewahedo Study Bible plus the desktop builder app for Windows, macOS, and Linux.</li>
+        <li>Distinct note markers (a ◈ symbol with a count); note popups grouped by category; justified, reader-adjustable text; centred book title pages; a book-level reader table of contents; a Kobo <code>.kepub.epub</code> variant for the footnote popups.</li>
+      </ul>
+      <h3 class="sub-h">v0.0.1 — first public release</h3>
+      <ul class="prose">
+        <li>The Ethiopian Tewahedo Study Bible, plus the desktop builder app for Windows, macOS, and Linux.</li>
       </ul>
     </section>
 

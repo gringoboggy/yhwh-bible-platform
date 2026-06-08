@@ -40,6 +40,11 @@ editions:
     short_title: "Ethiopian Tewahedo SB"
     target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
     enabled_categories:
+      # beta-3 (h) — FULL build: every note category that has content is enabled so
+      # the shipped Ethiopian Tewahedo Study Bible carries the complete ~90k+ note
+      # apparatus and all original-language popups (the user's "all notes, all
+      # translations" final build). dev/ped/vis are currently empty but listed so
+      # any future notes in them ship automatically.
       - lang
       - text
       - xref
@@ -47,14 +52,18 @@ editions:
       - lit
       - comm
       - compare
+      - apol
+      - modern
+      - dist
+      - topic
       - liturgy
-    enabled_kinds:
-      - dist-typological
-      - dist-mariological
+      - dev
+      - ped
+      - vis
     disabled_kinds:
-      - comm-reformation
-      - comm-contextual
-    max_phase: phase2
+      # AI-drafted commentary stays OFF — opt-in only (the website promises this).
+      - comm-ai
+    max_phase: phase3
     cover_image: "covers/ethiopian-tewahedo.jpg"
     book_covers:
       - "gen=covers/_book_defaults/gen.jpg"

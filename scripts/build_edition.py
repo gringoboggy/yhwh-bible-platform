@@ -1846,6 +1846,13 @@ def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
     return f'<div class="vn-item note-{kind}">{body}</div>'
 
 
+# beta-3 (h): categories whose notes legitimately recur verse-to-verse — never
+# cross-verse-deduped. Cross-references and topical entries are per-verse by design;
+# everything else (manuscript witnesses, commentary, word studies, …) that repeats
+# a BYTE-IDENTICAL body across verses is redundant and shown once per book.
+_XVERSE_DEDUP_EXCLUDE = {"xref", "topic"}
+
+
 def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """Rewrite the per-edition temp HTML into badge mode (§4.1).
 
@@ -1897,6 +1904,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 
     for book in config.load_books():
         code = book["code"]
+        # beta-3 (h): cross-verse dedup set — a byte-identical note body that
+        # repeats across verses of THIS book (e.g. the generic manuscript-witness
+        # blurb on both 1:1 and 45:18) renders only on its first verse. Reset per
+        # book; xref/topic are exempt (see _XVERSE_DEDUP_EXCLUDE).
+        seen_book_rows: set[str] = set()
         strategy = book.get("strategy", "A")
         bxx = book.get("bxx")
         ch_count = book.get("ch_count", 0)
@@ -1977,8 +1989,17 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         if norm in seen_rows:
                             stats["notes_deduped"] += 1
                             continue
+                        cat = _inject.category_for(kind)
+                        dedupable = cat not in _XVERSE_DEDUP_EXCLUDE
+                        # beta-3 (h): drop a byte-identical body already shown earlier
+                        # in this book (the generic manuscript-witness redundancy).
+                        if dedupable and norm in seen_book_rows:
+                            stats["notes_deduped"] += 1
+                            continue
                         seen_rows.add(norm)
-                        rank = _POPUP_CATEGORY_RANK.get(_inject.category_for(kind), _POPUP_CATEGORY_FALLBACK_RANK)
+                        if dedupable:
+                            seen_book_rows.add(norm)
+                        rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
                         row_items.append((rank, doc_i, row))
                     if not ok:
                         # round-5 audit Phase 4 (LOW): record the silent orphan-bail
@@ -1993,6 +2014,17 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     row_items.sort(key=lambda t: (t[0], t[1]))
                     rows = [r for _, _, r in row_items]
                     n_show = len(rows)
+
+                    if n_show == 0:
+                        # beta-3 (h): every note here was a cross-verse duplicate →
+                        # strip its markers + asides and emit NO badge (no empty ◈0).
+                        bucket = edits.setdefault(fname, [])
+                        for m in markers:
+                            bucket.append((v_start + m.start(), v_start + m.end(), ""))
+                        for sp in sorted(aside_spans):
+                            bucket.append((sp[0], sp[1], ""))
+                        stats["notes_collapsed"] += n
+                        continue
 
                     merged_aside = (
                         f'<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}" epub:type="footnote">\n'
@@ -2777,15 +2809,17 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
             # tail starts with whitespace + </summary>, then has the
             # chapter list, then closes </details></li>. We need to
             # extract everything between </summary> and </details>.
-            if books_only:
-                inner = ""  # book-list-only: drop the chapter pills (chapter nav = native ToC)
-            else:
-                inner = re.sub(
-                    r"^\s*</summary>(.*?)</details>\s*</li>\s*$",
-                    r"\1",
-                    tail,
-                    flags=re.DOTALL,
-                )
+            # beta-3 (b): ALWAYS keep the chapter pills in the in-content ToC.
+            # The user dropped the books-only / expand idea — every book label is
+            # now followed by its always-visible chapter pills. `books_only` now
+            # only means "flat, non-collapsible" (the <details> wrapper is removed
+            # but the chapter <ol> is kept). Chapter nav is always visible inline.
+            inner = re.sub(
+                r"^\s*</summary>(.*?)</details>\s*</li>\s*$",
+                r"\1",
+                tail,
+                flags=re.DOTALL,
+            )
             return f'{li_open}<p class="toc-book-label">{ornament_html}{anchor}</p>{inner}</li>'
 
     for fpath in sorted(tmp.glob("*.html")):
@@ -2802,6 +2836,147 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
         "details_unwrapped": details_unwrapped,
         "defaults_opened": defaults_opened,
     }
+
+
+# ── beta-3 (f)/(g): superscriptions, appendix demotion, eyebrow renumbering ──
+
+# Books that are textual ADDITIONS, not standalone books: shown as modest inline
+# appendix headings (no grand "BOOK N" title page), not numbered. The empty
+# "Additions to Esther" (aes) is dropped from every canon entirely (canons.yaml);
+# these three carry real text and become appendices to Daniel.
+APPENDIX_BOOKS = ("paz", "sus", "bel")
+
+_ROMAN_NUMERALS = (
+    (1000, "M"),
+    (900, "CM"),
+    (500, "D"),
+    (400, "CD"),
+    (100, "C"),
+    (90, "XC"),
+    (50, "L"),
+    (40, "XL"),
+    (10, "X"),
+    (9, "IX"),
+    (5, "V"),
+    (4, "IV"),
+    (1, "I"),
+)
+
+
+def _to_roman(n: int) -> str:
+    out: list[str] = []
+    for val, sym in _ROMAN_NUMERALS:
+        while n >= val:
+            out.append(sym)
+            n -= val
+    return "".join(out)
+
+
+_PSALM_SUPERSCRIPTION_RE = re.compile(
+    r'(<p\b[^>]*class="ch-heading"[^>]*>.*?</p>\s*)<p class="verse-p[^"]*">(.*?)</p>',
+    re.DOTALL,
+)
+
+
+def apply_superscriptions(tmp: Path) -> dict:
+    """beta-3 (g): wrap chapter-start superscriptions (Psalm titles such as
+    'A Prayer by David.') in ``<p class="superscription">`` so they read as a
+    heading, not as scripture body. Scoped to the Psalms: the first verse
+    paragraph after a chapter heading that carries NO verse anchor/marker is a
+    superscription. Idempotent (a wrapped one is no longer a verse-p, so it is not
+    re-matched). epub_working/ is untouched (operates on the temp tree)."""
+    stats = {"superscriptions_wrapped": 0, "files_touched": 0}
+    psa = config.books_by_code().get("psa")
+    if not psa:
+        return stats
+
+    def repl(m: re.Match) -> str:
+        head, body = m.group(1), m.group(2)
+        # A real verse carries a verse anchor/marker; a superscription does not.
+        if 'id="v-psa-' in body or 'class="vn"' in body or "vn-link" in body:
+            return m.group(0)
+        if len(body) > 240 or not body.strip():  # superscriptions are short, non-empty
+            return m.group(0)
+        stats["superscriptions_wrapped"] += 1
+        return f'{head}<p class="superscription">{body}</p>'
+
+    for fname in psa.get("files", []):
+        fp = tmp / fname
+        if not fp.is_file():
+            continue
+        text = fp.read_text(encoding="utf-8")
+        new = _PSALM_SUPERSCRIPTION_RE.sub(repl, text)
+        if new != text:
+            fp.write_text(new, encoding="utf-8")
+            stats["files_touched"] += 1
+    return stats
+
+
+_EYEBROW_RENUMBER_RE = re.compile(
+    r'(<div class="book-title-page"[^>]*>'
+    r'(?:(?!<div class="book-title-page").)*?'
+    r'<p class="bookpage-eyebrow">)[^<]*(</p>)',
+    re.DOTALL,
+)
+
+
+def apply_appendix_demotion_and_renumber(tmp: Path, canon_books: set[str] | None) -> dict:
+    """beta-3 (f): (1) demote APPENDIX_BOOKS from grand 'BOOK N' title pages to
+    modest inline appendix headings (so additions like Susanna read as part of
+    their parent book, not separate books); (2) re-sequence every surviving
+    'BOOK <roman>' eyebrow in spine order so the numbers are correct PER EDITION
+    (a canon-filtered edition was showing the superset's numbers) and have no gaps
+    where the empty 'Additions to Esther' or these appendices were removed. Runs
+    AFTER the canon filter. epub_working/ is untouched (operates on the temp tree)."""
+    stats = {"appendices_demoted": 0, "eyebrows_renumbered": 0, "files_touched": 0}
+    books = config.books_by_code()
+    touched: set[Path] = set()
+
+    # (1) demote appendix book title pages — flip ONLY the opening div class so we
+    # never have to balance the nested frame </div>. CSS .appendix-section drops the
+    # page break, frame, BOOK eyebrow and plate art. Keep the bp-NN id so the ToC /
+    # nav / ncx anchors still resolve.
+    for code in APPENDIX_BOOKS:
+        b = books.get(code)
+        if not b:
+            continue
+        if canon_books is not None and code not in canon_books:
+            continue  # already filtered out of this edition
+        bp = b.get("bp", "")
+        if not bp:
+            continue
+        needle = f'<div class="book-title-page" id="{bp}"'
+        replacement = f'<div class="appendix-section" id="{bp}"'
+        for fname in b.get("files", []):
+            fp = tmp / fname
+            if not fp.is_file():
+                continue
+            text = fp.read_text(encoding="utf-8")
+            if needle in text:
+                fp.write_text(text.replace(needle, replacement), encoding="utf-8")
+                stats["appendices_demoted"] += 1
+                touched.add(fp)
+
+    # (2) renumber eyebrows in spine order (sorted index_split filenames). The
+    # demoted appendices are now .appendix-section, so they are skipped → no number
+    # is consumed and the sequence has no gaps.
+    counter = 0
+
+    def renum(m: re.Match) -> str:
+        nonlocal counter
+        counter += 1
+        return f"{m.group(1)}BOOK {_to_roman(counter)}{m.group(2)}"
+
+    for fp in sorted(tmp.glob("index_split_*.html")):
+        text = fp.read_text(encoding="utf-8")
+        new, n = _EYEBROW_RENUMBER_RE.subn(renum, text)
+        if n and new != text:
+            fp.write_text(new, encoding="utf-8")
+            stats["eyebrows_renumbered"] += n
+            touched.add(fp)
+
+    stats["files_touched"] = len(touched)
+    return stats
 
 
 # A flat book navPoint in toc.ncx (no children yet): label + a #bp-NN content target.
@@ -4268,6 +4443,19 @@ def build_one(
                 patch_ncx_canon(ncx.read_text(encoding="utf-8"), ncx_id_inventory),
                 encoding="utf-8",
             )
+
+        # beta-3 (f) — demote appendix books (Daniel additions) to inline appendix
+        # headings and renumber the BOOK <roman> eyebrows per edition: no gaps from
+        # the dropped empty "Additions to Esther" or the demoted appendices, and
+        # canon-filtered editions no longer show the superset's numbers.
+        appendix_stats = apply_appendix_demotion_and_renumber(tmp, canon_books)
+        stats["appendices_demoted"] = appendix_stats["appendices_demoted"]
+        stats["eyebrows_renumbered"] = appendix_stats["eyebrows_renumbered"]
+
+        # beta-3 (g) — wrap Psalm/incipit superscriptions in .superscription so they
+        # read as headings, not scripture body.
+        supersc_stats = apply_superscriptions(tmp)
+        stats["superscriptions_wrapped"] = supersc_stats["superscriptions_wrapped"]
 
         # Phase ν.6 — Apply per-edition chapter number format +
         # decoration to body chapter headings. Default

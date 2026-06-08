@@ -197,8 +197,8 @@ blockquote {
 
 /* Popup body — clean block layout (v28a-2):
    Back-arrow floats right, label becomes small-caps header line, body flows beneath. */
-.note { margin: 0.6em 0 0.9em; font-size: 0.94em; line-height: 1.55; text-align: left; text-indent: 0; padding: 0.35em 0 0.4em; overflow-wrap: break-word; word-break: break-word; }
-.note p { margin: 0; }
+.note { margin: 0.6em 0 0.9em; font-size: 0.94em; line-height: 1.55; text-align: justify; text-indent: 0; padding: 0.35em 0 0.4em; overflow-wrap: break-word; word-break: break-word; }
+.note p { margin: 0; text-align: justify; }
 .note-back { float: right; color: #8B6508; font-weight: 700; text-decoration: none; margin-left: 0.5em; opacity: 0.55; font-size: 1.05em; }
 .note-back:hover { opacity: 1; }
 
@@ -578,10 +578,13 @@ h1, h2, h3, h1.book-title {
 .your-edition-notes { margin: 0 0 1em; padding: 0 1.2em; font-style: italic; color: #4a3520; border-left: 2px solid #c9b79c; }
 .your-edition-inside { margin: 0 0 0.6em; line-height: 1.5; }
 .your-edition-total { margin: 0 0 1em; }
-.your-edition-perbook { width: 100%; border-collapse: collapse; margin: 0.2em 0 0; }
+.your-edition-perbook { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0.2em 0 0; font-size: 0.86em; }
 .your-edition-perbook th { text-align: left; font-variant-caps: small-caps; letter-spacing: 0.04em; border-bottom: 1px solid #c9b79c; padding: 0.2em 0.4em; }
-.your-edition-perbook td { padding: 0.15em 0.4em; line-height: 1.35; }
-.your-edition-perbook .ye-count { text-align: right; color: #6E5840; white-space: nowrap; }
+.your-edition-perbook td { padding: 0.12em 0.4em; line-height: 1.3; vertical-align: top; }
+/* (a) the book cell is plain text — never a link colour — and long names wrap
+   inside the fixed column instead of forcing the count column onto its own page. */
+.your-edition-perbook .ye-book { color: inherit; overflow-wrap: break-word; word-break: break-word; }
+.your-edition-perbook .ye-count { width: 4.5em; text-align: right; color: #6E5840; white-space: nowrap; }
 .your-edition-perbook-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
 
 /* === Back-matter pages (Sources, Reference Tables, Closing Colophon) === */
@@ -614,6 +617,67 @@ h1, h2, h3, h1.book-title {
 .colophon-urn { font-size: 0.75em; color: #aaa; margin: 0 0 1.2em; }
 .colophon-urn code { font-family: monospace; }
 .colophon-closing { font-style: italic; color: #4a3520; margin: 1em 0 0; }
+
+/* ============================================================
+   BETA-3 device-QA fixes (2026-06-07)
+   ============================================================ */
+
+/* (d) Front/back-matter section headings must NOT force a blank leading page.
+   The global `h1,h2,h3 { page-break-before: always }` is right for book/chapter
+   flow (.book-title-page / .ch-heading own their own breaks) but on a stand-alone
+   front-matter spine file it pushes the heading onto a 2nd page, leaving page 1
+   blank (the empty Your-Edition / Colophon / Guide / ToC leading pages). */
+.your-edition-title,
+.copyright-title,
+.legend-title,
+.backmatter-title,
+.reading-plans-page-title,
+.toc-wrap .toc-title {
+  page-break-before: auto;
+  break-before: auto;
+}
+
+/* (d) Colophon — compact so it fits one screen at the default font size. */
+.copyright-page { padding: 1.0em 0.8em; }
+.copyright-title { font-size: 1.35em; margin: 0.3em 0 0.3em; line-height: 1.2; }
+.copyright-subtitle { text-align: center; font-style: italic; color: #6a4a1f; margin: 0 0 0.5em; }
+.copyright-rule { margin: 0.3em 0 0.7em; }
+.copyright-page p { margin: 0.45em 0; font-size: 0.92em; line-height: 1.45; }
+.copyright-page h2.copyright-heading { font-size: 1.1em; margin: 0.6em 0 0.25em; }
+
+/* (g) Chapter-start superscriptions (Psalm titles, incipits like "A Prayer by
+   David.") — a heading/note, NOT scripture body. Centred italic, distinct from
+   the justified verse text, kept with the verse that follows. */
+.superscription {
+  display: block;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.92em;
+  color: #6a4a1f;
+  margin: 0.2em 0 0.7em;
+  text-indent: 0;
+  line-height: 1.4;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* (f) Appendix books (the Daniel additions) — demoted from grand "BOOK N" title
+   pages to modest inline appendix headings: no forced page break, no frame, no
+   "BOOK N" eyebrow, no plate art, smaller title. They read as additions, not
+   separate books. (The empty "Additions to Esther" is dropped from the canon.) */
+.appendix-section {
+  page-break-before: avoid;
+  break-before: avoid;
+  text-align: center;
+  margin: 1.6em 0 0.8em;
+  padding: 0.4em 0.6em;
+}
+.appendix-section .book-title-frame { border: none; background: none; padding: 0; max-width: 100%; }
+.appendix-section .bookpage-eyebrow,
+.appendix-section .bookpage-art,
+.appendix-section .bookpage-art-bleed { display: none; }
+.appendix-section .bookpage-title { font-size: 1.2em; color: #6a4a1f; }
+.appendix-section .bookpage-subtitle { font-size: 0.9em; }
 
 /* === BEGIN apply_style.py managed region — DO NOT EDIT BY HAND === */
 body, body.bible-body {
@@ -754,7 +818,7 @@ p.verse-p, p.verse-p-flush {
   margin: 0.6em 0 0.9em;
   font-size: 0.94em;
   line-height: 1.55;
-  text-align: left;
+  text-align: justify;
   text-indent: 0;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -773,7 +837,7 @@ p.verse-p, p.verse-p-flush {
 .vn-item:first-of-type { border-top: none; }
 /* The aside's own <p>/<div> flow wrapper is preserved inside each row (so the
    markup stays balanced); collapse its margins so rows read as a tight list. */
-.vn-item > p, .vn-item > div { margin: 0; }
+.vn-item > p, .vn-item > div { margin: 0; text-align: justify; }
 /* The note-label reads inline as the row's lead-in here (not the block header
    it is in a single-note popup), so the list stays compact. */
 .vn-item .note-label { display: inline; font-size: 0.82em; margin: 0 0.3em 0 0; }

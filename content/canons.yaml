@@ -218,7 +218,6 @@ canons:
       - bar
       - lje                  # Letter of Jeremiah (Baruch ch 6 in many Cath. editions)
       # Greek additions to Esther + Daniel
-      - aes                  # Additions to Esther
       - paz                  # Prayer of Azariah / Song of the Three
       - sus                  # Susanna
       - bel                  # Bel and the Dragon
@@ -306,7 +305,6 @@ canons:
       - sir
       - bar
       - lje
-      - aes
       - paz
       - sus
       - bel
@@ -375,7 +373,6 @@ canons:
       - tob
       - jdt
       - est
-      - aes
       - mq1
       - mq2
       - mq3

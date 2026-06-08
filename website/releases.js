@@ -74,12 +74,13 @@
 
       var assets = (rel.assets || []).filter(function (a) { return a && a.browser_download_url; });
 
-      if (links && assets.length) {
+      // The actual downloads are the curated, human-labelled buttons elsewhere on the
+      // page (the Bible EPUBs, the desktop apps). To avoid listing every file a second
+      // (and third) time, this live card stays a pointer: just version, date, and a
+      // single link to the full release page. (See labelFor/platformOf below — kept for
+      // the pending-button upgrade path, harmless when no .is-pending buttons exist.)
+      if (links && rel.html_url) {
         links.innerHTML = '';
-        assets.forEach(function (a) {
-          links.appendChild(mkLink(a.browser_download_url, labelFor(a.name)));
-          links.appendChild(document.createTextNode(' '));
-        });
         var notes = mkLink(rel.html_url, 'All files & release notes', 'btn-ghost');
         notes.removeAttribute('download'); // it's a page, not a file
         links.appendChild(notes);
