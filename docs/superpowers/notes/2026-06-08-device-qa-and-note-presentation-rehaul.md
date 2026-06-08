@@ -47,6 +47,28 @@ render cleanly.
 - **Effort:** small CSS, big perceived-quality payoff. Verify the reader-override
   interaction on a real device.
 
+### 1c. Native reader ToC — make per-chapter nav a toggle; can't force expand/collapse (reader-controlled); better chapter labels than "1,2,3". [WIN · build]
+- **User:** the native ToC's per-chapter "1,2,3,4 row after row" is dull + makes the ToC
+  giant. Should native chapters be toggleable? Can readers expand a book to reveal chapters
+  on click? Want better-than-"1,2,3"/"Chapter 1" labels.
+- **Reader-capability reality (accurate):** EPUB 3 `nav.xhtml` supports NESTED nav (book →
+  child chapters) and we already emit it (`enrich_nav_chapters`). BUT whether the reader
+  renders it as click-to-EXPAND/collapse vs a long indented flat list is the READER's UI,
+  NOT publisher-controllable — Apple Books / Kindle = long indented list (no collapse); some
+  (Thorium, certain Kobo firmware) collapse. We CANNOT force expand-on-click in the native
+  ToC. That is exactly why the custom in-EPUB pill ToC (finding 1) exists — a page we own →
+  it can truly expand/collapse everywhere.
+- **Decisions:** (a) make emitting per-chapter native navPoints a builder TOGGLE (book-only
+  vs book+chapters); recommended DEFAULT = **book-level native ToC (compact)** + the custom
+  pill ToC ON for chapter nav (clean native list + rich custom expander). (b) Better chapter
+  LABELS (the only native lever is the navPoint text): chapter number + **INCIPIT** (first
+  ~3–4 words, auto-derived from text we already have — e.g. `3 · And the serpent was…`)
+  instead of bare "1,2,3"; richest = pericope/section titles IF we acquire a section-heading
+  dataset (FUTURE — no data yet). The custom pill ToC has full design freedom; the native
+  ToC only has label text.
+- **Effort:** toggle = small; incipit labels = small (derive from each chapter's first
+  verse); pericope titles = needs data (defer).
+
 ### 2. "Your-Edition" stats popup renders broken (full-page, misaligned table). [WIN/shared · app/EPUB — real bug]
 - **IMG_0177:** the "Your-Edition" view shows a per-book NOTE-COUNT table (Genesis 4,903 /
   Exodus 3,642 / Leviticus 2,578 / …). The **book-name column is pushed off the left edge**
