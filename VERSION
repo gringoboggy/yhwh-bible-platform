@@ -1,41 +1,18 @@
-1.0.0-beta.2
+0.0.3
 
-YHWH Ya' Way — v1.0.0-beta.2  (device-QA fixes; first full v1.0 to follow)
+YHWH Ya' Way — v0.0.3  (the full Ethiopian Tewahedo Study Bible + device-QA fixes)
 =================================================
 
-The semantic-version line above is read by the build scripts
-(dev/build_dmg.sh, dev/installer.iss, dev/build_appimage.sh) and
-by dev/generate_appcast.py. They consume the first non-blank line
-only; everything below is human-readable metadata.
+The semantic-version line above (first non-blank line) is read by the build
+scripts (dev/build_dmg.sh, dev/installer.iss, dev/build_appimage.sh) and by
+dev/generate_appcast.py. Everything below is human-readable metadata.
 
-v1.0.0 ships:
-  - 13 web consoles (note editor + matrix + sources + customize +
-    publisher + audit + wizard + diff + compare + covers +
-    preflight + ops + apihelp)
-  - 9 built-in editions (ethiopian-tewahedo + catholic-study +
-    evangelical-reformed + jewish-study + scholarly-academic +
-    eastern-orthodox + anglican-bcp + lutheran-confessional +
-    coptic-orthodox)
-  - 7 starter-pack templates (cloned via the wizard's "Start from
-    template" flow)
-  - 51,394 notes across 87 books (corpus 2× the v1.0 floor)
-  - Cross-denominational compare apparatus (ψ.8 — the v1.0
-    differentiator)
-  - Desktop binary chain (PyInstaller launcher + PyWebView shell +
-    Sparkle/WinSparkle data plane + DMG/MSI/AppImage builders)
-  - 11/11 invariant linter checks; 1048 tests
+Versioning (set 2026-06-07): pre-final releases are v0.0.1, v0.0.2, v0.0.3, … ;
+the first full release will be v1.0.0 (then v1.0.x patches, v1.1.x big updates,
+and v2.0.0 a complete overhaul). The former "v1.0.0-beta.N" naming is RETIRED —
+v0.0.1 = former beta.1, v0.0.2 = former beta.2.
 
-The "v1.0.0 ships" block above is the historical v1.0.0 release
-manifest (tagged 2026-05-10). The project is now in v1.x, free-public
-phase Ω.0 (post-pivot, non-commercial); the program is © 2026 Bogdan
-Zorlescu, all rights reserved / source-available (see LICENSE), while the
-incorporated biblical texts/lexicons stay public domain. Current corpus/
-edition/test counts and the live roadmap live in dev/SESSION_STATE.md +
-dev/CHANGELOG.md (not this file).
-
-See dev/RELEASE_NOTES_v1.0.0.md for the full release notes and
-dev/CHANGELOG.md for the chronological history.
-
-Tag command (user-side):
-  git tag -a v1.0.0 -m "v1.0.0 — first public release candidate"
-  git push origin v1.0.0
+v0.0.3 ships the full Ethiopian Tewahedo Study Bible (all note categories on —
+~91.5k notes — and all original-language popups; 83 books) plus the device-QA
+fixes a–i. Live corpus/edition/test counts and the roadmap live in
+dev/SESSION_STATE.md + dev/CHANGELOG.md (not this file).
