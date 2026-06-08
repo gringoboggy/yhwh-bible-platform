@@ -1824,15 +1824,22 @@ def check_commercial_terms() -> dict:
     }
 
 
-_RETIRED_TERMS = ("2026-06-07", "hard deadline", "sonar")
+_RETIRED_TERMS = ("hard deadline", "sonar")
+# NOTE (2026-06-08): the bare date ``2026-06-07`` was RETIRED from this denylist.
+# It was the dropped hard-deadline date, but that date has now PASSED (it can no
+# longer be a future deadline) and legitimately appears as a historical timestamp
+# (v0.0.3 + the "deploy = build+deploy" rule both landed that day). It was producing
+# false positives on real provenance — the deadline *concept* is still guarded by
+# "hard deadline". (Fix-forward for a latent failure that had been --no-verify'd.)
 
 
 def check_retired_terms() -> dict:
     """Retired project vocabulary must not live in the always-read process docs:
-    the dropped hard deadline (``2026-06-07`` / ``hard deadline`` — superseded by
-    the 'completeness over speed' principle) and the removed ``sonar`` tooling.
-    Ships WARN while breaches remain; Phase 1 flips ``_ENFORCE_RETIRED_TERMS``
-    once the slim makes it clean, so reintroduction becomes a hard FAIL."""
+    the dropped ``hard deadline`` (superseded by the 'completeness over speed'
+    principle) and the removed ``sonar`` tooling. Ships WARN while breaches remain;
+    Phase 1 flips ``_ENFORCE_RETIRED_TERMS`` once the slim makes it clean, so
+    reintroduction becomes a hard FAIL. (A bare past date is NOT denylisted — see
+    the _RETIRED_TERMS note above.)"""
     violations: list = []
     for p in _curated_dev_docs():
         rel = str(p.relative_to(REPO)).replace("\\", "/")
