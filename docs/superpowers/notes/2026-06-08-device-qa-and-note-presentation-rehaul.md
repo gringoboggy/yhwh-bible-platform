@@ -146,9 +146,30 @@ combining in the builder.**
 91,733 stored notes; additive; reversible; option-gated so byte-stability holds. Verify each
 stage byte-stable on KJV + visually on eth + a real device.
 
+### 6. Desktop-app UI — prettify the top nav/toolbar (bare blue-text links). [WIN/shared · app frontend]
+- **User:** in the desktop program (macOS), the clickable info/toolbar at the top is
+  bare-bones — just blue text. Prettify it. Also asked whether the "localhost site" is a
+  Mac-only thing.
+- **Architecture note (clarify, not a bug):** the desktop app is NOT Mac-specific. On ALL
+  platforms (Win/Mac/Linux) it is the SAME local Flask UI (`scripts/web.py`) served on
+  localhost, wrapped in a native window via pywebview/`webview` (the launcher /
+  `dev/launcher.spec`). "Opens a localhost site" = the cross-platform architecture, not a
+  macOS quirk.
+- **Current state:** the top banner is ~20 plain blue-text links (note editor, symbol
+  matrix, build tracker, sources, export, customize, audit, audit log, publisher, wizard,
+  diff, compare, covers, preflight, ops, apihelp, hebrew, greek, distribution,
+  build-my-bible) — unstyled + cluttered.
+- **Prettify direction:** a real top app-bar — app title/mark left; routes styled as proper
+  nav (padding, hover + active states, consistent type) and GROUPED into a few logical
+  sections (e.g. Build · Edit · Inspect/Audit · Publish) since ~20 bare links is a lot;
+  match the product aesthetic (the dark theme). Optional primary-row + overflow/secondary
+  menu. Pure CSS + nav-template change; no behavior change.
+- **Effort:** small–moderate (app CSS + nav template in `scripts/web.py`/templates).
+  Frontend-only; verify in the native window per platform.
+
 ## Routing (RULES guard #6)
-- Items 1–3 (ToC / stats-popup / title-page) → **WIN lane** (build + EPUB + app; needs SSD
-  builds + epubcheck + device verify) for the post-merge fix phase.
+- Items 1–3 + 6 (ToC / stats-popup / title-page / app-nav prettify) → **WIN lane** (build +
+  EPUB + app; needs SSD builds + epubcheck + device verify) for the post-merge fix phase.
 - Items 4–5 → **Mac-led design** (this doc → a follow-on spec); build impl on WIN. Both lanes
   aware via the board.
 - All gated behind the round-6 findings-only hold → fold into the ONE post-merge fix phase.
