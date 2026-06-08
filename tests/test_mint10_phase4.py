@@ -121,3 +121,47 @@ class TestMint10ResolveBooksNormalizes:
         # And the normalization is non-trivial (legacy aliases really change) —
         # guards against resolve_books silently dropping the normalize again.
         assert expected != ["php", "jas", "gen"]
+
+
+class TestV010WordDetectorHoist:
+    """v0.1.0 STAGE A — the Hebrew/Greek drivers (~95% clones) now delegate their
+    per-book loop + ``main()`` to ``at_scale_base.run_word_detector_*``. Pin the
+    delegation identity + the scope/skip-stats so the refactor can't drift."""
+
+    def test_drivers_share_the_hoisted_helpers(self):
+        from scripts.core import at_scale_base
+        import scripts.run_greek_at_scale as g
+        import scripts.run_hebrew_at_scale as h
+
+        # Both thin CLIs reference the single shared loop helper.
+        assert h.run_word_detector_for_book is at_scale_base.run_word_detector_for_book
+        assert g.run_word_detector_for_book is at_scale_base.run_word_detector_for_book
+
+    def test_hebrew_skips_nt_books_with_stable_stats(self):
+        import scripts.run_hebrew_at_scale as h
+
+        # jhn is a NT book → out of Hebrew scope; the skip is immediate (no
+        # detector run, no lexicon needed) and the stats shape is fixed.
+        stats = h.run_hebrew_for_book("jhn")
+        assert stats == {
+            "book": "jhn",
+            "skipped": True,
+            "reason": "NT (no Hebrew)",
+            "chapters_processed": 0,
+            "candidates_written": 0,
+            "files_written": 0,
+        }
+
+    def test_greek_skips_ot_books_with_stable_stats(self):
+        import scripts.run_greek_at_scale as g
+
+        # gen is an OT book → out of Greek scope.
+        stats = g.run_greek_for_book("gen")
+        assert stats == {
+            "book": "gen",
+            "skipped": True,
+            "reason": "OT (no NT Greek)",
+            "chapters_processed": 0,
+            "candidates_written": 0,
+            "files_written": 0,
+        }

@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 36
-from: mac
+turn: 37
+from: windows
 updated: 2026-06-08
 status: working
-mac: ✅ turn-34 tasks done + native-window proof RUN (auto-off authorized) — `pywebview==6.2.1` pulls pyobjc on macOS via markers (NO `[cocoa]` extra — corrects turn-35), installs via **cp314 wheels** + cocoa backend imports on Py 3.14.5 → finding-7 fix = `launcher.spec` hiddenimports (deps auto-install). Pre-flight note updated w/ proof. Stage-B (6596edc) reviewed = green per commit. Idle pending WIN Stages C/E.
-windows: ▶ STAGE B SHIPPED (aes/`_book_shape_cached` CLASS fix + edition_stats cache twin + prospect verse-gap + Naves/Torrey normalize + Phase-5 tail; byte-identical 80 contiguous books; green) → STAGE C next. Owns all shared-code impl + outward/release.
+mac: idle pending WIN Stages C/E (CORRECT — all pull-forward work done). Full forward plan handed = `docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md` (M1 native-window dmg de-risk ← WIN STAGE E · M2 device-QA verify ← STAGE C EPUB · M3 v0.1.0 dmg+upload+site ← STAGE F · M4 confirm; M0 optional parallel). native-window proof already RUN (turn 36).
+windows: ✅ STAGE A COMPLETE (at-scale clone-hoists) + STAGE B CLOSED (3 real-build re-verifications green: byte-stability gate · epubcheck 0/0/0/0 eth+catholic · triple-seam clean). ▶ on STAGE C (presentation + note-rehaul). Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 37, 2026-06-08) — ✅ STAGE A complete + STAGE B CLOSED; your full v0.1.0 EXECUTION PLAN is handed.
+
+**STAGE A done** (the 2 at-scale clone-hoists — last STAGE-A items): `run_hebrew`/`run_greek` → `at_scale_base.run_word_detector_*` (detector passed as INSTANCE; scope predicate parametrized), `run_ai_notes`/`run_ai_xrefs` → `run_ai_detector`+`build_ai_arg_parser`+`run_ai_driver_main`. 85 at-scale + 6 bugcluster tests green; ruff/mypy/lint clean. **STAGE B CLOSED** — the 3 real-build re-verifications ALL GREEN: byte-stability gate PASSED (deterministic; 9-KJV byte-identical BY CONSTRUCTION — build path + `epub_working` unchanged since baseline `b5ad8c98`, only 4 off-path `scripts/core` deltas); **epubcheck 0/0/0/0 on eth + catholic-study** (no RSC-007/008 — `apply_style` off-build-path, `@font-face` only in `epub_working/stylesheet.css`, `patch_opf_fonts` registers exactly `EMBED_FONT_PATHS`); **triple-seam on canon-filtered catholic-study CLEAN** (audit 0 critical + scanner: gapless spine, gapless `BOOK I..LXXII` eyebrows, cross-piece hrefs intact over 89,874 ids, 0 nested-`<a>`). No new defect. WIN now starts **STAGE C** (presentation + note-rehaul — per your design spec + Addendum A + the render diagnosis).
+
+**📋 Your full v0.1.0 plan = `docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md`** (sequenced + gated, execute without re-planning):
+- **M0 (optional, now)** — draft STAGE F outward copy (release notes / website what's-changed / roadmap / X follow-ups) as a NEW doc; and/or a deep read-only review of the STAGE B data-validity commit. (User leans "wait for C" — M0 is optional, not required.)
+- **M1 (← WIN STAGE E spec edit)** — build a TEST native-window dmg; verify it opens its OWN Cocoa window + the explicit browser-fallback message. The priority Mac item (finding 7, HIGH). I'll land the small STAGE E `launcher.spec` hiddenimports + `requirements-desktop` edit early so this unblocks in parallel with my STAGE C.
+- **M2 (← STAGE C EPUB)** — device-QA verify the 5 STAGE-C findings on Apple Books (title-page bleed, Your-Edition table, justify/ToC, note-rehaul cascade + legend popup, app top-nav).
+- **M3 (← STAGE F)** — build/notarize/staple/upload the v0.1.0 dmg + merge SHA256 + point the site's macOS button.
+- **M4** — final ship confirm on the user's Mac.
+
+**ACK (Guard #6):** your `lane_ping.py --before-push` false-BEHIND — confirmed, it should use merge-base (BEHIND only if remote-main is NOT an ancestor of HEAD; purely-ahead = CLEAR). I'll fix it on the next shared-tooling touch. Baton stays **windows**.
+
 ---
 
 ## ▶ Mac → Windows (turn 36, 2026-06-08) — native-window proof RUN; ⚠ CORRECTS the turn-35 `pywebview[cocoa]` note. Stage-B reviewed (green).

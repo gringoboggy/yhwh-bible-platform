@@ -4,6 +4,29 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-08 — session (🪟 Windows) — STAGE B closed (real-build re-verifications) + STAGE A complete (at-scale clone-hoists)
+
+**Phases shipped:** v0.1.0 STAGE B (re-verifications close) · STAGE A clone-hoist tail
+**Test delta:** +1 test class (`TestV010WordDetectorHoist`, 3 tests) + 8 tests re-homed; 85 at-scale + 6 bugcluster green
+**Save tag:** (this commit)
+
+STAGE B — the 3 real-build re-verifications (the data-validity cluster's remaining gate), all GREEN:
+- **(i) font-embed byte-stability/epubcheck.** `test_byte_stability_gate` PASSED (23m38s) — eth+catholic+jewish build to valid, mutually-distinct EPUBs; the catholic-study rebuild is byte-identical (deterministic). 9-KJV byte-identity holds **by construction**: the only build-path delta since the v0.1.0 baseline `b5ad8c98` is 4 `scripts/core` files (dead-helper removal; the aes/`canonical_verse_counts` keystone — affects only aes/1cl/2en Ethiopian distinctives, not the 9 KJV; the `notes_io` runtime cache hook — cold on a fresh build; `sources_lexicon` book-code normalize — no-op on clean data), while `epub_working/`, `build_edition.py`, `apply_style.py`, `style_config.py` are unchanged. **epubcheck 0/0/0/0 on both eth and catholic-study** (no RSC-007/008): reconciled the font path — `apply_style.py` is NOT run by the build (its managed region is stale; `EMBED_FONT_PATH=None`), the `@font-face` rules are the hardcoded ones in `epub_working/stylesheet.css`, and `patch_opf_fonts` registers exactly the `EMBED_FONT_PATHS` four files (Cardo .ttf ×3 + Noto .woff2) into the OPF manifest ⇒ every referenced font is manifested and shipped.
+- **(ii) post-pass × canon-filter × file-split triple-seam** on the built canon-filtered catholic-study: `audit_epub_structure` 0 critical (DUP_NOTE_ROWS / DUP_IDS / BROKEN_NOTEREF / UNBALANCED_TAGS / NEAR_EMPTY all 0) + a purpose-written triple-seam scanner — 182 spine itemrefs all resolve (no gaps), gapless `BOOK I..LXXII` eyebrows (the v0.0.3 per-edition appendix-demotion renumber holds under canon-filtering), full cross-piece href integrity across 89,874 distinct ids, zero nested `<a>`.
+- **(iii)** real published-store out-of-extent sweep was already done in STAGE B (ZERO impossible coords ship). No new defect surfaced → nothing folded.
+
+STAGE A clone-hoists (the last two STAGE-A items; offline tooling, gates nothing):
+- **`run_hebrew_at_scale` / `run_greek_at_scale` (~95% clones)** → hoisted `run_word_detector_for_book` + a parametrized `run_word_detector_main` into `scripts/core/at_scale_base.py`. The detector is passed as an INSTANCE (so the leaf never imports `detectors.py`); the OT/NT scope predicate + three label strings are parametrized. Thin CLIs keep `write_queue` + `run_{hebrew,greek}_for_book` (exact behavior) + the `append_candidates`/`NT_BOOKS` module-identity the structural tests pin.
+- **`run_ai_notes_at_scale` / `run_ai_xrefs_at_scale` (near-clones)** → hoisted `run_ai_detector` (parallel-map aggregation core) + `build_ai_arg_parser` + `run_ai_driver_main` into `at_scale_base.py`, parametrizing the detector/client classes, the extra arg (`--top-n` vs `--tradition`), `COST_PER_VERSE` (0.0023/0.0020), `--min-confidence` default (0.7/0.65), and the `--kind` promote hint. Thin CLIs keep `run_ai_notes`/`run_ai_xrefs` (exact signatures, for the injectable-core tests) + `write_queue` + `estimate_cost`.
+- **8 tests re-homed** (after the hoist `iter_target_verses`/`resolve_books` are called/patched in `at_scale_base`, where they now live, not the driver namespaces — the "re-home tests after a refactor" rule) + a new `TestV010WordDetectorHoist` pinning the shared-helper identity + the OT/NT scope skip-stats. The `test_ai_at_scale_drivers_use_ch_count_not_chapters` source-scan was re-homed to assert delegation to `run_ai_detector`.
+- Gates: 85 at-scale driver tests + 6 bugcluster (`test_mint11_phase3`) green; `ruff format --check` clean; mypy clean (5 source files); `lint_rules.py` 30 pass · 3 warn · 0 fail.
+
+Lane: handed macclaude the full v0.1.0 EXECUTION PLAN (`docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md`) — M1 native-window dmg de-risk (gated on the WIN STAGE E spec edit) → M2 device-QA verify (gated on the STAGE C EPUB) → M3 v0.1.0 dmg+upload+site (STAGE F) → M4 final confirm; M0 optional parallel. Mac is correctly idle pending STAGE C/E (it has finished all pull-forward work). Acknowledged the lane_ping `--before-push` false-BEHIND that Mac flagged (use merge-base) — queued for the next shared-tooling touch.
+
+Continuity pointers:
+- `docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md` (Stages A–F)
+- `docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md` (Mac M1–M4)
+
 ---
 
 ## 2026-06-08 — v0.1.0 STAGE B — data-validity cluster CLOSED (candidate cleanup + extent lint + gap-#4 answered)

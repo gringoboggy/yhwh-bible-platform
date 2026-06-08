@@ -13,6 +13,8 @@ data, no network, no API key.
 import json
 from types import SimpleNamespace
 
+from scripts.core import at_scale_base
+
 
 def _cand(book, ch, v):
     # Shape consumed by candidate_to_dict in both drivers.
@@ -48,7 +50,9 @@ def test_run_ai_notes_parallel_output_identical(monkeypatch, tmp_path):
     import scripts.run_ai_notes_at_scale as mod
 
     fixed = [("jhn", 3, 16, "a"), ("jhn", 3, 17, "b"), ("jhn", 3, 18, "c"), ("rom", 1, 1, "d")]
-    monkeypatch.setattr(mod, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
+    # iter_target_verses now lives + is called in at_scale_base (v0.1.0 STAGE A hoist:
+    # run_ai_notes/xrefs delegate to at_scale_base.run_ai_detector) — patch it there.
+    monkeypatch.setattr(at_scale_base, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
     df = lambda: _FakeDetector()  # noqa: E731
 
     d1, d2 = tmp_path / "serial", tmp_path / "par"
@@ -72,7 +76,9 @@ def test_run_ai_xrefs_parallel_output_identical(monkeypatch, tmp_path):
     import scripts.run_ai_xrefs_at_scale as mod
 
     fixed = [("jhn", 3, 16, "a"), ("jhn", 3, 17, "b"), ("rom", 1, 1, "c")]
-    monkeypatch.setattr(mod, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
+    # iter_target_verses now lives + is called in at_scale_base (v0.1.0 STAGE A hoist:
+    # run_ai_notes/xrefs delegate to at_scale_base.run_ai_detector) — patch it there.
+    monkeypatch.setattr(at_scale_base, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
     df = lambda: _FakeDetector()  # noqa: E731
 
     d1, d2 = tmp_path / "serial", tmp_path / "par"
@@ -98,7 +104,9 @@ def test_parallel_with_cache_no_thread_error(monkeypatch, tmp_path):
     from scripts.core.work_cache import WorkCache
 
     fixed = [("jhn", 3, i, f"t{i}") for i in range(1, 9)]
-    monkeypatch.setattr(mod, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
+    # iter_target_verses now lives + is called in at_scale_base (v0.1.0 STAGE A hoist:
+    # run_ai_notes/xrefs delegate to at_scale_base.run_ai_detector) — patch it there.
+    monkeypatch.setattr(at_scale_base, "iter_target_verses", lambda books, mv: iter(fixed[:mv]))
     monkeypatch.setattr(mod, "CANDIDATES_DIR", tmp_path)
 
     def stub(system, user, *, model):

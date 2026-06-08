@@ -547,9 +547,11 @@ class TestRunAIXrefsAtScaleDriver:
         import importlib
 
         cls.driver = importlib.import_module("scripts.run_ai_xrefs_at_scale")
+        from scripts.core import at_scale_base as asb
         from scripts.core import detectors as det
         from scripts.core import sources as src
 
+        cls.asb = asb  # iter_target_verses/resolve_books live here (v0.1.0 STAGE A hoist)
         cls.det = det
         cls.src = src
 
@@ -637,7 +639,7 @@ class TestRunAIXrefsAtScaleDriver:
         # Use the real iter_target_verses against the real KJV data
         # and verify the cap is honored.
         verses = list(
-            self.driver.iter_target_verses(
+            self.asb.iter_target_verses(
                 ["jhn"],
                 max_verses=5,
             )
@@ -649,7 +651,7 @@ class TestRunAIXrefsAtScaleDriver:
     def test_iter_target_verses_skips_books_without_kjv(self):
         # 'fakebook' doesn't exist in KJV — it should be skipped silently.
         verses = list(
-            self.driver.iter_target_verses(
+            self.asb.iter_target_verses(
                 ["fakebook", "jhn"],
                 max_verses=3,
             )
@@ -663,7 +665,7 @@ class TestRunAIXrefsAtScaleDriver:
         # "chapters" key → always 50, silently skipping Psalms 51-150, Isaiah
         # 51-66, etc. on every full-corpus AI run. With the ch_count fix all 150
         # Psalm chapters are iterated.
-        chapters = {ch for _b, ch, _vs, _t in self.driver.iter_target_verses(["psa"], max_verses=10**9)}
+        chapters = {ch for _b, ch, _vs, _t in self.asb.iter_target_verses(["psa"], max_verses=10**9)}
         assert max(chapters) == 150, f"expected Psalms to reach ch 150, got {max(chapters)} (chapter cap regressed?)"
         assert len(chapters) == 150
 
@@ -674,19 +676,24 @@ class TestRunAIXrefsAtScaleDriver:
         #
         # mint-9: the chapter-iteration logic was deduped into
         # scripts/core/at_scale_base.iter_target_verses (mint-8 batch-1), so the
-        # `ch_count` read now lives THERE, not inline in each driver. The drivers
-        # must (a) never reintroduce the bad "chapters" key and (b) delegate to
-        # iter_target_verses; the canonical ch_count read is pinned in
-        # at_scale_base. (Previously this scanned the drivers for the literal
-        # ch_count read and went stale the moment the logic was factored out —
-        # a stale-test class the round-2 audit's tests dimension should flag.)
+        # `ch_count` read lives THERE, not inline in each driver. v0.1.0 STAGE A
+        # hoisted the WHOLE driver core (iteration + aggregation) into
+        # at_scale_base.run_ai_detector, so the drivers now delegate via that.
+        # The drivers must (a) never reintroduce the bad "chapters" key and
+        # (b) delegate to the shared core (run_ai_detector → iter_target_verses);
+        # the canonical ch_count read is pinned in at_scale_base. (Previously this
+        # scanned the drivers for the literal ch_count read and went stale the
+        # moment the logic was factored out — re-homed here per the same rule.)
         import pathlib
 
         repo = pathlib.Path(__file__).resolve().parent.parent
         for name in ("run_ai_xrefs_at_scale.py", "run_ai_notes_at_scale.py"):
             src = (repo / "scripts" / name).read_text(encoding="utf-8")
             assert 'get("chapters"' not in src, f"{name} uses the non-existent 'chapters' key (mint-7 B1)"
-            assert "iter_target_verses" in src, f"{name} should iterate via at_scale_base.iter_target_verses"
+            assert "run_ai_detector" in src, f"{name} should delegate iteration to at_scale_base.run_ai_detector"
+        assert "iter_target_verses" in (repo / "scripts" / "core" / "at_scale_base.py").read_text(encoding="utf-8"), (
+            "at_scale_base.run_ai_detector must iterate via iter_target_verses"
+        )
         base_src = (repo / "scripts" / "core" / "at_scale_base.py").read_text(encoding="utf-8")
         assert 'get("ch_count"' in base_src, "at_scale_base.iter_target_verses must read ch_count (mint-7 B1)"
         assert 'get("chapters"' not in base_src, "at_scale_base must not use the non-existent 'chapters' key"
@@ -961,7 +968,7 @@ class TestRunAIXrefsAtScaleDriver:
         assert self.driver.estimate_cost(1000) == per_verse * 1000
 
     def test_resolve_books_default_is_canonical_kjv_intersection(self):
-        books = self.driver.resolve_books(None)
+        books = self.asb.resolve_books(None)
         # Must include core books like Genesis and John, in canonical
         # order (Genesis first).
         assert "gen" in books
@@ -969,7 +976,7 @@ class TestRunAIXrefsAtScaleDriver:
         assert books.index("gen") < books.index("jhn")
 
     def test_resolve_books_explicit_arg_passes_through(self):
-        books = self.driver.resolve_books("rom,gal,heb")
+        books = self.asb.resolve_books("rom,gal,heb")
         assert books == ["rom", "gal", "heb"]
 
 
