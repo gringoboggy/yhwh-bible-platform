@@ -63,6 +63,18 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    (User-directed 2026-06-05 after the split deep-audit failed 15× on the Mac for a
    missing `feature-dev` agent type + a Windows `REPO` path.)
 
+**Terminology — what "deploy" means (user-directed 2026-06-07, EMPHATIC):**
+When the user says **"deploy"**, they mean **BUILD THE PROGRAM *AND* DEPLOY IT** —
+not just push the website or re-publish static pages. The full chain: **rebuild the
+relevant artifact(s) from current source** (the desktop builder `.dmg`/`.exe`/
+`.AppImage` via `dev/build_dmg.sh` / `dev/build_desktop.*` / `dev/build_appimage.sh`;
+the EPUB/`.kepub` via the build pipeline; the website via `node website/build.mjs`),
+**then publish them** (upload artifacts to the matching GitHub release + merge their
+SHA-256 into `SHA256SUMS.txt`; deploy the site to the `yhwh-website` Pages repo).
+A stale on-disk artifact is NOT a deploy — rebuild it first so what ships reflects
+the latest source. "Deploy v0.0.x" = produce that version's binaries fresh, attach
+them, AND flip the live site to them. (Both lanes; memory: `feedback_deploy_means_build_and_deploy`.)
+
 ## Rules map — which § governs what (jump here first)
 
 | § | Governs |
