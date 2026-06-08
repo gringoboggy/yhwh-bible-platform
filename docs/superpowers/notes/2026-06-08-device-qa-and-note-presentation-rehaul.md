@@ -34,12 +34,17 @@ render cleanly.
   EPUB default — the user enables "justified" in the READER app. But the reader's justify
   toggle is GLOBAL → it also justifies the ToC, spacing the book-name lines out horribly
   (huge inter-word gaps). So #1's ToC problem and "I have to toggle justify" are ONE issue.
-- **Fix (solves both):** ship `text-align: justify` as the EPUB's OWN default for prose
-  (verse + note bodies) so the user never needs the reader toggle; AND explicitly
-  `text-align: left/start` the ToC, chapter pills, headings, tables, and the stats view so
-  they never justify. With publisher-justified body, the reader stays on "default"
-  alignment → it no longer force-justifies the ToC → book names stay tight. Pair body
-  justify with `hyphens: auto` (+ `-webkit-hyphens`) so justification doesn't open rivers.
+- **Fix (solves both):** ship `text-align: justify` as the EPUB's OWN default so the user
+  never needs the reader toggle. **SCOPE = body/running prose ONLY (user-directed):** apply
+  justify via a WHITELIST of prose containers — verse text, note bodies, book/chapter
+  introductions, any paragraph prose throughout the book — **NOT** via a global `body {}` /
+  `* {}` rule (a global rule would catch headings). **NEVER justify:** book/chapter/section
+  TITLES, any HEADING/HEADER, the ToC, chapter pills, tables, captions, bylines/source
+  labels, or page furniture — those stay left/centered as designed. With publisher-justified
+  body, the reader stays on "default" alignment → it no longer force-justifies the ToC →
+  book names stay tight. Pair the prose justify with `hyphens: auto` (+ `-webkit-hyphens`) so
+  justification doesn't open rivers. Implementation guard: a build check that no heading/
+  title/ToC selector resolves to `justify`.
 - **Byte-stability:** CSS change → a builder option (`text_align`), default justify+hyphenate
   for the Ethiopian (shipped) edition; the 9 KJV byte-stable editions keep left unless
   flipped (or re-baseline intentionally). ToC/pills/headings are ALWAYS left, not subject
