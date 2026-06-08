@@ -358,7 +358,7 @@ async function findDim(dim) {
         phase: 'Find',
         schema: FINDINGS_SCHEMA,
         agentType: atype,
-        model: 'sonnet',  // mint-11: pin finders to sonnet (4-core cap=2 -> ~3h not ~8h; audit_cadence memory)
+        model: 'opus',  // round-6 default (2026-06-08): cap=2 boxes are RETRY-bound — Sonnet skips the forced StructuredOutput on ~22% of agents, costing more wall-clock + dropping verdicts; Opus = faster AND no false-negatives (audit_cadence memory)
       })
     })
   )
@@ -382,7 +382,7 @@ async function runSkepticPanel(f, dim, size, atype) {
       phase: 'Verify',
       schema: VERDICT_SCHEMA,
       agentType: atype,
-      model: 'sonnet',  // pin verifiers to sonnet (cap=2 throughput; post-barrier synth stays on inherited Opus)
+      model: 'opus',  // round-6 default (2026-06-08): Opus verifiers — eliminate the ~22% Sonnet StructuredOutput-skip false-negatives (the round-4 2-HIGH loss); ~2x faster than the sonnet split despite slower tokens (retry-bound). args.model can still override.
     })
   let panel = (await parallel(Array.from({ length: size }, (_, i) => () => spawn(i, '')))).filter(Boolean)
   if (panel.length < size) {

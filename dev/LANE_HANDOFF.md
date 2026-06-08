@@ -1,11 +1,11 @@
 ---
 mode: parallel
-turn: 29
-from: mac
+turn: 30
+from: windows
 updated: 2026-06-08
 status: working
-mac: ✅ user real-device QA (Apple Books) captured + routed (doc 2026-06-08-device-qa…); items 1-3 = WIN build/app/EPUB, items 4-5 = Mac-led note-rehaul design; still findings-only, awaiting win merge
-windows: round-6 audit WIN lane (4 heavy dims) + merge both halves → findings doc
+mac: meantime START item 1 (note-rehaul DESIGN SPEC; blocks nothing); release-time = .icns + native-window dmg + v0.1.0 mac artifact + device-verify. PRODUCT fix-phase HELD until the v0.1.0 master plan is ratified.
+windows: ✅ round-6 audit MERGED (43; 0 crit/high; program MINT) + v0.1.0 master plan WRITTEN; owns shared-code impl + outward/release; fix-phase HELD pending ratification.
 truth_owner: windows
 holder: windows
 ---
@@ -13,9 +13,10 @@ holder: windows
 ## ▶ CURRENT assignments (lane-coordination v2 — see `docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md`)
 
 - **mode = parallel** (read-only audit, file-disjoint → both lanes run + push their own).
-- **mac** = round-6 split deep-audit, MAC lane: `LANE='mac'` (LOCAL, don't commit), 14 dims, confirm startup count = 14 → `_audit-split/findings-mac.json` on `lane-transfer/audit` (that push = mac's audit-completion milestone) → meantime backlog.
-- **windows** = round-6 WIN lane (`LANE='win'`, 4 heavy dims) + run `deep-audit-merge.js` when both halves are in hand → `docs/superpowers/notes/2026-06-08-round6-split-audit-findings.md`. **truth_owner = windows** (owns the merge-commit + truth-records).
-- **Marching order:** findings-only — STOP before fixes.
+- **✅ DONE — round-6 split audit MERGED** (win 13 + mac 30 → 43; 0 crit/high; program MINT) → `docs/superpowers/notes/2026-06-08-round6-split-audit-findings.md`; the **v0.1.0 master plan** (`plans/2026-06-08-v0.1.0-master-plan.md`) sequences audit + device-QA + note-rehaul + icons + outward surfaces.
+- **windows** = owns ALL shared-repo code/test/doc/config impl (audit Phases 0–5; device-QA build; note-rehaul S1–S3; `launcher.spec` icons + pyobjc; website + release + repo-updates). **truth_owner = windows.**
+- **mac** = the macOS-build-only + design + verify items (the turn-30 laundry list): START the note-rehaul DESIGN SPEC now; release-time = `.icns` + native-window dmg + v0.1.0 mac artifact + device-verify.
+- **Marching order:** FINDINGS-ONLY until the v0.1.0 master plan is RATIFIED; then execute safest-first per the master plan (A green/honest → B latent holes → C presentation → D icons → E mac native-window → F outward+release).
 
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
@@ -29,6 +30,25 @@ holder: windows
 
 > **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
 > The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+
+## ▶ Windows → Mac (turn 30, 2026-06-08) — ✅ ROUND-6 AUDIT MERGED + v0.1.0 MASTER PLAN written; laundry list below; ACK guard #6. Findings-only until ratified.
+
+**Audit merged (truth_owner=windows).** win 13 + mac 30 → **43 unique survivors: 12 medium / 26 low / 5 info; 0 critical/high.** Verdict: the 9-edition program is **functionally MINT** — every finding is test-only, a latent guard that never fires on current data, reader-cosmetic, dev-tooling, or stale docs; 0 shipped-byte corruption; nothing touches the marathon core. Synthesized plan: `docs/superpowers/notes/2026-06-08-round6-split-audit-findings.md` (Phases 0–5 + optimizations + 7 completeness gaps). Your `findings-mac.json` 30 all carried in.
+
+**★ The v0.1.0 MASTER PLAN is the single post-merge source of truth** — `docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md`. It sequences audit (43) + device-QA (1–7) + note-rehaul (S1–S4) + app icons + outward surfaces → **v0.1.0 (still beta)**, safest-first (A green/honest → B latent holes → C presentation → D icons → E mac native-window → F outward+release), with the lane division. The 06-06 presentation plan is UPDATED in place (3 new findings + refinements + v0.1.0 retarget). **A fresh session (either lane) reads: this board → the master plan → the findings note + the device-QA note.**
+
+**ACK guard #6 (cross-lane problem hand-off)** — received; mirroring into Windows memory this milestone. Reciprocal: the 6 win-domain audit findings are routed into the master plan; the Mac-domain ones (`aes`/`_book_shape_cached`, `edition_stats`) are WIN code fixes — you need not touch them.
+
+**📋 macclaude laundry list** (full detail = the master plan's "macclaude laundry list" section):
+1. **START NOW (parallel, unblocks nothing else): the note-rehaul DESIGN SPEC** → a `docs/superpowers/specs/` doc turning device-QA §4+5 (S1–S4 + the reader-robust north star) into the build-time design WIN implements in Stage C (cascade markup verse→category→source→note in reader-robust primitives; category→source grouping; S1/S2/S3a/S3b dedup predicates + a never-drop-a-distinct-point guard; tinted cards = enhancement layer only).
+2. **(release-time) macOS `.icns`** — `iconutil` an iconset from `assets/icons/` (16→1024) → `assets/icons/YHWH.icns`, commit it.
+3. **(release-time, HIGH — finding 7) macOS native-window dmg** — after WIN lands the pyobjc deps + `launcher.spec` cocoa hiddenimports + the explicit fallback: rebuild the `.dmg`, notarize+staple, **verify it opens its OWN native window with the chosen icon.**
+4. **(release-time) v0.1.0 mac artifact** — build `dist/YHWH-0.1.0.dmg`, upload to the v0.1.0 release, merge SHA256, point the site's macOS button at it.
+5. **(verify) device-QA** — once WIN's Stage C EPUB lands, re-check on Apple Books that note-rehaul / justify / ToC toggle / title-page / stats-popup render as intended.
+
+**HOLD:** the product fix-phase stays findings-only until the user ratifies the master plan. Mac may proceed on **item 1** now (a new doc; blocks nothing). **Engine:** the committed `deep-audit.js` default is now **Opus** (+ disproven Sonnet-pin comments fixed) — you reverted your local edits, so it's clean; pull it.
+
+---
 
 ## ▶ Mac → Windows (turn 29, 2026-06-08) — user REAL-DEVICE QA (Apple Books, the posted v0.0.3 EPUB) captured + routed per guard #6. Still findings-only.
 

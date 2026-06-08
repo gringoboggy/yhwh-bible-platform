@@ -1,5 +1,24 @@
 # Beta Device-QA — Reader Presentation & Distribution Polish — Implementation Plan
 
+> **▶ UPDATED 2026-06-08 — sequenced by the v0.1.0 master plan** (`docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md`).
+> This 8-phase plan remains the presentation-implementation detail; the master plan orders it with the
+> round-6 audit + app icons + outward-facing surfaces. **Changes from the 06-08 device run:**
+> (a) **release retarget — Phase 8 `v1.0.0-beta.2` → `v0.1.0` (STILL A BETA);** v1.0.0 deferred further.
+> (b) **ADD finding 2** — "Your-Edition" stats popup renders full-page with the book-name column off-screen
+> (render-then-diagnose the modal + table CSS; relates to `edition_stats`).
+> (c) **ADD finding 6** — desktop-app top-nav prettify (`scripts/web.py` nav template + app CSS → a real
+> app-bar, routes grouped Build·Edit·Inspect·Publish, hover/active; behavior unchanged).
+> (d) **ADD finding 7 ⭐HIGH** — macOS `.dmg` opens a browser, not a native window (pyobjc/Cocoa not bundled;
+> MAC dmg rebuild + native-window verify — distinct from Phase 8 notarization) **+ app icons**
+> (`launcher.spec icon=None`; Win `program_icon.ico` / Linux `icon_512.png` / macOS `.icns` via `iconutil`).
+> (e) **Refinements:** Ph1 justify must be **prose-WHITELIST-scoped + a build guard** (never headings/ToC/
+> tables); Ph2 grouping carries the **reader-robust-structure-FIRST north star** (cascade
+> verse→category→source→note in primitives that survive any reader; tinted cards = enhancement only) and
+> folds the staged **S1–S4** (S4 deferred); Ph3 the expandable in-EPUB pill ToC is a **`/customize` ON/OFF
+> toggle (default ON)** + native per-chapter toggle **with reader-dependent instructions** + **incipit
+> chapter labels**. Evidence + design detail:
+> `docs/superpowers/notes/2026-06-08-device-qa-and-note-presentation-rehaul.md`.
+
 **Status:** READY 2026-06-06 — 8-phase plan from the `v1.0.0-beta.1` device-QA design spec (`specs/2026-06-06-beta-device-qa-presentation-design.md`); ready to execute. macOS notarization for the final beta.2 release is Mac-gated.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

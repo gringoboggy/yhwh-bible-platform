@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**72 documents** — 48 plans · 24 specs.
+**73 documents** — 49 plans · 24 specs.
 
-## In progress (26)
+## In progress (27)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-08 | Plan | ★v0.1.0 MASTER PLAN — round-6 audit (43) + device-QA 1–7 + note-rehaul S1–S4 + app icons + outward surfaces → v0.1.0 | `plans/2026-06-08-v0.1.0-master-plan.md` | READY 2026-06-08 — top-level sequencing + lane-division; safest-first (green/honest/guarded → latent holes → presentation → icons → mac native-window → outward+release); 0 crit/high (program MINT); FINDINGS-ONLY until ratified; stitches the audit-findings note + device-QA note + the 06-06 presentation plan. |
 | 2026-06-08 | Plan | Round-6 split deep-audit — refreshed auditor + lane split + Mac meantime-backlog | `plans/2026-06-08-round6-split-audit-plan.md` | READY 2026-06-08 — round-6 engine current (+`dist-packaging`/`website-deploy` dims, `rx-surfaces`→v0.0.3 post-passes + re-ingests, cross-lane parity baked = flip ONE `LANE` line); split win=4 heavy / mac=14 read-only; FINDINGS-ONLY (stop before fixes); includes the Mac meantime-backlog. |
 | 2026-06-06 | Spec | Beta Device-QA — Reader Presentation & Distribution Polish | `specs/2026-06-06-beta-device-qa-presentation-design.md` | Approved design 2026-06-06 — distinct note(◈)/translation markers · colour-coded tinted de-duped note cards · justify + per-device font (Apple larger / Kobo kepub smaller) · book-level native ToC + .kepub popups · clickable in-content ToC · centred title page · OCR de-hyphenation + structural audit · empty-page + front-matter fixes · website single-download + capped update log → cut v1.0.0-beta.2. |
 | 2026-06-06 | Plan | Beta Device-QA — Reader Presentation & Distribution Polish — Implementation Plan | `plans/2026-06-06-beta-device-qa-presentation-plan.md` | READY 2026-06-06 — 8 phases (CSS wins → note popup → native-ToC+kepub → structural audit → corpus cleanups → title page → website → v1.0.0-beta.2 release). macOS notarization Mac-gated. |
