@@ -84,9 +84,24 @@ class TestMint11CoordGuardClassSweep:
     )
 
     def test_kjv_coord_drivers_apply_extent_guard(self):
+        # Secondary (cheap): the guard symbol is present in each driver source.
         missing = []
         for name in self.KJV_COORD_DRIVERS:
             src = (REPO / "scripts" / name).read_text(encoding="utf-8")
             if "coord_in_canonical_extent" not in src:
                 missing.append(name)
         assert not missing, f"KJV-coordinate driver(s) missing coord_in_canonical_extent guard: {missing}"
+
+    def test_kjv_coord_drivers_drop_out_of_extent_coords(self):
+        # Primary (v0.1.0 audit Phase 5): exercise each driver's ACTUAL per-candidate
+        # decision via its importable `_emit_extent_ok`, not a substring grep — so a
+        # broken/removed/arg-swapped guard is caught. gen 1:1 is in extent; gen 99:1
+        # (Genesis has 50 chapters) and gen 23:24 (Gen 23 has 20 verses) are out.
+        import importlib
+
+        for name in self.KJV_COORD_DRIVERS:
+            mod = importlib.import_module("scripts." + name[:-3])
+            emit = mod._emit_extent_ok
+            assert emit("gen", 1, 1), f"{name}: gen 1:1 must be in extent"
+            assert not emit("gen", 99, 1), f"{name}: gen 99:1 must be dropped (no ch 99)"
+            assert not emit("gen", 23, 24), f"{name}: gen 23:24 must be dropped (Gen 23 has 20 v)"

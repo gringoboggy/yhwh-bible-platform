@@ -177,6 +177,85 @@ class TestNotesStoreAtomicWriteGuard:
         assert result["violations"] == []
 
 
+class TestReingestGuardsFireOnDefect:
+    """v0.1.0 audit Phase 5 — the three auto-note re-ingest lint guards must
+    DETECT a planted defect, not merely pass on the clean committed corpus
+    (`check_no_truncated_easton` was UNTESTED). Each: plant a violating
+    content/notes store → FAIL, a clean store → PASS (mirrors
+    TestNoReviewerScaffoldingDetection)."""
+
+    def _run(self, tmp_path, monkeypatch, guard_name: str, kind: str, body: str):
+        from scripts import lint_rules
+
+        notes_dir = tmp_path / "content" / "notes"
+        notes_dir.mkdir(parents=True)
+        tup = f'    (1, 1, "", "a", "{kind}", "Title", "note", {body!r}),\n'
+        (notes_dir / "gen.py").write_text("NOTES = [\n" + tup + "]\n", encoding="utf-8")
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        return getattr(lint_rules, guard_name)()
+
+    # --- check_no_truncated_easton ---
+    def test_easton_fails_on_truncated_body(self, tmp_path, monkeypatch):
+        r = self._run(tmp_path, monkeypatch, "check_no_truncated_easton", "dict-easton", "The brother of Moses, who …")
+        assert r["status"] == "fail", r
+
+    def test_easton_passes_on_full_body(self, tmp_path, monkeypatch):
+        r = self._run(tmp_path, monkeypatch, "check_no_truncated_easton", "dict-easton", "The brother of Moses.")
+        assert r["status"] == "pass", r
+
+    # --- check_greek_gloss_quality ---
+    def test_greek_fails_on_head_drop(self, tmp_path, monkeypatch):
+        r = self._run(
+            tmp_path,
+            monkeypatch,
+            "check_greek_gloss_quality",
+            "lang-greek",
+            "<strong>θεός</strong> figuratively, a magistrate",
+        )
+        assert r["status"] == "fail", r
+
+    def test_greek_fails_on_paren_imbalance(self, tmp_path, monkeypatch):
+        r = self._run(
+            tmp_path,
+            monkeypatch,
+            "check_greek_gloss_quality",
+            "lang-greek",
+            "<strong>φῶς</strong> light (compare G5316",
+        )
+        assert r["status"] == "fail", r
+
+    def test_greek_passes_on_clean_gloss(self, tmp_path, monkeypatch):
+        r = self._run(
+            tmp_path,
+            monkeypatch,
+            "check_greek_gloss_quality",
+            "lang-greek",
+            "<strong>θεός</strong> a deity, the supreme Divinity",
+        )
+        assert r["status"] == "pass", r
+
+    # --- check_no_torrey_topic_leak ---
+    def test_torrey_fails_on_ref_run(self, tmp_path, monkeypatch):
+        r = self._run(
+            tmp_path,
+            monkeypatch,
+            "check_no_torrey_topic_leak",
+            "topic-torrey",
+            "Topic body appears under: Tyre 26:1 27:3.",
+        )
+        assert r["status"] == "fail", r
+
+    def test_torrey_passes_on_clean_topics(self, tmp_path, monkeypatch):
+        r = self._run(
+            tmp_path,
+            monkeypatch,
+            "check_no_torrey_topic_leak",
+            "topic-torrey",
+            "Topic body appears under: Tyre, Babylon, Egypt.",
+        )
+        assert r["status"] == "pass", r
+
+
 class TestOmega15PlanLinter:
     """ω.15 — plan-coherence linter. Verifies the active PLAN_*.md
     stays coherent with CHANGELOG and Depends references."""

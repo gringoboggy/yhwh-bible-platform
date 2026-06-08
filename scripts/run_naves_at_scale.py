@@ -29,6 +29,15 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import NaveTopicalDetector  # noqa: E402
 from scripts.core import sources  # noqa: E402
 from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
+
+
+def _emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
+    """A candidate at (book, chapter, verse) is emitted only when its coord is
+    within the book's canonical extent — the ★BUGCLUSTER guard. Named so the
+    per-driver drop decision is unit-testable, not merely grep-able."""
+    return coord_in_canonical_extent(book, chapter, verse)
+
+
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
@@ -70,7 +79,7 @@ def run_naves_for_book(book: str, *, min_confidence: float = 0.5, top_n: int = 5
             # mint-10: drop coords beyond the book's canonical extent before
             # detection (impossible chapter/verse; defense in depth — promote's
             # guard already blocks them, and 5 stale candidate files traced here).
-            if not coord_in_canonical_extent(book, chapter, verse):
+            if not _emit_extent_ok(book, chapter, verse):
                 continue
             cands = detector.detect(book, chapter, verse, _verse_text="")
             for c in cands:

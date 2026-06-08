@@ -76,30 +76,47 @@ class TestInjectAsideExistingRe:
 
 
 class TestCoverageCountPattern:
-    """coverage.count_injected uses its own (intentionally broader) bare-id
-    pattern; pin that it too parses chapters >=100 with the (\\d+)(\\d{2}) split."""
-
-    @staticmethod
-    def _coverage_pat(id_prefix):
-        return re.compile(rf'id="note-{re.escape(id_prefix)}(\d+)(\d{{2}})([a-z]?)"')
+    """coverage.count_injected parses chapters >=100 with the (\\d+)(\\d{2}) split.
+    v0.1.0 audit Phase 5: the test no longer keeps a private regex COPY — it
+    imports the SAME `_compile_injected_id_re` count_injected uses (so a pattern
+    change can't pass a stale copy), and adds a behavioral count_injected check."""
 
     def test_coverage_pattern_parses_chapter_100(self):
-        pat = self._coverage_pat("1e")
+        from scripts.coverage import _compile_injected_id_re
+
+        pat = _compile_injected_id_re("1e")
         m = pat.search(f'id="{_aside_id("1e", 100, 1)}"')
         assert m is not None
         assert m.group(1) == "100"
         assert m.group(2) == "01"
 
     def test_coverage_pattern_parses_chapter_99(self):
-        pat = self._coverage_pat("1e")
+        from scripts.coverage import _compile_injected_id_re
+
+        pat = _compile_injected_id_re("1e")
         m = pat.search(f'id="{_aside_id("1e", 99, 1)}"')
         assert m is not None
         assert m.group(1) == "99"
         assert m.group(2) == "01"
 
     def test_coverage_pattern_parses_low_chapter(self):
-        pat = self._coverage_pat("1e")
+        from scripts.coverage import _compile_injected_id_re
+
+        pat = _compile_injected_id_re("1e")
         m = pat.search(f'id="{_aside_id("1e", 5, 3)}"')
         assert m is not None
         assert m.group(1) == "05"
         assert m.group(2) == "03"
+
+    def test_count_injected_reports_chapter_100_behaviorally(self, tmp_path, monkeypatch):
+        # Write synthetic asides at ch 100 (×2) + ch 5 and assert the REAL
+        # count_injected reports them — exercises the shared pattern end-to-end.
+        import scripts.coverage as cov
+
+        ids = [_aside_id("1e", 100, 1), _aside_id("1e", 100, 2), _aside_id("1e", 5, 1)]
+        (tmp_path / "x.html").write_text(" ".join(f'<a id="{i}"></a>' for i in ids), encoding="utf-8")
+        monkeypatch.setattr(cov, "EPUB_DIR", tmp_path)
+        total, by_chapter = cov.count_injected({"code": "1en", "id_prefix": "1e", "files": ["x.html"]})
+        assert by_chapter.get(100) == 2, by_chapter
+        assert by_chapter.get(5) == 1, by_chapter
+        assert total == 3

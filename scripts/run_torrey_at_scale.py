@@ -29,6 +29,15 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import sources  # noqa: E402
 from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
+
+
+def _emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
+    """A candidate at (book, chapter, verse) is emitted only when its coord is
+    within the book's canonical extent — the ★BUGCLUSTER guard. Named so the
+    per-driver drop decision is unit-testable, not merely grep-able."""
+    return coord_in_canonical_extent(book, chapter, verse)
+
+
 from scripts.core.detectors import TorreyTopicalDetector  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
 
@@ -93,7 +102,7 @@ def run_torrey_for_book(
                 continue
             # mint-10: drop coords beyond the book's canonical extent (defense in
             # depth; matches run_naves_at_scale).
-            if not coord_in_canonical_extent(book, chapter, verse):
+            if not _emit_extent_ok(book, chapter, verse):
                 continue
             if naves_keys is not None:
                 covered = (book, chapter_str, verse_str) in naves_keys

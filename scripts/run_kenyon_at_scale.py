@@ -40,6 +40,14 @@ from scripts.core.at_scale_base import DIM, GREEN, RESET, candidate_to_dict  # n
 from scripts.core.notes_io import atomic_write  # noqa: E402
 from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
 
+
+def _emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
+    """A candidate at (book, chapter, verse) is emitted only when its coord is
+    within the book's canonical extent — the ★BUGCLUSTER guard. Named so the
+    per-driver drop decision is unit-testable, not merely grep-able."""
+    return coord_in_canonical_extent(book, chapter, verse)
+
+
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
 
@@ -132,7 +140,7 @@ def main() -> int:
             continue
         # mint-11: drop coords beyond the book's canonical extent (mirror naves/
         # torrey/xref; promote's guard also blocks them — defense in depth).
-        if not coord_in_canonical_extent(c.book, c.chapter, c.verse):
+        if not _emit_extent_ok(c.book, c.chapter, c.verse):
             continue
         by_chapter.setdefault((c.book, c.chapter), []).append(c)
 

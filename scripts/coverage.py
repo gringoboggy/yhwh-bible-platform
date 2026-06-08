@@ -133,6 +133,17 @@ PRIORITY_ORDER = [
 ]
 
 
+def _compile_injected_id_re(id_prefix: str) -> "re.Pattern[str]":
+    """Compile the injected-aside id regex for a book's id-prefix.
+
+    Chapter group is ``\\d+`` (not fixed-width) so chapters >=100 are counted,
+    e.g. 1En 100-108: id "note-1e10001" -> ch=100, v=01. Trailing ``\\d{2}``
+    still anchors exactly 2 verse digits. (Mirrors ``inject._aside_existing_re``;
+    see findings H3/M13.) Exposed as a named helper so tests exercise the SAME
+    pattern ``count_injected`` uses rather than a drift-prone copy."""
+    return re.compile(rf'id="note-{re.escape(id_prefix)}(\d+)(\d{{2}})([a-z]?)"')
+
+
 def count_injected(book):
     """Count `note-<idprefix>NNNN[suf]` ids in the book's HTML files.
     Returns (total_count, by_chapter_dict) so callers can analyze per-chapter."""
@@ -141,10 +152,7 @@ def count_injected(book):
         return 0, {}
     code = book["code"]
     id_prefix = book.get("id_prefix") or code
-    # Chapter group is \d+ (not fixed-width) so chapters >=100 are counted, e.g.
-    # 1En 100-108: id "note-1e10001" -> ch=100, v=01. Trailing \d{2} still anchors
-    # exactly 2 verse digits. (Mirrors inject._aside_existing_re; see findings H3/M13.)
-    pat = re.compile(rf'id="note-{re.escape(id_prefix)}(\d+)(\d{{2}})([a-z]?)"')
+    pat = _compile_injected_id_re(id_prefix)
     seen = set()
     by_chapter = Counter()
     for fname in files:
