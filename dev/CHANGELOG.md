@@ -6,6 +6,25 @@
 
 ---
 
+## 2026-06-08 — v0.1.0 STAGE A tail + STAGE B (keystone + build-free latent holes)
+
+**Phases shipped:** v0.1.0 STAGE A Phase 5 completed; STAGE B Phase 2 keystone + the build-free latent-hole closures.
+**Test delta:** +~12 (the 4 driver `_emit_extent_ok` pins + coverage behavioral + 7 Greek/Easton/Torrey negative + aes shape/coord/promote pins + the edition_stats cache-clear pin).
+**Save tag:** `a1552624` (Phase 5 tests/guards) · `6045eb36` (aes class fix) · `c78eb193` (build-free latent holes) — 5-leg milestone push this commit.
+
+What shipped:
+- **STAGE A Phase 5 finished:** the ★BUGCLUSTER coord-guard sweep test now extracts each driver's per-candidate decision into an importable `_emit_extent_ok` (xref/naves/torrey/kenyon) and unit-tests the real drop (gen 1:1 kept, 99:1 / 23:24 dropped); `coverage.count_injected` shares a `_compile_injected_id_re` helper (test imports it, no private copy) + a behavioral ch-100 test; the Greek/Easton/Torrey re-ingest lint guards got negative "fires-on-defect" tests (`check_no_truncated_easton` was UNTESTED).
+- **STAGE B Phase 2 — keystone (`6045eb36`): the `aes`/`_book_shape_cached` CLASS fix.** `_book_shape_cached` now scans chapters 1..200 and SKIPS empties (was break-on-first-empty → empty shape → `coord_in_canonical_extent` a NO-OP for aes + any non-1-start / internally-gapped book; verified aes is the only such book today). `html_chapter_count` → `max(shape)` not `len` (aes ceiling 16, not 7). `TEWAHEDO_DISTINCTIVE_NO_KJV` += `1cl`,`2en` (verified no KJV skeleton). **Byte-identical for the 80 contiguous 1-start books.** The promote html_chapter_count guard is now LIVE for aes (rejects ch17, accepts ch11) — kept it (functional defense-in-depth) + dropped the tautological gen pin.
+- **STAGE B Phase 2 — build-free latent holes (`c78eb193`):** notes_io's `_invalidate_corpus_index_if_notes_file` now also clears `edition_stats.cache` (the mint-9 #10 twin — baked front-matter counts no longer stale after a runtime notes write; +wiring test); `prospect.discover_verses` skips internal verse-numbering gaps instead of breaking at the first miss (was truncating e.g. 1En 89 = {1-57, 68-76}; `misses>=20` past the known max gap; byte-identical candidate output on the contiguous base); `NavesTopical`/`TorreyTopical.verses_for` normalize stored book codes (★BUGCLUSTER defense-in-depth, no-op on clean data).
+
+Notable decisions:
+- The finding prescribed `prospect` `misses>=5`, but that truncates its OWN cited example (1En 89's 10-verse gap); re-verified with real data → used `>=20` (past the known max gap). Re-verify-the-prescribed-fix in action.
+- Kept the now-live promote html_chapter_count guard (defense-in-depth) rather than the finding's option-(b) delete, since Phase 2's max-based ceiling made it functional for aes.
+
+Continuity pointers:
+- docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md (live sequence) · the round-6 findings note (phased checklist).
+- dev/LANE_HANDOFF.md turn 34 (Mac's render-first diagnosis + native-window preflight tasks).
+
 ## 2026-06-08 — v0.1.0 STAGE A — audit Phase 0 + Phase 1 + partial Phase 5: red suite → green + guards
 
 **Phases shipped:** v0.1.0 master-plan **STAGE A** (audit Phase 0, Phase 1, partial Phase 5) — user ratified the plan ("do"); executing safest-first.
