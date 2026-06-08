@@ -54,14 +54,15 @@ page: releases
         </div>
       </div>
 
-      <p class="prose">The desktop builder app is <strong>v0.0.1</strong>, for Windows, macOS, and Linux.
-        Choose your system:</p>
+      <p class="prose">The desktop builder app is <strong>v0.0.3</strong> on Windows and Linux; the macOS
+        v0.0.3 build follows shortly (the v0.0.1 macOS build is available meanwhile). Choose your system:</p>
       <p class="platforms">
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1-windows-x64.exe" download>Windows installer (.exe)</a>
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1.dmg" download>macOS (.dmg)</a>
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1-x86_64.AppImage" download>Linux (x86_64 .AppImage)</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/YHWH-0.0.3-windows-x64.exe" download>Windows (.exe) — v0.0.3</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/YHWH-0.0.3-x86_64.AppImage" download>Linux (x86_64 .AppImage) — v0.0.3</a>
+        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/YHWH-1.0.0-beta.1.dmg" download>macOS (.dmg) — v0.0.1</a>
       </p>
-      <p class="platform-note">Every build is listed here, newest first. On Windows it is a normal installer — run it and follow the prompts. On
+      <p class="platform-note">Every build is listed here, newest first. On Windows, run the <code>.exe</code> — it’s
+        code-signed, so it should open without a warning (if SmartScreen appears, choose <em>More info → Run anyway</em>). On
         macOS, open the <code>.dmg</code> and drag <strong>YHWH</strong> into your Applications folder. On
         Linux, make the AppImage executable and run it — no installation needed (the Linux build is x86_64; on
         ARM, run from source).</p>
@@ -99,12 +100,12 @@ page: releases
         integrity, not authorship; that is what code-signing adds.)</p>
       <h3 class="sub-h">How to check</h3>
       <ul class="custom-list">
-        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile YHWH-1.0.0-beta.1-windows-x64.exe SHA256</code></li>
-        <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 YHWH-1.0.0-beta.1.dmg</code></li>
+        <li><strong>Windows:</strong> <code class="verify-cmd">certutil -hashfile YHWH-0.0.3-windows-x64.exe SHA256</code></li>
+        <li><strong>macOS:</strong> <code class="verify-cmd">shasum -a 256 &lt;file&gt;</code></li>
         <li><strong>Linux:</strong> <code class="verify-cmd">sha256sum -c SHA256SUMS.txt</code></li>
       </ul>
-      <p class="platform-note">The published <code>SHA256SUMS.txt</code> for v1.0.0-beta.1 is posted with the
-        release — <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v1.0.0-beta.1/SHA256SUMS.txt">download it here</a>.</p>
+      <p class="platform-note">The published <code>SHA256SUMS.txt</code> for v0.0.3 is posted with the
+        release — <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.0.3/SHA256SUMS.txt">download it here</a>.</p>
     </section>
 
     <!-- ─────────────────── RUN FROM SOURCE ───────────────────── -->
