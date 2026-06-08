@@ -1,5 +1,10 @@
 # Lane-Handoff Baton System — Design
 
+> **⚠ SUPERSEDED 2026-06-08 by `2026-06-08-lane-coordination-v2-design.md`** — the single
+> exclusive-baton model below was replaced by a `mode: parallel|exclusive` + per-lane
+> task-board + `truth_owner` model (the file/Python/hook scaffolding here is reused; only
+> the *model* changed). Kept for history.
+
 **Status:** design (direction approved 2026-06-03 — baton / turn-based). Supersedes the Windows↔Mac half of the parallel-operation protocol in `plans/2026-06-02-samkings-cloud-agent-workflow-and-run-plan.md` (the pod lane keeps that protocol's single-committer rule; this is the two-workstation lane).
 
 ## Problem

@@ -1,20 +1,43 @@
 #!/usr/bin/env python3
-"""Lane-handoff baton — deterministic core for the Windows<->Mac two-lane git flow.
+"""Lane-coordination core — deterministic engine for the Windows<->Mac two-lane git flow.
 
-The committed baton file ``dev/LANE_HANDOFF.md`` names the holder (= active
-worker + sole pusher this turn). This module reads/writes/validates it with NO
-git side effects (the slash commands run git). Spec:
-``docs/superpowers/specs/2026-06-03-lane-handoff-baton-system-design.md``.
+v2 (2026-06-08): the committed board ``dev/LANE_HANDOFF.md`` no longer models a
+single exclusive "baton holder = sole worker = sole pusher". Under the
+bandwidth-first cadence (RULES s4) BOTH lanes commit locally and push at their own
+milestones (gated by ``scripts/lane_ping.py``), so the board is a *task assignment*
++ *truth-record ownership* token, not a work-mutex. Frontmatter::
+
+    mode: parallel        # parallel (default) | exclusive
+    turn: N               # monotonic
+    from: <lane>          # who wrote this update
+    updated: <iso>
+    status: working | handing-off
+    mac: <one-line task or "idle">       # each lane's current assignment
+    windows: <one-line task or "idle">
+    truth_owner: <lane>   # owns SESSION_STATE/IN_FLIGHT/CHANGELOG + merge-commits this period
+    holder: <lane>        # back-compat alias of truth_owner (exclusive mode: sole shared-file worker)
+
+- **parallel** (default): lanes work FILE-DISJOINT; each does its own ``<lane>:`` task;
+  both push at milestones. ``truth_owner`` edits the shared truth-records + does merges.
+- **exclusive**: the old mutex — ``holder`` is the sole worker on SHARED files; the
+  other lane idles / does disjoint side-work. Use only when both would touch the SAME files.
+
+Spec: ``docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md`` (supersedes
+the 2026-06-03 single-baton spec). No git side effects (the slash commands run git).
 
 CLI::
 
-    status        print holder/turn + whether THIS lane holds the baton
-    handoff --to <windows|mac> --done .. --next .. [--watch ..] [--force]
-    incoming      exit 0 + banner iff baton is addressed to this lane & turn>last-seen
-    mark-seen     record the current turn as seen (called by /resume)
+    status                      print mode/turn + both lanes' tasks + whether work is addressed to YOU
+    handoff --to <lane> [--mode m] [--mac t] [--windows t] --done .. --next .. [--watch ..] [--force]
+                                transfer truth-ownership to <lane> + set assignments; preserves history
+    assign  [--mode m] [--mac t] [--windows t] [--note ..]
+                                update the board IN PLACE (no ownership transfer; no refusal) — parallel coord
+    incoming                    exit 0 + banner iff turn>last-seen AND work is addressed to this lane
+    mark-seen                   record the current turn as seen (called by /resume)
+    prune [--keep N]            trim old turn sections to dev/archive/LANE_HANDOFF_LOG.md (keeps STANDING + recent N)
 
-Lane identity: ``dev/.lane`` (gitignored) -> ``windows``|``mac``; fallback
-``$YHWH_LANE``; fallback hostname heuristic (default ``windows``).
+Lane identity: ``dev/.lane`` (gitignored) -> ``windows``|``mac``; fallback ``$YHWH_LANE``;
+fallback hostname heuristic (default ``windows``).
 """
 
 from __future__ import annotations
@@ -28,10 +51,16 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 LANES = ("windows", "mac")
+MODES = ("parallel", "exclusive")
+_IDLE = ("", "idle", "-", "none")
 
 
 def baton_path(repo: Path = REPO) -> Path:
     return repo / "dev" / "LANE_HANDOFF.md"
+
+
+def _archive_log(repo: Path = REPO) -> Path:
+    return repo / "dev" / "archive" / "LANE_HANDOFF_LOG.md"
 
 
 def _lane_file(repo: Path = REPO) -> Path:
@@ -71,7 +100,7 @@ def parse(text: str) -> tuple[dict, str]:
 
 
 def render(header: dict, body: str) -> str:
-    order = ["holder", "from", "turn", "updated", "status"]
+    order = ["mode", "turn", "from", "updated", "status", "mac", "windows", "truth_owner", "holder"]
     keys = order + [k for k in header if k not in order]
     fm = "\n".join(f"{k}: {header[k]}" for k in keys if k in header)
     return f"---\n{fm}\n---\n\n{body.strip()}\n"
@@ -85,6 +114,57 @@ def _now() -> str:
     return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _owner(header: dict) -> str | None:
+    """Current truth-record owner (== merge-commit owner). truth_owner, falling back to holder."""
+    return header.get("truth_owner") or header.get("holder")
+
+
+def _mode(header: dict) -> str:
+    m = (header.get("mode") or "").strip().lower()
+    return m if m in MODES else "parallel"
+
+
+def _task(header: dict, lane: str) -> str:
+    return (header.get(lane) or "").strip()
+
+
+def _is_idle(task: str) -> bool:
+    return task.strip().lower() in _IDLE
+
+
+def _addressed_to(header: dict, lane: str) -> bool:
+    """Is there work addressed to THIS lane? (v2 fix: not gated on holder.)"""
+    return (not _is_idle(_task(header, lane))) or (_owner(header) == lane)
+
+
+def _bump_turn(header: dict) -> int:
+    try:
+        turn = int(header.get("turn", "0")) + 1
+    except ValueError:
+        turn = 1
+    header["turn"] = str(turn)
+    return turn
+
+
+def _set_common(header: dict, lane: str, mode: str | None, mac: str | None, windows: str | None) -> None:
+    if mode is not None:
+        if mode not in MODES:
+            raise ValueError(f"--mode must be one of {MODES}")
+        header["mode"] = mode
+    elif "mode" not in header:
+        header["mode"] = "parallel"
+    if mac is not None:
+        header["mac"] = mac
+    if windows is not None:
+        header["windows"] = windows
+    header["from"] = lane
+    header["updated"] = _now()
+
+
+def _prepend(body: str, block: str) -> str:
+    return f"{block.strip()}\n\n---\n\n{body.strip()}\n"
+
+
 def do_handoff(
     repo: Path,
     *,
@@ -92,47 +172,80 @@ def do_handoff(
     done: str = "",
     next: str = "",
     watch: str = "",
+    mode: str | None = None,
+    mac: str | None = None,
+    windows: str | None = None,
     force: bool = False,
 ) -> int:
-    header, _ = load(repo)
+    header, body = load(repo)
     lane = detect_lane(repo)
-    if header.get("holder") != lane and not force:
+    if _owner(header) != lane and not force:
         print(
-            f"REFUSED: this lane is '{lane}' but the baton is held by "
-            f"'{header.get('holder')}'. Use --force only if the other lane is idle.",
+            f"REFUSED: this lane is '{lane}' but truth-ownership is held by "
+            f"'{_owner(header)}'. Use --force only if the other lane is idle.",
             file=sys.stderr,
         )
         return 1
     if to not in LANES:
         print(f"--to must be one of {LANES}", file=sys.stderr)
         return 2
+    prev = int(header.get("turn", "0") or 0)
     try:
-        turn = int(header.get("turn", "0")) + 1
-    except ValueError:
-        turn = 1
-    header.update(
-        {
-            "holder": to,
-            "from": lane,
-            "turn": str(turn),
-            "updated": _now(),
-            "status": "handing-off",
-        }
+        _set_common(header, lane, mode, mac, windows)
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
+        return 2
+    turn = _bump_turn(header)
+    header["truth_owner"] = to
+    header["holder"] = to  # back-compat alias
+    header["status"] = "handing-off"
+    block = (
+        f"## ▶ {lane} → {to} (turn {turn}, {header['updated']}) — mode={header['mode']}\n\n"
+        f"**Done (turn {prev}, {lane}):**\n{done or '- (none recorded)'}\n\n"
+        f"**Next (turn {turn}, {to} picks up):**\n{next or '- (see truth-record)'}\n\n"
+        f"**Assignments:** mac = {header.get('mac', '?')} · windows = {header.get('windows', '?')}\n\n"
+        f"**Watch-outs:**\n{watch or '- (none)'}"
     )
-    body = (
-        f"## Done (turn {turn - 1}, {lane} -> {to})\n{done or '- (none recorded)'}\n\n"
-        f"## Next (turn {turn}, {to} picks up)\n{next or '- (see truth-record)'}\n\n"
-        f"## Watch-outs\n{watch or '- (none)'}\n"
+    baton_path(repo).write_text(render(header, _prepend(body, block)), encoding="utf-8")
+    print(f"handoff {lane} -> {to} (turn {turn}, mode={header['mode']}). Commit + milestone-push next.")
+    return 0
+
+
+def do_assign(
+    repo: Path,
+    *,
+    mode: str | None = None,
+    mac: str | None = None,
+    windows: str | None = None,
+    note: str = "",
+) -> int:
+    """Update the task board IN PLACE — no ownership transfer, no refusal (parallel coordination)."""
+    header, body = load(repo)
+    lane = detect_lane(repo)
+    try:
+        _set_common(header, lane, mode, mac, windows)
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
+        return 2
+    turn = _bump_turn(header)
+    header["status"] = "working"
+    header.setdefault("truth_owner", header.get("holder", lane))
+    header.setdefault("holder", header["truth_owner"])
+    block = (
+        f"## ◦ {lane} assign (turn {turn}, {header['updated']}) — mode={header['mode']}\n\n"
+        f"**Assignments:** mac = {header.get('mac', '?')} · windows = {header.get('windows', '?')}"
     )
-    baton_path(repo).write_text(render(header, body), encoding="utf-8")
-    print(f"baton {lane} -> {to} (turn {turn}). Commit + push both remotes next.")
+    if note:
+        block += f"\n\n{note}"
+    baton_path(repo).write_text(render(header, _prepend(body, block)), encoding="utf-8")
+    print(f"assign by {lane} (turn {turn}, mode={header['mode']}). truth_owner stays {_owner(header)}.")
     return 0
 
 
 def do_incoming(repo: Path = REPO) -> int:
     header, _ = load(repo)
     lane = detect_lane(repo)
-    if header.get("holder") != lane:
+    if not _addressed_to(header, lane):
         return 1
     try:
         turn = int(header.get("turn", "0"))
@@ -147,7 +260,12 @@ def do_incoming(repo: Path = REPO) -> int:
             last = 0
     if turn <= last:
         return 1
-    print(f"⮕ INCOMING HANDOFF from {header.get('from')} (turn {turn}) -- run /resume to pull + combine.")
+    task = _task(header, lane)
+    what = task if not _is_idle(task) else "owns the truth-records / merge"
+    print(
+        f"⮕ INCOMING HANDOFF (turn {turn}, from {header.get('from')}, mode={_mode(header)}): "
+        f"YOU ({lane}) -> {what}. Run /resume to pull + pick up."
+    )
     return 0
 
 
@@ -160,17 +278,61 @@ def do_mark_seen(repo: Path = REPO) -> int:
 def do_status(repo: Path = REPO) -> int:
     header, _ = load(repo)
     lane = detect_lane(repo)
+    mode = _mode(header)
+    owner = _owner(header)
     print(
-        f"lane={lane} holder={header.get('holder')} turn={header.get('turn')} "
-        f"from={header.get('from')} updated={header.get('updated')} "
-        f"status={header.get('status')}"
+        f"lane={lane} mode={mode} turn={header.get('turn')} from={header.get('from')} "
+        f"truth_owner={owner} updated={header.get('updated')} status={header.get('status')}"
     )
-    print("YOU HOLD THE BATON" if header.get("holder") == lane else f"baton is with {header.get('holder')}")
+    print(f"  mac     = {_task(header, 'mac') or '(unset)'}")
+    print(f"  windows = {_task(header, 'windows') or '(unset)'}")
+    my = _task(header, lane)
+    line = f"YOU ({lane}): {my if not _is_idle(my) else 'idle'}"
+    if owner == lane:
+        line += "  [+truth-records owner]"
+    print(line)
+    if mode == "exclusive" and owner != lane:
+        print(f"  EXCLUSIVE mode — '{owner}' holds the shared-file mutex; do disjoint side-work or wait.")
+    return 0
+
+
+def _split_sections(body: str) -> tuple[str, list[str]]:
+    """Preamble + list of '## ...' sections (each starting at a '## ' header line)."""
+    lines = body.splitlines(keepends=True)
+    idx = [i for i, ln in enumerate(lines) if ln.startswith("## ")]
+    if not idx:
+        return body, []
+    preamble = "".join(lines[: idx[0]])
+    bounds = idx + [len(lines)]
+    sections = ["".join(lines[a:b]) for a, b in zip(idx, bounds[1:], strict=True)]
+    return preamble, sections
+
+
+def do_prune(repo: Path = REPO, *, keep: int = 5) -> int:
+    """Keep the STANDING block + the most recent `keep` turn sections; archive the rest."""
+    header, body = load(repo)
+    preamble, sections = _split_sections(body)
+    if not sections:
+        print("prune: no '## ' sections; nothing to do.")
+        return 0
+    pinned = [s for s in sections if "STANDING" in s.splitlines()[0]]
+    rest = [s for s in sections if "STANDING" not in s.splitlines()[0]]
+    keep_rest, archived = rest[:keep], rest[keep:]
+    if not archived:
+        print(f"prune: {len(rest)} turn section(s) <= keep={keep}; nothing archived.")
+        return 0
+    log = _archive_log(repo)
+    log.parent.mkdir(parents=True, exist_ok=True)
+    prior = log.read_text(encoding="utf-8") if log.exists() else "# LANE_HANDOFF archived log\n\n"
+    log.write_text(prior + "\n" + "\n".join(s.strip() + "\n" for s in archived), encoding="utf-8")
+    new_body = preamble + "\n".join(pinned + keep_rest)
+    baton_path(repo).write_text(render(header, new_body), encoding="utf-8")
+    print(f"prune: archived {len(archived)} section(s) to {log}; kept STANDING + {len(keep_rest)} recent.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description="Lane-handoff baton core")
+    p = argparse.ArgumentParser(description="Lane-coordination core (v2)")
     sub = p.add_subparsers(dest="cmd", required=True)
     sub.add_parser("status")
     h = sub.add_parser("handoff")
@@ -178,18 +340,42 @@ def main(argv: list[str] | None = None) -> int:
     h.add_argument("--done", default="")
     h.add_argument("--next", default="")
     h.add_argument("--watch", default="")
+    h.add_argument("--mode", default=None)
+    h.add_argument("--mac", default=None)
+    h.add_argument("--windows", default=None)
     h.add_argument("--force", action="store_true")
+    a = sub.add_parser("assign")
+    a.add_argument("--mode", default=None)
+    a.add_argument("--mac", default=None)
+    a.add_argument("--windows", default=None)
+    a.add_argument("--note", default="")
     sub.add_parser("incoming")
     sub.add_parser("mark-seen")
+    pr = sub.add_parser("prune")
+    pr.add_argument("--keep", type=int, default=5)
     args = p.parse_args(argv)
     if args.cmd == "status":
         return do_status()
     if args.cmd == "handoff":
-        return do_handoff(REPO, to=args.to, done=args.done, next=args.next, watch=args.watch, force=args.force)
+        return do_handoff(
+            REPO,
+            to=args.to,
+            done=args.done,
+            next=args.next,
+            watch=args.watch,
+            mode=args.mode,
+            mac=args.mac,
+            windows=args.windows,
+            force=args.force,
+        )
+    if args.cmd == "assign":
+        return do_assign(REPO, mode=args.mode, mac=args.mac, windows=args.windows, note=args.note)
     if args.cmd == "incoming":
         return do_incoming()
     if args.cmd == "mark-seen":
         return do_mark_seen()
+    if args.cmd == "prune":
+        return do_prune(REPO, keep=args.keep)
     return 2
 
 

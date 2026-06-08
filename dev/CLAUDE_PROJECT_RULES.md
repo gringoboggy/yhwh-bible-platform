@@ -423,15 +423,22 @@ order. The user has delegated this judgment; exercise it.
   partial save is never a deliberate choice.
 - **GitLab `main` is PROTECTED** — never amend / rebase / force-push a pushed commit;
   fix FORWARD. (The GitHub mirror is force-alignable if the two ever diverge.)
-- **Two-lane (Windows + Mac) baton** — when both workstations are active, only the lane
-  that **HOLDS the baton** works + pushes this turn (commit + both remotes; the E:/F:
-  bundle legs are Windows-only and capture both lanes' pushed work when Windows bundles).
-  The holder also owns SESSION_STATE / IN_FLIGHT / CHANGELOG that turn (no dual-edit
-  conflicts). Pass with `/handoff`, pick up with `/resume`, `/sync` for mid-turn
-  durability; an incoming baton auto-surfaces at session start. This refines WHO pushes
-  at a milestone — it does not change the local-commit-until-milestone cadence. Pull
-  before a milestone push (the other lane may have synced its half). See
-  `docs/superpowers/specs/2026-06-03-lane-handoff-baton-system-design.md`.
+- **Two-lane (Windows + Mac) coordination — `mode` + task-board, NOT a single work-mutex**
+  (revamped 2026-06-08; supersedes the old single-baton model). `dev/LANE_HANDOFF.md`
+  frontmatter carries `mode: parallel|exclusive`, a per-lane task (`mac:` / `windows:`),
+  and a `truth_owner` (= `holder`, kept as a back-compat alias). **parallel (default):**
+  lanes work FILE-DISJOINT; each does its own `<lane>:` task; **BOTH commit locally and
+  push at their own milestones** (radar-gated — see the ping bullet), and the `truth_owner`
+  is the only lane that edits SESSION_STATE / IN_FLIGHT / CHANGELOG + does merge-commits
+  (no dual-edit conflict). **exclusive:** the old mutex — `holder` is the sole worker on
+  SHARED files; the other lane idles / does disjoint side-work; use ONLY when both lanes
+  would touch the SAME files (e.g., a content-store re-ingest + bake). `/handoff` transfers
+  truth-ownership + sets assignments; `/resume` picks up THIS lane's task (in parallel mode
+  it does NOT stop when `truth_owner` ≠ self); `/sync` is a milestone push for either lane;
+  `scripts/lane_handoff.py incoming` (SessionStart hook) surfaces work addressed to this
+  lane by its TASK, not by `holder` (the v1 bug). The E:/F: bundle legs stay Windows-only.
+  See `docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md` (memory:
+  `reference_lane_coordination`).
 - **Lane sync radar (the "ping") — AUTOMATIC; check-the-other-lane before pull/push.**
   Because each lane commits locally and only pushes at a milestone, before pulling or
   pushing a lane must know whether the OTHER lane already pushed (else a milestone push
