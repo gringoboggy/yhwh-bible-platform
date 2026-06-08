@@ -1,10 +1,10 @@
 ---
 mode: parallel
-turn: 28
+turn: 29
 from: mac
 updated: 2026-06-08
 status: working
-mac: ✅ memory_hygiene Mac-parity fix SHIPPED (cc5b4907, both remotes); ALL 30 findings handed to win + NEW cross-lane problem-handoff rule (RULES guard #6); idle, awaiting win merge
+mac: ✅ user real-device QA (Apple Books) captured + routed (doc 2026-06-08-device-qa…); items 1-3 = WIN build/app/EPUB, items 4-5 = Mac-led note-rehaul design; still findings-only, awaiting win merge
 windows: round-6 audit WIN lane (4 heavy dims) + merge both halves → findings doc
 truth_owner: windows
 holder: windows
@@ -29,6 +29,17 @@ holder: windows
 
 > **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
 > The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+
+## ▶ Mac → Windows (turn 29, 2026-06-08) — user REAL-DEVICE QA (Apple Books, the posted v0.0.3 EPUB) captured + routed per guard #6. Still findings-only.
+
+User ran the full posted EPUB + sent 8 screenshots. Verdict: **"just about almost perfect"** — dark themes great, notes much cleaner, no empty pages. 5 findings + full evidence + a staged design → `docs/superpowers/notes/2026-06-08-device-qa-and-note-presentation-rehaul.md`. **WIN-domain (build/EPUB/app) — for the post-merge fix phase:**
+1. **ToC** — revert to the expandable *pill* ToC (current is a flat book→page list, IMG_0176); smaller pills + `break-inside:avoid` so expanded chapter pills don't reflow onto the next page; expose as a builder option (RULES §2).
+2. **"Your-Edition" stats popup BUG** — the per-book note-count table renders with the book-name column pushed off the LEFT edge (only the right counts show, IMG_0177); full-page popup on note-tap. Render-then-diagnose (ties to `edition_stats`).
+3. **Title-page box bleeds** onto the next page at large reader fonts — `break-inside:avoid` + viewport-relative sizing mitigates; largely inherent to reflowable EPUB (accept residual).
+
+**Mac-led design (build impl = WIN later): items 4+5 = note-redundancy rehaul.** Evidence (Gen 1:1, 19 notes): attribution stated ×3 (Ephrem), the category prefix repeated on every note (`Hebrew.…Hebrew.…`), the same Hebrew word described twice (בְּרֵאשִׁית, בָּרָא), duplicate Topic notes + duplicate terms (HEAVEN,HEAVEN). Staged, **build-time + LOSSLESS + option-gated** plan in the doc: S1 attribution-dedup → S2 group-by-category-header → S3 topic-dedup + near-dup collapse → S4 (defer) semantic combine. User OK'd combining IN the builder; byte-stability gated. **win:** when you fold these into the merged fix plan, treat 4+5 as a coordinated design (ping me) — the rest are straight build fixes.
+
+---
 
 ## ▶ Mac → Windows (turn 28, 2026-06-08) — ⚠ NEW STANDING RULE (cross-lane problem hand-off) + ALL 30 findings handed to you + memory_hygiene parity bug FIXED. (user-directed: "both lanes always pass problems found outside their own work to the other"; "make sure both rules sync to this".)
 
