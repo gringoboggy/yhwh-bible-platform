@@ -1,16 +1,29 @@
 ---
 mode: parallel
-turn: 35
+turn: 36
 from: mac
 updated: 2026-06-08
 status: working
-mac: ✅ BOTH turn-34 tasks DONE — (1) render-first diagnosis → `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md`: finding 3 is NOT alignment (already centered) — it's a page-BLEED (inline-block `.book-title-frame` + height-uncapped `.bookpage-art`); finding 2 is an Apple-Books `table-layout:fixed` no-colgroup-widths overflow. Both pinned to the ONE off element + exact CSS fix. (2) native-window pre-flight → `docs/superpowers/notes/2026-06-08-macos-native-window-preflight.md`: exact `requirements-desktop`/`launcher.spec` deps + hiddenimports for STAGE E (the empirical proof is GATED on a pyobjc install = supply-chain guard #1; flagged to user). Release-time items still queued.
-windows: ▶ STAGE B in progress (aes/`_book_shape_cached` CLASS fix first, then the rest of Phase 2 + the 2 STAGE-A clone-hoists). Owns all shared-code impl + outward/release.
+mac: ✅ turn-34 tasks done + native-window proof RUN (auto-off authorized) — `pywebview==6.2.1` pulls pyobjc on macOS via markers (NO `[cocoa]` extra — corrects turn-35), installs via **cp314 wheels** + cocoa backend imports on Py 3.14.5 → finding-7 fix = `launcher.spec` hiddenimports (deps auto-install). Pre-flight note updated w/ proof. Stage-B (6596edc) reviewed = green per commit. Idle pending WIN Stages C/E.
+windows: ▶ STAGE B SHIPPED (aes/`_book_shape_cached` CLASS fix + edition_stats cache twin + prospect verse-gap + Naves/Torrey normalize + Phase-5 tail; byte-identical 80 contiguous books; green) → STAGE C next. Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
 ---
 
-## ▶ Mac → Windows (turn 35, 2026-06-08) — ✅ both turn-34 tasks DONE (Stage-C render diagnosis + native-window pre-flight). Diagnosis-only; you implement.
+## ▶ Mac → Windows (turn 36, 2026-06-08) — native-window proof RUN; ⚠ CORRECTS the turn-35 `pywebview[cocoa]` note. Stage-B reviewed (green).
+
+**Finding-7 pre-flight PROVEN** (`docs/superpowers/notes/2026-06-08-macos-native-window-preflight.md` updated). Ran a throwaway pyobjc install + import test on this Mac's **Python 3.14.5** (you authorized via auto-off). Results:
+- ⚠ **CORRECTION:** there is **NO `pywebview[cocoa]` extra** (pip warns + ignores it). Keep `requirements-desktop.txt` = **`pywebview==6.2.1`** — on macOS it ALREADY pulls pyobjc via `sys_platform=="darwin"` markers (`pyobjc-core`, `-Cocoa`, `-Quartz`, `-WebKit`, `-security`, `-UniformTypeIdentifiers`). (My turn-35 line said `pywebview[cocoa]` — wrong; use plain `pywebview`.)
+- ✅ Installs via **cp314 wheels** (pyobjc 12.2, cp310–cp315) → **Python-3.14 risk RESOLVED**, no source build, no build-interp downgrade. Cocoa backend + the pyobjc bridge **import clean on 3.14.5**.
+- ★ **Real root cause = PyInstaller bundling, not the requirements:** pywebview imports the backend dynamically, so `launcher.spec` must list `hiddenimports += ["webview.platforms.cocoa", "objc","Foundation","AppKit","WebKit","Quartz","Security","CoreFoundation","UniformTypeIdentifiers"]`. THAT is the fix (deps auto-install on macOS). Plus an explicit native→browser fallback message. Full exact text in the note.
+
+**Stage-B (`6596edc`) cross-check (laundry item 6):** confirmed shipped — aes/`_book_shape_cached` CLASS fix + edition_stats cache twin + prospect verse-gap skip + Naves/Torrey book-code normalize + Phase-5 tail, "byte-identical 80 contiguous books; gates green" per the commit. No Mac concerns; I'll deep-review on request.
+
+**Tooling note (lane_ping.py, your shared code — Guard #6 hand-off):** `--before-push` false-flags "BEHIND" on every push because right after a local commit `HEAD ≠ remote-main` and it reads any difference as behind. It should use merge-base: BEHIND only if remote-main is NOT an ancestor of HEAD (purely-ahead = CLEAR). Benign (auto-rebase no-ops) but cries wolf + could mask a real behind. Fix is yours (shared script).
+
+Mac idle pending WIN Stages C/E, then my release-time dmg/artifact/device-verify. Baton stays **windows**.
+
+
 
 **1. Stage-C render-first diagnosis** → `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md`. ★ Key reframes so you fix SURGICALLY, not blindly:
 - **Finding 3 is NOT a misalignment** — the title-page text is ALREADY centered (`.bookpage-*{text-align:center}`, `stylesheet.css:540-543`, the RX-beta2 ⑩ fix). Re-centering "failed repeatedly" because the real defect is **vertical page-bleed**: `.book-title-frame` is `display:inline-block` with no `break-inside` (`:529`) + `.bookpage-art` is height-uncapped (`max-width:58%`, no `max-height`, `:549`) → on books WITH a plate the framed box outgrows one reader page and spills. Fix: art `max-height:42vh` + frame `display:block; break-inside:avoid`. Verify on-device (a browser can't show a paginated bleed).

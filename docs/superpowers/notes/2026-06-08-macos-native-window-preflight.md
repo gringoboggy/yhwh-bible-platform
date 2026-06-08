@@ -1,37 +1,39 @@
-# macOS native-window (finding 7) pre-flight — deps + `launcher.spec` for WIN's Stage E
+# macOS native-window (finding 7) pre-flight — PROVEN; deps + `launcher.spec` for WIN's Stage E
 
-**Status:** PRE-FLIGHT REPORT for WIN (Stage E shared edit). Mac-led. 2026-06-08.
-**Goal:** so WIN's `requirements-desktop.txt` + `launcher.spec` edit is correct first-try and the Mac `.dmg` rebuild opens its OWN Cocoa window instead of falling back to a browser.
+**Status:** PRE-FLIGHT **PROOF COMPLETE** 2026-06-08 (Mac). A throwaway-venv install + import test ran on this Mac's **Python 3.14.5** (user toggled auto-mode off to authorize the install per Guard #1). Throwaway venv cleaned up after.
 
-## Confirmed root cause (matches the device-QA finding-7 diagnosis)
-- `dev/requirements-desktop.txt` pins **only** `pywebview==6.2.1` — **no pyobjc**. On macOS, pywebview's Cocoa backend (`webview/platforms/cocoa.py`) imports the Objective-C bridge (`objc`, `Foundation`, `AppKit`, `WebKit`, `Quartz`); with no pyobjc present, backend init fails → pywebview falls back to opening the default browser at localhost (the bug the user saw).
-- This Mac's interpreter is **Python 3.14.5** (uv venv); `pywebview`/`pyobjc` are **not installed** here (verified `pip list`). The v0.0.3 `.dmg` shipped without the Cocoa backend bundled, consistent with the fallback.
+## ✅ Proof results (throwaway venv, Python 3.14.5)
+- **`pywebview==6.2.1` pulls the pyobjc backend AUTOMATICALLY on macOS** via PEP 508 markers. Its `Requires-Dist` for `sys_platform == "darwin"` are: `pyobjc-core>=9.0`, `pyobjc-framework-Cocoa>=9.0`, `pyobjc-framework-Quartz>=9.0`, `pyobjc-framework-WebKit>=9.0`, `pyobjc-framework-security>=9.0`, `pyobjc-framework-UniformTypeIdentifiers>=9.0`. **⚠ There is NO `[cocoa]` extra** — `pywebview[cocoa]` warns *"does not have an extra named cocoa"* and is ignored. (This corrects the turn-35 board note / my earlier draft.)
+- **All resolved to WHEELS — no source build:** `pyobjc-core==12.2` + `pyobjc-framework-{Cocoa,Quartz,WebKit,Security,UniformTypeIdentifiers}==12.2`. pyobjc ships **cp310–cp315 wheels**, so **`cp314` is present** → the Python-3.14 wheel risk I earlier flagged is **RESOLVED**; the `.dmg` build interpreter need NOT be downgraded to 3.12/3.13.
+- **Import proof PASSED on Python 3.14.5:** `import webview`, `from webview.platforms import cocoa`, `import objc, Foundation, AppKit, WebKit, Quartz` all succeed.
 
-## What WIN must add (authoritative, from pywebview 6.x's `cocoa` extra + its backend imports)
+## Corrected root cause (sharper than the device-QA guess)
+finding 7's browser fallback is **NOT** because `requirements-desktop.txt` "forgot pyobjc" — on macOS, installing `pywebview` pulls pyobjc itself. The real cause is **PyInstaller bundling**: pywebview imports its platform backend **dynamically** (`importlib`), so PyInstaller's static analysis misses `webview.platforms.cocoa` + the pyobjc framework modules and omits them from the frozen `.app` → at runtime the cocoa backend import fails inside the app → pywebview falls back to the browser. `dev/launcher.spec` hiddenimports lists only `"webview"` (commented "verified building YHWH.exe" — Windows-only), confirming the gap. **So the fix is primarily the `launcher.spec` hiddenimports.**
 
-**1. `dev/requirements-desktop.txt`** — prefer the extra (pywebview itself declares the correct pyobjc set, so we don't hand-drift it):
-```
-pywebview[cocoa]==6.2.1
-```
-The `cocoa` extra resolves to: `pyobjc-core`, `pyobjc-framework-Cocoa`, `pyobjc-framework-WebKit`, `pyobjc-framework-Quartz`, `pyobjc-framework-Security`. (If a per-platform requirements split is wanted, gate it `pywebview[cocoa]==6.2.1 ; sys_platform == "darwin"` and keep bare `pywebview==6.2.1` for Win/Linux — Windows uses the EdgeChromium/WinForms backend, Linux the GTK/Qt backend, neither of which wants pyobjc.)
+## What WIN adds in Stage E
+1. **`dev/requirements-desktop.txt`:** KEEP `pywebview==6.2.1` (it pulls the pyobjc frameworks on macOS via markers). Do **NOT** write `pywebview[cocoa]`. *Optional* for build reproducibility — additionally pin the frameworks (all `==12.2`), marker-gated:
+   ```
+   pyobjc-core==12.2 ; sys_platform == "darwin"
+   pyobjc-framework-Cocoa==12.2 ; sys_platform == "darwin"
+   pyobjc-framework-Quartz==12.2 ; sys_platform == "darwin"
+   pyobjc-framework-WebKit==12.2 ; sys_platform == "darwin"
+   pyobjc-framework-Security==12.2 ; sys_platform == "darwin"
+   pyobjc-framework-UniformTypeIdentifiers==12.2 ; sys_platform == "darwin"
+   ```
+2. **`dev/launcher.spec` `hiddenimports` (THE FIX):**
+   ```python
+   hiddenimports += [
+       "webview.platforms.cocoa",   # pywebview importlib-loads this at runtime on macOS
+       "objc", "Foundation", "AppKit", "WebKit", "Quartz", "Security",
+       "CoreFoundation", "UniformTypeIdentifiers",
+   ]
+   ```
+   Keep platform-conditional (darwin branch), alongside `icon='assets/icons/YHWH.icns'` (already committed). Windows keeps EdgeChromium + `program_icon.ico`; Linux the GTK backend + `icon_512.png`.
+3. **Make the native→browser fallback EXPLICIT** in `scripts/launcher.py` / `scripts/desktop_shell.py` (`select_shell_mode`/`_run_native`): log a clear "native backend unavailable — falling back to browser" instead of a silent browser open, so a future packaging regression is visible.
 
-**2. `dev/launcher.spec` `hiddenimports`** — PyInstaller misses pywebview's runtime-chosen backend module + the pyobjc framework modules. Add (alongside the existing `"webview"`):
-```python
-hiddenimports += [
-    "webview.platforms.cocoa",   # the backend pywebview importlib-loads at runtime on macOS
-    "objc", "Foundation", "AppKit", "WebKit", "Quartz", "Security", "CoreFoundation",
-]
-```
-Keep the build **platform-conditional** (the spec already needs the icon split per Stage D): the cocoa hiddenimports + `icon='assets/icons/YHWH.icns'` apply on the `sys.platform == 'darwin'` branch only; Windows keeps its EdgeChromium backend + `program_icon.ico`, Linux its AppImage `.png`.
-
-**3. Make the native→browser fallback EXPLICIT** (device-QA finding 7): in the launcher's shell-selection (`scripts/launcher.py` / `scripts/desktop_shell.py`, the `select_shell_mode`/`_run_native` path), when native init is unavailable, log a clear message ("native window backend unavailable — falling back to browser") instead of silently opening the browser, so a future packaging regression is visible.
-
-## ⚠ The one real RISK the empirical proof must settle — Python 3.14 wheels
-Python **3.14** is very new. pyobjc ships per-CPython-version wheels; if `cp314` wheels are not yet published, `pip install pywebview[cocoa]` on this Mac would fall back to a **source build** (needs Xcode Command Line Tools + a long compile) or fail outright. WIN's `.dmg` build interpreter must have pyobjc importable, so this matters. **This is exactly what the throwaway proof checks** (does the install resolve to a wheel on this Python, and does a Cocoa window actually open). Mitigation if cp314 wheels are missing: build the `.dmg` with a Python that has pyobjc wheels (3.12/3.13) — PyInstaller bundles its own interpreter, so the dmg's Python need not be the uv 3.14 venv.
-
-## The throwaway proof — GATED on a package install (supply-chain guard #1)
-The empirical proof = install `pywebview[cocoa]` into a throwaway venv and run a ~10-line pywebview script that opens a native Cocoa window (`webview.create_window(...); webview.start()`), confirming an OS window (own dock entry + title bar) — NOT a browser. **`pyobjc` is an undeclared dependency, so installing it trips the auto-mode package-install soft-deny (RULES Operational Guard #1).** Per the guard this is flagged for explicit go-ahead (toggle auto OFF / approve), not silently run. Once approved, the proof will report: (a) whether `cp314` wheels resolved or a source build was needed; (b) the exact resolved pyobjc versions to pin; (c) that a real Cocoa window opened. Until then, the deps/hiddenimports above are authoritative from pywebview's own `cocoa` extra and backend source — WIN can wire Stage E from them; the proof only hardens the version pins + the cp314 answer.
+## Verified vs still-to-verify
+- **Verified on this Mac:** install resolves to cp314 wheels + the cocoa backend + the pyobjc bridge import on Python 3.14.5 (the exact failure mode behind the browser fallback no longer applies once bundled).
+- **Still on-device (Mac release-time, after WIN lands the shared edit):** the rebuilt `.dmg` opens its OWN Cocoa window (dock entry + window + About) with the `.icns` icon — proven end-to-end when I rebuild/notarize/staple the dmg + launch it.
 
 ## Hand-off
-- WIN owns the shared edit (`requirements-desktop.txt` + `launcher.spec` + the explicit-fallback message) in Stage E.
-- Mac owns: this pre-flight (done — pending the gated install proof) + the actual `.dmg` rebuild/notarize/staple + device-verify of the native window, after WIN lands the shared edit. The `.icns` it references is already committed (`assets/icons/YHWH.icns`).
+WIN owns the shared Stage-E edit (requirements + `launcher.spec` hiddenimports + the explicit-fallback message). Mac owns the `.dmg` rebuild/notarize/staple + device-verify after, and references the committed `assets/icons/YHWH.icns`.
