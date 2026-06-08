@@ -8,8 +8,11 @@ domain) per RULES guard #6; the note-presentation rehaul (4+5) is a Mac-led desi
 build-time + completeness-preserving + configurable.
 
 **🏁 RELEASE TARGET (user-directed 2026-06-08):** when ALL of this (these 7 findings + the
-already-planned 2026-06-06 items) is implemented, the release is **v0.1.0** — a milestone
-bump from v0.0.3. **This SUPERSEDES the 2026-06-06 plan's Phase 8 "v1.0.0-beta.2".** Implies:
+already-planned 2026-06-06 items) is implemented, the release is **v0.1.0 — STILL A BETA** (a milestone
+bump from v0.0.3; the upgrade itself must be tested in real use before 1.0). **This SUPERSEDES
+the 2026-06-06 plan's Phase 8 "v1.0.0-beta.2"** — the user chose a conservative 0.x beta track,
+NOT a 1.0-beta. **v1.0.0 is intentionally pushed FURTHER OUT — not next; it waits until the
+v0.1.0 upgrade is validated in real use.** Implies:
 bump `VERSION` → `0.1.0`; "deploy" = rebuild ALL THREE desktop binaries fresh at 0.1.0
 (finding 7's macOS native-window fix MUST be in that build) + the EPUB/`.kepub` + the website
 releases page + the social card / `<meta>` version, then publish (release upload + SHA256 +
