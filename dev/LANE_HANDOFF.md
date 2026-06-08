@@ -1,16 +1,27 @@
 ---
 mode: parallel
-turn: 34
-from: windows
+turn: 35
+from: mac
 updated: 2026-06-08
 status: working
-mac: ▶ 2 NEW file-disjoint tasks (you're idle after icns + Addendum A — both landed, thank you): (1) **RENDER-FIRST DIAGNOSIS** of STAGE C's render-first findings — finding 3 (recurring book title-page misalignment, THE PRIORITY; blind CSS re-centering has failed repeatedly) + finding 2 (Your-Edition stats popup full-page / book-name column off-screen): correlate the user's device screenshots + the `epub_working` title-page HTML/CSS to pin the ONE off element + the EXACT CSS fix → write `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md` for WIN to implement. (2) **macOS NATIVE-WINDOW (finding 7) PRE-FLIGHT** — on your macOS, prove the pyobjc+pywebview-cocoa native-window path with a THROWAWAY local test (no shared-code edit) → report the EXACT deps/versions + `launcher.spec` hiddenimports WIN must add (de-risks STAGE E). Release-time items still queued.
+mac: ✅ BOTH turn-34 tasks DONE — (1) render-first diagnosis → `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md`: finding 3 is NOT alignment (already centered) — it's a page-BLEED (inline-block `.book-title-frame` + height-uncapped `.bookpage-art`); finding 2 is an Apple-Books `table-layout:fixed` no-colgroup-widths overflow. Both pinned to the ONE off element + exact CSS fix. (2) native-window pre-flight → `docs/superpowers/notes/2026-06-08-macos-native-window-preflight.md`: exact `requirements-desktop`/`launcher.spec` deps + hiddenimports for STAGE E (the empirical proof is GATED on a pyobjc install = supply-chain guard #1; flagged to user). Release-time items still queued.
 windows: ▶ STAGE B in progress (aes/`_book_shape_cached` CLASS fix first, then the rest of Phase 2 + the 2 STAGE-A clone-hoists). Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
 ---
 
-## ▶ Windows → Mac (turn 34, 2026-06-08) — ✅ got your icns + Addendum A; 2 NEW file-disjoint tasks (you're idle).
+## ▶ Mac → Windows (turn 35, 2026-06-08) — ✅ both turn-34 tasks DONE (Stage-C render diagnosis + native-window pre-flight). Diagnosis-only; you implement.
+
+**1. Stage-C render-first diagnosis** → `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md`. ★ Key reframes so you fix SURGICALLY, not blindly:
+- **Finding 3 is NOT a misalignment** — the title-page text is ALREADY centered (`.bookpage-*{text-align:center}`, `stylesheet.css:540-543`, the RX-beta2 ⑩ fix). Re-centering "failed repeatedly" because the real defect is **vertical page-bleed**: `.book-title-frame` is `display:inline-block` with no `break-inside` (`:529`) + `.bookpage-art` is height-uncapped (`max-width:58%`, no `max-height`, `:549`) → on books WITH a plate the framed box outgrows one reader page and spills. Fix: art `max-height:42vh` + frame `display:block; break-inside:avoid`. Verify on-device (a browser can't show a paginated bleed).
+- **Finding 2** — the "Your Edition" front-matter PAGE (not a modal; `matter_pages.py:430`) per-book `<table.your-edition-perbook>` is `table-layout:fixed; width:100%` but has NO first-row/`<colgroup>` widths (the `4.5em` is on a tbody `<td>`, ignored in fixed layout) → Apple Books overflows it, clipping the name column off the left (IMG_0177). Fix: **(B, recommended)** drop the `<table>` for a `float:right`-count `.ye-row` block (reader-robust, e-ink-safe, matches the note-rehaul north star); **(A)** add `<colgroup>` widths.
+- **Note:** a browser render is INVALID for both (paginated-reader bugs) — diagnosis is from the live HTML/CSS + the device screenshot; the verify gate is on-device Apple Books with your rebuilt EPUB.
+
+**2. macOS native-window (finding 7) pre-flight** → `docs/superpowers/notes/2026-06-08-macos-native-window-preflight.md`. For your STAGE E shared edit: `requirements-desktop.txt` → `pywebview[cocoa]==6.2.1` (pulls `pyobjc-core`/`-Cocoa`/`-WebKit`/`-Quartz`/`-Security`); `launcher.spec` hiddenimports += `webview.platforms.cocoa` + `objc,Foundation,AppKit,WebKit,Quartz,Security`; make the native→browser fallback explicit. ⚠ **Risk to watch:** Python **3.14** (this Mac's interp) may lack pyobjc `cp314` wheels → source build / use a 3.12-3.13 build interp for the dmg. The empirical proof (open a real Cocoa window) is GATED on a pyobjc install = supply-chain guard #1 → flagged to the user; deps above are authoritative from pywebview's own `cocoa` extra regardless.
+
+Mac idle again pending your Stages B/C/E + then my release-time dmg/artifact/device-verify. Baton stays **windows**.
+
+
 
 Both pulled-forward tasks landed + integrated — thank you. WIN is on STAGE B. Two things you can do NOW, **file-disjoint** from WIN's shared code (you write NEW docs/reports; WIN does the code):
 
