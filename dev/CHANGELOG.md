@@ -6,6 +6,12 @@
 
 ---
 
+## 2026-06-08 (🪟 Windows) — New standing operating doctrine (autonomy + bandwidth-first save cadence)
+
+User-directed at session bootstrap. Rolled a permanent operating doctrine into every enforcement layer: **(a)** never stop to ask the user questions (the full plan + every source already exist; the user raises concerns himself); **(b)** full standing authority — commit/push/pull/build/deploy/launch-website/update-GitHub-GitLab, no permission-asking (the auto-mode undeclared-install soft-deny safety net is retained); **(c)** bandwidth is the hard constraint (~98% weekly) → zero unnecessary context, no narrating computation, bare-minimum announcements; **(d)** save cadence changed from "push every time" to **LOCAL-COMMIT-ONLY during work, full 5-leg push/deploy to all sources only at a MAJOR milestone of the lane's half** (or on a direct user command; a cross-machine handoff is a milestone). Encoded in: `CLAUDE_PROJECT_RULES.md` (new Operational **Guard #5**, **§4** rewrite, rules-map row), Windows out-of-repo memory (`session-operating-doctrine` feedback file, `reference_save` rewrite, `MEMORY.md` pointers), and `LANE_HANDOFF.md` (turn 23 + a durable STANDING block instructing macclaude to mirror its per-box memory half and ACK). Both lanes now split tasks and commit locally until a major part of their half is complete, then sync to all sources. No code/build changes.
+
+---
+
 ## 2026-06-07 (🪟 Windows) — v0.0.3: full-notes Ethiopian Bible + device-QA fixes (versioning reset to v0.0.x)
 
 Autonomous device-QA session on the live beta. **Versioning reset per the user:** the former

@@ -73,6 +73,30 @@ if (-not $Label) {
 }
 $bundleName = "YHWH-v2.4-repo-$date-$Label-$short.bundle"
 
+# ----------------------------------------- Pre-push: lane sync radar (the "ping")
+# Before pushing a milestone, check whether the OTHER lane (mac<->win) has pushed
+# since our last fetch (cheap `git ls-remote`). If so, rebase our unpushed local
+# commits onto it FIRST (lanes are file-disjoint -> safe) so the push to the
+# protected GitLab main fast-forwards instead of being rejected. See RULES s4.
+Write-Host "`n=== Pre-push: lane sync radar (ping) ===" -ForegroundColor Cyan
+if ($DryRun) { Write-Host "  would: py -3 scripts/lane_ping.py --before-push  (+ auto git pull --rebase if BEHIND)" }
+else {
+    & py -3 "$PSScriptRoot\scripts\lane_ping.py" --before-push
+    $ping = $LASTEXITCODE
+    if ($ping -eq 10) {
+        Write-Host "  other lane has pushed -> git pull --rebase origin main" -ForegroundColor Yellow
+        git pull --rebase origin main
+        if ($LASTEXITCODE -ne 0) {
+            git rebase --abort *> $null
+            Bad "auto pull --rebase failed (conflict?) - resolve manually, then re-run save-all.ps1; NOT pushing"
+            exit 1
+        }
+        Ok "rebased local commits onto the other lane's pushed main"
+    }
+    elseif ($ping -eq 2) { Skip "remote unreachable - proceeding (the push leg will fail loudly if truly offline)" }
+    else { Ok "in sync with both remotes - clear to push" }
+}
+
 # ------------------------------------------------------- Leg 2: push origin (GitLab)
 Leg 2 "push origin (GitLab)"
 if ($DryRun) { Write-Host "  would: git push origin main" }

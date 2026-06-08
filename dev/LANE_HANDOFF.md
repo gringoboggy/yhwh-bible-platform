@@ -1,8 +1,8 @@
 ---
 holder: windows
 from: windows
-turn: 22
-updated: 2026-06-05
+turn: 23
+updated: 2026-06-08
 status: active
 ---
 
@@ -19,6 +19,9 @@ and **Linux `.AppImage`** desktop builders are attached to the `v0.0.3` release.
 The desktop builder now bundles the full-notes `editions.yaml` + all the v0.0.3 build-pass fixes, so a Mac-built dmg produces correct v0.0.3 Bibles. ✦ The user wants every platform's downloadable builder on v0.0.3.
 
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
+
+**Session operating doctrine (NEW 2026-06-08, user-directed — EVERY session, both lanes, forever).** Now `dev/CLAUDE_PROJECT_RULES.md` **Operational Guard #5** + §4:
+(a) **Never stop to ask the user questions** — the whole plan + every source exist; act on best judgment from the rules/code/files/memory; the user raises concerns himself. (b) **Full standing authority** — commit, push, pull, build/run, deploy, launch the website, update GitHub/GitLab, all pre-authorized (no permission-asking; the package-install soft-deny safety net still stands). (c) **Bandwidth is the hard constraint (~98% weekly)** — zero unnecessary context, no narrating what you compute, bare-minimum announcements. (d) **Save cadence is now LOCAL-COMMIT-ONLY during work; full 5-leg push/deploy to all sources only at a MAJOR milestone of your half — or on a direct user command** (a cross-machine handoff like THIS one is a milestone ⇒ push). The in-repo half reaches you on `git pull`; **your Mac memory is per-box and NOT shared → mirror this doctrine + the new save cadence into YOUR memory** (a `session-operating-doctrine` feedback file + a `MEMORY.md` pointer, and update your save-workflow memory). winclaude has done the Windows side.
 
 **Cross-lane tool/environment parity (NEW 2026-06-05, user-directed).** Now in
 `dev/CLAUDE_PROJECT_RULES.md` as **Operational Guard #4**: before handing the other
@@ -38,6 +41,19 @@ statusline-setup`). The Mac lane re-points `REPO` and maps `feature-dev:*` →
 > Windows side — so it's enforced from your end too. (macclaude has saved the
 > equivalent on the Mac side.) This banner is how the out-of-repo half reaches you;
 > leave it in place until you confirm you've mirrored it.
+
+## ▶ Windows → Mac (turn 23, 2026-06-08) — ★NEW STANDING OPERATING DOCTRINE rolled out; sync your out-of-repo rules with me. Baton → **windows**.
+
+User-directed at session bootstrap (2026-06-08). winclaude has rolled the new doctrine into the in-repo RULES (Guard #5 + §4 rewrite) — it reaches you on `git pull` — and into Windows memory. **Your action (out-of-repo, per-box — I cannot do it for you):**
+
+1. **`git pull --ff-only origin main`**, then read the new **STANDING** block above + RULES **Guard #5** and **§4**.
+2. **Mirror the doctrine into YOUR Mac memory** (per-box, not shared): add a `session-operating-doctrine` feedback memory + a `MEMORY.md` pointer, and **rewrite your save-workflow memory** to the new cadence. Match the Windows files (`memory/feedback_session_operating_doctrine.md` + `memory/reference_save.md`) — same content, Mac-appropriate paths.
+3. **The doctrine, in full:** (a) never stop to ask the user questions (the plan + all sources exist; he raises concerns himself); (b) full standing authority for commit/push/pull/build/deploy/launch-website/update-GitHub-GitLab — no permission-asking; (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, no narrating computation, bare-minimum announcements; (d) **save = LOCAL-COMMIT-ONLY during work; full 5-leg push/deploy to all sources only at a MAJOR milestone of your half** (or on a direct user command).
+4. **ACK in your next handoff turn** once mirrored, so we both know the out-of-repo halves are in parity (like the Guard #4 banner pattern).
+
+**Note on `v0.0.3`:** great success per the user (much better than v0.0.2); screenshots coming. The **MAC TODO** at the top (build/notarize the macOS `.dmg`) still stands — but under the new cadence: local-commit your build work, push/upload to all sources when the `.dmg` slice is COMPLETE. Baton → **windows**.
+
+---
 
 ## ▶ Windows → both lanes (turn 22, 2026-06-05) — ✅ WIN-LANE AUDIT COMPLETE → round-5 split MERGED into a collaborative fix plan. Release-gating fix-session is SPLIT (file-disjoint). Baton → **windows**.
 

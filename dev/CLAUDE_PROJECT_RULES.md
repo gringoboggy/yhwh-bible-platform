@@ -8,7 +8,7 @@ user wins for that turn — but the rule stays as written.
 **Finished-arc history, frozen stats, and per-instance tallies extracted from this
 file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved.
 
-**Operational guards (durable behavioral defaults — keep all four):**
+**Operational guards (durable behavioral defaults — keep all five):**
 1. **Package installs under auto-mode** — before installing ANY package NOT already
    in a committed manifest (`requirements*.txt`, `pyproject.toml`, `package.json`),
    ask the user to turn auto-mode OFF first, then install once they confirm
@@ -62,6 +62,27 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    and the landing lane must pass that instruction to the other via `LANE_HANDOFF.md`.
    (User-directed 2026-06-05 after the split deep-audit failed 15× on the Mac for a
    missing `feature-dev` agent type + a Windows `REPO` path.)
+5. **Standing autonomy + bandwidth doctrine (user-directed 2026-06-08; governs EVERY
+   session, both lanes, forever).** Four standing rules:
+   (a) **Never stop to ask the user questions.** The whole project plan exists and
+   absolutely every source exists — proceed on best judgment from these rules + the
+   code + files + memory. The user raises concerns/questions himself ("if I have a
+   question or concern I WILL BRING IT UP MYSELF"). Stronger than guard-adjacent
+   self-answerable-⇒-don't-ask: even a decided judgment call ⇒ proceed; these RULES
+   are the guardrails that stop/redirect you, so don't seek confirmation they already
+   give. (b) **Full standing authority — no permission-asking** for commit, push,
+   pull, build/run, deploy, launch the website, or update GitHub/GitLab; all
+   pre-authorized. (The auto-mode package-install soft-deny safety net STAYS — guard #1
+   governs undeclared installs; "permissions for everything" governs ME asking, not
+   that supply-chain guard.) (c) **Bandwidth is the hard constraint (~98% weekly,
+   always low) — use ZERO unnecessary context, ever.** Do NOT narrate what you are
+   computing; no explanations/descriptions of work-in-progress; BARE-MINIMUM
+   announcements. Read the minimum (SESSION_STATE/IN_FLIGHT top + git), then act. This
+   supersedes any "comms comprehensive" default — completeness applies to the WORK, not
+   to chat verbosity. (d) **Save cadence is now local-commit-until-milestone** — see §4.
+   (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
+   box's memory is per-box — each lane mirrors it into its own memory; memory:
+   `session-operating-doctrine`.)
 
 **Terminology — what "deploy" means (user-directed 2026-06-07, EMPHATIC):**
 When the user says **"deploy"**, they mean **BUILD THE PROGRAM *AND* DEPLOY IT** —
@@ -97,7 +118,7 @@ persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)
 | **1** | North star — the builder demo; corpus depth; patristic-voice invariant; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles. |
 | **3** | Sequencing rules (how to order work). |
-| **4** | Save semantics — save = commit = push = backup = full 5-leg external sync (local commit + GitLab + GitHub + E: + F:); "continue"/"proceed"/"go ahead" ≠ save. |
+| **4** | Save semantics — bandwidth-first (2026-06-08): LOCAL-COMMIT-ONLY during work; full 5-leg sync (local + GitLab + GitHub + E: + F:) only at a MAJOR milestone or on a direct user command; "continue"/"proceed"/"go ahead" ≠ save. |
 | **5** | Phase / commit tracking. |
 | **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
 | **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |
@@ -360,31 +381,35 @@ order. The user has delegated this judgment; exercise it.
 
 ## 4. Save semantics
 
-- **"Save" = "commit" = "push" = "backup" = "sync" — ALL mean ONE thing: push the work
-  to EVERY destination, EVERY time** (user-directed 2026-05-31; this UNIFIES and
-  supersedes every older save mechanism). There is **no "local-only commit", no batching
-  the push for later, no "back up every Nth commit"** (that cadence was a
-  marathon-transcription artifact, now retired), and **no asking permission to push**.
-  One save = the full **five legs**, always, in order:
-  1. **Local commit** (`save.ps1`, invoked by `save-all.ps1`) — **PowerShell ONLY**,
-     never the Bash tool (spaced repo path + `>`/arrow glyphs break cmd and sweep stray
-     files via `git add -A`). Pre-commit hook runs `ruff format --check .` +
-     `lint_rules.py` + mypy; all must pass or the commit BLOCKS (it does NOT run the
-     test suite — run the relevant tests yourself first).
-  2. **`git push origin`** (GitLab — the code home).
-  3. **`git push github`** (the GitHub mirror). Both private `gringoboggy/yhwh-bible-platform`.
-  4. **`git bundle create <file> --all`** (file BEFORE `--all`) → external **E:**.
-  5. The same bundle copied to external **F:**. NEVER bundle to C:. Name:
-     `YHWH-v2.4-repo-<date>-<label>-<shorthash>.bundle`.
-- **WHO triggers a save, and WHEN — two triggers, both fire the SAME full sync:**
-  1. **Claude, autonomously, whenever something important just landed** — a phase/arc
-     close, a meaningful milestone, before a risky next step, or any point the work is
-     worth preserving. Claude does NOT ask and does NOT defer; it just runs the full
-     sync. Erring toward saving *more* often is correct.
+- **TWO cadences (user-directed 2026-06-08 — bandwidth-first; supersedes the
+  2026-05-31 "push EVERY time" model). Bandwidth is the hard constraint, so split
+  saving in two:**
+  - **During active work → LOCAL COMMIT ONLY (leg 1).** Commit freely to the local
+    repo as you go; do NOT push to the remotes or write E:/F: bundles per-commit. This
+    is the bandwidth saving (guard #5 / memory `session-operating-doctrine`).
+  - **At a MAJOR milestone of this lane's half — or on a direct user command → the
+    full FIVE-LEG sync to all sources**, in order:
+    1. **Local commit** (`save.ps1`, invoked by `save-all.ps1`) — **PowerShell ONLY**,
+       never the Bash tool (spaced repo path + `>`/arrow glyphs break cmd and sweep
+       stray files via `git add -A`). Pre-commit hook runs `ruff format --check .` +
+       `lint_rules.py` + mypy; all must pass or the commit BLOCKS (it does NOT run the
+       test suite — run the relevant tests yourself first).
+    2. **`git push origin`** (GitLab — the code home).
+    3. **`git push github`** (the GitHub mirror). Both private `gringoboggy/yhwh-bible-platform`.
+    4. **`git bundle create <file> --all`** (file BEFORE `--all`) → external **E:**
+       (local drive = no network cost).
+    5. The same bundle copied to external **F:**. NEVER bundle to C:. Name:
+       `YHWH-v2.4-repo-<date>-<label>-<shorthash>.bundle`.
+- **What counts as a "major milestone":** a phase/arc close, a shippable feature/fix
+  slice done, a cross-machine handoff (delivering a baton/rules to the other lane
+  REQUIRES a push — that IS a milestone), or before a genuinely risky step. The point
+  is to stop per-commit push churn, not to hoard work indefinitely — sync at clear
+  closes.
+- **WHO triggers the full sync, and WHEN:**
+  1. **Claude, autonomously, when a milestone lands** — runs the full five-leg sync
+     without asking. During non-milestone work it just keeps local-committing.
   2. **The user says so** — "save / commit / push / backup / sync" (any of them) = run
-     the full sync now. (Also at `/clear`.)
-  There is no third mode — no "local checkpoint, then ask about the push." Every save is
-  the complete five-leg sync to all sources.
+     the full sync NOW (also at `/clear`), regardless of milestone state.
 - **One command does it all: `pwsh -File save-all.ps1 -Message "..."`** (repo root;
   `-Label <slug>` names the bundle, `-Yes` allows a >200-file sweep, `-DryRun` previews).
   It runs all five legs, **verifies each, and exits non-zero if any leg didn't land** (a
@@ -403,9 +428,25 @@ order. The user has delegated this judgment; exercise it.
   bundle legs are Windows-only and capture both lanes' pushed work when Windows bundles).
   The holder also owns SESSION_STATE / IN_FLIGHT / CHANGELOG that turn (no dual-edit
   conflicts). Pass with `/handoff`, pick up with `/resume`, `/sync` for mid-turn
-  durability; an incoming baton auto-surfaces at session start. This refines WHO pushes —
-  it does not relax "always push when you work." See
+  durability; an incoming baton auto-surfaces at session start. This refines WHO pushes
+  at a milestone — it does not change the local-commit-until-milestone cadence. Pull
+  before a milestone push (the other lane may have synced its half). See
   `docs/superpowers/specs/2026-06-03-lane-handoff-baton-system-design.md`.
+- **Lane sync radar (the "ping") — AUTOMATIC; check-the-other-lane before pull/push.**
+  Because each lane commits locally and only pushes at a milestone, before pulling or
+  pushing a lane must know whether the OTHER lane already pushed (else a milestone push
+  to protected `main` is rejected, or the lanes drift). `scripts/lane_ping.py` does a
+  CHEAP `git ls-remote` (refs only — no object download, bandwidth-trivial) and compares
+  the remote `main` tip to the locally-cached `<remote>/main`: equal ⇒ CLEAR; differ ⇒
+  BEHIND (the other lane pushed). It is wired AUTOMATICALLY in two places: (1) the
+  **SessionStart hook** runs `lane_ping.py --quiet` so a fresh session learns on boot if
+  the other lane moved; (2) **`save-all.ps1` runs `lane_ping.py --before-push`** and, if
+  BEHIND, auto-runs `git pull --rebase origin main` (lanes are file-disjoint ⇒ the rebase
+  of your unpushed local commits is conflict-free + keeps `main` fast-forwardable) BEFORE
+  the push legs. On-demand: `py -3 scripts/lane_ping.py` (human) / `--json`. Read-only +
+  non-fatal — a network blip never blocks work. The script is in-repo (shared by both
+  lanes); the SessionStart-hook + the Mac save path are per-box and each lane wires its
+  own (memory: `reference_lane_ping`).
 - **⚠ BEFORE saving:** `python -m ruff format` files you generated / regenerated (esp.
   `content/translations/<id>/` stores) or the pre-commit hook blocks the commit (§7).
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped · next · test count ·
