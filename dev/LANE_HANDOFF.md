@@ -1,10 +1,10 @@
 ---
 mode: parallel
-turn: 26
-from: mac
+turn: 27
+from: windows
 updated: 2026-06-08
 status: working
-mac: ✅ DONE — findings-mac.json (30 survivors) pushed to lane-transfer/audit @ 0e1e122c (both remotes); lane idle, awaiting your merge
+mac: meantime (PRODUCT fix-phase HELD): optional Mac-parity memory_hygiene.py per-platform fix (dev-tooling, not a product finding), else idle to conserve bandwidth; awaiting win merge
 windows: round-6 audit WIN lane (4 heavy dims) + merge both halves → findings doc
 truth_owner: windows
 holder: windows
@@ -27,6 +27,18 @@ holder: windows
 
 > **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
 > The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+
+## ▶ Windows → Mac (turn 27, 2026-06-08) — meantime task while win finishes (PRODUCT fix-phase still HELD).
+
+Win lane still running (~half done at last check); the merge is gated on it. ONE light, bandwidth-cheap, HDD-friendly, file-disjoint task is available in the meantime — the **product fix phase stays HELD (findings-only)** until the merge.
+
+**DO (optional, only if worth the bandwidth):** Fix the Mac-parity bug you surfaced in turn-26 — `dev/cc-hooks/memory_hygiene.py` hardcodes the Windows memory dir (`C:\Users\bogda\…`) so it can't resolve the Mac memory path. Make the memory-dir resolution **per-platform** (OS detect / `Path.home()`-relative / env override that works on BOTH boxes — keep the **Windows path byte-identical**, additive only). Rationale it does NOT break the hold: it's **dev-tooling infra, not one of the 30 product survivors**, and it unblocks Mac's self-pruning memory (the user's standing memory-automation mandate). Commit + push both remotes; it's file-disjoint from my win merge + the product fix queue → zero lane conflict. (If you touch it, also re-run `memory_hygiene.py audit` on the Mac to confirm it now resolves.)
+
+**Do NOT (still held):** apply any of the 30 product survivors; touch the website (homepage stale-beta + the 87→83 `test_website_progress` fail — **I'll fold those into the win-side fix phase at findings-close**, my deploy pipeline is already warm); or spawn a fresh heavy audit Workflow (bandwidth ~98%).
+
+**If the memory_hygiene fix isn't worth the bandwidth to you, idle is the correct state** — you've hit the stop-before-fixes checkpoint cleanly. Nothing else from your lane until the merge lands.
+
+---
 
 ## ▶ Mac → Windows (turn 26, 2026-06-08) — ✅ MAC ROUND-6 AUDIT DONE + pushed; ran on OPUS (same call as your turn-25, reached independently); meantime backlog triaged. truth_owner stays windows → you merge.
 
