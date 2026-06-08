@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import json
+import os
 import re
 import sys
 import zipfile
@@ -44,7 +45,25 @@ from pathlib import Path
 
 # --- configuration -----------------------------------------------------------
 
-DEFAULT_MEMORY_DIR = Path(r"C:\Users\bogda\.claude\projects\C--Users-bogda-Documents-YHWH-v2-4-full\memory")
+
+def _resolve_default_memory_dir() -> Path:
+    """Resolve Claude's out-of-repo auto-memory dir per-platform — it lives at
+    ``~/.claude/projects/<proj-slug>/memory`` and the slug differs per box, so a
+    single hardcoded path can only ever work on one machine. Resolution order:
+    explicit ``CLAUDE_MEMORY_DIR`` env override > known per-OS default > the
+    Windows path. ADDITIVE: the Windows fallback is byte-identical to the
+    original hardcoded literal, so the N95 lane is unaffected; only macOS (the
+    2nd lane) and an env override are new. Callers can still pass --memory-dir."""
+    env = os.environ.get("CLAUDE_MEMORY_DIR")
+    if env:
+        return Path(env)
+    if sys.platform == "darwin":  # 2nd lane: the 2017 iMac (repo under /Volumes/MacHD2)
+        return Path.home() / ".claude" / "projects" / "-Volumes-MacHD2-yhwh-bible-platform" / "memory"
+    # Windows (primary N95 lane) + any other OS — UNCHANGED from the original hardcode.
+    return Path(r"C:\Users\bogda\.claude\projects\C--Users-bogda-Documents-YHWH-v2-4-full\memory")
+
+
+DEFAULT_MEMORY_DIR = _resolve_default_memory_dir()
 INDEX_FILE = "MEMORY.md"
 ARCHIVE_DIR = "_archive"
 DEFAULT_BACKUP_DRIVES = ["E", "F"]
