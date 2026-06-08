@@ -7,6 +7,14 @@ in force) — nothing applied yet. Build/app items routed to the WIN lane (build
 domain) per RULES guard #6; the note-presentation rehaul (4+5) is a Mac-led design,
 build-time + completeness-preserving + configurable.
 
+**🏁 RELEASE TARGET (user-directed 2026-06-08):** when ALL of this (these 7 findings + the
+already-planned 2026-06-06 items) is implemented, the release is **v0.1.0** — a milestone
+bump from v0.0.3. **This SUPERSEDES the 2026-06-06 plan's Phase 8 "v1.0.0-beta.2".** Implies:
+bump `VERSION` → `0.1.0`; "deploy" = rebuild ALL THREE desktop binaries fresh at 0.1.0
+(finding 7's macOS native-window fix MUST be in that build) + the EPUB/`.kepub` + the website
+releases page + the social card / `<meta>` version, then publish (release upload + SHA256 +
+Pages) per RULES "deploy". v0.1.0 = the device-QA / presentation-polish release.
+
 ## ⚠ Relationship to the EXISTING 2026-06-06 device-QA plan + spec — RECONCILE, don't duplicate
 A phased plan + design spec already exist (2 days prior) and cover MOST of today's findings —
 `docs/superpowers/plans/2026-06-06-beta-device-qa-presentation-plan.md` (8 phases) +
