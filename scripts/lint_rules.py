@@ -754,6 +754,119 @@ def _find_open_write_calls(tree: ast.AST) -> list[int]:
     return hits
 
 
+# v0.1.0 audit Phase 0 — the open('w') walk above only catches the
+# `open(..., 'w')` idiom. The recurring real exposure (the round-6
+# audit found it in the re-ingest one-shots) is a bare
+# `path.write_text(...)` / `path.write_bytes(...)` straight onto a
+# `content/notes/*.py` source store — NOT crash-safe, and NOT seen by
+# `_find_open_write_calls`. This helper finds those, scoped to writes
+# whose target resolves to the notes store (NOT epub_working/ base
+# writes, tmp+rename idioms, or the translations/candidates/sources
+# trees), so the guard locks the notes-store-atomicity class without
+# forcing base-write-semantics changes on the build/extract pipeline.
+_PATH_WRITE_METHODS = ("write_text", "write_bytes")
+# Signals that a write target IS the content/notes source store.
+_NOTES_WRITE_SIGNALS = (
+    "NOTES_DIR",
+    "content/notes",
+    "'content' / 'notes'",
+    '"content" / "notes"',
+)
+# Signals that a write target is NOT the notes store (regenerable base,
+# atomic tmp+rename idiom, or a different content tree) — these EXEMPT
+# the call even when a notes signal co-occurs (e.g. a mixed glob list).
+_NONNOTES_WRITE_SIGNALS = (
+    "epub_working",
+    "BASE_DIR",
+    "EPUB_DIR",
+    "EPUB.",
+    ".tmp",
+    "with_suffix",
+    "tempfile",
+    "NamedTemporary",
+    "translations",
+    "candidates",
+    ".backups",
+)
+
+
+def _target_names(target: ast.AST) -> list[str]:
+    """Flatten an assignment/for target into the bound Name ids."""
+    out: list[str] = []
+    if isinstance(target, ast.Name):
+        out.append(target.id)
+    elif isinstance(target, (ast.Tuple, ast.List)):
+        for elt in target.elts:
+            out.extend(_target_names(elt))
+    return out
+
+
+def _find_notes_store_writes(tree: ast.AST) -> list[int]:
+    """Return line numbers of `.write_text`/`.write_bytes` calls whose
+    target resolves to a `content/notes/` source store (and not to a
+    regenerable base / tmp / other-content tree).
+
+    Resolution is dataflow-lite: the receiver of the write is mapped to
+    a hint string (the nearest enclosing for-loop's iterable for a loop
+    variable, else its module/function-level assignment, else the
+    receiver expression itself), then expanded one hop through any
+    referenced assigned name. The hint is classified by the NOTES/
+    NON-NOTES signal sets above — flag iff a notes signal is present and
+    no non-notes signal is. Uses ``ast.unparse`` so it is source-text
+    independent."""
+    # Parent links for nearest-enclosing-loop resolution.
+    for parent in ast.walk(tree):
+        for child in ast.iter_child_nodes(parent):
+            child._lint_parent = parent  # type: ignore[attr-defined]
+
+    # Module/function-level assignments: name -> unparsed RHS (first wins).
+    assign_src: dict[str, str] = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            try:
+                rhs = ast.unparse(node.value)
+            except Exception:  # noqa: BLE001
+                rhs = ""
+            for tgt in node.targets:
+                for nm in _target_names(tgt):
+                    assign_src.setdefault(nm, rhs)
+
+    def _hint_for(recv: ast.AST, call: ast.AST) -> str:
+        if isinstance(recv, ast.Name):
+            cur = getattr(call, "_lint_parent", None)
+            while cur is not None:
+                if isinstance(cur, (ast.For, ast.AsyncFor)) and recv.id in _target_names(cur.target):
+                    try:
+                        return ast.unparse(cur.iter)
+                    except Exception:  # noqa: BLE001
+                        return ""
+                cur = getattr(cur, "_lint_parent", None)
+            return assign_src.get(recv.id, recv.id)
+        try:
+            return ast.unparse(recv)
+        except Exception:  # noqa: BLE001
+            return ""
+
+    hits: list[int] = []
+    for node in ast.walk(tree):
+        if not (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr in _PATH_WRITE_METHODS
+        ):
+            continue
+        hint = _hint_for(node.func.value, node)
+        expanded = hint
+        for nm in set(re.findall(r"[A-Za-z_]\w*", hint)):
+            if nm in assign_src:
+                expanded += " || " + assign_src[nm]
+        has_notes = any(sig in expanded for sig in _NOTES_WRITE_SIGNALS)
+        has_nonnotes = any(sig in expanded for sig in _NONNOTES_WRITE_SIGNALS)
+        if has_notes and not has_nonnotes:
+            hits.append(node.lineno)
+    return hits
+
+
 def _find_urlopen_calls(tree: ast.AST) -> list[int]:
     """Return line numbers of any `urllib.request.urlopen(...)` or
     `urlopen(...)` (when imported directly) call in the AST."""
@@ -881,6 +994,14 @@ def check_external_http() -> dict:
     }
 
 
+def _has_atomic_waiver(lines: list[str], ln: int) -> bool:
+    """True if a `# atomic-waived: <reason>` comment sits on line ``ln`` or
+    the line immediately before it (1-based line numbers)."""
+    same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+    prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+    return "atomic-waived" in same or "atomic-waived" in prev
+
+
 def check_atomic_writes() -> dict:
     """Phase ω.9 — every direct write-mode open() call site outside
     `scripts/core/notes_io.py` is suspect.
@@ -913,20 +1034,20 @@ def check_atomic_writes() -> dict:
         tree, lines = _load_parsed_python(py)
         if tree is None:
             continue
+
+        rel = str(py.relative_to(REPO)).replace("\\", "/")
         for ln in _find_open_write_calls(tree):
-            # Waiver: `# atomic-waived: <reason>` on the same line
-            # OR the immediately preceding line.
-            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
-            prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
-            if "atomic-waived" in same or "atomic-waived" in prev:
+            if _has_atomic_waiver(lines, ln):
                 continue
-            violations.append(
-                {
-                    "file": str(py.relative_to(REPO)).replace("\\", "/"),
-                    "line": ln,
-                    "snippet": same.strip()[:120],
-                }
-            )
+            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+            violations.append({"file": rel, "line": ln, "snippet": same.strip()[:120]})
+        # v0.1.0 audit Phase 0 — bare .write_text/.write_bytes onto a
+        # content/notes/ source store (not crash-safe; not caught above).
+        for ln in _find_notes_store_writes(tree):
+            if _has_atomic_waiver(lines, ln):
+                continue
+            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+            violations.append({"file": rel, "line": ln, "snippet": same.strip()[:120]})
 
     if not violations:
         return {
@@ -941,9 +1062,10 @@ def check_atomic_writes() -> dict:
         "name": "Atomic writes (no raw open('w') outside notes_io)",
         "status": "fail",
         "message": (
-            f"{len(violations)} raw write-mode open() call site(s) "
-            f"outside notes_io.py — use atomic_write/atomic_write_bytes "
-            f"or add `# atomic-waived: <reason>` to opt out"
+            f"{len(violations)} non-atomic write site(s) outside notes_io.py "
+            f"(raw open('w'), or .write_text/.write_bytes onto content/notes/) "
+            f"— use atomic_write/atomic_write_bytes or add "
+            f"`# atomic-waived: <reason>` to opt out"
         ),
         "violations": violations,
     }

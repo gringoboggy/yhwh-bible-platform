@@ -142,7 +142,7 @@ class TestTau7XJEzraSutuelVerseCounts:
         books = yaml.safe_load((REPO / "content" / "books.yaml").read_text(encoding="utf-8"))["books"]
         rec = next(b for b in books if b["code"] == "2es")
         assert rec["ch_count"] == 16
-        assert "Sutu" in rec["title"]  # "Ezra Sutu'el"
+        assert rec["title"] == "The Second Book of Esdras"
 
 
 class TestTau7XKTobitVerseCounts:

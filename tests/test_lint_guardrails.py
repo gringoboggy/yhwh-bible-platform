@@ -176,7 +176,9 @@ class TestRetiredTerms:
         r = lint_rules.check_retired_terms()
         # FAIL-tier once Phase 2 flipped _ENFORCE_RETIRED_TERMS; WARN before (state-aware, RULES §8).
         assert r["status"] == ("fail" if lint_rules._ENFORCE_RETIRED_TERMS else "warn")
-        assert {v["term"] for v in r["violations"]} >= {"2026-06-07", "hard deadline", "sonar"}
+        # The date-rolled "2026-06-07" was retired from _RETIRED_TERMS (it was a
+        # one-time roll); only the durable terms remain flaggable.
+        assert {v["term"] for v in r["violations"]} >= {"hard deadline", "sonar"}
 
     def test_passes_when_clean(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)

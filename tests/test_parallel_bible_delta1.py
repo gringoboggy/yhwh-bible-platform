@@ -413,11 +413,13 @@ class TestDelta10ClosedArcInvariantPreservation:
 
         assert "amharic" in POPUP_LANGUAGES
 
-    def test_embed_font_paths_defaults_to_empty(self):
-        """Π.0.4 + φ.1: EMBED_FONT_PATHS must remain []."""
+    def test_embed_font_paths_populated_at_rx_phase3(self):
+        """Π.0.4 + φ.1 seeded EMBED_FONT_PATHS == []; RX Phase 3 (2026-06-05)
+        populated it with the committed OFL fonts (device issue #7)."""
         from scripts import style_config
 
-        assert style_config.EMBED_FONT_PATHS == []
+        families = {e.get("family") for e in style_config.EMBED_FONT_PATHS}
+        assert {"Cardo", "Noto Serif Ethiopic"} <= families, style_config.EMBED_FONT_PATHS
 
     def test_meqabyan_arc_close_67_67_intact(self):
         from scripts.core import sources

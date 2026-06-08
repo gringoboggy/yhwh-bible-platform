@@ -90,6 +90,93 @@ class TestNoReviewerScaffoldingDetection:
         assert not result["violations"]
 
 
+class TestNotesStoreAtomicWriteGuard:
+    """v0.1.0 audit Phase 0 — ``check_atomic_writes`` was extended past the
+    ``open(...,'w')`` idiom to also flag a bare ``.write_text``/``.write_bytes``
+    straight onto a ``content/notes/`` source store (the class the re-ingest
+    one-shots tripped, invisible to ``_find_open_write_calls``). These pin the
+    resolver: a notes-store write is flagged; regenerable-base (epub_working),
+    tmp+rename, and other-content (translations) writes are NOT — and the real
+    re-ingest pattern (loop var bound from a dict-comp over ``NOTES_DIR.glob``)
+    is caught while its parallel ``BASE_DIR`` loop is left alone."""
+
+    def _lines(self, src: str) -> list[int]:
+        import ast
+
+        from scripts.lint_rules import _find_notes_store_writes
+
+        return _find_notes_store_writes(ast.parse(src))
+
+    def test_flags_direct_notes_literal_write(self):
+        src = 'from pathlib import Path\nPath("content/notes/gen.py").write_text("x")\n'
+        assert self._lines(src) == [2]
+
+    def test_flags_notes_dir_join_write(self):
+        src = "NOTES_DIR = REPO / 'content' / 'notes'\np = NOTES_DIR / 'gen.py'\np.write_text('x')\n"
+        assert self._lines(src) == [3]
+
+    def test_flags_loop_over_notes_glob_but_not_parallel_base_loop(self):
+        # The real re-ingest shape: same loop var name reused across a
+        # content/notes loop (flag) and an epub_working loop (ignore).
+        src = (
+            "NOTES_DIR = REPO / 'content' / 'notes'\n"
+            "BASE_DIR = REPO / 'epub_working'\n"
+            "src = {p: p.read_text() for p in sorted(NOTES_DIR.glob('*.py'))}\n"
+            "base = {p: p.read_text() for p in sorted(BASE_DIR.glob('*.html'))}\n"
+            "for p, t in src.items():\n"
+            "    p.write_text(t)\n"
+            "for p, t in base.items():\n"
+            "    p.write_text(t)\n"
+        )
+        assert self._lines(src) == [6]
+
+    def test_ignores_tmp_rename_idiom(self):
+        src = (
+            "NOTES_DIR = REPO / 'content' / 'notes'\n"
+            "for f in sorted(NOTES_DIR.glob('*.py')):\n"
+            "    tmp = f.with_suffix(f.suffix + '.tmp')\n"
+            "    tmp.write_text('x')\n"
+        )
+        assert self._lines(src) == []
+
+    def test_ignores_translations_write(self):
+        src = "OUT = REPO / 'content' / 'translations' / 'kjv'\np = OUT / 'gen.py'\np.write_text('x')\n"
+        assert self._lines(src) == []
+
+    def test_check_fails_on_planted_notes_store_write(self, tmp_path, monkeypatch):
+        from scripts import lint_rules
+
+        scripts_dir = tmp_path / "scripts"
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "bad_reingest.py").write_text(
+            "from pathlib import Path\np = Path('content/notes/gen.py')\np.write_text('corrupt-me')\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        lint_rules._clear_parse_cache()
+        result = lint_rules.check_atomic_writes()
+        assert result["status"] == "fail", result
+        assert any("bad_reingest.py" in v["file"] for v in result["violations"]), result
+
+    def test_check_passes_when_planted_write_is_atomic(self, tmp_path, monkeypatch):
+        from scripts import lint_rules
+
+        scripts_dir = tmp_path / "scripts"
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "good_reingest.py").write_text(
+            "from scripts.core import notes_io\n"
+            "from pathlib import Path\n"
+            "p = Path('content/notes/gen.py')\n"
+            "notes_io.atomic_write(p, 'safe')\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        lint_rules._clear_parse_cache()
+        result = lint_rules.check_atomic_writes()
+        assert result["status"] == "pass", result
+        assert result["violations"] == []
+
+
 class TestOmega15PlanLinter:
     """ω.15 — plan-coherence linter. Verifies the active PLAN_*.md
     stays coherent with CHANGELOG and Depends references."""

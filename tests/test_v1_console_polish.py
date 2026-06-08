@@ -301,15 +301,17 @@ class TestPsi7ANewBuiltInEditions:
             )
 
     def test_canon_book_counts_match_expectation(self):
-        # eastern-orthodox: orthodox canon (78 books)
-        # anglican-bcp: catholic canon (76 books)
-        # lutheran-confessional: protestant canon (66 books)
-        # coptic-orthodox: ethiopian canon (87 books)
+        # v0.0.3 folded the empty "Additions to Esther" (aes) out of every
+        # canon → the catholic/orthodox/ethiopian-derived editions each −1.
+        # eastern-orthodox: orthodox canon (77 books)
+        # anglican-bcp: catholic canon (75 books)
+        # lutheran-confessional: protestant canon (66 books — no aes)
+        # coptic-orthodox: ethiopian canon (86 books)
         expected = {
-            "eastern-orthodox": 78,
-            "anglican-bcp": 76,
+            "eastern-orthodox": 77,
+            "anglican-bcp": 75,
             "lutheran-confessional": 66,
-            "coptic-orthodox": 87,
+            "coptic-orthodox": 86,
         }
         for ed_id, expected_count in expected.items():
             book_set = self.matrix.edition_canon_books.get(ed_id, set())

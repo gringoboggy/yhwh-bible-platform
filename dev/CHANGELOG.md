@@ -6,6 +6,31 @@
 
 ---
 
+## 2026-06-08 — v0.1.0 STAGE A — audit Phase 0 + Phase 1 + partial Phase 5: red suite → green + guards
+
+**Phases shipped:** v0.1.0 master-plan **STAGE A** (audit Phase 0, Phase 1, partial Phase 5) — user ratified the plan ("do"); executing safest-first.
+**Test delta:** +9 net new (7 `TestNotesStoreAtomicWriteGuard` + 2 `TestPrettySummaryHonest`) plus ~15 stale pins re-aligned to v0.0.3 reality.
+**Save tag:** this commit (5-leg milestone push — also delivers Mac's 2 new parallel tasks).
+
+What shipped (test/doc/lint only — **0 shipped-byte risk**, marathon core untouched):
+- **Phase 0 — commit-time guards:** extended `lint_rules.check_atomic_writes` (new `_find_notes_store_writes` dataflow-lite resolver + `_has_atomic_waiver`) to flag a bare `.write_text`/`.write_bytes` straight onto a `content/notes/` source store — the class the `open('w')` walk missed. It caught 3 real sites: the 2 audit-named re-ingest src writes (`_reingest_greek_glosses` / `_reingest_torrey_topics`) **and a 3rd the audit missed** (`fix_xref_targets.py:254`) — all → `notes_io.ensure_backup`+`atomic_write` (re-ingest base writes too, for uniformity). PUT route-table count COUPLED to the `/note-override` inventory (10→11). +`TestNotesStoreAtomicWriteGuard` (7).
+- **Phase 1 — stale-test/doc realignment to v0.0.3 reality (SOURCE is correct):** canon counts 76/78/87→75/77/86 (the aes fold) in `test_scripts`+`test_v1_console_polish`; `EMBED_FONT_PATHS` `[]`→populated-families pins ×3 (pi0/pi1/delta1, mirroring phi1); comm-reformation invariant ed_id `ethiopian-tewahedo`→`jewish-study` (ethiopian now ENABLES it); retired-term date-roll dropped; website-progress 87→83; corpus-index↔matrix equivalence kept **EXACT** via a canon-restricted index (stronger than the finding's `>=`); 2es title `"Sutu"`→`"The Second Book of Esdras"`; 4× REPO_MAP doc fixes (pytest 219 / plans 49 / specs 26 / scripts 136; website row → build.mjs+GitHub Pages; dead `.manifest.json` pointer; per-source translation coverages + geez-tewahedo 33→36). **Every number re-verified against real on-disk data, not the finding's (some had drifted).**
+- **Phase 5 (partial):** `render_coverage._pretty` duplicate EN rows removed + Patrologia "(ingest pending)"→"source PDFs in hand (own-versification re-ingest a separate pending lane)" (+`TestPrettySummaryHonest`); dead `book_native_names` helpers (`native_name`/`format_toc_entry`/`_BOOK_CHAPTER_SEP`) removed (0 callers verified); `api/editions._append_cloned_edition` numeric `0`→bare literal (was wrongly `""`).
+
+Notable decisions:
+- **Coupling-aware re-staging:** the candidate-extent lint (Phase 0 #2), `TEWAHEDO_DISTINCTIVE`, and the promote-guard cleanup moved A→B (they couple to the aes/`_book_shape_cached` fix, out-of-extent semantics, and shared files) — more correct than the plan's clean A/B split (RULES §3).
+- corpus-index equivalence kept EXACT (canon-restricted index) over the finding's `>=` — preserves the Δ-family equivalence pin's strength.
+- The fix-the-class atomic guard surfaced a 3rd notes-store bare-write the audit hadn't named (`fix_xref_targets.py`) — fixed in the same pass.
+
+User directives recorded this session (master plan STAGE C/F + standing rule + `feedback_deploy_means_build_and_deploy` memory):
+- Outward-sync (STAGE F) = **ABSOLUTE** across every connected surface + all metadata, incl. **editing or delete-reposting** stale published content, plus **DRAFTED** (user copy-pastes) X follow-up posts.
+- An **extra note-helper popup** is sanctioned if it improves the reader/note UX (native EPUB3 footnote, no-JS, reader-robust, builder-option).
+
+Continuity pointers:
+- docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md (the live sequence; STAGE C/F updated)
+- docs/superpowers/notes/2026-06-08-round6-split-audit-findings.md (the phased checklist)
+- dev/LANE_HANDOFF.md turn 32 (Mac's 2 pulled-forward parallel tasks)
+
 ## 2026-06-08 (🪟 Windows) — New standing operating doctrine (autonomy + bandwidth-first save cadence)
 
 User-directed at session bootstrap. Rolled a permanent operating doctrine into every enforcement layer: **(a)** never stop to ask the user questions (the full plan + every source already exist; the user raises concerns himself); **(b)** full standing authority — commit/push/pull/build/deploy/launch-website/update-GitHub-GitLab, no permission-asking (the auto-mode undeclared-install soft-deny safety net is retained); **(c)** bandwidth is the hard constraint (~98% weekly) → zero unnecessary context, no narrating computation, bare-minimum announcements; **(d)** save cadence changed from "push every time" to **LOCAL-COMMIT-ONLY during work, full 5-leg push/deploy to all sources only at a MAJOR milestone of the lane's half** (or on a direct user command; a cross-machine handoff is a milestone). Encoded in: `CLAUDE_PROJECT_RULES.md` (new Operational **Guard #5**, **§4** rewrite, rules-map row), Windows out-of-repo memory (`session-operating-doctrine` feedback file, `reference_save` rewrite, `MEMORY.md` pointers), and `LANE_HANDOFF.md` (turn 23 + a durable STANDING block instructing macclaude to mirror its per-box memory half and ACK). Both lanes now split tasks and commit locally until a major part of their half is complete, then sync to all sources. **Driver:** API cost/bandwidth (~$80 for ~1h finishing beta3; near-100% weekly usage) — the cadence + bare-minimum context exist to stop running out before the weekly reset.

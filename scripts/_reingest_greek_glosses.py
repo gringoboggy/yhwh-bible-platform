@@ -44,6 +44,7 @@ from scripts.core.sources_lexicon import (  # noqa: E402
     _GREEK_DEF_OVERRIDES,
     StrongsGreekEntry,
 )
+from scripts.core import notes_io  # noqa: E402  — crash-safe canonical writes
 
 NOTES_DIR = REPO / "content" / "notes"
 BASE_DIR = REPO / "epub_working"
@@ -133,7 +134,8 @@ def main(argv: list[str] | None = None) -> int:
             if ob in new_text:
                 new_text = new_text.replace(ob, nb)
         if new_text != text:
-            p.write_text(new_text, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, new_text)
             src_written += 1
     for p, text in base_texts.items():
         new_text = text
@@ -143,7 +145,8 @@ def main(argv: list[str] | None = None) -> int:
                 new_text = new_text.replace(ob, nb)
                 base_repl += cnt
         if new_text != text:
-            p.write_text(new_text, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, new_text)
             base_written += 1
     print(f"\nWROTE: src={src_written} base={base_written} ({base_repl} occ).")
     return 0

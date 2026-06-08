@@ -56,6 +56,7 @@ sys.path.insert(0, str(REPO))
 import scripts.extract_torrey_ccel as T  # noqa: E402
 from scripts.core.detectors import TorreyTopicalDetector  # noqa: E402
 from scripts.core.sources_lexicon import TorreyTopical  # noqa: E402
+from scripts.core import notes_io  # noqa: E402  — crash-safe canonical writes
 
 NOTES_DIR = REPO / "content" / "notes"
 BASE_DIR = REPO / "epub_working"
@@ -192,7 +193,8 @@ def main(argv: list[str] | None = None) -> int:
             if ob in nt:
                 nt = nt.replace(ob, nb)
         if nt != txt:
-            p.write_text(nt, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, nt)
             sw += 1
     for p, txt in base_texts.items():
         nt = txt
@@ -202,7 +204,8 @@ def main(argv: list[str] | None = None) -> int:
                 nt = nt.replace(ob, nb)
                 brepl += cnt
         if nt != txt:
-            p.write_text(nt, encoding="utf-8")
+            notes_io.ensure_backup(p)
+            notes_io.atomic_write(p, nt)
             bw += 1
     print(f"\nWROTE: index regenerated; src={sw} base={bw} ({brepl} occ).")
 

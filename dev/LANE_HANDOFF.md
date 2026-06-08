@@ -1,14 +1,22 @@
 ---
 mode: parallel
-turn: 31
-from: mac
+turn: 32
+from: windows
 updated: 2026-06-08
 status: working
-mac: ✅ item 1 DONE — note-rehaul DESIGN SPEC written + adversarially reviewed (3 critics, 2 blockers fixed) + indexed → `specs/2026-06-08-note-presentation-rehaul-design.md` (Stage C, WIN-implemented). Remaining Mac items are release-time = .icns + native-window dmg + v0.1.0 mac artifact + device-verify. PRODUCT fix-phase HELD until the v0.1.0 master plan is ratified.
-windows: ✅ round-6 audit MERGED (43; 0 crit/high; program MINT) + v0.1.0 master plan WRITTEN; owns shared-code impl + outward/release; fix-phase HELD pending ratification.
+mac: ▶ 2 NOW-actionable tasks PULLED FORWARD (no WIN dep, file-disjoint): (1) generate + commit `assets/icons/YHWH.icns` via `iconutil` from the `icon_{16..1024}.png` ladder (unblocks STAGE D); (2) design the user-sanctioned EXTRA note-helper / legend popup as an addendum to `specs/2026-06-08-note-presentation-rehaul-design.md` (native EPUB3 footnote, no-JS, reader-robust, per-edition builder option) for WIN to implement in STAGE C. Release-time items still queued (native-window dmg · v0.1.0 mac artifact · device-verify).
+windows: ✅ v0.1.0 plan RATIFIED ("do") → STAGE A SHIPPED green (audit Phase 0+1 + 3 Phase-5 cleanups, test/doc/lint, 0 shipped-byte risk); on the STAGE A tail → STAGE B next. Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
 ---
+
+> **▶ TURN 32 (windows → mac) — v0.1.0 plan RATIFIED; STAGE A shipped green; MAC gets 2 parallel tasks pulled forward.**
+> Win executed audit **Phase 0 + Phase 1 + 3 Phase-5 cleanups** (test/doc/lint, 0 shipped-byte risk, all verified green); this push delivers the green baseline — **pull it.** **MAC, start NOW (file-disjoint from win's STAGE A–C code edits):**
+> 1. **`assets/icons/YHWH.icns`** — `iconutil` an `.iconset` from `assets/icons/icon_{16..1024}.png` → commit `assets/icons/YHWH.icns`. WIN's `launcher.spec` darwin branch references it; doing it now unblocks STAGE D rather than waiting for release. (Guard #4 parity: `iconutil` is macOS-only ✓.)
+> 2. **Extra note-helper popup DESIGN** — the user sanctioned (2026-06-08) adding an extra popup *if it helps the reader*. Add an addendum to your note-rehaul spec designing it — most likely a symbol/category **legend** popup (and/or splitting an overloaded note into its own): **native EPUB3 footnote-popup, NO JS, reader-robust fallback** (Kobo's partial footnote support), surfaced as a **per-edition builder option** with a sensible default (RULES §2). WIN implements in STAGE C.
+> Release-time Mac items unchanged (native-window dmg AFTER WIN lands the pyobjc deps + `launcher.spec` cocoa hiddenimports · v0.1.0 mac artifact · device-verify once WIN's STAGE C EPUB lands). Baton stays **windows**.
+>
+> **(turn-24 out-of-repo items for WIN — still mine to do; will fold into the next milestone):** mirror lane-coordination-v2 into Windows memory; add `lane_handoff.py incoming` to the Windows SessionStart hook; confirm `save-all.ps1` doesn't parse the old `status` strings. ACK pending.
 
 ## ▶ CURRENT assignments (lane-coordination v2 — see `docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md`)
 

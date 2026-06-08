@@ -24,13 +24,15 @@ def test_stage_precedence_and_real_truth():
     # still has its source in hand (Guard #2 / the progress map's load-bearing rule).
     assert geez["rev"]["stage"] == "source"
 
-    # Amharic: nothing transcribed yet → every one of the 87 canon books is "source"
+    # Amharic: nothing transcribed yet → every one of the 83 shipped books is
+    # "source" (the 87-book superset minus _SUPERSET_EXCLUDE = {aes,bel,paz,sus},
+    # the v0.0.3-folded books the progress map excludes).
     assert data["amharic"]["counts"]["ready"] == 0
     assert data["amharic"]["counts"]["transcribed"] == 0
-    assert data["amharic"]["counts"]["source"] == 87
+    assert data["amharic"]["counts"]["source"] == 83
 
-    # canon coverage = the full 87-book registry, in canonical order
-    assert len(data["geez"]["books"]) == 87
+    # canon coverage = the 83-book shipped superset, in canonical order
+    assert len(data["geez"]["books"]) == 83
     assert data["geez"]["books"][0]["code"] == "gen"
 
 
@@ -41,7 +43,7 @@ def test_fragment_renders_bars_grid_and_is_honest():
     assert "Ge'ez Bible" in frag and "Amharic Bible" in frag
     assert "4" in frag  # 4 books Bible-ready (Ge'ez)
     # the per-book grid: a cell per canon book, across both grids
-    assert frag.count('class="pb-cell') == 87 * 2
+    assert frag.count('class="pb-cell') == 83 * 2
     # honesty: Ge'ez has ready cells; no script injection in the fragment
     assert 'data-stage="ready"' in frag
     assert "<script" not in frag
@@ -77,7 +79,7 @@ def test_only_transcribed_books_are_clickable():
     frag = gp.render_fragment(data)
     assert 'class="pb-link"' in frag
     assert 'href="{{root}}read/geez/psa.html"' in frag
-    assert frag.count('class="pb-cell') == 87 * 2
+    assert frag.count('class="pb-cell') == 83 * 2
     assert 'class="pb-en"' not in frag  # EN moved OFF the book pills (onto chapter cells)
 
 

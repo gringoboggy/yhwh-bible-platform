@@ -291,6 +291,7 @@ class TestDelta1CorpusIndex:
         # rely on this equivalence pin.
         from scripts.core import corpus_index
         from scripts.core.matrix import compute_matrix
+        from scripts.epub_utils import load_canons
 
         # Δ.6 (2026-05-11): dropped `force=True`; the fingerprint
         # cache picks up real corpus changes within TTL and the
@@ -310,19 +311,19 @@ class TestDelta1CorpusIndex:
         for kind, count in ed_potential.items():
             matrix_total_per_kind[kind] = matrix_total_per_kind.get(kind, 0) + count
 
-        # The corpus index doesn't filter by edition canon — it sees
-        # every note. ethiopian-tewahedo has the FULL 87-book canon,
-        # so the index's count_by_kind() is a superset that should
-        # match per-kind totals for any kind the edition includes.
-        # (Some kinds ship in some editions but not others; we only
-        # compare those kinds that exist in BOTH counts.)
-        index_per_kind = corpus_index.count_by_kind()
-        # Ethiopian canon includes all 87 books, so for any kind
-        # that's in matrix_total_per_kind, the index count must be
-        # >= it (the index also counts notes the matrix filtered
-        # for canon membership — but Ethiopian is a superset).
-        # For perfect equality: every note in any book lands in
-        # ethiopian's potential, so the totals should match.
+        # The corpus index counts EVERY note across ALL books; the matrix's
+        # `potential` counts only the edition's canon books. v0.0.3 folded aes
+        # (Additions to Esther) out of the ethiopian canon → it is now 86 books,
+        # but the index still carries aes's 82 lang-hebrew notes, so the raw
+        # count_by_kind() is a SUPERSET of the matrix (the gap is exactly aes).
+        # Restrict the index to ethiopian's canon books to keep this an EXACT
+        # equivalence pin (still catching index over/under-count within the
+        # canon). Do NOT add aes back to the canon.
+        ethiopian_books = list(load_canons()["ethiopian"]["books"])
+        kab = corpus_index.count_by_kind_and_book(books=ethiopian_books)
+        index_per_kind: dict[str, int] = {}
+        for (_book, kind), n in kab.items():
+            index_per_kind[kind] = index_per_kind.get(kind, 0) + n
         for kind, matrix_count in matrix_total_per_kind.items():
             idx_count = index_per_kind.get(kind, 0)
             assert idx_count == matrix_count, f"mismatch on kind {kind!r}: matrix={matrix_count} index={idx_count}"

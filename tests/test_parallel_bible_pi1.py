@@ -562,12 +562,14 @@ class TestPi1ClosedArcInvariantPreservation:
 
         assert "amharic" in POPUP_LANGUAGES
 
-    def test_embed_font_paths_still_empty_default(self):
-        """Π.0.4 invariant — EMBED_FONT_PATHS defaults to [] for
-        v1.0 byte-identical reproducibility."""
+    def test_embed_font_paths_populated_at_rx_phase3(self):
+        """Π.0.4 seeded EMBED_FONT_PATHS == []; RX Phase 3 (2026-06-05)
+        populated it with the committed OFL fonts (device issue #7), so the pin
+        migrates from the empty seed to the populated families."""
         from scripts import style_config
 
-        assert getattr(style_config, "EMBED_FONT_PATHS", None) == []
+        families = {e.get("family") for e in getattr(style_config, "EMBED_FONT_PATHS", [])}
+        assert {"Cardo", "Noto Serif Ethiopic"} <= families, style_config.EMBED_FONT_PATHS
 
     def test_delta_1_0_divergence_entries_remain_empty(self):
         """δ.1.0 contract — meqabyan_geez_divergence.json entries

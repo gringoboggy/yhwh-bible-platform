@@ -197,6 +197,7 @@ def main() -> None:
         print("indexing Strategy-B chapter anchors as fallback targets …")
     sys.path.insert(0, str(EPUB_DIR.parent))
     from scripts.core import config as _config
+    from scripts.core import notes_io as _notes_io  # crash-safe content/notes writes
 
     chapter_fallback = build_chapter_index(EPUB_DIR, _config.load_books())
     if not args.quiet:
@@ -251,7 +252,8 @@ def main() -> None:
                     un_note = f" · {len(un)} unresolved" if un else ""
                     print(f"  source   {f.name}: {verb} {n_res} ref(s){un_note}")
                 if args.apply:
-                    f.write_text(new_text, encoding="utf-8")
+                    _notes_io.ensure_backup(f)
+                    _notes_io.atomic_write(f, new_text)
 
     # Summary
     n_unresolved = len(all_unresolved)

@@ -230,26 +230,6 @@ NATIVE_NAMES: dict[str, dict[str, str]] = {
 }
 
 
-def native_name(book_code: str, language: str) -> str:
-    """Return the native-script name for ``book_code`` in ``language``.
-
-    ``language`` is one of ``"geez"``, ``"amharic"``, ``"english"``.
-    Returns an empty string for unknown book codes or unknown
-    languages (defensive: a malformed call must NOT crash a build).
-
-    The English value is the SHORT canonical name (e.g., "Genesis"),
-    not the verbose KJV-era title (e.g., "The First Book of Moses,
-    Genesis"). ToC entries want the short form; consumers wanting
-    the long form should read ``books.yaml[title]`` directly.
-    """
-    if not isinstance(book_code, str) or not book_code:
-        return ""
-    rec = NATIVE_NAMES.get(book_code)
-    if not rec:
-        return ""
-    return rec.get(language, "") or ""
-
-
 def chapter_label_for(language: str, chapter_num: int) -> str:
     """Return the per-chapter label in ``language``.
 
@@ -287,12 +267,6 @@ TOC_BILINGUAL_OPTIONS: tuple[str, ...] = (
 # but localizing the separator at one place lets a future right-to-
 # left or em-dash variant land without touching every caller.
 _LABEL_SEP = " / "
-
-# Separator between BOOK and CHAPTER segments within a single ToC
-# entry, when both are bilingual. The MIDDLE DOT (·, U+00B7) matches
-# the conventions used elsewhere in the ToC stats lines and is
-# visually distinct from the / separator above.
-_BOOK_CHAPTER_SEP = " · "
 
 
 def format_toc_book_label(book_code: str, toc_style: str) -> str:
@@ -360,18 +334,3 @@ def format_toc_chapter_label(chapter_num: int, toc_style: str) -> str:
             return f"{geez_part}{_LABEL_SEP}{english_part}"
         return f"{geez_part}{_LABEL_SEP}{amharic_part}{_LABEL_SEP}{english_part}"
     return str(chapter_num)
-
-
-def format_toc_entry(book_code: str, chapter_num: int, toc_style: str) -> str:
-    """Format a combined "book · chapter" ToC entry — useful for
-    callers that surface a single line per chapter rather than
-    the nested book → chapters structure.
-
-    The build pipeline's primary ToC uses the nested form (book
-    line PLUS chapter sub-entries), so this combined form is a
-    convenience for future single-line consumers (e.g., a flat
-    chapter-list export).
-    """
-    book = format_toc_book_label(book_code, toc_style)
-    chap = format_toc_chapter_label(chapter_num, toc_style)
-    return f"{book}{_BOOK_CHAPTER_SEP}{chap}"

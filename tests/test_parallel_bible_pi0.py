@@ -302,21 +302,18 @@ class TestPi0MultiFontInfrastructure:
             "Π.0.4: style_config.EMBED_FONT_PATHS must exist as a list (parallel-Bible multi-font embed infrastructure)"
         )
 
-    def test_embed_font_paths_defaults_to_empty(self):
-        """Π.0 ships the slot empty; binary fonts are added at
-        τ.6.x / Π.2. Default empty list ensures v1.0 build path
-        is unchanged."""
+    def test_embed_font_paths_populated_at_rx_phase3(self):
+        """Π.0 shipped this slot EMPTY (infra committed, binaries not yet).
+        RX Phase 3 (2026-06-05) deliberately populated it with the committed
+        OFL fonts for original-language/Ethiopic embedding (device issue #7),
+        so the durable invariant migrates from the empty seed to the populated
+        MECHANISM (see feedback_share_pin_pattern: a pin asserts what HAS
+        shipped, never what has not yet)."""
         from scripts import style_config
 
         assert isinstance(style_config.EMBED_FONT_PATHS, list)
-        # Allow either truly empty or a list with explicit entries;
-        # for Π.0 ship the contract is "MUST NOT add new embeds
-        # to the default config" so the default is [].
-        assert style_config.EMBED_FONT_PATHS == [], (
-            "Π.0.4 contract: EMBED_FONT_PATHS defaults to [] at Π.0 ship; "
-            "Ethiopic font binary is staged for τ.6.x / Π.2 introduction. "
-            f"Got: {style_config.EMBED_FONT_PATHS}"
-        )
+        families = {e.get("family") for e in style_config.EMBED_FONT_PATHS}
+        assert {"Cardo", "Noto Serif Ethiopic"} <= families, style_config.EMBED_FONT_PATHS
 
     def test_legacy_single_font_knobs_preserved(self):
         """v1.0 reproducibility: the legacy EMBED_FONT_PATH +

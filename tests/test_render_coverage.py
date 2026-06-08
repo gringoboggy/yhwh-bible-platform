@@ -91,3 +91,23 @@ class TestRunAllExitContract:
         for k in ("canonical_books", "geez_tewahedo_rendered", "amharic_tewahedo_rendered"):
             assert k in summary
             assert isinstance(summary[k], int)
+
+
+class TestPrettySummaryHonest:
+    """v0.1.0 audit Phase 5 — ``_pretty`` had a copy-paste DUPLICATE of the two
+    EN back-translation rows and mislabeled the Patrologia track as
+    '(ingest pending)' when the source PDFs are in hand. Pin both fixes."""
+
+    def test_each_back_translation_label_appears_once(self):
+        from scripts.render_coverage import _pretty, run_all
+
+        text = _pretty(run_all())
+        assert text.count("geez-tewahedo-en (back-translation):") == 1, text
+        assert text.count("amharic-tewahedo-en (back-translation):") == 1, text
+
+    def test_patrologia_label_is_source_in_hand_not_ingest_pending(self):
+        from scripts.render_coverage import _pretty, run_all
+
+        text = _pretty(run_all())
+        assert "source PDFs in hand" in text, text
+        assert "(ingest pending)" not in text, text

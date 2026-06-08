@@ -285,16 +285,11 @@ def _pretty(rep: dict) -> str:
         f"amharic-tewahedo-en (back-translation): {s['amharic_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
     )
     lines.append(
-        f"geez-tewahedo-en (back-translation): {s['geez_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
-    )
-    lines.append(
-        f"amharic-tewahedo-en (back-translation): {s['amharic_tewahedo_en_rendered']}/{s['canonical_books']} rendered"
-    )
-    lines.append(
         f"manuscript track: {s['manuscript_track_chapters_calibrated']} chapters calibrated (4 books in flight)"
     )
     lines.append(
-        f"patrologia track: {s['patrologia_track_books_pdf_available']} books with PDFs ready (ingest pending)"
+        f"patrologia track: {s['patrologia_track_books_pdf_available']} books with source PDFs in hand "
+        "(own-versification re-ingest is a separate pending lane)"
     )
     lines.append("")
 

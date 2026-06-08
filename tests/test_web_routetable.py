@@ -1401,13 +1401,17 @@ class TestOmega35A10BespokePutCleanup:
     preview's "error" key has no `status` discriminator).
     """
 
-    def test_put_table_has_twelve_entries(self):
-        # A.5 + A.10 baseline + ε.7 press-kit; the ε.6 distribution-mark and
-        # ξ.26 license PUT routes were never implemented, so the floor is 10.
-        # (mint-10: corrected from a stale 12 that expected future routes.)
+    def test_put_table_has_eleven_entries(self):
+        # A.5 + A.10 baseline + ε.7 press-kit + ρ.3 C2-5 edition/note-override
+        # (the ε.6 distribution-mark and ξ.26 license PUT routes were never
+        # implemented). v0.1.0 audit Phase 0: the count is COUPLED to the
+        # inventory below — pin presence by pattern, not a positional index, so
+        # a route add can't bump the count without registering the route.
         from scripts import web
 
-        assert len(web._PUT_ROUTES) == 10
+        patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        assert len(web._PUT_ROUTES) == 11
+        assert any("/note-override" in p for p in patterns), patterns
 
     def test_put_table_includes_a10_routes(self):
         from scripts import web

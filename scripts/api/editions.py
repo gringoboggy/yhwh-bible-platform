@@ -165,7 +165,12 @@ def _append_cloned_edition(
             fields_text.append(f"    {fname}: true")
         elif fval is False:
             fields_text.append(f"    {fname}: false")
-        elif fval == "" or fval == 0:
+        elif isinstance(fval, (int, float)):
+            # Emit a numeric scalar as a bare literal. (Bools are handled
+            # above via `is True/False`; this catches int/float, incl. 0 —
+            # which the old `fval == 0` branch wrongly serialized as "".)
+            fields_text.append(f"    {fname}: {fval}")
+        elif fval == "":
             fields_text.append(f'    {fname}: ""')
         else:
             sval = str(fval).replace('"', '\\"')

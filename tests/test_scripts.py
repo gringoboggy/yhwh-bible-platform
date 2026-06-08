@@ -823,12 +823,15 @@ class TestCanonFilter:
         """The five canons must hit their headline book counts.
         These numbers are the legal counts that match books.yaml splits."""
         canons = self.mod.load_canons()
+        # v0.0.3 folded the empty "Additions to Esther" (aes) out of every canon
+        # (it duplicated Esther's additions) → catholic/orthodox/ethiopian each
+        # drop one book. tanakh/protestant never carried aes, so they're unchanged.
         expected = {
             "tanakh": 39,  # Christian-split numbering
             "protestant": 66,
-            "catholic": 76,  # 73 standard + Greek splits ours stores separately
-            "orthodox": 78,
-            "ethiopian": 87,
+            "catholic": 75,  # 73 standard + Greek splits we store separately; aes folded out (v0.0.3)
+            "orthodox": 77,
+            "ethiopian": 86,  # 87-book superset minus the folded aes
         }
         for cid, target in expected.items():
             actual = len(canons[cid].get("books", []))
@@ -1150,14 +1153,16 @@ class TestMatrix:
         """A kind that's filtered OUT of an edition should:
            enabled[ed][kind] == 0 (or absent — same thing)
            but potential[ed][kind] may be nonzero
-        At least one such pair must exist (ethiopian-tewahedo
-        explicitly disables comm-reformation in editions.yaml)."""
+        jewish-study (Tanakh) filters out comm-reformation — it has potential
+        (the kind exists in the corpus) but enabled == 0. (ethiopian-tewahedo no
+        longer exercises this: the v0.0.3 full-notes edition ENABLES every
+        category incl. comm-reformation, so the invariant is vacuous there.)"""
         m = self.mod.compute_matrix()
-        # ethiopian-tewahedo disables comm-reformation
-        ed_id = "ethiopian-tewahedo"
+        ed_id = "jewish-study"
         kind = "comm-reformation"
-        if kind in m.potential[ed_id] and m.potential[ed_id][kind] > 0:
-            assert m.enabled[ed_id].get(kind, 0) == 0, f"{kind} should be filtered out of {ed_id}"
+        # precondition (else the test goes vacuous): the kind must have potential here
+        assert m.potential[ed_id].get(kind, 0) > 0, f"{kind} has no potential in {ed_id}"
+        assert m.enabled[ed_id].get(kind, 0) == 0, f"{kind} should be filtered out of {ed_id}"
 
 
 # ============================================================
@@ -1949,13 +1954,14 @@ class TestEditionMeta:
 
     def test_customize_data_exposes_edition_canon_books(self):
         """The per-book matrix UI filters books by canon — Tanakh
-        editions show 39 rows, Ethiopian shows 87. The filter source
-        is the edition_canon_books map in the customize payload."""
+        editions show 39 rows, Ethiopian shows 86 (87 superset minus the
+        v0.0.3-folded aes). The filter source is the edition_canon_books
+        map in the customize payload."""
         d = self.web.api_customize_data()
         assert "edition_canon_books" in d
         cb = d["edition_canon_books"]
         # Spot-check known canon sizes
-        assert len(cb["ethiopian-tewahedo"]) == 87
+        assert len(cb["ethiopian-tewahedo"]) == 86
         assert len(cb["jewish-study"]) == 39
         assert len(cb["evangelical-reformed"]) == 66
         # gen + rev are universal across editions that include them
@@ -2143,15 +2149,16 @@ class TestEditionMeta:
         assert "image extension" in r["error"]
 
     def test_api_covers_filters_by_canon(self):
-        """Tanakh shows 39 slots (no NT), Reformed 66, Catholic 76,
-        Ethiopian 87 — same constraint that powered the popup-language
-        UI now applies to covers."""
+        """Tanakh shows 39 slots (no NT), Reformed 66, Catholic 75,
+        Ethiopian 86 — same constraint that powered the popup-language
+        UI now applies to covers (catholic/ethiopian each −1 after the
+        v0.0.3 aes fold)."""
         d = self.web.api_covers()
         by_id = {r["edition_id"]: r for r in d["editions"]}
         assert len(by_id["jewish-study"]["book_covers"]) == 39
         assert len(by_id["evangelical-reformed"]["book_covers"]) == 66
-        assert len(by_id["catholic-study"]["book_covers"]) == 76
-        assert len(by_id["ethiopian-tewahedo"]["book_covers"]) == 87
+        assert len(by_id["catholic-study"]["book_covers"]) == 75
+        assert len(by_id["ethiopian-tewahedo"]["book_covers"]) == 86
         # Tanakh must NOT include NT books
         tanakh_codes = {s["book_code"] for s in by_id["jewish-study"]["book_covers"]}
         assert "rev" not in tanakh_codes
