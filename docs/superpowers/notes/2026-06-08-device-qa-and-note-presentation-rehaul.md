@@ -66,8 +66,14 @@ render cleanly.
   instead of bare "1,2,3"; richest = pericope/section titles IF we acquire a section-heading
   dataset (FUTURE — no data yet). The custom pill ToC has full design freedom; the native
   ToC only has label text.
+  (c) **User-facing instructions (user-directed 2026-06-08):** ship the native-chapter
+  toggle WITH a short explanation — in the `/customize` help text (and optionally a one-line
+  note on the ToC page itself) — that native expand/collapse is **reader-dependent**: only
+  some reader apps support it, so keep it OFF if yours shows a flat indented list (Apple
+  Books / Kindle do). Sets expectations so the toggle isn't confusing. (Same principle for
+  ANY toggle whose effect depends on reader capability.)
 - **Effort:** toggle = small; incipit labels = small (derive from each chapter's first
-  verse); pericope titles = needs data (defer).
+  verse); pericope titles = needs data (defer); help/instruction text = trivial.
 
 ### 2. "Your-Edition" stats popup renders broken (full-page, misaligned table). [WIN/shared · app/EPUB — real bug]
 - **IMG_0177:** the "Your-Edition" view shows a per-book NOTE-COUNT table (Genesis 4,903 /
