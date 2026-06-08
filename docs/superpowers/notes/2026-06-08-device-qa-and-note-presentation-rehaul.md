@@ -143,6 +143,30 @@ PRESERVE all distinct scholarship — collapse only TRUE redundancy (repeated at
 category prefixes; identical or near-identical bodies; duplicate topic terms). Never drop a
 distinct point.
 
+**★ NOTE-PRESENTATION NORTH STAR (user, 2026-06-08) — the quality bar for the whole rehaul:**
+"I want the notes to look so pretty, on ANY reader … displayed very nicely, not redundant or
+messy, with structure like the Bible itself — cascade(-inspired) navigability."
+- **Reader-robust FIRST, enhancement SECOND (critical constraint):** the hierarchy must NOT
+  depend on CSS that limited readers strip. e-ink Kobo / basic readers ignore background-color,
+  rounded cards, custom fonts. So carry the structure with primitives that survive EVERYWHERE —
+  semantic headings, left border-rules / hanging indents, dividers, type weight/size, category
+  labels + the existing icons (◇⌂⌘▌⚖○✦) — and layer tinted-card backgrounds (06-06 spec 3.2) ON
+  TOP as progressive enhancement only. NEVER let a background be the sole cue. (Acceptance: turn
+  CSS backgrounds off → the note block is still clearly structured + readable.)
+- **Cascade-inspired hierarchy = mirror the Bible's own structure.** Just as the canon is
+  book → chapter → verse, a verse's notes cascade: **verse → category (Word study / Commentary /
+  Cross-ref / Topic / Dictionary …) → source/author → the note**, ordered + consistent every
+  time. Where the reader supports it (and in the custom in-EPUB surface we control) this can be
+  navigable / collapsible like the pill ToC; where it can't, the same cascade renders as a clean
+  indented outline. Same philosophy as the ToC (finding 1): one structured, navigable hierarchy
+  that degrades gracefully.
+- **Pretty + consistent:** uniform spacing, a clear per-group header, the source named once
+  (S1), no repeated prefixes (S2), no dup terms (S3a) — so every verse's note block looks the
+  same calm, structured way, on any device.
+- This ELEVATES 06-06 spec 3.2 (tinted cards / grouped / de-duped): keep the cards as the
+  enhancement layer, but the grouping + dedup + the robust-primitive structure are the load-
+  bearing parts that must look right WITHOUT the cards.
+
 **Staged plan (cheapest/safest first; each a builder option, default-on for the Ethiopian
 Bible, gated so the 9 KJV editions stay byte-identical when unset). User has OK'd doing the
 combining in the builder.**
