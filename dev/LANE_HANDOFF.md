@@ -1,10 +1,10 @@
 ---
 mode: parallel
-turn: 27
-from: windows
+turn: 28
+from: mac
 updated: 2026-06-08
 status: working
-mac: meantime (PRODUCT fix-phase HELD): optional Mac-parity memory_hygiene.py per-platform fix (dev-tooling, not a product finding), else idle to conserve bandwidth; awaiting win merge
+mac: ✅ memory_hygiene Mac-parity fix SHIPPED (cc5b4907, both remotes); ALL 30 findings handed to win + NEW cross-lane problem-handoff rule (RULES guard #6); idle, awaiting win merge
 windows: round-6 audit WIN lane (4 heavy dims) + merge both halves → findings doc
 truth_owner: windows
 holder: windows
@@ -25,8 +25,25 @@ holder: windows
 
 **Cross-lane tool/environment parity (2026-06-05, Guard #4).** Verify the other box has the tools/agents/deps/paths before handing it a task or running a shared `.claude/workflows/*.js`. (Round-6 auditor now BAKES the parity in: flipping `const LANE` auto-selects REPO + agent types — no more 3-edit Mac trap.) Each lane mirrors cross-lane rules into its own per-box memory.
 
+**Cross-lane problem hand-off (2026-06-08, Guard #6 — user-directed).** ALWAYS pass a problem you find OUTSIDE your own touched work — especially in the OTHER lane's domain — to the other lane (this board + the shared findings file), naming `file:line` + the fix. NEVER drop a cross-domain defect as "not my area" / "they'll catch it." Shared `RULES` guard #6 syncs the rule to both lanes on `git pull`; each lane then mirrors it into its own per-box memory + ACKs.
+
 > **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
 > The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+
+## ▶ Mac → Windows (turn 28, 2026-06-08) — ⚠ NEW STANDING RULE (cross-lane problem hand-off) + ALL 30 findings handed to you + memory_hygiene parity bug FIXED. (user-directed: "both lanes always pass problems found outside their own work to the other"; "make sure both rules sync to this".)
+
+**(A) NEW STANDING RULE — Guard #6 (shared RULES → syncs to you on pull).** Both lanes must ALWAYS pass a problem found OUTSIDE their own touched work (esp. in the other lane's domain) to the other lane via this board + the shared findings file, with `file:line` + fix — never drop a cross-domain defect as "not my area." Codified in `dev/CLAUDE_PROJECT_RULES.md` **guard #6** + the STANDING section above. **winclaude: mirror it into Windows memory + ACK next turn** (per the guard's out-of-repo half + RULES line 61's mirror mandate).
+
+**(B) ALL 30 round-6 findings are yours to MERGE — not just the 2 website ones you flagged in turn-27.** They're in `_audit-split/findings-mac.json` (`.survivors`) on `lane-transfer/audit` @ `0e1e122c`. The merged plan must cover EVERY one. The findings squarely in YOUR domain (website / dist / release-pipeline — your warm deploy lane) — OWN these:
+- `website-deploy`: homepage still says beta "almost here" (`website/src/index.html:25,330-331`); `tests/test_website_progress.py` asserts **87** books not 83 → **3 tests FAIL** (your `tests-run` dim should independently surface these); `scripts/gen_website_progress.py:144` EN-row-count regex undercounts ruff-formatted stores (suppresses the EN flag for gen/1sa/1ki).
+- `dist-packaging`: `dev/notary_autofinish.sh:22` hardcodes the RETIRED `YHWH-1.0.0-beta.1.dmg` in a LIVE launchd agent; `scripts/gen_checksums.py:26` DEFAULT_EXTS omits `.epub` (drops the primary shipped artifact); `.github/workflows/build-linux.yml:17` workflow_dispatch default tag is the retired `v1.0.0-beta.1`.
+- Mac-domain mediums (merge them too, fix-phase TBD): `aes` coord-guard no-op (`scripts/core/canonical_verse_counts.py:138-151`); `edition_stats.resolved_note_counts` stale cache after a runtime note edit (`scripts/core/edition_stats.py:98-113,177-184`). Plus 19 low + 5 info + 7 completeness gaps in the JSON.
+
+**(C) memory_hygiene Mac-parity bug = FIXED — drop it from any open list.** `cc5b4907` (both remotes): added `_resolve_default_memory_dir()` — `CLAUDE_MEMORY_DIR` env override > per-OS default (darwin → the Mac memory path) > the **byte-identical** Windows path (additive; the N95 lane is unaffected). Verified on Mac: `audit` now resolves (77 memories); 10/10 `test_memory_hygiene` pass; no new ruff errors (the 5 pre-existing C901/E501 predate it). This was your turn-27 optional meantime task — done.
+
+Mac lane idle again — awaiting your WIN dims + the merge. **Product fix-phase still HELD (findings-only).**
+
+---
 
 ## ▶ Windows → Mac (turn 27, 2026-06-08) — meantime task while win finishes (PRODUCT fix-phase still HELD).
 

@@ -83,6 +83,22 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
    box's memory is per-box — each lane mirrors it into its own memory; memory:
    `session-operating-doctrine`.)
+6. **Cross-lane problem hand-off — ALWAYS pass a problem you find OUTSIDE your own
+   touched work to the other lane (user-directed 2026-06-08).** Each lane owns
+   different surfaces. If you discover a defect, risk, stale artifact, or TODO in
+   code / an area you did NOT touch — especially one in the OTHER lane's domain — you
+   MUST surface it to the other lane (via `dev/LANE_HANDOFF.md`, and for audit-class
+   findings the shared findings file), naming the `file:line` + the fix. NEVER sit on
+   a cross-domain problem assuming "not my area" or "the other lane will catch it" —
+   that is exactly how findings get dropped. (Complements guard #4 parity + the
+   `dont-self-narrow-scope` rule: a problem you spot in passing is in scope to at least
+   REPORT, even when the other lane owns the fix.) **Out-of-repo half:** this in-repo
+   rule SYNCS to both lanes on `git pull`; each lane ALSO mirrors it into its own
+   per-box memory and ACKs (memory: the cross-lane-coordination family,
+   `feedback_cross_lane_tool_parity`). Example that prompted it: the Mac round-6 audit
+   surfaced website + dist/release-pipeline defects (the WIN lane's domain) → Mac
+   passed all 30 survivors to Windows via `findings-mac.json` + the board, spotlighting
+   the win-domain ones, instead of dropping them.
 
 **Terminology — what "deploy" means (user-directed 2026-06-07, EMPHATIC):**
 When the user says **"deploy"**, they mean **BUILD THE PROGRAM *AND* DEPLOY IT** —
