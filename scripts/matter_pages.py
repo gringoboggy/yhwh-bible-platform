@@ -470,7 +470,11 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
         f'    <p class="your-edition-total"><strong>{total:,}</strong> {"note" if total == 1 else "notes"} in all.</p>'
     )
 
-    # Per-book table — canonical book order (RULES §6.1), count>0 only.
+    # Per-book counts — canonical book order (RULES §6.1), count>0 only.
+    # finding 2: a <table table-layout:fixed> clipped the book-name column off the
+    # left in Apple-Books (no first-row/<colgroup> widths → intrinsic overflow); a
+    # float-based 2-column block has no table-layout dependency + is e-ink-safe.
+    # Count emitted FIRST in source so float:right clears correctly.
     per_book = stats.get("per_book") or {}
     book_order = [b["code"] for b in _cfg.load_books()]
     book_titles = _cfg.books_by_code()
@@ -480,16 +484,18 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
         if n <= 0:
             continue
         title = book_titles.get(code, {}).get("title", code)
-        rows.append(f'      <tr><td class="ye-book">{html.escape(title)}</td><td class="ye-count">{n:,}</td></tr>')
+        rows.append(
+            f'      <p class="ye-row"><span class="ye-count">{n:,}</span>'
+            f'<span class="ye-book">{html.escape(title)}</span></p>'
+        )
     if rows:
-        table_block = (
-            '    <table class="your-edition-perbook">\n'
-            "      <thead><tr><th>Book</th><th>Notes</th></tr></thead>\n"
-            "      <tbody>\n" + "\n".join(rows) + "\n      </tbody>\n"
-            "    </table>"
+        perbook_block = (
+            '    <div class="ye-rows">\n'
+            '      <p class="ye-rows-head"><span class="ye-count">Notes</span>'
+            '<span class="ye-book">Book</span></p>\n' + "\n".join(rows) + "\n    </div>"
         )
     else:
-        table_block = '    <p class="your-edition-perbook-empty">This edition carries no annotations.</p>'
+        perbook_block = '    <p class="your-edition-perbook-empty">This edition carries no annotations.</p>'
 
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
@@ -504,7 +510,7 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
     <h1 class="your-edition-title">{html.escape(heading)}</h1>
 {notes_block}{inside_line}
 {total_line}
-{table_block}
+{perbook_block}
   </section>
 </body>
 </html>

@@ -526,8 +526,16 @@ h1, h2, h3, h1.book-title {
   font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
                Palatino, Georgia, "Times New Roman", serif;
 }
+/* STAGE C / device-QA finding 3: the title page "bleeds onto the next page" — NOT
+   a misalignment (text is already centered below). An `inline-block` frame cannot
+   paginate, so when its contents exceed one reader page the bordered/filled box
+   spills over. `display:block` + `break-inside:avoid` lets it paginate cleanly
+   (centering preserved via the parent `.book-title-page{text-align:center}` + this
+   block's `margin:0 auto; max-width:92%`). The load-bearing partner is the
+   `.bookpage-art` height cap below. (Verify on Apple-Books — paginate-only bug.) */
 .book-title-frame {
-  display: inline-block; margin: 0 auto; max-width: 92%;
+  display: block; break-inside: avoid; page-break-inside: avoid;
+  margin: 0 auto; max-width: 92%;
   border: 1px solid rgba(11, 61, 145, 0.32);
   border-radius: 0.4em; padding: 1.2em 0.9em 1.0em 0.9em;
   background: rgba(184, 134, 11, 0.04);
@@ -546,13 +554,19 @@ h1, h2, h3, h1.book-title {
 /* The per-book art (content/covers/_book_defaults/<book>.jpg) is a 2:3
    portrait plate. */
 /* framed: a contained art plate above the title text, inside the border. */
-.bookpage-art { display: block; max-width: 58%; height: auto; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+/* finding 3 (load-bearing): cap the framed plate by viewport HEIGHT so a 2:3
+   portrait can never dominate / overflow a page (max-width:58% alone left the
+   height = 0.58·col·1.5, tall enough to push the framed box past one page). */
+.bookpage-art { display: block; max-width: 58%; max-height: 42vh; width: auto; height: auto; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
 /* full-bleed: the portrait art fills the page; the title sits OVER it on a
    translucent dark panel near the bottom — legible against any art, and keeps
    art + title on one page (a full-width stacked image would push the title to
    the next page). */
 .book-title-page.style-full-bleed { position: relative; margin: 0; padding: 0; text-align: center; }
-.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; width: 100%; height: auto; margin: 0; }
+/* finding 3 (defensive): even an edge-to-edge plate must stay on its own page —
+   cap height to ~one viewport (undistorted: width follows via auto), centered so
+   it aligns with the overlaid title panel. */
+.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; max-width: 100%; max-height: 88vh; width: auto; height: auto; margin: 0 auto; }
 .book-title-page.style-full-bleed .book-title-frame {
   position: absolute; left: 0; right: 0; bottom: 7%; margin: 0 auto; max-width: 82%;
   border: none; border-radius: 0.45em; background: rgba(18, 14, 8, 0.62); padding: 0.75em 1em;
@@ -578,13 +592,17 @@ h1, h2, h3, h1.book-title {
 .your-edition-notes { margin: 0 0 1em; padding: 0 1.2em; font-style: italic; color: #4a3520; border-left: 2px solid #c9b79c; }
 .your-edition-inside { margin: 0 0 0.6em; line-height: 1.5; }
 .your-edition-total { margin: 0 0 1em; }
-.your-edition-perbook { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0.2em 0 0; font-size: 0.86em; }
-.your-edition-perbook th { text-align: left; font-variant-caps: small-caps; letter-spacing: 0.04em; border-bottom: 1px solid #c9b79c; padding: 0.2em 0.4em; }
-.your-edition-perbook td { padding: 0.12em 0.4em; line-height: 1.3; vertical-align: top; }
-/* (a) the book cell is plain text — never a link colour — and long names wrap
-   inside the fixed column instead of forcing the count column onto its own page. */
-.your-edition-perbook .ye-book { color: inherit; overflow-wrap: break-word; word-break: break-word; }
-.your-edition-perbook .ye-count { width: 4.5em; text-align: right; color: #6E5840; white-space: nowrap; }
+/* finding 2: the per-book counts were a `<table table-layout:fixed>` with no
+   first-row/<colgroup> widths → Apple Books reverted to an intrinsic width that
+   overflowed the viewport and clipped the book-name column off the LEFT. Replaced
+   by a float-based 2-column block: no table-layout dependency (Apple-Books AND
+   e-ink mishandle <table> layout broadly), reader-robust, `float:right` already
+   proven on `.note-back`. The book cell stays plain text (never a link colour). */
+.ye-rows { margin: 0.2em 0 0; font-size: 0.86em; }
+.ye-rows-head { margin: 0 0 0.3em; border-bottom: 1px solid #c9b79c; font-variant-caps: small-caps; letter-spacing: 0.04em; font-weight: 700; clear: both; }
+.ye-row { margin: 0.12em 0; line-height: 1.3; clear: both; }
+.ye-count { float: right; width: 4.5em; text-align: right; color: #6E5840; white-space: nowrap; }
+.ye-book { display: block; color: inherit; overflow-wrap: break-word; word-break: break-word; }
 .your-edition-perbook-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
 
 /* === Back-matter pages (Sources, Reference Tables, Closing Colophon) === */
