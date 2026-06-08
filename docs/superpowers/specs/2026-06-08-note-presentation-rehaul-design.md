@@ -281,3 +281,49 @@ New tests (none exist in 06-06 §5's grouping/colour tests):
 - **Never touch the marathon core** (`build_standalone.py`, `core/manuscript_*`, etc.) — this spec only touches the 9-edition / eth EPUB build path.
 - **9 KJV editions byte-identical when the fields are absent**; eth is the single intentional re-baseline.
 - **Completeness is non-negotiable** — the §4 guard is the enforcement, not a guideline.
+
+---
+
+## Addendum A — extra reader-helper popup: same-file category-legend footnote (user-sanctioned 2026-06-08; Stage C builder option)
+
+**Why.** The user sanctioned an extra popup *if it helps the reader*. The highest-value help: when a reader sees the cascade's category glyph (◇ ⌂ ⌘ …) they can tap it to learn what that category MEANS, **inline, without leaving the verse**. Today the in-note `.note-sym` cross-file link `legend.xhtml#legend-{cat}` is emitted in `scripts/inject.py:230` (`build_aside`; also re-baked at `scripts/resync_marker_glyphs.py:179`), with the destination row + description rendered in `scripts/matter_pages.py:280-284`. A cross-file link NAVIGATES away (jarring) and, being cross-file, never pops as a footnote. This addendum adds an in-file popover using the SAME proven mechanism as the existing note popups.
+
+**Mechanism (native EPUB3, NO JS) — emitted POST-SPLIT, per output piece (this is load-bearing).** EPUB3 footnote popovers (`epub:type="noteref"` ↔ `epub:type="footnote"`) render inline ONLY when the referrer and the target aside are in the **same XHTML file** (Apple Books shows a popover; cross-file navigates). ⚠ The reader file-splitter is **default-ON** (`DEFAULT_READER_FILE_SPLIT=True`, ~0.4 MB target, `build_edition.py:2189`): each book is fragmented into many output pieces, and `rewrite_links` (`build_edition.py:2446`) promotes any noteref whose target id lives in a *different* piece to a cross-file href. So a per-BOOK shared aside (one copy, in one piece) would make the glyph NAVIGATE in every other piece — strictly worse than today. **Therefore the popup is built by a PASS THAT RUNS AFTER `apply_file_split`, on each output piece, entirely in the per-edition TEMP tree (never `epub_working/`).** Gated by `note_category_legend_popup`; a no-op when off ⇒ 9 KJV byte-identical.
+
+For each output piece, when the flag is on:
+1. Find every cascade category header in the piece — `section.vn-group.note-cat-{cat} > p.vn-cat-head > span.vn-cat-sym` (the category id `{cat}` is read off the enclosing group's `note-cat-{cat}` class). **§2's header markup is unchanged** — the popup is a purely post-split decoration, so there is NO §2/Addendum markup conflict.
+2. For each category present in the piece, emit ONE **piece-local** category-legend aside into a notes-section container in that piece (XHTML `hidden=""`, same structure as `ensure_chapter_notes_section`, `scripts/inject.py:602`, `id="notes-{bxx}-c{ch}"`):
+   ```html
+   <aside class="cat-legend note-cat-{cat}" id="catlegend-{piecestem}-{cat}" epub:type="footnote">
+     <p><span class="cat-legend-sym" aria-hidden="true">{glyph}</span>
+        <strong class="cat-legend-label">{label}</strong> — {description}.
+        <a class="cat-legend-more" href="legend.xhtml#legend-{cat}">Full guide ›</a></p>
+   </aside>
+   ```
+   `{piecestem}` = the output file stem (e.g. `index_split_010`) so the id is unique per FILE; `{description}` reuses the `categories.yaml` `description` (one source of truth; rendered in `matter_pages.py:284`, read via `config.load_categories()`, `scripts/core/config.py:288`).
+3. Rewrite each in-piece header glyph `span.vn-cat-sym` → a same-file noteref:
+   ```html
+   <a class="vn-cat-sym" id="catref-{piecestem}-{cat}-{n}" href="#catlegend-{piecestem}-{cat}" epub:type="noteref" title="What is &ldquo;{label}&rdquo;?">{glyph}</a>
+   ```
+   `{n}` increments per occurrence and is unique **within the output file** (a piece holds several chapters in one id-space — reset `{n}` per piece, NOT per chapter). All occurrences in the piece point at the ONE piece-local `catlegend-{piecestem}-{cat}` aside (glossary-term pattern: many noterefs → one footnote target, epubcheck-valid; the aside carries **no** `note-back ↩` — a footnote needs none). The `catref-`/`catlegend-` id prefixes are disjoint from the existing `ref-`/`note-`/`vbadge-`/`vnotes-`/`legend-` namespaces (verified).
+
+Because the aside is co-emitted into the SAME piece as its referrers, every glyph noteref is same-file ⇒ it actually pops.
+
+**Reader-robustness + fallback (the load-bearing guarantee).** This is the exact mechanism the shipped note popups use (`apply_badge_markers` replaces the first per-note aside in place, `build_edition.py:2058`, inside `<aside class="notes-section" epub:type="footnotes" hidden="">`, `inject.py:602`), so its behaviour matches them — Apple Books pops the popover (device-QA-confirmed for note popups; the `hidden` parent does not block the popover, as Apple force-reveals footnote asides). The UNIVERSAL fallback for any reader that does not pop a footnote is the **already-shipped "A Guide to the Notes" page** (`legend.xhtml`, written + put in the OPF spine + nav ToC unconditionally by `inject_symbol_legend_page`, `matter_pages.py:306,336-346`, called at `build_edition.py:4519`); each cat-legend aside also links "Full guide ›" to it. So the popover is **pure progressive enhancement** — where it works it saves a page-jump; where it doesn't, nothing is lost vs today (the glyph + the always-visible legend page remain). An e-ink-primary edition may leave it OFF.
+
+**Stage-C device-QA open items (verify on real devices, with the §5 backgrounds-off pass):** (a) on a reader that neither pops a footnote nor honours `hidden`, a noteref jumps to the in-piece aside — benign; confirm on Apple Books + ADE. (b) **`.kepub` / Kobo:** `kepubify` auto-converts forward internal links meeting its conditions (target id; ≥9 chars; ≤5000 chars; forward) into popups (e-ink research §1, §7-③) — the cat-legend noterefs clear the 9-char floor (good, they pop), but adding another internal-noteref class to a cross-reference-dense Bible compounds the documented "kepub sprouts spurious popups" hazard; verify the `.kepub` build does not over-popup. `catref-`/`catlegend-` ids are ASCII + hyphen-only (no colon/non-ASCII), so they never trip the research §1 non-ASCII-id silent break.
+
+**Reader-robust acceptance for the popup:** the header always prints the category `{label}` text beside the glyph, so a missing-glyph font never hides the category; the popover content leads with the label text, not the glyph; no background/card is load-bearing. (Folds into the §5 `test_note_cascade_glyph_has_label_text` assertion.)
+
+**Secondary option — split an overloaded note (`note_split_long_bodies`, default OFF / opt-in).** When a single note's rendered body exceeds a plain-text length threshold, render a short lead-in (headword + first clause) in the merged `verse-notes` aside and move the FULL body into its own dedicated `epub:type="footnote"` aside reachable by a "more ›" noteref. **Splitter caveat (same root cause):** a long body is exactly what pushes a piece over the 0.4 MB target, so the lead-in and its full-body aside must be **co-located in the same output piece by construction** (emit the body aside into the same piece as its lead-in, in the post-split pass) for the "more ›" to pop; where co-location is impossible it degrades to a cross-file navigate — still **lossless**, and the §4 guard treats the relocated full body as a conserved distinct point. Opt-in, separate from the legend popup, lower priority.
+
+**Builder options (wire per §6; `EDITABLE_BOOL` + `EDITABLE`, NOT `EDITABLE_TEXT`; code default `False` ⇒ 9 KJV byte-identical; eth `True`; effective only under `marker_style = badge`):**
+
+| Field | What | Code default | eth |
+|---|---|---|---|
+| `note_category_legend_popup` | category-glyph → same-piece legend popover | `False` | `True` |
+| `note_split_long_bodies` | overloaded-note → own popup | `False` | `False` (opt-in) |
+
+**epubcheck / base-invariant:** the header glyph becomes ONE `<a>` inside `<p class="vn-cat-head">` — no nested `<a>` (the leaf `.note-sym` anchors are unchanged), so `check_nested_anchors` stays clean; many noterefs → one footnote target is epubcheck-valid; the cat-legend asides ride in the existing per-piece notes-section container (`hidden=""`, no new file structure). The whole pass runs in the per-edition temp tree post-split, so it carries the §6 byte-stability proof obligation and never mutates `epub_working/`.
+
+**Implementation hook:** a new gated pass that runs **after `apply_file_split`** (so co-location is per output piece), reading `note_category_legend_popup` from the edition; reuse `config.load_categories()` (symbol + label + description) and the existing legend description text (do NOT duplicate it). Emit nothing when the flag is off.

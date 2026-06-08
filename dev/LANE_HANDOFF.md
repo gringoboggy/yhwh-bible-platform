@@ -1,16 +1,26 @@
 ---
 mode: parallel
-turn: 32
-from: windows
+turn: 33
+from: mac
 updated: 2026-06-08
 status: working
-mac: ▶ 2 NOW-actionable tasks PULLED FORWARD (no WIN dep, file-disjoint): (1) generate + commit `assets/icons/YHWH.icns` via `iconutil` from the `icon_{16..1024}.png` ladder (unblocks STAGE D); (2) design the user-sanctioned EXTRA note-helper / legend popup as an addendum to `specs/2026-06-08-note-presentation-rehaul-design.md` (native EPUB3 footnote, no-JS, reader-robust, per-edition builder option) for WIN to implement in STAGE C. Release-time items still queued (native-window dmg · v0.1.0 mac artifact · device-verify).
+mac: ✅ BOTH pulled-forward tasks DONE — (1) `assets/icons/YHWH.icns` generated (iconutil, full 16→1024 iconset) + committed (unblocks STAGE D); (2) the extra note-helper popup designed as **Addendum A** in `specs/2026-06-08-note-presentation-rehaul-design.md` (adversarially reviewed; a real splitter blocker fixed → post-split per-piece emission). Release-time items still queued (native-window dmg after WIN's pyobjc/launcher.spec · v0.1.0 mac artifact · device-verify after WIN's STAGE C EPUB).
 windows: ✅ v0.1.0 plan RATIFIED ("do") → STAGE A SHIPPED green (audit Phase 0+1 + 3 Phase-5 cleanups, test/doc/lint, 0 shipped-byte risk); on the STAGE A tail → STAGE B next. Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
 ---
 
-> **▶ TURN 32 (windows → mac) — v0.1.0 plan RATIFIED; STAGE A shipped green; MAC gets 2 parallel tasks pulled forward.**
+## ▶ Mac → Windows (turn 33, 2026-06-08) — ✅ both pulled-forward Mac tasks DONE (icns + extra-popup design). For your STAGE C/D.
+
+**1. `assets/icons/YHWH.icns` committed** — built via `iconutil` from the full `icon_{16,32,64,128,256,512,1024}.png` ladder (all sizes verified exact; standard 10-slot `.iconset`). Your `launcher.spec` darwin branch can reference `assets/icons/YHWH.icns` now → **unblocks STAGE D**. (Win `.ico`/Linux `.png` icon work is still your half of Stage D per the master plan.)
+
+**2. Extra note-helper popup = Addendum A** in `docs/superpowers/specs/2026-06-08-note-presentation-rehaul-design.md` (for STAGE C, after the cascade). A **same-piece category-legend footnote popover**: tap a cascade category glyph → native EPUB3 footnote popover explaining that category (reusing the `categories.yaml` descriptions; "Full guide ›" → the existing `legend.xhtml`). NO JS. 2-critic reviewed.
+- **★ The one thing you MUST honour when implementing (a critic caught it):** the popover MUST be emitted by a pass **AFTER `apply_file_split`, per output piece, in the temp tree** — NOT a per-book aside. Reason: the file splitter is default-ON (~0.4 MB), so a per-book aside lands in one piece and `rewrite_links` turns every other piece's noteref CROSS-FILE → it navigates, not pops (worse than today). Per-piece ids (`catlegend-{piecestem}-{cat}`) keep every noteref same-file. Never touch `epub_working/` (would break 9-KJV byte-stability).
+- Builder-gated `note_category_legend_popup` (default OFF → 9 KJV byte-identical; eth ON), wired exactly like the S1–S3b fields (`EDITABLE_BOOL`+`EDITABLE`). Universal fallback = the always-present `legend.xhtml` nav page (pure progressive enhancement). Secondary opt-in `note_split_long_bodies` documented too.
+
+Mac now idle pending: master-plan stages B/C/E from you, then my release-time items (native-window dmg after your pyobjc/`launcher.spec` lands · v0.1.0 mac artifact · device-verify after your STAGE C EPUB). Baton stays **windows**.
+
+
 > Win executed audit **Phase 0 + Phase 1 + 3 Phase-5 cleanups** (test/doc/lint, 0 shipped-byte risk, all verified green); this push delivers the green baseline — **pull it.** **MAC, start NOW (file-disjoint from win's STAGE A–C code edits):**
 > 1. **`assets/icons/YHWH.icns`** — `iconutil` an `.iconset` from `assets/icons/icon_{16..1024}.png` → commit `assets/icons/YHWH.icns`. WIN's `launcher.spec` darwin branch references it; doing it now unblocks STAGE D rather than waiting for release. (Guard #4 parity: `iconutil` is macOS-only ✓.)
 > 2. **Extra note-helper popup DESIGN** — the user sanctioned (2026-06-08) adding an extra popup *if it helps the reader*. Add an addendum to your note-rehaul spec designing it — most likely a symbol/category **legend** popup (and/or splitting an overloaded note into its own): **native EPUB3 footnote-popup, NO JS, reader-robust fallback** (Kobo's partial footnote support), surfaced as a **per-edition builder option** with a sensible default (RULES §2). WIN implements in STAGE C.
