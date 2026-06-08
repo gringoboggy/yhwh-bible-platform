@@ -167,9 +167,35 @@ stage byte-stable on KJV + visually on eth + a real device.
 - **Effort:** small–moderate (app CSS + nav template in `scripts/web.py`/templates).
   Frontend-only; verify in the native window per platform.
 
+### 7. ⭐ HIGH — macOS desktop app opens in a BROWSER (localhost), not its OWN native OS window. Packaging bug, NOT the design. [MAC build (dmg) + shared spec]
+- **User:** expected a traditional installed program that opens its OWN OS window; the macOS
+  version "opens up on a localhost site" (a browser).
+- **Diagnosis (high confidence):** the launcher HAS a native-window mode — `_run_native` via
+  pywebview (`scripts/launcher.py`, `scripts/desktop_shell.py`): frozen + pywebview importable
+  → `select_shell_mode`="native" → own OS window (own icon, dock entry); ELSE it falls back to
+  "browser" (`schedule_browser_open` → default browser at localhost). The Mac is hitting the
+  BROWSER fallback. Root cause: the macOS native backend isn't bundled — pywebview on macOS
+  needs the Cocoa/WebKit layer (**pyobjc**: `pyobjc-core` + `pyobjc-framework-Cocoa` +
+  `-WebKit`), but `dev/requirements-desktop.txt` pins ONLY `pywebview==6.2.1` (no pyobjc) and
+  `dev/launcher.spec` hiddenimports lists just `"webview"` with a comment that it was "verified
+  building YHWH.exe" (Windows only). So macOS pywebview can't init → browser fallback. (Windows
+  .exe works: its Edge/WebView2 backend is present.)
+- **Fix:** add macOS backend deps (`pyobjc-framework-Cocoa`, `pyobjc-framework-WebKit`,
+  `pyobjc-core`) for the mac build + matching `launcher.spec` hiddenimports
+  (`webview.platforms.cocoa` + the pyobjc modules); REBUILD the `.dmg` ON the Mac, re-notarize
+  + staple, and VERIFY it opens its OWN native window. Also: when native mode is unavailable at
+  runtime, make the fallback EXPLICIT (a clear message), not a silent browser open.
+- **Lane:** the spec/requirements EDIT is shared; **building + notarizing the `.dmg` is
+  MAC-only** (only macOS can build/sign it — this lane shipped the v0.0.3 dmg) → MAC owns the
+  rebuild + device-verify in the fix phase. **Severity: HIGH** (core UX — the app must open its
+  own window, as asked). Verify the Windows `.exe`/Linux `.AppImage` native-window paths too.
+
 ## Routing (RULES guard #6)
 - Items 1–3 + 6 (ToC / stats-popup / title-page / app-nav prettify) → **WIN lane** (build +
   EPUB + app; needs SSD builds + epubcheck + device verify) for the post-merge fix phase.
 - Items 4–5 → **Mac-led design** (this doc → a follow-on spec); build impl on WIN. Both lanes
   aware via the board.
+- Item 7 (macOS native-window / browser-fallback bug) → spec/requirements edit is shared, but
+  the **.dmg rebuild + notarize + device-verify is MAC-only** (only macOS can build/sign it).
+  HIGH priority — it's a core-UX defect.
 - All gated behind the round-6 findings-only hold → fold into the ONE post-merge fix phase.
