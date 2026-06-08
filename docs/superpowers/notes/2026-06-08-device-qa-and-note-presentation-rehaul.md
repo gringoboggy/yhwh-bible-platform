@@ -15,17 +15,37 @@ render cleanly.
 
 ## Findings (with screenshot evidence)
 
-### 1. In-EPUB expandable ToC — go back to it; smaller pills; tune books-per-section. [WIN · build]
+### 1. In-EPUB expandable ToC — a USER ON/OFF TOGGLE; expandable as default; smaller pills; tune books-per-section. [WIN · build]
 - **IMG_0176:** the current ToC is a FLAT `book → page-number` list ("The Ethiopian
   Tewahedo Study Bible", Corinthians 789, Galatians 532, …). User wants the *expandable*
   pill ToC back; on expand, chapter pills currently reflow onto the next page.
+- **User-directed (RULES §2):** the expandable in-EPUB ToC is itself a builder / `/customize`
+  **ON/OFF toggle** — readers pick expandable-pills vs the plain list; **default = expandable
+  ON.** Pill size + books-per-section also builder options.
 - **Assessment:** reflowable EPUB → the reader owns pagination, so "N books per page"
   can't be pinned exactly. Mitigate: (a) smaller pills (less padding/line-height); (b)
   `break-inside: avoid` on each book block so a book + its expanded pills don't split a
-  page; (c) optional soft section breaks. Per RULES §2 make ToC style / pill size /
-  books-per-section builder options, user's pick = default.
+  page; (c) optional soft section breaks.
 - **Effort:** moderate (CSS + ToC generator in `build_edition.py`). Verify canon-filtered
   + real device.
+
+### 1b. ⭐ ROOT CAUSE of the ToC spacing — justified text should be the EPUB DEFAULT, and justification must be SCOPED OFF the ToC. [WIN · CSS — high impact, low risk]
+- **Observed (user):** the justified body text that makes IMG_0167 look great is NOT the
+  EPUB default — the user enables "justified" in the READER app. But the reader's justify
+  toggle is GLOBAL → it also justifies the ToC, spacing the book-name lines out horribly
+  (huge inter-word gaps). So #1's ToC problem and "I have to toggle justify" are ONE issue.
+- **Fix (solves both):** ship `text-align: justify` as the EPUB's OWN default for prose
+  (verse + note bodies) so the user never needs the reader toggle; AND explicitly
+  `text-align: left/start` the ToC, chapter pills, headings, tables, and the stats view so
+  they never justify. With publisher-justified body, the reader stays on "default"
+  alignment → it no longer force-justifies the ToC → book names stay tight. Pair body
+  justify with `hyphens: auto` (+ `-webkit-hyphens`) so justification doesn't open rivers.
+- **Byte-stability:** CSS change → a builder option (`text_align`), default justify+hyphenate
+  for the Ethiopian (shipped) edition; the 9 KJV byte-stable editions keep left unless
+  flipped (or re-baseline intentionally). ToC/pills/headings are ALWAYS left, not subject
+  to the option.
+- **Effort:** small CSS, big perceived-quality payoff. Verify the reader-override
+  interaction on a real device.
 
 ### 2. "Your-Edition" stats popup renders broken (full-page, misaligned table). [WIN/shared · app/EPUB — real bug]
 - **IMG_0177:** the "Your-Edition" view shows a per-book NOTE-COUNT table (Genesis 4,903 /

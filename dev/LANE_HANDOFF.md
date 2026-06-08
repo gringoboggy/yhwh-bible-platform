@@ -33,7 +33,7 @@ holder: windows
 ## ▶ Mac → Windows (turn 29, 2026-06-08) — user REAL-DEVICE QA (Apple Books, the posted v0.0.3 EPUB) captured + routed per guard #6. Still findings-only.
 
 User ran the full posted EPUB + sent 8 screenshots. Verdict: **"just about almost perfect"** — dark themes great, notes much cleaner, no empty pages. 5 findings + full evidence + a staged design → `docs/superpowers/notes/2026-06-08-device-qa-and-note-presentation-rehaul.md`. **WIN-domain (build/EPUB/app) — for the post-merge fix phase:**
-1. **ToC** — revert to the expandable *pill* ToC (current is a flat book→page list, IMG_0176); smaller pills + `break-inside:avoid` so expanded chapter pills don't reflow onto the next page; expose as a builder option (RULES §2).
+1. **ToC + justify (ONE linked root cause).** Ship `text-align:justify` as the EPUB DEFAULT for prose (+ `hyphens:auto`) so users never hit the reader's GLOBAL justify toggle — that global toggle is what spaces the ToC book-names out. Explicitly LEFT-align ToC/pills/headings/tables. Revert to the expandable *pill* ToC (current = flat book→page list, IMG_0176) as a `/customize` ON/OFF toggle (default ON); smaller pills + `break-inside:avoid` so pills don't reflow. byte-stability-gated, builder options (RULES §2). See doc findings 1 + 1b.
 2. **"Your-Edition" stats popup BUG** — the per-book note-count table renders with the book-name column pushed off the LEFT edge (only the right counts show, IMG_0177); full-page popup on note-tap. Render-then-diagnose (ties to `edition_stats`).
 3. **Title-page box bleeds** onto the next page at large reader fonts — `break-inside:avoid` + viewport-relative sizing mitigates; largely inherent to reflowable EPUB (accept residual).
 
