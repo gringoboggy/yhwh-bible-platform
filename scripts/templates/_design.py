@@ -211,6 +211,13 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
 </script>
 <style>
   /* η.1: manuscript skin — match www.yhwhyaway.com. */
+  /* L9 — self-host EB Garamond (the site's body face) from the same-origin /fonts/
+     route so the app renders true EB Garamond instead of falling back to Georgia.
+     Mirrors website/style.css; CSP already allows font-src 'self'. */
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url("/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/eb-garamond-latin-700-normal.woff2") format("woff2"); }
   :root {
     --ms-vellum:#F4ECD8; --ms-parchment:#FBF6E9; --ms-ink:#2B2118; --ms-sepia:#574532;
     --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-gold-hover:#C49A2E; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;
@@ -262,8 +269,16 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
      dark mode so typed text reads). */
   input, select, textarea { border: 1px solid var(--ms-gold-line) !important; background-color: var(--ms-field-bg) !important; }
   input:focus, select:focus, textarea:focus { border-color: var(--ms-indigo) !important; outline: none; }
-  /* card top-accent like the site (.card border-top:4px red) on the shared section card */
-  .rounded-lg.border { border-top: 3px solid var(--ms-red); }
+  /* M5/M16 — cards read as DEFINED boxes matching the site card (solid gold-line
+     perimeter + radius + a soft shadow), but the blood-red top-stripe is NO LONGER
+     blanket-applied to every .rounded-lg.border (it striped neutral stat tiles as if
+     they were alert cards). The site's red 4px top-accent is now OPT-IN via
+     .ms-card-accent, for deliberate hero/section cards only. */
+  .rounded-lg.border { border: 1px solid var(--ms-gold-line) !important; box-shadow: 0 1px 3px rgba(43,33,24,0.10); }
+  .ms-card-accent { border-top: 4px solid var(--ms-red) !important; }
+  /* L4 — translucent-white chips on the dark header (bg-white/25, e.g. the customize
+     unsaved-changes pill) -> a warm gold tint so they don't read as a grey smudge. */
+  .bg-white\\/25 { background-color: rgba(201,178,122,0.30) !important; }
   /* focus ring -> indigo */
   *:focus-visible { outline-color: var(--ms-indigo) !important; }
 </style>"""
@@ -2622,18 +2637,21 @@ WELCOME_OVERLAY_JS = """<script>
     backdrop.setAttribute('role', 'dialog');
     backdrop.setAttribute('aria-modal', 'true');
     backdrop.setAttribute('aria-label', 'Welcome');
-    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:1rem;font-family:system-ui,-apple-system,sans-serif;';
+    // M12 — the first-run welcome modal is built from inline styles the class/token
+    // skin can't reach; retone it to the manuscript chrome so the very first end-user
+    // surface matches (parchment card, ink/sepia serif text, the gold primary CTA).
+    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:1rem;font-family:"EB Garamond",Georgia,serif;';
 
     var card = document.createElement('div');
-    card.style.cssText = 'background:#fff;max-width:30rem;width:100%;border-radius:0.75rem;padding:1.75rem;box-shadow:0 20px 50px rgba(0,0,0,0.3);';
+    card.style.cssText = 'background:#FBF6E9;max-width:30rem;width:100%;border-radius:0.75rem;padding:1.75rem;box-shadow:0 20px 50px rgba(43,33,24,0.3);';
 
     var h = document.createElement('h2');
     h.textContent = "Welcome to YHWH Ya' Way";
-    h.style.cssText = 'font-size:1.5rem;font-weight:700;margin:0 0 0.5rem;color:#0f172a;';
+    h.style.cssText = 'font-size:1.5rem;font-weight:700;margin:0 0 0.5rem;color:#2B2118;';
 
     var p = document.createElement('p');
     p.textContent = 'Build your own study Bible: pick a tradition, choose which notes to include, and export an EPUB. The wizard walks you through it in a few steps.';
-    p.style.cssText = 'font-size:0.95rem;color:#475569;margin:0 0 1.25rem;line-height:1.5;';
+    p.style.cssText = 'font-size:0.95rem;color:#574532;margin:0 0 1.25rem;line-height:1.5;';
 
     var row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:0.75rem;flex-wrap:wrap;';
@@ -2641,12 +2659,12 @@ WELCOME_OVERLAY_JS = """<script>
     var start = document.createElement('button');
     start.type = 'button';
     start.textContent = 'Start building →';
-    start.style.cssText = 'background:#059669;color:#fff;font-weight:600;padding:0.625rem 1.25rem;border:none;border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
+    start.style.cssText = 'background:#B8860B;color:#2B2118;font-weight:600;padding:0.625rem 1.25rem;border:none;border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
 
     var skip = document.createElement('button');
     skip.type = 'button';
     skip.textContent = 'Explore on my own';
-    skip.style.cssText = 'background:none;color:#475569;padding:0.625rem 1rem;border:1px solid #cbd5e1;border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
+    skip.style.cssText = 'background:none;color:#574532;padding:0.625rem 1rem;border:1px solid rgba(154,110,18,0.6);border-radius:0.5rem;cursor:pointer;font-size:0.95rem;';
 
     function dismiss(goWizard) {
       fetch('/api/onboarding/complete', {

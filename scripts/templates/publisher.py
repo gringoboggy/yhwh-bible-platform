@@ -29,7 +29,7 @@ PUBLISHER_HTML = r"""<!DOCTYPE html>
     width: 100%; border: 1px solid #cbd5e1; border-radius: 4px;
     padding: 0.4rem 0.6rem; font-size: 0.875rem;
   }
-  .field-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px #dbeafe; }
+  .field-input:focus { outline: none; border-color: #243B6B; box-shadow: 0 0 0 2px rgba(36,59,107,0.22); }
   .label-text { font-size: 0.75rem; font-weight: 600; color: #475569;
                 text-transform: uppercase; letter-spacing: 0.03em;
                 margin-bottom: 0.25rem; display: block; }

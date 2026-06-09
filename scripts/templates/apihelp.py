@@ -111,13 +111,16 @@ APIHELP_HTML = r"""<!DOCTYPE html>
         c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   function methodBadge(m) {
-    const colors = {
-      'GET': 'bg-blue-100 text-blue-800',
-      'POST': 'bg-emerald-100 text-emerald-800',
-      'GET/POST': 'bg-purple-100 text-purple-800',
+    // M14 — a coherent manuscript-toned method key (indigo read / gold write / red
+    // mutating) instead of the skin-incoherent blue->indigo + untouched bright
+    // emerald + purple. All pairs are dark-on-light-tint and clear AA.
+    const styles = {
+      'GET': 'background:#DDE3F0;color:#243B6B',
+      'POST': 'background:#F3E7C4;color:#7A5A0E',
+      'GET/POST': 'background:#F0DEDE;color:#7A1F2B',
     };
-    const cls = colors[m] || 'bg-slate-100 text-slate-800';
-    return `<span class="inline-block ${cls} text-xs font-mono px-2 py-0.5 rounded">${escape(m)}</span>`;
+    const style = styles[m] || 'background:#EDE6D6;color:#574532';
+    return `<span class="inline-block text-xs font-mono px-2 py-0.5 rounded" style="${style}">${escape(m)}</span>`;
   }
 
   function phaseBadge(p) {

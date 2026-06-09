@@ -76,7 +76,7 @@ HEBREW_HTML = r"""<!DOCTYPE html>
       aria-label="Strong's Hebrew number">
     <button
       type="submit"
-      class="px-4 py-2 rounded theme-accent theme-weight-medium">Look up</button>
+      class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 theme-weight-medium">Look up</button>
   </form>
 
   <div id="result" aria-live="polite"></div>

@@ -1864,6 +1864,26 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json({"error": "not found"}, status=404)
             return self._send_file(file_path)
 
+        # L9 — serve the self-hosted EB Garamond woff2 faces (the same files the
+        # website self-hosts) so the manuscript skin renders true EB Garamond instead
+        # of the Georgia fallback. Sandboxed to website/fonts/ ; read-only; .woff2
+        # only; CSP already allows font-src 'self'.
+        if path.startswith("/fonts/"):
+            rel = path[len("/fonts/") :]
+            from scripts.core.safe_path import (
+                SafePathError,
+                resolve_under,
+            )
+
+            fonts_root = REPO / "website" / "fonts"
+            try:
+                file_path = resolve_under(fonts_root, rel)
+            except SafePathError:
+                return self._send_json({"error": "forbidden"}, status=403)
+            if not file_path.is_file() or file_path.suffix != ".woff2":
+                return self._send_json({"error": "not found"}, status=404)
+            return self._send_file(file_path, content_type="font/woff2")
+
         # ε.7 — press-kit ZIP download. Returns binary (zipfile bytes)
         # so it can't go through the JSON-shaped route tables. Lives in
         # the legacy cascade by design.

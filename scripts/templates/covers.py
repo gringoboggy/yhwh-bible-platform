@@ -26,20 +26,22 @@ COVERS_HTML = r"""<!DOCTYPE html>
 <style>
   .cover-slot {
     aspect-ratio: 2 / 3;
-    border: 2px dashed #cbd5e1;
-    background: #f8fafc;
+    border: 2px dashed rgba(154,110,18,0.42);
+    background: #FBF6E9;
     transition: border-color 120ms, background 120ms;
     overflow: hidden;
     position: relative;
   }
-  .cover-slot.has-cover { border-style: solid; border-color: #94a3b8; background: #fff; }
-  .cover-slot.dragover { border-color: #2563eb; background: #eff6ff; }
+  /* L6 — cover-slot states off cool-gray/blue onto manuscript tones (uploading stays
+     amber as a deliberate status cue). */
+  .cover-slot.has-cover { border-style: solid; border-color: #9A6E12; background: #FBF6E9; }
+  .cover-slot.dragover { border-color: #B8860B; background: #F4ECD8; }
   .cover-slot.uploading { border-color: #f59e0b; }
   .cover-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cover-slot .placeholder {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    color: #94a3b8; font-size: 0.7rem; text-align: center; padding: 0.5rem;
+    color: #6E5840; font-size: 0.7rem; text-align: center; padding: 0.5rem;
   }
   .cover-slot .meta-strip {
     position: absolute; left: 0; right: 0; bottom: 0;

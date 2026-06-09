@@ -182,3 +182,67 @@ class TestWarmedCoolIslandsAA:
         # M9: vivid emerald-700 "on" → deeper emerald-800 so it balances the warm "off".
         src = (TPL / "matrix_app.js").read_text(encoding="utf-8")
         assert "text-emerald-800" in src
+
+
+class TestCardTreatmentAndOverlay:
+    """M5/M16 — neutral cards no longer get the blanket alert-red top-stripe (a defined
+    gold-line perimeter + soft shadow instead; the red top is opt-in via .ms-card-accent).
+    M12 — the first-run welcome overlay is retoned to the manuscript chrome."""
+
+    def test_card_red_stripe_is_no_longer_blanket(self):
+        css = _skin_css()
+        assert ".rounded-lg.border { border-top: 3px solid var(--ms-red); }" not in css
+        assert ".ms-card-accent" in css  # the red accent is now opt-in only
+
+    def test_welcome_overlay_is_manuscript(self):
+        from scripts.templates._design import WELCOME_OVERLAY_JS as W
+
+        assert "#059669" not in W  # the emerald CTA is gone
+        assert "background:#FBF6E9" in W  # parchment card
+        assert "background:#B8860B;color:#2B2118" in W  # gold primary CTA on ink text
+        assert "#0f172a" not in W and "color:#475569" not in W  # cool-gray heading/body gone
+        assert contrast(INK, GOLD) >= AA_NORMAL  # the CTA pair clears AA
+
+
+class TestPrimaryUnifiedAndBadges:
+    """M13 — greek/hebrew 'Look up' routed onto the gold primary (was red theme-accent),
+    so the primary action is ONE colour across console families. M14 — apihelp method
+    badges are a coherent manuscript trio (indigo/gold/red), all AA."""
+
+    def test_geez_greek_lookup_use_the_gold_primary(self):
+        for f in ("hebrew.py", "greek.py"):
+            src = (TPL / f).read_text(encoding="utf-8")
+            assert "rounded bg-blue-600 hover:bg-blue-700" in src
+            assert "rounded theme-accent" not in src
+
+    def test_apihelp_method_badges_are_manuscript_and_AA(self):
+        src = (TPL / "apihelp.py").read_text(encoding="utf-8")
+        assert "bg-emerald-100" not in src and "bg-purple-100" not in src
+        assert contrast("#243B6B", "#DDE3F0") >= AA_NORMAL  # GET (indigo)
+        assert contrast("#7A5A0E", "#F3E7C4") >= AA_NORMAL  # POST (gold)
+        assert contrast("#7A1F2B", "#F0DEDE") >= AA_NORMAL  # GET/POST (red)
+
+
+class TestLowSeriesRetones:
+    """L4-L7 — translucent header chip, sources highlight, covers slot states (+ the
+    pre-existing placeholder AA fail), publisher focus glow. L9 — EB Garamond self-served."""
+
+    def test_sources_mark_highlight_is_warm(self):
+        src = (TPL / "sources.py").read_text(encoding="utf-8")
+        assert "#fef08a" not in src  # the cool lemon highlight is warmed
+
+    def test_covers_slot_states_warm_and_placeholder_clears_AA(self):
+        src = (TPL / "covers.py").read_text(encoding="utf-8")
+        assert "#2563eb" not in src and "#94a3b8" not in src  # blue dragover + faint placeholder gone
+        assert contrast("#6E5840", "#FBF6E9") >= AA_NORMAL  # placeholder on the slot ground
+
+    def test_publisher_focus_glow_is_indigo(self):
+        src = (TPL / "publisher.py").read_text(encoding="utf-8")
+        assert "#2563eb" not in src and "#dbeafe" not in src
+
+    def test_eb_garamond_is_self_hosted(self):
+        css = _skin_css()
+        assert "@font-face" in css and "/fonts/eb-garamond-latin-400-normal.woff2" in css
+        web = (REPO / "scripts" / "web.py").read_text(encoding="utf-8")
+        assert 'path.startswith("/fonts/")' in web  # the serving route exists
+        assert (REPO / "website" / "fonts" / "eb-garamond-latin-400-normal.woff2").is_file()

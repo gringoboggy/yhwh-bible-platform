@@ -30,7 +30,7 @@ SOURCES_HTML = r"""<!DOCTYPE html>
   .book-row:hover { background: #EFE6CE; }
   .book-row.active { background: #E3D4AE; font-weight: 600; }
   .verse-anchor { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
-  mark { background: #fef08a; padding: 0 1px; border-radius: 2px; }
+  mark { background: #F0E2A8; padding: 0 1px; border-radius: 2px; }
 </style>
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
