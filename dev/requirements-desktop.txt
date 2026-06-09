@@ -12,3 +12,14 @@
 # Pinned to the versions verified building YHWH.exe on Python 3.14 (2026-05-25).
 pyinstaller==6.20.0
 pywebview==6.2.1
+# macOS native window (finding 7): pywebview pulls these pyobjc frameworks itself
+# via PEP 508 markers, but pinning them keeps the .dmg build reproducible (all
+# verified resolving to cp314 wheels on Python 3.14.5 — pre-flight 2026-06-08).
+# Marker-gated, so they are a no-op on Windows/Linux. There is NO pywebview[cocoa]
+# extra; plain pywebview is correct on macOS.
+pyobjc-core==12.2 ; sys_platform == "darwin"
+pyobjc-framework-Cocoa==12.2 ; sys_platform == "darwin"
+pyobjc-framework-Quartz==12.2 ; sys_platform == "darwin"
+pyobjc-framework-WebKit==12.2 ; sys_platform == "darwin"
+pyobjc-framework-Security==12.2 ; sys_platform == "darwin"
+pyobjc-framework-UniformTypeIdentifiers==12.2 ; sys_platform == "darwin"

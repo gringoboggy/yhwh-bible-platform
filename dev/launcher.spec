@@ -43,6 +43,49 @@ VERSION = _read_version()
 
 block_cipher = None
 
+# Hidden imports the PyInstaller static analyzer misses. The base set covers the
+# dynamically-registered detectors/sources and the first-run migrator. On macOS
+# we ALSO name the PyWebView Cocoa backend + its pyobjc framework bridges:
+# pywebview importlib-loads ``webview.platforms.cocoa`` at runtime, so PyInstaller
+# omits it (and the pyobjc modules) from the frozen .app unless listed here — and
+# without them the native window silently falls back to the browser (finding 7;
+# pre-flight docs/superpowers/notes/2026-06-08-macos-native-window-preflight.md,
+# import-proven on Python 3.14.5). Windows/Linux resolve their backend from the
+# top-level "webview" scan, so they need only the base set.
+_HIDDENIMPORTS = [
+    # ALL_DETECTORS dynamically registers detector classes;
+    # PyInstaller's static analyzer doesn't always pick them up.
+    "scripts.core.detectors",
+    "scripts.core.sources",
+    "scripts.core.traditions",
+    "scripts.core.covers",
+    "scripts.core.config",
+    "scripts.core.translations",
+    "scripts.core.notes_io",
+    "scripts.core.html_utils",
+    "scripts.core.epubcheck",
+    "scripts.core.fetcher_config",
+    "scripts.migrate_to_user_data",
+    # θ.2: PyWebView for native shell mode. On Windows/Linux the platform backend
+    # (WebView2 / WebKitGTK) is picked up by scanning the top-level "webview"
+    # package, so listing it is sufficient there.
+    "webview",
+]
+if sys.platform == "darwin":
+    # macOS: name the dynamically-imported Cocoa backend + pyobjc bridges so the
+    # frozen .app actually opens its native WKWebView window (finding 7).
+    _HIDDENIMPORTS += [
+        "webview.platforms.cocoa",
+        "objc",
+        "Foundation",
+        "AppKit",
+        "WebKit",
+        "Quartz",
+        "Security",
+        "CoreFoundation",
+        "UniformTypeIdentifiers",
+    ]
+
 a = Analysis(
     [str(ROOT / "scripts" / "launcher.py")],
     pathex=[str(ROOT)],
@@ -62,27 +105,7 @@ a = Analysis(
         # epub_working/.backups/ snapshot subtree (~2.6 GB) is filtered below.
         (str(ROOT / "epub_working"), "epub_working"),
     ],
-    hiddenimports=[
-        # ALL_DETECTORS dynamically registers detector classes;
-        # PyInstaller's static analyzer doesn't always pick them up.
-        "scripts.core.detectors",
-        "scripts.core.sources",
-        "scripts.core.traditions",
-        "scripts.core.covers",
-        "scripts.core.config",
-        "scripts.core.translations",
-        "scripts.core.notes_io",
-        "scripts.core.html_utils",
-        "scripts.core.epubcheck",
-        "scripts.core.fetcher_config",
-        "scripts.migrate_to_user_data",
-        # θ.2: PyWebView for native shell mode. Platform-specific
-        # backends (CEF / Edge / Cocoa / GTK) are conditionally
-        # imported by the webview package itself; PyInstaller picks
-        # them up when scanning the package, so listing the top-
-        # level "webview" is sufficient on all platforms.
-        "webview",
-    ],
+    hiddenimports=_HIDDENIMPORTS,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -154,10 +177,11 @@ if sys.platform == "darwin":
         upx_exclude=[],
         name="YHWH",
     )
+    _ICNS = ROOT / "assets" / "icons" / "YHWH.icns"
     app = BUNDLE(
         coll,
         name="YHWH.app",
-        icon=None,  # TODO: dev/YHWH.icns once a branded app icon is cut
+        icon=str(_ICNS) if _ICNS.is_file() else None,  # branded .app icon (assets/icons/YHWH.icns)
         bundle_identifier="com.yhwhyaway.yhwh",
         version=VERSION,
         info_plist={

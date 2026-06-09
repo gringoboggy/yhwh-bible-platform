@@ -223,9 +223,11 @@ def main(
 
     server = start_server(args.host, port, server_factory=server_factory)
     url = build_url(args.host, port)
+    frozen = is_frozen()
+    pywebview_available = desktop_shell.is_pywebview_available()
     shell_mode = desktop_shell.select_shell_mode(
-        frozen=is_frozen(),
-        available=desktop_shell.is_pywebview_available(),
+        frozen=frozen,
+        available=pywebview_available,
         force=args.shell if args.shell != "auto" else None,
     )
 
@@ -233,6 +235,12 @@ def main(
     print("  YHWH — Bible publishing platform")
     print(f"  serving at: {url}")
     print(f"  shell:      {shell_mode}")
+    # finding 7: make the native→browser fallback EXPLICIT. A frozen binary
+    # auto-selects native; when the bundled PyWebView backend fails to import
+    # (the launcher.spec hiddenimports gap), we silently land on browser — which
+    # reads like normal behavior. Say so, so a packaging regression is visible.
+    if shell_mode == "browser" and frozen and not pywebview_available and args.shell != "browser":
+        print("  ! native window backend unavailable — falling back to the browser")
     if shell_mode == "browser":
         print("  Ctrl-C to stop")
     print()
