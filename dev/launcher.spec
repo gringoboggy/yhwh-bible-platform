@@ -104,6 +104,13 @@ a = Analysis(
         # MUST be bundled or the frozen build fails with WinError 3. The huge
         # epub_working/.backups/ snapshot subtree (~2.6 GB) is filtered below.
         (str(ROOT / "epub_working"), "epub_working"),
+        # Self-hosted UI fonts (SIL OFL 1.1) so the frozen app's manuscript skin
+        # renders EB Garamond + Noto Serif Ethiopic exactly like the website instead
+        # of 404ing the /fonts/ route + falling back to Georgia. Same files the site
+        # ships (website/fonts/), served by scripts/web.py's /fonts/ route. Without
+        # this the route works in dev but 404s in the frozen build (the §1.5 bundle-
+        # path gotcha). Spec: docs/superpowers/specs/2026-06-09-app-eb-garamond-selfhosting.md §2.
+        (str(ROOT / "website" / "fonts"), "website/fonts"),
     ],
     hiddenimports=_HIDDENIMPORTS,
     hookspath=[],

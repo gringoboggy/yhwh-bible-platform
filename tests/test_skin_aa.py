@@ -246,3 +246,36 @@ class TestLowSeriesRetones:
         web = (REPO / "scripts" / "web.py").read_text(encoding="utf-8")
         assert 'path.startswith("/fonts/")' in web  # the serving route exists
         assert (REPO / "website" / "fonts" / "eb-garamond-latin-400-normal.woff2").is_file()
+
+
+class TestEbGaramondCompletion:
+    """The L9 self-host shipped the 4 Latin faces + the /fonts route, but left two
+    gaps that this project specifically needs closed (spec
+    docs/superpowers/specs/2026-06-09-app-eb-garamond-selfhosting.md §4.1, §1.5):
+      (a) Noto Serif Ethiopic (Ge'ez) was never declared — EB Garamond has no
+          Ethiopic glyphs, so any Ge'ez/Amharic in a console renders tofu;
+      (b) website/fonts was NOT bundled in launcher.spec, so the FROZEN .exe/.app
+          404s every woff2 (works in dev only) — the §1.5 bundle-path gotcha."""
+
+    def test_noto_serif_ethiopic_face_is_declared(self):
+        css = _skin_css()
+        assert "/fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2" in css
+        assert "unicode-range:" in css  # range-scoped → zero cost on Latin-only pages
+        assert (REPO / "website" / "fonts" / "noto-serif-ethiopic-ethiopic-400-normal.woff2").is_file()
+
+    def test_geez_font_stacks_fall_through_to_ethiopic(self):
+        # The face (1) + all four font stacks (Tailwind sans/serif + --font-stack-body
+        # + body) must name the Ethiopic family, so Ge'ez has a glyph source everywhere.
+        css = _skin_css()
+        assert css.count('"Noto Serif Ethiopic"') >= 5
+
+    def test_website_fonts_is_bundled_for_the_frozen_app(self):
+        # Without this datas entry the /fonts route 404s in the frozen build (§1.5).
+        spec = (REPO / "dev" / "launcher.spec").read_text(encoding="utf-8")
+        assert "website" in spec and "fonts" in spec
+
+    def test_stale_georgia_fallback_comment_is_corrected(self):
+        # _design.py:177-180 claimed the app "isn't serving it yet … falls back to
+        # Georgia" — false once self-hosted. Stale provenance must not linger.
+        design = (TPL / "_design.py").read_text(encoding="utf-8")
+        assert "isn't serving it yet" not in design

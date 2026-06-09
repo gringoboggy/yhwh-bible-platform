@@ -174,10 +174,12 @@ BUYER_ARC_POLISH_CSS = """<style>
 #      rule, the ζ.1 theme-token remap (so .theme-* surfaces match too), and
 #      a serif body. `!important` only where it must beat a Tailwind utility.
 #
-# Font: the site self-hosts EB Garamond; the app isn't serving it yet, so
-# the stack falls back to Georgia (a faithful serif) — a later refinement
-# can self-host EB Garamond to match exactly. Reader/EPUB surfaces are NOT
-# affected (this is console chrome only; the EPUB build path is separate).
+# Font: the app self-hosts EB Garamond (+ Noto Serif Ethiopic for Ge'ez) via the
+# same-origin /fonts/ route + the @font-face rules below, matching the website
+# exactly (no Georgia fallback). website/fonts is bundled in dev/launcher.spec so
+# it resolves in the frozen app too. See docs/superpowers/specs/
+# 2026-06-09-app-eb-garamond-selfhosting.md. Reader/EPUB surfaces are NOT affected
+# (this is console chrome only; the EPUB build path is separate).
 # ----------------------------------------------------------------------
 
 MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
@@ -204,8 +206,8 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
       });
     window.tailwind.config.theme.extend.fontFamily = Object.assign(
       {}, window.tailwind.config.theme.extend.fontFamily, {
-        sans: ['"EB Garamond"','Georgia','"Times New Roman"','serif'],
-        serif: ['"EB Garamond"','Georgia','"Times New Roman"','serif'],
+        sans: ['"EB Garamond"','"Noto Serif Ethiopic"','Georgia','"Times New Roman"','serif'],
+        serif: ['"EB Garamond"','"Noto Serif Ethiopic"','Georgia','"Times New Roman"','serif'],
       });
   }
 </script>
@@ -218,6 +220,9 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
   @font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url("/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); }
   @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); }
   @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/eb-garamond-latin-700-normal.woff2") format("woff2"); }
+  /* Ge'ez/Amharic coverage — EB Garamond has no Ethiopic glyphs. unicode-range scoped
+     so it only loads when Ethiopic codepoints are present (zero cost on Latin pages). */
+  @font-face { font-family: "Noto Serif Ethiopic"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2") format("woff2"); unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F; }
   :root {
     --ms-vellum:#F4ECD8; --ms-parchment:#FBF6E9; --ms-ink:#2B2118; --ms-sepia:#574532;
     --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-gold-hover:#C49A2E; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;
@@ -228,9 +233,9 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
     --color-text-on-accent:#FCF8EF;
     --color-accent:#7A1F2B; --color-accent-hover:#5E1722;
     --color-border:#9A6E12; --color-focus-ring:#243B6B;
-    --font-stack-body:"EB Garamond", Georgia, "Times New Roman", serif;
+    --font-stack-body:"EB Garamond", "Noto Serif Ethiopic", Georgia, "Times New Roman", serif;
   }
-  body { font-family: "EB Garamond", Georgia, "Times New Roman", serif; }
+  body { font-family: "EB Garamond", "Noto Serif Ethiopic", Georgia, "Times New Roman", serif; }
   /* LIGHT manuscript grounds — scoped so a dark-mode user (greek/hebrew/preflight/
      build_tracker auto-activate dark from OS pref) doesn't get parchment forced
      under dark panels (H3). */
