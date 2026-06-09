@@ -193,7 +193,7 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
       {}, window.tailwind.config.theme.extend.colors, {
         slate: {
           50:'#F4ECD8', 100:'#EFE6CE', 200:'#E3D4AE', 300:'#D2BE90',
-          400:'#A8916B', 500:'#6E5840', 600:'#574532', 700:'#473726',
+          400:'#6E5840', 500:'#6E5840', 600:'#574532', 700:'#473726',
           800:'#322619', 900:'#2B2118',
         },
         blue: {
@@ -213,8 +213,8 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
   /* η.1: manuscript skin — match www.yhwhyaway.com. */
   :root {
     --ms-vellum:#F4ECD8; --ms-parchment:#FBF6E9; --ms-ink:#2B2118; --ms-sepia:#574532;
-    --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;
-    --ms-indigo:#243B6B; --ms-antique:#FCF8EF; --ms-charcoal:#221C15;
+    --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-gold-hover:#C49A2E; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;
+    --ms-indigo:#243B6B; --ms-antique:#FCF8EF; --ms-charcoal:#221C15; --ms-field-bg:#FFFDF7;
     /* remap the ζ.1 theme tokens so .theme-* surfaces match too */
     --color-bg-page:#F4ECD8; --color-bg-surface:#FBF6E9;
     --color-text-primary:#2B2118; --color-text-muted:#574532;
@@ -223,18 +223,33 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
     --color-border:#9A6E12; --color-focus-ring:#243B6B;
     --font-stack-body:"EB Garamond", Georgia, "Times New Roman", serif;
   }
-  html, body { background-color: var(--ms-vellum); }
-  body { font-family: "EB Garamond", Georgia, "Times New Roman", serif; color: var(--ms-ink); }
-  /* cards / panels: parchment ground (utilities use bg-white) */
-  .bg-white { background-color: var(--ms-parchment) !important; }
+  body { font-family: "EB Garamond", Georgia, "Times New Roman", serif; }
+  /* LIGHT manuscript grounds — scoped so a dark-mode user (greek/hebrew/preflight/
+     build_tracker auto-activate dark from OS pref) doesn't get parchment forced
+     under dark panels (H3). */
+  :root:not([data-theme=dark]) { background-color: var(--ms-vellum); }
+  :root:not([data-theme=dark]) body { background-color: var(--ms-vellum); color: var(--ms-ink); }
+  :root:not([data-theme=dark]) .bg-white { background-color: var(--ms-parchment) !important; }
+  /* DARK manuscript override (H2/H3): dark page/surfaces + light parchment text +
+     gold accents, so the skin is theme-complete in dark mode (and typed input text
+     reads — H2 was 1.08:1). */
+  :root[data-theme="dark"] {
+    --color-bg-page:#1B160F; --color-bg-surface:#2B2118;
+    --color-text-primary:#F4ECD8; --color-text-muted:#C9B27A;
+    --color-border:#9A6E12; --ms-field-bg:#2B2118; background-color: var(--ms-charcoal);
+  }
+  :root[data-theme="dark"] body { background-color: var(--ms-charcoal); color: #F4ECD8; }
+  :root[data-theme="dark"] .bg-white { background-color: #2B2118 !important; }
   .bg-slate-50 { background-color: var(--ms-vellum) !important; }
   /* dark console header -> charcoal with a gold rule (the site's header signature) */
   .bg-slate-900, .bg-slate-800 { background-color: var(--ms-charcoal) !important; }
-  header.bg-slate-900, header.bg-slate-800 { border-bottom: 2px solid var(--ms-gold-line); }
+  header.bg-slate-900, header.bg-slate-800 { border-bottom: 2px double var(--ms-gold-line); }
   /* PRIMARY action = GOLD on dark ink text (buttons use bg-blue-600/700) —
-     the illuminated-manuscript look: gold pressed onto dark brown. */
+     the illuminated-manuscript look: gold pressed onto dark brown. The hover goes
+     LIGHTER (#C49A2E, 6.01:1) — a darker hover dropped dark ink below AA (H1: the
+     old #9A6E12 hover = 3.46:1). */
   .bg-blue-600 { background-color: var(--ms-gold) !important; color: var(--ms-ink) !important; }
-  .bg-blue-700, .hover\\:bg-blue-700:hover { background-color: var(--ms-gold-line) !important; color: var(--ms-ink) !important; }
+  .bg-blue-700, .hover\\:bg-blue-700:hover { background-color: var(--ms-gold-hover) !important; color: var(--ms-ink) !important; }
   .bg-blue-600 *, .bg-blue-700 * { color: var(--ms-ink) !important; }
   /* links / accents stay indigo (text-blue-* re-toned by the config scale) */
   .text-blue-700 { color: var(--ms-indigo) !important; }
@@ -242,8 +257,10 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
      (user: a border around the whole perimeter so zones read as distinct). */
   .border, .border-t, .border-b, .border-l, .border-r,
   .border-slate-200, .border-slate-300 { border-color: rgba(154,110,18,0.42) !important; }
-  /* input boxes: a clear gold-line border + a near-white fill so entry fields pop */
-  input, select, textarea { border: 1px solid rgba(154,110,18,0.60) !important; background-color: #FFFDF7 !important; }
+  /* input boxes: a SOLID gold-line border (M4: the 0.60-alpha border was 2.28:1,
+     below UI 3:1) + a theme-aware fill (H2: near-white in light, dark surface in
+     dark mode so typed text reads). */
+  input, select, textarea { border: 1px solid var(--ms-gold-line) !important; background-color: var(--ms-field-bg) !important; }
   input:focus, select:focus, textarea:focus { border-color: var(--ms-indigo) !important; outline: none; }
   /* card top-accent like the site (.card border-top:4px red) on the shared section card */
   .rounded-lg.border { border-top: 3px solid var(--ms-red); }

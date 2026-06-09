@@ -325,7 +325,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
       <div id="review-pane" class="space-y-4"></div>
       <div class="mt-6 flex justify-between">
         <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
-        <button class="next-btn px-5 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-medium">Build my Bible →</button>
+        <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Build my Bible →</button>
       </div>
     </section>
 
@@ -344,7 +344,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
         <h2 class="text-2xl font-bold text-emerald-700 mb-2">Your Bible is ready</h2>
         <p class="text-slate-600 mb-2" id="done-summary"></p>
         <p class="text-xs text-slate-400 mb-6" id="done-filename"></p>
-        <a id="download-link" class="inline-block px-8 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-lg shadow" download>⬇  Download EPUB</a>
+        <a id="download-link" class="inline-block px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg shadow" download>⬇  Download EPUB</a>
         <div class="mt-8">
           <button id="restart-btn" class="text-sm text-slate-500 hover:text-slate-700 underline">Build another</button>
         </div>

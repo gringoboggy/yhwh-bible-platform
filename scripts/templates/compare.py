@@ -25,8 +25,8 @@ COMPARE_HTML = r"""<!DOCTYPE html>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
   .verse-cell { vertical-align: top; }
-  .verse-num { font-size: 0.7rem; color: #94a3b8; font-family: ui-monospace, SFMono-Regular, monospace; }
-  .missing { color: #cbd5e1; font-style: italic; }
+  .verse-num { font-size: 0.7rem; color: #574532; font-family: ui-monospace, SFMono-Regular, monospace; }
+  .missing { color: #6E5840; font-style: italic; }
   .translation-col { min-width: 18rem; max-width: 28rem; }
 </style>
 <!-- BUYER_ARC_POLISH_CSS -->

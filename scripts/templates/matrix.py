@@ -30,8 +30,8 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   .cat-row:hover { background: #f3f4f6; }
   .kind-row { padding-left: 2em; font-size: 0.9em; }
   .count-cell { font-variant-numeric: tabular-nums; text-align: right; padding: 0.25rem 0.5rem; min-width: 4.5rem; }
-  .count-zero { color: #cbd5e0; }
-  .count-disabled { color: #fbbf24; font-style: italic; }
+  .count-zero { color: #574532; }
+  .count-disabled { color: #9A6E12; font-style: italic; }
   .count-ok { color: #1f2937; }
   .pill { display: inline-block; padding: 0.1em 0.6em; border-radius: 9999px; font-size: 0.75em; }
   /* ψ.12 — sticky column headers + first-column row labels.
@@ -156,7 +156,7 @@ MATRIX_HTML = r"""<!DOCTYPE html>
     user-select: none;
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
-    border: 1px solid #cbd5e0;
+    border: 1px solid #D2BE90;
     border-radius: 4px;
     background: white;
     color: #475569;

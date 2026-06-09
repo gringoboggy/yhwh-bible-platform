@@ -27,8 +27,8 @@ SOURCES_HTML = r"""<!DOCTYPE html>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
   .symbol { font-size: 1.1em; line-height: 1; display: inline-block; width: 1.4em; text-align: center; }
   .book-row { cursor: pointer; user-select: none; }
-  .book-row:hover { background: #f1f5f9; }
-  .book-row.active { background: #dbeafe; font-weight: 600; }
+  .book-row:hover { background: #EFE6CE; }
+  .book-row.active { background: #E3D4AE; font-weight: 600; }
   .verse-anchor { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   mark { background: #fef08a; padding: 0 1px; border-radius: 2px; }
 </style>

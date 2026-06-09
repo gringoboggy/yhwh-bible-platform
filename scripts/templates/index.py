@@ -65,7 +65,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
     <div class="px-4 h-12 border-b border-slate-200 bg-slate-100 flex items-center gap-3">
       <h2 id="notes-title" class="font-semibold">Select a book</h2>
       <span id="notes-count" class="text-sm text-slate-500"></span>
-      <button id="add-btn" class="ml-auto bg-emerald-600 hover:bg-emerald-700
+      <button id="add-btn" class="ml-auto bg-blue-600 hover:bg-blue-700
         text-white text-sm px-3 py-1 rounded" disabled>+ add note</button>
     </div>
     <div class="px-4 py-2 border-b border-slate-200 bg-slate-100 flex items-center gap-2 flex-wrap">

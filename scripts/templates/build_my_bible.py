@@ -40,8 +40,8 @@ BUILD_MY_BIBLE_HTML = r"""<!DOCTYPE html>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
   .symbol { font-size: 1.1em; line-height: 1; display: inline-block; width: 1.4em; text-align: center; }
   .book-row { cursor: pointer; user-select: none; }
-  .book-row:hover { background: #f1f5f9; }
-  .book-row.active { background: #dbeafe; font-weight: 600; }
+  .book-row:hover { background: #EFE6CE; }
+  .book-row.active { background: #E3D4AE; font-weight: 600; }
   .crumb-link { cursor: pointer; }  /* used by renderBreadcrumb() — clickable crumbs land in C2-3 */
   .crumb-link:hover { text-decoration: underline; }
   .verse-anchor { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
