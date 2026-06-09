@@ -29,17 +29,45 @@ class TestNoteRehaulS1Helpers:
         assert _normalize_label_text("") == ""
         assert _normalize_label_text(None) == ""
 
-    def test_self_attributing_marker_is_exact_and_tolerates_leading_ws(self):
+    def test_self_attribution_detected_on_the_baked_row_not_the_stored_aside(self):
         from scripts.build_edition import _is_self_attributing_comm_ethiopian
 
-        body = (
+        # PRODUCTION REALITY (Mac S2-cascade review, BYLINE-1): apply_badge_markers sees the
+        # BAKED row, where the sanitizer has stripped the stored body's inner
+        # <aside class="note-comm-ethiopian"> (aside is not in html_sanitize.ALLOWED_TAGS).
+        # Only the kind's note-comm-ethiopian wrapper class and the father->work->(date)
+        # <strong>/<em>/<small> byline triad survive — detect THAT, never the <aside> prefix.
+        baked_self_attr = (
+            '<div class="vn-item note-comm-ethiopian"><div>'
+            '<a class="note-sym" href="legend.xhtml#legend-comm">◇</a> '
+            "<strong>Cyril of Alexandria</strong> <em>Commentary on John</em> "
+            "<small>(430)</small><p>...</p></div></div>"
+        )
+        assert _is_self_attributing_comm_ethiopian(baked_self_attr) is True
+        # a real BAKED *plain* comm-ethiopian row (note-comm-ethiopian wrapper, only a bold
+        # lead-in — NO em/small byline) must NOT be treated as self-attributing (it keeps its
+        # byline). This is the actual epub_working shape of note-1e7901.
+        baked_plain = (
+            '<div class="vn-item note-comm-ethiopian"><p>'
+            '<span class="note-label">Note.</span> '
+            "<strong>The end of the Astronomical Book.</strong> 1 Enoch 72-82 ...</p></div>"
+        )
+        assert _is_self_attributing_comm_ethiopian(baked_plain) is False
+        # the stored <aside> form still detects True (the helper is a superset, so a
+        # stored-body caller stays correct)
+        stored = (
             '<aside class="note-comm-ethiopian"><strong>Cyril of Alexandria</strong> '
             "<em>Commentary on John</em> <small>(430)</small><p>...</p></aside>"
         )
-        assert _is_self_attributing_comm_ethiopian(body) is True
-        assert _is_self_attributing_comm_ethiopian("   \n" + body) is True
-        # the 10 plain User-authored comm-ethiopian bodies are NOT self-attributing
-        assert _is_self_attributing_comm_ethiopian("<strong>Queen of Sheba.</strong> south Arabia...") is False
+        assert _is_self_attributing_comm_ethiopian("   \n" + stored) is True
+        # the triad must belong to a comm-ethiopian row — a strong/em/small triad in some
+        # OTHER kind is not a comm-ethiopian self-attribution
+        assert (
+            _is_self_attributing_comm_ethiopian(
+                '<div class="vn-item note-lang-greek"><strong>x</strong> <em>y</em> <small>(z)</small></div>'
+            )
+            is False
+        )
         assert _is_self_attributing_comm_ethiopian("<p>plain note</p>") is False
         assert _is_self_attributing_comm_ethiopian("") is False
 
@@ -65,18 +93,20 @@ class TestNoteRehaulS1Helpers:
 
         defaults = {"comm-ethiopian": "ethiopian"}
         # trigger (b): the father label differs from the kind default, BUT the body's own
-        # inner byline already names the source -> the label restatement is redundant
+        # inner byline already names the source -> the label restatement is redundant.
+        # REAL BAKED shape: the sanitizer stripped the stored inner <aside>, so only the
+        # surviving father->work->(date) triad + the note-comm-ethiopian wrapper remain.
         row = (
-            '<div class="vn-item note-comm-ethiopian"><p>'
+            '<div class="vn-item note-comm-ethiopian"><div>'
             '<a class="note-sym" href="legend.xhtml#legend-comm">◇</a> '
             '<span class="note-label">Cyril of Alexandria (430).</span> '
-            '<aside class="note-comm-ethiopian"><strong>Cyril of Alexandria</strong> '
-            "<em>w</em> <small>(430)</small><p>...</p></aside></p></div>"
+            "<strong>Cyril of Alexandria</strong> <em>Commentary on John</em> "
+            "<small>(430)</small><p>...</p></div></div>"
         )
         out, changed = _strip_redundant_note_label(row, "comm-ethiopian", defaults)
         assert changed is True and 'class="note-label"' not in out
-        # the body's OWN inner byline is untouched
-        assert '<aside class="note-comm-ethiopian">' in out and "Cyril of Alexandria</strong>" in out
+        # the body's OWN inner byline survives the label strip
+        assert "Cyril of Alexandria</strong>" in out and "<em>Commentary on John</em>" in out
 
     def test_strip_redundant_label_never_fires_on_empty_default(self):
         from scripts.build_edition import _strip_redundant_note_label
@@ -326,6 +356,64 @@ class TestNoteRehaulS2SourceKey:
         if strong_attrs:
             assert len({_source_key(a) for a in strong_attrs}) == 1
 
+    def test_locator_strip_absorbs_a_structural_book_word(self):
+        from scripts.build_edition import _source_display
+
+        # SK-2: the per-locator citation must strip WHOLE — not leave a dangling structural
+        # word. "…, Bk I.11 (NPNF S2 V14). PD." -> the work title, no trailing "Bk".
+        assert (
+            _source_display("Cyril of Alexandria, Commentary on John, Bk I.11 (NPNF S2 V14). PD.")
+            == "Cyril of Alexandria, Commentary on John"
+        )
+        # a plain roman locator still strips (Ephrem "Commentary on Genesis I.11")
+        assert (
+            _source_display("Ephrem the Syrian, Commentary on Genesis I.11. PD.")
+            == "Ephrem the Syrian, Commentary on Genesis"
+        )
+        # the "Homily" / "Book" structural words too
+        assert _source_display("John Chrysostom, Homily III.2. PD.") == "John Chrysostom"
+        assert _source_display("Irenaeus, Against Heresies, Book V.2. PD.") == "Irenaeus, Against Heresies"
+
+    def test_series_strip_loops_to_a_fixpoint(self):
+        from scripts.build_edition import _source_display
+
+        # POLISH-1: a single series-strip pass consumes the trailing "…, vol. N" first and
+        # leaves a dangling "NPNF Series N"; loop to a fixpoint so BOTH boilerplate tokens go.
+        assert (
+            _source_display("Augustine, Tractates on John, on 6:4-9. NPNF Series 2, vol. 13. PD.")
+            == "Augustine, Tractates on John, on 6:4-9"
+        )
+
+    def test_source_display_leaves_no_dangling_structural_fragment_on_the_corpus(self):
+        # SK-2 + POLISH-1 over every distinct live attribution: a trimmed byline must never
+        # END on a dangling structural citation fragment — the SK-2 ("…, Bk"/"Book"/"Hom"/
+        # "Homily") and POLISH-1 (a trailing "NPNF Series N" / "Series N" / "vol. N") tails.
+        # (A full NPNF citation with an editor/year tail AFTER it is legitimate, not dangling.)
+        import re as _re
+
+        from scripts.build_edition import _source_display
+        from scripts.core import config as _c
+        from scripts.core.notes_io import load_notes
+
+        notes_dir = REPO / "content" / "notes"
+        tail = _re.compile(
+            r"(?:(?:,\s*)?\b(?:Bk|Book|Hom\.?|Homily)|\bNPNF\b[\s\w]*|\bSeries\s+\d+|\bvol\.?\s*\d+)\s*$",
+            _re.IGNORECASE,
+        )
+        bad: list[tuple[str, str, str]] = []
+        for book in _c.load_books():
+            p = notes_dir / f"{book['code']}.py"
+            if not p.is_file():
+                continue
+            for tup in load_notes(p) or []:
+                a = _c.note_attribution(tup)
+                if not a:
+                    continue
+                d = _source_display(a)
+                if tail.search(d):
+                    bad.append((book["code"], a, d))
+        assert not bad, f"{len(bad)} byline(s) end on a dangling structural fragment, e.g. {bad[:3]}"
+
 
 class TestNoteRehaulS2Cascade:
     """``_emit_cascade_sections`` — the pure verse->category->source->note
@@ -417,6 +505,44 @@ class TestNoteRehaulS2Cascade:
         out = _emit_cascade_sections(rows, {"comm": ("◇", "Commentary / Tradition")})
         assert "C1" in out
         assert 'class="vn-source-byline"' not in out  # self-attributing body -> no group byline
+
+    def test_mixed_source_bucket_keeps_a_non_self_attributing_byline(self):
+        from scripts.build_edition import _emit_cascade_sections
+
+        # BYLINE-4: a source bucket with ONE self-attributing row (suppress) AND one that is
+        # NOT must STILL print the byline — all(), not any(): a self-attributing row must
+        # never hide a co-bucketed plain row's source byline.
+        rows = [
+            {
+                "cat": "comm",
+                "source_key": "k",
+                "source_display": "Some Source (1900)",
+                "suppress_byline": True,
+                "row": '<div class="vn-item note-comm-ethiopian">A</div>',
+            },
+            {
+                "cat": "comm",
+                "source_key": "k",
+                "source_display": "Some Source (1900)",
+                "suppress_byline": False,
+                "row": '<div class="vn-item note-comm">B</div>',
+            },
+        ]
+        out = _emit_cascade_sections(rows, {"comm": ("◇", "Commentary")})
+        assert out.count('class="vn-source-byline"') == 1
+        assert out.count("Some Source (1900)") == 1
+
+    def test_leaf_count_counts_wrappers_not_a_body_substring(self):
+        from scripts.build_edition import _count_cascade_leaves
+
+        # S2-GUARD-3: the §4 conservation guard counts the .vn-item WRAPPER, so a note body
+        # that merely contains the literal text class="vn-item must not inflate the count
+        # (a latent false-FAIL that would HALT the eth build).
+        html = (
+            '<div class="vn-item note-comm">a note mentioning class="vn-item in its prose</div>\n'
+            '<div class="vn-item note-lang-greek">another</div>\n'
+        )
+        assert _count_cascade_leaves(html) == 2
 
 
 class TestNoteRehaulS2Css:

@@ -1921,13 +1921,16 @@ _XVERSE_DEDUP_EXCLUDE = {"xref", "topic"}
 # temp tree, gated per-edition; an unset flag is a zero-touch no-op.
 # ----------------------------------------------------------------------
 
-# A self-attributing comm-ethiopian body opens with this exact wrapper and carries
-# its OWN inner <strong>Father</strong> <em>work</em> <small>(date)</small> byline,
-# so a label / group byline restating the source is redundant. Exact (1579/1589
-# comm-ethiopian bodies) and unique corpus-wide (0 other notes contain it), verified
-# 2026-06-08; the other 10 comm-ethiopian notes are plain User-authored bodies that
-# keep their normal label.
-_SELF_ATTRIBUTING_BODY_PREFIX = '<aside class="note-comm-ethiopian">'
+# A self-attributing comm-ethiopian note carries its OWN inner father->work->(date)
+# byline: <strong>Father</strong> <em>Work</em> <small>(date)</small>. In the STORED body
+# that byline sits inside an <aside class="note-comm-ethiopian"> wrapper (1579/1589
+# comm-ethiopian bodies; the other 10 are plain User-authored and keep their label). But
+# apply_badge_markers reads the BAKED HTML, where the sanitizer has STRIPPED that inner
+# <aside> (aside is not in html_sanitize.ALLOWED_TAGS) — only the byline triad and the
+# kind's `note-comm-ethiopian` wrapper class survive. So detect the SURVIVING baked shape,
+# NOT the stored <aside> prefix (matching that prefix against a baked row is ALWAYS False —
+# the dead-suppression bug Mac's S2-cascade review caught, 2026-06-09).
+_SELF_ATTRIBUTING_BYLINE_RE = re.compile(r"<strong>[^<]*</strong>\s*<em>[^<]*</em>\s*<small>[^<]*</small>")
 
 # The per-note label span inject.build_aside emits. Its text is html.escaped (never
 # contains '<'), so a single non-greedy [^<]* is exact (group 1 = the label text); the
@@ -1947,10 +1950,14 @@ def _normalize_label_text(s: str | None) -> str:
     return t.strip().casefold()
 
 
-def _is_self_attributing_comm_ethiopian(body_html: str) -> bool:
-    """True iff the stored body is a pre-wrapped comm-ethiopian aside carrying its
-    own inner father byline (so the outer label / group byline is redundant)."""
-    return (body_html or "").lstrip().startswith(_SELF_ATTRIBUTING_BODY_PREFIX)
+def _is_self_attributing_comm_ethiopian(row_html: str) -> bool:
+    """True iff a BAKED comm-ethiopian row carries its own inner father->work->(date)
+    byline, so the outer note-label / group byline is redundant. Keyed on the kind's
+    surviving ``note-comm-ethiopian`` wrapper class AND the <strong>/<em>/<small> byline
+    triad — both survive the bake; the stored inner <aside> does not. The stored body
+    carries both too, so a stored-form caller stays correct (the helper is a superset)."""
+    s = row_html or ""
+    return "note-comm-ethiopian" in s and _SELF_ATTRIBUTING_BYLINE_RE.search(s) is not None
 
 
 @lru_cache(maxsize=1)
@@ -1982,9 +1989,10 @@ def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -
     m = _NOTE_LABEL_SPAN_RE.search(row_html)
     if not m:
         return row_html, False
-    # trigger (b): the body carries its own inner byline -> the label restates it. The
-    # prefix is unique corpus-wide (0 other notes contain it), so containment is safe.
-    if _SELF_ATTRIBUTING_BODY_PREFIX in row_html:
+    # trigger (b): the body carries its own inner byline -> the label restates it.
+    # Detected on the BAKED row (the surviving <strong>/<em>/<small> byline triad), so it
+    # stays correct after the sanitizer strips the stored body's inner <aside> wrapper.
+    if _is_self_attributing_comm_ethiopian(row_html):
         return _strip_note_label_span(row_html)
     # trigger (a): the label merely repeats the kind default. An empty/missing kind
     # default never suppresses.
@@ -2031,7 +2039,9 @@ _SOURCE_BOILERPLATE_RE = re.compile(
 # "Commentary on Genesis I.11" / "… II.2") + a series tail (NPNF…, "vol. 3"), so
 # per-locator citations from one author+work collapse to ONE byline.
 _SOURCE_SERIES_RE = re.compile(r"\s*[,(]?\s*(?:NPNF[^.]*|vol\.\s*\d+)\)?\.?\s*$", re.IGNORECASE)
-_SOURCE_LOCATOR_RE = re.compile(r"\s+[IVXLC]+\.\d+\s*$")
+# SK-2: also absorb a preceding structural citation word (Bk/Book/Hom./Homily) and the
+# comma that introduces it, so "…, Bk I.11" strips WHOLE instead of leaving a dangling "Bk".
+_SOURCE_LOCATOR_RE = re.compile(r"(?:,?\s*(?:Bk|Book|Hom\.?|Homily)\s+|\s+)[IVXLC]+\.\d+\s*$")
 
 # Stray separators left dangling after a cut (NOT parens — a year like "(1894)"
 # must keep its closing paren).
@@ -2052,7 +2062,12 @@ def _source_display(attribution: str | None) -> str:
     cut = _SOURCE_BOILERPLATE_RE.search(s)
     if cut:
         s = s[: cut.start()]
-    s = _SOURCE_SERIES_RE.sub("", s)
+    # POLISH-1: loop the series-strip to a fixpoint — a single pass consumes a trailing
+    # "…, vol. N" first and leaves a dangling "NPNF Series N"; iterating clears both.
+    prev = None
+    while prev != s:
+        prev = s
+        s = _SOURCE_SERIES_RE.sub("", s)
     s = _SOURCE_LOCATOR_RE.sub("", s)
     s = " ".join(s.split())
     s = _SOURCE_TRIM_EDGES_RE.sub("", s)
@@ -2224,6 +2239,19 @@ def _merge_topic_rows(cascade_rows: list[dict], vocab: frozenset) -> tuple[list[
     return out, len(topic_pos)
 
 
+# The .vn-item wrapper token every leaf row carries (_render_vn_item emits
+# `<div class="vn-item note-{kind}">`, and the merged-topic row reuses that wrapper).
+# Counting the WRAPPER — not a bare `class="vn-item` substring — keeps the §4
+# conservation guard from a latent false-FAIL on a note body that happens to contain
+# that literal text (S2-GUARD-3).
+_VN_ITEM_WRAPPER = '<div class="vn-item note-'
+
+
+def _count_cascade_leaves(html: str) -> int:
+    """Number of leaf rows in an emitted cascade — counts the .vn-item wrapper token."""
+    return html.count(_VN_ITEM_WRAPPER)
+
+
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
@@ -2253,7 +2281,10 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
         for src_rows in by_source.values():
             out.append('    <div class="vn-source">\n')
             display = src_rows[0].get("source_display") or ""
-            suppress = any(rr.get("suppress_byline") for rr in src_rows)
+            # BYLINE-4: suppress the group byline only when EVERY row in the bucket
+            # self-attributes — all(), not any(), so one self-attributing row can never
+            # hide a co-bucketed non-self-attributing row's source byline.
+            suppress = bool(src_rows) and all(rr.get("suppress_byline") for rr in src_rows)
             if display and not suppress:
                 out.append(f'      <p class="vn-source-byline">{html.escape(display, quote=False)}</p>\n')
             for rr in src_rows:
@@ -2485,7 +2516,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                                 "cat": cat,
                                 "source_key": _source_key(attribution),
                                 "source_display": _source_display(attribution),
-                                "suppress_byline": _SELF_ATTRIBUTING_BODY_PREFIX in row,
+                                "suppress_byline": _is_self_attributing_comm_ethiopian(row),
                                 "row": row,
                             }
                             for _rank, _doc, row, cat, attribution in row_items
@@ -2500,9 +2531,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                                 if not r["source_display"] and not r["suppress_byline"]:
                                     stats["s2_byline_unattributed"] += 1
                             inner_rows_html = _emit_cascade_sections(cascade_rows, cat_meta)
-                            # §4 completeness guard: pure re-grouping — every surviving
-                            # row's leaf appears exactly once (against the post-S3a count).
-                            leaves = inner_rows_html.count('class="vn-item')
+                            # §4 completeness guard (S2-GUARD-1/2/3): the spec's set-based
+                            # DISTINCT_OUT==DISTINCT_IN guard is downgraded to this leaf
+                            # count, which is SOUND by construction — _emit_cascade_sections
+                            # appends each row once (setdefault().append) and emits it once,
+                            # so it provably cannot drop or duplicate a leaf. Count the
+                            # .vn-item WRAPPER token (not a bare 'class="vn-item' substring)
+                            # so a note body that merely mentions that text never false-FAILs.
+                            leaves = _count_cascade_leaves(inner_rows_html)
                             if leaves != n_show:
                                 raise AssertionError(
                                     f"S2 cascade conservation failure at {code} {ch}:{v}: "
