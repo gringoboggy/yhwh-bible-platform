@@ -1,13 +1,38 @@
 ---
 mode: parallel
-turn: 51
-from: mac
-updated: 2026-06-09T16:06:01Z
+turn: 52
+from: windows
+updated: 2026-06-09T16:35:19Z
 status: working
-mac: ▶ FRESH-SESSION RESUME (turn 51): device-QA M2 self-serviceable half ✅ PASS + my gen.py finding RESOLVED by WIN (`3bab5f4a` — seeds purged from gen.py AND the baked base). Re-verified post-purge on a local rebuild: seeds GONE, Gen 1:1 ◈18→◈15, 6 cascade groups (sample-only `apol`+`ped` dropped; `hist` now the real Easton's byline), backgrounds-off structure holds. Device-QA artifact: `build/m2/Ethiopian_Bible_…155343Z.epub`. **★ ON BOOT (`git pull` FIRST — WIN mutates the shared base):** the USER is running real-device M2 (Apple Books + colour Kobo) → capture results into `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md` (M2-1 popup-fires · M2-10 pagination/legibility + the 5 STAGE-C findings) + route any code fix to WIN (Guard #6, cue # + `file:line`). **THEN next Mac = M3** (build/notarize/staple/upload the v0.1.0 mac dmg — recipe ready at `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`) once the v0.1.0 cut lands (gated on WIN's STAGE F + VERSION bump), + whatever the user assigns. Items 3+5 shipped (`4ffdaa50`); M2 results (`f2170630`). (Untracked `uv.lock` = noise; `build/m2/` gitignored.)
-windows: ▶ turn 50 — eth re-baseline + AA MED/LOW arc + **your M2 gen.py finding ALL DONE**. ★ Your "sample-note" finding RESOLVED (user GO'd "remove all 10"): the 10 η.1 seed notes are PURGED from BOTH the live store (`content/notes/gen.py`, 10 tuples) AND the **baked base** (`epub_working/index_split_000.html`+`_001.html`, 10 marker+aside pairs — surgical, NOT a re-bake, so no drift regression). ⚠ Heads-up: they were in TWO places (the live-attribution-lookup means removing only from gen.py leaves baked orphans) — both cleaned now. Verified: base nested-anchor 0 + balanced; eth rebuild → seeds GONE, Gen 1:1 ◈18→◈15, epubcheck 0/0/0/0, 175 tests green; no other placeholders anywhere. **This mutates the SHARED base → `git pull` before any rebuild.** **▶ NEXT (win):** CDN-free HOME + rich-text editor (your idiot-proof design) + Win .exe frozen-verify + θ.4 + D/F.
+mac: ▶ FRESH-SESSION RESUME (turn 51): device-QA M2 self-serviceable half ✅ PASS + my gen.py finding RESOLVED by WIN (`3bab5f4a` — seeds purged from gen.py AND the baked base). Re-verified post-purge on a local rebuild: seeds GONE, Gen 1:1 ◈18→◈15, 6 cascade groups (sample-only `apol`+`ped` dropped; `hist` now the real Easton's byline), backgrounds-off structure holds. Device-QA artifact: `build/m2/Ethiopian_Bible_…155343Z.epub`. **★ ON BOOT (`git pull` FIRST — WIN mutates the shared base):** the USER is running real-device M2 (Apple Books + colour Kobo). **★ The colour-Kobo M2-1 popup test needs a `.kepub.epub` — a plain `.epub` will NOT fire popups on Kobo; convert the device-QA EPUB with kepubify FIRST (macOS acquire + command in the WIN→Mac turn-52 section below), then hand the user the `.kepub.epub` to sideload.** Capture results into `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md` (M2-1 popup-fires · M2-10 pagination/legibility + the 5 STAGE-C findings) + route any code fix to WIN (Guard #6, cue # + `file:line`). **THEN next Mac = M3** (build/notarize/staple/upload the v0.1.0 mac dmg — recipe ready at `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`) once the v0.1.0 cut lands (gated on WIN's STAGE F + VERSION bump), + whatever the user assigns. Items 3+5 shipped (`4ffdaa50`); M2 results (`f2170630`). (Untracked `uv.lock` = noise; `build/m2/` gitignored.)
+windows: ▶ turn 52 — sent Mac **kepubify** for the colour-Kobo M2-1 popup test (popups require the KePub artifact; a plain `.epub` won't fire them on Kobo — our eink research). macOS acquire + the exact convert command + the spurious-popup gotcha are in the WIN→Mac turn-52 section below. No shared-tree code change this turn (board + handoff only; clean tree at `44a0fee1`). **▶ NEXT (win):** the app-UX idiot-proof arc — CDN-free HOME landing + rich-text note editor (Bold/Italic → `<strong>`/`<em>`, no raw HTML) + EB-Garamond self-host + demote the maintainer editor → Win `.exe` frozen-verify → θ.4 update feature → STAGE D icons → STAGE F (the v0.1.0 cut). The eth EPUB is at its FINAL v0.1.0 shape (cascade live, AA done, seeds purged) and is untouched by the remaining app work → the `.kepub` you make now is the one the user device-tests.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 52, 2026-06-09) — 📦 sending you **kepubify** for the colour-Kobo M2-1 popup test. (device-QA tooling.)
+
+Per the user: routing you **kepubify** (Patrick Gaskin / `pgaskin`) so the colour-Kobo half of device-QA M2 can actually fire popups.
+
+**Why it's needed:** on Kobo, footnote/endnote **popups only render from the KePub artifact**. A plain `.epub` sideloaded to a Kobo shows the notes inline, NOT as pop-up dialogs (our own research: `docs/superpowers/notes/2026-06-05-eink-epub-compat-research.md` refs 41–44 + the "Kobo: popups require the KePub artifact" line). So **M2-1 on the Kobo is untestable until the device-QA EPUB is converted to `.kepub.epub`.** (Apple Books M2-1 is unaffected — it pops from the plain `.epub`.)
+
+**Acquire (macOS) — GitHub release is authoritative:**
+- From `https://github.com/pgaskin/kepubify/releases` (latest) download the macOS asset — `kepubify-darwin-arm64` (Apple Silicon) or `kepubify-darwin-64bit` (Intel); verify the exact asset name on the page → `chmod +x kepubify-darwin-*` → `xattr -d com.apple.quarantine kepubify-darwin-*` (clears Gatekeeper on the downloaded binary).
+- Homebrew alt (if a formula is in your taps): `brew install kepubify`.
+- **Do NOT commit the binary** — external dev tool, keep it out of the tree (like epubcheck/the other tooling).
+
+**Convert (the device-QA artifact you already rebuilt at `build/m2/`):**
+```
+kepubify -o build/m2/Ethiopian_Bible.kepub.epub build/m2/Ethiopian_Bible_*.epub
+```
+→ produces a `.kepub.epub` (kepubify wraps content in `div#book-columns > div#book-inner` + `koboSpan` fragments; cover/metadata normalized). Hand the user **that** file to sideload onto the colour Kobo for M2-1.
+
+**★ Verify (gotchas already flagged in our research + the M2 matrix Kobo row):**
+- kepubify can turn ordinary **cross-reference links into spurious popups** → confirm popups fire on real noterefs **without over-popping** every xref (`docs/superpowers/notes/2026-06-09-M2-backgrounds-off-qa-matrix.md` Kobo row; eink-research ref 41 + the Addendum-A device note). If it over-pops, the fix is to constrain the source — route it to me (Guard #6, cue # + `file:line`).
+- Confirm the note/aside **`id`s survive** the koboSpan transform (the popup target depends on them).
+
+**Scope:** this is EPUB-side device-QA tooling, orthogonal to the v0.1.0 app-UX arc I'm starting. A formal `scripts/build_kepub.py` wrapper (planned in `docs/superpowers/plans/2026-06-06-beta-device-qa-presentation-plan.md` step 6, never built) can come later if we want kepub as a standing release artifact — not needed for this manual test. Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Mac → Windows (turn 51, 2026-06-09) — ✅ ACK your `3bab5f4a` (my M2 finding resolved) + post-purge re-verify GREEN. Board set for a fresh Mac session to ingest the user's device-QA.
