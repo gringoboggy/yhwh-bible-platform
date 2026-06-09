@@ -27,13 +27,17 @@ WIZARD_HTML = r"""<!DOCTYPE html>
   .step-dot {
     display: inline-flex; align-items: center; justify-content: center;
     width: 2rem; height: 2rem; border-radius: 9999px;
-    background: #e2e8f0; color: #64748b; font-weight: 600; font-size: 0.875rem;
+    background: #E3D4AE; color: #6E5840; font-weight: 600; font-size: 0.875rem;
     transition: all 0.25s ease;
   }
-  .step-dot.active { background: #2563eb; color: white; transform: scale(1.1); }
-  .step-dot.done { background: #10b981; color: white; }
-  .step-line { flex: 1; height: 2px; background: #e2e8f0; transition: background 0.25s; }
-  .step-line.done { background: #10b981; }
+  /* M7 — retone the stepper/pick UI off bright blue/green onto the manuscript accents
+     (indigo #243B6B for active/picked/focus per the user's gold+indigo decision; gold
+     #B8860B for done) so the flagship wizard's central progress UI matches the skin
+     instead of reading half-skinned. White on indigo = ~9:1, ink on gold = 4.84:1. */
+  .step-dot.active { background: #243B6B; color: white; transform: scale(1.1); }
+  .step-dot.done { background: #B8860B; color: #2B2118; }
+  .step-line { flex: 1; height: 2px; background: #E3D4AE; transition: background 0.25s; }
+  .step-line.done { background: #B8860B; }
   .step-pane { display: none; animation: fade-in 0.3s ease; }
   .step-pane.active { display: block; }
   @keyframes fade-in {
@@ -41,10 +45,10 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     to   { opacity: 1; transform: translateY(0); }
   }
   .field-input {
-    width: 100%; border: 1px solid #cbd5e1; border-radius: 4px;
+    width: 100%; border: 1px solid #C2A86A; border-radius: 4px;
     padding: 0.5rem 0.75rem; font-size: 0.95rem;
   }
-  .field-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px #dbeafe; }
+  .field-input:focus { outline: none; border-color: #243B6B; box-shadow: 0 0 0 2px rgba(36,59,107,0.22); }
   .label-text { font-size: 0.75rem; font-weight: 600; color: #475569;
                 text-transform: uppercase; letter-spacing: 0.03em;
                 margin-bottom: 0.25rem; display: block; }
@@ -61,8 +65,8 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     border: 2px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;
     cursor: pointer; transition: all 0.2s; background: white;
   }
-  .pick-card:hover { border-color: #93c5fd; }
-  .pick-card.picked { border-color: #2563eb; background: #eff6ff; }
+  .pick-card:hover { border-color: #C49A2E; }
+  .pick-card.picked { border-color: #243B6B; background: #F4ECD8; }
   .theme-preview {
     border: 1px solid #cbd5e1; border-radius: 0.375rem; padding: 0.6rem;
     font-size: 0.875rem; background: white; min-height: 4em;
@@ -78,7 +82,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
               transition: background 0.15s; cursor: pointer; user-select: none; }
   .kind-row:hover { background: #f1f5f9; }
   .build-progress {
-    background: linear-gradient(90deg, #2563eb 0%, #3b82f6 50%, #2563eb 100%);
+    background: linear-gradient(90deg, #B8860B 0%, #C49A2E 50%, #B8860B 100%);
     background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite;
   }
   @keyframes shimmer {

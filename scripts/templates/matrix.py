@@ -37,21 +37,24 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   /* ψ.12 — sticky column headers + first-column row labels.
      Without this, scrolling right (with many editions) loses the
      column headers and scrolling down loses the row labels. */
+  /* M8 — warm the sticky scaffolding so the frozen header/column read as part of the
+     manuscript page (vellum/parchment) instead of a cool-gray/white overlay seam.
+     Kept solid/opaque (sticky cells must occlude the scrolling content beneath). */
   .matrix-table thead th {
     position: sticky;
     top: 0;
-    background: #f8fafc;
+    background: #F4ECD8;
     z-index: 2;
   }
   .matrix-table tbody td:first-child,
   .matrix-table thead th:first-child {
     position: sticky;
     left: 0;
-    background: white;
+    background: #FBF6E9;
     z-index: 1;
   }
-  .matrix-table thead th:first-child { background: #f8fafc; z-index: 3; }
-  .matrix-table tbody tr.cat-row td:first-child { background: #fafafa; }
+  .matrix-table thead th:first-child { background: #F4ECD8; z-index: 3; }
+  .matrix-table tbody tr.cat-row td:first-child { background: #F4ECD8; }
   .matrix-table-wrap { max-height: 75vh; overflow: auto; }
   details > summary { list-style: none; }
   details > summary::-webkit-details-marker { display: none; }

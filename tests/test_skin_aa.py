@@ -144,3 +144,41 @@ class TestPerConsoleDataStatesAA:
         # M3: verse-num #94a3b8 (2.38:1) / missing #cbd5e1 (1.38:1) → sepia/gold
         src = (TPL / "compare.py").read_text(encoding="utf-8")
         assert "#94a3b8" not in src and "#cbd5e1" not in src
+
+
+class TestWarmedCoolIslandsAA:
+    """M6/M7/M8/M9 — CSS-rule hex the class-skin can't reach (build_tracker heat grid,
+    wizard stepper, matrix sticky scaffolding, matrix on/off toggle) read as cool
+    blue/green islands on the warm page. Retoned to the manuscript palette (gold/indigo/
+    warm tints) with every text label still clearing AA."""
+
+    def test_build_tracker_heat_ramp_is_warm_and_legible(self):
+        # M6: cool-gray→emerald ramp → parchment→gold→deep-bronze. Each label clears AA.
+        src = (TPL / "build_tracker.py").read_text(encoding="utf-8")
+        assert "#059669" not in src and "#10b981" not in src  # the emerald ramp is gone
+        assert "#B8860B" in src  # the warm ramp is in place
+        # representative label/ground pairs across the ramp (low→high density)
+        assert contrast("#6E5840", "#F2EAD3") >= AA_NORMAL  # heat-0
+        assert contrast("#4A3A24", "#D3B25C") >= AA_NORMAL  # heat-3
+        assert contrast(INK, "#B8860B") >= AA_NORMAL  # heat-5
+        assert contrast("#FCF8EF", "#8A6510") >= AA_NORMAL  # heat-6 (cream on deep gold)
+        assert contrast("#FCF8EF", "#574532") >= AA_NORMAL  # heat-7 (cream on bronze)
+
+    def test_wizard_stepper_uses_manuscript_accents(self):
+        # M7: step-dot/line + field focus + pick-card off blue/green onto indigo/gold.
+        src = (TPL / "wizard.py").read_text(encoding="utf-8")
+        assert "#2563eb" not in src and "#10b981" not in src  # bright blue/green gone
+        assert "#243B6B" in src and "#B8860B" in src  # indigo accent + gold done-state
+        assert contrast("#FFFFFF", "#243B6B") >= AA_NORMAL  # white on the active indigo dot
+        assert contrast(INK, "#B8860B") >= AA_NORMAL  # ink on the gold done dot
+
+    def test_matrix_sticky_scaffolding_is_warm(self):
+        # M8: frozen header/column off cool-gray/white onto vellum/parchment.
+        src = (TPL / "matrix.py").read_text(encoding="utf-8")
+        assert "#f8fafc" not in src and "#fafafa" not in src  # cool sticky grays gone
+        assert "#F4ECD8" in src  # vellum sticky ground
+
+    def test_matrix_toggle_on_state_deepened(self):
+        # M9: vivid emerald-700 "on" → deeper emerald-800 so it balances the warm "off".
+        src = (TPL / "matrix_app.js").read_text(encoding="utf-8")
+        assert "text-emerald-800" in src

@@ -590,7 +590,7 @@ function showApplyToAll(kindCode) {
       <div class="flex items-center justify-between gap-2 py-0.5">
         <span class="font-mono">${escapeText(r.id)}</span>
         <span>${escapeText(r.title)}</span>
-        <span class="${r.enabled ? 'text-emerald-700' : 'text-slate-400'}">${r.enabled ? '✓ on' : '○ off'}</span>
+        <span class="${r.enabled ? 'text-emerald-800' : 'text-slate-400'}">${r.enabled ? '✓ on' : '○ off'}</span>
       </div>
     `).join('');
   }

@@ -34,17 +34,21 @@ BUILD_TRACKER_HTML = r"""<!DOCTYPE html>
     cursor: default;
     font-variant-numeric: tabular-nums;
   }
-  .heat-0   { background: #f8fafc; color: #cbd5e1; }
-  .heat-1   { background: #ecfdf5; color: #065f46; }
-  .heat-2   { background: #d1fae5; color: #065f46; }
-  .heat-3   { background: #a7f3d0; color: #064e3b; }
-  .heat-4   { background: #6ee7b7; color: #064e3b; }
-  .heat-5   { background: #34d399; color: #022c22; }
-  .heat-6   { background: #10b981; color: #ffffff; }
-  .heat-7   { background: #059669; color: #ffffff; }
+  /* M6 — warm "illuminated density" ramp (parchment -> gold -> deep bronze) so the
+     coverage grid reads on the manuscript page instead of as cold-green islands;
+     luminance is monotonic and each label clears AA (ink on the mid-golds = 4.84/6.01,
+     cream on the deep grounds). Replaces the cool-gray->emerald scale the skin can't reach. */
+  .heat-0   { background: #F2EAD3; color: #6E5840; }
+  .heat-1   { background: #ECDCB0; color: #574532; }
+  .heat-2   { background: #E0C988; color: #574532; }
+  .heat-3   { background: #D3B25C; color: #4A3A24; }
+  .heat-4   { background: #C49A2E; color: #2B2118; }
+  .heat-5   { background: #B8860B; color: #2B2118; }
+  .heat-6   { background: #8A6510; color: #FCF8EF; }
+  .heat-7   { background: #574532; color: #FCF8EF; }
   .book-row { transition: background 100ms; }
-  .book-row:hover { background: #f8fafc; }
-  .book-row.open { background: #eff6ff; }
+  .book-row:hover { background: #F4ECD8; }
+  .book-row.open { background: #EFE6CE; }
   .summary-tile {
     background: #ffffff; border: 1px solid #e5e7eb; border-radius: 6px;
     padding: 0.75rem 1rem;
