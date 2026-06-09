@@ -32,11 +32,11 @@ Two compounding causes:
 2. **`.book-title-frame` is `display:inline-block` with no `break-inside:avoid`.** An inline-block box cannot paginate; when its height exceeds one reader page the bordered/filled box visibly continues onto the next page.
 
 **Exact CSS fix (WIN — gated builder CSS append or base sheet; byte-stability per the note-rehaul spec §6):**
-1. **Cap the art by viewport HEIGHT so it can never dominate a page** (the primary fix):
+1. **Cap the art by viewport HEIGHT so it can never dominate a page** (the primary fix). **⚠ Pair `max-height:vh` with `object-fit:contain`** — bare `max-height` is ignored by Apple Books (this project's own e-ink research, `2026-06-05-eink-epub-compat-research.md:225,477`: "Apple Books can ignore max-height — pair vh with object-fit:contain"), and Apple Books is the exact reader where the bleed was reported, so WITHOUT `object-fit` the load-bearing cap can no-op on the target device. Mirror the shipped `.cover-wrap .cover-img` pattern (`stylesheet.css:502`, already `max-height:100% + object-fit:contain`). `object-fit:contain` is a no-op in the normal aspect-ratio-preserving flow (width/height:auto already size to intrinsic ratio) and only acts as the safety net if a reader forces a box dimension — purely defensive, cannot distort/letterbox.
    ```css
-   .bookpage-art { max-width: 58%; max-height: 42vh; width: auto; height: auto; }
+   .bookpage-art { max-width: 58%; max-height: 42vh; width: auto; height: auto; object-fit: contain; }
    /* full-bleed variant too, so even edge-to-edge art stays on its own page: */
-   .book-title-page.style-full-bleed .bookpage-art-bleed { max-height: 88vh; width: auto; }
+   .book-title-page.style-full-bleed .bookpage-art-bleed { max-height: 88vh; width: auto; object-fit: contain; }
    ```
 2. **Make the frame paginate cleanly** (structural; helps the no-art books and is the durable guard):
    ```css
@@ -45,7 +45,9 @@ Two compounding causes:
    (`display:block` keeps centering via the parent `.book-title-page{text-align:center}` + the frame's own `margin:0 auto; max-width:92%`, and a block honors `break-inside` far better than an inline-block. `break-inside:avoid` is a hint a reader may ignore if the box still can't fit — which is exactly why the art **height cap** in step 1 is the load-bearing change.)
 3. Optional, do NOT re-center anything (it is already centered; touching alignment is the failed path).
 
-**Verify (WIN, Stage C):** rebuild eth, open on **Apple Books** at the largest 2–3 font steps, on a book **with** a per-book art plate (e.g. one of the `content/covers/_book_defaults/*` books). Confirm the framed box stays within one page. (A browser cannot show this — paginate-only bug.)
+**Verify (WIN, Stage C):** rebuild eth, open on **Apple Books** at the largest 2–3 font steps, on a book **with** a per-book art plate (e.g. one of the `content/covers/_book_defaults/*` books). Confirm the framed box stays within one page. (A browser cannot show this — paginate-only bug.) **Also re-check on a Kobo `.kepub` path** — `vh` is unreliable on RMSDK/e-ink, so confirm the cap holds there (the `object-fit:contain` + `break-inside:avoid` are the fallbacks); if a non-vh reader regresses, fall back to an `em`/percentage `max-height` or an explicit aspect-ratio cap.
+
+> **Implementation review (2026-06-08):** WIN shipped findings 3 + 2 in commit `d2970962` — faithful to this diagnosis (finding 3 = `display:block`+`break-inside:avoid`+art `max-height:42vh`/`88vh`; finding 2 = the recommended **option B** float-block, count-emitted-first, no dangling refs, valid XHTML, byte-stability scope correct). A 2-skeptic review (rendered + geometry-measured + pytest) confirmed it correct **except** the `object-fit:contain` pairing above (gap originated here, now fixed) and **missing regression tests** for both findings (a future refactor could silently revert to a `<table>` / drop the caps with the suite still green). Both handed to WIN via the board.
 
 ---
 
