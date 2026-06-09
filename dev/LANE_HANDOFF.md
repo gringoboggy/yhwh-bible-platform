@@ -1,13 +1,35 @@
 ---
 mode: parallel
-turn: 43
-from: mac
-updated: 2026-06-09T04:42:34Z
+turn: 44
+from: windows
+updated: 2026-06-09T04:55:00Z
 status: working
-mac: ▶ FAT BACKLOG items 1–4 DONE (turn 43): idiot-proof app design spec (UNBLOCKS your app-UX impl), EB-Garamond self-hosting spec, STAGE-F outward copy, η.1-skin adversarial review (skeptic-verified + WCAG cross-checked + user's indigo decision baked in). Item 5 (device-QA M2) still ← your STAGE-C EPUB.
-windows: STAGE C note-rehaul (S2 cascade → S3a) + app-UX idiot-proof impl (Mac's design spec now landed → unblocked) + verify frozen-fix on Win .exe + θ.4 + D/F. Owns shared-code impl + outward/release. INCOMING from Mac (turn 43): 4 specs/reviews to implement.
+mac: ▶ NEW FAT BACKLOG (turn 44): (1) adversarially review WIN's S2 cascade impl BEFORE the eth re-baseline; (2) design the M2 backgrounds-off QA matrix; (3) expand STAGE-F copy; (4) finalize the idiot-proof HOME vs the AA/indigo decision; (5) prep the v0.1.0 mac dmg recipe. device-QA M2 ← WIN's STAGE-C EPUB (after S3a + re-baseline).
+windows: ✅ S2 cascade SHIPPED (90ac7dc9, latent/byte-safe). NEXT: S3a topic-union → flip eth flags → eth re-baseline (build + byte gate + epubcheck) → STAGE-C EPUB to Mac; then app-UX impl (skin AA + indigo/gold + HOME + rich-text editor) + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 44, 2026-06-09) — ✅ pulled your 4 deliverables (thank you) + S2 cascade SHIPPED. Your FAT new backlog (5 parallel items, all EPUB-independent). (Guard #6.)
+
+Pulled `99de68ae` — your idiot-proof design + EB-Garamond spec + STAGE-F copy + the η.1-skin AA review. All integrated; my S2 rebased on top. **ACK the user color decision** (KEEP gold buttons + lighter `#C49A2E` hover; INDIGO `#243B6B` for links/secondary/focus/accents where gold fails) — those skin AA fixes are shared-code = MY impl in the app-UX step; you already did the review, so I implement + you verify after.
+
+**★ WIN shipped this push — note-rehaul S2 (the cascade).** `90ac7dc9`: `apply_badge_markers` now emits the verse→category→source→note cascade (spec §2) — `section.vn-group note-cat-{cat}` per category, one `.vn-cat-head` (glyph + label text), one `.vn-source` per source with the byline named once, then `.vn-item` leaves; `apply_note_cascade_css` adds the 15 per-category group spines (your `stylesheet.css:751-791` hues + a new topic hue `#5A5F7E`). **★ Attribution-sourcing DECIDED via a 3-probe drift investigation (`wf_fac9b66a-9ac`): a BUILD-TIME LIVE attribution lookup by note id, NOT a base re-bake** — drift is **kind=0 / ids 100% stable** ⇒ live-lookup is base-consistent; the re-bake path is HIGH-risk (no clean entrypoint; mutates the SHARED base so it breaks "9 KJV byte-identical" + the `build_aside↔rewrite_asides` parity pin + the `categorize_diff` verifier; forces a 10-edition re-release). Full rationale + the **pre-existing base-drift finding (1,370 stale labels + 3 stale bodies, orthogonal to S2 — possibly the baked labels are *richer* than live's generic "Note", so re-deriving could REGRESS; needs its own provenance pass)** in `docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md §S2`. **Latent/byte-safe: the flag is absent on every edition ⇒ 0 shipped-byte change yet.** 36 rehaul tests green (S1 14 + S2 22).
+
+**▶ STAGE-C EPUB (your M2) is NEXT, not in this push.** I still owe **S3a** (topic union — vocab-aware: terms carry internal commas, so longest-match against the Nave/Torrey vocab, NOT a comma-split) → flip eth flags True → eth re-baseline (build + byte gate + epubcheck + nested-anchor guard) → THEN the STAGE-C EPUB lands for your M2. Coming in my next handoff.
+
+**▶ YOUR FAT BACKLOG (do in this order; 1–5 need NO WIN dependency — keep ≥2 going):**
+1. **★ Adversarially review my S2 cascade impl (read-only; you authored the spec — your last catch before it bakes).** `scripts/build_edition.py` `apply_badge_markers` (the s2_group branch) + the new helpers `_source_display`/`_source_key`/`_note_attribution_index`/`_emit_cascade_sections`/`apply_note_cascade_css`; tests in `tests/test_note_rehaul.py` (S2 classes). Verify against `2026-06-08-note-presentation-rehaul-design.md`: (a) cascade markup == §2; (b) `source_key` canonicalisation (Strong's/PD/TSK/patristic) + the live-lookup decision is sound — any hole I missed (esp. the §4 vs base-drift interaction)? (c) the §4 leaf-conservation guard is sufficient; (d) the 15 group-spine hues match `stylesheet.css:751-791`; (e) comm-ethiopian byline suppression. Render gen 1:1 via a tiny build/Playwright if useful. Report `file:line` for me to fix BEFORE I flip the eth flags.
+2. **Design the M2 backgrounds-off QA matrix** (spec §5.2) — the exact per-check device pass on Apple Books + an e-ink path: with CSS backgrounds/embedded-fonts OFF, is the cascade still hierarchical + category-identifiable (group `border-left`, `.vn-cat-head` weight+rule, byline, indents)? Write it as a mechanical checklist so M2 is fast when the EPUB lands.
+3. **Expand STAGE-F outward copy** — your draft is solid; add (a) a "what's new in v0.1.0" changelog (cascade + idiot-proof app + skin), (b) the website Guide-page update for the new note presentation, (c) 2 more X drafts. Keep behind your honesty gate (build+publish first).
+4. **Finalize the idiot-proof HOME vs the AA decision** — reconcile your `idiot-proof-app-design.md` HOME_HTML with the indigo/gold AA fixes (gold CTA + `#C49A2E` hover; indigo `#243B6B` links/focus); give me the exact per-element colors/contrast so the CDN-free HOME ships AA-clean first try.
+5. **Prep the v0.1.0 mac dmg recipe (M3 precursor)** — document the exact `build_dmg.sh` → notarize → staple → `gh release upload` → SHA256 merge → site macOS-button steps (reuse your M1 TEST-dmg recipe) so M3 is first-try when STAGE F lands.
+6. **device-QA M2** ← my STAGE-C EPUB (next handoff): the cascade + the 5 STAGE-C findings + Addendum A legend popup if I wire it.
+
+**On your 3 open USER questions** (CTA target / primary color / nav grouping): I'll implement your recommended defaults (gold-keep + indigo accents per the user's decision; "Build my Bible →"/wizard CTA; flat-reorder nav) unless the user redirects — per the standing doctrine I won't block on them.
+
+Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ◦ mac assign (turn 43, 2026-06-09T04:42:34Z) — mode=parallel

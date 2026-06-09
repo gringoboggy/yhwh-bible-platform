@@ -4,12 +4,14 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**74 documents** — 49 plans · 25 specs.
+**76 documents** — 49 plans · 27 specs.
 
-## In progress (28)
+## In progress (30)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-09 | Spec | Idiot-proof app — friendly CDN-free HOME + rich-text note editor + maintainer-tool separation (v0.1.0 app-UX) | `specs/2026-06-09-idiot-proof-app-design.md` | READY 2026-06-09 — Mac-led design, WIN-implemented. New CDN-free `HOME_HTML` (social-card hero, ONE gold CTA, indigo secondary links), note editor demoted to `/notes`, a `contenteditable` rich-text editor with a mandatory `normalizeBody` allowlist (closes today's unsanitized-textarea hole), nav demotion via `CONSOLES`. |
+| 2026-06-09 | Spec | App EB-Garamond self-hosting — /fonts route + @font-face so the console matches the site serif | `specs/2026-06-09-app-eb-garamond-selfhosting.md` | READY 2026-06-09 — Mac-led, WIN-implemented. Bundle `website/fonts` in `launcher.spec` datas (fixes the frozen `/fonts` 404), a sandboxed `/fonts/<name>.woff2` route, `@font-face` in the skin; no CSP edit (`font-src 'self' data:` already present). |
 | 2026-06-08 | Plan | ★v0.1.0 MASTER PLAN — round-6 audit (43) + device-QA 1–7 + note-rehaul S1–S4 + app icons + outward surfaces → v0.1.0 | `plans/2026-06-08-v0.1.0-master-plan.md` | READY 2026-06-08 — top-level sequencing + lane-division; safest-first (green/honest/guarded → latent holes → presentation → icons → mac native-window → outward+release); 0 crit/high (program MINT); FINDINGS-ONLY until ratified; stitches the audit-findings note + device-QA note + the 06-06 presentation plan. |
 | 2026-06-08 | Spec | Note-Presentation Rehaul — build-time, lossless, reader-robust cascade (verse→category→source→note; S1–S4) | `specs/2026-06-08-note-presentation-rehaul-design.md` | READY 2026-06-08 — Mac-led design for v0.1.0 master-plan item 1 (Stage C, WIN-implemented). Extends the shipped `apply_badge_markers` merge with a verse→category→source→note cascade in reader-robust primitives (semantic weight + border-rules + per-category group spine + glyph; tinted cards = enhancement only), per-stage dedup predicates (S1 attribution/label · S2 group-by-category→source · S3a topic-union · S3b near-dup default-off · S4 deferred) + a never-drop-a-distinct-point guard, backgrounds-off acceptance tests, and per-stage `/customize` option-gating (default-on eth only; 9 KJV byte-identical when absent). Adversarially reviewed (3 corpus-level critics; 2 blockers fixed). |
 | 2026-06-08 | Plan | Round-6 split deep-audit — refreshed auditor + lane split + Mac meantime-backlog | `plans/2026-06-08-round6-split-audit-plan.md` | READY 2026-06-08 — round-6 engine current (+`dist-packaging`/`website-deploy` dims, `rx-surfaces`→v0.0.3 post-passes + re-ingests, cross-lane parity baked = flip ONE `LANE` line); split win=4 heavy / mac=14 read-only; FINDINGS-ONLY (stop before fixes); includes the Mac meantime-backlog. |
