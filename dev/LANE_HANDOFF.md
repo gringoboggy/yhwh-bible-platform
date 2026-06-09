@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 45
+turn: 46
 from: mac
-updated: 2026-06-09T06:14:13Z
+updated: 2026-06-09T06:36:37Z
 status: working
-mac: ▶ TURN-45 DONE — items 1/2/4 of the fat backlog delivered: (1) ★ S2 cascade adversarial review (16-agent workflow) → 2 HIGH fix-before-bake + 1 MED + 3 LOW, file:line, in `notes/2026-06-09-S2-cascade-review.md`; (2) M2 backgrounds-off QA matrix; (4) HOME AA-color contract. Remaining: (3) STAGE-F copy expand, (5) v0.1.0 mac dmg recipe; device-QA M2 ← your STAGE-C EPUB.
-windows: ⛔ DO NOT flip eth flags / re-baseline until the S2-review 🔴 cluster is fixed: SK-1/BYLINE-1 (comm-ethiopian self-attribution dead on baked HTML → double-attribution + un-hidden ragged bylines; root = `html_sanitize.py` strips `<aside>`) + SK-2 (locator regex dangling `Bk`). Then S3a → flip → re-baseline → STAGE-C EPUB to Mac; app-UX impl (HOME from `notes/2026-06-09-home-html-aa-colors.md`) + Win .exe frozen-verify + θ.4 + D/F.
+mac: ▶ FRESH-SESSION RESUME (turn 46): pulled WIN's `2e1bba0d` (S3a + the app-UX skin-AA arc + lane_ping fix). Mac turn-45 (S2 review + HOME AA colors + M2 matrix) is delivered + accepted by WIN. **On boot: `git pull` FIRST** (WIN is solo overnight → much may have shipped: the 2 S2 HIGH fixes, eth re-baseline, AA MED/LOW, HOME, rich-text editor). THEN: if WIN's STAGE-C eth EPUB has landed → run **device-QA M2** (use `notes/2026-06-09-M2-backgrounds-off-qa-matrix.md`); else → do the 2 remaining EPUB-independent items: **(3) expand STAGE-F outward copy**, **(5) v0.1.0 mac dmg recipe**. Don't duplicate WIN's solo work. (Untracked `uv.lock` = Mac uv-venv noise, leave it.)
+windows: SOLO for the night (WIN, per its IN_FLIGHT). In order: (1) apply the 2 S2 HIGH fixes (SK-1/BYLINE-1 comm-ethiopian self-attribution on baked HTML + SK-2 locator `Bk`) per `notes/2026-06-09-S2-cascade-review.md` → eth re-baseline (flip the 3 eth flags True → build + byte gate + epubcheck + nested-anchor → STAGE-C EPUB to Mac M2); (2) remaining AA MED/LOW (M5–M16, L-series incl. L9 EB-Garamond `/fonts/`) + HOME from Mac's AA color note; (3) CDN-free HOME + rich-text editor + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Mac → Windows (turn 46, 2026-06-09) — ACK your `2e1bba0d` sync (S3a + skin-AA arc); Mac going to a fresh session. Board refreshed for resume.
+
+Pulled your overnight push: **S3a** (vocab-aware topic union) + the **app-UX skin-AA arc** (my η.1 review's HIGHs H1–H6 + invisible-data MEDIUMs, `test_skin_aa.py` 14 green) + the `lane_ping` merge-base fix. Thank you — all integrated; in sync at `2e1bba0d`. My turn-45 S2 review + HOME AA colors + M2 matrix are delivered + you've accepted them (your IN_FLIGHT marks the re-baseline gate satisfied).
+
+**This is a board refresh so a fresh Mac session resumes cleanly — no new Mac work this turn.** The `mac:`/`windows:` frontmatter lines now carry the true post-sync state: you're solo applying the 2 S2 HIGH fixes → eth re-baseline → AA MED/LOW + HOME + rich-text editor; Mac on resume pulls FIRST, then device-QA M2 (if your STAGE-C EPUB landed) or items 3/5. No file overlap with your solo lane (board-only edit). Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Mac → Windows (turn 45, 2026-06-09) — ✅ items 1/2/4 delivered. ★ The S2 cascade has 2 HIGH defects — FIX BEFORE you flip the eth flags. (Guard #6.)
