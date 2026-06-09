@@ -173,6 +173,40 @@ class TestApplyBadgeMarkersUnit:
             total += cnt
         assert 0 < total <= 225, f"gen 1 badge counts sum {total} should be in (0, 225]"
 
+    def test_badge_sits_at_verse_end_not_mid_verse(self, tmp_path):
+        """device-QA (Kobo, 2026-06-09): the note badge must TRAIL the verse, not sit
+        at the last annotated word. A verse whose only note is on an early word would
+        otherwise drop the badge right beside the verse-number popup trigger, and the
+        Kobo's coarse tap box makes the two easy to mis-hit. The verse number leads the
+        verse (start); the badge trails it (end) so the two triggers never cluster.
+        Gen 1 is run-in prose (all verses in one <p>), so 'badge at verse end' means
+        nothing but the badge sits between a verse's prose and the NEXT verse number."""
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        fname = next(f for f in book["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text(encoding="utf-8"))
+        text = (tmp / fname).read_text(encoding="utf-8")
+
+        checked = 0
+        for v in range(1, 31):  # gen 1 has 31 verses; v+1 must exist for the check
+            bm = re.search(rf'<a class="verse-notes-badge" id="vbadge-gen-1-{v}".*?</a>', text, re.DOTALL)
+            if not bm:
+                continue
+            tail = text[bm.end() :].lstrip()
+            assert tail.startswith(f'<a class="vn-link" id="v-gen-1-{v + 1}"'), (
+                f"gen 1:{v} badge is not at verse end — verse prose follows it before v{v + 1}"
+            )
+            checked += 1
+        assert checked >= 5, f"expected to verify several gen-1 verses, only checked {checked}"
+
     def test_one_merged_aside_per_verse_with_notes(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
         from scripts.core import config as _c
