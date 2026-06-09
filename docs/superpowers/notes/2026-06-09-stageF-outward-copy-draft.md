@@ -14,24 +14,35 @@ at v0.1.0:
   "deploy" = rebuild-then-publish; a stale on-disk build is not a deploy.
 - Things this copy must NOT claim as shipped because they are NOT in the cut yet:
   - The **idiot-proof end-user landing** / the maintainer note-editor moved off the default
-    page — DESIGN STAGE only (Mac backlog #1; spec pending).
-  - The **rich-text "font button" note editor** (Bold/Italic toolbar replacing raw HTML) —
-    PLANNED, not built (WIN step 3).
-  - **EB Garamond self-hosted IN THE APP** — the η.1 skin REQUESTS it but the app does not
-    serve it yet, so it currently falls back to Georgia (`_design.py:178-180`). The website
-    self-hosts the real font; the app does not. So: "the app now leans toward the site's
-    illuminated look" is honest; "the app uses the exact same font as the site" is NOT (yet).
+    page — spec DONE (`2026-06-09-idiot-proof-app-design.md`), WIN implementing NOW (turn 57);
+    not shipped until it lands. If it makes the cut, add its bullet then — not before.
+  - The **rich-text "font button" note editor** — same arc, same rule (Mac's vector pack
+    `tests/fixtures/normalize_body_vectors.json` is ready for WIN's TDD; still not built).
+  - ~~EB Garamond self-hosted IN THE APP~~ **RE-TRUED turn 57:** `5508207a` completed the app
+    self-host (Noto Serif Ethiopic face + stacks + launcher.spec `website/fonts` bundle), so
+    after the cut "the app uses the same self-hosted fonts as the site" becomes honest — BUT
+    only once the frozen rebuild is curl-verified serving `/fonts/` (review W2; the spec §6.3
+    load-bearing test, still pending). Until that verify, keep the softer "leans toward" line.
   - The **macOS native window** is PROVEN on the Mac (`2026-06-08-M1-native-window-verification.md`),
     but the FIX only reaches users once the v0.1.0 `.dmg` is rebuilt + notarized + uploaded.
     Until that dmg is live, do not announce "macOS now opens its own window" as a downloadable
     fact. (It is correct to announce it AS PART OF the v0.1.0 release the moment that dmg ships.)
+  - **Device-fix claims now hinge on the user's combined RE-TEST** (turn 57): the title-page
+    fixes (AB① object-fit — review W1 says possibly insufficient, contingency prepped — and the
+    Kobo K③ em-caps), the Kobo popup tap-gap (K①), and Ge'ez rendering on Kobo (K② ttf swap)
+    are all SHIPPED IN CODE but unconfirmed on glass. "Book title pages stay put" and any Kobo
+    bullet are publishable only after the re-test passes.
+  - **Count re-true (turn 57): the corpus is 91,723** after the η.1 seed-note purge
+    (`3bab5f4a`, 91,733 → 91,723) — this draft now says 91,723 throughout. ⚠ The WEBSITE still
+    says the OLD 91,733 in FOUR places (`website/src/index.html` :3/:33/:131,
+    `website/src/roadmap.html` :23) — flip them with the cut (WIN's site pass).
 
 So: **publish A–D below only after the v0.1.0 cut is live on the releases page + GitHub
 release.** The WIN hand-off at the bottom lists exactly which surfaces to flip and in what order.
 
 **Voice anchors** (matched to `website/src/index.html` + `releases.html`): faith-respectful;
 free forever / no account / no cloud / no tracking; the full Ethiopian Tewahedo canon (83
-books, 91,733 notes, 5 canon traditions); "still a beta on the 0.x track"; honest about rough
+books, 91,723 notes, 5 canon traditions); "still a beta on the 0.x track"; honest about rough
 edges; first-person from Bogdan / Gringo Boggy where it's a personal note; British-ish
 spelling and the typographic apostrophe (’) the site uses; em-dashes, not "click here".
 
@@ -61,7 +72,7 @@ cloud, no tracking.
 The full **Ethiopian Tewahedo Study Bible** — one 83-book superset that already contains the
 Protestant, Catholic, and Orthodox canons plus the books treasured especially in the Ethiopian
 tradition (1 Enoch, 2 Enoch, Jubilees, the three books of Meqabyan, 4 Baruch, the Prayer of
-Manasseh, 1 and 2 Esdras, 1 Clement). **91,733 study notes** across every family — word
+Manasseh, 1 and 2 Esdras, 1 Clement). **91,723 study notes** across every family — word
 studies, textual notes, cross-references, historical and cultural background, literary
 analysis, commentary across traditions, topical indexes, and dictionary entries — all
 toggleable. Original-language verse popups in **Hebrew, Greek, Latin, and Arabic**. Five canon
@@ -200,7 +211,7 @@ typography in the betas to come.)
 > The Word of God is for everyone — and everything that helps you study it belongs in one place.
 >
 > YHWH Ya’ Way v0.1.0: build your own Ethiopian Tewahedo study Bible, free, on your own computer.
-> 91,733 notes, toggleable. No account, no cloud, no tracking.
+> 91,723 notes, toggleable. No account, no cloud, no tracking.
 > 📜 https://www.yhwhyaway.com
 
 **(Optional) Draft 4 — a follow-up reply for the thread:**
@@ -224,9 +235,9 @@ typography in the betas to come.)
   `docs/superpowers/notes/2026-06-08-M1-native-window-verification.md`.
 - Voice / canon facts / "what beta means" / free-forever framing:
   `website/src/index.html` + `website/src/releases.html`.
-- EB Garamond is self-hosted on the SITE only (`website/style.css:6-27`, `website/fonts/`);
-  the APP does not serve it yet (`scripts/templates/_design.py:178-180`) → do not claim
-  identical fonts.
+- EB Garamond: self-hosted on the site AND (since `5508207a`, turn 54) in the app — faces +
+  stacks + launcher.spec bundle. "Identical fonts" becomes claimable after the frozen rebuild
+  is curl-verified serving `/fonts/` (review W2 — the §6.3 load-bearing test, pending).
 
 ---
 
@@ -240,16 +251,15 @@ typography in the betas to come.)
 > de-dup, the manuscript skin, the macOS native window, and the device-QA fixes so the whole
 > reads as one coherent release.
 >
-> **★ HONESTY GATE applies in full.** The cascade ships **in the v0.1.0 Ethiopian Bible EPUB
-> once that EPUB is cut** — it is finished code, but it is switched on only in the rebuilt
-> v0.1.0 edition that has not yet been built or uploaded. (Right now the three gating flags
-> are absent from `editions.yaml`, so the cascade is off on every edition and lives in NO
-> built or released EPUB.) So this section is published on the public surfaces under the
-> **same gate as the rest of this draft**: only after the v0.1.0 cut is live (VERSION bumped →
-> eth EPUB with the cascade rebuilt and byte/epubcheck/nested-anchor-verified → `.kepub` →
-> all three desktop binaries rebuilt + the macOS `.dmg` notarised → `SHA256SUMS` merged →
+> **★ HONESTY GATE applies in full — RE-TRUED turn 57.** The three gating flags
+> (`note_attribution_dedup` / `note_group_by_category` / `note_topic_dedup`) are now **ON** in
+> `content/editions.yaml` (WIN's turn-48 eth re-baseline) and the cascade is LIVE in the built
+> Ethiopian-Tewahedo EPUB — it passed the backgrounds-off QA and the user's real-device pass
+> (Gen 1:1 ◈15, six groups, both devices). What remains gated is the RELEASE: the cascade
+> reaches readers only when the v0.1.0 cut is live (VERSION bumped → eth EPUB rebuilt fresh →
+> `.kepub` → all three desktop binaries + the macOS `.dmg` notarised → `SHA256SUMS` merged →
 > GitHub release uploaded → site + social-card `<meta>` flipped). Until then, do not announce
-> the cascade as something a reader can download today.
+> the cascade as something a reader can download today — the released v0.0.3 EPUB predates it.
 
 ## New in v0.1.0
 
@@ -376,9 +386,9 @@ byte-for-byte identical where you change nothing.
 > per-category spine hues), `_merge_topic_rows` (Nave’s + Torrey’s vocab-aware topic union), and
 > the `_count_cascade_leaves` conservation guard (“S2 cascade conservation failure”). The badge
 > glyph **◈** and the category glyphs/names match the legend on `website/src/index.html`
-> (lines 151-167). **All three gating flags** (`note_group_by_category`,
-> `note_attribution_dedup`, `note_topic_dedup`) are LATENT until the Ethiopian-Tewahedo
-> re-baseline flips them on and the v0.1.0 eth EPUB is rebuilt — so honest only after the cut.
+> (lines 151-167). **All three gating flags** are now ON in `editions.yaml` (re-trued turn 57 —
+> the re-baseline flipped them; the cascade is live in the built eth EPUB and device-tested) —
+> honest the moment the v0.1.0 cut makes that rebuilt EPUB the live download.
 
 ---
 
@@ -473,3 +483,63 @@ A few notes on choices made, for the record:
 - Honesty-safe: no version number is stated in this section, and the copy describes only the cascade apparatus (safe per `honesty.safeToClaimAfterCut` the moment the rebuilt eth EPUB is the download). It does not touch any do-not-claim item (no v0.1.0 claim, no font claim, no landing page, no rich-text editor).
 
 **Secondary, optional (not done — outside this edit):** a one-line `v0.1.0` changelog bullet on `releases.html` "What's changed" mentioning the refined cascade. The Stage-F draft at `/Volumes/MacHD2/yhwh-bible-platform/docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md` already has the broader release blurb; you could add "notes now read in a tidy cascade — grouped by category, each source named once, topics merged" to its `releases.html` block.
+
+---
+
+## (i) The FOLLOW-UP X THREAD — the days after the announcement (Mac, turn 57, backlog #4)
+
+> The user's release model: **the announcement, then follow-ups** — one beat a day (or
+> whenever it feels right) in the days after the v0.1.0 cut, each post standalone-honest,
+> ≤280 chars (URL counts as 23), same voice anchors (faith-respectful, typographic ’,
+> em-dashes, British-ish spelling). These are numbered F1–F5 to keep them distinct from
+> Drafts 1–6 in §(d)/§(g), and none repeats those beats. Post in any order EXCEPT the gates
+> noted. Attach a screenshot where suggested — a real picture beats any copy.
+
+**F1 — the cascade, shown not told** *(attach: a screenshot of one verse’s opened ◈ popup —
+Gen 1:1 is the show-piece)*
+> This is one verse’s study notes — gathered by category, a coloured spine down each group,
+> every source named once, the topics merged into a single line at the end.
+>
+> Built so a reader can actually read the apparatus, not wade through it.
+> https://www.yhwhyaway.com/releases.html
+
+**F2 — the Kobo / Ge’ez story** *(GATE: post only after the user’s Kobo re-test confirms K②
+fidel renders + popups behave)* *(attach: a photo of the Kobo showing Ge’ez in a popup)*
+> The Ethiopian Bible on a Kobo, with the Ge’ez script rendering properly in the note popups —
+> the font travels inside the book, in a format e-readers actually understand.
+>
+> Tap-to-read footnotes via the .kepub build. Free, as always.
+> https://www.yhwhyaway.com/releases.html
+
+**F3 — the honesty story (the ten deleted notes)** *(no gate beyond the cut — this one is
+already true and it is the strongest trust beat we have)*
+> Before this release we found 10 notes in Genesis whose attribution said “sample” instead of
+> naming a real source. We deleted all 10.
+>
+> The promise is: every note from a named public-domain source, nothing invented. A smaller
+> apparatus that keeps its word beats a bigger one that doesn’t.
+
+**F4 — the trust beat (verify your copy)** *(no extra gate)*
+> Every download ships with a SHA-256 checksum. The Windows app is code-signed; the macOS app
+> is Apple-notarized; the whole thing runs offline on your own computer — no account, no
+> telemetry, nothing phoning home.
+>
+> Your Bible, on your machine, verifiably yours.
+> https://www.yhwhyaway.com/releases.html
+
+**F5 — what’s coming (the standalone Ge’ez + Amharic Bibles)** *(honesty: phrase as IN
+PROGRESS — the transcription work is real and ongoing, no date promised)*
+> Next on the bench: standalone Ge’ez and Amharic Bibles, transcribed from public-domain
+> manuscripts and editions — with an English back-translation in the popups.
+>
+> Slow, careful work. It’ll be free when it’s ready, like everything else.
+> 📜 https://www.yhwhyaway.com
+
+> **Char counts (X’s counter, URL=23):** F1 ≈ 252 · F2 ≈ 245 · F3 ≈ 268 · F4 ≈ 262 · F5 ≈ 247.
+> **Honesty check:** F1 = shipped cascade facts only (category groups, spine, byline-once,
+> merged topics). F2 gated on the device re-test; "format e-readers understand" = the ttf swap,
+> no woff2 jargon. F3 matches `3bab5f4a` exactly (10 notes, Genesis, sample attribution,
+> user-decided removal); count claims avoided. F4 = SHA256SUMS + signing/notarization facts
+> already true at v0.0.3 and carried forward by the cut gate. F5 promises no date and claims
+> no completion — Phase-D status per `project_geez_phase_d_sources` (vision-transcription in
+> progress; Psalms + Samuel/Kings marathon are the clean-verse base).
