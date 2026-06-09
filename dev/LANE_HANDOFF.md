@@ -1,13 +1,25 @@
 ---
 mode: parallel
-turn: 49
-from: mac
-updated: 2026-06-09T12:34:07Z
+turn: 50
+from: windows
+updated: 2026-06-09T15:45:50Z
 status: working
 mac: ▶ MAC turn-49: **device-QA M2 self-serviceable half = ✅ PASS** (rebuilt eth locally `build/m2`, 25.81 MB ≡ your 25.85 MB; backgrounds-off render of Gen 1:1 ◈18). Cascade does NOT collapse fills-off: M2-2 (8 distinct group `border-left` hues), M2-3 (cat-head 700 + small-caps + 1px rule + label WORDS, glyph `aria-hidden`), M2-4 (byline italic/600), M2-5 (indents), M2-6 (S1 label once), M2-8 (S3a topic union one block, both sources ·-joined, no dup), M2-9 (topic last) — all PASS; M2-7 = your render-verify. Results + screenshot → `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md`. **⚠ ONE FINDING → YOU (Guard #6):** `content/notes/gen.py` ships ~10–11 notes whose ATTRIBUTION is the literal "Reference sample note (η.1) … seeded so every symbol has a displayable example" (lines 179/190/201/2225/2302/7571/8418/14721/24907/24918; verses gen-1-1 hist · gen-1-28 modern · gen-5-1 vis · gen-6-1 compare · gen-22-1 liturgy) → invented attribution in Scripture's apparatus, contradicting the "nothing is invented / named PD sources" claim (About page + my §(a)/(e) v0.1.0 copy). Rec: remove the seeds before the cut (legend page covers "every category", not the canonical text). **M2 device behaviours (M2-1 popup-fires, M2-10 pagination/legibility) ← USER's Apple Books + Kobo.** Items 3+5 also shipped (`4ffdaa50`). (Untracked `uv.lock` = noise.)
-windows: ▶ eth re-baseline COMPLETE + AA MED/LOW arc COMPLETE (turn 48–49). Re-baseline: 3 eth note-rehaul flags True; ALL gates green — byte gate ✓ (catholic byte-identical, 9-KJV holds), epubcheck 0/0/0/0, nested-anchor 0, render-verify a+b+c, ragged-byline 0, note-rehaul 49/49; STAGE-C EPUB → `E:\epub-stage-c-eth\`. AA arc: the loved η.1 skin is now WCAG-AA + manuscript-cohesive across every console (M5–M16 + L4/L5/L6/L7/L9 done; M10/L1/L8 accepted; 26/26 `test_skin_aa.py`; visually verified), release-gating for v0.1.0. **ACK your M2 PASS + the gen.py "sample-note" finding (Guard #6) — taking it next.** **▶ NEXT (win):** the gen.py seed-attribution fix → CDN-free HOME + rich-text editor (your idiot-proof design) + Win .exe frozen-verify + θ.4 + D/F.
+windows: ▶ turn 50 — eth re-baseline + AA MED/LOW arc + **your M2 gen.py finding ALL DONE**. ★ Your "sample-note" finding RESOLVED (user GO'd "remove all 10"): the 10 η.1 seed notes are PURGED from BOTH the live store (`content/notes/gen.py`, 10 tuples) AND the **baked base** (`epub_working/index_split_000.html`+`_001.html`, 10 marker+aside pairs — surgical, NOT a re-bake, so no drift regression). ⚠ Heads-up: they were in TWO places (the live-attribution-lookup means removing only from gen.py leaves baked orphans) — both cleaned now. Verified: base nested-anchor 0 + balanced; eth rebuild → seeds GONE, Gen 1:1 ◈18→◈15, epubcheck 0/0/0/0, 175 tests green; no other placeholders anywhere. **This mutates the SHARED base → `git pull` before any rebuild.** **▶ NEXT (win):** CDN-free HOME + rich-text editor (your idiot-proof design) + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 50, 2026-06-09) — ✅ your M2 finding RESOLVED: the 10 η.1 "sample" seed notes purged from Genesis. ★ They lived in the BAKED base too (pull before you rebuild).
+
+Thank you for the M2 pass + the catch. The user GO'd "remove all 10," so I purged them. ★ The important wrinkle for you: the seeds lived in **two** places because of the live-attribution-lookup architecture (the S2 decision) —
+- `content/notes/gen.py` carried the **attribution** (10 tuples, removed → loads 4903→4893), and
+- `epub_working/index_split_000.html` + `_001.html` (the BAKED base) carried the note **bodies + markers** (10 marker+aside pairs).
+
+Removing only from gen.py first stripped the placeholder byline but left the AI-authored bodies rendering **unattributed** — so I also surgically removed the 10 marker+aside pairs from the base (id-matched 1:1, backed up; **not** a `inject --book gen` re-bake, to avoid regressing gen's drifted labels). Verified: base nested-anchor **0** + marker/aside balanced (000: 556→551); eth rebuild → all 10 bodies + "Reference sample note" **gone**, Gen 1:1 **◈18→◈15**, cascade intact (40,594→40,585 groups), **epubcheck 0/0/0/0**, **175 tests green** (note-rehaul + corpus-index + build-my-bible). Integrity sweep: no other placeholder/seed/η.1 attribution anywhere. Corpus 91,733→91,723 (the count comments are snapshots, not pins).
+
+**⚠ This mutates the SHARED base (`epub_working/`) → every edition's Genesis loses these 10 notes (intended). `git pull` before your next local rebuild** so your build/m2 matches. Your §(a)/(e) STAGE-F copy + the About page no longer need the reconciliation you flagged — the apparatus is PD-sourced-only again. Device behaviours M2-1 (popups) / M2-10 (pagination) still ← the user's Apple Books + Kobo. Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Mac → Windows (turn 49, 2026-06-09) — ✅ device-QA M2 (self-serviceable half) PASSES backgrounds-off. ★ ONE finding for you (Guard #6): seeded "sample" notes ship in the eth apparatus.
