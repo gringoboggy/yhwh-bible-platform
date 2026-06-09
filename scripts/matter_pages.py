@@ -40,7 +40,6 @@ def render_copyright_page(
     cyear = str(publishing.get("copyright_year") or "2026")
     edition_title = edition.get("title_full", edition.get("title", "Untitled"))
     edition_subtitle = edition.get("title_subtitle", "")
-    edition_urn = f"urn:yhwh:edition:{edition['id']}"
     pub_x = html.escape(pub)
     holder_x = html.escape(holder)
     ann = f"{annotation_count:,}"
@@ -60,10 +59,6 @@ def render_copyright_page(
     <p class="copyright-compiler"><strong>YHWH Ya&#8217; Way</strong> — published by <strong>{pub_x}</strong>, {cyear}.</p>
     <p>&#169; {cyear} {holder_x}. All rights reserved. Editorial notes, selection, arrangement, and presentation are original editorial work; the underlying biblical texts and cited public-domain reference works retain their own public-domain status.</p>
     <p>This edition carries <strong>{ann}</strong> annotations across <strong>{category_count} categories</strong> — a key to the symbols follows on the next page; full source credits are at the back.</p>
-    <h2 class="copyright-heading">This Edition</h2>
-    <p><strong>Edition ID:</strong> {edition_urn}<br/>
-       <strong>Publisher:</strong> {pub_x}<br/>
-       <strong>Build:</strong> {html.escape(version)}</p>
   </section>
 </body>
 </html>
@@ -497,6 +492,15 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
     else:
         perbook_block = '    <p class="your-edition-perbook-empty">This edition carries no annotations.</p>'
 
+    # Edition identity (Edition ID + Build) — relocated here from the front colophon
+    # (device-QA 2026-06-09) so it sits beside the composition + per-book note details,
+    # which the user found more logical than splitting it onto the colophon.
+    edition_urn = f"urn:yhwh:edition:{edition['id']}"
+    meta_line = (
+        f'    <p class="your-edition-meta"><strong>Edition ID:</strong> {edition_urn}'
+        f" &#183; <strong>Build:</strong> {html.escape(version)}</p>"
+    )
+
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
@@ -511,6 +515,7 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
 {notes_block}{inside_line}
 {total_line}
 {perbook_block}
+{meta_line}
   </section>
 </body>
 </html>

@@ -110,7 +110,11 @@ class TestColophon:
             {"id": "catholic-study", "title": "T"}, self._pub(), "v", annotation_count=10, category_count=1
         )
         assert "Way Editions" in out and "Bogdan Zorlescu" in out and "2026" in out
-        assert "urn:yhwh:edition:catholic-study" in out
+        # device-QA 2026-06-09: the "This Edition" identity block (Edition ID + Build)
+        # MOVED to the Your Edition page (co-located with the note details — more
+        # logical per the user). The front colophon is now legal/publisher only.
+        assert "urn:yhwh:edition:catholic-study" not in out
+        assert "This Edition" not in out
 
     def test_no_long_description_on_colophon(self):
         from scripts.build_edition import render_copyright_page
@@ -241,6 +245,17 @@ class TestYourEditionReplacesAbout:
 
         ed = {"id": "catholic-study", "title": "T & <co>", "canon": "catholic"}
         md.parseString(render_your_edition_page(ed, self._stats(), "v"))
+
+    def test_carries_edition_identity_moved_from_colophon(self):
+        # device-QA 2026-06-09: the "This Edition" identity (Edition ID + Build)
+        # now lives HERE, beside the per-book note details — not split onto the
+        # front colophon. `version` (previously an unused param) is the Build stamp.
+        from scripts.build_edition import render_your_edition_page
+
+        ed = {"id": "catholic-study", "title": "T", "display_name": "Catholic Study Bible", "canon": "catholic"}
+        out = render_your_edition_page(ed, self._stats(), "v9.9.9-test")
+        assert "urn:yhwh:edition:catholic-study" in out  # Edition ID relocated here
+        assert "v9.9.9-test" in out  # Build stamp relocated here
 
 
 class TestYourEditionReachesEpub:
@@ -608,4 +623,29 @@ class TestPhase2CrossReaderCSS:
         assert "page-break-inside: avoid" in body, ".toc-wrap details must set page-break-inside: avoid (Apple #10)"
         assert "break-inside: avoid" in body, (
             ".toc-wrap details must set break-inside: avoid (modern property — Apple #10)"
+        )
+
+
+class TestTitlePageArtFit:
+    """device-QA (Apple Books, 2026-06-09): the per-book title boxes push onto the
+    NEXT page even more, *regardless of font size*. Root cause: the finding-3 height
+    cap (max-height:42vh / 88vh) is SILENTLY IGNORED by Apple Books on a bare <img>
+    unless object-fit is set (eink-research :225,:477; Mac turn-38 follow-up #1, never
+    applied). So the art renders at full intrinsic height (font-independent → "regardless
+    of font size") and the finding-3 break-inside:avoid then shoves the whole oversized
+    frame to the next page. object-fit:contain makes the vh cap effective on-device, so
+    the framed box fits one page again. (Re-verify on Apple Books — the device is the oracle.)"""
+
+    def test_framed_art_caps_height_with_object_fit(self):
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".bookpage-art {")
+        assert "max-height: 42vh" in body, ".bookpage-art must keep the finding-3 height cap"
+        assert "object-fit: contain" in body, (
+            ".bookpage-art needs object-fit:contain or Apple Books ignores max-height (boxes push to next page)"
+        )
+
+    def test_full_bleed_art_caps_height_with_object_fit(self):
+        body = _rule_body(_CSS.read_text(encoding="utf-8"), ".bookpage-art-bleed {")
+        assert "max-height: 88vh" in body, ".bookpage-art-bleed must keep the finding-3 height cap"
+        assert "object-fit: contain" in body, (
+            ".bookpage-art-bleed needs object-fit:contain or Apple Books ignores max-height"
         )

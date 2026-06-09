@@ -557,7 +557,7 @@ h1, h2, h3, h1.book-title {
 /* finding 3 (load-bearing): cap the framed plate by viewport HEIGHT so a 2:3
    portrait can never dominate / overflow a page (max-width:58% alone left the
    height = 0.58·col·1.5, tall enough to push the framed box past one page). */
-.bookpage-art { display: block; max-width: 58%; max-height: 42vh; width: auto; height: auto; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+.bookpage-art { display: block; max-width: 58%; max-height: 42vh; width: auto; height: auto; object-fit: contain; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
 /* full-bleed: the portrait art fills the page; the title sits OVER it on a
    translucent dark panel near the bottom — legible against any art, and keeps
    art + title on one page (a full-width stacked image would push the title to
@@ -566,7 +566,7 @@ h1, h2, h3, h1.book-title {
 /* finding 3 (defensive): even an edge-to-edge plate must stay on its own page —
    cap height to ~one viewport (undistorted: width follows via auto), centered so
    it aligns with the overlaid title panel. */
-.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; max-width: 100%; max-height: 88vh; width: auto; height: auto; margin: 0 auto; }
+.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; max-width: 100%; max-height: 88vh; width: auto; height: auto; object-fit: contain; margin: 0 auto; }
 .book-title-page.style-full-bleed .book-title-frame {
   position: absolute; left: 0; right: 0; bottom: 7%; margin: 0 auto; max-width: 82%;
   border: none; border-radius: 0.45em; background: rgba(18, 14, 8, 0.62); padding: 0.75em 1em;
@@ -604,6 +604,10 @@ h1, h2, h3, h1.book-title {
 .ye-count { float: right; width: 4.5em; text-align: right; color: #6E5840; white-space: nowrap; }
 .ye-book { display: block; color: inherit; overflow-wrap: break-word; word-break: break-word; }
 .your-edition-perbook-empty { color: #666; font-style: italic; margin: 0 0 0.8em; }
+/* edition identity (Edition ID + Build) — moved here from the front colophon
+   (device-QA 2026-06-09) so it sits with the composition/note details. Muted
+   metadata; clear:both escapes the floated .ye-count column above. */
+.your-edition-meta { clear: both; margin: 1.4em 0 0; padding-top: 0.6em; border-top: 1px solid #c9b79c; font-size: 0.8em; color: #6a4a1f; }
 
 /* === Back-matter pages (Sources, Reference Tables, Closing Colophon) === */
 .backmatter-page { padding: 1.2em 0.8em; text-align: left; }
