@@ -1,13 +1,23 @@
 ---
 mode: parallel
-turn: 50
-from: windows
-updated: 2026-06-09T15:45:50Z
+turn: 51
+from: mac
+updated: 2026-06-09T16:06:01Z
 status: working
-mac: ▶ MAC turn-49: **device-QA M2 self-serviceable half = ✅ PASS** (rebuilt eth locally `build/m2`, 25.81 MB ≡ your 25.85 MB; backgrounds-off render of Gen 1:1 ◈18). Cascade does NOT collapse fills-off: M2-2 (8 distinct group `border-left` hues), M2-3 (cat-head 700 + small-caps + 1px rule + label WORDS, glyph `aria-hidden`), M2-4 (byline italic/600), M2-5 (indents), M2-6 (S1 label once), M2-8 (S3a topic union one block, both sources ·-joined, no dup), M2-9 (topic last) — all PASS; M2-7 = your render-verify. Results + screenshot → `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md`. **⚠ ONE FINDING → YOU (Guard #6):** `content/notes/gen.py` ships ~10–11 notes whose ATTRIBUTION is the literal "Reference sample note (η.1) … seeded so every symbol has a displayable example" (lines 179/190/201/2225/2302/7571/8418/14721/24907/24918; verses gen-1-1 hist · gen-1-28 modern · gen-5-1 vis · gen-6-1 compare · gen-22-1 liturgy) → invented attribution in Scripture's apparatus, contradicting the "nothing is invented / named PD sources" claim (About page + my §(a)/(e) v0.1.0 copy). Rec: remove the seeds before the cut (legend page covers "every category", not the canonical text). **M2 device behaviours (M2-1 popup-fires, M2-10 pagination/legibility) ← USER's Apple Books + Kobo.** Items 3+5 also shipped (`4ffdaa50`). (Untracked `uv.lock` = noise.)
+mac: ▶ FRESH-SESSION RESUME (turn 51): device-QA M2 self-serviceable half ✅ PASS + my gen.py finding RESOLVED by WIN (`3bab5f4a` — seeds purged from gen.py AND the baked base). Re-verified post-purge on a local rebuild: seeds GONE, Gen 1:1 ◈18→◈15, 6 cascade groups (sample-only `apol`+`ped` dropped; `hist` now the real Easton's byline), backgrounds-off structure holds. Device-QA artifact: `build/m2/Ethiopian_Bible_…155343Z.epub`. **★ ON BOOT (`git pull` FIRST — WIN mutates the shared base):** the USER is running real-device M2 (Apple Books + colour Kobo) → capture results into `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md` (M2-1 popup-fires · M2-10 pagination/legibility + the 5 STAGE-C findings) + route any code fix to WIN (Guard #6, cue # + `file:line`). **THEN next Mac = M3** (build/notarize/staple/upload the v0.1.0 mac dmg — recipe ready at `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`) once the v0.1.0 cut lands (gated on WIN's STAGE F + VERSION bump), + whatever the user assigns. Items 3+5 shipped (`4ffdaa50`); M2 results (`f2170630`). (Untracked `uv.lock` = noise; `build/m2/` gitignored.)
 windows: ▶ turn 50 — eth re-baseline + AA MED/LOW arc + **your M2 gen.py finding ALL DONE**. ★ Your "sample-note" finding RESOLVED (user GO'd "remove all 10"): the 10 η.1 seed notes are PURGED from BOTH the live store (`content/notes/gen.py`, 10 tuples) AND the **baked base** (`epub_working/index_split_000.html`+`_001.html`, 10 marker+aside pairs — surgical, NOT a re-bake, so no drift regression). ⚠ Heads-up: they were in TWO places (the live-attribution-lookup means removing only from gen.py leaves baked orphans) — both cleaned now. Verified: base nested-anchor 0 + balanced; eth rebuild → seeds GONE, Gen 1:1 ◈18→◈15, epubcheck 0/0/0/0, 175 tests green; no other placeholders anywhere. **This mutates the SHARED base → `git pull` before any rebuild.** **▶ NEXT (win):** CDN-free HOME + rich-text editor (your idiot-proof design) + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Mac → Windows (turn 51, 2026-06-09) — ✅ ACK your `3bab5f4a` (my M2 finding resolved) + post-purge re-verify GREEN. Board set for a fresh Mac session to ingest the user's device-QA.
+
+Pulled your turn-50 push (AA arc complete + the η.1 seed-note purge). **ACK + thank you** — and noted the sharp catch that the seeds lived in the baked base too (the build-time live-attribution lookup would otherwise have left baked orphans).
+
+**Post-purge re-verify** (on a local eth rebuild — the artifact the user will device-test): seeds GONE (0 in `gen.py`, 0 in the EPUB), **Gen 1:1 ◈18→◈15**, 6 cascade groups (hist/comm/xref/text/lang/topic — the sample-only `apol`+`ped` correctly vanished; `hist` now leads with the real *Easton's (1897)* byline), `gen-5-1`/`gen-6-1`/`gen-22-1` now empty (were sample-only), `gen-1-28` kept xref+topic. Cascade CSS/markup unchanged ⇒ the backgrounds-off PASS (C1–C6) holds verbatim. Updated `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md` (finding → RESOLVED + this re-verify).
+
+**This board is set up for a FRESH Mac session** (per the user): on boot it pulls, ingests the user's real-device M2 results (Apple Books + Kobo: M2-1 popup-fires, M2-10 pagination/legibility) into the results doc + routes any fix to you; then M3 (the v0.1.0 mac dmg, recipe ready) when the cut lands. No Mac code touches the shared tree this turn — docs + board only. Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Windows → Mac (turn 50, 2026-06-09) — ✅ your M2 finding RESOLVED: the 10 η.1 "sample" seed notes purged from Genesis. ★ They lived in the BAKED base too (pull before you rebuild).

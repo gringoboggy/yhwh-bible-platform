@@ -15,18 +15,27 @@ hierarchy still reads entirely from background-independent properties (border-le
 small-caps, the spelled-out label text, italic bylines, indents). The tinted card fills are a
 pure enhancement layer; nothing load-bearing depends on them.
 
-**⚠ One finding to route to WIN (below): seeded "Reference sample note (η.1)" entries ship in
-the eth Bible's apparatus**, which contradicts the project's "nothing is invented" honesty
-claim. Not a cascade defect — a content/honesty decision for the v0.1.0 cut.
+**✅ The one finding is RESOLVED (WIN `3bab5f4a`, user GO'd "remove all 10")** — see the
+"Finding" + "Post-purge re-verify" sections below. The seeded "Reference sample note (η.1)"
+entries are purged; the apparatus is now entirely real, named-source material, and the v0.1.0
+"nothing is invented" copy is honest.
 
 The remaining checks (popup firing, pagination/legibility) are genuine device behaviours and
 stay for the user's real-device pass (Apple Books + the colour Kobo).
 
-## Evidence (Gen 1:1 = ◈18, 8 category groups, backgrounds OFF)
+## Evidence (backgrounds OFF)
 
-Screenshot: `assets/2026-06-09-M2-gen1-1-backgrounds-off.png` (the cascade rendered with the
-enhancement layer stripped — colored left-border spines, bold small-caps headers, italic
-bylines, indented leaves all clearly visible).
+> The render + computed-style table below were captured on the **pre-purge** build
+> (Gen 1:1 = ◈18, 8 groups). The cascade **CSS and markup are unchanged** by the seed-note
+> purge (the purge deleted note *content* only, not `_NOTE_CASCADE_CSS` / the emission logic),
+> so the structure pass carries over verbatim; the **post-purge** counts (Gen 1:1 = ◈15,
+> 6 groups) are re-verified in the section below.
+
+Screenshot: `assets/2026-06-09-M2-gen1-1-backgrounds-off.png` — the **pre-purge** cascade with
+the enhancement layer stripped (colored left-border spines, bold small-caps headers, italic
+bylines, indented leaves all clearly visible). Note: the `hist` group's first byline visible in
+this shot is the now-removed sample note (the finding); post-purge `hist` leads with the real
+*Easton's Illustrated Bible Dictionary (1897)* byline. It is kept as the structure proof.
 
 | check | cue | result | measured (computed style, backgrounds OFF) |
 |---|---|---|---|
@@ -46,7 +55,16 @@ bylines, indented leaves all clearly visible).
 - **M2-10** legibility — title-page bleed, Your-Edition table, justify/ToC, no empty pages: on
   glass, paginated. (The 5 STAGE-C findings ride along.)
 
-## ⚠ FINDING → WIN (Guard #6): seeded "sample" notes ship in the eth Bible apparatus
+## ✅ FINDING — RESOLVED (`3bab5f4a`) — was: seeded "sample" notes shipped in the eth Bible apparatus
+
+> **RESOLVED 2026-06-09 (WIN `3bab5f4a`, user GO'd "remove all 10").** The 10 η.1 seed notes were
+> purged from **both** places they lived — the live store `content/notes/gen.py` (10 tuples) **and
+> the baked base** `epub_working/index_split_000.html` + `_001.html` (10 marker+aside pairs;
+> surgical, not a re-bake → no drift regression). WIN's heads-up: because attribution is a
+> build-time live lookup, removing only from `gen.py` would have left baked orphans — both cleaned.
+> WIN-verified: base nested-anchor 0 + balanced, epubcheck 0/0/0/0, 175 tests green, no other
+> placeholders anywhere. **The original finding is preserved below for the record; the post-purge
+> re-verify is in the next section.**
 
 **What:** `content/notes/gen.py` carries ~10–11 note entries whose **source/attribution field**
 (the 7th tuple element) is the literal string _"Reference sample note (η.1) — clearly marked for
@@ -78,6 +96,24 @@ canonical text. (Alternatives: gate them behind a non-shipping preview edition, 
 preferred — keep them and soften the "nothing is invented" copy, which weakens the
 differentiator.) If they are intentional and meant to stay, the §(a)/(e) outward copy and the
 About page must be reconciled first.
+
+## Post-purge re-verify (Mac, turn 51 — on the artifact the user will device-test)
+
+Pulled WIN's `3bab5f4a`, rebuilt eth locally (`build/m2`, 25.81 MB) and re-checked the affected
+verses on the **shipping** content:
+
+- **Seeds gone:** `grep 'Reference sample note'` = **0** in `content/notes/gen.py` and **0** in the
+  rebuilt EPUB. No `η.1` placeholders anywhere.
+- **Gen 1:1 = ◈15** (was ◈18): **6** cascade groups — hist, comm, xref, text, lang, topic
+  (15 `.vn-item` leaves). The sample-only `apol` + `ped` groups correctly vanished; `hist` now
+  leads with the real **_Easton's Illustrated Bible Dictionary, M. G. Easton (1897)_** byline, not
+  the sample. All real notes intact.
+- **Sample-only verses now empty (expected):** `gen-5-1`, `gen-6-1`, `gen-22-1` have no notes block
+  at all (their only note was the seed); `gen-1-28` dropped its `modern` group (kept xref + topic).
+- **Structure unchanged:** the cascade `_NOTE_CASCADE_CSS` + emission logic are byte-identical, so
+  the backgrounds-off PASS (C1–C6, the table above) holds verbatim on the post-purge build —
+  re-confirmed the 6 groups carry distinct `note-cat-*` border-left classes, headers, bylines, and
+  indents. The artifact at `build/m2/Ethiopian_Bible_…155343Z.epub` is the correct one to device-test.
 
 ## How to re-run (Mac)
 ```bash
