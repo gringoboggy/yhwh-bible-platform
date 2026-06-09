@@ -1773,6 +1773,57 @@ def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     return stylesheet_css + _NOTE_POPUP_CHIP_CSS
 
 
+# Per-category group spine for the S2 cascade — reuses the EXACT hues already in
+# epub_working/stylesheet.css:751-791 (the `[class*="note-{cat}-"]` left-border
+# colours); `topic` has no shipped spine, so it gets the one new hue. The group
+# colour is carried by border-left (a survivable property), the header by
+# weight + small-caps + a border-bottom — so the cascade stays legible and
+# category-identifiable with backgrounds/embedded-fonts off (spec §2 + §5.2).
+_CASCADE_CATEGORY_HUES = {
+    "lang": "#8B6508",
+    "text": "#A0202C",
+    "xref": "#5C2E91",
+    "hist": "#8B5A2B",
+    "lit": "#4A5568",
+    "comm": "#0B3D91",
+    "compare": "#1F5E5E",
+    "dev": "#8C3F5F",
+    "liturgy": "#B8860B",
+    "apol": "#2E5E3E",
+    "modern": "#4A6FA5",
+    "ped": "#6B5B4A",
+    "vis": "#525E2C",
+    "dist": "#4A2E5C",
+    "topic": "#5A5F7E",
+}
+
+_NOTE_CASCADE_CSS = (
+    "\n/* === S2 note cascade — verse→category→source→note (reader-robust) === */\n"
+    ".verse-notes .vn-group { margin: 0.55em 0; }\n"
+    ".verse-notes .vn-cat-head { font-weight: 700; font-variant-caps: small-caps;\n"
+    "  letter-spacing: 0.04em; font-size: 0.86em; margin: 0.15em 0 0.3em;\n"
+    "  padding-bottom: 0.12em; border-bottom: 1px solid rgba(110, 88, 64, 0.35); }\n"
+    ".verse-notes .vn-cat-sym { margin-right: 0.3em; }\n"
+    ".verse-notes .vn-source { margin-left: 0.7em; margin-bottom: 0.25em; }\n"
+    ".verse-notes .vn-source-byline { font-style: italic; font-weight: 600;\n"
+    "  font-size: 0.82em; color: #6E5840; margin: 0.2em 0 0.1em; }\n"
+    ".verse-notes .vn-source .vn-item { margin-left: 0.5em; }\n"
+    + "".join(
+        f".verse-notes .vn-group.note-cat-{cat} {{ border-left: 3px solid {hue}; padding-left: 0.6em; }}\n"
+        for cat, hue in _CASCADE_CATEGORY_HUES.items()
+    )
+)
+
+
+def apply_note_cascade_css(stylesheet_css: str) -> str:
+    """Append the S2 cascade's robust-layer CSS — the 15 per-category group spines
+    plus the header / source / byline / indent rules (spec §2). Pure CSS against
+    the cascade classes the build emits (the popup HTML is otherwise unchanged), so
+    no base re-bake is needed. Mirrors apply_note_popup_style; appended only when
+    ``note_group_by_category`` is on for the edition."""
+    return stylesheet_css + _NOTE_CASCADE_CSS
+
+
 # ----------------------------------------------------------------------
 # §4.1 marker_style=badge — build-time per-edition transform
 # ----------------------------------------------------------------------
@@ -1953,6 +2004,139 @@ def _body_fingerprint(body_html: str) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()
 
 
+# ----------------------------------------------------------------------
+# S2 — group by CATEGORY → SOURCE → emit the cascade (spec §2/§3 S2).
+# The source is sourced by a BUILD-TIME LIVE attribution lookup keyed by note
+# id, NOT a base re-bake (drift is kind=0 / ids 100% stable ⇒ a live lookup is
+# base-consistent; the re-bake path is HIGH-risk with no clean entrypoint). See
+# docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md §S2.
+# ----------------------------------------------------------------------
+
+# A leading per-instance Strong's locator (Hebrew H / Greek G, with or without a
+# trailing comma) — "Strong's H1254, …" / "Strong's H7779 (PD)". Stripping it is
+# lossless (the headword lives in the body) and collapses every numbered Strong's
+# entry from one dictionary onto a single source byline.
+_SOURCE_STRONGS_RE = re.compile(r"^\s*Strong's\s+[HG]\d+\s*,?\s*")
+
+# Trailing licence / public-domain / digital-edition boilerplate, introduced by a
+# '.' or '(' delimiter. Cut at the FIRST marker → everything after is licence
+# chatter: handles TSK's chained ". PD. Digital edition …, CC-BY 4.0." in one cut
+# and the parenthesised "(PD)" form.
+_SOURCE_BOILERPLATE_RE = re.compile(
+    r"\s*[.(]\s*(?:PD\b|Public\s+domain|Digital\s+edition\b|CC[\s-]?BY\b|Creative\s+Commons)",
+    re.IGNORECASE,
+)
+
+# A trailing per-locator citation marker on patristic/commentary works (Ephrem
+# "Commentary on Genesis I.11" / "… II.2") + a series tail (NPNF…, "vol. 3"), so
+# per-locator citations from one author+work collapse to ONE byline.
+_SOURCE_SERIES_RE = re.compile(r"\s*[,(]?\s*(?:NPNF[^.]*|vol\.\s*\d+)\)?\.?\s*$", re.IGNORECASE)
+_SOURCE_LOCATOR_RE = re.compile(r"\s+[IVXLC]+\.\d+\s*$")
+
+# Stray separators left dangling after a cut (NOT parens — a year like "(1894)"
+# must keep its closing paren).
+_SOURCE_TRIM_EDGES_RE = re.compile(r"^[\s,;:.\-]+|[\s,;:.\-]+$")
+
+
+def _source_display(attribution: str | None) -> str:
+    """The source byline (spec §3 S1/S2): the algorithmic trimmed form of a note's
+    attribution — leading Strong's locator, trailing licence boilerplate, and a
+    trailing per-locator citation removed; whitespace collapsed; original case
+    kept. Empty/None → "" (the unattributed bucket). A bare Strong's attribution
+    that trims to nothing falls back to "Strong's"."""
+    s = (attribution or "").strip()
+    if not s:
+        return ""
+    had_strongs = bool(_SOURCE_STRONGS_RE.match(s))
+    s = _SOURCE_STRONGS_RE.sub("", s, count=1)
+    cut = _SOURCE_BOILERPLATE_RE.search(s)
+    if cut:
+        s = s[: cut.start()]
+    s = _SOURCE_SERIES_RE.sub("", s)
+    s = _SOURCE_LOCATOR_RE.sub("", s)
+    s = " ".join(s.split())
+    s = _SOURCE_TRIM_EDGES_RE.sub("", s)
+    if not s and had_strongs:
+        return "Strong's"
+    return s
+
+
+def _source_key(attribution: str | None) -> str:
+    """The canonical SOURCE grouping key = casefold of the display byline. Two
+    attributions group as one source iff their displays casefold-match (verified
+    against the live corpus: only the intended Strong's-dictionary + one casing
+    collapse merge >1 distinct attribution)."""
+    return _source_display(attribution).casefold()
+
+
+def _note_attribution_index(book: dict) -> dict[str, str]:
+    """Map a book's live notes to their attribution, keyed by inject's full_id
+    (``{prefix}{cc}{vv}{suffix}`` — the baked ref-/note- id minus its prefix), so
+    apply_badge_markers can resolve a row's source from the marker id it already
+    holds. Built once per book (load_notes is (path,mtime)-LRU-cached). Mirrors the
+    id construction in _iter_note_ref_traditions exactly (id_prefix→bxx fallback)."""
+    from scripts.core.notes_io import load_notes
+
+    prefix = book.get("id_prefix") or book.get("bxx")
+    if not prefix:
+        return {}
+    path = REPO_ROOT / "content" / "notes" / f"{book['code']}.py"
+    if not path.is_file():
+        return {}
+    idx: dict[str, str] = {}
+    for tup in load_notes(path) or []:
+        if not isinstance(tup, tuple) or len(tup) < 8:
+            continue
+        try:
+            ch_i = int(tup[0])
+            vs_i = int(tup[1])
+        except (TypeError, ValueError):
+            continue
+        attr = config.note_attribution(tup)
+        if attr:
+            idx[f"{prefix}{ch_i:02d}{vs_i:02d}{tup[2] or ''}"] = attr
+    return idx
+
+
+def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
+    """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
+    already category-rank-ordered ``rows``. Each row is a dict with keys
+    ``cat, source_key, source_display, suppress_byline, row``; ``cat_meta`` maps a
+    category id → ``(glyph, label)``. Categories appear in first-appearance order
+    (rows arrive pre-sorted by category rank); within a category, sources appear in
+    first-appearance order and notes keep document order. Pure re-grouping — every
+    input row's ``.vn-item`` leaf survives exactly once (the §4 conservation guard
+    asserts this against the caller's surviving-row count). Plain dicts preserve
+    insertion order (Python 3.7+), so first-appearance ordering is automatic."""
+    cats: dict[str, dict[str, list[dict]]] = {}
+    for r in rows:
+        by_source = cats.setdefault(r["cat"], {})
+        by_source.setdefault(r["source_key"], []).append(r)
+
+    out: list[str] = []
+    for cat, by_source in cats.items():
+        glyph, label = cat_meta.get(cat, ("", cat))
+        out.append(f'  <section class="vn-group note-cat-{cat}">\n')
+        # quote=False: label/byline are TEXT content (not attributes), so a literal
+        # apostrophe (Strong's / Nave's) stays readable and matches the baked corpus
+        # style (which carries literal ', not &#x27;).
+        out.append(
+            f'    <p class="vn-cat-head"><span class="vn-cat-sym" aria-hidden="true">{glyph}</span>'
+            f" {html.escape(label, quote=False)}</p>\n"
+        )
+        for src_rows in by_source.values():
+            out.append('    <div class="vn-source">\n')
+            display = src_rows[0].get("source_display") or ""
+            suppress = any(rr.get("suppress_byline") for rr in src_rows)
+            if display and not suppress:
+                out.append(f'      <p class="vn-source-byline">{html.escape(display, quote=False)}</p>\n')
+            for rr in src_rows:
+                out.append(f"      {rr['row']}\n")
+            out.append("    </div>\n")
+        out.append("  </section>\n")
+    return "".join(out)
+
+
 def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """Rewrite the per-edition temp HTML into badge mode (§4.1).
 
@@ -1978,6 +2162,15 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     # Each is a zero-touch no-op when absent ⇒ a flag-free edition builds byte-identically.
     s1_dedup = bool(edition.get("note_attribution_dedup", False))
     kind_defaults = _kind_default_labels() if s1_dedup else {}
+    # S2 — group surviving rows by category → source into the cascade. The source
+    # byline is resolved by a build-time LIVE attribution lookup (per-book index
+    # below); cat_meta carries each category's glyph + label once for the headers.
+    s2_group = bool(edition.get("note_group_by_category", False))
+    cat_meta = (
+        {cid: (rec.get("symbol", ""), rec.get("label", cid)) for cid, rec in config.categories_by_id().items()}
+        if s2_group
+        else {}
+    )
 
     stats = {
         "badges_inserted": 0,
@@ -1987,6 +2180,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "badges_skipped": 0,
         "notes_deduped": 0,
         "s1_labels_suppressed": 0,
+        "s2_groups_emitted": 0,
+        "s2_byline_unattributed": 0,
     }
 
     # Which split files actually survive in this edition's temp tree (canon
@@ -2015,6 +2210,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         # blurb on both 1:1 and 45:18) renders only on its first verse. Reset per
         # book; xref/topic are exempt (see _XVERSE_DEDUP_EXCLUDE).
         seen_book_rows: set[str] = set()
+        # S2: live attribution index for THIS book (fid → attribution), built once
+        # per book (load_notes is LRU-cached). Empty when S2 is off ⇒ zero cost.
+        book_attr_index = _note_attribution_index(book) if s2_group else {}
         strategy = book.get("strategy", "A")
         bxx = book.get("bxx")
         ch_count = book.get("ch_count", 0)
@@ -2072,7 +2270,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # otherwise render twice; RX-beta2 ②) and GROUP by category in the
                     # fixed most-useful → least order with the long topical block LAST
                     # (RX-beta2 ③). Document order is preserved within a category.
-                    row_items: list[tuple[int, int, str]] = []  # (cat_rank, doc_order, row)
+                    # (cat_rank, doc_order, row, cat, attribution) — cat + attribution
+                    # are carried for the S2 cascade; ignored on the flat (S2-off) path.
+                    row_items: list[tuple[int, int, str, str, str | None]] = []
                     aside_spans: list[tuple[int, int]] = []
                     seen_rows: set[str] = set()
                     ok = True
@@ -2116,7 +2316,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
-                        row_items.append((rank, doc_i, row))
+                        attribution = book_attr_index.get(fid) if s2_group else None
+                        row_items.append((rank, doc_i, row, cat, attribution))
                     if not ok:
                         # round-5 audit Phase 4 (LOW): record the silent orphan-bail
                         # (a verse with a marker but no matching aside) so a build can
@@ -2128,8 +2329,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 
                     # Stable category sort (document order preserved within a category).
                     row_items.sort(key=lambda t: (t[0], t[1]))
-                    rows = [r for _, _, r in row_items]
-                    n_show = len(rows)
+                    n_show = len(row_items)
 
                     if n_show == 0:
                         # beta-3 (h): every note here was a cross-verse duplicate →
@@ -2142,12 +2342,42 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         stats["notes_collapsed"] += n
                         continue
 
+                    if s2_group:
+                        # S2: re-parent the flat rows into the verse→category→source
+                        # cascade. The byline comes from the live attribution
+                        # (base-consistent — kind never drifts); comm-ethiopian bodies
+                        # self-attribute, so their GROUP byline is suppressed.
+                        cascade_rows = []
+                        for _rank, _doc, row, cat, attribution in row_items:
+                            display = _source_display(attribution)
+                            if not display:
+                                stats["s2_byline_unattributed"] += 1
+                            cascade_rows.append(
+                                {
+                                    "cat": cat,
+                                    "source_key": _source_key(attribution),
+                                    "source_display": display,
+                                    "suppress_byline": _SELF_ATTRIBUTING_BODY_PREFIX in row,
+                                    "row": row,
+                                }
+                            )
+                        inner_rows_html = _emit_cascade_sections(cascade_rows, cat_meta)
+                        # §4 completeness guard: the cascade is pure re-grouping —
+                        # every surviving row's leaf must appear exactly once.
+                        leaves = inner_rows_html.count('class="vn-item')
+                        if leaves != n_show:
+                            raise AssertionError(
+                                f"S2 cascade conservation failure at {code} {ch}:{v}: "
+                                f"{leaves} leaves vs {n_show} surviving rows"
+                            )
+                        stats["s2_groups_emitted"] += len({r["cat"] for r in cascade_rows})
+                    else:
+                        inner_rows_html = "".join(f"  {row}\n" for _rank, _doc, row, _cat, _attr in row_items)
+
                     merged_aside = (
                         f'<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}" epub:type="footnote">\n'
                         f'  <p class="vn-back"><a href="#vbadge-{code}-{ch}-{v}" class="note-back" '
-                        f'title="Back">↩</a> <strong>{ch}:{v}</strong></p>\n'
-                        + "".join(f"  {row}\n" for row in rows)
-                        + "</aside>\n"
+                        f'title="Back">↩</a> <strong>{ch}:{v}</strong></p>\n' + inner_rows_html + "</aside>\n"
                     )
 
                     # --- (1) one badge at the LAST marker's position ------------
@@ -4417,6 +4647,16 @@ def build_one(
                 encoding="utf-8",
             )
             stats["note_popup_style"] = nps
+
+        # S2 note cascade — append the robust-layer CSS (15 per-category group
+        # spines + header/source/byline/indent rules) when note_group_by_category
+        # is on. Same append-to-stylesheet mechanism; absent ⇒ byte-identical.
+        if css_path.is_file() and bool(edition.get("note_group_by_category", False)):
+            css_path.write_text(
+                apply_note_cascade_css(css_path.read_text(encoding="utf-8")),
+                encoding="utf-8",
+            )
+            stats["note_cascade_css"] = True
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's

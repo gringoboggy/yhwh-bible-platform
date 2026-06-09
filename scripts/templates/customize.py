@@ -452,6 +452,14 @@ function renderEditions() {
               <input type="checkbox" data-field="note_attribution_dedup" ${e.note_attribution_dedup ? 'checked' : ''}>
               de-duplicate note labels
             </label>
+            <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none" title="Group a verse's notes into a category → source → note cascade (one category header + one source byline each) instead of a flat list. Lossless. Badge marker style only.">
+              <input type="checkbox" data-field="note_group_by_category" ${e.note_group_by_category ? 'checked' : ''}>
+              group notes by category &amp; source
+            </label>
+            <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none" title="Merge a verse's topical-index notes (Nave's + Torrey) into one Topics line, de-duplicating repeated terms. Lossless. Badge marker style only.">
+              <input type="checkbox" data-field="note_topic_dedup" ${e.note_topic_dedup ? 'checked' : ''}>
+              merge topical-index entries
+            </label>
             <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Topical index source</span>
               <select class="label-input w-full" data-field="topical_index_source" title="which topical authority feeds the back-of-book Topical Index">
