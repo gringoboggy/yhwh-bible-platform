@@ -95,14 +95,19 @@ EMBED_FONT_PATHS: list[dict] = [
     {"path": "fonts/Cardo-Regular.ttf", "family": "Cardo", "weight": "normal", "style": "normal"},
     {"path": "fonts/Cardo-Italic.ttf", "family": "Cardo", "weight": "normal", "style": "italic"},
     {"path": "fonts/Cardo-Bold.ttf", "family": "Cardo", "weight": "bold", "style": "normal"},
-    # Noto Serif Ethiopic — scoped to the Ethiopic block so it only ever
-    # activates for Ge'ez/Amharic glyphs (OFL 1.1, Google).
+    # Noto Serif Ethiopic — scoped to the Ethiopic blocks so it only ever
+    # activates for Ge'ez/Amharic glyphs (OFL 1.1, Google). Embedded as ttf:
+    # device-QA 2026-06-09 (colour Kobo) showed Ge'ez tofu with the previous
+    # woff2 embed — root cause is the CONTAINER, not coverage (Kobo supports
+    # TTF/OTF/WOFF 1.0, NOT woff2; the woff2 carried the same full v2.102
+    # face, Mac-lane cmap-verified). This is the notofonts ethiopic release
+    # NotoSerifEthiopic-v2.102 full/ttf static build (384 KB).
     {
-        "path": "fonts/NotoSerifEthiopic-Regular.woff2",
+        "path": "fonts/NotoSerifEthiopic-Regular.ttf",
         "family": "Noto Serif Ethiopic",
         "weight": "normal",
         "style": "normal",
-        "unicode_range": "U+1200-137F",
+        "unicode_range": "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F",
     },
 ]
 

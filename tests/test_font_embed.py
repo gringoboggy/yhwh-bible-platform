@@ -8,8 +8,13 @@ embeds OFL-licensed fonts so the scripts render legibly everywhere:
     (Regular / Italic / Bold) — prepended to the .vnote-hebrew / .vnote-greek
     popup stacks.
   - **Noto Serif Ethiopic** (Google, OFL 1.1) — Ethiopic, unicode-range
-    scoped to U+1200-137F so it activates only for Ge'ez/Amharic (the
-    standalone Ge'ez Bibles' body text) and never overrides Latin.
+    scoped to the Ethiopic blocks (base + Supplement + Extended + Extended-A)
+    so it activates only for Ge'ez/Amharic (the standalone Ge'ez Bibles'
+    body text) and never overrides Latin. Embedded as **ttf** — device-QA
+    2026-06-09 (colour Kobo) showed tofu in the Ge'ez popups with the woff2
+    embed. Root cause = the CONTAINER: Kobo's renderers support TTF/OTF/
+    WOFF 1.0 but NOT woff2 (the woff2 carried the same full v2.102 face,
+    Mac-lane cmap-verified; the Cardo ttf faces rendered fine).
 
 The fonts are wired through ``style_config.EMBED_FONT_PATHS`` → the build's
 ``patch_opf_fonts`` (OPF manifest <item>) + the copytree of ``epub_working/``
@@ -36,8 +41,12 @@ _FONT_FILES = [
     "Cardo-Regular.ttf",
     "Cardo-Italic.ttf",
     "Cardo-Bold.ttf",
-    "NotoSerifEthiopic-Regular.woff2",
+    "NotoSerifEthiopic-Regular.ttf",
 ]
+
+# Full Ethiopic coverage: base block + Supplement + Extended + Extended-A
+# (the pre-device-QA embed was U+1200-137F only).
+_ETHIOPIC_RANGE = "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F"
 
 
 class TestEmbedFontPathsConfig:
@@ -66,9 +75,11 @@ class TestEmbedFontPathsConfig:
         noto = [e for e in style_config.EMBED_FONT_PATHS if e.get("family") == "Noto Serif Ethiopic"]
         assert len(noto) == 1, f"Noto Serif Ethiopic must be embedded once; got {noto}"
         entry = noto[0]
-        assert entry["path"] == "fonts/NotoSerifEthiopic-Regular.woff2"
-        # Scoped to the Ethiopic block so it never overrides Latin/Hebrew/Greek.
-        assert entry.get("unicode_range") == "U+1200-137F", (
+        # ttf, NOT woff2 — Kobo supports TTF/OTF/WOFF 1.0 containers only
+        # (device-QA 2026-06-09: Ge'ez tofu in the kepub popups on woff2).
+        assert entry["path"] == "fonts/NotoSerifEthiopic-Regular.ttf"
+        # Scoped to the Ethiopic blocks so it never overrides Latin/Hebrew/Greek.
+        assert entry.get("unicode_range") == _ETHIOPIC_RANGE, (
             f"Noto Serif Ethiopic must be unicode-range scoped to Ethiopic; got {entry}"
         )
 
@@ -96,7 +107,7 @@ class TestStylesheetFontFaceAndStacks:
         # Cardo family declared; Noto declared + unicode-range scoped.
         assert css.count('font-family: "Cardo"') >= 3, "Cardo needs a @font-face per face"
         assert 'font-family: "Noto Serif Ethiopic"' in css
-        assert "unicode-range: U+1200-137F" in css, "Noto @font-face must be Ethiopic-scoped"
+        assert f"unicode-range: {_ETHIOPIC_RANGE}" in css, "Noto @font-face must be Ethiopic-scoped"
         assert "font-display: swap" in css, "@font-face should use font-display: swap"
 
     def test_font_face_is_outside_managed_region(self):
@@ -195,8 +206,11 @@ class TestBuiltEpubContainsFonts:
             )
             assert 'href="fonts/Cardo-Italic.ttf"' in opf
             assert 'href="fonts/Cardo-Bold.ttf"' in opf
-            assert 'href="fonts/NotoSerifEthiopic-Regular.woff2"' in opf and 'media-type="font/woff2"' in opf, (
-                "OPF must declare NotoSerifEthiopic-Regular.woff2 as a font/woff2 item"
+            assert 'href="fonts/NotoSerifEthiopic-Regular.ttf"' in opf, (
+                "OPF must declare NotoSerifEthiopic-Regular.ttf as a font/ttf item"
+            )
+            assert 'href="fonts/NotoSerifEthiopic-Regular.woff2"' not in opf, (
+                "the woff2 embed must be fully retired (Kobo woff2-flaky)"
             )
 
             # (c) the @font-face for Cardo + the popup stacks are in the stylesheet.

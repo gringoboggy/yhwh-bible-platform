@@ -27,10 +27,11 @@ directory. Cross-referenced here so this file is the single attribution index:
     `content/assets/fonts/Cardo-{Regular,Italic,Bold}.ttf`.
   - **Noto Serif Ethiopic** — © Google Inc. (Noto Project), OFL 1.1.
     Covers the Ethiopic syllabary; `@font-face` is `unicode-range`-scoped to
-    U+1200–137F so it renders only Ge'ez/Amharic fidel (the standalone
-    Ge'ez Bibles' body text) and never overrides Latin/Hebrew/Greek.
+    the Ethiopic blocks (U+1200–137F, U+1380–139F, U+2D80–2DDF, U+AB00–AB2F)
+    so it renders only Ge'ez/Amharic fidel (the standalone Ge'ez Bibles'
+    body text) and never overrides Latin/Hebrew/Greek.
     Source: <https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic>.
-    File: `content/assets/fonts/NotoSerifEthiopic-Regular.woff2`.
+    File: `content/assets/fonts/NotoSerifEthiopic-Regular.ttf`.
 
 The program itself is © 2026 Bogdan Zorlescu, all rights reserved (`LICENSE`);
 the cover art is the publisher's own generated work. The root `README.md` carries

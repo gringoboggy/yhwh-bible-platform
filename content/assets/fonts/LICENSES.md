@@ -14,8 +14,10 @@ their license declarations:
   `Cardo-Italic.ttf`, `Cardo-Bold.ttf`. Latin + Greek + Hebrew; powers
   the `.vnote-hebrew` / `.vnote-greek` original-language popups.
 - **Noto Serif Ethiopic** (Google, OFL 1.1) —
-  `NotoSerifEthiopic-Regular.woff2`. Ethiopic syllabary; `@font-face`
-  is `unicode-range`-scoped to U+1200–137F (Ge'ez/Amharic only).
+  `NotoSerifEthiopic-Regular.ttf` (full face, notofonts ethiopic
+  release v2.102). Ethiopic syllabary; `@font-face` is
+  `unicode-range`-scoped to the Ethiopic blocks (U+1200–137F,
+  U+1380–139F, U+2D80–2DDF, U+AB00–AB2F) — Ge'ez/Amharic only.
 
 These are registered in `style_config.EMBED_FONT_PATHS`, copied into
 `epub_working/fonts/`, declared in each EPUB's OPF manifest by
@@ -48,13 +50,16 @@ popups on readers (e.g. Kobo) that lack SBL Hebrew / SBL Greek.
 ## Noto Serif Ethiopic — SIL Open Font License 1.1 (OFL)
 
 **Files:**
-- `NotoSerifEthiopic-Regular.woff2`
-- `NotoSerifEthiopic-Regular.ttf` — the SAME font (v2.102, full, 589
-  glyphs / 528 codepoints), produced by losslessly decompressing the
-  woff2 container (`fontTools.ttLib` flavor strip; cmap verified
-  identical). Added 2026-06-09 for the EPUB embed: Kobo's renderers
-  support TTF/OTF/WOFF 1.0 but NOT woff2 (Ge'ez popups rendered tofu
-  on the colour-Kobo device test).
+- `NotoSerifEthiopic-Regular.ttf` — v2.102, the official notofonts
+  ethiopic release `full/ttf` static build (384,020 B). Replaced the
+  earlier `NotoSerifEthiopic-Regular.woff2` (deleted 2026-06-09):
+  the woff2 carried the same full v2.102 face (589 glyphs / 528
+  codepoints — Mac-lane cmap verification via lossless
+  `fontTools.ttLib` decompress), so the colour-Kobo Ge'ez tofu was
+  the CONTAINER, not coverage — Kobo's renderers support TTF/OTF/
+  WOFF 1.0 but NOT woff2. Both lanes independently produced an
+  equivalent ttf the same day; the release build is the one kept
+  (canonical upstream provenance, hinted).
 
 **Source:** https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic
 **Designer/Publisher:** Google Inc., Noto Project
@@ -62,7 +67,8 @@ popups on readers (e.g. Kobo) that lack SBL Hebrew / SBL Greek.
 
 Replaces the earlier intended *Noto Sans Ethiopic* (the serif form
 matches the project's serif body stack). Its `@font-face` is
-`unicode-range`-scoped to U+1200–137F so it activates only for
+`unicode-range`-scoped to the Ethiopic blocks (U+1200–137F,
+U+1380–139F, U+2D80–2DDF, U+AB00–AB2F) so it activates only for
 Ge'ez/Amharic fidel and never overrides Latin/Hebrew/Greek text.
 
 **Full OFL 1.1 text:** see https://scripts.sil.org/OFL_web

@@ -37,12 +37,15 @@
   font-display: swap;
 }
 @font-face {
+  /* ttf, NOT woff2 — Kobo is woff2-flaky (device-QA 2026-06-09: Ge'ez tofu
+     in the kepub popups while the Cardo ttf faces rendered fine). Range =
+     Ethiopic base + Supplement + Extended + Extended-A. */
   font-family: "Noto Serif Ethiopic";
-  src: url("fonts/NotoSerifEthiopic-Regular.woff2");
+  src: url("fonts/NotoSerifEthiopic-Regular.ttf");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+1200-137F;
+  unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F;
 }
 
 body {
@@ -264,6 +267,10 @@ body p.right-p {
   border-bottom: 1px dotted #B8836A;    /* dotted underline = "I am tappable" */
   padding-bottom: 0.05em;
   cursor: pointer;
+  margin-right: 0.25em;                 /* device-QA 2026-06-09 (Kobo): the wrapped
+                                           number read glued to the verse text
+                                           ("²The") — clear air after the tappable
+                                           number (overrides .vn's 0.18em). */
 }
 .vn-link:hover .vn,
 .vn-link:focus .vn,
@@ -557,7 +564,11 @@ h1, h2, h3, h1.book-title {
 /* finding 3 (load-bearing): cap the framed plate by viewport HEIGHT so a 2:3
    portrait can never dominate / overflow a page (max-width:58% alone left the
    height = 0.58·col·1.5, tall enough to push the framed box past one page). */
-.bookpage-art { display: block; max-width: 58%; max-height: 42vh; width: auto; height: auto; object-fit: contain; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+/* device-QA 2026-06-09 (Kobo): max-height is declared TWICE on purpose — the
+   em line is the fallback for renderers that drop vh (RMSDK-class); vh-capable
+   readers (Apple Books) take the later vh line. The kepub-only re-caps live
+   after the full-bleed block below. */
+.bookpage-art { display: block; max-width: 58%; max-height: 20em; max-height: 42vh; width: auto; height: auto; object-fit: contain; margin: 0 auto 0.9em auto; border-radius: 0.3em; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
 /* full-bleed: the portrait art fills the page; the title sits OVER it on a
    translucent dark panel near the bottom — legible against any art, and keeps
    art + title on one page (a full-width stacked image would push the title to
@@ -566,11 +577,18 @@ h1, h2, h3, h1.book-title {
 /* finding 3 (defensive): even an edge-to-edge plate must stay on its own page —
    cap height to ~one viewport (undistorted: width follows via auto), centered so
    it aligns with the overlaid title panel. */
-.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; max-width: 100%; max-height: 88vh; width: auto; height: auto; object-fit: contain; margin: 0 auto; }
+.book-title-page.style-full-bleed .bookpage-art-bleed { display: block; max-width: 100%; max-height: 36em; max-height: 88vh; width: auto; height: auto; object-fit: contain; margin: 0 auto; }
 .book-title-page.style-full-bleed .book-title-frame {
   position: absolute; left: 0; right: 0; bottom: 7%; margin: 0 auto; max-width: 82%;
   border: none; border-radius: 0.45em; background: rgba(18, 14, 8, 0.62); padding: 0.75em 1em;
 }
+/* kepub-only (Kobo) title-art re-caps: Kobo computes vh against an unreliable
+   viewport in paginated flow → the art overflowed its page and title pages
+   bled into each other (device-QA 2026-06-09). #book-inner exists only in the
+   kepubify output, and the id selector outranks the class chains above, so
+   Kobo is forced onto the em caps; every other reader is untouched. */
+#book-inner .bookpage-art { max-height: 20em; }
+#book-inner .book-title-page.style-full-bleed .bookpage-art-bleed { max-height: 36em; }
 .book-title-page.style-full-bleed .bookpage-eyebrow { color: #e7d0a6; }
 .book-title-page.style-full-bleed .bookpage-title { color: #f7ecd2; }
 .book-title-page.style-full-bleed .bookpage-subtitle { color: #e3cca3; }
@@ -813,7 +831,11 @@ p.verse-p, p.verse-p-flush {
    scripture reads clean (Genesis 1: ~93 markers → ~31 badges) with every note
    still ON. Build-time only (epub_working stays the canonical numbers form);
    these rules are inert unless apply_badge_markers ran for the edition. */
-.verse-notes-badge { text-decoration: none; margin: 0 1px; }
+/* device-QA 2026-06-09 (colour Kobo): the trailing ◈ badge and the NEXT verse's
+   number popup are tap-adjacent at every verse boundary and Kobo's hit-box is
+   coarse → mis-taps. User decision: KEEP both popups (translation = verse
+   start, ◈ notes = verse end) + a clear gap between them. */
+.verse-notes-badge { text-decoration: none; margin: 0 0.4em 0 0.12em; }
 .marker-badge {
   font-size: 0.72em;
   vertical-align: 0.4em;        /* explicit baseline-shift — never the "super"
@@ -831,6 +853,12 @@ p.verse-p, p.verse-p-flush {
   color: #fff;
   background: #5C2E91;
 }
+/* kepub-only (Kobo): #book-columns > #book-inner is the kepubify wrapper, so
+   these selectors match ONLY in the .kepub.epub — the plain EPUB is untouched.
+   Kobo's coarse tap box needs a wider dead zone between the two verse-boundary
+   tap targets than the base gap above. */
+#book-inner .verse-notes-badge { margin: 0 0.7em 0 0.2em; }
+#book-inner .vn-link .vn { margin-right: 0.35em; }
 
 /* The merged per-verse listing aside (epub:type="footnote"). Hidden in the flow
    like the per-note notes-section; the reader's popup engine surfaces it on a

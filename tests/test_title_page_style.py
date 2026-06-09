@@ -167,3 +167,44 @@ class TestPatchOpfBookImages:
 
         opf = '<manifest>\n  <item id="book-gen" href="images/book-gen.jpg" media-type="image/jpeg"/>\n</manifest>'
         assert patch_opf_book_images(opf, ["images/book-gen.jpg"]) == opf
+
+
+class TestTitleArtKoboHeightCaps:
+    """device-QA 2026-06-09 (colour Kobo): title pages bleed into each other.
+    `.book-title-page` already hard page-breaks both sides, so the bleed is the
+    art's `max-height` in vh overflowing — Kobo computes vh against an
+    unreliable viewport in paginated flow (and RMSDK-class renderers drop vh
+    entirely). Two-layer fix, no behavior change on Apple Books:
+
+      1. an `em` fallback declared BEFORE each vh cap (renderers without vh
+         keep the em line; vh-capable readers override it on the next line);
+      2. `#book-inner`-scoped em re-caps — the kepubify wrapper div exists only
+         in the .kepub.epub, and the id selector outranks the class chains, so
+         Kobo's WebKit is forced off the broken vh values."""
+
+    def _css(self) -> str:
+        return (REPO / "epub_working" / "stylesheet.css").read_text(encoding="utf-8")
+
+    def _rule(self, css: str, selector: str) -> str:
+        idx = css.find(selector + " {")
+        assert idx != -1, f"stylesheet must have a `{selector}` rule"
+        return css[idx : css.find("}", idx)]
+
+    def test_framed_art_em_fallback_precedes_vh(self):
+        rule = self._rule(self._css(), ".bookpage-art")
+        em, vh = rule.find("max-height: 20em"), rule.find("max-height: 42vh")
+        assert em != -1 and vh != -1, f"both caps must be declared; got: {rule}"
+        assert em < vh, "the em fallback must come FIRST so vh-capable readers override it"
+
+    def test_full_bleed_art_em_fallback_precedes_vh(self):
+        rule = self._rule(self._css(), ".book-title-page.style-full-bleed .bookpage-art-bleed")
+        em, vh = rule.find("max-height: 36em"), rule.find("max-height: 88vh")
+        assert em != -1 and vh != -1, f"both caps must be declared; got: {rule}"
+        assert em < vh, "the em fallback must come FIRST so vh-capable readers override it"
+
+    def test_kepub_only_recaps_have_no_vh(self):
+        css = self._css()
+        framed = self._rule(css, "#book-inner .bookpage-art")
+        bleed = self._rule(css, "#book-inner .book-title-page.style-full-bleed .bookpage-art-bleed")
+        assert "max-height: 20em" in framed and "vh" not in framed, f"got: {framed}"
+        assert "max-height: 36em" in bleed and "vh" not in bleed, f"got: {bleed}"

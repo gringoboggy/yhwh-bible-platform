@@ -425,3 +425,40 @@ class TestBadgeBuildIntegration:
         saw_badge = any('class="verse-notes-badge"' in t for _, t in files)
         assert saw_marker, "numbers mode lost its per-note markers"
         assert not saw_badge, "numbers mode must NOT emit verse badges"
+
+
+class TestKoboTapGapCss:
+    """device-QA 2026-06-09 (colour Kobo): at every verse boundary the trailing
+    `◈ notes` badge and the NEXT verse's number popup are tap-adjacent, and the
+    Kobo hit-box is coarse — mis-taps open the wrong popup. The user decision:
+    KEEP both popups (translation = verse start, notes ◈ = verse end) and add a
+    clear CSS gap. Base rules get a modest gap (every reader benefits — also
+    fixes the number-glued-to-text "²The"); `#book-inner` (the kepubify wrapper
+    div, present ONLY in the .kepub.epub) scopes a wider Kobo-only dead zone.
+    Inert elsewhere: the plain EPUB has no #book-inner element."""
+
+    def _css(self) -> str:
+        return (REPO / "epub_working" / "stylesheet.css").read_text(encoding="utf-8")
+
+    def _rule(self, css: str, selector: str) -> str:
+        idx = css.find(selector + " {")
+        assert idx != -1, f"stylesheet must have a `{selector}` rule"
+        return css[idx : css.find("}", idx)]
+
+    def test_badge_base_margin_separates_both_sides(self):
+        rule = self._rule(self._css(), ".verse-notes-badge")
+        assert "margin: 0 0.4em 0 0.12em" in rule, (
+            f"the badge needs a real gap before the next verse's number (was `margin: 0 1px`); got: {rule}"
+        )
+
+    def test_tappable_verse_number_unglued_from_text(self):
+        # "²The" — the wrapped verse number needs clear air before the verse text.
+        rule = self._rule(self._css(), ".vn-link .vn")
+        assert "margin-right: 0.25em" in rule, f"got: {rule}"
+
+    def test_kepub_only_wider_gap(self):
+        css = self._css()
+        badge = self._rule(css, "#book-inner .verse-notes-badge")
+        assert "margin: 0 0.7em 0 0.2em" in badge, f"got: {badge}"
+        vn = self._rule(css, "#book-inner .vn-link .vn")
+        assert "margin-right: 0.35em" in vn, f"got: {vn}"
