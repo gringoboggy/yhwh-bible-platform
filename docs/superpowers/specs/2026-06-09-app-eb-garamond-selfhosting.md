@@ -290,7 +290,7 @@ glyphs**, so any Ge'ez/Amharic text in a console (Hebrew/Greek lexicon
 neighbors, parallel-Bible previews, edition names) would render tofu or a
 system fallback. Append `"Noto Serif Ethiopic"` to each stack so the
 unicode-range face covers Ethiopic codepoints while EB Garamond covers Latin.
-Update **all three** sites so they stay identical:
+Update **all four** sites so they stay identical:
 
 - `_design.py:207` (Tailwind `sans`):
   `['"EB Garamond"','"Noto Serif Ethiopic"','Georgia','"Times New Roman"','serif']`
@@ -301,8 +301,9 @@ Update **all three** sites so they stay identical:
 
 (The Ethiopic face's `unicode-range` means it only loads when Ethiopic
 codepoints are actually present — zero cost on Latin-only consoles, per
-`font-display: swap` + range scoping. This mirrors the site, which also lists
-Noto Serif Ethiopic for the same reason.)
+`font-display: swap` + range scoping. The site reaches the same goal by a
+different route — `:lang(gez)`/`:lang(am)` scoped rules in `website/style.css`,
+not by listing the family in its main stacks. — corrected per W6, turn-56.)
 
 ### 4.2 Update the stale comment
 `_design.py:177-180` currently says EB Garamond "isn't serving it yet … falls

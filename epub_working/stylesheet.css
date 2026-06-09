@@ -355,10 +355,11 @@ body p.right-p {
    fine — the key change is moving away from sans-serif and tightening
    line-height to fit more per page. */
 body, body.bible-body, p, p.verse-p, p.ch-heading, p.verse-p-flush {
-  /* "Noto Serif Ethiopic" leads but is unicode-range-scoped to U+1200-137F,
-     so it ONLY renders Ge'ez/Amharic fidel (the standalone Ge'ez Bibles'
-     verse-p body text) and is inert for Latin, which falls through to the
-     embedded "Cardo" (RX Phase 3 — fixes device #7 for Ethiopic too). */
+  /* "Noto Serif Ethiopic" leads but is unicode-range-scoped to the Ethiopic
+     blocks (U+1200-137F + Supplement/Extended/Extended-A), so it ONLY renders
+     Ge'ez/Amharic fidel (the standalone Ge'ez Bibles' verse-p body text) and
+     is inert for Latin, which falls through to the embedded "Cardo"
+     (RX Phase 3 — fixes device #7 for Ethiopic too). */
   /* RX-beta2: dropped "Cardo" from the BODY stack so the reader's native serif
      wins (user: embedded Cardo looked less neat on Kobo than Kobo's own serif);
      dropped !important so reader font/leading overrides work. Cardo stays on the
@@ -640,7 +641,6 @@ h1, h2, h3, h1.book-title {
 .sources-heading { font-size: 1.1em; font-variant-caps: small-caps; letter-spacing: 0.04em;
                    border-bottom: 1px solid #c8b89a; padding-bottom: 0.2em; margin: 0 0 0.4em;
                    page-break-before: avoid; break-before: avoid; }
-.copyright-heading { page-break-before: avoid; break-before: avoid; }
 .sources-list { margin: 0.2em 0 0 1.2em; padding: 0; }
 .sources-item { margin: 0 0 0.3em; line-height: 1.45; }
 .reftable { width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.9em; }
@@ -683,7 +683,6 @@ h1, h2, h3, h1.book-title {
 .copyright-subtitle { text-align: center; font-style: italic; color: #6a4a1f; margin: 0 0 0.5em; }
 .copyright-rule { margin: 0.3em 0 0.7em; }
 .copyright-page p { margin: 0.45em 0; font-size: 0.92em; line-height: 1.45; }
-.copyright-page h2.copyright-heading { font-size: 1.1em; margin: 0.6em 0 0.25em; }
 
 /* (g) Chapter-start superscriptions (Psalm titles, incipits like "A Prayer by
    David.") — a heading/note, NOT scripture body. Centred italic, distinct from

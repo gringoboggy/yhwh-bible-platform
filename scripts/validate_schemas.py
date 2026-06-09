@@ -228,6 +228,12 @@ EDITIONS_SPEC = RecordSpec(
         # standalone flow vs. the multi-tradition notes-filter flow.
         FieldSpec("standalone", type=bool, required=False),
         FieldSpec("base_translation", type=str, required=False),
+        # note-rehaul S1/S2/S3a flags (2026-06-09, flipped True on eth at the
+        # STAGE-C re-baseline) — were wired through web_editions/api/customize
+        # but never given FieldSpecs, so strict_unknown flagged them.
+        FieldSpec("note_attribution_dedup", type=bool, required=False),
+        FieldSpec("note_group_by_category", type=bool, required=False),
+        FieldSpec("note_topic_dedup", type=bool, required=False),
     ]
 )
 

@@ -554,7 +554,7 @@ class TestBuildEdition:
             "copyright_year": "2026",
             "copyright_holder": "Sample Editor",
         }
-        html = self.mod.render_copyright_page(edition, publishing, "v1", annotation_count=500, category_count=7)
+        html = self.mod.render_copyright_page(edition, publishing, annotation_count=500, category_count=7)
         assert "The Sample Edition" in html
         # 2030e7e0 (device-QA AB②): the URN/"This Edition" identity moved to the
         # Your Edition page; the colophon is legal/publisher only.
@@ -12413,13 +12413,16 @@ class TestXi3CspHeaders:
         assert hasattr(self.Handler, "_send_security_headers")
 
     def test_send_html_applies_security_headers(self):
-        # _send_html sets the CSP headers via the helper.
+        # _send_html sets the CSP headers via the helper. Scan to the next
+        # def (not a fixed window) — the η.1 skin preamble showed a fixed
+        # 600-char slice silently truncates as the method grows.
         from pathlib import Path
 
         web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
         text = web_py.read_text(encoding="utf-8")
         idx = text.find("def _send_html")
-        seg = text[idx : idx + 600]
+        next_def = text.find("\n    def ", idx + 1)
+        seg = text[idx:next_def] if next_def > 0 else text[idx : idx + 3000]
         assert "_send_security_headers" in seg
 
     def test_send_json_applies_security_headers(self):
@@ -12428,7 +12431,8 @@ class TestXi3CspHeaders:
         web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
         text = web_py.read_text(encoding="utf-8")
         idx = text.find("def _send_json")
-        seg = text[idx : idx + 600]
+        next_def = text.find("\n    def ", idx + 1)
+        seg = text[idx:next_def] if next_def > 0 else text[idx : idx + 3000]
         assert "_send_security_headers" in seg
 
     def test_send_file_applies_security_headers(self):
@@ -14123,6 +14127,10 @@ class TestRunAINotesAtScaleDriver:
         import importlib
 
         cls.driver = importlib.import_module("scripts.run_ai_notes_at_scale")
+        # The verse-iteration/book-resolution helpers were hoisted to
+        # at_scale_base (STAGE A clone-hoist) — the thin CLI no longer
+        # re-exports them; test them where they live (mirrors the xrefs twin).
+        cls.asb = importlib.import_module("scripts.core.at_scale_base")
         from scripts.core import detectors as det
         from scripts.core import sources as src
 
@@ -14205,13 +14213,13 @@ class TestRunAINotesAtScaleDriver:
         assert not cand_dir.exists()
 
     def test_max_verses_caps_iteration(self):
-        verses = list(self.driver.iter_target_verses(["jhn"], max_verses=5))
+        verses = list(self.asb.iter_target_verses(["jhn"], max_verses=5))
         assert len(verses) == 5
         for book, _ch, _vs, _text in verses:
             assert book == "jhn"
 
     def test_iter_target_verses_skips_books_without_kjv(self):
-        verses = list(self.driver.iter_target_verses(["fakebook", "jhn"], max_verses=3))
+        verses = list(self.asb.iter_target_verses(["fakebook", "jhn"], max_verses=3))
         assert len(verses) == 3
         for book, _ch, _vs, _text in verses:
             assert book == "jhn"
@@ -14354,13 +14362,13 @@ class TestRunAINotesAtScaleDriver:
         assert self.driver.estimate_cost(1000) == per_verse * 1000
 
     def test_resolve_books_default_is_canonical_kjv_intersection(self):
-        books = self.driver.resolve_books(None)
+        books = self.asb.resolve_books(None)
         assert "gen" in books
         assert "jhn" in books
         assert books.index("gen") < books.index("jhn")
 
     def test_resolve_books_explicit_arg_passes_through(self):
-        books = self.driver.resolve_books("rom,gal,heb")
+        books = self.asb.resolve_books("rom,gal,heb")
         assert books == ["rom", "gal", "heb"]
 
 

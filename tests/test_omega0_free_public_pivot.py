@@ -111,7 +111,7 @@ class TestBuildEditionUrnReplacesIsbn:
             "copyright_year": "2026",
             "copyright_holder": "Demo Editor",
         }
-        html = self.be.render_copyright_page(edition, publishing, "v1", annotation_count=100, category_count=5)
+        html = self.be.render_copyright_page(edition, publishing, annotation_count=100, category_count=5)
         # 2030e7e0 (device-QA AB②): the URN identity block moved off the front
         # colophon onto the Your Edition page — the colophon is legal/publisher
         # only. The Ω.0 pivot pin is unchanged in spirit: the edition is

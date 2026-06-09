@@ -2645,7 +2645,7 @@ WELCOME_OVERLAY_JS = """<script>
     // M12 — the first-run welcome modal is built from inline styles the class/token
     // skin can't reach; retone it to the manuscript chrome so the very first end-user
     // surface matches (parchment card, ink/sepia serif text, the gold primary CTA).
-    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:1rem;font-family:"EB Garamond",Georgia,serif;';
+    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:1rem;font-family:"EB Garamond","Noto Serif Ethiopic",Georgia,serif;';
 
     var card = document.createElement('div');
     card.style.cssText = 'background:#FBF6E9;max-width:30rem;width:100%;border-radius:0.75rem;padding:1.75rem;box-shadow:0 20px 50px rgba(43,33,24,0.3);';

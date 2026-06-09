@@ -269,6 +269,15 @@ class TestEbGaramondCompletion:
         css = _skin_css()
         assert css.count('"Noto Serif Ethiopic"') >= 5
 
+    def test_welcome_overlay_stack_falls_through_to_ethiopic(self):
+        # W5 (turn-56 review): the first-run welcome modal is built from inline
+        # styles outside MANUSCRIPT_SKIN_CSS — its EB Garamond stack needs the
+        # same Ethiopic fallback as the other five stacks (spec §4.1 "every
+        # EB Garamond stack").
+        from scripts.templates._design import WELCOME_OVERLAY_JS
+
+        assert '"Noto Serif Ethiopic"' in WELCOME_OVERLAY_JS
+
     def test_website_fonts_is_bundled_for_the_frozen_app(self):
         # Without this datas entry the /fonts route 404s in the frozen build (§1.5).
         # Pin the load-bearing datas tuple itself, not just the words — the old

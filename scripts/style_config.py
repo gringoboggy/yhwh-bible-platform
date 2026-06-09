@@ -77,7 +77,8 @@ EMBED_FONT_FAMILY = "IM Fell English"  # used as @font-face family name
 #     guaranteed glyph everywhere. No unicode-range → Cardo is a general
 #     serif available to every stack that names it.
 #   - **Noto Serif Ethiopic** (Google, OFL 1.1) covers the Ethiopic
-#     syllabary; scoped via ``unicode_range`` to U+1200–137F so it only
+#     syllabary; scoped via ``unicode_range`` to the Ethiopic blocks
+#     (U+1200–137F + Supplement/Extended/Extended-A) so it only
 #     activates for Ge'ez/Amharic codepoints. Safe to ship in every
 #     edition (it never overrides Latin/Hebrew/Greek text); the standalone
 #     Ge'ez Bibles get legible fidel without any per-edition wiring.

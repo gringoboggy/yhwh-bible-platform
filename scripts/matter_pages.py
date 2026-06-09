@@ -22,7 +22,6 @@ from scripts.epub_utils import (  # noqa: E402
 def render_copyright_page(
     edition: dict,
     publishing: dict,
-    version: str,
     *,
     annotation_count: int,
     category_count: int,
@@ -138,7 +137,7 @@ def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
 
     # 1) Write the page
     html_text = render_copyright_page(
-        edition, publishing, version, annotation_count=annotation_count, category_count=category_count
+        edition, publishing, annotation_count=annotation_count, category_count=category_count
     )
     (tmp / "copyright.xhtml").write_text(html_text, encoding="utf-8")
 

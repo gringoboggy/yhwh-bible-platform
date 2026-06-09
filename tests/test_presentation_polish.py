@@ -83,31 +83,27 @@ class TestColophon:
         from scripts.build_edition import render_copyright_page
 
         out = render_copyright_page(
-            {"id": "catholic-study", "title": "Cath"}, self._pub(), "v", annotation_count=12345, category_count=9
+            {"id": "catholic-study", "title": "Cath"}, self._pub(), annotation_count=12345, category_count=9
         )
         assert "TODO_" not in out
 
     def test_no_stale_hardcoded_count(self):
         from scripts.build_edition import render_copyright_page
 
-        out = render_copyright_page(
-            {"id": "x", "title": "T"}, self._pub(), "v", annotation_count=12345, category_count=9
-        )
+        out = render_copyright_page({"id": "x", "title": "T"}, self._pub(), annotation_count=12345, category_count=9)
         assert "1,371" not in out and "14 categories" not in out
 
     def test_real_counts_rendered(self):
         from scripts.build_edition import render_copyright_page
 
-        out = render_copyright_page(
-            {"id": "x", "title": "T"}, self._pub(), "v", annotation_count=12345, category_count=9
-        )
+        out = render_copyright_page({"id": "x", "title": "T"}, self._pub(), annotation_count=12345, category_count=9)
         assert "12,345" in out and "9 categories" in out
 
     def test_identity_and_urn(self):
         from scripts.build_edition import render_copyright_page
 
         out = render_copyright_page(
-            {"id": "catholic-study", "title": "T"}, self._pub(), "v", annotation_count=10, category_count=1
+            {"id": "catholic-study", "title": "T"}, self._pub(), annotation_count=10, category_count=1
         )
         assert "Way Editions" in out and "Bogdan Zorlescu" in out and "2026" in out
         # device-QA 2026-06-09: the "This Edition" identity block (Edition ID + Build)
@@ -120,7 +116,7 @@ class TestColophon:
         from scripts.build_edition import render_copyright_page
 
         ed = {"id": "x", "title": "T", "description": "UNIQUE_DESC_SENTINEL_12321"}
-        out = render_copyright_page(ed, self._pub(), "v", annotation_count=10, category_count=1)
+        out = render_copyright_page(ed, self._pub(), annotation_count=10, category_count=1)
         assert "UNIQUE_DESC_SENTINEL_12321" not in out
 
     def test_well_formed_xml(self):
@@ -128,7 +124,7 @@ class TestColophon:
         from scripts.build_edition import render_copyright_page
 
         out = render_copyright_page(
-            {"id": "x", "title": "T & <co>"}, self._pub(), "v", annotation_count=10, category_count=1
+            {"id": "x", "title": "T & <co>"}, self._pub(), annotation_count=10, category_count=1
         )
         md.parseString(out)
 
@@ -525,13 +521,15 @@ class TestPageBreakAvoidRules:
         assert "page-break-before: avoid" in snippet, ".sources-heading must set page-break-before: avoid"
         assert "break-before: avoid" in snippet, ".sources-heading must set break-before: avoid (modern property)"
 
-    def test_copyright_heading_has_avoid(self):
+    def test_copyright_heading_css_stays_dead(self):
+        # W3 (turn-56 review): the relocated <h2 class="copyright-heading"> was
+        # the only emitter; both .copyright-heading rules were dead CSS in every
+        # edition and were deleted. Guard against resurrection without an emitter.
         css = _CSS.read_text(encoding="utf-8")
-        idx = css.find(".copyright-heading")
-        assert idx >= 0, ".copyright-heading rule missing from stylesheet.css"
-        snippet = css[idx : idx + 200]
-        assert "page-break-before: avoid" in snippet, ".copyright-heading must set page-break-before: avoid"
-        assert "break-before: avoid" in snippet, ".copyright-heading must set break-before: avoid (modern property)"
+        assert ".copyright-heading" not in css, (
+            "dead .copyright-heading CSS resurfaced — it has no emitter "
+            "(the identity heading moved to the Your Edition page, 2030e7e0/W3)"
+        )
 
 
 # ──────────────────────────────────────────────────────────────
@@ -557,6 +555,21 @@ class TestDedicationPageSignature:
         sig = inspect.signature(render_dedication_page)
         assert "version" not in sig.parameters, (
             "render_dedication_page must not have a `version` parameter (it was unused — FIX 5)"
+        )
+
+
+class TestCopyrightPageSignature:
+    """render_copyright_page must no longer accept a `version` parameter —
+    its only consumer was the "Build:" identity line, which moved to the
+    Your Edition page (2030e7e0); W4 mirrors FIX 5."""
+
+    def test_no_version_parameter(self):
+        import inspect
+        from scripts.build_edition import render_copyright_page
+
+        sig = inspect.signature(render_copyright_page)
+        assert "version" not in sig.parameters, (
+            "render_copyright_page must not have a `version` parameter (it was unused — W4)"
         )
 
 

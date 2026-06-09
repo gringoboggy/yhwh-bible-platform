@@ -206,8 +206,8 @@ def test_render_copyright_renders_given_count() -> None:
     eds = config.editions_by_id()
     ed = eds.get("catholic-study") or next(iter(eds.values()))
     pub = matter_pages._resolve_publishing(ed)
-    html_full = matter_pages.render_copyright_page(ed, pub, "v28a", annotation_count=41881, category_count=5)
-    html_filtered = matter_pages.render_copyright_page(ed, pub, "v28a", annotation_count=40000, category_count=5)
+    html_full = matter_pages.render_copyright_page(ed, pub, annotation_count=41881, category_count=5)
+    html_filtered = matter_pages.render_copyright_page(ed, pub, annotation_count=40000, category_count=5)
     assert "41,881" in html_full or "41881" in html_full
     assert "40,000" in html_filtered or "40000" in html_filtered
 
