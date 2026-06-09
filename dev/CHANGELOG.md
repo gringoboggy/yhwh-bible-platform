@@ -4,11 +4,11 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
-## 2026-06-08 — session (🪟 Windows) — STAGE B closed (real-build re-verifications) + STAGE A complete (at-scale clone-hoists)
+## 2026-06-08 — session (🪟 Windows) — STAGE B closed + STAGE A complete + STAGE C started (presentation findings 3+2+1b)
 
-**Phases shipped:** v0.1.0 STAGE B (re-verifications close) · STAGE A clone-hoist tail
-**Test delta:** +1 test class (`TestV010WordDetectorHoist`, 3 tests) + 8 tests re-homed; 85 at-scale + 6 bugcluster green
-**Save tag:** (this commit)
+**Phases shipped:** v0.1.0 STAGE B (re-verifications close) · STAGE A clone-hoist tail · STAGE C presentation (findings 3, 2, 1b)
+**Test delta:** +1 test class (`TestV010WordDetectorHoist`, 3 tests) + 8 tests re-homed (clone-hoists); STAGE C: 2 `TestLeftAlign` tests rewritten + the justify build guard added; 85 at-scale + 6 bugcluster + 38 presentation green
+**Save tag:** `287e5898` (STAGE B/A milestone, pushed) · `d2970962`+`1ae3a2cc`+`f996024c` (STAGE C + tracker, push at session-end)
 
 STAGE B — the 3 real-build re-verifications (the data-validity cluster's remaining gate), all GREEN:
 - **(i) font-embed byte-stability/epubcheck.** `test_byte_stability_gate` PASSED (23m38s) — eth+catholic+jewish build to valid, mutually-distinct EPUBs; the catholic-study rebuild is byte-identical (deterministic). 9-KJV byte-identity holds **by construction**: the only build-path delta since the v0.1.0 baseline `b5ad8c98` is 4 `scripts/core` files (dead-helper removal; the aes/`canonical_verse_counts` keystone — affects only aes/1cl/2en Ethiopian distinctives, not the 9 KJV; the `notes_io` runtime cache hook — cold on a fresh build; `sources_lexicon` book-code normalize — no-op on clean data), while `epub_working/`, `build_edition.py`, `apply_style.py`, `style_config.py` are unchanged. **epubcheck 0/0/0/0 on both eth and catholic-study** (no RSC-007/008): reconciled the font path — `apply_style.py` is NOT run by the build (its managed region is stale; `EMBED_FONT_PATH=None`), the `@font-face` rules are the hardcoded ones in `epub_working/stylesheet.css`, and `patch_opf_fonts` registers exactly the `EMBED_FONT_PATHS` four files (Cardo .ttf ×3 + Noto .woff2) into the OPF manifest ⇒ every referenced font is manifested and shipped.
@@ -23,9 +23,20 @@ STAGE A clone-hoists (the last two STAGE-A items; offline tooling, gates nothing
 
 Lane: handed macclaude the full v0.1.0 EXECUTION PLAN (`docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md`) — M1 native-window dmg de-risk (gated on the WIN STAGE E spec edit) → M2 device-QA verify (gated on the STAGE C EPUB) → M3 v0.1.0 dmg+upload+site (STAGE F) → M4 final confirm; M0 optional parallel. Mac is correctly idle pending STAGE C/E (it has finished all pull-forward work). Acknowledged the lane_ping `--before-push` false-BEHIND that Mac flagged (use merge-base) — queued for the next shared-tooling touch.
 
+STAGE C (presentation — 3 surgical fixes shipped + committed; the note-rehaul cascade is the next major arc):
+- **finding 3 — book title-page "bleeds onto the next page"** (the recurring user complaint; per Mac's render-first diagnosis it is NOT a misalignment — the text is already centered): `.bookpage-art max-height:42vh` (load-bearing height cap) + `.book-title-frame display:block; break-inside:avoid` (an inline-block frame can't paginate); defensive full-bleed cap too. CSS-only. (`d2970962`)
+- **finding 2 — Your-Edition per-book table clipped off the LEFT in Apple-Books** (a `table-layout:fixed` quirk — no first-row/`<colgroup>` widths → intrinsic overflow): replaced the `<table>` with a float-based `.ye-row` 2-column block (reader-robust, e-ink-safe, no table-layout dependency). `matter_pages.py` + `stylesheet.css`. (`d2970962`)
+- Both = universal presentation fixes (every edition) = intentional all-editions re-baseline. **Verified: eth epubcheck 0/0/0/0 + in-EPUB content** (ye-row/ye-count present, old `<table>`/`table-layout:fixed` gone; `42vh` + `break-inside` present). On-device paginate-render (the actual bleed/clip) = Mac M2 — a build cannot show paginate-only behavior. (One lint catch: "Apple Books" is in the decommercialize vocab list → hyphenate to "Apple-Books" in scanned `.py`, matching the existing convention.)
+- **finding 1b — justify-scoping** (`1ae3a2cc`, test-only): the 2026-05-24 `TestLeftAlign` asserted "no justify anywhere" — STALE since beta-2 shipped justified prose as the EPUB default (so the reader never reaches the GLOBAL justify toggle that spaced out the ToC). Rewrote to the real contract: `test_prose_is_justified_by_default` + `test_no_furniture_selector_is_justified` (the build GUARD — strips CSS comments first so a comment merely naming a furniture class can't false-positive a prose block like `.verse-notes`). **Resolved 2 PRE-EXISTING reds** (failed at HEAD, before this session — not caused by findings 3+2). The defensive ToC explicit-left CSS is deferred (justify-default already removes the trigger; Mac M2 confirms if still needed).
+
+Retrospective:
+- **Lesson (codified, cap=2 box):** NEVER run pytest concurrently with a build — overlapping launches starved each other to 35–48 min each; clean solo runs are fast. Run ONE pytest/build at a time and wait. (Reinforces `feedback_local_test_memory_pressure` / `feedback_concurrent_agent_cap`.)
+- The note-rehaul (`specs/2026-06-08-note-presentation-rehaul-design.md`, read + internalized) is sequenced for a fresh focused start (S3a+S1→S2→eth re-baseline+Mac device-QA→S3b later) — a lossless transform of 91,733 notes whose `DISTINCT_OUT==DISTINCT_IN` completeness guard is non-negotiable, deliberately NOT rushed at a session tail.
+
 Continuity pointers:
 - `docs/superpowers/plans/2026-06-08-v0.1.0-master-plan.md` (Stages A–F)
 - `docs/superpowers/notes/2026-06-08-mac-lane-v0.1.0-execution-plan.md` (Mac M1–M4)
+- `docs/superpowers/specs/2026-06-08-note-presentation-rehaul-design.md` (note-rehaul S1–S4 — the next major STAGE-C arc) · `docs/superpowers/notes/2026-06-08-stageC-render-diagnosis.md` (findings 3+2)
 
 ---
 
