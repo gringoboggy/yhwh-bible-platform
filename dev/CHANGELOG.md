@@ -4,6 +4,17 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🖥️ Mac, turn 60) — turn-57/58 review recovered + all findings fixed; K-R2-1 kepub-break research answered; font-pack prep
+
+**Phases shipped:** Mac turn-59 backlog items R1 + R2 + R3/#1 (the last open items — backlog CLEAR). The adversarial review of WIN's `d60e5eec`+`b96320a0` was recovered from the workflow journal after a power interruption (it had completed); its 9 actionable findings all fixed in this session's commit.
+**Test delta:** +3 pins (`test_numbers_mode_boundary_gap` · `TestNoDeadVersionParams` AST guard · `test_copyright_heading_has_no_emitter`) + the `_ETHIOPIC_RANGE`/OPF-item pins strengthened; suites re-run green: 123 (font/marker/topical/skin/phi1 incl. the e2e built-EPUB font gate on a real eth build) + 41 presentation-polish + 46 TestBuildEdition/ψ.19.1 + 62/62 topical re-run; mypy clean; ruff baseline.
+**Save tag:** this block = the turn-60 milestone (review doc + fixes + 2 research/prep notes + board/state).
+
+- **Review (`notes/2026-06-09-turn57-58-win-review.md`):** both WIN commits verified faithful; 13 confirmed / 2 refuted. Fixes: Ethiopic **Extended-B** appended to the unicode-range at 7 sibling sites (EPUB stylesheet + style_config + app skin + website + dist + LICENSES + ATTRIBUTIONS — cmap-verified glyph-backed incl. the website woff2); **K① numbers-mode sibling** closed with boundary-adjacency margins (`.note-ref + .vn-link`, base 0.4em / kepub `#book-inner` 0.7em); **W4 fixed-the-class** — dead `version` param dropped from 5 render_* siblings + the 3-function inject/topical cascade, all call sites swept, AST self-enforcing guard added; OPF pin now asserts the Noto item's own media-type; `content/assets/fonts/README.md` rewritten to shipped reality; W3 emitter-side stays-dead twin; spec §4.1 fifth-stack note; truth-record count corrections (b96320a0: **8** stale reds repaired + 1 pin proactively hardened, **11** W4 call sites).
+- **K-R2-1 research (`notes/2026-06-09-kepub-pagebreak-research.md`):** vendor-confirmed — Kobo's epub-spec lists N for ALL page-break CSS on e-ink kepub; a new spine file is the only guaranteed break; kepubify is break-neutral. WIN prescription: `apply_file_split` cuts before every `book-title-page` (+ kepubify dummy-titlepage check + canon-filtered gate); keep the CSS for Apple Books.
+- **K-R2-3 prep (`notes/2026-06-09-kobo-font-pack.md`):** `yhwh-kobo-font-pack.zip` artifact shape (flat ttf ×5 + README.txt + LICENSE-OFL.txt — standalone font redistribution must carry the OFL text); Noto Naskh Arabic registered in LICENSES/ATTRIBUTIONS (version/size pinned at pack build); Guide copy drafted in-note, held off the live site until the artifact exists.
+- Hygiene: stray empty `uv.lock` stub removed.
+
 ## 2026-06-09 — session (🪟 Windows) — STAGE C: note-presentation rehaul SHIPPED on the Ethiopian Tewahedo edition (re-baseline) + verified
 
 **Phases shipped:** v0.1.0 STAGE C — note-rehaul S1 (label/attribution de-dup) + S2 (verse→category→source→note cascade) + S3a (vocab-aware topic union), enabled + re-baselined on `ethiopian-tewahedo`; the S2-cascade adversarial-review fixes folded in before the bake.

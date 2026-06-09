@@ -143,7 +143,7 @@ def _copyright_counts(tmp_path, edition) -> tuple[int, int]:
     category count from copyright.xhtml."""
     import re
 
-    matter_pages.inject_copyright_page(tmp_path, edition, "v28a")
+    matter_pages.inject_copyright_page(tmp_path, edition)
     text = (tmp_path / "copyright.xhtml").read_text(encoding="utf-8")
     m = re.search(r"carries <strong>([\d,]+)</strong> annotations across <strong>(\d+) categories", text)
     assert m, f"could not parse copyright counts from:\n{text}"

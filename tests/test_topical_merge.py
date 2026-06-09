@@ -111,7 +111,7 @@ class TestRenderMerged:
     def test_default_naves_intro_byte_stable(self):
         from scripts.matter_pages import render_topical_index_page
 
-        out = render_topical_index_page("v28a", [("FAITH", [("gen", 15, 6)])], book_abbrev=str.title)
+        out = render_topical_index_page([("FAITH", [("gen", 15, 6)])], book_abbrev=str.title)
         assert "after Nave&#x2019;s Topical Bible (Orville J. Nave, 1896; public domain)" in out
         ET.fromstring(out)
 
@@ -119,7 +119,7 @@ class TestRenderMerged:
         from scripts.matter_pages import _TORREY_TOPICAL_INTRO, render_topical_index_page
 
         out = render_topical_index_page(
-            "v28a", [("Adoption", [("gen", 1, 1)])], book_abbrev=str.title, intro=_TORREY_TOPICAL_INTRO
+            [("Adoption", [("gen", 1, 1)])], book_abbrev=str.title, intro=_TORREY_TOPICAL_INTRO
         )
         assert "Torrey" in out
         assert "after Nave" not in out
@@ -129,7 +129,7 @@ class TestRenderMerged:
         from scripts.matter_pages import render_merged_topical_index_page
 
         idx = [("Assurance", "N·T", [("gen", 15, 6)]), ("Adoption", "T", [("mat", 8, 10)])]
-        out = render_merged_topical_index_page("v28a", idx, book_abbrev=str.title)
+        out = render_merged_topical_index_page(idx, book_abbrev=str.title)
         ET.fromstring(out)  # well-formed XHTML
         assert "Nave" in out and "Torrey" in out
         assert "(N·T)" in out and "(T)" in out
@@ -139,7 +139,7 @@ class TestRenderMerged:
     def test_merged_render_empty_index_valid(self):
         from scripts.matter_pages import render_merged_topical_index_page
 
-        ET.fromstring(render_merged_topical_index_page("v28a", [], book_abbrev=str.title))
+        ET.fromstring(render_merged_topical_index_page([], book_abbrev=str.title))
 
 
 class TestWriteTopicalPage:
@@ -155,7 +155,6 @@ class TestWriteTopicalPage:
             book_order=BOOK_ORDER,
             naves=_FakeSource(naves) if naves is not None else None,
             torrey=_FakeSource(torrey) if torrey is not None else None,
-            version="v28a",
         )
         page = (tmp_path / "topical.xhtml").read_text(encoding="utf-8") if ok else ""
         return ok, page
@@ -203,7 +202,7 @@ class TestSourcesPageCreditsTorrey:
     def test_sources_page_lists_both_topical_works(self):
         from scripts.matter_pages import render_sources_page
 
-        out = render_sources_page("v28a")
+        out = render_sources_page()
         ET.fromstring(out)
         assert "Nave" in out  # pre-existing
         assert "Torrey&#x2019;s New Topical Textbook" in out

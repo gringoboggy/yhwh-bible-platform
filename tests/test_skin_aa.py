@@ -272,8 +272,8 @@ class TestEbGaramondCompletion:
     def test_welcome_overlay_stack_falls_through_to_ethiopic(self):
         # W5 (turn-56 review): the first-run welcome modal is built from inline
         # styles outside MANUSCRIPT_SKIN_CSS — its EB Garamond stack needs the
-        # same Ethiopic fallback as the other five stacks (spec §4.1 "every
-        # EB Garamond stack").
+        # same Ethiopic fallback as the four in-skin stacks (spec §4.1's fifth-
+        # stack note: intentionally shorter, pinned here, not via _skin_css()).
         from scripts.templates._design import WELCOME_OVERLAY_JS
 
         assert '"Noto Serif Ethiopic"' in WELCOME_OVERLAY_JS

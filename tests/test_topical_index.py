@@ -77,7 +77,7 @@ class TestRenderTopicalIndexPage:
         from scripts.matter_pages import render_topical_index_page
 
         idx = [("FAITH", [("gen", 15, 6), ("mat", 8, 10)])]
-        out = render_topical_index_page("v28a", idx, book_abbrev=lambda c: c.title())
+        out = render_topical_index_page(idx, book_abbrev=lambda c: c.title())
         ET.fromstring(out)  # well-formed XHTML
         assert "FAITH" in out
         assert "Gen 15:6" in out and "Mat 8:10" in out
@@ -86,16 +86,14 @@ class TestRenderTopicalIndexPage:
     def test_escapes_topic_names(self):
         from scripts.matter_pages import render_topical_index_page
 
-        out = render_topical_index_page(
-            "v28a", [("A &amp; B".replace("&amp;", "&"), [("gen", 1, 1)])], book_abbrev=str.title
-        )
+        out = render_topical_index_page([("A &amp; B".replace("&amp;", "&"), [("gen", 1, 1)])], book_abbrev=str.title)
         assert "A &amp; B" in out
         ET.fromstring(out)
 
     def test_empty_index_still_valid(self):
         from scripts.matter_pages import render_topical_index_page
 
-        out = render_topical_index_page("v28a", [], book_abbrev=str.title)
+        out = render_topical_index_page([], book_abbrev=str.title)
         ET.fromstring(out)
 
 
@@ -111,5 +109,5 @@ class TestRealCorpusIndex:
         book_order = {b["code"]: i for i, b in enumerate(config.load_books())}
         idx = build_topic_index(naves, canon_books=None, book_order=book_order)
         assert len(idx) > 3000  # ~4,604 topics
-        out = render_topical_index_page("v28a", idx, book_abbrev=str.title)
+        out = render_topical_index_page(idx, book_abbrev=str.title)
         ET.fromstring(out)  # the whole real index is well-formed

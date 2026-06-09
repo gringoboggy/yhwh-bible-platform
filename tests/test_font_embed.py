@@ -44,9 +44,10 @@ _FONT_FILES = [
     "NotoSerifEthiopic-Regular.ttf",
 ]
 
-# Full Ethiopic coverage: base block + Supplement + Extended + Extended-A
-# (the pre-device-QA embed was U+1200-137F only).
-_ETHIOPIC_RANGE = "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F"
+# Full Ethiopic coverage: all five blocks — base + Supplement + Extended +
+# Extended-A + Extended-B, per the K② recipe (the font is cmap-verified
+# glyph-backed in every one; the pre-device-QA embed was U+1200-137F only).
+_ETHIOPIC_RANGE = "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF"
 
 
 class TestEmbedFontPathsConfig:
@@ -206,7 +207,10 @@ class TestBuiltEpubContainsFonts:
             )
             assert 'href="fonts/Cardo-Italic.ttf"' in opf
             assert 'href="fonts/Cardo-Bold.ttf"' in opf
-            assert 'href="fonts/NotoSerifEthiopic-Regular.ttf"' in opf, (
+            # Pin the full item shape (href AND media-type on THIS item) — the
+            # whole-OPF 'media-type="font/ttf"' check above is already satisfied
+            # by the Cardo items, so it cannot vouch for the Noto entry.
+            assert 'href="fonts/NotoSerifEthiopic-Regular.ttf" media-type="font/ttf"' in opf, (
                 "OPF must declare NotoSerifEthiopic-Regular.ttf as a font/ttf item"
             )
             assert 'href="fonts/NotoSerifEthiopic-Regular.woff2"' not in opf, (

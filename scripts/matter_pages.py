@@ -114,7 +114,7 @@ def _drop_placeholder_introduction(tmp: Path) -> None:
         intro_file.unlink()
 
 
-def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
+def inject_copyright_page(tmp: Path, edition: dict) -> None:
     """Write copyright.xhtml, register it in content.opf (manifest + spine after
     titlepage) and nav.xhtml. Identity from _resolve_publishing.
 
@@ -194,7 +194,7 @@ def render_dedication_page(edition: dict) -> str:
 """
 
 
-def inject_dedication_page(tmp: Path, edition: dict, version: str) -> None:
+def inject_dedication_page(tmp: Path, edition: dict) -> None:
     """If the edition has a non-empty `dedication`, write dedication.xhtml and
     place it in the front matter RIGHT AFTER the title page (before the colophon).
     No-op when there's no dedication (back-compat: most editions have none)."""
@@ -263,7 +263,7 @@ def _legend_categories_for_edition(edition_id: str) -> list[dict]:
     ]
 
 
-def render_symbol_legend_page(edition: dict, categories: list[dict], version: str) -> str:
+def render_symbol_legend_page(edition: dict, categories: list[dict]) -> str:
     """Render the 'A Guide to the Notes' XHTML. `categories` is the ordered,
     already-filtered list from _legend_categories_for_edition. Each row gets a
     stable anchor id='legend-<category-id>' so in-note symbols (Phase 2) can link
@@ -297,12 +297,12 @@ def render_symbol_legend_page(edition: dict, categories: list[dict], version: st
 """
 
 
-def inject_symbol_legend_page(tmp: Path, edition: dict, version: str) -> None:
+def inject_symbol_legend_page(tmp: Path, edition: dict) -> None:
     """Write legend.xhtml, register it in the OPF (manifest + spine right after
     copyright) and add a nav.xhtml TOC entry (also renaming the copyright TOC
     label to 'Colophon' to match its page title)."""
     categories = _legend_categories_for_edition(edition["id"])
-    html_text = render_symbol_legend_page(edition, categories, version)
+    html_text = render_symbol_legend_page(edition, categories)
     (tmp / "legend.xhtml").write_text(html_text, encoding="utf-8")
 
     opf_path = tmp / "content.opf"
@@ -645,7 +645,7 @@ def _sources_sections() -> list[tuple[str, str]]:
     return sections
 
 
-def render_sources_page(version: str) -> str:
+def render_sources_page() -> str:
     """Render Sources &amp; Acknowledgments XHTML (static; not per-edition)."""
     sections_html_parts: list[str] = []
     for heading, body_html in _sources_sections():
@@ -675,7 +675,7 @@ def render_sources_page(version: str) -> str:
 """
 
 
-def render_reference_tables_page(version: str) -> str:
+def render_reference_tables_page() -> str:
     """Render Reference Tables XHTML (static study-Bible reference data)."""
 
     def _table(caption: str, headers: list[str], rows: list[list[str]]) -> str:
@@ -942,7 +942,7 @@ _MERGED_TOPICAL_INTRO = (
 )
 
 
-def render_topical_index_page(version: str, topic_index, book_abbrev, *, intro: str = _NAVES_TOPICAL_INTRO) -> str:
+def render_topical_index_page(topic_index, book_abbrev, *, intro: str = _NAVES_TOPICAL_INTRO) -> str:
     """Render a single-source topical-index back-matter XHTML. ``topic_index`` is
     the output of ``build_topic_index``; ``book_abbrev(code) -> str`` formats a book
     code for a verse reference (e.g. ``gen`` → ``Gen``). ``intro`` is the source
@@ -971,7 +971,7 @@ def render_topical_index_page(version: str, topic_index, book_abbrev, *, intro: 
 """
 
 
-def render_merged_topical_index_page(version: str, merged_index, book_abbrev) -> str:
+def render_merged_topical_index_page(merged_index, book_abbrev) -> str:
     """Render the merged Nave's + Torrey topical index. ``merged_index`` is the
     output of ``build_merged_topic_index`` — ``[(display, tag, refs), …]``."""
     rows: list[str] = []
@@ -1001,7 +1001,7 @@ def render_merged_topical_index_page(version: str, merged_index, book_abbrev) ->
 """
 
 
-def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey, version) -> bool:
+def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey) -> bool:
     """Write ``topical.xhtml`` per ``mode`` (naves | torrey | both; default both).
     Returns True if a page was written. Degrades gracefully when a source is
     unavailable: 'both' falls back to whichever single source is present; if
@@ -1011,7 +1011,7 @@ def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey, ve
 
     def write_single(src, intro):
         idx = build_topic_index(src, canon_books, book_order)
-        out.write_text(render_topical_index_page(version, idx, book_abbrev=str.title, intro=intro), encoding="utf-8")
+        out.write_text(render_topical_index_page(idx, book_abbrev=str.title, intro=intro), encoding="utf-8")
         return True
 
     if mode == "naves":
@@ -1021,7 +1021,7 @@ def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey, ve
     # both (default)
     if naves is not None and torrey is not None:
         merged = build_merged_topic_index(naves, torrey, canon_books, book_order)
-        out.write_text(render_merged_topical_index_page(version, merged, book_abbrev=str.title), encoding="utf-8")
+        out.write_text(render_merged_topical_index_page(merged, book_abbrev=str.title), encoding="utf-8")
         return True
     if naves is not None:
         return write_single(naves, _NAVES_TOPICAL_INTRO)
@@ -1039,8 +1039,8 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
     backcolophon. backcolophon is the very last spine item.
     Guards against double-injection via per-file href check."""
     # --- Write the back-matter XHTML files (sources → reftables → topical → colophon) ---
-    (tmp / "sources.xhtml").write_text(render_sources_page(version), encoding="utf-8")
-    (tmp / "reftables.xhtml").write_text(render_reference_tables_page(version), encoding="utf-8")
+    (tmp / "sources.xhtml").write_text(render_sources_page(), encoding="utf-8")
+    (tmp / "reftables.xhtml").write_text(render_reference_tables_page(), encoding="utf-8")
     # §5.4 #4 — topical index (Nave's + Torrey), filtered to this edition's canon.
     from scripts.core import config as _config
     from scripts.core import sources as _sources
@@ -1059,7 +1059,6 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
         book_order,
         naves=_load(_sources.naves_topical),
         torrey=_load(_sources.torrey_topical),
-        version=version,
     )
     (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition, version), encoding="utf-8")
 

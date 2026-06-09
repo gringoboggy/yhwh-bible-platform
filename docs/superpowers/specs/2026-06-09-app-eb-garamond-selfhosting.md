@@ -305,6 +305,13 @@ codepoints are actually present — zero cost on Latin-only consoles, per
 different route — `:lang(gez)`/`:lang(am)` scoped rules in `website/style.css`,
 not by listing the family in its main stacks. — corrected per W6, turn-56.)
 
+A FIFTH stack lives outside the skin CSS: `WELCOME_OVERLAY_JS` (the first-run
+welcome modal, inline-styled in `_design.py`) carries the same
+`"Noto Serif Ethiopic"` fallback but is **intentionally shorter** (no
+`"Times New Roman"`); it is not part of `MANUSCRIPT_SKIN_CSS`, so it is pinned
+separately in `tests/test_skin_aa.py` (W5, turn-56). A future stack sweep keyed
+to the four-site list above must include it. — added per turn-57/58 review C10.
+
 ### 4.2 Update the stale comment
 `_design.py:177-180` currently says EB Garamond "isn't serving it yet … falls
 back to Georgia." After this change that is false. Replace with a note that the

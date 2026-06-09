@@ -246,7 +246,7 @@ MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
   @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/eb-garamond-latin-700-normal.woff2") format("woff2"); }
   /* Ge'ez/Amharic coverage — EB Garamond has no Ethiopic glyphs. unicode-range scoped
      so it only loads when Ethiopic codepoints are present (zero cost on Latin pages). */
-  @font-face { font-family: "Noto Serif Ethiopic"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2") format("woff2"); unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F; }
+  @font-face { font-family: "Noto Serif Ethiopic"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/noto-serif-ethiopic-ethiopic-400-normal.woff2") format("woff2"); unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF; }
   :root {
     --ms-vellum:#F4ECD8; --ms-parchment:#FBF6E9; --ms-ink:#2B2118; --ms-sepia:#574532;
     --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-gold-hover:#C49A2E; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;

@@ -462,3 +462,16 @@ class TestKoboTapGapCss:
         assert "margin: 0 0.7em 0 0.2em" in badge, f"got: {badge}"
         vn = self._rule(css, "#book-inner .vn-link .vn")
         assert "margin-right: 0.35em" in vn, f"got: {vn}"
+
+    def test_numbers_mode_boundary_gap(self):
+        # K① sibling (turn-57/58 review): marker_style=numbers (a live
+        # /customize option) ships per-note .note-ref markers, and the verse's
+        # LAST marker abuts the NEXT verse's number popup exactly like the
+        # badge did. The fix gaps ONLY the marker→next-verse-number boundary
+        # via an adjacency rule — a blanket .note-ref right-margin would
+        # loosen mid-verse typography where markers sit inside the prose.
+        css = self._css()
+        base = self._rule(css, ".note-ref + .vn-link")
+        assert "margin-left: 0.4em" in base, f"got: {base}"
+        kepub = self._rule(css, "#book-inner .note-ref + .vn-link")
+        assert "margin-left: 0.7em" in kepub, f"got: {kepub}"

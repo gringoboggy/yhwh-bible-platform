@@ -39,13 +39,14 @@
 @font-face {
   /* ttf, NOT woff2 — Kobo is woff2-flaky (device-QA 2026-06-09: Ge'ez tofu
      in the kepub popups while the Cardo ttf faces rendered fine). Range =
-     Ethiopic base + Supplement + Extended + Extended-A. */
+     all five Ethiopic blocks (base + Supplement + Extended + Extended-A +
+     Extended-B) — the font is cmap-verified glyph-backed in each. */
   font-family: "Noto Serif Ethiopic";
   src: url("fonts/NotoSerifEthiopic-Regular.ttf");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F;
+  unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF;
 }
 
 body {
@@ -174,6 +175,11 @@ blockquote {
 
 /* === COMMENTARY NOTES === */
 .note-ref { text-decoration: none; margin: 0 1px; }
+/* K① sibling (numbers mode): the verse's LAST per-note marker is tap-adjacent
+   to the NEXT verse's number popup, exactly like the badge was. An adjacency
+   rule gaps ONLY that boundary (a blanket .note-ref right-margin would loosen
+   mid-verse typography where markers sit inside the prose). */
+.note-ref + .vn-link { margin-left: 0.4em; }
 .note-ref sup {
   font-size: 0.78em;
   vertical-align: 0.4em;        /* explicit baseline-shift instead of "super" keyword */
@@ -858,6 +864,7 @@ p.verse-p, p.verse-p-flush {
    tap targets than the base gap above. */
 #book-inner .verse-notes-badge { margin: 0 0.7em 0 0.2em; }
 #book-inner .vn-link .vn { margin-right: 0.35em; }
+#book-inner .note-ref + .vn-link { margin-left: 0.7em; }
 
 /* The merged per-verse listing aside (epub:type="footnote"). Hidden in the flow
    like the per-note notes-section; the reader's popup engine surfaces it on a

@@ -145,7 +145,7 @@ class TestSymbolLegendPure:
     def test_renders_symbol_label_description_count(self):
         from scripts.build_edition import render_symbol_legend_page
 
-        out = render_symbol_legend_page({"id": "x", "title": "T"}, self._cats(), "v")
+        out = render_symbol_legend_page({"id": "x", "title": "T"}, self._cats())
         assert "A Guide to the Notes" in out
         for c in self._cats():
             assert c["symbol"] in out and c["label"] in out and c["description"] in out
@@ -154,14 +154,14 @@ class TestSymbolLegendPure:
     def test_each_row_has_anchor_id(self):
         from scripts.build_edition import render_symbol_legend_page
 
-        out = render_symbol_legend_page({"id": "x", "title": "T"}, self._cats(), "v")
+        out = render_symbol_legend_page({"id": "x", "title": "T"}, self._cats())
         assert 'id="legend-comm"' in out and 'id="legend-topic"' in out
 
     def test_well_formed_xml(self):
         import xml.dom.minidom as md
         from scripts.build_edition import render_symbol_legend_page
 
-        md.parseString(render_symbol_legend_page({"id": "x", "title": "T"}, self._cats(), "v"))
+        md.parseString(render_symbol_legend_page({"id": "x", "title": "T"}, self._cats()))
 
 
 class TestLegendCategories:
@@ -276,7 +276,7 @@ class TestBackMatterPure:
     def test_sources_lists_key_sources(self):
         from scripts.build_edition import render_sources_page
 
-        out = render_sources_page("v")
+        out = render_sources_page()
         assert "Sources" in out and "World English Bible" in out and "Public Domain" in out
         assert "Strong" in out  # lexicon credited
         import xml.dom.minidom as md
@@ -286,7 +286,7 @@ class TestBackMatterPure:
     def test_reference_tables_has_units(self):
         from scripts.build_edition import render_reference_tables_page
 
-        out = render_reference_tables_page("v")
+        out = render_reference_tables_page()
         assert "cubit" in out and "shekel" in out and "ephah" in out
         import xml.dom.minidom as md
 
@@ -531,6 +531,18 @@ class TestPageBreakAvoidRules:
             "(the identity heading moved to the Your Edition page, 2030e7e0/W3)"
         )
 
+    def test_copyright_heading_has_no_emitter(self):
+        # Two-sided guard (turn-57/58 review C9): the CSS pin above cannot see
+        # a render function RE-EMITTING class="copyright-heading" (that would
+        # ship an unstyled class silently, then block restoring its CSS).
+        # Source-scan every build script so the emitter side stays dead too.
+        for py in (REPO / "scripts").rglob("*.py"):
+            assert "copyright-heading" not in py.read_text(encoding="utf-8"), (
+                f"{py.name} emits/mentions copyright-heading — the class was "
+                "retired with W3 (identity moved to the Your Edition page); "
+                "restoring it needs BOTH an emitter and its CSS, deliberately"
+            )
+
 
 # ──────────────────────────────────────────────────────────────
 # FIX 5 — render_dedication_page signature (no `version` param)
@@ -570,6 +582,35 @@ class TestCopyrightPageSignature:
         sig = inspect.signature(render_copyright_page)
         assert "version" not in sig.parameters, (
             "render_copyright_page must not have a `version` parameter (it was unused — W4)"
+        )
+
+
+class TestNoDeadVersionParams:
+    """Self-enforcing guard for the FIX-5/W4 *class* (turn-57/58 review C8):
+    no function in matter_pages.py may declare a `version` parameter it never
+    reads. The per-function signature pins above caught two instances; this
+    sweeps the whole module so the pattern cannot silently return (a dead
+    `version` param implies the caller threads build identity into a page
+    that does not print it)."""
+
+    def test_every_version_param_is_read(self):
+        import ast
+
+        src = (REPO / "scripts" / "matter_pages.py").read_text(encoding="utf-8")
+        offenders = []
+        for node in ast.walk(ast.parse(src)):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                all_args = node.args.args + node.args.kwonlyargs + node.args.posonlyargs
+                if any(a.arg == "version" for a in all_args):
+                    reads = any(
+                        isinstance(n, ast.Name) and n.id == "version" and isinstance(n.ctx, ast.Load)
+                        for n in ast.walk(node)
+                    )
+                    if not reads:
+                        offenders.append(f"{node.name}:{node.lineno}")
+        assert not offenders, (
+            f"matter_pages.py functions declare a `version` param they never read "
+            f"(drop it + sweep the call sites — FIX 5/W4 class): {offenders}"
         )
 
 

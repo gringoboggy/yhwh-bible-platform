@@ -27,11 +27,21 @@ directory. Cross-referenced here so this file is the single attribution index:
     `content/assets/fonts/Cardo-{Regular,Italic,Bold}.ttf`.
   - **Noto Serif Ethiopic** — © Google Inc. (Noto Project), OFL 1.1.
     Covers the Ethiopic syllabary; `@font-face` is `unicode-range`-scoped to
-    the Ethiopic blocks (U+1200–137F, U+1380–139F, U+2D80–2DDF, U+AB00–AB2F)
-    so it renders only Ge'ez/Amharic fidel (the standalone Ge'ez Bibles'
-    body text) and never overrides Latin/Hebrew/Greek.
+    all five Ethiopic blocks (U+1200–137F, U+1380–139F, U+2D80–2DDF,
+    U+AB00–AB2F, U+1E7E0–1E7FF) so it renders only Ge'ez/Amharic fidel (the
+    standalone Ge'ez Bibles' body text) and never overrides Latin/Hebrew/Greek.
     Source: <https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic>.
     File: `content/assets/fonts/NotoSerifEthiopic-Regular.ttf`.
+  - **Kobo font-pack add-on** (`yhwh-kobo-font-pack.zip`, a release artifact
+    of sideloadable fonts for Kobo's system-font popup dialog — device-QA
+    K-R2-3, 2026-06-09): redistributes the Cardo ×3 + Noto Serif Ethiopic
+    binaries above, plus **Noto Naskh Arabic** — © Google Inc. (Noto
+    Project), OFL 1.1, for the Van Dyck Arabic popups. Source:
+    <https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic>. As a
+    STANDALONE font redistribution the pack carries the full OFL 1.1 text
+    inside the zip (in-EPUB embedding needs no notice; a bare font file
+    does). Register: `content/assets/fonts/LICENSES.md`; artifact shape:
+    `docs/superpowers/notes/2026-06-09-kobo-font-pack.md`.
 
 The program itself is © 2026 Bogdan Zorlescu, all rights reserved (`LICENSE`);
 the cover art is the publisher's own generated work. The root `README.md` carries

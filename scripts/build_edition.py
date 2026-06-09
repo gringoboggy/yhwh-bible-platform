@@ -5039,8 +5039,8 @@ def build_one(
         # annotation_count_override (which corrected only the tradition/time
         # ref-id filters): resolved_note_counts subsumes it AND adds the rest of
         # the ρ.3 hierarchy + the base-coverage gate — strictly more accurate.
-        inject_copyright_page(tmp, edition, version)
-        inject_dedication_page(tmp, edition, version)
+        inject_copyright_page(tmp, edition)
+        inject_dedication_page(tmp, edition)
         # σ.3.2 — the "Your Edition" page is the FIRST content page after the
         # cover. It anchors its spine/nav insert at the titlepage and runs AFTER
         # copyright + dedication (each of which also inserts after titlepage), so
@@ -5049,7 +5049,7 @@ def build_one(
         # build-accurate counts (resolved_note_counts) replace the retired About
         # page, which carried the matrix-based summary.
         inject_your_edition_page(tmp, edition, version)
-        inject_symbol_legend_page(tmp, edition, version)
+        inject_symbol_legend_page(tmp, edition)
         inject_back_matter(tmp, edition, version, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
