@@ -49,6 +49,12 @@ popups on readers (e.g. Kobo) that lack SBL Hebrew / SBL Greek.
 
 **Files:**
 - `NotoSerifEthiopic-Regular.woff2`
+- `NotoSerifEthiopic-Regular.ttf` — the SAME font (v2.102, full, 589
+  glyphs / 528 codepoints), produced by losslessly decompressing the
+  woff2 container (`fontTools.ttLib` flavor strip; cmap verified
+  identical). Added 2026-06-09 for the EPUB embed: Kobo's renderers
+  support TTF/OTF/WOFF 1.0 but NOT woff2 (Ge'ez popups rendered tofu
+  on the colour-Kobo device test).
 
 **Source:** https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic
 **Designer/Publisher:** Google Inc., Noto Project
