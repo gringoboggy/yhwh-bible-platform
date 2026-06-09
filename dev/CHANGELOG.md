@@ -4,6 +4,26 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-09 — session (🪟 Windows) — STAGE C: note-presentation rehaul SHIPPED on the Ethiopian Tewahedo edition (re-baseline) + verified
+
+**Phases shipped:** v0.1.0 STAGE C — note-rehaul S1 (label/attribution de-dup) + S2 (verse→category→source→note cascade) + S3a (vocab-aware topic union), enabled + re-baselined on `ethiopian-tewahedo`; the S2-cascade adversarial-review fixes folded in before the bake.
+**Test delta:** `tests/test_note_rehaul.py` 49 green (S1/S2/S3a + the S2-cascade-review fixes); `validate_schemas` CLEAN with the 3 new eth flags.
+**Save tag:** re-baseline milestone = this block (`content/editions.yaml` eth flags True + IN_FLIGHT/board). Note-rehaul + skin code landed earlier today (S3a `19c7f6cb`, app-UX AA arc `1ed22783`, S2-cascade-review fixes `1a9679f2`; S1/S2/skin in preceding commits).
+
+Note-presentation rehaul — enabled the build-time, lossless, option-gated cascade on the flagship Ethiopian Tewahedo Study Bible (the 3 eth flags `note_attribution_dedup` / `note_group_by_category` / `note_topic_dedup` → True). The transforms run inside `apply_badge_markers` (badge mode), on the rendered row (base-consistent — correct even where `epub_working/` has drifted from live notes), gated per-edition so the flag-off path stays byte-identical:
+- **S1** drops a leaf's redundant `<span class="note-label">` when it merely repeats the kind default OR the body self-attributes (comm-ethiopian father byline). Lossless — the distinguishing text survives in the category header / body.
+- **S2** groups the apparatus into `verse → category → source → note`: `section.vn-group.note-cat-{cat}` (15 per-category group spines; hues from `stylesheet.css:751-791` + a topic hue `#5A5F7E`), one `.vn-cat-head` (glyph + the category label as words), one `.vn-source-byline` per source (named once), `.vn-item` leaves. The source byline comes from a build-time LIVE attribution lookup keyed by note id (NOT a base re-bake — drift is kind=0/ids-stable, so a live lookup is base-consistent and avoids the high-risk shared-base re-bake that would break 9-KJV byte-identity). comm-ethiopian self-attributing sources have their group byline suppressed (the father is in the body). A `_count_cascade_leaves` conservation guard (leaves == surviving rows) HALTs the build on any drop/dup.
+- **S3a** unions a verse's Nave's + Torrey topic rows into one deduped Topics row (vocab-aware longest-match against the 5,232-name vocab, NOT a comma-split — 250 topic names carry internal commas), `·`-joining the cited sources.
+- **S2-cascade-review fixes (Mac's 16-agent review, applied pre-bake — `notes/2026-06-09-S2-cascade-review.md`):** BYLINE-1 (detect comm-ethiopian self-attribution on the BAKED row shape, not the sanitizer-stripped stored `<aside>`), SK-2 (`_SOURCE_LOCATOR_RE` absorbs a leading `Bk`/`Book`/`Hom.`/`Homily` — no dangling `Bk`), POLISH-1 (series-strip loops to a fixpoint — no dangling `NPNF Series N`), BYLINE-4 (`all()` not `any()`), S2-GUARD-3 (`_count_cascade_leaves` wrapper token).
+
+Re-baseline verification (the full gate, all GREEN on the real build):
+- **byte gate** — catholic-study byte-IDENTICAL before/after the eth flag flip (normalized-OPF SHA `8e0fe3b5…dcdfea7`); the 9-KJV invariant holds empirically (a built before/after compare) + by construction (`git diff` = the eth block only; per-edition config isolation).
+- **epubcheck 0/0/0/0** (EPUB 3.3, no errors/warnings) · **nested-anchor 0** (`<a>` open/close balanced 190,248/190,248).
+- **render-verify** on shipped data: comm-ethiopian (jhn 1:1) — group `vn-source-byline` suppressed (0), father byline (Cyril/Athanasius) in the body only ⇒ **no double-attribution**; Gen 1:1 = **◈18**, 8 category groups, full `vn-group → vn-cat-head(glyph + label) → vn-source(byline once) → vn-item` cascade with the C1–C6 survivable cues; jhn Cyril byline grammatical; ragged-byline failure signatures all 0 (dangling `Bk` / `NPNF Series N` / any `NPNF` / `vol.`).
+- STAGE-C eth EPUB (25.85 MB) staged → `E:\epub-stage-c-eth\` for device-QA M2.
+
+Lane: PARALLEL (Mac back up). Refreshed the board (turns 47→48); handed Mac device-QA M2 on the landed STAGE-C EPUB ‖ items 3 (STAGE-F outward copy) + 5 (mac dmg recipe). Baton windows (truth_owner).
+
 ## 2026-06-08 — session (🪟 Windows) — STAGE B closed + STAGE A complete + STAGE C started (presentation findings 3+2+1b)
 
 **Phases shipped:** v0.1.0 STAGE B (re-verifications close) · STAGE A clone-hoist tail · STAGE C presentation (findings 3, 2, 1b)

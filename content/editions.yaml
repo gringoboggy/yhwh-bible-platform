@@ -33,6 +33,17 @@ editions:
     # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
     reader_toc_books_only: true
+    # Note-presentation rehaul (build-time, lossless, option-gated) — enabled for the
+    # flagship Ethiopian Tewahedo Study Bible. S1 (note_attribution_dedup) drops each
+    # leaf's redundant kind-label / self-attributing comm-ethiopian byline; S2
+    # (note_group_by_category) groups the apparatus into a verse → category → source →
+    # note cascade (15 per-category group spines); S3a (note_topic_dedup) unions the
+    # Nave's + Torrey topical terms (vocab-aware longest-match) into one deduped Topics
+    # row. Lossless + leaf-count-guarded; the flag-off path stays byte-identical.
+    # See docs/superpowers/specs/2026-06-08-note-presentation-rehaul-design.md.
+    note_attribution_dedup: true
+    note_group_by_category: true
+    note_topic_dedup: true
     canon: ethiopian
     theme: classic
     title: "The Ethiopian Tewahedo Study Bible"
