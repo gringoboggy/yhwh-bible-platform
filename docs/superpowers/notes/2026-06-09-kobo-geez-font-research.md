@@ -97,6 +97,18 @@ self-serviceable link in the chain — format support per Kobo's spec, the Cardo
 experiment, font integrity, the swap mechanics, kepub survival, package validity — is green.
 Re-test on the colour Kobo lands in WIN's one-rebuild batch (K① gap + K② this + K③ title-bleed).
 
+## ADDENDUM (turn 57) — WIN's release-ttf merge VERIFIED ✓ (the cmap check WIN couldn't run)
+
+WIN shipped the swap (`d60e5eec`) using the **official notofonts release ttf** (384,020 B,
+`full/ttf` static build) instead of this note's decompressed twin. fontTools verdict (Mac):
+**strictly better, zero loss** — release = v2.102 + **ttfautohint v1.8.4.7** (hinted; the twin
+was unhinted — hinting helps low-DPI/e-ink), 923 glyphs / 860 mapped codepoints; the twin's
+**528 codepoints ⊆ release with ZERO missing** (the 332 extras = extended Latin etc.);
+**74/74 EPUB-used chars covered**; all four widened range blocks fully glyph-backed
+(U+1200-137F: 358 · U+1380-139F: 26 · U+2D80-2DDF: 79 · U+AB00-AB2F: 32 — identical Ethiopic
+coverage to the twin). `content/assets/fonts/` and `epub_working/fonts/` copies are
+byte-identical. The swap recipe above is now historical record; the shipped state supersedes it.
+
 Sources:
 - https://github.com/kobolabs/epub-spec (TTF/OTF/WOFF-1.0 list)
 - https://help.kobo.com/hc/en-us/articles/13009477876631-Load-fonts-onto-your-Kobo-eReader

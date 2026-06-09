@@ -1,0 +1,532 @@
+{
+  "_about": "normalizeBody test-vector pack (Mac, turn 57) for the rich-text note editor — spec docs/superpowers/specs/2026-06-09-idiot-proof-app-design.md §2 'Normalize-on-save'. Companion contract doc: docs/superpowers/notes/2026-06-09-normalizebody-test-vectors.md. Harness contract: for every vector assert normalize(input) == expected AND normalize(expected) == expected (every expected form is a fixed point / idempotency). Vectors with js_only=true depend on browser CSS-shorthand parsing and are skipped by a Python mirror harness.",
+  "_contract": {
+    "allow": [
+      "strong",
+      "em",
+      "a[href]",
+      "br"
+    ],
+    "map": {
+      "b": "strong",
+      "i": "em",
+      "span[font-weight:bold|bolder|>=600]": "strong",
+      "span[font-style:italic]": "em",
+      "span[both]": "strong>em (strong outer, canonical order)"
+    },
+    "unwrap": "every other element: emit children in place (text kept)",
+    "block_boundary": "REFINEMENT (spec_gap b): when unwrapping a block container (div/p/h1-h6/blockquote/li/tr...), emit one <br> before each block sibling after the first, and strip the block's own single trailing <br> (engine padding) — otherwise multi-line notes collapse to one line",
+    "drop_wholesale": "REFINEMENT (spec_gap c): script/style/template elements and comment nodes are dropped INCLUDING their text; literal 'keep text' would inject code into note bodies",
+    "href": "REFINEMENT (spec_gap a): validate the RAW attribute string against ^(https?:|mailto:|#|/(?!/)) — the spec's ^(https?:|mailto:|#|/) admits protocol-relative //host; no trimming before validation; invalid/missing href => unwrap the <a> (keep children), never emit a bare <a>",
+    "attributes": "on kept elements drop ALL attributes except a@href",
+    "escaping": "text nodes: & < > escaped (&amp; &lt; &gt;), quotes raw, U+00A0 emitted as the raw character; attribute values: & \" < > escaped; pre-existing entities are single-escaped on the DOM text value (no double-escaping)",
+    "br": "serialized exactly as <br>"
+  },
+  "vectors": [
+    {
+      "id": "w1",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: bold;\">hot</span>",
+      "expected": "<strong>hot</strong>"
+    },
+    {
+      "id": "w2",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: 700;\">x</span>",
+      "expected": "<strong>x</strong>"
+    },
+    {
+      "id": "w3",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: 600;\">x</span>",
+      "expected": "<strong>x</strong>",
+      "note": "600 is the >= threshold boundary"
+    },
+    {
+      "id": "w4",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: 500;\">x</span>",
+      "expected": "x",
+      "note": "below threshold -> plain unwrap"
+    },
+    {
+      "id": "w5",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-style: italic;\">x</span>",
+      "expected": "<em>x</em>"
+    },
+    {
+      "id": "w6",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: bold; font-style: italic;\">x</span>",
+      "expected": "<strong><em>x</em></strong>",
+      "note": "canonical order: strong outer"
+    },
+    {
+      "id": "w7",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight:bold\">a<span style=\"font-style:italic\">b</span></span>",
+      "expected": "<strong>a<em>b</em></strong>"
+    },
+    {
+      "id": "w8",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"color: red;\">x</span>",
+      "expected": "x"
+    },
+    {
+      "id": "w9",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: normal;\">x</span>",
+      "expected": "x"
+    },
+    {
+      "id": "w10",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span class=\"Apple-style-span\">x</span>",
+      "expected": "x",
+      "note": "WebKit removeFormat/paste residue"
+    },
+    {
+      "id": "w11",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font-weight: bolder;\">x</span>",
+      "expected": "<strong>x</strong>",
+      "note": "decision: relative 'bolder' treated as bold (some engines emit it)"
+    },
+    {
+      "id": "w12",
+      "group": "webkit-spans",
+      "engine": "webkit",
+      "input": "<span style=\"font: italic bold 12px serif\">x</span>",
+      "expected": "<strong><em>x</em></strong>",
+      "js_only": true,
+      "note": "font shorthand sets el.style.fontStyle/fontWeight in browsers; Python mirrors can skip"
+    },
+    {
+      "id": "c1",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<b>x</b>",
+      "expected": "<strong>x</strong>"
+    },
+    {
+      "id": "c2",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<i>x</i>",
+      "expected": "<em>x</em>"
+    },
+    {
+      "id": "c3",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<b><i>x</i></b>",
+      "expected": "<strong><em>x</em></strong>"
+    },
+    {
+      "id": "c4",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "Line<div>second</div>",
+      "expected": "Line<br>second",
+      "spec_gap": "b",
+      "note": "Chromium emits a div per Enter; literal unwrap-keep-text would yield 'Linesecond'"
+    },
+    {
+      "id": "c5",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<div>a</div><div>b</div>",
+      "expected": "a<br>b",
+      "spec_gap": "b"
+    },
+    {
+      "id": "c6",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<div>a</div><div><br></div><div>b</div>",
+      "expected": "a<br><br>b",
+      "spec_gap": "b",
+      "note": "the empty <div><br></div> line survives as one extra <br>: boundary-br before it, its lone trailing br stripped, boundary-br before the next block"
+    },
+    {
+      "id": "c7",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<div>x<br></div>",
+      "expected": "x",
+      "spec_gap": "b",
+      "note": "single block: engine's trailing pad-br stripped"
+    },
+    {
+      "id": "c8",
+      "group": "chromium-tags",
+      "engine": "chromium",
+      "input": "<div><b>x</b><br></div>",
+      "expected": "<strong>x</strong>",
+      "spec_gap": "b"
+    },
+    {
+      "id": "l1",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"https://example.org/p\">x</a>",
+      "expected": "<a href=\"https://example.org/p\">x</a>"
+    },
+    {
+      "id": "l2",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"http://example.org\">x</a>",
+      "expected": "<a href=\"http://example.org\">x</a>"
+    },
+    {
+      "id": "l3",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"mailto:a@b.co\">x</a>",
+      "expected": "<a href=\"mailto:a@b.co\">x</a>"
+    },
+    {
+      "id": "l4",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"#gen-1-1\">x</a>",
+      "expected": "<a href=\"#gen-1-1\">x</a>"
+    },
+    {
+      "id": "l5",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"/notes\">x</a>",
+      "expected": "<a href=\"/notes\">x</a>",
+      "note": "single leading slash: allowed"
+    },
+    {
+      "id": "l6",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"https://ok.example\" onclick=\"evil()\" target=\"_blank\" rel=\"x\" class=\"y\" style=\"color:red\">x</a>",
+      "expected": "<a href=\"https://ok.example\">x</a>",
+      "note": "every attribute except href drops"
+    },
+    {
+      "id": "l7",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"https://example.org/?q=a&amp;b=c\">x</a>",
+      "expected": "<a href=\"https://example.org/?q=a&amp;b=c\">x</a>",
+      "note": "attr value re-escaped once, not doubled"
+    },
+    {
+      "id": "l8",
+      "group": "links-valid",
+      "engine": "any",
+      "input": "<a href=\"https://ok.example\">a<b>b</b></a>",
+      "expected": "<a href=\"https://ok.example\">a<strong>b</strong></a>",
+      "note": "allowed children normalize inside a kept link"
+    },
+    {
+      "id": "h1",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"javascript:alert(1)\">x</a>",
+      "expected": "x"
+    },
+    {
+      "id": "h2",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"JaVaScRiPt:alert(1)\">x</a>",
+      "expected": "x",
+      "note": "scheme matching must not be case-fooled; the anchored lowercase allowlist regex rejects this"
+    },
+    {
+      "id": "h3",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"data:text/html;base64,PHNjcmlwdD4=\">x</a>",
+      "expected": "x"
+    },
+    {
+      "id": "h4",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"vbscript:msgbox(1)\">x</a>",
+      "expected": "x"
+    },
+    {
+      "id": "h5",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\" javascript:alert(1)\">x</a>",
+      "expected": "x",
+      "note": "leading space: validate the RAW string (browsers trim before navigating, so raw-validation is safe-strict)"
+    },
+    {
+      "id": "h6",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"java\tscript:alert(1)\">x</a>",
+      "expected": "x",
+      "note": "embedded tab"
+    },
+    {
+      "id": "h7",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"//evil.example/x\">x</a>",
+      "expected": "x",
+      "spec_gap": "a",
+      "note": "SPEC GAP: the spec regex ^(https?:|mailto:|#|/) ADMITS protocol-relative URLs; use ^(https?:|mailto:|#|/(?!/))"
+    },
+    {
+      "id": "h8",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"\">x</a>",
+      "expected": "x"
+    },
+    {
+      "id": "h9",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a>x</a>",
+      "expected": "x",
+      "note": "no href at all -> unwrap, never a bare <a>"
+    },
+    {
+      "id": "h10",
+      "group": "links-hostile",
+      "engine": "any",
+      "input": "<a href=\"ftp://files.example\">x</a>",
+      "expected": "x",
+      "note": "scheme not on the allowlist"
+    },
+    {
+      "id": "j1",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<u>x</u>",
+      "expected": "x"
+    },
+    {
+      "id": "j2",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<font color=\"red\" size=\"7\">x</font>",
+      "expected": "x"
+    },
+    {
+      "id": "j3",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<h1>x</h1>",
+      "expected": "x"
+    },
+    {
+      "id": "j4",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<p>a</p><p>b</p>",
+      "expected": "a<br>b",
+      "spec_gap": "b"
+    },
+    {
+      "id": "j5",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<blockquote><em>q</em></blockquote>",
+      "expected": "<em>q</em>"
+    },
+    {
+      "id": "j6",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<table><tbody><tr><td>cell</td></tr></tbody></table>",
+      "expected": "cell",
+      "note": "tbody written explicitly so DOM and non-browser parsers agree"
+    },
+    {
+      "id": "j7",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<img src=\"x.png\" onerror=\"evil()\">",
+      "expected": "",
+      "note": "non-text junk unwraps to its (empty) text"
+    },
+    {
+      "id": "j8",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<o:p>word</o:p>",
+      "expected": "word",
+      "note": "Word clipboard artifact"
+    },
+    {
+      "id": "j9",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<meta charset=\"utf-8\">x",
+      "expected": "x",
+      "note": "clipboard paste artifact"
+    },
+    {
+      "id": "j10",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<strong style=\"font-size:99px\" class=\"huge\" data-x=\"1\">x</strong>",
+      "expected": "<strong>x</strong>",
+      "note": "allowed tag, attributes stripped"
+    },
+    {
+      "id": "j11",
+      "group": "junk-unwrap",
+      "engine": "any",
+      "input": "<em><script>alert(1)</script>y</em>",
+      "expected": "<em>y</em>",
+      "spec_gap": "c",
+      "note": "script INSIDE an allowed element still drops wholesale"
+    },
+    {
+      "id": "d1",
+      "group": "drop-wholesale",
+      "engine": "any",
+      "input": "<script>alert(1)</script>after",
+      "expected": "after",
+      "spec_gap": "c",
+      "note": "SPEC GAP: literal 'unwrap, keep text' would inject 'alert(1)' into the note body"
+    },
+    {
+      "id": "d2",
+      "group": "drop-wholesale",
+      "engine": "any",
+      "input": "<style>body{display:none}</style>t",
+      "expected": "t",
+      "spec_gap": "c"
+    },
+    {
+      "id": "d3",
+      "group": "drop-wholesale",
+      "engine": "any",
+      "input": "<!-- secret -->x",
+      "expected": "x",
+      "note": "comment nodes drop"
+    },
+    {
+      "id": "d4",
+      "group": "drop-wholesale",
+      "engine": "any",
+      "input": "<template><b>x</b></template>y",
+      "expected": "y",
+      "spec_gap": "c",
+      "js_only": true,
+      "note": "template content is an inert fragment in browsers; non-browser parsers may differ"
+    },
+    {
+      "id": "t1",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "a &lt; b &amp; c &gt; d",
+      "expected": "a &lt; b &amp; c &gt; d",
+      "note": "DOM text value 'a < b & c > d' re-escaped exactly once on serialize"
+    },
+    {
+      "id": "t2",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "<b>5 &lt; 6</b>",
+      "expected": "<strong>5 &lt; 6</strong>",
+      "note": "no double-escaping (&amp;lt; would be wrong)"
+    },
+    {
+      "id": "t3",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "<span style=\"font-weight:bold\">&amp;</span>",
+      "expected": "<strong>&amp;</strong>"
+    },
+    {
+      "id": "t4",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "\"quotes\" stay 'raw' in text",
+      "expected": "\"quotes\" stay 'raw' in text"
+    },
+    {
+      "id": "t5",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "café መቅ 🙏",
+      "expected": "café መቅ 🙏",
+      "note": "unicode passthrough incl. Ge'ez fidel + astral-plane emoji"
+    },
+    {
+      "id": "t6",
+      "group": "text-escaping",
+      "engine": "any",
+      "input": "a b",
+      "expected": "a b",
+      "note": "U+00A0 kept as the raw character (engines pad with &nbsp;); harness compares the serialized string exactly"
+    },
+    {
+      "id": "s1",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "",
+      "expected": ""
+    },
+    {
+      "id": "s2",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "   ",
+      "expected": "   ",
+      "note": "whitespace-only preserved verbatim; no trimming inside normalize (the caller may trim)"
+    },
+    {
+      "id": "s3",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "a<br>b",
+      "expected": "a<br>b"
+    },
+    {
+      "id": "s3b",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "a<br/>b",
+      "expected": "a<br>b",
+      "note": "br serialization canonicalized"
+    },
+    {
+      "id": "s4",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "<div><div><div><b>x</b></div></div></div>",
+      "expected": "<strong>x</strong>",
+      "note": "NESTED blocks contribute no boundary <br> — boundaries only BETWEEN siblings"
+    },
+    {
+      "id": "s5",
+      "group": "structure-quirks",
+      "engine": "any",
+      "input": "<div>a<span style=\"font-weight:bold\">b</span></div><div><i>c</i><br></div>",
+      "expected": "a<strong>b</strong><br><em>c</em>",
+      "spec_gap": "b",
+      "note": "composite: mixed engines' habits in one body"
+    }
+  ]
+}
