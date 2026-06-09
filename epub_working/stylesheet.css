@@ -752,6 +752,13 @@ body, body.bible-body, p, p.verse-p, p.verse-p-flush, p.ch-heading,
   orphans: 3;
   widows: 3;
 }
+/* K-R2-4 (device-QA 2026-06-09, kobo7/9/13): Kobo's reader-side justification
+   setting stomps <p> text-align with an injected !important rule, so the
+   .ch-heading paragraph's center never lands there and the chapter numeral
+   renders left-aligned. Center the INNER wrapper as a block instead — the
+   override targets paragraphs, not nested blocks. Inert on conformant readers
+   (a centered block inside an already-centered paragraph renders identically). */
+.ch-heading .section-heading { display: block; text-align: center; }
 /* Apply orphans/widows to the verse paragraphs that follow chapter
    headings, reinforcing the same intent across readers that respect the
    text-level (rather than block-level) properties. */

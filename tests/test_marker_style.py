@@ -475,3 +475,24 @@ class TestKoboTapGapCss:
         assert "margin-left: 0.4em" in base, f"got: {base}"
         kepub = self._rule(css, "#book-inner .note-ref + .vn-link")
         assert "margin-left: 0.7em" in kepub, f"got: {kepub}"
+
+
+class TestKoboChapterNumeralCss:
+    """K-R2-4 (device-QA round 2, kobo7/9/13): chapter numerals rendered
+    LEFT-aligned on Kobo although `.ch-heading` centers — Kobo's reader-side
+    justification setting stomps <p> text-align with an injected !important
+    rule. Centering the INNER `.section-heading` wrapper as a block dodges it:
+    the override targets paragraphs, not nested blocks. Inert on conformant
+    readers (a centered block inside an already-centered paragraph renders
+    identically)."""
+
+    def _css(self) -> str:
+        return (REPO / "epub_working" / "stylesheet.css").read_text(encoding="utf-8")
+
+    def test_numeral_centered_on_inner_block(self):
+        css = self._css()
+        idx = css.find(".ch-heading .section-heading {")
+        assert idx != -1, "stylesheet must center the numeral's inner wrapper"
+        rule = css[idx : css.find("}", idx)]
+        assert "display: block" in rule, f"got: {rule}"
+        assert "text-align: center" in rule, f"got: {rule}"
