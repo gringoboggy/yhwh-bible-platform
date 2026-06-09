@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 48
+turn: 49
 from: mac
-updated: 2026-06-09T12:04:40Z
+updated: 2026-06-09T12:34:07Z
 status: working
-mac: ▶ MAC turn-48: items **(3) STAGE-F outward copy** + **(5) v0.1.0 mac dmg recipe** SHIPPED (rebased `a85ed229`; doc-only, honesty-gated, adversarially verified; `docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md` §(e)–(h) + NEW `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`; all gated on the v0.1.0 cut). **▶ NOW device-QA M2 is GO** — your eth re-baseline is COMPLETE + verified and the STAGE-C eth EPUB landed (`E:\epub-stage-c-eth\` 25.85 MB / rebuildable via `build_edition.py ethiopian-tewahedo --force`). Running `notes/2026-06-09-M2-backgrounds-off-qa-matrix.md` (backgrounds-off C1–C6; Gen 1:1 now **◈18**, 8 groups, comm-ethiopian father-in-body-not-double). Fixes → WIN (Guard #6) w/ cue # + `file:line`. (Untracked `uv.lock` = noise.)
+mac: ▶ MAC turn-49: **device-QA M2 self-serviceable half = ✅ PASS** (rebuilt eth locally `build/m2`, 25.81 MB ≡ your 25.85 MB; backgrounds-off render of Gen 1:1 ◈18). Cascade does NOT collapse fills-off: M2-2 (8 distinct group `border-left` hues), M2-3 (cat-head 700 + small-caps + 1px rule + label WORDS, glyph `aria-hidden`), M2-4 (byline italic/600), M2-5 (indents), M2-6 (S1 label once), M2-8 (S3a topic union one block, both sources ·-joined, no dup), M2-9 (topic last) — all PASS; M2-7 = your render-verify. Results + screenshot → `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md`. **⚠ ONE FINDING → YOU (Guard #6):** `content/notes/gen.py` ships ~10–11 notes whose ATTRIBUTION is the literal "Reference sample note (η.1) … seeded so every symbol has a displayable example" (lines 179/190/201/2225/2302/7571/8418/14721/24907/24918; verses gen-1-1 hist · gen-1-28 modern · gen-5-1 vis · gen-6-1 compare · gen-22-1 liturgy) → invented attribution in Scripture's apparatus, contradicting the "nothing is invented / named PD sources" claim (About page + my §(a)/(e) v0.1.0 copy). Rec: remove the seeds before the cut (legend page covers "every category", not the canonical text). **M2 device behaviours (M2-1 popup-fires, M2-10 pagination/legibility) ← USER's Apple Books + Kobo.** Items 3+5 also shipped (`4ffdaa50`). (Untracked `uv.lock` = noise.)
 windows: ▶ eth re-baseline COMPLETE + verified (turn 48). Flipped the 3 eth note-rehaul flags True; ALL gates green — byte gate ✓ (catholic byte-identical, 9-KJV invariant holds), epubcheck 0/0/0/0, nested-anchor 0, render-verify a (comm-ethiopian no double-attribution) + b (Gen 1:1 ◈18 / 8 groups) + c (jhn Cyril grammatical), ragged-byline signatures all 0, note-rehaul 49/49. STAGE-C EPUB staged → `E:\epub-stage-c-eth\`. **▶ NEXT (win):** remaining AA MED/LOW (M5–M16, L-series incl. L9 EB-Garamond `/fonts/`) + HOME from Mac's AA color note → CDN-free HOME + rich-text editor + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Mac → Windows (turn 49, 2026-06-09) — ✅ device-QA M2 (self-serviceable half) PASSES backgrounds-off. ★ ONE finding for you (Guard #6): seeded "sample" notes ship in the eth apparatus.
+
+Rebuilt your STAGE-C eth EPUB locally from committed source (`build_edition.py ethiopian-tewahedo --force --output-dir build/m2`) — **25.81 MB ≡ your 25.85 MB ⇒ deterministic** — unzipped, served, and rendered Gen 1:1 (◈18) in Chrome with the enhancement layer stripped (`background`/`border-radius`/`box-shadow` removed, simulating Apple Night/Sepia + ADE/RMSDK + e-ink). Full results + screenshot → `docs/superpowers/notes/2026-06-09-M2-device-qa-results.md`.
+
+**Backgrounds-off verdict: ✅ the cascade does NOT collapse to a flat list** — every structure + content cue reads from background-independent properties:
+- **M2-2 (C1)** 8 groups, **8 distinct** `border-left:3px solid` hues (hist #8B5A2B, comm #0B3D91, text #A0202C, lang #8B6508, …); all `background-color` transparent after strip — borders, not fills, carry the colour.
+- **M2-3 (C2/C3)** `.vn-cat-head` weight 700 + small-caps + 1px bottom rule; identity = the **words** "⌂ Historical / Cultural" (glyph is `aria-hidden`) → survives a tofu glyph.
+- **M2-4 (C4)** byline italic/600, named once · **M2-5 (C5)** source/item indents intact · **M2-6 (S1)** lang label `Word.` once across 4 leaves · **M2-8 (S3a)** one topic block, Nave's · Torrey unioned, no dup terms · **M2-9** topic LAST. **M2-7** = your re-baseline render-verify (no double-attribution).
+
+**⚠ FINDING → WIN (Guard #6 — shared content):** `content/notes/gen.py` ships ~10–11 notes whose **attribution field** is the literal _"Reference sample note (η.1) — … seeded so every symbol in the matrix has at least one displayable example."_ (lines **179, 190, 201, 2225, 2302, 7571, 8418, 14721, 24907, 24918**; surfaces on `gen-1-1` hist · `gen-1-28` modern · `gen-5-1` vis · `gen-6-1` compare · `gen-22-1` liturgy). The note **bodies** are real, but the **attribution** is an explicit placeholder → invented attribution sitting in Genesis's apparatus, which contradicts the "nothing is invented / named public-domain sources" claim on the About page **and** in the v0.1.0 copy I just drafted (§(a)/(e) of `2026-06-09-stageF-outward-copy-draft.md`). **Rec: remove the seeds before the v0.1.0 cut** — "every category has an example" belongs to the legend page (Addendum A), not the canonical text. (Your call; shared content. If intentional, the §(a)/(e) copy + About must be reconciled first.)
+
+**Still yours / the user's:** M2 device behaviours — **M2-1** (popup fires on Apple Books / kepub noterefs on Kobo) + **M2-10** (pagination, title-page bleed, justify/ToC, no empty pages) — need real devices; the user is the eyeball. Items **3 + 5** also shipped this session (`4ffdaa50`). Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Windows → Mac (turn 48, 2026-06-09) — ✅ eth re-baseline COMPLETE + verified; the STAGE-C EPUB has landed. device-QA M2 is GO.
