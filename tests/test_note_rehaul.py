@@ -586,3 +586,109 @@ class TestNoteRehaulS2Wiring:
         for field in ("note_group_by_category", "note_topic_dedup"):
             assert src.count(f'"{field}"') >= 2, f"{field} must be in EDITABLE + EDITABLE_BOOL"
             assert f'"{field}"' not in text_block, f"{field} must NOT be in EDITABLE_TEXT"
+
+
+# ======================================================================
+# S3a — topic-note dedup + Nave's/Torrey union (vocab-aware; terms carry
+# internal commas, so longest-match against the authoritative vocab — NOT a
+# comma-split, which mis-parses 36.9% of topic notes).
+# ======================================================================
+
+
+class TestNoteRehaulS3aHelpers:
+    """Pure helpers for S3a: the topic vocab, the longest-match term parser, the
+    Title-case normaliser, and the case-insensitive union."""
+
+    def test_topic_vocab_loads_both_sources_casefolded(self):
+        from scripts.build_edition import _topic_vocab
+
+        v = _topic_vocab()
+        assert len(v) > 4000  # ~5,232 combined Nave + Torrey topic names
+        assert "creation" in v and "god" in v
+        # a comma-bearing name is in the vocab (the whole reason for longest-match)
+        assert "accusation, false" in v
+
+    def test_parse_splits_simple_comma_list(self):
+        from scripts.build_edition import _parse_topic_terms, _topic_vocab
+
+        out = _parse_topic_terms("CREATION, EARTH, GOD, HEAVEN", _topic_vocab())
+        assert out == ["CREATION", "EARTH", "GOD", "HEAVEN"]
+
+    def test_parse_longest_match_keeps_comma_bearing_terms_whole(self):
+        from scripts.build_edition import _parse_topic_terms, _topic_vocab
+
+        # "ACCUSATION, FALSE" is ONE Nave topic — a naive comma-split would break it
+        out = _parse_topic_terms("ACCUSATION, FALSE, GOD, CREATION", _topic_vocab())
+        assert out == ["ACCUSATION, FALSE", "GOD", "CREATION"]
+
+    def test_parse_unknown_term_falls_back_to_token(self):
+        from scripts.build_edition import _parse_topic_terms, _topic_vocab
+
+        # a term not in the vocab is kept as its own token (defensive, never dropped)
+        out = _parse_topic_terms("ZZZNOTATOPIC, GOD", _topic_vocab())
+        assert out == ["ZZZNOTATOPIC", "GOD"]
+
+    def test_title_topic_handles_caps_commas_and_apostrophes(self):
+        from scripts.build_edition import _title_topic
+
+        assert _title_topic("CREATION") == "Creation"
+        assert _title_topic("GOD, TITLES AND NAMES OF") == "God, Titles And Names Of"
+        assert _title_topic("LORD'S SUPPER") == "Lord's Supper"
+
+    def test_union_dedups_caseinsensitive_first_appearance_titlecased(self):
+        from scripts.build_edition import _topic_union
+
+        nave = ["CREATION", "GOD", "HEAVEN", "HEAVEN"]  # Nave UPPER, repeats HEAVEN
+        torrey = ["Creation", "Heaven", "Faith"]  # Torrey Title, overlaps Creation/Heaven
+        out = _topic_union([nave, torrey])
+        # union, first-appearance order, Title-cased, deduped case-insensitively
+        assert out == ["Creation", "God", "Heaven", "Faith"]
+
+
+class TestNoteRehaulS3aInBuild:
+    """S3a inside ``apply_badge_markers`` against a real gen-1 temp tree. The topic
+    notes (topic-nave + topic-torrey) merge into ONE Topics row when the flag is on."""
+
+    def _gen_tmp(self, base):
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        base.mkdir(parents=True, exist_ok=True)
+        for f in book["files"]:
+            (base / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+        return base, book
+
+    def _gen1_text(self, tmp, book):
+        for f in book["files"]:
+            t = (tmp / f).read_text(encoding="utf-8")
+            if 'id="vbadge-gen-1-1"' in t:
+                return t
+        raise AssertionError("gen 1 badge file not found")
+
+    def test_flag_off_keeps_topic_notes_separate(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, book = self._gen_tmp(tmp_path / "off")
+        stats = apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "note_group_by_category": True})
+        assert stats.get("s3a_topic_notes_merged", 0) == 0
+
+    def test_flag_on_merges_topic_notes_to_one_row(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, book = self._gen_tmp(tmp_path / "on")
+        stats = apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "note_attribution_dedup": True,
+                "note_group_by_category": True,
+                "note_topic_dedup": True,
+            },
+        )
+        # gen 1:1 carries topic-nave + topic-torrey → merged into one Topics row
+        assert stats["s3a_topic_notes_merged"] > 0
+        text = self._gen1_text(tmp, book)
+        # the merged topic row uses the lossless " · " union separator
+        assert " · " in text

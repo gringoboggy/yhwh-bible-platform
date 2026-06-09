@@ -2098,6 +2098,132 @@ def _note_attribution_index(book: dict) -> dict[str, str]:
     return idx
 
 
+# --- S3a topic-note union --------------------------------------------------
+# The rendered term list inside a topic note: "<strong>Topics.</strong> This verse
+# appears under: CREATION, EARTH, GOD, HEAVEN." Terms are joined by ", " but 250 of
+# the 5,232 Nave/Torrey topic names carry an INTERNAL comma, so the list is segmented
+# by longest-match against the authoritative vocab, NOT a comma-split.
+_TOPIC_APPEARS_RE = re.compile(r"appears under:\s*(.+?)\s*(</p>|</div>)", re.DOTALL | re.IGNORECASE)
+
+
+@lru_cache(maxsize=1)
+def _topic_vocab() -> frozenset:
+    """Casefolded set of every Nave's + Torrey topic name — the authoritative vocab
+    for longest-match segmentation of a topic note's ``appears under:`` list."""
+    names: set[str] = set()
+    for fn in ("naves_topical.json", "torrey_topical.json"):
+        p = REPO_ROOT / "content" / "sources" / fn
+        if not p.is_file():
+            continue
+        data = json.loads(p.read_text(encoding="utf-8"))
+        for name in data.get("topics") or {}:
+            if name:
+                names.add(" ".join(str(name).split()).casefold())
+    return frozenset(names)
+
+
+def _parse_topic_terms(appears_under: str, vocab: frozenset) -> list[str]:
+    """Segment a comma-joined topic-term string into terms using ``vocab`` for
+    longest-match (terms may contain internal commas). Original case + order kept;
+    an unknown token is kept as its own term (defensive — never drops a term)."""
+    tokens = [t.strip() for t in appears_under.split(",") if t.strip()]
+    terms: list[str] = []
+    i = 0
+    while i < len(tokens):
+        hit_span = 1
+        for span in range(min(3, len(tokens) - i), 0, -1):
+            cand = ", ".join(tokens[i : i + span])
+            if " ".join(cand.split()).casefold() in vocab:
+                hit_span = span
+                break
+        terms.append(", ".join(tokens[i : i + hit_span]))
+        i += hit_span
+    return terms
+
+
+def _title_topic(s: str) -> str:
+    """Title-case a topic term: capitalise each whitespace word, keep an
+    apostrophe-suffix lower (``LORD'S SUPPER`` → ``Lord's Supper``), preserve commas
+    (Nave stores UPPERCASE, Torrey Title Case → normalise to a uniform Title Case)."""
+    out = []
+    for word in s.split(" "):
+        if "'" in word:
+            head, _, tail = word.partition("'")
+            out.append((head[:1].upper() + head[1:].lower()) + "'" + tail.lower())
+        elif word:
+            out.append(word[:1].upper() + word[1:].lower())
+        else:
+            out.append(word)
+    return " ".join(out)
+
+
+def _topic_union(term_lists: list) -> list[str]:
+    """Case-insensitive union of topic-term lists: first-appearance order,
+    Title-cased, deduped on casefold. The S3a lossless invariant — the OUT term set
+    equals ``∪`` the IN term sets (keyed on casefold)."""
+    seen: set[str] = set()
+    out: list[str] = []
+    for terms in term_lists:
+        for t in terms:
+            k = " ".join(t.split()).casefold()
+            if k and k not in seen:
+                seen.add(k)
+                out.append(_title_topic(t))
+    return out
+
+
+def _render_merged_topic_row(row_html: str, merged_terms: list[str]) -> str:
+    """Rebuild a topic note's row with the merged term list (`" · "`-joined, the
+    spec §2 separator), reusing the first topic row's structure (note-sym / label /
+    note-{kind} class) so the leaf spine + tinted card are unchanged."""
+    joined = " · ".join(merged_terms)
+    new_html, n = _TOPIC_APPEARS_RE.subn(lambda m: f"appears under: {joined}{m.group(2)}", row_html, count=1)
+    return new_html if n else row_html
+
+
+def _merge_topic_rows(cascade_rows: list[dict], vocab: frozenset) -> tuple[list[dict], int]:
+    """S3a: fold every topic-category row on a verse into ONE Topics row whose term
+    set is the case-insensitive union (Title-cased, first-appearance) of all of them,
+    citing every contributing source in the byline. Lossless — the OUT term set ==
+    ``∪`` the IN term sets. Returns ``(new_rows, n_topic_rows_folded)``."""
+    topic_pos = [i for i, r in enumerate(cascade_rows) if r["cat"] == "topic"]
+    if not topic_pos:
+        return cascade_rows, 0
+    term_lists: list[list[str]] = []
+    sources: list[str] = []
+    seen_src: set[str] = set()
+    for i in topic_pos:
+        r = cascade_rows[i]
+        m = _TOPIC_APPEARS_RE.search(r["row"])
+        raw = (m.group(1) if m else "").rstrip().rstrip(".")
+        term_lists.append(_parse_topic_terms(raw, vocab))
+        disp = r.get("source_display") or ""
+        if disp and disp.casefold() not in seen_src:
+            seen_src.add(disp.casefold())
+            sources.append(disp)
+    merged_terms = _topic_union(term_lists)
+    if not merged_terms:
+        # nothing parseable (shouldn't happen on real topic notes) — leave untouched
+        return cascade_rows, 0
+    combined = " · ".join(sources)
+    merged_row = {
+        "cat": "topic",
+        "source_key": combined.casefold(),
+        "source_display": combined,
+        "suppress_byline": False,
+        "row": _render_merged_topic_row(cascade_rows[topic_pos[0]]["row"], merged_terms),
+    }
+    first = topic_pos[0]
+    drop = set(topic_pos[1:])
+    out: list[dict] = []
+    for i, r in enumerate(cascade_rows):
+        if i == first:
+            out.append(merged_row)
+        elif i not in drop:
+            out.append(r)
+    return out, len(topic_pos)
+
+
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
@@ -2171,6 +2297,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         if s2_group
         else {}
     )
+    # S3a — union-merge a verse's topic-category notes (topic-nave + topic-torrey)
+    # into one Topics row (vocab-aware longest-match). Needs the per-row source too,
+    # so the attribution index is built whenever S2 OR S3a is on.
+    s3a_topic = bool(edition.get("note_topic_dedup", False))
+    topic_vocab = _topic_vocab() if s3a_topic else frozenset()
+    resolve_sources = s2_group or s3a_topic
 
     stats = {
         "badges_inserted": 0,
@@ -2182,6 +2314,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "s1_labels_suppressed": 0,
         "s2_groups_emitted": 0,
         "s2_byline_unattributed": 0,
+        "s3a_topic_notes_merged": 0,
     }
 
     # Which split files actually survive in this edition's temp tree (canon
@@ -2212,7 +2345,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         seen_book_rows: set[str] = set()
         # S2: live attribution index for THIS book (fid → attribution), built once
         # per book (load_notes is LRU-cached). Empty when S2 is off ⇒ zero cost.
-        book_attr_index = _note_attribution_index(book) if s2_group else {}
+        book_attr_index = _note_attribution_index(book) if resolve_sources else {}
         strategy = book.get("strategy", "A")
         bxx = book.get("bxx")
         ch_count = book.get("ch_count", 0)
@@ -2316,7 +2449,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
-                        attribution = book_attr_index.get(fid) if s2_group else None
+                        attribution = book_attr_index.get(fid) if resolve_sources else None
                         row_items.append((rank, doc_i, row, cat, attribution))
                     if not ok:
                         # round-5 audit Phase 4 (LOW): record the silent orphan-bail
@@ -2342,35 +2475,43 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         stats["notes_collapsed"] += n
                         continue
 
-                    if s2_group:
-                        # S2: re-parent the flat rows into the verse→category→source
-                        # cascade. The byline comes from the live attribution
-                        # (base-consistent — kind never drifts); comm-ethiopian bodies
-                        # self-attribute, so their GROUP byline is suppressed.
-                        cascade_rows = []
-                        for _rank, _doc, row, cat, attribution in row_items:
-                            display = _source_display(attribution)
-                            if not display:
-                                stats["s2_byline_unattributed"] += 1
-                            cascade_rows.append(
-                                {
-                                    "cat": cat,
-                                    "source_key": _source_key(attribution),
-                                    "source_display": display,
-                                    "suppress_byline": _SELF_ATTRIBUTING_BODY_PREFIX in row,
-                                    "row": row,
-                                }
-                            )
-                        inner_rows_html = _emit_cascade_sections(cascade_rows, cat_meta)
-                        # §4 completeness guard: the cascade is pure re-grouping —
-                        # every surviving row's leaf must appear exactly once.
-                        leaves = inner_rows_html.count('class="vn-item')
-                        if leaves != n_show:
-                            raise AssertionError(
-                                f"S2 cascade conservation failure at {code} {ch}:{v}: "
-                                f"{leaves} leaves vs {n_show} surviving rows"
-                            )
-                        stats["s2_groups_emitted"] += len({r["cat"] for r in cascade_rows})
+                    if resolve_sources:
+                        # Resolve each surviving row's source (S2 byline + S3a citation).
+                        # The byline comes from the live attribution (base-consistent —
+                        # kind never drifts); comm-ethiopian bodies self-attribute, so
+                        # their GROUP byline is suppressed.
+                        cascade_rows = [
+                            {
+                                "cat": cat,
+                                "source_key": _source_key(attribution),
+                                "source_display": _source_display(attribution),
+                                "suppress_byline": _SELF_ATTRIBUTING_BODY_PREFIX in row,
+                                "row": row,
+                            }
+                            for _rank, _doc, row, cat, attribution in row_items
+                        ]
+                        # S3a: union-merge the verse's topic-category rows into one.
+                        if s3a_topic:
+                            cascade_rows, n_merged = _merge_topic_rows(cascade_rows, topic_vocab)
+                            stats["s3a_topic_notes_merged"] += n_merged
+                        n_show = len(cascade_rows)
+                        if s2_group:
+                            for r in cascade_rows:
+                                if not r["source_display"] and not r["suppress_byline"]:
+                                    stats["s2_byline_unattributed"] += 1
+                            inner_rows_html = _emit_cascade_sections(cascade_rows, cat_meta)
+                            # §4 completeness guard: pure re-grouping — every surviving
+                            # row's leaf appears exactly once (against the post-S3a count).
+                            leaves = inner_rows_html.count('class="vn-item')
+                            if leaves != n_show:
+                                raise AssertionError(
+                                    f"S2 cascade conservation failure at {code} {ch}:{v}: "
+                                    f"{leaves} leaves vs {n_show} surviving rows"
+                                )
+                            stats["s2_groups_emitted"] += len({r["cat"] for r in cascade_rows})
+                        else:
+                            # S3a-only (flat): the merged topic row + the rest, flat.
+                            inner_rows_html = "".join(f"  {r['row']}\n" for r in cascade_rows)
                     else:
                         inner_rows_html = "".join(f"  {row}\n" for _rank, _doc, row, _cat, _attr in row_items)
 
