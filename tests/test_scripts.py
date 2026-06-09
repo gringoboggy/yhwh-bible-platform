@@ -556,7 +556,9 @@ class TestBuildEdition:
         }
         html = self.mod.render_copyright_page(edition, publishing, "v1", annotation_count=500, category_count=7)
         assert "The Sample Edition" in html
-        assert "urn:yhwh:edition:test-sample" in html
+        # 2030e7e0 (device-QA AB②): the URN/"This Edition" identity moved to the
+        # Your Edition page; the colophon is legal/publisher only.
+        assert "urn:yhwh:edition:test-sample" not in html
         assert "Sample Editor" in html
         assert "Test Pub" in html
         # Ω.0 pivot pin — no ISBN anywhere on the copyright page

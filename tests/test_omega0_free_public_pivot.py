@@ -112,9 +112,23 @@ class TestBuildEditionUrnReplacesIsbn:
             "copyright_holder": "Demo Editor",
         }
         html = self.be.render_copyright_page(edition, publishing, "v1", annotation_count=100, category_count=5)
-        assert "urn:yhwh:edition:demo" in html
+        # 2030e7e0 (device-QA AB②): the URN identity block moved off the front
+        # colophon onto the Your Edition page — the colophon is legal/publisher
+        # only. The Ω.0 pivot pin is unchanged in spirit: the edition is
+        # identified by URN (now on Your Edition), never by ISBN, anywhere.
+        assert "urn:yhwh:edition:demo" not in html
         assert "ISBN" not in html
         assert "TODO_ISBN" not in html
+        stats = {
+            "total": 100,
+            "per_book": {"gen": 100},
+            "per_category": {"comm": 100},
+            "per_kind": {"comm-patristic": 100},
+            "popup_languages": [],
+        }
+        your = self.be.render_your_edition_page(edition, stats, "v1")
+        assert "urn:yhwh:edition:demo" in your
+        assert "ISBN" not in your
 
     def test_resolve_publishing_drops_isbn_keys(self):
         ed = {"id": "x", "publisher_name": "P"}

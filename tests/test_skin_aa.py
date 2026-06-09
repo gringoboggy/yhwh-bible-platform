@@ -271,8 +271,18 @@ class TestEbGaramondCompletion:
 
     def test_website_fonts_is_bundled_for_the_frozen_app(self):
         # Without this datas entry the /fonts route 404s in the frozen build (§1.5).
+        # Pin the load-bearing datas tuple itself, not just the words — the old
+        # `"website" in spec` form was satisfiable by the comment block alone.
         spec = (REPO / "dev" / "launcher.spec").read_text(encoding="utf-8")
-        assert "website" in spec and "fonts" in spec
+        assert '(str(ROOT / "website" / "fonts"), "website/fonts")' in spec
+
+    def test_favicon_icons_are_bundled_for_the_frozen_app(self):
+        # /favicon.ico reads assets/icons/program_icon.ico at request time —
+        # the same §1.5 frozen-404 class as the fonts (found by the 5508207a
+        # adversarial review).
+        spec = (REPO / "dev" / "launcher.spec").read_text(encoding="utf-8")
+        assert '(str(ROOT / "assets" / "icons"), "assets/icons")' in spec
+        assert (REPO / "assets" / "icons" / "program_icon.ico").is_file()
 
     def test_stale_georgia_fallback_comment_is_corrected(self):
         # _design.py:177-180 claimed the app "isn't serving it yet … falls back to

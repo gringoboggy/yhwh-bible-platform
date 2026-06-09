@@ -111,6 +111,10 @@ a = Analysis(
         # this the route works in dev but 404s in the frozen build (the §1.5 bundle-
         # path gotcha). Spec: docs/superpowers/specs/2026-06-09-app-eb-garamond-selfhosting.md §2.
         (str(ROOT / "website" / "fonts"), "website/fonts"),
+        # The /favicon.ico route reads assets/icons/program_icon.ico at request
+        # time (scripts/web.py) — same §1.5 bundle-path gotcha as the fonts:
+        # works in dev, 404s frozen unless bundled.
+        (str(ROOT / "assets" / "icons"), "assets/icons"),
     ],
     hiddenimports=_HIDDENIMPORTS,
     hookspath=[],
