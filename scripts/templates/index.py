@@ -1,5 +1,8 @@
-"""HTML for /index console — extracted from scripts/web.py
-during the web.py split refactor (2026-05-07).
+"""HTML for the /notes console (the maintainer note editor) — extracted from
+scripts/web.py during the web.py split refactor (2026-05-07). Served at /notes
+(+ /index.html for old bookmarks) since the v0.1.0 idiot-proof arc moved the
+friendly HOME_HTML onto `/`; the body field is a Bold/Italic contenteditable
+normalized to <strong>/<em> on save (raw-HTML hatch under "Advanced").
 
 Re-imported by scripts/web.py for back-compat with existing
 `from scripts.web import INDEX_HTML` callers.
@@ -280,29 +283,51 @@ function renderEditor() {
     <label class="text-xs block">label
       <input id="f-label" value="${escapeAttr(d.label||'')}" class="w-full border rounded px-2 py-1 text-sm"/>
     </label>
-    <label class="text-xs block">body (HTML)
-      <textarea id="f-body" rows="8" class="w-full border rounded px-2 py-1 text-sm mono">${escapeText(d.body||'')}</textarea>
-    </label>
+    <div class="text-xs block">body
+      <div class="flex gap-1 mt-1">
+        <button type="button" id="tb-bold" title="Bold (Ctrl/Cmd+B)" class="border rounded px-2 py-0.5 text-sm font-bold bg-white hover:bg-slate-100">B</button>
+        <button type="button" id="tb-italic" title="Italic (Ctrl/Cmd+I)" class="border rounded px-2 py-0.5 text-sm italic bg-white hover:bg-slate-100">I</button>
+        <button type="button" id="tb-link" title="Insert link" class="border rounded px-2 py-0.5 text-sm bg-white hover:bg-slate-100">link</button>
+        <button type="button" id="tb-clear" title="Remove formatting" class="border rounded px-2 py-0.5 text-sm bg-white hover:bg-slate-100">clear</button>
+      </div>
+      <div id="f-body" contenteditable="true" style="min-height:9rem"
+        class="preview w-full border rounded px-2 py-1 text-sm mt-1 bg-white"></div>
+    </div>
     <div class="text-xs ${inBudgetCol}">words: ${d.quality.word_count} · kind budget: ${d.quality.budget[0]}–${d.quality.budget[1]}</div>
     <ul class="space-y-0.5">${findingsHtml}</ul>
     <details class="text-xs">
       <summary class="cursor-pointer">attribution (JSON)</summary>
       <textarea id="f-attribution" rows="6" class="w-full border rounded px-2 py-1 text-xs mono mt-1">${escapeText(JSON.stringify(d.attribution || {}, null, 2))}</textarea>
     </details>
-    <div class="text-xs"><strong>preview:</strong></div>
-    <div id="preview" class="preview text-sm bg-slate-50 border rounded p-2"></div>
+    <details class="text-xs" id="adv-html">
+      <summary class="cursor-pointer">Advanced: HTML source (while open, saves this text verbatim)</summary>
+      <textarea id="f-body-raw" rows="6" class="w-full border rounded px-2 py-1 text-xs mono mt-1"></textarea>
+    </details>
     <div class="flex gap-2 pt-2 border-t">
       <button id="save-btn" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded">save</button>
       <button id="cancel-btn" class="bg-slate-200 hover:bg-slate-300 text-sm px-3 py-1 rounded">cancel</button>
       ${isNew ? '' : '<button id="delete-btn" class="ml-auto bg-rose-600 hover:bg-rose-700 text-white text-sm px-3 py-1 rounded">delete</button>'}
     </div>
   `;
-  // Live preview
-  const renderPreview = () => {
-    $('#preview').innerHTML = $('#f-body').value;
-  };
-  $('#f-body').oninput = renderPreview;
-  renderPreview();
+  // The editable surface IS the rendered view (.preview CSS styles strong/em/a)
+  // — the separate preview pane is gone. Initialize via innerHTML (NOT
+  // escapeText — that is what used to show raw HTML to the maintainer).
+  $('#f-body').innerHTML = d.body || '';
+  $('#f-body-raw').value = d.body || '';
+  // Toolbar: execCommand is the only no-framework rich-text path and works in
+  // all three shipped engines (WKWebView / WebView2 / WebKitGTK). Ctrl/Cmd-B/I
+  // work natively in a contenteditable; normalizeBody() makes each engine's
+  // exact emission irrelevant.
+  const tb = (id, fn) => { $(id).onclick = () => { fn(); $('#f-body').focus(); }; };
+  tb('#tb-bold',   () => document.execCommand('bold', false, null));
+  tb('#tb-italic', () => document.execCommand('italic', false, null));
+  tb('#tb-link',   () => { const u = prompt('Link URL (https://…):'); if (u) document.execCommand('createLink', false, u); });
+  tb('#tb-clear',  () => document.execCommand('removeFormat', false, null));
+  // Escape hatch sync: opening "HTML source" mirrors the live markup; editing
+  // it live-applies back. While OPEN, save posts the raw text verbatim (for
+  // markup the toolbar can't express); closed = normalized (the default).
+  $('#adv-html').ontoggle = () => { if ($('#adv-html').open) $('#f-body-raw').value = $('#f-body').innerHTML; };
+  $('#f-body-raw').oninput = () => { $('#f-body').innerHTML = $('#f-body-raw').value; };
   $('#save-btn').onclick = saveNote;
   $('#cancel-btn').onclick = () => { state.editingDraft = null; state.editingIndex = null; renderNotes(); renderEditor(); };
   if (!isNew) $('#delete-btn').onclick = deleteNote;
@@ -310,6 +335,69 @@ function renderEditor() {
 
 function escapeAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
 function escapeText(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+// Allowlist serializer (idiot-proof spec §2 — MANDATORY, and a real security
+// fix): execCommand emits engine-dependent markup — WebKit (the shipped macOS
+// engine) emits <span style="font-weight:bold">, Chromium emits <b> — so save
+// must NEVER post innerHTML verbatim. Keeps strong/em/a[href]/br; maps b→strong,
+// i→em, styled spans→strong/em; validates href against ^(https?:|mailto:|#|/);
+// unwraps everything else (text kept, block boundaries become <br/>); text nodes
+// re-escaped. Strictly safer than the old raw textarea, which POSTed arbitrary
+// unsanitized HTML into the corpus. Server-side sanitization stays as
+// defense-in-depth.
+function normalizeBody(html) {
+  const root = document.createElement('div');
+  root.innerHTML = html;
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // Scheme-based href gate: corpus xref links are RELATIVE
+  // ("index_split_054.html#ch-b63-c1" — live-data catch, 2026-06-09), so only
+  // hrefs that carry an explicit scheme are filtered, to https?:|mailto:.
+  // Scheme-less (relative, "#…", "/…") pass; javascript:/data:/vbscript: die.
+  const SCHEME = /^[a-z][a-z0-9+.-]*:/i;
+  const HREF_OK = h => (SCHEME.test(h) ? /^(https?:|mailto:)/i.test(h) : true);
+  const DROP = /^(SCRIPT|STYLE|TEMPLATE|IFRAME|OBJECT|EMBED)$/;
+  const BLOCK = /^(P|DIV|LI|UL|OL|BLOCKQUOTE|H[1-6]|TABLE|TBODY|TR|TD)$/;
+  function ser(node) {
+    let out = '';
+    for (const ch of node.childNodes) {
+      if (ch.nodeType === 3) { out += esc(ch.nodeValue); continue; }
+      if (ch.nodeType !== 1) continue;
+      const tag = ch.tagName;
+      if (DROP.test(tag)) continue;  // executable/opaque subtrees die wholesale
+      const inner = ser(ch);
+      if (tag === 'BR') { out += '<br/>'; continue; }
+      if (!inner.trim()) { continue; }
+      if (tag === 'STRONG' || tag === 'B') { out += '<strong>' + inner + '</strong>'; }
+      else if (tag === 'EM' || tag === 'I') { out += '<em>' + inner + '</em>'; }
+      else if (tag === 'A') {
+        const href = ch.getAttribute('href') || '';
+        out += HREF_OK(href)
+          ? '<a href="' + esc(href).replace(/"/g,'&quot;') + '">' + inner + '</a>'
+          : inner;
+      } else if (tag === 'SPAN') {
+        const w = ch.style ? ch.style.fontWeight : '';
+        const bold = w === 'bold' || parseInt(w, 10) >= 600;
+        const ital = ch.style && ch.style.fontStyle === 'italic';
+        let seg = inner;
+        if (ital) seg = '<em>' + seg + '</em>';
+        if (bold) seg = '<strong>' + seg + '</strong>';
+        out += seg;
+      } else if (BLOCK.test(tag)) { out += inner + '<br/>'; }
+      else { out += inner; }
+    }
+    return out;
+  }
+  return ser(root).replace(/(<br\/>)+$/, '').trim();
+}
+
+// While the "Advanced: HTML source" hatch is OPEN the raw text wins verbatim
+// (markup the toolbar can't express; server still sanitizes); closed = the
+// normalized contenteditable — the everyday path.
+function editorBodyHtml() {
+  const adv = $('#adv-html');
+  if (adv && adv.open) return $('#f-body-raw').value;
+  return normalizeBody($('#f-body').innerHTML);
+}
 
 async function saveNote() {
   let attribution = {};
@@ -327,7 +415,7 @@ async function saveNote() {
     kind: $('#f-kind').value,
     title: $('#f-title').value,
     label: $('#f-label').value,
-    body: $('#f-body').value,
+    body: editorBodyHtml(),
     attribution,
   };
   try {

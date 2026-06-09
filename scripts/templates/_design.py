@@ -182,6 +182,30 @@ BUYER_ARC_POLISH_CSS = """<style>
 # (this is console chrome only; the EPUB build path is separate).
 # ----------------------------------------------------------------------
 
+# The manuscript palette as data — the single source of truth for surfaces that
+# can't (or shouldn't) inherit the Tailwind-remap skin. HOME_HTML is CDN-free by
+# design (docs/superpowers/specs/2026-06-09-idiot-proof-app-design.md §1) and
+# builds its <style> from THIS dict, so HOME and the skin can never drift.
+# Every pair below is AA-verified per-element in
+# docs/superpowers/notes/2026-06-09-home-html-aa-colors.md. Rules baked in:
+# gold is a button FILL or hairline, NEVER a text color (2.76:1 on vellum);
+# gold hover goes LIGHTER (#C49A2E, 6.01:1), never darker; links/secondary/
+# focus = indigo (user decision).
+MS_PALETTE: dict[str, str] = {
+    "vellum": "#F4ECD8",  # page / hero ground
+    "parchment": "#FBF6E9",  # card / panel ground
+    "ink": "#2B2118",  # body text + on-gold button text (4.84:1 on gold)
+    "sepia": "#574532",  # secondary / subtitle text (7.75:1 on vellum)
+    "muted": "#6E5840",  # hint / fine-print text (5.69:1 on vellum)
+    "gold": "#B8860B",  # primary button fill (rest)
+    "gold_hover": "#C49A2E",  # primary button fill (hover) — lighter, not darker
+    "gold_line": "#9A6E12",  # hairlines / borders / top-accent rules ONLY
+    "indigo": "#243B6B",  # links, secondary actions, focus ring, accents
+    "antique": "#FCF8EF",  # text on red (alt CTA)
+    "red": "#7A1F2B",  # destructive + the alt site-parity primary
+    "red_dark": "#5E1722",  # red hover
+}
+
 MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
 <script>
   /* η.1: re-tone the Tailwind palette to the website's manuscript tones.
@@ -2382,7 +2406,10 @@ THEME_TOUR_JS = """<script>
 # exception per the rules doc); both `/` and `/matrix` are accepted
 # by the linter.
 CONSOLES: list[tuple[str, str]] = [
-    ("/", "note editor"),
+    # Idiot-proof IA (v0.1.0): HOME leads; the note editor — a MAINTAINER tool —
+    # sits LAST under an honest label. One edit here demotes it across every
+    # console's nav at once (spec 2026-06-09-idiot-proof-app-design.md §3).
+    ("/home", "home"),
     ("/matrix", "symbol matrix"),
     ("/build-tracker", "build tracker"),  # Ω.0 free-public pivot (2026-05-14)
     ("/sources", "sources"),
@@ -2402,6 +2429,7 @@ CONSOLES: list[tuple[str, str]] = [
     ("/greek", "greek"),  # γ.2
     ("/distribution", "distribution"),  # mint-6 — re-surface free distribution UI
     ("/build-my-bible", "build my bible"),  # ρ.3 Phase C2 — hierarchical-customization navigator
+    ("/notes", "notes (maintainer)"),  # the demoted note editor — keep LAST
 ]
 
 

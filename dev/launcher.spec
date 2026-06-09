@@ -115,6 +115,9 @@ a = Analysis(
         # time (scripts/web.py) — same §1.5 bundle-path gotcha as the fonts:
         # works in dev, 404s frozen unless bundled.
         (str(ROOT / "assets" / "icons"), "assets/icons"),
+        # HOME's hero art — /static/social-card.png reads website/social-card.png
+        # at request time (same §1.5 class). A single file: (file, dest_DIR).
+        (str(ROOT / "website" / "social-card.png"), "website"),
     ],
     hiddenimports=_HIDDENIMPORTS,
     hookspath=[],

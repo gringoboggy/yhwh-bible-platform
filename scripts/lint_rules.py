@@ -137,7 +137,12 @@ def check_cross_link_invariant() -> dict:
     # but the SECOND check below also verifies that every newly-added
     # *_HTML has a route. For now, hardcoded mapping.
     route_for_constant = {
-        "INDEX_HTML": "/",
+        # v0.1.0 idiot-proof IA: `/` is the CDN-free HOME landing; the note
+        # editor (INDEX_HTML) moved to /notes. Both are nav-LAYOUT exempt
+        # below (HOME has no console nav by design; the editor keeps its own
+        # brand chrome) but every OTHER console must link /notes via the nav.
+        "HOME_HTML": "/",
+        "INDEX_HTML": "/notes",
         "MATRIX_HTML": "/matrix",
         "SOURCES_HTML": "/sources",
         "EXPORT_HTML": "/export",
@@ -159,9 +164,12 @@ def check_cross_link_invariant() -> dict:
         "DISTRIBUTION_HTML": "/distribution",  # mint-6
     }
 
-    # Filter consoles to ones we have routes for — the editor (INDEX)
-    # has a different layout (no console-style nav) and is exempt.
-    expected_routes = [r for c, r in route_for_constant.items() if c in consoles and c != "INDEX_HTML"]
+    # Layout-exempt consoles are skipped as nav CARRIERS (HOME is deliberately
+    # nav-less; the editor keeps its own brand chrome). As nav TARGETS: every
+    # console must link the demoted editor at /notes (CONSOLES emits it), but
+    # HOME's "/" is exempt — consoles link "/home" via CONSOLES, not "/".
+    _layout_exempt = {"INDEX_HTML", "HOME_HTML"}
+    expected_routes = [r for c, r in route_for_constant.items() if c in consoles and c != "HOME_HTML"]
 
     # Per project convention, the nav link to the matrix cluster
     # uses href="/" (the editor route) with display text "matrix".
@@ -174,8 +182,8 @@ def check_cross_link_invariant() -> dict:
 
     violations: list[dict] = []
     for name, body in consoles.items():
-        if name == "INDEX_HTML":
-            continue  # exempt — different layout
+        if name in _layout_exempt:
+            continue  # exempt — different layout (editor chrome / nav-less HOME)
         my_route = route_for_constant.get(name)
         if not my_route:
             # Console exists but no route mapping — missing from the

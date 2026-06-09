@@ -491,6 +491,7 @@ from scripts.templates.distribution import DISTRIBUTION_HTML
 from scripts.templates.export import EXPORT_HTML
 from scripts.templates.greek import GREEK_HTML
 from scripts.templates.hebrew import HEBREW_HTML
+from scripts.templates.home import HOME_HTML
 from scripts.templates.index import INDEX_HTML
 from scripts.templates.matrix import MATRIX_HTML
 from scripts.templates.build_tracker import BUILD_TRACKER_HTML
@@ -1454,7 +1455,13 @@ class Handler(BaseHTTPRequestHandler):
                 result = handler(m, qs)
                 return _dispatch_table_result(self, result)
 
-        if path == "/" or path == "/index.html":
+        # Idiot-proof landing (v0.1.0 app-UX): `/` is the reader-friendly HOME;
+        # the maintainer note editor moved to /notes (/index.html kept for
+        # bookmarks). The launcher opens `/` on every OS, so HOME is the first
+        # paint automatically. Spec: 2026-06-09-idiot-proof-app-design.md.
+        if path == "/" or path == "/home":
+            return self._send_html(HOME_HTML)
+        if path == "/notes" or path == "/index.html":
             return self._send_html(INDEX_HTML)
         if path == "/matrix" or path == "/matrix.html":
             return self._send_html(MATRIX_HTML)
@@ -1810,6 +1817,29 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "image/x-icon")
             self.send_header("Content-Length", str(len(data)))
             # Public cache OK — favicon is static + non-sensitive.
+            self.send_header("Cache-Control", "public, max-age=86400")
+            self._send_security_headers()
+            self.end_headers()
+            self.wfile.write(data)
+            return
+
+        # HOME hero art — the website's social-card banner, served same-origin
+        # (CSP img-src 'self' already allows it; no CSP edit). Hardcoded path
+        # like /favicon.ico — a single known file, no sandbox machinery needed.
+        # website/ is bundled in dev/launcher.spec datas, so this resolves in
+        # the frozen .exe/.app too (same §1.5 class as /fonts/).
+        if path == "/static/social-card.png":
+            art_path = REPO / "website" / "social-card.png"
+            if not art_path.is_file():
+                return self._send_json({"error": "not found"}, status=404)
+            try:
+                data = art_path.read_bytes()
+            except OSError:
+                return self._send_json({"error": "not found"}, status=404)
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(data)))
+            # Public cache OK — static brand art, non-sensitive.
             self.send_header("Cache-Control", "public, max-age=86400")
             self._send_security_headers()
             self.end_headers()
