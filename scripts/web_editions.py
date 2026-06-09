@@ -441,6 +441,17 @@ def api_customize_data() -> dict:
                 "marker_style": e.get("marker_style", "badge"),
                 # Torrey merge — which topical authority feeds the back-of-book index.
                 "topical_index_source": e.get("topical_index_source", "both"),
+                # K-R2 (2026-06-09) — in-content-ToC + reader-target fields. These were
+                # saved via api_save_edition_meta but never surfaced here, so the
+                # /customize controls could not reflect a saved value (the old
+                # `!== false` checkbox rendered the missing field as CHECKED while
+                # every edition ships flat — misleading). Expandable Contents is a
+                # strict opt-in (collapsible === true keeps the base <details>);
+                # target_reader gates which optional features the UIs offer.
+                "reader_toc_collapsible": e.get("reader_toc_collapsible", False),
+                "reader_toc_default_open": e.get("reader_toc_default_open", False),
+                "book_toc_ornament": e.get("book_toc_ornament", "none"),
+                "target_reader": e.get("target_reader", "everywhere"),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),

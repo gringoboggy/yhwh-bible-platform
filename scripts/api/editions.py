@@ -636,6 +636,10 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "topical_index_source",
         "reader_toc_collapsible",
         "reader_toc_default_open",
+        # K-R2 — where the builder will read the EPUB ("everywhere" | "eink" |
+        # "tablet" | "computer"); set by the wizard's reader-target step, gates
+        # which optional features the UIs offer. Absent = everywhere (no-op).
+        "target_reader",
         "enabled_reading_plans",
         "description",
         "dedication",
@@ -730,6 +734,8 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         # to keep a pathological value from overrunning the cover frame.
         "display_name",
         "cover_main_title",
+        # K-R2 — the wizard's reader-target pick (validated below).
+        "target_reader",
     }
     EDITABLE_BOOL = {
         "verse_popups",
@@ -752,6 +758,13 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         v = (payload["chapter_number_format"] or "").strip()
         if v and v not in CHAPTER_NUMBER_FORMATS:
             return {"error": (f"unknown chapter_number_format: {v!r}; valid: {sorted(CHAPTER_NUMBER_FORMATS)}")}
+
+    if "target_reader" in payload:
+        # K-R2 — the wizard's reader-target pick. Empty/absent = everywhere.
+        valid_targets = {"everywhere", "eink", "tablet", "computer"}
+        v = (payload["target_reader"] or "").strip()
+        if v and v not in valid_targets:
+            return {"error": f"unknown target_reader: {v!r}; valid: {sorted(valid_targets)}"}
         payload["chapter_number_format"] = v
     if "chapter_number_decoration" in payload:
         from scripts.build_edition import CHAPTER_NUMBER_DECORATIONS

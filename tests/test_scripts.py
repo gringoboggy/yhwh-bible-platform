@@ -4918,22 +4918,25 @@ class TestEditionMeta:
             "</ol></div></body></html>"
         )
 
-    def test_reader_toc_transforms_default_is_no_op(self, tmp_path):
-        """Default edition settings must NOT touch the ToC. Existing
-        builds rebuild byte-identically (Rule §6.5)."""
+    def test_reader_toc_transforms_default_flattens_to_pills(self, tmp_path):
+        """K-R2 (2026-06-09): the expandable Contents is a STRICT opt-in
+        (reader_toc_collapsible === true); an edition WITHOUT the opt-in builds
+        the flat always-visible-pills form — the beta-3 (b) shipped default every
+        edition already declares explicitly, now also the unset-field default."""
         from scripts.build_edition import apply_reader_toc_transforms
 
         fpath = tmp_path / "test.html"
-        original = self._toc_fixture_html()
-        fpath.write_text(original, encoding="utf-8")
+        fpath.write_text(self._toc_fixture_html(), encoding="utf-8")
         s = apply_reader_toc_transforms(tmp_path, {})
-        assert s["files_touched"] == 0
-        assert s["books_transformed"] == 0
-        assert fpath.read_text() == original
+        assert s["details_unwrapped"] == 2
+        result = fpath.read_text()
+        assert "<details" not in result
+        assert result.count('<ol class="toc-chapters">') == 2, "pills stay visible"
 
     def test_reader_toc_transforms_inserts_ornament(self, tmp_path):
         """Cross-Latin selection injects the glyph before each book's
-        link, wrapped in toc-ornament span for theme CSS hooking."""
+        link, wrapped in toc-ornament span for theme CSS hooking (expandable
+        opt-in: the ornament sits inside <summary>)."""
         from scripts.build_edition import apply_reader_toc_transforms
 
         fpath = tmp_path / "test.html"
@@ -4941,6 +4944,7 @@ class TestEditionMeta:
         s = apply_reader_toc_transforms(
             tmp_path,
             {
+                "reader_toc_collapsible": True,
                 "book_toc_ornament": "cross_latin",
             },
         )
@@ -4960,6 +4964,20 @@ class TestEditionMeta:
         )
         assert re.search(pattern, result), "ornament must sit inside <summary> immediately before <a>"
 
+    def test_reader_toc_transforms_ornament_on_flat_default(self, tmp_path):
+        """Without the expandable opt-in the ornament lands in the flat
+        toc-book-label (the transform used to silently skip it — the details-form
+        regex never matched the unwrapped output)."""
+        from scripts.build_edition import apply_reader_toc_transforms
+
+        fpath = tmp_path / "test.html"
+        fpath.write_text(self._toc_fixture_html(), encoding="utf-8")
+        s = apply_reader_toc_transforms(tmp_path, {"book_toc_ornament": "cross_latin"})
+        assert s["ornaments_inserted"] == 2
+        result = fpath.read_text()
+        assert "<details" not in result
+        assert result.count('class="toc-ornament">✝</span>') == 2
+
     def test_reader_toc_transforms_default_open_adds_attribute(self, tmp_path):
         from scripts.build_edition import apply_reader_toc_transforms
 
@@ -4968,6 +4986,7 @@ class TestEditionMeta:
         s = apply_reader_toc_transforms(
             tmp_path,
             {
+                "reader_toc_collapsible": True,
                 "reader_toc_default_open": True,
             },
         )
@@ -5015,6 +5034,7 @@ class TestEditionMeta:
         s = apply_reader_toc_transforms(
             tmp_path,
             {
+                "reader_toc_collapsible": True,
                 "book_toc_ornament": "cross_lalibela",
                 "reader_toc_default_open": True,
             },
@@ -5036,6 +5056,7 @@ class TestEditionMeta:
         s = apply_reader_toc_transforms(
             tmp_path,
             {
+                "reader_toc_collapsible": True,
                 "book_toc_ornament": "fictional-ornament-from-the-future",
                 "reader_toc_default_open": True,
             },
@@ -5045,16 +5066,18 @@ class TestEditionMeta:
         assert s["defaults_opened"] == 2
 
     def test_reader_toc_transforms_idempotent_on_default_settings(self, tmp_path):
-        """Running the pass twice with default settings must give
-        identical bytes both times — confirms the no-op short circuit."""
+        """Running the pass twice with default settings is idempotent: the first
+        run flattens the base <details> (the K-R2 strict-opt-in default); the
+        second finds no details form to transform and leaves the bytes alone."""
         from scripts.build_edition import apply_reader_toc_transforms
 
         fpath = tmp_path / "test.html"
-        original = self._toc_fixture_html()
-        fpath.write_text(original, encoding="utf-8")
+        fpath.write_text(self._toc_fixture_html(), encoding="utf-8")
         apply_reader_toc_transforms(tmp_path, {})
-        apply_reader_toc_transforms(tmp_path, {})
-        assert fpath.read_text() == original
+        first = fpath.read_text()
+        s2 = apply_reader_toc_transforms(tmp_path, {})
+        assert s2["files_touched"] == 0
+        assert fpath.read_text() == first
 
     def test_shipping_editions_pin_kobo_safe_flat_toc(self):
         """RX P4a — every edition declares reader_toc_collapsible:false so the in-content
@@ -5230,15 +5253,15 @@ class TestEditionMeta:
         assert "Ethiopian" in html
         assert "Jewish" in html or "Hebrew" in html
 
-    def test_customize_html_deferral_note_mentions_ornament(self):
-        """The italic deferral note must accurately list every
-        schema-only field whose build-pipeline rendering is
-        queued — otherwise the publisher will save the field,
-        rebuild, and find nothing changed."""
+    def test_customize_html_reader_card_notes_apply_on_build(self):
+        """The Reader-experience card's note must be HONEST: these settings DO
+        apply (apply_reader_toc_transforms runs in build_one) — the old "queued
+        for a follow-up phase" deferral copy was stale and is gone (K-R2)."""
         html = self.web.CUSTOMIZE_HTML
         assert "ornament" in html.lower()
-        # Either 'queued' or 'follow-up phase' phrasing is fine
-        assert "queued" in html.lower() or "follow-up" in html.lower()
+        assert "next BUILD" in html
+        assert "queued" not in html.lower()
+        assert "follow-up" not in html.lower()
 
 
 # ============================================================
@@ -9056,11 +9079,14 @@ class TestPsi12WizardPreviewIframe:
     def test_init_called_from_render_review(self):
         # renderReview() must trigger initPsi12Preview() so the
         # iframe loads when the user reaches step 6.
-        # Find renderReview body and verify the call appears.
+        # Scan from renderReview's start to the NEXT function def (the body
+        # grew past the old fixed 5000-char window when the K-R2 "Made for"
+        # review card landed).
         idx = self.html.find("function renderReview")
         assert idx >= 0
-        # The function spans ~3000 chars; scan that range.
-        body = self.html[idx : idx + 5000]
+        end = self.html.find("function initPsi12Preview", idx)
+        assert end > idx
+        body = self.html[idx:end]
         assert "initPsi12Preview()" in body
 
     def test_chapter_input_debounces(self):

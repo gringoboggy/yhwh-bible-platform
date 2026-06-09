@@ -143,6 +143,34 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     <!-- ───────── Step 1: Start from ───────── -->
     <section id="step-1" class="step-pane active">
       <h2 class="text-2xl font-bold mb-1">1. Start from a profile</h2>
+
+      <!-- K-R2 reader targeting (user-directed 2026-06-09): ask WHERE the EPUB will be
+           read as the first real choice; later steps gray out options the chosen
+           target can't render (TARGET_CAPS below). The same EPUB still reads
+           everywhere — the target only tunes which optional features are offered. -->
+      <fieldset class="psi11-group mb-5">
+        <legend class="psi11-legend">Where will you read it?</legend>
+        <div id="target-cards" class="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div class="pick-card target-card picked" data-target="everywhere">
+            <div class="font-semibold">🌍 Everywhere</div>
+            <div class="text-xs text-slate-500 mt-1">Safest build — renders well on every reader.</div>
+          </div>
+          <div class="pick-card target-card" data-target="eink">
+            <div class="font-semibold">📖 E-ink reader</div>
+            <div class="text-xs text-slate-500 mt-1">Kobo &amp; similar. On Kobo, load the .kepub copy.</div>
+          </div>
+          <div class="pick-card target-card" data-target="tablet">
+            <div class="font-semibold">📱 Phone / tablet</div>
+            <div class="text-xs text-slate-500 mt-1">Apple Books and similar reading apps.</div><!-- term-ref-ok -->
+          </div>
+          <div class="pick-card target-card" data-target="computer">
+            <div class="font-semibold">💻 Computer</div>
+            <div class="text-xs text-slate-500 mt-1">Calibre, Adobe Digital Editions.</div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2" id="target-note">Safest build — renders well on every reader.</p>
+      </fieldset>
+
       <p class="text-slate-600 mb-5">Pick a Bible profile to start with. You can change anything in the next steps.</p>
 
       <!-- ψ.7-B — starter-pack template entry point -->
@@ -261,6 +289,20 @@ WIZARD_HTML = r"""<!DOCTYPE html>
       <h2 class="text-2xl font-bold mb-1">3. Pick a visual theme</h2>
       <p class="text-slate-600 mb-5">Each theme is a typography + color treatment. The same notes; different feel.</p>
       <div id="theme-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+      <!-- K-R2 reading options — gated per the Step-1 reader target. A control the
+           target can't render is disabled + grayed with the reason inline. -->
+      <div class="mt-6 pt-4 border-t border-slate-200">
+        <h3 class="text-lg font-semibold mb-1">Reading options</h3>
+        <label class="text-sm flex items-start gap-2" id="toc-expand-row">
+          <input type="checkbox" id="w-toc-expandable" class="mt-0.5">
+          <span>
+            <span class="font-medium text-slate-700">Expandable chapter lists in the Contents page</span>
+            <span class="block text-xs text-slate-500 mt-0.5" id="toc-expand-hint"></span>
+          </span>
+        </label>
+      </div>
+
       <div class="mt-6 flex justify-between">
         <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
         <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
@@ -368,6 +410,10 @@ WIZARD_HTML = r"""<!DOCTYPE html>
 const STATE = {
   step: 1,
   edition_id: null,           // chosen starting edition
+  // K-R2 reader targeting (Step 1) — where the builder will read the EPUB.
+  // Gates which optional features later steps offer (TARGET_CAPS).
+  target: 'everywhere',
+  toc_expandable: false,      // Reading options (Step 3): expandable Contents lists
   // Branding fields (Step 2). Ω.0 pivot: no isbn_epub / isbn_print.
   title: '', publisher_name: '', publisher_url: '',
   copyright_year: String(new Date().getFullYear()),
@@ -438,7 +484,7 @@ function goto(step) {
   STATE.step = step;
   // When entering Step 2, populate from chosen edition
   if (step === 2 && STATE.edition_id) populateBranding();
-  if (step === 3) refreshThemeSelection();
+  if (step === 3) { refreshThemeSelection(); applyTargetGating(); }
   if (step === 4) refreshCategorySelection();
   // Phase ψ.8.5 — when first entering Step 5, seed sensible defaults
   // from the profile's tradition; thereafter preserve user edits.
@@ -448,6 +494,62 @@ function goto(step) {
       STATE.traditions_initialized = true;
     }
     refreshTraditionSelection();
+  }
+}
+
+// K-R2 reader-target capability map — which OPTIONAL features each target can
+// actually render, with the honest reason shown when a control is gated. Grounded
+// in real-device QA (Kobo rounds 1-2, Apple Books); extend as found. term-ref-ok
+// 'everywhere' offers only universally-safe features.
+const TARGET_CAPS = {
+  everywhere: {
+    label: '🌍 Everywhere',
+    toc_expandable: false,
+    note: 'Safest build — renders well on every reader.',
+    gate_reason: 'Not offered for an everywhere build: e-ink readers and Adobe Digital Editions cannot expand collapsed lists, so the chapter pills stay always visible instead.',
+  },
+  eink: {
+    label: '📖 E-ink reader',
+    toc_expandable: false,
+    note: "On Kobo, load the .kepub copy. The downloadable font pack covers Hebrew, Greek and Ge'ez in popups.",
+    gate_reason: 'E-ink readers cannot collapse/expand lists — the chapter pills stay always visible instead.',
+  },
+  tablet: {
+    label: '📱 Phone / tablet',
+    toc_expandable: true,
+    note: 'Apple Books and similar apps support every option.', // term-ref-ok
+    gate_reason: '',
+  },
+  computer: {
+    label: '💻 Computer',
+    toc_expandable: false,
+    note: 'Conservative defaults for desktop readers.',
+    gate_reason: 'Adobe Digital Editions cannot expand collapsed lists — the chapter pills stay always visible instead.',
+  },
+};
+
+// Disable + gray every control the chosen target can't render; re-enable what it
+// can. Called on target pick and on entering the steps that host gated controls.
+function applyTargetGating() {
+  const caps = TARGET_CAPS[STATE.target] || TARGET_CAPS.everywhere;
+  const note = document.getElementById('target-note');
+  if (note) note.textContent = caps.note;
+  const box = document.getElementById('w-toc-expandable');
+  const row = document.getElementById('toc-expand-row');
+  const hint = document.getElementById('toc-expand-hint');
+  if (box && row && hint) {
+    if (caps.toc_expandable) {
+      box.disabled = false;
+      row.classList.remove('opacity-50');
+      box.checked = STATE.toc_expandable;
+      hint.textContent = 'Tap a book in the Contents page to show or hide its chapter list.';
+    } else {
+      box.checked = false;
+      box.disabled = true;
+      STATE.toc_expandable = false;
+      row.classList.add('opacity-50');
+      hint.textContent = caps.gate_reason;
+    }
   }
 }
 
@@ -507,6 +609,20 @@ function renderStep1() {
     tplBtn.dataset.bound = '1';
     tplBtn.addEventListener('click', openTemplatePicker);
   }
+  // K-R2 — reader-target picker (step 1) + the gated Reading-options checkbox (step 3).
+  document.querySelectorAll('.target-card').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.target-card').forEach(o => o.classList.remove('picked'));
+      c.classList.add('picked');
+      STATE.target = c.dataset.target;
+      applyTargetGating();
+    });
+  });
+  const tocBox = document.getElementById('w-toc-expandable');
+  if (tocBox) {
+    tocBox.addEventListener('change', () => { STATE.toc_expandable = tocBox.checked; });
+  }
+  applyTargetGating();
 }
 
 // ψ.7-B — Template picker modal helpers.
@@ -842,6 +958,12 @@ function renderReview() {
         <div class="font-semibold">${esc(themeName)}</div>
       </div>
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Made for</div>
+        <div class="font-semibold">${esc((TARGET_CAPS[STATE.target] || {}).label || STATE.target)}</div>
+        <div class="text-xs text-slate-500 mt-1">${esc((TARGET_CAPS[STATE.target] || {}).note || '')}</div>
+        ${STATE.toc_expandable ? '<div class="text-xs text-slate-600 mt-1">Expandable chapter lists: on</div>' : ''}
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded p-4">
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories enabled</div>
         <div class="text-sm">${cats.map(c => `<span class="pill mr-1 mb-1">${esc(c.symbol)} ${esc(c.label)}</span>`).join('')}</div>
       </div>
@@ -986,11 +1108,17 @@ async function startBuild() {
     const ceilRaw = ceilEl ? ceilEl.value : 'null';
     const ceilNorm = (ceilRaw === 'null' || ceilRaw === '') ? null : parseInt(ceilRaw, 10);
     STATE.time_filter_ceiling = (Number.isFinite(ceilNorm) ? ceilNorm : null);
+    // K-R2 — persist the reader target + the gated Reading options. The expandable
+    // Contents opt-in maps to reader_toc_collapsible (strict opt-in: the build keeps
+    // the base's <details> only when this is exactly true); gating already forced it
+    // false for targets that can't render it.
     const editionMeta = {
       title: STATE.title,
       theme: STATE.theme,
       traditions_default: [...STATE.traditions],
       time_filter_ceiling: STATE.time_filter_ceiling,
+      target_reader: STATE.target,
+      reader_toc_collapsible: !!STATE.toc_expandable,
     };
     const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
       method: 'PUT',

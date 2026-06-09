@@ -219,6 +219,10 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("reader_toc_collapsible", type=bool, required=False),
         FieldSpec("reader_toc_default_open", type=bool, required=False),
         FieldSpec("reader_toc_books_only", type=bool, required=False),
+        # K-R2 (2026-06-09) — the wizard's reader-target pick ("everywhere" |
+        # "eink" | "tablet" | "computer"); gates which optional features the
+        # UIs offer. Absent = everywhere.
+        FieldSpec("target_reader", type=str, required=False),
         # τ.G.constitution.a (2026-05-20) — standalone-Bible fields.
         # Per CLAUDE_PROJECT_RULES §1 "Parallel-Bible end-state — two
         # standalone Bibles", standalone-geez + standalone-amharic

@@ -498,19 +498,26 @@ function renderEditions() {
             </label>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Made for (reader target)</span>
+              <select class="label-input w-full" data-field="target_reader" title="where the builder will read this edition — gates which optional reading features are offered (K-R2)">
+                <option value="everywhere" ${(e.target_reader||'everywhere') === 'everywhere' ? 'selected' : ''}>🌍 Everywhere — safest build</option>
+                <option value="eink"       ${e.target_reader === 'eink' ? 'selected' : ''}>📖 E-ink reader (Kobo — use the .kepub)</option>
+                <option value="tablet"     ${e.target_reader === 'tablet' ? 'selected' : ''}>📱 Phone / tablet (Apple Books)</option><!-- term-ref-ok -->
+                <option value="computer"   ${e.target_reader === 'computer' ? 'selected' : ''}>💻 Computer (Calibre, ADE)</option>
+              </select>
+            </label>
+            <div></div>
             <label class="text-xs flex items-center gap-2">
-              <input type="checkbox" data-field="reader_toc_collapsible" ${e.reader_toc_collapsible !== false ? 'checked' : ''}>
-              <span>Reader's TOC: collapsible (dropdown per book)</span>
+              <input type="checkbox" data-field="reader_toc_collapsible" ${e.reader_toc_collapsible === true ? 'checked' : ''}>
+              <span>Expandable chapter lists in the Contents page <span class="text-slate-400">(capable readers only — e-ink/ADE render the pills always-visible instead)</span></span>
             </label>
             <label class="text-xs flex items-center gap-2">
               <input type="checkbox" data-field="reader_toc_default_open" ${e.reader_toc_default_open ? 'checked' : ''}>
               <span>Books default to expanded</span>
             </label>
             <p class="text-xs text-slate-500 md:col-span-2 italic">
-              Note: chapter heading changes apply on the next BUILD. Reader's
-              TOC dropdown preference and book ToC ornament are recorded
-              per-edition; per-edition application of these settings is queued
-              for a follow-up phase.
+              Chapter heading and Contents changes apply on the next BUILD.
             </p>
           </div>
         </div>

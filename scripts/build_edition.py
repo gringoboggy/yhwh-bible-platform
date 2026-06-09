@@ -3325,15 +3325,16 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     details_unwrapped, defaults_opened}`` for the build stats summary.
     Idempotent on default settings.
     """
-    collapsible = edition.get("reader_toc_collapsible")
-    if collapsible is None:
-        collapsible = True  # default: keep collapsible
-    # reader_toc_books_only — the most compact in-content ToC: just the book links, no
-    # per-book chapter pills (chapter nav lives in the reader's native ToC / the chapter
-    # headings). Implies the flat, non-<details> form.
-    books_only = bool(edition.get("reader_toc_books_only"))
-    if books_only:
-        collapsible = False
+    # beta-3 (b) made FLAT + always-visible chapter pills the DEFAULT (no reader can
+    # strand the pills behind a disclosure widget it can't operate); the expandable
+    # Contents is a STRICT OPT-IN — reader_toc_collapsible must be exactly true (the
+    # wizard offers it only for capable targets, e.g. Apple Books; e-ink term-ref-ok
+    # ignore <details> still render the pills, so the opt-in degrades safely). The
+    # legacy reader_toc_books_only flag is vestigial — flat is the default anyway —
+    # and stays schema-accepted for back-compat. (K-R2 / user-directed 2026-06-09;
+    # this also makes the /customize checkbox actually effective — the old
+    # books_only coupling silently overrode it on every edition.)
+    collapsible = edition.get("reader_toc_collapsible") is True
     default_open = bool(edition.get("reader_toc_default_open", False))
     ornament_code = (edition.get("book_toc_ornament") or "").strip()
     ornament_glyph = ""
