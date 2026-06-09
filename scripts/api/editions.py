@@ -617,6 +617,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "popup_translation",
         "cover_image",
         "verse_popups",
+        "note_attribution_dedup",
         "popup_languages_default",
         "popup_languages_per_book",
         "traditions_default",
@@ -730,6 +731,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     }
     EDITABLE_BOOL = {
         "verse_popups",
+        "note_attribution_dedup",
         "reader_toc_collapsible",
         "reader_toc_default_open",
         "enable_ai_notes",

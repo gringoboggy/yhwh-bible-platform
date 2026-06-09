@@ -39,6 +39,7 @@ Exit codes:
 """
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -48,6 +49,7 @@ import sys
 import tempfile
 import time
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -1853,6 +1855,104 @@ def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
 _XVERSE_DEDUP_EXCLUDE = {"xref", "topic"}
 
 
+# ----------------------------------------------------------------------
+# Note-presentation rehaul — build-time, lossless, option-gated transforms
+# that run INSIDE apply_badge_markers (badge mode only). See
+# docs/superpowers/specs/2026-06-08-note-presentation-rehaul-design.md
+# (re-verified against the live corpus 2026-06-08; the spec's S3a comma-split
+# and source-key boilerplate-strip were corrected before implementation).
+#
+# S1 — attribution/label de-dup. A leaf note's <span class="note-label"> is
+# suppressed when it merely repeats the kind's default label (85,936/91,733
+# notes), or when the body self-attributes (comm-ethiopian inner byline). Both
+# are lossless: the distinguishing text survives in the kind/category header or
+# the body. epub_working/ is never touched — these operate on the per-edition
+# temp tree, gated per-edition; an unset flag is a zero-touch no-op.
+# ----------------------------------------------------------------------
+
+# A self-attributing comm-ethiopian body opens with this exact wrapper and carries
+# its OWN inner <strong>Father</strong> <em>work</em> <small>(date)</small> byline,
+# so a label / group byline restating the source is redundant. Exact (1579/1589
+# comm-ethiopian bodies) and unique corpus-wide (0 other notes contain it), verified
+# 2026-06-08; the other 10 comm-ethiopian notes are plain User-authored bodies that
+# keep their normal label.
+_SELF_ATTRIBUTING_BODY_PREFIX = '<aside class="note-comm-ethiopian">'
+
+# The per-note label span inject.build_aside emits. Its text is html.escaped (never
+# contains '<'), so a single non-greedy [^<]* is exact (group 1 = the label text); the
+# one trailing space from build_aside's "</span> " is consumed with it.
+_NOTE_LABEL_SPAN_RE = re.compile(r'<span class="note-label">([^<]*)</span> ?')
+
+_REHAUL_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _normalize_label_text(s: str | None) -> str:
+    """Normalise a label/default for the S1 equality test: trim, strip ONE trailing
+    '.', trim, casefold. Stripping only one dot keeps a future ellipsis label from
+    collapsing onto the kind default."""
+    t = (s or "").strip()
+    if t.endswith("."):
+        t = t[:-1]
+    return t.strip().casefold()
+
+
+def _is_self_attributing_comm_ethiopian(body_html: str) -> bool:
+    """True iff the stored body is a pre-wrapped comm-ethiopian aside carrying its
+    own inner father byline (so the outer label / group byline is redundant)."""
+    return (body_html or "").lstrip().startswith(_SELF_ATTRIBUTING_BODY_PREFIX)
+
+
+@lru_cache(maxsize=1)
+def _kind_default_labels() -> dict:
+    """``kind -> normalised default label`` from kinds.yaml. The S1 predicate fires
+    when a note's own label merely repeats this. An empty/missing default is excluded
+    so a future label-less kind can never trigger a spurious suppression."""
+    out: dict[str, str] = {}
+    for code, rec in config.kinds_by_code().items():
+        norm = _normalize_label_text(rec.get("label"))
+        if norm:
+            out[code] = norm
+    return out
+
+
+def _strip_note_label_span(row_html: str) -> tuple[str, bool]:
+    """Remove the leaf's first ``<span class="note-label">…</span>`` (+ its trailing
+    space). Returns ``(new_html, changed)``."""
+    new_html, n = _NOTE_LABEL_SPAN_RE.subn("", row_html, count=1)
+    return new_html, n > 0
+
+
+def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -> tuple[str, bool]:
+    """S1: drop a leaf row's note-label span when it is redundant — (a) its rendered
+    text merely repeats the kind's default label, or (b) the body self-attributes
+    (comm-ethiopian inner byline). Operates on the RENDERED row + the marker's kind,
+    NOT the live note tuple, so it stays correct even where the baked base has drifted
+    from the current notes. Returns ``(new_row, changed)``."""
+    m = _NOTE_LABEL_SPAN_RE.search(row_html)
+    if not m:
+        return row_html, False
+    # trigger (b): the body carries its own inner byline -> the label restates it. The
+    # prefix is unique corpus-wide (0 other notes contain it), so containment is safe.
+    if _SELF_ATTRIBUTING_BODY_PREFIX in row_html:
+        return _strip_note_label_span(row_html)
+    # trigger (a): the label merely repeats the kind default. An empty/missing kind
+    # default never suppresses.
+    default = kind_defaults.get(kind, "")
+    if default and _normalize_label_text(m.group(1)) == default:
+        return _strip_note_label_span(row_html)
+    return row_html, False
+
+
+def _body_fingerprint(body_html: str) -> str:
+    """SHA-1 of the tag-stripped, whitespace-collapsed, casefolded STORED body (note
+    field 7) — the conserved 'distinct point' identity for the §4 completeness guard.
+    Computed from the stored body, so it is invariant under S1's label relocation
+    (never fingerprint the rendered row)."""
+    text = _REHAUL_TAG_RE.sub(" ", body_html or "")
+    text = " ".join(text.split()).casefold()
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
 def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """Rewrite the per-edition temp HTML into badge mode (§4.1).
 
@@ -1874,6 +1974,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """
     from scripts import inject as _inject
 
+    # Note-presentation rehaul flags (effective only here, under marker_style=badge).
+    # Each is a zero-touch no-op when absent ⇒ a flag-free edition builds byte-identically.
+    s1_dedup = bool(edition.get("note_attribution_dedup", False))
+    kind_defaults = _kind_default_labels() if s1_dedup else {}
+
     stats = {
         "badges_inserted": 0,
         "asides_merged": 0,
@@ -1881,6 +1986,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "files_touched": 0,
         "badges_skipped": 0,
         "notes_deduped": 0,
+        "s1_labels_suppressed": 0,
     }
 
     # Which split files actually survive in this edition's temp tree (canon
@@ -1999,6 +2105,16 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         seen_rows.add(norm)
                         if dedupable:
                             seen_book_rows.add(norm)
+                        # S1 (note_attribution_dedup): drop the leaf's note-label span
+                        # when it merely repeats the kind default OR the body self-
+                        # attributes (comm-ethiopian). Lossless — the distinguishing
+                        # text survives in the body / category header. Applied AFTER the
+                        # dedup decision so the dedup keys stay byte-identical to the
+                        # flag-off build. Operates on the rendered row (base-consistent).
+                        if s1_dedup:
+                            row, _changed = _strip_redundant_note_label(row, kind, kind_defaults)
+                            if _changed:
+                                stats["s1_labels_suppressed"] += 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
                         row_items.append((rank, doc_i, row))
                     if not ok:

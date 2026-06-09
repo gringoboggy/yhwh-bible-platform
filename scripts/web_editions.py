@@ -398,6 +398,10 @@ def api_customize_data() -> dict:
                 "canon": e.get("canon", ""),
                 "target_audience": e.get("target_audience", ""),
                 "verse_popups": e.get("verse_popups", True),
+                # Note-presentation rehaul options (S1/S2/S3a). Code default False ⇒ an
+                # absent field leaves the build byte-identical; effective only under
+                # marker_style=badge. See docs/superpowers/specs/2026-06-08-note-presentation-rehaul-design.md.
+                "note_attribution_dedup": e.get("note_attribution_dedup", False),
                 "verse_marker_glyph": e.get("verse_marker_glyph", ""),
                 "popup_translation": e.get("popup_translation", ""),
                 "popup_languages_default": list(e.get("popup_languages_default") or []),
