@@ -2723,6 +2723,21 @@ FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter
 # only ch-anchor silently merges the ch-heading-form chapters into multi-MB units.
 _BOUNDARY_HARD_RE = re.compile(r'\bid="(?:bp-\d+|ch-b\d+-c\d+)"')
 
+# Book-title-page boundary — an id that must START a fresh piece. A new spine file is a
+# guaranteed fresh page on EVERY renderer; Kobo's kepub engine IGNORES the CSS
+# page-break-* rules at the #book-inner nesting depth kepubify wraps everything in, so
+# the in-content ToC tail, a book's framed title, and chapter 1 all rendered on ONE Kobo
+# page (K-R2-1, 2026-06-09 device QA). Splitting at the boundary is the only bulletproof
+# break — the title page gets its OWN piece (forced, even in an under-target file).
+_BP_ID_RE = re.compile(r'\bid="bp-\d+"')
+
+# Chapter-heading cut candidate by CLASS. The real base carries page_N ids on its
+# <p class="ch-heading"> numerals — the ch-bNN-cMM id form exists only where a
+# ch-anchor was emitted — so without this rule a sparsely-noted book provides NO hard
+# candidates and packs into one giant over-cap atom (the 700-880 KB pieces found in the
+# K-R2 kepub inspection; target is 400 KB).
+_CH_HEADING_RE = re.compile(r'<p\b[^>]*\bclass="[^"]*\bch-heading\b[^"]*"')
+
 # Inline verse anchors — extra cut candidates so a heavily-noted chapter can split
 # between verses. A vn-link sits inside its <p class="verse-p"> (and a chapter anchor can
 # sit inside the PREVIOUS chapter's trailing <p class="verse-p">), so any cut may land
@@ -2831,9 +2846,14 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
     redistributed into a per-piece ``notes-section`` holding exactly the asides that piece
     references (first referencer wins; the link-rewrite pass later promotes any cross-piece
     reference to a cross-file link), so the bare ``#id`` footnote/popup contract stays
-    same-file. Returns ``[(piece_filename, text), …]``; a file at/under ``target`` (or
-    without a usable structure) is returned unchanged (zero churn)."""
-    if len(text) <= target:
+    same-file. A book-title-page (id="bp-NN") ALWAYS gets its own piece — forced even in
+    an under-target file — because a fresh spine file is the only page break Kobo's
+    kepub renderer honors (K-R2-1); and no piece ever ENDS with a bare chapter
+    opener (anchor/heading) — trailing openers move to the next piece so a chapter
+    numeral never strands at the bottom of a page (K-R2-4 seam). Returns
+    ``[(piece_filename, text), …]``; a file at/under ``target`` without a
+    book-title-page (or without a usable structure) is returned unchanged (zero churn)."""
+    if len(text) <= target and not _BP_ID_RE.search(text):
         return [(f"{stem}.html", text)]
     parts = _split_head_body_tail(text)
     if parts is None:
@@ -2850,17 +2870,34 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
             aside_by_id[aid] = aside_html
             ordered_aside_ids.append(aid)
 
-    # Cut candidates: every book/chapter start (id="bp-"/"ch-…", backed up to its '<') +
-    # every verse anchor. The packer cuts ONLY at a candidate; the stack-aware wrapper
-    # below makes any such cut well-formed even when it lands inside a <p>/<div>.
+    # Cut candidates: every book/chapter start (id="bp-"/"ch-…", backed up to its '<'),
+    # every ch-heading by CLASS (the real base's page_N-id form), and every verse
+    # anchor. The packer cuts ONLY at a candidate; the stack-aware wrapper below makes
+    # any such cut well-formed even when it lands inside a <p>/<div>. cand_kind tracks
+    # WHAT each cut position opens ('bp' = book title, 'ch' = chapter opener) for the
+    # forced-isolation and no-trailing-opener rules.
     cands: set[int] = set()
+    cand_kind: dict[int, str] = {}
     for m in _BOUNDARY_HARD_RE.finditer(content):
         lt = content.rfind("<", 0, m.start())
         if lt > 0:
             cands.add(lt)
+            cand_kind[lt] = "bp" if 'id="bp-' in m.group(0) else "ch"
+    for m in _CH_HEADING_RE.finditer(content):
+        if m.start() > 0:
+            cands.add(m.start())
+            cand_kind.setdefault(m.start(), "ch")
     for m in _VN_LINK_RE.finditer(content):
         if m.start() > 0:
             cands.add(m.start())
+    # Title positions for forced isolation. A title's '<' may sit at position 0 (a file
+    # that BEGINS with a book title): 0 is never a cut, but atom 0 must still be
+    # recognized as a title atom so the piece after it starts fresh.
+    title_cuts: set[int] = set()
+    for m in _BP_ID_RE.finditer(content):
+        lt = content.rfind("<", 0, m.start())
+        if lt >= 0:
+            title_cuts.add(lt)
     if not cands:
         return [(f"{stem}.html", text)]
     cuts = [0, *sorted(cands), len(content)]
@@ -2880,17 +2917,49 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
         atom_weight[ai] += len(aside_by_id[aid])
 
     # Greedy-pack atoms into pieces ≤ target (a lone over-weight atom stands alone).
+    # A title atom is a FORCED singleton: it closes the running group (unless that group
+    # is whitespace-only filler, which merges into the title piece) and closes itself
+    # immediately, so the book-title page owns a whole spine file.
+    title_atoms = {i for i in range(len(atoms)) if cuts[i] in title_cuts}
     groups: list[list[int]] = []
     cur: list[int] = []
     cur_w = 0
     for i, w in enumerate(atom_weight):
-        if cur and cur_w + w > target:
+        is_title = i in title_atoms
+        force_break = is_title and any(atoms[j].strip() for j in cur)
+        if cur and (force_break or cur_w + w > target):
             groups.append(cur)
             cur, cur_w = [], 0
         cur.append(i)
         cur_w += w
+        if is_title:
+            groups.append(cur)
+            cur, cur_w = [], 0
     if cur:
         groups.append(cur)
+
+    # No piece may END with a bare chapter opener (a ch-anchor and/or ch-heading with no
+    # verse prose after it) — pop trailing opener atoms onto the next group so a chapter
+    # numeral never strands at the bottom of a page (the K-R2-4 orphan seam). Skip when
+    # the next group is a forced title piece (nothing precedes a book title).
+    for gi in range(len(groups) - 1):
+        g, nxt = groups[gi], groups[gi + 1]
+        if nxt and nxt[0] in title_atoms:
+            continue
+        while (
+            g
+            and g[-1] not in title_atoms
+            and cand_kind.get(cuts[g[-1]]) == "ch"
+            and len(atoms[g[-1]]) < 600
+            and 'class="vn-link' not in atoms[g[-1]]
+        ):
+            # A small ch-kind atom with no verse anchor is a bare opener (an anchor,
+            # a heading, or heading + the next paragraph's open tag — the verse cut
+            # lands inside the <p>, and the stack-aware wrapper keeps both sides
+            # well-formed). An atom carrying real verse prose is large or holds a
+            # vn-link and never pops.
+            nxt.insert(0, g.pop())
+    groups = [g for g in groups if g]
     if len(groups) <= 1:
         return [(f"{stem}.html", text)]
 

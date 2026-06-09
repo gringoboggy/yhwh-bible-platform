@@ -46,29 +46,51 @@ SYNTH = """<?xml version='1.0' encoding='utf-8'?>
 </body></html>"""
 
 
+# SYNTH minus the book-title-page — a mid-book continuation file (the calibre base cuts
+# books across files), used to pin that a file WITHOUT a bp- boundary keeps zero churn.
+CH_ONLY = SYNTH.replace(
+    '<div class="book-title-page" id="bp-00" data-book-idx="0" epub:type="bodymatter"><h1>Genesis</h1></div>\n',
+    "",
+)
+
+
 class TestSplitHtmlDocumentUnit:
     """``split_html_document(text, stem, target)`` cuts one file into well-formed
     pieces at top-level book/chapter boundaries, never mid-chapter, and gives each
-    piece a notes-section holding exactly the asides its chapters reference."""
+    piece a notes-section holding exactly the asides its chapters reference. A
+    book-title-page is ALWAYS isolated into its own piece (K-R2-1: a fresh spine file
+    is the only page-break Kobo's kepub renderer honors at #book-inner nesting)."""
 
-    def _split(self, target):
+    def _split(self, target, text=SYNTH):
         from scripts.build_edition import split_html_document
 
-        return split_html_document(SYNTH, "index_split_007", target)
+        return split_html_document(text, "index_split_007", target)
 
-    def test_no_split_when_under_target(self):
-        pieces = self._split(10_000_000)
+    def test_no_split_when_under_target_and_no_book_boundary(self):
+        pieces = self._split(10_000_000, text=CH_ONLY)
         assert len(pieces) == 1
         name, text = pieces[0]
         assert name == "index_split_007.html", "an unsplit file must keep its original name"
-        assert text == SYNTH, "an unsplit file must be byte-identical (zero churn)"
+        assert text == CH_ONLY, "an unsplit file must be byte-identical (zero churn)"
 
-    def test_splits_at_chapter_boundary_into_two_pieces(self):
-        # target chosen so book-title-page+ch1 pack into piece 0 and ch2 into piece 1
+    def test_book_title_page_is_isolated_even_under_target(self):
+        # A file containing a book-title-page splits even when under target: the title
+        # must lead (and own) a fresh spine file so it starts a fresh page everywhere.
+        pieces = self._split(10_000_000)
+        assert len(pieces) == 2, f"expected [title][rest], got {len(pieces)}"
+        d = dict(pieces)
+        p0, p1 = d["index_split_007_00.html"], d["index_split_007_01.html"]
+        assert 'id="bp-00"' in p0 and 'id="ch-b00-c1"' not in p0, "title piece holds ONLY the title page"
+        assert '<aside class="notes-section"' not in p0, "title piece carries no notes"
+        assert 'id="ch-b00-c1"' in p1, "chapter 1 leads the next piece"
+
+    def test_splits_into_title_and_chapter_pieces(self):
+        # target chosen so ch1 packs into one piece and ch2 into the next; the title
+        # page is always its own piece in front.
         pieces = self._split(1000)
-        assert len(pieces) == 2, f"expected 2 pieces, got {len(pieces)}"
+        assert len(pieces) == 3, f"expected 3 pieces, got {len(pieces)}"
         names = [n for n, _ in pieces]
-        assert names == ["index_split_007_00.html", "index_split_007_01.html"]
+        assert names == ["index_split_007_00.html", "index_split_007_01.html", "index_split_007_02.html"]
 
     def test_every_piece_is_wellformed_standalone_xhtml(self):
         for _name, text in self._split(1000):
@@ -81,10 +103,16 @@ class TestSplitHtmlDocumentUnit:
             assert text.count("<div") == text.count("</div>"), "unbalanced <div> in a piece"
             assert text.count("<aside") == text.count("</aside>"), "unbalanced <aside> in a piece"
 
-    def test_book_title_and_chapter_one_lead_the_first_piece(self):
-        p0 = dict(self._split(1000))["index_split_007_00.html"]
-        assert 'id="bp-00"' in p0, "book-title-page must lead the first piece"
-        assert 'id="ch-b00-c1"' in p0, "chapter 1 starts in the first piece"
+    def test_title_leads_alone_and_chapters_align_to_pieces(self):
+        d = dict(self._split(1000))
+        p0, p1, p2 = (d[f"index_split_007_0{k}.html"] for k in range(3))
+        assert 'id="bp-00"' in p0 and 'id="ch-b00-c1"' not in p0, "title piece = title only"
+        assert 'id="ch-b00-c1"' in p1, "chapter 1 leads piece 1"
+        # the pop rule: a piece never ENDS with a bare next-chapter opener — ch2's
+        # anchor + heading lead piece 2 with ch2's verses instead of stranding at the
+        # bottom of piece 1 (the K-R2-4 orphaned-numeral seam).
+        assert 'id="ch-b00-c2"' not in p1 and 'id="page_2"' not in p1
+        assert 'id="ch-b00-c2"' in p2 and 'id="v-gen-2-1"' in p2
 
     def test_no_content_lost_across_pieces(self):
         # Every anchor + aside id from the source survives exactly once across the pieces
@@ -107,15 +135,15 @@ class TestSplitHtmlDocumentUnit:
 
     def test_notes_distributed_to_referencing_piece(self):
         d = dict(self._split(1000))
-        p0, p1 = d["index_split_007_00.html"], d["index_split_007_01.html"]
+        p1, p2 = d["index_split_007_01.html"], d["index_split_007_02.html"]
         # ch1's asides (the verse popup + the editorial note it references) live with ch1
-        assert 'id="vnote-gen-1-1"' in p0 and 'id="note-x1"' in p0
-        assert 'id="vnote-gen-1-1"' not in p1 and 'id="note-x1"' not in p1
+        assert 'id="vnote-gen-1-1"' in p1 and 'id="note-x1"' in p1
+        assert 'id="vnote-gen-1-1"' not in p2 and 'id="note-x1"' not in p2
         # ch2's asides live with ch2
-        assert 'id="vnote-gen-2-1"' in p1 and 'id="note-x2"' in p1
-        assert 'id="vnote-gen-2-1"' not in p0 and 'id="note-x2"' not in p0
-        # each piece keeps a notes-section wrapper around its asides
-        assert '<aside class="notes-section"' in p0 and '<aside class="notes-section"' in p1
+        assert 'id="vnote-gen-2-1"' in p2 and 'id="note-x2"' in p2
+        assert 'id="vnote-gen-2-1"' not in p1 and 'id="note-x2"' not in p1
+        # each chapter piece keeps a notes-section wrapper around its asides
+        assert '<aside class="notes-section"' in p1 and '<aside class="notes-section"' in p2
 
     def test_same_file_footnote_links_stay_resolvable_in_piece(self):
         # the marker→aside and aside→marker bare links must both be intra-piece
@@ -123,6 +151,87 @@ class TestSplitHtmlDocumentUnit:
         for text in d.values():
             for frag in re.findall(r'href="#(note-[^"]+|ref-[^"]+|vnote-[^"]+)"', text):
                 assert f'id="{frag}"' in text, f"bare #{frag} unresolved within its piece"
+
+
+# A mid-file book boundary — the calibre base cuts arbitrarily, so a file can carry the
+# TAIL of one book followed by the next book's title page (the K-R2-1 kobo22 shape: the
+# in-content ToC tail + Genesis title + ch1 shared one piece and one Kobo page).
+MIDFILE_BOOK = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+    '<body class="bible-body">\n'
+    '<p id="page_60" class="ch-heading"><span class="bold-num">50</span></p>\n'
+    '<p class="verse-p"><a class="vn-link" id="v-gen-50-1" href="#vnote-gen-50-1" epub:type="noteref">'
+    '<span class="vn">1</span></a> previous book tail.</p>\n'
+    '<div class="book-title-page" id="bp-01" data-book-idx="1" epub:type="bodymatter"><h1>Exodus</h1></div>\n'
+    '<p id="page_61" class="ch-heading"><span class="bold-num">1</span></p>\n'
+    '<p class="verse-p"><a class="vn-link" id="v-exo-1-1" href="#vnote-exo-1-1" epub:type="noteref">'
+    '<span class="vn">1</span></a> next book begins.</p>\n'
+    '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+    '<aside class="note note-word" id="vnote-gen-50-1" epub:type="footnote"><p>tail popup</p></aside>\n'
+    '<aside class="note note-word" id="vnote-exo-1-1" epub:type="footnote"><p>exo popup</p></aside>\n'
+    "</aside>\n"
+    "</body></html>"
+)
+
+# The REAL base's chapter form: headings carry page_N ids (NOT ch-bNN-cMM — that form
+# exists only where a <a class="ch-anchor"> was emitted), so the splitter must treat the
+# ch-heading CLASS as a cut candidate or a sparsely-noted book packs into one giant
+# over-cap atom (the 700-880 KB pieces found in the K-R2 kepub inspection).
+PAGEID_BOOK = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+    '<body class="bible-body">\n'
+    + "".join(
+        f'<p id="page_{n}" class="ch-heading"><span class="bold-num">{n}</span></p>\n'
+        f'<p class="verse-p">{"prose " * 120}</p>\n'
+        for n in range(1, 7)
+    )
+    + "</body></html>"
+)
+
+
+class TestBookBoundaryIsolation:
+    """K-R2-1: every book-title page owns a fresh spine file (forced split, even in an
+    under-target file), and the real base's page_N-id chapter headings are cut
+    candidates so pieces stay near target."""
+
+    def test_under_target_midfile_book_boundary_splits_three_ways(self):
+        from scripts.build_edition import split_html_document
+
+        pieces = split_html_document(MIDFILE_BOOK, "index_split_003", 10_000_000)
+        assert len(pieces) == 3, f"expected [prev tail][title][next book], got {len(pieces)}"
+        d = dict(pieces)
+        tail = d["index_split_003_00.html"]
+        title = d["index_split_003_01.html"]
+        rest = d["index_split_003_02.html"]
+        assert 'id="v-gen-50-1"' in tail and 'id="bp-01"' not in tail
+        assert 'id="bp-01"' in title and 'id="page_61"' not in title and 'class="verse-p"' not in title
+        assert 'id="page_61"' in rest and 'id="v-exo-1-1"' in rest
+        # asides follow their referencing pieces; the title piece carries none
+        assert 'id="vnote-gen-50-1"' in tail and 'id="vnote-exo-1-1"' in rest
+        assert "notes-section" not in title
+
+    def test_page_id_headings_are_cut_candidates(self):
+        from scripts.build_edition import split_html_document
+
+        # each chapter ≈ 800 B; target 2000 forces cuts that are only available via the
+        # ch-heading class (no bp-/ch-bNN-cMM/vn-link ids exist in this fixture)
+        pieces = split_html_document(PAGEID_BOOK, "index_split_011", 2000)
+        assert len(pieces) > 1, "page_N-id headings must provide cut candidates"
+        for name, t in pieces:
+            assert len(re.findall(r"<p\b", t)) == t.count("</p>"), f"{name}: unbalanced <p>"
+        # no piece ends with a stranded chapter numeral: every heading in a piece is
+        # followed by its verse prose within that same piece
+        for name, t in pieces:
+            last_head = t.rfind('class="ch-heading"')
+            if last_head != -1:
+                assert 'class="verse-p"' in t[last_head:], f"{name}: trailing orphan ch-heading"
+        joined = "".join(t for _, t in pieces)
+        for n in range(1, 7):
+            assert joined.count(f'id="page_{n}"') == 1
 
 
 # A two-chapter file mirroring the real Acts 21→22 shape that broke catholic-study: ch2's
@@ -239,14 +348,14 @@ class TestRewriteLinks:
 
         stats = be.apply_file_split(tmp, {"id": "x", "reader_file_split": True, "reader_file_split_target": 1000})
         assert stats["files_split"] == 1
-        assert stats["pieces_created"] == 2
+        assert stats["pieces_created"] == 3
 
-        p0 = (tmp / "index_split_007_00.html").read_text(encoding="utf-8")
-        # ch1's #v-gen-2-1 (target now in piece 01) was promoted to a cross-file link
-        assert 'href="index_split_007_01.html#v-gen-2-1"' in p0
-        assert 'href="#v-gen-2-1"' not in p0
+        p1 = (tmp / "index_split_007_01.html").read_text(encoding="utf-8")
+        # ch1's #v-gen-2-1 (target now in piece 02) was promoted to a cross-file link
+        assert 'href="index_split_007_02.html#v-gen-2-1"' in p1
+        assert 'href="#v-gen-2-1"' not in p1
         # ch1's own footnote bare links stay bare (same piece)
-        assert 'href="#note-x1"' in p0
+        assert 'href="#note-x1"' in p1
         # the original file is gone; pieces replace it
         assert not (tmp / "index_split_007.html").exists()
 
@@ -262,15 +371,15 @@ class TestRewriteLinks:
 
         be.apply_file_split(tmp, {"id": "x", "reader_file_split": True, "reader_file_split_target": 1000})
         opf = (tmp / "content.opf").read_text(encoding="utf-8")
-        # old single item/itemref gone; two piece items + itemrefs present, in order
+        # old single item/itemref gone; three piece items + itemrefs present, in order
         assert 'href="index_split_007.html"' not in opf
-        assert 'href="index_split_007_00.html"' in opf and 'href="index_split_007_01.html"' in opf
+        assert 'href="index_split_007_00.html"' in opf and 'href="index_split_007_02.html"' in opf
         i0 = opf.index("index_split_007_00.html")
-        i1 = opf.index("index_split_007_01.html")
-        assert i0 < i1, "piece spine/manifest order must follow piece order"
-        # spine itemref count for the pieces == 2
+        i2 = opf.index("index_split_007_02.html")
+        assert i0 < i2, "piece spine/manifest order must follow piece order"
+        # spine itemref count for the pieces == 3
         ids = re.findall(r'<item id="([^"]+)" href="index_split_007_0\d\.html"', opf)
-        assert len(ids) == 2
+        assert len(ids) == 3
         for pid in ids:
             assert f'<itemref idref="{pid}"/>' in opf
 
@@ -333,11 +442,16 @@ _TOC_PAGE = (
 )
 
 
-class TestBooksOnlyToc:
-    """reader_toc_books_only collapses the in-content ToC to book links only (drops the
-    per-book chapter pills); chapter nav moves to the native ToC (enriched below)."""
+class TestInContentTocModes:
+    """The in-content ToC's two modes (beta-3 (b), user-decided; re-trued 2026-06-09):
+    the shipped default (``reader_toc_books_only: true`` on every edition) UNWRAPS the
+    base's ``<details>`` into a flat label + ALWAYS-VISIBLE chapter pills (no reader can
+    strand the pills behind an unsupported disclosure widget); the opt-in expandable
+    mode (``reader_toc_collapsible: true``) KEEPS the base's ``<details>`` so capable
+    readers (Apple Books) can collapse/expand, while e-ink readers that ignore
+    ``<details>`` still render the pills."""
 
-    def test_books_only_keeps_books_drops_chapter_pills(self, tmp_path):
+    def test_books_only_flattens_but_keeps_chapter_pills(self, tmp_path):
         from scripts.build_edition import apply_reader_toc_transforms
 
         (tmp_path / "index_split_000.html").write_text(_TOC_PAGE, encoding="utf-8")
@@ -346,8 +460,27 @@ class TestBooksOnlyToc:
         out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
         assert out.count('class="toc-book-label"') == 2, "both book labels kept"
         assert "#bp-00" in out and "#bp-01" in out, "book anchors preserved"
-        assert "<details" not in out, "no <details> (Kobo-safe)"
-        assert 'class="toc-chapters"' not in out, "chapter pills dropped in book-list mode"
+        assert "<details" not in out, "flat mode strips the <details> wrapper"
+        assert out.count('class="toc-chapters"') == 2, "chapter pills are KEPT (beta-3 (b))"
+        assert "#page_4" in out and "#page_70" in out, "chapter links preserved"
+
+    def test_collapsible_optin_keeps_details_expandable(self, tmp_path):
+        from scripts.build_edition import apply_reader_toc_transforms
+
+        (tmp_path / "index_split_000.html").write_text(_TOC_PAGE, encoding="utf-8")
+        apply_reader_toc_transforms(tmp_path, {"reader_toc_collapsible": True})
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert out.count("<details") == 2, "expandable mode keeps the base <details>"
+        assert out.count('class="toc-chapters"') == 2, "pills stay inside the disclosure"
+
+    def test_collapsible_default_open_adds_open_attribute(self, tmp_path):
+        from scripts.build_edition import apply_reader_toc_transforms
+
+        (tmp_path / "index_split_000.html").write_text(_TOC_PAGE, encoding="utf-8")
+        s = apply_reader_toc_transforms(tmp_path, {"reader_toc_collapsible": True, "reader_toc_default_open": True})
+        assert s["defaults_opened"] == 2
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert out.count('<details open="">') == 2, 'default-open emits open="" on each book'
 
 
 class TestNativeTocChapterEnrichment:
