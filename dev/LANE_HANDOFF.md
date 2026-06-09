@@ -1,13 +1,35 @@
 ---
 mode: parallel
-turn: 40
+turn: 41
 from: mac
-updated: 2026-06-08
+updated: 2026-06-09T02:48:02Z
 status: working
-mac: ▶ M1 ~90% DONE (turn 40) — finding-7 FIXED: the frozen macOS .app opens its OWN native Cocoa window (PROVEN — Quartz shows a 1280×900 window owned by "YHWH Ya' Way", not a browser; pyobjc cp314 wheels resolve on Py 3.14.5 with NO source build; cocoa backend + YHWH.icns bundled). Remaining: wrap a TEST dmg to a NON-0.0.3 name (build_dmg.sh would clobber the notarized dist/YHWH-0.0.3.dmg, which is restored+intact) + visual dock/About confirm. Evidence: docs/superpowers/notes/2026-06-08-M1-native-window-verification.md. M2 device-QA still ← STAGE C EPUB.
-windows: ▶ STAGE C in progress — note-rehaul (S1→S2→S3a; spec independently re-verified, several corrections found incl. a real S3a comma-split bug) + folding in Mac's turn-38 5 follow-ups. Landed STAGE E this turn (your M1 unblocked). Owns all shared-code impl + outward/release.
+mac: M1 CLOSED (turn 41) — native-window dmg PROVEN end-to-end + a real frozen-app release-blocker FIXED & verified. Idle / await your STAGE C EPUB for M2 device-QA.
+windows: STAGE C note-rehaul (S1→S3a) + 5 turn-38 follow-ups + Guard #6. INCOMING from Mac (turn 41): verify the frozen note-editor fix on the Windows .exe + Linux AppImage, review the book-name fix, brainstorm app user-friendliness. Owns all shared-code impl + outward/release.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 41, 2026-06-09T02:48:02Z) — mode=parallel
+
+**Assignments:** mac = M1 CLOSED (turn 41) — native-window dmg PROVEN end-to-end + a real frozen-app release-blocker FIXED & verified. Idle / await your STAGE C EPUB for M2 device-QA. · windows = STAGE C note-rehaul (S1→S3a) + 5 turn-38 follow-ups + Guard #6. INCOMING from Mac (turn 41): verify the frozen note-editor fix on the Windows .exe + Linux AppImage, review the book-name fix, brainstorm app user-friendliness. Owns all shared-code impl + outward/release.
+
+### ▶ Mac → Windows (turn 41) — ✅ M1 CLOSED + a real frozen-app release-blocker FIXED (found in device-QA, user eyeball). 3 asks for you.
+
+Building/launching the M1 dmg surfaced a **real release defect**: the **frozen desktop note-editor was broken on ALL 3 OSes**. On launch it showed a rose **"failed to load"** toast + the book list stuck on **"loading…"**.
+- **Root cause (a frozen-build packaging class):** `scripts/web_helpers.py` `_load_note_quality_helpers` / `_load_new_note_helpers` loaded their sibling scripts via `importlib.util.spec_from_file_location(REPO/"scripts/x.py")` — a **disk path**. A PyInstaller bundle has **no loose `scripts/*.py` on disk** (source lives in the PYZ archive; only `scripts/templates` ships loose) → `FileNotFoundError` at request time. Funneled through `_nq()`/`_nn()` so `/api/kinds` (book-list load), `/api/template`, and `quality_for` via `/api/notes` all failed; `index.py:127`'s `Promise.all` then sank the whole load. Shell-independent (native window AND `--shell browser`).
+- **FIX (shared code → reaches you on pull):** `scripts/web_helpers.py` now imports the siblings as package modules (`from scripts import note_quality` / `new_note`) — frozen-safe + dev-safe; PyInstaller's static analysis detects function-body imports so they bundle. Regression guard `tests/test_desktop_theta.py::TestFrozenSafeScriptLoaders` (monkeypatches `REPO`→nonexistent to simulate frozen; proven non-vacuous). **VERIFIED on the REBUILT frozen `.app`:** `/api/kinds`→72 kinds, `/api/books`→87 books/91,733.
+- **Bonus fix:** the book list rendered the tag twice ("gen gen") — `books.yaml` carries the name under `title` (no `name` field) so `api_books` fell back to `code`. Fixed `scripts/web_notes.py` → `b.get("name") or b.get("title") or b["code"]` + a `title=` tooltip in `scripts/templates/index.py` (0/87 repeat).
+- **M1 dmg CLOSED:** TEST dmg wrapped from the FIXED `.app` (`dist/YHWH-0.0.3-nativewin-TEST.dmg`, unsigned, do-not-upload — the M3 release reuses this recipe); native Cocoa window proven END-TO-END from the **mounted** dmg (Quartz owner="YHWH Ya' Way", 1280×900); notarized `dist/YHWH-0.0.3.dmg` moved out across the `rm -rf dist/` rebuild + **restored intact** (sha `043e884e…`). User confirmed the dock icon is up.
+- Evidence: `docs/superpowers/notes/2026-06-08-frozen-note-editor-fix.md`. 233 tests green; ruff clean.
+
+**▶ 3 asks for you (all user-requested):**
+1. **VERIFY the fix on Windows `.exe` + Linux AppImage** — the bug is OS-independent (PyInstaller behaves identically), so both had it. The shared `web_helpers.py` fix reaches you on pull; please launch each frozen build, open the note editor, confirm the book list populates (NO "failed to load"), and grep for any *other* request-time `spec_from_file_location` / `REPO`-relative `.py`/code-path reads.
+2. **Review** the `api_books`/`index.py` book-name + tooltip fix (your shared code).
+3. **★ BRAINSTORM ways to make the desktop app more user-friendly** — the user finds the app's first page (a dense note-editor IDE) **overwhelming as a landing**. Brainstorm a friendlier DEFAULT landing + clarify who the shipped app is for (an end-user reading the Bible vs. a maintainer editing notes). Ties to device-QA **finding 6** (app top-nav prettify). Design only; surface as builder/UX options.
+
+**M2 (device-QA) still ← your STAGE C EPUB.** Baton stays **windows** (truth_owner); mode=parallel.
+
 ---
 
 ## ▶ Mac → Windows (turn 40, 2026-06-08) — ✅ M1 native-window dmg de-risk: finding-7 FIXED (PROVEN on this iMac). + 1 Guard #6 finding for you.

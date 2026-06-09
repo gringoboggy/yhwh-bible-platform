@@ -74,23 +74,27 @@ def _notes_dir_signature() -> tuple:
     return tuple(pairs)
 
 
-# Lazy import note_quality + new_note (they're scripts, not modules)
+# note_quality + new_note are sibling scripts in the `scripts` package.
+# Import them as normal package modules — NOT via spec_from_file_location
+# on a REPO-relative path. A frozen PyInstaller build has no loose
+# `scripts/*.py` on disk (the source lives in the bundled archive), so the
+# old file-path loader raised FileNotFoundError at request time in the
+# desktop app — breaking every endpoint that funnels through _nq()/_nn():
+# /api/kinds (book-list load → "failed to load" toast), /api/template
+# (new-note scaffold), and quality_for via /api/notes. A package import
+# resolves from the archive when frozen and from disk in dev, and
+# PyInstaller's static analysis detects these function-body imports so the
+# modules get bundled. Kept lazy + cached via _nq()/_nn().
 def _load_note_quality_helpers():
-    import importlib.util
+    from scripts import note_quality
 
-    spec = importlib.util.spec_from_file_location("_note_quality", REPO / "scripts" / "note_quality.py")
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+    return note_quality
 
 
 def _load_new_note_helpers():
-    import importlib.util
+    from scripts import new_note
 
-    spec = importlib.util.spec_from_file_location("_new_note", REPO / "scripts" / "new_note.py")
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+    return new_note
 
 
 _note_quality = None

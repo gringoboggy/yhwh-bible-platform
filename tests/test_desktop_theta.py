@@ -1638,3 +1638,57 @@ class TestBuildOutputRootResolution:
 
         monkeypatch.setenv("YHWH_DATA_DIR", str(tmp_path))
         assert paths.exports_dir() == tmp_path / "exports"
+
+
+# ============================================================
+# Frozen-safe script loaders (web_helpers._load_*_helpers)
+# ============================================================
+
+
+class TestFrozenSafeScriptLoaders:
+    """Regression (2026-06-08, M1 device-QA): the note-editor's lazy
+    script loaders must import ``note_quality`` / ``new_note`` as *package
+    modules*, never via ``spec_from_file_location`` on a REPO-relative
+    path.
+
+    A frozen PyInstaller build ships no loose ``scripts/*.py`` on disk
+    (the source lives in the bundled PYZ archive), so the old file-path
+    loader raised ``FileNotFoundError`` at request time in the desktop
+    app — breaking every endpoint that funnels through ``_nq()``/``_nn()``:
+    ``/api/kinds`` (book-list load → "failed to load" toast + the list
+    stuck on "loading…"), ``/api/template`` (new-note scaffold), and
+    ``quality_for`` via ``/api/notes`` (viewing any book). Surfaced via
+    the native macOS window and the browser shell alike (a server-layer
+    bug, shell-independent).
+
+    Simulated here by pointing ``REPO`` at a path with no ``scripts/``
+    tree: a disk-path loader would fail; a package import is unaffected.
+    """
+
+    def test_note_quality_loader_ignores_repo_disk_path(self, monkeypatch, tmp_path):
+        from scripts import web_helpers
+
+        monkeypatch.setattr(web_helpers, "REPO", tmp_path / "no-such-repo")
+        mod = web_helpers._load_note_quality_helpers()
+        assert hasattr(mod, "budget_for")
+        assert hasattr(mod, "run_checks")
+
+    def test_new_note_loader_ignores_repo_disk_path(self, monkeypatch, tmp_path):
+        from scripts import web_helpers
+
+        monkeypatch.setattr(web_helpers, "REPO", tmp_path / "no-such-repo")
+        mod = web_helpers._load_new_note_helpers()
+        assert hasattr(mod, "template_for")
+
+    def test_api_kinds_works_without_loose_scripts_on_disk(self, monkeypatch, tmp_path):
+        # End-to-end: /api/kinds is the call that failed in the frozen
+        # desktop app. It must succeed even when no loose scripts/*.py
+        # exists on the REPO-relative path.
+        from scripts import web_helpers, web_notes
+
+        monkeypatch.setattr(web_helpers, "REPO", tmp_path / "no-such-repo")
+        # bust the lazy module-cache so the loader re-runs under the patch
+        monkeypatch.setattr(web_helpers, "_note_quality", None, raising=False)
+        out = web_notes.api_kinds()
+        assert isinstance(out.get("kinds"), list)
+        assert out["kinds"], "api_kinds returned no kinds"

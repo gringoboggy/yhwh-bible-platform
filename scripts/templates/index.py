@@ -150,7 +150,7 @@ function renderBooks() {
     div.className = 'cursor-pointer px-2 py-1 rounded hover:bg-slate-100 text-sm flex items-center';
     if (state.currentBook === b.code) div.classList.add('bg-blue-50', 'font-semibold');
     div.innerHTML = `<span class="mono text-xs text-slate-500 w-12">${b.code}</span>
-      <span class="flex-1 truncate">${b.name}</span>
+      <span class="flex-1 truncate" title="${b.name}">${b.name}</span>
       <span class="text-xs text-slate-400 ml-1">${b.note_count}</span>`;
     div.onclick = () => loadBook(b.code);
     list.appendChild(div);

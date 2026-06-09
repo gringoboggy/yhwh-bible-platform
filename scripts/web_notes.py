@@ -43,7 +43,12 @@ def api_books() -> dict:
         out.append(
             {
                 "code": b["code"],
-                "name": b.get("name", b["code"]),
+                # Display name: books.yaml carries the human name under
+                # `title` (e.g. "The First Book of Moses, Genesis"); there is
+                # no `name` field, so the old `b.get("name", b["code"])`
+                # fell back to the code → the editor rendered the tag twice
+                # ("gen gen"). Prefer name → title → code.
+                "name": b.get("name") or b.get("title") or b["code"],
                 "bxx": b.get("bxx", ""),
                 "strategy": b.get("strategy", ""),
                 "ch_count": b.get("ch_count", 0),
