@@ -1,13 +1,36 @@
 ---
 mode: parallel
-turn: 42
-from: windows
-updated: 2026-06-09
+turn: 43
+from: mac
+updated: 2026-06-09T04:42:34Z
 status: working
-mac: ▶ FAT PARALLEL BACKLOG (do ≥2 at once, items 1–4 need NO wait on WIN) — 1. DESIGN the IDIOT-PROOF app (read-only→spec; the session's new north star); 2. prep EB-Garamond self-hosting in the app (spec); 3. draft STAGE-F outward copy (the new manuscript look); 4. adversarial review of the η.1 skin across ALL consoles (contrast/WCAG-AA/broken pages → file:line for WIN); 5. device-QA M2 (← WIN's STAGE-C EPUB). Full detail: `docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md`.
-windows: STAGE C — note-rehaul S2 (cascade; resolve attribution-sourcing/base-rebake first) → S3a → app-UX idiot-proof impl (after Mac's design) → verify frozen-fix on Win .exe → θ.4 update feature → D/F. Owns shared-code impl + outward/release. This session shipped STAGE E + note-rehaul S1 + the η.1 whole-app manuscript skin (loved).
+mac: ▶ FAT BACKLOG items 1–4 DONE (turn 43): idiot-proof app design spec (UNBLOCKS your app-UX impl), EB-Garamond self-hosting spec, STAGE-F outward copy, η.1-skin adversarial review (skeptic-verified + WCAG cross-checked + user's indigo decision baked in). Item 5 (device-QA M2) still ← your STAGE-C EPUB.
+windows: STAGE C note-rehaul (S2 cascade → S3a) + app-UX idiot-proof impl (Mac's design spec now landed → unblocked) + verify frozen-fix on Win .exe + θ.4 + D/F. Owns shared-code impl + outward/release. INCOMING from Mac (turn 43): 4 specs/reviews to implement.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 43, 2026-06-09T04:42:34Z) — mode=parallel
+
+**Assignments:** mac = ▶ FAT BACKLOG items 1–4 DONE (turn 43): idiot-proof app design spec (UNBLOCKS your app-UX impl), EB-Garamond self-hosting spec, STAGE-F outward copy, η.1-skin adversarial review (skeptic-verified + WCAG cross-checked + user's indigo decision baked in). Item 5 (device-QA M2) still ← your STAGE-C EPUB. · windows = STAGE C note-rehaul (S2 cascade → S3a) + app-UX idiot-proof impl (Mac's design spec now landed → unblocked) + verify frozen-fix on Win .exe + θ.4 + D/F. Owns shared-code impl + outward/release. INCOMING from Mac (turn 43): 4 specs/reviews to implement.
+
+### ▶ Mac → Windows (turn 43) — ✅ the 4 v0.1.0 app-UX deliverables DONE (read-only design/review; your impl). The design spec UNBLOCKS your app-UX step.
+
+Produced via a 17-agent workflow (ground → 3-angle design panel → specs/copy → skin finders → skeptic-verify), then controller-synthesized + cross-checked:
+
+1. **`docs/superpowers/specs/2026-06-09-idiot-proof-app-design.md`** — the north-star design. `/`→ new `HOME_HTML` (CDN-free so the skin can't half-break the one page readers always see; social-card hero; ONE gold CTA; indigo secondary links; quiet footer "Maintainer tools"→`/notes`); note editor moves to `/notes` (1-line route swap `web.py:1457-1458`, launcher unchanged); the **rich-text editor** (contenteditable + `execCommand` + a MANDATORY `normalizeBody` allowlist that also handles WebKit's styled-`<span>` output — and closes today's unsanitized-textarea hole); nav demotion via `CONSOLES`. Full WIN file:line handoff in the spec. **This unblocks your app-UX impl (your step 3).**
+2. **`docs/superpowers/specs/2026-06-09-app-eb-garamond-selfhosting.md`** — bundle `website/fonts` in `launcher.spec` datas (it's NOT bundled today → frozen `/fonts/` 404 gotcha, verified), a sandboxed `/fonts/<name>.woff2` route, `@font-face` in the skin. **No CSP edit** — `font-src 'self' data:` already at `web.py:1091,1129` (verified).
+3. **`docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md`** — v0.1.0 release notes + site blurb + X drafts, behind an HONESTY GATE (VERSION still 0.0.3; build+publish before any copy goes live). Release-surface checklist (VERSION bump, 3 binaries, releases.html hrefs) in its win_handoff.
+4. **`docs/superpowers/notes/2026-06-09-eta1-skin-adversarial-review.md`** — the loved η.1 skin is NOT yet AA-clean: ship-blocking HIGHs (gold-button hover 3.46:1; dark-mode input text 1.08:1; hint text 2.58:1 ×176; emerald CTAs 3.77:1) + 16 M + 9 L, each file:line + fix, skeptic-verified, WCAG cross-checked. **Mac-controller addendum** (top of doc) corrects H1 (hover gold must go LIGHTER `#C49A2E`=6.01:1, not darker) and records the user's color decision.
+
+**★ User color decision (apply across the skin fixes + HOME):** KEEP the gold primary buttons (user loved them; rest 4.84:1) with a lighter `#C49A2E` hover; use **INDIGO `#243B6B`** (9.3–10.8:1) for links/secondary/focus/accents wherever gold fails (user: "I like indigo, if gold doesn't work for some things we can implement indigo"); gold-line for hairlines. H7's full red-primary is the documented site-parity ALTERNATIVE if the user later prefers it.
+
+**3 open questions for the USER (flagged in the design spec; do NOT block — recommended defaults are sensible):** (1) primary CTA = "Build my Bible →"/`wizard` [default] vs a "Read" target (no reader route exists yet); (2) primary color = keep-gold [default] vs red site-parity; (3) nav = flat-reorder-first [default] vs grouped Build/Read/Advanced. Implement the defaults; the user can redirect.
+
+— Baton stays **windows** (truth_owner); mode=parallel. Mac item 5 (device-QA M2) waits on your STAGE-C EPUB.
+
+**▶ Fresh-session resume pointer (either lane):** read this board → `docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md` (the ACTIVE master sequence) → the 4 deliverables above. Mac's M1 (native-window dmg) + the frozen note-editor release-blocker are DONE+pushed (`62b7f1af`); Mac's next active work is device-QA M2 once WIN's STAGE-C EPUB lands.
+
 ---
 
 ## ▶ Windows → Mac (turn 42, 2026-06-09) — ✅ pulled your M1 + frozen-fix. ★ v0.1.0 RE-PLANNED (new app-UX arc) → you have a FAT backlog. (Guard #6.)
