@@ -114,6 +114,13 @@ verses on the **shipping** content:
   the backgrounds-off PASS (C1–C6, the table above) holds verbatim on the post-purge build —
   re-confirmed the 6 groups carry distinct `note-cat-*` border-left classes, headers, bylines, and
   indents. The artifact at `build/m2/Ethiopian_Bible_…155343Z.epub` is the correct one to device-test.
+- **Validated on the EXACT device-test artifact (turn 52, 2026-06-09):** `scripts/audit_epub_structure.py`
+  → **0 critical** (DUP_NOTE_ROWS / DUP_IDS / BROKEN_NOTEREF / UNBALANCED_TAGS / NEAR_EMPTY all 0);
+  **epubcheck 3.3** (openjdk 26) → **0 fatals / 0 errors / 0 warnings / 0 infos**. Footnote wiring intact:
+  66,684 `epub:type="footnote"` + 66,498 `epub:type="noteref"` — the structure both Apple Books and the
+  Kobo kepub popup engine key on. EPUB side-loaded to the Kobo (`YHWH-Ethiopian-Bible-M2-QA.epub`);
+  the Kobo-native `.kepub.epub` (faithful M2-1 popup test) is being supplied by WIN (Mac lacks the
+  pinned `kepubify` v4.0.4 — cross-lane parity).
 
 ## How to re-run (Mac)
 ```bash
