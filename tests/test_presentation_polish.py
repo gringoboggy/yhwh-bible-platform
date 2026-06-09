@@ -14,16 +14,54 @@ BASE_CSS = REPO / "epub_working" / "stylesheet.css"
 
 
 class TestLeftAlign:
-    def test_base_stylesheet_has_no_justified_body_text(self):
-        css = BASE_CSS.read_text(encoding="utf-8")
-        assert "text-align: justify" not in css, (
-            "justified body text still present — stretches short lines in Apple Books"
-        )
+    """finding 1b (device-QA 2026-06-08): justified PROSE is the EPUB DEFAULT — so the
+    reader's GLOBAL justify toggle (which also spaced out the ToC book-names) is never
+    needed — but justification is SCOPED to prose containers; ToC / titles / headings /
+    pills / captions / labels are NEVER justified. This SUPERSEDES the 2026-05-24
+    'no justify anywhere' contract (justify shipped as the prose default in beta-2)."""
 
-    def test_base_stylesheet_drops_hyphenation_with_justify(self):
+    # Furniture selectors that must NEVER carry text-align:justify (the build guard).
+    _FURNITURE_KEYWORDS = (
+        "toc",
+        "title",
+        "heading",
+        "eyebrow",
+        "pill",
+        "caption",
+        "-label",
+        "cover",
+        "bookpage",
+        "legend",
+        "backmatter",
+        "-rule",
+    )
+
+    def test_prose_is_justified_by_default(self):
+        # Verse paragraphs + note bodies carry justify + hyphenation as the EPUB's own
+        # default, so the reader never reaches for the global justify toggle.
         css = BASE_CSS.read_text(encoding="utf-8")
-        assert "hyphens: auto" not in css
-        assert "-webkit-hyphens: auto" not in css
+        assert "text-align: justify" in css, "prose justify is the finding-1b default — missing"
+        assert "hyphens: auto" in css, "justify must be paired with hyphens:auto to avoid rivers"
+
+    def test_no_furniture_selector_is_justified(self):
+        # The finding-1b BUILD GUARD: no heading/title/ToC/pill/caption/label selector
+        # may resolve to text-align:justify (the reader's global toggle would then space
+        # it out). Only prose containers (.verse-p / .note) are justified.
+        import re
+
+        css = BASE_CSS.read_text(encoding="utf-8")
+        # Strip /* … */ comments first — a comment preceding a rule is otherwise
+        # captured as part of its "selector" and a comment that merely NAMES a
+        # furniture class (e.g. ".note-label") would false-positive a prose block.
+        css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+        offenders = []
+        for sel, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
+            if "text-align: justify" not in body and "text-align:justify" not in body:
+                continue
+            low = sel.lower()
+            if any(k in low for k in self._FURNITURE_KEYWORDS):
+                offenders.append(sel.strip())
+        assert not offenders, "furniture selectors must never be justified (finding 1b guard): " + "; ".join(offenders)
 
 
 class TestCoverFit:
