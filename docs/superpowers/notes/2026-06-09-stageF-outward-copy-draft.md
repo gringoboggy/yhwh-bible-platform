@@ -227,3 +227,249 @@ typography in the betas to come.)
 - EB Garamond is self-hosted on the SITE only (`website/style.css:6-27`, `website/fonts/`);
   the APP does not serve it yet (`scripts/templates/_design.py:178-180`) → do not claim
   identical fonts.
+
+---
+
+## (e) EXPANDED "New in v0.1.0" — the note cascade as centrepiece (APPEND to the §(a) release body)
+
+> **Why this exists.** The §(a) draft above leads with the manuscript skin and only mentions
+> note de-dup as one small device-QA bullet — it is **missing the marquee feature of v0.1.0,
+> the new study-note cascade.** This block is the corrected, reader-first "New in v0.1.0"
+> section: paste it in **place of** the existing `## New in v0.1.0` section in §(a). It puts
+> the redesigned note presentation first (what a reader actually SEES), then folds in the
+> de-dup, the manuscript skin, the macOS native window, and the device-QA fixes so the whole
+> reads as one coherent release.
+>
+> **★ HONESTY GATE applies in full.** The cascade ships **in the v0.1.0 Ethiopian Bible EPUB
+> once that EPUB is cut** — it is finished code, but it is switched on only in the rebuilt
+> v0.1.0 edition that has not yet been built or uploaded. (Right now the three gating flags
+> are absent from `editions.yaml`, so the cascade is off on every edition and lives in NO
+> built or released EPUB.) So this section is published on the public surfaces under the
+> **same gate as the rest of this draft**: only after the v0.1.0 cut is live (VERSION bumped →
+> eth EPUB with the cascade rebuilt and byte/epubcheck/nested-anchor-verified → `.kepub` →
+> all three desktop binaries rebuilt + the macOS `.dmg` notarised → `SHA256SUMS` merged →
+> GitHub release uploaded → site + social-card `<meta>` flipped). Until then, do not announce
+> the cascade as something a reader can download today.
+
+## New in v0.1.0
+
+### Notes that read like a book, not a list
+
+This is the heart of v0.1.0. When you tap a verse’s note badge — the small diamond **◈** with a
+number beside it (**◈16** means sixteen distinct notes, after duplicates have been quietly
+removed) — the notes no longer spill out as one long, repetitive list. They now **cascade**, in
+the same shape as Scripture itself: as the Bible runs book to chapter to verse, a verse’s notes
+run **verse → category → source → note**, so the eye can read down them instead of wading
+through them.
+
+Here is what that looks like when you open one:
+
+- **Labelled groups, with a heading and a symbol.** The notes are gathered into named groups,
+  one for each kind of note present on that verse, in a fixed most-useful-first order —
+  historical and cultural background first, the long topical index always last. Each group opens
+  with a small-caps heading that pairs the category’s manuscript-style glyph with its written
+  name (for example, **⌂ Historical / Cultural**, or **⌘ Linguistic**). The name is always
+  spelt out beside the symbol, so even on an e-reader that can’t draw the glyph you still read
+  the category in plain words.
+- **A coloured spine down each group.** Every group carries a thin coloured line down its left
+  edge in that category’s own hue — gold for the language notes, deep blue for commentary,
+  crimson for the textual notes, and so on. It is a quiet structural cue rather than decoration:
+  the colour survives even with every background tint turned off, so the categories stay tellable
+  apart on the plainest black-and-white e-ink screen.
+- **Each source named once.** Within a group the notes are gathered by where they came from, and
+  the source is printed **once**, as a short italic byline above the notes drawn from it — *Easton’s
+  Illustrated Bible Dictionary (1897)*, or *Treasury of Scripture Knowledge* — instead of
+  repeating the same attribution on every single line, the way it used to.
+- **The notes themselves, indented beneath.** Under each byline sit the individual notes, stepped
+  one indent further in, so you read down the cascade naturally: the category, then the source,
+  then its notes. Little labels that only echoed the category — a bare “Hebrew.” stamped on every
+  word study — are gone, because the heading has already said it once.
+- **One merged list of topics, last.** The topical group — every theme a verse belongs to, such
+  as Creation, Heaven, or God — always comes last, and the two topical sources (Nave’s and
+  Torrey’s) are merged into a **single de-duplicated, dot-separated line** of themes, credited to
+  both together, rather than two overlapping lists.
+
+And nothing is ever thrown away. The notes are only re-parented and de-duplicated — never
+dropped — so **every distinct point still survives**, exactly once. (The build even fails loudly
+if a single point would go missing, so the “nothing lost” promise is checked, not just hoped
+for.) The result is the same wealth of study material as before — the kind of apparatus you’d
+find in a print study Bible — but laid out so you can actually read it.
+
+### Tidier notes underneath the cascade
+
+The same care runs under the surface. Repeated attributions and category prefixes are
+de-duplicated at build time, **losslessly** — a source is named once rather than on every line,
+a category isn’t repeated again and again, and where Nave’s and Torrey’s topical indexes overlap
+their themes are merged into one clean, Title-cased list. Every distinct point is kept; only the
+clutter is removed.
+
+### A new illuminated-manuscript look for the app
+
+The desktop builder now wears the same warm, parchment-and-ink aesthetic as
+[the website](https://www.yhwhyaway.com) — a vellum-toned background, a dark-brown banner with a
+gold rule beneath it, gold primary buttons, gold-tinted borders so each panel reads as its own
+box, and a serif body throughout. The app and the site now feel like one piece. The look was
+then made properly accessible (WCAG-AA): button hovers use a lighter gold, links and focus rings
+an indigo, hint text was darkened to stay readable, a matching dark-manuscript palette was
+finished for the dark-themed lookup screens, and a handful of near-invisible numbers and labels
+were re-toned so they actually read. (The note-editor screen was tidied too: aligned, capitalised
+column headers, wrapping book titles, and example placeholders.)
+
+### macOS now opens in its own window
+
+The macOS app used to open the builder in your default browser at a `localhost` address. It now
+opens in its **own native window** — its own icon, its own dock entry, no browser and no address
+bar — the way an installed program should. (Windows and Linux already opened natively.)
+
+### Fixes from reading it on real devices
+
+A round of fixes came straight from reading the full Bible on Apple Books and a Kobo e-reader:
+
+- **Justified body text is now the default** for the Ethiopian Bible, so you no longer have to
+  turn it on in your reader. Justification is scoped to running prose only — titles, headings,
+  the contents, and tables stay as designed — which also fixes the contents list spacing out
+  when a reader’s global justify was on.
+- **Book title pages stay put.** The frame around a book’s title and art no longer bleeds onto
+  the next page (it’s capped and kept from splitting across a page).
+- **The “Your Edition” page reads correctly.** The honest per-book note-count list no longer
+  clips its book-name column off the left edge on Apple Books.
+
+### Under the hood
+
+A large internal cleanup landed too: a stricter set of build-time guards (so out-of-extent note
+coordinates and a few latent caching bugs can’t reappear, and so the cascade can never silently
+lose a note), shared at-scale tooling, and a fully re-verified build pipeline — the EPUB still
+validates to **zero errors, zero warnings**, and the nine King-James-canon editions remain
+byte-for-byte identical where you change nothing.
+
+---
+
+## (f) Updated releases.html "What's changed" bullets — cascade added
+
+> Replaces the §(b) `<ul>` so the changelog block names the cascade as the headline change.
+> Add as the new top `<h3>` block above the existing `v0.0.3` block; same gate as §(b)
+> (publish only when the v0.1.0 cut is live).
+
+```html
+<h3 class="sub-h">v0.1.0 — notes that read like a book, the illuminated look &amp; a native macOS window</h3>
+<ul class="prose">
+  <li><strong>A redesigned study-note popup.</strong> Tap a verse’s <strong>◈</strong> badge and the
+    notes now <strong>cascade</strong> — gathered under a heading and symbol for each category
+    (with a thin coloured spine down its edge), each source named <em>once</em> as a byline, the
+    notes indented beneath, and all the topics merged into one line at the end — instead of one
+    long, repetitive list. Nothing is dropped; every distinct point is kept.</li>
+  <li><strong>Tidier notes throughout</strong> — repeated attributions and category prefixes are
+    de-duplicated (losslessly), and Nave’s and Torrey’s topical indexes are merged into one clean list.</li>
+  <li>A new <strong>illuminated-manuscript look</strong> for the desktop app — vellum and ink, a
+    gold-ruled banner, gold buttons, serif type — so the program now matches the website.</li>
+  <li>On <strong>macOS</strong>, the app now opens in its own native window (its own icon and dock
+    entry), instead of opening a browser at a localhost address.</li>
+  <li><strong>Justified body text by default</strong>, scoped to running prose only; the “Your
+    Edition” page no longer clips its book names; book title pages no longer bleed onto the next page.</li>
+  <li>Still a beta on the 0.x track — an early, complete build, with your feedback wanted.</li>
+</ul>
+```
+
+> Source check for §(e)/§(f): the reader-facing cascade description matches the in-repo
+> behaviour — `scripts/build_edition.py` `_emit_cascade_sections` (category heading + glyph +
+> spelled-out label, source byline once, indented note leaves), `_CASCADE_CATEGORY_HUES` (the 15
+> per-category spine hues), `_merge_topic_rows` (Nave’s + Torrey’s vocab-aware topic union), and
+> the `_count_cascade_leaves` conservation guard (“S2 cascade conservation failure”). The badge
+> glyph **◈** and the category glyphs/names match the legend on `website/src/index.html`
+> (lines 151-167). **All three gating flags** (`note_group_by_category`,
+> `note_attribution_dedup`, `note_topic_dedup`) are LATENT until the Ethiopian-Tewahedo
+> re-baseline flips them on and the v0.1.0 eth EPUB is rebuilt — so honest only after the cut.
+
+---
+
+## (g) Two NEW X / social drafts for v0.1.0 (distinct from the four existing beats)
+
+These extend section (d) of `/Volumes/MacHD2/yhwh-bible-platform/docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md`. They are numbered 5 and 6 to follow the existing Drafts 1–4. Same publish gate: post only after the v0.1.0 cut is live — and Draft 5 specifically is honest **only once the rebuilt Ethiopian-Tewahedo EPUB carrying the cascade is the downloadable release artifact** (the cascade is latent/flag-off in every shipped EPUB today, so it must not be claimed before WIN's re-baseline EPUB is the live download). The user can attach `website/social-card.png` (or a screenshot of the new cascade popup / manuscript-look app).
+
+**Draft 5 — the new study-note cascade (the apparatus is finally readable):**
+> Tap a verse’s ◈ note badge and the study notes no longer pile up as one flat, repetitive list. In v0.1.0 they cascade — gathered by category, each source named once, colour-coded down the side.
+>
+> YHWH Ya’ Way — free, beta.
+> https://www.yhwhyaway.com/releases.html
+
+(245 chars by X’s count. Honest: matches `cascadeUserDescription` — category headers, source named once as a byline, per-category coloured spine [the `border-left` group spine in the code], nothing dropped. No false claim that it’s in a downloadable EPUB until the eth re-baseline ships; the cascade flags are absent from `editions.yaml` so it is latent/flag-off in every shipped EPUB today.)
+
+**Draft 6 — build YOUR edition (pick your canon + which notes show):**
+> Five canon traditions, nine editions — you choose. Build your own study Bible: pick which books are in, toggle whole families of notes, export a clean EPUB. Runs on your own computer — free forever, no account, no cloud.
+>
+> YHWH Ya’ Way v0.1.0 (beta) 📜
+> https://www.yhwhyaway.com/releases.html
+
+(275 chars by X’s count. Honest: five canon traditions + nine editions, per-edition canon choice, toggleable note families, and clean EPUB export are all shipped/established facts at v0.0.3 and carry over; "runs on your own computer" and the free/no-account/no-cloud framing match the site.)
+
+Notes on honesty/voice held to: faith-respectful, British "colour"/"toggle(able)" spelling, typographic apostrophe (’), em-dashes (not "click here"), "still a beta on the 0.x track" implied via "(beta)"/"free, beta", each draft standalone + verified under 280 chars on X’s counter (URL counts as 23) + ends with the releases/site URL. Neither duplicates the existing four beats (new-look+native-window, read-on-device/honesty, mission/faith, all-free follow-up); the manuscript-look "app feels like the book" angle was deliberately avoided since Draft 1 + standalone (c) already cover the illuminated-look beat — Draft 6 takes the "build your own edition" angle instead. (Note: neither draft claims the app self-hosts EB Garamond, claims rebuilt v0.1.0 binaries, or claims the cascade is already downloadable — all per the doNotClaim list.)
+
+---
+
+## (h) Website Guide-page update — `how-to-use.html` Step 3 (the note cascade)
+
+## PASTE INSTRUCTIONS
+
+**File:** `/Volumes/MacHD2/yhwh-bible-platform/website/src/how-to-use.html`
+
+**This is a section EDIT, not a new page.** Replace the existing **"Step 3 — read, and tap for more"** `<h3>` + `<p class="prose">` (lines 49–54) with the block below. Leave the Kobo tip callout (lines 55–56) exactly as it is, immediately after this new block. No nav, sitemap, or `build.mjs` change is needed — the page is already nav-linked as "Guide".
+
+**Honesty gate:** This describes the cascade as it appears in the v0.1.0 eth EPUB. Do **not** publish until the v0.1.0 cut is live (VERSION bumped, eth EPUB with the cascade rebuilt + byte/epubcheck/nested-anchor-verified, release uploaded, site flipped). Until then the released EPUB is the pre-cascade v0.0.3 build and this copy would be inaccurate.
+
+---
+
+## READY-TO-PASTE HTML
+
+```html
+      <h3 class="sub-h">Step 3 — read, and tap for more</h3>
+      <p class="prose">Read normally. Where a verse carries study notes, you’ll see a small
+        <strong>◈</strong> diamond with a count beside it — <strong>◈16</strong> means sixteen
+        distinct notes, once duplicates have been set aside. Tap it and the notes don’t spill out
+        as one long, repetitive list. They open in a single tidy panel, gathered into a small
+        <em>cascade</em> that reads like the Bible itself — verse, then category, then source,
+        then the notes.</p>
+      <p class="prose">Each kind of note present on the verse opens its own labelled group, in a
+        fixed most-useful-first order — historical and cultural background first, the long
+        topical list always last. Every group carries a small heading that pairs its old
+        manuscript symbol with its name spelled out beside it, so you always know what you’re
+        reading even on an e-reader that can’t draw the symbol:</p>
+      <ul class="custom-list">
+        <li><strong>⌂ Historical / Cultural</strong> — background, places, persons, and customs.</li>
+        <li><strong>◇ Commentary / Tradition</strong> — interpretive readings across the
+          traditions.</li>
+        <li><strong>‖ Cross-references</strong> — parallels, citations, and echoes.</li>
+        <li><strong>✧ Textual / Critical</strong> — variant readings and manuscript witnesses.</li>
+        <li><strong>⌘ Linguistic</strong> — Hebrew, Greek, and other word studies.</li>
+        <li><strong>✦ Topical</strong> — every theme the verse belongs to, kept to the very end.</li>
+      </ul>
+      <p class="prose">Each group also carries a thin <strong>coloured stripe</strong> down its
+        left edge in that category’s own hue — gold for the word studies, deep blue for
+        commentary, crimson for the textual notes, and so on. On a colour screen that hue tells a
+        word study from a cross-reference from a piece of commentary at a single glance; and
+        because the stripe sits in the structure itself — alongside the spelled-out heading and the
+        stepped indentation — the groups stay clearly separated even on a plain black-and-white
+        e-ink reader.</p>
+      <p class="prose">Inside a group, each <strong>source is named just once</strong> — a short
+        line in italics, such as <em>Easton’s Illustrated Bible Dictionary (1897)</em> or
+        <em>Treasury of Scripture Knowledge</em> — set above the notes drawn from it, with the
+        notes themselves stepped in beneath. No more reading the same attribution over and over on
+        every line. The topical indexes come last of all, with the two topical sources gathered
+        into one merged, de-duplicated line of themes. Nothing is ever thrown away — the notes are
+        only re-grouped and tidied, never dropped, so every distinct point still survives.</p>
+      <p class="prose">A separate marker opens the verse in its <strong>original languages</strong>
+        (Hebrew, Greek, Latin, Arabic). If you built your own edition, the same families of notes
+        you switched on or off appear here, in this same cascade. Use the reader’s own table of
+        contents to jump between books and chapters, and the reader’s controls to change font size,
+        spacing, and theme — the Bible follows your reader’s settings.</p>
+```
+
+---
+
+A few notes on choices made, for the record:
+- I dropped the now-inaccurate "grouped by kind" phrasing entirely and replaced it with the cascade story (verse → category → source → note), as the target spec directed.
+- I showed only 6 of the 15 categories (the most-useful-first head of the order plus Topical-last) to keep it reader-facing rather than re-listing the full legend that already lives on `index.html#reading-the-notes`. The colour examples (gold/Linguistic, deep blue/Commentary, crimson/Textual) match `facts.categoryGlyphsAndColors` exactly.
+- The colour-stripe paragraph was reworded so it doesn't overclaim: the hue distinguishes groups *on a colour screen*, while on a plain black-and-white/grayscale e-ink reader (where distinct hues collapse toward similar grays) it is the *structural* separation — the stripe's presence, the spelled-out heading, and the stepped indent — that keeps the groups apart. This matches what `facts.categoryGlyphsAndColors`/`cascadeUserDescription` actually claim (a structural cue that survives with background tints off), not "tell colours apart on monochrome".
+- "coloured stripe" / "coloured" uses British-ish spelling to match the site; all apostrophes are the typographic ’; em-dashes throughout; no "click here". The `◈16` example and "set aside / never dropped" framing come straight from `cascadeUserDescription`.
+- Honesty-safe: no version number is stated in this section, and the copy describes only the cascade apparatus (safe per `honesty.safeToClaimAfterCut` the moment the rebuilt eth EPUB is the download). It does not touch any do-not-claim item (no v0.1.0 claim, no font claim, no landing page, no rich-text editor).
+
+**Secondary, optional (not done — outside this edit):** a one-line `v0.1.0` changelog bullet on `releases.html` "What's changed" mentioning the refined cascade. The Stage-F draft at `/Volumes/MacHD2/yhwh-bible-platform/docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md` already has the broader release blurb; you could add "notes now read in a tidy cascade — grouped by category, each source named once, topics merged" to its `releases.html` block.

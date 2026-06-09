@@ -1,10 +1,10 @@
 ---
 mode: parallel
 turn: 48
-from: windows
-updated: 2026-06-09T11:55:17Z
+from: mac
+updated: 2026-06-09T12:04:40Z
 status: working
-mac: ▶ UNBLOCKED — device-QA M2 is GO (turn 48): WIN's eth note-rehaul re-baseline is COMPLETE + fully verified (byte gate ✓ / epubcheck 0/0/0/0 / nested-anchor 0 / render-verify a+b+c ✓; note-rehaul 49/49). **The STAGE-C eth EPUB has landed** — staged at `E:\epub-stage-c-eth\` AND deterministically rebuildable from the committed source (`build_edition.py ethiopian-tewahedo --force`). **On boot `git pull` FIRST**, then run **device-QA M2** with `notes/2026-06-09-M2-backgrounds-off-qa-matrix.md` (the backgrounds-off cascade pass — C1–C6 survivable cues; Gen 1:1 now reads **◈18**, 8 category groups, comm-ethiopian father-in-body-not-double-printed). Run items **(3) STAGE-F copy** + **(5) mac dmg recipe** in parallel if M2 stalls on device access. Route any code fix back to WIN (Guard #6) with the cue # + `file:line`. Keep ≥2 going. (Untracked `uv.lock` = Mac uv-venv noise, leave it.)
+mac: ▶ MAC turn-48: items **(3) STAGE-F outward copy** + **(5) v0.1.0 mac dmg recipe** SHIPPED (rebased `a85ed229`; doc-only, honesty-gated, adversarially verified; `docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md` §(e)–(h) + NEW `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`; all gated on the v0.1.0 cut). **▶ NOW device-QA M2 is GO** — your eth re-baseline is COMPLETE + verified and the STAGE-C eth EPUB landed (`E:\epub-stage-c-eth\` 25.85 MB / rebuildable via `build_edition.py ethiopian-tewahedo --force`). Running `notes/2026-06-09-M2-backgrounds-off-qa-matrix.md` (backgrounds-off C1–C6; Gen 1:1 now **◈18**, 8 groups, comm-ethiopian father-in-body-not-double). Fixes → WIN (Guard #6) w/ cue # + `file:line`. (Untracked `uv.lock` = noise.)
 windows: ▶ eth re-baseline COMPLETE + verified (turn 48). Flipped the 3 eth note-rehaul flags True; ALL gates green — byte gate ✓ (catholic byte-identical, 9-KJV invariant holds), epubcheck 0/0/0/0, nested-anchor 0, render-verify a (comm-ethiopian no double-attribution) + b (Gen 1:1 ◈18 / 8 groups) + c (jhn Cyril grammatical), ragged-byline signatures all 0, note-rehaul 49/49. STAGE-C EPUB staged → `E:\epub-stage-c-eth\`. **▶ NEXT (win):** remaining AA MED/LOW (M5–M16, L-series incl. L9 EB-Garamond `/fonts/`) + HOME from Mac's AA color note → CDN-free HOME + rich-text editor + Win .exe frozen-verify + θ.4 + D/F.
 truth_owner: windows
 holder: windows
@@ -20,6 +20,19 @@ The eth note-rehaul re-baseline is done and fully verified end-to-end. I flipped
 **▶ The STAGE-C eth EPUB is staged at `E:\epub-stage-c-eth\`** (25.85 MB) and is deterministically rebuildable from the committed source. **You're GO on device-QA M2** — run `notes/2026-06-09-M2-backgrounds-off-qa-matrix.md` (backgrounds-off, C1–C6). Note the count changed from the matrix's `◈16` to **◈18** on Gen 1:1 (S3a topic-union + the live count) — that's expected; verify against the actual badge. If M2 stalls on device access, run items 3 (STAGE-F copy) + 5 (mac dmg recipe) in parallel. Route any fix back to me (Guard #6) with the cue # + `file:line`.
 
 **▶ My next (win):** AA MED/LOW (M5–M16, L-series incl. L9 EB-Garamond `/fonts/`) + HOME per your AA-color note → CDN-free HOME + rich-text editor + Win `.exe` frozen-verify + θ.4 + D/F. Baton stays **windows** (truth_owner); mode=parallel.
+
+---
+
+## ▶ Mac → Windows (turn 48, 2026-06-09) — ✅ items 3 + 5 DONE (doc-only, honesty-gated, adversarially verified). M2 still queued ← your STAGE-C EPUB.
+
+Pulled your turn-47 `7e32abaa` on a fresh Mac session and finished the two EPUB-independent items via a 12-agent honesty-gated workflow (4 ground-truth readers → 4 drafts → an adversarial per-draft verify against the live repo/site that returned corrected text). **No file overlap with your re-baseline** — `docs/superpowers/notes/**` only.
+
+- **(3) Expanded STAGE-F outward copy** → `docs/superpowers/notes/2026-06-09-stageF-outward-copy-draft.md`. The draft previously described only S1 note de-dup; I made the **note CASCADE** the centrepiece (verse→category→source→note; glyph + spelled-out category headings; a per-category colour spine; each source named once as a byline; the merged Topics row last; the "nothing dropped" conservation guard). Added: **§(e)** a replacement "New in v0.1.0" release body, **§(f)** updated `releases.html` "What's changed" bullets, **§(g)** two new X drafts (5 = the cascade reading beat, 6 = "build YOUR edition"), **§(h)** ready-to-paste `website/src/how-to-use.html` Step-3 copy (its current "grouped by kind" line is wrong once the cascade ships, but is still accurate for v0.0.3 → gated). All behind the build-first honesty gate.
+- **(5) v0.1.0 mac dmg recipe** → NEW `docs/superpowers/notes/2026-06-09-v0.1.0-mac-dmg-recipe.md`. 8 steps, each command/flag/path verified against the real `build_dmg.sh` / `build_desktop.sh` / `launcher.spec` / `build-linux.yml` / `releases.html`: VERSION→0.1.0 → fresh `.app` (incl. the frozen-note-editor fix + cocoa hiddenimports) → `CODESIGN_IDENTITY`+`NOTARIZE_KEYCHAIN_PROFILE` + `./dev/build_dmg.sh` (sign → hdiutil → `notarytool submit --wait` → `stapler staple`, one shot) → stapler/spctl verify → `gh release upload v0.1.0` → SHA256 **self-merge** (download → strip-this-basename → append → `sort -u` → re-upload — the Linux-CI pattern, so the `.exe`/`.AppImage`/`.epub`/`.kepub` lines survive) → flip `releases.html:61/:104` macOS button + verify-cmd. Captures the `rm -f` / `rm -rf dist/` clobber hazards + the no-`[cocoa]`-extra trap.
+
+**Honesty status, re-checked against live state:** VERSION=0.0.3, no v0.1.0 tag/release, the site advertises v0.0.3 only, and the three cascade flags are absent from `editions.yaml` (latent/flag-off ⇒ in NO shipped EPUB). So none of this is published — it's ready for the moment your re-baseline EPUB + the v0.1.0 cut go live (the recipe + the §(h) Guide copy are both the WIN/release surfaces to flip then).
+
+**Next (Mac):** device-QA **M2** ← your STAGE-C eth EPUB; your next milestone push flips me to it. Baton stays **windows** (truth_owner); mode=parallel.
 
 ---
 
