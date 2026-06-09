@@ -133,3 +133,45 @@ mkdir -p /tmp/u && unzip -oq build/m2/Ethiopian_Bible_*.epub -d /tmp/u
 
 — Mac, turn 49. Self-serviceable M2 complete; device behaviours (M2-1, M2-10) + a user decision
 on the seeded-notes finding remain.
+
+---
+
+# 📱 REAL-DEVICE results (the user, turn 54, 2026-06-09 — Apple Books + colour Kobo)
+
+The user ran the deferred device half of M2 on **both** targets: Apple Books (plain `.epub`)
+and the **colour Kobo** (the Mac-generated `.kepub.epub`). Overall verdict, verbatim:
+
+> *"VERY CLEAN and nice so far, very proud of this milestone"* (Apple Books)
+> *"the epub loads nicely and smooth, very little to no lag"* (Kobo kepub)
+
+**M2-1 (popups fire) = ✅ PASS on both devices.** Apple Books pops the EPUB3 footnote asides
+from the plain `.epub`; the Kobo kepub fires noterefs (the mis-tap finding below is a tap-*precision*
+issue at the verse boundary — the popups themselves work, confirming the kepubify pipeline +
+the 66,498-noteref wiring). **M2-10 (pagination/legibility) = findings below**, all cataloged
+with owner + status. Kobo crop evidence: `E:\epub-kobo-crops` (Windows lane; nested subfolder).
+
+## Apple Books — 2 findings, both FIXED by WIN (`2030e7e0`), pending rebuild re-test
+
+| # | finding | root cause | fix | status |
+|---|---|---|---|---|
+| AB① | per-book title boxes pushed onto the NEXT page, regardless of font size | Apple Books silently ignores bare `max-height` on `<img>` → the art rendered full-height and `break-inside:avoid` shoved the whole frame over (this was the turn-38 follow-up #1, never applied) | `object-fit:contain` added to `.bookpage-art` + `.bookpage-art-bleed` | **FIXED `2030e7e0`** — await rebuild re-test |
+| AB② | "This Edition" identity should sit with the note details, not the front colophon | placement, not a bug — user preference | Edition-ID + Build identity relocated colophon → **Your Edition page** (beside the per-book note counts); colophon is now legal/publisher only | **FIXED `2030e7e0`** — await rebuild re-test |
+
+## Colour Kobo — 4 findings: 3 = WIN TODO (one rebuild + kepub), 1 = by-design
+
+| # | finding | analysis | owner / status |
+|---|---|---|---|
+| K① | the two popup triggers mis-tap (coarse Kobo hit-box) | inspection of the shipped EPUB: verse number (= WLC/LXX/Vulgate translation popup) already LEADS the verse, ◈ notes badge already TRAILS it — the real collision is at the verse boundary in run-in prose (`…earth. ◈18 ²The earth…`). **User decision (asked + clarified): KEEP both popups; translation=start, notes ◈=end; add a clear CSS gap** (`.verse-notes-badge` + `.vn-link` margins, `epub_working/stylesheet.css` ~:816/:256 — also fixes the number-glued-to-text "²The"); fallback if Kobo's tap box still collides = verse-per-line. Layout pinned by `649f1075`. | **WIN TODO #1** |
+| K② | Ge'ez tofu in the note popups (crops kobo3, kobo5) | the EPUB *does* embed Noto Serif Ethiopic — but as **woff2** with `unicode-range: U+1200-137F` only; Kobo's renderer is woff2-flaky (the Cardo **ttf** renders fine on the same device) | **WIN TODO #2** (swap to ttf + widen range); Mac laundry #4 = the woff2/ttf research + ttf supply — results in `2026-06-09-kobo-geez-font-research.md` |
+| K③ | title pages bleed into each other (unlike Apple Books) | `vh` units are unreliable on Kobo/RMSDK → needs a non-vh fallback / firmer page-break | **WIN TODO #4** |
+| K④ | no colour background on the notes | **BY DESIGN, not a bug** — the cascade deliberately uses coloured left-border spines (not fills) for e-ink legibility; exactly the backgrounds-off behaviour the M2 pass above proved survivable | closed (by design) |
+
+## Status roll-up
+
+- **M2 is COMPLETE**: structure half (turn 49, above) + device half (turn 54) both run.
+- Apple Books: clean apart from AB①② — both already fixed, one rebuild away from re-test.
+- Kobo: kepub pipeline validated end-to-end on the real device; K①–K③ queued as the WIN
+  next-session batch (**one** eth rebuild + `kepubify`, then the user's combined re-test).
+- Nothing here re-opens the backgrounds-off verdict; K④ confirms it on real e-ink-style rendering.
+
+— Mac, turn 56 (ingest of the user's turn-54 real-device pass; laundry #1).
