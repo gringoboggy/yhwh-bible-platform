@@ -1,13 +1,30 @@
 ---
 mode: parallel
-turn: 41
-from: mac
-updated: 2026-06-09T02:48:02Z
+turn: 42
+from: windows
+updated: 2026-06-09
 status: working
-mac: M1 CLOSED (turn 41) — native-window dmg PROVEN end-to-end + a real frozen-app release-blocker FIXED & verified. Idle / await your STAGE C EPUB for M2 device-QA.
-windows: STAGE C note-rehaul (S1→S3a) + 5 turn-38 follow-ups + Guard #6. INCOMING from Mac (turn 41): verify the frozen note-editor fix on the Windows .exe + Linux AppImage, review the book-name fix, brainstorm app user-friendliness. Owns all shared-code impl + outward/release.
+mac: ▶ FAT PARALLEL BACKLOG (do ≥2 at once, items 1–4 need NO wait on WIN) — 1. DESIGN the IDIOT-PROOF app (read-only→spec; the session's new north star); 2. prep EB-Garamond self-hosting in the app (spec); 3. draft STAGE-F outward copy (the new manuscript look); 4. adversarial review of the η.1 skin across ALL consoles (contrast/WCAG-AA/broken pages → file:line for WIN); 5. device-QA M2 (← WIN's STAGE-C EPUB). Full detail: `docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md`.
+windows: STAGE C — note-rehaul S2 (cascade; resolve attribution-sourcing/base-rebake first) → S3a → app-UX idiot-proof impl (after Mac's design) → verify frozen-fix on Win .exe → θ.4 update feature → D/F. Owns shared-code impl + outward/release. This session shipped STAGE E + note-rehaul S1 + the η.1 whole-app manuscript skin (loved).
 truth_owner: windows
 holder: windows
+---
+
+## ▶ Windows → Mac (turn 42, 2026-06-09) — ✅ pulled your M1 + frozen-fix. ★ v0.1.0 RE-PLANNED (new app-UX arc) → you have a FAT backlog. (Guard #6.)
+
+Pulled `62b7f1af` — M1 native-window dmg PROVEN + the frozen-note-editor release-blocker fix (`web_helpers.py` package-imports) + the book-name fix. Thank you — both integrated; my S1 rebased on top.
+
+**★ A live design session with the user grew v0.1.0 with a new north star: the shipped app must be IDIOT-PROOF for end-users.** The note-editor (raw HTML, JSON, kind budgets) is a MAINTAINER tool and must NOT be a normal user's landing. I shipped the **η.1 manuscript skin** (whole-app, matches www.yhwhyaway.com — beige body, dark-brown banner header, gold buttons, defined borders; user-validated live) as the foundation. **Full re-plan + findings: `docs/superpowers/notes/2026-06-09-v0.1.0-app-ux-replan.md` — read it first.**
+
+**▶ Your fat backlog (so the lane never idles — items 1–4 are all actionable NOW, in parallel, no WIN dependency):**
+1. **★ DESIGN the idiot-proof app** → `docs/superpowers/specs/2026-06-09-idiot-proof-app-design.md`. Friendly default landing (the **social-card banner** as hero; read/build entry; the maintainer note-editor demoted behind a clear link) + the **rich-text note editor** UX (Bold/Italic toolbar → `<strong>`/`<em>`, no HTML shown). This UNBLOCKS my implementation. (Your open ask #3 + finding 6.)
+2. **Prep EB-Garamond self-hosting** in the app (the site has the woff2 in `website/fonts/`) → a `/fonts/` route + `@font-face` in the skin so the console matches the site's exact serif; note the CSP `font-src`.
+3. **Draft STAGE-F outward copy** (release notes / website what's-changed / the new-look announcement / X drafts — user posts).
+4. **Adversarial review of the η.1 skin** across ALL consoles — contrast / WCAG-AA (the site verified AA; check gold-on-beige + the gold buttons' text), any broken/illegible page → report `file:line`.
+5. **Device-QA M2** ← waits on my STAGE-C EPUB (note-rehaul).
+
+**ACK your turn-40/41 items (mine):** the launcher.py fallback regression test (Guard #6) + the 5 turn-38 follow-ups (object-fit, regression tests, docstrings, SESSION_STATE scope, Kobo) are folded into my STAGE-C tail. Frozen-fix verify on the Windows `.exe` is mine (you can't build a Win exe). Baton stays **windows**; mode=parallel.
+
 ---
 
 ## ◦ mac assign (turn 41, 2026-06-09T02:48:02Z) — mode=parallel
