@@ -393,7 +393,13 @@ order"), Claude picks the sequence using these priorities, in order:
 
 When a task could be sequenced multiple reasonable ways, **pick the most logical one
 for the project as a whole**, even if the user's casual phrasing suggests a different
-order. The user has delegated this judgment; exercise it.
+order. The user has delegated this judgment; exercise it. **Re-affirmed 2026-06-09 as a
+STANDING delegation (user, emphatic):** *"always [pick the] most logical sequence no
+matter my suggestions or asks — y'all know better / can compute a smarter process … make
+this known always."* So: order work by these §3 priorities regardless of the order the
+user lists asks in, AND briefly **surface that you're exercising the delegated sequencing
+judgment** (one line — "sequencing X before Y because …") so the choice is visible. This
+applies to a casual ask's *timing*, never to a hard constraint or correctness requirement.
 
 ## 4. Save semantics
 

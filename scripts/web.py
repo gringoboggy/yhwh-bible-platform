@@ -1227,6 +1227,12 @@ class Handler(BaseHTTPRequestHandler):
             pass
 
     def _send_html(self, html: str):
+        # η.1 — re-tone every Tailwind console to the public website's manuscript
+        # palette (no-op on non-console pages / if already skinned). Runs BEFORE
+        # nonce injection so the skin's inline <script> picks up the CSP nonce.
+        from scripts.templates._design import apply_manuscript_skin
+
+        html = apply_manuscript_skin(html)
         # ξ.18 — fresh per-request nonce + noncified body + strict CSP.
         nonce = self._generate_nonce()
         noncified = self._inject_script_nonces(html, nonce)

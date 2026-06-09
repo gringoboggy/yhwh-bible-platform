@@ -47,9 +47,12 @@ INDEX_HTML = r"""<!DOCTYPE html>
 <main class="flex-1 flex overflow-hidden">
 
   <!-- Books column -->
-  <aside class="w-64 border-r bg-white flex flex-col">
-    <div class="p-3 border-b">
-      <input id="book-search" placeholder="filter books…"
+  <aside class="w-72 border-r bg-white flex flex-col">
+    <div class="px-4 h-12 flex items-center border-b border-slate-200 bg-slate-100">
+      <h2 class="font-semibold">Books</h2>
+    </div>
+    <div class="px-3 h-12 flex items-center border-b border-slate-200 bg-slate-100">
+      <input id="book-search" placeholder="filter by name or code, e.g. Genesis or gen"
         class="w-full text-sm border rounded px-2 py-1"/>
     </div>
     <div id="book-list" class="flex-1 overflow-y-auto scroll-thin p-2 space-y-0.5">
@@ -59,17 +62,17 @@ INDEX_HTML = r"""<!DOCTYPE html>
 
   <!-- Notes column -->
   <section class="flex-1 flex flex-col overflow-hidden bg-slate-50">
-    <div class="px-4 py-2 border-b bg-white flex items-center gap-3">
-      <h2 id="notes-title" class="font-semibold">select a book</h2>
+    <div class="px-4 h-12 border-b border-slate-200 bg-slate-100 flex items-center gap-3">
+      <h2 id="notes-title" class="font-semibold">Select a book</h2>
       <span id="notes-count" class="text-sm text-slate-500"></span>
       <button id="add-btn" class="ml-auto bg-emerald-600 hover:bg-emerald-700
         text-white text-sm px-3 py-1 rounded" disabled>+ add note</button>
     </div>
-    <div class="px-4 py-2 border-b bg-white flex items-center gap-2 flex-wrap">
-      <input id="kind-filter" placeholder="filter kind…"
-        class="text-sm border rounded px-2 py-1 w-40"/>
-      <input id="text-filter" placeholder="filter text…"
-        class="text-sm border rounded px-2 py-1 w-40"/>
+    <div class="px-4 py-2 border-b border-slate-200 bg-slate-100 flex items-center gap-2 flex-wrap">
+      <input id="kind-filter" placeholder="filter kind, e.g. lang-hebrew"
+        class="text-sm border rounded px-2 py-1 w-56"/>
+      <input id="text-filter" placeholder="words in the note text…"
+        class="text-sm border rounded px-2 py-1 w-56"/>
       <label class="text-sm flex items-center gap-1">
         <input type="checkbox" id="quality-only"/> only quality flags
       </label>
@@ -81,8 +84,8 @@ INDEX_HTML = r"""<!DOCTYPE html>
 
   <!-- Editor column -->
   <aside class="w-[28rem] border-l bg-white flex flex-col overflow-hidden">
-    <div class="px-4 py-2 border-b bg-slate-100">
-      <h2 class="font-semibold">editor</h2>
+    <div class="px-4 h-12 flex items-center border-b border-slate-200 bg-slate-100">
+      <h2 class="font-semibold">Editor</h2>
     </div>
     <div id="editor" class="flex-1 overflow-y-auto scroll-thin p-4 space-y-3">
       <div class="text-slate-400 text-sm">select a note to edit, or click + to add</div>
@@ -147,11 +150,11 @@ function renderBooks() {
   );
   for (const b of filtered) {
     const div = document.createElement('div');
-    div.className = 'cursor-pointer px-2 py-1 rounded hover:bg-slate-100 text-sm flex items-center';
+    div.className = 'cursor-pointer px-2 py-1 rounded hover:bg-slate-100 text-sm flex items-baseline gap-1';
     if (state.currentBook === b.code) div.classList.add('bg-blue-50', 'font-semibold');
-    div.innerHTML = `<span class="mono text-xs text-slate-500 w-12">${b.code}</span>
-      <span class="flex-1 truncate" title="${b.name}">${b.name}</span>
-      <span class="text-xs text-slate-400 ml-1">${b.note_count}</span>`;
+    div.innerHTML = `<span class="mono text-xs text-slate-500 w-10 shrink-0">${b.code}</span>
+      <span class="flex-1 leading-snug" title="${b.name}">${b.name}</span>
+      <span class="text-xs text-slate-400 ml-1 shrink-0">${b.note_count}</span>`;
     div.onclick = () => loadBook(b.code);
     list.appendChild(div);
   }

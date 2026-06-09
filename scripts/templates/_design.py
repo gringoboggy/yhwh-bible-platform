@@ -156,6 +156,114 @@ BUYER_ARC_POLISH_CSS = """<style>
 
 
 # ----------------------------------------------------------------------
+# η.1 — Manuscript skin (2026-06-09). Re-tones the whole console app to
+# match the public website (www.yhwhyaway.com): vellum/parchment grounds,
+# ink/sepia text, gold hairlines, a red primary action, indigo links, and
+# a serif body. Injected app-wide at the single HTML choke point
+# (web.py `_send_html`) BEFORE script-nonce injection, so every console
+# (wizard, customize, note-editor, …) picks it up with no per-file edits.
+#
+# Two levers:
+#   1. A Tailwind CDN config remap of the `slate` + `blue` color SCALES,
+#      so the consoles' existing bg-slate-*/text-slate-*/text-blue-* markup
+#      re-tones at the source (no utility enumeration, no per-shade CSS).
+#      Config-after-CDN is the documented play-CDN pattern.
+#   2. A <style> layer for the signature website accents the scale-remap
+#      can't express: parchment cards (bg-white), a RED primary action
+#      (bg-blue-600 is the buttons' utility), a charcoal header with a gold
+#      rule, the ζ.1 theme-token remap (so .theme-* surfaces match too), and
+#      a serif body. `!important` only where it must beat a Tailwind utility.
+#
+# Font: the site self-hosts EB Garamond; the app isn't serving it yet, so
+# the stack falls back to Georgia (a faithful serif) — a later refinement
+# can self-host EB Garamond to match exactly. Reader/EPUB surfaces are NOT
+# affected (this is console chrome only; the EPUB build path is separate).
+# ----------------------------------------------------------------------
+
+MANUSCRIPT_SKIN_CSS = """<!-- manuscript-skin (η.1) -->
+<script>
+  /* η.1: re-tone the Tailwind palette to the website's manuscript tones.
+     The play CDN reads tailwind.config after its own script loads, then
+     regenerates utilities — so existing slate/blue markup re-tones. */
+  if (window.tailwind) {
+    window.tailwind.config = window.tailwind.config || {};
+    window.tailwind.config.theme = window.tailwind.config.theme || {};
+    window.tailwind.config.theme.extend = window.tailwind.config.theme.extend || {};
+    window.tailwind.config.theme.extend.colors = Object.assign(
+      {}, window.tailwind.config.theme.extend.colors, {
+        slate: {
+          50:'#F4ECD8', 100:'#EFE6CE', 200:'#E3D4AE', 300:'#D2BE90',
+          400:'#A8916B', 500:'#6E5840', 600:'#574532', 700:'#473726',
+          800:'#322619', 900:'#2B2118',
+        },
+        blue: {
+          50:'#EEF1F7', 100:'#DCE3F0', 200:'#BCC8E2', 300:'#8EA0C8',
+          400:'#5871A0', 500:'#34528A', 600:'#243B6B', 700:'#1D3158',
+          800:'#182846', 900:'#121E36',
+        },
+      });
+    window.tailwind.config.theme.extend.fontFamily = Object.assign(
+      {}, window.tailwind.config.theme.extend.fontFamily, {
+        sans: ['"EB Garamond"','Georgia','"Times New Roman"','serif'],
+        serif: ['"EB Garamond"','Georgia','"Times New Roman"','serif'],
+      });
+  }
+</script>
+<style>
+  /* η.1: manuscript skin — match www.yhwhyaway.com. */
+  :root {
+    --ms-vellum:#F4ECD8; --ms-parchment:#FBF6E9; --ms-ink:#2B2118; --ms-sepia:#574532;
+    --ms-gold:#B8860B; --ms-gold-line:#9A6E12; --ms-red:#7A1F2B; --ms-red-dark:#5E1722;
+    --ms-indigo:#243B6B; --ms-antique:#FCF8EF; --ms-charcoal:#221C15;
+    /* remap the ζ.1 theme tokens so .theme-* surfaces match too */
+    --color-bg-page:#F4ECD8; --color-bg-surface:#FBF6E9;
+    --color-text-primary:#2B2118; --color-text-muted:#574532;
+    --color-text-on-accent:#FCF8EF;
+    --color-accent:#7A1F2B; --color-accent-hover:#5E1722;
+    --color-border:#9A6E12; --color-focus-ring:#243B6B;
+    --font-stack-body:"EB Garamond", Georgia, "Times New Roman", serif;
+  }
+  html, body { background-color: var(--ms-vellum); }
+  body { font-family: "EB Garamond", Georgia, "Times New Roman", serif; color: var(--ms-ink); }
+  /* cards / panels: parchment ground (utilities use bg-white) */
+  .bg-white { background-color: var(--ms-parchment) !important; }
+  .bg-slate-50 { background-color: var(--ms-vellum) !important; }
+  /* dark console header -> charcoal with a gold rule (the site's header signature) */
+  .bg-slate-900, .bg-slate-800 { background-color: var(--ms-charcoal) !important; }
+  header.bg-slate-900, header.bg-slate-800 { border-bottom: 2px solid var(--ms-gold-line); }
+  /* PRIMARY action = GOLD on dark ink text (buttons use bg-blue-600/700) —
+     the illuminated-manuscript look: gold pressed onto dark brown. */
+  .bg-blue-600 { background-color: var(--ms-gold) !important; color: var(--ms-ink) !important; }
+  .bg-blue-700, .hover\\:bg-blue-700:hover { background-color: var(--ms-gold-line) !important; color: var(--ms-ink) !important; }
+  .bg-blue-600 *, .bg-blue-700 * { color: var(--ms-ink) !important; }
+  /* links / accents stay indigo (text-blue-* re-toned by the config scale) */
+  .text-blue-700 { color: var(--ms-indigo) !important; }
+  /* defined borders — distinguish boxes + panels/areas from the beige ground
+     (user: a border around the whole perimeter so zones read as distinct). */
+  .border, .border-t, .border-b, .border-l, .border-r,
+  .border-slate-200, .border-slate-300 { border-color: rgba(154,110,18,0.42) !important; }
+  /* input boxes: a clear gold-line border + a near-white fill so entry fields pop */
+  input, select, textarea { border: 1px solid rgba(154,110,18,0.60) !important; background-color: #FFFDF7 !important; }
+  input:focus, select:focus, textarea:focus { border-color: var(--ms-indigo) !important; outline: none; }
+  /* card top-accent like the site (.card border-top:4px red) on the shared section card */
+  .rounded-lg.border { border-top: 3px solid var(--ms-red); }
+  /* focus ring -> indigo */
+  *:focus-visible { outline-color: var(--ms-indigo) !important; }
+</style>"""
+
+
+def apply_manuscript_skin(html: str) -> str:
+    """Inject the η.1 manuscript skin into a Tailwind console page so it matches
+    the public website. No-op (returns input) if the skin is already present or the
+    page isn't a Tailwind CDN console. Idempotent; injects just before </head> so the
+    config script runs after the CDN script. Called from web.py `_send_html` before
+    script-nonce injection so the inline <script> picks up the CSP nonce."""
+    if "manuscript-skin" in html or "cdn.tailwindcss.com" not in html or "</head>" not in html:
+        return html
+    return html.replace("</head>", MANUSCRIPT_SKIN_CSS + "\n</head>", 1)
+
+
+# ----------------------------------------------------------------------
 # ζ.1 — CSS custom-property theming foundation.
 # Substituted into consoles that opt in via the `<!-- THEME_TOKENS_CSS -->`
 # marker. Provides the design-token surface that ζ.2 dark mode, ζ.4

@@ -1441,6 +1441,15 @@ def check_repo_map_complete() -> dict:
         ".mypy_cache",
         ".sonar",
         ".scannerwork",
+        # gitignored runtime / build-output dirs that appear at the repo root after a
+        # local app run or a build (each is a `/dir/` entry in .gitignore) — never
+        # source, so they must not trip the REPO_MAP completeness check. Without this,
+        # running the web console (writes state/onboarding.json) then committing fails.
+        "state",
+        "dist",
+        "build",
+        "exports",
+        "tmp",
     }
     if not repo_map.is_file():
         return {
