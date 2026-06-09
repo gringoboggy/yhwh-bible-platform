@@ -26,13 +26,50 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-# In catholic-study the ``compare`` category ships exactly ONE note — the
-# pseudepigrapha cross-reference at gen:6:1s. Turning the ``compare`` family OFF
-# for gen therefore drops the WHOLE category from the canon (it ships nowhere
-# else), and force-ON of that one note resurfaces it — a clean, single-note
-# demonstration that the legend is driven by the build-accurate counter and
-# honors the ρ.3 hierarchy the edition-wide matrix can't see.
-_COMPARE_NOTE_ID = "gen:6:1s:compare-pseudepigrapha"
+
+def _smallest_shipping_category(edition_id: str) -> tuple[str, list[str], str]:
+    """The smallest-count shipping category, every book that ships it, and one
+    of its note ids — computed with the SAME filter chain as
+    ``resolved_note_counts`` (canon → kind-disable → ref-disable →
+    base-coverage), so the fixture IS the shipping universe by construction.
+
+    History: this test used to hardcode catholic-study's single ``compare``
+    note (gen:6:1s) — an η.1 seed purged in ``3bab5f4a``, which left the pin
+    stale. Post-purge no category ships in just one book, so the family-off
+    map must cover every shipping book anyway; deriving category/books/note
+    from the live universe makes the fixture immune to future content
+    reshuffles instead of re-pinning the next instance."""
+    from scripts.build_edition import (
+        _iter_note_ref_symbols,
+        compute_edition_filter_sets,
+    )
+    from scripts.core import config
+    from scripts.core import matrix as matrix_mod
+    from scripts.core.edition_stats import _base_html_ref_ids
+
+    edition = config.editions_by_id()[edition_id]
+    canon = matrix_mod.compute_matrix().edition_canon_books.get(edition_id, set())
+    disabled_kinds, disabled_ref_ids = compute_edition_filter_sets(edition)
+    base_ref_ids = _base_html_ref_ids()
+
+    per_cat_count: dict[str, int] = {}
+    per_cat_books: dict[str, set[str]] = {}
+    first_note: dict[str, str] = {}
+    for ref_id, note_id, book, _ch, _vs, _suffix, kind, category in _iter_note_ref_symbols():
+        if (
+            book not in canon
+            or kind in disabled_kinds
+            or ref_id in disabled_ref_ids
+            or ref_id not in base_ref_ids
+            or not category
+        ):
+            continue
+        per_cat_count[category] = per_cat_count.get(category, 0) + 1
+        per_cat_books.setdefault(category, set()).add(book)
+        first_note.setdefault(category, note_id)
+    assert per_cat_count, f"{edition_id} ships no categorized notes at all"
+    cat = min(per_cat_count, key=lambda c: (per_cat_count[c], c))
+    return cat, sorted(per_cat_books[cat]), first_note[cat]
 
 
 def _clear_all_caches() -> None:
@@ -78,31 +115,43 @@ def test_legend_drops_family_off_across_canon_and_force_on_resurfaces_it(tmp_pat
     actually ships) — the ρ.3 hierarchy the edition-wide matrix can't see."""
     import scripts.web as web
     from scripts.build_edition import _legend_categories_for_edition
+    from scripts.core import config
 
     yml = REPO / "content" / "editions.yaml"
     backup = tmp_path / "ed.bak"
     shutil.copy(yml, backup)
     try:
         _clear_all_caches()
+        cat, cat_books, note_id = _smallest_shipping_category("catholic-study")
         baseline = {c["id"] for c in _legend_categories_for_edition("catholic-study")}
-        assert "compare" in baseline, "fixture precondition: catholic-study ships the compare note"
+        assert cat in baseline, f"fixture precondition: catholic-study ships {cat!r}"
 
-        # (a) Turn the compare family OFF for gen → it ships nowhere else, so the
-        #     whole category drops from the legend.
-        web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {"gen": ["compare"]}})
+        # (a) Turn the family OFF in EVERY book that ships it → the whole
+        #     category drops from the legend. Merge on top of any existing
+        #     per-book offs rather than clobbering them.
+        existing = dict(config.editions_by_id()["catholic-study"].get("note_families_off_per_book") or {})
+        for bk in cat_books:
+            fams = list(existing.get(bk) or [])
+            if cat not in fams:
+                fams.append(cat)
+            existing[bk] = fams
+        web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": existing})
         _clear_all_caches()
         off = {c["id"] for c in _legend_categories_for_edition("catholic-study")}
-        assert "compare" not in off, "compare still listed after turning its only note's family off"
+        assert cat not in off, (
+            f"{cat!r} still listed after turning its family off in all {len(cat_books)} books that ship it"
+        )
 
-        # (b) Force that one note back ON → its category resurfaces (count == 1).
-        res = web.api_save_note_override("catholic-study", {"note_id": _COMPARE_NOTE_ID, "state": "on"})
+        # (b) Force ONE note of that family back ON → its category resurfaces
+        #     (count == 1, because that one note actually ships).
+        res = web.api_save_note_override("catholic-study", {"note_id": note_id, "state": "on"})
         assert res.get("ok"), res
         _clear_all_caches()
         cats_on = _legend_categories_for_edition("catholic-study")
         on = {c["id"] for c in cats_on}
-        assert "compare" in on, "force-on note did not resurface its category in the legend"
-        compare_row = next(c for c in cats_on if c["id"] == "compare")
-        assert compare_row["count"] == 1, f"force-on should ship exactly 1 compare note, got {compare_row['count']}"
+        assert cat in on, "force-on note did not resurface its category in the legend"
+        row = next(c for c in cats_on if c["id"] == cat)
+        assert row["count"] == 1, f"force-on should ship exactly 1 {cat!r} note, got {row['count']}"
     finally:
         shutil.copy(backup, yml)
         _clear_all_caches()
