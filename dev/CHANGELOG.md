@@ -4,6 +4,28 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🖥️ Mac, turn 65) — round-7 Mac cluster (P3 Phase-3) + GitKraken install finished
+
+- **Round-7 P3, the Mac-assigned Phase-3 items — ALL shipped, verify-first + behavior-proven (`73edc815`):**
+  `save_mac.sh` leg-1 now `git add -A` + `git diff --cached --quiet` + `-m` commit (HIGH — untracked
+  session notes/specs were silently dropped by `-am`; scratch-repo proof: untracked file committed,
+  dry-run mutates nothing) and a failed `git pull --rebase` now aborts the rebase + exits 1 (MED,
+  mirrors save-all.ps1). `notary_autofinish.sh` derives REPO from `BASH_SOURCE` + the dmg name from
+  the VERSION file, and the `STATE: DONE` idempotence guard is scoped to the current dmg basename
+  (HIGH — sandbox-proven: a v0.1.0 DONE record no longer swallows a v0.1.1 run [rc 2]; live
+  single-check rc 0); class swept to `notary_ensure_agent.sh` (path + scoped guard) and
+  `notary_launchd_runner.sh` (path), `[Mac-only]` headers on all three. `NOTARIZATION_STATUS.md`
+  updated to the v0.1.0 record (LOW — submission `27aedc8a` Accepted, `stapler validate` re-verified
+  live this session; beta.1 history preserved). **Audit-claim correction for the WIN triage:** the
+  finding's "wiped Mac path" premise is wrong — `/Volumes/MacHD2/yhwh-bible-platform` IS this Mac's
+  live repo (re-provisioned 2026-06-03); the portability fix was applied on its merits.
+- **GitKraken plugin install FINISHED (user-driven):** `npm install -g @gitkraken/gk` (v3.1.68 —
+  kills the npx cold-fetch 30s MCP-connect hazard) + `gk auth` already logged in (gringoboggy);
+  plugin MCP ✔ Connected. Mac memory updated (`reference_mac_dev_env` + `feedback_no_external_hooks`);
+  MEMORY.md index trimmed 27.4→24.3 KB (was over the session-load limit, entries were truncating).
+- Board re-pointed (`lane_handoff.py assign --mac`: turn-65 wrap; baton/truth_owner stay windows);
+  the kindle round-1 QA note (`4ed67ccd`, K-KIN-1…4) rides this milestone push.
+
 ## 2026-06-10 — session (🪟 Windows, turn 64) — 🔍 the FULL-PROJECT-AUDIT program opened (round-4 QA ingest + K-R4-1 fix + round-7 overnight audit)
 
 - **Round-4 device QA ingested + root-caused** (`docs/superpowers/notes/2026-06-10-kobo-round4-device-qa.md`):
