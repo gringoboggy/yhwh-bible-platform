@@ -69,16 +69,18 @@ email never enters public history.
   that stage's `class="stage is-active"` → `is-shipped` AND the badge word
   `<span class="stage-badge">In progress</span>` → `Shipped`. Rebuild.
 
-## Launch checklist (the live swaps)
+## Launch checklist (the live swaps) — ✅ EXECUTED at v0.1.0 (2026-06-10); kept for the next launch-class event
 
-Pre-launch, downloads/comments/version show "coming at launch" placeholders. To go live:
+The site went live with the v0.1.0 release. Historical notes: the "beta.N" tag naming
+below was RETIRED before launch — releases use plain semver on the 0.x track (v0.1.0,
+v0.1.1, … → v1.0.0); `releases.js` reads the public GitHub Releases API client-side.
 
 1. **Public repo** — publish the source repo (Releases + Discussions enabled). Do **not**
    pick an OSI license in GitHub's dropdown ("source-available", not "open source").
    Repoint the header **Code** link (`partials/head.html`) and the download links
    (`src/beta.html`) at it.
 2. **First build** — produce the binaries, generate `SHA256SUMS.txt` (run `python3 scripts/gen_checksums.py <dist-dir>`), and publish the
-   release as **v1.0.0-beta.1** (do not re-publish the old internal 1.0.0 tag publicly).
+   release under the current `VERSION` semver tag.
    Swap the `is-pending` download spans in `src/beta.html` for real `<a download>` links
    and paste the real SHA-256 lines.
 3. **Releases feed** — confirm the `REPO` constant in `releases.js` points at the public

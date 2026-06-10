@@ -6,8 +6,8 @@ multi-language verse popups), pick a tradition, choose which note kinds and
 books to include, theme it, and export a standards-clean EPUB — all on your own
 machine. No account, no server, no cloud.
 
-> **Status:** v1.x — single-user local app. The program is © 2026 Bogdan
-> Zorlescu (all rights reserved); the incorporated Bible texts are
+> **Status:** v0.1.0 (public beta, live) — single-user local app. The program is
+> © 2026 Bogdan Zorlescu (all rights reserved); the incorporated Bible texts are
 > public-domain / CC. See [Licensing & attributions](#licensing--attributions).
 
 ## What you get
@@ -18,7 +18,7 @@ machine. No account, no server, no cloud.
 - **9 built-in study editions across 5 canon shapes** — Ethiopian Tewahedo,
   Catholic, Eastern &amp; Coptic Orthodox, Anglican, Lutheran, Reformed, and
   Jewish/Tanakh — each a filtered view of the one 83-book superset.
-- **91,733 study notes** (cross-references, Strong's Hebrew/Greek, patristic
+- **91,553 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
 - **Original-language verse popups** — Hebrew (WLC), Greek (LXX + Byzantine NT),
@@ -30,10 +30,11 @@ machine. No account, no server, no cloud.
 
 ## Quick start — use it
 
-**Desktop app:** once the first public beta is posted, download the build for
-your system — Windows (`.exe` installer), macOS (`.dmg`), or Linux
-(`.AppImage`) — and run it. The app opens in its own window; a first-run welcome
-guides you to the wizard. No Python required.
+**Desktop app:** download the build for your system from the
+[latest release](https://github.com/gringoboggy/yhwh-bible-platform/releases/latest)
+— Windows (`.exe` installer), macOS (`.dmg`), or Linux (`.AppImage`) — and run
+it. The app opens in its own window; a first-run welcome guides you to the
+wizard. No Python required.
 
 > Want to build that release artifact yourself? See
 > [Packaging the desktop app](#packaging-the-desktop-app).
