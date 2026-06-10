@@ -150,7 +150,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
            everywhere — the target only tunes which optional features are offered. -->
       <fieldset class="psi11-group mb-5">
         <legend class="psi11-legend">Where will you read it?</legend>
-        <div id="target-cards" class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div id="target-cards" class="grid grid-cols-2 md:grid-cols-5 gap-2">
           <div class="pick-card target-card picked" data-target="everywhere">
             <div class="font-semibold">🌍 Everywhere</div>
             <div class="text-xs text-slate-500 mt-1">Safest build — renders well on every reader.</div>
@@ -166,6 +166,10 @@ WIZARD_HTML = r"""<!DOCTYPE html>
           <div class="pick-card target-card" data-target="computer">
             <div class="font-semibold">💻 Computer</div>
             <div class="text-xs text-slate-500 mt-1">Calibre, Adobe Digital Editions.</div>
+          </div>
+          <div class="pick-card target-card" data-target="kindle">
+            <div class="font-semibold">📬 Kindle</div>
+            <div class="text-xs text-slate-500 mt-1">Built for Send to Kindle — notes read as visible endnotes.</div>
           </div>
         </div>
         <p class="text-xs text-slate-500 mt-2" id="target-note">Safest build — renders well on every reader.</p>
@@ -527,6 +531,12 @@ const TARGET_CAPS = {
     toc_expandable: false,
     note: 'Conservative defaults for desktop readers.',
     gate_reason: 'Adobe Digital Editions documents collapsible lists as unsupported, so the chapters could never expand there — the safe desktop default keeps the chapter pills always visible.',
+  },
+  kindle: {
+    label: '📬 Kindle',
+    toc_expandable: false,
+    note: 'Built for Send to Kindle: notes render as visible endnotes (Kindle has no popup footnotes), chapter lists are plain rows, and the metadata passes Amazon’s delivery checks.',
+    gate_reason: 'Kindle’s format has no support for collapsible lists — the chapter rows stay always visible instead.',
   },
 };
 

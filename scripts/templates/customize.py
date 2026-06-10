@@ -505,6 +505,7 @@ function renderEditions() {
                 <option value="eink"       ${e.target_reader === 'eink' ? 'selected' : ''}>📖 E-ink reader (Kobo — use the .kepub)</option>
                 <option value="tablet"     ${e.target_reader === 'tablet' ? 'selected' : ''}>📱 Phone / tablet (Apple Books)</option><!-- term-ref-ok -->
                 <option value="computer"   ${e.target_reader === 'computer' ? 'selected' : ''}>💻 Computer (Calibre, ADE)</option>
+                <option value="kindle"     ${e.target_reader === 'kindle' ? 'selected' : ''}>📬 Kindle (Send to Kindle — visible endnotes)</option>
               </select>
             </label>
             <div></div>

@@ -494,8 +494,12 @@ class TestAIXrefDetector:
         # reviewer guidance lives in reviewer_notes=.
         assert "[Reviewer:" not in body
         assert "AI-proposed" in cands[0].reviewer_notes
-        # link is to the target verse
-        assert "vnote-isa-53-5" in body
+        # link is to the target verse — the VISIBLE #v- anchor (round-7 P3
+        # xref retarget: note-body links to hidden #vnote- containers made
+        # Kobo NAVIGATE instead of pop; verify_kr2 gate 2b now FAILS any
+        # #vnote- body link, so the detector emits #v- by design)
+        assert "#v-isa-53-5" in body
+        assert "vnote-isa-53-5" not in body
 
     def test_kind_subclass_unknown_falls_back_to_thematic(self):
         client = self._stub_client(

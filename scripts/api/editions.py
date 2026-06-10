@@ -765,10 +765,14 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
 
     if "target_reader" in payload:
         # K-R2 — the wizard's reader-target pick. Empty/absent = everywhere.
-        valid_targets = {"everywhere", "eink", "tablet", "computer"}
+        # kindle (turn-69 ①) = the Send-to-Kindle-safe build variant. The valid
+        # set is the build's own TARGET_READERS (one-resolver rule — same
+        # pattern as CHAPTER_NUMBER_FORMATS above).
+        from scripts.build_edition import TARGET_READERS
+
         v = (payload["target_reader"] or "").strip()
-        if v and v not in valid_targets:
-            return {"error": f"unknown target_reader: {v!r}; valid: {sorted(valid_targets)}"}
+        if v and v not in TARGET_READERS:
+            return {"error": f"unknown target_reader: {v!r}; valid: {sorted(TARGET_READERS)}"}
         # round-7 in-passing fix: this line wrote payload["chapter_number_format"]
         # (copy-paste from the block above) — a wizard reader-target save was
         # CLOBBERING the edition's chapter-number format with "eink"/"tablet"/…,

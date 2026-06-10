@@ -77,6 +77,31 @@ preference order, to be settled in the audit's fix arc:
 with asides at ~3.5k/4.5k/5.5k/6.5k stripped to pin T in one tap-pass, so the
 cap is data-set, not guessed.
 
+### Mac turn-69 design prep — the (a)-vs-(a)+(b) question ANSWERED
+
+Category compositions of the two worst offenders, bucketed EXACTLY as the
+build cascade does (`inject.category_for(kind)` — the same resolver
+`apply_badge_markers` calls before `_emit_cascade_sections`), tag-stripped:
+
+| Verse | Category | Stripped chars |
+|---|---|---|
+| 1sa 16:12 | **hist** | **19,009** |
+| 1sa 16:12 | topic | 252 |
+| 1sa 16:12 | lang | 64 |
+| act 23:6 | **hist** | **19,053** |
+| act 23:6 | lang | 383 |
+| act 23:6 | topic | 182 |
+
+**Verdict: (a) alone is NOT sufficient — (a)+(b) needed, and (b) must split
+WITHIN a single note body.** In both verses the `hist` group is ONE note —
+the dict-easton entry (Easton's "DAVID" at 1sa 16:12, Easton's "PAUL" at
+act 23:6; kinds.yaml maps dict-easton → hist) at ~19k stripped — ~2.5× the
+threshold bracket's UPPER bound. Per-category splitting fixes every other
+group trivially (all ≤383 chars), but the oversized unit is a single note
+body, so (b) = chunk the entry across multiple asides (continuation links)
+or truncate-with-continuation. The fix itself stays gated on the round-5
+calibration taps pinning T.
+
 ## Sweep items (the "nowhere else" directive)
 - S1: separator coverage across ALL footnote-aside emitters (K-R4-1 class).
 - S2: stripped-size distribution per aside kind per edition — gate: 0 asides

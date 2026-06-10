@@ -1574,6 +1574,21 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         count=1,
     )
 
+    # kindle_safe (turn-69 ①): stamp the resolved reader target into the OPF
+    # (legacy OPF2 meta form — epubcheck-tolerated, RS-ignored) so the artifact
+    # verifier (dev/verify_kr2_build.py, stdlib-only) learns the target from
+    # the artifact itself — skew-proof against post-build editions.yaml edits.
+    # Additive ONLY when target_reader is explicitly set AND resolves off the
+    # default: unset/everywhere editions emit no element (byte-identical,
+    # RULES 7.2). Unknown stale values resolve to "everywhere" ⇒ no stamp.
+    resolved_target = resolve_target_reader(edition)
+    if (edition.get("target_reader") or "").strip() and resolved_target != "everywhere":
+        new_text = new_text.replace(
+            "</metadata>",
+            f'    <meta name="yhwh:target-reader" content="{resolved_target}"/>\n</metadata>',
+            1,
+        )
+
     # Ω.0 pivot (2026-05-14): ISBN dropped. EPUB 3 dc:identifier term-ref-ok
     # requirement is met via a generator URN tied to the edition id
     # (urn:yhwh:edition:<id>) — no commercial registration.
@@ -1768,6 +1783,29 @@ MARKER_STYLES = {"numbers", "badge"}
 # the /customize and api_customize_data default.
 DEFAULT_MARKER_STYLE = "badge"
 
+# K-R2 + kindle_safe — the reader-target enum and its ONE resolver. Both the
+# matrix/UI surfaces (web_editions.api_customize_data) and the build (build_one)
+# and the save validator (api_save_edition_meta) resolve through here, so a
+# target-gated behavior can never drift between the printed matrix and the
+# built EPUB (MATRIX_MAP finding #3). "kindle" (turn-69 ①) tunes the build for
+# Send-to-Kindle: visible endnotes (E3013 — Amazon hard-fails >10K chars under
+# display:none), plain ToC chapter rows (KFX linearizes the pills), and seam
+# page-break CSS (KFX double-break). Unknown/unset values resolve to
+# "everywhere" so a stale on-disk value can never activate a variant.
+TARGET_READERS = ("everywhere", "eink", "tablet", "computer", "kindle")
+
+
+def resolve_target_reader(edition: dict) -> str:
+    """The edition's reader target — the single resolver for every consumer."""
+    v = (edition.get("target_reader") or "").strip()
+    return v if v in TARGET_READERS else "everywhere"
+
+
+def is_kindle_target(edition: dict) -> bool:
+    """True when the edition builds for Send-to-Kindle (kindle_safe variant)."""
+    return resolve_target_reader(edition) == "kindle"
+
+
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
 # chip. All EPUB-3-allowed (display / padding / border-radius / background).
@@ -1848,6 +1886,58 @@ def apply_note_cascade_css(stylesheet_css: str) -> str:
     no base re-bake is needed. Mirrors apply_note_popup_style; appended only when
     ``note_group_by_category`` is on for the edition."""
     return stylesheet_css + _NOTE_CASCADE_CSS
+
+
+# kindle_safe (turn-69 ①) — the Send-to-Kindle variant CSS, appended LAST so it
+# wins every earlier rule. Three jobs:
+#   1. E3013/E999 (CONFIRMED): Amazon hard-fails conversion when >10,000 chars
+#      hide under display:none (~486K hidden in a default build). Un-hide the
+#      notes/verse-refs sections (visible endnote style — Kindle's reader
+#      follows the noteref links natively) and the note-label hides. CSS-only:
+#      author display:block also overrides the asides' hidden="" UA rule —
+#      empirically proven (test-2 delivered + rendered with hidden intact).
+#      Selector strings INTENTIONALLY mirror the base hide rules verbatim so
+#      the kindle_safe artifact gate can pair each hide with its override.
+#   2. .vn-sep separators (a Kobo eInk-preview mechanism) become visible
+#      bullets — useful structure in visible endnote flow, and the hidden-char
+#      budget stays near zero without diverging the markup per target.
+#   3. K-KIN-3 seam shatter: the title singleton spine file already guarantees
+#      the page break, so .book-title-page's forced CSS breaks only produce
+#      KFX's classic double-break blank page; the global h1 page-break-before
+#      tears the caption band ("BOOK II / The Second Book of Moses") off its
+#      book name; KF8 drops vh so the art falls back to max-height:20em and
+#      claims a page — re-cap lower so caption+title+art share one page.
+_KINDLE_SAFE_CSS = """
+/* === kindle_safe (target_reader=kindle) — Send-to-Kindle variant === */
+/* E3013: visible endnotes — nothing big may hide under display:none */
+.notes-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
+.notes-rule { display: none; }
+.notes-heading { display: none; }
+.verse-refs-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
+.note-comm > p > .note-label,
+.note-comm > div > .note-label,
+[class*="note-comm-"] > p > .note-label,
+[class*="note-comm-"] > div > .note-label { display: block; }
+.note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: block; }
+.vn-sep { display: inline; }
+/* K-KIN-3: no double-break blanks, no caption-band tear, art shares the page */
+.book-title-page { page-break-before: auto; break-before: auto; page-break-after: auto; break-after: auto; }
+h1.bookpage-title { page-break-before: avoid; break-before: avoid; }
+.bookpage-art, .bookpage-art-bleed { max-height: 12em; }
+/* K-KIN-2 companion: plain chapter rows (markup pass apply_kindle_toc_rows) */
+.toc-chapter-row { text-align: left; line-height: 2; word-spacing: 0.35em; margin: 0.25em 0 0.6em 1.4em; }
+.toc-chapter-row a { text-decoration: none; color: #2a1a1a; padding: 0 0.1em; }
+"""
+
+
+def apply_kindle_safe_css(stylesheet_css: str) -> str:
+    """Append the kindle_safe variant CSS (visible endnotes + seam fixes).
+
+    Pure CSS against the existing baked classes — no base re-bake, no markup
+    change. Mirrors apply_note_cascade_css; the caller gates on
+    is_kindle_target, so non-kindle editions append NOTHING (byte-identical,
+    RULES 7.2)."""
+    return stylesheet_css + _KINDLE_SAFE_CSS
 
 
 # ----------------------------------------------------------------------
@@ -3866,6 +3956,42 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     return stats
 
 
+# K-KIN-2 (kindle_safe): the in-content ToC's chapter pills are <li
+# display:inline-block> items — KFX drops the list display, so every pill
+# renders block-level (one chapter per LINE; Genesis ToC spans pages on
+# Kindle). Plain anchors inside a <p> are inline TEXT in every renderer
+# including KFX. The pass rewrites each <ol class="toc-chapters"> block to a
+# <p class="toc-chapter-row"> of space-joined anchors (hrefs untouched —
+# they're MIXED #page_N / #ch-bXX-cN, so we match the ol block, never href
+# shapes). Runs AFTER apply_bilingual_toc (its chapter regex needs the pill
+# shape) and BEFORE apply_file_split (href remapping then covers the rewritten
+# anchors like all content). Styling rides _KINDLE_SAFE_CSS (.toc-chapter-row).
+_TOC_CHAPTERS_OL_RE = re.compile(r'<ol class="toc-chapters">(.*?)</ol>', re.DOTALL)
+_TOC_CHAPTER_ANCHOR_RE = re.compile(r"<a\b[^>]*>.*?</a>", re.DOTALL)
+
+
+def _toc_ol_to_row(m: "re.Match[str]") -> str:
+    anchors = _TOC_CHAPTER_ANCHOR_RE.findall(m.group(1))
+    return '<p class="toc-chapter-row">' + " ".join(anchors) + "</p>"
+
+
+def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
+    """Rewrite ToC chapter-pill <ol>s to plain inline anchor rows (K-KIN-2).
+
+    Kindle-gated through the one resolver; any other target returns without
+    touching a byte (RULES 7.2). Mutates only the per-edition temp tree."""
+    stats = {"toc_rows_rewritten": 0}
+    if not is_kindle_target(edition):
+        return stats
+    for fpath in sorted(tmp.glob("index_split_*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        out, n = _TOC_CHAPTERS_OL_RE.subn(_toc_ol_to_row, text)
+        if n:
+            fpath.write_text(out, encoding="utf-8")
+            stats["toc_rows_rewritten"] += n
+    return stats
+
+
 # ----------------------------------------------------------------------
 # Phase ν.8 — Bilingual ToC
 # ----------------------------------------------------------------------
@@ -5121,6 +5247,17 @@ def build_one(
             )
             stats["note_cascade_css"] = True
 
+        # kindle_safe (turn-69 ①) — append the Send-to-Kindle variant CSS
+        # (visible endnotes per E3013, K-KIN-3 seam fixes, K-KIN-2 row chrome)
+        # when the resolved reader target is kindle. Same append-to-stylesheet
+        # mechanism; absent/other targets ⇒ byte-identical (RULES 7.2).
+        if css_path.is_file() and is_kindle_target(edition):
+            css_path.write_text(
+                apply_kindle_safe_css(css_path.read_text(encoding="utf-8")),
+                encoding="utf-8",
+            )
+            stats["kindle_safe_css"] = True
+
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
         # declared cover_image when it resolves to a real file. All 11 editions
@@ -5303,6 +5440,13 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
+        # K-KIN-2 (kindle_safe) — chapter pills → plain inline rows. MUST stay
+        # after apply_bilingual_toc (its chapter regex needs the pill shape)
+        # and before apply_file_split (which remaps the rewritten hrefs).
+        # No-op for every non-kindle target (byte-identical).
+        toc_rows_stats = apply_kindle_toc_rows(tmp, edition)
+        stats["toc_rows_rewritten"] = toc_rows_stats["toc_rows_rewritten"]
+
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
         # listing aside. Runs AFTER every kind/canon/tradition filter + the
@@ -5372,7 +5516,8 @@ def build_one(
         # every matter-page injection) so its OPF/nav/ncx regeneration is the final
         # word before the zip: splits the 2-5 MB index_split_* into ~0.4 MB pieces,
         # remaps every cross-file href, and rebuilds the manifest/spine/nav/ncx.
-        # No-op (byte-identical) unless the edition sets reader_file_split.
+        # Defaults ON (DEFAULT_READER_FILE_SPLIT=True since K-R2-1); an edition
+        # opts OUT by setting reader_file_split: false.
         split_stats = apply_file_split(tmp, edition)
         stats["files_split"] = split_stats["files_split"]
         stats["pieces_created"] = split_stats["pieces_created"]
