@@ -33,6 +33,93 @@ ALT_NAMES = (
     "4 Baruch, or Paralipomena of Jeremiah",
 )
 
+# ── 5. kindle_safe (turn-69 ①) ──────────────────────────────────────────
+# Runs ONLY when the build stamped the OPF with target-reader=kindle (the
+# stamp is patch_opf's, emitted from the one resolver — skew-proof; non-kindle
+# artifacts are never judged against the kindle bar). Checks the CONFIRMED
+# E999 trigger pair: (a) ≤10,000 chars of text under EFFECTIVE display:none —
+# effective = last-rule-wins per selector string across every .css member, so
+# the base hides pair with the kindle_safe overrides (which mirror the base
+# selector strings verbatim for exactly this reason); (b) exactly one
+# dc:language. Plus a fail-fast: the kindle_safe CSS marker must be present at
+# all (a stamped-kindle artifact whose variant CSS never got appended is a
+# stale/mismatched build regardless of the volume math).
+_CSS_RULE_RE = re.compile(r"([^{}]+)\{([^{}]*)\}")
+_CSS_DISPLAY_RE = re.compile(r"display\s*:\s*([a-z-]+)")
+
+
+def _effective_hidden_selectors(css_texts: list[str]) -> list[str]:
+    """Selector strings whose LAST display declaration is none."""
+    last: dict[str, str] = {}
+    for css in css_texts:
+        # comments must go BEFORE rule parsing or they glom into the next
+        # selector text and break the hide↔override pairing
+        css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+        for m in _CSS_RULE_RE.finditer(css):
+            d = _CSS_DISPLAY_RE.search(m.group(2))
+            if not d:
+                continue
+            for sel in m.group(1).split(","):
+                sel = " ".join(sel.split())
+                if sel:
+                    last[sel] = d.group(1)
+    return [s for s, v in last.items() if v == "none"]
+
+
+def _class_token(selector: str) -> str | None:
+    """The LAST class token of a selector (conservative element matcher —
+    over-counts descendant selectors toward fail-safe); pseudo-element
+    selectors return None (no text content)."""
+    if "::" in selector:
+        return None
+    classes = re.findall(r"\.([A-Za-z0-9_-]+)", selector)
+    return classes[-1] if classes else None
+
+
+def _hidden_text_chars(zf: zipfile.ZipFile, names: list[str], tokens: set[str]) -> int:
+    """Total tag-stripped text chars inside elements matching a hidden class."""
+    total = 0
+    docs = [n for n in names if n.endswith((".html", ".xhtml"))]
+    open_re = re.compile(r"<([a-z][a-z0-9]*)\b[^>]*\bclass=\"[^\"]*\b(?:" + "|".join(sorted(tokens)) + r")\b[^\"]*\"[^>]*>")
+    for n in docs:
+        t = zf.read(n).decode("utf-8", "replace")
+        for m in open_re.finditer(t):
+            tag = m.group(1)
+            depth, pos = 1, m.end()
+            tag_re = re.compile(rf"<{tag}\b[^>]*>|</{tag}>")
+            while depth and pos < len(t):
+                nm = tag_re.search(t, pos)
+                if not nm:
+                    break
+                depth += -1 if nm.group(0).startswith("</") else 1
+                pos = nm.end()
+            inner = t[m.end() : pos]
+            total += len(re.sub(r"<[^>]+>", "", inner))
+    return total
+
+
+def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[str]:
+    """Gate 5 — kindle_safe. Empty list = green (or not a kindle artifact)."""
+    stamp = re.search(r'<meta name="yhwh:target-reader" content="([^"]+)"', opf)
+    if not stamp or stamp.group(1) != "kindle":
+        return []
+    fails: list[str] = []
+    if opf.count("<dc:language>") != 1:
+        fails.append(f"kindle: OPF carries {opf.count('<dc:language>')} dc:language values (want exactly 1 — E999)")
+    css_names = [n for n in names if n.endswith(".css")]
+    css_texts = [zf.read(n).decode("utf-8", "replace") for n in css_names]
+    if not any("kindle_safe" in c for c in css_texts):
+        fails.append("kindle: target stamped kindle but the kindle_safe CSS was never appended (stale/mismatched build)")
+    hidden = _effective_hidden_selectors(css_texts)
+    tokens = {tok for tok in (_class_token(s) for s in hidden) if tok}
+    chars = _hidden_text_chars(zf, names, tokens) if tokens else 0
+    if chars > 10_000:
+        fails.append(
+            f"kindle: {chars:,} chars under effective display:none "
+            f"(Amazon hard-fails >10,000 — E3013); hidden selectors: {hidden[:8]}"
+        )
+    return fails
+
 
 def main(path: str) -> int:
     fails: list[str] = []
@@ -225,6 +312,9 @@ def main(path: str) -> int:
     if spilled:
         fails.append(f"{len(spilled)} badges render past their chapter's heading (K-R3-4); first 3:")
         fails.extend("  " + s for s in spilled[:3])
+
+    # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
+    fails.extend(kindle_safe_checks(zf, names, opf))
 
     print(f"pieces: {len(pieces)}  title-singletons: {title_pieces}")
     print(
