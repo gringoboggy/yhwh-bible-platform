@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🪟 Windows, turn 61) — K-R2 arc closed on the artifact: round-3 kepub on the device; cross-FILE opener pop; font pack built
+
+**Phases shipped:** the K-R2 arc's artifact close (continues the turn-60 block below). The first real-artifact verification (`dev/verify_kr2_build.py`, NEW reusable gate) caught a 6th defect class — 5 pre-existing FILE-seam orphans (Gen 27 / 1Ch 3 / Ps 73 / Isa 33 / Jer 25: the calibre base ends those files right after a chapter opener) → cross-FILE opener pop in `apply_file_split` (the first regex draft was lazy-span-defeated on REAL data while the synthetic passed — tempered-dot fix + pin; `e7685d4b`). Post-rebase reconcile `16c976b0` (Mac's `TestNoDeadVersionParams` AST guard caught the dead `inject_back_matter` version param the same night it landed). Font pack BUILT + staged (`dist/yhwh-kobo-font-pack.zip`, 863,259 B; Naskh v2.021 full/ttf committed 291,980 B + SHA-pinned in LICENSES.md; pack-wide OFL.txt; reproducible `dev/build_font_pack.ps1`; upload gated on the user's eyeball per the never-over-claim rule) + all 5 fonts staged on the device (`G:\fonts`). **Artifact gates ALL GREEN:** eth `kr2c` 26.07 MB — 374 pieces / 86 title singletons / max 405 KB / mean 233 KB (was 881/666) / ToC standalone / no stranded openers / 66,498 noterefs resolve / OPF 83 / ONE Colophon; epubcheck 0/0/0/0; kepub (1/0/0, 34.6 MB) passes the same gates post-koboSpan → **loaded `G:\YHWH-Ethiopian-Bible-koboQA-r3.kepub.epub`** (old copy archived to E:). Mac turn-61 board = 6 items (user-directed fat batch).
+**Test delta:** `TestCrossFileOpenerPop` (3) → 27/27 test_file_split.py; kr2-sweep 11 green post-reconcile.
+**Save tag:** this block = the turn-61 milestone (5-leg push). Lesson reinforced: a synthetic fixture can mask a lazy-regex failure mode that only real-data scale exposes — verify prescribed fixes against the real artifact (the `reverify-conservative-nogo` class).
+
 ## 2026-06-10 — session (🖥️ Mac, turn 60) — turn-57/58 review recovered + all findings fixed; K-R2-1 kepub-break research answered; font-pack prep
 
 **Phases shipped:** Mac turn-59 backlog items R1 + R2 + R3/#1 (the last open items — backlog CLEAR). The adversarial review of WIN's `d60e5eec`+`b96320a0` was recovered from the workflow journal after a power interruption (it had completed); its 9 actionable findings all fixed in this session's commit.
