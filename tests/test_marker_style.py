@@ -557,6 +557,26 @@ class TestVnotePreviewSeparators:
         html = '<p class="vnote-text-x">x</p><p class="source-label">y</p>'
         assert add_vnote_preview_separators(html) == html
 
+    def test_vnote_empty_placeholder_gains_separator(self):
+        # round-7 5.3(a): the 346 base `vnote-text vnote-empty` placeholders
+        # render in the eInk preview like any vnote (their translation rows
+        # follow), so the block separator applies to them too — the old
+        # exact-class regex skipped every multi-class paragraph.
+        from scripts.build_edition import add_vnote_preview_separators
+
+        html = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
+        out = add_vnote_preview_separators(html)
+        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">¶ </span><em>' in out
+        assert add_vnote_preview_separators(out) == out  # idempotent on the new shape
+
+    def test_leading_pilcrow_text_not_double_marked(self):
+        # round-7 5.3(b): 2,970 recovered-base KJV popup verses already start
+        # with their own ¶ — inserting the separator would preview as "¶ ¶".
+        from scripts.build_edition import add_vnote_preview_separators
+
+        html = '<p class="vnote-text">¶ And God said, Let there be light.</p>'
+        assert add_vnote_preview_separators(html) == html
+
     def test_hide_css_rule_is_class_wide(self):
         # vnote asides are NOT inside .verse-notes — the K-R3-2 rule
         # `.verse-notes .vn-sep` never reached them. The rule must be the bare

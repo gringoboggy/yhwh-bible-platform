@@ -2046,7 +2046,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Bread, Herbs, & C, Prophets.",
+        "<strong>Topics.</strong> This verse appears under: Bread, Herbs, &amp; C, Prophets.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

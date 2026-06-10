@@ -23,7 +23,10 @@ import hashlib
 import sys
 from pathlib import Path
 
-DEFAULT_EXTS: tuple[str, ...] = (".exe", ".dmg", ".AppImage", ".msi", ".zip", ".tar.gz")
+# ".epub" also covers ".kepub.epub" (suffix-tuple match on the full filename) —
+# round-7 3.1: its absence silently dropped the EPUB + kepub asset families from
+# every default-invocation SHA256SUMS (notary_autofinish.sh passes no --ext).
+DEFAULT_EXTS: tuple[str, ...] = (".exe", ".dmg", ".AppImage", ".msi", ".zip", ".tar.gz", ".epub")
 _CHUNK = 1 << 20  # 1 MiB — stream so large binaries never load whole into RAM
 
 

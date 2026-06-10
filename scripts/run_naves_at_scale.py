@@ -28,17 +28,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core.detectors import NaveTopicalDetector  # noqa: E402
 from scripts.core import sources  # noqa: E402
-from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
-
-
-def _emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
-    """A candidate at (book, chapter, verse) is emitted only when its coord is
-    within the book's canonical extent — the ★BUGCLUSTER guard. Named so the
-    per-driver drop decision is unit-testable, not merely grep-able."""
-    return coord_in_canonical_extent(book, chapter, verse)
-
-
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
+from scripts.core.at_scale_base import emit_extent_ok as _emit_extent_ok  # noqa: E402  # ★BUGCLUSTER guard (shared, round-7 5.8)
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 NAVES_PATH = REPO_ROOT / "content" / "sources" / "naves_topical.json"

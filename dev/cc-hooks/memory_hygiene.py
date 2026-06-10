@@ -72,6 +72,10 @@ BACKUP_SUBPATH = Path("YHWH-v2.4-backups") / "memory"
 # Budgets (advisory warnings, not hard failures).
 MEMORY_INDEX_LINE_BUDGET = 85  # MEMORY.md one-line-per-memory index
 MEMORY_FILE_BYTES_BUDGET = 6000  # a single memory should be one fact, not an essay
+# The harness silently TRUNCATES MEMORY.md past ~24.4 KB at session load — an
+# over-budget index degrades recall invisibly (it breached 2026-06-10 at 25.4 KB).
+# Index lines are ≤~200-char hooks + pointers; detail belongs in the topic file.
+MEMORY_INDEX_BYTES_BUDGET = 24_000
 
 # PROTECTED: never proposed for prune / refused by `archive`. Load-bearing or
 # identity memories whose loss would degrade collaboration or safety.
@@ -215,6 +219,19 @@ def audit(memory_dir: Path) -> dict:
                 )
 
     # 3. budgets (advisory)
+    index_bytes = len(index_text.encode("utf-8"))
+    if index_bytes > MEMORY_INDEX_BYTES_BUDGET:
+        issues.append(
+            {
+                "severity": "info",
+                "kind": "index_bytes_budget",
+                "file": INDEX_FILE,
+                "message": (
+                    f"MEMORY.md is {index_bytes} bytes (budget {MEMORY_INDEX_BYTES_BUDGET}; "
+                    "the harness truncates ~24.4KB at load) — move per-line detail into the topic files"
+                ),
+            }
+        )
     n_index = sum(1 for ln in index_text.splitlines() if ln.strip().startswith("- ["))
     if n_index > MEMORY_INDEX_LINE_BUDGET:
         issues.append(
@@ -243,6 +260,7 @@ def audit(memory_dir: Path) -> dict:
         "memory_dir": str(memory_dir),
         "file_count": len(files),
         "index_entries": n_index,
+        "index_bytes": index_bytes,
         "issues": issues,
         "summary": {"warn": warn, "info": info, "clean": warn == 0},
     }

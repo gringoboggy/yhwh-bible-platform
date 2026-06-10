@@ -73,6 +73,26 @@ class TestSplitHtmlDocumentUnit:
         assert name == "index_split_007.html", "an unsplit file must keep its original name"
         assert text == CH_ONLY, "an unsplit file must be byte-identical (zero churn)"
 
+    def test_strip_notes_sections_removes_empty_verse_refs_husk(self):
+        # round-7 5.4: the base also wraps vnote asides in `<section
+        # class="verse-refs-section">` containers (58 in the live base, e.g.
+        # index_split_035) — harvesting the asides used to leave an empty
+        # multi-newline <section> husk in every edition. Real-base shape:
+        # whitespace (≈52 newlines in the live husk) between open and close.
+        from scripts.build_edition import _strip_notes_sections
+
+        body = (
+            '<p class="verse-p"><a class="vn-link" id="v-psa-119-89" href="#vnote-psa-119-89" '
+            'epub:type="noteref">89</a> For ever, O LORD, thy word is settled in heaven.</p>\n'
+            '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
+            '<aside class="vnote" id="vnote-psa-119-89" epub:type="footnote"><p>x</p></aside>\n\n\n'
+            "</section>\n"
+        )
+        prose, asides = _strip_notes_sections(body)
+        assert [a_id for a_id, _ in asides] == ["vnote-psa-119-89"], "the vnote aside is harvested"
+        assert "verse-refs-section" not in prose, f"empty husk must be cleaned: {prose!r}"
+        assert "thy word is settled" in prose, "prose is preserved"
+
     def test_book_title_page_is_isolated_even_under_target(self):
         # A file containing a book-title-page splits even when under target: the title
         # must lead (and own) a fresh spine file so it starts a fresh page everywhere.

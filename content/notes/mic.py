@@ -1903,7 +1903,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c22">Jer 22:29</a> · <a href="index_split_009.html#vnote-deu-32-1">Deu 32:1</a> · <a href="index_split_051.html#ch-b53-c1">Mic 1:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c22">Jer 22:29</a> · <a href="index_split_009.html#v-deu-32-1">Deu 32:1</a> · <a href="index_split_051.html#ch-b53-c1">Mic 1:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1914,7 +1914,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c22">Jer 22:29</a> · <a href="index_split_009.html#vnote-deu-32-1">Deu 32:1</a> · <a href="index_split_051.html#ch-b53-c1">Mic 1:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c22">Jer 22:29</a> · <a href="index_split_009.html#v-deu-32-1">Deu 32:1</a> · <a href="index_split_051.html#ch-b53-c1">Mic 1:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2156,7 +2156,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-10-12">Deu 10:12</a> · <a href="index_split_036.html#ch-b32-c21">Pro 21:3</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-10-12">Deu 10:12</a> · <a href="index_split_036.html#ch-b32-c21">Pro 21:3</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2167,7 +2167,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-10-12">Deu 10:12</a> · <a href="index_split_036.html#ch-b32-c21">Pro 21:3</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-10-12">Deu 10:12</a> · <a href="index_split_036.html#ch-b32-c21">Pro 21:3</a> · <a href="index_split_058.html#ch-b71-c3">Col 3:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

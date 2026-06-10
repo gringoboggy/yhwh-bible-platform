@@ -1331,7 +1331,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a> · <a href="index_split_004.html#vnote-exo-34-6">Exo 34:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a> · <a href="index_split_004.html#v-exo-34-6">Exo 34:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1342,7 +1342,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a> · <a href="index_split_004.html#vnote-exo-34-6">Exo 34:6</a> · <a href="index_split_007.html#vnote-num-14-18">Num 14:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:15</a> · <a href="index_split_004.html#v-exo-34-6">Exo 34:6</a> · <a href="index_split_007.html#v-num-14-18">Num 14:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

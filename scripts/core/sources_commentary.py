@@ -299,7 +299,13 @@ class _CommentaryCorpus:
         for entry in data.get("entries", []):
             try:
                 obj = self.ENTRY(
-                    book=str(entry["book"]),
+                    # Normalize at CONSTRUCTION (round-7 1.3): the index key below
+                    # always normalized, but the raw legacy string ("joh"/"ps")
+                    # used to ride .book into any consumer that read the field
+                    # directly. The 5 JSON stores are normalized + lint-screened
+                    # (bookcode_canonical json tier); this is the belt to that
+                    # suspenders for future ingests.
+                    book=_normalize_book_code(str(entry["book"])),
                     chapter=int(entry["chapter"]),
                     verse=int(entry["verse"]),
                     work=str(entry.get("work", "")),

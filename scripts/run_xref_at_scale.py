@@ -30,14 +30,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import CrossRefDetector  # noqa: E402
 from scripts.core import sources  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
-from scripts.core.canonical_verse_counts import coord_in_canonical_extent  # noqa: E402
-
-
-def _emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
-    """A candidate at (book, chapter, verse) is emitted only when its coord is
-    within the book's canonical extent — the ★BUGCLUSTER guard. Named so the
-    per-driver drop decision is unit-testable, not merely grep-able."""
-    return coord_in_canonical_extent(book, chapter, verse)
+from scripts.core.at_scale_base import emit_extent_ok as _emit_extent_ok  # noqa: E402  # ★BUGCLUSTER guard (shared, round-7 5.8)
 
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
@@ -58,11 +51,10 @@ def run_xref_for_book(book: str, *, min_confidence: float = 0.6, min_votes: int 
     verse, write per-chapter candidates JSON. Returns stats."""
     tsk = sources.tsk()
     detector = CrossRefDetector(min_votes=min_votes, top_n=top_n)
-    raw = tsk._raw if hasattr(tsk, "_raw") else None
-    if raw is None:
-        # Fall back to direct cache load
-        with open(TSK_PATH) as f:
-            raw = json.load(f)
+    # The singleton loader already parsed TSK_PATH (the same file) once per
+    # process — reuse it. (round-7 5.7: the old `tsk._raw` probe never matched
+    # — the attribute is `_data` — so this re-parsed the JSON once per book.)
+    raw = tsk._data
 
     book_data = raw.get(book, {})
     chapters_processed = 0

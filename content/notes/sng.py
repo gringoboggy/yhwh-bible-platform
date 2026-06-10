@@ -1243,7 +1243,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Herbs, & C, Herbs, & C, Herbs, & C, Herbs, & C, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Herbs, &amp; C, Herbs, &amp; C, Herbs, &amp; C, Herbs, &amp; C, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1925,7 +1925,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fruits, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Fruits, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

@@ -88,9 +88,13 @@ def test_editions_build_valid_distinct_and_flagship_is_deterministic(tmp_path):
     )
 
     # Determinism / byte-stability: a second build of the flagship yields the
-    # same normalized content digest.
-    flagship = _EDITIONS[1]  # catholic-study
-    rebuilt = _build(flagship, tmp_path / f"{flagship}-rebuild")
-    assert _content_digest(rebuilt) == digests[flagship], (
-        f"{flagship} rebuilt with different content — build is non-deterministic (byte-stability not guaranteed)"
-    )
+    # same normalized content digest. round-7 6.1: the flagship is
+    # ethiopian-tewahedo (_EDITIONS[0]) — this gate had only ever re-built
+    # catholic-study, so the actual flagship's byte-stability was never
+    # asserted. Keep a canon-FILTERED rebuild too (catholic-study): the canon
+    # splice has structural edge cases the superset hides (standing doctrine).
+    for rebuild_target in (_EDITIONS[0], _EDITIONS[1]):  # ethiopian-tewahedo + catholic-study
+        rebuilt = _build(rebuild_target, tmp_path / f"{rebuild_target}-rebuild")
+        assert _content_digest(rebuilt) == digests[rebuild_target], (
+            f"{rebuild_target} rebuilt with different content — build is non-deterministic (byte-stability not guaranteed)"
+        )

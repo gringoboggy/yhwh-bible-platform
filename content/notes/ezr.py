@@ -6259,7 +6259,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-7-3">Deu 7:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-7-3">Deu 7:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

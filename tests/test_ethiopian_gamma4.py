@@ -1335,7 +1335,9 @@ class TestGamma41DCyrilJohn15Through21:
         # of John (Jn 1-7 from γ.4.1.A/B + Jn 11-14 from γ.4.1.C +
         # Jn 15-21 from γ.4.1.D + Jn 19:34 from γ.4 seed). Pin all
         # extant John chapters present except 8-10 (manuscript gap).
-        cyril_on_john = [e for e in self.ec.by_father("Cyril of Alexandria") if e.book == "joh"]
+        # (.book is CANONICAL since round-7 1.3 — the store + the loader both
+        # normalize, so the raw legacy "joh" no longer rides the field.)
+        cyril_on_john = [e for e in self.ec.by_father("Cyril of Alexandria") if e.book == "jhn"]
         chapters = {e.chapter for e in cyril_on_john}
         expected_present = {1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}
         missing = expected_present - chapters

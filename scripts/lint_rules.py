@@ -2186,6 +2186,21 @@ def check_book_codes_canonical() -> dict:
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 
+    # round-7 1.3 — the commentary-corpus JSON tier. The 5 *_commentaries.json
+    # stores carried 135 legacy "book" values ("joh"/"ps"/"mar"/…); the loader
+    # (scripts/core/sources_commentary.py) normalizes only its INDEX KEY, so the
+    # raw legacy string rode every entry's .book field (leak surface: future
+    # attributions/logs/ingests). The data is normalized in the same round-7
+    # commit; this tier blocks reintroduction at COMMIT time (★BUGCLUSTER:
+    # "recurs every ingest").
+    json_specs = [
+        "content/sources/ethiopian_commentaries.json",
+        "content/sources/protestant_commentaries.json",
+        "content/sources/catholic_commentaries.json",
+        "content/sources/rabbinic_commentaries.json",
+        "content/sources/reformation_commentaries.json",
+    ]
+
     violations: list[dict] = []
     screened = 0
     for mod_name, attr in map_specs:
@@ -2208,6 +2223,25 @@ def check_book_codes_canonical() -> dict:
         bad = sorted(legacy_codes & values)
         if bad:
             violations.append({"map": f"{mod_name}.{attr}", "legacy_values": bad})
+    import json as _json
+
+    for rel in json_specs:
+        path = REPO / rel
+        try:
+            entries = _json.loads(path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            violations.append({"map": rel, "error": str(exc)})
+            continue
+        screened += 1
+        if isinstance(entries, dict):  # tolerate a wrapped {"entries": [...]} shape
+            entries = entries.get("entries", [])
+        bad_counts: dict[str, int] = {}
+        for e in entries:
+            code = str(e.get("book", "")) if isinstance(e, dict) else ""
+            if code in legacy_codes:
+                bad_counts[code] = bad_counts.get(code, 0) + 1
+        if bad_counts:
+            violations.append({"map": rel, "legacy_values": sorted(bad_counts), "counts": bad_counts})
 
     if violations:
         return {

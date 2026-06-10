@@ -1551,7 +1551,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-45-4">Gen 45:4</a> · <a href="index_split_010.html#vnote-1sa-12-22">1Sa 12:22</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-45-4">Gen 45:4</a> · <a href="index_split_010.html#v-1sa-12-22">1Sa 12:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1562,7 +1562,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-45-4">Gen 45:4</a> · <a href="index_split_010.html#vnote-1sa-12-22">1Sa 12:22</a> · <a href="index_split_040.html#ch-b37-c54">Isa 54:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-45-4">Gen 45:4</a> · <a href="index_split_010.html#v-1sa-12-22">1Sa 12:22</a> · <a href="index_split_040.html#ch-b37-c54">Isa 54:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

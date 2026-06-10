@@ -351,7 +351,7 @@ NOTES = [
         "parallel",
         "Parallel",
         "Parallel: Deut 32:11 / Matt 3:16",
-        '<strong>The hovering Spirit across the canon.</strong> The verb <em>raḥaph</em> (to hover, to brood) recurs in <a href="index_split_009.html#vnote-deu-32-11">Deuteronomy 32:11</a>, where the eagle hovers over its young — protective, generative motion. At Jesus\' baptism in <a href="index_split_051.html#ch-b60-c3">Matthew 3:16</a>, the Spirit descends "like a dove," echoing this same brooding presence over the waters of a new creation. Early Christian readers (Tertullian, <em>De Baptismo</em>; Basil, <em>Hexaemeron</em>) saw baptism as a re-creation precisely on this typology.',
+        '<strong>The hovering Spirit across the canon.</strong> The verb <em>raḥaph</em> (to hover, to brood) recurs in <a href="index_split_009.html#v-deu-32-11">Deuteronomy 32:11</a>, where the eagle hovers over its young — protective, generative motion. At Jesus\' baptism in <a href="index_split_051.html#ch-b60-c3">Matthew 3:16</a>, the Spirit descends "like a dove," echoing this same brooding presence over the waters of a new creation. Early Christian readers (Tertullian, <em>De Baptismo</em>; Basil, <em>Hexaemeron</em>) saw baptism as a re-creation precisely on this typology.',
         "User paraphrase; references Tertullian, Basil",
     ),
     (
@@ -505,7 +505,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_037.html#ch-b34-c2">Ecc 2:13</a> · <a href="index_split_000.html#vnote-gen-1-18">Gen 1:18</a> · <a href="index_split_037.html#ch-b34-c11">Ecc 11:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_037.html#ch-b34-c2">Ecc 2:13</a> · <a href="index_split_000.html#v-gen-1-18">Gen 1:18</a> · <a href="index_split_037.html#ch-b34-c11">Ecc 11:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1066,7 +1066,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Creation, Denunciations against, Grass, Herbs, & C, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Creation, Denunciations against, Grass, Herbs, &amp; C, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1121,7 +1121,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Creation, Grass, Herbs, & C, Herbs, & C, Seed.",
+        "<strong>Topics.</strong> This verse appears under: Creation, Grass, Herbs, &amp; C, Herbs, &amp; C, Seed.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -1165,7 +1165,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c104">Psa 104:19</a> · <a href="index_split_008.html#vnote-deu-4-19">Deu 4:19</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c104">Psa 104:19</a> · <a href="index_split_008.html#v-deu-4-19">Deu 4:19</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1363,7 +1363,7 @@ NOTES = [
         "comm",
         "Note",
         "Sun and moon demoted",
-        '<strong>Polemic by demotion.</strong> Genesis 1 conspicuously refuses to name the sun and moon — calling them merely "the greater light" and "the lesser light." In every surrounding culture (Egyptian Ra, Babylonian Shamash and Sin) the sun and moon were chief deities; here they are reduced to functional lamps, made on day four, subordinate to Israel\'s God. They "rule" only as appointed timekeepers. The same demotion underlies <a href="index_split_008.html#vnote-deu-4-19">Deuteronomy 4:19</a>\'s prohibition of astral worship.',
+        '<strong>Polemic by demotion.</strong> Genesis 1 conspicuously refuses to name the sun and moon — calling them merely "the greater light" and "the lesser light." In every surrounding culture (Egyptian Ra, Babylonian Shamash and Sin) the sun and moon were chief deities; here they are reduced to functional lamps, made on day four, subordinate to Israel\'s God. They "rule" only as appointed timekeepers. The same demotion underlies <a href="index_split_008.html#v-deu-4-19">Deuteronomy 4:19</a>\'s prohibition of astral worship.',
         "User original",
     ),
     (
@@ -2045,7 +2045,7 @@ NOTES = [
         "word",
         "Hebrew",
         "Tselem and demut",
-        '<strong>Image (<em>tselem</em>) and likeness (<em>demut</em>).</strong> Two Hebrew terms covering overlapping ground. <em>Tselem</em> elsewhere denotes a physical statue or representation (used of idols in <a href="index_split_007.html#vnote-num-33-52">Numbers 33:52</a>); <em>demut</em> denotes resemblance, pattern, or model. Most ANE kings claimed to be the "image" of their patron god — here Genesis democratizes royal language: every human bears divine representation. The Septuagint renders <em>tselem</em> as <em>eikōn</em> (icon), the same word Paul uses in <a href="index_split_058.html#ch-b71-c1">Colossians 1:15</a> of Christ ("the image of the invisible God") and <a href="index_split_057.html#ch-b67-c4">2 Corinthians 4:4</a>.',
+        '<strong>Image (<em>tselem</em>) and likeness (<em>demut</em>).</strong> Two Hebrew terms covering overlapping ground. <em>Tselem</em> elsewhere denotes a physical statue or representation (used of idols in <a href="index_split_007.html#v-num-33-52">Numbers 33:52</a>); <em>demut</em> denotes resemblance, pattern, or model. Most ANE kings claimed to be the "image" of their patron god — here Genesis democratizes royal language: every human bears divine representation. The Septuagint renders <em>tselem</em> as <em>eikōn</em> (icon), the same word Paul uses in <a href="index_split_058.html#ch-b71-c1">Colossians 1:15</a> of Christ ("the image of the invisible God") and <a href="index_split_057.html#ch-b67-c4">2 Corinthians 4:4</a>.',
         "User paraphrase; references Septuagint",
     ),
     (
@@ -2078,7 +2078,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c19">Mat 19:4</a> · <a href="index_split_001.html#vnote-gen-5-1">Gen 5:1</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c19">Mat 19:4</a> · <a href="index_split_001.html#v-gen-5-1">Gen 5:1</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2089,7 +2089,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c19">Mat 19:4</a> · <a href="index_split_001.html#vnote-gen-5-1">Gen 5:1</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c19">Mat 19:4</a> · <a href="index_split_001.html#v-gen-5-1">Gen 5:1</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2188,7 +2188,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-9-1">Gen 9:1</a> · <a href="index_split_001.html#vnote-gen-9-7">Gen 9:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-9-1">Gen 9:1</a> · <a href="index_split_001.html#v-gen-9-7">Gen 9:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2199,7 +2199,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-9-1">Gen 9:1</a> · <a href="index_split_001.html#vnote-gen-9-7">Gen 9:7</a> · <a href="index_split_006.html#vnote-lev-26-9">Lev 26:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-9-1">Gen 9:1</a> · <a href="index_split_001.html#v-gen-9-7">Gen 9:7</a> · <a href="index_split_006.html#v-lev-26-9">Lev 26:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2243,7 +2243,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Beard, The, Creation, Fishes, Herbs, & C, Malice.",
+        "<strong>Topics.</strong> This verse appears under: Beard, The, Creation, Fishes, Herbs, &amp; C, Malice.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2254,7 +2254,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-9-3">Gen 9:3</a> · <a href="index_split_034.html#ch-b30-c104">Psa 104:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-9-3">Gen 9:3</a> · <a href="index_split_034.html#ch-b30-c104">Psa 104:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2309,7 +2309,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fruits, Herbs, & C, Malice, Sacrifices, Seed.",
+        "<strong>Topics.</strong> This verse appears under: Fruits, Herbs, &amp; C, Malice, Sacrifices, Seed.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -2496,7 +2496,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c4">Heb 4:4</a> · <a href="index_split_004.html#vnote-exo-31-17">Exo 31:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c4">Heb 4:4</a> · <a href="index_split_004.html#v-exo-31-17">Exo 31:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2584,7 +2584,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-23-3">Lev 23:3</a> · <a href="index_split_045.html#vnote-eze-20-12">Ezk 20:12</a> · <a href="index_split_052.html#ch-b61-c2">Mrk 2:27</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#v-lev-23-3">Lev 23:3</a> · <a href="index_split_045.html#v-eze-20-12">Ezk 20:12</a> · <a href="index_split_052.html#ch-b61-c2">Mrk 2:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2815,7 +2815,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Creation, Herbs, & C, Malice, Purifications, Water.",
+        "<strong>Topics.</strong> This verse appears under: Creation, Herbs, &amp; C, Malice, Purifications, Water.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3145,7 +3145,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_000.html#vnote-gen-3-22">Gen 3:22</a> · <a href="index_split_059.html#ch-b86-c2">Rev 2:7</a> · <a href="index_split_060.html#ch-b86-c22">Rev 22:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_000.html#v-gen-3-22">Gen 3:22</a> · <a href="index_split_059.html#ch-b86-c2">Rev 2:7</a> · <a href="index_split_060.html#ch-b86-c22">Rev 22:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3541,7 +3541,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c128">Psa 128:2</a> · <a href="index_split_000.html#vnote-gen-2-8">Gen 2:8</a> · <a href="index_split_058.html#ch-b69-c4">Eph 4:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c128">Psa 128:2</a> · <a href="index_split_000.html#v-gen-2-8">Gen 2:8</a> · <a href="index_split_058.html#ch-b69-c4">Eph 4:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3684,7 +3684,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a> · <a href="index_split_059.html#vnote-jam-1-15">Jas 1:15</a> · <a href="index_split_000.html#vnote-gen-3-19">Gen 3:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c6">Rom 6:23</a> · <a href="index_split_059.html#v-jam-1-15">Jas 1:15</a> · <a href="index_split_000.html#v-gen-3-19">Gen 3:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3871,7 +3871,7 @@ NOTES = [
         "comm",
         "Note",
         "Ezer kenegdo — strength corresponding",
-        '<strong>The phrase <em>ezer kenegdo</em>.</strong> <em>Ezer</em> is "help, ally, one who saves" — used 21 times in the Old Testament, 16 of them for God himself as helper of Israel (e.g., <a href="index_split_009.html#vnote-deu-33-7">Deuteronomy 33:7</a>; <a href="index_split_033.html#ch-b30-c33">Psalm 33:20</a>). <em>Kenegdo</em> means "corresponding to, opposite to, on a par with" — not subordinate but matched. The compound denies hierarchy in original creation: not "subordinate helper" but "strong ally facing him as equal." The Septuagint renders it <em>boēthos</em> (helper, deliverer), the same word the New Testament uses of God in <a href="index_split_059.html#ch-b78-c13">Hebrews 13:6</a>.',
+        '<strong>The phrase <em>ezer kenegdo</em>.</strong> <em>Ezer</em> is "help, ally, one who saves" — used 21 times in the Old Testament, 16 of them for God himself as helper of Israel (e.g., <a href="index_split_009.html#v-deu-33-7">Deuteronomy 33:7</a>; <a href="index_split_033.html#ch-b30-c33">Psalm 33:20</a>). <em>Kenegdo</em> means "corresponding to, opposite to, on a par with" — not subordinate but matched. The compound denies hierarchy in original creation: not "subordinate helper" but "strong ally facing him as equal." The Septuagint renders it <em>boēthos</em> (helper, deliverer), the same word the New Testament uses of God in <a href="index_split_059.html#ch-b78-c13">Hebrews 13:6</a>.',
         "User paraphrase; references Septuagint",
     ),
     (
@@ -3981,7 +3981,7 @@ NOTES = [
         "word",
         "Hebrew",
         "Tsela — rib or side",
-        '<strong>The word <em>tsela</em>.</strong> Translated "rib" but the Hebrew normally means "side" — used elsewhere of the side of the tabernacle (<a href="index_split_003.html#vnote-exo-25-12">Exodus 25:12</a>), the side of the temple (<a href="index_split_012.html#ch-b10-c6">1 Kings 6:5</a>), the side of a hill (<a href="index_split_012.html#vnote-2sa-16-13">2 Samuel 16:13</a>). The architectural connotation matters: woman is taken not from man\'s foot or head but from his side — patristic and rabbinic readers (Augustine, <em>City of God</em> 22.17; Genesis Rabbah 18:2) press this image against both subordinationist and matriarchal readings.',
+        '<strong>The word <em>tsela</em>.</strong> Translated "rib" but the Hebrew normally means "side" — used elsewhere of the side of the tabernacle (<a href="index_split_003.html#v-exo-25-12">Exodus 25:12</a>), the side of the temple (<a href="index_split_012.html#ch-b10-c6">1 Kings 6:5</a>), the side of a hill (<a href="index_split_012.html#v-2sa-16-13">2 Samuel 16:13</a>). The architectural connotation matters: woman is taken not from man\'s foot or head but from his side — patristic and rabbinic readers (Augustine, <em>City of God</em> 22.17; Genesis Rabbah 18:2) press this image against both subordinationist and matriarchal readings.',
         "User paraphrase; references Augustine, Genesis Rabbah",
     ),
     (
@@ -4729,7 +4729,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:16</a> · <a href="index_split_059.html#vnote-jam-1-14">Jas 1:14</a> · <a href="index_split_059.html#ch-b74-c2">1Ti 2:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c2">1Jn 2:16</a> · <a href="index_split_059.html#v-jam-1-14">Jas 1:14</a> · <a href="index_split_059.html#ch-b74-c2">1Ti 2:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4993,7 +4993,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-4-9">Gen 4:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-4-9">Gen 4:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5708,7 +5708,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c1">Mat 1:23</a> · <a href="index_split_000.html#vnote-gen-2-23">Gen 2:23</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c1">Mat 1:23</a> · <a href="index_split_000.html#v-gen-2-23">Gen 2:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5862,7 +5862,7 @@ NOTES = [
         "comm",
         "Note",
         "Knowing good and evil — what was lost?",
-        '<strong>What kind of knowledge?</strong> The phrase <em>yada\'</em> tov va-ra (knowing good and evil) appears here, in 2:9, 2:17, and recurs in <a href="index_split_008.html#vnote-deu-1-39">Deuteronomy 1:39</a> (children "who do not yet know good or evil"), <a href="index_split_012.html#vnote-2sa-19-35">2 Samuel 19:35</a> (Barzillai "too old to discern"), and <a href="index_split_039.html#ch-b37-c7">Isaiah 7:15</a>. The expression denotes not moral knowledge in the abstract but adult moral discernment — the capacity to choose among options. The fall is therefore not the gaining of moral knowledge per se but the seizing of moral autonomy outside the structure of trust.',
+        '<strong>What kind of knowledge?</strong> The phrase <em>yada\'</em> tov va-ra (knowing good and evil) appears here, in 2:9, 2:17, and recurs in <a href="index_split_008.html#v-deu-1-39">Deuteronomy 1:39</a> (children "who do not yet know good or evil"), <a href="index_split_012.html#v-2sa-19-35">2 Samuel 19:35</a> (Barzillai "too old to discern"), and <a href="index_split_039.html#ch-b37-c7">Isaiah 7:15</a>. The expression denotes not moral knowledge in the abstract but adult moral discernment — the capacity to choose among options. The fall is therefore not the gaining of moral knowledge per se but the seizing of moral autonomy outside the structure of trust.',
         "User original",
     ),
     (
@@ -6027,7 +6027,7 @@ NOTES = [
         "word",
         "Hebrew",
         "Cherubim — guardian beings",
-        '<strong>The cherubim.</strong> The plural <em>kerubim</em> appears 91 times in the Hebrew Bible. In Genesis 3 they guard the way to the tree of life. In <a href="index_split_003.html#vnote-exo-25-18">Exodus 25:18–22</a> they are sculpted on the ark; in <a href="index_split_045.html#ch-b43-c1">Ezekiel 1</a> and <a href="index_split_045.html#ch-b43-c10">10</a> they form God\'s mobile throne. ANE iconography (the winged sphinxes flanking Phoenician thrones, Assyrian <em>karibu</em>) suggests they are composite guardian beings, not the cherub-as-cute-baby of Renaissance art. Their function is consistent: bar unauthorized access to sacred space.',
+        '<strong>The cherubim.</strong> The plural <em>kerubim</em> appears 91 times in the Hebrew Bible. In Genesis 3 they guard the way to the tree of life. In <a href="index_split_003.html#v-exo-25-18">Exodus 25:18–22</a> they are sculpted on the ark; in <a href="index_split_045.html#ch-b43-c1">Ezekiel 1</a> and <a href="index_split_045.html#ch-b43-c10">10</a> they form God\'s mobile throne. ANE iconography (the winged sphinxes flanking Phoenician thrones, Assyrian <em>karibu</em>) suggests they are composite guardian beings, not the cherub-as-cute-baby of Renaissance art. Their function is consistent: bar unauthorized access to sacred space.',
         "User original",
     ),
     (
@@ -6423,7 +6423,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-15">Jas 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:6</a> · <a href="index_split_039.html#ch-b37-c3">Isa 3:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-15">Jas 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:6</a> · <a href="index_split_039.html#ch-b37-c3">Isa 3:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6434,7 +6434,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-15">Jas 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:6</a> · <a href="index_split_039.html#ch-b37-c3">Isa 3:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-15">Jas 1:15</a> · <a href="index_split_056.html#ch-b65-c2">Rom 2:6</a> · <a href="index_split_039.html#ch-b37-c3">Isa 3:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -7413,7 +7413,7 @@ NOTES = [
         "comm-rabbinic",
         "Note",
         "The first call on Yahweh",
-        '<strong>The beginning of public worship.</strong> Genesis 4:26 marks "men began to call upon the name of Yahweh." This sits in narrative tension with <a href="index_split_003.html#vnote-exo-6-3">Exodus 6:3</a>, where God says he was not known to the patriarchs by his name Yahweh. Rabbinic and Christian traditions resolved this differently: some (Rashi) read Genesis 4:26 as the beginning of misuse — calling idols by Yahweh\'s name; others read it as anachronism — the narrator using the name retrospectively. Either way, this verse marks a turning point in the development of human religion within the primeval narrative.',
+        '<strong>The beginning of public worship.</strong> Genesis 4:26 marks "men began to call upon the name of Yahweh." This sits in narrative tension with <a href="index_split_003.html#v-exo-6-3">Exodus 6:3</a>, where God says he was not known to the patriarchs by his name Yahweh. Rabbinic and Christian traditions resolved this differently: some (Rashi) read Genesis 4:26 as the beginning of misuse — calling idols by Yahweh\'s name; others read it as anachronism — the narrator using the name retrospectively. Either way, this verse marks a turning point in the development of human religion within the primeval narrative.',
         "User paraphrase; references Rashi",
     ),
     (
@@ -7501,7 +7501,7 @@ NOTES = [
         "comm",
         "Note",
         "The first “toledot” of a person",
-        '<strong>The toledot formula.</strong> The Hebrew <em>toledot</em> ("generations, genealogy, account of") structures Genesis as a whole — appearing 11 times (<a href="index_split_000.html#vnote-gen-2-4">2:4</a>, 5:1, 6:9, 10:1, 11:10, 11:27, 25:12, 25:19, 36:1, 36:9, 37:2). Each <em>toledot</em> opens a major section. Genesis 5:1 is unique: the only one labeled <em>sefer</em> ("book") rather than just <em>toledot</em>. Some scholars take this as evidence the genealogies are derived from a written source (perhaps the source underlying both Genesis 5 and 1 Chronicles 1:1–4).',
+        '<strong>The toledot formula.</strong> The Hebrew <em>toledot</em> ("generations, genealogy, account of") structures Genesis as a whole — appearing 11 times (<a href="index_split_000.html#v-gen-2-4">2:4</a>, 5:1, 6:9, 10:1, 11:10, 11:27, 25:12, 25:19, 36:1, 36:9, 37:2). Each <em>toledot</em> opens a major section. Genesis 5:1 is unique: the only one labeled <em>sefer</em> ("book") rather than just <em>toledot</em>. Some scholars take this as evidence the genealogies are derived from a written source (perhaps the source underlying both Genesis 5 and 1 Chronicles 1:1–4).',
         "User original",
     ),
     (
@@ -7930,7 +7930,7 @@ NOTES = [
         "parallel",
         "Parallel",
         "Parallel: 1 Enoch 12–16 / Heb 11:5 / Jude 14–15",
-        '<strong>Enoch in the canon.</strong> Genesis 5:22–24 is the seed of an entire literature. <a href="index_split_020.html#vnote-1en-12-1">1 Enoch (chapters 12–16)</a> — present in the Ethiopian canon — expands the bare two verses of Genesis into a heavenly journey, divine commissioning, and oracle against the fallen Watchers. <a href="index_split_059.html#ch-b78-c11">Hebrews 11:5</a> commemorates Enoch\'s translation: "By faith Enoch was taken up so that he should not see death." <a href="index_split_059.html#ch-b85-c1">Jude 14–15</a> directly quotes 1 Enoch 1:9 as prophecy. Of all the Old Testament figures, Enoch developed the richest extra-biblical tradition — and uniquely in this canon, those traditions are preserved.',
+        '<strong>Enoch in the canon.</strong> Genesis 5:22–24 is the seed of an entire literature. <a href="index_split_020.html#v-1en-12-1">1 Enoch (chapters 12–16)</a> — present in the Ethiopian canon — expands the bare two verses of Genesis into a heavenly journey, divine commissioning, and oracle against the fallen Watchers. <a href="index_split_059.html#ch-b78-c11">Hebrews 11:5</a> commemorates Enoch\'s translation: "By faith Enoch was taken up so that he should not see death." <a href="index_split_059.html#ch-b85-c1">Jude 14–15</a> directly quotes 1 Enoch 1:9 as prophecy. Of all the Old Testament figures, Enoch developed the richest extra-biblical tradition — and uniquely in this canon, those traditions are preserved.',
         "User paraphrase; references 1 Enoch",
     ),
     (
@@ -8381,7 +8381,7 @@ NOTES = [
         "parallel",
         "Parallel",
         "Watchers tradition",
-        '<strong>The Watchers tradition.</strong> The descent of <em>bene ha-elohim</em> (“sons of God”) onto the daughters of men is expanded at length in <a href="index_split_020.html#vnote-1en-6-1">1 Enoch 6:1–6</a> — “Watchers” who saw the daughters of men, took an oath together at Mount Hermon, and descended in the days of Jared (compare Gen 5:18). That same Enochic tradition is presupposed by <a href="index_split_059.html#ch-b81-c2">2 Peter 2:4</a> and <a href="index_split_059.html#ch-b85-c1">Jude 6</a> — angels who “did not keep their first estate” are now bound until the day of judgment. The Ethiopian canon, uniquely, contains both this brief Genesis notice and the full Enochic expansion.',
+        '<strong>The Watchers tradition.</strong> The descent of <em>bene ha-elohim</em> (“sons of God”) onto the daughters of men is expanded at length in <a href="index_split_020.html#v-1en-6-1">1 Enoch 6:1–6</a> — “Watchers” who saw the daughters of men, took an oath together at Mount Hermon, and descended in the days of Jared (compare Gen 5:18). That same Enochic tradition is presupposed by <a href="index_split_059.html#ch-b81-c2">2 Peter 2:4</a> and <a href="index_split_059.html#ch-b85-c1">Jude 6</a> — angels who “did not keep their first estate” are now bound until the day of judgment. The Ethiopian canon, uniquely, contains both this brief Genesis notice and the full Enochic expansion.',
         "User paraphrase; references 1 Enoch",
     ),
     (
@@ -8502,7 +8502,7 @@ NOTES = [
         "comm-contextual",
         "Note",
         "Nephilim and the heroic age",
-        '<strong>The heroic age.</strong> The Nephilim (lit. “fallen ones”) and their offspring are described as <em>gibborim</em> (“mighty men”) and <em>anshei ha-shem</em> (“men of the name/renown”) — the same vocabulary of legendary half-divine heroes found in ANE literature (Gilgamesh as two-thirds god, the Mesopotamian apkallu). The post-flood appearance of Nephilim at <a href="index_split_007.html#vnote-num-13-33">Numbers 13:33</a> — “the sons of Anak come from the Nephilim” — implies either a re-emergence or that the term came to mean any oversized warrior. Deuteronomy 2:10–11, 20–21 connects them with the Rephaim, Emim, and Zamzummim of Transjordan. The narrative motivates a giant-clearing campaign in Joshua–Judges.',
+        '<strong>The heroic age.</strong> The Nephilim (lit. “fallen ones”) and their offspring are described as <em>gibborim</em> (“mighty men”) and <em>anshei ha-shem</em> (“men of the name/renown”) — the same vocabulary of legendary half-divine heroes found in ANE literature (Gilgamesh as two-thirds god, the Mesopotamian apkallu). The post-flood appearance of Nephilim at <a href="index_split_007.html#v-num-13-33">Numbers 13:33</a> — “the sons of Anak come from the Nephilim” — implies either a re-emergence or that the term came to mean any oversized warrior. Deuteronomy 2:10–11, 20–21 connects them with the Rephaim, Emim, and Zamzummim of Transjordan. The narrative motivates a giant-clearing campaign in Joshua–Judges.',
         "User paraphrase; references Gilgamesh",
     ),
     (
@@ -8524,7 +8524,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-13-33">Num 13:33</a> · <a href="index_split_011.html#vnote-1sa-17-4">1Sa 17:4</a> · <a href="index_split_012.html#vnote-2sa-21-15">2Sa 21:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#v-num-13-33">Num 13:33</a> · <a href="index_split_011.html#v-1sa-17-4">1Sa 17:4</a> · <a href="index_split_012.html#v-2sa-21-15">2Sa 21:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8711,7 +8711,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c63">Isa 63:10</a> · <a href="index_split_010.html#vnote-1sa-15-11">1Sa 15:11</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c63">Isa 63:10</a> · <a href="index_split_010.html#v-1sa-15-11">1Sa 15:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9591,7 +9591,7 @@ NOTES = [
         "comm",
         "Note",
         "Clean/unclean before Sinai",
-        '<strong>Clean/unclean before the Law.</strong> The clean/unclean distinction here precedes the Sinai legislation by some 600 years (in narrative chronology). Rabbinic interpretation (<em>Bereshit Rabbah</em> 26:1) handles this proleptically — Noah “studied Torah” by inspiration. Critical scholarship reads it as a P-source anachronism. The narrative function is concrete: the seven pairs of clean animals enable Noah’s post-flood sacrifice (8:20) without depleting the species. Note that this is not yet the dietary code of <a href="index_split_005.html#vnote-lev-11-1">Leviticus 11</a> — no list of forbidden animals is given; the categories are simply assumed to be known.',
+        '<strong>Clean/unclean before the Law.</strong> The clean/unclean distinction here precedes the Sinai legislation by some 600 years (in narrative chronology). Rabbinic interpretation (<em>Bereshit Rabbah</em> 26:1) handles this proleptically — Noah “studied Torah” by inspiration. Critical scholarship reads it as a P-source anachronism. The narrative function is concrete: the seven pairs of clean animals enable Noah’s post-flood sacrifice (8:20) without depleting the species. Note that this is not yet the dietary code of <a href="index_split_005.html#v-lev-11-1">Leviticus 11</a> — no list of forbidden animals is given; the categories are simply assumed to be known.',
         "User original",
     ),
     (
@@ -9910,7 +9910,7 @@ NOTES = [
         "comm",
         "Note",
         "De-creation: Day 2 reversed",
-        '<strong>The flood as de-creation.</strong> <a href="index_split_000.html#vnote-gen-1-6">Genesis 1:6–7</a> separated the waters “above” from the waters “below” by the firmament. The flood reverses that separation — the “fountains of the great deep” (waters below) burst up, the “windows of heaven” (waters above) open down, and the earth is returned to the watery chaos of 1:2. The flood is structurally not just judgment but a return-to-tohu — the cosmos un-made. This makes 8:1 (“God remembered Noah … God made a wind to pass over the earth”) the second creation: the <em>ruach</em> over the waters of 1:2 reappears.',
+        '<strong>The flood as de-creation.</strong> <a href="index_split_000.html#v-gen-1-6">Genesis 1:6–7</a> separated the waters “above” from the waters “below” by the firmament. The flood reverses that separation — the “fountains of the great deep” (waters below) burst up, the “windows of heaven” (waters above) open down, and the earth is returned to the watery chaos of 1:2. The flood is structurally not just judgment but a return-to-tohu — the cosmos un-made. This makes 8:1 (“God remembered Noah … God made a wind to pass over the earth”) the second creation: the <em>ruach</em> over the waters of 1:2 reappears.',
         "User original",
     ),
     (
@@ -10152,7 +10152,7 @@ NOTES = [
         "parallel",
         "Parallel",
         "The forty-day pattern",
-        '<strong>The forty-day pattern.</strong> Forty days of flood (7:17) inaugurate a numerical motif that recurs throughout Scripture as the duration of trial or formation: Moses on Sinai 40 days (<a href="index_split_003.html#vnote-exo-24-18">Exodus 24:18</a>; 34:28), Israel’s wilderness 40 years, Elijah’s journey to Horeb 40 days (<a href="index_split_014.html#ch-b10-c19">1 Kings 19:8</a>), Jonah’s 40-day Nineveh proclamation, Jesus’ 40-day temptation (<a href="index_split_051.html#ch-b60-c4">Matthew 4:2</a>), and the 40 days between resurrection and ascension (Acts 1:3). The pattern signifies a complete period of testing or transition before a new state begins. The flood establishes the typology.',
+        '<strong>The forty-day pattern.</strong> Forty days of flood (7:17) inaugurate a numerical motif that recurs throughout Scripture as the duration of trial or formation: Moses on Sinai 40 days (<a href="index_split_003.html#v-exo-24-18">Exodus 24:18</a>; 34:28), Israel’s wilderness 40 years, Elijah’s journey to Horeb 40 days (<a href="index_split_014.html#ch-b10-c19">1 Kings 19:8</a>), Jonah’s 40-day Nineveh proclamation, Jesus’ 40-day temptation (<a href="index_split_051.html#ch-b60-c4">Matthew 4:2</a>), and the 40 days between resurrection and ascension (Acts 1:3). The pattern signifies a complete period of testing or transition before a new state begins. The flood establishes the typology.',
         "User original",
     ),
     (
@@ -10383,7 +10383,7 @@ NOTES = [
         "word",
         "Hebrew",
         "nishmat ruach chayim",
-        '<strong><em>Nishmat ruach chayim</em> (נִשְׁמַת רוּחַ חַיִּים).</strong> The phrase combines <em>neshamah</em> (the breath given at <a href="index_split_000.html#vnote-gen-2-7">Gen 2:7</a>) with <em>ruach</em> (spirit/wind, the Spirit hovering over the waters at 1:2). The flood undoes 2:7 in reverse — the breath that animated humanity is now extinguished from creatures. The triple compound is rare and emphatic: it is not just life that ends but the fullness of <em>life-breath-spirit</em>, the entire animating divine gift. Rabbinic exegesis (<em>Sifra</em> on Lev 11:46) uses this verse to argue that fish are exempt from the flood’s breath-stoppage logic.',
+        '<strong><em>Nishmat ruach chayim</em> (נִשְׁמַת רוּחַ חַיִּים).</strong> The phrase combines <em>neshamah</em> (the breath given at <a href="index_split_000.html#v-gen-2-7">Gen 2:7</a>) with <em>ruach</em> (spirit/wind, the Spirit hovering over the waters at 1:2). The flood undoes 2:7 in reverse — the breath that animated humanity is now extinguished from creatures. The triple compound is rare and emphatic: it is not just life that ends but the fullness of <em>life-breath-spirit</em>, the entire animating divine gift. Rabbinic exegesis (<em>Sifra</em> on Lev 11:46) uses this verse to argue that fish are exempt from the flood’s breath-stoppage logic.',
         "User paraphrase; references Sifra",
     ),
     (
@@ -10581,7 +10581,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-30-22">Gen 30:22</a> · <a href="index_split_001.html#vnote-gen-19-29">Gen 19:29</a> · <a href="index_split_035.html#ch-b30-c136">Psa 136:23</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-30-22">Gen 30:22</a> · <a href="index_split_001.html#v-gen-19-29">Gen 19:29</a> · <a href="index_split_035.html#ch-b30-c136">Psa 136:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11208,7 +11208,7 @@ NOTES = [
         "parallel",
         "Parallel",
         "The Genesis 1:28 mandate re-issued",
-        '<strong>The creation mandate re-issued.</strong> The post-flood command to the animals “be fruitful and multiply on the earth” recapitulates <a href="index_split_000.html#vnote-gen-1-22">Gen 1:22</a> verbatim, and at 9:1 the same command will be re-issued to humanity (recapitulating <a href="index_split_000.html#vnote-gen-1-28">Gen 1:28</a>). The flood narrative deliberately constructs Noah as the second Adam: the original creation blessing must be re-spoken because the original creation has been undone and remade. <a href="index_split_057.html#ch-b66-c15">1 Corinthians 15:22</a>’s “in Adam all die, in Christ all are made alive” presupposes this kind of recapitulation theology — Noah is its first iteration, Christ its eschatological one.',
+        '<strong>The creation mandate re-issued.</strong> The post-flood command to the animals “be fruitful and multiply on the earth” recapitulates <a href="index_split_000.html#v-gen-1-22">Gen 1:22</a> verbatim, and at 9:1 the same command will be re-issued to humanity (recapitulating <a href="index_split_000.html#v-gen-1-28">Gen 1:28</a>). The flood narrative deliberately constructs Noah as the second Adam: the original creation blessing must be re-spoken because the original creation has been undone and remade. <a href="index_split_057.html#ch-b66-c15">1 Corinthians 15:22</a>’s “in Adam all die, in Christ all are made alive” presupposes this kind of recapitulation theology — Noah is its first iteration, Christ its eschatological one.',
         "User original",
     ),
     (
@@ -11274,7 +11274,7 @@ NOTES = [
         "comm",
         "Note",
         "Burnt offering before Sinai",
-        '<strong>The first <em>olah</em>.</strong> Noah’s sacrifice is the first explicitly named burnt offering (<em>olah</em>) in Scripture, predating the Sinaitic legislation by centuries (in narrative chronology). The clean/unclean distinction of 7:2 finds its cultic purpose here — clean animals were preserved precisely so they could be offered. The sequence flood → ark → altar → covenant becomes a template: deliverance through judgment is consummated by sacrifice that secures covenant. Cain’s rejected offering (<a href="index_split_001.html#vnote-gen-4-3">Gen 4:3–5</a>) and Abel’s accepted firstling-offering establish the precedent; Noah’s <em>olah</em> systematizes it; the Levitical sacrificial code (Lev 1) eventually codifies it.',
+        '<strong>The first <em>olah</em>.</strong> Noah’s sacrifice is the first explicitly named burnt offering (<em>olah</em>) in Scripture, predating the Sinaitic legislation by centuries (in narrative chronology). The clean/unclean distinction of 7:2 finds its cultic purpose here — clean animals were preserved precisely so they could be offered. The sequence flood → ark → altar → covenant becomes a template: deliverance through judgment is consummated by sacrifice that secures covenant. Cain’s rejected offering (<a href="index_split_001.html#v-gen-4-3">Gen 4:3–5</a>) and Abel’s accepted firstling-offering establish the precedent; Noah’s <em>olah</em> systematizes it; the Levitical sacrificial code (Lev 1) eventually codifies it.',
         "User original",
     ),
     (
@@ -11461,7 +11461,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-5-7">Jas 5:7</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:16</a> · <a href="index_split_041.html#ch-b38-c5">Jer 5:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-5-7">Jas 5:7</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:16</a> · <a href="index_split_041.html#ch-b38-c5">Jer 5:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11659,7 +11659,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Beard, The, Birds, Fishes, Herbs, & C, Malice.",
+        "<strong>Topics.</strong> This verse appears under: Beard, The, Birds, Fishes, Herbs, &amp; C, Malice.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -11681,7 +11681,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-12-23">Deu 12:23</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-12-23">Deu 12:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11791,7 +11791,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-24-17">Lev 24:17</a> · <a href="index_split_052.html#ch-b60-c26">Mat 26:52</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#v-lev-24-17">Lev 24:17</a> · <a href="index_split_052.html#ch-b60-c26">Mat 26:52</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11967,7 +11967,7 @@ NOTES = [
         "word",
         "Hebrew",
         "b’rit — covenant cuts and bonds",
-        '<strong><em>B’rit</em> (בְּרִית) — covenant.</strong> The first explicit covenant in Scripture (the term was anticipated at 6:18). Etymology debated: traditionally connected with <em>barah</em> (“to cut”) — covenants were “cut” by passing between divided animal carcasses (compare <a href="index_split_001.html#vnote-gen-15-9">Gen 15:9–18</a>); alternatively, with Akkadian <em>biritu</em> (“fetter, bond”). The Noahic covenant is universal in scope (with “all flesh,” v.10) — the only covenant in Scripture made with non-human creation. Subsequent covenants narrow: Abrahamic (one family), Mosaic (one nation), Davidic (one dynasty), New (eschatological universal restoration). The covenantal arc moves from cosmic → ethnic → ecclesial → cosmic again.',
+        '<strong><em>B’rit</em> (בְּרִית) — covenant.</strong> The first explicit covenant in Scripture (the term was anticipated at 6:18). Etymology debated: traditionally connected with <em>barah</em> (“to cut”) — covenants were “cut” by passing between divided animal carcasses (compare <a href="index_split_001.html#v-gen-15-9">Gen 15:9–18</a>); alternatively, with Akkadian <em>biritu</em> (“fetter, bond”). The Noahic covenant is universal in scope (with “all flesh,” v.10) — the only covenant in Scripture made with non-human creation. Subsequent covenants narrow: Abrahamic (one family), Mosaic (one nation), Davidic (one dynasty), New (eschatological universal restoration). The covenantal arc moves from cosmic → ethnic → ecclesial → cosmic again.',
         "User original",
     ),
     (
@@ -12572,7 +12572,7 @@ NOTES = [
         "comm-rabbinic",
         "Note",
         "What was Ham’s sin?",
-        '<strong>The interpretive problem of Ham’s sin.</strong> The phrase <em>ra’ah ’ervat</em> (“see the nakedness of”) is sometimes a euphemism for sexual contact (compare <a href="index_split_006.html#vnote-lev-18-7">Leviticus 18:7–8</a> where “uncover the nakedness of your father” means having intercourse with one’s mother — a paternal-rights violation). Three main readings: (1) literal voyeurism — Ham looks and gossips, a violation of filial honor; (2) maternal incest — Ham violates Noah’s wife, with “Canaan” being the resulting offspring (Talmud, <em>b. Sanhedrin</em> 70a, suggests this); (3) paternal castration (also <em>b. Sanhedrin</em> 70a, alternative view) — explaining why Noah has no further sons and why Ham, who already has sons (10:6), is not himself cursed but rather Canaan (the youngest, displaced from the inheritance). The text is studiedly ambiguous; the curse on Canaan suggests a sexual or supplantation-of-inheritance reading.',
+        '<strong>The interpretive problem of Ham’s sin.</strong> The phrase <em>ra’ah ’ervat</em> (“see the nakedness of”) is sometimes a euphemism for sexual contact (compare <a href="index_split_006.html#v-lev-18-7">Leviticus 18:7–8</a> where “uncover the nakedness of your father” means having intercourse with one’s mother — a paternal-rights violation). Three main readings: (1) literal voyeurism — Ham looks and gossips, a violation of filial honor; (2) maternal incest — Ham violates Noah’s wife, with “Canaan” being the resulting offspring (Talmud, <em>b. Sanhedrin</em> 70a, suggests this); (3) paternal castration (also <em>b. Sanhedrin</em> 70a, alternative view) — explaining why Noah has no further sons and why Ham, who already has sons (10:6), is not himself cursed but rather Canaan (the youngest, displaced from the inheritance). The text is studiedly ambiguous; the curse on Canaan suggests a sexual or supplantation-of-inheritance reading.',
         "User paraphrase; references Talmud",
     ),
     (
@@ -14640,7 +14640,7 @@ NOTES = [
         "comm",
         "Note",
         "Shinar — the Sumerian heartland",
-        '<strong>Shinar = Sumer.</strong> The Hebrew <em>Shin‘ar</em> is the standard biblical name for southern Mesopotamia — the alluvial plain between the Tigris and Euphrates, the heartland of Sumer and (later) Babylonia. The same term appears in the post-Flood description of Nimrod’s kingdom (<a href="index_split_001.html#vnote-gen-10-10">Gen 10:10</a>: Babel, Erech [Uruk], Accad [Akkad], Calneh — all in Shinar) and in <a href="index_split_047.html#ch-b44-c1">Daniel 1:2</a> (the temple vessels carried to “the land of Shinar”). The plain’s tellingly flat topography is the geological precondition for the tower-building project: when stone is unavailable, kiln-fired bricks become the building material — exactly what 11:3 specifies.',
+        '<strong>Shinar = Sumer.</strong> The Hebrew <em>Shin‘ar</em> is the standard biblical name for southern Mesopotamia — the alluvial plain between the Tigris and Euphrates, the heartland of Sumer and (later) Babylonia. The same term appears in the post-Flood description of Nimrod’s kingdom (<a href="index_split_001.html#v-gen-10-10">Gen 10:10</a>: Babel, Erech [Uruk], Accad [Akkad], Calneh — all in Shinar) and in <a href="index_split_047.html#ch-b44-c1">Daniel 1:2</a> (the temple vessels carried to “the land of Shinar”). The plain’s tellingly flat topography is the geological precondition for the tower-building project: when stone is unavailable, kiln-fired bricks become the building material — exactly what 11:3 specifies.',
         "User original",
     ),
     (
@@ -14684,7 +14684,7 @@ NOTES = [
         "comm-contextual",
         "Note",
         "Mesopotamian construction",
-        '<strong>Mesopotamian construction technology.</strong> The detail “brick for stone, tar (bitumen) for mortar” is a precise ethnographic note — Egyptian construction used hewn stone (the pyramids); Levantine construction used local field stone; only southern Mesopotamia, lacking quarryable rock and forest, developed the kiln-fired brick + bitumen technique. Bitumen seeps were abundant in the Tigris-Euphrates valley (used also in the Atrahasis ark). The Genesis writer’s awareness of the constructional fact suggests genuine knowledge of Mesopotamian building practice. <a href="index_split_003.html#vnote-exo-1-14">Exodus 1:14</a> echoes the same vocabulary in the Egyptian slavery account — but with mud bricks (<em>chomer</em>), not fired ones.',
+        '<strong>Mesopotamian construction technology.</strong> The detail “brick for stone, tar (bitumen) for mortar” is a precise ethnographic note — Egyptian construction used hewn stone (the pyramids); Levantine construction used local field stone; only southern Mesopotamia, lacking quarryable rock and forest, developed the kiln-fired brick + bitumen technique. Bitumen seeps were abundant in the Tigris-Euphrates valley (used also in the Atrahasis ark). The Genesis writer’s awareness of the constructional fact suggests genuine knowledge of Mesopotamian building practice. <a href="index_split_003.html#v-exo-1-14">Exodus 1:14</a> echoes the same vocabulary in the Egyptian slavery account — but with mud bricks (<em>chomer</em>), not fired ones.',
         "User paraphrase; references Atrahasis",
     ),
     (
@@ -14761,7 +14761,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c5">Jhn 5:44</a> · <a href="index_split_008.html#vnote-deu-1-28">Deu 1:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c5">Jhn 5:44</a> · <a href="index_split_008.html#v-deu-1-28">Deu 1:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15696,7 +15696,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-7-9">2Sa 7:9</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:14</a> · <a href="index_split_001.html#vnote-gen-18-18">Gen 18:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-7-9">2Sa 7:9</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:14</a> · <a href="index_split_001.html#v-gen-18-18">Gen 18:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15707,7 +15707,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-7-9">2Sa 7:9</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:14</a> · <a href="index_split_001.html#vnote-gen-18-18">Gen 18:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-7-9">2Sa 7:9</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:14</a> · <a href="index_split_001.html#v-gen-18-18">Gen 18:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15740,7 +15740,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b68-c3">Gal 3:8</a> · <a href="index_split_001.html#vnote-gen-22-18">Gen 22:18</a> · <a href="index_split_055.html#ch-b64-c3">Act 3:25</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b68-c3">Gal 3:8</a> · <a href="index_split_001.html#v-gen-22-18">Gen 22:18</a> · <a href="index_split_055.html#ch-b64-c3">Act 3:25</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15751,7 +15751,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b68-c3">Gal 3:8</a> · <a href="index_split_001.html#vnote-gen-22-18">Gen 22:18</a> · <a href="index_split_055.html#ch-b64-c3">Act 3:25</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b68-c3">Gal 3:8</a> · <a href="index_split_001.html#v-gen-22-18">Gen 22:18</a> · <a href="index_split_055.html#ch-b64-c3">Act 3:25</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18402,7 +18402,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-23">Jas 2:23</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:6</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-2-23">Jas 2:23</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:6</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18413,7 +18413,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-23">Jas 2:23</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:6</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-2-23">Jas 2:23</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:6</a> · <a href="index_split_056.html#ch-b65-c4">Rom 4:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18908,7 +18908,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-1-3">Jos 1:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-1-3">Jos 1:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19524,7 +19524,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c139">Psa 139:1</a> · <a href="index_split_002.html#vnote-gen-32-30">Gen 32:30</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_035.html#ch-b30-c139">Psa 139:1</a> · <a href="index_split_002.html#v-gen-32-30">Gen 32:30</a> · <a href="index_split_036.html#ch-b32-c15">Pro 15:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19689,7 +19689,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-4-13">Php 4:13</a> · <a href="index_split_058.html#ch-b69-c3">Eph 3:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-4-13">Php 4:13</a> · <a href="index_split_058.html#ch-b69-c3">Eph 3:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19700,7 +19700,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-4-13">Php 4:13</a> · <a href="index_split_058.html#ch-b69-c3">Eph 3:20</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-4-13">Php 4:13</a> · <a href="index_split_058.html#ch-b69-c3">Eph 3:20</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19755,7 +19755,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-17-4">Gen 17:4</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-17-4">Gen 17:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19920,7 +19920,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-17-4">Gen 17:4</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-17-4">Gen 17:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -21372,7 +21372,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c3">1Ti 3:4</a> · <a href="index_split_008.html#vnote-deu-6-6">Deu 6:6</a> · <a href="index_split_008.html#vnote-deu-4-9">Deu 4:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b74-c3">1Ti 3:4</a> · <a href="index_split_008.html#v-deu-6-6">Deu 6:6</a> · <a href="index_split_008.html#v-deu-4-9">Deu 4:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22318,7 +22318,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:16</a> · <a href="index_split_053.html#ch-b62-c9">Luk 9:62</a> · <a href="index_split_058.html#vnote-phi-3-13">Php 3:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c24">Mat 24:16</a> · <a href="index_split_053.html#ch-b62-c9">Luk 9:62</a> · <a href="index_split_058.html#v-phi-3-13">Php 3:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -23550,7 +23550,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c12">Psa 12:6</a> · <a href="index_split_001.html#vnote-gen-18-10">Gen 18:10</a> · <a href="index_split_001.html#vnote-gen-18-14">Gen 18:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c12">Psa 12:6</a> · <a href="index_split_001.html#v-gen-18-10">Gen 18:10</a> · <a href="index_split_001.html#v-gen-18-14">Gen 18:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -24760,7 +24760,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c11">Heb 11:17</a> · <a href="index_split_059.html#vnote-jam-2-21">Jas 2:21</a> · <a href="index_split_008.html#vnote-deu-8-2">Deu 8:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c11">Heb 11:17</a> · <a href="index_split_059.html#v-jam-2-21">Jas 2:21</a> · <a href="index_split_008.html#v-deu-8-2">Deu 8:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25178,7 +25178,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-2-21">Jas 2:21</a> · <a href="index_split_059.html#vnote-jam-2-18">Jas 2:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-2-21">Jas 2:21</a> · <a href="index_split_059.html#v-jam-2-18">Jas 2:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25266,7 +25266,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-22-13">Gen 22:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-22-13">Gen 22:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25277,7 +25277,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-22-13">Gen 22:13</a> · <a href="index_split_003.html#vnote-exo-17-15">Exo 17:15</a> · <a href="index_split_009.html#vnote-jdg-6-24">Jdg 6:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-22-13">Gen 22:13</a> · <a href="index_split_003.html#v-exo-17-15">Exo 17:15</a> · <a href="index_split_009.html#v-jdg-6-24">Jdg 6:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25464,7 +25464,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c3">Act 3:25</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:16</a> · <a href="index_split_001.html#vnote-gen-12-3">Gen 12:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c3">Act 3:25</a> · <a href="index_split_058.html#ch-b68-c3">Gal 3:16</a> · <a href="index_split_001.html#v-gen-12-3">Gen 12:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -28434,7 +28434,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-22-17">Gen 22:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-22-17">Gen 22:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -28940,7 +28940,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-35-28">Gen 35:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-35-28">Gen 35:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -29820,7 +29820,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Gluttony, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Gluttony, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -32295,7 +32295,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:51</a> · <a href="index_split_002.html#vnote-gen-32-1">Gen 32:1</a> · <a href="index_split_007.html#vnote-num-12-6">Num 12:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c1">Jhn 1:51</a> · <a href="index_split_002.html#v-gen-32-1">Gen 32:1</a> · <a href="index_split_007.html#v-num-12-6">Num 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -32493,7 +32493,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-1-5">Jos 1:5</a> · <a href="index_split_040.html#ch-b37-c41">Isa 41:10</a> · <a href="index_split_041.html#ch-b38-c1">Jer 1:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-1-5">Jos 1:5</a> · <a href="index_split_040.html#ch-b37-c41">Isa 41:10</a> · <a href="index_split_041.html#ch-b38-c1">Jer 1:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -32504,7 +32504,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-1-5">Jos 1:5</a> · <a href="index_split_040.html#ch-b37-c41">Isa 41:10</a> · <a href="index_split_041.html#ch-b38-c1">Jer 1:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-1-5">Jos 1:5</a> · <a href="index_split_040.html#ch-b37-c41">Isa 41:10</a> · <a href="index_split_041.html#ch-b38-c1">Jer 1:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -32834,7 +32834,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-35-7">Gen 35:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-35-7">Gen 35:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -34121,7 +34121,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -42272,7 +42272,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_011.html#vnote-1sa-18-14">1Sa 18:14</a> · <a href="index_split_034.html#ch-b30-c91">Psa 91:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_011.html#v-1sa-18-14">1Sa 18:14</a> · <a href="index_split_034.html#ch-b30-c91">Psa 91:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -42283,7 +42283,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_011.html#vnote-1sa-18-14">1Sa 18:14</a> · <a href="index_split_034.html#ch-b30-c91">Psa 91:15</a> · <a href="index_split_041.html#ch-b38-c15">Jer 15:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_011.html#v-1sa-18-14">1Sa 18:14</a> · <a href="index_split_034.html#ch-b30-c91">Psa 91:15</a> · <a href="index_split_041.html#ch-b38-c15">Jer 15:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -48630,7 +48630,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-50-20">Gen 50:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-50-20">Gen 50:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -52183,7 +52183,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c1">Luk 1:32</a> · <a href="index_split_007.html#vnote-num-24-17">Num 24:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c1">Luk 1:32</a> · <a href="index_split_007.html#v-num-24-17">Num 24:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -53547,7 +53547,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:28</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:71</a> · <a href="index_split_002.html#vnote-gen-45-5">Gen 45:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:28</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:71</a> · <a href="index_split_002.html#v-gen-45-5">Gen 45:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -53558,7 +53558,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:28</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:71</a> · <a href="index_split_002.html#vnote-gen-45-5">Gen 45:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_056.html#ch-b65-c8">Rom 8:28</a> · <a href="index_split_034.html#ch-b30-c119">Psa 119:71</a> · <a href="index_split_002.html#v-gen-45-5">Gen 45:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

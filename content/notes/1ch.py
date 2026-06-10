@@ -13079,7 +13079,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:10</a> · <a href="index_split_058.html#vnote-phi-4-13">Php 4:13</a> · <a href="index_split_034.html#ch-b30-c100">Psa 100:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c15">1Co 15:10</a> · <a href="index_split_058.html#v-phi-4-13">Php 4:13</a> · <a href="index_split_034.html#ch-b30-c100">Psa 100:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -13574,7 +13574,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Syria, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Syria, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -15895,7 +15895,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, Temple, the First.",
+        "<strong>Topics.</strong> This verse appears under: The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, Temple, the First.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -21197,7 +21197,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#v-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -21208,7 +21208,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#vnote-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_042.html#ch-b38-c29">Jer 29:13</a> · <a href="index_split_059.html#v-jam-4-8">Jas 4:8</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

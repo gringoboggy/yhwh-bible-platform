@@ -94,6 +94,7 @@ def main(path: str) -> int:
     unresolved = 0
     total_refs = 0
     promoted = 0
+    hidden_body_links = 0
     dup_ids: dict[str, int] = {}
     seen_in: dict[str, str] = {}
     for n in pieces:
@@ -116,8 +117,18 @@ def main(path: str) -> int:
                 promoted += 1
             elif target.startswith("#") and target[1:] not in ids:
                 unresolved += 1
+        # round-7 5.2 — gate 2b: note-BODY links must never target a hidden
+        # #vnote- container (href-FIRST attribute order = the body-link class;
+        # vn-link noterefs start with class= and never match). A hidden target
+        # makes Kobo navigate to file start (the teleport class).
+        hidden_body_links += len(re.findall(r'<a href="(?:[A-Za-z0-9_.-]+\.html)?#vnote-', t))
     if unresolved:
         fails.append(f"{unresolved}/{total_refs} noterefs unresolved in-file")
+    if hidden_body_links:
+        fails.append(
+            f"{hidden_body_links} note-body link(s) target hidden #vnote- containers "
+            "(Kobo teleport class — retarget to the visible #v- anchors; round-7 5.2)"
+        )
     if promoted:
         fails.append(
             f"{promoted}/{total_refs} noterefs PROMOTED to cross-file links "

@@ -39,3 +39,18 @@ def test_render_is_sha256sum_compatible(tmp_path):
 def test_no_artifacts_returns_empty(tmp_path):
     (tmp_path / "readme.md").write_text("nothing to hash")
     assert gen_checksums(tmp_path) == []
+
+
+def test_epub_and_kepub_included_by_default(tmp_path):
+    """round-7 3.1: .epub was missing from DEFAULT_EXTS, so the EPUB + kepub
+    asset families were silently absent from every default-invocation
+    SHA256SUMS (notary_autofinish.sh passes no --ext). The suffix-tuple match
+    makes one ".epub" entry cover ".kepub.epub" too."""
+    (tmp_path / "Ethiopian_Bible_ethiopian-tewahedo_v0.1.0.epub").write_bytes(b"epub")
+    (tmp_path / "Ethiopian_Bible_ethiopian-tewahedo_v0.1.0.kepub.epub").write_bytes(b"kepub")
+    (tmp_path / "YHWH-0.1.0.dmg").write_bytes(b"mac")
+
+    names = [name for _, name in gen_checksums(tmp_path)]
+    assert "Ethiopian_Bible_ethiopian-tewahedo_v0.1.0.epub" in names
+    assert "Ethiopian_Bible_ethiopian-tewahedo_v0.1.0.kepub.epub" in names
+    assert "YHWH-0.1.0.dmg" in names

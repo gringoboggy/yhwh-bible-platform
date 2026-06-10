@@ -110,7 +110,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-15-21">Deu 15:21</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a> · <a href="index_split_006.html#vnote-lev-22-19">Lev 22:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-15-21">Deu 15:21</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a> · <a href="index_split_006.html#v-lev-22-19">Lev 22:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -121,7 +121,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-15-21">Deu 15:21</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a> · <a href="index_split_006.html#vnote-lev-22-19">Lev 22:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-15-21">Deu 15:21</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a> · <a href="index_split_006.html#v-lev-22-19">Lev 22:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1012,7 +1012,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-43-24">Ezk 43:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-43-24">Ezk 43:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6249,7 +6249,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -7779,7 +7779,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-26-61">Num 26:61</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#v-num-26-61">Num 26:61</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -7856,7 +7856,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_003.html#vnote-exo-19-22">Exo 19:22</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_003.html#v-exo-19-22">Exo 19:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9804,7 +9804,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_003.html#vnote-exo-20-2">Exo 20:2</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_006.html#vnote-lev-19-2">Lev 19:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_003.html#v-exo-20-2">Exo 20:2</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_006.html#v-lev-19-2">Lev 19:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9881,7 +9881,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_005.html#vnote-lev-11-44">Lev 11:44</a> · <a href="index_split_003.html#vnote-exo-20-2">Exo 20:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_005.html#v-lev-11-44">Lev 11:44</a> · <a href="index_split_003.html#v-exo-20-2">Exo 20:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16428,7 +16428,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-20-13">Lev 20:13</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#v-lev-20-13">Lev 20:13</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16439,7 +16439,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-20-13">Lev 20:13</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#v-lev-20-13">Lev 20:13</a> · <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_056.html#ch-b65-c1">Rom 1:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16670,7 +16670,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_005.html#vnote-lev-11-44">Lev 11:44</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_005.html#v-lev-11-44">Lev 11:44</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16681,7 +16681,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_005.html#vnote-lev-11-44">Lev 11:44</a> · <a href="index_split_006.html#vnote-lev-20-7">Lev 20:7</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_005.html#v-lev-11-44">Lev 11:44</a> · <a href="index_split_006.html#v-lev-20-7">Lev 20:7</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17793,7 +17793,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-14-1">Deu 14:1</a> · <a href="index_split_014.html#ch-b10-c18">1Ki 18:28</a> · <a href="index_split_006.html#vnote-lev-21-5">Lev 21:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-14-1">Deu 14:1</a> · <a href="index_split_014.html#ch-b10-c18">1Ki 18:28</a> · <a href="index_split_006.html#v-lev-21-5">Lev 21:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18420,7 +18420,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_005.html#vnote-lev-11-44">Lev 11:44</a> · <a href="index_split_006.html#vnote-lev-19-2">Lev 19:2</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_005.html#v-lev-11-44">Lev 11:44</a> · <a href="index_split_006.html#v-lev-19-2">Lev 19:2</a> · <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -18630,7 +18630,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_006.html#vnote-lev-18-22">Lev 18:22</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b66-c6">1Co 6:9</a> · <a href="index_split_006.html#v-lev-18-22">Lev 18:22</a> · <a href="index_split_059.html#ch-b85-c1">Jud 1:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19015,7 +19015,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_006.html#vnote-lev-20-7">Lev 20:7</a> · <a href="index_split_006.html#vnote-lev-20-24">Lev 20:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b80-c1">1Pe 1:15</a> · <a href="index_split_006.html#v-lev-20-7">Lev 20:7</a> · <a href="index_split_006.html#v-lev-20-24">Lev 20:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -23989,7 +23989,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-28-8">Deu 28:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-28-8">Deu 28:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25298,7 +25298,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-23-10">Jos 23:10</a> · <a href="index_split_008.html#vnote-deu-28-7">Deu 28:7</a> · <a href="index_split_009.html#vnote-deu-32-30">Deu 32:30</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-23-10">Jos 23:10</a> · <a href="index_split_008.html#v-deu-28-7">Deu 28:7</a> · <a href="index_split_009.html#v-deu-32-30">Deu 32:30</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

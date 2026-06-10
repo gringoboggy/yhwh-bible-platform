@@ -754,6 +754,17 @@ class TestNoteRehaulS3aHelpers:
         out = _parse_topic_terms("ZZZNOTATOPIC, GOD", _topic_vocab())
         assert out == ["ZZZNOTATOPIC", "GOD"]
 
+    def test_parse_five_token_compound_topic_stays_whole(self):
+        # round-7 5.1: the span window was capped at 3 tokens, so Nave's real
+        # 5-token compound "MANASSEH, NAPHTALI, REUBEN, SIMEON, ZEBULUN" (a
+        # topics key in naves_topical.json) could never longest-match and
+        # fragmented into single-token topics. The window is now uncapped;
+        # vocab membership still gates every candidate span.
+        from scripts.build_edition import _parse_topic_terms, _topic_vocab
+
+        out = _parse_topic_terms("MANASSEH, NAPHTALI, REUBEN, SIMEON, ZEBULUN", _topic_vocab())
+        assert out == ["MANASSEH, NAPHTALI, REUBEN, SIMEON, ZEBULUN"]
+
     def test_title_topic_handles_caps_commas_and_apostrophes(self):
         from scripts.build_edition import _title_topic
 

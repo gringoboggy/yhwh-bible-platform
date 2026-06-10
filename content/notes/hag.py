@@ -187,7 +187,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b57-c1">Hag 1:9</a> · <a href="index_split_008.html#vnote-deu-28-38">Deu 28:38</a> · <a href="index_split_049.html#ch-b48-c4">Hos 4:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b57-c1">Hag 1:9</a> · <a href="index_split_008.html#v-deu-28-38">Deu 28:38</a> · <a href="index_split_049.html#ch-b48-c4">Hos 4:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

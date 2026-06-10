@@ -142,7 +142,10 @@ class TestRenumberMarkers:
         from scripts.resync_marker_glyphs import renumber_markers
 
         once, _ = renumber_markers(_ch("b74", 1) + OLD_MARKER)
-        twice, n2 = renumber_markers(once)
+        # The returned count is matches-SEEN (the regex re-matches pass-1's own
+        # marker-num output), not mutations-made — so this test pins OUTPUT
+        # stability only; no useful assertion exists on the second count.
+        twice, _ = renumber_markers(once)
         assert twice == once  # numbers stay stable on a second run
 
     def test_cross_ref_href_does_not_reset_numbering(self):

@@ -1401,14 +1401,20 @@ class TestOmega35B7PreflightExtraction:
         )
 
     def test_route_table_still_dispatches_preflight_and_help(self):
-        # Preflight + apihelp are dispatched via _SIMPLE_GET_ROUTES.
-        # Pin that the table entries still point at the (re-imported)
-        # functions — same name, same callable.
-        from scripts.web import _SIMPLE_GET_ROUTES, api_help_data, api_preflight
+        # Preflight is dispatched via _SIMPLE_GET_ROUTES. /api/apihelp
+        # moved to _REGEX_GET_ROUTES (5.10, 2026-06-10 audit — its
+        # source_read_failed {status:error, http:500} envelope needs the
+        # error-translating dispatch; the simple table always sends 200).
+        # Pin both dispatch points still wire the (re-imported) handler.
+        from scripts.web import _REGEX_GET_ROUTES, _SIMPLE_GET_ROUTES, api_preflight
 
         paths = {p: h for p, h in _SIMPLE_GET_ROUTES}
         assert paths.get("/api/preflight") is api_preflight
-        assert paths.get("/api/apihelp") is api_help_data
+        assert "/api/apihelp" not in paths
+        entry = next((h for rx, h in _REGEX_GET_ROUTES if rx.pattern == r"^/api/apihelp$"), None)
+        assert entry is not None, "/api/apihelp missing from _REGEX_GET_ROUTES"
+        result = entry()  # the lambda dispatches to api_help_data
+        assert result["status"] == "ok" and "api_routes" in result
 
     def test_route_table_still_dispatches_audit_log(self):
         # /api/audit-log lives in _QS_REGEX_GET_ROUTES (querystring n).

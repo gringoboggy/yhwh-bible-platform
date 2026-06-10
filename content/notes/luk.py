@@ -231,7 +231,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-7-1">Gen 7:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-7-1">Gen 7:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -473,7 +473,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-2-21">1Sa 2:21</a> · <a href="index_split_055.html#ch-b64-c10">Act 10:31</a> · <a href="index_split_001.html#vnote-gen-25-21">Gen 25:21</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-2-21">1Sa 2:21</a> · <a href="index_split_055.html#ch-b64-c10">Act 10:31</a> · <a href="index_split_001.html#v-gen-25-21">Gen 25:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -891,7 +891,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_002.html#vnote-gen-30-22">Gen 30:22</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_002.html#v-gen-30-22">Gen 30:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1001,7 +1001,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jdg-6-12">Jdg 6:12</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:30</a> · <a href="index_split_047.html#ch-b44-c10">Dan 10:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jdg-6-12">Jdg 6:12</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:30</a> · <a href="index_split_047.html#ch-b44-c10">Dan 10:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1837,7 +1837,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-2-1">1Sa 2:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-2-1">1Sa 2:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1848,7 +1848,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-2-1">1Sa 2:1</a> · <a href="index_split_033.html#ch-b30-c34">Psa 34:2</a> · <a href="index_split_033.html#ch-b30-c35">Psa 35:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-2-1">1Sa 2:1</a> · <a href="index_split_033.html#ch-b30-c34">Psa 34:2</a> · <a href="index_split_033.html#ch-b30-c35">Psa 35:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2046,7 +2046,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c103">Psa 103:17</a> · <a href="index_split_003.html#vnote-exo-20-6">Exo 20:6</a> · <a href="index_split_001.html#vnote-gen-17-7">Gen 17:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c103">Psa 103:17</a> · <a href="index_split_003.html#v-exo-20-6">Exo 20:6</a> · <a href="index_split_001.html#v-gen-17-7">Gen 17:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2112,7 +2112,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-17-24">Ezk 17:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#v-eze-17-24">Ezk 17:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3916,7 +3916,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_003.html#vnote-exo-13-2">Exo 13:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_003.html#v-exo-13-2">Exo 13:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3971,7 +3971,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_005.html#vnote-lev-12-6">Lev 12:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_005.html#v-lev-12-6">Lev 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5071,7 +5071,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c2">Luk 2:40</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:3</a> · <a href="index_split_010.html#vnote-1sa-2-26">1Sa 2:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c2">Luk 2:40</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:3</a> · <a href="index_split_010.html#v-1sa-2-26">1Sa 2:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5082,7 +5082,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c2">Luk 2:40</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:3</a> · <a href="index_split_010.html#vnote-1sa-2-26">1Sa 2:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c2">Luk 2:40</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:3</a> · <a href="index_split_010.html#v-1sa-2-26">1Sa 2:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6677,7 +6677,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-8-3">Deu 8:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-8-3">Deu 8:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6688,7 +6688,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-8-3">Deu 8:3</a> · <a href="index_split_051.html#ch-b60-c4">Mat 4:4</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-8-3">Deu 8:3</a> · <a href="index_split_051.html#ch-b60-c4">Mat 4:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6798,7 +6798,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-6-13">Deu 6:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-6-13">Deu 6:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6809,7 +6809,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-6-13">Deu 6:13</a> · <a href="index_split_008.html#vnote-deu-10-20">Deu 10:20</a> · <a href="index_split_051.html#ch-b60-c4">Mat 4:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-6-13">Deu 6:13</a> · <a href="index_split_008.html#v-deu-10-20">Deu 10:20</a> · <a href="index_split_051.html#ch-b60-c4">Mat 4:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6974,7 +6974,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-6-16">Deu 6:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-6-16">Deu 6:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6985,7 +6985,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-6-16">Deu 6:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-6-16">Deu 6:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8965,7 +8965,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_011.html#vnote-1sa-21-3">1Sa 21:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_011.html#v-1sa-21-3">1Sa 21:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -8976,7 +8976,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_011.html#vnote-1sa-21-3">1Sa 21:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_011.html#v-1sa-21-3">1Sa 21:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9614,7 +9614,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:19</a> · <a href="index_split_059.html#vnote-jam-4-4">Jas 4:4</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:19</a> · <a href="index_split_059.html#v-jam-4-4">Jas 4:4</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9988,7 +9988,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c4">Eph 4:32</a> · <a href="index_split_059.html#vnote-jam-5-9">Jas 5:9</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c4">Eph 4:32</a> · <a href="index_split_059.html#v-jam-5-9">Jas 5:9</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9999,7 +9999,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c4">Eph 4:32</a> · <a href="index_split_059.html#vnote-jam-5-9">Jas 5:9</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c4">Eph 4:32</a> · <a href="index_split_059.html#v-jam-5-9">Jas 5:9</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -10032,7 +10032,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c9">2Co 9:6</a> · <a href="index_split_008.html#vnote-deu-15-10">Deu 15:10</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c9">2Co 9:6</a> · <a href="index_split_008.html#v-deu-15-10">Deu 15:10</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -10043,7 +10043,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c9">2Co 9:6</a> · <a href="index_split_008.html#vnote-deu-15-10">Deu 15:10</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c9">2Co 9:6</a> · <a href="index_split_008.html#v-deu-15-10">Deu 15:10</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -10318,7 +10318,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-22">Jas 1:22</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:24</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-22">Jas 1:22</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:24</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -10329,7 +10329,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-22">Jas 1:22</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:24</a> · <a href="index_split_053.html#ch-b62-c11">Luk 11:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-22">Jas 1:22</a> · <a href="index_split_051.html#ch-b60-c7">Mat 7:24</a> · <a href="index_split_053.html#ch-b62-c11">Luk 11:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -14663,7 +14663,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-13">Php 3:13</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:38</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-3-13">Php 3:13</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:38</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -14674,7 +14674,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-13">Php 3:13</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:38</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-3-13">Php 3:13</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:38</a> · <a href="index_split_059.html#ch-b81-c2">2Pe 2:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15686,7 +15686,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b61-c12">Mrk 12:30</a> · <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_008.html#vnote-deu-6-5">Deu 6:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b61-c12">Mrk 12:30</a> · <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_008.html#v-deu-6-5">Deu 6:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15697,7 +15697,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b61-c12">Mrk 12:30</a> · <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_008.html#vnote-deu-6-5">Deu 6:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b61-c12">Mrk 12:30</a> · <a href="index_split_052.html#ch-b60-c22">Mat 22:37</a> · <a href="index_split_008.html#v-deu-6-5">Deu 6:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16148,7 +16148,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-4-6">Php 4:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-4-6">Php 4:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16159,7 +16159,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-4-6">Php 4:6</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:19</a> · <a href="index_split_054.html#ch-b62-c21">Luk 21:34</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-4-6">Php 4:6</a> · <a href="index_split_052.html#ch-b61-c4">Mrk 4:19</a> · <a href="index_split_054.html#ch-b62-c21">Luk 21:34</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -16610,7 +16610,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-3">Jas 4:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-4-3">Jas 4:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17655,7 +17655,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Herbs, & C, Justice, Love to God, Self-Righteousness, Tithe.",
+        "<strong>Topics.</strong> This verse appears under: Herbs, &amp; C, Justice, Love to God, Self-Righteousness, Tithe.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -18700,7 +18700,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:25</a> · <a href="index_split_058.html#vnote-phi-4-6">Php 4:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:25</a> · <a href="index_split_058.html#v-phi-4-6">Php 4:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19195,7 +19195,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b71-c3">Col 3:1</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:21</a> · <a href="index_split_058.html#vnote-phi-3-20">Php 3:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b71-c3">Col 3:1</a> · <a href="index_split_051.html#ch-b60-c6">Mat 6:21</a> · <a href="index_split_058.html#v-phi-3-20">Php 3:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19701,7 +19701,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-4-17">Jas 4:17</a> · <a href="index_split_054.html#ch-b63-c9">Jhn 9:41</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-4-17">Jas 4:17</a> · <a href="index_split_054.html#ch-b63-c9">Jhn 9:41</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19745,7 +19745,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-3-1">Jas 3:1</a> · <a href="index_split_005.html#vnote-lev-5-17">Lev 5:17</a> · <a href="index_split_054.html#ch-b62-c16">Luk 16:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-3-1">Jas 3:1</a> · <a href="index_split_005.html#v-lev-5-17">Lev 5:17</a> · <a href="index_split_054.html#ch-b62-c16">Luk 16:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -21758,7 +21758,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c10">Mat 10:37</a> · <a href="index_split_054.html#ch-b63-c12">Jhn 12:25</a> · <a href="index_split_058.html#vnote-phi-3-8">Php 3:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c10">Mat 10:37</a> · <a href="index_split_054.html#ch-b63-c12">Jhn 12:25</a> · <a href="index_split_058.html#v-phi-3-8">Php 3:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -21769,7 +21769,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c10">Mat 10:37</a> · <a href="index_split_054.html#ch-b63-c12">Jhn 12:25</a> · <a href="index_split_058.html#vnote-phi-3-8">Php 3:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c10">Mat 10:37</a> · <a href="index_split_054.html#ch-b63-c12">Jhn 12:25</a> · <a href="index_split_058.html#v-phi-3-8">Php 3:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22022,7 +22022,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#vnote-phi-3-7">Php 3:7</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:15</a> · <a href="index_split_053.html#ch-b62-c5">Luk 5:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#v-phi-3-7">Php 3:7</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:15</a> · <a href="index_split_053.html#ch-b62-c5">Luk 5:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22187,7 +22187,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-34-16">Ezk 34:16</a> · <a href="index_split_046.html#vnote-eze-34-11">Ezk 34:11</a> · <a href="index_split_051.html#ch-b60-c18">Mat 18:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-34-16">Ezk 34:16</a> · <a href="index_split_046.html#v-eze-34-11">Ezk 34:11</a> · <a href="index_split_051.html#ch-b60-c18">Mat 18:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22407,7 +22407,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b62-c15">Luk 15:7</a> · <a href="index_split_046.html#vnote-eze-33-11">Ezk 33:11</a> · <a href="index_split_057.html#ch-b67-c7">2Co 7:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b62-c15">Luk 15:7</a> · <a href="index_split_046.html#v-eze-33-11">Ezk 33:11</a> · <a href="index_split_057.html#ch-b67-c7">2Co 7:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22627,7 +22627,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-18-28">Ezk 18:28</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#v-eze-18-28">Ezk 18:28</a> · <a href="index_split_058.html#ch-b69-c2">Eph 2:4</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -22935,7 +22935,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:5</a> · <a href="index_split_046.html#vnote-eze-34-16">Ezk 34:16</a> · <a href="index_split_054.html#ch-b62-c19">Luk 19:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b69-c2">Eph 2:5</a> · <a href="index_split_046.html#v-eze-34-16">Ezk 34:16</a> · <a href="index_split_054.html#ch-b62-c19">Luk 19:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -23705,7 +23705,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_036.html#ch-b32-c21">Pro 21:2</a> · <a href="index_split_010.html#vnote-1sa-16-7">1Sa 16:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_036.html#ch-b32-c21">Pro 21:2</a> · <a href="index_split_010.html#v-1sa-16-7">1Sa 16:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -23716,7 +23716,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_036.html#ch-b32-c21">Pro 21:2</a> · <a href="index_split_010.html#vnote-1sa-16-7">1Sa 16:7</a> · <a href="index_split_057.html#ch-b66-c4">1Co 4:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_036.html#ch-b32-c21">Pro 21:2</a> · <a href="index_split_010.html#v-1sa-16-7">1Sa 16:7</a> · <a href="index_split_057.html#ch-b66-c4">1Co 4:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -24255,7 +24255,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_006.html#vnote-lev-19-17">Lev 19:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_006.html#v-lev-19-17">Lev 19:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25729,7 +25729,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c14">Luk 14:11</a> · <a href="index_split_054.html#ch-b62-c16">Luk 16:15</a> · <a href="index_split_059.html#vnote-jam-4-10">Jas 4:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c14">Luk 14:11</a> · <a href="index_split_054.html#ch-b62-c16">Luk 16:15</a> · <a href="index_split_059.html#v-jam-4-10">Jas 4:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -26741,7 +26741,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-12-6">2Sa 12:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-12-6">2Sa 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -26851,7 +26851,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-34-16">Ezk 34:16</a> · <a href="index_split_051.html#ch-b60-c1">Mat 1:21</a> · <a href="index_split_058.html#ch-b74-c1">1Ti 1:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-34-16">Ezk 34:16</a> · <a href="index_split_051.html#ch-b60-c1">Mat 1:21</a> · <a href="index_split_058.html#ch-b74-c1">1Ti 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -26862,7 +26862,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-34-16">Ezk 34:16</a> · <a href="index_split_051.html#ch-b60-c1">Mat 1:21</a> · <a href="index_split_058.html#ch-b74-c1">1Ti 1:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-34-16">Ezk 34:16</a> · <a href="index_split_051.html#ch-b60-c1">Mat 1:21</a> · <a href="index_split_058.html#ch-b74-c1">1Ti 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -29128,7 +29128,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:36</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:22</a> · <a href="index_split_059.html#vnote-jam-1-3">Jas 1:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b78-c10">Heb 10:36</a> · <a href="index_split_051.html#ch-b60-c10">Mat 10:22</a> · <a href="index_split_059.html#v-jam-1-3">Jas 1:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -29216,7 +29216,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c13">Isa 13:10</a> · <a href="index_split_050.html#vnote-joe-2-30">Jol 2:30</a> · <a href="index_split_059.html#ch-b86-c6">Rev 6:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c13">Isa 13:10</a> · <a href="index_split_050.html#v-joe-2-30">Jol 2:30</a> · <a href="index_split_059.html#ch-b86-c6">Rev 6:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -29392,7 +29392,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-5-9">Jas 5:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-5-9">Jas 5:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -33726,7 +33726,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c7">Isa 7:14</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:44</a> · <a href="index_split_008.html#vnote-deu-18-15">Deu 18:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_039.html#ch-b37-c7">Isa 7:14</a> · <a href="index_split_054.html#ch-b62-c24">Luk 24:44</a> · <a href="index_split_008.html#v-deu-18-15">Deu 18:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -34496,7 +34496,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c1">Act 1:8</a> · <a href="index_split_055.html#ch-b64-c1">Act 1:4</a> · <a href="index_split_050.html#vnote-joe-2-28">Jol 2:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_055.html#ch-b64-c1">Act 1:8</a> · <a href="index_split_055.html#ch-b64-c1">Act 1:4</a> · <a href="index_split_050.html#v-joe-2-28">Jol 2:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

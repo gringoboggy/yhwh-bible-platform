@@ -814,7 +814,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c6">2Co 6:14</a> · <a href="index_split_001.html#vnote-gen-17-1">Gen 17:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_057.html#ch-b67-c6">2Co 6:14</a> · <a href="index_split_001.html#v-gen-17-1">Gen 17:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -935,7 +935,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:15</a> · <a href="index_split_001.html#vnote-gen-18-17">Gen 18:17</a> · <a href="index_split_033.html#ch-b30-c25">Psa 25:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:15</a> · <a href="index_split_001.html#v-gen-18-17">Gen 18:17</a> · <a href="index_split_033.html#ch-b30-c25">Psa 25:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -946,7 +946,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:15</a> · <a href="index_split_001.html#vnote-gen-18-17">Gen 18:17</a> · <a href="index_split_033.html#ch-b30-c25">Psa 25:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c15">Jhn 15:15</a> · <a href="index_split_001.html#v-gen-18-17">Gen 18:17</a> · <a href="index_split_033.html#ch-b30-c25">Psa 25:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -2024,7 +2024,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-1-9">Jos 1:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-1-9">Jos 1:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3729,7 +3729,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-3-1">1Sa 3:1</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:9</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-3-1">1Sa 3:1</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:9</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3740,7 +3740,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-3-1">1Sa 3:1</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:9</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-3-1">1Sa 3:1</a> · <a href="index_split_034.html#ch-b30-c74">Psa 74:9</a> · <a href="index_split_017.html#ch-b13-c15">2Ch 15:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4323,7 +4323,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_050.html#vnote-joe-3-18">Jol 3:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_050.html#v-joe-3-18">Jol 3:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

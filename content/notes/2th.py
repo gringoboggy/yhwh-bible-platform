@@ -1936,7 +1936,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_000.html#vnote-gen-3-19">Gen 3:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_000.html#v-gen-3-19">Gen 3:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1947,7 +1947,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_000.html#vnote-gen-3-19">Gen 3:19</a> · <a href="index_split_036.html#ch-b32-c13">Pro 13:4</a> · <a href="index_split_058.html#ch-b72-c4">1Th 4:11</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_000.html#v-gen-3-19">Gen 3:19</a> · <a href="index_split_036.html#ch-b32-c13">Pro 13:4</a> · <a href="index_split_058.html#ch-b72-c4">1Th 4:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

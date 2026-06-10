@@ -40,6 +40,7 @@ _._cached_preflight
 _.strongs_hebrew
 _.tsk
 _.torrey_topical  # Torrey's New Topical Textbook (1897 PD); read-once singleton like the above (Track C ingest)
+_._topic_vocab  # scripts/build_edition.py — Nave's+Torrey topic-name vocab from the same immutable PD JSONs; updates ship via git commit + restart (§7.1)
 
 # ---- Env-dependent singleton in scripts/core/sources.py ----
 # Anthropic API client built from ANTHROPIC_API_KEY env var.

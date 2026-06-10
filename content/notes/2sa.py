@@ -2753,7 +2753,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c2">Mat 2:6</a> · <a href="index_split_051.html#ch-b53-c5">Mic 5:4</a> · <a href="index_split_046.html#vnote-eze-34-23">Ezk 34:23</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c2">Mat 2:6</a> · <a href="index_split_051.html#ch-b53-c5">Mic 5:4</a> · <a href="index_split_046.html#v-eze-34-23">Ezk 34:23</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4570,7 +4570,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-5-10">2Sa 5:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-5-10">2Sa 5:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4879,7 +4879,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c8">Psa 8:4</a> · <a href="index_split_016.html#ch-b12-c17">1Ch 17:16</a> · <a href="index_split_011.html#vnote-1sa-18-18">1Sa 18:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c8">Psa 8:4</a> · <a href="index_split_016.html#ch-b12-c17">1Ch 17:16</a> · <a href="index_split_011.html#v-1sa-18-18">1Sa 18:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4890,7 +4890,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c8">Psa 8:4</a> · <a href="index_split_016.html#ch-b12-c17">1Ch 17:16</a> · <a href="index_split_011.html#vnote-1sa-18-18">1Sa 18:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_032.html#ch-b30-c8">Psa 8:4</a> · <a href="index_split_016.html#ch-b12-c17">1Ch 17:16</a> · <a href="index_split_011.html#v-1sa-18-18">1Sa 18:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5077,7 +5077,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:10</a> · <a href="index_split_003.html#vnote-exo-15-11">Exo 15:11</a> · <a href="index_split_034.html#ch-b30-c86">Psa 86:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_034.html#ch-b30-c86">Psa 86:10</a> · <a href="index_split_003.html#v-exo-15-11">Exo 15:11</a> · <a href="index_split_034.html#ch-b30-c86">Psa 86:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -10052,7 +10052,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Herbs, & C, Should serve.",
+        "<strong>Topics.</strong> This verse appears under: Herbs, &amp; C, Should serve.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -12386,7 +12386,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Armies of Israel, The, Communion of the Lord’s Supper, Herbs, & C, Liberality.",
+        "<strong>Topics.</strong> This verse appears under: Armies of Israel, The, Communion of the Lord’s Supper, Herbs, &amp; C, Liberality.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -16499,7 +16499,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-deu-32-4">Deu 32:4</a> · <a href="index_split_036.html#ch-b32-c30">Pro 30:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-deu-32-4">Deu 32:4</a> · <a href="index_split_036.html#ch-b32-c30">Pro 30:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

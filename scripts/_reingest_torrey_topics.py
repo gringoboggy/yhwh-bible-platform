@@ -40,6 +40,16 @@ Usage
 -----
     python3 scripts/_reingest_torrey_topics.py            # dry-run (no writes)
     python3 scripts/_reingest_torrey_topics.py --write    # apply
+
+Known limitation (5.12, 2026-06-10 audit)
+-----------------------------------------
+The base-occurrence tally below (``base_occ`` — the "found / source-only"
+line) counts RAW substrings, so a store body whose baked form is
+HTML-escaped in the base (e.g. ``Herbs, & C`` → ``Herbs, &amp; C`` in
+``epub_working``) is tallied "source-only" even though the base DOES carry
+the note. Informational only — the lockstep replace still rewrites whatever
+IS found verbatim. The one-shot already ran correctly (commit 4e8cf37c;
+628 topics; 0 residual junk); documented here for any future reuse.
 """
 
 from __future__ import annotations
@@ -153,11 +163,27 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    {b} {c}:{v}{suf}")
         return 2
 
-    # safety: every NEW body is junk-free and XHTML-trivial (the template adds no
-    # metacharacters; topic labels are plain text).
-    bad = [nb for nb in mapping.values() if _BOOKRUN.search(nb) or "service against." in nb or '"' in nb]
+    # safety: every NEW body is junk-free and XHTML-safe. 5.12 (2026-06-10
+    # audit) — same _xhtml_bad screen as the Easton twin
+    # (_reingest_eastons.py), adapted for bodies whose only markup is the
+    # <strong>Topics.</strong> wrapper: keep the .py literal valid (no
+    # double-quote/backslash/newline) AND the baked XHTML well-formed (no
+    # raw </>/non-entity-& outside the wrapper). Guard only — the script
+    # is frozen/already-executed.
+    def _xhtml_bad(b: str) -> bool:
+        inner = b.replace("<strong>", "").replace("</strong>", "")
+        return (
+            '"' in b
+            or "\\" in b
+            or "\n" in b
+            or "<" in inner
+            or ">" in inner
+            or bool(re.search(r"&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)", inner))
+        )
+
+    bad = [nb for nb in mapping.values() if _BOOKRUN.search(nb) or "service against." in nb or _xhtml_bad(nb)]
     if bad:
-        print(f"⚠ {len(bad)} new bodies still carry junk / a double-quote — ABORT")
+        print(f'⚠ {len(bad)} new bodies carry junk or are XHTML-unsafe (raw " \\ newline </>/&) — ABORT')
         for nb in bad[:5]:
             print(f"    {nb[:90]!r}")
         return 2

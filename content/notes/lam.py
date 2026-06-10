@@ -2222,7 +2222,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c13">2Co 13:5</a> · <a href="index_split_035.html#ch-b30-c139">Psa 139:23</a> · <a href="index_split_050.html#vnote-joe-2-12">Jol 2:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b67-c13">2Co 13:5</a> · <a href="index_split_035.html#ch-b30-c139">Psa 139:23</a> · <a href="index_split_050.html#v-joe-2-12">Jol 2:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

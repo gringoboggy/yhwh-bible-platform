@@ -72,25 +72,30 @@ class TestMint11PipelineScripts:
 class TestMint11CoordGuardClassSweep:
     """The ★BUGCLUSTER class: every at-scale driver that emits candidates from a
     KJV-coordinate source must drop out-of-extent coords before emitting. mint-10
-    fixed naves/torrey; mint-11 completes the class with xref + kenyon. (Own-
-    versification manuscript drivers and AI/Hebrew/Greek drivers that read
-    canonical coords by construction are intentionally NOT in this set.)"""
+    fixed naves/torrey; mint-11 completed xref + kenyon; round-7 (1.2 + 5.8)
+    added ethiopian and consolidated the 5 byte-identical copies into
+    ``at_scale_base.emit_extent_ok`` (each driver imports it ``as
+    _emit_extent_ok``). (Own-versification manuscript drivers and AI/Hebrew/
+    Greek drivers that read canonical coords by construction are intentionally
+    NOT in this set.)"""
 
     KJV_COORD_DRIVERS = (
         "run_xref_at_scale.py",
         "run_naves_at_scale.py",
         "run_torrey_at_scale.py",
         "run_kenyon_at_scale.py",
+        "run_ethiopian_at_scale.py",
     )
 
     def test_kjv_coord_drivers_apply_extent_guard(self):
-        # Secondary (cheap): the guard symbol is present in each driver source.
+        # Secondary (cheap): the guard symbol is present in each driver source —
+        # post-consolidation that is the shared `emit_extent_ok` import alias.
         missing = []
         for name in self.KJV_COORD_DRIVERS:
             src = (REPO / "scripts" / name).read_text(encoding="utf-8")
-            if "coord_in_canonical_extent" not in src:
+            if "emit_extent_ok" not in src:
                 missing.append(name)
-        assert not missing, f"KJV-coordinate driver(s) missing coord_in_canonical_extent guard: {missing}"
+        assert not missing, f"KJV-coordinate driver(s) missing the emit_extent_ok guard: {missing}"
 
     def test_kjv_coord_drivers_drop_out_of_extent_coords(self):
         # Primary (v0.1.0 audit Phase 5): exercise each driver's ACTUAL per-candidate

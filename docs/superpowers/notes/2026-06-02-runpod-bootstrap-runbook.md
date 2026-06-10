@@ -1,5 +1,7 @@
 # RunPod Pod Bootstrap Runbook — Sam/Kings cloud-draft (fresh-session aid)
 
+> **Status:** ⛔ DROPPED 2026-06-04 — the VM/cloud-pod approach was tried (RunPod Samuel bulk, 2026-06-04) and **FAILED** (1sa2 ran 2h10m then CAM error; chapters 2–51 instant-failed; 0 usable output), then **dropped by the user** (*"drop all the vm plans, we're doing it all the way we have been"*); the pod was terminated. Sam/Kings continues on the **LOCAL agent-path marathon** (`plans/2026-05-17-kings-manuscript-collation.md`). Kept for history; do NOT resurrect without a new explicit user decision. (Companion banner wording: the spec + plan below.)
+
 > Execution aid for P1 of `specs/2026-06-02-samkings-cloud-draft-at-scale-design.md`. Written 2026-06-02 so a **fresh session** can take the pod from deploy → smoke-test without re-discovering anything. The pipeline (`run_manuscript_*_at_scale.py`) already passes 152 tests locally; this is operations, not code.
 
 ## Account state — READY (verified 2026-06-02, this session)

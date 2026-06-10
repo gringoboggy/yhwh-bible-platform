@@ -1980,7 +1980,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_030.html#ch-b29-c5">Job 5:18</a> · <a href="index_split_009.html#vnote-deu-32-39">Deu 32:39</a> · <a href="index_split_010.html#vnote-1sa-2-6">1Sa 2:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_030.html#ch-b29-c5">Job 5:18</a> · <a href="index_split_009.html#v-deu-32-39">Deu 32:39</a> · <a href="index_split_010.html#v-1sa-2-6">1Sa 2:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3509,7 +3509,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c4">Jer 4:3</a> · <a href="index_split_040.html#ch-b37-c45">Isa 45:8</a> · <a href="index_split_059.html#vnote-jam-3-18">Jas 3:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c4">Jer 4:3</a> · <a href="index_split_040.html#ch-b37-c45">Isa 45:8</a> · <a href="index_split_059.html#v-jam-3-18">Jas 3:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3520,7 +3520,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c4">Jer 4:3</a> · <a href="index_split_040.html#ch-b37-c45">Isa 45:8</a> · <a href="index_split_059.html#vnote-jam-3-18">Jas 3:18</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_041.html#ch-b38-c4">Jer 4:3</a> · <a href="index_split_040.html#ch-b37-c45">Isa 45:8</a> · <a href="index_split_059.html#v-jam-3-18">Jas 3:18</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3817,7 +3817,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#v-num-23-19">Num 23:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -4763,7 +4763,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_049.html#ch-b48-c6">Hos 6:1</a> · <a href="index_split_050.html#vnote-joe-2-12">Jol 2:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_049.html#ch-b48-c6">Hos 6:1</a> · <a href="index_split_050.html#v-joe-2-12">Jol 2:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

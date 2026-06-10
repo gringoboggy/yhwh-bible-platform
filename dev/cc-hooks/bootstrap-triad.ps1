@@ -26,7 +26,8 @@ try {
         Write-Output ("  !! MISMATCH: this is the WINDOWS bootstrap but dev/.lane says '{0}'." -f $lane)
         Write-Output '     Confirm which lane you really are BEFORE pushing or handing off.'
     }
-    Write-Output '  Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/CHANGELOG.'
+    Write-Output '  Lane rule (v2): mode=parallel -> file-disjoint, BOTH lanes push their own milestones;'
+    Write-Output '  only the TRUTH_OWNER edits SESSION_STATE/IN_FLIGHT/CHANGELOG (see LANE_HANDOFF frontmatter).'
     Write-Output '==================================================================='
 } catch { }
 
@@ -111,6 +112,24 @@ try {
             Write-Output ''
             Write-Output $banner
             Write-Output 'Run /resume to pull + combine the incoming work.'
+        }
+    }
+} catch { }
+
+# --- Lane sync radar (the "ping"; local, non-fatal): cheap `git ls-remote` check
+# so a fresh session learns immediately if the OTHER lane (win<->mac) pushed while
+# it was away. Prints ONLY when you're BEHIND (pull --rebase before starting / any
+# milestone push). Read-only + bandwidth-cheap. See scripts/lane_ping.py + RULES s4.
+# (Backported round-7 8.2: this block was hot-patched into the INSTALLED hook on
+# 2026-06-08 and never committed here — the install script would have deleted it.) ---
+try {
+    $repo = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'scripts\lane_ping.py'
+    if (Test-Path $repo) {
+        $radar = & py -3 $repo --quiet 2>$null
+        if ($radar) {
+            Write-Output ''
+            Write-Output '----- LANE SYNC RADAR -----'
+            Write-Output $radar
         }
     }
 } catch { }

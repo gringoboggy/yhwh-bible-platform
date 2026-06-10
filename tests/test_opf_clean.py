@@ -58,3 +58,14 @@ class TestOpfClean:
         assert "onix:codelist5" not in self.opf
         assert "urn:isbn" not in self.opf
         assert "TODO_ISBN" not in self.opf
+
+    def test_single_dc_language_kindle_safe(self):
+        # Kindle E999 (CONFIRMED 2026-06-10): Amazon's Send-to-Kindle validation
+        # rejects EPUBs whose dc:language block declares values off its
+        # supported-language list (the old block added hbo/grc/arc/gez). The OPF
+        # now carries exactly ONE dc:language (BCP-47 primary); in-content
+        # language info rides per-span xml:lang instead.
+        assert self.opf.count("<dc:language>") == 1
+        assert "<dc:language>en-US</dc:language>" in self.opf
+        for dropped in ("hbo", "grc", "arc", "gez"):
+            assert f"<dc:language>{dropped}</dc:language>" not in self.opf

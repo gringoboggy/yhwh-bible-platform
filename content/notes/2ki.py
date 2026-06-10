@@ -2826,7 +2826,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-18-10">Gen 18:10</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:13</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-18-10">Gen 18:10</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:13</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3497,7 +3497,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Famine, Herbs, & C, Herbs, & C, Hyke or Upper Garment, Judgments.",
+        "<strong>Topics.</strong> This verse appears under: Famine, Herbs, &amp; C, Herbs, &amp; C, Hyke or Upper Garment, Judgments.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -3541,7 +3541,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Famine, Herbs, & C, Judgments.",
+        "<strong>Topics.</strong> This verse appears under: Famine, Herbs, &amp; C, Judgments.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -5686,7 +5686,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-3-5">Jos 3:5</a> · <a href="index_split_003.html#vnote-exo-16-12">Exo 16:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-3-5">Jos 3:5</a> · <a href="index_split_003.html#v-exo-16-12">Exo 16:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11219,7 +11219,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-24-16">Deu 24:16</a> · <a href="index_split_045.html#vnote-eze-18-20">Ezk 18:20</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-24-16">Deu 24:16</a> · <a href="index_split_045.html#v-eze-18-20">Ezk 18:20</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17291,7 +17291,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: As a power, was, Grass, Herbs, & C, Herbs, & C, Issachar, the Tribe Of.",
+        "<strong>Topics.</strong> This verse appears under: As a power, was, Grass, Herbs, &amp; C, Herbs, &amp; C, Issachar, the Tribe Of.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -17830,7 +17830,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c66">Psa 66:19</a> · <a href="index_split_040.html#ch-b37-c38">Isa 38:5</a> · <a href="index_split_010.html#vnote-1sa-9-16">1Sa 9:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_033.html#ch-b30-c66">Psa 66:19</a> · <a href="index_split_040.html#ch-b37-c38">Isa 38:5</a> · <a href="index_split_010.html#v-1sa-9-16">1Sa 9:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

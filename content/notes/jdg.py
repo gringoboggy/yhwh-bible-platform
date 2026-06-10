@@ -4900,7 +4900,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-1-5">Jos 1:5</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-1-5">Jos 1:5</a> · <a href="index_split_053.html#ch-b62-c1">Luk 1:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5307,7 +5307,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-22-14">Gen 22:14</a> · <a href="index_split_003.html#vnote-exo-17-15">Exo 17:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-22-14">Gen 22:14</a> · <a href="index_split_003.html#v-exo-17-15">Exo 17:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5318,7 +5318,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-22-14">Gen 22:14</a> · <a href="index_split_003.html#vnote-exo-17-15">Exo 17:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-22-14">Gen 22:14</a> · <a href="index_split_003.html#v-exo-17-15">Exo 17:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -5912,7 +5912,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-8-17">Deu 8:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-8-17">Deu 8:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17980,7 +17980,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_008.html#vnote-deu-12-8">Deu 12:8</a> · <a href="index_split_010.html#vnote-jdg-17-6">Jdg 17:6</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:5</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_008.html#v-deu-12-8">Deu 12:8</a> · <a href="index_split_010.html#v-jdg-17-6">Jdg 17:6</a> · <a href="index_split_035.html#ch-b32-c3">Pro 3:5</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

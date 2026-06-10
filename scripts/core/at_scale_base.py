@@ -68,6 +68,21 @@ NT_BOOKS = frozenset(
 )
 
 
+def emit_extent_ok(book: str, chapter: int, verse: int) -> bool:
+    """A candidate at ``(book, chapter, verse)`` is emitted only when its coord
+    is within the book's canonical extent — the ★BUGCLUSTER guard shared by the
+    accumulator drivers that iterate an INGESTED corpus's own coordinates
+    (xref / naves / torrey / kenyon / ethiopian). Was a byte-identical private
+    copy in each driver (round-7 5.8 consolidation); each driver imports it
+    ``as _emit_extent_ok`` so the ``mod._emit_extent_ok`` contract that
+    ``tests/test_mint11_phase3.py`` exercises is preserved. Lazy import keeps
+    this module the dependency-free leaf its docstring promises
+    (``canonical_verse_counts`` imports ``manuscript_collation`` at top)."""
+    from scripts.core.canonical_verse_counts import coord_in_canonical_extent
+
+    return coord_in_canonical_extent(book, chapter, verse)
+
+
 def iter_target_verses(books: list[str], max_verses: int):
     """Yield ``(book, chapter, verse, verse_text)`` tuples in canonical book
     order, capped at ``max_verses`` total. Skips books that aren't present in

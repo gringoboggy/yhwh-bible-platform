@@ -33,12 +33,6 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-# Push step disabled — remote deleted 2026-05-12.
-# Re-enable when a new remote is set up.
-# git push
-# if ($LASTEXITCODE -ne 0) {
-#     Write-Host "Push failed. Your work is committed locally; run 'git push' again when the connection is back." -ForegroundColor Red
-#     exit $LASTEXITCODE
-# }
-
-Write-Host "Saved locally (no remote configured)." -ForegroundColor Green
+# This script is LEG 1 ONLY (the local commit). Pushing to the remotes + the
+# E:/F: bundle legs is save-all.ps1's job, run at milestones (RULES §4).
+Write-Host "Saved locally (leg 1 only — remote push + bundles run via save-all.ps1 at milestones)." -ForegroundColor Green

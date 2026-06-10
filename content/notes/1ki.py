@@ -2870,7 +2870,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-5">Jas 1:5</a> · <a href="index_split_013.html#ch-b10-c9">1Ki 9:2</a> · <a href="index_split_007.html#vnote-num-12-6">Num 12:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-5">Jas 1:5</a> · <a href="index_split_013.html#ch-b10-c9">1Ki 9:2</a> · <a href="index_split_007.html#v-num-12-6">Num 12:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3057,7 +3057,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#vnote-jam-1-5">Jas 1:5</a> · <a href="index_split_059.html#ch-b78-c5">Heb 5:14</a> · <a href="index_split_036.html#ch-b32-c16">Pro 16:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#v-jam-1-5">Jas 1:5</a> · <a href="index_split_059.html#ch-b78-c5">Heb 5:14</a> · <a href="index_split_036.html#ch-b32-c16">Pro 16:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -3332,7 +3332,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_003.html#vnote-exo-18-16">Exo 18:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_003.html#v-exo-18-16">Exo 18:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -9404,7 +9404,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-23-14">Jos 23:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-23-14">Jos 23:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -11395,7 +11395,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_004.html#vnote-exo-34-16">Exo 34:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_004.html#v-exo-34-16">Exo 34:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17489,7 +17489,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-6-26">Jos 6:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-6-26">Jos 6:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17500,7 +17500,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jos-6-26">Jos 6:26</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jos-6-26">Jos 6:26</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17577,7 +17577,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c4">Luk 4:25</a> · <a href="index_split_059.html#vnote-jam-5-17">Jas 5:17</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c4">Luk 4:25</a> · <a href="index_split_059.html#v-jam-5-17">Jas 5:17</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19117,7 +19117,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a> · <a href="index_split_009.html#vnote-jos-24-15">Jos 24:15</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a> · <a href="index_split_009.html#v-jos-24-15">Jos 24:15</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19128,7 +19128,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a> · <a href="index_split_009.html#vnote-jos-24-15">Jos 24:15</a> · <a href="index_split_057.html#ch-b66-c10">1Co 10:21</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_051.html#ch-b60-c6">Mat 6:24</a> · <a href="index_split_009.html#v-jos-24-15">Jos 24:15</a> · <a href="index_split_057.html#ch-b66-c10">1Co 10:21</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -21779,7 +21779,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Covetousness, Gardens, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Covetousness, Gardens, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (

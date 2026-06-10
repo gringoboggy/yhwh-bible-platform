@@ -39,6 +39,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.core.detectors import EthiopianCommentaryDetector  # noqa: E402
 from scripts.core.sources import EthiopianCommentaries, _normalize_book_code  # noqa: E402
 from scripts.core.at_scale_base import DIM, GREEN, RESET, append_candidates  # noqa: E402
+from scripts.core.at_scale_base import emit_extent_ok as _emit_extent_ok  # noqa: E402  # ★BUGCLUSTER guard (shared, round-7 1.2)
 
 CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
@@ -84,6 +85,12 @@ def run_ethiopian_for_book(book: str, *, dry_run: bool = False) -> dict:
             if verse in seen_verses:
                 continue
             seen_verses.add(verse)
+            # round-7 1.2: drop coords beyond the book's canonical extent before
+            # detection (mirrors the xref/naves/torrey/kenyon siblings; promote's
+            # boundary guard also blocks them — defense in depth). Tewahedo-
+            # distinctive books with no canonical shape pass via the no-shape path.
+            if not _emit_extent_ok(canon_book, chapter, verse):
+                continue
             cands = detector.detect(canon_book, chapter, verse, "")
             chapter_candidates.extend(cands)
         if chapter_candidates:

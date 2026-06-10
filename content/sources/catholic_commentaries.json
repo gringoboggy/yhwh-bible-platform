@@ -47,7 +47,7 @@
       "attribution": "Jerome, Commentary on Matthew (Bk IV), in Aquinas's Catena Aurea on Matthew 27:46. Newman trans., Oxford 1842. PD."
     },
     {
-      "book": "mar",
+      "book": "mrk",
       "chapter": 1,
       "verse": 1,
       "father": "Bede the Venerable",
@@ -57,7 +57,7 @@
       "attribution": "Bede, Exposition of Mark, in Aquinas's Catena Aurea on Mark 1:1. Newman trans., Oxford 1842. PD."
     },
     {
-      "book": "mar",
+      "book": "mrk",
       "chapter": 16,
       "verse": 15,
       "father": "Gregory the Great",
@@ -97,7 +97,7 @@
       "attribution": "Augustine, Sermon 234 + Sermon 235, in Aquinas's Catena Aurea on Luke 24:13. Newman trans., Oxford 1843. PD."
     },
     {
-      "book": "joh",
+      "book": "jhn",
       "chapter": 1,
       "verse": 1,
       "father": "Augustine",
@@ -107,7 +107,7 @@
       "attribution": "Augustine, Tractate I on John, in Aquinas's Catena Aurea on John 1:1. Newman trans., Oxford 1845. PD."
     },
     {
-      "book": "joh",
+      "book": "jhn",
       "chapter": 1,
       "verse": 14,
       "father": "Cyril of Alexandria",
@@ -117,7 +117,7 @@
       "attribution": "Cyril of Alexandria, Commentary on John (Bk I), in Aquinas's Catena Aurea on John 1:14. Newman trans., Oxford 1845. PD."
     },
     {
-      "book": "joh",
+      "book": "jhn",
       "chapter": 20,
       "verse": 28,
       "father": "Augustine",

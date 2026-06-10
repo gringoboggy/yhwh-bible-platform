@@ -30,6 +30,7 @@ import argparse
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from collections import Counter
 from pathlib import Path
@@ -37,6 +38,11 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 PYTHON = sys.executable
+
+# round-7 O2: the literal "/tmp" resolved to <drive>:\tmp on Windows — builds
+# landed in a surprising C:\tmp, `status` missed them, and `repl` crashed on a
+# fresh box. One portable temp root for all three call sites.
+TMP = Path(tempfile.gettempdir())
 
 from scripts.core.ui import GREEN, RED, YELLOW, DIM, BOLD, RESET, BLUE  # noqa: E402
 
@@ -65,8 +71,8 @@ def git(*args: str, capture: bool = True) -> str:
 
 
 def find_latest_editions_dir() -> Path | None:
-    """Return the most-recent /tmp/editions_v28a-* dir or REPO/editions if it exists."""
-    candidates = sorted(Path("/tmp").glob("editions_v28a*"), key=lambda p: p.stat().st_mtime, reverse=True)
+    """Return the most-recent <tempdir>/editions_v28a-* dir or REPO/editions if it exists."""
+    candidates = sorted(TMP.glob("editions_v28a*"), key=lambda p: p.stat().st_mtime, reverse=True)
     for c in candidates:
         if c.is_dir() and any(c.glob("*.epub")):
             return c
@@ -236,7 +242,7 @@ def cmd_build(args) -> int:
             return r.returncode
 
     # build editions
-    out_dir = args.output_dir or Path(f"/tmp/editions_{args.version.replace('-', '')}")
+    out_dir = args.output_dir or (TMP / f"editions_{args.version.replace('-', '')}")
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     eargs = ["--all", "--version", args.version, "--output-dir", str(out_dir)]
@@ -411,7 +417,7 @@ print("           book_notes(code), strip_tags, word_count, atomic_write.")
 print(f"Loaded {len(BOOKS)} books, {len(EDITIONS)} editions, {len(KINDS)} kinds.")
 print()
 '''
-    init_path = Path("/tmp/.ebible_repl_init.py")
+    init_path = TMP / ".ebible_repl_init.py"
     init_path.write_text(init_code)
     env = os.environ.copy()
     env["PYTHONSTARTUP"] = str(init_path)
@@ -500,7 +506,7 @@ HELP_EXAMPLES: dict[str, list[str]] = {
     "manifest": ["ebible manifest --status", "ebible manifest --build"],
     "search": ["ebible search 'serpent' --kind comm-rabbinic", "ebible search --book gen --chapter 3"],
     "quality": ["ebible quality", "ebible quality --book gen --no-per-kind"],
-    "epubcheck": ["ebible epubcheck --editions-dir /tmp/editions_v28a25"],
+    "epubcheck": ["ebible epubcheck --editions-dir <tempdir>/editions_v28a25"],
 }
 
 

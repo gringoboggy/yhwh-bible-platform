@@ -303,8 +303,12 @@ Also check the build code for emitters added later that would silently miss the 
 // (they run pytest + builds — keep them on the N95's fast disk); 'mac' = the read-only code-review dims
 // (model-call-bound, disk-light — the Mac is HDD-bound). The two lanes use DIFFERENT resources (local disk
 // vs model calls) so they truly parallelize. 'all' (default) = the full made-current set on one machine.
-// Findings from each lane merge in ONE final synthesize on the N95 (deep-audit-continue.js is the
-// inject-findings precedent). Leave LANE='all' committed; each lane flips its OWN local copy, never commits it.
+// Findings from each lane merge in ONE final synthesize on the N95 (archive/deep-audit-continue.js is the
+// inject-findings precedent; the consumed one-shots live in .claude/workflows/archive/ since round-7 P3).
+// Leave LANE='all' committed; each lane flips its OWN local copy, never commits it.
+// ★ SCOPE (user, 2026-06-10): round 8+ audits = PROJECT CODE / PRODUCT ONLY (+ occasionally one
+// Claude-optimization dim). Drop claude-setup / lane-system / github-gitlab / stack-review /
+// decommission from the default set when re-running — round 7 was the one-time everything-sweep.
 // LANE is defined at the top of the file (parity bake). win = the LOCAL-COMPUTE-heavy
 // dims (pytest + builds → the N95's fast SSD); mac = the read-only, model-call-bound
 // code-review dims (disk-light → fine on the HDD-bound iMac). Different bottlenecks ⇒

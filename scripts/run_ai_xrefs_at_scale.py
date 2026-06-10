@@ -102,10 +102,6 @@ def run_ai_xrefs(
     )
 
 
-def estimate_cost(n_verses: int) -> float:
-    return n_verses * COST_PER_VERSE_USD
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = build_ai_arg_parser(
         detector_label="AIXrefDetector",

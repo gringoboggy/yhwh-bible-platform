@@ -37,7 +37,7 @@
       "attribution": "John Calvin, Commentary on the Four Last Books of Moses, on Exod 20:3. Calvin Translation Society edition, trans. Charles W. Bingham, Edinburgh 1852. PD."
     },
     {
-      "book": "ps",
+      "book": "psa",
       "chapter": 23,
       "verse": 1,
       "commentator": "John Calvin",
@@ -77,7 +77,7 @@
       "attribution": "John Calvin, Commentary on a Harmony of the Evangelists (Matthew, Mark, Luke), on Matt 6:9. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1845. PD."
     },
     {
-      "book": "joh",
+      "book": "jhn",
       "chapter": 1,
       "verse": 1,
       "commentator": "John Calvin",

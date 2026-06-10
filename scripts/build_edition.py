@@ -1335,6 +1335,13 @@ def _build_disabled_kind_res(disabled_kinds: set) -> tuple[re.Pattern | None, re
     return marker_re, aside_re
 
 
+# round-7 O1: the generic per-note-id scan patterns (edition-independent —
+# compiled once per process). The captured group is the element's id, checked
+# against the per-edition disabled set inside the replacement callable.
+_ID_MARKER_SCAN_RE = re.compile(r'<a class="note-ref [^"]*" id="([^"]+)"[^>]*>.*?</a>', re.DOTALL)
+_ID_ASIDE_SCAN_RE = re.compile(r'<aside class="note [^"]*" id="([^"]+)"[^>]*>.*?</aside>', re.DOTALL)
+
+
 def filter_html(
     html_text: str,
     disabled_kinds: set,
@@ -1376,25 +1383,35 @@ def filter_html(
         new_text, n = kind_aside_re.subn("", new_text)
         counts["asides"] += n
 
-    # ---- Phase ρ.1: filter by individual note ID
+    # ---- Phase ρ.1: filter by individual note ID. round-7 O1: ONE generic
+    # id-capturing scan per element family + a set lookup, replacing the old
+    # per-id re.compile + whole-file scan (O(N_ids × N_files) — latent: every
+    # stock edition ships disabled_html_ref_ids EMPTY, but a web-builder custom
+    # edition with per-note disables would have paid it). Byte-identical to the
+    # sequential per-id passes: per-element kind classes are mutually exclusive,
+    # markers never sit inside asides (0 occurrences in the base), and the
+    # replacement keeps every non-disabled match untouched.
     if disabled_html_ref_ids:
-        for ref_id in disabled_html_ref_ids:
-            # Inline marker: <a class="note-ref note-<kind>" id="ref-XXXX" ...>...</a>
-            m_re = re.compile(
-                rf'<a class="note-ref [^"]*" id="{re.escape(ref_id)}"[^>]*>.*?</a>',
-                re.DOTALL,
-            )
-            new_text, n = m_re.subn("", new_text)
-            counts["id_markers"] += n
-            # Aside: <aside class="note note-<kind>" id="note-XXXX" ...>...</aside>
-            #   (note: marker IDs are "ref-..." but aside IDs are "note-...")
-            note_id = ref_id.replace("ref-", "note-", 1)
-            a_re = re.compile(
-                rf'<aside class="note [^"]*" id="{re.escape(note_id)}"[^>]*>.*?</aside>',
-                re.DOTALL,
-            )
-            new_text, n = a_re.subn("", new_text)
-            counts["id_asides"] += n
+        # Marker IDs are "ref-..."; aside IDs are "note-..." (same suffix).
+        disabled_note_ids = {rid.replace("ref-", "note-", 1) for rid in disabled_html_ref_ids}
+        removed = {"m": 0, "a": 0}
+
+        def _drop_marker(m: re.Match) -> str:
+            if m.group(1) in disabled_html_ref_ids:
+                removed["m"] += 1
+                return ""
+            return m.group(0)
+
+        def _drop_aside(m: re.Match) -> str:
+            if m.group(1) in disabled_note_ids:
+                removed["a"] += 1
+                return ""
+            return m.group(0)
+
+        new_text = _ID_MARKER_SCAN_RE.sub(_drop_marker, new_text)
+        new_text = _ID_ASIDE_SCAN_RE.sub(_drop_aside, new_text)
+        counts["id_markers"] += removed["m"]
+        counts["id_asides"] += removed["a"]
 
     # ---- Phase ν.2.5-A: honor verse_popups=false by stripping vn-link
     # clickability. Subtractive — when the flag is on (the default),
@@ -1540,24 +1557,19 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     )
 
     # Refine the primary dc:language to BCP-47 'en-US' when it's bare 'en'.
-    # Multiple dc:language entries declare languages PRESENT in the work
-    # for cross-script content (Hebrew, Greek, Aramaic, Ge'ez transliterations
-    # in editorial notes). EPUB 3 permits multiple dc:language elements.
+    # round-7 / Kindle E999 (2026-06-10, CONFIRMED by the Mac falsification
+    # protocol): the old multi-value block ALSO declared hbo/grc/arc/gez —
+    # valid EPUB 3, but Amazon's post-Nov-2024 Send-to-Kindle validation
+    # hard-rejects unsupported dc:language values (E999, co-suspect with the
+    # display:none volume). The in-content language info already rides per-span
+    # xml:lang (K-R2-5-audited), so the extra declarations carried low value at
+    # proven delivery risk — dropped unconditionally per the investigation's
+    # prescription (notes/2026-06-10-kindle-e999-investigation.md §fix-1).
     primary_lang = pub["language_code"] or "en"
     bcp47 = "en-US" if primary_lang == "en" else primary_lang
     new_text = re.sub(
         r"<dc:language>en</dc:language>",
-        (
-            f"<dc:language>{_xml_escape(bcp47)}</dc:language>\n"
-            "    <dc:language>hbo</dc:language>"
-            "<!-- Biblical Hebrew (transliterations + script in lang-* notes) -->\n"
-            "    <dc:language>grc</dc:language>"
-            "<!-- Koine Greek -->\n"
-            "    <dc:language>arc</dc:language>"
-            "<!-- Aramaic -->\n"
-            "    <dc:language>gez</dc:language>"
-            "<!-- Ge'ez (Ethiopian liturgical) -->"
-        ),
+        f"<dc:language>{_xml_escape(bcp47)}</dc:language>",
         new_text,
         count=1,
     )
@@ -1919,7 +1931,12 @@ _VN_SEP_HIDE_CSS = (
 # study cascade. Bake the same hidden plain-text separators into vnote markup:
 # ¶ before the verse text, ◦ before each source label. The negative lookahead
 # makes the pass idempotent (re-running never double-inserts).
-_VNOTE_SEP_TEXT_RE = re.compile(r'(<p class="vnote-text">)(?!<span class="vn-sep">)')
+# round-7 5.3: the text pattern (a) also matches multi-class paragraphs
+# (`vnote-text vnote-empty` — 346 base placeholders render in the preview like
+# any vnote, so they NEED the block separator too), and (b) skips text already
+# beginning with ¶ (2,970 recovered-base KJV popup verses carry their own
+# pilcrow — a second mark would render "¶ ¶" in the preview).
+_VNOTE_SEP_TEXT_RE = re.compile(r'(<p class="vnote-text(?:\s[^"]*)?">)(?!<span class="vn-sep">)(?!¶)')
 _VNOTE_SEP_LABEL_RE = re.compile(r'(<p class="vnote-source-label">)(?!<span class="vn-sep">)')
 
 
@@ -2024,11 +2041,16 @@ def _is_self_attributing_comm_ethiopian(row_html: str) -> bool:
     return "note-comm-ethiopian" in s and _SELF_ATTRIBUTING_BYLINE_RE.search(s) is not None
 
 
-@lru_cache(maxsize=1)
 def _kind_default_labels() -> dict:
     """``kind -> normalised default label`` from kinds.yaml. The S1 predicate fires
     when a note's own label merely repeats this. An empty/missing default is excluded
-    so a future label-less kind can never trigger a spurious suppression."""
+    so a future label-less kind can never trigger a spurious suppression.
+
+    Deliberately UNCACHED: the kind-label save path (scripts/api/customize.py)
+    invalidates kinds.yaml in-process via ``config.load_kinds.cache_clear()``,
+    which a private lru_cache here would never see (stale labels). Freshness
+    rides ``load_kinds``'s own cache; this is one small dict-build per
+    ``apply_badge_markers`` call."""
     out: dict[str, str] = {}
     for code, rec in config.kinds_by_code().items():
         norm = _normalize_label_text(rec.get("label"))
@@ -2210,7 +2232,12 @@ def _parse_topic_terms(appears_under: str, vocab: frozenset) -> list[str]:
     i = 0
     while i < len(tokens):
         hit_span = 1
-        for span in range(min(3, len(tokens) - i), 0, -1):
+        # round-7 5.1: UNCAPPED longest-match (was min(3, …)) — Nave's carries
+        # real 5-token compound topics ("MANASSEH, NAPHTALI, REUBEN, SIMEON,
+        # ZEBULUN"); a 3-token cap could never match them, fragmenting the
+        # compound into single-token topics. Vocab membership still gates every
+        # candidate span, so an over-long window can never invent a topic.
+        for span in range(len(tokens) - i, 0, -1):
             cand = ", ".join(tokens[i : i + span])
             if " ".join(cand.split()).casefold() in vocab:
                 hit_span = span
@@ -2859,6 +2886,12 @@ _CHILD_ASIDE_RE = re.compile(r'<aside class="(?!notes-section)[^"]*" id="([^"]+)
 # A notes-section wrapper left empty after its child asides are harvested out.
 _EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*')
 
+# round-7 5.4: the base ALSO wraps vnote asides in 58 `<section
+# class="verse-refs-section">` containers (e.g. index_split_035) — harvesting
+# left an empty <section> husk (~52 newlines of whitespace inside, hence the
+# `\s*`) that shipped in every edition. Companion cleanup to the aside form.
+_EMPTY_VREFS_SECTION_RE = re.compile(r'<section class="verse-refs-section"[^>]*>\s*</section>\s*')
+
 # A bare chapter opener stranded at the very END of a file's visible content:
 # an optional ch-anchor followed by a ch-heading paragraph (and nothing after it
 # before the notes-section). Matched against the piece's pre-notes segment for
@@ -2909,6 +2942,7 @@ def _strip_notes_sections(body: str) -> tuple[str, list[tuple[str, str]]]:
 
     content = _CHILD_ASIDE_RE.sub(_take, body)
     content = _EMPTY_NOTES_SECTION_RE.sub("", content)
+    content = _EMPTY_VREFS_SECTION_RE.sub("", content)
     return content, asides
 
 
@@ -4293,7 +4327,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
                 return ""
             return block
 
-        for f in tmp.glob("*.html"):
+        for f in sorted(tmp.glob("*.html")):
             text = f.read_text(encoding="utf-8")
             new_text, n = toc_book_re.subn(_maybe_drop_toc_block, text)
             if n > 0 and new_text != text:
@@ -4320,7 +4354,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         # gets stripped. This is bulletproof: covers vnote-*, bp-NN,
         # ch-bXX-cN, page_NNN, ref-*, and any other anchor scheme.
         id_inventory: dict[str, set[str]] = {}
-        for f in tmp.glob("*.html"):
+        for f in sorted(tmp.glob("*.html")):
             text = f.read_text(encoding="utf-8")
             id_inventory[f.name] = set(re.findall(r'\bid="([^"]+)"', text))
 
@@ -4329,7 +4363,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         # Also handle file-only refs (no #fragment) to dropped files.
         file_only_re = re.compile(r'<a\s+href="([^"#]+)"[^>]*>([^<]+)</a>')
 
-        for f in tmp.glob("*.html"):
+        for f in sorted(tmp.glob("*.html")):
             text = f.read_text(encoding="utf-8")
 
             # mint-9 #21/#22: count only links we actually STRIP, not every match.
@@ -4386,7 +4420,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             r'<aside class="note [^"]*" id="note-([^"]+)"[^>]*>.*?</aside>\s*',
             re.DOTALL,
         )
-        for f in tmp.glob("*.html"):
+        for f in sorted(tmp.glob("*.html")):
             text = f.read_text(encoding="utf-8")
             ref_ids = set(re.findall(r'\bid="ref-([^"]+)"', text))
 
@@ -4719,7 +4753,7 @@ def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) ->
             '  <div class="book-title-frame">'
         )
 
-    for html_path in tmp.glob("*.html"):
+    for html_path in sorted(tmp.glob("*.html")):
         text = html_path.read_text(encoding="utf-8")
         new = _BOOK_TITLE_PAGE_RE.sub(_inject, text)
         if new != text:
@@ -5015,7 +5049,7 @@ def build_one(
 
     if dry_run:
         # Simulate filter to count, but don't build
-        for f in EPUB_DIR.glob("*.html"):
+        for f in sorted(EPUB_DIR.glob("*.html")):
             text = f.read_text(encoding="utf-8")
             _, counts = filter_html(
                 text,
@@ -5106,7 +5140,7 @@ def build_one(
         # byte-identical to a pre-renumber build.
         from scripts.resync_marker_glyphs import renumber_markers
 
-        for html_path in tmp.glob("*.html"):
+        for html_path in sorted(tmp.glob("*.html")):
             text = html_path.read_text(encoding="utf-8")
             new_text, counts = filter_html(
                 text,
@@ -5221,7 +5255,7 @@ def build_one(
         if ncx.is_file() and (dropped_files or dropped_bp_indices):
             # Rebuild id_inventory from the post-splice state
             ncx_id_inventory: dict[str, set[str]] = {}
-            for f in tmp.glob("*.html"):
+            for f in sorted(tmp.glob("*.html")):
                 ftext = f.read_text(encoding="utf-8")
                 ncx_id_inventory[f.name] = set(re.findall(r'\bid="([^"]+)"', ftext))
             ncx.write_text(

@@ -99,7 +99,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_007.html#vnote-num-23-19">Num 23:19</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:9</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:25</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_007.html#v-num-23-19">Num 23:19</a> · <a href="index_split_059.html#ch-b75-c1">2Ti 1:9</a> · <a href="index_split_059.html#ch-b82-c2">1Jn 2:25</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1045,7 +1045,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-36-27">Ezk 36:27</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-36-27">Ezk 36:27</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1056,7 +1056,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-36-27">Ezk 36:27</a> · <a href="index_split_051.html#ch-b60-c16">Mat 16:24</a> · <a href="index_split_056.html#ch-b65-c6">Rom 6:19</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-36-27">Ezk 36:27</a> · <a href="index_split_051.html#ch-b60-c16">Mat 16:24</a> · <a href="index_split_056.html#ch-b65-c6">Rom 6:19</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1452,7 +1452,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_050.html#vnote-joe-2-28">Jol 2:28</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_050.html#v-joe-2-28">Jol 2:28</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

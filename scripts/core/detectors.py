@@ -397,8 +397,11 @@ class CrossRefDetector:
             # so popup hrefs match the canonical generate_verse_popups IDs even if an
             # older legacy-keyed source JSON is ever loaded (mint-7 ★BUGCLUSTER).
             tb = sources._normalize_book_code(r.target_book)
+            # round-7 5.2: target the VISIBLE verse anchor (#v-…), never the
+            # hidden #vnote-… popup container — a hidden link target makes
+            # Kobo's renderer fall back to file start ("teleport" class).
             target_lines.append(
-                f'<a href="#vnote-{tb}-{r.target_chapter}-'
+                f'<a href="#v-{tb}-{r.target_chapter}-'
                 f'{r.target_verse}">{tb.title()} '
                 f"{r.target_chapter}:{r.target_verse}</a>"
             )
@@ -471,7 +474,13 @@ class NaveTopicalDetector:
         # marginal topics; the reviewer's filter does the final cut.
         confidence = min(0.55 + 0.07 * len(topics), 0.85)
 
-        topics_str = ", ".join(topics)
+        # 5.11 (2026-06-10 audit) — topic headings are raw source text
+        # and may carry markup-significant characters (Torrey's
+        # "Herbs, & C"); escape each for the XHTML body. Mirrors the
+        # γ.3+ patristic/protestant `_html.escape` pattern below.
+        import html as _html
+
+        topics_str = ", ".join(_html.escape(t) for t in topics)
         primary = topics[0]
         attribution = "Nave's Topical Bible, Orville J. Nave (1896). Public domain."
         # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
@@ -525,7 +534,12 @@ class TorreyTopicalDetector:
             return []
 
         confidence = min(0.55 + 0.07 * len(topics), 0.85)
-        topics_str = ", ".join(topics)
+        # 5.11 (2026-06-10 audit) — escape each topic heading for the
+        # XHTML body (Torrey's source data carries "Herbs, & C" + one
+        # more raw-'&' heading). Mirrors the γ.3+ `_html.escape` pattern.
+        import html as _html
+
+        topics_str = ", ".join(_html.escape(t) for t in topics)
         primary = topics[0]
         attribution = "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain."
         # Reviewer guidance lives in reviewer_notes= below, not the body — RX Phase 1.
@@ -742,8 +756,10 @@ class AIXrefDetector:
             subclass_label = _AI_XREF_SUBCLASS_LABEL.get(subclass, "Thematic")
             reasoning = p.get("reasoning", "")
 
+            # round-7 5.2: visible #v-… anchor, not the hidden #vnote-… popup
+            # container (hidden target ⇒ Kobo teleport-to-file-start).
             target_link = (
-                f'<a href="#vnote-{target_book}-{target_chapter}-'
+                f'<a href="#v-{target_book}-{target_chapter}-'
                 f'{target_verse}">{target_book.title()} '
                 f"{target_chapter}:{target_verse}</a>"
             )

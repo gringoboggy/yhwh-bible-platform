@@ -68,10 +68,9 @@ NOTES = [
         first = notes_io.load_notes(sample_notes_module)
         assert first is not None and len(first) == 2
 
-        # Rewrite with one fewer note, then sleep enough for mtime resolution
+        # After a short sleep (so the rewrite lands on a new observable mtime),
+        # rewrite the module as a single-note version — the cache must miss.
         time.sleep(0.05)
-        sample_notes_module.read_text().replace("(\n        1, 2, '',", "# REMOVED: (\n        # 1, 2, '',", 1)
-        # Easier: just write a single-note version
         sample_notes_module.write_text(
             'NOTES = [(1, 1, "", "a", "comm", "T", "L.", "<p>x</p>", {})]\n',
             encoding="utf-8",

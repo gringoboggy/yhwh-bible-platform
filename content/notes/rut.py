@@ -33,7 +33,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_001.html#vnote-gen-12-10">Gen 12:10</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_001.html#v-gen-12-10">Gen 12:10</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -429,7 +429,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-15-21">2Sa 15:21</a> · <a href="index_split_010.html#vnote-rut-2-11">Rut 2:11</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-15-21">2Sa 15:21</a> · <a href="index_split_010.html#v-rut-2-11">Rut 2:11</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -440,7 +440,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_012.html#vnote-2sa-15-21">2Sa 15:21</a> · <a href="index_split_010.html#vnote-rut-2-11">Rut 2:11</a> · <a href="index_split_015.html#ch-b11-c2">2Ki 2:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_012.html#v-2sa-15-21">2Sa 15:21</a> · <a href="index_split_010.html#v-rut-2-11">Rut 2:11</a> · <a href="index_split_015.html#ch-b11-c2">2Ki 2:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1156,7 +1156,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-rut-1-9">Rut 1:9</a> · <a href="index_split_059.html#ch-b74-c5">1Ti 5:8</a> · <a href="index_split_035.html#ch-b30-c128">Psa 128:2</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-rut-1-9">Rut 1:9</a> · <a href="index_split_059.html#ch-b74-c5">1Ti 5:8</a> · <a href="index_split_035.html#ch-b30-c128">Psa 128:2</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -1388,7 +1388,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_045.html#vnote-eze-16-8">Ezk 16:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_045.html#v-eze-16-8">Ezk 16:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

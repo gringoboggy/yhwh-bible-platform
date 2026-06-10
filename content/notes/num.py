@@ -2475,7 +2475,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Pride, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Pride, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -6614,7 +6614,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:23</a> · <a href="index_split_035.html#ch-b30-c121">Psa 121:4</a> · <a href="index_split_058.html#vnote-phi-4-7">Php 4:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:23</a> · <a href="index_split_035.html#ch-b30-c121">Psa 121:4</a> · <a href="index_split_058.html#v-phi-4-7">Php 4:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6625,7 +6625,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:23</a> · <a href="index_split_035.html#ch-b30-c121">Psa 121:4</a> · <a href="index_split_058.html#vnote-phi-4-7">Php 4:7</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_058.html#ch-b72-c5">1Th 5:23</a> · <a href="index_split_035.html#ch-b30-c121">Psa 121:4</a> · <a href="index_split_058.html#v-phi-4-7">Php 4:7</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -6823,7 +6823,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, Dedication, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, The Levites.",
+        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, Dedication, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, The Levites.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -10156,7 +10156,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Feast of the Passover, The, Herbs, & C, High Priest, The, Theocracy, The, or Immediate Government By God.",
+        "<strong>Topics.</strong> This verse appears under: Feast of the Passover, The, Herbs, &amp; C, High Priest, The, Theocracy, The, or Immediate Government By God.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -10322,7 +10322,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Cloud of Glory, High Priest, The, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, Theocracy, The, or Immediate Government By God.",
+        "<strong>Topics.</strong> This verse appears under: Cloud of Glory, High Priest, The, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, Theocracy, The, or Immediate Government By God.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -10344,7 +10344,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Fruit of, illustrative, High Priest, The, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, Theocracy, The, or Immediate Government By God.",
+        "<strong>Topics.</strong> This verse appears under: Fruit of, illustrative, High Priest, The, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, Theocracy, The, or Immediate Government By God.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -10894,7 +10894,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -10916,7 +10916,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Deserts, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Deserts, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -11776,7 +11776,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Diet of the Jews, The, Egypt, Fishes, Herbs, & C.",
+        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Diet of the Jews, The, Egypt, Fishes, Herbs, &amp; C.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -12293,7 +12293,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:2</a> · <a href="index_split_001.html#vnote-gen-18-14">Gen 18:14</a> · <a href="index_split_040.html#ch-b37-c59">Isa 59:1</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c50">Isa 50:2</a> · <a href="index_split_001.html#v-gen-18-14">Gen 18:14</a> · <a href="index_split_040.html#ch-b37-c59">Isa 59:1</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -15068,7 +15068,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_004.html#vnote-exo-34-6">Exo 34:6</a> · <a href="index_split_035.html#ch-b30-c145">Psa 145:8</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_004.html#v-exo-34-6">Exo 34:6</a> · <a href="index_split_035.html#ch-b30-c145">Psa 145:8</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -17093,7 +17093,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c23">Mat 23:5</a> · <a href="index_split_008.html#vnote-deu-22-12">Deu 22:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_052.html#ch-b60-c23">Mat 23:5</a> · <a href="index_split_008.html#v-deu-22-12">Deu 22:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -19272,7 +19272,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Pride, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Pride, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -19294,7 +19294,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Levites, The, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, The Levites.",
+        "<strong>Topics.</strong> This verse appears under: Levites, The, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, The Levites.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -19316,7 +19316,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, Levites, The, Levites, The, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four, The Levites.",
+        "<strong>Topics.</strong> This verse appears under: Altar of Burnt Offering, The, Levites, The, Levites, The, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four, The Levites.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -19360,7 +19360,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Pride, The gate of, a hanging of blue, purple, &c twenty cubits wide, suspended from four.",
+        "<strong>Topics.</strong> This verse appears under: Pride, The gate of, a hanging of blue, purple, &amp;c twenty cubits wide, suspended from four.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -20879,7 +20879,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_046.html#vnote-eze-36-25">Ezk 36:25</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_046.html#v-eze-36-25">Ezk 36:25</a> · <a href="index_split_059.html#ch-b78-c9">Heb 9:14</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -20923,7 +20923,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:7</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:22</a> · <a href="index_split_046.html#vnote-eze-36-25">Ezk 36:25</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_059.html#ch-b82-c1">1Jn 1:7</a> · <a href="index_split_059.html#ch-b78-c10">Heb 10:22</a> · <a href="index_split_046.html#v-eze-36-25">Ezk 36:25</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -23433,7 +23433,7 @@ NOTES = [
         "topic-torrey",
         "Topic",
         "Topic.",
-        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Grass, Herbs, & C, Midianites, Midianites.",
+        "<strong>Topics.</strong> This verse appears under: Desert, Journey of Israel Through The, Grass, Herbs, &amp; C, Midianites, Midianites.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
     (
@@ -25019,7 +25019,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-15-29">1Sa 15:29</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_051.html#ch-b59-c3">Mal 3:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-15-29">1Sa 15:29</a> · <a href="index_split_059.html#v-jam-1-17">Jas 1:17</a> · <a href="index_split_051.html#ch-b59-c3">Mal 3:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25030,7 +25030,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_010.html#vnote-1sa-15-29">1Sa 15:29</a> · <a href="index_split_059.html#vnote-jam-1-17">Jas 1:17</a> · <a href="index_split_051.html#ch-b59-c3">Mal 3:6</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_010.html#v-1sa-15-29">1Sa 15:29</a> · <a href="index_split_059.html#v-jam-1-17">Jas 1:17</a> · <a href="index_split_051.html#ch-b59-c3">Mal 3:6</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25096,7 +25096,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:27</a> · <a href="index_split_007.html#vnote-num-22-12">Num 22:12</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_054.html#ch-b63-c10">Jhn 10:27</a> · <a href="index_split_007.html#v-num-22-12">Num 22:12</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -25228,7 +25228,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c10">Luk 10:18</a> · <a href="index_split_009.html#vnote-jos-13-22">Jos 13:22</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_053.html#ch-b62-c10">Luk 10:18</a> · <a href="index_split_009.html#v-jos-13-22">Jos 13:22</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -32767,7 +32767,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_011.html#vnote-1sa-30-18">1Sa 30:18</a> · <a href="index_split_054.html#ch-b63-c18">Jhn 18:9</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_011.html#v-1sa-30-18">1Sa 30:18</a> · <a href="index_split_054.html#ch-b63-c18">Jhn 18:9</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -33768,7 +33768,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c59">Isa 59:12</a> · <a href="index_split_036.html#ch-b32-c13">Pro 13:21</a> · <a href="index_split_002.html#vnote-gen-44-16">Gen 44:16</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_040.html#ch-b37-c59">Isa 59:12</a> · <a href="index_split_036.html#ch-b32-c13">Pro 13:21</a> · <a href="index_split_002.html#v-gen-44-16">Gen 44:16</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (
@@ -35968,7 +35968,7 @@ NOTES = [
         "xref-citation",
         "Cross-ref",
         "Cite.",
-        '<strong>Cross-references.</strong> <a href="index_split_009.html#vnote-jdg-2-3">Jdg 2:3</a>.',
+        '<strong>Cross-references.</strong> <a href="index_split_009.html#v-jdg-2-3">Jdg 2:3</a>.',
         "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
     ),
     (

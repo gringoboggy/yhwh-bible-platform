@@ -14381,11 +14381,11 @@ class TestRunAINotesAtScaleDriver:
         n_second = sum(1 for c in second["candidates"] if c["kind"] == "comm-ai")
         assert n_second == n_first  # not duplicated
 
-    def test_estimate_cost_scales_linearly(self):
-        per_verse = self.driver.COST_PER_VERSE_USD
-        assert self.driver.estimate_cost(0) == 0
-        assert self.driver.estimate_cost(100) == per_verse * 100
-        assert self.driver.estimate_cost(1000) == per_verse * 1000
+    def test_cost_per_verse_constant_pinned(self):
+        # round-7 5.9: the dead `estimate_cost()` wrapper was removed (production
+        # passes COST_PER_VERSE_USD directly into run_ai_driver_main's cost guard);
+        # pin the constant itself — the cost-guard math is `n * COST_PER_VERSE_USD`.
+        assert self.driver.COST_PER_VERSE_USD == 0.0020
 
     def test_resolve_books_default_is_canonical_kjv_intersection(self):
         books = self.asb.resolve_books(None)

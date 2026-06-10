@@ -64,6 +64,16 @@ RESET = "\033[0m"
 VNOTE_HREF_RE = re.compile(r'href="#vnote-([a-z0-9]+-\d+-\d+[a-z]?)"')
 VNOTE_ID_RE = re.compile(r'id="(vnote-[a-z0-9]+-\d+-\d+[a-z]?)"')
 
+# round-7 5.2 — note-BODY xref links (the `<a href="#vnote-…">` form, href as
+# the FIRST attribute) must target the VISIBLE verse anchor `#v-…`, never the
+# hidden `#vnote-…` popup container: vnote asides sit inside display-hidden
+# sections, and a hidden link target makes Kobo's renderer fall back to the
+# file start (the "teleport" class). The vn-link noterefs (`<a class="vn-link"
+# id="v-…" href="#vnote-…" epub:type="noteref">`) are the popup MECHANISM and
+# are untouched — their attribute order never begins with href.
+V_HREF_RE = re.compile(r'<a href="(?:(?P<file>[A-Za-z0-9_.-]+\.html))?#vnote-(?P<coord>[a-z0-9]+-\d+-\d+[a-z]?)"')
+V_ID_RE = re.compile(r'id="(v-[a-z0-9]+-\d+-\d+[a-z]?)"')
+
 
 def build_vnote_index(epub_dir: Path) -> tuple[dict[str, str], dict[str, set[str]]]:
     """Returns (vnote_index, file_ids).
@@ -79,6 +89,56 @@ def build_vnote_index(epub_dir: Path) -> tuple[dict[str, str], dict[str, set[str
         for vid in ids:
             vnote_index.setdefault(vid, f.name)
     return vnote_index, file_ids
+
+
+def build_v_anchor_index(epub_dir: Path) -> tuple[dict[str, str], dict[str, set[str]]]:
+    """round-7 5.2 — same shape as ``build_vnote_index`` but over the VISIBLE
+    per-verse anchors ``id="v-CODE-CH-V"`` (the vn-link anchors at each verse).
+    Returns (v_index, file_v_ids)."""
+    v_index: dict[str, str] = {}
+    file_v_ids: dict[str, set[str]] = {}
+    for f in sorted(epub_dir.glob("*.html")):
+        text = f.read_text(encoding="utf-8")
+        ids = {m.group(1) for m in V_ID_RE.finditer(text)}
+        file_v_ids[f.name] = ids
+        for vid in ids:
+            v_index.setdefault(vid, f.name)
+    return v_index, file_v_ids
+
+
+def retarget_visible(
+    text: str,
+    this_file_v_ids: set[str],
+    v_index: dict[str, str],
+    chapter_fallback: dict[str, str] | None = None,
+):
+    """round-7 5.2 — retarget note-BODY ``<a href="…#vnote-X">`` links to the
+    visible ``#v-X`` verse anchor (same-file bare form when the anchor is in
+    this file, ``file.html#v-X`` otherwise; Strategy-B chapter-anchor fallback
+    when no per-verse anchor exists). Noteref/vn-link anchors never match (the
+    pattern requires href as the FIRST attribute). Returns
+    ``(new_text, n_retargeted, unresolved)``."""
+    n_retargeted = 0
+    unresolved: list[str] = []
+
+    def repl(m: re.Match) -> str:
+        nonlocal n_retargeted
+        coord = m.group("coord")
+        vid = f"v-{coord}"
+        if vid in this_file_v_ids:
+            n_retargeted += 1
+            return f'<a href="#{vid}"'
+        if vid in v_index:
+            n_retargeted += 1
+            return f'<a href="{v_index[vid]}#{vid}"'
+        if chapter_fallback and f"vnote-{coord}" in chapter_fallback:
+            n_retargeted += 1
+            return f'<a href="{chapter_fallback[f"vnote-{coord}"]}"'
+        unresolved.append(coord)
+        return m.group(0)
+
+    new_text = V_HREF_RE.sub(repl, text)
+    return new_text, n_retargeted, unresolved
 
 
 def build_chapter_index(epub_dir: Path, books_meta) -> dict[str, str]:
@@ -191,6 +251,11 @@ def main() -> None:
     vnote_index, file_ids = build_vnote_index(EPUB_DIR)
     if not args.quiet:
         print(f"  {len(vnote_index):,} unique vnote ids across {len(file_ids)} files")
+    if not args.quiet:
+        print("indexing visible v- anchors in epub_working/ …")
+    v_index, file_v_ids = build_v_anchor_index(EPUB_DIR)
+    if not args.quiet:
+        print(f"  {len(v_index):,} unique v- anchors")
 
     # Build Strategy-B chapter-fallback index
     if not args.quiet:
@@ -206,6 +271,7 @@ def main() -> None:
     total_resolved = 0
     total_already_ok = 0
     total_fallback = 0
+    total_retargeted = 0
     files_changed = 0
     all_unresolved: set[str] = set()
 
@@ -215,8 +281,14 @@ def main() -> None:
             text = f.read_text(encoding="utf-8")
             if "#vnote-" not in text:
                 continue
+            # round-7 5.2: retarget note-BODY links to the visible #v- anchors
+            # FIRST (the correct target); the legacy vnote pass then handles
+            # whatever remains (vn-link noterefs are untouched by both).
+            new_text, n_rt, un_rt = retarget_visible(text, file_v_ids.get(f.name, set()), v_index, chapter_fallback)
+            all_unresolved.update(un_rt)
+            total_retargeted += n_rt
             new_text, n_res, n_ok, un, n_fb = rewrite_rendered(
-                text, file_ids.get(f.name, set()), vnote_index, chapter_fallback
+                new_text, file_ids.get(f.name, set()), vnote_index, chapter_fallback
             )
             all_unresolved.update(un)
             total_resolved += n_res
@@ -229,7 +301,8 @@ def main() -> None:
                     un_note = f" · {len(un)} unresolved" if un else ""
                     fb_note = f" · {n_fb} chapter-fallback" if n_fb else ""
                     ok_note = f" · {n_ok} already-ok same-file"
-                    print(f"  rendered {f.name}: {verb} {n_res} ref(s){ok_note}{fb_note}{un_note}")
+                    rt_note = f" · {n_rt} retargeted-to-v" if n_rt else ""
+                    print(f"  rendered {f.name}: {verb} {n_res} ref(s){rt_note}{ok_note}{fb_note}{un_note}")
                 if args.apply:
                     f.write_text(new_text, encoding="utf-8")
 
@@ -241,7 +314,13 @@ def main() -> None:
             text = f.read_text(encoding="utf-8")
             if "#vnote-" not in text:
                 continue
-            new_text, n_res, un, n_fb = rewrite_source(text, vnote_index, chapter_fallback)
+            # round-7 5.2: source notes' eventual placement is unknown at write
+            # time — retarget with an EMPTY same-file set so every resolvable
+            # body link gets the explicit file-prefixed visible form.
+            new_text, n_rt, un_rt = retarget_visible(text, set(), v_index, chapter_fallback)
+            all_unresolved.update(un_rt)
+            total_retargeted += n_rt
+            new_text, n_res, un, n_fb = rewrite_source(new_text, vnote_index, chapter_fallback)
             all_unresolved.update(un)
             total_resolved += n_res
             total_fallback += n_fb
@@ -250,7 +329,8 @@ def main() -> None:
                 verb = "rewrote" if args.apply else "would rewrite"
                 if not args.quiet:
                     un_note = f" · {len(un)} unresolved" if un else ""
-                    print(f"  source   {f.name}: {verb} {n_res} ref(s){un_note}")
+                    rt_note = f" · {n_rt} retargeted-to-v" if n_rt else ""
+                    print(f"  source   {f.name}: {verb} {n_res} ref(s){rt_note}{un_note}")
                 if args.apply:
                     _notes_io.ensure_backup(f)
                     _notes_io.atomic_write(f, new_text)
@@ -265,7 +345,7 @@ def main() -> None:
     action = "applied" if args.apply else "dry-run"
     print(
         f"\n{color}{sym} fix_vnote_xrefs ({action}): "
-        f"resolved={total_resolved}  already-ok={total_already_ok}  "
+        f"retargeted-to-v={total_retargeted}  resolved={total_resolved}  already-ok={total_already_ok}  "
         f"unresolved={n_unresolved}  files-changed={files_changed}{RESET}"
     )
 

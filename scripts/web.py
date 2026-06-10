@@ -590,7 +590,10 @@ _SIMPLE_GET_ROUTES: list[tuple[str, object]] = [
     ("/api/covers", api_covers),
     ("/api/preflight", api_preflight),
     ("/api/ops", api_ops_dashboard),
-    ("/api/apihelp", api_help_data),
+    # 5.10 (2026-06-10 audit) — /api/apihelp moved to _REGEX_GET_ROUTES
+    # (the mint-6 precedent): its source_read_failed error path returns
+    # the standard {status:error, http:500} envelope, which this
+    # always-200 table sent raw.
     ("/api/corpus-progress", api_corpus_progress),
     ("/api/edition-templates", api_edition_templates_list),
     # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
@@ -660,6 +663,11 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, object]] = [
     # so its {status:error, http} envelope is translated by _dispatch_table_result
     # (the simple table always sends 200). No capture groups → lambda *_ absorbs.
     (re.compile(r"^/api/distribution/rollup$"), lambda *_: api_distribution_rollup()),
+    # 5.10 (2026-06-10 audit) — /api/apihelp: same mint-6 class as the
+    # distribution rollup above. Its source_read_failed error path returns
+    # the standard {status:error, http:500} envelope, which the always-200
+    # simple table sent raw at 200. No capture groups → lambda *_ absorbs.
+    (re.compile(r"^/api/apihelp$"), lambda *_: api_help_data()),
 ]
 
 
@@ -1060,6 +1068,46 @@ def _dispatch_table_result(handler_self, result: dict) -> None:
         handler_self._send_json(result, status=400)
         return
     handler_self._send_json(result)
+
+
+def _send_json_with_error_status(handler_self, result: dict, *, error_status: int = 404) -> None:
+    """5.10 (2026-06-10 audit) — thin route adapter (RULES §9) for the
+    legacy GET handlers that signal failure with a top-level
+    ``{"error": ...}`` dict instead of the standard
+    ``{"status": "error", "http": ...}`` envelope (api_sources_for_book,
+    api_disabled_notes_for_edition, api_notes, api_export_preview,
+    api_compare; api_get_scenario classifies via _scenario_error_status).
+    These routes used to send the error body at a silent HTTP 200; the
+    route now owns the translation. The body passes through UNCHANGED —
+    other consumers/tests pin the handler return shapes; only the status
+    code is corrected.
+
+    ``error_status`` is what the route declares for its error shape:
+    404 for not-found semantics (unknown book / edition / scenario),
+    400 for invalid-input semantics (/api/compare's validation).
+    Success shapes pass through unchanged at 200.
+    """
+    if isinstance(result, dict) and "error" in result:
+        handler_self._send_json(result, status=error_status)
+        return
+    handler_self._send_json(result)
+
+
+def _scenario_error_status(error: str) -> int:
+    """5.10 — api_get_scenario has THREE legacy error shapes with
+    distinct HTTP semantics; the route adapter maps message → status
+    (the shapes are pinned by consumers, so classification lives here,
+    not in the handler):
+
+    - ``scenario '<name>' not found``  → 404 (missing file)
+    - ``corrupt scenario file: ...``   → 500 (server-side data fault)
+    - ``invalid scenario name ...``    → 400 (input validation; else-arm)
+    """
+    if "not found" in error:
+        return 404
+    if error.startswith("corrupt scenario file"):
+        return 500
+    return 400
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -1504,7 +1552,12 @@ class Handler(BaseHTTPRequestHandler):
 
         m = re.match(r"^/api/scenarios/([a-z0-9_-]+)$", path)
         if m:
-            return self._send_json(api_get_scenario(m.group(1)))
+            result = api_get_scenario(m.group(1))
+            # 5.10 — the three legacy error shapes now carry their real
+            # HTTP status (was: silent 200); see _scenario_error_status.
+            if isinstance(result, dict) and "error" in result:
+                return self._send_json(result, status=_scenario_error_status(result["error"]))
+            return self._send_json(result)
 
         # Sources Navigator (Phase μ.3)
         if path == "/sources" or path == "/sources.html":
@@ -1512,7 +1565,11 @@ class Handler(BaseHTTPRequestHandler):
         # PD source-cache management (Phase υ.1) — distinct from
         # /api/sources below, which navigates note attribution
         if path == "/api/sources/cache":
-            return self._send_json(api_sources_cache_status())
+            # 5.10 — the handler returns the STANDARD {status:error, http}
+            # envelope on config failure; translate it exactly like the
+            # route tables do (honor result["http"]) instead of sending
+            # the raw envelope at 200.
+            return _dispatch_table_result(self, api_sources_cache_status())
         # ω.35-A.3 — /api/sources migrated to _SIMPLE_GET_ROUTES.
         if path == "/api/sources/summary":
             return self._send_json(api_sources_summary())
@@ -1543,7 +1600,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(result)
         m = re.match(r"^/api/sources/([a-z0-9]+)$", path)
         if m:
-            return self._send_json(api_sources_for_book(m.group(1)))
+            # 5.10 — "unknown book" → 404 (was: silent 200).
+            return _send_json_with_error_status(self, api_sources_for_book(m.group(1)))
         # υ.8 — verse-of-the-day feeds. JSON + RSS share the same
         # underlying picker. ?date=YYYY-MM-DD pins a specific day;
         # ?edition_id=<id> restricts to that edition's enabled kinds.
@@ -1599,7 +1657,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_html(EXPORT_HTML)
         m = re.match(r"^/api/export/preview/([a-z0-9-]+)$", path)
         if m:
-            return self._send_json(api_export_preview(m.group(1)))
+            # 5.10 — "unknown edition" → 404 (was: silent 200).
+            return _send_json_with_error_status(self, api_export_preview(m.group(1)))
         m = re.match(r"^/api/export/download/([\w.-]+)$", path)
         if m:
             result = api_download_export(m.group(1))
@@ -1637,7 +1696,8 @@ class Handler(BaseHTTPRequestHandler):
         # Per-note disable list for one edition (Phase ρ.1)
         m = re.match(r"^/api/edition/([a-z0-9-]+)/disabled-notes$", path)
         if m:
-            return self._send_json(api_disabled_notes_for_edition(m.group(1)))
+            # 5.10 — "unknown edition" → 404 (was: silent 200).
+            return _send_json_with_error_status(self, api_disabled_notes_for_edition(m.group(1)))
 
         # Publisher console (Phase π.1)
         if path == "/publisher" or path == "/publisher.html":
@@ -1676,7 +1736,10 @@ class Handler(BaseHTTPRequestHandler):
             # Sensible default: just KJV (the only translation we ship today)
             if not translations:
                 translations = ["kjv"]
-            return self._send_json(api_compare(book, chapter, translations))
+            # 5.10 — api_compare's error shapes are all input validation
+            # ("book code is required" / "chapter must be ≥ 1") → 400
+            # (was: silent 200).
+            return _send_json_with_error_status(self, api_compare(book, chapter, translations), error_status=400)
 
         # Sample-chapter HTML export (Phase ψ.5) — buyer demo
         # without committing to a full EPUB build. URL pattern:
@@ -1787,7 +1850,9 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/greek" or path == "/greek.html":
             return self._send_html(GREEK_HTML)
         # Phase ω.3 — API reference data feed (auto-generated)
-        # ω.35-A.3 — /api/apihelp + /api/corpus-progress migrated to _SIMPLE_GET_ROUTES.
+        # ω.35-A.3 — /api/apihelp + /api/corpus-progress migrated to
+        # _SIMPLE_GET_ROUTES; 5.10 later moved /api/apihelp on to
+        # _REGEX_GET_ROUTES so its error envelope is translated.
 
         # Cover console (Phase π.4-B UI). The image-upload flow lives
         # in do_POST; this route just serves the page shell.
@@ -1928,7 +1993,8 @@ class Handler(BaseHTTPRequestHandler):
 
         m = re.match(r"^/api/notes/([a-z0-9]+)$", path)
         if m:
-            return self._send_json(api_notes(m.group(1)))
+            # 5.10 — "book not found" → 404 (was: silent 200).
+            return _send_json_with_error_status(self, api_notes(m.group(1)))
 
         m = re.match(r"^/api/template/([\w-]+)$", path)
         if m:
