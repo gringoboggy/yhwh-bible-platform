@@ -127,3 +127,26 @@ halves cheap):**
 
 **Bonus:** the book is now ON the user's Kindle — first Kindle device-QA datum is
 unblocked (round-1 Kindle eyeball possible whenever the user wants).
+
+## Kindle round-1 device QA (Mac Kindle app, driven via screenshots, 2026-06-10)
+
+**Working:** title-page ART renders (gold artwork + BOOK-N eyebrow + framed caption +
+ornament); parchment page background carried; dense text pages clean; per-book NCX nav
++ footer labels correct; `<details>` converts safely (renders permanently EXPANDED, stray
+▸ marker — conversion-proof, interactivity dropped); search/locations work.
+
+**Issues (K-KIN-1…4):**
+1. **No note popups** (user datum) — Kindle ignores our aside/popup pattern; with test-2's
+   visible notes this is endnote-style reading, refs presumably jump. Kindle-variant
+   design must accept follow-link footnotes (Kindle's native popup needs its own
+   pattern; evaluate at the v0.1.1 kindle_safe work).
+2. **ToC pills linearize** — one chapter pill per LINE (inline-flex lost in KFX), Genesis
+   ToC spans several pages. Kindle-variant: plain inline text links or rows, not pills.
+3. **Book seams shatter into up to 3 sparse pages** — caption band ("BOOK II / The Second
+   Book of Moses"), a fully BLANK page, and the art page can each take a page
+   (window-size dependent; locations 31849/32436/32439/32458 observed). Likely the title
+   singleton pieces + title-div structure; acceptable beta, fold into the kindle variant.
+4. `<details>` marker/expansion cosmetics (covered above).
+
+Evidence: /tmp/kindle-qa-*.png (session-local). Next Kindle datum = user device eyeball
+or the v0.1.1 kindle_safe variant build.
