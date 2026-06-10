@@ -94,3 +94,36 @@ notes-sections visibly (endnote style) instead of display:none — Kindle's own 
 mechanism follows noteref links natively and does not need hidden asides. If test 2
 still fails ⇒ test 3 strips the `<details>` ToC; after that, the footnote-density/
 timeout hypothesis and Kindle Previewer (install-gated) are what remain.
+
+## ✅ CONFIRMED (2026-06-10, same day)
+
+**Test 2 DELIVERED to the user's Kindle library** (via the Send-to-Kindle web uploader,
+amazon.ca). Diagnostic signature: the failing files died in 4–5 min (early validation
+gate); test 2 processed ~12+ min (real conversion crunch) and succeeded.
+
+**Verdict:**
+- **Trigger = the `display:none` hidden-content volume (E3013 class), and/or the
+  multi-value `dc:language` block** — test 2 changed exactly those two and nothing else.
+  (Which of the two — or both — is unresolved only if the round-2 resend was the
+  original; if it was the langtest copy, language-alone is proven insufficient and the
+  display:none hide is the necessary fix.)
+- **`<details>` ToC definitively EXONERATED** — test 2 delivered WITH all 75
+  `<details>`/`<summary>` pairs intact. Kindle converts them fine.
+- **Footnote-density/timeout EXONERATED** — the full 44K-aside conversion completed.
+
+**v0.1.1 fix prescription (owner: shared build code — WIN domain by recent touch; both
+halves cheap):**
+1. `dc:language` → single `en-US` (drop the hbo/grc/arc/gez block at
+   `build_edition.py:1542`; per-span `xml:lang` already carries the in-content language
+   info, K-R2-5-audited). Low value vs proven risk — recommend dropping unconditionally.
+2. Notes-section visibility: do NOT strip `display:none` ship-wide — compliant popup
+   readers (Apple/Kobo) auto-suppress `epub:type="footnote"` asides, but the CSS hide is
+   the safety net for readers that don't. Correct shape = `target_reader`-gating (the
+   TARGET_CAPS machinery from K-R2 already exists): a Kindle/eink-safe variant renders
+   notes-sections visibly (endnote style; Kindle's native popup follows noteref links).
+   Wizard copy: name Send-to-Kindle compatibility explicitly.
+3. Regression gate: a `kindle_safe` check (no >10K chars under display:none when the
+   target is kindle; single dc:language) in the artifact verifier.
+
+**Bonus:** the book is now ON the user's Kindle — first Kindle device-QA datum is
+unblocked (round-1 Kindle eyeball possible whenever the user wants).
