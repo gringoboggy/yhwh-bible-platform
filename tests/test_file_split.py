@@ -307,6 +307,52 @@ FILE_B_NEXT = (
 )
 
 
+class TestTitleAtomDivClose:
+    """C1 + C16 (Mac splitter review 2026-06-10), pinned on the REAL base — the
+    synthetic masked both. C1: a book's intro blurb (a <p> between the
+    book-title-page div and the first chapter — Jubilees, Additions-to-Esther)
+    must travel WHOLE to the piece after the title singleton, never torn
+    mid-sentence onto the title page (shipped torn in r3: piece 018_02 ended
+    "…the Book of Jubilees?), </p>"). C16: reopen prefixes replay open tags
+    WITHOUT their ids, so no id appears in two pieces (idmap poisoning)."""
+
+    def _split_real(self, fname):
+        from scripts.build_edition import FILE_SPLIT_TARGET_DEFAULT, split_html_document
+
+        text = (REPO / "epub_working" / fname).read_text(encoding="utf-8")
+        return split_html_document(text, fname[: -len(".html")], FILE_SPLIT_TARGET_DEFAULT)
+
+    def test_jubilees_intro_blurb_not_torn_onto_title_page(self):
+        pieces = self._split_real("index_split_018.html")
+        title_piece = next(t for _n, t in pieces if 'id="bp-15"' in t)
+        # the title piece ends at the title div's close — no blurb fragment on it
+        assert "Moses receives the tables" not in title_piece, "Jubilees blurb torn onto the title page (C1)"
+        assert 'id="page_639"' not in title_piece
+        # the blurb paragraph survives INTACT in exactly one piece: its opening
+        # text and its tail anchor (the old tear point) sit in the SAME piece.
+        holders = [t for _n, t in pieces if "Moses receives the tables" in t]
+        assert len(holders) == 1
+        assert 'id="v-man-1-29"' in holders[0], "blurb torn mid-paragraph across pieces (C1)"
+
+    def test_addesther_intro_blurb_not_torn_onto_title_page(self):
+        pieces = self._split_real("index_split_028.html")
+        title_piece = next((t for _n, t in pieces if 'id="bp-25"' in t), None)
+        assert title_piece is not None, "bp-25 title piece missing from index_split_028"
+        assert 'class="verse-p"' not in title_piece.split('<aside class="notes-section"')[0], (
+            "content paragraph torn onto the Additions-to-Esther title page (C1)"
+        )
+
+    def test_no_id_duplicated_across_pieces_real_base(self):
+        # C16: with reopen-id stripping, every id is unique across a file's pieces.
+        for fname in ("index_split_018.html", "index_split_028.html", "index_split_000.html"):
+            seen: dict[str, str] = {}
+            for n, t in self._split_real(fname):
+                for m in re.finditer(r'\sid="([^"]+)"', t):
+                    assert seen.setdefault(m.group(1), n) == n, (
+                        f"id {m.group(1)!r} appears in both {seen[m.group(1)]} and {n} (C16)"
+                    )
+
+
 class TestCrossFileOpenerPop:
     """A chapter opener stranded at the END of an original calibre file moves to
     the head of the NEXT file's first piece, so the numeral renders with its

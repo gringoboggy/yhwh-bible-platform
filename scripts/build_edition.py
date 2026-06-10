@@ -2913,6 +2913,29 @@ def _stack_at_positions(content: str, positions: list[int]) -> dict[int, list[st
     return out
 
 
+def _matching_div_close(text: str, start: int) -> int:
+    """Offset just past the ``</div>`` matching the ``<div`` at ``start`` (depth
+    scan), or -1. Ends a book-title-page atom at its element close (C1)."""
+    depth = 0
+    for m in re.finditer(r"<div\b|</div>", text[start:]):
+        if m.group(0) == "</div>":
+            depth -= 1
+            if depth == 0:
+                return start + m.end()
+        else:
+            depth += 1
+    return -1
+
+
+# C16 (Mac splitter review): a piece's reopen prefix replays the opening tags a
+# cut landed inside — WITH their id attributes, duplicating those ids across
+# every subsequent piece (poisons the idmap's last-writer-wins and blocks a hard
+# id-uniqueness gate). Strip ids from reopened tags; the ORIGINAL tag, in the
+# piece where the element starts, keeps the id, so links resolve to the real
+# element.
+_REOPEN_ID_RE = re.compile(r'\s+id="[^"]*"')
+
+
 def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
     """Split ONE ``index_split`` file's text into ~``target``-byte pieces.
 
@@ -2972,11 +2995,19 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
     # Title positions for forced isolation. A title's '<' may sit at position 0 (a file
     # that BEGINS with a book title): 0 is never a cut, but atom 0 must still be
     # recognized as a title atom so the piece after it starts fresh.
+    # C1 (Mac splitter review, 2026-06-10): the title atom must END at the title
+    # div's matching close — the next generic candidate can be a vn-link INSIDE
+    # a book's intro blurb (Jubilees / Additions-to-Esther), tearing it
+    # mid-sentence onto the title page. Cut right after </div> so the blurb
+    # travels whole to the following piece.
     title_cuts: set[int] = set()
     for m in _BP_ID_RE.finditer(content):
         lt = content.rfind("<", 0, m.start())
         if lt >= 0:
             title_cuts.add(lt)
+            close = _matching_div_close(content, lt)
+            if close != -1 and 0 < close < len(content):
+                cands.add(close)
     if not cands:
         return [(f"{stem}.html", text)]
     cuts = [0, *sorted(cands), len(content)]
@@ -3052,7 +3083,8 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
 
     pieces: list[tuple[str, str]] = []
     for k, g in enumerate(groups):
-        prefix = "".join(stack_at[cuts[g[0]]])  # reopen the elements this piece starts inside
+        # reopen the elements this piece starts inside — WITHOUT their ids (C16)
+        prefix = "".join(_REOPEN_ID_RE.sub("", t) for t in stack_at[cuts[g[0]]])
         suffix = "".join(f"</{_open_tag_name(t)}>" for t in reversed(stack_at[cuts[g[-1] + 1]]))
         gt = "".join(atoms[i] for i in g)
         ids = group_asides[k]
@@ -3126,7 +3158,9 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         if not (len(pieces) == 1 and pieces[0][0] == orig):
             split_origs.add(orig)
         for pname, ptext in pieces:
-            for m in re.finditer(r'\bid="([^"]+)"', ptext):
+            # \s prefix (C12/C15): \b also matched data-*-id= attributes,
+            # planting phantom idmap keys that could hijack bare hrefs.
+            for m in re.finditer(r'\sid="([^"]+)"', ptext):
                 idmap[m.group(1)] = pname
 
     if not split_origs and not popped:

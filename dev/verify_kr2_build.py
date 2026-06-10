@@ -124,9 +124,10 @@ def main(path: str) -> int:
             "(navigate instead of popping on Kobo — K-R3-4 class)"
         )
     if dup_ids:
-        # informational until the reopen-id strip lands (review C16):
-        # duplicated ids are legal per-file HTML but poison the idmap.
-        print(f"warn: {len(dup_ids)} content id(s) duplicated across pieces: {sorted(dup_ids)[:6]}")
+        # HARD FAIL since the reopen-id strip landed (review C16): the splitter
+        # no longer replays ids in reopen prefixes, so any cross-piece duplicate
+        # is a real defect (poisons the idmap's last-writer-wins).
+        fails.append(f"{len(dup_ids)} content id(s) duplicated across pieces: {sorted(dup_ids)[:6]}")
 
     # ── 3. metadata ──────────────────────────────────────────────────────
     opf_name = next(n for n in names if n.endswith(".opf"))
@@ -165,17 +166,11 @@ def main(path: str) -> int:
     else:
         fails.append("colophonend.xhtml missing (default keeps it)")
 
-    # ── 4. K-R3-4 gates ──────────────────────────────────────────────────
-    promoted_re = (
-        re.compile(r'<a[^>]*href="index_split_[^"#]+#[^"]+"[^>]*epub:type="noteref"'),
-        re.compile(r'<a[^>]*epub:type="noteref"[^>]*href="index_split_[^"#]+#[^"]+"'),
-    )
+    # ── 4. K-R3 placement + splice-corruption gates ──────────────────────
+    # (promoted-noteref + cross-piece dup-id failing live in gate 2 above —
+    # Mac's attr-order-insensitive matching is authoritative there.)
     ch_anchor_re = re.compile(r'id="ch-b\d+-c(\d+)"')
     badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)"')
-    promoted = 0
-    id_home: dict[str, str] = {}
-    dup_ids: set[str] = set()
-    targeted: set[str] = set()
     spilled: list[str] = []
     for n in pieces:
         t = zf.read(n).decode("utf-8", "replace")
@@ -205,16 +200,6 @@ def main(path: str) -> int:
                 depth += d
         if buried:
             fails.append(f"{n}: {buried} verse-notes badge(s) nested inside asides (hidden from the reader)")
-        for rx in promoted_re:
-            promoted += len(rx.findall(t))
-        for m in re.finditer(r'\bid="([^"]+)"', t):
-            i = m.group(1)
-            if i.startswith("kobo."):
-                continue  # kepubify's span ids are file-scoped by design
-            if id_home.setdefault(i, n) != n:
-                dup_ids.add(i)
-        for m in re.finditer(r'href="[^"#]*#([^"]+)"', t):
-            targeted.add(m.group(1))
         events: list[tuple[int, str, object]] = []
         for m in ch_anchor_re.finditer(t):
             events.append((m.start(), "ch", int(m.group(1))))
@@ -226,11 +211,6 @@ def main(path: str) -> int:
                 cur = val
             elif cur is not None and val[1] < cur:
                 spilled.append(f"{n}: {val[0]} {val[1]}:{val[2]} renders inside chapter {cur}")
-    if promoted:
-        fails.append(f"{promoted} PROMOTED (cross-file) noteref hrefs — popups would navigate, not pop")
-    dup_targeted = sorted(i for i in dup_ids if i in targeted)
-    if dup_targeted:
-        fails.append(f"{len(dup_targeted)} href-targeted ids duplicated across pieces (first 5: {dup_targeted[:5]})")
     if spilled:
         fails.append(f"{len(spilled)} badges render past their chapter's heading (K-R3-4); first 3:")
         fails.extend("  " + s for s in spilled[:3])
@@ -241,7 +221,7 @@ def main(path: str) -> int:
         f"  median {int(statistics.median(sizes)):,}"
     )
     print(f"noterefs: {total_refs:,} all-resolve={unresolved == 0}")
-    print(f"promoted-noterefs: {promoted}  dup-targeted-ids: {len(dup_targeted)}  ch-spilled-badges: {len(spilled)}")
+    print(f"promoted-noterefs: {promoted}  dup-ids: {len(dup_ids)}  ch-spilled-badges: {len(spilled)}")
     if fails:
         print("\nFAILURES:")
         for f in fails:
