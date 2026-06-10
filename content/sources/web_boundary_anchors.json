@@ -1,0 +1,485 @@
+{
+  "_meta": {
+    "purpose": "WEB (eng-web) verse-1 + verse-2 ground-truth text for the 117 chapter-start verse-boundary residual sites (design: docs/superpowers/notes/2026-06-10-verse-boundary-residual-design.md). The recovered base IS WEB, so these anchors locate verse-2 exactly where the 2026-06-06 KJV-derived inference could not.",
+    "source": "eBible.org eng-web_vpl.zip (World English Bible with Apocrypha, Public Domain), fetched 2026-06-10",
+    "license": "Public Domain",
+    "site_count": 117,
+    "two_step_sites": [
+      "1ch-1",
+      "sir-18"
+    ],
+    "two_step_note": "These 2 sites carry a TWO-step displacement: v1 AND v2 empty, v1+v2(+v3) text merged under the v3 anchor. The v3 key is the WEB v3 ground truth (sir 18:3 is a genuinely EMPTY verse in eng-web — the rebuilt v3 stays visually empty, matching the translation)."
+  },
+  "anchors": {
+    "1ch-1": {
+      "v1": "Adam, Seth, Enosh,",
+      "v2": "Kenan, Mahalalel, Jared,",
+      "v3": "Enoch, Methuselah, Lamech,"
+    },
+    "1ki-22": {
+      "v1": "They continued three years without war between Syria and Israel.",
+      "v2": "In the third year, Jehoshaphat the king of Judah came down to the king of Israel."
+    },
+    "1ki-4": {
+      "v1": "King Solomon was king over all Israel.",
+      "v2": "These were the princes whom he had: Azariah the son of Zadok, the priest;"
+    },
+    "1sa-8": {
+      "v1": "When Samuel was old, he made his sons judges over Israel.",
+      "v2": "Now the name of his firstborn was Joel, and the name of his second, Abijah. They were judges in Beersheba."
+    },
+    "1th-2": {
+      "v1": "For you yourselves know, brothers, our visit to you wasn’t in vain,",
+      "v2": "but having suffered before and been shamefully treated, as you know, at Philippi, we grew bold in our God to tell you the Good News of God in much conflict."
+    },
+    "2es-12": {
+      "v1": "It came to pass, while the lion spoke these words to the eagle, I saw,",
+      "v2": "and behold, the head that remained disappeared, and the two wings which went over to it arose and set themselves up to reign; and their kingdom was brief and full of uproar."
+    },
+    "2es-13": {
+      "v1": "It came to pass after seven days, I dreamed a dream by night.",
+      "v2": "Behold, a wind arose from the sea that moved all its waves."
+    },
+    "2es-16": {
+      "v1": "Woe to you, Babylon, and Asia! Woe to you, Egypt and Syria!",
+      "v2": "Put on sackcloth and garments of goats’ hair, wail for your children and lament; for your destruction is at hand."
+    },
+    "2ti-3": {
+      "v1": "But know this: that in the last days, grievous times will come.",
+      "v2": "For men will be lovers of self, lovers of money, boastful, arrogant, blasphemers, disobedient to parents, unthankful, unholy,"
+    },
+    "3jn-1": {
+      "v1": "The elder to Gaius the beloved, whom I love in truth.",
+      "v2": "Beloved, I pray that you may prosper in all things and be healthy, even as your soul prospers."
+    },
+    "act-28": {
+      "v1": "When we had escaped, then they learned that the island was called Malta.",
+      "v2": "The natives showed us uncommon kindness; for they kindled a fire and received us all, because of the present rain and because of the cold."
+    },
+    "aes-10": {
+      "v1": "The king levied a tax upon his kingdom both by land and sea.",
+      "v2": "As for his strength and valour, and the wealth and glory of his kingdom, behold, they are written in the book of the Persians and Medes for a memorial."
+    },
+    "aes-7": {
+      "v1": "So the king and Haman went in to drink with the queen.",
+      "v2": "The king said to Esther at the banquet on the second day, “What is it, queen Esther? What is your request? What is your petition? It shall be done for you, up to half of my kingdom.”"
+    },
+    "deu-15": {
+      "v1": "At the end of every seven years, you shall cancel debts.",
+      "v2": "This is the way it shall be done: every creditor shall release that which he has lent to his neighbor. He shall not require payment from his neighbor and his brother, because Yahweh’s release has been proclaimed."
+    },
+    "ecc-1": {
+      "v1": "The words of the Preacher, the son of David, king in Jerusalem:",
+      "v2": "“Vanity of vanities,” says the Preacher; “Vanity of vanities, all is vanity.”"
+    },
+    "eph-2": {
+      "v1": "You were made alive when you were dead in transgressions and sins,",
+      "v2": "in which you once walked according to the course of this world, according to the prince of the power of the air, the spirit who now works in the children of disobedience."
+    },
+    "eph-6": {
+      "v1": "Children, obey your parents in the Lord, for this is right.",
+      "v2": "“Honor your father and mother,” which is the first commandment with a promise:"
+    },
+    "exo-20": {
+      "v1": "God spoke all these words, saying,",
+      "v2": "“I am Yahweh your God, who brought you out of the land of Egypt, out of the house of bondage."
+    },
+    "exo-31": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“Behold, I have called by name Bezalel the son of Uri, the son of Hur, of the tribe of Judah."
+    },
+    "eze-14": {
+      "v1": "Then some of the elders of Israel came to me and sat before me.",
+      "v2": "Yahweh’s word came to me, saying,"
+    },
+    "eze-18": {
+      "v1": "Yahweh’s word came to me again, saying,",
+      "v2": "“What do you mean, that you use this proverb concerning the land of Israel, saying, ‘The fathers have eaten sour grapes, and the children’s teeth are set on edge’?"
+    },
+    "eze-19": {
+      "v1": "“Moreover, take up a lamentation for the princes of Israel,",
+      "v2": "and say, ‘What was your mother? A lioness. She couched among lions, in the middle of the young lions she nourished her cubs."
+    },
+    "eze-22": {
+      "v1": "Moreover Yahweh’s word came to me, saying,",
+      "v2": "“You, son of man, will you judge? Will you judge the bloody city? Then cause her to know all her abominations."
+    },
+    "eze-27": {
+      "v1": "Yahweh’s word came again to me, saying,",
+      "v2": "“You, son of man, take up a lamentation over Tyre;"
+    },
+    "eze-7": {
+      "v1": "Moreover Yahweh’s word came to me, saying,",
+      "v2": "“You, son of man, the Lord Yahweh says to the land of Israel, ‘An end! The end has come on the four corners of the land."
+    },
+    "gen-11": {
+      "v1": "The whole earth was of one language and of one speech.",
+      "v2": "As they traveled east, they found a plain in the land of Shinar, and they lived there."
+    },
+    "gen-2": {
+      "v1": "The heavens, the earth, and all their vast array were finished.",
+      "v2": "On the seventh day God finished his work which he had done; and he rested on the seventh day from all his work which he had done."
+    },
+    "gen-32": {
+      "v1": "Jacob went on his way, and the angels of God met him.",
+      "v2": "When he saw them, Jacob said, “This is God’s army.” He called the name of that place Mahanaim."
+    },
+    "gen-37": {
+      "v1": "Jacob lived in the land of his father’s travels, in the land of Canaan.",
+      "v2": "This is the history of the generations of Jacob. Joseph, being seventeen years old, was feeding the flock with his brothers. He was a boy with the sons of Bilhah and Zilpah, his father’s wives. Joseph brought an evil report of them to their father."
+    },
+    "gen-43": {
+      "v1": "The famine was severe in the land.",
+      "v2": "When they had eaten up the grain which they had brought out of Egypt, their father said to them, “Go again, buy us a little more food.”"
+    },
+    "hab-1": {
+      "v1": "The revelation which Habakkuk the prophet saw.",
+      "v2": "Yahweh, how long will I cry, and you will not hear? I cry out to you “Violence!” and will you not save?"
+    },
+    "hab-3": {
+      "v1": "A prayer of Habakkuk, the prophet, set to victorious music.",
+      "v2": "Yahweh, I have heard of your fame. I stand in awe of your deeds, Yahweh. Renew your work in the middle of the years. In the middle of the years make it known. In wrath, you remember mercy."
+    },
+    "heb-11": {
+      "v1": "Now faith is assurance of things hoped for, proof of things not seen.",
+      "v2": "For by this, the elders obtained approval."
+    },
+    "heb-13": {
+      "v1": "Let brotherly love continue.",
+      "v2": "Don’t forget to show hospitality to strangers, for in doing so, some have entertained angels without knowing it."
+    },
+    "hos-2": {
+      "v1": "“Say to your brothers, ‘My people!’ and to your sisters, ‘My loved one!’",
+      "v2": "Contend with your mother! Contend, for she is not my wife, neither am I her husband; and let her put away her prostitution from her face, and her adulteries from between her breasts;"
+    },
+    "isa-13": {
+      "v1": "The burden of Babylon, which Isaiah the son of Amoz saw.",
+      "v2": "Set up a banner on the bare mountain! Lift up your voice to them! Wave your hand, that they may go into the gates of the nobles."
+    },
+    "isa-40": {
+      "v1": "“Comfort, comfort my people,” says your God.",
+      "v2": "“Speak comfortably to Jerusalem, and call out to her that her warfare is accomplished, that her iniquity is pardoned, that she has received of Yahweh’s hand double for all her sins.”"
+    },
+    "isa-44": {
+      "v1": "Yet listen now, Jacob my servant, and Israel, whom I have chosen.",
+      "v2": "This is what Yahweh who made you, and formed you from the womb, who will help you says: “Don’t be afraid, Jacob my servant; and you, Jeshurun, whom I have chosen."
+    },
+    "jdt-3": {
+      "v1": "And they sent to him messengers with words of peace, saying,",
+      "v2": "“Behold, we the servants of Nebuchadnezzar the great king lie before you. Use us as it is pleasing in your sight."
+    },
+    "jer-10": {
+      "v1": "Hear the word which Yahweh speaks to you, house of Israel!",
+      "v2": "Yahweh says, “Don’t learn the way of the nations, and don’t be dismayed at the signs of the sky; for the nations are dismayed at them."
+    },
+    "jer-11": {
+      "v1": "The word that came to Jeremiah from Yahweh, saying,",
+      "v2": "“Hear the words of this covenant, and speak to the men of Judah, and to the inhabitants of Jerusalem;"
+    },
+    "jer-18": {
+      "v1": "The word which came to Jeremiah from Yahweh, saying,",
+      "v2": "“Arise, and go down to the potter’s house, and there I will cause you to hear my words.”"
+    },
+    "jer-30": {
+      "v1": "The word that came to Jeremiah from Yahweh, saying,",
+      "v2": "“Yahweh, the God of Israel, says, ‘Write all the words that I have spoken to you in a book."
+    },
+    "job-11": {
+      "v1": "Then Zophar, the Naamathite, answered,",
+      "v2": "“Shouldn’t the multitude of words be answered? Should a man full of talk be justified?"
+    },
+    "job-14": {
+      "v1": "“Man, who is born of a woman, is of few days, and full of trouble.",
+      "v2": "He grows up like a flower, and is cut down. He also flees like a shadow, and doesn’t continue."
+    },
+    "job-17": {
+      "v1": "“My spirit is consumed. My days are extinct and the grave is ready for me.",
+      "v2": "Surely there are mockers with me. My eye dwells on their provocation."
+    },
+    "job-20": {
+      "v1": "Then Zophar the Naamathite answered,",
+      "v2": "“Therefore my thoughts answer me, even by reason of my haste that is in me."
+    },
+    "job-21": {
+      "v1": "Then Job answered,",
+      "v2": "“Listen diligently to my speech. Let this be your consolation."
+    },
+    "job-23": {
+      "v1": "Then Job answered,",
+      "v2": "“Even today my complaint is rebellious. His hand is heavy in spite of my groaning."
+    },
+    "job-27": {
+      "v1": "Job again took up his parable, and said,",
+      "v2": "“As God lives, who has taken away my right, the Almighty, who has made my soul bitter"
+    },
+    "job-3": {
+      "v1": "After this Job opened his mouth, and cursed the day of his birth.",
+      "v2": "Job answered:"
+    },
+    "job-33": {
+      "v1": "“However, Job, please hear my speech, and listen to all my words.",
+      "v2": "See now, I have opened my mouth. My tongue has spoken in my mouth."
+    },
+    "job-35": {
+      "v1": "Moreover Elihu answered,",
+      "v2": "“Do you think this to be your right, or do you say, ‘My righteousness is more than God’s,’"
+    },
+    "job-36": {
+      "v1": "Elihu also continued, and said,",
+      "v2": "“Bear with me a little, and I will show you; for I still have something to say on God’s behalf."
+    },
+    "job-37": {
+      "v1": "“Yes, at this my heart trembles, and is moved out of its place.",
+      "v2": "Hear, oh, hear the noise of his voice, the sound that goes out of his mouth."
+    },
+    "job-38": {
+      "v1": "Then Yahweh answered Job out of the whirlwind,",
+      "v2": "“Who is this who darkens counsel by words without knowledge?"
+    },
+    "job-4": {
+      "v1": "Then Eliphaz the Temanite answered,",
+      "v2": "“If someone ventures to talk with you, will you be grieved? But who can withhold himself from speaking?"
+    },
+    "jon-1": {
+      "v1": "Now Yahweh’s word came to Jonah the son of Amittai, saying,",
+      "v2": "“Arise, go to Nineveh, that great city, and preach against it, for their wickedness has come up before me.”"
+    },
+    "jon-2": {
+      "v1": "Then Jonah prayed to Yahweh, his God, out of the fish’s belly.",
+      "v2": "He said, “I called because of my affliction to Yahweh. He answered me. Out of the belly of Sheol I cried. You heard my voice."
+    },
+    "jon-3": {
+      "v1": "Yahweh’s word came to Jonah the second time, saying,",
+      "v2": "“Arise, go to Nineveh, that great city, and preach to it the message that I give you.”"
+    },
+    "lev-20": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“Moreover, you shall tell the children of Israel, ‘Anyone of the children of Israel, or of the strangers who live as foreigners in Israel, who gives any of his offspring to Molech shall surely be put to death. The people of the land shall stone that person with stones."
+    },
+    "lev-22": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“Tell Aaron and his sons to separate themselves from the holy things of the children of Israel, which they make holy to me, and that they not profane my holy name. I am Yahweh."
+    },
+    "lev-6": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“If anyone sins, and commits a trespass against Yahweh, and deals falsely with his neighbor in a matter of deposit, or of bargain, or of robbery, or has oppressed his neighbor,"
+    },
+    "luk-19": {
+      "v1": "He entered and was passing through Jericho.",
+      "v2": "There was a man named Zacchaeus. He was a chief tax collector, and he was rich."
+    },
+    "mal-2": {
+      "v1": "“Now, you priests, this commandment is for you.",
+      "v2": "If you will not listen, and if you will not take it to heart, to give glory to my name,” says Yahweh of Armies, “then I will send the curse on you, and I will curse your blessings. Indeed, I have cursed them already, because you do not take it to heart."
+    },
+    "mat-23": {
+      "v1": "Then Jesus spoke to the multitudes and to his disciples,",
+      "v2": "saying, “The scribes and the Pharisees sit on Moses’ seat."
+    },
+    "mat-7": {
+      "v1": "“Don’t judge, so that you won’t be judged.",
+      "v2": "For with whatever judgment you judge, you will be judged; and with whatever measure you measure, it will be measured to you."
+    },
+    "mat-8": {
+      "v1": "When he came down from the mountain, great multitudes followed him.",
+      "v2": "Behold, a leper came to him and worshiped him, saying, “Lord, if you want to, you can make me clean.”"
+    },
+    "mat-9": {
+      "v1": "He entered into a boat and crossed over, and came into his own city.",
+      "v2": "Behold, they brought to him a man who was paralyzed, lying on a bed. Jesus, seeing their faith, said to the paralytic, “Son, cheer up! Your sins are forgiven you.”"
+    },
+    "num-10": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“Make two trumpets of silver. You shall make them of beaten work. You shall use them for the calling of the congregation and for the journeying of the camps."
+    },
+    "num-13": {
+      "v1": "Yahweh spoke to Moses, saying,",
+      "v2": "“Send men, that they may spy out the land of Canaan, which I give to the children of Israel. Of every tribe of their fathers, you shall send a man, every one a prince among them.”"
+    },
+    "num-19": {
+      "v1": "Yahweh spoke to Moses and to Aaron, saying,",
+      "v2": "“This is the statute of the law which Yahweh has commanded. Tell the children of Israel to bring you a red heifer without spot, in which is no defect, and which was never yoked."
+    },
+    "num-4": {
+      "v1": "Yahweh spoke to Moses and to Aaron, saying,",
+      "v2": "“Take a census of the sons of Kohath from among the sons of Levi, by their families, by their fathers’ houses,"
+    },
+    "pro-24": {
+      "v1": "Don’t be envious of evil men, neither desire to be with them;",
+      "v2": "for their hearts plot violence and their lips talk about mischief."
+    },
+    "pro-8": {
+      "v1": "Doesn’t wisdom cry out? Doesn’t understanding raise her voice?",
+      "v2": "On the top of high places by the way, where the paths meet, she stands."
+    },
+    "pro-9": {
+      "v1": "Wisdom has built her house. She has carved out her seven pillars.",
+      "v2": "She has prepared her meat. She has mixed her wine. She has also set her table."
+    },
+    "psa-100": {
+      "v1": "A Psalm of thanksgiving. Shout for joy to Yahweh, all you lands!",
+      "v2": "Serve Yahweh with gladness. Come before his presence with singing."
+    },
+    "psa-102": {
+      "v1": "A Prayer of the afflicted, when he is overwhelmed and pours out his complaint before Yahweh. Hear my prayer, Yahweh! Let my cry come to you.",
+      "v2": "Don’t hide your face from me in the day of my distress. Turn your ear to me. Answer me quickly in the day when I call."
+    },
+    "psa-103": {
+      "v1": "By David. Praise Yahweh, my soul! All that is within me, praise his holy name!",
+      "v2": "Praise Yahweh, my soul, and don’t forget all his benefits,"
+    },
+    "psa-117": {
+      "v1": "Praise Yahweh, all you nations! Extol him, all you peoples!",
+      "v2": "For his loving kindness is great toward us. Yahweh’s faithfulness endures forever. Praise Yah!"
+    },
+    "psa-121": {
+      "v1": "A Song of Ascents. I will lift up my eyes to the hills. Where does my help come from?",
+      "v2": "My help comes from Yahweh, who made heaven and earth."
+    },
+    "psa-123": {
+      "v1": "A Song of Ascents. I lift up my eyes to you, you who sit in the heavens.",
+      "v2": "Behold, as the eyes of servants look to the hand of their master, as the eyes of a maid to the hand of her mistress, so our eyes look to Yahweh, our God, until he has mercy on us."
+    },
+    "psa-124": {
+      "v1": "A Song of Ascents. By David. If it had not been Yahweh who was on our side, let Israel now say,",
+      "v2": "if it had not been Yahweh who was on our side, when men rose up against us,"
+    },
+    "psa-129": {
+      "v1": "A Song of Ascents. Many times they have afflicted me from my youth up. Let Israel now say:",
+      "v2": "many times they have afflicted me from my youth up, yet they have not prevailed against me."
+    },
+    "psa-130": {
+      "v1": "A Song of Ascents. Out of the depths I have cried to you, Yahweh.",
+      "v2": "Lord, hear my voice. Let your ears be attentive to the voice of my petitions."
+    },
+    "psa-135": {
+      "v1": "Praise Yah! Praise Yahweh’s name! Praise him, you servants of Yahweh,",
+      "v2": "you who stand in Yahweh’s house, in the courts of our God’s house."
+    },
+    "psa-139": {
+      "v1": "For the Chief Musician. A Psalm by David. Yahweh, you have searched me, and you know me.",
+      "v2": "You know my sitting down and my rising up. You perceive my thoughts from afar."
+    },
+    "psa-140": {
+      "v1": "For the Chief Musician. A Psalm by David. Deliver me, Yahweh, from evil men. Preserve me from violent men:",
+      "v2": "those who devise mischief in their hearts. They continually gather themselves together for war."
+    },
+    "psa-142": {
+      "v1": "A contemplation by David, when he was in the cave. A Prayer. I cry with my voice to Yahweh. With my voice, I ask Yahweh for mercy.",
+      "v2": "I pour out my complaint before him. I tell him my troubles."
+    },
+    "psa-148": {
+      "v1": "Praise Yah! Praise Yahweh from the heavens! Praise him in the heights!",
+      "v2": "Praise him, all his angels! Praise him, all his army!"
+    },
+    "psa-18": {
+      "v1": "For the Chief Musician. By David the servant of Yahweh, who spoke to Yahweh the words of this song in the day that Yahweh delivered him from the hand of all his enemies, and from the hand of Saul. He said, I love you, Yahweh, my strength.",
+      "v2": "Yahweh is my rock, my fortress, and my deliverer; my God, my rock, in whom I take refuge; my shield, and the horn of my salvation, my high tower."
+    },
+    "psa-19": {
+      "v1": "For the Chief Musician. A Psalm by David. The heavens declare the glory of God. The expanse shows his handiwork.",
+      "v2": "Day after day they pour out speech, and night after night they display knowledge."
+    },
+    "psa-23": {
+      "v1": "A Psalm by David. Yahweh is my shepherd; I shall lack nothing.",
+      "v2": "He makes me lie down in green pastures. He leads me beside still waters."
+    },
+    "psa-25": {
+      "v1": "By David. To you, Yahweh, I lift up my soul.",
+      "v2": "My God, I have trusted in you. Don’t let me be shamed. Don’t let my enemies triumph over me."
+    },
+    "psa-32": {
+      "v1": "By David. A contemplative psalm. Blessed is he whose disobedience is forgiven, whose sin is covered.",
+      "v2": "Blessed is the man to whom Yahweh doesn’t impute iniquity, in whose spirit there is no deceit."
+    },
+    "psa-33": {
+      "v1": "Rejoice in Yahweh, you righteous! Praise is fitting for the upright.",
+      "v2": "Give thanks to Yahweh with the lyre. Sing praises to him with the harp of ten strings."
+    },
+    "psa-42": {
+      "v1": "For the Chief Musician. A contemplation by the sons of Korah. As the deer pants for the water brooks, so my soul pants after you, God.",
+      "v2": "My soul thirsts for God, for the living God. When shall I come and appear before God?"
+    },
+    "psa-46": {
+      "v1": "For the Chief Musician. By the sons of Korah. According to Alamoth. God is our refuge and strength, a very present help in trouble.",
+      "v2": "Therefore we won’t be afraid, though the earth changes, though the mountains are shaken into the heart of the seas;"
+    },
+    "psa-5": {
+      "v1": "For the Chief Musician, with the flutes. A Psalm by David. Give ear to my words, Yahweh. Consider my meditation.",
+      "v2": "Listen to the voice of my cry, my King and my God, for I pray to you."
+    },
+    "psa-62": {
+      "v1": "For the Chief Musician. To Jeduthun. A Psalm by David. My soul rests in God alone. My salvation is from him.",
+      "v2": "He alone is my rock, my salvation, and my fortress. I will never be greatly shaken."
+    },
+    "psa-65": {
+      "v1": "For the Chief Musician. A Psalm by David. A song. Praise waits for you, God, in Zion. Vows shall be performed to you.",
+      "v2": "You who hear prayer, all men will come to you."
+    },
+    "psa-66": {
+      "v1": "For the Chief Musician. A song. A Psalm. Make a joyful shout to God, all the earth!",
+      "v2": "Sing to the glory of his name! Offer glory and praise!"
+    },
+    "psa-72": {
+      "v1": "By Solomon. God, give the king your justice; your righteousness to the royal son.",
+      "v2": "He will judge your people with righteousness, and your poor with justice."
+    },
+    "psa-81": {
+      "v1": "For the Chief Musician. On an instrument of Gath. By Asaph. Sing aloud to God, our strength! Make a joyful shout to the God of Jacob!",
+      "v2": "Raise a song, and bring here the tambourine, the pleasant lyre with the harp."
+    },
+    "psa-83": {
+      "v1": "A song. A Psalm by Asaph. God, don’t keep silent. Don’t keep silent, and don’t be still, God.",
+      "v2": "For, behold, your enemies are stirred up. Those who hate you have lifted up their heads."
+    },
+    "psa-87": {
+      "v1": "A Psalm by the sons of Korah; a Song. His foundation is in the holy mountains.",
+      "v2": "Yahweh loves the gates of Zion more than all the dwellings of Jacob."
+    },
+    "psa-96": {
+      "v1": "Sing to Yahweh a new song! Sing to Yahweh, all the earth.",
+      "v2": "Sing to Yahweh! Bless his name! Proclaim his salvation from day to day!"
+    },
+    "rom-14": {
+      "v1": "Now accept one who is weak in faith, but not for disputes over opinions.",
+      "v2": "One man has faith to eat all things, but he who is weak eats only vegetables."
+    },
+    "rom-6": {
+      "v1": "What shall we say then? Shall we continue in sin, that grace may abound?",
+      "v2": "May it never be! We who died to sin, how could we live in it any longer?"
+    },
+    "sir-18": {
+      "v1": "He who lives forever created the whole universe.",
+      "v2": "The Lord alone is just.",
+      "v3": ""
+    },
+    "sir-8": {
+      "v1": "Don’t contend with a mighty man, lest perhaps you fall into his hands.",
+      "v2": "Don’t strive with a rich man, lest perhaps he overpower you; for gold has destroyed many, and turned away the hearts of kings."
+    },
+    "tit-2": {
+      "v1": "But say the things which fit sound doctrine,",
+      "v2": "that older men should be temperate, sensible, sober minded, sound in faith, in love, and in perseverance,"
+    },
+    "wis-11": {
+      "v1": "Wisdom prospered their works in the hand of a holy prophet.",
+      "v2": "They traveled through a desert without inhabitant, and they pitched their tents in trackless regions."
+    },
+    "wis-12": {
+      "v1": "For your incorruptible spirit is in all things.",
+      "v2": "Therefore you convict little by little those who fall from the right way, and, putting them in remembrance by the things wherein they sin, you admonish them, that escaping from their wickedness they may believe in you, O Lord."
+    },
+    "zec-11": {
+      "v1": "Open your doors, Lebanon, that the fire may devour your cedars.",
+      "v2": "Wail, cypress tree, for the cedar has fallen, because the stately ones are destroyed. Wail, you oaks of Bashan, for the strong forest has come down."
+    },
+    "zec-8": {
+      "v1": "The word of Yahweh of Armies came to me.",
+      "v2": "Yahweh of Armies says: “I am jealous for Zion with great jealousy, and I am jealous for her with great wrath.”"
+    },
+    "zep-3": {
+      "v1": "Woe to her who is rebellious and polluted, the oppressing city!",
+      "v2": "She didn’t obey the voice. She didn’t receive correction. She didn’t trust in Yahweh. She didn’t draw near to her God."
+    }
+  }
+}
