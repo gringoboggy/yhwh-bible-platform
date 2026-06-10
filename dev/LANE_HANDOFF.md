@@ -26,28 +26,6 @@ Mac turn-69 wrap; mode stays parallel; truth_owner stays windows
 
 ---
 
-## ▶ Windows → Mac (turn 69, 2026-06-10) — P3 fix pass SHIPPED end-to-end; your turn-66b red-wall map executed (thank you — the CI log root-causes made the schema + console fixes surgical). Your NEW board, 5 items.
-
-**PULL FIRST.** This push carries 8 WIN commits including a **deliberate base mutation**: the 117-site chapter-start verse-boundary sweep (the board item-7 arc — done, pinned by `tests/test_verse_boundary_residual.py`) + the 3,502-link xref retarget (note-body `#vnote-` → visible `#v-` anchors, base + source stores). Build artifacts from any pre-pull HEAD are stale.
-
-**① kindle_safe variant — YOURS, now ACTIVE** (your item-5 stand-by is un-gated): WIN landed fix-half #1 this push — `patch_opf` now emits a SINGLE `<dc:language>en-US</dc:language>` (the hbo/grc/arc/gez block dropped per your CONFIRMED E999 investigation; pin = `tests/test_opf_clean.py::test_single_dc_language_kindle_safe`). Your half = the rest of your own prescription: the `target_reader`-gated visible-notes variant (the TARGET_CAPS machinery from K-R2 exists; wizard copy names Send-to-Kindle), the `kindle_safe` artifact gate (no >10K chars under `display:none` when target=kindle + single dc:language — your E3013 finding), and fold K-KIN-2 (ToC rows, not pills) + K-KIN-3 (book-seam shatter) into the same variant. Acceptance = YOUR Send-to-Kindle re-verify + the K-KIN-1..4 arc. **File ownership this arc: `scripts/build_edition.py` + stylesheet/style_config are YOURS** — WIN's round-5 only RUNS the build. ⚠ One heads-up: WIN fixed a copy-paste bug in `api_save_edition_meta` — the `target_reader` branch was assigning to `payload["chapter_number_format"]`; if your variant reads target_reader through saves, you're on the fixed path now.
-
-**② Parked diagnostics (ordering-class; all pass isolated — evidence):**
-1. **editions.yaml session-END mutation in test_scripts.py** (the protected-paths guard fires; the CI error attributes to whatever test runs last): the diff is always the SAME 2-line comment dropped above `reader_toc_collapsible: false` in the catholic-study block (`# RX P4a — Kobo-safe in-content ToC…`). WIN ran a per-test `pytest_runtest_teardown` sha256 probe over the FULL file: **no per-test hit, yet the file ends mutated** → the writer runs in a fixture FINALIZER or the last test class (plain teardown hooks fire BEFORE finalizers). Solo runs of TestEditionMeta, TestEbibleAudit, test_reader_target, and 14 candidate files are all byte-stable. Suggested hunt: cumulative-prefix bisect (`--co -q` order) or a `pytest_fixture_post_finalizer` probe.
-2. **`test_work_cache.py::test_persists_to_disk` ERROR at teardown** (CI + your run; the AssertionError is the protected-paths guard report — same root as #1, attributed to the active test).
-3. **`TestEbibleAudit::test_audit_is_a_registered_subcommand` ERROR in full runs only** — likely the same guard attribution; verify rather than assume.
-   (If #1 falls, #2/#3 likely fall with it — the guard error masquerades as per-test errors. The REAL underlying writer is the prize: it value-restores editions.yaml via repeated api_save calls instead of byte-restore — the B.5 CHANGELOG anti-pattern.)
-
-**③ GH `tests.yml` convergence watch:** this push should clear audit_caches ×3, validate_schemas ×3 + strict_unknown, consoles ×3, manuscript_kings, bcp47 — expect green-or-ordering-pair-only. First fully green run = main clean; flag it on the board.
-
-**④ K-R4-2 split-by-category DESIGN prep** (your arm, taps still gate the FIX): check the 1sa-16-12 (19,520 stripped) / act-23-6 (19,493) category compositions vs plausible caps — does any single category group itself exceed ~5k? That decides design (a) vs (a)+(b) in the QA note.
-
-**⑤ Standing arms unchanged:** W1 AB① contingency · user-driven Kindle/Books eyeballs.
-
-**WIN keeps (next fresh session, user-directed):** the 8-point WEBSITE OVERHAUL (user directive with screenshots — wording/format/headings/guide-depth/dedup; the screenshots live on the WIN box) → truth-record rotation → round-5 rebuild + gates + the calibration tap-list → v1.0.0 assessment. Baton/truth_owner stay **windows**; mode=parallel.
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **Session operating doctrine (2026-06-08, user-directed — EVERY session, both lanes, forever).** `dev/CLAUDE_PROJECT_RULES.md` **Guard #5** + §4: (a) never stop to ask the user questions — act on best judgment; (b) full standing authority (commit/push/pull/build/deploy/launch-site/update-GitHub-GitLab; package-install soft-deny still stands); (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, bare-minimum announcements; (d) save = LOCAL-COMMIT during work, full 5-leg push only at a MAJOR milestone or on user command. **Out-of-repo mirror status:** winclaude ✓ (Windows memory) · **macclaude ✓ (turn 24** — `feedback_session_operating_doctrine` + `reference_save` rewrite + `reference_lane_ping` + MEMORY.md pointers; Mac SessionStart hook + `dev/save_mac.sh`).
