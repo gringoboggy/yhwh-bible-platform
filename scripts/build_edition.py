@@ -1907,10 +1907,44 @@ _VN_SEP_ITEM = '<span class="vn-sep">• </span>'
 _VN_SEP_CAT = '<span class="vn-sep">¶ </span>'
 _VN_SEP_BYLINE = '<span class="vn-sep">◦ </span>'
 _VN_SEP_HIDE_CSS = (
-    "\n/* K-R3-2: text-baked popup separators — visible only to the CSS-blind\n"
-    "   Kobo eInk Footnote preview; hidden everywhere CSS applies. */\n"
-    ".verse-notes .vn-sep { display: none; }\n"
+    "\n/* K-R3-2 + K-R4-1: text-baked popup separators — visible only to the\n"
+    "   CSS-blind Kobo eInk Footnote preview; hidden everywhere CSS applies.\n"
+    "   Class-wide: vnote (translation) asides are NOT inside .verse-notes. */\n"
+    ".vn-sep { display: none; }\n"
 )
+
+
+# K-R4-1 (Kobo round 4): the vnote (translation) popup asides run together in
+# the tag-stripped eInk preview — K-R3-2's separators covered only the merged
+# study cascade. Bake the same hidden plain-text separators into vnote markup:
+# ¶ before the verse text, ◦ before each source label. The negative lookahead
+# makes the pass idempotent (re-running never double-inserts).
+_VNOTE_SEP_TEXT_RE = re.compile(r'(<p class="vnote-text">)(?!<span class="vn-sep">)')
+_VNOTE_SEP_LABEL_RE = re.compile(r'(<p class="vnote-source-label">)(?!<span class="vn-sep">)')
+
+
+def add_vnote_preview_separators(html: str) -> str:
+    """Insert hidden `.vn-sep` plain-text separators into vnote asides (K-R4-1)."""
+    html = _VNOTE_SEP_TEXT_RE.sub(lambda m: m.group(1) + _VN_SEP_CAT, html)
+    return _VNOTE_SEP_LABEL_RE.sub(lambda m: m.group(1) + _VN_SEP_BYLINE, html)
+
+
+def apply_vnote_preview_separators(tmp: Path) -> int:
+    """Run the K-R4-1 vnote separator pass over the per-edition temp tree.
+
+    Mutates ONLY the temp tree (epub_working/ untouched); applies to every
+    edition regardless of marker_style — translation popups exist everywhere
+    and the eInk preview legibility fix is edition-independent. Returns the
+    number of files changed.
+    """
+    touched = 0
+    for fpath in sorted(tmp.glob("*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        out = add_vnote_preview_separators(text)
+        if out != text:
+            fpath.write_text(out, encoding="utf-8")
+            touched += 1
+    return touched
 
 
 def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
@@ -5249,6 +5283,12 @@ def build_one(
             stats["badges_inserted"] = badge_stats["badges_inserted"]
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
             stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
+
+        # K-R4-1 — vnote (translation) popup preview separators. Unconditional
+        # (every edition, every marker_style): translation popups exist in all
+        # editions and the separator spans are CSS-hidden everywhere CSS
+        # applies, so only the CSS-blind eInk preview ever shows them.
+        stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp)
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts

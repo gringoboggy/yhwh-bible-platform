@@ -514,6 +514,71 @@ class TestKoboPreviewSeparators:
         assert items > 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
 
 
+class TestVnotePreviewSeparators:
+    """K-R4-1 (Kobo round 4): the vnote (translation) popup asides had NO
+    plain-text separators — K-R3-2 covered only the merged study cascade — so
+    the tag-stripped eInk Footnote preview ran header + verse + every
+    source-label + translation together as one line. Same mechanism as
+    K-R3-2: bake `.vn-sep` spans (¶ before the verse text, ◦ before each
+    source label), hidden by CSS everywhere CSS applies."""
+
+    VNOTE = (
+        '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">'
+        "<p><strong>The First Book of Moses, Genesis 1:1.</strong></p>"
+        '<p class="vnote-text">In the beginning God created the heaven and the earth.</p>\n'
+        '  <p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>\n'
+        '  <p class="vnote-hebrew" dir="rtl" lang="he"><em>ב</em></p>\n'
+        '  <p class="vnote-source-label">Greek (Septuagint / Swete)</p>\n'
+        '  <p class="vnote-greek" lang="grc">ΕΝ</p>\n'
+        '<p><a href="#v-gen-1-1" class="vnote-back" title="Back">↩</a></p></aside>'
+    )
+
+    def test_source_labels_get_byline_separator(self):
+        from scripts.build_edition import add_vnote_preview_separators
+
+        out = add_vnote_preview_separators(self.VNOTE)
+        assert out.count('<p class="vnote-source-label"><span class="vn-sep">◦ </span>') == 2, out
+
+    def test_vnote_text_gets_paragraph_separator(self):
+        from scripts.build_edition import add_vnote_preview_separators
+
+        out = add_vnote_preview_separators(self.VNOTE)
+        assert '<p class="vnote-text"><span class="vn-sep">¶ </span>In the beginning' in out
+
+    def test_idempotent(self):
+        from scripts.build_edition import add_vnote_preview_separators
+
+        once = add_vnote_preview_separators(self.VNOTE)
+        assert add_vnote_preview_separators(once) == once
+
+    def test_non_vnote_markup_untouched(self):
+        from scripts.build_edition import add_vnote_preview_separators
+
+        html = '<p class="vnote-text-x">x</p><p class="source-label">y</p>'
+        assert add_vnote_preview_separators(html) == html
+
+    def test_hide_css_rule_is_class_wide(self):
+        # vnote asides are NOT inside .verse-notes — the K-R3-2 rule
+        # `.verse-notes .vn-sep` never reached them. The rule must be the bare
+        # `.vn-sep` selector (rule start, not descendant-scoped).
+        from scripts import build_edition
+
+        assert re.search(r"(?:^|[}\n])\s*\.vn-sep\s*\{[^}]*display:\s*none", build_edition._VN_SEP_HIDE_CSS), (
+            build_edition._VN_SEP_HIDE_CSS
+        )
+
+    def test_real_base_vnote_aside_gains_separators(self, tmp_path):
+        from scripts.build_edition import add_vnote_preview_separators
+
+        src = (REPO / "epub_working" / "index_split_000.html").read_text(encoding="utf-8")
+        m = re.search(r'<aside class="vnote" id="vnote-gen-1-1".*?</aside>', src, re.DOTALL)
+        assert m, "vnote-gen-1-1 missing from the base fixture"
+        out = add_vnote_preview_separators(m.group(0))
+        labels = out.count('<p class="vnote-source-label">')
+        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">◦ </span>')
+        assert labels > 0 and labels == seps, f"every source label needs its ◦ separator ({seps}/{labels})"
+
+
 # ----------------------------------------------------------------------
 # Badge build — integration (real build_one, both modes)
 # ----------------------------------------------------------------------
