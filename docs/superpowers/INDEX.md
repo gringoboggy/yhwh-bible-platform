@@ -6,10 +6,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 **78 documents** — 50 plans · 28 specs.
 
-## In progress (31)
+## In progress (32)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-10 | Plan | kindle_safe variant (turn-69 ①) — 5th `target_reader` value + one resolver + visible endnotes (E3013) + ToC rows (K-KIN-2) + seam CSS (K-KIN-3) + OPF stamp + verifier gate 5 | `plans/2026-06-10-kindle-safe-variant.md` | EXECUTING 2026-06-10 (Mac) — tasks 1–6 SHIPPED (TDD, all green); task 7 = byte-proof + kindle acceptance artifact + truth records; acceptance = the user's Send-to-Kindle re-verify (K-KIN-1..4). |
 | 2026-06-10 | Plan | ★Full Project Audit Program (post-v0.1.0) — ① Claude-system mint → ② round-7 everything-audit → ③ decommission → ④ end-game two-lane master plan → ⑤ re-audit per milestone | `plans/2026-06-10-full-project-audit-program.md` | IN PROGRESS 2026-06-10 — P1/P2 executing (engine round-7 +7 program dims, overnight win-solo audit, K-R4-1 fix, ① design doc); K-R4-2 post-round-5 calibration; P3–P5 follow the audit result. |
 | 2026-06-09 | Spec | Idiot-proof app — friendly CDN-free HOME + rich-text note editor + maintainer-tool separation (v0.1.0 app-UX) | `specs/2026-06-09-idiot-proof-app-design.md` | READY 2026-06-09 — Mac-led design, WIN-implemented. New CDN-free `HOME_HTML` (social-card hero, ONE gold CTA, indigo secondary links), note editor demoted to `/notes`, a `contenteditable` rich-text editor with a mandatory `normalizeBody` allowlist (closes today's unsanitized-textarea hole), nav demotion via `CONSOLES`. |
 | 2026-06-09 | Spec | App EB-Garamond self-hosting — /fonts route + @font-face so the console matches the site serif | `specs/2026-06-09-app-eb-garamond-selfhosting.md` | READY 2026-06-09 — Mac-led, WIN-implemented. Bundle `website/fonts` in `launcher.spec` datas (fixes the frozen `/fonts` 404), a sandboxed `/fonts/<name>.woff2` route, `@font-face` in the skin; no CSP edit (`font-src 'self' data:` already present). |
