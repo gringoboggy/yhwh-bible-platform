@@ -1032,7 +1032,7 @@ def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey) ->
     return False
 
 
-def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[str] | None = None) -> None:
+def inject_back_matter(tmp: Path, edition: dict, canon_books: set[str] | None = None) -> None:
     """Write sources.xhtml, reftables.xhtml, topical.xhtml, colophonend.xhtml and
     register each in content.opf (manifest + spine, appended at END in order) and
     nav.xhtml (TOC entries appended at the END of the main <ol>).

@@ -97,7 +97,7 @@ class TestSingleColophon:
             "<package><manifest></manifest><spine></spine></package>", encoding="utf-8"
         )
         (tmp_path / "nav.xhtml").write_text("<nav><ol></ol></nav>", encoding="utf-8")
-        inject_back_matter(tmp_path, {"id": "x", "title": "T", "closing_colophon": False}, "v")
+        inject_back_matter(tmp_path, {"id": "x", "title": "T", "closing_colophon": False})
         assert not (tmp_path / "colophonend.xhtml").exists(), "closing_colophon: false must drop the page"
         opf = (tmp_path / "content.opf").read_text(encoding="utf-8")
         assert "backcolophon" not in opf
@@ -111,7 +111,7 @@ class TestSingleColophon:
             "<package><manifest></manifest><spine></spine></package>", encoding="utf-8"
         )
         (tmp_path / "nav.xhtml").write_text("<nav><ol></ol></nav>", encoding="utf-8")
-        inject_back_matter(tmp_path, {"id": "x", "title": "T"}, "v")
+        inject_back_matter(tmp_path, {"id": "x", "title": "T"})
         assert (tmp_path / "colophonend.xhtml").exists()
         out = (tmp_path / "colophonend.xhtml").read_text(encoding="utf-8")
         assert "Generated" not in out and "urn:yhwh" not in out

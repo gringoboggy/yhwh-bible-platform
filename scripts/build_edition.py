@@ -5134,7 +5134,7 @@ def build_one(
         # page, which carried the matrix-based summary.
         inject_your_edition_page(tmp, edition, version)
         inject_symbol_legend_page(tmp, edition)
-        inject_back_matter(tmp, edition, version, canon_books)
+        inject_back_matter(tmp, edition, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
         # when `enabled_reading_plans` is empty, preserving pre-ψ.19.1
