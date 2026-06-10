@@ -1574,6 +1574,21 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         count=1,
     )
 
+    # kindle_safe (turn-69 ①): stamp the resolved reader target into the OPF
+    # (legacy OPF2 meta form — epubcheck-tolerated, RS-ignored) so the artifact
+    # verifier (dev/verify_kr2_build.py, stdlib-only) learns the target from
+    # the artifact itself — skew-proof against post-build editions.yaml edits.
+    # Additive ONLY when target_reader is explicitly set AND resolves off the
+    # default: unset/everywhere editions emit no element (byte-identical,
+    # RULES 7.2). Unknown stale values resolve to "everywhere" ⇒ no stamp.
+    resolved_target = resolve_target_reader(edition)
+    if (edition.get("target_reader") or "").strip() and resolved_target != "everywhere":
+        new_text = new_text.replace(
+            "</metadata>",
+            f'    <meta name="yhwh:target-reader" content="{resolved_target}"/>\n</metadata>',
+            1,
+        )
+
     # Ω.0 pivot (2026-05-14): ISBN dropped. EPUB 3 dc:identifier term-ref-ok
     # requirement is met via a generator URN tied to the edition id
     # (urn:yhwh:edition:<id>) — no commercial registration.

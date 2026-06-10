@@ -59,6 +59,11 @@ class TestOpfClean:
         assert "urn:isbn" not in self.opf
         assert "TODO_ISBN" not in self.opf
 
+    def test_no_target_stamp_on_untargeted_editions(self):
+        # kindle_safe: the yhwh:target-reader stamp is additive-only — an
+        # edition without target_reader must emit no stamp (byte-identity).
+        assert "yhwh:target-reader" not in self.opf
+
     def test_single_dc_language_kindle_safe(self):
         # Kindle E999 (CONFIRMED 2026-06-10): Amazon's Send-to-Kindle validation
         # rejects EPUBs whose dc:language block declares values off its

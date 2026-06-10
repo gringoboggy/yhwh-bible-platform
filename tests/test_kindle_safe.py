@@ -196,3 +196,42 @@ class TestKindleTocRows:
         stats = apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
         assert stats["toc_rows_rewritten"] == 1
         assert 'class="toc-chapters"' not in (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+
+
+class TestOpfTargetStamp:
+    """patch_opf stamps the resolved target so the stdlib-only artifact
+    verifier can run kindle checks skew-free (editions.yaml is mutable
+    post-build; the OPF is not). Additive ONLY when target_reader is set —
+    unset editions stay byte-identical."""
+
+    _BASE_OPF = (
+        "<?xml version='1.0'?>\n"
+        '<package version="3.0">\n'
+        '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n'
+        '<dc:title>X</dc:title><dc:creator id="creator">PD</dc:creator>\n'
+        '<meta refines="#creator" property="role" scheme="marc:relators">aut</meta>\n'
+        '<meta refines="#creator" property="file-as">PD</meta>\n'
+        '<dc:contributor id="contributor">calibre</dc:contributor>\n'
+        "<dc:date>2020-01-01</dc:date><dc:language>en</dc:language>\n"
+        "</metadata></package>"
+    )
+
+    def test_no_stamp_when_target_unset(self):
+        from scripts.build_edition import patch_opf
+
+        opf = patch_opf(self._BASE_OPF, {"id": "catholic-study", "title": "X"}, "v1")
+        assert "yhwh:target-reader" not in opf
+
+    def test_stamp_present_when_kindle(self):
+        from scripts.build_edition import patch_opf
+
+        opf = patch_opf(self._BASE_OPF, {"id": "catholic-study", "title": "X", "target_reader": "kindle"}, "v1")
+        assert '<meta name="yhwh:target-reader" content="kindle"/>' in opf
+
+    def test_stamp_uses_the_resolver_not_the_raw_value(self):
+        from scripts.build_edition import patch_opf
+
+        # a stale unknown value resolves to everywhere — and everywhere is the
+        # default, so an unknown value stamps NOTHING (defused, not propagated)
+        opf = patch_opf(self._BASE_OPF, {"id": "catholic-study", "title": "X", "target_reader": "smartfridge"}, "v1")
+        assert "yhwh:target-reader" not in opf
