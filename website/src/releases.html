@@ -9,18 +9,11 @@ page: releases
     <section class="hero beta-hero" aria-labelledby="rel-title">
       <img class="beta-medallion" src="icons/icon_256.png" width="160" height="160"
            alt="YHWH Ya’ Way program icon" loading="eager">
-      <h1 id="rel-title">Download &amp; Releases</h1>
+      <h1 id="rel-title" class="page-title">Downloads</h1>
       <p class="tagline">The beta is live — free, runs on your own computer, no account, no tracking.</p>
       <p class="mission">Download the ready-made <strong>Ethiopian Tewahedo Study Bible</strong> below, or the
-        desktop app to build your own editions. This is an early release — a few rough edges to expect, and
-        your feedback is wanted.</p>
-    </section>
-
-    <!-- ──────────────── WHAT "BETA" MEANS ────────────────────── -->
-    <section class="band">
-      <p class="callout"><strong>What “beta” means here.</strong> This is an early release, shared openly —
-        expect rough edges, and your feedback is welcome. It’s free, runs entirely on your own computer, and
-        never asks you to turn off any protection.</p>
+        desktop app to build your own editions. This is an early release, refined with every version — your
+        feedback shapes what comes next.</p>
     </section>
 
     <!-- ──────────────── READ THE ETHIOPIAN BIBLE (the one EPUB) ─ -->
@@ -48,7 +41,7 @@ page: releases
       <div class="card card-static latest-release" id="latest-release">
         <div class="card-body">
           <p class="badge-beta">Latest</p>
-          <h3 id="latest-name">v0.1.0 — the readable-notes &amp; e-reader release</h3>
+          <h3 id="latest-name">v0.1.0 — The Readable-Notes &amp; E-Reader Release</h3>
           <p class="meta" id="latest-meta">The latest beta. Download the Ethiopian Bible above, or the desktop app below.</p>
           <p class="prose" id="latest-links"></p>
         </div>
@@ -61,11 +54,10 @@ page: releases
         <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-0.1.0.dmg" download>macOS (.dmg)</a>
         <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-0.1.0-x86_64.AppImage" download>Linux (x86_64 .AppImage)</a>
       </p>
-      <p class="platform-note">Every build is listed here, newest first. On Windows, run the <code>.exe</code> — it’s
-        code-signed, so it should open without a warning (if SmartScreen appears, choose <em>More info → Run anyway</em>). On
-        macOS, open the <code>.dmg</code> and drag <strong>YHWH</strong> into your Applications folder. On
-        Linux, make the AppImage executable and run it — no installation needed (the Linux build is x86_64; on
-        ARM, run from source).</p>
+      <p class="platform-note">Every build is listed here, newest first. The Windows build is code-signed and
+        the macOS build is notarized by Apple; the Linux AppImage is x86_64 (on ARM, run from source).
+        Step-by-step install instructions for each system are in the
+        <a href="how-to-use.html#build">Guide</a>.</p>
     </section>
 
     <!-- Windows is Azure Trusted Signing–signed; macOS is Apple-notarized. -->
@@ -73,7 +65,7 @@ page: releases
     <!-- ──────────────── WHAT'S CHANGED (update log, keep ≤3) ─── -->
     <section class="band band-alt" aria-labelledby="changelog-h">
       <h2 id="changelog-h" class="rule">What’s changed</h2>
-      <h3 class="sub-h">v0.1.0 — notes that read like a book, the illuminated look &amp; a native macOS window</h3>
+      <h3 class="sub-h no-caps">v0.1.0 — Notes That Read Like a Book, the Illuminated Look &amp; a Native macOS Window</h3>
       <ul class="prose">
         <li><strong>A redesigned study-note popup.</strong> Tap a verse’s <strong>◈</strong> badge and the
           notes now <strong>cascade</strong> — gathered under a heading and symbol for each category
@@ -93,7 +85,7 @@ page: releases
           <strong>font pack</strong> lets a Kobo render Hebrew, Greek, Geʽez, and Arabic in its popups.</li>
         <li>Still a beta on the 0.x track — an early, complete build, with your feedback wanted.</li>
       </ul>
-      <h3 class="sub-h">v0.0.3 — the full study Bible + device-QA fixes</h3>
+      <h3 class="sub-h no-caps">v0.0.3 — The Full Study Bible + Device-QA Fixes</h3>
       <ul class="prose">
         <li>The complete apparatus: every category of study note is now on — <strong>over 91,000 notes</strong> and all original-language popups (Hebrew, Greek, Latin, Arabic).</li>
         <li>Chapter-start titles (Psalm superscriptions such as “A Prayer of David”) now read as headings, not as verse text.</li>
@@ -101,7 +93,7 @@ page: releases
         <li>The in-book contents always shows each book with its chapter links; cleaner book titles (no “or …” alternates).</li>
         <li>Justified note text; repeated notes de-duplicated; tidier front matter (no blank pages; the colophon fits one screen).</li>
       </ul>
-      <h3 class="sub-h">v0.0.2 — earlier device-QA pass</h3>
+      <h3 class="sub-h no-caps">v0.0.2 — Earlier Device-QA Pass</h3>
       <ul class="prose">
         <li>Distinct note markers (a ◈ symbol with a count); note popups grouped by category; justified, reader-adjustable text; centred book title pages; a book-level reader table of contents; a Kobo <code>.kepub.epub</code> variant for the footnote popups.</li>
       </ul>
@@ -136,11 +128,10 @@ page: releases
 
     <!-- ─────────────────── FEEDBACK ──────────────────────────── -->
     <section class="band band-alt" aria-labelledby="rel-feedback">
-      <h2 id="rel-feedback" class="rule">Tell me how it went</h2>
-      <p class="prose">Found a bug? Something confusing? A passage or attribution that looks wrong? I want to
-        hear it — that is what a beta is for. Leave a note on the
-        <a href="feedback.html">feedback page</a>, or simply email
-        <a href="mailto:gringo.boggy@yhwhyaway.com">gringo.boggy@yhwhyaway.com</a>.</p>
+      <h2 id="rel-feedback" class="rule">Feedback</h2>
+      <p class="prose">Found a bug, something confusing, or a passage or attribution that looks wrong?
+        Leave a note on the <a href="feedback.html">feedback page</a>, or email
+        <a href="mailto:gringo.boggy@yhwhyaway.com">gringo.boggy@yhwhyaway.com</a> — every report is read.</p>
     </section>
 
     <script src="releases.js" defer></script>

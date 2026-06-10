@@ -88,8 +88,20 @@ a { color: var(--indigo); }
 .band { max-width: var(--maxw); margin: 0 auto; padding: 1.75rem 1.25rem; }
 .band-alt { background: var(--parchment); max-width: none; border-block: 2px double var(--gold-line); }
 .band-alt > * { max-width: var(--maxw); margin-inline: auto; }
-.rule { font-size: 1.6rem; color: var(--ink); margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 2px double var(--gold-line); }
+.rule { font-size: 1.45rem; color: var(--ink); margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 2px double var(--gold-line); }
 .helper { color: var(--sepia); margin: -.4rem 0 1.25rem; }
+
+/* heading capitalization scheme (site-wide): structural headings render in full
+   caps; a dash-continuation is wrapped in .cont and hand-written in Title Case
+   in the source, e.g.  PATH 1 — Read the Ready-Made Ethiopian Bible.
+   The DOM text stays mixed-case (screen readers read it normally). */
+.rule, .sub-h { text-transform: uppercase; letter-spacing: .06em; }
+.rule .cont, .sub-h .cont { text-transform: none; letter-spacing: normal; }
+.no-caps { text-transform: none; letter-spacing: normal; }
+
+/* page title — the hero h1 on subpages: smaller and quieter than the YHWH
+   brand wordmark, so long titles sit on one clean line on a phone. */
+.hero h1.page-title { font-size: clamp(1.5rem, 6vw, 2.6rem); letter-spacing: .08em; text-transform: uppercase; text-wrap: balance; }
 .prose { max-width: 46rem; }
 
 /* grid + cards */
@@ -185,7 +197,7 @@ a { color: var(--indigo); }
 .callout { max-width: 46rem; background: var(--parchment); border: 1px solid var(--gold-line); border-left: 4px solid var(--red); border-radius: 3px; padding: 1rem 1.15rem; color: var(--ink); }
 
 /* sub-headings inside a section */
-.sub-h { font-size: 1.2rem; color: var(--red); margin: 1.25rem 0 .35rem; }
+.sub-h { font-size: 1.1rem; color: var(--red); margin: 1.25rem 0 .35rem; }
 
 /* ordered build steps */
 .steps { max-width: 46rem; margin: .5rem 0 1.25rem; padding-left: 1.4rem; }
@@ -284,7 +296,14 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 /* note-symbol legend (symbols showcase) */
 .legend-grid { list-style: none; margin: 1.25rem 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
 .legend { display: flex; gap: .8rem; align-items: flex-start; background: var(--parchment); border: 1px solid var(--gold-line); border-radius: 3px; padding: .8rem .9rem; }
-.legend .glyph { flex: 0 0 1.7em; font-size: 1.7rem; line-height: 1.1; color: var(--gold); text-align: center; }
+/* the note-family mark, set in a small medallion so every glyph reads as a
+   designed badge (consistent size and weight) rather than a bare dingbat */
+.legend .glyph {
+  flex: 0 0 2.6rem; width: 2.6rem; height: 2.6rem; display: grid; place-items: center;
+  font-size: 1.25rem; line-height: 1; color: var(--gold-line); text-align: center;
+  background: var(--vellum); border: 1px solid var(--gold-line); border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--parchment);
+}
 .legend h3 { margin: 0 0 .2rem; font-size: 1.05rem; color: var(--indigo); }
 .legend p { margin: 0; font-size: .93rem; color: var(--ink); line-height: 1.5; }
 
