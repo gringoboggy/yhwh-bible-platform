@@ -90,3 +90,45 @@ class TestKindleWizardSurfaces:
         from scripts.templates.customize import CUSTOMIZE_HTML
 
         assert "'kindle'" in CUSTOMIZE_HTML and 'value="kindle"' in CUSTOMIZE_HTML
+
+
+class TestKindleSafeCss:
+    """E3013 (visible endnotes) + K-KIN-3 (seam) CSS — pure append, kindle-gated."""
+
+    def test_appends_only_the_kindle_block(self):
+        from scripts.build_edition import _KINDLE_SAFE_CSS, apply_kindle_safe_css
+
+        base = ".notes-section, .notes-rule { display: none; }\n"
+        out = apply_kindle_safe_css(base)
+        assert out == base + _KINDLE_SAFE_CSS
+        assert out.startswith(base)  # append-only — base rules untouched
+
+    def test_unhides_every_text_bearing_hidden_class(self):
+        from scripts.build_edition import _KINDLE_SAFE_CSS as css
+
+        # the E3013 mass (≈486K chars in catholic-study) — both section hides
+        assert ".notes-section { display: block;" in css
+        assert ".verse-refs-section { display: block;" in css
+        # the ~13K note-label hides (base stylesheet.css:227-233) — same selector
+        # strings as the base so the artifact gate can pair override with hide
+        assert '[class*="note-comm-"] > div > .note-label { display: block; }' in css
+        assert ".note-label:where([data-noise])" in css
+        # the .vn-sep separators become VISIBLE bullets (useful in endnote flow)
+        assert ".vn-sep { display: inline; }" in css
+
+    def test_keeps_the_bottom_notes_heading_hidden(self):
+        # inject puts the hr+h3 "Notes" heading at the section BOTTOM (cosmetic
+        # inversion in a visible render) — keep it hidden; ~305 chars ≪ 10K
+        from scripts.build_edition import _KINDLE_SAFE_CSS as css
+
+        assert ".notes-heading { display: none; }" in css
+
+    def test_seam_fix_rules(self):
+        # K-KIN-3: the forced singleton spine file already breaks the page on
+        # every renderer — the CSS forced breaks are pure KFX double-break
+        # liability; the global h1 break tears the caption band off the title.
+        from scripts.build_edition import _KINDLE_SAFE_CSS as css
+
+        assert ".book-title-page { page-break-before: auto;" in css
+        assert "h1.bookpage-title { page-break-before: avoid;" in css
+        assert ".bookpage-art" in css and "max-height: 12em" in css

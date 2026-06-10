@@ -1872,6 +1872,58 @@ def apply_note_cascade_css(stylesheet_css: str) -> str:
     return stylesheet_css + _NOTE_CASCADE_CSS
 
 
+# kindle_safe (turn-69 ①) — the Send-to-Kindle variant CSS, appended LAST so it
+# wins every earlier rule. Three jobs:
+#   1. E3013/E999 (CONFIRMED): Amazon hard-fails conversion when >10,000 chars
+#      hide under display:none (~486K hidden in a default build). Un-hide the
+#      notes/verse-refs sections (visible endnote style — Kindle's reader
+#      follows the noteref links natively) and the note-label hides. CSS-only:
+#      author display:block also overrides the asides' hidden="" UA rule —
+#      empirically proven (test-2 delivered + rendered with hidden intact).
+#      Selector strings INTENTIONALLY mirror the base hide rules verbatim so
+#      the kindle_safe artifact gate can pair each hide with its override.
+#   2. .vn-sep separators (a Kobo eInk-preview mechanism) become visible
+#      bullets — useful structure in visible endnote flow, and the hidden-char
+#      budget stays near zero without diverging the markup per target.
+#   3. K-KIN-3 seam shatter: the title singleton spine file already guarantees
+#      the page break, so .book-title-page's forced CSS breaks only produce
+#      KFX's classic double-break blank page; the global h1 page-break-before
+#      tears the caption band ("BOOK II / The Second Book of Moses") off its
+#      book name; KF8 drops vh so the art falls back to max-height:20em and
+#      claims a page — re-cap lower so caption+title+art share one page.
+_KINDLE_SAFE_CSS = """
+/* === kindle_safe (target_reader=kindle) — Send-to-Kindle variant === */
+/* E3013: visible endnotes — nothing big may hide under display:none */
+.notes-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
+.notes-rule { display: none; }
+.notes-heading { display: none; }
+.verse-refs-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
+.note-comm > p > .note-label,
+.note-comm > div > .note-label,
+[class*="note-comm-"] > p > .note-label,
+[class*="note-comm-"] > div > .note-label { display: block; }
+.note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: block; }
+.vn-sep { display: inline; }
+/* K-KIN-3: no double-break blanks, no caption-band tear, art shares the page */
+.book-title-page { page-break-before: auto; break-before: auto; page-break-after: auto; break-after: auto; }
+h1.bookpage-title { page-break-before: avoid; break-before: avoid; }
+.bookpage-art, .bookpage-art-bleed { max-height: 12em; }
+/* K-KIN-2 companion: plain chapter rows (markup pass apply_kindle_toc_rows) */
+.toc-chapter-row { text-align: left; line-height: 2; word-spacing: 0.35em; margin: 0.25em 0 0.6em 1.4em; }
+.toc-chapter-row a { text-decoration: none; color: #2a1a1a; padding: 0 0.1em; }
+"""
+
+
+def apply_kindle_safe_css(stylesheet_css: str) -> str:
+    """Append the kindle_safe variant CSS (visible endnotes + seam fixes).
+
+    Pure CSS against the existing baked classes — no base re-bake, no markup
+    change. Mirrors apply_note_cascade_css; the caller gates on
+    is_kindle_target, so non-kindle editions append NOTHING (byte-identical,
+    RULES 7.2)."""
+    return stylesheet_css + _KINDLE_SAFE_CSS
+
+
 # ----------------------------------------------------------------------
 # §4.1 marker_style=badge — build-time per-edition transform
 # ----------------------------------------------------------------------
@@ -5142,6 +5194,17 @@ def build_one(
                 encoding="utf-8",
             )
             stats["note_cascade_css"] = True
+
+        # kindle_safe (turn-69 ①) — append the Send-to-Kindle variant CSS
+        # (visible endnotes per E3013, K-KIN-3 seam fixes, K-KIN-2 row chrome)
+        # when the resolved reader target is kindle. Same append-to-stylesheet
+        # mechanism; absent/other targets ⇒ byte-identical (RULES 7.2).
+        if css_path.is_file() and is_kindle_target(edition):
+            css_path.write_text(
+                apply_kindle_safe_css(css_path.read_text(encoding="utf-8")),
+                encoding="utf-8",
+            )
+            stats["kindle_safe_css"] = True
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
