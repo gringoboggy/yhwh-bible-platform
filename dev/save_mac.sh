@@ -27,14 +27,24 @@ while getopts "m:n" opt; do
   esac
 done
 
-# Leg 1 — commit tracked modifications if a message was given and the tree is dirty.
+# Leg 1 — stage EVERYTHING (-A: tracked + untracked, mirroring save.ps1) and commit
+# if a message was given and the tree is dirty. `git diff`/-am only see tracked files,
+# so the old form silently dropped new notes/specs created during the session.
 if [ -n "$MSG" ]; then
-  if git diff --quiet && git diff --quiet --cached; then
-    echo "save_mac: tree clean — nothing to commit."
-  elif [ "$DRYRUN" = 1 ]; then
-    echo "[dry-run] would: git commit -am \"$MSG\""
+  if [ "$DRYRUN" = 1 ]; then
+    if [ -z "$(git status --porcelain)" ]; then
+      echo "save_mac: tree clean — nothing to commit."
+    else
+      echo "[dry-run] would: git add -A && git commit -m \"$MSG\" — staging:"
+      git status --short
+    fi
   else
-    git commit -am "$MSG"
+    git add -A
+    if git diff --cached --quiet; then
+      echo "save_mac: tree clean — nothing to commit."
+    else
+      git commit -m "$MSG"
+    fi
   fi
 fi
 
@@ -43,7 +53,14 @@ git fetch origin -q || true
 set +e; "$PY" scripts/lane_ping.py --before-push; PING=$?; set -e
 if [ "$PING" = 10 ]; then
   echo "lane radar: BEHIND — pulling --rebase before push."
-  if [ "$DRYRUN" = 1 ]; then echo "[dry-run] would: git pull --rebase origin main"; else git pull --rebase origin main; fi
+  if [ "$DRYRUN" = 1 ]; then
+    echo "[dry-run] would: git pull --rebase origin main"
+  elif ! git pull --rebase origin main; then
+    # Never leave the repo mid-rebase (mirrors save-all.ps1's pull-failure guard).
+    git rebase --abort 2>/dev/null || true
+    echo "save_mac: pull --rebase FAILED — rebase aborted; resolve by COMBINING (RULES §4), then re-run." >&2
+    exit 1
+  fi
 fi
 
 # Legs 2-3 — push both remotes.

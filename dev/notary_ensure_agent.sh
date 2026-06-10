@@ -1,5 +1,5 @@
 #!/bin/bash
-# Bootup backstop for the notarization auto-finisher launchd agent.
+# [Mac-only] Bootup backstop for the notarization auto-finisher launchd agent.
 #
 # Wired as a Mac-local SessionStart hook (.claude/settings.local.json). Each
 # Claude session on the Mac: make sure the com.yhwhyaway.notary-autofinish agent
@@ -13,11 +13,15 @@
 set -u
 LABEL="com.yhwhyaway.notary-autofinish"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
-STATUS="/Volumes/MacHD2/yhwh-bible-platform/dev/NOTARIZATION_STATUS.md"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+STATUS="$REPO/dev/NOTARIZATION_STATUS.md"
+VERSION="$(head -n1 "$REPO/VERSION" 2>/dev/null | tr -d '[:space:]')"
 
-# Not a Mac with launchd, or notarization already finished + self-erased -> no-op.
+# Not a Mac with launchd, or THIS version's notarization already finished + self-erased
+# -> no-op. (DONE scoped to the current dmg name so an old release's record never
+# blocks the next version's run.)
 command -v launchctl >/dev/null 2>&1 || exit 0
-grep -q "STATE: DONE" "$STATUS" 2>/dev/null && exit 0
+if grep -q "STATE: DONE" "$STATUS" 2>/dev/null && grep -q "YHWH-${VERSION}.dmg" "$STATUS" 2>/dev/null; then exit 0; fi
 [ -f "$PLIST" ] || exit 0
 
 dom="gui/$(id -u)"

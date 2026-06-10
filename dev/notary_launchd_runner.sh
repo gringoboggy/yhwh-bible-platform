@@ -1,5 +1,5 @@
 #!/bin/bash
-# launchd wrapper for the notarization auto-finisher.
+# [Mac-only] launchd wrapper for the notarization auto-finisher.
 #
 # Fired every 30 min (+ at load/login) by
 #   ~/Library/LaunchAgents/com.yhwhyaway.notary-autofinish.plist
@@ -8,7 +8,7 @@
 # in-session `notary_autofinish.sh 180` bash poller loop, so the whole mechanism
 # removes itself the moment the work is finished. rc 2 = still pending
 # (Apple hasn't answered) -> leave the agent armed for the next interval.
-REPO="/Volumes/MacHD2/yhwh-bible-platform"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LABEL="com.yhwhyaway.notary-autofinish"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 

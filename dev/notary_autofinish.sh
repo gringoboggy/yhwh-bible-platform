@@ -1,5 +1,6 @@
 #!/bin/bash
-# Auto-finish macOS notarization the instant Apple returns a verdict.
+# [Mac-only] Auto-finish macOS notarization the instant Apple returns a verdict.
+# (xcrun/stapler/launchd tooling — inert dead weight on the Windows lane.)
 #
 # Polls the pending notarytool submission(s) for this dmg. On the first "Accepted":
 #   staple the dmg -> regenerate dist/SHA256SUMS.txt (AFTER stapling, since
@@ -18,8 +19,11 @@
 #   notary_autofinish.sh 0      # single check; finish if ready else exit 2 quietly
 #                               # (use from launchd StartInterval / a bootup hook)
 set -u
-REPO="/Volumes/MacHD2/yhwh-bible-platform"
-DMG="$REPO/dist/YHWH-1.0.0-beta.1.dmg"
+# Locate the repo from this script's own path; name the dmg from the VERSION file
+# (same parse as build_dmg.sh) — no per-release edit needed.
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VERSION="$(head -n1 "$REPO/VERSION" 2>/dev/null | tr -d '[:space:]')"
+DMG="$REPO/dist/YHWH-${VERSION}.dmg"
 DMG_NAME="$(basename "$DMG")"
 PROFILE="yhwh-notary"
 STATUS="$REPO/dev/NOTARIZATION_STATUS.md"
@@ -41,8 +45,9 @@ discover_ids() {
   '
 }
 
-# Already finished? never re-do work.
-if grep -q "STATE: DONE" "$STATUS" 2>/dev/null; then exit 0; fi
+# Already finished? never re-do work. Scoped to THIS dmg's name so a DONE record
+# left by a previous release can never swallow the next version's run.
+if grep -q "STATE: DONE" "$STATUS" 2>/dev/null && grep -q "$DMG_NAME" "$STATUS" 2>/dev/null; then exit 0; fi
 
 while true; do
   ids=(); while IFS= read -r line; do [ -n "$line" ] && ids+=("$line"); done < <(discover_ids)
