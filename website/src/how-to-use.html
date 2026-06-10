@@ -29,7 +29,7 @@ page: how-to
       <p class="prose">On the <a href="releases.html">Releases</a> page, pick the version for your reader:</p>
       <ul class="custom-list">
         <li><strong>Apple Books, Google Play Books, and most readers</strong> → the plain
-          <code>.epub</code> (<code>YHWH-Ethiopian-Bible-v0.0.3.epub</code>).</li>
+          <code>.epub</code> (<code>YHWH-Ethiopian-Bible-v0.1.0.epub</code>).</li>
         <li><strong>Kobo</strong> → the <code>.kepub.epub</code>. It’s the same Bible, packaged so that tapping a
           verse opens its notes and original languages as a pop-up — Kobo only does that for the
           <code>.kepub</code> form.</li>
@@ -47,13 +47,55 @@ page: how-to
       </ul>
 
       <h3 class="sub-h">Step 3 — read, and tap for more</h3>
-      <p class="prose">Read normally. Where a verse carries study notes, you’ll see a small <strong>◈</strong>
-        marker with a count — tap it to open that verse’s notes, grouped by kind. A separate marker opens the
-        verse in its <strong>original languages</strong> (Hebrew, Greek, Latin, Arabic). Use the reader’s own
-        table of contents to jump between books and chapters, and the reader’s controls to change font size,
+      <p class="prose">Read normally. Where a verse carries study notes, you’ll see a small
+        <strong>◈</strong> diamond with a count beside it — <strong>◈16</strong> means sixteen
+        distinct notes, once duplicates have been set aside. Tap it and the notes don’t spill out
+        as one long, repetitive list. They open in a single tidy panel, gathered into a small
+        <em>cascade</em> that reads like the Bible itself — verse, then category, then source,
+        then the notes.</p>
+      <p class="prose">Each kind of note present on the verse opens its own labelled group, in a
+        fixed most-useful-first order — historical and cultural background first, the long
+        topical list always last. Every group carries a small heading that pairs its old
+        manuscript symbol with its name spelled out beside it, so you always know what you’re
+        reading even on an e-reader that can’t draw the symbol:</p>
+      <ul class="custom-list">
+        <li><strong>⌂ Historical / Cultural</strong> — background, places, persons, and customs.</li>
+        <li><strong>◇ Commentary / Tradition</strong> — interpretive readings across the
+          traditions.</li>
+        <li><strong>‖ Cross-references</strong> — parallels, citations, and echoes.</li>
+        <li><strong>✧ Textual / Critical</strong> — variant readings and manuscript witnesses.</li>
+        <li><strong>⌘ Linguistic</strong> — Hebrew, Greek, and other word studies.</li>
+        <li><strong>✦ Topical</strong> — every theme the verse belongs to, kept to the very end.</li>
+      </ul>
+      <p class="prose">Each group also carries a thin <strong>coloured stripe</strong> down its
+        left edge in that category’s own hue — gold for the word studies, deep blue for
+        commentary, crimson for the textual notes, and so on. On a colour screen that hue tells a
+        word study from a cross-reference from a piece of commentary at a single glance; and
+        because the stripe sits in the structure itself — alongside the spelled-out heading and the
+        stepped indentation — the groups stay clearly separated even on a plain black-and-white
+        e-ink reader.</p>
+      <p class="prose">Inside a group, each <strong>source is named just once</strong> — a short
+        line in italics, such as <em>Easton’s Illustrated Bible Dictionary (1897)</em> or
+        <em>Treasury of Scripture Knowledge</em> — set above the notes drawn from it, with the
+        notes themselves stepped in beneath. No more reading the same attribution over and over on
+        every line. The topical indexes come last of all, with the two topical sources gathered
+        into one merged, de-duplicated line of themes. Nothing is ever thrown away — the notes are
+        only re-grouped and tidied, never dropped, so every distinct point still survives.</p>
+      <p class="prose">A separate marker opens the verse in its <strong>original languages</strong>
+        (Hebrew, Greek, Latin, Arabic). If you built your own edition, the same families of notes
+        you switched on or off appear here, in this same cascade. Use the reader’s own table of
+        contents to jump between books and chapters, and the reader’s controls to change font size,
         spacing, and theme — the Bible follows your reader’s settings.</p>
       <p class="callout"><strong>Tip.</strong> On Kobo, if pop-ups don’t open, make sure you sideloaded the
         <code>.kepub.epub</code> (not the plain <code>.epub</code>).</p>
+      <h3 class="sub-h">Optional — the Kobo font pack</h3>
+      <p class="prose">Kobo’s quick-look popup uses the device’s <em>own</em> reading font — which usually
+        can’t draw Hebrew, Greek, Geʽez, or Arabic. The fix is one step: download the free
+        <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/yhwh-kobo-font-pack.zip">font
+        pack</a> (five open-licensed fonts), unzip it, and copy the font files into a folder named
+        <code>fonts</code> at the top of your Kobo’s drive while it’s connected by USB. Then, on the
+        device, pick <strong>Cardo</strong> (or any of the pack’s fonts) as your reading font — the
+        popups follow it, and the ancient scripts render properly.</p>
     </section>
 
     <!-- ════════════════════ PART B — BUILD ════════════════════ -->
