@@ -321,6 +321,7 @@ def api_customize_data() -> dict:
         decode_per_chapter_tokens,
         decode_per_chapter_languages,
         decode_per_verse_languages,
+        resolve_target_reader,
     )
     from scripts.core import matrix as _matrix
 
@@ -451,7 +452,7 @@ def api_customize_data() -> dict:
                 "reader_toc_collapsible": e.get("reader_toc_collapsible", False),
                 "reader_toc_default_open": e.get("reader_toc_default_open", False),
                 "book_toc_ornament": e.get("book_toc_ornament", "none"),
-                "target_reader": e.get("target_reader", "everywhere"),
+                "target_reader": resolve_target_reader(e),
                 "closing_colophon": e.get("closing_colophon", True),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),

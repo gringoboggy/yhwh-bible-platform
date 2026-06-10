@@ -1768,6 +1768,28 @@ MARKER_STYLES = {"numbers", "badge"}
 # the /customize and api_customize_data default.
 DEFAULT_MARKER_STYLE = "badge"
 
+# K-R2 + kindle_safe — the reader-target enum and its ONE resolver. Both the
+# matrix/UI surfaces (web_editions.api_customize_data) and the build (build_one)
+# and the save validator (api_save_edition_meta) resolve through here, so a
+# target-gated behavior can never drift between the printed matrix and the
+# built EPUB (MATRIX_MAP finding #3). "kindle" (turn-69 ①) tunes the build for
+# Send-to-Kindle: visible endnotes (E3013 — Amazon hard-fails >10K chars under
+# display:none), plain ToC chapter rows (KFX linearizes the pills), and seam
+# page-break CSS (KFX double-break). Unknown/unset values resolve to
+# "everywhere" so a stale on-disk value can never activate a variant.
+TARGET_READERS = ("everywhere", "eink", "tablet", "computer", "kindle")
+
+
+def resolve_target_reader(edition: dict) -> str:
+    """The edition's reader target — the single resolver for every consumer."""
+    v = (edition.get("target_reader") or "").strip()
+    return v if v in TARGET_READERS else "everywhere"
+
+
+def is_kindle_target(edition: dict) -> bool:
+    """True when the edition builds for Send-to-Kindle (kindle_safe variant)."""
+    return resolve_target_reader(edition) == "kindle"
+
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
 # chip. All EPUB-3-allowed (display / padding / border-radius / background).
