@@ -1783,8 +1783,8 @@ def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     re-bake. Mirrors apply_verse_popup_style / the theme-override append."""
     style = (style or "chip").strip() or "chip"
     if style == "pills":
-        return stylesheet_css + _NOTE_POPUP_PILLS_CSS
-    return stylesheet_css + _NOTE_POPUP_CHIP_CSS
+        return stylesheet_css + _NOTE_POPUP_PILLS_CSS + _VN_SEP_HIDE_CSS
+    return stylesheet_css + _NOTE_POPUP_CHIP_CSS + _VN_SEP_HIDE_CSS
 
 
 # Per-category group spine for the S2 cascade — reuses the EXACT hues already in
@@ -1897,6 +1897,22 @@ def _badge_extract_note_kind(marker_html: str) -> str:
     return m.group(1) if m else "comm"
 
 
+# K-R3-2: Kobo eInk's Footnote preview is a TAG-STRIPPED plain-text extraction
+# (kobolabs/epub-spec; community-replicated) — the merged aside's block cascade
+# flattens to one run-on line there. These spans bake plain-TEXT separators into
+# the markup: ¶ before each category head, ◦ before each source byline, • before
+# each note row. CSS hides them wherever CSS applies (the real page, and any
+# conformant popup renderer) — only the CSS-blind eInk preview shows them.
+_VN_SEP_ITEM = '<span class="vn-sep">• </span>'
+_VN_SEP_CAT = '<span class="vn-sep">¶ </span>'
+_VN_SEP_BYLINE = '<span class="vn-sep">◦ </span>'
+_VN_SEP_HIDE_CSS = (
+    "\n/* K-R3-2: text-baked popup separators — visible only to the CSS-blind\n"
+    "   Kobo eInk Footnote preview; hidden everywhere CSS applies. */\n"
+    ".verse-notes .vn-sep { display: none; }\n"
+)
+
+
 def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
     """Turn one per-note aside's inner content into one merged ``.vn-item`` row.
 
@@ -1910,7 +1926,7 @@ def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
     unwrap would splice their tags and break well-formedness (epubcheck RSC-016).
     """
     body = _NOTE_BACK_RE.sub("", inner, count=1).strip()
-    return f'<div class="vn-item note-{kind}">{body}</div>'
+    return f'<div class="vn-item note-{kind}">{_VN_SEP_ITEM}{body}</div>'
 
 
 # beta-3 (h): categories whose notes legitimately recur verse-to-verse — never
@@ -2289,7 +2305,7 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
         # apostrophe (Strong's / Nave's) stays readable and matches the baked corpus
         # style (which carries literal ', not &#x27;).
         out.append(
-            f'    <p class="vn-cat-head"><span class="vn-cat-sym" aria-hidden="true">{glyph}</span>'
+            f'    <p class="vn-cat-head">{_VN_SEP_CAT}<span class="vn-cat-sym" aria-hidden="true">{glyph}</span>'
             f" {html.escape(label, quote=False)}</p>\n"
         )
         for src_rows in by_source.values():
@@ -2300,7 +2316,9 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
             # hide a co-bucketed non-self-attributing row's source byline.
             suppress = bool(src_rows) and all(rr.get("suppress_byline") for rr in src_rows)
             if display and not suppress:
-                out.append(f'      <p class="vn-source-byline">{html.escape(display, quote=False)}</p>\n')
+                out.append(
+                    f'      <p class="vn-source-byline">{_VN_SEP_BYLINE}{html.escape(display, quote=False)}</p>\n'
+                )
             for rr in src_rows:
                 out.append(f"      {rr['row']}\n")
             out.append("    </div>\n")
@@ -2583,11 +2601,29 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     )
 
                     bucket = edits.setdefault(fname, [])
-                    # Replace the LAST marker with the badge; delete the others.
-                    last = markers[-1]
-                    bucket.append((v_start + last.start(), v_start + last.end(), badge))
-                    for m in markers[:-1]:
-                        bucket.append((v_start + m.start(), v_start + m.end(), ""))
+                    # K-R3-3/K-R3-4: a chapter-last verse's region legitimately
+                    # reaches the NEXT chapter's opening (its spill-resolved
+                    # markers live there, and they must merge into the aside),
+                    # but the BADGE must stay in the verse's own chapter. If the
+                    # region crosses a chapter boundary (anchor or heading),
+                    # delete every marker and insert the badge at the verse's
+                    # text end — just before the last paragraph close preceding
+                    # the boundary. Regions without a boundary (every mid-chapter
+                    # verse) keep the historical replace-the-last-marker path,
+                    # byte-identically.
+                    cb = _BADGE_CH_BOUNDARY_RE.search(verse_html)
+                    if cb:
+                        p_close = verse_html.rfind("</p>", 0, cb.start())
+                        at = v_start + (p_close if p_close != -1 else cb.start())
+                        bucket.append((at, at, badge))
+                        for m in markers:
+                            bucket.append((v_start + m.start(), v_start + m.end(), ""))
+                    else:
+                        # Replace the LAST marker with the badge; delete the others.
+                        last = markers[-1]
+                        bucket.append((v_start + last.start(), v_start + last.end(), badge))
+                        for m in markers[:-1]:
+                            bucket.append((v_start + m.start(), v_start + m.end(), ""))
                     # Replace the FIRST aside (document order) with the merged
                     # aside; delete the rest.
                     aside_spans_sorted = sorted(aside_spans)
@@ -2612,6 +2648,13 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         stats["files_touched"] += 1
 
     return stats
+
+
+# A chapter boundary INSIDE a verse region (the region of a chapter's last
+# verse runs to the next vn-link, which lives past the next chapter's opening).
+# Both shapes count: the ch-anchor `<a id="ch-bNN-cMM" …>` and — for any file
+# whose heading lacks the anchor — the `<p … class="ch-heading">` tag itself.
+_BADGE_CH_BOUNDARY_RE = re.compile(r'<a id="ch-b\d+-c\d+"|<p [^>]*class="ch-heading"')
 
 
 def _badge_chapter_content_end(text: str, after: int) -> int:

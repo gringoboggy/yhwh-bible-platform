@@ -366,6 +366,131 @@ class TestApplyBadgeMarkersUnit:
                 checked += 1
         assert checked > 0, "no multi-note badge asides found to check grouping"
 
+    def test_chapter_last_verse_badge_stays_in_its_chapter(self, tmp_path):
+        """K-R3-3/K-R3-4 (Kobo round 3, kobo8): inject's spill resolver bakes some
+        of a chapter-last verse's xref/topic markers AFTER the next chapter's
+        heading; the badge — placed at the LAST marker — then renders inside the
+        WRONG chapter (264 artifact instances; gen 1:31's ◈ badge led Gen 2's
+        first paragraph and its tap "teleported to chapter 1"). The badge must
+        stay at its verse's own text end; the spilled markers still merge into
+        the verse's aside (collection unchanged — placement only)."""
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+
+        # (a) the canonical instance: gen 1:31's badge sits at the verse end —
+        #     BEFORE the ch-2 anchor, immediately preceding its paragraph close.
+        fname = next(f for f in book["files"] if 'id="v-gen-1-31"' in (tmp / f).read_text(encoding="utf-8"))
+        text = (tmp / fname).read_text(encoding="utf-8")
+        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-31".*?</a>', text, re.DOTALL)
+        ch2 = re.search(r'<a id="ch-b\d+-c2" class="ch-anchor">', text)
+        assert bm and ch2, "gen 1:31 badge / ch-2 anchor missing"
+        assert bm.end() <= ch2.start(), "gen 1:31's badge rendered past the chapter-2 heading (K-R3-4)"
+        assert text[bm.end() :].lstrip().startswith("</p>"), (
+            "gen 1:31's badge is not at the verse's text end (must directly precede the paragraph close)"
+        )
+
+        # (b) conservation: the spilled markers' notes still merge into the aside —
+        #     the badge count equals the aside's rows, and 1:31 keeps its full set
+        #     (3 inline + 5 spilled = 8 pre-dedup; dedup may only lower it slightly).
+        tb = re.search(r'id="vbadge-gen-1-31"[^>]*title="(\d+) notes?"', text)
+        am = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-31"[^>]*>(.*?)</aside>', text, re.DOTALL)
+        assert tb and am
+        rows = am.group(1).count('class="vn-item')
+        assert int(tb.group(1)) == rows, "badge count != merged-aside rows for gen 1:31"
+        assert rows >= 6, f"gen 1:31's spilled notes were dropped from its aside (rows={rows})"
+
+        # (c) the CLASS, whole-book: walking every gen file in document order, no
+        #     badge may appear after a chapter anchor numbered past its own chapter.
+        for f in book["files"]:
+            t = (tmp / f).read_text(encoding="utf-8")
+            events: list[tuple[int, str, int]] = []
+            for m in re.finditer(r'id="ch-b\d+-c(\d+)"', t):
+                events.append((m.start(), "ch", int(m.group(1))))
+            for m in re.finditer(r'id="vbadge-gen-(\d+)-(\d+)"', t):
+                events.append((m.start(), "badge", int(m.group(1))))
+            cur = None
+            for _pos, kind, val in sorted(events):
+                if kind == "ch":
+                    cur = val
+                elif cur is not None:
+                    assert val >= cur, f"{f}: a gen {val} badge renders inside chapter {cur} (K-R3-4 class)"
+
+
+class TestKoboPreviewSeparators:
+    """K-R3-2 (Kobo round 3, kobo1/5/6/7): Kobo eInk's Footnote preview is a
+    TAG-STRIPPED plain-text extraction (vendor-documented) — every block
+    boundary in the merged aside flattens into one run-on line. The fix bakes
+    plain-TEXT separators into the markup (`.vn-sep` spans: ¶ before category
+    heads, ◦ before source bylines, • before each note row) and hides them
+    via CSS wherever CSS applies (the real page; conformant popups like Apple
+    Books). The eInk preview ignores CSS, so only there do they show."""
+
+    def test_vn_item_rows_carry_text_separator(self):
+        from scripts.build_edition import _badge_aside_inner_to_row
+
+        row = _badge_aside_inner_to_row("<p>body text</p>", "comm")
+        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">• </span>'), row
+        assert "body text" in row
+
+    def test_cascade_heads_and_bylines_carry_text_separators(self):
+        from scripts.build_edition import _emit_cascade_sections
+
+        rows = [
+            {
+                "cat": "lang",
+                "source_key": "strongs",
+                "source_display": "Strong's Concordance",
+                "suppress_byline": False,
+                "row": '<div class="vn-item note-lang-hebrew">L1</div>',
+            },
+            {
+                "cat": "topic",
+                "source_key": "nave",
+                "source_display": "Nave's Topical Bible",
+                "suppress_byline": False,
+                "row": '<div class="vn-item note-topic-nave">T1</div>',
+            },
+        ]
+        out = _emit_cascade_sections(rows, {"lang": ("⌘", "Linguistic"), "topic": ("✦", "Topical")})
+        # every category head leads with the ¶ separator; every byline with ◦
+        assert out.count('<p class="vn-cat-head"><span class="vn-sep">¶ </span>') == 2, out
+        assert out.count('<p class="vn-source-byline"><span class="vn-sep">◦ </span>') == 2, out
+
+    def test_vn_sep_hidden_by_css_in_both_popup_styles(self):
+        from scripts.build_edition import apply_note_popup_style
+
+        for style in ("chip", "pills"):
+            css = apply_note_popup_style("", style)
+            m = re.search(r"\.vn-sep\s*\{[^}]*display:\s*none", css)
+            assert m, f"note_popup_style={style} does not hide .vn-sep"
+
+    def test_flat_path_merged_asides_carry_item_separators(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        fname = next(f for f in book["files"] if 'id="vnotes-gen-1-1"' in (tmp / f).read_text(encoding="utf-8"))
+        text = (tmp / fname).read_text(encoding="utf-8")
+        m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>', text, re.DOTALL)
+        assert m
+        items = m.group(1).count('class="vn-item')
+        seps = m.group(1).count('<span class="vn-sep">• </span>')
+        assert items > 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
+
 
 # ----------------------------------------------------------------------
 # Badge build — integration (real build_one, both modes)

@@ -97,6 +97,56 @@ isolates appendix headings like book titles. Acceptable (a clean separator
 page) — but if round 4 wants it tighter, exempt non-bp appendix headings from
 title-singleton treatment.
 
+## ★ TURN-62 ROOT CAUSES (artifact-diagnosed — supersedes the hypotheses above)
+
+**K-R3-4/K-R3-3 — NOT the splitter.** The r3 kepub has **0 promoted noterefs** and
+**0 duplicated href-targeted ids** (the promotion hypothesis is refuted; the new
+verifier gate-4 now pins both). The real mechanism: inject's spill resolver bakes
+some of a chapter-last verse's xref/topic markers AFTER the next chapter's heading
+(pre-existing in `epub_working/`, invisible as tiny numbered sups), and
+`apply_badge_markers` placed the merged badge "at the LAST marker's position" —
+past the heading. **264 instances** (gen 46, exo 34, num 32, deu 30, 1sa 25 …).
+kobo8's cluster = `◈5`(gen 1:31, spilled) + `1` + `◈2`(gen 2:1) + `2`. FIXED:
+the badge placement clamps to the verse's own text end (before its `</p>`) when
+the region crosses a chapter boundary; spilled markers still merge into the aside
+(collection unchanged). Pinned by
+`test_chapter_last_verse_badge_stays_in_its_chapter` + verifier gate-4c.
+
+**K-R3-1 + the "teleport" — Kobo preview-decline → navigate fallback.** Vendor
+research (kobolabs/epub-spec + MobileRead, see the research report in this turn's
+session): the eInk popup is a generic fragment-link heuristic — pops only when the
+target's stripped text is ≥9 and ≤~5000 chars (community: possibly to-EOF);
+otherwise the tap NAVIGATES. Our navigate target sits inside the `hidden=""`
+notes-section ⇒ no rendered position ⇒ Kobo lands at FILE START — which for piece
+000_02 is Gen 1:1 ("teleport to chapter 1 start"; at Gen 1:1 itself it looks like
+"nothing happened" = K-R3-1). Sizes: gen-1-1 23.0KB (declines), gen-1-3 9.8KB
+(POPS — kobo5/6), gen-1-31 6.3KB (declined — but its badge was the SPILLED one;
+post-fix datum needed). Round 4 carries a named tap matrix to pin the threshold.
+Keep `hidden=""` (eInk does NOT auto-hide asides — unhiding renders all notes
+inline).
+
+**K-R3-2 — the preview is a TAG-STRIPPED plain-text extraction** (vendor-doc'd);
+no markup survives, so block separators can never render there. FIXED build-time:
+plain-text separators baked into the merged aside (`.vn-sep` spans — ¶ before
+category heads, ◦ before source bylines, • before each note row), hidden by CSS
+everywhere CSS applies (real page; Apple Books popups). Greek letter-spreading:
+likely the dialog's own full-justification of long lines — recheck on round 4.
+
+**K-R3-5 — NOT nested nav.** The r3 nav.xhtml + toc.ncx are both FLAT (one entry
+per book, distinct piece files); 047_04 is a pure 1.2KB title singleton. The
+[+]/Read modal is almost certainly Kobo's TITLE-OVERFLOW expander — Azariah's is
+the longest book name in the ToC (58 chars). The chapter-drill-down idea needs a
+real nested-navPoint experiment (`reader_native_toc_chapters`) to evaluate — Mac.
+
+**NEW pre-existing BASE finding (separate arc, NOT this round):** at **117
+chapter starts** (psa 31, job 14, eze 6, gen 2/11/32/37/43, …) the base has NO
+verse text between the `v-{code}-{ch}-1` and `v-{code}-{ch}-2` vn-links — v1's
+text sits after v2's anchor (gen 2: "1 2 The heavens…"), so the v2 number
+visually labels v1's text and the v1/v2 translation popups pair off-by-one
+against what the eye reads. Pre-existing bake artifact (1,318 chapter starts are
+normal), shipped since v0.0.3. Fixing = a surgical base sweep (all editions
+change) — needs its own verified arc; handed to the lane board.
+
 ## Next-session WIN sequence (proposed)
 1. K-R3-4 deep sweep (verifier extensions: id-uniqueness + promoted-noteref
    count) → splitter fix (badge↔aside same-piece invariant) → this likely

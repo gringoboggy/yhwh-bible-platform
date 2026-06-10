@@ -1,6 +1,6 @@
-"""K-R2 round-3 artifact gates — run against a built EPUB (or .kepub.epub).
+"""K-R2/K-R3 artifact gates — run against a built EPUB (or .kepub.epub).
 
-Checks the Kobo round-2 fix arc on the real artifact:
+Checks the Kobo fix arcs on the real artifact:
   1. piece geometry — every book-title page (bp-NN) LEADS its own piece with no
      verse content (the forced singleton); the in-content ToC piece carries no
      bp-; no piece ends with a bare trailing chapter opener; size distribution.
@@ -9,6 +9,13 @@ Checks the Kobo round-2 fix arc on the real artifact:
   3. metadata — OPF dc:description carries "83" (never 88); nav lists ONE
      Colophon + a Copyright entry; no ", or" alt book names in nav/ncx;
      colophonend has no Generated-vX/URN.
+  4. K-R3-4 gates — (a) ZERO promoted (cross-file) noteref hrefs: a cross-file
+     noteref NAVIGATES on Kobo instead of popping, so the splitter must never
+     separate a badge from its aside; (b) every href-TARGETED id is unique
+     across pieces (kepubify's per-file kobo.* span ids are exempt — they are
+     file-scoped by design; an untargeted duplicated wrapper id is harmless);
+     (c) no verse-notes badge renders past its own chapter's heading (the
+     kobo8 badge-cluster / "teleport to chapter 1" class — 264 pre-fix).
 
 Usage:  py -3 dev/verify_kr2_build.py <path-to-epub>
 Exit 0 = all gates green; 1 = any failure (details printed).
@@ -158,12 +165,57 @@ def main(path: str) -> int:
     else:
         fails.append("colophonend.xhtml missing (default keeps it)")
 
+    # ── 4. K-R3-4 gates ──────────────────────────────────────────────────
+    promoted_re = (
+        re.compile(r'<a[^>]*href="index_split_[^"#]+#[^"]+"[^>]*epub:type="noteref"'),
+        re.compile(r'<a[^>]*epub:type="noteref"[^>]*href="index_split_[^"#]+#[^"]+"'),
+    )
+    ch_anchor_re = re.compile(r'id="ch-b\d+-c(\d+)"')
+    badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)"')
+    promoted = 0
+    id_home: dict[str, str] = {}
+    dup_ids: set[str] = set()
+    targeted: set[str] = set()
+    spilled: list[str] = []
+    for n in pieces:
+        t = zf.read(n).decode("utf-8", "replace")
+        for rx in promoted_re:
+            promoted += len(rx.findall(t))
+        for m in re.finditer(r'\bid="([^"]+)"', t):
+            i = m.group(1)
+            if i.startswith("kobo."):
+                continue  # kepubify's span ids are file-scoped by design
+            if id_home.setdefault(i, n) != n:
+                dup_ids.add(i)
+        for m in re.finditer(r'href="[^"#]*#([^"]+)"', t):
+            targeted.add(m.group(1))
+        events: list[tuple[int, str, object]] = []
+        for m in ch_anchor_re.finditer(t):
+            events.append((m.start(), "ch", int(m.group(1))))
+        for m in badge_re.finditer(t):
+            events.append((m.start(), "badge", (m.group(1), int(m.group(2)), int(m.group(3)))))
+        cur = None
+        for _pos, kind, val in sorted(events):
+            if kind == "ch":
+                cur = val
+            elif cur is not None and val[1] < cur:
+                spilled.append(f"{n}: {val[0]} {val[1]}:{val[2]} renders inside chapter {cur}")
+    if promoted:
+        fails.append(f"{promoted} PROMOTED (cross-file) noteref hrefs — popups would navigate, not pop")
+    dup_targeted = sorted(i for i in dup_ids if i in targeted)
+    if dup_targeted:
+        fails.append(f"{len(dup_targeted)} href-targeted ids duplicated across pieces (first 5: {dup_targeted[:5]})")
+    if spilled:
+        fails.append(f"{len(spilled)} badges render past their chapter's heading (K-R3-4); first 3:")
+        fails.extend("  " + s for s in spilled[:3])
+
     print(f"pieces: {len(pieces)}  title-singletons: {title_pieces}")
     print(
         f"sizes: min {min(sizes):,}  max {max(sizes):,}  mean {int(statistics.mean(sizes)):,}"
         f"  median {int(statistics.median(sizes)):,}"
     )
     print(f"noterefs: {total_refs:,} all-resolve={unresolved == 0}")
+    print(f"promoted-noterefs: {promoted}  dup-targeted-ids: {len(dup_targeted)}  ch-spilled-badges: {len(spilled)}")
     if fails:
         print("\nFAILURES:")
         for f in fails:
