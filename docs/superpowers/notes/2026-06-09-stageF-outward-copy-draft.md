@@ -40,6 +40,33 @@ at v0.1.0:
 So: **publish A–D below only after the v0.1.0 cut is live on the releases page + GitHub
 release.** The WIN hand-off at the bottom lists exactly which surfaces to flip and in what order.
 
+**★ RE-TRUE #2 (Mac, turn 61 — fold-in of the K-R2 fix arc + Kobo round 3):**
+
+- **NOW SHIPPED IN CODE (turn 58, `59d92ab0`, live-verified)** — the two items the gate above
+  still lists as "not built": the **idiot-proof end-user landing** (CDN-free HOME, social-card
+  hero, one gold CTA; the maintainer note-editor demoted to `/notes`) and the **rich-text
+  note editor** (B/I/link toolbar, `normalizeBody` allowlist). Their bullets are now IN §(e)
+  below; same publish gate as everything else (the cut).
+- **Device-claims re-trued by Kobo ROUND 3** (`2026-06-10-kobo-round3-device-qa.md`, user:
+  "OMG BIG WIN"): on Kobo, **title-page bleed is CONFIRMED GONE** (each book's title page now
+  owns a whole page — the turn-61 splitter gives every book title its own spine file, the only
+  page break Kobo honors; the CSS caps alone had NOT fixed it), **chapter numerals are
+  CONFIRMED centered**, and **Hebrew/Greek/Arabic render in the note popups**. The "Book title
+  pages stay put" copy below was re-worded to the real mechanism. ⚠ Still NOT claimable:
+  "popups all behave on Kobo" (K-R3-1 ◈15 no-pop, K-R3-2 run-on popup text, K-R3-3/4 seam
+  spill/teleport are OPEN — WIN's deep sweep next session) and any **Apple Books** title-art
+  claim (AB① re-test still pending; W1 contingency armed).
+- **New turn-61 features added to §(e)** (all in the cut): the wizard's **"Where will you read
+  it?"** step with honest per-target gating (`25230b0f`); the **metadata sweep** (`63f3cc99`) —
+  the reader's library card now says **83 books** (the OPF description was still claiming 88),
+  book names in the reader's ToC lost their ", or …" alternate-title tails (3,477 removals),
+  and the duplicate Colophon is gone (the front page is now titled **Copyright**; one closing
+  colophon, option-gated).
+- **Font pack** (`dist/yhwh-kobo-font-pack.zip`, built + staged, NOT uploaded): copy for it
+  exists in `2026-06-09-kobo-font-pack.md` §3 (Guide) and F7 below — **gated on the user's
+  staged-fonts eyeball** (does the Kobo preview dialog follow the reading font?), then on the
+  release upload. Do not mention the pack on any public surface before both.
+
 **Voice anchors** (matched to `website/src/index.html` + `releases.html`): faith-respectful;
 free forever / no account / no cloud / no tracking; the full Ethiopian Tewahedo canon (83
 books, 91,723 notes, 5 canon traditions); "still a beta on the 0.x track"; honest about rough
@@ -103,8 +130,11 @@ A round of fixes came from reading the full Bible on Apple Books and a Kobo e-re
 - **Tidier study notes.** Repeated attributions and category prefixes are de-duplicated at
   build time, losslessly — every distinct point is kept, but a source is named once and a
   category isn’t repeated line after line.
-- **Book title pages stay put.** The frame around a book’s title and art no longer bleeds onto
-  the next page (it’s capped and kept from splitting across a page).
+- **Every book’s title page now owns its own page.** On e-readers that ignore page-break
+  styling (Kobo above all), the contents list, a book’s framed title, and chapter 1 could all
+  share one screen. Each book’s title page now gets **its own file inside the EPUB** — the one
+  page break every reader honours. Chapter numbers are centered and no longer strand alone at
+  the bottom of a page.
 - **The “Your Edition” page reads correctly.** The honest per-book note-count list no longer
   clips its book-name column off the left edge on Apple Books.
 
@@ -154,8 +184,9 @@ for — please tell me.
   <li><strong>Justified body text by default</strong>, scoped to running prose only — so you
     no longer have to switch it on in your reader, and the contents list no longer spaces out.</li>
   <li>Tidier notes: repeated attributions and category prefixes are de-duplicated (losslessly —
-    every distinct point is kept); the “Your Edition” page no longer clips its book names; book
-    title pages no longer bleed onto the next page.</li>
+    every distinct point is kept); the “Your Edition” page no longer clips its book names; every
+    book’s title page now owns its own page (its own file inside the EPUB — the one page break
+    every reader honours).</li>
   <li>Still a beta on the 0.x track — an early, complete build, with your feedback wanted.</li>
 </ul>
 ```
@@ -335,14 +366,36 @@ bar — the way an installed program should. (Windows and Linux already opened n
 
 A round of fixes came straight from reading the full Bible on Apple Books and a Kobo e-reader:
 
+- **Every book’s title page now owns its own page.** On e-readers that ignore page-break
+  styling (Kobo above all), the contents list, a book’s framed title, and chapter 1 could all
+  share one screen. The build now gives **each book’s title page its own file inside the
+  EPUB** — the one page break every reader honours — so a title page is always a full, quiet
+  page of its own. Chapter numbers are centered and no longer strand alone at the bottom of a
+  page.
 - **Justified body text is now the default** for the Ethiopian Bible, so you no longer have to
   turn it on in your reader. Justification is scoped to running prose only — titles, headings,
   the contents, and tables stay as designed — which also fixes the contents list spacing out
   when a reader’s global justify was on.
-- **Book title pages stay put.** The frame around a book’s title and art no longer bleeds onto
-  the next page (it’s capped and kept from splitting across a page).
+- **A tidier book in your reader’s own menus.** The reader’s library card now gives the true
+  count — **83 books** — and book names in the reader’s table of contents lost their long
+  “, or …” alternate-title tails. The duplicated Colophon is gone: the front page is now
+  plainly titled **Copyright**, with a single short colophon at the very end.
 - **The “Your Edition” page reads correctly.** The honest per-book note-count list no longer
   clips its book-name column off the left edge on Apple Books.
+
+### A friendlier program from the first screen
+
+The app now opens on a **simple, welcoming home page** — the same banner art as the site, one
+gold button (“Build my Bible”), and plain-words doors to the other tools — instead of landing
+you in the maintainer’s note editor. The note editor itself moved to a quiet corner for those
+who want it, and editing a note no longer means typing raw HTML: a small **Bold / Italic /
+link toolbar** edits the note as you’ll see it, and what you save is checked and cleaned
+automatically.
+
+When you build your own edition, the wizard now begins by asking **“Where will you read
+it?”** — everywhere, an e-ink reader, a phone or tablet, or a computer — and honestly greys
+out the few options that your chosen reader can’t display, telling you why, instead of letting
+you pick something that would break there.
 
 ### Under the hood
 
@@ -535,11 +588,34 @@ PROGRESS — the transcription work is real and ongoing, no date promised)*
 > Slow, careful work. It’ll be free when it’s ready, like everything else.
 > 📜 https://www.yhwhyaway.com
 
-> **Char counts (X’s counter, URL=23):** F1 ≈ 252 · F2 ≈ 245 · F3 ≈ 268 · F4 ≈ 262 · F5 ≈ 247.
+**F6 — the craftsmanship beat (three rounds on a real Kobo)** *(GATE: the cut. Honest today on
+the Kobo facts — round 3 confirmed the title pages + numerals on glass)* *(attach: a photo of a
+book title page owning its full Kobo screen)*
+> Kobo’s own docs say its e-ink reader ignores page-break styling entirely. So now every book’s
+> title page gets its own file inside the EPUB — the one page break every reader honours.
+>
+> Three rounds of reading on a real Kobo went into this release.
+> https://www.yhwhyaway.com/releases.html
+
+**F7 — the font pack** *(DOUBLE GATE: post only after (1) the user’s staged-fonts eyeball
+confirms the preview dialog follows the reading font AND (2) `yhwh-kobo-font-pack.zip` is live
+in the release — see `2026-06-09-kobo-font-pack.md` §4)* *(attach: a Kobo photo showing Hebrew
+or Ge’ez rendering in a popup)*
+> E-readers’ quick-look popups use the device’s own font — which usually can’t draw Hebrew,
+> Greek, Geʽez or Arabic. So the release now ships a free font pack: five OFL fonts you drop
+> into your Kobo’s fonts folder, and the ancient languages just render.
+> https://www.yhwhyaway.com/releases.html
+
+> **Char counts (X’s counter, URL=23):** F1 ≈ 252 · F2 ≈ 245 · F3 ≈ 268 · F4 ≈ 262 · F5 ≈ 247 ·
+> F6 ≈ 258 · F7 ≈ 270.
 > **Honesty check:** F1 = shipped cascade facts only (category groups, spine, byline-once,
 > merged topics). F2 gated on the device re-test; "format e-readers understand" = the ttf swap,
 > no woff2 jargon. F3 matches `3bab5f4a` exactly (10 notes, Genesis, sample attribution,
 > user-decided removal); count claims avoided. F4 = SHA256SUMS + signing/notarization facts
 > already true at v0.0.3 and carried forward by the cut gate. F5 promises no date and claims
 > no completion — Phase-D status per `project_geez_phase_d_sources` (vision-transcription in
-> progress; Psalms + Samuel/Kings marathon are the clean-verse base).
+> progress; Psalms + Samuel/Kings marathon are the clean-verse base). F6 (added turn 61) =
+> vendor-doc fact (kobolabs/epub-spec, verified in `2026-06-09-kepub-pagebreak-research.md`) +
+> the shipped splitter (`bf751391`) + Kobo round-3 on-glass confirmation; "three rounds" is
+> literally true. F7 (added turn 61) = double-gated on the eyeball + the pack upload; "five OFL
+> fonts" matches the pack manifest (Cardo ×3 + Noto Serif Ethiopic + Noto Naskh Arabic).

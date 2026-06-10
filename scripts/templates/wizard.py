@@ -499,32 +499,34 @@ function goto(step) {
 
 // K-R2 reader-target capability map — which OPTIONAL features each target can
 // actually render, with the honest reason shown when a control is gated. Grounded
-// in real-device QA (Kobo rounds 1-2, Apple Books); extend as found. term-ref-ok
+// in real-device QA (Kobo rounds 1-3, Apple Books) + the sourced capability table — term-ref-ok
+// docs/superpowers/notes/2026-06-10-target-caps-research.md (live Apple Books test, — term-ref-ok
+// epubtest.org, Adobe's own release notes, KOReader/crengine source, Kindle KF8 spec).
 // 'everywhere' offers only universally-safe features.
 const TARGET_CAPS = {
   everywhere: {
     label: '🌍 Everywhere',
     toc_expandable: false,
     note: 'Safest build — renders well on every reader.',
-    gate_reason: 'Not offered for an everywhere build: e-ink readers and Adobe Digital Editions cannot expand collapsed lists, so the chapter pills stay always visible instead.',
+    gate_reason: 'Not offered for an everywhere build: some readers can’t operate collapsible lists (Adobe Digital Editions documents them as unsupported; Google Play Books on Android can’t expand them at all) — the chapter pills stay always visible instead.', // term-ref-ok
   },
   eink: {
     label: '📖 E-ink reader',
     toc_expandable: false,
     note: "On Kobo, load the .kepub copy. The downloadable font pack covers Hebrew, Greek and Ge'ez in popups.",
-    gate_reason: 'E-ink readers cannot collapse/expand lists — the chapter pills stay always visible instead.',
+    gate_reason: 'E-ink reading engines don’t do collapsible lists (KOReader renders them permanently flat by design; Kindle’s format has no support for them) — the chapter pills stay always visible instead.',
   },
   tablet: {
     label: '📱 Phone / tablet',
     toc_expandable: true,
-    note: 'Apple Books and similar apps support every option.', // term-ref-ok
+    note: 'Verified in Apple Books — tap a book to expand or collapse its chapters. Skip this option if you read in Google Play Books (it can’t expand collapsed lists); very long books may need scrolling view.', // term-ref-ok
     gate_reason: '',
   },
   computer: {
     label: '💻 Computer',
     toc_expandable: false,
     note: 'Conservative defaults for desktop readers.',
-    gate_reason: 'Adobe Digital Editions cannot expand collapsed lists — the chapter pills stay always visible instead.',
+    gate_reason: 'Adobe Digital Editions documents collapsible lists as unsupported, so the chapters could never expand there — the safe desktop default keeps the chapter pills always visible.',
   },
 };
 
