@@ -147,6 +147,26 @@ against what the eye reads. Pre-existing bake artifact (1,318 chapter starts are
 normal), shipped since v0.0.3. Fixing = a surgical base sweep (all editions
 change) — needs its own verified arc; handed to the lane board.
 
+## ROUND-4 USER TEST MATRIX (hand to the user with the r4 kepub)
+
+1. **Gen 2 start (kobo8 retest):** the badge cluster before 2:1 should be GONE —
+   Gen 1:31's ◈ now sits at the end of 1:31's text, before the big "2". Spot-check
+   2-3 other chapter ends (Gen 4→5, Exo 19→20): no badges after a chapter numeral.
+2. **Popup tap matrix (the preview-decline threshold — tap each, note POP /
+   NOTHING / JUMP):** Gen 1:1 ◈ (23K — predict NOTHING/JUMP) · Gen 1:26 ◈ (20K —
+   predict NOTHING/JUMP) · Gen 2:2 ◈ (19K — predict NOTHING/JUMP) · Gen 1:3 ◈
+   (10K — popped in round 3, control) · Gen 1:31 ◈ (6K, now correctly placed —
+   the KEY datum) · Gen 2:1 ◈ (3K — predict POP).
+3. **Separators:** open any study popup — category/source/note rows should now be
+   separated by ¶ ◦ • glyphs INSIDE the preview dialog (instead of one run-on
+   line). On the real page (and in the in-book notes), the glyphs must be
+   INVISIBLE.
+4. **Greek spreading recheck (kobo7):** is the gappy Greek just full-width
+   justification of short lines, or per-letter spacing? A photo of one line
+   suffices.
+5. **Which reading font was active during round 3's kobo1/7?** (Cardo from
+   G:\fonts?) — the font-pack ship gate needs that datum.
+
 ## Next-session WIN sequence (proposed)
 1. K-R3-4 deep sweep (verifier extensions: id-uniqueness + promoted-noteref
    count) → splitter fix (badge↔aside same-piece invariant) → this likely
