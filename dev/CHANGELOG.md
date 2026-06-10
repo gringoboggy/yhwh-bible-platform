@@ -54,6 +54,11 @@
   tau6x1 p1318 Amharic tuples=0 (conda-forge tesseract version-sensitivity; CI skips via its guard).
 - Verification: targeted re-runs 42 pass / 1 skip / 2 deliberate reds · `glab ci lint` valid · workflow
   YAML parses · fast gates CLEAN ×2 · 3 versification pins green · `done_gate` deselection proven.
+- **First `tests.yml` run MEASURED (27301013153, 39:51): 10F+1E / 7884 pass / 21 skip / 135 deselected;
+  python 3.14 + deps + fast gates all green on ubuntu; all 7 Mac fixes + every env-gate held.** Reds =
+  exactly WIN's P3 set (+1 upgrade: `work_cache::test_persists_to_disk` errors on CI too — ordering-
+  sensitive, not a Mac load-flake). CI log root-causes for WIN: consoles nav is missing the `/` HOME
+  link; `editions.yaml[ethiopian-tewahedo]` carries a `description` field absent from the FieldSpec.
 
 ## 2026-06-10 — session (🖥️ Mac, turn 65) — round-7 Mac cluster (P3 Phase-3) + GitKraken install finished
 
