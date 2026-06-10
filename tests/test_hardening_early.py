@@ -675,7 +675,18 @@ class TestSafePath:
         assert out.is_file()
 
     def test_backslash_separator_accepted(self):
-        # Windows-style separator works the same as POSIX.
+        import os
+
+        import pytest
+
+        if os.name != "nt":
+            pytest.skip(
+                "backslash is a separator only on Windows; on POSIX it is a "
+                "literal filename character (OS-native semantics, not a "
+                "resolve_under defect)"
+            )
+        # Windows-style separator works the same as the POSIX one (Windows
+        # only: Path treats '\\' as a separator there).
         out = self.mod.resolve_under(self.root, "sub\\deep.txt")
         assert out.is_file()
 

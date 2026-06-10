@@ -4,9 +4,8 @@ name: Build Linux AppImage
 # Linux x86_64 AppImage is produced here on a GitHub-hosted Ubuntu runner and uploaded
 # to the chosen release. Run it manually from the Actions tab (workflow_dispatch).
 #
-# NOTE (first run): this is the initial scaffold — expect to iterate once on the Python
-# deps / PyInstaller hidden-imports / appimagetool FUSE flags. See dev/build_desktop.sh
-# + dev/build_appimage.sh for the underlying build.
+# NOTE: proven end-to-end 2026-06-10 — run 27257694787 built and uploaded the v0.1.0
+# AppImage. See dev/build_desktop.sh + dev/build_appimage.sh for the underlying build.
 
 on:
   workflow_dispatch:
@@ -14,7 +13,7 @@ on:
       tag:
         description: "Release tag to attach the AppImage to"
         required: true
-        default: "v1.0.0-beta.1"
+        default: "v0.1.0" # update when cutting a release
 
 permissions:
   contents: write
@@ -24,6 +23,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Validate the release tag exists (fail fast, before the build)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          # A missing/typo'd tag would otherwise surface only at the final upload
+          # step, after the whole build — abort loudly up front instead.
+          gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null
+          echo "release ${TAG} exists — proceeding"
 
       - uses: actions/setup-python@v5
         with:
@@ -44,11 +53,17 @@ jobs:
           chmod +x dev/build_desktop.sh
           PYTHON="$(which python)" bash dev/build_desktop.sh
 
-      - name: Fetch appimagetool
+      - name: Fetch appimagetool (pinned release + checksum)
         run: |
           ARCH="$(uname -m)"
+          # Pinned versioned release (was: the rolling `continuous` tag) + checksum,
+          # so an upstream change is a loud failure here, never a silent new binary.
+          # On a version bump, update BOTH lines (digest from the GitHub release API).
+          APPIMAGETOOL_VERSION="1.9.1"
+          APPIMAGETOOL_SHA256="ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0" # x86_64
           curl -fL -o "/tmp/appimagetool-${ARCH}.AppImage" \
-            "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${ARCH}.AppImage"
+            "https://github.com/AppImage/appimagetool/releases/download/${APPIMAGETOOL_VERSION}/appimagetool-${ARCH}.AppImage"
+          echo "${APPIMAGETOOL_SHA256}  /tmp/appimagetool-${ARCH}.AppImage" | sha256sum --check
           chmod +x "/tmp/appimagetool-${ARCH}.AppImage"
 
       - name: Build AppImage

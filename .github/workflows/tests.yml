@@ -1,0 +1,55 @@
+name: Tests
+
+# The always-on, BLOCKING per-push test signal. It lives here (not GitLab)
+# because this repo is PUBLIC on GitHub — Actions minutes are free — while the
+# GitLab mirror is a private namespace (400 compute-min/month): its old per-push
+# `tests` job hit the 1-hour shared-runner timeout on every run and burned the
+# whole June quota (round-7 laundry, 2026-06-10). GitLab keeps the fast per-push
+# `gate` plus schedule/manual tests-core / tests-full; this workflow runs the
+# same fast gates and the not-slow pytest suite on every push to main.
+#
+# The `slow`-tagged tests (real edition builds, the ~205s byte-stability gate)
+# and the coverage floor stay in `python scripts/ci.py` (local `make ci` /
+# GitLab tests-full).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Rapid milestone pushes: only the newest run matters.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PYTHONUTF8: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Fast gates (format · lint · rules · mypy)
+        run: python scripts/ci.py --no-tests
+
+      # done_gate = deliberately-RED milestone pins (red-by-design on dev
+      # boxes until their milestone lands — see the pyproject marker note);
+      # they assert future project state, not current code correctness.
+      - name: pytest (not slow, not done_gate)
+        run: python -m pytest -q -m "not slow and not done_gate"

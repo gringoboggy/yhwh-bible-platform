@@ -149,8 +149,17 @@ TITLE_MAX_WIDTH = FINAL_WIDTH - 2 * TITLE_MARGIN_X
 TOP_SAFE_Y = 100
 BOTTOM_SAFE_Y = FINAL_HEIGHT - 100  # 1436
 
-# Font path — Times New Roman bold ships with Windows.
-FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
+# Font path — Times New Roman bold ships with Windows; non-Windows boxes (the
+# Mac lane, CI runners) fall back to the repo's own Cardo Bold so the title
+# font is always a REAL face on disk, never PIL's pathless default (which
+# breaks the σ.5.1 path-identity contract the tests pin). First existing
+# candidate wins (the FONT_ETHIOPIC_CANDIDATES pattern); Windows output is
+# unchanged — timesbd.ttf always exists there and stays first.
+FONT_TITLE_CANDIDATES: tuple[str, ...] = (
+    r"C:\Windows\Fonts\timesbd.ttf",
+    str(REPO_ROOT / "content" / "assets" / "fonts" / "Cardo-Bold.ttf"),
+)
+FONT_TITLE_PATH = next((c for c in FONT_TITLE_CANDIDATES if Path(c).is_file()), FONT_TITLE_CANDIDATES[0])
 
 # σ.5.1 — Ethiopic-capable title font. The 2 standalone Bibles carry main
 # titles in Ge'ez/Amharic script (Ethiopic block U+1200–U+137F), and Times New
@@ -163,6 +172,9 @@ FONT_TITLE_PATH = r"C:\Windows\Fonts\timesbd.ttf"
 FONT_ETHIOPIC_CANDIDATES: tuple[str, ...] = (
     r"C:\Windows\Fonts\nyala.ttf",  # Nyala — full Ethiopic coverage (primary)
     r"C:\Windows\Fonts\ebrima.ttf",  # Ebrima — also covers Ethiopic (fallback)
+    # Repo-shipped Ethiopic face — the non-Windows/CI resort, LAST so Windows
+    # rendering is unchanged.
+    str(REPO_ROOT / "content" / "assets" / "fonts" / "NotoSerifEthiopic-Regular.ttf"),
 )
 
 # Ethiopic Unicode block (and its supplement is U+1380–U+139F; the core block

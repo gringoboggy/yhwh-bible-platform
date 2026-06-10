@@ -346,8 +346,10 @@ class TestPi0MultiFontInfrastructure:
         readme = REPO / "content" / "assets" / "fonts" / "README.md"
         assert readme.is_file()
         body = readme.read_text(encoding="utf-8")
-        assert "Noto Sans Ethiopic" in body, (
-            "Π.0.4: fonts/README.md must document the Noto Sans Ethiopic addition workflow"
+        # The shipped face is Noto SERIF Ethiopic (the K① release-ttf swap,
+        # 2026-06-09) — the original "Sans" pin went stale with that ship.
+        assert "Noto Serif Ethiopic" in body, (
+            "Π.0.4: fonts/README.md must document the Noto Serif Ethiopic addition workflow"
         )
         assert "OFL" in body, "Π.0.4: fonts/README.md must reference the SIL OFL license policy"
 

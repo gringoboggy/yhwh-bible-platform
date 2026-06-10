@@ -3157,7 +3157,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # a book-title page (an opener never precedes a new book).
     ordered = sorted(plan.keys())
     popped: set[str] = set()
-    for a, b in zip(ordered, ordered[1:]):
+    for a, b in zip(ordered, ordered[1:], strict=False):
         last_name, last_text = plan[a][-1]
         ns = last_text.find('<aside class="notes-section"')
         boundary = ns if ns != -1 else last_text.rfind("</body>")

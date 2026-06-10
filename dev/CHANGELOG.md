@@ -4,6 +4,57 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🖥️ Mac, turn 66b) — round-7 laundry (Mac share): CI overhaul + versification pins + 7 suite reds fixed
+
+- **GitLab `tests` reality (laundry item 2, verify-first):** the job was NEVER green — every run hit the
+  shared runner's 1-h `job_execution_timeout` (`scripts/ci.py` runs the full suite twice: plain, then
+  under coverage), and those 60-min runs burned the entire June compute quota (`ci_quota_exceeded` on
+  every pipeline since ~06-06; the GitLab namespace is PRIVATE = 400 min/month). The directed
+  flip-to-blocking was therefore unjustifiable as-was → applied the directive's contingency adapted to
+  the quota: `tests-core` (pytest `-m "not slow"`, BLOCKING when run, 55m timeout) + `tests-full`
+  (full `ci.py`, allow_failure until the first proven-green run, 3h timeout), both schedule/manual-only;
+  monthly pipeline schedule created (id 4283714, `0 4 2 * *` UTC — first run 2026-07-02 after the quota
+  reset). Per-push GitLab = the fast `gate` alone.
+- **NEW `.github/workflows/tests.yml` — the always-on per-push BLOCKING test signal moved to GitHub
+  Actions** (the GitHub repo is public → free minutes; verified `isPrivate:false` live): fast gates
+  (`ci.py --no-tests`) + `pytest -m "not slow and not done_gate"` on every push to main, concurrency-
+  cancelled on rapid pushes. Pre-proven by running the same selection locally (below).
+- **`build-linux.yml` batch (item 1):** default tag `v1.0.0-beta.1`→`v0.1.0` (+ update-on-release
+  comment) · NEW fail-fast `gh release view "$TAG"` validation BEFORE the build (a typo'd tag previously
+  failed only at final upload) · stale "initial scaffold" header → proven note (run 27257694787) ·
+  appimagetool: rolling `continuous` → pinned **1.9.1** + `sha256sum --check` (digest from the release
+  API; upstream change = loud failure, never a silent new binary).
+- **Dead branches (item 3):** `lane-transfer/audit` + `lane-transfer/rules` deleted on origin (GitLab),
+  `lane-transfer/audit` on github, local copies dropped, both remotes pruned (Boggy approved live;
+  transfer content long consumed).
+- **NEW `tests/test_versification.py` (item 4) — 3 machine pins for MATRIX_MAP's "verified manually"
+  claims, all passing LIVE:** (a) `parse_versemap` Psalm-superscription pair (WLC Ps 3:2→KJV 3:1 +
+  chain-end 3:9→3:8); (b) `wlc_to_kjv_map` Gen 31/32 boundary (WLC 32:1→KJV 31:55 + the +1 chain);
+  (c) LXX OAN reorder (Swete Jer 27/28→KJV 50/51; Swete 34:1→KJV 27:2). (a)/(b) read the REAL morphhb
+  `VerseMap.xml` (skip-with-reason where absent); **provisioned the missing
+  `_acquire/morphhb/wlc/VerseMap.xml` to this Mac from the openscriptures upstream** (extractor
+  DEFAULT_SOURCE; the file was Win-only — source-parity restored).
+- **★ GH-workflow pre-proof = the FULL not-slow suite on this Mac (1h53m): 21 failed + 1 error → full
+  triage; 7 fixed in passing:** ① covers ×3 — `generate_edition_covers.FONT_TITLE_PATH` was a hardcoded
+  `C:\Windows\Fonts\timesbd.ttf` (every non-Windows host fell to PIL's pathless default → AttributeError):
+  now candidate-resolved (Win Times first → in-repo Cardo-Bold), Ethiopic candidates gain in-repo
+  NotoSerifEthiopic-Regular LAST — Windows rendering byte-unchanged, Mac/CI get real faces. ② omega4x —
+  `build_edition.py` K-R2 seam loop `zip(ordered, ordered[1:])` lacked `strict=` (ruff B905) and the test
+  pins build_edition ruff-clean; explicit `strict=False` (the default, zero behavior change). ③ pi0
+  fonts-README pin stale since the K① Serif swap: "Noto Sans Ethiopic"→"Noto Serif Ethiopic". ④ backslash
+  separator test = Windows-only semantics → posix skip (file-idiom in-body skip). ⑤ **NEW `done_gate`
+  pytest marker** — red-by-design milestone pins (assert FUTURE state, not code correctness); the
+  samkings folios pair tagged; CI deselects, dev boxes keep the visible red. ⑥ samkings
+  `test_every_referenced_image_exists` skips when the gitignored `GAPS/` tree is wholly absent (CI);
+  present-but-incomplete still fails loudly. ⑦ ruff-format/work_cache/perf reds = venv-PATH artifact +
+  under-load flakes (all pass correctly invoked). **Remaining red = WIN's 11 known P3 inputs**
+  (audit_caches ×3 = the round-7 HIGH · validate_schemas ×3 + scripts strict_unknown · consoles ×3 ·
+  manuscript_kings track_aware) — the first GH `tests.yml` run is the P3 convergence meter. **Mac-only
+  reds (board-noted):** samkings images[samuel] (74 Cambridge hi-res jpgs Win-only — box data drift) ·
+  tau6x1 p1318 Amharic tuples=0 (conda-forge tesseract version-sensitivity; CI skips via its guard).
+- Verification: targeted re-runs 42 pass / 1 skip / 2 deliberate reds · `glab ci lint` valid · workflow
+  YAML parses · fast gates CLEAN ×2 · 3 versification pins green · `done_gate` deselection proven.
+
 ## 2026-06-10 — session (🖥️ Mac, turn 65) — round-7 Mac cluster (P3 Phase-3) + GitKraken install finished
 
 - **Round-7 P3, the Mac-assigned Phase-3 items — ALL shipped, verify-first + behavior-proven (`73edc815`):**

@@ -5,16 +5,24 @@
 #   ruff format --check + ruff check + pip-audit + vulture + lint_rules.py + mypy
 #   (+ pytest + coverage floor in the full run).
 #
-#   gate  — BLOCKING fast gate (scripts/ci.py --no-tests): format · lint · rules · mypy.
-#           Deterministic; this is the required green signal.
-#   tests — full suite + coverage floor (scripts/ci.py). allow_failure FOR NOW: the
-#           suite includes long live-socket/build smokes + epubcheck (needs a JRE)
-#           not yet proven on a clean Linux runner. Flip allow_failure to false once
-#           the first green run confirms it. (Deliberately visible — not a silent skip.)
+#   gate       — BLOCKING fast gate (scripts/ci.py --no-tests): format · lint ·
+#                rules · mypy. Deterministic; runs on every push; the required
+#                green signal HERE.
+#   tests-core — pytest -m "not slow" (BLOCKING when it runs). Schedule/manual
+#                only: this GitLab project is PRIVATE (400 compute-min/month) and
+#                the old per-push `tests` job hit the 1-hour job timeout on EVERY
+#                run (scripts/ci.py runs the full suite twice — plain, then again
+#                under coverage) and burned the whole June quota
+#                (ci_quota_exceeded from ~2026-06-06; no `tests` run was EVER
+#                green — round-7 laundry verification, 2026-06-10).
+#   tests-full — full scripts/ci.py (suite incl. slow builds + coverage floor +
+#                epubcheck/JRE smokes). allow_failure UNTIL one green run proves
+#                the clean-runner environment (deliberately visible — not a
+#                silent skip); flip it then.
 #
-# NOTE: GitLab.com shared runners may require account verification before any
-# pipeline runs. If pipelines stay "pending", verify the account / enable shared
-# runners under Settings → CI/CD → Runners.
+# The always-on per-push TEST signal lives in GitHub Actions instead
+# (.github/workflows/tests.yml): the GitHub mirror is public, so its minutes are
+# free, while every minute here draws down the private-namespace quota.
 
 default:
   image: python:3.13-slim
@@ -42,8 +50,21 @@ gate:
   script:
     - python scripts/ci.py --no-tests
 
-tests:
+# Both test jobs are schedule/manual-only (quota: see header). Trigger from the
+# UI (CI/CD → Pipelines → New pipeline) or a pipeline schedule.
+tests-core:
   stage: test
+  timeout: 55m
+  rules:
+    - if: '$CI_PIPELINE_SOURCE =~ /^(schedule|web|api|trigger)$/'
+  script:
+    - python -m pytest -q -m "not slow"
+
+tests-full:
+  stage: test
+  timeout: 3h
   allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE =~ /^(schedule|web|api|trigger)$/'
   script:
     - python scripts/ci.py
