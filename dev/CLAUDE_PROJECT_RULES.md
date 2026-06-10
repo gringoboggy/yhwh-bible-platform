@@ -197,11 +197,17 @@ found under-specified + half-skipped; detail: `dev/SESSION_PLAYBOOK.md` §1):
    item 4). Report reclaimed RAM.
 2. **Git / remote state** — clean working tree; HEAD matches the last SESSION_STATE's
    described state; both remotes wired (`origin` = GitLab, `github` = GitHub mirror).
-3. **Plugin / MCP sanity (baseline must hold)** — ~16 plugins, **NO telemetry /
-   external-scanner / login-required plugins** (the set removed in the env trim — memory
-   `no-external-hooks-minimal-plugins` names them);
-   **`gitkraken-hooks@gitkraken` is WANTED — do NOT flag it** (the one sanctioned external
-   hook); MCP = `chrome-devtools` + `playwright` available (a failed server = a missing
+3. **Plugin / MCP sanity (baseline must hold)** — **30 plugins / 3 marketplaces**
+   (user-approved expansion 2026-06-10): 16 @`claude-plugins-official` (the original 15
+   + `pr-review-toolkit`) + `gitkraken-hooks@gitkraken` (WANTED — do NOT flag it; the one
+   sanctioned external hook) + 14 @`claude-community` (the Anthropic-screened community
+   marketplace; all 14 verified hook-free / account-free / fully-local, invocation-gated:
+   agnix · anti-ai-writing · c4m · clarity · claude-perfectionist · diataxis ·
+   dishonest-code-audit · forge · lazyline · humanizer · neko-harness-doctor ·
+   open-source-launch · public-repo-readiness · repo-doctor; `agnix` also needs the
+   npm-global `agnix` CLI). Still **NO telemetry / external-scanner / login-required
+   plugins** (the env-trim removals stay out — memory `no-external-hooks-minimal-plugins`);
+   MCP = `chrome-devtools` + `playwright` available (a failed server = a missing
    LOCAL runtime, never a login gate). Run `/reload-plugins` after any plugin change.
 4. **Version FRESHNESS — best-effort, NOT a hard gate.** Report the installed Claude Code
    version; flag a CC/plugin update ONLY if the harness surfaces one. **"Is it the latest"
