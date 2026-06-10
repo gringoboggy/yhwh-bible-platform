@@ -26,6 +26,15 @@
   v0.1.0/91,553 facts, K-R4 + 117-displacement deferred entries, model pins dropped (inherit Fable 5),
   tests-run moved to the array head (never beside the build-heavy rx-surfaces at cap=2). **Round-7
   overnight audit LAUNCHED** (`wf_1468532d-6f8`, findings-only).
+- **Round-7 audit COMPLETED + captured (the wrap):** 107 deduped → **75 verified survivors / 32 refuted /
+  0 UNVERIFIED** (5 high · 16 med · 46 low · 8 info; 158 agents, ~8.8M subagent tokens, ~7.1h). Artifacts:
+  `notes/2026-06-10-round7-findings.md` (HIGHs + per-dim table + the synth fixes-plan verbatim) +
+  `notes/2026-06-10-round7-audit-raw.json` (full evidence/verdicts). HIGHs: lru_cache whitelist (a RED
+  test in main), web_helpers frozen-binary NOTES_DIR (desktop editor-save crash), gen_checksums
+  DEFAULT_EXTS omits .epub/.kepub, notary_autofinish stale dmg name (→Mac), save_mac `-am` drops
+  untracked (→Mac). Triage = NEXT session, verify-first. SESSION_STATE rotated 109→8 KB (44→2 entries)
+  via `rotate_truth_records.py --apply`. Pulled Mac's overnight Kindle E999 arc (root cause CONFIRMED;
+  its v0.1.1 prescription folds into the same fix pass). Milestone 5-leg push at this wrap.
 - **Program step-① design landed** (`055bacd9`, `notes/2026-06-10-fable5-system-mint-design.md`):
   measured the every-session read surface (RULES 90 KB/1,298 lines · SESSION_STATE 106 KB/44 entries ·
   IN_FLIGHT 153 KB · LANE_HANDOFF 118 KB); design = single-home per rule, deterministic
