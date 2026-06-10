@@ -98,5 +98,5 @@ categories:
   - id: topic
     label: "Topical"
     symbol: "✦"
-    description: "Topical-concordance groupings: every verse on a theme (faith, prayer, judgement, names of God, etc.). Phase χ.7."
+    description: "Topical-concordance groupings: every verse on a theme (faith, prayer, judgement, names of God, etc.)."
     sort_order: 15
