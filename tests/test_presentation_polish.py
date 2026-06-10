@@ -293,10 +293,18 @@ class TestBackMatterPure:
         md.parseString(out)
 
     def test_closing_colophon(self):
+        # K-R2-6: the closing colophon is reader-facing — NO internal build
+        # strings (Generated vX / the edition URN); identity lives on the
+        # Your-Edition page. Signature pin: the version param is gone with them.
+        import inspect
+
         from scripts.build_edition import render_closing_colophon_page
 
-        out = render_closing_colophon_page({"id": "catholic-study", "title": "T"}, "v")
-        assert "urn:yhwh:edition:catholic-study" in out and "YHWH Ya" in out
+        assert list(inspect.signature(render_closing_colophon_page).parameters) == ["edition"]
+        out = render_closing_colophon_page({"id": "catholic-study", "title": "T"})
+        assert "YHWH Ya" in out and "Soli Deo Gloria" in out
+        assert "urn:yhwh" not in out, "the URN must not be reader-visible here"
+        assert "Generated" not in out, "internal build strings must not be reader-visible"
         import xml.dom.minidom as md
 
         md.parseString(out)

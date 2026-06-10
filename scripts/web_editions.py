@@ -452,6 +452,7 @@ def api_customize_data() -> dict:
                 "reader_toc_default_open": e.get("reader_toc_default_open", False),
                 "book_toc_ornament": e.get("book_toc_ornament", "none"),
                 "target_reader": e.get("target_reader", "everywhere"),
+                "closing_colophon": e.get("closing_colophon", True),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
                 "dedication": e.get("dedication", ""),

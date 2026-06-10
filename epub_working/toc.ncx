@@ -148,15 +148,15 @@
       <content src="index_split_036.html#bp-33"/>
     </navPoint>
     <navPoint id="num_book_34" playOrder="35">
-      <navLabel><text>Ecclesiastes or, The Preacher</text></navLabel>
+      <navLabel><text>Ecclesiastes</text></navLabel>
       <content src="index_split_037.html#bp-34"/>
     </navPoint>
     <navPoint id="num_book_35" playOrder="36">
-      <navLabel><text>The Song of Songs, or Song of Solomon</text></navLabel>
+      <navLabel><text>The Song of Songs</text></navLabel>
       <content src="index_split_037.html#bp-35"/>
     </navPoint>
     <navPoint id="num_book_36" playOrder="37">
-      <navLabel><text>The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus</text></navLabel>
+      <navLabel><text>The Wisdom of Jesus the Son of Sirach</text></navLabel>
       <content src="index_split_037.html#bp-36"/>
     </navPoint>
     <navPoint id="num_book_37" playOrder="38">
@@ -180,7 +180,7 @@
       <content src="index_split_044.html#bp-41"/>
     </navPoint>
     <navPoint id="num_book_42" playOrder="43">
-      <navLabel><text>4 Baruch, or Paralipomena of Jeremiah</text></navLabel>
+      <navLabel><text>4 Baruch</text></navLabel>
       <content src="index_split_045.html#bp-42"/>
     </navPoint>
     <navPoint id="num_book_43" playOrder="44">

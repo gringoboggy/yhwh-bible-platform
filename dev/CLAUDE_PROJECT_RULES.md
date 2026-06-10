@@ -121,7 +121,12 @@ say 87), you must update ALL of: (a) the page body; (b) the `<meta name="descrip
 `website/social-card.png` + `brand/social-card.png` (re-render at 1280×630 via a local
 `python3 -m http.server` + Playwright screenshot, then rebuild so `dist/` picks it up);
 (d) the GitHub + GitLab repo descriptions; (e) the in-app/tracker generators
-(`scripts/gen_website_progress.py` excludes the folded books via `_SUPERSET_EXCLUDE`).
+(`scripts/gen_website_progress.py` excludes the folded books via `_SUPERSET_EXCLUDE`);
+(f) **the EPUB's own metadata + base pages** — `epub_working/content.opf`
+`<dc:description>` (the e-reader LIBRARY-CARD synopsis; per-edition override =
+the edition's `description` via `patch_opf`) and `epub_working/introduction.xhtml`
+(K-R2-8: the Kobo library card still said "88 scriptures" after every other surface
+was swept 2026-06-09).
 Link previews on X/iMessage/Slack use `og:image` (the baked card) and are **cached
 hard** — after fixing it, re-scrape via the platform's card validator or the old card
 persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)

@@ -70,6 +70,12 @@ in the translation popups) and offers language-pack/keyboard downloads. Likely
 benign, but audit our `xml:lang`/`dc:language` markup next session — proper
 per-span lang tags may stop the mis-detection (it currently names Arabic, which
 suggests it's reading content, not metadata).
+**✅ AUDITED 2026-06-09 (win): markup is already correct** — the base carries
+per-span `lang="he"` / `lang="grc"` / `lang="ar"` on every original-language
+popup paragraph (80 each in split_000 alone) and OPF `dc:language` = en. The
+prompt is Kobo's content-script detection working as designed over correctly
+tagged multi-script content — benign, NO code action. If the user finds the
+prompts annoying, they decline once; nothing for the build to fix.
 
 ## K-R2-6 (LOW) — TWO Colophons (front + closing) + the closing one leaks internals
 kobo14/20: native ToC lists "Colophon" near the start AND at the end. kobo26:

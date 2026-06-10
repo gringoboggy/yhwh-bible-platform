@@ -516,6 +516,10 @@ function renderEditions() {
               <input type="checkbox" data-field="reader_toc_default_open" ${e.reader_toc_default_open ? 'checked' : ''}>
               <span>Books default to expanded</span>
             </label>
+            <label class="text-xs flex items-center gap-2">
+              <input type="checkbox" data-field="closing_colophon" ${e.closing_colophon !== false ? 'checked' : ''}>
+              <span>Closing colophon page (the traditional last page)</span>
+            </label>
             <p class="text-xs text-slate-500 md:col-span-2 italic">
               Chapter heading and Contents changes apply on the next BUILD.
             </p>

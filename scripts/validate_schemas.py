@@ -223,6 +223,9 @@ EDITIONS_SPEC = RecordSpec(
         # "eink" | "tablet" | "computer"); gates which optional features the
         # UIs offer. Absent = everywhere.
         FieldSpec("target_reader", type=str, required=False),
+        # K-R2-6 — option-gated closing colophon (absent/true = keep the minimal
+        # traditional last page; false = drop it entirely).
+        FieldSpec("closing_colophon", type=bool, required=False),
         # τ.G.constitution.a (2026-05-20) — standalone-Bible fields.
         # Per CLAUDE_PROJECT_RULES §1 "Parallel-Bible end-state — two
         # standalone Bibles", standalone-geez + standalone-amharic

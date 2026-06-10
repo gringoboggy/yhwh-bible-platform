@@ -1,5 +1,5 @@
 """
-Notes for The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus (sir).
+Notes for The Wisdom of Jesus the Son of Sirach (sir).
 
 No notes yet — add tuples to the NOTES list below or use:
     python3 scripts/add_note.py --book sir --ch <N> --v <V> --anchor "…" \

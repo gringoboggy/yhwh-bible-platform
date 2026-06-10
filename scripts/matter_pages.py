@@ -46,7 +46,7 @@ def render_copyright_page(
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
 <head>
-  <title>Colophon</title>
+  <title>Copyright</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
 </head>
@@ -300,7 +300,8 @@ def render_symbol_legend_page(edition: dict, categories: list[dict]) -> str:
 def inject_symbol_legend_page(tmp: Path, edition: dict) -> None:
     """Write legend.xhtml, register it in the OPF (manifest + spine right after
     copyright) and add a nav.xhtml TOC entry (also renaming the copyright TOC
-    label to 'Colophon' to match its page title)."""
+    label to 'Copyright' to match its page title — K-R2-6: the reader's ToC
+    used to list TWO pages named 'Colophon', front and back)."""
     categories = _legend_categories_for_edition(edition["id"])
     html_text = render_symbol_legend_page(edition, categories)
     (tmp / "legend.xhtml").write_text(html_text, encoding="utf-8")
@@ -333,7 +334,7 @@ def inject_symbol_legend_page(tmp: Path, edition: dict) -> None:
         if 'href="legend.xhtml"' not in nav:
             nav = nav.replace(
                 '<li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>',
-                '<li><a href="copyright.xhtml">Colophon</a></li>\n'
+                '<li><a href="copyright.xhtml">Copyright</a></li>\n'
                 '      <li><a href="legend.xhtml">A Guide to the Notes</a></li>',
                 1,
             )
@@ -797,11 +798,14 @@ def render_reference_tables_page() -> str:
 """
 
 
-def render_closing_colophon_page(edition: dict, version: str) -> str:
-    """Render the Closing Colophon XHTML — the genuinely last page of the EPUB."""
+def render_closing_colophon_page(edition: dict) -> str:
+    """Render the Closing Colophon XHTML — the genuinely last page of the EPUB.
+
+    K-R2-6 (device-QA 2026-06-09): the internal build string ("Generated vX")
+    and the edition URN are GONE from this reader-visible page — edition
+    identity lives on the Your-Edition page. What remains is the minimal
+    traditional closing colophon."""
     edition_title = html.escape(edition.get("title_full", edition.get("title", "Untitled")))
-    edition_id = html.escape(edition.get("id", "unknown"))
-    urn = f"urn:yhwh:edition:{edition_id}"
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
@@ -814,8 +818,6 @@ def render_closing_colophon_page(edition: dict, version: str) -> str:
   <section class="backmatter-page colophon-end" epub:type="backmatter">
     <h1 class="backmatter-title">{edition_title}</h1>
     <p class="colophon-publisher">Published by YHWH Ya&#x2019; Way Editions</p>
-    <p class="colophon-version">Generated {html.escape(version)}</p>
-    <p class="colophon-urn"><code>{html.escape(urn)}</code></p>
     <p class="colophon-closing">Prepared for study and devotion. <em>Soli Deo Gloria.</em></p>
   </section>
 </body>
@@ -1037,7 +1039,12 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
 
     Spine order guaranteed: backsources → backreftables → backtopical →
     backcolophon. backcolophon is the very last spine item.
-    Guards against double-injection via per-file href check."""
+    Guards against double-injection via per-file href check.
+
+    K-R2-6: the closing colophon is option-gated — ``closing_colophon: false``
+    drops the page entirely (no file, no manifest/spine/nav entries); the
+    default keeps the minimal traditional closing page."""
+    closing_colophon = edition.get("closing_colophon", True) is not False
     # --- Write the back-matter XHTML files (sources → reftables → topical → colophon) ---
     (tmp / "sources.xhtml").write_text(render_sources_page(), encoding="utf-8")
     (tmp / "reftables.xhtml").write_text(render_reference_tables_page(), encoding="utf-8")
@@ -1060,7 +1067,8 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
         naves=_load(_sources.naves_topical),
         torrey=_load(_sources.torrey_topical),
     )
-    (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition, version), encoding="utf-8")
+    if closing_colophon:
+        (tmp / "colophonend.xhtml").write_text(render_closing_colophon_page(edition), encoding="utf-8")
 
     # --- Patch content.opf ---
     opf_path = tmp / "content.opf"
@@ -1081,7 +1089,7 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
             new_manifest_items += (
                 '\n    <item id="backtopical" href="topical.xhtml" media-type="application/xhtml+xml"/>'
             )
-        if "colophonend.xhtml" not in opf:
+        if closing_colophon and "colophonend.xhtml" not in opf:
             new_manifest_items += (
                 '\n    <item id="backcolophon" href="colophonend.xhtml" media-type="application/xhtml+xml"/>'
             )
@@ -1096,7 +1104,7 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
             new_spine_items += '\n    <itemref idref="backreftables"/>'
         if topical_ok and 'idref="backtopical"' not in opf:
             new_spine_items += '\n    <itemref idref="backtopical"/>'
-        if 'idref="backcolophon"' not in opf:
+        if closing_colophon and 'idref="backcolophon"' not in opf:
             new_spine_items += '\n    <itemref idref="backcolophon"/>'
         if new_spine_items:
             opf = opf.replace("</spine>", new_spine_items + "\n  </spine>")
@@ -1114,7 +1122,7 @@ def inject_back_matter(tmp: Path, edition: dict, version: str, canon_books: set[
             new_nav_items += '\n      <li><a href="reftables.xhtml">Reference Tables</a></li>'
         if topical_ok and 'href="topical.xhtml"' not in nav:
             new_nav_items += '\n      <li><a href="topical.xhtml">Topical Index</a></li>'
-        if 'href="colophonend.xhtml"' not in nav:
+        if closing_colophon and 'href="colophonend.xhtml"' not in nav:
             new_nav_items += '\n      <li><a href="colophonend.xhtml">Colophon</a></li>'
         if new_nav_items:
             nav = nav.replace("</ol>", new_nav_items + "\n    </ol>", 1)

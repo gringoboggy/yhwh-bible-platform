@@ -1489,6 +1489,20 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         count=1,
     )
 
+    # K-R2-8: <dc:description> is reader-visible (the e-reader library synopsis).
+    # Use the edition's own description when set; otherwise compose a neutral,
+    # always-true line — the base copy is Ethiopian-specific and would misdescribe
+    # every other edition's library card.
+    desc = (edition.get("description") or "").strip()
+    if not desc:
+        desc = f"{title}. Compiled from public-domain translations by the YHWH Ya' Way project."
+    new_text = re.sub(
+        r"<dc:description>[^<]*</dc:description>",
+        f"<dc:description>{_xml_escape(desc)}</dc:description>",
+        new_text,
+        count=1,
+    )
+
     # Replace <dc:creator> + role with the FIRST author from authors list,
     # or fall back to publisher_name. Additional authors become contributors.
     primary_author = "Public Domain"

@@ -1,5 +1,5 @@
 """
-Notes for Ecclesiastes or, The Preacher (ecc).
+Notes for Ecclesiastes (ecc).
 
 No notes yet — add tuples to the NOTES list below or use:
     python3 scripts/add_note.py --book ecc --ch <N> --v <V> --anchor "…" \

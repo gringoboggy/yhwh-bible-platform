@@ -49,6 +49,9 @@ editions:
     title: "The Ethiopian Tewahedo Study Bible"
     display_name: "Ethiopian Tewahedo Bible"
     short_title: "Ethiopian Tewahedo SB"
+    # K-R2-8 — feeds the OPF <dc:description> (the e-reader library synopsis) via
+    # patch_opf; 83 = the shipped numbered-book superset (NEVER 87/88).
+    description: "The complete Ethiopian Bible in English: 83 scriptures including the Missing Apocrypha, the Book of Enoch, and the Book of Jubilees. Compiled from public-domain translations."
     target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
     enabled_categories:
       # beta-3 (h) — FULL build: every note category that has content is enabled so

@@ -640,6 +640,8 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         # "tablet" | "computer"); set by the wizard's reader-target step, gates
         # which optional features the UIs offer. Absent = everywhere (no-op).
         "target_reader",
+        # K-R2-6 — keep/drop the closing colophon page (default keep).
+        "closing_colophon",
         "enabled_reading_plans",
         "description",
         "dedication",
@@ -744,6 +746,8 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         "note_topic_dedup",
         "reader_toc_collapsible",
         "reader_toc_default_open",
+        # K-R2-6 — keep/drop the closing colophon page (default keep).
+        "closing_colophon",
         "enable_ai_notes",
     }
 

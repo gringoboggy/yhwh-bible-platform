@@ -1,5 +1,5 @@
 """
-Notes for 4 Baruch, or Paralipomena of Jeremiah (4ba).
+Notes for 4 Baruch (4ba).
 
 No notes yet — add tuples to the NOTES list below or use:
     python3 scripts/add_note.py --book 4ba --ch <N> --v <V> --anchor "…" \

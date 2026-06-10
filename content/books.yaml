@@ -378,7 +378,7 @@ books:
       - "index_split_037.html"
 
   - code: ecc
-    title: "Ecclesiastes or, The Preacher"
+    title: "Ecclesiastes"
     bxx: "b34"
     bp: "bp-34"
     next_bp: "bp-35"
@@ -388,7 +388,7 @@ books:
       - "index_split_037.html"
 
   - code: sng
-    title: "The Song of Songs, or Song of Solomon"
+    title: "The Song of Songs"
     bxx: "b35"
     bp: "bp-35"
     next_bp: "bp-36"
@@ -398,7 +398,7 @@ books:
       - "index_split_037.html"
 
   - code: sir
-    title: "The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus"
+    title: "The Wisdom of Jesus the Son of Sirach"
     bxx: "b36"
     bp: "bp-36"
     next_bp: "bp-37"
@@ -462,7 +462,7 @@ books:
       - "index_split_044.html"
 
   - code: 4ba
-    title: "4 Baruch, or Paralipomena of Jeremiah"
+    title: "4 Baruch"
     bxx: "b42"
     bp: "bp-42"
     next_bp: "bp-43"
