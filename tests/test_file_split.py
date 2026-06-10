@@ -356,6 +356,23 @@ class TestCrossFileOpenerPop:
                 bare = m is not None and 'class="vn-link' not in m.group(0) and len(m.group(0)) <= 900
                 assert not bare, f"{n} still ends with a stranded opener"
 
+    def test_trailing_opener_regex_matches_only_the_last_heading(self):
+        # the tempered dot keeps the match anchored to the LAST heading; a plain
+        # lazy .*? matched from the FIRST heading across the whole piece (200KB+
+        # on real data), defeating the size guard so the pop never fired.
+        from scripts.build_edition import _TRAILING_OPENER_RE
+
+        seg = (
+            '<p id="page_1" class="ch-heading"><span class="bold-num">1</span></p>'
+            '<p class="verse-p">' + "x" * 5000 + "</p>"
+            '<a id="ch-b00-c2" class="ch-anchor"></a>'
+            '<p id="page_2" class="ch-heading"><span class="bold-num">2</span></p>  '
+        )
+        m = _TRAILING_OPENER_RE.search(seg)
+        assert m, "the trailing bare opener must match"
+        assert len(m.group(0)) < 900, f"match spans {len(m.group(0))} chars — not tail-anchored"
+        assert "page_2" in m.group(0) and "verse-p" not in m.group(0)
+
     def test_links_to_the_moved_opener_resolve(self, tmp_path):
         tmp = self._run(tmp_path)
         # nav/ncx (or any cross-file href) pointing at the moved ids must target

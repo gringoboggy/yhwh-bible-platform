@@ -2778,9 +2778,13 @@ _EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</as
 # an optional ch-anchor followed by a ch-heading paragraph (and nothing after it
 # before the notes-section). Matched against the piece's pre-notes segment for
 # the cross-FILE opener pop in apply_file_split (K-R2-4 file-seam class).
+# The heading's content uses a TEMPERED dot ((?:(?!</p>).)*) so the match can
+# only be the LAST heading: an earlier heading closes at its own </p>, which is
+# not followed by end-of-segment — a plain lazy .*? would instead match from
+# the FIRST heading and span the whole piece, defeating the size guard.
 _TRAILING_OPENER_RE = re.compile(
     r'(?:<a id="ch-b\d+-c\d+" class="ch-anchor"></a>\s*)?'
-    r'<p[^>]*\bclass="[^"]*\bch-heading\b[^"]*"[^>]*>.*?</p>\s*$',
+    r'<p[^>]*\bclass="[^"]*\bch-heading\b[^"]*"[^>]*>(?:(?!</p>).)*</p>\s*$',
     re.DOTALL,
 )
 
@@ -3035,6 +3039,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # the moved ids follows automatically. Skipped when the next file opens with
     # a book-title page (an opener never precedes a new book).
     ordered = sorted(plan.keys())
+    popped: set[str] = set()
     for a, b in zip(ordered, ordered[1:]):
         last_name, last_text = plan[a][-1]
         ns = last_text.find('<aside class="notes-section"')
@@ -3059,6 +3064,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             first_name,
             first_text[: bm.end()] + "\n" + opener.strip() + first_text[bm.end() :],
         )
+        popped.update((a, b))
 
     # 2. Global maps: id → final piece file; original file → its first piece.
     idmap: dict[str, str] = {}
@@ -3072,8 +3078,8 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             for m in re.finditer(r'\bid="([^"]+)"', ptext):
                 idmap[m.group(1)] = pname
 
-    if not split_origs:
-        return stats  # nothing exceeded the target
+    if not split_origs and not popped:
+        return stats  # nothing exceeded the target and no cross-file pop fired
 
     full_re = re.compile(r'(href|src)="(index_split_\d+\.html)(?:#([^"]+))?"')
     bare_re = re.compile(r'href="#([^"]+)"')
