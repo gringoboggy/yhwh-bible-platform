@@ -188,7 +188,12 @@ traces the DATA-FLOW (config → loaders → matrix/build/inject → consumers +
 base-HTML structure & coverage) and names the exact module; `dev/REPO_MAP.md` is the
 FILE/FOLDER index. Companions re-verify them (`dev/trace_matrix.py`,
 `dev/trace_repo.py`); the pre-commit `lint_rules.py` enforces both
-(`plan_coherence`, `repo_map_complete`).
+(`plan_coherence`, `repo_map_complete`). **`dev/EREADERS.md` is the e-reader
+compatibility tracker** (user-directed 2026-06-10): per-reader capabilities /
+quirks / format requirements / QA status for every reader we ship to — check it
+BEFORE any device-behavior question; every device-QA round or vendor-research pass
+updates it in the same commit; it must agree with `TARGET_CAPS`
+(`scripts/templates/wizard.py`) and the format-matrix spec §2.
 
 **Post-triad env-health + RAM-clear step (after the triad, before in-flight work) — an
 EXPLICIT 4-point checklist, not a vague "pass"** (made explicit 2026-05-31 after it was

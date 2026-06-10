@@ -29,6 +29,9 @@ is Boggy-overridable):
 
 9 editions × 5 formats = **45 base artifacts**; × 5 cover colours = **225
 variants** (see §4 — variants are cheap cover-swaps of the 45, not 225 builds).
+Per-reader capability/quirk knowledge lives in **`dev/EREADERS.md`** (the
+compatibility tracker, user-directed turn 69) — this table names the build
+profiles; that file carries the evidence.
 
 | # | Format (catalog label) | target_reader profile | Packaging | Device acceptance gate |
 |---|---|---|---|---|
