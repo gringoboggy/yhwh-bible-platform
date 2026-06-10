@@ -4,6 +4,35 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🪟 Windows, turn 64) — 🔍 the FULL-PROJECT-AUDIT program opened (round-4 QA ingest + K-R4-1 fix + round-7 overnight audit)
+
+- **Round-4 device QA ingested + root-caused** (`docs/superpowers/notes/2026-06-10-kobo-round4-device-qa.md`):
+  K-R4-1 — the vnote (translation) popup asides had NO plain-text separators (K-R3-2 covered only the
+  study cascade; artifact-confirmed on the shipped v0.1.0) → run-on lines in the Kobo preview persist
+  for translations. K-R4-2 — the preview-decline threshold CONFIRMED by the user's taps and BRACKETED
+  to 3,313 < T ≤ 7,748 stripped chars (Gen 1:3 pops · 1:26 jumps-to-chapter-start · 1:1 "nothing" =
+  jump-to-file-start which IS Gen 1:1); decline class = 67 asides ≥5k stripped (~600 worst-case) across
+  the whole Bible. K-R4-2's fix deliberately waits for a round-5 calibration tap-list to pin T.
+- **K-R4-1 FIXED** (TDD, `0e2a8e2f`): build-time `add_vnote_preview_separators` /
+  `apply_vnote_preview_separators` pass (¶ before `vnote-text`, ◦ before each `vnote-source-label`,
+  idempotent via negative-lookahead) wired unconditionally in `build_one`; the `.vn-sep` hide rule
+  widened class-wide (vnote asides are not inside `.verse-notes`). 6 new pins in
+  `tests/test_marker_style.py::TestVnotePreviewSeparators`; full marker-style file 33 green. Rebuild
+  deferred to the round-5 build (no heavy build beside the audit).
+- **The post-v0.1.0 FULL-PROJECT-AUDIT program opened** (user directive; plan =
+  `docs/superpowers/plans/2026-06-10-full-project-audit-program.md`, ①–⑤): the deep-audit engine
+  upgraded to ROUND 7 (`9991e16f`) — +7 program dimensions (claude-setup · lane-system · github-gitlab ·
+  popup-integrity [the K-R4 "nowhere else" sweeps] · decommission · stack-review · future-work = 25 total),
+  v0.1.0/91,553 facts, K-R4 + 117-displacement deferred entries, model pins dropped (inherit Fable 5),
+  tests-run moved to the array head (never beside the build-heavy rx-surfaces at cap=2). **Round-7
+  overnight audit LAUNCHED** (`wf_1468532d-6f8`, findings-only).
+- **Program step-① design landed** (`055bacd9`, `notes/2026-06-10-fable5-system-mint-design.md`):
+  measured the every-session read surface (RULES 90 KB/1,298 lines · SESSION_STATE 106 KB/44 entries ·
+  IN_FLIGHT 153 KB · LANE_HANDOFF 118 KB); design = single-home per rule, deterministic
+  rotation-on-save, RULES diet, board rotation; implementation next session with the audit's
+  claude-setup findings. Out-of-repo: MEMORY.md trimmed 25.4→16.8 KB (was over its 24.4 KB load cap;
+  index lines = ≤200-char hooks, detail in topic files).
+
 ## 2026-06-10 — session (🪟 Windows, turn 62/63) — 🚀 v0.1.0 RELEASED (the K-R3 fix arc + the 2-hour cut)
 
 - **The K-R3 fix arc** (root causes artifact-diagnosed; Mac's 23-agent review converged independently):
