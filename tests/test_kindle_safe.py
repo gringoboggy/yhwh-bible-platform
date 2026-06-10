@@ -67,3 +67,26 @@ class TestTargetReaderResolver:
         src = (REPO / "scripts" / "web_editions.py").read_text(encoding="utf-8")
         assert 'e.get("target_reader", "everywhere")' not in src
         assert "resolve_target_reader" in src
+
+
+class TestKindleWizardSurfaces:
+    """The wizard + customize offer the kindle target with Send-to-Kindle copy."""
+
+    def test_wizard_has_kindle_card_naming_send_to_kindle(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        assert 'data-target="kindle"' in WIZARD_HTML
+        assert "Send to Kindle" in WIZARD_HTML
+
+    def test_target_caps_has_kindle_entry_gated_off_expandable(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        caps = WIZARD_HTML[WIZARD_HTML.index("const TARGET_CAPS") : WIZARD_HTML.index("function applyTargetGating")]
+        assert "kindle:" in caps
+        assert caps.count("toc_expandable: false") == 4  # everywhere/eink/computer/kindle
+        assert caps.count("toc_expandable: true") == 1  # tablet only, unchanged
+
+    def test_customize_select_offers_kindle(self):
+        from scripts.templates.customize import CUSTOMIZE_HTML
+
+        assert "'kindle'" in CUSTOMIZE_HTML and 'value="kindle"' in CUSTOMIZE_HTML

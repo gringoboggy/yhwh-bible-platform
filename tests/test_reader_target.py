@@ -25,11 +25,11 @@ _TOC_PAGE = (
 class TestWizardReaderTargetStep:
     """Step 1 leads with the reader-target picker; later steps gray gated controls."""
 
-    def test_wizard_has_target_picker_with_all_four_targets(self):
+    def test_wizard_has_target_picker_with_all_five_targets(self):
         from scripts.templates.wizard import WIZARD_HTML
 
         assert "Where will you read it?" in WIZARD_HTML
-        for target in ("everywhere", "eink", "tablet", "computer"):
+        for target in ("everywhere", "eink", "tablet", "computer", "kindle"):
             assert f'data-target="{target}"' in WIZARD_HTML, f"target card {target!r} missing"
         # default pre-pick = the safest build
         assert 'target-card picked" data-target="everywhere"' in WIZARD_HTML
@@ -49,7 +49,7 @@ class TestWizardReaderTargetStep:
         # the capability map — STATE carries its own toc_expandable default)
         caps = WIZARD_HTML[WIZARD_HTML.index("const TARGET_CAPS") : WIZARD_HTML.index("function applyTargetGating")]
         assert caps.count("toc_expandable: true") == 1
-        assert caps.count("toc_expandable: false") == 3
+        assert caps.count("toc_expandable: false") == 4  # everywhere/eink/computer/kindle
 
     def test_gating_disables_and_explains(self):
         from scripts.templates.wizard import WIZARD_HTML
