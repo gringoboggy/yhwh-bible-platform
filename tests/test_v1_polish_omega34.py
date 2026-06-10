@@ -819,7 +819,10 @@ class TestOmega341CrossRefDetector:
         assert "thematic" in c.reviewer_notes.lower() or "explain" in c.reviewer_notes.lower()
 
     def test_detector_anchor_links_to_target_verse(self):
-        # The body wraps each ref in <a href="#vnote-<book>-<ch>-<v>">.
+        # The body wraps each ref in <a href="#v-<book>-<ch>-<v>"> — the
+        # VISIBLE verse anchor (round-7 P3 xref retarget; #vnote- body links
+        # are the Kobo teleport class and gate 2b FAILS them in artifacts).
         det = self._make_detector_with_stub_tsk({("gen", 1, 1): [("jhn", 3, 16, 100, "TSK Plus")]})
         c = det.detect("gen", 1, 1, "")[0]
-        assert "#vnote-jhn-3-16" in c.draft_body
+        assert "#v-jhn-3-16" in c.draft_body
+        assert "#vnote-jhn-3-16" not in c.draft_body

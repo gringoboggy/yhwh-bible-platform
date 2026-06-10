@@ -63,6 +63,7 @@ _._collate_case  # scripts/manuscript_qa.py — immutable calibration witnesses 
 # table once from constants (no inputs). The cache IS the value —
 # clearing it would only force a wasted, identical rebuild.
 _._psalm_map  # scripts/core/versification.py — static psalm-renumber table
+_._web_anchors  # scripts/_fix_chapter_verse_boundaries.py — round-7 WEB ground-truth fixture (content/sources/web_boundary_anchors.json, committed + immutable in-process; the fixer re-runs per invocation, updates ship via git commit)
 
 # ---- Pure-function compiled-regex caches ----
 # Compiled-regex builders keyed only on their argument (e.g. a book-id

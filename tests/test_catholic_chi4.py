@@ -113,8 +113,10 @@ class TestChi4DataFile:
     def test_every_entry_gospel_only(self):
         # Pin: Catena Aurea is Gospels-only per Aquinas's original
         # scope (Mt / Mk / Lk / Jn). A future χ.4.x adding non-Gospel
-        # content would need a different source corpus.
-        gospel_codes = {"mat", "mar", "luk", "joh"}
+        # content would need a different source corpus. CANONICAL codes
+        # (mrk/jhn — the round-7 P3 store normalization retired the
+        # legacy mar/joh aliases from the JSON stores).
+        gospel_codes = {"mat", "mrk", "luk", "jhn"}
         for entry in self.data["entries"]:
             assert entry["book"] in gospel_codes, (
                 f"entry book {entry['book']!r} is not a Gospel — Catena Aurea is Gospels-only"
