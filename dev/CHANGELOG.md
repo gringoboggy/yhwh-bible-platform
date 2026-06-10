@@ -4,7 +4,31 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
-## 2026-06-10 — session (🖥️ Mac, turn 62) — turn-61 backlog complete: splitter review finds K-R3-4's real mechanism; gates upgraded; capability research; STAGE-F re-true #2
+## 2026-06-10 — session (🪟 Windows, turn 62/63) — 🚀 v0.1.0 RELEASED (the K-R3 fix arc + the 2-hour cut)
+
+- **The K-R3 fix arc** (root causes artifact-diagnosed; Mac's 23-agent review converged independently):
+  badge chapter-clamp in `apply_badge_markers` (264 chapter-last badges rendered past the next chapter's
+  heading — kobo8's cluster + "teleport"; the promoted-href hypothesis was REFUTED on artifacts) — the
+  first clamp draft inserted inside a notes-section (overlapping splices sheared gen 27:46's badge,
+  epubcheck RSC-016) and was re-bounded before min(chapter boundary, notes-section); `.vn-sep` plain-text
+  popup separators ¶◦• (vendor-doc'd: Kobo eInk preview = tag-stripped plain text); Mac's C1 title-div-close
+  (Jubilees/AddEsther blurb tear, shipped torn in r3), C16 reopen-id strip, C12 idmap `\sid=` tighten;
+  verifier gates 4c–4f (spilled-badge walk · sheared-badge · aside-balance · buried-badge — each proven
+  fires-on-defect on a broken artifact) + Mac's promoted-FAIL gate-2 reconciled and its dup-id warn
+  hardened to FAIL. Legend "Phase χ.7" + comm-ai "Phase χ-AI-notes" description stragglers stripped
+  (user-caught on device). Tests: 12 marker-style (incl. the new clamp/tripwire/separator pins) +
+  30 file-split (C1/C16 real-base pins) + 49 rehaul green.
+- **v0.1.0 cut (user-directed ≤2h; delivered):** VERSION 0.1.0; STAGE D Win EXE icon; θ.4 deferred to
+  v0.1.1. Artifacts (all gated): eth EPUB 26.18 MB epubcheck 0/0/0/0 + verifier ALL GREEN; kepub 33.5 MB
+  gates green → loaded on the Kobo (r3 archived to E:); Win exe Azure-signed (Valid); Mac dmg
+  notarized+stapled (M3, ~20 min turnaround); font pack; SHA256SUMS ×5; AppImage via the
+  build-linux workflow. **Release published + latest:** github.com/gringoboggy/yhwh-bible-platform/releases/tag/v0.1.0.
+  Website deployed (releases v0.1.0 block + cascade Guide step + Kobo font-pack step + beta-live ribbon).
+  **Note count streamlined to the SHIPPED post-consolidation 91,553** (site ×4 + GitHub/GitLab repo
+  descriptions + release body) per the user's count directive; "idiot-proof" banned from public copy (memory'd).
+- Ops: C: cleaned 6.8→17.7 GB free; Mac retired until morning; next session = plan + run the overnight
+  full-project audit (user directive).
+
 
 **Phases shipped:** Mac turn-61 backlog items 1–6 (all). The splitter-arc adversarial review (23 agents, 19 confirmed / 0 refuted) re-diagnosed K-R3-3/4 and re-sequenced WIN's deep sweep; both gate builds (canon-filtered catholic-study + eth) ran on this Mac with the full K-R2 gate + epubcheck + kepub deep-verify.
 **Test delta:** `test_reader_target.py` 13/13 green after the TARGET_CAPS copy upgrade; `dev/verify_kr2_build.py` extended (promoted-noteref FAIL + bp-exactly-once + dup-id warn) and validated on 3 artifacts; no unit-test changes (the verifier's missing coverage is logged as review C17 for the WIN sweep).
