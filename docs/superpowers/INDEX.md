@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**78 documents** — 50 plans · 28 specs.
+**79 documents** — 50 plans · 29 specs.
 
-## In progress (31)
+## In progress (32)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-10 | Spec | Website Format Matrix — every full canon edition, per-device, with the 5×5 covers | `specs/2026-06-10-website-format-matrix-design.md` | READY 2026-06-10 — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA. |
 | 2026-06-10 | Plan | ★Full Project Audit Program (post-v0.1.0) — ① Claude-system mint → ② round-7 everything-audit → ③ decommission → ④ end-game two-lane master plan → ⑤ re-audit per milestone | `plans/2026-06-10-full-project-audit-program.md` | IN PROGRESS 2026-06-10 — P1/P2 executing (engine round-7 +7 program dims, overnight win-solo audit, K-R4-1 fix, ① design doc); K-R4-2 post-round-5 calibration; P3–P5 follow the audit result. |
 | 2026-06-09 | Spec | Idiot-proof app — friendly CDN-free HOME + rich-text note editor + maintainer-tool separation (v0.1.0 app-UX) | `specs/2026-06-09-idiot-proof-app-design.md` | READY 2026-06-09 — Mac-led design, WIN-implemented. New CDN-free `HOME_HTML` (social-card hero, ONE gold CTA, indigo secondary links), note editor demoted to `/notes`, a `contenteditable` rich-text editor with a mandatory `normalizeBody` allowlist (closes today's unsanitized-textarea hole), nav demotion via `CONSOLES`. |
 | 2026-06-09 | Spec | App EB-Garamond self-hosting — /fonts route + @font-face so the console matches the site serif | `specs/2026-06-09-app-eb-garamond-selfhosting.md` | READY 2026-06-09 — Mac-led, WIN-implemented. Bundle `website/fonts` in `launcher.spec` datas (fixes the frozen `/fonts` 404), a sandboxed `/fonts/<name>.woff2` route, `@font-face` in the skin; no CSP edit (`font-src 'self' data:` already present). |
