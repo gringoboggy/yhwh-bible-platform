@@ -10,14 +10,14 @@ from scripts import lint_rules
 
 
 class TestTruthRecordBudget:
-    def test_warns_when_oversize(self, tmp_path, monkeypatch):
+    def test_fails_when_over_hard_ceiling(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lint_rules, "REPO", tmp_path)
         (tmp_path / "dev").mkdir()
         (tmp_path / "dev" / "SESSION_STATE.md").write_text("➤➤➤\n" * 5 + "x" * 130_000, encoding="utf-8")
         r = lint_rules.check_truth_record_budget()
         assert r["id"] == "truth_record_budget"
-        # WARN-tier until Phase 1 rotation promotes the hard ceiling to FAIL.
-        assert r["status"] == "warn"
+        # Hard ceiling promoted to FAIL once standing rotation landed (mint 3.1).
+        assert r["status"] == "fail"
         assert any("SESSION_STATE" in str(v) for v in r["violations"])
 
     def test_passes_when_within_budget(self, tmp_path, monkeypatch):
@@ -42,6 +42,35 @@ class TestTruthRecordBudget:
         assert r["status"] == "warn"
         ev = next(v for v in r["violations"] if v.get("tier") == "entries")
         assert ev["entries"] == 3  # not 4 — the prose mention is not double-counted
+
+    def test_inflight_arrow_entries_counted(self, tmp_path, monkeypatch):
+        # IN_FLIGHT's entries use the `> **▶` marker (not `> **➤➤➤`) — the lint's
+        # entry counter shares the rotator's resolver, so they MUST be visible.
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        body = "".join(f"> **▶ ✅ DONE 2026-06-{d:02d} (🪟 Windows) — e**\n>\n" for d in (10, 9, 8))
+        (tmp_path / "dev" / "IN_FLIGHT.md").write_text("# T\n\n" + body, encoding="utf-8")
+        r = lint_rules.check_truth_record_budget()
+        assert r["status"] == "warn"
+        ev = next(v for v in r["violations"] if v.get("tier") == "entries")
+        assert ev["entries"] == 3
+
+    def test_lane_handoff_budgeted(self, tmp_path, monkeypatch):
+        # LANE_HANDOFF.md is a budgeted truth record (mint 3.3): hard size FAILs,
+        # and its `## ` turn sections count as entries (protected sections don't).
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        (tmp_path / "dev").mkdir()
+        secs = "".join(f"## ▶ Windows → Mac (turn {t}, 2026-06-10) — h\n\nbody.\n\n" for t in (70, 69, 68))
+        secs += "## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)\n\nx\n"
+        (tmp_path / "dev" / "LANE_HANDOFF.md").write_text("---\nmode: parallel\n---\n\n" + secs, encoding="utf-8")
+        r = lint_rules.check_truth_record_budget()
+        ev = next(v for v in r["violations"] if v.get("tier") == "entries" and "LANE_HANDOFF" in str(v))
+        assert ev["entries"] == 3  # the protected STANDING section is not an entry
+        # Oversize board → hard FAIL.
+        (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(
+            "---\nmode: parallel\n---\n\n## ▶ t (turn 70, 2026-06-10)\n\n" + "x" * 130_000, encoding="utf-8"
+        )
+        assert lint_rules.check_truth_record_budget()["status"] == "fail"
 
     def test_registered_in_all_checks(self):
         assert "truth_record_budget" in lint_rules.ALL_CHECKS

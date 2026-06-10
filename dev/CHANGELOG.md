@@ -4,6 +4,31 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-10 — session (🪟 Windows, turn 69) — mint 3.1/3.3: standing truth-record rotation (IN_FLIGHT ▶ + the LANE_HANDOFF board) + hard budget enforced + save-all as the rotation actor
+
+**Phases shipped:** mint 3.1 + 3.3 (the Fable-5 system-mint design's rotation items)
+**Test delta:** +17 pins (TestJournalArrowMarker 4 · TestBoardRotation 5 · TestCountEntries 4 · board rotate_all integration 1 · lint guardrails 3) — rotator+lint files 70/70 green
+**Save tag:** local commit (milestone 5-leg at the round-5/v1.0.0 wrap)
+
+What shipped (concrete, scannable):
+- **`rotate_truth_records.py` — both journal marker families:** `ENTRY_MARKERS = ("> **➤➤➤", "> **▶")` — IN_FLIGHT's `▶` entries (76 of them, invisible to the old single-marker tool) now rotate; bold continuation lines (`> **WIN-LANE…`) ride with their entry; archive-batch date ranges read entry-START lines only (prose dates no longer skew the range).
+- **NEW `plan_board_rotation` — LANE_HANDOFF rotation (mint 3.3):** YAML frontmatter verbatim + the newest 2 turn sections + every section whose heading carries "do NOT rotate" stay live; older sections archive to the pre-existing `dev/archive/LANE_HANDOFF_LOG.md` (sentinel-migrated — ONE archive home, not a second file); the live board tail maintains exactly one archive-pointer line.
+- **NEW `count_entries(rel, text)`** — the single what-counts-as-an-entry resolver; the lint's `truth_record_budget` entry check now delegates to it (lint and fixer can never drift apart).
+- **Lint:** `dev/LANE_HANDOFF.md` added to `_TRUTH_BUDGETS` (soft 40k / hard 120k / 2 entries) and **`_ENFORCE_HARD_TRUTH_BUDGET` flipped True** — a hard-ceiling breach now FAILs the pre-commit gate (the flag's "flip once rotation lands" condition is met).
+- **`save-all.ps1` = the standing rotation actor (mint 3.1 second half):** post-leg-1 it runs `--apply` and auto-commits any rotation diff before the push legs — the budget cannot re-breach across milestones; the lint stays as the tripwire.
+- **Live-tree rotation applied:** IN_FLIGHT 167KB/76 entries → 4.3KB/2 · LANE_HANDOFF 143KB/42 sections → 18KB (turns 69+68 + STANDING) · SESSION_STATE 26KB/10 → 7.8KB/2. Full history preserved in the three archives (newest-first batches).
+
+Notable decisions:
+- The board archive REUSES `LANE_HANDOFF_LOG.md` (where turns ≤22 already lived) instead of the design doc's proposed new `LANE_HANDOFF_HISTORY.md` — one archive home; the doc offered "or a small sibling" flexibility.
+- Board sections opt OUT of rotation via the heading phrase "do NOT rotate" (self-documenting; the STANDING section already carried it) rather than a hard-coded heading list.
+
+Retrospective:
+- Rule refined: the lint's entry counter was a drift hazard (it duplicated the rotator's marker logic and had already drifted — it couldn't see `▶`); the shared-resolver pattern (matrix==build doctrine) now applies to truth-record tooling too.
+
+Continuity pointers:
+- docs/superpowers/notes/2026-06-10-fable5-system-mint-design.md (§3.1/§3.3 — both now DONE; 3.5(i) rotation-on-save also done via save-all)
+- dev/archive/LANE_HANDOFF_LOG.md · dev/archive/IN_FLIGHT_archive.md · dev/archive/SESSION_STATE_archive.md
+
 ## 2026-06-10 — session (🪟 Windows, turn 67) — round-7 P3 fix pass END-TO-END (triage → A–E → red wall) + the 117-site verse-boundary sweep + site deploy
 
 **Phases shipped:** round-7 P3 (the audit program's fix arc, phases A–E + red wall)

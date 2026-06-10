@@ -36,34 +36,63 @@ if str(REPO) not in sys.path:
 
 from scripts.core.notes_io import atomic_write  # noqa: E402
 
-# A journal entry begins with this marker; ``**`` distinguishes it from a
-# heading that merely uses the glyph (e.g. IN_FLIGHT's "## ➤➤➤ ACTIVE" block,
-# which is a stable trailing section, not a rolling entry).
-ENTRY_MARKER = "> **➤➤➤"
+# A journal entry begins with one of these markers; ``**`` distinguishes them
+# from a heading that merely uses the glyph (e.g. IN_FLIGHT's "## ➤➤➤ ACTIVE"
+# block, a stable trailing section, not a rolling entry). SESSION_STATE uses
+# ``➤➤➤``; IN_FLIGHT uses ``▶`` (with status glyphs before the date) plus a few
+# legacy ``➤➤➤`` stragglers — both rotate. A bold continuation line inside an
+# entry ("> **WIN-LANE steps:** …") starts with neither marker, so it rides
+# with its entry.
+ENTRY_MARKERS = ("> **➤➤➤", "> **▶")
 
 # Default kept-entry count. Matches ``truth_record_budget``'s max_entries so that
 # running the fixer brings the file UNDER budget (a fixer must produce a green
 # file). A larger window is available via ``--keep N``.
 KEEP_ENTRIES = 2
 
-_DATE_RE = re.compile(r"➤➤➤\s*(\d{4}-\d{2}-\d{2})")
+_DATE_ANY_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
 
-# rel_live → rel_archive
+# rel_live → {archive, kind}. "journal" = blockquote ENTRY_MARKERS entries with a
+# stable ``## `` tail (SESSION_STATE / IN_FLIGHT); "board" = YAML frontmatter +
+# ``## `` turn sections, newest first, with explicit do-NOT-rotate sections
+# (LANE_HANDOFF — mint 3.3). The board archive reuses the pre-existing
+# dev/archive/LANE_HANDOFF_LOG.md (one archive home; sentinel-migrated).
 RECORDS = {
-    "dev/SESSION_STATE.md": "dev/archive/SESSION_STATE_archive.md",
-    "dev/IN_FLIGHT.md": "dev/archive/IN_FLIGHT_archive.md",
+    "dev/SESSION_STATE.md": {"archive": "dev/archive/SESSION_STATE_archive.md", "kind": "journal"},
+    "dev/IN_FLIGHT.md": {"archive": "dev/archive/IN_FLIGHT_archive.md", "kind": "journal"},
+    "dev/LANE_HANDOFF.md": {"archive": "dev/archive/LANE_HANDOFF_LOG.md", "kind": "board"},
 }
+
+# A board section whose HEADING carries this phrase is standing — never rotated.
+_BOARD_PROTECT_RE = re.compile(r"do not rotate", re.IGNORECASE)
+
+# Maintained as the live board's last line so readers know where history went.
+_BOARD_POINTER = (
+    "> **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** "
+    "(rotated by `scripts/rotate_truth_records.py`; newest batch first)."
+)
+
+
+def _clean_section(lines: list[str]) -> list[str]:
+    """A board section/preamble minus any prior pointer line, blank edges trimmed."""
+    out = [ln for ln in lines if ln != _BOARD_POINTER]
+    while out and out[-1].strip() == "":
+        out.pop()
+    while out and out[0].strip() == "":
+        out.pop(0)
+    return out
 
 
 def _split(text: str) -> tuple[list[str], list[int], int | None]:
     """Return (lines, entry_start_indices, tail_idx).
 
-    ``entry_start_indices`` are the line indices of each ``> **➤➤➤`` marker that
-    lies in the entry region (before the stable trailing section). ``tail_idx`` is
-    the line index of the first top-level ``## `` heading at/after the first entry
-    (the start of the stable trailing section), or ``None`` if there is none."""
+    ``entry_start_indices`` are the line indices of each ``ENTRY_MARKERS`` line
+    that lies in the entry region (before the stable trailing section).
+    ``tail_idx`` is the line index of the first top-level ``## `` heading
+    at/after the first entry (the start of the stable trailing section), or
+    ``None`` if there is none."""
     lines = text.split("\n")
-    starts = [i for i, ln in enumerate(lines) if ln.startswith(ENTRY_MARKER)]
+    starts = [i for i, ln in enumerate(lines) if ln.startswith(ENTRY_MARKERS)]
     if not starts:
         return lines, [], None
     tail_idx = next((i for i in range(starts[0], len(lines)) if lines[i].startswith("## ")), None)
@@ -72,8 +101,10 @@ def _split(text: str) -> tuple[list[str], list[int], int | None]:
     return lines, bounded, tail_idx
 
 
-def _date_range(text: str) -> tuple[str, str]:
-    dates = _DATE_RE.findall(text)
+def _date_range_of_lines(lines: list[str]) -> tuple[str, str]:
+    """Min/max ``YYYY-MM-DD`` over the given ENTRY-START / heading lines only
+    (never over entry prose — bodies routinely reference other dates)."""
+    dates = [m.group(1) for ln in lines for m in [_DATE_ANY_RE.search(ln)] if m]
     return (min(dates), max(dates)) if dates else ("?", "?")
 
 
@@ -113,7 +144,7 @@ def plan_rotation(text: str, *, keep: int = KEEP_ENTRIES) -> dict:
     if not live.endswith("\n"):
         live += "\n"
 
-    lo, hi = _date_range(archived_text)
+    lo, hi = _date_range_of_lines([lines[s] for s in bounded[keep:]])
     batch = f"<!-- archived: {total - keep} entries, {lo}..{hi} (rotate_truth_records.py) -->\n\n{archived_text}\n"
     return {
         "changed": True,
@@ -126,15 +157,101 @@ def plan_rotation(text: str, *, keep: int = KEEP_ENTRIES) -> dict:
     }
 
 
+def plan_board_rotation(text: str, *, keep: int = KEEP_ENTRIES) -> dict:
+    """Compute the LANE_HANDOFF board rotation WITHOUT writing (mint 3.3).
+
+    The board = YAML frontmatter + ``## `` turn sections (newest first by
+    convention). Live keeps: the frontmatter verbatim, any pre-section preamble,
+    the newest ``keep`` rotatable sections, EVERY protected section (heading
+    contains "do NOT rotate") in original order, and the archive pointer line
+    (exactly once). Older rotatable sections move to the archive batch. Pure —
+    same return shape as ``plan_rotation``."""
+    noop = {
+        "changed": False,
+        "entries_before": 0,
+        "entries_after": 0,
+        "archived": 0,
+        "live": text,
+        "archive_batch": "",
+        "date_range": ("?", "?"),
+    }
+    front = ""
+    body = text
+    if text.startswith("---\n"):
+        end = text.find("\n---\n", 4)
+        if end != -1:
+            front = text[: end + len("\n---\n")]
+            body = text[end + len("\n---\n") :]
+    lines = body.split("\n")
+    starts = [i for i, ln in enumerate(lines) if ln.startswith("## ")]
+    if not starts:
+        return noop
+    preamble = lines[: starts[0]]
+    sections: list[tuple[list[str], bool]] = []  # (section lines, protected)
+    for j, s in enumerate(starts):
+        e = starts[j + 1] if j + 1 < len(starts) else len(lines)
+        sections.append((lines[s:e], bool(_BOARD_PROTECT_RE.search(lines[s]))))
+    rotatable = sum(1 for _, prot in sections if not prot)
+    noop["entries_before"] = noop["entries_after"] = rotatable
+    if rotatable <= keep:
+        return noop
+
+    kept_secs: list[list[str]] = []
+    archived_secs: list[list[str]] = []
+    n_kept = 0
+    for sec, prot in sections:
+        if prot or n_kept < keep:
+            kept_secs.append(sec)
+            n_kept += 0 if prot else 1
+        else:
+            archived_secs.append(sec)
+
+    # Reassemble: frontmatter + preamble + kept sections + ONE pointer line.
+    # The pointer is re-emitted each rotation (_clean_section drops prior copies).
+    parts = ["\n".join(b) for b in ([_clean_section(preamble)] + [_clean_section(s) for s in kept_secs]) if b]
+    parts.append(_BOARD_POINTER)
+    live = (front + "\n" if front else "") + "\n\n".join(parts) + "\n"
+
+    archived_text = "\n\n".join("\n".join(_clean_section(sec)) for sec in archived_secs)
+    lo, hi = _date_range_of_lines([sec[0] for sec in archived_secs])
+    batch = (
+        f"<!-- archived: {len(archived_secs)} sections, {lo}..{hi} (rotate_truth_records.py) -->\n\n{archived_text}\n"
+    )
+    return {
+        "changed": True,
+        "entries_before": rotatable,
+        "entries_after": keep,
+        "archived": rotatable - keep,
+        "live": live,
+        "archive_batch": batch,
+        "date_range": (lo, hi),
+    }
+
+
+def count_entries(rel: str, text: str) -> int | None:
+    """Rotatable-entry count for a truth record, or ``None`` if ``rel`` is not a
+    rotated record. THE single resolver shared by the rotator and the lint's
+    ``truth_record_budget`` entry check — keep them from drifting apart."""
+    spec = RECORDS.get(rel.replace("\\", "/"))
+    if spec is None:
+        return None
+    if spec["kind"] == "journal":
+        _, bounded, _ = _split(text)
+        return len(bounded)
+    plan = plan_board_rotation(text, keep=10**9)  # count-only: nothing rotates
+    return plan["entries_before"]
+
+
 _BATCH_SENTINEL = "<!-- BATCHES (newest first) -->"
 
 
-def _prepend_archive(archive_path: Path, batch: str, name: str) -> str:
+def _prepend_archive(archive_path: Path, batch: str, name: str, *, kind: str = "journal") -> str:
     """Build the new archive text: a title/intro (written once) then batches,
     newest first. New batches are inserted directly after the sentinel."""
+    what = "journal entries" if kind == "journal" else "turn sections"
     intro = (
-        f"# {name} — rotated journal archive\n\n"
-        f"> Older `> **➤➤➤` journal entries rotated out of the live `dev/{name}.md` by\n"
+        f"# {name} — rotated archive\n\n"
+        f"> Older {what} rotated out of the live `dev/{name}.md` by\n"
         f"> `scripts/rotate_truth_records.py` to keep the always-read bootstrap lean.\n"
         f"> Newest archived batch first. Full history; not read at session start.\n\n"
         f"{_BATCH_SENTINEL}\n\n"
@@ -155,12 +272,14 @@ def rotate_all(*, keep: int = KEEP_ENTRIES, dry_run: bool = True) -> dict:
     results: list[dict] = []
     changes: list[dict] = []
     any_change = False
-    for rel_live, rel_arch in RECORDS.items():
+    for rel_live, spec in RECORDS.items():
+        rel_arch = spec["archive"]
         live_path = REPO / rel_live
         if not live_path.is_file():
             continue
         text = live_path.read_text(encoding="utf-8")
-        plan = plan_rotation(text, keep=keep)
+        planner = plan_rotation if spec["kind"] == "journal" else plan_board_rotation
+        plan = planner(text, keep=keep)
         before_bytes = len(text.encode("utf-8"))
         after_bytes = len(plan["live"].encode("utf-8"))
         results.append(
@@ -190,7 +309,7 @@ def rotate_all(*, keep: int = KEEP_ENTRIES, dry_run: bool = True) -> dict:
             arch_path = REPO / rel_arch
             arch_path.parent.mkdir(parents=True, exist_ok=True)
             name = Path(rel_live).stem
-            atomic_write(arch_path, _prepend_archive(arch_path, plan["archive_batch"], name))
+            atomic_write(arch_path, _prepend_archive(arch_path, plan["archive_batch"], name, kind=spec["kind"]))
             atomic_write(live_path, plan["live"])
     if not any_change:
         msg = "truth records already within entry budget — nothing to rotate"

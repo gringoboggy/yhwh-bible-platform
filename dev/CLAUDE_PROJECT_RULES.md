@@ -454,7 +454,11 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   It runs all five legs, **verifies each, and exits non-zero if any leg didn't land** (a
   missing drive / failed push is reported; the other legs still run). `save.ps1` alone is
   ONLY the internal leg-1 helper `save-all.ps1` calls — it is NOT a complete save; never
-  use it standalone as one.
+  use it standalone as one. **Post-leg-1 it ALSO rotates the truth records** (mint
+  3.1/3.3: `rotate_truth_records.py --apply` — SESSION_STATE/IN_FLIGHT keep the newest
+  2 entries, the LANE_HANDOFF board keeps frontmatter + newest 2 turns + STANDING) and
+  auto-commits the rotation diff before pushing; the lint's `truth_record_budget`
+  (hard-enforced) stays as the tripwire.
 - **VERIFY every leg landed** before reporting "saved" (`git status -b` ahead/behind = 0
   after push; `git bundle verify`) — §12/§14 truth-gate. Never claim a save that didn't
   reach all five. A save is partial ONLY when a drive is unmounted or a push genuinely

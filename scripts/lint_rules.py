@@ -1644,15 +1644,19 @@ def check_no_ephemeral_doc_pins() -> dict:
 
 # ----------------------------------------------------------------------
 # Anti-bloat guard (2026-05-29 mint-audit) — truth-record size budget.
-# Ships WARN-tier so it can be committed while the records are still over
-# budget; the hard ceiling promotes to FAIL once Phase 1 rotation brings
-# SESSION_STATE/IN_FLIGHT under budget (flip the flag below in that commit).
+# Hard ceiling ENFORCED since 2026-06-10 (mint 3.1/3.3): standing rotation
+# landed (rotate_truth_records covers IN_FLIGHT's ▶ marker + the LANE_HANDOFF
+# board; save-all.ps1 rotates post-commit), so a hard breach is a real failure.
 # CLAUDE_PROJECT_RULES.md is WARN-only (curated, not auto-rotated).
 # ----------------------------------------------------------------------
-_ENFORCE_HARD_TRUTH_BUDGET = False  # ← Phase 1 flips this to True
+_ENFORCE_HARD_TRUTH_BUDGET = True
 _TRUTH_BUDGETS = {
     "dev/SESSION_STATE.md": {"soft": 60_000, "hard": 120_000, "max_entries": 2},
     "dev/IN_FLIGHT.md": {"soft": 40_000, "hard": 120_000, "max_entries": 2},
+    # The lane board (mint 3.3): frontmatter + the newest 2 turn sections + any
+    # "do NOT rotate" STANDING section stay live; rotate_truth_records archives
+    # older sections to dev/archive/LANE_HANDOFF_LOG.md.
+    "dev/LANE_HANDOFF.md": {"soft": 40_000, "hard": 120_000, "max_entries": 2},
     # RULES re-baselined 2026-05-30 after the Phase-1 slim (115KB → 78KB ≈ ~30k
     # tokens, the plan's target). Soft set just above the slimmed size so the guard
     # is a re-bloat sentinel from the new baseline, not permanently red; WARN-only
@@ -1664,8 +1668,8 @@ _TRUTH_BUDGETS = {
 def check_truth_record_budget() -> dict:
     """Cap the always-read truth records by byte size + entry count so they
     cannot silently re-bloat (the 2026-05-29 audit found the session triad
-    cost ~200k tokens). WARN at the soft ceiling; the hard ceiling promotes to
-    FAIL once Phase 1 rotation lands (see ``_ENFORCE_HARD_TRUTH_BUDGET``).
+    cost ~200k tokens). WARN at the soft ceiling; a hard-ceiling breach FAILs
+    (``_ENFORCE_HARD_TRUTH_BUDGET``, enforced since standing rotation landed).
     ``dev/CLAUDE_PROJECT_RULES.md`` is WARN-only (curated, not auto-rotated)."""
     violations: list = []
     has_hard = False
@@ -1680,11 +1684,13 @@ def check_truth_record_budget() -> dict:
         elif size > b["soft"]:
             violations.append({"file": rel, "bytes": size, "budget": b["soft"], "tier": "soft"})
         if b["max_entries"] is not None:
-            # Count journal ENTRY-START lines (`> **➤➤➤`), not the bare glyph —
-            # an entry's prose may mention the marker, and a stable "## ➤➤➤"
-            # trailing heading is not an entry. Mirrors rotate_truth_records.
-            n = sum(1 for ln in p.read_text(encoding="utf-8").splitlines() if ln.startswith("> **➤➤➤"))
-            if n > b["max_entries"]:
+            # Entry counting delegates to the rotator's count_entries — THE single
+            # resolver for "what is a rotatable entry" (➤➤➤/▶ journal markers;
+            # board turn sections minus protected) so lint and fixer never drift.
+            from scripts.rotate_truth_records import count_entries
+
+            n = count_entries(rel, p.read_text(encoding="utf-8"))
+            if n is not None and n > b["max_entries"]:
                 violations.append({"file": rel, "entries": n, "budget": b["max_entries"], "tier": "entries"})
     if not violations:
         status = "pass"

@@ -69,6 +69,141 @@ class TestPlanRotation:
         assert "2026-05-29" in plan["live"]
 
 
+def _make_arrow(dates, tail="## Background backlog\n\nstable backlog text\n"):
+    """Build a synthetic IN_FLIGHT-style record whose entries use the ``> **▶``
+    marker with status glyphs BEFORE the date (the live IN_FLIGHT shape)."""
+    head = "# In-flight work — tracker\n\n<!-- TRACKER-STATE: active -->\n\n"
+    body = "".join(f"> **▶ ✅ DONE {d} (🪟 Windows, turn) — entry for {d}.**\n>\n" for d in dates)
+    return head + body + "\n" + tail
+
+
+class TestJournalArrowMarker:
+    """IN_FLIGHT's entries start ``> **▶ …`` (not ``> **➤➤➤``) — the rotator must
+    treat BOTH marker families as entry starts (mint 3.1)."""
+
+    def test_arrow_entries_rotate(self):
+        text = _make_arrow(["2026-06-10", "2026-06-09", "2026-06-08", "2026-06-07", "2026-06-06"])
+        plan = rot.plan_rotation(text, keep=2)
+        assert plan["changed"] is True
+        assert plan["entries_after"] == 2 and plan["archived"] == 3
+        assert "2026-06-10" in plan["live"] and "2026-06-09" in plan["live"]
+        for d in ("2026-06-08", "2026-06-07", "2026-06-06"):
+            assert d not in plan["live"] and d in plan["archive_batch"]
+        assert "## Background backlog" in plan["live"]
+
+    def test_mixed_markers_rotate_together(self):
+        # Newer ▶ entries above older ➤➤➤ entries (the live IN_FLIGHT shape).
+        arrows = "".join(f"> **▶ 🔄 {d} (win) — e**\n>\n" for d in ("2026-06-10", "2026-06-09"))
+        legacy = "".join(f"> **➤➤➤ {d} — e**\n>\n" for d in ("2026-05-31", "2026-05-30", "2026-05-29"))
+        text = "# T\n\n" + arrows + legacy + "\n## TAIL\n\nkeep\n"
+        plan = rot.plan_rotation(text, keep=2)
+        assert plan["entries_before"] == 5 and plan["entries_after"] == 2
+        assert "2026-06-10" in plan["live"] and "2026-06-09" in plan["live"]
+        for d in ("2026-05-31", "2026-05-30", "2026-05-29"):
+            assert d not in plan["live"] and d in plan["archive_batch"]
+
+    def test_bold_continuation_lines_are_not_entries(self):
+        # Continuation lines inside an entry may start "> **WIN-LANE…" / "> **MAC…"
+        # — bold, but NOT an entry marker. They must ride with their entry.
+        text = (
+            "# T\n\n"
+            "> **▶ ON BOOT 2026-06-08 (🪟 Windows) — run the split audit.**\n"
+            "> **WIN-LANE steps:** (1) pull (2) run\n"
+            "> **MAC LANE** runs LANE='mac'\n>\n"
+            "> **▶ ✅ DONE 2026-06-07 (🪟 Windows) — older entry.**\n>\n"
+            "> **▶ ✅ DONE 2026-06-06 (🪟 Windows) — oldest entry.**\n>\n"
+        )
+        plan = rot.plan_rotation(text, keep=1)
+        assert plan["entries_before"] == 3
+        # The kept entry carries its continuation lines.
+        assert "WIN-LANE steps" in plan["live"] and "MAC LANE" in plan["live"]
+        assert "2026-06-07" in plan["archive_batch"] and "2026-06-06" in plan["archive_batch"]
+
+    def test_arrow_date_range_extracted_mid_line(self):
+        text = _make_arrow(["2026-06-10", "2026-06-09", "2026-06-08", "2026-06-06"])
+        plan = rot.plan_rotation(text, keep=1)
+        assert plan["date_range"] == ("2026-06-06", "2026-06-09")
+
+
+def _make_board(n_turns, protected_at=None, fm_extra=""):
+    """Synthetic LANE_HANDOFF: YAML frontmatter + ``## `` turn sections (newest
+    first), optionally inserting the protected STANDING section at an index."""
+    fm = f"---\nmode: parallel\nturn: 69\nfrom: windows\n{fm_extra}truth_owner: windows\nholder: windows\n---\n\n"
+    secs = [
+        f"## ▶ Windows → Mac (turn {70 - i}, 2026-06-{10 - i:02d}) — headline {70 - i}\n\nbody for turn {70 - i}.\n\n"
+        for i in range(n_turns)
+    ]
+    if protected_at is not None:
+        secs.insert(
+            protected_at,
+            "## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)\n\nstanding doctrine.\n\n",
+        )
+    return fm + "".join(secs)
+
+
+class TestBoardRotation:
+    """LANE_HANDOFF rotation (mint 3.3): frontmatter + the newest N turn sections
+    + any 'do NOT rotate' section stay live; older sections archive."""
+
+    def test_keeps_frontmatter_and_newest_two(self):
+        text = _make_board(5)
+        plan = rot.plan_board_rotation(text, keep=2)
+        assert plan["changed"] is True
+        assert plan["entries_before"] == 5 and plan["entries_after"] == 2
+        assert plan["live"].startswith("---\nmode: parallel")
+        assert "turn 70" in plan["live"] and "turn 69" in plan["live"]
+        for t in ("turn 68", "turn 67", "turn 66"):
+            assert t not in plan["live"] and t in plan["archive_batch"]
+
+    def test_protected_section_survives_any_keep(self):
+        text = _make_board(4, protected_at=2)
+        plan = rot.plan_board_rotation(text, keep=1)
+        assert "do NOT rotate" in plan["live"] and "standing doctrine." in plan["live"]
+        assert "do NOT rotate" not in plan["archive_batch"]
+        # keep=1 → only the newest turn section stays besides the protected one.
+        assert "turn 70" in plan["live"] and "turn 69" not in plan["live"]
+
+    def test_no_op_when_within_keep(self):
+        text = _make_board(2)
+        plan = rot.plan_board_rotation(text, keep=2)
+        assert plan["changed"] is False
+        assert plan["live"] == text  # exact round-trip on no-op
+
+    def test_pointer_line_present_exactly_once(self):
+        text = _make_board(5)
+        plan = rot.plan_board_rotation(text, keep=2)
+        assert plan["live"].count(rot._BOARD_POINTER) == 1
+        # Rotating the already-rotated text again must not duplicate the pointer.
+        plan2 = rot.plan_board_rotation(plan["live"], keep=1)
+        assert plan2["live"].count(rot._BOARD_POINTER) == 1
+
+    def test_date_range_from_headings(self):
+        text = _make_board(4)
+        plan = rot.plan_board_rotation(text, keep=2)
+        assert plan["date_range"] == ("2026-06-07", "2026-06-08")
+
+
+class TestCountEntries:
+    """``count_entries`` is the single resolver the lint's entry-count check
+    shares with the rotator (one resolver per control — RULES doctrine)."""
+
+    def test_journal_counts_both_marker_families(self):
+        arrows = "> **▶ ✅ 2026-06-10 — a**\n>\n> **➤➤➤ 2026-06-09 — b**\n>\n"
+        text = "# T\n\n" + arrows + "## TAIL mentions `> **➤➤➤` in prose\n\nx\n"
+        assert rot.count_entries("dev/IN_FLIGHT.md", text) == 2
+
+    def test_board_counts_only_rotatable_sections(self):
+        text = _make_board(3, protected_at=1)
+        assert rot.count_entries("dev/LANE_HANDOFF.md", text) == 3
+
+    def test_unknown_record_returns_none(self):
+        assert rot.count_entries("dev/CLAUDE_PROJECT_RULES.md", "# x\n") is None
+
+    def test_backslash_rel_normalized(self):
+        text = "# T\n\n> **➤➤➤ 2026-06-10 — a**\n>\n"
+        assert rot.count_entries("dev\\SESSION_STATE.md", text) == 1
+
+
 class TestRotateAll:
     def _setup(self, tmp_path, monkeypatch, n=6):
         monkeypatch.setattr(rot, "REPO", tmp_path)
@@ -118,3 +253,24 @@ class TestRotateAll:
         first_batch = arch.index("2026-05-26..2026-05-27")  # the newer (2nd) rotation batch
         older_batch = arch.index("2026-05-24..2026-05-25")  # the older (1st) rotation batch
         assert first_batch < older_batch
+
+    def test_apply_rotates_the_board_into_existing_log(self, tmp_path, monkeypatch):
+        self._setup(tmp_path, monkeypatch, n=2)  # journals already within budget
+        (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(_make_board(5, protected_at=3), encoding="utf-8")
+        # Pre-existing archive log already carrying the batch sentinel (the live
+        # dev/archive/LANE_HANDOFF_LOG.md is migrated to this format once).
+        (tmp_path / "dev" / "archive").mkdir()
+        (tmp_path / "dev" / "archive" / "LANE_HANDOFF_LOG.md").write_text(
+            f"# LANE_HANDOFF archived log\n\nintro prose.\n\n{rot._BATCH_SENTINEL}\n\n## old turn 22\n\nx\n",
+            encoding="utf-8",
+        )
+        res = rot.rotate_all(keep=2, dry_run=False)
+        assert res["applied"] is True
+        live = (tmp_path / "dev" / "LANE_HANDOFF.md").read_text(encoding="utf-8")
+        arch = (tmp_path / "dev" / "archive" / "LANE_HANDOFF_LOG.md").read_text(encoding="utf-8")
+        assert live.startswith("---\nmode: parallel") and "do NOT rotate" in live
+        assert "turn 70" in live and "turn 69" in live and "turn 68" not in live
+        # New batch landed after the sentinel, ABOVE the legacy section.
+        assert arch.count(rot._BATCH_SENTINEL) == 1
+        assert arch.index("turn 68") < arch.index("## old turn 22")
+        assert "intro prose." in arch  # legacy header untouched
