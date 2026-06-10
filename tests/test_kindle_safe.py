@@ -132,3 +132,67 @@ class TestKindleSafeCss:
         assert ".book-title-page { page-break-before: auto;" in css
         assert "h1.bookpage-title { page-break-before: avoid;" in css
         assert ".bookpage-art" in css and "max-height: 12em" in css
+
+
+_KINDLE_TOC_PAGE = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml"><head><title>T</title></head><body>\n'
+    '<div class="toc-wrap"><h1 class="toc-title">Contents</h1><ol class="toc-books">\n'
+    '<li class="toc-book"><p class="toc-book-label"><a href="index_split_000.html#bp-00">Genesis</a></p>'
+    '<ol class="toc-chapters"><li><a href="index_split_000.html#page_4">1</a></li>'
+    '<li><a href="index_split_000.html#ch-b00-c18">18</a></li></ol></li>\n'
+    "</ol></div>\n</body></html>"
+)
+
+
+class TestKindleTocRows:
+    """K-KIN-2: KFX drops the li display → one pill per line. Plain inline
+    anchors in a <p> are inline text in every renderer including KFX."""
+
+    def test_rewrites_pill_ols_to_plain_rows(self, tmp_path):
+        from scripts.build_edition import apply_kindle_toc_rows
+
+        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
+        stats = apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert stats["toc_rows_rewritten"] == 1
+        assert 'class="toc-chapters"' not in out
+        assert '<p class="toc-chapter-row">' in out
+        # every anchor survives verbatim (mixed #page_N / #ch-bXX-cN hrefs)
+        assert '<a href="index_split_000.html#page_4">1</a>' in out
+        assert '<a href="index_split_000.html#ch-b00-c18">18</a>' in out
+        # the book label row is untouched
+        assert '<p class="toc-book-label">' in out
+
+    def test_noop_for_non_kindle_targets(self, tmp_path):
+        from scripts.build_edition import apply_kindle_toc_rows
+
+        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
+        stats = apply_kindle_toc_rows(tmp_path, {})
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert stats["toc_rows_rewritten"] == 0
+        assert out == _KINDLE_TOC_PAGE  # byte-identical
+
+    def test_idempotent(self, tmp_path):
+        from scripts.build_edition import apply_kindle_toc_rows
+
+        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
+        apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
+        first = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
+        assert (tmp_path / "index_split_000.html").read_text(encoding="utf-8") == first
+
+    def test_collapsible_details_shape_also_rewrites(self, tmp_path):
+        # /customize can set collapsible=true + kindle; the ol inside <details>
+        # must still become a row (the <details> wrapper itself is harmless —
+        # Kindle converts it to a permanently-expanded block, K-KIN-4)
+        from scripts.build_edition import apply_kindle_toc_rows
+
+        page = _KINDLE_TOC_PAGE.replace(
+            '<p class="toc-book-label"><a href="index_split_000.html#bp-00">Genesis</a></p>',
+            '<details><summary><a href="index_split_000.html#bp-00">Genesis</a></summary>',
+        ).replace("</ol></li>", "</ol></details></li>")
+        (tmp_path / "index_split_000.html").write_text(page, encoding="utf-8")
+        stats = apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
+        assert stats["toc_rows_rewritten"] == 1
+        assert 'class="toc-chapters"' not in (tmp_path / "index_split_000.html").read_text(encoding="utf-8")

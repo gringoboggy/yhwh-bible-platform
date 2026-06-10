@@ -3940,6 +3940,42 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     return stats
 
 
+# K-KIN-2 (kindle_safe): the in-content ToC's chapter pills are <li
+# display:inline-block> items — KFX drops the list display, so every pill
+# renders block-level (one chapter per LINE; Genesis ToC spans pages on
+# Kindle). Plain anchors inside a <p> are inline TEXT in every renderer
+# including KFX. The pass rewrites each <ol class="toc-chapters"> block to a
+# <p class="toc-chapter-row"> of space-joined anchors (hrefs untouched —
+# they're MIXED #page_N / #ch-bXX-cN, so we match the ol block, never href
+# shapes). Runs AFTER apply_bilingual_toc (its chapter regex needs the pill
+# shape) and BEFORE apply_file_split (href remapping then covers the rewritten
+# anchors like all content). Styling rides _KINDLE_SAFE_CSS (.toc-chapter-row).
+_TOC_CHAPTERS_OL_RE = re.compile(r'<ol class="toc-chapters">(.*?)</ol>', re.DOTALL)
+_TOC_CHAPTER_ANCHOR_RE = re.compile(r"<a\b[^>]*>.*?</a>", re.DOTALL)
+
+
+def _toc_ol_to_row(m: "re.Match[str]") -> str:
+    anchors = _TOC_CHAPTER_ANCHOR_RE.findall(m.group(1))
+    return '<p class="toc-chapter-row">' + " ".join(anchors) + "</p>"
+
+
+def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
+    """Rewrite ToC chapter-pill <ol>s to plain inline anchor rows (K-KIN-2).
+
+    Kindle-gated through the one resolver; any other target returns without
+    touching a byte (RULES 7.2). Mutates only the per-edition temp tree."""
+    stats = {"toc_rows_rewritten": 0}
+    if not is_kindle_target(edition):
+        return stats
+    for fpath in sorted(tmp.glob("index_split_*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        out, n = _TOC_CHAPTERS_OL_RE.subn(_toc_ol_to_row, text)
+        if n:
+            fpath.write_text(out, encoding="utf-8")
+            stats["toc_rows_rewritten"] += n
+    return stats
+
+
 # ----------------------------------------------------------------------
 # Phase ν.8 — Bilingual ToC
 # ----------------------------------------------------------------------
@@ -5388,6 +5424,13 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
+        # K-KIN-2 (kindle_safe) — chapter pills → plain inline rows. MUST stay
+        # after apply_bilingual_toc (its chapter regex needs the pill shape)
+        # and before apply_file_split (which remaps the rewritten hrefs).
+        # No-op for every non-kindle target (byte-identical).
+        toc_rows_stats = apply_kindle_toc_rows(tmp, edition)
+        stats["toc_rows_rewritten"] = toc_rows_stats["toc_rows_rewritten"]
+
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
         # listing aside. Runs AFTER every kind/canon/tradition filter + the
@@ -5457,7 +5500,8 @@ def build_one(
         # every matter-page injection) so its OPF/nav/ncx regeneration is the final
         # word before the zip: splits the 2-5 MB index_split_* into ~0.4 MB pieces,
         # remaps every cross-file href, and rebuilds the manifest/spine/nav/ncx.
-        # No-op (byte-identical) unless the edition sets reader_file_split.
+        # Defaults ON (DEFAULT_READER_FILE_SPLIT=True since K-R2-1); an edition
+        # opts OUT by setting reader_file_split: false.
         split_stats = apply_file_split(tmp, edition)
         stats["files_split"] = split_stats["files_split"]
         stats["pieces_created"] = split_stats["pieces_created"]
