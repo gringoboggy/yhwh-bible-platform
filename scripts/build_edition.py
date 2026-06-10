@@ -1805,6 +1805,7 @@ def is_kindle_target(edition: dict) -> bool:
     """True when the edition builds for Send-to-Kindle (kindle_safe variant)."""
     return resolve_target_reader(edition) == "kindle"
 
+
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
 # chip. All EPUB-3-allowed (display / padding / border-radius / background).

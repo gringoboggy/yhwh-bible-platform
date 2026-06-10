@@ -80,7 +80,9 @@ def _hidden_text_chars(zf: zipfile.ZipFile, names: list[str], tokens: set[str]) 
     """Total tag-stripped text chars inside elements matching a hidden class."""
     total = 0
     docs = [n for n in names if n.endswith((".html", ".xhtml"))]
-    open_re = re.compile(r"<([a-z][a-z0-9]*)\b[^>]*\bclass=\"[^\"]*\b(?:" + "|".join(sorted(tokens)) + r")\b[^\"]*\"[^>]*>")
+    open_re = re.compile(
+        r"<([a-z][a-z0-9]*)\b[^>]*\bclass=\"[^\"]*\b(?:" + "|".join(sorted(tokens)) + r")\b[^\"]*\"[^>]*>"
+    )
     for n in docs:
         t = zf.read(n).decode("utf-8", "replace")
         for m in open_re.finditer(t):
@@ -109,7 +111,9 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
     css_names = [n for n in names if n.endswith(".css")]
     css_texts = [zf.read(n).decode("utf-8", "replace") for n in css_names]
     if not any("kindle_safe" in c for c in css_texts):
-        fails.append("kindle: target stamped kindle but the kindle_safe CSS was never appended (stale/mismatched build)")
+        fails.append(
+            "kindle: target stamped kindle but the kindle_safe CSS was never appended (stale/mismatched build)"
+        )
     hidden = _effective_hidden_selectors(css_texts)
     tokens = {tok for tok in (_class_token(s) for s in hidden) if tok}
     chars = _hidden_text_chars(zf, names, tokens) if tokens else 0
