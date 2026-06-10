@@ -408,9 +408,31 @@ class TestApplyBadgeMarkersUnit:
         assert rows >= 6, f"gen 1:31's spilled notes were dropped from its aside (rows={rows})"
 
         # (c) the CLASS, whole-book: walking every gen file in document order, no
-        #     badge may appear after a chapter anchor numbered past its own chapter.
+        #     badge may appear after a chapter anchor numbered past its own chapter —
+        #     and no splice corruption: every vbadge id keeps its <a> head (a sheared
+        #     badge = the kr3a overlapping-splice bug) and every <aside> stays balanced.
         for f in book["files"]:
             t = (tmp / f).read_text(encoding="utf-8")
+            heads = t.count('<a class="verse-notes-badge"')
+            vbids = len(re.findall(r'\bid="vbadge-', t))
+            assert heads == vbids, f"{f}: {vbids - heads} sheared badge anchor(s) — splice overlap corruption"
+            opens = len(re.findall(r"<aside\b", t))
+            closes = t.count("</aside>")
+            assert opens == closes, f"{f}: unbalanced <aside> ({opens} open / {closes} close)"
+            # no badge may sit INSIDE an aside (the silent kr3a variant: 263
+            # badges landed inside notes-section asides — well-formed but
+            # invisible to the reader).
+            walk = sorted(
+                [(m.start(), 1) for m in re.finditer(r"<aside\b", t)]
+                + [(m.start(), -1) for m in re.finditer(r"</aside>", t)]
+                + [(m.start(), 0) for m in re.finditer(r'<a class="verse-notes-badge"', t)]
+            )
+            depth = 0
+            for _pos, d in walk:
+                if d == 0:
+                    assert depth == 0, f"{f}: a verse-notes badge is nested inside an aside (hidden from the reader)"
+                else:
+                    depth += d
             events: list[tuple[int, str, int]] = []
             for m in re.finditer(r'id="ch-b\d+-c(\d+)"', t):
                 events.append((m.start(), "ch", int(m.group(1))))

@@ -2613,8 +2613,16 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # byte-identically.
                     cb = _BADGE_CH_BOUNDARY_RE.search(verse_html)
                     if cb:
-                        p_close = verse_html.rfind("</p>", 0, cb.start())
-                        at = v_start + (p_close if p_close != -1 else cb.start())
+                        # The insertion point must stay OUTSIDE the chapter's
+                        # notes-section (its asides are full of </p> tags, and
+                        # an insert inside an aside-replacement span corrupts
+                        # the reverse-order splice apply — the kr3a RSC-016).
+                        # Bound the </p> search to before whichever comes
+                        # first: the notes-section or the chapter boundary.
+                        ns = verse_html.find('<aside class="notes-section"')
+                        limit = min(cb.start(), ns) if ns != -1 else cb.start()
+                        p_close = verse_html.rfind("</p>", 0, limit)
+                        at = v_start + (p_close if p_close != -1 else limit)
                         bucket.append((at, at, badge))
                         for m in markers:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))

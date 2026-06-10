@@ -179,6 +179,32 @@ def main(path: str) -> int:
     spilled: list[str] = []
     for n in pieces:
         t = zf.read(n).decode("utf-8", "replace")
+        # 4d/4e — splice-corruption tripwires (the kr3a RSC-016 class): every
+        # vbadge id keeps its <a> head, and <aside> tags stay balanced.
+        heads = t.count('<a class="verse-notes-badge"')
+        vbids = len(re.findall(r'\bid="vbadge-', t))
+        if heads != vbids:
+            fails.append(f"{n}: {vbids - heads} sheared badge anchor(s) — splice corruption")
+        opens = len(re.findall(r"<aside\b", t))
+        closes = t.count("</aside>")
+        if opens != closes:
+            fails.append(f"{n}: unbalanced <aside> ({opens} open / {closes} close)")
+        # 4f — no badge nested inside an aside (the silent kr3a variant:
+        # well-formed but invisible to the reader).
+        walk = sorted(
+            [(m.start(), 1) for m in re.finditer(r"<aside\b", t)]
+            + [(m.start(), -1) for m in re.finditer(r"</aside>", t)]
+            + [(m.start(), 0) for m in re.finditer(r'<a class="verse-notes-badge"', t)]
+        )
+        depth = 0
+        buried = 0
+        for _pos, d in walk:
+            if d == 0:
+                buried += depth > 0
+            else:
+                depth += d
+        if buried:
+            fails.append(f"{n}: {buried} verse-notes badge(s) nested inside asides (hidden from the reader)")
         for rx in promoted_re:
             promoted += len(rx.findall(t))
         for m in re.finditer(r'\bid="([^"]+)"', t):
