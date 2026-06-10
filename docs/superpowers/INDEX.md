@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**76 documents** — 49 plans · 27 specs.
+**77 documents** — 50 plans · 27 specs.
 
-## In progress (30)
+## In progress (31)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-10 | Plan | ★Full Project Audit Program (post-v0.1.0) — ① Claude-system mint → ② round-7 everything-audit → ③ decommission → ④ end-game two-lane master plan → ⑤ re-audit per milestone | `plans/2026-06-10-full-project-audit-program.md` | IN PROGRESS 2026-06-10 — P1/P2 executing (engine round-7 +7 program dims, overnight win-solo audit, K-R4-1 fix, ① design doc); K-R4-2 post-round-5 calibration; P3–P5 follow the audit result. |
 | 2026-06-09 | Spec | Idiot-proof app — friendly CDN-free HOME + rich-text note editor + maintainer-tool separation (v0.1.0 app-UX) | `specs/2026-06-09-idiot-proof-app-design.md` | READY 2026-06-09 — Mac-led design, WIN-implemented. New CDN-free `HOME_HTML` (social-card hero, ONE gold CTA, indigo secondary links), note editor demoted to `/notes`, a `contenteditable` rich-text editor with a mandatory `normalizeBody` allowlist (closes today's unsanitized-textarea hole), nav demotion via `CONSOLES`. |
 | 2026-06-09 | Spec | App EB-Garamond self-hosting — /fonts route + @font-face so the console matches the site serif | `specs/2026-06-09-app-eb-garamond-selfhosting.md` | READY 2026-06-09 — Mac-led, WIN-implemented. Bundle `website/fonts` in `launcher.spec` datas (fixes the frozen `/fonts` 404), a sandboxed `/fonts/<name>.woff2` route, `@font-face` in the skin; no CSP edit (`font-src 'self' data:` already present). |
 | 2026-06-08 | Plan | ★v0.1.0 MASTER PLAN — round-6 audit (43) + device-QA 1–7 + note-rehaul S1–S4 + app icons + outward surfaces → v0.1.0 | `plans/2026-06-08-v0.1.0-master-plan.md` | READY 2026-06-08 — top-level sequencing + lane-division; safest-first (green/honest/guarded → latent holes → presentation → icons → mac native-window → outward+release); 0 crit/high (program MINT); FINDINGS-ONLY until ratified; stitches the audit-findings note + device-QA note + the 06-06 presentation plan. |
