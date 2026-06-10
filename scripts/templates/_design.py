@@ -1,8 +1,8 @@
 """
-_design.py — shared design-system tokens for the 13 consoles.
+_design.py — shared design-system tokens for the consoles (21 today; see CONSOLES below).
 
-Phase ψ.13 (2026-05-08). The console templates were Tailwind'd
-ad-hoc as each landed; the result is 13 nearly-identical-but-not
+Phase ψ.13 (2026-05-08, when there were 13). The console templates were Tailwind'd
+ad-hoc as each landed; the result was 13 nearly-identical-but-not
 header chromes, 13 hand-rolled "save status" banners, and a dozen
 flavors of card / button styling. This module is the canonical
 source of truth — Python-side constants and small builder functions

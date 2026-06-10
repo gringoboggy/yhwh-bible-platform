@@ -5490,6 +5490,9 @@ def main() -> None:
     # Sequential when --dry-run (so output is readable) or single edition.
     # Parallel when --all + actual build (each build_one is mostly disk I/O
     # + a subprocess call to build_epub.py, both of which release the GIL).
+    # ★CONFIRMED-OPTIMAL (round-7 audit, 2026-06-10): workers=5 + the
+    # content-addressable build cache + the mtime incremental check were
+    # audited together — more workers would OOM the 16 GB box; don't re-derive.
     if not args.dry_run and len(targets) > 1 and not args.no_parallel:
         from concurrent.futures import ThreadPoolExecutor, as_completed
 

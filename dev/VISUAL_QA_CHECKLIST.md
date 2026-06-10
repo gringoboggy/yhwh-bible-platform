@@ -81,8 +81,9 @@ next session — it becomes a TDD fix (reproduce → failing test → fix → re
 - Build pipeline + editions×kinds matrix: `dev/MATRIX_MAP.md`.
 - All-11-editions epubcheck validation + the lint cleanup: `dev/CHANGELOG.md`
   2026-05-22.
-- epubcheck how-to (Java 8 + the PyPI-bundled jar): `scripts/epubcheck.py`
-  (run via `--jar` + `java` on PATH).
+- epubcheck how-to (PATH `java` + the PyPI-bundled jar — always `--jar`; this
+  box's PATH java = Oracle JRE 1.8, validated clean 2026-06-10):
+  `scripts/epubcheck.py`.
 
 ---
 

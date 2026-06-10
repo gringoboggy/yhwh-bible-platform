@@ -194,6 +194,13 @@ per-edition working copy
 
 Health invariant: **paired=N/N** — every `href="#note-X"` has a matching `id="note-X"`. Check before/after any build.
 
+**Build parallelism + caching — ★CONFIRMED-OPTIMAL (round-7 audit, 2026-06-10; don't re-derive):**
+`build_edition.py --all` runs editions on a `ThreadPoolExecutor(max_workers=5)` (build_one = disk
+I/O + a GIL-releasing subprocess; more workers would OOM the 16 GB box), backed by the
+content-addressable build cache (`scripts/core/build_cache.py`, `_PIPELINE_SCRIPTS` guarded by
+`tests/test_build_cache.py::TestCacheCoverageGuard`) + an mtime incremental check. zip
+`compresslevel` stays 9 (quality > build speed — declined optimization, on the merits).
+
 **THE GAP — RESOLVED (2026-05-21):** the base scripture HTML was recovered from the v28a-50 snapshot
 and COMMITTED (`5ee2ad1`) so it can no longer be silently lost; `ebible build` produces valid EPUBs
 again. To re-derive a clean inject from scratch: `git checkout 5ee2ad1 -- epub_working/` then

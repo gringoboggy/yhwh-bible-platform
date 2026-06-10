@@ -8,7 +8,7 @@
 
 Every session that touched code/content/docs ends with **all of these green** and the tree **consistent** (source ↔ build agree):
 
-`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,733) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
+`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,723 source-corpus; the public SHIPPED count is 91,553) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
 Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4). **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status` and reporting the TRUE state (§6.7). "Done + clean" here means gates-green + tree-consistent; it does NOT mean committed. Uncommitted verified work survives a /clear on disk but has no snapshot and is in no backup — say so plainly, never reassuringly.**
 
@@ -31,7 +31,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
 | Python | `C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\python.exe` — **never** bare `python`/`python3` (broken Store stub). |
 | UTF-8 | Always `$env:PYTHONUTF8="1"` (else ~72 tests fail with cp1252 errors). |
 | Shell | PowerShell. **`save.ps1` runs via PowerShell only**, never the Bash tool (spaced path + `>`/`→` glyphs become redirects → stray files). |
-| epubcheck | Java 8 at `C:\Program Files\Java\jre1.8.0_491\bin` (**off PATH** — prepend it); jar bundled in the PyPI `epubcheck` site-package. **One JVM at a time** (concurrent JVMs crash HotSpot → delete any `hs_err_pid*.log`/`replay_pid*.log` before continuing). |
+| epubcheck | `java` IS on PATH on this box (Oracle JRE 1.8.0_491 via the `java8path` shim; Temurin was uninstalled in the 2026-06-10 env curation — and the 5.1.0 jar runs CLEAN under Java 8: full 26 MB EPUB 0/0/0/0 proven 2026-06-10). **Always pass `--jar` the PyPI site-package jar** (auto-discovery hits a broken wrapper). **One JVM at a time** (concurrent JVMs crash HotSpot → delete any `hs_err_pid*.log`/`replay_pid*.log` before continuing). |
 | RAM (16 GB) | Run the **heavy trio — `inject --all-books` / a full `build_edition` / the epubcheck JVM — ONE at a time, never in parallel** (nor alongside a broad pytest sweep), or risk MemoryError / HotSpot crash. Background a long one and wait for it before starting the next. |
 | Acquired sources | `_acquire/` is **one level above** the repo (gitignored). |
 | Throwaway probes | live in the **repo parent** (outside git); delete when done. |
@@ -49,7 +49,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
   - **✅ SURGICAL method (lossless, isolated) — use this to remove orphaned notes:** from HEAD's `epub_working`, regex-remove the orphaned markers (`<a class="note-ref note-<kind>" …>…</a>`) AND asides (`<aside class="note note-<kind>" …>…</aside>`) from the affected book's split file(s) (find via `config.books_by_code()[code]['files']`), then `inject --book <code>` to add the replacement notes. No `generate_verse_popups` needed (notes don't affect verse-popups). Verify CONTENT-level by **aside-by-id diff** (HEAD vs working), never raw line-diff; only the changed book's split file(s) should differ. ⚠ split files are **shared** between books, so confirm the removed `<kind>` only belongs to the target book before a blanket regex (e.g. only phi/jam carry `lang-hebrew` among NT books).
 - **`ebible verify` checks marker↔aside *pairing*, NOT source-correspondence** — so a source/build mismatch (e.g. orphaned asides) passes verify **silently**. Keep source ↔ build consistent yourself.
 - **Matrix (editions × kinds):** every per-edition control flows through **one resolver** that `matrix == build == config` (`tests/test_enabled_kinds_unified.py`).
-- **Corpus scale:** 91,733 notes · 72 kinds · 15 categories · 87 books · 11 editions.
+- **Corpus scale:** 91,723 source notes (public shipped count = 91,553) · 72 kinds · 15 categories · 87 books · 11 editions.
 
 ---
 
@@ -78,16 +78,16 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 | Format | `& $py -m ruff format --check .` | all files formatted |
 | Matrix integrity | `& $py dev\trace_matrix.py` | 0 unresolved refs (11 editions) |
 | Repo-map complete | `& $py dev\trace_repo.py` | complete |
-| Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,733/91,733 (100%) |
+| Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,723/91,723 (100%) |
 | Schemas | `& $py scripts\validate_schemas.py` | 6/6 ok |
 | Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,263 paired |
 | Matrix==build==config | `& $py -m pytest tests\test_enabled_kinds_unified.py -q` | pass |
 | Touched modules | `& $py -m pytest tests\<file>.py -q` (per module) | pass |
-| Build cert (build/corpus touched) | build edition(s) + epubcheck (Java 8 on PATH, one JVM) | epubcheck **0/0/0/0** |
+| Build cert (build/corpus touched) | build edition(s) + epubcheck (PATH `java` + `--jar`, one JVM) | epubcheck **0/0/0/0** |
 
 **Pre-commit hook** runs `ruff format --check .` + `lint_rules.py` — both must pass or the commit is **blocked**. It does **NOT** run the test suite — run targeted tests yourself.
 
-Build one edition fast: `& $py scripts\build_edition.py <edition> --force --output-dir <tmp>` (~3 min), then `& $py scripts\epubcheck.py --editions-dir <tmp>` with Java 8 prepended to `$env:PATH` (~1 min). Pick the hardest case (`catholic-study` = canon-spliced + popup-heavy).
+Build one edition fast: `& $py scripts\build_edition.py <edition> --force --output-dir <tmp>` (~3 min), then `& $py scripts\epubcheck.py --editions-dir <tmp>` (PATH `java` works as-is; always `--jar` the site-package jar; ~1 min). Pick the hardest case (`catholic-study` = canon-spliced + popup-heavy).
 
 **⚠ After a CORPUS change, `inject` BEFORE you build.** `build_edition.py` zips the pre-baked `epub_working/` base; promoting notes alone does NOT put them in any build. Run `inject --all-books` first (RULES §9 step 8 — the bake-and-prove gate). **Tell-tale: if the rebuilt EPUB is the same size as before your change, you forgot to inject** — you just re-validated the old corpus.
 

@@ -4,7 +4,7 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**77 documents** — 50 plans · 27 specs.
+**78 documents** — 50 plans · 28 specs.
 
 ## In progress (31)
 

@@ -14,9 +14,10 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 219 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | 227 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
-| `docs/superpowers/` | ✅ | `plans/` (49 implementation plans) + `specs/` (26 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
+| `docs/superpowers/` | ✅ | `plans/` (50 implementation plans) + `specs/` (28 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
+| `state/` | ✅ | Small app-state JSON (`onboarding.json` — first-run welcome state) — versioned, not corpus. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
 | `assets/icons/` | ✅ | App icons (PyWebView/desktop): `icon_{16..1024}.png`, `.ico`. |
 | `GAPS/` | ✅ (large) | Ge'ez gap-fill **manuscript images** (Cambridge MS Add. 1570: 1 Samuel ~155, 2 Kings ~42, + `-hires` crops) + PD **PDFs** (Patrologia Orientalis: Chronicles/Ezra-Neh/Esther/Job). Source material for the manuscript-collation track (NOT built into EPUBs). See memory `reference_gaps_folder`. |
@@ -31,7 +32,7 @@
 ## content/  — data + config (the heart)
 
 - **`*.yaml`** (config; loaded by `scripts/core/config.py`, mapped in `MATRIX_MAP.md`): `books.yaml` (87 books — code, `bxx` canon position, `strategy`, `ch_count`, `files`), `canons.yaml` (5 canon→book-sets), `categories.yaml` (15), `kinds.yaml` (72), `editions.yaml` (11 profiles), `traditions.yaml`, `themes.yaml`, `source_dates.yaml`, `customization.yaml`, etc.
-- **`notes/<book>.py`** — the corpus: 88 files, one per book, each a `NOTES = [ (ch,v,suffix,anchor,kind,title,label,body[,attribution]), … ]` list (**91,733 notes total**).
+- **`notes/<book>.py`** — the corpus: 88 files, one per book, each a `NOTES = [ (ch,v,suffix,anchor,kind,title,label,body[,attribution]), … ]` list (**91,723 source notes**; the public SHIPPED count is 91,553).
 - **`translations/<id>/<book>.py`** — verse text as data, per translation (powers popups / parallel / standalone). 14 dirs: `kjv` (full, 81 books), `geez-tewahedo` (36), `amharic-tewahedo` (28), `geez-tewahedo-en` / `amharic-tewahedo-en` (EN back-translations), `wlc` (39), `jps` (39), `lxx-swete-greek` (50), `byzantine-greek` (27), `douay-rheims` (74), `vulgate-clementine` (77), `arabic-vandyke` (66), and the `lxx-brenton-{english,greek}` pilots (`gen.py` only). Each (except the two `-en` back-translation dirs) has `_meta.yaml`. Raw upstreams under `translations/sources/`.
 - **`sources/`** — provenance + ingest inputs: `ATTRIBUTIONS.md` (legal source registry — e.g. **1 Enoch = R. H. Charles 1912 English, from the Ge'ez**), `_fetchers.json`, `naves_ccel_source.txt` / `eastons_ccel_source.txt` (clean PD texts), `naves_topical.json`, `*_commentaries.json` (patristic corpora).
 - **`candidates/<book>_ch_NNN.json`** — 1,656 detector/prospect candidate queues (pre-promotion staging; `promote.py` / `batch_promote_xrefs.py` consume → `notes/`).
@@ -48,7 +49,7 @@
 
 ## dev/  — docs + state
 
-- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this), `SESSION_PLAYBOOK.md` (session lifecycle + verification-gate commands).
+- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `LANE_HANDOFF.md` (the two-lane board: mode/truth_owner frontmatter + per-lane assignments), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this), `SESSION_PLAYBOOK.md` (session lifecycle + verification-gate commands).
 - **`AUDIT_*.md`** — dated audit reports. **`SCOPE_*.md`** — scope decisions/addenda.
 - **`*.py`** — `trace_matrix.py` (matrix integrity tracer), `trace_repo.py` (this map's structural tracer / anti-rot check).
 - **`archive/`** — superseded plans (`PLAN_2026-05-07/08/09`, `PLAN_2026-05-21`, `PLAN_2026-05-24-end-scope`) + `ship_scripts/` (21 one-shot ship scripts) + old handoffs.

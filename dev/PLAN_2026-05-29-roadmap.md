@@ -71,15 +71,18 @@ RED and force the work; each cleanup phase flips its `_ENFORCE_*` flag to FAIL.
 | mint-0 | 11 anti-bloat lint guards ship RED | ✅ done | — |
 | mint-1 | Bootstrap slim (SESSION_STATE / IN_FLIGHT / RULES) → `truth_record_budget` + `frozen_stats` GREEN | ✅ done | mint-0 |
 | mint-2 | **Roadmap refresh** (this doc; archive old plan + `SCOPE_2026-05-14`; sync triad plan-name; clear retired-term refs) → `triad_plan_consistency` + `retired_terms` GREEN | ✅ done | mint-0, mint-1 |
-| mint-3 | Archive sweep (~75 dated finished docs → `dev/archive/`) → `dev_doc_sprawl` GREEN | ◻ todo | mint-2 |
-| mint-4 | Decommercialize (~5,300 LOC dead commercial-era code removed; trim press_kit/distribution to free-only; relocate `resolve_cover_path`; flip banner-pin test first; prove zero EPUB-output change) → `commercial_*` GREEN | ◻ todo · **CHECKPOINT first** | mint-3 |
-| mint-5 | Enforce gates (regen REPO_MAP / MATRIX_MAP; wire mypy into pre-commit; restore a remote + CI) → `repo_map_complete` FAIL-enforced | ◻ todo | mint-4 |
-| mint-6 | Polish (SessionEnd hygiene hook; sweep stale scanner-cache dirs + root `*.log`; superpowers INDEX + Status headers; optional web.py route-table refactor) | ◻ todo | mint-5 |
+| mint-3 | Archive sweep (~75 dated finished docs → `dev/archive/`) → `dev_doc_sprawl` GREEN | ✅ done | mint-2 |
+| mint-4 | Decommercialize (~5,300 LOC dead commercial-era code removed; trim press_kit/distribution to free-only; relocate `resolve_cover_path`; flip banner-pin test first; prove zero EPUB-output change) → `commercial_*` GREEN | ✅ done | mint-3 |
+| mint-5 | Enforce gates (regen REPO_MAP / MATRIX_MAP; wire mypy into pre-commit; restore a remote + CI) → `repo_map_complete` FAIL-enforced | ✅ done | mint-4 |
+| mint-6 | Polish (SessionEnd hygiene hook; sweep stale scanner-cache dirs + root `*.log`; superpowers INDEX + Status headers; optional web.py route-table refactor) | ✅ done | mint-5 |
 
-Protect the build in every phase: byte-compat invariant (regen + empty `git diff
+The whole LANE-0 arc closed 2026-05-31 (plan doc has the detail). Protect-the-build
+rules proved out in every phase: byte-compat invariant (regen + empty `git diff
 epub_working/`), flagship epubcheck 0/0/0/0, 9 editions byte-stable. **Never touch the
-Ge'ez marathon core.** The remote + CI restore (mint-5) is the single biggest pro-bar
-gap — `git push` has failed since the remote was deleted 2026-05-12. (mint-5's remote restore re-opens the closed Git-LFS decision — if the repo nears the host's media cap, reconsider LFS for the cover templates and move backups off `git bundle`.)
+Ge'ez marathon core.** mint-5 restored the remotes + CI (`origin` = GitLab + `github`
+mirror, both live since 2026-05-30; the old "git push has failed since 2026-05-12"
+note is history). The Git-LFS decision stayed CLOSED at the restore (rejected — backups
+ride `git bundle` to E:/F:; revisit only if the host's media cap ever nears).
 
 ---
 
