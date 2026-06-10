@@ -88,6 +88,27 @@ class TestTargetReaderField:
         bad = api_save_edition_meta("ethiopian-tewahedo", {"target_reader": "smartfridge"})
         assert "error" in bad and "target_reader" in bad["error"]
 
+    def test_save_target_reader_does_not_clobber_chapter_number_format(self):
+        """round-7 regression pin: the target_reader branch used to assign the
+        normalized value to payload["chapter_number_format"] (copy-paste slip)
+        — a wizard reader-target save CLOBBERED the chapter-number format with
+        "eink"/"tablet"/…, sidestepping that field's own validation. Saves
+        against the REAL editions.yaml, restored BYTE-EXACTLY in finally."""
+        from scripts.api.editions import api_save_edition_meta
+        from scripts.core import config
+
+        yaml_path = REPO / "content" / "editions.yaml"
+        original = yaml_path.read_bytes()
+        try:
+            r = api_save_edition_meta("catholic-study", {"target_reader": "eink"})
+            assert "error" not in r, r
+            text = yaml_path.read_text(encoding="utf-8")
+            assert 'chapter_number_format: "eink"' not in text, "reader-target save clobbered chapter_number_format"
+            assert 'target_reader: "eink"' in text
+        finally:
+            yaml_path.write_bytes(original)
+            config.load_editions.cache_clear()
+
     def test_schema_has_target_reader_fieldspec(self):
         src = (REPO / "scripts" / "validate_schemas.py").read_text(encoding="utf-8")
         assert 'FieldSpec("target_reader", type=str, required=False)' in src

@@ -536,12 +536,16 @@ class TestBuildEdition:
         assert "schema:accessibilitySummary" in out
 
     def test_patch_opf_adds_bcp47_languages(self):
+        # Kindle E999 (CONFIRMED 2026-06-10): the old hbo/grc/arc/gez extras
+        # hard-fail Amazon's Send-to-Kindle validation — the OPF now carries
+        # exactly ONE BCP-47 dc:language; per-span xml:lang holds the
+        # in-content language info (see tests/test_opf_clean.py for the
+        # kindle-safe pin).
         opf = "<package><metadata><dc:title>X</dc:title><dc:language>en</dc:language></metadata></package>"
         edition = {"id": "test", "title": "X"}
         out = self.mod.patch_opf(opf, edition, "v")
-        # All four script tags should be present
-        for lang in ("en-US", "hbo", "grc", "arc", "gez"):
-            assert f"<dc:language>{lang}</dc:language>" in out
+        assert "<dc:language>en-US</dc:language>" in out
+        assert out.count("<dc:language>") == 1
 
     def test_render_copyright_page_substitutes_edition_data(self):
         # Ω.0 pivot (2026-05-14): ISBN dropped. The copyright page
@@ -2566,10 +2570,12 @@ class TestEditionMeta:
         )
 
     def test_covers_html_links_to_every_other_console(self):
-        """And /covers must link back to each of them."""
+        """And /covers must link back to each of them. (HOME-first IA: the
+        landing link is "/home" — "/" serves the same page; the editor was
+        demoted to "/notes". These pins tracked the §6.2 linter remap.)"""
         html = self.web.COVERS_HTML
         for href in (
-            '"/"',
+            '"/home"',
             '"/sources"',
             '"/customize"',
             '"/audit"',
@@ -2577,6 +2583,7 @@ class TestEditionMeta:
             '"/wizard"',
             '"/diff"',
             '"/export"',
+            '"/notes"',
         ):
             assert href in html, f"COVERS_HTML missing nav link {href}"
 
@@ -2661,9 +2668,11 @@ class TestEditionMeta:
         assert not missing, f"these consoles don't link to /preflight: {missing}"
 
     def test_preflight_html_links_back_to_every_console(self):
+        # HOME-first IA: the landing link is "/home" (the "/" route serves the
+        # same page); the editor demoted to "/notes" (§6.2 linter remap).
         html = self.web.PREFLIGHT_HTML
         for href in (
-            '"/"',
+            '"/home"',
             '"/sources"',
             '"/customize"',
             '"/audit"',
@@ -2672,6 +2681,7 @@ class TestEditionMeta:
             '"/diff"',
             '"/export"',
             '"/covers"',
+            '"/notes"',
         ):
             assert href in html, f"PREFLIGHT_HTML missing nav link {href}"
 
@@ -7214,16 +7224,19 @@ class TestDesignSystem:
     # ---- Console list ----
 
     def test_consoles_list_complete(self):
-        # Every console known to scripts/web.py should appear here.
-        # The 13 consoles plus the editor at "/" — 14 entries.
+        # Every console known to scripts/web.py should appear here — 21 today.
+        # HOME-first IA: the landing is "/home" (the "/" route serves the same
+        # page) and the maintainer editor sits LAST at "/notes".
         routes = {r for r, _ in self.d.CONSOLES}
         for expected in (
-            "/",
+            "/home",
             "/matrix",
+            "/build-tracker",
             "/sources",
             "/export",
             "/customize",
             "/audit",
+            "/audit-log",
             "/publisher",
             "/wizard",
             "/diff",
@@ -7232,8 +7245,14 @@ class TestDesignSystem:
             "/preflight",
             "/ops",
             "/apihelp",
+            "/hebrew",
+            "/greek",
+            "/distribution",
+            "/build-my-bible",
+            "/notes",
         ):
             assert expected in routes, f"{expected} missing from CONSOLES"
+        assert len(routes) == 21, f"CONSOLES route count drifted: {len(routes)}"
 
     def test_consoles_no_duplicates(self):
         routes = [r for r, _ in self.d.CONSOLES]

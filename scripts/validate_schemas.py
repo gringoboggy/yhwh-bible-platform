@@ -184,6 +184,9 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("cover_template", type=str, required=False),
         FieldSpec("target_audience", type=str, required=False),
         FieldSpec("notes", type=str, required=False),
+        # K-R2-8 (2026-06-10): per-edition e-reader LIBRARY-CARD synopsis —
+        # patch_opf writes it into the OPF <dc:description> (eth declares one).
+        FieldSpec("description", type=str, required=False),
         FieldSpec(
             "max_phase",
             type=str,

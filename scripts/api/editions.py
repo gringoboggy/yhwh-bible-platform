@@ -769,7 +769,11 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         v = (payload["target_reader"] or "").strip()
         if v and v not in valid_targets:
             return {"error": f"unknown target_reader: {v!r}; valid: {sorted(valid_targets)}"}
-        payload["chapter_number_format"] = v
+        # round-7 in-passing fix: this line wrote payload["chapter_number_format"]
+        # (copy-paste from the block above) — a wizard reader-target save was
+        # CLOBBERING the edition's chapter-number format with "eink"/"tablet"/…,
+        # sidestepping that field's own validation (it runs earlier).
+        payload["target_reader"] = v
     if "chapter_number_decoration" in payload:
         from scripts.build_edition import CHAPTER_NUMBER_DECORATIONS
 
