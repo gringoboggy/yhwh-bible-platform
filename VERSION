@@ -1,18 +1,22 @@
-0.0.3
+0.1.0
 
-YHWH Ya' Way — v0.0.3  (the full Ethiopian Tewahedo Study Bible + device-QA fixes)
+YHWH Ya' Way — v0.1.0  (Kobo/e-reader presentation overhaul + reader targeting)
 =================================================
 
 The semantic-version line above (first non-blank line) is read by the build
 scripts (dev/build_dmg.sh, dev/installer.iss, dev/build_appimage.sh) and by
 dev/generate_appcast.py. Everything below is human-readable metadata.
 
-Versioning (set 2026-06-07): pre-final releases are v0.0.1, v0.0.2, v0.0.3, … ;
+Versioning (set 2026-06-07): pre-final releases are v0.0.x and v0.1.x …;
 the first full release will be v1.0.0 (then v1.0.x patches, v1.1.x big updates,
-and v2.0.0 a complete overhaul). The former "v1.0.0-beta.N" naming is RETIRED —
-v0.0.1 = former beta.1, v0.0.2 = former beta.2.
+and v2.0.0 a complete overhaul). The former "v1.0.0-beta.N" naming is RETIRED.
 
-v0.0.3 ships the full Ethiopian Tewahedo Study Bible (all note categories on —
-~91.5k notes — and all original-language popups; 83 books) plus the device-QA
-fixes a–i. Live corpus/edition/test counts and the roadmap live in
+v0.1.0 ships the e-reader presentation overhaul proven on a real Kobo across
+three device-QA rounds: per-book title pages on their own spine files (the only
+page break e-ink kepub honors), badge popups with plain-text separators that
+survive Kobo's Footnote preview, verse-end badge placement (no more
+chapter-start spill), centered chapter numerals, embedded Ge'ez TTF + original-
+script popups, reader targeting in the wizard ("Where will you read it?"),
+the 83-book library card, one Colophon, and the Kobo font pack as a companion
+download. Live corpus/edition/test counts and the roadmap live in
 dev/SESSION_STATE.md + dev/CHANGELOG.md (not this file).

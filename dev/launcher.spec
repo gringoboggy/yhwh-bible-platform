@@ -211,6 +211,9 @@ if sys.platform == "darwin":
 else:
     # Windows / Linux — ONEFILE (single dist/YHWH.exe or ELF binary), the
     # original θ.1 behavior; unaffected by the macOS .app restructure.
+    # STAGE D: the Windows EXE carries the branded icon (Explorer/taskbar);
+    # PyInstaller ignores icon= on Linux, so the same spec stays shared.
+    _ICO = ROOT / "assets" / "icons" / "program_icon.ico"
     exe = EXE(
         pyz,
         a.scripts,
@@ -230,4 +233,5 @@ else:
         target_arch=None,
         codesign_identity=None,
         entitlements_file=None,
+        icon=str(_ICO) if _ICO.is_file() else None,
     )
