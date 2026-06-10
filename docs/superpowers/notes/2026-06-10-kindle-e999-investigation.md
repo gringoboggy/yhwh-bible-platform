@@ -67,3 +67,30 @@ recent touch; surfaced per Operational Guard #6. Whichever lane takes it: re-ver
 
 **Cross-check note:** the Send-to-Kindle web uploader (200 MB cap) is an alternative
 delivery path for testing without the email pipeline.
+
+## Round 2 (same day — user reports "still failed" after resend)
+
+Re-ranked by direct artifact measurement:
+
+- **NEW SUSPECT #1 — display:none volume (documented HARD fail, E3013).** Kindle
+  Publishing Guidelines hard-fail conversion when >10,000 characters are hidden via
+  `display:none`. Our `stylesheet.css:204` `.notes-section, .notes-rule { display:
+  none; }` (+ `.verse-refs-section:300`) hides **~486,188 text characters** across 288
+  content docs — **48× over the threshold**, in EVERY edition (base CSS — this is how
+  the popup-footnote pattern ships). Outranks dc:language: it is a *documented* hard
+  failure with massive artifact evidence, present regardless of which file was sent.
+- **EXONERATED — NCX targets:** all 76 resolve, zero on `<body>` (full programmatic
+  resolution against the artifact).
+- dc:language remains unresolved as a co-suspect (unknown whether the user's resend was
+  the original or the langtest copy).
+
+**Test artifact #2 staged:** `~/Desktop/Ethiopian_Bible_catholic-study_kindle-test2-visible_2026-06-10.epub`
+= langfix (single `en-US`) + **all 6 `display:none` declarations stripped from
+stylesheet.css** (0 inline occurrences existed; notes/refs sections render visibly —
+cosmetic only, valid for a conversion test). `<details>` ToC left in (one variable at a
+time; its evidence remains nil). If test 2 delivers ⇒ hidden-content volume (and/or
+language) was the trigger; v0.1.1 product fix = a Kindle-target variant that renders
+notes-sections visibly (endnote style) instead of display:none — Kindle's own popup
+mechanism follows noteref links natively and does not need hidden asides. If test 2
+still fails ⇒ test 3 strips the `<details>` ToC; after that, the footnote-density/
+timeout hypothesis and Kindle Previewer (install-gated) are what remain.
