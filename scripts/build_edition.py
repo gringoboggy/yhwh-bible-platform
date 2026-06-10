@@ -2774,6 +2774,16 @@ _CHILD_ASIDE_RE = re.compile(r'<aside class="(?!notes-section)[^"]*" id="([^"]+)
 # A notes-section wrapper left empty after its child asides are harvested out.
 _EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*')
 
+# A bare chapter opener stranded at the very END of a file's visible content:
+# an optional ch-anchor followed by a ch-heading paragraph (and nothing after it
+# before the notes-section). Matched against the piece's pre-notes segment for
+# the cross-FILE opener pop in apply_file_split (K-R2-4 file-seam class).
+_TRAILING_OPENER_RE = re.compile(
+    r'(?:<a id="ch-b\d+-c\d+" class="ch-anchor"></a>\s*)?'
+    r'<p[^>]*\bclass="[^"]*\bch-heading\b[^"]*"[^>]*>.*?</p>\s*$',
+    re.DOTALL,
+)
+
 _NOTES_SECTION_OPEN = '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
 
 
@@ -3016,6 +3026,39 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     plan: dict[str, list[tuple[str, str]]] = {}
     for p in src_files:
         plan[p.name] = split_html_document(p.read_text(encoding="utf-8"), p.stem, target)
+
+    # 1b. Cross-FILE opener pop (K-R2-4 file-seam class): the calibre base cuts
+    # some files right AFTER a chapter opener (Gen 27 / 1Ch 3 / Ps 73 / Isa 33 /
+    # Jer 25) — the anchor+heading strand at the donor file's last page while the
+    # chapter's verses start the next file. Move the trailing opener into the
+    # NEXT file's first piece. Runs BEFORE the idmap is built, so every link to
+    # the moved ids follows automatically. Skipped when the next file opens with
+    # a book-title page (an opener never precedes a new book).
+    ordered = sorted(plan.keys())
+    for a, b in zip(ordered, ordered[1:]):
+        last_name, last_text = plan[a][-1]
+        ns = last_text.find('<aside class="notes-section"')
+        boundary = ns if ns != -1 else last_text.rfind("</body>")
+        if boundary <= 0:
+            continue
+        seg = last_text[:boundary]
+        m = _TRAILING_OPENER_RE.search(seg)
+        if not m:
+            continue
+        opener = m.group(0)
+        if 'class="vn-link' in opener or len(opener) > 900:
+            continue  # carries verse content — not a bare opener
+        first_name, first_text = plan[b][0]
+        bm = re.search(r"<body\b[^>]*>", first_text)
+        if not bm:
+            continue
+        if 'class="book-title-page"' in first_text[bm.end() : bm.end() + 400]:
+            continue
+        plan[a][-1] = (last_name, seg[: m.start()] + last_text[boundary:])
+        plan[b][0] = (
+            first_name,
+            first_text[: bm.end()] + "\n" + opener.strip() + first_text[bm.end() :],
+        )
 
     # 2. Global maps: id → final piece file; original file → its first piece.
     idmap: dict[str, str] = {}

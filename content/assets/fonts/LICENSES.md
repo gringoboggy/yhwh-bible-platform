@@ -115,11 +115,11 @@ Cardo ×3 + Noto Serif Ethiopic (see their entries above), plus:
 
 ### Noto Naskh Arabic — SIL Open Font License 1.1 (OFL)
 
-**Files (font-pack only — to be committed when WIN builds the
-pack; pin the release version + byte size here at that point):**
+**Files (font-pack only — committed 2026-06-09 at pack build):**
 - `NotoNaskhArabic-Regular.ttf` — the notofonts arabic release
-  full/ttf hinted static build (version: TBD at pack build;
-  size: TBD).
+  `NotoNaskhArabic-v2.021` full/ttf static build (291,980 bytes;
+  SHA-256 `c9a039ce48a477243c1eb7d561b13de115cfd651d8a83fa42e2f4d63c2e11b00`;
+  the same provenance pattern as the K② Ethiopic ttf).
 
 **Source:** https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic
 (release binaries: https://github.com/notofonts/arabic/releases)

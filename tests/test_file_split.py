@@ -274,6 +274,101 @@ NESTED = (
 )
 
 
+# A calibre FILE boundary that strands a chapter opener: file 007 ENDS with the
+# next chapter's anchor + heading (the real base does this at Gen 27 / 1Ch 3 /
+# Ps 73 / Isa 33 / Jer 25 — the K-R2-4 "chapter 3 gap" class at FILE level),
+# while file 008 carries that chapter's verses.
+FILE_A_TAIL_OPENER = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+    '<body class="bible-body">\n'
+    '<p id="page_9" class="ch-heading"><span class="bold-num">26</span></p>\n'
+    '<p class="verse-p"><a class="vn-link" id="v-gen-26-1" href="#vnote-gen-26-1" epub:type="noteref">'
+    '<span class="vn">1</span></a> chapter twenty-six text.</p>\n'
+    '<a id="ch-b00-c27" class="ch-anchor"></a>'
+    '<p id="page_10" class="ch-heading"><span class="bold-num">27</span></p>\n'
+    '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+    '<aside class="note note-word" id="vnote-gen-26-1" epub:type="footnote"><p>x</p></aside>\n'
+    "</aside>\n"
+    "</body></html>"
+)
+FILE_B_NEXT = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+    '<body class="bible-body">\n'
+    '<p class="verse-p"><a class="vn-link" id="v-gen-27-1" href="#vnote-gen-27-1" epub:type="noteref">'
+    '<span class="vn">1</span></a> chapter twenty-seven text.</p>\n'
+    '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+    '<aside class="note note-word" id="vnote-gen-27-1" epub:type="footnote"><p>y</p></aside>\n'
+    "</aside>\n"
+    "</body></html>"
+)
+
+
+class TestCrossFileOpenerPop:
+    """A chapter opener stranded at the END of an original calibre file moves to
+    the head of the NEXT file's first piece, so the numeral renders with its
+    chapter instead of alone at the bottom of the previous page."""
+
+    def _run(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        (tmp / "index_split_007.html").write_text(FILE_A_TAIL_OPENER, encoding="utf-8")
+        (tmp / "index_split_008.html").write_text(FILE_B_NEXT, encoding="utf-8")
+        opf = _MIN_OPF.replace(
+            '<item id="id154" href="index_split_007.html" media-type="application/xhtml+xml"/>',
+            '<item id="id154" href="index_split_007.html" media-type="application/xhtml+xml"/>\n'
+            '    <item id="id155" href="index_split_008.html" media-type="application/xhtml+xml"/>',
+        ).replace(
+            '<itemref idref="id154"/>',
+            '<itemref idref="id154"/>\n    <itemref idref="id155"/>',
+        )
+        (tmp / "content.opf").write_text(opf, encoding="utf-8")
+        (tmp / "nav.xhtml").write_text(_MIN_NAV, encoding="utf-8")
+        (tmp / "toc.ncx").write_text(_MIN_NCX, encoding="utf-8")
+        be.apply_file_split(tmp, {"id": "x", "reader_file_split": True, "reader_file_split_target": 400})
+        return tmp
+
+    def test_opener_moves_to_the_next_files_first_piece(self, tmp_path):
+        tmp = self._run(tmp_path)
+        texts = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("index_split_*.html"))}
+        holder = [n for n, t in texts.items() if 'id="ch-b00-c27"' in t]
+        assert len(holder) == 1, f"opener must live in exactly one piece, got {holder}"
+        assert holder[0].startswith("index_split_008"), f"opener must move to file 008, got {holder[0]}"
+        t = texts[holder[0]]
+        body = t[t.find("<body") :]
+        assert body.find('id="ch-b00-c27"') < body.find('id="v-gen-27-1"'), "opener leads its chapter"
+        # the donor file's pieces no longer end with a stranded opener (checked
+        # with the production pattern itself — same boundary semantics)
+        from scripts.build_edition import _TRAILING_OPENER_RE
+
+        for n, t in texts.items():
+            if n.startswith("index_split_007"):
+                pre_notes = t.split('<aside class="notes-section"')[0]
+                m = _TRAILING_OPENER_RE.search(pre_notes)
+                # the pattern may lazily span [heading + verse text] — the SAME
+                # guards production uses (vn-link content / size) mark that as
+                # NOT a bare opener; only a bare-opener match means stranded.
+                bare = m is not None and 'class="vn-link' not in m.group(0) and len(m.group(0)) <= 900
+                assert not bare, f"{n} still ends with a stranded opener"
+
+    def test_links_to_the_moved_opener_resolve(self, tmp_path):
+        tmp = self._run(tmp_path)
+        # nav/ncx (or any cross-file href) pointing at the moved ids must target
+        # the piece that now holds them
+        texts = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("index_split_*.html"))}
+        holder = next(n for n, t in texts.items() if 'id="page_10"' in t)
+        for fp in sorted(tmp.iterdir()):
+            if fp.suffix not in (".html", ".xhtml", ".ncx"):
+                continue
+            for m in re.finditer(r'(?:href|src)="([^"#]+)#page_10"', fp.read_text(encoding="utf-8")):
+                assert m.group(1) == holder, f"{fp.name} points #page_10 at {m.group(1)}, holder is {holder}"
+
+
 class TestStackAwareSplit:
     """The unified splitter may cut INSIDE a <p>/<div>; a stack-aware wrapper reopens what
     a piece starts inside and closes what is still open at its end, so every piece is
