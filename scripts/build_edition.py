@@ -3491,6 +3491,28 @@ FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter
 # already exceeds it becomes its own (over-cap) piece — we never split mid-chapter,
 # because a verse's marker and its aside must stay in one file for the popup contract.
 
+# K-KIN blocker #2 (the halfspine P/P verdict, 2026-06-11): the full 297-doc
+# kindle artifact fails KFX conversion with a generic no-E-code internal error
+# while EACH HALF (~149 docs) converts clean ("Book converted successfully",
+# Enhanced Typesetting Supported) — and the full-size delink probe (links
+# 112,751→26,719, asides→divs) still failed, so the driver is AGGREGATE
+# doc-count / per-doc converter overhead, not the link graph or content. The
+# ~0.4 MB split exists for Kobo's e-ink renderer (K-R2); Kindle's KFX paginates
+# internally and needs no such splitting, so the kindle target packs to a much
+# larger cap — same bytes, ~5× fewer content pieces (title singletons remain,
+# proven accepted). Explicit ``reader_file_split_target`` still wins.
+FILE_SPLIT_TARGET_KINDLE = 2_000_000
+
+
+def resolve_file_split_target(edition: dict) -> int:
+    """Per-piece soft byte cap for apply_file_split — the single resolver
+    (explicit per-edition override > the reader-target default)."""
+    explicit = edition.get("reader_file_split_target")
+    if explicit:
+        return int(explicit)
+    return FILE_SPLIT_TARGET_KINDLE if is_kindle_target(edition) else FILE_SPLIT_TARGET_DEFAULT
+
+
 # HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
 # and EVERY chapter start (id="ch-bNN-cMM"). A chapter's id is carried by EITHER its
 # <a class="ch-anchor"> (chapter 2+) OR a <p class="ch-heading"> (chapters that open a
@@ -3870,7 +3892,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     stats = {"files_split": 0, "pieces_created": 0, "hrefs_rewritten": 0, "largest_piece_kb": 0}
     if not edition.get("reader_file_split", DEFAULT_READER_FILE_SPLIT):
         return stats
-    target = int(edition.get("reader_file_split_target") or FILE_SPLIT_TARGET_DEFAULT)
+    target = resolve_file_split_target(edition)
 
     src_files = sorted(tmp.glob("index_split_*.html"))
     if not src_files:

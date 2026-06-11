@@ -76,6 +76,14 @@ def _class_token(selector: str) -> str | None:
     return classes[-1] if classes else None
 
 
+# Void / self-closing elements carry no text: treating them as containers made
+# the depth scan swallow everything between the FIRST and LAST <hr
+# class="notes-rule"/> in a file (every following <hr/> *incremented* depth) —
+# 98,016 phantom hidden chars on the real big-piece kindle build whose only
+# change was piece size.
+_VOID_TAGS = frozenset({"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"})
+
+
 def _hidden_text_chars(zf: zipfile.ZipFile, names: list[str], tokens: set[str]) -> int:
     """Total tag-stripped text chars inside elements matching a hidden class."""
     total = 0
@@ -87,13 +95,18 @@ def _hidden_text_chars(zf: zipfile.ZipFile, names: list[str], tokens: set[str]) 
         t = zf.read(n).decode("utf-8", "replace")
         for m in open_re.finditer(t):
             tag = m.group(1)
+            if tag in _VOID_TAGS or m.group(0).endswith("/>"):
+                continue  # no content — nothing hidden inside
             depth, pos = 1, m.end()
             tag_re = re.compile(rf"<{tag}\b[^>]*>|</{tag}>")
             while depth and pos < len(t):
                 nm = tag_re.search(t, pos)
                 if not nm:
                     break
-                depth += -1 if nm.group(0).startswith("</") else 1
+                if nm.group(0).startswith("</"):
+                    depth -= 1
+                elif not nm.group(0).endswith("/>"):
+                    depth += 1
                 pos = nm.end()
             inner = t[m.end() : pos]
             total += len(re.sub(r"<[^>]+>", "", inner))

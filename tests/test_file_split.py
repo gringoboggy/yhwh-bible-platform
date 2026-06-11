@@ -894,3 +894,55 @@ class TestSpillDuplicateNoterefClone:
                         f"{name}: noteref {target} does not resolve in its own piece "
                         "(would be PROMOTED cross-file → Kobo navigates instead of popping)"
                     )
+
+
+class TestKindleSplitTarget:
+    """K-KIN blocker #2 (P/P halfspine verdict): the whole 297-doc artifact fails
+    KFX conversion with a generic internal error while EACH HALF (~149 docs)
+    converts clean — and the full-size delink probe (links/asides gutted) still
+    failed, so the driver is aggregate doc-count/per-doc overhead, NOT the link
+    graph. The ~0.4 MB e-ink split exists for Kobo's renderer; Kindle paginates
+    internally, so the kindle target packs to a larger per-piece cap (fewer
+    docs, same bytes). One resolver, explicit override wins."""
+
+    def test_default_target_unchanged(self):
+        from scripts.build_edition import FILE_SPLIT_TARGET_DEFAULT, resolve_file_split_target
+
+        assert resolve_file_split_target({}) == FILE_SPLIT_TARGET_DEFAULT
+        assert resolve_file_split_target({"target_reader": "eink"}) == FILE_SPLIT_TARGET_DEFAULT
+
+    def test_kindle_target_packs_larger(self):
+        from scripts.build_edition import (
+            FILE_SPLIT_TARGET_DEFAULT,
+            FILE_SPLIT_TARGET_KINDLE,
+            resolve_file_split_target,
+        )
+
+        assert resolve_file_split_target({"target_reader": "kindle"}) == FILE_SPLIT_TARGET_KINDLE
+        assert FILE_SPLIT_TARGET_KINDLE > FILE_SPLIT_TARGET_DEFAULT
+
+    def test_explicit_override_wins_everywhere(self):
+        from scripts.build_edition import resolve_file_split_target
+
+        assert resolve_file_split_target({"reader_file_split_target": 123_456}) == 123_456
+        assert resolve_file_split_target({"reader_file_split_target": 123_456, "target_reader": "kindle"}) == 123_456
+
+    def test_apply_file_split_consumes_the_resolver(self, tmp_path):
+        # A ~25 KB no-title file splits under a tiny default-target edition but
+        # stays whole under the kindle target (25 KB << the kindle cap).
+        from scripts.build_edition import apply_file_split
+
+        # filler in BOTH chapters' verses: the body must be decisively over the
+        # 10 KB default-leg target WITH a cut candidate between heavy atoms —
+        # atom weights exclude head/tail, so a marginal fixture packs into one
+        # group and never splits.
+        big = CH_ONLY.replace('<p class="verse-p">', '<p class="verse-p">' + "filler " * 1200)
+        for target_reader, expect_split in (("", True), ("kindle", False)):
+            tmp = tmp_path / (target_reader or "default")
+            tmp.mkdir()
+            (tmp / "index_split_007.html").write_text(big, encoding="utf-8")
+            ed = {"id": "x", "reader_file_split": True, "reader_file_split_target": 10_000}
+            if target_reader:
+                ed = {"id": "x", "reader_file_split": True, "target_reader": target_reader}
+            stats = apply_file_split(tmp, ed)
+            assert (stats["files_split"] > 0) == expect_split, (target_reader, stats)

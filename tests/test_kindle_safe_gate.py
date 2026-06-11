@@ -184,3 +184,32 @@ class TestDemotedTocTargetGate4l:
             )
         zf = zipfile.ZipFile(io.BytesIO(buf.getvalue()))
         assert _mod.demoted_toc_target_checks(zf, zf.namelist()) == []
+
+
+class TestHiddenCharCounterVoidElements:
+    """_hidden_text_chars must not treat void/self-closing elements as
+    containers: `<hr class="notes-rule"/>` matched as an OPEN tag and every
+    following `<hr/>` INCREMENTED depth, so the scan swallowed all text
+    between the first and last rule (98,016 phantom chars on the real
+    202205Z big-piece build — the only artifact change was piece size)."""
+
+    def test_self_closing_hr_counts_zero(self):
+        piece = (
+            "<html><body>"
+            '<hr class="notes-rule"/>'
+            "<p>" + "visible scripture text " * 600 + "</p>"
+            '<hr class="notes-rule"/>'
+            "</body></html>"
+        )
+        zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS + ".notes-rule { display: none; }\n", piece)
+        assert _mod._hidden_text_chars(zf, zf.namelist(), {"notes-rule"}) == 0
+
+    def test_real_hidden_container_still_counts(self):
+        piece = (
+            "<html><body>"
+            '<div class="secret">' + "hidden words " * 10 + "</div>"
+            "</body></html>"
+        )
+        zf = _zip(_KINDLE_OPF, "", piece)
+        counted = _mod._hidden_text_chars(zf, zf.namelist(), {"secret"})
+        assert counted >= len("hidden words ") * 10
