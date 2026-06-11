@@ -194,7 +194,62 @@ tap-list pins the Kobo cap.
 
 ## 8. Open items for Boggy (defaults set, all overridable)
 
-1. The format↔design mapping table (§3).
+1. The format↔design mapping table (§3). — **ANSWERED 2026-06-11: per-edition
+   covers, not per-format. See Addendum A.**
 2. The fifth format choice (standard EPUB recommended; alternatives: PDF
    export, Nook-specific) — standard EPUB also serves Nook.
+
+## Addendum A (2026-06-11, user-directed) — per-edition signature covers
+
+Boggy's call on open item 1, superseding §3's per-format design table and
+§5's "format's design in black" default ("I don't want it to say '— black'
+after every edition … each one of those has one of the 5 colours and one of
+the cover styles … display the cover we picked"):
+
+- **Every catalog asset wears the EDITION's own cover** — the recorded/factory
+  template each edition already ships with (`cover_template` / the σ.2 factory
+  map, now one-homed as `scripts.core.config.EDITION_COVER_TEMPLATES` with the
+  resolver `edition_cover_template`). `build_edition.edition_cover_signature`
+  parses it to `(design, colour)`. The nine signatures span 4 designs × all 5
+  colours — the variety the directive asks the catalog to showcase.
+- **`FORMAT_MATRIX.cover_design` is retired**; formats define only the build
+  profile + packaging. The asset name's colour leg is the edition's signature
+  colour (`build_format_matrix.cell_asset_name`), so the card a visitor sees
+  is byte-for-byte the cover inside the file they download.
+- **No cover swap for signature assets** — the base build already embeds the
+  edition's cover; the driver copies the base to the asset name.
+  `swap_epub_cover.py` + the committed-composite discipline (§4.2) remain the
+  M2 leg: `catalog_colour_variant_plan()` = 9 editions × their OWN design × 5
+  colours (45 composites), offered as per-cell colour picks.
+- **Gating re-keyed:** a format column lights only when EVERY edition's
+  signature-colour asset is published; M2 variant colours light per cell, only
+  where that edition's variant exists. The legacy never-remove-live cells now
+  cover both flagship files (epub on `everywhere`, kepub on `kobo`) while
+  their columns are dark.
+- **UI:** the `<details>` per-device lists are replaced by one cover CARD per
+  edition (the edition's `website/covers/<id>.jpg`, title, one download link
+  per live format — no colour words as link text). The Downloads page's
+  "Read the Ethiopian Bible" band and the catalog band merged into one
+  "Read the Bible — Choose Your Edition" band; the index "Choose your cover"
+  template showcase retired in favour of the real covers on the catalog cards.
+- **Migration protocol (hardened per the 2026-06-11 adversarial review — 6
+  confirmed findings, all addressed):** the 18 old-model (format-design ×
+  black) release assets are superseded. The four whose names collide with the
+  two black-signature editions (evangelical-reformed, lutheran-confessional ×
+  everywhere/apple) are clobbered by the re-run. Ordered steps, each gated:
+  1. Dispatch format-matrix on the tag; proceed ONLY on an ALL-GREEN run
+     (fail-fast:false means a partial run leaves stale colliding files
+     satisfying the name-presence gate — review findings #2/#4).
+  2. Verify the 4 colliding asset names were re-uploaded by THIS run
+     (`gh api …/assets` `updated_at` > dispatch time) — the freshness check
+     the name-only gate cannot do.
+  3. Regen the catalog (the new `check_no_withdrawal` guard refuses to write
+     a manifest that darkens a previously-live column — never-remove-live is
+     now structural, review findings #1/#3; the committed catalog fragment
+     stays at its live state until this step succeeds) → build → deploy.
+  4. AFTER the deploy, delete the 14 remaining old-model assets from the
+     release + prune their SHA256SUMS lines (they'd otherwise poison M2
+     variant cells — review finding #5; sums-membership is NOT a provenance
+     signal, the fan-in MERGES old lines forward).
+  5. Regen + redeploy once more (variant-clean manifest; no visible change).
 3. Whether colour variants ship in v1.0.0 (M2) or trail it.

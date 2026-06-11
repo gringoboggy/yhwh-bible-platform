@@ -202,20 +202,28 @@ content-addressable build cache (`scripts/core/build_cache.py`, `_PIPELINE_SCRIP
 `tests/test_build_cache.py::TestCacheCoverageGuard`) + an mtime incremental check. zip
 `compresslevel` stays 9 (quality > build speed — declined optimization, on the merits).
 
-**Format-matrix catalog flow (matrix M1, 2026-06-11 — downstream of the build):**
-`FORMAT_MATRIX` + `COVER_COLOURS` + `catalog_asset_name` (build_edition.py, beside
-`TARGET_READERS`) are the ONE home of the format↔target_reader↔cover-design↔packaging
-table. Consumers, never re-typing it: `scripts/build_format_matrix.py` (the per-edition
-CI driver: base build per distinct target via `--target-reader` → swap the committed
-composite `content/covers/catalog/<ed>_<design>_<colour>.jpg` in via
-`scripts/swap_epub_cover.py` (deterministic writer) → gates: zip + `scripts/epubcheck.py
---require --strict` + `dev/verify_kr2_build.py` → `sums-<ed>.txt`) ←
-`.github/workflows/format-matrix.yml` (one job per edition; SHA256SUMS fan-in job is the
-sole sums writer) → release assets → `scripts/gen_release_catalog.py` (paginated asset
-list + SHA256SUMS → `website/src/data/catalog.json` + `catalog.html`, full-count column
-gating, legacy-Kobo cell) → `website/build.mjs` inlines at `{{release_catalog}}` on
-releases.html. Composites: `generate_catalog_composite`/`m1_catalog_plan`
-(generate_edition_covers.py), committed — CI never composites in-runner.
+**Format-matrix catalog flow (matrix M1 + the 2026-06-11 per-edition-signature
+addendum — downstream of the build):** `FORMAT_MATRIX` + `COVER_COLOURS` +
+`catalog_asset_name` + `edition_cover_signature` (build_edition.py, beside
+`TARGET_READERS`) are the ONE home of the format↔target_reader↔packaging table and
+the edition→(design, colour) cover identity (the signature parses the stem from
+`scripts.core.config.edition_cover_template` / `EDITION_COVER_TEMPLATES` — the
+factory map's one home, re-exported by generate_edition_covers). Consumers, never
+re-typing it: `scripts/build_format_matrix.py` (the per-edition CI driver: base
+build per distinct target via `--target-reader` → COPY the base to
+`cell_asset_name` — the edition's own cover is already embedded; no swap → gates:
+zip + `scripts/epubcheck.py --require --strict` + `dev/verify_kr2_build.py` →
+`sums-<ed>.txt`) ← `.github/workflows/format-matrix.yml` (one job per edition;
+SHA256SUMS fan-in job is the sole sums writer) → release assets →
+`scripts/gen_release_catalog.py` (paginated asset list + SHA256SUMS →
+`website/src/data/catalog.json` + `catalog.html`; column lights only when EVERY
+edition's signature-colour asset is published; per-cell M2 variant colours;
+legacy flagship epub + kepub cells while their columns are dark) →
+`website/build.mjs` inlines at `{{release_catalog}}` on releases.html (one cover
+card per edition — `website/covers/<id>.jpg`). M2 composites:
+`generate_catalog_composite`/`catalog_colour_variant_plan` (9 editions × own
+design × 5 colours, generate_edition_covers.py), committed when M2 ships —
+`scripts/swap_epub_cover.py` is the M2 swap leg; CI never composites in-runner.
 
 **THE GAP — RESOLVED (2026-05-21):** the base scripture HTML was recovered from the v28a-50 snapshot
 and COMMITTED (`5ee2ad1`) so it can no longer be silently lost; `ebible build` produces valid EPUBs

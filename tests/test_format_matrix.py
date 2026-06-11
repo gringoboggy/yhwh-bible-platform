@@ -46,12 +46,15 @@ class TestFormatMatrixShape:
         )
 
     def test_required_fields_present_and_nonempty(self):
+        # No cover_design field: covers are the EDITION's, not the format's
+        # (spec addendum 2026-06-11 — edition_cover_signature).
         from scripts.build_edition import FORMAT_MATRIX
 
-        required = ("id", "label", "target_reader", "packaging", "cover_design", "phase")
+        required = ("id", "label", "target_reader", "packaging", "phase")
         for entry in FORMAT_MATRIX:
             for field in required:
                 assert entry.get(field), f"{entry.get('id')}: missing/empty {field!r}"
+            assert "cover_design" not in entry, f"{entry['id']}: per-format designs are retired"
 
     def test_every_target_reader_is_a_valid_profile(self):
         # The one-resolver invariant: a matrix row can only name a profile the
@@ -106,27 +109,67 @@ class TestFormatMatrixShape:
         }
 
 
-class TestFormatMatrixCovers:
-    """The 5×5 cover mapping — spec §3: every template family used once."""
+class TestEditionCoverSignature:
+    """Per-edition signature covers — spec addendum 2026-06-11 (user-
+    directed): each edition wears its OWN design + colour; the catalog card
+    a visitor sees is the cover inside the file they download."""
 
-    def test_each_design_family_used_exactly_once(self):
-        from scripts.build_edition import FORMAT_MATRIX
+    def _edition_ids(self):
+        from scripts.core.config import load_editions
+
+        return [e["id"] for e in load_editions() if not e.get("standalone")]
+
+    def test_every_edition_resolves_to_a_known_design_and_colour(self):
+        from scripts.build_edition import COVER_COLOURS, edition_cover_signature
 
         disk_designs, _ = _disk_designs_and_colours()
-        matrix_designs = [f["cover_design"] for f in FORMAT_MATRIX]
-        assert len(matrix_designs) == len(set(matrix_designs)), "a design family is reused"
-        assert set(matrix_designs) == disk_designs
+        for eid in self._edition_ids():
+            design, colour = edition_cover_signature(eid)
+            assert design in disk_designs, f"{eid}: unknown design {design!r}"
+            assert colour in COVER_COLOURS, f"{eid}: unknown colour {colour!r}"
 
-    def test_design_mapping_matches_spec(self):
-        from scripts.build_edition import FORMAT_MATRIX
+    def test_every_signature_template_png_exists(self):
+        from scripts.build_edition import edition_cover_signature
 
-        assert {f["id"]: f["cover_design"] for f in FORMAT_MATRIX} == {
-            "everywhere": "01_ornate_leafy",
-            "apple": "02_classical_corner",
-            "kindle": "03_beadline",
-            "kobo": "04_minimal_lines",  # highest e-ink contrast
-            "play": "05_missal_central",
-        }
+        for eid in self._edition_ids():
+            design, colour = edition_cover_signature(eid)
+            p = TEMPLATES_DIR / f"{design}_{colour}.png"
+            assert p.is_file(), f"{eid}: missing template {p.name}"
+
+    def test_flagship_signature_is_missal_central_red(self):
+        # The Ethiopian Tewahedo flagship's recorded identity (σ.2 factory
+        # map) — also the cover already on the live v0.1.0 flagship EPUB.
+        from scripts.build_edition import edition_cover_signature
+
+        assert edition_cover_signature("ethiopian-tewahedo") == ("05_missal_central", "red")
+
+    def test_signatures_showcase_real_variety(self):
+        # The user's directive: the catalog must showcase more than one
+        # colour and more than one cover style across the nine editions.
+        from scripts.build_edition import edition_cover_signature
+
+        sigs = [edition_cover_signature(e) for e in self._edition_ids()]
+        assert len({d for (d, _) in sigs}) >= 3, "fewer than 3 distinct designs across the editions"
+        assert len({c for (_, c) in sigs}) >= 3, "fewer than 3 distinct colours across the editions"
+
+    def test_typoed_cover_template_raises(self, monkeypatch):
+        import pytest
+
+        from scripts.build_edition import edition_cover_signature
+        from scripts.core import config
+
+        monkeypatch.setattr(
+            config,
+            "editions_by_id",
+            lambda: {"bad-ed": {"id": "bad-ed", "cover_template": "01_ornate_leafy_chartreuse"}},
+        )
+        with pytest.raises(ValueError, match="colour"):
+            edition_cover_signature("bad-ed")
+
+
+class TestCoverTemplateLibrary:
+    """The full 25-template library (5 designs × 5 colours) the M2 variant
+    generator composites from — a missing PNG breaks a variant cell."""
 
     def test_cover_colours_match_the_shipped_templates(self):
         from scripts.build_edition import COVER_COLOURS, DEFAULT_COVER_COLOUR
@@ -137,13 +180,13 @@ class TestFormatMatrixCovers:
         assert DEFAULT_COVER_COLOUR in COVER_COLOURS
 
     def test_every_design_colour_template_exists_on_disk(self):
-        # 5 designs × 5 colours = the full 25-template library the variant
-        # generator composites from; a missing PNG breaks an M2 variant cell.
-        from scripts.build_edition import COVER_COLOURS, FORMAT_MATRIX
+        from scripts.build_edition import COVER_COLOURS
 
-        for entry in FORMAT_MATRIX:
+        disk_designs, _ = _disk_designs_and_colours()
+        assert len(disk_designs) == 5
+        for design in disk_designs:
             for colour in COVER_COLOURS:
-                p = TEMPLATES_DIR / f"{entry['cover_design']}_{colour}.png"
+                p = TEMPLATES_DIR / f"{design}_{colour}.png"
                 assert p.is_file(), f"missing template: {p.name}"
 
 

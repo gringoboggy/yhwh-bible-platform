@@ -16,30 +16,21 @@ page: releases
         feedback shapes what comes next.</p>
     </section>
 
-    <!-- ──────────────── READ THE ETHIOPIAN BIBLE (the one EPUB) ─ -->
+    <!-- ──────────────── READ THE BIBLE — CHOOSE YOUR EDITION ──── -->
+    <!-- The card grid below is emitted by scripts/gen_release_catalog.py from the
+         release's REAL asset list (full-count gated: a device's download link
+         appears only when every edition's file is published), then inlined at
+         site build. Each card shows the edition's OWN cover — the same cover
+         inside the file you download. -->
     <section class="band band-alt" aria-labelledby="bible-h">
-      <h2 id="bible-h" class="rule">Read the Ethiopian Bible</h2>
-      <p class="prose">The full <strong>Ethiopian Tewahedo Study Bible</strong> — the 83-book canon with the complete
-        study apparatus (over 91,000 notes: cross-references, manuscript witnesses, commentary, word
-        studies, topical indexes and more) and original-language popups (Hebrew, Greek, Latin, Arabic). One file, free to read, copy, and share. No app required — it opens in any e-reader.</p>
-      <p class="platforms">
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-Ethiopian-Bible-v0.1.0.epub" download>Ethiopian Bible — EPUB (Apple Books &amp; most readers)</a>
-        <a class="btn-platform" href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-Ethiopian-Bible-v0.1.0.kepub.epub" download>Ethiopian Bible — Kobo (.kepub, for footnote popups)</a>
-      </p>
-      <p class="platform-note">On a <strong>Kobo</strong>, sideload the <code>.kepub.epub</code> — it turns on the
-        tap-to-read footnote popups. On Apple Books and most other readers, use the plain <code>.epub</code>.
-        Verify with <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
-    </section>
-
-    <!-- ──────────────── EDITION & DEVICE CATALOG (generated) ──── -->
-    <!-- The fragment below is emitted by scripts/gen_release_catalog.py from the
-         release's REAL asset list (full-count gated: a device column appears only
-         when every edition's file is published), then inlined at site build. -->
-    <section class="band" aria-labelledby="catalog-h">
-      <h2 id="catalog-h" class="rule">Choose your edition &amp; device</h2>
-      <p class="prose">Nine ready-made study editions — Ethiopian Tewahedo, Catholic, Reformed, Jewish,
-        academic, Eastern Orthodox, Anglican, Lutheran, and Coptic — each built for the device you read on.
-        Pick a tradition, open your device's list, download the file.</p>
+      <h2 id="bible-h" class="rule">Read the Bible <span class="cont">— Choose Your Edition</span></h2>
+      <p class="prose">The full <strong>Ethiopian Tewahedo Study Bible</strong> leads — the 83-book canon with
+        the complete study apparatus (over 91,000 notes: cross-references, manuscript witnesses, commentary,
+        word studies, topical indexes and more) and original-language popups (Hebrew, Greek, Latin, Arabic).
+        Beside it stand eight more ready-made study editions — Catholic, Reformed, Jewish, academic, Eastern
+        Orthodox, Anglican, Lutheran, and Coptic — each wearing its own cover from the program's
+        twenty-five designs. One file each, free to read, copy, and share. No app required — every edition
+        opens in any e-reader.</p>
       {{release_catalog}}
     </section>
 

@@ -2,7 +2,7 @@
 
 The CI workflow runs ONE job per edition with formats serial inside it
 (review blocker #4); the per-job work — which formats, which base builds,
-which composite, which final asset name — is computed HERE from
+which final asset name — is computed HERE from
 FORMAT_MATRIX + editions.yaml so the workflow YAML never re-types the
 format table or the edition list (the one-home MED). The YAML calls
 ``scripts/build_format_matrix.py``; these tests pin the driver's pure
@@ -47,23 +47,25 @@ class TestDistinctTargets:
         assert distinct_targets(cells) == ["everywhere"]
 
 
-class TestCompositePath:
-    def test_m1_cell_resolves_committed_composite(self):
-        from scripts.build_format_matrix import composite_path_for_cell, matrix_cells
+class TestCellAssetName:
+    """Spec addendum 2026-06-11: a cell's asset is the base build (the
+    edition's own cover already embedded) under the edition's SIGNATURE
+    colour — the card a visitor sees is the cover inside the file."""
+
+    def test_cell_asset_carries_the_editions_signature_colour(self):
+        from scripts.build_format_matrix import cell_asset_name, matrix_cells
 
         cell = matrix_cells(phase="M1")[0]
-        p = composite_path_for_cell("catholic-study", cell)
-        assert p.name == "catholic-study_01_ornate_leafy_black.jpg"
-        assert p.is_file(), "M1 is gated on the committed composites (spec §6)"
+        # catholic-study's signature is 02_classical_corner_navy (factory map).
+        assert cell_asset_name("catholic-study", "0.1.0", cell) == "YHWH-catholic-study-v0.1.0-everywhere-navy.epub"
 
-    def test_missing_composite_raises(self):
-        import pytest
+    def test_flagship_signature_colour_is_red(self):
+        from scripts.build_format_matrix import cell_asset_name
 
-        from scripts.build_format_matrix import composite_path_for_cell
-
-        cell = {"id": "everywhere", "cover_design": "01_ornate_leafy", "target_reader": "everywhere"}
-        with pytest.raises(FileNotFoundError, match="composite"):
-            composite_path_for_cell("no-such-edition", cell)
+        assert (
+            cell_asset_name("ethiopian-tewahedo", "v0.1.0", {"id": "apple"})
+            == "YHWH-ethiopian-tewahedo-v0.1.0-apple-red.epub"
+        )
 
 
 class TestStandardEditionIds:

@@ -303,6 +303,38 @@ def load_editions():
     return _parse_yaml_records(p.read_text())
 
 
+# Edition → factory cover-template stem (``<NN>_<design>_<colour>``). The
+# ONE home (moved from generate_edition_covers so cover-free consumers —
+# build_edition's catalog signature, the release-catalog generator — never
+# import Pillow): batch regen, the /customize "reset to factory template"
+# path, and the Downloads-catalog signature all read THIS map when
+# editions.yaml hasn't recorded a ``cover_template``. The colour-to-tradition
+# rationale lives in scripts/generate_edition_covers.py's module docstring.
+EDITION_COVER_TEMPLATES = {
+    "ethiopian-tewahedo": "05_missal_central_red",
+    "catholic-study": "02_classical_corner_navy",
+    "evangelical-reformed": "03_beadline_black",
+    "jewish-study": "02_classical_corner_brown",
+    "scholarly-academic": "03_beadline_forest",
+    "eastern-orthodox": "01_ornate_leafy_red",
+    "anglican-bcp": "03_beadline_navy",
+    "lutheran-confessional": "02_classical_corner_black",
+    "coptic-orthodox": "01_ornate_leafy_brown",
+}
+DEFAULT_COVER_TEMPLATE = "03_beadline_navy"
+
+
+def edition_cover_template(edition_id):
+    """The cover template stem for ``edition_id`` — the edition's recorded
+    ``cover_template`` from editions.yaml when set, else its factory default
+    from ``EDITION_COVER_TEMPLATES``, else the project-wide default."""
+    ed = editions_by_id().get(edition_id, {})
+    stem = str(ed.get("cover_template") or "").strip()
+    if stem:
+        return stem
+    return EDITION_COVER_TEMPLATES.get(edition_id, DEFAULT_COVER_TEMPLATE)
+
+
 def books_by_code():
     """Return a dict mapping book code → book dict (e.g. ``{"gen": {...}}``)."""
     return {b["code"]: b for b in load_books()}

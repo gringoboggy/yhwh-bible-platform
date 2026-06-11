@@ -1856,24 +1856,25 @@ def is_kindle_target(edition: dict) -> bool:
 
 
 # Matrix M1 — the website Downloads catalog's format table, in its ONE in-repo
-# home (format-matrix spec §5, review MED: the format↔profile↔design mapping is
+# home (format-matrix spec §5, review MED: the format↔profile mapping is
 # consumed by the CI matrix workflow, scripts/gen_release_catalog.py, and the
 # site build — never re-typed per consumer, the MATRIX_MAP-#3 drift class).
 # Rows are in catalog-tab order (spec §2). Each format is the 9 canon editions
 # built under the row's ``target_reader`` profile via ``--target-reader`` (no
-# second control path; editions.yaml stays byte-stable). ``cover_design`` is
-# the format's default template family (spec §3 — every one of the 5 families
-# used exactly once; colour = the downloader's pick). ``phase`` is the spec §6
-# gate the format's catalog column ships behind (the column itself only
-# appears when the release carries its full asset complement — never
-# over-claim). Per-reader capability EVIDENCE lives in dev/EREADERS.md.
+# second control path; editions.yaml stays byte-stable). Covers are the
+# EDITION's, not the format's (spec addendum 2026-06-11, user-directed: each
+# edition wears its own signature design + colour — ``edition_cover_signature``
+# below; the format-design column this table carried in M1-as-shipped is
+# retired). ``phase`` is the spec §6 gate the format's catalog column ships
+# behind (the column itself only appears when the release carries its full
+# asset complement — never over-claim). Per-reader capability EVIDENCE lives
+# in dev/EREADERS.md.
 FORMAT_MATRIX: tuple[dict, ...] = (
     {
         "id": "everywhere",
         "label": "Computer & everywhere else",
         "target_reader": "everywhere",
         "packaging": "epub",
-        "cover_design": "01_ornate_leafy",
         "phase": "M1",
     },
     {
@@ -1881,7 +1882,6 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "label": "Apple Books",  # term-ref-ok: free-catalog platform label, not store distribution
         "target_reader": "tablet",
         "packaging": "epub",
-        "cover_design": "02_classical_corner",
         "phase": "M1",
     },
     {
@@ -1889,7 +1889,6 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "label": "Kobo & e-ink",
         "target_reader": "eink",
         "packaging": "kepub.epub",
-        "cover_design": "04_minimal_lines",  # highest e-ink contrast (spec §3)
         "phase": "M3",
     },
     {
@@ -1897,7 +1896,6 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "label": "Kindle",
         "target_reader": "kindle",
         "packaging": "epub",  # Send-to-Kindle upload format
-        "cover_design": "03_beadline",
         "phase": "M4",
     },
     {
@@ -1907,16 +1905,36 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         # the user's phone-QA demands it (spec §2 row 5).
         "target_reader": "everywhere",
         "packaging": "epub",
-        "cover_design": "05_missal_central",
         "phase": "M5",
     },
 )
 
 # The 5 template colours shipped in content/covers/templates/ (5 designs × 5
-# colours = the full 25-template library). The catalog's default view is the
-# format's design in black (spec §5).
+# colours = the full 25-template library). The catalog's default view is each
+# edition's own signature colour (spec addendum 2026-06-11); M2 adds the
+# other colours of the edition's design as downloader picks.
 COVER_COLOURS: tuple[str, ...] = ("black", "brown", "forest", "navy", "red")
 DEFAULT_COVER_COLOUR = "black"
+
+
+def edition_cover_signature(edition_id: str) -> tuple[str, str]:
+    """The edition's OWN cover identity ``(design, colour)`` — parsed from its
+    recorded/factory template stem (``<NN>_<design>_<colour>``, the one-home
+    resolver ``scripts.core.config.edition_cover_template``). This is the
+    cover the normal build embeds, the cover the website catalog displays,
+    and the colour leg of the edition's catalog asset names — one identity,
+    so the card a visitor sees is byte-for-byte the cover they download.
+    Raises on a stem whose colour leg isn't a known template colour (a typo'd
+    ``cover_template`` must fail loudly, never ship a mis-named asset)."""
+    from scripts.core.config import edition_cover_template
+
+    stem = edition_cover_template(edition_id)
+    design, _, colour = stem.rpartition("_")
+    if not design or colour not in COVER_COLOURS:
+        raise ValueError(
+            f"edition {edition_id!r} cover template {stem!r} does not end in a known colour {COVER_COLOURS}"
+        )
+    return design, colour
 
 
 def format_by_id(format_id: str) -> dict:

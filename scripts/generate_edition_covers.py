@@ -47,26 +47,23 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))  # CLI runs put scripts/ on sys.path, not the repo root
+
+from scripts.core.config import EDITION_COVER_TEMPLATES  # noqa: E402
+
 COVERS_DIR = REPO_ROOT / "content" / "covers"
 TEMPLATES_DIR = COVERS_DIR / "templates"
 
 # Edition → factory cover-template stem. σ.2 dropped the hard-coded title
 # strings (the cover text now comes from editions.yaml via
-# ``cover_text_for_edition``); this map is kept ONLY so batch regen + the
-# /customize "reset to factory template" path know each edition's default
-# template when editions.yaml hasn't recorded a ``cover_template`` yet. The
-# colour-to-tradition rationale lives in the module docstring above.
-EDITION_TEMPLATES: dict[str, str] = {
-    "ethiopian-tewahedo": "05_missal_central_red",
-    "catholic-study": "02_classical_corner_navy",
-    "evangelical-reformed": "03_beadline_black",
-    "jewish-study": "02_classical_corner_brown",
-    "scholarly-academic": "03_beadline_forest",
-    "eastern-orthodox": "01_ornate_leafy_red",
-    "anglican-bcp": "03_beadline_navy",
-    "lutheran-confessional": "02_classical_corner_black",
-    "coptic-orthodox": "01_ornate_leafy_brown",
-}
+# ``cover_text_for_edition``). The map's ONE home is scripts/core/config.py
+# (``EDITION_COVER_TEMPLATES``) so cover-free consumers — build_edition's
+# catalog signature, the release-catalog generator — never import Pillow;
+# this module re-exports it for batch regen + the /customize "reset to
+# factory template" path. The colour-to-tradition rationale lives in the
+# module docstring above.
+EDITION_TEMPLATES: dict[str, str] = EDITION_COVER_TEMPLATES
 
 # The standard editions, in declaration order, for batch regeneration.
 STANDARD_EDITION_IDS: list[str] = list(EDITION_TEMPLATES.keys())
@@ -75,14 +72,11 @@ STANDARD_EDITION_IDS: list[str] = list(EDITION_TEMPLATES.keys())
 def template_for_edition(edition_id: str) -> str:
     """The cover template stem for ``edition_id`` — the edition's recorded
     ``cover_template`` from editions.yaml when set, else its factory default
-    from ``EDITION_TEMPLATES``, else the project-wide default template."""
+    from ``EDITION_TEMPLATES``, else the project-wide default template.
+    Delegates to the one-home resolver in scripts/core/config.py."""
     from scripts.core import config
 
-    ed = config.editions_by_id().get(edition_id, {})
-    stem = str(ed.get("cover_template") or "").strip()
-    if stem:
-        return stem
-    return EDITION_TEMPLATES.get(edition_id, "03_beadline_navy")
+    return config.edition_cover_template(edition_id)
 
 
 def cover_text_for_edition(edition_id: str) -> tuple[str, str]:
@@ -508,26 +502,32 @@ def _compose_cover(template_stem: str, main_title: str, subtitle: str = "") -> I
     return base
 
 
-# Matrix M1 (format-matrix spec §4.2, review blocker #2) — the Downloads
-# catalog's cover composites. Each catalog cell carries the FORMAT's design
-# (FORMAT_MATRIX cover_design) composited with the EDITION's cover text in the
-# downloader's colour; the raw template PNG would be wrong twice (title-less
-# art + PNG bytes in the OPF's image/jpeg cover slot). Composites are
-# generated HERE on the canonical fonts and COMMITTED under
-# content/covers/catalog/ — CI swaps the committed bytes into the built EPUBs
-# and never composites in-runner, so the ubuntu font-divergence class the Mac
-# review flagged cannot occur at all.
+# Downloads-catalog cover composites (format-matrix spec §4.2 + addendum
+# 2026-06-11). The signature catalog assets need NO composite — the base
+# build already embeds the edition's own committed cover. Composites exist
+# for the M2 COLOUR VARIANTS: the edition's OWN design re-composited in each
+# non-signature colour ("HOLY BIBLE" + subtitle on the colour's template; a
+# raw template PNG would be wrong twice — title-less art + PNG bytes in the
+# OPF's image/jpeg cover slot). Variant composites are generated HERE on the
+# canonical fonts and COMMITTED under content/covers/catalog/ — CI swaps
+# committed bytes into the built EPUBs and never composites in-runner, so
+# the ubuntu font-divergence class the Mac review flagged cannot occur.
 CATALOG_DIR = COVERS_DIR / "catalog"
 
 
-def m1_catalog_plan() -> list[tuple[str, str, str]]:
-    """The M1 composite set: every standard edition × each M1 format's design
-    × the default colour — ``(edition_id, design, colour)`` triples, editions
-    in declaration order, designs in FORMAT_MATRIX order within each."""
-    from scripts.build_edition import DEFAULT_COVER_COLOUR, FORMAT_MATRIX
+def catalog_colour_variant_plan() -> list[tuple[str, str, str]]:
+    """The M2 composite set: every standard edition × its OWN signature
+    design × every template colour — ``(edition_id, design, colour)``
+    triples, editions in declaration order, colours in COVER_COLOURS order
+    within each (the signature colour included: its composite doubles as a
+    pinnable rendering of the cover the base build embeds)."""
+    from scripts.build_edition import COVER_COLOURS, edition_cover_signature
 
-    m1_designs = [f["cover_design"] for f in FORMAT_MATRIX if f["phase"] == "M1"]
-    return [(e, d, DEFAULT_COVER_COLOUR) for e in STANDARD_EDITION_IDS for d in m1_designs]
+    plan: list[tuple[str, str, str]] = []
+    for e in STANDARD_EDITION_IDS:
+        design, _sig_colour = edition_cover_signature(e)
+        plan.extend((e, design, c) for c in COVER_COLOURS)
+    return plan
 
 
 def generate_catalog_composite(edition_id: str, design: str, colour: str, out_dir: Path | None = None) -> Path:
@@ -551,10 +551,10 @@ def generate_catalog_composite(edition_id: str, design: str, colour: str, out_di
     return out_path
 
 
-def generate_m1_catalog_composites() -> list[Path]:
-    """Generate the full committed M1 catalog set (18 = 9 editions × the 2 M1
-    designs in the default colour)."""
-    return [generate_catalog_composite(e, d, c) for (e, d, c) in m1_catalog_plan()]
+def generate_catalog_colour_variants() -> list[Path]:
+    """Generate the full committed M2 variant set (45 = 9 editions × their
+    own design in all 5 colours)."""
+    return [generate_catalog_composite(e, d, c) for (e, d, c) in catalog_colour_variant_plan()]
 
 
 def _generate_one(edition_id: str, template_stem: str | None = None) -> Path:

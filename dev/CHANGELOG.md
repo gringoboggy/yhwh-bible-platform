@@ -4,6 +4,13 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-11 — session (🪟 Windows, turn 76) — per-edition signature covers: the Downloads catalog redesigned as cover cards (each edition wears its OWN cover) · band-alt CSS class fix · never-remove-live made structural
+
+**Phases shipped:** matrix M1.5 (user-directed cover-identity redesign: no "— black" labels, per-edition design+colour, merged bands, card grid) + the site-wide `.band-alt` layout fix (the user's 5 desktop screenshots root-caused to per-child auto-margin centering cancelled by child margin rules)
+**Test delta:** catalog arc re-pinned at 62 (test_format_matrix 21 · test_build_format_matrix 10 · test_gen_release_catalog 25 incl. TestNoWithdrawGuard · test_catalog_composites 6); sibling cover suites 49 green; ruff clean
+**Review:** adversarial workflow (8 agents) — 6 confirmed findings, all addressed in-session (no-withdraw guard · colliding-name freshness protocol · stale-asset deletion sequencing · gate-aware copy)
+**Save tag:** milestone 5-leg `signature-covers-shipped`; then the Addendum-A migration protocol (CI all-green → freshness check → regen+deploy → delete 14 stale assets + prune sums → final regen)
+
 ## 2026-06-11 — session (🪟 Windows, turn 75) — matrix M1 shipped end-to-end: FORMAT_MATRIX one-home · 18 committed catalog composites · CI matrix pipeline · release-catalog generator · Downloads catalog UI
 
 **Phases shipped:** matrix M1, all 5 remaining work items (after turn 74's blocker #1)

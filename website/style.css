@@ -86,8 +86,17 @@ a { color: var(--indigo); }
 
 /* sections */
 .band { max-width: var(--maxw); margin: 0 auto; padding: 1.75rem 1.25rem; }
-.band-alt { background: var(--parchment); max-width: none; border-block: 2px double var(--gold-line); }
-.band-alt > * { max-width: var(--maxw); margin-inline: auto; }
+/* band-alt: full-bleed parchment background, with the CONTENT column centered
+   via padding (not per-child auto margins — those were silently cancelled by
+   any child whose own rule set margins (.rule, .platforms, .sub-h, ...), so on
+   wide screens headings pinned to the viewport edge while prose floated mid-
+   screen). The padding trick keeps every child on the same left edge as a
+   plain .band section. */
+.band-alt {
+  background: var(--parchment); border-block: 2px double var(--gold-line);
+  max-width: none;
+  padding-inline: max(1.25rem, calc((100% - var(--maxw)) / 2 + 1.25rem));
+}
 .rule { font-size: 1.45rem; color: var(--ink); margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 2px double var(--gold-line); }
 .helper { color: var(--sepia); margin: -.4rem 0 1.25rem; }
 
@@ -133,19 +142,19 @@ a { color: var(--indigo); }
 }
 .download:hover { background: var(--red-dark); }
 
-/* downloads catalog (releases page) — the generated per-device edition lists.
-   Native <details> so the catalog works without JavaScript. */
-.catalog-format {
-  max-width: 46rem; margin: .75rem 0;
-  background: var(--parchment); border: 1px solid var(--gold-line); border-radius: 3px;
+/* downloads catalog (releases page) — one cover card per edition, a download
+   link per device. Static markup from gen_release_catalog.py; no JavaScript. */
+.catalog-cards { grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); margin-top: 1.25rem; }
+.catalog-cards .card-body { gap: .6rem; }
+.catalog-cards h3 { font-size: 1.1rem; }
+.dl-row { margin: 0; display: flex; flex-direction: column; gap: .45rem; }
+.dl-row a {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+  text-decoration: none; text-align: center; font-size: .95rem; line-height: 1.25;
+  color: var(--indigo); background: var(--vellum);
+  border: 1px solid var(--gold-line); border-radius: 4px; padding: .4rem .6rem;
 }
-.catalog-format summary {
-  cursor: pointer; padding: .75rem 1rem; min-height: 44px; box-sizing: border-box;
-  font-weight: 600; color: var(--ink);
-}
-.catalog-format summary .meta { font-weight: 400; }
-.catalog-format[open] summary { border-bottom: 1px solid var(--gold-line); }
-.catalog-list { margin: 0; padding: .6rem 1rem .8rem 1.8rem; display: grid; gap: .4rem; }
+.dl-row a:hover { background: #fff; border-color: var(--indigo); }
 .download .size { opacity: .85; font-size: .9em; }
 /* whole-card clickable, accessible name stays on the link */
 .download::after { content: ""; position: absolute; inset: 0; }

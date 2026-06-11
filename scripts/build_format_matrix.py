@@ -10,10 +10,11 @@ never re-types the format table or the edition list (review MED).
 Per phase-eligible format cell it:
   1. builds the base ONCE per distinct ``target_reader`` via the canonical
      CLI (``build_edition.py <id> --target-reader <t> --version <v>``);
-  2. swaps the cell's committed catalog composite
-     (content/covers/catalog/<edition>_<design>_<colour>.jpg) into the base
-     deterministically (scripts/swap_epub_cover.py) under the cell's
-     release-asset name (``catalog_asset_name``);
+  2. copies the base to the cell's release-asset name
+     (``catalog_asset_name`` with the EDITION's signature colour — spec
+     addendum 2026-06-11: every catalog asset wears the edition's OWN
+     committed cover, which the base build already embeds; no cover swap.
+     scripts/swap_epub_cover.py remains the M2 colour-variant leg);
   3. gates the final asset: zip integrity + epubcheck 0/0/0/0 (and the
      dev/verify_kr2_build.py artifact gates) — skippable for local probes;
   4. writes a sha256sum-compatible ``sums-<edition>.txt`` the fan-in
@@ -40,8 +41,6 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))  # CLI runs put scripts/ on sys.path, not the repo root
 
-CATALOG_COVERS_DIR = REPO_ROOT / "content" / "covers" / "catalog"
-
 
 def matrix_cells(phase: str = "M1", formats: list[str] | None = None) -> list[dict]:
     """The FORMAT_MATRIX rows this run ships: every row whose gating phase is
@@ -64,17 +63,14 @@ def distinct_targets(cells: list[dict]) -> list[str]:
     return seen
 
 
-def composite_path_for_cell(edition_id: str, cell: dict, colour: str | None = None) -> Path:
-    """The committed catalog composite for (edition × cell-design × colour).
-    Raises when missing: M1 is explicitly GATED on the committed composites
-    (spec §6) — a missing one must fail the job, never ship a wrong cover."""
-    from scripts.build_edition import DEFAULT_COVER_COLOUR
+def cell_asset_name(edition_id: str, version: str, cell: dict) -> str:
+    """The cell's release-asset name: ``catalog_asset_name`` with the
+    EDITION's signature colour (its own cover's colour — the one identity
+    the card displays and the file carries)."""
+    from scripts.build_edition import catalog_asset_name, edition_cover_signature
 
-    colour = colour or DEFAULT_COVER_COLOUR
-    p = CATALOG_COVERS_DIR / f"{edition_id}_{cell['cover_design']}_{colour}.jpg"
-    if not p.is_file():
-        raise FileNotFoundError(f"missing catalog composite: {p} (generate_catalog_composite + commit it)")
-    return p
+    _design, colour = edition_cover_signature(edition_id)
+    return catalog_asset_name(edition_id, version, cell["id"], colour)
 
 
 def standard_edition_ids() -> list[str]:
@@ -150,10 +146,8 @@ def build_edition_assets(
     gates: bool = True,
 ) -> list[Path]:
     """Build every phase-eligible catalog asset for one edition; returns the
-    final asset paths (named per ``catalog_asset_name``)."""
-    from scripts.build_edition import DEFAULT_COVER_COLOUR, catalog_asset_name
-    from scripts.swap_epub_cover import swap_cover
-
+    final asset paths (named per ``cell_asset_name`` — the edition's own
+    cover, already embedded by the base build, under its signature colour)."""
     cells = matrix_cells(phase=phase)
     if not cells:
         raise ValueError(f"no formats gate at phase {phase!r}")
@@ -166,10 +160,9 @@ def build_edition_assets(
 
     assets: list[Path] = []
     for cell in cells:
-        composite = composite_path_for_cell(edition_id, cell)
-        asset = out_dir / catalog_asset_name(edition_id, version, cell["id"], DEFAULT_COVER_COLOUR)
-        print(f"[{edition_id}] cell {cell['id']}: swap {composite.name} -> {asset.name}", flush=True)
-        swap_cover(bases[cell["target_reader"]], composite, asset)
+        asset = out_dir / cell_asset_name(edition_id, version, cell)
+        print(f"[{edition_id}] cell {cell['id']}: {bases[cell['target_reader']].name} -> {asset.name}", flush=True)
+        shutil.copyfile(bases[cell["target_reader"]], asset)
         if gates:
             _gate_asset(asset)
         assets.append(asset)
