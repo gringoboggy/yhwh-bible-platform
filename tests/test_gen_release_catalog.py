@@ -196,6 +196,21 @@ class TestRenderCatalogFragment:
         html = render_catalog_fragment(self._catalog())
         assert "sideload" in html and "kepub" in html
 
+    def test_variant_colours_render_inside_the_other_colours_picker(self):
+        from scripts.build_edition import catalog_asset_name
+        from scripts.gen_release_catalog import render_catalog_fragment
+
+        variant = catalog_asset_name("gamma-ed", "0.1.0", "everywhere", "forest")
+        html = render_catalog_fragment(self._catalog(names=_m1_assets(extra=[variant])))
+        assert "Other colours" in html
+        assert "Forest —" in html  # colour named as plain text, never link text
+        assert html.count(variant) == 1
+
+    def test_no_picker_when_only_signatures_exist(self):
+        from scripts.gen_release_catalog import render_catalog_fragment
+
+        assert "Other colours" not in render_catalog_fragment(self._catalog())
+
     def test_pick_imperative_only_in_the_live_state(self):
         # Review 2026-06-11 finding #6: the page must never instruct a pick
         # the dark state can't honour — the imperative lives in the

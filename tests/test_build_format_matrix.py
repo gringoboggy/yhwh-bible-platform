@@ -68,6 +68,47 @@ class TestCellAssetName:
         )
 
 
+class TestVariantLeg:
+    """M2 (spec Addendum A): every cell also ships the edition's OWN design
+    in the other template colours — committed composites swapped onto the
+    base; signature first, COVER_COLOURS order for the rest."""
+
+    def test_cell_asset_names_signature_first_then_variants(self):
+        from scripts.build_format_matrix import cell_asset_names
+
+        names = cell_asset_names("catholic-study", "0.1.0", {"id": "everywhere"})
+        assert [c for (c, _) in names] == ["navy", "black", "brown", "forest", "red"]
+        assert names[0][1] == "YHWH-catholic-study-v0.1.0-everywhere-navy.epub"
+        assert names[2][1] == "YHWH-catholic-study-v0.1.0-everywhere-brown.epub"
+
+    def test_variant_composite_resolves_committed_own_design_file(self):
+        from scripts.build_format_matrix import variant_composite_path
+
+        p = variant_composite_path("catholic-study", "forest")
+        assert p.name == "catholic-study_02_classical_corner_forest.jpg"
+        assert p.is_file(), "M2 is gated on the committed variant composites"
+
+    def test_every_planned_variant_composite_is_committed(self):
+        # The full 45-set must be on disk before any CI variant run.
+        from scripts.build_format_matrix import CATALOG_COVERS_DIR
+        from scripts.generate_edition_covers import catalog_colour_variant_plan
+
+        missing = [
+            f"{e}_{d}_{c}.jpg"
+            for (e, d, c) in catalog_colour_variant_plan()
+            if not (CATALOG_COVERS_DIR / f"{e}_{d}_{c}.jpg").is_file()
+        ]
+        assert not missing, f"missing variant composites: {missing}"
+
+    def test_missing_composite_raises(self):
+        import pytest
+
+        from scripts.build_format_matrix import variant_composite_path
+
+        with pytest.raises(FileNotFoundError, match="composite"):
+            variant_composite_path("no-such-edition", "forest")
+
+
 class TestStandardEditionIds:
     def test_nine_non_standalone_editions_in_declaration_order(self):
         from scripts.build_format_matrix import standard_edition_ids

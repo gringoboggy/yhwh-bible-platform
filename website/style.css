@@ -155,6 +155,11 @@ a { color: var(--indigo); }
   border: 1px solid var(--gold-line); border-radius: 4px; padding: .4rem .6rem;
 }
 .dl-row a:hover { background: #fff; border-color: var(--indigo); }
+/* M2 colour-variant picker — quiet, no-JS <details> under the card buttons */
+.alt-colours { font-size: .9rem; color: var(--sepia); }
+.alt-colours summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.alt-colours p { margin: .3rem 0; }
+.alt-colours a { color: var(--indigo); }
 .download .size { opacity: .85; font-size: .9em; }
 /* whole-card clickable, accessible name stays on the link */
 .download::after { content: ""; position: absolute; inset: 0; }

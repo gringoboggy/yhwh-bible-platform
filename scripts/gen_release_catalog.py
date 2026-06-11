@@ -171,6 +171,57 @@ def _design_label(design: str) -> str:
     return _DESIGN_LABELS.get(design, design.split("_", 1)[-1].replace("_", " "))
 
 
+def _render_edition_card(e: dict, live: list[dict], by_id: dict[str, dict]) -> str:
+    """One edition's cover card: cover art + title + a download button per
+    live format (signature colour) + the never-remove-live legacy offerings
+    + the M2 "Other colours" picker (only colours whose assets exist)."""
+    from html import escape
+
+    eid = e["id"]
+    title = e.get("title") or eid
+    alt = f"{title} cover — {_design_label(e.get('signature_design', ''))} in {e.get('signature_colour', '')}"
+    buttons: list[str] = []
+    for fmt in live:
+        cell = fmt["cells"].get(eid) or {}
+        sig = cell.get(e.get("signature_colour", ""))
+        if sig:
+            buttons.append(f"<a href='{escape(sig['url'])}' download>{escape(fmt['label'])}</a>")
+    # Never-remove-live: the flagship files the site serves today stay
+    # offered on the Ethiopian card while their columns are dark.
+    for fmt_id, label in (("everywhere", "Computer & everywhere else"), ("kobo", "Kobo (.kepub)")):
+        fmt = by_id.get(fmt_id)
+        legacy = (fmt or {}).get("legacy_cell")
+        if fmt is not None and not fmt["live"] and legacy and legacy["edition"] == eid:
+            buttons.append(f"<a href='{escape(legacy['url'])}' download>{escape(label)}</a>")
+    body = f"<h3>{escape(title)}</h3>"
+    if buttons:
+        body += f"<p class='dl-row'>{''.join(buttons)}</p>"
+    # M2 colour variants: the same edition's design in the other template
+    # colours, grouped per colour, inside a quiet no-JS <details> picker.
+    # Only colours whose assets REALLY exist render (per-cell gating).
+    variant_links: dict[str, list[str]] = {}
+    for fmt in live:
+        cell = fmt["cells"].get(eid) or {}
+        for colour, c in cell.items():
+            if colour == e.get("signature_colour"):
+                continue
+            variant_links.setdefault(colour, []).append(
+                f"<a href='{escape(c['url'])}' download>{escape(fmt['label'])}</a>"
+            )
+    if variant_links:
+        rows = "".join(
+            f"<p>{escape(colour.capitalize())} — {' · '.join(links)}</p>" for colour, links in variant_links.items()
+        )
+        body += f"<details class='alt-colours'><summary>Other colours</summary>{rows}</details>"
+    return (
+        "<article class='card card-static'>"
+        f"<img class='cover' src='{{{{root}}}}{escape(e.get('cover', ''))}' alt='{escape(alt)}' "
+        "width='800' height='1200' loading='lazy'>"
+        f"<div class='card-body'>{body}</div>"
+        "</article>"
+    )
+
+
 def render_catalog_fragment(catalog: dict) -> str:
     """The no-JS-first HTML fragment ``build.mjs`` inlines at
     ``{{release_catalog}}``: one cover CARD per edition — the edition's own
@@ -197,34 +248,7 @@ def render_catalog_fragment(catalog: dict) -> str:
             "edition joins it as its builds are published.</p>"
         )
 
-    cards: list[str] = []
-    for e in catalog["editions"]:
-        eid = e["id"]
-        title = e.get("title") or eid
-        alt = f"{title} cover — {_design_label(e.get('signature_design', ''))} in {e.get('signature_colour', '')}"
-        buttons: list[str] = []
-        for fmt in live:
-            cell = fmt["cells"].get(eid) or {}
-            sig = cell.get(e.get("signature_colour", ""))
-            if sig:
-                buttons.append(f"<a href='{escape(sig['url'])}' download>{escape(fmt['label'])}</a>")
-        # Never-remove-live: the flagship files the site serves today stay
-        # offered on the Ethiopian card while their columns are dark.
-        for fmt_id, label in (("everywhere", "Computer & everywhere else"), ("kobo", "Kobo (.kepub)")):
-            fmt = by_id.get(fmt_id)
-            legacy = (fmt or {}).get("legacy_cell")
-            if fmt is not None and not fmt["live"] and legacy and legacy["edition"] == eid:
-                buttons.append(f"<a href='{escape(legacy['url'])}' download>{escape(label)}</a>")
-        body = f"<h3>{escape(title)}</h3>"
-        if buttons:
-            body += f"<p class='dl-row'>{''.join(buttons)}</p>"
-        cards.append(
-            "<article class='card card-static'>"
-            f"<img class='cover' src='{{{{root}}}}{escape(e.get('cover', ''))}' alt='{escape(alt)}' "
-            "width='800' height='1200' loading='lazy'>"
-            f"<div class='card-body'>{body}</div>"
-            "</article>"
-        )
+    cards = [_render_edition_card(e, live, by_id) for e in catalog["editions"]]
     parts.append(f"<div class='grid gallery catalog-cards'>{''.join(cards)}</div>")
 
     kobo = by_id.get("kobo")
@@ -232,7 +256,8 @@ def render_catalog_fragment(catalog: dict) -> str:
         parts.append(
             "<p class='platform-note'>On a <strong>Kobo</strong>, sideload the "
             "<code>.kepub.epub</code> — it turns on the tap-to-read footnote popups. "
-            "On Apple Books and most other readers, use the plain <code>.epub</code>.</p>"  # term-ref-ok: free-catalog platform label, not store distribution
+            "On Apple Books and most other readers, "  # term-ref-ok: platform label
+            "use the plain <code>.epub</code>.</p>"
         )
     base_url = catalog.get("base_url") or f"https://github.com/{DEFAULT_REPO}/releases/download/{catalog['tag']}"
     parts.append(

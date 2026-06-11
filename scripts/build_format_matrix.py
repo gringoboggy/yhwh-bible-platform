@@ -10,11 +10,12 @@ never re-types the format table or the edition list (review MED).
 Per phase-eligible format cell it:
   1. builds the base ONCE per distinct ``target_reader`` via the canonical
      CLI (``build_edition.py <id> --target-reader <t> --version <v>``);
-  2. copies the base to the cell's release-asset name
-     (``catalog_asset_name`` with the EDITION's signature colour — spec
-     addendum 2026-06-11: every catalog asset wears the edition's OWN
-     committed cover, which the base build already embeds; no cover swap.
-     scripts/swap_epub_cover.py remains the M2 colour-variant leg);
+  2. emits every colour of each cell (``cell_asset_names``): the SIGNATURE
+     asset is the base copied under the signature colour's name (the
+     edition's OWN cover is already embedded — spec addendum 2026-06-11),
+     and each M2 variant colour is the base with the edition's own-design
+     committed composite (content/covers/catalog/) swapped in
+     deterministically via scripts/swap_epub_cover.py;
   3. gates the final asset: zip integrity + epubcheck 0/0/0/0 (and the
      dev/verify_kr2_build.py artifact gates) — skippable for local probes;
   4. writes a sha256sum-compatible ``sums-<edition>.txt`` the fan-in
@@ -40,6 +41,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))  # CLI runs put scripts/ on sys.path, not the repo root
+
+CATALOG_COVERS_DIR = REPO_ROOT / "content" / "covers" / "catalog"
 
 
 def matrix_cells(phase: str = "M1", formats: list[str] | None = None) -> list[dict]:
@@ -71,6 +74,31 @@ def cell_asset_name(edition_id: str, version: str, cell: dict) -> str:
 
     _design, colour = edition_cover_signature(edition_id)
     return catalog_asset_name(edition_id, version, cell["id"], colour)
+
+
+def cell_asset_names(edition_id: str, version: str, cell: dict) -> list[tuple[str, str]]:
+    """Every colour's ``(colour, asset name)`` for one cell — the signature
+    colour FIRST (the card's default download), then the M2 variant colours
+    in COVER_COLOURS order (spec Addendum A: variants are the edition's OWN
+    design re-coloured, offered as per-cell picks)."""
+    from scripts.build_edition import COVER_COLOURS, catalog_asset_name, edition_cover_signature
+
+    _design, sig = edition_cover_signature(edition_id)
+    colours = [sig] + [c for c in COVER_COLOURS if c != sig]
+    return [(c, catalog_asset_name(edition_id, version, cell["id"], c)) for c in colours]
+
+
+def variant_composite_path(edition_id: str, colour: str) -> Path:
+    """The committed M2 composite for (edition × its OWN design × colour).
+    Raises when missing: variants are GATED on the committed composites —
+    a missing one must fail the job, never ship a wrong cover."""
+    from scripts.build_edition import edition_cover_signature
+
+    design, _sig = edition_cover_signature(edition_id)
+    p = CATALOG_COVERS_DIR / f"{edition_id}_{design}_{colour}.jpg"
+    if not p.is_file():
+        raise FileNotFoundError(f"missing variant composite: {p} (generate_catalog_colour_variants + commit it)")
+    return p
 
 
 def standard_edition_ids() -> list[str]:
@@ -146,8 +174,13 @@ def build_edition_assets(
     gates: bool = True,
 ) -> list[Path]:
     """Build every phase-eligible catalog asset for one edition; returns the
-    final asset paths (named per ``cell_asset_name`` — the edition's own
-    cover, already embedded by the base build, under its signature colour)."""
+    final asset paths. Per cell: the SIGNATURE asset is the base build copied
+    under the signature colour's name (the edition's own cover is already
+    embedded), and each M2 variant colour is the same base with the edition's
+    own-design composite in that colour swapped in (spec Addendum A)."""
+    from scripts.build_edition import edition_cover_signature
+    from scripts.swap_epub_cover import swap_cover
+
     cells = matrix_cells(phase=phase)
     if not cells:
         raise ValueError(f"no formats gate at phase {phase!r}")
@@ -158,14 +191,22 @@ def build_edition_assets(
         print(f"[{edition_id}] base build: target={target}", flush=True)
         bases[target] = _build_base(edition_id, version, target, out_dir / f"_base_{target}")
 
+    _design, sig_colour = edition_cover_signature(edition_id)
     assets: list[Path] = []
     for cell in cells:
-        asset = out_dir / cell_asset_name(edition_id, version, cell)
-        print(f"[{edition_id}] cell {cell['id']}: {bases[cell['target_reader']].name} -> {asset.name}", flush=True)
-        shutil.copyfile(bases[cell["target_reader"]], asset)
-        if gates:
-            _gate_asset(asset)
-        assets.append(asset)
+        base = bases[cell["target_reader"]]
+        for colour, name in cell_asset_names(edition_id, version, cell):
+            asset = out_dir / name
+            if colour == sig_colour:
+                print(f"[{edition_id}] cell {cell['id']}: {base.name} -> {asset.name} (signature)", flush=True)
+                shutil.copyfile(base, asset)
+            else:
+                composite = variant_composite_path(edition_id, colour)
+                print(f"[{edition_id}] cell {cell['id']}: swap {composite.name} -> {asset.name}", flush=True)
+                swap_cover(base, composite, asset)
+            if gates:
+                _gate_asset(asset)
+            assets.append(asset)
 
     # The base trees are working artifacts, not uploads — drop them so the
     # job's upload glob can never sweep a non-catalog name.
