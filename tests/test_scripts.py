@@ -12244,9 +12244,13 @@ class TestOmega16EditionSnapshots:
         assert r["status"] == "error"
         assert r["http"] == 404
 
-    # ---- core: restore validation (does NOT actually mutate
-    # editions.yaml — we test the input-validation paths only since
-    # touching real editions.yaml in a unit test is risky) ----
+    # ---- core: restore validation. NOTE: the round-trip test below DOES
+    # write the real editions.yaml (restore_snapshot splices the record
+    # block) — it byte-backs-up and byte-restores in finally (B.5). The
+    # old comment here claimed otherwise; that blind spot hid the item-②
+    # ordering flake for weeks (the restore re-dump dropped an in-block
+    # comment: value-identical, byte-different, caught only by the
+    # session-scope guard, and only when no later test healed the file). ----
 
     def test_restore_unknown_snapshot_404(self):
         r = self.snap.restore_snapshot(self.test_edition, "no-such-snap")
@@ -12259,12 +12263,15 @@ class TestOmega16EditionSnapshots:
         assert r["http"] == 400
 
     def test_restore_round_trips_unchanged_state(self):
-        # Snapshot current state; restore from it; editions.yaml
-        # should read back the same record. We don't compare bytes
-        # (yaml.safe_dump may reorder keys) — we compare the parsed
-        # record's id + title + canon.
-        from scripts.core import config
+        # Snapshot current state; restore from it; editions.yaml must come
+        # back BYTE-identical (item-②: snapshots carry the raw block, so a
+        # no-edit round trip preserves comments exactly), and the parsed
+        # record must match. Byte-backup/byte-restore in finally (B.5) so
+        # even a regression here can never leak into the working tree.
+        from scripts.core import config, paths
 
+        editions_path = paths.content_root() / "editions.yaml"
+        before_bytes = editions_path.read_bytes()
         before = dict(config.editions_by_id()[self.test_edition])
         self.snap.create_snapshot(self.test_edition, "omega16test_rs1")
         try:
@@ -12274,9 +12281,15 @@ class TestOmega16EditionSnapshots:
             )
             assert r["status"] == "ok"
             after = dict(config.editions_by_id()[self.test_edition])
+            assert editions_path.read_bytes() == before_bytes, (
+                "restore round trip is no longer byte-identical — the item-② "
+                "value-identical/byte-different flake class is back"
+            )
         finally:
-            # Tidy up the test snapshot regardless of outcome.
+            # Tidy up the test snapshot + restore bytes regardless of outcome.
             self.snap.delete_snapshot(self.test_edition, "omega16test_rs1")
+            editions_path.write_bytes(before_bytes)
+            config.load_editions.cache_clear()
         assert before["id"] == after["id"]
         assert before["title"] == after["title"]
         assert before.get("canon") == after.get("canon")

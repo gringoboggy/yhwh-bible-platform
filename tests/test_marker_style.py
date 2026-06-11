@@ -160,7 +160,7 @@ class TestApplyBadgeMarkersUnit:
         # identical repeats — e.g. the gen 1:1 duplicate cross-ref — nothing else).
         total = 0
         for vv in re.findall(r'id="vbadge-gen-1-(\d+)"', text):
-            bm = re.search(rf'id="vbadge-gen-1-{vv}"[^>]*title="(\d+) notes?"', text)
+            bm = re.search(rf'id="vbadge-gen-1-{vv}"[^>]*title="(\d+) notes?[^"]*"', text)
             am = re.search(
                 rf'<aside class="verse-notes" id="vnotes-gen-1-{vv}"[^>]*>(.*?)</aside>',
                 text,
@@ -201,6 +201,13 @@ class TestApplyBadgeMarkersUnit:
             if not bm:
                 continue
             tail = text[bm.end() :].lstrip()
+            # K-R4-2: an over-cap verse carries a CLUSTER of sibling badges
+            # (vbadge-…-s2, -s3, …) at the same verse-end spot — walk past
+            # them; the invariant is the WHOLE cluster trails the verse.
+            while tail.startswith(f'<a class="verse-notes-badge" id="vbadge-gen-1-{v}-s'):
+                nxt = re.match(r'<a class="verse-notes-badge".*?</a>', tail, re.DOTALL)
+                assert nxt is not None
+                tail = tail[nxt.end() :].lstrip()
             assert tail.startswith(f'<a class="vn-link" id="v-gen-1-{v + 1}"'), (
                 f"gen 1:{v} badge is not at verse end — verse prose follows it before v{v + 1}"
             )
@@ -236,7 +243,7 @@ class TestApplyBadgeMarkersUnit:
             re.DOTALL,
         )
         assert m
-        bm = re.search(r'id="vbadge-gen-1-1"[^>]*title="(\d+) notes?"', text)
+        bm = re.search(r'id="vbadge-gen-1-1"[^>]*title="(\d+) notes?[^"]*"', text)
         assert bm
         assert m.group(1).count('class="vn-item') == int(bm.group(1))
 
@@ -400,7 +407,7 @@ class TestApplyBadgeMarkersUnit:
         # (b) conservation: the spilled markers' notes still merge into the aside —
         #     the badge count equals the aside's rows, and 1:31 keeps its full set
         #     (3 inline + 5 spilled = 8 pre-dedup; dedup may only lower it slightly).
-        tb = re.search(r'id="vbadge-gen-1-31"[^>]*title="(\d+) notes?"', text)
+        tb = re.search(r'id="vbadge-gen-1-31"[^>]*title="(\d+) notes?[^"]*"', text)
         am = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-31"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert tb and am
         rows = am.group(1).count('class="vn-item')
@@ -459,7 +466,7 @@ class TestKoboPreviewSeparators:
         from scripts.build_edition import _badge_aside_inner_to_row
 
         row = _badge_aside_inner_to_row("<p>body text</p>", "comm")
-        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">• </span>'), row
+        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">\n• </span>'), row
         assert "body text" in row
 
     def test_cascade_heads_and_bylines_carry_text_separators(self):
@@ -483,8 +490,8 @@ class TestKoboPreviewSeparators:
         ]
         out = _emit_cascade_sections(rows, {"lang": ("⌘", "Linguistic"), "topic": ("✦", "Topical")})
         # every category head leads with the ¶ separator; every byline with ◦
-        assert out.count('<p class="vn-cat-head"><span class="vn-sep">¶ </span>') == 2, out
-        assert out.count('<p class="vn-source-byline"><span class="vn-sep">◦ </span>') == 2, out
+        assert out.count('<p class="vn-cat-head"><span class="vn-sep">\n¶ </span>') == 2, out
+        assert out.count('<p class="vn-source-byline"><span class="vn-sep">\n◦ </span>') == 2, out
 
     def test_vn_sep_hidden_by_css_in_both_popup_styles(self):
         from scripts.build_edition import apply_note_popup_style
@@ -510,7 +517,7 @@ class TestKoboPreviewSeparators:
         m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert m
         items = m.group(1).count('class="vn-item')
-        seps = m.group(1).count('<span class="vn-sep">• </span>')
+        seps = m.group(1).count('<span class="vn-sep">\n• </span>')
         assert items > 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
 
 
@@ -537,13 +544,13 @@ class TestVnotePreviewSeparators:
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert out.count('<p class="vnote-source-label"><span class="vn-sep">◦ </span>') == 2, out
+        assert out.count('<p class="vnote-source-label"><span class="vn-sep">\n◦ </span>') == 2, out
 
     def test_vnote_text_gets_paragraph_separator(self):
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert '<p class="vnote-text"><span class="vn-sep">¶ </span>In the beginning' in out
+        assert '<p class="vnote-text"><span class="vn-sep">\n¶ </span>In the beginning' in out
 
     def test_idempotent(self):
         from scripts.build_edition import add_vnote_preview_separators
@@ -566,7 +573,7 @@ class TestVnotePreviewSeparators:
 
         html = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
         out = add_vnote_preview_separators(html)
-        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">¶ </span><em>' in out
+        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">\n¶ </span><em>' in out
         assert add_vnote_preview_separators(out) == out  # idempotent on the new shape
 
     def test_leading_pilcrow_text_not_double_marked(self):
@@ -595,7 +602,7 @@ class TestVnotePreviewSeparators:
         assert m, "vnote-gen-1-1 missing from the base fixture"
         out = add_vnote_preview_separators(m.group(0))
         labels = out.count('<p class="vnote-source-label">')
-        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">◦ </span>')
+        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">\n◦ </span>')
         assert labels > 0 and labels == seps, f"every source label needs its ◦ separator ({seps}/{labels})"
 
 
@@ -728,3 +735,16 @@ class TestKoboChapterNumeralCss:
         rule = css[idx : css.find("}", idx)]
         assert "display: block" in rule, f"got: {rule}"
         assert "text-align: center" in rule, f"got: {rule}"
+
+
+class TestSeparatorNewlines:
+    def test_separator_spans_carry_leading_newline(self):
+        """K-R5-7 (round 5b): the single-char marks (¶ ◦ •) gave the stripped
+        eInk preview structure but no LINE BREAKS — the popup still reads as
+        one wall. Bake a literal newline into each vn-sep span's text: CSS
+        hides the span everywhere CSS applies, and a raw-text extractor gains
+        real line breaks. (Fallback if the device collapses \\n: U+2028.)"""
+        from scripts.build_edition import _VN_SEP_BYLINE, _VN_SEP_CAT, _VN_SEP_ITEM
+
+        for sep in (_VN_SEP_ITEM, _VN_SEP_CAT, _VN_SEP_BYLINE):
+            assert sep.startswith('<span class="vn-sep">\n'), repr(sep)

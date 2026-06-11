@@ -1557,19 +1557,39 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     )
 
     # Refine the primary dc:language to BCP-47 'en-US' when it's bare 'en'.
-    # round-7 / Kindle E999 (2026-06-10, CONFIRMED by the Mac falsification
-    # protocol): the old multi-value block ALSO declared hbo/grc/arc/gez —
-    # valid EPUB 3, but Amazon's post-Nov-2024 Send-to-Kindle validation
-    # hard-rejects unsupported dc:language values (E999, co-suspect with the
-    # display:none volume). The in-content language info already rides per-span
-    # xml:lang (K-R2-5-audited), so the extra declarations carried low value at
-    # proven delivery risk — dropped unconditionally per the investigation's
-    # prescription (notes/2026-06-10-kindle-e999-investigation.md §fix-1).
+    # K-R5-6 (round 5b, REAL regression the user caught): the turn-67 Kindle
+    # E999 fix dropped the K-R2-5 multi-value block UNCONDITIONALLY — but the
+    # "per-span xml:lang already carries it" justification fails for Kobo:
+    # the eInk Footnote preview is a TAG-STRIPPING extractor, so markup-level
+    # lang never reaches it; the OPF declarations were the ONLY language
+    # signal it could key fallback fonts on (v0.1.0 + Publisher Default
+    # rendered every script; the declaration-less r5 went tofu). E999 is
+    # Amazon's validator, nobody else's — so the single-value form is
+    # TARGET-GATED to kindle builds (notes/2026-06-10-kindle-e999-
+    # investigation.md §fix-1 + the round-5 QA note §K-R5-6), and every
+    # other target restores the block, now also declaring ar (the Van Dyck
+    # Arabic popups exist per-span; the old block oddly lacked it).
     primary_lang = pub["language_code"] or "en"
     bcp47 = "en-US" if primary_lang == "en" else primary_lang
+    if is_kindle_target(edition):
+        lang_block = f"<dc:language>{_xml_escape(bcp47)}</dc:language>"
+    else:
+        lang_block = (
+            f"<dc:language>{_xml_escape(bcp47)}</dc:language>\n"
+            "    <dc:language>hbo</dc:language>"
+            "<!-- Biblical Hebrew (transliterations + script in lang-* notes) -->\n"
+            "    <dc:language>grc</dc:language>"
+            "<!-- Koine Greek -->\n"
+            "    <dc:language>arc</dc:language>"
+            "<!-- Aramaic -->\n"
+            "    <dc:language>gez</dc:language>"
+            "<!-- Ge'ez (Ethiopian liturgical) -->\n"
+            "    <dc:language>ar</dc:language>"
+            "<!-- Arabic (Van Dyck verse popups) -->"
+        )
     new_text = re.sub(
         r"<dc:language>en</dc:language>",
-        f"<dc:language>{_xml_escape(bcp47)}</dc:language>",
+        lang_block,
         new_text,
         count=1,
     )
@@ -2005,14 +2025,23 @@ def _badge_extract_note_kind(marker_html: str) -> str:
 # the markup: ¶ before each category head, ◦ before each source byline, • before
 # each note row. CSS hides them wherever CSS applies (the real page, and any
 # conformant popup renderer) — only the CSS-blind eInk preview shows them.
-_VN_SEP_ITEM = '<span class="vn-sep">• </span>'
-_VN_SEP_CAT = '<span class="vn-sep">¶ </span>'
-_VN_SEP_BYLINE = '<span class="vn-sep">◦ </span>'
+# K-R5-7 (round 5b): the single-char marks gave the preview structure but no
+# LINE BREAKS — each span now leads with a literal newline so a raw-text
+# extractor renders real line starts (CSS-hidden everywhere CSS applies; if
+# the device collapses \n the fallback variant is U+2028 LINE SEPARATOR).
+_VN_SEP_ITEM = '<span class="vn-sep">\n• </span>'
+_VN_SEP_CAT = '<span class="vn-sep">\n¶ </span>'
+_VN_SEP_BYLINE = '<span class="vn-sep">\n◦ </span>'
 _VN_SEP_HIDE_CSS = (
     "\n/* K-R3-2 + K-R4-1: text-baked popup separators — visible only to the\n"
     "   CSS-blind Kobo eInk Footnote preview; hidden everywhere CSS applies.\n"
     "   Class-wide: vnote (translation) asides are NOT inside .verse-notes. */\n"
     ".vn-sep { display: none; }\n"
+    "/* K-R4-2 split-popup furniture — deliberately VISIBLE: the (i/k) part\n"
+    "   marker and the ⋯ continuation marks tell the reader a long entry\n"
+    "   spans sibling popups, on the page and in every popup renderer. */\n"
+    ".verse-notes .vn-part { font-weight: 400; font-size: 0.85em; color: #6E5840; }\n"
+    ".vn-cont-mark { color: #8A7A64; }\n"
 )
 
 
@@ -2433,6 +2462,304 @@ def _count_cascade_leaves(html: str) -> int:
     return html.count(_VN_ITEM_WRAPPER)
 
 
+# ----------------------------------------------------------------------
+# K-R4-2 — popup-unit split (Kobo round-5 calibrated)
+# ----------------------------------------------------------------------
+#
+# The Kobo eInk Footnote preview DECLINES a popup whose tag-stripped size is
+# too big and silently NAVIGATES to the piece top instead (rounds 3-5).
+# Round-5 device taps narrowed the decline bracket to pops <= 4,498 /
+# declines >= 5,500 stripped chars (gen 35:18 single anomaly, re-tap
+# pending), so every merged verse-notes popup unit is capped just under the
+# proven-pop floor. Design (a)+(b) per the round-4 QA note:
+#   (a) an over-cap merged aside splits into multiple units at category
+#       boundaries — each unit its own badge + its own aside;
+#   (b) a single note body alone over the cap (the ~19k Easton entries) is
+#       chunked WITHIN the body at depth-0 text boundaries, each chunk its
+#       own unit with visible continuation marks.
+# Configurable per edition: note_popup_split_cap (stripped chars; 0 = off;
+# unset = the calibrated default). Default ON like reader_file_split — the
+# e-ink-safety fixes ship to every edition unless it opts out.
+
+DEFAULT_NOTE_POPUP_SPLIT_CAP = 4_400
+
+# Stripped-size headroom reserved for the unit aside's own header line
+# ("↩ 16:12 (2/6)") when packing rows against the cap.
+_POPUP_UNIT_HEADER_ALLOWANCE = 32
+# A chunked body targets cap - margin so the chunk + its row/cascade
+# furniture (separators, category head, byline, marks) still fits a unit.
+_POPUP_CHUNK_MARGIN = 600
+
+_STRIP_TAG_RE = re.compile(r"<[^>]+>")
+_STRIP_WS_RE = re.compile(r"\s+")
+
+
+def _stripped_len(html_text: str) -> int:
+    """Tag-stripped, entity-decoded, whitespace-collapsed char count — the
+    SAME measure as dev/kobo_tap_calibration.stripped_len (the round-4/5
+    bracket numbers were taken in it), so the cap and the device data agree."""
+    text = _STRIP_TAG_RE.sub("", html_text)
+    text = html.unescape(text)
+    return len(_STRIP_WS_RE.sub(" ", text).strip())
+
+
+def resolve_note_popup_split_cap(edition: dict) -> int:
+    """The edition's popup-unit cap in stripped chars; 0 disables splitting.
+
+    Unset/None/"" -> DEFAULT_NOTE_POPUP_SPLIT_CAP. Anything non-integer or
+    negative raises ValueError (the API validator enforces the same rule)."""
+    v = edition.get("note_popup_split_cap")
+    if v is None or v == "":
+        return DEFAULT_NOTE_POPUP_SPLIT_CAP
+    try:
+        n = int(v)
+    except (TypeError, ValueError):
+        raise ValueError(f"note_popup_split_cap must be an integer (stripped chars) or 0: {v!r}") from None
+    if n < 0:
+        raise ValueError(f"note_popup_split_cap must be >= 0: {n}")
+    return n
+
+
+_VN_ITEM_ROW_RE = re.compile(r'^(<div class="vn-item[^"]*">)(.*)(</div>)$', re.DOTALL)
+_FLOW_WRAPPER_RE = re.compile(r"^(<([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>)(.*)(</\2>)$", re.DOTALL)
+# Visible (NOT vn-sep-hidden) continuation marks — the reader must see that a
+# chunked entry continues in the next popup / ends a previous one.
+_CONT_MARK_LEAD = '<span class="vn-cont-mark">⋯ </span>'
+_CONT_MARK_TRAIL = '<span class="vn-cont-mark"> ⋯</span>'
+_SENTENCE_ENDERS = ".;:!?…\"”’')"
+
+
+def _top_level_segments(inner: str) -> list[tuple[int, int, bool]]:
+    """[(start, end, is_element)] for the top-level runs of a row's inner
+    HTML. Depth-tracked; void elements don't open a level."""
+    segs: list[tuple[int, int, bool]] = []
+    i, n = 0, len(inner)
+    while i < n:
+        if inner[i] == "<":
+            start = i
+            depth = 0
+            while i < n:
+                j = inner.find(">", i)
+                if j == -1:
+                    return segs  # malformed — caller falls back to no-chunk
+                tag = inner[i : j + 1]
+                m = _TAG_RE.match(tag)
+                if m:
+                    closing, name, selfclose = m.group(1), m.group(2).lower(), m.group(3)
+                    if not closing and not selfclose and name not in _VOID_ELEMENTS:
+                        depth += 1
+                    elif closing:
+                        depth -= 1
+                i = j + 1
+                if depth <= 0:
+                    break
+                nxt = inner.find("<", i)
+                if nxt == -1:
+                    return segs
+                i = nxt
+            segs.append((start, i, True))
+        else:
+            j = inner.find("<", i)
+            if j == -1:
+                j = n
+            segs.append((i, j, False))
+            i = j
+    return segs
+
+
+def _depth0_cut_candidates(text: str) -> list[tuple[int, int, bool]]:
+    """One pass over a flow wrapper's inner HTML: every depth-0 whitespace
+    position usable as a chunk cut, as (pos, cum_stripped_before, is_sentence).
+    cum is an approximate stripped count (entities ~1 char, whitespace runs
+    collapse) — good enough for sizing; the packer re-measures exactly."""
+    out: list[tuple[int, int, bool]] = []
+    i, n = 0, len(text)
+    depth = 0
+    cum = 0
+    prev_visible = ""
+    prev_was_ws = False
+    while i < n:
+        c = text[i]
+        if c == "<":
+            j = text.find(">", i)
+            if j == -1:
+                break
+            m = _TAG_RE.match(text[i : j + 1])
+            if m:
+                closing, name, selfclose = m.group(1), m.group(2).lower(), m.group(3)
+                if not closing and not selfclose and name not in _VOID_ELEMENTS:
+                    depth += 1
+                elif closing:
+                    depth -= 1
+            i = j + 1
+            continue
+        if c == "&":
+            semi = text.find(";", i, i + 12)
+            if semi != -1:
+                cum += 1
+                prev_visible = "&"
+                prev_was_ws = False
+                i = semi + 1
+                continue
+        if c in " \t\n\r":
+            if depth == 0:
+                out.append((i, cum, prev_visible in _SENTENCE_ENDERS))
+            if not prev_was_ws:
+                cum += 1
+            prev_was_ws = True
+            i += 1
+            continue
+        cum += 1
+        prev_visible = c
+        prev_was_ws = False
+        i += 1
+    return out
+
+
+def _split_flow_text(text: str, target: int) -> list[str]:
+    """Split a flow wrapper's inner HTML into chunks of ~target stripped
+    chars, cutting only at depth-0 whitespace (inline tags never sheared),
+    preferring sentence boundaries. Conservation is exact by construction:
+    ``"".join(chunks) == text``."""
+    cands = _depth0_cut_candidates(text)
+    if not cands:
+        return [text]
+    chunks: list[str] = []
+    start = 0
+    start_cum = 0
+    total = cands[-1][1] if cands else 0
+    while True:
+        rest = text[start:]
+        if _stripped_len(rest) <= target:
+            chunks.append(rest)
+            break
+        limit = start_cum + target
+        best_word = best_sent = None
+        for pos, cum, is_sent in cands:
+            if pos <= start:
+                continue
+            if cum > limit:
+                break
+            best_word = (pos, cum)
+            if is_sent:
+                best_sent = (pos, cum)
+        # prefer the latest sentence cut unless it lands pathologically early
+        pick = best_sent if best_sent and best_sent[1] - start_cum >= target * 0.5 else best_word
+        if pick is None:
+            # no depth-0 cut fits (one giant unbreakable run) — emit as-is
+            chunks.append(rest)
+            break
+        chunks.append(text[start : pick[0]])
+        start, start_cum = pick
+    if "".join(chunks) != text:  # conservation guard — never lose note text
+        raise AssertionError("popup chunker lost text (K-R4-2 conservation)")
+    return chunks
+
+
+def _chunk_vn_item_row(row_html: str, target: int) -> list[str]:
+    """Design (b): chunk ONE oversized .vn-item row into several rows, each
+    ~target stripped chars. Part 1 keeps the row's full prefix (separator,
+    tradition label, note-sym, note-label); continuation parts carry a
+    ``vn-cont`` wrapper class + visible ⋯ marks both sides of every seam.
+    Rows that can't be split safely come back whole (the artifact gate 4g
+    then surfaces them honestly rather than the build guessing)."""
+    if _stripped_len(row_html) <= target:
+        return [row_html]
+    m = _VN_ITEM_ROW_RE.match(row_html)
+    if not m:
+        return [row_html]
+    open_div, inner, close_div = m.group(1), m.group(2), m.group(3)
+    segs = _top_level_segments(inner)
+    elem_segs = [(s, e) for s, e, is_elem in segs if is_elem]
+    if not elem_segs:
+        return [row_html]
+    # the bulk carrier = the largest top-level element
+    bs, be = max(elem_segs, key=lambda se: _stripped_len(inner[se[0] : se[1]]))
+    bulk = inner[bs:be]
+    if _stripped_len(bulk) <= target:
+        return [row_html]
+    wm = _FLOW_WRAPPER_RE.match(bulk)
+    if not wm:
+        return [row_html]
+    w_open, w_inner, w_close = wm.group(1), wm.group(3), wm.group(4)
+    chunks = _split_flow_text(w_inner, target)
+    if len(chunks) == 1:
+        return [row_html]
+    pre, post = inner[:bs], inner[be:]
+    # vn-cont appended LAST so the '<div class="vn-item note-' wrapper token
+    # (the S2 conservation counter + every consumer regex) still matches.
+    cont_div = open_div[:-2] + ' vn-cont">'
+    cont_open = re.sub(r'\s+id="[^"]*"', "", w_open)
+    parts: list[str] = []
+    last = len(chunks) - 1
+    for i, chunk in enumerate(chunks):
+        lead = _CONT_MARK_LEAD if i > 0 else ""
+        trail = _CONT_MARK_TRAIL if i < last else ""
+        if i == 0:
+            parts.append(f"{open_div}{pre}{w_open}{chunk}{trail}{w_close}{close_div}")
+        elif i == last:
+            parts.append(f"{cont_div}{_VN_SEP_ITEM}{cont_open}{lead}{chunk}{w_close}{post}{close_div}")
+        else:
+            parts.append(f"{cont_div}{_VN_SEP_ITEM}{cont_open}{lead}{chunk}{trail}{w_close}{close_div}")
+    return parts
+
+
+def _split_popup_units(rows: list[dict], cap: int, emit_inner) -> list[list[dict]]:
+    """Partition a verse's merged-popup rows (each ``{"cat", "row", ...}``)
+    into units whose EMITTED inner HTML strips to <= cap minus the header
+    allowance. Whole categories pack together first; an over-budget category
+    packs row-by-row; an over-budget single row is body-chunked (design b).
+    Returns ``[rows]`` untouched when everything already fits — the byte-
+    identity path for ~99.7% of verses."""
+    if not cap:
+        return [rows]
+    budget = cap - _POPUP_UNIT_HEADER_ALLOWANCE
+    if _stripped_len(emit_inner(rows)) <= budget:
+        return [rows]
+    chunk_target = cap - _POPUP_CHUNK_MARGIN
+    expanded: list[dict] = []
+    for r in rows:
+        if _stripped_len(r["row"]) > chunk_target:
+            expanded.extend({**r, "row": part} for part in _chunk_vn_item_row(r["row"], chunk_target))
+        else:
+            expanded.append(r)
+    groups: list[list[dict]] = []
+    for r in expanded:
+        if groups and groups[-1][0]["cat"] == r["cat"]:
+            groups[-1].append(r)
+        else:
+            groups.append([r])
+
+    def size(rs: list[dict]) -> int:
+        return _stripped_len(emit_inner(rs))
+
+    units: list[list[dict]] = []
+    cur: list[dict] = []
+    for g in groups:
+        if size(g) <= budget:
+            if not cur or size(cur + g) <= budget:
+                cur = cur + g
+            else:
+                units.append(cur)
+                cur = list(g)
+        else:
+            if cur:
+                units.append(cur)
+                cur = []
+            sub: list[dict] = []
+            for r in g:
+                if not sub or size(sub + [r]) <= budget:
+                    sub.append(r)
+                else:
+                    units.append(sub)
+                    sub = [r]
+            if sub:
+                units.append(sub)
+    if cur:
+        units.append(cur)
+    return units
+
+
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
@@ -2517,6 +2844,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     s3a_topic = bool(edition.get("note_topic_dedup", False))
     topic_vocab = _topic_vocab() if s3a_topic else frozenset()
     resolve_sources = s2_group or s3a_topic
+    # K-R4-2 — the device-calibrated popup-unit cap (0 = splitting off).
+    split_cap = resolve_note_popup_split_cap(edition)
 
     stats = {
         "badges_inserted": 0,
@@ -2529,6 +2858,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "s2_groups_emitted": 0,
         "s2_byline_unattributed": 0,
         "s3a_topic_notes_merged": 0,
+        "popup_units_split": 0,
     }
 
     # Which split files actually survive in this edition's temp tree (canon
@@ -2713,7 +3043,13 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             for r in cascade_rows:
                                 if not r["source_display"] and not r["suppress_byline"]:
                                     stats["s2_byline_unattributed"] += 1
-                            inner_rows_html = _emit_cascade_sections(cascade_rows, cat_meta)
+                        norm_rows = cascade_rows
+                    else:
+                        norm_rows = [{"cat": cat, "row": row} for _rank, _doc, row, cat, _attr in row_items]
+
+                    def _unit_inner(unit_rows: list[dict]) -> str:
+                        if s2_group:
+                            inner = _emit_cascade_sections(unit_rows, cat_meta)
                             # §4 completeness guard (S2-GUARD-1/2/3): the spec's set-based
                             # DISTINCT_OUT==DISTINCT_IN guard is downgraded to this leaf
                             # count, which is SOUND by construction — _emit_cascade_sections
@@ -2721,35 +3057,58 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             # so it provably cannot drop or duplicate a leaf. Count the
                             # .vn-item WRAPPER token (not a bare 'class="vn-item' substring)
                             # so a note body that merely mentions that text never false-FAILs.
-                            leaves = _count_cascade_leaves(inner_rows_html)
-                            if leaves != n_show:
+                            # Per-unit since K-R4-2 — the sum over units equals the verse's
+                            # surviving rows, so the conservation contract is unchanged.
+                            leaves = _count_cascade_leaves(inner)
+                            if leaves != len(unit_rows):
                                 raise AssertionError(
                                     f"S2 cascade conservation failure at {code} {ch}:{v}: "
-                                    f"{leaves} leaves vs {n_show} surviving rows"
+                                    f"{leaves} leaves vs {len(unit_rows)} surviving rows"
                                 )
-                            stats["s2_groups_emitted"] += len({r["cat"] for r in cascade_rows})
-                        else:
-                            # S3a-only (flat): the merged topic row + the rest, flat.
-                            inner_rows_html = "".join(f"  {r['row']}\n" for r in cascade_rows)
-                    else:
-                        inner_rows_html = "".join(f"  {row}\n" for _rank, _doc, row, _cat, _attr in row_items)
+                            return inner
+                        return "".join(f"  {r['row']}\n" for r in unit_rows)
 
-                    merged_aside = (
-                        f'<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}" epub:type="footnote">\n'
-                        f'  <p class="vn-back"><a href="#vbadge-{code}-{ch}-{v}" class="note-back" '
-                        f'title="Back">↩</a> <strong>{ch}:{v}</strong></p>\n' + inner_rows_html + "</aside>\n"
-                    )
+                    # K-R4-2: partition the verse's rows into popup units, each
+                    # under the device-calibrated stripped-size cap. One unit =
+                    # the historical single-aside path, byte-identically.
+                    units = _split_popup_units(norm_rows, split_cap, _unit_inner)
+                    k_units = len(units)
 
-                    # --- (1) one badge at the LAST marker's position ------------
-                    # Glyph = ◈ note-mark + the unique-note count, so it reads as
-                    # "notes here" and never blends with the verse number / the
-                    # translation (verse-number) marker (RX-beta2 ①).
-                    title = f"{n_show} note" if n_show == 1 else f"{n_show} notes"
-                    badge = (
-                        f'<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}" '
-                        f'href="#vnotes-{code}-{ch}-{v}" epub:type="noteref" '
-                        f'title="{title}"><sup class="marker-badge">◈{n_show}</sup></a>'
-                    )
+                    unit_asides: list[str] = []
+                    unit_badges: list[str] = []
+                    for u_idx, unit_rows in enumerate(units, start=1):
+                        suffix = "" if u_idx == 1 else f"-s{u_idx}"
+                        vid = f"vnotes-{code}-{ch}-{v}{suffix}"
+                        bid = f"vbadge-{code}-{ch}-{v}{suffix}"
+                        part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""
+                        unit_asides.append(
+                            f'<aside class="verse-notes" id="{vid}" epub:type="footnote">\n'
+                            f'  <p class="vn-back"><a href="#{bid}" class="note-back" '
+                            f'title="Back">↩</a> <strong>{ch}:{v}</strong>{part_span}</p>\n'
+                            + _unit_inner(unit_rows)
+                            + "</aside>\n"
+                        )
+                        m_cnt = len(unit_rows)
+                        title = f"{m_cnt} note" if m_cnt == 1 else f"{m_cnt} notes"
+                        if k_units > 1:
+                            title += f" (part {u_idx} of {k_units})"
+                        # Glyph = ◈ note-mark + the unit's row count, so it reads as
+                        # "notes here" and never blends with the verse number / the
+                        # translation (verse-number) marker (RX-beta2 ①).
+                        unit_badges.append(
+                            f'<a class="verse-notes-badge" id="{bid}" '
+                            f'href="#{vid}" epub:type="noteref" '
+                            f'title="{title}"><sup class="marker-badge">◈{m_cnt}</sup></a>'
+                        )
+                        if s2_group:
+                            stats["s2_groups_emitted"] += len({r["cat"] for r in unit_rows})
+                    if k_units > 1:
+                        stats["popup_units_split"] += k_units
+
+                    merged_aside = "".join(unit_asides)
+                    # The badge cluster sits where the single badge always sat;
+                    # a single space keeps adjacent ◈ tap targets separable.
+                    badge = " ".join(unit_badges)
 
                     bucket = edits.setdefault(fname, [])
                     # K-R3-3/K-R3-4: a chapter-last verse's region legitimately
@@ -2813,7 +3172,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 # verse runs to the next vn-link, which lives past the next chapter's opening).
 # Both shapes count: the ch-anchor `<a id="ch-bNN-cMM" …>` and — for any file
 # whose heading lacks the anchor — the `<p … class="ch-heading">` tag itself.
-_BADGE_CH_BOUNDARY_RE = re.compile(r'<a id="ch-b\d+-c\d+"|<p [^>]*class="ch-heading"')
+# K-R5-3: a BOOK-last verse's region reaches the NEXT book's title-page div
+# BEFORE any chapter boundary — without it in the regex the badge's `</p>`
+# back-scan landed INSIDE the title block, and after the file split all 38
+# book-title singleton pieces carried the previous book's last-verse badge.
+_BADGE_CH_BOUNDARY_RE = re.compile(r'<a id="ch-b\d+-c\d+"|<p [^>]*class="ch-heading"|<div class="book-title-page"')
 
 
 def _badge_chapter_content_end(text: str, after: int) -> int:
@@ -2834,6 +3197,11 @@ def _badge_chapter_content_end(text: str, after: int) -> int:
     body = text.find("</body>", after)
     if body != -1:
         end = min(end, body)
+    # NOTE (K-R5-3): the region deliberately does NOT stop at a book-title-page
+    # div — a book-last verse's spill-resolved fallback markers can sit PAST the
+    # next book's title block (rev 22:21 / bp-87, file 060) and must still be
+    # collected. Only the BADGE placement clamps at the title boundary, via
+    # _BADGE_CH_BOUNDARY_RE in the cb-branch.
     chh = re.search(r'id="ch-b\d+-c\d+"', text[after:])
     if chh:
         abs_chh = after + chh.start()
@@ -3240,14 +3608,45 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
         group_asides[atom_to_group[aside_atom[aid]]].append(aid)
 
     pieces: list[tuple[str, str]] = []
+    noteref_tag_re = re.compile(r'<a\b[^>]*epub:type="noteref"[^>]*>')
     for k, g in enumerate(groups):
         # reopen the elements this piece starts inside — WITHOUT their ids (C16)
         prefix = "".join(_REOPEN_ID_RE.sub("", t) for t in stack_at[cuts[g[0]]])
         suffix = "".join(f"</{_open_tag_name(t)}>" for t in reversed(stack_at[cuts[g[-1] + 1]]))
         gt = "".join(atoms[i] for i in g)
-        ids = group_asides[k]
+        ids = list(group_asides[k])
+        # Round-6 (K-R4-2 fallout): a spill-DUPLICATE verse anchor (v-…-x2)
+        # can land in a different piece than its aside, which travels with its
+        # FIRST referencer — the later link-rewrite pass would promote that
+        # noteref cross-file, which NAVIGATES instead of popping on Kobo (the
+        # gate-2 K-R3-4 class; 1en 106:1, round 6). Clone the aside into THIS
+        # piece under a piece-suffixed id and retarget the local noteref href:
+        # same-file popups everywhere, ids stay globally unique.
+        clone_map: dict[str, str] = {}
+        for tag in noteref_tag_re.findall(gt):
+            hm = re.search(r'href="#([^"]+)"', tag)
+            if not hm:
+                continue
+            frag = hm.group(1)
+            if frag in aside_by_id and atom_to_group[aside_atom[frag]] != k:
+                clone_map.setdefault(frag, f"{frag}--c{k:02d}")
+        if clone_map:
+
+            def _retarget(m: re.Match) -> str:
+                tag = m.group(0)
+                hm = re.search(r'(href="#)([^"]+)(")', tag)
+                if hm and hm.group(2) in clone_map:
+                    return tag[: hm.start()] + hm.group(1) + clone_map[hm.group(2)] + hm.group(3) + tag[hm.end() :]
+                return tag
+
+            gt = noteref_tag_re.sub(_retarget, gt)
+        clone_html = "".join(
+            aside_by_id[frag].replace(f'id="{frag}"', f'id="{cid}"', 1) + "\n" for frag, cid in clone_map.items()
+        )
         notes_html = (
-            (_NOTES_SECTION_OPEN + "".join(aside_by_id[aid] + "\n" for aid in ids) + "</aside>\n") if ids else ""
+            (_NOTES_SECTION_OPEN + "".join(aside_by_id[aid] + "\n" for aid in ids) + clone_html + "</aside>\n")
+            if (ids or clone_map)
+            else ""
         )
         pieces.append((f"{stem}_{k:02d}.html", head + prefix + gt + suffix + notes_html + tail))
     return pieces
@@ -3989,6 +4388,37 @@ def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
         if n:
             fpath.write_text(out, encoding="utf-8")
             stats["toc_rows_rewritten"] += n
+    return stats
+
+
+# K-KIN forensics (2026-06-11, the 2nd ~50-min Send-to-Kindle failure): the
+# kindle artifact still carried `hidden=""` on every footnote wrapper (the
+# `.notes-section` asides AND the 3 odd-template `verse-refs-section`
+# sections — 24.8M chars under the UA [hidden] rule). The variant CSS
+# overrides both via author display:block, which epubcheck + our gate honor —
+# but Amazon's hidden-text counter is opaque and may key the raw attribute.
+# Belt-and-braces: physically strip the attribute from footnote wrappers so
+# NO counter model can see hidden text. Matches any aside/section opener that
+# carries epub:type="footnotes" and a hidden attribute, attribute-order-safe.
+_FOOTNOTES_HIDDEN_ATTR_RE = re.compile(
+    r'(<(?:aside|section)\b(?=[^>]*epub:type="footnotes")[^>]*?)\s+hidden(?:="[^"]*")?(?=[^>]*>)'
+)
+
+
+def apply_kindle_unhide(tmp: Path, edition: dict) -> dict:
+    """Strip ``hidden=""`` from footnote wrappers in a kindle-target temp
+    tree. Runs AFTER apply_file_split (the splitter re-emits per-piece
+    notes-section wrappers WITH the attribute) and is a no-op — byte-identical
+    tree — for every non-kindle target. Idempotent."""
+    stats = {"hidden_attrs_stripped": 0}
+    if not is_kindle_target(edition):
+        return stats
+    for fpath in sorted(tmp.glob("*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        out, n = _FOOTNOTES_HIDDEN_ATTR_RE.subn(r"\1", text)
+        if n:
+            fpath.write_text(out, encoding="utf-8")
+            stats["hidden_attrs_stripped"] += n
     return stats
 
 
@@ -5522,6 +5952,13 @@ def build_one(
         stats["files_split"] = split_stats["files_split"]
         stats["pieces_created"] = split_stats["pieces_created"]
         stats["largest_piece_kb"] = split_stats["largest_piece_kb"]
+
+        # K-KIN forensics (2026-06-11): kindle targets physically strip
+        # hidden="" from footnote wrappers. MUST run after apply_file_split —
+        # the splitter re-emits per-piece notes-section wrappers WITH the
+        # attribute. No-op (byte-identical) for every other target.
+        unhide_stats = apply_kindle_unhide(tmp, edition)
+        stats["kindle_hidden_attrs_stripped"] = unhide_stats["hidden_attrs_stripped"]
 
         # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
         # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking

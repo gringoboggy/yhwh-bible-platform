@@ -122,6 +122,106 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
             f"kindle: {chars:,} chars under effective display:none "
             f"(Amazon hard-fails >10,000 — E3013); hidden selectors: {hidden[:8]}"
         )
+    # K-KIN forensics (2026-06-11): the variant physically strips hidden=""
+    # from footnote wrappers (Amazon's hidden-text counter is opaque — it may
+    # key the raw attribute, not the effective CSS cascade). Any survivor on
+    # a kindle artifact = a stale/unsafe build.
+    hidden_attrs = 0
+    for n in names:
+        if not n.endswith((".html", ".xhtml")):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        hidden_attrs += len(
+            re.findall(r'<(?:aside|section)\b(?=[^>]*epub:type="footnotes")[^>]*\shidden(?:="[^"]*")?[^>]*>', t)
+        )
+    if hidden_attrs:
+        fails.append(
+            f'kindle: {hidden_attrs} footnote wrapper(s) still carry hidden="" '
+            "(apply_kindle_unhide never ran — stale/unsafe build)"
+        )
+    return fails
+
+
+# ── 4g. K-R4-2 — popup-unit stripped-size cap ───────────────────────────
+# Round-5 device bracket: pops <= 4,498 / declines >= 5,500 stripped chars.
+# Anything ABOVE the proven-pop floor is unproven on-device, so the merged
+# verse-notes units (the class the K-R4-2 split caps) FAIL above it; the
+# base-baked vnote (translation) asides are a different surface (round-5
+# taps showed them all popping) — oversized ones surface as honest WARNS,
+# not fails (no-reassert-ratified-bar).
+POP_FLOOR = 4_498
+
+_POPUP_ASIDE_RE = re.compile(
+    r'<aside class="(verse-notes|vnote)[^"]*" id="([^"]+)"[^>]*>.*?</aside>',
+    re.DOTALL,
+)
+
+
+def _stripped_len(aside_html: str) -> int:
+    import html as _html
+
+    text = re.sub(r"<[^>]+>", "", aside_html)
+    text = _html.unescape(text)
+    return len(re.sub(r"\s+", " ", text).strip())
+
+
+def popup_size_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str], list[str]]:
+    """Gate 4g. Returns (fails, warns)."""
+    fails: list[str] = []
+    warns: list[str] = []
+    for n in names:
+        if not n.endswith((".html", ".xhtml")):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        for m in _POPUP_ASIDE_RE.finditer(t):
+            size = _stripped_len(m.group(0))
+            if size <= POP_FLOOR:
+                continue
+            if m.group(1) == "verse-notes":
+                fails.append(f"{n}: {m.group(2)} strips to {size:,} chars (> pop floor {POP_FLOOR:,} — K-R4-2)")
+            else:
+                warns.append(f"{n}: vnote {m.group(2)} strips to {size:,} chars (> pop floor; un-probed class)")
+    return fails, warns
+
+
+# ── 4i. badge-mode marker-leak — no per-note note-ref survives ──────────
+def badge_mode_leak_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """A badge-mode artifact (any verse-notes-badge present) must carry ZERO
+    per-note ``note-ref`` markers — a survivor means apply_badge_markers'
+    verse-region walk missed it (round-6 catch: rev 22:21's spill markers
+    past the bp-87 title div). Numbers-mode artifacts are exempt (markers
+    ARE the contract there)."""
+    docs = [n for n in names if n.endswith((".html", ".xhtml"))]
+    texts = {n: zf.read(n).decode("utf-8", "replace") for n in docs}
+    if not any('class="verse-notes-badge"' in t for t in texts.values()):
+        return []
+    fails: list[str] = []
+    for n, t in texts.items():
+        leaks = re.findall(r'<a class="note-ref[^"]*" id="(ref-[^"]+)"', t)
+        if leaks:
+            fails.append(f"{n}: {len(leaks)} per-note note-ref marker(s) leaked in badge mode: {leaks[:4]}")
+    return fails
+
+
+# ── 4h. K-R5-3 — book-title singletons carry no verse badges/asides ─────
+def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """A piece holding a book-title page must carry NO verse-notes badge or
+    aside — in v0.1.0 all 38 title pieces showed the previous book's
+    last-verse badge (the K-R5-3 clamp escape)."""
+    fails: list[str] = []
+    for n in names:
+        if not re.search(r"index_split_\d+(?:_\d+)?\.html$", n):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        if 'id="bp-' not in t:
+            continue
+        for needle, what in (
+            ('class="verse-notes-badge"', "verse badge"),
+            ('id="vnotes-', "verse-notes aside"),
+        ):
+            if needle in t:
+                bp = re.search(r'id="(bp-\d+)"', t)
+                fails.append(f"{n}: book-title piece ({bp.group(1) if bp else '?'}) carries a {what} (K-R5-3)")
     return fails
 
 
@@ -272,7 +372,9 @@ def main(path: str) -> int:
     # (promoted-noteref + cross-piece dup-id failing live in gate 2 above —
     # Mac's attr-order-insensitive matching is authoritative there.)
     ch_anchor_re = re.compile(r'id="ch-b\d+-c(\d+)"')
-    badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)"')
+    # (?:-s\d+)? — K-R4-2 split units suffix sibling badges; every unit of a
+    # verse must satisfy the same chapter-placement invariant.
+    badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)(?:-s\d+)?"')
     spilled: list[str] = []
     for n in pieces:
         t = zf.read(n).decode("utf-8", "replace")
@@ -316,6 +418,14 @@ def main(path: str) -> int:
     if spilled:
         fails.append(f"{len(spilled)} badges render past their chapter's heading (K-R3-4); first 3:")
         fails.extend("  " + s for s in spilled[:3])
+
+    # ── 4g. K-R4-2 popup-unit size cap + 4h. K-R5-3 title-piece badges ───
+    size_fails, size_warns = popup_size_checks(zf, names)
+    fails.extend(size_fails)
+    for w in size_warns:
+        print(f"WARN (4g): {w}")
+    fails.extend(title_piece_badge_checks(zf, names))
+    fails.extend(badge_mode_leak_checks(zf, names))
 
     # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
     fails.extend(kindle_safe_checks(zf, names, opf))

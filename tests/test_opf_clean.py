@@ -64,13 +64,31 @@ class TestOpfClean:
         # edition without target_reader must emit no stamp (byte-identity).
         assert "yhwh:target-reader" not in self.opf
 
-    def test_single_dc_language_kindle_safe(self):
-        # Kindle E999 (CONFIRMED 2026-06-10): Amazon's Send-to-Kindle validation
-        # rejects EPUBs whose dc:language block declares values off its
-        # supported-language list (the old block added hbo/grc/arc/gez). The OPF
-        # now carries exactly ONE dc:language (BCP-47 primary); in-content
-        # language info rides per-span xml:lang instead.
-        assert self.opf.count("<dc:language>") == 1
+    def test_multilang_block_restored_for_non_kindle(self):
+        # K-R5-6 (round 5b, REAL regression caught by the user): the turn-67
+        # Kindle-E999 fix dropped the K-R2-5 multi-value dc:language block
+        # UNCONDITIONALLY — but Kobo's tag-stripping Footnote preview keys its
+        # fallback fonts on the OPF declarations (per-span lang never survives
+        # the strip), so Publisher Default went tofu for Hebrew/Greek/Ge'ez.
+        # E999 is Amazon's validator, nobody else's: the single-language form
+        # is correct ONLY for kindle-target builds. Everyone else gets the
+        # block back, now also declaring ar (the Van Dyck Arabic popups exist
+        # per-span; the old block oddly lacked it).
+        assert self.opf.count("<dc:language>") == 6
         assert "<dc:language>en-US</dc:language>" in self.opf
-        for dropped in ("hbo", "grc", "arc", "gez"):
-            assert f"<dc:language>{dropped}</dc:language>" not in self.opf
+        for lang in ("hbo", "grc", "arc", "gez", "ar"):
+            assert f"<dc:language>{lang}</dc:language>" in self.opf, lang
+
+    def test_single_dc_language_when_kindle_target(self):
+        # The E999 single-value form stays — target-gated to kindle builds.
+        edition = {
+            "id": "catholic-study",
+            "title": "Catholic Study",
+            "publisher_name": "Free Press",
+            "target_reader": "kindle",
+        }
+        opf = self.be.patch_opf(_BASE_OPF, edition, "v1")
+        assert opf.count("<dc:language>") == 1
+        assert "<dc:language>en-US</dc:language>" in opf
+        for dropped in ("hbo", "grc", "arc", "gez", "ar"):
+            assert f"<dc:language>{dropped}</dc:language>" not in opf

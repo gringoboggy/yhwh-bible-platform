@@ -289,6 +289,16 @@ def create_snapshot(
     if meta_path.is_file():
         notes_io.ensure_backup(meta_path)
     notes_io.atomic_write(meta_path, meta_text)
+    # item-②: also freeze the record's RAW editions.yaml block (comments
+    # included) so restore can splice it back byte-exactly. Best-effort —
+    # a missing block (unsliceable file) just means restore falls back to
+    # the re-dump path.
+    raw_block = _live_edition_block(edition_id)
+    if raw_block is not None:
+        block_path = root / "block.yaml"
+        if block_path.is_file():
+            notes_io.ensure_backup(block_path)
+        notes_io.atomic_write(block_path, raw_block)
 
     return {
         "status": "ok",
@@ -314,7 +324,7 @@ def delete_snapshot(edition_id: str, version: str) -> dict:
             "http": 404,
             "message": f"snapshot {edition_id!r}/{version!r} not found",
         }
-    for f in (root / "edition.yaml", root / "metadata.yaml"):
+    for f in (root / "edition.yaml", root / "metadata.yaml", root / "block.yaml"):
         if f.is_file():
             notes_io.ensure_backup(f)
             f.unlink()
@@ -479,6 +489,40 @@ def _dump_edition_record(record: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _edition_block_re(edition_id: str):
+    """The one block matcher both create (slice) and restore (splice) use —
+    same span both ways, so a raw-block round trip is byte-exact."""
+    import re as _re
+
+    return _re.compile(
+        rf"(^  - id: {_re.escape(edition_id)}(?:\s|$).*?\n)"
+        rf"(.*?)"
+        rf"(?=^  - id:|\Z)",
+        _re.MULTILINE | _re.DOTALL,
+    )
+
+
+def _live_edition_block(edition_id: str) -> str | None:
+    """The edition's raw block text as it sits in editions.yaml right now
+    (comments included), or None when the file/block is missing."""
+    p = paths.content_root() / "editions.yaml"
+    if not p.is_file():
+        return None
+    m = _edition_block_re(edition_id).search(p.read_text(encoding="utf-8"))
+    return m.group(0) if m else None
+
+
+def _read_snapshot_block(edition_id: str, version: str) -> str | None:
+    """The raw block.yaml a post-fix snapshot carries, or None (old snaps)."""
+    p = snapshots_dir() / edition_id / version / "block.yaml"
+    if not p.is_file():
+        return None
+    try:
+        return p.read_text(encoding="utf-8")
+    except OSError:
+        return None
+
+
 def restore_snapshot(edition_id: str, version: str) -> dict:
     """Overwrite the live edition record from a snapshot.
 
@@ -523,21 +567,25 @@ def restore_snapshot(edition_id: str, version: str) -> dict:
     # block runs from its leading `  - id:` line up to the next
     # `  - id:` (or end of file). Comments + structural quirks
     # everywhere else are preserved.
+    #
+    # item-② root cause (2026-06-11): snapshots that carry the raw
+    # block text (block.yaml, captured at create time) restore it
+    # VERBATIM — a no-edit round trip is byte-identical, and the
+    # record's own in-block comments survive. Re-dumping the parsed
+    # record (`_dump_edition_record`) silently dropped those comments
+    # (value-identical, byte-different — the CI ordering-flake class);
+    # it remains only as the fallback for pre-fix snapshots.
     text = editions_path.read_text(encoding="utf-8")
-    try:
-        new_record_text = _dump_edition_record(snap_record)
-    except ValueError as e:
-        return {"status": "error", "code": "corrupt_snapshot", "http": 422, "message": str(e)}
+    raw_block = _read_snapshot_block(edition_id, version)
+    if raw_block is not None:
+        new_record_text = raw_block
+    else:
+        try:
+            new_record_text = _dump_edition_record(snap_record)
+        except ValueError as e:
+            return {"status": "error", "code": "corrupt_snapshot", "http": 422, "message": str(e)}
 
-    import re as _re
-
-    block_re = _re.compile(
-        rf"(^  - id: {_re.escape(edition_id)}(?:\s|$).*?\n)"
-        rf"(.*?)"
-        rf"(?=^  - id:|\Z)",
-        _re.MULTILINE | _re.DOTALL,
-    )
-    m = block_re.search(text)
+    m = _edition_block_re(edition_id).search(text)
     appended = False
     if m:
         new_text = text[: m.start()] + new_record_text + text[m.end() :]

@@ -634,6 +634,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "note_popup_style",
         "marker_style",
         "topical_index_source",
+        "note_popup_split_cap",
         "reader_toc_collapsible",
         "reader_toc_default_open",
         # K-R2 — where the builder will read the EPUB ("everywhere" | "eink" |
@@ -725,6 +726,10 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         # ("null" or a year like "1900"); the YAML loader parses
         # unquoted digits into ints and "null"/empty into None.
         "time_filter_ceiling",
+        # K-R4-2 — popup-unit split cap (stripped chars; 0 = off; unset =
+        # the device-calibrated default). Stored as a YAML int like
+        # time_filter_ceiling; validated below.
+        "note_popup_split_cap",
         # Free-text front-matter fields (builder-editable via /customize).
         "description",
         "dedication",
@@ -876,6 +881,22 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if v_int < 1500 or v_int > 2100:
                 return {"error": (f"time_filter_ceiling out of range: {v_int} (expected 1500-2100)")}
             payload["time_filter_ceiling"] = str(v_int)
+
+    # K-R4-2: note_popup_split_cap — unset/None/"" clears to the build's
+    # calibrated default; otherwise an integer >= 0 (0 disables splitting).
+    # Mirrors resolve_note_popup_split_cap's contract (the one resolver).
+    if "note_popup_split_cap" in payload:
+        v = payload["note_popup_split_cap"]
+        if v is None or v == "" or v == "null":
+            payload["note_popup_split_cap"] = "null"
+        else:
+            try:
+                v_int = int(v)
+            except (TypeError, ValueError):
+                return {"error": "note_popup_split_cap must be an integer (stripped chars), 0, or null"}
+            if v_int < 0:
+                return {"error": f"note_popup_split_cap must be >= 0: {v_int}"}
+            payload["note_popup_split_cap"] = str(v_int)
 
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (

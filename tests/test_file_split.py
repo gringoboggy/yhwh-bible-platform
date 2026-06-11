@@ -784,3 +784,53 @@ _MIN_NCX = """<?xml version='1.0' encoding='utf-8'?>
   </navMap>
 </ncx>
 """
+
+
+class TestSpillDuplicateNoterefClone:
+    """Round-6 gate catch (K-R4-2 fallout): a spill-duplicate verse anchor
+    (v-…-x2) can land in a DIFFERENT piece than its aside (which lives with
+    its FIRST referencer) — the link-rewrite pass would then promote that
+    noteref to a cross-file link, which NAVIGATES instead of popping on Kobo
+    (the gate-2 K-R3-4 class; 1en 106:1 in the round-6 build). The splitter
+    must instead CLONE the aside into the referencing piece under a derived
+    unique id and retarget the local noteref href."""
+
+    DOC = """<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+<head><title>x</title></head>
+<body class="bible-body">
+<div class="book-title-page" id="bp-21" data-book-idx="21" epub:type="bodymatter"><h1>1 Enoch</h1></div>
+<p id="ch-b21-c105" class="ch-heading"><span class="bold-num">105</span></p>
+<p class="verse-p"><a class="vn-link" id="v-1en-105-1" href="#vnote-1en-105-1" epub:type="noteref"><span class="vn">1</span></a> FILLER</p>
+<a id="ch-b21-c106" class="ch-anchor"></a><p id="page_106" class="ch-heading"><span class="bold-num">106</span></p>
+<p class="verse-p"><a class="vn-link" id="v-1en-106-1" href="#vnote-1en-106-1" epub:type="noteref"><span class="vn">1</span></a> And after some days my son Methuselah took a wife.</p>
+<a id="ch-b21-c107" class="ch-anchor"></a><p id="page_107" class="ch-heading"><span class="bold-num">107</span></p>
+<p class="verse-p"><a class="vn-link" id="v-1en-106-1-x2" href="#vnote-1en-106-1" epub:type="noteref"><span class="vn">1</span></a> SPILL REGION</p>
+<aside class="notes-section" epub:type="footnotes" hidden="">
+<aside class="vnote" id="vnote-1en-105-1" epub:type="footnote"><p>popup 105</p></aside>
+<aside class="vnote" id="vnote-1en-106-1" epub:type="footnote"><p>popup 106 <a href="#v-1en-106-1" class="vnote-back">↩</a></p></aside>
+</aside>
+</body></html>"""
+
+    def test_every_noteref_resolves_same_piece(self):
+        from scripts.build_edition import split_html_document
+
+        # pad chapters so each lands in its own piece under a small target
+        doc = self.DOC.replace("FILLER", "filler word " * 60).replace("SPILL REGION", "spill region prose " * 60)
+        pieces = split_html_document(doc, "index_split_022", 900)
+        assert len(pieces) >= 3, [n for n, _ in pieces]
+        seen_ids: dict[str, str] = {}
+        for name, text in pieces:
+            ids = set(re.findall(r'\sid="([^"]+)"', text))
+            for i in ids:
+                assert i not in seen_ids or seen_ids[i] == name, f"id {i} duplicated across pieces"
+                seen_ids.setdefault(i, name)
+            for tag in re.findall(r'<a\b[^>]*epub:type="noteref"[^>]*>', text):
+                href = re.search(r'href="([^"]*)"', tag)
+                assert href is not None
+                target = href.group(1)
+                if target.startswith("#"):
+                    assert target[1:] in ids, (
+                        f"{name}: noteref {target} does not resolve in its own piece "
+                        "(would be PROMOTED cross-file → Kobo navigates instead of popping)"
+                    )

@@ -461,6 +461,12 @@ function renderEditions() {
               merge topical-index entries
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Popup split cap (characters)</span>
+              <input type="number" min="0" step="100" class="label-input w-full" data-field="note_popup_split_cap"
+                     value="${e.note_popup_split_cap ?? ''}" placeholder="4400 (device-calibrated default)"
+                     title="Kobo e-ink declines oversized note popups and jumps to the page top instead — verses whose merged popup strips to more chars than this split into several smaller popups (one ◈ badge each). Blank = the calibrated default (4,400); 0 = never split. Badge marker style only.">
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Topical index source</span>
               <select class="label-input w-full" data-field="topical_index_source" title="which topical authority feeds the back-of-book Topical Index">
                 <option value="both"   ${(e.topical_index_source||'both') === 'both' ? 'selected' : ''}>both · Nave's + Torrey, merged (N·T tags)</option>

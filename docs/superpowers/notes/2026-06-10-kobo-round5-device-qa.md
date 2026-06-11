@@ -161,3 +161,42 @@ User report after setting the reading font to Cardo on the r5 book:
   re-check (one Hebrew + one Arabic popup) once the restore ships;
   Send-to-Kindle K-KIN-1..4 (1st try failed after ~1h crunch — retry in
   flight, Mac board turn 71).
+
+## Round-6 build (2026-06-11, Mac turn 71) — the assigned fixes SHIPPED
+
+All four Mac items landed in one slice (TDD; tests named in the commit):
+
+- **K-R4-2 ✅** `apply_badge_markers` now splits any over-cap merged popup
+  into units ≤ `note_popup_split_cap` (default **4,400** stripped; 0 = off;
+  /customize + API wired) at category boundaries — design (a) — and chunks a
+  single over-cap note body at depth-0 sentence boundaries with visible
+  ⋯ continuation marks + (i/k) part headers — design (b). One unit = the
+  historical byte-identical path. Round-6 kepub: max verse-notes unit
+  **4,368** (was 19k+); gate 4g green (one honest warn: vnote-1ki-12-24 at
+  6,937 — the un-probed translation-popup class, round-5 taps all popped).
+- **K-R5-3 ✅** the badge clamp bounds at `<div class="book-title-page"` —
+  artifact: **0** title pieces carry badges (was 38); gate 4h green +
+  fires-on-defect proven on synthetic zips both ways.
+- **K-R5-6 ✅** `patch_opf` target-gates the dc:language drop: single en-US
+  ONLY for kindle; everyone else restores en-US+hbo+grc+arc+gez **+ ar**.
+  bcp47 pin re-trued (test_opf_clean).
+- **K-R5-7 ✅** every `_VN_SEP_*` span now leads with a literal `\n` (U+2028
+  is the fallback if the device collapses it).
+- **NEW class caught by the round-6 gates + fixed:** the K-R4-2 byte-shift
+  moved a 400KB cut between a spill-duplicate anchor (`v-1en-106-1-x2`) and
+  its aside → 1 PROMOTED noteref. `split_html_document` now CLONES the aside
+  into the referencing piece under a suffixed id (`--cNN`) + retargets the
+  local href. Round-6 rebuilt: **66,694 noterefs all-resolve, 0 promoted,
+  0 dup-ids, ALL GATES GREEN on epub AND kepub; epubcheck 0/0/0/0.**
+- **Kindle (K-KIN round 2):** 2nd Send-to-Kindle try failed after ~50 min →
+  full artifact forensics in `notes/2026-06-11-kindle-stk-failure-forensics.md`
+  (ranked causes + one-variable bisect ladder; Kindle Previewer = the local
+  oracle, NEEDS USER GO). Belt-and-braces shipped: `apply_kindle_unhide`
+  strips `hidden=""` from footnote wrappers on kindle targets (3 odd-template
+  `verse-refs-section` pieces had 692k chars of popups under [hidden]); gate
+  5 extended to fail any kindle artifact still carrying one.
+
+**Round-6 device tap-list (USER):** Publisher Default + one Hebrew + one
+Arabic popup (K-R5-6 verdict) · one ◈ badge glyph under Cardo · gen 35:18
+re-tap (K-R5-2 anomaly) · 1sa 16:12 / act 23:6 ◈ badge rows (the split worst
+cases) · any book title page (K-R5-3 spot-check).

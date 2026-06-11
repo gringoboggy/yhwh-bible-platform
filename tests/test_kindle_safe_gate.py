@@ -38,6 +38,10 @@ _PIECE_HIDDEN = (
     f'<aside class="notes-section" epub:type="footnotes" hidden="">{_BIG}</aside>'
     "</body></html>"
 )
+# the post-forensics good shape: the kindle variant also STRIPS hidden=""
+_PIECE_UNHIDDEN = (
+    f'<html><body><p>scripture</p><aside class="notes-section" epub:type="footnotes">{_BIG}</aside></body></html>'
+)
 
 
 def _zip(opf: str, css: str, piece: str) -> zipfile.ZipFile:
@@ -56,7 +60,7 @@ class TestKindleSafeGate:
         assert any("display:none" in f for f in fails), fails
 
     def test_green_when_kindle_css_overrides_the_hides(self):
-        zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS, _PIECE_HIDDEN)
+        zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS, _PIECE_UNHIDDEN)
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert fails == [], fails
 
@@ -81,3 +85,17 @@ class TestKindleSafeGate:
         zf = _zip(_KINDLE_OPF, _HIDE_CSS, "<html><body><p>s</p></body></html>")
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert any("kindle_safe CSS" in f for f in fails), fails
+
+    def test_fires_on_residual_hidden_attr(self):
+        # K-KIN forensics (2026-06-11): the variant must physically strip
+        # hidden="" from footnote wrappers — Amazon's hidden-text counter may
+        # not honor the author-CSS-over-[hidden] cascade, so a kindle artifact
+        # carrying ANY hidden="" footnote wrapper is a stale/unsafe build.
+        zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS, _PIECE_HIDDEN)
+        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
+        assert any("hidden=" in f for f in fails), fails
+
+    def test_hidden_attr_ok_without_kindle_stamp(self):
+        zf = _zip(_PLAIN_OPF, _HIDE_CSS, _PIECE_HIDDEN)
+        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
+        assert fails == []

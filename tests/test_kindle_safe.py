@@ -235,3 +235,61 @@ class TestOpfTargetStamp:
         # default, so an unknown value stamps NOTHING (defused, not propagated)
         opf = patch_opf(self._BASE_OPF, {"id": "catholic-study", "title": "X", "target_reader": "smartfridge"}, "v1")
         assert "yhwh:target-reader" not in opf
+
+
+class TestKindleUnhideAttrs:
+    """K-KIN forensics (2026-06-11, the 2nd ~50-min Send-to-Kindle failure):
+    the shipped kindle artifact still carried `hidden=""` on all 284 note
+    wrappers (24.8M chars under the UA [hidden] rule) and 3 odd-template
+    pieces wrap popups in `<section class="verse-refs-section" ... hidden="">`.
+    The variant CSS overrides both via author-display:block — but Amazon's
+    opaque hidden-text counter may not honor the full cascade. Belt-and-
+    braces: the kindle variant physically STRIPS the attribute from the
+    footnote wrappers, so no counter model can see hidden text."""
+
+    PIECE = (
+        "<html><body><p>scripture</p>"
+        '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
+        '<aside class="verse-notes" id="vnotes-gen-1-1" epub:type="footnote">n</aside></aside>'
+        '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
+        '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">v</aside></section>'
+        '<p hidden="">unrelated hidden element stays</p>'
+        "</body></html>"
+    )
+
+    def _tree(self, tmp_path):
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        (tmp / "index_split_000.html").write_text(self.PIECE, encoding="utf-8")
+        return tmp
+
+    def test_strips_hidden_from_footnote_wrappers_only(self, tmp_path):
+        from scripts.build_edition import apply_kindle_unhide
+
+        tmp = self._tree(tmp_path)
+        stats = apply_kindle_unhide(tmp, {"id": "x", "target_reader": "kindle"})
+        out = (tmp / "index_split_000.html").read_text(encoding="utf-8")
+        assert '<aside class="notes-section" epub:type="footnotes">' in out
+        assert '<section class="verse-refs-section" epub:type="footnotes">' in out
+        # non-footnote hidden elements are NOT the kindle problem — untouched
+        assert '<p hidden="">' in out
+        assert stats["hidden_attrs_stripped"] == 2
+
+    def test_noop_for_non_kindle_targets(self, tmp_path):
+        from scripts.build_edition import apply_kindle_unhide
+
+        tmp = self._tree(tmp_path)
+        before = (tmp / "index_split_000.html").read_text(encoding="utf-8")
+        stats = apply_kindle_unhide(tmp, {"id": "x"})
+        assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == before
+        assert stats["hidden_attrs_stripped"] == 0
+
+    def test_idempotent(self, tmp_path):
+        from scripts.build_edition import apply_kindle_unhide
+
+        tmp = self._tree(tmp_path)
+        ed = {"id": "x", "target_reader": "kindle"}
+        apply_kindle_unhide(tmp, ed)
+        once = (tmp / "index_split_000.html").read_text(encoding="utf-8")
+        apply_kindle_unhide(tmp, ed)
+        assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == once
