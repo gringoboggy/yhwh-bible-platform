@@ -1855,6 +1855,93 @@ def is_kindle_target(edition: dict) -> bool:
     return resolve_target_reader(edition) == "kindle"
 
 
+# Matrix M1 — the website Downloads catalog's format table, in its ONE in-repo
+# home (format-matrix spec §5, review MED: the format↔profile↔design mapping is
+# consumed by the CI matrix workflow, scripts/gen_release_catalog.py, and the
+# site build — never re-typed per consumer, the MATRIX_MAP-#3 drift class).
+# Rows are in catalog-tab order (spec §2). Each format is the 9 canon editions
+# built under the row's ``target_reader`` profile via ``--target-reader`` (no
+# second control path; editions.yaml stays byte-stable). ``cover_design`` is
+# the format's default template family (spec §3 — every one of the 5 families
+# used exactly once; colour = the downloader's pick). ``phase`` is the spec §6
+# gate the format's catalog column ships behind (the column itself only
+# appears when the release carries its full asset complement — never
+# over-claim). Per-reader capability EVIDENCE lives in dev/EREADERS.md.
+FORMAT_MATRIX: tuple[dict, ...] = (
+    {
+        "id": "everywhere",
+        "label": "Computer & everywhere else",
+        "target_reader": "everywhere",
+        "packaging": "epub",
+        "cover_design": "01_ornate_leafy",
+        "phase": "M1",
+    },
+    {
+        "id": "apple",
+        "label": "Apple Books",  # term-ref-ok: free-catalog platform label, not store distribution
+        "target_reader": "tablet",
+        "packaging": "epub",
+        "cover_design": "02_classical_corner",
+        "phase": "M1",
+    },
+    {
+        "id": "kobo",
+        "label": "Kobo & e-ink",
+        "target_reader": "eink",
+        "packaging": "kepub.epub",
+        "cover_design": "04_minimal_lines",  # highest e-ink contrast (spec §3)
+        "phase": "M3",
+    },
+    {
+        "id": "kindle",
+        "label": "Kindle",
+        "target_reader": "kindle",
+        "packaging": "epub",  # Send-to-Kindle upload format
+        "cover_design": "03_beadline",
+        "phase": "M4",
+    },
+    {
+        "id": "play",
+        "label": "Google Play Books",  # term-ref-ok: free-catalog platform label, not store distribution
+        # Starts from the vanilla build; promoted to its own target only if
+        # the user's phone-QA demands it (spec §2 row 5).
+        "target_reader": "everywhere",
+        "packaging": "epub",
+        "cover_design": "05_missal_central",
+        "phase": "M5",
+    },
+)
+
+# The 5 template colours shipped in content/covers/templates/ (5 designs × 5
+# colours = the full 25-template library). The catalog's default view is the
+# format's design in black (spec §5).
+COVER_COLOURS: tuple[str, ...] = ("black", "brown", "forest", "navy", "red")
+DEFAULT_COVER_COLOUR = "black"
+
+
+def format_by_id(format_id: str) -> dict:
+    """The FORMAT_MATRIX row for ``format_id``; raises on an unknown id (a
+    typo'd format in CI or the catalog generator must fail loudly, never
+    fall back to a wrong row)."""
+    for entry in FORMAT_MATRIX:
+        if entry["id"] == format_id:
+            return entry
+    raise ValueError(f"unknown catalog format {format_id!r}; valid: {[f['id'] for f in FORMAT_MATRIX]}")
+
+
+def catalog_asset_name(edition_id: str, version: str, format_id: str, colour: str) -> str:
+    """The release-asset filename for one catalog cell (spec §4.4):
+    ``YHWH-<edition-id>-v<version>-<format>-<colour>.epub`` — Kobo keeps
+    ``.kepub.epub``. One home so the CI uploader and the catalog generator
+    can never disagree on a name. Accepts the version as a bare version or a
+    ``v``-prefixed tag ("0.1.0" / "v0.1.0" → the same name)."""
+    fmt = format_by_id(format_id)
+    if colour not in COVER_COLOURS:
+        raise ValueError(f"unknown cover colour {colour!r}; valid: {COVER_COLOURS}")
+    version = version.removeprefix("v")
+    return f"YHWH-{edition_id}-v{version}-{format_id}-{colour}.{fmt['packaging']}"
+
+
 # Appended when note_popup_style == "chip" (the default): a rounded tinted
 # background on the category label so "Note." / "Topic." / "Cite." reads as a
 # chip. All EPUB-3-allowed (display / padding / border-radius / background).
