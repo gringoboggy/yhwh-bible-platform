@@ -205,11 +205,7 @@ class TestHiddenCharCounterVoidElements:
         assert _mod._hidden_text_chars(zf, zf.namelist(), {"notes-rule"}) == 0
 
     def test_real_hidden_container_still_counts(self):
-        piece = (
-            "<html><body>"
-            '<div class="secret">' + "hidden words " * 10 + "</div>"
-            "</body></html>"
-        )
+        piece = '<html><body><div class="secret">' + "hidden words " * 10 + "</div></body></html>"
         zf = _zip(_KINDLE_OPF, "", piece)
         counted = _mod._hidden_text_chars(zf, zf.namelist(), {"secret"})
         assert counted >= len("hidden words ") * 10

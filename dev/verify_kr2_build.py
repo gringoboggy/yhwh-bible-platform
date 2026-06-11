@@ -81,7 +81,9 @@ def _class_token(selector: str) -> str | None:
 # class="notes-rule"/> in a file (every following <hr/> *incremented* depth) —
 # 98,016 phantom hidden chars on the real big-piece kindle build whose only
 # change was piece size.
-_VOID_TAGS = frozenset({"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"})
+_VOID_TAGS = frozenset(
+    {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+)
 
 
 def _hidden_text_chars(zf: zipfile.ZipFile, names: list[str], tokens: set[str]) -> int:
