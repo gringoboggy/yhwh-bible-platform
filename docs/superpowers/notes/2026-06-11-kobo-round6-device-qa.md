@@ -72,6 +72,33 @@ with `&#160;` (nbsp) at the base's 87 `bookpage-eyebrow` sites (engine-proof)
 and/or add `word-spacing: 0.35em` to the eyebrow rule; A/B next device round.
 Check Apple Books renders unchanged (it currently honors the space).
 
+## Round-6b (user follow-up, same r6 artifact) — K-R6-2 geometry REFUTED + K-R6-6 NEW
+
+- **K-R6-2 tap-geometry hypothesis REFUTED**: font-size-up does NOT make
+  gen 1:1's ◈2/◈8 open — "they get clicked but nothing happens" (taps
+  register, no popup). A real per-unit decline factor exists; gen 1:1 still
+  masks decline-vs-dead (self-landing). **THE decisive datum is now the
+  mid-piece tap**: act 23:6 (badge at 7% of a 645KB piece — a decline jumps
+  visibly back; best) or 1sa 16:12 (3% of 151KB) — each renders SIX badges
+  (◈1 ◈1 ◈1 ◈1 ◈2 ◈1, design-b body chunks). Record per badge: pops / jumps
+  back / nothing. gen 1:2 (◈12+◈1) + gen 1:26 (◈1/◈7/◈5) add cheap
+  position-pattern data (gen 1:1's middle-pops shape).
+- **K-R6-6 (NEW) — the ◈ glyph has NEVER rendered on Kobo** (user,
+  definitive: "badge has always not shown up on kobo" — any font, incl.
+  Cardo; in-page badges display as bare superscript numbers). The font-pack
+  note's "covered by Kobo's own UI fonts" claim was wrong. **USER PREFERENCE
+  captured: "whatever is most logical but if we have so many pop ups maybe
+  badges only instead of numbers."** Design (Mac, stylesheet/build arc; the
+  presentation-configurable doctrine): **CSS-chip badge** — style the in-page
+  `.marker-badge` as a small bordered chip (border+radius+padding; CSS
+  applies in the book view everywhere incl. Kobo) with the count inside, and
+  DROP the ◈ character from the badge text on eink (no glyph dependency =
+  the K-R2-3 "configurable badge glyph" follow-up solved without a glyph).
+  Option-gated (`marker_badge_style: chip | glyph+count`), default chip on
+  eink via TARGET_CAPS, others keep ◈+count (Apple renders ◈ fine). Chips
+  also visually separate badges from verse numbers — the user's clutter
+  point.
+
 ## K-R6-5 — mid-chapter page breaks persist = the K-R5-4 class (unchanged)
 
 Still the file-split necessity (new spine file = Kobo's only honored break).
