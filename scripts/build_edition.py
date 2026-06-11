@@ -4993,6 +4993,67 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
     return stats
 
 
+# Orphan vnote asides (WIN triage 2026-06-11, notes/2026-06-11-orphan-vnotes-
+# triage.md). filter_books_for_canon pass 3 drops orphaned `note` asides but
+# deliberately spares vnotes (kept books' cross-references may target a dropped
+# book's verse popup); the fold/splice passes therefore leave a removed book's
+# vnote-* translation popups behind unreachable (eth 206: aes 205 + est-10-5;
+# catholic-study 1,598: + 1es/2es). Kindle makes them USER-VISIBLE ("[no text]"
+# endnote rows under apply_kindle_unhide) — part of the K-KIN acceptance path.
+
+_VNOTE_ASIDE_RE = re.compile(
+    r'<aside\b(?=[^>]*\bid="(vnotes?-[^"]+)")(?=[^>]*\bepub:type="footnote")'
+    r"[^>]*>.*?</aside>\s*",
+    re.DOTALL,
+)
+_VNOTE_SPLIT_SUFFIX_RE = re.compile(r"-s\d+$")
+
+
+def drop_orphan_vnote_asides(tmp: Path) -> dict:
+    """Drop vnote-family asides orphaned by a body-removal pass.
+
+    Criterion (the conjunction — measured exact on the real artifacts): the
+    aside id is referenced by NO href fragment anywhere AND its backing verse
+    anchor ``v-{code}-{ch}-{v}`` (split ``-sN`` suffix stripped) is absent.
+    Referenced asides always survive (the pass-3 cross-reference rationale);
+    anchor-present asides always survive (a later pass may still bind them).
+    No-op (byte-identical) on any build whose books all kept their bodies.
+    """
+    files = sorted(tmp.glob("*.html")) + sorted(tmp.glob("*.xhtml"))
+    texts = {f: f.read_text(encoding="utf-8") for f in files}
+    all_ids: set[str] = set()
+    href_targets: set[str] = set()
+    for text in texts.values():
+        all_ids.update(re.findall(r'\bid="([^"]+)"', text))
+        href_targets.update(re.findall(r'href="[^"#]*#([^"]+)"', text))
+
+    stats = {"orphan_vnote_asides_dropped": 0, "orphan_vnote_files_touched": 0}
+
+    def _is_orphan(aside_id: str) -> bool:
+        if aside_id in href_targets:
+            return False
+        tail = aside_id.split("-", 1)[1]
+        anchor = "v-" + _VNOTE_SPLIT_SUFFIX_RE.sub("", tail)
+        return anchor not in all_ids
+
+    for f, text in texts.items():
+        dropped = 0
+
+        def _drop(m: re.Match) -> str:
+            nonlocal dropped
+            if _is_orphan(m.group(1)):
+                dropped += 1
+                return ""
+            return m.group(0)
+
+        new_text = _VNOTE_ASIDE_RE.sub(_drop, text)
+        if dropped:
+            f.write_text(new_text, encoding="utf-8")
+            stats["orphan_vnote_asides_dropped"] += dropped
+            stats["orphan_vnote_files_touched"] += 1
+    return stats
+
+
 # φ.1 (2026-05-14) — OPF font-manifest emission.
 #
 # The EPUB 3 spec requires every resource referenced by stylesheet.css
@@ -5837,6 +5898,14 @@ def build_one(
         appendix_stats = apply_appendix_demotion_and_renumber(tmp, canon_books)
         stats["appendices_demoted"] = appendix_stats["appendices_demoted"]
         stats["eyebrows_renumbered"] = appendix_stats["eyebrows_renumbered"]
+
+        # Orphan vnote asides (WIN triage 2026-06-11) — runs AFTER every
+        # body-removal pass (canon splice above, superset fold/demotion here)
+        # so the v-anchor inventory is final, and BEFORE apply_badge_markers
+        # (the asides it would merge are exactly the reachable ones). No-op
+        # byte-identical when no book lost its body.
+        orphan_vnote_stats = drop_orphan_vnote_asides(tmp)
+        stats["orphan_vnote_asides_dropped"] = orphan_vnote_stats["orphan_vnote_asides_dropped"]
 
         # beta-3 (g) — wrap Psalm/incipit superscriptions in .superscription so they
         # read as headings, not scripture body.

@@ -203,6 +203,28 @@ def badge_mode_leak_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     return fails
 
 
+# ── 4j. orphan vnote asides — every footnote popup is reachable ─────────
+def orphan_vnote_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """No vnote-family footnote aside may be unreferenced by every href
+    (WIN triage 2026-06-11: the fold/canon-splice passes dropped a book's
+    body+markers but left its vnote asides — eth 206 / catholic-study
+    kindle 1,598 unreachable popups; user-visible "[no text]" endnote rows
+    on kindle once unhide applies). drop_orphan_vnote_asides is the fix;
+    this gate pins it."""
+    docs = [n for n in names if n.endswith((".html", ".xhtml"))]
+    ids: dict[str, str] = {}
+    hrefs: set[str] = set()
+    for n in docs:
+        t = zf.read(n).decode("utf-8", "replace")
+        for m in re.finditer(r'<aside\b(?=[^>]*\bid="(vnotes?-[^"]+)")(?=[^>]*\bepub:type="footnote")', t):
+            ids[m.group(1)] = n
+        hrefs.update(re.findall(r'href="[^"#]*#([^"]+)"', t))
+    orphans = sorted(i for i in ids if i not in hrefs)
+    if not orphans:
+        return []
+    return [f"{len(orphans)} unreachable vnote aside(s) (4j orphan class); first 4: {orphans[:4]}"]
+
+
 # ── 4h. K-R5-3 — book-title singletons carry no verse badges/asides ─────
 def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     """A piece holding a book-title page must carry NO verse-notes badge or
@@ -426,6 +448,7 @@ def main(path: str) -> int:
         print(f"WARN (4g): {w}")
     fails.extend(title_piece_badge_checks(zf, names))
     fails.extend(badge_mode_leak_checks(zf, names))
+    fails.extend(orphan_vnote_checks(zf, names))
 
     # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
     fails.extend(kindle_safe_checks(zf, names, opf))
