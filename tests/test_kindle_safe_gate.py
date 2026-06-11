@@ -99,3 +99,34 @@ class TestKindleSafeGate:
         zf = _zip(_PLAIN_OPF, _HIDE_CSS, _PIECE_HIDDEN)
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert fails == []
+
+
+# ── gate 4k — demoted-appendix husk pieces ──────────────────────────────
+_HUSK_PIECE = '<html><body><div class="appendix-section" id="bp-45"><h1>The Prayer of Azariah</h1></div></body></html>'
+_MERGED_PIECE = (
+    "<html><body>"
+    '<div class="appendix-section" id="bp-45"><h1>The Prayer of Azariah</h1></div>'
+    '<p class="verse-p">And they walked in the midst of the fire.</p>'
+    "</body></html>"
+)
+_TITLE_SINGLETON = '<html><body><div class="book-title-page" id="bp-07"><h1>Ruth</h1></div></body></html>'
+
+
+class TestHuskPieceGate4k:
+    """4k fires on a frame-only appendix-section piece (the Kindle E24010/E24001
+    TOC-husk class) and stays green for merged frames and real title singletons."""
+
+    def test_fires_on_frame_only_appendix_piece(self):
+        zf = _zip(_PLAIN_OPF, "", _HUSK_PIECE)
+        fails = _mod.husk_piece_checks(zf, zf.namelist())
+        assert any("bp-45" in f and "4k" in f for f in fails), fails
+
+    def test_green_when_frame_flows_with_content(self):
+        zf = _zip(_PLAIN_OPF, "", _MERGED_PIECE)
+        assert _mod.husk_piece_checks(zf, zf.namelist()) == []
+
+    def test_real_title_singleton_is_exempt(self):
+        # 38 real book-title singletons ship in every artifact; Kindle accepts
+        # them — only the demoted-frame husk is the refused class.
+        zf = _zip(_PLAIN_OPF, "", _TITLE_SINGLETON)
+        assert _mod.husk_piece_checks(zf, zf.namelist()) == []

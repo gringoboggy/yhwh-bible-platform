@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build the Send-to-Kindle-safe catholic-study artifact (K-KIN rounds).
 
-Byte-backs-up editions.yaml, flips catholic-study's target_reader to kindle
-through the validated API path (the same path the wizard uses), builds, then
-byte-restores the yaml — the working tree is untouched afterward. The artifact
-lands on the Desktop with the round's UTC timestamp:
+Passes ``target_reader="kindle"`` straight into ``build_one`` (the M1
+``--target-reader`` override path: the override folds into a COPY of the
+edition record through the one resolver, the cache key hashes the RESOLVED
+target, and editions.yaml is never touched — the old byte-backup/flip/restore
+dance is retired). The artifact lands on the Desktop with the round's UTC
+timestamp:
 
     .venv/bin/python dev/build_kindle_safe.py [--edition catholic-study]
 """
@@ -26,27 +28,22 @@ def main() -> int:
     ap.add_argument("--out-dir", default=str(Path.home() / "Desktop"))
     args = ap.parse_args()
 
-    from scripts.api.editions import api_save_edition_meta
     from scripts.core import config
 
-    editions_yaml = REPO / "content" / "editions.yaml"
-    before = editions_yaml.read_bytes()
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     out_dir = REPO / "build" / f"kindle_{stamp}"
-    try:
-        r = api_save_edition_meta(args.edition, {"target_reader": "kindle"})
-        if "error" in r:
-            print(f"target_reader save failed: {r}", file=sys.stderr)
-            return 1
-        config.load_editions.cache_clear()
 
-        from scripts import build_edition as be
+    from scripts import build_edition as be
 
-        out_dir.mkdir(parents=True, exist_ok=True)
-        be.build_one(args.edition, out_dir, f"kindle-{stamp}", config.load_kinds(), dry_run=False)
-    finally:
-        editions_yaml.write_bytes(before)
-        config.load_editions.cache_clear()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    be.build_one(
+        args.edition,
+        out_dir,
+        f"kindle-{stamp}",
+        config.load_kinds(),
+        dry_run=False,
+        target_reader="kindle",
+    )
 
     built = sorted(out_dir.glob("*.epub"))
     if not built:

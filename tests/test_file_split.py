@@ -254,6 +254,66 @@ class TestBookBoundaryIsolation:
             assert joined.count(f'id="page_{n}"') == 1
 
 
+# The K-KIN husk class (Kindle round 6, 2026-06-11): apply_appendix_demotion_and_renumber
+# flips a demoted addition's title div to class="appendix-section" (keeping its bp-NN id
+# so ToC/nav/ncx anchors resolve), but the splitter's forced K-R2-1 title isolation keyed
+# on the bp ID alone — so the ~750 B CSS-hidden frame became its OWN spine piece (an empty
+# husk) and every nav/ncx/in-book-ToC link targeting #bp-NN pointed at it. Kindle's KFX
+# preprocessor refuses an effectively-empty piece as a TOC link target: E24010 "Hyperlink
+# not resolved in toc" ×3 (bp-45/46/47 Azariah/Susanna/Bel) → E24001 "TOC could not be
+# built" → Send-to-Kindle rejects the whole book. Forced isolation is for REAL
+# book-title-page divs only; a demoted frame must flow with its parent book's content so
+# its anchor always lands in a content-bearing piece. (Proven by the rung-tochusk probe:
+# removing the husks eliminated E24010/E24001 on the local Previewer oracle, ×2 runs.)
+DEMOTED_MIDFILE = MIDFILE_BOOK.replace(
+    '<div class="book-title-page" id="bp-01"', '<div class="appendix-section" id="bp-01"'
+)
+
+
+class TestDemotedAppendixHuskFix:
+    """A demoted appendix-section frame (bp id kept) is NOT force-isolated into its own
+    spine piece — a frame-only piece is the Kindle-refused E24010/E24001 husk."""
+
+    def test_demoted_frame_under_target_returns_file_unchanged(self):
+        from scripts.build_edition import split_html_document
+
+        pieces = split_html_document(DEMOTED_MIDFILE, "index_split_003", 10_000_000)
+        assert len(pieces) == 1, f"a demoted frame must not force a split, got {len(pieces)} pieces"
+        name, text = pieces[0]
+        assert name == "index_split_003.html"
+        assert text == DEMOTED_MIDFILE, "an unsplit file must be byte-identical (zero churn)"
+
+    def test_demoted_frame_flows_with_content_when_size_splits(self):
+        from scripts.build_edition import split_html_document
+
+        # A size-driven split: the piece holding the demoted bp anchor must also hold
+        # real content — a frame-only piece is the husk the KFX preprocessor refuses.
+        pieces = split_html_document(DEMOTED_MIDFILE, "index_split_003", 600)
+        holders = [t for _, t in pieces if 'id="bp-01"' in t]
+        assert len(holders) == 1, "the demoted bp anchor lives in exactly one piece"
+        assert 'class="verse-p"' in holders[0] or 'class="ch-heading"' in holders[0], (
+            "the demoted frame's piece must carry content (husk = E24010/E24001)"
+        )
+
+    def test_real_title_page_still_isolated_alongside_demoted(self):
+        from scripts.build_edition import split_html_document
+
+        # A file holding BOTH a real title page and a demoted frame: K-R2-1 still
+        # isolates the real title; the demoted frame still flows with content.
+        both = MIDFILE_BOOK.replace(
+            '<p id="page_61" class="ch-heading">',
+            '<div class="appendix-section" id="bp-45"><h1>The Prayer of Azariah</h1></div>\n'
+            '<p id="page_61" class="ch-heading">',
+        )
+        pieces = split_html_document(both, "index_split_004", 10_000_000)
+        assert len(pieces) == 3, f"[tail][title][demoted+rest], got {[n for n, _ in pieces]}"
+        d = dict(pieces)
+        title = d["index_split_004_01.html"]
+        rest = d["index_split_004_02.html"]
+        assert 'id="bp-01"' in title and 'id="bp-45"' not in title, "real title stays a singleton"
+        assert 'id="bp-45"' in rest and 'id="page_61"' in rest, "demoted frame flows with content"
+
+
 # A two-chapter file mirroring the real Acts 21→22 shape that broke catholic-study: ch2's
 # anchor (and verses) are NESTED inside a <p class="verse-p"> (not a top-level sibling), so
 # a cut at the ch2 boundary lands INSIDE that paragraph. ch1 ends with the ch2 number as a

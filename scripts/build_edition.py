@@ -3437,6 +3437,17 @@ _BOUNDARY_HARD_RE = re.compile(r'\bid="(?:bp-\d+|ch-b\d+-c\d+)"')
 # break — the title page gets its OWN piece (forced, even in an under-target file).
 _BP_ID_RE = re.compile(r'\bid="bp-\d+"')
 
+# The REAL book-title-page opening tag (the apply_appendix_demotion_and_renumber needle
+# form: class before id). Forced K-R2-1 isolation applies ONLY to this — a DEMOTED
+# addition keeps its bp-NN id on a class="appendix-section" div, and isolating that
+# ~750 B CSS-hidden frame mints an empty-husk spine piece that Kindle's KFX preprocessor
+# refuses as a TOC link target (E24010 "Hyperlink not resolved in toc" ×3 on bp-45/46/47
+# Azariah/Susanna/Bel → E24001 "TOC could not be built" → Send-to-Kindle rejects the
+# book; root-caused by the local Previewer oracle + the rung-tochusk probe, 2026-06-11).
+# A demoted frame flows with its parent book's content — which is also the demotion
+# DESIGN (no page break: the addition reads as part of its parent book).
+_BP_TITLEPAGE_RE = re.compile(r'<div class="book-title-page" id="bp-\d+"')
+
 # Chapter-heading cut candidate by CLASS. The real base carries page_N ids on its
 # <p class="ch-heading"> numerals — the ch-bNN-cMM id form exists only where a
 # ch-anchor was emitted — so without this rule a sparsely-noted book provides NO hard
@@ -3598,12 +3609,16 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
     reference to a cross-file link), so the bare ``#id`` footnote/popup contract stays
     same-file. A book-title-page (id="bp-NN") ALWAYS gets its own piece — forced even in
     an under-target file — because a fresh spine file is the only page break Kobo's
-    kepub renderer honors (K-R2-1); and no piece ever ENDS with a bare chapter
+    kepub renderer honors (K-R2-1) — but ONLY a real ``book-title-page`` div: a DEMOTED
+    addition's ``appendix-section`` frame keeps its bp-NN id yet flows with its parent
+    book's content, because isolating it mints the empty-husk spine piece Kindle's KFX
+    preprocessor refuses as a TOC target (E24010/E24001, the K-KIN root cause); and no
+    piece ever ENDS with a bare chapter
     opener (anchor/heading) — trailing openers move to the next piece so a chapter
     numeral never strands at the bottom of a page (K-R2-4 seam). Returns
     ``[(piece_filename, text), …]``; a file at/under ``target`` without a
     book-title-page (or without a usable structure) is returned unchanged (zero churn)."""
-    if len(text) <= target and not _BP_ID_RE.search(text):
+    if len(text) <= target and not _BP_TITLEPAGE_RE.search(text):
         return [(f"{stem}.html", text)]
     parts = _split_head_body_tail(text)
     if parts is None:
@@ -3648,14 +3663,16 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
     # a book's intro blurb (Jubilees / Additions-to-Esther), tearing it
     # mid-sentence onto the title page. Cut right after </div> so the blurb
     # travels whole to the following piece.
+    # K-KIN husk fix (2026-06-11): match the real title-page TAG, not the bare bp id —
+    # a demoted appendix-section frame must not be force-isolated (see _BP_TITLEPAGE_RE).
+    # The match starts AT the div's '<', so it doubles as the cut position directly.
     title_cuts: set[int] = set()
-    for m in _BP_ID_RE.finditer(content):
-        lt = content.rfind("<", 0, m.start())
-        if lt >= 0:
-            title_cuts.add(lt)
-            close = _matching_div_close(content, lt)
-            if close != -1 and 0 < close < len(content):
-                cands.add(close)
+    for m in _BP_TITLEPAGE_RE.finditer(content):
+        lt = m.start()
+        title_cuts.add(lt)
+        close = _matching_div_close(content, lt)
+        if close != -1 and 0 < close < len(content):
+            cands.add(close)
     if not cands:
         return [(f"{stem}.html", text)]
     cuts = [0, *sorted(cands), len(content)]

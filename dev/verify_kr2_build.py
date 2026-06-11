@@ -225,6 +225,34 @@ def orphan_vnote_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     return [f"{len(orphans)} unreachable vnote aside(s) (4j orphan class); first 4: {orphans[:4]}"]
 
 
+# ── 4k. demoted-appendix husks — no frame-only spine piece ──────────────
+def husk_piece_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """No spine piece may consist of a demoted appendix-section frame with
+    no content (the K-KIN root cause, 2026-06-11: the splitter force-isolated
+    the 3 demoted Daniel-addition title frames — bp-45/46/47 Azariah/Susanna/
+    Bel — into ~750 B CSS-hidden pieces; Kindle's KFX preprocessor refuses an
+    effectively-empty piece as a TOC link target: E24010 "Hyperlink not
+    resolved in toc" ×3 → E24001 "TOC could not be built" → Send-to-Kindle
+    rejects the whole book). A piece holding an appendix-section frame must
+    also carry verse/chapter content. Real book-title-page singletons are
+    exempt — Kindle accepts them (38 in every prior artifact)."""
+    fails: list[str] = []
+    for n in names:
+        if not re.search(r"index_split_\d+(?:_\d+)?\.html$", n):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        if 'class="appendix-section"' not in t or 'class="book-title-page"' in t:
+            continue
+        if 'class="verse-p"' in t or 'class="ch-heading"' in t:
+            continue
+        bp = re.search(r'id="(bp-\d+)"', t)
+        fails.append(
+            f"{n}: frame-only appendix-section piece ({bp.group(1) if bp else '?'}) — "
+            "the Kindle E24010/E24001 TOC-husk class (4k)"
+        )
+    return fails
+
+
 # ── 4h. K-R5-3 — book-title singletons carry no verse badges/asides ─────
 def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     """A piece holding a book-title page must carry NO verse-notes badge or
@@ -449,6 +477,7 @@ def main(path: str) -> int:
     fails.extend(title_piece_badge_checks(zf, names))
     fails.extend(badge_mode_leak_checks(zf, names))
     fails.extend(orphan_vnote_checks(zf, names))
+    fails.extend(husk_piece_checks(zf, names))
 
     # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
     fails.extend(kindle_safe_checks(zf, names, opf))
