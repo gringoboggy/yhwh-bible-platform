@@ -99,6 +99,18 @@ def _snapshot_protected_paths() -> dict[str, str]:
     return out
 
 
+# Between-test memory for the bisect fixture: the last test's AFTER
+# snapshot + its nodeid. A mutation that lands BETWEEN two tests (a
+# class/module/session fixture FINALIZER, or unittest teardown_class)
+# is invisible to the within-test compare — function-scoped after-
+# snapshots run BEFORE later-scoped finalizers (pytest finalizes
+# narrowest scope first), so the write happens after `after` is taken
+# and before the NEXT test's `before`. Comparing across that boundary
+# names the culprit window exactly (turn-69 item-② hunt instrument).
+_BISECT_LAST_AFTER: dict | None = None
+_BISECT_LAST_NODE: str | None = None
+
+
 @pytest.fixture(autouse=True)
 def _per_test_protected_paths_bisect(request):
     """Diagnostic: per-test snapshot to pinpoint which test
@@ -110,6 +122,11 @@ def _per_test_protected_paths_bisect(request):
     if mutation is detected. This converts the
     end-of-session whoops into immediate failure → test ID.
 
+    ALSO compares this test's before-snapshot against the PREVIOUS
+    test's after-snapshot: a diff there means the write happened in
+    the teardown gap between the two tests — fixture-finalizer /
+    teardown_class territory the within-test compare can't see.
+
     Once the rogue test is identified, fix it and disable the
     bisect fixture by unsetting the env var.
 
@@ -118,13 +135,37 @@ def _per_test_protected_paths_bisect(request):
     """
     import os
 
+    global _BISECT_LAST_AFTER, _BISECT_LAST_NODE
+
     if os.environ.get("YHWH_GUARD_BISECT") != "1":
         yield
         return
 
     before = _snapshot_protected_paths()
+    if _BISECT_LAST_AFTER is not None and before != _BISECT_LAST_AFTER:
+        prev_node = _BISECT_LAST_NODE
+        changed = sorted(
+            k
+            for k in set(before) | set(_BISECT_LAST_AFTER)
+            if before.get(k) != _BISECT_LAST_AFTER.get(k)
+        )
+        # arm the memory forward so ONE boundary write fails ONE test
+        _BISECT_LAST_AFTER = before
+        _BISECT_LAST_NODE = request.node.nodeid
+        raise AssertionError(
+            f"\n\nPROTECTED-PATHS BISECT — mutation BETWEEN tests:\n"
+            f"  after  '{prev_node}' finished its teardown hooks and\n"
+            f"  before '{request.node.nodeid}' started.\n"
+            f"  changed: {changed}\n\n"
+            "This is the fixture-FINALIZER / teardown_class window — the writer\n"
+            "is a finalizer registered by the earlier test's class/module/session\n"
+            "scope (it runs AFTER the within-test after-snapshot). Inspect the\n"
+            "fixtures/teardowns of the classes that finished at that boundary.\n"
+        )
     yield
     after = _snapshot_protected_paths()
+    _BISECT_LAST_AFTER = after
+    _BISECT_LAST_NODE = request.node.nodeid
     if before == after:
         return
     deleted = sorted(k for k in before if k not in after)
