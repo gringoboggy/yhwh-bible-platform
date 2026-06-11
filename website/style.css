@@ -132,6 +132,20 @@ a { color: var(--indigo); }
   padding: .7rem 1.15rem; border-radius: 4px; font-size: 1rem; min-height: 44px;
 }
 .download:hover { background: var(--red-dark); }
+
+/* downloads catalog (releases page) — the generated per-device edition lists.
+   Native <details> so the catalog works without JavaScript. */
+.catalog-format {
+  max-width: 46rem; margin: .75rem 0;
+  background: var(--parchment); border: 1px solid var(--gold-line); border-radius: 3px;
+}
+.catalog-format summary {
+  cursor: pointer; padding: .75rem 1rem; min-height: 44px; box-sizing: border-box;
+  font-weight: 600; color: var(--ink);
+}
+.catalog-format summary .meta { font-weight: 400; }
+.catalog-format[open] summary { border-bottom: 1px solid var(--gold-line); }
+.catalog-list { margin: 0; padding: .6rem 1rem .8rem 1.8rem; display: grid; gap: .4rem; }
 .download .size { opacity: .85; font-size: .9em; }
 /* whole-card clickable, accessible name stays on the link */
 .download::after { content: ""; position: absolute; inset: 0; }

@@ -84,6 +84,27 @@ class TestStandardEditionIds:
         assert out == list(out) and len(out) == 9
 
 
+class TestEpubcheckPipJarDiscovery:
+    """The driver gates via scripts/epubcheck.py (compose, don't recompute).
+    The wrapper must find the PyPI package's bundled jar (the declared
+    requirements-dev route, and CI's `pip install epubcheck`) BEFORE the
+    PATH wrapper exe — which is broken on Windows (dev/TOOLCHAIN.md) — and
+    despite scripts/epubcheck.py shadowing the package name on a CLI run."""
+
+    def test_pip_package_jar_found_without_env_or_path_wrapper(self, monkeypatch):
+        from pathlib import Path
+
+        from scripts import epubcheck as wrapper
+
+        monkeypatch.delenv("EPUBCHECK_JAR", raising=False)
+        monkeypatch.setattr(wrapper.shutil, "which", lambda name: None)
+        kind, path = wrapper.find_epubcheck(None)
+        assert kind == "jar"
+        assert path is not None and path.endswith("epubcheck.jar")
+        assert Path(path).is_file()
+        assert "site-packages" in path.replace("\\", "/")
+
+
 class TestWriteSums:
     def test_sha256sum_compatible_lines_sorted_by_name(self, tmp_path):
         from scripts.build_format_matrix import write_sums

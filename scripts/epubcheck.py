@@ -46,9 +46,12 @@ Exit codes:
 Discovery order for the validator:
     1. ``--jar`` argument
     2. ``EPUBCHECK_JAR`` environment variable
-    3. ``epubcheck`` executable on PATH (Homebrew / Debian wrappers)
-    4. ``<repo>/.tools/epubcheck*/epubcheck.jar``
-    5. ``~/.local/share/epubcheck*/epubcheck.jar``
+    3. the PyPI ``epubcheck`` package's bundled jar (requirements-dev /
+       CI ``pip install epubcheck``) — before the PATH wrapper, which is
+       broken on Windows (dev/TOOLCHAIN.md)
+    4. ``epubcheck`` executable on PATH (Homebrew / Debian wrappers)
+    5. ``<repo>/.tools/epubcheck*/epubcheck.jar``
+    6. ``~/.local/share/epubcheck*/epubcheck.jar``
 
 Install hints (printed when nothing is found):
     macOS:    brew install epubcheck
@@ -91,22 +94,49 @@ def find_epubcheck(explicit_jar: str | None = None) -> tuple[str | None, str | N
         if p.is_file():
             return ("jar", str(p))
 
-    # 3. PATH wrapper (`epubcheck` from Homebrew / apt)
+    # 3. The PyPI ``epubcheck`` package's bundled jar (the declared
+    #    requirements-dev route; CI's `pip install epubcheck`). BEFORE the
+    #    PATH wrapper, which ships broken on Windows (dev/TOOLCHAIN.md:
+    #    "always pass --jar — the PATH epubcheck.exe wrapper is unparseable").
+    pip_jar = _pip_package_jar()
+    if pip_jar:
+        return ("jar", pip_jar)
+
+    # 4. PATH wrapper (`epubcheck` from Homebrew / apt)
     wrapper = shutil.which("epubcheck")
     if wrapper:
         return ("wrapper", wrapper)
 
-    # 4. Repo-local .tools/
+    # 5. Repo-local .tools/
     for cand in sorted((REPO_ROOT / ".tools").glob("epubcheck*/epubcheck.jar")):
         return ("jar", str(cand))
 
-    # 5. User-local
+    # 6. User-local
     user_local = Path.home() / ".local" / "share"
     if user_local.is_dir():
         for cand in sorted(user_local.glob("epubcheck*/epubcheck.jar")):
             return ("jar", str(cand))
 
     return (None, None)
+
+
+def _pip_package_jar() -> str | None:
+    """The PyPI ``epubcheck`` package's bundled epubcheck.jar, or None.
+
+    Found via an import-system probe that EXCLUDES this script's own
+    directory: a CLI run (``python scripts/epubcheck.py``) puts scripts/
+    first on sys.path, where THIS file shadows the package name — a plain
+    ``import epubcheck`` would find ourselves, never the jar."""
+    import importlib.machinery
+
+    here = str(Path(__file__).resolve().parent)
+    paths = [p for p in sys.path if str(Path(p or ".").resolve()) != here]
+    spec = importlib.machinery.PathFinder.find_spec("epubcheck", paths)
+    if spec is None or not spec.origin:
+        return None
+    pkg_dir = Path(spec.origin).resolve().parent
+    jars = sorted(pkg_dir.rglob("epubcheck.jar"))
+    return str(jars[0]) if jars else None
 
 
 def has_java() -> bool:

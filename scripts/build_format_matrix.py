@@ -31,7 +31,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import shutil
 import subprocess
 import sys
@@ -102,21 +101,6 @@ def _run(cmd: list[str], **kwargs) -> None:
     subprocess.run(cmd, check=True, stdin=subprocess.DEVNULL, **kwargs)
 
 
-def _epubcheck_jar() -> str:
-    """The bundled epubcheck jar (EPUBCHECK_JAR env overrides; else the PyPI
-    package's site-packages copy — never the PATH wrapper exe)."""
-    env = os.environ.get("EPUBCHECK_JAR")
-    if env:
-        return env
-    import epubcheck
-
-    pkg_dir = Path(epubcheck.__file__).resolve().parent
-    jars = sorted(pkg_dir.rglob("epubcheck.jar"))
-    if not jars:
-        raise FileNotFoundError(f"no epubcheck.jar under {pkg_dir}; set EPUBCHECK_JAR")
-    return str(jars[0])
-
-
 def _build_base(edition_id: str, version: str, target: str, build_dir: Path) -> Path:
     """One base build via the canonical CLI; returns the produced .epub."""
     build_dir.mkdir(parents=True, exist_ok=True)
@@ -142,13 +126,18 @@ def _build_base(edition_id: str, version: str, target: str, build_dir: Path) -> 
 
 
 def _gate_asset(asset: Path) -> None:
-    """The per-asset acceptance gates: zip integrity, epubcheck 0/0/0/0, and
-    the K-R2/K-R3 artifact gates."""
+    """The per-asset acceptance gates: zip integrity, epubcheck 0/0/0/0
+    (via the project wrapper scripts/epubcheck.py — compose, don't
+    recompute; --require hard-fails when the tool is missing, --strict
+    fails on warnings too), and the K-R2/K-R3 artifact gates."""
     with zipfile.ZipFile(asset) as z:
         bad = z.testzip()
         if bad is not None:
             raise ValueError(f"zip integrity failure in {asset.name}: {bad}")
-    _run(["java", "-jar", _epubcheck_jar(), str(asset)])
+    _run(
+        [sys.executable, str(REPO_ROOT / "scripts" / "epubcheck.py"), "--require", "--strict", str(asset)],
+        cwd=str(REPO_ROOT),
+    )
     _run([sys.executable, str(REPO_ROOT / "dev" / "verify_kr2_build.py"), str(asset)], cwd=str(REPO_ROOT))
 
 

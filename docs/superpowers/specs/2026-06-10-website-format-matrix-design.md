@@ -94,21 +94,26 @@ of the 25 templates is used, per the directive.
 1. **Base builds (45):** matrix driver builds each edition × format profile.
    Full gates per base: `verify_kr2_build.py` + epubcheck 0/0/0/0 +
    nested-anchor + (eink) kepubify clean.
-2. **Colour variants (×5 → 225) — REVISED per review blocker #2.** The shipped
-   covers are Pillow **composites** ("HOLY BIBLE" + edition subtitle via
-   `fit_text_block`), and the OPF cover slot is `image/jpeg` — so "rezip with
-   the raw template PNG" is wrong twice (title-less art + PNG bytes in a JPEG
-   slot = epubcheck fail). The variant generator instead: **composite per
-   (edition × design × colour) → JPEG → swap into the base via
-   `build_epub.py`'s deterministic writer** (mimetype-first / STORED / fixed
-   1980 date — bare `rezip` guarantees neither determinism nor zip
-   discipline); kepub variants re-swap **after** kepubify. Composite
-   generation is **explicit M1/M2 work** (the ~18 M1 composites don't exist
-   yet — M1 is NOT "nothing-gated" until they do). Pin Pillow + fonts on
-   ubuntu: the compositor's font candidates are Windows-first and silently
-   fall back to Cardo divergence in-runner. Light gates per variant: zip
-   integrity + cover presence + manifest hash; epubcheck on a per-design spot
-   sample (the swap touches no markup).
+2. **Colour variants (×5 → 225) — REVISED per review blocker #2; M1 core
+   SHIPPED 2026-06-11.** The shipped covers are Pillow **composites** ("HOLY
+   BIBLE" + edition subtitle via `fit_text_block`), and the OPF cover slot is
+   `image/jpeg` — so "rezip with the raw template PNG" is wrong twice
+   (title-less art + PNG bytes in a JPEG slot = epubcheck fail). The variant
+   generator instead: **composite per (edition × design × colour) → JPEG →
+   swap into the base under `build_epub.py`'s deterministic writer
+   discipline** (mimetype-first / STORED / fixed 1980 date — bare `rezip`
+   guarantees neither determinism nor zip discipline); kepub variants re-swap
+   **after** kepubify. **SHIPPED:** `scripts/swap_epub_cover.py` (JPEG
+   magic-byte gate, byte-preserving rewrite, 7 pins; proven on a real round-6
+   artifact, epubcheck 0/0/0/0) + `generate_catalog_composite` /
+   `m1_catalog_plan` in `scripts/generate_edition_covers.py`. **The 18 M1
+   composites are COMMITTED under `content/covers/catalog/`** (generated on
+   the canonical Windows fonts) — CI swaps the committed bytes and never
+   composites in-runner, which kills the ubuntu font-divergence class at the
+   root (supersedes the earlier "pin Pillow + fonts on ubuntu" mitigation;
+   M2's 225-composite set decides commit-vs-pin separately). Light gates per
+   variant: zip integrity + cover presence; epubcheck runs per M1 asset (18
+   is cheap) — per-design spot-sampling starts at M2 scale.
 3. **CI, not local (the bandwidth decision) — topology REVISED per review
    blockers #3/#4.** A GitHub Actions workflow (precedent: `build-linux.yml` —
    pinned tool installs, fail-fast `gh release view`) builds the matrix and
@@ -165,7 +170,7 @@ of the 25 templates is used, per the directive.
 
 | Phase | Ships | Gated on |
 |---|---|---|
-| M1 | `--target-reader` flag + cache-key fold (✅ DONE 2026-06-11) · `FORMAT_MATRIX` constant · the ~18 M1 design-default composites · CI matrix workflow (per-edition jobs + SHA256SUMS fan-in) + catalog UI, formats 1–2 (everywhere + Apple) × 9 editions | the composites (review blocker #2 — M1 is not nothing-gated until they exist) |
+| M1 | `--target-reader` flag + cache-key fold (✅ DONE 2026-06-11) · `FORMAT_MATRIX` constant (✅ + `COVER_COLOURS` + `catalog_asset_name`, 18 pins) · the 18 M1 design-default composites (✅ committed `content/covers/catalog/`) · CI matrix workflow (✅ `.github/workflows/format-matrix.yml` + driver `scripts/build_format_matrix.py`, per-edition jobs + SHA256SUMS fan-in) · catalog generator (✅ `scripts/gen_release_catalog.py`: full-count gating, paginated assets, legacy-Kobo cell) · catalog UI (✅ releases.html band + no-JS fragment), formats 1–2 (everywhere + Apple) × 9 editions | remaining: dispatch the workflow against a release + regen catalog + redeploy the site |
 | M2 | + colour variants (the composite-swap generator) | M1 |
 | M3 | + Kobo column (×9 kepub) | K-R4-2 cap fix post-calibration (round-5 taps) |
 | M4 | + Kindle column | Mac `kindle_safe` lands + Send-to-Kindle acceptance |
