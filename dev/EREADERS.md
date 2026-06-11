@@ -17,7 +17,7 @@
 | Reader | We ship | `target_reader` | Popup footnotes | Collapsible ToC (`<details>`) | Embedded fonts | Page-break CSS | Status (date) |
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
-| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; preview declines large notes (see §Kobo) | ❌ flat (KOReader/crengine by design) | ✅ in book; ❌ in the footnote-preview dialog (system font) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Rounds 1–4 done; round-5 cap calibration IN FLIGHT (2026-06-10) |
+| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; preview declines notes ≥5,500 stripped (pops ≤4,498; fix = cap ~4,400) | ❌ flat (KOReader/crengine by design) | ✅ in book; ❌ in the footnote-preview dialog (follows the READING font — set Cardo) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-5 calibration DONE 2026-06-11 (1 anomaly re-tap pending); K-R4-2 cap fix + K-R5-3 clamp fix = Mac |
 | **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (kindle_safe) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Variant SHIPPED + epubcheck 0/0/0/0 by execution; user K-KIN-1..4 acceptance PENDING (2026-06-10) |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
@@ -41,14 +41,21 @@
   (`dev/TOOLCHAIN.md` §kepubify; watch its two gotchas: spurious popups from
   ordinary cross-ref links; aside `id`s must survive the koboSpan transform).
 - **The footnote-preview dialog** (the popup): renders TAG-STRIPPED plain text in
-  KOBO'S SYSTEM font (not the embedded fonts → Hebrew/Arabic/Geʽez tofu without the
-  font pack), and **DECLINES large notes** — instead of popping it NAVIGATES to the
-  target ("teleport"); a target at a piece start looks like "nothing happened".
-  Threshold bracketed **3,313 < T ≤ 7,748 stripped chars** (round 4);
-  **round-5 calibration pins T** via `dev/kobo_tap_calibration.py` (real-badge
-  tap-list at ~3.5k/4.5k/5.5k/6.5k/7.5k). K-R4-2 fix design: (a) split-by-category
-  + (b) split WITHIN a note body (`hist` ≈19K = ONE Easton note in both worst
-  verses — Mac, 2026-06-10).
+  the READING font (NOT the embedded fonts → Hebrew/Arabic/Geʽez/◈ tofu unless the
+  user sets a font-pack font like Cardo), and **DECLINES large notes** — instead of
+  popping it NAVIGATES to **the containing piece's TOP** (confirmed round 5: all
+  five jumps landed exactly at piece tops; a target near its own piece top looks
+  like "nothing happened" — Gen 1:1 across 4 artifacts). Threshold NARROWED round-5
+  (2026-06-11): **pops ≤ 4,498 · declines ≥ 5,500 stripped chars** — 8/9 tap points
+  consistent; the one inversion (gen 35:18, 3,509 → declined) is anomalous on every
+  measured axis and awaits ONE re-tap. K-R4-2 fix: cap units **≤ ~4,400 stripped**
+  via (a) split-by-category + (b) split WITHIN a note body (`hist` ≈19K = ONE
+  Easton note in both worst verses — Mac, 2026-06-10). Calibration tool:
+  `dev/kobo_tap_calibration.py`.
+- **⚠ Per-book settings reset on NEW files:** a swapped QA artifact with a new
+  filename = a new book → the reading-font choice resets to default → tofu
+  "regression" that isn't one (round-5 lesson, `notes/2026-06-10-kobo-round5-device-qa.md`
+  K-R5-1). **QA swaps now REUSE the on-device filename.**
 - **Mitigation for popup fonts:** the **font-pack add-on** (`dist/yhwh-kobo-font-pack.zip`,
   OFL ttf ×5 → device `fonts/` folder; user selects e.g. Cardo as reading font).
 - **Page breaks:** Kobo's own epub spec lists **N for all 12 page-break properties
