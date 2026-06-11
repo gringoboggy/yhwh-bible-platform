@@ -266,7 +266,7 @@ class TestDelinkLeavesTheRestAlone:
 # epubcheck-error-free and the Previewer verdict localizes the trigger.
 
 
-def _mini_halfspine_epub(path):
+def _mini_halfspine_epub(path, include_back=False):
     import zipfile
 
     opf = (
@@ -275,18 +275,21 @@ def _mini_halfspine_epub(path):
         '<item id="d1" href="d1.html" media-type="application/xhtml+xml"/>'
         '<item id="d2" href="d2.html" media-type="application/xhtml+xml"/>'
         '<item id="d3" href="d3.html" media-type="application/xhtml+xml"/>'
-        '<item id="css" href="stylesheet.css" media-type="text/css"/>'
+        + ('<item id="back" href="back.html" media-type="application/xhtml+xml"/>' if include_back else "")
+        + '<item id="css" href="stylesheet.css" media-type="text/css"/>'
         '<item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/>'
         '<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
         '</manifest><spine toc="ncx">'
         '<itemref idref="d0"/><itemref idref="d1"/><itemref idref="d2"/><itemref idref="d3"/>'
-        '</spine><guide><reference type="text" title="Start" href="d3.html#top"/></guide></package>'
+        + ('<itemref idref="back"/>' if include_back else "")
+        + '</spine><guide><reference type="text" title="Start" href="d3.html#top"/></guide></package>'
     )
     nav = (
         '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
         '<li><a href="d0.html#a">D0</a></li><li><a href="d1.html#a">D1</a></li>'
         '<li><a href="d2.html#a">D2</a></li><li><a href="d3.html#a">D3</a></li>'
-        "</ol></nav></body></html>"
+        + ('<li><a href="back.html">Colophon</a></li>' if include_back else "")
+        + "</ol></nav></body></html>"
     )
     ncx = (
         "<ncx><navMap>"
@@ -294,7 +297,12 @@ def _mini_halfspine_epub(path):
         '<navPoint id="n1" playOrder="2"><navLabel><text>D1</text></navLabel><content src="d1.html#a"/></navPoint>'
         '<navPoint id="n2" playOrder="3"><navLabel><text>D2</text></navLabel><content src="d2.html#a"/></navPoint>'
         '<navPoint id="n3" playOrder="4"><navLabel><text>D3</text></navLabel><content src="d3.html#a"/></navPoint>'
-        "</navMap></ncx>"
+        + (
+            '<navPoint id="n4" playOrder="5"><navLabel><text>Colophon</text></navLabel><content src="back.html"/></navPoint>'
+            if include_back
+            else ""
+        )
+        + "</navMap></ncx>"
     )
     d0 = (
         '<html><body><p id="a">zero '
@@ -308,6 +316,8 @@ def _mini_halfspine_epub(path):
         "d2.html": '<html><body><p id="a">two</p></body></html>',
         "d3.html": '<html><body><p id="a">three</p></body></html>',
     }
+    if include_back:
+        docs["back.html"] = "<html><body><p>colophon</p></body></html>"
     with zipfile.ZipFile(path, "w") as z:
         z.writestr(zipfile.ZipInfo("mimetype"), "application/epub+zip", zipfile.ZIP_STORED)
         z.writestr("content.opf", opf)
@@ -320,10 +330,10 @@ def _mini_halfspine_epub(path):
 
 
 class TestBuildHalfspine:
-    def _run(self, tmp_path, keep):
+    def _run(self, tmp_path, keep, include_back=False):
         import zipfile
 
-        src = _mini_halfspine_epub(tmp_path / "src.epub")
+        src = _mini_halfspine_epub(tmp_path / "src.epub", include_back=include_back)
         out = tmp_path / "out.epub"
         stats = kindle_bisect.build_halfspine(src, out, keep=keep)
         with zipfile.ZipFile(out) as z:
@@ -368,6 +378,17 @@ class TestBuildHalfspine:
         assert "d2.html" not in d0, "dangling href into a dropped doc must be neutralized"
         assert "to dropped</span>" in d0 and 'epub:type="noteref"' not in d0
         assert '<a href="d1.html#a">to kept</a>' in d0, "links into kept docs survive untouched"
+
+    def test_fragmentless_backmatter_entries_removed_whole(self, tmp_path):
+        # the real artifact's back-matter lis (Sources/Reference Tables/Topical
+        # Index/Colophon) carry NO #fragment; a span-converted li is invalid
+        # nav markup (li needs a, or span + nested ol) — epubcheck RSC-005 ×4.
+        _, names, texts = self._run(tmp_path, "first", include_back=True)
+        assert "back.html" not in names
+        nav = texts["nav.xhtml"]
+        assert "back.html" not in nav and "<li><span>Colophon</span></li>" not in nav
+        assert "Colophon" not in nav, "the fragment-less li must be removed whole, not span-converted"
+        assert "back.html" not in texts["toc.ncx"]
 
     def test_assets_and_nav_docs_always_survive(self, tmp_path):
         _, names, _ = self._run(tmp_path, "second")

@@ -158,10 +158,12 @@ def _strip_husk_refs(name: str, text: str, base: str, stats: dict[str, int]) -> 
     if name.endswith(".ncx"):
         # tempered: never scan across a navPoint boundary (a bare .*? swallowed
         # every navPoint from the navMap top down to the husk's — epubcheck
-        # "first playOrder value is not 1" caught it on the real artifact)
+        # "first playOrder value is not 1" caught it on the real artifact).
+        # Fragment OPTIONAL: back-matter navPoints (Sources/Colophon…) carry
+        # a bare file src — the halfspine rung must drop those whole too.
         text, n_ncx = re.subn(
             rf"[ \t]*<navPoint\b[^>]*>(?:(?!</?navPoint).)*?"
-            rf'<content src="(?:[^"]*/)?{b}#[^"]*"\s*/>(?:(?!</?navPoint).)*?</navPoint>\s*\n?',
+            rf'<content src="(?:[^"]*/)?{b}(?:#[^"]*)?"\s*/>(?:(?!</?navPoint).)*?</navPoint>\s*\n?',
             "",
             text,
             flags=re.S,
@@ -170,9 +172,13 @@ def _strip_husk_refs(name: str, text: str, base: str, stats: dict[str, int]) -> 
         return text
     # nav.xhtml <li> entries AND the in-book HTML TOC page's whole
     # <li class="toc-book"> blocks (label + chapter rows): drop the smallest
-    # <li>…</li> that references the husk.
+    # <li>…</li> that references the husk. Fragment OPTIONAL ([#"]): the
+    # back-matter lis (Sources & Acknowledgments / Reference Tables / Topical
+    # Index / Colophon) href the bare file — leaving them to the anchor→span
+    # neutralizer mints `<li><span>` = invalid nav markup (li needs a, or
+    # span + nested ol; epubcheck RSC-005 ×4 on the real half-first probe).
     text, n_nav = re.subn(
-        rf'[ \t]*<li[^>]*>(?:(?!</li>).)*?href="(?:[^"]*/)?{b}#(?:(?!</li>).)*?</li>\s*\n?',
+        rf'[ \t]*<li[^>]*>(?:(?!</li>).)*?href="(?:[^"]*/)?{b}[#"](?:(?!</li>).)*?</li>\s*\n?',
         "",
         text,
         flags=re.S,
