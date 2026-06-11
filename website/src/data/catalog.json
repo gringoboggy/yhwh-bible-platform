@@ -1,0 +1,95 @@
+{
+  "tag": "v0.1.0",
+  "version": "0.1.0",
+  "editions": [
+    {
+      "id": "ethiopian-tewahedo",
+      "title": "Ethiopian Tewahedo Bible"
+    },
+    {
+      "id": "catholic-study",
+      "title": "Catholic Study Bible"
+    },
+    {
+      "id": "evangelical-reformed",
+      "title": "Reformed Study Bible"
+    },
+    {
+      "id": "jewish-study",
+      "title": "Jewish Study Tanakh"
+    },
+    {
+      "id": "scholarly-academic",
+      "title": "Annotated Scholar's Bible"
+    },
+    {
+      "id": "eastern-orthodox",
+      "title": "Eastern Orthodox Bible"
+    },
+    {
+      "id": "anglican-bcp",
+      "title": "Anglican Study Bible"
+    },
+    {
+      "id": "lutheran-confessional",
+      "title": "Lutheran Study Bible"
+    },
+    {
+      "id": "coptic-orthodox",
+      "title": "Coptic Orthodox Bible"
+    }
+  ],
+  "formats": [
+    {
+      "id": "everywhere",
+      "label": "Computer & everywhere else",
+      "packaging": "epub",
+      "phase": "M1",
+      "live": false,
+      "colours": [],
+      "cells": {}
+    },
+    {
+      "id": "apple",
+      "label": "Apple Books",
+      "packaging": "epub",
+      "phase": "M1",
+      "live": false,
+      "colours": [],
+      "cells": {}
+    },
+    {
+      "id": "kobo",
+      "label": "Kobo & e-ink",
+      "packaging": "kepub.epub",
+      "phase": "M3",
+      "live": false,
+      "colours": [],
+      "cells": {},
+      "legacy_cell": {
+        "name": "YHWH-Ethiopian-Bible-v0.1.0.kepub.epub",
+        "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-Ethiopian-Bible-v0.1.0.kepub.epub",
+        "edition": "ethiopian-tewahedo",
+        "note": "v0.1.0 flagship kepub — the live Kobo offering until the M3 column ships"
+      }
+    },
+    {
+      "id": "kindle",
+      "label": "Kindle",
+      "packaging": "epub",
+      "phase": "M4",
+      "live": false,
+      "colours": [],
+      "cells": {}
+    },
+    {
+      "id": "play",
+      "label": "Google Play Books",
+      "packaging": "epub",
+      "phase": "M5",
+      "live": false,
+      "colours": [],
+      "cells": {}
+    }
+  ]
+}

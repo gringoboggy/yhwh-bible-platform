@@ -104,6 +104,15 @@ for (const rel of walkHtml(SRC)) {
     bodyFilled = fill(bodyFilled, 'geez_progress', frag);
   }
 
+  // Inline the generated Downloads-catalog fragment (scripts/gen_release_catalog.py
+  // emits it from the release's REAL asset list — the page can never over-claim).
+  if (bodyFilled.includes('{{release_catalog}}')) {
+    const fragPath = join(SRC, 'data', 'catalog.html');
+    const frag = existsSync(fragPath) ? readFileSync(fragPath, 'utf8')
+      : '<p>The per-device edition catalog is being prepared.</p>';
+    bodyFilled = fill(bodyFilled, 'release_catalog', frag);
+  }
+
   // {{root}} = the depth-correct relative prefix back to dist/ root, so a page nested in
   // read/geez/psa/ still finds style.css / fonts / the nav links. Top-level pages get ''
   // (so their output is byte-identical to before this change). Filled on the FULL page so

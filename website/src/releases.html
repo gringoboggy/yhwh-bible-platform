@@ -31,6 +31,18 @@ page: releases
         Verify with <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
     </section>
 
+    <!-- ──────────────── EDITION & DEVICE CATALOG (generated) ──── -->
+    <!-- The fragment below is emitted by scripts/gen_release_catalog.py from the
+         release's REAL asset list (full-count gated: a device column appears only
+         when every edition's file is published), then inlined at site build. -->
+    <section class="band" aria-labelledby="catalog-h">
+      <h2 id="catalog-h" class="rule">Choose your edition &amp; device</h2>
+      <p class="prose">Nine ready-made study editions — Ethiopian Tewahedo, Catholic, Reformed, Jewish,
+        academic, Eastern Orthodox, Anglican, Lutheran, and Coptic — each built for the device you read on.
+        Pick a tradition, open your device's list, download the file.</p>
+      {{release_catalog}}
+    </section>
+
     <!-- ──────────────── GET THE BUILD (latest + downloads) ───── -->
     <section class="band" aria-labelledby="get-build">
       <h2 id="get-build" class="rule">Get the build</h2>

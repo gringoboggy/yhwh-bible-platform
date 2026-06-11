@@ -1,0 +1,146 @@
+name: Format Matrix
+
+# The website Downloads catalog's release assets (format-matrix spec §4.3):
+# every canon edition × every phase-gated format, built on GitHub-hosted
+# runners so ~GBs of artifacts never touch the home connection. Run it
+# manually from the Actions tab after cutting/choosing a release tag.
+#
+# Topology (Mac review blockers #3/#4): ONE job per edition (a single job
+# would blow the 6-hour cap), formats SERIAL inside the job via
+# scripts/build_format_matrix.py — the YAML never re-types the format table
+# or the edition list (FORMAT_MATRIX + editions.yaml are the one-homes).
+# Matrix jobs upload ONLY their own assets; the needs:-gated fan-in job is
+# the SOLE writer of SHA256SUMS.txt (9 concurrent download→append→clobber
+# self-merges would lose updates). The fan-in completing is also the
+# "release complete" signal the catalog generator keys on.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the catalog assets to"
+        required: true
+        default: "v0.1.0" # update when cutting a release
+      phase:
+        description: "Ship formats gated at this phase"
+        required: true
+        default: "M1"
+
+permissions:
+  contents: write
+
+concurrency:
+  # One run per tag at a time — two runs racing the same release's assets
+  # (and the fan-in's SHA256SUMS) would interleave.
+  group: format-matrix-${{ github.event.inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      editions: ${{ steps.editions.outputs.editions }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate the release tag exists (fail fast, before 9 builds)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null
+          echo "release ${TAG} exists — proceeding"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Emit the edition matrix from editions.yaml (the one-home)
+        id: editions
+        run: |
+          pip install -r requirements.txt >/dev/null
+          EDITIONS="$(python scripts/build_format_matrix.py --list-editions)"
+          echo "editions=${EDITIONS}" >> "$GITHUB_OUTPUT"
+          echo "matrix editions: ${EDITIONS}"
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false # one edition failing must not cancel the other 8
+      matrix:
+        edition: ${{ fromJson(needs.plan.outputs.editions) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install dependencies (declared in requirements*.txt)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt   # PyYAML (config loaders)
+          pip install epubcheck             # validation jar (requirements-dev.txt pin family)
+
+      - name: Build + gate this edition's catalog assets (formats serial)
+        run: |
+          python scripts/build_format_matrix.py \
+            --edition "${{ matrix.edition }}" \
+            --version "${{ github.event.inputs.tag }}" \
+            --phase "${{ github.event.inputs.phase }}" \
+            --output-dir build/matrix
+
+      - name: Upload this edition's assets to the release (own assets ONLY)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          gh release upload "$TAG" build/matrix/YHWH-*.epub --clobber --repo "${{ github.repository }}"
+
+      - name: Hand the per-edition sums to the fan-in job
+        uses: actions/upload-artifact@v4
+        with:
+          name: sums-${{ matrix.edition }}
+          path: build/matrix/sums-*.txt
+          if-no-files-found: error
+
+  sha256sums:
+    # The SOLE SHA256SUMS.txt writer (review blocker #3). Runs only when
+    # EVERY edition job succeeded — a partial matrix must not refresh the
+    # sums file, so the catalog generator can never over-claim a column.
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect the per-edition sums
+        uses: actions/download-artifact@v4
+        with:
+          pattern: sums-*
+          merge-multiple: true
+          path: sums
+
+      - name: Merge into the release's SHA256SUMS.txt and upload ONCE
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          REPO="${{ github.repository }}"
+          # Existing sums (AppImage, flagship EPUB, ...) survive; lines for
+          # asset names this run re-produced are replaced, not duplicated.
+          gh release download "$TAG" -p SHA256SUMS.txt -O SHA256SUMS.txt --repo "$REPO" || true
+          touch SHA256SUMS.txt
+          cat sums/sums-*.txt > new-sums.txt
+          awk '{print $2}' new-sums.txt | while read -r name; do
+            grep -v "  ${name}\$" SHA256SUMS.txt > sums.tmp || true
+            mv sums.tmp SHA256SUMS.txt
+          done
+          cat new-sums.txt >> SHA256SUMS.txt
+          sort -u SHA256SUMS.txt -o SHA256SUMS.txt
+          echo "--- SHA256SUMS.txt ---"; cat SHA256SUMS.txt
+          gh release upload "$TAG" SHA256SUMS.txt --clobber --repo "$REPO"

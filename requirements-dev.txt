@@ -15,6 +15,10 @@ mypy>=1.8,<3           # type checker (scripts/audit_types.py, `make ci`)
 coverage>=7.0,<8       # test-coverage measurement + floor (`make coverage`, `make ci`)
 vulture>=2.0,<3        # dead-code finder (`make ci`: report-only, like ruff check)
 pip-audit>=2.0,<3      # dependency CVE scanner (`make ci`: audits requirements.txt)
+epubcheck>=5.1,<6      # EPUB 3.3 validation jar (needs a JRE; always invoke via
+                       # `java -jar <bundled jar>` / EPUBCHECK_JAR — never the
+                       # PATH wrapper exe, see dev/TOOLCHAIN.md). Used by the
+                       # build gates + the format-matrix CI workflow.
 
 # ----------------------------------------------------------------------
 # Feature libraries (NOT pure tooling) — required for the FULL test suite to
