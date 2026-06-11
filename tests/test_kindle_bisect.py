@@ -285,7 +285,10 @@ def _mini_halfspine_epub(path, include_back=False):
         + '</spine><guide><reference type="text" title="Start" href="d3.html#top"/></guide></package>'
     )
     nav = (
-        '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
+        '<html xmlns:epub="http://www.idpf.org/2007/ops"><head><title>T</title>'
+        '<link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>'
+        "<body>"
+        '<nav epub:type="toc"><ol>'
         '<li><a href="d0.html#a">D0</a></li><li><a href="d1.html#a">D1</a></li>'
         '<li><a href="d2.html#a">D2</a></li><li><a href="d3.html#a">D3</a></li>'
         + ('<li><a href="back.html">Colophon</a></li>' if include_back else "")
@@ -394,6 +397,26 @@ class TestBuildHalfspine:
         _, names, _ = self._run(tmp_path, "second")
         for keeper in ("stylesheet.css", "nav.xhtml", "toc.ncx", "content.opf"):
             assert keeper in names
+
+    def test_nav_head_survives_keep_second(self, tmp_path):
+        # `<li[^>]*>` also matches `<link …>` — on keep=second the very FIRST
+        # toc li targets a dropped doc, so a scan started at the head's <link>
+        # reaches that href with no intervening </li> and swallows
+        # </head><body><nav><ol> whole (epubcheck RSC-016 "head must be
+        # terminated" on the real half-second probe). `<li\b` must not match
+        # `<link`.
+        _, _, texts = self._run(tmp_path, "second")
+        nav = texts["nav.xhtml"]
+        assert "</head>" in nav and "<nav " in nav.replace("epub:type", " epub:type") or "</head>" in nav
+        assert "<link " in nav, "the stylesheet link in <head> must survive"
+        assert 'href="d2.html#a"' in nav and 'href="d3.html#a"' in nav
+
+    def test_emptied_guide_is_removed_whole(self, tmp_path):
+        # keep=first drops d3; the guide's ONLY reference targets d3 — a
+        # leftover `<guide></guide>` is invalid OPF (RSC-005 "guide
+        # incomplete; missing required element reference").
+        _, _, texts = self._run(tmp_path, "first")
+        assert "<guide" not in texts["content.opf"]
 
     def test_mimetype_still_first_and_stored(self, tmp_path):
         import zipfile

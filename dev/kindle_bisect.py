@@ -177,8 +177,13 @@ def _strip_husk_refs(name: str, text: str, base: str, stats: dict[str, int]) -> 
     # Index / Colophon) href the bare file — leaving them to the anchor→span
     # neutralizer mints `<li><span>` = invalid nav markup (li needs a, or
     # span + nested ol; epubcheck RSC-005 ×4 on the real half-first probe).
+    # `<li\b`, NOT `<li[^>]*>`: the latter also matches `<link …>` in the nav
+    # head — when the FIRST toc li targets a dropped doc (keep=second), a scan
+    # started at the head's <link> reaches that href with no intervening
+    # </li> and swallows </head><body><nav><ol> whole (epubcheck RSC-016
+    # "head must be terminated" on the real half-second probe).
     text, n_nav = re.subn(
-        rf'[ \t]*<li[^>]*>(?:(?!</li>).)*?href="(?:[^"]*/)?{b}[#"](?:(?!</li>).)*?</li>\s*\n?',
+        rf'[ \t]*<li\b[^>]*>(?:(?!</li>).)*?href="(?:[^"]*/)?{b}[#"](?:(?!</li>).)*?</li>\s*\n?',
         "",
         text,
         flags=re.S,
@@ -331,9 +336,12 @@ def build_halfspine(src_epub: Path, out_epub: Path, keep: str = "first") -> dict
         for base in dropped_bases:
             text = _strip_husk_refs(name, text, base, stats)
         if name.endswith(".opf"):
-            # guide <reference> entries into dropped docs
+            # guide <reference> entries into dropped docs; an EMPTIED guide is
+            # invalid OPF (RSC-005 "guide incomplete; missing required element
+            # reference") — drop the element whole when nothing survives.
             for base in dropped_bases:
                 text = re.sub(rf'[ \t]*<reference\b[^>]*href="(?:[^"]*/)?{re.escape(base)}[#"][^>]*/>\s*\n?', "", text)
+            text = re.sub(r"[ \t]*<guide>\s*</guide>\s*\n?", "", text)
         elif name.endswith(".ncx"):
             # an unstrippable leftover (e.g. a parent navPoint with nested
             # children) — retarget at the first kept doc so the ncx stays valid
