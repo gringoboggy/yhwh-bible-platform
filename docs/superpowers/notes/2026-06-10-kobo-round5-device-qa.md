@@ -90,13 +90,74 @@ identical-or-improved. The round-7 audit + fix pass introduced NO device
 regressions on any probed surface (audits ran Opus/Fable per the standing
 model rule).
 
+## Round-5b (2026-06-11, user follow-up — Cardo set on-device)
+
+User report after setting the reading font to Cardo on the r5 book:
+
+- **K-R5-1 CONFIRMED on-device** — Greek + Hebrew popups render again with
+  Cardo set. The font-reset theory is proven; the "translations broken"
+  regression is closed. (◈ badge glyph not yet re-confirmed — still pending.)
+- **K-R5-6 (NEW, ★REAL REGRESSION — the user was right) — the round-7 audit's
+  unconditional `dc:language` drop broke the Kobo preview's script fallback.**
+  The user was POSITIVE all translations (incl. Arabic) had rendered under
+  Publisher Default before the deep-audit fixes — and the artifact diff proves
+  a real candidate the K-R5 forensics never probed (it compared asides/badges,
+  not the OPF): **v0.1.0 declares `en-US + hbo + grc + arc + gez`; r5 declares
+  `en-US` only** (measured by execution on both kepubs). Timeline locks it:
+  the multi-language block was ADDED 2026-06-09 as the K-R2-5 fix (`63f3cc99`,
+  between rounds 2 and 3 — round-2's recorded Publisher-Default tofu was on
+  the PRE-declaration artifact), rode rounds 3–4 + v0.1.0, then the turn-67
+  Kindle-E999 fix #1 dropped it **unconditionally** (`build_edition.py`
+  `patch_opf`, "the in-content language info already rides per-span
+  xml:lang"). That justification fails for Kobo: the per-span `lang` tags DO
+  exist (r5 spine: `lang="ar"/grc/he/la` ×88/file) but the preview dialog is
+  a TAG-STRIPPING extractor — markup-level lang never reaches it; the OPF
+  declarations were the only language signal it could key fallback fonts on.
+  Mechanism-consistent with every observation: v0.1.0 + Publisher Default =
+  fallback fonts engage = everything renders; r5 + Publisher Default = no
+  declarations = tofu; Cardo rescues only its own scripts (Greek/Hebrew, no
+  Arabic/Ethiopic glyphs). **Fix (Mac — `patch_opf` is this arc's file):
+  target-gate the drop** — single `en-US` ONLY when `is_kindle_target`
+  (E999 is Amazon's validator, nobody else's); every other target RESTORES
+  the multi-value block, **adding `ar`** (truthful: the Van Dyck Arabic popups
+  exist per-span ×88/file; the old block oddly lacked it — if v0.1.0's Arabic
+  really rendered, Kobo's fallback may engage book-wide once multi-lang is
+  declared; declaring `ar` removes the doubt either way). Re-true the bcp47
+  single-lang pin to kindle-only; verifier gate 5 (single dc:language) already
+  judges kindle artifacts only. **Device gate (round 6): Publisher Default +
+  one Hebrew + one Arabic popup on the rebuilt kepub.** Contingency if the
+  restore does NOT revive Publisher Default: the merged pan-script reading
+  font (Cardo + Noto Naskh + Noto Serif Ethiopic via `fontTools.merge`, fresh
+  OFL name; needs a user-OK'd `fonttools` install — guard #1).
+- **K-R5-7 (NEW) — run-on popups persist WITH the separators present.**
+  Verified in the r5 artifact: `vn-sep` ×900+ per spine file (K-R3-2 + K-R4-1
+  both shipped). The single-char marks (¶ ◦ •) give structure but no LINE
+  BREAKS — the stripped preview still reads as one wall. **Round-6 experiment
+  (Mac — rides the K-R4-2 edit):** bake a literal newline into each vn-sep
+  span text (`<span class="vn-sep">\n¶ </span>` etc.). Everywhere CSS applies
+  the span is display:none so the change is invisible; if the eInk extractor
+  preserves raw text the popup gains real line breaks. If `\n` collapses, the
+  fallback variant is U+2028 LINE SEPARATOR. Cheap, idempotent-safe (the
+  existing negative lookaheads key on the span opener).
+- **gen 1:1 "still doesn't open" = K-R5-2 as expected** — 9,058 stripped is
+  over the decline floor; the tap self-lands at its own piece top. Unchanged
+  until the K-R4-2 cap fix lands (Mac, round 6).
+
 ## Assignments
 
-- **Mac (owns `build_edition.py` + stylesheet this arc):** the K-R4-2 cap fix
-  (a)+(b) at ≤~4,400 stripped (pending the 35:18 re-tap verdict) + the
-  K-R5-3 book-boundary clamp fix + gate 4h.
-- **WIN:** matrix M1 (CI workflow + catalog) per the v1.0.0 assessment;
-  EREADERS §Kobo updated this commit.
-- **USER:** set Cardo on the new book → re-check one translation popup +
-  one ◈ badge glyph; ONE re-tap of gen 35:18's ◈ badge; (whenever)
-  Send-to-Kindle K-KIN-1..4.
+- **Mac (owns `build_edition.py` + stylesheet this arc):** ★the K-R5-6
+  `dc:language` restore (target-gated: single `en-US` kindle-only; all other
+  targets get the multi-value block back + `ar`; re-true the bcp47 pin) +
+  the K-R4-2 cap fix (a)+(b) at ≤~4,400 stripped (pending the 35:18 re-tap
+  verdict) + the K-R5-3 book-boundary clamp fix + gate 4h + **the K-R5-7
+  newline-separator experiment** (one-line change to the `_VN_SEP_*`
+  constants + `add_vnote_preview_separators`, same files).
+- **WIN:** matrix M1 (CI workflow + catalog) per the v1.0.0 assessment —
+  now folding in the Mac spec review's 4 blocking classes; EREADERS §Kobo
+  updated this commit; the merged pan-script font ONLY as the K-R5-6
+  contingency (needs a user-OK'd `fonttools` install).
+- **USER:** ✔ Cardo set (round-5b) — still pending: one ◈ badge glyph check
+  under Cardo; ONE re-tap of gen 35:18's ◈ badge; round-6 Publisher-Default
+  re-check (one Hebrew + one Arabic popup) once the restore ships;
+  Send-to-Kindle K-KIN-1..4 (1st try failed after ~1h crunch — retry in
+  flight, Mac board turn 71).

@@ -17,7 +17,7 @@
 | Reader | We ship | `target_reader` | Popup footnotes | Collapsible ToC (`<details>`) | Embedded fonts | Page-break CSS | Status (date) |
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
-| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; preview declines notes ≥5,500 stripped (pops ≤4,498; fix = cap ~4,400) | ❌ flat (KOReader/crengine by design) | ✅ in book; ❌ in the footnote-preview dialog (follows the READING font — set Cardo) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-5 calibration DONE 2026-06-11 (1 anomaly re-tap pending); K-R4-2 cap fix + K-R5-3 clamp fix = Mac |
+| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; preview declines notes ≥5,500 stripped (pops ≤4,498; fix = cap ~4,400) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback** (K-R5-6: the turn-67 unconditional drop broke Publisher Default — restore is Mac's) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-5b 2026-06-11: K-R5-1 font-reset CONFIRMED; ★K-R5-6 dc:language regression FOUND; K-R4-2 cap + K-R5-3 clamp + K-R5-6 restore + K-R5-7 newline exp = Mac |
 | **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (kindle_safe) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Variant SHIPPED + epubcheck 0/0/0/0 by execution; user K-KIN-1..4 acceptance PENDING (2026-06-10) |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
@@ -41,8 +41,17 @@
   (`dev/TOOLCHAIN.md` §kepubify; watch its two gotchas: spurious popups from
   ordinary cross-ref links; aside `id`s must survive the koboSpan transform).
 - **The footnote-preview dialog** (the popup): renders TAG-STRIPPED plain text in
-  the READING font (NOT the embedded fonts → Hebrew/Arabic/Geʽez/◈ tofu unless the
-  user sets a font-pack font like Cardo), and **DECLINES large notes** — instead of
+  the READING font — embedded fonts and per-span `lang` tags never reach it (the
+  extractor strips all markup). **BUT the OPF `dc:language` declarations DO govern
+  it (K-R5-6, round-5b 2026-06-11):** with the multi-value block declared
+  (`en-US + hbo + grc + arc + gez`, the K-R2-5 fix) the dialog engaged per-script
+  FALLBACK fonts and rendered every translation under Publisher Default
+  (user-attested on v0.1.0); the turn-67 Kindle-E999 fix dropped the block
+  UNCONDITIONALLY → r5 tofu under Publisher Default (user-confirmed; OPF diff by
+  execution). Fix = target-gate the drop (single `en-US` kindle-only; everyone
+  else keeps the block + `ar`); a font-pack reading font (Cardo) is the per-script
+  override path (covers Latin/Greek/Hebrew, NOT Arabic/Ethiopic). The dialog also
+  **DECLINES large notes** — instead of
   popping it NAVIGATES to **the containing piece's TOP** (confirmed round 5: all
   five jumps landed exactly at piece tops; a target near its own piece top looks
   like "nothing happened" — Gen 1:1 across 4 artifacts). Threshold NARROWED round-5

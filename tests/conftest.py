@@ -144,11 +144,7 @@ def _per_test_protected_paths_bisect(request):
     before = _snapshot_protected_paths()
     if _BISECT_LAST_AFTER is not None and before != _BISECT_LAST_AFTER:
         prev_node = _BISECT_LAST_NODE
-        changed = sorted(
-            k
-            for k in set(before) | set(_BISECT_LAST_AFTER)
-            if before.get(k) != _BISECT_LAST_AFTER.get(k)
-        )
+        changed = sorted(k for k in set(before) | set(_BISECT_LAST_AFTER) if before.get(k) != _BISECT_LAST_AFTER.get(k))
         # arm the memory forward so ONE boundary write fails ONE test
         _BISECT_LAST_AFTER = before
         _BISECT_LAST_NODE = request.node.nodeid
