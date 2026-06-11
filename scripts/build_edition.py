@@ -2659,7 +2659,6 @@ def _split_flow_text(text: str, target: int) -> list[str]:
     chunks: list[str] = []
     start = 0
     start_cum = 0
-    total = cands[-1][1] if cands else 0
     while True:
         rest = text[start:]
         if _stripped_len(rest) <= target:
@@ -3079,7 +3078,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     else:
                         norm_rows = [{"cat": cat, "row": row} for _rank, _doc, row, cat, _attr in row_items]
 
-                    def _unit_inner(unit_rows: list[dict]) -> str:
+                    # code/ch/v bound at definition time (B023): the closure is
+                    # consumed inside this verse's iteration today, but the
+                    # binding keeps the assertion label correct even if a later
+                    # refactor defers the call.
+                    def _unit_inner(unit_rows: list[dict], code=code, ch=ch, v=v) -> str:
                         if s2_group:
                             inner = _emit_cascade_sections(unit_rows, cat_meta)
                             # §4 completeness guard (S2-GUARD-1/2/3): the spec's set-based
@@ -3663,8 +3666,9 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
             if frag in aside_by_id and atom_to_group[aside_atom[frag]] != k:
                 clone_map.setdefault(frag, f"{frag}--c{k:02d}")
         if clone_map:
-
-            def _retarget(m: re.Match) -> str:
+            # clone_map bound at definition time (B023) — consumed in this
+            # group's iteration today; the binding survives a deferred call.
+            def _retarget(m: re.Match, clone_map=clone_map) -> str:
                 tag = m.group(0)
                 hm = re.search(r'(href="#)([^"]+)(")', tag)
                 if hm and hm.group(2) in clone_map:
