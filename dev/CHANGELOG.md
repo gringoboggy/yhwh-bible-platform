@@ -4,6 +4,23 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-11 — session (🪟 Windows, turn 75) — matrix M1 shipped end-to-end: FORMAT_MATRIX one-home · 18 committed catalog composites · CI matrix pipeline · release-catalog generator · Downloads catalog UI
+
+**Phases shipped:** matrix M1, all 5 remaining work items (after turn 74's blocker #1)
+**Test delta:** +55 (test_format_matrix ×18 · test_catalog_composites ×7 · test_swap_epub_cover ×7 · test_build_format_matrix ×10 · test_gen_release_catalog ×13); M1 arc total 73/73
+**Save tag:** milestone 5-leg `matrix-m1-shipped` (6702af52); format-matrix CI run 27364486873 dispatched on v0.1.0 (user-authorized)
+
+What shipped (concrete, scannable):
+- **`FORMAT_MATRIX` one-home constant** beside `TARGET_READERS` in build_edition.py (+ `COVER_COLOURS`, `DEFAULT_COVER_COLOUR`, strict `format_by_id`, `catalog_asset_name` — the spec §4.4 naming scheme, v-prefix-normalized). 5 formats ↔ target profiles ↔ the 5 cover-design families (each used exactly once, pinned against the on-disk 25-template library) ↔ packaging ↔ gating phase. "Apple Books"/"Google Play" labels carry `term-ref-ok` (free-catalog platform labels, not store distribution).
+- **The 18 M1 catalog composites COMMITTED** (`content/covers/catalog/<ed>_<design>_black.jpg`; `generate_catalog_composite` + `m1_catalog_plan` extend generate_edition_covers.py). Design decision: CI swaps the committed bytes and **never composites in-runner** — kills the ubuntu font-divergence class at the root (supersedes the spec's pin-Pillow-fonts mitigation; M2's 225-set decides commit-vs-pin separately).
+- **`scripts/swap_epub_cover.py`** — the deterministic cover-swap (build_epub writer rules: mimetype-first STORED, 1980 dates, DEFLATE-9, 0o644; JPEG magic-byte gate; missing-cover-entry = loud failure). Proven on the round-6 real artifact: 480 entries, integrity clean, epubcheck 0/0/0/0.
+- **`scripts/build_format_matrix.py`** — the per-edition CI driver (one job per edition / formats SERIAL = review blocker #4; base built once per distinct target via `--target-reader`; gates compose `scripts/epubcheck.py --require --strict` + `dev/verify_kr2_build.py`; `sums-<ed>.txt` fan-out; `--list-editions` feeds the workflow matrix from editions.yaml). **e2e proof: catholic-study × everywhere+tablet → 2 swapped assets, epubcheck --strict 0/0/0/0 ×2, ALL K-R2 GATES GREEN ×2.**
+- **`.github/workflows/format-matrix.yml`** — plan (tag-validate fail-fast + dynamic editions matrix) → 9-way build (fail-fast:false; own-assets-only uploads) → **SHA256SUMS fan-in sole-writer** (artifact-handoff merge; review blocker #3 — no per-job download→append→clobber). Concurrency-grouped per tag; tests.yml conventions (pip cache, UTF-8 env).
+- **`scripts/gen_release_catalog.py`** — release assets (PAGINATED `gh api`, the >100-asset trap) + SHA256SUMS → `website/src/data/catalog.json` + a no-JS `<details>` fragment. **Full-count column gating** (a colour shows only when EVERY edition has it — partial uploads under-show, never 404) + the never-remove-live **legacy Kobo cell** (auto-retires when M3 lights the column). Proven vs the live v0.1.0 release (honest dark state) AND a simulated full-M1 set (both columns light). The live run caught + pinned an out-of-repo `-o` crash.
+- **Downloads catalog UI** — releases.html "Choose your edition & device" band, build.mjs `{{release_catalog}}` inline (geez-progress pattern), parchment `<details>` CSS. Playwright visual QA passed (sim-live build).
+- **epubcheck wrapper hardening:** discovery step 3 = the pip-package jar via a self-shadow-proof PathFinder probe (`scripts/epubcheck.py` shadows the package name on CLI runs — the e2e probe caught a driver crash from exactly this), ordered BEFORE the Windows-broken PATH wrapper; `epubcheck>=5.1,<6` declared in requirements-dev (used-but-undeclared until now).
+- **Doc currency:** spec M1 rows marked shipped; MATRIX_MAP gains the format-matrix catalog flow (constant → driver/CI → release assets → generator → site inline).
+
 ## 2026-06-11 — session (🪟 Windows, turn 74) — matrix M1 blocker #1: the `--target-reader` build flag + cache-key fold; a749e99b clobber regression fixed + lint class-guard
 
 **Phases shipped:** matrix M1 foundation (spec-review blocker #1 + corollary) + the `_VNOTE_ASIDE_RE` collision hotfix
