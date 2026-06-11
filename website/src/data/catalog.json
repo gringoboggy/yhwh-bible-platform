@@ -1,41 +1,69 @@
 {
   "tag": "v0.1.0",
   "version": "0.1.0",
+  "base_url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0",
   "editions": [
     {
       "id": "ethiopian-tewahedo",
+      "signature_design": "05_missal_central",
+      "signature_colour": "red",
+      "cover": "covers/ethiopian-tewahedo.jpg",
       "title": "Ethiopian Tewahedo Bible"
     },
     {
       "id": "catholic-study",
+      "signature_design": "02_classical_corner",
+      "signature_colour": "navy",
+      "cover": "covers/catholic-study.jpg",
       "title": "Catholic Study Bible"
     },
     {
       "id": "evangelical-reformed",
+      "signature_design": "03_beadline",
+      "signature_colour": "black",
+      "cover": "covers/evangelical-reformed.jpg",
       "title": "Reformed Study Bible"
     },
     {
       "id": "jewish-study",
+      "signature_design": "02_classical_corner",
+      "signature_colour": "brown",
+      "cover": "covers/jewish-study.jpg",
       "title": "Jewish Study Tanakh"
     },
     {
       "id": "scholarly-academic",
+      "signature_design": "03_beadline",
+      "signature_colour": "forest",
+      "cover": "covers/scholarly-academic.jpg",
       "title": "Annotated Scholar's Bible"
     },
     {
       "id": "eastern-orthodox",
+      "signature_design": "01_ornate_leafy",
+      "signature_colour": "red",
+      "cover": "covers/eastern-orthodox.jpg",
       "title": "Eastern Orthodox Bible"
     },
     {
       "id": "anglican-bcp",
+      "signature_design": "03_beadline",
+      "signature_colour": "navy",
+      "cover": "covers/anglican-bcp.jpg",
       "title": "Anglican Study Bible"
     },
     {
       "id": "lutheran-confessional",
+      "signature_design": "02_classical_corner",
+      "signature_colour": "black",
+      "cover": "covers/lutheran-confessional.jpg",
       "title": "Lutheran Study Bible"
     },
     {
       "id": "coptic-orthodox",
+      "signature_design": "01_ornate_leafy",
+      "signature_colour": "brown",
+      "cover": "covers/coptic-orthodox.jpg",
       "title": "Coptic Orthodox Bible"
     }
   ],
@@ -46,11 +74,13 @@
       "packaging": "epub",
       "phase": "M1",
       "live": true,
-      "colours": [
-        "black"
-      ],
       "cells": {
         "ethiopian-tewahedo": {
+          "red": {
+            "name": "YHWH-ethiopian-tewahedo-v0.1.0-everywhere-red.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-red.epub",
+            "sha256": "e57846761bdb2aeece559415d0ee285b98779ef5ed65996fa256a342c9dbe862"
+          },
           "black": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-black.epub",
@@ -58,6 +88,11 @@
           }
         },
         "catholic-study": {
+          "navy": {
+            "name": "YHWH-catholic-study-v0.1.0-everywhere-navy.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-everywhere-navy.epub",
+            "sha256": "59729d6eee7a8f87cc1ed9e450d461db7ca014fe2db9cfe746233f7692f674f5"
+          },
           "black": {
             "name": "YHWH-catholic-study-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-everywhere-black.epub",
@@ -68,10 +103,15 @@
           "black": {
             "name": "YHWH-evangelical-reformed-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-everywhere-black.epub",
-            "sha256": "f3912e84ccde7890eee8a10ca9a22408e8fce81f14aba28773ca921088db0904"
+            "sha256": "8b6b88108b38b14e888c5dd61138edcc93f88efa2f8b6b9ba65dc6cab94797d7"
           }
         },
         "jewish-study": {
+          "brown": {
+            "name": "YHWH-jewish-study-v0.1.0-everywhere-brown.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-brown.epub",
+            "sha256": "dbc11e476383e58a82e719fdef61d072aa8d4e857f4707e6c7d8ecd1e58997d6"
+          },
           "black": {
             "name": "YHWH-jewish-study-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-black.epub",
@@ -79,6 +119,11 @@
           }
         },
         "scholarly-academic": {
+          "forest": {
+            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-forest.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-forest.epub",
+            "sha256": "54a77ad3b4b43c54e5c26d7e94f24a554fb29cf19c5aa675f6bcd24bf6fee8eb"
+          },
           "black": {
             "name": "YHWH-scholarly-academic-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-black.epub",
@@ -86,6 +131,11 @@
           }
         },
         "eastern-orthodox": {
+          "red": {
+            "name": "YHWH-eastern-orthodox-v0.1.0-everywhere-red.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-everywhere-red.epub",
+            "sha256": "6249849ea7065e94376ed17ddf9afde9d994b427044af6ff4d2f40a7a1e3bae0"
+          },
           "black": {
             "name": "YHWH-eastern-orthodox-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-everywhere-black.epub",
@@ -93,6 +143,11 @@
           }
         },
         "anglican-bcp": {
+          "navy": {
+            "name": "YHWH-anglican-bcp-v0.1.0-everywhere-navy.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-everywhere-navy.epub",
+            "sha256": "253249f2bf7b3385774ff2b5375cfe04a34a10fbb6ed8995ed1bdaf013b7a5cb"
+          },
           "black": {
             "name": "YHWH-anglican-bcp-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-everywhere-black.epub",
@@ -103,10 +158,15 @@
           "black": {
             "name": "YHWH-lutheran-confessional-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-everywhere-black.epub",
-            "sha256": "5d9d8cb26bf580a3f5c5d0213258657f9d5a39a00f00e6ef0b9646fbb0c0ee6b"
+            "sha256": "5f6f94a23997e01467c2754eda621c635cf153466c3d0e9cb2695630b6f57759"
           }
         },
         "coptic-orthodox": {
+          "brown": {
+            "name": "YHWH-coptic-orthodox-v0.1.0-everywhere-brown.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-everywhere-brown.epub",
+            "sha256": "55fbeb4d38b7118ef23ee664fd9594b9d0b507ed03abad4364d4c9062d5ae19e"
+          },
           "black": {
             "name": "YHWH-coptic-orthodox-v0.1.0-everywhere-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-everywhere-black.epub",
@@ -121,11 +181,13 @@
       "packaging": "epub",
       "phase": "M1",
       "live": true,
-      "colours": [
-        "black"
-      ],
       "cells": {
         "ethiopian-tewahedo": {
+          "red": {
+            "name": "YHWH-ethiopian-tewahedo-v0.1.0-apple-red.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-apple-red.epub",
+            "sha256": "f15dec07973f2f389390d972d70936712c5faecbf03b32d4abcf6d33debaf5d5"
+          },
           "black": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-apple-black.epub",
@@ -133,6 +195,11 @@
           }
         },
         "catholic-study": {
+          "navy": {
+            "name": "YHWH-catholic-study-v0.1.0-apple-navy.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-apple-navy.epub",
+            "sha256": "90d8b4d462e787a9f67debc2a2ca7e2f35bd92c1e9dca8ef301e9477d072c2ca"
+          },
           "black": {
             "name": "YHWH-catholic-study-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-apple-black.epub",
@@ -143,10 +210,15 @@
           "black": {
             "name": "YHWH-evangelical-reformed-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-apple-black.epub",
-            "sha256": "ce01abe225e5eebd2f08204700c6ac06263d578ff7b20e05146d720c5fef9c0d"
+            "sha256": "49638c4f1c659e83a93e78f0f6b8516202754df936fe4e49d3e41d977db41b15"
           }
         },
         "jewish-study": {
+          "brown": {
+            "name": "YHWH-jewish-study-v0.1.0-apple-brown.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-brown.epub",
+            "sha256": "46cf7738ea301c76c7e60515d4ff7c6b82996c8fc77bdb45af984376184ce7ae"
+          },
           "black": {
             "name": "YHWH-jewish-study-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-black.epub",
@@ -154,6 +226,11 @@
           }
         },
         "scholarly-academic": {
+          "forest": {
+            "name": "YHWH-scholarly-academic-v0.1.0-apple-forest.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-forest.epub",
+            "sha256": "e3da0f5ed35297fa64948503d33487a82b7050201a1077da0588fc97bc1b75b6"
+          },
           "black": {
             "name": "YHWH-scholarly-academic-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-black.epub",
@@ -161,6 +238,11 @@
           }
         },
         "eastern-orthodox": {
+          "red": {
+            "name": "YHWH-eastern-orthodox-v0.1.0-apple-red.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-apple-red.epub",
+            "sha256": "8dfbff9e6225b3163fcc335823b2baceb96bef95556143fbdc47aa9fed92df16"
+          },
           "black": {
             "name": "YHWH-eastern-orthodox-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-apple-black.epub",
@@ -168,6 +250,11 @@
           }
         },
         "anglican-bcp": {
+          "navy": {
+            "name": "YHWH-anglican-bcp-v0.1.0-apple-navy.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-apple-navy.epub",
+            "sha256": "d6e07ad7e18be2f8d3cf672320b2e8b028b1a2fc3cd3925e3b393034b20d600c"
+          },
           "black": {
             "name": "YHWH-anglican-bcp-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-apple-black.epub",
@@ -182,6 +269,11 @@
           }
         },
         "coptic-orthodox": {
+          "brown": {
+            "name": "YHWH-coptic-orthodox-v0.1.0-apple-brown.epub",
+            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-apple-brown.epub",
+            "sha256": "acb0ede2b911c8ac8e5b58f9c27d7754c7dbf768518bfc8eb381ceedba5f02be"
+          },
           "black": {
             "name": "YHWH-coptic-orthodox-v0.1.0-apple-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-apple-black.epub",
@@ -196,7 +288,6 @@
       "packaging": "kepub.epub",
       "phase": "M3",
       "live": false,
-      "colours": [],
       "cells": {},
       "legacy_cell": {
         "name": "YHWH-Ethiopian-Bible-v0.1.0.kepub.epub",
@@ -211,7 +302,6 @@
       "packaging": "epub",
       "phase": "M4",
       "live": false,
-      "colours": [],
       "cells": {}
     },
     {
@@ -220,7 +310,6 @@
       "packaging": "epub",
       "phase": "M5",
       "live": false,
-      "colours": [],
       "cells": {}
     }
   ]
