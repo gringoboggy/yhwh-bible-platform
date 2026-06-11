@@ -130,3 +130,57 @@ class TestHuskPieceGate4k:
         # them — only the demoted-frame husk is the refused class.
         zf = _zip(_PLAIN_OPF, "", _TITLE_SINGLETON)
         assert _mod.husk_piece_checks(zf, zf.namelist()) == []
+
+
+# ── gate 4l — TOC refs must not target a demoted appendix frame ─────────
+_FRAME_PIECE = (
+    "<html><body>"
+    '<div class="appendix-section" id="bp-45"><h1>The Prayer of Azariah</h1></div>'
+    '<a id="ch-b45-c1" class="ch-anchor"></a>'
+    '<p class="verse-p">And they walked in the midst of the fire.</p>'
+    "</body></html>"
+)
+
+
+def _zip_with_nav(nav: str) -> zipfile.ZipFile:
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as z:
+        z.writestr("content.opf", _PLAIN_OPF)
+        z.writestr("index_split_047_02.html", _FRAME_PIECE)
+        z.writestr("nav.xhtml", nav)
+    return zipfile.ZipFile(io.BytesIO(buf.getvalue()))
+
+
+class TestDemotedTocTargetGate4l:
+    """4l fires when any TOC surface targets a demoted frame id (KFX refuses
+    the frame div even merged mid-content) and stays green when the entry
+    points at the book's first content anchor."""
+
+    def test_fires_on_toc_ref_to_frame_id(self):
+        zf = _zip_with_nav(
+            '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
+            '<li><a href="index_split_047_02.html#bp-45">Azariah</a></li>'
+            "</ol></nav></body></html>"
+        )
+        fails = _mod.demoted_toc_target_checks(zf, zf.namelist())
+        assert any("bp-45" in f and "4l" in f for f in fails), fails
+
+    def test_green_when_toc_targets_content_anchor(self):
+        zf = _zip_with_nav(
+            '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
+            '<li><a href="index_split_047_02.html#ch-b45-c1">Azariah</a></li>'
+            "</ol></nav></body></html>"
+        )
+        assert _mod.demoted_toc_target_checks(zf, zf.namelist()) == []
+
+    def test_silent_without_any_demoted_frame(self):
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as z:
+            z.writestr("content.opf", _PLAIN_OPF)
+            z.writestr(
+                "nav.xhtml",
+                '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
+                '<li><a href="d.html#bp-07">Ruth</a></li></ol></nav></body></html>',
+            )
+        zf = zipfile.ZipFile(io.BytesIO(buf.getvalue()))
+        assert _mod.demoted_toc_target_checks(zf, zf.namelist()) == []

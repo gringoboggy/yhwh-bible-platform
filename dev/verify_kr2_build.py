@@ -253,6 +253,34 @@ def husk_piece_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     return fails
 
 
+# ── 4l. demoted TOC targets — no TOC entry points at an appendix frame ──
+def demoted_toc_target_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """No nav.xhtml / toc.ncx / in-book-TOC href may target a demoted
+    appendix-section frame id. The Previewer oracle proved KFX refuses the
+    frame div as a TOC link target even MERGED mid-content (ship-fix round
+    2: E24010 + W14001 ×3 on the content-bearing pieces — the frame's
+    leading children are display:none and KFX prunes it), so TOC entries
+    for demoted books must point at the book's first content anchor
+    (retarget_demoted_toc_anchors)."""
+    docs = [n for n in names if n.endswith((".html", ".xhtml", ".ncx"))]
+    frame_ids: set[str] = set()
+    for n in docs:
+        t = zf.read(n).decode("utf-8", "replace")
+        frame_ids.update(re.findall(r'<div class="appendix-section" id="(bp-\d+)"', t))
+    if not frame_ids:
+        return []
+    fails: list[str] = []
+    for n in docs:
+        t = zf.read(n).decode("utf-8", "replace")
+        if not (n.endswith(".ncx") or 'epub:type="toc"' in t or 'class="toc-book"' in t):
+            continue
+        for bp in sorted(frame_ids):
+            hits = t.count(f'#{bp}"')
+            if hits:
+                fails.append(f"{n}: {hits} TOC ref(s) target demoted frame {bp} (KFX E24010 class, 4l)")
+    return fails
+
+
 # ── 4h. K-R5-3 — book-title singletons carry no verse badges/asides ─────
 def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     """A piece holding a book-title page must carry NO verse-notes badge or
@@ -485,6 +513,7 @@ def main(path: str) -> int:
     fails.extend(badge_mode_leak_checks(zf, names))
     fails.extend(orphan_vnote_checks(zf, names))
     fails.extend(husk_piece_checks(zf, names))
+    fails.extend(demoted_toc_target_checks(zf, names))
 
     # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
     fails.extend(kindle_safe_checks(zf, names, opf))

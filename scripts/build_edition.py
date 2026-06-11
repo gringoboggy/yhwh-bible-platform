@@ -4474,6 +4474,68 @@ def apply_appendix_demotion_and_renumber(tmp: Path, canon_books: set[str] | None
     return stats
 
 
+def retarget_demoted_toc_anchors(tmp: Path, canon_books: set[str] | None) -> dict:
+    """K-KIN husk fix, organ #2: point every TOC surface (nav.xhtml + toc.ncx +
+    the in-book ``toc-book`` page) at a demoted book's FIRST CONTENT ANCHOR
+    instead of its ``appendix-section`` frame id. The Previewer oracle proved
+    Kindle's KFX preprocessor refuses the frame div as a TOC link target in
+    BOTH layouts (own husk piece AND merged mid-content — E24010 ×3 → E24001;
+    its leading children are display:none and KFX prunes it), while chapter /
+    heading / verse anchors resolve everywhere (43k links clean). Only the TOC
+    surfaces are rewritten — the frame keeps its bp-NN id so xref coordinates
+    stay canonical. Runs AFTER demotion + the TOC-row generators and BEFORE
+    the splitter (the link-rewrite pass carries the new fragments to the final
+    pieces)."""
+    stats = {"retargeted_books": 0, "rewritten_refs": 0, "files_touched": 0}
+    books = config.books_by_code()
+
+    # bp-NN -> the first visible content anchor AFTER the demoted frame.
+    remap: dict[str, str] = {}
+    for code in APPENDIX_BOOKS:
+        b = books.get(code)
+        if not b:
+            continue
+        if canon_books is not None and code not in canon_books:
+            continue
+        bp = b.get("bp", "")
+        if not bp:
+            continue
+        for fname in b.get("files", []):
+            fp = tmp / fname
+            if not fp.is_file():
+                continue
+            text = fp.read_text(encoding="utf-8")
+            open_pos = text.find(f'<div class="appendix-section" id="{bp}"')
+            if open_pos == -1:
+                continue
+            close = _matching_div_close(text, open_pos)
+            tail = text[close if close != -1 else open_pos :]
+            m = re.search(r'\bid="(ch-b\d+-c\d+|page_\d+|v-[^"]+)"', tail)
+            if m:
+                remap[bp] = m.group(1)
+                stats["retargeted_books"] += 1
+            break
+    if not remap:
+        return stats
+
+    surfaces = [tmp / "nav.xhtml", tmp / "toc.ncx"]
+    surfaces += [
+        p for p in sorted(tmp.glob("index_split_*.html")) if 'class="toc-book"' in p.read_text(encoding="utf-8")
+    ]
+    for fp in surfaces:
+        if not fp.is_file():
+            continue
+        text = fp.read_text(encoding="utf-8")
+        orig = text
+        for bp, target in remap.items():
+            text = text.replace(f'#{bp}"', f'#{target}"')
+        if text != orig:
+            stats["rewritten_refs"] += sum(orig.count(f'#{bp}"') for bp in remap)
+            fp.write_text(text, encoding="utf-8")
+            stats["files_touched"] += 1
+    return stats
+
+
 # A flat book navPoint in toc.ncx (no children yet): label + a #bp-NN content target.
 _NCX_BOOK_NAVPOINT_RE = re.compile(
     r"<navPoint\b[^>]*>\s*<navLabel>\s*<text>[^<]*</text>\s*</navLabel>\s*"
@@ -6258,6 +6320,14 @@ def build_one(
             nav_ch = enrich_nav_chapters(tmp)
             stats["nav_chapters_added"] = nav_ch["nav_chapters_added"]
             stats["ncx_chapters_added"] = nav_ch["ncx_chapters_added"]
+
+        # K-KIN husk fix organ #2 — every TOC surface points at a demoted
+        # book's first CONTENT anchor, never the appendix-section frame the
+        # KFX preprocessor refuses (E24010/E24001). Runs after every TOC-row
+        # generator and right before the splitter (whose link remap carries
+        # the new fragments to the final pieces).
+        retarget_stats = retarget_demoted_toc_anchors(tmp, canon_books)
+        stats["demoted_toc_retargeted"] = retarget_stats["retargeted_books"]
 
         # RX Phase 4b — file-split for e-ink (Kobo) speed. Runs LAST (after badge +
         # every matter-page injection) so its OPF/nav/ncx regeneration is the final
