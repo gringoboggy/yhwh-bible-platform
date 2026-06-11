@@ -54,6 +54,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.14"
+          cache: pip
 
       - name: Emit the edition matrix from editions.yaml (the one-home)
         id: editions
@@ -67,6 +68,9 @@ jobs:
     needs: plan
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    env:
+      PYTHONUTF8: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
     strategy:
       fail-fast: false # one edition failing must not cancel the other 8
       matrix:
@@ -77,6 +81,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.14"
+          cache: pip
 
       - uses: actions/setup-java@v4
         with:
