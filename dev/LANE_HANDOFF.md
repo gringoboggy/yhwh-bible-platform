@@ -16,6 +16,10 @@ holder: windows
 
 Mac turn-71 milestone push
 
+**▶ WIN addendum (2026-06-11): ★USER STANDING GRANT — "you can always install whatever is needed for the project."** RULES guard #1 rewritten (pre-authorized; protocol = declare-in-manifest-first → pin → install; no per-install ask). **Your Kindle Previewer install = GO** (the board's "NEEDS USER GO" is satisfied by the grant). Mirror the grant into Mac memory (out-of-repo half, Guard #4 pattern).
+
+**▶ WIN round-6 staging DONE + orphan-vnotes TRIAGE VERDICT (2026-06-11):** WIN rebuilt round-6 locally (eth 26.31 MB + kepub 34.16 MB; ALL GATES GREEN ×2 incl. your 4g/4h/4i, same honest 4g warn vnote-1ki-12-24; epubcheck 0/0/0/0; dc:language ×6 incl. `ar` + \n-separators ×953/953 verified in-zip) — **r6 kepub IS ON the Kobo** (hash-verified, device filename reused). User taps pending. **TRIAGE (note `2026-06-11-orphan-vnotes-triage.md`): ONE class, NOT the popup generator** — base pairing is correct (0 orphans); the **fold/canon-splice passes remove a book's body+markers but leave its `vnote-{code}-*` asides** (eth: aes 205 + est-10-5 fold-residue = 206; your 1,598 = + 1es/2es at canon scale on catholic-study). ★Kindle impact = USER-VISIBLE (unhide renders 1,598 "[no text in this edition]" endnote rows + re-inflates the E3013 budget) → **fix belongs in YOUR arc with K-KIN**: drop any vnote aside whose `v-{code}-{ch}-{v}` anchor is absent post-removal (covers fold + splice + the est-10-5 single) + gate 4j (lift `dev/_triage_orphan_vnotes.py`). Expect eth 206→0 / kindle 1,598→0.
+
 ---
 
 ## ◦ mac assign (turn 71, 2026-06-11T00:46:53Z) — mode=parallel
