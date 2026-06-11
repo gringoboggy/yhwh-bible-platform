@@ -508,6 +508,55 @@ def _compose_cover(template_stem: str, main_title: str, subtitle: str = "") -> I
     return base
 
 
+# Matrix M1 (format-matrix spec §4.2, review blocker #2) — the Downloads
+# catalog's cover composites. Each catalog cell carries the FORMAT's design
+# (FORMAT_MATRIX cover_design) composited with the EDITION's cover text in the
+# downloader's colour; the raw template PNG would be wrong twice (title-less
+# art + PNG bytes in the OPF's image/jpeg cover slot). Composites are
+# generated HERE on the canonical fonts and COMMITTED under
+# content/covers/catalog/ — CI swaps the committed bytes into the built EPUBs
+# and never composites in-runner, so the ubuntu font-divergence class the Mac
+# review flagged cannot occur at all.
+CATALOG_DIR = COVERS_DIR / "catalog"
+
+
+def m1_catalog_plan() -> list[tuple[str, str, str]]:
+    """The M1 composite set: every standard edition × each M1 format's design
+    × the default colour — ``(edition_id, design, colour)`` triples, editions
+    in declaration order, designs in FORMAT_MATRIX order within each."""
+    from scripts.build_edition import DEFAULT_COVER_COLOUR, FORMAT_MATRIX
+
+    m1_designs = [f["cover_design"] for f in FORMAT_MATRIX if f["phase"] == "M1"]
+    return [(e, d, DEFAULT_COVER_COLOUR) for e in STANDARD_EDITION_IDS for d in m1_designs]
+
+
+def generate_catalog_composite(edition_id: str, design: str, colour: str, out_dir: Path | None = None) -> Path:
+    """Composite ``edition_id``'s cover text onto the ``design`` family's
+    ``colour`` template and write the catalog JPEG
+    ``<edition_id>_<design>_<colour>.jpg`` (final cover dimensions, same
+    quality as the shipped edition covers). Unknown colours raise ValueError;
+    a design with no on-disk template raises FileNotFoundError (via
+    ``_compose_cover``) — a typo'd cell must fail loudly, never ship a wrong
+    cover."""
+    from scripts.build_edition import COVER_COLOURS
+
+    if colour not in COVER_COLOURS:
+        raise ValueError(f"unknown cover colour {colour!r}; valid: {COVER_COLOURS}")
+    main_title, subtitle = cover_text_for_edition(edition_id)
+    base = _compose_cover(f"{design}_{colour}", main_title, subtitle)
+    target_dir = out_dir if out_dir is not None else CATALOG_DIR
+    target_dir.mkdir(parents=True, exist_ok=True)
+    out_path = target_dir / f"{edition_id}_{design}_{colour}.jpg"
+    base.save(out_path, "JPEG", quality=90, optimize=True)
+    return out_path
+
+
+def generate_m1_catalog_composites() -> list[Path]:
+    """Generate the full committed M1 catalog set (18 = 9 editions × the 2 M1
+    designs in the default colour)."""
+    return [generate_catalog_composite(e, d, c) for (e, d, c) in m1_catalog_plan()]
+
+
 def _generate_one(edition_id: str, template_stem: str | None = None) -> Path:
     """Compose ``edition_id``'s cover (HOLY BIBLE + its subtitle) and write it to
     ``content/covers/<id>.jpg``. ``template_stem`` defaults to the edition's
