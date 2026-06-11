@@ -301,7 +301,8 @@ def _mini_halfspine_epub(path, include_back=False):
         '<navPoint id="n2" playOrder="3"><navLabel><text>D2</text></navLabel><content src="d2.html#a"/></navPoint>'
         '<navPoint id="n3" playOrder="4"><navLabel><text>D3</text></navLabel><content src="d3.html#a"/></navPoint>'
         + (
-            '<navPoint id="n4" playOrder="5"><navLabel><text>Colophon</text></navLabel><content src="back.html"/></navPoint>'
+            '<navPoint id="n4" playOrder="5"><navLabel><text>Colophon</text></navLabel>'
+            '<content src="back.html"/></navPoint>'
             if include_back
             else ""
         )
@@ -424,6 +425,106 @@ class TestBuildHalfspine:
         src = _mini_halfspine_epub(tmp_path / "src.epub")
         out = tmp_path / "out.epub"
         kindle_bisect.build_halfspine(src, out, keep="first")
+        with zipfile.ZipFile(out) as z:
+            infos = z.infolist()
+            assert infos[0].filename == "mimetype"
+            assert infos[0].compress_type == zipfile.ZIP_STORED
+
+
+# ── rung IMGSTRIP ───────────────────────────────────────────────────────
+# The halfspine P/P + 182-doc/2MB-split FAIL matrix leaves two candidate
+# blocker-#2 drivers: aggregate doc-count and total bytes/converter work.
+# Images are 10.3MB of the 25MB artifact; this rung collapses every raster
+# to a 1×1 placeholder of the SAME format — filenames, manifest, and every
+# content doc stay byte-identical, so the Previewer verdict isolates the
+# image byte-mass one-variable (epubcheck stays clean: signature still
+# matches the declared media-type).
+
+
+def _gradient_image_bytes(fmt, size=128):
+    """A deterministic multi-KB raster — must dwarf the 1×1 placeholder."""
+    from io import BytesIO
+
+    from PIL import Image
+
+    im = Image.new("RGB", (size, size))
+    im.putdata([(x % 256, y % 256, (x * y) % 256) for y in range(size) for x in range(size)])
+    buf = BytesIO()
+    im.save(buf, format=fmt)
+    return buf.getvalue()
+
+
+def _mini_imgstrip_epub(path):
+    import zipfile
+
+    opf = (
+        "<package><manifest>"
+        '<item id="doc" href="doc.html" media-type="application/xhtml+xml"/>'
+        '<item id="css" href="stylesheet.css" media-type="text/css"/>'
+        '<item id="cov" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>'
+        '<item id="art" href="images/art.png" media-type="image/png"/>'
+        '<item id="anim" href="images/anim.gif" media-type="image/gif"/>'
+        '</manifest><spine><itemref idref="doc"/></spine></package>'
+    )
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr(zipfile.ZipInfo("mimetype"), "application/epub+zip", zipfile.ZIP_STORED)
+        z.writestr("content.opf", opf)
+        z.writestr("doc.html", '<html><body><img src="images/cover.jpg" alt="c"/><p>text</p></body></html>')
+        z.writestr("stylesheet.css", "p { margin: 0; }")
+        z.writestr("images/cover.jpg", _gradient_image_bytes("JPEG"))
+        z.writestr("images/art.png", _gradient_image_bytes("PNG"))
+        z.writestr("images/anim.gif", _gradient_image_bytes("GIF"))
+    return path
+
+
+class TestBuildImgstrip:
+    def _run(self, tmp_path):
+        import zipfile
+
+        src = _mini_imgstrip_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        stats = kindle_bisect.build_imgstrip(src, out)
+        with zipfile.ZipFile(src) as z:
+            before = {n: z.read(n) for n in z.namelist()}
+        with zipfile.ZipFile(out) as z:
+            after = {n: z.read(n) for n in z.namelist()}
+        return stats, before, after
+
+    def test_every_raster_shrinks_and_keeps_its_format(self, tmp_path):
+        from io import BytesIO
+
+        from PIL import Image
+
+        _, before, after = self._run(tmp_path)
+        for name, fmt in (("images/cover.jpg", "JPEG"), ("images/art.png", "PNG"), ("images/anim.gif", "GIF")):
+            assert len(after[name]) < len(before[name]), name
+            im = Image.open(BytesIO(after[name]))
+            assert im.format == fmt, f"{name}: placeholder must keep the declared format"
+            assert im.size == (1, 1)
+
+    def test_non_image_entries_byte_identical(self, tmp_path):
+        _, before, after = self._run(tmp_path)
+        for name in ("mimetype", "content.opf", "doc.html", "stylesheet.css"):
+            assert after[name] == before[name], name
+
+    def test_no_entry_added_or_dropped(self, tmp_path):
+        _, before, after = self._run(tmp_path)
+        assert sorted(before) == sorted(after)
+
+    def test_stats_report_the_byte_shrink(self, tmp_path):
+        stats, before, after = self._run(tmp_path)
+        rasters = ("images/cover.jpg", "images/art.png", "images/anim.gif")
+        assert stats["images_replaced"] == 3
+        assert stats["image_bytes_before"] == sum(len(before[n]) for n in rasters)
+        assert stats["image_bytes_after"] == sum(len(after[n]) for n in rasters)
+        assert stats["image_bytes_after"] < stats["image_bytes_before"]
+
+    def test_mimetype_still_first_and_stored(self, tmp_path):
+        import zipfile
+
+        src = _mini_imgstrip_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        kindle_bisect.build_imgstrip(src, out)
         with zipfile.ZipFile(out) as z:
             infos = z.infolist()
             assert infos[0].filename == "mimetype"

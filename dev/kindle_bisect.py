@@ -26,7 +26,12 @@ asides. This rung removes each husk piece + its manifest/spine/nav/ncx
 entries, one-variable; the converter verdict on the probe proves/refutes
 the husk as THE failure cause.
 
-    .venv/bin/python dev/kindle_bisect.py --rung delink|tochusk \\
+Rung IMGSTRIP (2026-06-11, blocker #2): halfspine P/P vs 182-doc/full-bytes
+FAIL leaves doc-count and total byte-mass confounded; this rung collapses
+every raster image to a same-format 1×1 placeholder (docs/manifest
+byte-identical) so the converter verdict isolates the image bytes alone.
+
+    .venv/bin/python dev/kindle_bisect.py --rung delink|tochusk|halfspine|imgstrip \\
         --src ~/Desktop/Ethiopian_Bible_..._kindle-safe_<stamp>.epub
 """
 
@@ -373,9 +378,61 @@ def build_halfspine(src_epub: Path, out_epub: Path, keep: str = "first") -> dict
     return stats
 
 
+# ── rung IMGSTRIP ───────────────────────────────────────────────────────
+# Blocker #2 evidence matrix (halfspine P/P at ~149 docs/half bytes vs FAIL
+# at 297, 300-delinked, AND 182 docs/full 25MB) cannot separate aggregate
+# doc-count from total bytes/converter work — the no-split probe (63 docs,
+# full bytes) splits doc-count off; THIS rung splits the byte mass off:
+# every raster image collapses to a 1×1 placeholder of the SAME format
+# (Pillow), filenames/manifest/content docs byte-identical, so epubcheck
+# stays clean (file signature still matches the declared media-type) and
+# the Previewer verdict reflects image bytes alone.
+
+_RASTER_FORMATS = {"jpg": "JPEG", "jpeg": "JPEG", "png": "PNG", "gif": "GIF"}
+
+
+def _placeholder_image(fmt: str) -> bytes:
+    """A minimal valid 1×1 white raster in the given Pillow format."""
+    from io import BytesIO
+
+    from PIL import Image
+
+    buf = BytesIO()
+    Image.new("RGB", (1, 1), "white").save(buf, format=fmt)
+    return buf.getvalue()
+
+
+def build_imgstrip(src_epub: Path, out_epub: Path) -> dict[str, int]:
+    """Zip-rewrite src_epub replacing every raster image with a same-format
+    1×1 placeholder. Every non-image entry is copied byte-identical.
+
+    Hard-fails if a placeholder fails to shrink its image (the probe must
+    strictly reduce byte mass to mean anything)."""
+    stats = {"images_replaced": 0, "image_bytes_before": 0, "image_bytes_after": 0}
+    placeholders = {fmt: _placeholder_image(fmt) for fmt in set(_RASTER_FORMATS.values())}
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            ext = name.rsplit(".", 1)[-1].lower() if "." in name else ""
+            if ext in _RASTER_FORMATS:
+                placeholder = placeholders[_RASTER_FORMATS[ext]]
+                assert len(placeholder) < len(data), f"{name}: placeholder does not shrink it"
+                stats["images_replaced"] += 1
+                stats["image_bytes_before"] += len(data)
+                stats["image_bytes_after"] += len(placeholder)
+                data = placeholder
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine"], required=True)
+    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine", "imgstrip"], required=True)
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
     ap.add_argument("--keep", default="first", help='halfspine slice: "first" | "second" | "lo:hi" (spine doc indices)')
@@ -389,6 +446,7 @@ def main() -> int:
         "delink": "_rung2-delink",
         "tochusk": "_rung-tochusk",
         "halfspine": f"_rung3-half-{args.keep.replace(':', '-')}",
+        "imgstrip": "_rung-imgstrip",
     }[args.rung]
     out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
     if args.rung == "delink":
@@ -407,7 +465,7 @@ def main() -> int:
             f"{stats['opf_items_removed']} | nav entries: "
             f"{stats['nav_entries_removed']} | ncx points: {stats['ncx_points_removed']}"
         )
-    else:
+    elif args.rung == "halfspine":
         stats = build_halfspine(src, out, keep=args.keep)
         print(f"{out}")
         print(
@@ -415,6 +473,13 @@ def main() -> int:
             f"nav entries: {stats['nav_entries_removed']} | ncx points: "
             f"{stats['ncx_points_removed']} (+{stats['ncx_retargeted']} retargeted) | "
             f"links neutralized: {stats['links_neutralized']:,}"
+        )
+    else:
+        stats = build_imgstrip(src, out)
+        print(f"{out}")
+        print(
+            f"images replaced: {stats['images_replaced']} | bytes "
+            f"{stats['image_bytes_before']:,} -> {stats['image_bytes_after']:,}"
         )
     return 0
 
