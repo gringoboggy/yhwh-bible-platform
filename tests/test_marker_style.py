@@ -466,7 +466,7 @@ class TestKoboPreviewSeparators:
         from scripts.build_edition import _badge_aside_inner_to_row
 
         row = _badge_aside_inner_to_row("<p>body text</p>", "comm")
-        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">\n• </span>'), row
+        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">\u2028• </span>'), row
         assert "body text" in row
 
     def test_cascade_heads_and_bylines_carry_text_separators(self):
@@ -490,8 +490,8 @@ class TestKoboPreviewSeparators:
         ]
         out = _emit_cascade_sections(rows, {"lang": ("⌘", "Linguistic"), "topic": ("✦", "Topical")})
         # every category head leads with the ¶ separator; every byline with ◦
-        assert out.count('<p class="vn-cat-head"><span class="vn-sep">\n¶ </span>') == 2, out
-        assert out.count('<p class="vn-source-byline"><span class="vn-sep">\n◦ </span>') == 2, out
+        assert out.count('<p class="vn-cat-head"><span class="vn-sep">\u2028¶ </span>') == 2, out
+        assert out.count('<p class="vn-source-byline"><span class="vn-sep">\u2028◦ </span>') == 2, out
 
     def test_vn_sep_hidden_by_css_in_both_popup_styles(self):
         from scripts.build_edition import apply_note_popup_style
@@ -517,7 +517,7 @@ class TestKoboPreviewSeparators:
         m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert m
         items = m.group(1).count('class="vn-item')
-        seps = m.group(1).count('<span class="vn-sep">\n• </span>')
+        seps = m.group(1).count('<span class="vn-sep">\u2028• </span>')
         assert items > 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
 
 
@@ -544,13 +544,13 @@ class TestVnotePreviewSeparators:
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert out.count('<p class="vnote-source-label"><span class="vn-sep">\n◦ </span>') == 2, out
+        assert out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>') == 2, out
 
     def test_vnote_text_gets_paragraph_separator(self):
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert '<p class="vnote-text"><span class="vn-sep">\n¶ </span>In the beginning' in out
+        assert '<p class="vnote-text"><span class="vn-sep">\u2028¶ </span>In the beginning' in out
 
     def test_idempotent(self):
         from scripts.build_edition import add_vnote_preview_separators
@@ -573,7 +573,7 @@ class TestVnotePreviewSeparators:
 
         html = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
         out = add_vnote_preview_separators(html)
-        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">\n¶ </span><em>' in out
+        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">\u2028¶ </span><em>' in out
         assert add_vnote_preview_separators(out) == out  # idempotent on the new shape
 
     def test_leading_pilcrow_text_not_double_marked(self):
@@ -602,7 +602,7 @@ class TestVnotePreviewSeparators:
         assert m, "vnote-gen-1-1 missing from the base fixture"
         out = add_vnote_preview_separators(m.group(0))
         labels = out.count('<p class="vnote-source-label">')
-        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">\n◦ </span>')
+        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>')
         assert labels > 0 and labels == seps, f"every source label needs its ◦ separator ({seps}/{labels})"
 
 
@@ -738,13 +738,16 @@ class TestKoboChapterNumeralCss:
 
 
 class TestSeparatorNewlines:
-    def test_separator_spans_carry_leading_newline(self):
+    def test_separator_spans_carry_leading_line_separator(self):
         """K-R5-7 (round 5b): the single-char marks (¶ ◦ •) gave the stripped
-        eInk preview structure but no LINE BREAKS — the popup still reads as
-        one wall. Bake a literal newline into each vn-sep span's text: CSS
-        hides the span everywhere CSS applies, and a raw-text extractor gains
-        real line breaks. (Fallback if the device collapses \\n: U+2028.)"""
+        eInk preview structure but no LINE BREAKS — bake a leading break char
+        into each vn-sep span's text (CSS hides the span everywhere CSS
+        applies; a raw-text extractor gains real line starts).
+        K-R6-3 (round 6, on-device): the \\n variant COLLAPSED in the Kobo
+        Footnote dialog → flipped to the designed fallback, U+2028 LINE
+        SEPARATOR (a hard line break to Unicode-aware text extraction that
+        HTML whitespace collapsing never eats)."""
         from scripts.build_edition import _VN_SEP_BYLINE, _VN_SEP_CAT, _VN_SEP_ITEM
 
         for sep in (_VN_SEP_ITEM, _VN_SEP_CAT, _VN_SEP_BYLINE):
-            assert sep.startswith('<span class="vn-sep">\n'), repr(sep)
+            assert sep.startswith('<span class="vn-sep">\u2028'), repr(sep)

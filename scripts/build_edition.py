@@ -2055,12 +2055,15 @@ def _badge_extract_note_kind(marker_html: str) -> str:
 # each note row. CSS hides them wherever CSS applies (the real page, and any
 # conformant popup renderer) — only the CSS-blind eInk preview shows them.
 # K-R5-7 (round 5b): the single-char marks gave the preview structure but no
-# LINE BREAKS — each span now leads with a literal newline so a raw-text
-# extractor renders real line starts (CSS-hidden everywhere CSS applies; if
-# the device collapses \n the fallback variant is U+2028 LINE SEPARATOR).
-_VN_SEP_ITEM = '<span class="vn-sep">\n• </span>'
-_VN_SEP_CAT = '<span class="vn-sep">\n¶ </span>'
-_VN_SEP_BYLINE = '<span class="vn-sep">\n◦ </span>'
+# LINE BREAKS — each span leads with a break char so a raw-text extractor
+# renders real line starts (CSS-hidden everywhere CSS applies).
+# K-R6-3 (round 6, on-device): the \n variant COLLAPSED in the Kobo Footnote
+# dialog (whitespace-normalized like any HTML text run) → flipped to the
+# designed fallback, U+2028 LINE SEPARATOR — a hard Unicode line break that
+# whitespace collapsing never eats.
+_VN_SEP_ITEM = '<span class="vn-sep">\u2028• </span>'
+_VN_SEP_CAT = '<span class="vn-sep">\u2028¶ </span>'
+_VN_SEP_BYLINE = '<span class="vn-sep">\u2028◦ </span>'
 _VN_SEP_HIDE_CSS = (
     "\n/* K-R3-2 + K-R4-1: text-baked popup separators — visible only to the\n"
     "   CSS-blind Kobo eInk Footnote preview; hidden everywhere CSS applies.\n"
@@ -4292,7 +4295,12 @@ def apply_appendix_demotion_and_renumber(tmp: Path, canon_books: set[str] | None
     def renum(m: re.Match) -> str:
         nonlocal counter
         counter += 1
-        return f"{m.group(1)}BOOK {_to_roman(counter)}{m.group(2)}"
+        # K-R6-4: NO-BREAK SPACE between BOOK and the numeral — the kepub
+        # engine's small-caps+letter-spacing+italic combo eats a plain word
+        # space ("BOOKII" on every Kobo title page); U+00A0 survives every
+        # engine and renders identically on Apple. This emitter rewrites every
+        # surviving eyebrow per build, so the fix lives HERE, not in the base.
+        return f"{m.group(1)}BOOK\u00a0{_to_roman(counter)}{m.group(2)}"
 
     for fp in sorted(tmp.glob("index_split_*.html")):
         text = fp.read_text(encoding="utf-8")

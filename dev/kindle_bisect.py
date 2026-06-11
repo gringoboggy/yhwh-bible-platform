@@ -14,13 +14,26 @@ ch-anchor, plain) are untouched. Output is a DIAGNOSTIC probe — popups are
 intentionally dead. If STK passes it, the link graph chokes the converter
 and we sub-bisect; if it fails, fall through to rung 3 HALF-SPINE.
 
-    .venv/bin/python dev/kindle_bisect.py --rung delink \\
+Rung TOCHUSK (2026-06-11, the local-oracle finding): Kindle Previewer 3
+reproduced the STK failure locally in ~15 min and NAMED it — E24010
+"Hyperlink not resolved in toc" on bp-45/46/47 → E24001 "TOC could not be
+built". Those anchors live in EMPTY HUSK title pages (Prayer of Azariah /
+Susanna / Bel & the Dragon — the Daniel additions): the canon-splice moved
+their text into Daniel but left a standalone appendix-section title frame
+(~750 bytes, no art, no verses) that the KFX preprocessor refuses to keep
+as a TOC target. Same canon-splice-residue class as the orphan-vnote
+asides. This rung removes each husk piece + its manifest/spine/nav/ncx
+entries, one-variable; the converter verdict on the probe proves/refutes
+the husk as THE failure cause.
+
+    .venv/bin/python dev/kindle_bisect.py --rung delink|tochusk \\
         --src ~/Desktop/Ethiopian_Bible_..._kindle-safe_<stamp>.epub
 """
 
 from __future__ import annotations
 
 import argparse
+import itertools
 import re
 import sys
 import zipfile
@@ -108,9 +121,116 @@ def build_delink(src_epub: Path, out_epub: Path) -> dict[str, int]:
     return stats
 
 
+# ── rung TOCHUSK ────────────────────────────────────────────────────────
+
+_BODY_RE = re.compile(r"<body[^>]*>(.*?)</body>", re.S)
+
+
+def is_husk_doc(text: str) -> bool:
+    """True iff a content doc is a canon-splice HUSK: an appendix-section
+    title frame with NO art and NO verse content (the body the splice left
+    behind). The healthy tiny title pieces differ on class (book-title-page)
+    and carry their bookpage-art illustration — they must NOT match."""
+    m = _BODY_RE.search(text)
+    if not m:
+        return False
+    body = m.group(1)
+    if "<img" in body or 'id="v-' in body or 'class="verse"' in body:
+        return False
+    if 'class="appendix-section"' not in body or 'class="book-title-frame"' not in body:
+        return False
+    return len(_STRIP_TAGS_RE.sub("", body).strip()) < 300
+
+
+def _strip_husk_refs(name: str, text: str, base: str, stats: dict[str, int]) -> str:
+    """Remove every OPF/ncx/nav reference to one husk file from one document."""
+    b = re.escape(base)
+    if name.endswith(".opf"):
+        item_m = re.search(rf'[ \t]*<item\b[^>]*href="(?:[^"]*/)?{b}"[^>]*/>\s*\n?', text)
+        if not item_m:
+            return text
+        idref_m = re.search(r'id="([^"]+)"', item_m.group(0))
+        text = text.replace(item_m.group(0), "")
+        stats["opf_items_removed"] += 1
+        if idref_m:
+            text = re.sub(rf'[ \t]*<itemref\b[^>]*idref="{re.escape(idref_m.group(1))}"[^>]*/>\s*\n?', "", text)
+        return text
+    if name.endswith(".ncx"):
+        # tempered: never scan across a navPoint boundary (a bare .*? swallowed
+        # every navPoint from the navMap top down to the husk's — epubcheck
+        # "first playOrder value is not 1" caught it on the real artifact)
+        text, n_ncx = re.subn(
+            rf"[ \t]*<navPoint\b[^>]*>(?:(?!</?navPoint).)*?"
+            rf'<content src="(?:[^"]*/)?{b}#[^"]*"\s*/>(?:(?!</?navPoint).)*?</navPoint>\s*\n?',
+            "",
+            text,
+            flags=re.S,
+        )
+        stats["ncx_points_removed"] += n_ncx
+        return text
+    # nav.xhtml <li> entries AND the in-book HTML TOC page's whole
+    # <li class="toc-book"> blocks (label + chapter rows): drop the smallest
+    # <li>…</li> that references the husk.
+    text, n_nav = re.subn(
+        rf'[ \t]*<li[^>]*>(?:(?!</li>).)*?href="(?:[^"]*/)?{b}#(?:(?!</li>).)*?</li>\s*\n?',
+        "",
+        text,
+        flags=re.S,
+    )
+    stats["nav_entries_removed"] += n_nav
+    return text
+
+
+def build_tochusk(src_epub: Path, out_epub: Path) -> dict[str, int]:
+    """Zip-rewrite src_epub dropping every husk piece + its OPF manifest item,
+    spine itemref, nav.xhtml <li>, and toc.ncx <navPoint>.
+
+    Hard-fails if any reference to a removed husk survives anywhere, or if a
+    kept content doc changed by even one byte (only opf/nav/ncx may change).
+    """
+    stats = {"husks_removed": 0, "opf_items_removed": 0, "nav_entries_removed": 0, "ncx_points_removed": 0}
+    with zipfile.ZipFile(src_epub) as zin:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        raw = {name: zin.read(name) for name in names}
+
+    husks = [n for n in names if n.endswith((".html", ".xhtml")) and is_husk_doc(raw[n].decode("utf-8"))]
+    stats["husks_removed"] = len(husks)
+    husk_bases = [h.rsplit("/", 1)[-1] for h in husks]
+
+    rewritten: dict[str, bytes] = {}
+    for name in names:
+        if name in husks or not name.endswith((".opf", ".ncx", ".xhtml", ".html")):
+            continue
+        text = raw[name].decode("utf-8")
+        orig = text
+        for base in husk_bases:
+            text = _strip_husk_refs(name, text, base, stats)
+        if text != orig:
+            if name.endswith(".ncx"):
+                counter = itertools.count(1)
+                text = re.sub(r'playOrder="\d+"', lambda m, c=counter: f'playOrder="{next(c)}"', text)
+            rewritten[name] = text.encode("utf-8")
+
+    with zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        for name in names:
+            if name in husks:
+                continue
+            data = rewritten.get(name, raw[name])
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name not in rewritten:
+                assert data == raw[name]  # kept docs byte-identical
+            for base in husk_bases:
+                assert base.encode("utf-8") not in data, f"{name} still references removed husk {base}"
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--rung", choices=["delink"], required=True)
+    ap.add_argument("--rung", choices=["delink", "tochusk"], required=True)
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
     args = ap.parse_args()
@@ -119,14 +239,24 @@ def main() -> int:
     if not src.is_file():
         print(f"missing src: {src}", file=sys.stderr)
         return 1
-    out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + f"_rung2-{args.rung}" + src.suffix)
-    stats = build_delink(src, out)
-    print(f"{out}")
-    print(
-        f"pieces={stats['pieces']} links {stats['links_before']:,} -> "
-        f"{stats['links_after']:,} | asides converted: "
-        f"{stats['asides_before']:,}"
-    )
+    tag = "_rung2-delink" if args.rung == "delink" else "_rung-tochusk"
+    out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
+    if args.rung == "delink":
+        stats = build_delink(src, out)
+        print(f"{out}")
+        print(
+            f"pieces={stats['pieces']} links {stats['links_before']:,} -> "
+            f"{stats['links_after']:,} | asides converted: "
+            f"{stats['asides_before']:,}"
+        )
+    else:
+        stats = build_tochusk(src, out)
+        print(f"{out}")
+        print(
+            f"husks removed: {stats['husks_removed']} | opf items: "
+            f"{stats['opf_items_removed']} | nav entries: "
+            f"{stats['nav_entries_removed']} | ncx points: {stats['ncx_points_removed']}"
+        )
     return 0
 
 
