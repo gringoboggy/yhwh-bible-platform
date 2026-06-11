@@ -21,6 +21,21 @@ What shipped (concrete, scannable):
 - **epubcheck wrapper hardening:** discovery step 3 = the pip-package jar via a self-shadow-proof PathFinder probe (`scripts/epubcheck.py` shadows the package name on CLI runs — the e2e probe caught a driver crash from exactly this), ordered BEFORE the Windows-broken PATH wrapper; `epubcheck>=5.1,<6` declared in requirements-dev (used-but-undeclared until now).
 - **Doc currency:** spec M1 rows marked shipped; MATRIX_MAP gains the format-matrix catalog flow (constant → driver/CI → release assets → generator → site inline).
 
+## 2026-06-11 — session (🖥️ Mac, turn 74) — K-KIN blocker #1 CLOSED in-build (zero TOC errors, oracle-proven) + blocker #2 isolated; K-R6-6 chip badges; halfspine bisect rung
+
+**Phases shipped:** K-KIN husk ship-fix organs #1+#2 (splitter + TOC retarget) · gates 4k/4l · K-R6-6 `marker_badge_style` · bisect rung-3 halfspine · build_kindle_safe.py → `--target-reader` path
+**Test delta:** +28 (husk splitter ×3 · retarget ×4 · gate 4k ×3 + 4l ×3 · K-R6-6 ×13 · halfspine ×8 minus 6 superseded counts — net new files test_marker_badge_style.py + test_demoted_toc_retarget.py); cross-slice post-rebase sweep 111 green
+**Save tag:** milestone push (blocker-#1 closure + cross-lane M1 ingest)
+
+What shipped (concrete, scannable):
+- **Husk fix organ #1 — splitter:** forced K-R2-1 title isolation re-keyed from the bare `bp-` id to the real `<div class="book-title-page"` tag (`_BP_TITLEPAGE_RE`); demoted `appendix-section` frames flow with parent-book content (the demotion design — no page break), so the ~750 B empty-husk spine pieces (bp-45/46/47, the KFX E24010/E24001 root cause) can never be minted.
+- **Husk fix organ #2 — `retarget_demoted_toc_anchors`:** ship-fix rebuild #1 (160847Z) proved KFX refuses the frame TAG itself even merged mid-content (E24010 + W14001 ×3; its message fingers display:none targets — the frame's leading children are hidden). All three TOC surfaces (nav.xhtml, toc.ncx, in-book toc-book page) now target each demoted book's first CONTENT anchor; the frame keeps its bp id (canonical xref coordinates). Rebuild #2 (163704Z): ALL gates green + epubcheck 0/0/0/0 + **Previewer ZERO TOC errors**.
+- **Gates 4k + 4l** (both fires-on-defect-proven on real artifacts): 4k = no frame-only appendix piece (fired exactly ×3 on the old artifact); 4l = no TOC ref targets a demoted frame (fired ×9 on 160847Z, 0 on 163704Z). 4h + the piece-geometry checks re-keyed to the title-page CLASS — the bare-id keying was the same defect class the splitter had.
+- **Blocker #2 isolated:** the generic no-E-code internal error persists on the fully-current build; the chained delink-on-tochusk probe failed identically ⇒ link graph exonerated. **Rung-3 HALFSPINE** shipped in dev/kindle_bisect.py (`--keep first|second|lo:hi`; opf/nav/ncx/guide pruning via the shared husk-ref stripper; kept→dropped links neutralized anchor→span; ncx leftovers retargeted; playOrder renumbered; hard assert zero dropped-base refs).
+- **K-R6-6 `marker_badge_style: chip|glyph+count`:** round-6b device QA proved ◈ has never rendered on Kobo → eink resolves to a count-only bordered chip (no glyph dependency); ONE resolver feeds the badge emitter + api_customize_data (surfaced resolved) + the save validator + the /customize select; non-eink artifacts stay byte-identical.
+- **dev/build_kindle_safe.py** migrated to `build_one(target_reader="kindle")` — the editions.yaml byte-flip retired; the kindle stamp verified in-zip on a real build.
+- **Mac-env fix:** all 3 MCP servers (playwright/chrome-devtools/gitkraken) were timing out at the 30 s cold-start connect limit on every session start; `MCP_TIMEOUT=120000` set in `~/.claude/settings.json`.
+
 ## 2026-06-11 — session (🪟 Windows, turn 74) — matrix M1 blocker #1: the `--target-reader` build flag + cache-key fold; a749e99b clobber regression fixed + lint class-guard
 
 **Phases shipped:** matrix M1 foundation (spec-review blocker #1 + corollary) + the `_VNOTE_ASIDE_RE` collision hotfix
