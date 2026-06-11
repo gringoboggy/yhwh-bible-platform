@@ -17,7 +17,7 @@
 | Reader | We ship | `target_reader` | Popup footnotes | Collapsible ToC (`<details>`) | Embedded fonts | Page-break CSS | Status (date) |
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
-| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; preview declines notes ≥5,500 stripped (pops ≤4,498; fix = cap ~4,400) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback** (K-R5-6: the turn-67 unconditional drop broke Publisher Default — restore is Mac's) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-5b 2026-06-11: K-R5-1 font-reset CONFIRMED; ★K-R5-6 dc:language regression FOUND; K-R4-2 cap + K-R5-3 clamp + K-R5-6 restore + K-R5-7 newline exp = Mac |
+| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; cap-split units mostly pop (K-R6-2: a non-size factor or tap geometry on 2 of gen 1:1's 3 — taps pending) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback — PROVEN round-6** (Publisher Default renders Heb/Grc/**Ar**/Geʽez with the OPF block restored; per-span lang never reaches the tag-stripped preview) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-6 2026-06-11: ★K-R5-6 restore PROVEN on-device; clamp HOLDS; `\n` seps collapsed → U+2028 (K-R6-3); "BOOKII" eyebrow space quirk (K-R6-4, pre-existing) |
 | **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (kindle_safe) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Variant SHIPPED + epubcheck 0/0/0/0 by execution; user K-KIN-1..4 acceptance PENDING (2026-06-10) |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
@@ -42,15 +42,14 @@
   ordinary cross-ref links; aside `id`s must survive the koboSpan transform).
 - **The footnote-preview dialog** (the popup): renders TAG-STRIPPED plain text in
   the READING font — embedded fonts and per-span `lang` tags never reach it (the
-  extractor strips all markup). **BUT the OPF `dc:language` declarations DO govern
-  it (K-R5-6, round-5b 2026-06-11):** with the multi-value block declared
-  (`en-US + hbo + grc + arc + gez`, the K-R2-5 fix) the dialog engaged per-script
-  FALLBACK fonts and rendered every translation under Publisher Default
-  (user-attested on v0.1.0); the turn-67 Kindle-E999 fix dropped the block
-  UNCONDITIONALLY → r5 tofu under Publisher Default (user-confirmed; OPF diff by
-  execution). Fix = target-gate the drop (single `en-US` kindle-only; everyone
-  else keeps the block + `ar`); a font-pack reading font (Cardo) is the per-script
-  override path (covers Latin/Greek/Hebrew, NOT Arabic/Ethiopic). The dialog also
+  extractor strips all markup). **The OPF `dc:language` declarations govern its
+  per-script FALLBACK fonts — PROVEN round-6 (2026-06-11):** with the multi-value
+  block restored (`en-US + hbo + grc + arc + gez + ar`, target-gated kindle-only
+  drop) every translation script renders under Publisher Default AND any pack
+  font — including the first-ever Arabic popups (K-R6-1 screenshots). History:
+  the block was the K-R2-5 fix; the turn-67 Kindle-E999 fix dropped it
+  unconditionally → the K-R5-6 regression the user caught. The dialog also
+  collapses `\n` in text (K-R6-3 — U+2028 is the next separator variant) and
   **DECLINES large notes** — instead of
   popping it NAVIGATES to **the containing piece's TOP** (confirmed round 5: all
   five jumps landed exactly at piece tops; a target near its own piece top looks
