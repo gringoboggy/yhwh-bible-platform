@@ -448,6 +448,13 @@ function renderEditions() {
                 <option value="numbers" ${e.marker_style === 'numbers' ? 'selected' : ''}>numbers · a superscript number per note</option>
               </select>
             </label>
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Badge form</span>
+              <select class="label-input w-full" data-field="marker_badge_style" title="how the per-verse count badge renders in the running text (the value shown is what this edition's reader target builds today; the ◈ glyph never renders on Kobo e-ink, so eink editions default to the chip)">
+                <option value="chip"        ${e.marker_badge_style === 'chip' ? 'selected' : ''}>chip · count in a small bordered chip (no glyph)</option>
+                <option value="glyph+count" ${e.marker_badge_style === 'glyph+count' ? 'selected' : ''}>glyph+count · ◈ note-mark before the count</option>
+              </select>
+            </label>
             <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none" title="Drop a note's repeated kind label (e.g. the 'Hebrew.' prefix on every word study) when it merely restates the category. Lossless. Badge marker style only.">
               <input type="checkbox" data-field="note_attribution_dedup" ${e.note_attribution_dedup ? 'checked' : ''}>
               de-duplicate note labels

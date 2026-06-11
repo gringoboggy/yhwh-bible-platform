@@ -632,6 +632,9 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "cover_template",
         "verse_popup_style",
         "note_popup_style",
+        # K-R6-6 — in-page verse-badge form ("chip" | "glyph+count");
+        # absent = target default (chip on eink, glyph+count elsewhere).
+        "marker_badge_style",
         "marker_style",
         "topical_index_source",
         "note_popup_split_cap",
@@ -720,6 +723,9 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         "cover_template",
         "verse_popup_style",
         "note_popup_style",
+        # K-R6-6 — in-page verse-badge form ("chip" | "glyph+count");
+        # absent = target default (chip on eink, glyph+count elsewhere).
+        "marker_badge_style",
         "marker_style",
         "topical_index_source",
         # ψ.37-C: time_filter_ceiling — stored as text in YAML
@@ -838,6 +844,14 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if v and v not in MARKER_STYLES:
             return {"error": (f"unknown marker_style: {v!r}; valid: {sorted(MARKER_STYLES)}")}
         payload["marker_style"] = v
+
+    if "marker_badge_style" in payload:
+        from scripts.build_edition import MARKER_BADGE_STYLES
+
+        v = (payload["marker_badge_style"] or "").strip()
+        if v and v not in MARKER_BADGE_STYLES:
+            return {"error": (f"unknown marker_badge_style: {v!r}; valid: {sorted(MARKER_BADGE_STYLES)}")}
+        payload["marker_badge_style"] = v
 
     if "topical_index_source" in payload:
         from scripts.build_edition import TOPICAL_INDEX_SOURCES

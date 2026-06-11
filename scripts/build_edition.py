@@ -1973,6 +1973,51 @@ def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     return stylesheet_css + _NOTE_POPUP_CHIP_CSS + _VN_SEP_HIDE_CSS
 
 
+# K-R6-6 marker_badge_style — the in-page verse-badge form. Round-6b device QA
+# (2026-06-11, definitive): the ◈ note-mark glyph has NEVER rendered on Kobo —
+# any font, incl. Cardo; badges displayed as bare superscript numbers. "chip"
+# drops the ◈ from the badge TEXT (count only — zero glyph dependency, the
+# K-R2-3 "configurable badge glyph" follow-up solved without a glyph) and
+# styles .marker-badge as a small bordered chip; "glyph+count" is the shipped
+# ◈+count form (Apple renders ◈ fine). Chips also visually separate badges
+# from verse numbers — the user's clutter point.
+MARKER_BADGE_STYLES = {"chip", "glyph+count"}
+
+
+def resolve_marker_badge_style(edition: dict) -> str:
+    """The edition's badge form — the single resolver for every consumer
+    (emitter + api_customize_data + /customize; matrix==build invariant).
+    An explicit valid value wins; otherwise eink defaults to "chip" (◈ never
+    renders there) and every other target keeps "glyph+count". Unknown/stale
+    values resolve to the target default so they can never activate a
+    variant (the TARGET_READERS convention)."""
+    v = (edition.get("marker_badge_style") or "").strip()
+    if v in MARKER_BADGE_STYLES:
+        return v
+    return "chip" if resolve_target_reader(edition) == "eink" else "glyph+count"
+
+
+# Appended when marker_badge_style == "chip": the count-only badge as a small
+# bordered chip. All EPUB-3-allowed (display / padding / border / border-radius);
+# border-only (no background) stays crisp on e-ink grayscale.
+_MARKER_BADGE_CHIP_CSS = """
+/* === K-R6-6 marker_badge_style=chip — count-only bordered chip badge === */
+.marker-badge { display: inline-block; padding: 0.02em 0.45em; border: 1px solid #B8860B; border-radius: 0.9em; }
+"""
+
+
+def apply_marker_badge_style(stylesheet_css: str, style: str) -> str:
+    """Append the marker_badge_style variant CSS to an edition stylesheet.
+
+    "chip" appends the bordered count-chip rule (the emitter drops the ◈ from
+    the badge text in the same build, so the chip carries the count alone);
+    "glyph+count" appends nothing — that artifact stays byte-identical to the
+    pre-K-R6-6 form. Mirrors apply_note_popup_style."""
+    if style == "chip":
+        return stylesheet_css + _MARKER_BADGE_CHIP_CSS
+    return stylesheet_css
+
+
 # Per-category group spine for the S2 cascade — reuses the EXACT hues already in
 # epub_working/stylesheet.css:751-791 (the `[class*="note-{cat}-"]` left-border
 # colours); `topic` has no shipped spine, so it gets the one new hue. The group
@@ -2943,6 +2988,10 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """
     from scripts import inject as _inject
 
+    # K-R6-6 — the badge TEXT form: "chip" emits the count alone (the ◈ glyph
+    # never renders on Kobo); "glyph+count" keeps the shipped ◈+count.
+    count_only_badge = resolve_marker_badge_style(edition) == "chip"
+
     # Note-presentation rehaul flags (effective only here, under marker_style=badge).
     # Each is a zero-touch no-op when absent ⇒ a flag-free edition builds byte-identically.
     s1_dedup = bool(edition.get("note_attribution_dedup", False))
@@ -3216,11 +3265,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             title += f" (part {u_idx} of {k_units})"
                         # Glyph = ◈ note-mark + the unit's row count, so it reads as
                         # "notes here" and never blends with the verse number / the
-                        # translation (verse-number) marker (RX-beta2 ①).
+                        # translation (verse-number) marker (RX-beta2 ①). Under
+                        # marker_badge_style=chip the ◈ is dropped (K-R6-6: it never
+                        # renders on Kobo) — the bordered chip CSS does the separating.
+                        badge_text = f"{m_cnt}" if count_only_badge else f"◈{m_cnt}"
                         unit_badges.append(
                             f'<a class="verse-notes-badge" id="{bid}" '
                             f'href="#{vid}" epub:type="noteref" '
-                            f'title="{title}"><sup class="marker-badge">◈{m_cnt}</sup></a>'
+                            f'title="{title}"><sup class="marker-badge">{badge_text}</sup></a>'
                         )
                         if s2_group:
                             stats["s2_groups_emitted"] += len({r["cat"] for r in unit_rows})
@@ -5910,6 +5962,19 @@ def build_one(
                 encoding="utf-8",
             )
             stats["note_popup_style"] = nps
+
+        # K-R6-6 marker_badge_style — append the count-chip rule when the
+        # resolver says "chip" (eink default; ◈ never renders on Kobo). The
+        # emitter dropped the ◈ from the badge text in apply_badge_markers
+        # under the same resolver, so chip artifacts carry count-only chips
+        # and glyph+count artifacts are byte-identical to before.
+        if css_path.is_file():
+            mbs = resolve_marker_badge_style(edition)
+            css_path.write_text(
+                apply_marker_badge_style(css_path.read_text(encoding="utf-8"), mbs),
+                encoding="utf-8",
+            )
+            stats["marker_badge_style"] = mbs
 
         # S2 note cascade — append the robust-layer CSS (15 per-category group
         # spines + header/source/byline/indent rules) when note_group_by_category

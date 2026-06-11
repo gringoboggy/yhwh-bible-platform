@@ -321,6 +321,7 @@ def api_customize_data() -> dict:
         decode_per_chapter_tokens,
         decode_per_chapter_languages,
         decode_per_verse_languages,
+        resolve_marker_badge_style,
         resolve_target_reader,
     )
     from scripts.core import matrix as _matrix
@@ -440,6 +441,10 @@ def api_customize_data() -> dict:
                 # → tap → note list) is the default; "numbers" (per-note
                 # superscripts) stays selectable.
                 "marker_style": e.get("marker_style", "badge"),
+                # K-R6-6 — in-page badge form, surfaced RESOLVED (the default is
+                # target-dependent: chip on eink — ◈ never renders on Kobo —
+                # glyph+count elsewhere) so /customize shows what builds.
+                "marker_badge_style": resolve_marker_badge_style(e),
                 # Torrey merge — which topical authority feeds the back-of-book index.
                 "topical_index_source": e.get("topical_index_source", "both"),
                 # K-R2 (2026-06-09) — in-content-ToC + reader-target fields. These were
