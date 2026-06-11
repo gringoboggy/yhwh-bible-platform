@@ -240,12 +240,14 @@ def compute_cache_key(
     edition_id: str,
     *,
     version: str = "v28a",
+    target_reader: str | None = None,
 ) -> str:
     """SHA-256 digest covering every input that affects this edition's
     EPUB output. Stable: same inputs → same key.
 
     Inputs included (each contributes a labeled, sorted token):
-      - the edition's record (JSON-serialized, sort_keys=True)
+      - the edition's record (JSON-serialized, sort_keys=True) with the
+        RESOLVED reader target normalized in (see below)
       - the version string
       - the canon book list for this edition's canon
       - kinds.yaml / categories.yaml / books.yaml (whole-file hashes)
@@ -259,7 +261,21 @@ def compute_cache_key(
       - every file under ``epub_working/`` (the build's templated
         input)
 
-    Raises ValueError if the edition isn't in editions.yaml.
+    ``target_reader`` is the matrix-M1 build-time override (spec-review
+    blocker #1 corollary): the --target-reader flag changes output bytes
+    without touching editions.yaml, so the key MUST hash the effective
+    target or an override build would collide with the stored-default
+    build and a wrong-format artifact would be served from cache. The key
+    hashes the RESOLVED target (the sufficient statistic — every
+    per-format behavior flows through resolve_target_reader), so an
+    override equal to the record's own resolution hits the same entry,
+    and a stale unknown stored value keys identically to the
+    "everywhere" it resolves to. NOTE: normalizing the resolved target
+    into the record changed every pre-M1 key once (a one-time full cache
+    invalidation = one conservative rebuild per edition).
+
+    Raises ValueError if the edition isn't in editions.yaml, or if
+    ``target_reader`` is not a known target.
     """
     from scripts.core import config
 
@@ -267,6 +283,19 @@ def compute_cache_key(
     if edition_id not in eds:
         raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
     edition = eds[edition_id]
+
+    # Fold + normalize the reader target through the ONE resolver
+    # (call-time import; build_edition imports this module call-time too,
+    # so there is no import cycle).
+    from scripts.build_edition import TARGET_READERS, resolve_target_reader
+
+    effective = dict(edition)
+    if target_reader is not None:
+        if target_reader not in TARGET_READERS:
+            raise ValueError(f"target_reader override {target_reader!r} not in {TARGET_READERS}")
+        effective["target_reader"] = target_reader
+    effective["target_reader"] = resolve_target_reader(effective)
+    edition = effective
 
     parts: list[tuple[str, str]] = []
 

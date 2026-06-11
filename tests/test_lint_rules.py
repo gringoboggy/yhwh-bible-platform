@@ -33,12 +33,14 @@ class TestAllChecksMetaContract:
         assert not failing, f"lint check(s) failing on the committed tree: {failing}"
 
     def test_registry_not_silently_shrunk(self):
-        # Pin the registry size EXACTLY (33: 32 at mint-11 tail [28 at mint-8 +
+        # Pin the registry size EXACTLY (34: 32 at mint-11 tail [28 at mint-8 +
         # bookcode_canonical/subprocess_stdin/no_reviewer_scaffolding/
         # no_truncated_easton/greek_gloss_quality/no_torrey_topic_leak], then
-        # +candidate_extent at v0.1.0 audit Phase 0) so a check can't be dropped
-        # from ALL_CHECKS — or quietly added without updating this pin — unnoticed.
-        assert len(self.mod.ALL_CHECKS) == 33, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 33"
+        # +candidate_extent at v0.1.0 audit Phase 0, then
+        # +module_constant_collision 2026-06-11 [the a749e99b clobber class])
+        # so a check can't be dropped from ALL_CHECKS — or quietly added
+        # without updating this pin — unnoticed.
+        assert len(self.mod.ALL_CHECKS) == 34, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 34"
         # A duplicate key in the dict literal would silently collapse two checks
         # into one; pin that the keys are unique.
         assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))
@@ -1051,3 +1053,65 @@ class TestOmega33RuffFormat:
         # Pin specific config knobs the format pass relied on.
         assert "line-length" in text
         assert 'target-version = "py310"' in text
+
+
+class TestModuleConstantCollision:
+    """2026-06-11 — a749e99b defined a SECOND module-level _VNOTE_ASIDE_RE in
+    build_edition.py, silently clobbering the popup-pass regex and breaking
+    every popup-edition build (IndexError deep in build_one). The arc's own
+    tests stayed green because only the NEW pass was unit-covered. This check
+    pins the CLASS: no module-level CONSTANT-style name (ALL_CAPS, optional
+    leading underscore) may be plainly assigned twice in one scripts/dev
+    module. Waiver marker: `# constant-redef-waived: <reason>`."""
+
+    def _find(self, src: str):
+        import ast
+
+        from scripts.lint_rules import _find_module_constant_collisions
+
+        return _find_module_constant_collisions(ast.parse(src))
+
+    def test_detects_duplicate_module_constant(self):
+        hits = self._find("_FOO_RE = 1\nx = 2\n_FOO_RE = 3\n")
+        assert hits == [("_FOO_RE", 3)]
+
+    def test_single_assignment_is_clean(self):
+        assert self._find("_FOO_RE = 1\nBAR = 2\n") == []
+
+    def test_lowercase_names_are_ignored(self):
+        assert self._find("foo = 1\nfoo = 2\n") == []
+
+    def test_function_scope_is_ignored(self):
+        assert self._find("def f():\n    X = 1\n    X = 2\n") == []
+
+    def test_conditional_fallback_is_ignored(self):
+        # try/except + if/else import-fallback reassignment is a legit
+        # pattern; only plain top-level double assignment is the defect.
+        src = "try:\n    X = 1\nexcept ImportError:\n    X = 2\n"
+        assert self._find(src) == []
+
+    def test_tuple_unpacking_targets_counted(self):
+        hits = self._find("A, B = 1, 2\nB = 3\n")
+        assert hits == [("B", 2)]
+
+    def test_self_referential_transform_is_not_a_clobber(self):
+        # the templates' module-load pattern: X_HTML = apply_design_system(
+        # X_HTML, ...) / X_HTML = X_HTML.replace(...) rebinds the SAME value
+        # transformed — the earlier definition is consumed, not clobbered.
+        src = 'X = "a"\nX = X.replace("a", "b")\nX = f(X)\n'
+        assert self._find(src) == []
+
+    def test_transform_then_plain_reassign_still_flagged(self):
+        src = 'X = "a"\nX = f(X)\nX = "c"\n'
+        assert self._find(src) == [("X", 3)]
+
+    def test_annotated_assignment_counted(self):
+        hits = self._find("X: int = 1\nX = 2\n")
+        assert hits == [("X", 2)]
+
+    def test_check_is_registered_and_passes_on_live_tree(self):
+        from scripts.lint_rules import ALL_CHECKS
+
+        assert "module_constant_collision" in ALL_CHECKS
+        r = ALL_CHECKS["module_constant_collision"]()
+        assert r["status"] == "pass", r

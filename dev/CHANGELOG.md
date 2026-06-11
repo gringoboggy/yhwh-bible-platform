@@ -4,6 +4,21 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-11 — session (🪟 Windows, turn 74) — matrix M1 blocker #1: the `--target-reader` build flag + cache-key fold; a749e99b clobber regression fixed + lint class-guard
+
+**Phases shipped:** matrix M1 foundation (spec-review blocker #1 + corollary) + the `_VNOTE_ASIDE_RE` collision hotfix
+**Test delta:** +22 (test_target_reader_override.py ×19 · TestVnoteRegexCollisionRegression ×3) + 10 lint-check pins (TestModuleConstantCollision); ALL_CHECKS 33→34
+**Save tag:** milestone 5-leg (cross-lane fix delivery)
+
+What shipped (concrete, scannable):
+- **`--target-reader <everywhere|eink|tablet|computer|kindle>` on build_edition.py** — builds any canon edition under a non-stored reader target WITHOUT mutating editions.yaml (the format-matrix spec's §2 mechanism). `apply_target_override` folds the override into a copy of the edition record at the top of `build_one`; every downstream consumer (resolver, OPF stamp, kindle passes) reads the one resolver. Standalone + explicit override = ValueError (never a silent ignore); `--all` + override skips standalones with a note.
+- **Cache-key fold (the review's HIGH corollary):** `compute_cache_key(..., target_reader=)` normalizes the **resolved** target into the hashed record — override-built artifacts can neither collide with stored-default builds nor miss dedupe when override≡stored. One-time full cache invalidation accepted (conservative rebuild).
+- **mtime-shortcut class fix:** override artifacts are named `…_<version>_<target>_<timestamp>.epub`; `is_output_current` matches only its own token and plain lookups exclude target-named files (wrong-format reuse closed in BOTH directions). Sidecar gains `target_reader` (CI manifest/gates read format truth per asset).
+- **Real-artifact proof:** catholic-study × eink — OPF stamp `yhwh:target-reader="eink"` in-zip, epubcheck 0/0/0/0.
+- **★a749e99b regression (caught by that probe — the first real build post-merge):** the orphan-vnote slice defined a second module-level `_VNOTE_ASIDE_RE`, clobbering the 6-group popup-pass regex → `IndexError` in every popup-edition build, while the arc's own tests stayed green. Renamed `_ORPHAN_VNOTE_ASIDE_RE` + 3 regression pins exercising the popup passes directly.
+- **New lint check `module_constant_collision`** (the class, not the instance): no scripts/dev module may plainly assign the same module-level CONSTANT name twice; self-referential transform rebinds (`X_HTML = apply_design_system(X_HTML,…)` ×21 template sites) are recognized as legit; `# constant-redef-waived:` marker available. ruff F811 does not cover plain variables — this was an uncovered defect class.
+- **Format-matrix spec REVISED** per the Mac review: blockers #2 (Pillow composite per variant + build_epub deterministic writer + kepub re-swap post-kepubify), #3 (SHA256SUMS fan-in job — no per-job self-merge), #4 (one job per edition, formats serial) + the MEDs (FORMAT_MATRIX one-home beside TARGET_READERS · never-remove-live Kobo cell · full-count column gating + GitHub asset-list pagination · the 83-corollary sweep for catalog copy).
+
 ## 2026-06-10 — session (🪟 Windows, turn 69) — mint 3.1/3.3: standing truth-record rotation (IN_FLIGHT ▶ + the LANE_HANDOFF board) + hard budget enforced + save-all as the rotation actor
 
 **Phases shipped:** mint 3.1 + 3.3 (the Fable-5 system-mint design's rotation items)

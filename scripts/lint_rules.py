@@ -2394,6 +2394,101 @@ def check_subprocess_stdin() -> dict:
     }
 
 
+_CONSTANT_NAME_RE = re.compile(r"^_?[A-Z][A-Z0-9_]*$")
+_CONSTANT_REDEF_WAIVER = "# constant-redef-waived:"
+
+
+def _find_module_constant_collisions(tree: ast.Module) -> list[tuple[str, int]]:
+    """Return ``(name, lineno)`` for every REPEATED plain top-level assignment
+    to a CONSTANT-style name (ALL_CAPS, optional leading underscore). Only
+    direct ``tree.body`` statements count — conditional / try-except fallback
+    reassignment lives inside If/Try nodes and is deliberately ignored, as are
+    function/class scopes and augmented assignment. A repeat whose VALUE
+    references the same name (``X = f(X)`` / ``X = X.replace(...)`` — the
+    templates' module-load transform pattern) is a rebind that CONSUMES the
+    earlier definition, not a clobber, and is ignored. Helper for the
+    module_constant_collision check (the a749e99b _VNOTE_ASIDE_RE clobber
+    class)."""
+    seen: set[str] = set()
+    hits: list[tuple[str, int]] = []
+
+    def _value_references(stmt: ast.stmt, name: str) -> bool:
+        value = getattr(stmt, "value", None)
+        if value is None:
+            return False
+        return any(isinstance(n, ast.Name) and n.id == name and isinstance(n.ctx, ast.Load) for n in ast.walk(value))
+
+    def _names(node: ast.stmt) -> list[str]:
+        targets: list[ast.expr] = []
+        if isinstance(node, ast.Assign):
+            targets = list(node.targets)
+        elif isinstance(node, ast.AnnAssign):
+            targets = [node.target]
+        out: list[str] = []
+        for t in targets:
+            if isinstance(t, ast.Name):
+                out.append(t.id)
+            elif isinstance(t, (ast.Tuple, ast.List)):
+                out.extend(e.id for e in t.elts if isinstance(e, ast.Name))
+        return out
+
+    for stmt in tree.body:
+        for name in _names(stmt):
+            if not _CONSTANT_NAME_RE.match(name):
+                continue
+            if name in seen and not _value_references(stmt, name):
+                hits.append((name, stmt.lineno))
+            else:
+                seen.add(name)
+    return hits
+
+
+def check_module_constant_collision() -> dict:
+    """No scripts/ or dev/ module may plainly assign the same CONSTANT-style
+    module-level name twice (2026-06-11): a749e99b defined a second
+    ``_VNOTE_ASIDE_RE`` in build_edition.py, silently clobbering the 6-group
+    popup-pass regex 4,200 lines earlier and breaking every popup-edition
+    build — while the new arc's own tests stayed green. ruff has no rule for
+    plain-variable redefinition (F811 covers defs/imports only), so this is
+    the commit-time guard for the class. A
+    ``# constant-redef-waived: <reason>`` marker on the repeat assignment's
+    line (or the line above) waives a single site."""
+    violations: list[dict] = []
+    for sub in ("scripts", "dev"):
+        d = REPO / sub
+        if not d.is_dir():
+            continue
+        for py in sorted(d.rglob("*.py")):
+            rel = str(py.relative_to(REPO)).replace("\\", "/")
+            try:
+                text = py.read_text(encoding="utf-8")
+                tree = ast.parse(text, filename=str(py))
+            except (OSError, UnicodeDecodeError, SyntaxError):
+                continue
+            lines = text.splitlines()
+            for name, ln in _find_module_constant_collisions(tree):
+                same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+                prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+                if _CONSTANT_REDEF_WAIVER in same or _CONSTANT_REDEF_WAIVER in prev:
+                    continue
+                violations.append({"file": rel, "line": ln, "name": name})
+
+    return {
+        "id": "module_constant_collision",
+        "name": "module-level constants assigned once (clobber guard)",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "no module-level constant is assigned twice"
+            if not violations
+            else f"{len(violations)} repeated module-level constant assignment(s) — "
+            "a later assignment silently clobbers the earlier one for EVERY consumer "
+            "(the a749e99b _VNOTE_ASIDE_RE class); rename one, or waive with "
+            "`# constant-redef-waived: <reason>`"
+        ),
+        "violations": violations[:40],
+    }
+
+
 def _find_notes_list(tree: ast.Module) -> ast.List | None:
     """Return the value of the module-level ``NOTES = [...]`` assignment, or
     ``None`` if absent / not a list literal. Helper for the RX-Phase-1 guard."""
@@ -2776,6 +2871,9 @@ ALL_CHECKS = {
     # mint-8 — every subprocess spawn call passes an explicit stdin= (Windows
     # WinError 6 / W-W1 mitigation; commit-time guard).
     "subprocess_stdin": check_subprocess_stdin,
+    # 2026-06-11 — no module-level constant assigned twice (the a749e99b
+    # _VNOTE_ASIDE_RE clobber class; ruff F811 does not cover plain variables).
+    "module_constant_collision": check_module_constant_collision,
     # RX Phase 1 (2026-06-05) — no <em>[Reviewer:…]</em> editorial scaffold
     # may ship inside a reader-facing note body (the guidance's home is the
     # detector's reviewer_notes= field). Hard FAIL.

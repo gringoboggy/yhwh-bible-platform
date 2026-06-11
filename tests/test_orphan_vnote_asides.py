@@ -101,3 +101,44 @@ class TestDropOrphanVnoteAsides:
         stats = drop_orphan_vnote_asides(tmp_path)
         assert stats["orphan_vnote_asides_dropped"] == 0
         assert f.read_bytes() == before
+
+
+class TestVnoteRegexCollisionRegression:
+    """a749e99b defined the orphan-drop regex as a SECOND module-level
+    ``_VNOTE_ASIDE_RE``, clobbering the 6-group popup-pass regex (line ~818)
+    that ``_apply_popup_languages_and_translation`` and
+    ``_replace_verse_popup_translation`` depend on → ``IndexError: no such
+    group`` in EVERY popup-edition build (caught by the first real build
+    after the merge, the M1 --target-reader probe). Pin the popup pass
+    end-to-end on a minimal aside so any future module-level name collision
+    on this regex fails HERE, not 90 seconds into a build."""
+
+    SAMPLE = (
+        '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">'
+        '<p class="vnote-source-label">English (WEB)</p>'
+        '<p class="vnote-text">In the beginning God created.</p>'
+        "</aside>"
+    )
+
+    def test_popup_language_pass_processes_a_sample_aside(self):
+        from scripts import build_edition as be
+
+        edition = {"id": "x", "popup_languages_default": ["kjv"]}
+        out, stats = be._apply_popup_languages_and_translation(self.SAMPLE, edition, "", "")
+        assert stats["asides_seen"] == 1
+        assert 'id="vnote-gen-1-1"' in out
+
+    def test_legacy_translation_swap_pass_walks_asides(self):
+        from scripts import build_edition as be
+
+        out, stats = be._replace_verse_popup_translation(self.SAMPLE, "kjv", "KJV")
+        # the verse exists in the KJV store → the English paragraph is swapped
+        assert stats["replaced"] + stats["missed"] + stats["skipped_no_text_para"] >= 1
+
+    def test_orphan_and_popup_regexes_are_distinct_objects(self):
+        from scripts import build_edition as be
+
+        assert be._VNOTE_ASIDE_RE.groups >= 6, (
+            "_VNOTE_ASIDE_RE must remain the 6-group popup-pass regex; the orphan-drop pass owns _ORPHAN_VNOTE_ASIDE_RE"
+        )
+        assert be._ORPHAN_VNOTE_ASIDE_RE.pattern != be._VNOTE_ASIDE_RE.pattern

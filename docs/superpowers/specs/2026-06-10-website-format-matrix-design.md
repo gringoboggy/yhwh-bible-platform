@@ -1,6 +1,13 @@
 # Website Format Matrix — every full canon edition, per-device, with the 5×5 covers
 
-**Status:** READY 2026-06-10 — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA.
+**Status:** REVISED 2026-06-11 (was READY 2026-06-10) — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA.
+
+**2026-06-11 revision:** the Mac adversarial spec review
+(`docs/superpowers/notes/2026-06-10-matrix-spec-review.md`) found 4 blocking
+classes; this revision folds in their fixes. Blocker #1 (the `--target-reader`
+build flag + cache-key fold) is **IMPLEMENTED** (build_edition.py /
+build_cache.py + `tests/test_target_reader_override.py`); blockers #2–#4 are
+specced below as M1/M2 work items.
 
 ## 1. The directive (user, 2026-06-10)
 
@@ -49,6 +56,22 @@ control path**; format builds are the 9 editions built under different
 time — it must NOT mutate `editions.yaml`, so the 9 editions' stored defaults
 stay byte-stable).
 
+**IMPLEMENTED 2026-06-11 (review blocker #1 + corollary):**
+`scripts/build_edition.py --target-reader <target>` folds the override into a
+COPY of the edition record at the top of `build_one` (`apply_target_override`),
+so every downstream consumer sees it through the one resolver. The cache key
+(`build_cache.compute_cache_key(..., target_reader=)`) hashes the **resolved**
+target (override-equal-to-stored hits the same entry; the normalization
+invalidated all pre-M1 keys once). The same wrong-format class was closed in
+the legacy mtime shortcut: override artifacts are named
+`Ethiopian_Bible_<id>_<version>_<target>_<timestamp>.epub` and
+`is_output_current` is target-aware in both directions. The sidecar carries
+`target_reader` (the CI manifest/catalog reads format truth per asset).
+`--all --target-reader X` skips the standalone editions (no target profiles;
+LANE P). Standalone + explicit override = hard error, never a silent ignore.
+Tests: `tests/test_target_reader_override.py`. Proven on a real artifact:
+catholic-study × eink, OPF stamp + sidecar + naming all carry `eink`.
+
 ## 3. Covers — the 5×5 mapping
 
 `content/covers/templates/` is exactly **5 designs × 5 colours**
@@ -71,20 +94,42 @@ of the 25 templates is used, per the directive.
 1. **Base builds (45):** matrix driver builds each edition × format profile.
    Full gates per base: `verify_kr2_build.py` + epubcheck 0/0/0/0 +
    nested-anchor + (eink) kepubify clean.
-2. **Colour variants (×5 → 225):** a deterministic **cover-swap generator** —
-   rezip the base with the alternate cover PNG (and title-page art reference if
-   the cover id is baked into OPF/titlepage). Light gates per variant: zip
+2. **Colour variants (×5 → 225) — REVISED per review blocker #2.** The shipped
+   covers are Pillow **composites** ("HOLY BIBLE" + edition subtitle via
+   `fit_text_block`), and the OPF cover slot is `image/jpeg` — so "rezip with
+   the raw template PNG" is wrong twice (title-less art + PNG bytes in a JPEG
+   slot = epubcheck fail). The variant generator instead: **composite per
+   (edition × design × colour) → JPEG → swap into the base via
+   `build_epub.py`'s deterministic writer** (mimetype-first / STORED / fixed
+   1980 date — bare `rezip` guarantees neither determinism nor zip
+   discipline); kepub variants re-swap **after** kepubify. Composite
+   generation is **explicit M1/M2 work** (the ~18 M1 composites don't exist
+   yet — M1 is NOT "nothing-gated" until they do). Pin Pillow + fonts on
+   ubuntu: the compositor's font candidates are Windows-first and silently
+   fall back to Cardo divergence in-runner. Light gates per variant: zip
    integrity + cover presence + manifest hash; epubcheck on a per-design spot
-   sample (the swap touches no markup). Idempotent; variant SHA256s merge into
-   SHA256SUMS.
-3. **CI, not local (the bandwidth decision):** a GitHub Actions workflow
-   (precedent: `build-linux.yml` — pinned tool installs, fail-fast
-   `gh release view`, self-merging SHA256SUMS) builds the matrix and uploads
-   assets to the version's GitHub release. The repo is public (free minutes);
-   epubcheck (PyPI jar + Temurin on ubuntu) and kepubify (pinned version +
-   sha256, like appimagetool) install in-runner. **~5–6 GB of artifacts never
-   touch the home connection.** Local builds remain for QA only. Canon editions
-   need no gitignored assets (GAPS is Ge'ez-only); fonts are in-repo.
+   sample (the swap touches no markup).
+3. **CI, not local (the bandwidth decision) — topology REVISED per review
+   blockers #3/#4.** A GitHub Actions workflow (precedent: `build-linux.yml` —
+   pinned tool installs, fail-fast `gh release view`) builds the matrix and
+   uploads assets to the version's GitHub release. **Job topology: one job per
+   edition (9-way matrix), formats serial within the job** — a single job
+   blows the 6-hour cap (45 builds + 45 epubcheck + 9 kepubify + 225
+   composites). **SHA256SUMS is NOT self-merged per job** — the build-linux
+   download→grep→append→`--clobber` precedent is safe only single-job; 9+
+   concurrent jobs = lost-update on the release asset. Matrix jobs upload ONLY
+   their own assets; **one `needs:`-gated fan-in job regenerates
+   SHA256SUMS.txt from the full asset list and uploads it once** — that job is
+   also the natural "release complete" signal the catalog generator keys on.
+   The repo is public (free minutes); epubcheck (PyPI jar + Temurin on ubuntu)
+   and kepubify (pinned version + sha256, like appimagetool) install
+   in-runner. **~5–6 GB of artifacts never touch the home connection.** Local
+   builds remain for QA only. Canon editions need no gitignored assets (GAPS
+   is Ge'ez-only); fonts are in-repo. **De-dupe note (review LOW):** until the
+   everywhere/tablet/computer profiles diverge, 27 of the 45 base artifacts
+   are byte-aliases — build ~18 real bases + alias the rest; the catalog's
+   Apple cell aliases the everywhere artifact until `tablet` has a real
+   profile delta.
 4. **Naming:** `YHWH-<edition-id>-v<version>-<format>-<colour>.epub`
    (Kobo keeps `.kepub.epub`). The current flagship name stays as an alias of
    the ethiopian-tewahedo × everywhere × default-colour artifact so existing
@@ -99,7 +144,16 @@ of the 25 templates is used, per the directive.
 - Backed by a **generated manifest** (`scripts/gen_release_catalog.py`, modeled
   on `gen_website_progress.py`): editions.yaml + the format table + release tag
   → JSON inlined by `website/build.mjs` at site build (static site, no client
-  fetch, no build step added).
+  fetch, no build step added). **The format↔profile↔design table gets ONE
+  in-repo home (review MED): a `FORMAT_MATRIX` constant beside
+  `TARGET_READERS` in build_edition.py**, consumed by CI + the catalog
+  generator + the site build — never re-typed per consumer (the MATRIX_MAP-#3
+  drift class). **Catalog gating (review MED):** a column appears only when
+  the release carries the FULL expected edition × colour asset count for that
+  format — and the generator must paginate the GitHub asset listing (a
+  ~232-asset release truncates a naive GET at 100 → columns vanish or
+  over-claim). The 83-count corollary applies to catalog copy (guide asset
+  names, verify-cmd examples, meta descriptions) — sweep + pin a guard test.
 - Per-device guidance stays in the Guide (turn-68's per-device walkthroughs
   already cover Apple/Kobo/Android/computer + the Kindle not-yet note — that
   note flips when the Kindle column ships).
@@ -111,11 +165,15 @@ of the 25 templates is used, per the directive.
 
 | Phase | Ships | Gated on |
 |---|---|---|
-| M1 | CI matrix workflow + catalog UI, formats 1–2 (everywhere + Apple) × 9 editions, design-default colours | nothing — both formats are proven today |
-| M2 | + colour variants (the cover-swap generator) | M1 |
+| M1 | `--target-reader` flag + cache-key fold (✅ DONE 2026-06-11) · `FORMAT_MATRIX` constant · the ~18 M1 design-default composites · CI matrix workflow (per-edition jobs + SHA256SUMS fan-in) + catalog UI, formats 1–2 (everywhere + Apple) × 9 editions | the composites (review blocker #2 — M1 is not nothing-gated until they exist) |
+| M2 | + colour variants (the composite-swap generator) | M1 |
 | M3 | + Kobo column (×9 kepub) | K-R4-2 cap fix post-calibration (round-5 taps) |
 | M4 | + Kindle column | Mac `kindle_safe` lands + Send-to-Kindle acceptance |
 | M5 | + Play Books column | user phone-QA round on an M1 artifact |
+
+**Never-remove-live (review MED):** the site serves the v0.1.0 flagship kepub
+TODAY — the M1 catalog carries that existing artifact as the Kobo cell until
+M3 replaces it; shipping the catalog must not remove a live offering.
 
 Round-5 (current queue item ③) is unchanged and feeds M3: the calibration
 tap-list pins the Kobo cap.

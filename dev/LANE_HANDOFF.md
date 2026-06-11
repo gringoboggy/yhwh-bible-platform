@@ -1,14 +1,16 @@
 ---
 mode: parallel
-turn: 73
-from: mac
-updated: 2026-06-11T03:44:29Z
+turn: 74
+from: windows
+updated: 2026-06-11T05:36:48Z
 status: working
 mac: ▶ turn 72 (Mac) IN PROGRESS — ★K-KIN round-2 STK verdict = FAIL (~46 min, 3rd consecutive; rung-1 UNHIDE was IN this build → hidden-text hypothesis KILLED; ranked cause #2 link-graph timeout now lead suspect). Rung-2 DELINK probe BUILT + STAGED ~/Desktop/...kindle-safe_2026-06-11T024442Z_rung2-delink.epub (new dev/kindle_bisect.py + tests ×8: one-variable zip rewrite, note-graph anchors→spans 112,760→26,728 links, asides→divs 44,884, text byte-constant, ids kept; epubcheck 0/0/0/0 — DIAGNOSTIC, popups intentionally dead). AWAITING USER: rung-2 STK verdict · Kindle Previewer GO (guard #1, the local oracle — kills the ~50-min upload cycle) · round-6 taps (Publisher Default Heb+Ar = K-R5-6 gate) · gen 35:18 re-tap.
-windows: ▶ turn 69 IN PROGRESS — ① website 8-point overhaul SHIPPED+DEPLOYED (turn 68, publish 01049a8) · ② mint 3.1/3.3 rotation SHIPPED (`3fd07450`: rotator covers IN_FLIGHT ▶ + THIS BOARD [newest 2 turns + STANDING live, rest → archive/LANE_HANDOFF_LOG.md]; hard budget enforced; save-all = rotation actor) · ★NEW USER DIRECTIVE captured: the WEBSITE FORMAT MATRIX (9 full canon editions × 5 formats × 25-cover 5×5 w/ colour choice; spec `specs/2026-06-10-website-format-matrix-design.md`; your SHIPPED kindle_safe = the M4 Kindle pillar) · MERGED your kindle_safe push (truth-owner merge; truth-record conflicts resolved both-kept) · ▶ NOW: ③ round-5 rebuild + gates + K-R4-2 calibration tap-list → ④ v1.0.0 assessment (+ matrix M-phase sequencing).
+windows: ▶ turn 74 IN PROGRESS — MATRIX M1: blocker #1 SHIPPED (`--target-reader` flag + resolved-target cache-key fold + target-aware naming/mtime; 19 TDD tests; real catholic-study×eink artifact proven, epubcheck 0/0/0/0) + ★a749e99b `_VNOTE_ASIDE_RE` clobber FIXED FORWARD (rename + 3 pins + NEW `module_constant_collision` lint, ALL_CHECKS=34 — Mac: PULL before your next build) + spec REVISED per all 4 review blockers · ▶ NEXT: FORMAT_MATRIX constant → M1 composites → CI matrix workflow (per-edition jobs + SHA256SUMS fan-in) → gen_release_catalog → Downloads catalog UI.
 truth_owner: windows
 holder: windows
 ---
+
+**★▶ WIN addendum (2026-06-11, turn 74) — PULL BEFORE YOUR NEXT BUILD: your a749e99b slice broke every popup-edition build.** The orphan-vnote fix defined its regex as a SECOND module-level `_VNOTE_ASIDE_RE` (build_edition.py ~5048), silently clobbering the 6-group popup-pass regex (~818) → `IndexError: no such group` inside `_apply_popup_languages_and_translation` on ANY edition with popups/translations (your own tests stayed green — only the new pass was covered; caught by WIN's first real build post-merge). **FIXED FORWARD on main:** renamed `_ORPHAN_VNOTE_ASIDE_RE`, 3 regression pins (`TestVnoteRegexCollisionRegression`), and a NEW lint check `module_constant_collision` (ALL_CHECKS=34) guarding the class — your gate-4j kindle-safe rebuild would have crashed on the stale tree, so `git pull --rebase` first. Also yours (guard #6, pre-existing, ungated `ruff check` findings in the splitter code): **B023 ×5** (late-binding loop-variable closures — build_edition.py:3094 `code/ch/v` in the S2 cascade assertion, :3667–3668 `clone_map` in the spill-dup href rewriter; currently safe because each closure is consumed within its iteration, but confirm + waive or hoist) + **F841** (:2659 unused `total`). FYI: **`--target-reader` now exists** — your kindle bisect/probe builds can use `py -3 scripts/build_edition.py catholic-study --target-reader kindle …` instead of any editions.yaml mutation (cache-key folds the resolved target; artifact name gains the target token).
 
 ## ◦ mac assign (turn 73, 2026-06-11T03:44:29Z) — mode=parallel
 

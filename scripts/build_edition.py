@@ -1821,6 +1821,35 @@ def resolve_target_reader(edition: dict) -> str:
     return v if v in TARGET_READERS else "everywhere"
 
 
+def apply_target_override(edition: dict, target_reader: str | None) -> dict:
+    """Fold a build-time reader-target override into a COPY of the edition
+    record (matrix M1 blocker #1; format-matrix spec §2 one-resolver
+    invariant). The matrix builds the 9 canon editions under different
+    ``target_reader`` values WITHOUT mutating editions.yaml — the override
+    lives only in the in-memory record, so every downstream consumer
+    (``resolve_target_reader`` / ``is_kindle_target`` / the OPF stamp / the
+    kindle passes) sees it through the one resolver and the stored records
+    stay byte-stable.
+
+    ``None`` returns the record unchanged (a no-override build is
+    byte-identical to before the flag existed). Invalid values raise.
+    Standalone editions raise too: ``build_standalone`` has no target
+    profiles, and silently ignoring an explicit override would be a silent
+    failure."""
+    if target_reader is None:
+        return edition
+    if target_reader not in TARGET_READERS:
+        raise ValueError(f"target_reader override {target_reader!r} not in {TARGET_READERS}")
+    if edition.get("standalone"):
+        raise ValueError(
+            f"edition {edition.get('id')!r} is standalone — the standalone build path "
+            "has no target_reader profiles; build it without --target-reader"
+        )
+    folded = dict(edition)
+    folded["target_reader"] = target_reader
+    return folded
+
+
 def is_kindle_target(edition: dict) -> bool:
     """True when the edition builds for Send-to-Kindle (kindle_safe variant)."""
     return resolve_target_reader(edition) == "kindle"
@@ -4630,12 +4659,27 @@ def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
 # ----------------------------------------------------------------------
 
 
-def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path | None:
+def is_output_current(
+    output_dir: Path,
+    edition_id: str,
+    version: str,
+    target_reader: str | None = None,
+) -> Path | None:
     """Find a pre-existing edition file matching ``edition_id`` + ``version``
     and return its path if newer than every input source. Returns None if
-    no current build exists; caller should rebuild."""
-    pattern = f"Ethiopian_Bible_{edition_id}_{version}_*.epub"
+    no current build exists; caller should rebuild.
+
+    Matrix M1: override builds (--target-reader) name their artifacts
+    ``Ethiopian_Bible_<id>_<version>_<target>_<timestamp>.epub``. The same
+    wrong-format-from-cache class the spec review flagged for the content
+    cache applies here, in both directions — so a plain lookup must skip
+    target-named artifacts, and a target lookup matches only its own token."""
+    token = f"{target_reader}_" if target_reader else ""
+    pattern = f"Ethiopian_Bible_{edition_id}_{version}_{token}*.epub"
     candidates = sorted(output_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
+    if not target_reader:
+        prefix = f"Ethiopian_Bible_{edition_id}_{version}_"
+        candidates = [p for p in candidates if p.name[len(prefix) :].split("_", 1)[0] not in TARGET_READERS]
     if not candidates:
         return None
     latest = candidates[0]
@@ -5001,7 +5045,13 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 # catholic-study 1,598: + 1es/2es). Kindle makes them USER-VISIBLE ("[no text]"
 # endnote rows under apply_kindle_unhide) — part of the K-KIN acceptance path.
 
-_VNOTE_ASIDE_RE = re.compile(
+# ⚠ Named _ORPHAN_VNOTE_ASIDE_RE, NOT _VNOTE_ASIDE_RE: the popup passes
+# (_apply_popup_languages_and_translation / _replace_verse_popup_translation)
+# own the module-level _VNOTE_ASIDE_RE (6 capture groups, line ~818). The
+# original a749e99b version of this fix reused that name and clobbered it →
+# IndexError("no such group") in every popup-edition build. Regression pin:
+# tests/test_orphan_vnote_asides.py::TestVnoteRegexCollisionRegression.
+_ORPHAN_VNOTE_ASIDE_RE = re.compile(
     r'<aside\b(?=[^>]*\bid="(vnotes?-[^"]+)")(?=[^>]*\bepub:type="footnote")'
     r"[^>]*>.*?</aside>\s*",
     re.DOTALL,
@@ -5046,7 +5096,7 @@ def drop_orphan_vnote_asides(tmp: Path) -> dict:
                 return ""
             return m.group(0)
 
-        new_text = _VNOTE_ASIDE_RE.sub(_drop, text)
+        new_text = _ORPHAN_VNOTE_ASIDE_RE.sub(_drop, text)
         if dropped:
             f.write_text(new_text, encoding="utf-8")
             stats["orphan_vnote_asides_dropped"] += dropped
@@ -5261,6 +5311,9 @@ def _write_stats_sidecar(
         "size_mb": float(stats.get("size_mb", 0.0)),
         "build_seconds": round(float(build_seconds), 3),
         "filename": output_path.name,
+        # Matrix M1: the resolved reader target, so artifact-level tooling
+        # (gates, the CI catalog manifest) reads the format from the sidecar.
+        "target_reader": stats.get("target_reader"),
     }
     sidecar = output_path.with_suffix(output_path.suffix + ".stats.json")
     try:
@@ -5515,6 +5568,8 @@ def build_one(
     all_kinds: list[dict],
     dry_run: bool = False,
     force: bool = False,
+    *,
+    target_reader: str | None = None,
 ) -> dict:
     # ω.20-C — wall-clock timing for the build_seconds field of the
     # stats sidecar. Captured at function entry so the value covers
@@ -5525,6 +5580,12 @@ def build_one(
     if edition_id not in eds:
         raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
     edition = eds[edition_id]
+
+    # Matrix M1 blocker #1: fold the build-time reader-target override into
+    # the in-memory record (one chokepoint — every downstream consumer reads
+    # the one resolver). Raises for invalid values and for standalone
+    # editions BEFORE the standalone dispatch below.
+    edition = apply_target_override(edition, target_reader)
 
     # Phase C3d: standalone Bibles render from the own-versification store via a
     # dedicated path; the 9 KJV editions never enter this branch, so their output
@@ -5557,11 +5618,16 @@ def build_one(
     ref_id_to_tradition = build_ref_id_to_tradition_map(edition)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
-    output_path = output_dir / f"Ethiopian_Bible_{edition_id}_{version}_{timestamp}.epub"
+    # Matrix M1: override builds carry the target token in the filename so
+    # the mtime shortcut (is_output_current) can tell formats apart — a
+    # plain-named artifact is always a stored-default build.
+    target_token = f"{target_reader}_" if target_reader else ""
+    output_path = output_dir / f"Ethiopian_Bible_{edition_id}_{version}_{target_token}{timestamp}.epub"
 
     stats = {
         "edition_id": edition_id,
         "version": version,
+        "target_reader": resolve_target_reader(edition),
         "title": edition.get("title", ""),
         "enabled_kinds": len(enabled),
         "disabled_kinds": len(disabled),
@@ -5629,6 +5695,7 @@ def build_one(
             cache_key = _bc.compute_cache_key(
                 edition_id,
                 version=version,
+                target_reader=target_reader,
             )
         except Exception:
             cache_key = None
@@ -5656,7 +5723,7 @@ def build_one(
 
     # Incremental: skip if a current build already exists for this version
     if not dry_run and not force:
-        existing = is_output_current(output_dir, edition_id, version)
+        existing = is_output_current(output_dir, edition_id, version, target_reader=target_reader)
         if existing is not None:
             stats["output_path"] = existing
             stats["size_mb"] = existing.stat().st_size / (1024 * 1024)
@@ -6116,6 +6183,13 @@ def main() -> None:
         "--no-parallel", action="store_true", help="build editions sequentially (default is parallel for --all)"
     )
     p.add_argument("--force", action="store_true", help="rebuild editions even when an existing build is current")
+    p.add_argument(
+        "--target-reader",
+        choices=TARGET_READERS,
+        default=None,
+        help="matrix M1: build under this reader target WITHOUT mutating editions.yaml "
+        "(folds into the cache key; artifact name gains the target token)",
+    )
     args = p.parse_args()
 
     eds = config.load_editions()
@@ -6131,6 +6205,18 @@ def main() -> None:
 
     if args.all:
         targets = [e["id"] for e in eds]
+        # Matrix M1: the format matrix covers the canon editions only (spec
+        # §7 — the standalone Ge'ez/Amharic live in LANE P and have no
+        # target profiles). With an override, skip them with a note instead
+        # of failing each one.
+        if args.target_reader:
+            standalone = [e["id"] for e in eds if e.get("standalone")]
+            if standalone:
+                targets = [t for t in targets if t not in standalone]
+                print(
+                    f"{DIM}--target-reader: skipping standalone edition(s) "
+                    f"{', '.join(standalone)} (no target profiles){RESET}"
+                )
     elif args.edition_id:
         targets = [args.edition_id]
     else:
@@ -6151,7 +6237,16 @@ def main() -> None:
         results: dict[str, dict] = {}
         with ThreadPoolExecutor(max_workers=min(len(targets), 5)) as pool:
             future_to_id = {
-                pool.submit(build_one, ed_id, args.output_dir, args.version, all_kinds, args.dry_run, args.force): ed_id
+                pool.submit(
+                    build_one,
+                    ed_id,
+                    args.output_dir,
+                    args.version,
+                    all_kinds,
+                    args.dry_run,
+                    args.force,
+                    target_reader=args.target_reader,
+                ): ed_id
                 for ed_id in targets
             }
             for fut in as_completed(future_to_id):
@@ -6179,7 +6274,15 @@ def main() -> None:
     for ed_id in targets:
         print(f"\n{BOLD}{ed_id}{RESET}{DIM}{'  (dry-run)' if args.dry_run else ''}{RESET}")
         try:
-            stats = build_one(ed_id, args.output_dir, args.version, all_kinds, args.dry_run, args.force)
+            stats = build_one(
+                ed_id,
+                args.output_dir,
+                args.version,
+                all_kinds,
+                args.dry_run,
+                args.force,
+                target_reader=args.target_reader,
+            )
         except Exception as e:
             print(f"  {RED}✗ {e}{RESET}", file=sys.stderr)
             failures += 1
