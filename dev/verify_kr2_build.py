@@ -257,13 +257,16 @@ def husk_piece_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
 def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     """A piece holding a book-title page must carry NO verse-notes badge or
     aside — in v0.1.0 all 38 title pieces showed the previous book's
-    last-verse badge (the K-R5-3 clamp escape)."""
+    last-verse badge (the K-R5-3 clamp escape). Keyed on the REAL
+    book-title-page class, not the bare bp id: a DEMOTED appendix-section
+    frame keeps its bp-NN id but deliberately flows mid-content among
+    badges/asides (the K-KIN husk fix; gate 4k owns that class)."""
     fails: list[str] = []
     for n in names:
         if not re.search(r"index_split_\d+(?:_\d+)?\.html$", n):
             continue
         t = zf.read(n).decode("utf-8", "replace")
-        if 'id="bp-' not in t:
+        if 'class="book-title-page"' not in t:
             continue
         for needle, what in (
             ('class="verse-notes-badge"', "verse badge"),
@@ -288,8 +291,12 @@ def main(path: str) -> int:
     for n in pieces:
         t = zf.read(n).decode("utf-8", "replace")
         sizes.append(len(t))
-        bps = re.findall(r'id="bp-\d+"', t)
-        all_bp_ids.update(bps)
+        all_bp_ids.update(re.findall(r'id="bp-\d+"', t))
+        # The singleton invariant holds for REAL book-title pages only — a
+        # DEMOTED addition keeps its bp-NN id on a class="appendix-section"
+        # frame that deliberately flows mid-content (the K-KIN husk fix; a
+        # frame-only piece is the Kindle-refused E24010/E24001 husk, gate 4k).
+        bps = re.findall(r'<div class="book-title-page" id="bp-\d+"', t)
         has_scripture = 'class="vn-link' in t
         has_toc = 'class="toc-wrap"' in t
         if bps:
@@ -304,7 +311,7 @@ def main(path: str) -> int:
             if has_toc:
                 fails.append(f"{n}: ToC and a book-title page share a piece (kobo22 regression)")
             body = t[t.find("<body") :]
-            first_bp = body.find('id="bp-')
+            first_bp = body.find('class="book-title-page"')
             lead = body[:first_bp]
             if 'class="ch-heading"' in lead or 'class="verse-p' in lead:
                 fails.append(f"{n}: content precedes the book-title page in its piece")

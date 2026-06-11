@@ -228,18 +228,154 @@ def build_tochusk(src_epub: Path, out_epub: Path) -> dict[str, int]:
     return stats
 
 
+# ── rung 3 HALF-SPINE ───────────────────────────────────────────────────
+# Blocker #2 (the generic no-E-code internal error) survived BOTH tochusk and
+# the chained delink-on-tochusk probe — the TOC husks and the note graph are
+# each exonerated, so the remaining trigger is localized by binary content
+# search: keep a contiguous spine range, drop the rest, strip every
+# opf/nav/ncx/guide entry for the dropped docs, neutralize leftover
+# cross-file links INTO dropped docs (anchor → span, the delink transform's
+# targeted cousin), retarget any unstrippable ncx <content src> to the first
+# kept doc, and renumber playOrder. The probe must stay epubcheck-error-free
+# so the Previewer verdict reflects content, not validity.
+
+_OPF_ITEM_RE = re.compile(r"<item\b[^>]*/>")
+_OPF_ITEMREF_RE = re.compile(r"<itemref\b[^>]*/>")
+
+
+def _spine_doc_bases(opf_text: str) -> list[str]:
+    """The spine's content-doc href basenames, in spine order."""
+    items: dict[str, str] = {}
+    for m in _OPF_ITEM_RE.finditer(opf_text):
+        tag = m.group(0)
+        idm = re.search(r'\bid="([^"]+)"', tag)
+        hm = re.search(r'\bhref="([^"]+)"', tag)
+        if idm and hm and "nav" not in (re.search(r'properties="([^"]*)"', tag) or [None, ""])[1]:
+            items[idm.group(1)] = hm.group(1).rsplit("/", 1)[-1]
+    out: list[str] = []
+    for m in _OPF_ITEMREF_RE.finditer(opf_text):
+        idm = re.search(r'\bidref="([^"]+)"', m.group(0))
+        if idm and idm.group(1) in items:
+            out.append(items[idm.group(1)])
+    return out
+
+
+def _parse_keep(keep: str, n: int) -> tuple[int, int]:
+    if keep == "first":
+        return 0, (n + 1) // 2
+    if keep == "second":
+        return (n + 1) // 2, n
+    lo_s, hi_s = keep.split(":", 1)
+    lo, hi = int(lo_s), int(hi_s)
+    assert 0 <= lo < hi <= n, f"--keep {keep} out of range for a {n}-doc spine"
+    return lo, hi
+
+
+def build_halfspine(src_epub: Path, out_epub: Path, keep: str = "first") -> dict[str, int]:
+    """Zip-rewrite src_epub keeping only the ``keep`` slice of the spine
+    ("first" | "second" | "lo:hi" doc indices). Non-spine entries (css,
+    fonts, images, nav doc, ncx, opf) always survive.
+
+    Hard-fails if any kept entry still references a dropped doc."""
+    stats = {
+        "docs_kept": 0,
+        "docs_dropped": 0,
+        "opf_items_removed": 0,
+        "nav_entries_removed": 0,
+        "ncx_points_removed": 0,
+        "links_neutralized": 0,
+        "ncx_retargeted": 0,
+    }
+    with zipfile.ZipFile(src_epub) as zin:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        raw = {name: zin.read(name) for name in names}
+
+    opf_name = next(n for n in names if n.endswith(".opf"))
+    spine = _spine_doc_bases(raw[opf_name].decode("utf-8"))
+    lo, hi = _parse_keep(keep, len(spine))
+    kept_bases = set(spine[lo:hi])
+    dropped_bases = [b for b in spine if b not in kept_bases]
+    assert kept_bases and dropped_bases, "halfspine needs a non-trivial split"
+    stats["docs_kept"], stats["docs_dropped"] = len(kept_bases), len(dropped_bases)
+    dropped_names = {n for n in names if n.rsplit("/", 1)[-1] in dropped_bases}
+    first_kept = spine[lo]
+
+    dropped_set = set(dropped_bases)
+
+    def _neutralize_anchor(match: re.Match[str]) -> str:
+        whole = match.group(0)
+        open_end = whole.index(">") + 1
+        open_tag, rest = whole[:open_end], whole[open_end:]
+        hm = re.search(r'href="([^"#]*)(?:#[^"]*)?"', open_tag)
+        if not hm or hm.group(1).rsplit("/", 1)[-1] not in dropped_set:
+            return whole
+        stats["links_neutralized"] += 1
+        span_open = _HREF_ATTR_RE.sub("", open_tag)
+        span_open = _EPUB_TYPE_ATTR_RE.sub("", span_open)
+        span_open = "<span" + span_open[len("<a") :]
+        return span_open + rest[: -len("</a>")] + "</span>"
+
+    rewritten: dict[str, bytes] = {}
+    for name in names:
+        if name in dropped_names or not name.endswith((".opf", ".ncx", ".xhtml", ".html")):
+            continue
+        text = raw[name].decode("utf-8")
+        orig = text
+        for base in dropped_bases:
+            text = _strip_husk_refs(name, text, base, stats)
+        if name.endswith(".opf"):
+            # guide <reference> entries into dropped docs
+            for base in dropped_bases:
+                text = re.sub(rf'[ \t]*<reference\b[^>]*href="(?:[^"]*/)?{re.escape(base)}[#"][^>]*/>\s*\n?', "", text)
+        elif name.endswith(".ncx"):
+            # an unstrippable leftover (e.g. a parent navPoint with nested
+            # children) — retarget at the first kept doc so the ncx stays valid
+            for base in dropped_bases:
+                text, n_re = re.subn(
+                    rf'(<content src=")(?:[^"]*/)?{re.escape(base)}(?:#[^"]*)?(")', rf"\g<1>{first_kept}\g<2>", text
+                )
+                stats["ncx_retargeted"] += n_re
+        else:
+            text = _A_TAG_RE.sub(_neutralize_anchor, text)
+        if text != orig:
+            if name.endswith(".ncx"):
+                counter = itertools.count(1)
+                text = re.sub(r'playOrder="\d+"', lambda m, c=counter: f'playOrder="{next(c)}"', text)
+            rewritten[name] = text.encode("utf-8")
+
+    with zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        for name in names:
+            if name in dropped_names:
+                continue
+            data = rewritten.get(name, raw[name])
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith((".opf", ".ncx", ".xhtml", ".html")):
+                for base in dropped_bases:
+                    assert base.encode("utf-8") not in data, f"{name} still references dropped {base}"
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--rung", choices=["delink", "tochusk"], required=True)
+    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine"], required=True)
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
+    ap.add_argument("--keep", default="first", help='halfspine slice: "first" | "second" | "lo:hi" (spine doc indices)')
     args = ap.parse_args()
 
     src = Path(args.src).expanduser()
     if not src.is_file():
         print(f"missing src: {src}", file=sys.stderr)
         return 1
-    tag = "_rung2-delink" if args.rung == "delink" else "_rung-tochusk"
+    tag = {
+        "delink": "_rung2-delink",
+        "tochusk": "_rung-tochusk",
+        "halfspine": f"_rung3-half-{args.keep.replace(':', '-')}",
+    }[args.rung]
     out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
     if args.rung == "delink":
         stats = build_delink(src, out)
@@ -249,13 +385,22 @@ def main() -> int:
             f"{stats['links_after']:,} | asides converted: "
             f"{stats['asides_before']:,}"
         )
-    else:
+    elif args.rung == "tochusk":
         stats = build_tochusk(src, out)
         print(f"{out}")
         print(
             f"husks removed: {stats['husks_removed']} | opf items: "
             f"{stats['opf_items_removed']} | nav entries: "
             f"{stats['nav_entries_removed']} | ncx points: {stats['ncx_points_removed']}"
+        )
+    else:
+        stats = build_halfspine(src, out, keep=args.keep)
+        print(f"{out}")
+        print(
+            f"docs kept {stats['docs_kept']} / dropped {stats['docs_dropped']} | "
+            f"nav entries: {stats['nav_entries_removed']} | ncx points: "
+            f"{stats['ncx_points_removed']} (+{stats['ncx_retargeted']} retargeted) | "
+            f"links neutralized: {stats['links_neutralized']:,}"
         )
     return 0
 

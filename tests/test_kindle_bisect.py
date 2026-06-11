@@ -254,3 +254,133 @@ class TestDelinkLeavesTheRestAlone:
         assert 'epub:type="noteref"' not in out
         assert "<aside" not in out
         assert 'class="vn-link" id' not in out or "<a" not in out
+
+
+# ── rung 3 HALF-SPINE ───────────────────────────────────────────────────
+# Blocker #2 (the generic no-E-code internal error) survived BOTH tochusk and
+# the chained delink-on-tochusk probe, so neither the TOC husks (gone) nor
+# the note-graph (spans/divs) is the remaining cause — binary content search
+# is next. The rung keeps a contiguous spine range, drops the rest, strips
+# every nav/ncx/opf entry for dropped docs, and neutralizes any leftover
+# cross-file link INTO a dropped doc (anchor → span) so the probe stays
+# epubcheck-error-free and the Previewer verdict localizes the trigger.
+
+
+def _mini_halfspine_epub(path):
+    import zipfile
+
+    opf = (
+        "<package><manifest>"
+        '<item id="d0" href="d0.html" media-type="application/xhtml+xml"/>'
+        '<item id="d1" href="d1.html" media-type="application/xhtml+xml"/>'
+        '<item id="d2" href="d2.html" media-type="application/xhtml+xml"/>'
+        '<item id="d3" href="d3.html" media-type="application/xhtml+xml"/>'
+        '<item id="css" href="stylesheet.css" media-type="text/css"/>'
+        '<item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/>'
+        '<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
+        '</manifest><spine toc="ncx">'
+        '<itemref idref="d0"/><itemref idref="d1"/><itemref idref="d2"/><itemref idref="d3"/>'
+        '</spine><guide><reference type="text" title="Start" href="d3.html#top"/></guide></package>'
+    )
+    nav = (
+        '<html xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol>'
+        '<li><a href="d0.html#a">D0</a></li><li><a href="d1.html#a">D1</a></li>'
+        '<li><a href="d2.html#a">D2</a></li><li><a href="d3.html#a">D3</a></li>'
+        "</ol></nav></body></html>"
+    )
+    ncx = (
+        "<ncx><navMap>"
+        '<navPoint id="n0" playOrder="1"><navLabel><text>D0</text></navLabel><content src="d0.html#a"/></navPoint>'
+        '<navPoint id="n1" playOrder="2"><navLabel><text>D1</text></navLabel><content src="d1.html#a"/></navPoint>'
+        '<navPoint id="n2" playOrder="3"><navLabel><text>D2</text></navLabel><content src="d2.html#a"/></navPoint>'
+        '<navPoint id="n3" playOrder="4"><navLabel><text>D3</text></navLabel><content src="d3.html#a"/></navPoint>'
+        "</navMap></ncx>"
+    )
+    d0 = (
+        '<html><body><p id="a">zero '
+        '<a href="d1.html#a">to kept</a> '
+        '<a href="d2.html#a" epub:type="noteref">to dropped</a>'
+        "</p></body></html>"
+    )
+    docs = {
+        "d0.html": d0,
+        "d1.html": '<html><body><p id="a">one</p></body></html>',
+        "d2.html": '<html><body><p id="a">two</p></body></html>',
+        "d3.html": '<html><body><p id="a">three</p></body></html>',
+    }
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr(zipfile.ZipInfo("mimetype"), "application/epub+zip", zipfile.ZIP_STORED)
+        z.writestr("content.opf", opf)
+        z.writestr("nav.xhtml", nav)
+        z.writestr("toc.ncx", ncx)
+        z.writestr("stylesheet.css", "p { margin: 0; }")
+        for n, t in docs.items():
+            z.writestr(n, t)
+    return path
+
+
+class TestBuildHalfspine:
+    def _run(self, tmp_path, keep):
+        import zipfile
+
+        src = _mini_halfspine_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        stats = kindle_bisect.build_halfspine(src, out, keep=keep)
+        with zipfile.ZipFile(out) as z:
+            return stats, z.namelist(), {n: z.read(n).decode("utf-8") for n in z.namelist() if n != "mimetype"}
+
+    def test_first_half_kept_second_dropped(self, tmp_path):
+        stats, names, _ = self._run(tmp_path, "first")
+        assert "d0.html" in names and "d1.html" in names
+        assert "d2.html" not in names and "d3.html" not in names
+        assert stats["docs_kept"] == 2 and stats["docs_dropped"] == 2
+
+    def test_second_half_kept_first_dropped(self, tmp_path):
+        _, names, _ = self._run(tmp_path, "second")
+        assert "d2.html" in names and "d3.html" in names
+        assert "d0.html" not in names and "d1.html" not in names
+
+    def test_explicit_range_keeps_that_slice(self, tmp_path):
+        _, names, _ = self._run(tmp_path, "1:3")
+        assert "d1.html" in names and "d2.html" in names
+        assert "d0.html" not in names and "d3.html" not in names
+
+    def test_opf_entries_and_guide_ref_stripped(self, tmp_path):
+        _, _, texts = self._run(tmp_path, "first")
+        opf = texts["content.opf"]
+        for b in ("d2.html", "d3.html"):
+            assert b not in opf
+        assert 'idref="d2"' not in opf and 'idref="d3"' not in opf
+        assert 'idref="d0"' in opf and 'idref="d1"' in opf
+
+    def test_nav_and_ncx_pruned_and_renumbered(self, tmp_path):
+        import re
+
+        _, _, texts = self._run(tmp_path, "first")
+        assert "d2.html" not in texts["nav.xhtml"] and "d3.html" not in texts["nav.xhtml"]
+        ncx = texts["toc.ncx"]
+        assert "d2.html" not in ncx and "d3.html" not in ncx
+        assert re.findall(r'playOrder="(\d+)"', ncx) == ["1", "2"]
+
+    def test_cross_file_link_into_dropped_becomes_span(self, tmp_path):
+        _, _, texts = self._run(tmp_path, "first")
+        d0 = texts["d0.html"]
+        assert "d2.html" not in d0, "dangling href into a dropped doc must be neutralized"
+        assert "to dropped</span>" in d0 and 'epub:type="noteref"' not in d0
+        assert '<a href="d1.html#a">to kept</a>' in d0, "links into kept docs survive untouched"
+
+    def test_assets_and_nav_docs_always_survive(self, tmp_path):
+        _, names, _ = self._run(tmp_path, "second")
+        for keeper in ("stylesheet.css", "nav.xhtml", "toc.ncx", "content.opf"):
+            assert keeper in names
+
+    def test_mimetype_still_first_and_stored(self, tmp_path):
+        import zipfile
+
+        src = _mini_halfspine_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        kindle_bisect.build_halfspine(src, out, keep="first")
+        with zipfile.ZipFile(out) as z:
+            infos = z.infolist()
+            assert infos[0].filename == "mimetype"
+            assert infos[0].compress_type == zipfile.ZIP_STORED
