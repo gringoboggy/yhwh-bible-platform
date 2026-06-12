@@ -18,6 +18,28 @@ Design (a)+(b) per the round-4 QA note:
 K-R5-3: a BOOK-last verse's badge clamp must bound at the next book's
 title-page div, not sail past it into the title block (x38 title pages carried
 the previous book's badge in v0.1.0).
+
+Round 7 — K-R6-2 root cause (notes/2026-06-11-kobo-round6-device-qa.md):
+Nickel measures a tapped popup from its target anchor FORWARD to the next
+anchor whose id does NOT string-extend the tapped id, and refuses (navigates)
+above ~8,858 serialized kepub bytes. Two build defects fed it:
+  (1) PREFIX-NESTED FAMILY IDS — the split head kept the bare
+      ``vnotes-<bk>-<c>-<v>`` id, a strict prefix of every ``-sN`` sibling, so
+      the head's measured slice swallowed the whole family (98/98 heads over
+      cap; family tails failed the same prefix-group bookkeeping; plus 20
+      accidental adjacent cross-verse digit-extension pairs like
+      jub-7-1 < jub-7-13).
+  (2) NO PER-UNIT BYTE BUDGET — the splitter packed by stripped chars only;
+      koboSpan inflation (round-6 corpus: +43..81 B per text segment) pushed
+      201 units over the 8,000 B split target (97 oversized singles).
+Fix contract pinned here:
+  * EVERY unit id carries ``-s<N>`` (singles = ``-s1``) and families cap at 9
+    units, so no vnotes/vbadge id is EVER a strict prefix of another — the
+    whole namespace is structurally prefix-free.
+  * a second per-unit budget, ``note_popup_split_byte_cap`` (default 8,000
+    estimated post-kepubify bytes; 0 = off), splits any unit the char cap
+    missed; ``_estimate_kepub_aside_bytes`` must DOMINATE the real measured
+    round-6 inflation (max +81.3 B/segment) so the artifact gate never fails.
 """
 
 from __future__ import annotations
@@ -216,11 +238,11 @@ class TestApplyBadgeSplit:
         text = (tmp / fname).read_text("utf-8")
 
         units = _aside_map(text, "gen-1-1")
-        assert "vnotes-gen-1-1" in units, "unit 1 must keep the unsuffixed id"
+        assert "vnotes-gen-1-1-s1" in units, "head unit must carry -s1 (K-R6-2 prefix-free namespace)"
+        assert "vnotes-gen-1-1" not in units, "bare head id = the K-R6-2 family-swallow defect"
         assert len(units) >= 2, "gen 1:1 (~9k stripped) must split"
-        # suffixes are sequential from s2
-        suffixed = sorted(k for k in units if k != "vnotes-gen-1-1")
-        assert suffixed == [f"vnotes-gen-1-1-s{i}" for i in range(2, len(units) + 1)]
+        # suffixes are sequential from s1
+        assert sorted(units) == [f"vnotes-gen-1-1-s{i}" for i in range(1, len(units) + 1)]
         for uid, html_u in units.items():
             assert _stripped_len(html_u) <= 4_400, f"{uid} still over the cap"
             # each unit's back-link points at its OWN badge
@@ -235,28 +257,34 @@ class TestApplyBadgeSplit:
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
-        # the cluster: unsuffixed badge immediately followed (single space) by -s2
-        m = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-1" .*?</a>', text, re.DOTALL)
+        # the cluster: the -s1 head badge immediately followed (single space) by -s2
+        m = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-1-s1" .*?</a>', text, re.DOTALL)
         assert m
         tail = text[m.end() :]
         assert tail.startswith(' <a class="verse-notes-badge" id="vbadge-gen-1-1-s2"'), tail[:90]
+        # the bare (un-suffixed) badge id must be gone entirely
+        assert 'id="vbadge-gen-1-1"' not in text
 
-    def test_under_cap_verse_byte_identical_to_legacy_form(self, tmp_path):
+    def test_under_cap_verse_single_unit_carries_s1(self, tmp_path):
         from scripts.build_edition import _stripped_len, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
-        # gen 1:3 is the round-3 control (~3.1k stripped) — must NOT split and
-        # must keep the exact historical single-badge shape.
+        # gen 1:3 is the round-3 control (~3.1k stripped) — must NOT split, and
+        # its single unit must STILL carry -s1 (the K-R6-2 prefix-free namespace
+        # covers singles: bare ids re-create the cross-verse digit-extension
+        # pairs like gen-1-1 < gen-1-10).
         units = _aside_map(text, "gen-1-3")
-        assert list(units) == ["vnotes-gen-1-3"]
-        assert _stripped_len(units["vnotes-gen-1-3"]) <= 4_400
+        assert list(units) == ["vnotes-gen-1-3-s1"]
+        assert _stripped_len(units["vnotes-gen-1-3-s1"]) <= 4_400
         assert 'id="vbadge-gen-1-3-s2"' not in text
-        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-3" [^>]*>', text)
+        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-3-s1" [^>]*>', text)
         assert bm and 'epub:type="noteref"' in bm.group(0)
         assert "part" not in bm.group(0)
+        # an unsplit unit shows NO (1/1) part furniture
+        assert "vn-part" not in units["vnotes-gen-1-3-s1"]
 
     def test_conservation_against_cap_off_run(self, tmp_path):
         """Splitting must conserve EVERY .vn-item row's text (nothing dropped,
@@ -266,7 +294,10 @@ class TestApplyBadgeSplit:
         tmp_on = _book_tree(tmp_path / "on", "gen")
         tmp_off = _book_tree(tmp_path / "off", "gen")
         apply_badge_markers(tmp_on, {"id": "x", "marker_style": "badge"})
-        apply_badge_markers(tmp_off, {"id": "x", "marker_style": "badge", "note_popup_split_cap": 0})
+        apply_badge_markers(
+            tmp_off,
+            {"id": "x", "marker_style": "badge", "note_popup_split_cap": 0, "note_popup_split_byte_cap": 0},
+        )
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp_on / f).read_text("utf-8"))
         t_on = (tmp_on / fname).read_text("utf-8")
         t_off = (tmp_off / fname).read_text("utf-8")
@@ -283,12 +314,16 @@ class TestApplyBadgeSplit:
         from scripts.build_edition import _stripped_len, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
-        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "note_popup_split_cap": 0})
+        apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "note_popup_split_cap": 0, "note_popup_split_byte_cap": 0},
+        )
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
         units = _aside_map(text, "gen-1-1")
-        assert list(units) == ["vnotes-gen-1-1"]
-        assert _stripped_len(units["vnotes-gen-1-1"]) > 4_400  # the unsplit giant
+        # split off, but the single unit STILL wears the prefix-free -s1 id
+        assert list(units) == ["vnotes-gen-1-1-s1"]
+        assert _stripped_len(units["vnotes-gen-1-1-s1"]) > 4_400  # the unsplit giant
 
     def test_s2_cascade_path_splits_with_category_heads(self, tmp_path):
         """The shipped eth profile (S2 cascade on) must split too, each unit a
@@ -323,6 +358,204 @@ class TestApplyBadgeSplit:
 
 
 # ----------------------------------------------------------------------
+# Round 7 — K-R6-2 leg 1: prefix-free anchor namespace
+# ----------------------------------------------------------------------
+
+
+class TestPrefixFreeIds:
+    def test_no_popup_anchor_id_is_a_strict_prefix_of_another(self, tmp_path):
+        """The whole vnotes/vbadge namespace must be prefix-free per file —
+        Nickel measures a popup forward to the next NON-prefix-extending
+        anchor, so any prefix pair (family head, or cross-verse digit
+        extension like gen-1-1 < gen-1-10) inflates the measured slice."""
+        from scripts.build_edition import apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", **_S2_FLAGS})
+        for f in config.get_book("gen")["files"]:
+            text = (tmp / f).read_text("utf-8")
+            ids = sorted(set(re.findall(r'\bid="((?:vnotes|vbadge)-[^"]+)"', text)))
+            for a, b in zip(ids, ids[1:], strict=False):
+                assert not b.startswith(a), f"{f}: anchor id {a!r} is a strict prefix of {b!r}"
+
+    def test_every_unit_id_ends_with_single_digit_s_suffix(self, tmp_path):
+        """-s1..-s9 on EVERY unit (singles included): the single-digit tail is
+        what makes digit-extension prefixes structurally impossible."""
+        from scripts.build_edition import apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        seen = 0
+        for f in config.get_book("gen")["files"]:
+            text = (tmp / f).read_text("utf-8")
+            for vid in re.findall(r'\bid="((?:vnotes|vbadge)-[^"]+)"', text):
+                seen += 1
+                assert re.search(r"-s[1-9]$", vid), f"{f}: {vid!r} lacks the -s<1..9> tail"
+        assert seen > 100, "precondition: gen carries hundreds of popup anchors"
+
+    def test_family_over_nine_units_raises(self):
+        """-s10 would re-introduce a strict prefix (-s1 < -s10), so a family
+        that cannot pack into 9 units must fail the build loudly."""
+        import pytest
+
+        from scripts.build_edition import _split_popup_units
+
+        # each row ~150 stripped chars: fits a 220-cap unit alone, two don't
+        # pack together -> 30 units, far over the 9-unit family ceiling
+        rows = [{"cat": "comm", "row": f'<div class="vn-item"><p>{"word " * 30}{i}</p></div>'} for i in range(30)]
+
+        def emit(rs):
+            return "".join(r["row"] for r in rs)
+
+        with pytest.raises(ValueError, match="9"):
+            _split_popup_units(rows, 220, emit)
+
+
+# ----------------------------------------------------------------------
+# Round 7 — K-R6-2 leg 2: serialized-byte split driver
+# ----------------------------------------------------------------------
+
+
+class TestByteCapResolver:
+    def test_unset_defaults_to_8000(self):
+        from scripts.build_edition import (
+            DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP,
+            resolve_note_popup_split_byte_cap,
+        )
+
+        assert DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP == 8_000
+        assert resolve_note_popup_split_byte_cap({"id": "x"}) == 8_000
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": None}) == 8_000
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": ""}) == 8_000
+
+    def test_zero_disables(self):
+        from scripts.build_edition import resolve_note_popup_split_byte_cap
+
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": 0}) == 0
+
+    def test_custom_cap_honored(self):
+        from scripts.build_edition import resolve_note_popup_split_byte_cap
+
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": 6000}) == 6000
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": "9000"}) == 9000
+
+    def test_invalid_raises(self):
+        import pytest
+
+        from scripts.build_edition import resolve_note_popup_split_byte_cap
+
+        with pytest.raises(ValueError):
+            resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": "huge"})
+        with pytest.raises(ValueError):
+            resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": -1})
+
+
+class TestKepubByteEstimator:
+    def test_span_overhead_dominates_round6_measured_max(self):
+        """Calibrated 2026-06-12 against the round-6 epub↔kepub pair (66,880
+        asides matched): per-text-segment koboSpan delta ranged 43.1–81.3 B
+        with THIS segmentation rule. The constant must stay >= the measured
+        max or the estimator stops dominating the real artifact and gate 4n
+        starts failing builds the splitter passed."""
+        from scripts.build_edition import _KEPUB_SPAN_OVERHEAD
+
+        assert _KEPUB_SPAN_OVERHEAD >= 82
+
+    def test_estimate_at_least_raw_bytes(self):
+        from scripts.build_edition import _estimate_kepub_aside_bytes
+
+        html_s = '<aside id="vnotes-x-1-1-s1"><p>One sentence here.</p></aside>'
+        assert _estimate_kepub_aside_bytes(html_s) > len(html_s.encode("utf-8"))
+
+    def test_estimate_grows_per_sentence(self):
+        from scripts.build_edition import _KEPUB_SPAN_OVERHEAD, _estimate_kepub_aside_bytes
+
+        one = "<p>" + "Alpha beta gamma delta. " * 1 + "</p>"
+        ten = "<p>" + "Alpha beta gamma delta. " * 10 + "</p>"
+        d = _estimate_kepub_aside_bytes(ten) - _estimate_kepub_aside_bytes(one)
+        raw_d = len(ten.encode("utf-8")) - len(one.encode("utf-8"))
+        assert d >= raw_d + 9 * _KEPUB_SPAN_OVERHEAD - 1, "each extra sentence must add a span's overhead"
+
+    def test_markup_dense_runs_each_count(self):
+        """em-per-word original-language markup: every inter-tag text run is
+        (at least) one koboSpan."""
+        from scripts.build_edition import _KEPUB_SPAN_OVERHEAD, _estimate_kepub_aside_bytes
+
+        words = "".join(f"<em>w{i}</em> " for i in range(50))
+        est = _estimate_kepub_aside_bytes(f"<p>{words}</p>")
+        assert est >= len(f"<p>{words}</p>".encode()) + 50 * _KEPUB_SPAN_OVERHEAD
+
+
+class TestByteBudgetSplit:
+    def test_every_emitted_unit_fits_the_byte_budget(self, tmp_path):
+        """Round-6 reality: gen 1:2's char-cap-passing unit serialized to
+        15,963 kepub bytes and REFUSED on device. Every emitted verse-notes
+        aside must now estimate <= the 8,000 B budget."""
+        from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", **_S2_FLAGS})
+        measured = 0
+        for f in config.get_book("gen")["files"]:
+            text = (tmp / f).read_text("utf-8")
+            for m in re.finditer(
+                r'<aside class="verse-notes" id="([^"]+)" epub:type="footnote">.*?</aside>',
+                text,
+                re.DOTALL,
+            ):
+                measured += 1
+                est = _estimate_kepub_aside_bytes(m.group(0))
+                assert est <= 8_000, f"{m.group(1)} estimates {est:,} kepub bytes (> 8,000 budget)"
+        assert measured > 500, "precondition: gen emits many verse-notes units"
+
+    def test_byte_cap_zero_disables_byte_splitting(self, tmp_path):
+        """The knob must gate the behavior: with the byte driver off (char cap
+        still default), at least one unit estimates over the 8,000 target —
+        the very class the driver exists to kill."""
+        from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "note_popup_split_byte_cap": 0, **_S2_FLAGS})
+        over = 0
+        for f in config.get_book("gen")["files"]:
+            text = (tmp / f).read_text("utf-8")
+            for m in re.finditer(
+                r'<aside class="verse-notes" id="[^"]+" epub:type="footnote">.*?</aside>', text, re.DOTALL
+            ):
+                if _estimate_kepub_aside_bytes(m.group(0)) > 8_000:
+                    over += 1
+        assert over >= 1, "expected over-budget units with the byte driver off (gen 1:2 class)"
+
+    def test_byte_split_conserves_note_text(self, tmp_path):
+        """The byte driver must not lose or duplicate text vs a both-caps-off
+        run (same conservation contract as the char split)."""
+        from scripts.build_edition import apply_badge_markers
+
+        tmp_on = _book_tree(tmp_path / "on", "gen")
+        tmp_off = _book_tree(tmp_path / "off", "gen")
+        apply_badge_markers(tmp_on, {"id": "x", "marker_style": "badge"})
+        apply_badge_markers(
+            tmp_off,
+            {"id": "x", "marker_style": "badge", "note_popup_split_cap": 0, "note_popup_split_byte_cap": 0},
+        )
+        fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp_on / f).read_text("utf-8"))
+        t_on = (tmp_on / fname).read_text("utf-8")
+        t_off = (tmp_off / fname).read_text("utf-8")
+        # gen 1:2 = the byte-driver specimen (round-6: 15,963 B unit)
+        for coord in ("gen-1-2", "gen-2-7"):
+            on_rows = []
+            for html_u in _aside_map(t_on, coord).values():
+                on_rows.extend(_vn_item_texts(html_u))
+            off_units = _aside_map(t_off, coord)
+            if not off_units:
+                continue  # verse not in this file
+            off_rows = _vn_item_texts(next(iter(off_units.values())))
+            assert " ".join(" ".join(on_rows).split()) == " ".join(" ".join(off_rows).split()), (
+                f"{coord}: byte split lost or duplicated note text"
+            )
+
+
+# ----------------------------------------------------------------------
 # K-R5-3 — book-boundary badge clamp
 # ----------------------------------------------------------------------
 
@@ -343,7 +576,7 @@ class TestBookBoundaryClamp:
 
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
         text = (tmp / fname).read_text("utf-8")
-        badge_pos = text.find('id="vbadge-rut-4-22"')
+        badge_pos = text.find('id="vbadge-rut-4-22-s1"')
         title_pos = text.find('<div class="book-title-page"', text.find('id="v-rut-4-22"'))
         assert badge_pos != -1, "rut 4:22 badge missing"
         assert badge_pos < title_pos, "K-R5-3: book-last badge spilled into the next book's title block"
@@ -438,6 +671,130 @@ class TestGate4hTitlePieceBadges:
 # ----------------------------------------------------------------------
 
 
+class TestGate4mAnchorPrefix:
+    def test_fires_on_prefix_nested_family_head(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    "<html><body>"
+                    '<aside class="verse-notes" id="vnotes-gen-1-1" epub:type="footnote">a</aside>'
+                    '<aside class="verse-notes" id="vnotes-gen-1-1-s2" epub:type="footnote">b</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, _warns = ver.anchor_prefix_checks(zf, zf.namelist())
+        assert any("vnotes-gen-1-1" in f for f in fails), fails
+
+    def test_fires_on_cross_verse_digit_extension(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    "<html><body>"
+                    '<aside class="verse-notes" id="vnotes-jub-7-1-s1" epub:type="footnote">a</aside>'
+                    '<aside class="verse-notes" id="vnotes-jub-7-1-s12" epub:type="footnote">b</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, _warns = ver.anchor_prefix_checks(zf, zf.namelist())
+        assert fails, "an -s12 sibling re-creates the strict-prefix defect (-s1 < -s12)"
+
+    def test_fires_on_bare_unsuffixed_id(self):
+        # shape check: every vnotes/vbadge id must end -s<1..9> — a bare id is
+        # a stale or mixed artifact even when no sibling collides yet
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    "<html><body>"
+                    '<aside class="verse-notes" id="vnotes-gen-9-9" epub:type="footnote">a</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, _warns = ver.anchor_prefix_checks(zf, zf.namelist())
+        assert any("vnotes-gen-9-9" in f for f in fails), fails
+
+    def test_green_on_prefix_free_namespace_and_warns_on_adjacent_vnote_pair(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    "<html><body>"
+                    '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote">a</aside>'
+                    '<aside class="verse-notes" id="vnotes-gen-1-1-s2" epub:type="footnote">b</aside>'
+                    '<aside class="verse-notes" id="vnotes-gen-1-10-s1" epub:type="footnote">c</aside>'
+                    '<aside class="vnote" id="vnote-1en-100-1" epub:type="footnote">d</aside>'
+                    '<aside class="vnote" id="vnote-1en-100-11" epub:type="footnote">e</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, warns = ver.anchor_prefix_checks(zf, zf.namelist())
+        assert fails == [], fails
+        # the translation (vnote-) namespace is base-baked and un-renamed: an
+        # ADJACENT prefix pair there is the device-harmful configuration —
+        # surfaced as an honest WARN (1 known corpus-wide: 1en 100:1 < 100:11)
+        assert any("vnote-1en-100-1" in w for w in warns), warns
+
+
+class TestGate4nPopupByteBudget:
+    KOBO = '<span class="koboSpan" id="kobo.1.1">x</span>'
+
+    def test_fires_on_oversized_verse_notes_aside_in_kepub(self):
+        ver = _load_dev_module("verify_kr2_build")
+        big = ('<span class="koboSpan" id="kobo.1.1">' + "word " * 500 + "</span>") * 4  # ~10KB+
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    f"<html><body><p>{self.KOBO}</p>"
+                    f'<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote">{big}</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, _warns = ver.popup_byte_checks(zf, zf.namelist())
+        assert any("vnotes-gen-1-1-s1" in f for f in fails), fails
+
+    def test_warns_on_oversized_vnote_and_green_under_floor(self):
+        ver = _load_dev_module("verify_kr2_build")
+        big = ('<span class="koboSpan" id="kobo.1.1">' + "word " * 500 + "</span>") * 4
+        small = "word " * 50
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    f"<html><body><p>{self.KOBO}</p>"
+                    f'<aside class="verse-notes" id="vnotes-gen-1-2-s1" epub:type="footnote">{small}</aside>'
+                    f'<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">{big}</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, warns = ver.popup_byte_checks(zf, zf.namelist())
+        assert fails == [], fails
+        assert any("vnote-gen-1-1" in w for w in warns), warns
+
+    def test_skips_plain_epub(self):
+        # pre-kepubify bytes are not the device measure — the gate only judges
+        # artifacts that carry koboSpans
+        ver = _load_dev_module("verify_kr2_build")
+        big = "word " * 3000
+        zf = _mini_zip(
+            {
+                "index_split_000.html": (
+                    "<html><body>"
+                    f'<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote">{big}</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, warns = ver.popup_byte_checks(zf, zf.namelist())
+        assert fails == [] and warns == []
+
+
 class TestSplitCapWiring:
     def test_api_validates_and_persists_note_popup_split_cap(self):
         from scripts.api.editions import api_save_edition_meta
@@ -477,6 +834,45 @@ class TestSplitCapWiring:
         import scripts.templates.customize as cz
 
         assert 'data-field="note_popup_split_cap"' in cz.CUSTOMIZE_HTML
+
+    def test_api_validates_and_persists_byte_cap(self):
+        from scripts.api.editions import api_save_edition_meta
+
+        path = REPO / "content" / "editions.yaml"
+        before = path.read_bytes()
+        try:
+            r = api_save_edition_meta("catholic-study", {"note_popup_split_byte_cap": 9000})
+            assert "error" not in r, r
+            text = path.read_text(encoding="utf-8")
+            assert "note_popup_split_byte_cap: 9000" in text
+        finally:
+            path.write_bytes(before)
+            config.load_editions.cache_clear()
+
+    def test_api_rejects_bad_byte_cap(self):
+        from scripts.api.editions import api_save_edition_meta
+
+        path = REPO / "content" / "editions.yaml"
+        before = path.read_bytes()
+        try:
+            assert "error" in api_save_edition_meta("catholic-study", {"note_popup_split_byte_cap": "huge"})
+            assert "error" in api_save_edition_meta("catholic-study", {"note_popup_split_byte_cap": -3})
+            assert path.read_bytes() == before, "a rejected save must not write"
+        finally:
+            path.write_bytes(before)
+            config.load_editions.cache_clear()
+
+    def test_preview_knows_the_byte_cap(self):
+        from scripts.api.editions import api_preview_edition_changes
+
+        r = api_preview_edition_changes("catholic-study", {"note_popup_split_byte_cap": 7777})
+        assert "unknown_fields" not in r, r
+        assert any(c["field"] == "note_popup_split_byte_cap" for c in r["changes"])
+
+    def test_customize_console_exposes_the_byte_cap(self):
+        import scripts.templates.customize as cz
+
+        assert 'data-field="note_popup_split_byte_cap"' in cz.CUSTOMIZE_HTML
 
 
 class TestGate4iBadgeModeMarkerLeak:

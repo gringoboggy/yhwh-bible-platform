@@ -2702,6 +2702,77 @@ def resolve_note_popup_split_cap(edition: dict) -> int:
     return n
 
 
+# ── Round 7 / K-R6-2 leg 2 — the serialized-byte split driver ────────────
+#
+# The round-6d device taps + forensics named the REAL refusal measure: Kobo
+# (Nickel) measures a tapped popup's slice in SERIALIZED KEPUB BYTES and
+# refuses above a cap bracketed at (8,858 .. 9,273] (gen-1-1-s2 = 8,858 B
+# OPENED; gen-35-18 = 9,273 B REFUSED). Stripped chars do NOT separate the
+# verdicts — the char cap (above) stays as the popup-VIEWPORT calibration,
+# and this second budget kills the byte face: units that pass the char cap
+# but balloon under kepubify's koboSpan wrapping (round-6 corpus: 201 units
+# over 8,000 B, 97 of them un-split singles, worst 15,963 B at gen 1:2).
+#
+# The split runs PRE-kepubify, so the driver works on an ESTIMATE that must
+# DOMINATE the real inflation. Calibrated 2026-06-12 against the round-6
+# epub↔kepub pair (66,880 asides matched byte-exact): with the segmentation
+# rule below, the per-text-segment koboSpan delta ranged 43.1–81.3 B
+# (p50 52.9). _KEPUB_SPAN_OVERHEAD = 85 therefore over-estimates every
+# measured aside (worst observed 81.3) — the cost is a slightly earlier
+# split, never an over-budget unit. Gate 4n (dev/verify_kr2_build.py)
+# measures the BUILT kepub exactly and is the hard floor.
+
+DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP = 8_000
+_KEPUB_SPAN_OVERHEAD = 85
+# Reserved from the byte cap for the unit's own shell — the <aside> wrapper,
+# the vn-back header line (+ its koboSpans), and the (N/M) part span.
+_POPUP_UNIT_SHELL_BYTES = 512
+# A chunked body targets the byte budget minus this margin so the chunk's
+# row/cascade furniture (separators, category head, byline, marks) still fits.
+_POPUP_CHUNK_BYTE_MARGIN = 900
+# -s10 would string-extend -s1 and re-create the K-R6-2 prefix defect, so a
+# family is hard-capped at single-digit unit indices.
+_POPUP_FAMILY_MAX_UNITS = 9
+
+_KEPUB_SENTENCE_RE = re.compile(r"[.!?][\s ]")
+
+
+def _estimate_kepub_aside_bytes(html_text: str) -> int:
+    """Conservative post-kepubify size of ``html_text`` in bytes.
+
+    kepubify wraps every sentence of every text node in a
+    ``<span class="koboSpan" id="kobo.N.M">`` — estimate = raw UTF-8 bytes +
+    (text segments x _KEPUB_SPAN_OVERHEAD). Segments: each inter-tag text run
+    with non-space content counts its sentence enders + 1 (the SAME rule the
+    2026-06-12 calibration used; change them TOGETHER or the dominance proof
+    is void)."""
+    segs = 0
+    for run in re.split(r"<[^>]+>", html_text):
+        run = run.strip()
+        if not run:
+            continue
+        segs += len(_KEPUB_SENTENCE_RE.findall(run)) + 1
+    return len(html_text.encode("utf-8")) + segs * _KEPUB_SPAN_OVERHEAD
+
+
+def resolve_note_popup_split_byte_cap(edition: dict) -> int:
+    """The edition's popup-unit byte cap (estimated post-kepubify serialized
+    bytes); 0 disables the byte driver.
+
+    Unset/None/"" -> DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP. Anything non-integer
+    or negative raises ValueError (the API validator enforces the same rule)."""
+    v = edition.get("note_popup_split_byte_cap")
+    if v is None or v == "":
+        return DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP
+    try:
+        n = int(v)
+    except (TypeError, ValueError):
+        raise ValueError(f"note_popup_split_byte_cap must be an integer (kepub bytes) or 0: {v!r}") from None
+    if n < 0:
+        raise ValueError(f"note_popup_split_byte_cap must be >= 0: {n}")
+    return n
+
+
 _VN_ITEM_ROW_RE = re.compile(r'^(<div class="vn-item[^"]*">)(.*)(</div>)$', re.DOTALL)
 _FLOW_WRAPPER_RE = re.compile(r"^(<([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>)(.*)(</\2>)$", re.DOTALL)
 # Visible (NOT vn-sep-hidden) continuation marks — the reader must see that a
@@ -2885,25 +2956,65 @@ def _chunk_vn_item_row(row_html: str, target: int) -> list[str]:
     return parts
 
 
-def _split_popup_units(rows: list[dict], cap: int, emit_inner) -> list[list[dict]]:
+def _chunk_row_to_budgets(row_html: str, cap: int, byte_cap: int) -> list[str]:
+    """``_chunk_vn_item_row`` driven by BOTH budgets. A row over the char
+    chunk target chunks as before; a row over the BYTE chunk target (markup-
+    dense bodies the char measure under-weighs) derives an equivalent char
+    target from its own observed bytes/char density, then tightens (x0.8, up
+    to 8 rounds) until every part fits both budgets."""
+    char_target = max(0, cap - _POPUP_CHUNK_MARGIN) if cap else 0
+    byte_target = max(0, byte_cap - _POPUP_UNIT_SHELL_BYTES - _POPUP_CHUNK_BYTE_MARGIN) if byte_cap else 0
+    over_chars = char_target and _stripped_len(row_html) > char_target
+    over_bytes = byte_target and _estimate_kepub_aside_bytes(row_html) > byte_target
+    if not over_chars and not over_bytes:
+        return [row_html]
+    target = char_target if char_target else _stripped_len(row_html)
+    if over_bytes:
+        density = _estimate_kepub_aside_bytes(row_html) / max(1, _stripped_len(row_html))
+        target = min(target, int(byte_target / density))
+    parts = [row_html]
+    for _ in range(8):
+        parts = _chunk_vn_item_row(row_html, max(200, target))
+        ok = all(
+            (not char_target or _stripped_len(p) <= char_target + 64)
+            and (not byte_target or _estimate_kepub_aside_bytes(p) <= byte_target)
+            for p in parts
+        )
+        if ok:
+            return parts
+        target = int(target * 0.8)
+    return parts  # best effort — the pack loop still bounds units; gate 4n is the floor
+
+
+def _split_popup_units(rows: list[dict], cap: int, emit_inner, byte_cap: int = 0) -> list[list[dict]]:
     """Partition a verse's merged-popup rows (each ``{"cat", "row", ...}``)
-    into units whose EMITTED inner HTML strips to <= cap minus the header
-    allowance. Whole categories pack together first; an over-budget category
-    packs row-by-row; an over-budget single row is body-chunked (design b).
-    Returns ``[rows]`` untouched when everything already fits — the byte-
-    identity path for ~99.7% of verses."""
-    if not cap:
+    into units whose EMITTED inner HTML fits BOTH budgets: stripped chars
+    <= cap minus the header allowance (the popup-viewport calibration) AND
+    estimated post-kepubify bytes <= byte_cap minus the shell allowance (the
+    K-R6-2 Nickel refusal measure). Whole categories pack together first; an
+    over-budget category packs row-by-row; an over-budget single row is
+    body-chunked (design b). Returns ``[rows]`` untouched when everything
+    already fits — the byte-identity path for ~99% of verses.
+
+    Raises ValueError when the verse cannot pack into
+    ``_POPUP_FAMILY_MAX_UNITS`` (9) units — a 10th would mint an ``-s10`` id
+    that string-extends ``-s1`` and re-create the prefix-swallow defect."""
+    if not cap and not byte_cap:
         return [rows]
-    budget = cap - _POPUP_UNIT_HEADER_ALLOWANCE
-    if _stripped_len(emit_inner(rows)) <= budget:
+    budget = (cap - _POPUP_UNIT_HEADER_ALLOWANCE) if cap else 0
+    byte_budget = (byte_cap - _POPUP_UNIT_SHELL_BYTES) if byte_cap else 0
+
+    def fits(html_text: str) -> bool:
+        return not (
+            (budget and _stripped_len(html_text) > budget)
+            or (byte_budget and _estimate_kepub_aside_bytes(html_text) > byte_budget)
+        )
+
+    if fits(emit_inner(rows)):
         return [rows]
-    chunk_target = cap - _POPUP_CHUNK_MARGIN
     expanded: list[dict] = []
     for r in rows:
-        if _stripped_len(r["row"]) > chunk_target:
-            expanded.extend({**r, "row": part} for part in _chunk_vn_item_row(r["row"], chunk_target))
-        else:
-            expanded.append(r)
+        expanded.extend({**r, "row": part} for part in _chunk_row_to_budgets(r["row"], cap, byte_cap))
     groups: list[list[dict]] = []
     for r in expanded:
         if groups and groups[-1][0]["cat"] == r["cat"]:
@@ -2911,14 +3022,11 @@ def _split_popup_units(rows: list[dict], cap: int, emit_inner) -> list[list[dict
         else:
             groups.append([r])
 
-    def size(rs: list[dict]) -> int:
-        return _stripped_len(emit_inner(rs))
-
     units: list[list[dict]] = []
     cur: list[dict] = []
     for g in groups:
-        if size(g) <= budget:
-            if not cur or size(cur + g) <= budget:
+        if fits(emit_inner(g)):
+            if not cur or fits(emit_inner(cur + g)):
                 cur = cur + g
             else:
                 units.append(cur)
@@ -2929,7 +3037,7 @@ def _split_popup_units(rows: list[dict], cap: int, emit_inner) -> list[list[dict
                 cur = []
             sub: list[dict] = []
             for r in g:
-                if not sub or size(sub + [r]) <= budget:
+                if not sub or fits(emit_inner(sub + [r])):
                     sub.append(r)
                 else:
                     units.append(sub)
@@ -2938,6 +3046,11 @@ def _split_popup_units(rows: list[dict], cap: int, emit_inner) -> list[list[dict
                 units.append(sub)
     if cur:
         units.append(cur)
+    if len(units) > _POPUP_FAMILY_MAX_UNITS:
+        raise ValueError(
+            f"popup family needs {len(units)} units (> {_POPUP_FAMILY_MAX_UNITS}): "
+            "an -s10 id would string-extend -s1 (K-R6-2). Raise the caps or trim the verse's sources."
+        )
     return units
 
 
@@ -2990,14 +3103,20 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 
     For every verse that still has ≥1 surviving note:
       * replace its N inline ``note-ref`` markers with ONE
-        ``<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}"
-        href="#vnotes-{code}-{ch}-{v}" epub:type="noteref"
+        ``<a class="verse-notes-badge" id="vbadge-{code}-{ch}-{v}-s1"
+        href="#vnotes-{code}-{ch}-{v}-s1" epub:type="noteref"
         title="{N} notes"><sup class="marker-badge">{N}</sup></a>`` placed at the
         LAST marker's position (≈ verse end), removing the others;
       * merge its N per-note ``<aside class="note">`` elements into ONE
-        ``<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}"
+        ``<aside class="verse-notes" id="vnotes-{code}-{ch}-{v}-s1"
         epub:type="footnote">`` = a verse header (one back-link + ``ch:v``)
         followed by each note as a ``.vn-item`` row, in document order.
+
+    Over-cap verses split into up to 9 units (``-s1``..``-s9`` — K-R4-2 char
+    cap + K-R6-2 byte cap); EVERY id wears the single-digit ``-sN`` tail so no
+    vnotes/vbadge id is a strict prefix of another (the K-R6-2 leg-1
+    prefix-free namespace; bare ids made Kobo's forward-scan swallow whole
+    families and refuse first/last units).
 
     Position-grouped via inject's verse-region locators so it works for both
     strategies and respects the upstream kind/canon/tradition filter. Idempotent
@@ -3031,6 +3150,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     resolve_sources = s2_group or s3a_topic
     # K-R4-2 — the device-calibrated popup-unit cap (0 = splitting off).
     split_cap = resolve_note_popup_split_cap(edition)
+    # K-R6-2 — the serialized-byte budget (estimated post-kepubify; 0 = off).
+    split_byte_cap = resolve_note_popup_split_byte_cap(edition)
 
     stats = {
         "badges_inserted": 0,
@@ -3258,15 +3379,25 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         return "".join(f"  {r['row']}\n" for r in unit_rows)
 
                     # K-R4-2: partition the verse's rows into popup units, each
-                    # under the device-calibrated stripped-size cap. One unit =
-                    # the historical single-aside path, byte-identically.
-                    units = _split_popup_units(norm_rows, split_cap, _unit_inner)
+                    # under the device-calibrated stripped-size cap AND the
+                    # K-R6-2 serialized-byte budget. One unit = the historical
+                    # single-aside path (text-identically; the id gains -s1).
+                    try:
+                        units = _split_popup_units(norm_rows, split_cap, _unit_inner, byte_cap=split_byte_cap)
+                    except ValueError as e:
+                        raise AssertionError(f"{code} {ch}:{v}: {e}") from None
                     k_units = len(units)
 
                     unit_asides: list[str] = []
                     unit_badges: list[str] = []
                     for u_idx, unit_rows in enumerate(units, start=1):
-                        suffix = "" if u_idx == 1 else f"-s{u_idx}"
+                        # K-R6-2 leg 1 — EVERY unit (singles included) wears a
+                        # single-digit -sN tail, so no vnotes/vbadge id is ever
+                        # a strict prefix of another anywhere in the artifact
+                        # (the head's bare id swallowed its whole family on
+                        # Kobo; bare singles minted 20 adjacent cross-verse
+                        # digit-extension pairs like jub-7-1 < jub-7-13).
+                        suffix = f"-s{u_idx}"
                         vid = f"vnotes-{code}-{ch}-{v}{suffix}"
                         bid = f"vbadge-{code}-{ch}-{v}{suffix}"
                         part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""

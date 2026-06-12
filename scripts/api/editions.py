@@ -638,6 +638,9 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "marker_style",
         "topical_index_source",
         "note_popup_split_cap",
+        # K-R6-2 — popup-unit byte cap (estimated post-kepubify bytes; 0 =
+        # off; unset = the calibrated 8,000 default).
+        "note_popup_split_byte_cap",
         "reader_toc_collapsible",
         "reader_toc_default_open",
         # K-R2 — where the builder will read the EPUB ("everywhere" | "eink" |
@@ -736,6 +739,10 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         # the device-calibrated default). Stored as a YAML int like
         # time_filter_ceiling; validated below.
         "note_popup_split_cap",
+        # K-R6-2 — popup-unit BYTE cap (estimated post-kepubify serialized
+        # bytes; 0 = off; unset = the calibrated 8,000 default). Same storage
+        # and validation pattern as note_popup_split_cap.
+        "note_popup_split_byte_cap",
         # Free-text front-matter fields (builder-editable via /customize).
         "description",
         "dedication",
@@ -911,6 +918,23 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if v_int < 0:
                 return {"error": f"note_popup_split_cap must be >= 0: {v_int}"}
             payload["note_popup_split_cap"] = str(v_int)
+
+    # K-R6-2: note_popup_split_byte_cap — unset/None/"" clears to the build's
+    # calibrated default (8,000 estimated post-kepubify bytes); otherwise an
+    # integer >= 0 (0 disables the byte driver). Mirrors
+    # resolve_note_popup_split_byte_cap's contract (the one resolver).
+    if "note_popup_split_byte_cap" in payload:
+        v = payload["note_popup_split_byte_cap"]
+        if v is None or v == "" or v == "null":
+            payload["note_popup_split_byte_cap"] = "null"
+        else:
+            try:
+                v_int = int(v)
+            except (TypeError, ValueError):
+                return {"error": "note_popup_split_byte_cap must be an integer (kepub bytes), 0, or null"}
+            if v_int < 0:
+                return {"error": f"note_popup_split_byte_cap must be >= 0: {v_int}"}
+            payload["note_popup_split_byte_cap"] = str(v_int)
 
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (

@@ -474,6 +474,12 @@ function renderEditions() {
                      title="Kobo e-ink declines oversized note popups and jumps to the page top instead — verses whose merged popup strips to more chars than this split into several smaller popups (one ◈ badge each). Blank = the calibrated default (4,400); 0 = never split. Badge marker style only.">
             </label>
             <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Popup split cap (bytes)</span>
+              <input type="number" min="0" step="500" class="label-input w-full" data-field="note_popup_split_byte_cap"
+                     value="${e.note_popup_split_byte_cap ?? ''}" placeholder="8000 (device-calibrated default)"
+                     title="Kobo measures a popup in serialized kepub bytes and refuses above ~8.9 KB — units whose estimated converted size exceeds this split further, even when the character cap passes (markup-dense notes inflate under Kobo's per-sentence wrapping). Blank = the calibrated default (8,000); 0 = off. Badge marker style only.">
+            </label>
+            <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Topical index source</span>
               <select class="label-input w-full" data-field="topical_index_source" title="which topical authority feeds the back-of-book Topical Index">
                 <option value="both"   ${(e.topical_index_source||'both') === 'both' ? 'selected' : ''}>both · Nave's + Torrey, merged (N·T tags)</option>

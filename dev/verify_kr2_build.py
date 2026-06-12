@@ -16,6 +16,10 @@ Checks the Kobo fix arcs on the real artifact:
      file-scoped by design; an untargeted duplicated wrapper id is harmless);
      (c) no verse-notes badge renders past its own chapter's heading (the
      kobo8 badge-cluster / "teleport to chapter 1" class — 264 pre-fix).
+  4m/4n. K-R6-2 — the popup anchor namespace is prefix-free (every
+     vnotes/vbadge id wears -s<1..9>; no id is a strict prefix of another in
+     its file) and, on kepub artifacts, no verse-notes aside serializes past
+     the 8,858 B proven-open floor (Nickel refuses above it and navigates).
 
 Usage:  py -3 dev/verify_kr2_build.py <path-to-epub>
 Exit 0 = all gates green; 1 = any failure (details printed).
@@ -196,6 +200,80 @@ def popup_size_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str],
                 fails.append(f"{n}: {m.group(2)} strips to {size:,} chars (> pop floor {POP_FLOOR:,} — K-R4-2)")
             else:
                 warns.append(f"{n}: vnote {m.group(2)} strips to {size:,} chars (> pop floor; un-probed class)")
+    return fails, warns
+
+
+# ── 4m. K-R6-2 leg 1 — prefix-free popup anchor namespace ───────────────
+# Nickel measures a tapped popup from its target anchor FORWARD to the next
+# anchor whose id does NOT string-extend the tapped id — any strict-prefix
+# pair (family head without -s1, cross-verse digit extension like
+# jub-7-1 < jub-7-13, an -s10 sibling extending -s1) inflates the measured
+# slice and refuses the popup (round-6d: 98/98 heads + the family tails).
+_POPUP_ANCHOR_ID_RE = re.compile(r'\bid="((?:vnotes|vbadge)-[^"]+)"')
+_UNIT_SUFFIX_RE = re.compile(r"-s[1-9]$")
+
+
+def anchor_prefix_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str], list[str]]:
+    """Gate 4m. Returns (fails, warns).
+
+    FAIL: any vnotes/vbadge id that is a strict prefix of another in the same
+    file, or that lacks the single-digit ``-s<1..9>`` tail (a bare id = a
+    stale or mixed artifact; the tail is what makes digit-extension prefixes
+    structurally impossible). WARN: an ADJACENT (document-order) prefix pair
+    among the base-baked translation ``vnote-`` asides — un-renamed surface,
+    the same device mechanism, surfaced honestly (1 known corpus-wide)."""
+    fails: list[str] = []
+    warns: list[str] = []
+    for n in names:
+        if not n.endswith((".html", ".xhtml")):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        ids = sorted(set(_POPUP_ANCHOR_ID_RE.findall(t)))
+        for i in ids:
+            if not _UNIT_SUFFIX_RE.search(i):
+                fails.append(f"{n}: popup anchor {i} lacks the -s<1..9> tail (bare-id K-R6-2 class, 4m)")
+        # sorted order: if ANY strict-prefix pair exists, the minimal extension
+        # sorts immediately after its prefix — consecutive check finds it
+        for a, b in zip(ids, ids[1:], strict=False):
+            if b.startswith(a):
+                fails.append(f"{n}: anchor id {a} is a strict prefix of {b} (K-R6-2 slice-swallow class, 4m)")
+        # document-order aside walk: an ADJACENT extending pair is the exact
+        # configuration Nickel's forward-scan mismeasures
+        aside_ids = [m.group(2) for m in _POPUP_ASIDE_RE.finditer(t)]
+        for a, b in zip(aside_ids, aside_ids[1:], strict=False):
+            if b.startswith(a) and len(b) > len(a) and a.startswith("vnote-"):
+                warns.append(f"{n}: ADJACENT vnote prefix pair {a} < {b} (un-renamed translation surface)")
+    return fails, warns
+
+
+# ── 4n. K-R6-2 leg 2 — per-aside serialized byte budget (kepub only) ─────
+# The round-6d bracket: 8,858 B OPENED / 9,273 B REFUSED, measured on the
+# real kepub aside serialization. The gate fails the PROVEN-OPEN floor, not
+# the build's internal 8,000 split target (no-reassert-ratified-bar: the gap
+# is engineering margin, not a device requirement).
+BYTE_FLOOR = 8_858
+
+
+def popup_byte_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str], list[str]]:
+    """Gate 4n. Returns (fails, warns). Judges ONLY koboSpan-bearing (kepub)
+    artifacts — pre-kepubify bytes are not the device measure. verse-notes
+    units over the floor FAIL; base-baked vnote (translation) asides over it
+    WARN (un-probed class, same convention as 4g)."""
+    fails: list[str] = []
+    warns: list[str] = []
+    docs = [n for n in names if n.endswith((".html", ".xhtml"))]
+    texts = {n: zf.read(n).decode("utf-8", "replace") for n in docs}
+    if not any("koboSpan" in t for t in texts.values()):
+        return [], []
+    for n, t in texts.items():
+        for m in _POPUP_ASIDE_RE.finditer(t):
+            b = len(m.group(0).encode("utf-8"))
+            if b <= BYTE_FLOOR:
+                continue
+            if m.group(1) == "verse-notes":
+                fails.append(f"{n}: {m.group(2)} serializes to {b:,} B (> open floor {BYTE_FLOOR:,} — K-R6-2, 4n)")
+            else:
+                warns.append(f"{n}: vnote {m.group(2)} serializes to {b:,} B (> open floor; un-probed class)")
     return fails, warns
 
 
@@ -529,6 +607,16 @@ def main(path: str) -> int:
     fails.extend(orphan_vnote_checks(zf, names))
     fails.extend(husk_piece_checks(zf, names))
     fails.extend(demoted_toc_target_checks(zf, names))
+
+    # ── 4m. prefix-free anchor namespace + 4n. per-aside byte budget ─────
+    prefix_fails, prefix_warns = anchor_prefix_checks(zf, names)
+    fails.extend(prefix_fails)
+    for w in prefix_warns:
+        print(f"WARN (4m): {w}")
+    byte_fails, byte_warns = popup_byte_checks(zf, names)
+    fails.extend(byte_fails)
+    for w in byte_warns:
+        print(f"WARN (4n): {w}")
 
     # ── 5. kindle_safe — only judges artifacts stamped target-reader=kindle ─
     fails.extend(kindle_safe_checks(zf, names, opf))
