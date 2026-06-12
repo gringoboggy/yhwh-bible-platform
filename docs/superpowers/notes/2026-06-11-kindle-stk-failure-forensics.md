@@ -73,3 +73,49 @@ Amazon Kindle Publishing Guidelines PDF (10k display:none cap) ·
 kdp.amazon.com hyperlink/enhanced-typesetting pages · STK email/web caps
 (200 MB web) · MobileRead t=357851 (the kindlegen hidden-chars error on an
 STK-failing book) · kindling (reverse-engineered kindlegen superlinearity).
+
+## RESOLUTION (Mac turn 77, 2026-06-11 — driver isolated by the local oracle)
+
+Two blockers, both named and closed/isolated by the Kindle Previewer 3 oracle:
+
+**Blocker #1 — TOC husk class (E24010 ×3 → E24001): CLOSED in-build.**
+Splitter `_BP_TITLEPAGE_RE` class-keying + `retarget_demoted_toc_anchors` +
+gates 4k/4l; the 163704Z rebuild shows ZERO TOC errors.
+
+**Blocker #2 — the generic no-E-code internal error: driver = RAW HTML
+CONTENT VOLUME** (converter work), NOT any construct. Full one-variable
+matrix (each probe epubcheck 0/0/0/0; verdicts in `~/kp3-runs/<dir>`):
+
+| probe | docs | zip | raw HTML | verdict |
+|---|---|---|---|---|
+| full 163704Z | 297 | 23.9 MB | 72.8 MB | ✗ generic |
+| delink (links 112k→26k, asides→divs) | 300 | ~24 MB | ~72 MB | ✗ generic |
+| half-first | 149 | 18.5 MB | ~36 MB | ✓ ET Supported |
+| half-second | 148 | 16.1 MB | ~36 MB | ✓ ET Supported |
+| 2MB-split (202205Z) | 182 | 23.6 MB | 72.8 MB | ✗ generic |
+| **no-split** | **63** | **23.4 MB** | **71.2 MB** | **✗ — doc-count DEAD** |
+| **imgstrip (rasters→1×1)** | **63** | **13.8 MB** | **71.2 MB** | **✗ — zip-mass DEAD** |
+
+Threshold ∈ (≈36.5, 71.2) MB raw — `--keep 0:49` (55.2 MB) bracketing rung
+in flight. Hypothesis #2's "superlinear/service cap on the graph" was half
+right: the cap is real but keys on total content volume, not the link graph
+(delink failed identically). Hidden-text (#1) and per-file size (#4) dead.
+
+### Apparatus composition (the ship-knob census; chars — raw bytes ~17% higher)
+
+60.8 MB content = **12.4 MB scripture+frames** + **37.8 MB per-verse
+parallel-source popups** (33,969 `vnote` asides: labels 10.1 — "Hebrew
+(Masoretic / WLC)" ×119,625 repeats — Hebrew 6.0 · Arabic 5.2 · Vulgate 4.6 ·
+Greek 3.9 + 1.1 NT · headers/wrappers 6.9) + **10.6 MB chapter-end notes**
+(Easton 3.7 · xref 2.1 · comm-ethiopian 1.0 · comm 0.7 · Heb/Grc lang 0.8 ·
+rest <0.5).
+
+### Ship options (presentation-configurable; user pick at the seam)
+
+- **(A) Two-volume kindle** — halves PROVEN passing with full apparatus +
+  live popups; the only 100 %-content option.
+- **(B) Popup compaction, zero content loss** — compact source labels
+  (~10 MB) + verse headers (~few MB); may alone clear a high threshold.
+- **(C) Per-language popup knob** — e.g. kindle drops Arabic/Vulgate
+  (~7–8 MB each with labels), keeps Hebrew+Greek.
+- (B)+(C) compose; threshold bracket decides how much is needed.
