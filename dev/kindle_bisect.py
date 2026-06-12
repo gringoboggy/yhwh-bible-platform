@@ -430,9 +430,59 @@ def build_imgstrip(src_epub: Path, out_epub: Path) -> dict[str, int]:
     return stats
 
 
+# ── rung VNOTEGUT ───────────────────────────────────────────────────────
+# The volume ladder cuts apparatus bytes and popup COUNT together — a
+# per-popup KFX cost (33,969 noteref→footnote structures) is confounded
+# with raw byte volume in every probe so far. This rung guts each leaf
+# `vnote` popup aside to its FIRST <p> (the verse header): count, ids,
+# noterefs, and everything outside the vnote asides stay byte-identical;
+# bytes land ~34MB raw (below the passing halves). FAIL ⇒ popup-count
+# driver (only two-volume ships); PASS ⇒ bytes driver (compaction /
+# per-language knobs viable).
+
+_VNOTE_ASIDE_RE = re.compile(r'<aside class="vnote"[^>]*>.*?</aside>', re.S)
+_FIRST_P_RE = re.compile(r"<p\b.*?</p>", re.S)
+
+
+def _gut_vnote(match: re.Match[str], stats: dict[str, int]) -> str:
+    whole = match.group(0)
+    open_end = whole.index(">") + 1
+    inner = whole[open_end : -len("</aside>")]
+    assert "<aside" not in inner, "vnote asides must be leaves"
+    pm = _FIRST_P_RE.search(inner)
+    stats["vnotes_gutted"] += 1
+    return whole[:open_end] + (pm.group(0) if pm else "") + "</aside>"
+
+
+def build_vnotegut(src_epub: Path, out_epub: Path) -> dict[str, int]:
+    """Zip-rewrite src_epub gutting every `vnote` popup aside to its first
+    <p>. Non-content entries are copied byte-identical; aside count and ids
+    are preserved so the noteref graph stays whole."""
+    stats = {"vnotes_gutted": 0, "bytes_before": 0, "bytes_after": 0}
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith((".html", ".xhtml")):
+                text = data.decode("utf-8")
+                out = _VNOTE_ASIDE_RE.sub(lambda m: _gut_vnote(m, stats), text)
+                assert len(re.findall(r'<aside class="vnote"', out)) == len(
+                    re.findall(r'<aside class="vnote"', text)
+                ), f"vnote count changed in {name}"
+                stats["bytes_before"] += len(data)
+                data = out.encode("utf-8")
+                stats["bytes_after"] += len(data)
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine", "imgstrip"], required=True)
+    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine", "imgstrip", "vnotegut"], required=True)
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
     ap.add_argument("--keep", default="first", help='halfspine slice: "first" | "second" | "lo:hi" (spine doc indices)')
@@ -447,6 +497,7 @@ def main() -> int:
         "tochusk": "_rung-tochusk",
         "halfspine": f"_rung3-half-{args.keep.replace(':', '-')}",
         "imgstrip": "_rung-imgstrip",
+        "vnotegut": "_rung-vnotegut",
     }[args.rung]
     out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
     if args.rung == "delink":
@@ -474,12 +525,19 @@ def main() -> int:
             f"{stats['ncx_points_removed']} (+{stats['ncx_retargeted']} retargeted) | "
             f"links neutralized: {stats['links_neutralized']:,}"
         )
-    else:
+    elif args.rung == "imgstrip":
         stats = build_imgstrip(src, out)
         print(f"{out}")
         print(
             f"images replaced: {stats['images_replaced']} | bytes "
             f"{stats['image_bytes_before']:,} -> {stats['image_bytes_after']:,}"
+        )
+    else:
+        stats = build_vnotegut(src, out)
+        print(f"{out}")
+        print(
+            f"vnotes gutted: {stats['vnotes_gutted']:,} | content bytes "
+            f"{stats['bytes_before']:,} -> {stats['bytes_after']:,}"
         )
     return 0
 

@@ -529,3 +529,106 @@ class TestBuildImgstrip:
             infos = z.infolist()
             assert infos[0].filename == "mimetype"
             assert infos[0].compress_type == zipfile.ZIP_STORED
+
+
+# ── rung VNOTEGUT ───────────────────────────────────────────────────────
+# The volume ladder cuts apparatus bytes and popup COUNT together, so a
+# per-popup converter cost (33,969 noteref→footnote structures) is still
+# confounded with raw byte volume. This rung guts every per-verse `vnote`
+# popup aside to its FIRST <p> (the verse header) — count and ids constant,
+# bytes slashed (~34MB raw, below the passing halves) — so the verdict
+# discriminates count-driver (FAIL ⇒ only two-volume ships) from
+# bytes-driver (PASS ⇒ compaction/language knobs viable). Chapter-end
+# notes-sections and all text outside vnote asides stay byte-identical.
+
+VNOTE_DOC = (
+    "<html><body>"
+    '<p id="v-exo-1-1">verse text '
+    '<a class="vn-link" href="#vnote-exo-1-1" epub:type="noteref"><span class="vn">1</span></a>'
+    "</p>"
+    '<aside class="vnote" id="vnote-exo-1-1" epub:type="footnote">'
+    "<p><strong>Exodus 1:1.</strong></p>"
+    '<p class="vnote-source-label"><span class="vn-sep"> ◦ </span>Hebrew (Masoretic / WLC)</p>'
+    '<p class="vnote-hebrew" dir="rtl" lang="he"><em>שְׁמוֹת</em></p>'
+    '<p class="vnote-source-label"><span class="vn-sep"> ◦ </span>Greek (Septuagint / Swete)</p>'
+    '<p class="vnote-greek" lang="grc">ΤΑΥΤΑ τὰ ὀνόματα</p>'
+    "</aside>"
+    '<aside class="notes-section" epub:type="footnotes"><hr class="notes-rule"/>'
+    '<aside class="verse-notes" id="vnotes-exo-1-1" epub:type="footnote"><p>note body</p></aside>'
+    "</aside>"
+    "</body></html>"
+)
+
+
+def _mini_vnotegut_epub(path):
+    import zipfile
+
+    opf = (
+        "<package><manifest>"
+        '<item id="doc" href="doc.html" media-type="application/xhtml+xml"/>'
+        "</manifest><spine>"
+        '<itemref idref="doc"/>'
+        "</spine></package>"
+    )
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr(zipfile.ZipInfo("mimetype"), "application/epub+zip", zipfile.ZIP_STORED)
+        z.writestr("content.opf", opf)
+        z.writestr("doc.html", VNOTE_DOC)
+    return path
+
+
+class TestBuildVnotegut:
+    def _run(self, tmp_path):
+        import zipfile
+
+        src = _mini_vnotegut_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        stats = kindle_bisect.build_vnotegut(src, out)
+        with zipfile.ZipFile(out) as z:
+            return stats, {n: z.read(n) for n in z.namelist()}
+
+    def test_vnote_count_and_id_survive_but_body_is_gutted(self, tmp_path):
+        import re
+
+        stats, after = self._run(tmp_path)
+        doc = after["doc.html"].decode("utf-8")
+        assert len(re.findall(r'<aside class="vnote"', doc)) == 1
+        assert 'id="vnote-exo-1-1"' in doc and 'epub:type="footnote"' in doc
+        assert "<p><strong>Exodus 1:1.</strong></p>" in doc, "the first <p> (verse header) must survive"
+        assert "vnote-hebrew" not in doc and "vnote-greek" not in doc and "vnote-source-label" not in doc
+        assert stats["vnotes_gutted"] == 1
+        assert stats["bytes_after"] < stats["bytes_before"]
+
+    def test_noteref_link_and_verse_text_untouched(self, tmp_path):
+        _, after = self._run(tmp_path)
+        doc = after["doc.html"].decode("utf-8")
+        assert '<a class="vn-link" href="#vnote-exo-1-1" epub:type="noteref"><span class="vn">1</span></a>' in doc
+
+    def test_notes_section_asides_untouched(self, tmp_path):
+        _, after = self._run(tmp_path)
+        doc = after["doc.html"].decode("utf-8")
+        assert '<aside class="verse-notes" id="vnotes-exo-1-1" epub:type="footnote"><p>note body</p></aside>' in doc
+
+    def test_non_content_entries_byte_identical(self, tmp_path):
+        import zipfile
+
+        src = _mini_vnotegut_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        kindle_bisect.build_vnotegut(src, out)
+        with zipfile.ZipFile(src) as z:
+            before = {n: z.read(n) for n in z.namelist()}
+        with zipfile.ZipFile(out) as z:
+            after = {n: z.read(n) for n in z.namelist()}
+        assert after["content.opf"] == before["content.opf"]
+        assert after["mimetype"] == before["mimetype"]
+
+    def test_mimetype_still_first_and_stored(self, tmp_path):
+        import zipfile
+
+        src = _mini_vnotegut_epub(tmp_path / "src.epub")
+        out = tmp_path / "out.epub"
+        kindle_bisect.build_vnotegut(src, out)
+        with zipfile.ZipFile(out) as z:
+            infos = z.infolist()
+            assert infos[0].filename == "mimetype"
+            assert infos[0].compress_type == zipfile.ZIP_STORED
