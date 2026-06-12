@@ -51,6 +51,86 @@ from scripts.core import audit_log, config, notes_io
 
 REPO = Path(__file__).resolve().parent.parent.parent
 
+# ---------------------------------------------------------------------
+# The editable-field registry — ONE source of truth shared by
+# api_save_edition_meta (validation) and _append_cloned_edition (copy
+# coverage). The clone writer used to keep its own hand-typed scalar
+# list, which silently dropped every field added after it was written
+# (target_reader, marker_badge_style, the K-KIN cap keys, …) — a clone
+# of a kindle edition lost its target. Deriving both consumers from
+# these sets makes that regression structurally impossible.
+# ---------------------------------------------------------------------
+
+EDITABLE_TEXT_FIELDS: frozenset[str] = frozenset(
+    {
+        "title",
+        "short_title",
+        "target_audience",
+        "notes",
+        "verse_marker_glyph",
+        "theme",
+        "popup_translation",
+        "cover_image",
+        "chapter_number_format",
+        "chapter_number_decoration",
+        "book_toc_ornament",
+        "title_page_style",
+        "cover_template",
+        "verse_popup_style",
+        "note_popup_style",
+        # K-R6-6 — in-page verse-badge form ("chip" | "glyph+count");
+        # absent = target default (chip on eink, glyph+count elsewhere).
+        "marker_badge_style",
+        "marker_style",
+        "topical_index_source",
+        # ψ.37-C: time_filter_ceiling — stored as text in YAML
+        # ("null" or a year like "1900"); the YAML loader parses
+        # unquoted digits into ints and "null"/empty into None.
+        "time_filter_ceiling",
+        # K-R4-2 — popup-unit split cap (stripped chars; 0 = off; unset =
+        # the device-calibrated default). Stored as a YAML int like
+        # time_filter_ceiling; validated in api_save_edition_meta.
+        "note_popup_split_cap",
+        # K-R6-2 — popup-unit BYTE cap (estimated post-kepubify serialized
+        # bytes; 0 = off; unset = the calibrated default). Same storage and
+        # validation pattern as note_popup_split_cap.
+        "note_popup_split_byte_cap",
+        # Free-text front-matter fields (builder-editable via /customize).
+        "description",
+        "dedication",
+        # σ.4 — edition-identity fields surfaced on the /customize name card.
+        # display_name = the cover subtitle + Your-Edition heading ("" → cover
+        # shows only the main title, no subtitle); cover_main_title = the fixed
+        # big cover line (default "HOLY BIBLE" when unset). Both feed the cover
+        # compositor, so api_save_edition_meta caps their length (σ.4.4)
+        # to keep a pathological value from overrunning the cover frame.
+        "display_name",
+        "cover_main_title",
+        # K-R2 — the wizard's reader-target pick.
+        "target_reader",
+        # K-KIN (C) — per-reader popup-language cap. Stored as a YAML int
+        # like note_popup_split_cap; validated through the build's own
+        # resolver (one resolver, no second rule set).
+        "max_popup_languages",
+    }
+)
+EDITABLE_BOOL_FIELDS: frozenset[str] = frozenset(
+    {
+        "verse_popups",
+        "note_attribution_dedup",
+        "note_group_by_category",
+        "note_topic_dedup",
+        "reader_toc_collapsible",
+        "reader_toc_default_open",
+        # K-R2-6 — keep/drop the closing colophon page (default keep).
+        "closing_colophon",
+        "enable_ai_notes",
+    }
+)
+# Scalars the clone writer handles specially: title is replaced by the
+# clone's new title; cover_image honors the override/copied-files path.
+CLONE_SCALAR_SPECIAL: frozenset[str] = frozenset({"title", "cover_image"})
+
 
 # ---------------------------------------------------------------------
 # Private helpers — moved with the handlers because they're used only
@@ -134,29 +214,21 @@ def _append_cloned_edition(
 
     scalar_fields = [
         ("title", new_title),
-        ("short_title", src.get("short_title", "")),
         # Ω.0 pivot (2026-05-14): isbn field dropped from editions.yaml. term-ref-ok
+        # canon + max_phase are identity/kind-gate scalars outside the
+        # EDITABLE registry — carried explicitly (mint-10 #high pinned
+        # max_phase; src.get with no default keeps absent fields absent).
         ("canon", src.get("canon", "")),
-        ("target_audience", src.get("target_audience", "")),
-        ("verse_popups", src.get("verse_popups", True)),
-        ("verse_marker_glyph", src.get("verse_marker_glyph", "")),
-        ("popup_translation", src.get("popup_translation", "")),
-        ("theme", src.get("theme", "classic")),
-        ("notes", src.get("notes", "")),
-        ("description", src.get("description", "")),
-        ("dedication", src.get("dedication", "")),
-        # σ.4 — edition-identity fields. Use src.get(name) with no default so an
-        # absent field stays absent on the clone (None is skipped below),
-        # preserving the source's effective default (HOLY BIBLE / title).
-        ("display_name", src.get("display_name")),
-        ("cover_main_title", src.get("cover_main_title")),
-        ("cover_template", src.get("cover_template")),
-        ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
-        # mint-10 #high — phase/AI kind-gate scalars. Use src.get(name) with no
-        # default so an absent field stays absent on the clone (None is skipped
-        # below), preserving the source's effective default exactly.
         ("max_phase", src.get("max_phase")),
-        ("enable_ai_notes", src.get("enable_ai_notes")),
+        ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
+    ]
+    # Every other editable scalar flows from the SAME registry api_save
+    # validates against (clone-whitelist defect class, K-KIN session):
+    # src.get(name) with no default so an absent field stays absent on the
+    # clone, preserving the source's effective default exactly.
+    scalar_fields += [
+        (fname, src.get(fname))
+        for fname in sorted((EDITABLE_TEXT_FIELDS | EDITABLE_BOOL_FIELDS) - CLONE_SCALAR_SPECIAL)
     ]
     for fname, fval in scalar_fields:
         if fval is None:
@@ -199,6 +271,8 @@ def _append_cloned_edition(
         "note_families_off_per_chapter",
         "popup_languages_per_chapter",
         "popup_languages_per_verse",
+        # K-KIN (C) — the bible-wide capped pick (flat list of group names).
+        "popup_languages_capped",
     ):
         _hv = src.get(_hf)
         if _hv:
@@ -662,6 +736,10 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "note_families_off_per_chapter",
         "popup_languages_per_chapter",
         "popup_languages_per_verse",
+        # K-KIN (C) — per-reader popup-language cap + the bible-wide pick
+        # that fills it (kindle defaults: cap 2, Hebrew + Greek).
+        "max_popup_languages",
+        "popup_languages_capped",
     }
 
     changes: list[dict] = []
@@ -709,65 +787,6 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
-
-    EDITABLE_TEXT = {
-        "title",
-        "short_title",
-        "target_audience",
-        "notes",
-        "verse_marker_glyph",
-        "theme",
-        "popup_translation",
-        "cover_image",
-        "chapter_number_format",
-        "chapter_number_decoration",
-        "book_toc_ornament",
-        "title_page_style",
-        "cover_template",
-        "verse_popup_style",
-        "note_popup_style",
-        # K-R6-6 — in-page verse-badge form ("chip" | "glyph+count");
-        # absent = target default (chip on eink, glyph+count elsewhere).
-        "marker_badge_style",
-        "marker_style",
-        "topical_index_source",
-        # ψ.37-C: time_filter_ceiling — stored as text in YAML
-        # ("null" or a year like "1900"); the YAML loader parses
-        # unquoted digits into ints and "null"/empty into None.
-        "time_filter_ceiling",
-        # K-R4-2 — popup-unit split cap (stripped chars; 0 = off; unset =
-        # the device-calibrated default). Stored as a YAML int like
-        # time_filter_ceiling; validated below.
-        "note_popup_split_cap",
-        # K-R6-2 — popup-unit BYTE cap (estimated post-kepubify serialized
-        # bytes; 0 = off; unset = the calibrated 8,000 default). Same storage
-        # and validation pattern as note_popup_split_cap.
-        "note_popup_split_byte_cap",
-        # Free-text front-matter fields (builder-editable via /customize).
-        "description",
-        "dedication",
-        # σ.4 — edition-identity fields surfaced on the /customize name card.
-        # display_name = the cover subtitle + Your-Edition heading ("" → cover
-        # shows only the main title, no subtitle); cover_main_title = the fixed
-        # big cover line (default "HOLY BIBLE" when unset). Both feed the cover
-        # compositor, so api_save_edition_meta caps their length below (σ.4.4)
-        # to keep a pathological value from overrunning the cover frame.
-        "display_name",
-        "cover_main_title",
-        # K-R2 — the wizard's reader-target pick (validated below).
-        "target_reader",
-    }
-    EDITABLE_BOOL = {
-        "verse_popups",
-        "note_attribution_dedup",
-        "note_group_by_category",
-        "note_topic_dedup",
-        "reader_toc_collapsible",
-        "reader_toc_default_open",
-        # K-R2-6 — keep/drop the closing colophon page (default keep).
-        "closing_colophon",
-        "enable_ai_notes",
-    }
 
     if "theme" in payload:
         valid_theme_ids = {t["id"] for t in _load_themes()}
@@ -936,6 +955,75 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                 return {"error": f"note_popup_split_byte_cap must be >= 0: {v_int}"}
             payload["note_popup_split_byte_cap"] = str(v_int)
 
+    # K-KIN (C) — popup-language cap + bible-wide pick. Normalize the two
+    # fields, then validate the MERGED record through the build's own
+    # resolvers (resolve_popup_language_cap / resolve_popup_language_pick)
+    # so a save can never store a combination the build would refuse —
+    # including a target_reader flip that makes a stored pick over-cap.
+    _cap_pick_keys = ("max_popup_languages", "popup_languages_capped", "target_reader")
+    if any(k in payload for k in _cap_pick_keys):
+        from scripts.build_edition import (
+            POPUP_LANGUAGE_GROUPS,
+            resolve_popup_language_cap,
+            resolve_popup_language_pick,
+        )
+
+        merged = dict(eds[edition_id])
+
+        if "max_popup_languages" in payload:
+            v = payload["max_popup_languages"]
+            if v is None or v == "" or v == "null":
+                payload["max_popup_languages"] = "null"
+                merged.pop("max_popup_languages", None)
+            else:
+                try:
+                    v_int = int(v)
+                except (TypeError, ValueError):
+                    return {"error": f"max_popup_languages must be an integer 1..4 or null, got {v!r}"}
+                payload["max_popup_languages"] = str(v_int)
+                merged["max_popup_languages"] = v_int
+
+        if "popup_languages_capped" in payload:
+            v = payload["popup_languages_capped"]
+            if v is None:
+                v = []
+            if isinstance(v, str):
+                # The /customize hidden-input control submits a comma-joined string.
+                v = [s for s in v.split(",") if s.strip()]
+            if not isinstance(v, list):
+                return {"error": "popup_languages_capped must be a list of language groups"}
+            cleaned_pick: list[str] = []
+            for item in v:
+                if not isinstance(item, str):
+                    return {"error": "popup_languages_capped items must be strings"}
+                s = item.strip().lower()
+                if not s:
+                    continue
+                if s not in POPUP_LANGUAGE_GROUPS:
+                    # Validated here too (not only via the merged-record
+                    # resolver below): an UNCAPPED edition's resolver
+                    # short-circuits before reading the pick, and a junk
+                    # name must never be stored to surface later.
+                    return {
+                        "error": (
+                            f"popup_languages_capped: unknown language group {s!r}; "
+                            f"valid: {sorted(POPUP_LANGUAGE_GROUPS)}"
+                        )
+                    }
+                if s not in cleaned_pick:
+                    cleaned_pick.append(s)
+            merged["popup_languages_capped"] = cleaned_pick
+            payload["popup_languages_capped"] = cleaned_pick
+
+        if "target_reader" in payload:
+            merged["target_reader"] = payload["target_reader"]
+
+        try:
+            resolve_popup_language_cap(merged)
+            resolve_popup_language_pick(merged)
+        except ValueError as exc:
+            return {"error": str(exc)}
+
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (
         ALL_POPUP_LANGUAGES,
@@ -963,6 +1051,10 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if s not in cleaned:
                 cleaned.append(s)
         list_field_updates["popup_languages_default"] = cleaned
+
+    if "popup_languages_capped" in payload:
+        # Already normalized + group-validated in the K-KIN block above.
+        list_field_updates["popup_languages_capped"] = list(payload["popup_languages_capped"])
 
     if "traditions_default" in payload:
         from scripts.core.traditions import TRADITION_IDS
@@ -1136,7 +1228,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         list_field_updates["book_covers"] = encode_book_covers(cleaned_covers)
 
     updates: dict[str, str] = {}
-    for field in EDITABLE_TEXT:
+    for field in EDITABLE_TEXT_FIELDS:
         if field in payload:
             val = payload[field] or ""
             if isinstance(val, str):
@@ -1159,7 +1251,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                 updates[field] = val
             else:
                 return {"error": f"{field} must be a string"}
-    for field in EDITABLE_BOOL:
+    for field in EDITABLE_BOOL_FIELDS:
         if field in payload:
             v = payload[field]
             if v not in (True, False):

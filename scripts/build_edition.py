@@ -988,6 +988,66 @@ POPUP_LANGUAGES.update(
 
 ALL_POPUP_LANGUAGES: tuple[str, ...] = tuple(POPUP_LANGUAGES.keys())
 
+# K-KIN (C) — per-reader popup-language cap (board-ratified 2026-06-11,
+# user-refined ×2). A capped reader (kindle: KFX rejects the full 4-witness
+# apparatus above ~45-55MB raw — oracle-bisected) carries at most
+# `max_popup_languages` witness LANGUAGE GROUPS in its verse popups, picked
+# bible-wide by the builder (`popup_languages_capped`). English (kjv) is the
+# edition's base language, not one of the four groups — it rides along
+# untouched when the bible-wide baseline includes it. Uncapped readers keep
+# the fine-grained per-book/chapter/verse machinery exactly as before.
+POPUP_LANGUAGE_GROUPS: dict[str, tuple[str, ...]] = {
+    "hebrew": ("wlc",),
+    "greek": ("lxx-greek", "greek-nt"),
+    "latin": ("vulgate",),
+    "arabic": ("arabic",),
+}
+POPUP_LANGUAGE_GROUP_ORDER: tuple[str, ...] = ("hebrew", "greek", "latin", "arabic")
+MAX_POPUP_LANGUAGES_KINDLE = 2
+
+
+def resolve_popup_language_cap(edition: dict) -> int | None:
+    """The edition's popup-language cap — the single resolver (explicit
+    ``max_popup_languages`` > the reader-target default > uncapped).
+    ``None`` = uncapped. Explicit values outside 1..4 raise: 0 would be
+    ambiguous (use ``verse_popups: false`` / an empty language list to
+    remove popups) and >4 exceeds the group universe."""
+    explicit = edition.get("max_popup_languages")
+    if explicit is None or (isinstance(explicit, str) and not explicit.strip()):
+        return MAX_POPUP_LANGUAGES_KINDLE if is_kindle_target(edition) else None
+    try:
+        cap = int(explicit)
+    except (TypeError, ValueError):
+        raise ValueError(f"max_popup_languages must be an integer 1..4, got {explicit!r}") from None
+    if not 1 <= cap <= len(POPUP_LANGUAGE_GROUP_ORDER):
+        raise ValueError(f"max_popup_languages must be 1..{len(POPUP_LANGUAGE_GROUP_ORDER)}, got {cap}")
+    return cap
+
+
+def resolve_popup_language_pick(edition: dict) -> tuple[str, ...]:
+    """The bible-wide language groups that fill the cap. Empty tuple when
+    uncapped. Explicit ``popup_languages_capped`` wins (deduped, order
+    kept; unknown group names and over-cap picks raise — the api_save
+    validator enforces the same rules at edit time); the ready-made
+    default is the priority order truncated to the cap (kindle cap 2 ->
+    Hebrew + Greek, the ratified default)."""
+    cap = resolve_popup_language_cap(edition)
+    if cap is None:
+        return ()
+    raw = edition.get("popup_languages_capped") or []
+    picks: list[str] = []
+    for name in raw:
+        name = str(name).strip().lower()
+        if name not in POPUP_LANGUAGE_GROUPS:
+            raise ValueError(
+                f"popup_languages_capped: unknown language group {name!r}; valid: {sorted(POPUP_LANGUAGE_GROUPS)}"
+            )
+        if name not in picks:
+            picks.append(name)
+    if len(picks) > cap:
+        raise ValueError(f"popup_languages_capped lists {len(picks)} groups but max_popup_languages is {cap}")
+    return tuple(picks) if picks else POPUP_LANGUAGE_GROUP_ORDER[:cap]
+
 
 def _resolve_popup_languages(edition: dict, book_code: str, chapter=None, verse=None) -> set[str]:
     """Resolve the active popup-language set for one (edition, book[, chapter, verse]).
@@ -1006,7 +1066,25 @@ def _resolve_popup_languages(edition: dict, book_code: str, chapter=None, verse=
 
     Returns a set of language ids — only ids in POPUP_LANGUAGES are retained;
     legacy ids (english/hebrew/greek) map to version ids via resolve_version_id.
+
+    Under a popup-language cap (K-KIN (C)) the pick is BIBLE-WIDE: the
+    per-verse/chapter/book tiers are bypassed entirely (the user-ratified
+    design — predictable byte budget, simple UI) and the resolved set is
+    the picked groups' version ids, plus kjv when the edition's bible-wide
+    baseline carries English.
     """
+    cap_pick = resolve_popup_language_pick(edition)
+    if cap_pick:
+        capped = {vid for group in cap_pick for vid in POPUP_LANGUAGE_GROUPS[group]}
+        baseline_raw = edition.get("popup_languages_default")
+        if baseline_raw is None:
+            baseline = set(_pv.DEFAULT_POPUP_WITNESSES)
+        else:
+            baseline = {(_pv.resolve_version_id(lang) or lang) for lang in baseline_raw}
+        if "kjv" in baseline:
+            capped.add("kjv")
+        return {m for m in capped if m in POPUP_LANGUAGES}
+
     raw: list[str] | None = None
 
     if chapter is not None and verse is not None:
@@ -1220,6 +1298,33 @@ def _strip_language_paragraph(body: str, lang_id: str) -> tuple[str, int]:
     return body, removed
 
 
+# K-KIN (B) — kindle popup compaction (zero-loss): the full source-label
+# paragraphs ("Hebrew (Masoretic / WLC)" ×119,625 verbatim repeats = ~10MB of
+# the apparatus) compact to short codes, and the per-verse header compacts to
+# "<Book> N:M" from the canonical english book name. Kindle-gated at this
+# emitter; every other target keeps the full labels byte-identical. The
+# zip-level proof is the rung-LANGCAP oracle artifact (dev/kindle_bisect.py).
+COMPACT_SOURCE_LABELS: dict[str, str] = {
+    "vnote-hebrew": "Heb",
+    "vnote-greek": "Grc",
+    "vnote-greek-nt": "Grc",
+    "vnote-vulgate": "Lat",
+    "vnote-arabic": "Ara",
+    "vnote-text": "Eng",
+}
+
+# A source-label paragraph + the content paragraph it labels (label kept
+# tight to its content so a label belonging to another language is never
+# rewritten — same adjacency rule as _strip_language_paragraph).
+_VNOTE_LABEL_BEFORE_CONTENT_RE = re.compile(
+    r'[ \t]*<p\s+class="vnote-source-label">[^<]*</p>\s*(<p\s+class="([a-z0-9-]+)")'
+)
+
+# The per-verse popup header — the first <p><strong>…</strong></p> in an
+# aside body (the back-link para is <p><a …>, so first-only is safe).
+_VNOTE_HEADER_RE = re.compile(r"<p><strong>[^<]*</strong></p>")
+
+
 def _apply_popup_languages_and_translation(
     html_text: str,
     edition: dict,
@@ -1238,6 +1343,7 @@ def _apply_popup_languages_and_translation(
     into a single dict so build_one needs only one accumulator.
     """
     from scripts.core import translations as _tx
+    from scripts.core.book_native_names import NATIVE_NAMES as _BOOK_NAMES
 
     stats = {
         "replaced": 0,
@@ -1246,8 +1352,12 @@ def _apply_popup_languages_and_translation(
         "language_paragraphs_stripped": 0,
         "asides_seen": 0,
         "kjv_fallbacks": 0,
+        "labels_compacted": 0,
+        "headers_compacted": 0,
+        "headers_kept": 0,
     }
     short_label = translation_short or (translation_id.upper() if translation_id else "")
+    compact_for_kindle = is_kindle_target(edition)
 
     def _process(m: re.Match) -> str:
         opening = m.group(1)
@@ -1308,10 +1418,58 @@ def _apply_popup_languages_and_translation(
             body, n = _strip_language_paragraph(body, lang_id)
             stats["language_paragraphs_stripped"] += n
 
+        # Step 3 — K-KIN (B) kindle compaction. Runs AFTER the strip so only
+        # surviving labels are rewritten. Labels before a content class
+        # outside the compact map (douay/jps/geez/… — never active under a
+        # cap, but honest if they ever are) keep their full text.
+        if compact_for_kindle:
+
+            def _compact_label(lm: re.Match) -> str:
+                short = COMPACT_SOURCE_LABELS.get(lm.group(2))
+                if short is None:
+                    return lm.group(0)
+                stats["labels_compacted"] += 1
+                return f'<p class="vnote-source-label">{short}</p>' + lm.group(1)
+
+            body = _VNOTE_LABEL_BEFORE_CONTENT_RE.sub(_compact_label, body)
+
+            book_name = (_BOOK_NAMES.get(book) or {}).get("english")
+            if book_name:
+                body, n_hdr = _VNOTE_HEADER_RE.subn(
+                    f"<p><strong>{_xml_escape_text(book_name)} {ch}:{vs}</strong></p>",
+                    body,
+                    count=1,
+                )
+                stats["headers_compacted"] += n_hdr
+            elif _VNOTE_HEADER_RE.search(body):
+                # No canonical english name for this book code — keep the
+                # baked header rather than inventing one.
+                stats["headers_kept"] += 1
+
         return opening + body + closing
 
     new_html = _VNOTE_ASIDE_RE.sub(_process, html_text)
     return new_html, stats
+
+
+def _vnote_pass_needed(edition: dict) -> bool:
+    """Whether build_one must run the unified vnote pass. It runs when
+    popups are on AND any of: a translation is set; the edition has explicit
+    popup_languages config in ANY of the five resolution tiers (mint-11
+    audit MED: per-chapter/per-verse were once missing here, silently
+    skipping all pruning); or a popup-language cap is active (K-KIN (C) —
+    a bare kindle-target edition caps by default, and skipping the pass
+    would silently ignore the cap AND the kindle compaction)."""
+    if not bool(edition.get("verse_popups", True)):
+        return False
+    return (
+        bool((edition.get("popup_translation") or "").strip())
+        or edition.get("popup_languages_default") is not None
+        or bool(edition.get("popup_languages_per_book"))
+        or bool(edition.get("popup_languages_per_chapter"))
+        or bool(edition.get("popup_languages_per_verse"))
+        or resolve_popup_language_cap(edition) is not None
+    )
 
 
 def _build_disabled_kind_res(disabled_kinds: set) -> tuple[re.Pattern | None, re.Pattern | None]:
@@ -6066,21 +6224,9 @@ def build_one(
         meta = _tx.translation_meta(popup_translation_id) or {}
         popup_translation_short = meta.get("short_title", popup_translation_id.upper())
 
-    # Decide whether the unified vnote pass is needed. It runs when
-    # popups are on AND either (a) a translation is set OR (b) the
-    # edition has explicit popup_languages config in ANY of the five
-    # resolution tiers that _resolve_popup_languages consults
-    # (per-verse > per-chapter > per-book > default > DEFAULT). If none,
-    # the pass would be a no-op so we skip it to keep build times tight.
-    # mint-11 audit MED: per-chapter / per-verse were missing here, so an
-    # edition setting ONLY one of them silently skipped all language pruning.
-    needs_vnote_pass = verse_popups_enabled and (
-        bool(popup_translation_id)
-        or edition.get("popup_languages_default") is not None
-        or bool(edition.get("popup_languages_per_book"))
-        or bool(edition.get("popup_languages_per_chapter"))
-        or bool(edition.get("popup_languages_per_verse"))
-    )
+    # Decide whether the unified vnote pass is needed (extracted to
+    # _vnote_pass_needed so the gating itself is unit-pinned).
+    needs_vnote_pass = _vnote_pass_needed(edition)
 
     # Phase ω.20-B — content-addressable cache key. Computed once per
     # build_one call; reused for the lookup-on-entry below and the
@@ -6282,6 +6428,13 @@ def build_one(
                 stats["vnote_translations_missed"] += vp_counts["missed"]
                 stats["vnote_language_paragraphs_stripped"] += vp_counts["language_paragraphs_stripped"]
                 stats["vnote_kjv_fallbacks"] = stats.get("vnote_kjv_fallbacks", 0) + vp_counts.get("kjv_fallbacks", 0)
+                # K-KIN (B) — kindle compaction counters (0 off-kindle).
+                stats["vnote_labels_compacted"] = stats.get("vnote_labels_compacted", 0) + vp_counts.get(
+                    "labels_compacted", 0
+                )
+                stats["vnote_headers_compacted"] = stats.get("vnote_headers_compacted", 0) + vp_counts.get(
+                    "headers_compacted", 0
+                )
 
             # Phase ψ.8.2-B — label surviving editorial-note asides with
             # their tradition. Skipped entirely when the edition has no

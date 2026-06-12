@@ -511,31 +511,36 @@ const TARGET_CAPS = {
   everywhere: {
     label: '🌍 Everywhere',
     toc_expandable: false,
+    max_popup_languages: null,
     note: 'Safest build — renders well on every reader.',
     gate_reason: 'Not offered for an everywhere build: some readers can’t operate collapsible lists (Adobe Digital Editions documents them as unsupported; Google Play Books on Android can’t expand them at all) — the chapter pills stay always visible instead.', // term-ref-ok
   },
   eink: {
     label: '📖 E-ink reader',
     toc_expandable: false,
+    max_popup_languages: null,
     note: "On Kobo, load the .kepub copy. The downloadable font pack covers Hebrew, Greek and Ge'ez in popups.",
     gate_reason: 'E-ink reading engines don’t do collapsible lists (KOReader renders them permanently flat by design; Kindle’s format has no support for them) — the chapter pills stay always visible instead.',
   },
   tablet: {
     label: '📱 Phone / tablet',
     toc_expandable: true,
+    max_popup_languages: null,
     note: 'Verified in Apple Books — tap a book to expand or collapse its chapters. Skip this option if you read in Google Play Books (it can’t expand collapsed lists); very long books may need scrolling view.', // term-ref-ok
     gate_reason: '',
   },
   computer: {
     label: '💻 Computer',
     toc_expandable: false,
+    max_popup_languages: null,
     note: 'Conservative defaults for desktop readers.',
     gate_reason: 'Adobe Digital Editions documents collapsible lists as unsupported, so the chapters could never expand there — the safe desktop default keeps the chapter pills always visible.',
   },
   kindle: {
     label: '📬 Kindle',
     toc_expandable: false,
-    note: 'Built for Send to Kindle: notes render as visible endnotes (Kindle has no popup footnotes), chapter lists are plain rows, and the metadata passes Amazon’s delivery checks.',
+    max_popup_languages: 2,
+    note: 'Built for Send to Kindle: notes render as visible endnotes (Kindle has no popup footnotes), chapter lists are plain rows, the metadata passes Amazon’s delivery checks, and verse popups carry at most 2 original languages (your pick — ready-made default Hebrew + Greek; Kindle’s converter rejects the full apparatus).',
     gate_reason: 'Kindle’s format has no support for collapsible lists — the chapter rows stay always visible instead.',
   },
 };

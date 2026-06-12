@@ -527,7 +527,24 @@ function renderEditions() {
                 <option value="kindle"     ${e.target_reader === 'kindle' ? 'selected' : ''}>📬 Kindle (Send to Kindle — visible endnotes)</option>
               </select>
             </label>
-            <div></div>
+            <label class="text-xs">
+              <span class="block mb-1 font-medium text-slate-700">Popup language cap</span>
+              <select class="label-input w-full" data-field="max_popup_languages" title="K-KIN — most verse-popup languages this edition carries (Kindle's converter rejects the full 4-language apparatus, so kindle targets cap at 2 by default; other targets are uncapped). The value shown is what builds today.">
+                <option value="">reader default (Kindle 2 · others uncapped)</option>
+                <option value="1" ${String(e.max_popup_languages) === '1' ? 'selected' : ''}>1 language</option>
+                <option value="2" ${String(e.max_popup_languages) === '2' ? 'selected' : ''}>2 languages</option>
+                <option value="3" ${String(e.max_popup_languages) === '3' ? 'selected' : ''}>3 languages</option>
+                <option value="4" ${String(e.max_popup_languages) === '4' ? 'selected' : ''}>4 languages (all)</option>
+              </select>
+            </label>
+            <div class="text-xs md:col-span-2 cap-pick-row" data-max-cap="${e.max_popup_languages === null ? '' : e.max_popup_languages}">
+              <span class="block mb-1 font-medium text-slate-700">Capped popup languages <span class="text-slate-400 font-normal">(bible-wide pick that fills the cap — used only when a cap applies; default Hebrew + Greek)</span></span>
+              <input type="hidden" data-field="popup_languages_capped" class="cap-pick-value" value="${escapeAttr((e.popup_languages_capped||[]).join(','))}">
+              <label class="inline-flex items-center gap-1 mr-3"><input type="checkbox" class="cap-pick-box" data-cap-group="hebrew" ${(e.popup_languages_capped||[]).includes('hebrew') ? 'checked' : ''}><span>Hebrew</span></label>
+              <label class="inline-flex items-center gap-1 mr-3"><input type="checkbox" class="cap-pick-box" data-cap-group="greek" ${(e.popup_languages_capped||[]).includes('greek') ? 'checked' : ''}><span>Greek</span></label>
+              <label class="inline-flex items-center gap-1 mr-3"><input type="checkbox" class="cap-pick-box" data-cap-group="latin" ${(e.popup_languages_capped||[]).includes('latin') ? 'checked' : ''}><span>Latin</span></label>
+              <label class="inline-flex items-center gap-1 mr-3"><input type="checkbox" class="cap-pick-box" data-cap-group="arabic" ${(e.popup_languages_capped||[]).includes('arabic') ? 'checked' : ''}><span>Arabic</span></label>
+            </div>
             <label class="text-xs flex items-center gap-2">
               <input type="checkbox" data-field="reader_toc_collapsible" ${e.reader_toc_collapsible === true ? 'checked' : ''}>
               <span>Expandable chapter lists in the Contents page <span class="text-slate-400">(capable readers only — e-ink/ADE render the pills always-visible instead)</span></span>
@@ -743,6 +760,12 @@ function renderEditions() {
           </span>
         </summary>
         <div class="p-3 popup-langs-body" data-edition-id="${e.id}">
+          ${e.max_popup_languages !== null && e.max_popup_languages !== undefined ? `
+          <div class="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded p-2 mb-2 cap-bypass-note">
+            ⚠ This edition's reader target caps popups at ${e.max_popup_languages} language${e.max_popup_languages === 1 ? '' : 's'}
+            (bible-wide pick: ${(e.popup_languages_capped || []).join(' + ') || 'Hebrew + Greek'}).
+            The build uses that pick everywhere — the per-book settings below are bypassed while the cap applies.
+          </div>` : ''}
           <div class="text-xs text-slate-500 mb-2">
             <strong>Default for all books:</strong>
             <span class="text-slate-400">applies to every book in the canon unless overridden below</span>
@@ -875,6 +898,9 @@ function renderEditions() {
     // picker + Custom… input sync into the hidden display_name field (which
     // participates in the standard dirty-check / payload above).
     wireIdentityCard(box, ed);
+    // K-KIN (C) — the capped popup-language checkboxes sync into the hidden
+    // popup_languages_capped data-field input (standard dirty-check path).
+    wireCapPickRow(box);
     // §4.6 — Cover picker + uploads. Immediate-action panel (pick →
     // server-side recompose; uploads → multipart), so it's wired
     // independently of the Save button / dirty-check.
@@ -957,6 +983,24 @@ function nameSuggestions(edition) {
 }
 
 const CUSTOM_NAME_SENTINEL = '✏ Custom…';  // "✏ Custom…"
+
+// K-KIN (C) — sync the 4 capped-language checkboxes into the hidden
+// popup_languages_capped input (comma-joined, fixed hebrew/greek/latin/arabic
+// order for determinism) and fire the events the standard dirty-check
+// listens for. The cap itself is a plain data-field select; the build
+// enforces pick<=cap, and the API refuses an over-cap save.
+function wireCapPickRow(box) {
+  const row = box.querySelector('.cap-pick-row');
+  if (!row) return;
+  const hidden = row.querySelector('.cap-pick-value');
+  const checks = [...row.querySelectorAll('.cap-pick-box')];
+  if (!hidden || !checks.length) return;
+  checks.forEach(cb => cb.addEventListener('change', () => {
+    hidden.value = checks.filter(b => b.checked).map(b => b.dataset.capGroup).join(',');
+    hidden.dispatchEvent(new Event('input', {bubbles: true}));
+    hidden.dispatchEvent(new Event('change', {bubbles: true}));
+  }));
+}
 
 function wireIdentityCard(box, edition) {
   const card = box.querySelector('.ed-identity-card');

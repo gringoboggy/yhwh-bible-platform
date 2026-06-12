@@ -322,6 +322,8 @@ def api_customize_data() -> dict:
         decode_per_chapter_languages,
         decode_per_verse_languages,
         resolve_marker_badge_style,
+        resolve_popup_language_cap,
+        resolve_popup_language_pick,
         resolve_target_reader,
     )
     from scripts.core import matrix as _matrix
@@ -445,6 +447,11 @@ def api_customize_data() -> dict:
                 # target-dependent: chip on eink — ◈ never renders on Kobo —
                 # glyph+count elsewhere) so /customize shows what builds.
                 "marker_badge_style": resolve_marker_badge_style(e),
+                # K-KIN (C) — popup-language cap + bible-wide pick, surfaced
+                # RESOLVED like marker_badge_style (kindle defaults to cap 2 /
+                # Hebrew + Greek even with nothing stored); null = uncapped.
+                "max_popup_languages": resolve_popup_language_cap(e),
+                "popup_languages_capped": list(resolve_popup_language_pick(e)),
                 # Torrey merge — which topical authority feeds the back-of-book index.
                 "topical_index_source": e.get("topical_index_source", "both"),
                 # K-R2 (2026-06-09) — in-content-ToC + reader-target fields. These were
