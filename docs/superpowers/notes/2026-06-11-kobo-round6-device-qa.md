@@ -125,6 +125,11 @@ points · (b) accept as-is · (c) larger pieces on non-eink targets).
 - **K-R6-6 reconfirmed: NO ◈ glyphs anywhere** (bare superscript counts
   only) — the Mac's chip-badge fix (`marker_badge_style: chip` on eink,
   shipped post-r6) is the cure; ships in round-7.
+- **K-R6-4 reconfirmed on-device: "BOOK<numeral>" runs together on EVERY
+  title page (all numerals, not one book)** — expected on r6 (the bug is
+  the kepub engine eating the space under the small-caps styling; the
+  emitter-level nbsp fix shipped post-r6, pinned in
+  tests/test_eyebrow_renumber.py for the general pattern). Cure: round-7.
 
 ## Assignments
 
