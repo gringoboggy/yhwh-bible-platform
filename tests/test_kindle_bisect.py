@@ -632,6 +632,71 @@ class TestLangcapHtml:
         assert 'id="vnote-exo-1-1"' in out
 
 
+BYTEDIAL_DOC = (
+    "<html><body>"
+    '<p class="verse"><a id="v-exo-1-1"></a>1 scripture text stays whole</p>'
+    '<aside class="vnote" id="vnote-exo-1-1" epub:type="footnote">'
+    "<p><strong>Exodus 1:1</strong></p>"
+    '<p class="vnote-source-label">Heb</p>'
+    '<p class="vnote-hebrew" dir="rtl" lang="he"><em>\u05e9\u05de\u05d5\u05ea</em> <em>\u05d1\u05e0\u05d9</em> AT&amp;T</p>'
+    '<p><a href="#v-exo-1-1" class="vnote-back" title="Back">\u21a9</a></p>'
+    "</aside>"
+    '<aside class="verse-notes" id="vnotes-exo-1-1" epub:type="footnote">'
+    '<p class="vn-back"><a href="#vbadge-exo-1-1" class="note-back">\u21a9</a> <strong>1:1</strong></p>'
+    '<div class="vn-item note-comm"><p>a long enough comment body for cutting <div class="inner">nested</div></p></div>'
+    '<div class="vn-item note-dict-easton"><p>second entry</p></div>'
+    "</aside>"
+    "</body></html>"
+)
+
+
+class TestBytedialHtml:
+    """rung BYTEDIAL — pinpoint the full-graph byte ceiling: per popup/notes
+    aside keep the FIRST child (header / back para) and a byte-budgeted
+    prefix of the remaining top-level children, dropped WHOLE (XML-safe,
+    depth-aware). Scripture, doc count, aside count and every link-graph id
+    stay constant — total bytes is the only variable. f=0 collapses every
+    aside to its header (the vnotegut PASS shape); f=1 is identity."""
+
+    def test_fraction_one_is_identity(self):
+        assert kindle_bisect.bytedial_html(BYTEDIAL_DOC, 1.0) == BYTEDIAL_DOC
+
+    def test_fraction_zero_keeps_only_first_child(self):
+        out = kindle_bisect.bytedial_html(BYTEDIAL_DOC, 0.0)
+        assert "scripture text stays whole" in out
+        assert "<p><strong>Exodus 1:1</strong></p>" in out  # vnote header kept
+        assert "vn-back" in out  # verse-notes back para kept
+        assert "vnote-hebrew" not in out and "vn-item" not in out
+        assert out.count("<aside") == 2 and out.count("</aside>") == 2
+        assert 'id="vnote-exo-1-1"' in out and 'id="vnotes-exo-1-1"' in out
+
+    def test_mid_fraction_keeps_child_prefix_whole(self):
+        out = kindle_bisect.bytedial_html(BYTEDIAL_DOC, 0.5)
+        # children are kept or dropped WHOLE - never a torn tag
+        assert out.count("<div") == out.count("</div>")
+        assert out.count("<p") == out.count("</p>")
+        for frag in ("vnote-hebrew", "vn-item"):
+            # any survivor of a partial keep is intact (open + close pair)
+            if frag in out:
+                assert f'class="{frag}' in out
+
+    def test_nested_div_child_dropped_whole(self):
+        out = kindle_bisect.bytedial_html(BYTEDIAL_DOC, 0.0)
+        assert "nested" not in out and "second entry" not in out
+
+    def test_graph_ids_preserved_at_any_fraction(self):
+        import re
+
+        graph_re = re.compile(r'id="((?:vnotes|vnote|vbadge|v)-[^"]+)"')
+        for f in (0.0, 0.33, 0.66, 1.0):
+            out = kindle_bisect.bytedial_html(BYTEDIAL_DOC, f)
+            assert set(graph_re.findall(out)) == set(graph_re.findall(BYTEDIAL_DOC)), f
+
+    def test_monotone_in_fraction(self):
+        sizes = [len(kindle_bisect.bytedial_html(BYTEDIAL_DOC, f).encode()) for f in (0.0, 0.4, 0.8, 1.0)]
+        assert sizes == sorted(sizes)
+
+
 KINDTRIM_DOC = (
     "<html><body>"
     '<aside class="verse-notes" id="vnotes-jer-25-20" epub:type="footnote">'

@@ -628,6 +628,152 @@ def build_kindtrim(src_epub: Path, out_epub: Path, kinds: tuple[str, ...]) -> di
     return stats
 
 
+# ── rung BYTEDIAL ───────────────────────────────────────────────────────
+# Pinpoint the full-graph byte ceiling (bracket (28.6, 36.8)MB after the
+# easton+cap1 FAIL). Text-only truncation cannot reach the bracket — the
+# apparatus MARKUP alone is ~39.9MB — so the dial works the way the bracket
+# anchors do: per popup/notes aside keep the FIRST child (header / back
+# para; f=0 = the vnotegut PASS shape) plus a byte-budgeted prefix of the
+# remaining top-level children, dropped WHOLE (depth-aware, XML-safe).
+# Doc count, aside count and every link-graph id stay constant; a global
+# remainder-carry keeps the summed total within 1% of the request.
+
+_DIAL_ASIDE_RE = re.compile(r'<aside class="(?:vnote|verse-notes)"[^>]*>(.*?)</aside>', re.S)
+_TAG_RE = re.compile(r"<[^>]+>")
+_VOID_TAGS = frozenset({"hr", "br", "img", "input", "meta", "link", "wbr"})
+
+
+def _split_top_children(inner: str) -> list[str]:
+    """Split aside inner HTML into top-level element chunks (text glued to
+    the preceding chunk). Depth-aware across ALL tags so nested divs inside
+    a vn-item stay inside one chunk."""
+    chunks: list[str] = []
+    depth = 0
+    last = 0
+    for m in _TAG_RE.finditer(inner):
+        tag = m.group(0)
+        name = re.match(r"</?([a-zA-Z0-9]+)", tag)
+        tagname = name.group(1).lower() if name else ""
+        if tag.startswith("</"):
+            depth -= 1
+            if depth == 0:
+                chunks.append(inner[last : m.end()])
+                last = m.end()
+        elif tag.endswith("/>") or tagname in _VOID_TAGS:
+            if depth == 0:
+                chunks.append(inner[last : m.end()])
+                last = m.end()
+        else:
+            depth += 1
+    if inner[last:]:
+        chunks.append(inner[last:])
+    assert depth == 0, "unbalanced aside inner"
+    return chunks
+
+
+class _DialState:
+    """Remainder carry across asides so per-aside flooring cannot sum to a
+    multi-MB global undershoot."""
+
+    def __init__(self, fraction: float) -> None:
+        self.fraction = fraction
+        self.carry = 0.0
+
+
+def _dial_aside(m: re.Match[str], state: _DialState, stats: dict[str, int]) -> str:
+    whole = m.group(0)
+    if state.fraction >= 1.0:
+        return whole
+    open_end = whole.index(">") + 1
+    inner = whole[open_end : -len("</aside>")]
+    chunks = _split_top_children(inner)
+    if len(chunks) <= 1:
+        return whole
+    head, tail = chunks[0], chunks[1:]
+    tail_bytes = sum(len(c.encode("utf-8")) for c in tail)
+    budget = state.fraction * tail_bytes + state.carry
+    kept: list[str] = []
+    used = 0
+    for c in tail:
+        b = len(c.encode("utf-8"))
+        if used + b <= budget:
+            kept.append(c)
+            used += b
+        else:
+            stats["children_dropped"] += 1
+    state.carry = budget - used
+    return whole[:open_end] + head + "".join(kept) + "</aside>"
+
+
+def bytedial_html(
+    text: str, fraction: float, state: _DialState | None = None, stats: dict[str, int] | None = None
+) -> str:
+    """Dial every vnote/verse-notes aside to ``fraction`` of its tail bytes
+    (first child always kept); everything outside the asides is untouched."""
+    if fraction >= 1.0:
+        return text
+    state = state or _DialState(fraction)
+    stats = stats if stats is not None else {"children_dropped": 0}
+    return _DIAL_ASIDE_RE.sub(lambda m: _dial_aside(m, state, stats), text)
+
+
+def _dial_tail_bytes(text: str) -> int:
+    total = 0
+    for m in _DIAL_ASIDE_RE.finditer(text):
+        whole = m.group(0)
+        inner = whole[whole.index(">") + 1 : -len("</aside>")]
+        chunks = _split_top_children(inner)
+        total += sum(len(c.encode("utf-8")) for c in chunks[1:])
+    return total
+
+
+def build_bytedial(src_epub: Path, out_epub: Path, target_total: int) -> dict[str, int]:
+    """Zip-rewrite src_epub so the summed .html/.xhtml bytes land at
+    ``target_total`` (the raw-content measure every rung reports). Two
+    passes: measure the dialable tail mass, derive the fraction, dial with
+    a global remainder carry, verify ±1% + the graph invariants."""
+    total = 0
+    tail = 0
+    with zipfile.ZipFile(src_epub) as zin:
+        for name in zin.namelist():
+            if name.endswith((".html", ".xhtml")):
+                text = zin.read(name).decode("utf-8")
+                total += len(text.encode("utf-8"))
+                tail += _dial_tail_bytes(text)
+    fixed = total - tail
+    assert target_total > fixed, f"target {target_total:,} below the dial floor {fixed:,} (tail mass {tail:,})"
+    fraction = min(1.0, (target_total - fixed) / tail)
+
+    stats = {"bytes_before": total, "bytes_after": 0, "children_dropped": 0, "fraction_pml": int(fraction * 1000)}
+    state = _DialState(fraction)
+    graph_id_re = re.compile(r'id="((?:vnotes|vnote|vbadge|v)-[^"]+)"')
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith((".html", ".xhtml")):
+                text = data.decode("utf-8")
+                out = bytedial_html(text, fraction, state, stats)
+                assert len(re.findall(r"<aside\b", out)) == len(re.findall(r"<aside\b", text)), (
+                    f"aside count changed in {name}"
+                )
+                assert set(graph_id_re.findall(out)) == set(graph_id_re.findall(text)), (
+                    f"link-graph ids changed in {name}"
+                )
+                data = out.encode("utf-8")
+                stats["bytes_after"] += len(data)
+            zout.writestr(name, data)
+    achieved = stats["bytes_after"]
+    assert abs(achieved - target_total) <= max(target_total // 100, 65536), (
+        f"achieved {achieved:,} not within 1% of target {target_total:,}"
+    )
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
