@@ -141,3 +141,19 @@ rest <0.5).
 - **(C) Per-language popup knob** — e.g. kindle drops Arabic/Vulgate
   (~7–8 MB each with labels), keeps Hebrew+Greek.
 - (B)+(C) compose; threshold bracket decides how much is needed.
+
+### In-build implementation SHIPPED (Mac, 2026-06-12, `b9ae8bcc` — TDD 44/44)
+
+The user-ratified (B)+(C) design is now IN THE BUILD (no more zip-level
+simulation): `resolve_popup_language_cap` / `resolve_popup_language_pick`
+(explicit `max_popup_languages` > kindle-default 2 > uncapped; pick key
+`popup_languages_capped`, ready-made default Hebrew+Greek, BIBLE-WIDE
+early-return in `_resolve_popup_languages`) + the kindle-gated compaction
+step in the unified vnote pass (compact `Heb`/`Grc`/`Lat`/`Ara` labels;
+header → "<Book> N:M" from the canonical english book name — fixes the
+rung's comma-surgery artifacts on Greek-Esther/2 Esdras). API validator
+goes through the build's own resolvers on the merged record (atomic
+refuse); /customize cap select + group pick + per-book-navigator bypass
+note; wizard TARGET_CAPS carries the cap. The rung-LANGCAP oracle verdict
+(running at write time) gates the ship; the in-build rebuild gets its own
+Previewer pass before any STK upload.
