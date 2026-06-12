@@ -632,6 +632,47 @@ class TestLangcapHtml:
         assert 'id="vnote-exo-1-1"' in out
 
 
+KINDTRIM_DOC = (
+    "<html><body>"
+    '<aside class="verse-notes" id="vnotes-jer-25-20" epub:type="footnote">'
+    '  <p class="vn-back"><a href="#vbadge-jer-25-20" class="note-back" title="Back">↩</a> <strong>25:20</strong></p>'
+    '  <div class="vn-item note-dict-easton"><span class="vn-sep">• </span>'
+    '<p><span class="note-label">Easton.</span> <strong>UZ</strong> land of Job.</p></div>'
+    '  <div class="vn-item note-xref-citation"><p>see also <div class="inner">nested</div> tail</p></div>'
+    '  <div class="vn-item note-comm"><p>a kept comment</p></div>'
+    "</aside>"
+    "</body></html>"
+)
+
+
+class TestKindtrimHtml:
+    """rung KINDTRIM — remove whole vn-item blocks of the given note kinds
+    (chapter-end notes entries); asides, ids, badges and back-links stay, so
+    the link graph is untouched (the vnotegut safety model). Depth-aware:
+    977 corpus vn-items contain NESTED divs — a lazy regex truncates them."""
+
+    def test_easton_item_removed_whole(self):
+        out = kindle_bisect.kindtrim_html(KINDTRIM_DOC, kinds=("dict-easton",))
+        assert "note-dict-easton" not in out and "Easton." not in out
+        assert "a kept comment" in out and "see also" in out
+        assert 'id="vnotes-jer-25-20"' in out and "note-back" in out
+
+    def test_nested_div_item_removed_balanced(self):
+        out = kindle_bisect.kindtrim_html(KINDTRIM_DOC, kinds=("xref-citation",))
+        assert "note-xref-citation" not in out and "nested" not in out and "tail" not in out
+        assert "Easton." in out and "a kept comment" in out
+        # the aside's closing tag must survive a nested-div removal
+        assert out.count("</aside>") == 1
+
+    def test_multiple_kinds(self):
+        out = kindle_bisect.kindtrim_html(KINDTRIM_DOC, kinds=("dict-easton", "comm"))
+        assert "Easton." not in out and "a kept comment" not in out
+        assert "see also" in out
+
+    def test_unknown_kind_is_noop(self):
+        assert kindle_bisect.kindtrim_html(KINDTRIM_DOC, kinds=("zz-none",)) == KINDTRIM_DOC
+
+
 class TestLangcapKeepGroups:
     """cap=1 measurement (langcap FAIL follow-up, threshold < 48.7MB):
     keep_groups parameterizes WHICH language groups survive — cap-1

@@ -551,6 +551,83 @@ def build_langcap(src_epub: Path, out_epub: Path, keep_groups: tuple[str, ...] =
     return stats
 
 
+# ── rung KINDTRIM ───────────────────────────────────────────────────────
+# Both langcap oracles FAILED (cap-2 48.7 ✗ · cap-1 40.5 ✗) while vnotegut
+# (full graph, 28.6) PASSED ⇒ with the intact popup graph the ceiling lives
+# in (28.6, 40.5)MB. This rung removes whole chapter-end vn-item note blocks
+# of the given KINDS (Easton = 3.71MB across 3,773 items) — asides, ids,
+# badges and back-links all stay (the vnotegut safety model), so exactly the
+# note-entry bytes change. Depth-aware: 977 corpus vn-items contain nested
+# <div>s, so the close is found by counting, never by lazy regex.
+
+_DIV_TOKEN_RE = re.compile(r"<div\b|</div>")
+
+
+def kindtrim_html(text: str, kinds: tuple[str, ...]) -> str:
+    """Remove every ``<div class="vn-item note-<kind>">…</div>`` block (balanced)
+    for the given kinds; everything else byte-identical."""
+    out: list[str] = []
+    pos = 0
+    open_res = [re.compile(rf'[ \t]*<div class="vn-item note-{re.escape(k)}">') for k in kinds]
+    while True:
+        first: re.Match[str] | None = None
+        for orx in open_res:
+            m = orx.search(text, pos)
+            if m and (first is None or m.start() < first.start()):
+                first = m
+        if first is None:
+            out.append(text[pos:])
+            return "".join(out)
+        out.append(text[pos : first.start()])
+        depth = 0
+        scan = first.start()
+        end = None
+        for tok in _DIV_TOKEN_RE.finditer(text, first.start()):
+            depth += 1 if tok.group(0) == "<div" else -1
+            if depth == 0:
+                end = tok.end()
+                break
+            scan = tok.end()
+        assert end is not None, f"unbalanced vn-item div at {first.start()} (last token {scan})"
+        pos = end
+
+
+def build_kindtrim(src_epub: Path, out_epub: Path, kinds: tuple[str, ...]) -> dict[str, int]:
+    """Zip-rewrite src_epub with kindtrim_html over every content document.
+    Hard invariants per file: aside count AND id set unchanged (the link
+    graph must be untouched — only note-entry bytes may move)."""
+    stats = {"items_removed": 0, "bytes_before": 0, "bytes_after": 0}
+    item_re = re.compile(r'<div class="vn-item note-([a-z0-9-]+)">')
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith((".html", ".xhtml")):
+                text = data.decode("utf-8")
+                out = kindtrim_html(text, kinds)
+                assert len(re.findall(r"<aside\b", out)) == len(re.findall(r"<aside\b", text)), (
+                    f"aside count changed in {name}"
+                )
+                # The link-graph TARGET ids (asides, badges, verse anchors)
+                # must all survive; ids inside removed note bodies may go.
+                graph_id_re = re.compile(r'id="((?:vnotes|vnote|vbadge|v)-[^"]+)"')
+                assert set(graph_id_re.findall(out)) == set(graph_id_re.findall(text)), (
+                    f"link-graph ids changed in {name}"
+                )
+                before = sum(1 for _ in item_re.finditer(text))
+                after = sum(1 for _ in item_re.finditer(out))
+                stats["items_removed"] += before - after
+                stats["bytes_before"] += len(data)
+                data = out.encode("utf-8")
+                stats["bytes_after"] += len(data)
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
