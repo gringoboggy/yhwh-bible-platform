@@ -95,11 +95,22 @@ matrix (each probe epubcheck 0/0/0/0; verdicts in `~/kp3-runs/<dir>`):
 | 2MB-split (202205Z) | 182 | 23.6 MB | 72.8 MB | ✗ generic |
 | **no-split** | **63** | **23.4 MB** | **71.2 MB** | **✗ — doc-count DEAD** |
 | **imgstrip (rasters→1×1)** | **63** | **13.8 MB** | **71.2 MB** | **✗ — zip-mass DEAD** |
+| ladder 0:49 | 49 | — | 55.2 MB | ✗ |
+| **ladder 0:39** | **39** | — | **45.3 MB** | **✓ ET Supported, KPF written** |
 
-Threshold ∈ (≈36.5, 71.2) MB raw — `--keep 0:49` (55.2 MB) bracketing rung
-in flight. Hypothesis #2's "superlinear/service cap on the graph" was half
-right: the cap is real but keys on total content volume, not the link graph
-(delink failed identically). Hidden-text (#1) and per-file size (#4) dead.
+**Threshold BRACKETED ∈ (45.3, 55.2) MB raw — ship target ≤ ~45 MB** (full
+content 71.2 MB ⇒ ≥ ~26 MB raw must come out). Hypothesis #2's
+"superlinear/service cap on the graph" was half right: the cap is real but
+keys on total content volume, not the link graph (delink failed
+identically). Hidden-text (#1) and per-file size (#4) dead.
+
+**Last confound — bytes vs popup COUNT** (every probe above cuts both):
+rung VNOTEGUT guts all 33,969 `vnote` popups to their verse-header `<p>`
+(count/ids/noterefs constant, 74.7→28.6 MB raw, below the passing halves;
+epubcheck 0/0/0/0). FAIL ⇒ per-popup-count driver ⇒ only (A) two-volume
+(or a no-popup kindle profile) ships. PASS ⇒ bytes driver ⇒ (B)+(C) at
+~38-39 MB raw ships ((B) alone ≈ 52-53 MB — not enough; (B)+Arabic-only
+≈ 43-44 MB — too tight against the 45.3 floor).
 
 ### Apparatus composition (the ship-knob census; chars — raw bytes ~17% higher)
 
