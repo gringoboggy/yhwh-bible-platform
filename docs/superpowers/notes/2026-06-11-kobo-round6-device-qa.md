@@ -175,5 +175,54 @@ reads as 16:6 / 21:7 / 34:1 ✓ matches the aside offsets). gen 1:1 (◈2 ✗ /
 single-◈ verses broadly WORK (rounds 4-6 random checks), but g35:18's
 single (9.2KB, the largest seen) refuses — singles may carry a second,
 size-like factor, or the discriminator is something the family edges and
-oversized singles share structurally. Investigation running (markup diff +
-Kobo popup-criteria research); verdict to follow in this note.
+oversized singles share structurally.
+
+## ★ROOT CAUSE NAMED (workflow verdict, 2026-06-12 — HIGH confidence; every
+## verified tap walked through the mechanism with measured bytes) — K-R6-2 CLOSED-IN-ANALYSIS
+
+**Mechanism (Nickel popup-vs-jump):** Kobo measures the slice from the
+tapped target anchor FORWARD to the next anchor whose id does NOT
+string-extend the tapped id (sub-anchor semantics), and refuses the popup
+(follows the link) when the slice exceeds the popup viewport — measured
+cap ∈ **(8,858 .. 9,273] serialized bytes** (bracketed by the user's own
+taps: gen-1-1-s2 = 8,858 B OPENED, gen-35-18 = 9,273 B REFUSED). Neither
+stripped chars nor koboSpan-stripped chars separate the verdicts — only
+raw serialized slice bytes do.
+
+**Our defect, two faces:**
+1. **PREFIX-NESTED FAMILY IDS** — the K-R4-2 split's head unit keeps the
+   bare `vnotes-<bk>-<c>-<v>` id, a strict string-prefix of every sibling
+   (`-s2`…), so the head's measured slice swallows the WHOLE family
+   (36,789 B at 1sa 16:12 · 35,662 B at act 23:6 · 26,367 B at gen 1:1;
+   corpus: 98/98 heads over cap) → head refuses; the family TERMINAL unit
+   refuses via the same prefix-group boundary bookkeeping (sole surviving
+   correlate after exhaustive byte-level elimination; the topic-content
+   theory is FALSIFIED by topic-last gen-35-19 OPENING at 3,218 B).
+2. **NO PER-UNIT BYTE BUDGET** — the splitter splits by note count, not
+   serialized size: oversized units refuse in ANY position (gen-35-18
+   4-note single 9,273 B; gen-1-1-s3 9,377 B; interior gen-1-26-s2
+   10,880 B; ~67-88 oversized singles corpus-wide).
+
+**Corpus exposure:** ~0.6% of 30,344 verse-note asides (98 heads + 98
+tails + ~67-88 oversized singles + 4 oversized family units) — exactly why
+broad spot-QA always looked fine.
+
+**Fix prescription (round-7, both legs unconditional — harmless off-Kobo;
+route through the matrix resolver, byte-gate expectations update):**
+- **LEG 1 — prefix-free anchor namespace:** head → `vnotes-…-s1` (+ matching
+  `vbadge-…-s1`, badge href, vn-back href); assert family ≤ 9 units so no
+  id is ever a strict prefix of a sibling.
+- **LEG 2 — serialized-byte split driver:** split ANY unit (incl. current
+  singles) whose final kepub aside exceeds ~8,000 B (margin under the
+  8,858 B verified-open floor); estimate post-koboSpan inflation.
+- **LEG 3 — build gates:** (i) lint: no anchor id within a spine file is a
+  strict prefix of another (also covers 20 accidental cross-verse pairs
+  like jub-7-1/jub-7-13); (ii) per-aside byte budget on the built kepub;
+  run on the canon-filtered edition too.
+- **LEG 4 — device retap (post-round-7):** the 17 original spots (expect
+  17/17) + discriminators gen 1:2 ◈2 · gen 1:26 ◈3 (tail) · gen 2:18 ◈1
+  (sub-cap head, pure swallow) · gen 1:26 ◈2 (pure size) + controls
+  1sa 16:13 · gen 35:19.
+
+Full verdict JSON in the turn-76 workflow journal (`wf_0badc062-dfa`);
+probes `%TEMP%\yhwh-forensics\rootcause_probe*.py`.

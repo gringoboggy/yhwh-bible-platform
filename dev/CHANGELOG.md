@@ -10,6 +10,7 @@
 **Test delta:** catalog arc re-pinned at 62 (test_format_matrix 21 · test_build_format_matrix 10 · test_gen_release_catalog 25 incl. TestNoWithdrawGuard · test_catalog_composites 6); sibling cover suites 49 green; ruff clean
 **Review:** adversarial workflow (8 agents) — 6 confirmed findings, all addressed in-session (no-withdraw guard · colliding-name freshness protocol · stale-asset deletion sequencing · gate-aware copy)
 **Save tag:** milestone 5-leg `signature-covers-shipped`; then the Addendum-A migration protocol (CI all-green → freshness check → regen+deploy → delete 14 stale assets + prune sums → final regen)
+**Evening close (into 06-12):** migration ⑤/⑥ user-approved + done (14 stale assets deleted, sums 38→24, variant-clean regen) · cover map RATIFIED · ★M2 colour choice SHIPPED + LIVE (45 composites · variant driver leg · "Other colours" picker · CI 27383502749 11/11 → 97 assets → deployed 84a2a1e, verified) · ★Kobo round-6c/6d user taps → POPUP ROOT CAUSE NAMED (prefix-nested family ids + no byte budget vs the measured (8,858..9,273] B Nickel cap; 4-leg fix prescribed → round-7) · K-KIN user picks recorded (trim/compact GO · per-reader language cap any-2 · Bible-wide switches) · 3 STANDING rules + the MCP_TIMEOUT mirror · saves `m2-variants-wired` + `m2-live` + the wrap 5-leg
 
 ## 2026-06-11 — session (🪟 Windows, turn 75) — matrix M1 shipped end-to-end: FORMAT_MATRIX one-home · 18 committed catalog composites · CI matrix pipeline · release-catalog generator · Downloads catalog UI
 
