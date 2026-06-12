@@ -710,6 +710,75 @@ KINDTRIM_DOC = (
 )
 
 
+SHIPSHAPE_DOC = (
+    "<html><body>"
+    '<p class="verse">body <em>italic stays</em> text</p>'
+    '<aside class="vnote" id="vnote-exo-1-1" epub:type="footnote">'
+    "<p><strong>Exodus 1:1</strong></p>"
+    '<p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>'
+    '<p class="vnote-hebrew" dir="rtl" lang="he"><em>\u05e9\u05de\u05d5\u05ea</em> <em>\u05d1\u05e0\u05d9</em></p>'
+    '<p class="vnote-source-label">Latin (Clementine Vulgate)</p>'
+    '<p class="vnote-vulgate" lang="la">Verbum</p>'
+    '<p><a href="#v-exo-1-1" class="vnote-back" title="Back">\u21a9</a></p>'
+    "</aside>"
+    "</body></html>"
+)
+
+
+class TestShipshapeHtml:
+    """rung SHIPSHAPE — the exact 3-lever ship-shape simulation (zero
+    content loss): popup word-<em>s unwrapped to plain text, source-label
+    paras merged into the following content para as a bidi-isolated text
+    prefix (FSI...PDI, no element), header <strong> unwrapped to a classed
+    para (CSS bolds it). Body markup outside popups is byte-identical."""
+
+    def test_popup_ems_unwrapped_body_em_kept(self):
+        out = kindle_bisect.shipshape_html(SHIPSHAPE_DOC)
+        assert "<em>italic stays</em>" in out
+        assert "<em" not in out.split("<aside")[1]
+        assert "\u05e9\u05de\u05d5\u05ea \u05d1\u05e0\u05d9" in out  # words survive, space kept
+
+    def test_label_with_vn_sep_span_also_merges(self):
+        # the BUILT artifact's labels carry an inner vn-sep span — the form
+        # that silently defeated the first merge regex (756,171 elements
+        # instead of 636,546 on the real artifact; fires-on-defect).
+        doc = SHIPSHAPE_DOC.replace(
+            '<p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>',
+            '<p class="vnote-source-label"><span class="vn-sep"> \u25e6 </span>Hebrew (Masoretic / WLC)</p>',
+        )
+        out = kindle_bisect.shipshape_html(doc)
+        assert "vnote-source-label" not in out and "vn-sep" not in out
+        assert "\u2068Hebrew (Masoretic / WLC)\u2069 \u00b7 " in out
+
+    def test_label_para_merged_as_bidi_isolated_prefix(self):
+        out = kindle_bisect.shipshape_html(SHIPSHAPE_DOC)
+        assert "vnote-source-label" not in out
+        assert '<p class="vnote-hebrew" dir="rtl" lang="he">\u2068Hebrew (Masoretic / WLC)\u2069 \u00b7 ' in out
+        assert '<p class="vnote-vulgate" lang="la">\u2068Latin (Clementine Vulgate)\u2069 \u00b7 Verbum</p>' in out
+
+    def test_header_strong_unwrapped_to_classed_para(self):
+        out = kindle_bisect.shipshape_html(SHIPSHAPE_DOC)
+        assert '<p class="vnote-hdr">Exodus 1:1</p>' in out
+        assert "<strong>" not in out.split("<aside")[1]
+
+    def test_graph_ids_and_aside_count_preserved(self):
+        import re
+
+        out = kindle_bisect.shipshape_html(SHIPSHAPE_DOC)
+        assert out.count("<aside") == SHIPSHAPE_DOC.count("<aside")
+        graph = re.compile(r'id="((?:vnotes|vnote|vbadge|v)-[^"]+)"')
+        assert set(graph.findall(out)) == set(graph.findall(SHIPSHAPE_DOC))
+
+    def test_element_savings_exact(self):
+        import re
+
+        ELEM = re.compile(r"<[a-zA-Z]")
+        before = len(ELEM.findall(SHIPSHAPE_DOC))
+        after = len(ELEM.findall(kindle_bisect.shipshape_html(SHIPSHAPE_DOC)))
+        # 2 ems + 2 label paras + 1 strong = 5 elements gone
+        assert before - after == 5
+
+
 class TestKindtrimHtml:
     """rung KINDTRIM — remove whole vn-item blocks of the given note kinds
     (chapter-end notes entries); asides, ids, badges and back-links stay, so

@@ -774,6 +774,73 @@ def build_bytedial(src_epub: Path, out_epub: Path, target_total: int) -> dict[st
     return stats
 
 
+# ── rung SHIPSHAPE ──────────────────────────────────────────────────────
+# The exact 3-lever ship-shape simulation (run 9; zero content loss). Runs
+# 1-8 proved the boundary is multi-dimensional (bytes refuted at equal-byte
+# opposite verdicts; total elements refuted at 716,025 PASS over 712,219
+# FAIL) and left the ship shape's quadrant — LOW elements / HIGH bytes —
+# unprobed (no pass ever above 39.5MB). This rung builds the real candidate:
+#   1. popup word-<em>s -> plain text          (-264,914 elements)
+#   2. label paras -> bidi-isolated text prefix (-119,625; FSI...PDI keeps
+#      the label readable inside RTL Hebrew/Arabic paras with NO element)
+#   3. header <strong> -> classed para + CSS    (-33,969)
+# Full apparatus lands ~636.5k elements at ~68MB -> its own oracle verdict.
+
+_SS_VNOTE_RE = re.compile(r'<aside class="vnote".*?</aside>', re.S)
+_SS_EM_RE = re.compile(r"</?em>")
+_SS_LABEL_MERGE_RE = re.compile(
+    r'[ \t]*<p class="vnote-source-label">(?:<span class="vn-sep">[^<]*</span>)?([^<]*)</p>'
+    r'\s*(<p class="vnote-[a-z-]+"[^>]*>)'
+)
+_SS_HDR_RE = re.compile(r"<p><strong>([^<]*)</strong></p>")
+
+
+def _shipshape_aside(m: re.Match[str]) -> str:
+    a = m.group(0)
+    a = _SS_EM_RE.sub("", a)
+    a = _SS_LABEL_MERGE_RE.sub(lambda lm: lm.group(2) + "\u2068" + lm.group(1) + "\u2069 \u00b7 ", a)
+    return _SS_HDR_RE.sub(lambda hm: '<p class="vnote-hdr">' + hm.group(1) + "</p>", a, count=1)
+
+
+def shipshape_html(text: str) -> str:
+    """Apply the 3-lever ship-shape transform inside every vnote aside;
+    body markup outside the popups is byte-identical."""
+    return _SS_VNOTE_RE.sub(_shipshape_aside, text)
+
+
+_SS_CSS = "\n/* shipshape probe */ .vnote-hdr{font-weight:bold}\n"
+
+
+def build_shipshape(src_epub: Path, out_epub: Path) -> dict[str, int]:
+    """Zip-rewrite src_epub with shipshape_html; appends the vnote-hdr bold
+    rule to every stylesheet so the header keeps its weight."""
+    stats = {"bytes_before": 0, "bytes_after": 0, "asides": 0}
+    graph_id_re = re.compile(r'id="((?:vnotes|vnote|vbadge|v)-[^"]+)"')
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith(".css"):
+                data = data + _SS_CSS.encode("utf-8")
+            if name.endswith((".html", ".xhtml")):
+                text = data.decode("utf-8")
+                out = shipshape_html(text)
+                assert out.count("<aside") == text.count("<aside"), f"aside count changed in {name}"
+                assert set(graph_id_re.findall(out)) == set(graph_id_re.findall(text)), (
+                    f"link-graph ids changed in {name}"
+                )
+                stats["asides"] += len(re.findall(r'<aside class="vnote"', out))
+                stats["bytes_before"] += len(data)
+                data = out.encode("utf-8")
+                stats["bytes_after"] += len(data)
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
