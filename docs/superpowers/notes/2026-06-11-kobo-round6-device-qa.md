@@ -143,3 +143,37 @@ points · (b) accept as-is · (c) larger pieces on non-eink targets).
   (mid-piece — a refused popup TELEPORTS visibly; a dead tap doesn't) ·
   **gen 35:18 ◈4** re-tap (still pending) · K-R5-4 presentation pick
   whenever · STK retry verdict. (gen 1:1 re-tap: DONE round-6c, still dead.)
+
+## Round-6d (USER, 2026-06-11 night — ★THE DECISIVE MID-PIECE TAPS LANDED)
+
+Raw report (translations = the verse-number popup, worked at ALL three):
+
+| verse | unit/count | verdict | unit aside (forensics, r6 kepub) |
+|---|---|---|---|
+| 1sa 16:12 | 1/6 (1) | **TELEPORT → "16:6 page"** | `vnotes-1sa-16-12` 6,934B |
+| 1sa 16:12 | 2-4/6 (1) | open | s2-s4 6,485-7,166B |
+| 1sa 16:12 | 5/6 (2) | open | s5 7,488B |
+| 1sa 16:12 | 6/6 (1) | **TELEPORT (same dest)** | s6 1,771B |
+| act 23:6 | 1/6 (1) | **TELEPORT → "21:7"** | `vnotes-act-23-6` 6,939B |
+| act 23:6 | 2-5/6 | open | s2-s5 6,268-7,304B |
+| act 23:6 | 6/6 (1) | **TELEPORT (same dest)** | s6 1,719B |
+| gen 35:18 | 1/1 (4) | **TELEPORT → "34:1"** | `vnotes-gen-35-18` 9,241B (single) |
+
+**What the data kills:** ① SIZE as the driver — s6 (1.7KB) refuses while s5
+(7.5KB) opens. ② DEAD-TAP/geometry — these teleport: the tap REGISTERED and
+NAVIGATED. ③ Cross-file/broken targets — forensics: every unit SAME-FILE,
+every aside present, every href correct. ④ The extra-link theory — gen 1:1
+s2 OPENS with 12 links inside (incl. note-sym legend links + cross-file
+xrefs).
+
+**What survives every verified datum:** interior units of a split family
+ALWAYS open; the FIRST and LAST units ALWAYS refuse (teleport = Kobo
+follows the noteref as a plain link to the aside's own location — the
+"page" the user lands on is the notes block, whose neighbouring content
+reads as 16:6 / 21:7 / 34:1 ✓ matches the aside offsets). gen 1:1 (◈2 ✗ /
+◈5 ✓ / ◈8 ✗) = the same edge pattern, third confirmation. CAVEAT: ordinary
+single-◈ verses broadly WORK (rounds 4-6 random checks), but g35:18's
+single (9.2KB, the largest seen) refuses — singles may carry a second,
+size-like factor, or the discriminator is something the family edges and
+oversized singles share structurally. Investigation running (markup diff +
+Kobo popup-criteria research); verdict to follow in this note.
