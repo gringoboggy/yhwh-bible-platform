@@ -632,6 +632,39 @@ class TestLangcapHtml:
         assert 'id="vnote-exo-1-1"' in out
 
 
+class TestLangcapKeepGroups:
+    """cap=1 measurement (langcap FAIL follow-up, threshold < 48.7MB):
+    keep_groups parameterizes WHICH language groups survive — cap-1
+    Hebrew-only is the next ladder rung (~ proven-passing territory)."""
+
+    def test_hebrew_only_drops_greek_too(self):
+        out = kindle_bisect.langcap_html(VNOTE_DOC, keep_groups=("hebrew",))
+        assert "vnote-greek" not in out and "Septuagint" not in out
+        assert '<p class="vnote-source-label">Heb</p><p class="vnote-hebrew"' in out
+
+    def test_greek_only_drops_hebrew(self):
+        out = kindle_bisect.langcap_html(VNOTE_DOC, keep_groups=("greek",))
+        assert "vnote-hebrew" not in out and "Masoretic" not in out
+        assert '<p class="vnote-source-label">Grc</p><p class="vnote-greek"' in out
+
+    def test_default_is_hebrew_greek(self):
+        assert kindle_bisect.langcap_html(VNOTE_DOC) == kindle_bisect.langcap_html(
+            VNOTE_DOC, keep_groups=("hebrew", "greek")
+        )
+
+    def test_unknown_group_raises(self):
+        import pytest
+
+        with pytest.raises(ValueError):
+            kindle_bisect.langcap_html(VNOTE_DOC, keep_groups=("klingon",))
+
+    def test_aside_count_preserved_under_cap1(self):
+        import re
+
+        out = kindle_bisect.langcap_html(VNOTE_DOC, keep_groups=("hebrew",))
+        assert len(re.findall(r'<aside class="vnote"', out)) == 1
+
+
 class TestBuildVnotegut:
     def _run(self, tmp_path):
         import zipfile

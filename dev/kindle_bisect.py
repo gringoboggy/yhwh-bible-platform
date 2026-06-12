@@ -490,34 +490,43 @@ def build_vnotegut(src_epub: Path, out_epub: Path) -> dict[str, int]:
 # so it gets its own oracle verdict before the design enters the build.
 
 _LANGCAP_LABEL_RE = re.compile(r'[ \t]*<p class="vnote-source-label">.*?</p>\s*\n?', re.S)
-_LANGCAP_DROP_RES = tuple(
-    re.compile(rf'[ \t]*<p class="{cls}"[^>]*>.*?</p>\s*\n?', re.S) for cls in ("vnote-vulgate", "vnote-arabic")
-)
-_LANGCAP_COMPACT_LABELS = (
-    ('<p class="vnote-hebrew"', "Heb"),
-    ('<p class="vnote-greek"', "Grc"),
-    ('<p class="vnote-greek-nt"', "Grc"),
-)
+# group -> (content classes, compact label). Mirrors the in-build
+# POPUP_LANGUAGE_GROUPS + COMPACT_SOURCE_LABELS (scripts/build_edition.py).
+_LANGCAP_GROUPS: dict[str, tuple[tuple[str, ...], str]] = {
+    "hebrew": (("vnote-hebrew",), "Heb"),
+    "greek": (("vnote-greek", "vnote-greek-nt"), "Grc"),
+    "latin": (("vnote-vulgate",), "Lat"),
+    "arabic": (("vnote-arabic",), "Ara"),
+}
 _LANGCAP_HDR_RE = re.compile(r"(<aside class=\"vnote\"[^>]*><p><strong>)([^<]*?)([1-9][0-9]*:[0-9]+)\.?(</strong></p>)")
 
 
-def _langcap_aside(match: re.Match[str]) -> str:
+def _langcap_aside(match: re.Match[str], keep_groups: tuple[str, ...]) -> str:
     a = match.group(0)
-    for drop in _LANGCAP_DROP_RES:
-        a = drop.sub("", a)
+    kept_classes: list[tuple[str, str]] = []
+    for group, (classes, short) in _LANGCAP_GROUPS.items():
+        if group in keep_groups:
+            kept_classes.extend((cls, short) for cls in classes)
+        else:
+            for cls in classes:
+                a = re.sub(rf'[ \t]*<p class="{cls}"[^>]*>.*?</p>\s*\n?', "", a, flags=re.S)
     a = _LANGCAP_LABEL_RE.sub("", a)
-    for open_tag, short in _LANGCAP_COMPACT_LABELS:
-        a = a.replace(open_tag, f'<p class="vnote-source-label">{short}</p>{open_tag}')
+    for cls, short in kept_classes:
+        a = a.replace(f'<p class="{cls}"', f'<p class="vnote-source-label">{short}</p><p class="{cls}"')
     return _LANGCAP_HDR_RE.sub(lambda m: m.group(1) + re.sub(r"^.*?,\s*", "", m.group(2)) + m.group(3) + m.group(4), a)
 
 
-def langcap_html(text: str) -> str:
+def langcap_html(text: str, keep_groups: tuple[str, ...] = ("hebrew", "greek")) -> str:
     """Apply the langcap ship-candidate transform to every vnote popup aside;
-    everything outside the vnote asides is untouched."""
-    return _VNOTE_ASIDE_RE.sub(_langcap_aside, text)
+    everything outside the vnote asides is untouched. ``keep_groups`` picks
+    which language groups survive (cap=2 default Heb+Grk; cap=1 = one name)."""
+    for g in keep_groups:
+        if g not in _LANGCAP_GROUPS:
+            raise ValueError(f"unknown language group {g!r}; valid: {sorted(_LANGCAP_GROUPS)}")
+    return _VNOTE_ASIDE_RE.sub(lambda m: _langcap_aside(m, tuple(keep_groups)), text)
 
 
-def build_langcap(src_epub: Path, out_epub: Path) -> dict[str, int]:
+def build_langcap(src_epub: Path, out_epub: Path, keep_groups: tuple[str, ...] = ("hebrew", "greek")) -> dict[str, int]:
     """Zip-rewrite src_epub with langcap_html over every content document."""
     stats = {"vnotes": 0, "bytes_before": 0, "bytes_after": 0}
     with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
@@ -530,7 +539,7 @@ def build_langcap(src_epub: Path, out_epub: Path) -> dict[str, int]:
                 continue
             if name.endswith((".html", ".xhtml")):
                 text = data.decode("utf-8")
-                out = langcap_html(text)
+                out = langcap_html(text, keep_groups)
                 assert len(re.findall(r'<aside class="vnote"', out)) == len(
                     re.findall(r'<aside class="vnote"', text)
                 ), f"vnote count changed in {name}"
@@ -550,6 +559,11 @@ def main() -> int:
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
     ap.add_argument("--keep", default="first", help='halfspine slice: "first" | "second" | "lo:hi" (spine doc indices)')
+    ap.add_argument(
+        "--cap-keep",
+        default="hebrew,greek",
+        help="langcap: comma-joined language groups to keep (hebrew,greek,latin,arabic); cap-1 = one name",
+    )
     args = ap.parse_args()
 
     src = Path(args.src).expanduser()
@@ -562,7 +576,7 @@ def main() -> int:
         "halfspine": f"_rung3-half-{args.keep.replace(':', '-')}",
         "imgstrip": "_rung-imgstrip",
         "vnotegut": "_rung-vnotegut",
-        "langcap": "_rung-langcap",
+        "langcap": "_rung-langcap" + ("" if args.cap_keep == "hebrew,greek" else "-" + args.cap_keep.replace(",", "-")),
     }[args.rung]
     out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
     if args.rung == "delink":
@@ -605,7 +619,7 @@ def main() -> int:
             f"{stats['bytes_before']:,} -> {stats['bytes_after']:,}"
         )
     else:
-        stats = build_langcap(src, out)
+        stats = build_langcap(src, out, tuple(g.strip() for g in args.cap_keep.split(",") if g.strip()))
         print(f"{out}")
         print(
             f"vnotes capped: {stats['vnotes']:,} | content bytes {stats['bytes_before']:,} -> {stats['bytes_after']:,}"
