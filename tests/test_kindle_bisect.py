@@ -577,6 +577,61 @@ def _mini_vnotegut_epub(path):
     return path
 
 
+# ── rung LANGCAP ────────────────────────────────────────────────────────
+# The SHIP-CANDIDATE simulator (user pick, pre-recorded via the board):
+# per-reader popup-language cap at 2 = keep Hebrew + Greek (drop Latin +
+# Arabic content paragraphs AND every source-label paragraph, re-inserting
+# a compact label before each kept content para) + compact the per-verse
+# popup header to "Book N:M". vnotegut PASS proved the driver is BYTES at
+# constant popup count, so this artifact (~48.7MB raw — inside the unknown
+# (45.3, 55.2) band) gets its own oracle verdict BEFORE the design is
+# encoded into the build pipeline.
+
+
+class TestLangcapHtml:
+    def test_latin_and_arabic_paras_dropped_hebrew_greek_kept(self):
+        out = kindle_bisect.langcap_html(
+            VNOTE_DOC.replace(
+                '<p class="vnote-greek" lang="grc">ΤΑΥΤΑ τὰ ὀνόματα</p>',
+                '<p class="vnote-greek" lang="grc">ΤΑΥΤΑ τὰ ὀνόματα</p>'
+                '<p class="vnote-source-label"><span class="vn-sep"> ◦ </span>Latin (Clementine Vulgate)</p>'
+                '<p class="vnote-vulgate" lang="la">Haec sunt nomina</p>'
+                '<p class="vnote-source-label"><span class="vn-sep"> ◦ </span>Arabic (Van Dyck)</p>'
+                '<p class="vnote-arabic" dir="rtl" lang="ar">وهذه أسماء</p>',
+            )
+        )
+        assert "vnote-vulgate" not in out and "vnote-arabic" not in out
+        assert "Clementine Vulgate" not in out and "Van Dyck" not in out
+        assert '<p class="vnote-hebrew"' in out and '<p class="vnote-greek"' in out
+
+    def test_labels_compacted_to_short_forms(self):
+        out = kindle_bisect.langcap_html(VNOTE_DOC)
+        assert "Masoretic" not in out and "Septuagint" not in out
+        assert '<p class="vnote-source-label">Heb</p><p class="vnote-hebrew"' in out
+        assert '<p class="vnote-source-label">Grc</p><p class="vnote-greek"' in out
+
+    def test_header_compacted_to_book_ref(self):
+        src = VNOTE_DOC.replace(
+            "<p><strong>Exodus 1:1.</strong></p>",
+            "<p><strong>The Second Book of Moses, Exodus 1:1.</strong></p>",
+        )
+        out = kindle_bisect.langcap_html(src)
+        assert "<p><strong>Exodus 1:1</strong></p>" in out
+        assert "Second Book of Moses" not in out
+
+    def test_notes_sections_and_verse_text_untouched(self):
+        out = kindle_bisect.langcap_html(VNOTE_DOC)
+        assert '<aside class="verse-notes" id="vnotes-exo-1-1" epub:type="footnote"><p>note body</p></aside>' in out
+        assert '<a class="vn-link" href="#vnote-exo-1-1" epub:type="noteref"><span class="vn">1</span></a>' in out
+
+    def test_aside_count_and_ids_preserved(self):
+        import re
+
+        out = kindle_bisect.langcap_html(VNOTE_DOC)
+        assert len(re.findall(r'<aside class="vnote"', out)) == 1
+        assert 'id="vnote-exo-1-1"' in out
+
+
 class TestBuildVnotegut:
     def _run(self, tmp_path):
         import zipfile

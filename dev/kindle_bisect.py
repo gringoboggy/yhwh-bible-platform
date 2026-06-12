@@ -480,9 +480,73 @@ def build_vnotegut(src_epub: Path, out_epub: Path) -> dict[str, int]:
     return stats
 
 
+# ── rung LANGCAP ────────────────────────────────────────────────────────
+# The SHIP-CANDIDATE simulator (user pick via the board, 2026-06-11): cap
+# popup languages at 2 = keep Hebrew + Greek (Latin + Arabic content paras
+# dropped, every source-label para dropped, a compact label re-inserted
+# before each kept content para) + compact the per-verse popup header to
+# "Book N:M". vnotegut PASS proved bytes-at-constant-count is the driver;
+# this candidate lands ~48.7MB raw — INSIDE the unknown (45.3, 55.2) band —
+# so it gets its own oracle verdict before the design enters the build.
+
+_LANGCAP_LABEL_RE = re.compile(r'[ \t]*<p class="vnote-source-label">.*?</p>\s*\n?', re.S)
+_LANGCAP_DROP_RES = tuple(
+    re.compile(rf'[ \t]*<p class="{cls}"[^>]*>.*?</p>\s*\n?', re.S) for cls in ("vnote-vulgate", "vnote-arabic")
+)
+_LANGCAP_COMPACT_LABELS = (
+    ('<p class="vnote-hebrew"', "Heb"),
+    ('<p class="vnote-greek"', "Grc"),
+    ('<p class="vnote-greek-nt"', "Grc"),
+)
+_LANGCAP_HDR_RE = re.compile(r"(<aside class=\"vnote\"[^>]*><p><strong>)([^<]*?)([1-9][0-9]*:[0-9]+)\.?(</strong></p>)")
+
+
+def _langcap_aside(match: re.Match[str]) -> str:
+    a = match.group(0)
+    for drop in _LANGCAP_DROP_RES:
+        a = drop.sub("", a)
+    a = _LANGCAP_LABEL_RE.sub("", a)
+    for open_tag, short in _LANGCAP_COMPACT_LABELS:
+        a = a.replace(open_tag, f'<p class="vnote-source-label">{short}</p>{open_tag}')
+    return _LANGCAP_HDR_RE.sub(lambda m: m.group(1) + re.sub(r"^.*?,\s*", "", m.group(2)) + m.group(3) + m.group(4), a)
+
+
+def langcap_html(text: str) -> str:
+    """Apply the langcap ship-candidate transform to every vnote popup aside;
+    everything outside the vnote asides is untouched."""
+    return _VNOTE_ASIDE_RE.sub(_langcap_aside, text)
+
+
+def build_langcap(src_epub: Path, out_epub: Path) -> dict[str, int]:
+    """Zip-rewrite src_epub with langcap_html over every content document."""
+    stats = {"vnotes": 0, "bytes_before": 0, "bytes_after": 0}
+    with zipfile.ZipFile(src_epub) as zin, zipfile.ZipFile(out_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        names = zin.namelist()
+        assert names[0] == "mimetype", "mimetype must be the first zip entry"
+        for name in names:
+            data = zin.read(name)
+            if name == "mimetype":
+                zout.writestr(zipfile.ZipInfo("mimetype"), data, zipfile.ZIP_STORED)
+                continue
+            if name.endswith((".html", ".xhtml")):
+                text = data.decode("utf-8")
+                out = langcap_html(text)
+                assert len(re.findall(r'<aside class="vnote"', out)) == len(
+                    re.findall(r'<aside class="vnote"', text)
+                ), f"vnote count changed in {name}"
+                stats["vnotes"] += len(re.findall(r'<aside class="vnote"', out))
+                stats["bytes_before"] += len(data)
+                data = out.encode("utf-8")
+                stats["bytes_after"] += len(data)
+            zout.writestr(name, data)
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--rung", choices=["delink", "tochusk", "halfspine", "imgstrip", "vnotegut"], required=True)
+    ap.add_argument(
+        "--rung", choices=["delink", "tochusk", "halfspine", "imgstrip", "vnotegut", "langcap"], required=True
+    )
     ap.add_argument("--src", required=True, help="staged kindle-safe epub")
     ap.add_argument("--out", help="output path (default: src + rung tag)")
     ap.add_argument("--keep", default="first", help='halfspine slice: "first" | "second" | "lo:hi" (spine doc indices)')
@@ -498,6 +562,7 @@ def main() -> int:
         "halfspine": f"_rung3-half-{args.keep.replace(':', '-')}",
         "imgstrip": "_rung-imgstrip",
         "vnotegut": "_rung-vnotegut",
+        "langcap": "_rung-langcap",
     }[args.rung]
     out = Path(args.out).expanduser() if args.out else src.with_name(src.stem + tag + src.suffix)
     if args.rung == "delink":
@@ -532,12 +597,18 @@ def main() -> int:
             f"images replaced: {stats['images_replaced']} | bytes "
             f"{stats['image_bytes_before']:,} -> {stats['image_bytes_after']:,}"
         )
-    else:
+    elif args.rung == "vnotegut":
         stats = build_vnotegut(src, out)
         print(f"{out}")
         print(
             f"vnotes gutted: {stats['vnotes_gutted']:,} | content bytes "
             f"{stats['bytes_before']:,} -> {stats['bytes_after']:,}"
+        )
+    else:
+        stats = build_langcap(src, out)
+        print(f"{out}")
+        print(
+            f"vnotes capped: {stats['vnotes']:,} | content bytes {stats['bytes_before']:,} -> {stats['bytes_after']:,}"
         )
     return 0
 

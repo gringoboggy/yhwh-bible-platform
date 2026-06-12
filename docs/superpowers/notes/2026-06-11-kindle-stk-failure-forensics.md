@@ -104,13 +104,24 @@ content 71.2 MB ⇒ ≥ ~26 MB raw must come out). Hypothesis #2's
 keys on total content volume, not the link graph (delink failed
 identically). Hidden-text (#1) and per-file size (#4) dead.
 
-**Last confound — bytes vs popup COUNT** (every probe above cuts both):
-rung VNOTEGUT guts all 33,969 `vnote` popups to their verse-header `<p>`
-(count/ids/noterefs constant, 74.7→28.6 MB raw, below the passing halves;
-epubcheck 0/0/0/0). FAIL ⇒ per-popup-count driver ⇒ only (A) two-volume
-(or a no-popup kindle profile) ships. PASS ⇒ bytes driver ⇒ (B)+(C) at
-~38-39 MB raw ships ((B) alone ≈ 52-53 MB — not enough; (B)+Arabic-only
-≈ 43-44 MB — too tight against the 45.3 floor).
+**Last confound — bytes vs popup COUNT — RESOLVED: rung VNOTEGUT = PASS**
+(all 33,969 popups present at 28.6 MB raw: "Success", ET Supported, KPF
+written) ⇒ **BYTES driver CONFIRMED, popup-count exonerated.** The user's
+pre-recorded pick (via the board) applies: (B) zero-loss compaction + (C)
+a per-reader `max_popup_languages` cap (kindle = 2, builder picks any 2,
+ready-made default Hebrew + Greek, BIBLE-WIDE — through the existing
+`_resolve_popup_languages` machinery, one resolver, no second path).
+
+**Ship-candidate probe (rung LANGCAP, staged + epubcheck 0/0/0/0):** the
+exact user pick applied zip-level to the no-split base — Latin + Arabic
+content paras dropped, labels compacted (`Heb`/`Grc`), per-verse popup
+header compacted to "Book N:M" — lands at **48.7 MB raw, INSIDE the
+unknown (45.3, 55.2) band**, so its own oracle verdict is the ship gate
+(zero-loss compaction tops out ≈ 47-49 MB; nothing reaches the proven
+45.3 floor without content choices). Its verdict also tightens the
+threshold either way. If it FAILS, the user options are: cap = 1 language
+(~39-40 MB, proven territory) · trim chapter-notes sources from the kindle
+column (e.g. Easton 3.7 MB) · two-volume.
 
 ### Apparatus composition (the ship-knob census; chars — raw bytes ~17% higher)
 
