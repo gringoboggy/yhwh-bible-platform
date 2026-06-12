@@ -111,13 +111,30 @@ points · (b) accept as-is · (c) larger pieces on non-eink targets).
 - No teleports observed anywhere (cap + clamp working broadly).
 - K-R5-1 font-reset process fix HOLDS (filename reuse preserved Cardo).
 
+## Round-6c (USER, 2026-06-11 evening — build identity + re-taps)
+
+- **r6 on-device CONFIRMED by behaviour:** translations/popups work (the
+  Arabic/lang-declarations restore is r6's signature — r5's were broken).
+  The library entry showed no "unread" reset, as expected: the load reused
+  the device filename, which preserves Kobo's read state (worth noting in
+  every future load: same-name swap = no unread badge; rename = new entry).
+- **gen 1:1 ◈2/◈8 (units 1/3 + 3/3): STILL DEAD on re-tap** — counts visible
+  as bare numbers, taps do nothing, ◈5 (2/3) opens. Third independent
+  confirmation; gen 1:1 remains non-diagnostic (self-landing) — the
+  mid-piece taps below stay the decisive datum.
+- **K-R6-6 reconfirmed: NO ◈ glyphs anywhere** (bare superscript counts
+  only) — the Mac's chip-badge fix (`marker_badge_style: chip` on eink,
+  shipped post-r6) is the cure; ships in round-7.
+
 ## Assignments
 
 - **Mac (build_edition.py + stylesheet arc):** K-R6-3 U+2028 flip · K-R6-4
   eyebrow fix (nbsp ± word-spacing) · + the queued orphan-vnotes drop
-  (gate 4j) and K-KIN bisect.
+  (gate 4j) and K-KIN bisect. (All landed post-r6 — bundle into round-7.)
 - **WIN:** matrix M1 implementation (per the v1.0.0 assessment + spec-review
-  blockers); next Kobo rebuild+swap when Mac's slice lands.
-- **USER:** the two K-R6-2 decisive taps (font-size-up re-tap of gen 1:1's
-  ◈2/◈8 · split badges at 1sa 16:12 / act 23:6) · gen 35:18 ◈4 re-tap (still
-  pending) · K-R5-4 presentation pick whenever · STK retry verdict.
+  blockers); next Kobo rebuild+swap when Mac's slice lands. (M1+M2 SHIPPED
+  2026-06-11; round-7 build once the cap verdict lands.)
+- **USER (remaining decisive set):** split badges at **1sa 16:12 / act 23:6**
+  (mid-piece — a refused popup TELEPORTS visibly; a dead tap doesn't) ·
+  **gen 35:18 ◈4** re-tap (still pending) · K-R5-4 presentation pick
+  whenever · STK retry verdict. (gen 1:1 re-tap: DONE round-6c, still dead.)
