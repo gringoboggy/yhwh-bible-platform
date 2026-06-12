@@ -512,6 +512,11 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
 - **"Continue", "proceed", "go ahead" still mean ADVANCE, not "save now"** — they don't
   *force* a save. But they don't forbid one either: if advancing just closed something
   important, Claude's autonomous trigger (above) still fires.
+- **"pull" (bare, or "pull again") is a COMMAND WORD (user-directed 2026-06-11):** run
+  the lane-sync pull immediately — `lane_ping` → `git pull --rebase origin main` →
+  report what came in from the other lane — no interpretation, no questions. (And the
+  STANDING auto-pull-on-BEHIND rule on the board means Claude should usually have
+  pulled before the user ever needs the word.)
 - **Zip flow is DORMANT** — never build a zip or ask slim/full on a save. Only if the
   user *explicitly* says "zip".
 
