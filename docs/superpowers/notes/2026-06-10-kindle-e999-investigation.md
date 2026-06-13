@@ -150,3 +150,46 @@ ornament); parchment page background carried; dense text pages clean; per-book N
 
 Evidence: /tmp/kindle-qa-*.png (session-local). Next Kindle datum = user device eyeball
 or the v0.1.1 kindle_safe variant build.
+
+## Round 3 (2026-06-13, Mac) — STILL E999 on the SHIPSHAPE single-volume; override ≠ strip
+
+**User re-reported E999** on the run-9 SHIPSHAPE full-apparatus build
+(`~/Desktop/Ethiopian Bible - Catholic Study (Kindle).epub` = the renamed
+`kindle-nosplit_2026-06-11T213913Z_rung-shipshape-full`; 23 MB zip / 73 MB raw,
+62 spine pieces, 43,071 asides, 111,718 links, single `dc:language` en-US ✓).
+**The user ran Kindle Previewer 3 THEMSELVES — clean — yet Send-to-Kindle
+returns E999.** ⇒ the Previewer oracle is **FALSIFIED as a success predictor**
+(runs 1–9 were tuned against it; "ET Supported / KPF written" ≠ Amazon accepts).
+
+**Diagnosis — `display:none` OVERRIDE vs physical STRIP.** `apply_kindle_safe_css`
+(`build_edition.py:2290`, `_KINDLE_SAFE_CSS` :2267) APPENDS a variant block that
+overrides the base hides (`.notes-section`/`.verse-refs-section` → block,
+`.vn-sep` → inline, `.note-label` → block) but the BASE `display:none` rules
+(stylesheet ~204/300/972 + the note-label hides) remain physically in the CSS.
+epubcheck + Previewer resolve the full cascade → see "shown" → green. **The only
+artifact that EVER delivered (test-2, 2026-06-10) had every `display:none`
+PHYSICALLY STRIPPED.** Across same-era builds: strip → delivered; override
+(turn-71 kindle-safe AND this shipshape) → E999. ⇒ **leading hypothesis: Amazon's
+Send-to-Kindle server scans RAW CSS for `display:none` over big-content
+selectors and does NOT resolve the cascade**, so the override is invisible to it.
+This RE-OPENS the hidden-text class that turn-71/78 "killed" — that exoneration
+used the Previewer oracle, which never enforced this rule.
+
+_Measurement correction:_ by effective cascade the shipshape file hides almost
+nothing (the override unhides vn-sep/note-label); the ONLY distinguisher from
+test-2 is the RAW presence of `display:none` strings. So gate-5 (which checked
+the EFFECTIVE css, "955 chars") gave a false green — it must scan RAW.
+
+**Test staged (one variable):** `~/Desktop/Ethiopian Bible - Catholic Study
+(Kindle) TEST-nohide.epub` = the EXACT failing file with ALL `display:none` /
+`visibility:hidden` removed (verified 0 hidden rules / 0 hidden attrs;
+epubcheck 0/0/0/0; OCF mimetype-first). Every other shipshape trait held
+constant. **Upload verdict PENDING — Amazon Send-to-Kindle service reported
+temporarily unavailable 2026-06-13; user will retry when it is back.**
+- DELIVERS ⇒ confirmed. Product fix: for the kindle target, STRIP (not override)
+  `display:none`/`visibility:hidden` in the variant CSS + new artifact gate that
+  fails on ANY raw `display:none` over content (gate-5 currently validates the
+  EFFECTIVE css → false green).
+- E999 again ⇒ hidden-CSS exonerated for real; pivot to diffing this build vs
+  the 2026-06-10 delivered build. Research workflow (`wf_2c40ddfa-632`) hunting a
+  server-faithful local oracle (Previewer CLI KFX export / Calibre KFX plugin).
