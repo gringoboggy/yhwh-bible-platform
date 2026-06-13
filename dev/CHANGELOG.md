@@ -4,6 +4,20 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-13 — session (🪟 Windows, turn 79) — Grok Build integration + portable `AGENTS.md` cross-tool rules bridge
+
+**Phases shipped:** tooling/docs (no phase letter) — the `AGENTS.md` bridge + Grok Build CLI install
+**Save tag:** milestone 5-leg `agents-md-grok-bridge` (cross-machine handoff to Mac)
+
+What shipped:
+- Added root **`AGENTS.md`** — a portable, cross-tool rules digest (Grok Build / Codex / Cursor / Copilot) that DEFERS to `dev/CLAUDE_PROJECT_RULES.md` as the authority (a digest, never a competing source of truth). Built via a 5-reader survey workflow over RULES/PLAYBOOK/MATRIX_MAP/REPO_MAP/README + memory, then a 2-lens adversarial verify pass (fact-check + omission-hunt). Fixes folded in: dropped an invented `:<build-hash>` from the `dc:identifier`; corrected the launcher (browser from source, native only when frozen); added the shared-split-file warning, the lossy-bare-base-regen WHY, the `ebible verify` pairing-only blind spot, the path-sandbox security rule, the original-language `<em>`-per-word markup spec, per-book flat-list encoding, the third resolver caller (`config._kinds_in_edition`) + gate precedence, the base-rebake categorize-diff proof, and the full gate done-contract.
+- Installed xAI **Grok Build CLI** (`~/.grok/bin/grok.exe` v0.2.51; Authenticode-signed "X.AI LLC"; installer downloaded + inspected before running). User logged in via grok.com subscription (models: `grok-build`, `grok-composer-2.5-fast`). `grok inspect` confirms Grok loads `AGENTS.md` (~5.9k tokens) AND the Claude/Cursor harness (86 skills · 14 agents · 56 plugins · chrome-devtools MCP · 8 hooks) — it inherits the rules natively.
+- A clipboard "API key" was validated against the xAI API and REJECTED ("Incorrect API key provided") → not stored. Grok Build auth is subscription OAuth, not an API key.
+- Cross-lane handoff to Mac (LANE_HANDOFF): install Grok via the macOS one-liner + `git pull` to inherit `AGENTS.md` (do NOT recreate it).
+
+Continuity:
+- Round-7 K-R6-2 (Kobo byte-cap) remains OPEN — unchanged this session: 3 test failures (estimator margin double-counts → over-splits near-cap verses; fix = anchor the default byte cap at the 8,858 proven-open floor after re-measuring gen-1-3) + the `test_marker_style`/`test_note_rehaul` `-s1` pin sweep + round-7 build/gates/epubcheck + device load.
+
 ## 2026-06-11 — session (🪟 Windows, turn 76) — per-edition signature covers: the Downloads catalog redesigned as cover cards (each edition wears its OWN cover) · band-alt CSS class fix · never-remove-live made structural
 
 **Phases shipped:** matrix M1.5 (user-directed cover-identity redesign: no "— black" labels, per-edition design+colour, merged bands, card grid) + the site-wide `.band-alt` layout fix (the user's 5 desktop screenshots root-caused to per-child auto-margin centering cancelled by child margin rules)
