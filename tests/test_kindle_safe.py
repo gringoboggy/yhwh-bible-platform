@@ -92,112 +92,6 @@ class TestKindleWizardSurfaces:
         assert "'kindle'" in CUSTOMIZE_HTML and 'value="kindle"' in CUSTOMIZE_HTML
 
 
-class TestKindleSafeCss:
-    """E3013 (visible endnotes) + K-KIN-3 (seam) CSS — pure append, kindle-gated."""
-
-    def test_appends_only_the_kindle_block(self):
-        from scripts.build_edition import _KINDLE_SAFE_CSS, apply_kindle_safe_css
-
-        base = ".notes-section, .notes-rule { display: none; }\n"
-        out = apply_kindle_safe_css(base)
-        assert out == base + _KINDLE_SAFE_CSS
-        assert out.startswith(base)  # append-only — base rules untouched
-
-    def test_unhides_every_text_bearing_hidden_class(self):
-        from scripts.build_edition import _KINDLE_SAFE_CSS as css
-
-        # the E3013 mass (≈486K chars in catholic-study) — both section hides
-        assert ".notes-section { display: block;" in css
-        assert ".verse-refs-section { display: block;" in css
-        # the ~13K note-label hides (base stylesheet.css:227-233) — same selector
-        # strings as the base so the artifact gate can pair override with hide
-        assert '[class*="note-comm-"] > div > .note-label { display: block; }' in css
-        assert ".note-label:where([data-noise])" in css
-        # the .vn-sep separators become VISIBLE bullets (useful in endnote flow)
-        assert ".vn-sep { display: inline; }" in css
-
-    def test_keeps_the_bottom_notes_heading_hidden(self):
-        # inject puts the hr+h3 "Notes" heading at the section BOTTOM (cosmetic
-        # inversion in a visible render) — keep it hidden; ~305 chars ≪ 10K
-        from scripts.build_edition import _KINDLE_SAFE_CSS as css
-
-        assert ".notes-heading { display: none; }" in css
-
-    def test_seam_fix_rules(self):
-        # K-KIN-3: the forced singleton spine file already breaks the page on
-        # every renderer — the CSS forced breaks are pure KFX double-break
-        # liability; the global h1 break tears the caption band off the title.
-        from scripts.build_edition import _KINDLE_SAFE_CSS as css
-
-        assert ".book-title-page { page-break-before: auto;" in css
-        assert "h1.bookpage-title { page-break-before: avoid;" in css
-        assert ".bookpage-art" in css and "max-height: 12em" in css
-
-
-_KINDLE_TOC_PAGE = (
-    "<?xml version='1.0' encoding='utf-8'?>\n"
-    '<html xmlns="http://www.w3.org/1999/xhtml"><head><title>T</title></head><body>\n'
-    '<div class="toc-wrap"><h1 class="toc-title">Contents</h1><ol class="toc-books">\n'
-    '<li class="toc-book"><p class="toc-book-label"><a href="index_split_000.html#bp-00">Genesis</a></p>'
-    '<ol class="toc-chapters"><li><a href="index_split_000.html#page_4">1</a></li>'
-    '<li><a href="index_split_000.html#ch-b00-c18">18</a></li></ol></li>\n'
-    "</ol></div>\n</body></html>"
-)
-
-
-class TestKindleTocRows:
-    """K-KIN-2: KFX drops the li display → one pill per line. Plain inline
-    anchors in a <p> are inline text in every renderer including KFX."""
-
-    def test_rewrites_pill_ols_to_plain_rows(self, tmp_path):
-        from scripts.build_edition import apply_kindle_toc_rows
-
-        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
-        stats = apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
-        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
-        assert stats["toc_rows_rewritten"] == 1
-        assert 'class="toc-chapters"' not in out
-        assert '<p class="toc-chapter-row">' in out
-        # every anchor survives verbatim (mixed #page_N / #ch-bXX-cN hrefs)
-        assert '<a href="index_split_000.html#page_4">1</a>' in out
-        assert '<a href="index_split_000.html#ch-b00-c18">18</a>' in out
-        # the book label row is untouched
-        assert '<p class="toc-book-label">' in out
-
-    def test_noop_for_non_kindle_targets(self, tmp_path):
-        from scripts.build_edition import apply_kindle_toc_rows
-
-        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
-        stats = apply_kindle_toc_rows(tmp_path, {})
-        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
-        assert stats["toc_rows_rewritten"] == 0
-        assert out == _KINDLE_TOC_PAGE  # byte-identical
-
-    def test_idempotent(self, tmp_path):
-        from scripts.build_edition import apply_kindle_toc_rows
-
-        (tmp_path / "index_split_000.html").write_text(_KINDLE_TOC_PAGE, encoding="utf-8")
-        apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
-        first = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
-        apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
-        assert (tmp_path / "index_split_000.html").read_text(encoding="utf-8") == first
-
-    def test_collapsible_details_shape_also_rewrites(self, tmp_path):
-        # /customize can set collapsible=true + kindle; the ol inside <details>
-        # must still become a row (the <details> wrapper itself is harmless —
-        # Kindle converts it to a permanently-expanded block, K-KIN-4)
-        from scripts.build_edition import apply_kindle_toc_rows
-
-        page = _KINDLE_TOC_PAGE.replace(
-            '<p class="toc-book-label"><a href="index_split_000.html#bp-00">Genesis</a></p>',
-            '<details><summary><a href="index_split_000.html#bp-00">Genesis</a></summary>',
-        ).replace("</ol></li>", "</ol></details></li>")
-        (tmp_path / "index_split_000.html").write_text(page, encoding="utf-8")
-        stats = apply_kindle_toc_rows(tmp_path, {"target_reader": "kindle"})
-        assert stats["toc_rows_rewritten"] == 1
-        assert 'class="toc-chapters"' not in (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
-
-
 class TestOpfTargetStamp:
     """patch_opf stamps the resolved target so the stdlib-only artifact
     verifier can run kindle checks skew-free (editions.yaml is mutable
@@ -237,59 +131,16 @@ class TestOpfTargetStamp:
         assert "yhwh:target-reader" not in opf
 
 
-class TestKindleUnhideAttrs:
-    """K-KIN forensics (2026-06-11, the 2nd ~50-min Send-to-Kindle failure):
-    the shipped kindle artifact still carried `hidden=""` on all 284 note
-    wrappers (24.8M chars under the UA [hidden] rule) and 3 odd-template
-    pieces wrap popups in `<section class="verse-refs-section" ... hidden="">`.
-    The variant CSS overrides both via author-display:block — but Amazon's
-    opaque hidden-text counter may not honor the full cascade. Belt-and-
-    braces: the kindle variant physically STRIPS the attribute from the
-    footnote wrappers, so no counter model can see hidden text."""
+class TestKindleKeepsHiddenFootnoteAttrs:
+    """The proven june10recipe.epub (Send-to-Kindle PASS) KEPT all 406 hidden=""
+    footnote asides and delivered — Amazon's E3013/E999 scanner counts CSS
+    display:none, NOT the HTML hidden attribute, and Kindle's native footnote
+    popups USE those hidden asides. So `apply_kindle_unhide` was removed
+    2026-06-14; a kindle build must NOT strip them. Guard: the function is gone."""
 
-    PIECE = (
-        "<html><body><p>scripture</p>"
-        '<aside class="notes-section" epub:type="footnotes" hidden="">\n'
-        '<aside class="verse-notes" id="vnotes-gen-1-1" epub:type="footnote">n</aside></aside>'
-        '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
-        '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">v</aside></section>'
-        '<p hidden="">unrelated hidden element stays</p>'
-        "</body></html>"
-    )
+    def test_apply_kindle_unhide_is_removed(self):
+        import scripts.build_edition as be
 
-    def _tree(self, tmp_path):
-        tmp = tmp_path / "build"
-        tmp.mkdir()
-        (tmp / "index_split_000.html").write_text(self.PIECE, encoding="utf-8")
-        return tmp
-
-    def test_strips_hidden_from_footnote_wrappers_only(self, tmp_path):
-        from scripts.build_edition import apply_kindle_unhide
-
-        tmp = self._tree(tmp_path)
-        stats = apply_kindle_unhide(tmp, {"id": "x", "target_reader": "kindle"})
-        out = (tmp / "index_split_000.html").read_text(encoding="utf-8")
-        assert '<aside class="notes-section" epub:type="footnotes">' in out
-        assert '<section class="verse-refs-section" epub:type="footnotes">' in out
-        # non-footnote hidden elements are NOT the kindle problem — untouched
-        assert '<p hidden="">' in out
-        assert stats["hidden_attrs_stripped"] == 2
-
-    def test_noop_for_non_kindle_targets(self, tmp_path):
-        from scripts.build_edition import apply_kindle_unhide
-
-        tmp = self._tree(tmp_path)
-        before = (tmp / "index_split_000.html").read_text(encoding="utf-8")
-        stats = apply_kindle_unhide(tmp, {"id": "x"})
-        assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == before
-        assert stats["hidden_attrs_stripped"] == 0
-
-    def test_idempotent(self, tmp_path):
-        from scripts.build_edition import apply_kindle_unhide
-
-        tmp = self._tree(tmp_path)
-        ed = {"id": "x", "target_reader": "kindle"}
-        apply_kindle_unhide(tmp, ed)
-        once = (tmp / "index_split_000.html").read_text(encoding="utf-8")
-        apply_kindle_unhide(tmp, ed)
-        assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == once
+        assert not hasattr(be, "apply_kindle_unhide")
+        assert not hasattr(be, "apply_kindle_safe_css")
+        assert not hasattr(be, "apply_kindle_toc_rows")

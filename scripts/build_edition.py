@@ -2245,56 +2245,13 @@ def apply_note_cascade_css(stylesheet_css: str) -> str:
     return stylesheet_css + _NOTE_CASCADE_CSS
 
 
-# kindle_safe (turn-69 ①) — the Send-to-Kindle variant CSS, appended LAST so it
-# wins every earlier rule. Three jobs:
-#   1. E3013/E999 (CONFIRMED): Amazon hard-fails conversion when >10,000 chars
-#      hide under display:none (~486K hidden in a default build). Un-hide the
-#      notes/verse-refs sections (visible endnote style — Kindle's reader
-#      follows the noteref links natively) and the note-label hides. CSS-only:
-#      author display:block also overrides the asides' hidden="" UA rule —
-#      empirically proven (test-2 delivered + rendered with hidden intact).
-#      Selector strings INTENTIONALLY mirror the base hide rules verbatim so
-#      the kindle_safe artifact gate can pair each hide with its override.
-#   2. .vn-sep separators (a Kobo eInk-preview mechanism) become visible
-#      bullets — useful structure in visible endnote flow, and the hidden-char
-#      budget stays near zero without diverging the markup per target.
-#   3. K-KIN-3 seam shatter: the title singleton spine file already guarantees
-#      the page break, so .book-title-page's forced CSS breaks only produce
-#      KFX's classic double-break blank page; the global h1 page-break-before
-#      tears the caption band ("BOOK II / The Second Book of Moses") off its
-#      book name; KF8 drops vh so the art falls back to max-height:20em and
-#      claims a page — re-cap lower so caption+title+art share one page.
-_KINDLE_SAFE_CSS = """
-/* === kindle_safe (target_reader=kindle) — Send-to-Kindle variant === */
-/* E3013: visible endnotes — nothing big may hide under display:none */
-.notes-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
-.notes-rule { display: none; }
-.notes-heading { display: none; }
-.verse-refs-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
-.note-comm > p > .note-label,
-.note-comm > div > .note-label,
-[class*="note-comm-"] > p > .note-label,
-[class*="note-comm-"] > div > .note-label { display: block; }
-.note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: block; }
-.vn-sep { display: inline; }
-/* K-KIN-3: no double-break blanks, no caption-band tear, art shares the page */
-.book-title-page { page-break-before: auto; break-before: auto; page-break-after: auto; break-after: auto; }
-h1.bookpage-title { page-break-before: avoid; break-before: avoid; }
-.bookpage-art, .bookpage-art-bleed { max-height: 12em; }
-/* K-KIN-2 companion: plain chapter rows (markup pass apply_kindle_toc_rows) */
-.toc-chapter-row { text-align: left; line-height: 2; word-spacing: 0.35em; margin: 0.25em 0 0.6em 1.4em; }
-.toc-chapter-row a { text-decoration: none; color: #2a1a1a; padding: 0 0.1em; }
-"""
-
-
-def apply_kindle_safe_css(stylesheet_css: str) -> str:
-    """Append the kindle_safe variant CSS (visible endnotes + seam fixes).
-
-    Pure CSS against the existing baked classes — no base re-bake, no markup
-    change. Mirrors apply_note_cascade_css; the caller gates on
-    is_kindle_target, so non-kindle editions append NOTHING (byte-identical,
-    RULES 7.2)."""
-    return stylesheet_css + _KINDLE_SAFE_CSS
+# K-KIN: the kindle_safe variant CSS (display:block overrides + K-KIN-2/3 seam
+# fixes) was REMOVED 2026-06-14 — the proven june10recipe.epub (Send-to-Kindle
+# PASS) carried NO kindle_safe CSS. Physically stripping display:none
+# (apply_kindle_strip_hidden) makes the notes/refs sections revert to their
+# natural block display, so the override was redundant; the seam/toc-row tweaks
+# rode the falsified Kindle-Previewer oracle. See
+# docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.
 
 
 # ----------------------------------------------------------------------
@@ -3789,26 +3746,22 @@ FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter
 # already exceeds it becomes its own (over-cap) piece — we never split mid-chapter,
 # because a verse's marker and its aside must stay in one file for the popup contract.
 
-# K-KIN blocker #2 (the halfspine P/P verdict, 2026-06-11): the full 297-doc
-# kindle artifact fails KFX conversion with a generic no-E-code internal error
-# while EACH HALF (~149 docs) converts clean ("Book converted successfully",
-# Enhanced Typesetting Supported) — and the full-size delink probe (links
-# 112,751→26,719, asides→divs) still failed, so the driver is AGGREGATE
-# doc-count / per-doc converter overhead, not the link graph or content. The
-# ~0.4 MB split exists for Kobo's e-ink renderer (K-R2); Kindle's KFX paginates
-# internally and needs no such splitting, so the kindle target packs to a much
-# larger cap — same bytes, ~5× fewer content pieces (title singletons remain,
-# proven accepted). Explicit ``reader_file_split_target`` still wins.
-FILE_SPLIT_TARGET_KINDLE = 2_000_000
-
 
 def resolve_file_split_target(edition: dict) -> int:
     """Per-piece soft byte cap for apply_file_split — the single resolver
-    (explicit per-edition override > the reader-target default)."""
+    (explicit per-edition override > the reader-target default).
+
+    The kindle target uses the SAME default split as everywhere. The earlier
+    2 MB kindle pack came from the Kindle-Previewer/KDP "halfspine" verdict (the
+    full 297-doc artifact failing KFX with a generic internal error) — which the
+    real Send-to-Kindle channel FALSIFIED: june10recipe.epub shipped the standard
+    299-piece split (incl. 75 tiny husk pieces) and delivered (user-confirmed,
+    2026-06-14). Only STK is a valid oracle (memory: validate-the-real-delivery-
+    channel). See docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md."""
     explicit = edition.get("reader_file_split_target")
     if explicit:
         return int(explicit)
-    return FILE_SPLIT_TARGET_KINDLE if is_kindle_target(edition) else FILE_SPLIT_TARGET_DEFAULT
+    return FILE_SPLIT_TARGET_DEFAULT
 
 
 # HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
@@ -4952,99 +4905,42 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     return stats
 
 
-# K-KIN-2 (kindle_safe): the in-content ToC's chapter pills are <li
-# display:inline-block> items — KFX drops the list display, so every pill
-# renders block-level (one chapter per LINE; Genesis ToC spans pages on
-# Kindle). Plain anchors inside a <p> are inline TEXT in every renderer
-# including KFX. The pass rewrites each <ol class="toc-chapters"> block to a
-# <p class="toc-chapter-row"> of space-joined anchors (hrefs untouched —
-# they're MIXED #page_N / #ch-bXX-cN, so we match the ol block, never href
-# shapes). Runs AFTER apply_bilingual_toc (its chapter regex needs the pill
-# shape) and BEFORE apply_file_split (href remapping then covers the rewritten
-# anchors like all content). Styling rides _KINDLE_SAFE_CSS (.toc-chapter-row).
-_TOC_CHAPTERS_OL_RE = re.compile(r'<ol class="toc-chapters">(.*?)</ol>', re.DOTALL)
-_TOC_CHAPTER_ANCHOR_RE = re.compile(r"<a\b[^>]*>.*?</a>", re.DOTALL)
+# K-KIN: apply_kindle_toc_rows (chapter-pill <ol> → inline rows) and
+# apply_kindle_unhide (strip hidden="" off footnote wrappers) were REMOVED
+# 2026-06-14. The proven june10recipe.epub (Send-to-Kindle PASS) had the
+# standard pill ToC and kept all 406 hidden="" footnote asides — Amazon's E3013
+# scanner counts CSS display:none, not the HTML hidden attribute, and Kindle's
+# native footnote popups USE those hidden asides. Both passes rode the falsified
+# Kindle-Previewer/KDP oracle. See
+# docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.
 
 
-def _toc_ol_to_row(m: "re.Match[str]") -> str:
-    anchors = _TOC_CHAPTER_ANCHOR_RE.findall(m.group(1))
-    return '<p class="toc-chapter-row">' + " ".join(anchors) + "</p>"
-
-
-def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
-    """Rewrite ToC chapter-pill <ol>s to plain inline anchor rows (K-KIN-2).
-
-    Kindle-gated through the one resolver; any other target returns without
-    touching a byte (RULES 7.2). Mutates only the per-edition temp tree."""
-    stats = {"toc_rows_rewritten": 0}
-    if not is_kindle_target(edition):
-        return stats
-    for fpath in sorted(tmp.glob("index_split_*.html")):
-        text = fpath.read_text(encoding="utf-8")
-        out, n = _TOC_CHAPTERS_OL_RE.subn(_toc_ol_to_row, text)
-        if n:
-            fpath.write_text(out, encoding="utf-8")
-            stats["toc_rows_rewritten"] += n
-    return stats
-
-
-# K-KIN forensics (2026-06-11, the 2nd ~50-min Send-to-Kindle failure): the
-# kindle artifact still carried `hidden=""` on every footnote wrapper (the
-# `.notes-section` asides AND the 3 odd-template `verse-refs-section`
-# sections — 24.8M chars under the UA [hidden] rule). The variant CSS
-# overrides both via author display:block, which epubcheck + our gate honor —
-# but Amazon's hidden-text counter is opaque and may key the raw attribute.
-# Belt-and-braces: physically strip the attribute from footnote wrappers so
-# NO counter model can see hidden text. Matches any aside/section opener that
-# carries epub:type="footnotes" and a hidden attribute, attribute-order-safe.
-_FOOTNOTES_HIDDEN_ATTR_RE = re.compile(
-    r'(<(?:aside|section)\b(?=[^>]*epub:type="footnotes")[^>]*?)\s+hidden(?:="[^"]*")?(?=[^>]*>)'
-)
-
-
-def apply_kindle_unhide(tmp: Path, edition: dict) -> dict:
-    """Strip ``hidden=""`` from footnote wrappers in a kindle-target temp
-    tree. Runs AFTER apply_file_split (the splitter re-emits per-piece
-    notes-section wrappers WITH the attribute) and is a no-op — byte-identical
-    tree — for every non-kindle target. Idempotent."""
-    stats = {"hidden_attrs_stripped": 0}
-    if not is_kindle_target(edition):
-        return stats
-    for fpath in sorted(tmp.glob("*.html")):
-        text = fpath.read_text(encoding="utf-8")
-        out, n = _FOOTNOTES_HIDDEN_ATTR_RE.subn(r"\1", text)
-        if n:
-            fpath.write_text(out, encoding="utf-8")
-            stats["hidden_attrs_stripped"] += n
-    return stats
-
-
-# K-KIN E999 (2026-06-13, Amazon-confirmed): Amazon's Send-to-Kindle /
-# Kindle-publishing ingestion rejects content hidden under display:none over the
+# K-KIN E999 (2026-06-13; Send-to-Kindle-confirmed 2026-06-14): Amazon's
+# Send-to-Kindle ingestion rejects content hidden under display:none over the
 # 10,000-char E3013 cap and — unlike Kindle Previewer and epubcheck — does NOT
-# resolve the CSS cascade, so the kindle_safe OVERRIDE (display:block appended
-# after the base display:none) is invisible to it: the raw display:none string
-# over a big note container still trips the gate, surfaced as the opaque E999.
-# The override-stripped artifact converted clean on Amazon all the way to the
-# final publish-setup step (2026-06-13). So for the kindle target we PHYSICALLY
-# strip every
-# display:none / visibility:hidden (CSS + inline) and drop the Kobo-eInk-only
-# .vn-sep separator spans (their only job was to be display:none on CSS readers;
-# once nothing hides them they would show as stray ¶/◦/• glyphs). Result: a
-# kindle artifact with ZERO hidden content (gate 5 enforces it).
+# resolve the CSS cascade, so a display:block OVERRIDE appended after a base
+# display:none is invisible to it: the raw display:none string over a big note
+# container still trips the gate, surfaced as the opaque E999. So for the kindle
+# target we PHYSICALLY strip every display:none / visibility:hidden (CSS files +
+# inline style=). This is exactly the proven june10recipe.epub delta (it stripped
+# the rules — including .vn-sep's — and DELIVERED via Send-to-Kindle). We do NOT
+# touch the .vn-sep separator SPANS: june10 kept all 132,949 of them (they render
+# as visible bullets once their hide rule is gone) and passed; dropping the spans
+# was a FIXED.epub (FAIL) behavior. Result: a kindle artifact with ZERO
+# CSS-hidden content (gate 5 enforces it). Note Amazon's scanner counts CSS
+# display:none, NOT the HTML hidden="" attribute (june10 kept 406 and passed).
 _CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
 _INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
-_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>')
 
 
 def apply_kindle_strip_hidden(tmp: Path, edition: dict) -> dict:
     """Physically remove every display:none / visibility:hidden (CSS + inline)
-    and the Kobo-only .vn-sep separator spans from a kindle-target tree, so the
-    artifact carries ZERO hidden content (the Amazon-confirmed E999/E3013 fix).
-    Runs AFTER apply_kindle_safe_css (appends the now-redundant overrides) and
-    apply_file_split. No-op — byte-identical tree — for every non-kindle target.
-    Idempotent."""
-    stats = {"css_hidden_stripped": 0, "vn_sep_removed": 0, "inline_hidden_stripped": 0}
+    from a kindle-target tree, so the artifact carries ZERO CSS-hidden content
+    (the Send-to-Kindle-confirmed E999/E3013 fix). Leaves the .vn-sep spans and
+    the hidden="" attributes intact (the proven june10recipe.epub kept both).
+    Runs AFTER apply_file_split. No-op — byte-identical tree — for every
+    non-kindle target. Idempotent."""
+    stats = {"css_hidden_stripped": 0, "inline_hidden_stripped": 0}
     if not is_kindle_target(edition):
         return stats
     for cpath in sorted(tmp.glob("*.css")):
@@ -5055,11 +4951,9 @@ def apply_kindle_strip_hidden(tmp: Path, edition: dict) -> dict:
             stats["css_hidden_stripped"] += n
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
-        text, n_sep = _VN_SEP_SPAN_RE.subn("", text)
         text, n_inl = _INLINE_HIDDEN_DECL_RE.subn(r"\1", text)
-        if n_sep or n_inl:
+        if n_inl:
             fpath.write_text(text, encoding="utf-8")
-            stats["vn_sep_removed"] += n_sep
             stats["inline_hidden_stripped"] += n_inl
     return stats
 
@@ -5655,8 +5549,10 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 # deliberately spares vnotes (kept books' cross-references may target a dropped
 # book's verse popup); the fold/splice passes therefore leave a removed book's
 # vnote-* translation popups behind unreachable (eth 206: aes 205 + est-10-5;
-# catholic-study 1,598: + 1es/2es). Kindle makes them USER-VISIBLE ("[no text]"
-# endnote rows under apply_kindle_unhide) — part of the K-KIN acceptance path.
+# catholic-study 1,598: + 1es/2es). These dead, unreachable popups are dropped
+# from every edition (runs universally, not kindle-gated) so no artifact carries
+# them — matters most on Kindle, whose native footnote popups would otherwise
+# surface "[no text in this edition]" rows.
 
 # ⚠ Named _ORPHAN_VNOTE_ASIDE_RE, NOT _VNOTE_ASIDE_RE: the popup passes
 # (_apply_popup_languages_and_translation / _replace_verse_popup_translation)
@@ -6419,16 +6315,8 @@ def build_one(
             )
             stats["note_cascade_css"] = True
 
-        # kindle_safe (turn-69 ①) — append the Send-to-Kindle variant CSS
-        # (visible endnotes per E3013, K-KIN-3 seam fixes, K-KIN-2 row chrome)
-        # when the resolved reader target is kindle. Same append-to-stylesheet
-        # mechanism; absent/other targets ⇒ byte-identical (RULES 7.2).
-        if css_path.is_file() and is_kindle_target(edition):
-            css_path.write_text(
-                apply_kindle_safe_css(css_path.read_text(encoding="utf-8")),
-                encoding="utf-8",
-            )
-            stats["kindle_safe_css"] = True
+        # (kindle_safe variant CSS removed 2026-06-14 — the proven june10 recipe
+        # has none; apply_kindle_strip_hidden physically strips the hides instead.)
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
@@ -6627,12 +6515,8 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
-        # K-KIN-2 (kindle_safe) — chapter pills → plain inline rows. MUST stay
-        # after apply_bilingual_toc (its chapter regex needs the pill shape)
-        # and before apply_file_split (which remaps the rewritten hrefs).
-        # No-op for every non-kindle target (byte-identical).
-        toc_rows_stats = apply_kindle_toc_rows(tmp, edition)
-        stats["toc_rows_rewritten"] = toc_rows_stats["toc_rows_rewritten"]
+        # (apply_kindle_toc_rows removed 2026-06-14 — the proven june10 recipe
+        # kept the standard pill ToC; the rewrite rode the falsified Previewer oracle.)
 
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
@@ -6718,23 +6602,16 @@ def build_one(
         stats["pieces_created"] = split_stats["pieces_created"]
         stats["largest_piece_kb"] = split_stats["largest_piece_kb"]
 
-        # K-KIN forensics (2026-06-11): kindle targets physically strip
-        # hidden="" from footnote wrappers. MUST run after apply_file_split —
-        # the splitter re-emits per-piece notes-section wrappers WITH the
-        # attribute. No-op (byte-identical) for every other target.
-        unhide_stats = apply_kindle_unhide(tmp, edition)
-        stats["kindle_hidden_attrs_stripped"] = unhide_stats["hidden_attrs_stripped"]
-
-        # K-KIN E999 (2026-06-13, Amazon-confirmed): physically strip every raw
-        # display:none/visibility:hidden + the Kobo-only .vn-sep spans for the
-        # kindle target. Amazon's server scan does not resolve the CSS cascade,
-        # so the kindle_safe display:block override is invisible to it — only a
-        # physical strip clears the E3013/E999 gate (proven: the stripped
-        # artifact reached Amazon's publish step). MUST run after apply_kindle_safe_css
-        # (appends the overrides) + the splitter. No-op for non-kindle.
+        # K-KIN E999 (2026-06-13; Send-to-Kindle-confirmed 2026-06-14): physically
+        # strip every raw display:none / visibility:hidden (CSS + inline) for the
+        # kindle target. Amazon's server scan does not resolve the CSS cascade, so
+        # only a physical strip clears the E3013/E999 gate — exactly the proven
+        # june10recipe.epub delta. MUST run after the splitter (it re-emits per-piece
+        # wrappers). Leaves .vn-sep spans + hidden="" attrs intact (june10 kept both
+        # and delivered). No-op (byte-identical) for non-kindle.
         strip_stats = apply_kindle_strip_hidden(tmp, edition)
         stats["kindle_css_hidden_stripped"] = strip_stats["css_hidden_stripped"]
-        stats["kindle_vn_sep_removed"] = strip_stats["vn_sep_removed"]
+        stats["kindle_inline_hidden_stripped"] = strip_stats["inline_hidden_stripped"]
 
         # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
         # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking

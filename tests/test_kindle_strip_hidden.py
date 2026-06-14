@@ -1,17 +1,20 @@
-"""K-KIN E999 (2026-06-13, KDP-confirmed): a kindle artifact must carry ZERO
-hidden content. `apply_kindle_strip_hidden` PHYSICALLY removes every
-display:none / visibility:hidden (CSS + inline) and the Kobo-eInk-only `.vn-sep`
-separator spans for the kindle target — no-op (byte-identical) elsewhere.
+"""K-KIN E999 (2026-06-13, Send-to-Kindle-confirmed 2026-06-14): a kindle
+artifact must carry ZERO content hidden under CSS display:none / visibility:hidden.
+`apply_kindle_strip_hidden` PHYSICALLY removes every such declaration (CSS files +
+inline `style=`) for the kindle target — no-op (byte-identical) elsewhere.
 
-Why physical strip, not the prior CSS override: Amazon's Send-to-Kindle / KDP
-ingestion rejects content hidden under display:none over the 10,000-char E3013
-cap, and — unlike Kindle Previewer and epubcheck — does NOT resolve the CSS
-cascade, so the `display:block` override appended after the base `display:none`
-is invisible to it (the raw `display:none` string still trips the gate, surfaced
-as the opaque E999). The override-stripped artifact converted clean on KDP all
-the way to the pricing step (2026-06-13). The Kobo-only `.vn-sep` marks existed
-only to be display:none on CSS readers; once nothing hides them they would show
-as stray ¶/◦/• glyphs, so the kindle target drops the spans outright.
+Why physical strip, not the prior CSS override: Amazon's Send-to-Kindle ingestion
+rejects content hidden under display:none over the 10,000-char E3013 cap, and —
+unlike Kindle Previewer and epubcheck — does NOT resolve the CSS cascade, so the
+`display:block` override appended after the base `display:none` is invisible to it
+(the raw `display:none` string still trips the gate, the opaque E999).
+
+It does NOT touch the `.vn-sep` separator spans: the proven june10recipe.epub kept
+all 132,949 of them (and the matching `.vn-sep { display:none }` rule was stripped
+with every other hide, so they render as visible bullets) and DELIVERED via
+Send-to-Kindle (user-confirmed). Dropping the spans was a FIXED.epub (FAIL) behavior;
+only the real STK channel is a valid oracle.
+(docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md)
 """
 
 
@@ -50,15 +53,20 @@ class TestKindleStripHidden:
         assert ".keep { display: block; margin: 1em; }" in css
         assert stats["css_hidden_stripped"] == 4
 
-    def test_removes_vn_sep_spans_but_keeps_surrounding_content(self, tmp_path):
+    def test_keeps_vn_sep_spans(self, tmp_path):
+        # june10recipe.epub (the STK PASS) kept all its vn-sep spans — only the
+        # display:none decls are stripped, never the spans.
         from scripts.build_edition import apply_kindle_strip_hidden
 
         tmp = _tree(tmp_path)
-        stats = apply_kindle_strip_hidden(tmp, {"id": "x", "target_reader": "kindle"})
+        before = (tmp / "index_split_000.html").read_text(encoding="utf-8")
+        apply_kindle_strip_hidden(tmp, {"id": "x", "target_reader": "kindle"})
         html = (tmp / "index_split_000.html").read_text(encoding="utf-8")
-        assert 'class="vn-sep"' not in html
+        assert html.count('class="vn-sep"') == 2  # both spans survive
+        assert "•" in html and "¶" in html  # their separator glyphs are untouched
         assert "note text" in html
-        assert stats["vn_sep_removed"] == 2
+        # the vn-sep spans are byte-identical before/after (only display:none goes)
+        assert before.count('<span class="vn-sep">') == html.count('<span class="vn-sep">')
 
     def test_strips_inline_hidden(self, tmp_path):
         from scripts.build_edition import apply_kindle_strip_hidden
@@ -78,7 +86,7 @@ class TestKindleStripHidden:
         stats = apply_kindle_strip_hidden(tmp, {"id": "x"})
         assert (tmp / "stylesheet.css").read_text(encoding="utf-8") == before_css
         assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == before_html
-        assert stats == {"css_hidden_stripped": 0, "vn_sep_removed": 0, "inline_hidden_stripped": 0}
+        assert stats == {"css_hidden_stripped": 0, "inline_hidden_stripped": 0}
 
     def test_idempotent(self, tmp_path):
         from scripts.build_edition import apply_kindle_strip_hidden

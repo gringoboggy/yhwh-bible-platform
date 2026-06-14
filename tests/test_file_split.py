@@ -897,13 +897,13 @@ class TestSpillDuplicateNoterefClone:
 
 
 class TestKindleSplitTarget:
-    """K-KIN blocker #2 (P/P halfspine verdict): the whole 297-doc artifact fails
-    KFX conversion with a generic internal error while EACH HALF (~149 docs)
-    converts clean — and the full-size delink probe (links/asides gutted) still
-    failed, so the driver is aggregate doc-count/per-doc overhead, NOT the link
-    graph. The ~0.4 MB e-ink split exists for Kobo's renderer; Kindle paginates
-    internally, so the kindle target packs to a larger per-piece cap (fewer
-    docs, same bytes). One resolver, explicit override wins."""
+    """The proven June-10 Send-to-Kindle recipe is a STANDARD split (299 spine,
+    the same as an everywhere build) — the artifact that actually delivered via
+    Send-to-Kindle. The earlier 2 MB kindle pack ("fewer docs, same bytes") came
+    from the Kindle-Previewer/KDP halfspine verdict, which the real STK channel
+    falsified (june10recipe.epub: 299 pieces, 75 tiny husk pieces, delivered).
+    So the kindle target uses the default per-piece cap; explicit override wins.
+    (docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md)"""
 
     def test_default_target_unchanged(self):
         from scripts.build_edition import FILE_SPLIT_TARGET_DEFAULT, resolve_file_split_target
@@ -911,15 +911,12 @@ class TestKindleSplitTarget:
         assert resolve_file_split_target({}) == FILE_SPLIT_TARGET_DEFAULT
         assert resolve_file_split_target({"target_reader": "eink"}) == FILE_SPLIT_TARGET_DEFAULT
 
-    def test_kindle_target_packs_larger(self):
-        from scripts.build_edition import (
-            FILE_SPLIT_TARGET_DEFAULT,
-            FILE_SPLIT_TARGET_KINDLE,
-            resolve_file_split_target,
-        )
+    def test_kindle_target_uses_default_split(self):
+        from scripts.build_edition import FILE_SPLIT_TARGET_DEFAULT, resolve_file_split_target
 
-        assert resolve_file_split_target({"target_reader": "kindle"}) == FILE_SPLIT_TARGET_KINDLE
-        assert FILE_SPLIT_TARGET_KINDLE > FILE_SPLIT_TARGET_DEFAULT
+        # june10 proved the standard split delivers on Send-to-Kindle; no
+        # kindle-special pack (the falsified Previewer/KDP-oracle 2 MB cap is gone).
+        assert resolve_file_split_target({"target_reader": "kindle"}) == FILE_SPLIT_TARGET_DEFAULT
 
     def test_explicit_override_wins_everywhere(self):
         from scripts.build_edition import resolve_file_split_target
