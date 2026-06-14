@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — session (🖥️ Mac, turn 81) — ★ K-KIN E999 RESOLVED (Kindle blocker fixed) + Grok/Kilo on Mac
+
+- **E999 root cause = hidden `display:none` content** (Amazon E3013, 10,000-char cap; Kindle Publishing Guidelines v2026.1 §17.2.1, primary-source). The desktop Kindle Previewer was falsified as a success oracle (it resolves the CSS cascade; Amazon's server scans raw markup). **`TEST-nohide` (all `display:none` stripped) converted clean on KDP to the pricing step** ⇒ the full-apparatus single-volume Kindle Bible is publishable; Send-to-Kindle's E999 is flaky/blind.
+- **In-build fix (TDD):** `apply_kindle_strip_hidden` in `build_edition.py` (kindle-gated — physically strips `display:none`/`visibility:hidden` CSS+inline and drops the Kobo-only `.vn-sep` separator spans; the prior CSS `display:block` override was invisible to Amazon's server) + `verify_kr2_build.py` gate 5 rewritten to a RAW hidden-content scan (`_raw_hidden_selectors`; deleted the false-green `_effective_hidden_selectors`/`_CSS_DISPLAY_RE`). New `tests/test_kindle_strip_hidden.py` (5) + rewritten gate tests. Proven artifact: `catholic-study --target-reader kindle` = 19.28 MB, 0 hidden / 0 vn-sep, 43,220 popups intact, gate 5 GREEN, epubcheck 0/0/0/0. Rebased onto WIN round-7; 97 tests green on the merged tree.
+- **Grok/Kilo 2nd agent on Mac** (parity with the WIN turn-80 directive): grok CLI 0.2.51 + both VS Code extensions + Kilo CLI on PATH; both authed (grok.com subscription + Kilo `xAI·oauth`); model `kilo/x-ai/grok-build-0.1`. Kilo `chrome-devtools` MCP pending (classifier blocks the `bash:allow` config edit; `kilo mcp add` is interactive). Plugins mirror Windows (29 = 30 − the intentionally-skipped playwright plugin; 3 marketplaces).
+
 ## 2026-06-13 — session (🪟 Windows, turn 79) — Grok Build integration + portable `AGENTS.md` cross-tool rules bridge
 
 **Phases shipped:** tooling/docs (no phase letter) — the `AGENTS.md` bridge + Grok Build CLI install
