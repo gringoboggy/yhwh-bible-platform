@@ -1258,6 +1258,30 @@ class TestXi17Security:
         # The redaction marker is present
         assert "[REDACTED]" in text
 
+    def test_audit_log_redacts_sensitive_positional_args(self, tmp_path):
+        # Hardening (laundry P1): _summarize_args redacted only kwargs, so a
+        # secret passed POSITIONALLY (e.g. api_auth_totp_confirm's payload, or any
+        # future positional-string secret) would log in the clear. Redact by the
+        # wrapped function's PARAM NAME, not just keyword name.
+        from scripts.core import audit_log
+
+        @audit_log.audit_endpoint(action="totp")
+        def fake_confirm(username, secret, token):
+            return {"ok": True}
+
+        original = audit_log._audit_dir
+        audit_log._audit_dir = lambda: tmp_path
+        try:
+            fake_confirm("alice", "JBSWY3DPEHPK3PXP", "t-deadbeef")  # all POSITIONAL
+        finally:
+            audit_log._audit_dir = original
+
+        text = next(tmp_path.glob("*.ndjson")).read_text(encoding="utf-8")
+        assert "JBSWY3DPEHPK3PXP" not in text  # positional secret redacted
+        assert "t-deadbeef" not in text  # positional token redacted
+        assert "alice" in text  # non-sensitive positional kept
+        assert "[REDACTED]" in text
+
 
 class TestG2PreviewSanitizesNoteBody:
     """G2 / B2a.7 — the /preview render path MUST sanitize note bodies.

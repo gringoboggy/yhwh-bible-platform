@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import functools
 import hashlib
+import inspect
 import json
 import logging
 import time
@@ -299,20 +300,29 @@ def read_recent(
     return out
 
 
-def _summarize_args(args: tuple, kwargs: dict) -> dict:
+def _summarize_args(args: tuple, kwargs: dict, *, arg_names: tuple[str, ...] = ()) -> dict:
     """Best-effort summary of call arguments for the audit log.
     Strips known-large fields (HTML bodies, dict payloads larger
     than 200 chars) so the log stays readable.
 
-    ξ.17 SEC-005 — kwargs whose name matches the redaction allowlist
-    (api_key, password, token, secret, Authorization, etc.) are
-    masked as ``"[REDACTED]"`` before logging. Catches the obvious
-    secret-leak class without trying to be exhaustive.
+    ξ.17 SEC-005 + laundry P1 — BOTH keyword args AND positional args whose
+    PARAMETER NAME matches the redaction allowlist (api_key, password, token,
+    secret, Authorization, etc.) are masked as ``"[REDACTED]"`` before logging.
+    ``arg_names`` are the wrapped function's positional parameter names (in
+    order, from its signature); a positional arg with no matching name is
+    summarized normally. Catches the obvious secret-leak class — positional or
+    keyword — without trying to be exhaustive.
     """
     summary: dict[str, Any] = {}
     if args:
-        # Positional args: capture types + short reprs only.
-        summary["args"] = [_short_repr(a) for a in args]
+        out: list[Any] = []
+        for i, a in enumerate(args):
+            name = arg_names[i] if i < len(arg_names) else None
+            if name is not None and name.lower() in _REDACT_KEYS:
+                out.append("[REDACTED]")
+            else:
+                out.append(_short_repr(a))
+        summary["args"] = out
     for k, v in kwargs.items():
         # ξ.17 redaction — case-insensitive match against the
         # sensitive-kwarg allowlist.
@@ -354,6 +364,19 @@ def audit_endpoint(action: str = "") -> Callable:
     """
 
     def _decorator(fn: Callable) -> Callable:
+        # Positional parameter names (in order), resolved ONCE at decoration
+        # time so _summarize_args can redact a secret passed positionally by its
+        # PARAM NAME (laundry P1 hardening). Signatures we cannot introspect
+        # (C builtins, etc.) fall back to no names — positional redaction off.
+        try:
+            _arg_names = tuple(
+                p.name
+                for p in inspect.signature(fn).parameters.values()
+                if p.kind in (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)
+            )
+        except (ValueError, TypeError):
+            _arg_names = ()
+
         @functools.wraps(fn)
         def _wrapper(*args: Any, **kwargs: Any) -> Any:
             t0 = time.perf_counter()
@@ -366,7 +389,7 @@ def audit_endpoint(action: str = "") -> Callable:
                     action=action or fn.__name__,
                     result="raised",
                     elapsed_ms=round((time.perf_counter() - t0) * 1000, 2),
-                    args=_summarize_args(args, kwargs),
+                    args=_summarize_args(args, kwargs, arg_names=_arg_names),
                 )
                 raise
             # Capture status/code if the result is a dict (the
@@ -387,7 +410,7 @@ def audit_endpoint(action: str = "") -> Callable:
                 result=status,
                 code=code,
                 elapsed_ms=round((time.perf_counter() - t0) * 1000, 2),
-                args=_summarize_args(args, kwargs),
+                args=_summarize_args(args, kwargs, arg_names=_arg_names),
             )
             return result
 
