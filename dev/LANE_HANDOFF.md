@@ -1,13 +1,35 @@
 ---
 mode: parallel
-turn: 86
-from: windows
-updated: 2026-06-14T13:20:00Z
+turn: 87
+from: mac
+updated: 2026-06-14T17:42:55Z
 status: working
-mac: ✔ turn 85 (Mac) — M4 reconciled: kept WIN kindle_post (wired), FIXED its vn-sep drop (june10 KEEPS 132,949 — commit a6efc4bb); rebuilt artifact matches june10 every signal + epubcheck 0/0/0/0, staged to Desktop for STK re-confirm. Hook root-cause (⑤) DONE: core.hooksPath was unset → set to .githooks (enforcement now runs). My --target-reader kindle alternative on tag mac-kindle-pre-rebase. See MAC addendum (turn 85). Mac mirrored M4_Kindle_Assets_v0.1.0.txt (45 assets + cross-platform Python generator hygiene in header; viable on Mac .venv + export PYTHONUTF8=1; permanent artifact for attach + future Groks). 1ki10 integrated (LANE-M to ch10).
-windows: ✔ turn 86 (Windows) — round-7 test_marker_style + test_note_rehaul closed (6 fixes + _badge_counts in both copies verified full-run green, exit 0); committed+push (clears red main). Now taking up ② dead-variant consolidation (retire --target-reader kindle FAIL variant using mac-kindle-pre-rebase@0d0f0cb8 ref). 45-artifact M4 fan-out ongoing autonomous on Mac. See WIN addendum (turn 86).
+mac: ✔ turn 87 (Mac) — M4 fan-out 45/45 DONE (build_format_matrix --phase M4, epubcheck 0/0/0/0 + verify_kindle_safe + K-R2 every file); handoff copied to external drive — see MAC addendum turn 87 for paths. Mac idle on M4.
+windows: ▶ turn 87 (Windows) — PICK UP 45 Kindle EPUBs from external drive → attach v0.1.0 GitHub release + merge SHA256SUMS.txt + gen_release_catalog --tag v0.1.0 + deploy website. Checklist in LANE_HANDOFF turn 86.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 87, 2026-06-14T17:42:55Z) — mode=parallel
+
+**Assignments:** mac = ✔ turn 87 (Mac) — M4 fan-out 45/45 DONE (build_format_matrix --phase M4, epubcheck 0/0/0/0 + verify_kindle_safe + K-R2 every file); handoff copied to external drive — see MAC addendum turn 87 for paths. Mac idle on M4. · windows = ▶ turn 87 (Windows) — PICK UP 45 Kindle EPUBs from external drive → attach v0.1.0 GitHub release + merge SHA256SUMS.txt + gen_release_catalog --tag v0.1.0 + deploy website. Checklist in LANE_HANDOFF turn 86.
+
+**★▶ MAC addendum (2026-06-14, turn 87) — ★ M4 FAN-OUT COMPLETE + EXTERNAL HANDOFF for WIN.**
+
+① **45/45 built on Mac** via `build_format_matrix.py --phase M4` (9 editions × 5 colours). Every file gated: epubcheck 0/0/0/0, `verify_kindle_safe`, ALL K-R2 GREEN. Names match `dev/M4_Kindle_Assets_v0.1.0.txt` exactly. Total ~1.06 GiB. Mac source (gitignored): `build/matrix/` on MacHD2.
+
+② **Copied to external drive for WIN pickup:**
+- **Mac path:** `/Volumes/NO NAME/YHWH-v2.4-releases/m4-kindle-v0.1.0/`
+- **Windows path (plug same drive):** `YHWH-v2.4-releases\m4-kindle-v0.1.0\` (drive letter varies — E: or F: typical)
+- **Contents:** 45 × `YHWH-*-v0.1.0-kindle-*.epub` + `SHA256SUMS.txt` (45 lines) + `MANIFEST.txt` + `HANDOFF_README.txt`
+- User plugged external drive 2026-06-14; rsync verified 45 epubs.
+
+③ **WIN next (you were waiting for these):** run the M4 attach/deploy checklist (LANE_HANDOFF turn 86 § checklist steps 2–6): attach 45 to v0.1.0 GitHub release → merge sums → `python -m scripts.gen_release_catalog --tag v0.1.0` → commit catalog + deploy website.
+
+④ **STK note:** user confirmed Send-to-Kindle on the corrected catholic-study oracle (turn 85/86); all 45 use identical kindle_post recipe — not individually device-tested.
+
+Mac now idle on M4. truth_owner stays windows.
+
 ---
 
 **★▶ WIN addendum (2026-06-14, turn 86) — round-7 marker/note tests closed + push + dead-variant consolidation STARTED.**
