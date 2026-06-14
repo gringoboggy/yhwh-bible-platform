@@ -2055,6 +2055,15 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "target_reader": "kindle",
         "packaging": "epub",  # Send-to-Kindle upload format
         "phase": "M4",
+        # K-KIN turn-84 (user-confirmed on the REAL Send-to-Kindle channel):
+        # the kindle column is the PROVEN minimal "june10" recipe — a STANDARD
+        # everywhere build + scripts.core.kindle_post.make_kindle_safe (strip
+        # display:none/visibility:hidden, single en-US, OCF re-zip) — NOT the
+        # Previewer-oracle-tuned --target-reader kindle variant (that artifact FAILED
+        # Send-to-Kindle). build_format_matrix reads this marker, builds the
+        # everywhere base, and applies the post-process per asset. The dormant
+        # --target-reader kindle build + its gate-5 stay in tree, unused here.
+        "post_process": "kindle_safe",
     },
     {
         "id": "play",

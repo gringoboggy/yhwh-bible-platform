@@ -18,7 +18,7 @@
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
 | **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; cap-split units mostly pop (K-R6-2: a non-size factor or tap geometry on 2 of gen 1:1's 3 — taps pending) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback — PROVEN round-6** (Publisher Default renders Heb/Grc/**Ar**/Geʽez with the OPF block restored; per-span lang never reaches the tag-stripped preview) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-6 2026-06-11: ★K-R5-6 restore PROVEN on-device; clamp HOLDS; `\n` seps collapsed → U+2028 (K-R6-3); "BOOKII" eyebrow space quirk (K-R6-4, pre-existing) |
-| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (kindle_safe) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Variant SHIPPED + epubcheck 0/0/0/0 by execution; user K-KIN-1..4 acceptance PENDING (2026-06-10) |
+| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (`display:none` stripped) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Recipe DEVICE-PROVEN via Send-to-Kindle (2026-06-14); productized as `kindle_post` (everywhere build + strip-hidden + single `en-US` + OCF re-zip); catalog artifacts reproduce it, epubcheck 0/0/0/0 |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
 
@@ -81,25 +81,40 @@
 ## Kindle (`kindle`, Send-to-Kindle)
 
 - **Delivery:** Send-to-Kindle (email/app/web) — Amazon CONVERTS the EPUB (KFX);
-  there is no direct sideload of EPUB on modern Kindles. ⚠ The Mac Kindle app has
-  NO local import — it silently MOVES a "sent" file into its container.
-- **Delivery checks (hard failures fixed 2026-06-10):** **E999** = multiple
-  `<dc:language>` elements → single `en-US` (patch_opf); **E3013** = large
-  `display:none` volume → the kindle_safe variant renders notes as VISIBLE
-  ENDNOTES (artifact hidden text 486,188 → 955 chars).
-- **No popup footnotes** in KF8/KFX → endnotes are the correct presentation;
-  `.vn-sep` separators visible.
-- **ToC:** chapter pills → plain inline rows (`apply_kindle_toc_rows`); no
-  collapsible lists.
-- **Seams:** book-boundary "shatter" (K-KIN-3) → seam CSS (forced-break drop +
-  title exemption + art re-cap).
-- **Gate:** verifier **gate 5 `kindle_safe_checks`** (≤10K effective display:none +
-  single dc:language), OPF-stamped via `yhwh:target-reader`; epubcheck 0/0/0/0
-  proven by execution on the staged artifact (Mac, Temurin 21).
-- **Acceptance PENDING:** the user's Send-to-Kindle re-verify (K-KIN-1..4) on
-  `Ethiopian_Bible_catholic-study_kindle-safe_2026-06-10T224859Z.epub`.
-- **QA history:** Kindle round-1 (K-KIN-1..4, Mac 2026-06-10) + the E999
-  investigation; plan `plans/2026-06-10-kindle-safe-variant.md`.
+  no direct EPUB sideload on modern Kindles. ⚠ The Mac Kindle app has NO local
+  import — it silently MOVES a "sent" file into its container.
+- **★ The PROVEN recipe (turn-84, 2026-06-14, USER-CONFIRMED on the REAL
+  Send-to-Kindle channel).** A *minimal* post-process over a STANDARD everywhere
+  build DELIVERS where the elaborate `--target-reader kindle` variant FAILED:
+  physically strip every `display:none`/`visibility:hidden` (CSS + inline), drop
+  the Kobo-only `.vn-sep` spans, collapse `dc:language` → single `en-US`, LEAVE
+  `hidden=""` intact, OCF re-zip (mimetype first/stored). ≈24 MiB, epubcheck 0/0/0/0.
+- **What the variant got WRONG (now dormant, not deleted):** the Kindle-Previewer-
+  oracle extras — source-label compaction, a 2-popup language cap, `apply_kindle_
+  toc_rows`, `apply_kindle_unhide`, the `_KINDLE_SAFE_CSS` append, the 2 MB split —
+  were exactly what BROKE Send-to-Kindle (the `FIXED.epub` failure). The Previewer
+  + epubcheck passed them; Amazon's ingestion did not. Minimal beat clever.
+- **Productized (WIN turn-85, 2026-06-14):** `scripts/core/kindle_post.py`
+  (`make_kindle_safe` + `verify_kindle_safe`) + driver `scripts/build_kindle.py`;
+  `build_format_matrix` builds the Kindle column as the everywhere base + this
+  post-process (the FORMAT_MATRIX `kindle` row carries `post_process: kindle_safe`;
+  `target_reader` stays `kindle` for the catalog label). Windows catalog artifacts
+  reproduce the device-proven recipe byte-faithfully (catholic-study: **24.01 MiB,
+  epubcheck 0/0/0/0, `verify_kindle_safe` clean, K-R2 gates green, 132,949 vn-sep
+  spans + 7 CSS hides stripped, 6 `dc:language` → 1**).
+- **No popup footnotes** in KF8/KFX → visible endnotes are the correct
+  presentation; stripping `display:none` makes the note sections render inline.
+- **Gate:** `scripts/core/kindle_post.verify_kindle_safe` (zero raw
+  `display:none`/`visibility:hidden`, single `dc:language`, `mimetype` first/stored)
+  + epubcheck 0/0/0/0 + `dev/verify_kr2_build.py` (gates 1–4; the artifact is
+  unstamped, so the dormant variant's gate-5 correctly skips).
+- **Acceptance:** the RECIPE is device-proven (2026-06-14, Mac-built artifact, user
+  Send-to-Kindle). The Windows catalog artifacts are byte-faithful reproductions of
+  that recipe; ONE Send-to-Kindle re-confirm on a catalog artifact is the remaining
+  nicety before the column is declared "live."
+- **QA history:** the june10 recipe (test-2) → turn-82 forensics (the Previewer/KP3
+  oracle was falsified) → turn-84 STK re-proof → turn-85 productization. The dormant
+  variant's plan: `plans/2026-06-10-kindle-safe-variant.md`.
 
 ## Google Play Books (`everywhere`, provisional)
 

@@ -1,0 +1,180 @@
+"""Productize the proven Send-to-Kindle ("june10") recipe as a deterministic
+post-process over a STANDARD (everywhere) build.
+
+Why this exists
+---------------
+The ``--target-reader kindle`` build variant (the 2026-06-10 kindle_safe arc)
+tuned the EPUB against the **Kindle Previewer** oracle: CSS-unhide +
+``apply_kindle_toc_rows`` + source-label compaction + a 2-language popup cap +
+``apply_kindle_unhide`` + a 2 MB file-split. Turn-83/84 (Mac, 2026-06-14) proved
+on the REAL channel that that artifact (``FIXED.epub``) **FAILS Send-to-Kindle**,
+while a *minimal* recipe — a plain everywhere build with only the hidden content
+physically stripped and the language collapsed — **DELIVERS** (user-confirmed).
+The Previewer-oracle extras were exactly what broke Send-to-Kindle.
+
+The proven recipe (turn-84, user-confirmed via Send-to-Kindle, catholic-study,
+24.1 MB / 299 spine / epubcheck 0/0/0/0)::
+
+    build_edition.py <id>            # STANDARD everywhere build — full apparatus
+    -> physically strip every display:none / visibility:hidden  (CSS + inline)
+    -> drop the Kobo-only .vn-sep separator spans
+    -> collapse <dc:language> to a single en-US
+    -> LEAVE hidden="" attributes intact
+    -> OCF re-zip (mimetype first + stored)
+
+This module is the post-process; ``scripts/build_kindle.py`` is the driver
+(standard build -> ``make_kindle_safe``). Operating on the *zipped* everywhere
+artifact (rather than re-running the in-pipeline kindle passes) keeps the result
+byte-faithful to the device-proven shape and leaves the 9 KJV editions, the
+everywhere build, and the dormant kindle target completely untouched.
+
+The hidden-strip half intentionally mirrors
+``scripts.build_edition.apply_kindle_strip_hidden`` and detects exactly what
+``dev/verify_kr2_build.py``'s gate-5 measures
+(``display:none`` / ``visibility:hidden``), so a post-processed artifact carries
+ZERO hidden content by that gate's own ruler.
+"""
+
+from __future__ import annotations
+
+import re
+import zipfile
+from pathlib import Path
+
+# Mirrors scripts.build_edition.apply_kindle_strip_hidden (same regexes) so the
+# productized recipe strips precisely what the in-pipeline pass — and gate-5 —
+# key on. Kept local (not imported from the heavy build module) so the
+# post-process stays a small, dependency-light core utility.
+_CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
+_INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
+_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>')
+_DC_LANG_RE = re.compile(r"<dc:language>[^<]*</dc:language>")
+
+#: The single language a Send-to-Kindle artifact may declare (Amazon's E999
+#: trigger is a multi-valued ``dc:language``).
+KINDLE_LANGUAGE = "en-US"
+
+_DOC_SUFFIXES = (".html", ".xhtml")
+
+
+def strip_hidden_css(css: str) -> tuple[str, int]:
+    """Remove every ``display:none`` / ``visibility:hidden`` declaration from a
+    stylesheet (sibling declarations and the rule itself survive). Returns the
+    new text and the count removed. Idempotent."""
+    return _CSS_HIDDEN_DECL_RE.subn("", css)
+
+
+def strip_hidden_html(html: str) -> tuple[str, int, int]:
+    """Drop ``.vn-sep`` separator spans and strip inline
+    ``display:none`` / ``visibility:hidden`` from ``style="…"`` attributes.
+    ``hidden=""`` attributes are deliberately LEFT in place. Returns
+    ``(text, vn_sep_removed, inline_hidden_stripped)``. Idempotent."""
+    out, n_sep = _VN_SEP_SPAN_RE.subn("", html)
+    out, n_inline = _INLINE_HIDDEN_DECL_RE.subn(r"\1", out)
+    return out, n_sep, n_inline
+
+
+def collapse_dc_language(opf: str, lang: str = KINDLE_LANGUAGE) -> tuple[str, int]:
+    """Collapse every ``<dc:language>`` element to a single ``<dc:language>{lang}``
+    (keeping the first position, dropping the rest). Returns ``(text, count)``
+    where ``count`` is how many ``dc:language`` elements were present. No-op when
+    none exist."""
+    count = len(_DC_LANG_RE.findall(opf))
+    if count == 0:
+        return opf, 0
+    seen = 0
+
+    def _sub(_m: re.Match) -> str:
+        nonlocal seen
+        seen += 1
+        return f"<dc:language>{lang}</dc:language>" if seen == 1 else ""
+
+    return _DC_LANG_RE.sub(_sub, opf), count
+
+
+def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
+    """Write the Send-to-Kindle-safe artifact at ``dst_epub`` from the standard
+    (everywhere) EPUB at ``src_epub``, applying the proven june10 recipe.
+
+    Reads every member into memory, transforms CSS / HTML / the OPF, then re-zips
+    in OCF order with ``mimetype`` first and stored. Returns a stats dict."""
+    src_epub, dst_epub = Path(src_epub), Path(dst_epub)
+    stats = {
+        "css_hidden_stripped": 0,
+        "vn_sep_removed": 0,
+        "inline_hidden_stripped": 0,
+        "dc_language_collapsed": 0,
+    }
+
+    with zipfile.ZipFile(src_epub) as zin:
+        order = [i.filename for i in zin.infolist()]
+        data: dict[str, bytes] = {name: zin.read(name) for name in order}
+
+    if "mimetype" not in data:
+        raise ValueError(f"{src_epub} is not an OCF EPUB (no mimetype member)")
+
+    opf_name = next((n for n in order if n.endswith(".opf")), None)
+    if opf_name is None:
+        raise ValueError(f"{src_epub} has no .opf member")
+
+    for name in order:
+        if name.endswith(".css"):
+            text, n = strip_hidden_css(data[name].decode("utf-8"))
+            if n:
+                data[name] = text.encode("utf-8")
+                stats["css_hidden_stripped"] += n
+        elif name.endswith(_DOC_SUFFIXES):
+            text, n_sep, n_inline = strip_hidden_html(data[name].decode("utf-8"))
+            if n_sep or n_inline:
+                data[name] = text.encode("utf-8")
+                stats["vn_sep_removed"] += n_sep
+                stats["inline_hidden_stripped"] += n_inline
+
+    opf_text, lang_count = collapse_dc_language(data[opf_name].decode("utf-8"))
+    if lang_count:
+        data[opf_name] = opf_text.encode("utf-8")
+        stats["dc_language_collapsed"] = lang_count
+
+    dst_epub.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(dst_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        # OCF: mimetype first, stored (uncompressed), no extra field.
+        zout.writestr(zipfile.ZipInfo("mimetype"), data["mimetype"], compress_type=zipfile.ZIP_STORED)
+        for name in order:
+            if name == "mimetype":
+                continue
+            zout.writestr(name, data[name])
+    return stats
+
+
+def verify_kindle_safe(epub_path: Path | str) -> list[str]:
+    """Assert a built artifact conforms to the proven june10 recipe.
+
+    Returns a list of human-readable failures (empty list = conformant). Checks:
+    ``mimetype`` is the first member and stored; ZERO ``display:none`` /
+    ``visibility:hidden`` survives in any ``.css`` or inline ``style="…"``; no
+    ``.vn-sep`` span survives; exactly one ``<dc:language>``. This is the new
+    path's own gate — it does NOT touch the dormant kindle target's gate-5."""
+    epub_path = Path(epub_path)
+    fails: list[str] = []
+    with zipfile.ZipFile(epub_path) as z:
+        infos = z.infolist()
+        if not infos or infos[0].filename != "mimetype":
+            fails.append("mimetype is not the first zip member (OCF violation)")
+        elif infos[0].compress_type != zipfile.ZIP_STORED:
+            fails.append("mimetype member is not stored (OCF violation)")
+        for info in infos:
+            name = info.filename
+            if name.endswith(".css"):
+                if _CSS_HIDDEN_DECL_RE.search(z.read(name).decode("utf-8", "replace")):
+                    fails.append(f"{name}: display:none/visibility:hidden survives in CSS")
+            elif name.endswith(_DOC_SUFFIXES):
+                text = z.read(name).decode("utf-8", "replace")
+                if _INLINE_HIDDEN_DECL_RE.search(text):
+                    fails.append(f"{name}: inline display:none/visibility:hidden survives")
+                if _VN_SEP_SPAN_RE.search(text):
+                    fails.append(f"{name}: .vn-sep separator span survives")
+            elif name.endswith(".opf"):
+                n = z.read(name).decode("utf-8", "replace").count("<dc:language>")
+                if n != 1:
+                    fails.append(f"{name}: {n} dc:language values (want exactly 1)")
+    return fails

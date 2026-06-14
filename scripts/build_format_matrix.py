@@ -66,6 +66,28 @@ def distinct_targets(cells: list[dict]) -> list[str]:
     return seen
 
 
+def base_build_target(cell: dict) -> str:
+    """The ``--target-reader`` profile the cell's BASE build uses — equal to the
+    cell's ``target_reader`` except for a ``post_process: kindle_safe`` cell
+    (Kindle, K-KIN turn-84): the PROVEN Send-to-Kindle recipe builds the STANDARD
+    everywhere base and applies ``scripts.core.kindle_post`` afterward, so its
+    base build is ``everywhere`` — never the dormant, Previewer-oracle-tuned
+    ``--target-reader kindle`` variant (that artifact FAILED Send-to-Kindle)."""
+    return "everywhere" if cell.get("post_process") == "kindle_safe" else cell["target_reader"]
+
+
+def distinct_base_targets(cells: list[dict]) -> list[str]:
+    """The distinct BASE build profiles among ``cells`` (``base_build_target``),
+    first-seen order — what the bases dict is keyed on (a kindle cell shares the
+    everywhere base instead of triggering a second build)."""
+    seen: list[str] = []
+    for c in cells:
+        bt = base_build_target(c)
+        if bt not in seen:
+            seen.append(bt)
+    return seen
+
+
 def cell_asset_name(edition_id: str, version: str, cell: dict) -> str:
     """The cell's release-asset name: ``catalog_asset_name`` with the
     EDITION's signature colour (its own cover's colour — the one identity
@@ -165,6 +187,24 @@ def _gate_asset(asset: Path) -> None:
     _run([sys.executable, str(REPO_ROOT / "dev" / "verify_kr2_build.py"), str(asset)], cwd=str(REPO_ROOT))
 
 
+def _apply_kindle_post(edition_id: str, cell: dict, asset: Path) -> None:
+    """Apply the proven Send-to-Kindle recipe (``scripts.core.kindle_post``) in
+    place over a freshly built / cover-swapped EPUB, then assert conformance.
+    Runs LAST (after the cover swap) so the hidden-content strip + the OCF
+    mimetype-first/stored re-zip are the final word on the artifact bytes —
+    byte-faithful to the artifact the user confirmed delivers via Send-to-Kindle."""
+    from scripts.core.kindle_post import make_kindle_safe, verify_kindle_safe
+
+    pre = asset.with_name(asset.stem + "._pre_kindle.epub")
+    asset.replace(pre)
+    stats = make_kindle_safe(pre, asset)
+    pre.unlink()
+    print(f"[{edition_id}] cell {cell['id']}: kindle-safe post-process {stats}", flush=True)
+    fails = verify_kindle_safe(asset)
+    if fails:
+        raise ValueError(f"{asset.name}: kindle-safe recipe not satisfied: {fails}")
+
+
 def build_edition_assets(
     edition_id: str,
     version: str,
@@ -187,14 +227,14 @@ def build_edition_assets(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     bases: dict[str, Path] = {}
-    for target in distinct_targets(cells):
+    for target in distinct_base_targets(cells):
         print(f"[{edition_id}] base build: target={target}", flush=True)
         bases[target] = _build_base(edition_id, version, target, out_dir / f"_base_{target}")
 
     _design, sig_colour = edition_cover_signature(edition_id)
     assets: list[Path] = []
     for cell in cells:
-        base = bases[cell["target_reader"]]
+        base = bases[base_build_target(cell)]
         for colour, name in cell_asset_names(edition_id, version, cell):
             asset = out_dir / name
             if colour == sig_colour:
@@ -204,6 +244,11 @@ def build_edition_assets(
                 composite = variant_composite_path(edition_id, colour)
                 print(f"[{edition_id}] cell {cell['id']}: swap {composite.name} -> {asset.name}", flush=True)
                 swap_cover(base, composite, asset)
+            # Kindle (K-KIN turn-84): apply the proven Send-to-Kindle recipe LAST
+            # — after the cover swap — so the strip + OCF re-zip are the final
+            # word on the bytes. No-op for every other cell.
+            if cell.get("post_process") == "kindle_safe":
+                _apply_kindle_post(edition_id, cell, asset)
             if gates:
                 _gate_asset(asset)
             assets.append(asset)
