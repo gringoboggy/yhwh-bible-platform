@@ -86,9 +86,12 @@
 - **★ The PROVEN recipe (turn-84, 2026-06-14, USER-CONFIRMED on the REAL
   Send-to-Kindle channel).** A *minimal* post-process over a STANDARD everywhere
   build DELIVERS where the elaborate `--target-reader kindle` variant FAILED:
-  physically strip every `display:none`/`visibility:hidden` (CSS + inline), drop
-  the Kobo-only `.vn-sep` spans, collapse `dc:language` → single `en-US`, LEAVE
-  `hidden=""` intact, OCF re-zip (mimetype first/stored). ≈24 MiB, epubcheck 0/0/0/0.
+  physically strip every `display:none`/`visibility:hidden` (CSS + inline), LEAVE
+  the Kobo-only `.vn-sep` spans intact (Mac turn-85 correction: with their hide
+  rule stripped they ARE the visible language separators in the popups — the
+  measured june10recipe.epub KEPT all 132,949; dropping them is FIXED.epub/FAIL
+  behavior), collapse `dc:language` → single `en-US`, LEAVE `hidden=""` intact,
+  OCF re-zip (mimetype first/stored). ≈25.3 MiB, epubcheck 0/0/0/0.
 - **What the variant got WRONG (now dormant, not deleted):** the Kindle-Previewer-
   oracle extras — source-label compaction, a 2-popup language cap, `apply_kindle_
   toc_rows`, `apply_kindle_unhide`, the `_KINDLE_SAFE_CSS` append, the 2 MB split —
@@ -99,9 +102,9 @@
   `build_format_matrix` builds the Kindle column as the everywhere base + this
   post-process (the FORMAT_MATRIX `kindle` row carries `post_process: kindle_safe`;
   `target_reader` stays `kindle` for the catalog label). Windows catalog artifacts
-  reproduce the device-proven recipe byte-faithfully (catholic-study: **24.01 MiB,
+  reproduce the device-proven recipe byte-faithfully (catholic-study: **~25.3 MiB,
   epubcheck 0/0/0/0, `verify_kindle_safe` clean, K-R2 gates green, 132,949 vn-sep
-  spans + 7 CSS hides stripped, 6 `dc:language` → 1**).
+  spans KEPT, 7 CSS hides stripped, 6 `dc:language` → 1**).
 - **No popup footnotes** in KF8/KFX → visible endnotes are the correct
   presentation; stripping `display:none` makes the note sections render inline.
 - **Gate:** `scripts/core/kindle_post.verify_kindle_safe` (zero raw
