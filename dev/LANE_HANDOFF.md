@@ -1,14 +1,26 @@
 ---
 mode: parallel
-turn: 88
-from: mac
-updated: 2026-06-14T18:11:02Z
+turn: 89
+from: windows
+updated: 2026-06-14T19:22:00Z
 status: working
 mac: ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle.
-windows: ▶ turn 87 (Windows) — ★ M4 LIVE (STK 6/6 PASS) — GO: plug external drive YHWH-v2.4-releases\m4-kindle-v0.1.0\ → attach 45 to v0.1.0 release + merge SHA256SUMS + gen_release_catalog + deploy website.
+windows: ✔ turn 89 (Windows) — ★ M4 CATALOG COLUMN SHIPPED: 45 EPUBs attached to v0.1.0 + SHA256SUMS merged (141 lines) + gen_release_catalog (188 assets; live: everywhere/apple/kindle) + website deployed (yhwh-website c8c87d5).
 truth_owner: windows
 holder: windows
 ---
+
+**★▶ WIN addendum (2026-06-14, turn 89) — ★ M4 KINDLE COLUMN LIVE ON WEBSITE + RELEASE.**
+① Pulled Mac turn 87-88 (`8a377c44`); picked up 45 EPUBs from `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\`.
+② `gh release upload v0.1.0 --clobber` — all 45 kindle EPUBs attached to GitHub release.
+③ SHA256SUMS merged (97 existing + 45 new → 141 lines) and uploaded.
+④ `gen_release_catalog --tag v0.1.0` → **live columns: everywhere, apple, kindle** (188 assets).
+⑤ `node website/build.mjs` + deploy to `yhwh-site-publish` → pushed `c8c87d5` (GitHub Pages).
+**M4 arc COMPLETE.** Next: M3 Kobo column (user taps pending) · M5 Play Books · v1.0.0 laundry (stale docs rewrite).
+
+## ◦ win assign (turn 89, 2026-06-14T19:22:00Z) — mode=parallel
+
+**Assignments:** mac = idle (M4 done). · windows = ✔ turn 89 M4 attach/deploy SHIPPED (see addendum above). Next backlog: v1.0.0 stale docs (`RELEASE_NOTES_v1.0.0.md` already rewritten; `HANDOFF_README_v7.md` still obsolete) · Grok/ping tooling from stash (turn 87 WIP).
 
 ## ◦ mac assign (turn 88, 2026-06-14T18:11:02Z) — mode=parallel
 

@@ -2,6 +2,8 @@
 
 <!-- TRACKER-STATE: idle -->
 
+> **▶ ✅ 2026-06-14 (🪟 Windows, turn 89 — ★ M4 CATALOG + WEBSITE LIVE).** Attached 45 Kindle EPUBs to v0.1.0 release; merged SHA256SUMS; `gen_release_catalog` → live columns everywhere/apple/kindle (188 assets); website deployed (`yhwh-website` c8c87d5). **M4 arc COMPLETE.** Baton **windows** (truth_owner); mode=parallel.
+>
 > **▶ ✅ 2026-06-14 (🖥️ Mac, turn 87 — ★ M4 LIVE ON DEVICE + WIN handoff ready).** 45/45 M4 fan-out built+gated; external drive handoff complete. **User STK 6/6 PASS** (ethiopian-tewahedo superset, jewish-study, catholic-study brown, evangelical-reformed, scholarly-academic, eastern-orthodox). EREADERS + truth triad updated; pushed for WIN attach/deploy. Baton **windows** (truth_owner); mode=parallel.
 >
 > **▶ ✅ 2026-06-14 (🖥️ Mac, turn 86 PULL) — WinGrok M4_Kindle_Assets + kindle_post + 1ki10 + dead-variant + round-7 mirrored on Mac; all viable (exact 45 gen via .venv+export, hooks .githooks, ruff/lint 0f, 308v 1ki10); AGENTS + asset header updated for future Groks (cross-platform format, no mangling); fresh session prep + truth rotation done; pushed both remotes (radar clear).** See SESSION_STATE top for full Mac verification details. Baton **windows** (truth_owner); mode=parallel.

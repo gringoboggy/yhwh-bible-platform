@@ -4,6 +4,16 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — Windows session (turn 89) — ★ M4 KINDLE COLUMN LIVE ON RELEASE + WEBSITE
+
+**What shipped:**
+- Pulled Mac turn 87-88; picked up 45 gated Kindle EPUBs from external drive `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\`.
+- Attached all 45 to GitHub release `v0.1.0`; merged SHA256SUMS (141 lines total).
+- `gen_release_catalog --tag v0.1.0` → 188 assets; **live columns: everywhere, apple, kindle**.
+- Website rebuilt + deployed (`yhwh-website` `c8c87d5` → www.yhwhyaway.com Downloads matrix).
+
+**M4 arc COMPLETE** (device STK 6/6 + catalog attach + site deploy).
+
 ## 2026-06-14 — Mac session (turn 87) — ★ M4 KINDLE COLUMN LIVE ON DEVICE (STK 6/6) + external handoff + truth push
 
 **What shipped:**
