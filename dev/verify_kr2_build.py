@@ -41,33 +41,37 @@ ALT_NAMES = (
 # Runs ONLY when the build stamped the OPF with target-reader=kindle (the
 # stamp is patch_opf's, emitted from the one resolver — skew-proof; non-kindle
 # artifacts are never judged against the kindle bar). Checks the CONFIRMED
-# E999 trigger pair: (a) ≤10,000 chars of text under EFFECTIVE display:none —
-# effective = last-rule-wins per selector string across every .css member, so
-# the base hides pair with the kindle_safe overrides (which mirror the base
-# selector strings verbatim for exactly this reason); (b) exactly one
-# dc:language. Plus a fail-fast: the kindle_safe CSS marker must be present at
-# all (a stamped-kindle artifact whose variant CSS never got appended is a
-# stale/mismatched build regardless of the volume math).
+# E999 trigger: ANY text under a RAW display:none / visibility:hidden. Amazon's
+# server scan does NOT resolve the CSS cascade, so a later override does not
+# clear a base hide (see _raw_hidden_selectors below — the prior "effective /
+# last-rule-wins" check gave a false green and is gone). Plus: exactly one
+# dc:language, and a fail-fast that the kindle_safe CSS marker is present at all
+# (a stamped-kindle artifact whose variant CSS never got appended is stale).
 _CSS_RULE_RE = re.compile(r"([^{}]+)\{([^{}]*)\}")
-_CSS_DISPLAY_RE = re.compile(r"display\s*:\s*([a-z-]+)")
 
 
-def _effective_hidden_selectors(css_texts: list[str]) -> list[str]:
-    """Selector strings whose LAST display declaration is none."""
-    last: dict[str, str] = {}
+# K-KIN E999 (2026-06-13): Amazon's Send-to-Kindle / KDP server scan does NOT
+# resolve the CSS cascade — a later display:block override does not undo a raw
+# display:none over content (the stripped artifact converted to KDP pricing
+# where the overridden one did not). So the gate keys on the RAW presence of a
+# hide over content, not the effective (last-rule-wins) value, which gave a
+# false green (the override "pairs" with the base hide but Amazon never sees it).
+_CSS_HIDDEN_DECL_GATE_RE = re.compile(r"display\s*:\s*none|visibility\s*:\s*hidden", re.I)
+
+
+def _raw_hidden_selectors(css_texts: list[str]) -> list[str]:
+    """Selector strings with ANY display:none / visibility:hidden declaration,
+    cascade NOT resolved (an override does not clear it for Amazon's server)."""
+    out: list[str] = []
     for css in css_texts:
-        # comments must go BEFORE rule parsing or they glom into the next
-        # selector text and break the hide↔override pairing
         css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
         for m in _CSS_RULE_RE.finditer(css):
-            d = _CSS_DISPLAY_RE.search(m.group(2))
-            if not d:
-                continue
-            for sel in m.group(1).split(","):
-                sel = " ".join(sel.split())
-                if sel:
-                    last[sel] = d.group(1)
-    return [s for s, v in last.items() if v == "none"]
+            if _CSS_HIDDEN_DECL_GATE_RE.search(m.group(2)):
+                for sel in m.group(1).split(","):
+                    sel = " ".join(sel.split())
+                    if sel:
+                        out.append(sel)
+    return out
 
 
 def _class_token(selector: str) -> str | None:
@@ -133,13 +137,14 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
         fails.append(
             "kindle: target stamped kindle but the kindle_safe CSS was never appended (stale/mismatched build)"
         )
-    hidden = _effective_hidden_selectors(css_texts)
+    hidden = _raw_hidden_selectors(css_texts)
     tokens = {tok for tok in (_class_token(s) for s in hidden) if tok}
     chars = _hidden_text_chars(zf, names, tokens) if tokens else 0
-    if chars > 10_000:
+    if chars > 0:
         fails.append(
-            f"kindle: {chars:,} chars under effective display:none "
-            f"(Amazon hard-fails >10,000 — E3013); hidden selectors: {hidden[:8]}"
+            f"kindle: {chars:,} chars under RAW display:none/visibility:hidden "
+            "(Amazon's server scan ignores the cascade override and rejects it — "
+            f"E3013/E999); strip the hide physically. selectors: {hidden[:8]}"
         )
     # K-KIN forensics (2026-06-11): the variant physically strips hidden=""
     # from footnote wrappers (Amazon's hidden-text counter is opaque — it may

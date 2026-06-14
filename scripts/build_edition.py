@@ -5019,6 +5019,50 @@ def apply_kindle_unhide(tmp: Path, edition: dict) -> dict:
     return stats
 
 
+# K-KIN E999 (2026-06-13, KDP-confirmed): Amazon's Send-to-Kindle / KDP
+# ingestion rejects content hidden under display:none over the 10,000-char
+# E3013 cap and — unlike Kindle Previewer and epubcheck — does NOT resolve the
+# CSS cascade, so the kindle_safe OVERRIDE (display:block appended after the base
+# display:none) is invisible to it: the raw display:none string over a big note
+# container still trips the gate, surfaced as the opaque E999. The
+# override-stripped artifact converted clean on KDP all the way to the pricing
+# step (2026-06-13). So for the kindle target we PHYSICALLY strip every
+# display:none / visibility:hidden (CSS + inline) and drop the Kobo-eInk-only
+# .vn-sep separator spans (their only job was to be display:none on CSS readers;
+# once nothing hides them they would show as stray ¶/◦/• glyphs). Result: a
+# kindle artifact with ZERO hidden content (gate 5 enforces it).
+_CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
+_INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
+_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>')
+
+
+def apply_kindle_strip_hidden(tmp: Path, edition: dict) -> dict:
+    """Physically remove every display:none / visibility:hidden (CSS + inline)
+    and the Kobo-only .vn-sep separator spans from a kindle-target tree, so the
+    artifact carries ZERO hidden content (the KDP-confirmed E999/E3013 fix).
+    Runs AFTER apply_kindle_safe_css (appends the now-redundant overrides) and
+    apply_file_split. No-op — byte-identical tree — for every non-kindle target.
+    Idempotent."""
+    stats = {"css_hidden_stripped": 0, "vn_sep_removed": 0, "inline_hidden_stripped": 0}
+    if not is_kindle_target(edition):
+        return stats
+    for cpath in sorted(tmp.glob("*.css")):
+        text = cpath.read_text(encoding="utf-8")
+        text, n = _CSS_HIDDEN_DECL_RE.subn("", text)
+        if n:
+            cpath.write_text(text, encoding="utf-8")
+            stats["css_hidden_stripped"] += n
+    for fpath in sorted(tmp.glob("*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        text, n_sep = _VN_SEP_SPAN_RE.subn("", text)
+        text, n_inl = _INLINE_HIDDEN_DECL_RE.subn(r"\1", text)
+        if n_sep or n_inl:
+            fpath.write_text(text, encoding="utf-8")
+            stats["vn_sep_removed"] += n_sep
+            stats["inline_hidden_stripped"] += n_inl
+    return stats
+
+
 # ----------------------------------------------------------------------
 # Phase ν.8 — Bilingual ToC
 # ----------------------------------------------------------------------
@@ -6679,6 +6723,17 @@ def build_one(
         # attribute. No-op (byte-identical) for every other target.
         unhide_stats = apply_kindle_unhide(tmp, edition)
         stats["kindle_hidden_attrs_stripped"] = unhide_stats["hidden_attrs_stripped"]
+
+        # K-KIN E999 (2026-06-13, KDP-confirmed): physically strip every raw
+        # display:none/visibility:hidden + the Kobo-only .vn-sep spans for the
+        # kindle target. Amazon's server scan does not resolve the CSS cascade,
+        # so the kindle_safe display:block override is invisible to it — only a
+        # physical strip clears the E3013/E999 gate (proven: the stripped
+        # artifact converted to KDP pricing). MUST run after apply_kindle_safe_css
+        # (appends the overrides) + the splitter. No-op for non-kindle.
+        strip_stats = apply_kindle_strip_hidden(tmp, edition)
+        stats["kindle_css_hidden_stripped"] = strip_stats["css_hidden_stripped"]
+        stats["kindle_vn_sep_removed"] = strip_stats["vn_sep_removed"]
 
         # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
         # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking

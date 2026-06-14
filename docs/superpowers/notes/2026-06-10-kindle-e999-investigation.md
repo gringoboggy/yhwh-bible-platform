@@ -193,3 +193,44 @@ temporarily unavailable 2026-06-13; user will retry when it is back.**
 - E999 again ⇒ hidden-CSS exonerated for real; pivot to diffing this build vs
   the 2026-06-10 delivered build. Research workflow (`wf_2c40ddfa-632`) hunting a
   server-faithful local oracle (Previewer CLI KFX export / Calibre KFX plugin).
+
+## ✅ RESOLVED (2026-06-13, Mac) — display:none WAS the blocker; KDP-confirmed; in-build fix shipped
+
+**The decisive run.** `TEST-nohide` FAILED Send-to-Kindle again (same opaque
+E999) — BUT the user then uploaded it to **KDP**, where it **converted clean and
+passed quality checks all the way to the pricing step.** So:
+- **`display:none` hidden content WAS the Amazon blocker** — primary source:
+  Kindle Publishing Guidelines v2026.1 §17.2.1 p.99, **`E3013`: "More number of
+  characters are hidden using display:none than allowed limit. Limit: 10000."**
+  Two strip→success results (test-2 STK delivery 06-10 + TEST-nohide KDP pass
+  06-13) vs every hidden-content build failing.
+- **Send-to-Kindle is the wrong channel to engineer against** — it is
+  non-deterministic, blind (E999 = opaque catch-all), and unsupported (research
+  `wf_2c40ddfa-632`; Universalis precedent). TEST-nohide's STK failure was STK
+  flakiness, not a content defect; **KDP — the real publishing pipeline —
+  accepts the full single-volume Bible.**
+- **The override (display:block after base display:none) is invisible to
+  Amazon's server**, which does NOT resolve the cascade (Kindle Previewer +
+  epubcheck DO → false green for 9 runs). The fix must PHYSICALLY strip, not
+  override. Our gate-5 made the same effective-cascade mistake.
+- A side note: KP3 `-qualitychecks` (the pass we'd never run) pegged the 2017
+  iMac CPU and never completed on this book — not a usable local oracle here.
+
+**Fix shipped in-build (TDD):**
+- `scripts/build_edition.py` → `apply_kindle_strip_hidden(tmp, edition)`
+  (kindle-gated, runs after `apply_kindle_safe_css` + the splitter): physically
+  removes every `display:none`/`visibility:hidden` (CSS + inline) AND drops the
+  Kobo-only `.vn-sep` separator spans (which would otherwise show as stray
+  ¶/◦/• once nothing hides them). No-op/byte-identical for non-kindle.
+- `dev/verify_kr2_build.py` gate 5 → now scans **RAW** hidden selectors
+  (`_raw_hidden_selectors`), fails on ANY content under a raw hide; the buggy
+  `_effective_hidden_selectors` (false-green source) + `_CSS_DISPLAY_RE` deleted.
+- Tests: `tests/test_kindle_strip_hidden.py` (5) + rewritten gate tests
+  (override now FAILS, physical-strip GREEN).
+
+**Proven artifact:** `catholic-study --target-reader kindle` rebuild =
+**19.28 MB**, **0** display:none / visibility:hidden / hidden="" / vn-sep,
+**43,220 popups intact**, single dc:language, **gate 5 GREEN**, **epubcheck
+0/0/0/0**. Staged `~/Desktop/Ethiopian Bible - Catholic Study (Kindle)
+FIXED.epub`. ⚠ Parity (Guard #4/#6): both edited files are WIN round-7 domain —
+flagged on handoff (changes are in distinct functions, expected clean merge).

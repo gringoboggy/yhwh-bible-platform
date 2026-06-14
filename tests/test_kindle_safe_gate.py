@@ -59,8 +59,24 @@ class TestKindleSafeGate:
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert any("display:none" in f for f in fails), fails
 
-    def test_green_when_kindle_css_overrides_the_hides(self):
+    def test_fires_when_hides_only_overridden_not_stripped(self):
+        # K-KIN E999 (2026-06-13): the false-green bug. Base display:none + a
+        # later display:block override — Kindle Previewer/epubcheck resolve the
+        # cascade and pass it, but Amazon's server scan keys on the RAW
+        # display:none over the note container and rejects it (E999). Override is
+        # NOT enough; the hide must be physically stripped.
         zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS, _PIECE_UNHIDDEN)
+        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
+        assert any("RAW display:none" in f for f in fails), fails
+
+    def test_green_when_display_none_physically_stripped(self):
+        # the KDP-confirmed fix (apply_kindle_strip_hidden): zero raw display:none
+        # anywhere — the override-to-block rules remain but no hide does.
+        stripped_css = (
+            "/* === kindle_safe (target_reader=kindle) — Send-to-Kindle variant === */\n"
+            ".notes-section { display: block; }\n.verse-refs-section { display: block; }\n"
+        )
+        zf = _zip(_KINDLE_OPF, stripped_css, _PIECE_UNHIDDEN)
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert fails == [], fails
 
