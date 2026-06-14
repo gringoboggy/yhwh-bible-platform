@@ -17,11 +17,12 @@ holder: windows
 - Follow-up sweeps: `docs/superpowers/plans/2026-06-10-kindle-safe-variant.md` and `dev/MATRIX_MAP.md` annotated retired; deleted fully-dead `tests/test_kindle_strip_hidden.py`; trimmed `tests/test_kindle_safe.py` to only the still-valid resolver tests (removed all direct calls to the dead applies); cleaned comments in `test_kindle_safe_gate.py` and `dev/verify_kr2_build.py`.
 - Reference: `mac-kindle-pre-rebase` (0d0f0cb8). is_kindle_target + K-KIN emitter logic preserved for base/matrix/catalog use. Production M4 / 45 fan-out untouched.
 ③ **Pushes complete:** test+triad verification (67e0815b, clears red) + consolidation removal + test sweeps (8501b4ed).
-**WIN now:** 45-artifact M4 fan-out continues on Mac (autonomous). **Catalog prep engaged (WIN side):** 
-- Ran `python -m scripts.gen_release_catalog --tag v0.1.0` as baseline (97 assets, live: everywhere+apple; kindle dark — correct until 45 land). Baseline committed (ae8b8392).
-- Exact list of 45 required asset names prepared (9 editions × 5 colours, see /tmp or board note). These are the filenames the matrix + generator will look for.
-- Attach/deploy checklist (below). Re-run generator after attach; it auto-lights the column via full-count gating.
-Triad updated. Lane-ping armed.
+**WIN now:** M4 unblocked (Mac device STK success on build-mode artifact, d941b2c8). **Catalog prep engaged (WIN side):** 
+- Ran generator baseline (97 assets, live: everywhere+apple; kindle dark). Committed as prep snapshot.
+- 45-name lister script prepared (/tmp/list_kindle_45.py + logic in board). Exact filenames the matrix expects.
+- Full attach/deploy checklist below (ready the moment 45 assets + sums are on v0.1.0).
+- Mac also landed minimal _flatten_toc_pills in kindle_post (horizontal ToC for KFX, post our variant retirement). Reviewed — clean, called inside make_kindle_safe.
+Triad updated (this entry + IN_FLIGHT/CHANGELOG to follow). Lane-ping armed. Ready for attach + regen on your signal.
 
 **M4 Kindle column attach/deploy checklist (when user STK green + Mac ready):**
 1. User confirms the staged corrected artifact on real Send-to-Kindle.
