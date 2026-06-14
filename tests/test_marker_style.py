@@ -148,7 +148,7 @@ class TestApplyBadgeMarkersUnit:
         # (a) no per-note inline markers survive in the transformed file
         assert 'class="note-ref' not in text, "per-note markers must be gone in badge mode"
         # (b) exactly one badge per verse-that-has-notes; gen 1 has 31 such verses
-        v1_badges = re.findall(r'id="vbadge-gen-1-\d+"', text)
+        v1_badges = re.findall(r'id="vbadge-gen-1-\d+(?:-s\d+)?"', text)
         assert len(v1_badges) == 31, f"expected 31 gen-1 verse badges, got {len(v1_badges)}"
         # RX-beta2 ①: the badge glyph is the ◈ note-mark + a count (never a bare
         # number that blends with the verse number / the translation marker).
@@ -159,10 +159,10 @@ class TestApplyBadgeMarkersUnit:
         # CONSERVED-OR-LOWER vs the 225 raw base markers (dedup may drop byte-
         # identical repeats — e.g. the gen 1:1 duplicate cross-ref — nothing else).
         total = 0
-        for vv in re.findall(r'id="vbadge-gen-1-(\d+)"', text):
-            bm = re.search(rf'id="vbadge-gen-1-{vv}"[^>]*title="(\d+) notes?[^"]*"', text)
+        for vv in re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"', text):
+            bm = re.search(rf'id="vbadge-gen-1-{vv}(?:-s\d+)?"[^>]*title="(\d+) notes?[^"]*"', text)
             am = re.search(
-                rf'<aside class="verse-notes" id="vnotes-gen-1-{vv}"[^>]*>(.*?)</aside>',
+                rf'<aside class="verse-notes" id="vnotes-gen-1-{vv}(?:-s\d+)?"[^>]*>(.*?)</aside>',
                 text,
                 re.DOTALL,
             )
@@ -197,7 +197,7 @@ class TestApplyBadgeMarkersUnit:
 
         checked = 0
         for v in range(1, 31):  # gen 1 has 31 verses; v+1 must exist for the check
-            bm = re.search(rf'<a class="verse-notes-badge" id="vbadge-gen-1-{v}".*?</a>', text, re.DOTALL)
+            bm = re.search(rf'<a class="verse-notes-badge" id="vbadge-gen-1-{v}(?:-s\d+)?" .*?</a>', text, re.DOTALL)
             if not bm:
                 continue
             tail = text[bm.end() :].lstrip()
@@ -230,20 +230,20 @@ class TestApplyBadgeMarkersUnit:
         text = (tmp / fname).read_text(encoding="utf-8")
         # (c) one merged aside per verse-with-notes; none of the old per-note asides
         assert 'class="note note-' not in text, "per-note asides must be merged away"
-        merged = re.findall(r'<aside class="verse-notes" id="vnotes-gen-1-(\d+)" epub:type="footnote">', text)
+        merged = re.findall(r'<aside class="verse-notes" id="vnotes-gen-1-(\d+)(?:-s\d+)?" epub:type="footnote">', text)
         assert len(merged) == 31, f"expected 31 merged gen-1 asides, got {len(merged)}"
         # (d) every badge href resolves to its vnotes aside id
-        for vv in re.findall(r'href="#vnotes-gen-1-(\d+)"', text):
-            assert f'id="vnotes-gen-1-{vv}"' in text, f"badge href #vnotes-gen-1-{vv} has no aside"
+        for vv in re.findall(r'href="#vnotes-gen-1-(\d+)(?:-s\d+)?"', text):
+            assert f'id="vnotes-gen-1-{vv}-s1"' in text, f"badge href #vnotes-gen-1-{vv} has no aside"
         # the merged aside for v1 lists one .vn-item per UNIQUE note in that verse's
         # region; the count matches the badge (post-dedup, post-grouping).
         m = re.search(
-            r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>',
+            r'<aside class="verse-notes" id="vnotes-gen-1-1-s1"[^>]*>(.*?)</aside>',
             text,
             re.DOTALL,
         )
         assert m
-        bm = re.search(r'id="vbadge-gen-1-1"[^>]*title="(\d+) notes?[^"]*"', text)
+        bm = re.search(r'id="vbadge-gen-1-1-s1"[^>]*title="(\d+) notes?[^"]*"', text)
         assert bm
         assert m.group(1).count('class="vn-item') == int(bm.group(1))
 
@@ -298,7 +298,7 @@ class TestApplyBadgeMarkersUnit:
             (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
 
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
-        fname = next(f for f in book["files"] if 'id="vbadge-gen-1-1"' in (tmp / f).read_text(encoding="utf-8"))
+        fname = next(f for f in book["files"] if 'id="vbadge-gen-1-1-s1"' in (tmp / f).read_text(encoding="utf-8"))
         once = (tmp / fname).read_text(encoding="utf-8")
         # no nested <a> introduced by the badge (the badge is itself an <a>)
         assert find_nested_anchors(once) == [], "badge introduced a nested <a> (RSC-005)"
@@ -396,7 +396,7 @@ class TestApplyBadgeMarkersUnit:
         #     BEFORE the ch-2 anchor, immediately preceding its paragraph close.
         fname = next(f for f in book["files"] if 'id="v-gen-1-31"' in (tmp / f).read_text(encoding="utf-8"))
         text = (tmp / fname).read_text(encoding="utf-8")
-        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-31".*?</a>', text, re.DOTALL)
+        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-31(?:-s\d+)?.*?</a>', text, re.DOTALL)
         ch2 = re.search(r'<a id="ch-b\d+-c2" class="ch-anchor">', text)
         assert bm and ch2, "gen 1:31 badge / ch-2 anchor missing"
         assert bm.end() <= ch2.start(), "gen 1:31's badge rendered past the chapter-2 heading (K-R3-4)"
@@ -407,8 +407,8 @@ class TestApplyBadgeMarkersUnit:
         # (b) conservation: the spilled markers' notes still merge into the aside —
         #     the badge count equals the aside's rows, and 1:31 keeps its full set
         #     (3 inline + 5 spilled = 8 pre-dedup; dedup may only lower it slightly).
-        tb = re.search(r'id="vbadge-gen-1-31"[^>]*title="(\d+) notes?[^"]*"', text)
-        am = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-31"[^>]*>(.*?)</aside>', text, re.DOTALL)
+        tb = re.search(r'id="vbadge-gen-1-31(?:-s\d+)?"[^>]*title="(\d+) notes?[^"]*"', text)
+        am = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-31(?:-s\d+)?"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert tb and am
         rows = am.group(1).count('class="vn-item')
         assert int(tb.group(1)) == rows, "badge count != merged-aside rows for gen 1:31"
@@ -443,7 +443,7 @@ class TestApplyBadgeMarkersUnit:
             events: list[tuple[int, str, int]] = []
             for m in re.finditer(r'id="ch-b\d+-c(\d+)"', t):
                 events.append((m.start(), "ch", int(m.group(1))))
-            for m in re.finditer(r'id="vbadge-gen-(\d+)-(\d+)"', t):
+            for m in re.finditer(r'id="vbadge-gen-(\d+)-(\d+)(?:-s\d+)?', t):
                 events.append((m.start(), "badge", int(m.group(1))))
             cur = None
             for _pos, kind, val in sorted(events):
@@ -512,9 +512,9 @@ class TestKoboPreviewSeparators:
         for f in book["files"]:
             (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
-        fname = next(f for f in book["files"] if 'id="vnotes-gen-1-1"' in (tmp / f).read_text(encoding="utf-8"))
+        fname = next(f for f in book["files"] if 'id="vnotes-gen-1-1-s1"' in (tmp / f).read_text(encoding="utf-8"))
         text = (tmp / fname).read_text(encoding="utf-8")
-        m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1"[^>]*>(.*?)</aside>', text, re.DOTALL)
+        m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1-s1"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert m
         items = m.group(1).count('class="vn-item')
         seps = m.group(1).count('<span class="vn-sep">\u2028• </span>')

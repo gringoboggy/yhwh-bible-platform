@@ -173,7 +173,7 @@ class TestNoteRehaulS1InBuild:
     def _gen1_text(self, tmp, book):
         for f in book["files"]:
             t = (tmp / f).read_text(encoding="utf-8")
-            if 'id="vbadge-gen-1-1"' in t:
+            if 'id="vbadge-gen-1-1-s1"' in t:
                 return t
         raise AssertionError("gen 1 badge file not found")
 
@@ -183,7 +183,7 @@ class TestNoteRehaulS1InBuild:
         counts = {}
         for f in book["files"]:
             text = (tmp / f).read_text(encoding="utf-8")
-            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)"[^>]*title="(\d+) notes?"', text):
+            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?"', text):
                 counts[vv] = int(cnt)
         return counts
 
@@ -638,7 +638,7 @@ class TestNoteRehaulS2InBuild:
     def _gen1_text(self, tmp, book):
         for f in book["files"]:
             t = (tmp / f).read_text(encoding="utf-8")
-            if 'id="vbadge-gen-1-1"' in t:
+            if 'id="vbadge-gen-1-1-s1"' in t:
                 return t
         raise AssertionError("gen 1 badge file not found")
 
@@ -648,7 +648,7 @@ class TestNoteRehaulS2InBuild:
         counts = {}
         for f in book["files"]:
             text = (tmp / f).read_text(encoding="utf-8")
-            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)"[^>]*title="(\d+) notes?"', text):
+            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?"', text):
                 counts[vv] = int(cnt)
         return counts
 
@@ -799,7 +799,7 @@ class TestNoteRehaulS3aInBuild:
     def _gen1_text(self, tmp, book):
         for f in book["files"]:
             t = (tmp / f).read_text(encoding="utf-8")
-            if 'id="vbadge-gen-1-1"' in t:
+            if 'id="vbadge-gen-1-1-s1"' in t:
                 return t
         raise AssertionError("gen 1 badge file not found")
 
