@@ -1,0 +1,37 @@
+# M4 Kindle column - exact 45 assets for v0.1.0 (9 editions × 5 colours)
+#
+# These are the precise filenames that must be attached to the v0.1.0 GitHub
+# release (plus updated SHA256SUMS) for the 'kindle' format column to go live
+# in the catalog via full-count gating in gen_release_catalog.py.
+#
+# Generated from:
+#   - scripts/build_edition.py: FORMAT_MATRIX (kindle row with post_process),
+#     COVER_COLOURS, catalog_asset_name()
+#   - content/editions.yaml (the editions participating in the matrix)
+#
+# To (re)generate:
+#   python -c '
+#   import yaml
+#   from pathlib import Path
+#   from scripts.build_edition import catalog_asset_name, COVER_COLOURS
+#   eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
+#   for ed in [e["id"] for e in eds]:
+#       for c in COVER_COLOURS:
+#           print(catalog_asset_name(ed, "0.1.0", "kindle", c))
+#   '
+#
+# Once attached, run:
+#   python -m scripts.gen_release_catalog --tag v0.1.0
+# The column will light automatically for editions that have their full set.
+
+# (List will be populated by running the generator command above when the
+# 45 files are ready. This placeholder ensures the file is tracked and
+# referenced from the board for Mac mirroring.)
+
+# Placeholder - run the command above on a machine with the full tree to fill
+# the actual names when preparing the attach.
+# Expected count: 45
+
+# See LANE_HANDOFF.md for the attach checklist and current status.
+# This file was added as part of M4 catalog prep (WIN side) while waiting on
+# Mac fan-out + user STK re-confirm. Committed locally for visibility on pull.
