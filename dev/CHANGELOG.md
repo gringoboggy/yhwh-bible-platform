@@ -4,6 +4,16 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — session (🪟 Windows, turn 83) — CI health (GitLab quota + GitHub fast-gate green) · Mac v1.0.0 laundry · K-KIN STK-failed datum
+
+**What shipped:**
+- **GitLab "failed pipeline" emails fixed — root cause `ci_quota_exceeded`, NOT code.** Every per-push `main` pipeline failed at the runner (the private namespace blew its monthly CI compute minutes ~Jun 6; jobs never start, empty trace) → a failure email per push. `.gitlab-ci.yml` gains `workflow:rules` so GitLab no longer creates per-push pipelines (GitHub Actions is the real per-push CI — public = free minutes; manual/scheduled GitLab runs survive for when the quota resets).
+- **GitHub `Tests` red `main` cleared.** Fast-gate `commercial_terms` (5× `KDP` in `build_edition.py` comments, from the Mac turn-81 Kindle commit) was reworded by the Mac (`7bec299b`, pulled). The 2 remaining stale `test_scripts.py` pins are fixed here: `test_patch_opf_adds_bcp47_languages` (the multi-value `dc:language` block is RESTORED for non-kindle; single-value is target-gated to kindle — both already pinned in `test_opf_clean.py`) and `test_enable_ai_notes_in_editable_bool_set` (imports the `EDITABLE_BOOL_FIELDS` frozenset instead of scanning for the retired `EDITABLE_BOOL = {` dict). `test_popup_split.py` verified 52/52.
+- **MacClaude v1.0.0 laundry list** delivered: `notes/2026-06-14-mac-v1.0.0-laundry.md`, built from a 5-dimension code-verified audit (honest `blocks_v1`; file-disjoint from WIN surfaces).
+- **K-KIN correction folded in:** user confirmed the shipped `FIXED.epub` FAILED on **Send-to-Kindle** → M4 stays BLOCKED; the prior KP3/KDP-measured ceilings (2 MB split, 2-language cap, byte/element ceilings) are suspect; the Kindle arc must restart against the STK oracle (Mac lane).
+
+**Retrospective:** the KDP comment reached `main` past the FAIL-enforced `commercial_terms` gate → flagged to Mac to verify its pre-commit hook (`core.hooksPath`). `test_popup_split.py` measured ~940 s — an un-`slow`-tagged slow test (future cleanup).
+
 ## 2026-06-14 — session (🖥️ Mac, turn 81) — K-KIN E999 RESOLVED (Kindle blocker fixed) + Grok/Kilo on Mac
 
 - **E999 root cause = hidden `display:none` content** (Amazon E3013, 10,000-char cap; Kindle Publishing Guidelines v2026.1 §17.2.1, primary-source). The desktop Kindle Previewer was falsified as a success oracle (it resolves the CSS cascade; Amazon's server scans raw markup). **`TEST-nohide` (all `display:none` stripped) converted clean on KDP to the pricing step** — the full-apparatus single-volume Kindle Bible is publishable; Send-to-Kindle's E999 is flaky/blind.

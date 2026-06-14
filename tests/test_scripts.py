@@ -536,16 +536,21 @@ class TestBuildEdition:
         assert "schema:accessibilitySummary" in out
 
     def test_patch_opf_adds_bcp47_languages(self):
-        # Kindle E999 (CONFIRMED 2026-06-10): the old hbo/grc/arc/gez extras
-        # hard-fail Amazon's Send-to-Kindle validation — the OPF now carries
-        # exactly ONE BCP-47 dc:language; per-span xml:lang holds the
-        # in-content language info (see tests/test_opf_clean.py for the
-        # kindle-safe pin).
+        # The primary dc:language is refined from bare 'en' to BCP-47 'en-US'.
+        # The K-R2-5 multi-value dc:language block (hbo/grc/arc/gez/ar for the
+        # apparatus scripts) is RESTORED for NON-kindle builds; the E999
+        # single-value form is target-gated to kindle only (the 2026-06-10
+        # "exactly one dc:language for all builds" hypothesis was superseded
+        # once E999 was traced to hidden content, not the OPF languages). Both
+        # halves are pinned in tests/test_opf_clean.py. This edition has no
+        # target_reader, so it gets the full apparatus-language block.
         opf = "<package><metadata><dc:title>X</dc:title><dc:language>en</dc:language></metadata></package>"
         edition = {"id": "test", "title": "X"}
         out = self.mod.patch_opf(opf, edition, "v")
         assert "<dc:language>en-US</dc:language>" in out
-        assert out.count("<dc:language>") == 1
+        assert out.count("<dc:language>") == 6
+        for lang in ("hbo", "grc", "arc", "gez", "ar"):
+            assert f"<dc:language>{lang}</dc:language>" in out
 
     def test_render_copyright_page_substitutes_edition_data(self):
         # Ω.0 pivot (2026-05-14): ISBN dropped. The copyright page
@@ -14504,34 +14509,14 @@ class TestEnableAINotesField:
         # field falls out of EDITABLE_BOOL the toggle becomes
         # read-only and the spec's reviewer workflow breaks.
         #
-        # ω.35-B.5 — api_save_edition_meta moved to
-        # scripts/api/editions.py. Check both locations so this
-        # test stays meaningful through the refactor and any
-        # future moves.
-        from pathlib import Path
+        # The editable-bool set is the module-level EDITABLE_BOOL_FIELDS
+        # frozenset in scripts/api/editions.py — the turn-78 registry that
+        # replaced the old inline `EDITABLE_BOOL = {…}` dict and now feeds
+        # BOTH api_save_edition_meta and the edition-clone whitelist (so a
+        # field can no longer be editable in one path but dropped in the other).
+        from scripts.api.editions import EDITABLE_BOOL_FIELDS
 
-        scripts_dir = Path(__file__).resolve().parent.parent / "scripts"
-        candidates = [
-            scripts_dir / "api" / "editions.py",  # canonical home (ω.35-B.5+)
-            scripts_dir / "web.py",  # pre-B.5 home
-        ]
-        found_in = None
-        for path in candidates:
-            if not path.is_file():
-                continue
-            text = path.read_text(encoding="utf-8")
-            idx = text.find("EDITABLE_BOOL = {")
-            if idx < 0:
-                continue
-            end = text.find("}", idx)
-            assert end > idx
-            editable_bool_block = text[idx:end]
-            if "enable_ai_notes" in editable_bool_block:
-                found_in = path
-                break
-        assert found_in is not None, (
-            f"enable_ai_notes not found in any EDITABLE_BOOL set across candidates: {[str(p) for p in candidates]}"
-        )
+        assert "enable_ai_notes" in EDITABLE_BOOL_FIELDS
 
     def test_ai_drafted_kinds_set_includes_comm_ai(self):
         # Pin the contract that AI_DRAFTED_KINDS gates exactly comm-ai

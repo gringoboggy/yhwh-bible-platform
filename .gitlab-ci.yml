@@ -23,6 +23,19 @@
 # The always-on per-push TEST signal lives in GitHub Actions instead
 # (.github/workflows/tests.yml): the GitHub mirror is public, so its minutes are
 # free, while every minute here draws down the private-namespace quota.
+#
+# ⚠ PER-PUSH PIPELINES DISABLED (2026-06-14): the private namespace hit
+# `ci_quota_exceeded` (~2026-06-06), so EVERY push spawned a pipeline the runner
+# refused before start (empty trace, status=failed) → a "failed pipeline" email
+# on every push — pure noise, unrelated to the code. The GitHub Actions mirror
+# is the real per-push CI (public repo = free minutes), so GitLab per-push CI is
+# redundant. The `workflow:rules` below stop GitLab from creating ANY pipeline on
+# push; the gate + test jobs still run on demand (CI/CD -> Run pipeline) or on a
+# schedule — usable once the monthly quota resets or the project is made public.
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE =~ /^(schedule|web|api|trigger)$/'
+    - when: never
 
 default:
   image: python:3.13-slim
