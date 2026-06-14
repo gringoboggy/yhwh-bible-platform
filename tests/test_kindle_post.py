@@ -6,8 +6,10 @@ artifact (compaction + language cap + ToC-rows + unhide + 2 MB split) FAILED.
 The proven recipe is a STANDARD (everywhere) build + a deterministic post-process:
 
   * physically strip every ``display:none`` / ``visibility:hidden`` (CSS + inline)
-  * drop the Kobo-only ``.vn-sep`` separator spans (else they'd show as stray
-    glyphs once nothing hides them)
+  * KEEP the ``.vn-sep`` separator spans (Mac turn-85 correction: the measured
+    june10recipe.epub kept all 132,949 — they are the visible language separators
+    in the footnote popups once their hide rule is stripped; dropping them was a
+    FAIL-column behavior)
   * collapse ``<dc:language>`` to a SINGLE ``en-US`` (Amazon's E999 trigger)
   * LEAVE ``hidden=""`` attributes intact (test-2 delivered with them in place)
   * OCF re-zip (``mimetype`` first + stored)
@@ -50,23 +52,23 @@ class TestStripHiddenCss:
 class TestStripHiddenHtml:
     def test_strips_inline_hidden_keeps_rest_of_style(self):
         html = '<p style="margin:0;display:none">x</p>'
-        out, n_sep, n_inl = kindle_post.strip_hidden_html(html)
+        out, n_inl = kindle_post.strip_hidden_html(html)
         assert "display:none" not in out
         assert "margin:0" in out
         assert n_inl == 1
-        assert n_sep == 0
 
-    def test_removes_vn_sep_spans(self):
+    def test_keeps_vn_sep_spans(self):
+        # the measured june10recipe.epub KEPT all its vn-sep spans (they are the
+        # visible language separators in the footnote popups) — never drop them.
         html = '<p>a<span class="vn-sep">•</span>b</p>'
-        out, n_sep, n_inl = kindle_post.strip_hidden_html(html)
-        assert 'class="vn-sep"' not in out
-        assert out == "<p>ab</p>"
-        assert n_sep == 1
+        out, n_inl = kindle_post.strip_hidden_html(html)
+        assert out == html  # byte-identical — vn-sep untouched
+        assert n_inl == 0
 
     def test_preserves_hidden_attribute(self):
         # the proven recipe LEAVES hidden="" in place (do NOT unhide)
         html = '<aside epub:type="footnotes" hidden="">note</aside>'
-        out, _n_sep, _n_inl = kindle_post.strip_hidden_html(html)
+        out, _n_inl = kindle_post.strip_hidden_html(html)
         assert 'hidden=""' in out
 
 
@@ -139,7 +141,7 @@ class TestMakeKindleSafe:
             assert first.compress_type == zipfile.ZIP_STORED
 
         assert "display: none" not in css and "display:none" not in html
-        assert 'class="vn-sep"' not in html
+        assert 'class="vn-sep"' in html  # KEPT (june10 kept all 132,949)
         assert 'hidden=""' in html  # left intact
         assert opf.count("<dc:language>") == 1 and "en-US" in opf
         assert "mimetype" in names and "OEBPS/content.opf" in names

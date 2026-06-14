@@ -17,7 +17,10 @@ The proven recipe (turn-84, user-confirmed via Send-to-Kindle, catholic-study,
 
     build_edition.py <id>            # STANDARD everywhere build — full apparatus
     -> physically strip every display:none / visibility:hidden  (CSS + inline)
-    -> drop the Kobo-only .vn-sep separator spans
+    -> LEAVE the .vn-sep separator spans intact (Mac turn-85 correction: the
+       measured june10recipe.epub KEPT all 132,949 — with their hide rule stripped
+       they render as the visible language separators inside the footnote popups;
+       dropping them is a FIXED.epub/FAIL-column behavior, NOT the proven recipe)
     -> collapse <dc:language> to a single en-US
     -> LEAVE hidden="" attributes intact
     -> OCF re-zip (mimetype first + stored)
@@ -47,7 +50,6 @@ from pathlib import Path
 # post-process stays a small, dependency-light core utility.
 _CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
 _INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
-_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>')
 _DC_LANG_RE = re.compile(r"<dc:language>[^<]*</dc:language>")
 
 #: The single language a Send-to-Kindle artifact may declare (Amazon's E999
@@ -64,14 +66,14 @@ def strip_hidden_css(css: str) -> tuple[str, int]:
     return _CSS_HIDDEN_DECL_RE.subn("", css)
 
 
-def strip_hidden_html(html: str) -> tuple[str, int, int]:
-    """Drop ``.vn-sep`` separator spans and strip inline
-    ``display:none`` / ``visibility:hidden`` from ``style="…"`` attributes.
-    ``hidden=""`` attributes are deliberately LEFT in place. Returns
-    ``(text, vn_sep_removed, inline_hidden_stripped)``. Idempotent."""
-    out, n_sep = _VN_SEP_SPAN_RE.subn("", html)
-    out, n_inline = _INLINE_HIDDEN_DECL_RE.subn(r"\1", out)
-    return out, n_sep, n_inline
+def strip_hidden_html(html: str) -> tuple[str, int]:
+    """Strip inline ``display:none`` / ``visibility:hidden`` from ``style="…"``
+    attributes. ``hidden=""`` attributes AND ``.vn-sep`` separator spans are
+    deliberately LEFT in place — the measured june10recipe.epub kept all 132,949
+    vn-sep spans (with their hide rule stripped they are the visible language
+    separators in the footnote popups). Returns ``(text, inline_hidden_stripped)``.
+    Idempotent."""
+    return _INLINE_HIDDEN_DECL_RE.subn(r"\1", html)
 
 
 def collapse_dc_language(opf: str, lang: str = KINDLE_LANGUAGE) -> tuple[str, int]:
@@ -101,7 +103,6 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
     src_epub, dst_epub = Path(src_epub), Path(dst_epub)
     stats = {
         "css_hidden_stripped": 0,
-        "vn_sep_removed": 0,
         "inline_hidden_stripped": 0,
         "dc_language_collapsed": 0,
     }
@@ -124,10 +125,9 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
                 data[name] = text.encode("utf-8")
                 stats["css_hidden_stripped"] += n
         elif name.endswith(_DOC_SUFFIXES):
-            text, n_sep, n_inline = strip_hidden_html(data[name].decode("utf-8"))
-            if n_sep or n_inline:
+            text, n_inline = strip_hidden_html(data[name].decode("utf-8"))
+            if n_inline:
                 data[name] = text.encode("utf-8")
-                stats["vn_sep_removed"] += n_sep
                 stats["inline_hidden_stripped"] += n_inline
 
     opf_text, lang_count = collapse_dc_language(data[opf_name].decode("utf-8"))
@@ -151,9 +151,10 @@ def verify_kindle_safe(epub_path: Path | str) -> list[str]:
 
     Returns a list of human-readable failures (empty list = conformant). Checks:
     ``mimetype`` is the first member and stored; ZERO ``display:none`` /
-    ``visibility:hidden`` survives in any ``.css`` or inline ``style="…"``; no
-    ``.vn-sep`` span survives; exactly one ``<dc:language>``. This is the new
-    path's own gate — it does NOT touch the dormant kindle target's gate-5."""
+    ``visibility:hidden`` survives in any ``.css`` or inline ``style="…"``;
+    exactly one ``<dc:language>``. ``.vn-sep`` spans and ``hidden=""`` attrs are
+    PRESERVED (june10 kept both), so they are not checked. This is the new path's
+    own gate — it does NOT touch the dormant kindle target's gate-5."""
     epub_path = Path(epub_path)
     fails: list[str] = []
     with zipfile.ZipFile(epub_path) as z:
@@ -171,8 +172,6 @@ def verify_kindle_safe(epub_path: Path | str) -> list[str]:
                 text = z.read(name).decode("utf-8", "replace")
                 if _INLINE_HIDDEN_DECL_RE.search(text):
                     fails.append(f"{name}: inline display:none/visibility:hidden survives")
-                if _VN_SEP_SPAN_RE.search(text):
-                    fails.append(f"{name}: .vn-sep separator span survives")
             elif name.endswith(".opf"):
                 n = z.read(name).decode("utf-8", "replace").count("<dc:language>")
                 if n != 1:
