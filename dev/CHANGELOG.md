@@ -23,7 +23,9 @@
 - The round-7 test work (the 6 fixes) is now fully landed + verified + pushed as the close of the K-R6-2 slice tail.
 - Dead-variant retirement is being executed on WIN (as agreed) even while Mac lane runs the 45 M4 fan-out overnight — because the cleanup is isolated to the unused `--target-reader kindle` branch inside build_edition (the matrix path never calls the old applies).
 
-**Continuity pointers:** `dev/LANE_HANDOFF.md` (turn 86 + ②), `dev/IN_FLIGHT.md` (turn 86 entry), `tests/test_target_reader_override.py` (plumbing for `target_reader=kindle` value stays; only the FAIL impl removed), `scripts/core/kindle_post.py` + `build_format_matrix.py` (the one true path).
+**Continuity pointers:** `dev/LANE_HANDOFF.md` (turn 86 + ② ✔), `dev/IN_FLIGHT.md` (turn 86 entry), `tests/test_target_reader_override.py` (plumbing stays), `scripts/core/kindle_post.py` + `build_format_matrix.py` (the one true path).
+
+**Follow-up sweeps (part of consolidation close):** deleted `tests/test_kindle_strip_hidden.py` (100% dead); trimmed `tests/test_kindle_safe.py` to only still-valid resolver tests; cleaned comments in `test_kindle_safe_gate.py` + `dev/verify_kr2_build.py`; plan doc + MATRIX_MAP annotated retired. All three triad files updated to mark ② complete.
 
 ## 2026-06-14 — session (🪟 Windows, turn 85) — M4 Kindle PRODUCTIZED (proven june10 recipe) · Node-24 CI bumps · overnight autonomous
 

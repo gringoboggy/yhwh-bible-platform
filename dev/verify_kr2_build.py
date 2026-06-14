@@ -161,7 +161,7 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
     if hidden_attrs:
         fails.append(
             f'kindle: {hidden_attrs} footnote wrapper(s) still carry hidden="" '
-            "(apply_kindle_unhide never ran — stale/unsafe build)"
+            "(old --target-reader kindle variant apply never ran — stale/unsafe build; production uses kindle_post)"
         )
     return fails
 
