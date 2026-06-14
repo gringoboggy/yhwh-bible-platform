@@ -3762,7 +3762,7 @@ def resolve_file_split_target(edition: dict) -> int:
     (explicit per-edition override > the reader-target default).
 
     The kindle target uses the SAME default split as everywhere. The earlier
-    2 MB kindle pack came from the Kindle-Previewer/KDP "halfspine" verdict (the
+    2 MB kindle pack came from the Kindle-Previewer "halfspine" verdict (the
     full 297-doc artifact failing KFX with a generic internal error) — which the
     real Send-to-Kindle channel FALSIFIED: june10recipe.epub shipped the standard
     299-piece split (incl. 75 tiny husk pieces) and delivered (user-confirmed,
@@ -4921,7 +4921,7 @@ def enrich_nav_chapters(tmp: Path) -> dict:
 # standard pill ToC and kept all 406 hidden="" footnote asides — Amazon's E3013
 # scanner counts CSS display:none, not the HTML hidden attribute, and Kindle's
 # native footnote popups USE those hidden asides. Both passes rode the falsified
-# Kindle-Previewer/KDP oracle. See
+# Kindle-Previewer oracle. See
 # docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.
 
 

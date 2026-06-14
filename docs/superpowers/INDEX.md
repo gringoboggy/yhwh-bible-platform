@@ -6,10 +6,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 **80 documents** — 51 plans · 29 specs.
 
-## In progress (33)
+## In progress (34)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-14 | Plan | ★Kindle recipe productization — `--target-reader kindle` emits the proven june10 Send-to-Kindle recipe (strip display:none + single en-US; the falsified Previewer-oracle extras — file-merge, kindle_safe CSS, toc-rows, unhide, popup-cap/compaction — removed/opt-in) | `plans/2026-06-14-kindle-recipe-productization.md` | IMPLEMENTED + VERIFIED 2026-06-14 (Mac turn 85) — reproduces the june10 PASS shape on every signal (stamp aside), epubcheck 0/0/0/0, gate-5 green, 308 tests green, non-kindle byte-identical; build-mode artifact staged for the user's Send-to-Kindle re-confirm (the only remaining gate → M4 lights on it). |
 | 2026-06-10 | Spec | Website Format Matrix — every full canon edition, per-device, with the 5×5 covers | `specs/2026-06-10-website-format-matrix-design.md` | READY 2026-06-10 — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA. |
 | 2026-06-10 | Plan | kindle_safe variant (turn-69 ①) — 5th `target_reader` value + one resolver + visible endnotes (E3013) + ToC rows (K-KIN-2) + seam CSS (K-KIN-3) + OPF stamp + verifier gate 5 | `plans/2026-06-10-kindle-safe-variant.md` | EXECUTED 2026-06-10 (Mac turn 69) — tasks 1–7 complete: TDD slices shipped + byte-identity proven (before/after SHA equal with the field unset) + the kindle acceptance artifact staged to `~/Desktop` (gates green incl. gate 5). Acceptance = the user's Send-to-Kindle re-verify (K-KIN-1..4). |
 | 2026-06-10 | Plan | ★Full Project Audit Program (post-v0.1.0) — ① Claude-system mint → ② round-7 everything-audit → ③ decommission → ④ end-game two-lane master plan → ⑤ re-audit per milestone | `plans/2026-06-10-full-project-audit-program.md` | IN PROGRESS 2026-06-10 — P1/P2 executing (engine round-7 +7 program dims, overnight win-solo audit, K-R4-1 fix, ① design doc); K-R4-2 post-round-5 calibration; P3–P5 follow the audit result. |
