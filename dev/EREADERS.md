@@ -18,7 +18,7 @@
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
 | **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; cap-split units mostly pop (K-R6-2: a non-size factor or tap geometry on 2 of gen 1:1's 3 — taps pending) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback — PROVEN round-6** (Publisher Default renders Heb/Grc/**Ar**/Geʽez with the OPF block restored; per-span lang never reaches the tag-stripped preview) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-6 2026-06-11: ★K-R5-6 restore PROVEN on-device; clamp HOLDS; `\n` seps collapsed → U+2028 (K-R6-3); "BOOKII" eyebrow space quirk (K-R6-4, pre-existing) |
-| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (`display:none` stripped) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Recipe DEVICE-PROVEN via Send-to-Kindle (2026-06-14); productized as `kindle_post` (everywhere build + strip-hidden + single `en-US` + OCF re-zip); catalog artifacts reproduce it, epubcheck 0/0/0/0 |
+| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (`display:none` stripped) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | **M4 LIVE** — 6/6 STK spot-check PASS (2026-06-14): superset→smallest + cover-swaps; `kindle_post` recipe; 45 catalog artifacts on external drive for WIN attach |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
 
@@ -111,16 +111,19 @@
   `display:none`/`visibility:hidden`, single `dc:language`, `mimetype` first/stored)
   + epubcheck 0/0/0/0 + `dev/verify_kr2_build.py` (gates 1–4; the artifact is
   unstamped, so the dormant variant's gate-5 correctly skips).
-- **Acceptance:** the RECIPE is device-proven (2026-06-14, Mac-built artifact, user
-  Send-to-Kindle). The Windows catalog artifacts are byte-faithful reproductions of
-  that recipe; ONE Send-to-Kindle re-confirm on a catalog artifact is the remaining
-  nicety before the column is declared "live."
+- **Acceptance:** **M4 column LIVE on device (2026-06-14).** User Send-to-Kindle
+  spot-check **6/6 PASS** on Mac M4 fan-out artifacts (`~/Desktop/YHWH-kindle-stk-qa/`):
+  ethiopian-tewahedo superset (largest), jewish-study (smallest), catholic-study brown
+  cover-swap, evangelical-reformed, scholarly-academic, eastern-orthodox forest — plus
+  the turn-85/86 catholic-study oracle. Same `kindle_post` pipeline on all 45 catalog files.
+  WIN: attach external-drive 45 → v0.1.0 release + catalog + deploy (no further STK gate).
 - **Variant retirement (turn 86):** the old `--target-reader kindle` in-pipeline FAIL
   implementation (apply_kindle_* fns etc.) was fully excised. Only the productized
   `kindle_post` path remains. Catalog baseline prepared (pre-45 assets); see LANE_HANDOFF.
-- **QA history:** the june10 recipe (test-2) → turn-82 forensics (the Previewer/KP3
-  oracle was falsified) → turn-84 STK re-proof → turn-85 productization. The dormant
-  variant's plan: `plans/2026-06-10-kindle-safe-variant.md`.
+- **QA history:** the june10 recipe (test-2) → turn-82 forensics (Previewer/KP3
+  falsified) → turn-84 STK re-proof → turn-85 productization → turn-87 Mac M4 fan-out
+  45/45 + **6-variant STK matrix ALL PASS** (user 2026-06-14). Dormant variant retired
+  turn-86; plan archived: `plans/2026-06-10-kindle-safe-variant.md`.
 
 ## Google Play Books (`everywhere`, provisional)
 
@@ -158,5 +161,6 @@
 
 1. Kobo preview-decline threshold T — round-5 tap calibration (this session).
 2. Play Books round-1: popups / fonts / breaks on the user's phone (M5 gate).
-3. Kindle K-KIN-1..4 acceptance on the kindle_safe artifact (user, pending).
+3. ~~Kindle K-KIN-1..4 acceptance on the kindle_safe artifact~~ — **CLOSED 2026-06-14**
+   (6/6 STK spot-check on M4 fan-out variants; column live).
 4. Whether Play Books needs its own `target_reader` profile (after #2).

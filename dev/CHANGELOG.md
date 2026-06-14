@@ -4,6 +4,16 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — Mac session (turn 87) — ★ M4 KINDLE COLUMN LIVE ON DEVICE (STK 6/6) + external handoff + truth push
+
+**What shipped:**
+- **M4 fan-out:** 45/45 Kindle catalog EPUBs on Mac (`build_format_matrix --phase M4`), all gated green; external drive `YHWH-v2.4-releases/m4-kindle-v0.1.0/`.
+- **★ Device acceptance:** user Send-to-Kindle **6/6 PASS** on spot-check pack (`YHWH-kindle-stk-qa`): (1) ethiopian-tewahedo superset navy, (2) jewish-study smallest, (3) catholic-study brown cover-swap, (4) evangelical-reformed black, (5) scholarly-academic navy, (6) eastern-orthodox forest. M4 column declared live on the STK oracle.
+- **`dev/EREADERS.md`:** Kindle row + acceptance + QA history + open-question #3 closed.
+- **Truth triad + LANE_HANDOFF:** WIN cleared to attach/deploy (no further STK gate).
+
+**WIN next:** plug external drive → v0.1.0 release attach → `gen_release_catalog` → website deploy.
+
 ## 2026-06-14 — Mac pull + mirror (turn 86) — everything WinGrok did mirrored + proven viable on Mac + pipeline issues fixed + future Groks documented + fresh session prep + truth update + push to both remotes
 
 **What shipped (verification before claim):**

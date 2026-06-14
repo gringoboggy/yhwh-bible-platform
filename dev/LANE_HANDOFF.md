@@ -1,13 +1,19 @@
 ---
 mode: parallel
-turn: 87
+turn: 88
 from: mac
-updated: 2026-06-14T17:42:55Z
+updated: 2026-06-14T18:11:02Z
 status: working
-mac: ✔ turn 87 (Mac) — M4 fan-out 45/45 DONE (build_format_matrix --phase M4, epubcheck 0/0/0/0 + verify_kindle_safe + K-R2 every file); handoff copied to external drive — see MAC addendum turn 87 for paths. Mac idle on M4.
-windows: ▶ turn 87 (Windows) — PICK UP 45 Kindle EPUBs from external drive → attach v0.1.0 GitHub release + merge SHA256SUMS.txt + gen_release_catalog --tag v0.1.0 + deploy website. Checklist in LANE_HANDOFF turn 86.
+mac: ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle.
+windows: ▶ turn 87 (Windows) — ★ M4 LIVE (STK 6/6 PASS) — GO: plug external drive YHWH-v2.4-releases\m4-kindle-v0.1.0\ → attach 45 to v0.1.0 release + merge SHA256SUMS + gen_release_catalog + deploy website.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 88, 2026-06-14T18:11:02Z) — mode=parallel
+
+**Assignments:** mac = ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle. · windows = ▶ turn 87 (Windows) — ★ M4 LIVE (STK 6/6 PASS) — GO: plug external drive YHWH-v2.4-releases\m4-kindle-v0.1.0\ → attach 45 to v0.1.0 release + merge SHA256SUMS + gen_release_catalog + deploy website.
+
 ---
 
 ## ◦ mac assign (turn 87, 2026-06-14T17:42:55Z) — mode=parallel
@@ -26,9 +32,11 @@ holder: windows
 
 ③ **WIN next (you were waiting for these):** run the M4 attach/deploy checklist (LANE_HANDOFF turn 86 § checklist steps 2–6): attach 45 to v0.1.0 GitHub release → merge sums → `python -m scripts.gen_release_catalog --tag v0.1.0` → commit catalog + deploy website.
 
-④ **STK note:** user confirmed Send-to-Kindle on the corrected catholic-study oracle (turn 85/86); all 45 use identical kindle_post recipe — not individually device-tested.
+④ **STK note:** user confirmed Send-to-Kindle on the corrected catholic-study oracle (turn 85/86); all 45 use identical kindle_post recipe.
 
-Mac now idle on M4. truth_owner stays windows.
+⑤ **★ STK 6/6 PASS — M4 COLUMN LIVE (user 2026-06-14):** spot-check pack `~/Desktop/YHWH-kindle-stk-qa/` — all six variants delivered via Send-to-Kindle: (1) ethiopian-tewahedo superset ✓ (2) jewish-study ✓ (3) catholic-study brown ✓ (4) evangelical-reformed ✓ (5) scholarly-academic ✓ (6) eastern-orthodox ✓. **Device gate CLEARED** — WIN may attach all 45 from external drive and light the catalog column with no further STK oracle.
+
+Mac idle on M4. truth_owner stays windows. **WIN: GO attach + deploy NOW.**
 
 ---
 
