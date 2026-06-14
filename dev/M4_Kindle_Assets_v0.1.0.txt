@@ -18,16 +18,29 @@
 # Naming: YHWH-{edition}-v0.1.0-kindle-{colour}.epub
 #
 # To (re)generate at any time (run from repo root with PYTHONUTF8=1):
-#   $env:PYTHONUTF8="1"
-#   python -c '
-#   import yaml
-#   from pathlib import Path
-#   from scripts.build_edition import catalog_asset_name, COVER_COLOURS
-#   eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
-#   for e in [x["id"] for x in eds["editions"]][:9]:  # main 9
-#       for c in COVER_COLOURS:
-#           print(catalog_asset_name(e, "0.1.0", "kindle", c))
-#   '
+#   Windows (PowerShell, pipeline-safe - no cat/Out-String mangling):
+#     $env:PYTHONUTF8="1"
+#     python -c '
+#     import yaml
+#     from pathlib import Path
+#     from scripts.build_edition import catalog_asset_name, COVER_COLOURS
+#     eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
+#     for e in [x["id"] for x in eds["editions"]][:9]:  # main 9
+#         for c in COVER_COLOURS:
+#             print(catalog_asset_name(e, "0.1.0", "kindle", c))
+#     '
+#   Mac (bash/zsh + project .venv; equivalent hygiene):
+#     export PYTHONUTF8=1
+#     .venv/bin/python -c '
+#     import yaml
+#     from pathlib import Path
+#     from scripts.build_edition import catalog_asset_name, COVER_COLOURS
+#     eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
+#     for e in [x["id"] for x in eds["editions"]][:9]:  # main 9
+#         for c in COVER_COLOURS:
+#             print(catalog_asset_name(e, "0.1.0", "kindle", c))
+#     '
+#   (Output is always the exact 45 lines; commit the list as first-class artifact.)
 #
 # Once these 45 (plus sums) are attached to the v0.1.0 release, running
 #   python -m scripts.gen_release_catalog --tag v0.1.0

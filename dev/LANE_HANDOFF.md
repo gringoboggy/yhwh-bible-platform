@@ -4,7 +4,7 @@ turn: 86
 from: windows
 updated: 2026-06-14T13:20:00Z
 status: working
-mac: ✔ turn 85 (Mac) — M4 reconciled: kept WIN kindle_post (wired), FIXED its vn-sep drop (june10 KEEPS 132,949 — commit a6efc4bb); rebuilt artifact matches june10 every signal + epubcheck 0/0/0/0, staged to Desktop for STK re-confirm. Hook root-cause (⑤) DONE: core.hooksPath was unset → set to .githooks (enforcement now runs). My --target-reader kindle alternative on tag mac-kindle-pre-rebase. See MAC addendum (turn 85).
+mac: ✔ turn 85 (Mac) — M4 reconciled: kept WIN kindle_post (wired), FIXED its vn-sep drop (june10 KEEPS 132,949 — commit a6efc4bb); rebuilt artifact matches june10 every signal + epubcheck 0/0/0/0, staged to Desktop for STK re-confirm. Hook root-cause (⑤) DONE: core.hooksPath was unset → set to .githooks (enforcement now runs). My --target-reader kindle alternative on tag mac-kindle-pre-rebase. See MAC addendum (turn 85). Mac mirrored M4_Kindle_Assets_v0.1.0.txt (45 assets + cross-platform Python generator hygiene in header; viable on Mac .venv + export PYTHONUTF8=1; permanent artifact for attach + future Groks). 1ki10 integrated (LANE-M to ch10).
 windows: ✔ turn 86 (Windows) — round-7 test_marker_style + test_note_rehaul closed (6 fixes + _badge_counts in both copies verified full-run green, exit 0); committed+push (clears red main). Now taking up ② dead-variant consolidation (retire --target-reader kindle FAIL variant using mac-kindle-pre-rebase@0d0f0cb8 ref). 45-artifact M4 fan-out ongoing autonomous on Mac. See WIN addendum (turn 86).
 truth_owner: windows
 holder: windows

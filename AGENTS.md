@@ -18,6 +18,8 @@ study **EPUB 3** Bibles from one **Ethiopian Tewahedo superset** corpus. The use
 canon/tradition, toggles note *kinds* and verse-popup languages, themes it, and exports a
 standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
 
+**M4 catalog prep mirroring (for Grok/Claude/etc. on pull):** See committed `dev/M4_Kindle_Assets_v0.1.0.txt` (exact 45 Kindle asset names for v0.1.0 "kindle" column). Re-generate with the Python snippet in the file header (Win $env or Mac `export PYTHONUTF8=1; .venv/bin/python -c '...'` — cross-platform, no shell mangling). Commit the list as first-class artifact. Reference in LANE_HANDOFF for attach/deploy. Use for `gen_release_catalog --tag v0.1.0` once 45 attached. (WinGrok M4 prep; Mac mirrors + adapts on pull for viability + future agents.)
+
 - **The demo is the north star:** open `/wizard` → pick a starting edition → 7 cards →
   **BUILD** → an EPUB downloads with the chosen theme, only the picked notes, and verse
   popups in the configured languages. Every change should make that demo better, simpler,

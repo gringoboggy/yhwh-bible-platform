@@ -177,7 +177,7 @@
         - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f132r_1ki10_hires.jpg
         - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f132v_1ki10_hires.jpg
         - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f133r_1ki10_hires.jpg
-    status: pending
+    status: calibrated
 
   11:
     GG:

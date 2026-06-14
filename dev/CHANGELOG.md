@@ -5,6 +5,7 @@
 > governs what goes in here.
 
 ## 2026-06-14 — session (🪟 Windows, turn 86) — Round-7 `test_marker_style` + `test_note_rehaul` 6 fixes closed + _badge_counts verified no-regression · push (clears red main) · dead-variant consolidation started
+## 2026-06-14 — Mac pull + mirror (turn ~86) — M4_Kindle_Assets_v0.1.0.txt mirrored + Mac-adapted (Win/Mac Python gens + hygiene; committed first-class for pull/attach). 1ki10 integrated (ch10 evidence + manifest). Truth rotation mirrored. AGENTS/PLAYBOOK notes for future Groks on M4 catalog prep + cross-platform formatting.
 
 **What shipped:**
 - **Round-7 K-R6-2 tail closed:** the 6 fixes in `tests/test_marker_style.py` + `tests/test_note_rehaul.py` (the `-s1` pin sweeps and related). Both copies of the internal `_badge_counts` helper (one per test class) were updated as part of the fixes.
