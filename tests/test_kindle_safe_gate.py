@@ -80,6 +80,16 @@ class TestKindleSafeGate:
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert fails == [], fails
 
+    def test_green_on_the_june10_proven_shape(self):
+        # The proven june10recipe.epub (Send-to-Kindle PASS): NO kindle_safe CSS,
+        # ZERO raw display:none, dc:language==1, and its 406 hidden="" footnote
+        # asides KEPT. Amazon's scanner counts CSS display:none, not the HTML
+        # hidden attribute, so the gate must pass this exact shape.
+        no_hide_css = ".notes-section { margin: 1em 0; }\n"
+        zf = _zip(_KINDLE_OPF, no_hide_css, _PIECE_HIDDEN)  # hidden="" present, no CSS hide
+        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
+        assert fails == [], fails
+
     def test_skips_entirely_without_the_kindle_stamp(self):
         # >10K hidden + no stamp ⇒ not a kindle artifact ⇒ no kindle judgment
         zf = _zip(_PLAIN_OPF, _HIDE_CSS, _PIECE_HIDDEN)
@@ -94,27 +104,6 @@ class TestKindleSafeGate:
         zf = _zip(opf, _HIDE_CSS + _KINDLE_CSS, _PIECE_HIDDEN)
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert any("dc:language" in f for f in fails), fails
-
-    def test_fires_when_kindle_css_marker_absent(self):
-        # stamp says kindle but the variant CSS never got appended — fail fast
-        # with the clear message even if the volume math were somehow green
-        zf = _zip(_KINDLE_OPF, _HIDE_CSS, "<html><body><p>s</p></body></html>")
-        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
-        assert any("kindle_safe CSS" in f for f in fails), fails
-
-    def test_fires_on_residual_hidden_attr(self):
-        # K-KIN forensics (2026-06-11): the variant must physically strip
-        # hidden="" from footnote wrappers — Amazon's hidden-text counter may
-        # not honor the author-CSS-over-[hidden] cascade, so a kindle artifact
-        # carrying ANY hidden="" footnote wrapper is a stale/unsafe build.
-        zf = _zip(_KINDLE_OPF, _HIDE_CSS + _KINDLE_CSS, _PIECE_HIDDEN)
-        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
-        assert any("hidden=" in f for f in fails), fails
-
-    def test_hidden_attr_ok_without_kindle_stamp(self):
-        zf = _zip(_PLAIN_OPF, _HIDE_CSS, _PIECE_HIDDEN)
-        fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
-        assert fails == []
 
 
 # ── gate 4k — demoted-appendix husk pieces ──────────────────────────────

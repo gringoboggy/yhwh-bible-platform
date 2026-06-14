@@ -539,9 +539,9 @@ const TARGET_CAPS = {
   kindle: {
     label: '📬 Kindle',
     toc_expandable: false,
-    max_popup_languages: 2,
-    note: 'Built for Send to Kindle: notes render as visible endnotes (Kindle has no popup footnotes), chapter lists are plain rows, the metadata passes Amazon’s delivery checks, and verse popups carry at most 2 original languages (your pick — ready-made default Hebrew + Greek; Kindle’s converter rejects the full apparatus).',
-    gate_reason: 'Kindle’s format has no support for collapsible lists — the chapter rows stay always visible instead.',
+    max_popup_languages: null,
+    note: 'Built for Send to Kindle: the FULL multilingual apparatus is preserved — verse notes open as Kindle’s native footnote popups, the metadata passes Amazon’s delivery checks, and display:none hidden content is physically stripped so the converter accepts it (proven: delivered via Send to Kindle, 2026-06-14). Want a smaller file? Cap the popup languages in Customize.',
+    gate_reason: 'Kindle’s format has no support for collapsible lists — the chapter lists stay always visible instead.',
   },
 };
 

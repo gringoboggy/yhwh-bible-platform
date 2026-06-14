@@ -1,19 +1,20 @@
-"""K-KIN (B)+(C) — per-reader popup-language cap + kindle popup compaction (TDD).
+"""K-KIN (B)+(C) — opt-in popup-language cap + compaction (TDD).
 
-Board-ratified design (2026-06-11, user-refined ×2):
-  - `max_popup_languages` cap per reader target (kindle = 2, others uncapped;
-    explicit per-edition value wins anywhere).
+Board-ratified design (2026-06-11, user-refined ×2), productized 2026-06-14:
+  - `max_popup_languages` cap is OPT-IN per edition (1..4). EVERY reader target,
+    INCLUDING kindle, is uncapped by default — the proven june10recipe.epub
+    carried the full 4-language apparatus and delivered via Send-to-Kindle, so
+    kindle no longer auto-caps (the cap premise was the falsified byte-ceiling).
   - The builder picks WHICH language groups fill the cap (any of
     hebrew/greek/latin/arabic) via `popup_languages_capped`; ready-made
     default = Hebrew + Greek.
   - The capped pick is BIBLE-WIDE: per-book/chapter/verse tiers are bypassed
-    under a cap. Uncapped readers keep the fine-grained machinery untouched.
-  - (B) zero-loss compaction is kindle-gated at the emitter: full source
-    labels -> compact codes (Heb/Grc/Lat/Ara/Eng), the per-verse header ->
-    "<Book> N:M" from the canonical english book name.
+    under a cap. Uncapped editions keep the fine-grained machinery untouched.
+  - (B) zero-loss compaction rides the CAP (an explicitly capped edition): full
+    source labels -> compact codes (Heb/Grc/Lat/Ara/Eng), the per-verse header ->
+    "<Book> N:M". An uncapped (default) build keeps full labels/headers.
 
-Oracle grounding: the rung-LANGCAP staged artifact (48.7MB raw) is the exact
-zip-level simulation of this design; these tests pin the in-build equivalent.
+See docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.
 """
 
 import importlib
@@ -34,11 +35,13 @@ class TestResolvePopupLanguageCap:
     def test_uncapped_by_default(self):
         assert be.resolve_popup_language_cap(_ed()) is None
 
-    def test_kindle_target_defaults_to_two(self):
-        assert be.resolve_popup_language_cap(_ed(target_reader="kindle")) == 2
+    def test_kindle_target_uncapped_by_default(self):
+        # june10 proved the full apparatus delivers on Send-to-Kindle, so kindle
+        # no longer auto-caps — it's uncapped like every other target.
+        assert be.resolve_popup_language_cap(_ed(target_reader="kindle")) is None
 
-    def test_other_targets_uncapped(self):
-        for tr in ("everywhere", "eink", "tablet", "computer"):
+    def test_every_target_uncapped_by_default(self):
+        for tr in ("everywhere", "eink", "tablet", "computer", "kindle"):
             assert be.resolve_popup_language_cap(_ed(target_reader=tr)) is None
 
     def test_explicit_wins_on_any_target(self):
@@ -58,31 +61,32 @@ class TestResolvePopupLanguagePick:
     def test_uncapped_returns_empty(self):
         assert be.resolve_popup_language_pick(_ed()) == ()
 
-    def test_kindle_default_is_hebrew_greek(self):
-        assert be.resolve_popup_language_pick(_ed(target_reader="kindle")) == ("hebrew", "greek")
+    def test_capped_default_is_hebrew_greek(self):
+        # the ready-made fill for any cap of 2 (no longer kindle-specific).
+        assert be.resolve_popup_language_pick(_ed(max_popup_languages=2)) == ("hebrew", "greek")
 
     def test_cap_one_default_is_hebrew(self):
-        assert be.resolve_popup_language_pick(_ed(target_reader="kindle", max_popup_languages=1)) == ("hebrew",)
+        assert be.resolve_popup_language_pick(_ed(max_popup_languages=1)) == ("hebrew",)
 
     def test_explicit_pick_wins(self):
-        ed = _ed(target_reader="kindle", popup_languages_capped=["latin", "arabic"])
+        ed = _ed(max_popup_languages=2, popup_languages_capped=["latin", "arabic"])
         assert be.resolve_popup_language_pick(ed) == ("latin", "arabic")
 
     def test_pick_deduped_preserving_order(self):
-        ed = _ed(target_reader="kindle", popup_languages_capped=["greek", "greek"])
+        ed = _ed(max_popup_languages=2, popup_languages_capped=["greek", "greek"])
         assert be.resolve_popup_language_pick(ed) == ("greek",)
 
     def test_pick_longer_than_cap_raises(self):
         import pytest
 
-        ed = _ed(target_reader="kindle", popup_languages_capped=["hebrew", "greek", "latin"])
+        ed = _ed(max_popup_languages=2, popup_languages_capped=["hebrew", "greek", "latin"])
         with pytest.raises(ValueError):
             be.resolve_popup_language_pick(ed)
 
     def test_unknown_group_raises(self):
         import pytest
 
-        ed = _ed(target_reader="kindle", popup_languages_capped=["klingon"])
+        ed = _ed(max_popup_languages=2, popup_languages_capped=["klingon"])
         with pytest.raises(ValueError):
             be.resolve_popup_language_pick(ed)
 
@@ -99,12 +103,12 @@ class TestCappedResolution:
     """_resolve_popup_languages under a cap: bible-wide early-return."""
 
     def test_kindle_caps_to_pick_groups(self):
-        ed = _ed(target_reader="kindle", popup_languages_default=list(WITNESS_DEFAULT))
+        ed = _ed(max_popup_languages=2, popup_languages_default=list(WITNESS_DEFAULT))
         assert be._resolve_popup_languages(ed, "gen") == {"wlc", "lxx-greek", "greek-nt"}
 
     def test_per_book_tier_bypassed_under_cap(self):
         ed = _ed(
-            target_reader="kindle",
+            max_popup_languages=2,
             popup_languages_default=list(WITNESS_DEFAULT),
             popup_languages_per_book=["jer=arabic"],
         )
@@ -112,7 +116,7 @@ class TestCappedResolution:
 
     def test_per_chapter_and_verse_tiers_bypassed_under_cap(self):
         ed = _ed(
-            target_reader="kindle",
+            max_popup_languages=2,
             popup_languages_default=list(WITNESS_DEFAULT),
             popup_languages_per_chapter=["jer:25=arabic"],
             popup_languages_per_verse=["jer:25:1=vulgate"],
@@ -125,7 +129,7 @@ class TestCappedResolution:
 
     def test_pick_latin_arabic(self):
         ed = _ed(
-            target_reader="kindle",
+            max_popup_languages=2,
             popup_languages_default=list(WITNESS_DEFAULT),
             popup_languages_capped=["latin", "arabic"],
         )
@@ -135,12 +139,18 @@ class TestCappedResolution:
         # English is the edition's base language, not one of the 4 pick
         # groups; when the bible-wide baseline includes it, it survives
         # the cap untouched.
-        ed = _ed(target_reader="kindle", popup_languages_default=["english", "wlc", "vulgate"])
+        ed = _ed(max_popup_languages=2, popup_languages_default=["english", "wlc", "vulgate"])
         assert be._resolve_popup_languages(ed, "gen") == {"kjv", "wlc", "lxx-greek", "greek-nt"}
 
     def test_no_default_uses_witness_default_no_kjv(self):
-        ed = _ed(target_reader="kindle")
+        ed = _ed(max_popup_languages=2)
         assert be._resolve_popup_languages(ed, "gen") == {"wlc", "lxx-greek", "greek-nt"}
+
+    def test_kindle_target_uncapped_keeps_full_apparatus(self):
+        # The proven june10 default: a bare kindle edition is UNCAPPED, so the
+        # full witness apparatus survives (no bible-wide trim).
+        ed = _ed(target_reader="kindle", popup_languages_default=list(WITNESS_DEFAULT))
+        assert be._resolve_popup_languages(ed, "gen") == set(WITNESS_DEFAULT)
 
     def test_uncapped_resolution_unchanged(self):
         # Inertness: without a cap the fine-grained tiers behave exactly
@@ -175,11 +185,14 @@ def _aside(book="jer", ch=25, vs=1):
 
 
 class TestKindleCompaction:
-    """(B) compaction, kindle-gated inside _apply_popup_languages_and_translation."""
+    """(B) compaction, cap-gated inside _apply_popup_languages_and_translation
+    (rides an explicit max_popup_languages, not the kindle target — june10 proved
+    the uncapped default keeps full labels)."""
 
     KINDLE_ED = {
         "id": "k",
         "target_reader": "kindle",
+        "max_popup_languages": 2,
         "popup_languages_default": list(WITNESS_DEFAULT),
         "verse_popups": True,
     }
@@ -364,18 +377,18 @@ class TestApiValidator:
             config.load_editions.cache_clear()
 
     def test_rejects_pick_over_cap_cross_field(self):
-        # One payload that flips the target AND picks 3 groups: the merged
-        # record caps at 2 (kindle default) so the save must refuse — and
-        # refuse ATOMICALLY (the valid target_reader half must not be
-        # written when the pick half fails: the RED run of this very test
-        # leaked `target_reader: kindle` into editions.yaml).
+        # One payload that sets an explicit cap of 2 AND picks 3 groups: the
+        # merged record caps at 2 so the save must refuse — and refuse
+        # ATOMICALLY (the valid max_popup_languages half must not be written
+        # when the pick half fails: the RED run of this very test leaked the
+        # cap into editions.yaml).
         from scripts.api.editions import api_save_edition_meta
 
         edyaml, backup, config = self._yaml_guard()
         try:
             res = api_save_edition_meta(
                 "catholic-study",
-                {"target_reader": "kindle", "popup_languages_capped": ["hebrew", "greek", "latin"]},
+                {"max_popup_languages": 2, "popup_languages_capped": ["hebrew", "greek", "latin"]},
             )
             assert "error" in res, res
             assert edyaml.read_bytes() == backup, "a refused save must write NOTHING"
@@ -416,17 +429,19 @@ class TestSurfacing:
         for group in ("hebrew", "greek", "latin", "arabic"):
             assert f'data-cap-group="{group}"' in src
 
-    def test_wizard_target_caps_carry_the_cap(self):
+    def test_wizard_target_caps_are_uncapped(self):
         import pathlib
 
         from scripts.core import config
 
         repo = pathlib.Path(config.__file__).resolve().parents[2]
         src = (repo / "scripts" / "templates" / "wizard.py").read_text(encoding="utf-8")
-        assert "max_popup_languages: 2" in src  # kindle
-        assert "max_popup_languages: null" in src  # uncapped targets
-        # The kindle note states the ready-made default honestly.
-        assert "Hebrew + Greek" in src
+        # June-10 productization: every target preset (incl. kindle) is uncapped —
+        # the wizard never auto-caps; a builder opts in via Customize.
+        assert "max_popup_languages: 2" not in src
+        assert "max_popup_languages: null" in src
+        # The kindle preset states the proven Send-to-Kindle behavior honestly.
+        assert "Send to Kindle" in src
 
 
 class TestCloneCarriesEditableFields:
@@ -482,14 +497,21 @@ class TestCloneCarriesEditableFields:
 
 
 class TestVnotePassGating:
-    def test_kindle_bare_edition_needs_pass(self):
-        assert be._vnote_pass_needed(_ed(target_reader="kindle")) is True
+    def test_bare_kindle_edition_skips_pass(self):
+        # June-10 productization: a bare kindle edition is uncapped, so with no
+        # popup config it needs no vnote pass (same as a bare everywhere edition).
+        assert be._vnote_pass_needed(_ed(target_reader="kindle")) is False
+
+    def test_capped_edition_needs_pass(self):
+        # An explicit cap drives the bible-wide trim + (B) compaction, so the
+        # pass must run even with no other popup trigger.
+        assert be._vnote_pass_needed(_ed(max_popup_languages=2)) is True
 
     def test_everywhere_bare_edition_skips_pass(self):
         assert be._vnote_pass_needed(_ed()) is False
 
-    def test_popups_off_skips_pass_even_on_kindle(self):
-        assert be._vnote_pass_needed(_ed(target_reader="kindle", verse_popups=False)) is False
+    def test_popups_off_skips_pass_even_when_capped(self):
+        assert be._vnote_pass_needed(_ed(max_popup_languages=2, verse_popups=False)) is False
 
     def test_existing_triggers_still_fire(self):
         assert be._vnote_pass_needed(_ed(popup_translation="kjv")) is True

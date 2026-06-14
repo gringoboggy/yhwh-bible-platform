@@ -37,16 +37,19 @@ ALT_NAMES = (
     "4 Baruch, or Paralipomena of Jeremiah",
 )
 
-# ── 5. kindle_safe (turn-69 ①) ──────────────────────────────────────────
+# ── 5. kindle_safe (turn-69 ①; productized 2026-06-14) ──────────────────
 # Runs ONLY when the build stamped the OPF with target-reader=kindle (the
 # stamp is patch_opf's, emitted from the one resolver — skew-proof; non-kindle
-# artifacts are never judged against the kindle bar). Checks the CONFIRMED
-# E999 trigger: ANY text under a RAW display:none / visibility:hidden. Amazon's
-# server scan does NOT resolve the CSS cascade, so a later override does not
-# clear a base hide (see _raw_hidden_selectors below — the prior "effective /
-# last-rule-wins" check gave a false green and is gone). Plus: exactly one
-# dc:language, and a fail-fast that the kindle_safe CSS marker is present at all
-# (a stamped-kindle artifact whose variant CSS never got appended is stale).
+# artifacts are never judged against the kindle bar). Two checks, both matching
+# the proven june10recipe.epub (Send-to-Kindle PASS): exactly one dc:language,
+# and the CONFIRMED E999 trigger — ANY text under a RAW display:none /
+# visibility:hidden. Amazon's server scan does NOT resolve the CSS cascade, so a
+# later override does not clear a base hide (see _raw_hidden_selectors — the
+# prior "effective/last-rule-wins" check gave a false green and is gone). The
+# old "kindle_safe CSS marker present" and "zero hidden='' attrs" checks were
+# removed: june10 had no kindle_safe CSS and KEPT 406 hidden='' footnote asides
+# (the scanner counts CSS display:none, not the HTML hidden attribute) yet
+# delivered. See docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.
 _CSS_RULE_RE = re.compile(r"([^{}]+)\{([^{}]*)\}")
 
 
@@ -133,10 +136,15 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
         fails.append(f"kindle: OPF carries {opf.count('<dc:language>')} dc:language values (want exactly 1 — E999)")
     css_names = [n for n in names if n.endswith(".css")]
     css_texts = [zf.read(n).decode("utf-8", "replace") for n in css_names]
-    if not any("kindle_safe" in c for c in css_texts):
-        fails.append(
-            "kindle: target stamped kindle but the kindle_safe CSS was never appended (stale/mismatched build)"
-        )
+    # The ONE confirmed E999/E3013 trigger: text under RAW display:none /
+    # visibility:hidden. Amazon's server scan does NOT resolve the CSS cascade
+    # (a display:block override does not clear a base hide), so the kindle build
+    # physically STRIPS the hides (apply_kindle_strip_hidden) — the proven
+    # june10recipe.epub delta. (Productized 2026-06-14: the gate no longer
+    # requires a "kindle_safe" CSS marker — june10 had none — nor a zero hidden=""
+    # count — june10 KEPT 406 hidden="" footnote asides and delivered, because the
+    # scanner counts CSS display:none, not the HTML hidden attribute. See
+    # docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md.)
     hidden = _raw_hidden_selectors(css_texts)
     tokens = {tok for tok in (_class_token(s) for s in hidden) if tok}
     chars = _hidden_text_chars(zf, names, tokens) if tokens else 0
@@ -145,23 +153,6 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
             f"kindle: {chars:,} chars under RAW display:none/visibility:hidden "
             "(Amazon's server scan ignores the cascade override and rejects it — "
             f"E3013/E999); strip the hide physically. selectors: {hidden[:8]}"
-        )
-    # K-KIN forensics (2026-06-11): the variant physically strips hidden=""
-    # from footnote wrappers (Amazon's hidden-text counter is opaque — it may
-    # key the raw attribute, not the effective CSS cascade). Any survivor on
-    # a kindle artifact = a stale/unsafe build.
-    hidden_attrs = 0
-    for n in names:
-        if not n.endswith((".html", ".xhtml")):
-            continue
-        t = zf.read(n).decode("utf-8", "replace")
-        hidden_attrs += len(
-            re.findall(r'<(?:aside|section)\b(?=[^>]*epub:type="footnotes")[^>]*\shidden(?:="[^"]*")?[^>]*>', t)
-        )
-    if hidden_attrs:
-        fails.append(
-            f'kindle: {hidden_attrs} footnote wrapper(s) still carry hidden="" '
-            "(apply_kindle_unhide never ran — stale/unsafe build)"
         )
     return fails
 

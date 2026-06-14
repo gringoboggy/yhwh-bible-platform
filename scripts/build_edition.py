@@ -1003,18 +1003,22 @@ POPUP_LANGUAGE_GROUPS: dict[str, tuple[str, ...]] = {
     "arabic": ("arabic",),
 }
 POPUP_LANGUAGE_GROUP_ORDER: tuple[str, ...] = ("hebrew", "greek", "latin", "arabic")
-MAX_POPUP_LANGUAGES_KINDLE = 2
 
 
 def resolve_popup_language_cap(edition: dict) -> int | None:
-    """The edition's popup-language cap — the single resolver (explicit
-    ``max_popup_languages`` > the reader-target default > uncapped).
-    ``None`` = uncapped. Explicit values outside 1..4 raise: 0 would be
-    ambiguous (use ``verse_popups: false`` / an empty language list to
-    remove popups) and >4 exceeds the group universe."""
+    """The edition's popup-language cap — the single resolver. ``None`` =
+    uncapped, the default for EVERY reader target INCLUDING kindle: the proven
+    june10recipe.epub carried the full 4-language apparatus (Hebrew + Greek +
+    Latin + Arabic + back-translation) at 25 MB and delivered via Send-to-Kindle
+    (user-confirmed 2026-06-14), so kindle does NOT auto-cap. A builder opts into
+    the bible-wide cap on ANY edition via ``max_popup_languages`` (1..4); the (B)
+    label/header compaction rides the same opt-in. Explicit values outside 1..4
+    raise: 0 is ambiguous (use ``verse_popups: false`` / an empty language list to
+    remove popups) and >4 exceeds the group universe. See
+    docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md."""
     explicit = edition.get("max_popup_languages")
     if explicit is None or (isinstance(explicit, str) and not explicit.strip()):
-        return MAX_POPUP_LANGUAGES_KINDLE if is_kindle_target(edition) else None
+        return None
     try:
         cap = int(explicit)
     except (TypeError, ValueError):
@@ -1029,7 +1033,7 @@ def resolve_popup_language_pick(edition: dict) -> tuple[str, ...]:
     uncapped. Explicit ``popup_languages_capped`` wins (deduped, order
     kept; unknown group names and over-cap picks raise — the api_save
     validator enforces the same rules at edit time); the ready-made
-    default is the priority order truncated to the cap (kindle cap 2 ->
+    default is the priority order truncated to the cap (cap 2 ->
     Hebrew + Greek, the ratified default)."""
     cap = resolve_popup_language_cap(edition)
     if cap is None:
@@ -1357,7 +1361,11 @@ def _apply_popup_languages_and_translation(
         "headers_kept": 0,
     }
     short_label = translation_short or (translation_id.upper() if translation_id else "")
-    compact_for_kindle = is_kindle_target(edition)
+    # (B) label/header compaction rides the popup-language CAP, not the kindle
+    # target: the proven june10recipe.epub (uncapped) carried FULL labels and
+    # delivered, so the default kindle build stays uncompacted. A capped edition
+    # (max_popup_languages set) opts into the compact "size-reduction" mode.
+    compact_for_kindle = resolve_popup_language_cap(edition) is not None
 
     def _process(m: re.Match) -> str:
         opening = m.group(1)
@@ -1458,8 +1466,10 @@ def _vnote_pass_needed(edition: dict) -> bool:
     popup_languages config in ANY of the five resolution tiers (mint-11
     audit MED: per-chapter/per-verse were once missing here, silently
     skipping all pruning); or a popup-language cap is active (K-KIN (C) —
-    a bare kindle-target edition caps by default, and skipping the pass
-    would silently ignore the cap AND the kindle compaction)."""
+    an explicit ``max_popup_languages`` edition, where skipping the pass would
+    silently ignore the cap AND its (B) compaction). A bare kindle-target
+    edition is uncapped (june10 productization) and needs the pass only if it
+    independently triggers one of the above."""
     if not bool(edition.get("verse_popups", True)):
         return False
     return (
