@@ -29,6 +29,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   # One run per tag at a time — two runs racing the same release's assets
   # (and the fan-in's SHA256SUMS) would interleave.
@@ -41,7 +44,7 @@ jobs:
     outputs:
       editions: ${{ steps.editions.outputs.editions }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Validate the release tag exists (fail fast, before 9 builds)
         env:
@@ -51,7 +54,7 @@ jobs:
           gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null
           echo "release ${TAG} exists — proceeding"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
           cache: pip
@@ -76,14 +79,14 @@ jobs:
       matrix:
         edition: ${{ fromJson(needs.plan.outputs.editions) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
           cache: pip
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"

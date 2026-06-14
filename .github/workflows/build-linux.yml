@@ -22,7 +22,7 @@ jobs:
   linux-appimage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Validate the release tag exists (fail fast, before the build)
         env:
@@ -34,7 +34,7 @@ jobs:
           gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null
           echo "release ${TAG} exists — proceeding"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
 
