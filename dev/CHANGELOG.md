@@ -4,6 +4,27 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — session (🪟 Windows, turn 86) — Round-7 `test_marker_style` + `test_note_rehaul` 6 fixes closed + _badge_counts verified no-regression · push (clears red main) · dead-variant consolidation started
+
+**What shipped:**
+- **Round-7 K-R6-2 tail closed:** the 6 fixes in `tests/test_marker_style.py` + `tests/test_note_rehaul.py` (the `-s1` pin sweeps and related). Both copies of the internal `_badge_counts` helper (one per test class) were updated as part of the fixes.
+- Full-file verification re-run (background): `test_marker_style.py` + `test_note_rehaul.py` together — all 6 fixes confirmed passing + the `_badge_counts` changes (both copies) introduced zero regressions on the rest of those suites. Exit 0.
+- **Triad freshened for commit guard / lane coherence:** `dev/LANE_HANDOFF.md` (turn bumped to 86 + new WIN addendum), `dev/IN_FLIGHT.md` (new top entry), this CHANGELOG (this block).
+- **Push:** committed + `git push origin main`. Clears the red on GitHub Actions `Tests` for `main`.
+- **Dead-variant consolidation begun (② per LANE_HANDOFF agreement):** surgical removal of the dormant `--target-reader kindle` FAIL variant implementation from `scripts/build_edition.py` — the four `apply_kindle_*` temp-tree mutators (`apply_kindle_safe_css`, `apply_kindle_toc_rows`, `apply_kindle_unhide`, `apply_kindle_strip_hidden`), their call sites + stats wiring, the associated `_KINDLE_SAFE_CSS` + K-KIN-2 CSS, and now-obsolete comments (incl. the "dormant ... stay in tree" note). 
+  - The single production path (`scripts/core/kindle_post.py`: `make_kindle_safe` + `verify_kindle_safe`, `scripts/build_kindle.py`, `build_format_matrix` `_apply_kindle_post` + `post_process: kindle_safe`) is untouched and remains the only path used by the 45-artifact M4 fan-out.
+  - General `resolve_target_reader` / `is_kindle_target` + K-KIN (B/C) compaction + language-cap emitter logic kept (they drive base-build behavior for kindle target and the matrix post).
+  - Reference for the removal: tag `mac-kindle-pre-rebase` (0d0f0cb8) — the verified-clean excision (byte-identical tree + 308 tests at the time).
+  - Scope: only the dead FAIL-variant code; no change to running fan-out or the good post-process path.
+
+**Tests:** marker_style + note_rehaul full runs green (the verification that unblocked this commit + push). Other round-7 gates from prior milestone remain.
+
+**Notable decisions:**
+- The round-7 test work (the 6 fixes) is now fully landed + verified + pushed as the close of the K-R6-2 slice tail.
+- Dead-variant retirement is being executed on WIN (as agreed) even while Mac lane runs the 45 M4 fan-out overnight — because the cleanup is isolated to the unused `--target-reader kindle` branch inside build_edition (the matrix path never calls the old applies).
+
+**Continuity pointers:** `dev/LANE_HANDOFF.md` (turn 86 + ②), `dev/IN_FLIGHT.md` (turn 86 entry), `tests/test_target_reader_override.py` (plumbing for `target_reader=kindle` value stays; only the FAIL impl removed), `scripts/core/kindle_post.py` + `build_format_matrix.py` (the one true path).
+
 ## 2026-06-14 — session (🪟 Windows, turn 85) — M4 Kindle PRODUCTIZED (proven june10 recipe) · Node-24 CI bumps · overnight autonomous
 
 **What shipped:**
