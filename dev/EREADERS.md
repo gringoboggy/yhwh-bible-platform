@@ -115,6 +115,9 @@
   Send-to-Kindle). The Windows catalog artifacts are byte-faithful reproductions of
   that recipe; ONE Send-to-Kindle re-confirm on a catalog artifact is the remaining
   nicety before the column is declared "live."
+- **Variant retirement (turn 86):** the old `--target-reader kindle` in-pipeline FAIL
+  implementation (apply_kindle_* fns etc.) was fully excised. Only the productized
+  `kindle_post` path remains. Catalog baseline prepared (pre-45 assets); see LANE_HANDOFF.
 - **QA history:** the june10 recipe (test-2) → turn-82 forensics (the Previewer/KP3
   oracle was falsified) → turn-84 STK re-proof → turn-85 productization. The dormant
   variant's plan: `plans/2026-06-10-kindle-safe-variant.md`.
