@@ -43,6 +43,24 @@ the known one — see below).
 | **git** + **SSH remotes** | the lane sync channel | git 2.54; `origin`=GitLab + `github`=GitHub, both SSH ✓ | system git + the shared ed25519 key | `git remote -v` (expect both) |
 | **Chrome / Playwright** (visual QA) | render-verify EPUBs / consoles | via the **Playwright + Chrome-DevTools MCP plugins** (the Python `playwright` pkg is NOT required for this) | same MCP plugins | MCP `browser_navigate` works |
 
+### §Grok agent tooling (second coding agent — standardized across both lanes)
+
+xAI **Grok Build** is trialed as a second coding agent alongside Claude; it reads the repo's
+portable `AGENTS.md` (and the Claude skills/agents) natively. Install on BOTH lanes — **inspect the
+installer script before running it** (download, read, confirm it's xAI's signed installer), as the
+Windows lane did:
+
+- **CLI** — Windows: `irm https://x.ai/cli/install.ps1 | iex` · macOS: `curl -fsSL https://x.ai/cli/install.sh | bash`. Lands `grok` in `~/.grok/bin` (user-level, no admin); Windows has v0.2.51 (Authenticode-signed "X.AI LLC"). Verify: `grok --version`, and `grok inspect` should list `AGENTS.md` under Project Instructions.
+- **Auth** — `grok login` (subscription OAuth: SuperGrok / X Premium+; the CLI has **no API-key auth flag**). Verify: `grok models`.
+- **VS Code — Kilo Code** (official xAI partner): `code --install-extension kilocode.kilo-code`. **Connect Grok via the bundled CLI, not the UI** (the built-in provider list may not show "xAI"): run `<ext-dir>/bin/kilo[.exe] auth login --provider xai` — the extension dir is e.g. `~/.vscode/extensions/kilocode.kilo-code-<ver>-<platform>/` — → OAuth (subscription, **no API key**). Verify `kilo auth list` (→ `xAI · oauth`) + `kilo models xai` (→ `grok-build-0.1`, `grok-4.3`, …). Default model lives in `~/.config/kilo/kilo.jsonc` → `"model": "kilo/x-ai/grok-build-0.1"`; all permissions are `allow` + `agentWorkStyle: autonomous`.
+- **Kilo MCP** — wire the free browser MCP in `~/.config/kilo/kilo.json` under `"mcp"`: `chrome-devtools` → `npx -y chrome-devtools-mcp@latest` (Windows wraps it `["cmd","/c","npx",…]`). Remove the broken default `git` MCP (Kilo does git via the shell + your SSH key, like Claude). Grok auto-inherits the Claude MCP, so no Grok-side MCP wiring is needed.
+- **VS Code — Grok Build sidebar**: `code --install-extension pawelhuryn.grok-vscode-phuryn` (a thin client for the Grok Build CLI; rides on `grok login`).
+
+There is **no xAI-published VS Code extension** — Kilo Code is xAI's official partner route. Do NOT
+install `erikkralj.vscode-grok` (needs a separate xAI API key; superseded). The repo's
+`.vscode/extensions.json` carries Kilo Code + the sidebar as workspace recommendations (tracked via a
+`.gitignore` negation).
+
 ### §kepubify (the parity gap that prompted this doc)
 
 Pinned to **v4.0.4** (the version the macOS lane standardized on). Official source: `github.com/pgaskin/kepubify`.

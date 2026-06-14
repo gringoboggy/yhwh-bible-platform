@@ -476,8 +476,8 @@ function renderEditions() {
             <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Popup split cap (bytes)</span>
               <input type="number" min="0" step="500" class="label-input w-full" data-field="note_popup_split_byte_cap"
-                     value="${e.note_popup_split_byte_cap ?? ''}" placeholder="8000 (device-calibrated default)"
-                     title="Kobo measures a popup in serialized kepub bytes and refuses above ~8.9 KB — units whose estimated converted size exceeds this split further, even when the character cap passes (markup-dense notes inflate under Kobo's per-sentence wrapping). Blank = the calibrated default (8,000); 0 = off. Badge marker style only.">
+                     value="${e.note_popup_split_byte_cap ?? ''}" placeholder="8858 (device-calibrated default)"
+                     title="Kobo measures a popup in serialized kepub bytes and refuses above ~8.9 KB — units whose estimated converted size exceeds this split further, even when the character cap passes (markup-dense notes inflate under Kobo's per-sentence wrapping). Blank = the calibrated default (8,858); 0 = off. Badge marker style only.">
             </label>
             <label class="text-xs">
               <span class="block mb-1 font-medium text-slate-700">Topical index source</span>

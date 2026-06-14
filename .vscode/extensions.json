@@ -1,0 +1,17 @@
+{
+  // Workspace-recommended extensions for the YHWH project — VS Code prompts to install these.
+  // Grok in VS Code (paired with the official xAI Grok Build CLI in ~/.grok/bin):
+  //   kilocode.kilo-code            — Kilo Code (official xAI partner). Sign in with your
+  //                                   SuperGrok / X Premium+ subscription (OAuth, NO API key) to use
+  //                                   Grok Build + Grok models inside VS Code.
+  //   pawelhuryn.grok-vscode-phuryn — "Grok Build" sidebar: a thin client for the Grok Build CLI.
+  // (There is no xAI-published VS Code extension; Kilo Code is xAI's official partner route.)
+  "recommendations": [
+    "kilocode.kilo-code",
+    "pawelhuryn.grok-vscode-phuryn"
+  ],
+  // erikkralj.vscode-grok needs a separate xAI API key and is superseded by the above — keep it out.
+  "unwantedRecommendations": [
+    "erikkralj.vscode-grok"
+  ]
+}

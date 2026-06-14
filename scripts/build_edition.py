@@ -2879,12 +2879,21 @@ def resolve_note_popup_split_cap(edition: dict) -> int:
 # measured aside (worst observed 81.3) — the cost is a slightly earlier
 # split, never an over-budget unit. Gate 4n (dev/verify_kr2_build.py)
 # measures the BUILT kepub exactly and is the hard floor.
+#
+# DEFAULT is anchored at the proven-open 8,858 (BYTE_FLOOR in gate 4n).
+# The per-unit shell allowance is sized so a passed unit's FULL emitted
+# <aside> (wrapper+vn-back+(N/M) part+inner) always estimates <= DEFAULT.
 
-DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP = 8_000
+DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP = 8_858
 _KEPUB_SPAN_OVERHEAD = 85
 # Reserved from the byte cap for the unit's own shell — the <aside> wrapper,
 # the vn-back header line (+ its koboSpans), and the (N/M) part span.
-_POPUP_UNIT_SHELL_BYTES = 512
+# Sized from direct measurement of emitted units (worst-case observed delta est(full aside) - est(emit_inner) ~505
+# when part span + header segments present in real verses): shell=600 ensures that any unit whose emit_inner
+# est <= (cap - shell) produces a FULL emitted aside whose est <= cap (8858 - 600 + ~505 < 8858).
+# Gate 4n (real kepub serialized bytes) can therefore never trip on a splitter-passed unit; the estimator's
+# dominance (85B/seg > measured 81.3) IS the margin vs actual kepub size.
+_POPUP_UNIT_SHELL_BYTES = 600
 # A chunked body targets the byte budget minus this margin so the chunk's
 # row/cascade furniture (separators, category head, byline, marks) still fits.
 _POPUP_CHUNK_BYTE_MARGIN = 900

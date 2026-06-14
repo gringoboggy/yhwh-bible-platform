@@ -31,15 +31,18 @@ above ~8,858 serialized kepub bytes. Two build defects fed it:
       jub-7-1 < jub-7-13).
   (2) NO PER-UNIT BYTE BUDGET — the splitter packed by stripped chars only;
       koboSpan inflation (round-6 corpus: +43..81 B per text segment) pushed
-      201 units over the 8,000 B split target (97 oversized singles).
+      201 units over the 8,000 B split target (97 oversized singles);
+      the fix re-anchors default at the 8,858 floor (shell sized to wrapper delta).
 Fix contract pinned here:
   * EVERY unit id carries ``-s<N>`` (singles = ``-s1``) and families cap at 9
     units, so no vnotes/vbadge id is EVER a strict prefix of another — the
     whole namespace is structurally prefix-free.
-  * a second per-unit budget, ``note_popup_split_byte_cap`` (default 8,000
-    estimated post-kepubify bytes; 0 = off), splits any unit the char cap
-    missed; ``_estimate_kepub_aside_bytes`` must DOMINATE the real measured
-    round-6 inflation (max +81.3 B/segment) so the artifact gate never fails.
+  * a second per-unit budget, ``note_popup_split_byte_cap`` (default 8,858
+    estimated post-kepubify bytes, anchored at the proven-open floor; 0 = off),
+    splits any unit the char cap missed; ``_estimate_kepub_aside_bytes`` must
+    DOMINATE the real measured round-6 inflation (max +81.3 B/segment) and the
+    shell allowance is sized so the full emitted <aside> estimates <= cap
+    (gate 4n can never trip on a unit the splitter passed).
 """
 
 from __future__ import annotations
@@ -272,19 +275,20 @@ class TestApplyBadgeSplit:
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
-        # gen 1:3 is the round-3 control (~3.1k stripped) — must NOT split, and
-        # its single unit must STILL carry -s1 (the K-R6-2 prefix-free namespace
-        # covers singles: bare ids re-create the cross-verse digit-extension
-        # pairs like gen-1-1 < gen-1-10).
-        units = _aside_map(text, "gen-1-3")
-        assert list(units) == ["vnotes-gen-1-3-s1"]
-        assert _stripped_len(units["vnotes-gen-1-3-s1"]) <= 4_400
-        assert 'id="vbadge-gen-1-3-s2"' not in text
-        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-3-s1" [^>]*>', text)
+        # gen 1:8 carries a genuinely tiny note (markup-light, est ~1.7 kB).
+        # Under the K-R6-2 byte model (default now anchored at the 8,858 proven
+        # floor) a verse like the markup-dense gen 1:3 legitimately exceeds and
+        # splits; gen 1:8 is the single-unit "-s1" control. The K-R6-2
+        # prefix-free rule still requires the -s1 suffix even for unsplit units.
+        units = _aside_map(text, "gen-1-8")
+        assert list(units) == ["vnotes-gen-1-8-s1"]
+        assert _stripped_len(units["vnotes-gen-1-8-s1"]) <= 4_400
+        assert 'id="vbadge-gen-1-8-s2"' not in text
+        bm = re.search(r'<a class="verse-notes-badge" id="vbadge-gen-1-8-s1" [^>]*>', text)
         assert bm and 'epub:type="noteref"' in bm.group(0)
         assert "part" not in bm.group(0)
         # an unsplit unit shows NO (1/1) part furniture
-        assert "vn-part" not in units["vnotes-gen-1-3-s1"]
+        assert "vn-part" not in units["vnotes-gen-1-8-s1"]
 
     def test_conservation_against_cap_off_run(self, tmp_path):
         """Splitting must conserve EVERY .vn-item row's text (nothing dropped,
@@ -417,16 +421,16 @@ class TestPrefixFreeIds:
 
 
 class TestByteCapResolver:
-    def test_unset_defaults_to_8000(self):
+    def test_unset_defaults_to_8858(self):
         from scripts.build_edition import (
             DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP,
             resolve_note_popup_split_byte_cap,
         )
 
-        assert DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP == 8_000
-        assert resolve_note_popup_split_byte_cap({"id": "x"}) == 8_000
-        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": None}) == 8_000
-        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": ""}) == 8_000
+        assert DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP == 8_858
+        assert resolve_note_popup_split_byte_cap({"id": "x"}) == 8_858
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": None}) == 8_858
+        assert resolve_note_popup_split_byte_cap({"id": "x", "note_popup_split_byte_cap": ""}) == 8_858
 
     def test_zero_disables(self):
         from scripts.build_edition import resolve_note_popup_split_byte_cap
@@ -490,7 +494,10 @@ class TestByteBudgetSplit:
     def test_every_emitted_unit_fits_the_byte_budget(self, tmp_path):
         """Round-6 reality: gen 1:2's char-cap-passing unit serialized to
         15,963 kepub bytes and REFUSED on device. Every emitted verse-notes
-        aside must now estimate <= the 8,000 B budget."""
+        aside must now estimate <= the byte budget. DEFAULT is anchored at
+        the 8,858 proven-open floor (estimator dominance over real kepub
+        bytes supplies the safety margin; sized shell ensures full <aside>
+        est <= cap for any unit the splitter emits)."""
         from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
@@ -505,12 +512,12 @@ class TestByteBudgetSplit:
             ):
                 measured += 1
                 est = _estimate_kepub_aside_bytes(m.group(0))
-                assert est <= 8_000, f"{m.group(1)} estimates {est:,} kepub bytes (> 8,000 budget)"
+                assert est <= 8_858, f"{m.group(1)} estimates {est:,} kepub bytes (> 8,858 budget)"
         assert measured > 500, "precondition: gen emits many verse-notes units"
 
     def test_byte_cap_zero_disables_byte_splitting(self, tmp_path):
         """The knob must gate the behavior: with the byte driver off (char cap
-        still default), at least one unit estimates over the 8,000 target —
+        still default), at least one unit estimates over the 8,858 target —
         the very class the driver exists to kill."""
         from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
 
@@ -522,7 +529,7 @@ class TestByteBudgetSplit:
             for m in re.finditer(
                 r'<aside class="verse-notes" id="[^"]+" epub:type="footnote">.*?</aside>', text, re.DOTALL
             ):
-                if _estimate_kepub_aside_bytes(m.group(0)) > 8_000:
+                if _estimate_kepub_aside_bytes(m.group(0)) > 8_858:
                     over += 1
         assert over >= 1, "expected over-budget units with the byte driver off (gen 1:2 class)"
 

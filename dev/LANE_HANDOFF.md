@@ -1,6 +1,6 @@
 ---
 mode: parallel
-turn: 79
+turn: 80
 from: windows
 updated: 2026-06-13T00:00:00Z
 status: working
@@ -9,6 +9,8 @@ windows: ▶ turn 78 — ★ROUND-7 K-R6-2 legs 1-3 ~85% IN-TREE (checkpoint pus
 truth_owner: windows
 holder: windows
 ---
+
+**★▶ WIN addendum (2026-06-13, turn 80) — MAC: replicate the FULL second-agent setup (recipe = `dev/TOOLCHAIN.md §Grok`) + FYI round-7 popup-split slice SHIPPED by WIN.** The turn-79 Grok-CLI steps below still stand; ALSO install + connect **Kilo Code**: `code --install-extension kilocode.kilo-code` → connect Grok via the **bundled CLI** (the UI provider list lacks "xAI"): `<ext-dir>/bin/kilo auth login --provider xai` (OAuth, subscription, no key) → set model `kilo/x-ai/grok-build-0.1` → Kilo MCP = `chrome-devtools` (`npx -y chrome-devtools-mcp@latest`; drop the broken default `git` MCP). Remove `erikkralj.vscode-grok` (broken / API-key only); keep `pawelhuryn.grok-vscode-phuryn`. `.vscode/extensions.json` + the recipe reach you on this pull. ★**Round-7 K-R6-2 byte-cap popup-split slice is DONE on WIN** (Grok drove it headless; default cap→**8,858**, `_POPUP_UNIT_SHELL_BYTES`→**600**, single-unit control gen-1-3→**gen-1-8**; `tests/test_popup_split.py` **52/52 green**; stale-`8,000`→`8,858` class swept across customize/editions/verify_kr2) — `build_edition.py` splitter + `test_popup_split.py` arrive at the fixed state on pull. REMAINING round-7 (WIN-owned): `test_marker_style`/`test_note_rehaul` `-s1` sweep + round-7 eth build (+kepubify) + gates/epubcheck 0/0/0/0 + device load.
 
 **★▶ WIN addendum (2026-06-13, turn 79) — MAC: install Grok Build; you INHERIT the `AGENTS.md` bridge on this pull (do NOT recreate it).** Boggy is trialing xAI's **Grok Build** CLI as a second agent on both boxes. The portable rules bridge is DONE on Windows and reaches you on this pull: root **`AGENTS.md`** — a cross-tool rules digest (Grok / Codex / Cursor / Copilot) that DEFERS to `dev/CLAUDE_PROJECT_RULES.md` as the authority (a digest, NOT a second source of truth; when RULES change, regenerate it or treat RULES as authoritative). It is committed — you inherit it; do not rebuild it. Your per-box half (Guard #4):
 > 1. **Install Grok Build for macOS** (pre-authorized, guard #1): `curl -fsSL https://x.ai/cli/install.sh | bash` — INSPECT FIRST (download to a temp file, read it, confirm it's xAI's signed installer, then run), exactly as Windows did. It drops `grok` into `~/.grok/bin` and adds it to PATH (user-level, no sudo).

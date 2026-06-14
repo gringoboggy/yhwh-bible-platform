@@ -248,9 +248,10 @@ def anchor_prefix_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[st
 
 # ── 4n. K-R6-2 leg 2 — per-aside serialized byte budget (kepub only) ─────
 # The round-6d bracket: 8,858 B OPENED / 9,273 B REFUSED, measured on the
-# real kepub aside serialization. The gate fails the PROVEN-OPEN floor, not
-# the build's internal 8,000 split target (no-reassert-ratified-bar: the gap
-# is engineering margin, not a device requirement).
+# real kepub aside serialization. The gate fails the PROVEN-OPEN floor; the
+# build's default split cap is now anchored at the same 8,858 floor — the
+# estimator's dominance over real kepub bytes (85 B/seg > measured 81.3) is the
+# margin, so a splitter-passed unit's real serialized size stays under the floor.
 BYTE_FLOOR = 8_858
 
 

@@ -713,7 +713,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "topical_index_source",
         "note_popup_split_cap",
         # K-R6-2 — popup-unit byte cap (estimated post-kepubify bytes; 0 =
-        # off; unset = the calibrated 8,000 default).
+        # off; unset = the calibrated 8,858 default).
         "note_popup_split_byte_cap",
         "reader_toc_collapsible",
         "reader_toc_default_open",
@@ -939,7 +939,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             payload["note_popup_split_cap"] = str(v_int)
 
     # K-R6-2: note_popup_split_byte_cap — unset/None/"" clears to the build's
-    # calibrated default (8,000 estimated post-kepubify bytes); otherwise an
+    # calibrated default (8,858 estimated post-kepubify bytes); otherwise an
     # integer >= 0 (0 disables the byte driver). Mirrors
     # resolve_note_popup_split_byte_cap's contract (the one resolver).
     if "note_popup_split_byte_cap" in payload:
