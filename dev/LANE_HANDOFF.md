@@ -1,14 +1,20 @@
 ---
 mode: parallel
-turn: 85
+turn: 86
 from: windows
-updated: 2026-06-14T07:50:00Z
+updated: 2026-06-14T13:20:00Z
 status: working
 mac: ✔ turn 85 (Mac) — M4 reconciled: kept WIN kindle_post (wired), FIXED its vn-sep drop (june10 KEEPS 132,949 — commit a6efc4bb); rebuilt artifact matches june10 every signal + epubcheck 0/0/0/0, staged to Desktop for STK re-confirm. Hook root-cause (⑤) DONE: core.hooksPath was unset → set to .githooks (enforcement now runs). My --target-reader kindle alternative on tag mac-kindle-pre-rebase. See MAC addendum (turn 85).
-windows: ✔ turn 85 (Windows) — M4 PRODUCTIZED + Windows-proven: `scripts/core/kindle_post.py` (`make_kindle_safe` + `verify_kindle_safe`) + driver `scripts/build_kindle.py` + `build_format_matrix` Kindle column = everywhere base + `post_process: kindle_safe` (catholic-study epubcheck 0/0/0/0, verify_kindle_safe clean, ~25.3 MB vn-sep KEPT). Integrated Mac's vn-sep KEEP fix (`a6efc4bb`) + reconciled truth records; **45-artifact M4 fan-out RE-RUNNING** with the corrected recipe (all 9 editions × 5 colours, each gated). Node-24 GitHub Actions bumps shipped (Grok-delegated: checkout@v5/setup-python@v6/setup-java@v5 + FORCE_JAVASCRIPT_ACTIONS_TO_NODE24; Node-20 cutoff 06-16). **M4 go-live gated on the user's Send-to-Kindle re-confirm** of the corrected artifact (morning) → then I attach the 45 to v0.1.0 + regen catalog + deploy (WIN owns catalog/website). Running OVERNIGHT AUTONOMOUS; lane-ping watcher armed (auto-pull on your pushes). PRIOR round-7 K-R6-2 legs 1-3 = DONE (turn-80, 52/52). See WIN addendum (turn 85).
+windows: ✔ turn 86 (Windows) — round-7 test_marker_style + test_note_rehaul closed (6 fixes + _badge_counts in both copies verified full-run green, exit 0); committed+push (clears red main). Now taking up ② dead-variant consolidation (retire --target-reader kindle FAIL variant using mac-kindle-pre-rebase@0d0f0cb8 ref). 45-artifact M4 fan-out ongoing autonomous on Mac. See WIN addendum (turn 86).
 truth_owner: windows
 holder: windows
 ---
+
+**★▶ WIN addendum (2026-06-14, turn 86) — round-7 marker/note tests closed + push + dead-variant consolidation STARTED.**
+① **round-7 (K-R6-2 + marker_style + note_rehaul):** All 6 fixes in. Re-ran full `test_marker_style.py` + `test_note_rehaul.py` (bg) to confirm the 6 pass AND that the _badge_counts change (both copies in the two test classes) didn't regress other tests. Background verification completed exit 0. Tests updates committed + pushed (clears red on main).
+② **Dead-variant consolidation — NOW IN PROGRESS.** Per 85 agreement: retiring the `--target-reader kindle` FAIL variant (the `apply_kindle_safe_css`/`apply_kindle_toc_rows`/`apply_kindle_unhide`/`apply_kindle_strip_hidden` + gate-5 wiring + tied CSS) in favor of the single `kindle_post` path. Production artifacts (M4 matrix) already use everywhere + post_process: kindle_safe (make_kindle_safe + verify_kindle_safe). Using tag `mac-kindle-pre-rebase` (0d0f0cb8) as the verified-clean removal reference (byte-identical + 308 tests at the time). Surgical excision of the dead apply fns + call sites inside build_edition temp-tree phase; is_kindle_target + K-KIN compaction/cap logic (used by base emitter + matrix) stays. Will not perturb running 45-fan-out (post path untouched). Follow-up: sweep comments, plan doc, any test pins that assumed the old applies.
+③ **Push complete:** the test verification commit is on main (and will be on both remotes via the lane sync pattern). Ready for CI re-run to confirm green.
+**WIN now:** proceeding with the dead-variant removal edits + any minimal test/doc updates + commit+push of the consolidation. Lane-ping armed.
 
 **★▶ WIN addendum (2026-06-14, turn 85) — ACK Mac's M4 reconciliation (all 4 points) + running overnight autonomous.**
 ① **vn-sep fix (`a6efc4bb`) PULLED + integrated** — you're right: the measured june10 KEEPS all 132,949; my initial DROP mirrored the dormant `apply_kindle_strip_hidden` (the FIXED.epub/FAIL shape). Truth records (EREADERS/SESSION_STATE/IN_FLIGHT/CHANGELOG) reconciled to KEEP; retrospective logged (verify a device-proven *reproduction* against the MEASURED artifact, not prior code). Corrected tests green; Windows smoke = catholic-study ~25.3 MB, vn-sep kept, epubcheck 0/0/0/0, verify clean.

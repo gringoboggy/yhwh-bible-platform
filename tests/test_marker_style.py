@@ -148,8 +148,10 @@ class TestApplyBadgeMarkersUnit:
         # (a) no per-note inline markers survive in the transformed file
         assert 'class="note-ref' not in text, "per-note markers must be gone in badge mode"
         # (b) exactly one badge per verse-that-has-notes; gen 1 has 31 such verses
-        v1_badges = re.findall(r'id="vbadge-gen-1-\d+(?:-s\d+)?"', text)
-        assert len(v1_badges) == 31, f"expected 31 gen-1 verse badges, got {len(v1_badges)}"
+        # round-7 -s split: a verse with an oversized popup emits multiple -sN
+        # (badge, aside) units, so count DISTINCT verses-with-badges, not raw units.
+        v1_verses = set(re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"', text))
+        assert len(v1_verses) == 31, f"expected 31 gen-1 verses-with-badges, got {len(v1_verses)}"
         # RX-beta2 ①: the badge glyph is the ◈ note-mark + a count (never a bare
         # number that blends with the verse number / the translation marker).
         for sup in re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text):
@@ -231,7 +233,8 @@ class TestApplyBadgeMarkersUnit:
         # (c) one merged aside per verse-with-notes; none of the old per-note asides
         assert 'class="note note-' not in text, "per-note asides must be merged away"
         merged = re.findall(r'<aside class="verse-notes" id="vnotes-gen-1-(\d+)(?:-s\d+)?" epub:type="footnote">', text)
-        assert len(merged) == 31, f"expected 31 merged gen-1 asides, got {len(merged)}"
+        # round-7 -s split: >=1 -sN aside per verse-with-notes; assert per-verse coverage.
+        assert len(set(merged)) == 31, f"expected 31 gen-1 verses-with-asides, got {len(set(merged))}"
         # (d) every badge href resolves to its vnotes aside id
         for vv in re.findall(r'href="#vnotes-gen-1-(\d+)(?:-s\d+)?"', text):
             assert f'id="vnotes-gen-1-{vv}-s1"' in text, f"badge href #vnotes-gen-1-{vv} has no aside"
@@ -518,7 +521,9 @@ class TestKoboPreviewSeparators:
         assert m
         items = m.group(1).count('class="vn-item')
         seps = m.group(1).count('<span class="vn-sep">\u2028• </span>')
-        assert items > 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
+        # round-7 -s split: the s1 unit can hold a single item; the invariant is
+        # one • separator per item (seps == items), which holds for items >= 1.
+        assert items >= 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
 
 
 class TestVnotePreviewSeparators:

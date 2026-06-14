@@ -183,8 +183,12 @@ class TestNoteRehaulS1InBuild:
         counts = {}
         for f in book["files"]:
             text = (tmp / f).read_text(encoding="utf-8")
-            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?"', text):
-                counts[vv] = int(cnt)
+            # round-7 -s split: a verse's notes spread across -sN badges with
+            # titles like `5 notes (part 1 of 2)`. Match the leading count (NO
+            # trailing quote, so split titles match too) and SUM the parts so the
+            # value is the verse TOTAL — what S2 (group/dedup) conserves.
+            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?', text):
+                counts[vv] = counts.get(vv, 0) + int(cnt)
         return counts
 
     def test_flag_off_keeps_note_labels_and_suppresses_nothing(self, tmp_path):
@@ -242,13 +246,12 @@ class TestNoteRehaulS1Wiring:
         assert 'data-field="note_attribution_dedup"' in src
 
     def test_field_is_an_editable_bool_not_text(self):
-        src = (REPO / "scripts" / "api" / "editions.py").read_text(encoding="utf-8")
-        # present in BOTH the preview EDITABLE set and the save EDITABLE_BOOL set
-        # (mirrors verse_popups); the generic bool-save path then handles it.
-        assert src.count('"note_attribution_dedup"') >= 2
-        # NOT in EDITABLE_TEXT — that would coerce the bool to a string
-        text_block = src.split("EDITABLE_TEXT = {")[1].split("}")[0]
-        assert '"note_attribution_dedup"' not in text_block
+        # EDITABLE_TEXT_FIELDS / EDITABLE_BOOL_FIELDS are frozensets now (was an
+        # inline `EDITABLE_TEXT = {` dict) — assert membership, not a source scan.
+        from scripts.api.editions import EDITABLE_BOOL_FIELDS, EDITABLE_TEXT_FIELDS
+
+        assert "note_attribution_dedup" in EDITABLE_BOOL_FIELDS
+        assert "note_attribution_dedup" not in EDITABLE_TEXT_FIELDS
 
 
 # ======================================================================
@@ -648,8 +651,12 @@ class TestNoteRehaulS2InBuild:
         counts = {}
         for f in book["files"]:
             text = (tmp / f).read_text(encoding="utf-8")
-            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?"', text):
-                counts[vv] = int(cnt)
+            # round-7 -s split: a verse's notes spread across -sN badges with
+            # titles like `5 notes (part 1 of 2)`. Match the leading count (NO
+            # trailing quote, so split titles match too) and SUM the parts so the
+            # value is the verse TOTAL — what S2 (group/dedup) conserves.
+            for vv, cnt in _re.findall(r'id="vbadge-gen-1-(\d+)(?:-s\d+)?"[^>]*title="(\d+) notes?', text):
+                counts[vv] = counts.get(vv, 0) + int(cnt)
         return counts
 
     def test_flag_off_emits_no_cascade(self, tmp_path):
@@ -707,11 +714,11 @@ class TestNoteRehaulS2Wiring:
         assert 'data-field="note_topic_dedup"' in src
 
     def test_both_fields_are_editable_bools_not_text(self):
-        src = (REPO / "scripts" / "api" / "editions.py").read_text(encoding="utf-8")
-        text_block = src.split("EDITABLE_TEXT = {")[1].split("}")[0]
+        from scripts.api.editions import EDITABLE_BOOL_FIELDS, EDITABLE_TEXT_FIELDS
+
         for field in ("note_group_by_category", "note_topic_dedup"):
-            assert src.count(f'"{field}"') >= 2, f"{field} must be in EDITABLE + EDITABLE_BOOL"
-            assert f'"{field}"' not in text_block, f"{field} must NOT be in EDITABLE_TEXT"
+            assert field in EDITABLE_BOOL_FIELDS, f"{field} must be in EDITABLE_BOOL_FIELDS"
+            assert field not in EDITABLE_TEXT_FIELDS, f"{field} must NOT be in EDITABLE_TEXT_FIELDS"
 
 
 # ======================================================================
