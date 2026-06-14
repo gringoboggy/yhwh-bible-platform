@@ -1,6 +1,10 @@
 # Productize the proven June-10 Send-to-Kindle recipe as `--target-reader kindle`
 
-**Status:** in progress (Mac, turn 84+). **Owner:** Mac lane. **Mandate:** SESSION_STATE
+**Status:** ✅ IMPLEMENTED + VERIFIED (Mac, turn 85) — all 7 production changes + the
+gate fix shipped (commits `d4cd5257`, `5ae67722`, +final); the `--target-reader kindle`
+build reproduces the june10 PASS shape on every signal (stamp aside), epubcheck 0/0/0/0,
+gate-5 green, 308 kindle/popup/format tests green; artifact staged for the user's STK
+re-confirm (the only remaining gate — M4 lights on it). **Owner:** Mac lane. **Mandate:** SESSION_STATE
 turn-84 / handoff #1 — *"make the `--target-reader kindle` build mode emit exactly the
 proven june10 recipe so the website generates it in one build. TDD; keep non-kindle
 byte-identical. Do NOT re-introduce the KP3-oracle extras."*

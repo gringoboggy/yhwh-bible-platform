@@ -1,5 +1,26 @@
 # Send-to-Kindle E999 investigation (2026-06-10, Mac)
 
+> ## ★ RESOLVED + PRODUCTIZED — 2026-06-14 (turn 85)
+>
+> The whole arc below converged on the wrong oracle (Kindle Previewer / KDP), which
+> the **real Send-to-Kindle channel falsified**. The single confirmed STK PASS is
+> `june10recipe.epub` = a standard `everywhere` build + only two deltas: physically
+> strip `display:none`/`visibility:hidden` (CSS + inline), and collapse `dc:language`
+> to a single `en-US`. Empirically (measured PASS vs the FAILED `FIXED.epub`): Amazon's
+> scanner counts **CSS display:none, NOT the HTML `hidden=""` attribute** (june10 kept
+> 406 hidden footnote asides and delivered); the 2 MB file-merge, the kindle_safe CSS,
+> `apply_kindle_toc_rows`, `apply_kindle_unhide`, the popup-language cap, and (B)
+> compaction were all FALSIFIED extras (they made the FAIL shape).
+>
+> **Productized** as `--target-reader kindle` (2026-06-14): those transforms are removed
+> / made opt-in, and the build now reproduces the june10 shape on every signal (377 files
+> / 300 xhtml / 299 spine / single en-US / 0 display:none / vn-sep 132,949 / hidden 406 /
+> no kindle_safe / full 4-lang apparatus / 0 compaction), stamp aside. epubcheck 0/0/0/0,
+> gate-5 green, kindle/popup/format suite green. Build-mode artifact staged to the Desktop
+> for the user's STK re-confirm. Plan + full reasoning:
+> `docs/superpowers/plans/2026-06-14-kindle-recipe-productization.md`. The detailed
+> CORRECTION/WIN sections below are kept for the lesson.
+
 **Trigger:** the user emailed an EPUB to their Kindle library and received Amazon's
 rejection email citing **E999**. Investigated via an 8-agent workflow (3 web research
 angles + artifact probe + 4 adversarial verifications), all probes on the actual sent

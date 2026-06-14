@@ -18,7 +18,7 @@
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
 | **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; cap-split units mostly pop (K-R6-2: a non-size factor or tap geometry on 2 of gen 1:1's 3 — taps pending) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback — PROVEN round-6** (Publisher Default renders Heb/Grc/**Ar**/Geʽez with the OPF block restored; per-span lang never reaches the tag-stripped preview) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-6 2026-06-11: ★K-R5-6 restore PROVEN on-device; clamp HOLDS; `\n` seps collapsed → U+2028 (K-R6-3); "BOOKII" eyebrow space quirk (K-R6-4, pre-existing) |
-| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (kindle_safe) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | Variant SHIPPED + epubcheck 0/0/0/0 by execution; user K-KIN-1..4 acceptance PENDING (2026-06-10) |
+| **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ✅ native KFX footnote popups (the kept `hidden=""` `epub:type="footnotes"` asides; delivery proven, in-book tap-QA pending) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | ★**june10 recipe PRODUCTIZED** as `--target-reader kindle` (2026-06-14) — reproduces the Send-to-Kindle PASS shape (299 spine, single en-US, display:none physically stripped, full 4-lang apparatus, 406 hidden asides KEPT); epubcheck 0/0/0/0; build-mode artifact staged for STK re-confirm |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
 
@@ -80,26 +80,46 @@
 
 ## Kindle (`kindle`, Send-to-Kindle)
 
+★**PRODUCTIZED 2026-06-14** — `--target-reader kindle` now emits the proven
+**june10recipe** in one build. The whole earlier "kindle_safe" apparatus
+(visible-endnote CSS overrides, `apply_kindle_toc_rows`, `apply_kindle_unhide`,
+the 2 MB file-merge, the auto popup-language cap + compaction) was driven by the
+Kindle-Previewer/KDP oracle, which the real Send-to-Kindle channel FALSIFIED;
+those transforms are REMOVED. Plan + reconstruction:
+`plans/2026-06-14-kindle-recipe-productization.md`.
+
 - **Delivery:** Send-to-Kindle (email/app/web) — Amazon CONVERTS the EPUB (KFX);
-  there is no direct sideload of EPUB on modern Kindles. ⚠ The Mac Kindle app has
-  NO local import — it silently MOVES a "sent" file into its container.
-- **Delivery checks (hard failures fixed 2026-06-10):** **E999** = multiple
-  `<dc:language>` elements → single `en-US` (patch_opf); **E3013** = large
-  `display:none` volume → the kindle_safe variant renders notes as VISIBLE
-  ENDNOTES (artifact hidden text 486,188 → 955 chars).
-- **No popup footnotes** in KF8/KFX → endnotes are the correct presentation;
-  `.vn-sep` separators visible.
-- **ToC:** chapter pills → plain inline rows (`apply_kindle_toc_rows`); no
-  collapsible lists.
-- **Seams:** book-boundary "shatter" (K-KIN-3) → seam CSS (forced-break drop +
-  title exemption + art re-cap).
-- **Gate:** verifier **gate 5 `kindle_safe_checks`** (≤10K effective display:none +
-  single dc:language), OPF-stamped via `yhwh:target-reader`; epubcheck 0/0/0/0
-  proven by execution on the staged artifact (Mac, Temurin 21).
-- **Acceptance PENDING:** the user's Send-to-Kindle re-verify (K-KIN-1..4) on
-  `Ethiopian_Bible_catholic-study_kindle-safe_2026-06-10T224859Z.epub`.
-- **QA history:** Kindle round-1 (K-KIN-1..4, Mac 2026-06-10) + the E999
-  investigation; plan `plans/2026-06-10-kindle-safe-variant.md`.
+  no direct EPUB sideload on modern Kindles. ⚠ The Mac Kindle app has NO local
+  import — it silently MOVES a "sent" file into its container.
+- **The one real delivery check (E999/E3013):** Amazon's server scan rejects
+  content hidden under **CSS `display:none` / `visibility:hidden`** over the 10K
+  E3013 cap, and does NOT resolve the cascade (a `display:block` override is
+  invisible to it). Fix = physically STRIP every such declaration
+  (`apply_kindle_strip_hidden`). It counts CSS display:none, **NOT** the HTML
+  `hidden=""` attribute — june10 kept 406 hidden footnote asides and delivered.
+  Plus single `<dc:language>en-US</dc:language>` (patch_opf, target-gated).
+- **Popups:** the apparatus stays in `hidden=""` `epub:type="footnotes"` asides →
+  Kindle's NATIVE KFX footnote popups surface them on tap (delivery proven; the
+  in-book tap experience is the remaining device-QA). FULL 4-language apparatus
+  (Heb + Grc + Lat + Ara + back-tr) ships uncapped — the byte/element ceiling that
+  drove the cap was the falsified premise. `.vn-sep` separators KEPT.
+- **Split / ToC / seams:** standard everywhere split (299 spine, incl. tiny husk
+  pieces — STK accepts them), standard pill ToC. No kindle-specific markup.
+- **Optional compact mode:** a builder can still cap popup languages
+  (`max_popup_languages` 1..4 in Customize) → bible-wide trim + (B) label/header
+  compaction; UNPROVEN on STK (validate before shipping a capped kindle edition).
+- **Gate:** verifier **gate 5 `kindle_safe_checks`** = zero RAW
+  `display:none`/`visibility:hidden` over content + single dc:language (the
+  "kindle_safe CSS present" and "zero hidden='' attrs" checks were REMOVED — both
+  would fail june10). OPF-stamped via `yhwh:target-reader`. epubcheck 0/0/0/0
+  proven on the build-mode artifact (Mac, Temurin 21).
+- **Status:** the `--target-reader kindle` build-mode artifact reproduces the
+  june10 PASS shape on every signal (stamp aside) and is staged to the Desktop
+  (`…(Kindle) build-mode.epub`) for the user's Send-to-Kindle re-confirm — the
+  only valid oracle. M4 lights on that confirm.
+- **QA history:** june10 test-2 = the proven STK PASS (`feedback_validate_real_
+  delivery_channel`); the E999/Previewer-falsification arc =
+  `notes/2026-06-10-kindle-e999-investigation.md`.
 
 ## Google Play Books (`everywhere`, provisional)
 
@@ -137,5 +157,6 @@
 
 1. Kobo preview-decline threshold T — round-5 tap calibration (this session).
 2. Play Books round-1: popups / fonts / breaks on the user's phone (M5 gate).
-3. Kindle K-KIN-1..4 acceptance on the kindle_safe artifact (user, pending).
+3. Kindle: the user's Send-to-Kindle re-confirm of the PRODUCTIZED build-mode
+   artifact (reproduces the june10 PASS shape) + in-book KFX footnote-popup tap-QA.
 4. Whether Play Books needs its own `target_reader` profile (after #2).
