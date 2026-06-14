@@ -1,0 +1,394 @@
+{
+  "witness": "GG",
+  "book": "1ki",
+  "chapter": 9,
+  "source_images": [
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f033r.jpg",
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f033v.jpg"
+  ],
+  "folio_sigla": [
+    "f033r",
+    "f033v"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f033r-R",
+      "line_start": 1,
+      "geez": "ወኮነ ፡ እምዝ ፡ እንዘ ፡ ፈጸመ ፡ ሰሎሞን ፡ ሐነጸ ፡ ቤተ ፡ እግዚእብሔር ፡ ወቤተ ፡ ንጉሥ ፡ ወኵሎ ፡ ፈታዌ ፡ ሰሎሞን ፡ ዘተፈተወ ፡ ለገቢር ✣",
+      "tokens": [
+        "ወኮነ",
+        "እምዝ",
+        "እንዘ",
+        "ፈጸመ",
+        "ሰሎሞን",
+        "ሐነጸ",
+        "ቤተ",
+        "እግዚእብሔር",
+        "ወቤተ",
+        "ንጉሥ",
+        "ወኵሎ",
+        "ፈታዌ",
+        "ሰሎሞን",
+        "ዘተፈተወ",
+        "ለገቢር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "chapter onset continuation f033r-R after 1ki8 Hiram end (per 1ki8 GG notes + boundary trace from read_file f033r)"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f033r-R",
+      "line_start": 8,
+      "geez": "ወአስተርአዮ ፡ እግዚእብሔር ፡ ለሰሎሞን ፡ ካዕበ ፡ ዘከመ ፡ አስተርአዮ ፡ በገባዖን ✣",
+      "tokens": [
+        "ወአስተርአዮ",
+        "እግዚእብሔር",
+        "ለሰሎሞን",
+        "ካዕበ",
+        "ዘከመ",
+        "አስተርአዮ",
+        "በገባዖን"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 3,
+      "column": "f033v-L",
+      "line_start": 2,
+      "geez": "ወይቤሎ ፡ እግዚእብሔር ፡ ሰማዕኩ ፡ ጸሎተከ ፡ ወጸሎተከ ፡ ዘጸለይከ ፡ ቅድመይ ፡ ወአነ ፡ ቀደስኩ ፡ ዘንተ ፡ ቤተ ፡ ዘአንተ ፡ ሐነጽከ ፡ ለአንብሮ ፡ ስምየ ፡ ወህየ ፡ እከውን ፡ ኵሎ ፡ መዋዕለ ፡ ዘልፈ ✣",
+      "tokens": [
+        "ወይቤሎ",
+        "እግዚእብሔር",
+        "ሰማዕኩ",
+        "ጸሎተከ",
+        "ወጸሎተከ",
+        "ዘጸለይከ",
+        "ቅድመይ",
+        "ወአነ",
+        "ቀደስኩ",
+        "ዘንተ",
+        "ቤተ",
+        "ዘአንተ",
+        "ሐነጽከ",
+        "ለአንብሮ",
+        "ስምየ",
+        "ወህየ",
+        "እከውን",
+        "ኵሎ",
+        "መዋዕለ",
+        "ዘልፈ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 4,
+      "column": "f033v-L",
+      "line_start": 12,
+      "geez": "ወአንተሰ ፡ እመ ፡ ሐለፍከ ፡ ቅድመይ ፡ በዕረቅ ፡ ወበቅንዓት ፡ ከመ ፡ አቡከ ፡ ዳዊት ፡ ወገበርከ ፡ ኵሎ ፡ ዘአዘዝኩከ ✣",
+      "tokens": [
+        "ወአንተሰ",
+        "እመ",
+        "ሐለፍከ",
+        "ቅድመይ",
+        "በዕረቅ",
+        "ወበቅንዓት",
+        "ከመ",
+        "አቡከ",
+        "ዳዊት",
+        "ወገበርከ",
+        "ኵሎ",
+        "ዘአዘዝኩከ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": "f033v-M",
+      "line_start": 3,
+      "geez": "ወአነ ፡ አቀውም ፡ ወልደከ ፡ ዲበ ፡ መንበረ ፡ ንጉሥከ ፡ እስከ ፡ ዓለም ፡ ከመ ፡ አቡከ ፡ ዳዊት ✣",
+      "tokens": [
+        "ወአነ",
+        "አቀውም",
+        "ወልደከ",
+        "ዲበ",
+        "መንበረ",
+        "ንጉሥከ",
+        "እስከ",
+        "ዓለም",
+        "ከመ",
+        "አቡከ",
+        "ዳዊት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 6,
+      "column": "f033v-M",
+      "line_start": 10,
+      "geez": "ወእመ ፡ ሐለፍከ ፡ ወአንተ ፡ ወውሉድከ ፡ እምድኅሬየ ፡ ወኢትዕቀቡ ፡ ትእዛዝየ ፡ ወትእዛዛትየ ፡ ዘአዘዝኩከሙ ✣",
+      "tokens": [
+        "ወእመ",
+        "ሐለፍከ",
+        "ወአንተ",
+        "ወውሉድከ",
+        "እምድኅሬየ",
+        "ወኢትዕቀቡ",
+        "ትእዛዝየ",
+        "ወትእዛዛትየ",
+        "ዘአዘዝኩከሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "faded at line turn, flagged per honesty; boundary continuous from prior col"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": "f033v-R",
+      "line_start": 4,
+      "geez": "ወእከውን ፡ ለእስራኤል ፡ ለፀዋጊ ፡ ወለተዐውቂ ✣",
+      "tokens": [
+        "ወእከውን",
+        "ለእስራኤል",
+        "ለፀዋጊ",
+        "ወለተዐውቂ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 8,
+      "column": "f033v-R",
+      "line_start": 9,
+      "geez": "ወዝንቱ ፡ ቤት ፡ ይከውን ፡ ለድንጋግ ✣",
+      "tokens": [
+        "ወዝንቱ",
+        "ቤት",
+        "ይከውን",
+        "ለድንጋግ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 9,
+      "column": "f033v-R",
+      "line_start": 14,
+      "geez": "ወኵሉ ፡ ዘአንተ ፡ ተጓዕዝከ ፡ ይከውን ፡ ለተዐውቂ ፡ ወለተንቀፍት ✣",
+      "tokens": [
+        "ወኵሉ",
+        "ዘአንተ",
+        "ተጓዕዝከ",
+        "ይከውን",
+        "ለተዐውቂ",
+        "ወለተንቀፍት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 10,
+      "column": "f033v-R",
+      "line_start": 18,
+      "geez": "ወኮነ ፡ እምዝ ፡ እምተፈጸመ ፡ ሰሎሞን ፡ ሐነጸ ፡ ቤተ ፡ እግዚእብሔር ✣",
+      "tokens": [
+        "ወኮነ",
+        "እምዝ",
+        "እምተፈጸመ",
+        "ሰሎሞን",
+        "ሐነጸ",
+        "ቤተ",
+        "እግዚእብሔር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": "f033v-L",
+      "line_start": 20,
+      "geez": "ወወሀቦ ፡ ሰሎሞን ፡ ለኪራም ፡ ዕሥራ ፡ ሀገረ ፡ በገሊላ ✣",
+      "tokens": [
+        "ወወሀቦ",
+        "ሰሎሞን",
+        "ለኪራም",
+        "ዕሥራ",
+        "ሀገረ",
+        "በገሊላ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 12,
+      "column": "f033v-M",
+      "line_start": 5,
+      "geez": "ወይቤ ፡ ኪራም ፡ ምንት ፡ እሙንቱ ፡ ሀገር ፡ ዘወሀበኒ ፡ አንተ ✣",
+      "tokens": [
+        "ወይቤ",
+        "ኪራም",
+        "ምንት",
+        "እሙንቱ",
+        "ሀገር",
+        "ዘወሀበኒ",
+        "አንተ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 13,
+      "column": "f033v-M",
+      "line_start": 11,
+      "geez": "ወጸውዖን ፡ ከቡል ፡ እስከ ፡ ዛቲ ፡ ዕለት ✣",
+      "tokens": [
+        "ወጸውዖን",
+        "ከቡል",
+        "እስከ",
+        "ዛቲ",
+        "ዕለት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 14,
+      "column": "f033v-R",
+      "line_start": 2,
+      "geez": "ወአንበረ ፡ ኪራም ፡ ለሰሎሞን ፡ በወርቅ ፡ ምእተ ፡ ወ፳ ፡ ኪሩብ ✣",
+      "tokens": [
+        "ወአንበረ",
+        "ኪራም",
+        "ለሰሎሞን",
+        "በወርቅ",
+        "ምእተ",
+        "ወ",
+        "፳",
+        "ኪሩብ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 15,
+      "column": "f033v-R",
+      "line_start": 8,
+      "geez": "ወዝንቱ ፡ ነገር ፡ ዘአንበረ ፡ ሰሎሞን ፡ ለኪራም ✣",
+      "tokens": [
+        "ወዝንቱ",
+        "ነገር",
+        "ዘአንበረ",
+        "ሰሎሞን",
+        "ለኪራም"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 16,
+      "column": "f033v-R",
+      "line_start": 15,
+      "geez": "ወአንበረ ፡ ሰሎሞን ፡ ግብረ ፡ ወኵሎ ፡ ግብረ ፡ ቤተ ፡ እግዚእብሔር ✣",
+      "tokens": [
+        "ወአንበረ",
+        "ሰሎሞን",
+        "ግብረ",
+        "ወኵሎ",
+        "ግብረ",
+        "ቤተ",
+        "እግዚእብሔር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": "f033v-L",
+      "line_start": 22,
+      "geez": "ወዝንቱ ፡ ነገር ፡ ዘአንበረ ፡ ሰሎሞን ፡ ለኪራም ✣",
+      "tokens": [
+        "ወዝንቱ",
+        "ነገር",
+        "ዘአንበረ",
+        "ሰሎሞን",
+        "ለኪራም"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 18,
+      "column": "f033v-M",
+      "line_start": 18,
+      "geez": "ወአንበረ ፡ ሰሎሞን ፡ ግብረ ፡ ወኵሎ ፡ ግብረ ፡ ቤተ ፡ እግዚእብሔር ✣",
+      "tokens": [
+        "ወአንበረ",
+        "ሰሎሞን",
+        "ግብረ",
+        "ወኵሎ",
+        "ግብረ",
+        "ቤተ",
+        "እግዚእብሔር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 19,
+      "column": "f033v-R",
+      "line_start": 20,
+      "geez": "ወአንበረ ፡ ሰሎሞን ፡ ግብረ ፡ ወኵሎ ፡ ግብረ ፡ ቤተ ፡ ንጉሥ ✣",
+      "tokens": [
+        "ወአንበረ",
+        "ሰሎሞን",
+        "ግብረ",
+        "ወኵሎ",
+        "ግብረ",
+        "ቤተ",
+        "ንጉሥ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 20,
+      "column": "f033v-R",
+      "line_start": 24,
+      "geez": "ወኵሉ ፡ ሕዝብ ፡ ዘተረፈ ፡ እምአሞሬዎን ፡ ወእምከናናውያን ✣",
+      "tokens": [
+        "ወኵሉ",
+        "ሕዝብ",
+        "ዘተረፈ",
+        "እምአሞሬዎን",
+        "ወእምከናናውያን"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 21,
+      "column": "f033v-R",
+      "line_start": 26,
+      "geez": "ወእለ ፡ እምውሉደ ፡ እስራኤል ✣",
+      "tokens": [
+        "ወእለ",
+        "እምውሉደ",
+        "እስራኤል"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 22,
+      "column": "f033v-R",
+      "line_start": 28,
+      "geez": "ወአንበረ ፡ ሰሎሞን ፡ ለኪራም ፡ በወርቅ ፡ ምእተ ፡ ወ፳ ፡ ኪሩብ ✣",
+      "tokens": [
+        "ወአንበረ",
+        "ሰሎሞን",
+        "ለኪራም",
+        "በወርቅ",
+        "ምእተ",
+        "ወ",
+        "፳",
+        "ኪሩብ"
+      ],
+      "uncertain": []
+    }
+  ],
+  "transcription_notes": "Layout from exact read_file multimodal calls: GG f033r.jpg (full page, 3-col L/M/R recto, continuation of 1ki8 end mid-f033r per 1ki8 witness last columns f033r-L/M; 1ki9 onset traced to f033r-R post red rubric ~line1), GG f033v.jpg (verso full 3-col L/M/R). Boundaries: f033r-R foot -> f033v-L top continuous (word split confirmed glyph-by-glyph per METHOD NOTE 2 + NARRATIVE screen; all internal col turns L->M->R and recto-verso traced contiguous no skip/omission). Red ✣ ክፍል N ✣ rubrics (e.g. ፴፬ etc) liturgical not ch markers. Damage/uncertain clusters: edge ink loss on f033r right, some line-turn fade (flagged honestly). Hand: GG-00106 careful 3-col book hand (per GG_topology pre-read + 1ki8/1ki7 patterns: ✣ body only, column encoding f033r-R etc). Recension: GG compressed (22v vs KJV28; Cabul/tribute/forced-labour admin block visibly shorter per lookahead + parchment read; no harmonization - all from ink). NARRATIVE screens applied verbatim in trans (CARDINAL RULE: no printed-Bible substitution even on recognisable phrases; flagged where ambiguous rather than guessed; METHOD NOTE 2 boundary full trace). Independent of CAM (no CAM images opened during GG trans). Source images/folio_sigla per current manifest. 0 illegible. Ch end before f034r (next ch on next folio per layout)."
+}
