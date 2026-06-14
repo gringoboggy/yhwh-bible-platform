@@ -234,3 +234,59 @@ passed quality checks all the way to the pricing step.** So:
 0/0/0/0**. Staged `~/Desktop/Ethiopian Bible - Catholic Study (Kindle)
 FIXED.epub`. ⚠ Parity (Guard #4/#6): both edited files are WIN round-7 domain —
 flagged on handoff (changes are in distinct functions, expected clean merge).
+
+## ⚠ CORRECTION & AUTHORITATIVE RECONSTRUCTION (2026-06-14, Mac) — the "RESOLVED" section above is OVERSTATED; K-KIN is NOT confirmed on the real channel
+
+The "✅ RESOLVED" section is **wrong about the channel** and is SUPERSEDED by this.
+User-confirmed 2026-06-14: **the goal is Send-to-Kindle delivery** of the
+program-emitted EPUB ("the kindle epubs our program makes are uploaded through
+amazon to kindle"; "we're not making users go through KDP"). **KDP is NOT a
+distribution path** (it would violate the 2026-05-14 free-public pivot) — it was
+only ever a 2026-06-13 diagnostic ORACLE. (Source-of-truth re-confirmed: format-matrix
+spec row 4 "Send-to-Kindle", `dev/EREADERS.md`, the `kindle` target docstring.)
+
+**Two drifts (BOTH this Mac lane) put the arc on the wrong oracle/channel:**
+1. **Turn 73 (06-11) — ORACLE drift:** success oracle switched to Kindle Previewer 3;
+   STK uploads held. ALL of turns 73-78 (the byte/element/density bisection + the run-9
+   SHIPSHAPE "single-volume full-apparatus PROVEN" claim) was measured on **KP3 only** —
+   and KP3 was then FALSIFIED (user ran it clean while STK still E999'd).
+2. **Turn 81 (06-13) — GOAL-CHANNEL drift:** TEST-nohide failed STK but passed KDP →
+   declared "RESOLVED, STK flaky, KDP-publishable." That swapped the success criterion
+   to the wrong channel.
+
+**Complete Send-to-Kindle test record (the ONLY channel that counts):**
+- 06-10 email toc-qa (display:none PRESENT) → FAIL E999 (~4-5 min validation gate)
+- 06-10 resend → FAIL
+- **06-10 WEB UPLOADER test-2 (display:none PHYSICALLY STRIPPED; full apparatus;
+  hidden="" left; `<details>` ToC) → ✅ DELIVERED (~12 min) — THE ONLY STK SUCCESS EVER**
+- 06-10/11 kindle_safe OVERRIDE (display:none not stripped) → FAIL (~1h)
+- 06-11 retry → FAIL (~46-50 min)
+- 06-11 unhide (display:none CSS still present) → FAIL (3rd consecutive)
+- 06-13 shipshape OVERRIDE (user-ran KP3 CLEAN) → FAIL E999 (this falsified KP3)
+- 06-13 TEST-nohide (display:none stripped) → FAIL E999 — **but STK was reportedly DOWN
+  that day** (weak datum; this is the failure the turn-81 "flakiness" call leaned on)
+- **FIXED.epub (the shipped fix) → NEVER uploaded to Send-to-Kindle**
+
+**test-2 is UNRECOVERABLE** — `*.epub` is gitignored (`/Ethiopian_Bible*.epub`), never
+committed (0 .epub in git history), not in Trash, no 06-10 build dir survives, no Time
+Machine. Recipe (documented, reproducible): toc-qa full-apparatus + single en-US
+dc:language + display:none physically stripped from CSS + hidden="" left intact +
+`<details>` ToC.
+
+**HONEST STATUS:** the in-build fix (`apply_kindle_strip_hidden` + RAW gate-5) is real,
+TDD'd, and **likely NECESSARY** (the one STK success had display:none stripped; every
+present/override build failed) — but **NOT proven SUFFICIENT on STK** (TEST-nohide
+stripped + failed, albeit on a service-down day). **Send-to-Kindle delivery of the
+shipped FIXED.epub is UNCONFIRMED.** Every numeric ceiling (bytes/elements/density,
+`FILE_SPLIT_TARGET_KINDLE`=2 MB, `MAX_POPUP_LANGUAGES_KINDLE`=2) was KP3-measured on the
+falsified oracle — **unverified on STK**; treat as unproven.
+
+**NEXT — candidate #1:** upload `FIXED.epub` via the Send-to-Kindle **WEB UPLOADER**
+(amazon.ca/sendtokindle — the channel test-2 succeeded on, NOT email). PASS → fix
+confirmed on the real channel. FAIL → retry on a confirmed-up day (kill the service-down
+confound), THEN reproduce test-2's recipe from source. **Cross-lane (WIN):** the website
+FORMAT_MATRIX **M4 Kindle column is NOT actually unblocked** until an STK pass on a
+PROGRAM build — do not light M4 on the stale "RESOLVED" claim.
+
+_Full from-the-beginning reconstruction: workflow `wf_f714f284-c10` (2026-06-14, 9 agents,
+every kindle doc + changelog + truth record + tooling cross-read)._
