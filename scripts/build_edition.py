@@ -2061,8 +2061,10 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         # display:none/visibility:hidden, single en-US, OCF re-zip) — NOT the
         # Previewer-oracle-tuned --target-reader kindle variant (that artifact FAILED
         # Send-to-Kindle). build_format_matrix reads this marker, builds the
-        # everywhere base, and applies the post-process per asset. The dormant
-        # --target-reader kindle build + its gate-5 stay in tree, unused here.
+        # everywhere base, and applies the post-process per asset. The old
+        # --target-reader kindle FAIL variant (apply_* fns + gate-5) has been
+        # retired (see dead-variant consolidation turn 86); only the
+        # kindle_post post-process path remains.
         "post_process": "kindle_safe",
     },
     {
@@ -2273,39 +2275,6 @@ def apply_note_cascade_css(stylesheet_css: str) -> str:
 #      tears the caption band ("BOOK II / The Second Book of Moses") off its
 #      book name; KF8 drops vh so the art falls back to max-height:20em and
 #      claims a page — re-cap lower so caption+title+art share one page.
-_KINDLE_SAFE_CSS = """
-/* === kindle_safe (target_reader=kindle) — Send-to-Kindle variant === */
-/* E3013: visible endnotes — nothing big may hide under display:none */
-.notes-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
-.notes-rule { display: none; }
-.notes-heading { display: none; }
-.verse-refs-section { display: block; margin: 1.2em 0 0.8em; padding-top: 0.5em; border-top: 1px solid rgba(110, 88, 64, 0.4); }
-.note-comm > p > .note-label,
-.note-comm > div > .note-label,
-[class*="note-comm-"] > p > .note-label,
-[class*="note-comm-"] > div > .note-label { display: block; }
-.note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: block; }
-.vn-sep { display: inline; }
-/* K-KIN-3: no double-break blanks, no caption-band tear, art shares the page */
-.book-title-page { page-break-before: auto; break-before: auto; page-break-after: auto; break-after: auto; }
-h1.bookpage-title { page-break-before: avoid; break-before: avoid; }
-.bookpage-art, .bookpage-art-bleed { max-height: 12em; }
-/* K-KIN-2 companion: plain chapter rows (markup pass apply_kindle_toc_rows) */
-.toc-chapter-row { text-align: left; line-height: 2; word-spacing: 0.35em; margin: 0.25em 0 0.6em 1.4em; }
-.toc-chapter-row a { text-decoration: none; color: #2a1a1a; padding: 0 0.1em; }
-"""
-
-
-def apply_kindle_safe_css(stylesheet_css: str) -> str:
-    """Append the kindle_safe variant CSS (visible endnotes + seam fixes).
-
-    Pure CSS against the existing baked classes — no base re-bake, no markup
-    change. Mirrors apply_note_cascade_css; the caller gates on
-    is_kindle_target, so non-kindle editions append NOTHING (byte-identical,
-    RULES 7.2)."""
-    return stylesheet_css + _KINDLE_SAFE_CSS
-
-
 # ----------------------------------------------------------------------
 # §4.1 marker_style=badge — build-time per-edition transform
 # ----------------------------------------------------------------------
@@ -4970,31 +4939,8 @@ def enrich_nav_chapters(tmp: Path) -> dict:
 # they're MIXED #page_N / #ch-bXX-cN, so we match the ol block, never href
 # shapes). Runs AFTER apply_bilingual_toc (its chapter regex needs the pill
 # shape) and BEFORE apply_file_split (href remapping then covers the rewritten
-# anchors like all content). Styling rides _KINDLE_SAFE_CSS (.toc-chapter-row).
-_TOC_CHAPTERS_OL_RE = re.compile(r'<ol class="toc-chapters">(.*?)</ol>', re.DOTALL)
-_TOC_CHAPTER_ANCHOR_RE = re.compile(r"<a\b[^>]*>.*?</a>", re.DOTALL)
-
-
-def _toc_ol_to_row(m: "re.Match[str]") -> str:
-    anchors = _TOC_CHAPTER_ANCHOR_RE.findall(m.group(1))
-    return '<p class="toc-chapter-row">' + " ".join(anchors) + "</p>"
-
-
-def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
-    """Rewrite ToC chapter-pill <ol>s to plain inline anchor rows (K-KIN-2).
-
-    Kindle-gated through the one resolver; any other target returns without
-    touching a byte (RULES 7.2). Mutates only the per-edition temp tree."""
-    stats = {"toc_rows_rewritten": 0}
-    if not is_kindle_target(edition):
-        return stats
-    for fpath in sorted(tmp.glob("index_split_*.html")):
-        text = fpath.read_text(encoding="utf-8")
-        out, n = _TOC_CHAPTERS_OL_RE.subn(_toc_ol_to_row, text)
-        if n:
-            fpath.write_text(out, encoding="utf-8")
-            stats["toc_rows_rewritten"] += n
-    return stats
+# anchors like all content). (K-KIN-2 toc-row rewrite retired with the
+# --target-reader kindle variant; production Kindle uses the post-process path.)
 
 
 # K-KIN forensics (2026-06-11, the 2nd ~50-min Send-to-Kindle failure): the
@@ -5006,26 +4952,8 @@ def apply_kindle_toc_rows(tmp: Path, edition: dict) -> dict:
 # Belt-and-braces: physically strip the attribute from footnote wrappers so
 # NO counter model can see hidden text. Matches any aside/section opener that
 # carries epub:type="footnotes" and a hidden attribute, attribute-order-safe.
-_FOOTNOTES_HIDDEN_ATTR_RE = re.compile(
-    r'(<(?:aside|section)\b(?=[^>]*epub:type="footnotes")[^>]*?)\s+hidden(?:="[^"]*")?(?=[^>]*>)'
-)
-
-
-def apply_kindle_unhide(tmp: Path, edition: dict) -> dict:
-    """Strip ``hidden=""`` from footnote wrappers in a kindle-target temp
-    tree. Runs AFTER apply_file_split (the splitter re-emits per-piece
-    notes-section wrappers WITH the attribute) and is a no-op — byte-identical
-    tree — for every non-kindle target. Idempotent."""
-    stats = {"hidden_attrs_stripped": 0}
-    if not is_kindle_target(edition):
-        return stats
-    for fpath in sorted(tmp.glob("*.html")):
-        text = fpath.read_text(encoding="utf-8")
-        out, n = _FOOTNOTES_HIDDEN_ATTR_RE.subn(r"\1", text)
-        if n:
-            fpath.write_text(out, encoding="utf-8")
-            stats["hidden_attrs_stripped"] += n
-    return stats
+# (The apply_kindle_unhide pass was part of the retired --target-reader kindle
+# variant; the production path now uses kindle_post for hidden stripping.)
 
 
 # K-KIN E999 (2026-06-13, Amazon-confirmed): Amazon's Send-to-Kindle /
@@ -5040,37 +4968,9 @@ def apply_kindle_unhide(tmp: Path, edition: dict) -> dict:
 # display:none / visibility:hidden (CSS + inline) and drop the Kobo-eInk-only
 # .vn-sep separator spans (their only job was to be display:none on CSS readers;
 # once nothing hides them they would show as stray ¶/◦/• glyphs). Result: a
-# kindle artifact with ZERO hidden content (gate 5 enforces it).
-_CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
-_INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
-_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>')
-
-
-def apply_kindle_strip_hidden(tmp: Path, edition: dict) -> dict:
-    """Physically remove every display:none / visibility:hidden (CSS + inline)
-    and the Kobo-only .vn-sep separator spans from a kindle-target tree, so the
-    artifact carries ZERO hidden content (the Amazon-confirmed E999/E3013 fix).
-    Runs AFTER apply_kindle_safe_css (appends the now-redundant overrides) and
-    apply_file_split. No-op — byte-identical tree — for every non-kindle target.
-    Idempotent."""
-    stats = {"css_hidden_stripped": 0, "vn_sep_removed": 0, "inline_hidden_stripped": 0}
-    if not is_kindle_target(edition):
-        return stats
-    for cpath in sorted(tmp.glob("*.css")):
-        text = cpath.read_text(encoding="utf-8")
-        text, n = _CSS_HIDDEN_DECL_RE.subn("", text)
-        if n:
-            cpath.write_text(text, encoding="utf-8")
-            stats["css_hidden_stripped"] += n
-    for fpath in sorted(tmp.glob("*.html")):
-        text = fpath.read_text(encoding="utf-8")
-        text, n_sep = _VN_SEP_SPAN_RE.subn("", text)
-        text, n_inl = _INLINE_HIDDEN_DECL_RE.subn(r"\1", text)
-        if n_sep or n_inl:
-            fpath.write_text(text, encoding="utf-8")
-            stats["vn_sep_removed"] += n_sep
-            stats["inline_hidden_stripped"] += n_inl
-    return stats
+# kindle artifact with ZERO hidden content — now handled exclusively by the
+# single production kindle_post path (make_kindle_safe + verify). The
+# --target-reader kindle in-pipeline variant (and its apply fn) has been retired.
 
 
 # ----------------------------------------------------------------------
@@ -5664,8 +5564,11 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 # deliberately spares vnotes (kept books' cross-references may target a dropped
 # book's verse popup); the fold/splice passes therefore leave a removed book's
 # vnote-* translation popups behind unreachable (eth 206: aes 205 + est-10-5;
-# catholic-study 1,598: + 1es/2es). Kindle makes them USER-VISIBLE ("[no text]"
-# endnote rows under apply_kindle_unhide) — part of the K-KIN acceptance path.
+# catholic-study 1,598: + 1es/2es). Under the old --target-reader kindle
+# variant these became USER-VISIBLE ("[no text]" endnote rows under
+# apply_kindle_unhide) — part of the retired K-KIN acceptance experiments.
+# The production path (kindle_post) + base emitter handle visibility for
+# the real M4 artifacts.
 
 # ⚠ Named _ORPHAN_VNOTE_ASIDE_RE, NOT _VNOTE_ASIDE_RE: the popup passes
 # (_apply_popup_languages_and_translation / _replace_verse_popup_translation)
@@ -6428,17 +6331,6 @@ def build_one(
             )
             stats["note_cascade_css"] = True
 
-        # kindle_safe (turn-69 ①) — append the Send-to-Kindle variant CSS
-        # (visible endnotes per E3013, K-KIN-3 seam fixes, K-KIN-2 row chrome)
-        # when the resolved reader target is kindle. Same append-to-stylesheet
-        # mechanism; absent/other targets ⇒ byte-identical (RULES 7.2).
-        if css_path.is_file() and is_kindle_target(edition):
-            css_path.write_text(
-                apply_kindle_safe_css(css_path.read_text(encoding="utf-8")),
-                encoding="utf-8",
-            )
-            stats["kindle_safe_css"] = True
-
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
         # declared cover_image when it resolves to a real file. All 11 editions
@@ -6636,13 +6528,6 @@ def build_one(
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
-        # K-KIN-2 (kindle_safe) — chapter pills → plain inline rows. MUST stay
-        # after apply_bilingual_toc (its chapter regex needs the pill shape)
-        # and before apply_file_split (which remaps the rewritten hrefs).
-        # No-op for every non-kindle target (byte-identical).
-        toc_rows_stats = apply_kindle_toc_rows(tmp, edition)
-        stats["toc_rows_rewritten"] = toc_rows_stats["toc_rows_rewritten"]
-
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
         # listing aside. Runs AFTER every kind/canon/tradition filter + the
@@ -6727,23 +6612,12 @@ def build_one(
         stats["pieces_created"] = split_stats["pieces_created"]
         stats["largest_piece_kb"] = split_stats["largest_piece_kb"]
 
-        # K-KIN forensics (2026-06-11): kindle targets physically strip
-        # hidden="" from footnote wrappers. MUST run after apply_file_split —
-        # the splitter re-emits per-piece notes-section wrappers WITH the
-        # attribute. No-op (byte-identical) for every other target.
-        unhide_stats = apply_kindle_unhide(tmp, edition)
-        stats["kindle_hidden_attrs_stripped"] = unhide_stats["hidden_attrs_stripped"]
-
         # K-KIN E999 (2026-06-13, Amazon-confirmed): physically strip every raw
-        # display:none/visibility:hidden + the Kobo-only .vn-sep spans for the
-        # kindle target. Amazon's server scan does not resolve the CSS cascade,
-        # so the kindle_safe display:block override is invisible to it — only a
-        # physical strip clears the E3013/E999 gate (proven: the stripped
-        # artifact reached Amazon's publish step). MUST run after apply_kindle_safe_css
-        # (appends the overrides) + the splitter. No-op for non-kindle.
-        strip_stats = apply_kindle_strip_hidden(tmp, edition)
-        stats["kindle_css_hidden_stripped"] = strip_stats["css_hidden_stripped"]
-        stats["kindle_vn_sep_removed"] = strip_stats["vn_sep_removed"]
+        # display:none/visibility:hidden + the Kobo-only .vn-sep spans is now
+        # handled exclusively by the kindle_post post-process (the single
+        # production path). The in-pipeline apply variant has been retired.
+        # (The base build + post-process path is the only one exercised by
+        # the M4 matrix and build_kindle driver.)
 
         # Build EPUB. In a PyInstaller-frozen binary ``sys.executable`` is the
         # launcher (YHWH.exe), NOT a Python interpreter — so re-invoking

@@ -1,6 +1,8 @@
 # kindle_safe Variant Implementation Plan (board turn-69 item ①)
 
-**Status:** EXECUTED 2026-06-10 (Mac turn 69) — tasks 1–7 complete: TDD slices shipped + byte-identity proven (before/after SHA equal with the field unset) + the kindle acceptance artifact staged to `~/Desktop` (gates green incl. gate 5). Acceptance = the user's Send-to-Kindle re-verify (K-KIN-1..4).
+> **⚠ RETIRED 2026-06-14 (WIN turn 86):** This document describes the `--target-reader kindle` FAIL variant (the `apply_kindle_*` / `_KINDLE_SAFE_CSS` / gate-5 in-pipeline path that produced the artifacts that failed real Send-to-Kindle). It has been **consolidated away** in favor of the single production path: everywhere base + `scripts.core.kindle_post.make_kindle_safe` + `verify_kindle_safe` (wired via `build_format_matrix` `post_process: kindle_safe` and the dedicated `build_kindle` driver). The live code for the variant (the four apply fns + helpers + call sites) was excised from `build_edition.py`; only the general resolver + K-KIN emitter flags remain. This plan file is retained as historical audit trail of the experiments. Current truth: LANE_HANDOFF (turn 86), kindle_post.py, build_format_matrix.py, and the M4 45-artifact column.
+
+**Status:** EXECUTED 2026-06-10 (Mac turn 69) — tasks 1–7 complete: TDD slices shipped + byte-identity proven (before/after SHA equal with the field unset) + the kindle acceptance artifact staged to `~/Desktop` (gates green incl. gate 5). Acceptance = the user's Send-to-Kindle re-verify (K-KIN-1..4). **Later superseded/retired by the minimal post-process recipe proven on the real STK channel (turn 84/85) and the dead-variant cleanup (turn 86).**
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
