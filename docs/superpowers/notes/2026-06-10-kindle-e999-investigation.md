@@ -290,3 +290,25 @@ PROGRAM build — do not light M4 on the stale "RESOLVED" claim.
 
 _Full from-the-beginning reconstruction: workflow `wf_f714f284-c10` (2026-06-14, 9 agents,
 every kindle doc + changelog + truth record + tooling cross-read)._
+
+## ✅✅ RESOLVED FOR REAL (2026-06-14, Mac turn 84) — Send-to-Kindle ACCEPTS the `june10recipe` build
+
+User-confirmed: `~/Desktop/Ethiopian Bible - Catholic Study (Kindle) june10recipe.epub`
+**DELIVERED via Send-to-Kindle** (fast upload). This reproduces the proven test-2 recipe
+and CONFIRMS the root cause **on the real channel** (not a proxy):
+
+**Root cause (confirmed):** the transforms `FIXED.epub` piled on for the *falsified*
+Kindle-Previewer oracle — **shipshape markup compaction + the 189-way file-split +
+`hidden=""` attr-stripping** — are what broke Send-to-Kindle. The MINIMAL recipe works:
+- `scripts/build_edition.py catholic-study` (standard *everywhere* build), then
+- post-process: strip `display:none`/`visibility:hidden` (CSS + inline) · collapse
+  `dc:language` → single `en-US` · **leave `hidden=""` attrs** · OCF re-zip
+  (mimetype-first STORED).
+- Result: 24.1 MB, 299 spine, full apparatus, epubcheck 0/0/0/0 → **STK-delivered (fast)**.
+
+**Productization (the remaining open task):** the recipe is currently a standard build +
+a deterministic post-process script. Re-point the `--target-reader kindle` build mode to
+emit exactly this (DROP the shipshape/split/attr-strip transforms for kindle) so the
+website generates it in one build → then WIN lights FORMAT_MATRIX **M4 Kindle**. Re-confirm
+any productized build on the REAL Send-to-Kindle channel — the only valid oracle (memory
+`feedback_validate_real_delivery_channel`).
