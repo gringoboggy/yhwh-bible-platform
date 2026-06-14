@@ -135,7 +135,7 @@
       views:
         - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f129v_1ki7_hires.jpg
         - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f130r_1ki8_hires.jpg
-    status: pending
+    status: calibrated
 
   9:
     GG:
