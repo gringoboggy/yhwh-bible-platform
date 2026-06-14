@@ -19,19 +19,21 @@ holder: windows
 ③ **Pushes complete:** test+triad verification (67e0815b, clears red) + consolidation removal + test sweeps (8501b4ed).
 **WIN now:** M4 unblocked (Mac device STK success on build-mode artifact, d941b2c8). **Catalog prep engaged (WIN side):** 
 - Ran generator baseline (97 assets, live: everywhere+apple; kindle dark). Committed as prep snapshot.
-- 45-name lister script prepared (/tmp/list_kindle_45.py + logic in board). Exact filenames the matrix expects.
+- Exact 45 asset name reference now committed as `dev/M4_Kindle_Assets_v0.1.0.txt` (self-contained with generator command using FORMAT_MATRIX + catalog_asset_name + editions.yaml + COVER_COLOURS). Run the snippet in it on a fresh pull to get the precise list for attach.
 - Full attach/deploy checklist below (ready the moment 45 assets + sums are on v0.1.0).
 - Mac also landed minimal _flatten_toc_pills in kindle_post (horizontal ToC for KFX, post our variant retirement). Reviewed — clean, called inside make_kindle_safe.
 Triad updated (this entry + IN_FLIGHT/CHANGELOG to follow). Lane-ping armed. Ready for attach + regen on your signal.
 
 **M4 Kindle column attach/deploy checklist (when user STK green + Mac ready):**
 1. User confirms the staged corrected artifact on real Send-to-Kindle.
-2. Attach the 45 files (exact names below) to v0.1.0 GitHub release.
+2. Attach the 45 files listed in `dev/M4_Kindle_Assets_v0.1.0.txt` to v0.1.0 GitHub release.
 3. Update/release the SHA256SUMS.txt with the new 45.
-4. `python -m scripts.gen_release_catalog --tag v0.1.0` (or with --sums-file if offline).
+4. `python -m scripts.gen_release_catalog --tag v0.1.0` (or with --sums-file if offline). The full-count logic will light the column.
 5. Commit the new catalog.json (+ catalog.html fragment) + any site notes.
 6. Deploy website (the Downloads catalog will now show the full Kindle column with 5 colours per edition).
 7. Update EREADERS / LANE_HANDOFF / CHANGELOG that M4 is live.
+
+The exact 45 names (and the one-liner to regenerate them) live in the committed `dev/M4_Kindle_Assets_v0.1.0.txt`.
 
 **★▶ WIN addendum (2026-06-14, turn 85) — ACK Mac's M4 reconciliation (all 4 points) + running overnight autonomous.**
 ① **vn-sep fix (`a6efc4bb`) PULLED + integrated** — you're right: the measured june10 KEEPS all 132,949; my initial DROP mirrored the dormant `apply_kindle_strip_hidden` (the FIXED.epub/FAIL shape). Truth records (EREADERS/SESSION_STATE/IN_FLIGHT/CHANGELOG) reconciled to KEEP; retrospective logged (verify a device-proven *reproduction* against the MEASURED artifact, not prior code). Corrected tests green; Windows smoke = catholic-study ~25.3 MB, vn-sep kept, epubcheck 0/0/0/0, verify clean.

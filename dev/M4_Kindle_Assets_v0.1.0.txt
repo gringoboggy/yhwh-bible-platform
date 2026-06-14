@@ -1,37 +1,50 @@
-# M4 Kindle column - exact 45 assets for v0.1.0 (9 editions × 5 colours)
+# M4 Kindle v0.1.0 - Exact 45 asset filenames for the catalog column
 #
-# These are the precise filenames that must be attached to the v0.1.0 GitHub
-# release (plus updated SHA256SUMS) for the 'kindle' format column to go live
-# in the catalog via full-count gating in gen_release_catalog.py.
+# These filenames (9 editions × 5 colours) must exist in the v0.1.0 GitHub
+# release assets (with matching entries in SHA256SUMS.txt) for the "kindle"
+# format column to become live in the public Downloads catalog.
 #
-# Generated from:
-#   - scripts/build_edition.py: FORMAT_MATRIX (kindle row with post_process),
-#     COVER_COLOURS, catalog_asset_name()
-#   - content/editions.yaml (the editions participating in the matrix)
-#
-# To (re)generate:
+# Generation (run from repo root):
+#   $env:PYTHONUTF8="1"
 #   python -c '
 #   import yaml
 #   from pathlib import Path
 #   from scripts.build_edition import catalog_asset_name, COVER_COLOURS
 #   eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
-#   for ed in [e["id"] for e in eds]:
+#   for e in eds["editions"]:   # or however the structure is (list under "editions:")
 #       for c in COVER_COLOURS:
-#           print(catalog_asset_name(ed, "0.1.0", "kindle", c))
+#           print(catalog_asset_name(e["id"], "0.1.0", "kindle", c))
 #   '
 #
-# Once attached, run:
+# Or simply:
 #   python -m scripts.gen_release_catalog --tag v0.1.0
-# The column will light automatically for editions that have their full set.
+# (it will compute live columns based on what is actually present)
+#
+# Once the 45 are attached + sums updated, re-running the generator will
+# cause the full-count gating to light the column automatically.
+#
+# This file is a committed reference so both lanes (WIN + Mac) have the
+# exact expected names visible after pull. Updated as part of M4 catalog
+# prep while waiting on Mac fan-out + user STK re-confirm.
+#
+# See dev/LANE_HANDOFF.md for the current checklist and status.
+#
+# COVER_COLOURS (from scripts/build_edition.py):
+# ("black", "brown", "forest", "navy", "red")
+#
+# Editions participating (from content/editions.yaml at time of last update):
+# The generator uses the full set; the 45 are the "kindle" format rows for
+# every edition that gets the column.
 
-# (List will be populated by running the generator command above when the
-# 45 files are ready. This placeholder ensures the file is tracked and
-# referenced from the board for Mac mirroring.)
+# === Example / template names (replace with actual run when ready) ===
+# YHWH-ethiopian-tewahedo-v0.1.0-kindle-black.epub
+# YHWH-ethiopian-tewahedo-v0.1.0-kindle-brown.epub
+# ... (5 colours)
+# (repeat for each of the other editions in the matrix)
 
-# Placeholder - run the command above on a machine with the full tree to fill
-# the actual names when preparing the attach.
-# Expected count: 45
+# To get the precise current list, run the python snippet above on a fresh
+# pull and paste the output here, then commit. This keeps the reference
+# accurate for the attach/deploy step.
 
-# See LANE_HANDOFF.md for the attach checklist and current status.
-# This file was added as part of M4 catalog prep (WIN side) while waiting on
-# Mac fan-out + user STK re-confirm. Committed locally for visibility on pull.
+# Committed during M4 prep (WIN lane, local work while waiting on Mac).
+# The triad (LANE_HANDOFF) references this file for the attach checklist.
