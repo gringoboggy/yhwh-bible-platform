@@ -29,6 +29,20 @@ Filename convention: `{style_id}_{color}.png`.
 
 ## Usage
 
+## Licensing & AI-art stance
+
+The 25 master templates (1792×2688 PNG) were generated with Midjourney under a
+paid subscription. At the time of generation the Midjourney ToS granted
+commercial use rights to the subscriber for the outputs. The publisher claims
+original editorial work on: the 5 style definitions and descriptions, the
+exact 5 colourways (deep crimson, chestnut, navy, forest, black — implemented
+via a deterministic hue-shift post-process), the curation/selection of the 25
+combinations, and all file naming + packaging. The raw AI generations
+themselves are not placed under CC0 or dedicated to the public domain; the
+program + this editorial layer are © 2026 Bogdan Zorlescu (standard rights
+reserved, source-available). Fonts used in related assets remain under their
+OFL 1.1 terms (see `content/assets/fonts/LICENSES.md`).
+
 These templates can be used as:
 
 1. **Direct main covers** for an edition — upload via the

@@ -28,6 +28,12 @@ directory. Cross-referenced here so this file is the single attribution index:
   - **Noto Serif Ethiopic** — © Google Inc. (Noto Project), OFL 1.1.
     Covers the Ethiopic syllabary; `@font-face` is `unicode-range`-scoped to
     all five Ethiopic blocks (U+1200–137F, U+1380–139F, U+2D80–2DDF,
+- **Cover templates (25 masters, 5 styles × 5 colourways)**: produced with
+  Midjourney on a paid plan under the commercial-use grant in the ToS at time
+  of generation (2026-05). The concrete compositions, the 5 named styles, the
+  5 colourways (hue-shift pipeline), file organisation, and selection are
+  original editorial work by the publisher. See `content/covers/templates/README.md`.
+  No CC0 / public-domain language applies to the AI elements.
     U+AB00–AB2F, U+1E7E0–1E7FF) so it renders only Ge'ez/Amharic fidel (the
     standalone Ge'ez Bibles' body text) and never overrides Latin/Hebrew/Greek.
     Source: <https://fonts.google.com/noto/specimen/Noto+Serif+Ethiopic>.

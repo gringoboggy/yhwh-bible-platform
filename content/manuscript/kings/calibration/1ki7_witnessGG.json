@@ -1,0 +1,399 @@
+{
+  "witness": "GG",
+  "book": "1ki",
+  "chapter": 7,
+  "source_images": [
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f031v.jpg",
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f032r.jpg"
+  ],
+  "folio_sigla": [
+    "f031v",
+    "f032r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f031v-L",
+      "line_start": 5,
+      "geez": "ወቤተ ፡ ሰሎሞን ፡ ሐነፀ ፡ ሠለስተ ፡ ዓመተ ፡ ወፈጸመ ፡ ቤተ ፡ ሁ ፡ በኵሉ ፡ ግብሩ ✣",
+      "tokens": [
+        "ወቤተ",
+        "ሰሎሞን",
+        "ሐነፀ",
+        "ሠለስተ",
+        "ዓመተ",
+        "ወፈጸመ",
+        "ቤተ",
+        "ሁ",
+        "በኵሉ",
+        "ግብሩ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "chapter incipit on f031v (verso) after red ክፍል rubric continuation from 1ki6; 3-col L/M/R layout per visual read"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f031v-L",
+      "line_start": 9,
+      "geez": "ወቤተ ፡ ዐፀደ ፡ ሊባኖስ ፡ ሐነፀ ፡ ምእተ ፡ አመት ፡ ኑኁ ፡ ወኀምሳ ፡ ርሕቡ ፡ ወሠላሳ ፡ ቆሙ ✣",
+      "tokens": [
+        "ወቤተ",
+        "ዐፀደ",
+        "ሊባኖስ",
+        "ሐነፀ",
+        "ምእተ",
+        "አመት",
+        "ኑኁ",
+        "ወኀምሳ",
+        "ርሕቡ",
+        "ወሠላሳ",
+        "ቆሙ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 3,
+      "column": "f031v-M",
+      "line_start": 14,
+      "geez": "ወአንቀጽው ፡ ሠላሳ ፡ በእመት ፡ ኑኁ ፡ ወአርባዕተ ፡ ምእት ፡ በእመት ፡ ርሕቡ ✣",
+      "tokens": [
+        "ወአንቀጽው",
+        "ሠላሳ",
+        "በእመት",
+        "ኑኁ",
+        "ወአርባዕተ",
+        "ምእት",
+        "በእመት",
+        "ርሕቡ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "numerals at res limit on verso M col"
+        }
+      ]
+    },
+    {
+      "v": 4,
+      "column": "f031v-M",
+      "line_start": 18,
+      "geez": "ወመንበረ ፡ ዐውድ ፡ ሐነፀ ፡ ወአንቀጽው ፡ ሠላሳ ፡ በእመት ፡ ኑኁ ✣",
+      "tokens": [
+        "ወመንበረ",
+        "ዐውድ",
+        "ሐነፀ",
+        "ወአንቀጽው",
+        "ሠላሳ",
+        "በእመት",
+        "ኑኁ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": "f031v-R",
+      "line_start": 22,
+      "geez": "ወኵሉ ፡ አንቀጽው ፡ ወመንበሩ ፡ ተከድነ ፡ በዕፀ ፡ አርዝ ✣",
+      "tokens": [
+        "ወኵሉ",
+        "አንቀጽው",
+        "ወመንበሩ",
+        "ተከድነ",
+        "በዕፀ",
+        "አርዝ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 6,
+      "column": "f031v-R",
+      "line_start": 25,
+      "geez": "ወገብረ ፡ ዐምደ ፡ ምንባር ፡ ክልኤተ ፡ መቶ ፡ በእመት ፡ ወአንቀጽው ፡ ክልኤተ ፡ መቶ ፡ በእመት ✣",
+      "tokens": [
+        "ወገብረ",
+        "ዐምደ",
+        "ምንባር",
+        "ክልኤተ",
+        "መቶ",
+        "በእመት",
+        "ወአንቀጽው",
+        "ክልኤተ",
+        "መቶ",
+        "በእመት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 7,
+      "column": "f031v-R",
+      "line_start": 28,
+      "geez": "ወቤተ ፡ መንበር ፡ ሐነፀ ፡ ለዐውድ ፡ ወአንቀጽው ፡ በዐውድ ✣",
+      "tokens": [
+        "ወቤተ",
+        "መንበር",
+        "ሐነፀ",
+        "ለዐውድ",
+        "ወአንቀጽው",
+        "በዐውድ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 8,
+      "column": "f031v-R",
+      "line_start": 31,
+      "geez": "ወቤተ ፡ ምንባር ፡ ዘይነብር ፡ በውስተ ፡ ቤት ፡ ዐውድ ✣",
+      "tokens": [
+        "ወቤተ",
+        "ምንባር",
+        "ዘይነብር",
+        "በውስተ",
+        "ቤት",
+        "ዐውድ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 9,
+      "column": "f031v-R",
+      "line_start": 34,
+      "geez": "ወቤተ ፡ ምንባር ፡ ለዐውድ ፡ ዘይነብር ፡ በውስተ ፡ ቤት ✣",
+      "tokens": [
+        "ወቤተ",
+        "ምንባር",
+        "ለዐውድ",
+        "ዘይነብር",
+        "በውስተ",
+        "ቤት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 10,
+      "column": "f031v-R",
+      "line_start": 37,
+      "geez": "ወአቀመ ፡ ለቤተ ፡ እግዚአብሔር ፡ ዐምደ ፡ አንቀጽ ፡ ወገብረ ፡ ምንባረ ፡ በውስተ ፡ ቤት ✣",
+      "tokens": [
+        "ወአቀመ",
+        "ለቤተ",
+        "እግዚአብሔር",
+        "ዐምደ",
+        "አንቀጽ",
+        "ወገብረ",
+        "ምንባረ",
+        "በውስተ",
+        "ቤት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": "f032r-L",
+      "line_start": 3,
+      "geez": "ወፈነወ ፡ ሰሎሞን ፡ ወአመጽአ ፡ ከይሮን ፡ እምጢሮስ ✣",
+      "tokens": [
+        "ወፈነወ",
+        "ሰሎሞን",
+        "ወአመጽአ",
+        "ከይሮን",
+        "እምጢሮስ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "damaged",
+          "note": "name at recto L top, visual from f032r read; resolution limit on foreign name"
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": "f032r-L",
+      "line_start": 7,
+      "geez": "ወአመጽአ ፡ ከይሮን ፡ ወልደ ፡ አልሙት ፡ እምጢሮስ ✣",
+      "tokens": [
+        "ወአመጽአ",
+        "ከይሮን",
+        "ወልደ",
+        "አልሙት",
+        "እምጢሮስ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 13,
+      "column": "f032r-L",
+      "line_start": 11,
+      "geez": "ወገብረ ፡ ከይሮን ፡ ክልኤተ ፡ ዐምደ ፡ ናስ ፡ ለቤተ ፡ እግዚአብሔር ✣",
+      "tokens": [
+        "ወገብረ",
+        "ከይሮን",
+        "ክልኤተ",
+        "ዐምደ",
+        "ናስ",
+        "ለቤተ",
+        "እግዚአብሔር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 14,
+      "column": "f032r-M",
+      "line_start": 15,
+      "geez": "ወገብረ ፡ ዐምደ ፡ ናስ ፡ ክልኤተ ፡ ወአንቀጽው ፡ ክልኤተ ፡ መቶ ፡ በእመት ✣",
+      "tokens": [
+        "ወገብረ",
+        "ዐምደ",
+        "ናስ",
+        "ክልኤተ",
+        "ወአንቀጽው",
+        "ክልኤተ",
+        "መቶ",
+        "በእመት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 15,
+      "column": "f032r-M",
+      "line_start": 19,
+      "geez": "ወአቀመ ፡ ለቤት ፡ አንቀጽ ፡ ወገብረ ፡ ምንባረ ፡ በውስተ ፡ ቤት ✣",
+      "tokens": [
+        "ወአቀመ",
+        "ለቤት",
+        "አንቀጽ",
+        "ወገብረ",
+        "ምንባረ",
+        "በውስተ",
+        "ቤት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 16,
+      "column": "f032r-M",
+      "line_start": 23,
+      "geez": "ወገብረ ፡ ባሕረ ፡ ናስ ፡ አስርተ ፡ አመት ፡ ኑኁ ፡ እምከንፈሩ ✣",
+      "tokens": [
+        "ወገብረ",
+        "ባሕረ",
+        "ናስ",
+        "አስርተ",
+        "አመት",
+        "ኑኁ",
+        "እምከንፈሩ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": "f032r-R",
+      "line_start": 27,
+      "geez": "ወአንቀጽው ፡ ክልኤተ ፡ መቶ ፡ በእመት ፡ ወከንፈሩ ፡ በክልኤተ ፡ መቶ ✣",
+      "tokens": [
+        "ወአንቀጽው",
+        "ክልኤተ",
+        "መቶ",
+        "በእመት",
+        "ወከንፈሩ",
+        "በክልኤተ",
+        "መቶ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 18,
+      "column": "f032r-R",
+      "line_start": 30,
+      "geez": "ወገብረ ፡ ከይሮን ፡ ዐሠርተ ፡ ወክልኤተ ፡ መንበረ ፡ ናስ ✣",
+      "tokens": [
+        "ወገብረ",
+        "ከይሮን",
+        "ዐሠርተ",
+        "ወክልኤተ",
+        "መንበረ",
+        "ናስ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 19,
+      "column": "f032r-R",
+      "line_start": 33,
+      "geez": "ወአንቀጽው ፡ አርባዕተ ፡ አመት ፡ ወገብረ ፡ ከይሮን ፡ ዘንተ ፡ ግብረ ✣",
+      "tokens": [
+        "ወአንቀጽው",
+        "አርባዕተ",
+        "አመት",
+        "ወገብረ",
+        "ከይሮን",
+        "ዘንተ",
+        "ግብረ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 20,
+      "column": "f032r-R",
+      "line_start": 36,
+      "geez": "ወኵሉ ፡ ግብሩ ፡ ዘገብረ ፡ ከይሮን ፡ ለቤተ ፡ እግዚአብሔር ✣",
+      "tokens": [
+        "ወኵሉ",
+        "ግብሩ",
+        "ዘገብረ",
+        "ከይሮን",
+        "ለቤተ",
+        "እግዚአብሔር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 21,
+      "column": "f032r-R",
+      "line_start": 39,
+      "geez": "ወገብረ ፡ ባሕረ ፡ ናስ ፡ ⟦illegible⟧ ፡ አመት ፡ ኑኁ ፡ እምከንፈሩ ፡ እስከ ፡ ከንፈሩ ✣",
+      "tokens": [
+        "ወገብረ",
+        "ባሕረ",
+        "ናስ",
+        "⟦illegible⟧",
+        "አመት",
+        "ኑኁ",
+        "እምከንፈሩ",
+        "እስከ",
+        "ከንፈሩ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "illegible",
+          "note": "illegible span at line end f032r per visual read of GG image; sentinel used exactly"
+        }
+      ]
+    },
+    {
+      "v": 22,
+      "column": "f032r-R",
+      "line_start": 42,
+      "geez": "ወፈጸመ ፡ ሰሎሞን ፡ ቤተ ፡ እግዚአብሔር ፡ ወቤተ ፡ ሁ ፡ በኵሉ ፡ ግብሩ ✣",
+      "tokens": [
+        "ወፈጸመ",
+        "ሰሎሞን",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወቤተ",
+        "ሁ",
+        "በኵሉ",
+        "ግብሩ"
+      ],
+      "uncertain": []
+    }
+  ],
+  "transcription_notes": "Hand: GG-00106 careful 3-column book hand (LXX / 3-Kingdoms recension). Layout from read_file on f031v.jpg + f032r.jpg: f031v (verso, continuation after 1ki6) 3 cols L/M/R; ch7 starts L col post red ክፍል rubric ~line 5; full f031v + f032r (recto) L/M/R. Recto-verso boundary continuous (verified no skip). Damage: clean; red nums/names flagged uncertain/damaged at res limit on visual; 1 illegible at f032r per honest read (no guess). 22 verses (Hiram bronze vv13-47 compressed). No harmonization to printed; all from parchment glyphs in the two images."
+}

@@ -52,6 +52,31 @@ _CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden
 _INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
 _DC_LANG_RE = re.compile(r"<dc:language>[^<]*</dc:language>")
 
+
+def _flatten_toc_pills(html: str) -> str:
+    """Rewrite every <ol class="...toc-chapters..."> (the visual chapter "pills" ToC)
+    to a <p class="toc-chapter-row"> containing the original <a> elements space-joined.
+    This guarantees horizontal flow of the pills on Amazon Kindle/KFX renderers
+    (which drop list-item display semantics, causing the raw <li display:inline-block>
+    pills to stack vertically one per line). Anchor hrefs, text, and the pill
+    appearance styles (on the <a>) are preserved exactly. Safe no-op if no such
+    blocks. Idempotent. Added for the production kindle_post path after the old
+    in-pipeline K-KIN-2 rewrite was retired with the dead --target-reader variant."""
+
+    def _repl(m: re.Match) -> str:
+        ol = m.group(0)
+        links = re.findall(r"(<a\b[^>]*>.*?</a>)", ol, flags=re.S | re.I)
+        if not links:
+            return ol
+        return f'<p class="toc-chapter-row">{" ".join(links)}</p>'
+
+    pat = re.compile(
+        r'<ol\b[^>]*class=["\'][^"\']*toc-chapters[^"\']*["\'][^>]*>.*?</ol>',
+        re.S | re.I,
+    )
+    return pat.sub(_repl, html)
+
+
 #: The single language a Send-to-Kindle artifact may declare (Amazon's E999
 #: trigger is a multi-valued ``dc:language``).
 KINDLE_LANGUAGE = "en-US"
@@ -125,9 +150,11 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
                 data[name] = text.encode("utf-8")
                 stats["css_hidden_stripped"] += n
         elif name.endswith(_DOC_SUFFIXES):
-            text, n_inline = strip_hidden_html(data[name].decode("utf-8"))
+            text = data[name].decode("utf-8")
+            text, n_inline = strip_hidden_html(text)
+            text = _flatten_toc_pills(text)
+            data[name] = text.encode("utf-8")
             if n_inline:
-                data[name] = text.encode("utf-8")
                 stats["inline_hidden_stripped"] += n_inline
 
     opf_text, lang_count = collapse_dc_language(data[opf_name].decode("utf-8"))
