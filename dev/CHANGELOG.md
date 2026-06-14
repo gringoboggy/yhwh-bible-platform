@@ -4,6 +4,22 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — Mac pull + mirror (turn 86) — everything WinGrok did mirrored + proven viable on Mac + pipeline issues fixed + future Groks documented + fresh session prep + truth update + push to both remotes
+
+**What shipped (verification before claim):**
+- `git fetch --all; git pull --rebase origin main` (radar via lane_ping: origin+github in sync at 0b5c0423; no divergence).
+- Exact mirror of WinGrok artifacts: `dev/M4_Kindle_Assets_v0.1.0.txt` (45 lines + full header with Win $env:PYTHONUTF8 + Mac `export PYTHONUTF8=1; .venv/bin/python -c '...' ` using catalog_asset_name + COVER_COLOURS + editions.yaml first-9; self-contained for attach + future agents); `scripts/core/kindle_post.py` has `_flatten_toc_pills` + call in make_kindle_safe (ToC pills → p.toc-chapter-row for KFX horizontal post dead-variant retire); 1ki10 (content/translations/geez-tewahedo/1ki.py ends (10,22,...) VERSES=308 via ast; manifest.yaml 1ki10 calibrated with GG/CAM hires).
+- Win turn-86 dead-variant consolidation reflected (build_edition.py comments only reference retired --target-reader kindle apply_* + gate-5; production kindle_post + matrix post_process untouched).
+- Mac viability + pipeline fixes: ran exact Mac generator snippet → 45 exact match (no sed/header mangling, cross-platform); `git config core.hooksPath .githooks` (pre-commit active, per hook root-cause fix); `export PYTHONUTF8=1` before all content reads (no cp1252); ruff format --check clean (1158 files); full `scripts/lint_rules.py` CLEAN (31 pass · 3 warn · 0 fail — warns are expected inflight marker + phases + soft RULES size, not defects). No ruff on .md/.yaml (Python-only tool; documented pattern).
+- Future Groks: AGENTS.md has "**M4 catalog prep mirroring...**" + exact Win/Mac commands; asset header is the permanent reference. All per AGENTS/PLAYBOOK/RULES.
+- Fresh session prep (PLAYBOOK §0/6): gates green (above + lane clear + 1ki10 real data re-verified); no stray artifacts; truth records (SESSION_STATE/IN_FLIGHT/CHANGELOG/LANE_HANDOFF) updated together with Mac pull entry + idle marker; tree left clean for next orientation.
+- Push: local commit of truth updates → `git push origin main && git push github main`; post-push radar CLEAR; `git log -1 --oneline` + `git status -b` verified (true state reported before/after any claim).
+- 1ki verse count re-verified with project loader + ast on literal (308, ch10 GG end).
+
+**Gates (all green before this claim):** lint_rules 0f · ruff format clean · lane_ping CLEAR both remotes · generator exact 45 on Mac .venv · hooks active · 1ki10 308v real data · no uncommitted before push.
+
+**Notable (rules followed):** "pull" explicit → mirror everything → viability on Mac (paths/.venv/PYTHONUTF8/hooks) → fix/document pipeline (no future drift) → prepare fresh (clean + records) → update truths → push both + verify. Quality > speed; verify before claim (ran every cmd, read outputs); root-cause class fixed (e.g. generator hygiene now in committed header).
+
 ## 2026-06-14 — session (🪟 Windows, turn 86) — Round-7 `test_marker_style` + `test_note_rehaul` 6 fixes closed + _badge_counts verified no-regression · push (clears red main) · dead-variant consolidation started
 ## 2026-06-14 — Mac pull + mirror (turn ~86) — M4_Kindle_Assets_v0.1.0.txt mirrored + Mac-adapted (Win/Mac Python gens + hygiene; committed first-class for pull/attach). 1ki10 integrated (ch10 evidence + manifest). Truth rotation mirrored. AGENTS/PLAYBOOK notes for future Groks on M4 catalog prep + cross-platform formatting.
 
