@@ -3,12 +3,16 @@
 > ## ⚠️ **IF YOU ARE A FRESH CLAUDE INSTANCE — STOP HERE AND READ THIS FIRST**
 >
 > This 1700-line handoff doc is no longer the canonical entry point.
+> **⚠ It also PRE-DATES the 2026-05-14 free-public pivot** — its retail / ISBN /
+> ONIX / store-distribution / KDP sections are OBSOLETE. The project is FREE and
+> non-commercial (no sale, no ISBN, no store); see `LICENSE`, `COPYRIGHT.md`, and
+> `dev/CLAUDE_PROJECT_RULES.md` §10. Treat anything commercial below as history.
 > The new bootstrap path is **3 short docs in `dev/`**:
 >
 > ```
 > 1. dev/CLAUDE_PROJECT_RULES.md   rules + conventions
 > 2. dev/SESSION_STATE.md          live state — what just shipped, what's next
-> 3. dev/PLAN_2026-05-07.md        master sequence with phase IDs
+> 3. dev/PLAN_2026-05-29-roadmap.md   master sequence (forward plan)
 > ```
 >
 > Read those three first (~700–900 lines combined). Most fresh
