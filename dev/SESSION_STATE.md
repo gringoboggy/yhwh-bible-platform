@@ -1,6 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-14 (LATEST, 🪟 Windows, turn 89 — ★★ M4 KINDLE COLUMN LIVE ON RELEASE + WEBSITE).** Pulled Mac turn 87-88; attached 45 Kindle EPUBs from `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\` to GitHub release `v0.1.0`; merged SHA256SUMS (141 lines); `gen_release_catalog` → **188 assets, live columns: everywhere/apple/kindle**; website deployed (`yhwh-website` `c8c87d5`). **M4 arc COMPLETE.** Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE idle.
+> **➤➤➤ 2026-06-14 (LATEST, 🪟 Windows, turn 90 — ★ v1.0.0 RELEASE PLAN ACTIVE).** User: program not ready for v1.0.0 without deep audit + all readers device-proven. **Authoritative plan:** `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` (parallel WIN/Mac tracks; §8 DoD gates tag). **Done since v0.1.0:** M4 Kindle catalog+site (turn 89). **Blocks tag:** audit round 8 · M3 Kobo (45 kepub + user taps) · M5 Play (phone QA) · full gate run · desktop re-cut. **WIN:** audit + orphan vnote gate. **Mac:** M3 fan-out + handoff. **User:** Kobo taps + Play phone QA. Post-tag → `dev/PLAN_2026-05-29-roadmap.md` LANE D/M/P/T. Baton **windows**; mode=parallel. TRACKER-STATE active.
+>
+> **➤➤➤ 2026-06-14 (🪟 Windows, turn 89 — ★★ M4 KINDLE COLUMN LIVE ON RELEASE + WEBSITE).** Pulled Mac turn 87-88; attached 45 Kindle EPUBs from `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\` to GitHub release `v0.1.0`; merged SHA256SUMS (141 lines); `gen_release_catalog` → **188 assets, live columns: everywhere/apple/kindle**; website deployed (`yhwh-website` `c8c87d5`). **M4 arc COMPLETE.** Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE idle.
 >
 > **➤➤➤ 2026-06-14 (🖥️ Mac, turn 87 — ★★ M4 KINDLE COLUMN LIVE ON DEVICE + handoff ready for WIN).** Mac built 45/45 M4 catalog EPUBs (gated green); copied to external drive `YHWH-v2.4-releases/m4-kindle-v0.1.0/`. **User STK spot-check 6/6 PASS** on diverse M4 variants (superset, smallest, cover-swaps, academic, orthodox) — Send-to-Kindle oracle satisfied; no further device gate before catalog attach. `dev/EREADERS.md` updated. **WIN NOW:** plug drive → attach 45 to v0.1.0 → merge SHA256SUMS → `gen_release_catalog` → deploy website. Truth triad + handoff pushed. Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE idle.
 >
@@ -18,7 +20,7 @@
 
 ## Next
 
-> **WIN — M4 DONE (catalog + site live).** **M3** Kobo column (user taps pending) · **M5** Play Books · v1.0.0 laundry (stale `HANDOFF_README_v7.md` rewrite) · turn-87 Grok/ping tooling from stash. **CONTENT:** Phase D1b Esther (~p35). **Mac:** idle.
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** WIN: audit round 8 · orphan vnote gate · push turn 89 · M5 Play staging · docs. Mac: M3 Kobo 45-artifact fan-out + handoff · audit Mac-fixes · DMG prep. User: Kobo tap round · Play Books phone QA. **No tag until plan §8 complete.** Post-tag: master roadmap LANE D/M/P/T.
 
 ## Inventory pointers
 

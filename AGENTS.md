@@ -76,6 +76,24 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
   120), **mypy** (typed surface only), **pytest**. Kobo artifact via **kepubify (pinned
   v4.0.4)**. The only Node step is the public site: `website/build.mjs`.
 
+## v1.0.0 release gate (ACTIVE — both lanes)
+
+The program is **not** ready to cut tag `v1.0.0` until the release plan's Definition of Done is
+complete. On every fresh session (after lane ping / handoff): read
+[`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`](docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md)
+and your task line in `dev/LANE_HANDOFF.md`. Summary pointer also in
+[`dev/PLAN_2026-05-29-roadmap.md`](dev/PLAN_2026-05-29-roadmap.md) §LANE V.
+
+**Done (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live.
+**Blocks tag:** deep audit round 8 · M3 Kobo (45 kepub + user taps) · M5 Play (phone QA) · full
+gates · desktop binaries re-cut at tag.
+
+**WIN typical tasks:** audit round 8 · orphan vnote gate · catalog attach · docs · push.
+**Mac typical tasks:** M3 `build_format_matrix --phase M3` · external handoff · DMG prep · audit fixes.
+**User tasks:** Kobo tap round · Play Books upload on phone · run tag command when §8 is green.
+
+Post-tag full-project completion resumes `dev/PLAN_2026-05-29-roadmap.md` (LANE D/M/P/T).
+
 ## Repository layout
 
 | Path | What |

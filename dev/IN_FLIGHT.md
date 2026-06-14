@@ -1,7 +1,9 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
+> **▶ 2026-06-14 (🪟 Windows, turn 90 — ★ v1.0.0 RELEASE PLAN ACTIVE).** Plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`. Parallel tracks: A audit round 8 · B M3 Kobo · C M5 Play · D docs · E content (opportunistic). M4 DONE (turn 89). Tag blocked until §8 DoD. WIN: audit + orphan gate. Mac: M3 fan-out. User: device QA rounds. Baton **windows**; mode=parallel.
+>
 > **▶ ✅ 2026-06-14 (🪟 Windows, turn 89 — ★ M4 CATALOG + WEBSITE LIVE).** Attached 45 Kindle EPUBs to v0.1.0 release; merged SHA256SUMS; `gen_release_catalog` → live columns everywhere/apple/kindle (188 assets); website deployed (`yhwh-website` c8c87d5). **M4 arc COMPLETE.** Baton **windows** (truth_owner); mode=parallel.
 >
 > **▶ ✅ 2026-06-14 (🖥️ Mac, turn 87 — ★ M4 LIVE ON DEVICE + WIN handoff ready).** 45/45 M4 fan-out built+gated; external drive handoff complete. **User STK 6/6 PASS** (ethiopian-tewahedo superset, jewish-study, catholic-study brown, evangelical-reformed, scholarly-academic, eastern-orthodox). EREADERS + truth triad updated; pushed for WIN attach/deploy. Baton **windows** (truth_owner); mode=parallel.

@@ -15,6 +15,29 @@
 
 ---
 
+## LANE V — v1.0.0 release gate (ACTIVE — blocks tag until done)
+
+> **Authoritative plan:** `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`
+> (both lanes: read on every `/resume`; parallel tracks in §4; Definition of Done in §8).
+>
+> **Status 2026-06-14:** M1/M2/M4 catalog columns LIVE on v0.1.0; **M3 Kobo + M5 Play
+> NOT LIVE**; deep audit round 8 **not yet run** on post-M4 tree. **Do not cut tag
+> `v1.0.0`** until the plan's §8 checklist is complete.
+>
+> **WIN now:** audit round 8 · orphan vnote gate (4j) · docs hygiene · catalog attach when
+> Mac hands M3/M5 artifacts.
+>
+> **Mac now:** pull + ACK plan · M3 Kobo 45-artifact fan-out + external handoff · Mac-owned
+> audit fixes · DMG tag-time prep.
+>
+> **User now:** Kobo tap round (when Mac stages M3) · Play Books phone QA (when WIN stages
+> artifact).
+>
+> Everything in LANE D/M/P/T below is **post-v1.0.0** unless the user explicitly pulls it
+> forward.
+
+---
+
 ## The dependency model (own-versification design §4 — load-bearing)
 
 The standalone Ge'ez Bible **render pipeline already exists and is not gated on

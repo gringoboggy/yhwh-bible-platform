@@ -1,14 +1,24 @@
 ---
 mode: parallel
-turn: 89
+turn: 90
 from: windows
-updated: 2026-06-14T19:22:00Z
+updated: 2026-06-14T20:00:00Z
 status: working
-mac: ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle.
-windows: ✔ turn 89 (Windows) — ★ M4 CATALOG COLUMN SHIPPED: 45 EPUBs attached to v0.1.0 + SHA256SUMS merged (141 lines) + gen_release_catalog (188 assets; live: everywhere/apple/kindle) + website deployed (yhwh-website c8c87d5).
+mac: ▶ turn 90 (Mac) — v1.0.0 PLAN ACTIVE: pull + ACK `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` · then Track B M3 Kobo fan-out (45 kepub) + external handoff · Track A audit-fix review · DMG prep.
+windows: ▶ turn 90 (Windows) — v1.0.0 PLAN ACTIVE (author): audit round 8 + orphan vnote gate (4j) + docs hygiene + push turn 89 · catalog attach when Mac hands M3/M5.
 truth_owner: windows
 holder: windows
 ---
+
+**★ PLAN POINTER (STANDING — both lanes, every session):** The v1.0.0 release gate plan lives at
+`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`. Also mirrored in `dev/PLAN_2026-05-29-roadmap.md`
+§LANE V. **No v1.0.0 tag until §8 Definition of Done is complete.** M4 DONE; M3+M5+audit block tag.
+
+**★▶ WIN addendum (2026-06-14, turn 90) — v1.0.0 RELEASE PLAN authored + lane assignments set.**
+User directive: program not v1.0.0-ready without deep audit + all readers proven. Plan covers:
+parallel tracks (audit · Kobo M3 · Play M5 · docs · content-opportunistic), phase map P0–P8,
+Definition of Done checklist, post-tag pointer to master roadmap. Mac: pull this turn, ACK, start M3.
+WIN: audit round 8 + B1 orphan gate. User: Kobo taps + Play phone QA when staged.
 
 **★▶ WIN addendum (2026-06-14, turn 89) — ★ M4 KINDLE COLUMN LIVE ON WEBSITE + RELEASE.**
 ① Pulled Mac turn 87-88 (`8a377c44`); picked up 45 EPUBs from `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\`.

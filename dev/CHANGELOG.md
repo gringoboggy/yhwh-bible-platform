@@ -4,6 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — Windows session (turn 90) — ★ v1.0.0 RELEASE PLAN (parallel WIN/Mac tracks)
+
+**What shipped:**
+- **Authoritative v1.0.0 gate plan:** `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` — phase map, parallel tracks (audit · Kobo M3 · Play M5 · docs), Definition of Done §8 (blocks tag), post-tag pointer to master roadmap.
+- **Coordination wired:** `dev/PLAN_2026-05-29-roadmap.md` §LANE V · `AGENTS.md` fresh-session pointer · `LANE_HANDOFF` turn 90 assignments · truth triad updated.
+- **Honest verdict:** not v1.0.0-ready — audit round 8 + M3 + M5 + full gates required.
+
+**WIN next:** audit round 8 · orphan vnote gate. **Mac next:** pull + ACK · M3 fan-out. **User:** Kobo taps · Play phone QA.
+
 ## 2026-06-14 — Windows session (turn 89) — ★ M4 KINDLE COLUMN LIVE ON RELEASE + WEBSITE
 
 **What shipped:**
