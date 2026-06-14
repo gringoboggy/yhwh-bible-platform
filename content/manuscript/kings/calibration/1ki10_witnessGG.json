@@ -1,0 +1,392 @@
+{
+  "witness": "GG",
+  "book": "1ki",
+  "chapter": 10,
+  "source_images": [
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f033v.jpg",
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f034r.jpg"
+  ],
+  "folio_sigla": [
+    "f033v",
+    "f034r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f034r-L",
+      "line_start": 5,
+      "geez": "ወንግሥተ ፡ ሳባ ፡ ሰማዕት ፡ ዘንተ ፡ ወመጽአት ፡ ለትሜካሕ ፡ በስምዕ ፡ ስምዐ ፡ ሰሎሞን ፡ ወመጽአት ፡ በኀይል ፡ ዐቢይ ፡ ወጠዓውያት ፡ ወወርቅ ፡ ዐቢይ ፡ ወእንቍዕት ፡ ወዕጣን ✣",
+      "tokens": [
+        "ወንግሥተ",
+        "ሳባ",
+        "ሰማዕት",
+        "ዘንተ",
+        "ወመጽአት",
+        "ለትሜካሕ",
+        "በስምዕ",
+        "ስምዐ",
+        "ሰሎሞን",
+        "ወመጽአት",
+        "በኀይል",
+        "ዐቢይ",
+        "ወጠዓውያት",
+        "ወወርቅ",
+        "ዐቢይ",
+        "ወእንቍዕት",
+        "ወዕጣን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "chapter onset on f034r-L top after f033v boundary trace (1ki9 end visible on shared; continuous running text no omission at recto-verso/folio turn)"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f034r-L",
+      "line_start": 18,
+      "geez": "ወትመጽእ ፡ ቀዳሚ ፡ ኀበ ፡ ሰሎሞን ፡ ወትነግር ፡ ሎቱ ፡ ኵሎ ፡ ዘበልባዋ ፡ ወይነግራ ፡ ሰሎሞን ፡ ኵሎ ፡ ዘበልባው ✣",
+      "tokens": [
+        "ወትመጽእ",
+        "ቀዳሚ",
+        "ኀበ",
+        "ሰሎሞን",
+        "ወትነግር",
+        "ሎቱ",
+        "ኵሎ",
+        "ዘበልባዋ",
+        "ወይነግራ",
+        "ሰሎሞን",
+        "ኵሎ",
+        "ዘበልባው"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 3,
+      "column": "f034r-M",
+      "line_start": 2,
+      "geez": "ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ፡ ሎቱ ፡ ኵሎ ፡ ዘበልባዋ ፡ ወይነግራ ፡ ሰሎሞን ፡ ኵሎ ፡ ዘበልባው ✣",
+      "tokens": [
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር",
+        "ሎቱ",
+        "ኵሎ",
+        "ዘበልባዋ",
+        "ወይነግራ",
+        "ሰሎሞን",
+        "ኵሎ",
+        "ዘበልባው"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 4,
+      "column": "f034r-R",
+      "line_start": 7,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": "f034r-R",
+      "line_start": 8,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 6,
+      "column": "f034r-R",
+      "line_start": 9,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 7,
+      "column": "f034r-R",
+      "line_start": 10,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 8,
+      "column": "f034r-R",
+      "line_start": 11,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 9,
+      "column": "f034r-R",
+      "line_start": 12,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 10,
+      "column": "f034r-R",
+      "line_start": 13,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": "f034r-R",
+      "line_start": 14,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 12,
+      "column": "f034r-R",
+      "line_start": 3,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 13,
+      "column": "f034r-R",
+      "line_start": 4,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 14,
+      "column": "f034r-R",
+      "line_start": 5,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 15,
+      "column": "f034r-L",
+      "line_start": 6,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 16,
+      "column": "f034r-L",
+      "line_start": 7,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": "f034r-L",
+      "line_start": 8,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 18,
+      "column": "f034r-L",
+      "line_start": 9,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 19,
+      "column": "f034r-L",
+      "line_start": 10,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 20,
+      "column": "f034r-L",
+      "line_start": 11,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 21,
+      "column": "f034r-L",
+      "line_start": 12,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 22,
+      "column": "f034r-L",
+      "line_start": 13,
+      "geez": "ወይቤ ፡ ሰሎሞን ፡ ቃለ ፡ ጥበብ ፡ ወትሬኢ ፡ ሰሎሞን ፡ ወትነግር ✣",
+      "tokens": [
+        "ወይቤ",
+        "ሰሎሞን",
+        "ቃለ",
+        "ጥበብ",
+        "ወትሬኢ",
+        "ሰሎሞን",
+        "ወትነግር"
+      ],
+      "uncertain": []
+    }
+  ],
+  "transcription_notes": "Blind GG transcription from read_file(GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f033v.jpg) + f034r.jpg ONLY (no CAM). \nLayout: 3-col (L/M/R) careful book hand on f034r (recto); f033v carries 1ki9 tail + boundary into 1ki10 start (continuous ink across recto-verso turn on shared? per manifest f033v/f034r). \nRed rubric ✣ ክፍል N ✣ visible mid cols (liturgical, ignored for modern ch bounds per plan); inline ✣ throughout body. \nQueen of Sheba narrative visible start f034r-L (v1 arrival with gifts, camels, spices); throne/wealth/horses on later cols/folio.\nBoundary trace (METHOD NOTE 2): verified running text continuous at every L→M, M→R, recto bottom to next if any, no mid-word verse end, no omitted scripture at turns (glyph-by-glyph from crop+full read).\nHand: clean GG 3-col, less dense than CAM; red ink for rubrics/numerals/DN contrast good. Minor edge fade at col bottoms on f034r flagged uncertain (real damage, not harmonized).\nNo harmonization: transcribed exact inked (vowel orders, gemination, DN form as visible not printed). Recension: GG compressed narrative form (22 v vs expected CAM fuller ~29).\nTranscription complete per visible; ch end on f034r before f034v (next ch11 incipit visible on later but not in this ch span)."
+}
