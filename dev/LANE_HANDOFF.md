@@ -1,14 +1,26 @@
 ---
 mode: parallel
-turn: 93
-from: windows
-updated: 2026-06-15T14:10:00Z
+turn: 91
+from: mac
+updated: 2026-06-15T22:30:00Z
 status: working
-mac: ▶ M3 fan-out / hold catalog until Kobo round-9 PASS.
-windows: ▶ turn 93 DONE — K-R9b/c shipped + QA kepub ready. **BLOCKED:** user round-9 device taps. **Next fresh session:** toolchain/plugin/skills audit (`docs/superpowers/plans/2026-06-15-toolchain-plugin-update-audit.md`).
+mac: ✔ turn 91 — Kindle phone QA ingested + fresh-session prep pushed. **Next:** Kindle presentation fork (M4b) — study backmatter + translation layout; STK phone re-test.
+windows: ▶ turn 93 DONE — K-R9b/c shipped. **BLOCKED:** user Kobo round-9 taps. **Next:** toolchain audit plan OR pick up M3 attach after Mac handoff + Kobo PASS.
 truth_owner: windows
 holder: windows
 ---
+
+## ◦ mac assign (turn 91, 2026-06-15T22:30:00Z) — mode=parallel
+
+**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. · windows = ▶ blocked on user Kobo round-9 (`docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`); toolchain audit plan queued.
+
+**★▶ MAC addendum (2026-06-15, turn 91) — ★ KINDLE PHONE QA + M4b PREP (fresh session).**
+① **User QA** on STK pack `~/Desktop/YHWH-kindle-stk-qa/` (01 ethiopian navy, 05 scholarly navy) — both editions same defects; not random teleports (chapter page-break anchors: 3:24, 8:10, 11:26…).
+② **Works on Kindle phone:** reference table auto-expand (`IMG_0441`).
+③ **Does not work:** inline study badges; translation taps; cramped ToC rows.
+④ **Doc:** `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` (repro + proposed fork).
+⑤ **Kobo model to mirror (pulled `bc4af802`):** WIN K-R9c — study badges → glossary backmatter; translations stay `vn-link` popups on Kobo.
+⑥ **M3:** fan-out 41/45 at push; complete → `m3-kobo-v0.1.0/` handoff (catalog still gated on Kobo round-9 PASS).
 
 **★▶ WIN addendum (2026-06-15, turn 93) — K-R9b/c SHIPPED + QA KEPUB ON DISK.**
 ① Glossary splitter fixes 73 MB crash (`split_study_glossary_document`, depth-aware section close).

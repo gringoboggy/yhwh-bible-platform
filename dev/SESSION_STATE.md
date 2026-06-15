@@ -1,5 +1,7 @@
 # Session state — current snapshot
 
+> **➤➤➤ 2026-06-15 (🖥️ Mac, turn 91 — ★ KINDLE PHONE QA INGESTED + FRESH-SESSION PREP PUSHED).** User phone QA on M4 STK pack (`~/Desktop/YHWH-kindle-stk-qa/`, 01 navy + 05 scholarly): badge taps align to **chapter page-break anchors** (3:24→8:10→11:26…); translation badges inert; ToC cramped; reference tables OK. Doc: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Next Mac session:** Kindle presentation fork (M4b) — study → backmatter (mirror WIN K-R9c); per-verse translation trial; STK re-gate. M3 fan-out 41/45 at push. Pulled WIN `bc4af802`. Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE active.
+>
 > **➤➤➤ 2026-06-15 (🪟 Windows, turn 93 — ★ K-R9b/c SHIPPED + QA KEPUB READY).** Round-9 crash root cause: 73 MB `index_split_900.html` (naive `</section>` on nested `vn-group`). **Shipped K-R9b:** `split_study_glossary_document` → 107 pieces, nested Study Notes ToC. **Shipped K-R9c:** per-category coloured study badges (glyph+hue) → navigate to matching glossary section (no `noteref`). QA build: `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-15T135228Z.kepub.epub` — forensics + `verify_study_backmatter` PASS. **BLOCKED on user:** round-9 device taps (`docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`). **Next fresh session:** toolchain/plugin audit plan (`docs/superpowers/plans/2026-06-15-toolchain-plugin-update-audit.md`). Baton **windows**; mode=parallel. TRACKER-STATE active.
 >
 > **➤➤➤ 2026-06-15 (🪟 Windows, turn 92 — ★ K-R8 INGESTED + K-R7-2e SHIPPED).** Round-8 device QA (`kobo_img/1–6.jpg`): K-R7-2d **structural pass** — mid-badges pop; s7/singleton **jump to correct inline note** (not chapter teleport); inline Commentary blocks visible (user loves layout, fears page count). **Shipped K-R7-2e:** default **popup mode** (DOM-order anchors CSS-hidden) vs opt-in `reader_eink_study_inline`; **K-R7-4b** eyebrow span split; font **deselect/re-select Cardo** doc. **Next gate:** rebuild QA kepub (popup default) → user re-tap + BOOKI check. **Mac:** M3 hold until popup-mode QA. Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE active.
@@ -14,7 +16,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** WIN: audit round 8 · orphan vnote gate · push turn 89 · M5 Play staging · docs. Mac: M3 Kobo 45-artifact fan-out + handoff · audit Mac-fixes · DMG prep. User: Kobo tap round · Play Books phone QA. **No tag until plan §8 complete.** Post-tag: master roadmap LANE D/M/P/T.
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Mac next:** Kindle presentation fork (M4b) per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` · finish M3 fan-out + handoff. **WIN:** Kobo round-9 user taps · toolchain audit · M3 attach after Kobo PASS. **User:** Kobo round-9 taps · Kindle STK re-test when M4b ships · Play phone QA. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

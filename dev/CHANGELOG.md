@@ -4,6 +4,23 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-15 — Mac session (turn 91) — ★ KINDLE PHONE QA INGESTED + FRESH-SESSION PREP
+
+**What shipped (docs only — no build/code):**
+- **`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`** — phone QA on M4 STK
+  pack (`~/Desktop/YHWH-kindle-stk-qa/`): #01 ethiopian navy + #05 scholarly navy; same defects.
+  Key finding: badge taps are **not random** — they land on chapter-last verses at forced page
+  breaks (Gen 3:24 → 8:10 → 11:26…). Translation `vn-link` badges inert; reference tables
+  Kindle auto-expand works. Proposed **Kindle presentation fork** (study → backmatter like WIN
+  K-R9c; translations per-verse trial; STK re-gate).
+- **Truth triad** rotated (SESSION_STATE · IN_FLIGHT · LANE_HANDOFF turn 91 Mac assign).
+- **Pulled** WIN turn 92–93 (`bc4af802`: K-R7–K9 Kobo study glossary + popup mode).
+
+**In flight:** M3 fan-out 41/45 (`build/m3_fanout.sh` → `build/matrix-m3/`).
+
+**Mac next session:** Kindle presentation fork design + TDD implementation. **User:** Kobo
+round-9 taps (WIN QA kepub) · Kindle fork STK re-test when Mac ships.
+
 ## 2026-06-15 — Windows session (turn 93) — ★ K-R9b/c STUDY GLOSSARY + CATEGORY BADGES
 
 **Round-9 crash fix (K-R9b):** `split_study_glossary_document` — depth-aware parse of
