@@ -4,15 +4,15 @@ turn: 91
 from: mac
 updated: 2026-06-15T22:30:00Z
 status: working
-mac: ✔ turn 91 — Kindle phone QA ingested + fresh-session prep pushed. **Next:** Kindle presentation fork (M4b) — study backmatter + translation layout; STK phone re-test.
-windows: ▶ turn 93 DONE — K-R9b/c shipped. **BLOCKED:** user Kobo round-9 taps. **Next:** toolchain audit plan OR pick up M3 attach after Mac handoff + Kobo PASS.
+mac: ✔ turn 91 — Kindle phone QA ingested + fresh-session prep pushed. **Next:** M4b Kindle fork → STK re-test → **then M2 Apple build/QA prep** (user tests Apple on device).
+windows: ▶ turn 93 DONE — K-R9b/c shipped. **BLOCKED:** user Kobo round-9 taps. **After M4b green:** **M5 Play Books** build/QA prep (user tests Play on phone).
 truth_owner: windows
 holder: windows
 ---
 
 ## ◦ mac assign (turn 91, 2026-06-15T22:30:00Z) — mode=parallel
 
-**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. · windows = ▶ blocked on user Kobo round-9 (`docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`); toolchain audit plan queued.
+**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. **Then (user directive):** Mac → **M2 Apple** column work; **user** device-tests Apple. · windows = ▶ blocked on user Kobo round-9 (`docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`). **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
 
 **★▶ MAC addendum (2026-06-15, turn 91) — ★ KINDLE PHONE QA + M4b PREP (fresh session).**
 ① **User QA** on STK pack `~/Desktop/YHWH-kindle-stk-qa/` (01 ethiopian navy, 05 scholarly navy) — both editions same defects; not random teleports (chapter page-break anchors: 3:24, 8:10, 11:26…).

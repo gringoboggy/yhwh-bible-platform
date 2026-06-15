@@ -16,7 +16,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Mac next:** Kindle presentation fork (M4b) per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` · finish M3 fan-out + handoff. **WIN:** Kobo round-9 user taps · toolchain audit · M3 attach after Kobo PASS. **User:** Kobo round-9 taps · Kindle STK re-test when M4b ships · Play phone QA. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Device-QA queue (user 2026-06-15):** ① Mac **M4b Kindle** → user STK re-test · ② Mac **M2 Apple** → user tests Apple · ③ WIN **M5 Play Books** → user tests Play on phone. Parallel: M3 fan-out/handoff · Kobo round-9 taps. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

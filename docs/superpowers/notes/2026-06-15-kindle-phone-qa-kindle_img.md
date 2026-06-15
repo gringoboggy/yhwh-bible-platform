@@ -121,6 +121,9 @@ Phone QA proves inline `noteref` taps **collapse to chapter page-break anchors**
 **Artifacts for repro:** `~/Desktop/YHWH-kindle-stk-qa/` (01 navy + 05 scholarly; SHA256 =
 `build/matrix/`). Screenshots: `~/Desktop/kindle_img/`.
 
+**After M4b STK green (user device-QA queue):** Mac → **M2 Apple** (build/QA prep; user
+tests Apple) · WIN → **M5 Play Books** (build/QA prep; user tests Play Books on phone).
+
 ## Deferred triage (completed / folded above)
 
 - Edition confirmed: #01 ethiopian navy (`b86a0867…`); scholarly #05 same issues.
