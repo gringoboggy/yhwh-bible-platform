@@ -568,6 +568,10 @@ function renderEditions() {
               <input type="checkbox" data-field="reader_eink_verse_lines" ${e.reader_eink_verse_lines ? 'checked' : ''}>
               <span>One verse per line <span class="text-slate-400">(Kobo — off = normal flowing paragraphs like other readers)</span></span>
             </label>
+            <label class="text-xs flex items-center gap-2 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
+              <input type="checkbox" data-field="reader_eink_study_inline" ${e.reader_eink_study_inline ? 'checked' : ''}>
+              <span>Full inline study notes <span class="text-slate-400">(Kobo — off = compact popups; on = Commentary blocks in the page, much longer book)</span></span>
+            </label>
             <p class="text-xs text-slate-500 md:col-span-2 italic">
               Chapter heading and Contents changes apply on the next BUILD.
             </p>

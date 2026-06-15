@@ -17,7 +17,7 @@
 | Reader | We ship | `target_reader` | Popup footnotes | Collapsible ToC (`<details>`) | Embedded fonts | Page-break CSS | Status (date) |
 |---|---|---|---|---|---|---|---|
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
-| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops ONLY in kepub; cap-split units mostly pop (K-R6-2: a non-size factor or tap geometry on 2 of gen 1:1's 3 — taps pending) | ❌ flat (KOReader/crengine by design) | ✅ in book; preview dialog = reading font + **`dc:language`-keyed fallback — PROVEN round-6** (Publisher Default renders Heb/Grc/**Ar**/Geʽez with the OPF block restored; per-span lang never reaches the tag-stripped preview) | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-6 2026-06-11: ★K-R5-6 restore PROVEN on-device; clamp HOLDS; `\n` seps collapsed → U+2028 (K-R6-3); "BOOKII" eyebrow space quirk (K-R6-4, pre-existing) |
+| **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops in kepub; K-R7-2d fixes forward-scan (round-8: mid-badges pop; terminal → jump-to-note). Default **popup mode** (`reader_eink_study_inline` off); opt-in **inline study** for full Commentary blocks | ❌ flat (KOReader/crengine by design) | ✅ in book; preview = reading font + `dc:language` fallbacks — **refresh:** deselect/re-select Cardo in Font face if scripts tofu after sideload | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | Round-8 2026-06-15: K-R7-2d/2e structural pass; K-R7-4b eyebrow span fix **pending device**; M3 catalog **hold** until popup-mode re-QA |
 | **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (`display:none` stripped) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | **M4 LIVE** — 6/6 STK spot-check PASS (2026-06-14) + 45 catalog EPUBs on v0.1.0 release + website Downloads matrix (turn 89 WIN deploy) |
 | **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
@@ -66,6 +66,14 @@
   K-R5-1). **QA swaps now REUSE the on-device filename.**
 - **Mitigation for popup fonts:** the **font-pack add-on** (`dist/yhwh-kobo-font-pack.zip`,
   OFL ttf ×5 → device `fonts/` folder; user selects e.g. Cardo as reading font).
+- **Popup script refresh (device quirk, round-8):** after sideloading a new build — or when
+  translation popups suddenly show hollow boxes / missing Hebrew, Greek, Arabic, or Geʽez —
+  Kobo can "forget" the reading-font + `dc:language` fallback chain even though the pack
+  is still installed. **Fix while reading:** tap centre → **Aa** → **Font face** → switch
+  **away** from Cardo (e.g. Publisher Default) → open **Font face** again → **re-select
+  Cardo**. No USB reinstall needed; one deselect/re-select cycle usually restores popup
+  scripts. Same trick after any new `.kepub.epub` upload if languages look fine in body
+  text but not in the Footnote preview.
 - **Page breaks:** Kobo's own epub spec lists **N for all 12 page-break properties
   on e-ink kepub** (decade-persistent; `notes/2026-06-09-kepub-pagebreak-research.md`).
   A NEW SPINE FILE is the only guaranteed break → `apply_file_split` forces

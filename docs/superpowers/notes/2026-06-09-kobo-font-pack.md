@@ -85,9 +85,14 @@ often lacks these alphabets (you’ll see hollow boxes). The free
     <em>Aa</em> (text) settings → <em>Font face</em> → choose
     <strong>Cardo</strong>. The ancient-language pop-ups now use it too.</li>
 </ol>
+<p class="callout"><strong>Troubleshooting.</strong> If translation pop-ups later show hollow boxes
+  (Hebrew, Greek, Geʽez, Arabic) — common after sideloading a new build — deselect Cardo in
+  <em>Font face</em>, pick another font briefly, then re-select Cardo. Kobo forgets the script
+  fallbacks; one deselect/re-select while reading fixes it without recopying the pack.</p>
 ```
 
-Plain-text twin of the same steps goes in the pack's `README.txt`.
+Plain-text twin of the same steps goes in the pack's `README.txt` (includes the
+deselect/re-select troubleshooting paragraph).
 
 ## 4. Open gates before shipping
 

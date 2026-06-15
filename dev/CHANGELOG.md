@@ -4,6 +4,25 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-15 — Windows session (turn 92) — ★ K-R8 DEVICE QA + K-R7-2e DUAL LAYOUT
+
+**Round-8 ingested** (`docs/superpowers/notes/2026-06-15-kobo-round8-device-qa.md`):
+K-R7-2d forward-scan fix confirmed on device; mid-badges pop; terminal badges jump
+to correct inline note; full Commentary/Cross-ref blocks visible (page-count concern).
+
+**What shipped:**
+- **K-R7-2e** — `reader_eink_study_inline` (default off): popup mode keeps
+  document-order anchors but CSS-hides them (`verse-notes--eink-anchor`); opt-in on
+  = round-8 visible inline study blocks. Wired wizard/customize/API/schema.
+- **K-R7-4b** — eyebrow split `<span class="eyebrow-book">` / `eyebrow-num` + eink
+  margin (K-R6-4 nbsp insufficient for BOOKI on kepub).
+- **K-R8-5 docs** — deselect/re-select Cardo in Font face when popup scripts tofu
+  after sideload (`EREADERS.md`, `how-to-use.html`, font-pack README).
+
+**Prior turn (91):** `e498fdd5` K-R7-2d inline asides + eink toggles (pushed).
+
+**Next:** popup-mode QA rebuild on `G:\` → user device re-tap → M3 re-fan if green.
+
 ## 2026-06-14 — Mac session (turn 90) — ★ M3 KOBO PIPELINE + FAN-OUT STARTED
 
 **What shipped:**

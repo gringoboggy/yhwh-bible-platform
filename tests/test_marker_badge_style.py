@@ -159,11 +159,12 @@ class TestEmitter:
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink"})
         text = (tmp / fname).read_text(encoding="utf-8")
         m = re.search(
-            r'(vbadge-gen-1-12-s1[^>]*>.*?</a>.*?<aside class="verse-notes" id="vnotes-gen-1-12-s1")',
+            r'(vbadge-gen-1-12-s1[^>]*>.*?</a>.*?<aside class="verse-notes(?: verse-notes--eink-anchor)?" id="vnotes-gen-1-12-s1")',
             text,
             re.DOTALL,
         )
         assert m, "eink study aside must sit inline immediately after its badge"
+        assert "verse-notes--eink-anchor" in text, "popup mode (default) hides inline anchors"
         assert text.count('id="vnotes-gen-1-12-s1"') == 1
         aside_close = text.find("</aside>", m.end())
         assert aside_close != -1
@@ -194,6 +195,47 @@ class TestEmitter:
         text = (tmp / fname).read_text(encoding="utf-8")
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
         assert sups and all(s.startswith("◈") for s in sups), "non-eink badges keep ◈+count"
+
+
+class TestReaderEinkStudyInline:
+    def test_resolver_defaults_off(self):
+        from scripts.build_edition import resolve_reader_eink_study_inline
+
+        assert resolve_reader_eink_study_inline({}) is False
+        assert resolve_reader_eink_study_inline({"target_reader": "eink"}) is False
+        assert resolve_reader_eink_study_inline({"target_reader": "tablet", "reader_eink_study_inline": True}) is False
+
+    def test_study_inline_drops_anchor_hide_class(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, fname = TestEmitter()._badge_tree(tmp_path)
+        apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_inline": True},
+        )
+        text = (tmp / fname).read_text(encoding="utf-8")
+        assert "verse-notes--eink-anchor" not in text
+        assert 'class="verse-notes" id="vnotes-' in text
+
+    def test_eink_reader_css_appends_on_eink_only(self):
+        from scripts.build_edition import apply_eink_reader_css
+
+        out = apply_eink_reader_css("BASE", {"target_reader": "eink"})
+        assert "verse-notes--eink-anchor" in out and "eyebrow-book" in out
+        assert apply_eink_reader_css("BASE", {"target_reader": "tablet"}) == "BASE"
+
+    def test_customize_wiring(self):
+        from scripts.api.editions import EDITABLE_BOOL_FIELDS
+
+        src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
+        assert 'data-field="reader_eink_study_inline"' in src
+        assert "reader_eink_study_inline" in EDITABLE_BOOL_FIELDS
+
+    def test_wizard_surfaces_study_inline_pick(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        assert 'id="w-eink-study-inline"' in WIZARD_HTML
+        assert "reader_eink_study_inline:" in WIZARD_HTML
 
 
 class TestReaderEinkVerseLines:

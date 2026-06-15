@@ -127,6 +127,8 @@ EDITABLE_BOOL_FIELDS: frozenset[str] = frozenset(
         "enable_ai_notes",
         # K-R7-3 — eink/Kobo: one verse per line (opt-in; default flowing prose).
         "reader_eink_verse_lines",
+        # K-R7-2e — eink/Kobo: full inline study blocks (opt-in; default popup mode).
+        "reader_eink_study_inline",
     }
 )
 # Scalars the clone writer handles specially: title is replaced by the

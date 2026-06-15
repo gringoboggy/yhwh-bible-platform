@@ -2195,6 +2195,35 @@ def resolve_reader_eink_verse_lines(edition: dict) -> bool:
     return bool(edition.get("reader_eink_verse_lines", False))
 
 
+def resolve_reader_eink_study_inline(edition: dict) -> bool:
+    """Whether eink study notes render as full inline blocks (K-R7-2e).
+
+    Default **off** (popup mode): merged ``verse-notes`` asides stay in
+    document order after their badge (K-R7-2d forward-scan fix) but CSS-hide
+    so reading flow stays compact — badges pop or navigate to the anchor.
+    Opt-in **on**: the visible Commentary / Cross-references blocks from
+    round-8 device QA (much longer page count). No-op on non-eink."""
+    if resolve_target_reader(edition) != "eink":
+        return False
+    return bool(edition.get("reader_eink_study_inline", False))
+
+
+_EINK_READER_CSS = (
+    "\n/* === Kobo eink reader overrides === */\n"
+    "/* K-R7-2e popup mode: DOM-order anchors without bloating the page */\n"
+    "aside.verse-notes.verse-notes--eink-anchor { display: none; }\n"
+    "/* K-R7-4b: small-caps+letter-spacing eats BOOK↔numeral gap on kepub */\n"
+    ".bookpage-eyebrow .eyebrow-book { margin-right: 0.42em; }\n"
+)
+
+
+def apply_eink_reader_css(stylesheet_css: str, edition: dict) -> str:
+    """Append eink-only CSS (study-layout hide + eyebrow spacing). No-op elsewhere."""
+    if resolve_target_reader(edition) != "eink":
+        return stylesheet_css
+    return stylesheet_css + _EINK_READER_CSS
+
+
 def resolve_marker_badge_style(edition: dict) -> str:
     """The edition's badge form — the single resolver for every consumer
     (emitter + api_customize_data + /customize; matrix==build invariant).
@@ -3626,8 +3655,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         vid = f"vnotes-{code}-{ch}-{v}{suffix}"
                         bid = f"vbadge-{code}-{ch}-{v}{suffix}"
                         part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""
+                        aside_cls = "verse-notes"
+                        if eink_inline_notes and not resolve_reader_eink_study_inline(edition):
+                            aside_cls = "verse-notes verse-notes--eink-anchor"
                         unit_asides.append(
-                            f'<aside class="verse-notes" id="{vid}" epub:type="footnote">\n'
+                            f'<aside class="{aside_cls}" id="{vid}" epub:type="footnote">\n'
                             f'  <p class="vn-back"><a href="#{bid}" class="note-back" '
                             f'title="Back">↩</a> <strong>{ch}:{v}</strong>{part_span}</p>\n'
                             + _unit_inner(unit_rows)
@@ -4867,12 +4899,14 @@ def apply_appendix_demotion_and_renumber(tmp: Path, canon_books: set[str] | None
     def renum(m: re.Match) -> str:
         nonlocal counter
         counter += 1
-        # K-R6-4: NO-BREAK SPACE between BOOK and the numeral — the kepub
-        # engine's small-caps+letter-spacing+italic combo eats a plain word
-        # space ("BOOKII" on every Kobo title page); U+00A0 survives every
-        # engine and renders identically on Apple. This emitter rewrites every
-        # surviving eyebrow per build, so the fix lives HERE, not in the base.
-        return f"{m.group(1)}BOOK\u00a0{_to_roman(counter)}{m.group(2)}"
+        # K-R6-4 + K-R7-4b: split BOOK / numeral into spans — nbsp alone still
+        # fuses visually under Kobo small-caps+letter-spacing+italic ("BOOKI");
+        # margin on .eyebrow-book (eink CSS) survives kepubify koboSpan wrap.
+        roman = _to_roman(counter)
+        return (
+            f'{m.group(1)}<span class="eyebrow-book">BOOK</span>'
+            f'<span class="eyebrow-num">\u00a0{roman}</span>{m.group(2)}'
+        )
 
     for fp in sorted(tmp.glob("index_split_*.html")):
         text = fp.read_text(encoding="utf-8")
@@ -6416,6 +6450,13 @@ def build_one(
                 encoding="utf-8",
             )
             stats["marker_badge_style"] = mbs
+
+        if css_path.is_file():
+            css_path.write_text(
+                apply_eink_reader_css(css_path.read_text(encoding="utf-8"), edition),
+                encoding="utf-8",
+            )
+            stats["reader_eink_study_inline"] = resolve_reader_eink_study_inline(edition)
 
         # S2 note cascade — append the robust-layer CSS (15 per-category group
         # spines + header/source/byline/indent rules) when note_group_by_category

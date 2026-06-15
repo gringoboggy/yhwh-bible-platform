@@ -329,6 +329,13 @@ WIZARD_HTML = r"""<!DOCTYPE html>
             <span class="block text-xs text-slate-500 mt-0.5">Kobo layout — off keeps normal flowing paragraphs like other readers.</span>
           </span>
         </label>
+        <label class="text-sm flex items-start gap-2 mt-3 hidden" id="eink-study-inline-row">
+          <input type="checkbox" id="w-eink-study-inline" class="mt-0.5">
+          <span>
+            <span class="font-medium text-slate-700">Full inline study notes</span>
+            <span class="block text-xs text-slate-500 mt-0.5">Off = compact popups (default). On = Commentary blocks in the page — much longer.</span>
+          </span>
+        </label>
       </div>
 
       <div class="mt-6 flex justify-between">
@@ -444,6 +451,7 @@ const STATE = {
   toc_expandable: false,      // Reading options (Step 3): expandable Contents lists
   marker_badge_style: 'chip', // Study-note badge appearance (badge marker style)
   reader_eink_verse_lines: false, // Kobo: one verse per line
+  reader_eink_study_inline: false, // Kobo: full inline study blocks (off = popups)
   // Branding fields (Step 2). Ω.0 pivot: no isbn_epub / isbn_print.
   title: '', publisher_name: '', publisher_url: '',
   copyright_year: String(new Date().getFullYear()),
@@ -599,10 +607,16 @@ function applyTargetGating() {
   const dotOpt = document.getElementById('w-badge-dot-opt');
   const einkLinesRow = document.getElementById('eink-verse-lines-row');
   const einkLinesBox = document.getElementById('w-eink-verse-lines');
+  const einkInlineRow = document.getElementById('eink-study-inline-row');
+  const einkInlineBox = document.getElementById('w-eink-study-inline');
   const isEink = STATE.target === 'eink';
   if (einkLinesRow) einkLinesRow.classList.toggle('hidden', !isEink);
+  if (einkInlineRow) einkInlineRow.classList.toggle('hidden', !isEink);
   if (einkLinesBox) {
     einkLinesBox.checked = !!STATE.reader_eink_verse_lines;
+  }
+  if (einkInlineBox) {
+    einkInlineBox.checked = !!STATE.reader_eink_study_inline;
   }
   if (dotOpt) dotOpt.disabled = isEink;
   if (badgeSel) {
@@ -695,6 +709,10 @@ function renderStep1() {
   const einkLinesBox = document.getElementById('w-eink-verse-lines');
   if (einkLinesBox) {
     einkLinesBox.addEventListener('change', () => { STATE.reader_eink_verse_lines = einkLinesBox.checked; });
+  }
+  const einkInlineBox = document.getElementById('w-eink-study-inline');
+  if (einkInlineBox) {
+    einkInlineBox.addEventListener('change', () => { STATE.reader_eink_study_inline = einkInlineBox.checked; });
   }
   applyTargetGating();
 }
@@ -1038,6 +1056,7 @@ function renderReview() {
         ${STATE.toc_expandable ? '<div class="text-xs text-slate-600 mt-1">Expandable chapter lists: on</div>' : ''}
         <div class="text-xs text-slate-600 mt-1">Study-note badges: ${esc(STATE.marker_badge_style || 'chip')}</div>
         ${STATE.target === 'eink' && STATE.reader_eink_verse_lines ? '<div class="text-xs text-slate-600 mt-1">One verse per line: on</div>' : ''}
+        ${STATE.target === 'eink' && STATE.reader_eink_study_inline ? '<div class="text-xs text-slate-600 mt-1">Full inline study notes: on</div>' : ''}
       </div>
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories enabled</div>
@@ -1197,6 +1216,7 @@ async function startBuild() {
       reader_toc_collapsible: !!STATE.toc_expandable,
       marker_badge_style: STATE.marker_badge_style || 'chip',
       reader_eink_verse_lines: !!STATE.reader_eink_verse_lines,
+      reader_eink_study_inline: !!STATE.reader_eink_study_inline,
     };
     const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
       method: 'PUT',

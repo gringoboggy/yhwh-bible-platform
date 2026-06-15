@@ -246,6 +246,7 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("note_topic_dedup", type=bool, required=False),
         # K-R7-3 — eink/Kobo verse layout: one verse per line vs flowing prose.
         FieldSpec("reader_eink_verse_lines", type=bool, required=False),
+        FieldSpec("reader_eink_study_inline", type=bool, required=False),
         # K-R6-6 / K-R7-8 — in-page study-badge glyph (chip, dagger+count, …).
         FieldSpec("marker_badge_style", type=str, required=False),
     ]

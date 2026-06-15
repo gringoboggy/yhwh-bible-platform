@@ -59,6 +59,14 @@ Install
 4. On the Kobo, open the Bible, tap the centre of the page, open
    the Aa (text) settings, then Font face, and choose Cardo.
 
+If popups later show hollow boxes (Hebrew, Greek, Arabic, Ge'ez
+missing) — especially after you upload a new copy of the book —
+the fonts are usually still on the device; Kobo just forgot to
+apply them. While reading, open Aa -> Font face, switch AWAY from
+Cardo (e.g. Publisher Default), then open Font face again and
+re-select Cardo. One deselect/re-select cycle fixes it; no need to
+recopy the .ttf files.
+
 All five fonts are released under the SIL Open Font License 1.1
 (see LICENSE-OFL.txt). They are free to use, copy and share.
 '@ | Set-Content (Join-Path $stage "README.txt") -Encoding utf8

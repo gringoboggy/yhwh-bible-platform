@@ -37,8 +37,8 @@ class TestEyebrowNbsp:
         stats = apply_appendix_demotion_and_renumber(tmp_path, None)
         text = f.read_text(encoding="utf-8")
         assert stats["eyebrows_renumbered"] == 2
-        assert '<p class="bookpage-eyebrow">BOOK\u00a0I</p>' in text
-        assert '<p class="bookpage-eyebrow">BOOK\u00a0II</p>' in text
+        assert '<span class="eyebrow-book">BOOK</span><span class="eyebrow-num">\u00a0I</span>' in text
+        assert '<span class="eyebrow-book">BOOK</span><span class="eyebrow-num">\u00a0II</span>' in text
         assert "BOOK I<" not in text and "BOOK XLVI" not in text  # plain-space variants gone
 
     def test_renumber_is_spine_order_across_files(self, tmp_path):
@@ -47,8 +47,8 @@ class TestEyebrowNbsp:
         a.write_text("<html><body>" + TITLE_PAGE.format(n=0, eyebrow="BOOK IX") + "</body></html>", encoding="utf-8")
         b.write_text("<html><body>" + TITLE_PAGE.format(n=1, eyebrow="BOOK V") + "</body></html>", encoding="utf-8")
         apply_appendix_demotion_and_renumber(tmp_path, None)
-        assert "BOOK\u00a0I</p>" in a.read_text(encoding="utf-8")
-        assert "BOOK\u00a0II</p>" in b.read_text(encoding="utf-8")
+        assert '<span class="eyebrow-num">\u00a0I</span>' in a.read_text(encoding="utf-8")
+        assert '<span class="eyebrow-num">\u00a0II</span>' in b.read_text(encoding="utf-8")
 
     def test_demoted_appendix_eyebrow_untouched_and_consumes_no_number(self, tmp_path):
         appendix = TITLE_PAGE.format(n=1, eyebrow="BOOK XLVII").replace(
@@ -66,4 +66,6 @@ class TestEyebrowNbsp:
         # the appendix keeps its original (CSS-hidden) eyebrow text verbatim
         assert "BOOK XLVII</p>" in text
         # the kept neighbours number 1, 2 with no gap for the appendix
-        assert "BOOK\u00a0I</p>" in text and "BOOK\u00a0II</p>" in text
+        assert (
+            '<span class="eyebrow-num">\u00a0I</span>' in text and '<span class="eyebrow-num">\u00a0II</span>' in text
+        )

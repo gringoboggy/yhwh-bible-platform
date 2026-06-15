@@ -467,6 +467,7 @@ def api_customize_data() -> dict:
                 "target_reader": resolve_target_reader(e),
                 # K-R7-3 — eink/Kobo verse layout (opt-in; default off).
                 "reader_eink_verse_lines": e.get("reader_eink_verse_lines", False),
+                "reader_eink_study_inline": e.get("reader_eink_study_inline", False),
                 "closing_colophon": e.get("closing_colophon", True),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),
