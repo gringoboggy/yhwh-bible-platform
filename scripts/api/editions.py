@@ -125,6 +125,8 @@ EDITABLE_BOOL_FIELDS: frozenset[str] = frozenset(
         # K-R2-6 — keep/drop the closing colophon page (default keep).
         "closing_colophon",
         "enable_ai_notes",
+        # K-R7-3 — eink/Kobo: one verse per line (opt-in; default flowing prose).
+        "reader_eink_verse_lines",
     }
 )
 # Scalars the clone writer handles specially: title is replaced by the

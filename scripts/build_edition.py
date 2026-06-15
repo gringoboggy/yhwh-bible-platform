@@ -2163,15 +2163,36 @@ def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     return stylesheet_css + _NOTE_POPUP_CHIP_CSS + _VN_SEP_HIDE_CSS
 
 
-# K-R6-6 marker_badge_style — the in-page verse-badge form. Round-6b device QA
-# (2026-06-11, definitive): the ◈ note-mark glyph has NEVER rendered on Kobo —
-# any font, incl. Cardo; badges displayed as bare superscript numbers. "chip"
-# drops the ◈ from the badge TEXT (count only — zero glyph dependency, the
-# K-R2-3 "configurable badge glyph" follow-up solved without a glyph) and
-# styles .marker-badge as a small bordered chip; "glyph+count" is the shipped
-# ◈+count form (Apple renders ◈ fine). Chips also visually separate badges
-# from verse numbers — the user's clutter point.
-MARKER_BADGE_STYLES = {"chip", "glyph+count"}
+# K-R6-6 / K-R7-8 marker_badge_style — the in-page verse-badge form. Round-6b
+# device QA (2026-06-11): the ◈ note-mark glyph has NEVER rendered on Kobo. Eink
+# defaults to a bordered chip; non-eink keeps ◈+count (Apple renders ◈ fine).
+# K-R7-8 (round-7): non-digit glyphs for Kobo A/B — dot/dagger/asterisk/lozenge
+# drop the count so study markers never blend with the verse-number translation
+# popup. The terminal-badge decline (K-R7-2) is a geometry class; glyph swaps
+# alone do not fix it — badge-trail spacer ships alongside.
+MARKER_BADGE_STYLES = {
+    "chip",
+    "glyph+count",
+    "dot",
+    "dagger",
+    "dagger+count",
+    "asterisk",
+    "lozenge",
+    "lozenge+count",
+}
+# Kobo device QA: dot (•) can crash Nickel; asterisk must be ASCII *.
+MARKER_BADGE_STYLES_EINK_UNSAFE = frozenset({"dot"})
+_MARKER_BADGE_CHIP_STYLES = MARKER_BADGE_STYLES - {"glyph+count"}
+
+
+def resolve_reader_eink_verse_lines(edition: dict) -> bool:
+    """Whether eink builds put each verse on its own line (Kobo layout).
+
+    Opt-in via ``reader_eink_verse_lines``; absent/false = the historical
+    flowing-paragraph prose. No-op on non-eink targets."""
+    if resolve_target_reader(edition) != "eink":
+        return False
+    return bool(edition.get("reader_eink_verse_lines", False))
 
 
 def resolve_marker_badge_style(edition: dict) -> str:
@@ -2187,23 +2208,46 @@ def resolve_marker_badge_style(edition: dict) -> str:
     return "chip" if resolve_target_reader(edition) == "eink" else "glyph+count"
 
 
-# Appended when marker_badge_style == "chip": the count-only badge as a small
-# bordered chip. All EPUB-3-allowed (display / padding / border / border-radius);
-# border-only (no background) stays crisp on e-ink grayscale.
+def format_marker_badge_text(edition: dict, note_count: int) -> str:
+    """The visible in-page badge character(s) for one popup unit."""
+    style = resolve_marker_badge_style(edition)
+    if style == "glyph+count":
+        return f"◈{note_count}"
+    if style == "chip":
+        return str(note_count)
+    if style == "dot":
+        return "•"
+    if style == "dagger":
+        return "†"
+    if style == "dagger+count":
+        return f"†{note_count}"
+    if style == "asterisk":
+        # U+2051 ⁎ is missing from Kobo's e-ink fonts → empty bordered chip.
+        return "*"
+    if style == "lozenge":
+        return "◇"
+    if style == "lozenge+count":
+        return f"◇{note_count}"
+    return str(note_count)
+
+
+# Appended for every chip-style badge (count or symbol). EPUB-3-allowed; border-only
+# stays crisp on e-ink grayscale. K-R7-8: min-width keeps symbol-only badges
+# tappable-sized even without a digit inside.
 _MARKER_BADGE_CHIP_CSS = """
-/* === K-R6-6 marker_badge_style=chip — count-only bordered chip badge === */
-.marker-badge { display: inline-block; padding: 0.02em 0.45em; border: 1px solid #B8860B; border-radius: 0.9em; }
+/* === K-R6-6 / K-R7-8 marker_badge_style chip family — bordered badge === */
+.marker-badge { display: inline-block; min-width: 1.1em; text-align: center;
+  padding: 0.02em 0.45em; border: 1px solid #B8860B; border-radius: 0.9em; }
+.badge-trail { display: inline; font-size: 0.72em; }
 """
 
 
 def apply_marker_badge_style(stylesheet_css: str, style: str) -> str:
     """Append the marker_badge_style variant CSS to an edition stylesheet.
 
-    "chip" appends the bordered count-chip rule (the emitter drops the ◈ from
-    the badge text in the same build, so the chip carries the count alone);
-    "glyph+count" appends nothing — that artifact stays byte-identical to the
-    pre-K-R6-6 form. Mirrors apply_note_popup_style."""
-    if style == "chip":
+    Chip-family styles append the bordered badge rule; "glyph+count" appends
+    nothing — that artifact stays byte-identical to the pre-K-R6-6 form."""
+    if style in _MARKER_BADGE_CHIP_STYLES:
         return stylesheet_css + _MARKER_BADGE_CHIP_CSS
     return stylesheet_css
 
@@ -3246,6 +3290,35 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     return "".join(out)
 
 
+_VN_LINK_AT_PARA_START_RE = re.compile(r"(?:<p class=\"verse-p\">|</p>\s*<p class=\"verse-p\">)\s*$")
+
+
+def apply_eink_verse_line_breaks(tmp: Path, edition: dict) -> int:
+    """Eink-only: one verse per line by closing the paragraph before each vn-link.
+
+    Gated on ``reader_eink_verse_lines`` (opt-in via /customize). When off, prose
+    keeps the historical flowing-paragraph layout. No-op on non-eink targets."""
+    if not resolve_reader_eink_verse_lines(edition):
+        return 0
+    breaks = 0
+    seam = '</p>\n<p class="verse-p">'
+    for path in sorted(tmp.glob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        splices: list[tuple[int, int, str]] = []
+        for m in re.finditer(r'<a class="vn-link"', text):
+            before = text[max(0, m.start() - 120) : m.start()]
+            if _VN_LINK_AT_PARA_START_RE.search(before):
+                continue
+            splices.append((m.start(), m.start(), seam))
+            breaks += 1
+        if not splices:
+            continue
+        for start, end, repl in sorted(splices, key=lambda s: s[0], reverse=True):
+            text = text[:start] + repl + text[end:]
+        path.write_text(text, encoding="utf-8")
+    return breaks
+
+
 def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """Rewrite the per-edition temp HTML into badge mode (§4.1).
 
@@ -3273,9 +3346,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     """
     from scripts import inject as _inject
 
-    # K-R6-6 — the badge TEXT form: "chip" emits the count alone (the ◈ glyph
-    # never renders on Kobo); "glyph+count" keeps the shipped ◈+count.
-    count_only_badge = resolve_marker_badge_style(edition) == "chip"
+    # K-R6-6 / K-R7-8 — badge TEXT resolved per marker_badge_style (chip,
+    # dot, dagger, … — never ◈ on eink; glyph+count on other targets).
 
     # Note-presentation rehaul flags (effective only here, under marker_style=badge).
     # Each is a zero-touch no-op when absent ⇒ a flag-free edition builds byte-identically.
@@ -3300,6 +3372,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     split_cap = resolve_note_popup_split_cap(edition)
     # K-R6-2 — the serialized-byte budget (estimated post-kepubify; 0 = off).
     split_byte_cap = resolve_note_popup_split_byte_cap(edition)
+    # K-R7-2d — eink study popups: keep merged verse-notes asides inline after
+    # their badge cluster so Kobo's forward-scan hits the target before the next
+    # verse's vn-link (the terminal-badge decline class; paragraph seams alone
+    # did not fix it on device). The file-splitter must not re-harvest them.
+    eink_inline_notes = resolve_target_reader(edition) == "eink"
 
     stats = {
         "badges_inserted": 0,
@@ -3560,12 +3637,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         title = f"{m_cnt} note" if m_cnt == 1 else f"{m_cnt} notes"
                         if k_units > 1:
                             title += f" (part {u_idx} of {k_units})"
-                        # Glyph = ◈ note-mark + the unit's row count, so it reads as
-                        # "notes here" and never blends with the verse number / the
-                        # translation (verse-number) marker (RX-beta2 ①). Under
-                        # marker_badge_style=chip the ◈ is dropped (K-R6-6: it never
-                        # renders on Kobo) — the bordered chip CSS does the separating.
-                        badge_text = f"{m_cnt}" if count_only_badge else f"◈{m_cnt}"
+                        badge_text = format_marker_badge_text(edition, m_cnt)
                         unit_badges.append(
                             f'<a class="verse-notes-badge" id="{bid}" '
                             f'href="#{vid}" epub:type="noteref" '
@@ -3577,9 +3649,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         stats["popup_units_split"] += k_units
 
                     merged_aside = "".join(unit_asides)
-                    # The badge cluster sits where the single badge always sat;
-                    # a single space keeps adjacent ◈ tap targets separable.
-                    badge = " ".join(unit_badges)
+                    # Inter-badge spaces keep adjacent tap targets separable.
+                    # K-R7-2: trailing nbsp so the terminal noteref is never the
+                    # last box on the verse line (singleton 1/1 ≡ last-badge class).
+                    badge = " ".join(unit_badges) + '<span class="badge-trail" aria-hidden="true">\u00a0</span>'
+                    prose_insert = f"{badge}\n{merged_aside}" if eink_inline_notes else badge
 
                     bucket = edits.setdefault(fname, [])
                     # K-R3-3/K-R3-4: a chapter-last verse's region legitimately
@@ -3604,22 +3678,26 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         limit = min(cb.start(), ns) if ns != -1 else cb.start()
                         p_close = verse_html.rfind("</p>", 0, limit)
                         at = v_start + (p_close if p_close != -1 else limit)
-                        bucket.append((at, at, badge))
+                        bucket.append((at, at, prose_insert))
                         for m in markers:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))
                     else:
                         # Replace the LAST marker with the badge; delete the others.
                         last = markers[-1]
-                        bucket.append((v_start + last.start(), v_start + last.end(), badge))
+                        bucket.append((v_start + last.start(), v_start + last.end(), prose_insert))
                         for m in markers[:-1]:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))
-                    # Replace the FIRST aside (document order) with the merged
-                    # aside; delete the rest.
+                    # Eink: merged verse-notes stay inline in prose (K-R7-2d); non-eink
+                    # keeps the historical notes-section replacement path.
                     aside_spans_sorted = sorted(aside_spans)
-                    first_aside = aside_spans_sorted[0]
-                    bucket.append((first_aside[0], first_aside[1], merged_aside))
-                    for sp in aside_spans_sorted[1:]:
-                        bucket.append((sp[0], sp[1], ""))
+                    if eink_inline_notes:
+                        for sp in aside_spans_sorted:
+                            bucket.append((sp[0], sp[1], ""))
+                    else:
+                        first_aside = aside_spans_sorted[0]
+                        bucket.append((first_aside[0], first_aside[1], merged_aside))
+                        for sp in aside_spans_sorted[1:]:
+                            bucket.append((sp[0], sp[1], ""))
 
                     stats["badges_inserted"] += 1
                     stats["asides_merged"] += 1
@@ -3884,7 +3962,7 @@ def _split_head_body_tail(text: str) -> tuple[str, str, str] | None:
     return text[:body_start], text[body_start:body_close], text[body_close:]
 
 
-def _strip_notes_sections(body: str) -> tuple[str, list[tuple[str, str]]]:
+def _strip_notes_sections(body: str, *, keep_inline_verse_notes: bool = False) -> tuple[str, list[tuple[str, str]]]:
     """Harvest + remove EVERY note aside, leaving pure chapter prose.
 
     The base mixes aside placement: most asides sit inside a
@@ -3895,10 +3973,18 @@ def _strip_notes_sections(body: str) -> tuple[str, list[tuple[str, str]]]:
     by the verse that references them. So we strip every leaf note aside wherever it sits
     (a single non-greedy pass — leaf asides never nest), then drop the emptied
     notes-section wrappers. Returns ``(prose, [(aside_id, aside_html), …])`` with the
-    pooled asides in document order for per-piece redistribution BY REFERENCE."""
+    pooled asides in document order for per-piece redistribution BY REFERENCE.
+
+    When ``keep_inline_verse_notes`` is set (eink K-R7-2d), ``class="verse-notes"``
+    asides that ``apply_badge_markers`` placed inline after their badge cluster stay in
+    the prose atom so Kobo's forward-scan resolves the popup before the next verse's
+    ``vn-link`` — re-harvesting them into a distant ``notes-section`` reintroduces the
+    terminal-badge decline."""
     asides: list[tuple[str, str]] = []
 
     def _take(m: re.Match) -> str:
+        if keep_inline_verse_notes and m.group(0).startswith('<aside class="verse-notes"'):
+            return m.group(0)
         asides.append((m.group(1), m.group(0)))
         return ""
 
@@ -3966,7 +4052,9 @@ def _matching_div_close(text: str, start: int) -> int:
 _REOPEN_ID_RE = re.compile(r'\s+id="[^"]*"')
 
 
-def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
+def split_html_document(
+    text: str, stem: str, target: int, *, keep_inline_verse_notes: bool = False
+) -> list[tuple[str, str]]:
     """Split ONE ``index_split`` file's text into ~``target``-byte pieces.
 
     Cuts at book/chapter boundaries and (for a heavily-noted chapter that alone exceeds
@@ -3998,7 +4086,7 @@ def split_html_document(text: str, stem: str, target: int) -> list[tuple[str, st
 
     # Strip every note aside (notes-section blocks + inline) to pure prose, pooling them
     # for per-piece redistribution by reference.
-    content, harvested = _strip_notes_sections(body)
+    content, harvested = _strip_notes_sections(body, keep_inline_verse_notes=keep_inline_verse_notes)
     aside_by_id: dict[str, str] = {}
     ordered_aside_ids: list[str] = []
     for aid, aside_html in harvested:
@@ -4180,7 +4268,12 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # 1. Plan pieces per source file (in sorted, deterministic order).
     plan: dict[str, list[tuple[str, str]]] = {}
     for p in src_files:
-        plan[p.name] = split_html_document(p.read_text(encoding="utf-8"), p.stem, target)
+        plan[p.name] = split_html_document(
+            p.read_text(encoding="utf-8"),
+            p.stem,
+            target,
+            keep_inline_verse_notes=resolve_target_reader(edition) == "eink",
+        )
 
     # 1b. Cross-FILE opener pop (K-R2-4 file-seam class): the calibre base cuts
     # some files right AFTER a chapter opener (Gen 27 / 1Ch 3 / Ps 73 / Isa 33 /
@@ -6545,6 +6638,8 @@ def build_one(
             stats["badges_inserted"] = badge_stats["badges_inserted"]
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
             stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
+
+        stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition)
 
         # K-R4-1 — vnote (translation) popup preview separators. Unconditional
         # (every edition, every marker_style): translation popups exist in all

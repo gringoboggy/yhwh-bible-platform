@@ -6,7 +6,8 @@ superscript numbers. So eink targets default to a no-glyph bordered CSS chip
 with the count inside (border+radius+padding apply in the book view on every
 engine); every other target keeps the shipped ◈+count form (Apple renders ◈
 fine). Option-gated per the presentation-configurable doctrine
-(``marker_badge_style: chip | glyph+count``), resolved through ONE resolver
+(``marker_badge_style: chip | glyph+count | dot | dagger | asterisk | lozenge``),
+resolved through ONE resolver
 consumed by the emitter, the API validator, and /customize (matrix==build).
 """
 
@@ -27,7 +28,16 @@ class TestResolver:
     def test_enum_exposes_both_values(self):
         from scripts.build_edition import MARKER_BADGE_STYLES
 
-        assert MARKER_BADGE_STYLES == {"chip", "glyph+count"}
+        assert MARKER_BADGE_STYLES == {
+            "chip",
+            "glyph+count",
+            "dot",
+            "dagger",
+            "dagger+count",
+            "asterisk",
+            "lozenge",
+            "lozenge+count",
+        }
 
     def test_explicit_value_wins_on_any_target(self):
         from scripts.build_edition import resolve_marker_badge_style
@@ -58,16 +68,36 @@ class TestResolver:
 
 
 class TestCssAppend:
-    def test_chip_appends_the_chip_rule(self):
+    def test_chip_family_appends_the_chip_rule(self):
         from scripts.build_edition import apply_marker_badge_style
 
-        out = apply_marker_badge_style("BASE", "chip")
-        assert out.startswith("BASE") and "marker_badge_style=chip" in out
+        for style in ("chip", "dot", "dagger", "dagger+count", "asterisk", "lozenge", "lozenge+count"):
+            out = apply_marker_badge_style("BASE", style)
+            assert out.startswith("BASE") and ".marker-badge" in out, style
 
     def test_glyph_count_appends_nothing(self):
         from scripts.build_edition import apply_marker_badge_style
 
         assert apply_marker_badge_style("BASE", "glyph+count") == "BASE"
+
+
+class TestBadgeText:
+    def test_symbol_styles_drop_the_count(self):
+        from scripts.build_edition import format_marker_badge_text
+
+        base = {"id": "x", "marker_style": "badge", "target_reader": "eink"}
+        assert format_marker_badge_text({**base, "marker_badge_style": "dot"}, 4) == "•"
+        assert format_marker_badge_text({**base, "marker_badge_style": "dagger"}, 4) == "†"
+        assert format_marker_badge_text({**base, "marker_badge_style": "asterisk"}, 4) == "*"
+        assert format_marker_badge_text({**base, "marker_badge_style": "lozenge"}, 4) == "◇"
+        assert format_marker_badge_text({**base, "marker_badge_style": "dagger+count"}, 4) == "†4"
+        assert format_marker_badge_text({**base, "marker_badge_style": "lozenge+count"}, 7) == "◇7"
+
+    def test_chip_keeps_count_glyph_count_keeps_diamond(self):
+        from scripts.build_edition import format_marker_badge_text
+
+        assert format_marker_badge_text({"marker_badge_style": "chip", "target_reader": "eink"}, 3) == "3"
+        assert format_marker_badge_text({"marker_badge_style": "glyph+count"}, 3) == "◈3"
 
 
 class TestEmitter:
@@ -99,7 +129,62 @@ class TestEmitter:
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
         assert sups, "badges expected in gen 1"
         for sup in sups:
-            assert re.fullmatch(r"\d+", sup), f"eink badge must be count-only (no ◈): {sup!r}"
+            assert re.fullmatch(r"\d+", sup), f"eink chip badge must be count-only (no ◈): {sup!r}"
+        assert 'class="badge-trail"' in text
+
+    def test_terminal_badge_gets_paragraph_seam_before_next_vn_link(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers, apply_eink_verse_line_breaks
+
+        tmp, fname = self._badge_tree(tmp_path)
+        edition = {
+            "id": "x",
+            "marker_style": "badge",
+            "target_reader": "eink",
+            "reader_eink_verse_lines": True,
+        }
+        apply_badge_markers(tmp, edition)
+        apply_eink_verse_line_breaks(tmp, edition)
+        text = (tmp / fname).read_text(encoding="utf-8")
+        m = re.search(
+            r'vbadge-gen-1-12-s1[^>]*>.*?</a>.*?</p>\s*<p class="verse-p">\s*<a class="vn-link" id="v-gen-1-13"',
+            text,
+            re.DOTALL,
+        )
+        assert m, "terminal gen 1:12 study badge must close <p> before next verse vn-link"
+
+    def test_eink_inline_verse_notes_follow_badge_cluster(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, fname = self._badge_tree(tmp_path)
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink"})
+        text = (tmp / fname).read_text(encoding="utf-8")
+        m = re.search(
+            r'(vbadge-gen-1-12-s1[^>]*>.*?</a>.*?<aside class="verse-notes" id="vnotes-gen-1-12-s1")',
+            text,
+            re.DOTALL,
+        )
+        assert m, "eink study aside must sit inline immediately after its badge"
+        assert text.count('id="vnotes-gen-1-12-s1"') == 1
+        aside_close = text.find("</aside>", m.end())
+        assert aside_close != -1
+        tail = text[aside_close : aside_close + 200]
+        assert 'id="v-gen-1-13"' in tail, "next verse vn-link must follow the inline aside (Kobo scan chain)"
+        bm = text.index('id="vbadge-gen-1-12-s1"')
+        am = text.index('id="vnotes-gen-1-12-s1"')
+        vm = text.index('id="v-gen-1-13"')
+        assert bm < am < vm, "document order: badge → aside → next vn-link"
+
+    def test_dot_style_emits_symbol_only_badges(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, fname = self._badge_tree(tmp_path)
+        apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "marker_badge_style": "dot"},
+        )
+        text = (tmp / fname).read_text(encoding="utf-8")
+        sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
+        assert sups and all(s == "•" for s in sups)
 
     def test_default_edition_keeps_the_glyph(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
@@ -109,6 +194,47 @@ class TestEmitter:
         text = (tmp / fname).read_text(encoding="utf-8")
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
         assert sups and all(s.startswith("◈") for s in sups), "non-eink badges keep ◈+count"
+
+
+class TestReaderEinkVerseLines:
+    def test_resolver_defaults_off(self):
+        from scripts.build_edition import resolve_reader_eink_verse_lines
+
+        assert resolve_reader_eink_verse_lines({}) is False
+        assert resolve_reader_eink_verse_lines({"target_reader": "eink"}) is False
+        assert resolve_reader_eink_verse_lines({"target_reader": "tablet", "reader_eink_verse_lines": True}) is False
+
+    def test_resolver_on_when_eink_and_flag(self):
+        from scripts.build_edition import resolve_reader_eink_verse_lines
+
+        assert resolve_reader_eink_verse_lines({"target_reader": "eink", "reader_eink_verse_lines": True}) is True
+
+    def test_apply_is_noop_when_flag_off(self, tmp_path):
+        from scripts.build_edition import apply_eink_verse_line_breaks
+
+        tmp, fname = TestEmitter()._badge_tree(tmp_path)
+        before = (tmp / fname).read_text(encoding="utf-8")
+        n = apply_eink_verse_line_breaks(tmp, {"id": "x", "target_reader": "eink"})
+        after = (tmp / fname).read_text(encoding="utf-8")
+        assert n == 0
+        assert after == before
+
+    def test_customize_wiring(self):
+        from scripts.api.editions import EDITABLE_BOOL_FIELDS
+
+        src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
+        assert 'data-field="reader_eink_verse_lines"' in src
+        assert "wireEinkOnlyRows" in src
+        assert "wireBadgeStyleRow" in src
+        assert "reader_eink_verse_lines" in EDITABLE_BOOL_FIELDS
+
+    def test_wizard_surfaces_badge_and_verse_line_picks(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        assert 'id="w-badge-style"' in WIZARD_HTML
+        assert 'id="w-eink-verse-lines"' in WIZARD_HTML
+        assert "marker_badge_style:" in WIZARD_HTML
+        assert "reader_eink_verse_lines:" in WIZARD_HTML
 
 
 class TestValidator:
@@ -145,4 +271,6 @@ class TestLoaderAndUI:
     def test_customize_template_has_the_select(self):
         src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
         assert 'data-field="marker_badge_style"' in src
+        assert "Study-note badge style" in src
         assert '<option value="chip"' in src and '<option value="glyph+count"' in src
+        assert '<option value="dagger+count"' in src

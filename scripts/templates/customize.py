@@ -448,12 +448,19 @@ function renderEditions() {
                 <option value="numbers" ${e.marker_style === 'numbers' ? 'selected' : ''}>numbers · a superscript number per note</option>
               </select>
             </label>
-            <label class="text-xs">
-              <span class="block mb-1 font-medium text-slate-700">Badge form</span>
-              <select class="label-input w-full" data-field="marker_badge_style" title="how the per-verse count badge renders in the running text (the value shown is what this edition's reader target builds today; the ◈ glyph never renders on Kobo e-ink, so eink editions default to the chip)">
-                <option value="chip"        ${e.marker_badge_style === 'chip' ? 'selected' : ''}>chip · count in a small bordered chip (no glyph)</option>
-                <option value="glyph+count" ${e.marker_badge_style === 'glyph+count' ? 'selected' : ''}>glyph+count · ◈ note-mark before the count</option>
+            <label class="text-xs badge-style-row ${(e.marker_style||'badge') === 'badge' ? '' : 'hidden'}">
+              <span class="block mb-1 font-medium text-slate-700">Study-note badge style</span>
+              <select class="label-input w-full badge-style-select" data-field="marker_badge_style" title="how each verse's study-note badge looks in the running text (badge marker style only)">
+                <option value="chip"        ${e.marker_badge_style === 'chip' ? 'selected' : ''}>chip · count in a bordered box</option>
+                <option value="dagger"      ${e.marker_badge_style === 'dagger' ? 'selected' : ''}>dagger · † symbol only</option>
+                <option value="dagger+count" ${e.marker_badge_style === 'dagger+count' ? 'selected' : ''}>dagger+count · † then count (recommended on Kobo)</option>
+                <option value="asterisk"    ${e.marker_badge_style === 'asterisk' ? 'selected' : ''}>asterisk · * symbol only</option>
+                <option value="lozenge"     ${e.marker_badge_style === 'lozenge' ? 'selected' : ''}>lozenge · ◇ symbol only</option>
+                <option value="lozenge+count" ${e.marker_badge_style === 'lozenge+count' ? 'selected' : ''}>lozenge+count · ◇ then count</option>
+                <option value="dot"         ${e.marker_badge_style === 'dot' ? 'selected' : ''} data-eink-unsafe="1">dot · • symbol only (not for Kobo)</option>
+                <option value="glyph+count" ${e.marker_badge_style === 'glyph+count' ? 'selected' : ''}>glyph+count · ◈ then count (Apple Books / tablet)</option>
               </select>
+              <span class="block text-slate-400 mt-1 badge-style-hint">◈ never renders on Kobo — pick dagger or lozenge for e-ink.</span>
             </label>
             <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none" title="Drop a note's repeated kind label (e.g. the 'Hebrew.' prefix on every word study) when it merely restates the category. Lossless. Badge marker style only.">
               <input type="checkbox" data-field="note_attribution_dedup" ${e.note_attribution_dedup ? 'checked' : ''}>
@@ -556,6 +563,10 @@ function renderEditions() {
             <label class="text-xs flex items-center gap-2">
               <input type="checkbox" data-field="closing_colophon" ${e.closing_colophon !== false ? 'checked' : ''}>
               <span>Closing colophon page (the traditional last page)</span>
+            </label>
+            <label class="text-xs flex items-center gap-2 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
+              <input type="checkbox" data-field="reader_eink_verse_lines" ${e.reader_eink_verse_lines ? 'checked' : ''}>
+              <span>One verse per line <span class="text-slate-400">(Kobo — off = normal flowing paragraphs like other readers)</span></span>
             </label>
             <p class="text-xs text-slate-500 md:col-span-2 italic">
               Chapter heading and Contents changes apply on the next BUILD.
@@ -901,6 +912,8 @@ function renderEditions() {
     // K-KIN (C) — the capped popup-language checkboxes sync into the hidden
     // popup_languages_capped data-field input (standard dirty-check path).
     wireCapPickRow(box);
+    wireEinkOnlyRows(box);
+    wireBadgeStyleRow(box);
     // §4.6 — Cover picker + uploads. Immediate-action panel (pick →
     // server-side recompose; uploads → multipart), so it's wired
     // independently of the Save button / dirty-check.
@@ -1000,6 +1013,51 @@ function wireCapPickRow(box) {
     hidden.dispatchEvent(new Event('input', {bubbles: true}));
     hidden.dispatchEvent(new Event('change', {bubbles: true}));
   }));
+}
+
+function wireEinkOnlyRows(box) {
+  const targetSel = box.querySelector('[data-field="target_reader"]');
+  const rows = box.querySelectorAll('[data-eink-only]');
+  if (!targetSel || !rows.length) return;
+  const sync = () => {
+    const on = targetSel.value === 'eink';
+    rows.forEach(row => row.classList.toggle('hidden', !on));
+    const badgeSel = box.querySelector('.badge-style-select');
+    if (badgeSel) syncBadgeStyleOptions(box, targetSel.value, badgeSel);
+  };
+  targetSel.addEventListener('change', sync);
+  sync();
+}
+
+function syncBadgeStyleOptions(box, target, badgeSel) {
+  const unsafe = badgeSel.querySelector('option[data-eink-unsafe]');
+  if (unsafe) unsafe.disabled = target === 'eink';
+  if (target === 'eink' && badgeSel.value === 'dot') {
+    badgeSel.value = 'dagger+count';
+    badgeSel.dispatchEvent(new Event('change', {bubbles: true}));
+  }
+  const hint = box.querySelector('.badge-style-hint');
+  if (hint) {
+    hint.textContent = target === 'eink'
+      ? 'Kobo: dagger+count or lozenge+count work well; ◈ and • do not.'
+      : '◈ renders on Apple Books / tablet; chip is the e-ink default when no style is picked.';
+  }
+}
+
+function wireBadgeStyleRow(box) {
+  const markerSel = box.querySelector('[data-field="marker_style"]');
+  const rows = box.querySelectorAll('.badge-style-row');
+  const badgeSel = box.querySelector('.badge-style-select');
+  const targetSel = box.querySelector('[data-field="target_reader"]');
+  if (!markerSel || !rows.length) return;
+  const sync = () => {
+    const on = markerSel.value === 'badge';
+    rows.forEach(row => row.classList.toggle('hidden', !on));
+    if (on && badgeSel && targetSel) syncBadgeStyleOptions(box, targetSel.value, badgeSel);
+  };
+  markerSel.addEventListener('change', sync);
+  if (badgeSel && targetSel) badgeSel.addEventListener('change', () => syncBadgeStyleOptions(box, targetSel.value, badgeSel));
+  sync();
 }
 
 function wireIdentityCard(box, edition) {

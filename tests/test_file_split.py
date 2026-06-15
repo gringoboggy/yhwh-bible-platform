@@ -73,6 +73,24 @@ class TestSplitHtmlDocumentUnit:
         assert name == "index_split_007.html", "an unsplit file must keep its original name"
         assert text == CH_ONLY, "an unsplit file must be byte-identical (zero churn)"
 
+    def test_strip_notes_sections_keeps_inline_verse_notes_on_eink(self):
+        from scripts.build_edition import _strip_notes_sections
+
+        body = (
+            '<p class="verse-p"><a class="vn-link" id="v-gen-1-12" href="#vnote-gen-1-12" '
+            'epub:type="noteref">12</a> Verse text<a class="verse-notes-badge" id="vbadge-gen-1-12-s1" '
+            'href="#vnotes-gen-1-12-s1" epub:type="noteref"><sup>1</sup></a>\n'
+            '<aside class="verse-notes" id="vnotes-gen-1-12-s1" epub:type="footnote">'
+            "<p>study</p></aside></p>\n"
+            '<aside class="notes-section" epub:type="footnotes" hidden="">'
+            '<aside class="vnote" id="vnote-gen-1-12" epub:type="footnote"><p>popup</p></aside>'
+            "</aside>\n"
+        )
+        prose, asides = _strip_notes_sections(body, keep_inline_verse_notes=True)
+        assert 'id="vnotes-gen-1-12-s1"' in prose, "inline verse-notes must stay in prose"
+        assert [a_id for a_id, _ in asides] == ["vnote-gen-1-12"], "only pooled asides are harvested"
+        assert "verse-notes" not in "".join(a for _, a in asides)
+
     def test_strip_notes_sections_removes_empty_verse_refs_husk(self):
         # round-7 5.4: the base also wraps vnote asides in `<section
         # class="verse-refs-section">` containers (58 in the live base, e.g.

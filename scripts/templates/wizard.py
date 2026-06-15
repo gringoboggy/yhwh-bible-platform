@@ -305,6 +305,30 @@ WIZARD_HTML = r"""<!DOCTYPE html>
             <span class="block text-xs text-slate-500 mt-0.5" id="toc-expand-hint"></span>
           </span>
         </label>
+        <div class="mt-4">
+          <label class="text-sm block" for="w-badge-style">
+            <span class="font-medium text-slate-700">Study-note badge style</span>
+            <span class="block text-xs text-slate-500 mt-0.5 mb-1">How note markers look at the end of each verse (one badge per verse).</span>
+            <select id="w-badge-style" class="field-input max-w-md">
+              <option value="chip">chip · count in a bordered box</option>
+              <option value="dagger">dagger · † symbol only</option>
+              <option value="dagger+count">dagger+count · † then count</option>
+              <option value="asterisk">asterisk · * symbol only</option>
+              <option value="lozenge">lozenge · ◇ symbol only</option>
+              <option value="lozenge+count">lozenge+count · ◇ then count</option>
+              <option value="dot" id="w-badge-dot-opt">dot · • symbol only (not for Kobo)</option>
+              <option value="glyph+count">glyph+count · ◈ then count</option>
+            </select>
+            <span class="block text-xs text-slate-500 mt-1" id="badge-style-hint"></span>
+          </label>
+        </div>
+        <label class="text-sm flex items-start gap-2 mt-3 hidden" id="eink-verse-lines-row">
+          <input type="checkbox" id="w-eink-verse-lines" class="mt-0.5">
+          <span>
+            <span class="font-medium text-slate-700">One verse per line</span>
+            <span class="block text-xs text-slate-500 mt-0.5">Kobo layout — off keeps normal flowing paragraphs like other readers.</span>
+          </span>
+        </label>
       </div>
 
       <div class="mt-6 flex justify-between">
@@ -418,6 +442,8 @@ const STATE = {
   // Gates which optional features later steps offer (TARGET_CAPS).
   target: 'everywhere',
   toc_expandable: false,      // Reading options (Step 3): expandable Contents lists
+  marker_badge_style: 'chip', // Study-note badge appearance (badge marker style)
+  reader_eink_verse_lines: false, // Kobo: one verse per line
   // Branding fields (Step 2). Ω.0 pivot: no isbn_epub / isbn_print.
   title: '', publisher_name: '', publisher_url: '',
   copyright_year: String(new Date().getFullYear()),
@@ -568,6 +594,29 @@ function applyTargetGating() {
       hint.textContent = caps.gate_reason;
     }
   }
+  const badgeSel = document.getElementById('w-badge-style');
+  const badgeHint = document.getElementById('badge-style-hint');
+  const dotOpt = document.getElementById('w-badge-dot-opt');
+  const einkLinesRow = document.getElementById('eink-verse-lines-row');
+  const einkLinesBox = document.getElementById('w-eink-verse-lines');
+  const isEink = STATE.target === 'eink';
+  if (einkLinesRow) einkLinesRow.classList.toggle('hidden', !isEink);
+  if (einkLinesBox) {
+    einkLinesBox.checked = !!STATE.reader_eink_verse_lines;
+  }
+  if (dotOpt) dotOpt.disabled = isEink;
+  if (badgeSel) {
+    badgeSel.value = STATE.marker_badge_style || 'chip';
+    if (isEink && badgeSel.value === 'dot') {
+      STATE.marker_badge_style = 'dagger+count';
+      badgeSel.value = 'dagger+count';
+    }
+  }
+  if (badgeHint) {
+    badgeHint.textContent = isEink
+      ? 'Recommended on Kobo: dagger+count or lozenge+count. Avoid • (can crash) and ◈ (never renders).'
+      : '◈ works on Apple Books / tablet; chip is the safe default everywhere.';
+  }
 }
 
 // Phase ψ.8.5 — map from starting profile to a sensible tradition
@@ -638,6 +687,14 @@ function renderStep1() {
   const tocBox = document.getElementById('w-toc-expandable');
   if (tocBox) {
     tocBox.addEventListener('change', () => { STATE.toc_expandable = tocBox.checked; });
+  }
+  const badgeSel = document.getElementById('w-badge-style');
+  if (badgeSel) {
+    badgeSel.addEventListener('change', () => { STATE.marker_badge_style = badgeSel.value; });
+  }
+  const einkLinesBox = document.getElementById('w-eink-verse-lines');
+  if (einkLinesBox) {
+    einkLinesBox.addEventListener('change', () => { STATE.reader_eink_verse_lines = einkLinesBox.checked; });
   }
   applyTargetGating();
 }
@@ -979,6 +1036,8 @@ function renderReview() {
         <div class="font-semibold">${esc((TARGET_CAPS[STATE.target] || {}).label || STATE.target)}</div>
         <div class="text-xs text-slate-500 mt-1">${esc((TARGET_CAPS[STATE.target] || {}).note || '')}</div>
         ${STATE.toc_expandable ? '<div class="text-xs text-slate-600 mt-1">Expandable chapter lists: on</div>' : ''}
+        <div class="text-xs text-slate-600 mt-1">Study-note badges: ${esc(STATE.marker_badge_style || 'chip')}</div>
+        ${STATE.target === 'eink' && STATE.reader_eink_verse_lines ? '<div class="text-xs text-slate-600 mt-1">One verse per line: on</div>' : ''}
       </div>
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories enabled</div>
@@ -1136,6 +1195,8 @@ async function startBuild() {
       time_filter_ceiling: STATE.time_filter_ceiling,
       target_reader: STATE.target,
       reader_toc_collapsible: !!STATE.toc_expandable,
+      marker_badge_style: STATE.marker_badge_style || 'chip',
+      reader_eink_verse_lines: !!STATE.reader_eink_verse_lines,
     };
     const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
       method: 'PUT',
