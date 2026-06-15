@@ -4,6 +4,24 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 95) — ★ M3 FAN-OUT 45/45 RECOVERED (power cut)
+
+**Power-cut recovery:** `m3_fanout.sh` died mid-epubcheck on `coptic-orthodox` red; all 45
+`.kepub.epub` files were already on disk. Verified red: epubcheck 0/0/0/0 + ALL K-R2 GREEN.
+Merged `build/matrix-m3/SHA256SUMS-m3-kobo.txt` (45 lines). External handoff to
+`YHWH-v2.4-releases/m3-kobo-v0.1.0/` pending (drive not plugged at recovery).
+
+## 2026-06-15 — Mac session (turn 92) — ★ APPLE M2 LAYOUT DIRECTIVE (user)
+
+**What shipped (docs only — milestone push with M3 handoff):**
+- **`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`** — user north star for
+  Apple Books (`tablet`): keep the **original §4.1 badge model** that passed M2-1 — translation
+  `vn-link` at verse **start**; **one study badge with note count at verse end**; polish popup
+  presentation only. Explicitly **do not** port Kobo K-R9 backmatter or Kindle M4b inline
+  suppress to Apple builds.
+- **Plan wiring:** `dev/LANE_HANDOFF.md` turn 92 · `dev/SESSION_STATE.md` · `dev/IN_FLIGHT.md` ·
+  `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` §4 Track F · `dev/EREADERS.md` §Apple.
+
 ## 2026-06-15 — Windows session (turn 94) — ★ K-R13 PASS + K-R14/15 KOBO POLISH + AUDIT PREP
 
 **Device QA round 13 PASS** (`docs/superpowers/notes/2026-06-15-kobo-round13-device-qa.md`):

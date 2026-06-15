@@ -25,6 +25,12 @@
 ## Apple Books (`tablet`)
 
 - **Delivery:** open the `.epub` on iPhone/iPad/Mac — no conversion.
+- **Layout directive (user 2026-06-15):** keep the **original §4.1 badge model** — the
+  pre-Kobo/Kindle-fork design that passed M2-1. Per verse: translation `vn-link` at verse
+  **start** → `vnote-*` popup; **one study badge with note count at verse end** → merged
+  `verse-notes` popup. Polish popup typography/cascade only; **do not** port Kobo K-R9
+  backmatter or Kindle M4b marker suppress to `tablet`. Authoritative:
+  `docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`.
 - **Works:** EPUB3 popup footnotes (`epub:type="noteref"`/`aside`); `<details>`
   collapsible ToC (full click round-trip live-verified on the Mac, 2026-06-10
   target-caps research); embedded fonts; page-break CSS; the title-box/edition-page

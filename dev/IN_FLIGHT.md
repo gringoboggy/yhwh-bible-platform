@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-15 (🪟 Windows, turn 94 — K-R15a + ROUND-16 KEPUB + AUDIT RUNBOOK).** Gen 8:15 empty-verse fix landed (`badge-trail` stripped in prose probe); round-16 kepub on `G:\` (`…T234655Z`). **User:** spot-check Gen 8:15 · Gen 2:7 popup spacing · line breaks (2:18/19, 3:1/2, 11:11/12) · page break (10:27/28). **NEXT FRESH SESSION (BOTH LANES):** parallel deep-audit round 8 per `docs/superpowers/plans/2026-06-15-round8-parallel-audit-session.md` — **FINDINGS-ONLY**. **NO PUSH** until audit merge milestone. Deferred: EPUB colour (ToC/pills/matter); book-cover art pass (`covers/_book_defaults/`). Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 95 — M3 45/45 RECOVERED + HANDOFF PENDING).** Power cut killed fan-out script during last epubcheck; all 45 kepubs verified green; `SHA256SUMS-m3-kobo.txt` written. **Next:** copy to external `m3-kobo-v0.1.0/` when drive plugged → milestone push. Apple M2 directive committed. **Parallel:** deep-audit round 8 (Mac 14 dims) when WIN auditor half ready; M4b Kindle fork. **WIN:** user Kobo round-15/16 spot QA. Baton **mac**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

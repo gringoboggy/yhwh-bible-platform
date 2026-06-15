@@ -1,33 +1,41 @@
 ---
 mode: parallel
-turn: 94
-from: windows
-updated: 2026-06-15T23:25:30Z
-status: handing-off
-mac: Fresh session: deep-audit round 8 — set LANE=mac locally in .claude/workflows/deep-audit.js (never commit); confirm 14 dims in startup log; FINDINGS-ONLY; push findings to lane-transfer/audit. Parallel: Kindle presentation fork (M4b) per turn-91 note when audit idle.
-windows: User Kobo round-15 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15 verse text). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
+turn: 95
+from: mac
+updated: 2026-06-16T00:35:00Z
+status: working
+mac: ▶ turn 95 (power-cut recovery) — M3 fan-out **45/45 GREEN** + SHA256SUMS-m3-kobo.txt; external `m3-kobo-v0.1.0/` handoff when drive plugged → milestone push. Apple M2 layout directive committed. **Next:** deep-audit round 8 (14 dims) when WIN auditor half ready; parallel M4b Kindle fork.
+windows: User Kobo round-15/16 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15 verse text). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
 truth_owner: mac
 holder: mac
 ---
 
-## ▶ windows → mac (turn 94, 2026-06-15T23:25:30Z) — mode=parallel
+## ▶ mac resume (turn 95, 2026-06-16T00:35:00Z) — mode=parallel
 
 **Done (turn 94, windows):**
-K-R13 device PASS; K-R14/15 shipped; round-15 kepub on G:; audit round 8 engine prepped (ROUND=8)
+K-R13 device PASS; K-R14/15 shipped; round-15/16 kepub on G:; audit round 8 engine prepped (ROUND=8)
 
-**Next (turn 95, mac picks up):**
-Parallel deep-audit round 8 on fresh sessions (edition cross-bleed); Mac pushes findings-mac.json; Win merges
+**Done (turn 92–95, mac — power-cut recovery):**
+Apple M2 layout directive committed; M3 fan-out 45/45 (power killed fanout mid-epubcheck on `coptic-orthodox` red — file was on disk; verified 0/0/0/0 + K-R2 GREEN; SHA256SUMS merged)
 
-**Assignments:** mac = Fresh session: deep-audit round 8 — set LANE=mac locally in `.claude/workflows/deep-audit.js` (never commit); confirm 14 dims in startup log; FINDINGS-ONLY; push findings to `lane-transfer/audit`. Parallel backlog: Kindle presentation fork (M4b) per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. · windows = User Kobo round-15 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
+**Next:**
+M3 external handoff → milestone push · Mac deep-audit round 8 (14 dims) · M4b Kindle fork
+
+**Assignments:** mac = M3 `m3-kobo-v0.1.0/` external handoff + milestone push. Deep-audit round 8 — set LANE=mac locally in `.claude/workflows/deep-audit.js` (never commit); 14 dims; FINDINGS-ONLY; push to `lane-transfer/audit` when WIN half ready. Parallel: M4b Kindle fork per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. · windows = User Kobo round-15/16 spot QA. Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
 
 **Watch-outs:**
 Gen 8:15 needs rebuild with translations fallback; EPUB colour deferred next ship
 
----
+## ◦ mac assign (turn 92, 2026-06-15T23:45:00Z) — mode=parallel
 
-## ◦ mac assign (turn 91, 2026-06-15T22:30:00Z) — mode=parallel
+**Assignments:** mac = ▶ turn 92 (Mac) — **Apple M2 layout directive** committed (`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`): keep original §4.1 badge model on Apple (translation `vn-link` at verse start; **one ◈+count badge at verse end**; polish popups only — do **not** port Kobo backmatter or Kindle M4b forks to `tablet`). M3 fan-out 45/45 → SHA256SUMS → external `m3-kobo-v0.1.0/` handoff → **milestone push**. **Next:** M4b Kindle fork; M2 Apple polish per directive; deep-audit round 8. · windows = ▶ turn 94 DONE — K-R13–K-R15 shipped. **User:** Kobo round-15/16 spot QA. **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
 
-**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. **Then (user directive):** Mac → **M2 Apple** column work; **user** device-tests Apple. · windows = ▶ turn 94 DONE — K-R13–K-R15 shipped. **User:** Kobo round-15 spot QA. **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
+**★▶ MAC addendum (2026-06-15, turn 92) — ★ APPLE M2 LAYOUT DIRECTIVE (user).**
+① **North star:** the pre-fork original — Apple Books proved EPUB3 popups; badge+count at verse end worked "VERY CLEAN" (M2-1 PASS).
+② **Scripture contract:** translation popup **before** verse (`vn-link`); **one study badge per verse at end** with note count; every note still ships inside the merged popup.
+③ **Polish scope:** translation + study popup typography/cascade only — Apple's plain footnote sheet, no custom overlay.
+④ **Do not bleed:** Kobo K-R9 backmatter / per-category badges; Kindle M4b inline suppress — those are `eink` / `kindle` only.
+⑤ **Doc:** `docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md` · wired into release plan §4 Track F + `EREADERS.md`.
 
 **★▶ MAC addendum (2026-06-15, turn 91) — ★ KINDLE PHONE QA + M4b PREP (fresh session).**
 ① **User QA** on STK pack `~/Desktop/YHWH-kindle-stk-qa/` (01 ethiopian navy, 05 scholarly navy) — both editions same defects; not random teleports (chapter page-break anchors: 3:24, 8:10, 11:26…).
