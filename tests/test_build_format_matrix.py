@@ -28,6 +28,14 @@ class TestMatrixCells:
 
         assert matrix_cells(phase="M99") == []
 
+    def test_m3_phase_selects_kobo_only(self):
+        from scripts.build_format_matrix import matrix_cells
+
+        cells = matrix_cells(phase="M3")
+        assert [c["id"] for c in cells] == ["kobo"]
+        assert cells[0]["post_process"] == "kepubify"
+        assert cells[0]["packaging"] == "kepub.epub"
+
 
 class TestDistinctTargets:
     def test_m1_targets_are_everywhere_and_tablet(self):

@@ -4,6 +4,18 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-14 — Mac session (turn 90) — ★ M3 KOBO PIPELINE + FAN-OUT STARTED
+
+**What shipped:**
+- **`build_format_matrix` kepubify post-process** for M3: `FORMAT_MATRIX` kobo row gains `post_process: kepubify`; eink base → kepubify v4.0.4 → variant cover swaps on kepub (spec §4); per-asset gates unchanged (epubcheck + `verify_kr2_build.py`).
+- **`dev/M3_Kobo_Assets_v0.1.0.txt`** — exact 45 `.kepub.epub` catalog names + Win/Mac regen snippets.
+- **Tests:** +2 pins (`test_m3_phase_selects_kobo_only`, `test_kobo_row_carries_kepubify_post_process`); matrix suite 37/37 green.
+- **Smoke:** catholic-study × M3 → 5/5 gated green (~29–31 MiB each).
+
+**In flight (not in commit):** overnight `build/m3_fanout.sh` → `build/matrix-m3/` (gitignored artifacts). 7/45 on disk at push; baseline for user Kobo taps before catalog column lights.
+
+**Mac next:** 45/45 complete → SHA256SUMS + external handoff. **WIN:** audit round 8 (parallel). **User:** Kobo tap round when staged.
+
 ## 2026-06-14 — Windows session (turn 90) — ★ v1.0.0 RELEASE PLAN (parallel WIN/Mac tracks)
 
 **What shipped:**

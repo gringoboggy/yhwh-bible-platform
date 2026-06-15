@@ -108,6 +108,13 @@ class TestFormatMatrixShape:
             "play": "M5",
         }
 
+    def test_kobo_row_carries_kepubify_post_process(self):
+        from scripts.build_edition import FORMAT_MATRIX
+
+        kobo = next(f for f in FORMAT_MATRIX if f["id"] == "kobo")
+        assert kobo["post_process"] == "kepubify"
+        assert kobo["packaging"] == "kepub.epub"
+
 
 class TestEditionCoverSignature:
     """Per-edition signature covers — spec addendum 2026-06-11 (user-

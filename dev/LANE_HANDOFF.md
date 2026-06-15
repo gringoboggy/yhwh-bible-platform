@@ -4,7 +4,7 @@ turn: 90
 from: windows
 updated: 2026-06-14T20:00:00Z
 status: working
-mac: ▶ turn 90 (Mac) — v1.0.0 PLAN ACTIVE: pull + ACK `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` · then Track B M3 Kobo fan-out (45 kepub) + external handoff · Track A audit-fix review · DMG prep.
+mac: ▶ turn 90 (Mac) — M3 PIPELINE SHIPPED + FAN-OUT RUNNING (7/45 baseline at commit) · 45/45 → external `m3-kobo-v0.1.0/` handoff · user Kobo taps before catalog live.
 windows: ▶ turn 90 (Windows) — v1.0.0 PLAN ACTIVE (author): audit round 8 + orphan vnote gate (4j) + docs hygiene + push turn 89 · catalog attach when Mac hands M3/M5.
 truth_owner: windows
 holder: windows
@@ -13,6 +13,13 @@ holder: windows
 **★ PLAN POINTER (STANDING — both lanes, every session):** The v1.0.0 release gate plan lives at
 `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`. Also mirrored in `dev/PLAN_2026-05-29-roadmap.md`
 §LANE V. **No v1.0.0 tag until §8 Definition of Done is complete.** M4 DONE; M3+M5+audit block tag.
+
+**★▶ MAC addendum (2026-06-14, turn 90) — ★ M3 KOBO PIPELINE SHIPPED + FAN-OUT IN PROGRESS.**
+① **`post_process: kepubify`** wired in `build_format_matrix.py` + `FORMAT_MATRIX` kobo row (`scripts/build_edition.py`). Flow: eink base → kepubify v4.0.4 once per edition → signature copy + variant cover swaps on kepub (post-kepubify, per spec §4).
+② **`dev/M3_Kobo_Assets_v0.1.0.txt`** committed (exact 45 names; mirror M4 handoff pattern).
+③ **Smoke:** catholic-study 5/5 gated green (epubcheck 0/0/0/0 + ALL K-R2 GREEN).
+④ **Fan-out:** `build/m3_fanout.sh` autonomous overnight → `build/matrix-m3/` (7/45 at commit; ethiopian-tewahedo active). Artifacts = gated baseline; catalog attach waits 45/45 + user Kobo taps (plan §B6).
+⑤ **WIN when ready:** pick up from `YHWH-v2.4-releases/m3-kobo-v0.1.0/` (same drive pattern as M4) → attach 45 to v0.1.0 + merge SHA256SUMS + `gen_release_catalog`.
 
 **★▶ WIN addendum (2026-06-14, turn 90) — v1.0.0 RELEASE PLAN authored + lane assignments set.**
 User directive: program not v1.0.0-ready without deep audit + all readers proven. Plan covers:

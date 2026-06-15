@@ -187,6 +187,21 @@ def _gate_asset(asset: Path) -> None:
     _run([sys.executable, str(REPO_ROOT / "dev" / "verify_kr2_build.py"), str(asset)], cwd=str(REPO_ROOT))
 
 
+def _kepubify_exe() -> str:
+    """Pinned kepubify v4.0.4 on PATH (dev/TOOLCHAIN.md §kepubify)."""
+    exe = shutil.which("kepubify")
+    if not exe:
+        raise FileNotFoundError("kepubify not on PATH — install pinned v4.0.4 (dev/TOOLCHAIN.md §kepubify)")
+    return exe
+
+
+def _apply_kepubify(source_epub: Path, dest_kepub: Path) -> None:
+    """Plain EPUB → Kobo ``.kepub.epub`` via kepubify (footnote popups require it)."""
+    if dest_kepub.exists():
+        dest_kepub.unlink()
+    _run([_kepubify_exe(), "-o", str(dest_kepub), str(source_epub)])
+
+
 def _apply_kindle_post(edition_id: str, cell: dict, asset: Path) -> None:
     """Apply the proven Send-to-Kindle recipe (``scripts.core.kindle_post``) in
     place over a freshly built / cover-swapped EPUB, then assert conformance.
@@ -235,9 +250,28 @@ def build_edition_assets(
     assets: list[Path] = []
     for cell in cells:
         base = bases[base_build_target(cell)]
+        kepub_base: Path | None = None
         for colour, name in cell_asset_names(edition_id, version, cell):
             asset = out_dir / name
-            if colour == sig_colour:
+            if cell.get("post_process") == "kepubify":
+                # Spec §4: kepubify the eink base once; variant colours re-swap
+                # the committed composite onto the kepub (not the plain EPUB).
+                if kepub_base is None:
+                    kepub_base = out_dir / f"._kepub_base_{edition_id}_{cell['id']}.kepub.epub"
+                    print(f"[{edition_id}] cell {cell['id']}: kepubify {base.name}", flush=True)
+                    _apply_kepubify(base, kepub_base)
+                if colour == sig_colour:
+                    print(
+                        f"[{edition_id}] cell {cell['id']}: {kepub_base.name} -> {asset.name} (signature)", flush=True
+                    )
+                    shutil.copyfile(kepub_base, asset)
+                else:
+                    composite = variant_composite_path(edition_id, colour)
+                    print(
+                        f"[{edition_id}] cell {cell['id']}: swap {composite.name} -> {asset.name} (kepub)", flush=True
+                    )
+                    swap_cover(kepub_base, composite, asset)
+            elif colour == sig_colour:
                 print(f"[{edition_id}] cell {cell['id']}: {base.name} -> {asset.name} (signature)", flush=True)
                 shutil.copyfile(base, asset)
             else:
@@ -252,6 +286,8 @@ def build_edition_assets(
             if gates:
                 _gate_asset(asset)
             assets.append(asset)
+        if kepub_base is not None and kepub_base.is_file():
+            kepub_base.unlink()
 
     # The base trees are working artifacts, not uploads — drop them so the
     # job's upload glob can never sweep a non-catalog name.

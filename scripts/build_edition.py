@@ -2048,6 +2048,9 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "target_reader": "eink",
         "packaging": "kepub.epub",
         "phase": "M3",
+        # M3: plain eink EPUB → kepubify v4.0.4; variant covers swap AFTER
+        # conversion (spec §4 step 2 — kepub re-swap post-kepubify).
+        "post_process": "kepubify",
     },
     {
         "id": "kindle",

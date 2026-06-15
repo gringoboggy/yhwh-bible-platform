@@ -2,6 +2,8 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **▶ 🔄 2026-06-14 (🖥️ Mac, turn 90 — M3 FAN-OUT RUNNING).** Pipeline shipped: `build_format_matrix` kepubify post-process + `dev/M3_Kobo_Assets_v0.1.0.txt`. catholic-study smoke 5/5 green. Autonomous `build/m3_fanout.sh` building 45 → `build/matrix-m3/` (7/45 at commit; ethiopian-tewahedo active). Next after 45/45: SHA256SUMS + external drive `m3-kobo-v0.1.0/` handoff for WIN attach. User Kobo taps gate catalog live. Baton **windows**; mode=parallel.
+>
 > **▶ 2026-06-14 (🪟 Windows, turn 90 — ★ v1.0.0 RELEASE PLAN ACTIVE).** Plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`. Parallel tracks: A audit round 8 · B M3 Kobo · C M5 Play · D docs · E content (opportunistic). M4 DONE (turn 89). Tag blocked until §8 DoD. WIN: audit + orphan gate. Mac: M3 fan-out. User: device QA rounds. Baton **windows**; mode=parallel.
 >
 > **▶ ✅ 2026-06-14 (🪟 Windows, turn 89 — ★ M4 CATALOG + WEBSITE LIVE).** Attached 45 Kindle EPUBs to v0.1.0 release; merged SHA256SUMS; `gen_release_catalog` → live columns everywhere/apple/kindle (188 assets); website deployed (`yhwh-website` c8c87d5). **M4 arc COMPLETE.** Baton **windows** (truth_owner); mode=parallel.
