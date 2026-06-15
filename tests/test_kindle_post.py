@@ -26,6 +26,34 @@ import zipfile
 from scripts.core import kindle_post
 
 
+class TestStripBodyBackgrounds:
+    def test_strips_devotional_body_tint(self):
+        css = (
+            "/* theme: devotional */\n"
+            "body {\n  color: #2c1810;\n  background: #fffbf3;\n}\n"
+            ".note { background: #faf2e3; }\n"
+        )
+        out, n = kindle_post.strip_body_backgrounds(css)
+        assert "background: #fffbf3" not in out
+        assert "color: #2c1810" in out
+        assert ".note { background: #faf2e3; }" in out
+        assert n == 1
+
+    def test_strips_body_in_grouped_selector(self):
+        css = "body, body.bible-body { background-color: #fffbf3; margin: 0; }\n"
+        out, n = kindle_post.strip_body_backgrounds(css)
+        assert "background" not in out
+        assert "margin: 0" in out
+        assert n == 1
+
+    def test_idempotent(self):
+        css = "body { background: #fffbf3; }\n"
+        once, _ = kindle_post.strip_body_backgrounds(css)
+        twice, n2 = kindle_post.strip_body_backgrounds(once)
+        assert once == twice
+        assert n2 == 0
+
+
 class TestStripHiddenCss:
     def test_strips_display_none_and_visibility_hidden(self):
         css = ".notes-section { display: none; color: red; }\n.x { visibility: hidden; }\n"
@@ -111,7 +139,10 @@ def _synthetic_epub() -> bytes:
             "<dc:title>X</dc:title><dc:language>en</dc:language>"
             "<dc:language>he</dc:language></metadata></package>",
         )
-        z.writestr("OEBPS/stylesheet.css", ".notes-section { display: none; }\n.keep { color: #111; }\n")
+        z.writestr(
+            "OEBPS/stylesheet.css",
+            "body { background: #fffbf3; }\n.notes-section { display: none; }\n.keep { color: #111; }\n",
+        )
         z.writestr(
             "OEBPS/index_split_000.html",
             '<html><body><p style="display:none">h</p>'
@@ -141,6 +172,8 @@ class TestMakeKindleSafe:
             assert first.compress_type == zipfile.ZIP_STORED
 
         assert "display: none" not in css and "display:none" not in html
+        assert "background: #fffbf3" not in css
+        assert stats["body_backgrounds_stripped"] == 1
         assert 'class="vn-sep"' in html  # KEPT (june10 kept all 132,949)
         assert 'hidden=""' in html  # left intact
         assert opf.count("<dc:language>") == 1 and "en-US" in opf
@@ -164,6 +197,23 @@ class TestVerifyKindleSafe:
         src.write_bytes(_synthetic_epub())
         kindle_post.make_kindle_safe(src, dst)
         assert kindle_post.verify_kindle_safe(dst) == []
+
+    def test_body_background_in_css_fails(self, tmp_path):
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+            z.writestr("mimetype", "application/epub+zip")
+            z.writestr(
+                "OEBPS/content.opf",
+                "<?xml version='1.0'?><package><metadata "
+                'xmlns:dc="http://purl.org/dc/elements/1.1/">'
+                "<dc:language>en-US</dc:language></metadata></package>",
+            )
+            z.writestr("OEBPS/stylesheet.css", "body { background: #fffbf3; }\n")
+            z.writestr("OEBPS/chapter.xhtml", "<html><body><p>x</p></body></html>")
+        bad = tmp_path / "bad.epub"
+        bad.write_bytes(buf.getvalue())
+        fails = kindle_post.verify_kindle_safe(bad)
+        assert any("body background" in f for f in fails), fails
 
     def test_raw_everywhere_artifact_fails(self, tmp_path):
         # the un-processed synthetic build has hidden CSS + multi-language ->

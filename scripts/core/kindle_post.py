@@ -51,6 +51,9 @@ from pathlib import Path
 _CSS_HIDDEN_DECL_RE = re.compile(r"(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?", re.I)
 _INLINE_HIDDEN_DECL_RE = re.compile(r'(style="[^"]*?)(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*;?', re.I)
 _DC_LANG_RE = re.compile(r"<dc:language>[^<]*</dc:language>")
+_CSS_RULE_RE = re.compile(r"([^{}]+)\{([^{}]*)\}", re.S)
+_BODY_SELECTOR_RE = re.compile(r"\bbody\b", re.I)
+_BODY_BACKGROUND_DECL_RE = re.compile(r"\bbackground(?:-color)?\s*:[^;]+;?\s*", re.I)
 
 
 def _flatten_toc_pills(html: str) -> str:
@@ -82,6 +85,26 @@ def _flatten_toc_pills(html: str) -> str:
 KINDLE_LANGUAGE = "en-US"
 
 _DOC_SUFFIXES = (".html", ".xhtml")
+
+
+def strip_body_backgrounds(css: str) -> tuple[str, int]:
+    """Remove ``background`` / ``background-color`` from rules whose selector
+    targets ``body``. Theme files (e.g. devotional) set a page tint that Kindle
+    KFX renders as an unwanted content-area panel. Idempotent."""
+    stripped = 0
+
+    def _repl(m: re.Match) -> str:
+        nonlocal stripped
+        selector, decls = m.group(1), m.group(2)
+        if not _BODY_SELECTOR_RE.search(selector):
+            return m.group(0)
+        new_decls, n = _BODY_BACKGROUND_DECL_RE.subn("", decls)
+        if n:
+            stripped += n
+            return f"{selector}{{{new_decls}}}"
+        return m.group(0)
+
+    return _CSS_RULE_RE.sub(_repl, css), stripped
 
 
 def strip_hidden_css(css: str) -> tuple[str, int]:
@@ -128,6 +151,7 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
     src_epub, dst_epub = Path(src_epub), Path(dst_epub)
     stats = {
         "css_hidden_stripped": 0,
+        "body_backgrounds_stripped": 0,
         "inline_hidden_stripped": 0,
         "dc_language_collapsed": 0,
     }
@@ -145,10 +169,13 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
 
     for name in order:
         if name.endswith(".css"):
-            text, n = strip_hidden_css(data[name].decode("utf-8"))
-            if n:
+            text = data[name].decode("utf-8")
+            text, n_hidden = strip_hidden_css(text)
+            text, n_bg = strip_body_backgrounds(text)
+            if n_hidden or n_bg:
                 data[name] = text.encode("utf-8")
-                stats["css_hidden_stripped"] += n
+                stats["css_hidden_stripped"] += n_hidden
+                stats["body_backgrounds_stripped"] += n_bg
         elif name.endswith(_DOC_SUFFIXES):
             text = data[name].decode("utf-8")
             text, n_inline = strip_hidden_html(text)
@@ -193,8 +220,13 @@ def verify_kindle_safe(epub_path: Path | str) -> list[str]:
         for info in infos:
             name = info.filename
             if name.endswith(".css"):
-                if _CSS_HIDDEN_DECL_RE.search(z.read(name).decode("utf-8", "replace")):
+                css_text = z.read(name).decode("utf-8", "replace")
+                if _CSS_HIDDEN_DECL_RE.search(css_text):
                     fails.append(f"{name}: display:none/visibility:hidden survives in CSS")
+                for m in _CSS_RULE_RE.finditer(css_text):
+                    if _BODY_SELECTOR_RE.search(m.group(1)) and _BODY_BACKGROUND_DECL_RE.search(m.group(2)):
+                        fails.append(f"{name}: body background survives in CSS")
+                        break
             elif name.endswith(_DOC_SUFFIXES):
                 text = z.read(name).decode("utf-8", "replace")
                 if _INLINE_HIDDEN_DECL_RE.search(text):

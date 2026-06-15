@@ -59,9 +59,9 @@ Superset-scale in reader: **772,444 locations** total (IMG_0415 et al.).
   (`theme: classic`) has **no** body background — no panel. Scholarly navy (`theme:
   scholarly`) also has no body background. Kindle KFX paints the `body` fill as a
   content-area panel against the reader’s native page colour.
-- **M4b fix (deferred):** Kindle presentation pass should **strip or neutralize theme
-  `body` backgrounds** (and audit other theme files) for STK — keep tint on notes/covers
-  only if needed, not full-page `body`.
+- **Fix (shipped in `kindle_post`, 2026-06-15):** `strip_body_backgrounds()` removes
+  `background` / `background-color` from all `body` CSS rules during `make_kindle_safe`.
+  Rebuild + re-STK to pick up (catalog artifacts pre-fix still carry `#fffbf3`).
 
 ### 3. Too busy — inline badges / “Kobo-like”
 
