@@ -1047,15 +1047,19 @@ def render_eink_study_backmatter_page(edition: dict, entries: list[tuple]) -> st
     body_parts = [
         '<section class="study-notes-index" epub:type="backmatter">',
         "<h1>Study Notes</h1>",
-        '<p class="study-notes-lead">Tap a study badge († or ◇) in the text to jump here. '
-        "Each entry ends with a ↩ link back to the verse you were reading. "
-        "Translation links still open as quick popups.</p>",
+        '<p class="study-notes-lead">Coloured badges after each verse open study notes '
+        "by category. The chip shows a category mark; when there is more than one note "
+        "in that category, a number follows it (for example, H2 means two historical "
+        "notes). Tap a badge to jump here. Tap a verse tag such as 1:1 at the end of a "
+        "section to return to scripture. Tap a verse number in the text for translation "
+        "popups.</p>",
     ]
     current_code: str | None = None
     for _sort_key, code, aside_html in entries:
         if code != current_code:
             current_code = code
-            book_title = html.escape((books_by_code.get(code) or {}).get("title") or code.upper())
+            rec = books_by_code.get(code) or {}
+            book_title = html.escape((rec.get("toc_title") or rec.get("title") or code.upper()))
             body_parts.append(f'<h2 class="study-book-head" id="study-{code}">{book_title}</h2>')
         body_parts.append(aside_html)
     body_parts.append("</section>")

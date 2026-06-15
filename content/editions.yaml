@@ -33,6 +33,8 @@ editions:
     # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
     reader_toc_books_only: true
+    # K-R9/K-R10/K-R11 — study badges navigate to backmatter glossary (not footnote popups).
+    reader_eink_study_layout: backmatter
     # Note-presentation rehaul (build-time, lossless, option-gated) — enabled for the
     # flagship Ethiopian Tewahedo Study Bible. S1 (note_attribution_dedup) drops each
     # leaf's redundant kind-label / self-attributing comm-ethiopian byline; S2

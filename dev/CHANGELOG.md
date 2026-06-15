@@ -4,6 +4,26 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-15 — Windows session (turn 94) — ★ K-R13 PASS + K-R14/15 KOBO POLISH + AUDIT PREP
+
+**Device QA round 13 PASS** (`docs/superpowers/notes/2026-06-15-kobo-round13-device-qa.md`):
+study badges teleport; translation popups work; remaining polish = vnote preview formatting.
+
+**Shipped K-R14:** eink-only vnote Footnote-preview separators — `vnote-kobo-sep` dot-rule +
+`kobo-vnote-br` before each `vnote-*` block (survives Kobo tag-strip better than U+2028 spans).
+
+**Shipped K-R15:** (a) QA build stops forcing `reader_eink_verse_lines` (fixes stray verse
+line breaks Gen 2:18/19, 3:1/2, 11:11/12); (b) file-split verse-pair coalesce at ≤112% target
+(fixes spine page breaks Gen 10:27/28); (c) `repair_empty_verse_prose` for ~198 WEB/KJV
+versification gaps + translations-store fallback (Gen 8:15 class).
+
+**QA artifact:** `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-15T230843Z.kepub.epub`
+on `G:\YHWH-koboQA.kepub.epub` (Gen 8:15 text needs one rebuild with fallback commit).
+
+**Deferred next ship:** modest EPUB colour on non-native ToC, pills, and matter pages (match website theme).
+
+**Next:** fresh-session deep-audit round 8 (parallel win+mac, edition-isolation sweep).
+
 ## 2026-06-15 — Mac session (turn 91) — ★ KINDLE PHONE QA INGESTED + FRESH-SESSION PREP
 
 **What shipped (docs only — no build/code):**
@@ -19,7 +39,7 @@
 **In flight:** M3 fan-out 41/45 (`build/m3_fanout.sh` → `build/matrix-m3/`).
 
 **Mac next session:** Kindle presentation fork design + TDD implementation. **User:** Kobo
-round-9 taps (WIN QA kepub) · Kindle fork STK re-test when Mac ships.
+round-15 spot QA (WIN) · Kindle fork STK re-test when Mac ships.
 
 ## 2026-06-15 — Windows session (turn 93) — ★ K-R9b/c STUDY GLOSSARY + CATEGORY BADGES
 

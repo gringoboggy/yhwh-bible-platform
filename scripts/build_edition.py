@@ -2275,10 +2275,16 @@ _EINK_READER_CSS = (
     "  letter-spacing: 0.06em; }\n"
     ".study-glossary-entry { margin: 0.85em 0; padding-top: 0.6em;\n"
     "  border-top: 1px solid rgba(110, 88, 64, 0.25); }\n"
+    ".study-glossary-cat { margin: 0.35em 0; }\n"
+    ".study-verse-back { text-align: right; margin: 0.35em 0 0.55em;\n"
+    "  font-size: 0.92em; }\n"
     "a.study-return { font-weight: 600; }\n"
+    "/* K-R11/R12: study badges — <span> face; cross-file noteref navigates */\n"
+    "a.study-glossary-jump { text-decoration: none; }\n"
+    ".kobo-study-nav-pad { display: none; }\n"
     "/* K-R9c: per-category study badges — hue matches the glossary section spine */\n"
     + "".join(
-        f".verse-notes-badge.badge-cat-{cat} .marker-badge "
+        f".study-glossary-jump.badge-cat-{cat} .marker-badge "
         f"{{ color: {hue}; border-color: {hue}; background: {_EINK_CATEGORY_BADGE_TINTS.get(cat, 'rgba(92, 46, 145, 0.13)')}; }}\n"
         for cat, hue in _CASCADE_CATEGORY_HUES.items()
     )
@@ -2506,18 +2512,106 @@ def add_vnote_preview_separators(html: str) -> str:
     return _VNOTE_SEP_LABEL_RE.sub(lambda m: m.group(1) + _VN_SEP_BYLINE, html)
 
 
-def apply_vnote_preview_separators(tmp: Path) -> int:
+# K-R14 (Kobo round 7/14): Kobo's tag-stripped Footnote preview drops U+2028
+# inside `.vn-sep` spans after kepubify's koboSpan pass. Plain `<br>` elements
+# and a visible dot-rule paragraph survive the extractor better than hidden spans.
+_KOBO_VNOTE_BR = '<br class="kobo-vnote-br" />'
+_KOBO_VNOTE_GAP = '<p class="vnote-kobo-sep">\u00a0\u00b7\u00a0\u00b7\u00a0\u00b7\u00a0</p>'
+_VNOTE_BR_BEFORE_P_RE = re.compile(
+    r'(?<!<br class="kobo-vnote-br" />)'
+    r'(<p class="vnote-(?!kobo-sep)[^"]*"[^>]*>)'
+)
+
+
+def add_eink_vnote_preview_breaks(html: str) -> str:
+    """Insert kobo-safe breaks + dot-rule gaps before each vnote block (K-R14)."""
+    return _VNOTE_BR_BEFORE_P_RE.sub(_KOBO_VNOTE_GAP + _KOBO_VNOTE_BR + r"\1", html)
+
+
+# K-R15a: recovered-base WEB/KJV versification leaves ~198 vn-link anchors with
+# no readable prose before the next anchor (gen 8:15 is the canonical example).
+# Inject the vnote-text English fallback so badges and translation markers are
+# not orphaned on an empty line.
+_VN_LINK_ANCHOR_RE = re.compile(
+    r'<a class="vn-link" id="v-([a-z0-9]+)-(\d+)-(\d+)"[^>]*>\s*<span class="vn">\d+</span>\s*</a>'
+)
+_VNOTE_FALLBACK_TEXT_RE = re.compile(
+    r'<aside class="vnote" id="vnote-([a-z0-9]+)-(\d+)-(\d+)"[^>]*>'
+    r'.*?<p class="vnote-text(?:\s[^"]*)?">(?:<span class="vn-sep">[^<]*</span>)?(?:¶\s*)?([^<]+)',
+    re.DOTALL,
+)
+_EMPTY_VERSE_MARKER_RE = re.compile(
+    r'<a class="(?:note-ref|study-glossary-jump|verse-notes-badge)[^"]*"[^>]*>.*?</a>',
+    re.DOTALL,
+)
+_EMPTY_VERSE_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _verse_region_prose_len(chunk: str) -> int:
+    chunk = _EMPTY_VERSE_MARKER_RE.sub("", chunk)
+    chunk = _EMPTY_VERSE_TAG_RE.sub("", chunk)
+    return len(re.sub(r"\s+", "", chunk))
+
+
+def repair_empty_verse_prose(text: str) -> tuple[str, int]:
+    """Fill vn-link anchors whose prose region is empty from their vnote-text."""
+    fallbacks: dict[tuple[str, int, int], str] = {}
+    for m in _VNOTE_FALLBACK_TEXT_RE.finditer(text):
+        snippet = html.unescape(m.group(4)).strip()
+        if not snippet or snippet.startswith("[no text"):
+            continue
+        fallbacks[(m.group(1), int(m.group(2)), int(m.group(3)))] = snippet
+    matches = list(_VN_LINK_ANCHOR_RE.finditer(text))
+    splices: list[tuple[int, int, str]] = []
+    for i, m in enumerate(matches):
+        key = (m.group(1), int(m.group(2)), int(m.group(3)))
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        if _verse_region_prose_len(text[start:end]) > 0:
+            continue
+        fallback = fallbacks.get(key)
+        if not fallback:
+            from scripts.core import translations as _tx
+
+            code, ch_i, v_i = key
+            fallback = _tx.get_verse("web", code, ch_i, v_i) or _tx.get_verse("kjv", code, ch_i, v_i)
+        if not fallback:
+            continue
+        splices.append((start, start, f" {html.escape(fallback, quote=False)}"))
+    if not splices:
+        return text, 0
+    out = text
+    for start, end, repl in sorted(splices, key=lambda s: s[0], reverse=True):
+        out = out[:start] + repl + out[end:]
+    return out, len(splices)
+
+
+def apply_empty_verse_prose_repair(tmp: Path) -> int:
+    """Run K-R15a across the per-edition temp tree. Returns verses repaired."""
+    repaired = 0
+    for path in sorted(tmp.glob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        out, n = repair_empty_verse_prose(text)
+        if n:
+            path.write_text(out, encoding="utf-8")
+            repaired += n
+    return repaired
+
+
+def apply_vnote_preview_separators(tmp: Path, edition: dict | None = None) -> int:
     """Run the K-R4-1 vnote separator pass over the per-edition temp tree.
 
-    Mutates ONLY the temp tree (epub_working/ untouched); applies to every
-    edition regardless of marker_style — translation popups exist everywhere
-    and the eInk preview legibility fix is edition-independent. Returns the
-    number of files changed.
+    Mutates ONLY the temp tree (epub_working/ untouched). K-R4-1 separators
+    apply to every edition; K-R14 ``<br>`` breaks apply only when
+    ``target_reader`` resolves to ``eink``. Returns the number of files changed.
     """
+    eink = edition is not None and resolve_target_reader(edition) == "eink"
     touched = 0
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
         out = add_vnote_preview_separators(text)
+        if eink:
+            out = add_eink_vnote_preview_breaks(out)
         if out != text:
             fpath.write_text(out, encoding="utf-8")
             touched += 1
@@ -2923,6 +3017,32 @@ def _count_cascade_leaves(html: str) -> int:
 # e-ink-safety fixes ship to every edition unless it opts out.
 
 DEFAULT_NOTE_POPUP_SPLIT_CAP = 4_400
+# K-R12/R13 — Kobo declines Footnote preview (navigates instead) when the
+# tag-stripped target exceeds ~5,500 chars (round-5 bracket). Pad every
+# backmatter glossary category footnote to this floor so no study badge pops.
+KOBO_STUDY_NAV_MIN_STRIPPED = 5_600
+
+# K-R13b — in-margin study badge faces that render on Kobo e-ink. Cardo lacks
+# ✧ ⌂ ✦ ❖ …; Kobo system renders ◇ † * and letters everywhere. Glossary
+# cascade headers keep the full categories.yaml symbols; only the badge chip
+# uses these substitutes.
+_EINK_CATEGORY_BADGE_GLYPHS = {
+    "lang": "⌘",
+    "text": "†",
+    "xref": "‖",
+    "hist": "H",
+    "lit": "L",
+    "comm": "◇",
+    "compare": "☩",
+    "dev": "✶",
+    "liturgy": "☧",
+    "apol": "A",
+    "modern": "M",
+    "ped": "◯",
+    "vis": "V",
+    "dist": "D",
+    "topic": "*",
+}
 
 # Stripped-size headroom reserved for the unit aside's own header line
 # ("↩ 16:12 (2/6)") when packing rows against the cap.
@@ -2933,6 +3053,23 @@ _POPUP_CHUNK_MARGIN = 600
 
 _STRIP_TAG_RE = re.compile(r"<[^>]+>")
 _STRIP_WS_RE = re.compile(r"\s+")
+
+
+def _pad_kobo_study_footnote(footnote_html: str) -> str:
+    """Pad a glossary category ``aside`` footnote so Kobo declines the preview popup."""
+    n = _stripped_len(footnote_html)
+    if n >= KOBO_STUDY_NAV_MIN_STRIPPED:
+        return footnote_html
+    # K-R13c: filler must NOT be whitespace — _stripped_len collapses \s+
+    # (incl. NBSP) so a nbsp pad counted as ~1 char and never moved Kobo.
+    filler = "." * (KOBO_STUDY_NAV_MIN_STRIPPED - n)
+    pad = f'<span class="kobo-study-nav-pad" aria-hidden="true">{filler}</span>\n  '
+    return footnote_html.replace("</aside>", f"{pad}</aside>", 1)
+
+
+def _eink_category_badge_glyph(cat: str, glyph: str) -> str:
+    """Kobo-safe badge face for a study category (K-R13b)."""
+    return _EINK_CATEGORY_BADGE_GLYPHS.get(cat) or glyph or cat[0].upper()
 
 
 def _stripped_len(html_text: str) -> int:
@@ -3335,29 +3472,40 @@ def _unique_cats_sorted(rows: list[dict]) -> list[str]:
     return ordered
 
 
+def _study_verse_return_link(code: str, ch: int, v: int) -> str:
+    """Compact verse-tag jump back to scripture (K-R10 — no long 'Return to …' prose)."""
+    verse_id = f"v-{code}-{ch}-{v}"
+    label = f"{ch}:{v}"
+    return f'<a href="#{verse_id}" class="note-back study-return">{html.escape(label, quote=False)}</a>'
+
+
 def _emit_backmatter_glossary_inner(
     rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool
 ) -> str:
-    """Glossary inner HTML with one anchored section per category (K-R9c).
+    """Glossary inner HTML with one padded footnote aside per category (K-R13).
 
-    Each ``section.vn-group`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"`` so a
-    per-category badge can jump straight to the matching coloured block."""
+    Each ``aside[epub:type=footnote]`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"``
+    so a per-category ``noteref`` badge uses Kobo's footnote navigate path."""
+    verse_back = f'    <p class="study-verse-back">{_study_verse_return_link(code, ch, v)}</p>\n'
     parts: list[str] = []
     for cat in _unique_cats_sorted(rows):
         cat_rows = [r for r in rows if r["cat"] == cat]
         sid = f"vnotes-{code}-{ch}-{v}-{cat}"
         if s2_group:
-            inner = _emit_cascade_sections(cat_rows, cat_meta)
-            inner = inner.replace(
-                f'<section class="vn-group note-cat-{cat}">',
-                f'<section class="vn-group note-cat-{cat}" id="{sid}">',
-                1,
-            )
-            parts.append(inner)
+            body = _emit_cascade_sections(cat_rows, cat_meta)
         else:
-            parts.append(f'  <section class="vn-group note-cat-{cat}" id="{sid}">\n')
-            parts.append("".join(f"    {r['row']}\n" for r in cat_rows))
-            parts.append("  </section>\n")
+            body = (
+                f'    <section class="vn-group note-cat-{cat}">\n'
+                + "".join(f"      {r['row']}\n" for r in cat_rows)
+                + "    </section>\n"
+            )
+        footnote = (
+            f'  <aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{sid}">\n'
+            + body
+            + verse_back
+            + "  </aside>\n"
+        )
+        parts.append(_pad_kobo_study_footnote(footnote))
     return "".join(parts)
 
 
@@ -3731,7 +3879,6 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             return inner
                         return "".join(f"  {r['row']}\n" for r in unit_rows)
 
-                    book_title = (books_by_code.get(code) or {}).get("title") or code.upper()
                     unit_asides: list[str] = []
                     unit_badges: list[str] = []
                     merged_aside = ""
@@ -3741,22 +3888,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # anchored section per category (no popup-unit splitting).
                         cats_order = _unique_cats_sorted(norm_rows)
                         vid = f"vnotes-{code}-{ch}-{v}"
-                        verse_id = f"v-{code}-{ch}-{v}"
-                        ret = f"Return to {book_title} {ch}:{v}"
-                        back_line = (
-                            f'  <p class="vn-back"><a href="#{verse_id}" class="note-back study-return" '
-                            f'title="{html.escape(ret, quote=True)}">↩ {html.escape(ret, quote=False)}</a> '
-                            f"<strong>{ch}:{v}</strong></p>\n"
-                        )
                         glossary_inner = _emit_backmatter_glossary_inner(
                             norm_rows, cat_meta, code, ch, v, s2_group=s2_group
                         )
-                        unit_aside = (
-                            f'<aside class="verse-notes study-glossary-entry" id="{vid}" epub:type="footnote">\n'
-                            + back_line
-                            + glossary_inner
-                            + "</aside>\n"
-                        )
+                        # K-R13: per-category targets are padded footnote asides so
+                        # noteref → footnote uses Kobo's large-footnote navigate path.
+                        unit_aside = f'<div class="study-glossary-entry" id="{vid}">\n' + glossary_inner + "</div>\n"
                         unit_asides.append(unit_aside)
                         stats["study_backmatter_entries"].append(
                             ((book_order.get(code, 9999), ch, v, 0), code, unit_aside)
@@ -3767,12 +3904,18 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             glyph, label = cat_meta.get(cat, ("", cat))
                             bid = f"vbadge-{code}-{ch}-{v}-{cat}"
                             target_id = f"vnotes-{code}-{ch}-{v}-{cat}"
-                            badge_text = _format_category_badge_text(glyph, m_cnt)
+                            badge_glyph = _eink_category_badge_glyph(cat, glyph)
+                            badge_text = _format_category_badge_text(badge_glyph, m_cnt)
                             title = f"{label}: {m_cnt} note" if m_cnt == 1 else f"{label}: {m_cnt} notes"
+                            # K-R12: cross-file ``epub:type="noteref"`` forces Kobo to
+                            # NAVIGATE (round-5); bare <a> heuristics still popup.
+                            # K-R11: <span> face — never <sup>.
                             unit_badges.append(
-                                f'<a class="verse-notes-badge badge-cat-{cat}" id="{bid}" '
-                                f'href="#{target_id}" title="{html.escape(title, quote=True)}">'
-                                f'<sup class="marker-badge">{html.escape(badge_text, quote=False)}</sup></a>'
+                                f'<a class="study-glossary-jump badge-cat-{cat}" '
+                                f'id="{bid}" href="#{target_id}" epub:type="noteref" '
+                                f'aria-label="{html.escape(title, quote=True)}">'
+                                f'<span class="marker-badge">'
+                                f"{html.escape(badge_text, quote=False)}</span></a>"
                             )
                             stats["study_category_badges"] += 1
                         if s2_group:
@@ -3833,7 +3976,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # Inter-badge spaces keep adjacent tap targets separable.
                     # K-R7-2: trailing nbsp so the terminal noteref is never the
                     # last box on the verse line (singleton 1/1 ≡ last-badge class).
-                    badge = " ".join(unit_badges) + '<span class="badge-trail" aria-hidden="true">\u00a0</span>'
+                    trail = "\u00a0\u200b\u00a0\u200b\u00a0" if eink_backmatter else "\u00a0"
+                    badge = " ".join(unit_badges) + f'<span class="badge-trail" aria-hidden="true">{trail}</span>'
                     prose_insert = f"{badge}\n{merged_aside}" if eink_inline_in_prose else badge
 
                     bucket = edits.setdefault(fname, [])
@@ -4375,6 +4519,29 @@ def split_html_document(
             # vn-link and never pops.
             nxt.insert(0, g.pop())
     groups = [g for g in groups if g]
+    # K-R15b: Kobo treats every spine file as a page break. When the greedy packer
+    # breaks exactly at a verse atom (next vn-link), merge the pair if the combined
+    # weight stays within a soft overshoot cap — prevents mid-chapter page breaks
+    # like Gen 10:27 / 10:28 straddling two pieces.
+    verse_soft_cap = int(target * 1.12)
+    gi = 0
+    while gi < len(groups) - 1:
+        g, nxt = groups[gi], groups[gi + 1]
+        if (
+            g
+            and nxt
+            and nxt[0] not in title_atoms
+            and cuts[g[-1]] in cands
+            and cuts[nxt[0]] in cands
+            and cuts[nxt[0]] > 0
+            and _VN_LINK_RE.match(atoms[nxt[0]].lstrip())
+            and sum(atom_weight[j] for j in g + nxt) <= verse_soft_cap
+        ):
+            groups[gi] = g + nxt
+            del groups[gi + 1]
+            continue
+        gi += 1
+    groups = [g for g in groups if g]
     if len(groups) <= 1:
         return [(f"{stem}.html", text)]
 
@@ -4433,7 +4600,7 @@ def split_html_document(
 
 
 _STUDY_BOOK_HEAD_RE = re.compile(r'<h2 class="study-book-head"')
-_STUDY_GLOSSARY_ASIDE_RE = re.compile(r'<aside class="verse-notes study-glossary-entry"')
+_STUDY_GLOSSARY_ASIDE_RE = re.compile(r'<div class="study-glossary-entry"')
 _STUDY_INDEX_OPEN_RE = re.compile(r'<section class="study-notes-index"[^>]*>')
 
 
@@ -4495,7 +4662,7 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
     Unlike ``split_html_document``, this file IS the pooled study asides — stripping
     them would leave almost nothing and the 73 MB monolith would survive unsplit.
     Cuts at ``h2.study-book-head`` boundaries and, when one book exceeds ``target``,
-    between ``aside.study-glossary-entry`` elements. The h1 + lead paragraph travel
+    between ``div.study-glossary-entry`` elements. The h1 + lead paragraph travel
     with piece 0 only."""
     if len(text) <= target:
         return [(f"{stem}.html", text)]
@@ -4512,10 +4679,17 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
     if not atoms:
         return [(f"{stem}.html", text)]
 
+    _book_head_start = re.compile(r"^\s*<h2 class=\"study-book-head\"")
+
     groups: list[list[str]] = []
     cur: list[str] = []
     cur_w = 0
     for atom in atoms:
+        # K-R10: never pack two canon books into one glossary piece — fragment jumps
+        # like #study-paz must land at the book head, not mid-Daniel residue.
+        if _book_head_start.match(atom) and cur:
+            groups.append(cur)
+            cur, cur_w = [], 0
         w = len(atom)
         if cur and cur_w + w > target:
             groups.append(cur)
@@ -4538,16 +4712,27 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
 _STUDY_BOOK_HEAD_ID_RE = re.compile(r'<h2 class="study-book-head" id="([^"]+)"[^>]*>([^<]+)</h2>')
 
 
+def _book_toc_title(books_by_code: dict, code: str) -> str:
+    """Nav / study-glossary label — ``toc_title`` when set, else full ``title``."""
+    rec = books_by_code.get(code) or {}
+    return (rec.get("toc_title") or rec.get("title") or code.upper()).strip()
+
+
 def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]], filemap: dict[str, str]) -> None:
     """Expand nav Study Notes into a nested per-book ToC after glossary split."""
+    from scripts.core import config as _config
+
+    books_by_code = _config.books_by_code()
     study_orig = f"{EINK_STUDY_BACKMATTER_STEM}.html"
     if study_orig not in plan or len(plan[study_orig]) <= 1:
         return
     first_piece = plan[study_orig][0][0]
     book_links: list[str] = []
     for pname, ptext in plan[study_orig]:
-        for hid, title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
-            book_links.append(f'        <li><a href="{pname}#{hid}">{html.escape(title)}</a></li>')
+        for hid, _title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
+            code = hid.removeprefix("study-")
+            label = _book_toc_title(books_by_code, code)
+            book_links.append(f'        <li><a href="{pname}#{hid}">{html.escape(label)}</a></li>')
     if not book_links:
         return
     nav_path = tmp / "nav.xhtml"
@@ -5288,6 +5473,35 @@ _NCX_BOOK_NAVPOINT_RE = re.compile(
 _NAV_BOOK_LI_RE = re.compile(r'(<li[^>]*>)\s*(<a\s+href="index_split_\d+\.html#bp-(\d+)"[^>]*>[^<]*</a>)\s*</li>')
 
 
+def apply_nav_toc_short_titles(tmp: Path) -> dict:
+    """K-R10: shorten long book labels in nav.xhtml + toc.ncx (``toc_title`` in books.yaml).
+
+    Fixes Kobo native ToC truncation / erroneous [+] expanders on titles like Prayer of
+    Azariah. Full ``title`` stays on book pages; only navigation surfaces are shortened."""
+    stats = {"labels_rewritten": 0}
+    title_map: dict[str, str] = {}
+    for b in config.load_books():
+        short = (b.get("toc_title") or "").strip()
+        full = (b.get("title") or "").strip()
+        if short and full and short != full:
+            title_map[full] = short
+    if not title_map:
+        return stats
+
+    # Deterministic literal replace — titles are unique in nav surfaces.
+    for fp in (tmp / "nav.xhtml", tmp / "toc.ncx"):
+        if not fp.is_file():
+            continue
+        text = fp.read_text(encoding="utf-8")
+        orig = text
+        for full, short in title_map.items():
+            text = text.replace(full, short)
+        if text != orig:
+            stats["labels_rewritten"] += sum(orig.count(full) for full in title_map)
+            fp.write_text(text, encoding="utf-8")
+    return stats
+
+
 def enrich_nav_chapters(tmp: Path) -> dict:
     """Add per-chapter entries under each book in nav.xhtml + toc.ncx so the reader's
     NATIVE table of contents keeps one-tap chapter navigation even when the in-content
@@ -5297,6 +5511,12 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     when nav files or chapter anchors are absent. Runs AFTER the canon filter (only
     surviving books' chapters are present) and BEFORE the splitter."""
     stats = {"nav_chapters_added": 0, "ncx_chapters_added": 0}
+
+    bp_index_to_code: dict[int, str] = {}
+    for b in config.load_books():
+        bp = b.get("bp") or ""
+        if bp.startswith("bp-"):
+            bp_index_to_code[int(bp[3:])] = b["code"]
 
     # ch-bNN-cMM → the index_split file currently holding it; grouped per book, sorted.
     by_book: dict[int, list[tuple[int, str, str]]] = {}
@@ -5317,7 +5537,11 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     if nav.is_file():
 
         def _nav(mm: re.Match) -> str:
-            chs = by_book.get(int(mm.group(3)))
+            bp_i = int(mm.group(3))
+            code = bp_index_to_code.get(bp_i, "")
+            if code in APPENDIX_BOOKS:
+                return mm.group(0)
+            chs = by_book.get(bp_i)
             if not chs:
                 return mm.group(0)
             items = "".join(f'<li><a href="{f}#{cid}">{n}</a></li>' for n, cid, f in chs)
@@ -5332,7 +5556,11 @@ def enrich_nav_chapters(tmp: Path) -> dict:
 
         def _ncx(mm: re.Match) -> str:
             block = mm.group(0)
-            chs = by_book.get(int(mm.group(1)))
+            bp_i = int(mm.group(1))
+            code = bp_index_to_code.get(bp_i, "")
+            if code in APPENDIX_BOOKS:
+                return block
+            chs = by_book.get(bp_i)
             if not chs:
                 return block
             kids = "".join(
@@ -6981,11 +7209,13 @@ def build_one(
 
         stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition)
 
+        stats["empty_verse_prose_repaired"] = apply_empty_verse_prose_repair(tmp)
+
         # K-R4-1 — vnote (translation) popup preview separators. Unconditional
         # (every edition, every marker_style): translation popups exist in all
         # editions and the separator spans are CSS-hidden everywhere CSS
         # applies, so only the CSS-blind eInk preview ever shows them.
-        stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp)
+        stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp, edition)
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts
@@ -7042,6 +7272,9 @@ def build_one(
         # the new fragments to the final pieces).
         retarget_stats = retarget_demoted_toc_anchors(tmp, canon_books)
         stats["demoted_toc_retargeted"] = retarget_stats["retargeted_books"]
+
+        short_nav_stats = apply_nav_toc_short_titles(tmp)
+        stats["nav_toc_short_titles"] = short_nav_stats["labels_rewritten"]
 
         # RX Phase 4b — file-split for e-ink (Kobo) speed. Runs LAST (after badge +
         # every matter-page injection) so its OPF/nav/ncx regeneration is the final

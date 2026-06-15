@@ -123,7 +123,10 @@ class TestEmitter:
         from scripts.build_edition import apply_badge_markers
 
         tmp, fname = self._badge_tree(tmp_path)
-        stats = apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink"})
+        stats = apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "popup"},
+        )
         assert stats["badges_inserted"] > 0
         text = (tmp / fname).read_text(encoding="utf-8")
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
@@ -185,7 +188,13 @@ class TestEmitter:
         tmp, fname = self._badge_tree(tmp_path)
         apply_badge_markers(
             tmp,
-            {"id": "x", "marker_style": "badge", "target_reader": "eink", "marker_badge_style": "dot"},
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "popup",
+                "marker_badge_style": "dot",
+            },
         )
         text = (tmp / fname).read_text(encoding="utf-8")
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
@@ -224,7 +233,10 @@ class TestReaderEinkStudyLayout:
         text = (tmp / fname).read_text(encoding="utf-8")
         assert stats["study_backmatter_entries"], "entries collected for glossary"
         assert 'id="vnotes-gen-1-12-s1"' not in text, "asides must not stay in prose"
-        assert "study-return" in stats["study_backmatter_entries"][0][2]
+        glossary = stats["study_backmatter_entries"][0][2]
+        assert "study-return" in glossary
+        assert "Return to" not in glossary
+        assert "study-verse-back" in glossary
 
     def test_backmatter_emits_colored_category_badges(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
@@ -240,14 +252,63 @@ class TestReaderEinkStudyLayout:
         stats = apply_badge_markers(tmp, edition)
         text = (tmp / fname).read_text(encoding="utf-8")
         assert stats["study_category_badges"] >= 1
-        assert 'class="verse-notes-badge badge-cat-' in text
-        badge_tags = re.findall(r'<a class="verse-notes-badge[^"]*"[^>]*>', text)
-        assert badge_tags and 'epub:type="noteref"' not in badge_tags[0]
+        assert "study-glossary-jump" in text and "badge-cat-" in text
+        badge_tags = re.findall(r'<a class="study-glossary-jump[^"]*"[^>]*>', text)
+        assert badge_tags and 'epub:type="noteref"' in badge_tags[0]
+        assert '<sup class="marker-badge">' not in text
+        assert '<span class="marker-badge">' in text
         glossary = next(row[2] for row in stats["study_backmatter_entries"] if "vnotes-gen-1-1-" in row[2])
         assert re.search(r'id="vnotes-gen-1-1-[a-z]+"', glossary)
         assert "study-glossary-entry" in glossary
+        assert 'class="study-glossary-cat verse-notes"' in glossary
+        assert glossary.count('epub:type="footnote"') >= 1
+        assert "kobo-study-nav-pad" in glossary
         hrefs = re.findall(r'href="#(vnotes-gen-1-1-[a-z]+)"', text)
-        assert hrefs, "category badges must target anchored glossary sections"
+        assert hrefs, "category badges must target anchored glossary footnotes"
+        faces = re.findall(r'study-glossary-jump[^>]*><span class="marker-badge">([^<]*)</span>', text)
+        assert faces and all(f.strip() for f in faces), "eink study badges must show a glyph or count"
+
+    def test_backmatter_glossary_footnotes_meet_kobo_pad_floor(self, tmp_path):
+        from scripts.build_edition import KOBO_STUDY_NAV_MIN_STRIPPED, _stripped_len, apply_badge_markers
+
+        tmp, _fname = TestEmitter()._badge_tree(tmp_path)
+        stats = apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "backmatter",
+                "note_group_by_category": True,
+            },
+        )
+        glossary = next(row[2] for row in stats["study_backmatter_entries"] if "vnotes-gen-1-1-" in row[2])
+        footnotes = re.findall(
+            r'(<aside[^>]*epub:type="footnote"[^>]*id="vnotes-[^"]+"[^>]*>.*?</aside>)',
+            glossary,
+            re.DOTALL,
+        )
+        assert footnotes, "category targets must be footnote asides"
+        for fn in footnotes:
+            assert _stripped_len(fn) >= KOBO_STUDY_NAV_MIN_STRIPPED, fn[:80]
+
+    def test_study_return_is_compact_verse_tag_only(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, _fname = TestEmitter()._badge_tree(tmp_path)
+        stats = apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "backmatter",
+                "note_group_by_category": True,
+            },
+        )
+        glossary = stats["study_backmatter_entries"][0][2]
+        assert 'class="note-back study-return">1:1</a>' in glossary
+        assert "Return to" not in glossary
 
     def test_study_inline_drops_anchor_hide_class(self, tmp_path):
         from scripts.build_edition import apply_badge_markers

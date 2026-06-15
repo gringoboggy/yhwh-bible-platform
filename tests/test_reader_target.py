@@ -120,6 +120,7 @@ class TestTargetReaderField:
         assert ed.get("target_reader", None) is not None
         assert "reader_toc_collapsible" in ed
         assert "reader_toc_default_open" in ed
+        assert "reader_native_toc_chapters" in ed
         assert "book_toc_ornament" in ed
 
     def test_customize_template_has_target_select_and_honest_checkbox(self):
@@ -130,6 +131,7 @@ class TestTargetReaderField:
         # the missing field as checked while every edition ships flat)
         assert "e.reader_toc_collapsible === true" in CUSTOMIZE_HTML
         assert "e.reader_toc_collapsible !== false" not in CUSTOMIZE_HTML
+        assert 'data-field="reader_native_toc_chapters"' in CUSTOMIZE_HTML
 
 
 class TestExpandableTocStrictOptIn:

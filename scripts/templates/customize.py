@@ -560,6 +560,10 @@ function renderEditions() {
               <input type="checkbox" data-field="reader_toc_default_open" ${e.reader_toc_default_open ? 'checked' : ''}>
               <span>Books default to expanded</span>
             </label>
+            <label class="text-xs flex items-center gap-2 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
+              <input type="checkbox" data-field="reader_native_toc_chapters" ${e.reader_native_toc_chapters ? 'checked' : ''}>
+              <span>Chapter list in the reader's native Table of Contents <span class="text-slate-400">(Kobo — off = books only; on = chapters nested under each book, longer ToC)</span></span>
+            </label>
             <label class="text-xs flex items-center gap-2">
               <input type="checkbox" data-field="closing_colophon" ${e.closing_colophon !== false ? 'checked' : ''}>
               <span>Closing colophon page (the traditional last page)</span>
@@ -569,10 +573,10 @@ function renderEditions() {
               <span>One verse per line <span class="text-slate-400">(Kobo — off = normal flowing paragraphs like other readers)</span></span>
             </label>
             <label class="text-xs flex flex-col gap-1 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
-              <span>Study notes layout <span class="text-slate-400">(Kobo — badge notes only; translation links always popup)</span></span>
+              <span>Study notes layout <span class="text-slate-400">(Kobo — study badges jump to glossary; translation verse numbers still popup)</span></span>
               <select data-field="reader_eink_study_layout" class="text-xs border border-slate-300 rounded px-2 py-1 max-w-md">
-                <option value="backmatter" ${(e.reader_eink_study_layout || 'backmatter') === 'backmatter' ? 'selected' : ''}>Glossary at back (recommended)</option>
-                <option value="popup" ${e.reader_eink_study_layout === 'popup' ? 'selected' : ''}>Compact popups (legacy)</option>
+                <option value="backmatter" ${(e.reader_eink_study_layout || 'backmatter') === 'backmatter' ? 'selected' : ''}>Glossary at back (recommended — no study popups)</option>
+                <option value="popup" ${e.reader_eink_study_layout === 'popup' ? 'selected' : ''}>Compact popups (legacy — footnote preview)</option>
                 <option value="inline" ${e.reader_eink_study_layout === 'inline' || e.reader_eink_study_inline ? 'selected' : ''}>Full inline blocks</option>
               </select>
             </label>

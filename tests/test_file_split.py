@@ -971,8 +971,9 @@ class TestSplitStudyGlossary:
         from scripts.build_edition import EINK_STUDY_BACKMATTER_STEM, split_study_glossary_document
 
         aside = (
-            '<aside class="verse-notes study-glossary-entry" id="vnotes-gen-1-1-comm" epub:type="footnote">'
-            "<p>note</p></aside>\n"
+            '<div class="study-glossary-entry" id="vnotes-gen-1-1">'
+            '<aside epub:type="footnote" class="study-glossary-cat verse-notes" id="vnotes-gen-1-1-comm">'
+            "<p>note</p></aside></div>\n"
         )
         books = "".join(f'<h2 class="study-book-head" id="study-b{i}">Book {i}</h2>' + aside * 40 for i in range(6))
         text = f"""<?xml version="1.0" encoding="utf-8"?>
@@ -988,5 +989,28 @@ class TestSplitStudyGlossary:
         names = [n for n, _ in pieces]
         assert names[0] == f"{EINK_STUDY_BACKMATTER_STEM}_00.html"
         assert all(n.endswith(".html") for n in names)
-        assert all("study-glossary-entry" in t for _, t in pieces)
+        assert any("study-glossary-entry" in t for _, t in pieces)
         assert max(len(t.encode("utf-8")) for _, t in pieces) < len(text.encode("utf-8"))
+        for _, t in pieces:
+            assert t.count('<h2 class="study-book-head"') <= 1
+
+    def test_glossary_book_head_starts_near_top_of_its_piece(self, tmp_path):
+        from scripts.build_edition import EINK_STUDY_BACKMATTER_STEM, split_study_glossary_document
+
+        aside = (
+            '<div class="study-glossary-entry" id="vnotes-gen-1-1">'
+            '<aside class="study-glossary-cat verse-notes" id="vnotes-gen-1-1-comm">'
+            "<p>note</p></aside></div>\n"
+        )
+        books = "".join(f'<h2 class="study-book-head" id="study-b{i}">Book {i}</h2>' + aside * 40 for i in range(6))
+        text = f"""<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Study Notes</title></head>
+<body epub:type="backmatter">
+<section class="study-notes-index" epub:type="backmatter">
+<h1>Study Notes</h1><p class="study-notes-lead">lead</p>
+{books}
+</section>
+</body></html>"""
+        pieces = split_study_glossary_document(text, EINK_STUDY_BACKMATTER_STEM, 8_000)
+        last_piece = next(t for _, t in pieces if 'id="study-b5"' in t)
+        assert last_piece.find('id="study-b5"') < 600

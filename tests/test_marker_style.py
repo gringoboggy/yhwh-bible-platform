@@ -611,6 +611,103 @@ class TestVnotePreviewSeparators:
         assert labels > 0 and labels == seps, f"every source label needs its ◦ separator ({seps}/{labels})"
 
 
+class TestEinkVnotePreviewBreaks:
+    """K-R14: Kobo Footnote preview ignores U+2028 in koboSpan-wrapped `.vn-sep`
+    spans — eink builds bake ``<br class="kobo-vnote-br" />`` before every
+    ``<p class="vnote-…">`` so language blocks break in the tag-stripped dialog."""
+
+    VNOTE = TestVnotePreviewSeparators.VNOTE
+
+    def test_breaks_before_vnote_paragraphs(self):
+        from scripts.build_edition import add_eink_vnote_preview_breaks
+
+        out = add_eink_vnote_preview_breaks(self.VNOTE)
+        assert out.count('<p class="vnote-kobo-sep">') == 5  # text + 2×(label+content)
+        assert '<p class="vnote-kobo-sep">' in out and '<br class="kobo-vnote-br" /><p class="vnote-text">' in out
+        assert '<br class="kobo-vnote-br" /><p class="vnote-source-label">' in out
+        assert '<br class="kobo-vnote-br" /><p class="vnote-hebrew"' in out
+        assert '<br class="kobo-vnote-br" /><p class="vnote-greek"' in out
+        assert 'class="vnote-back"' in out
+        assert '<br class="kobo-vnote-br" /><p><a href="#v-gen-1-1"' not in out
+
+    def test_idempotent(self):
+        from scripts.build_edition import add_eink_vnote_preview_breaks
+
+        once = add_eink_vnote_preview_breaks(self.VNOTE)
+        assert add_eink_vnote_preview_breaks(once) == once
+
+    def test_apply_pass_eink_only(self, tmp_path):
+        from scripts.build_edition import apply_vnote_preview_separators
+
+        html = (
+            "<html><body>"
+            '<aside class="vnote" id="vnote-x-1-1">'
+            "<p><strong>X 1:1.</strong></p>"
+            '<p class="vnote-text">t</p>'
+            '<p class="vnote-source-label">L</p>'
+            "</aside></body></html>"
+        )
+        f = tmp_path / "index_split_000.html"
+        f.write_text(html, encoding="utf-8")
+        apply_vnote_preview_separators(tmp_path, {"target_reader": "eink"})
+        eink = f.read_text(encoding="utf-8")
+        assert "kobo-vnote-br" in eink
+
+        f.write_text(html, encoding="utf-8")
+        apply_vnote_preview_separators(tmp_path, {"target_reader": "kindle"})
+        assert "kobo-vnote-br" not in f.read_text(encoding="utf-8")
+
+
+class TestEmptyVerseProseRepair:
+    """K-R15a: WEB/KJV versification gaps leave marker-only verse anchors."""
+
+    SAMPLE = (
+        '<p class="verse-p">dry. <a class="vn-link" id="v-gen-8-15" href="#vnote-gen-8-15" '
+        'epub:type="noteref"><span class="vn">15</span></a>'
+        '<a class="note-ref note-topic-nave" id="ref-g0815a" href="#note-g0815a" epub:type="noteref">'
+        '<sup class="marker-num">1</sup></a> '
+        '<a class="vn-link" id="v-gen-8-16" href="#vnote-gen-8-16" epub:type="noteref">'
+        '<span class="vn">16</span></a> God spoke to Noah.</p>'
+        '<aside class="vnote" id="vnote-gen-8-15" epub:type="footnote">'
+        "<p><strong>Genesis 8:15.</strong></p>"
+        '<p class="vnote-text">And God spake unto Noah, saying,</p></aside>'
+    )
+
+    def test_injects_vnote_text_when_region_empty(self):
+        from scripts.build_edition import repair_empty_verse_prose
+
+        out, n = repair_empty_verse_prose(self.SAMPLE)
+        assert n == 1
+        assert "And God spake unto Noah, saying," in out
+        assert out.index("And God spake") < out.index("v-gen-8-16")
+
+    def test_idempotent_when_prose_present(self):
+        from scripts.build_edition import repair_empty_verse_prose
+
+        html = (
+            '<p class="verse-p"><a class="vn-link" id="v-gen-1-1" href="#vnote-gen-1-1">'
+            '<span class="vn">1</span></a> In the beginning.</p>'
+        )
+        assert repair_empty_verse_prose(html) == (html, 0)
+
+    def test_falls_back_to_translation_store(self, monkeypatch):
+        from scripts.build_edition import repair_empty_verse_prose
+
+        html = (
+            '<p class="verse-p"><a class="vn-link" id="v-gen-8-15" href="#vnote-gen-8-15">'
+            '<span class="vn">15</span></a> '
+            '<a class="vn-link" id="v-gen-8-16" href="#vnote-gen-8-16">'
+            '<span class="vn">16</span></a> Next verse.</p>'
+        )
+
+        def fake_get(tid, code, ch, v):
+            return "And God spake unto Noah, saying," if (tid, code, ch, v) == ("web", "gen", 8, 15) else None
+
+        monkeypatch.setattr("scripts.core.translations.get_verse", fake_get)
+        out, n = repair_empty_verse_prose(html)
+        assert n == 1 and "And God spake unto Noah" in out
+
+
 # ----------------------------------------------------------------------
 # Badge build — integration (real build_one, both modes)
 # ----------------------------------------------------------------------

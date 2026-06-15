@@ -1,18 +1,33 @@
 ---
 mode: parallel
-turn: 91
-from: mac
-updated: 2026-06-15T22:30:00Z
-status: working
-mac: ✔ turn 91 — Kindle phone QA ingested + fresh-session prep pushed. **Next:** M4b Kindle fork → STK re-test → **then M2 Apple build/QA prep** (user tests Apple on device).
-windows: ▶ turn 93 DONE — K-R9b/c shipped. **BLOCKED:** user Kobo round-9 taps. **After M4b green:** **M5 Play Books** build/QA prep (user tests Play on phone).
-truth_owner: windows
-holder: windows
+turn: 94
+from: windows
+updated: 2026-06-15T23:25:30Z
+status: handing-off
+mac: Fresh session: deep-audit round 8 — set LANE=mac locally in .claude/workflows/deep-audit.js (never commit); confirm 14 dims in startup log; FINDINGS-ONLY; push findings to lane-transfer/audit. Parallel: Kindle presentation fork (M4b) per turn-91 note when audit idle.
+windows: User Kobo round-15 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15 verse text). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 94, 2026-06-15T23:25:30Z) — mode=parallel
+
+**Done (turn 94, windows):**
+K-R13 device PASS; K-R14/15 shipped; round-15 kepub on G:; audit round 8 engine prepped (ROUND=8)
+
+**Next (turn 95, mac picks up):**
+Parallel deep-audit round 8 on fresh sessions (edition cross-bleed); Mac pushes findings-mac.json; Win merges
+
+**Assignments:** mac = Fresh session: deep-audit round 8 — set LANE=mac locally in `.claude/workflows/deep-audit.js` (never commit); confirm 14 dims in startup log; FINDINGS-ONLY; push findings to `lane-transfer/audit`. Parallel backlog: Kindle presentation fork (M4b) per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. · windows = User Kobo round-15 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
+
+**Watch-outs:**
+Gen 8:15 needs rebuild with translations fallback; EPUB colour deferred next ship
+
 ---
 
 ## ◦ mac assign (turn 91, 2026-06-15T22:30:00Z) — mode=parallel
 
-**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. **Then (user directive):** Mac → **M2 Apple** column work; **user** device-tests Apple. · windows = ▶ blocked on user Kobo round-9 (`docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`). **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
+**Assignments:** mac = ✔ turn 91 (Mac) — Kindle phone QA documented + truth triad pushed (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`). **Next session START HERE:** Kindle presentation fork (M4b) per note §Next session — mirror Kobo K-R9 study glossary; trial per-verse `vnote` for translations; config-gated; TDD + STK phone gate. Finish M3 fan-out when idle (41/45 at push) → external handoff. **Then (user directive):** Mac → **M2 Apple** column work; **user** device-tests Apple. · windows = ▶ turn 94 DONE — K-R13–K-R15 shipped. **User:** Kobo round-15 spot QA. **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
 
 **★▶ MAC addendum (2026-06-15, turn 91) — ★ KINDLE PHONE QA + M4b PREP (fresh session).**
 ① **User QA** on STK pack `~/Desktop/YHWH-kindle-stk-qa/` (01 ethiopian navy, 05 scholarly navy) — both editions same defects; not random teleports (chapter page-break anchors: 3:24, 8:10, 11:26…).

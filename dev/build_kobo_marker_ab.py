@@ -38,7 +38,6 @@ def main() -> int:
     patched[edition_id] = {
         **patched[edition_id],
         "marker_badge_style": style,
-        "reader_eink_verse_lines": True,  # device QA: one verse per line on Kobo
     }
     config.editions_by_id = lambda _p=patched: _p  # type: ignore[method-assign, assignment]
 

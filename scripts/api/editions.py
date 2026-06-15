@@ -131,6 +131,8 @@ EDITABLE_BOOL_FIELDS: frozenset[str] = frozenset(
         "reader_eink_verse_lines",
         # K-R7-2e — eink/Kobo: full inline study blocks (opt-in; default popup mode).
         "reader_eink_study_inline",
+        # K-R11 — Kobo native ToC: per-chapter sub-entries under each book (opt-in).
+        "reader_native_toc_chapters",
     }
 )
 # Scalars the clone writer handles specially: title is replaced by the
@@ -724,6 +726,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "note_popup_split_byte_cap",
         "reader_toc_collapsible",
         "reader_toc_default_open",
+        "reader_native_toc_chapters",
         # K-R2 — where the builder will read the EPUB ("everywhere" | "eink" |
         # "tablet" | "computer"); set by the wizard's reader-target step, gates
         # which optional features the UIs offer. Absent = everywhere (no-op).

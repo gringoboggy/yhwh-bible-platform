@@ -469,6 +469,7 @@ def api_customize_data() -> dict:
                 "reader_eink_verse_lines": e.get("reader_eink_verse_lines", False),
                 "reader_eink_study_inline": e.get("reader_eink_study_inline", False),
                 "reader_eink_study_layout": e.get("reader_eink_study_layout", "backmatter"),
+                "reader_native_toc_chapters": e.get("reader_native_toc_chapters", False),
                 "closing_colophon": e.get("closing_colophon", True),
                 "notes": e.get("notes", ""),
                 "description": e.get("description", ""),

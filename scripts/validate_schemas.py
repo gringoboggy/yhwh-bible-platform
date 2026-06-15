@@ -222,6 +222,7 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("reader_toc_collapsible", type=bool, required=False),
         FieldSpec("reader_toc_default_open", type=bool, required=False),
         FieldSpec("reader_toc_books_only", type=bool, required=False),
+        FieldSpec("reader_native_toc_chapters", type=bool, required=False),
         # K-R2 (2026-06-09) — the wizard's reader-target pick ("everywhere" |
         # "eink" | "tablet" | "computer"); gates which optional features the
         # UIs offer. Absent = everywhere.
