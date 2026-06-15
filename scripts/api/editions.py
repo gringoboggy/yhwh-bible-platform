@@ -82,6 +82,8 @@ EDITABLE_TEXT_FIELDS: frozenset[str] = frozenset(
         # absent = target default (chip on eink, glyph+count elsewhere).
         "marker_badge_style",
         "marker_style",
+        # K-R9 — eink study layout (backmatter | popup | inline).
+        "reader_eink_study_layout",
         "topical_index_source",
         # ψ.37-C: time_filter_ceiling — stored as text in YAML
         # ("null" or a year like "1900"); the YAML loader parses
@@ -714,6 +716,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         # absent = target default (chip on eink, glyph+count elsewhere).
         "marker_badge_style",
         "marker_style",
+        "reader_eink_study_layout",
         "topical_index_source",
         "note_popup_split_cap",
         # K-R6-2 — popup-unit byte cap (estimated post-kepubify bytes; 0 =
@@ -882,6 +885,18 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if v and v not in MARKER_BADGE_STYLES:
             return {"error": (f"unknown marker_badge_style: {v!r}; valid: {sorted(MARKER_BADGE_STYLES)}")}
         payload["marker_badge_style"] = v
+
+    if "reader_eink_study_layout" in payload:
+        from scripts.build_edition import READER_EINK_STUDY_LAYOUTS
+
+        v = (payload["reader_eink_study_layout"] or "").strip()
+        if v and v not in READER_EINK_STUDY_LAYOUTS:
+            return {
+                "error": (
+                    f"unknown reader_eink_study_layout: {v!r}; valid: {sorted(READER_EINK_STUDY_LAYOUTS)}"
+                )
+            }
+        payload["reader_eink_study_layout"] = v
 
     if "topical_index_source" in payload:
         from scripts.build_edition import TOPICAL_INDEX_SOURCES

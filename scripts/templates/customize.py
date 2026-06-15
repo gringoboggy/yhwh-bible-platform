@@ -568,9 +568,13 @@ function renderEditions() {
               <input type="checkbox" data-field="reader_eink_verse_lines" ${e.reader_eink_verse_lines ? 'checked' : ''}>
               <span>One verse per line <span class="text-slate-400">(Kobo — off = normal flowing paragraphs like other readers)</span></span>
             </label>
-            <label class="text-xs flex items-center gap-2 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
-              <input type="checkbox" data-field="reader_eink_study_inline" ${e.reader_eink_study_inline ? 'checked' : ''}>
-              <span>Full inline study notes <span class="text-slate-400">(Kobo — off = compact popups; on = Commentary blocks in the page, much longer book)</span></span>
+            <label class="text-xs flex flex-col gap-1 eink-only-row ${e.target_reader === 'eink' ? '' : 'hidden'}" data-eink-only>
+              <span>Study notes layout <span class="text-slate-400">(Kobo — badge notes only; translation links always popup)</span></span>
+              <select data-field="reader_eink_study_layout" class="text-xs border border-slate-300 rounded px-2 py-1 max-w-md">
+                <option value="backmatter" ${(e.reader_eink_study_layout || 'backmatter') === 'backmatter' ? 'selected' : ''}>Glossary at back (recommended)</option>
+                <option value="popup" ${e.reader_eink_study_layout === 'popup' ? 'selected' : ''}>Compact popups (legacy)</option>
+                <option value="inline" ${e.reader_eink_study_layout === 'inline' || e.reader_eink_study_inline ? 'selected' : ''}>Full inline blocks</option>
+              </select>
             </label>
             <p class="text-xs text-slate-500 md:col-span-2 italic">
               Chapter heading and Contents changes apply on the next BUILD.

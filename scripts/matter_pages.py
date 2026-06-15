@@ -1032,6 +1032,84 @@ def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey) ->
     return False
 
 
+EINK_STUDY_BACKMATTER_FILE = "index_split_900.html"
+
+
+def render_eink_study_backmatter_page(edition: dict, entries: list[tuple]) -> str:
+    """Render the Kobo Study Notes glossary (K-R9).
+
+    ``entries`` is ``[(sort_key, book_code, aside_html), …]`` already sorted.
+    Grouped by book with an ``h2`` per canon book that has notes in this edition."""
+    from scripts.core import config as _config
+
+    books_by_code = _config.books_by_code()
+    edition_title = html.escape(edition.get("title_full", edition.get("title", "Study Bible")))
+    body_parts = [
+        '<section class="study-notes-index" epub:type="backmatter">',
+        "<h1>Study Notes</h1>",
+        '<p class="study-notes-lead">Tap a study badge († or ◇) in the text to jump here. '
+        "Each entry ends with a ↩ link back to the verse you were reading. "
+        "Translation links still open as quick popups.</p>",
+    ]
+    current_code: str | None = None
+    for _sort_key, code, aside_html in entries:
+        if code != current_code:
+            current_code = code
+            book_title = html.escape((books_by_code.get(code) or {}).get("title") or code.upper())
+            body_parts.append(f'<h2 class="study-book-head">{book_title}</h2>')
+        body_parts.append(aside_html)
+    body_parts.append("</section>")
+    body = "\n".join(body_parts)
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Study Notes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="backmatter">
+{body}
+</body>
+</html>
+"""
+
+
+def inject_eink_study_backmatter(tmp: Path, edition: dict, entries: list[tuple[tuple, str, str]]) -> dict:
+    """Write the Study Notes glossary and register it in OPF + nav (K-R9).
+
+    Runs after body transforms, immediately before ``inject_back_matter`` so
+    spine order is: scripture → study notes → sources → … → colophon.
+    ``apply_file_split`` may fan ``index_split_900.html`` into smaller pieces."""
+    if not entries:
+        return {"entries_written": 0, "skipped_reason": "no study entries"}
+    ordered = sorted(entries, key=lambda row: row[0])
+    out_name = EINK_STUDY_BACKMATTER_FILE
+    out_path = tmp / out_name
+    out_path.write_text(render_eink_study_backmatter_page(edition, ordered), encoding="utf-8")
+
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        if out_name not in opf:
+            opf = opf.replace(
+                "</manifest>",
+                f'\n    <item id="studynotes" href="{out_name}" media-type="application/xhtml+xml"/>\n  </manifest>',
+            )
+            opf = opf.replace("</spine>", '\n    <itemref idref="studynotes"/>\n  </spine>')
+            opf_path.write_text(opf, encoding="utf-8")
+
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        if f'href="{out_name}"' not in nav:
+            study_li = f'\n      <li><a href="{out_name}">Study Notes</a></li>'
+            nav = nav.replace("</ol>", study_li + "\n    </ol>", 1)
+            nav_path.write_text(nav, encoding="utf-8")
+
+    return {"entries_written": len(ordered), "output_file": out_name, "skipped_reason": None}
+
+
 def inject_back_matter(tmp: Path, edition: dict, canon_books: set[str] | None = None) -> None:
     """Write sources.xhtml, reftables.xhtml, topical.xhtml, colophonend.xhtml and
     register each in content.opf (manifest + spine, appended at END in order) and

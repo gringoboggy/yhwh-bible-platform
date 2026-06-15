@@ -140,6 +140,7 @@ class TestEmitter:
             "id": "x",
             "marker_style": "badge",
             "target_reader": "eink",
+            "reader_eink_study_layout": "inline",
             "reader_eink_verse_lines": True,
         }
         apply_badge_markers(tmp, edition)
@@ -156,7 +157,10 @@ class TestEmitter:
         from scripts.build_edition import apply_badge_markers
 
         tmp, fname = self._badge_tree(tmp_path)
-        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink"})
+        apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "popup"},
+        )
         text = (tmp / fname).read_text(encoding="utf-8")
         m = re.search(
             r'(vbadge-gen-1-12-s1[^>]*>.*?</a>.*?<aside class="verse-notes(?: verse-notes--eink-anchor)?" id="vnotes-gen-1-12-s1")',
@@ -164,7 +168,7 @@ class TestEmitter:
             re.DOTALL,
         )
         assert m, "eink study aside must sit inline immediately after its badge"
-        assert "verse-notes--eink-anchor" in text, "popup mode (default) hides inline anchors"
+        assert "verse-notes--eink-anchor" in text, "popup mode hides inline anchors"
         assert text.count('id="vnotes-gen-1-12-s1"') == 1
         aside_close = text.find("</aside>", m.end())
         assert aside_close != -1
@@ -197,13 +201,30 @@ class TestEmitter:
         assert sups and all(s.startswith("◈") for s in sups), "non-eink badges keep ◈+count"
 
 
-class TestReaderEinkStudyInline:
-    def test_resolver_defaults_off(self):
-        from scripts.build_edition import resolve_reader_eink_study_inline
+class TestReaderEinkStudyLayout:
+    def test_eink_defaults_to_backmatter(self):
+        from scripts.build_edition import resolve_reader_eink_study_layout
 
-        assert resolve_reader_eink_study_inline({}) is False
-        assert resolve_reader_eink_study_inline({"target_reader": "eink"}) is False
-        assert resolve_reader_eink_study_inline({"target_reader": "tablet", "reader_eink_study_inline": True}) is False
+        assert resolve_reader_eink_study_layout({"target_reader": "eink"}) == "backmatter"
+        assert resolve_reader_eink_study_layout({}) == "popup"
+
+    def test_legacy_inline_flag_maps_to_inline(self):
+        from scripts.build_edition import resolve_reader_eink_study_layout
+
+        assert resolve_reader_eink_study_layout({"target_reader": "eink", "reader_eink_study_inline": True}) == "inline"
+
+    def test_backmatter_collects_entries_not_inline(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, fname = TestEmitter()._badge_tree(tmp_path)
+        stats = apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "backmatter"},
+        )
+        text = (tmp / fname).read_text(encoding="utf-8")
+        assert stats["study_backmatter_entries"], "entries collected for glossary"
+        assert 'id="vnotes-gen-1-12-s1"' not in text, "asides must not stay in prose"
+        assert "study-return" in stats["study_backmatter_entries"][0][2]
 
     def test_study_inline_drops_anchor_hide_class(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
@@ -211,31 +232,44 @@ class TestReaderEinkStudyInline:
         tmp, fname = TestEmitter()._badge_tree(tmp_path)
         apply_badge_markers(
             tmp,
-            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_inline": True},
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "inline"},
         )
         text = (tmp / fname).read_text(encoding="utf-8")
         assert "verse-notes--eink-anchor" not in text
         assert 'class="verse-notes" id="vnotes-' in text
 
+    def test_inject_study_backmatter_writes_file(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+        from scripts.matter_pages import EINK_STUDY_BACKMATTER_FILE, inject_eink_study_backmatter
+
+        tmp, _fname = TestEmitter()._badge_tree(tmp_path)
+        (tmp / "content.opf").write_text("<package><manifest></manifest><spine></spine></package>", encoding="utf-8")
+        (tmp / "nav.xhtml").write_text("<html><body><ol></ol></body></html>", encoding="utf-8")
+        stats = apply_badge_markers(
+            tmp,
+            {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "backmatter"},
+        )
+        out = inject_eink_study_backmatter(tmp, {"id": "x", "title": "Test"}, stats["study_backmatter_entries"])
+        assert out["entries_written"] > 0
+        assert (tmp / EINK_STUDY_BACKMATTER_FILE).is_file()
+        assert "Study Notes" in (tmp / EINK_STUDY_BACKMATTER_FILE).read_text(encoding="utf-8")
+
     def test_eink_reader_css_appends_on_eink_only(self):
         from scripts.build_edition import apply_eink_reader_css
 
         out = apply_eink_reader_css("BASE", {"target_reader": "eink"})
-        assert "verse-notes--eink-anchor" in out and "eyebrow-book" in out
+        assert "study-glossary-entry" in out and "eyebrow-book" in out
         assert apply_eink_reader_css("BASE", {"target_reader": "tablet"}) == "BASE"
 
     def test_customize_wiring(self):
-        from scripts.api.editions import EDITABLE_BOOL_FIELDS
-
         src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
-        assert 'data-field="reader_eink_study_inline"' in src
-        assert "reader_eink_study_inline" in EDITABLE_BOOL_FIELDS
+        assert 'data-field="reader_eink_study_layout"' in src
 
-    def test_wizard_surfaces_study_inline_pick(self):
+    def test_wizard_surfaces_study_layout_pick(self):
         from scripts.templates.wizard import WIZARD_HTML
 
-        assert 'id="w-eink-study-inline"' in WIZARD_HTML
-        assert "reader_eink_study_inline:" in WIZARD_HTML
+        assert 'id="w-eink-study-layout"' in WIZARD_HTML
+        assert "reader_eink_study_layout:" in WIZARD_HTML
 
 
 class TestReaderEinkVerseLines:

@@ -76,6 +76,7 @@ from scripts.matter_pages import (  # noqa: E402, F401
     inject_back_matter,
     inject_copyright_page,
     inject_dedication_page,
+    inject_eink_study_backmatter,
     inject_reading_plans_page,
     inject_symbol_legend_page,
     inject_your_edition_page,
@@ -2195,23 +2196,48 @@ def resolve_reader_eink_verse_lines(edition: dict) -> bool:
     return bool(edition.get("reader_eink_verse_lines", False))
 
 
-def resolve_reader_eink_study_inline(edition: dict) -> bool:
-    """Whether eink study notes render as full inline blocks (K-R7-2e).
+READER_EINK_STUDY_LAYOUTS = frozenset({"backmatter", "inline", "popup"})
 
-    Default **off** (popup mode): merged ``verse-notes`` asides stay in
-    document order after their badge (K-R7-2d forward-scan fix) but CSS-hide
-    so reading flow stays compact — badges pop or navigate to the anchor.
-    Opt-in **on**: the visible Commentary / Cross-references blocks from
-    round-8 device QA (much longer page count). No-op on non-eink."""
+# Spine file for the Kobo study glossary (K-R9). High index_split number
+# keeps it after scripture; apply_file_split may fan it into ~0.4 MB pieces.
+EINK_STUDY_BACKMATTER_STEM = "index_split_900"
+
+
+def resolve_reader_eink_study_layout(edition: dict) -> str:
+    """How eink study notes (badge-merged ``verse-notes``) present on Kobo.
+
+    ``backmatter`` (default): badges in prose jump to a Study Notes glossary
+    at the back; ↩ links return to the verse anchor. Respects every edition
+    note filter (categories, kinds, traditions, S2 grouping, popup splits).
+    ``inline``: full Commentary blocks in the reading flow (opt-in; huge).
+    ``popup``: legacy hidden DOM-order anchors for footnote preview.
+    Non-eink targets always resolve ``popup`` (no-op for injectors)."""
     if resolve_target_reader(edition) != "eink":
-        return False
-    return bool(edition.get("reader_eink_study_inline", False))
+        return "popup"
+    v = (edition.get("reader_eink_study_layout") or "").strip()
+    if v in READER_EINK_STUDY_LAYOUTS:
+        return v
+    if edition.get("reader_eink_study_inline"):
+        return "inline"
+    return "backmatter"
+
+
+def resolve_reader_eink_study_inline(edition: dict) -> bool:
+    """True when layout is ``inline`` (backward-compat shim)."""
+    return resolve_reader_eink_study_layout(edition) == "inline"
 
 
 _EINK_READER_CSS = (
     "\n/* === Kobo eink reader overrides === */\n"
     "/* K-R7-2e popup mode: DOM-order anchors without bloating the page */\n"
     "aside.verse-notes.verse-notes--eink-anchor { display: none; }\n"
+    "/* K-R9 study glossary at back matter */\n"
+    ".study-notes-index .study-notes-lead { font-style: italic; margin-bottom: 1.2em; }\n"
+    ".study-notes-index .study-book-head { margin: 1.4em 0 0.6em; font-variant: small-caps;\n"
+    "  letter-spacing: 0.06em; }\n"
+    ".study-glossary-entry { margin: 0.85em 0; padding-top: 0.6em;\n"
+    "  border-top: 1px solid rgba(110, 88, 64, 0.25); }\n"
+    "a.study-return { font-weight: 600; }\n"
     "/* K-R7-4b: small-caps+letter-spacing eats BOOK↔numeral gap on kepub */\n"
     ".bookpage-eyebrow .eyebrow-book { margin-right: 0.42em; }\n"
 )
@@ -3401,11 +3427,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     split_cap = resolve_note_popup_split_cap(edition)
     # K-R6-2 — the serialized-byte budget (estimated post-kepubify; 0 = off).
     split_byte_cap = resolve_note_popup_split_byte_cap(edition)
-    # K-R7-2d — eink study popups: keep merged verse-notes asides inline after
-    # their badge cluster so Kobo's forward-scan hits the target before the next
-    # verse's vn-link (the terminal-badge decline class; paragraph seams alone
-    # did not fix it on device). The file-splitter must not re-harvest them.
-    eink_inline_notes = resolve_target_reader(edition) == "eink"
+    # K-R7-2d / K-R9 — eink study layout: inline+popup keep asides in prose order;
+    # backmatter collects them for the Study Notes glossary (badges jump cross-file).
+    eink_target = resolve_target_reader(edition) == "eink"
+    study_layout = resolve_reader_eink_study_layout(edition) if eink_target else "popup"
+    eink_inline_in_prose = eink_target and study_layout in ("inline", "popup")
+    eink_backmatter = eink_target and study_layout == "backmatter"
+    books_by_code = config.books_by_code()
+    book_order = {b["code"]: i for i, b in enumerate(config.load_books())}
 
     stats = {
         "badges_inserted": 0,
@@ -3419,6 +3448,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "s2_byline_unattributed": 0,
         "s3a_topic_notes_merged": 0,
         "popup_units_split": 0,
+        "study_backmatter_entries": [],
+        "reader_eink_study_layout": study_layout,
     }
 
     # Which split files actually survive in this edition's temp tree (canon
@@ -3656,15 +3687,35 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         bid = f"vbadge-{code}-{ch}-{v}{suffix}"
                         part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""
                         aside_cls = "verse-notes"
-                        if eink_inline_notes and not resolve_reader_eink_study_inline(edition):
+                        if eink_inline_in_prose and study_layout == "popup":
                             aside_cls = "verse-notes verse-notes--eink-anchor"
-                        unit_asides.append(
+                        elif eink_backmatter:
+                            aside_cls = "verse-notes study-glossary-entry"
+                        book_title = (books_by_code.get(code) or {}).get("title") or code.upper()
+                        if eink_backmatter:
+                            verse_id = f"v-{code}-{ch}-{v}"
+                            ret = f"Return to {book_title} {ch}:{v}"
+                            back_line = (
+                                f'  <p class="vn-back"><a href="#{verse_id}" class="note-back study-return" '
+                                f'title="{html.escape(ret, quote=True)}">↩ {html.escape(ret, quote=False)}</a> '
+                                f"<strong>{ch}:{v}</strong>{part_span}</p>\n"
+                            )
+                        else:
+                            back_line = (
+                                f'  <p class="vn-back"><a href="#{bid}" class="note-back" '
+                                f'title="Back">↩</a> <strong>{ch}:{v}</strong>{part_span}</p>\n'
+                            )
+                        unit_aside = (
                             f'<aside class="{aside_cls}" id="{vid}" epub:type="footnote">\n'
-                            f'  <p class="vn-back"><a href="#{bid}" class="note-back" '
-                            f'title="Back">↩</a> <strong>{ch}:{v}</strong>{part_span}</p>\n'
+                            + back_line
                             + _unit_inner(unit_rows)
                             + "</aside>\n"
                         )
+                        unit_asides.append(unit_aside)
+                        if eink_backmatter:
+                            stats["study_backmatter_entries"].append(
+                                ((book_order.get(code, 9999), ch, v, u_idx), code, unit_aside)
+                            )
                         m_cnt = len(unit_rows)
                         title = f"{m_cnt} note" if m_cnt == 1 else f"{m_cnt} notes"
                         if k_units > 1:
@@ -3685,7 +3736,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # K-R7-2: trailing nbsp so the terminal noteref is never the
                     # last box on the verse line (singleton 1/1 ≡ last-badge class).
                     badge = " ".join(unit_badges) + '<span class="badge-trail" aria-hidden="true">\u00a0</span>'
-                    prose_insert = f"{badge}\n{merged_aside}" if eink_inline_notes else badge
+                    prose_insert = f"{badge}\n{merged_aside}" if eink_inline_in_prose else badge
 
                     bucket = edits.setdefault(fname, [])
                     # K-R3-3/K-R3-4: a chapter-last verse's region legitimately
@@ -3719,10 +3770,10 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         bucket.append((v_start + last.start(), v_start + last.end(), prose_insert))
                         for m in markers[:-1]:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))
-                    # Eink: merged verse-notes stay inline in prose (K-R7-2d); non-eink
-                    # keeps the historical notes-section replacement path.
+                    # Eink inline/popup: asides stay in prose (K-R7-2d). Eink
+                    # backmatter + non-eink: drop per-note asides from prose.
                     aside_spans_sorted = sorted(aside_spans)
-                    if eink_inline_notes:
+                    if eink_inline_in_prose or eink_backmatter:
                         for sp in aside_spans_sorted:
                             bucket.append((sp[0], sp[1], ""))
                     else:
@@ -4304,7 +4355,10 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             p.read_text(encoding="utf-8"),
             p.stem,
             target,
-            keep_inline_verse_notes=resolve_target_reader(edition) == "eink",
+            keep_inline_verse_notes=(
+                resolve_target_reader(edition) == "eink"
+                and resolve_reader_eink_study_layout(edition) in ("inline", "popup")
+            ),
         )
 
     # 1b. Cross-FILE opener pop (K-R2-4 file-seam class): the calibre base cuts
@@ -6456,7 +6510,7 @@ def build_one(
                 apply_eink_reader_css(css_path.read_text(encoding="utf-8"), edition),
                 encoding="utf-8",
             )
-            stats["reader_eink_study_inline"] = resolve_reader_eink_study_inline(edition)
+            stats["reader_eink_study_layout"] = resolve_reader_eink_study_layout(edition)
 
         # S2 note cascade — append the robust-layer CSS (15 per-category group
         # spines + header/source/byline/indent rules) when note_group_by_category
@@ -6679,6 +6733,8 @@ def build_one(
             stats["badges_inserted"] = badge_stats["badges_inserted"]
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
             stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
+            stats["reader_eink_study_layout"] = badge_stats.get("reader_eink_study_layout", "popup")
+            stats["_study_backmatter_entries"] = badge_stats.get("study_backmatter_entries", [])
 
         stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition)
 
@@ -6706,6 +6762,10 @@ def build_one(
         # page, which carried the matrix-based summary.
         inject_your_edition_page(tmp, edition, version)
         inject_symbol_legend_page(tmp, edition)
+        if stats.get("_study_backmatter_entries") and resolve_reader_eink_study_layout(edition) == "backmatter":
+            bm_stats = inject_eink_study_backmatter(tmp, edition, stats["_study_backmatter_entries"])
+            stats["study_backmatter_entries"] = bm_stats.get("entries_written", 0)
+            stats["study_backmatter_file"] = bm_stats.get("output_file", "")
         inject_back_matter(tmp, edition, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
