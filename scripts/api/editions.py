@@ -891,11 +891,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
 
         v = (payload["reader_eink_study_layout"] or "").strip()
         if v and v not in READER_EINK_STUDY_LAYOUTS:
-            return {
-                "error": (
-                    f"unknown reader_eink_study_layout: {v!r}; valid: {sorted(READER_EINK_STUDY_LAYOUTS)}"
-                )
-            }
+            return {"error": (f"unknown reader_eink_study_layout: {v!r}; valid: {sorted(READER_EINK_STUDY_LAYOUTS)}")}
         payload["reader_eink_study_layout"] = v
 
     if "topical_index_source" in payload:

@@ -631,7 +631,7 @@ function applyTargetGating() {
   if (badgeHint) {
     badgeHint.textContent = isEink
       ? 'Recommended on Kobo: dagger+count or lozenge+count. Avoid • (can crash) and ◈ (never renders).'
-      : '◈ works on Apple Books / tablet; chip is the safe default everywhere.';
+      : '◈ works on Apple Books / tablet; chip is the safe default everywhere.'; // term-ref-ok
   }
 }
 

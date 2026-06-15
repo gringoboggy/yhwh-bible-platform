@@ -51,6 +51,7 @@ import time
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -2227,6 +2228,43 @@ def resolve_reader_eink_study_inline(edition: dict) -> bool:
     return resolve_reader_eink_study_layout(edition) == "inline"
 
 
+# Per-category hues — shared by the S2 cascade spines and the K-R9c study badges.
+_CASCADE_CATEGORY_HUES = {
+    "lang": "#8B6508",
+    "text": "#A0202C",
+    "xref": "#5C2E91",
+    "hist": "#8B5A2B",
+    "lit": "#4A5568",
+    "comm": "#0B3D91",
+    "compare": "#1F5E5E",
+    "dev": "#8C3F5F",
+    "liturgy": "#B8860B",
+    "apol": "#2E5E3E",
+    "modern": "#4A6FA5",
+    "ped": "#6B5B4A",
+    "vis": "#525E2C",
+    "dist": "#4A2E5C",
+    "topic": "#5A5F7E",
+}
+
+_EINK_CATEGORY_BADGE_TINTS = {
+    "lang": "rgba(184, 134, 11, 0.14)",
+    "text": "rgba(160, 32, 44, 0.13)",
+    "xref": "rgba(92, 46, 145, 0.13)",
+    "hist": "rgba(139, 90, 43, 0.13)",
+    "lit": "rgba(74, 85, 104, 0.13)",
+    "comm": "rgba(11, 61, 145, 0.12)",
+    "compare": "rgba(31, 94, 94, 0.13)",
+    "dev": "rgba(140, 63, 95, 0.13)",
+    "liturgy": "rgba(184, 134, 11, 0.14)",
+    "apol": "rgba(46, 94, 62, 0.13)",
+    "modern": "rgba(74, 111, 165, 0.13)",
+    "ped": "rgba(107, 91, 74, 0.13)",
+    "vis": "rgba(82, 94, 44, 0.13)",
+    "dist": "rgba(74, 46, 92, 0.13)",
+    "topic": "rgba(90, 95, 126, 0.13)",
+}
+
 _EINK_READER_CSS = (
     "\n/* === Kobo eink reader overrides === */\n"
     "/* K-R7-2e popup mode: DOM-order anchors without bloating the page */\n"
@@ -2238,7 +2276,13 @@ _EINK_READER_CSS = (
     ".study-glossary-entry { margin: 0.85em 0; padding-top: 0.6em;\n"
     "  border-top: 1px solid rgba(110, 88, 64, 0.25); }\n"
     "a.study-return { font-weight: 600; }\n"
-    "/* K-R7-4b: small-caps+letter-spacing eats BOOK↔numeral gap on kepub */\n"
+    "/* K-R9c: per-category study badges — hue matches the glossary section spine */\n"
+    + "".join(
+        f".verse-notes-badge.badge-cat-{cat} .marker-badge "
+        f"{{ color: {hue}; border-color: {hue}; background: {_EINK_CATEGORY_BADGE_TINTS.get(cat, 'rgba(92, 46, 145, 0.13)')}; }}\n"
+        for cat, hue in _CASCADE_CATEGORY_HUES.items()
+    )
+    + "/* K-R7-4b: small-caps+letter-spacing eats BOOK↔numeral gap on kepub */\n"
     ".bookpage-eyebrow .eyebrow-book { margin-right: 0.42em; }\n"
 )
 
@@ -2307,30 +2351,7 @@ def apply_marker_badge_style(stylesheet_css: str, style: str) -> str:
     return stylesheet_css
 
 
-# Per-category group spine for the S2 cascade — reuses the EXACT hues already in
-# epub_working/stylesheet.css:751-791 (the `[class*="note-{cat}-"]` left-border
-# colours); `topic` has no shipped spine, so it gets the one new hue. The group
-# colour is carried by border-left (a survivable property), the header by
-# weight + small-caps + a border-bottom — so the cascade stays legible and
-# category-identifiable with backgrounds/embedded-fonts off (spec §2 + §5.2).
-_CASCADE_CATEGORY_HUES = {
-    "lang": "#8B6508",
-    "text": "#A0202C",
-    "xref": "#5C2E91",
-    "hist": "#8B5A2B",
-    "lit": "#4A5568",
-    "comm": "#0B3D91",
-    "compare": "#1F5E5E",
-    "dev": "#8C3F5F",
-    "liturgy": "#B8860B",
-    "apol": "#2E5E3E",
-    "modern": "#4A6FA5",
-    "ped": "#6B5B4A",
-    "vis": "#525E2C",
-    "dist": "#4A2E5C",
-    "topic": "#5A5F7E",
-}
-
+# S2 cascade robust layer — group spines reuse the hues in stylesheet.css:785-825.
 _NOTE_CASCADE_CSS = (
     "\n/* === S2 note cascade — verse→category→source→note (reader-robust) === */\n"
     ".verse-notes .vn-group { margin: 0.55em 0; }\n"
@@ -3301,6 +3322,52 @@ def _split_popup_units(rows: list[dict], cap: int, emit_inner, byte_cap: int = 0
     return units
 
 
+def _unique_cats_sorted(rows: list[dict]) -> list[str]:
+    """Category ids present in ``rows``, in the S2 popup display order."""
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for r in rows:
+        cat = r["cat"]
+        if cat not in seen:
+            seen.add(cat)
+            ordered.append(cat)
+    ordered.sort(key=lambda c: _POPUP_CATEGORY_RANK.get(c, _POPUP_CATEGORY_FALLBACK_RANK))
+    return ordered
+
+
+def _emit_backmatter_glossary_inner(
+    rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool
+) -> str:
+    """Glossary inner HTML with one anchored section per category (K-R9c).
+
+    Each ``section.vn-group`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"`` so a
+    per-category badge can jump straight to the matching coloured block."""
+    parts: list[str] = []
+    for cat in _unique_cats_sorted(rows):
+        cat_rows = [r for r in rows if r["cat"] == cat]
+        sid = f"vnotes-{code}-{ch}-{v}-{cat}"
+        if s2_group:
+            inner = _emit_cascade_sections(cat_rows, cat_meta)
+            inner = inner.replace(
+                f'<section class="vn-group note-cat-{cat}">',
+                f'<section class="vn-group note-cat-{cat}" id="{sid}">',
+                1,
+            )
+            parts.append(inner)
+        else:
+            parts.append(f'  <section class="vn-group note-cat-{cat}" id="{sid}">\n')
+            parts.append("".join(f"    {r['row']}\n" for r in cat_rows))
+            parts.append("  </section>\n")
+    return "".join(parts)
+
+
+def _format_category_badge_text(glyph: str, note_count: int) -> str:
+    """Badge face for a per-category study badge — glyph when available, else count."""
+    if glyph:
+        return f"{glyph}{note_count}" if note_count > 1 else glyph
+    return str(note_count)
+
+
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
@@ -3412,9 +3479,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     # byline is resolved by a build-time LIVE attribution lookup (per-book index
     # below); cat_meta carries each category's glyph + label once for the headers.
     s2_group = bool(edition.get("note_group_by_category", False))
+    eink_target = resolve_target_reader(edition) == "eink"
+    study_layout = resolve_reader_eink_study_layout(edition) if eink_target else "popup"
+    eink_backmatter = eink_target and study_layout == "backmatter"
     cat_meta = (
         {cid: (rec.get("symbol", ""), rec.get("label", cid)) for cid, rec in config.categories_by_id().items()}
-        if s2_group
+        if (s2_group or eink_backmatter)
         else {}
     )
     # S3a — union-merge a verse's topic-category notes (topic-nave + topic-torrey)
@@ -3429,14 +3499,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     split_byte_cap = resolve_note_popup_split_byte_cap(edition)
     # K-R7-2d / K-R9 — eink study layout: inline+popup keep asides in prose order;
     # backmatter collects them for the Study Notes glossary (badges jump cross-file).
-    eink_target = resolve_target_reader(edition) == "eink"
-    study_layout = resolve_reader_eink_study_layout(edition) if eink_target else "popup"
     eink_inline_in_prose = eink_target and study_layout in ("inline", "popup")
-    eink_backmatter = eink_target and study_layout == "backmatter"
     books_by_code = config.books_by_code()
     book_order = {b["code"]: i for i, b in enumerate(config.load_books())}
 
-    stats = {
+    stats: dict[str, Any] = {
         "badges_inserted": 0,
         "asides_merged": 0,
         "notes_collapsed": 0,
@@ -3449,6 +3516,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "s3a_topic_notes_merged": 0,
         "popup_units_split": 0,
         "study_backmatter_entries": [],
+        "study_category_badges": 0,
         "reader_eink_study_layout": study_layout,
     }
 
@@ -3663,75 +3731,105 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             return inner
                         return "".join(f"  {r['row']}\n" for r in unit_rows)
 
-                    # K-R4-2: partition the verse's rows into popup units, each
-                    # under the device-calibrated stripped-size cap AND the
-                    # K-R6-2 serialized-byte budget. One unit = the historical
-                    # single-aside path (text-identically; the id gains -s1).
-                    try:
-                        units = _split_popup_units(norm_rows, split_cap, _unit_inner, byte_cap=split_byte_cap)
-                    except ValueError as e:
-                        raise AssertionError(f"{code} {ch}:{v}: {e}") from None
-                    k_units = len(units)
-
+                    book_title = (books_by_code.get(code) or {}).get("title") or code.upper()
                     unit_asides: list[str] = []
                     unit_badges: list[str] = []
-                    for u_idx, unit_rows in enumerate(units, start=1):
-                        # K-R6-2 leg 1 — EVERY unit (singles included) wears a
-                        # single-digit -sN tail, so no vnotes/vbadge id is ever
-                        # a strict prefix of another anywhere in the artifact
-                        # (the head's bare id swallowed its whole family on
-                        # Kobo; bare singles minted 20 adjacent cross-verse
-                        # digit-extension pairs like jub-7-1 < jub-7-13).
-                        suffix = f"-s{u_idx}"
-                        vid = f"vnotes-{code}-{ch}-{v}{suffix}"
-                        bid = f"vbadge-{code}-{ch}-{v}{suffix}"
-                        part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""
-                        aside_cls = "verse-notes"
-                        if eink_inline_in_prose and study_layout == "popup":
-                            aside_cls = "verse-notes verse-notes--eink-anchor"
-                        elif eink_backmatter:
-                            aside_cls = "verse-notes study-glossary-entry"
-                        book_title = (books_by_code.get(code) or {}).get("title") or code.upper()
-                        if eink_backmatter:
-                            verse_id = f"v-{code}-{ch}-{v}"
-                            ret = f"Return to {book_title} {ch}:{v}"
-                            back_line = (
-                                f'  <p class="vn-back"><a href="#{verse_id}" class="note-back study-return" '
-                                f'title="{html.escape(ret, quote=True)}">↩ {html.escape(ret, quote=False)}</a> '
-                                f"<strong>{ch}:{v}</strong>{part_span}</p>\n"
+                    merged_aside = ""
+
+                    if eink_backmatter:
+                        # K-R9c: one coloured badge per category; glossary holds one
+                        # anchored section per category (no popup-unit splitting).
+                        cats_order = _unique_cats_sorted(norm_rows)
+                        vid = f"vnotes-{code}-{ch}-{v}"
+                        verse_id = f"v-{code}-{ch}-{v}"
+                        ret = f"Return to {book_title} {ch}:{v}"
+                        back_line = (
+                            f'  <p class="vn-back"><a href="#{verse_id}" class="note-back study-return" '
+                            f'title="{html.escape(ret, quote=True)}">↩ {html.escape(ret, quote=False)}</a> '
+                            f"<strong>{ch}:{v}</strong></p>\n"
+                        )
+                        glossary_inner = _emit_backmatter_glossary_inner(
+                            norm_rows, cat_meta, code, ch, v, s2_group=s2_group
+                        )
+                        unit_aside = (
+                            f'<aside class="verse-notes study-glossary-entry" id="{vid}" epub:type="footnote">\n'
+                            + back_line
+                            + glossary_inner
+                            + "</aside>\n"
+                        )
+                        unit_asides.append(unit_aside)
+                        stats["study_backmatter_entries"].append(
+                            ((book_order.get(code, 9999), ch, v, 0), code, unit_aside)
+                        )
+                        for cat in cats_order:
+                            cat_rows = [r for r in norm_rows if r["cat"] == cat]
+                            m_cnt = len(cat_rows)
+                            glyph, label = cat_meta.get(cat, ("", cat))
+                            bid = f"vbadge-{code}-{ch}-{v}-{cat}"
+                            target_id = f"vnotes-{code}-{ch}-{v}-{cat}"
+                            badge_text = _format_category_badge_text(glyph, m_cnt)
+                            title = f"{label}: {m_cnt} note" if m_cnt == 1 else f"{label}: {m_cnt} notes"
+                            unit_badges.append(
+                                f'<a class="verse-notes-badge badge-cat-{cat}" id="{bid}" '
+                                f'href="#{target_id}" title="{html.escape(title, quote=True)}">'
+                                f'<sup class="marker-badge">{html.escape(badge_text, quote=False)}</sup></a>'
                             )
-                        else:
+                            stats["study_category_badges"] += 1
+                        if s2_group:
+                            stats["s2_groups_emitted"] += len(cats_order)
+                        merged_aside = unit_aside
+                    else:
+                        # K-R4-2: partition the verse's rows into popup units, each
+                        # under the device-calibrated stripped-size cap AND the
+                        # K-R6-2 serialized-byte budget. One unit = the historical
+                        # single-aside path (text-identically; the id gains -s1).
+                        try:
+                            units = _split_popup_units(norm_rows, split_cap, _unit_inner, byte_cap=split_byte_cap)
+                        except ValueError as e:
+                            raise AssertionError(f"{code} {ch}:{v}: {e}") from None
+                        k_units = len(units)
+
+                        for u_idx, unit_rows in enumerate(units, start=1):
+                            # K-R6-2 leg 1 — EVERY unit (singles included) wears a
+                            # single-digit -sN tail, so no vnotes/vbadge id is ever
+                            # a strict prefix of another anywhere in the artifact
+                            # (the head's bare id swallowed its whole family on
+                            # Kobo; bare singles minted 20 adjacent cross-verse
+                            # digit-extension pairs like jub-7-1 < jub-7-13).
+                            suffix = f"-s{u_idx}"
+                            vid = f"vnotes-{code}-{ch}-{v}{suffix}"
+                            bid = f"vbadge-{code}-{ch}-{v}{suffix}"
+                            part_span = f' <span class="vn-part">({u_idx}/{k_units})</span>' if k_units > 1 else ""
+                            aside_cls = "verse-notes"
+                            if eink_inline_in_prose and study_layout == "popup":
+                                aside_cls = "verse-notes verse-notes--eink-anchor"
                             back_line = (
                                 f'  <p class="vn-back"><a href="#{bid}" class="note-back" '
                                 f'title="Back">↩</a> <strong>{ch}:{v}</strong>{part_span}</p>\n'
                             )
-                        unit_aside = (
-                            f'<aside class="{aside_cls}" id="{vid}" epub:type="footnote">\n'
-                            + back_line
-                            + _unit_inner(unit_rows)
-                            + "</aside>\n"
-                        )
-                        unit_asides.append(unit_aside)
-                        if eink_backmatter:
-                            stats["study_backmatter_entries"].append(
-                                ((book_order.get(code, 9999), ch, v, u_idx), code, unit_aside)
+                            unit_aside = (
+                                f'<aside class="{aside_cls}" id="{vid}" epub:type="footnote">\n'
+                                + back_line
+                                + _unit_inner(unit_rows)
+                                + "</aside>\n"
                             )
-                        m_cnt = len(unit_rows)
-                        title = f"{m_cnt} note" if m_cnt == 1 else f"{m_cnt} notes"
+                            unit_asides.append(unit_aside)
+                            m_cnt = len(unit_rows)
+                            title = f"{m_cnt} note" if m_cnt == 1 else f"{m_cnt} notes"
+                            if k_units > 1:
+                                title += f" (part {u_idx} of {k_units})"
+                            badge_text = format_marker_badge_text(edition, m_cnt)
+                            unit_badges.append(
+                                f'<a class="verse-notes-badge" id="{bid}" '
+                                f'href="#{vid}" epub:type="noteref" '
+                                f'title="{title}"><sup class="marker-badge">{badge_text}</sup></a>'
+                            )
+                            if s2_group:
+                                stats["s2_groups_emitted"] += len({r["cat"] for r in unit_rows})
                         if k_units > 1:
-                            title += f" (part {u_idx} of {k_units})"
-                        badge_text = format_marker_badge_text(edition, m_cnt)
-                        unit_badges.append(
-                            f'<a class="verse-notes-badge" id="{bid}" '
-                            f'href="#{vid}" epub:type="noteref" '
-                            f'title="{title}"><sup class="marker-badge">{badge_text}</sup></a>'
-                        )
-                        if s2_group:
-                            stats["s2_groups_emitted"] += len({r["cat"] for r in unit_rows})
-                    if k_units > 1:
-                        stats["popup_units_split"] += k_units
+                            stats["popup_units_split"] += k_units
 
-                    merged_aside = "".join(unit_asides)
+                        merged_aside = "".join(unit_asides)
                     # Inter-badge spaces keep adjacent tap targets separable.
                     # K-R7-2: trailing nbsp so the terminal noteref is never the
                     # last box on the verse line (singleton 1/1 ≡ last-badge class).
@@ -4334,6 +4432,144 @@ def split_html_document(
     return pieces
 
 
+_STUDY_BOOK_HEAD_RE = re.compile(r'<h2 class="study-book-head"')
+_STUDY_GLOSSARY_ASIDE_RE = re.compile(r'<aside class="verse-notes study-glossary-entry"')
+_STUDY_INDEX_OPEN_RE = re.compile(r'<section class="study-notes-index"[^>]*>')
+
+
+def _study_index_section_parts(body: str) -> tuple[str, str, str, str] | None:
+    """Return ``(before_open, sec_open, inner, after_close)`` for the study index.
+
+    Depth-aware — the glossary nests ``section.vn-group`` inside each aside, so a
+    naive non-greedy ``</section>`` match would close on the first category group."""
+    open_m = _STUDY_INDEX_OPEN_RE.search(body)
+    if not open_m:
+        return None
+    depth = 1
+    close_start = -1
+    for m in re.finditer(r"</?section\b", body[open_m.end() :]):
+        if m.group(0) == "</section":
+            depth -= 1
+            if depth == 0:
+                close_start = open_m.end() + m.start()
+                break
+        else:
+            depth += 1
+    if close_start == -1:
+        return None
+    close_end = body.find(">", close_start)
+    if close_end == -1:
+        return None
+    close_end += 1
+    return body[: open_m.start()], open_m.group(0), body[open_m.end() : close_start], body[close_end:]
+
+
+def _study_glossary_chunk_atoms(inner: str, target: int) -> list[str]:
+    """Split study glossary inner HTML into packable atoms at book heads / asides."""
+    book_heads = [m.start() for m in _STUDY_BOOK_HEAD_RE.finditer(inner)]
+    atoms: list[str] = []
+    if not book_heads:
+        cuts = sorted({0, *{m.start() for m in _STUDY_GLOSSARY_ASIDE_RE.finditer(inner)}, len(inner)})
+        return [inner[cuts[i] : cuts[i + 1]] for i in range(len(cuts) - 1) if inner[cuts[i] : cuts[i + 1]].strip()]
+
+    intro = inner[: book_heads[0]]
+    if intro.strip():
+        atoms.append(intro)
+    for i, pos in enumerate(book_heads):
+        end = book_heads[i + 1] if i + 1 < len(book_heads) else len(inner)
+        chunk = inner[pos:end]
+        if len(chunk) <= target:
+            atoms.append(chunk)
+            continue
+        cuts = sorted({0, *{m.start() for m in _STUDY_GLOSSARY_ASIDE_RE.finditer(chunk)}, len(chunk)})
+        for j in range(len(cuts) - 1):
+            part = chunk[cuts[j] : cuts[j + 1]]
+            if part.strip():
+                atoms.append(part)
+    return atoms
+
+
+def split_study_glossary_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
+    """Split the Kobo Study Notes glossary into ~``target``-byte pieces (K-R9b).
+
+    Unlike ``split_html_document``, this file IS the pooled study asides — stripping
+    them would leave almost nothing and the 73 MB monolith would survive unsplit.
+    Cuts at ``h2.study-book-head`` boundaries and, when one book exceeds ``target``,
+    between ``aside.study-glossary-entry`` elements. The h1 + lead paragraph travel
+    with piece 0 only."""
+    if len(text) <= target:
+        return [(f"{stem}.html", text)]
+    parts = _split_head_body_tail(text)
+    if parts is None:
+        return [(f"{stem}.html", text)]
+    head, body, tail = parts
+    sec_parts = _study_index_section_parts(body)
+    if sec_parts is None:
+        return [(f"{stem}.html", text)]
+    body_prefix, sec_open, inner, body_suffix = sec_parts
+
+    atoms = _study_glossary_chunk_atoms(inner, target)
+    if not atoms:
+        return [(f"{stem}.html", text)]
+
+    groups: list[list[str]] = []
+    cur: list[str] = []
+    cur_w = 0
+    for atom in atoms:
+        w = len(atom)
+        if cur and cur_w + w > target:
+            groups.append(cur)
+            cur, cur_w = [], 0
+        cur.append(atom)
+        cur_w += w
+    if cur:
+        groups.append(cur)
+    if len(groups) <= 1:
+        return [(f"{stem}.html", text)]
+
+    pieces: list[tuple[str, str]] = []
+    for k, group in enumerate(groups):
+        piece_inner = "".join(group)
+        piece_body = body_prefix + sec_open + piece_inner + "</section>" + body_suffix
+        pieces.append((f"{stem}_{k:02d}.html", head + piece_body + tail))
+    return pieces
+
+
+_STUDY_BOOK_HEAD_ID_RE = re.compile(r'<h2 class="study-book-head" id="([^"]+)"[^>]*>([^<]+)</h2>')
+
+
+def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]], filemap: dict[str, str]) -> None:
+    """Expand nav Study Notes into a nested per-book ToC after glossary split."""
+    study_orig = f"{EINK_STUDY_BACKMATTER_STEM}.html"
+    if study_orig not in plan or len(plan[study_orig]) <= 1:
+        return
+    first_piece = plan[study_orig][0][0]
+    book_links: list[str] = []
+    for pname, ptext in plan[study_orig]:
+        for hid, title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
+            book_links.append(f'        <li><a href="{pname}#{hid}">{html.escape(title)}</a></li>')
+    if not book_links:
+        return
+    nav_path = tmp / "nav.xhtml"
+    if not nav_path.is_file():
+        return
+    nav = nav_path.read_text(encoding="utf-8")
+    old_href = study_orig
+    new_href = filemap.get(study_orig, first_piece)
+    nested = (
+        f'\n      <li><a href="{new_href}">Study Notes</a>\n'
+        f"        <ol>\n{chr(10).join(book_links)}\n        </ol>\n      </li>"
+    )
+    pat = re.compile(
+        rf'\n\s*<li><a href="{re.escape(old_href)}">Study Notes</a></li>'
+        rf'|\n\s*<li><a href="{re.escape(new_href)}">Study Notes</a></li>'
+    )
+    if not pat.search(nav):
+        return
+    nav = pat.sub(nested, nav, count=1)
+    nav_path.write_text(nav, encoding="utf-8")
+
+
 def apply_file_split(tmp: Path, edition: dict) -> dict:
     """Split the per-edition temp tree's big ``index_split_*.html`` files into ~0.4 MB
     pieces, remap every cross-file href, and regenerate the OPF manifest+spine +
@@ -4351,15 +4587,19 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # 1. Plan pieces per source file (in sorted, deterministic order).
     plan: dict[str, list[tuple[str, str]]] = {}
     for p in src_files:
-        plan[p.name] = split_html_document(
-            p.read_text(encoding="utf-8"),
-            p.stem,
-            target,
-            keep_inline_verse_notes=(
-                resolve_target_reader(edition) == "eink"
-                and resolve_reader_eink_study_layout(edition) in ("inline", "popup")
-            ),
-        )
+        text = p.read_text(encoding="utf-8")
+        if p.stem == EINK_STUDY_BACKMATTER_STEM:
+            plan[p.name] = split_study_glossary_document(text, p.stem, target)
+        else:
+            plan[p.name] = split_html_document(
+                text,
+                p.stem,
+                target,
+                keep_inline_verse_notes=(
+                    resolve_target_reader(edition) == "eink"
+                    and resolve_reader_eink_study_layout(edition) in ("inline", "popup")
+                ),
+            )
 
     # 1b. Cross-FILE opener pop (K-R2-4 file-seam class): the calibre base cuts
     # some files right AFTER a chapter opener (Gen 27 / 1Ch 3 / Ps 73 / Isa 33 /
@@ -4482,6 +4722,9 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             opf_text = opf_text.replace(old_item, "\n    ".join(new_items), 1)
             opf_text = opf_text.replace(f'<itemref idref="{old_id}"/>', "\n    ".join(new_refs), 1)
         opf_path.write_text(opf_text, encoding="utf-8")
+
+    if EINK_STUDY_BACKMATTER_STEM + ".html" in split_origs:
+        _patch_study_glossary_nav(tmp, plan, filemap)
 
     # 6. Stats.
     stats["files_split"] = len(split_origs)

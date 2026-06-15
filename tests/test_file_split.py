@@ -964,3 +964,29 @@ class TestKindleSplitTarget:
                 ed = {"id": "x", "reader_file_split": True, "target_reader": target_reader}
             stats = apply_file_split(tmp, ed)
             assert (stats["files_split"] > 0) == expect_split, (target_reader, stats)
+
+
+class TestSplitStudyGlossary:
+    def test_splits_oversized_glossary_on_book_heads_and_asides(self, tmp_path):
+        from scripts.build_edition import EINK_STUDY_BACKMATTER_STEM, split_study_glossary_document
+
+        aside = (
+            '<aside class="verse-notes study-glossary-entry" id="vnotes-gen-1-1-comm" epub:type="footnote">'
+            "<p>note</p></aside>\n"
+        )
+        books = "".join(f'<h2 class="study-book-head" id="study-b{i}">Book {i}</h2>' + aside * 40 for i in range(6))
+        text = f"""<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Study Notes</title></head>
+<body epub:type="backmatter">
+<section class="study-notes-index" epub:type="backmatter">
+<h1>Study Notes</h1><p class="study-notes-lead">lead</p>
+{books}
+</section>
+</body></html>"""
+        pieces = split_study_glossary_document(text, EINK_STUDY_BACKMATTER_STEM, 8_000)
+        assert len(pieces) > 1, "oversized glossary must fan into multiple pieces"
+        names = [n for n, _ in pieces]
+        assert names[0] == f"{EINK_STUDY_BACKMATTER_STEM}_00.html"
+        assert all(n.endswith(".html") for n in names)
+        assert all("study-glossary-entry" in t for _, t in pieces)
+        assert max(len(t.encode("utf-8")) for _, t in pieces) < len(text.encode("utf-8"))

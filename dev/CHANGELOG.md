@@ -4,6 +4,22 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-15 — Windows session (turn 93) — ★ K-R9b/c STUDY GLOSSARY + CATEGORY BADGES
+
+**Round-9 crash fix (K-R9b):** `split_study_glossary_document` — depth-aware parse of
+`study-notes-index` (nested `vn-group` sections no longer truncate the outer section).
+Glossary fans into ~107 spine files; largest piece ~720 KB (was 73 MB monolith → Kobo home reset).
+
+**Study UX redesign (K-R9c, eink backmatter default):** one **coloured badge per note category**
+at verse end (S2 hues + category glyph); tap navigates to matching anchored section in Study
+Notes glossary (`#vnotes-{code}-{ch}-{v}-{cat}`) — not footnote popup. Nested per-book Study
+Notes ToC entries (`#study-{code}`).
+
+**QA artifact:** `build/kobo-marker-ab/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-15T135228Z.kepub.epub`
+— `dev/audit_kr9_crash.py` + `dev/verify_study_backmatter.py` PASS.
+
+**Next:** user round-9 device QA · fresh-session toolchain/plugin audit plan authored.
+
 ## 2026-06-15 — Windows session (turn 92) — ★ K-R8 DEVICE QA + K-R7-2e DUAL LAYOUT
 
 **Round-8 ingested** (`docs/superpowers/notes/2026-06-15-kobo-round8-device-qa.md`):

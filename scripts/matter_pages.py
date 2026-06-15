@@ -1056,7 +1056,7 @@ def render_eink_study_backmatter_page(edition: dict, entries: list[tuple]) -> st
         if code != current_code:
             current_code = code
             book_title = html.escape((books_by_code.get(code) or {}).get("title") or code.upper())
-            body_parts.append(f'<h2 class="study-book-head">{book_title}</h2>')
+            body_parts.append(f'<h2 class="study-book-head" id="study-{code}">{book_title}</h2>')
         body_parts.append(aside_html)
     body_parts.append("</section>")
     body = "\n".join(body_parts)

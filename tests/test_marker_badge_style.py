@@ -226,6 +226,29 @@ class TestReaderEinkStudyLayout:
         assert 'id="vnotes-gen-1-12-s1"' not in text, "asides must not stay in prose"
         assert "study-return" in stats["study_backmatter_entries"][0][2]
 
+    def test_backmatter_emits_colored_category_badges(self, tmp_path):
+        from scripts.build_edition import apply_badge_markers
+
+        tmp, fname = TestEmitter()._badge_tree(tmp_path)
+        edition = {
+            "id": "x",
+            "marker_style": "badge",
+            "target_reader": "eink",
+            "reader_eink_study_layout": "backmatter",
+            "note_group_by_category": True,
+        }
+        stats = apply_badge_markers(tmp, edition)
+        text = (tmp / fname).read_text(encoding="utf-8")
+        assert stats["study_category_badges"] >= 1
+        assert 'class="verse-notes-badge badge-cat-' in text
+        badge_tags = re.findall(r'<a class="verse-notes-badge[^"]*"[^>]*>', text)
+        assert badge_tags and 'epub:type="noteref"' not in badge_tags[0]
+        glossary = next(row[2] for row in stats["study_backmatter_entries"] if "vnotes-gen-1-1-" in row[2])
+        assert re.search(r'id="vnotes-gen-1-1-[a-z]+"', glossary)
+        assert "study-glossary-entry" in glossary
+        hrefs = re.findall(r'href="#(vnotes-gen-1-1-[a-z]+)"', text)
+        assert hrefs, "category badges must target anchored glossary sections"
+
     def test_study_inline_drops_anchor_hide_class(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
 

@@ -458,7 +458,7 @@ function renderEditions() {
                 <option value="lozenge"     ${e.marker_badge_style === 'lozenge' ? 'selected' : ''}>lozenge · ◇ symbol only</option>
                 <option value="lozenge+count" ${e.marker_badge_style === 'lozenge+count' ? 'selected' : ''}>lozenge+count · ◇ then count</option>
                 <option value="dot"         ${e.marker_badge_style === 'dot' ? 'selected' : ''} data-eink-unsafe="1">dot · • symbol only (not for Kobo)</option>
-                <option value="glyph+count" ${e.marker_badge_style === 'glyph+count' ? 'selected' : ''}>glyph+count · ◈ then count (Apple Books / tablet)</option>
+                <option value="glyph+count" ${e.marker_badge_style === 'glyph+count' ? 'selected' : ''}>glyph+count · ◈ then count (Apple Books / tablet)</option><!-- term-ref-ok -->
               </select>
               <span class="block text-slate-400 mt-1 badge-style-hint">◈ never renders on Kobo — pick dagger or lozenge for e-ink.</span>
             </label>
@@ -1048,7 +1048,7 @@ function syncBadgeStyleOptions(box, target, badgeSel) {
   if (hint) {
     hint.textContent = target === 'eink'
       ? 'Kobo: dagger+count or lozenge+count work well; ◈ and • do not.'
-      : '◈ renders on Apple Books / tablet; chip is the e-ink default when no style is picked.';
+      : '◈ renders on Apple Books / tablet; chip is the e-ink default when no style is picked.'; // term-ref-ok
   }
 }
 

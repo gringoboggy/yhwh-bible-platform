@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**81 documents** — 52 plans · 29 specs.
+**82 documents** — 53 plans · 29 specs.
 
-## In progress (34)
+## In progress (35)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-15 | Plan | Toolchain + IDE plugin update audit (Grok / VS Code / Claude / skills) | `plans/2026-06-15-toolchain-plugin-update-audit.md` | ACTIVE 2026-06-15 — next fresh-session first task; inventory + safe updates for extensions, skills, MCP, Python/Node toolchain; report to `dev/TOOLCHAIN.md`. |
 | 2026-06-14 | Plan | ★ v1.0.0 Release Plan — deep audit + all readers proven + mint tag | `plans/2026-06-14-v1.0.0-release-plan.md` | ACTIVE 2026-06-14 — authoritative gate for tag v1.0.0; parallel WIN/Mac tracks; §8 DoD blocks tag. M4 DONE; M3+M5+audit round 8 block. Both lanes read on every /resume. |
 | 2026-06-10 | Spec | Website Format Matrix — every full canon edition, per-device, with the 5×5 covers | `specs/2026-06-10-website-format-matrix-design.md` | READY 2026-06-10 — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA. |
 | 2026-06-10 | Plan | kindle_safe variant (turn-69 ①) — 5th `target_reader` value + one resolver + visible endnotes (E3013) + ToC rows (K-KIN-2) + seam CSS (K-KIN-3) + OPF stamp + verifier gate 5 | `plans/2026-06-10-kindle-safe-variant.md` | EXECUTED 2026-06-10 (Mac turn 69) — tasks 1–7 complete: TDD slices shipped + byte-identity proven (before/after SHA equal with the field unset) + the kindle acceptance artifact staged to `~/Desktop` (gates green incl. gate 5). Acceptance = the user's Send-to-Kindle re-verify (K-KIN-1..4). |
