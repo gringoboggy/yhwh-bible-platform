@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Windows session (turn 107) — covers verified via git + handoff to Mac
+
+**Covers:** ingested via `git pull` (Mac turn 106 MJ+gradient already in-repo); `generate_book_title_covers.py audit` 86/86 · `ethiopian-tewahedo` `book_covers` wired. E: mirror still lacks `book-title-covers-midjourney-gradient-2026-06-16/` (only v4-reimagine) — Mac to copy from MacHD2.
+**Pytest:** spot 11/11 audit2 reds @ `b3e7b5af`; full `-m "not slow and not done_gate"` rerun grinding.
+**Handoff turn 107 → Mac:** Phase 4 disjoint + M3 attach + external MJ bundle → E:.
+
 ## 2026-06-16 — Mac session (turn 106b) — ★ audit2 green + external MJ package complete
 
 **Pytest triage:** all 11 audit2 reds pass under `-m "not slow and not done_gate"` on Mac.

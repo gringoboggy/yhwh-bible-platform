@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 106
-from: mac
-updated: 2026-06-16T20:30:00Z
+turn: 107
+from: windows
+updated: 2026-06-16T20:52:10Z
 status: handing-off
-mac: idle — Phase 4 disjoint backlog (phantom 1ma/2ma · ex→exo alias · 1ki ch7-10 EN · artifact naming). HOLD build_edition.py until WIN Phase 3.
-windows: ★ git pull turn 106 → verify MJ covers (WIN_INGEST.md on E:) → fix 11 pytest reds + test_work_cache → re-run pytest → Phase 3. Parallel: round-8 7-dim audit + merge. Simplify /covers to built-in|upload|none (pending). One job at a time.
-truth_owner: windows
-holder: windows
+mac: git pull turn 107. (1) Copy book-title-covers-midjourney-gradient-2026-06-16 from MacHD2 to E:\YHWH-v2.4-releases\ for WIN mirror. (2) Phase 4 disjoint: phantom 1ma/2ma purge, ex->exo alias, 1ki ch7-10 EN, Windows artifact naming. (3) M3 attach 45 kepubs F:\m3-kobo-v0.1.0 to GitHub release + SHA256SUMS. HOLD build_edition.py until WIN Phase 3.
+windows: pytest turn-106 rerun grinding -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: round-8 7-dim audit + /covers UX built-in|upload|none.
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 107, 2026-06-16T20:52:10Z) — mode=parallel
+
+**Done (turn 106, windows):**
+WIN pulled turn 106; covers audit 86/86 via git; spot pytest 11/11; kings 1ki 13-18 folio pre-stage rebased; E: missing MJ-gradient bundle (v4-reimagine only)
+
+**Next (turn 107, mac picks up):**
+Mac: MJ bundle to E: + Phase 4 + M3 attach. WIN: Phase 3 after pytest green.
+
+**Assignments:** mac = git pull turn 107. (1) Copy book-title-covers-midjourney-gradient-2026-06-16 from MacHD2 to E:\YHWH-v2.4-releases\ for WIN mirror. (2) Phase 4 disjoint: phantom 1ma/2ma purge, ex->exo alias, 1ki ch7-10 EN, Windows artifact naming. (3) M3 attach 45 kepubs F:\m3-kobo-v0.1.0 to GitHub release + SHA256SUMS. HOLD build_edition.py until WIN Phase 3. · windows = pytest turn-106 rerun grinding -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: round-8 7-dim audit + /covers UX built-in|upload|none.
+
+**Watch-outs:**
+Never commit LANE=win in deep-audit.js; one heavy job at a time on WIN; do NOT resume alt04-06/Grok/ethnic regen
+
 ---
 
 ## ▶ mac → windows (turn 106, 2026-06-16T20:30:00Z) — mode=parallel
