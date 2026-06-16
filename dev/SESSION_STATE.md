@@ -1,5 +1,7 @@
 # Session state — current snapshot
 
+> **➤➤➤ 2026-06-16 (🪟 Windows, turn 99 — ★ MERGED FINDINGS + FIXES GO).** Merged plan: `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md` (Mac 35 + WIN 12 partial). User standing approval — Phase 1 fixes started (badge-trail stale test fixed). **Mac:** disjoint Phase 1 fixes parallel. **WIN:** Phase 1–2 + complete 7-dim thorough remainder. Baton **windows**; mode=parallel. TRACKER-STATE active.
+>
 > **➤➤➤ 2026-06-16 (🖥️ Mac, turn 98 — ★ ROUND-8b THOROUGH MAC AUDIT COMPLETE).** 18 dims (incl. lane-system/decommission/stack-review/future-work) → **35 survivors** (5 high / 17 med / 9 low / 4 info; 0 critical); re-verified draft `9536bf34` (9 refuted, 19 confirmed, 6 new). Pushed `_audit-split/findings-mac.json` @ `b1b9dffd` on `lane-transfer/audit` (both remotes). M2 layout directive read-only: CONFIRM-OPTIMAL. **WIN next:** 7 dims thorough + `tests-run` + merge → `docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`. **HOLD:** fixes · Kobo QA · M4b · M3 attach until user approves merged plan. Baton **windows**; mode=parallel. TRACKER-STATE active.
 >
 > **➤➤➤ 2026-06-16 (🪟 Windows, turn 97 — ROUND-8b THOROUGH MAC RE-RUN ORDERED).** User: fast Grok pass ≠ mint10/11 bar. Handed to Mac for Workflow re-run.

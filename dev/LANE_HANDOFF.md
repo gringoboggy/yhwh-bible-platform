@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 98
-from: mac
-updated: 2026-06-16T02:45:22Z
-status: handing-off
-mac: idle — await user approval of merged round-8 findings plan; fresh session: /resume then M4b Kindle fork or audit fix Phase 1 per plan (HOLD until approved)
-windows: ▶ turn 98 — pull lane-transfer/audit @ b1b9dffd; LANE=win locally in deep-audit.js (never commit); 7 dims thorough + tests-run pytest; deep-audit-merge.js → docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md. FINDINGS-ONLY — present plan, STOP. HOLD Kobo QA + fixes until user approves.
+turn: 99
+from: windows
+updated: 2026-06-16T02:52:28Z
+status: working
+mac: Phase 1 fixes (file-disjoint): prospect.py write_queue · batch_promote_xrefs · promote.py chapter parse · inject SyntaxError guard · docs drift. Parallel: M4b when Phase 1–3 green on WIN.
+windows: Phase 1–2 fixes + complete WIN 7-dim thorough audit remainder. Merged plan: docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md. Standing user approval — fixes GO. HOLD Kobo device QA until Phase 1–3.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 99, 2026-06-16T02:52:28Z) — mode=parallel
+
+**Assignments:** mac = Phase 1 fixes (file-disjoint): prospect.py write_queue · batch_promote_xrefs · promote.py chapter parse · inject SyntaxError guard · docs drift. Parallel: M4b when Phase 1–3 green on WIN. · windows = Phase 1–2 fixes + complete WIN 7-dim thorough audit remainder. Merged plan: docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md. Standing user approval — fixes GO. HOLD Kobo device QA until Phase 1–3.
+
+User standing approval (2026-06-16): no separate findings gate. Mac may start disjoint Phase 1 fixes in parallel with WIN.
+
 ---
 
 ## ▶ mac → windows (turn 98, 2026-06-16T02:45:22Z) — mode=parallel

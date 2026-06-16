@@ -1,0 +1,78 @@
+# Round-8 split audit — merged findings (2026-06-16)
+
+**Status:** MERGED (Mac 8b thorough @ `b1b9dffd` + WIN partial fast-pass). User standing approval: proceed to fixes.
+**WIN half:** 7 dims still need thorough Workflow pass (`tests-run` complete pending; `claude-setup` pending).
+
+## Executive summary
+
+Mac lane (18 dims, adversarial verify): **35 survivors** (0 critical · 5 high · 17 medium · 9 low · 4 info).
+WIN lane (partial): **12 survivors** (1 critical · 2 high · 7 medium · 2 low).
+**Combined unique headline:** silent data-loss in ingest/promote paths, API error HTTP semantics, stale release/website artifacts, popup hidden-target classes beyond K-R4, and **45 corrupt Kindle stubs on GitHub release**.
+
+Overall: codebase is shippable but **not mint** — several paths can drop or mis-mark data without surfacing errors; public release surface has corrupt/stale assets.
+
+---
+
+## Phased fixes
+
+### Phase 1 — Silent data-loss + API correctness (safest high-impact)
+
+- [ ] **HIGH** `prospect.py` write_queue clobbers promotion status — delegate to `at_scale_base.append_candidates` or merge preserving status (`scripts/prospect.py:153`)
+- [ ] **HIGH** `batch_promote_xrefs` marks promoted when zero inserted — only mark actually inserted / `note_already_exists` (`scripts/batch_promote_xrefs.py:110`)
+- [ ] **HIGH** `/api/build-my-bible` errors return HTTP 200 — honor `http` in `_dispatch_table_result` (`scripts/web.py:1070`); add HTTP-level test (`tests/test_build_my_bible_api.py`)
+- [ ] **MEDIUM** `batch_promote_xrefs --per-candidate` never updates queue JSON status (`scripts/batch_promote_xrefs.py:181`)
+- [ ] **MEDIUM** `promote._chapter_from_id` parses verse as chapter (`scripts/promote.py:527`)
+- [ ] **MEDIUM** `inject.py` treats SyntaxError notes file as empty corpus (`scripts/inject.py:689`)
+- [ ] **STALE TEST** `test_badge_sits_at_verse_end` — walk K-R15a `badge-trail` span (**fixed 2026-06-16**)
+
+### Phase 2 — Release / website / packaging (no marathon core)
+
+- [ ] **CRITICAL** Delete 45 `default._*` corrupt Kindle stubs from v0.1.0 release (keep canonical `YHWH-*-kindle-*.epub`)
+- [ ] **HIGH** Attach M3 Kobo 45/45 from `m3-kobo-v0.1.0/` handoff + merge SHA256SUMS + regen catalog
+- [ ] **HIGH** Rebuild `website/dist/` from src (stale v0.0.3) — `gen_release_catalog` + `node website/build.mjs`
+- [ ] **HIGH** `installer.iss` read first line of VERSION only (`dev/installer.iss:27`)
+- [ ] **MEDIUM** Remove duplicate `SHA256SUMS-merged.txt` from release
+- [ ] **MEDIUM** Align Windows artifact naming (installer vs sign script vs releases.html)
+- [ ] **MEDIUM** `how-to-use.html` cites legacy EPUB filename vs catalog matrix names
+
+### Phase 3 — Build / popup / cache guards (byte-stability obligation)
+
+- [ ] **MEDIUM** `edition_stats` cache signature missing `enable_ai_notes` / `max_phase` (`scripts/core/edition_stats.py:56`)
+- [ ] **MEDIUM** Gate Kobo byte-cap splitter on `target_reader==eink` (`scripts/build_edition.py`)
+- [ ] **MEDIUM** `verse-refs-section` hidden noteref targets (extend beyond `notes-section`) (`scripts/generate_verse_popups.py`)
+- [ ] **MEDIUM** Study-glossary-cat hist monoliths >7,748 stripped — within-note chunking (`scripts/build_edition.py`)
+- [ ] **MEDIUM** `config.py` mtime-keyed cache for runtime-edited YAML (`scripts/core/config.py:297`)
+- [ ] **LOW** Extend `verify_kr2_build` gates for glossary-cat + verse-refs-section census
+- [ ] **LOW** Mirror glossary nav patch into `toc.ncx`
+
+### Phase 4 — Data validity + docs drift
+
+- [ ] **MEDIUM** 3 OOE notes in `content/notes/aes.py` ch10 v11-13
+- [ ] **MEDIUM** 31 phantom `1ma/2ma` candidate files
+- [ ] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias
+- [ ] **MEDIUM** 1ki EN back-translation gap ch7-10
+- [ ] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553)
+- [ ] **MEDIUM** Test coverage gaps (build-my-bible HTTP, inject_book write path, coord-guard driver loops)
+
+### Phase 5 — Optimization decisions (defer unless cheap)
+
+| Area | Verdict | Note |
+|------|---------|------|
+| Single-edition build ~133s | CONFIRM-OPTIMAL | Cold floor; cache hits sub-second |
+| compresslevel 9→6 | DECLINED | Byte/hash drift |
+| M2 Apple layout | CONFIRM-OPTIMAL | Mac 8b read-only |
+| Unified meta-driver ingest | CHANGE (medium) | ~6× wall-clock when implemented |
+| Marathon Workflow orchestration | CHANGE (medium) | Future vision lane |
+
+---
+
+## Constraints carried
+
+- Never touch marathon core / GAPS / `content/manuscript/**`
+- 9 KJV editions byte-stable; additive schema only
+- Local commit per fix; 5-leg sync at milestones
+- **Kobo device QA / M4b HOLD** until Phase 1–3 land (user directive)
+
+## WIN audit remainder
+
+Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude-setup`, re-verify `rx-surfaces` + `popup-integrity` + `github-gitlab` with adversarial bar. Append survivors to this doc; delete `lane-transfer/audit` after merge consumed.

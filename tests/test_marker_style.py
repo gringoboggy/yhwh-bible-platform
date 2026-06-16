@@ -210,6 +210,11 @@ class TestApplyBadgeMarkersUnit:
                 nxt = re.match(r'<a class="verse-notes-badge".*?</a>', tail, re.DOTALL)
                 assert nxt is not None
                 tail = tail[nxt.end() :].lstrip()
+            # K-R15a: badge-trail spacer follows the cluster before the next vn-link.
+            if tail.startswith('<span class="badge-trail"'):
+                trail = re.match(r'<span class="badge-trail"[^>]*>.*?</span>', tail, re.DOTALL)
+                assert trail is not None
+                tail = tail[trail.end() :].lstrip()
             assert tail.startswith(f'<a class="vn-link" id="v-gen-1-{v + 1}"'), (
                 f"gen 1:{v} badge is not at verse end — verse prose follows it before v{v + 1}"
             )
