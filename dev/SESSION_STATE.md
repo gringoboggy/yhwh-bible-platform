@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 101).** `/resume` → pull @ `e8b1dac7` → **① Audit FIRST** — thorough 7 dims (mint10/11 bar). **② Fixes AFTER** audit appended to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit). Mac findings @ `b1b9dffd`. One job at a time. **HOLD:** Kobo QA · M3 attach until audit+fixes land. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION (🖥️ Mac, turn 101).** `/resume` → pull @ `e8b1dac7`. Covers DONE (A/B/C all unique @ `e8b1dac7`). **Next:** Phase 1 disjoint fixes — `prospect.py` write_queue · `batch_promote_xrefs` · `promote.py` `_chapter_from_id` · `inject.py` SyntaxError guard · `MATRIX_MAP` count drift. Optional smoke: `/covers` A/B/C spot-check. **HOLD:** `build_edition.py` · M4b until WIN audit done.
+> **➤➤➤ FRESH SESSION (🖥️ Mac, turn 101).** Phase 1 disjoint fixes **DONE** @ `60c88de0` (prospect · batch_promote · promote · inject · MATRIX_MAP 91,723; 11 tests green). **Idle/HOLD:** `build_edition.py` · M4b until WIN audit done. Optional smoke: `/covers` A/B/C spot-check.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, composed to JPG. Builds on primary A refresh @ `d1a2256e`. Shipped @ `e8b1dac7`.
 >

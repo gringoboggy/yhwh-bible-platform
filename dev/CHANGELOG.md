@@ -4,6 +4,16 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 101) — ★ ROUND-8 PHASE 1 DISJOINT FIXES
+
+**Ingest/promote silent-loss fixes (file-disjoint, parallel with WIN audit):**
+`prospect.py` write_queue → `append_candidates` (status preserved) · `batch_promote_xrefs`
+marks `promoted` only on satisfied insert/skip-existing · `promote._chapter_from_id` `rsplit`
++ explicit `chapter` fallback · `inject.py` SyntaxError surfaced (not empty corpus) ·
+`MATRIX_MAP`/`matrix.py` count 91,723. Tests: `test_promote_chapter_from_id`,
+`test_prospect_write_queue`, `test_batch_promote_xrefs`, `test_inject_syntax_error` (11 green).
+Local @ `60c88de0`. **HOLD:** `build_edition.py` · M4b until WIN audit done.
+
 ## 2026-06-16 — Mac session — ★ COVER ALT B/C UNIQUE ART (86+86 scenes)
 
 **Covers:** Unique Imagine scenes for **alt02** (B) and **alt03** (C) — 86 scenes each, composed
