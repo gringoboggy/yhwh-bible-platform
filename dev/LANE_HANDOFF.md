@@ -4,7 +4,7 @@ turn: 95
 from: mac
 updated: 2026-06-16T00:35:00Z
 status: working
-mac: ▶ turn 95 (power-cut recovery) — M3 fan-out **45/45 GREEN** + SHA256SUMS-m3-kobo.txt; external `m3-kobo-v0.1.0/` handoff when drive plugged → milestone push. Apple M2 layout directive committed. **Next:** deep-audit round 8 (14 dims) when WIN auditor half ready; parallel M4b Kindle fork.
+mac: ▶ turn 95 — M3 **45/45 GREEN** + external handoff DONE (`NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/`, checksums verified). Milestone push in flight. **Next:** deep-audit round 8 (14 dims) when WIN half ready; M4b Kindle fork.
 windows: User Kobo round-15/16 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15 verse text). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
 truth_owner: mac
 holder: mac

@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 95 — M3 45/45 RECOVERED + HANDOFF PENDING).** Power cut killed fan-out script during last epubcheck; all 45 kepubs verified green; `SHA256SUMS-m3-kobo.txt` written. **Next:** copy to external `m3-kobo-v0.1.0/` when drive plugged → milestone push. Apple M2 directive committed. **Parallel:** deep-audit round 8 (Mac 14 dims) when WIN auditor half ready; M4b Kindle fork. **WIN:** user Kobo round-15/16 spot QA. Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 95 — M3 HANDOFF DONE).** 45 kepubs on external `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (SHA256 verified). **WIN:** pickup when Kobo QA green. **Mac next:** deep-audit round 8 (14 dims) when WIN half ready; M4b Kindle fork. Baton **mac**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

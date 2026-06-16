@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 95 — ★ M3 FAN-OUT 45/45 RECOVERED AFTER POWER CUT).** Power killed `m3_fanout.sh` mid-epubcheck on `coptic-orthodox` red — all 45 kepubs were already on disk; verified red 0/0/0/0 + K-R2 GREEN; `SHA256SUMS-m3-kobo.txt` merged (45 lines). External `m3-kobo-v0.1.0/` handoff pending (drive not plugged). Apple M2 layout directive committed (`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`). **Queue:** milestone push · deep-audit round 8 (when WIN half ready) · M4b Kindle. Baton **mac**; mode=parallel. TRACKER-STATE active.
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 95 — ★ M3 45/45 + EXTERNAL HANDOFF DONE).** Power-cut recovery complete; 45 kepubs verified green; copied to `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (45 files + SHA256SUMS.txt, checksums OK). WIN pickup: attach + catalog when Kobo device QA passes. **Queue:** deep-audit round 8 (Mac 14 dims) · M4b Kindle. Baton **mac**; mode=parallel. TRACKER-STATE active.
 >
 > **➤➤➤ 2026-06-15 (🪟 Windows, turn 94 — ★ K-R15a FIX + ROUND-16 KEPUB ON KOBO).** **K-R15a follow-up:** `badge-trail` invisible chars no longer block empty-verse repair — Gen 8:15 now shows KJV fallback prose on device. **QA loaded:** `G:\YHWH-koboQA.kepub.epub` (`…T234655Z`). **Audit READY:** parallel round-8 runbook `docs/superpowers/plans/2026-06-15-round8-parallel-audit-session.md` — Win 7 dims + Mac 14 dims, FINDINGS-ONLY.
 >

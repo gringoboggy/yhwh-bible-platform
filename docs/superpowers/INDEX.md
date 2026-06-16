@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**82 documents** — 53 plans · 29 specs.
+**84 documents** — 55 plans · 29 specs.
 
-## In progress (35)
+## In progress (36)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-15 | Plan | Round-8 parallel deep-audit — fresh-session runbook | `plans/2026-06-15-round8-parallel-audit-session.md` | READY 2026-06-15 — engine `ROUND=8`; split win=7 dims / mac=14 dims; FINDINGS-ONLY; merge after both lanes complete. |
 | 2026-06-15 | Plan | Toolchain + IDE plugin update audit (Grok / VS Code / Claude / skills) | `plans/2026-06-15-toolchain-plugin-update-audit.md` | ACTIVE 2026-06-15 — next fresh-session first task; inventory + safe updates for extensions, skills, MCP, Python/Node toolchain; report to `dev/TOOLCHAIN.md`. |
 | 2026-06-14 | Plan | ★ v1.0.0 Release Plan — deep audit + all readers proven + mint tag | `plans/2026-06-14-v1.0.0-release-plan.md` | ACTIVE 2026-06-14 — authoritative gate for tag v1.0.0; parallel WIN/Mac tracks; §8 DoD blocks tag. M4 DONE; M3+M5+audit round 8 block. Both lanes read on every /resume. |
 | 2026-06-10 | Spec | Website Format Matrix — every full canon edition, per-device, with the 5×5 covers | `specs/2026-06-10-website-format-matrix-design.md` | READY 2026-06-10 — user-directed scope (turn 69): the WEBSITE's Downloads catalog offers ALL 9 full-version (notes + translations) canon editions in 5 per-device formats; 5 formats ↔ 5 cover designs × 5 colour choices = the full 25-template cover set. Design proposed here; phases sequence into the v1.0.0 assessment. Kindle pillar = the Mac's active `kindle_safe` arc; Kobo pillar gated on the K-R4-2 calibration; Play Books gated on the user's offered phone-QA. |
@@ -46,10 +47,11 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 | 2026-05-23 | Spec | Translation-spine arc — Douay / JPS / Vulgate / Arabic (Phase-2 finish) | `specs/2026-05-23-translation-spine-arc.md` | IN PROGRESS 2026-05-23 — **Arabic ✓ + JPS ✓ SHIPPED (baked + verified, UNCOMMITTED); Do… |
 | 2026-05-17 | Plan | Kings Dual-Manuscript Collation & Render Implementation Plan (τ.6.x.4.c) | `plans/2026-05-17-kings-manuscript-collation.md` | in progress — LANE M dual-witness marathon, user-paced |
 
-## Planned / design (25)
+## Planned / design (26)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-15 | Plan | Per-book title-page cover art refresh — creative brief + execution plan | `plans/2026-06-15-per-book-cover-art-refresh.md` | QUEUED (post-audit / next art ship) — 21 Ethiopic extras + `content/covers/_book_defaults/` refresh; deferred from K-R15 ship. |
 | 2026-06-08 | Spec | Lane-Coordination v2 — `mode` (parallel/exclusive) + per-lane task-board + `truth_owner` (the baton revamp) | `specs/2026-06-08-lane-coordination-v2-design.md` | ADOPTED 2026-06-08 — supersedes the 2026-06-03 single-baton mutex; fixes the `holder`/`incoming` overload (a Mac-directed handoff with `holder=windows` never surfaced to Mac); `scripts/lane_handoff.py` + `/handoff`·`/resume`·`/sync` + RULES §4 + memory updated; 14 tests green. |
 | 2026-06-05 | Spec | Website chapter-reader — "the Bible on the website" (on-site Geʽez/Amharic + literal-English reader from the progress pills) | `specs/2026-06-05-website-chapter-reader-design.md` | APPROVED (design) 2026-06-05 — surface the already-transcribed Geʽez/Amharic scripture (+ its literal English where done) on the site, statically generated from the same store the EPUBs use, clickable only where real text exists (Guard #2 by construction); free copy-paste; manuscript-authentic (Ethiopic numerals + rubrication). Three tiers (parallel / Geʽez-only / Amharic-only); grows as transcription progresses. |
 | 2026-06-05 | Spec | Ge'ez & Amharic progress page — its own website page (per-book staged grid + manuscript-source links + free-will-funding) | `specs/2026-06-05-geez-amharic-progress-page-design.md` | APPROVED (design) 2026-06-05 — honest data-driven per-book progress for the Ge'ez/Amharic Bibles (◻ not started · ◐ source gathered · ◑ transcribed · ● Bible-ready); build-time `progress.json` from the real store so it can't over-claim; reinforces the launch transparency. Next: writing-plans. |
