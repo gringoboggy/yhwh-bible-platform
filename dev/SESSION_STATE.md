@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-16 (🖥️ Mac — ★ PER-BOOK COVER ART SHIPPED).** Full **86-book** missal-red title-page refresh (replaced 2026-05-12 set). **A/B/C picker** on `/covers` + upload normalize (1024×1536 JPEG). Alt B/C bootstrapped; unique Imagine art in flight. Pipeline: `COVER_MANIFEST.yaml` · `generate_book_title_covers.py`.
+> **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, all composed to JPG. Primary A set + A/B/C picker @ `d1a2256e`. Pipeline: `COVER_MANIFEST.yaml` · `generate_book_title_covers.py`.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 100).** **① Audit FIRST** — thorough 7 dims (mint10/11 bar: find→verify→synthesize; real pytest/builds/gh). **② Fixes AFTER** audit appended to merge doc. Mac runs Phase 1 fixes in parallel (disjoint files). **Bootstrap:** `/resume` → pull → `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit) → `Workflow(deep-audit.js)` or equivalent step-by-step with skeptic verify per finding → append to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. Mac findings @ `b1b9dffd`. **One job at a time** (no parallel pytest/lint). **HOLD:** WIN fixes · Kobo QA until 7 dims done. Plan: `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. Baton **windows**; mode=parallel.
 >

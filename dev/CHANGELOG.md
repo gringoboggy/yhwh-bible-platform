@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session — ★ COVER ALT B/C UNIQUE ART (86+86 scenes)
+
+**Covers:** Unique Imagine scenes for **alt02** (B) and **alt03** (C) — 86 scenes each, composed
+to JPG (replaces bootstrap crops). Builds on `d1a2256e` primary refresh + A/B/C picker.
+Scenes: `content/covers/_book_defaults/_scenes/alt02|alt03/`.
+
 ## 2026-06-16 — Mac session — ★ PER-BOOK TITLE COVER ART (86 books + A/B/C picker)
 
 **Covers:** Replaced all 86 Ethiopian-canon `_book_defaults/*.jpg` with missal-red family art.
