@@ -4,7 +4,7 @@ turn: 105
 from: windows
 updated: 2026-06-16T19:12:21Z
 status: handing-off
-mac: ▶ INGEST v4 book title covers @ e4dd1a5d (git pull or E:/YHWH-v2.4-releases per MAC_INGEST.md) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green.
+mac: ▶ INGEST v4 book title covers @ e4dd1a5d — git pull (E:/F: with Mac; external rsync per MAC_INGEST.md on Mac only) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green.
 windows: ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3 (build_edition.py generate_verse_popups.py config.py). One job at a time.
 truth_owner: windows
 holder: windows
@@ -65,6 +65,8 @@ WIN assigned Mac Phase 2 parallel while pytest runs (user-approved).
 ---
 
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
+
+**External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
 
 **Auto-pull on BEHIND (2026-06-11, user-directed "should just be a claude rule" — STANDING, both lanes).** Whenever the lane radar (`scripts/lane_ping.py` or any fetch) shows BEHIND, `git pull --rebase origin main` IMMEDIATELY and automatically — at session start, before any commit/save/build on shared files, before truth-record edits, and whenever the other lane is known mid-arc. The user never has to say "pull". Dirty tree ⇒ commit or stash-pull-pop, never skip. **Out-of-repo mirror status:** winclaude ✓ (`auto-pull-on-behind` memory) · macclaude ◻ (mirror on next Mac turn + ACK).
 
