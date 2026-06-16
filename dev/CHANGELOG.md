@@ -4,6 +4,14 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Windows session (turn 105 prep) — ★ audit2 pytest complete + fix-pass handoff
+
+**Audit2 (`tests-run`):** full `pytest -m "not slow"` — **8081 passed · 11 failed · 262 errors**
+(3h34m @ pre-`e4dd1a5d` tree). 262 errors = single root `api_select_book_cover` ImportError
+(pytest started before turn-104 covers commit; resolved @ `e4dd1a5d`). **11 failures** triaged in
+`SESSION_STATE.md` bootstrap. **Next fresh session:** fix reds → spot/full re-run → Phase 3 audit
+fixes. Mac parallel: v4 covers ingest (disjoint).
+
 ## 2026-06-16 — Windows session (turn 104) — ★ book title covers v4 reimagine
 
 **User-approved art direction:** full-bleed painterly scenes (no leather, no gold border);

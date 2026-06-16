@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 104
+turn: 105
 from: windows
-updated: 2026-06-16T15:42:26Z
-status: working
-mac: ▶ INGEST v4 book title covers — git pull (or E:/YHWH-v2.4-releases/book-title-covers-v4-reimagine-2026-06-16 per MAC_INGEST.md) → audit ×3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Parallel Phase 4 disjoint still applies.
-windows: ★ pytest audit2 triage → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). One job at a time.
-truth_owner: mac
-holder: mac
+updated: 2026-06-16T19:12:21Z
+status: handing-off
+mac: ▶ INGEST v4 book title covers @ e4dd1a5d (git pull or E:/YHWH-v2.4-releases per MAC_INGEST.md) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green.
+windows: ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3 (build_edition.py generate_verse_popups.py config.py). One job at a time.
+truth_owner: windows
+holder: windows
+---
+
+## ▶ windows → windows (turn 105, 2026-06-16T19:12:21Z) — mode=parallel
+
+**Done (turn 104, windows):**
+audit2 pytest complete: 8081 pass / 11 fail / 262 import errors (api_select_book_cover pre-e4dd1a5d; resolved in covers commit); failures triaged in SESSION_STATE turn-105 bootstrap
+
+**Next (turn 105, windows picks up):**
+WIN: fix 11 reds + spot pytest re-run → Phase 3. Mac: v4 covers ingest parallel.
+
+**Assignments:** mac = ▶ INGEST v4 book title covers @ e4dd1a5d (git pull or E:/YHWH-v2.4-releases per MAC_INGEST.md) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green. · windows = ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3 (build_edition.py generate_verse_popups.py config.py). One job at a time.
+
+**Watch-outs:**
+Never commit LANE=win in deep-audit.js; no new long pytest at wrap — fix pass starts fresh session; one heavy job at a time
+
 ---
 
 ## ▶ windows → mac (turn 104, 2026-06-16T15:42:26Z) — mode=parallel
