@@ -48,8 +48,13 @@ if not defined ISCC (
     goto :err
 )
 
-echo Compiling Inno Setup script with "%ISCC%"...
-"%ISCC%" dev\installer.iss
+REM First line of VERSION only (build_dmg.sh parity — full file has prose below).
+set "VERSION=dev"
+if exist "VERSION" for /f "usebackq delims=" %%V in (`more +0 VERSION`) do set "VERSION=%%V" & goto :ver_done
+:ver_done
+
+echo Compiling Inno Setup script with "%ISCC%" (version %VERSION%)...
+"%ISCC%" /DMyAppVersion=%VERSION% dev\installer.iss
 if errorlevel 1 goto :err
 
 echo.

@@ -4,6 +4,14 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 102) — Phase 2 parallel (packaging/docs)
+
+**Disjoint from WIN pytest+audit:** `installer.iss` + `build_msi.cmd` first-line VERSION
+(`/DMyAppVersion=`); `how-to-use.html` catalog-matrix EPUB names; `gen_release_catalog`
++ `node website/build.mjs` regen (dist → v0.1.0 locally); per-candidate promote queue-status
+regression test (`promote.NOTES_DIR` monkeypatch). **Deferred:** gh release stub purge ·
+cover-upload E2E · M3 attach (HOLD).
+
 ## 2026-06-16 — Mac session (turn 101) — ★ ROUND-8 PHASE 1 DISJOINT FIXES
 
 **Ingest/promote silent-loss fixes (file-disjoint, parallel with WIN audit):**

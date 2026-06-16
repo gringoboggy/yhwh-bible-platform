@@ -176,3 +176,43 @@ def test_promote_by_book_does_not_mark_when_all_coords_dropped(tmp_path, monkeyp
     assert promoted == 0
     assert books_changed == 0
     assert attempted == 1
+
+
+def test_per_candidate_path_updates_queue_json_status(tmp_path, monkeypatch):
+    """--per-candidate must persist promoted status in the queue JSON (not only in notes)."""
+    import sys
+
+    from scripts import promote
+
+    notes_dir = tmp_path / "notes"
+    cand_dir = tmp_path / "candidates"
+    notes_dir.mkdir()
+    cand_dir.mkdir()
+    (notes_dir / "gen.py").write_text(_SEED_NOTES, encoding="utf-8")
+    monkeypatch.setattr(bpx, "NOTES_DIR", notes_dir)
+    monkeypatch.setattr(promote, "NOTES_DIR", notes_dir)
+    monkeypatch.setattr(bpx, "CANDIDATES_DIR", cand_dir)
+
+    q = cand_dir / "gen_ch_001.json"
+    _write_queue(
+        q,
+        "gen",
+        1,
+        [
+            {
+                "id": "gen-1-1-001",
+                "kind": "xref-citation",
+                "status": "pending",
+                "verse": 1,
+                "draft_body": "See John 1:1.",
+                "draft_title": "X",
+                "draft_label": "xref",
+            }
+        ],
+    )
+
+    monkeypatch.setattr(sys, "argv", ["batch_promote_xrefs.py", "--per-candidate"])
+    assert bpx.main() == 0
+
+    data = json.loads(q.read_text(encoding="utf-8"))
+    assert data["candidates"][0]["status"] == "promoted"

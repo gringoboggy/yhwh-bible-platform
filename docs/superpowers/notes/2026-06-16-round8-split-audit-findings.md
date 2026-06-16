@@ -20,7 +20,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **HIGH** `prospect.py` write_queue clobbers promotion status — delegate to `at_scale_base.append_candidates` or merge preserving status (`scripts/prospect.py:153`) — **Mac turn 101**
 - [x] **HIGH** `batch_promote_xrefs` marks promoted when zero inserted — only mark actually inserted / `note_already_exists` (`scripts/batch_promote_xrefs.py:110`) — **Mac turn 101**
 - [ ] **HIGH** `/api/build-my-bible` errors return HTTP 200 — honor `http` in `_dispatch_table_result` (`scripts/web.py:1070`); add HTTP-level test (`tests/test_build_my_bible_api.py`)
-- [ ] **MEDIUM** `batch_promote_xrefs --per-candidate` never updates queue JSON status (`scripts/batch_promote_xrefs.py:181`)
+- [x] **MEDIUM** `batch_promote_xrefs --per-candidate` never updates queue JSON status (`scripts/batch_promote_xrefs.py:181`) — **Mac turn 102** (verified + regression test; path already called `update_queue_status`)
 - [x] **MEDIUM** `promote._chapter_from_id` parses verse as chapter (`scripts/promote.py:527`) — **Mac turn 101** (`rsplit` + `is not None` fallback)
 - [x] **MEDIUM** `inject.py` treats SyntaxError notes file as empty corpus (`scripts/inject.py:689`) — **Mac turn 101**
 - [ ] **STALE TEST** `test_badge_sits_at_verse_end` — walk K-R15a `badge-trail` span (**fixed 2026-06-16**)
@@ -29,11 +29,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 - [ ] **CRITICAL** Delete 45 `default._*` corrupt Kindle stubs from v0.1.0 release (keep canonical `YHWH-*-kindle-*.epub`)
 - [ ] **HIGH** Attach M3 Kobo 45/45 from `m3-kobo-v0.1.0/` handoff + merge SHA256SUMS + regen catalog
-- [ ] **HIGH** Rebuild `website/dist/` from src (stale v0.0.3) — `gen_release_catalog` + `node website/build.mjs`
-- [ ] **HIGH** `installer.iss` read first line of VERSION only (`dev/installer.iss:27`)
+- [x] **HIGH** Rebuild `website/dist/` from src (stale v0.0.3) — `gen_release_catalog` + `node website/build.mjs` — **Mac turn 102** (dist gitignored; regen run locally → v0.1.0)
+- [x] **HIGH** `installer.iss` read first line of VERSION only (`dev/installer.iss:27`) — **Mac turn 102** (`/DMyAppVersion=` + `#ifndef` fallback)
 - [ ] **MEDIUM** Remove duplicate `SHA256SUMS-merged.txt` from release
 - [ ] **MEDIUM** Align Windows artifact naming (installer vs sign script vs releases.html)
-- [ ] **MEDIUM** `how-to-use.html` cites legacy EPUB filename vs catalog matrix names
+- [x] **MEDIUM** `how-to-use.html` cites legacy EPUB filename vs catalog matrix names — **Mac turn 102**
 
 ### Phase 3 — Build / popup / cache guards (byte-stability obligation)
 

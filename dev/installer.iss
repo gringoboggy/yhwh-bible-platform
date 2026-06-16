@@ -20,13 +20,16 @@
 #define MyAppURL ""
 #define MyAppExeName "YHWH.exe"
 
-; Read version from the project's VERSION file. Falls back to "dev"
-; when VERSION is missing (e.g. fresh checkout).
-#define VersionFile "..\VERSION"
-#ifexist VersionFile
-  #define MyAppVersion Trim(FileRead(FileOpen(VersionFile)))
-#else
-  #define MyAppVersion "dev"
+; Version: prefer /DMyAppVersion= from build_msi.cmd (first line of VERSION,
+; matching build_dmg.sh). Fall back to reading VERSION when ISCC is invoked
+; directly — still first line only (FileRead reads one line per call).
+#ifndef MyAppVersion
+  #define VersionFile "..\VERSION"
+  #ifexist VersionFile
+    #define MyAppVersion Trim(FileRead(FileOpen(VersionFile)))
+  #else
+    #define MyAppVersion "dev"
+  #endif
 #endif
 
 [Setup]

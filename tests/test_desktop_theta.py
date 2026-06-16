@@ -1149,9 +1149,18 @@ class TestTheta4WindowsInnoSetupWrapper:
         )
         # The Inno Setup ifexist+FileRead pattern — version
         # propagates from the project's VERSION file rather than
-        # hard-coded in the spec.
+        # hard-coded in the spec. build_msi.cmd passes /DMyAppVersion=
+        # (first line only, build_dmg.sh parity).
         assert "VERSION" in body
         assert "FileRead" in body
+        assert "#ifndef MyAppVersion" in body
+
+    def test_msi_cmd_passes_first_line_version_define(self):
+        body = (REPO_ROOT / "dev" / "build_msi.cmd").read_text(
+            encoding="utf-8",
+            errors="replace",
+        )
+        assert "/DMyAppVersion=" in body
 
     def test_iss_emits_to_dist(self):
         body = (REPO_ROOT / "dev" / "installer.iss").read_text(
