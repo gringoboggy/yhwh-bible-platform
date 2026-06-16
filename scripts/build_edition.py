@@ -2544,13 +2544,17 @@ _EMPTY_VERSE_MARKER_RE = re.compile(
     r'<a class="(?:note-ref|study-glossary-jump|verse-notes-badge)[^"]*"[^>]*>.*?</a>',
     re.DOTALL,
 )
+_BADGE_TRAIL_RE = re.compile(r'<span class="badge-trail"[^>]*>.*?</span>', re.DOTALL)
 _EMPTY_VERSE_TAG_RE = re.compile(r"<[^>]+>")
+_INVISIBLE_VERSE_CHAR_RE = re.compile(r"[\s\u00a0\u200b\u200c\u200d\ufeff]+")
 
 
 def _verse_region_prose_len(chunk: str) -> int:
     chunk = _EMPTY_VERSE_MARKER_RE.sub("", chunk)
+    chunk = _BADGE_TRAIL_RE.sub("", chunk)
     chunk = _EMPTY_VERSE_TAG_RE.sub("", chunk)
-    return len(re.sub(r"\s+", "", chunk))
+    chunk = html.unescape(chunk)
+    return len(_INVISIBLE_VERSE_CHAR_RE.sub("", chunk))
 
 
 def repair_empty_verse_prose(text: str) -> tuple[str, int]:

@@ -690,6 +690,23 @@ class TestEmptyVerseProseRepair:
         )
         assert repair_empty_verse_prose(html) == (html, 0)
 
+    def test_repair_after_study_badge_and_trail(self):
+        from scripts.build_edition import repair_empty_verse_prose
+
+        html = (
+            'dry. <a class="vn-link" id="v-gen-8-15" href="#vnote-gen-8-15">'
+            '<span class="vn">15</span></a>'
+            '<a class="study-glossary-jump badge-cat-topic" href="#">'
+            '<span class="marker-badge">*</span></a>'
+            '<span class="badge-trail" aria-hidden="true">\xa0\u200b\xa0\u200b\xa0\u200b</span> '
+            '<a class="vn-link" id="v-gen-8-16" href="#vnote-gen-8-16">'
+            '<span class="vn">16</span></a> God spoke to Noah.</p>'
+        )
+        out, n = repair_empty_verse_prose(html)
+        assert n == 1
+        assert "spake unto Noah" in out
+        assert out.index("spake unto Noah") < out.index("v-gen-8-16")
+
     def test_falls_back_to_translation_store(self, monkeypatch):
         from scripts.build_edition import repair_empty_verse_prose
 
