@@ -73,7 +73,10 @@ class TestKindleSafeGate:
         # Production path (kindle_post + matrix post_process) + gate now require
         # physical strip of raw hides for the Kindle column (E999/E3013). The
         # old variant apply was retired turn 86.
-        stripped_css = "/* production kindle post-process output */\n.notes-section { display: block; }\n.verse-refs-section { display: block; }\n"
+        stripped_css = _KINDLE_CSS.replace(
+            ".notes-section { display: block; }",
+            "/* production kindle post-process output */\n.notes-section { display: block; }",
+        )
         zf = _zip(_KINDLE_OPF, stripped_css, _PIECE_UNHIDDEN)
         fails = _mod.kindle_safe_checks(zf, zf.namelist(), zf.read("content.opf").decode())
         assert fails == [], fails

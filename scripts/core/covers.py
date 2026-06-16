@@ -33,6 +33,10 @@ from __future__ import annotations
 
 import struct
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from PIL import Image
 
 REPO = Path(__file__).resolve().parent.parent.parent
 CONTENT = REPO / "content"
@@ -456,12 +460,14 @@ def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: d
 
 BOOK_COVER_OUTPUT_WIDTH = 1024
 BOOK_COVER_OUTPUT_HEIGHT = 1536
+# Lean JPEG for EPUB title plates — 1024×1536 @ q82 ≈ 250 KB vs ~390 KB @ q92.
+BOOK_COVER_JPEG_QUALITY = 82
+BOOK_COVER_JPEG_PROGRESSIVE = True
+BOOK_COVER_JPEG_SUBSAMPLING = 2  # 4:2:0 chroma subsampling
 
-# (variant_id, short label, path template relative to content/)
+# Built-in default only; upload + none are edition-level choices (see README).
 BOOK_COVER_VARIANT_DEFS: tuple[tuple[str, str, str], ...] = (
-    ("default", "A", "covers/_book_defaults/{code}.jpg"),
-    ("alt02", "B", "covers/_book_defaults/alt02/{code}.jpg"),
-    ("alt03", "C", "covers/_book_defaults/alt03/{code}.jpg"),
+    ("default", "built-in", "covers/_book_defaults/{code}.jpg"),
 )
 
 
@@ -471,7 +477,7 @@ def default_book_cover_path(book_code: str) -> str:
 
 
 def book_cover_variant_catalog(book_code: str) -> list[dict]:
-    """The three shared catalog options for one book (may be missing on disk)."""
+    """The shared built-in default for one book (may be missing on disk)."""
     rows: list[dict] = []
     for variant_id, label, tpl in BOOK_COVER_VARIANT_DEFS:
         path = tpl.format(code=book_code)
@@ -613,6 +619,34 @@ def storage_path_for_book(edition_id: str, book_code: str, fmt: str) -> str:
     """Uploads are always normalized to JPEG — see ``normalize_cover_image``."""
     _ = fmt  # normalized output is always JPEG
     return edition_book_upload_path(edition_id, book_code)
+
+
+def save_book_cover_jpeg(img: "Image.Image", dest: Path) -> dict:
+    """Write a 1024×1536 lean JPEG suitable for EPUB title-page plates."""
+    from PIL import ImageOps
+
+    target = (BOOK_COVER_OUTPUT_WIDTH, BOOK_COVER_OUTPUT_HEIGHT)
+    if img.size != target:
+        rgb = img.convert("RGB")
+        fitted = ImageOps.fit(rgb, target, method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+    else:
+        fitted = img.convert("RGB")
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    fitted.save(
+        dest,
+        format="JPEG",
+        quality=BOOK_COVER_JPEG_QUALITY,
+        optimize=True,
+        progressive=BOOK_COVER_JPEG_PROGRESSIVE,
+        subsampling=BOOK_COVER_JPEG_SUBSAMPLING,
+    )
+    size = dest.stat().st_size
+    return {
+        "format": "jpeg",
+        "width": target[0],
+        "height": target[1],
+        "size_kb": int(round(size / 1024)),
+    }
 
 
 def normalize_cover_image(data: bytes) -> tuple[bytes, dict]:

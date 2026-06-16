@@ -60,24 +60,11 @@ class TestBookTitleCovers:
         faded = _apply_scene_fade_vignette(graded, strength=0.12)
         assert faded.getpixel((5, 5)) != graded.getpixel((5, 5))
 
-    def test_variant_catalog_has_four_slots(self):
+    def test_variant_catalog_has_single_builtin_slot(self):
         rows = cover_core.book_cover_variant_catalog("gen")
-        assert len(rows) == 4
+        assert len(rows) == 1
         assert rows[0]["variant_id"] == "default"
-        assert rows[1]["variant_id"] == "alt04"
-        assert rows[1]["path"].endswith("alt04/gen.jpg")
-        assert rows[3]["path"].endswith("alt06/gen.jpg")
-
-    def test_v5_prompt_uses_color_theme_family(self):
-        from scripts.generate_book_title_covers import build_v5_prompt, _load_v5_scenes
-
-        v5 = _load_v5_scenes()
-        prompt = build_v5_prompt(v5, "gen", "alt04")
-        assert "forest" in prompt.lower() or "emerald" in prompt.lower()
-        assert "orthodox" in prompt.lower()
-        assert "whole complete bodies" in prompt.lower() or "never partial limbs" in prompt.lower()
-        assert "eden" in prompt.lower() or "garden" in prompt.lower() or "ark" in prompt.lower()
-        assert "no text" in prompt.lower() or "No text" in prompt
+        assert rows[0]["path"].endswith("_book_defaults/gen.jpg")
 
     def test_optimize_shrinks_jpeg(self, tmp_path: Path):
         import argparse

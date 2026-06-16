@@ -54,6 +54,7 @@ from scripts.core.at_scale_base import (  # noqa: E402
     RESET,
     YELLOW,
     append_candidates,
+    candidate_to_dict,
 )
 
 EPUB_DIR = REPO_ROOT / "epub_working"

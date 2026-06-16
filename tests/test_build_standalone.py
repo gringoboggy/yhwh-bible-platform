@@ -148,7 +148,7 @@ class TestBuildStandalone:
             assert names[0] == "mimetype"  # OCF: mimetype first
             assert any(n == "geez_1ki_6.xhtml" for n in names)  # a generated body file is packaged
             assert not any("index_split_" in n for n in names)  # original body fully swapped out
-        assert out["chapters"] == 161  # 6 (1ki) + 3 (1sa) + 1 (2sa) + 151 (psa)
+        assert out["chapters"] == 165  # 6 (1ki) + 7 (1sa) + 1 (2sa) + 151 (psa)
 
 
 class TestStandaloneCoverReachesEpub:
