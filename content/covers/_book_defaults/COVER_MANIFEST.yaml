@@ -1,0 +1,296 @@
+# Per-book title-page cover art manifest — Ethiopian missal-red family.
+# Scenes land in _scenes/<code>.png; compose via scripts/generate_book_title_covers.py
+# → <code>.jpg (1024×1536). Title text is HTML/CSS overlay — no text in art.
+
+style:
+  template: "05_missal_central_red"
+  border: "border_05_corner_accent"
+  output: [1024, 1536]
+  prompt_prefix: >
+    Vertical 2:3 book title plate illustration. Deep crimson burgundy pebbled
+    leather texture fills the frame. Modest symbolic motif in the central area:
+  prompt_suffix: >
+    Soft directional golden light from above. Sharp tooled leather grain,
+    muted gold accents. Painterly illustrated style — more real than flat
+    cartoon, not a photograph, not hyperreal CGI. No text, no letters,
+    no watermark, no human faces in close-up. Liturgical study-Bible aesthetic.
+  variants:
+    default:
+      scene_dir: ""
+      out_dir: ""
+      prompt_extra: ""
+    alt02:
+      scene_dir: "alt02"
+      out_dir: "alt02"
+      prompt_extra: >
+        Alternate composition B — wider framing, motif smaller and centered,
+        slightly different angle on the same symbolic subject.
+    alt03:
+      scene_dir: "alt03"
+      out_dir: "alt03"
+      prompt_extra: >
+        Alternate composition C — closer cropped detail, motif more prominent,
+        different lighting emphasis on the same symbolic subject.
+
+books:
+  gen:
+    motif: "creation light breaking over a garden with a single tree and gentle waters"
+    status: done
+  exo:
+    motif: "stone tablets with faint flame, desert horizon"
+    status: done
+  lev:
+    motif: "bronze altar with ascending incense smoke, priestly implements"
+    status: done
+  num:
+    motif: "desert camp with pillar of cloud light, census staffs"
+    status: done
+  deu:
+    motif: "open scroll on stone, covenant boundary markers"
+    status: done
+  jos:
+    motif: "river stones stacked, ram's horn at dawn"
+    status: done
+  jdg:
+    motif: "tent peg and hammer, lamp in dark tent"
+    status: done
+  rut:
+    motif: "sheaf of barley, humble gleaning basket at harvest"
+    status: done
+  1sa:
+    motif: "anointed horn of oil, harp and sling stones"
+    status: done
+  2sa:
+    motif: "royal harp, cedar palace column, covenant ark silhouette"
+    status: done
+  1ki:
+    motif: "temple pillars and bronze sea basin, ascending smoke"
+    status: done
+  2ki:
+    motif: "chariot of fire ascending in whirlwind light"
+    status: done
+  1ch:
+    motif: "genealogy scroll unrolled, temple musicians with lyres"
+    status: done
+  2ch:
+    motif: "Solomon's temple facade, dedication altar flame"
+    status: done
+  man:
+    motif: "repentant king kneeling in prayer, hands raised, humble crown set aside"
+    status: done
+  jub:
+    motif: "angel with jubilee trumpet and tablet of appointed weeks, Sinai outline"
+    status: done
+  1en:
+    motif: "ascending luminous figure among stars and ancient sealed scrolls"
+    status: done
+  2en:
+    motif: "ladder of seven heavens rising to a radiant temple gate"
+    status: done
+  ezr:
+    motif: "returning exiles rebuilding temple foundation stones"
+    status: done
+  neh:
+    motif: "city wall rebuilt with builders' tools and watchtower"
+    status: done
+  1es:
+    motif: "temple vessels restored on sacred table, scribe's reed pen"
+    status: done
+  2es:
+    motif: "apocalyptic eagle in storm cloud above messianic figure on mountain"
+    status: done
+  tob:
+    motif: "traveling family with faithful dog, angel guide and river fish"
+    status: done
+  jdt:
+    motif: "heroic woman with sword before enemy tent camp at night"
+    status: done
+  est:
+    motif: "royal scepter extended, banquet cups, hidden identity veil"
+    status: done
+  mq1:
+    motif: "Ethiopian martyrs' crowns, cross and palm branches over open scroll"
+    status: done
+  mq2:
+    motif: "three youths standing unharmed in furnace flames with angel companion"
+    status: done
+  mq3:
+    motif: "covenant shield, royal scepter and judgment scroll on altar stone"
+    status: done
+  job:
+    motif: "whirlwind from the storm, ash pot, restored flocks on distant hills"
+    status: done
+  psa:
+    motif: "lyre harp with psalm scroll, shepherd staff, still waters"
+    status: done
+  pro:
+    motif: "wise scales, open teaching scroll, straight path gate"
+    status: done
+  wis:
+    motif: "radiant wisdom figure with lamp of discernment and balanced scales"
+    status: done
+  ecc:
+    motif: "vanity wind over dust, sun cycle, handful of gathered stones"
+    status: done
+  sng:
+    motif: "vineyard blossoms, locked garden gate, dove with olive branch"
+    status: done
+  sir:
+    motif: "open teaching scroll, olive branch, elder's hand pointing to wisdom"
+    status: done
+  isa:
+    motif: "seraphim coal on altar, stump sprouting green shoot"
+    status: done
+  jer:
+    motif: "potter's clay vessel, broken cistern, weeping prophet's scroll"
+    status: done
+  lam:
+    motif: "ruined Jerusalem gates, tear on parchment, ashes at dawn"
+    status: done
+  bar:
+    motif: "exile lament scroll, distant city walls by rivers of Babylon"
+    status: done
+  lje:
+    motif: "sealed warning letter, idol toppling, scroll nailed to post"
+    status: done
+  4ba:
+    motif: "eagle bearing message over Jerusalem seen from above"
+    status: done
+  eze:
+    motif: "vision of wheels within wheels, river flowing from temple"
+    status: done
+  dan:
+    motif: "stone statue feet on clay, lions' den sealed, writing on wall"
+    status: done
+  paz:
+    motif: "three figures praising in fiery furnace with protecting angel"
+    status: done
+  sus:
+    motif: "lily garden pool, innocent figure, accusers cast in shadow"
+    status: done
+  bel:
+    motif: "dragon idol crumbling, priests exposed, temple lamp revealing truth"
+    status: done
+  hos:
+    motif: "broken betrothal cord mended, vineyard restored, morning rain"
+    status: done
+  joe:
+    motif: "locust swarm parting, outpoured pitcher, trumpet alarm"
+    status: done
+  amo:
+    motif: "plumb line against crooked wall, basket of summer fruit"
+    status: done
+  oba:
+    motif: "eagles over mountain heights, brother's breach, day of the Lord"
+    status: done
+  jon:
+    motif: "great fish in deep waters, vine shelter, city of Nineveh skyline"
+    status: done
+  mic:
+    motif: "plowshare and pruning hook, Bethlehem gate, justice scales"
+    status: done
+  nah:
+    motif: "collapsing city gate, charging chariots, mountain refuge"
+    status: done
+  hab:
+    motif: "watchtower vigil, bow drawn, righteous living by faith"
+    status: done
+  zep:
+    motif: "purifying fire, humble remnant flock, day of restoration"
+    status: done
+  hag:
+    motif: "temple foundation laid anew, measuring line, storehouse blessing"
+    status: done
+  zec:
+    motif: "lampstand with olive trees, rider among myrtle branches"
+    status: done
+  mal:
+    motif: "refiner's fire, storehouse tithe, Elijah's coming way prepared"
+    status: done
+  mat:
+    motif: "genealogy scroll to Christ, mountain teaching, fishing nets"
+    status: done
+  mrk:
+    motif: "desert way prepared, healing hand, empty tomb stone rolled"
+    status: done
+  luk:
+    motif: "manger light, road to Emmaus, good Samaritan oil and wine"
+    status: done
+  jhn:
+    motif: "Word as light, water jars at wedding, empty tomb linens folded"
+    status: done
+  act:
+    motif: "flame tongues of fire, missionary ship, open doors to Gentiles"
+    status: done
+  rom:
+    motif: "olive tree grafted, scales of justice, road to Rome"
+    status: done
+  1co:
+    motif: "one body many members, communion cup, resurrection seed"
+    status: done
+  2co:
+    motif: "treasure in clay jars, veil removed, new creation dawn"
+    status: done
+  gal:
+    motif: "freedom chains broken, fruit of the Spirit vine, cross alone"
+    status: done
+  eph:
+    motif: "armor of light, church as temple, unity bond of peace"
+    status: done
+  phi:
+    motif: "Christ hymn light, press toward goal, joy in chains"
+    status: done
+  col:
+    motif: "Christ supreme over creation, hidden life in God, thanksgiving table"
+    status: done
+  1th:
+    motif: "work of faith, hope helmet, trumpet of gathering"
+    status: done
+  2th:
+    motif: "steadfast endurance, lawless one restrained, sanctifying Spirit"
+    status: done
+  1ti:
+    motif: "good confession before witnesses, elder's staff, sound doctrine scroll"
+    status: done
+  2ti:
+    motif: "torch passed, soldier's shield, faithful saying sealed"
+    status: done
+  tit:
+    motif: "orderly household, rebuke with gentleness, grace teaching cup"
+    status: done
+  phm:
+    motif: "reconciled bonds broken, letter of appeal, shared table fellowship"
+    status: done
+  heb:
+    motif: "better covenant, heavenly tabernacle, race with witnesses cloud"
+    status: done
+  jam:
+    motif: "bridled tongue, pure religion widows, wisdom from above dew"
+    status: done
+  1pe:
+    motif: "living stones temple, fiery trial refined gold, shepherd's flock"
+    status: done
+  2pe:
+    motif: "lamp in dark place, false teachers exposed, new heavens promise"
+    status: done
+  1jn:
+    motif: "light and darkness, abiding vine, love perfected cast out fear"
+    status: done
+  2jn:
+    motif: "truth and love walk together, hospitality gate, deceivers warned"
+    status: done
+  3jn:
+    motif: "hospitable church door open, missionary sent on way, imitation of good"
+    status: done
+  jud:
+    motif: "contending for faith, angels in chains, mercy garment"
+    status: done
+  rev:
+    motif: "Lamb on throne, seven lampstands, new Jerusalem descending light"
+    status: done
+  1cl:
+    motif: "ship anchor, olive crown of elders, early church letter seal"
+    status: done
+  aes:
+    motif: "Ethiopian royal chronicle scroll with lion of Judah emblem"
+    status: skip

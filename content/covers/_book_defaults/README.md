@@ -7,7 +7,8 @@ alongside in the source folder).
 **Scope:** Protestant 66-book canon. Maps cleanly to YHWH project
 book codes; Ethiopic-canon extras (1en, jub, mq1-mq3, 4ba, paz,
 sus, bel, man, 1es, 2es, tob, jdt, wis, bar, lje, sir, aes) are
-not yet covered.
+covered in the 2026-06-15 full refresh. Regenerate via
+``scripts/generate_book_title_covers.py``.
 
 ## Inventory
 
@@ -29,7 +30,16 @@ phm.jpg   heb.jpg   jam.jpg
 jud.jpg   rev.jpg
 ```
 
-Total: 66 files.
+Total: 86×3 JPG files (options A / B / C) — full Ethiopian canon, missal-red
+family (2026-06-15 refresh). Factory paths:
+
+- ``<code>.jpg`` — option A (default)
+- ``alt02/<code>.jpg`` — option B
+- ``alt03/<code>.jpg`` — option C
+
+Built via ``COVER_MANIFEST.yaml`` → ``_scenes/`` → ``generate_book_title_covers.py``.
+Publishers pick A/B/C (or upload their own) on ``/covers``; uploads are
+normalized to 1024×1536 JPEG at save time.
 
 ## How editions consume these
 

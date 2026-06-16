@@ -92,9 +92,10 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     """
     from scripts.core import covers as _covers
 
-    ok, err, meta = _covers.validate_upload_image(data)
-    if not ok:
-        return {"error": err}
+    try:
+        data, meta = _covers.normalize_cover_image(data)
+    except ValueError as e:
+        return {"error": str(e)}
 
     eds = config.editions_by_id()
     if edition_id not in eds:

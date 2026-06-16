@@ -6532,20 +6532,17 @@ _BOOK_TITLE_PAGE_RE = re.compile(r'<div class="book-title-page"([^>]*)>\s*<div c
 _BOOK_IMG_MEDIA = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png", "webp": "image/webp"}
 
 
-def _resolve_book_art(code: str, per_book: dict[str, str]) -> Path | None:
-    """Resolve a book's title-page art. Three-tier: uploaded override
-    (``book_covers``, relative to ``content/``) → ``content/covers/
-    _book_defaults/<code>.jpg`` → ``None`` (text-only title page)."""
+def _resolve_book_art(code: str, per_book: dict[str, str], edition_id: str = "") -> Path | None:
+    """Resolve a book's title-page art via the shared catalog + per-edition pick."""
+    from scripts.core import covers as _covers
+
     content = REPO_ROOT / "content"
-    override = per_book.get(code, "")
-    if override:
-        p = Path(override)
-        if not p.is_absolute():
-            p = content / override
-        if p.is_file():
-            return p
-    default = content / "covers" / "_book_defaults" / f"{code}.jpg"
-    return default if default.is_file() else None
+    selected = per_book.get(code, "")
+    rel = _covers.resolve_effective_book_cover_path(edition_id, code, selected)
+    if not rel:
+        return None
+    p = content / rel
+    return p if p.is_file() else None
 
 
 def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) -> list[str]:
@@ -6562,6 +6559,7 @@ def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) ->
     if style not in TITLE_PAGE_STYLES:
         style = "framed"
     per_book = covers.decode_book_covers(edition.get("book_covers"))
+    edition_id = edition.get("id", "")
 
     idx_to_art: dict[int, tuple[str, str]] = {}
     image_paths: list[str] = []
@@ -6572,7 +6570,7 @@ def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) ->
             continue
         bp = book.get("bp", "")
         idx = int(bp.split("-", 1)[1]) if bp.startswith("bp-") else i
-        art = _resolve_book_art(code, per_book)
+        art = _resolve_book_art(code, per_book, edition_id)
         if art is None:
             continue
         ext = art.suffix.lstrip(".").lower() or "jpg"

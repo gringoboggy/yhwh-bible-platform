@@ -418,7 +418,7 @@ class TestCovers:
         covers scope addendum so future migrations stay deterministic."""
         assert self.mod.storage_path_for_main("catholic-study", "jpeg") == "covers/catholic-study/main.jpg"
         assert self.mod.storage_path_for_main("catholic-study", "png") == "covers/catholic-study/main.png"
-        assert self.mod.storage_path_for_book("catholic-study", "gen", "webp") == "covers/catholic-study/books/gen.webp"
+        assert self.mod.storage_path_for_book("catholic-study", "gen", "webp") == "covers/catholic-study/books/gen.jpg"
 
     def test_read_webp_dimensions_vp8x(self):
         """Hand-crafted VP8X (extended container) WebP."""

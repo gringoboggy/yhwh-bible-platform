@@ -413,14 +413,32 @@ def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: d
     per_book = decode_book_covers(edition.get("book_covers"))
 
     book_rows = []
+    edition_id = edition.get("id", "")
     for code in canon_books:
-        path = per_book.get(code, "")
+        raw_path = per_book.get(code, "")
+        path = resolve_effective_book_cover_path(edition_id, code, raw_path)
         meta = read_image_meta(path) if path else None
+        variants = book_cover_variant_catalog(code)
+        selected_variant = "default"
+        if raw_path and is_custom_book_cover_path(edition_id, code, raw_path):
+            selected_variant = "custom"
+        else:
+            for v in variants:
+                if raw_path and v["path"] == raw_path:
+                    selected_variant = v["variant_id"]
+                    break
+                if not raw_path and v["variant_id"] == "default":
+                    selected_variant = v["variant_id"]
+                    break
         book_rows.append(
             {
                 "book_code": code,
                 "title": books_idx.get(code, {}).get("title", code),
                 "path": path,
+                "selected_path": raw_path,
+                "selected_variant": selected_variant,
+                "is_custom": bool(raw_path and is_custom_book_cover_path(edition_id, code, raw_path)),
+                "variants": variants,
                 "meta": meta,
             }
         )
@@ -430,6 +448,75 @@ def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: d
         "main_cover": {"path": main_path, "meta": main_meta},
         "book_covers": book_rows,
     }
+
+
+# ----------------------------------------------------------------------
+# Shared per-book cover catalog (3 built-in variants + edition upload)
+# ----------------------------------------------------------------------
+
+BOOK_COVER_OUTPUT_WIDTH = 1024
+BOOK_COVER_OUTPUT_HEIGHT = 1536
+
+# (variant_id, short label, path template relative to content/)
+BOOK_COVER_VARIANT_DEFS: tuple[tuple[str, str, str], ...] = (
+    ("default", "A", "covers/_book_defaults/{code}.jpg"),
+    ("alt02", "B", "covers/_book_defaults/alt02/{code}.jpg"),
+    ("alt03", "C", "covers/_book_defaults/alt03/{code}.jpg"),
+)
+
+
+def default_book_cover_path(book_code: str) -> str:
+    """Factory path for variant A — used when no per-edition override is set."""
+    return BOOK_COVER_VARIANT_DEFS[0][2].format(code=book_code)
+
+
+def book_cover_variant_catalog(book_code: str) -> list[dict]:
+    """The three shared catalog options for one book (may be missing on disk)."""
+    rows: list[dict] = []
+    for variant_id, label, tpl in BOOK_COVER_VARIANT_DEFS:
+        path = tpl.format(code=book_code)
+        rows.append(
+            {
+                "variant_id": variant_id,
+                "label": label,
+                "path": path,
+                "meta": read_image_meta(path),
+            }
+        )
+    return rows
+
+
+def edition_book_upload_path(edition_id: str, book_code: str) -> str:
+    """Canonical storage path for a publisher-uploaded per-book cover."""
+    return f"covers/{edition_id}/books/{book_code}.jpg"
+
+
+def is_custom_book_cover_path(edition_id: str, book_code: str, path: str) -> bool:
+    return (path or "").strip().replace("\\", "/") == edition_book_upload_path(edition_id, book_code)
+
+
+def is_allowed_book_cover_selection(edition_id: str, book_code: str, path: str) -> bool:
+    """True when ``path`` is a catalog variant for ``book_code`` or that edition's upload."""
+    norm = (path or "").strip().replace("\\", "/")
+    if not norm:
+        return False
+    catalog_paths = {row["path"] for row in book_cover_variant_catalog(book_code)}
+    if norm in catalog_paths:
+        return True
+    return norm == edition_book_upload_path(edition_id, book_code)
+
+
+def resolve_effective_book_cover_path(edition_id: str, book_code: str, selected: str) -> str:
+    """Pick the path build/UI should use: explicit selection, else first catalog hit."""
+    sel = (selected or "").strip()
+    if sel and read_image_meta(sel):
+        return sel
+    if sel and is_custom_book_cover_path(edition_id, book_code, sel):
+        return sel
+    for row in book_cover_variant_catalog(book_code):
+        if row.get("meta"):
+            return row["path"]
+    return default_book_cover_path(book_code)
 
 
 # ----------------------------------------------------------------------
@@ -496,23 +583,9 @@ def validate_upload_image(data: bytes) -> tuple[bool, str, dict | None]:
     if width > UPLOAD_MAX_WIDTH or height > UPLOAD_MAX_HEIGHT:
         return False, (f"image too large: {width}×{height} px (maximum {UPLOAD_MAX_WIDTH}×{UPLOAD_MAX_HEIGHT})"), None
 
-    # Aspect ratio — book covers are portrait, target 2:3.
-    # We compare the upload's aspect to that target with ±20%
-    # tolerance. Computed as (width/height) so portrait values are
-    # below 1; horizontal images come out very wrong.
-    aspect = width / height
-    lo = UPLOAD_TARGET_ASPECT * (1 - UPLOAD_ASPECT_TOLERANCE)
-    hi = UPLOAD_TARGET_ASPECT * (1 + UPLOAD_ASPECT_TOLERANCE)
-    if not (lo <= aspect <= hi):
-        return (
-            False,
-            (
-                f"image aspect ratio {aspect:.2f} is outside the allowed "
-                f"range ({lo:.2f}–{hi:.2f}); book covers should be roughly "
-                f"2:3 portrait. Crop or resize before uploading."
-            ),
-            None,
-        )
+    # Aspect ratio is NOT enforced here — ``normalize_cover_image`` center-crops
+    # to the EPUB-safe 2:3 output so publishers can upload landscape or square
+    # art without breaking the build.
 
     return (
         True,
@@ -537,5 +610,44 @@ def storage_path_for_main(edition_id: str, fmt: str) -> str:
 
 
 def storage_path_for_book(edition_id: str, book_code: str, fmt: str) -> str:
-    ext = {"jpeg": "jpg", "png": "png", "webp": "webp"}.get(fmt, "jpg")
-    return f"covers/{edition_id}/books/{book_code}.{ext}"
+    """Uploads are always normalized to JPEG — see ``normalize_cover_image``."""
+    _ = fmt  # normalized output is always JPEG
+    return edition_book_upload_path(edition_id, book_code)
+
+
+def normalize_cover_image(data: bytes) -> tuple[bytes, dict]:
+    """Center-crop + resize to the EPUB-safe book-cover plate (1024×1536 JPEG).
+
+    Converts PNG/WebP uploads to baseline JPEG (no progressive) so title-page
+    art is consistent across e-readers. Requires Pillow (declared in
+    requirements-dev.txt; cover tooling already depends on it).
+    """
+    import io
+
+    ok, err, _meta = validate_upload_image(data)
+    if not ok:
+        raise ValueError(err)
+
+    try:
+        from PIL import Image, ImageOps
+    except ImportError as e:
+        raise ValueError("cover normalization requires Pillow; install requirements-dev.txt") from e
+
+    opened = Image.open(io.BytesIO(data))
+    transposed = ImageOps.exif_transpose(opened)
+    rgb = transposed.convert("RGB")
+    target = (BOOK_COVER_OUTPUT_WIDTH, BOOK_COVER_OUTPUT_HEIGHT)
+    fitted = ImageOps.fit(rgb, target, method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+
+    buf = io.BytesIO()
+    fitted.save(buf, format="JPEG", quality=92, optimize=True, progressive=False)
+    out = buf.getvalue()
+    return (
+        out,
+        {
+            "format": "jpeg",
+            "width": target[0],
+            "height": target[1],
+            "size_kb": int(round(len(out) / 1024)),
+        },
+    )

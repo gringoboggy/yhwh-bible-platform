@@ -63,6 +63,27 @@ COVERS_HTML = r"""<!DOCTYPE html>
     background: rgba(245, 158, 11, 0.15); color: #92400e;
     font-size: 0.75rem; font-weight: 500;
   }
+  .variant-row {
+    display: flex; gap: 0.25rem; margin-top: 0.25rem; flex-wrap: wrap;
+  }
+  .variant-btn {
+    flex: 1 1 28%; min-width: 2.2rem; aspect-ratio: 2 / 3;
+    border: 2px solid rgba(154,110,18,0.35); border-radius: 0.2rem;
+    background: #FBF6E9; padding: 0; cursor: pointer; overflow: hidden;
+    position: relative;
+  }
+  .variant-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .variant-btn.missing { opacity: 0.45; cursor: not-allowed; }
+  .variant-btn.selected { border-color: #9A6E12; box-shadow: 0 0 0 1px #9A6E12; }
+  .variant-btn .vlabel {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: rgba(15,23,42,0.75); color: #f8fafc;
+    font-size: 0.55rem; text-align: center; line-height: 1.2;
+  }
+  .variant-btn.custom-slot {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem; color: #6E5840; text-align: center; padding: 0.15rem;
+  }
   .err-banner {
     background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b;
     padding: 0.5rem 0.75rem; border-radius: 0.375rem;
@@ -105,8 +126,10 @@ COVERS_HTML = r"""<!DOCTYPE html>
     One main cover per edition, plus optional per-book covers. Books
     listed strictly in canonical Book/Chapter order; only books in
     each edition's canon appear. Drag a file onto a slot or click to
-    upload. Limits: 600×900 to 4000×6000 px, max 10 MB, JPEG/PNG/WebP,
-    aspect within ±20% of 2:3 portrait.
+    upload. Each book ships three built-in art options (A / B / C); pick
+    one or upload your own. Uploads are auto-cropped to 1024×1536 JPEG
+    for EPUB safety. Limits: 600×900 to 4000×6000 px, max 10 MB,
+    JPEG/PNG/WebP (any aspect — we center-crop to 2:3).
   </p>
 
   <div id="covers-root" class="space-y-8">
@@ -189,14 +212,17 @@ function render() {
     grid.className = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3';
     for (const slot of ed.book_covers) {
       const cell = document.createElement('div');
+      cell.dataset.book = slot.book_code;
       cell.innerHTML = `
         <p class="text-xs text-slate-500 mb-1 truncate" title="${escapeAttr(slot.title)}">
           <span class="font-mono text-slate-400">${slot.book_code}</span>
         </p>
         ${slotHTML(slot.title, slot.path, slot.meta)}
+        ${variantRowHTML(slot)}
       `;
       const slotEl = cell.querySelector('.cover-slot');
       wireSlot(slotEl, ed.edition_id, slot.book_code);
+      wireVariantRow(cell, ed.edition_id, slot);
       grid.appendChild(cell);
     }
     card.appendChild(grid);
@@ -207,6 +233,62 @@ function render() {
     card.appendChild(banner);
 
     root.appendChild(card);
+  }
+}
+
+function variantRowHTML(slot) {
+  const selected = slot.selected_variant || 'default';
+  const parts = (slot.variants || []).map(v => {
+    const has = !!(v.meta && v.meta.exists !== false);
+    const cls = ['variant-btn', v.variant_id === selected ? 'selected' : '', has ? '' : 'missing'].filter(Boolean).join(' ');
+    const img = has
+      ? `<img src="${imgUrl(v.path)}" alt="option ${escapeAttr(v.label)}">`
+      : '';
+    return `<button type="button" class="${cls}" data-variant="${escapeAttr(v.variant_id)}" data-path="${escapeAttr(v.path)}" ${has ? '' : 'disabled'} title="Option ${escapeAttr(v.label)}">${img}<span class="vlabel">${escapeAttr(v.label)}</span></button>`;
+  }).join('');
+  const customCls = ['variant-btn', 'custom-slot', selected === 'custom' ? 'selected' : ''].filter(Boolean).join(' ');
+  const customInner = slot.is_custom && slot.meta
+    ? `<img src="${imgUrl(slot.selected_path)}" alt="custom upload">`
+    : '<span>+ yours</span>';
+  return `<div class="variant-row">${parts}<button type="button" class="${customCls}" data-variant="custom" title="Upload your own">${customInner}<span class="vlabel">you</span></button></div>`;
+}
+
+function wireVariantRow(cell, editionId, slot) {
+  const row = cell.querySelector('.variant-row');
+  if (!row) return;
+  row.querySelectorAll('.variant-btn[data-path]').forEach(btn => {
+    btn.addEventListener('click', async (ev) => {
+      ev.stopPropagation();
+      if (btn.disabled) return;
+      const path = btn.dataset.path;
+      const preview = cell.querySelector('.cover-slot');
+      preview.classList.add('uploading');
+      try {
+        const r = await fetch(`/api/covers/${encodeURIComponent(editionId)}/book/${encodeURIComponent(slot.book_code)}/select`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({path}),
+        });
+        const result = await r.json();
+        if (!r.ok || result.error) {
+          showBanner(preview, `select failed: ${result.error || 'unknown error'}`);
+          preview.classList.remove('uploading');
+          return;
+        }
+        await loadCovers();
+      } catch (e) {
+        showBanner(preview, `select failed: ${e.message}`);
+        preview.classList.remove('uploading');
+      }
+    });
+  });
+  const customBtn = row.querySelector('.variant-btn.custom-slot');
+  if (customBtn) {
+    customBtn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      pendingTarget = {edition: editionId, book: slot.book_code};
+      document.getElementById('hidden-file').click();
+    });
   }
 }
 

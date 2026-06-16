@@ -252,6 +252,7 @@ from scripts.api.covers import (  # noqa: E402, F401
     api_apply_cover_template,
     api_delete_cover_book,
     api_delete_cover_main,
+    api_select_book_cover,
     api_upload_cover_book,
     api_upload_cover_main,
 )
@@ -846,6 +847,11 @@ _DELETE_ROUTES: list[tuple[re.Pattern, object]] = [
 _POST_ROUTES: list[tuple[re.Pattern, object]] = [
     # W4.3 — mark the first-run welcome flow complete (idempotent).
     (re.compile(r"^/api/onboarding/complete$"), api_onboarding_complete),
+    # Per-book catalog variant picker — JSON {"path": "covers/_book_defaults/..."}.
+    (
+        re.compile(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)/select$"),
+        lambda m, payload: api_select_book_cover(m.group(1), m.group(2), payload.get("path") or ""),
+    ),
     # §4.6 — /api/covers/<ed>/template — recompose the edition's main cover
     # from one of the 25 design templates + the edition title. JSON body
     # {"cover_template": "<stem>"}. Distinct suffix from the /main multipart

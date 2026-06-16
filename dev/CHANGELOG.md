@@ -4,6 +4,13 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session — ★ PER-BOOK TITLE COVER ART (86 books + A/B/C picker)
+
+**Covers:** Replaced all 86 Ethiopian-canon `_book_defaults/*.jpg` with missal-red family art.
+Added **alt02/** + **alt03/** (options B/C), `/covers` variant picker, `POST …/select`, upload
+normalize to 1024×1536 JPEG (`normalize_cover_image`). Wired full 86 `book_covers` in
+`ethiopian-tewahedo`. Pipeline: `COVER_MANIFEST.yaml` + `scripts/generate_book_title_covers.py`.
+
 ## 2026-06-16 — Windows session (turn 100) — ★ FRESH SESSION PREP (audit-first split)
 
 **Fresh-session bootstrap pushed.** WIN: thorough 7 dims FIRST (mint10/11 bar), fixes AFTER audit

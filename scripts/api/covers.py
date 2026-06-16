@@ -162,6 +162,39 @@ def api_delete_cover_main(edition_id: str) -> dict:
     return {"ok": True, "edition_id": edition_id, "cleared": cur_path}
 
 
+@audit_log.audit_endpoint(action="select_book_cover")
+def api_select_book_cover(edition_id: str, book_code: str, path: str) -> dict:
+    """Pick a built-in catalog variant (A/B/C) for one book in an edition."""
+    from scripts.api.editions import api_save_edition_meta
+    from scripts.core import config, covers as _covers
+
+    path = (path or "").strip()
+    if not path:
+        return {"error": "path is required"}
+    if edition_id not in config.editions_by_id():
+        return {"error": f"unknown edition: {edition_id}"}
+    if book_code not in config.books_by_code():
+        return {"error": f"unknown book code: {book_code}"}
+    if not _covers.is_allowed_book_cover_selection(edition_id, book_code, path):
+        return {"error": f"path not allowed for {book_code}: {path!r}"}
+    if not _covers.read_image_meta(path):
+        return {"error": f"cover file missing on disk: {path}"}
+
+    edition = config.editions_by_id()[edition_id]
+    per_book = _covers.decode_book_covers(edition.get("book_covers"))
+    per_book[book_code] = path
+    save_result = api_save_edition_meta(edition_id, {"book_covers": per_book})
+    if not save_result.get("ok"):
+        return {"error": save_result.get("error", "yaml save failed")}
+    return {
+        "ok": True,
+        "edition_id": edition_id,
+        "book_code": book_code,
+        "path": path,
+        "meta": _covers.read_image_meta(path),
+    }
+
+
 @audit_log.audit_endpoint(action="delete_cover_book")
 def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     """Phase π.4-B — clear a per-book cover assignment + file."""
@@ -180,11 +213,13 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
         return {"error": f"unknown book code: {book_code}"}
     edition = eds[edition_id]
     per_book = _covers.decode_book_covers(edition.get("book_covers"))
-    cur_path = per_book.pop(book_code, "")
+    cur_path = per_book.get(book_code, "")
+    per_book[book_code] = _covers.default_book_cover_path(book_code)
     save_result = api_save_edition_meta(edition_id, {"book_covers": per_book})
     if not save_result.get("ok"):
         return {"error": save_result.get("error", "yaml save failed")}
-    if cur_path:
+    # Only remove edition-specific uploads — never unlink shared catalog art.
+    if cur_path and _covers.is_custom_book_cover_path(edition_id, book_code, cur_path):
         abs_path = REPO / "content" / cur_path
         if abs_path.exists():
             notes_io.ensure_backup(abs_path)

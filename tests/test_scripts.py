@@ -2128,10 +2128,11 @@ class TestEditionMeta:
                 },
             )
             assert r.get("ok"), r
-            d = self.web.api_covers()
-            cath = next(rec for rec in d["editions"] if rec["edition_id"] == "catholic-study")
-            paths = {s["book_code"]: s["path"] for s in cath["book_covers"] if s["path"]}
-            assert paths == {
+            config.load_editions.cache_clear()
+            from scripts.core import covers as covers_mod
+
+            cath_ed = next(e for e in config.load_editions() if e["id"] == "catholic-study")
+            assert covers_mod.decode_book_covers(cath_ed.get("book_covers")) == {
                 "gen": "covers/catholic-study/books/gen.jpg",
                 "mat": "covers/catholic-study/books/mat.png",
             }
@@ -2332,8 +2333,9 @@ class TestEditionMeta:
             body, ctype = self._multipart_body(png, "cover.png")
             r = self.web.api_upload_cover_main("catholic-study", body, ctype)
             assert r.get("ok"), r
-            assert r["path"] == "covers/catholic-study/main.png"
-            assert r["meta"]["width"] == 1200
+            assert r["path"] == "covers/catholic-study/main.jpg"
+            assert r["meta"]["width"] == 1024
+            assert r["meta"]["height"] == 1536
 
             # File on disk
             on_disk = REPO_ROOT / "content" / r["path"]
@@ -2342,7 +2344,7 @@ class TestEditionMeta:
             # editions.yaml was updated with the new path
             config.load_editions.cache_clear()
             cath = next(e for e in config.load_editions() if e["id"] == "catholic-study")
-            assert cath.get("cover_image") == "covers/catholic-study/main.png"
+            assert cath.get("cover_image") == "covers/catholic-study/main.jpg"
         finally:
             # Byte-exact restore AND dual cache-invalidate. File-restore
             # alone is NOT enough: api_save_edition_meta populates
@@ -2380,14 +2382,16 @@ class TestEditionMeta:
             body, ctype = self._multipart_body(png, "gen.png")
             r = self.web.api_upload_cover_book("catholic-study", "gen", body, ctype)
             assert r.get("ok"), r
-            assert r["path"] == "covers/catholic-study/books/gen.png"
-            (REPO_ROOT / "content" / r["path"]).is_file()
+            assert r["path"] == "covers/catholic-study/books/gen.jpg"
+            assert (REPO_ROOT / "content" / r["path"]).is_file()
+            assert r["meta"]["width"] == 1024
+            assert r["meta"]["height"] == 1536
 
             # editions.yaml has the new entry in book_covers
             config.load_editions.cache_clear()
             cath = next(e for e in config.load_editions() if e["id"] == "catholic-study")
             per_book = covers.decode_book_covers(cath.get("book_covers"))
-            assert per_book.get("gen") == "covers/catholic-study/books/gen.png"
+            assert per_book.get("gen") == "covers/catholic-study/books/gen.jpg"
         finally:
             # Byte-exact restore AND dual cache-invalidate. File-restore
             # alone is NOT enough: api_save_edition_meta populates
@@ -2471,6 +2475,32 @@ class TestEditionMeta:
         assert "error" in r
         assert "boundary" in r["error"]
 
+    def test_select_book_cover_variant(self, tmp_path):
+        import shutil
+
+        from scripts.api.covers import api_select_book_cover
+        from scripts.core import config, covers
+
+        ed_yaml = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(ed_yaml, backup)
+        try:
+            config.load_editions.cache_clear()
+            default = covers.default_book_cover_path("gen")
+            assert (REPO_ROOT / "content" / default).is_file()
+            r = api_select_book_cover("ethiopian-tewahedo", "gen", default)
+            assert r.get("ok"), r
+            config.load_editions.cache_clear()
+            eth = next(e for e in config.load_editions() if e["id"] == "ethiopian-tewahedo")
+            per_book = covers.decode_book_covers(eth.get("book_covers"))
+            assert per_book.get("gen") == default
+        finally:
+            shutil.copy(backup, ed_yaml)
+            from scripts.core import matrix as matrix_mod
+
+            config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
+
     def test_upload_rejects_no_file_part(self):
         # multipart body with NO file part — only a text field
         boundary = "----b"
@@ -2496,7 +2526,7 @@ class TestEditionMeta:
             png = self._make_png(1200, 1800)
             body, ctype = self._multipart_body(png, "cover.png")
             self.web.api_upload_cover_main("catholic-study", body, ctype)
-            on_disk = REPO_ROOT / "content" / "covers" / "catholic-study" / "main.png"
+            on_disk = REPO_ROOT / "content" / "covers" / "catholic-study" / "main.jpg"
             assert on_disk.is_file()
 
             # Delete
