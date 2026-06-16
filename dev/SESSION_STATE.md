@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 106).** `/resume` → `git pull` @ turn 106 → read **`WIN_INGEST.md`** on external drive (below). **Then:** fix **11 pytest reds** (list below) + `test_work_cache` → re-run `pytest -m "not slow"` → **Phase 3** (`build_edition.py` / `generate_verse_popups.py` / `config.py`). **Covers shipped (Mac turn 106):** 86× Midjourney + gradient (`midjourney_first`). **Pending WIN code:** `/covers` → built-in / upload / none only. Baton **windows**; mode=parallel.
 >
-> **External drive (copy Mac USB → `E:\`):** `YHWH-v2.4-releases/book-title-covers-midjourney-gradient-2026-06-16/` — `WIN_INGEST.md` · `SHA256SUMS.txt` · `composed/` (86 JPG) · `_midjourney_new20/` · `meta/`. Mac path: `/Volumes/MacHD2/YHWH-v2.4-releases/...`
+> **External drive (copy Mac USB → `E:\`):** `YHWH-v2.4-releases/book-title-covers-midjourney-gradient-2026-06-16/` — `WIN_INGEST.md` · `SHA256SUMS.txt` · `composed/` (86 JPG) · `_midjourney_all/` (86 MJ) · `meta/`. Mac path: `/Volumes/MacHD2/YHWH-v2.4-releases/...`
 >
 > **Audit2 fix pass GREEN (Mac turn 106, @ `874a9e1c+`):** the 11 triaged reds + `test_persists_to_disk` all pass under `pytest -m "not slow and not done_gate"` (11/11 verified Mac). Fixes: `save_book_cover_jpeg` restore · standalone chapter count 165 · `prospect.candidate_to_dict` re-export · kindle_safe test fixture · `1ki:22` manifest status `calibrated`→`pending` (empty folios). **`test_every_chapter_has_both_witness_folios[kings]`** stays **done_gate** (P0 folio index — run only with `-m done_gate`). **WIN next:** Phase 3 (`build_edition.py` / `generate_verse_popups.py` / `config.py`). One job at a time.
 >

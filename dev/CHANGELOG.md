@@ -4,12 +4,14 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
-## 2026-06-16 — Mac session (turn 106b) — ★ audit2 fix pass green (11/11)
+## 2026-06-16 — Mac session (turn 106b) — ★ audit2 green + external MJ package complete
 
 **Pytest triage:** all 11 audit2 reds pass under `-m "not slow and not done_gate"` on Mac.
 Fixes: `save_book_cover_jpeg` + single-variant catalog · standalone 165 chapters ·
 `prospect.candidate_to_dict` · kindle_safe fixture · kings `1ki:22` manifest status fix.
 `test_every_chapter_has_both_witness_folios[kings]` remains **done_gate** (P0 folio index).
+**External package refreshed:** `book-title-covers-midjourney-gradient-2026-06-16/` — 86 composed +
+86 `_midjourney_all/` + `SHA256SUMS.txt` (verified) · `WIN_INGEST.md` updated.
 **WIN next:** Phase 3.
 
 ## 2026-06-16 — Mac session (turn 106) — ★ Midjourney + gradient covers (policy reset) + WIN handoff
