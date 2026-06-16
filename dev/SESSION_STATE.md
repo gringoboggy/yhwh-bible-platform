@@ -1,5 +1,7 @@
 # Session state — current snapshot
 
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 98 — ★ ROUND-8b THOROUGH MAC AUDIT COMPLETE).** 18 dims (incl. lane-system/decommission/stack-review/future-work) → **35 survivors** (5 high / 17 med / 9 low / 4 info; 0 critical); re-verified draft `9536bf34` (9 refuted, 19 confirmed, 6 new). Pushed `_audit-split/findings-mac.json` @ `b1b9dffd` on `lane-transfer/audit` (both remotes). M2 layout directive read-only: CONFIRM-OPTIMAL. **WIN next:** 7 dims thorough + `tests-run` + merge → `docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`. **HOLD:** fixes · Kobo QA · M4b · M3 attach until user approves merged plan. Baton **windows**; mode=parallel. TRACKER-STATE active.
+>
 > **➤➤➤ 2026-06-16 (🪟 Windows, turn 97 — ★ ROUND-8b THOROUGH MAC RE-RUN ORDERED).** User: fast Grok pass ≠ mint10/11 bar (5h Fable 5 + adversarial verify). **Mac:** fresh session, Workflow `deep-audit.js`, LANE=mac, **18 dims**, depth=deep → overwrite `findings-mac.json` on `lane-transfer/audit`. **WIN:** PAUSE audit re-run; finish `tests-run` only; merge after Mac 8b. **HOLD:** Kobo QA · M4b · fixes until merged plan. Baton **mac**; mode=parallel. TRACKER-STATE active.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac, turn 96 — ROUND-8 AUDIT MAC FAST PASS).** 14 dims → 28 survivors @ `9536bf34` — **draft** pending 8b thorough re-verify. WIN triaged stale test: `test_badge_sits_at_verse_end` (K-R15a `badge-trail` not walked).
@@ -24,7 +26,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** round-8b thorough Mac re-run (mint10/11 bar) then WIN 7 dims + merge. **Device-QA queue ON HOLD** until merged findings approved. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** Mac 8b DONE @ `b1b9dffd` — WIN merge + 7 dims next. **Device-QA queue ON HOLD** until user approves merged findings plan. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
