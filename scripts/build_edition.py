@@ -3652,7 +3652,6 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     # K-R7-2d / K-R9 — eink study layout: inline+popup keep asides in prose order;
     # backmatter collects them for the Study Notes glossary (badges jump cross-file).
     eink_inline_in_prose = eink_target and study_layout in ("inline", "popup")
-    books_by_code = config.books_by_code()
     book_order = {b["code"]: i for i, b in enumerate(config.load_books())}
 
     stats: dict[str, Any] = {

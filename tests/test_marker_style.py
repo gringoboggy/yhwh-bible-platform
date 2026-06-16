@@ -408,7 +408,13 @@ class TestApplyBadgeMarkersUnit:
         ch2 = re.search(r'<a id="ch-b\d+-c2" class="ch-anchor">', text)
         assert bm and ch2, "gen 1:31 badge / ch-2 anchor missing"
         assert bm.end() <= ch2.start(), "gen 1:31's badge rendered past the chapter-2 heading (K-R3-4)"
-        assert text[bm.end() :].lstrip().startswith("</p>"), (
+        tail = text[bm.end() :].lstrip()
+        # K-R15a: badge-trail spacer may follow the badge before </p>.
+        if tail.startswith('<span class="badge-trail"'):
+            trail = re.match(r'<span class="badge-trail"[^>]*>.*?</span>', tail, re.DOTALL)
+            assert trail, "gen 1:31 badge-trail span malformed"
+            tail = tail[trail.end() :].lstrip()
+        assert tail.startswith("</p>"), (
             "gen 1:31's badge is not at the verse's text end (must directly precede the paragraph close)"
         )
 
