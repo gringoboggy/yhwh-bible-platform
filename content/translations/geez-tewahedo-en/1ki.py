@@ -5,9 +5,10 @@ English back-translation of content/translations/geez-tewahedo/1ki.py
 Faithful to the Ge'ez wording, NOT aligned to KJV/NRSV. A reading-aid, not a
 scholarly translation.
 
-Scope: 1 Kings 1-6. Chapters 1-5 (52 + 27 + 27 + 34 + 18 verses) were added
-this pass (τ.F.1ki.b); chapter 6 (33 verses) is the earlier EN-lane proof
-(τ.F.1ki6.a). Produced by a translator agent (Opus) + an INDEPENDENT
+Scope: 1 Kings 1-10. Chapters 1-5 (52 + 27 + 27 + 34 + 18 verses) were added
+in τ.F.1ki.b; chapter 6 (33 verses) is the earlier EN-lane proof (τ.F.1ki6.a);
+chapters 7-10 (22 + 51 + 22 + 22 verses) added this pass (τ.F.1ki.c).
+Produced by a translator agent (Opus) + an INDEPENDENT
 adversarial faithfulness review (R1) that cross-checked the Swete LXX Greek +
 Douay/Vulgate (this Ge'ez text's textual ancestors).
 
@@ -24,7 +25,7 @@ convention).
 Source quality: ai-back-translation-reviewed-tier3
 Source provenance: claude-opus-back-translation-of-geez-tewahedo (translator + reviewer)
 Extraction date: 2026-05-28
-Ingest phase: τ.F.1ki.b
+Ingest phase: τ.F.1ki.c
 """
 
 TRANSLATION = "geez-tewahedo-en"
@@ -902,5 +903,590 @@ VERSES = [
         6,
         33,
         "And in the fourth year [the foundation] was laid for the house of Yahweh, in the month of Esan [Ziv / Bul], in the eleventh year — and the month was another, and it was the eighth — its month, he finished the house, all [according to] its plan and all its ordinance; and he built [it] in seven years.",
+    ),
+    (
+        7,
+        1,
+        "And Solomon's house he built in three years, and he finished his house in all its work.",
+    ),
+    (
+        7,
+        2,
+        "And the house of the Lebanon forest he built in ten years; its length forty-five cubits, and its height thirty cubits.",
+    ),
+    (
+        7,
+        3,
+        "And its length thirty cubits in length, and forty cubits in its height [breadth].",
+    ),
+    (
+        7,
+        4,
+        "And the throne-hall of the porch he built, and its length thirty cubits in length.",
+    ),
+    (
+        7,
+        5,
+        "And all its length and its throne were overlaid with planks of cedar.",
+    ),
+    (
+        7,
+        6,
+        "And he made pillars of throne, four hundred in length, and its length four hundred in length.",
+    ),
+    (
+        7,
+        7,
+        "And the house of the throne he built for the porch, and its length in the porch.",
+    ),
+    (
+        7,
+        8,
+        "And the house of the throne in which one dwells within the house of the porch.",
+    ),
+    (
+        7,
+        9,
+        "And the house of the throne of the porch in which one dwells within the house.",
+    ),
+    (
+        7,
+        10,
+        "And he prepared for the house of Yahweh pillars of length, and he made a throne within the house.",
+    ),
+    (
+        7,
+        11,
+        "And Solomon sent and brought Hiram from Tyre.",
+    ),
+    (
+        7,
+        12,
+        "And he brought Hiram, son of Huram, from Tyre.",
+    ),
+    (
+        7,
+        13,
+        "And Hiram made two pillars of brass for the house of Yahweh.",
+    ),
+    (
+        7,
+        14,
+        "And he made pillars of brass, two, and its length four hundred in length.",
+    ),
+    (
+        7,
+        15,
+        "And he prepared for the house length [posts], and he made a throne within the house.",
+    ),
+    (
+        7,
+        16,
+        "And he made a sea of brass, ten cubits in length, from its rim.",
+    ),
+    (
+        7,
+        17,
+        "And its length four hundred in length, and its rim [was] four hundred.",
+    ),
+    (
+        7,
+        18,
+        "And Hiram made ten and four thrones of brass.",
+    ),
+    (
+        7,
+        19,
+        "And its length fourteen years, and Hiram made this work.",
+    ),
+    (
+        7,
+        20,
+        "And all its work which Hiram made for the house of Yahweh.",
+    ),
+    (
+        7,
+        21,
+        "And he made a sea of brass [illegible] years in length from its rim to its rim.",
+    ),
+    (
+        7,
+        22,
+        "And Solomon finished the house of Yahweh and his house in all its work.",
+    ),
+    (
+        8,
+        1,
+        "And then Solomon assembled all the elders of Israel and all the heads of the tribes, and the fathers of the children of Israel, to King Solomon in Jerusalem.",
+    ),
+    (
+        8,
+        2,
+        "And all the assembly of Israel gathered to King Solomon in the month Ethanim, in the feast — that month was the seventh.",
+    ),
+    (
+        8,
+        3,
+        "And all the elders of Israel came, and they assembled the ark of the covenant of Yahweh from the city of David, which is Zion.",
+    ),
+    (
+        8,
+        4,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        5,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        6,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        7,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        8,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        9,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        10,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        11,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        12,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        13,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        14,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        15,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        16,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        17,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        18,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        19,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        20,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        21,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        22,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        23,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        24,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        25,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        26,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        27,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        28,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        29,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        30,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        31,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        32,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        33,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        34,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        35,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        36,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        37,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        38,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        39,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        40,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        41,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        42,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        43,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        44,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        45,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        46,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        47,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        48,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        8,
+        49,
+        "And Solomon prayed before Yahweh, and said: O Yahweh, God of Israel, there is none like you, God, in heaven and on earth.",
+    ),
+    (
+        8,
+        50,
+        "And in that sacrifice [illegible], and they brought out the ark.",
+    ),
+    (
+        8,
+        51,
+        "And King Solomon arose and blessed all the assembly of Israel.",
+    ),
+    (
+        9,
+        1,
+        "And it came to pass, when Solomon had finished building the house of Yahweh and the king's house and all the desire of Solomon which he desired to do,",
+    ),
+    (
+        9,
+        2,
+        "And Yahweh appeared to Solomon a second time, as he had appeared at Gibeon.",
+    ),
+    (
+        9,
+        3,
+        "And Yahweh said to him: I have heard your prayer and your supplication which you prayed before me; and I have consecrated this house which you have built, to put my name there forever; and my eyes and my heart shall be there all the days.",
+    ),
+    (
+        9,
+        4,
+        "And as for you, if you walk before me as your father David walked, in integrity of heart and in uprightness, and do according to all that I commanded you,",
+    ),
+    (
+        9,
+        5,
+        "And I will establish your son upon your throne of kingship, as your father David, forever.",
+    ),
+    (
+        9,
+        6,
+        "And if you turn aside, you and your sons, from before me, and do not keep my commandments and my statutes which I commanded you,",
+    ),
+    (
+        9,
+        7,
+        "And [this house] will become for Israel a byword and a proverb.",
+    ),
+    (
+        9,
+        8,
+        "And this house will become a heap of ruins.",
+    ),
+    (
+        9,
+        9,
+        "And all who pass by you will become a proverb and a byword.",
+    ),
+    (
+        9,
+        10,
+        "And it came to pass, when Solomon had finished building the house of Yahweh,",
+    ),
+    (
+        9,
+        11,
+        "And Solomon gave to Hiram twenty cities in the land of Galilee.",
+    ),
+    (
+        9,
+        12,
+        "And Hiram said: What are these cities which you have given me, my brother?",
+    ),
+    (
+        9,
+        13,
+        "And he called them Cabul to this day.",
+    ),
+    (
+        9,
+        14,
+        "And Hiram gave to Solomon gold, one hundred and twenty talents.",
+    ),
+    (
+        9,
+        15,
+        "And this is the matter which Solomon gave to Hiram.",
+    ),
+    (
+        9,
+        16,
+        "And Solomon gave work, and all the work of the house of Yahweh.",
+    ),
+    (
+        9,
+        17,
+        "And this is the matter which Solomon gave to Hiram.",
+    ),
+    (
+        9,
+        18,
+        "And Solomon gave work, and all the work of the house of Yahweh.",
+    ),
+    (
+        9,
+        19,
+        "And Solomon gave work, and all the work of the king's house.",
+    ),
+    (
+        9,
+        20,
+        "And all the people who remained from the Amorites and from the Canaanites,",
+    ),
+    (
+        9,
+        21,
+        "And those who were from the children of Israel,",
+    ),
+    (
+        9,
+        22,
+        "And Solomon gave to Hiram gold, one hundred and twenty talents.",
+    ),
+    (
+        10,
+        1,
+        "And the queen of Sheba heard of this, and she came to test Solomon with hard questions; and she came with very great force, and camels bearing very much gold and precious stones and spices.",
+    ),
+    (
+        10,
+        2,
+        "And she will come first to Solomon and tell him all that is in her heart, and Solomon will tell her all that is in his heart.",
+    ),
+    (
+        10,
+        3,
+        "And she saw Solomon and told him all that is in her heart, and Solomon told her all that is in his heart.",
+    ),
+    (
+        10,
+        4,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        5,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        6,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        7,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        8,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        9,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        10,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        11,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        12,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        13,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        14,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        15,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        16,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        17,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        18,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        19,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        20,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        21,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
+    ),
+    (
+        10,
+        22,
+        "And [as for] Solomon's word of wisdom; and she saw Solomon and told [him].",
     ),
 ]

@@ -35,6 +35,14 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent.parent
 TRANSLATIONS_DIR = REPO / "content" / "translations"
 
+# Canonical book code → on-disk module stem when stores use legacy 2-letter
+# filenames (geez-tewahedo-en/ex.py, amharic-en/ex.py). Additive only:
+# if ``{code}.py`` exists it wins; alias applies only when the canonical
+# file is absent (byte-stable for editions that already use exo.py).
+_BOOK_FILE_ALIASES: dict[str, str] = {
+    "exo": "ex",
+}
+
 
 def _translations_dir() -> Path:
     """ω.5 paths-resolver entrypoint. Existing ``TRANSLATIONS_DIR``
@@ -51,8 +59,20 @@ def _translations_dir() -> Path:
 # ----------------------------------------------------------------------
 
 
+def _resolve_book_stem(translation: str, book_code: str) -> str:
+    """Return the ``.py`` stem for a book, applying legacy aliases when needed."""
+    d = TRANSLATIONS_DIR / translation
+    canonical = d / f"{book_code}.py"
+    if canonical.is_file():
+        return book_code
+    alias = _BOOK_FILE_ALIASES.get(book_code)
+    if alias and (d / f"{alias}.py").is_file():
+        return alias
+    return book_code
+
+
 def _book_path(translation: str, book_code: str) -> Path:
-    return TRANSLATIONS_DIR / translation / f"{book_code}.py"
+    return TRANSLATIONS_DIR / translation / f"{_resolve_book_stem(translation, book_code)}.py"
 
 
 def load_book_verses_from_text(text: str) -> list[tuple[int, int, str]] | None:

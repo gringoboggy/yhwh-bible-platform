@@ -23,7 +23,7 @@ REM
 REM Usage:
 REM     dev\build_msi.cmd
 REM
-REM Output: dist\YHWH-Setup-<version>.exe
+REM Output: dist\YHWH-<version>-windows-x64.exe (matches releases.html + gh release)
 
 setlocal
 pushd "%~dp0\.."
@@ -59,7 +59,7 @@ if errorlevel 1 goto :err
 
 echo.
 echo Build complete:
-dir /b dist\YHWH-Setup-*.exe
+dir /b dist\YHWH-*-windows-x64.exe
 echo.
 echo Note: Installer is unsigned unless SignTool is configured.
 echo       SmartScreen warns end-users on download for unsigned binaries.

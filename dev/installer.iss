@@ -8,7 +8,7 @@
 ; Compile via:  ISCC.exe dev\installer.iss
 ;               or via dev\build_msi.cmd
 ;
-; Output:  dist\YHWH-Setup-<version>.exe
+; Output:  dist\YHWH-<version>-windows-x64.exe (matches releases.html + gh release asset)
 ;
 ; Signing is opt-in - the SignTool flag below is set up to use a
 ; configured signtool command in Inno Setup's tools menu. If no
@@ -45,7 +45,7 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 LicenseFile=..\LICENSE
 OutputDir=..\dist
-OutputBaseFilename=YHWH-Setup-{#MyAppVersion}
+OutputBaseFilename=YHWH-{#MyAppVersion}-windows-x64
 SolidCompression=yes
 WizardStyle=modern
 Compression=lzma2

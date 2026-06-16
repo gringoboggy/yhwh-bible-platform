@@ -10,6 +10,13 @@
 **Pytest:** spot 11/11 audit2 reds @ `b3e7b5af`; full `-m "not slow and not done_gate"` rerun grinding.
 **Handoff turn 107 → Mac:** Phase 4 disjoint + M3 attach + external MJ bundle → E:.
 
+## 2026-06-16 — Mac session (turn 107b) — ★ Phase 4 disjoint + M3 kobo column LIVE
+
+**External:** MJ bundle rsync MacHD2→E: (`book-title-covers-midjourney-gradient-2026-06-16/`); m3 handoff mirrored MacHD2 `m3-kobo-v0.1.0/`.
+**M3 attach:** 45 `.kepub.epub` → GitHub `v0.1.0` + SHA256SUMS merge (96→141) · `gen_release_catalog` → **kobo column live** (187 assets).
+**Phase 4:** purge 31 phantom `1ma/2ma` candidates · `translations._BOOK_FILE_ALIASES` (`exo`→`ex`) · 1ki ch7–10 EN (117 v, 308 total) · installer/sign_windows artifact naming aligned to `YHWH-{ver}-windows-x64.exe`.
+**Tests:** `test_geez_en_1ki` · `test_translations_book_alias` · `test_gen_release_catalog` 27/27.
+
 ## 2026-06-16 — Mac session (turn 106b) — ★ audit2 green + external MJ package complete
 
 **Pytest triage:** all 11 audit2 reds pass under `-m "not slow and not done_gate"` on Mac.

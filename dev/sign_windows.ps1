@@ -1,7 +1,7 @@
 # Sign a Windows binary via Azure Trusted Signing (account "yhwhsigning").
 #
 #   pwsh -File dev/sign_windows.ps1                 # signs dist/YHWH.exe
-#   pwsh -File dev/sign_windows.ps1 -File path.exe
+#   pwsh -File dev/sign_windows.ps1 -File path.exe  # or dist/YHWH-0.1.0-windows-x64.exe (installer)
 #
 # One-time prereqs (already done on the N95):
 #   Install-Module Az.Accounts, Az.Resources, TrustedSigning   # PSGallery, CurrentUser
