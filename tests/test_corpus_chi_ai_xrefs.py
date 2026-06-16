@@ -749,7 +749,7 @@ class TestRunAIXrefsAtScaleDriver:
 
         from scripts.core import at_scale_base
 
-        dict_builders = ["scripts.prospect", "scripts.run_kenyon_at_scale"]
+        dict_builders = ["scripts.run_kenyon_at_scale"]
         for name in dict_builders:
             mod = importlib.import_module(name)
             assert mod.candidate_to_dict is at_scale_base.candidate_to_dict, (
@@ -757,6 +757,7 @@ class TestRunAIXrefsAtScaleDriver:
             )
 
         delegators = [
+            "scripts.prospect",
             "scripts.run_greek_at_scale",
             "scripts.run_hebrew_at_scale",
             "scripts.run_naves_at_scale",
