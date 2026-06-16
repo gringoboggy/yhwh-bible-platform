@@ -303,7 +303,7 @@
     CAM:
       folios: []
       views: []
-    status: calibrated
+    status: pending
 
 2ki:
   1:

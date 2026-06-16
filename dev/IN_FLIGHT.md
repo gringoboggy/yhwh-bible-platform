@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (turn 106 — MJ COVERS SHIPPED + WIN FIX PASS).** Mac: **86/86** Midjourney + gradient; external package on MacHD2. **WIN:** `git pull` → fix **11 pytest reds** + `test_work_cache` → re-run pytest → Phase 3. **Publisher UX pending:** `/covers` built-in / upload / none. Mac **idle** (Phase 4 disjoint). **HOLD:** M4b · M3 attach until pytest green. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-16 (turn 106 — audit2 fix pass GREEN).** Mac: MJ covers shipped + **11/11 audit2 reds fixed** (`not done_gate`). Kings P0 folio gate still red-by-design (`done_gate`). **WIN:** `git pull` → **Phase 3** (`build_edition.py` / `generate_verse_popups.py` / `config.py`). Mac idle. Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >
