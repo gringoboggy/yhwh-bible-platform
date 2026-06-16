@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 101).** `/resume` → pull @ `e8b1dac7` → **① Audit FIRST** — thorough 7 dims (mint10/11 bar). **② Fixes AFTER** audit appended to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit). Mac findings @ `b1b9dffd`. One job at a time. **HOLD:** Kobo QA · M3 attach until audit+fixes land. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 102).** `/resume` → pull @ `f228715`+ → **fresh pytest** grinding on `b8c7c950` → triage → 7-dim audit remainder → merge doc → Phase 1–2 fixes. `LANE=win` local (never commit). One job at a time. **HOLD:** Kobo QA · M3 attach. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION (🖥️ Mac, turn 101).** Phase 1 disjoint fixes **DONE** @ `60c88de0` (prospect · batch_promote · promote · inject · MATRIX_MAP 91,723; 11 tests green). **Idle/HOLD:** `build_edition.py` · M4b until WIN audit done. Optional smoke: `/covers` A/B/C spot-check.
+> **➤➤➤ Mac (turn 102 — `/resume` NOW).** Phase 1+covers **DONE**. **Parallel Phase 2** (file-disjoint): website/dist rebuild · `installer.iss` VERSION first-line · `how-to-use.html` drift · gh delete 45 `default._*` Kindle stubs + dup SHA256SUMS-merged · cover-upload E2E smoke (normalize→spot build) · `batch_promote_xrefs --per-candidate` queue status. **HOLD:** `build_edition.py` · `web.py` · M4b · M3 until WIN pytest+audit lands.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, composed to JPG. Builds on primary A refresh @ `d1a2256e`. Shipped @ `e8b1dac7`.
 >

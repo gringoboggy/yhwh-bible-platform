@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (turn 101 — Mac Phase 1 DONE @ `60c88de0`).** Round-8 Phase 1 disjoint fixes shipped: prospect write_queue · batch_promote false-promote · promote `_chapter_from_id` · inject SyntaxError guard · MATRIX_MAP 91,723. **WIN:** thorough 7 dims FIRST → merge doc → Phase 1–2 fixes (HTTP semantics etc.). **Mac idle/HOLD:** `build_edition.py` · M4b until WIN audit done. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-16 (turn 102 — WIN pytest + Mac Phase 2 parallel).** WIN: fresh `not slow` pytest on `b8c7c950` → triage → audit 7 dims → merge doc. **Mac GO (disjoint):** Phase 2 website/release (`website/dist` rebuild · installer.iss · gh stub cleanup) + cover-upload E2E smoke + `batch_promote` per-candidate queue fix. **HOLD both:** `build_edition.py` · `web.py` · M4b · M3. Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

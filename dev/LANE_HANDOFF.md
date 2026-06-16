@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 101
-from: mac
-updated: 2026-06-16T04:04:45Z
-status: handing-off
-mac: ▶ FRESH SESSION: Phase 1 disjoint fixes — prospect.py write_queue · batch_promote_xrefs · promote.py _chapter_from_id · inject.py SyntaxError guard · MATRIX_MAP count drift. Covers DONE @ e8b1dac7. HOLD build_edition.py + M4b until WIN audit done.
-windows: ★ FRESH SESSION START HERE: Audit FIRST — thorough 7 dims (mint10/11 bar) → append docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md → THEN Phase 1–2 fixes. LANE=win local. One job at a time. Mac findings @ b1b9dffd. Pull @ e8b1dac7.
+turn: 102
+from: windows
+updated: 2026-06-16T13:42:12Z
+status: working
+mac: ▶ Phase 2 parallel (disjoint): website/dist rebuild (gen_release_catalog + node website/build.mjs) · installer.iss VERSION first-line · how-to-use.html EPUB name drift · gh delete 45 default._* Kindle stubs + dup SHA256SUMS-merged.txt · cover-upload E2E smoke (normalize→eth spot build+epubcheck) · batch_promote_xrefs --per-candidate queue JSON status. HOLD build_edition.py · web.py · M4b · M3 until WIN pytest+audit done.
+windows: ★ Fresh pytest @ b8c7c950 grinding → triage failures → 7-dim audit remainder → append merge doc → Phase 1–2 fixes. One job at a time. truth_owner.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 102, 2026-06-16T13:42:12Z) — mode=parallel
+
+**Assignments:** mac = ▶ Phase 2 parallel (disjoint): website/dist rebuild (gen_release_catalog + node website/build.mjs) · installer.iss VERSION first-line · how-to-use.html EPUB name drift · gh delete 45 default._* Kindle stubs + dup SHA256SUMS-merged.txt · cover-upload E2E smoke (normalize→eth spot build+epubcheck) · batch_promote_xrefs --per-candidate queue JSON status. HOLD build_edition.py · web.py · M4b · M3 until WIN pytest+audit done. · windows = ★ Fresh pytest @ b8c7c950 grinding → triage failures → 7-dim audit remainder → append merge doc → Phase 1–2 fixes. One job at a time. truth_owner.
+
+WIN assigned Mac Phase 2 parallel while pytest runs (user-approved).
+
 ---
 
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
