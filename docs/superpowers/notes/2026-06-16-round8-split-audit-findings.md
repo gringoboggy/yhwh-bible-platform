@@ -27,11 +27,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ### Phase 2 — Release / website / packaging (no marathon core)
 
-- [ ] **CRITICAL** Delete 45 `default._*` corrupt Kindle stubs from v0.1.0 release (keep canonical `YHWH-*-kindle-*.epub`)
+- [x] **CRITICAL** Delete 45 `default._*` corrupt Kindle stubs from v0.1.0 release (keep canonical `YHWH-*-kindle-*.epub`) — **Mac turn 102** (46 assets incl. `SHA256SUMS-merged.txt`; release now 142)
 - [ ] **HIGH** Attach M3 Kobo 45/45 from `m3-kobo-v0.1.0/` handoff + merge SHA256SUMS + regen catalog
 - [x] **HIGH** Rebuild `website/dist/` from src (stale v0.0.3) — `gen_release_catalog` + `node website/build.mjs` — **Mac turn 102** (dist gitignored; regen run locally → v0.1.0)
 - [x] **HIGH** `installer.iss` read first line of VERSION only (`dev/installer.iss:27`) — **Mac turn 102** (`/DMyAppVersion=` + `#ifndef` fallback)
-- [ ] **MEDIUM** Remove duplicate `SHA256SUMS-merged.txt` from release
+- [x] **MEDIUM** Remove duplicate `SHA256SUMS-merged.txt` from release — **Mac turn 102** (deleted with stub batch)
 - [ ] **MEDIUM** Align Windows artifact naming (installer vs sign script vs releases.html)
 - [x] **MEDIUM** `how-to-use.html` cites legacy EPUB filename vs catalog matrix names — **Mac turn 102**
 

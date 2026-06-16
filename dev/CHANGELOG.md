@@ -4,6 +4,14 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 102b) — release cleanup + site deploy + cover smoke
+
+**GitHub v0.1.0:** deleted 46 corrupt assets (45 `default._*` Kindle stubs +
+`SHA256SUMS-merged.txt`); release **142** assets. Regen catalog + `website/build.mjs`.
+**Deployed** `yhwh-website` @ `7aba7f8` (how-to-use EPUB names). **Cover smoke:**
+`ethiopian-tewahedo` spot build 57 MB → **epubcheck 0/0/0/0**; `cover_applied`
+`covers/ethiopian-tewahedo.jpg`. Pushed platform @ `e7c0299b` earlier same turn.
+
 ## 2026-06-16 — Mac session (turn 102) — Phase 2 parallel (packaging/docs)
 
 **Disjoint from WIN pytest+audit:** `installer.iss` + `build_msi.cmd` first-line VERSION
