@@ -4,7 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
-## 2026-06-16 — Mac session (turn 96) — ★ DEEP-AUDIT ROUND 8 MAC HALF
+## 2026-06-16 — Windows session (turn 97) — ★ ROUND-8b THOROUGH MAC RE-RUN ORDERED
+
+**User directive:** Grok fast-pass ≠ mint10/11 bar (5h Fable 5 + adversarial verify per
+finding). **Handed to Mac:** fresh session, Workflow `deep-audit.js`, LANE=mac, **18 dims**
+(incl. lane-system/decommission/stack-review/future-work), re-verify `9536bf34` draft survivors.
+**WIN:** PAUSE audit re-run; HOLD Kobo QA/M4b/fixes until merged plan. Runbook updated:
+`docs/superpowers/plans/2026-06-15-round8-parallel-audit-session.md` §Round 8b.
+
+## 2026-06-16 — Mac session (turn 96) — ★ DEEP-AUDIT ROUND 8 MAC HALF (draft)
 
 **Audit (FINDINGS-ONLY):** Mac lane 14 dims → **28 survivors** (6 high / 17 med / 5 low; 0
 critical). Top highs: `prospect.py` write_queue status clobber · `batch_promote_xrefs` false

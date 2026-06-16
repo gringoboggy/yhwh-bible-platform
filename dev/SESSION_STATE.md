@@ -1,6 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 96 — ★ ROUND-8 AUDIT MAC HALF DONE).** 14 dims FINDINGS-ONLY → **28 survivors** (6 high / 17 med / 5 low; 0 critical). Pushed `_audit-split/findings-mac.json` @ `9536bf34` on `lane-transfer/audit` (both remotes). **WIN next:** 7 dims + merge → `round8-split-audit-findings.md`. **Mac parallel:** M4b Kindle fork. Baton **windows**; mode=parallel. TRACKER-STATE active.
+> **➤➤➤ 2026-06-16 (🪟 Windows, turn 97 — ★ ROUND-8b THOROUGH MAC RE-RUN ORDERED).** User: fast Grok pass ≠ mint10/11 bar (5h Fable 5 + adversarial verify). **Mac:** fresh session, Workflow `deep-audit.js`, LANE=mac, **18 dims**, depth=deep → overwrite `findings-mac.json` on `lane-transfer/audit`. **WIN:** PAUSE audit re-run; finish `tests-run` only; merge after Mac 8b. **HOLD:** Kobo QA · M4b · fixes until merged plan. Baton **mac**; mode=parallel. TRACKER-STATE active.
+>
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 96 — ROUND-8 AUDIT MAC FAST PASS).** 14 dims → 28 survivors @ `9536bf34` — **draft** pending 8b thorough re-verify. WIN triaged stale test: `test_badge_sits_at_verse_end` (K-R15a `badge-trail` not walked).
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac, turn 95 — ★ M3 45/45 + EXTERNAL HANDOFF DONE).** Power-cut recovery complete; 45 kepubs verified green; copied to `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (45 files + SHA256SUMS.txt, checksums OK). WIN pickup: attach + catalog when Kobo device QA passes.
 >
@@ -22,7 +24,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** Mac half done (28 survivors on `lane-transfer/audit`); WIN half + merge pending. **Device-QA queue:** ① Mac **M4b Kindle** · ② Mac **M2 Apple** (`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`) · ③ WIN **M5 Play Books**. **M3:** 45/45 + external handoff done; catalog gated on Kobo device PASS. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** round-8b thorough Mac re-run (mint10/11 bar) then WIN 7 dims + merge. **Device-QA queue ON HOLD** until merged findings approved. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

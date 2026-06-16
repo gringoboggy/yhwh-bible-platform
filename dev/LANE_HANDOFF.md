@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 96
-from: mac
-updated: 2026-06-16T01:22:27Z
+turn: 97
+from: windows
+updated: 2026-06-16T02:04:38Z
 status: handing-off
-mac: idle — M4b Kindle fork when WIN merge done
-windows: ▶ turn 96 — deep-audit round 8 WIN half (7 dims: tests-run, opt-build, byte-stability, rx-surfaces, claude-setup, popup-integrity, github-gitlab) + merge Mac findings @ lane-transfer/audit 9536bf34 → round8-split-audit-findings.md. User Kobo round-15/16 QA continues.
-truth_owner: windows
-holder: windows
+mac: ★ FRESH SESSION Round 8b THOROUGH: Claude Code Fable 5 + Workflow(deep-audit.js), LANE=mac locally (never commit), depth=deep, ALL 18 mac dims incl lane-system/decommission/stack-review/future-work, full find→verify→synthesize (~5h mint10/11 bar). Re-verify 9536bf34 survivors; push NEW findings-mac.json to lane-transfer/audit. Parallel read-only: M2 Apple layout audit (2026-06-15-apple-m2-layout-directive.md). HOLD M4b/Kobo QA/M3 attach until merged plan.
+windows: PAUSE win audit re-run until Mac 8b lands. May finish tests-run pytest only. Merge + round8-split-audit-findings.md after Mac push. HOLD Kobo QA and fixes.
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 97, 2026-06-16T02:04:38Z) — mode=parallel
+
+**Done (turn 96, windows):**
+WIN: pulled 4ef3346; triaged badge-trail test as stale (K-R15a); user ordered Mac 8b thorough pass (Grok fast-pass insufficient vs mint10/11)
+
+**Next (turn 97, mac picks up):**
+Mac: Workflow deep-audit 18 dims Fable 5 → lane-transfer/audit · WIN: wait, then 7 dims thorough + merge
+
+**Assignments:** mac = ★ FRESH SESSION Round 8b THOROUGH: Claude Code Fable 5 + Workflow(deep-audit.js), LANE=mac locally (never commit), depth=deep, ALL 18 mac dims incl lane-system/decommission/stack-review/future-work, full find→verify→synthesize (~5h mint10/11 bar). Re-verify 9536bf34 survivors; push NEW findings-mac.json to lane-transfer/audit. Parallel read-only: M2 Apple layout audit (2026-06-15-apple-m2-layout-directive.md). HOLD M4b/Kobo QA/M3 attach until merged plan. · windows = PAUSE win audit re-run until Mac 8b lands. May finish tests-run pytest only. Merge + round8-split-audit-findings.md after Mac push. HOLD Kobo QA and fixes.
+
+**Watch-outs:**
+- (none)
+
 ---
 
 ## ▶ mac → windows (turn 96, 2026-06-16T01:22:27Z) — mode=parallel
