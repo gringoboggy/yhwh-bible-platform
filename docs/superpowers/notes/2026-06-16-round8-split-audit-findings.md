@@ -19,11 +19,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 - [x] **HIGH** `prospect.py` write_queue clobbers promotion status — delegate to `at_scale_base.append_candidates` or merge preserving status (`scripts/prospect.py:153`) — **Mac turn 101**
 - [x] **HIGH** `batch_promote_xrefs` marks promoted when zero inserted — only mark actually inserted / `note_already_exists` (`scripts/batch_promote_xrefs.py:110`) — **Mac turn 101**
-- [ ] **HIGH** `/api/build-my-bible` errors return HTTP 200 — honor `http` in `_dispatch_table_result` (`scripts/web.py:1070`); add HTTP-level test (`tests/test_build_my_bible_api.py`)
+- [x] **HIGH** `/api/build-my-bible` errors return HTTP 200 — honor `http` in `_dispatch_table_result` (`scripts/web.py:1070`); add HTTP-level test — **WIN @ 9b877205** (`TestBuildMyBibleHttpStatus`)
 - [x] **MEDIUM** `batch_promote_xrefs --per-candidate` never updates queue JSON status (`scripts/batch_promote_xrefs.py:181`) — **Mac turn 102** (verified + regression test; path already called `update_queue_status`)
 - [x] **MEDIUM** `promote._chapter_from_id` parses verse as chapter (`scripts/promote.py:527`) — **Mac turn 101** (`rsplit` + `is not None` fallback)
 - [x] **MEDIUM** `inject.py` treats SyntaxError notes file as empty corpus (`scripts/inject.py:689`) — **Mac turn 101**
-- [ ] **STALE TEST** `test_badge_sits_at_verse_end` — walk K-R15a `badge-trail` span (**fixed 2026-06-16**)
+- [x] **STALE TEST** `test_badge_sits_at_verse_end` + `test_chapter_last_verse_badge_stays_in_its_chapter` — walk K-R15a `badge-trail` span — **WIN @ b8c7c950**
 
 ### Phase 2 — Release / website / packaging (no marathon core)
 
@@ -37,7 +37,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ### Phase 3 — Build / popup / cache guards (byte-stability obligation)
 
-- [ ] **MEDIUM** `edition_stats` cache signature missing `enable_ai_notes` / `max_phase` (`scripts/core/edition_stats.py:56`)
+- [x] **MEDIUM** `edition_stats` cache signature missing `enable_ai_notes` / `max_phase` (`scripts/core/edition_stats.py:56`) — **WIN @ 9b877205**
 - [ ] **MEDIUM** Gate Kobo byte-cap splitter on `target_reader==eink` (`scripts/build_edition.py`)
 - [ ] **MEDIUM** `verse-refs-section` hidden noteref targets (extend beyond `notes-section`) (`scripts/generate_verse_popups.py`)
 - [ ] **MEDIUM** Study-glossary-cat hist monoliths >7,748 stripped — within-note chunking (`scripts/build_edition.py`)
@@ -52,7 +52,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [ ] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias
 - [ ] **MEDIUM** 1ki EN back-translation gap ch7-10
 - [x] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553) — **Mac turn 101** (MATRIX_MAP + matrix.py; `website/dist/` deferred Phase 2)
-- [ ] **MEDIUM** Test coverage gaps (build-my-bible HTTP, inject_book write path, coord-guard driver loops)
+- [ ] **MEDIUM** Test coverage gaps (inject_book write path, coord-guard driver loops) — build-my-bible HTTP **done @ 9b877205**
 
 ### Phase 5 — Optimization decisions (defer unless cheap)
 

@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 102).** `/resume` → pull @ `f228715`+ → **fresh pytest** grinding on `b8c7c950` → triage → 7-dim audit remainder → merge doc → Phase 1–2 fixes. `LANE=win` local (never commit). One job at a time. **HOLD:** Kobo QA · M3 attach. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 103).** `/resume` → pull @ `2194f573`+ → **pytest audit2** triage when done → Phase 3 (`build_edition.py` / `generate_verse_popups.py` / `config.py`). Shipped @ `9b877205`: build-my-bible HTTP 404 + edition_stats cache keys. `LANE=win` local (never commit). **HOLD:** M3 attach · Kobo QA. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ Mac (turn 102 — `/resume` NOW).** Phase 1+covers **DONE**. **Parallel Phase 2** (file-disjoint): website/dist rebuild · `installer.iss` VERSION first-line · `how-to-use.html` drift · gh delete 45 `default._*` Kindle stubs + dup SHA256SUMS-merged · cover-upload E2E smoke (normalize→spot build) · `batch_promote_xrefs --per-candidate` queue status. **HOLD:** `build_edition.py` · `web.py` · M4b · M3 until WIN pytest+audit lands.
+> **➤➤➤ Mac (turn 103 — `/resume` NOW).** Phase 1+2 **DONE** @ `2194f573`. **Parallel Phase 4** (disjoint): purge 31 phantom `1ma/2ma` candidates · `translations.py` ex→exo additive alias · 1ki EN back-translation ch7-10 · Windows artifact naming align (`sign_windows.ps1` / installer / `releases.html`). Optional: wire `ethiopian-tewahedo` `book_covers` → `_book_defaults/`. **HOLD:** `build_edition.py` · `web.py` · M4b · M3 until WIN pytest lands.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, composed to JPG. Builds on primary A refresh @ `d1a2256e`. Shipped @ `e8b1dac7`.
 >

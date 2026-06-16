@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 102
+turn: 103
 from: windows
-updated: 2026-06-16T13:42:12Z
+updated: 2026-06-16T14:44:33Z
 status: working
-mac: ▶ Phase 2 parallel (disjoint): website/dist rebuild (gen_release_catalog + node website/build.mjs) · installer.iss VERSION first-line · how-to-use.html EPUB name drift · gh delete 45 default._* Kindle stubs + dup SHA256SUMS-merged.txt · cover-upload E2E smoke (normalize→eth spot build+epubcheck) · batch_promote_xrefs --per-candidate queue JSON status. HOLD build_edition.py · web.py · M4b · M3 until WIN pytest+audit done.
-windows: ★ Fresh pytest @ b8c7c950 grinding → triage failures → 7-dim audit remainder → append merge doc → Phase 1–2 fixes. One job at a time. truth_owner.
+mac: ▶ Phase 4 parallel (disjoint): purge 31 phantom 1ma/2ma candidate files · translations.py ex→exo additive alias · 1ki EN back-translation ch7-10 gap · Windows artifact naming align (dev/sign_windows.ps1 vs installer vs website releases.html). Optional: wire ethiopian-tewahedo book_covers → content/covers/_book_defaults/. HOLD build_edition.py · web.py · M4b · M3 attach until WIN pytest audit2 triage done.
+windows: ★ pytest audit2 triage when done → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). Shipped 9b877205. truth_owner. One job at a time.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 103, 2026-06-16T14:44:33Z) — mode=parallel
+
+**Assignments:** mac = ▶ Phase 4 parallel (disjoint): purge 31 phantom 1ma/2ma candidate files · translations.py ex→exo additive alias · 1ki EN back-translation ch7-10 gap · Windows artifact naming align (dev/sign_windows.ps1 vs installer vs website releases.html). Optional: wire ethiopian-tewahedo book_covers → content/covers/_book_defaults/. HOLD build_edition.py · web.py · M4b · M3 attach until WIN pytest audit2 triage done. · windows = ★ pytest audit2 triage when done → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). Shipped 9b877205. truth_owner. One job at a time.
+
+WIN pushed audit fixes + Mac Phase 4 assignment (user-approved).
+
 ---
 
 ## ◦ windows assign (turn 102, 2026-06-16T13:42:12Z) — mode=parallel
