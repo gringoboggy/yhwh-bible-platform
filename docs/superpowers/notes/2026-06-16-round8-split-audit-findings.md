@@ -17,12 +17,12 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ### Phase 1 — Silent data-loss + API correctness (safest high-impact)
 
-- [ ] **HIGH** `prospect.py` write_queue clobbers promotion status — delegate to `at_scale_base.append_candidates` or merge preserving status (`scripts/prospect.py:153`)
-- [ ] **HIGH** `batch_promote_xrefs` marks promoted when zero inserted — only mark actually inserted / `note_already_exists` (`scripts/batch_promote_xrefs.py:110`)
+- [x] **HIGH** `prospect.py` write_queue clobbers promotion status — delegate to `at_scale_base.append_candidates` or merge preserving status (`scripts/prospect.py:153`) — **Mac turn 101**
+- [x] **HIGH** `batch_promote_xrefs` marks promoted when zero inserted — only mark actually inserted / `note_already_exists` (`scripts/batch_promote_xrefs.py:110`) — **Mac turn 101**
 - [ ] **HIGH** `/api/build-my-bible` errors return HTTP 200 — honor `http` in `_dispatch_table_result` (`scripts/web.py:1070`); add HTTP-level test (`tests/test_build_my_bible_api.py`)
 - [ ] **MEDIUM** `batch_promote_xrefs --per-candidate` never updates queue JSON status (`scripts/batch_promote_xrefs.py:181`)
-- [ ] **MEDIUM** `promote._chapter_from_id` parses verse as chapter (`scripts/promote.py:527`)
-- [ ] **MEDIUM** `inject.py` treats SyntaxError notes file as empty corpus (`scripts/inject.py:689`)
+- [x] **MEDIUM** `promote._chapter_from_id` parses verse as chapter (`scripts/promote.py:527`) — **Mac turn 101** (`rsplit` + `is not None` fallback)
+- [x] **MEDIUM** `inject.py` treats SyntaxError notes file as empty corpus (`scripts/inject.py:689`) — **Mac turn 101**
 - [ ] **STALE TEST** `test_badge_sits_at_verse_end` — walk K-R15a `badge-trail` span (**fixed 2026-06-16**)
 
 ### Phase 2 — Release / website / packaging (no marathon core)
@@ -51,7 +51,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [ ] **MEDIUM** 31 phantom `1ma/2ma` candidate files
 - [ ] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias
 - [ ] **MEDIUM** 1ki EN back-translation gap ch7-10
-- [ ] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553)
+- [x] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553) — **Mac turn 101** (MATRIX_MAP + matrix.py; `website/dist/` deferred Phase 2)
 - [ ] **MEDIUM** Test coverage gaps (build-my-bible HTTP, inject_book write path, coord-guard driver loops)
 
 ### Phase 5 — Optimization decisions (defer unless cheap)

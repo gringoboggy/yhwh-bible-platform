@@ -470,7 +470,7 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     if not book_path.is_file():
         return False, ""
 
-    chapter = c.get("chapter") or _chapter_from_id(c["id"])
+    chapter = c.get("chapter") if c.get("chapter") is not None else _chapter_from_id(c["id"])
     verse = c["verse"]
 
     # Coordinate guard: never promote a note whose (book, ch, v) is beyond the
@@ -535,9 +535,10 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
 
 
 def _chapter_from_id(cid: str) -> int:
-    # ids are formed as "<book>-<ch>-<v>-<idx>"
-    parts = cid.split("-")
-    return int(parts[-3])
+    # ids are ``{book}-{ch}-{v}-{idx:03d}`` — the book segment may contain hyphens,
+    # so parse the three rightmost numeric fields with a fixed split count.
+    _book, ch_str, _v_str, _idx_str = cid.rsplit("-", 3)
+    return int(ch_str)
 
 
 # ----------------------------------------------------------------------

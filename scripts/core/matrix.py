@@ -10,7 +10,7 @@ Inputs (all read via cached config loaders):
     content/categories.yaml — 15 categories
     content/editions.yaml   — 11 edition profiles (kind filters + canon)
     content/canons.yaml     — canon → book-codes
-    content/notes/*.py      — actual notes (91,733 as of 2026-06-02; snapshot, re-verify via trace_matrix.py — not a pin)
+    content/notes/*.py      — actual notes (91,723 as of 2026-06-16; snapshot, re-verify via trace_matrix.py — not a pin)
 
 Output shape (the "matrix"):
 
