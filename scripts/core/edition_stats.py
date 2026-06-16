@@ -73,6 +73,8 @@ def _edition_signature(edition_id: str) -> tuple:
         "popup_languages_per_book",
         "popup_languages_per_chapter",
         "popup_languages_per_verse",
+        "enable_ai_notes",
+        "max_phase",
     )
     return tuple((k, repr(ed.get(k))) for k in keys)
 

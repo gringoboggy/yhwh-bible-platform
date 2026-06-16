@@ -177,6 +177,41 @@ class TestApihelpEnvelopeHonored:
         assert h.sent == {"error": "source_read_failed", "message": "boom"}
 
 
+class TestBuildMyBibleHttpStatus:
+    """api_build_my_bible returns {"error": ..., "http": N} — must not ship at 200."""
+
+    def test_dispatch_honors_error_http_envelope(self):
+        from scripts.web import _dispatch_table_result
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"error": "unknown edition: xyz", "http": 404})
+        assert h.status == 404
+        assert h.sent == {"error": "unknown edition: xyz"}
+
+    def test_unknown_edition_live_is_404(self):
+        import threading
+        import time
+        from http.server import ThreadingHTTPServer
+
+        from scripts.web import Handler
+
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        port = srv.server_address[1]
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        time.sleep(0.1)
+        try:
+            url = f"http://127.0.0.1:{port}/api/build-my-bible/nonexistent-edition-xyz"
+            try:
+                urllib.request.urlopen(url, timeout=10)
+                raise AssertionError("expected HTTPError")
+            except urllib.error.HTTPError as e:
+                assert e.code == 404
+                body = json.loads(e.read().decode("utf-8"))
+                assert "error" in body
+        finally:
+            srv.shutdown()
+
+
 # ---------- live HTTP: end-to-end route translation --------------------
 
 

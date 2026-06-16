@@ -1073,6 +1073,13 @@ def _dispatch_table_result(handler_self, result: dict) -> None:
     if result.get("ok") is False:
         handler_self._send_json(result, status=400)
         return
+    # api_build_my_bible (and peers) return {"error": "...", "http": N} without
+    # the status=error envelope — honor the declared http code (mint-8 audit).
+    if "error" in result and isinstance(result.get("http"), int):
+        status = result["http"]
+        body = {k: v for k, v in result.items() if k != "http"}
+        handler_self._send_json(body, status=status)
+        return
     handler_self._send_json(result)
 
 
