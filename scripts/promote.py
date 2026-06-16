@@ -294,7 +294,13 @@ def insert_note_into_book_file(
     return True
 
 
-def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing: bool = True) -> int:
+def batch_insert_notes(
+    book_path: Path,
+    new_notes: list[dict],
+    *,
+    skip_existing: bool = True,
+    satisfied_out: set[tuple[int, int, str, str]] | None = None,
+) -> int:
     """Insert many notes into a ``<book>.py`` NOTES list in ONE read+write.
 
     Efficient alternative to calling ``insert_note_into_book_file`` per note
@@ -373,6 +379,8 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
             dropped += 1
             continue  # base-HTML extent guard: chapter has no anchor to inject against
         if skip_existing and body in existing_bodies.get((ch, v, kind), set()):
+            if satisfied_out is not None:
+                satisfied_out.add((ch, v, kind, body))
             continue
         used = used_suffixes.setdefault((ch, v), set())
         suffix = pick_free_suffix(used)
@@ -400,6 +408,8 @@ def batch_insert_notes(book_path: Path, new_notes: list[dict], *, skip_existing:
             attribution,
         )
         inserts.append((after, new_key, txt))
+        if satisfied_out is not None:
+            satisfied_out.add((ch, v, kind, body))
 
     if dropped:
         warnings.warn(

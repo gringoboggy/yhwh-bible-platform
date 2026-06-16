@@ -686,7 +686,14 @@ def inject_book(book: dict, dry_run: bool) -> dict:
     files = book.get("files", [])
     strategy = book.get("strategy", "A")
 
-    notes = load_notes(NOTES_DIR / f"{code}.py") or []
+    notes_path = NOTES_DIR / f"{code}.py"
+    loaded = load_notes(notes_path)
+    if loaded is None:
+        if notes_path.is_file():
+            return {"error": f"notes file {code}.py unparseable (SyntaxError)"}
+        notes = []
+    else:
+        notes = loaded
 
     # Strategy gating — A needs id_prefix; B needs bxx + ch_count
     if strategy == "A":

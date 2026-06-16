@@ -13,10 +13,9 @@
 > (`content/editions.yaml`) that drive the **build pipeline** — so the matrix and
 > the EPUB build are two consumers of one source of truth.
 >
-> Counts (2026-05-21 rebuild; notes re-counted 2026-06-02): **11 editions · 5 canons
-> · 15 categories · 72 kinds · 87 books · 14 translation dirs · 91,733 notes**.
-> (Was 70 kinds / 52,973 notes on 2026-05-20; `dict-easton` added + Nave's rebuilt +
-> Easton's ingested — see "Reference-corpus ingestion" below.) Re-verify with
+> Counts (2026-06-16 re-count): **11 editions · 5 canons · 15 categories · 72 kinds ·
+> 87 books · 14 translation dirs · 91,723 notes** in `content/notes/` (shipped
+> Ethiopian superset: **91,553** per edition filter). Re-verify with
 > `dev/trace_matrix.py`; integrity target: **0 unresolved references.**
 
 ## Top → bottom (source leads to output)

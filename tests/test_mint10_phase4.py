@@ -14,6 +14,7 @@ import pytest
 
 
 DRIVER_MODULES = [
+    "scripts.prospect",
     "scripts.run_xref_at_scale",
     "scripts.run_naves_at_scale",
     "scripts.run_torrey_at_scale",

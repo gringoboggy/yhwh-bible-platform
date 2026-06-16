@@ -37,7 +37,6 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -47,8 +46,15 @@ from scripts.core import config  # noqa: E402
 from scripts.core.detectors import ALL_DETECTORS, Candidate  # noqa: E402
 from scripts.core.sources import SourceMissingError  # noqa: E402
 from scripts.find_anchor import find_verse_text, load_existing_anchors  # noqa: E402
-from scripts.core.at_scale_base import BOLD, DIM, GREEN, RED, RESET, YELLOW, candidate_to_dict  # noqa: E402
-from scripts.core.notes_io import atomic_write  # noqa: E402
+from scripts.core.at_scale_base import (  # noqa: E402
+    BOLD,
+    DIM,
+    GREEN,
+    RED,
+    RESET,
+    YELLOW,
+    append_candidates,
+)
 
 EPUB_DIR = REPO_ROOT / "epub_working"
 NOTES_DIR = REPO_ROOT / "content" / "notes"
@@ -150,18 +156,9 @@ def is_duplicate(c: Candidate, existing: list, kinds_index: dict) -> bool:
 # ----------------------------------------------------------------------
 
 
-def write_queue(book: str, chapter: int, candidates: list[Candidate]) -> Path:
-    CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json"
-    payload = {
-        "book": book,
-        "chapter": chapter,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_candidates": len(candidates),
-        "candidates": [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)],
-    }
-    atomic_write(out_path, json.dumps(payload, indent=2, ensure_ascii=False))
-    return out_path
+def write_queue(book: str, chapter: int, candidates: list[Candidate]) -> Path | None:
+    """Delegate to ``at_scale_base.append_candidates`` — preserve existing status."""
+    return append_candidates(CANDIDATES_DIR / f"{book}_ch_{chapter:03d}.json", book, chapter, candidates)
 
 
 # ----------------------------------------------------------------------

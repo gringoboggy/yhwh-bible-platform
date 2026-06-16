@@ -142,3 +142,37 @@ def test_promote_by_book_mixed_present_and_missing(tmp_path, monkeypatch):
 
     assert json.loads(qg.read_text(encoding="utf-8"))["candidates"][0]["status"] == "promoted"
     assert json.loads(qm.read_text(encoding="utf-8"))["candidates"][0]["status"] == "pending"
+
+
+def test_promote_by_book_does_not_mark_when_all_coords_dropped(tmp_path, monkeypatch):
+    """Out-of-extent candidates must stay pending when batch_insert_notes inserts zero."""
+    notes_dir = tmp_path / "notes"
+    notes_dir.mkdir()
+    (notes_dir / "gen.py").write_text(_SEED_NOTES, encoding="utf-8")
+    monkeypatch.setattr(bpx, "NOTES_DIR", notes_dir)
+
+    q = tmp_path / "gen_99.json"
+    _write_queue(
+        q,
+        "gen",
+        99,
+        [
+            {
+                "id": "c1",
+                "kind": "xref-citation",
+                "status": "pending",
+                "verse": 1,
+                "draft_body": "Impossible coord.",
+                "draft_title": "X",
+                "draft_label": "xref",
+            }
+        ],
+    )
+
+    attempted, promoted, books_changed = bpx.promote_by_book([q], None, None)
+
+    data = json.loads(q.read_text(encoding="utf-8"))
+    assert data["candidates"][0]["status"] == "pending"
+    assert promoted == 0
+    assert books_changed == 0
+    assert attempted == 1

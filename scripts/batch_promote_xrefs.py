@@ -23,7 +23,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.promote import promote_candidate, batch_insert_notes, NOTES_DIR, _REVIEWER_SCAFFOLD_RE  # noqa: E402
+from scripts.promote import (  # noqa: E402
+    NOTES_DIR,
+    _REVIEWER_SCAFFOLD_RE,
+    batch_insert_notes,
+    promote_candidate,
+    update_queue_status,
+)
 from scripts.core.matrix import AI_DRAFTED_KINDS  # noqa: E402
 from scripts.core.html_sandbox import sandbox_ai_html  # noqa: E402
 
@@ -63,6 +69,7 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
     O(candidates) (the per-candidate loop is O(candidates × filesize)). Returns
     (attempted, promoted, books_changed)."""
     by_book: dict[str, list[dict]] = {}
+    file_meta: dict[Path, tuple[dict, list[dict], int]] = {}
     attempted = 0
     for fp in files:
         try:
@@ -76,6 +83,9 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
         cands = [c for c in cands if c.get("status") == "pending"]
         if max_per_file:
             cands = cands[:max_per_file]
+        if not cands:
+            continue
+        file_meta[fp] = (data, cands, data["chapter"])
         for c in cands:
             attempted += 1
             by_book.setdefault(data["book"], []).append(_candidate_to_note(c, data["chapter"]))
@@ -92,38 +102,28 @@ def promote_by_book(files: list[Path], kind: str | None, max_per_file: int | Non
             print(f"  ⚠ {book}: no notes file ({book}.py) — skipping {len(notes)} candidate(s)")
             continue
         successful_books.add(book)
-        n = batch_insert_notes(book_path, notes, skip_existing=True)
+        satisfied: set[tuple[int, int, str, str]] = set()
+        n = batch_insert_notes(book_path, notes, skip_existing=True, satisfied_out=satisfied)
         if n:
             promoted += n
             books_changed += 1
             print(f"  ✓ {book}: {n} inserted ({len(notes)} candidates seen)")
-    # mint-10: mark the attempted candidates "promoted" in their queue files so a
-    # re-run doesn't re-attempt them. batch_insert_notes used skip_existing, so each
-    # attempted candidate is now either freshly inserted or already in the corpus —
-    # "promoted" either way (conservative mark-all of exactly the attempted slice,
-    # mirroring the kind/pending/max_per_file selection above).
-    # mint-11 audit HIGH-1: ONLY mark books whose notes file actually existed
-    # (``successful_books``). Candidates for skipped missing-book queues stay
-    # "pending" instead of being silently lost.
-    from scripts.core.notes_io import atomic_write
+        # mint-11 HIGH-1: only mark candidates whose note landed (inserted or
+        # skip_existing match). Out-of-extent / parse-failure drops stay pending.
+        from scripts.core.notes_io import atomic_write
 
-    for fp in files:
-        try:
-            data = json.loads(fp.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        if data.get("book") not in successful_books:
-            continue
-        eligible = [
-            c
-            for c in data.get("candidates", [])
-            if c.get("status") == "pending" and (kind is None or c.get("kind") == kind)
-        ]
-        to_mark = eligible[:max_per_file] if max_per_file else eligible
-        if to_mark:
+        for fp, (data, to_mark, ch) in file_meta.items():
+            if data.get("book") != book:
+                continue
+            changed = False
             for c in to_mark:
-                c["status"] = "promoted"
-            atomic_write(fp, json.dumps(data, indent=2, ensure_ascii=False))
+                note = _candidate_to_note(c, ch)
+                key = (note["chapter"], note["verse"], note["kind"], note["body"])
+                if key in satisfied:
+                    c["status"] = "promoted"
+                    changed = True
+            if changed:
+                atomic_write(fp, json.dumps(data, indent=2, ensure_ascii=False))
     return attempted, promoted, books_changed
 
 
@@ -187,6 +187,9 @@ def main() -> int:
                 if ok:
                     total_promoted += 1
                     promoted_in_file += 1
+                    cid = c.get("id")
+                    if cid:
+                        update_queue_status(fp, cid, "promoted")
                 else:
                     total_skipped += 1
             except Exception as e:
