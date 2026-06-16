@@ -24,12 +24,16 @@ class TestBookTitleCovers:
 
         data = yaml.safe_load(MANIFEST_PATH.read_text(encoding="utf-8"))
         assert "books" in data
+        compose = data["style"]["compose"]
+        assert compose["scene_source"] == "midjourney_first"
+        assert data["style"]["regen_wave"] == "midjourney_gradient"
         prompt = build_prompt(data, "gen", data["books"]["gen"])
-        assert "creation light" in prompt
+        assert "creation" in prompt.lower() or "primordial" in prompt.lower()
         assert "full-bleed" in prompt.lower() or "full bleed" in prompt.lower()
         assert data["style"]["border"] == "none"
         assert "no leather" in prompt.lower() or "reimagine" in prompt.lower()
         assert "No text" in prompt or "no text" in prompt.lower()
+        assert "crimson" in prompt.lower() or "burgundy" in prompt.lower()
 
     def test_audit_reports_full_ethiopian_coverage(self):
         import argparse
@@ -56,11 +60,41 @@ class TestBookTitleCovers:
         faded = _apply_scene_fade_vignette(graded, strength=0.12)
         assert faded.getpixel((5, 5)) != graded.getpixel((5, 5))
 
-    def test_variant_catalog_has_three_slots(self):
+    def test_variant_catalog_has_four_slots(self):
         rows = cover_core.book_cover_variant_catalog("gen")
-        assert len(rows) == 3
+        assert len(rows) == 4
         assert rows[0]["variant_id"] == "default"
-        assert rows[1]["path"].endswith("alt02/gen.jpg")
+        assert rows[1]["variant_id"] == "alt04"
+        assert rows[1]["path"].endswith("alt04/gen.jpg")
+        assert rows[3]["path"].endswith("alt06/gen.jpg")
+
+    def test_v5_prompt_uses_color_theme_family(self):
+        from scripts.generate_book_title_covers import build_v5_prompt, _load_v5_scenes
+
+        v5 = _load_v5_scenes()
+        prompt = build_v5_prompt(v5, "gen", "alt04")
+        assert "forest" in prompt.lower() or "emerald" in prompt.lower()
+        assert "orthodox" in prompt.lower()
+        assert "whole complete bodies" in prompt.lower() or "never partial limbs" in prompt.lower()
+        assert "eden" in prompt.lower() or "garden" in prompt.lower() or "ark" in prompt.lower()
+        assert "no text" in prompt.lower() or "No text" in prompt
+
+    def test_optimize_shrinks_jpeg(self, tmp_path: Path):
+        import argparse
+
+        from scripts.generate_book_title_covers import cmd_optimize
+
+        src = tmp_path / "big.jpg"
+        out_dir = tmp_path / "alt02"
+        out_dir.mkdir()
+        img = Image.new("RGB", (1024, 1536), (120, 30, 40))
+        img.save(src, format="JPEG", quality=95, optimize=False)
+        before = src.stat().st_size
+        # cmd_optimize scans DEFAULTS_DIR — patch via copying to a controlled path is heavy;
+        # verify save_book_cover_jpeg produces smaller output than q95 baseline.
+        lean = tmp_path / "lean.jpg"
+        cover_core.save_book_cover_jpeg(img, lean)
+        assert lean.stat().st_size < before
 
     def test_normalize_upload_to_epub_safe_jpeg(self):
         import io

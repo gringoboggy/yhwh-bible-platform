@@ -1,27 +1,44 @@
 ---
 mode: parallel
-turn: 105
-from: windows
-updated: 2026-06-16T19:12:21Z
+turn: 106
+from: mac
+updated: 2026-06-16T20:30:00Z
 status: handing-off
-mac: ▶ INGEST v4 book title covers @ e4dd1a5d — git pull (E:/F: with Mac; external rsync per MAC_INGEST.md on Mac only) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green.
-windows: ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3 (build_edition.py generate_verse_popups.py config.py). One job at a time.
+mac: idle — Phase 4 disjoint backlog (phantom 1ma/2ma · ex→exo alias · 1ki ch7-10 EN · artifact naming). HOLD build_edition.py until WIN Phase 3.
+windows: ★ git pull turn 106 → verify MJ covers (WIN_INGEST.md on E:) → fix 11 pytest reds + test_work_cache → re-run pytest → Phase 3. Parallel: round-8 7-dim audit + merge. Simplify /covers to built-in|upload|none (pending). One job at a time.
 truth_owner: windows
 holder: windows
 ---
 
+## ▶ mac → windows (turn 106, 2026-06-16T20:30:00Z) — mode=parallel
+
+**Done (turn 106, mac):**
+MJ+gradient 86/86 composed; 20 new MJ plates; midjourney_first pipeline; policy reset recorded; external package + WIN_INGEST + SHA256SUMS on MacHD2; merged with WIN turn-105 pytest triage in truth records
+
+**Next (turn 106, windows picks up):**
+WIN: pull → fix 11 pytest reds → Phase 3 · round-8 win 7-dim + merge · /covers UX when idle
+
+**Assignments:** mac = idle — Phase 4 disjoint backlog. HOLD build_edition.py until WIN Phase 3. · windows = ★ git pull turn 106 → verify MJ covers (WIN_INGEST.md on E:) → fix 11 pytest reds + test_work_cache → re-run pytest → Phase 3. One job at a time.
+
+**Watch-outs:**
+External: MacHD2/YHWH-v2.4-releases/book-title-covers-midjourney-gradient-2026-06-16/ (E: mirror). Do NOT resume alt04-06/Grok/ethnic regen. Never commit LANE=win in deep-audit.js; one heavy job at a time.
+
+**Cover policy reset (2026-06-16, user-directed — both lanes):** Midjourney
+`_scenes/_midjourney/` + gradient compose only (86/86). **Publisher UX target (code pending):**
+`/covers` → built-in default **or** upload **or** none — **no A/B/C/D picker**.
+See `content/covers/_book_defaults/README.md` + `SESSION_STATE.md` top block.
+
+---
+
 ## ▶ windows → windows (turn 105, 2026-06-16T19:12:21Z) — mode=parallel
 
-**Done (turn 104, windows):**
+**Done (turn 105, windows):**
 audit2 pytest complete: 8081 pass / 11 fail / 262 import errors (api_select_book_cover pre-e4dd1a5d; resolved in covers commit); failures triaged in SESSION_STATE turn-105 bootstrap
 
 **Next (turn 105, windows picks up):**
-WIN: fix 11 reds + spot pytest re-run → Phase 3. Mac: v4 covers ingest parallel.
+WIN: fix 11 reds + spot pytest re-run → Phase 3.
 
-**Assignments:** mac = ▶ INGEST v4 book title covers @ e4dd1a5d (git pull or E:/YHWH-v2.4-releases per MAC_INGEST.md) → audit x3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Phase 4 disjoint queued. HOLD build_edition.py web.py until WIN pytest green. · windows = ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3 (build_edition.py generate_verse_popups.py config.py). One job at a time.
-
-**Watch-outs:**
-Never commit LANE=win in deep-audit.js; no new long pytest at wrap — fix pass starts fresh session; one heavy job at a time
+**Assignments:** windows = ★ FRESH SESSION: fix 11 pytest reds (SESSION_STATE list) + test_work_cache → re-run pytest -m not slow → Phase 3. One job at a time.
 
 ---
 

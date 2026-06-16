@@ -1,21 +1,18 @@
-# Per-book title-page cover art manifest — reimagined full-bleed scene plates (v4).
-# REGEN: Each book is redrawn in a unified Grok painterly family. Midjourney plates
-# in _scenes/_midjourney/ are REFERENCE ONLY (subject + scenery ideas) — never
-# composited or shipped. Finished regen lands in _scenes/<variant>/<code>.jpg.
-# Compose: crimson grade + soft edge fade (no leather, no gold border). A/B/C share
-# the same plate treatment; variants differ by composition prompt only.
+# Per-book title-page cover art manifest — Midjourney scene + crimson gradient compose.
+# All 86 plates in _scenes/_midjourney/; compose adds crimson grade + vignette only.
+# Compose applies crimson grade + soft edge vignette only (Windows workflow).
 # Edition Bible covers still use content/covers/templates/ (leather + gold).
 
 style:
   template: null
   border: none
   output: [1024, 1536]
-  regen_wave: v4_reimagine
+  regen_wave: midjourney_gradient
   compose:
     sharpen: 1.14
     vignette: 0.12
     style_grade: true
-    scene_source: grok_first
+    scene_source: midjourney_first
   reimagine:
     reference_dir: "_midjourney"
     use_reference: inspiration_only

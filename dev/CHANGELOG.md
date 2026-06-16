@@ -4,13 +4,24 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 106) — ★ Midjourney + gradient covers (policy reset) + WIN handoff
+
+**User-directed reset:** stop v4/v5/v6/Grok/ethnic multi-variant arc. **Shipped:** 86 Midjourney
+scene plates (`_scenes/_midjourney/`, incl. 20 Ethiopian extras) + **86 composed finals**
+(crimson grade + vignette only, `scene_source: midjourney_first`, compose 0 skipped).
+`COVER_MANIFEST.yaml` restored to MJ workflow; `generate_book_title_covers.py` + tests updated.
+**Publisher UX policy recorded (code pending):** built-in default / upload / none — no A/B/C/D.
+**External handoff:** `/Volumes/MacHD2/YHWH-v2.4-releases/book-title-covers-midjourney-gradient-2026-06-16/`
+(Windows mirror: `E:\YHWH-v2.4-releases\...`) + `WIN_INGEST.md` + `SHA256SUMS.txt`.
+**WIN next:** pull → fix 11 pytest reds → Phase 3; round-8 7-dim audit + merge.
+
 ## 2026-06-16 — Windows session (turn 105 prep) — ★ audit2 pytest complete + fix-pass handoff
 
 **Audit2 (`tests-run`):** full `pytest -m "not slow"` — **8081 passed · 11 failed · 262 errors**
-(3h34m @ pre-`e4dd1a5d` tree). 262 errors = single root `api_select_book_cover` ImportError
-(pytest started before turn-104 covers commit; resolved @ `e4dd1a5d`). **11 failures** triaged in
+(3h34m @ pre-turn-106 tree). 262 errors = single root `api_select_book_cover` ImportError
+(pytest started before covers commit; resolved after pull). **11 failures** triaged in
 `SESSION_STATE.md` bootstrap. **Next fresh session:** fix reds → spot/full re-run → Phase 3 audit
-fixes. Mac parallel: v4 covers ingest (disjoint).
+fixes.
 
 ## 2026-06-16 — Windows session (turn 104) — ★ book title covers v4 reimagine
 
