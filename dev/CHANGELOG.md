@@ -4,6 +4,18 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Windows session (turn 100) — ★ FRESH SESSION PREP (audit-first split)
+
+**Fresh-session bootstrap pushed.** WIN: thorough 7 dims FIRST (mint10/11 bar), fixes AFTER audit
+appended. Mac: Phase 1 disjoint fixes parallel. Merged plan +
+`docs/superpowers/plans/2026-06-15-round8-parallel-audit-session.md` §Fresh WIN session. User:
+speed OK, Claude thoroughness never negotiable.
+
+## 2026-06-16 — Windows session (turn 99) — merged findings + badge-trail test fix
+
+**Merged plan:** `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. Phase 1:
+`test_badge_sits_at_verse_end` walks K-R15a `badge-trail`.
+
 ## 2026-06-16 — Mac session (turn 98) — ★ ROUND-8b THOROUGH MAC AUDIT COMPLETE
 
 **Audit (FINDINGS-ONLY):** Mac lane **18 dims** (8b thorough) → **35 survivors** (5 high / 17

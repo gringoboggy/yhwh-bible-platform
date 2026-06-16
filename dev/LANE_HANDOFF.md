@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 99
+turn: 100
 from: windows
-updated: 2026-06-16T02:52:28Z
+updated: 2026-06-16T02:57:33Z
 status: working
-mac: Phase 1 fixes (file-disjoint): prospect.py write_queue · batch_promote_xrefs · promote.py chapter parse · inject SyntaxError guard · docs drift. Parallel: M4b when Phase 1–3 green on WIN.
-windows: Phase 1–2 fixes + complete WIN 7-dim thorough audit remainder. Merged plan: docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md. Standing user approval — fixes GO. HOLD Kobo device QA until Phase 1–3.
+mac: ▶ FRESH SESSION: Phase 1 fixes (disjoint) — prospect.py write_queue · batch_promote_xrefs false-promote · promote.py _chapter_from_id · inject.py SyntaxError guard · docs/MATRIX_MAP count drift. Do NOT touch build_edition.py until WIN audit done. M4b HOLD.
+windows: ★ FRESH SESSION START HERE: Audit FIRST — thorough 7 dims (mint10/11 bar) → append docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md → THEN Phase 1–2 fixes. LANE=win local. One job at a time. Mac findings @ b1b9dffd.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 100, 2026-06-16T02:57:33Z) — mode=parallel
+
+**Assignments:** mac = ▶ FRESH SESSION: Phase 1 fixes (disjoint) — prospect.py write_queue · batch_promote_xrefs false-promote · promote.py _chapter_from_id · inject.py SyntaxError guard · docs/MATRIX_MAP count drift. Do NOT touch build_edition.py until WIN audit done. M4b HOLD. · windows = ★ FRESH SESSION START HERE: Audit FIRST — thorough 7 dims (mint10/11 bar) → append docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md → THEN Phase 1–2 fixes. LANE=win local. One job at a time. Mac findings @ b1b9dffd.
+
+**Turn 100 fresh-session prep.** User: speed OK, thoroughness = Claude mint10/11 always. WIN fixes HOLD until 7 dims complete.
+
 ---
 
 ## ◦ windows assign (turn 99, 2026-06-16T02:52:28Z) — mode=parallel

@@ -111,6 +111,22 @@ See `docs/superpowers/plans/2026-06-08-round6-split-audit-plan.md` §Meantime ba
 
 **WIN while Mac runs 8b:** PAUSE win audit re-run. May finish `tests-run` pytest only. Merge waits for Mac 8b push.
 
+## Fresh WIN session bootstrap (turn 100, 2026-06-16)
+
+**Priority order:** audit 7 dims **before** WIN fixes. Mac does Phase 1 fixes in parallel.
+
+1. `/resume` → pull → `mark-seen`
+2. Read: `dev/SESSION_STATE.md` (top) · `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md` · `_audit-split/findings-mac.json` @ `b1b9dffd`
+3. `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit); startup log must show **7 dimensions**
+4. Run thorough pass (mint10/11 bar — adversarial verify every survivor; UNVERIFIED if skeptics empty):
+   - `tests-run` (full `not slow` pytest, one run, no buffering tricks)
+   - `opt-build`, `byte-stability`, `rx-surfaces`, `claude-setup`, `popup-integrity`, `github-gitlab`
+5. Append verified WIN survivors to merge doc; update counts
+6. **Then** Phase 1–2 fixes per plan. Delete `lane-transfer/audit` after merge consumed
+7. **Discipline:** one heavy command at a time; if something fails 3×, step back to bigger picture
+
+**Mac (parallel):** Phase 1 — `prospect.py`, `batch_promote_xrefs`, `promote.py`, `inject.py`, docs drift
+
 ---
 
 ## Deferred (not in this audit run)

@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 96 — ROUND-8 AUDIT MAC HALF).** 28 survivors → `lane-transfer/audit` @ `9536bf34`. **WIN:** 7 dims + merge (truth_owner). **Mac parallel:** M4b Kindle fork. FINDINGS-ONLY — no fixes until merged plan approved. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-16 (🪟 WIN FRESH SESSION — ROUND-8 WIN HALF).** Mac 8b DONE @ `b1b9dffd` (35 survivors). **WIN:** thorough 7 dims FIRST → append merge doc → THEN Phase 1–2 fixes. **Mac parallel:** Phase 1 ingest fixes (prospect/batch_promote/promote/inject). Quality bar = mint10/11 adversarial verify (speed OK, thoroughness not negotiable). Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >
