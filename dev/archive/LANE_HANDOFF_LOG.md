@@ -1057,3 +1057,95 @@ While you (Mac) were idle, the user had Windows edit the site copy, redeploy, an
 - ⚠ CAM on-disk filename `_1SamN_` suffixes are ~+3 shifted — map by penned FOLIO number (newly-acquired f114r+ are correctly named).
 - ⚠ `acquire_cudl_master.py` needs `$env:PYTHONPATH=<repo>` (imports `scripts.core`).
 - ⚠ (Mac) tests via Claude Bash need `export TMPDIR=/Volumes/MacHD2/<dir>`.
+
+## ▶ mac → windows (turn 96, 2026-06-16T01:22:27Z) — mode=parallel
+
+**Done (turn 95, mac):**
+Mac round-8 audit COMPLETE: 14 dims, 28 survivors (6 high / 17 med / 5 low), 0 critical; pushed _audit-split/findings-mac.json @ 9536bf34 on lane-transfer/audit (both remotes)
+
+**Next (turn 96, windows picks up):**
+WIN: LANE=win locally, run 7 dims, pull lane-transfer/audit, deep-audit-merge.js → docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md. Mac: M4b Kindle fork parallel.
+
+**Assignments:** mac = idle — M4b Kindle fork when WIN merge done · windows = ▶ turn 96 — deep-audit round 8 WIN half (7 dims: tests-run, opt-build, byte-stability, rx-surfaces, claude-setup, popup-integrity, github-gitlab) + merge Mac findings @ lane-transfer/audit 9536bf34 → round8-split-audit-findings.md. User Kobo round-15/16 QA continues.
+
+**Watch-outs:**
+FINDINGS-ONLY until user approves merged plan; do NOT commit LANE flip in deep-audit.js
+
+---
+
+## ▶ mac resume (turn 95, 2026-06-16T00:35:00Z) — mode=parallel
+
+**Done (turn 94, windows):**
+K-R13 device PASS; K-R14/15 shipped; round-15/16 kepub on G:; audit round 8 engine prepped (ROUND=8)
+
+**Done (turn 92–95, mac — power-cut recovery):**
+Apple M2 layout directive committed; M3 fan-out 45/45 (power killed fanout mid-epubcheck on `coptic-orthodox` red — file was on disk; verified 0/0/0/0 + K-R2 GREEN; SHA256SUMS merged)
+
+**Next:**
+M3 external handoff → milestone push · Mac deep-audit round 8 (14 dims) · M4b Kindle fork
+
+**Assignments:** mac = M3 `m3-kobo-v0.1.0/` external handoff + milestone push. Deep-audit round 8 — set LANE=mac locally in `.claude/workflows/deep-audit.js` (never commit); 14 dims; FINDINGS-ONLY; push to `lane-transfer/audit` when WIN half ready. Parallel: M4b Kindle fork per `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. · windows = User Kobo round-15/16 spot QA. Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
+
+**Watch-outs:**
+Gen 8:15 needs rebuild with translations fallback; EPUB colour deferred next ship
+
+## ◦ mac assign (turn 92, 2026-06-15T23:45:00Z) — mode=parallel
+
+**Assignments:** mac = ▶ turn 92 (Mac) — **Apple M2 layout directive** committed (`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`): keep original §4.1 badge model on Apple (translation `vn-link` at verse start; **one ◈+count badge at verse end**; polish popups only — do **not** port Kobo backmatter or Kindle M4b forks to `tablet`). M3 fan-out 45/45 → SHA256SUMS → external `m3-kobo-v0.1.0/` handoff → **milestone push**. **Next:** M4b Kindle fork; M2 Apple polish per directive; deep-audit round 8. · windows = ▶ turn 94 DONE — K-R13–K-R15 shipped. **User:** Kobo round-15/16 spot QA. **After M4b STK green:** WIN → **M5 Play Books**; **user** phone-tests Play Books.
+
+**★▶ MAC addendum (2026-06-15, turn 92) — ★ APPLE M2 LAYOUT DIRECTIVE (user).**
+① **North star:** the pre-fork original — Apple Books proved EPUB3 popups; badge+count at verse end worked "VERY CLEAN" (M2-1 PASS).
+② **Scripture contract:** translation popup **before** verse (`vn-link`); **one study badge per verse at end** with note count; every note still ships inside the merged popup.
+③ **Polish scope:** translation + study popup typography/cascade only — Apple's plain footnote sheet, no custom overlay.
+④ **Do not bleed:** Kobo K-R9 backmatter / per-category badges; Kindle M4b inline suppress — those are `eink` / `kindle` only.
+⑤ **Doc:** `docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md` · wired into release plan §4 Track F + `EREADERS.md`.
+
+**★▶ MAC addendum (2026-06-15, turn 91) — ★ KINDLE PHONE QA + M4b PREP (fresh session).**
+① **User QA** on STK pack `~/Desktop/YHWH-kindle-stk-qa/` (01 ethiopian navy, 05 scholarly navy) — both editions same defects; not random teleports (chapter page-break anchors: 3:24, 8:10, 11:26…).
+② **Works on Kindle phone:** reference table auto-expand (`IMG_0441`).
+③ **Does not work:** inline study badges; translation taps; cramped ToC rows.
+④ **Doc:** `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` (repro + proposed fork).
+⑤ **Kobo model to mirror (pulled `bc4af802`):** WIN K-R9c — study badges → glossary backmatter; translations stay `vn-link` popups on Kobo.
+⑥ **M3:** fan-out 41/45 at push; complete → `m3-kobo-v0.1.0/` handoff (catalog still gated on Kobo round-9 PASS).
+
+**★▶ WIN addendum (2026-06-15, turn 93) — K-R9b/c SHIPPED + QA KEPUB ON DISK.**
+① Glossary splitter fixes 73 MB crash (`split_study_glossary_document`, depth-aware section close).
+② Per-category coloured study badges (K-R9c) — navigate to glossary, not popup.
+③ QA: `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-15T135228Z.kepub.epub` in `build/kobo-marker-ab/`.
+④ Device checklist: `docs/superpowers/notes/2026-06-15-kobo-round9-device-qa.md`.
+⑤ Next session first task: `docs/superpowers/plans/2026-06-15-toolchain-plugin-update-audit.md`.
+
+**★ PLAN POINTER (STANDING — both lanes, every session):** The v1.0.0 release gate plan lives at
+`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`. Also mirrored in `dev/PLAN_2026-05-29-roadmap.md`
+§LANE V. **No v1.0.0 tag until §8 Definition of Done is complete.** M4 DONE; M3+M5+audit block tag.
+
+**★▶ MAC addendum (2026-06-14, turn 90) — ★ M3 KOBO PIPELINE SHIPPED + FAN-OUT IN PROGRESS.**
+① **`post_process: kepubify`** wired in `build_format_matrix.py` + `FORMAT_MATRIX` kobo row (`scripts/build_edition.py`). Flow: eink base → kepubify v4.0.4 once per edition → signature copy + variant cover swaps on kepub (post-kepubify, per spec §4).
+② **`dev/M3_Kobo_Assets_v0.1.0.txt`** committed (exact 45 names; mirror M4 handoff pattern).
+③ **Smoke:** catholic-study 5/5 gated green (epubcheck 0/0/0/0 + ALL K-R2 GREEN).
+④ **Fan-out:** `build/m3_fanout.sh` autonomous overnight → `build/matrix-m3/` (7/45 at commit; ethiopian-tewahedo active). Artifacts = gated baseline; catalog attach waits 45/45 + user Kobo taps (plan §B6).
+⑤ **WIN when ready:** pick up from `YHWH-v2.4-releases/m3-kobo-v0.1.0/` (same drive pattern as M4) → attach 45 to v0.1.0 + merge SHA256SUMS + `gen_release_catalog`.
+
+**★▶ WIN addendum (2026-06-14, turn 90) — v1.0.0 RELEASE PLAN authored + lane assignments set.**
+User directive: program not v1.0.0-ready without deep audit + all readers proven. Plan covers:
+parallel tracks (audit · Kobo M3 · Play M5 · docs · content-opportunistic), phase map P0–P8,
+Definition of Done checklist, post-tag pointer to master roadmap. Mac: pull this turn, ACK, start M3.
+WIN: audit round 8 + B1 orphan gate. User: Kobo taps + Play phone QA when staged.
+
+**★▶ WIN addendum (2026-06-14, turn 89) — ★ M4 KINDLE COLUMN LIVE ON WEBSITE + RELEASE.**
+① Pulled Mac turn 87-88 (`8a377c44`); picked up 45 EPUBs from `F:\YHWH-v2.4-releases\m4-kindle-v0.1.0\`.
+② `gh release upload v0.1.0 --clobber` — all 45 kindle EPUBs attached to GitHub release.
+③ SHA256SUMS merged (97 existing + 45 new → 141 lines) and uploaded.
+④ `gen_release_catalog --tag v0.1.0` → **live columns: everywhere, apple, kindle** (188 assets).
+⑤ `node website/build.mjs` + deploy to `yhwh-site-publish` → pushed `c8c87d5` (GitHub Pages).
+**M4 arc COMPLETE.** Next: M3 Kobo column (user taps pending) · M5 Play Books · v1.0.0 laundry (stale docs rewrite).
+
+## ◦ win assign (turn 89, 2026-06-14T19:22:00Z) — mode=parallel
+
+**Assignments:** mac = idle (M4 done). · windows = ✔ turn 89 M4 attach/deploy SHIPPED (see addendum above). Next backlog: v1.0.0 stale docs (`RELEASE_NOTES_v1.0.0.md` already rewritten; `HANDOFF_README_v7.md` still obsolete) · Grok/ping tooling from stash (turn 87 WIP).
+
+## ◦ mac assign (turn 88, 2026-06-14T18:11:02Z) — mode=parallel
+
+**Assignments:** mac = ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle. · windows = ▶ turn 87 (Windows) — ★ M4 LIVE (STK 6/6 PASS) — GO: plug external drive YHWH-v2.4-releases\m4-kindle-v0.1.0\ → attach 45 to v0.1.0 release + merge SHA256SUMS + gen_release_catalog + deploy website.
+
+---

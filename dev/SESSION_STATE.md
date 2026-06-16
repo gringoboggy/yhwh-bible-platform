@@ -1,8 +1,10 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, all composed to JPG. Primary A set + A/B/C picker @ `d1a2256e`. Pipeline: `COVER_MANIFEST.yaml` · `generate_book_title_covers.py`.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 101).** `/resume` → pull @ `e8b1dac7` → **① Audit FIRST** — thorough 7 dims (mint10/11 bar). **② Fixes AFTER** audit appended to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit). Mac findings @ `b1b9dffd`. One job at a time. **HOLD:** Kobo QA · M3 attach until audit+fixes land. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 100).** **① Audit FIRST** — thorough 7 dims (mint10/11 bar: find→verify→synthesize; real pytest/builds/gh). **② Fixes AFTER** audit appended to merge doc. Mac runs Phase 1 fixes in parallel (disjoint files). **Bootstrap:** `/resume` → pull → `LANE=win` locally in `.claude/workflows/deep-audit.js` (never commit) → `Workflow(deep-audit.js)` or equivalent step-by-step with skeptic verify per finding → append to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. Mac findings @ `b1b9dffd`. **One job at a time** (no parallel pytest/lint). **HOLD:** WIN fixes · Kobo QA until 7 dims done. Plan: `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION (🖥️ Mac, turn 101).** `/resume` → pull @ `e8b1dac7`. Covers DONE (A/B/C all unique @ `e8b1dac7`). **Next:** Phase 1 disjoint fixes — `prospect.py` write_queue · `batch_promote_xrefs` · `promote.py` `_chapter_from_id` · `inject.py` SyntaxError guard · `MATRIX_MAP` count drift. Optional smoke: `/covers` A/B/C spot-check. **HOLD:** `build_edition.py` · M4b until WIN audit done.
+>
+> **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, composed to JPG. Builds on primary A refresh @ `d1a2256e`. Shipped @ `e8b1dac7`.
 >
 > **➤➤➤ 2026-06-16 (🪟 Windows, turn 99 — MERGED FINDINGS + FIXES GO).** Merged plan landed; badge-trail stale test fixed. User standing approval for fixes; audit thoroughness bar unchanged.
 >
@@ -32,7 +34,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** Mac 8b DONE @ `b1b9dffd` — WIN merge + 7 dims next. **Device-QA queue ON HOLD** until user approves merged findings plan. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** A/B/C unique art complete @ `e8b1dac7`. **Audit:** Mac 8b DONE @ `b1b9dffd` — WIN 7 dims next. **Device-QA ON HOLD** until audit+fixes. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
