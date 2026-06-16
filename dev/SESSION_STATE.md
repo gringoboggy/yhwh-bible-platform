@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 103).** `/resume` → pull @ `2194f573`+ → **pytest audit2** triage when done → Phase 3 (`build_edition.py` / `generate_verse_popups.py` / `config.py`). Shipped @ `9b877205`: build-my-bible HTTP 404 + edition_stats cache keys. `LANE=win` local (never commit). **HOLD:** M3 attach · Kobo QA. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 104).** `/resume` → pull → **pytest audit2** triage → Phase 3 (`build_edition.py` / `generate_verse_popups.py` / `config.py`). **Shipped turn 104:** book-title covers **v4 reimagine** (86×3 full-bleed, no leather/gold border) + external package on `E:\YHWH-v2.4-releases\book-title-covers-v4-reimagine-2026-06-16\`. `LANE=win` local (never commit). Baton **mac** (truth_owner); mode=parallel.
 >
-> **➤➤➤ Mac (turn 103 — IDLE).** Phase 1+2 **DONE** @ `2194f573`. **Idle** — await WIN fresh-session bootstrap (Phase 4 queued: phantom `1ma/2ma` purge · `translations.py` ex→exo alias · 1ki ch7-10 EN · Windows naming align). **HOLD:** `build_edition.py` · `web.py` · M4b · M3 until WIN pytest lands.
+> **➤➤➤ Mac (turn 104 — `/resume` NOW).** **INGEST v4 book title covers** — `git pull` (preferred) or rsync from `E:\YHWH-v2.4-releases\book-title-covers-v4-reimagine-2026-06-16\` per `MAC_INGEST.md`. Then: `generate_book_title_covers.py audit` ×3 · `test_book_title_covers.py` · wire `ethiopian-tewahedo` `book_covers` · `/covers` A/B/C smoke. **Parallel Phase 4** still applies. **HOLD:** `build_edition.py` · `web.py` · M4b · M3 until WIN pytest lands.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac — ★ COVER ALT B/C UNIQUE COMPLETE).** **Alt02 (B)** + **Alt03 (C):** 86/86 unique Imagine scenes each, composed to JPG. Builds on primary A refresh @ `d1a2256e`. Shipped @ `e8b1dac7`.
 >

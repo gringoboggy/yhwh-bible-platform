@@ -1,13 +1,28 @@
 ---
 mode: parallel
 turn: 104
-from: mac
-updated: 2026-06-16T14:52:32Z
+from: windows
+updated: 2026-06-16T15:42:26Z
 status: working
-mac: idle — await WIN fresh-session bootstrap (Phase 4 queued @ turn 103)
-windows: ★ pytest audit2 triage when done → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). Shipped 9b877205. truth_owner. One job at a time.
-truth_owner: windows
-holder: windows
+mac: ▶ INGEST v4 book title covers — git pull (or E:/YHWH-v2.4-releases/book-title-covers-v4-reimagine-2026-06-16 per MAC_INGEST.md) → audit ×3 + test_book_title_covers + wire ethiopian-tewahedo book_covers + /covers A/B/C smoke. Parallel Phase 4 disjoint still applies.
+windows: ★ pytest audit2 triage → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). One job at a time.
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 104, 2026-06-16T15:42:26Z) — mode=parallel
+
+**Done (turn 104, windows):**
+v4 reimagine 86×3 book title covers shipped; manifest+compose+regen-queue; external package on `E:\YHWH-v2.4-releases\book-title-covers-v4-reimagine-2026-06-16\` with `MAC_INGEST.md` + `SHA256SUMS.txt`
+
+**Next (turn 104, mac picks up):**
+Mac: ingest+verify covers → ethiopian-tewahedo wire + /covers smoke. WIN: pytest triage → Phase 3.
+
+**Assignments:** mac = ▶ INGEST v4 book title covers (see MAC_INGEST.md on external drive or `git pull`) → audit ×3 + `test_book_title_covers` + wire `ethiopian-tewahedo` `book_covers` + `/covers` A/B/C smoke. Parallel Phase 4 disjoint still applies. · windows = ★ pytest audit2 triage → Phase 3 (`build_edition.py` · `generate_verse_popups.py` · `config.py` cache). One job at a time.
+
+**Watch-outs:**
+Never commit `LANE=win` in `deep-audit.js`; one heavy job at a time on WIN
+
 ---
 
 ## ◦ mac assign (turn 104, 2026-06-16T14:52:32Z) — mode=parallel

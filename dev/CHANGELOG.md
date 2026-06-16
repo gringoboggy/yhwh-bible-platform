@@ -4,11 +4,19 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Windows session (turn 104) — ★ book title covers v4 reimagine
+
+**User-approved art direction:** full-bleed painterly scenes (no leather, no gold border);
+Midjourney refs inspiration-only; unified Grok family across 86 Ethiopian-canon books.
+**Shipped:** 258 reimagined scenes + 258 composed JPGs (A/B/C); `COVER_MANIFEST.yaml`
+v4 (`regen_wave: v4_reimagine`, `scene_source: grok_first`); `generate_book_title_covers.py`
+reimagine prompts + `regen-queue` + edge-fade compose; `tests/test_book_title_covers.py` updated.
+**External handoff:** `E:\YHWH-v2.4-releases\book-title-covers-v4-reimagine-2026-06-16\`
+(+ `MAC_INGEST.md`, `SHA256SUMS.txt`). Mac: pull or rsync → audit ×3 → ethiopian-tewahedo wire.
+
 ## 2026-06-16 — Mac session wrap (turn 104 assign) — idle, await WIN bootstrap
 
-Mac lane idle after Phase 1+2 complete @ `2194f573`. Assign turn 104: mac=idle;
-WIN to finish pytest+audit+fixes and write Mac fresh-session bootstrap in
-`LANE_HANDOFF` + `SESSION_STATE`.
+Mac lane idle after Phase 1+2 complete @ `2194f573`. Superseded by WIN turn-104 v4 covers handoff.
 
 ## 2026-06-16 — Mac session (turn 102b) — release cleanup + site deploy + cover smoke
 

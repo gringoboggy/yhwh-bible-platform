@@ -10,6 +10,8 @@ from scripts.core import covers as cover_core
 from scripts.generate_book_title_covers import (
     DEFAULTS_DIR,
     MANIFEST_PATH,
+    _apply_grok_style_grade,
+    _apply_scene_fade_vignette,
     build_prompt,
     cmd_audit,
     compose_scene,
@@ -24,6 +26,9 @@ class TestBookTitleCovers:
         assert "books" in data
         prompt = build_prompt(data, "gen", data["books"]["gen"])
         assert "creation light" in prompt
+        assert "full-bleed" in prompt.lower() or "full bleed" in prompt.lower()
+        assert data["style"]["border"] == "none"
+        assert "no leather" in prompt.lower() or "reimagine" in prompt.lower()
         assert "No text" in prompt or "no text" in prompt.lower()
 
     def test_audit_reports_full_ethiopian_coverage(self):
@@ -35,13 +40,21 @@ class TestBookTitleCovers:
 
     def test_compose_scene_writes_expected_size(self, tmp_path: Path):
         scene = tmp_path / "scene.png"
-        border = tmp_path / "border.png"
         out = tmp_path / "out.jpg"
         Image.new("RGB", (800, 1200), (80, 10, 20)).save(scene)
-        Image.new("RGBA", (800, 1200), (255, 215, 0, 80)).save(border)
-        compose_scene(scene, border, out)
+        compose_scene(scene, out, vignette=0.12)
         with Image.open(out) as img:
             assert img.size == (1024, 1536)
+
+    def test_style_grade_and_vignette_change_pixels(self):
+        base = Image.new("RGB", (400, 600))
+        for y in range(600):
+            for x in range(400):
+                base.putpixel((x, y), (80 + x // 8, 30 + y // 12, 40))
+        graded = _apply_grok_style_grade(base)
+        assert graded.getpixel((200, 300)) != base.getpixel((200, 300))
+        faded = _apply_scene_fade_vignette(graded, strength=0.12)
+        assert faded.getpixel((5, 5)) != graded.getpixel((5, 5))
 
     def test_variant_catalog_has_three_slots(self):
         rows = cover_core.book_cover_variant_catalog("gen")

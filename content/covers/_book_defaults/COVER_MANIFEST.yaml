@@ -1,19 +1,36 @@
-# Per-book title-page cover art manifest — Ethiopian missal-red family.
-# Scenes land in _scenes/<code>.png; compose via scripts/generate_book_title_covers.py
-# → <code>.jpg (1024×1536). Title text is HTML/CSS overlay — no text in art.
+# Per-book title-page cover art manifest — reimagined full-bleed scene plates (v4).
+# REGEN: Each book is redrawn in a unified Grok painterly family. Midjourney plates
+# in _scenes/_midjourney/ are REFERENCE ONLY (subject + scenery ideas) — never
+# composited or shipped. Finished regen lands in _scenes/<variant>/<code>.jpg.
+# Compose: crimson grade + soft edge fade (no leather, no gold border). A/B/C share
+# the same plate treatment; variants differ by composition prompt only.
+# Edition Bible covers still use content/covers/templates/ (leather + gold).
 
 style:
-  template: "05_missal_central_red"
-  border: "border_05_corner_accent"
+  template: null
+  border: none
   output: [1024, 1536]
+  regen_wave: v4_reimagine
+  compose:
+    sharpen: 1.14
+    vignette: 0.12
+    style_grade: true
+    scene_source: grok_first
+  reimagine:
+    reference_dir: "_midjourney"
+    use_reference: inspiration_only
   prompt_prefix: >
-    Vertical 2:3 book title plate illustration. Deep crimson burgundy pebbled
-    leather texture fills the frame. Modest symbolic motif in the central area:
+    Completely reimagine this biblical book title plate from scratch in a unified
+    cohesive family style. Use any reference only for subject and scenery ideas —
+    redraw every element fresh. Vertical 2:3 full-bleed painterly environment
+    filling the frame edge to edge:
   prompt_suffix: >
-    Soft directional golden light from above. Sharp tooled leather grain,
-    muted gold accents. Painterly illustrated style — more real than flat
-    cartoon, not a photograph, not hyperreal CGI. No text, no letters,
-    no watermark, no human faces in close-up. Liturgical study-Bible aesthetic.
+    Deep crimson and burgundy atmosphere, warm directional golden-hour light,
+    refined illustrative brushwork with sharper detail. Painterly realism — more
+    real than flat cartoon, not a photograph, not hyperreal CGI. No leather texture,
+    no book binding, no gold frame, no decorative border. Soft natural edges that
+    belong to the scene. No text, no letters, no watermark, no human faces in
+    close-up. Ethiopian study-Bible plate family — every book matches this look.
   variants:
     default:
       scene_dir: ""

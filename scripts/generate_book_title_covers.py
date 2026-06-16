@@ -1,13 +1,18 @@
-"""Compose per-book title-page cover JPGs from scene PNGs + border overlay.
+"""Compose per-book title-page cover JPGs from reimagined full-bleed scene art.
 
 Workflow (see content/covers/_book_defaults/COVER_MANIFEST.yaml):
-  1. Place raw scene art in ``_scenes/<variant>/<code>.jpg`` (variant dirs:
-     ``""`` = default, ``alt02``, ``alt03``).
-  2. Run ``python scripts/generate_book_title_covers.py compose [--variant alt02]``.
-  3. Output: ``covers/_book_defaults/<variant>/<code>.jpg`` (1024×1536).
+  1. Midjourney refs live in ``_scenes/_midjourney/<code>.jpg`` (inspiration only).
+  2. Reimagined Grok scenes land in ``_scenes/<variant>/<code>.jpg``.
+  3. ``python scripts/generate_book_title_covers.py regen-queue`` lists regen work.
+  4. ``python scripts/generate_book_title_covers.py compose [--variant alt02]``.
+  5. Output: ``covers/_book_defaults/<variant>/<code>.jpg`` (1024×1536).
+
+Plates are full background scenes — no leather, no gold border. A/B/C share the
+same compose grade and edge fade; variants differ by reimagine composition prompt.
 
 Audit: ``python scripts/generate_book_title_covers.py audit``
 Prompts: ``python scripts/generate_book_title_covers.py prompts [--variant alt02]``
+Regen:  ``python scripts/generate_book_title_covers.py regen-queue [--variant alt02]``
 """
 
 from __future__ import annotations
@@ -17,20 +22,28 @@ import sys
 from pathlib import Path
 
 import yaml
-from PIL import Image, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageOps
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 DEFAULTS_DIR = REPO_ROOT / "content" / "covers" / "_book_defaults"
 SCENES_ROOT = DEFAULTS_DIR / "_scenes"
+MIDJOURNEY_DIR = SCENES_ROOT / "_midjourney"
 MANIFEST_PATH = DEFAULTS_DIR / "COVER_MANIFEST.yaml"
-BORDERS_DIR = REPO_ROOT / "content" / "assets" / "borders"
 
 WORK_WIDTH = 1792
 WORK_HEIGHT = 2688
 FINAL_WIDTH = 1024
 FINAL_HEIGHT = 1536
+
+# Shared look for default / alt02 / alt03 — only crop centering varies.
+_PLATE_COMPOSE = {"sharpen": 1.14, "vignette": 0.12}
+_VARIANT_CENTERING: dict[str, tuple[float, float]] = {
+    "default": (0.5, 0.5),
+    "alt02": (0.5, 0.44),
+    "alt03": (0.5, 0.56),
+}
 
 
 def _load_manifest() -> dict:
@@ -58,6 +71,17 @@ def _out_dir(manifest: dict, variant: str) -> Path:
     return DEFAULTS_DIR / sub if sub else DEFAULTS_DIR
 
 
+def _compose_opts(manifest: dict) -> dict:
+    style = manifest.get("style") or {}
+    compose = style.get("compose") or {}
+    sharpen = float(compose.get("sharpen", _PLATE_COMPOSE["sharpen"]))
+    vignette = float(compose.get("vignette", _PLATE_COMPOSE["vignette"]))
+    style_grade = compose.get("style_grade", True)
+    if isinstance(style_grade, str):
+        style_grade = style_grade.lower() not in {"false", "0", "no"}
+    return {"sharpen": sharpen, "vignette": vignette, "style_grade": bool(style_grade)}
+
+
 def _books_to_process(manifest: dict, only: str | None, status: str | None) -> list[tuple[str, dict]]:
     books = manifest.get("books") or {}
     rows: list[tuple[str, dict]] = []
@@ -83,6 +107,35 @@ def build_prompt(manifest: dict, code: str, rec: dict, variant: str = "default")
     return " ".join(p for p in parts if p)
 
 
+def _reference_dir(manifest: dict) -> Path:
+    style = manifest.get("style") or {}
+    reimagine = style.get("reimagine") or {}
+    sub = (reimagine.get("reference_dir") or "_midjourney").strip()
+    return SCENES_ROOT / sub
+
+
+def reference_scene_path(manifest: dict, code: str) -> Path | None:
+    """Midjourney reference for reimagine prompts — never used in compose."""
+    return _find_scene_file(_reference_dir(manifest), code)
+
+
+def reimagine_out_path(manifest: dict, variant: str, code: str) -> Path:
+    return _scene_dir(manifest, variant) / f"{code}.jpg"
+
+
+def build_reimagine_prompt(manifest: dict, code: str, rec: dict, variant: str = "default") -> str:
+    """Image-edit prompt: redraw from scratch using reference for scenery ideas only."""
+    base = build_prompt(manifest, code, rec, variant)
+    ref = reference_scene_path(manifest, code)
+    if ref is None:
+        return base
+    return (
+        f"{base} The attached reference suggests the book's scenery and symbolic "
+        "subject only — do not copy its style, borders, or composition. Redraw as a "
+        "new refined plate in the unified family described above."
+    )
+
+
 def _scene_stems_in_dir(scene_dir: Path) -> set[str]:
     if not scene_dir.is_dir():
         return set()
@@ -90,6 +143,28 @@ def _scene_stems_in_dir(scene_dir: Path) -> set[str]:
     for ext in ("png", "jpg", "jpeg"):
         out |= {p.stem for p in scene_dir.glob(f"*.{ext}")}
     return out
+
+
+def _find_scene_file(directory: Path, code: str) -> Path | None:
+    if not directory.is_dir():
+        return None
+    for ext in ("jpg", "jpeg", "png"):
+        candidate = directory / f"{code}.{ext}"
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _resolve_scene_path(manifest: dict, variant: str, code: str) -> tuple[Path | None, str]:
+    """Prefer reimagined Grok scenes; Midjourney refs are never shipped."""
+    grok = _find_scene_file(_scene_dir(manifest, variant), code)
+    if grok is not None:
+        return grok, "reimagined"
+    if variant != "default":
+        grok = _find_scene_file(_scene_dir(manifest, "default"), code)
+        if grok is not None:
+            return grok, "reimagined-fallback"
+    return None, "missing"
 
 
 def cmd_audit(args: argparse.Namespace) -> int:
@@ -103,12 +178,14 @@ def cmd_audit(args: argparse.Namespace) -> int:
     out_dir = _out_dir(manifest, variant)
     existing = {p.stem for p in out_dir.glob("*.jpg")} if out_dir.is_dir() else set()
     scenes = _scene_stems_in_dir(_scene_dir(manifest, variant))
+    mj = _scene_stems_in_dir(MIDJOURNEY_DIR)
 
     print(f"Variant: {variant}")
     print(f"Manifest books: {len(books)}")
     print(f"Ethiopian canon: {len(eth)}")
+    print(f"Midjourney scenes: {len(mj)}")
+    print(f"Grok scenes ({variant}): {len(scenes)}")
     print(f"JPGs in {out_dir.relative_to(REPO_ROOT)}: {len(existing)}")
-    print(f"Scenes: {len(scenes)}")
     missing_jpg = [c for c in eth if c not in existing]
     print(f"Canon missing JPG: {len(missing_jpg)}")
     if missing_jpg:
@@ -119,52 +196,110 @@ def cmd_audit(args: argparse.Namespace) -> int:
 def cmd_prompts(args: argparse.Namespace) -> int:
     manifest = _load_manifest()
     variant = getattr(args, "variant", None) or "default"
+    use_reimagine = getattr(args, "reimagine", False)
     for code, rec in _books_to_process(manifest, args.only, args.status):
         print(f"## {code} ({variant})")
-        print(build_prompt(manifest, code, rec, variant))
+        if use_reimagine:
+            print(build_reimagine_prompt(manifest, code, rec, variant))
+        else:
+            print(build_prompt(manifest, code, rec, variant))
         print()
     return 0
 
 
-def _apply_vignette(img: Image.Image, strength: float = 0.35) -> Image.Image:
-    w, h = img.size
-    inner = Image.new("L", (w, h), 255)
-    border = int(min(w, h) * 0.08)
-    fade = Image.new("L", (w - 2 * border, h - 2 * border), 0)
-    inner.paste(fade, (border, border))
-    mask = ImageOps.fit(inner, (w, h), centering=(0.5, 0.5))
-    mask = mask.filter(ImageFilter.GaussianBlur(radius=int(min(w, h) * 0.06)))
-    dark = Image.new("RGB", (w, h), (20, 4, 8))
-    return Image.composite(img, dark, mask.point(lambda p: int(255 - (255 - p) * strength)))
+def cmd_regen_queue(args: argparse.Namespace) -> int:
+    manifest = _load_manifest()
+    variant = getattr(args, "variant", None) or "default"
+    pending = 0
+    for code, rec in _books_to_process(manifest, args.only, args.status):
+        out_path = reimagine_out_path(manifest, variant, code)
+        if getattr(args, "skip_existing", False) and out_path.is_file():
+            continue
+        ref = reference_scene_path(manifest, code)
+        pending += 1
+        print(f"## {code}\t{variant}")
+        print(f"out: {out_path.relative_to(REPO_ROOT)}")
+        print(f"ref: {ref.relative_to(REPO_ROOT) if ref else '(none — motif only)'}")
+        print(build_reimagine_prompt(manifest, code, rec, variant))
+        print()
+    print(f"Pending regen ({variant}): {pending}")
+    return 0
 
 
-def compose_scene(
+def _fit_scene(
     scene_path: Path,
-    border_path: Path,
-    out_path: Path,
     *,
-    sharpen: float = 1.15,
+    size: tuple[int, int] = (WORK_WIDTH, WORK_HEIGHT),
     centering: tuple[float, float] = (0.5, 0.5),
-    vignette: float = 0.35,
-) -> None:
+) -> Image.Image:
     scene = Image.open(scene_path).convert("RGB")
-    scene = ImageOps.fit(
+    return ImageOps.fit(
         scene,
-        (WORK_WIDTH, WORK_HEIGHT),
+        size,
         method=Image.Resampling.LANCZOS,
         centering=centering,
     )
 
+
+def _edge_mean_color(img: Image.Image, band: int = 20) -> tuple[int, int, int]:
+    w, h = img.size
+    pixels: list[tuple[int, int, int]] = []
+    step_x = max(1, w // 36)
+    step_y = max(1, h // 36)
+    for x in range(0, w, step_x):
+        for y in range(band):
+            pixels.append(img.getpixel((x, y)))
+            pixels.append(img.getpixel((x, h - 1 - y)))
+    for y in range(0, h, step_y):
+        for x in range(band):
+            pixels.append(img.getpixel((x, y)))
+            pixels.append(img.getpixel((w - 1 - x, y)))
+    if not pixels:
+        return (48, 16, 22)
+    return tuple(sum(channel) // len(pixels) for channel in zip(*pixels, strict=True))
+
+
+def _apply_grok_style_grade(img: Image.Image) -> Image.Image:
+    """Crimson painterly grade — atmosphere only, no leather frame compositing."""
+    graded = ImageEnhance.Color(img).enhance(1.12)
+    graded = ImageEnhance.Contrast(graded).enhance(1.05)
+    tint = Image.new("RGB", img.size, (92, 20, 30))
+    warmed = ImageChops.soft_light(graded, tint)
+    return Image.blend(graded, warmed, 0.20)
+
+
+def _apply_scene_fade_vignette(img: Image.Image, strength: float = 0.12) -> Image.Image:
+    """Soft edge fade that blends into the scene's own border colors."""
+    w, h = img.size
+    edge_color = _edge_mean_color(img)
+    fade_target = Image.new("RGB", (w, h), edge_color)
+
+    margin_x = int(w * 0.05)
+    margin_y = int(h * 0.05)
+    mask = Image.new("L", (w, h), 0)
+    inner = Image.new("L", (w - 2 * margin_x, h - 2 * margin_y), 255)
+    mask.paste(inner, (margin_x, margin_y))
+    mask = mask.filter(ImageFilter.GaussianBlur(radius=int(min(w, h) * 0.085)))
+
+    faded = Image.composite(img, fade_target, mask)
+    return Image.blend(img, faded, strength)
+
+
+def compose_scene(
+    scene_path: Path,
+    out_path: Path,
+    *,
+    sharpen: float = 1.14,
+    centering: tuple[float, float] = (0.5, 0.5),
+    vignette: float = 0.12,
+    style_grade: bool = True,
+) -> None:
+    scene = _fit_scene(scene_path, centering=centering)
+    if style_grade:
+        scene = _apply_grok_style_grade(scene)
     if sharpen != 1.0:
         scene = ImageEnhance.Sharpness(scene).enhance(sharpen)
-    scene = _apply_vignette(scene, strength=vignette)
-
-    if border_path.is_file():
-        border = Image.open(border_path).convert("RGBA")
-        border = ImageOps.fit(border, (WORK_WIDTH, WORK_HEIGHT), method=Image.Resampling.LANCZOS)
-        scene_rgba = scene.convert("RGBA")
-        scene_rgba.alpha_composite(border)
-        scene = scene_rgba.convert("RGB")
+    scene = _apply_scene_fade_vignette(scene, strength=vignette)
 
     final = scene.resize((FINAL_WIDTH, FINAL_HEIGHT), Image.Resampling.LANCZOS)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -196,38 +331,22 @@ def cmd_ingest(args: argparse.Namespace) -> int:
     return 0
 
 
-_VARIANT_COMPOSE: dict[str, dict] = {
-    "default": {"sharpen": 1.15, "centering": (0.5, 0.5), "vignette": 0.35},
-    "alt02": {"sharpen": 1.28, "centering": (0.5, 0.38), "vignette": 0.30},
-    "alt03": {"sharpen": 1.05, "centering": (0.5, 0.62), "vignette": 0.42},
-}
-
-
 def cmd_bootstrap_alts(args: argparse.Namespace) -> int:
-    """Compose alt02/alt03 from default scenes (bootstrap until unique art lands)."""
+    """Compose alt02/alt03 from resolved scene sources (MJ-first)."""
     manifest = _load_manifest()
-    style = manifest.get("style") or {}
-    border_path = BORDERS_DIR / f"{style.get('border') or 'border_05_corner_accent'}.png"
-    scene_dir = _scene_dir(manifest, "default")
+    opts = _compose_opts(manifest)
     composed = 0
     for variant in ("alt02", "alt03"):
         if args.only_variant and variant != args.only_variant:
             continue
         out_dir = _out_dir(manifest, variant)
-        opts = _VARIANT_COMPOSE[variant]
+        centering = _VARIANT_CENTERING[variant]
         for code, _rec in _books_to_process(manifest, args.only, None):
-            scene_path = next(
-                (
-                    scene_dir / f"{code}.{ext}"
-                    for ext in ("png", "jpg", "jpeg")
-                    if (scene_dir / f"{code}.{ext}").is_file()
-                ),
-                None,
-            )
+            scene_path, _src = _resolve_scene_path(manifest, variant, code)
             if scene_path is None:
                 continue
             out_path = out_dir / f"{code}.jpg"
-            compose_scene(scene_path, border_path, out_path, **opts)
+            compose_scene(scene_path, out_path, centering=centering, **opts)
             composed += 1
             print(f"bootstrap {variant} {code}")
     print(f"Done: {composed} bootstrap composes")
@@ -237,41 +356,34 @@ def cmd_bootstrap_alts(args: argparse.Namespace) -> int:
 def cmd_compose(args: argparse.Namespace) -> int:
     manifest = _load_manifest()
     variant = getattr(args, "variant", None) or "default"
-    style = manifest.get("style") or {}
-    border_name = style.get("border") or "border_05_corner_accent"
-    border_path = BORDERS_DIR / f"{border_name}.png"
-    if not border_path.is_file():
-        print(f"Border not found: {border_path}", file=sys.stderr)
-        return 1
+    opts = _compose_opts(manifest)
+    centering = _VARIANT_CENTERING.get(variant, (0.5, 0.5))
 
-    scene_dir = _scene_dir(manifest, variant)
     out_dir = _out_dir(manifest, variant)
-    scene_dir.mkdir(parents=True, exist_ok=True)
     composed = 0
     skipped = 0
+    reimagined = 0
     for code, _rec in _books_to_process(manifest, args.only, args.status):
-        scene_path = next(
-            (scene_dir / f"{code}.{ext}" for ext in ("png", "jpg", "jpeg") if (scene_dir / f"{code}.{ext}").is_file()),
-            None,
-        )
+        scene_path, source = _resolve_scene_path(manifest, variant, code)
         out_path = out_dir / f"{code}.jpg"
         if scene_path is None:
-            print(f"skip {code}: no scene in {scene_dir.name or 'root'}")
+            print(f"skip {code}: no reimagined scene — run regen-queue")
             skipped += 1
             continue
-        opts = _VARIANT_COMPOSE.get(variant, {})
+        reimagined += 1
+        sharpen = args.sharpen if args.sharpen != 1.15 else opts["sharpen"]
         compose_scene(
             scene_path,
-            border_path,
             out_path,
-            sharpen=args.sharpen if args.sharpen != 1.15 else opts.get("sharpen", args.sharpen),
-            centering=opts.get("centering", (0.5, 0.5)),
-            vignette=opts.get("vignette", 0.35),
+            sharpen=sharpen,
+            centering=centering,
+            vignette=opts["vignette"],
+            style_grade=opts["style_grade"],
         )
-        print(f"composed {code} -> {out_path.relative_to(REPO_ROOT)}")
+        print(f"composed {code} ({source}) -> {out_path.relative_to(REPO_ROOT)}")
         composed += 1
 
-    print(f"Done: {composed} composed, {skipped} skipped")
+    print(f"Done: {composed} composed ({reimagined} reimagined scenes), {skipped} skipped")
     return 0 if composed or skipped else 1
 
 
@@ -294,8 +406,20 @@ def main(argv: list[str] | None = None) -> int:
     p_prompts = sub.add_parser("prompts", help="Print image-generation prompts from manifest")
     p_prompts.add_argument("--only", help="Single book code")
     p_prompts.add_argument("--status", help="Filter by manifest status")
+    p_prompts.add_argument("--reimagine", action="store_true", help="Include reference-redraw instructions")
     add_variant(p_prompts)
     p_prompts.set_defaults(func=cmd_prompts)
+
+    p_regen = sub.add_parser("regen-queue", help="List pending reimagine jobs with prompts")
+    p_regen.add_argument("--only", help="Single book code")
+    p_regen.add_argument("--status", help="Filter by manifest status")
+    p_regen.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="Omit books that already have a scene file at the out path",
+    )
+    add_variant(p_regen)
+    p_regen.set_defaults(func=cmd_regen_queue)
 
     p_ingest = sub.add_parser("ingest", help="Copy numbered session JPGs into _scenes/")
     p_ingest.add_argument("--from-dir", required=True, help="Session images directory")
@@ -304,12 +428,12 @@ def main(argv: list[str] | None = None) -> int:
     add_variant(p_ingest)
     p_ingest.set_defaults(func=cmd_ingest)
 
-    p_boot = sub.add_parser("bootstrap-alts", help="Build alt02/alt03 JPGs from default scenes")
+    p_boot = sub.add_parser("bootstrap-alts", help="Build alt02/alt03 JPGs from scene sources")
     p_boot.add_argument("--only", help="Single book code")
     p_boot.add_argument("--only-variant", choices=("alt02", "alt03"), help="Single alt variant")
     p_boot.set_defaults(func=cmd_bootstrap_alts)
 
-    p_compose = sub.add_parser("compose", help="Composite scene PNGs to final JPGs")
+    p_compose = sub.add_parser("compose", help="Composite scene art to final JPGs")
     p_compose.add_argument("--only", help="Single book code")
     p_compose.add_argument("--status", help="Filter by manifest status")
     p_compose.add_argument("--sharpen", type=float, default=1.15, help="Sharpness factor (1.0 = none)")
