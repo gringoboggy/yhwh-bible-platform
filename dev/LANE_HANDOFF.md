@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 95
+turn: 96
 from: mac
-updated: 2026-06-16T00:35:00Z
-status: working
-mac: ▶ turn 95 — M3 **45/45 GREEN** + external handoff DONE (`NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/`, checksums verified). Milestone push in flight. **Next:** deep-audit round 8 (14 dims) when WIN half ready; M4b Kindle fork.
-windows: User Kobo round-15/16 spot QA (Gen 2:7 popup · line/page breaks · Gen 8:15 verse text). Fresh session after: deep-audit round 8 LANE=win (7 dims) + merge.
-truth_owner: mac
-holder: mac
+updated: 2026-06-16T01:22:27Z
+status: handing-off
+mac: idle — M4b Kindle fork when WIN merge done
+windows: ▶ turn 96 — deep-audit round 8 WIN half (7 dims: tests-run, opt-build, byte-stability, rx-surfaces, claude-setup, popup-integrity, github-gitlab) + merge Mac findings @ lane-transfer/audit 9536bf34 → round8-split-audit-findings.md. User Kobo round-15/16 QA continues.
+truth_owner: windows
+holder: windows
+---
+
+## ▶ mac → windows (turn 96, 2026-06-16T01:22:27Z) — mode=parallel
+
+**Done (turn 95, mac):**
+Mac round-8 audit COMPLETE: 14 dims, 28 survivors (6 high / 17 med / 5 low), 0 critical; pushed _audit-split/findings-mac.json @ 9536bf34 on lane-transfer/audit (both remotes)
+
+**Next (turn 96, windows picks up):**
+WIN: LANE=win locally, run 7 dims, pull lane-transfer/audit, deep-audit-merge.js → docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md. Mac: M4b Kindle fork parallel.
+
+**Assignments:** mac = idle — M4b Kindle fork when WIN merge done · windows = ▶ turn 96 — deep-audit round 8 WIN half (7 dims: tests-run, opt-build, byte-stability, rx-surfaces, claude-setup, popup-integrity, github-gitlab) + merge Mac findings @ lane-transfer/audit 9536bf34 → round8-split-audit-findings.md. User Kobo round-15/16 QA continues.
+
+**Watch-outs:**
+FINDINGS-ONLY until user approves merged plan; do NOT commit LANE flip in deep-audit.js
+
 ---
 
 ## ▶ mac resume (turn 95, 2026-06-16T00:35:00Z) — mode=parallel

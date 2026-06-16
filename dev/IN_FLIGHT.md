@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 95 — M3 HANDOFF DONE).** 45 kepubs on external `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (SHA256 verified). **WIN:** pickup when Kobo QA green. **Mac next:** deep-audit round 8 (14 dims) when WIN half ready; M4b Kindle fork. Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-16 (🖥️ Mac, turn 96 — ROUND-8 AUDIT MAC HALF).** 28 survivors → `lane-transfer/audit` @ `9536bf34`. **WIN:** 7 dims + merge (truth_owner). **Mac parallel:** M4b Kindle fork. FINDINGS-ONLY — no fixes until merged plan approved. Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

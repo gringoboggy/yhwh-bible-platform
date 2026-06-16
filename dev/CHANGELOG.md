@@ -4,6 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session (turn 96) — ★ DEEP-AUDIT ROUND 8 MAC HALF
+
+**Audit (FINDINGS-ONLY):** Mac lane 14 dims → **28 survivors** (6 high / 17 med / 5 low; 0
+critical). Top highs: `prospect.py` write_queue status clobber · `batch_promote_xrefs` false
+promoted marks · `/api/build-my-bible` HTTP-200 on 404 body · `installer.iss` VERSION read ·
+stale `website/dist/` v0.0.3. Pushed `_audit-split/findings-mac.json` @ `9536bf34` on branch
+`lane-transfer/audit` (origin + github). **WIN next:** 7 dims + merge →
+`docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`.
+
 ## 2026-06-16 — Mac session (turn 95) — ★ M3 FAN-OUT 45/45 RECOVERED (power cut)
 
 **Power-cut recovery:** `m3_fanout.sh` died mid-epubcheck on `coptic-orthodox` red; all 45

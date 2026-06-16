@@ -1,6 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 95 — ★ M3 45/45 + EXTERNAL HANDOFF DONE).** Power-cut recovery complete; 45 kepubs verified green; copied to `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (45 files + SHA256SUMS.txt, checksums OK). WIN pickup: attach + catalog when Kobo device QA passes. **Queue:** deep-audit round 8 (Mac 14 dims) · M4b Kindle. Baton **mac**; mode=parallel. TRACKER-STATE active.
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 96 — ★ ROUND-8 AUDIT MAC HALF DONE).** 14 dims FINDINGS-ONLY → **28 survivors** (6 high / 17 med / 5 low; 0 critical). Pushed `_audit-split/findings-mac.json` @ `9536bf34` on `lane-transfer/audit` (both remotes). **WIN next:** 7 dims + merge → `round8-split-audit-findings.md`. **Mac parallel:** M4b Kindle fork. Baton **windows**; mode=parallel. TRACKER-STATE active.
+>
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 95 — ★ M3 45/45 + EXTERNAL HANDOFF DONE).** Power-cut recovery complete; 45 kepubs verified green; copied to `NO NAME/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (45 files + SHA256SUMS.txt, checksums OK). WIN pickup: attach + catalog when Kobo device QA passes.
 >
 > **➤➤➤ 2026-06-15 (🪟 Windows, turn 94 — ★ K-R15a FIX + ROUND-16 KEPUB ON KOBO).** **K-R15a follow-up:** `badge-trail` invisible chars no longer block empty-verse repair — Gen 8:15 now shows KJV fallback prose on device. **QA loaded:** `G:\YHWH-koboQA.kepub.epub` (`…T234655Z`). **Audit READY:** parallel round-8 runbook `docs/superpowers/plans/2026-06-15-round8-parallel-audit-session.md` — Win 7 dims + Mac 14 dims, FINDINGS-ONLY.
 >
@@ -20,7 +22,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Device-QA queue (user 2026-06-15):** ① Mac **M4b Kindle** → user STK re-test · ② Mac **M2 Apple** (layout: `notes/2026-06-15-apple-m2-layout-directive.md`) → user tests Apple · ③ WIN **M5 Play Books** → user tests Play on phone. **M3:** 45/45 built — external handoff + milestone push; catalog still gated on Kobo device PASS. **Fresh session (both lanes):** deep-audit round 8. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Audit:** Mac half done (28 survivors on `lane-transfer/audit`); WIN half + merge pending. **Device-QA queue:** ① Mac **M4b Kindle** · ② Mac **M2 Apple** (`docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`) · ③ WIN **M5 Play Books**. **M3:** 45/45 + external handoff done; catalog gated on Kobo device PASS. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
