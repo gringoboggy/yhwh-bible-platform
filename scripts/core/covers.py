@@ -419,21 +419,16 @@ def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: d
     book_rows = []
     edition_id = edition.get("id", "")
     for code in canon_books:
-        raw_path = per_book.get(code, "")
+        raw_path = per_book[code] if code in per_book else None
         path = resolve_effective_book_cover_path(edition_id, code, raw_path)
         meta = read_image_meta(path) if path else None
         variants = book_cover_variant_catalog(code)
-        selected_variant = "default"
-        if raw_path and is_custom_book_cover_path(edition_id, code, raw_path):
+        if code in per_book and raw_path == "":
+            selected_variant = "none"
+        elif raw_path and is_custom_book_cover_path(edition_id, code, raw_path):
             selected_variant = "custom"
         else:
-            for v in variants:
-                if raw_path and v["path"] == raw_path:
-                    selected_variant = v["variant_id"]
-                    break
-                if not raw_path and v["variant_id"] == "default":
-                    selected_variant = v["variant_id"]
-                    break
+            selected_variant = "default"
         book_rows.append(
             {
                 "book_code": code,
@@ -455,7 +450,7 @@ def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: d
 
 
 # ----------------------------------------------------------------------
-# Shared per-book cover catalog (3 built-in variants + edition upload)
+# Shared per-book cover catalog (single built-in + edition upload + none)
 # ----------------------------------------------------------------------
 
 BOOK_COVER_OUTPUT_WIDTH = 1024
@@ -512,9 +507,22 @@ def is_allowed_book_cover_selection(edition_id: str, book_code: str, path: str) 
     return norm == edition_book_upload_path(edition_id, book_code)
 
 
-def resolve_effective_book_cover_path(edition_id: str, book_code: str, selected: str) -> str:
-    """Pick the path build/UI should use: explicit selection, else first catalog hit."""
-    sel = (selected or "").strip()
+def resolve_effective_book_cover_path(
+    edition_id: str,
+    book_code: str,
+    selected: str | None,
+) -> str:
+    """Pick the path build/UI should use.
+
+    ``selected`` is ``None`` when the edition has no yaml entry (factory
+    built-in); ``""`` when the publisher explicitly chose no cover.
+    """
+    if selected is None:
+        sel = ""
+    else:
+        sel = selected.strip()
+        if not sel:
+            return ""
     if sel and read_image_meta(sel):
         return sel
     if sel and is_custom_book_cover_path(edition_id, book_code, sel):

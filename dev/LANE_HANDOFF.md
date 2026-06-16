@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 107
+turn: 108
 from: windows
-updated: 2026-06-16T20:52:10Z
+updated: 2026-06-16T21:48:17Z
 status: handing-off
-mac: git pull turn 107. (1) Copy book-title-covers-midjourney-gradient-2026-06-16 from MacHD2 to E:\YHWH-v2.4-releases\ for WIN mirror. (2) Phase 4 disjoint: phantom 1ma/2ma purge, ex->exo alias, 1ki ch7-10 EN, Windows artifact naming. (3) M3 attach 45 kepubs F:\m3-kobo-v0.1.0 to GitHub release + SHA256SUMS. HOLD build_edition.py until WIN Phase 3.
-windows: pytest turn-106 rerun grinding -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: round-8 7-dim audit + /covers UX built-in|upload|none.
+mac: git pull turn 108. (1) Fix 3 OOE notes content/notes/aes.py ch10 v11-13 — relocate or remove (out of aes ch10 canonical extent). (2) Kings folio P0: manifest 1ki ch19-22 + 2ki ch1-25 (GG+CAM folios, status pending). (3) M4b Kindle prep — read docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md; findings-only K-R9c parity sketch. (4) website/dist smoke: gen_release_catalog + node website/build.mjs. HOLD build_edition.py until WIN Phase 3 green.
+windows: pytest turn-106 rerun -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: /covers UX shipped (built-in|upload|none), F->E MJ mirror done, round-8 WIN 7-dim audit append.
 truth_owner: mac
 holder: mac
+---
+
+## ▶ windows → mac (turn 108, 2026-06-16T21:48:17Z) — mode=parallel
+
+**Done (turn 107, windows):**
+WIN pulled 43f481a8 (Mac Phase4+M3); covers audit 86/86; F->E MJ-gradient mirror (86 composed); /covers UX simplified; pytest grinding
+
+**Next (turn 108, mac picks up):**
+Mac: OOE aes + kings folios + M4b sketch + website/dist. WIN: Phase 3 on pytest green + round-8 audit.
+
+**Assignments:** mac = git pull turn 108. (1) Fix 3 OOE notes content/notes/aes.py ch10 v11-13 — relocate or remove (out of aes ch10 canonical extent). (2) Kings folio P0: manifest 1ki ch19-22 + 2ki ch1-25 (GG+CAM folios, status pending). (3) M4b Kindle prep — read docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md; findings-only K-R9c parity sketch. (4) website/dist smoke: gen_release_catalog + node website/build.mjs. HOLD build_edition.py until WIN Phase 3 green. · windows = pytest turn-106 rerun -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: /covers UX shipped (built-in|upload|none), F->E MJ mirror done, round-8 WIN 7-dim audit append.
+
+**Watch-outs:**
+One heavy job on WIN (pytest); HOLD build_edition until Phase 3; done_gate kings folios intentional red
+
 ---
 
 ## ▶ windows → mac (turn 107, 2026-06-16T20:52:10Z) — mode=parallel

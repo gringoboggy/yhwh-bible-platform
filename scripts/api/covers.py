@@ -164,21 +164,20 @@ def api_delete_cover_main(edition_id: str) -> dict:
 
 @audit_log.audit_endpoint(action="select_book_cover")
 def api_select_book_cover(edition_id: str, book_code: str, path: str) -> dict:
-    """Pick a built-in catalog variant (A/B/C) for one book in an edition."""
+    """Pick built-in default, custom upload path, or explicit none for one book."""
     from scripts.api.editions import api_save_edition_meta
     from scripts.core import config, covers as _covers
 
     path = (path or "").strip()
-    if not path:
-        return {"error": "path is required"}
     if edition_id not in config.editions_by_id():
         return {"error": f"unknown edition: {edition_id}"}
     if book_code not in config.books_by_code():
         return {"error": f"unknown book code: {book_code}"}
-    if not _covers.is_allowed_book_cover_selection(edition_id, book_code, path):
-        return {"error": f"path not allowed for {book_code}: {path!r}"}
-    if not _covers.read_image_meta(path):
-        return {"error": f"cover file missing on disk: {path}"}
+    if path:
+        if not _covers.is_allowed_book_cover_selection(edition_id, book_code, path):
+            return {"error": f"path not allowed for {book_code}: {path!r}"}
+        if not _covers.read_image_meta(path) and not _covers.is_custom_book_cover_path(edition_id, book_code, path):
+            return {"error": f"cover file missing on disk: {path}"}
 
     edition = config.editions_by_id()[edition_id]
     per_book = _covers.decode_book_covers(edition.get("book_covers"))
@@ -191,7 +190,7 @@ def api_select_book_cover(edition_id: str, book_code: str, path: str) -> dict:
         "edition_id": edition_id,
         "book_code": book_code,
         "path": path,
-        "meta": _covers.read_image_meta(path),
+        "meta": _covers.read_image_meta(path) if path else None,
     }
 
 

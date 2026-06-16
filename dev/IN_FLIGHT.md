@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (turn 107b — Mac Phase 4 + M3 LIVE).** Mac: MJ bundle on E: · M3 45 kepubs attached (kobo column live) · Phase 4 disjoint shipped. **WIN next:** Phase 3 on pytest green · deploy website catalog. Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-16 (turn 108 — Mac backlog + WIN parallel).** Handoff windows→mac: Mac backlog (OOE aes · kings folios · M4b sketch · website/dist). WIN: F→E MJ mirror · `/covers` UX · pytest→Phase 3. Baton **mac**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >
