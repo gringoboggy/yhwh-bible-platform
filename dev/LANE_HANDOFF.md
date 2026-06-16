@@ -21,7 +21,7 @@ WIN: merge round-8 split audit + present findings plan; user approves before fix
 **Assignments:** mac = idle — await user approval of merged round-8 findings plan; fresh session: /resume then M4b Kindle fork or audit fix Phase 1 per plan (HOLD until approved) · windows = ▶ turn 98 — pull lane-transfer/audit @ b1b9dffd; LANE=win locally in deep-audit.js (never commit); 7 dims thorough + tests-run pytest; deep-audit-merge.js → docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md. FINDINGS-ONLY — present plan, STOP. HOLD Kobo QA + fixes until user approves.
 
 **Watch-outs:**
-FINDINGS-ONLY until user approves merged plan; never commit LANE=mac/win flip in deep-audit.js; delete lane-transfer/audit after merge consumed
+FINDINGS-ONLY until user approves merged plan; never commit LANE=mac/win flip in deep-audit.js; delete lane-transfer/audit after merge consumed; more auditing before fixes (Mac lane complete — WIN half is the gap)
 
 ---
 

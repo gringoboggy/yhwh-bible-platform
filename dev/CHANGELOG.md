@@ -11,9 +11,9 @@ med / 9 low / 4 info; 0 critical). Re-verified draft `9536bf34`: 9 refuted, 19 c
 new. Top highs: `prospect.py` write_queue clobber · `batch_promote_xrefs` false-promoted marks ·
 `/api/build-my-bible` HTTP-200 on error body · `installer.iss` VERSION read · stale
 `website/dist/` v0.0.3. Pushed `_audit-split/findings-mac.json` @ `b1b9dffd` on
-`lane-transfer/audit` (origin + github). **WIN next:** 7 dims thorough + `tests-run` + merge →
-`docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`. **HOLD** fixes/Kobo/M4b
-until user approves merged plan.
+`lane-transfer/audit` (origin + github). Handed to **windows** (turn 98). **WIN next:** 7 dims
+thorough + `tests-run` + merge → `docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`.
+**HOLD** fixes/Kobo/M4b until user approves merged plan.
 
 ## 2026-06-16 — Windows session (turn 97) — ★ ROUND-8b THOROUGH MAC RE-RUN ORDERED
 
