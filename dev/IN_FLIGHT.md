@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-16 (turn 103).** Mac Phase 2 DONE @ `2194f573`. WIN shipped `9b877205` (build-my-bible HTTP + edition_stats cache). **Mac GO:** Phase 4 data-validity + Windows naming align. **WIN:** pytest audit2 triage → Phase 3 build/popup fixes. **HOLD:** M4b · M3 attach. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-16 (turn 103 — Mac idle).** Mac Phase 1+2 DONE @ `2194f573`. Mac **idle** — WIN to write fresh-session bootstrap. Phase 4 queued (phantom candidates · ex→exo · 1ki ch7-10 · Windows naming). WIN: pytest audit2 triage → Phase 3. **HOLD:** M4b · M3 attach. Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

@@ -1149,3 +1149,33 @@ WIN: audit round 8 + B1 orphan gate. User: Kobo taps + Play phone QA when staged
 **Assignments:** mac = ✔ turn 87 (Mac) — M4 fan-out 45/45 + STK 6/6 LIVE + external handoff DONE. Mac idle. · windows = ▶ turn 87 (Windows) — ★ M4 LIVE (STK 6/6 PASS) — GO: plug external drive YHWH-v2.4-releases\m4-kindle-v0.1.0\ → attach 45 to v0.1.0 release + merge SHA256SUMS + gen_release_catalog + deploy website.
 
 ---
+
+## ▶ mac → windows (turn 98, 2026-06-16T02:45:22Z) — mode=parallel
+
+**Done (turn 97, mac):**
+Mac 8b thorough: 18 dims → 35 survivors (5H/17M/9L/4 info); 9 draft refuted; findings @ b1b9dffd on lane-transfer/audit both remotes; M2 layout directive CONFIRM-OPTIMAL
+
+**Next (turn 98, windows picks up):**
+WIN: merge round-8 split audit + present findings plan; user approves before fixes; Mac idle until plan lands
+
+**Assignments:** mac = idle — await user approval of merged round-8 findings plan; fresh session: /resume then M4b Kindle fork or audit fix Phase 1 per plan (HOLD until approved) · windows = ▶ turn 98 — pull lane-transfer/audit @ b1b9dffd; LANE=win locally in deep-audit.js (never commit); 7 dims thorough + tests-run pytest; deep-audit-merge.js → docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md. FINDINGS-ONLY — present plan, STOP. HOLD Kobo QA + fixes until user approves.
+
+**Watch-outs:**
+FINDINGS-ONLY until user approves merged plan; never commit LANE=mac/win flip in deep-audit.js; delete lane-transfer/audit after merge consumed; more auditing before fixes (Mac lane complete — WIN half is the gap)
+
+---
+
+## ▶ windows → mac (turn 97, 2026-06-16T02:04:38Z) — mode=parallel
+
+**Done (turn 96, windows):**
+WIN: pulled 4ef3346; triaged badge-trail test as stale (K-R15a); user ordered Mac 8b thorough pass (Grok fast-pass insufficient vs mint10/11)
+
+**Next (turn 97, mac picks up):**
+Mac: Workflow deep-audit 18 dims Fable 5 → lane-transfer/audit · WIN: wait, then 7 dims thorough + merge
+
+**Assignments:** mac = ★ FRESH SESSION Round 8b THOROUGH: Claude Code Fable 5 + Workflow(deep-audit.js), LANE=mac locally (never commit), depth=deep, ALL 18 mac dims incl lane-system/decommission/stack-review/future-work, full find→verify→synthesize (~5h mint10/11 bar). Re-verify 9536bf34 survivors; push NEW findings-mac.json to lane-transfer/audit. Parallel read-only: M2 Apple layout audit (2026-06-15-apple-m2-layout-directive.md). HOLD M4b/Kobo QA/M3 attach until merged plan. · windows = PAUSE win audit re-run until Mac 8b lands. May finish tests-run pytest only. Merge + round8-split-audit-findings.md after Mac push. HOLD Kobo QA and fixes.
+
+**Watch-outs:**
+- (none)
+
+---

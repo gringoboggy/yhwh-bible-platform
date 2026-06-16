@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-16 — Mac session wrap (turn 104 assign) — idle, await WIN bootstrap
+
+Mac lane idle after Phase 1+2 complete @ `2194f573`. Assign turn 104: mac=idle;
+WIN to finish pytest+audit+fixes and write Mac fresh-session bootstrap in
+`LANE_HANDOFF` + `SESSION_STATE`.
+
 ## 2026-06-16 — Mac session (turn 102b) — release cleanup + site deploy + cover smoke
 
 **GitHub v0.1.0:** deleted 46 corrupt assets (45 `default._*` Kindle stubs +

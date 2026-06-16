@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 103
-from: windows
-updated: 2026-06-16T14:44:33Z
+turn: 104
+from: mac
+updated: 2026-06-16T14:52:32Z
 status: working
-mac: ▶ Phase 4 parallel (disjoint): purge 31 phantom 1ma/2ma candidate files · translations.py ex→exo additive alias · 1ki EN back-translation ch7-10 gap · Windows artifact naming align (dev/sign_windows.ps1 vs installer vs website releases.html). Optional: wire ethiopian-tewahedo book_covers → content/covers/_book_defaults/. HOLD build_edition.py · web.py · M4b · M3 attach until WIN pytest audit2 triage done.
+mac: idle — await WIN fresh-session bootstrap (Phase 4 queued @ turn 103)
 windows: ★ pytest audit2 triage when done → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). Shipped 9b877205. truth_owner. One job at a time.
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 104, 2026-06-16T14:52:32Z) — mode=parallel
+
+**Assignments:** mac = idle — await WIN fresh-session bootstrap (Phase 4 queued @ turn 103) · windows = ★ pytest audit2 triage when done → Phase 3 (build_edition.py · generate_verse_popups.py · config.py cache). Shipped 9b877205. truth_owner. One job at a time.
+
+Mac session wrap: Phase 1+2 DONE @ 2194f573. WIN to write bootstrap block on next session.
+
 ---
 
 ## ◦ windows assign (turn 103, 2026-06-16T14:44:33Z) — mode=parallel
