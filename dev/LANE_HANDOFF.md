@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 120
-from: mac
-updated: 2026-06-17T20:08:11Z
-status: handing-off
-mac: idle — fresh session: /resume + lane_watch --bg (keep running)
-windows: rx-surfaces artifact build + full ci.py (N95) + Round 9 merge + user Kobo tap / Play QA
+turn: 121
+from: windows
+updated: 2026-06-17T20:15:18Z
+status: working
+mac: pull turn 121+ → lane_watch --bg → Kobo tap-prep (eink kepub + kobo_tap_calibration + EREADERS) → M4b design doc → scripts/_*.py archive hygiene → save_mac.sh each slice
+windows: ci.py finish + rx-surfaces artifact build + finalize round9 findings merge + lane_watch -Background -AssignMac
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 121, 2026-06-17T20:15:18Z) — mode=parallel
+
+**Assignments:** mac = pull turn 121+ → lane_watch --bg → Kobo tap-prep (eink kepub + kobo_tap_calibration + EREADERS) → M4b design doc → scripts/_*.py archive hygiene → save_mac.sh each slice · windows = ci.py finish + rx-surfaces artifact build + finalize round9 findings merge + lane_watch -Background -AssignMac
+
+WIN turn 121: Mac post-Round-9 parallel slice — see MAC_WORK_QUEUE Post-Round-9 queue
+
 ---
 
 ## ▶ mac → windows (turn 120, 2026-06-17T20:08:11Z) — mode=parallel

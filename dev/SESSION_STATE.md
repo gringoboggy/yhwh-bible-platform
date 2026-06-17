@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 120).** Round-9 Mac **COMPLETE** (audit+fixes+deploy). **WIN next:** `rx-surfaces` artifact build · full `ci.py` on N95 · merge `2026-06-18-round9-audit-findings.md` · v0.1.0 tag sync **DONE** (`6a4838c`). **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 121).** Mac assigned post-R9 parallel slice (Kobo tap-prep · M4b doc · archive hygiene). **WIN:** `ci.py` finish · `rx-surfaces` build · findings merge. **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 120).** **Idle** — Mac queue **CLEAR**. `/resume` → `lane_watch --bg` (keep running). Do **not** background full pytest/ci on HDD; targeted tests only. WIN owns rx-surfaces + full CI. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 121).** **WIN assign:** pull → `lane_watch --bg` → Kobo tap-prep (eink build + calibration list) → M4b design doc → `_*.py` archive hygiene. No background full pytest/ci on HDD. See `MAC_WORK_QUEUE.md` Post-Round-9 queue. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >
