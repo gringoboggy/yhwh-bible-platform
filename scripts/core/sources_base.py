@@ -36,5 +36,6 @@ class SourceMissingError(RuntimeError):
     """Raised when a source file is not cached. Hint: run fetch_sources.py."""
 
 
-from .book_codes import BOOK_CODE_ALIASES as _BOOK_CODE_ALIASES
-from .book_codes import canonical_book_code as _normalize_book_code
+from .book_codes import BOOK_CODE_ALIASES, canonical_book_code as _normalize_book_code
+
+_BOOK_CODE_ALIASES = BOOK_CODE_ALIASES  # re-export hub — lint_rules bookcode gate + sources.py

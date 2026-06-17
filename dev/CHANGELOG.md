@@ -4,6 +4,13 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Mac session (turn 119b) — ★ Round 9 audit + fixes + website deploy
+
+**Audit:** 22 Mac dims → 8 survivors (2M/3L/3 info). Platform briefs `2026-06-18-platform-{apple,kindle}.md`.
+**Fixes:** `resolve_book_code` on build-my-bible/build-tracker/sample-html · `sources_base` vulture dead-import · `web_sources` parse guard · tests 29/29 targeted green.
+**Deploy:** `yhwh-website` `efb7386` — releases catalog 188 assets, kobo column live.
+**Gate:** Round-8 findings 0 open HIGH/MEDIUM.
+
 ## 2026-06-17 — Mac session (turn 119) — lane_watch --bg fix + catalog/dist verify
 
 **Shipped:** `lane_watch_mac.sh` — fix `EXTRA[@]` unbound-variable crash on `--bg`-only invocations (bash 3.2 + `set -u`). Regen catalog (188 assets; kobo column live) + `website/build.mjs` smoke (dist rebuilt locally). `test_lane_watch` + `test_gen_release_catalog` 36/36 green.

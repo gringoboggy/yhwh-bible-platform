@@ -1,46 +1,47 @@
-# Round-9 audit — WIN lane findings (2026-06-18)
+# Round-9 audit — merged findings (2026-06-18)
 
-**Status:** IN PROGRESS — WIN dims 6/9 complete; Mac dims pending parallel lane.
-**Gate:** Round-8 remediation **COMPLETE** (0 open HIGH/MEDIUM @ turn 119).
-**Platform briefs:** `notes/2026-06-18-platform-{kobo,play}.md` (WIN); apple/kindle (Mac).
+**Status:** Mac audit COMPLETE + fixes shipped @ turn 119; WIN dims 6/9 complete @ turn 119.
+**Gate:** Round-8 remediation **COMPLETE** (0 open HIGH/MEDIUM).
+**Platform briefs:** `notes/2026-06-18-platform-{apple,kindle,kobo,play}.md`
 
 ## Executive summary
 
-WIN replay sweep confirms Round-8 fixes held on byte-stability and opt-build. New material issues are **release-hygiene** (v0.1.0 tag skew on GitHub mirror, duplicate SHA256 manifest) and **doc drift** (RULES §0 index table, EREADERS Kobo summary — both fixed this turn). Play Books remains **unverified** (M5 gate); Kobo path is **shipped** pending user tap round 9.
+**Mac (22 dims):** 8 survivors (0 critical · 0 high · 2 medium · 3 low · 3 info). All actionable Mac defects **fixed @ turn 119**.
+
+**WIN (9 dims in progress):** Release-hygiene + platform gates. Play Books unverified (M5); Kobo shipped pending user tap round 9.
 
 ---
 
-## Survivors (WIN lane)
+## Mac lane — fixes shipped (turn 119)
+
+- [x] **MEDIUM** Book-code alias gap — `api_build_my_bible`, `api_build_tracker_book`, `api_sample_html` → `config.resolve_book_code` · tests in `test_book_codes.py`
+- [x] **MEDIUM** `sources_base` vulture dead-import — `_BOOK_CODE_ALIASES` assignment re-export (lint + vulture green)
+- [x] **LOW** `web_sources` index/summary → `load_notes_checked`; summary exposes `parse_errors`
+- [x] **LOW** Test gap for build-my-bible / build-tracker legacy aliases
+- [ ] **LOW** Archive closed-arc `scripts/_*.py` one-shots — deferred (hygiene)
+
+**INFO:** Apple M2 CONFIRM-OPTIMAL · Kindle M4b design gap documented · build orchestration CONFIRM-OPTIMAL
+
+---
+
+## WIN lane — survivors
 
 ### Phase 1 — Release / mirror hygiene
 
-- [ ] **HIGH** `v0.1.0` tag points to different commits on GitLab vs GitHub — origin `6d67adaf` ("v0.1.0 RELEASE milestone") vs github `e7e05276` ("turn-63 Mac M3"). `main` tips match (`afb83f8f`). **Fix:** retag GitHub `v0.1.0` to GitLab canonical tip; verify release assets built from GitLab tag.
-- [x] **MEDIUM** Stray `SHA256SUMS-merged-overnight.txt` duplicate on v0.1.0 release — **WIN turn 119** (`gh release delete-asset`)
+- [ ] **HIGH** `v0.1.0` tag points to different commits on GitLab vs GitHub — origin `6d67adaf` vs github `e7e05276`. **Fix:** retag GitHub `v0.1.0` to GitLab canonical tip.
+- [x] **MEDIUM** Stray `SHA256SUMS-merged-overnight.txt` duplicate on v0.1.0 release — **WIN turn 119**
 
-### Phase 2 — Platform gates (research → fix after user phone QA)
+### Phase 2 — Platform gates
 
-- [ ] **HIGH** Play Books — zero device proof; M5 column dark (`catalog.json` `play.live=false`). **Fix:** M5 phone-QA protocol on `everywhere` navy EPUB; date-stamp EREADERS.md; fan M5 only after rounds 1–3 pass.
-- [ ] **MEDIUM** No `play` `target_reader` or post-process path — intentional until M5 QA. **Fix:** defer; add sixth profile only if QA demands (see `platform-play.md` Option B).
-- [ ] **MEDIUM** gen 35:18 preview-decline anomaly — vnotes-gen-35-18 at 3,509 stripped declined while floor is 4,498; gate 4g WARN only. **Fix:** user re-tap; if reproducible implement vnote split (Option B in `platform-kobo.md`).
+- [ ] **HIGH** Play Books — zero device proof; M5 column dark. **Fix:** M5 phone-QA protocol.
+- [ ] **MEDIUM** No `play` `target_reader` path — defer until M5 QA (see `platform-play.md`).
+- [ ] **MEDIUM** gen 35:18 preview-decline anomaly — user re-tap; see `platform-kobo.md`.
 
-### Phase 3 — Doc / tooling sync (fixed this turn)
+### Phase 3 — Doc / tooling (fixed)
 
-- [x] **MEDIUM** RULES §0 index table stale on save cadence — **WIN turn 119** (rules-map §4 row aligned to §4 body crash-safe cadence).
-- [x] **MEDIUM** EREADERS.md Kobo summary stale (M3 hold, K-R7-4b pending) — **WIN turn 119** (M3 LIVE, K-R9/K-R13 default, tap round 9 pending).
-- [x] **LOW** `kobo_tap_calibration.py` bracket outdated (3313/7748) — **WIN turn 119** (4498/5500 per round-5 calibration).
-
----
-
-## Refuted / held (no action)
-
-| Area | Verdict |
-|---|---|
-| SHA256SUMS coverage | 186/186 downloadable assets covered |
-| main mirror divergence | origin == github @ `afb83f8f` |
-| bootstrap-triad hook drift | installed == source (SHA256 match) |
-| matrix vs build resolver | intentional scope split (matrix.py:38–44) |
-| edition_stats cache keys | fixed (enable_ai_notes + max_phase) |
-| opt-build path | CONFIRM-OPTIMAL (ω.20 cache + byte-stability pins) |
+- [x] **MEDIUM** RULES §0 index table stale — **WIN turn 119**
+- [x] **MEDIUM** EREADERS.md Kobo summary stale — **WIN turn 119**
+- [x] **LOW** `kobo_tap_calibration.py` bracket outdated — **WIN turn 119**
 
 ---
 
@@ -48,13 +49,13 @@ WIN replay sweep confirms Round-8 fixes held on byte-stability and opt-build. Ne
 
 | Dim | Status |
 |---|---|
-| github-gitlab | ✅ 2 survivors |
-| claude-setup | ✅ 1 survivor (fixed) |
-| byte-stability | ✅ GREEN (regressions refuted) |
+| github-gitlab | ✅ |
+| claude-setup | ✅ |
+| byte-stability | ✅ GREEN |
 | opt-build | ✅ CONFIRM-OPTIMAL |
-| platform-kobo | ✅ brief written |
-| platform-play | ✅ brief written |
-| tests-run | ⏳ ci.py running |
+| platform-kobo | ✅ brief |
+| platform-play | ✅ brief |
+| tests-run | ⏳ ci.py |
 | rx-surfaces | ⏳ pending |
 | popup-integrity | ⏳ pending |
 
@@ -62,7 +63,6 @@ WIN replay sweep confirms Round-8 fixes held on byte-stability and opt-build. Ne
 
 ## Next
 
-1. WIN: finish `ci.py` + rx-surfaces + popup-integrity dims
-2. Mac: 18 replay dims + apple/kindle briefs → push `lane-transfer/audit`
-3. WIN: merge Mac JSON → update this doc → fix Phase 1 HIGH/MEDIUM
-4. Deploy website when catalog delta lands (188 assets live columns confirmed @ turn 119)
+1. WIN: finish ci.py + rx-surfaces + popup-integrity; merge Mac JSON
+2. Fix WIN Phase 1 HIGH (v0.1.0 tag skew) + M5 Play QA when ready
+3. Website deployed @ `efb7386` (188 assets; kobo live)

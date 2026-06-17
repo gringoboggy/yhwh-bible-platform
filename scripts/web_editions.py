@@ -214,6 +214,7 @@ def api_build_tracker_book(edition_id: str, book_code: str) -> dict:
     eds_by_id = config.editions_by_id()
     if edition_id not in eds_by_id:
         return {"error": f"unknown edition: {edition_id}", "http": 404}
+    book_code = config.resolve_book_code(book_code)
     m = matrix_mod.compute_matrix()
     canon_books = m.edition_canon_books.get(edition_id, set())
     if book_code not in canon_books:
@@ -637,6 +638,9 @@ def api_build_my_bible(
     canon_set = m.edition_canon_books.get(edition_id, set())
     enabled_kinds_set = m.edition_enabled_kinds.get(edition_id, set())
     per_chapter_ed = m.per_chapter.get(edition_id, {})
+
+    if book is not None:
+        book = config.resolve_book_code(book)
 
     all_kinds = config.load_kinds()
     all_cats = config.load_categories()

@@ -70,7 +70,13 @@ def api_sources_index() -> dict:
     out = []
     for b in books:
         path = NOTES_DIR / f"{b['code']}.py"
-        notes = notes_io.load_notes(path) if path.is_file() else []
+        note_count = 0
+        if path.is_file():
+            loaded = notes_io.load_notes_checked(path, book=b["code"])
+            if isinstance(loaded, dict):
+                note_count = 0
+            else:
+                note_count = len(loaded)
         out.append(
             {
                 "code": b["code"],
@@ -78,7 +84,7 @@ def api_sources_index() -> dict:
                 "abbrev": b.get("abbrev", b["code"]),
                 "section": b.get("section", ""),
                 "ch_count": b.get("ch_count", 0),
-                "note_count": len(notes or []),
+                "note_count": note_count,
                 "sort_order": b.get("sort_order", 9999),
             }
         )
@@ -155,6 +161,7 @@ def api_sources_summary() -> dict:
     books = config.load_books()
     total_notes = 0
     notes_with_attribution = 0
+    parse_errors = 0
     by_kind: dict[str, int] = {}
     by_book_section: dict[str, int] = {}
     # Naive source-string frequency map (the attribution is free-form text)
@@ -162,7 +169,13 @@ def api_sources_summary() -> dict:
 
     for b in books:
         path = NOTES_DIR / f"{b['code']}.py"
-        notes = notes_io.load_notes(path) if path.is_file() else []
+        if not path.is_file():
+            continue
+        loaded = notes_io.load_notes_checked(path, book=b["code"])
+        if isinstance(loaded, dict):
+            parse_errors += 1
+            continue
+        notes = loaded
         if not notes:
             continue
         section = b.get("section", "?")
@@ -188,6 +201,7 @@ def api_sources_summary() -> dict:
     return {
         "total_notes": total_notes,
         "notes_with_attribution": notes_with_attribution,
+        "parse_errors": parse_errors,
         "by_section": by_book_section,
         "by_kind": dict(sorted(by_kind.items(), key=lambda x: -x[1])[:20]),
         "top_attribution_strings": [{"source": s, "count": n} for s, n in top_sources],

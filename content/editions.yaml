@@ -231,6 +231,9 @@ editions:
     bisac_codes:
       - REL006150
       - REL006490
+    note_families_off_per_book:
+      - "gen=xref"
+
   - id: evangelical-reformed
     # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
     # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)

@@ -25,7 +25,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [x] **★ Lane watch v3 (REQUIRED whole arc):** `git pull` turn 117+ → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` — **keep running** through remediation + Round 9 — **Mac turn 118** (`--once` CLEAR post-rebase; `--bg` started)
 - [x] **test_samkings_manifest_complete** — 6/6 `done_gate` — **Mac turn 118**
-- [ ] **ci.py parity** — full gate running @ WIN turn 119
+- [x] **ci.py parity** — **Mac turn 119** (fast gate green) + **WIN turn 119** (full gate)
 - [x] **website/dist regen** — `gen_release_catalog` + `node website/build.mjs` — **Mac turn 119** (188 assets; kobo column live; dist rebuilt locally)
 - [x] **refactor.py cache invalidation** — **Mac turn 114** (`_invalidate_caches_after_refactor`)
 - [x] **inject_book write test** — **Mac turn 114** (`test_inject_write_path.py`)
@@ -48,11 +48,11 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ## Round 9 queue (after round-8 remediation gate — do NOT start early)
 
-- [ ] **Gate:** pull turn 117+; findings doc 0 open HIGH/MEDIUM; `ci.py` green
-- [ ] **Local engine:** `ROUND=9`, `LANE=mac` in `.claude/workflows/deep-audit.js` (never commit)
-- [ ] **Workflow:** 22 dims (18 replay + `platform-apple` + `platform-kindle`); Fable 5 thorough
-- [ ] **Research briefs:** `notes/2026-06-18-platform-apple.md` + `platform-kindle.md`
-- [ ] **Push:** `_audit-split/findings-mac.json` → `lane-transfer/audit`
+- [x] **Gate:** round-8 findings 0 open HIGH/MEDIUM @ turn 119
+- [x] **Local engine:** ROUND=9 LANE=mac (local flip; reverted before commit)
+- [x] **Workflow:** 22 dims — 8 survivors; fixes shipped for actionable items
+- [x] **Research briefs:** `notes/2026-06-18-platform-apple.md` + `platform-kindle.md`
+- [ ] **Push:** `_audit-split/findings-mac.json` → `lane-transfer/audit` (with milestone save)
 
 Plan: `docs/superpowers/plans/2026-06-17-round9-parallel-audit-and-platform-research.md`
 

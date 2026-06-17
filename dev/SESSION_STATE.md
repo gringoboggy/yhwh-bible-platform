@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 119).** **ROUND-8 REMEDIATION COMPLETE** · `lane_watch -Background` fixed+running · `ci.py` in flight · Round-9 WIN dims 6/9 (platform briefs written) · website catalog regen 188 assets · deploy authorized. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 119).** Idle — **`bash dev/lane_watch_mac.sh --bg` running** (STANDING @ turn 117). Catalog/dist verified @ 188 assets (kobo live). Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 119).** **ROUND-8 REMEDIATION COMPLETE** · **Round 9 Mac audit + fixes shipped** (8 survivors → 5 fixed). Website deployed `efb7386` (kobo catalog live). **`lane_watch --bg` running.** WIN next: Round 9 win dims + merge. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

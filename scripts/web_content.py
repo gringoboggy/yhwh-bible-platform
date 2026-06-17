@@ -204,6 +204,7 @@ def api_sample_html(
             "http": 404,
             "message": "book code is required",
         }
+    book = config.resolve_book_code(book)
     all_books = config.books_by_code()
     if book not in all_books:
         return {

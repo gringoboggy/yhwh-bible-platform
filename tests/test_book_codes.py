@@ -61,3 +61,27 @@ def test_api_preview_legacy_alias_php() -> None:
     result = web_notes.api_preview("ethiopian-tewahedo", "php", 1)
     assert result["status"] == "ok"
     assert "html" in result and result["html"]
+
+
+def test_build_my_bible_legacy_alias_joh() -> None:
+    from scripts.web_editions import api_build_my_bible
+
+    result = api_build_my_bible("catholic-study", book="joh")
+    assert "error" not in result
+    assert result["book"]["code"] == "jhn"
+
+
+def test_build_tracker_legacy_alias_joh() -> None:
+    from scripts.web_editions import api_build_tracker_book
+
+    result = api_build_tracker_book("catholic-study", "joh")
+    assert result.get("http") != 404
+    assert "notes" in result
+
+
+def test_sample_html_legacy_alias_joh() -> None:
+    from scripts.web_content import api_sample_html
+
+    result = api_sample_html("catholic-study", "joh", 1, 1)
+    assert result["status"] == "ok"
+    assert result["book"] == "jhn"
