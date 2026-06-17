@@ -40,23 +40,6 @@ lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every
 
 ---
 
-## ◦ windows assign (turn 116, 2026-06-17T20:00:00Z) — mode=parallel
-
-**User directive (2026-06-17):** **lane_watch ON for the entire pre-human + Round 9 arc** on BOTH boxes — not opt-in. Mac must start and keep it running.
-
-**Lane watch (both lanes — STANDING for this arc):**
-- **Mac:** `git pull` → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` (leave running through remediation + Round 9 audit)
-- **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (or `-Background`); add `-AssignMac` to auto-assign from `MAC_WORK_QUEUE.md` after Mac pushes
-- **Rule:** handoff/assign edits MUST be milestone-pushed or the other box never sees them (`UNPUSHED HANDOFF` nag)
-
-**Done (turn 115, windows):** pre-human sprint + Round 9 plan committed @ `99bfcabc`.
-
-**Assignments:** mac = **lane_watch --bg first** (see above) → remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (`MAC_WORK_QUEUE.md`). Round 9 after gate. · windows = **lane_watch running** → P4 gates · dishonest/stub audits · Round 9 Workflow when gate green (win=11 dims)
-
-**Watch-outs:** file-disjoint; milestone-push every handoff while watcher is up; do not stop watcher mid-arc unless user says so.
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.

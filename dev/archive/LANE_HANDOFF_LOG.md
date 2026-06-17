@@ -4,6 +4,25 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
+## ◦ windows assign (turn 116, 2026-06-17T20:00:00Z) — mode=parallel
+
+**User directive (2026-06-17):** **lane_watch ON for the entire pre-human + Round 9 arc** on BOTH boxes — not opt-in. Mac must start and keep it running.
+
+**Lane watch (both lanes — STANDING for this arc):**
+- **Mac:** `git pull` → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` (leave running through remediation + Round 9 audit)
+- **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (or `-Background`); add `-AssignMac` to auto-assign from `MAC_WORK_QUEUE.md` after Mac pushes
+- **Rule:** handoff/assign edits MUST be milestone-pushed or the other box never sees them (`UNPUSHED HANDOFF` nag)
+
+**Done (turn 115, windows):** pre-human sprint + Round 9 plan committed @ `99bfcabc`.
+
+**Assignments:** mac = **lane_watch --bg first** (see above) → remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (`MAC_WORK_QUEUE.md`). Round 9 after gate. · windows = **lane_watch running** → P4 gates · dishonest/stub audits · Round 9 Workflow when gate green (win=11 dims)
+
+**Watch-outs:** file-disjoint; milestone-push every handoff while watcher is up; do not stop watcher mid-arc unless user says so.
+
+---
+
 <!-- archived: 20 sections, 2026-06-16..2026-06-17 (rotate_truth_records.py) -->
 
 ## ◦ windows assign (turn 115, 2026-06-17T18:00:00Z) — mode=parallel
