@@ -248,3 +248,47 @@ def clear_load_notes_cache() -> None:
     """Drop the entire load_notes cache. Useful in tests or after bulk
     rewrites if mtime resolution proves insufficient."""
     _load_notes_cached.cache_clear()
+
+
+class NotesParseError(RuntimeError):
+    """Raised when a notes module exists but cannot be parsed."""
+
+    def __init__(self, path: Path | str) -> None:
+        self.path = Path(path)
+        super().__init__(f"notes file unparseable: {self.path}")
+
+
+def notes_unparseable_error(*, book: str = "", path: Path | str | None = None) -> dict:
+    """Standard API error envelope for a SyntaxError in a notes file."""
+    err: dict = {
+        "error": "notes file unparseable",
+        "code": "notes_unparseable",
+        "http": 500,
+    }
+    if book:
+        err["book"] = book
+    if path is not None:
+        err["path"] = str(path)
+    return err
+
+
+def load_notes_checked(path: Path | str, *, book: str = "") -> list | dict:
+    """Return the NOTES list, or an error dict if the file is unparseable.
+
+    Unlike ``load_notes(path) or []``, this never conflates ``None`` (parse
+    failure) with a legitimately empty ``[]`` corpus.
+    """
+    notes = load_notes(path)
+    if notes is None:
+        return notes_unparseable_error(book=book or Path(path).stem, path=path)
+    return notes
+
+
+def assert_notes_corpus_parseable(notes_dir: Path | None = None) -> None:
+    """Raise ``NotesParseError`` if any book notes file fails to parse."""
+    root = notes_dir or Path(__file__).resolve().parents[2] / "content" / "notes"
+    for book_path in sorted(root.glob("*.py")):
+        if book_path.stem == "__init__" or book_path.stem.startswith("_"):
+            continue
+        if load_notes(book_path) is None:
+            raise NotesParseError(book_path)

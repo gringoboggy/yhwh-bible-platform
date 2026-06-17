@@ -94,14 +94,14 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 **Pass:** 18 dims adversarial re-verify @ `lane-transfer/audit`. **30 survivors** (2 high · 10 medium · 13 low · 5 info). **21 prior survivors refuted** (Phase 1–3 fixes held).
 
 **Phase 4 candidates (new):**
-- [ ] **HIGH** `web_notes.py` `load_notes() or []` — corrupt notes file wipe on editor save (`api_save`/`api_delete`)
-- [ ] **HIGH** `at_scale_base.append_candidates` — corrupt JSON queue reset to `[]` on parse failure
-- [ ] **MEDIUM** `api_save` no `sanitize_html()` — stored XSS in note editor
-- [ ] **MEDIUM** `build_edition.py` `load_notes() or []` — unparseable book silently omitted from EPUB (4 sites)
-- [ ] **MEDIUM** `load_kinds()` / `load_categories()` still `maxsize=1` — mirror editions mtime cache
+- [x] **HIGH** `web_notes.py` `load_notes() or []` — corrupt notes file wipe on editor save (`api_save`/`api_delete`) — **Mac turn 113b** (`load_notes_checked` + refuse writes)
+- [x] **HIGH** `at_scale_base.append_candidates` — corrupt JSON queue reset to `[]` on parse failure — **Mac turn 113b** (`CandidateQueueCorruptError`)
+- [x] **MEDIUM** `api_save` no `sanitize_html()` — stored XSS in note editor — **Mac turn 113b**
+- [x] **MEDIUM** `build_edition.py` unparseable book silently omitted — **Mac turn 113b** (`assert_notes_corpus_parseable` at `build_one` entry)
+- [x] **MEDIUM** `load_kinds()` / `load_categories()` still `maxsize=1` — mirror editions mtime cache — **Mac turn 113b**
 - [ ] **MEDIUM** `refactor.py --apply` — no config/matrix cache invalidation
 - [ ] **MEDIUM** `prospect.py` — no `coord_in_canonical_extent` guard on candidate emit
-- [ ] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b)
+- [x] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b) — **Mac turn 113b** (188 assets; kindle empty_sha256=0)
 - [ ] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723
 - [ ] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test
 - [ ] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none

@@ -6919,6 +6919,10 @@ def build_one(
 
         return build_standalone.build_standalone(edition_id, output_dir, version)
 
+    from scripts.core.notes_io import assert_notes_corpus_parseable
+
+    assert_notes_corpus_parseable()
+
     enabled, disabled = compute_enabled_kinds(edition, all_kinds)
 
     # Phases ρ.1 / ψ.8.2-A / ψ.37-B / ρ.3: the two filter sets that decide

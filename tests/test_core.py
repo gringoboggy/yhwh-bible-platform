@@ -261,6 +261,29 @@ class TestConfig:
         assert len(second) == 1
         assert second[0]["id"] == "cache-probe-only"
 
+    def test_load_kinds_caching_invalidates_on_mtime_change(self, tmp_path, monkeypatch):
+        """The mtime-aware LRU cache must observe kinds.yaml rewrites."""
+        import shutil
+        import time
+
+        work = tmp_path / "content"
+        work.mkdir()
+        shutil.copy(config._CONTENT / "kinds.yaml", work / "kinds.yaml")
+        monkeypatch.setattr(config, "_CONTENT", work)
+        config.load_kinds.cache_clear()
+
+        first = config.load_kinds()
+        assert len(first) >= 10
+
+        time.sleep(0.05)
+        (work / "kinds.yaml").write_text(
+            "kinds:\n  - code: cache-probe-kind\n    category: test\n    label: Probe\n",
+            encoding="utf-8",
+        )
+        second = config.load_kinds()
+        assert len(second) == 1
+        assert second[0]["code"] == "cache-probe-kind"
+
 
 class TestCovers:
     """Phase π.4-A — per-book cover model + image metadata reader."""

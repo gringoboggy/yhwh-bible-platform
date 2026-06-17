@@ -274,30 +274,55 @@ def load_books():
     return _parse_yaml_records((_CONTENT / "books.yaml").read_text())
 
 
-@lru_cache(maxsize=1)
-def load_kinds():
-    """Load and cache the kind registry from content/kinds.yaml.
+class _CachedLoader(Protocol):
+    def __call__(self) -> list[dict]: ...
+    def cache_clear(self) -> None: ...
 
-    Returns a list of dicts with keys: code, category, label, note_class,
-    marker_class, optional symbol/budget overrides. Cached for the life
-    of the process.
-    """
+
+@lru_cache(maxsize=4)
+def _load_kinds_cached(mtime_ns: int) -> list[dict]:
+    """Cached parse of kinds.yaml. The cache key includes mtime_ns, so
+    runtime edits invalidate automatically without an explicit clear."""
     return _parse_yaml_records((_CONTENT / "kinds.yaml").read_text())
 
 
-@lru_cache(maxsize=1)
-def load_categories():
-    """Load content/categories.yaml. Returns [] if the file doesn't exist
-    (so older deployments without categories continue working)."""
+def _load_kinds_uncached() -> list[dict]:
+    p = _CONTENT / "kinds.yaml"
+    mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
+    return _load_kinds_cached(mtime_ns)
+
+
+def clear_kinds_cache() -> None:
+    """Invalidate ``load_kinds()`` — after in-process kinds.yaml writes."""
+    _load_kinds_cached.cache_clear()
+
+
+_load_kinds_uncached.cache_clear = clear_kinds_cache  # type: ignore[attr-defined]
+load_kinds: _CachedLoader = cast(_CachedLoader, _load_kinds_uncached)
+
+
+@lru_cache(maxsize=4)
+def _load_categories_cached(mtime_ns: int) -> list[dict]:
+    """Cached parse of categories.yaml. The cache key includes mtime_ns."""
     p = _CONTENT / "categories.yaml"
     if not p.is_file():
         return []
     return _parse_yaml_records(p.read_text())
 
 
-class _CachedLoader(Protocol):
-    def __call__(self) -> list[dict]: ...
-    def cache_clear(self) -> None: ...
+def _load_categories_uncached() -> list[dict]:
+    p = _CONTENT / "categories.yaml"
+    mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
+    return _load_categories_cached(mtime_ns)
+
+
+def clear_categories_cache() -> None:
+    """Invalidate ``load_categories()`` — after in-process categories.yaml writes."""
+    _load_categories_cached.cache_clear()
+
+
+_load_categories_uncached.cache_clear = clear_categories_cache  # type: ignore[attr-defined]
+load_categories: _CachedLoader = cast(_CachedLoader, _load_categories_uncached)
 
 
 @lru_cache(maxsize=4)

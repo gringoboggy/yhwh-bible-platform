@@ -835,243 +835,243 @@
           "red": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "e2a30d4daa4e6abdf9444a3c13b73f07e6cf133995d92fc6e40b8b1cd1c213e8"
           },
           "black": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "837a388a395e29e51e171e7864de8693c70bc456f4878035be95f731232b8ebb"
           },
           "brown": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "f7099f55a1296d47a639e3266569d52bde3bec95d3128c2136613b13f0aaffe9"
           },
           "forest": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "6103cf3ed562d663befb74ba5918748ea3f645c9cc6e15053884778fbf18c067"
           },
           "navy": {
             "name": "YHWH-ethiopian-tewahedo-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "b86a0867e6cc94cbd91887347ab6e1d06758e21f5da700d650bc9184b79a39df"
           }
         },
         "catholic-study": {
           "navy": {
             "name": "YHWH-catholic-study-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "5c219ef2b64661b55846e91b87c1bcd7f43bd0969442bf692a3358c6bf727cc5"
           },
           "black": {
             "name": "YHWH-catholic-study-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "b338986a804f2f2a246b7d48456255d71185e2efb41e48c6ddd1fa83badf8f72"
           },
           "brown": {
             "name": "YHWH-catholic-study-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "a17c9a891de59796406ed499cd7dec20bf645109de65a2253f9c03bc2e52074c"
           },
           "forest": {
             "name": "YHWH-catholic-study-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "72830417ee39a34aa3e7b5aa7cecb6a4606f8b91c3b1edb4308526519e8878aa"
           },
           "red": {
             "name": "YHWH-catholic-study-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-catholic-study-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "a5a9a5a6c5ecf0720f955be93273d7a56f6136d45fbb1654fac8294c56df6cdc"
           }
         },
         "evangelical-reformed": {
           "black": {
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "7faca49825f9fab0d39766ff037e72199037b16c7343b6f3af1c0d4609091eba"
           },
           "brown": {
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "df3051bb691ad3eda78c3d185fe4b8ec2194dfca0e8de1a182f17d89211a42de"
           },
           "forest": {
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "5989c62bdec9b99d6fd83cada7220df60942db8c868bb7a97cde86b4a2a9fc66"
           },
           "navy": {
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "3f91cc82c8b7ded388d92012435b4ac10b601059e4c902dfc88fc7825248afa2"
           },
           "red": {
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "d3c42b5ed33b61425d70c0ae8c55402436cd82aa2709b3fefd8d5cd139f02d50"
           }
         },
         "jewish-study": {
           "brown": {
             "name": "YHWH-jewish-study-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "a85eb3e1ba26b6bd37cb2b8b34e5bba986613c1b5d58522f744b08a8ba89085c"
           },
           "black": {
             "name": "YHWH-jewish-study-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "29682765afd72bc8a56e7e9b2b12287a7f0b366d2d8e1dc50a5622dc2cd70162"
           },
           "forest": {
             "name": "YHWH-jewish-study-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "d8f4b90322fe1b44f575471a5df7f2990521a62d2b9078036590631b7109111c"
           },
           "navy": {
             "name": "YHWH-jewish-study-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "bd91e8a9d7473c9d4e417e27d6ef60046f6b37f5fa95aebf69fe796d32fc89f7"
           },
           "red": {
             "name": "YHWH-jewish-study-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "a3e2b7ae5adc66732588848dbf87312433cacf0ab00a5a16c95782c825cb21de"
           }
         },
         "scholarly-academic": {
           "forest": {
             "name": "YHWH-scholarly-academic-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "a1ccc5186e37104cca78a767bfab2181f73b571e2eb01e12606ba29e9b756de9"
           },
           "black": {
             "name": "YHWH-scholarly-academic-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "02158b49bb15b97abf067b5abcddd72e42292c86ee35968e41631444860d5634"
           },
           "brown": {
             "name": "YHWH-scholarly-academic-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "66456a3f9d507c5566c93b2afd726219d0685ddb68ebc8da54592d517e31eef9"
           },
           "navy": {
             "name": "YHWH-scholarly-academic-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "c3674fed567dcdfc39a8cb2babfa701deddd1cb67f2cd1a08f0fa7e149b7173f"
           },
           "red": {
             "name": "YHWH-scholarly-academic-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "2924b5bab39c8c07ca62f8c369fbd5e5f1e54b1c76c1c31ab848c2c6fbd12fe3"
           }
         },
         "eastern-orthodox": {
           "red": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "6d9210a1a1d5ed39e32f264ba3f09d4a3eeefdb79a4532847be636a4498651b1"
           },
           "black": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "5362b70969a609b42bf56b987b61a135b1a35542c584788ced3fbe00b4d41209"
           },
           "brown": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "9ae82626fdc7179cd998efca911d63cac549c0ff3b141ae2dc2ff11f1bcd1ec3"
           },
           "forest": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "c759bbb7115f643bee40eb6af15d8ac96f9af2f994eef36c65cc935a604e0150"
           },
           "navy": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-eastern-orthodox-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "807d5b423ffd473246ef84e5c73320f409b177d33bdb2e9314a9af4f647f76d7"
           }
         },
         "anglican-bcp": {
           "navy": {
             "name": "YHWH-anglican-bcp-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "331b4831168d39790769bb3d76386fa180e715a7a34d6a0c7166e354e9252888"
           },
           "black": {
             "name": "YHWH-anglican-bcp-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "51603814318d92b0e6a67f87dd2c8249a5b6c5e52905de1d959699c152e7bef8"
           },
           "brown": {
             "name": "YHWH-anglican-bcp-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "81daa3a9050919bc239a16d41f836e716025b32abf41e126739f4c791eb16f03"
           },
           "forest": {
             "name": "YHWH-anglican-bcp-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "fef31c66e06067faabd61d32e7a374ed94b22f72c24aad77b424d5d725964e2d"
           },
           "red": {
             "name": "YHWH-anglican-bcp-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-anglican-bcp-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "12ba70f49ce3077564fb4fcd217480972b504be9f20216fae9af8898ea855dc5"
           }
         },
         "lutheran-confessional": {
           "black": {
             "name": "YHWH-lutheran-confessional-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "bd2cb68efd05ef75791d704d9b9346bf390d5785991092f6aceccc70cb239e0b"
           },
           "brown": {
             "name": "YHWH-lutheran-confessional-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "635820cfce4a7b1320c2e7d5f5eb72ff333d29d893a22df180c12666652df188"
           },
           "forest": {
             "name": "YHWH-lutheran-confessional-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "e0f0e71e8ef26955b9fca064ae5f619f93aa4a2843d65e7742748e22141a1bb5"
           },
           "navy": {
             "name": "YHWH-lutheran-confessional-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "9a90ec645bc7f523cc30e1f9f7b2ad9e4e0c9920c7f25dde725b5e27bfea0a02"
           },
           "red": {
             "name": "YHWH-lutheran-confessional-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-lutheran-confessional-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "0503f21140449438f8b80afcbcf9fb161cd6e3228dec35ebccc934b85a659e49"
           }
         },
         "coptic-orthodox": {
           "brown": {
             "name": "YHWH-coptic-orthodox-v0.1.0-kindle-brown.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-kindle-brown.epub",
-            "sha256": ""
+            "sha256": "72cc73ee01bdcebd295c43ac4e3aff27c1b49f916efc0316a2a2cfa9ad43c473"
           },
           "black": {
             "name": "YHWH-coptic-orthodox-v0.1.0-kindle-black.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-kindle-black.epub",
-            "sha256": ""
+            "sha256": "5f8dc24dcb942746b4339b096d61089dcbae833f2279c787c35747b64597419a"
           },
           "forest": {
             "name": "YHWH-coptic-orthodox-v0.1.0-kindle-forest.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-kindle-forest.epub",
-            "sha256": ""
+            "sha256": "64144fe1c8c537ab6145e7b764ae77d027a678874d32069be42639c5e112b4f0"
           },
           "navy": {
             "name": "YHWH-coptic-orthodox-v0.1.0-kindle-navy.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-kindle-navy.epub",
-            "sha256": ""
+            "sha256": "27b83a4ff1d83b7de6dd018892c6d834d88781aadae7e26278d924b21de6cac3"
           },
           "red": {
             "name": "YHWH-coptic-orthodox-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-coptic-orthodox-v0.1.0-kindle-red.epub",
-            "sha256": ""
+            "sha256": "807a1791acb9a1fbc86cf6f31b798af2b2e62d2d29698e15d8c6ddc73820b287"
           }
         }
       }

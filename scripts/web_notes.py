@@ -35,7 +35,10 @@ def api_books() -> dict:
         path = NOTES_DIR / f"{b['code']}.py"
         if not path.is_file():
             continue
-        notes = notes_io.load_notes(path) or []
+        loaded = notes_io.load_notes(path)
+        if loaded is None:
+            continue
+        notes = loaded
         kinds: dict[str, int] = {}
         for tup in notes:
             if isinstance(tup, tuple) and len(tup) >= 5:
@@ -64,7 +67,10 @@ def api_notes(book_code: str) -> dict:
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
-    notes = notes_io.load_notes(path) or []
+    loaded = notes_io.load_notes_checked(path, book=book_code)
+    if isinstance(loaded, dict):
+        return loaded
+    notes = loaded
     items = []
     for i, tup in enumerate(notes):
         if not isinstance(tup, tuple) or len(tup) < 8:
@@ -140,7 +146,15 @@ def api_save(book_code: str, payload: dict) -> dict:
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
-    notes = list(notes_io.load_notes(path) or [])
+    loaded = notes_io.load_notes_checked(path, book=book_code)
+    if isinstance(loaded, dict):
+        return loaded
+    from scripts.core.html_sanitize import sanitize_html
+
+    if "body" in payload:
+        payload = dict(payload)
+        payload["body"] = sanitize_html(str(payload.get("body") or ""))
+    notes = list(loaded)
     new_tup = dict_to_tuple(payload)
     idx = payload.get("index")
     if idx is None or idx == "":
@@ -162,7 +176,10 @@ def api_delete(book_code: str, index: int) -> dict:
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
-    notes = list(notes_io.load_notes(path) or [])
+    loaded = notes_io.load_notes_checked(path, book=book_code)
+    if isinstance(loaded, dict):
+        return loaded
+    notes = list(loaded)
     if index < 0 or index >= len(notes):
         return {"error": "index out of range", "index": index}
     removed = notes.pop(index)

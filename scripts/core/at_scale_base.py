@@ -24,6 +24,15 @@ from __future__ import annotations
 
 from pathlib import Path
 
+
+class CandidateQueueCorruptError(RuntimeError):
+    """Raised when a candidate JSON queue exists but cannot be parsed."""
+
+    def __init__(self, path: Path | str) -> None:
+        self.path = Path(path)
+        super().__init__(f"candidate queue corrupt: {self.path}")
+
+
 # ANSI color codes for the drivers' progress output.
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
@@ -196,7 +205,9 @@ def append_candidates(out_path: Path, book: str, chapter: int, candidates: list)
     if out_path.is_file():
         try:
             existing = json.loads(out_path.read_text(encoding="utf-8")).get("candidates", [])
-        except (json.JSONDecodeError, OSError):
+        except json.JSONDecodeError as exc:
+            raise CandidateQueueCorruptError(out_path) from exc
+        except OSError:
             existing = []
 
     # Dedup against existing + within-run on (verse, kind, draft_body); ids
