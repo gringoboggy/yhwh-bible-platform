@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 124).** **NOW:** `ci.py` finish · `rx-surfaces` · gate-only sim prep (no matrix builds). **Mac parallel:** `stk_channel.sh` + Thorium sim layers. Kobo `--sim` wired. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 125).** **NOW:** `ci.py` finish · `rx-surfaces` · ACK Mac `f3b12433` · stage `build/reader-sim/` from cached epubs · run `--sim all`. **No matrix builds** until `ci.py` GREEN. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 124 DONE).** **Shipped:** M4b m4b-2 + vn-back RSC-012 fix (`kindle_post.py`); `thorium_cdp.py`; `stk_channel.sh` gate-only; `SIM_LAYERS_READY` all four readers wired; ethiopian m4b epubcheck **0/0/0/0** on Desktop QA copy. **Tests:** `test_kindle_m4b` 9/9 · `test_reader_sim` 10/10 · `lint_rules` 0 fail. **Next:** `--sim all` when cached per-reader artifacts staged; STK live poll when Kindle-for-Mac installed. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 125).** **READ FIRST:** `dev/LANE_HANDOFF.md` §**Mac turn 125 — full runbook** (10 sections: bootstrap · ACK · stage `build/reader-sim/` · STK live poll · Thorium `--live` · M4b 6-pack gate · `--sim all` · optional Play AVD · save cadence · done criteria). Queue: `MAC_WORK_QUEUE.md` §Turn 125. **NO** `build_edition` / matrix / `ci.py` until WIN `ci.py` GREEN. `lane_watch --bg`. Baton **mac** (truth_owner); mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

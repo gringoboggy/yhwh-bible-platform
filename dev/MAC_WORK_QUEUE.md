@@ -62,6 +62,25 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **M4b STK pack:** 6/6 on `~/Desktop/YHWH-kindle-m4b-qa/` (`ethiopian-tewahedo` m4b-2 + RSC-012 vn-back fix — **Mac turn 124**)
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
+## Turn 125 queue (WIN assign @ post-Mac turn 124)
+
+> **Full runbook:** `dev/LANE_HANDOFF.md` §"Mac turn 125 — full runbook" (10 sections, copy-paste commands).
+
+> Mac turn 124 **DONE** (`f3b12433`). **NO matrix builds** until WIN `ci.py` GREEN.
+
+- [ ] **0 Bootstrap:** `git pull` · `lane_watch --once` + `--bg` · `export PYTHONUTF8=1`
+- [ ] **1 ACK turn 124:** `pytest test_kindle_m4b test_reader_sim` · `reader_sim.py --list` · `verify_kindle_m4b` on Desktop ethiopian m4b · `stk_channel.sh --gate-only`
+- [ ] **2 Stage `build/reader-sim/`:** `kindle/` from `~/Desktop/YHWH-kindle-m4b-qa/` · `apple/` tablet epub · `play/` everywhere navy · `kobo/` kepub if local — see handoff §2 for `cp` commands
+- [ ] **3 STK live poll:** `stk_channel.sh EPUB` snapshot → manual Send-to-Kindle → `stk_channel.sh EPUB --wait 3600` — NOT Previewer
+- [ ] **4 Thorium live:** extend `thorium_cdp.py --live` + optional `YHWH_THORIUM_LIVE=1` in `reader_sim.py` — M2/M5 tap matrices in qa-checklists
+- [ ] **5 M4b pack gate sweep:** all 6 epubs in `~/Desktop/YHWH-kindle-m4b-qa/` with `M4B=1 gate.sh` — record in m4b design doc §7
+- [ ] **6 `--sim all` dry-run:** `reader_sim.py --sim all --artifact-dir build/reader-sim` on Mac
+- [ ] **7 Play emulator (optional):** AVD + Play Books upload — honest pass/fail in `play/qa-checklist.md`
+- [ ] **8 Save + push:** `save_mac.sh` each slice; update queue checkboxes; WIN pulls for local `--sim all`
+- [x] **lane_watch:** keep `--bg` running — **standing**
+
+## Turn 124 queue — **COMPLETE**
+
 ## Turn 124 queue (WIN assign @ parallel prep) — **Mac prep while WIN ci.py runs**
 
 > **No heavy EPUB matrix builds** on either box while WIN `ci.py` runs. Gate/sim on cached artifacts only.

@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 124, parallel prep).** **WIN:** `ci.py` finish + rx-surfaces; kobo/play sim shells shipped; gate-only on cached kepubs. **Mac:** wire `stk_channel.sh` + Thorium sim layers (no matrix builds). **Deferred after current readers:** YHWH Native Reader (`plans/2026-06-18-yhwh-native-reader-deferred.md`). Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 125).** **Mac turn 124 DONE** (`f3b12433`): M4b m4b-2 · thorium_cdp · stk_channel · all SIM_LAYERS wired. **WIN:** `ci.py` + rx-surfaces + stage `build/reader-sim/` + `--sim all`. **Mac:** stage Desktop QA epubs · STK/Thorium live layers · Play emulator spike. No matrix builds until `ci.py` GREEN. Baton **windows**; mode=parallel.
 
 ## Standalone status (unchanged)
 

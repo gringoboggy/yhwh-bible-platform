@@ -1,13 +1,232 @@
 ---
 mode: parallel
-turn: 124
+turn: 125
 from: windows
-updated: 2026-06-17T23:08:40Z
+updated: 2026-06-17T23:49:09Z
 status: handing-off
-mac: turn 124 prep: implement kindle/stk_channel.sh STK poll + Thorium sim (apple/sim.sh, play/thorium_spike.sh) via CDP MCP; m4b-2 fix if quick; gate-only on staged epubs — NO matrix builds while WIN ci.py runs; lane_watch --bg
-windows: ci.py finish + rx-surfaces close Round 9; gate-only reader sim on cached artifacts; kobo sim layer wired
+mac: turn 125: stage build/reader-sim/ from Desktop QA epubs; STK live poll if Kindle-for-Mac; Thorium live CDP beyond gate-only; optional Play emulator spike; NO matrix builds until WIN ci.py GREEN; lane_watch --bg
+windows: ci.py finish + rx-surfaces; ACK f3b12433; stage build/reader-sim from cached epubs; run reader_sim.py --sim all
 truth_owner: mac
 holder: mac
+---
+
+## ▶ windows → mac (turn 125, 2026-06-17T23:49:09Z) — mode=parallel
+
+**Done (turn 124, windows):**
+Mac turn 124: M4b m4b-2, thorium_cdp, stk_channel, SIM_LAYERS all wired (f3b12433)
+
+**Next (turn 125, mac picks up):**
+WIN ci.py + --sim all | Mac live STK/Thorium + artifact staging
+
+**Assignments:** mac = turn 125: stage build/reader-sim/ from Desktop QA epubs; STK live poll if Kindle-for-Mac; Thorium live CDP beyond gate-only; optional Play emulator spike; NO matrix builds until WIN ci.py GREEN; lane_watch --bg · windows = ci.py finish + rx-surfaces; ACK f3b12433; stage build/reader-sim from cached epubs; run reader_sim.py --sim all
+
+**Watch-outs:**
+ci.py still running on WIN — no heavy builds
+
+### Mac turn 125 — full runbook (read this entire section)
+
+**Policy:** NO `build_edition` / format-matrix / full pytest / `ci.py` on Mac while WIN `ci.py` runs (~8h+). Gate · sim · copy · poll only.
+
+#### 0) Session bootstrap (first 5 minutes)
+
+```bash
+cd ~/Documents/YHWH\ v2.4   # or your clone path
+git pull --rebase origin main
+git log -1 --oneline        # expect f3b12433+ and WIN turn 125 handoff
+bash dev/lane_watch_mac.sh --once
+bash dev/lane_watch_mac.sh --bg
+export PYTHONUTF8=1
+```
+
+Read: `dev/MAC_WORK_QUEUE.md` §Turn 125 · `dev/reader_sim/README.md` · `plans/2026-06-18-reader-simulation-lab.md`.
+
+#### 1) ACK turn 124 ships (verify before new work)
+
+Mac turn 124 landed on `main` — confirm locally:
+
+```bash
+.venv/bin/python -m pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q
+.venv/bin/python scripts/reader_sim.py --list
+# Expect: all four readers [ready], all sim layers wired
+
+# M4b ethiopian on Desktop QA copy (m4b-2 was the fix target):
+.venv/bin/python -c "
+from pathlib import Path
+from scripts.core.kindle_post import verify_kindle_m4b
+p = Path.home() / 'Desktop/YHWH-kindle-m4b-qa'
+epubs = sorted(p.glob('*ethiopian*m4b*.epub')) or sorted(p.glob('*ethiopian*.epub'))
+assert epubs, 'no ethiopian epub in ~/Desktop/YHWH-kindle-m4b-qa/'
+fails = verify_kindle_m4b(epubs[0])
+print('verify_kindle_m4b:', fails or 'OK')
+"
+
+# Thorium structural proxy (gate-only — no Thorium app required):
+.venv/bin/python dev/reader_sim/thorium_cdp.py \
+  ~/Desktop/YHWH-kindle-m4b-qa/*ethiopian*.epub --profile play --gate-only 2>/dev/null | tail -5
+# (use a tablet.epub for apple profile if you have one on Desktop)
+
+# STK gate-only (Kindle app optional):
+bash dev/reader_sim/kindle/stk_channel.sh \
+  ~/Desktop/YHWH-kindle-m4b-qa/*ethiopian*m4b*.epub --gate-only
+```
+
+If any ACK step fails, fix before staging — do not layer new work on a red baseline.
+
+#### 2) Task A — Stage `build/reader-sim/` for cross-lane `--sim all`
+
+WIN will run `py -3 scripts/reader_sim.py --sim all --artifact-dir build/reader-sim` once per-reader artifacts exist. **Mac owns kindle + apple staging** (WIN has kobo kepub on disk; play everywhere from release/cache).
+
+```bash
+REPO=~/Documents/YHWH\ v2.4
+mkdir -p "$REPO/build/reader-sim"/{kindle,apple,play,kobo}
+
+# Kindle (standard + m4b if both exist):
+cp -f ~/Desktop/YHWH-kindle-m4b-qa/*ethiopian*.epub \
+  "$REPO/build/reader-sim/kindle/" 2>/dev/null || true
+# If only one file, also copy m4b variant explicitly:
+cp -f ~/Desktop/YHWH-kindle-m4b-qa/*m4b*.epub \
+  "$REPO/build/reader-sim/kindle/" 2>/dev/null || true
+
+# Apple tablet (if on Desktop or build/):
+TABLET=$(ls ~/Desktop/*tablet*ethiopian*.epub 2>/dev/null | head -1)
+[[ -z "$TABLET" ]] && TABLET=$(ls "$REPO/build/"*tablet*ethiopian*.epub 2>/dev/null | head -1)
+[[ -n "$TABLET" ]] && cp -f "$TABLET" "$REPO/build/reader-sim/apple/"
+
+# Play everywhere navy (release download or cached build):
+PLAY=$(ls ~/Desktop/*everywhere*navy*.epub 2>/dev/null | head -1)
+[[ -z "$PLAY" ]] && PLAY=$(ls "$REPO/build/"*everywhere*ethiopian*.epub 2>/dev/null | head -1)
+[[ -n "$PLAY" ]] && cp -f "$PLAY" "$REPO/build/reader-sim/play/"
+
+# Kobo kepub — only copy if Mac has a recent one (WIN usually supplies):
+KEPUB=$(ls "$REPO/build/"*ethiopian*eink*.kepub.epub 2>/dev/null | head -1)
+[[ -n "$KEPUB" ]] && cp -f "$KEPUB" "$REPO/build/reader-sim/kobo/"
+
+ls -la "$REPO/build/reader-sim"/*/
+```
+
+**Commit note in save message:** which dirs have artifacts (WIN needs ≥1 file per reader for `--sim all`).
+
+#### 3) Task B — STK live poll (Kindle-for-Mac channel sim)
+
+**Not Previewer.** Consumer path only.
+
+**Prereq:** Kindle for Mac installed (`/Applications/Amazon Kindle.app` or Mac App Store Kindle). Container root: `~/Library/Containers/com.amazon.Kindle/Data`.
+
+**Workflow:**
+
+```bash
+EPUB=~/Desktop/YHWH-kindle-m4b-qa/<pick-one-ethiopian-m4b.epub>
+
+# Step 1 — inventory snapshot + stage to Desktop sim folder:
+bash dev/reader_sim/kindle/stk_channel.sh "$EPUB"
+# Without --wait: exits 0 after snapshot if Kindle present
+
+# Step 2 — YOU (or agent via UI) Send to Kindle:
+#   - Open Kindle for Mac
+#   - File → Import / Send to Kindle, OR drag "$EPUB" into the app
+#   - OR email to your @kindle.com address (same Amazon account)
+
+# Step 3 — poll up to 60 min (STK can be slow):
+bash dev/reader_sim/kindle/stk_channel.sh "$EPUB" --wait 3600
+# PASS = new .azw/.kfx/.mbp under container + structural gate re-run
+```
+
+**If Kindle NOT installed:** document `gate-only` PASS in `dev/reader_sim/kindle/qa-checklist.md` date-stamp; skip live poll.
+
+**Improvements to ship (if poll fails):**
+- Log the `comm -13` new file path into `build/reader-sim/kindle/stk-last-arrival.txt`
+- Match arrival by **title substring** in sidecar XML/metadata if file count alone is ambiguous
+- Never wire Kindle Previewer 3 into this script
+
+#### 4) Task C — Thorium live CDP (beyond `--gate-only`)
+
+Turn 124 shipped **structural** proxy in `dev/reader_sim/thorium_cdp.py`. Turn 125 extends to **live** when Thorium is installed.
+
+**Prereq:** `/Applications/Thorium.app` (or `thorium` on PATH).
+
+**Spike steps:**
+
+```bash
+TABLET=build/reader-sim/apple/*.epub   # or path from Task A
+.venv/bin/python dev/reader_sim/thorium_cdp.py "$TABLET" --profile apple
+# Today: structural probes. Extend script with:
+#   --live  → launch/open EPUB in Thorium, CDP navigate, snapshot Gen 1:1 popup text
+
+# Chrome DevTools MCP (if configured on Mac):
+#   1. browser_navigate file://…unzipped-gen11.xhtml  OR Thorium's reader URL
+#   2. click vn-link#v-gen-1-1
+#   3. assert popup/dialog text non-empty (screenshot optional)
+#   4. apple: expand <details> in nav; play: document stuck-closed if observed
+```
+
+**Files to touch:**
+- `dev/reader_sim/thorium_cdp.py` — add `--live` code path (subprocess open Thorium + CDP or document MCP steps in script `--help`)
+- `dev/reader_sim/apple/sim.sh` — pass `--live` when `THORIUM_LIVE=1`
+- `scripts/reader_sim.py` — `_thorium_sim()` call `--live` when env `YHWH_THORIUM_LIVE=1`
+
+**M2 tap matrix (apple):** `dev/reader_sim/apple/qa-checklist.md` rows 1–4.
+
+**M5 tap matrix (play):** `dev/reader_sim/play/qa-checklist.md` — popup · fonts · chapter nav · stuck ToC.
+
+#### 5) Task D — M4b six-variant STK pack (gate-only, no rebuild)
+
+Pack dir: `~/Desktop/YHWH-kindle-m4b-qa/` (6 editions). After m4b-2 fix, re-gate ALL:
+
+```bash
+for f in ~/Desktop/YHWH-kindle-m4b-qa/*.epub; do
+  echo "=== $f ==="
+  M4B=1 bash dev/reader_sim/kindle/gate.sh "$f" || echo FAIL
+done
+```
+
+Record pass/fail table in `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7 footer (date-stamped). **Do not** STK-upload all six unless user asks — gate-only is enough for turn 125.
+
+#### 6) Task E — Play Android emulator spike (optional, honest doc)
+
+If time after A–D:
+
+1. Android Studio AVD (Pixel · API 34) on Mac
+2. Sideload `build/reader-sim/play/*.epub` or install Play Books from Play Store
+3. Upload EPUB · run M5 minimum taps from `dev/EREADERS.md` §Play
+4. Append **pass/fail** to `dev/reader_sim/play/qa-checklist.md` — if emulator ≠ phone, say so
+
+Skip if bandwidth low; structural `thorium_cdp --gate-only` is the floor.
+
+#### 7) Task F — Agent sim suite dry-run (Mac-side)
+
+```bash
+.venv/bin/python scripts/reader_sim.py --sim all --artifact-dir build/reader-sim
+```
+
+If a reader dir is empty, `--sim all` skips or fails — that's expected; Task A fixes it.
+
+#### 8) What NOT to do this turn
+
+- ❌ `build_edition.py` / `build_format_matrix` / full catalog rebuild
+- ❌ `pytest` full tree / `scripts/ci.py` on Mac
+- ❌ Kindle Previewer 3 as STK oracle
+- ❌ Start YHWH Native Reader (`plans/2026-06-18-yhwh-native-reader-deferred.md`) — deferred
+
+#### 9) Save cadence (Mac owns truth_owner turn 125)
+
+After each coherent slice:
+
+```bash
+bash dev/save_mac.sh -m "turn 125: <slice summary>"
+```
+
+Push **both** remotes every slice (origin + github). WIN `lane_watch` will see incoming.
+
+#### 10) Turn 125 done when
+
+- [ ] `build/reader-sim/` has artifacts (kindle + apple minimum; note kobo/play status)
+- [ ] `reader_sim.py --sim all` PASS on Mac against that dir (or documented per-reader gaps)
+- [ ] STK live poll attempted OR gate-only documented with reason
+- [ ] Thorium `--live` spike attempted OR extension stub + honest ceiling in `thorium_cdp.py` header
+- [ ] M4b 6-variant gate sweep recorded
+- [ ] `MAC_WORK_QUEUE.md` §Turn 125 checkboxes updated
+- [ ] `bash dev/save_mac.sh` pushed — WIN can pull and run `--sim all` locally
+
 ---
 
 ## ▶ windows → mac (turn 124, 2026-06-17T23:08:40Z) — mode=parallel
