@@ -42,7 +42,25 @@ def test_files(start_from: str | None) -> list[Path]:
     return files
 
 
-def run_file(path: Path) -> tuple[int, str]:
+def _pending_timeout_files(report_text: str) -> list[Path]:
+    """Files whose latest report line is TIMEOUT (skip already-passed retries)."""
+    last: dict[str, str] = {}
+    for line in report_text.splitlines():
+        if "] " not in line:
+            continue
+        body = line.split("] ", 1)[1]
+        for kind in ("PASS", "FAIL", "TIMEOUT", "SKIP"):
+            prefix = f"{kind} "
+            if not body.startswith(prefix):
+                continue
+            rest = body[len(prefix) :]
+            rel = rest.split(":", 1)[0].strip() if kind == "PASS" else rest.strip()
+            last[rel] = kind
+            break
+    return [REPO / rel for rel, kind in sorted(last.items()) if kind == "TIMEOUT"]
+
+
+def run_file(path: Path, *, timeout_sec: int) -> tuple[int, str]:
     env = {**os.environ, "PYTHONUTF8": "1"}
     bt = Path(os.environ.get("LOCALAPPDATA", "/tmp")) / "Temp" / "yhwh-pytest" / "shard"
     bt.mkdir(parents=True, exist_ok=True)
@@ -66,7 +84,7 @@ def run_file(path: Path) -> tuple[int, str]:
         stdin=subprocess.DEVNULL,
         capture_output=True,
         text=True,
-        timeout=1200,
+        timeout=timeout_sec,
     )
     tail = (p.stdout or "") + (p.stderr or "")
     summary = tail.strip().splitlines()[-1] if tail.strip() else f"exit {p.returncode}"
@@ -82,29 +100,33 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--retry-timeouts",
         action="store_true",
-        help="re-run files logged as TIMEOUT in the report (uses 1200s timeout)",
+        help="re-run files whose latest report line is TIMEOUT",
+    )
+    ap.add_argument(
+        "--timeout-sec",
+        type=int,
+        default=1200,
+        help="per-file subprocess timeout (default 1200; use 2400+ for slow build tests)",
     )
     args = ap.parse_args(argv)
 
     if not REPORT.exists():
         REPORT.write_text(f"# pytest gate shard report marker={MARKER}\n", encoding="utf-8")
 
+    timeout_sec = args.timeout_sec
     files = test_files(args.start_from)
     if args.retry_timeouts and REPORT.exists():
-        timeouts = []
-        for line in REPORT.read_text(encoding="utf-8").splitlines():
-            if "TIMEOUT " in line:
-                rel = line.split("TIMEOUT ", 1)[1].strip()
-                timeouts.append(REPO / rel.replace("/", "\\") if "\\" in rel else REPO / rel)
-        files = timeouts or files
-        _log(f"retry-timeouts: {len(files)} file(s)")
+        files = _pending_timeout_files(REPORT.read_text(encoding="utf-8")) or files
+        if timeout_sec == 1200:
+            timeout_sec = 2400
+        _log(f"retry-timeouts: {len(files)} file(s) timeout_sec={timeout_sec}")
 
     fails = 0
     for path in files:
         rel = path.relative_to(REPO).as_posix()
         _log(f"START {rel}")
         try:
-            rc, summary = run_file(path)
+            rc, summary = run_file(path, timeout_sec=timeout_sec)
         except subprocess.TimeoutExpired:
             _log(f"TIMEOUT {rel}")
             fails += 1

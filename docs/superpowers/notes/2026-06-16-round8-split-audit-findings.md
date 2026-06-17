@@ -86,5 +86,5 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 ### WIN turn-113 append (`tests-run` dim)
 
 - [x] **Shard gate @ `b4bef146`:** `scripts/pytest_gate_shard.py` — 254 test files, marker `not slow and not done_gate`, ~2.5h. **12 triaged:** 5 TIMEOUT (retry with 1200s), 5 false-FAIL (all-slow deselect — fixed in shard runner), 1 real FAIL (`test_omega4x_hygiene` B023 in `build_edition.py` — **fixed @ turn 113**), 1 expected WIN skip (`test_samkings_manifest_complete` — GAPS images Mac-only; Mac 6/6 incl. `done_gate`).
-- [ ] **Retry:** `--retry-timeouts` for 5 timeout files in progress.
+- [x] **Retry @ turn 113:** `--retry-timeouts` — 3/5 PASS (`build_smoke`, `font_embed`, `popup_split`); 2 still TIMEOUT @ 1200s (`marker_style`, `presentation_polish` — re-retry with 2400s + pending-only filter).
 - [ ] **Remainder:** `claude-setup`, `opt-build`, `rx-surfaces`, `popup-integrity` Workflow dims.
