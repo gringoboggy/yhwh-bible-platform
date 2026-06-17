@@ -4,10 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 112b) — ★ SHA256SUMS gap fixed on release
+
+**Shipped:** `scripts/merge_release_checksums.py` — merged 45 missing Kindle color EPUB checksums; `v0.1.0` SHA256SUMS now **186/186** (upload verified).
+**Audit:** round-8 `github-gitlab` survivor closed. Pytest gate grinding (`tests-run` dim).
+
 ## 2026-06-17 — Windows session (turn 112) — ★ overnight lane_watcher + audit append
 
 **Coordination:** `scripts/lane_watcher.py` (poll 120s, auto-pull + `--assign-mac` from `dev/MAC_WORK_QUEUE.md`). Board turn 112 assignments updated.
-**Audit:** round-8 `github-gitlab` — `SHA256SUMS.txt` covers 141/187 assets (45 Kindle color EPUBs missing checksums). Phase 2/4 findings doc ticks reconciled vs Mac ships @ turn 107b–108.
+**Audit:** round-8 `github-gitlab` — found SHA256SUMS 141/186 gap (fixed turn 112b). Phase 2/4 findings doc ticks reconciled vs Mac ships @ turn 107b–108.
 **Next:** WIN continues 7-dim audit + disjoint fixes; Mac queue in `MAC_WORK_QUEUE.md`; round-8b re-audit when Phase 1–3 complete.
 
 ## 2026-06-17 — Mac session (turn 110b) — ★ Samuel CAM complete + fresh-session prep

@@ -79,6 +79,6 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 
 ### WIN turn-112 append (`github-gitlab` dim)
 
-- [ ] **MEDIUM** `SHA256SUMS.txt` covers 141/187 release assets — **45 Kindle color-variant EPUBs** (`YHWH-*-kindle-{black,brown,forest,navy,red}.epub`, 9 editions × 5 colors) uploaded without checksum merge. Evidence: `gh release view v0.1.0 --json assets` count 187 vs `SHA256SUMS.txt` 141 lines; missing set is exactly the 45 kindle-color stubs. Fix: download missing assets → `gen_checksums` merge → re-upload `SHA256SUMS.txt` + regen catalog. **Mac queue item** (needs gh write + network).
+- [x] **MEDIUM** `SHA256SUMS.txt` covers 141/186 release assets — **45 Kindle color-variant EPUBs** missing checksums — **WIN @ turn 112 overnight** (`scripts/merge_release_checksums.py` → 186/186; uploaded to `v0.1.0`)
 
 **Overnight coordination (WIN turn 112):** `scripts/lane_watcher.py --loop 120 --assign-mac` polls Mac pushes; `dev/MAC_WORK_QUEUE.md` holds the auto-assign backlog. Plan: re-run round-8b thorough Mac audit when Phase 1–3 all ticked.
