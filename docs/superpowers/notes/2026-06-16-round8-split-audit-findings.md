@@ -52,7 +52,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias — **Mac turn 107b** (`_BOOK_FILE_ALIASES`)
 - [x] **MEDIUM** 1ki EN back-translation gap ch7-10 — **Mac turn 107b** (117 v)
 - [x] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553) — **Mac turn 101** (MATRIX_MAP + matrix.py; `website/dist/` deferred Phase 2)
-- [ ] **MEDIUM** Test coverage gaps (inject_book write path, coord-guard driver loops) — build-my-bible HTTP **done @ 9b877205**
+- [x] **MEDIUM** Test coverage gaps (inject_book write path, coord-guard driver loops) — **Mac turn 114** (`test_inject_write_path.py`) + **mint-11** (`test_mint11_phase3.py` coord guard class sweep) + build-my-bible HTTP **@ 9b877205**
 
 ### Phase 5 — Optimization decisions (defer unless cheap)
 
