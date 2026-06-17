@@ -68,7 +68,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 **Mac owns:** Apple + Kindle sims. **WIN owns:** Kobo + Play sims + `scripts/reader_sim.py` orchestrator.
 
-- [ ] **Phase 1 scaffold:** `dev/reader_sim/` tree + README (either lane after gate)
+- [x] **Phase 1 scaffold:** `dev/reader_sim/` tree + README + `scripts/reader_sim.py` — **WIN turn 124 prep** (gate-only works now; builds post-audit)
 - [ ] **Phase 2 Apple (Mac):** `tablet` build script + gates + Books.app M2 checklist → `~/Desktop/YHWH-reader-sim/apple/`
 - [ ] **Phase 3 Kobo (WIN):** kepub build + verify_kr2 + calibration export into sim dir
 - [ ] **Phase 4 Kindle (Mac):** M4b implement + Previewer batch gate + STK pack → `reader_sim/kindle/`

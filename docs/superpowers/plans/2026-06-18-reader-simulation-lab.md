@@ -76,11 +76,12 @@ Plus one orchestrator: **`scripts/reader_sim.py`** (or `dev/reader_sim/run.py`) 
 
 ## Phase plan
 
-### Phase 1 — Scaffold (both lanes, ~1 session)
+### Phase 1 — Scaffold (both lanes, ~1 session) — **WIN turn 124 prep DONE**
 
-1. Create `dev/reader_sim/` tree + `README.md`
-2. `scripts/reader_sim.py` CLI skeleton (`--list`, `--build`, `--gate`)
-3. Pin output dir: `build/reader-sim/<reader>/` (gitignored) + Desktop copy for human QA
+1. [x] Create `dev/reader_sim/` tree + `README.md` + per-reader `qa-checklist.md`
+2. [x] `scripts/reader_sim.py` CLI (`--list`, `--build`, `--gate`, `--gate all`)
+3. [x] Pin output dir: `build/reader-sim/<reader>/` (under `/build/`, gitignored)
+4. [ ] Desktop copy helper for human QA (post-gate)
 
 ### Phase 2 — Apple (Mac)
 
