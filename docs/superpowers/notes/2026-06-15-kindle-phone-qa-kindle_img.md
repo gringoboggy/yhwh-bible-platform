@@ -199,6 +199,31 @@ re-open to re-download. After both are local, second open should be instant.
 **README mismatch:** pack `README.txt` asks to “tap a verse footnote popup” and “ToC pills
 expand horizontally” — phone QA shows neither works; popups teleport, ToC is flat chapter rows.
 
+## K-R9c parity sketch (Mac turn 108 — findings-only, no code)
+
+**Kobo shipped model (K-R9b/c):** scripture keeps `vn-link` translation popups; study
+categories collapse to end-of-chapter **Study Notes** glossary navigation — not inline
+`noteref` popups on every badge.
+
+**Kindle gap:** KFX has no true footnote overlay (`dev/EREADERS.md`). Phone QA shows inline
+`noteref` taps **teleport to chapter page-break anchors** (Gen 3:24 → 8:10 → 11:26) because
+Kindle mis-resolves `#vnote-*` / `#vnotes-*` across `notes-section` blocks + forced
+`page-break-before` splits. STK 6/6 gated delivery only.
+
+**M4b fork proposal (mirror K-R9c where STK-safe):**
+
+| Surface | Kobo (K-R9c) | Kindle M4b target |
+|---------|--------------|-------------------|
+| Translation | `vn-link` popup at verse start | Keep `vn-link`; try per-verse inline `vnote-*` (not chapter-tail batch) — phone STK gate |
+| Study notes | Glossary backmatter; badges navigate | Suppress inline ◈/numbered markers; end-of-chapter or end-of-book study block (no `noteref` in scripture) |
+| Presentation | `kindle_post` N/A | Extend `make_kindle_safe` branch: `reader_kindle_study_inline` off (default) |
+| QA gate | Kobo tap round | Gen 1/3 badge taps + translation badges + page-break landings; `verify_kindle_safe` + epubcheck |
+
+**Config hook (design):** `target_reader: kindle` + edition flag
+`reader_kindle_study_backmatter: true` (default off for byte-stability) → `kindle_post`
+suppresses inline study markers and emits STK-safe backmatter links. **HOLD implementation**
+until WIN Phase 3 + merged audit plan approved.
+
 ## Lane note
 
 Mac M3 fan-out **41/45** at time of capture (`coptic-orthodox` in epubcheck). Do not stack

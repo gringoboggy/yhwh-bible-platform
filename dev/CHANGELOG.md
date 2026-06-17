@@ -10,6 +10,13 @@
 **Pytest:** spot 11/11 audit2 reds @ `b3e7b5af`; full `-m "not slow and not done_gate"` rerun grinding.
 **Handoff turn 107 → Mac:** Phase 4 disjoint + M3 attach + external MJ bundle → E:.
 
+## 2026-06-16 — Mac session (turn 108b) — ★ backlog: aes OOE + Kings P0 tail + M4b sketch
+
+**aes:** removed 3 out-of-extent ch10 v11–13 duplicate Hebrew notes (`test_aes_notes_extent`).
+**Kings P0:** `fill_kings_p0_tail.py` filled 1ki 19–22 + 2ki 1–25 (GG+CAM folios); `done_gate` folio test GREEN for kings; `acquire_kings_cam_missing.py` IIIF pull f135–f168 (CAM hires on Mac).
+**M4b:** K-R9c parity sketch appended to `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` (findings-only).
+**Website:** `gen_release_catalog` + `build.mjs` smoke (187 assets; kobo live).
+
 ## 2026-06-16 — Mac session (turn 107b) — ★ Phase 4 disjoint + M3 kobo column LIVE
 
 **External:** MJ bundle rsync MacHD2→E: (`book-title-covers-midjourney-gradient-2026-06-16/`); m3 handoff mirrored MacHD2 `m3-kobo-v0.1.0/`.
