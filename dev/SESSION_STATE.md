@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 112 — ★ OVERNIGHT).** `/resume` → `git pull` @ turn 113+ after this push. **Shipped turn 112:** Phase 3 ncx · K-R6-2 spot eink GREEN · `verify_kr2` eink gates · catalog smoke · **lane_watcher loud logging** (remote board turn + incoming banner on pull). **WIN** @ turn 113: pytest + round-8 audit. **Mac next:** round-8b THOROUGH re-audit · SHA256SUMS Kindle gap. **Watcher:** `bash dev/lane_watch_mac.sh --bg` → `dev/.lane_watcher.log`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 113 — ★ ROUND-8b DONE).** **Shipped turn 113:** Round-8b THOROUGH re-audit @ `cae25abd` on `lane-transfer/audit` — **30 survivors** (2H/10M/13L/5 info), **21 prior refuted** (Phase 1–3 held). **Mac next:** Phase 4 fixes (load_notes guard class · Kindle catalog regen · kinds/categories mtime cache). **WIN** @ turn 113: pytest GREEN · round-8 audit remainder. Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac`. **Shipped turn 113:** B023 fix @ `b2b9555a`; pytest shard gate **GREEN** (254 files, 5 slow retries up to 59m); shard runner pending-timeout filter @ `bf300d7b`. **WIN work:** round-8 audit remainder (`claude-setup`/`opt-build`/`rx-surfaces`/`popup-integrity`). Baton **mac**; mode=parallel.
 >
