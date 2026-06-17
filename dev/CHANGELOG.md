@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 114) — ★ lane_watch v3 unified cross-lane poll
+
+**Shipped:** `scripts/lane_watch.py` — one engine (push BEHIND + remote board turn + incoming + unpushed-handoff nag + optional `--assign-mac`). `lane_watcher.py` shim; `dev/lane_watch_win.ps1` + updated `dev/lane_watch_mac.sh`. Tests 5/5. Mac assign turn 114 in `MAC_WORK_QUEUE.md`.
+
 ## 2026-06-17 — Windows session (turn 113b) — ★ WIN round-8 audit dims COMPLETE
 
 **Audit:** ran remaining WIN Workflow dims — `claude-setup` (5 survivors incl. lane_watcher handoff-blindness), `opt-build` CONFIRM-OPTIMAL, `rx-surfaces` + `popup-integrity` on fresh eth+catholic-study builds (kr2 ALL GREEN; S3 hidden-target 0).

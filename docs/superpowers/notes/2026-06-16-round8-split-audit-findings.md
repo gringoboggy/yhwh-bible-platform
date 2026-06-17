@@ -109,7 +109,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 - [ ] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work.
 - [ ] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook.
-- [ ] **HIGH** `lane_watcher.py` is **git-push-only** — docstring claims handoff sync but `do_once()` never polls `LANE_HANDOFF.md` mtime/turn; unpushed or local-only board updates invisible (confirmed live: Mac handoff ~11pm never triggered WIN).
+- [x] **HIGH** `lane_watcher.py` handoff-blind — **WIN turn 114** unified `scripts/lane_watch.py`: fetch + remote `origin/main:LANE_HANDOFF` turn compare + auto-pull on BEHIND **or** remote board ahead + `incoming` both lanes + `UNPUSHED HANDOFF` nag when local board ahead of remote with unpushed commits. `lane_watcher.py` → shim; `dev/lane_watch_{mac,win}.*` wrappers.
 - [ ] **MEDIUM** Repo `.claude/settings.json` is `{}` — SessionStart hooks live in parent `YHWH-v2.4-full/.claude/` after `install_cc_hooks.ps1`; RULES §0 cites in-repo `.claude/hooks/bootstrap-triad.ps1` path that does not exist in the tracked repo.
 - [ ] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it.
 

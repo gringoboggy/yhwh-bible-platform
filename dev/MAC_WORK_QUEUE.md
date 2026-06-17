@@ -1,10 +1,20 @@
-# Mac work queue — auto-assigned by WIN lane_watcher after each Mac push
+# Mac work queue — auto-assigned by WIN lane_watch after each Mac push
 
-WIN polls `scripts/lane_watcher.py --loop 120 --assign-mac`. On each Mac push it
-pulls, then assigns the first unchecked line below via `lane_handoff.py assign`.
+**Lane watch (both boxes):** `scripts/lane_watch.py` — one engine for push radar +
+remote handoff board + `lane_handoff incoming`. Handoffs only travel after **git push**.
+
+| Box | Start (foreground) | Background |
+|-----|-------------------|------------|
+| **Mac** | `bash dev/lane_watch_mac.sh` | `bash dev/lane_watch_mac.sh --bg` |
+| **WIN** | `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` | `... -Background` |
+| **WIN + queue** | add `-AssignMac` to auto-assign from this file after Mac pushes |
+
+WIN polls with `--assign-mac`. On each Mac push it pulls, surfaces incoming, then
+assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ## Active queue
 
+- [ ] **Lane watch v3:** `git pull` → verify `scripts/lane_watch.py` + `dev/lane_watch_mac.sh` → run `bash dev/lane_watch_mac.sh --once` (expect auto-pull if WIN ahead) → start `bash dev/lane_watch_mac.sh --bg` for overnight. **Rule:** any handoff/assign edit MUST be milestone-pushed or the other box never sees it (`UNPUSHED HANDOFF` nag in log).
 - [x] Phase 3 LOW: mirror study-glossary nav patch into `toc.ncx` — **Mac turn 111** @ 9a03dad1
 - [x] Spot eink build one edition `--target-reader eink` + run `dev/verify_kr2_build.py` on output kepub — **Mac turn 112** catholic-study kepub **ALL K-R2 GATES GREEN**
 - [x] M4b Kindle findings-only sketch — **Mac turn 108** + K-R6-2 glossary prefix note @ turn 111

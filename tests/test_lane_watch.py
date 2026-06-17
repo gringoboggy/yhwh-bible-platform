@@ -45,3 +45,68 @@ def test_remote_handoff_header_parses_frontmatter(tmp_path, monkeypatch):
     assert h["turn"] == "42"
     assert h["from"] == "windows"
     assert h["windows"] == "pytest triage"
+
+
+def test_check_flags_unpushed_handoff(monkeypatch, tmp_path):
+    monkeypatch.setattr(lw, "REPO", tmp_path)
+    monkeypatch.setattr(lw, "STATE_PATH", tmp_path / "state.json")
+    monkeypatch.setattr(lw, "LOG_PATH", tmp_path / "log.txt")
+    (tmp_path / "dev").mkdir()
+    (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(
+        "---\nmode: parallel\nturn: 99\nfrom: mac\nmac: idle\nwindows: idle\n---\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(lw, "_fetch", lambda: True)
+    monkeypatch.setattr(lw, "_auto_pull", lambda: (False, ""))
+    monkeypatch.setattr(lw, "_incoming_check", lambda: (1, ""))
+    monkeypatch.setattr(
+        lw,
+        "_remote_handoff_header",
+        lambda: {"turn": "98", "from": "windows"},
+    )
+    monkeypatch.setattr(
+        "scripts.lane_ping.gather",
+        lambda: {"status": "CLEAR", "unpushed": 2, "remotes": {}, "baton": {}},
+    )
+    monkeypatch.setattr("scripts.lane_handoff.detect_lane", lambda repo: "mac")
+    info = lw.check(auto_pull=False, quiet_log=True)
+    assert info["unpushed_handoff"] is True
+    assert info["local_turn"] == 99
+    assert info["remote_turn"] == 98
+
+
+def test_check_auto_pull_on_remote_board_ahead(monkeypatch, tmp_path):
+    monkeypatch.setattr(lw, "REPO", tmp_path)
+    monkeypatch.setattr(lw, "STATE_PATH", tmp_path / "state.json")
+    monkeypatch.setattr(lw, "LOG_PATH", tmp_path / "log.txt")
+    (tmp_path / "dev").mkdir()
+    (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(
+        "---\nmode: parallel\nturn: 10\nfrom: windows\nmac: idle\nwindows: idle\n---\n",
+        encoding="utf-8",
+    )
+    pulls: list[str] = []
+
+    def fake_pull():
+        pulls.append("yes")
+        (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(
+            "---\nmode: parallel\nturn: 11\nfrom: windows\nmac: idle\nwindows: work\n---\n",
+            encoding="utf-8",
+        )
+        return True, "pulled"
+
+    monkeypatch.setattr(lw, "_fetch", lambda: True)
+    monkeypatch.setattr(lw, "_auto_pull", fake_pull)
+    monkeypatch.setattr(lw, "_incoming_check", lambda: (1, ""))
+    monkeypatch.setattr(
+        lw,
+        "_remote_handoff_header",
+        lambda: {"turn": "11", "from": "windows", "windows": "work"},
+    )
+    monkeypatch.setattr(
+        "scripts.lane_ping.gather",
+        lambda: {"status": "CLEAR", "unpushed": 0, "remotes": {}, "baton": {}},
+    )
+    monkeypatch.setattr("scripts.lane_handoff.detect_lane", lambda repo: "mac")
+    info = lw.check(auto_pull=True, quiet_log=True)
+    assert pulls == ["yes"]
+    assert info["auto_pulled"] is True

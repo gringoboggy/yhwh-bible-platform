@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 113b).** **Shipped:** Round-8b @ `cae25abd` · Phase 4 batch @ `481154c5` (notes parse guard · candidate queue · kinds/categories mtime · Kindle catalog sha256 45/45). **Mac next:** prospect coord guard · inject_book write test · doc count 91720 drift · refactor cache_clear. **WIN:** round-8 audit remainder. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113b).** WIN round-8 audit **COMPLETE** — all 7 dims; 5 new claude-setup/lane survivors in findings doc. `lane_watcher` **stopped** (user request). Pytest shard **GREEN** @ `568c9b66`. **Next fixes:** PLAYBOOK/RULES save drift · lane_watcher handoff poll · doc hygiene. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 114).** `lane_watch.py` v3 shipped — unified push+handoff poll (`dev/lane_watch_win.ps1`). Mac: `bash dev/lane_watch_mac.sh --bg` per `MAC_WORK_QUEUE.md`. Start watcher only when needed. Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >

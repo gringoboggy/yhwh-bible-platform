@@ -1,20 +1,13 @@
 #!/usr/bin/env bash
-# lane_watch_mac.sh — Mac-side cross-lane poll (pull when Windows pushes).
+# lane_watch_mac.sh — Mac-side cross-lane poll (pull when Windows pushes + handoff board).
 #
-# Wraps scripts/lane_watcher.py (shared with WIN). Logs to dev/.lane_watcher.log.
-# On pull: surfaces lane_handoff incoming banner for Mac. Heartbeat every 10th
-# poll when idle; ALWAYS logs remote board turn changes + pull events.
-#
-# On Mac, run WITHOUT --assign-mac (WIN-only: queues next Mac task from
-# dev/MAC_WORK_QUEUE.md after a Mac push lands on WIN).
-#
-# scripts/lane_watch.py is a one-shot JSON/human checker (incoming exit codes);
-# the overnight loop uses lane_watcher.py — same engine WIN uses.
+# Uses scripts/lane_watch.py (unified engine; lane_watcher.py is a compat shim).
+# Logs append to dev/.lane_watch.log (and stdout when foreground).
 #
 # Usage:
 #   bash dev/lane_watch_mac.sh              # loop every 90s (foreground)
-#   bash dev/lane_watch_mac.sh --bg         # detach → dev/.lane_watcher.log
-#   bash dev/lane_watch_mac.sh --once       # single check + pull if BEHIND
+#   bash dev/lane_watch_mac.sh --bg         # detach → dev/.lane_watch.log
+#   bash dev/lane_watch_mac.sh --once       # single check + auto-pull
 #
 set -euo pipefail
 
@@ -32,14 +25,17 @@ for arg in "$@"; do
   esac
 done
 
+ARGS=("$PY" "$REPO/scripts/lane_watch.py" "--auto-pull")
+if printf '%s\n' "${EXTRA[@]}" | grep -qx -- '--once'; then
+  ARGS+=("--once")
+else
+  ARGS+=("--loop" "90")
+fi
+
 if [ "$BG" = 1 ]; then
-  nohup "$PY" "$REPO/scripts/lane_watcher.py" --loop 90 >>"$REPO/dev/.lane_watcher.log" 2>&1 &
-  echo "lane_watcher: background pid $! — log $REPO/dev/.lane_watcher.log"
+  nohup "${ARGS[@]}" >>"$REPO/dev/.lane_watch.log" 2>&1 &
+  echo "lane_watch: background pid $! — log $REPO/dev/.lane_watch.log"
   exit 0
 fi
 
-if printf '%s\n' "${EXTRA[@]}" | grep -qx -- '--once'; then
-  exec "$PY" "$REPO/scripts/lane_watcher.py" --once
-fi
-
-exec "$PY" "$REPO/scripts/lane_watcher.py" --loop 90 "${EXTRA[@]}"
+exec "${ARGS[@]}"

@@ -1,13 +1,19 @@
 ---
 mode: parallel
-turn: 113
+turn: 114
 from: windows
-updated: 2026-06-17T03:41:29Z
+updated: 2026-06-17T12:50:50Z
 status: working
-mac: git pull. ★ Round-8b THOROUGH re-audit: Workflow deep-audit.js LANE=mac local, 18 dims, adversarial verify. Phase 1-3 DONE.
-windows: pytest gate + round-8 audit remainder; lane_watcher running
+mac: git pull. Lane watch v3: bash dev/lane_watch_mac.sh --once then --bg (see MAC_WORK_QUEUE.md). Push every handoff.
+windows: idle — lane_watch v3 shipped; start with pwsh -File dev/lane_watch_win.ps1 when needed
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 114, 2026-06-17T12:50:50Z) — mode=parallel
+
+**Assignments:** mac = git pull. Lane watch v3: bash dev/lane_watch_mac.sh --once then --bg (see MAC_WORK_QUEUE.md). Push every handoff. · windows = idle — lane_watch v3 shipped; start with pwsh -File dev/lane_watch_win.ps1 when needed
+
 ---
 
 ## ◦ windows assign (turn 113, 2026-06-17T03:41:29Z) — mode=parallel
