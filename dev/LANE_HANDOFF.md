@@ -26,21 +26,6 @@ WIN turn 121: Mac post-Round-9 parallel slice — see MAC_WORK_QUEUE Post-Round-
 
 ---
 
-## ▶ mac → windows (turn 120, 2026-06-17T20:08:11Z) — mode=parallel
-
-**Done (turn 119, mac):**
-Round 9 Mac COMPLETE: 22-dim audit + 5 fixes shipped; platform briefs; lane-transfer/audit @ 94e1010b; website deploy efb7386 (188 assets kobo live); lane_watch_mac --bg fix; fast gate 6/1/0; killed 5h stale pytest/ci orphans
-
-**Next (turn 120, windows picks up):**
-WIN: rx-surfaces + full ci.py + merge round-9 doc; USER: Kobo gen-35:18 re-tap + Play M5 phone QA; Mac idle unless WIN assigns
-
-**Assignments:** mac = idle — fresh session: /resume + lane_watch --bg (keep running) · windows = rx-surfaces artifact build + full ci.py (N95) + Round 9 merge + user Kobo tap / Play QA
-
-**Watch-outs:**
-Do NOT launch background full pytest/ci.py on Mac HDD; targeted tests only; lane_watch ON whole arc
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
