@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 124).** **NOW:** `ci.py` finish · `rx-surfaces` · gate-only sim prep (no matrix builds). **Mac parallel:** `stk_channel.sh` + Thorium sim layers. Kobo `--sim` wired. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 124).** **NOW:** pull turn 124 · `lane_watch --bg` · **prep only** (no matrix builds while WIN `ci.py` runs). **ASSIGN:** implement `kindle/stk_channel.sh` poll + Thorium sim for `apple/sim.sh` + `play/thorium_spike.sh`; gate-only on staged epubs. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 124).** **START:** `git pull --rebase origin main` → read `dev/LANE_HANDOFF.md` turn 124 block → `dev/MAC_WORK_QUEUE.md` §Turn 124 → `bash dev/lane_watch_mac.sh --bg`. **DO (prep only — NO matrix builds while WIN `ci.py` runs):** (1) `dev/reader_sim/kindle/stk_channel.sh` — STK → Kindle-for-Mac poll, not Previewer; gate on `~/Desktop/YHWH-kindle-m4b-qa/` (2) Thorium/CDP wire `apple/sim.sh` + `play/thorium_spike.sh`; flip `SIM_LAYERS_READY` in `scripts/reader_sim.py` when green (3) m4b-2 `ethiopian-tewahedo` fix if quick. **ACK** pull through `8e3169b2+`. **DEFERRED:** native reader `plans/2026-06-18-yhwh-native-reader-deferred.md`. Baton **mac** (truth_owner); mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

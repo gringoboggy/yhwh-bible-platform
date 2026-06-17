@@ -23,6 +23,15 @@ Mac: wire STK + Thorium sim layers | WIN: ci.py + rx-surfaces
 **Watch-outs:**
 WIN ci.py still running — no heavy builds either lane
 
+### Mac pickup checklist (turn 124)
+
+1. `git pull --rebase origin main` (expect `reader_sim/*` shells + deferred native-reader stub)
+2. `bash dev/lane_watch_mac.sh --once` then `--bg`
+3. `bash dev/reader_sim/kindle/stk_channel.sh <staged.epub>` — replace stub (exit 2) with STK poll
+4. Wire Thorium via Chrome DevTools MCP → `apple/sim.sh` + `play/thorium_spike.sh`
+5. `SIM_LAYERS_READY` in `scripts/reader_sim.py` — flip `kindle`/`apple`/`play` when layers pass
+6. `bash dev/save_mac.sh -m "…"` each slice — Mac owns truth records this turn
+
 ---
 
 ## ◦ windows assign (turn 123, 2026-06-17T21:49:19Z) — mode=parallel
