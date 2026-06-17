@@ -65,7 +65,8 @@ def main() -> int:
             fetch_master(view_id=view, output_path=str(staging))
         for dest in by_folio[folio]:
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(staging, dest)
+            if dest.resolve() != staging.resolve():
+                shutil.copy2(staging, dest)
     for view in views:
         step += 1
         staging = OUT_DIR / f"MS-ADD-01570_view{view}_hires.jpg"
@@ -74,7 +75,8 @@ def main() -> int:
             fetch_master(view_id=view, output_path=str(staging))
         for dest in by_view[view]:
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(staging, dest)
+            if dest.resolve() != staging.resolve():
+                shutil.copy2(staging, dest)
     print("done")
     return 0
 

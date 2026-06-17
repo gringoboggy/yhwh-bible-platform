@@ -54,7 +54,8 @@ def main() -> int:
             fetch_master(view_id=view, output_path=str(staging))
         for dest in by_folio[folio]:
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(staging, dest)
+            if dest.resolve() != staging.resolve():
+                shutil.copy2(staging, dest)
     print("done")
     return 0
 
