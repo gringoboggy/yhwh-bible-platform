@@ -6,6 +6,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
+## ◦ windows assign (turn 119, 2026-06-17T14:02:13Z) — mode=parallel
+
+**Assignments:** mac = idle — lane_watch --bg + save_mac.sh after each slice (no asking, no waiting) · windows = lane_watch -Background -AssignMac + save-all after each slice (no asking, no waiting) + ci.py
+
+STANDING reinforced: commit+save autonomously — never wait on user input
+
+---
+
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
 ## ▶ mac → windows (turn 118, 2026-06-17T13:54:26Z) — mode=parallel
 
 **Done (turn 117, mac):**
