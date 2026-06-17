@@ -105,6 +105,7 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
    - **During work:** local-commit micro-edits — Windows: `& ".\save.ps1" -Message "…"` (PowerShell only; does **NOT** push). Mac: `git add -A` + `git commit -m "…"`. Commit freely; do not wait for permission.
    - **After each coherent slice (autonomous — no asking):** Windows: `& ".\save-all.ps1" -Message "…"` (`-Label`, `-Yes`, `-DryRun` as needed) — five legs when E:/F: mounted. Mac: `bash dev/save_mac.sh -m "…"` (commit if dirty + `lane_ping --before-push` + push both remotes). Triggers: tests/gate green · handoff/truth-record edit · before risky/long jobs · before wrap · `git status -b` shows ahead of origin. **Auto-rebase if BEHIND.**
    - **`save.ps1` alone is not a complete save** — never report "backed up" until push legs landed (`git status -b` ahead/behind = 0).
+   - **Post-push pause (WIN, user-directed 2026-06-17):** after `save-all.ps1` push legs land, **wait ~60s** before the next action — user refreshes VS Code extensions on new `main`.
 7. **⚠ SAVE TRUTH GATE — before ANY "done / safe to stop / safe to /clear / saved / backed up" statement (RULES §12 audit point 5).** Run `git log -1 --oneline` + `git status -b`. Report the ACTUAL state. Uncommitted = **WARNING**. Committed but unpushed = **WARNING** — other lane cannot see work. Full save = remotes in sync; Windows bundle on E:/F: when mounted.
 
 ---

@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 119b) — post-push 60s pause for VS Code
+
+**Standing:** user directive — after WIN `save-all.ps1` push, pause ~60s so user can refresh VS Code extensions.
+
 ## 2026-06-17 — Windows session (turn 118b) — commit+save without waiting on input
 
 **Standing:** reinforced user directive — both lanes commit+**save** often; **no asking, no waiting on input, no pause for confirmation** (RULES §4 · STANDING · MAC_WORK_QUEUE · save_mac.sh header).
