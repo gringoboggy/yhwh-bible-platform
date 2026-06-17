@@ -6,6 +6,10 @@
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 entries, 2026-06-16..2026-06-16 (rotate_truth_records.py) -->
+
+> **➤➤➤ 2026-06-16 (🖥️ Mac turn 106 — ★ MJ+GRADIENT SHIPPED + HANDOFF).** Policy reset: `_scenes/_midjourney/` + compose only; 20 Ethiopian extras; tests 9/9. Deprecated: alt04–06, Grok, ethnic variants.
+
 <!-- archived: 2 entries, 2026-06-16..2026-06-16 (rotate_truth_records.py) -->
 
 > **➤➤➤ 2026-06-16 (🖥️ Mac turn 106 — ★ MJ+GRADIENT SHIPPED + HANDOFF).** Policy reset: `_scenes/_midjourney/` + compose only; 20 Ethiopian extras; tests 9/9. Deprecated: alt04–06, Grok, ethnic variants.
