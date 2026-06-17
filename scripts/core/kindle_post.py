@@ -42,6 +42,7 @@ from __future__ import annotations
 
 import re
 import zipfile
+from collections import defaultdict
 from pathlib import Path
 
 # Mirrors scripts.build_edition.apply_kindle_strip_hidden (same regexes) so the
@@ -236,3 +237,156 @@ def verify_kindle_safe(epub_path: Path | str) -> list[str]:
                 if n != 1:
                     fails.append(f"{name}: {n} dc:language values (want exactly 1)")
     return fails
+
+
+# --- M4b: suppress inline study badges; chapter-tail visible study blocks ---
+
+_VN_LINK_RE = re.compile(r'<a\s+class="vn-link"', re.I)
+_VERSE_NOTES_BADGE_RE = re.compile(
+    r'<a\s+class="verse-notes-badge"[^>]*\bhref="#(vnotes-[^"]+)"[^>]*>.*?</a>',
+    re.DOTALL | re.I,
+)
+_VNOTES_ASIDE_RE = re.compile(
+    r'<aside\b(?=[^>]*\bid="(vnotes-[^"]+)")(?=[^>]*\bclass="[^"]*\bverse-notes\b)[^>]*>.*?</aside>',
+    re.DOTALL | re.I,
+)
+_VNOTES_COORD_RE = re.compile(r"^vnotes-([a-z0-9]+)-(\d+)-")
+_EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*', re.DOTALL)
+_HIDDEN_ATTR_RE = re.compile(r'\s+hidden(?:="[^"]*")?')
+
+
+def _unhide_aside(aside_html: str) -> str:
+    """Drop ``hidden`` from a relocated study aside (visible endnotes on KFX)."""
+    return _HIDDEN_ATTR_RE.sub("", aside_html, count=1)
+
+
+def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
+    """Remove inline ``verse-notes-badge`` markers; relocate ``vnotes-*`` asides into
+    per-chapter ``kindle-chapter-study`` sections (visible, same file). Translation
+    ``vn-link`` markers are untouched. Idempotent."""
+    stats = {
+        "badges_removed": 0,
+        "asides_relocated": 0,
+        "chapters_emitted": 0,
+        "vn_links": len(_VN_LINK_RE.findall(html)),
+    }
+
+    badges = [(m.start(), m.end()) for m in _VERSE_NOTES_BADGE_RE.finditer(html)]
+    if not badges and "kindle-chapter-study" in html:
+        return html, stats
+
+    stats["badges_removed"] = len(badges)
+    for start, end in reversed(badges):
+        html = html[:start] + html[end:]
+
+    asides: dict[str, str] = {}
+
+    def _take_aside(m: re.Match) -> str:
+        asides[m.group(1)] = m.group(0)
+        return ""
+
+    html = _VNOTES_ASIDE_RE.sub(_take_aside, html)
+    stats["asides_relocated"] = len(asides)
+
+    if not asides:
+        return html, stats
+
+    by_chapter: dict[tuple[str, str], list[str]] = defaultdict(list)
+    for aid in asides:
+        cm = _VNOTES_COORD_RE.match(aid)
+        if cm:
+            by_chapter[(cm.group(1), cm.group(2))].append(aid)
+
+    blocks: list[str] = []
+    for book, ch in sorted(by_chapter):
+        aids = sorted(by_chapter[(book, ch)])
+        inner = "\n".join(_unhide_aside(asides[aid]) for aid in aids)
+        blocks.append(
+            f'<section class="kindle-chapter-study" epub:type="footnotes">\n'
+            f"<h3>Study Notes — {book} {ch}</h3>\n{inner}\n</section>"
+        )
+        stats["chapters_emitted"] += 1
+
+    injection = "\n".join(blocks) + "\n"
+    ns = html.find('<aside class="notes-section"')
+    if ns != -1:
+        html = html[:ns] + injection + html[ns:]
+    else:
+        bc = html.rfind("</body>")
+        html = html[:bc] + injection + html[bc:] if bc != -1 else html + injection
+
+    html = _EMPTY_NOTES_SECTION_RE.sub("", html)
+    return html, stats
+
+
+def _transform_epub_members(data: dict[str, bytes], order: list[str], transform) -> dict:
+    """Apply ``transform(html)->(html, partial_stats)`` to every HTML/XHTML member."""
+    merged: dict = {}
+    for name in order:
+        if not name.endswith(_DOC_SUFFIXES):
+            continue
+        text = data[name].decode("utf-8")
+        new_text, partial = transform(text)
+        if new_text != text:
+            data[name] = new_text.encode("utf-8")
+        for k, v in partial.items():
+            merged[k] = merged.get(k, 0) + v
+    return merged
+
+
+def apply_kindle_m4b(epub_path: Path | str) -> dict:
+    """Apply the M4b HTML fork in-place on a kindle-safe (or everywhere) EPUB zip."""
+    epub_path = Path(epub_path)
+    with zipfile.ZipFile(epub_path) as zin:
+        order = [i.filename for i in zin.infolist()]
+        data: dict[str, bytes] = {name: zin.read(name) for name in order}
+
+    stats = _transform_epub_members(data, order, apply_kindle_m4b_html)
+
+    with zipfile.ZipFile(epub_path, "w", zipfile.ZIP_DEFLATED) as zout:
+        zout.writestr(zipfile.ZipInfo("mimetype"), data["mimetype"], compress_type=zipfile.ZIP_STORED)
+        for name in order:
+            if name == "mimetype":
+                continue
+            zout.writestr(name, data[name])
+    return stats
+
+
+def verify_kindle_m4b_html(html: str) -> list[str]:
+    """Structural M4b checks on one content document. Empty list = pass."""
+    fails: list[str] = []
+    if _VERSE_NOTES_BADGE_RE.search(html):
+        fails.append("m4b-1: verse-notes-badge survives in document")
+    for m in re.finditer(r'<p[^>]*\bclass="[^"]*\bverse-p[^"]*"[^>]*>.*?</p>', html, re.DOTALL | re.I):
+        if 'href="#vnotes-' in m.group(0):
+            fails.append("m4b-1: scripture paragraph still links to vnotes-*")
+    prose_wo_study = re.sub(
+        r'<section class="kindle-chapter-study"[^>]*>.*?</section>',
+        "",
+        html,
+        flags=re.DOTALL | re.I,
+    )
+    for aid in sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', prose_wo_study, re.I))):
+        fails.append(f"m4b-2: vnotes aside {aid!r} not inside kindle-chapter-study")
+    return fails
+
+
+def verify_kindle_m4b(epub_path: Path | str) -> list[str]:
+    """Assert M4b structural contract + kindle_safe conformance."""
+    epub_path = Path(epub_path)
+    fails = list(verify_kindle_safe(epub_path))
+    with zipfile.ZipFile(epub_path) as z:
+        for name in z.namelist():
+            if name.endswith(_DOC_SUFFIXES):
+                fails.extend(
+                    f"{name}: {msg}" for msg in verify_kindle_m4b_html(z.read(name).decode("utf-8", "replace"))
+                )
+    return fails
+
+
+def make_kindle_m4b(src_epub: Path | str, dst_epub: Path | str) -> dict:
+    """Proven june10 recipe + M4b study relocation. Returns merged stats."""
+    src_epub, dst_epub = Path(src_epub), Path(dst_epub)
+    safe_stats = make_kindle_safe(src_epub, dst_epub)
+    m4b_stats = apply_kindle_m4b(dst_epub)
+    return {**safe_stats, **m4b_stats}

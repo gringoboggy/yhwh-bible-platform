@@ -25,7 +25,9 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 
-def build_kindle(edition_id: str, version: str, out_dir: Path, *, force: bool = True) -> tuple[Path, dict]:
+def build_kindle(
+    edition_id: str, version: str, out_dir: Path, *, force: bool = True, m4b: bool = False
+) -> tuple[Path, dict]:
     """Build ``edition_id`` standard, then post-process to a kindle-safe EPUB.
 
     Returns ``(artifact_path, post_process_stats)``. The intermediate standard
@@ -53,10 +55,18 @@ def build_kindle(edition_id: str, version: str, out_dir: Path, *, force: bool = 
         raise FileNotFoundError(f"standard build produced no .epub in {base_dir}")
     base = bases[0]
 
-    from scripts.core.kindle_post import make_kindle_safe
+    from scripts.core.kindle_post import make_kindle_m4b, make_kindle_safe, verify_kindle_m4b, verify_kindle_safe
 
-    dst = out_dir / f"{base.stem}-kindle.epub"
-    stats = make_kindle_safe(base, dst)
+    suffix = "-kindle-m4b" if m4b else "-kindle"
+    dst = out_dir / f"{base.stem}{suffix}.epub"
+    if m4b:
+        stats = make_kindle_m4b(base, dst)
+        fails = verify_kindle_m4b(dst)
+    else:
+        stats = make_kindle_safe(base, dst)
+        fails = verify_kindle_safe(dst)
+    if fails:
+        raise ValueError(f"kindle verification failed: {fails}")
     shutil.rmtree(base_dir, ignore_errors=True)
     return dst, stats
 
@@ -66,10 +76,15 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("edition", help="edition id (e.g. catholic-study)")
     p.add_argument("--version", default="0.0.0", help="release version (bare or v-prefixed)")
     p.add_argument("--output-dir", type=Path, default=REPO / "build" / "kindle")
+    p.add_argument(
+        "--m4b",
+        action="store_true",
+        help="apply M4b fork (suppress study badges + chapter-tail study blocks)",
+    )
     args = p.parse_args(argv)
 
     version = args.version.removeprefix("v")
-    artifact, stats = build_kindle(args.edition, version, args.output_dir)
+    artifact, stats = build_kindle(args.edition, version, args.output_dir, m4b=args.m4b)
     print(f"STAGED: {artifact}  ({artifact.stat().st_size:,} bytes)")
     print(f"  post-process: {stats}")
     return 0

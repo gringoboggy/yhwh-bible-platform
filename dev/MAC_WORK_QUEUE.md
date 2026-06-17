@@ -51,15 +51,15 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **Kobo tap-prep (USER round 9):** build `ethiopian-tewahedo` eink kepub → `dev/kobo_tap_calibration.py` → stage gen-35:18 + bracket probes; update `EREADERS.md` §Kobo with tap list path — **Mac turn 121**
 - [x] **M4b design doc:** write `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` from `platform-kindle.md` (marker suppress + chapter-tail notes HTML plan) — **Mac turn 121**
 - [x] **Archive hygiene:** move closed-arc `scripts/_*.py` one-shots → `dev/archive/` (Round-9 LOW survivor; grep + lint_rules green) — **Mac turn 121**
-- [ ] **ACK WIN ships:** standalone K-R4-1 sep (`77417fd4`) + v0.1.0 tag sync (`6a4838c8`) + platform matrix (`6e2ff13d`) — pull + tick @ turn 122
+- [x] **ACK WIN ships:** standalone K-R4-1 sep (`77417fd4`) + v0.1.0 tag sync (`6a4838c8`) + platform matrix (`6e2ff13d`) — **Mac turn 122** (verified on `main`)
 
 ## Turn 122 queue (WIN assign) — **DEFERRED to Reader Sim Lab**
 
-> **User directive (2026-06-18):** M4b + Apple builds happen **after** audit gate closes — not during `ci.py` / rx-surfaces fix arc. Items below move to **Reader Sim Lab** §Phase 2–4.
+> **User directive (2026-06-18):** M4b + Apple builds happen **after** audit gate closes — not during `ci.py` / rx-surfaces fix arc. Device QA + STK pack → **Reader Sim Lab** §Phase 4.
 
-- [ ] **ACK WIN ships:** verify commits on `main` after pull; tick Post-Round-9 ACK line above *(quick; anytime)*
-- [ ] ~~M4b implement~~ → **Reader Sim Lab §Phase 4 (Kindle)**
-- [ ] ~~M4b STK pack~~ → **Reader Sim Lab §Phase 4**
+- [x] **ACK WIN ships:** verified on `main` incl. `376daea2` K-R4-1 — **Mac turn 123**
+- [x] **M4b code prep:** `apply_kindle_m4b` + `verify_kindle_m4b` + `tests/test_kindle_m4b.py` (7/7) + `build_kindle.py --m4b` — **Mac turn 122** (phone gate deferred)
+- [ ] **M4b STK pack:** 5/6 on `~/Desktop/YHWH-kindle-m4b-qa/` (`ethiopian-tewahedo` m4b-2 fail — fix in Phase 4)
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
 ## Reader Simulation Lab (POST-AUDIT — user-directed dedicated phase)
