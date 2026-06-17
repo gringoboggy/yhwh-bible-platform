@@ -6536,7 +6536,7 @@ def _resolve_book_art(code: str, per_book: dict[str, str], edition_id: str = "")
     from scripts.core import covers as _covers
 
     content = REPO_ROOT / "content"
-    selected = per_book[code] if code in per_book else None
+    selected = per_book.get(code)
     rel = _covers.resolve_effective_book_cover_path(edition_id, code, selected)
     if not rel:
         return None

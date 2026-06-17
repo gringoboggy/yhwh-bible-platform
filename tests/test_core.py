@@ -401,12 +401,12 @@ class TestCovers:
         ok, err, _ = self.mod.validate_upload_image(png)
         assert not ok and "too large" in err
 
-    def test_validate_upload_rejects_wrong_aspect(self):
-        # 2000×2100 → roughly square (aspect 0.95), well outside ±20%
-        # of 2:3 (0.53–0.80).
+    def test_validate_upload_accepts_any_aspect(self):
+        # 2000×2100 → roughly square; accepted because normalize_cover_image
+        # center-crops to 2:3 at save time (aspect not gated on upload).
         png = self._make_png(2000, 2100)
-        ok, err, _ = self.mod.validate_upload_image(png)
-        assert not ok and "aspect" in err
+        ok, err, meta = self.mod.validate_upload_image(png)
+        assert ok and not err and meta and meta["width"] == 2000
 
     def test_validate_upload_rejects_unsupported_format(self):
         # Bytes that don't match PNG/JPEG/WebP magic numbers

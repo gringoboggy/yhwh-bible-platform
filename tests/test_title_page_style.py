@@ -129,18 +129,14 @@ class TestApplyTitlePages:
     def test_artless_book_is_unchanged(self, tmp_path):
         from scripts.build_edition import apply_title_pages
 
-        defaults = REPO / "content" / "covers" / "_book_defaults"
-        artless = None
-        for i, b in enumerate(config.load_books()):
-            if not (defaults / f"{b['code']}.jpg").is_file():
-                artless = (_book_idx(b, i), b["code"])
-                break
-        assert artless, "expected at least one book without default art (deutero/Ethiopic)"
-        idx, code = artless
-        html_in = _book_title_page(idx, code, "Some Book")
+        # 86/86 built-in plates ship now — test the explicit "none" sentinel
+        # (gen=) rather than hunting a missing _book_defaults file.
+        code = "gen"
+        idx = 0
+        html_in = _book_title_page(idx, code, "Genesis")
         (tmp_path / "i.html").write_text(html_in, encoding="utf-8")
 
-        paths = apply_title_pages(tmp_path, {"id": "x"}, {code})
+        paths = apply_title_pages(tmp_path, {"id": "x", "book_covers": [f"{code}="]}, {code})
         out = (tmp_path / "i.html").read_text(encoding="utf-8")
         assert paths == []
         assert "bookpage-art" not in out
