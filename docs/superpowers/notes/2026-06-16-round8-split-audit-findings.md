@@ -1,12 +1,12 @@
 # Round-8 split audit — merged findings (2026-06-16)
 
-**Status:** MERGED (Mac 8b thorough @ `b1b9dffd` + WIN partial fast-pass). User standing approval: proceed to fixes.
-**WIN half:** partial thorough pass @ turn 113 — `github-gitlab` SHA256 gap closed; `tests-run` shard complete (254 files, 12 triaged); `claude-setup`/`opt-build` pending full Workflow; Phase 2/4 ticks reconciled vs Mac ships.
+**Status:** MERGED (Mac 8b re-audit @ turn 113 + WIN thorough @ turn 113b). User standing approval: proceed to fixes.
+**WIN half:** thorough pass **COMPLETE** @ turn 113 — all 7 WIN dims run (`tests-run`, `github-gitlab`, `claude-setup`, `opt-build`, `rx-surfaces`, `popup-integrity`, `byte-stability` via kr2 gates). **5 new survivors** (claude-setup/lane); artifact dims GREEN with known WARNs only.
 
 ## Executive summary
 
-Mac lane (18 dims, adversarial verify): **35 survivors** (0 critical · 5 high · 17 medium · 9 low · 4 info).
-WIN lane (partial): **12 survivors** (1 critical · 2 high · 7 medium · 2 low).
+Mac lane (18 dims, Round-8b re-audit @ turn 113): **30 survivors** (0 critical · 2 high · 10 medium · 13 low · 5 info); 21 prior refuted.
+WIN lane (7 dims, thorough @ turn 113b): **17 survivors** (prior 12 + 5 claude-setup/lane); artifact dims GREEN.
 **Combined unique headline:** silent data-loss in ingest/promote paths, API error HTTP semantics, stale release/website artifacts, popup hidden-target classes beyond K-R4, and **45 corrupt Kindle stubs on GitHub release**.
 
 Overall: codebase is shippable but **not mint** — several paths can drop or mis-mark data without surfacing errors; public release surface has corrupt/stale assets.
@@ -75,7 +75,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ## WIN audit remainder
 
-Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude-setup`, re-verify `rx-surfaces` + `popup-integrity` with adversarial bar. `github-gitlab` partial @ turn 112 (see below). Delete `lane-transfer/audit` after merge consumed.
+**COMPLETE @ turn 113b.** All 7 WIN dims run (see appends below). Delete `lane-transfer/audit` after merge consumed.
 
 ### WIN turn-112 append (`github-gitlab` dim)
 
@@ -87,7 +87,6 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 
 - [x] **Shard gate @ `b4bef146`:** `scripts/pytest_gate_shard.py` — 254 test files, marker `not slow and not done_gate`, ~2.5h. **12 triaged:** 5 TIMEOUT (retry with 1200s), 5 false-FAIL (all-slow deselect — fixed in shard runner), 1 real FAIL (`test_omega4x_hygiene` B023 in `build_edition.py` — **fixed @ turn 113**), 1 expected WIN skip (`test_samkings_manifest_complete` — GAPS images Mac-only; Mac 6/6 incl. `done_gate`).
 - [x] **Retry @ turn 113:** all 5 TIMEOUT files **GREEN** — `marker_style` 27m @ 2400s; `presentation_polish` 59m @ 4800s (multiple `build_one` integration tests). Shard gate **complete** except Mac-only `test_samkings_manifest_complete` (`done_gate`).
-- [ ] **Remainder:** `claude-setup`, `opt-build`, `rx-surfaces`, `popup-integrity` Workflow dims.
 
 ### Mac turn-113 append (Round-8b THOROUGH re-audit, post Phase 1–3)
 
@@ -105,3 +104,32 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 - [ ] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723
 - [ ] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test
 - [ ] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none
+
+### WIN turn-113b append (`claude-setup` dim)
+
+- [ ] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work.
+- [ ] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook.
+- [ ] **HIGH** `lane_watcher.py` is **git-push-only** — docstring claims handoff sync but `do_once()` never polls `LANE_HANDOFF.md` mtime/turn; unpushed or local-only board updates invisible (confirmed live: Mac handoff ~11pm never triggered WIN).
+- [ ] **MEDIUM** Repo `.claude/settings.json` is `{}` — SessionStart hooks live in parent `YHWH-v2.4-full/.claude/` after `install_cc_hooks.ps1`; RULES §0 cites in-repo `.claude/hooks/bootstrap-triad.ps1` path that does not exist in the tracked repo.
+- [ ] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it.
+
+### WIN turn-113 append (`opt-build` dim)
+
+- [x] **INFO** Single-edition cold build ~133s + `--all` ThreadPool(5) + ω.20 cache + mtime guard — **CONFIRM-OPTIMAL** (round-7 adversarial review holds; compresslevel 9 + pinned ZipInfo required for byte-stability).
+
+### WIN turn-113 append (`rx-surfaces` dim)
+
+Built `ethiopian-tewahedo` + `catholic-study` @ `dev/.audit-build/` (r8audit, 2026-06-17). Gates:
+
+- [x] `audit_epub_structure` — **0 critical** both (DUP_NOTE_ROWS / DUP_IDS / BROKEN_NOTEREF / UNBALANCED_TAGS all OK).
+- [x] `verify_kr2_build` — **ALL K-R2 GATES GREEN** both (66,694 / 43,016 noterefs resolve; 0 promoted cross-file; 0 dup-ids; 0 ch-spilled badges).
+- [ ] **LOW (known-deferred)** WARN 4g: `vnote-1ki-12-24` strips 6,937 chars (> pop floor) — K-R4-2 class, fix arc in flight per deferred list.
+- [ ] **LOW (known)** WARN 4m: one ADJACENT `vnote-1en-100-1` < `vnote-1en-100-11` prefix pair on eth — documented corpus-wide translation-surface WARN (not FAIL).
+
+### WIN turn-113 append (`popup-integrity` dim)
+
+Artifact zip-scan on same r8audit builds (S1/S2/S3):
+
+- [x] **S3 hidden-target noterefs:** **0** on both artifacts (no new teleport class beyond known `notes-section` / `verse-refs-section` fixes @ Phase 3).
+- [x] **S1 separator coverage:** **0** study footnotes missing `vn-sep` on non-glossary emitters (vnote translation popups remain the known K-R4-1 gap — deferred).
+- [ ] **MEDIUM** **S2 size census:** eth 218 / catholic 184 asides >3,300 stripped chars; top offenders are `vnotes-*-s1` study chunks ~4,300 B (under 7,748 decline ceiling post Phase 3 chunking) + outlier `vnote-1ki-12-24` @ 6,937 (K-R4-2). No new emitter class beyond prior art.

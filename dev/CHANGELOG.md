@@ -4,6 +4,11 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 113b) — ★ WIN round-8 audit dims COMPLETE
+
+**Audit:** ran remaining WIN Workflow dims — `claude-setup` (5 survivors incl. lane_watcher handoff-blindness), `opt-build` CONFIRM-OPTIMAL, `rx-surfaces` + `popup-integrity` on fresh eth+catholic-study builds (kr2 ALL GREEN; S3 hidden-target 0).
+**Findings:** appended to `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`.
+
 ## 2026-06-17 — Windows session (turn 113) — ★ pytest shard gate GREEN
 
 **Shipped:** B023 ruff fix in `build_edition.py` (`_emit_backmatter_glossary_inner` cat loop bind) · `scripts/pytest_gate_shard.py` pending-timeout filter + 4800s retry default.

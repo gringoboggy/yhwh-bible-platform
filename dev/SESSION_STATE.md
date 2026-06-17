@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 113 — ★ ROUND-8b DONE).** **Shipped turn 113:** Round-8b THOROUGH re-audit @ `cae25abd` on `lane-transfer/audit` — **30 survivors** (2H/10M/13L/5 info), **21 prior refuted** (Phase 1–3 held). **Mac next:** Phase 4 fixes (load_notes guard class · Kindle catalog regen · kinds/categories mtime cache). **WIN** @ turn 113: pytest GREEN · round-8 audit remainder. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac`. **Shipped turn 113:** B023 fix @ `b2b9555a`; pytest shard gate **GREEN** (254 files, 5 slow retries up to 59m); shard runner pending-timeout filter @ `bf300d7b`. **WIN work:** round-8 audit remainder (`claude-setup`/`opt-build`/`rx-surfaces`/`popup-integrity`). Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113b).** WIN round-8 audit **COMPLETE** — all 7 dims; 5 new claude-setup/lane survivors in findings doc. `lane_watcher` **stopped** (user request). Pytest shard **GREEN** @ `568c9b66`. **Next fixes:** PLAYBOOK/RULES save drift · lane_watcher handoff poll · doc hygiene. Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >

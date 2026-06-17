@@ -61,6 +61,7 @@ dev/.lane
 dev/.lane_seen
 dev/.lane_watcher_state.json
 dev/.lane_watcher.log
+dev/.audit-build/
 dev/.pytest-gate-report.txt
 dev/.pytest-overnight.log
 dev/.pytest-shard.log
