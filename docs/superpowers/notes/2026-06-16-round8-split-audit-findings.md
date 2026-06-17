@@ -1,7 +1,7 @@
 # Round-8 split audit — merged findings (2026-06-16)
 
 **Status:** MERGED (Mac 8b thorough @ `b1b9dffd` + WIN partial fast-pass). User standing approval: proceed to fixes.
-**WIN half:** partial thorough pass @ turn 112 — `github-gitlab` 1 new survivor; `tests-run`/`claude-setup`/`opt-build` pending full Workflow; Phase 2/4 ticks reconciled vs Mac ships.
+**WIN half:** partial thorough pass @ turn 113 — `github-gitlab` SHA256 gap closed; `tests-run` shard complete (254 files, 12 triaged); `claude-setup`/`opt-build` pending full Workflow; Phase 2/4 ticks reconciled vs Mac ships.
 
 ## Executive summary
 
@@ -82,3 +82,9 @@ Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude
 - [x] **MEDIUM** `SHA256SUMS.txt` covers 141/186 release assets — **45 Kindle color-variant EPUBs** missing checksums — **WIN @ turn 112 overnight** (`scripts/merge_release_checksums.py` → 186/186; uploaded to `v0.1.0`)
 
 **Overnight coordination (WIN turn 112):** `scripts/lane_watcher.py --loop 120 --assign-mac` polls Mac pushes; `dev/MAC_WORK_QUEUE.md` holds the auto-assign backlog. Plan: re-run round-8b thorough Mac audit when Phase 1–3 all ticked.
+
+### WIN turn-113 append (`tests-run` dim)
+
+- [x] **Shard gate @ `b4bef146`:** `scripts/pytest_gate_shard.py` — 254 test files, marker `not slow and not done_gate`, ~2.5h. **12 triaged:** 5 TIMEOUT (retry with 1200s), 5 false-FAIL (all-slow deselect — fixed in shard runner), 1 real FAIL (`test_omega4x_hygiene` B023 in `build_edition.py` — **fixed @ turn 113**), 1 expected WIN skip (`test_samkings_manifest_complete` — GAPS images Mac-only; Mac 6/6 incl. `done_gate`).
+- [ ] **Retry:** `--retry-timeouts` for 5 timeout files in progress.
+- [ ] **Remainder:** `claude-setup`, `opt-build`, `rx-surfaces`, `popup-integrity` Workflow dims.

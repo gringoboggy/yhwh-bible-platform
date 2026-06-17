@@ -3533,22 +3533,23 @@ def _emit_backmatter_glossary_inner(
     parts: list[str] = []
     category_targets: dict[str, str] = {}
     for cat in _unique_cats_sorted(rows):
-        cat_rows = [r for r in rows if r["cat"] == cat]
+        cat_id = cat
+        cat_rows = [r for r in rows if r["cat"] == cat_id]
         expanded_rows: list[dict] = []
         for r in cat_rows:
             for part in _chunk_row_to_budgets(r["row"], _GLOSSARY_CAT_ROW_CAP, 0):
                 expanded_rows.append({**r, "row": part})
 
-        def _footnote_len(rows_subset: list[dict]) -> int:
+        def _footnote_len(rows_subset: list[dict], *, _cat: str = cat_id) -> int:
             return _stripped_len(
                 _study_glossary_footnote(
                     rows_subset,
-                    cat=cat,
+                    cat=_cat,
                     cat_meta=cat_meta,
                     code=code,
                     ch=ch,
                     v=v,
-                    sid=f"vnotes-{code}-{ch}-{v}-{cat}",
+                    sid=f"vnotes-{code}-{ch}-{v}-{_cat}",
                     verse_back=verse_back,
                     s2_group=s2_group,
                 )
