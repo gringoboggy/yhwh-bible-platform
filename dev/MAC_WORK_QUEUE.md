@@ -6,7 +6,7 @@ pulls, then assigns the first unchecked line below via `lane_handoff.py assign`.
 ## Active queue
 
 - [x] Phase 3 LOW: mirror study-glossary nav patch into `toc.ncx` — **Mac turn 111** @ 9a03dad1
-- [ ] Spot eink build one edition `--target-reader eink` + run `dev/verify_kr2_build.py` on output kepub (K-R6-2 wrapper fix @ 9a03dad1 — rebuild required)
+- [x] Spot eink build one edition `--target-reader eink` + run `dev/verify_kr2_build.py` on output kepub — **Mac turn 112** catholic-study kepub **ALL K-R2 GATES GREEN** (verify_kr2 eink-aware exemptions for K-R9c glossary)
 - [x] M4b Kindle findings-only sketch — **Mac turn 108** + K-R6-2 glossary prefix note @ turn 111
 - [x] Tick Phase 3 checkboxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md` — **Mac turn 111**
 - [ ] Round-8b THOROUGH re-audit (18 dims, LANE=mac local, Workflow deep-audit.js) when Phase 1-3 all ticked

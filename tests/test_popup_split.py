@@ -827,6 +827,22 @@ class TestGate4mAnchorPrefix:
         fails, _warns = ver.anchor_prefix_checks(zf, zf.namelist())
         assert any("vnotes-gen-9-9" in f for f in fails), fails
 
+    def test_green_on_study_glossary_cat_navigate_ids_without_s_suffix(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_900_00.html": (
+                    "<html><body>"
+                    '<div class="study-glossary-entry" id="study-entry-isa-40-5">'
+                    '<aside epub:type="footnote" class="study-glossary-cat verse-notes" '
+                    'id="vnotes-isa-40-5-xref"><p>note</p></aside></div>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails, _warns = ver.anchor_prefix_checks(zf, zf.namelist())
+        assert fails == [], fails
+
     def test_green_on_prefix_free_namespace_and_warns_on_adjacent_vnote_pair(self):
         ver = _load_dev_module("verify_kr2_build")
         zf = _mini_zip(

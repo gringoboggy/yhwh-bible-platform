@@ -260,6 +260,14 @@ def empty_verse_refs_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
 # slice and refuses the popup (round-6d: 98/98 heads + the family tails).
 _POPUP_ANCHOR_ID_RE = re.compile(r'\bid="((?:vnotes|vbadge)-[^"]+)"')
 _UNIT_SUFFIX_RE = re.compile(r"-s[1-9]$")
+# K-R13 glossary category footnotes navigate (not popup-slice units) — exempt
+# from the inline -sN namespace (ids are vnotes-{book}-{ch}-{v}-{cat}).
+_GLOSSARY_CAT_ANCHOR_RE = re.compile(
+    r'<aside[^>]*\bclass="[^"]*study-glossary-cat[^"]*"[^>]*\bid="((?:vnotes|vbadge)-[^"]+)"'
+)
+_STUDY_GLOSSARY_JUMP_RE = re.compile(
+    r'<a[^>]*\bclass="[^"]*study-glossary-jump[^"]*"[^>]*\bid="((?:vnotes|vbadge)-[^"]+)"'
+)
 
 
 def anchor_prefix_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str], list[str]]:
@@ -270,14 +278,19 @@ def anchor_prefix_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[st
     stale or mixed artifact; the tail is what makes digit-extension prefixes
     structurally impossible). WARN: an ADJACENT (document-order) prefix pair
     among the base-baked translation ``vnote-`` asides — un-renamed surface,
-    the same device mechanism, surfaced honestly (1 known corpus-wide)."""
+    the same device mechanism, surfaced honestly (1 known corpus-wide).
+
+    ``study-glossary-cat`` navigate targets (K-R13 backmatter) are excluded —
+    they use per-category ids without ``-sN`` by design."""
     fails: list[str] = []
     warns: list[str] = []
     for n in names:
         if not n.endswith((".html", ".xhtml")):
             continue
         t = zf.read(n).decode("utf-8", "replace")
-        ids = sorted(set(_POPUP_ANCHOR_ID_RE.findall(t)))
+        glossary_nav_ids = {m.group(1) for m in _GLOSSARY_CAT_ANCHOR_RE.finditer(t)}
+        glossary_nav_ids.update(m.group(1) for m in _STUDY_GLOSSARY_JUMP_RE.finditer(t))
+        ids = sorted(set(_POPUP_ANCHOR_ID_RE.findall(t)) - glossary_nav_ids)
         for i in ids:
             if not _UNIT_SUFFIX_RE.search(i):
                 fails.append(f"{n}: popup anchor {i} lacks the -s<1..9> tail (bare-id K-R6-2 class, 4m)")
@@ -359,8 +372,13 @@ def orphan_vnote_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
     hrefs: set[str] = set()
     for n in docs:
         t = zf.read(n).decode("utf-8", "replace")
-        for m in re.finditer(r'<aside\b(?=[^>]*\bid="(vnotes?-[^"]+)")(?=[^>]*\bepub:type="footnote")', t):
-            ids[m.group(1)] = n
+        for m in re.finditer(r'<aside\b[^>]*\bepub:type="footnote"[^>]*>', t):
+            tag = m.group(0)
+            if "study-glossary-cat" in tag:
+                continue  # K-R13 navigate footnotes; continuation chunks lack direct href
+            idm = re.search(r'\bid="(vnotes?-[^"]+)"', tag)
+            if idm:
+                ids[idm.group(1)] = n
         hrefs.update(re.findall(r'href="[^"#]*#([^"]+)"', t))
     orphans = sorted(i for i in ids if i not in hrefs)
     if not orphans:
@@ -527,6 +545,9 @@ def main(path: str) -> int:
                 dup_ids[i] = dup_ids.get(i, 1) + 1
             seen_in.setdefault(i, n)
         for tag in re.findall(r'<a\b[^>]*epub:type="noteref"[^>]*>', t):
+            # K-R9c: study badges intentionally cross-file navigate to glossary.
+            if "study-glossary-jump" in tag:
+                continue
             href = re.search(r'href="([^"]*)"', tag)
             if not href:
                 continue
@@ -602,13 +623,14 @@ def main(path: str) -> int:
     ch_anchor_re = re.compile(r'id="ch-b\d+-c(\d+)"')
     # (?:-s\d+)? — K-R4-2 split units suffix sibling badges; every unit of a
     # verse must satisfy the same chapter-placement invariant.
-    badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)(?:-s\d+)?"')
+    badge_re = re.compile(r'id="vbadge-([a-z0-9]+)-(\d+)-(\d+)(?:-(?:s[1-9]|[a-z][a-z0-9]*))?')
     spilled: list[str] = []
     for n in pieces:
         t = zf.read(n).decode("utf-8", "replace")
         # 4d/4e — splice-corruption tripwires (the kr3a RSC-016 class): every
         # vbadge id keeps its <a> head, and <aside> tags stay balanced.
-        heads = t.count('<a class="verse-notes-badge"')
+        # Eink backmatter uses study-glossary-jump (not verse-notes-badge).
+        heads = len(re.findall(r'<a\b[^>]*\bid="vbadge-', t))
         vbids = len(re.findall(r'\bid="vbadge-', t))
         if heads != vbids:
             fails.append(f"{n}: {vbids - heads} sheared badge anchor(s) — splice corruption")
@@ -621,7 +643,7 @@ def main(path: str) -> int:
         walk = sorted(
             [(m.start(), 1) for m in re.finditer(r"<aside\b", t)]
             + [(m.start(), -1) for m in re.finditer(r"</aside>", t)]
-            + [(m.start(), 0) for m in re.finditer(r'<a class="verse-notes-badge"', t)]
+            + [(m.start(), 0) for m in re.finditer(r'<a class="(?:verse-notes-badge|study-glossary-jump)"', t)]
         )
         depth = 0
         buried = 0
