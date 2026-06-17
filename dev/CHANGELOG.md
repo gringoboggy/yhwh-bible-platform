@@ -10,10 +10,14 @@
 **Pytest:** spot 11/11 audit2 reds @ `b3e7b5af`; full `-m "not slow and not done_gate"` rerun grinding.
 **Handoff turn 107 → Mac:** Phase 4 disjoint + M3 attach + external MJ bundle → E:.
 
+## 2026-06-16 — Mac session (turn 108c) — ★ CAM hires complete
+
+**Kings CAM:** `acquire_kings_cam_missing.py` resume — 20 folio sides fetched (f158v–f168r); 0 remaining; 180 hires on disk under `GAPS/2_Kings/Cambridge-Add-1570-hires/`.
+
 ## 2026-06-16 — Mac session (turn 108b) — ★ backlog: aes OOE + Kings P0 tail + M4b sketch
 
 **aes:** removed 3 out-of-extent ch10 v11–13 duplicate Hebrew notes (`test_aes_notes_extent`).
-**Kings P0:** `fill_kings_p0_tail.py` filled 1ki 19–22 + 2ki 1–25 (GG+CAM folios); `done_gate` folio test GREEN for kings; `acquire_kings_cam_missing.py` IIIF pull f135–f168 (CAM hires on Mac).
+**Kings P0:** `fill_kings_p0_tail.py` filled 1ki 19–22 + 2ki 1–25 (GG+CAM folios); `acquire_kings_cam_missing.py` IIIF pull f135–f168 started (completed turn 108c).
 **M4b:** K-R9c parity sketch appended to `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md` (findings-only).
 **Website:** `gen_release_catalog` + `build.mjs` smoke (187 assets; kobo live).
 

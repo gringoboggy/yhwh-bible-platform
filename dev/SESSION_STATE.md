@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 108b — ★ BACKLOG SHIPPED, CAM resume).** Turn 108: (1) **aes** OOE ch10 v11–13 removed (local; WIN c89226c2 did not land aes) · (2) **Kings P0 tail** 1ki 19–22 + 2ki 1–25 folios filled (`fill_kings_p0_tail.py`; done_gate folios GREEN) · CAM IIIF `acquire_kings_cam_missing.py` f135–f168 **paused** — network timeout @ f168v view=320 (~65 folio sides staged on disk; resume script) · (3) **M4b** K-R9c parity sketch in kindle-phone-qa note · (4) **website/dist** smoke OK (kobo column live). **HOLD** `build_edition.py` until WIN Phase 3. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 108b — ★ BACKLOG + CAM COMPLETE).** Turn 108: (1) **aes** OOE ch10 v11–13 removed @ `0d645350` · (2) **Kings P0 tail** 1ki 19–22 + 2ki 1–25 folios + CAM hires **complete** — `acquire_kings_cam_missing.py` 0 remaining (180 JPGs on disk under `GAPS/2_Kings/Cambridge-Add-1570-hires/`) · (3) **M4b** K-R9c parity sketch · (4) **website/dist** smoke OK. **HOLD** `build_edition.py` until WIN Phase 3. Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 108).** `/resume` → `git pull` @ turn 108. **Done:** F→E MJ-gradient mirror (86 composed) · `/covers` UX → built-in / yours / none · pytest turn-106 rerun still grinding. **Next:** Phase 3 on green (`build_edition.py` Kobo cap + glossary chunking · `generate_verse_popups.py` hidden noterefs · `config.py` mtime cache) · round-8 WIN 7-dim audit append. Baton **mac** (truth_owner); mode=parallel.
 >
