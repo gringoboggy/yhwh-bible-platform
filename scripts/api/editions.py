@@ -646,9 +646,9 @@ def _validate_keyed_list_field(
                 None,
                 f"{field}: key {key!r} has {len(parts)} part(s) but expected {key_parts} ({expected})",
             )
-        book = parts[0]
+        book = config.resolve_book_code(parts[0])
         if book not in valid_books:
-            return (None, f"{field}: unknown book code {book!r}")
+            return (None, f"{field}: unknown book code {parts[0]!r}")
         for idx in range(1, key_parts):
             seg = parts[idx]
             try:
@@ -1130,7 +1130,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         for code, traditions in v.items():
             if not isinstance(code, str) or not code.strip():
                 return {"error": "traditions_per_book book codes must be non-empty strings"}
-            code = code.strip()
+            code = config.resolve_book_code(code.strip())
             if code not in valid_books:
                 return {"error": f"unknown book code: {code!r}"}
             if traditions is None:
@@ -1162,7 +1162,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         for code, langs in v.items():
             if not isinstance(code, str) or not code.strip():
                 return {"error": "popup_languages_per_book book codes must be non-empty strings"}
-            code = code.strip()
+            code = config.resolve_book_code(code.strip())
             if code not in valid_books:
                 return {"error": f"unknown book code: {code!r}"}
             if langs is None:
@@ -1232,7 +1232,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         for code, path in v.items():
             if not isinstance(code, str) or not code.strip():
                 return {"error": "book_covers book codes must be non-empty strings"}
-            code = code.strip()
+            code = config.resolve_book_code(code.strip())
             if code not in valid_books:
                 return {"error": f"unknown book code in book_covers: {code!r}"}
             if path is None:
@@ -1404,7 +1404,8 @@ def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
         return {"error": f"invalid note_id format: {nid!r}"}
 
     books = config.books_by_code()
-    if parsed["book"] not in books:
+    book = config.resolve_book_code(parsed["book"])
+    if book not in books:
         return {"error": f"unknown book: {parsed['book']}"}
 
     html_ref = html_ref_id_from_note_id(nid, books)
@@ -1467,7 +1468,8 @@ def api_save_note_override(edition_id: str, payload: dict) -> dict:
         return {"error": f"invalid note_id format: {nid!r}"}
 
     books = config.books_by_code()
-    if parsed["book"] not in books:
+    book = config.resolve_book_code(parsed["book"])
+    if book not in books:
         return {"error": f"unknown book: {parsed['book']}"}
 
     html_ref = html_ref_id_from_note_id(nid, books)

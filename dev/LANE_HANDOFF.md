@@ -1,13 +1,25 @@
 ---
 mode: parallel
-turn: 114
+turn: 115
 from: windows
-updated: 2026-06-17T12:50:50Z
+updated: 2026-06-17T18:00:00Z
 status: working
-mac: git pull. Lane watch v3: bash dev/lane_watch_mac.sh --once then --bg (see MAC_WORK_QUEUE.md). Push every handoff.
-windows: idle — lane_watch v3 shipped; start with pwsh -File dev/lane_watch_win.ps1 when needed
-truth_owner: mac
-holder: mac
+mac: refactor cache_clear + inject_book write test + doc 91720 sweep + samkings done_gate (MAC_WORK_QUEUE.md)
+windows: P4 gates + dishonest/stub audits + Play staging + EREADERS §Play protocol
+truth_owner: windows
+holder: windows
+---
+
+## ◦ windows assign (turn 115, 2026-06-17T18:00:00Z) — mode=parallel
+
+**Done (turn 114, windows):** lane_watch v3 unified poll.
+
+**Done (turn 115, windows):** PLAYBOOK/RULES save doctrine aligned (2 HIGH) · hook-path + STANDING hygiene · `config.resolve_book_code` + API normalization · findings ticks · MAC_WORK_QUEUE updated.
+
+**Assignments:** mac = git pull turn 115+. refactor.py cache invalidation → inject_book write test → doc 91,720 sweep → test_samkings 6/6 → ci.py parity. **After gate:** Round 9 per `plans/2026-06-17-round9-parallel-audit-and-platform-research.md`. See `MAC_WORK_QUEUE.md`. · windows = P4 gates + Round 9 plan committed (`deep-audit.js` platform dims). **Round 9 Workflow after remediation gate** (win=11, mac=22).
+
+**Watch-outs:** file-disjoint; milestone-push after Mac ci.py green; device QA unblocked when P4 + Mac items tick.
+
 ---
 
 ## ◦ windows assign (turn 114, 2026-06-17T12:50:50Z) — mode=parallel
@@ -188,14 +200,15 @@ WIN assigned Mac Phase 2 parallel while pytest runs (user-approved).
 
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
+**Lane watch v3 (2026-06-17, STANDING — opt-in, both lanes).** `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. Start only when needed: Win `pwsh -File dev/lane_watch_win.ps1`; Mac `bash dev/lane_watch_mac.sh --bg`. Handoff/assign edits MUST be milestone-pushed or the other box never sees them. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
+
 **Cross-lane tool/environment parity (2026-06-05, Guard #4).** Verify the other box has the tools/agents/deps/paths before handing it a task or running a shared `.claude/workflows/*.js`. (Round-6 auditor now BAKES the parity in: flipping `const LANE` auto-selects REPO + agent types — no more 3-edit Mac trap.) Each lane mirrors cross-lane rules into its own per-box memory.
 
 **Cross-lane problem hand-off (2026-06-08, Guard #6 — user-directed).** ALWAYS pass a problem you find OUTSIDE your own touched work — especially in the OTHER lane's domain — to the other lane (this board + the shared findings file), naming `file:line` + the fix. NEVER drop a cross-domain defect as "not my area" / "they'll catch it." Shared `RULES` guard #6 syncs the rule to both lanes on `git pull`; each lane then mirrors it into its own per-box memory + ACKs.
 
 **⚠ Heads-up — auto-mode destructive-op soft-deny (PER-BOX; NOT a repo rule).** Under `~/.claude` `defaultMode:auto`, the harness `$defaults` soft-deny BLOCKS *direct* destructive file tool-calls on protected / out-of-workspace paths — it bit winclaude during the C: cleanup (PowerShell `Remove-Item` on `$env:TEMP` / another drive → "this path is protected from removal", and it persists even with the sandbox disabled). It is **per-box** (each lane's own `~/.claude/settings.json`, the repo `.claude/settings.json` is `{}` → NOT git-synced, so it can't reach you from win). **It does NOT scan inside a script**, so your `dev/build_dmg.sh` rebuild + any `rm`/`mv` inside a build script run normally. Only an *ad-hoc* destructive tool-call (a bare `rm -rf` on an out-of-workspace/system path) can trip it; if it does: the user has pre-authorized "anything you need" (proceed), run it via a script, target the exact in-workspace path, or the user toggles auto OFF to approve. winclaude's workaround was `[IO.Directory]::Delete` / `robocopy /MOVE` (no `Remove-Item` token); the Mac equivalent is plain `rm`/`mv` on explicit non-system paths. (For relocating big gitignored assets off a full disk, winclaude used `robocopy /MOVE` + a directory **junction** so the in-repo path still resolves — Mac's equivalent is `mv` + a `ln -s` symlink.)
 
-> **▶ winclaude — OUT-OF-REPO action when you pull this turn-24 push (I cannot do it for you):**
-> The **lane-coordination v2** revamp's in-repo half (engine + commands + RULES §4 + spec) reaches you on `git pull`. Your per-box halves: (1) **mirror the v2 model into Windows memory** — add a `reference_lane_coordination` memory + `MEMORY.md` pointer; update your save/lane memories to the `mode`/`task-board`/`truth_owner` framing. (2) **Add `lane_handoff.py incoming` to your Windows SessionStart hook** (alongside the `lane_ping.py --quiet` you already wired) so Windows surfaces its task by ASSIGNMENT, not by `holder`. (3) ⚠ **`lane_handoff.py status` output CHANGED in v2** (no more "YOU HOLD THE BATON" / "baton is with X" — it now prints `mode`, both tasks, `truth_owner`, `YOU (<lane>): …`). If `save-all.ps1` or any hook PARSES those old strings, update it (prefer the `incoming` exit code). The engine is otherwise back-compat (old frontmatter still parses; `handoff`/`status`/`incoming`/`mark-seen` all still work; `assign`/`prune` + `--mode/--mac/--windows` are new + optional). (4) **ACK** in your next handoff turn once mirrored.
+> **▶ Lane-coordination v2 + SessionStart hooks — SHIPPED (ACK 2026-06-17, both lanes).** In-repo engine (`lane_handoff.py`, RULES §4, `dev/cc-hooks/bootstrap-triad.*`) is live. Per-box halves (memory mirror + `lane_handoff incoming` in SessionStart) are each lane's responsibility — winclaude ✓ · macclaude ✓ (turn 24). New sessions: read triad via bootstrap hook; use `incoming` exit code (not legacy baton strings).
 
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
 

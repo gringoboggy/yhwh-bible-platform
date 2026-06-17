@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**84 documents** — 55 plans · 29 specs.
+**85 documents** — 56 plans · 29 specs.
 
-## In progress (36)
+## In progress (37)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-17 | Plan | Round-9 parallel audit + platform EPUB research | `plans/2026-06-17-round9-parallel-audit-and-platform-research.md` | PLANNED 2026-06-17 — starts after round-8 remediation gate; win=11 dims / mac=22 dims (+ platform research); FINDINGS-ONLY then fix phase F0–F6. |
 | 2026-06-15 | Plan | Round-8 parallel deep-audit — fresh-session runbook | `plans/2026-06-15-round8-parallel-audit-session.md` | READY 2026-06-15 — engine `ROUND=8`; split win=7 dims / mac=14 dims; FINDINGS-ONLY; merge after both lanes complete. |
 | 2026-06-15 | Plan | Toolchain + IDE plugin update audit (Grok / VS Code / Claude / skills) | `plans/2026-06-15-toolchain-plugin-update-audit.md` | ACTIVE 2026-06-15 — next fresh-session first task; inventory + safe updates for extensions, skills, MCP, Python/Node toolchain; report to `dev/TOOLCHAIN.md`. |
 | 2026-06-14 | Plan | ★ v1.0.0 Release Plan — deep audit + all readers proven + mint tag | `plans/2026-06-14-v1.0.0-release-plan.md` | ACTIVE 2026-06-14 — authoritative gate for tag v1.0.0; parallel WIN/Mac tracks; §8 DoD blocks tag. M4 DONE; M3+M5+audit round 8 block. Both lanes read on every /resume. |

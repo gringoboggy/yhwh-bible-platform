@@ -101,17 +101,17 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** `refactor.py --apply` — no config/matrix cache invalidation — **Mac turn 114** (`_invalidate_caches_after_refactor`)
 - [x] **MEDIUM** `prospect.py` — no `coord_in_canonical_extent` guard on candidate emit — **Mac turn 113c** (`_emit_extent_ok` + mint11 driver sweep)
 - [x] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b) — **Mac turn 113b** (188 assets; kindle empty_sha256=0)
-- [x] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723 — **Mac turn 114**
+- [x] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723 — **Mac turn 114** + **WIN turn 115** (`SESSION_PLAYBOOK.md` §0/§3/§5)
 - [x] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test — **Mac turn 114** (`test_inject_write_path.py`)
-- [ ] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none
+- [x] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none — **WIN turn 115** (`config.resolve_book_code` + API validation in `editions.py`/`covers.py`; `tests/test_api_book_code_normalize.py`)
 
 ### WIN turn-113b append (`claude-setup` dim)
 
-- [ ] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work.
-- [ ] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook.
+- [x] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work — **WIN turn 115** (§0 + §6.6 aligned to RULES §4 two-cadence model)
+- [x] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook — **WIN turn 115**
 - [x] **HIGH** `lane_watcher.py` handoff-blind — **WIN turn 114** unified `scripts/lane_watch.py`: fetch + remote `origin/main:LANE_HANDOFF` turn compare + auto-pull on BEHIND **or** remote board ahead + `incoming` both lanes + `UNPUSHED HANDOFF` nag when local board ahead of remote with unpushed commits. `lane_watcher.py` → shim; `dev/lane_watch_{mac,win}.*` wrappers.
-- [ ] **MEDIUM** Repo `.claude/settings.json` is `{}` — SessionStart hooks live in parent `YHWH-v2.4-full/.claude/` after `install_cc_hooks.ps1`; RULES §0 cites in-repo `.claude/hooks/bootstrap-triad.ps1` path that does not exist in the tracked repo.
-- [ ] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it.
+- [x] **MEDIUM** Repo `.claude/settings.json` is `{}` — SessionStart hooks live in parent `YHWH-v2.4-full/.claude/` after `install_cc_hooks.ps1`; RULES §0 cites in-repo `.claude/hooks/bootstrap-triad.ps1` path that does not exist in the tracked repo — **WIN turn 115** (RULES §0 + PLAYBOOK §1 document `dev/cc-hooks/` install path)
+- [x] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it — **WIN turn 115** (STANDING: lane_watch v3 opt-in + hooks ACK shipped)
 
 ### WIN turn-113 append (`opt-build` dim)
 
@@ -132,4 +132,4 @@ Artifact zip-scan on same r8audit builds (S1/S2/S3):
 
 - [x] **S3 hidden-target noterefs:** **0** on both artifacts (no new teleport class beyond known `notes-section` / `verse-refs-section` fixes @ Phase 3).
 - [x] **S1 separator coverage:** **0** study footnotes missing `vn-sep` on non-glossary emitters (vnote translation popups remain the known K-R4-1 gap — deferred).
-- [ ] **MEDIUM** **S2 size census:** eth 218 / catholic 184 asides >3,300 stripped chars; top offenders are `vnotes-*-s1` study chunks ~4,300 B (under 7,748 decline ceiling post Phase 3 chunking) + outlier `vnote-1ki-12-24` @ 6,937 (K-R4-2). No new emitter class beyond prior art.
+- [x] **MEDIUM** **S2 size census:** eth 218 / catholic 184 asides >3,300 stripped chars; top offenders are `vnotes-*-s1` study chunks ~4,300 B (under 7,748 decline ceiling post Phase 3 chunking) + outlier `vnote-1ki-12-24` @ 6,937 (K-R4-2). No new emitter class beyond prior art — **CONFIRMED-KNOWN @ WIN turn 115** (no new fix class; K-R4-2 tracked separately)

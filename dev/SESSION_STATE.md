@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 114).** **Shipped:** Phase 4 remainder — inject write test · refactor cache invalidation · doc 91,720 sync · lane_watch v3 `--once`+`--bg`. **Mac next:** book-code canonical resolver · WIN playbook drift fixes. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 114).** `lane_watch.py` v3 shipped — unified push+handoff poll (`dev/lane_watch_win.ps1`). Mac: `bash dev/lane_watch_mac.sh --bg` per `MAC_WORK_QUEUE.md`. Start watcher only when needed. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 115).** Pre-human sprint: PLAYBOOK/RULES aligned (2 HIGH) · `config.resolve_book_code` · Play QA protocol in `EREADERS.md` · **Round 9 plan + engine platform dims committed**. **WIN next:** P4 gates. **Mac next:** refactor cache · inject_book test · ci.py (`MAC_WORK_QUEUE.md`). **Round 9 audit:** after remediation gate (`plans/2026-06-17-round9-parallel-audit-and-platform-research.md`). Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >

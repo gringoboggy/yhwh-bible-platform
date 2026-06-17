@@ -56,8 +56,10 @@ def api_upload_cover_main(edition_id: str, body: bytes, content_type: str) -> di
 def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_type: str) -> dict:
     """Phase π.4-B — upload a per-book cover."""
     from scripts.api.multipart import _extract_boundary, _parse_multipart
+    from scripts.core import config
     from scripts.web import _save_cover_bytes
 
+    book_code = config.resolve_book_code(book_code)
     boundary = _extract_boundary(content_type)
     if boundary is None:
         return {"error": "request must be multipart/form-data with a boundary"}
@@ -168,6 +170,7 @@ def api_select_book_cover(edition_id: str, book_code: str, path: str) -> dict:
     from scripts.api.editions import api_save_edition_meta
     from scripts.core import config, covers as _covers
 
+    book_code = config.resolve_book_code(book_code)
     path = (path or "").strip()
     if edition_id not in config.editions_by_id():
         return {"error": f"unknown edition: {edition_id}"}
@@ -205,6 +208,7 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     from scripts.api.editions import api_save_edition_meta
 
     REPO = Path(__file__).resolve().parent.parent.parent
+    book_code = config.resolve_book_code(book_code)
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}

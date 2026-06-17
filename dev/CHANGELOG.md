@@ -4,6 +4,13 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 115) — pre-human sprint + Round 9 plan
+
+**Audit remediation:** PLAYBOOK/RULES save doctrine aligned (2 HIGH closed) · hook-path + STANDING hygiene · book-code `config.resolve_book_code` + API paths · findings ticks · `tests/test_api_book_code_normalize.py` 3/3.
+**Release prep:** `EREADERS.md` Play Books phone QA protocol · v1.0.0 plan §1 refreshed.
+**Round 9 (planned):** `plans/2026-06-17-round9-parallel-audit-and-platform-research.md` · platform matrix skeleton · `deep-audit.js` +4 platform dims (win 11 / mac 22).
+**Next:** P4 gates · Mac refactor/inject_book/ci.py · Round 9 after remediation gate.
+
 ## 2026-06-17 — Windows session (turn 114) — ★ lane_watch v3 unified cross-lane poll
 
 **Shipped:** `scripts/lane_watch.py` — one engine (push BEHIND + remote board turn + incoming + unpushed-handoff nag + optional `--assign-mac`). `lane_watcher.py` shim; `dev/lane_watch_win.ps1` + updated `dev/lane_watch_mac.sh`. Tests 5/5. Mac assign turn 114 in `MAC_WORK_QUEUE.md`.

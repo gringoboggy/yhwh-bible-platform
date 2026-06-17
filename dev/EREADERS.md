@@ -151,6 +151,27 @@
 - **Profile question (open):** does Play need its own `target_reader` value, or
   does the `everywhere` build hold? Decide from phone-QA round 1.
 
+### Play Books round-1 phone QA protocol (M5 gate — user)
+
+**Staged artifact (v0.1.0 release):** `YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub`
+([GitHub release](https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub)).
+
+**Upload steps:**
+1. On phone: open Play Books → Profile → **Upload** (or play.google.com/books → Upload).
+2. Select the navy `everywhere` EPUB above (download to phone first if needed).
+3. Open the book; wait for sync across devices if prompted.
+
+**Minimum tap list (record pass/fail + screenshot where useful):**
+1. **Popup footnotes** — Gen 1:1 or any verse with a `vn-link` / study badge: tap opens readable text (not blank / not jump-to-top).
+2. **Embedded fonts** — Hebrew/Greek/Arabic sample verse: scripts render (not tofu boxes).
+3. **Chapter nav** — ToC or in-book chapter jump lands on correct chapter start.
+4. **Collapsible ToC** — if present, confirm `<details>` sections stay closed/stuck (expected fail — document honestly).
+5. **Page breaks** — title page → first chapter: no mid-sentence split on a long chapter boundary.
+
+**Verdict recording:** append results to this section (date-stamped) and set M5 column
+`live: true` only if rounds 1–3 pass; otherwise keep `everywhere` alias and document
+limitations here.
+
 ## Computer & everywhere else (`everywhere` / `computer`)
 
 - **Covers:** Calibre, Thorium, Adobe Digital Editions, Nook, and any standard

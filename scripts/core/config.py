@@ -402,8 +402,16 @@ def editions_by_id():
     return {e["id"]: e for e in load_editions()}
 
 
+def resolve_book_code(code: str) -> str:
+    """Map legacy book aliases to canonical ``books.yaml`` codes."""
+    from scripts.core.sources import _normalize_book_code
+
+    return _normalize_book_code(code)
+
+
 def get_book(code):
     """Look up a single book by its code. Raises KeyError with hint if unknown."""
+    code = resolve_book_code(code)
     bb = books_by_code()
     if code not in bb:
         raise KeyError(f"Unknown book code {code!r}. Known: {sorted(bb)[:8]}...")

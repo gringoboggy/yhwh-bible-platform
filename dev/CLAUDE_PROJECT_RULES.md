@@ -181,9 +181,12 @@ Every fresh session begins by reading, in this order:
 this read-order** — those words mean *read the triad first, THEN resume the in-flight
 work*, never *skip to the task*. The triad (~700-900 lines) IS the minimum
 orientation; a `git log` or SESSION_STATE-only peek is NOT a substitute. A project
-**SessionStart hook** (`.claude/hooks/bootstrap-triad.ps1`, wired in
-`.claude/settings.json` at the repo-parent cwd) injects this reminder at every
-session start as a forcing function.
+**SessionStart hook** — per-box, not git-synced: Windows runs
+`dev/cc-hooks/bootstrap-triad.ps1` (installed to the repo-parent
+`YHWH-v2.4-full/.claude/hooks/` via `dev/install_cc_hooks.ps1`; Mac:
+`dev/cc-hooks/bootstrap-triad.sh`). The in-repo `.claude/settings.json` is
+intentionally `{}` — hook wiring lives in the parent workspace settings.
+Injected at every session start as a forcing function.
 
 **Always-there maps:** for ANY "where does X live / how does data flow / what feeds
 the build" question, check the maps FIRST — never grep blind. `dev/MATRIX_MAP.md`
