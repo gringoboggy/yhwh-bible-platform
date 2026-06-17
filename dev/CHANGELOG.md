@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 117) — lane_watch hardening + handoff to Mac
+
+**Shipped:** `lane_watch.py` trip-up guards — dirty-tree skip on auto-pull · uncommitted-handoff nag · mirror-skew warn · Mac queue scans Active queue only. STANDING trip-up playbook. Tests 9/9. Handoff turn 117 → Mac with **lane_watch --bg FIRST** directive.
+
 ## 2026-06-17 — Windows session (turn 116) — lane_watch required whole arc
 
 **Standing:** user directive — `lane_watch` ON both lanes for entire pre-human + Round 9 arc. Handoff turn 116 + STANDING + `MAC_WORK_QUEUE.md` updated.

@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 116
+turn: 117
 from: windows
-updated: 2026-06-17T20:00:00Z
-status: working
-mac: lane_watch --bg ON (whole arc) + remediation queue (MAC_WORK_QUEUE.md)
-windows: lane_watch ON (whole arc) + P4 gates + Round 9 prep
-truth_owner: windows
-holder: windows
+updated: 2026-06-17T13:44:42Z
+status: handing-off
+mac: ★ FIRST: git pull turn 117+ → bash dev/lane_watch_mac.sh --once → bash dev/lane_watch_mac.sh --bg (KEEP RUNNING whole arc). Then remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (MAC_WORK_QUEUE.md). Round 9 after gate.
+windows: lane_watch -Background -AssignMac + P4 gates + dishonest/stub audits
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 117, 2026-06-17T13:44:42Z) — mode=parallel
+
+**Done (turn 116, windows):**
+turn 116 lane_watch required whole arc; turn 117 lane_watch hardening (dirty-tree guard, uncommitted-handoff nag, active-queue assign, mirror-skew warn); tests 9/9
+
+**Next (turn 117, mac picks up):**
+Mac: lane_watch --bg FIRST then remediation queue. WIN: watcher + P4 + audits.
+
+**Assignments:** mac = ★ FIRST: git pull turn 117+ → bash dev/lane_watch_mac.sh --once → bash dev/lane_watch_mac.sh --bg (KEEP RUNNING whole arc). Then remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (MAC_WORK_QUEUE.md). Round 9 after gate. · windows = lane_watch -Background -AssignMac + P4 gates + dishonest/stub audits
+
+**Watch-outs:**
+lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every handoff edit; file-disjoint
+
 ---
 
 ## ◦ windows assign (turn 116, 2026-06-17T20:00:00Z) — mode=parallel
@@ -218,6 +233,8 @@ WIN assigned Mac Phase 2 parallel while pytest runs (user-approved).
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
 **Lane watch v3 (2026-06-17, STANDING — REQUIRED during pre-human + Round 9 arc, both lanes).** User-directed: keep **lane_watch running** for the whole remediation → Round 9 audit → fix phase — not opt-in during this arc. `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. **Mac:** `bash dev/lane_watch_mac.sh --bg` after `--once` at session start; leave up until arc completes. **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (optional `-AssignMac` for queue auto-assign). Handoff/assign edits MUST be milestone-pushed or the other box never sees them. Outside this arc, watcher may stay stopped unless needed. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
+
+**Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first. (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 
 **Cross-lane tool/environment parity (2026-06-05, Guard #4).** Verify the other box has the tools/agents/deps/paths before handing it a task or running a shared `.claude/workflows/*.js`. (Round-6 auditor now BAKES the parity in: flipping `const LANE` auto-selects REPO + agent types — no more 3-edit Mac trap.) Each lane mirrors cross-lane rules into its own per-box memory.
 

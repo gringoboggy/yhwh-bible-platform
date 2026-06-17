@@ -58,6 +58,8 @@ def test_check_flags_unpushed_handoff(monkeypatch, tmp_path):
     )
     monkeypatch.setattr(lw, "_fetch", lambda: True)
     monkeypatch.setattr(lw, "_auto_pull", lambda: (False, ""))
+    monkeypatch.setattr(lw, "_handoff_dirty", lambda: False)
+    monkeypatch.setattr(lw, "_committed_handoff_header", lambda: {"turn": "99"})
     monkeypatch.setattr(lw, "_incoming_check", lambda: (1, ""))
     monkeypatch.setattr(
         lw,
@@ -73,6 +75,73 @@ def test_check_flags_unpushed_handoff(monkeypatch, tmp_path):
     assert info["unpushed_handoff"] is True
     assert info["local_turn"] == 99
     assert info["remote_turn"] == 98
+
+
+def test_active_queue_skips_round9_section(tmp_path, monkeypatch):
+    monkeypatch.setattr(lw, "QUEUE_PATH", tmp_path / "MAC_WORK_QUEUE.md")
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    (tmp_path / "MAC_WORK_QUEUE.md").write_text(
+        "## Active queue\n\n"
+        "- [x] done item\n"
+        "- [ ] first open task\n"
+        "\n## Round 9 queue (after gate)\n\n"
+        "- [ ] should not pick this\n",
+        encoding="utf-8",
+    )
+    assert lw._next_mac_queue_item() == "first open task"
+
+
+def test_mirror_skew_detects_divergent_tips():
+    ping = {
+        "remotes": {
+            "origin": {"remote_tip": "aaa1111", "cached": "aaa1111"},
+            "github": {"remote_tip": "bbb2222", "cached": "bbb2222"},
+        }
+    }
+    skew, o, g = lw._mirror_skew(ping)
+    assert skew is True
+    assert o == "aaa1111"
+    assert g == "bbb2222"
+
+
+def test_auto_pull_skips_dirty_tree(monkeypatch):
+    monkeypatch.setattr(lw, "_working_tree_dirty", lambda: True)
+    pulled, msg = lw._auto_pull()
+    assert pulled is False
+    assert "DIRTY TREE" in msg
+
+
+def test_check_flags_uncommitted_handoff(monkeypatch, tmp_path):
+    monkeypatch.setattr(lw, "REPO", tmp_path)
+    monkeypatch.setattr(lw, "STATE_PATH", tmp_path / "state.json")
+    monkeypatch.setattr(lw, "LOG_PATH", tmp_path / "log.txt")
+    (tmp_path / "dev").mkdir()
+    (tmp_path / "dev" / "LANE_HANDOFF.md").write_text(
+        "---\nmode: parallel\nturn: 100\nfrom: windows\nmac: idle\nwindows: idle\n---\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(lw, "_fetch", lambda: True)
+    monkeypatch.setattr(lw, "_auto_pull", lambda: (False, ""))
+    monkeypatch.setattr(lw, "_incoming_check", lambda: (1, ""))
+    monkeypatch.setattr(lw, "_handoff_dirty", lambda: True)
+    monkeypatch.setattr(
+        lw,
+        "_committed_handoff_header",
+        lambda: {"turn": "99", "from": "windows"},
+    )
+    monkeypatch.setattr(
+        lw,
+        "_remote_handoff_header",
+        lambda: {"turn": "99", "from": "windows"},
+    )
+    monkeypatch.setattr(
+        "scripts.lane_ping.gather",
+        lambda: {"status": "CLEAR", "unpushed": 0, "remotes": {}, "baton": {}},
+    )
+    monkeypatch.setattr("scripts.lane_handoff.detect_lane", lambda repo: "windows")
+    info = lw.check(auto_pull=False, quiet_log=True)
+    assert info["uncommitted_handoff"] is True
+    assert info["unpushed_handoff"] is True
 
 
 def test_check_auto_pull_on_remote_board_ahead(monkeypatch, tmp_path):
@@ -96,6 +165,9 @@ def test_check_auto_pull_on_remote_board_ahead(monkeypatch, tmp_path):
 
     monkeypatch.setattr(lw, "_fetch", lambda: True)
     monkeypatch.setattr(lw, "_auto_pull", fake_pull)
+    monkeypatch.setattr(lw, "_working_tree_dirty", lambda: False)
+    monkeypatch.setattr(lw, "_handoff_dirty", lambda: False)
+    monkeypatch.setattr(lw, "_committed_handoff_header", lambda: {"turn": "10"})
     monkeypatch.setattr(lw, "_incoming_check", lambda: (1, ""))
     monkeypatch.setattr(
         lw,

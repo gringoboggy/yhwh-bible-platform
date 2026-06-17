@@ -106,7 +106,37 @@ def _fetch() -> bool:
     return ok
 
 
+def _working_tree_dirty() -> bool:
+    rc, out, _ = _git("status", "--porcelain")
+    return rc == 0 and bool(out.strip())
+
+
+def _committed_handoff_header() -> dict[str, str]:
+    rc, out, _ = _git("show", "HEAD:dev/LANE_HANDOFF.md", timeout=15)
+    if rc != 0 or not out:
+        return {}
+    return _handoff_header_from_text(out)
+
+
+def _handoff_dirty() -> bool:
+    rc, out, _ = _git("status", "--porcelain", "dev/LANE_HANDOFF.md")
+    return rc == 0 and bool(out.strip())
+
+
+def _mirror_skew(ping: dict) -> tuple[bool, str, str]:
+    remotes = ping.get("remotes", {})
+    origin = remotes.get("origin", {})
+    github = remotes.get("github", {})
+    o_tip = origin.get("remote_tip") or origin.get("cached")
+    g_tip = github.get("remote_tip") or github.get("cached")
+    if not o_tip or not g_tip or o_tip == g_tip:
+        return False, o_tip or "", g_tip or ""
+    return True, o_tip, g_tip
+
+
 def _auto_pull() -> tuple[bool, str]:
+    if _working_tree_dirty():
+        return False, "DIRTY TREE — commit or stash before auto-pull"
     rc, out, err = _git("pull", "--rebase", "origin", "main", timeout=300)
     msg = out or err or ("ok" if rc == 0 else "pull failed")
     return rc == 0, msg
@@ -167,10 +197,26 @@ def _changelog_headline() -> str:
     return ""
 
 
-def _next_mac_queue_item() -> str | None:
+def _active_queue_lines() -> list[str]:
+    """Only scan ## Active queue — skip Round 9 / Completed sections."""
     if not QUEUE_PATH.is_file():
-        return None
+        return []
+    in_active = False
+    lines: list[str] = []
     for line in QUEUE_PATH.read_text(encoding="utf-8").splitlines():
+        low = line.strip().lower()
+        if low.startswith("## active queue"):
+            in_active = True
+            continue
+        if in_active and line.startswith("## "):
+            break
+        if in_active:
+            lines.append(line)
+    return lines
+
+
+def _next_mac_queue_item() -> str | None:
+    for line in _active_queue_lines():
         m = re.match(r"^- \[ \] (.+)$", line.strip())
         if m:
             return m.group(1).strip()
@@ -216,15 +262,25 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     unpushed = ping.get("unpushed", 0)
 
     local_h = _local_handoff_header()
+    committed_h = _committed_handoff_header()
     remote_h = _remote_handoff_header() if fetch_ok else {}
     local_turn = _int_turn(local_h)
+    committed_turn = _int_turn(committed_h)
     remote_turn = _int_turn(remote_h)
-    remote_ahead = fetch_ok and remote_turn > local_turn
-    unpushed_handoff = local_turn > remote_turn and unpushed > 0
+    remote_ahead = fetch_ok and remote_turn > committed_turn
+    handoff_dirty = _handoff_dirty()
+    uncommitted_handoff = handoff_dirty or local_turn > committed_turn
+    unpushed_handoff = (
+        uncommitted_handoff
+        or (committed_turn > remote_turn and unpushed > 0)
+        or (local_turn > remote_turn and unpushed > 0)
+    )
+    mirror_skew, origin_tip, github_tip = _mirror_skew(ping)
 
     pulled = False
     pull_msg = ""
-    should_pull = auto_pull and fetch_ok and (status == "BEHIND" or remote_ahead)
+    dirty_tree = _working_tree_dirty()
+    should_pull = auto_pull and fetch_ok and not dirty_tree and (status == "BEHIND" or remote_ahead)
     if should_pull:
         pulled, pull_msg = _auto_pull()
         if pulled:
@@ -255,9 +311,16 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
         "offline": status == "OFFLINE",
         "unpushed_commits": unpushed,
         "unpushed_handoff": unpushed_handoff,
+        "uncommitted_handoff": uncommitted_handoff,
+        "handoff_dirty": handoff_dirty,
+        "dirty_tree": dirty_tree,
+        "mirror_skew": mirror_skew,
+        "origin_tip": origin_tip,
+        "github_tip": github_tip,
         "auto_pulled": pulled,
         "pull_msg": pull_msg,
         "local_turn": local_turn,
+        "committed_turn": committed_turn,
         "remote_turn": remote_turn,
         "remote_ahead": remote_ahead,
         "remote_from": remote_h.get("from", ""),
@@ -282,6 +345,10 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     return info
 
 
+def _short_tip(sha: str) -> str:
+    return sha[:7] if sha else "?"
+
+
 def _emit_cycle_log(info: dict, state: dict, tip: str) -> None:
     if info["auto_pulled"]:
         who = info["remote_from"] or info["baton"].get("from") or "other lane"
@@ -291,11 +358,27 @@ def _emit_cycle_log(info: dict, state: dict, tip: str) -> None:
                 _log(ln)
         return
 
+    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"]):
+        _log("DIRTY TREE — commit or stash before auto-pull (standing: never rebase over uncommitted work)")
+
     if info["unpushed_handoff"]:
+        if info["uncommitted_handoff"] and not info["unpushed_commits"]:
+            _log(
+                f"UNCOMMITTED HANDOFF: board turn {info['local_turn']} in working tree "
+                f"vs committed {info['committed_turn']} — commit + milestone-push"
+            )
+        else:
+            _log(
+                f"UNPUSHED HANDOFF: local board turn {info['local_turn']} > "
+                f"remote {info['remote_turn']} with {info['unpushed_commits']} local commit(s) — "
+                "milestone-push so the other lane can see your assignment"
+            )
+
+    if info["mirror_skew"]:
         _log(
-            f"UNPUSHED HANDOFF: local board turn {info['local_turn']} > "
-            f"remote {info['remote_turn']} with {info['unpushed_commits']} local commit(s) — "
-            "milestone-push so the other lane can see your assignment"
+            f"MIRROR SKEW: origin {_short_tip(info['origin_tip'])} != "
+            f"github {_short_tip(info['github_tip'])} — origin is source of truth; "
+            "milestone-push both remotes when you save"
         )
 
     if info["remote_ahead"] and not info["auto_pulled"]:
@@ -361,8 +444,22 @@ def _print_human(info: dict) -> None:
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     print(f"[lane_watch {ts}] lane={info['lane']} ping={info['ping_status']}", flush=True)
     if info["unpushed_handoff"]:
+        if info["uncommitted_handoff"] and not info["unpushed_commits"]:
+            print(
+                f"  UNCOMMITTED HANDOFF: working turn {info['local_turn']} > "
+                f"committed {info['committed_turn']} — commit + push",
+                flush=True,
+            )
+        else:
+            print(
+                f"  UNPUSHED HANDOFF: local turn {info['local_turn']} not on remote — push to reach other lane",
+                flush=True,
+            )
+    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"]):
+        print("  DIRTY TREE — commit or stash before auto-pull", flush=True)
+    if info["mirror_skew"]:
         print(
-            f"  UNPUSHED HANDOFF: local turn {info['local_turn']} not on remote — push to reach other lane",
+            f"  MIRROR SKEW: origin {_short_tip(info['origin_tip'])} != github {_short_tip(info['github_tip'])}",
             flush=True,
         )
     if info["auto_pulled"]:
