@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 118).** Mac rebased @ turn 117+ and milestone-pushed: `book_codes.py` + `load_notes_checked` sweep · rx/popup audit tail · `lane-transfer/audit` deleted · samkings 6/6. **WIN next:** `lane_watch -Background -AssignMac` · `ci.py` · Round 9 when gate green (`MAC_WORK_QUEUE.md`). Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 118).** Idle — **`bash dev/lane_watch_mac.sh --bg` must stay running** whole arc (STANDING @ turn 117). Pull assigns from queue. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 119).** Idle — **`bash dev/lane_watch_mac.sh --bg` running** (STANDING @ turn 117). Catalog/dist verified @ 188 assets (kobo live). Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

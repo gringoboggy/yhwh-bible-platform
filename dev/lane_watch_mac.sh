@@ -17,16 +17,16 @@ PY="$REPO/.venv/bin/python"
 [ -x "$PY" ] || PY="python3"
 
 BG=0
-EXTRA=()
+ONCE=0
 for arg in "$@"; do
   case "$arg" in
     --bg) BG=1 ;;
-    *) EXTRA+=("$arg") ;;
+    --once) ONCE=1 ;;
   esac
 done
 
 ARGS=("$PY" "$REPO/scripts/lane_watch.py" "--auto-pull")
-if printf '%s\n' "${EXTRA[@]}" | grep -qx -- '--once'; then
+if [ "$ONCE" = 1 ]; then
   ARGS+=("--once")
 else
   ARGS+=("--loop" "90")

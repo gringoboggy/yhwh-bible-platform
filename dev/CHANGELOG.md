@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Mac session (turn 119) — lane_watch --bg fix + catalog/dist verify
+
+**Shipped:** `lane_watch_mac.sh` — fix `EXTRA[@]` unbound-variable crash on `--bg`-only invocations (bash 3.2 + `set -u`). Regen catalog (188 assets; kobo column live) + `website/build.mjs` smoke (dist rebuilt locally). `test_lane_watch` + `test_gen_release_catalog` 36/36 green.
+
 ## 2026-06-17 — Windows session (turn 119b) — post-push 60s pause for VS Code
 
 **Standing:** user directive — after WIN `save-all.ps1` push, pause ~60s so user can refresh VS Code extensions.

@@ -26,7 +26,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **★ Lane watch v3 (REQUIRED whole arc):** `git pull` turn 117+ → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` — **keep running** through remediation + Round 9 — **Mac turn 118** (`--once` CLEAR post-rebase; `--bg` started)
 - [x] **test_samkings_manifest_complete** — 6/6 `done_gate` — **Mac turn 118**
 - [ ] **ci.py parity** — full gate after Mac fixes land
-- [ ] **website/dist regen** — `gen_release_catalog` + `node website/build.mjs` (pre-human milestone)
+- [x] **website/dist regen** — `gen_release_catalog` + `node website/build.mjs` — **Mac turn 119** (188 assets; kobo column live; dist rebuilt locally)
 - [x] **refactor.py cache invalidation** — **Mac turn 114** (`_invalidate_caches_after_refactor`)
 - [x] **inject_book write test** — **Mac turn 114** (`test_inject_write_path.py`)
 - [x] **Doc count 91,720 sweep** — **Mac turn 114** + PLAYBOOK @ WIN turn 115
