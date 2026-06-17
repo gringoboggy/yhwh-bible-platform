@@ -1,11 +1,12 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 114).** **Shipped:** Phase 4 remainder — inject write test · refactor cache invalidation · doc 91,720 sync · lane_watch v3 `--once`+`--bg`. **Mac next:** book-code canonical resolver · WIN playbook drift fixes. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 118).** Mac rebased @ turn 117+ and milestone-pushed: `book_codes.py` + `load_notes_checked` sweep · rx/popup audit tail · `lane-transfer/audit` deleted · samkings 6/6. **WIN next:** `lane_watch -Background -AssignMac` · `ci.py` · Round 9 when gate green (`MAC_WORK_QUEUE.md`). Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 115).** Pre-human sprint: PLAYBOOK/RULES aligned (2 HIGH) · `config.resolve_book_code` · Play QA protocol in `EREADERS.md` · **Round 9 plan + engine platform dims committed**. **WIN next:** P4 gates. **Mac next:** refactor cache · inject_book test · ci.py (`MAC_WORK_QUEUE.md`). **Round 9 audit:** after remediation gate (`plans/2026-06-17-round9-parallel-audit-and-platform-research.md`). Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 118).** Idle — **`bash dev/lane_watch_mac.sh --bg` must stay running** whole arc (STANDING @ turn 117). Pull assigns from queue. Baton **windows**; mode=parallel.
 >
-> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
+> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >
+> **➤➤➤ 2026-06-16 (🖥️ Mac turn 106 — ★ MJ+GRADIENT SHIPPED + HANDOFF).** Policy reset: `_scenes/_midjourney/` + compose only; 20 Ethiopian extras; tests 9/9. Deprecated: alt04–06, Grok, ethnic variants.
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 
@@ -16,7 +17,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** 86×1 MJ+gradient (turn 106). **Phase 3:** **DONE** (WIN @ `a8e0e099` + Mac ncx @ turn 111). **Manuscript P0:** Samuel+Kings GREEN. **Device-QA ON HOLD** until audit+fixes. **M3:** 45/45 attached. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** 86×1 MJ+gradient (turn 106). **Phase 3:** **DONE**. **Manuscript P0:** Samuel+Kings GREEN. **Round 8 remediation:** Mac batch landed @ turn 118; WIN `ci.py` + Round 9 Workflow when gate green. **M3:** 45/45 attached. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
@@ -24,7 +25,7 @@
 
 ## Conventions (unchanged)
 
-Local commit via `save.cmd`/`save.ps1` (PowerShell). **Remote RESTORED 2026-05-30** — `origin` = GitLab + `github` = GitHub mirror (both `gringoboggy`, private); `git push` to both works. Tests: full interpreter path + `$env:PYTHONUTF8="1"`, one file at a time. "continue" ≠ "save". Scope frozen 2026-05-20 (consolidation phase).
+Local commit during work; milestone = `bash dev/save_mac.sh -m "…"` (Mac) or `save-all.ps1` (Win). **Remote:** `origin` = GitLab + `github` = GitHub mirror (both private). Tests: `.venv/bin/python -m pytest` + `export PYTHONUTF8=1`. "continue" ≠ "save".
 
 ## Console inventory (web.py UI surface, 21)
 

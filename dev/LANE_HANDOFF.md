@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 117
-from: windows
-updated: 2026-06-17T13:44:42Z
+turn: 118
+from: mac
+updated: 2026-06-17T13:54:26Z
 status: handing-off
-mac: ★ FIRST: git pull turn 117+ → bash dev/lane_watch_mac.sh --once → bash dev/lane_watch_mac.sh --bg (KEEP RUNNING whole arc). Then remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (MAC_WORK_QUEUE.md). Round 9 after gate.
-windows: lane_watch -Background -AssignMac + P4 gates + dishonest/stub audits
-truth_owner: mac
-holder: mac
+mac: idle — lane_watch --bg MUST stay running (STANDING turn 117)
+windows: lane_watch -Background -AssignMac + ci.py + Round 9 Workflow when gate green
+truth_owner: windows
+holder: windows
+---
+
+## ▶ mac → windows (turn 118, 2026-06-17T13:54:26Z) — mode=parallel
+
+**Done (turn 117, mac):**
+Mac turn 114 batch rebased: book_codes.py+resolve_book_code merge; load_notes_checked sweep; rx/popup audit tail; lane-transfer/audit deleted; samkings 6/6; lane_watch --bg started
+
+**Next (turn 118, windows picks up):**
+WIN: ci.py parity; website/dist regen if needed; Round 9 gate
+
+**Assignments:** mac = idle — lane_watch --bg MUST stay running (STANDING turn 117) · windows = lane_watch -Background -AssignMac + ci.py + Round 9 Workflow when gate green
+
+**Watch-outs:**
+lane_watch ON both lanes whole arc; milestone-push every handoff edit
+
 ---
 
 ## ▶ windows → mac (turn 117, 2026-06-17T13:44:42Z) — mode=parallel

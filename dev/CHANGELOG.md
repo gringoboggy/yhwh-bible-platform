@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Mac session (turn 118) — ★ Phase 4 batch rebased + milestone push
+
+**Shipped:** Rebased onto WIN turn 117 — `book_codes.py` + `config.resolve_book_code` merge · `load_notes_checked` sweep (25 tests) · rx/popup audit tail · `lane-transfer/audit` deleted · samkings 6/6 · lane_watch `--once`+`--bg`. Handoff turn 118 → windows.
+
 ## 2026-06-17 — Windows session (turn 117) — lane_watch hardening + handoff to Mac
 
 **Shipped:** `lane_watch.py` trip-up guards — dirty-tree skip on auto-pull · uncommitted-handoff nag · mirror-skew warn · Mac queue scans Active queue only. STANDING trip-up playbook. Tests 9/9. Handoff turn 117 → Mac with **lane_watch --bg FIRST** directive.

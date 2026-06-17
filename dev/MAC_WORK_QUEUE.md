@@ -18,8 +18,8 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ## Active queue
 
-- [ ] **★ Lane watch v3 (REQUIRED whole arc):** `git pull` turn 117+ → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` — **keep running** through remediation + Round 9 (trip-up guards shipped @ WIN turn 117). **Rule:** handoff/assign edits MUST be milestone-pushed (`UNPUSHED HANDOFF` nag if not).
-- [ ] **test_samkings_manifest_complete** — 6/6 `done_gate` (closes WIN pytest shard skip)
+- [x] **★ Lane watch v3 (REQUIRED whole arc):** `git pull` turn 117+ → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` — **keep running** through remediation + Round 9 — **Mac turn 118** (`--once` CLEAR post-rebase; `--bg` started)
+- [x] **test_samkings_manifest_complete** — 6/6 `done_gate` — **Mac turn 118**
 - [ ] **ci.py parity** — full gate after Mac fixes land
 - [ ] **website/dist regen** — `gen_release_catalog` + `node website/build.mjs` (pre-human milestone)
 - [x] **refactor.py cache invalidation** — **Mac turn 114** (`_invalidate_caches_after_refactor`)
@@ -37,7 +37,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] Phase 4: 3 OOE notes in `content/notes/aes.py` ch10 v11-13 — **Mac turn 108**
 - [x] Phase 4: 1ki EN back-translation ch7-10 — **Mac turn 107b**
 - [x] Playbook/RULES §4 save-cadence alignment — **Mac turn 114** @ 30d1064f
-- [x] Book-code `canonical_book_code()` unified resolver — **Mac turn 114** @ 23ebdeae
+- [x] Book-code unified resolver (`book_codes.py` + `config.resolve_book_code`) — **Mac turn 114/118** (merged WIN turn 115)
 - [x] Round-8 rx-surfaces + popup-integrity tail (deferred LOW/S2 documented) — **Mac turn 114**
 - [x] `load_notes_checked` API/pipeline sweep — **Mac turn 114**
 
