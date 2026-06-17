@@ -1,13 +1,30 @@
 ---
 mode: parallel
-turn: 115
+turn: 116
 from: windows
-updated: 2026-06-17T18:00:00Z
+updated: 2026-06-17T20:00:00Z
 status: working
-mac: refactor cache_clear + inject_book write test + doc 91720 sweep + samkings done_gate (MAC_WORK_QUEUE.md)
-windows: P4 gates + dishonest/stub audits + Play staging + EREADERS §Play protocol
+mac: lane_watch --bg ON (whole arc) + remediation queue (MAC_WORK_QUEUE.md)
+windows: lane_watch ON (whole arc) + P4 gates + Round 9 prep
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 116, 2026-06-17T20:00:00Z) — mode=parallel
+
+**User directive (2026-06-17):** **lane_watch ON for the entire pre-human + Round 9 arc** on BOTH boxes — not opt-in. Mac must start and keep it running.
+
+**Lane watch (both lanes — STANDING for this arc):**
+- **Mac:** `git pull` → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` (leave running through remediation + Round 9 audit)
+- **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (or `-Background`); add `-AssignMac` to auto-assign from `MAC_WORK_QUEUE.md` after Mac pushes
+- **Rule:** handoff/assign edits MUST be milestone-pushed or the other box never sees them (`UNPUSHED HANDOFF` nag)
+
+**Done (turn 115, windows):** pre-human sprint + Round 9 plan committed @ `99bfcabc`.
+
+**Assignments:** mac = **lane_watch --bg first** (see above) → remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (`MAC_WORK_QUEUE.md`). Round 9 after gate. · windows = **lane_watch running** → P4 gates · dishonest/stub audits · Round 9 Workflow when gate green (win=11 dims)
+
+**Watch-outs:** file-disjoint; milestone-push every handoff while watcher is up; do not stop watcher mid-arc unless user says so.
+
 ---
 
 ## ◦ windows assign (turn 115, 2026-06-17T18:00:00Z) — mode=parallel
@@ -200,7 +217,7 @@ WIN assigned Mac Phase 2 parallel while pytest runs (user-approved).
 
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
-**Lane watch v3 (2026-06-17, STANDING — opt-in, both lanes).** `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. Start only when needed: Win `pwsh -File dev/lane_watch_win.ps1`; Mac `bash dev/lane_watch_mac.sh --bg`. Handoff/assign edits MUST be milestone-pushed or the other box never sees them. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
+**Lane watch v3 (2026-06-17, STANDING — REQUIRED during pre-human + Round 9 arc, both lanes).** User-directed: keep **lane_watch running** for the whole remediation → Round 9 audit → fix phase — not opt-in during this arc. `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. **Mac:** `bash dev/lane_watch_mac.sh --bg` after `--once` at session start; leave up until arc completes. **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (optional `-AssignMac` for queue auto-assign). Handoff/assign edits MUST be milestone-pushed or the other box never sees them. Outside this arc, watcher may stay stopped unless needed. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
 
 **Cross-lane tool/environment parity (2026-06-05, Guard #4).** Verify the other box has the tools/agents/deps/paths before handing it a task or running a shared `.claude/workflows/*.js`. (Round-6 auditor now BAKES the parity in: flipping `const LANE` auto-selects REPO + agent types — no more 3-edit Mac trap.) Each lane mirrors cross-lane rules into its own per-box memory.
 

@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 116) — lane_watch required whole arc
+
+**Standing:** user directive — `lane_watch` ON both lanes for entire pre-human + Round 9 arc. Handoff turn 116 + STANDING + `MAC_WORK_QUEUE.md` updated.
+
 ## 2026-06-17 — Windows session (turn 115) — pre-human sprint + Round 9 plan
 
 **Audit remediation:** PLAYBOOK/RULES save doctrine aligned (2 HIGH closed) · hook-path + STANDING hygiene · book-code `config.resolve_book_code` + API paths · findings ticks · `tests/test_api_book_code_normalize.py` 3/3.

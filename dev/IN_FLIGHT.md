@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-17 (turn 115).** Pre-human sprint: PLAYBOOK/RULES aligned (2 HIGH closed) · book-code API normalize · STANDING/hooks hygiene. **WIN next:** P4 gates + dishonest/stub audits + Play staging. **Mac next:** refactor cache · inject_book test · samkings · ci.py (MAC_WORK_QUEUE). Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-17 (turn 116).** **lane_watch ON both lanes** for whole pre-human + Round 9 arc (user directive). Mac: `lane_watch_mac.sh --bg` then remediation queue. WIN: `lane_watch_win.ps1` + P4 gates. Baton **windows**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

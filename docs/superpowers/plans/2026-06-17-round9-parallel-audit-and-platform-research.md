@@ -111,11 +111,18 @@ Each dim produces the template in `notes/2026-06-17-platform-research-template.m
 
 ---
 
+## Lane watch (required whole arc)
+
+User directive 2026-06-17: **both boxes keep `lane_watch` running** from remediation
+through Round 9 audit + fix phase. Mac: `bash dev/lane_watch_mac.sh --bg`. WIN:
+`pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (+ `-AssignMac` optional). Milestone-push
+every handoff edit.
+
 ## Parallel schedule
 
 | Step | Windows | Mac |
 |---|---|---|
-| R9-0 | Pull; local `ROUND=9` `LANE=win` | Pull; local `LANE=mac` |
+| R9-0 | Pull; **lane_watch ON**; local `ROUND=9` `LANE=win` | Pull; **lane_watch --bg**; local `LANE=mac` |
 | R9-1 | Workflow (~5–8h) | Workflow (~5h Fable 5) |
 | R9-2 | Write `platform-kobo.md` + `platform-play.md` | Write `platform-apple.md` + `platform-kindle.md` |
 | R9-3 | `findings-win.json` | `findings-mac.json` + push branch |
