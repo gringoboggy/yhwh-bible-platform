@@ -107,11 +107,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ### WIN turn-113b append (`claude-setup` dim)
 
-- [x] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work — **WIN turn 115** (§0 + §6.6 aligned to RULES §4 two-cadence model)
-- [x] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook — **WIN turn 115**
+- [x] **HIGH** `SESSION_PLAYBOOK.md` §0/§6.6 says commit only on user `"save"`; `CLAUDE_PROJECT_RULES.md` §4 requires autonomous **local commits during work** + milestone `save-all.ps1` — agents following PLAYBOOK will under-commit overnight work — **WIN turn 115** (§0 + §6.6 aligned to RULES §4 two-cadence model; Mac turn 114 merged)
+- [x] **HIGH** `SESSION_PLAYBOOK.md` §6.6 documents `save.ps1` + manual dual push; omits `save-all.ps1` (5-leg + `lane_ping --before-push` + rotation) — incomplete save path in the every-session playbook — **WIN turn 115** (+ `dev/save_mac.sh` on Mac)
 - [x] **HIGH** `lane_watcher.py` handoff-blind — **WIN turn 114** unified `scripts/lane_watch.py`: fetch + remote `origin/main:LANE_HANDOFF` turn compare + auto-pull on BEHIND **or** remote board ahead + `incoming` both lanes + `UNPUSHED HANDOFF` nag when local board ahead of remote with unpushed commits. `lane_watcher.py` → shim; `dev/lane_watch_{mac,win}.*` wrappers.
 - [x] **MEDIUM** Repo `.claude/settings.json` is `{}` — SessionStart hooks live in parent `YHWH-v2.4-full/.claude/` after `install_cc_hooks.ps1`; RULES §0 cites in-repo `.claude/hooks/bootstrap-triad.ps1` path that does not exist in the tracked repo — **WIN turn 115** (RULES §0 + PLAYBOOK §1 document `dev/cc-hooks/` install path)
-- [x] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it — **WIN turn 115** (STANDING: lane_watch v3 opt-in + hooks ACK shipped)
+- [x] **MEDIUM** `LANE_HANDOFF.md` STANDING still assigns turn-24 hook wiring already shipped in `dev/cc-hooks/bootstrap-triad.ps1`; turn 113 assign still says `lane_watcher running` after user stopped it — **WIN turn 115** (STANDING: lane_watch v3 + hooks ACK shipped)
 
 ### WIN turn-113 append (`opt-build` dim)
 
