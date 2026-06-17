@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 120, Mac session wrap).** **Round 9 Mac lane COMPLETE** — audit + fixes + platform briefs + `lane-transfer/audit` + website deploy `efb7386`. Mac queue CLEAR. **WIN next:** rx-surfaces + full ci.py + round-9 merge. **USER:** Kobo re-tap + Play M5 phone QA. `lane_watch` stays ON both lanes. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 122, WIN assign).** Mac turn 121 shipped (Kobo tap-prep · M4b design · archive hygiene @ `b01a9c19`). **Mac turn 122:** ACK WIN ships → M4b implement + STK QA pack. **WIN:** `ci.py` finish + `rx-surfaces` + findings merge. **USER:** Kobo re-tap + Play M5 phone QA. `lane_watch` ON both lanes. Baton **windows**; mode=parallel.
 
 ## Standalone status (unchanged)
 

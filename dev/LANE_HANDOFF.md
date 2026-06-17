@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 121
+turn: 122
 from: windows
-updated: 2026-06-17T20:15:18Z
+updated: 2026-06-17T21:07:35Z
 status: working
-mac: pull turn 121+ → lane_watch --bg → Kobo tap-prep (eink kepub + kobo_tap_calibration + EREADERS) → M4b design doc → scripts/_*.py archive hygiene → save_mac.sh each slice
-windows: ci.py finish + rx-surfaces artifact build + finalize round9 findings merge + lane_watch -Background -AssignMac
+mac: pull turn 122+ → ACK WIN ships → M4b implement (apply_kindle_m4b + verify_kindle_m4b + tests + wire build_kindle + 6-variant STK pack) → save_mac.sh each slice; lane_watch --bg; no background full pytest/ci
+windows: ci.py finish + rx-surfaces artifact build + finalize round9 findings when green + lane_watch -Background -AssignMac
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 122, 2026-06-17T21:07:35Z) — mode=parallel
+
+**Assignments:** mac = pull turn 122+ → ACK WIN ships → M4b implement (apply_kindle_m4b + verify_kindle_m4b + tests + wire build_kindle + 6-variant STK pack) → save_mac.sh each slice; lane_watch --bg; no background full pytest/ci · windows = ci.py finish + rx-surfaces artifact build + finalize round9 findings when green + lane_watch -Background -AssignMac
+
+WIN turn 122: Mac M4b implementation slice — see MAC_WORK_QUEUE Turn 122 queue + notes/2026-06-18-m4b-kindle-fork-design.md
+
 ---
 
 ## ◦ windows assign (turn 121, 2026-06-17T20:15:18Z) — mode=parallel

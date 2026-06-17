@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 121).** Mac assigned post-R9 parallel slice (Kobo tap-prep · M4b doc · archive hygiene). **WIN:** `ci.py` finish · `rx-surfaces` build · findings merge. **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 122).** **WIN:** `ci.py` finish · `rx-surfaces` build · findings merge when green. **Mac:** M4b implement + STK pack. **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 121).** **WIN assign:** pull → `lane_watch --bg` → Kobo tap-prep (eink build + calibration list) → M4b design doc → `_*.py` archive hygiene. No background full pytest/ci on HDD. See `MAC_WORK_QUEUE.md` Post-Round-9 queue. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 122).** **WIN assign:** pull turn 122+ → ACK WIN ships → M4b implement (`apply_kindle_m4b` + `verify_kindle_m4b` + tests + wire `build_kindle` + 6-variant STK pack) → `save_mac.sh` each slice. `lane_watch --bg`; **no** background full pytest/ci on HDD. Spec: `notes/2026-06-18-m4b-kindle-fork-design.md`. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >
