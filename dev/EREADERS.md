@@ -92,6 +92,23 @@
 - **QA history:** device rounds 1–4 (`notes/2026-06-0{9,10}-kobo-round*-device-qa.md`);
   the color Kobo = the real-device eyeball (memory `kobo_color_ereader_end_stage_qa`).
 
+### Kobo round-9 phone QA protocol (M3 live gate — user)
+
+**Staged artifact (Mac turn 121, 2026-06-17):**
+`build/round9-kobo-tap/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-17T202652Z.kepub.epub`
+(40 MB kepub · `verify_kr2_build` ALL GREEN · kepubify 1/0/0).
+
+**Tap list:** `docs/superpowers/notes/2026-06-18-kobo-round9-tap-list.md` (P0 crash matrix +
+gen 35:18 re-tap + bracket controls). Sideload as `YHWH-koboQA.kepub.epub` (reuse on-device
+filename — K-R5-1).
+
+**Minimum verdict:** P0 rows 1–5 PASS · row 11 (Gen 35:18 translation `vn-link`) **P** · row 12
+(study badges) **J** to glossary. Record in `notes/2026-06-15-kobo-round9-device-qa.md`.
+
+**Calibration:** `dev/kobo_tap_calibration.py` on the staged kepub — post-K-R9 the 4,498–5,500
+stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) and
+`vnotes-deu-28-22-text` (J).
+
 ## Kindle (`kindle`, Send-to-Kindle)
 
 - **Delivery:** Send-to-Kindle (email/app/web) — Amazon CONVERTS the EPUB (KFX);
@@ -194,7 +211,7 @@ limitations here.
 
 ## Open questions (next QA rounds answer these)
 
-1. Kobo preview-decline threshold T — round-5 tap calibration (this session).
+1. Kobo round-9 device matrix + gen 35:18 re-tap — staged artifact ready (`notes/2026-06-18-kobo-round9-tap-list.md`).
 2. Play Books round-1: popups / fonts / breaks on the user's phone (M5 gate).
 3. ~~Kindle K-KIN-1..4 acceptance on the kindle_safe artifact~~ — **CLOSED 2026-06-14**
    (6/6 STK spot-check on M4 fan-out variants; column live).

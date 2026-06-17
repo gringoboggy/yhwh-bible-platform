@@ -48,9 +48,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ## Post-Round-9 queue (WIN assign @ turn 121)
 
-- [ ] **Kobo tap-prep (USER round 9):** build `ethiopian-tewahedo` eink kepub → `dev/kobo_tap_calibration.py` → stage gen-35:18 + bracket probes; update `EREADERS.md` §Kobo with tap list path
-- [ ] **M4b design doc:** write `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` from `platform-kindle.md` (marker suppress + chapter-tail notes HTML plan)
-- [ ] **Archive hygiene:** move closed-arc `scripts/_*.py` one-shots → `dev/archive/` (Round-9 LOW survivor; grep + lint_rules green)
+- [x] **Kobo tap-prep (USER round 9):** build `ethiopian-tewahedo` eink kepub → `dev/kobo_tap_calibration.py` → stage gen-35:18 + bracket probes; update `EREADERS.md` §Kobo with tap list path — **Mac turn 121**
+- [x] **M4b design doc:** write `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` from `platform-kindle.md` (marker suppress + chapter-tail notes HTML plan) — **Mac turn 121**
+- [x] **Archive hygiene:** move closed-arc `scripts/_*.py` one-shots → `dev/archive/` (Round-9 LOW survivor; grep + lint_rules green) — **Mac turn 121**
 - [ ] **ACK WIN ships:** standalone K-R4-1 sep (`77417fd4`) + v0.1.0 tag sync (`6a4838c8`) + merged findings doc
 
 ## Round 9 queue (COMPLETE)

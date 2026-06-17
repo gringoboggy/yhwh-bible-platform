@@ -2589,7 +2589,7 @@ def check_no_truncated_easton() -> dict:
 
     The old ``extract_eastons_ccel.MAX_BODY = 480`` cap severed 1,431 entries
     mid-sentence and baked a trailing ``…``; the re-ingest
-    (``scripts/_reingest_eastons.py``) restored the FULL articles (user decision
+    (``dev/archive/_reingest_eastons.py``) restored the FULL articles (user decision
     2026-06-05). This guard fails on any residual truncation so the un-cap can never
     silently regress. AST-based — screens only the body (8th tuple field) of
     dict-easton notes, never the file's docstring/comments.
@@ -2639,7 +2639,7 @@ def check_no_truncated_easton() -> dict:
             "no dict-easton body ends with '…'"
             if not violations
             else f"{total} dict-easton body(ies) across {len(violations)} file(s) still end "
-            "with '…' — re-ingest the full article (scripts/_reingest_eastons.py)"
+            "with '…' — re-ingest the full article (dev/archive/_reingest_eastons.py)"
         ),
         "violations": violations[:40],
     }
@@ -2774,7 +2774,7 @@ def check_no_torrey_topic_leak() -> dict:
             "no topic-torrey body leaks a ref-run or sub-entry description"
             if not violations
             else f"{total} topic-torrey body(ies) across {len(violations)} file(s) carry a leaked "
-            "ref-run or description in the topic list — re-run scripts/_reingest_torrey_topics.py"
+            "ref-run or description in the topic list — re-run dev/archive/_reingest_torrey_topics.py"
         ),
         "violations": violations[:40],
     }

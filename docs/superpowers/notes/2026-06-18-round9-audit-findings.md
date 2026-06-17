@@ -19,7 +19,7 @@
 - [x] **MEDIUM** `sources_base` vulture dead-import — `_BOOK_CODE_ALIASES` assignment re-export (lint + vulture green)
 - [x] **LOW** `web_sources` index/summary → `load_notes_checked`; summary exposes `parse_errors`
 - [x] **LOW** Test gap for build-my-bible / build-tracker legacy aliases
-- [ ] **LOW** Archive closed-arc `scripts/_*.py` one-shots — deferred (hygiene)
+- [x] **LOW** Archive closed-arc `scripts/_*.py` one-shots — **Mac turn 121** → `dev/archive/`
 
 **INFO:** Apple M2 CONFIRM-OPTIMAL · Kindle M4b design gap documented · build orchestration CONFIRM-OPTIMAL
 
