@@ -18,6 +18,7 @@ from scripts.core import manuscript_manifest as mm
 REPO = Path(__file__).resolve().parent.parent
 OUT_DIR = REPO / "GAPS/1_Samuel/Cambridge-Add-1570-hires"
 FOLIO_RE = re.compile(r"MS-ADD-01570_(f\d+[rv])_")
+VIEW_RE = re.compile(r"MS-ADD-01570_view(\d+)_")
 
 
 def _view_id(folio: str) -> int:
@@ -29,6 +30,7 @@ def _view_id(folio: str) -> int:
 def main() -> int:
     man = mm.load_manifest(track="samuel")
     by_folio: dict[str, list[Path]] = {}
+    by_view: dict[int, list[Path]] = {}
     for book in ("1sa", "2sa"):
         nch = 31 if book == "1sa" else 24
         for ch in range(1, nch + 1):
@@ -38,21 +40,39 @@ def main() -> int:
                 if p.is_file():
                     continue
                 m = FOLIO_RE.search(rel)
-                if not m:
-                    print(f"skip unparseable: {rel}", file=sys.stderr)
+                if m:
+                    by_folio.setdefault(m.group(1), []).append(p)
                     continue
-                by_folio.setdefault(m.group(1), []).append(p)
+                vm = VIEW_RE.search(rel)
+                if vm:
+                    by_view.setdefault(int(vm.group(1)), []).append(p)
+                    continue
+                print(f"skip unparseable: {rel}", file=sys.stderr)
 
     folios = sorted(by_folio, key=lambda f: (int(f[1:-1]), f[-1]))
-    print(f"acquiring {len(folios)} folio sides → {sum(len(v) for v in by_folio.values())} paths")
+    views = sorted(by_view)
+    n_paths = sum(len(v) for v in by_folio.values()) + sum(len(v) for v in by_view.values())
+    print(f"acquiring {len(folios)} folio sides + {len(views)} view ids → {n_paths} paths")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for i, folio in enumerate(folios, 1):
+    step = 0
+    total = len(folios) + len(views)
+    for folio in folios:
+        step += 1
         view = _view_id(folio)
         staging = OUT_DIR / f"MS-ADD-01570_{folio}_hires.jpg"
-        print(f"[{i}/{len(folios)}] {folio} view={view} …", flush=True)
+        print(f"[{step}/{total}] {folio} view={view} …", flush=True)
         if not staging.is_file():
             fetch_master(view_id=view, output_path=str(staging))
         for dest in by_folio[folio]:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(staging, dest)
+    for view in views:
+        step += 1
+        staging = OUT_DIR / f"MS-ADD-01570_view{view}_hires.jpg"
+        print(f"[{step}/{total}] view{view} …", flush=True)
+        if not staging.is_file():
+            fetch_master(view_id=view, output_path=str(staging))
+        for dest in by_view[view]:
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(staging, dest)
     print("done")
