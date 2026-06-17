@@ -55,6 +55,7 @@ from scripts.core.at_scale_base import (  # noqa: E402
     YELLOW,
     append_candidates,
     candidate_to_dict,
+    emit_extent_ok as _emit_extent_ok,
 )
 
 EPUB_DIR = REPO_ROOT / "epub_working"
@@ -213,6 +214,8 @@ def prospect_chapter(
                 cands = []
             for c in cands:
                 if c.confidence < min_confidence:
+                    continue
+                if not _emit_extent_ok(book, chapter, c.verse):
                     continue
                 raw_candidates.append(c)
 

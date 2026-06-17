@@ -99,7 +99,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** `build_edition.py` unparseable book silently omitted — **Mac turn 113b** (`assert_notes_corpus_parseable` at `build_one` entry)
 - [x] **MEDIUM** `load_kinds()` / `load_categories()` still `maxsize=1` — mirror editions mtime cache — **Mac turn 113b**
 - [ ] **MEDIUM** `refactor.py --apply` — no config/matrix cache invalidation
-- [ ] **MEDIUM** `prospect.py` — no `coord_in_canonical_extent` guard on candidate emit
+- [x] **MEDIUM** `prospect.py` — no `coord_in_canonical_extent` guard on candidate emit — **Mac turn 113c** (`_emit_extent_ok` + mint11 driver sweep)
 - [x] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b) — **Mac turn 113b** (188 assets; kindle empty_sha256=0)
 - [ ] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723
 - [ ] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test

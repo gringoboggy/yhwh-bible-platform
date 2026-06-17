@@ -85,6 +85,7 @@ class TestMint11CoordGuardClassSweep:
         "run_torrey_at_scale.py",
         "run_kenyon_at_scale.py",
         "run_ethiopian_at_scale.py",
+        "prospect.py",
     )
 
     def test_kjv_coord_drivers_apply_extent_guard(self):
