@@ -2145,9 +2145,9 @@ def check_book_codes_canonical() -> dict:
     import importlib
 
     try:
-        from scripts.core.sources_base import _BOOK_CODE_ALIASES
+        from scripts.core.book_codes import BOOK_CODE_ALIASES
 
-        legacy_codes = set(_BOOK_CODE_ALIASES.keys())
+        legacy_codes = set(BOOK_CODE_ALIASES.keys())
     except Exception as exc:  # pragma: no cover — import guard
         return {
             "id": "bookcode_canonical",
@@ -2164,6 +2164,7 @@ def check_book_codes_canonical() -> dict:
         ("scripts.core.sources", "KENYON_BOOK_NAME_TO_CODE"),
         ("scripts.fetch_sources", "TSK_BOOK_REMAP"),
         ("scripts.fetch_sources", "NAVES_BOOK_REMAP"),
+        ("scripts.core.book_codes", "BOOK_CODE_ALIASES"),
         ("scripts.core.sources_base", "_BOOK_CODE_ALIASES"),
         ("scripts.extract_torrey_ccel", "_LEGACY_TO_CANON"),
         ("scripts.link_xrefs", "ABBREV"),

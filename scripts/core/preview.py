@@ -269,6 +269,8 @@ def render_chapter_preview(
     No EPUB packaging, no file write, no subprocess. Purely a
     function over the corpus + edition spec.
     """
+    book_code = config.resolve_book_code(book_code)
+
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {

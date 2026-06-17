@@ -147,6 +147,9 @@ def main() -> None:
     )
     args = p.parse_args()
 
+    if args.book:
+        args.book = config.resolve_book_code(args.book)
+
     # Validate book
     books_map = config.books_by_code()
     if args.book and args.book not in books_map:

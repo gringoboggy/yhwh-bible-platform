@@ -17,6 +17,7 @@ Public API:
   kinds_by_code()           -> dict[str, dict]
   categories_by_id()        -> dict[str, dict]
   editions_by_id()          -> dict[str, dict]
+  canonical_book_code(code) -> str          (legacy alias → books.yaml stem)
   get_book(code)            -> dict
   get_kind(code)            -> dict
   get_category(id)          -> dict
@@ -404,9 +405,12 @@ def editions_by_id():
 
 def resolve_book_code(code: str) -> str:
     """Map legacy book aliases to canonical ``books.yaml`` codes."""
-    from scripts.core.sources import _normalize_book_code
+    from .book_codes import canonical_book_code as _canonical
 
-    return _normalize_book_code(code)
+    return _canonical(code)
+
+
+canonical_book_code = resolve_book_code  # backward-compat alias
 
 
 def get_book(code):

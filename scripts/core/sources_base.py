@@ -36,42 +36,5 @@ class SourceMissingError(RuntimeError):
     """Raised when a source file is not cached. Hint: run fetch_sources.py."""
 
 
-# ω.36 — Book-code aliases for legacy commentary JSONs.
-#
-# Historical commentary corpora (ethiopian / catholic / protestant /
-# reformation / rabbinic JSONs) use 1990s-SBL short codes `joh` (John)
-# and `ps` (Psalms). The canonical `content/books.yaml` registry uses
-# OSIS-style `jhn` / `psa`. Without normalization, calls like
-# `for_verse("jhn", 1, 1)` against an entry stored under `joh` return
-# `[]` — silently dropping 119 Cyril-on-John + 2 Ephrem-on-Psalm-1
-# entries from any reader that uses the canonical books.yaml code.
-# Audit-C (2026-05-12) flagged this as CRITICAL-2.
-#
-# The alias map is applied SYMMETRICALLY — both at index-build time
-# (stored keys are normalized to canonical codes) and at for_verse
-# lookup time (query codes are normalized too). Either input form
-# resolves to the canonical bucket.
-_BOOK_CODE_ALIASES: dict[str, str] = {
-    "joh": "jhn",  # John (legacy SBL short → OSIS canonical)
-    "ps": "psa",  # Psalms (legacy SBL short → OSIS canonical)
-    # ω.42 hygiene (γ.4.8 ship 2026-05-14) — resolves AUDIT_2026-05-13-DEEP
-    # D-W2 / γ.4.9.D pre-existing project-level inconsistency: content/notes/jam.py
-    # is the actual notes-file (no jas.py exists). Symmetric normalization here
-    # makes "jas"-typed source-JSON entries resolve to "jam" at both index-build
-    # and lookup time, matching the notes-file convention.
-    "jas": "jam",  # James (SBL alias → notes-file canonical)
-    # mint-7 (2026-05-31) — complete the legacy→canonical set so the central
-    # normalizer matches extract_torrey_ccel._LEGACY_TO_CANON (the ★BUGCLUSTER
-    # fix). Each maps a legacy detector/source code to its content/notes/<code>.py.
-    "mar": "mrk",  # Mark (catholic_commentaries.json stores 2 Catena entries as "mar")
-    "jol": "joe",  # Joel
-    "ezk": "eze",  # Ezekiel
-    "nam": "nah",  # Nahum
-    "php": "phi",  # Philippians
-}
-
-
-def _normalize_book_code(book: str) -> str:
-    """Map legacy book codes to canonical books.yaml codes.
-    Unknown codes pass through unchanged."""
-    return _BOOK_CODE_ALIASES.get(book, book)
+from .book_codes import BOOK_CODE_ALIASES as _BOOK_CODE_ALIASES
+from .book_codes import canonical_book_code as _normalize_book_code

@@ -23,6 +23,11 @@ from scripts.web_helpers import (
 )
 
 
+def _book_code_input(code: str) -> str:
+    """Normalize legacy aliases at the API boundary."""
+    return config.resolve_book_code(code)
+
+
 # ============================================================
 # JSON API handlers
 # ============================================================
@@ -64,6 +69,7 @@ def api_books() -> dict:
 
 def api_notes(book_code: str) -> dict:
     """Return all notes in one book as dicts (with index for editing)."""
+    book_code = _book_code_input(book_code)
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
@@ -134,7 +140,7 @@ def api_preview(
 
     return preview.render_chapter_preview(
         edition_id,
-        book_code,
+        _book_code_input(book_code),
         chapter,
         translation_id=translation_id,
     )
@@ -143,6 +149,7 @@ def api_preview(
 @audit_log.audit_endpoint(action="save_note")
 def api_save(book_code: str, payload: dict) -> dict:
     """Replace one note (by index) or insert a new note (index=null)."""
+    book_code = _book_code_input(book_code)
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
@@ -173,6 +180,7 @@ def api_save(book_code: str, payload: dict) -> dict:
 @audit_log.audit_endpoint(action="delete_note")
 def api_delete(book_code: str, index: int) -> dict:
     """Delete a note. Backup is created automatically."""
+    book_code = _book_code_input(book_code)
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
@@ -243,11 +251,12 @@ def api_search_notes(
         cap = 100
     cap = max(1, min(cap, 500))
 
+    book_filter = _book_code_input(book) if book else None
     hits = corpus_index.search(
         q,
         edition_id=edition_id or None,
         kind=kind or None,
-        book=book or None,
+        book=book_filter,
         limit=cap,
     )
 

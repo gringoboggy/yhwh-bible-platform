@@ -103,7 +103,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b) — **Mac turn 113b** (188 assets; kindle empty_sha256=0)
 - [x] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723 — **Mac turn 114** + **WIN turn 115** (`SESSION_PLAYBOOK.md` §0/§3/§5)
 - [x] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test — **Mac turn 114** (`test_inject_write_path.py`)
-- [x] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none — **WIN turn 115** (`config.resolve_book_code` + API validation in `editions.py`/`covers.py`; `tests/test_api_book_code_normalize.py`)
+- [x] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none — **WIN turn 115 + Mac turn 114** (`scripts/core/book_codes.py` + `config.resolve_book_code`; API/CLI/preview/inject wired; `tests/test_api_book_code_normalize.py` + `test_book_codes.py`)
 
 ### WIN turn-113b append (`claude-setup` dim)
 

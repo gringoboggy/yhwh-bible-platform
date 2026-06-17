@@ -101,6 +101,7 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
     if book_code is not None:
+        book_code = config.resolve_book_code(book_code)
         if book_code not in config.books_by_code():
             return {"error": f"unknown book code: {book_code}"}
 
