@@ -43,7 +43,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** Study-glossary-cat hist monoliths >7,748 stripped — within-note chunking (`scripts/build_edition.py`) — **WIN @ a8e0e099**
 - [x] **MEDIUM** `config.py` mtime-keyed cache for runtime-edited YAML (`scripts/core/config.py:297`) — **WIN @ a8e0e099**
 - [x] **LOW** Extend `verify_kr2_build` gates for glossary-cat + verse-refs-section census — **WIN @ a8e0e099**
-- [ ] **LOW** Mirror glossary nav patch into `toc.ncx`
+- [x] **LOW** Mirror glossary nav patch into `toc.ncx` — **Mac turn 111** (`_patch_study_glossary_nav` + `inject_eink_study_backmatter` ncx entry; K-R6-2 wrapper id `study-entry-*`)
 
 ### Phase 4 — Data validity + docs drift
 

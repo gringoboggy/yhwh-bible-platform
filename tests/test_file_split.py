@@ -1014,3 +1014,69 @@ class TestSplitStudyGlossary:
         pieces = split_study_glossary_document(text, EINK_STUDY_BACKMATTER_STEM, 8_000)
         last_piece = next(t for _, t in pieces if 'id="study-b5"' in t)
         assert last_piece.find('id="study-b5"') < 600
+
+
+class TestStudyGlossaryTocPatch:
+    """After glossary split, Study Notes expands into per-book entries in nav.xhtml
+    AND toc.ncx (Phase 3 LOW — mirror the nav patch on the legacy NCX surface)."""
+
+    def test_nav_and_ncx_get_nested_study_book_entries(self, tmp_path):
+        from scripts.build_edition import EINK_STUDY_BACKMATTER_STEM, apply_file_split
+
+        aside = (
+            '<div class="study-glossary-entry" id="vnotes-gen-1-1">'
+            '<aside epub:type="footnote" class="study-glossary-cat verse-notes" id="vnotes-gen-1-1-comm">'
+            "<p>note</p></aside></div>\n"
+        )
+        books = "".join(f'<h2 class="study-book-head" id="study-b{i}">Book {i}</h2>' + aside * 40 for i in range(6))
+        glossary = f"""<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Study Notes</title></head>
+<body epub:type="backmatter">
+<section class="study-notes-index" epub:type="backmatter">
+<h1>Study Notes</h1><p class="study-notes-lead">lead</p>
+{books}
+</section>
+</body></html>"""
+        stem = EINK_STUDY_BACKMATTER_STEM
+        orig = f"{stem}.html"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        (tmp / orig).write_text(glossary, encoding="utf-8")
+        opf = _MIN_OPF.replace(
+            '<item id="id154" href="index_split_007.html"',
+            f'<item id="studynotes" href="{orig}" media-type="application/xhtml+xml"/>\n'
+            '    <item id="id154" href="index_split_007.html"',
+        ).replace("</spine>", f'    <itemref idref="studynotes"/>\n  </spine>')
+        (tmp / "content.opf").write_text(opf, encoding="utf-8")
+        nav = _MIN_NAV.replace(
+            "</ol>",
+            f'\n      <li><a href="{orig}">Study Notes</a></li>\n    </ol>',
+        )
+        (tmp / "nav.xhtml").write_text(nav, encoding="utf-8")
+        ncx = _MIN_NCX.replace(
+            "</navMap>",
+            f'\n    <navPoint id="num-studynotes" playOrder="2">'
+            f"<navLabel><text>Study Notes</text></navLabel>"
+            f'<content src="{orig}"/></navPoint>\n  </navMap>',
+        )
+        (tmp / "toc.ncx").write_text(ncx, encoding="utf-8")
+
+        stats = apply_file_split(tmp, {"id": "x", "reader_file_split": True, "reader_file_split_target": 8_000})
+        assert stats["files_split"] >= 1
+
+        nav_out = (tmp / "nav.xhtml").read_text(encoding="utf-8")
+        assert nav_out.count("Study Notes") == 1
+        assert "#study-b0" in nav_out and "#study-b5" in nav_out
+        assert nav_out.index("Study Notes") < nav_out.index("#study-b0")
+
+        ncx_out = (tmp / "toc.ncx").read_text(encoding="utf-8")
+        assert ncx_out.count("<text>Study Notes</text>") == 1
+        assert "#study-b0" in ncx_out and "#study-b5" in ncx_out
+        child_nps = re.findall(
+            r'<navPoint id="num-study-[^"]+"[^>]*>.*?#study-b\d+',
+            ncx_out,
+            re.DOTALL,
+        )
+        assert len(child_nps) >= 6, "ncx must carry nested per-book Study Notes navPoints"
+        orders = [int(x) for x in re.findall(r'playOrder="(\d+)"', ncx_out)]
+        assert orders == list(range(1, len(orders) + 1)), f"ncx playOrder not gapless: {orders}"

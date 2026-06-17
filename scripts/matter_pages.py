@@ -1111,6 +1111,24 @@ def inject_eink_study_backmatter(tmp: Path, edition: dict, entries: list[tuple[t
             nav = nav.replace("</ol>", study_li + "\n    </ol>", 1)
             nav_path.write_text(nav, encoding="utf-8")
 
+    ncx_path = tmp / "toc.ncx"
+    if ncx_path.is_file():
+        ncx = ncx_path.read_text(encoding="utf-8")
+        if f'src="{out_name}"' not in ncx and "<text>Study Notes</text>" not in ncx:
+            study_np = (
+                f'\n    <navPoint id="num-studynotes" playOrder="0">'
+                f"<navLabel><text>Study Notes</text></navLabel>"
+                f'<content src="{out_name}"/></navPoint>'
+            )
+            ncx = ncx.replace("</navMap>", study_np + "\n  </navMap>", 1)
+            counter = [0]
+
+            def _renum(_m: re.Match) -> str:
+                counter[0] += 1
+                return f'playOrder="{counter[0]}"'
+
+            ncx_path.write_text(re.sub(r'playOrder="\d+"', _renum, ncx), encoding="utf-8")
+
     return {"entries_written": len(ordered), "output_file": out_name, "skipped_reason": None}
 
 

@@ -3979,13 +3979,18 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # K-R9c: one coloured badge per category; glossary holds one
                         # anchored section per category (no popup-unit splitting).
                         cats_order = _unique_cats_sorted(norm_rows)
-                        vid = f"vnotes-{code}-{ch}-{v}"
+                        # Wrapper id must not share the vnotes- prefix with per-category
+                        # footnote targets (vnotes-{code}-{ch}-{v}-{cat}) — K-R6-2
+                        # slice-swallow if a bare vnotes-* id prefixes a sibling.
+                        entry_id = f"study-entry-{code}-{ch}-{v}"
                         glossary_inner, cat_targets = _emit_backmatter_glossary_inner(
                             norm_rows, cat_meta, code, ch, v, s2_group=s2_group
                         )
                         # K-R13: per-category targets are padded footnote asides so
                         # noteref → footnote uses Kobo's large-footnote navigate path.
-                        unit_aside = f'<div class="study-glossary-entry" id="{vid}">\n' + glossary_inner + "</div>\n"
+                        unit_aside = (
+                            f'<div class="study-glossary-entry" id="{entry_id}">\n' + glossary_inner + "</div>\n"
+                        )
                         unit_asides.append(unit_aside)
                         stats["study_backmatter_entries"].append(
                             ((book_order.get(code, 9999), ch, v, 0), code, unit_aside)
@@ -4810,8 +4815,34 @@ def _book_toc_title(books_by_code: dict, code: str) -> str:
     return (rec.get("toc_title") or rec.get("title") or code.upper()).strip()
 
 
+def _renumber_ncx_play_order(ncx_text: str) -> str:
+    """EPUB-2 NCX requires gapless playOrder — renumber every navPoint depth-first."""
+    counter = [0]
+
+    def _renum(_m: re.Match) -> str:
+        counter[0] += 1
+        return f'playOrder="{counter[0]}"'
+
+    return re.sub(r'playOrder="\d+"', _renum, ncx_text)
+
+
+def _study_glossary_book_toc_rows(
+    plan: dict[str, list[tuple[str, str]]],
+    books_by_code: dict,
+) -> list[tuple[str, str, str, str]]:
+    """Per-book Study Notes ToC rows: (piece_file, anchor_id, label, book_code)."""
+    rows: list[tuple[str, str, str, str]] = []
+    study_orig = f"{EINK_STUDY_BACKMATTER_STEM}.html"
+    for pname, ptext in plan.get(study_orig, []):
+        for hid, _title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
+            code = hid.removeprefix("study-")
+            label = _book_toc_title(books_by_code, code)
+            rows.append((pname, hid, label, code))
+    return rows
+
+
 def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]], filemap: dict[str, str]) -> None:
-    """Expand nav Study Notes into a nested per-book ToC after glossary split."""
+    """Expand Study Notes into a nested per-book ToC in nav.xhtml + toc.ncx after glossary split."""
     from scripts.core import config as _config
 
     books_by_code = _config.books_by_code()
@@ -4819,32 +4850,54 @@ def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]],
     if study_orig not in plan or len(plan[study_orig]) <= 1:
         return
     first_piece = plan[study_orig][0][0]
-    book_links: list[str] = []
-    for pname, ptext in plan[study_orig]:
-        for hid, _title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
-            code = hid.removeprefix("study-")
-            label = _book_toc_title(books_by_code, code)
-            book_links.append(f'        <li><a href="{pname}#{hid}">{html.escape(label)}</a></li>')
-    if not book_links:
+    book_rows = _study_glossary_book_toc_rows(plan, books_by_code)
+    if not book_rows:
         return
-    nav_path = tmp / "nav.xhtml"
-    if not nav_path.is_file():
-        return
-    nav = nav_path.read_text(encoding="utf-8")
     old_href = study_orig
     new_href = filemap.get(study_orig, first_piece)
-    nested = (
-        f'\n      <li><a href="{new_href}">Study Notes</a>\n'
-        f"        <ol>\n{chr(10).join(book_links)}\n        </ol>\n      </li>"
-    )
-    pat = re.compile(
-        rf'\n\s*<li><a href="{re.escape(old_href)}">Study Notes</a></li>'
-        rf'|\n\s*<li><a href="{re.escape(new_href)}">Study Notes</a></li>'
-    )
-    if not pat.search(nav):
-        return
-    nav = pat.sub(nested, nav, count=1)
-    nav_path.write_text(nav, encoding="utf-8")
+
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        book_links = [
+            f'        <li><a href="{pname}#{hid}">{html.escape(label)}</a></li>'
+            for pname, hid, label, _code in book_rows
+        ]
+        nav = nav_path.read_text(encoding="utf-8")
+        nested = (
+            f'\n      <li><a href="{new_href}">Study Notes</a>\n'
+            f"        <ol>\n{chr(10).join(book_links)}\n        </ol>\n      </li>"
+        )
+        pat = re.compile(
+            rf'\n\s*<li><a href="{re.escape(old_href)}">Study Notes</a></li>'
+            rf'|\n\s*<li><a href="{re.escape(new_href)}">Study Notes</a></li>'
+        )
+        if pat.search(nav):
+            nav_path.write_text(pat.sub(nested, nav, count=1), encoding="utf-8")
+
+    ncx_path = tmp / "toc.ncx"
+    if ncx_path.is_file():
+        child_nps = "".join(
+            f'<navPoint id="num-study-{code}" playOrder="0">'
+            f"<navLabel><text>{html.escape(label)}</text></navLabel>"
+            f'<content src="{pname}#{hid}"/></navPoint>'
+            for pname, hid, label, code in book_rows
+        )
+        nested_np = (
+            f'<navPoint id="num-studynotes" playOrder="0">'
+            f"<navLabel><text>Study Notes</text></navLabel>"
+            f'<content src="{new_href}"/>'
+            f"{child_nps}</navPoint>"
+        )
+        ncx = ncx_path.read_text(encoding="utf-8")
+        pat = re.compile(
+            rf"<navPoint\b[^>]*>\s*<navLabel>\s*<text>Study Notes</text>\s*</navLabel>\s*"
+            rf'<content\s+src="{re.escape(old_href)}"\s*/>\s*</navPoint>'
+            rf"|<navPoint\b[^>]*>\s*<navLabel>\s*<text>Study Notes</text>\s*</navLabel>\s*"
+            rf'<content\s+src="{re.escape(new_href)}"\s*/>\s*</navPoint>',
+            re.DOTALL,
+        )
+        if pat.search(ncx):
+            ncx_path.write_text(_renumber_ncx_play_order(pat.sub(nested_np, ncx, count=1)), encoding="utf-8")
 
 
 def apply_file_split(tmp: Path, edition: dict) -> dict:

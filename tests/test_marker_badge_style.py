@@ -259,6 +259,8 @@ class TestReaderEinkStudyLayout:
         assert '<span class="marker-badge">' in text
         glossary = next(row[2] for row in stats["study_backmatter_entries"] if "vnotes-gen-1-1-" in row[2])
         assert re.search(r'id="vnotes-gen-1-1-[a-z]+"', glossary)
+        assert 'id="study-entry-gen-1-1"' in glossary
+        assert 'id="vnotes-gen-1-1"' not in glossary, "wrapper must not prefix-match category footnotes (K-R6-2)"
         assert "study-glossary-entry" in glossary
         assert 'class="study-glossary-cat verse-notes"' in glossary
         assert glossary.count('epub:type="footnote"') >= 1
