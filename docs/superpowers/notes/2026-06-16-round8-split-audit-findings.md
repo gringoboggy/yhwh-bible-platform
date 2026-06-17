@@ -1,7 +1,7 @@
 # Round-8 split audit — merged findings (2026-06-16)
 
 **Status:** MERGED (Mac 8b thorough @ `b1b9dffd` + WIN partial fast-pass). User standing approval: proceed to fixes.
-**WIN half:** 7 dims still need thorough Workflow pass (`tests-run` complete pending; `claude-setup` pending).
+**WIN half:** partial thorough pass @ turn 112 — `github-gitlab` 1 new survivor; `tests-run`/`claude-setup`/`opt-build` pending full Workflow; Phase 2/4 ticks reconciled vs Mac ships.
 
 ## Executive summary
 
@@ -28,11 +28,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 ### Phase 2 — Release / website / packaging (no marathon core)
 
 - [x] **CRITICAL** Delete 45 `default._*` corrupt Kindle stubs from v0.1.0 release (keep canonical `YHWH-*-kindle-*.epub`) — **Mac turn 102** (46 assets incl. `SHA256SUMS-merged.txt`; release now 142)
-- [ ] **HIGH** Attach M3 Kobo 45/45 from `m3-kobo-v0.1.0/` handoff + merge SHA256SUMS + regen catalog
+- [x] **HIGH** Attach M3 Kobo 45/45 from `m3-kobo-v0.1.0/` handoff + merge SHA256SUMS + regen catalog — **Mac turn 107b** (187 assets; kobo column live)
 - [x] **HIGH** Rebuild `website/dist/` from src (stale v0.0.3) — `gen_release_catalog` + `node website/build.mjs` — **Mac turn 102** (dist gitignored; regen run locally → v0.1.0)
 - [x] **HIGH** `installer.iss` read first line of VERSION only (`dev/installer.iss:27`) — **Mac turn 102** (`/DMyAppVersion=` + `#ifndef` fallback)
 - [x] **MEDIUM** Remove duplicate `SHA256SUMS-merged.txt` from release — **Mac turn 102** (deleted with stub batch)
-- [ ] **MEDIUM** Align Windows artifact naming (installer vs sign script vs releases.html)
+- [x] **MEDIUM** Align Windows artifact naming (installer vs sign script vs releases.html) — **Mac turn 107b** (`YHWH-{ver}-windows-x64.exe`)
 - [x] **MEDIUM** `how-to-use.html` cites legacy EPUB filename vs catalog matrix names — **Mac turn 102**
 
 ### Phase 3 — Build / popup / cache guards (byte-stability obligation)
@@ -47,10 +47,10 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ### Phase 4 — Data validity + docs drift
 
-- [ ] **MEDIUM** 3 OOE notes in `content/notes/aes.py` ch10 v11-13
-- [ ] **MEDIUM** 31 phantom `1ma/2ma` candidate files
-- [ ] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias
-- [ ] **MEDIUM** 1ki EN back-translation gap ch7-10
+- [x] **MEDIUM** 3 OOE notes in `content/notes/aes.py` ch10 v11-13 — **Mac turn 108** (`test_aes_notes_extent`)
+- [x] **MEDIUM** 31 phantom `1ma/2ma` candidate files — **Mac turn 107b**
+- [x] **MEDIUM** `translations.py` legacy `ex`/`exo` store alias — **Mac turn 107b** (`_BOOK_FILE_ALIASES`)
+- [x] **MEDIUM** 1ki EN back-translation gap ch7-10 — **Mac turn 107b** (117 v)
 - [x] **MEDIUM** Doc count drift (MATRIX_MAP 91,733 vs live 91,723; dist meta 91,733 vs 91,553) — **Mac turn 101** (MATRIX_MAP + matrix.py; `website/dist/` deferred Phase 2)
 - [ ] **MEDIUM** Test coverage gaps (inject_book write path, coord-guard driver loops) — build-my-bible HTTP **done @ 9b877205**
 
@@ -75,4 +75,10 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 ## WIN audit remainder
 
-Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude-setup`, re-verify `rx-surfaces` + `popup-integrity` + `github-gitlab` with adversarial bar. Append survivors to this doc; delete `lane-transfer/audit` after merge consumed.
+Complete thorough Workflow pass: `tests-run` (full pytest), `opt-build`, `claude-setup`, re-verify `rx-surfaces` + `popup-integrity` with adversarial bar. `github-gitlab` partial @ turn 112 (see below). Delete `lane-transfer/audit` after merge consumed.
+
+### WIN turn-112 append (`github-gitlab` dim)
+
+- [ ] **MEDIUM** `SHA256SUMS.txt` covers 141/187 release assets — **45 Kindle color-variant EPUBs** (`YHWH-*-kindle-{black,brown,forest,navy,red}.epub`, 9 editions × 5 colors) uploaded without checksum merge. Evidence: `gh release view v0.1.0 --json assets` count 187 vs `SHA256SUMS.txt` 141 lines; missing set is exactly the 45 kindle-color stubs. Fix: download missing assets → `gen_checksums` merge → re-upload `SHA256SUMS.txt` + regen catalog. **Mac queue item** (needs gh write + network).
+
+**Overnight coordination (WIN turn 112):** `scripts/lane_watcher.py --loop 120 --assign-mac` polls Mac pushes; `dev/MAC_WORK_QUEUE.md` holds the auto-assign backlog. Plan: re-run round-8b thorough Mac audit when Phase 1–3 all ticked.

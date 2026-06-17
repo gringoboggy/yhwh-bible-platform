@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 112) — ★ overnight lane_watcher + audit append
+
+**Coordination:** `scripts/lane_watcher.py` (poll 120s, auto-pull + `--assign-mac` from `dev/MAC_WORK_QUEUE.md`). Board turn 112 assignments updated.
+**Audit:** round-8 `github-gitlab` — `SHA256SUMS.txt` covers 141/187 assets (45 Kindle color EPUBs missing checksums). Phase 2/4 findings doc ticks reconciled vs Mac ships @ turn 107b–108.
+**Next:** WIN continues 7-dim audit + disjoint fixes; Mac queue in `MAC_WORK_QUEUE.md`; round-8b re-audit when Phase 1–3 complete.
+
 ## 2026-06-17 — Mac session (turn 110b) — ★ Samuel CAM complete + fresh-session prep
 
 **Samuel CAM:** `acquire_samuel_cam_missing.py` 24 folio/view batches; 0 remaining; `test_samkings_manifest_complete` 6/6 (incl. `done_gate` + on-disk images). Script fixes: `view###` paths + SameFile guard @ `f9b9f154`.

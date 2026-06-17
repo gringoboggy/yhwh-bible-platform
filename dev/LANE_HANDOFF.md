@@ -1,13 +1,19 @@
 ---
 mode: parallel
-turn: 111
-from: mac
-updated: 2026-06-17T02:41:44Z
-status: handing-off
-mac: git pull turn 111. (1) Phase 3 LOW: mirror study-glossary nav into toc.ncx. (2) Spot eink build + verify_kr2_build on one kepub. (3) M4b Kindle findings-only. (4) Round-8 audit doc Phase 3 tick. Samuel+Kings CAM DONE — do not re-acquire.
-windows: idle — round-8 WIN 7-dim audit append when not contending pytest; no build_edition unless Mac requests.
+turn: 112
+from: windows
+updated: 2026-06-17T03:04:48Z
+status: working
+mac: git pull turn 111+. (1) Phase 3 LOW ncx. (2) Spot eink + verify_kr2. (3) M4b. (4) Audit doc tick. See dev/MAC_WORK_QUEUE.md. Samuel+Kings CAM DONE.
+windows: round-8 WIN 7-dim audit + Phase 4 disjoint fixes; lane_watcher --loop 120 running
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 112, 2026-06-17T03:04:48Z) — mode=parallel
+
+**Assignments:** mac = git pull turn 111+. (1) Phase 3 LOW ncx. (2) Spot eink + verify_kr2. (3) M4b. (4) Audit doc tick. See dev/MAC_WORK_QUEUE.md. Samuel+Kings CAM DONE. · windows = round-8 WIN 7-dim audit + Phase 4 disjoint fixes; lane_watcher --loop 120 running
+
 ---
 
 ## ▶ mac → mac (turn 111, 2026-06-17T02:41:44Z) — mode=parallel

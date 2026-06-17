@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 111 — ★ START HERE).** `/resume` → `git pull` @ turn 111. **Already done (do NOT redo):** Samuel+Kings CAM hires on disk (0 remaining) · `test_samkings_manifest_complete` **6/6** incl. `done_gate` · turn 108 backlog @ `0d645350`–`f9b9f154`. **WIN Phase 3** @ `a8e0e099` — `build_edition.py` HOLD **lifted**. **Mac next (in order):** (1) **Phase 3 LOW** — mirror study-glossary nav into `toc.ncx` (`build_edition.py` / `nav.xhtml` pattern) · (2) **spot eink build** one edition `--target-reader eink` + `dev/verify_kr2_build.py` on output kepub · (3) **M4b Kindle** findings-only (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`) · (4) tick Phase 3 checkboxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. **One heavy job at a time** (build / epubcheck / pytest). Baton **mac** (truth_owner); mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 111).** Phase 3 **DONE** @ `a8e0e099`. **Idle / light:** round-8 WIN 7-dim audit append when Mac not contending pytest; no `build_edition.py` unless Mac requests. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 112 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac` (auto-pull Mac pushes + queue from `dev/MAC_WORK_QUEUE.md`). **WIN work:** round-8 audit append (`github-gitlab` SHA256 gap found) · disjoint fixes · no `build_edition.py` unless Mac requests. Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >
