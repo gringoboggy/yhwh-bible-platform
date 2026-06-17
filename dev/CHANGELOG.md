@@ -15,6 +15,12 @@
 **Shipped:** `scripts/merge_release_checksums.py` — merged 45 missing Kindle color EPUB checksums; `v0.1.0` SHA256SUMS now **186/186** (upload verified).
 **Audit:** round-8 `github-gitlab` survivor closed. Pytest gate grinding (`tests-run` dim).
 
+## 2026-06-17 — Mac session (turn 112) — ★ lane_watcher loud logging + turn-112 ships
+
+**Watcher:** `lane_watcher.py` fetch every poll · log remote board turn > local · tip-change lines · `lane_handoff incoming` banner after Mac pull · poll ERROR continue · `lane_watch_mac.sh` docs. Tests `test_lane_watch.py` 3/3.
+**Also shipped this turn:** Phase 3 LOW `toc.ncx` mirror · K-R6-2 `study-entry-*` glossary wrapper · `verify_kr2_build` eink-aware gates (spot kepub GREEN) · `website/dist` catalog smoke.
+**Next:** round-8b THOROUGH re-audit (Mac).
+
 ## 2026-06-17 — Windows session (turn 112) — ★ overnight lane_watcher + audit append
 
 **Coordination:** `scripts/lane_watcher.py` (poll 120s, auto-pull + `--assign-mac` from `dev/MAC_WORK_QUEUE.md`). Board turn 112 assignments updated.

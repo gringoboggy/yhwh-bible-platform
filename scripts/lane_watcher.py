@@ -145,6 +145,46 @@ def _baton_from() -> str:
     return ""
 
 
+def _handoff_header_from_text(text: str) -> dict[str, str]:
+    if not text.startswith("---"):
+        return {}
+    header: dict[str, str] = {}
+    for line in text.splitlines()[1:]:
+        if line.strip() == "---":
+            break
+        if ":" in line:
+            k, v = line.split(":", 1)
+            header[k.strip()] = v.strip()
+    return header
+
+
+def _local_handoff_header() -> dict[str, str]:
+    p = REPO / "dev" / "LANE_HANDOFF.md"
+    if not p.is_file():
+        return {}
+    return _handoff_header_from_text(p.read_text(encoding="utf-8", errors="replace"))
+
+
+def _remote_handoff_header() -> dict[str, str]:
+    """Board frontmatter on origin/main (after fetch)."""
+    rc, out, _ = _git("show", "origin/main:dev/LANE_HANDOFF.md", timeout=30)
+    if rc != 0:
+        return {}
+    return _handoff_header_from_text(out)
+
+
+def _int_turn(header: dict[str, str]) -> int:
+    try:
+        return int(header.get("turn", "0"))
+    except ValueError:
+        return 0
+
+
+def _incoming_banner() -> str:
+    rc, out, _ = _py(str(REPO / "scripts" / "lane_handoff.py"), "incoming")
+    return out if rc == 0 and out else ""
+
+
 def _next_mac_queue_item() -> str | None:
     """First unchecked ``- [ ]`` line in MAC_WORK_QUEUE.md."""
     if not QUEUE_PATH.is_file():
@@ -208,6 +248,8 @@ def do_once(*, assign_mac: bool, assign_windows_idle: bool) -> int:
     state = _load_state()
     state["polls"] = state.get("polls", 0) + 1
 
+    _git("fetch", "origin", timeout=60)
+    _git("fetch", "github", timeout=60)
     info = _radar()
     tip = ""
     for r in ("origin", "github"):
@@ -215,6 +257,20 @@ def do_once(*, assign_mac: bool, assign_windows_idle: bool) -> int:
         if d.get("remote_tip"):
             tip = d["remote_tip"]
             break
+
+    local_h = _local_handoff_header()
+    remote_h = _remote_handoff_header()
+    local_turn = _int_turn(local_h)
+    remote_turn = _int_turn(remote_h)
+    if remote_turn > local_turn:
+        _log(
+            f"REMOTE BOARD turn {remote_turn} > local {local_turn} "
+            f"(from {remote_h.get('from', '?')}) — will pull if BEHIND"
+        )
+        if remote_h.get("windows"):
+            _log(f"  windows task (remote): {remote_h['windows'][:120]}")
+        if remote_h.get("mac"):
+            _log(f"  mac task (remote): {remote_h['mac'][:120]}")
 
     pulled, summary = _sync_if_behind()
     if pulled:
@@ -231,13 +287,21 @@ def do_once(*, assign_mac: bool, assign_windows_idle: bool) -> int:
             else:
                 _log("Mac queue empty — no auto-assign")
 
+        if lane == "mac":
+            banner = _incoming_banner()
+            if banner:
+                for ln in banner.splitlines():
+                    _log(ln)
+
         state["last_remote_tip"] = tip
         state["last_pull_at"] = datetime.now(timezone.utc).isoformat()
+        state["last_seen_turn"] = _int_turn(_local_handoff_header())
     else:
         if tip and tip != state.get("last_remote_tip"):
+            _log(f"remote tip moved: {state.get('last_remote_tip', '?')[:7]} -> {tip[:7]} ({summary})")
             state["last_remote_tip"] = tip
-        if state["polls"] % 10 == 1:
-            _log(f"poll ok: {summary}")
+        elif state["polls"] % 10 == 1:
+            _log(f"poll ok: {summary} local_turn={local_turn}")
 
     _save_state(state)
 
@@ -262,10 +326,13 @@ def main(argv: list[str] | None = None) -> int:
     if interval is None:
         return do_once(assign_mac=args.assign_mac, assign_windows_idle=False)
 
-    _log(f"lane_watcher loop start interval={interval}s assign_mac={args.assign_mac}")
+    _log(f"lane_watcher loop start interval={interval}s assign_mac={args.assign_mac} lane={_detect_lane()}")
     try:
         while True:
-            do_once(assign_mac=args.assign_mac, assign_windows_idle=False)
+            try:
+                do_once(assign_mac=args.assign_mac, assign_windows_idle=False)
+            except Exception as e:
+                _log(f"poll ERROR (continuing): {e!r}")
             time.sleep(interval)
     except KeyboardInterrupt:
         _log("lane_watcher stopped")

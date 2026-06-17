@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 # lane_watch_mac.sh — Mac-side cross-lane poll (pull when Windows pushes).
 #
-# Wraps scripts/lane_watcher.py (shared with WIN). On Mac, run WITHOUT
-# --assign-mac (that flag is WIN-only: queues the next Mac task from
+# Wraps scripts/lane_watcher.py (shared with WIN). Logs to dev/.lane_watcher.log.
+# On pull: surfaces lane_handoff incoming banner for Mac. Heartbeat every 10th
+# poll when idle; ALWAYS logs remote board turn changes + pull events.
+#
+# On Mac, run WITHOUT --assign-mac (WIN-only: queues next Mac task from
 # dev/MAC_WORK_QUEUE.md after a Mac push lands on WIN).
+#
+# scripts/lane_watch.py is a one-shot JSON/human checker (incoming exit codes);
+# the overnight loop uses lane_watcher.py — same engine WIN uses.
 #
 # Usage:
 #   bash dev/lane_watch_mac.sh              # loop every 90s (foreground)
