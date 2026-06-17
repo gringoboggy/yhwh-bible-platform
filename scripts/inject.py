@@ -53,10 +53,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import config  # noqa: E402
+from scripts.core import notes_io  # noqa: E402
 from scripts.core.notes_io import (  # noqa: E402
     atomic_write,
     ensure_backup,
-    load_notes,
 )
 
 EPUB_DIR = REPO_ROOT / "epub_working"
@@ -687,13 +687,10 @@ def inject_book(book: dict, dry_run: bool) -> dict:
     strategy = book.get("strategy", "A")
 
     notes_path = NOTES_DIR / f"{code}.py"
-    loaded = load_notes(notes_path)
-    if loaded is None:
-        if notes_path.is_file():
-            return {"error": f"notes file {code}.py unparseable (SyntaxError)"}
-        notes = []
-    else:
-        notes = loaded
+    loaded = notes_io.load_notes_checked(notes_path, book=code)
+    if isinstance(loaded, dict):
+        return {"error": loaded.get("error", f"notes file {code}.py unparseable")}
+    notes = loaded
 
     # Strategy gating — A needs id_prefix; B needs bxx + ch_count
     if strategy == "A":

@@ -73,13 +73,15 @@ def _read_theme_css(theme_id: str) -> str:
     return f.read_text(encoding="utf-8")
 
 
-def _load_book_notes(book_code: str) -> list[tuple]:
-    """Read notes for one book; empty list if file absent or empty."""
+def _load_book_notes(book_code: str) -> list[tuple] | dict:
+    """Read notes for one book; empty list if absent; error dict if unparseable."""
     p = NOTES_DIR / f"{book_code}.py"
     if not p.is_file():
         return []
-    notes = notes_io.load_notes(p)
-    return notes or []
+    loaded = notes_io.load_notes_checked(p, book=book_code)
+    if isinstance(loaded, dict):
+        return loaded
+    return loaded
 
 
 def _filter_chapter_notes(
@@ -321,6 +323,14 @@ def render_chapter_preview(
     # Empty active_traditions = no tradition filter for this book.
 
     notes = _load_book_notes(book_code)
+    if isinstance(notes, dict):
+        return {
+            "status": "error",
+            "code": notes.get("code", "notes_unparseable"),
+            "http": notes.get("http", 500),
+            "message": notes.get("error", "notes file unparseable"),
+            "book": book_code,
+        }
     chapter_notes = _filter_chapter_notes(notes, chapter_int, enabled_kinds)
 
     # If a tradition filter is active, drop notes whose

@@ -40,8 +40,8 @@ def api_books() -> dict:
         path = NOTES_DIR / f"{b['code']}.py"
         if not path.is_file():
             continue
-        loaded = notes_io.load_notes(path)
-        if loaded is None:
+        loaded = notes_io.load_notes_checked(path, book=b["code"])
+        if isinstance(loaded, dict):
             continue
         notes = loaded
         kinds: dict[str, int] = {}

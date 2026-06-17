@@ -98,11 +98,15 @@ def api_sources_for_book(book_code: str) -> dict:
         return {"error": f"unknown book: {book_code}"}
     if not book:
         return {"error": f"unknown book: {book_code}"}
+    book_code = book["code"]
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
         return {"book": book_code, "notes": []}
 
-    raw = notes_io.load_notes(path) or []
+    loaded = notes_io.load_notes_checked(path, book=book_code)
+    if isinstance(loaded, dict):
+        return loaded
+    raw = loaded
     kinds_idx = config.kinds_by_code()
     cats_idx = config.categories_by_id()
 

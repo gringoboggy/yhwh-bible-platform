@@ -313,9 +313,10 @@ def _count_kinds_in_book(
     """
     if not notes_path.is_file():
         return {}, {}
-    notes = notes_io.load_notes(notes_path)
-    if not notes:
+    loaded = notes_io.load_notes_checked(notes_path, book=notes_path.stem)
+    if isinstance(loaded, dict) or not loaded:
         return {}, {}
+    notes = loaded
     totals: dict[str, int] = {}
     per_chapter: dict[str, dict[int, int]] = {}
     for tup in notes:

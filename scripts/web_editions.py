@@ -222,7 +222,13 @@ def api_build_tracker_book(edition_id: str, book_code: str) -> dict:
 
     notes_dir = REPO / "content" / "notes"
     book_file = notes_dir / f"{book_code}.py"
-    raw = notes_io.load_notes(book_file) or []
+    if not book_file.is_file():
+        raw = []
+    else:
+        loaded = notes_io.load_notes_checked(book_file, book=book_code)
+        if isinstance(loaded, dict):
+            return loaded
+        raw = loaded
     # NOTES are 9-tuples per content/notes/<book>.py docstring:
     # (chapter, verse, suffix, anchor, kind, title, label, body_html
     #  [, attribution]). Index by position.

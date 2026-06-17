@@ -79,6 +79,33 @@ def test_append_candidates_aborts_on_corrupt_json(tmp_path):
         append_candidates(out, "gen", 1, [{"verse": 1, "kind": "xref", "draft_body": "x"}])
 
 
+def test_api_sources_for_book_refuses_unparseable(tmp_path, monkeypatch):
+    from scripts import web_sources
+
+    notes_dir = tmp_path / "notes"
+    notes_dir.mkdir()
+    (notes_dir / "gen.py").write_text("NOTES = [(  # broken\n", encoding="utf-8")
+    monkeypatch.setattr(web_sources, "NOTES_DIR", notes_dir)
+
+    result = web_sources.api_sources_for_book("gen")
+    assert result.get("http") == 500
+    assert "unparseable" in result.get("error", "").lower()
+
+
+def test_preview_refuses_unparseable_notes(tmp_path, monkeypatch):
+    from scripts.core import preview
+
+    notes_dir = tmp_path / "notes"
+    notes_dir.mkdir()
+    (notes_dir / "gen.py").write_text("NOTES = [(  # broken\n", encoding="utf-8")
+    monkeypatch.setattr(preview, "NOTES_DIR", notes_dir)
+
+    result = preview.render_chapter_preview("ethiopian-tewahedo", "gen", 1)
+    assert result["status"] == "error"
+    assert result.get("http") == 500
+    assert "unparseable" in result.get("message", "").lower()
+
+
 def test_api_save_sanitizes_script_in_body(tmp_path, monkeypatch):
     from scripts import web_helpers, web_notes
     from scripts.core import notes_io

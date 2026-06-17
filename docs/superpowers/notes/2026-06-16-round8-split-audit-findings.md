@@ -94,6 +94,7 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 
 **Phase 4 candidates (new):**
 - [x] **HIGH** `web_notes.py` `load_notes() or []` — corrupt notes file wipe on editor save (`api_save`/`api_delete`) — **Mac turn 113b** (`load_notes_checked` + refuse writes)
+- [x] **MEDIUM** `load_notes_checked` class sweep — preview/sources/editions/export/matrix/inject/api_books — **Mac turn 114** (23 parse-guard tests green)
 - [x] **HIGH** `at_scale_base.append_candidates` — corrupt JSON queue reset to `[]` on parse failure — **Mac turn 113b** (`CandidateQueueCorruptError`)
 - [x] **MEDIUM** `api_save` no `sanitize_html()` — stored XSS in note editor — **Mac turn 113b**
 - [x] **MEDIUM** `build_edition.py` unparseable book silently omitted — **Mac turn 113b** (`assert_notes_corpus_parseable` at `build_one` entry)
@@ -123,8 +124,8 @@ Built `ethiopian-tewahedo` + `catholic-study` @ `dev/.audit-build/` (r8audit, 20
 
 - [x] `audit_epub_structure` — **0 critical** both (DUP_NOTE_ROWS / DUP_IDS / BROKEN_NOTEREF / UNBALANCED_TAGS all OK).
 - [x] `verify_kr2_build` — **ALL K-R2 GATES GREEN** both (66,694 / 43,016 noterefs resolve; 0 promoted cross-file; 0 dup-ids; 0 ch-spilled badges).
-- [ ] **LOW (known-deferred)** WARN 4g: `vnote-1ki-12-24` strips 6,937 chars (> pop floor) — K-R4-2 class, fix arc in flight per deferred list.
-- [ ] **LOW (known)** WARN 4m: one ADJACENT `vnote-1en-100-1` < `vnote-1en-100-11` prefix pair on eth — documented corpus-wide translation-surface WARN (not FAIL).
+- [x] **LOW (known-deferred)** WARN 4g: `vnote-1ki-12-24` strips 6,937 chars (> pop floor) — K-R4-2 class, fix arc in flight per deferred list. — **Mac turn 114** (confirmed @ r8audit; no new FAIL class)
+- [x] **LOW (known)** WARN 4m: one ADJACENT `vnote-1en-100-1` < `vnote-1en-100-11` prefix pair on eth — documented corpus-wide translation-surface WARN (not FAIL). — **Mac turn 114** (confirmed; corpus-wide, not edition-specific)
 
 ### WIN turn-113 append (`popup-integrity` dim)
 
@@ -132,4 +133,4 @@ Artifact zip-scan on same r8audit builds (S1/S2/S3):
 
 - [x] **S3 hidden-target noterefs:** **0** on both artifacts (no new teleport class beyond known `notes-section` / `verse-refs-section` fixes @ Phase 3).
 - [x] **S1 separator coverage:** **0** study footnotes missing `vn-sep` on non-glossary emitters (vnote translation popups remain the known K-R4-1 gap — deferred).
-- [x] **MEDIUM** **S2 size census:** eth 218 / catholic 184 asides >3,300 stripped chars; top offenders are `vnotes-*-s1` study chunks ~4,300 B (under 7,748 decline ceiling post Phase 3 chunking) + outlier `vnote-1ki-12-24` @ 6,937 (K-R4-2). No new emitter class beyond prior art — **CONFIRMED-KNOWN @ WIN turn 115** (no new fix class; K-R4-2 tracked separately)
+- [x] **MEDIUM** **S2 size census:** eth 218 / catholic 184 asides >3,300 stripped chars; top offenders are `vnotes-*-s1` study chunks ~4,300 B (under 7,748 decline ceiling post Phase 3 chunking) + outlier `vnote-1ki-12-24` @ 6,937 (K-R4-2). No new emitter class beyond prior art — **CONFIRMED-KNOWN @ WIN turn 115 + Mac turn 114** (K-R4-2 deferred)

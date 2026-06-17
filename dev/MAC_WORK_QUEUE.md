@@ -36,6 +36,10 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] website/dist rebuild: `gen_release_catalog` + `node website/build.mjs` — **Mac turn 112** (187 assets)
 - [x] Phase 4: 3 OOE notes in `content/notes/aes.py` ch10 v11-13 — **Mac turn 108**
 - [x] Phase 4: 1ki EN back-translation ch7-10 — **Mac turn 107b**
+- [x] Playbook/RULES §4 save-cadence alignment — **Mac turn 114** @ 30d1064f
+- [x] Book-code `canonical_book_code()` unified resolver — **Mac turn 114** @ 23ebdeae
+- [x] Round-8 rx-surfaces + popup-integrity tail (deferred LOW/S2 documented) — **Mac turn 114**
+- [x] `load_notes_checked` API/pipeline sweep — **Mac turn 114**
 
 ## Round 9 queue (after round-8 remediation gate — do NOT start early)
 

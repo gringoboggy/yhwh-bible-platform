@@ -271,7 +271,19 @@ def api_sample_html(
 
     # --- Notes (compose notes_io + edition kind filter) ---
     notes_path = REPO / "content" / "notes" / f"{book}.py"
-    all_notes = notes_io.load_notes(notes_path) if notes_path.is_file() else []
+    if notes_path.is_file():
+        loaded = notes_io.load_notes_checked(notes_path, book=book)
+        if isinstance(loaded, dict):
+            return {
+                "status": "error",
+                "code": loaded.get("code", "notes_unparseable"),
+                "http": loaded.get("http", 500),
+                "message": loaded.get("error", "notes file unparseable"),
+                "book": book,
+            }
+        all_notes = loaded
+    else:
+        all_notes = []
     # Use the canonical kind resolver (the same one build_edition + the
     # matrix call) so this preview's kind set is IDENTICAL to what the
     # build emits — categories->kinds expansion, the max_phase gate, and
