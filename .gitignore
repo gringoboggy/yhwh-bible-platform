@@ -59,6 +59,8 @@ Thumbs.db
 # --- Lane-handoff baton: per-machine identity (NOT committed — each box sets its own) ---
 dev/.lane
 dev/.lane_seen
+dev/.lane_watcher_state.json
+dev/.lane_watcher.log
 
 # --- Build / temp artifacts ---
 /tmp/
