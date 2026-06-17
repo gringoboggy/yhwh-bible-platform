@@ -52,7 +52,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **Local engine:** ROUND=9 LANE=mac (local flip; reverted before commit)
 - [x] **Workflow:** 22 dims — 8 survivors; fixes shipped for actionable items
 - [x] **Research briefs:** `notes/2026-06-18-platform-apple.md` + `platform-kindle.md`
-- [ ] **Push:** `_audit-split/findings-mac.json` → `lane-transfer/audit` (with milestone save)
+- [x] **Push:** `_audit-split/findings-mac.json` → `lane-transfer/audit` — **Mac turn 119** (`94e1010b`)
 
 Plan: `docs/superpowers/plans/2026-06-17-round9-parallel-audit-and-platform-research.md`
 
