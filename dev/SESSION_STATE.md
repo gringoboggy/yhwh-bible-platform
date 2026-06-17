@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 122).** **WIN:** `ci.py` finish · `rx-surfaces` build · findings merge when green. **Mac:** M4b implement + STK pack. **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 123).** **NOW:** `ci.py` finish · `rx-surfaces` · close Round 9. **NEXT (post-gate):** Reader Simulation Lab — all 4 readers (`plans/2026-06-18-reader-simulation-lab.md`). **Mac:** idle on sim work until gate green; ACK WIN ships only. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 122).** **WIN assign:** pull turn 122+ → ACK WIN ships → M4b implement (`apply_kindle_m4b` + `verify_kindle_m4b` + tests + wire `build_kindle` + 6-variant STK pack) → `save_mac.sh` each slice. `lane_watch --bg`; **no** background full pytest/ci on HDD. Spec: `notes/2026-06-18-m4b-kindle-fork-design.md`. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 123).** **NOW:** `lane_watch --bg` · ACK WIN ships · **no** reader builds/M4b until WIN audit gate closes. **NEXT:** Reader Sim Lab — Apple (`tablet` + Books.app) + Kindle (Previewer + M4b). Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

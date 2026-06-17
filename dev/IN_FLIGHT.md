@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 122, WIN assign).** Mac turn 121 shipped (Kobo tap-prep · M4b design · archive hygiene @ `b01a9c19`). **Mac turn 122:** ACK WIN ships → M4b implement + STK QA pack. **WIN:** `ci.py` finish + `rx-surfaces` + findings merge. **USER:** Kobo re-tap + Play M5 phone QA. `lane_watch` ON both lanes. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 123, user directive).** **Phase A (now):** WIN closes audit — `ci.py` + `rx-surfaces`. Mac holds reader builds/M4b. **Phase B (post-gate):** **Reader Simulation Lab** — sim packs for Apple · Kobo · Kindle · Play (`plans/2026-06-18-reader-simulation-lab.md`). Mac → Apple + Kindle sims. WIN → Kobo + Play + orchestrator. Baton **windows**; mode=parallel.
 
 ## Standalone status (unchanged)
 

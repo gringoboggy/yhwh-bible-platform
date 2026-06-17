@@ -53,15 +53,29 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **Archive hygiene:** move closed-arc `scripts/_*.py` one-shots → `dev/archive/` (Round-9 LOW survivor; grep + lint_rules green) — **Mac turn 121**
 - [ ] **ACK WIN ships:** standalone K-R4-1 sep (`77417fd4`) + v0.1.0 tag sync (`6a4838c8`) + platform matrix (`6e2ff13d`) — pull + tick @ turn 122
 
-## Turn 122 queue (WIN assign)
+## Turn 122 queue (WIN assign) — **DEFERRED to Reader Sim Lab**
 
-- [ ] **ACK WIN ships:** verify commits on `main` after pull; tick Post-Round-9 ACK line above
-- [ ] **M4b implement:** `apply_kindle_m4b` + `verify_kindle_m4b` in `kindle_post.py` + `tests/test_kindle_m4b.py` (TDD structural)
-- [ ] **M4b wire:** chain into `build_kindle.py` / `build_format_matrix` kindle row (default off until phone PASS, or flag-gated)
-- [ ] **M4b STK pack:** 6-variant fan-out → `~/Desktop/YHWH-kindle-m4b-qa/` per design §7
-- [ ] **lane_watch:** keep `--bg` running; targeted tests only — **no** background full `pytest`/`ci.py` on HDD
+> **User directive (2026-06-18):** M4b + Apple builds happen **after** audit gate closes — not during `ci.py` / rx-surfaces fix arc. Items below move to **Reader Sim Lab** §Phase 2–4.
 
-Spec: `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md`
+- [ ] **ACK WIN ships:** verify commits on `main` after pull; tick Post-Round-9 ACK line above *(quick; anytime)*
+- [ ] ~~M4b implement~~ → **Reader Sim Lab §Phase 4 (Kindle)**
+- [ ] ~~M4b STK pack~~ → **Reader Sim Lab §Phase 4**
+- [x] **lane_watch:** keep `--bg` running — **standing**
+
+## Reader Simulation Lab (POST-AUDIT — user-directed dedicated phase)
+
+**Gate:** WIN `ci.py` GREEN + `rx-surfaces` closed. Plan: `docs/superpowers/plans/2026-06-18-reader-simulation-lab.md`
+
+**Mac owns:** Apple + Kindle sims. **WIN owns:** Kobo + Play sims + `scripts/reader_sim.py` orchestrator.
+
+- [ ] **Phase 1 scaffold:** `dev/reader_sim/` tree + README (either lane after gate)
+- [ ] **Phase 2 Apple (Mac):** `tablet` build script + gates + Books.app M2 checklist → `~/Desktop/YHWH-reader-sim/apple/`
+- [ ] **Phase 3 Kobo (WIN):** kepub build + verify_kr2 + calibration export into sim dir
+- [ ] **Phase 4 Kindle (Mac):** M4b implement + Previewer batch gate + STK pack → `reader_sim/kindle/`
+- [ ] **Phase 5 Play (WIN build, Mac emulator spike):** everywhere staging + emulator probe doc
+- [ ] **Phase 6 CI:** optional `ci.py --reader-sim-gates` (gate-only, no rebuild)
+
+Specs: `m4b-kindle-fork-design.md` · `platform-apple.md` · `EREADERS.md`
 
 ## Round 9 queue (COMPLETE)
 

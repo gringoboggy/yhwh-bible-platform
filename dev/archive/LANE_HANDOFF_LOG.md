@@ -6,6 +6,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
+## ◦ windows assign (turn 121, 2026-06-17T20:15:18Z) — mode=parallel
+
+**Assignments:** mac = pull turn 121+ → lane_watch --bg → Kobo tap-prep (eink kepub + kobo_tap_calibration + EREADERS) → M4b design doc → scripts/_*.py archive hygiene → save_mac.sh each slice · windows = ci.py finish + rx-surfaces artifact build + finalize round9 findings merge + lane_watch -Background -AssignMac
+
+WIN turn 121: Mac post-Round-9 parallel slice — see MAC_WORK_QUEUE Post-Round-9 queue
+
+---
+
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
 ## ▶ mac → windows (turn 120, 2026-06-17T20:08:11Z) — mode=parallel
 
 **Done (turn 119, mac):**
