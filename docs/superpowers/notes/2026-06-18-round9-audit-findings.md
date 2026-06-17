@@ -28,7 +28,7 @@
 
 ### Phase 1 — Release / mirror hygiene
 
-- [ ] **HIGH** `v0.1.0` tag points to different commits on GitLab vs GitHub — origin `6d67adaf` vs github `e7e05276`. **Fix:** retag GitHub `v0.1.0` to GitLab canonical tip.
+- [x] **HIGH** `v0.1.0` tag skew GitLab vs GitHub — **WIN turn 119c** (`git push github 6d67adaf:refs/tags/v0.1.0 --force`; both remotes now `6d67adaf`)
 - [x] **MEDIUM** Stray `SHA256SUMS-merged-overnight.txt` duplicate on v0.1.0 release — **WIN turn 119**
 
 ### Phase 2 — Popup integrity (code-only sweep @ turn 119)
