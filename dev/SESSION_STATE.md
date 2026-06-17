@@ -1,10 +1,10 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 110 — ★ PICK UP).** `/resume` → `git pull` @ turn 110 (`a8e0e099+`). **WIN shipped Phase 3** — `build_edition.py` HOLD **lifted**. **Mac next:** (1) **Samuel CAM IIIF** — `py -3 scripts/acquire_samuel_cam_missing.py` (74 hires; script fixed @ `df60c74b`/`f9b9f154`) · (2) **Phase 3 LOW** — mirror study-glossary nav patch into `toc.ncx` · (3) **spot eink build** + `dev/verify_kr2_build.py` on one kepub artifact · (4) **M4b Kindle** findings-only continuation (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`) · (5) tick Phase 3 boxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. **Parallel idle:** Phase 4 disjoint if blocked on CAM. Baton **mac** (truth_owner); mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 111 — ★ START HERE).** `/resume` → `git pull` @ turn 111. **Already done (do NOT redo):** Samuel+Kings CAM hires on disk (0 remaining) · `test_samkings_manifest_complete` **6/6** incl. `done_gate` · turn 108 backlog @ `0d645350`–`f9b9f154`. **WIN Phase 3** @ `a8e0e099` — `build_edition.py` HOLD **lifted**. **Mac next (in order):** (1) **Phase 3 LOW** — mirror study-glossary nav into `toc.ncx` (`build_edition.py` / `nav.xhtml` pattern) · (2) **spot eink build** one edition `--target-reader eink` + `dev/verify_kr2_build.py` on output kepub · (3) **M4b Kindle** findings-only (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`) · (4) tick Phase 3 checkboxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`. **One heavy job at a time** (build / epubcheck / pytest). Baton **mac** (truth_owner); mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 110).** Phase 3 **DONE** @ `a8e0e099`. **Idle / light:** round-8 WIN 7-dim thorough audit append when Mac not contending for pytest; no `build_edition.py` unless Mac requests. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 111).** Phase 3 **DONE** @ `a8e0e099`. **Idle / light:** round-8 WIN 7-dim audit append when Mac not contending pytest; no `build_edition.py` unless Mac requests. Baton **mac**; mode=parallel.
 >
-> **Audit2 fix pass GREEN (both lanes, @ `9eb0e917+`):** 11/11 under `not slow and not done_gate`; WIN rebased `b3e7b5af` (+ kings `1ki` 13–18 folio pre-stage). **`done_gate` kings folios** still intentional red (P0).
+> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >
 > **➤➤➤ 2026-06-16 (🖥️ Mac turn 106 — ★ MJ+GRADIENT SHIPPED + HANDOFF).** Policy reset: `_scenes/_midjourney/` + compose only; 20 Ethiopian extras; tests 9/9. Deprecated: alt04–06, Grok, ethnic variants.
 >
@@ -20,7 +20,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** **86×1** Midjourney + gradient (turn 106); `/covers` UX simplification pending. **WIN:** fix 11 pytest reds → Phase 3 · round-8 7-dim audit + merge. **Device-QA ON HOLD** until audit+fixes. **M3:** 45/45 handoff done; attach waits post-audit. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** 86×1 MJ+gradient (turn 106). **Phase 3:** WIN shipped @ `a8e0e099`; Mac LOW ncx + eink verify remain. **Manuscript P0:** Samuel+Kings folios + CAM hires GREEN on Mac. **Device-QA ON HOLD** until audit+fixes. **M3:** 45/45 attached; kobo column live. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

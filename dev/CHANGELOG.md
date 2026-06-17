@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Mac session (turn 110b) — ★ Samuel CAM complete + fresh-session prep
+
+**Samuel CAM:** `acquire_samuel_cam_missing.py` 24 folio/view batches; 0 remaining; `test_samkings_manifest_complete` 6/6 (incl. `done_gate` + on-disk images). Script fixes: `view###` paths + SameFile guard @ `f9b9f154`.
+**Reconciled:** turn 110 handoff assumed Samuel pending — verified GREEN on Mac; bootstrap turn 111 for fresh pickup.
+**Next Mac:** Phase 3 LOW ncx · spot eink build + `verify_kr2_build` · M4b · audit doc hygiene.
+
 ## 2026-06-17 — Windows session (turn 110) — ★ Phase 3 shipped + handoff to Mac
 
 **Round-8 Phase 3 (@ `a8e0e099`):** gate Kobo `note_popup_split_byte_cap` on `target_reader==eink` only · study-glossary-cat footnote chunking under 7,748 stripped ceiling · `generate_verse_popups` retargets hidden `#vnote-` body links to visible `#v-` anchors · `config.load_editions` mtime-keyed cache · `verify_kr2_build` gates 4g-bis (glossary-cat) + 4g-ter (empty verse-refs husks).
