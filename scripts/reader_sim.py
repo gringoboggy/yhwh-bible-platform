@@ -4,11 +4,16 @@
 Post-audit phase: one entry point per reader (Apple · Kobo · Kindle · Play).
 See docs/superpowers/plans/2026-06-18-reader-simulation-lab.md and dev/reader_sim/README.md.
 
+Build policy (user 2026-06-17): no EPUB builds until each reader's sim pack exists.
+Test policy: agents run reader QA via sim harnesses — not the user tapping four devices.
+Full agent sim suite (`--sim all`) runs once all four sim packs exist. Gate-only on cached artifacts is always allowed.
+
 Usage:
     py -3 scripts/reader_sim.py --list
     py -3 scripts/reader_sim.py --gate kobo --artifact path/to.kepub.epub
     py -3 scripts/reader_sim.py --gate all --artifact-dir dev/.audit-build
-    py -3 scripts/reader_sim.py --build apple --edition ethiopian-tewahedo --version 0.1.0
+    py -3 scripts/reader_sim.py --build kobo --edition ethiopian-tewahedo --version 0.1.0
+        # blocked until sim pack ready; maintainer override: --force-build
 """
 
 from __future__ import annotations
@@ -23,6 +28,26 @@ REPO = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO / "build" / "reader-sim"
 DEFAULT_EDITION = "ethiopian-tewahedo"
 DEFAULT_VERSION = "0.1.0"
+
+# Sim-pack readiness — True when dev/reader_sim/<id>/ scripts exist on disk.
+_SIM_PACK_FILES: dict[str, tuple[str, ...]] = {
+    "kobo": ("build.sh", "gate.sh", "sim.sh"),
+    "play": ("build.sh", "gate.sh", "sim.sh"),
+    "kindle": ("build.sh", "gate.sh", "sim.sh", "stk_channel.sh"),
+    "apple": ("build.sh", "gate.sh", "sim.sh"),
+}
+
+
+def sim_pack_ready(reader_id: str) -> bool:
+    """True when the reader's sim pack shell scripts are present."""
+    names = _SIM_PACK_FILES.get(reader_id, ())
+    if not names:
+        return False
+    d = REPO / "dev" / "reader_sim" / reader_id
+    return all((d / name).is_file() for name in names)
+
+
+DISPLAY_ORDER = ("kobo", "play", "kindle", "apple")
 
 
 @dataclass(frozen=True)
@@ -153,6 +178,95 @@ def gate_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
     }
 
 
+def all_sim_packs_ready() -> bool:
+    return all(sim_pack_ready(rid) for rid in READERS)
+
+
+def agent_sim_ready() -> tuple[bool, str]:
+    """Full cross-reader agent sim suite waits until every sim pack exists."""
+    if all_sim_packs_ready():
+        return True, "all sim packs ready — agent sim suite unlocked"
+    pending = [r for r in DISPLAY_ORDER if not sim_pack_ready(r)]
+    return (
+        False,
+        f"agent sim suite frozen until all sim packs exist. Pending: {', '.join(pending)}.",
+    )
+
+
+# Per-reader agent-runnable sim layers (beyond structural gates). Flip True when wired.
+SIM_LAYERS_READY: dict[str, bool] = {
+    "kobo": True,  # kobo_tap_calibration + audit_popup_formula
+    "play": False,  # Thorium / Play-emulator tap protocol
+    "kindle": False,  # STK channel → Kindle-for-Mac poll
+    "apple": False,  # Thorium popup + ToC protocol (tablet proxy)
+}
+
+
+def sim_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
+    """Agent-runnable sim: structural gates + reader-specific behavioral proxies."""
+    rep = gate_reader(reader_id, artifact, m4b=m4b)
+    sim_checks: list[tuple[str, bool, str]] = []
+
+    if reader_id == "kobo" and artifact.is_file() and artifact.name.endswith(".kepub.epub"):
+        code, out = _run([sys.executable, str(REPO / "dev" / "kobo_tap_calibration.py"), str(artifact)])
+        sim_checks.append(("kobo_tap_calibration", code == 0, out.strip()[:500] or ("OK" if code == 0 else "FAIL")))
+
+    if reader_id == "kindle":
+        if SIM_LAYERS_READY.get("kindle"):
+            sim_checks.append(("stk_channel_sim", True, "wired"))
+        else:
+            sim_checks.append(
+                (
+                    "stk_channel_sim",
+                    False,
+                    "pending — Send-to-Kindle → Kindle-for-Mac arrival + ingest check (not Previewer)",
+                )
+            )
+
+    if reader_id in ("apple", "play"):
+        layer = "thorium_popup_sim" if reader_id == "apple" else "play_render_sim"
+        if SIM_LAYERS_READY.get(reader_id):
+            sim_checks.append((layer, True, "wired"))
+        else:
+            proxy = (
+                "Thorium MCP tap protocol (tablet popup + ToC)"
+                if reader_id == "apple"
+                else "Thorium or Android-emulator sideload"
+            )
+            sim_checks.append((layer, False, f"pending — wire {proxy}"))
+
+    if sim_checks:
+        rep["sim_checks"] = [{"name": n, "pass": p, "detail": d} for n, p, d in sim_checks]
+        rep["sim_ok"] = all(p for _, p, _ in sim_checks)
+        rep["ok"] = rep["ok"] and rep["sim_ok"]
+    else:
+        rep["sim_ok"] = rep["ok"]
+    rep["agent_runnable"] = SIM_LAYERS_READY.get(reader_id, False) and rep.get("sim_ok", False)
+    return rep
+
+
+def build_allowed(reader_id: str, *, force: bool = False) -> tuple[bool, str]:
+    """Return (allowed, reason). Per-reader builds frozen until that sim pack ships."""
+    if reader_id not in READERS:
+        return False, f"unknown reader: {reader_id}"
+    if force:
+        return True, "force-build override"
+    if not sim_pack_ready(reader_id):
+        return (
+            False,
+            f"build frozen — sim pack not ready for {reader_id}. "
+            "See docs/superpowers/plans/2026-06-18-reader-simulation-lab.md. "
+            "Gate cached artifacts with --gate (no rebuild).",
+        )
+    if not SIM_LAYERS_READY.get(reader_id, False):
+        return (
+            False,
+            f"build frozen — agent sim layer pending for {reader_id}. "
+            "Gate/sim cached artifacts; wire sim layer before --build.",
+        )
+    return True, "sim pack + agent layer ready"
+
+
 def build_reader(
     reader_id: str,
     edition: str,
@@ -160,8 +274,12 @@ def build_reader(
     out_dir: Path,
     *,
     m4b: bool = False,
+    force: bool = False,
 ) -> Path:
     """Build one reader-sim artifact (heavy — post-audit / explicit invoke only)."""
+    allowed, reason = build_allowed(reader_id, force=force)
+    if not allowed:
+        raise RuntimeError(reason)
     profile = READERS[reader_id]
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -242,6 +360,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Reader Simulation Lab — build and gate per reader profile.")
     p.add_argument("--list", action="store_true", help="list reader profiles")
     p.add_argument("--gate", metavar="READER", help="gate one reader (apple|kobo|kindle|play|all)")
+    p.add_argument("--sim", metavar="READER", help="agent sim one reader (gates + behavioral proxies; all)")
     p.add_argument("--build", metavar="READER", help="build one reader artifact")
     p.add_argument("--artifact", type=Path, help="artifact path for --gate")
     p.add_argument("--artifact-dir", type=Path, help="directory to scan for --gate all")
@@ -249,13 +368,70 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--version", default=DEFAULT_VERSION)
     p.add_argument("--output-dir", type=Path, default=DEFAULT_OUT)
     p.add_argument("--m4b", action="store_true", help="kindle M4b fork (build + m4b gate)")
+    p.add_argument(
+        "--force-build",
+        action="store_true",
+        help="bypass sim-pack build freeze (maintainer only)",
+    )
     args = p.parse_args(argv)
 
     if args.list:
-        for rid, prof in READERS.items():
-            print(f"{rid:8} {prof.label:28} target={prof.target_reader:12} lane={prof.lane}")
+        for rid in DISPLAY_ORDER:
+            prof = READERS[rid]
+            ready = "ready" if sim_pack_ready(rid) else "FROZEN"
+            print(f"{rid:8} {prof.label:28} target={prof.target_reader:12} lane={prof.lane}  [{ready}]")
             print(f"         checklist: {prof.checklist}")
+        ok_sim, sim_msg = agent_sim_ready()
+        print(f"\nAgent sim suite: {'UNLOCKED' if ok_sim else 'FROZEN'} — {sim_msg}")
+        for rid in DISPLAY_ORDER:
+            layer = "wired" if SIM_LAYERS_READY.get(rid) else "pending"
+            print(f"  {rid:8} sim layer: {layer}")
         return 0
+
+    if args.sim:
+        reader = args.sim
+        if reader == "all":
+            ok_suite, suite_msg = agent_sim_ready()
+            if not ok_suite:
+                print(suite_msg, file=sys.stderr)
+                return 2
+            directory = args.artifact_dir or (REPO / "build" / "reader-sim")
+            artifacts = _find_artifacts(directory)
+            if not artifacts:
+                print(f"No artifacts in {directory}", file=sys.stderr)
+                return 1
+            any_fail = False
+            for rid in DISPLAY_ORDER:
+                art = next((a for a in artifacts if _guess_reader(a) == rid), None)
+                if art is None:
+                    print(f"\n[SKIP] {rid} — no artifact in {directory}")
+                    any_fail = True
+                    continue
+                rep = sim_reader(rid, art, m4b=args.m4b or "m4b" in art.name.lower())
+                status = "PASS" if rep["ok"] else "FAIL"
+                print(f"\n[{status}] {rid} sim ← {art.name}")
+                for c in rep["checks"]:
+                    mark = "ok" if c["pass"] else "FAIL"
+                    print(f"  gate {mark:4} {c['name']}")
+                for c in rep.get("sim_checks", []):
+                    mark = "ok" if c["pass"] else "FAIL"
+                    print(f"  sim  {mark:4} {c['name']}: {c['detail'][:120]}")
+                any_fail = any_fail or not rep["ok"]
+            return 1 if any_fail else 0
+
+        if not args.artifact:
+            print("--artifact required for --sim", file=sys.stderr)
+            return 2
+        rep = sim_reader(reader, args.artifact, m4b=args.m4b)
+        status = "PASS" if rep["ok"] else "FAIL"
+        print(f"{status}: {reader} sim @ {args.artifact}")
+        for c in rep["checks"]:
+            mark = "ok" if c["pass"] else "FAIL"
+            print(f"  gate {mark:4} {c['name']}: {c['detail'][:200]}")
+        for c in rep.get("sim_checks", []):
+            mark = "ok" if c["pass"] else "FAIL"
+            print(f"  sim  {mark:4} {c['name']}: {c['detail'][:200]}")
+        return 0 if rep["ok"] else 1
 
     if args.gate:
         reader = args.gate
@@ -289,6 +465,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if rep["ok"] else 1
 
     if args.build:
+        allowed, reason = build_allowed(args.build, force=args.force_build)
+        if not allowed:
+            print(reason, file=sys.stderr)
+            return 2
         print(
             f"Building {args.build} edition={args.edition} version={args.version} → {args.output_dir / args.build}",
             flush=True,
@@ -299,6 +479,7 @@ def main(argv: list[str] | None = None) -> int:
             args.version,
             args.output_dir / args.build,
             m4b=args.m4b,
+            force=args.force_build,
         )
         print(f"Built: {path}")
         rep = gate_reader(args.build, path, m4b=args.m4b)

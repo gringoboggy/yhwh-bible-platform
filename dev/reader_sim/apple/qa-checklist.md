@@ -1,6 +1,8 @@
 # Apple Books — device QA checklist (M2)
 
-**Artifact:** `tablet` build from `py -3 scripts/reader_sim.py --build apple`
+**Policy:** Agents run this via Thorium popup/ToC sim (`sim.sh`) — not user taps. User = one-time sign-off that Thorium proxy matches Books.app.
+
+**Artifact (post Phase 5 unlock):** `tablet` build from `py -3 scripts/reader_sim.py --build apple`
 
 **Open:** double-click `.epub` → macOS Books.app (or AirDrop to iPhone for phone pass).
 

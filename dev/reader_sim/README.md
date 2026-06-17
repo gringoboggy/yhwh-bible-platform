@@ -1,38 +1,42 @@
 # Reader Simulation Lab
 
-**Status:** Phase 1 scaffold (WIN turn 124 prep). Full builds start after audit gate closes.
+**Status:** Phase 1 scaffold. **Agents run reader QA** — not the user tapping four devices.
 
 Plan: [`docs/superpowers/plans/2026-06-18-reader-simulation-lab.md`](../superpowers/plans/2026-06-18-reader-simulation-lab.md)
+
+## Why
+
+Physically checking four readers × many tap probes every round is too much. Each sim pack encodes **device-proven behavior** as code agents can run. User steps in only when a sim layer needs one-time calibration.
+
+## Policy
+
+- **No EPUB builds** until each reader's sim pack ships (`build.sh` + `gate.sh` + `sim.sh`).
+- **Agents own QA:** `--gate` (structural) anytime; `--sim` (behavioral proxies) per reader; `--sim all` once all four packs exist.
+- **Kindle:** STK channel sim, not Previewer. **Kobo:** calibration bracket already agent-runnable.
 
 ## Quick start
 
 ```bash
-# List profiles
+# Profiles + sim-layer status
 py -3 scripts/reader_sim.py --list
 
-# Gate existing artifacts (no rebuild — safe during audit)
-py -3 scripts/reader_sim.py --gate play --artifact dev/.audit-build/Ethiopian_Bible_ethiopian-tewahedo_r8audit_2026-06-17T114553Z.epub
+# Structural gates only (safe during audit)
+py -3 scripts/reader_sim.py --gate play --artifact dev/.audit-build/<file>.epub
 
-# Sweep cached audit dir
-py -3 scripts/reader_sim.py --gate all --artifact-dir dev/.audit-build
+# Agent sim — gates + behavioral layer (kobo calibration wired; others pending)
+py -3 scripts/reader_sim.py --sim kobo --artifact path/to.kepub.epub
 
-# Build (post-audit / heavy)
-py -3 scripts/reader_sim.py --build kobo --edition ethiopian-tewahedo --version 0.1.0
+# Full suite (after all sim packs ship)
+py -3 scripts/reader_sim.py --sim all --artifact-dir build/reader-sim
 ```
 
-Output dir (gitignored): `build/reader-sim/<reader>/`
+## Per-reader agent sim
 
-## Per-reader packs
+| Reader | Structural gates | Agent sim layer | Status |
+|---|---|---|---|
+| Kobo | epubcheck · verify_kr2 · audit_popup_formula | `kobo_tap_calibration` bracket | **wired** |
+| Play | epubcheck · verify_kr2 · structure audit | Thorium / emulator taps | pending |
+| Kindle | verify_kindle_safe · verify_kindle_m4b · epubcheck | STK → Kindle-for-Mac | pending |
+| Apple | epubcheck · verify_kr2 | Thorium popup/ToC (tablet proxy) | pending |
 
-| Reader | Dir | Lane | Local sim | Device layer |
-|---|---|---|---|---|
-| Apple | `apple/` | Mac | Books.app + `tablet` build | iPhone sheet QA |
-| Kobo | `kobo/` | WIN | kepubify + `verify_kr2` + calibration | Footnote-preview taps |
-| Kindle | `kindle/` | Mac | Previewer 3 + `kindle_post` + M4b | Send-to-Kindle phone |
-| Play | `play/` | WIN | `everywhere` + structure audit | Play Books app upload |
-
-## Automated vs manual
-
-**Automated gates** (orchestrator): epubcheck · verify_kr2 · audit_epub_structure · kindle_post verifiers · audit_popup_formula (kobo).
-
-**Manual checklists** (each `qa-checklist.md`): tap protocols Books.app / Kobo / STK / Play phone.
+**Ship gate for agents:** `--sim all` GREEN.

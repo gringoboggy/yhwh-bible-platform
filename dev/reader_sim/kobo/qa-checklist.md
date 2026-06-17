@@ -1,5 +1,7 @@
 # Kobo e-ink — device QA checklist
 
+**Policy:** Agents run `py -3 scripts/reader_sim.py --sim kobo` — calibration bracket replaces routine device taps. User only for bracket recalibration if anomaly.
+
 **Artifact:** `.kepub.epub` from `py -3 scripts/reader_sim.py --build kobo`
 
 **Automated pre-gate:** `py -3 scripts/reader_sim.py --gate kobo --artifact <path>`

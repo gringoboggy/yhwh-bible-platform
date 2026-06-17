@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 123, user directive).** **Phase A (now):** WIN closes audit — `ci.py` + `rx-surfaces`. Mac holds reader builds/M4b. **Phase B (post-gate):** **Reader Simulation Lab** — sim packs for Apple · Kobo · Kindle · Play (`plans/2026-06-18-reader-simulation-lab.md`). Mac → Apple + Kindle sims. WIN → Kobo + Play + orchestrator. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 124, parallel prep).** **WIN:** `ci.py` finish + rx-surfaces; kobo/play sim shells shipped; gate-only on cached kepubs. **Mac:** wire `stk_channel.sh` + Thorium sim layers (no matrix builds). Kobo `--sim` wired; Kindle/Apple/Play layers pending. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 
 ## Standalone status (unchanged)
 

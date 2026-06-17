@@ -151,6 +151,9 @@ stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) an
 - **Variant retirement (turn 86):** the old `--target-reader kindle` in-pipeline FAIL
   implementation (apply_kindle_* fns etc.) was fully excised. Only the productized
   `kindle_post` path remains. Catalog baseline prepared (pre-45 assets); see LANE_HANDOFF.
+- **Reader Sim Lab (2026-06-17):** Kindle Previewer 3 = diagnostic bisect only; the sim
+  harness must exercise **Send-to-Kindle → Kindle for Mac/phone** (KDP/`kpp.amazon` preview
+  is a different channel). See `plans/2026-06-18-reader-simulation-lab.md`.
 - **QA history:** the june10 recipe (test-2) → turn-82 forensics (Previewer/KP3
   falsified) → turn-84 STK re-proof → turn-85 productization → turn-87 Mac M4 fan-out
   45/45 + **6-variant STK matrix ALL PASS** (user 2026-06-14). Dormant variant retired

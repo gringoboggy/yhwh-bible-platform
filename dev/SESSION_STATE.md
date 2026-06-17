@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 123).** **NOW:** `ci.py` finish · `rx-surfaces` · close Round 9. **NEXT (post-gate):** Reader Simulation Lab — all 4 readers (`plans/2026-06-18-reader-simulation-lab.md`). **Mac:** idle on sim work until gate green; ACK WIN ships only. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 124).** **NOW:** `ci.py` finish · `rx-surfaces` · gate-only sim prep (no matrix builds). **Mac parallel:** `stk_channel.sh` + Thorium sim layers. Kobo `--sim` wired. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 123).** **NOW:** `lane_watch --bg` · ACK WIN ships · **no** reader builds/M4b until WIN audit gate closes. **NEXT:** Reader Sim Lab — Apple (`tablet` + Books.app) + Kindle (Previewer + M4b). Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 124).** **NOW:** pull turn 124 · `lane_watch --bg` · **prep only** (no matrix builds while WIN `ci.py` runs). **ASSIGN:** implement `kindle/stk_channel.sh` poll + Thorium sim for `apple/sim.sh` + `play/thorium_spike.sh`; gate-only on staged epubs. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

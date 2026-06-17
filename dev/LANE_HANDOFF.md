@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 123
+turn: 124
 from: windows
-updated: 2026-06-17T21:49:19Z
-status: working
-mac: HOLD reader sim until audit gate green — lane_watch --bg; ACK WIN ships only; then Reader Sim Lab Phase 2 Apple + Phase 4 Kindle per plans/2026-06-18-reader-simulation-lab.md
-windows: ci.py finish + rx-surfaces close Round 9; THEN Reader Sim Lab scaffold + Kobo/Play sims + reader_sim.py orchestrator
-truth_owner: windows
-holder: windows
+updated: 2026-06-17T23:08:40Z
+status: handing-off
+mac: turn 124 prep: implement kindle/stk_channel.sh STK poll + Thorium sim (apple/sim.sh, play/thorium_spike.sh) via CDP MCP; m4b-2 fix if quick; gate-only on staged epubs — NO matrix builds while WIN ci.py runs; lane_watch --bg
+windows: ci.py finish + rx-surfaces close Round 9; gate-only reader sim on cached artifacts; kobo sim layer wired
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 124, 2026-06-17T23:08:40Z) — mode=parallel
+
+**Done (turn 123, windows):**
+reader sim pack shells (all 4 readers); reader_sim.py --sim + auto sim_pack_ready; kobo/play/apple/kindle build|gate|sim.sh; stk_channel + thorium stubs; MAC_WORK_QUEUE turn 124
+
+**Next (turn 124, mac picks up):**
+Mac: wire STK + Thorium sim layers | WIN: ci.py + rx-surfaces
+
+**Assignments:** mac = turn 124 prep: implement kindle/stk_channel.sh STK poll + Thorium sim (apple/sim.sh, play/thorium_spike.sh) via CDP MCP; m4b-2 fix if quick; gate-only on staged epubs — NO matrix builds while WIN ci.py runs; lane_watch --bg · windows = ci.py finish + rx-surfaces close Round 9; gate-only reader sim on cached artifacts; kobo sim layer wired
+
+**Watch-outs:**
+WIN ci.py still running — no heavy builds either lane
+
 ---
 
 ## ◦ windows assign (turn 123, 2026-06-17T21:49:19Z) — mode=parallel

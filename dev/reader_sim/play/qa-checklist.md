@@ -1,5 +1,7 @@
 # Google Play Books — phone QA checklist (M5)
 
+**Policy:** Agents run Thorium/emulator sim (`sim.sh`) — not user phone upload every round.
+
 **Artifact:** `everywhere` navy EPUB — `py -3 scripts/reader_sim.py --build play`
 
 **Automated gate:** `py -3 scripts/reader_sim.py --gate play --artifact <path>`

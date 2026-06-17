@@ -62,18 +62,27 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [ ] **M4b STK pack:** 5/6 on `~/Desktop/YHWH-kindle-m4b-qa/` (`ethiopian-tewahedo` m4b-2 fail — fix in Phase 4)
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## Reader Simulation Lab (POST-AUDIT — user-directed dedicated phase)
+## Turn 124 queue (WIN assign @ parallel prep) — **Mac prep while WIN ci.py runs**
 
-**Gate:** WIN `ci.py` GREEN + `rx-surfaces` closed. Plan: `docs/superpowers/plans/2026-06-18-reader-simulation-lab.md`
+> **No heavy EPUB matrix builds** on either box while WIN `ci.py` runs. Gate/sim on cached artifacts only.
 
-**Mac owns:** Apple + Kindle sims. **WIN owns:** Kobo + Play sims + `scripts/reader_sim.py` orchestrator.
+- [ ] **Kindle `stk_channel.sh`:** implement Send-to-Kindle → Kindle-for-Mac library poll (replace stub exit 2); document container path; gate-only on `~/Desktop/YHWH-kindle-m4b-qa/` or staged epub — **not** Previewer
+- [ ] **Thorium sim layers:** wire `dev/reader_sim/apple/sim.sh` + `play/thorium_spike.sh` via Chrome DevTools MCP (Gen 1:1 popup, ToC, script sample); flip `SIM_LAYERS_READY` in `reader_sim.py` when green
+- [ ] **M4b m4b-2:** fix `ethiopian-tewahedo` structural fail in `verify_kindle_m4b` if quick (gate-only)
+- [ ] **ACK WIN ships:** pull turn 124+ sim pack shells + handoff
+- [x] **lane_watch:** keep `--bg` running — **standing**
 
-- [x] **Phase 1 scaffold:** `dev/reader_sim/` tree + README + `scripts/reader_sim.py` — **WIN turn 124 prep** (gate-only works now; builds post-audit)
-- [ ] **Phase 2 Apple (Mac):** `tablet` build script + gates + Books.app M2 checklist → `~/Desktop/YHWH-reader-sim/apple/`
-- [ ] **Phase 3 Kobo (WIN):** kepub build + verify_kr2 + calibration export into sim dir
-- [ ] **Phase 4 Kindle (Mac):** M4b implement + Previewer batch gate + STK pack → `reader_sim/kindle/`
-- [ ] **Phase 5 Play (WIN build, Mac emulator spike):** everywhere staging + emulator probe doc
-- [ ] **Phase 6 CI:** optional `ci.py --reader-sim-gates` (gate-only, no rebuild)
+## Reader Simulation Lab (POST-AUDIT)
+
+**WIN owns:** Kobo + Play sim layers. **Mac owns:** Kindle STK + Apple/Play Thorium.
+
+- [x] **Phase 1 scaffold:** tree + `reader_sim.py` + per-reader `build|gate|sim.sh` shells — **WIN turn 124**
+- [x] **Kobo sim layer wired** (`kobo_tap_calibration` in `--sim kobo`)
+- [ ] **Play Thorium sim** (WIN `thorium_spike.sh` stub; Mac may co-own MCP wire)
+- [ ] **Kindle STK channel** (Mac `stk_channel.sh` — stub shipped, needs poll loop)
+- [ ] **Apple Thorium sim** (Mac `apple/sim.sh`)
+- [ ] **Agent sim suite:** `--sim all` GREEN (3 layers still pending)
+- [ ] **CI:** optional `ci.py --reader-sim-gates`
 
 Specs: `m4b-kindle-fork-design.md` · `platform-apple.md` · `EREADERS.md`
 
