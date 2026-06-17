@@ -83,8 +83,8 @@ class TestBuildVnoteAsideListBased:
         html = build_vnote_aside(code="gen", ch=1, vs=1, title="Genesis", versions=self._versions())
         assert 'id="vnote-gen-1-1"' in html
         assert 'epub:type="footnote"' in html
-        assert '<p class="vnote-text">In the beginning...</p>' in html
-        assert '<p class="vnote-source-label">Hebrew (Masoretic / WLC)</p>' in html
+        assert '<p class="vnote-text"><span class="vn-sep">\u2028¶ </span>In the beginning...</p>' in html
+        assert '<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>Hebrew (Masoretic / WLC)</p>' in html
         assert '<p class="vnote-hebrew" dir="rtl" lang="he">בְּרֵאשִׁית</p>' in html
         # KJV has_label_para False -> no source-label before vnote-text
         assert '<p class="vnote-source-label">King James Version</p>' not in html

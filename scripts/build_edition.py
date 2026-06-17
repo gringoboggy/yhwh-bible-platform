@@ -57,6 +57,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import config  # noqa: E402
+from scripts.core.vnote_separators import add_vnote_preview_separators  # noqa: E402, F401
 
 _NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
 
@@ -2502,16 +2503,6 @@ _VN_SEP_HIDE_CSS = (
 # any vnote, so they NEED the block separator too), and (b) skips text already
 # beginning with ¶ (2,970 recovered-base KJV popup verses carry their own
 # pilcrow — a second mark would render "¶ ¶" in the preview).
-_VNOTE_SEP_TEXT_RE = re.compile(r'(<p class="vnote-text(?:\s[^"]*)?">)(?!<span class="vn-sep">)(?!¶)')
-_VNOTE_SEP_LABEL_RE = re.compile(r'(<p class="vnote-source-label">)(?!<span class="vn-sep">)')
-
-
-def add_vnote_preview_separators(html: str) -> str:
-    """Insert hidden `.vn-sep` plain-text separators into vnote asides (K-R4-1)."""
-    html = _VNOTE_SEP_TEXT_RE.sub(lambda m: m.group(1) + _VN_SEP_CAT, html)
-    return _VNOTE_SEP_LABEL_RE.sub(lambda m: m.group(1) + _VN_SEP_BYLINE, html)
-
-
 # K-R14 (Kobo round 7/14): Kobo's tag-stripped Footnote preview drops U+2028
 # inside `.vn-sep` spans after kepubify's koboSpan pass. Plain `<br>` elements
 # and a visible dot-rule paragraph survive the extractor better than hidden spans.

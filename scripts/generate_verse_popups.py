@@ -11,6 +11,7 @@ from pathlib import Path
 
 from scripts.core import config, notes_io
 from scripts.core import translations as tx
+from scripts.core.vnote_separators import add_vnote_preview_separators
 
 REPO = Path(__file__).resolve().parents[1]
 EPUB_DIR = REPO / "epub_working"
@@ -52,7 +53,7 @@ def build_vnote_aside(*, code: str, ch: int, vs: int, title: str, versions: list
     if not rendered:
         parts.append(_EMPTY_TEXT)
     parts.append(f'\n<p><a href="#v-{code}-{ch}-{vs}" class="vnote-back" title="Back">↩</a></p></aside>')
-    return "".join(parts)
+    return add_vnote_preview_separators("".join(parts))
 
 
 def assemble_versions_for_verse(code: str, ch: int, vs: int, *, harvested: dict) -> list[dict]:

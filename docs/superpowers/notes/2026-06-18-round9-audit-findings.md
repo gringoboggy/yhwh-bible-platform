@@ -36,7 +36,7 @@
 
 - [x] **MEDIUM** Standalone build bypasses K-R4-1 vnote separator pass — **WIN turn 119** (`add_vnote_preview_separators` on `geez_*.xhtml` + `test_standalone_vnotes_carry_kr4_separators`)
 - [ ] **MEDIUM** gen 35:18 vnote preview-decline inversion — 3,509 stripped declined vs 4,498 floor; gate 4g WARN-only. **Fix:** user re-tap on latest kepub.
-- [ ] **LOW** `generate_verse_popups.py` emits vnotes without `.vn-sep` at source — policy only in `build_edition` post-pass.
+- [x] **LOW** `generate_verse_popups.py` emits vnotes without `.vn-sep` at source — **WIN turn 123** (`scripts/core/vnote_separators.py` shared; bake calls `add_vnote_preview_separators`)
 - [ ] **LOW** `vnote-1ki-12-24` at 7,747 stripped chars (bracket edge) — device probe pending.
 
 ### Phase 3 — Platform gates (research → fix after user phone QA)
@@ -65,12 +65,13 @@
 | platform-play | ✅ brief written |
 | popup-integrity | ✅ code-only sweep (1 medium fixed, 1 medium + 2 low open) |
 | tests-run | ⏳ `ci.py` in flight (~6h; coverage pytest pass) |
-| rx-surfaces | ⏳ deferred until `ci.py` finishes (RAM on 16GB N95) |
+| rx-surfaces | ⚠ partial @ turn 123 — cached r8audit epubs: structural 0 critical; S1 vn-sep 0 miss; S2 sole offender `vnote-1ki-12-24` (known); fresh post-fix builds pending `ci.py` |
 
 ---
 
 ## Next
 
-1. WIN: finish ci.py + rx-surfaces; push rebased standalone fix
-2. Fix WIN Phase 1 HIGH (v0.1.0 tag skew) + M5 Play QA when ready
-3. Website deployed @ `efb7386` (188 assets; kobo live)
+1. WIN: finish `ci.py` → fresh rx-surfaces builds (eth + catholic-study) when RAM free
+2. USER: Kobo gen-35:18 re-tap + Play M5 phone QA
+3. Mac: M4b implement @ turn 122
+4. Website deployed @ `efb7386` (188 assets; kobo live)
