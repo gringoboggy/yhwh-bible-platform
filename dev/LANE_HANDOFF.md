@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 109
-from: mac
-updated: 2026-06-17T01:56:30Z
+turn: 110
+from: windows
+updated: 2026-06-17T02:36:37Z
 status: handing-off
-mac: Samuel CAM IIIF acquire (acquire_samuel_cam_missing.py) + Phase 2 idle backlog. HOLD build_edition.py until WIN Phase 3.
-windows: Phase 3 on pytest green (build_edition Kobo cap + glossary · generate_verse_popups hidden noterefs · config mtime cache) + round-8 7-dim audit append.
-truth_owner: windows
-holder: windows
+mac: git pull turn 110. (1) Samuel CAM IIIF acquire (acquire_samuel_cam_missing.py, 74 hires). (2) Phase 3 LOW: mirror study-glossary nav into toc.ncx. (3) Spot eink build + verify_kr2_build on one kepub. (4) M4b Kindle findings-only. (5) Round-8 audit doc hygiene. build_edition HOLD LIFTED.
+windows: idle — round-8 WIN 7-dim audit append when not contending pytest; no build_edition unless Mac requests
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 110, 2026-06-17T02:36:37Z) — mode=parallel
+
+**Done (turn 109, windows):**
+WIN Phase 3 @ a8e0e099: eink byte-cap gate; glossary-cat chunking; verse-popup xref retarget; load_editions mtime cache; verify_kr2 4g-bis/4g-ter; targeted pytest green
+
+**Next (turn 110, mac picks up):**
+Mac: Samuel CAM + Phase 3 LOW ncx + spot eink verify + M4b. WIN: idle/light audit append.
+
+**Assignments:** mac = git pull turn 110. (1) Samuel CAM IIIF acquire (acquire_samuel_cam_missing.py, 74 hires). (2) Phase 3 LOW: mirror study-glossary nav into toc.ncx. (3) Spot eink build + verify_kr2_build on one kepub. (4) M4b Kindle findings-only. (5) Round-8 audit doc hygiene. build_edition HOLD LIFTED. · windows = idle — round-8 WIN 7-dim audit append when not contending pytest; no build_edition unless Mac requests
+
+**Watch-outs:**
+Samuel CAM still missing on disk; Kings+Samuel folios done_gate; 9 KJV editions byte-stable — additive only
+
 ---
 
 ## ▶ mac → windows (turn 109, 2026-06-17T01:56:30Z) — mode=parallel

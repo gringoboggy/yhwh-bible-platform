@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-16 (turn 108 — Mac backlog + WIN parallel).** Handoff windows→mac: Mac backlog (OOE aes · kings folios · M4b sketch · website/dist). WIN: F→E MJ mirror · `/covers` UX · pytest→Phase 3. Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-17 (turn 110 — WIN Phase 3 shipped → Mac picks up).** WIN @ `a8e0e099`: eink byte-cap gate · glossary-cat chunking · verse-popup xref retarget · `load_editions` mtime cache · `verify_kr2` gates 4g-bis/4g-ter. Mac: Samuel CAM acquire · Phase 3 LOW (ncx) · eink spot build · M4b. **build_edition HOLD lifted.** Baton **mac**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

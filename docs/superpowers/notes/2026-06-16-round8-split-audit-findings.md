@@ -38,11 +38,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 ### Phase 3 — Build / popup / cache guards (byte-stability obligation)
 
 - [x] **MEDIUM** `edition_stats` cache signature missing `enable_ai_notes` / `max_phase` (`scripts/core/edition_stats.py:56`) — **WIN @ 9b877205**
-- [ ] **MEDIUM** Gate Kobo byte-cap splitter on `target_reader==eink` (`scripts/build_edition.py`)
-- [ ] **MEDIUM** `verse-refs-section` hidden noteref targets (extend beyond `notes-section`) (`scripts/generate_verse_popups.py`)
-- [ ] **MEDIUM** Study-glossary-cat hist monoliths >7,748 stripped — within-note chunking (`scripts/build_edition.py`)
-- [ ] **MEDIUM** `config.py` mtime-keyed cache for runtime-edited YAML (`scripts/core/config.py:297`)
-- [ ] **LOW** Extend `verify_kr2_build` gates for glossary-cat + verse-refs-section census
+- [x] **MEDIUM** Gate Kobo byte-cap splitter on `target_reader==eink` (`scripts/build_edition.py`) — **WIN @ a8e0e099**
+- [x] **MEDIUM** `verse-refs-section` hidden noteref targets (extend beyond `notes-section`) (`scripts/generate_verse_popups.py`) — **WIN @ a8e0e099**
+- [x] **MEDIUM** Study-glossary-cat hist monoliths >7,748 stripped — within-note chunking (`scripts/build_edition.py`) — **WIN @ a8e0e099**
+- [x] **MEDIUM** `config.py` mtime-keyed cache for runtime-edited YAML (`scripts/core/config.py:297`) — **WIN @ a8e0e099**
+- [x] **LOW** Extend `verify_kr2_build` gates for glossary-cat + verse-refs-section census — **WIN @ a8e0e099**
 - [ ] **LOW** Mirror glossary nav patch into `toc.ncx`
 
 ### Phase 4 — Data validity + docs drift

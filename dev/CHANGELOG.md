@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 110) — ★ Phase 3 shipped + handoff to Mac
+
+**Round-8 Phase 3 (@ `a8e0e099`):** gate Kobo `note_popup_split_byte_cap` on `target_reader==eink` only · study-glossary-cat footnote chunking under 7,748 stripped ceiling · `generate_verse_popups` retargets hidden `#vnote-` body links to visible `#v-` anchors · `config.load_editions` mtime-keyed cache · `verify_kr2_build` gates 4g-bis (glossary-cat) + 4g-ter (empty verse-refs husks).
+**Tests:** `test_popup_split` byte-budget/eink gate · `test_marker_badge_style` glossary chunk · `test_verse_popups` retarget · `test_core` editions mtime cache.
+**Handoff turn 110 → Mac:** Samuel CAM IIIF · Phase 3 LOW ncx · spot eink build · M4b · audit doc tick. `build_edition.py` HOLD lifted.
+
 ## 2026-06-16 — Windows session (turn 107) — covers verified via git + handoff to Mac
 
 **Covers:** ingested via `git pull` (Mac turn 106 MJ+gradient already in-repo); `generate_book_title_covers.py audit` 86/86 · `ethiopian-tewahedo` `book_covers` wired. E: mirror still lacks `book-title-covers-midjourney-gradient-2026-06-16/` (only v4-reimagine) — Mac to copy from MacHD2.
