@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 119
-from: windows
-updated: 2026-06-17T14:02:13Z
-status: working
-mac: idle — lane_watch --bg + save_mac.sh after each slice (no asking, no waiting)
-windows: lane_watch -Background -AssignMac + save-all after each slice (no asking, no waiting) + ci.py
+turn: 120
+from: mac
+updated: 2026-06-17T20:08:11Z
+status: handing-off
+mac: idle — fresh session: /resume + lane_watch --bg (keep running)
+windows: rx-surfaces artifact build + full ci.py (N95) + Round 9 merge + user Kobo tap / Play QA
 truth_owner: windows
 holder: windows
+---
+
+## ▶ mac → windows (turn 120, 2026-06-17T20:08:11Z) — mode=parallel
+
+**Done (turn 119, mac):**
+Round 9 Mac COMPLETE: 22-dim audit + 5 fixes shipped; platform briefs; lane-transfer/audit @ 94e1010b; website deploy efb7386 (188 assets kobo live); lane_watch_mac --bg fix; fast gate 6/1/0; killed 5h stale pytest/ci orphans
+
+**Next (turn 120, windows picks up):**
+WIN: rx-surfaces + full ci.py + merge round-9 doc; USER: Kobo gen-35:18 re-tap + Play M5 phone QA; Mac idle unless WIN assigns
+
+**Assignments:** mac = idle — fresh session: /resume + lane_watch --bg (keep running) · windows = rx-surfaces artifact build + full ci.py (N95) + Round 9 merge + user Kobo tap / Play QA
+
+**Watch-outs:**
+Do NOT launch background full pytest/ci.py on Mac HDD; targeted tests only; lane_watch ON whole arc
+
 ---
 
 ## ◦ windows assign (turn 119, 2026-06-17T14:02:13Z) — mode=parallel
@@ -15,21 +30,6 @@ holder: windows
 **Assignments:** mac = idle — lane_watch --bg + save_mac.sh after each slice (no asking, no waiting) · windows = lane_watch -Background -AssignMac + save-all after each slice (no asking, no waiting) + ci.py
 
 STANDING reinforced: commit+save autonomously — never wait on user input
-
----
-
-## ▶ mac → windows (turn 118, 2026-06-17T13:54:26Z) — mode=parallel
-
-**Done (turn 117, mac):**
-Mac turn 114 batch rebased: book_codes.py+resolve_book_code merge; load_notes_checked sweep; rx/popup audit tail; lane-transfer/audit deleted; samkings 6/6; lane_watch --bg started
-
-**Next (turn 118, windows picks up):**
-WIN: ci.py parity; website/dist regen if needed; Round 9 gate
-
-**Assignments:** mac = idle — lane_watch --bg MUST stay running + `save_mac.sh` after each slice (no asking) · windows = lane_watch -Background -AssignMac + push after each slice (no asking) + ci.py + Round 9 when gate green
-
-**Watch-outs:**
-lane_watch ON both lanes whole arc; **crash-safe cadence (STANDING 2026-06-17): push autonomously — never end with unpushed commits**
 
 ---
 

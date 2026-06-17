@@ -6,6 +6,23 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
+## ▶ mac → windows (turn 118, 2026-06-17T13:54:26Z) — mode=parallel
+
+**Done (turn 117, mac):**
+Mac turn 114 batch rebased: book_codes.py+resolve_book_code merge; load_notes_checked sweep; rx/popup audit tail; lane-transfer/audit deleted; samkings 6/6; lane_watch --bg started
+
+**Next (turn 118, windows picks up):**
+WIN: ci.py parity; website/dist regen if needed; Round 9 gate
+
+**Assignments:** mac = idle — lane_watch --bg MUST stay running + `save_mac.sh` after each slice (no asking) · windows = lane_watch -Background -AssignMac + push after each slice (no asking) + ci.py + Round 9 when gate green
+
+**Watch-outs:**
+lane_watch ON both lanes whole arc; **crash-safe cadence (STANDING 2026-06-17): push autonomously — never end with unpushed commits**
+
+---
+
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
 ## ▶ windows → mac (turn 117, 2026-06-17T13:44:42Z) — mode=parallel
 
 **Done (turn 116, windows):**

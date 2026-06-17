@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Mac session (turn 120) — session wrap + handoff to Windows
+
+**Shipped:** truth-record refresh (SESSION_STATE · IN_FLIGHT idle · LANE_HANDOFF turn 120). Confirmed fast gate **6 pass / 1 warn / 0 fail**; targeted regressions green. Killed 5h stale background pytest/ci orphans (Mac HDD — not failures). Mac queue CLEAR; WIN picks up rx-surfaces + full ci.py + round-9 merge.
+
 ## 2026-06-18 — Mac session (turn 119b) — ★ Round 9 audit + fixes + website deploy
 
 **Audit:** 22 Mac dims → 8 survivors (2M/3L/3 info). Platform briefs `2026-06-18-platform-{apple,kindle}.md`.

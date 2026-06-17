@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 119).** **ROUND-8 REMEDIATION COMPLETE** · `lane_watch -Background` fixed+running · `ci.py` in flight · Round-9 WIN dims 6/9 (platform briefs written) · website catalog regen 188 assets · deploy authorized. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 120).** Round-9 Mac **COMPLETE** (audit+fixes+deploy). **WIN next:** `rx-surfaces` artifact build · full `ci.py` on N95 · merge `2026-06-18-round9-audit-findings.md` · v0.1.0 tag sync **DONE** (`6a4838c`). **USER:** Kobo tap + Play M5 phone QA. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 119).** **ROUND-8 REMEDIATION COMPLETE** · **Round 9 Mac audit + fixes shipped** (8 survivors → 5 fixed). Website deployed `efb7386` (kobo catalog live). **`lane_watch --bg` running.** WIN next: Round 9 win dims + merge. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 120).** **Idle** — Mac queue **CLEAR**. `/resume` → `lane_watch --bg` (keep running). Do **not** background full pytest/ci on HDD; targeted tests only. WIN owns rx-surfaces + full CI. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >
@@ -16,7 +16,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Covers:** 86×1 MJ+gradient (turn 106). **Phase 3:** **DONE**. **Manuscript P0:** Samuel+Kings GREEN. **Round 8 remediation:** Mac batch landed @ turn 118; WIN `ci.py` + Round 9 Workflow when gate green. **M3:** 45/45 attached. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 8 remediation COMPLETE** · **Round 9 Mac COMPLETE** @ turn 120. **WIN remainder:** rx-surfaces + full ci.py + merge; **user:** Kobo tap + Play QA. **M3:** 45/45 attached · **M4:** catalog live · website `efb7386`. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
