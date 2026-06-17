@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 108
-from: windows
-updated: 2026-06-16T21:48:17Z
+turn: 109
+from: mac
+updated: 2026-06-17T01:56:30Z
 status: handing-off
-mac: git pull turn 108. (1) Fix 3 OOE notes content/notes/aes.py ch10 v11-13 — relocate or remove (out of aes ch10 canonical extent). (2) Kings folio P0: manifest 1ki ch19-22 + 2ki ch1-25 (GG+CAM folios, status pending). (3) M4b Kindle prep — read docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md; findings-only K-R9c parity sketch. (4) website/dist smoke: gen_release_catalog + node website/build.mjs. HOLD build_edition.py until WIN Phase 3 green.
-windows: pytest turn-106 rerun -> Phase 3 (build_edition, generate_verse_popups, config cache) on green. Parallel: /covers UX shipped (built-in|upload|none), F->E MJ mirror done, round-8 WIN 7-dim audit append.
-truth_owner: mac
-holder: mac
+mac: Samuel CAM IIIF acquire (acquire_samuel_cam_missing.py) + Phase 2 idle backlog. HOLD build_edition.py until WIN Phase 3.
+windows: Phase 3 on pytest green (build_edition Kobo cap + glossary · generate_verse_popups hidden noterefs · config mtime cache) + round-8 7-dim audit append.
+truth_owner: windows
+holder: windows
+---
+
+## ▶ mac → windows (turn 109, 2026-06-17T01:56:30Z) — mode=parallel
+
+**Done (turn 108, mac):**
+Turn 108 COMPLETE: aes OOE @ 0d645350 · Kings P0 tail + 180 CAM hires (0 remaining) @ c836ba90 · M4b K-R9c sketch · website/dist smoke · done_gate folios GREEN (samuel+kings).
+
+**Next (turn 109, windows picks up):**
+WIN: Phase 3 + audit. Mac: Samuel 74 CAM hires + idle Phase 2.
+
+**Assignments:** mac = Samuel CAM IIIF acquire (acquire_samuel_cam_missing.py) + Phase 2 idle backlog. HOLD build_edition.py until WIN Phase 3. · windows = Phase 3 on pytest green (build_edition Kobo cap + glossary · generate_verse_popups hidden noterefs · config mtime cache) + round-8 7-dim audit append.
+
+**Watch-outs:**
+HOLD build_edition until WIN Phase 3 green; Kings images on-disk GREEN, Samuel CAM still missing.
+
 ---
 
 ## ▶ windows → mac (turn 108, 2026-06-16T21:48:17Z) — mode=parallel
