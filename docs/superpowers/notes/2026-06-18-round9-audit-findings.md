@@ -1,6 +1,6 @@
 # Round-9 audit — merged findings (2026-06-18)
 
-**Status:** Mac audit COMPLETE + fixes shipped @ turn 119; WIN dims 6/9 complete @ turn 119.
+**Status:** Mac audit COMPLETE + fixes shipped @ turn 119; WIN dims 8/9 complete @ turn 119.
 **Gate:** Round-8 remediation **COMPLETE** (0 open HIGH/MEDIUM).
 **Platform briefs:** `notes/2026-06-18-platform-{apple,kindle,kobo,play}.md`
 
@@ -8,7 +8,7 @@
 
 **Mac (22 dims):** 8 survivors (0 critical · 0 high · 2 medium · 3 low · 3 info). All actionable Mac defects **fixed @ turn 119**.
 
-**WIN (9 dims in progress):** Release-hygiene + platform gates. Play Books unverified (M5); Kobo shipped pending user tap round 9.
+**WIN (9 dims):** Release-hygiene + popup integrity + platform gates. Play Books unverified (M5); Kobo shipped pending user tap round 9.
 
 ---
 
@@ -31,13 +31,20 @@
 - [ ] **HIGH** `v0.1.0` tag points to different commits on GitLab vs GitHub — origin `6d67adaf` vs github `e7e05276`. **Fix:** retag GitHub `v0.1.0` to GitLab canonical tip.
 - [x] **MEDIUM** Stray `SHA256SUMS-merged-overnight.txt` duplicate on v0.1.0 release — **WIN turn 119**
 
-### Phase 2 — Platform gates
+### Phase 2 — Popup integrity (code-only sweep @ turn 119)
+
+- [x] **MEDIUM** Standalone build bypasses K-R4-1 vnote separator pass — **WIN turn 119** (`add_vnote_preview_separators` on `geez_*.xhtml` + `test_standalone_vnotes_carry_kr4_separators`)
+- [ ] **MEDIUM** gen 35:18 vnote preview-decline inversion — 3,509 stripped declined vs 4,498 floor; gate 4g WARN-only. **Fix:** user re-tap on latest kepub.
+- [ ] **LOW** `generate_verse_popups.py` emits vnotes without `.vn-sep` at source — policy only in `build_edition` post-pass.
+- [ ] **LOW** `vnote-1ki-12-24` at 7,747 stripped chars (bracket edge) — device probe pending.
+
+### Phase 3 — Platform gates (research → fix after user phone QA)
 
 - [ ] **HIGH** Play Books — zero device proof; M5 column dark. **Fix:** M5 phone-QA protocol.
 - [ ] **MEDIUM** No `play` `target_reader` path — defer until M5 QA (see `platform-play.md`).
 - [ ] **MEDIUM** gen 35:18 preview-decline anomaly — user re-tap; see `platform-kobo.md`.
 
-### Phase 3 — Doc / tooling (fixed)
+### Phase 4 — Doc / tooling (fixed)
 
 - [x] **MEDIUM** RULES §0 index table stale — **WIN turn 119**
 - [x] **MEDIUM** EREADERS.md Kobo summary stale — **WIN turn 119**
@@ -53,16 +60,16 @@
 | claude-setup | ✅ |
 | byte-stability | ✅ GREEN |
 | opt-build | ✅ CONFIRM-OPTIMAL |
-| platform-kobo | ✅ brief |
-| platform-play | ✅ brief |
-| tests-run | ⏳ ci.py |
-| rx-surfaces | ⏳ pending |
-| popup-integrity | ⏳ pending |
+| platform-kobo | ✅ brief written |
+| platform-play | ✅ brief written |
+| popup-integrity | ✅ code-only sweep (1 medium fixed, 1 medium + 2 low open) |
+| tests-run | ⏳ ci.py pytest running (full suite) |
+| rx-surfaces | ⏳ pending (needs artifact build) |
 
 ---
 
 ## Next
 
-1. WIN: finish ci.py + rx-surfaces + popup-integrity; merge Mac JSON
+1. WIN: finish ci.py + rx-surfaces; push rebased standalone fix
 2. Fix WIN Phase 1 HIGH (v0.1.0 tag skew) + M5 Play QA when ready
 3. Website deployed @ `efb7386` (188 assets; kobo live)

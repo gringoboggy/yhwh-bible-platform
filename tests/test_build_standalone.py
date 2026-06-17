@@ -150,6 +150,19 @@ class TestBuildStandalone:
             assert not any("index_split_" in n for n in names)  # original body fully swapped out
         assert out["chapters"] == 165  # 10 (1ki) + 3 (1sa) + 1 (2sa) + 151 (psa)
 
+    def test_standalone_vnotes_carry_kr4_separators(self, tmp_path):
+        """Round-9 popup-integrity: standalone path must not skip K-R4-1 .vn-sep."""
+        import zipfile
+
+        out = bs.build_standalone("standalone-geez", tmp_path, "v28a")
+        assert out["status"] == "ok", out
+        with zipfile.ZipFile(out["output_path"]) as z:
+            bodies = [z.read(n).decode("utf-8") for n in z.namelist() if n.startswith("geez_") and n.endswith(".xhtml")]
+        vnote_text_blocks = [b for b in bodies if 'class="vnote-text"' in b]
+        if not vnote_text_blocks:
+            pytest.skip("no vnote-text blocks in current standalone corpus slice")
+        assert all('class="vn-sep"' in b for b in vnote_text_blocks), "K-R4-1 separators missing in standalone vnotes"
+
 
 class TestStandaloneCoverReachesEpub:
     """σ.5.3 — the standalone build must ship the composed Ethiopic-script

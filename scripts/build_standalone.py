@@ -285,6 +285,14 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         #    into the EPUB as cover.jpeg (it no-ops only if cover_image is empty).
         be.apply_edition_cover(edition, tmp)
 
+        # 6b. K-R4-1 — vnote preview separators on standalone .xhtml bodies
+        # (build_edition.apply_vnote_preview_separators globs *.html only).
+        for fpath in sorted(tmp.glob("geez_*.xhtml")):
+            text = fpath.read_text(encoding="utf-8")
+            out = be.add_vnote_preview_separators(text)
+            if out != text:
+                fpath.write_text(out, encoding="utf-8")
+
         # 7. package
         output_dir.mkdir(parents=True, exist_ok=True)
         ts = time.strftime("%Y%m%d_%H%M%S")
