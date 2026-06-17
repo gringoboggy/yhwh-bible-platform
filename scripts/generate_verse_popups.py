@@ -167,6 +167,36 @@ def verse_numbers_in_region(region: str) -> list[int]:
 _SECTION_OPEN = '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
 
 
+def _v_anchor_maps(epub_dir: Path) -> tuple[dict[str, str], dict[str, set[str]], dict[str, str]]:
+    """Visible ``#v-`` anchor index for retargeting note-body links (round-7 5.2)."""
+    from scripts.fix_xref_targets import build_chapter_index, build_v_anchor_index
+
+    v_index, file_v_ids = build_v_anchor_index(epub_dir)
+    chapter_fallback = build_chapter_index(epub_dir, config.load_books())
+    return v_index, file_v_ids, chapter_fallback
+
+
+def retarget_hidden_vnote_body_links(
+    text: str,
+    fname: str,
+    *,
+    v_index: dict[str, str],
+    file_v_ids: dict[str, set[str]],
+    chapter_fallback: dict[str, str],
+) -> tuple[str, int]:
+    """Retarget note-BODY ``<a href="…#vnote-">`` links to visible ``#v-`` anchors.
+
+    vnote asides live inside the hidden ``verse-refs-section`` (and the file
+    splitter's ``notes-section``) — body links must never target them (Kobo
+    teleports to file start). vn-link noterefs are untouched."""
+    from scripts.fix_xref_targets import retarget_visible
+
+    new_text, n_retargeted, _unresolved = retarget_visible(
+        text, file_v_ids.get(fname, set()), v_index, chapter_fallback
+    )
+    return new_text, n_retargeted
+
+
 def ensure_verse_refs_section(text: str) -> tuple[str, int]:
     """Return ``(text, insertion_index)`` where ``insertion_index`` points at the
     section's closing ``</section>`` (asides are inserted just before it). Creates
@@ -264,6 +294,7 @@ def generate_book(code: str, *, dry_run: bool) -> dict:
         return stats
 
     last_ch: int | None = None  # chapter last seen in the preceding file
+    v_index, file_v_ids, chapter_fallback = _v_anchor_maps(EPUB_DIR)
 
     for fname in files:
         fpath = EPUB_DIR / fname
@@ -314,6 +345,19 @@ def generate_book(code: str, *, dry_run: bool) -> dict:
                 title=title,
                 harvested=harvested,
                 stats=stats,
+            )
+
+        if "#vnote-" in text:
+            from scripts.fix_xref_targets import V_ID_RE
+
+            # Wrapping may have just minted vn-link anchors in this file.
+            file_v_ids[fname] = {m.group(1) for m in V_ID_RE.finditer(text)}
+            text, _n_rt = retarget_hidden_vnote_body_links(
+                text,
+                fname,
+                v_index=v_index,
+                file_v_ids=file_v_ids,
+                chapter_fallback=chapter_fallback,
             )
 
         if text != original:

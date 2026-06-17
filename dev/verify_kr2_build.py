@@ -174,6 +174,7 @@ def kindle_safe_checks(zf: zipfile.ZipFile, names: list[str], opf: str) -> list[
 # taps showed them all popping) — oversized ones surface as honest WARNS,
 # not fails (no-reassert-ratified-bar).
 POP_FLOOR = 4_498
+GLOSSARY_DECLINE_HI = 7_748
 
 _POPUP_ASIDE_RE = re.compile(
     r'<aside class="(verse-notes|vnote)[^"]*" id="([^"]+)"[^>]*>.*?</aside>',
@@ -206,6 +207,49 @@ def popup_size_checks(zf: zipfile.ZipFile, names: list[str]) -> tuple[list[str],
             else:
                 warns.append(f"{n}: vnote {m.group(2)} strips to {size:,} chars (> pop floor; un-probed class)")
     return fails, warns
+
+
+# ── 4g-bis. study-glossary-cat decline ceiling ───────────────────────────
+_STUDY_GLOSSARY_CAT_RE = re.compile(
+    r'<aside[^>]*class="study-glossary-cat[^"]*"[^>]*>.*?</aside>',
+    re.DOTALL,
+)
+
+
+def glossary_cat_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """Gate 4g-bis — study-glossary-cat footnotes must stay under the Kobo
+    decline ceiling (hist monolith class; round-8 Phase 3)."""
+    fails: list[str] = []
+    for n in names:
+        if not n.endswith((".html", ".xhtml")):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        for m in _STUDY_GLOSSARY_CAT_RE.finditer(t):
+            size = _stripped_len(m.group(0))
+            if size > GLOSSARY_DECLINE_HI:
+                aid = re.search(r'\bid="([^"]+)"', m.group(0))
+                fails.append(
+                    f"{n}: {aid.group(1) if aid else '?'} study-glossary-cat strips to "
+                    f"{size:,} chars (> decline ceiling {GLOSSARY_DECLINE_HI:,})"
+                )
+    return fails
+
+
+# ── 4g-ter. empty verse-refs-section husks ───────────────────────────────
+_EMPTY_VREFS_SECTION_RE = re.compile(r'<section class="verse-refs-section"[^>]*>\s*</section>')
+
+
+def empty_verse_refs_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]:
+    """Gate 4g-ter — no dead ``verse-refs-section`` shells after vnote harvest."""
+    fails: list[str] = []
+    for n in names:
+        if not n.endswith((".html", ".xhtml")):
+            continue
+        t = zf.read(n).decode("utf-8", "replace")
+        shells = _EMPTY_VREFS_SECTION_RE.findall(t)
+        if shells:
+            fails.append(f"{n}: {len(shells)} empty verse-refs-section shell(s)")
+    return fails
 
 
 # ── 4m. K-R6-2 leg 1 — prefix-free popup anchor namespace ───────────────
@@ -608,6 +652,8 @@ def main(path: str) -> int:
     fails.extend(size_fails)
     for w in size_warns:
         print(f"WARN (4g): {w}")
+    fails.extend(glossary_cat_checks(zf, names))
+    fails.extend(empty_verse_refs_checks(zf, names))
     fails.extend(title_piece_badge_checks(zf, names))
     fails.extend(badge_mode_leak_checks(zf, names))
     fails.extend(orphan_vnote_checks(zf, names))

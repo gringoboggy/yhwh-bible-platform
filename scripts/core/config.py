@@ -43,6 +43,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from functools import lru_cache
+from typing import Protocol, cast
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _CONTENT = _REPO_ROOT / "content"
@@ -294,13 +295,34 @@ def load_categories():
     return _parse_yaml_records(p.read_text())
 
 
-@lru_cache(maxsize=1)
-def load_editions():
-    """Load content/editions.yaml. Returns [] if missing."""
+class _CachedLoader(Protocol):
+    def __call__(self) -> list[dict]: ...
+    def cache_clear(self) -> None: ...
+
+
+@lru_cache(maxsize=4)
+def _load_editions_cached(mtime_ns: int) -> list[dict]:
+    """Cached parse of editions.yaml. The cache key includes mtime_ns, so
+    runtime API edits invalidate automatically without an explicit clear."""
     p = _CONTENT / "editions.yaml"
     if not p.is_file():
         return []
     return _parse_yaml_records(p.read_text())
+
+
+def _load_editions_uncached() -> list[dict]:
+    p = _CONTENT / "editions.yaml"
+    mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
+    return _load_editions_cached(mtime_ns)
+
+
+def clear_editions_cache() -> None:
+    """Invalidate ``load_editions()`` — after in-process editions.yaml writes."""
+    _load_editions_cached.cache_clear()
+
+
+_load_editions_uncached.cache_clear = clear_editions_cache  # type: ignore[attr-defined]
+load_editions: _CachedLoader = cast(_CachedLoader, _load_editions_uncached)
 
 
 # Edition → factory cover-template stem (``<NN>_<design>_<colour>``). The

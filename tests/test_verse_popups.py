@@ -70,6 +70,30 @@ class TestVerseSpansInChapter:
         assert verse_numbers_in_region(self.HTML[start:end]) == [1, 2]
 
 
+class TestRetargetHiddenVnoteBodyLinks:
+    def test_body_link_targets_visible_v_anchor(self):
+        from scripts.generate_verse_popups import retarget_hidden_vnote_body_links
+
+        text = (
+            '<p class="verse-p"><a href="#vnote-gen-1-2">see Gen 1:2</a>'
+            '<a class="vn-link" id="v-gen-1-2" href="#vnote-gen-1-2" epub:type="noteref">'
+            '<span class="vn">2</span></a></p>'
+        )
+        v_index = {"v-gen-1-2": "index_split_000.html"}
+        file_v_ids = {"index_split_000.html": {"v-gen-1-2"}}
+        new_text, n = retarget_hidden_vnote_body_links(
+            text,
+            "index_split_000.html",
+            v_index=v_index,
+            file_v_ids=file_v_ids,
+            chapter_fallback={},
+        )
+        assert n == 1
+        assert 'href="#v-gen-1-2"' in new_text
+        assert 'href="#vnote-gen-1-2"' in new_text  # vn-link noteref untouched
+        assert '<a href="#vnote-gen-1-2">' not in new_text
+
+
 class TestEnsureVerseRefsSection:
     def test_returns_existing_section_span(self):
         from scripts.generate_verse_popups import ensure_verse_refs_section

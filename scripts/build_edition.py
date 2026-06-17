@@ -3025,6 +3025,11 @@ DEFAULT_NOTE_POPUP_SPLIT_CAP = 4_400
 # tag-stripped target exceeds ~5,500 chars (round-5 bracket). Pad every
 # backmatter glossary category footnote to this floor so no study badge pops.
 KOBO_STUDY_NAV_MIN_STRIPPED = 5_600
+# K-R4-2 decline ceiling — the smallest stripped size PROVEN to decline preview
+# on Kobo (dev/kobo_tap_calibration.BRACKET_HI). Study-glossary category
+# footnotes chunk row bodies under this so hist monoliths never exceed it.
+KOBO_POPUP_DECLINE_HI = 7_748
+_GLOSSARY_CAT_ROW_CAP = KOBO_POPUP_DECLINE_HI - 500
 
 # K-R13b — in-margin study badge faces that render on Kobo e-ink. Cardo lacks
 # ✧ ⌂ ✦ ❖ …; Kobo system renders ◇ † * and letters everywhere. Glossary
@@ -3483,34 +3488,116 @@ def _study_verse_return_link(code: str, ch: int, v: int) -> str:
     return f'<a href="#{verse_id}" class="note-back study-return">{html.escape(label, quote=False)}</a>'
 
 
+def _study_glossary_category_body(cat_rows: list[dict], cat: str, cat_meta: dict, *, s2_group: bool) -> str:
+    if s2_group:
+        return _emit_cascade_sections(cat_rows, cat_meta)
+    return (
+        f'    <section class="vn-group note-cat-{cat}">\n'
+        + "".join(f"      {r['row']}\n" for r in cat_rows)
+        + "    </section>\n"
+    )
+
+
+def _study_glossary_footnote(
+    cat_rows: list[dict],
+    *,
+    cat: str,
+    cat_meta: dict,
+    code: str,
+    ch: int,
+    v: int,
+    sid: str,
+    verse_back: str,
+    s2_group: bool,
+) -> str:
+    body = _study_glossary_category_body(cat_rows, cat, cat_meta, s2_group=s2_group)
+    footnote = (
+        f'  <aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{sid}">\n'
+        + body
+        + verse_back
+        + "  </aside>\n"
+    )
+    return _pad_kobo_study_footnote(footnote)
+
+
 def _emit_backmatter_glossary_inner(
     rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool
-) -> str:
-    """Glossary inner HTML with one padded footnote aside per category (K-R13).
+) -> tuple[str, dict[str, str]]:
+    """Glossary inner HTML with padded footnote asides per category (K-R13).
 
-    Each ``aside[epub:type=footnote]`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"``
-    so a per-category ``noteref`` badge uses Kobo's footnote navigate path."""
+    Returns ``(inner_html, {category_id: badge_target_id})``. Each footnote
+    ``aside`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"`` (or ``-cN`` when a
+    category is split) so a per-category ``noteref`` badge uses Kobo's footnote
+    navigate path."""
     verse_back = f'    <p class="study-verse-back">{_study_verse_return_link(code, ch, v)}</p>\n'
     parts: list[str] = []
+    category_targets: dict[str, str] = {}
     for cat in _unique_cats_sorted(rows):
         cat_rows = [r for r in rows if r["cat"] == cat]
-        sid = f"vnotes-{code}-{ch}-{v}-{cat}"
-        if s2_group:
-            body = _emit_cascade_sections(cat_rows, cat_meta)
-        else:
-            body = (
-                f'    <section class="vn-group note-cat-{cat}">\n'
-                + "".join(f"      {r['row']}\n" for r in cat_rows)
-                + "    </section>\n"
+        expanded_rows: list[dict] = []
+        for r in cat_rows:
+            for part in _chunk_row_to_budgets(r["row"], _GLOSSARY_CAT_ROW_CAP, 0):
+                expanded_rows.append({**r, "row": part})
+
+        def _footnote_len(rows_subset: list[dict]) -> int:
+            return _stripped_len(
+                _study_glossary_footnote(
+                    rows_subset,
+                    cat=cat,
+                    cat_meta=cat_meta,
+                    code=code,
+                    ch=ch,
+                    v=v,
+                    sid=f"vnotes-{code}-{ch}-{v}-{cat}",
+                    verse_back=verse_back,
+                    s2_group=s2_group,
+                )
             )
-        footnote = (
-            f'  <aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{sid}">\n'
-            + body
-            + verse_back
-            + "  </aside>\n"
-        )
-        parts.append(_pad_kobo_study_footnote(footnote))
-    return "".join(parts)
+
+        def _pack_glossary_groups(rows_subset: list[dict]) -> list[list[dict]]:
+            packed: list[list[dict]] = []
+            cur: list[dict] = []
+            for r in rows_subset:
+                trial = cur + [r]
+                if cur and _footnote_len(trial) > KOBO_POPUP_DECLINE_HI:
+                    packed.append(cur)
+                    cur = [r]
+                else:
+                    cur = trial
+            if cur:
+                packed.append(cur)
+            finalized: list[list[dict]] = []
+            for group in packed:
+                if _footnote_len(group) <= KOBO_POPUP_DECLINE_HI or len(group) <= 1:
+                    finalized.append(group)
+                    continue
+                mid = max(1, len(group) // 2)
+                finalized.extend(_pack_glossary_groups(group[:mid]))
+                finalized.extend(_pack_glossary_groups(group[mid:]))
+            return finalized
+
+        groups = _pack_glossary_groups(expanded_rows)
+        badge_target = f"vnotes-{code}-{ch}-{v}-{cat}"
+        for c_idx, group in enumerate(groups, start=1):
+            suffix = f"-c{c_idx}" if len(groups) > 1 else ""
+            sid = f"vnotes-{code}-{ch}-{v}-{cat}{suffix}"
+            if c_idx == 1:
+                badge_target = sid
+            parts.append(
+                _study_glossary_footnote(
+                    group,
+                    cat=cat,
+                    cat_meta=cat_meta,
+                    code=code,
+                    ch=ch,
+                    v=v,
+                    sid=sid,
+                    verse_back=verse_back,
+                    s2_group=s2_group,
+                )
+            )
+        category_targets[cat] = badge_target
+    return "".join(parts), category_targets
 
 
 def _format_category_badge_text(glyph: str, note_count: int) -> str:
@@ -3648,7 +3735,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     # K-R4-2 — the device-calibrated popup-unit cap (0 = splitting off).
     split_cap = resolve_note_popup_split_cap(edition)
     # K-R6-2 — the serialized-byte budget (estimated post-kepubify; 0 = off).
-    split_byte_cap = resolve_note_popup_split_byte_cap(edition)
+    # Nickel's byte refusal measure applies only to eink targets — non-eink
+    # editions stay byte-identical to the char-cap-only path.
+    split_byte_cap = resolve_note_popup_split_byte_cap(edition) if eink_target else 0
     # K-R7-2d / K-R9 — eink study layout: inline+popup keep asides in prose order;
     # backmatter collects them for the Study Notes glossary (badges jump cross-file).
     eink_inline_in_prose = eink_target and study_layout in ("inline", "popup")
@@ -3891,7 +3980,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # anchored section per category (no popup-unit splitting).
                         cats_order = _unique_cats_sorted(norm_rows)
                         vid = f"vnotes-{code}-{ch}-{v}"
-                        glossary_inner = _emit_backmatter_glossary_inner(
+                        glossary_inner, cat_targets = _emit_backmatter_glossary_inner(
                             norm_rows, cat_meta, code, ch, v, s2_group=s2_group
                         )
                         # K-R13: per-category targets are padded footnote asides so
@@ -3906,7 +3995,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             m_cnt = len(cat_rows)
                             glyph, label = cat_meta.get(cat, ("", cat))
                             bid = f"vbadge-{code}-{ch}-{v}-{cat}"
-                            target_id = f"vnotes-{code}-{ch}-{v}-{cat}"
+                            target_id = cat_targets.get(cat, f"vnotes-{code}-{ch}-{v}-{cat}")
                             badge_glyph = _eink_category_badge_glyph(cat, glyph)
                             badge_text = _format_category_badge_text(badge_glyph, m_cnt)
                             title = f"{label}: {m_cnt} note" if m_cnt == 1 else f"{label}: {m_cnt} notes"

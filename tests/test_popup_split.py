@@ -497,23 +497,71 @@ class TestByteBudgetSplit:
         aside must now estimate <= the byte budget. DEFAULT is anchored at
         the 8,858 proven-open floor (estimator dominance over real kepub
         bytes supplies the safety margin; sized shell ensures full <aside>
-        est <= cap for any unit the splitter emits)."""
+        est <= cap for any unit the splitter emits). The byte driver is
+        eink-only (round-8 Phase 3)."""
+        from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "popup",
+                **_S2_FLAGS,
+            },
+        )
+        measured = 0
+        _VERSE_NOTES_ASIDE_RE = re.compile(
+            r'<aside class="verse-notes[^"]*" id="([^"]+)" epub:type="footnote">.*?</aside>',
+            re.DOTALL,
+        )
+        for f in config.get_book("gen")["files"]:
+            text = (tmp / f).read_text("utf-8")
+            for m in _VERSE_NOTES_ASIDE_RE.finditer(text):
+                measured += 1
+                est = _estimate_kepub_aside_bytes(m.group(0))
+                assert est <= 8_858, f"{m.group(1)} estimates {est:,} kepub bytes (> 8,858 budget)"
+        assert measured > 500, "precondition: gen emits many verse-notes units"
+
+    def test_byte_cap_runs_only_on_eink_target(self, tmp_path):
+        """The byte driver is a Nickel measure — non-eink editions must not
+        byte-split even when the cap is unset (round-8 Phase 3)."""
         from scripts.build_edition import _estimate_kepub_aside_bytes, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", **_S2_FLAGS})
-        measured = 0
+        over = 0
         for f in config.get_book("gen")["files"]:
             text = (tmp / f).read_text("utf-8")
+            for m in re.finditer(
+                r'<aside class="verse-notes" id="[^"]+" epub:type="footnote">.*?</aside>', text, re.DOTALL
+            ):
+                if _estimate_kepub_aside_bytes(m.group(0)) > 8_858:
+                    over += 1
+        assert over >= 1, "precondition: gen has byte-over-budget units without the eink driver"
+
+        tmp_eink = _book_tree(tmp_path / "eink", "gen")
+        apply_badge_markers(
+            tmp_eink,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "popup",
+                **_S2_FLAGS,
+            },
+        )
+        for f in config.get_book("gen")["files"]:
+            text = (tmp_eink / f).read_text("utf-8")
             for m in re.finditer(
                 r'<aside class="verse-notes" id="([^"]+)" epub:type="footnote">.*?</aside>',
                 text,
                 re.DOTALL,
             ):
-                measured += 1
                 est = _estimate_kepub_aside_bytes(m.group(0))
-                assert est <= 8_858, f"{m.group(1)} estimates {est:,} kepub bytes (> 8,858 budget)"
-        assert measured > 500, "precondition: gen emits many verse-notes units"
+                assert est <= 8_858, f"{m.group(1)} estimates {est:,} kepub bytes on eink (> 8,858)"
 
     def test_byte_cap_zero_disables_byte_splitting(self, tmp_path):
         """The knob must gate the behavior: with the byte driver off (char cap
@@ -635,6 +683,60 @@ class TestGate4gPopupSize:
         fails, warns = ver.popup_size_checks(zf, zf.namelist())
         assert fails == [], fails
         assert any("vnote-gen-1-1" in w for w in warns), warns
+
+
+class TestGate4gBisGlossaryCat:
+    def test_fires_on_oversize_study_glossary_cat(self):
+        ver = _load_dev_module("verify_kr2_build")
+        big = "word " * 2_000  # ~10k stripped
+        zf = _mini_zip(
+            {
+                "index_split_099.html": (
+                    "<html><body>"
+                    f'<aside epub:type="footnote" class="study-glossary-cat verse-notes" '
+                    f'id="vnotes-gen-1-1-hist">{big}</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails = ver.glossary_cat_checks(zf, zf.namelist())
+        assert any("vnotes-gen-1-1-hist" in f for f in fails), fails
+
+    def test_green_under_decline_ceiling(self):
+        ver = _load_dev_module("verify_kr2_build")
+        ok = "word " * 500
+        zf = _mini_zip(
+            {
+                "index_split_099.html": (
+                    "<html><body>"
+                    f'<aside epub:type="footnote" class="study-glossary-cat verse-notes" '
+                    f'id="vnotes-gen-1-1-hist">{ok}</aside>'
+                    "</body></html>"
+                )
+            }
+        )
+        assert ver.glossary_cat_checks(zf, zf.namelist()) == []
+
+
+class TestGate4gTerEmptyVerseRefs:
+    def test_fires_on_empty_verse_refs_shell(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip(
+            {
+                "index_split_001.html": (
+                    "<html><body><p>s</p>"
+                    '<section class="verse-refs-section" epub:type="footnotes" hidden=""></section>'
+                    "</body></html>"
+                )
+            }
+        )
+        fails = ver.empty_verse_refs_checks(zf, zf.namelist())
+        assert any("empty verse-refs-section" in f for f in fails), fails
+
+    def test_green_when_shell_harvested(self):
+        ver = _load_dev_module("verify_kr2_build")
+        zf = _mini_zip({"index_split_001.html": "<html><body><p>s</p></body></html>"})
+        assert ver.empty_verse_refs_checks(zf, zf.namelist()) == []
 
 
 class TestGate4hTitlePieceBadges:

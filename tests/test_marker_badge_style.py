@@ -268,6 +268,32 @@ class TestReaderEinkStudyLayout:
         faces = re.findall(r'study-glossary-jump[^>]*><span class="marker-badge">([^<]*)</span>', text)
         assert faces and all(f.strip() for f in faces), "eink study badges must show a glyph or count"
 
+    def test_backmatter_glossary_chunks_hist_monolith_rows(self):
+        from scripts.build_edition import (
+            KOBO_POPUP_DECLINE_HI,
+            _emit_backmatter_glossary_inner,
+            _stripped_len,
+        )
+
+        huge = "word " * 2_000
+        row = f'<div class="vn-item note-hist"><span class="vn-sep">• </span><p>{huge}</p></div>'
+        inner, _targets = _emit_backmatter_glossary_inner(
+            [{"cat": "hist", "row": row}],
+            {"hist": ("H", "History")},
+            "gen",
+            1,
+            1,
+            s2_group=False,
+        )
+        footnotes = re.findall(
+            r'(<aside[^>]*epub:type="footnote"[^>]*class="study-glossary-cat[^"]*"[^>]*>.*?</aside>)',
+            inner,
+            re.DOTALL,
+        )
+        assert footnotes, "hist monolith must emit at least one glossary footnote"
+        assert "vn-cont" in inner or len(footnotes) > 1
+        assert all(_stripped_len(fn) <= KOBO_POPUP_DECLINE_HI for fn in footnotes)
+
     def test_backmatter_glossary_footnotes_meet_kobo_pad_floor(self, tmp_path):
         from scripts.build_edition import KOBO_STUDY_NAV_MIN_STRIPPED, _stripped_len, apply_badge_markers
 

@@ -238,6 +238,29 @@ class TestConfig:
         }
         assert expected.issubset(ids)
 
+    def test_load_editions_caching_invalidates_on_mtime_change(self, tmp_path, monkeypatch):
+        """The mtime-aware LRU cache must observe editions.yaml rewrites."""
+        import shutil
+        import time
+
+        work = tmp_path / "content"
+        work.mkdir()
+        shutil.copy(config._CONTENT / "editions.yaml", work / "editions.yaml")
+        monkeypatch.setattr(config, "_CONTENT", work)
+        config.load_editions.cache_clear()
+
+        first = config.load_editions()
+        assert len(first) >= 5
+
+        time.sleep(0.05)
+        (work / "editions.yaml").write_text(
+            "editions:\n  - id: cache-probe-only\n    title: Probe\n",
+            encoding="utf-8",
+        )
+        second = config.load_editions()
+        assert len(second) == 1
+        assert second[0]["id"] == "cache-probe-only"
+
 
 class TestCovers:
     """Phase π.4-A — per-book cover model + image metadata reader."""
