@@ -3,6 +3,7 @@
 **Status:** Mac audit COMPLETE + fixes shipped @ turn 119; WIN dims 8/9 complete @ turn 119.
 **Gate:** Round-8 remediation **COMPLETE** (0 open HIGH/MEDIUM).
 **Platform briefs:** `notes/2026-06-18-platform-{apple,kindle,kobo,play}.md`
+**Implementation matrix:** `notes/2026-06-18-platform-implementation-matrix.md` (filled @ WIN turn 122)
 
 ## Executive summary
 
@@ -63,8 +64,8 @@
 | platform-kobo | ✅ brief written |
 | platform-play | ✅ brief written |
 | popup-integrity | ✅ code-only sweep (1 medium fixed, 1 medium + 2 low open) |
-| tests-run | ⏳ ci.py pytest running (full suite) |
-| rx-surfaces | ⏳ pending (needs artifact build) |
+| tests-run | ⏳ `ci.py` in flight (~6h; coverage pytest pass) |
+| rx-surfaces | ⏳ deferred until `ci.py` finishes (RAM on 16GB N95) |
 
 ---
 

@@ -1,6 +1,6 @@
 # Platform implementation matrix (Round 9 output)
 
-**Status:** SKELETON — filled during Round 9 merge (WIN truth_owner).
+**Status:** SUPERSEDED — see `notes/2026-06-18-platform-implementation-matrix.md`.
 **Gate:** Round-8 remediation complete before Round 9 audit starts.
 
 Legend: ✅ proven · ⚠ partial · ❌ unsupported · ❓ Round 9 research · TBD design
