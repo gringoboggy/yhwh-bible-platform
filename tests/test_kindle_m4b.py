@@ -15,6 +15,7 @@ _CHAPTER_HTML = (
     "</p>"
     '<aside class="notes-section" epub:type="footnotes" hidden="">'
     '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote" hidden="">'
+    '<p class="vn-back"><a href="#vbadge-gen-1-1-s1" class="note-back">↩</a> <strong>1:1</strong></p>'
     "<p>Study body</p></aside>"
     "</aside>"
     "</body></html>"
@@ -41,9 +42,24 @@ class TestApplyKindleM4bHtml:
 
     def test_study_aside_not_hidden_after_relocate(self):
         out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        study = out[out.index("kindle-chapter-study") : out.index("</section>") + 10]
+        study = out[out.index("kindle-chapter-study") : out.index("</div>", out.index("kindle-chapter-study")) + 6]
         assert 'id="vnotes-gen-1-1-s1"' in study
         assert "hidden" not in study
+
+    def test_strips_vn_back_to_suppressed_vbadge(self):
+        out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert "vbadge-gen-1-1-s1" not in out
+        assert kindle_post.verify_kindle_m4b_html(out) == []
+
+    def test_nested_vn_group_inside_study_aside_passes_verify(self):
+        nested = _CHAPTER_HTML.replace(
+            "<p>Study body</p>",
+            '<section class="vn-group note-cat-comm"><p class="vn-cat-head">Comm</p>'
+            '<aside class="vn-item"><p>Nested study</p></aside></section>',
+        )
+        out, _stats = kindle_post.apply_kindle_m4b_html(nested)
+        assert kindle_post.verify_kindle_m4b_html(out) == []
+        assert "Nested study" in out
 
     def test_idempotent(self):
         once, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)

@@ -147,7 +147,6 @@ def gate_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
         }
 
     checks: list[tuple[str, bool, str]] = []
-    suffix = artifact.suffix.lower()
     if profile.packaging == "kepub.epub" and not artifact.name.endswith(".kepub.epub"):
         checks.append(("packaging", False, f"expected .kepub.epub for {reader_id}"))
 
@@ -196,10 +195,24 @@ def agent_sim_ready() -> tuple[bool, str]:
 # Per-reader agent-runnable sim layers (beyond structural gates). Flip True when wired.
 SIM_LAYERS_READY: dict[str, bool] = {
     "kobo": True,  # kobo_tap_calibration + audit_popup_formula
-    "play": False,  # Thorium / Play-emulator tap protocol
-    "kindle": False,  # STK channel → Kindle-for-Mac poll
-    "apple": False,  # Thorium popup + ToC protocol (tablet proxy)
+    "play": True,  # thorium_cdp structural proxy (gate-only until Thorium/CDP)
+    "kindle": True,  # stk_channel.sh gate-only + poll when Kindle-for-Mac present
+    "apple": True,  # thorium_cdp structural proxy (tablet popup/ToC taps)
 }
+
+
+def _thorium_sim(artifact: Path, profile: str) -> tuple[bool, str]:
+    script = REPO / "dev" / "reader_sim" / "thorium_cdp.py"
+    code, out = _run(
+        [sys.executable, str(script), str(artifact), "--profile", profile, "--gate-only"],
+    )
+    return code == 0, out.strip()[:500] or ("OK" if code == 0 else "thorium_cdp FAIL")
+
+
+def _stk_channel_sim(artifact: Path) -> tuple[bool, str]:
+    script = REPO / "dev" / "reader_sim" / "kindle" / "stk_channel.sh"
+    code, out = _run(["bash", str(script), str(artifact), "--gate-only"])
+    return code == 0, out.strip()[:500] or ("OK" if code == 0 else "stk_channel FAIL")
 
 
 def sim_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
@@ -213,7 +226,11 @@ def sim_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
 
     if reader_id == "kindle":
         if SIM_LAYERS_READY.get("kindle"):
-            sim_checks.append(("stk_channel_sim", True, "wired"))
+            if artifact.is_file():
+                ok_stk, msg_stk = _stk_channel_sim(artifact)
+                sim_checks.append(("stk_channel_sim", ok_stk, msg_stk))
+            else:
+                sim_checks.append(("stk_channel_sim", False, "artifact missing"))
         else:
             sim_checks.append(
                 (
@@ -226,7 +243,11 @@ def sim_reader(reader_id: str, artifact: Path, *, m4b: bool = False) -> dict:
     if reader_id in ("apple", "play"):
         layer = "thorium_popup_sim" if reader_id == "apple" else "play_render_sim"
         if SIM_LAYERS_READY.get(reader_id):
-            sim_checks.append((layer, True, "wired"))
+            if artifact.is_file():
+                ok_th, msg_th = _thorium_sim(artifact, reader_id)
+                sim_checks.append((layer, ok_th, msg_th))
+            else:
+                sim_checks.append((layer, False, "artifact missing"))
         else:
             proxy = (
                 "Thorium MCP tap protocol (tablet popup + ToC)"

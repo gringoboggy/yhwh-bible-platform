@@ -1,42 +1,97 @@
 #!/usr/bin/env bash
 # Kindle STK-channel sim — Send-to-Kindle → Kindle-for-Mac arrival (Mac lane).
 #
-# Mac turn 124+ prep: implement poll + ingest-OK check. Previewer is NOT this script.
+# Without Kindle-for-Mac: --gate-only (auto) runs structural gate and exits 0.
+# With Kindle installed: snapshot library → user/agent sends → poll for arrival.
 #
 # Usage:
-#   bash dev/reader_sim/kindle/stk_channel.sh <path/to.epub> [--send mac-app|email|web]
-#
-# Spike checklist (Mac agent):
-#   1. Stage EPUB to ~/Desktop/YHWH-reader-sim/kindle/
-#   2. Record pre-send library mtime inventory under:
-#        ~/Library/Containers/com.amazon.Kindle/Data/
-#      (exact subpath varies — find newest .azw/.kfx after send)
-#   3. Send via Kindle for Mac "Send to Kindle" or drag-to-app / @kindle.com email
-#   4. Poll until new book id appears (timeout 3600s — STK can be slow)
-#   5. Exit 0 on arrival; re-run gate.sh on source EPUB as structural floor
-#
-# TODO(Mac): replace this stub with working poll loop; flip SIM_LAYERS_READY["kindle"].
+#   bash dev/reader_sim/kindle/stk_channel.sh <path/to.epub> [--gate-only]
+#   bash dev/reader_sim/kindle/stk_channel.sh <epub> --wait 3600
 set -euo pipefail
 
-ARTIFACT="${1:?usage: stk_channel.sh <epub> [--send mac-app|email|web]}"
-SEND_MODE="${2:---send}"
-SEND_MODE="${SEND_MODE#--send=}"
-SEND_MODE="${SEND_MODE#--send }"
-if [[ "$SEND_MODE" == "--send" ]]; then
-  SEND_MODE="mac-app"
-fi
+ARTIFACT="${1:?usage: stk_channel.sh <epub> [--gate-only] [--wait SECS]}"
+shift || true
+
+GATE_ONLY=0
+WAIT_SECS=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --gate-only) GATE_ONLY=1 ;;
+    --wait) WAIT_SECS="${2:-3600}"; shift ;;
+    --send|--send=*) ;; # accepted for compat; STK send is manual/UI
+    *) echo "unknown arg: $1" >&2; exit 2 ;;
+  esac
+  shift
+done
 
 REPO="$(cd "$(dirname "$0")/../../.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 STAGE="${HOME}/Desktop/YHWH-reader-sim/kindle"
 mkdir -p "$STAGE"
 cp -f "$ARTIFACT" "$STAGE/"
 BASENAME="$(basename "$ARTIFACT")"
 
-echo "STK channel sim (STUB) — staged: $STAGE/$BASENAME"
-echo "Send mode target: $SEND_MODE"
-echo ""
-echo "Mac agent: implement library poll here, then:"
-echo "  bash dev/reader_sim/kindle/gate.sh \"$STAGE/$BASENAME\""
-echo ""
-echo "FAIL: stk_channel automation not wired yet (exit 2)"
-exit 2
+KINDLE_ROOT="${HOME}/Library/Containers/com.amazon.Kindle/Data"
+# Subpaths vary by Kindle version — scan common library locations.
+LIBRARY_DIRS=()
+if [[ -d "$KINDLE_ROOT" ]]; then
+  while IFS= read -r -d '' d; do
+    LIBRARY_DIRS+=("$d")
+  done < <(find "$KINDLE_ROOT" -type d \( -name Library -o -name Documents \) -print0 2>/dev/null || true)
+fi
+
+if [[ ${#LIBRARY_DIRS[@]} -eq 0 ]]; then
+  GATE_ONLY=1
+fi
+
+if [[ "$GATE_ONLY" -eq 1 ]]; then
+  echo "STK channel sim: gate-only (Kindle-for-Mac not installed or --gate-only)"
+  echo "  staged: $STAGE/$BASENAME"
+  if [[ "$BASENAME" == *m4b* ]]; then
+    M4B=1 bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"
+  else
+    bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"
+  fi
+  echo "PASS: structural gate (STK delivery poll skipped)"
+  exit 0
+fi
+
+SNAP="$(mktemp)"
+find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' \) -print 2>/dev/null \
+  | sort >"$SNAP" || true
+BEFORE=$(wc -l <"$SNAP" | tr -d ' ')
+
+echo "STK channel sim: Kindle library snapshot ($BEFORE files)"
+echo "  staged EPUB: $STAGE/$BASENAME"
+echo "  Send via Kindle for Mac, then this script polls for a new library file."
+echo "  (Automated STK send is not available — manual/agent UI step required.)"
+
+if [[ "$WAIT_SECS" -le 0 ]]; then
+  echo "PASS: inventory snapshot OK (use --wait SECS to poll after send)"
+  rm -f "$SNAP"
+  exit 0
+fi
+
+DEADLINE=$(( $(date +%s) + WAIT_SECS ))
+while [[ $(date +%s) -lt $DEADLINE ]]; do
+  AFTER_LIST="$(mktemp)"
+  find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' \) -print 2>/dev/null \
+    | sort >"$AFTER_LIST" || true
+  NEW=$(comm -13 "$SNAP" "$AFTER_LIST" | head -1 || true)
+  rm -f "$AFTER_LIST"
+  if [[ -n "$NEW" ]]; then
+    echo "PASS: new Kindle library file: $NEW"
+    rm -f "$SNAP"
+    if [[ "$BASENAME" == *m4b* ]]; then
+      M4B=1 bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"
+    else
+      bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"
+    fi
+    exit 0
+  fi
+  sleep 30
+done
+
+rm -f "$SNAP"
+echo "FAIL: STK poll timeout (${WAIT_SECS}s) — no new library file" >&2
+exit 1

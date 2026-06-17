@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Mac session (turn 124) — Reader Sim layers + M4b m4b-2 fix
+
+**Shipped:** `apply_kindle_m4b` comment-delimited study blocks + vn-back strip (fixes m4b-2 + 30k RSC-012 vbadge orphans); `verify_kindle_m4b` m4b-3 guard. `dev/reader_sim/thorium_cdp.py` structural proxy; `stk_channel.sh` gate-only + poll scaffold; `reader_sim.py` `SIM_LAYERS_READY` flipped for kindle/apple/play. Ethiopian m4b on `~/Desktop/YHWH-kindle-m4b-qa/` → verify_kindle_m4b **0 fails** · epubcheck **0/0/0/0**.
+
 ## 2026-06-18 — Mac session (turn 120) — session wrap + handoff to Windows
 
 **Shipped:** truth-record refresh (SESSION_STATE · IN_FLIGHT idle · LANE_HANDOFF turn 120). Confirmed fast gate **6 pass / 1 warn / 0 fail**; targeted regressions green. Killed 5h stale background pytest/ci orphans (Mac HDD — not failures). Mac queue CLEAR; WIN picks up rx-surfaces + full ci.py + round-9 merge.

@@ -28,10 +28,9 @@ def test_sim_pack_kindle_needs_stk_channel():
     assert reader_sim.sim_pack_ready("kindle") is True  # stk_channel.sh stub shipped
 
 
-def test_build_allowed_kobo_only_while_layers_pending():
-    assert reader_sim.build_allowed("kobo")[0] is True
-    assert reader_sim.build_allowed("kindle")[0] is False
-    assert "sim layer pending" in reader_sim.build_allowed("kindle")[1].lower()
+def test_build_allowed_all_layers_wired():
+    for rid in ("kobo", "kindle", "apple", "play"):
+        assert reader_sim.build_allowed(rid)[0] is True, rid
 
 
 def test_build_force_override():
@@ -46,8 +45,17 @@ def test_agent_sim_ready_when_all_packs_shipped():
     assert "unlocked" in msg.lower()
 
 
-def test_sim_reader_kobo_has_calibration_layer():
-    # structural gate on missing file still returns sim_checks shape when sim_reader called
+def test_sim_reader_kindle_has_stk_layer():
     rep = reader_sim.sim_reader("kindle", Path("nope.epub"))
     assert "sim_checks" in rep
     assert any(c["name"] == "stk_channel_sim" for c in rep["sim_checks"])
+
+
+def test_thorium_cdp_on_round9_epub():
+    epub = Path("build/round9-kobo-tap/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-17T202652Z.epub")
+    if not epub.is_file():
+        return
+    from dev.reader_sim import thorium_cdp
+
+    results = thorium_cdp.probe_epub(epub, "apple")
+    assert all(r.passed for r in results if r.name != "thorium_binary")

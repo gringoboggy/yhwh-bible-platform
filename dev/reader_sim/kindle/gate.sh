@@ -3,9 +3,15 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../../.." && pwd)"
 cd "$REPO"
-PY="$(command -v py >/dev/null 2>&1 && echo "py -3" || echo "python3")"
+if [[ -x "$REPO/.venv/bin/python" ]]; then
+  PY="$REPO/.venv/bin/python"
+elif command -v py >/dev/null 2>&1; then
+  PY="py -3"
+else
+  PY="python3"
+fi
 ARTIFACT="${1:?usage: gate.sh <path/to.epub>}"
-M4B="${M4B:-}"
-EXTRA=()
-[[ -n "$M4B" ]] && EXTRA+=(--m4b)
-exec $PY scripts/reader_sim.py --gate kindle --artifact "$ARTIFACT" "${EXTRA[@]}"
+if [[ -n "${M4B:-}" ]]; then
+  exec $PY -m scripts.reader_sim --gate kindle --artifact "$ARTIFACT" --m4b
+fi
+exec $PY -m scripts.reader_sim --gate kindle --artifact "$ARTIFACT"

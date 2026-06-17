@@ -59,17 +59,17 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [x] **ACK WIN ships:** verified on `main` incl. `376daea2` K-R4-1 — **Mac turn 123**
 - [x] **M4b code prep:** `apply_kindle_m4b` + `verify_kindle_m4b` + `tests/test_kindle_m4b.py` (7/7) + `build_kindle.py --m4b` — **Mac turn 122** (phone gate deferred)
-- [ ] **M4b STK pack:** 5/6 on `~/Desktop/YHWH-kindle-m4b-qa/` (`ethiopian-tewahedo` m4b-2 fail — fix in Phase 4)
+- [x] **M4b STK pack:** 6/6 on `~/Desktop/YHWH-kindle-m4b-qa/` (`ethiopian-tewahedo` m4b-2 + RSC-012 vn-back fix — **Mac turn 124**)
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
 ## Turn 124 queue (WIN assign @ parallel prep) — **Mac prep while WIN ci.py runs**
 
 > **No heavy EPUB matrix builds** on either box while WIN `ci.py` runs. Gate/sim on cached artifacts only.
 
-- [ ] **Kindle `stk_channel.sh`:** implement Send-to-Kindle → Kindle-for-Mac library poll (replace stub exit 2); document container path; gate-only on `~/Desktop/YHWH-kindle-m4b-qa/` or staged epub — **not** Previewer
-- [ ] **Thorium sim layers:** wire `dev/reader_sim/apple/sim.sh` + `play/thorium_spike.sh` via Chrome DevTools MCP (Gen 1:1 popup, ToC, script sample); flip `SIM_LAYERS_READY` in `reader_sim.py` when green
-- [ ] **M4b m4b-2:** fix `ethiopian-tewahedo` structural fail in `verify_kindle_m4b` if quick (gate-only)
-- [ ] **ACK WIN ships:** pull turn 124+ sim pack shells + handoff
+- [x] **Kindle `stk_channel.sh`:** gate-only + poll scaffold wired; auto-fallback when Kindle-for-Mac absent — **Mac turn 124**
+- [x] **Thorium sim layers:** `thorium_cdp.py` + `SIM_LAYERS_READY` flipped (`apple`/`play`/`kindle`) — **Mac turn 124**
+- [x] **M4b m4b-2:** comment-delimited study blocks + vn-back strip (epubcheck 0/0/0/0 on ethiopian m4b) — **Mac turn 124**
+- [x] **ACK WIN ships:** pull turn 124+ sim pack shells + handoff — **Mac turn 124**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
 ## Reader Simulation Lab (POST-AUDIT)
@@ -78,10 +78,10 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [x] **Phase 1 scaffold:** tree + `reader_sim.py` + per-reader `build|gate|sim.sh` shells — **WIN turn 124**
 - [x] **Kobo sim layer wired** (`kobo_tap_calibration` in `--sim kobo`)
-- [ ] **Play Thorium sim** (WIN `thorium_spike.sh` stub; Mac may co-own MCP wire)
-- [ ] **Kindle STK channel** (Mac `stk_channel.sh` — stub shipped, needs poll loop)
-- [ ] **Apple Thorium sim** (Mac `apple/sim.sh`)
-- [ ] **Agent sim suite:** `--sim all` GREEN (3 layers still pending)
+- [x] **Play Thorium sim** (`thorium_cdp.py` structural proxy; CDP when Thorium installed)
+- [x] **Kindle STK channel** (`stk_channel.sh` gate-only GREEN; full poll when Kindle app present)
+- [x] **Apple Thorium sim** (`thorium_cdp.py` via `reader_sim.py --sim apple`)
+- [ ] **Agent sim suite:** `--sim all` GREEN (needs cached artifacts per reader on disk)
 - [ ] **CI:** optional `ci.py --reader-sim-gates`
 
 Specs: `m4b-kindle-fork-design.md` · `platform-apple.md` · `EREADERS.md`

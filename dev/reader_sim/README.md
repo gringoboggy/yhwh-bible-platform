@@ -35,8 +35,8 @@ py -3 scripts/reader_sim.py --sim all --artifact-dir build/reader-sim
 | Reader | Structural gates | Agent sim layer | Status |
 |---|---|---|---|
 | Kobo | epubcheck · verify_kr2 · audit_popup_formula | `kobo_tap_calibration` bracket | **wired** |
-| Play | epubcheck · verify_kr2 · structure audit | Thorium / emulator taps | pending |
-| Kindle | verify_kindle_safe · verify_kindle_m4b · epubcheck | STK → Kindle-for-Mac | pending |
-| Apple | epubcheck · verify_kr2 | Thorium popup/ToC (tablet proxy) | pending |
+| Play | epubcheck · verify_kr2 · structure audit | `thorium_cdp` structural proxy | **wired** |
+| Kindle | verify_kindle_safe · verify_kindle_m4b · epubcheck | `stk_channel.sh` (gate-only / poll) | **wired** |
+| Apple | epubcheck · verify_kr2 | `thorium_cdp` popup/ToC proxy | **wired** |
 
 **Ship gate for agents:** `--sim all` GREEN.

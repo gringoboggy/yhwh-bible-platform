@@ -253,11 +253,56 @@ _VNOTES_ASIDE_RE = re.compile(
 _VNOTES_COORD_RE = re.compile(r"^vnotes-([a-z0-9]+)-(\d+)-")
 _EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*', re.DOTALL)
 _HIDDEN_ATTR_RE = re.compile(r'\s+hidden(?:="[^"]*")?')
+_KINDLE_STUDY_START = "<!-- yhwh:kindle-study-start -->"
+_KINDLE_STUDY_END = "<!-- yhwh:kindle-study-end -->"
+_KINDLE_STUDY_BLOCK_RE = re.compile(
+    re.escape(_KINDLE_STUDY_START) + r".*?" + re.escape(_KINDLE_STUDY_END),
+    re.DOTALL,
+)
 
 
-def _unhide_aside(aside_html: str) -> str:
-    """Drop ``hidden`` from a relocated study aside (visible endnotes on KFX)."""
-    return _HIDDEN_ATTR_RE.sub("", aside_html, count=1)
+def _strip_kindle_study_blocks(html: str) -> str:
+    """Remove M4b study blocks (comment-delimited — safe with nested ``<section>``)."""
+    return _KINDLE_STUDY_BLOCK_RE.sub("", html)
+
+
+def _orphan_vnotes_in_prose(html: str) -> list[str]:
+    prose = _strip_kindle_study_blocks(html)
+    return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', prose, re.I)))
+
+
+_VN_BACK_RE = re.compile(r'<p class="vn-back">.*?</p>\s*', re.DOTALL | re.I)
+_VBADGE_HREF_RE = re.compile(r'href="#(vbadge-[^"]+)"', re.I)
+
+
+def _prepare_relocated_aside(aside_html: str) -> str:
+    """Unhide + drop inline back-links to suppressed ``vbadge-*`` anchors (RSC-012)."""
+    aside_html = _HIDDEN_ATTR_RE.sub("", aside_html, count=1)
+    return _VN_BACK_RE.sub("", aside_html)
+
+
+def _orphan_vbadge_back_links(html: str) -> list[str]:
+    orphans: list[str] = []
+    for m in _VBADGE_HREF_RE.finditer(html):
+        vb_id = m.group(1)
+        if f'id="{vb_id}"' not in html and f"id='{vb_id}'" not in html:
+            orphans.append(vb_id)
+    return sorted(set(orphans))
+
+
+def _strip_vn_back_in_study_blocks(html: str) -> tuple[str, int]:
+    """Remove ``vn-back`` paragraphs inside existing M4b study blocks (idempotent repair)."""
+    stripped = 0
+
+    def _repl(m: re.Match) -> str:
+        nonlocal stripped
+        block = m.group(0)
+        cleaned = _VN_BACK_RE.sub("", block)
+        if cleaned != block:
+            stripped += len(_VN_BACK_RE.findall(block))
+        return cleaned
+
+    return _KINDLE_STUDY_BLOCK_RE.sub(_repl, html), stripped
 
 
 def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
@@ -272,8 +317,11 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
     }
 
     badges = [(m.start(), m.end()) for m in _VERSE_NOTES_BADGE_RE.finditer(html)]
-    if not badges and "kindle-chapter-study" in html:
-        return html, stats
+    if not badges and _KINDLE_STUDY_START in html and not _orphan_vnotes_in_prose(html):
+        html, back_stripped = _strip_vn_back_in_study_blocks(html)
+        stats["vn_back_stripped"] = back_stripped
+        if not _orphan_vbadge_back_links(html):
+            return html, stats
 
     stats["badges_removed"] = len(badges)
     for start, end in reversed(badges):
@@ -300,10 +348,12 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
     blocks: list[str] = []
     for book, ch in sorted(by_chapter):
         aids = sorted(by_chapter[(book, ch)])
-        inner = "\n".join(_unhide_aside(asides[aid]) for aid in aids)
+        inner = "\n".join(_prepare_relocated_aside(asides[aid]) for aid in aids)
         blocks.append(
-            f'<section class="kindle-chapter-study" epub:type="footnotes">\n'
-            f"<h3>Study Notes — {book} {ch}</h3>\n{inner}\n</section>"
+            f"{_KINDLE_STUDY_START}\n"
+            f'<div class="kindle-chapter-study" epub:type="footnotes">\n'
+            f"<h3>Study Notes — {book} {ch}</h3>\n{inner}\n</div>\n"
+            f"{_KINDLE_STUDY_END}"
         )
         stats["chapters_emitted"] += 1
 
@@ -316,6 +366,8 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
         html = html[:bc] + injection + html[bc:] if bc != -1 else html + injection
 
     html = _EMPTY_NOTES_SECTION_RE.sub("", html)
+    html, back_stripped = _strip_vn_back_in_study_blocks(html)
+    stats["vn_back_stripped"] = stats.get("vn_back_stripped", 0) + back_stripped
     return html, stats
 
 
@@ -360,14 +412,12 @@ def verify_kindle_m4b_html(html: str) -> list[str]:
     for m in re.finditer(r'<p[^>]*\bclass="[^"]*\bverse-p[^"]*"[^>]*>.*?</p>', html, re.DOTALL | re.I):
         if 'href="#vnotes-' in m.group(0):
             fails.append("m4b-1: scripture paragraph still links to vnotes-*")
-    prose_wo_study = re.sub(
-        r'<section class="kindle-chapter-study"[^>]*>.*?</section>',
-        "",
-        html,
-        flags=re.DOTALL | re.I,
-    )
-    for aid in sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', prose_wo_study, re.I))):
+    for aid in _orphan_vnotes_in_prose(html):
         fails.append(f"m4b-2: vnotes aside {aid!r} not inside kindle-chapter-study")
+    for m in _VBADGE_HREF_RE.finditer(html):
+        vb_id = m.group(1)
+        if f'id="{vb_id}"' not in html and f"id='{vb_id}'" not in html:
+            fails.append(f"m4b-3: vbadge back-link {vb_id!r} has no fragment target")
     return fails
 
 

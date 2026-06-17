@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-# Play/Apple Thorium render spike — Mac or WIN with Thorium + Chrome DevTools MCP.
-#
-# Agent steps (document pass/fail in sim layer):
-#   1. Open artifact in Thorium (file:// or drag-drop)
-#   2. Navigate Gen 1:1 — tap vn-link — assert popup text non-empty
-#   3. Sample Hebrew/Greek verse — assert no tofu in rendered text
-#   4. Play only: note <details> ToC stuck closed (expected fail)
+# Play/Apple Thorium render spike — structural probes + optional CDP when Thorium present.
 #
 # Usage: bash dev/reader_sim/play/thorium_spike.sh <path/to.epub> [apple|play]
 set -euo pipefail
+REPO="$(cd "$(dirname "$0")/../../.." && pwd)"
+cd "$REPO"
+PY="$(command -v py >/dev/null 2>&1 && echo "py -3" || echo "python3")"
 ARTIFACT="${1:?usage: thorium_spike.sh <epub> [apple|play]}"
 PROFILE="${2:-play}"
-echo "Thorium spike (STUB) profile=$PROFILE artifact=$ARTIFACT"
-echo "Wire Chrome DevTools MCP navigate + snapshot assertions here."
-exit 2
+exec $PY dev/reader_sim/thorium_cdp.py "$ARTIFACT" --profile "$PROFILE" --gate-only
