@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 118b) — commit+save without waiting on input
+
+**Standing:** reinforced user directive — both lanes commit+**save** often; **no asking, no waiting on input, no pause for confirmation** (RULES §4 · STANDING · MAC_WORK_QUEUE · save_mac.sh header).
+
 ## 2026-06-17 — Windows session (turn 117b) — crash-safe autonomous push cadence
 
 **Standing:** user directive — both lanes commit+push often **without asking** (RULES §4 + PLAYBOOK + LANE_HANDOFF STANDING + MAC_WORK_QUEUE). Push at every coherent slice; never end with unpushed commits.

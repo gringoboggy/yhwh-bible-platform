@@ -434,11 +434,12 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
 
 - **TWO cadences (user-directed 2026-06-08 — bandwidth-first; **supplemented 2026-06-17**
   for crash-safety). Bandwidth is still the hard constraint, but **unpushed work is
-  crash-loss risk** — push autonomously without asking the user:**
+  crash-loss risk** — commit and **save** (full push) autonomously without asking the
+  user and **without waiting on input:**
   - **During active micro-edits → LOCAL COMMIT (leg 1).** Commit freely as slices land;
-    do not wait for the user to say "save" before snapshotting verified work.
-  - **After every coherent slice → PUSH without asking** (both lanes). Run the full
-    sync when ANY of these land — do NOT hoard unpushed commits:
+    do not wait for the user to say "save" or for any reply before snapshotting verified work.
+  - **After every coherent slice → SAVE (push) without asking** (both lanes). Run the full
+    sync when ANY of these land — do NOT hoard unpushed commits; do NOT pause for confirmation:
     - a shippable fix/feature with its tests green (or the relevant gate passed);
     - a handoff/assign/truth-record edit (`LANE_HANDOFF`, `SESSION_STATE`, queue);
     - before a risky/long step (big build, mass regen, rebase);
@@ -463,8 +464,8 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   churn — local-commit micro-edits, then push at the next coherent stop.
 - **WHO triggers the full sync, and WHEN:**
   1. **Claude on BOTH lanes, autonomously** — after each coherent slice (above) and at
-     arc closes. **Never ask the user for permission to push.** Mac:
-     `bash dev/save_mac.sh -m "<msg>"`; WIN: `pwsh -File save-all.ps1 -Message "<msg>"`.
+     arc closes. **Never ask permission; never wait on user input before commit or save.**
+     Mac: `bash dev/save_mac.sh -m "<msg>"`; WIN: `pwsh -File save-all.ps1 -Message "<msg>"`.
   2. **The user says so** — "save / commit / push / backup / sync" = run the full sync
      NOW (also at `/clear`), regardless of state.
 - **One command does it all: `pwsh -File save-all.ps1 -Message "..."`** (repo root;

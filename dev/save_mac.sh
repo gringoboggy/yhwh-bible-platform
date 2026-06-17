@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# save_mac.sh — Mac milestone-push helper (lane-coordination v2 / bandwidth-first cadence).
+# save_mac.sh — Mac save helper (lane-coordination v2 / crash-safe cadence 2026-06-17).
 #
-# The Mac counterpart to the Windows-only save-all.ps1. There are NO E:/F: bundle legs on
-# the Mac (those are Windows-only) — a Mac milestone save = legs 1-3: local commit (optional)
-# + push origin (GitLab) + push github (GitHub), radar-gated so the protected-main push is a
-# clean fast-forward. See RULES §4 + scripts/lane_ping.py + dev/.lane.
+# STANDING: run autonomously after each coherent slice — no asking, no waiting on user input.
+# Mac counterpart to save-all.ps1 (no E:/F: bundle legs). Legs: local commit (if -m) +
+# push origin (GitLab) + push github (GitHub), radar-gated. See RULES §4 + lane_ping.py.
 #
 # Usage:
 #   bash dev/save_mac.sh -m "commit message"   # commit tracked changes, then push both remotes

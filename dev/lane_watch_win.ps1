@@ -1,4 +1,5 @@
 # lane_watch_win.ps1 — Windows-side cross-lane poll (pull + handoff + optional Mac queue).
+# STANDING: pair with save-all.ps1 — commit+save often without asking or waiting on input.
 #
 # Usage:
 #   pwsh -File dev/lane_watch_win.ps1 -Once

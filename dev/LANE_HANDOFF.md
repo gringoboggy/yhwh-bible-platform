@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 118
-from: mac
-updated: 2026-06-17T13:54:26Z
-status: handing-off
-mac: idle — lane_watch --bg MUST stay running + save_mac.sh after each slice (no asking)
-windows: lane_watch -Background -AssignMac + push after each slice (no asking) + ci.py + Round 9 when gate green
+turn: 119
+from: windows
+updated: 2026-06-17T14:02:13Z
+status: working
+mac: idle — lane_watch --bg + save_mac.sh after each slice (no asking, no waiting)
+windows: lane_watch -Background -AssignMac + save-all after each slice (no asking, no waiting) + ci.py
 truth_owner: windows
 holder: windows
+---
+
+## ◦ windows assign (turn 119, 2026-06-17T14:02:13Z) — mode=parallel
+
+**Assignments:** mac = idle — lane_watch --bg + save_mac.sh after each slice (no asking, no waiting) · windows = lane_watch -Background -AssignMac + save-all after each slice (no asking, no waiting) + ci.py
+
+STANDING reinforced: commit+save autonomously — never wait on user input
+
 ---
 
 ## ▶ mac → windows (turn 118, 2026-06-17T13:54:26Z) — mode=parallel
@@ -52,7 +60,7 @@ lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every
 
 **Session operating doctrine (2026-06-08, user-directed — EVERY session, both lanes, forever).** `dev/CLAUDE_PROJECT_RULES.md` **Guard #5** + §4: (a) never stop to ask the user questions — act on best judgment; (b) full standing authority (commit/push/pull/build/deploy/launch-site/update-GitHub-GitLab; package-install soft-deny still stands); (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, bare-minimum announcements; (d) save = local-commit micro-edits + **push often without asking** (see crash-safe cadence below). **Out-of-repo mirror status:** winclaude ✓ (Windows memory) · **macclaude ✓ (turn 24** — `feedback_session_operating_doctrine` + `reference_save` rewrite + `reference_lane_ping` + MEMORY.md pointers; Mac SessionStart hook + `dev/save_mac.sh`).
 
-**Crash-safe commit+push cadence (2026-06-17, user-directed — STANDING, both lanes).** **Both lanes commit AND push autonomously — never ask the user for permission.** Local-commit micro-edits; then push at every coherent stop so a crash cannot lose work. **Push when:** tests/gate green on a shipped slice · handoff/assign/truth-record edit · before risky/long jobs · before session wrap · `lane_watch` shows `UNPUSHED HANDOFF` · **never end with unpushed commits** (`git status -b` must show ahead/behind = 0 before "safe to stop"). **WIN:** `pwsh -File save-all.ps1 -Message "…"` (radar-gated; E:/F: optional while Mac-side). **Mac:** `bash dev/save_mac.sh -m "…"` (commit if dirty + push origin + github). **Do not hoard** local-only commits across sessions — the other lane cannot see unpushed work.
+**Crash-safe commit+save cadence (2026-06-17, user-directed — STANDING, both lanes).** **Both lanes commit AND save (full push) autonomously — never ask the user, never wait on input, never pause for confirmation.** Local-commit micro-edits as you go; then **save** (push both remotes) at every coherent stop so a crash cannot lose work. **Save when:** tests/gate green on a shipped slice · handoff/assign/truth-record edit · before risky/long jobs · before session wrap · `lane_watch` shows `UNPUSHED HANDOFF` · **never end with unpushed commits** (`git status -b` must show ahead/behind = 0 before "safe to stop"). **WIN:** `pwsh -File save-all.ps1 -Message "…"` (radar-gated; E:/F: optional while Mac-side). **Mac:** `bash dev/save_mac.sh -m "…"` (commit if dirty + push origin + github). **Do not hoard** local-only commits — the other lane cannot see unpushed work. **macclaude:** mirror this block into per-box memory on next session (ACK).
 
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
