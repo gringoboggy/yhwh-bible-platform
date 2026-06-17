@@ -14,7 +14,7 @@
 > the EPUB build are two consumers of one source of truth.
 >
 > Counts (2026-06-16 re-count): **11 editions · 5 canons · 15 categories · 72 kinds ·
-> 87 books · 14 translation dirs · 91,723 notes** in `content/notes/` (shipped
+> 87 books · 14 translation dirs · 91,720 notes** in `content/notes/` (shipped
 > Ethiopian superset: **91,553** per edition filter). Re-verify with
 > `dev/trace_matrix.py`; integrity target: **0 unresolved references.**
 
@@ -133,7 +133,7 @@ The reference graph is sound (0 dangling refs). The blemishes are cosmetic/struc
 products of organic growth from the original 1-Bible builder:
 
 1. **Stale docstring — RESOLVED (2026-05-21).** `core/matrix.py`'s docstring now reads
-   **72 kinds / 91,723 notes / 11 editions** (was "5 editions / 63 kinds", later "70 / 1,371").
+   **72 kinds / 91,720 notes / 11 editions** (was "5 editions / 63 kinds", later "70 / 1,371").
 2. **`editions.yaml` comment drift — RESOLVED (2026-05-21).** The 3 drifted section-header blocks
    (catholic / jewish / scholarly) sat above the *previous* edition's trailing
    `popup_languages_default`; each moved to just above its own `- id:` (pure comment reorder, data
@@ -171,7 +171,7 @@ Reverse-engineered 2026-05-21 while verifying the deliverable builds. The matrix
 notes/books ship per edition; the build turns that into the EPUB the user downloads:
 
 ```
-content/notes/<book>.py        (91,723 notes — SOURCE; post-gen-seed-purge close)
+content/notes/<book>.py        (91,720 notes — SOURCE; post-aes OOE purge close)
 content/translations/<id>/*.py (verse text as data — SOURCE; powers matrix/parallel/standalone)
         |
         v  inject   (ebible build step 1 = scripts/inject.py --all-books)

@@ -211,6 +211,18 @@ def validate_kind_rename(
 # ----------------------------------------------------------------------
 
 
+def _invalidate_caches_after_refactor(*, categories: bool = False) -> None:
+    """Drop config/matrix singleton caches after YAML or notes rewrites."""
+    from scripts.core import config
+    from scripts.core import matrix as matrix_mod
+
+    config.clear_kinds_cache()
+    config.clear_editions_cache()
+    if categories:
+        config.clear_categories_cache()
+    matrix_mod.compute_matrix.cache_clear()
+
+
 def apply_kind_rename(
     plan: dict,
     *,
@@ -274,6 +286,7 @@ def apply_kind_rename(
             "summary": plan["summary"],
         }
 
+    _invalidate_caches_after_refactor()
     audit_id = _append_refactor_log(
         action="rename-kind",
         old=plan["old_code"],
@@ -773,6 +786,7 @@ def apply_category_rename(
             "summary": plan["summary"],
         }
 
+    _invalidate_caches_after_refactor(categories=True)
     audit_id = _append_refactor_log(
         action="rename-category",
         old=plan["old_id"],

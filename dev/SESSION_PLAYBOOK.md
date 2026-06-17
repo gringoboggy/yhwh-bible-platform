@@ -8,7 +8,7 @@
 
 Every session that touched code/content/docs ends with **all of these green** and the tree **consistent** (source ↔ build agree):
 
-`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,723 source-corpus; the public SHIPPED count is 91,553) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
+`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,720 source-corpus; the public SHIPPED count is 91,553) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
 Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md` reflects reality, and **you only commit when the user says "save"** ("continue"/"push" ≠ save — RULES §4). **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status` and reporting the TRUE state (§6.7). "Done + clean" here means gates-green + tree-consistent; it does NOT mean committed. Uncommitted verified work survives a /clear on disk but has no snapshot and is in no backup — say so plainly, never reassuringly.**
 
@@ -49,7 +49,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together**, `IN_FLIGHT.md
   - **✅ SURGICAL method (lossless, isolated) — use this to remove orphaned notes:** from HEAD's `epub_working`, regex-remove the orphaned markers (`<a class="note-ref note-<kind>" …>…</a>`) AND asides (`<aside class="note note-<kind>" …>…</aside>`) from the affected book's split file(s) (find via `config.books_by_code()[code]['files']`), then `inject --book <code>` to add the replacement notes. No `generate_verse_popups` needed (notes don't affect verse-popups). Verify CONTENT-level by **aside-by-id diff** (HEAD vs working), never raw line-diff; only the changed book's split file(s) should differ. ⚠ split files are **shared** between books, so confirm the removed `<kind>` only belongs to the target book before a blanket regex (e.g. only phi/jam carry `lang-hebrew` among NT books).
 - **`ebible verify` checks marker↔aside *pairing*, NOT source-correspondence** — so a source/build mismatch (e.g. orphaned asides) passes verify **silently**. Keep source ↔ build consistent yourself.
 - **Matrix (editions × kinds):** every per-edition control flows through **one resolver** that `matrix == build == config` (`tests/test_enabled_kinds_unified.py`).
-- **Corpus scale:** 91,723 source notes (public shipped count = 91,553) · 72 kinds · 15 categories · 87 books · 11 editions.
+- **Corpus scale:** 91,720 source notes (public shipped count = 91,553) · 72 kinds · 15 categories · 87 books · 11 editions.
 
 ---
 
@@ -78,7 +78,7 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 | Format | `& $py -m ruff format --check .` | all files formatted |
 | Matrix integrity | `& $py dev\trace_matrix.py` | 0 unresolved refs (11 editions) |
 | Repo-map complete | `& $py dev\trace_repo.py` | complete |
-| Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,723/91,723 (100%) |
+| Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,720/91,720 (100%) |
 | Schemas | `& $py scripts\validate_schemas.py` | 6/6 ok |
 | Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,263 paired |
 | Matrix==build==config | `& $py -m pytest tests\test_enabled_kinds_unified.py -q` | pass |

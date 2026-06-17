@@ -98,11 +98,11 @@ Overall: codebase is shippable but **not mint** — several paths can drop or mi
 - [x] **MEDIUM** `api_save` no `sanitize_html()` — stored XSS in note editor — **Mac turn 113b**
 - [x] **MEDIUM** `build_edition.py` unparseable book silently omitted — **Mac turn 113b** (`assert_notes_corpus_parseable` at `build_one` entry)
 - [x] **MEDIUM** `load_kinds()` / `load_categories()` still `maxsize=1` — mirror editions mtime cache — **Mac turn 113b**
-- [ ] **MEDIUM** `refactor.py --apply` — no config/matrix cache invalidation
+- [x] **MEDIUM** `refactor.py --apply` — no config/matrix cache invalidation — **Mac turn 114** (`_invalidate_caches_after_refactor`)
 - [x] **MEDIUM** `prospect.py` — no `coord_in_canonical_extent` guard on candidate emit — **Mac turn 113c** (`_emit_extent_ok` + mint11 driver sweep)
 - [x] **MEDIUM** Kindle `catalog.json` — 45/45 cells `sha256: ""` (regen after turn-112b) — **Mac turn 113b** (188 assets; kindle empty_sha256=0)
-- [ ] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723
-- [ ] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test
+- [x] **MEDIUM** Doc drift — source corpus **91,720** (post-aes purge) vs docs citing 91,723 — **Mac turn 114**
+- [x] **MEDIUM** `inject_book` write path (`dry_run=False`) — no behavioral test — **Mac turn 114** (`test_inject_write_path.py`)
 - [ ] **MEDIUM** Book-code canonicalization — 3 parallel alias maps, web/API uses none
 
 ### WIN turn-113b append (`claude-setup` dim)

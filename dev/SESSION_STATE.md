@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 113b).** **Shipped:** Round-8b @ `cae25abd` · Phase 4 batch @ `481154c5` (notes parse guard · candidate queue · kinds/categories mtime · Kindle catalog sha256 45/45). **Mac next:** prospect coord guard · inject_book write test · doc count 91720 drift · refactor cache_clear. **WIN:** round-8 audit remainder. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 114).** **Shipped:** Phase 4 remainder — inject write test · refactor cache invalidation · doc 91,720 sync · lane_watch v3 `--once`+`--bg`. **Mac next:** book-code canonical resolver · WIN playbook drift fixes. Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 114).** `lane_watch.py` v3 shipped — unified push+handoff poll (`dev/lane_watch_win.ps1`). Mac: `bash dev/lane_watch_mac.sh --bg` per `MAC_WORK_QUEUE.md`. Start watcher only when needed. Baton **mac**; mode=parallel.
 >

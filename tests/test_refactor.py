@@ -388,6 +388,32 @@ class TestOmega25BulkRename:
         assert data["entries"][0]["new"] == "comm-new"
         assert data["entries"][0]["id"] == result["audit_id"]
 
+    def test_apply_kind_rename_clears_matrix_cache(self, tmp_path, monkeypatch):
+        from scripts.core import matrix as matrix_mod
+        from scripts.refactor import apply_kind_rename, compute_kind_rename_plan
+
+        calls: list[int] = []
+        orig_clear = matrix_mod.compute_matrix.cache_clear
+
+        def track_clear() -> None:
+            calls.append(1)
+            orig_clear()
+
+        monkeypatch.setattr(matrix_mod.compute_matrix, "cache_clear", track_clear)
+
+        seed = self._seed_tree(tmp_path / "content")
+        plan = compute_kind_rename_plan(
+            "comm-test",
+            "comm-new",
+            content_dir=seed["content"],
+        )
+        apply_kind_rename(
+            plan,
+            dry_run=False,
+            refactor_log_path=seed["content"] / ".refactor_log.yaml",
+        )
+        assert calls, "apply_kind_rename must invalidate compute_matrix cache"
+
     def test_apply_audit_log_appends_per_call(self, tmp_path):
         from scripts.refactor import (
             compute_kind_rename_plan,

@@ -38,7 +38,7 @@ v1.0.0 is the first release where that demo is release-quality.
 
 | Metric | v1.0.0 |
 |---|---|
-| Notes in the corpus | **91,723** (the deepest free Bible apparatus we know of) |
+| Notes in the corpus | **91,720** (the deepest free Bible apparatus we know of) |
 | Books in the flagship Ethiopian Tewahedo canon | **83** (the shipped superset all other editions filter from) |
 | Built-in canon editions | **9** (+ 2 standalone Bibles in progress) |
 | Web consoles | **21** |
