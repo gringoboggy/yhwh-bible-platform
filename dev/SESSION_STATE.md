@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 112 — ★ OVERNIGHT).** `/resume` → `git pull` @ turn 112. **Shipped turn 111** @ `9a03dad1` (rebased): Phase 3 LOW ncx mirror · K-R6-2 `study-entry-*` glossary wrapper · `lane_watch.py` + `lane_watcher` Mac bg. **WIN** @ turn 112: `lane_watcher --assign-mac` + `dev/MAC_WORK_QUEUE.md`. **Mac next:** spot eink rebuild + `verify_kr2_build` green · `website/dist` regen · SHA256SUMS Kindle gap. **Watcher:** `bash dev/lane_watch_mac.sh --bg`. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 112 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac` (auto-pull Mac pushes + queue from `dev/MAC_WORK_QUEUE.md`). **WIN work:** round-8 audit append (`github-gitlab` SHA256 gap found) · disjoint fixes · no `build_edition.py` unless Mac requests. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac` · `pytest_gate_shard.py --retry-timeouts` (5 timeout files). **Shipped turn 113:** B023 ruff fix in `build_edition.py` @ `b2b9555a`; tests-run shard triaged (12→1 real fix done). **WIN work:** pytest retry · round-8 audit remainder (`claude-setup`/`opt-build`). Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >
