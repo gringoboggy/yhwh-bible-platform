@@ -6,6 +6,11 @@
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 entries, 2026-06-15..2026-06-15 (rotate_truth_records.py) -->
+
+> **▶ 🔄 2026-06-15 (🪟 Windows, turn 92 — K-R8 INGESTED + K-R7-2e POPUP MODE).** Round-8 QA ingested (`docs/superpowers/notes/2026-06-15-kobo-round8-device-qa.md`). K-R7-2d confirmed; shipped K-R7-2e (hidden anchors default) + K-R7-4b eyebrow spans + font refresh docs. Pass → Mac re-fan M3 45 + catalog path. Baton **windows**; mode=parallel.
+>
+
 <!-- archived: 6 entries, 2026-06-14..2026-06-14 (rotate_truth_records.py) -->
 
 > **▶ 🔄 2026-06-14 (🖥️ Mac, turn 90 — M3 FAN-OUT RUNNING).** Pipeline shipped: `build_format_matrix` kepubify post-process + `dev/M3_Kobo_Assets_v0.1.0.txt`. catholic-study smoke 5/5 green. Autonomous `build/m3_fanout.sh` building 45 → `build/matrix-m3/` (7/45 at commit; ethiopian-tewahedo active). Next after 45/45: SHA256SUMS + external drive `m3-kobo-v0.1.0/` handoff for WIN attach. User Kobo taps gate catalog live. Baton **windows**; mode=parallel.

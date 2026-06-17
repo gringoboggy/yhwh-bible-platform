@@ -6,6 +6,13 @@
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 2 entries, 2026-06-16..2026-06-16 (rotate_truth_records.py) -->
+
+> **➤➤➤ 2026-06-16 (🖥️ Mac turn 106 — ★ MJ+GRADIENT SHIPPED + HANDOFF).** Policy reset: `_scenes/_midjourney/` + compose only; 20 Ethiopian extras; tests 9/9. Deprecated: alt04–06, Grok, ethnic variants.
+>
+> **➤➤➤ 2026-06-16 (🖥️ Mac, turn 98 — ★ ROUND-8b THOROUGH MAC AUDIT COMPLETE).** 35 survivors @ `b1b9dffd` on `lane-transfer/audit`. **WIN next:** 7 dims thorough + merge → `docs/superpowers/notes/2026-06-15-round8-split-audit-findings.md`.
+>
+
 <!-- archived: 6 entries, 2026-06-14..2026-06-14 (rotate_truth_records.py) -->
 
 > **➤➤➤ 2026-06-14 (🖥️ Mac, turn 90 — ★ M3 KOBO PIPELINE SHIPPED + FAN-OUT IN PROGRESS).** Wired `post_process: kepubify` into `build_format_matrix` (eink base → kepubify v4.0.4 → variant cover swaps post-kepubify; gates: epubcheck + K-R2). Committed `dev/M3_Kobo_Assets_v0.1.0.txt` (exact 45 names). **Smoke:** catholic-study 5/5 gated green. **Overnight fan-out:** `build/m3_fanout.sh` → `build/matrix-m3/` (7/45 on disk at commit; ethiopian-tewahedo in progress). Artifacts = gated baseline for v0.1.0 tree; catalog attach after 45/45 + external handoff + user Kobo taps. **WIN:** audit round 8 (parallel). Baton **windows** (truth_owner); mode=parallel. TRACKER-STATE active.
