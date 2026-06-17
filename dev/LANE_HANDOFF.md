@@ -1,13 +1,19 @@
 ---
 mode: parallel
-turn: 112
+turn: 113
 from: windows
-updated: 2026-06-17T03:04:48Z
+updated: 2026-06-17T03:41:29Z
 status: working
-mac: git pull turn 111+. (1) Phase 3 LOW ncx. (2) Spot eink + verify_kr2. (3) M4b. (4) Audit doc tick. See dev/MAC_WORK_QUEUE.md. Samuel+Kings CAM DONE.
-windows: round-8 WIN 7-dim audit + Phase 4 disjoint fixes; lane_watcher --loop 120 running
+mac: git pull. ★ Round-8b THOROUGH re-audit: Workflow deep-audit.js LANE=mac local, 18 dims, adversarial verify. Phase 1-3 DONE.
+windows: pytest gate + round-8 audit remainder; lane_watcher running
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 113, 2026-06-17T03:41:29Z) — mode=parallel
+
+**Assignments:** mac = git pull. ★ Round-8b THOROUGH re-audit: Workflow deep-audit.js LANE=mac local, 18 dims, adversarial verify. Phase 1-3 DONE. · windows = pytest gate + round-8 audit remainder; lane_watcher running
+
 ---
 
 ## ◦ windows assign (turn 112, 2026-06-17T03:04:48Z) — mode=parallel
