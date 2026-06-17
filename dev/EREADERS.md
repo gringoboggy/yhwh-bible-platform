@@ -200,6 +200,10 @@ limitations here.
   notes); Thorium/Calibre render popups + fonts well; epubcheck 0/0/0/0 under
   EPUB 3.3 is the floor gate for everything we ship.
 
+## Future channel (deferred)
+
+**YHWH Native Reader** — first-party app with full badge/popup/teleport/fold fidelity (colored formatted popups, all scripts, math, collapsible TOC/body). Planned **after** current reader columns + Reader Sim Lab are honest. Not a replacement for Kobo/Kindle/Apple/Play distribution today. Stub: `docs/superpowers/plans/2026-06-18-yhwh-native-reader-deferred.md`.
+
 ## Cross-reader invariants
 
 - **One resolver:** every per-reader behavior flows through `target_reader`

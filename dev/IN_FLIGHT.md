@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 124, parallel prep).** **WIN:** `ci.py` finish + rx-surfaces; kobo/play sim shells shipped; gate-only on cached kepubs. **Mac:** wire `stk_channel.sh` + Thorium sim layers (no matrix builds). Kobo `--sim` wired; Kindle/Apple/Play layers pending. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 124, parallel prep).** **WIN:** `ci.py` finish + rx-surfaces; kobo/play sim shells shipped; gate-only on cached kepubs. **Mac:** wire `stk_channel.sh` + Thorium sim layers (no matrix builds). **Deferred after current readers:** YHWH Native Reader (`plans/2026-06-18-yhwh-native-reader-deferred.md`). Baton **windows**; mode=parallel.
 
 ## Standalone status (unchanged)
 

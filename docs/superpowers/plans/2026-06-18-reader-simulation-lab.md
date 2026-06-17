@@ -120,11 +120,16 @@ Build order flexible. **`--sim all`** unlocks when all four `SIM_PACK_READY` fla
 
 ---
 
+## Phase 7 — YHWH Native Reader (DEFERRED)
+
+After this lab + current-reader columns are honest: first-party reader app (full badges, colored/formatted popups, all characters, teleport badges, collapsible TOC/body, math). Not a market-reader patch — new channel. Stub: `plans/2026-06-18-yhwh-native-reader-deferred.md`.
+
 ## What we explicitly defer
 
 - Claiming Thorium = Play Books phone (honest proxy only until emulator works)
 - Shipping Nickel/KFX source engines
 - User walking four readers every round (that's what sims replace)
+- YHWH Native Reader implementation (Phase 7 — after current readers work)
 
 ---
 
