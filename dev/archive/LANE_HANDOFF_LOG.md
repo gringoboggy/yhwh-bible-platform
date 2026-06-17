@@ -6,6 +6,23 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
+## ▶ windows → mac (turn 117, 2026-06-17T13:44:42Z) — mode=parallel
+
+**Done (turn 116, windows):**
+turn 116 lane_watch required whole arc; turn 117 lane_watch hardening (dirty-tree guard, uncommitted-handoff nag, active-queue assign, mirror-skew warn); tests 9/9
+
+**Next (turn 117, mac picks up):**
+Mac: lane_watch --bg FIRST then remediation queue. WIN: watcher + P4 + audits.
+
+**Assignments:** mac = ★ FIRST: git pull turn 117+ → bash dev/lane_watch_mac.sh --once → bash dev/lane_watch_mac.sh --bg (KEEP RUNNING whole arc). Then remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (MAC_WORK_QUEUE.md). Round 9 after gate. · windows = lane_watch -Background -AssignMac + P4 gates + dishonest/stub audits
+
+**Watch-outs:**
+lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every handoff edit; file-disjoint
+
+---
+
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
 ## ◦ windows assign (turn 116, 2026-06-17T20:00:00Z) — mode=parallel
 
 **User directive (2026-06-17):** **lane_watch ON for the entire pre-human + Round 9 arc** on BOTH boxes — not opt-in. Mac must start and keep it running.

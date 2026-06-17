@@ -33,21 +33,6 @@ lane_watch ON both lanes whole arc; **crash-safe cadence (STANDING 2026-06-17): 
 
 ---
 
-## ▶ windows → mac (turn 117, 2026-06-17T13:44:42Z) — mode=parallel
-
-**Done (turn 116, windows):**
-turn 116 lane_watch required whole arc; turn 117 lane_watch hardening (dirty-tree guard, uncommitted-handoff nag, active-queue assign, mirror-skew warn); tests 9/9
-
-**Next (turn 117, mac picks up):**
-Mac: lane_watch --bg FIRST then remediation queue. WIN: watcher + P4 + audits.
-
-**Assignments:** mac = ★ FIRST: git pull turn 117+ → bash dev/lane_watch_mac.sh --once → bash dev/lane_watch_mac.sh --bg (KEEP RUNNING whole arc). Then remediation: refactor cache · inject_book test · doc 91,720 · samkings · ci.py (MAC_WORK_QUEUE.md). Round 9 after gate. · windows = lane_watch -Background -AssignMac + P4 gates + dishonest/stub audits
-
-**Watch-outs:**
-lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every handoff edit; file-disjoint
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
