@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 118).** Mac rebased @ turn 117+ and milestone-pushed: `book_codes.py` + `load_notes_checked` sweep · rx/popup audit tail · `lane-transfer/audit` deleted · samkings 6/6. **WIN next:** `lane_watch -Background -AssignMac` · `ci.py` · Round 9 when gate green (`MAC_WORK_QUEUE.md`). Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 119).** **ROUND-8 REMEDIATION COMPLETE** · `lane_watch -Background` fixed+running · `ci.py` in flight · Round-9 WIN dims 6/9 (platform briefs written) · website catalog regen 188 assets · deploy authorized. Baton **windows**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 119).** Idle — **`bash dev/lane_watch_mac.sh --bg` running** (STANDING @ turn 117). Catalog/dist verified @ 188 assets (kobo live). Baton **windows**; mode=parallel.
 >

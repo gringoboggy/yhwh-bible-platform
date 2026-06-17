@@ -25,9 +25,10 @@ import re
 import zipfile
 from pathlib import Path
 
-# Round-4 bracket (stripped chars): gen-1-3 (3,313) POPS; gen-1-26 (7,748) declines.
-BRACKET_LO = 3_313  # largest size PROVEN to pop (inclusive control)
-BRACKET_HI = 7_748  # smallest size PROVEN to decline (inclusive control)
+# Round-5 bracket (stripped chars): pops <= 4,498; declines >= 5,500 (round-4 controls
+# gen-1-3 / gen-1-26 remain useful anchors but the shipped cap is 4,400).
+BRACKET_LO = 4_498  # largest size PROVEN to pop (inclusive control)
+BRACKET_HI = 5_500  # smallest size PROVEN to decline (inclusive control)
 DEFAULT_TARGETS = (3_500, 4_500, 5_500, 6_500, 7_500)
 
 _ASIDE_RE = re.compile(

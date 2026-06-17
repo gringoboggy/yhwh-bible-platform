@@ -143,7 +143,7 @@ persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)
 | **1** | North star — the builder demo; corpus depth; patristic-voice invariant; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles. |
 | **3** | Sequencing rules (how to order work). |
-| **4** | Save semantics — bandwidth-first (2026-06-08): LOCAL-COMMIT-ONLY during work; full 5-leg sync (local + GitLab + GitHub + E: + F:) only at a MAJOR milestone or on a direct user command; "continue"/"proceed"/"go ahead" ≠ save. |
+| **4** | Save semantics — crash-safe cadence (2026-06-17): local-commit micro-edits during work; **autonomous full sync** (local + GitLab + GitHub + E: + F:) after every coherent slice — never ask, never wait, never end with unpushed commits; "continue"/"proceed"/"go ahead" ≠ save. |
 | **5** | Phase / commit tracking. |
 | **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
 | **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |
