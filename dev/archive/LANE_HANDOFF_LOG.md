@@ -6,6 +6,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
+## ◦ windows assign (turn 123, 2026-06-17T21:49:19Z) — mode=parallel
+
+**Assignments:** mac = HOLD reader sim until audit gate green — lane_watch --bg; ACK WIN ships only; then Reader Sim Lab Phase 2 Apple + Phase 4 Kindle per plans/2026-06-18-reader-simulation-lab.md · windows = ci.py finish + rx-surfaces close Round 9; THEN Reader Sim Lab scaffold + Kobo/Play sims + reader_sim.py orchestrator
+
+WIN turn 123: user directive — audit/fix FIRST, Reader Simulation Lab dedicated phase AFTER gate. M4b+Apple builds deferred from turn 122. Plan: docs/superpowers/plans/2026-06-18-reader-simulation-lab.md
+
+---
+
+<!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
+
 ## ◦ windows assign (turn 122, 2026-06-17T21:07:35Z) — mode=parallel
 
 **Assignments:** mac = pull turn 122+ → ACK WIN ships → M4b implement (apply_kindle_m4b + verify_kindle_m4b + tests + wire build_kindle + 6-variant STK pack) → save_mac.sh each slice; lane_watch --bg; no background full pytest/ci · windows = ci.py finish + rx-surfaces artifact build + finalize round9 findings when green + lane_watch -Background -AssignMac

@@ -253,14 +253,6 @@ WIN ci.py still running — no heavy builds either lane
 
 ---
 
-## ◦ windows assign (turn 123, 2026-06-17T21:49:19Z) — mode=parallel
-
-**Assignments:** mac = HOLD reader sim until audit gate green — lane_watch --bg; ACK WIN ships only; then Reader Sim Lab Phase 2 Apple + Phase 4 Kindle per plans/2026-06-18-reader-simulation-lab.md · windows = ci.py finish + rx-surfaces close Round 9; THEN Reader Sim Lab scaffold + Kobo/Play sims + reader_sim.py orchestrator
-
-WIN turn 123: user directive — audit/fix FIRST, Reader Simulation Lab dedicated phase AFTER gate. M4b+Apple builds deferred from turn 122. Plan: docs/superpowers/plans/2026-06-18-reader-simulation-lab.md
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
