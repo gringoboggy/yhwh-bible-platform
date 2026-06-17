@@ -7,6 +7,10 @@ remote handoff board + `lane_handoff incoming`. Handoffs only travel after **git
 Round 9 audit arc on BOTH boxes.** Mac: start `--bg` at session open; do not stop until
 the arc completes (unless user says so). WIN runs the matching watcher + optional `-AssignMac`.
 
+**★ USER DIRECTIVE (2026-06-17): commit + push often without asking** — after each
+coherent slice, `bash dev/save_mac.sh -m "…"` (radar-gated). Never end a session with
+unpushed commits; handoff edits MUST be pushed immediately.
+
 | Box | Start (foreground) | Background |
 |-----|-------------------|------------|
 | **Mac** | `bash dev/lane_watch_mac.sh` | `bash dev/lane_watch_mac.sh --bg` |

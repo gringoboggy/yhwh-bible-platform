@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 117b) — crash-safe autonomous push cadence
+
+**Standing:** user directive — both lanes commit+push often **without asking** (RULES §4 + PLAYBOOK + LANE_HANDOFF STANDING + MAC_WORK_QUEUE). Push at every coherent slice; never end with unpushed commits.
+
 ## 2026-06-17 — Mac session (turn 118) — ★ Phase 4 batch rebased + milestone push
 
 **Shipped:** Rebased onto WIN turn 117 — `book_codes.py` + `config.resolve_book_code` merge · `load_notes_checked` sweep (25 tests) · rx/popup audit tail · `lane-transfer/audit` deleted · samkings 6/6 · lane_watch `--once`+`--bg`. Handoff turn 118 → windows.

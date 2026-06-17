@@ -82,7 +82,8 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    computing; no explanations/descriptions of work-in-progress; BARE-MINIMUM
    announcements. Read the minimum (SESSION_STATE/IN_FLIGHT top + git), then act. This
    supersedes any "comms comprehensive" default — completeness applies to the WORK, not
-   to chat verbosity. (d) **Save cadence is now local-commit-until-milestone** — see §4.
+   to chat verbosity. (d) **Save cadence: local-commit during micro-edits; push often
+   without asking** — see §4 (crash-safe cadence, 2026-06-17).
    (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
    box's memory is per-box — each lane mirrors it into its own memory; memory:
    `session-operating-doctrine`.)
@@ -431,14 +432,21 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
 
 ## 4. Save semantics
 
-- **TWO cadences (user-directed 2026-06-08 — bandwidth-first; supersedes the
-  2026-05-31 "push EVERY time" model). Bandwidth is the hard constraint, so split
-  saving in two:**
-  - **During active work → LOCAL COMMIT ONLY (leg 1).** Commit freely to the local
-    repo as you go; do NOT push to the remotes or write E:/F: bundles per-commit. This
-    is the bandwidth saving (guard #5 / memory `session-operating-doctrine`).
-  - **At a MAJOR milestone of this lane's half — or on a direct user command → the
-    full FIVE-LEG sync to all sources**, in order:
+- **TWO cadences (user-directed 2026-06-08 — bandwidth-first; **supplemented 2026-06-17**
+  for crash-safety). Bandwidth is still the hard constraint, but **unpushed work is
+  crash-loss risk** — push autonomously without asking the user:**
+  - **During active micro-edits → LOCAL COMMIT (leg 1).** Commit freely as slices land;
+    do not wait for the user to say "save" before snapshotting verified work.
+  - **After every coherent slice → PUSH without asking** (both lanes). Run the full
+    sync when ANY of these land — do NOT hoard unpushed commits:
+    - a shippable fix/feature with its tests green (or the relevant gate passed);
+    - a handoff/assign/truth-record edit (`LANE_HANDOFF`, `SESSION_STATE`, queue);
+    - before a risky/long step (big build, mass regen, rebase);
+    - before session wrap or when the other lane needs your push (`lane_watch`
+      `UNPUSHED HANDOFF` nag);
+    - **rule of thumb:** if `git status` shows commits ahead of `origin/main`, push
+      at the next natural stop — never end a session with unpushed work.
+  - **Full sync legs** (WIN five-leg · Mac three-leg push-only), in order:
     1. **Local commit** (`save.ps1`, invoked by `save-all.ps1`) — **PowerShell ONLY**,
        never the Bash tool (spaced repo path + `>`/arrow glyphs break cmd and sweep
        stray files via `git add -A`). Pre-commit hook runs `ruff format --check .` +
@@ -450,16 +458,15 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
        (local drive = no network cost).
     5. The same bundle copied to external **F:**. NEVER bundle to C:. Name:
        `YHWH-v2.4-repo-<date>-<label>-<shorthash>.bundle`.
-- **What counts as a "major milestone":** a phase/arc close, a shippable feature/fix
-  slice done, a cross-machine handoff (delivering a baton/rules to the other lane
-  REQUIRES a push — that IS a milestone), or before a genuinely risky step. The point
-  is to stop per-commit push churn, not to hoard work indefinitely — sync at clear
-  closes.
+- **What counts as a push trigger:** anything in the bullet list above; plus phase/arc
+  closes. The point is **crash-safety + cross-lane visibility**, not per-line push
+  churn — local-commit micro-edits, then push at the next coherent stop.
 - **WHO triggers the full sync, and WHEN:**
-  1. **Claude, autonomously, when a milestone lands** — runs the full five-leg sync
-     without asking. During non-milestone work it just keeps local-committing.
-  2. **The user says so** — "save / commit / push / backup / sync" (any of them) = run
-     the full sync NOW (also at `/clear`), regardless of milestone state.
+  1. **Claude on BOTH lanes, autonomously** — after each coherent slice (above) and at
+     arc closes. **Never ask the user for permission to push.** Mac:
+     `bash dev/save_mac.sh -m "<msg>"`; WIN: `pwsh -File save-all.ps1 -Message "<msg>"`.
+  2. **The user says so** — "save / commit / push / backup / sync" = run the full sync
+     NOW (also at `/clear`), regardless of state.
 - **One command does it all: `pwsh -File save-all.ps1 -Message "..."`** (repo root;
   `-Label <slug>` names the bundle, `-Yes` allows a >200-file sweep, `-DryRun` previews).
   It runs all five legs, **verifies each, and exits non-zero if any leg didn't land** (a

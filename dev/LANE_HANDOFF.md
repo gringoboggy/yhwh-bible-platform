@@ -4,8 +4,8 @@ turn: 118
 from: mac
 updated: 2026-06-17T13:54:26Z
 status: handing-off
-mac: idle — lane_watch --bg MUST stay running (STANDING turn 117)
-windows: lane_watch -Background -AssignMac + ci.py + Round 9 Workflow when gate green
+mac: idle — lane_watch --bg MUST stay running + save_mac.sh after each slice (no asking)
+windows: lane_watch -Background -AssignMac + push after each slice (no asking) + ci.py + Round 9 when gate green
 truth_owner: windows
 holder: windows
 ---
@@ -18,10 +18,10 @@ Mac turn 114 batch rebased: book_codes.py+resolve_book_code merge; load_notes_ch
 **Next (turn 118, windows picks up):**
 WIN: ci.py parity; website/dist regen if needed; Round 9 gate
 
-**Assignments:** mac = idle — lane_watch --bg MUST stay running (STANDING turn 117) · windows = lane_watch -Background -AssignMac + ci.py + Round 9 Workflow when gate green
+**Assignments:** mac = idle — lane_watch --bg MUST stay running + `save_mac.sh` after each slice (no asking) · windows = lane_watch -Background -AssignMac + push after each slice (no asking) + ci.py + Round 9 when gate green
 
 **Watch-outs:**
-lane_watch ON both lanes whole arc; milestone-push every handoff edit
+lane_watch ON both lanes whole arc; **crash-safe cadence (STANDING 2026-06-17): push autonomously — never end with unpushed commits**
 
 ---
 
@@ -67,7 +67,9 @@ lane_watch ON both lanes whole arc — do not stop watcher; milestone-push every
 
 **No background runs at session end (2026-06-11, user-directed — STANDING, both lanes).** "Prep for a fresh session" often = the user is about to RESTART/SHUT DOWN the box. Before a requested wrap: let any RUNNING long job (Previewer conversion, build, batch) FINISH and record its result FIRST, and never LAUNCH new long-running work as part of wrapping up — the handoff/push must leave the machine quiescent (nothing a shutdown would kill, nothing the user has to stop/restart). Mid-session pipelining stays unaffected. **Out-of-repo mirror status:** **winclaude ✓ (2026-06-11** — `no-background-runs-at-wrap` memory + MEMORY.md pointer; rule applied live same day: the Kobo root-cause workflow now runs to completion before the wrap) · **macclaude ✓ (turn 77** — `feedback_no_background_runs_at_session_end` memory + MEMORY.md pointer).
 
-**Session operating doctrine (2026-06-08, user-directed — EVERY session, both lanes, forever).** `dev/CLAUDE_PROJECT_RULES.md` **Guard #5** + §4: (a) never stop to ask the user questions — act on best judgment; (b) full standing authority (commit/push/pull/build/deploy/launch-site/update-GitHub-GitLab; package-install soft-deny still stands); (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, bare-minimum announcements; (d) save = LOCAL-COMMIT during work, full 5-leg push only at a MAJOR milestone or on user command. **Out-of-repo mirror status:** winclaude ✓ (Windows memory) · **macclaude ✓ (turn 24** — `feedback_session_operating_doctrine` + `reference_save` rewrite + `reference_lane_ping` + MEMORY.md pointers; Mac SessionStart hook + `dev/save_mac.sh`).
+**Session operating doctrine (2026-06-08, user-directed — EVERY session, both lanes, forever).** `dev/CLAUDE_PROJECT_RULES.md` **Guard #5** + §4: (a) never stop to ask the user questions — act on best judgment; (b) full standing authority (commit/push/pull/build/deploy/launch-site/update-GitHub-GitLab; package-install soft-deny still stands); (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, bare-minimum announcements; (d) save = local-commit micro-edits + **push often without asking** (see crash-safe cadence below). **Out-of-repo mirror status:** winclaude ✓ (Windows memory) · **macclaude ✓ (turn 24** — `feedback_session_operating_doctrine` + `reference_save` rewrite + `reference_lane_ping` + MEMORY.md pointers; Mac SessionStart hook + `dev/save_mac.sh`).
+
+**Crash-safe commit+push cadence (2026-06-17, user-directed — STANDING, both lanes).** **Both lanes commit AND push autonomously — never ask the user for permission.** Local-commit micro-edits; then push at every coherent stop so a crash cannot lose work. **Push when:** tests/gate green on a shipped slice · handoff/assign/truth-record edit · before risky/long jobs · before session wrap · `lane_watch` shows `UNPUSHED HANDOFF` · **never end with unpushed commits** (`git status -b` must show ahead/behind = 0 before "safe to stop"). **WIN:** `pwsh -File save-all.ps1 -Message "…"` (radar-gated; E:/F: optional while Mac-side). **Mac:** `bash dev/save_mac.sh -m "…"` (commit if dirty + push origin + github). **Do not hoard** local-only commits across sessions — the other lane cannot see unpushed work.
 
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
