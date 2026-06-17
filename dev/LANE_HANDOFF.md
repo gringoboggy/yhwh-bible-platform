@@ -33,14 +33,6 @@ WIN turn 123: user directive — audit/fix FIRST, Reader Simulation Lab dedicate
 
 ---
 
-## ◦ windows assign (turn 122, 2026-06-17T21:07:35Z) — mode=parallel
-
-**Assignments:** mac = pull turn 122+ → ACK WIN ships → M4b implement (apply_kindle_m4b + verify_kindle_m4b + tests + wire build_kindle + 6-variant STK pack) → save_mac.sh each slice; lane_watch --bg; no background full pytest/ci · windows = ci.py finish + rx-surfaces artifact build + finalize round9 findings when green + lane_watch -Background -AssignMac
-
-WIN turn 122: Mac M4b implementation slice — see MAC_WORK_QUEUE Turn 122 queue + notes/2026-06-18-m4b-kindle-fork-design.md
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
