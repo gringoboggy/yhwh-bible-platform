@@ -28,8 +28,7 @@ if ($Once) {
 
 if ($Background) {
     $log = Join-Path $Repo "dev\.lane_watch.log"
-    Start-Process -FilePath $py -ArgumentList $args -WorkingDirectory $Repo -WindowStyle Hidden `
-        -RedirectStandardOutput $log -RedirectStandardError $log
+    Start-Process -FilePath $py -ArgumentList $args -WorkingDirectory $Repo -WindowStyle Hidden
     Write-Host "lane_watch: background — log $log"
     exit 0
 }
