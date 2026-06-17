@@ -1,0 +1,102 @@
+{
+  "round": 9,
+  "lane": "mac",
+  "date": "2026-06-18",
+  "dimensions_run": 22,
+  "survivors": [
+    {
+      "severity": "medium",
+      "title": "Book-code alias gap: build-my-bible / build-tracker / sample-html return 404 for legacy codes",
+      "file": "scripts/web_editions.py",
+      "line": "791",
+      "evidence": "Round-8 shipped config.resolve_book_code for notes/preview/editions API, but three read paths still do direct books_by_code()/canon_set lookup without normalization. Repro: api_build_my_bible('catholic-study', book='joh') → {\"error\":\"unknown book: joh\"}; api_build_tracker_book('catholic-study','joh') → 404; api_sample_html(...,'joh',1,1) → unknown_book — while api_build_my_bible(..., book='jhn') succeeds. Swept 6 web/API book entry points; these 3 are the only misses (covers + get_book paths OK).",
+      "fix": "At the top of api_build_my_bible (normalize `book` arg), api_build_tracker_book (normalize `book_code`), and api_sample_html (normalize `book` before books_by_code check), call `book = config.resolve_book_code(book)`. Add tests mirroring test_book_codes.test_api_notes_legacy_alias_joh for all three handlers. Extend lint_rules bookcode screen to grep web_editions.py + web_content.py direct canon/book lookups."
+    },
+    {
+      "severity": "medium",
+      "title": "Dead re-export import breaks omega.26 dead-code gate (4 pytest failures)",
+      "file": "scripts/core/sources_base.py",
+      "line": "39",
+      "evidence": "`from .book_codes import BOOK_CODE_ALIASES as _BOOK_CODE_ALIASES` is imported only for re-export through sources.py but never referenced in sources_base itself. Vulture flags it at 90% confidence; `tests/test_audit_dead_code.py` fails 4/4 (test_audit_clean_state_on_real_tree, test_main_clean_returns_0, test_main_json_output, test_main_min_confidence_threshold_passes_on_real_tree). Regression from round-8 book_codes centralization.",
+      "fix": "Move the re-export to sources.py directly (`from .book_codes import BOOK_CODE_ALIASES as _BOOK_CODE_ALIASES`) and delete the unused import from sources_base.py; keep `_normalize_book_code` import there. Re-run `pytest tests/test_audit_dead_code.py -q`."
+    },
+    {
+      "severity": "low",
+      "title": "web_sources index/summary still use load_notes() — corrupt file silently undercounts",
+      "file": "scripts/web_sources.py",
+      "line": "73",
+      "evidence": "api_sources_for_book uses load_notes_checked (round-8 fix), but api_sources_index (L73) and api_sources_summary (L165) still do `notes_io.load_notes(path) if path.is_file() else []`. load_notes returns None on SyntaxError; `None or []` → 0 notes with no error envelope — same class round-8 fixed in web_notes/api_save.",
+      "fix": "Switch index + summary to load_notes_checked; on dict error payload, skip book with logged warning or surface parse_error count in summary response. Add test: corrupt gen.py tuple → summary reports parse_errors=1 not note_count=0."
+    },
+    {
+      "severity": "low",
+      "title": "Test gap: no legacy-alias guard for build-my-bible or build-tracker-book",
+      "file": "tests/test_book_codes.py",
+      "line": "60",
+      "evidence": "test_api_notes_legacy_alias_joh and test_api_preview_legacy_alias_php exist, but TestBuildTrackerBookEndpoint only tests gen/not-a-real-book and test_build_my_bible_c2_5 has no alias case. The missing normalization in web_editions.py would have been caught by a one-liner guard.",
+      "fix": "Add test_build_my_bible_legacy_alias_joh and test_build_tracker_legacy_alias_joh asserting HTTP-404-free success with book code jhn in response."
+    },
+    {
+      "severity": "low",
+      "title": "Closed-arc reingest one-shots still live in scripts/ root",
+      "file": "scripts/_reingest_eastons.py",
+      "line": "1",
+      "evidence": "Eight `scripts/_*.py` one-shots remain after closed arcs: _reingest_eastons.py, _reingest_greek_glosses.py, _reingest_torrey_topics.py, _strip_reviewer_scaffold.py, _dehyphenate_notes.py, _dedup_ethiopian_notes.py, _fix_chapter_verse_boundaries.py. Each has a matching lint guard + pytest (e.g. test_easton_reingest.py) proving the arc shipped; no active driver imports them. RULES §7.4 says archive to dev/archive/ship_scripts/.",
+      "fix": "Move the 8 files to dev/archive/ship_scripts/ with a one-line README index; keep pytest guards that scan source semantics unchanged (guards read content, not path)."
+    },
+    {
+      "severity": "info",
+      "title": "Apple tablet (M2) profile CONFIRM-OPTIMAL — no Kobo/Kindle fork bleed",
+      "file": "scripts/build_edition.py",
+      "line": "2216",
+      "evidence": "resolve_reader_eink_study_layout returns 'popup' for non-eink; inject_eink_study_backmatter gated on backmatter+eink only; apply_eink_reader_css no-op on tablet (test_marker_badge_style.test_tablet_css_unchanged). FORMAT_MATRIX apple row = target_reader tablet, packaging epub, no kepubify/kindle_post. Matches 2026-06-15-apple-m2-layout-directive.md (inline badge + vn-link geometry).",
+      "fix": "confirmed optimal: ship M2 column as plain .epub + target_reader=tablet; device-proof popup typography polish only inside native aside sheet."
+    },
+    {
+      "severity": "info",
+      "title": "Kindle M4b presentation fork not yet implemented (phone QA blocker)",
+      "file": "scripts/core/kindle_post.py",
+      "line": "145",
+      "evidence": "kindle_post.make_kindle_safe ships the proven june10 recipe (strip hidden, keep vn-sep, single dc:language, toc pill flatten) but does NOT suppress inline markers or relocate study notes. Phone QA (kindle_img, 2026-06-15) proves KFX noteref taps collapse to chapter page-break anchors; STK 6/6 gated delivery only. No apply_kindle_m4b_* functions in codebase.",
+      "fix": "Design-first: extend kindle_post or add target_reader=kindle build branch per platform-kindle brief — suppress study badges, chapter-tail notes blocks, keep vn-link translation targets; STK phone re-test before catalog regen."
+    },
+    {
+      "severity": "info",
+      "title": "Build/ingest/vision orchestration CONFIRM-OPTIMAL for current program",
+      "file": "scripts/build_edition.py",
+      "line": "7433",
+      "evidence": "Single-edition ~133s cold floor with mtime cache + byte-stability pins holds. enabled_kind_codes single resolver verified across matrix/build/web. At-scale drivers share at_scale_base.emit_extent_ok. Vision marathon OOM history argues against higher parallelism without RAM guards.",
+      "fix": "confirmed optimal: defer unified meta-driver ingest until post-v1.0.0; any build speedup must prove 9-edition byte-identical output."
+    }
+  ],
+  "regressions_checked": {
+    "round8_fixes_held": [
+      "load_notes_checked sweep (web_notes, inject, matrix, preview)",
+      "api_save sanitize_html",
+      "CandidateQueueCorruptError in append_candidates",
+      "assert_notes_corpus_parseable at build_one entry",
+      "load_kinds/load_categories mtime cache",
+      "refactor.py _invalidate_caches_after_refactor",
+      "prospect.py emit_extent_ok",
+      "edition_stats enable_ai_notes/max_phase in signature",
+      "OOE notes scan: 0 across content/notes",
+      "website/dist rebuilt 2026-06-17 with v0.1.0 + 91,553 counts",
+      "marathon-boundary: no unexpected mint commits on core"
+    ],
+    "deferred_not_re_reported": [
+      "S2 popup size census",
+      "vnote-1ki-12-24 K-R4-2",
+      "adjacent vnote prefix pair eth",
+      "aes ch11-16 uninjectable residual",
+      "ex.py rename deferred"
+    ]
+  },
+  "counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 3,
+    "info": 3,
+    "total": 8
+  }
+}
