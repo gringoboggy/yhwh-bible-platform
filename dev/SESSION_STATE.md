@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 112 — ★ OVERNIGHT).** `/resume` → `git pull` @ turn 112. **Shipped turn 111** @ `9a03dad1` (rebased): Phase 3 LOW ncx mirror · K-R6-2 `study-entry-*` glossary wrapper · `lane_watch.py` + `lane_watcher` Mac bg. **WIN** @ turn 112: `lane_watcher --assign-mac` + `dev/MAC_WORK_QUEUE.md`. **Mac next:** spot eink rebuild + `verify_kr2_build` green · `website/dist` regen · SHA256SUMS Kindle gap. **Watcher:** `bash dev/lane_watch_mac.sh --bg`. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac` · `pytest_gate_shard.py --retry-timeouts` (5 timeout files). **Shipped turn 113:** B023 ruff fix in `build_edition.py` @ `b2b9555a`; tests-run shard triaged (12→1 real fix done). **WIN work:** pytest retry · round-8 audit remainder (`claude-setup`/`opt-build`). Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 113 — ★ OVERNIGHT AUTONOMOUS).** Phase 3 **DONE** @ `a8e0e099`. **Running:** `lane_watcher.py --loop 120 --assign-mac`. **Shipped turn 113:** B023 fix @ `b2b9555a`; pytest shard gate **GREEN** (254 files, 5 slow retries up to 59m); shard runner pending-timeout filter @ `bf300d7b`. **WIN work:** round-8 audit remainder (`claude-setup`/`opt-build`/`rx-surfaces`/`popup-integrity`). Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — verify with `pytest tests/test_samkings_manifest_complete.py` on Mac box only.
 >

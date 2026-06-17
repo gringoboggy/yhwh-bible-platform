@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-17 (turn 112 — ★ WIN OVERNIGHT AUTONOMOUS).** `lane_watcher.py` polling Mac pushes; `MAC_WORK_QUEUE.md` auto-assign. WIN: round-8 audit append (SHA256SUMS 141/187 gap). Mac: Phase 3 LOW ncx → eink verify → M4b → audit ticks (see queue). Baton **mac**; mode=parallel.
+> **▶ 🔄 2026-06-17 (turn 113 — ★ WIN OVERNIGHT AUTONOMOUS).** Pytest shard gate **GREEN** @ `bf300d7b`. `lane_watcher.py` polling Mac pushes. WIN: round-8 audit remainder (`claude-setup`/`opt-build`). Mac: round-8b THOROUGH re-audit (turn 113 assign). Baton **mac**; mode=parallel.
 >
 > **▶ 🔄 2026-06-15 (🖥️ Mac, turn 91 — KINDLE PHONE QA + NEXT-SESSION PREP).** Ingested user phone QA (STK pack 01/05; page-break anchor pattern; translation vs study split goal). Truth note: `docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`. **Parallel Mac backlog:** Kindle presentation fork (M4b) — mirror Kobo K-R9 study-backmatter model; per-verse translation layout trial; STK phone re-test. M3 fan-out 41/45 → finish 45 + handoff when idle.
 >

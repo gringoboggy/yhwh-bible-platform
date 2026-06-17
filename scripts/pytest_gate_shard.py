@@ -118,7 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.retry_timeouts and REPORT.exists():
         files = _pending_timeout_files(REPORT.read_text(encoding="utf-8")) or files
         if timeout_sec == 1200:
-            timeout_sec = 2400
+            timeout_sec = 4800
         _log(f"retry-timeouts: {len(files)} file(s) timeout_sec={timeout_sec}")
 
     fails = 0

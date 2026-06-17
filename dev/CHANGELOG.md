@@ -4,6 +4,12 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-17 — Windows session (turn 113) — ★ pytest shard gate GREEN
+
+**Shipped:** B023 ruff fix in `build_edition.py` (`_emit_backmatter_glossary_inner` cat loop bind) · `scripts/pytest_gate_shard.py` pending-timeout filter + 4800s retry default.
+**Tests-run:** 254-file shard complete; 5 slow files retried (up to 59m for `test_presentation_polish`); `test_omega4x_hygiene` green; `test_samkings_manifest_complete` Mac-only (`done_gate`).
+**Next:** round-8 audit remainder (`claude-setup`/`opt-build`/`rx-surfaces`/`popup-integrity`).
+
 ## 2026-06-17 — Windows session (turn 112b) — ★ SHA256SUMS gap fixed on release
 
 **Shipped:** `scripts/merge_release_checksums.py` — merged 45 missing Kindle color EPUB checksums; `v0.1.0` SHA256SUMS now **186/186** (upload verified).
