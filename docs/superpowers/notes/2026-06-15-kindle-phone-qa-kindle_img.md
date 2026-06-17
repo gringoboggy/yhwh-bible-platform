@@ -224,6 +224,11 @@ Kindle mis-resolves `#vnote-*` / `#vnotes-*` across `notes-section` blocks + for
 suppresses inline study markers and emits STK-safe backmatter links. **HOLD implementation**
 until WIN Phase 3 + merged audit plan approved.
 
+**Mac turn 111 spot verify (eink catholic-study):** `verify_kr2_build` flagged K-R6-2
+prefix pairs in study glossary (`vnotes-{book}-{ch}-{v}` wrapper vs
+`vnotes-{book}-{ch}-{v}-{cat}` footnotes). Fixed: wrapper id → `study-entry-*`.
+Rebuild + re-kepubify required before gates green.
+
 ## Lane note
 
 Mac M3 fan-out **41/45** at time of capture (`coptic-orthodox` in epubcheck). Do not stack

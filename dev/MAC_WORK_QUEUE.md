@@ -5,10 +5,10 @@ pulls, then assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ## Active queue
 
-- [ ] Phase 3 LOW: mirror study-glossary nav patch into `toc.ncx` (match `_patch_study_glossary_nav` in nav.xhtml)
-- [ ] Spot eink build one edition `--target-reader eink` + run `dev/verify_kr2_build.py` on output kepub
-- [ ] M4b Kindle findings-only sketch (`docs/superpowers/notes/2026-06-15-kindle-phone-qa-kindle_img.md`)
-- [ ] Tick Phase 3 checkboxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md`
+- [x] Phase 3 LOW: mirror study-glossary nav patch into `toc.ncx` — **Mac turn 111** @ 9a03dad1
+- [ ] Spot eink build one edition `--target-reader eink` + run `dev/verify_kr2_build.py` on output kepub (K-R6-2 wrapper fix @ 9a03dad1 — rebuild required)
+- [x] M4b Kindle findings-only sketch — **Mac turn 108** + K-R6-2 glossary prefix note @ turn 111
+- [x] Tick Phase 3 checkboxes in `docs/superpowers/notes/2026-06-16-round8-split-audit-findings.md` — **Mac turn 111**
 - [ ] Round-8b THOROUGH re-audit (18 dims, LANE=mac local, Workflow deep-audit.js) when Phase 1-3 all ticked
 - [x] M3 attach: 45 kepubs from `m3-kobo-v0.1.0/` handoff → GitHub release + SHA256SUMS merge @ turn 107b
 - [ ] SHA256SUMS gap: merge 45 Kindle color-variant EPUBs into `SHA256SUMS.txt` (141/187 covered; see audit doc turn-112)

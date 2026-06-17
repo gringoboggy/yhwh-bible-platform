@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# lane_watch_mac.sh — background-friendly cross-lane poll (Mac).
+# lane_watch_mac.sh — Mac-side cross-lane poll (pull when Windows pushes).
 #
-# Watches for Windows pushes + incoming LANE_HANDOFF instructions while this
-# box is idle between tasks. Wraps scripts/lane_watch.py.
+# Wraps scripts/lane_watcher.py (shared with WIN). On Mac, run WITHOUT
+# --assign-mac (that flag is WIN-only: queues the next Mac task from
+# dev/MAC_WORK_QUEUE.md after a Mac push lands on WIN).
 #
 # Usage:
-#   bash dev/lane_watch_mac.sh              # loop every 120s (foreground)
-#   bash dev/lane_watch_mac.sh --bg         # detach to dev/.lane_watch.log
-#   bash dev/lane_watch_mac.sh --once       # single check
-#   bash dev/lane_watch_mac.sh --auto-pull  # pull --rebase when BEHIND
+#   bash dev/lane_watch_mac.sh              # loop every 90s (foreground)
+#   bash dev/lane_watch_mac.sh --bg         # detach → dev/.lane_watcher.log
+#   bash dev/lane_watch_mac.sh --once       # single check + pull if BEHIND
 #
 set -euo pipefail
 
@@ -27,10 +27,13 @@ for arg in "$@"; do
 done
 
 if [ "$BG" = 1 ]; then
-  LOG="$REPO/dev/.lane_watch.log"
-  nohup "$PY" "$REPO/scripts/lane_watch.py" --interval 90 "${EXTRA[@]}" >>"$LOG" 2>&1 &
-  echo "lane_watch: background pid $! — log $LOG"
+  nohup "$PY" "$REPO/scripts/lane_watcher.py" --loop 90 >>"$REPO/dev/.lane_watcher.log" 2>&1 &
+  echo "lane_watcher: background pid $! — log $REPO/dev/.lane_watcher.log"
   exit 0
 fi
 
-exec "$PY" "$REPO/scripts/lane_watch.py" "${EXTRA[@]}"
+if printf '%s\n' "${EXTRA[@]}" | grep -qx -- '--once'; then
+  exec "$PY" "$REPO/scripts/lane_watcher.py" --once
+fi
+
+exec "$PY" "$REPO/scripts/lane_watcher.py" --loop 90 "${EXTRA[@]}"
