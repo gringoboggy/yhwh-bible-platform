@@ -168,10 +168,6 @@ git status -b --porcelain=v1 | Select-Object -First 1
 if ($DryRun) { Write-Host "DRY RUN complete - no changes made." -ForegroundColor Magenta; exit 0 }
 if ($failures.Count -eq 0) {
     Write-Host "FULL SAVE COMPLETE - all 5 legs landed (local + GitLab + GitHub + E: + F:)." -ForegroundColor Green
-    if (-not $DryRun) {
-        Write-Host "Pausing 60s for VS Code extension refresh (user-directed STANDING)..." -ForegroundColor Yellow
-        Start-Sleep -Seconds 60
-    }
     exit 0
 }
 else {
