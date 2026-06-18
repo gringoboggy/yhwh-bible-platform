@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 131) — scrub pytest triage
+
+**Shipped:** `audit_caches` whitelist for commentary singletons (`rabbinic_commentaries` et al.) · `test_hierarchical_symbols_build` forces `marker_style=numbers` (badge mode drops `note-` oracles) · edition count pins 9→7 · `gen:1:1b:word` fixture for `test_build_my_bible_c2_5`. Pulled Mac `25a6f4bf` (STK 8GB guard + post-scrub m4b sim PASS).
+
 ## 2026-06-18 — Mac session — Christian-scope scrub + edition SKU removal
 
 **Shipped:** removed `jewish-study` + `scholarly-academic` edition SKUs (7 tradition wizard SKUs remain + 2 standalones); dropped non-Christian note kinds (`comm-rabbinic`, `compare-quran`, `compare-nag-hammadi`, `liturgy-torah-portion`) and ~123 corpus notes; kinds **72→68**; M3/M4 asset lists **45→35**; catalog regenerated; `scripts/prune_orphan_base_notes.py` + 122-marker base HTML re-bake; `RabbinicCommentaryDetector` removed; `test_rabbinic_chi5.py` deleted. JPS/WLC/`lang-hebrew` retained in superset.

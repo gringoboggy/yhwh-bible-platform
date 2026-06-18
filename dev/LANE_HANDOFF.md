@@ -1,13 +1,21 @@
 ---
 mode: parallel
 turn: 131
-from: mac
-updated: 2026-06-18T06:30:39Z
+from: windows
+updated: 2026-06-18T16:00:00Z
 status: working
-mac: MAC_WORK_QUEUE §129: ACK scrub push; help WIN ci GREEN; STK live if needed; SKIP kobo
-windows: git pull ec6520e3+; pytest ci GREEN; M3 35-asset matrix; rx-surfaces; dual radars ON
+mac: MAC_WORK_QUEUE §129: STK poll+Kindle QA; help WIN ci if reds; SKIP kobo
+windows: ci.py GREEN arc (gate shard); M3 35-asset matrix; rx-surfaces; dual radars ON
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 131b, 2026-06-18T16:00:00Z) — mode=parallel
+
+**Assignments:** windows = scrub pytest fixes **pushed** (`audit_caches` · `symbols_build` · 7-SKU pins) · **gate shard** → `ci.py` GREEN · `build_format_matrix --phase M3` **35** kepubs · rx-surfaces · mac = STK poll+Kindle QA (8GB: no browser MCP w/ VS Code open) · disjoint Esther/reader-sim
+
+**Milestone pushed:** WIN turn 131 scrub pytest triage (pulled Mac `25a6f4bf`).
+
 ---
 
 ## ◦ mac assign (turn 131, 2026-06-18T06:30:39Z) — mode=parallel
