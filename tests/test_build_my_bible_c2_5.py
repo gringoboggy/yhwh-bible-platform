@@ -33,7 +33,7 @@ def _import_editions():
 
 
 # A note whose FAMILY is ON for catholic-study at gen:1 (kind "word").
-NID_FAMILY_ON = "gen:1:1a:word"
+NID_FAMILY_ON = "gen:1:1b:word"
 # A note whose FAMILY is OFF for catholic-study at gen:1 (kind "topic-nave").
 NID_FAMILY_OFF = "gen:1:1i:topic-nave"
 ED = "catholic-study"

@@ -118,11 +118,11 @@ class TestVariantLeg:
 
 
 class TestStandardEditionIds:
-    def test_nine_non_standalone_editions_in_declaration_order(self):
+    def test_seven_tradition_editions_in_declaration_order(self):
         from scripts.build_format_matrix import standard_edition_ids
 
         ids = standard_edition_ids()
-        assert len(ids) == 9
+        assert len(ids) == 7
         assert ids[0] == "ethiopian-tewahedo"  # the superset leads
         assert "geez-tewahedo" not in ids and "amharic-tewahedo" not in ids  # LANE P stays out
 
@@ -132,7 +132,7 @@ class TestStandardEditionIds:
         rc = main(["--list-editions"])
         assert rc == 0
         out = json.loads(capsys.readouterr().out)
-        assert out == list(out) and len(out) == 9
+        assert out == list(out) and len(out) == 7
 
 
 class TestEpubcheckPipJarDiscovery:
