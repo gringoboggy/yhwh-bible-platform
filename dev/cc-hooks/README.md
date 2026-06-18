@@ -7,7 +7,8 @@ Tracked source-of-truth for the per-project Claude Code hook + installer.
 
 | File | Role |
 |---|---|
-| `bootstrap-triad.ps1` | SessionStart hook — forces every fresh Claude session to read the triad (`dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`, `dev/PLAN_2026-05-29-roadmap.md`) before acting. **Also runs a non-fatal `memory_hygiene.py audit --quiet`** and surfaces any memory drift at session start. |
+| `bootstrap-triad.ps1` | SessionStart hook (WIN) — triad read reminder + memory hygiene + lane ping + **auto-starts both session radars** (`dev/start_session_radars.ps1`: lane_watch 60s + agent_idle_radar 120s). |
+| `bootstrap-triad.sh` | SessionStart hook (Mac) — triad read reminder + incoming handoff + **auto-starts both session radars** (`dev/start_session_radars_mac.sh`). Wire in per-box `~/.claude/settings.json`. |
 | `install_cc_hooks.ps1` | Idempotent installer — copies the hook into the cwd-parent `.claude/hooks/` and patches `.claude/settings.json` to register it. |
 | `memory_hygiene.py` | Memory self-maintenance tool (see below). |
 | `README.md` | This file. |

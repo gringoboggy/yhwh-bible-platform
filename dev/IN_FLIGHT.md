@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-> **▶ ✅ SESSION WRAP 2026-06-18 (WIN turn 127).** Truth records + Mac laundry list committed (`debce7a9` · `ebbc2597`). **Mac fresh session:** `MAC_WORK_QUEUE.md` §Turn 126. **WIN fresh session:** pytest triage · kobo `--sim` finish · rx-surfaces. **Kobo = WIN only.** Baton **mac**; mode=parallel.
+> **▶ ACTIVE 2026-06-18 (WIN turn 130).** `ci.py` GREEN arc: pytest triage (cache guard · schema · RX P4a baselines shipped; build_smoke · symbols_build · samkings skip WIP). Kobo `--sim` finish. Mac §Turn 128 assigned (STK Lassen live). **Kobo = WIN only.** Baton **mac**; mode=parallel.
 
 ## Standalone status (unchanged)
 
@@ -10,4 +10,4 @@
 
 ## Background backlog (never single-thread — RULES §2.5)
 
-> When a lane frees, auto-pick the next: the mint-7 plan phases · CAM hi-res pre-pull · base-structured re-collation · geez→kjv xref anchoring · Phase-E Clementine (1es/2es) · doc-coherence currency · test-coverage growth · Phase-D source acquisition.
+> When a lane frees, auto-pick the next: `scripts/agent_idle_radar.py --next` · `dev/AGENT_WORK_BACKLOG.md` · mint-7 plan phases · Esther Patrologia transcription (Mac) · CAM hi-res pre-pull · website/dist regen · reader-sim sims · DEEP audit cadence · Phase-D source acquisition. **Never wait for user input.**

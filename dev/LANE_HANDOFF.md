@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 129
+turn: 130
 from: windows
-updated: 2026-06-18T02:50:34Z
+updated: 2026-06-18T04:18:35Z
 status: working
-mac: FRESH SESSION: MAC_WORK_QUEUE §Turn 127 — Thorium live + STK live + catholic-study tablet + Play emulator + EREADERS + release prep; SKIP kobo; lane_watch --bg
-windows: pytest triage 15 reds → ci GREEN; finish kobo --sim; rx-surfaces
+mac: MAC_WORK_QUEUE §128: STK Lassen; Esther transcription; dual radars ON; SKIP kobo
+windows: pytest ci GREEN; kobo sim; rx-surfaces; dual radars ON
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 130, 2026-06-18T04:18:35Z) — mode=parallel
+
+**Assignments:** mac = MAC_WORK_QUEUE §128: STK Lassen; Esther transcription; dual radars ON; SKIP kobo · windows = pytest ci GREEN; kobo sim; rx-surfaces; dual radars ON
+
+turn 130b dual-radar bootstrap STANDING
+
 ---
 
 ## ◦ windows assign (turn 129, 2026-06-18T02:50:34Z) — mode=parallel
@@ -49,7 +57,13 @@ SESSION END — read SESSION_STATE fresh-session pointers; Mac SKIP kobo; ci.py 
 
 **Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
 
-**Lane watch v3 (2026-06-17, STANDING — REQUIRED during pre-human + Round 9 arc, both lanes).** User-directed: keep **lane_watch running** for the whole remediation → Round 9 audit → fix phase — not opt-in during this arc. `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. **Mac:** `bash dev/lane_watch_mac.sh --bg` after `--once` at session start; leave up until arc completes. **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` (optional `-AssignMac` for queue auto-assign). Handoff/assign edits MUST be milestone-pushed or the other box never sees them. Outside this arc, watcher may stay stopped unless needed. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
+**Lane watch v3 (2026-06-17, STANDING — REQUIRED during pre-human + Round 9 arc, both lanes).** User-directed: keep **lane_watch running** for the whole remediation → Round 9 audit → fix phase — not opt-in during this arc. `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. **Mac:** `bash dev/lane_watch_mac.sh --bg` after `--once` at session start; leave up until arc completes. **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac -Background` (tightened 2026-06-18). Handoff/assign edits MUST be milestone-pushed or the other box never sees them. Outside this arc, watcher may stay stopped unless needed. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
+
+**Session operating authority (2026-06-18, STANDING — both lanes, Mac mirror to memory).** User has full standing authority: commit, push, pull, build, deploy, install tools, change any repo/website surface. **Never ask** whether to continue, save, install, or take the logical next step. When the lane is on, keep working. WIN assigns Mac a fresh laundry list (primary + overflow) whenever Mac queue clears. Build time-saving infra when beneficial.
+
+**Anti-idle radar (2026-06-18, STANDING — both lanes).** The agent must **never** end a turn waiting for user input. If blocked on one task, pick the next disjoint item from `dev/AGENT_WORK_BACKLOG.md` or `py -3 scripts/agent_idle_radar.py --next`. User will ask when they have something for you. **Heartbeat:** `--ping` after each slice. **Mac side lanes while WIN pytest runs:** Esther Patrologia transcription · CAM folio pre-pull · EN back-translation · website/dist regen · reader-sim depth. **WIN side lanes while blocked:** website update · kobo gate-only sim · rx-surfaces · audit after 25+ commits.
+
+**Dual radars ON at bootstrap (2026-06-18, STANDING — both lanes).** Every session start, the bootstrap hook (`bootstrap-triad.{ps1,sh}`) **auto-starts both radars** idempotently: (1) **lane_watch** 60s — `dev/start_session_radars.{ps1,mac.sh}`; (2) **agent_idle_radar** 120s. Manual restart if either died: WIN `pwsh -File dev/start_session_radars.ps1` · Mac `bash dev/start_session_radars_mac.sh`. Mac must wire `bootstrap-triad.sh` in per-box SessionStart settings (see `dev/cc-hooks/README.md`).
 
 **Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first. (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 

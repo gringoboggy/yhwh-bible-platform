@@ -428,9 +428,9 @@ class TestInjectIrregularLayout:
         }
         # one note on ch2 v1, anchored to a word that IS in the spilled verse
         monkeypatch.setattr(
-            inject,
-            "load_notes",
-            lambda p: [(2, 1, "", "word", "lang-hebrew", "T", "L", "B")],
+            inject.notes_io,
+            "load_notes_checked",
+            lambda path, book=None: [(2, 1, "", "word", "lang-hebrew", "T", "L", "B")],
         )
         stats = inject.inject_book(book, dry_run=True)
         assert stats["injected"] == 1, stats

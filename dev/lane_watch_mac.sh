@@ -5,7 +5,7 @@
 # Logs append to dev/.lane_watch.log (and stdout when foreground).
 #
 # Usage:
-#   bash dev/lane_watch_mac.sh              # loop every 90s (foreground)
+#   bash dev/lane_watch_mac.sh              # loop every 60s (foreground)
 #   bash dev/lane_watch_mac.sh --bg         # detach → dev/.lane_watch.log
 #   bash dev/lane_watch_mac.sh --once       # single check + auto-pull
 #
@@ -29,7 +29,7 @@ ARGS=("$PY" "$REPO/scripts/lane_watch.py" "--auto-pull")
 if [ "$ONCE" = 1 ]; then
   ARGS+=("--once")
 else
-  ARGS+=("--loop" "90")
+  ARGS+=("--loop" "60")
 fi
 
 if [ "$BG" = 1 ]; then

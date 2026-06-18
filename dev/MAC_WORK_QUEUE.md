@@ -12,11 +12,19 @@ After each coherent slice: local-commit micro-edits, then `bash dev/save_mac.sh 
 (radar-gated full save). Never pause for confirmation. Never end a session with unpushed
 commits; handoff edits MUST be saved immediately.
 
+**★ USER DIRECTIVE (2026-06-18, STANDING — both lanes, Mac MUST mirror to memory):**
+Full standing authority on this project — commit, push, pull, build, deploy, install tools,
+change any repo/website surface. **Never ask the user** whether to continue, save, install,
+or finish logical next steps. **Never idle** — if blocked, `python3 scripts/agent_idle_radar.py --next`.
+If the lane is on, keep working. **WIN assigns Mac a fresh laundry list whenever Mac queue clears**
+(primary + overflow). **Bootstrap auto-starts BOTH radars every session:**
+`bash dev/start_session_radars_mac.sh` (lane_watch 60s + agent_idle_radar 120s).
+
 | Box | Start (foreground) | Background |
 |-----|-------------------|------------|
 | **Mac** | `bash dev/lane_watch_mac.sh` | `bash dev/lane_watch_mac.sh --bg` |
-| **WIN** | `pwsh -File dev/lane_watch_win.ps1 -LoopSec 120` | `... -Background` |
-| **WIN + queue** | add `-AssignMac` to auto-assign from this file after Mac pushes |
+| **WIN** | `pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac` | `... -Background` |
+| **WIN + queue** | `-AssignMac` auto-assigns from this file after each Mac push |
 
 WIN polls with `--assign-mac`. On each Mac push it pulls, surfaces incoming, then
 assigns the first unchecked line below via `lane_handoff.py assign`.
@@ -79,7 +87,87 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## Turn 127 — **COMPLETE** @ `fbe94add` + docs slice
+## ★ Turn 128 — Mac fresh-session laundry list (START HERE)
+
+> **Pull `f73cda6f`+** (STK Lassen container fix shipped). WIN owns `ci.py` GREEN + kobo `--sim`. **SKIP Kobo** on Mac HDD. When this queue clears, WIN will assign Turn 129 overflow — keep `lane_watch --bg` running.
+
+## Turn 128 queue (WIN assign @ post-turn-127) — **help WIN close ci.py**
+
+### 0 — Bootstrap
+
+- [ ] `git pull --rebase origin main` — expect `f73cda6f`+ (kindle_library Lassen)
+- [ ] **Dual radars ON** — bootstrap hook runs `bash dev/start_session_radars_mac.sh` (lane_watch 60s + agent_idle_radar 120s); verify both in `dev/.lane_watch.log` + `dev/.agent_idle_radar.log`
+- [ ] `bash dev/lane_watch_mac.sh --once` (one-shot pull/handoff check)
+- [ ] `export PYTHONUTF8=1`
+- [ ] Read `dev/SESSION_STATE.md` · `dev/AGENT_WORK_BACKLOG.md` · `dev/LANE_HANDOFF.md` §Turn 128
+
+### 1 — ACK WIN + Mac ships
+
+- [ ] `pytest tests/test_kindle_library.py tests/test_kindle_m4b.py tests/test_reader_sim.py -q`
+- [ ] ACK `f73cda6f`: `kindle_library.py` · `com.amazon.Lassen` container · STK gate no longer forced gate-only
+- [ ] ACK WIN `440736f1`+ pytest fixes (schema hierarchical fields · RX P4a test baselines)
+
+### 2 — STK live poll (**priority — unblocks kindle SIM_LAYERS**)
+
+- [ ] `dev/reader_sim/kindle_library.py` → confirm container detected on Mac box
+- [ ] Send-to-Kindle one m4b from `~/Desktop/YHWH-kindle-m4b-qa/` → `stk_channel.sh "$EPUB" --wait 3600`
+- [ ] Log `build/reader-sim/kindle/stk-last-arrival.txt` · update `kindle/qa-checklist.md` + `EREADERS.md` §Kindle
+- [ ] `scripts/reader_sim.py --sim kindle` without gate-only fallback → target PASS
+- [ ] Update `STAGING_MANIFEST.md` · flip `SIM_LAYERS_READY["kindle"]` if live GREEN
+
+### 3 — Help WIN reader-sim 4/4
+
+- [ ] Re-run `YHWH_THORIUM_LIVE=1 scripts/reader_sim.py --sim all --artifact-dir build/reader-sim` (kobo SKIP)
+- [ ] Stage any refreshed artifacts · keep `STAGING_MANIFEST.md` current for WIN kobo lane
+
+### 4 — Play Android emulator (Phase 3)
+
+- [ ] Android Studio AVD · sideload `build/reader-sim/play/` everywhere navy
+- [ ] M5 taps from `dev/EREADERS.md` §Play · record in `play/qa-checklist.md`
+
+### 5 — Thorium CDP depth (overflow from 127)
+
+- [ ] Extend `thorium_cdp.py --live`: automated popup tap assertions beyond structural floor
+- [ ] Add tests in `tests/test_reader_sim.py` for new probes
+
+### 6 — Release + website (Mac owns E:/F:)
+
+- [ ] `gen_release_catalog` + `node website/build.mjs` if assets changed
+- [ ] rsync bundle → `/Volumes/NO NAME/YHWH-v2.4-releases/` when drive mounted
+- [ ] `dev/build_dmg.sh` smoke — notarize only if arc requires
+
+### 7 — Transcription side lane (**parallel with WIN — never idle**)
+
+- [ ] Esther Patrologia OCR resume: `extract_patrologia_pdf --book est --output content/translations/geez-tewahedo/est_patrologia.py` (PO-9 fasc-1; ~p35+; DO NOT overwrite `est.py`)
+- [ ] OCR-probe page range first per `MULTI_TRACK_RUNBOOK_2026-05-20.md` §Track B
+- [ ] When Esther slice ships: `save_mac.sh` + note in CHANGELOG (τ.6.x.5.b)
+- [ ] Overflow: CAM hi-res folio pre-pull for pending samkings manifest chapters
+
+### 8 — Phase 4 disjoint (while WIN pytest runs)
+
+- [ ] 1ki EN back-translation ch11+ (`content/translations/geez-tewahedo-en/`)
+- [ ] Kings CAM remaining folios in `GAPS/` (Mac owns full tree — WIN env skips incomplete)
+- [ ] Draft `ci.py --reader-sim-gates` hook (structural only; WIN wires)
+
+### 9 — Coordinate
+
+- [ ] **SKIP kobo** — WIN owns build · gates · epubcheck · `--sim kobo`
+- [ ] **NO** full `ci.py`/pytest tree on Mac HDD
+- [ ] `save_mac.sh` each slice — push **both** remotes · **never ask user**
+
+- [ ] **lane_watch:** keep `--bg` running — **standing**
+
+## Turn 128 overflow (if primary queue clears before WIN pulls again)
+
+- [ ] M4b 6-variant re-gate after any `kindle_post.py` touch
+- [ ] `scholarly-academic` or `evangelical-reformed` tablet spot-build (one edition · epubcheck strict)
+- [ ] `docs/superpowers/notes/2026-06-18-platform-implementation-matrix.md` — close remaining M5/M3 rows
+- [ ] Archive sweep: `scripts/_*.py` one-shots · stale `dev/archive/` index
+- [ ] Esther vision lane resume (Phase D) — disjoint from WIN pytest files
+- [ ] Website deploy `yhwh-website` if catalog column changes
+- [ ] ACK + merge any WIN pytest/ci ships without waiting on user
+
+## Turn 127 — **COMPLETE** @ `fbe94add` + `f73cda6f`
 
 ## ★ Turn 127 — Mac fresh-session laundry list (COMPLETE)
 

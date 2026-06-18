@@ -63,6 +63,8 @@ dev/.lane_watcher_state.json
 dev/.lane_watcher.log
 dev/.lane_watch_state.json
 dev/.lane_watch.log
+dev/.agent_activity.json
+dev/.agent_idle_radar.log
 dev/.audit-build/
 dev/.pytest-gate-report.txt
 dev/.pytest-overnight.log

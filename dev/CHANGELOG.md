@@ -4,6 +4,18 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 130b) — dual-radar bootstrap + anti-idle
+
+**Shipped:** `scripts/agent_idle_radar.py` + `dev/AGENT_WORK_BACKLOG.md` · `start_session_radars.{ps1,mac.sh}` · bootstrap-triad auto-starts **lane_watch 60s** + **agent_idle_radar 120s** every session (STANDING both lanes) · Mac §128 transcription side lane · pytest WIP (build_smoke · matter_pages · samkings skip · symbols note-id oracle).
+
+## 2026-06-18 — Windows session (turn 130) — Mac §128 + pytest WIP + radar 60s
+
+**Shipped:** pulled Mac `f73cda6f` (STK `kindle_library` Lassen) + turn 127 closeout · **Mac §Turn 128** laundry list + overflow · standing no-ask directive (both lanes) · lane_watch default **60s** (WIN+Mac). **WIP pytest:** `build_smoke` inject mock · `matter_pages` decode per-book tokens · `samkings` WIN skip incomplete GAPS · `symbols_build` note-aside oracle.
+
+## 2026-06-18 — Mac session (turn 127b) — STK Lassen container
+
+**Shipped:** `dev/reader_sim/kindle_library.py` — `com.amazon.Lassen` + legacy Kindle container discovery; `stk_channel.sh` + `reader_sim.py` no longer force gate-only when container present; tests `test_kindle_library.py` + `test_reader_sim`.
+
 ## 2026-06-18 — Windows session wrap (turn 127) — fresh-session prep for Mac
 
 **Shipped:** Mac laundry list (`MAC_WORK_QUEUE` §126 · `LANE_HANDOFF` §126) · session wrap truth records · Kobo WIN-owned (`ebbc2597`). Fresh kobo kepub `2026-06-18T015027Z` built on WIN · K-R2 GREEN · staged `build/reader-sim/kobo/` (epubcheck/`--sim` finish next WIN session). **Mac:** pull `ebbc2597`+ · §Turn 126 · skip kobo.

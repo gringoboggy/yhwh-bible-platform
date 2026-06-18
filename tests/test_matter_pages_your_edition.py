@@ -129,7 +129,11 @@ def test_legend_drops_family_off_across_canon_and_force_on_resurfaces_it(tmp_pat
         # (a) Turn the family OFF in EVERY book that ships it → the whole
         #     category drops from the legend. Merge on top of any existing
         #     per-book offs rather than clobbering them.
-        existing = dict(config.editions_by_id()["catholic-study"].get("note_families_off_per_book") or {})
+        from scripts.build_edition import decode_per_book_tokens
+
+        existing = dict(
+            decode_per_book_tokens(config.editions_by_id()["catholic-study"].get("note_families_off_per_book"))
+        )
         for bk in cat_books:
             fams = list(existing.get(bk) or [])
             if cat not in fams:

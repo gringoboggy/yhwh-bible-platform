@@ -3,12 +3,12 @@
 #
 # Usage:
 #   pwsh -File dev/lane_watch_win.ps1 -Once
-#   pwsh -File dev/lane_watch_win.ps1 -LoopSec 120 -AssignMac
-#   pwsh -File dev/lane_watch_win.ps1 -LoopSec 120 -AssignMac -Background
+#   pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac
+#   pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac -Background
 #
 param(
     [switch]$Once,
-    [int]$LoopSec = 120,
+    [int]$LoopSec = 60,
     [switch]$AssignMac,
     [switch]$Background
 )

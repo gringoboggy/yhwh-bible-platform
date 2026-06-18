@@ -1,17 +1,17 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128 @ `f73cda6f`).** **Shipped:** STK `com.amazon.Lassen` fix · `--sim all` 3/3 live (kindle inventory + Thorium) · `ci.py --reader-sim-gates` hook. **Prior:** turn 127 catholic-study tablet · m4b 6/6. **Pending:** STK arrival poll (manual send) · Play emulator · 1ki ch11+ EN · WIN `ci.py` GREEN. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128).** `git pull` → **`c74c8c15`+**. **`MAC_WORK_QUEUE.md` §Turn 128**. **Bootstrap auto-starts BOTH radars** (`start_session_radars_mac.sh`). **STANDING:** never ask · never idle · `--replan` when radar pings · `--next` when blocked. **Shipped:** STK Lassen · `--sim all` 3/3 · reader-sim-gates hook. **Pending:** STK arrival poll · Play emulator · Esther transcription · WIN `ci.py` GREEN. **SKIP kobo.** Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ebbc2597`+**. **Job 1:** pytest triage → `ci.py` GREEN (15 reds mapped in `LANE_HANDOFF` §126 table). **Job 2:** finish Kobo — fresh kepub `2026-06-18T015027Z` staged · `verify_kr2` GREEN · complete `--sim kobo` + update `STAGING_MANIFEST.md`. **Job 3:** rx-surfaces close. **Do not** ask Mac to run kobo gates. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`c74c8c15`+**. **Bootstrap auto-starts BOTH radars** (`start_session_radars.ps1`). **Job 1:** pytest → `ci.py` GREEN. **Job 2:** kobo `--sim`. **Job 3:** rx-surfaces. **Never idle** · **replan periodically** (`STRATEGIC_REPLAN_CHECKLIST.md`). Baton **mac**; mode=parallel.
 >
-> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118 (WIN red = incomplete `GAPS/` only).
+> **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
 
-## Session wrap (WIN turn 127, 2026-06-18)
+## Session wrap (WIN turn 130, 2026-06-18)
 
-**Shipped this session:** turn 126 handoff to Mac (`debce7a9`) · Mac laundry list in `MAC_WORK_QUEUE` §126 + `LANE_HANDOFF` §126 · Kobo lane split (`ebbc2597`) · fresh WIN kobo kepub build started (`2026-06-18T015027Z` · K-R2 GREEN · staged under `build/reader-sim/kobo/`).
+**Shipped this session:** dual-radar bootstrap + strategic replan ping (`--replan` / `STRATEGIC_REPLAN_CHECKLIST`) · pytest fixes WIP · Mac §128 + Esther transcription · STANDING: never idle · both radars auto-start every session.
 
-**Observed blockers:** `ci.py` RED — 15 pytest reds + 1 error. Reader Sim Lab gate: no `--sim all` until apple tablet artifact exists (Mac) + kobo `--sim` completes (WIN).
+**Observed blockers:** `ci.py` not yet GREEN — hierarchical_symbols_build slow tests + rx-surfaces remain. Kobo `--sim` epubcheck slow on WIN (K-R2 GREEN).
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 
@@ -22,7 +22,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 8 remediation COMPLETE** · **Round 9 Mac COMPLETE** @ turn 120. **WIN remainder:** pytest triage · rx-surfaces · reader-sim kobo sim. **Mac:** apple tablet + STK/Thorium live. **M3:** 45/45 attached · **M4:** catalog live · website `efb7386`. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 9 Mac COMPLETE.** **WIN:** pytest → `ci.py` GREEN · kobo `--sim` · rx-surfaces. **Mac:** §Turn 128 STK live + reader-sim help. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

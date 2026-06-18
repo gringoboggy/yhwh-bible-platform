@@ -55,6 +55,12 @@ This is the 2nd lane (Mac). Keep files DISJOINT from the Windows lane's active
 work. Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/
 CHANGELOG this turn. Use /resume to pick up an incoming baton, /handoff to pass
 it, /sync for mid-turn durability.
+
+DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
+  1. lane_watch        -- cross-lane push/handoff (60s)
+  2. agent_idle_radar  -- never wait for user input; surface next work (120s)
+  If either is not running: bash dev/start_session_radars_mac.sh
+  Backlog: dev/AGENT_WORK_BACKLOG.md · python3 scripts/agent_idle_radar.py --next
 ==================================================================================
 EOF
 
@@ -82,4 +88,10 @@ if [ -f "$REPO/scripts/lane_handoff.py" ]; then
         echo "$banner"
         echo "Run /resume to pull + combine the incoming work."
     fi
+fi
+
+# --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
+# Both MUST run on every session; bootstrap starts them idempotently in background.
+if [ -f "$REPO/dev/start_session_radars_mac.sh" ]; then
+    bash "$REPO/dev/start_session_radars_mac.sh" 2>/dev/null
 fi

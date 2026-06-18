@@ -43,11 +43,12 @@ _ED_ID = "jewish-study"
 # These ref-ids are bound to real corpus entries (verified 2026-06-04).
 # gen ch 1 v 1: at least one xref-citation note survives in gen when xref is
 # NOT disabled for gen.
-_GEN_XREF_REF_ID = "ref-g0101"
+# Popup/badge editions may omit inline ref- markers; aside ids are the ship oracle.
+_GEN_XREF_NOTE_ID = "note-g0101"
 # exo ch 1 v 12: first xref-citation note in exo — the force-on target.
-_EXO_XREF_REF_ID_FORCE = "ref-e0112"
+_EXO_XREF_NOTE_ID_FORCE = "note-e0112"
 # A second exo xref note we also assert is absent under the family-off rule.
-_EXO_XREF_REF_ID_ABSENT = "ref-e0117"
+_EXO_XREF_NOTE_ID_ABSENT = "note-e0117"
 
 # Pattern that matches any ref-id for an exo xref-citation note.
 # ref-e<cc><vv>[suffix] — id_prefix for exo is "e" (confirmed).
@@ -103,9 +104,9 @@ def _epub_xhtml_text(epub: Path) -> str:
     return "\n".join(parts)
 
 
-def _ref_ids_in(text: str) -> set[str]:
-    """Extract all ``id="ref-…"`` values from HTML text."""
-    return set(re.findall(r'id="(ref-[^"]+)"', text))
+def _note_ids_in(text: str) -> set[str]:
+    """Extract shipped note aside ids (``id="note-…"``) from HTML text."""
+    return set(re.findall(r'id="(note-[^"]+)"', text))
 
 
 # ---------------------------------------------------------------------------
@@ -117,7 +118,7 @@ def test_per_book_off_strips_exo_xref_keeps_gen_xref(tmp_path, monkeypatch):
     """note_families_off_per_book=["exo=xref"] removes exo xref notes only.
 
     Assertions:
-    - At least one gen xref ref-id (ref-g0101) is present in the EPUB.
+    - At least one gen xref aside (note-g0101) is present in the EPUB.
     - The two specific exo xref ref-ids (ref-e0112, ref-e0117) are ABSENT.
     - No exo xref-citation ref-id at all survives (xref category disabled
       for all of exo).
@@ -129,20 +130,20 @@ def test_per_book_off_strips_exo_xref_keeps_gen_xref(tmp_path, monkeypatch):
         extra_fields={"note_families_off_per_book": ["exo=xref"]},
     )
     content = _epub_xhtml_text(epub)
-    ref_ids = _ref_ids_in(content)
+    note_ids = _note_ids_in(content)
 
     # gen xref notes should still be present
-    assert _GEN_XREF_REF_ID in ref_ids, (
-        f"Expected gen xref note {_GEN_XREF_REF_ID!r} to be present (xref is only disabled for exo, not gen)"
+    assert _GEN_XREF_NOTE_ID in note_ids, (
+        f"Expected gen xref note {_GEN_XREF_NOTE_ID!r} to be present (xref is only disabled for exo, not gen)"
     )
 
     # The two named exo xref notes should be absent
-    assert _EXO_XREF_REF_ID_FORCE not in ref_ids, (
-        f"Expected exo xref note {_EXO_XREF_REF_ID_FORCE!r} to be stripped "
+    assert _EXO_XREF_NOTE_ID_FORCE not in note_ids, (
+        f"Expected exo xref note {_EXO_XREF_NOTE_ID_FORCE!r} to be stripped "
         f"(xref disabled for exo via note_families_off_per_book)"
     )
-    assert _EXO_XREF_REF_ID_ABSENT not in ref_ids, (
-        f"Expected exo xref note {_EXO_XREF_REF_ID_ABSENT!r} to be stripped "
+    assert _EXO_XREF_NOTE_ID_ABSENT not in note_ids, (
+        f"Expected exo xref note {_EXO_XREF_NOTE_ID_ABSENT!r} to be stripped "
         f"(xref disabled for exo via note_families_off_per_book)"
     )
 
@@ -171,19 +172,19 @@ def test_force_on_note_id_survives_family_off(tmp_path, monkeypatch):
         },
     )
     content = _epub_xhtml_text(epub)
-    ref_ids = _ref_ids_in(content)
+    note_ids = _note_ids_in(content)
 
     # gen xref still present (not affected by exo override)
-    assert _GEN_XREF_REF_ID in ref_ids, f"Expected gen xref note {_GEN_XREF_REF_ID!r} to be present"
+    assert _GEN_XREF_NOTE_ID in note_ids, f"Expected gen xref note {_GEN_XREF_NOTE_ID!r} to be present"
 
     # The force-on note must survive despite xref being off for exo
-    assert _EXO_XREF_REF_ID_FORCE in ref_ids, (
-        f"Expected force-on note {_EXO_XREF_REF_ID_FORCE!r} to be present "
+    assert _EXO_XREF_NOTE_ID_FORCE in note_ids, (
+        f"Expected force-on note {_EXO_XREF_NOTE_ID_FORCE!r} to be present "
         f"(pinned via enabled_note_ids despite xref disabled for exo)"
     )
 
     # The non-pinned exo xref note must still be absent
-    assert _EXO_XREF_REF_ID_ABSENT not in ref_ids, (
-        f"Expected non-pinned exo xref note {_EXO_XREF_REF_ID_ABSENT!r} to be absent "
+    assert _EXO_XREF_NOTE_ID_ABSENT not in note_ids, (
+        f"Expected non-pinned exo xref note {_EXO_XREF_NOTE_ID_ABSENT!r} to be absent "
         f"(only the pinned note survives the force-on)"
     )
