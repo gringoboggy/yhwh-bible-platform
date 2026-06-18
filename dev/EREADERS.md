@@ -166,6 +166,13 @@ stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) an
   falsified) → turn-84 STK re-proof → turn-85 productization → turn-87 Mac M4 fan-out
   45/45 + **6-variant STK matrix ALL PASS** (user 2026-06-14). Dormant variant retired
   turn-86; plan archived: `plans/2026-06-10-kindle-safe-variant.md`.
+- **★ STK regression (2026-06-18, post-scrub m4b — FAIL on Mac + phone):** Both
+  ethiopian-tewahedo m4b uploads **arrive** on STK but **KFX tap UX is broken**:
+  title pages split 3-wide; chapter-tail study notes between chapters lack coord labels /
+  back-links; verse-start `vn-link` markers **teleport** to notes blocks (1:1 → before ch4,
+  then ch8, ch11, …) instead of translations; no end-of-verse study badges; in-EPUB TOC
+  chapter links overcrowded. Detail: `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`.
+  **WIN:** hold kindle catalog regen until Mac re-proves STK; continue `ci.py` + M3 kobo.
 
 ## Google Play Books (`everywhere`, provisional)
 

@@ -1,28 +1,30 @@
 ---
 mode: parallel
-turn: 131
-from: windows
-updated: 2026-06-18T16:00:00Z
+turn: 132
+from: mac
+updated: 2026-06-18T16:45:00Z
 status: working
-mac: MAC_WORK_QUEUE §129: STK poll+Kindle QA; help WIN ci if reds; SKIP kobo
-windows: ci.py GREEN arc (gate shard); M3 35-asset matrix; rx-surfaces; dual radars ON
+mac: MAC_WORK_QUEUE §130: M4b Kindle KFX fix (vn-link teleport, notes coords, title/TOC)
+windows: pull 184cf829+; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
 truth_owner: mac
 holder: mac
 ---
 
 ## ◦ windows assign (turn 131b, 2026-06-18T16:00:00Z) — mode=parallel
 
-**Assignments:** windows = scrub pytest fixes **pushed** (`audit_caches` · `symbols_build` · 7-SKU pins) · **gate shard** → `ci.py` GREEN · `build_format_matrix --phase M3` **35** kepubs · rx-surfaces · mac = STK poll+Kindle QA (8GB: no browser MCP w/ VS Code open) · disjoint Esther/reader-sim
+**Assignments:** windows = scrub pytest fixes **pushed** (`audit_caches` · `symbols_build` · 7-SKU pins) · **gate shard** → `ci.py` GREEN · `build_format_matrix --phase M3` **35** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK device re-PASS (see cross-lane findings below)
 
 **Milestone pushed:** WIN turn 131 scrub pytest triage (pulled Mac `25a6f4bf`).
 
 ---
 
-## ◦ mac assign (turn 131, 2026-06-18T06:30:39Z) — mode=parallel
+## ◦ mac assign (turn 132, 2026-06-18T16:45:00Z) — mode=parallel
 
-**Assignments:** mac = MAC_WORK_QUEUE §129: ACK scrub (`cbf939b8`); help WIN `ci.py` GREEN; STK live poll if timed out; disjoint reader-sim/Esther · windows = **pull `ec6520e3`+** · pytest → `ci.py` GREEN · `build_format_matrix --phase M3` for **35** kepubs · rx-surfaces · website deploy if needed
+**Assignments:** mac = **M4b Kindle KFX fix arc** (`kindle_post.py` / `apply_kindle_m4b`) — see `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md` · windows = **pull `a0af0118`+** · pytest → `ci.py` GREEN · `build_format_matrix --phase M3` (35 kepubs) · **do NOT regen M4 kindle catalog** until Mac STK device re-PASS · rx-surfaces
 
-**Milestone pushed:** Christian-scope scrub — 7 tradition SKUs · 68 kinds · jewish/scholarly removed · rabbinic kinds scrubbed · catalog 35 assets.
+**Cross-lane findings (Mac → WIN):** Post-scrub ethiopian m4b STK **arrives** but KFX taps **FAIL** (Mac + phone): `vn-link` teleports to chapter-tail study notes; no translation popups; notes lack chapter:verse + back-link; title pages 3-wide split; in-EPUB TOC crowded. Structural gates green — problem is KFX link resolution only.
+
+**Milestone pushed:** STK rules (user upload / 8 GB RAM) + device QA logged.
 
 turn 130b dual-radar bootstrap STANDING
 

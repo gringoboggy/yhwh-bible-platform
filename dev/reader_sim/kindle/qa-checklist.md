@@ -44,3 +44,5 @@ The background poll script needs no GUI — keep it running while everything els
 | 1 | Gen 1:1 `vn-link` | Readable translation |
 | 2 | Gen 1:3 multi-study | No inline ◈ clutter; chapter-tail study reachable (M4b) |
 | 3 | Study-heavy chapter | No 3:24-style teleport |
+
+**2026-06-18 STK result (ethiopian m4b, both builds, Mac + phone):** delivery PASS · taps **FAIL** — see `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`.

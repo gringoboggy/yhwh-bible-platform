@@ -145,7 +145,9 @@ Minimum phone taps after implementation (6-variant fan-out like turn 87):
 | jewish-study | PASS |
 | scholarly-academic | PASS |
 
-STK phone matrix (§7 table) still pending user Send-to-Kindle.
+**STK device QA (2026-06-18): FAIL** — both m4b ethiopian uploads; Mac + phone identical.
+`vn-link` teleports to chapter-tail notes; no translation popups; notes lack coord/back-link.
+See `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`. Catalog regen blocked until fix.
 
 **Mac turn 127 re-gate (2026-06-18):** 6/6 m4b variants on `~/Desktop/YHWH-kindle-m4b-qa/` —
 `verify_kindle_safe` + `verify_kindle_m4b` + epubcheck all PASS. STK live poll still
