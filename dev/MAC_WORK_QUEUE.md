@@ -79,6 +79,76 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
+## Turn 126 queue (WIN assign @ post-ci.py triage) — **Mac fresh session**
+
+> **Laundry list for Mac.** WIN `ci.py` still RED (15 pytest reds); do **not** run full pytest/`ci.py` on Mac HDD. **Apple tablet artifact** is the main blocker for agent `--sim all`.
+
+### 0 — Bootstrap (first 5 min)
+
+- [ ] `git pull --rebase origin main` — expect turn 126 handoff @ `18c60033`+
+- [ ] `bash dev/lane_watch_mac.sh --once` then `bash dev/lane_watch_mac.sh --bg`
+- [ ] `export PYTHONUTF8=1`
+- [ ] Read: `dev/SESSION_STATE.md` (Mac pointer) · `dev/reader_sim/STAGING_MANIFEST.md` · `dev/LANE_HANDOFF.md` §Turn 126
+
+### 1 — ACK baseline (quick, no new work on red)
+
+- [ ] `pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q` — expect green
+- [ ] `scripts/reader_sim.py --list` — four readers `[ready]`
+- [ ] M4b ethiopian on `~/Desktop/YHWH-kindle-m4b-qa/` → `verify_kindle_m4b` OK
+- [ ] `test_samkings_manifest_complete` 6/6 — Mac owns full `GAPS/` (WIN red is env-only)
+
+### 2 — Apple tablet artifact (**BLOCKING** `--sim all`)
+
+- [ ] **Wait for WIN `ci.py` GREEN** before `build_edition` matrix — unless user explicitly OKs one tablet build
+- [ ] When clear: `build_edition.py ethiopian-tewahedo --target-reader tablet --version 0.1.0` (one edition only)
+- [ ] `epubcheck --require --strict` on output
+- [ ] Stage → `build/reader-sim/apple/` · update `STAGING_MANIFEST.md`
+
+### 3 — STK live poll (Kindle-for-Mac channel)
+
+- [ ] If **Kindle for Mac installed**: Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600`
+- [ ] Log arrival in `build/reader-sim/kindle/stk-last-arrival.txt` + date-stamp `dev/reader_sim/kindle/qa-checklist.md`
+- [ ] If **not installed**: keep gate-only documented (turn 125 state) — do not wire Previewer
+
+### 4 — Thorium live CDP (beyond gate-only)
+
+- [ ] If **Thorium.app installed**: `YHWH_THORIUM_LIVE=1 scripts/reader_sim.py --sim apple --artifact-dir build/reader-sim`
+- [ ] Same for play profile on everywhere navy epub
+- [ ] If CDP gaps: extend `dev/reader_sim/thorium_cdp.py --live` · document ceiling in script header
+- [ ] If **not installed**: structural gate-only remains floor — note in `STAGING_MANIFEST.md`
+
+### 5 — Agent sim suite
+
+- [ ] `scripts/reader_sim.py --sim all --artifact-dir build/reader-sim` — target **4/4 PASS** after apple staged
+- [ ] **Kobo:** defer heavy epubcheck to WIN (40 MB kepub >20 min on Mac HDD); keep Mac staged copy for gates only
+- [ ] Record per-reader pass/fail in `STAGING_MANIFEST.md`
+
+### 6 — M4b pack maintenance
+
+- [ ] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/` if WIN touches `kindle_post.py`
+- [ ] Update `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7 footer if any flip
+
+### 7 — Play Android emulator (optional)
+
+- [ ] Android Studio AVD · sideload play artifact · M5 minimum taps from `dev/EREADERS.md` §Play
+- [ ] Honest pass/fail in `dev/reader_sim/play/qa-checklist.md` (emulator ≠ phone)
+
+### 8 — Coordinate with WIN (parallel, no file fights)
+
+- [ ] WIN owns: pytest triage · `book_codes`/`vnote_separators` cache guard · symbols cluster · fresh kobo kepub
+- [ ] Mac owns: apple build · STK/Thorium live · staging manifest truth
+- [ ] `save_mac.sh` each slice — push **both** remotes
+
+### 9 — Done when
+
+- [ ] `build/reader-sim/apple/` has tablet epub
+- [ ] `--sim all` PASS on Mac (or documented per-reader gaps with evidence)
+- [ ] STK live attempted OR gate-only reason dated
+- [ ] Thorium `--live` attempted OR honest ceiling dated
+- [ ] `STAGING_MANIFEST.md` + this queue updated · pushed
+
+- [ ] **lane_watch:** keep `--bg` running — **standing**
+
 ## Turn 124 queue — **COMPLETE**
 
 ## Turn 124 queue (WIN assign @ parallel prep) — **Mac prep while WIN ci.py runs**

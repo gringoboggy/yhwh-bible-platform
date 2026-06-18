@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-> **▶ 🔄 2026-06-18 (turn 125).** **Mac turn 124 DONE** (`f3b12433`): M4b m4b-2 · thorium_cdp · stk_channel · all SIM_LAYERS wired. **WIN:** `ci.py` + rx-surfaces + stage `build/reader-sim/` + `--sim all`. **Mac:** stage Desktop QA epubs · STK/Thorium live layers · Play emulator spike. No matrix builds until `ci.py` GREEN. Baton **windows**; mode=parallel.
+> **▶ 🔄 2026-06-18 (turn 126 handoff).** **Mac turn 125 DONE** (`18c60033`): reader-sim staging · M4b 6/6 · thorium `--live` stub · STAGING_MANIFEST. **WIN turn 125:** `ci.py` **RED** (15 pytest reds + 1 error); kobo `--sim` fails on stale June-15 kepub (371 epubcheck RSC-012). **Mac turn 126:** apple tablet artifact · STK/Thorium live if apps installed · `--sim all` when apple staged. **WIN turn 126:** pytest triage → GREEN · rx-surfaces · fresh kobo kepub · `--sim all`. No matrix builds until WIN `ci.py` GREEN. Baton **mac**; mode=parallel.
 
 ## Standalone status (unchanged)
 
