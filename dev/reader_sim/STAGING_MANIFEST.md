@@ -5,7 +5,7 @@ Local paths under `build/reader-sim/` (gitignored). WIN pulls this manifest + co
 | Reader | Status | Path / source |
 |---|---|---|
 | **kindle** | 6 m4b epubs staged | `build/reader-sim/kindle/*.epub` ← `~/Desktop/YHWH-kindle-m4b-qa/` |
-| **kobo** | **WIN lane** — fresh build 2026-06-18 | `build/reader-sim/kobo/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-18T015027Z.kepub.epub` · `verify_kr2` **GREEN** · `--sim kobo` running |
+| **kobo** | **WIN lane** — fresh build 2026-06-18 | `build/reader-sim/kobo/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-18T015027Z.kepub.epub` · `verify_kr2` **GREEN** · `--sim kobo` epubcheck slow on WIN (40 MB; gate-only K-R2 confirmed) |
 | **play** | everywhere navy staged | `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` ← stk-qa |
 | **apple** | tablet staged | `build/reader-sim/apple/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_tablet_2026-06-18T021121Z.epub` · epubcheck 0/0/0/0 |
 

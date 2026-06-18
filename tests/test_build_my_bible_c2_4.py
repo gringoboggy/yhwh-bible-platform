@@ -54,6 +54,13 @@ class _IsolatedEdition:
         return False
 
 
+def _clear_shipped_per_book_symbol_overrides(web) -> None:
+    """RX P4a ships ``gen=xref`` off on catholic-study; C2-4 round-trips need a clean baseline."""
+    res = web.api_save_edition_meta(EDITION, {"note_families_off_per_book": {}})
+    assert res.get("ok"), res
+    _clear_cache()
+
+
 def _chapter_symbol(edition, book, ch, token):
     from scripts.web_editions import api_build_my_bible
 
@@ -143,11 +150,10 @@ class TestSymbolBookLevel:
     def test_off_per_book_flips_resolved_off_for_that_book_only(self, tmp_path):
         """UI payload: full note_families_off_per_book map with one delta.
         gen resolves OFF for xref; exo (untouched) stays ON."""
-        # Baseline: xref ON everywhere for catholic-study.
-        assert _chapter_symbol(EDITION, "gen", 1, "xref") == "on"
-        assert _chapter_symbol(EDITION, "exo", 1, "xref") == "on"
-
         with _IsolatedEdition(tmp_path) as web:
+            _clear_shipped_per_book_symbol_overrides(web)
+            assert _chapter_symbol(EDITION, "gen", 1, "xref") == "on"
+            assert _chapter_symbol(EDITION, "exo", 1, "xref") == "on"
             res = web.api_save_edition_meta(
                 EDITION,
                 {"note_families_off_per_book": {"gen": ["xref"]}},
@@ -176,6 +182,7 @@ class TestSymbolBookLevel:
         """Sending the FULL map (gen + exo off) then a second save that drops
         exo from the sent map removes exo's override (absolute-replace)."""
         with _IsolatedEdition(tmp_path) as web:
+            _clear_shipped_per_book_symbol_overrides(web)
             r1 = web.api_save_edition_meta(
                 EDITION,
                 {"note_families_off_per_book": {"gen": ["xref"], "exo": ["xref"]}},
@@ -204,9 +211,10 @@ class TestSymbolBookLevel:
 
 class TestSymbolChapterLevel:
     def test_off_per_chapter_flips_resolved_off_for_that_chapter_only(self, tmp_path):
-        assert _chapter_symbol(EDITION, "gen", 1, "xref") == "on"
-        assert _chapter_symbol(EDITION, "gen", 2, "xref") == "on"
         with _IsolatedEdition(tmp_path) as web:
+            _clear_shipped_per_book_symbol_overrides(web)
+            assert _chapter_symbol(EDITION, "gen", 1, "xref") == "on"
+            assert _chapter_symbol(EDITION, "gen", 2, "xref") == "on"
             res = web.api_save_edition_meta(
                 EDITION,
                 {"note_families_off_per_chapter": {"gen:1": ["xref"]}},
@@ -246,6 +254,7 @@ class TestBulkClearsFiner:
         with _IsolatedEdition(tmp_path) as web:
             from scripts.web_editions import api_build_my_bible
 
+            _clear_shipped_per_book_symbol_overrides(web)
             # Pre-existing chapter exception.
             r1 = web.api_save_edition_meta(
                 EDITION,

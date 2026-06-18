@@ -261,10 +261,13 @@ class TestBuildTrackerBuildAccurate:
 
         try:
             _clear()
+            import scripts.web as web
+
+            # RX P4a ships gen=xref off — clear so the per-book OFF delta is measurable.
+            web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {}})
+            _clear()
             before = api_build_tracker("catholic-study")
             before_gen = next(b["enabled_notes"] for b in before["per_book"] if b["book_code"] == "gen")
-
-            import scripts.web as web
 
             web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {"gen": ["xref"]}})
             _clear()

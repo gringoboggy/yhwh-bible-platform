@@ -51,6 +51,10 @@ def test_resolved_counts_honor_per_book_off(tmp_path):
     shutil.copy(yml, backup)
     try:
         config.load_editions.cache_clear()
+        # RX P4a ships gen=xref off — clear so the per-book OFF delta is measurable.
+        web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {}})
+        config.load_editions.cache_clear()
+        edition_stats.resolved_note_counts.cache_clear()
         before = edition_stats.resolved_note_counts(config.editions_by_id()["catholic-study"])
         web.api_save_edition_meta("catholic-study", {"note_families_off_per_book": {"gen": ["xref"]}})
         config.load_editions.cache_clear()
