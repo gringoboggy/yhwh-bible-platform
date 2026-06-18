@@ -132,6 +132,13 @@ _PIPELINE_SCRIPTS = (
     "core/translations.py",
     "core/corpus_index.py",
     "core/sources_lexicon.py",
+    # turn 129 — cache guard closure gaps (TestCacheCoverageGuard):
+    #   book_codes        canonical_book_code / BOOK_CODE_ALIASES → topical.xhtml
+    #                     verse refs via sources_base (config → sources_base).
+    #   vnote_separators  add_vnote_preview_separators → popup vnote HTML
+    #                     (build_edition.py module-level import).
+    "core/book_codes.py",
+    "core/vnote_separators.py",
 )
 
 

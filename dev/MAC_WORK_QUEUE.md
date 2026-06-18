@@ -79,7 +79,108 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 126 — Mac fresh-session laundry list (START HERE)
+## ★ Turn 127 — Mac fresh-session laundry list (START HERE)
+
+> **Pull `04b4b518`+** (turn 126 shipped). WIN owns pytest triage + kobo `--sim`. **SKIP Kobo** on Mac HDD. Your lane: live reader sim depth + tablet matrix + release prep + disjoint Phase 4.
+
+## Turn 127 queue (WIN assign @ post-turn-126) — **Mac parallel arc**
+
+> **Turn 126 DONE** (`04b4b518`): apple tablet · `--sim all` 3/3 · toc probe fix. WIN still RED on `ci.py` — **no full pytest/`ci.py` on Mac HDD**. Mac pushes reader-sim from gate-only → live where apps exist.
+
+### 0 — Bootstrap (first 5 min)
+
+- [ ] `git pull --rebase origin main` — expect `04b4b518`+ (turn 126 apple tablet)
+- [ ] `bash dev/lane_watch_mac.sh --once` then `bash dev/lane_watch_mac.sh --bg`
+- [ ] `export PYTHONUTF8=1`
+- [ ] Read: `dev/SESSION_STATE.md` · `dev/reader_sim/STAGING_MANIFEST.md` · `dev/LANE_HANDOFF.md` §Turn 127
+
+### 1 — ACK turn 126 ships
+
+- [ ] `pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q` — expect green (21+)
+- [ ] `scripts/reader_sim.py --list` — four readers `[ready]`
+- [ ] Confirm `build/reader-sim/apple/` tablet epub present · `STAGING_MANIFEST.md` 3/3 sim
+- [ ] `test_samkings_manifest_complete` 6/6 — Mac owns full `GAPS/`
+
+### 2 — Thorium live CDP (**priority — unlock Phase 5**)
+
+- [ ] **Install Thorium.app** if absent (`brew install --cask thorium` or manual)
+- [ ] `YHWH_THORIUM_LIVE=1 scripts/reader_sim.py --sim apple --artifact-dir build/reader-sim`
+- [ ] Same for play profile on everywhere navy epub
+- [ ] Extend `dev/reader_sim/thorium_cdp.py --live`: popup tap probe · font/script assertions · chapter nav round-trip
+- [ ] Add regression tests in `tests/test_reader_sim.py` for any new live probes
+- [ ] Document honest ceiling in script header + `STAGING_MANIFEST.md`
+
+### 3 — STK live poll (Kindle-for-Mac real channel)
+
+- [ ] Diagnose missing `com.amazon.Kindle` library container — sign in / create library if needed
+- [ ] Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600`
+- [ ] Log arrival in `build/reader-sim/kindle/stk-last-arrival.txt` + date-stamp `dev/reader_sim/kindle/qa-checklist.md`
+- [ ] If blocked: document blocker + keep gate-only — do **not** wire Previewer as substitute
+
+### 4 — Tablet artifact matrix (apple sim depth)
+
+- [ ] Build **catholic-study** `tablet` (second edition) — one build only, epubcheck strict
+- [ ] Stage → `build/reader-sim/apple/` alongside ethiopian · update `STAGING_MANIFEST.md`
+- [ ] `YHWH_THORIUM_LIVE=1 --sim apple` on catholic-study if Thorium installed
+- [ ] **HOLD** full 11-edition matrix until WIN `ci.py` GREEN
+
+### 5 — Play Android emulator (Phase 3 spike)
+
+- [ ] Android Studio AVD (Pixel · Play Books sideload path)
+- [ ] Sideload `build/reader-sim/play/` everywhere navy artifact
+- [ ] M5 minimum taps from `dev/EREADERS.md` §Play — honest pass/fail
+- [ ] Record in `dev/reader_sim/play/qa-checklist.md` (emulator ≠ phone)
+
+### 6 — M4b pack + Kindle sim maintenance
+
+- [ ] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/`
+- [ ] Update `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7 footer
+- [ ] If STK live succeeds: re-run `--sim kindle` without gate-only fallback
+
+### 7 — EREADERS + platform truth records
+
+- [ ] Update `dev/EREADERS.md` §Apple with turn 126/127 Thorium live evidence
+- [ ] Update §Kindle STK channel status (live vs gate-only)
+- [ ] Update §Play with emulator spike results
+- [ ] Cross-check `docs/superpowers/notes/2026-06-18-platform-implementation-matrix.md`
+
+### 8 — Release prep (external drive — Mac owns E:/F:)
+
+- [ ] `gen_release_catalog` + `node website/build.mjs` if catalog/assets changed
+- [ ] rsync release bundle → `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted)
+- [ ] `dev/build_dmg.sh` smoke rebuild — notarize check only if user directed
+
+### 9 — Phase 4 disjoint backlog (while WIN pytest runs)
+
+- [ ] 1ki EN back-translation ch11+ gap (`content/translations/geez-tewahedo-en/`)
+- [ ] Samuel/Kings CAM hi-res — any remaining folios in `GAPS/` tree
+- [ ] Archive hygiene: grep `scripts/_*.py` one-shots still at repo root → `dev/archive/`
+
+### 10 — Reader Sim Lab Phase 4–6 closeout
+
+- [ ] Flip `SIM_LAYERS_READY["kindle"]` if STK live GREEN
+- [ ] Flip `SIM_LAYERS_READY["apple"]` + `["play"]` if Thorium live GREEN
+- [ ] Draft `ci.py --reader-sim-gates` hook (structural only — WIN integrates)
+- [ ] `dev/TOOLCHAIN.md` §Reader Simulation Lab section
+
+### 11 — Coordinate with WIN
+
+- [ ] **SKIP kobo** entirely — WIN owns build · gates · epubcheck · `--sim kobo`
+- [ ] **NO** full `ci.py`/pytest tree on Mac HDD
+- [ ] `save_mac.sh` each slice — push **both** remotes
+
+### 12 — Done when
+
+- [ ] Thorium live attempted OR honest dated ceiling
+- [ ] STK live attempted OR dated blocker doc
+- [ ] catholic-study tablet staged (or documented skip reason)
+- [ ] EREADERS.md + STAGING_MANIFEST.md current
+- [ ] Play emulator spike recorded
+- [ ] M4b 6/6 re-gate PASS
+
+- [ ] **lane_watch:** keep `--bg` running — **standing**
+
+## Turn 126 queue — **COMPLETE** @ `04b4b518`
 
 > **Pull `ebbc2597`+** then work this section only. WIN `ci.py` RED (15 pytest reds). **SKIP Kobo** (WIN lane). **Apple tablet** blocks `--sim all`.
 
@@ -114,31 +215,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] `--sim all` **3/3 PASS** (`YHWH_SKIP_KOBO_SIM=1`) · kobo SKIP → WIN
 - [x] `STAGING_MANIFEST.md` updated
 
-### 6 — M4b pack maintenance
+### 6–9 — deferred to Turn 127 (M4b · Play emulator · coordination)
 
-- [ ] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/` if WIN touches `kindle_post.py`
-- [ ] Update `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7 footer if any flip
-
-### 7 — Play Android emulator (optional)
-
-- [ ] Android Studio AVD · sideload play artifact · M5 minimum taps from `dev/EREADERS.md` §Play
-- [ ] Honest pass/fail in `dev/reader_sim/play/qa-checklist.md` (emulator ≠ phone)
-
-### 8 — Coordinate with WIN (parallel, no file fights)
-
-- [ ] WIN owns: pytest triage · cache guard · symbols cluster · **all Kobo** (build+gate+sim+staging)
-- [ ] Mac owns: apple build · STK/Thorium live · staging manifest truth — **not kobo**
-- [ ] `save_mac.sh` each slice — push **both** remotes
-
-### 9 — Done when
-
-- [x] `build/reader-sim/apple/` has tablet epub
-- [x] `--sim all` 3/3 PASS on Mac (kobo WIN lane)
-- [x] STK gate-only reason dated
-- [x] Thorium gate-only ceiling dated
-- [ ] `save_mac.sh` pushed — in progress
-
-- [ ] **lane_watch:** keep `--bg` running — **standing**
+- [x] All turn 126 done-when criteria met @ `04b4b518`
 
 ## Turn 124 queue — **COMPLETE**
 

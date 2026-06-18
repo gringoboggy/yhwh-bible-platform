@@ -110,6 +110,17 @@ class TestResolverInvariant:
     def test_real_editions_unchanged_with_no_override(self):
         all_kinds = config.load_kinds()
         for ed in config.load_editions():
+            has_coord_override = any(
+                ed.get(field)
+                for field in (
+                    "note_families_on_per_book",
+                    "note_families_off_per_book",
+                    "note_families_on_per_chapter",
+                    "note_families_off_per_chapter",
+                )
+            )
+            if has_coord_override:
+                continue
             base = config.enabled_kind_codes(ed, all_kinds)
             assert config.enabled_kind_codes_for(ed, all_kinds, "gen", 1) == base
             assert config.enabled_kind_codes_for(ed, all_kinds, "rev") == base

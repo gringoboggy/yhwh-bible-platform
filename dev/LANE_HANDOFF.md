@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 128
+turn: 129
 from: windows
-updated: 2026-06-18T02:15:31Z
-status: handing-off
-mac: FRESH SESSION: MAC_WORK_QUEUE §Turn 126 — apple tablet; STK/Thorium live; SKIP kobo; lane_watch --bg
-windows: FRESH SESSION: pytest triage 15 reds; finish kobo --sim; rx-surfaces
+updated: 2026-06-18T02:50:34Z
+status: working
+mac: FRESH SESSION: MAC_WORK_QUEUE §Turn 127 — Thorium live + STK live + catholic-study tablet + Play emulator + EREADERS + release prep; SKIP kobo; lane_watch --bg
+windows: pytest triage 15 reds → ci GREEN; finish kobo --sim; rx-surfaces
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 129, 2026-06-18T02:50:34Z) — mode=parallel
+
+**Assignments:** mac = FRESH SESSION: MAC_WORK_QUEUE §Turn 127 — Thorium live + STK live + catholic-study tablet + Play emulator + EREADERS + release prep; SKIP kobo; lane_watch --bg · windows = pytest triage 15 reds → ci GREEN; finish kobo --sim; rx-surfaces
+
+Mac turn 126 DONE @ 04b4b518. Expanded Turn 127 laundry list (12 sections).
+
 ---
 
 ## ▶ windows → mac (turn 128, 2026-06-18T02:15:31Z) — mode=parallel

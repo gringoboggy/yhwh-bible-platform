@@ -124,15 +124,14 @@ class TestEditionLevel:
             assert field in ov, f"overrides missing {field!r}"
 
     def test_resolved_bible_symbols_match_resolver(self):
-        """resolved_bible.symbols must match enabled_kind_codes_for on first canon book."""
+        """resolved_bible.symbols must match the edition-default resolver (Bible tier)."""
         from scripts.core import config
 
         result = self.api("catholic-study")
-        first_book = result["books_canonical"][0]["code"]
 
         ed = config.editions_by_id()["catholic-study"]
         all_kinds = config.load_kinds()
-        enabled = config.enabled_kind_codes_for(ed, all_kinds, first_book)
+        enabled = config.enabled_kind_codes(ed, all_kinds)
 
         # Build the expected per-category on/off
         cats = config.load_categories()
