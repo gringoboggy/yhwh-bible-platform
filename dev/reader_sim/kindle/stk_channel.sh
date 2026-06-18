@@ -28,8 +28,12 @@ REPO="$(cd "$(dirname "$0")/../../.." && pwd)"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 STAGE="${HOME}/Desktop/YHWH-reader-sim/kindle"
 mkdir -p "$STAGE"
-cp -f "$ARTIFACT" "$STAGE/"
-BASENAME="$(basename "$ARTIFACT")"
+ARTIFACT_ABS="$(cd "$(dirname "$ARTIFACT")" && pwd)/$(basename "$ARTIFACT")"
+STAGE_ABS="$(cd "$STAGE" && pwd)"
+BASENAME="$(basename "$ARTIFACT_ABS")"
+if [[ "$(dirname "$ARTIFACT_ABS")" != "$STAGE_ABS" ]]; then
+  cp -f "$ARTIFACT_ABS" "$STAGE_ABS/"
+fi
 
 # Modern Kindle.app = com.amazon.Lassen; legacy = com.amazon.Kindle (see kindle_library.py).
 KINDLE_ROOT=""
