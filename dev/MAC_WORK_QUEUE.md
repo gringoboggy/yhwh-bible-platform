@@ -89,40 +89,40 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 0 — Bootstrap (first 5 min)
 
-- [ ] `git pull --rebase origin main` — expect `04b4b518`+ (turn 126 apple tablet)
-- [ ] `bash dev/lane_watch_mac.sh --once` then `bash dev/lane_watch_mac.sh --bg`
-- [ ] `export PYTHONUTF8=1`
-- [ ] Read: `dev/SESSION_STATE.md` · `dev/reader_sim/STAGING_MANIFEST.md` · `dev/LANE_HANDOFF.md` §Turn 127
+- [x] `git pull --rebase origin main` — @ `97c7992a` — **Mac turn 127**
+- [x] `bash dev/lane_watch_mac.sh --once` then `bash dev/lane_watch_mac.sh --bg`
+- [x] `export PYTHONUTF8=1`
+- [x] Read: `dev/SESSION_STATE.md` · `dev/reader_sim/STAGING_MANIFEST.md` · `dev/LANE_HANDOFF.md` §Turn 127
 
 ### 1 — ACK turn 126 ships
 
-- [ ] `pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q` — expect green (21+)
-- [ ] `scripts/reader_sim.py --list` — four readers `[ready]`
-- [ ] Confirm `build/reader-sim/apple/` tablet epub present · `STAGING_MANIFEST.md` 3/3 sim
+- [x] `pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q` — **21/21**
+- [x] `scripts/reader_sim.py --list` — four readers `[ready]`
+- [x] Confirm `build/reader-sim/apple/` tablet epub present · `STAGING_MANIFEST.md` updated
 - [ ] `test_samkings_manifest_complete` 6/6 — Mac owns full `GAPS/`
 
 ### 2 — Thorium live CDP (**priority — unlock Phase 5**)
 
-- [ ] **Install Thorium.app** if absent (`brew install --cask thorium` or manual)
-- [ ] `YHWH_THORIUM_LIVE=1 scripts/reader_sim.py --sim apple --artifact-dir build/reader-sim`
-- [ ] Same for play profile on everywhere navy epub
-- [ ] Extend `dev/reader_sim/thorium_cdp.py --live`: popup tap probe · font/script assertions · chapter nav round-trip
-- [ ] Add regression tests in `tests/test_reader_sim.py` for any new live probes
-- [ ] Document honest ceiling in script header + `STAGING_MANIFEST.md`
+- [x] **Install Thorium.app** — `brew install --cask thorium` 3.4.0 — **Mac turn 127**
+- [x] `YHWH_THORIUM_LIVE=1 --sim apple` on catholic-study tablet — PASS
+- [x] `--sim all` play+kindle+apple 3/3 PASS (`YHWH_SKIP_KOBO_SIM=1`)
+- [ ] Extend `thorium_cdp.py --live`: automated CDP popup tap (MCP/manual ceiling documented)
+- [ ] Add regression tests for new live probes (deferred — structural floor green)
+- [x] Document ceiling in `STAGING_MANIFEST.md` + `EREADERS.md` §Apple
 
 ### 3 — STK live poll (Kindle-for-Mac real channel)
 
-- [ ] Diagnose missing `com.amazon.Kindle` library container — sign in / create library if needed
-- [ ] Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600`
-- [ ] Log arrival in `build/reader-sim/kindle/stk-last-arrival.txt` + date-stamp `dev/reader_sim/kindle/qa-checklist.md`
-- [ ] If blocked: document blocker + keep gate-only — do **not** wire Previewer as substitute
+- [x] Diagnose: `Amazon Kindle.app` yes; **no `com.amazon.Kindle` container** (SendToKindleExtension only)
+- [ ] Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600` — blocked on library container
+- [ ] Log arrival in `stk-last-arrival.txt` — blocked
+- [x] Gate-only documented in `STAGING_MANIFEST.md` + qa-checklist
 
 ### 4 — Tablet artifact matrix (apple sim depth)
 
-- [ ] Build **catholic-study** `tablet` (second edition) — one build only, epubcheck strict
-- [ ] Stage → `build/reader-sim/apple/` alongside ethiopian · update `STAGING_MANIFEST.md`
-- [ ] `YHWH_THORIUM_LIVE=1 --sim apple` on catholic-study if Thorium installed
-- [ ] **HOLD** full 11-edition matrix until WIN `ci.py` GREEN
+- [x] Build **catholic-study** `tablet` — 23.00 MB · epubcheck **0/0/0/0** — **Mac turn 127**
+- [x] Staged `build/reader-sim/apple/` · `STAGING_MANIFEST.md` updated
+- [x] `YHWH_THORIUM_LIVE=1 --sim apple` catholic-study PASS
+- [x] **HOLD** full 11-edition matrix until WIN `ci.py` GREEN
 
 ### 5 — Play Android emulator (Phase 3 spike)
 
@@ -133,16 +133,16 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 6 — M4b pack + Kindle sim maintenance
 
-- [ ] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/`
-- [ ] Update `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7 footer
+- [x] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/` — **6/6 PASS**
+- [x] Update `m4b-kindle-fork-design.md` §7 footer
 - [ ] If STK live succeeds: re-run `--sim kindle` without gate-only fallback
 
 ### 7 — EREADERS + platform truth records
 
-- [ ] Update `dev/EREADERS.md` §Apple with turn 126/127 Thorium live evidence
-- [ ] Update §Kindle STK channel status (live vs gate-only)
-- [ ] Update §Play with emulator spike results
-- [ ] Cross-check `docs/superpowers/notes/2026-06-18-platform-implementation-matrix.md`
+- [x] Update `dev/EREADERS.md` §Apple — Thorium sim proxy + turn 127 evidence
+- [x] Update §Kindle STK — gate-only blocker documented (m4b doc §7)
+- [ ] Update §Play with emulator spike results — **deferred** (no Android Studio)
+- [ ] Cross-check `platform-implementation-matrix.md`
 
 ### 8 — Release prep (external drive — Mac owns E:/F:)
 
@@ -171,12 +171,12 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 12 — Done when
 
-- [ ] Thorium live attempted OR honest dated ceiling
-- [ ] STK live attempted OR dated blocker doc
-- [ ] catholic-study tablet staged (or documented skip reason)
-- [ ] EREADERS.md + STAGING_MANIFEST.md current
-- [ ] Play emulator spike recorded
-- [ ] M4b 6/6 re-gate PASS
+- [x] Thorium live — installed + `--sim` PASS (CDP taps MCP/manual)
+- [x] STK live — dated blocker (no library container)
+- [x] catholic-study tablet staged
+- [x] EREADERS.md + STAGING_MANIFEST.md current
+- [ ] Play emulator spike recorded — deferred (no AVD)
+- [x] M4b 6/6 re-gate PASS
 
 - [ ] **lane_watch:** keep `--bg` running — **standing**
 

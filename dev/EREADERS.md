@@ -31,6 +31,13 @@
   `verse-notes` popup. Polish popup typography/cascade only; **do not** port Kobo K-R9
   backmatter or Kindle M4b marker suppress to `tablet`. Authoritative:
   `docs/superpowers/notes/2026-06-15-apple-m2-layout-directive.md`.
+- **Reader Sim Lab (2026-06-18, turn 127):** Mac uses **Thorium** as the agent sim proxy
+  for `tablet` artifacts (`dev/reader_sim/thorium_cdp.py` + `YHWH_THORIUM_LIVE=1`). Thorium
+  is **not** Apple Books — it exercises EPUB3 structure (vn-link, badge, ToC) on the Mac
+  before device re-test. Tablet builds keep `verse-notes-badge` at verse end (not Kobo's
+  per-category `study-glossary-jump` chips). Very heavy verses (e.g. Gen 1:1) may still
+  wear two part-badges when K-R4-2 popup-size cap splits the merged aside — normal verses
+  show a single ◈N badge.
 - **Works:** EPUB3 popup footnotes (`epub:type="noteref"`/`aside`); `<details>`
   collapsible ToC (full click round-trip live-verified on the Mac, 2026-06-10
   target-caps research); embedded fonts; page-break CSS; the title-box/edition-page

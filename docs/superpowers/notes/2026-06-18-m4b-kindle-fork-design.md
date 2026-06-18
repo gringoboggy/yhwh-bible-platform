@@ -147,6 +147,10 @@ Minimum phone taps after implementation (6-variant fan-out like turn 87):
 
 STK phone matrix (§7 table) still pending user Send-to-Kindle.
 
+**Mac turn 127 re-gate (2026-06-18):** 6/6 m4b variants on `~/Desktop/YHWH-kindle-m4b-qa/` —
+`verify_kindle_safe` + `verify_kindle_m4b` + epubcheck all PASS. STK live poll still
+gate-only (no `com.amazon.Kindle` library container on Mac box).
+
 ---
 
 ## 8. Implementation plan
