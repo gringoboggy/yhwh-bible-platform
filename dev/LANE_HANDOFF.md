@@ -2,10 +2,10 @@
 mode: parallel
 turn: 134
 from: mac
-updated: 2026-06-18T17:30:00Z
-status: working
-mac: STK re-tap `…165347Z-kindle-m4b.epub` (epubcheck 0/0/0/0); poll after user upload
-windows: pull pending save; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
+updated: 2026-06-18T18:00:00Z
+status: wrapped
+mac: Mac restart pending — Turn 131 STK poll PAUSED; resume post-reboot (`…165347Z-kindle-m4b.epub` staged on Desktop)
+windows: pull `98e33eff`+; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
 truth_owner: mac
 holder: mac
 ---
