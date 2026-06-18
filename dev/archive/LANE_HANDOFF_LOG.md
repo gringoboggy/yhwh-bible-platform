@@ -4,6 +4,53 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
+
+## ▶ windows → mac (turn 126, 2026-06-18T01:43:48Z) — mode=parallel
+
+**Done (turn 125, windows):**
+WIN: ci.py RED mapped (15 pytest reds + 1 error); kobo stale kepub 371 RSC-012; pulled Mac 18c60033 (staging+M4b 6/6). Mac turn 125 complete per queue.
+
+**Next (turn 126, mac picks up):**
+Mac: apple artifact + live STK/Thorium + --sim all | WIN: pytest fixes + ci GREEN + kobo rebuild
+
+**Assignments:** mac = turn 126: apple tablet build post-ci GREEN; STK live if Kindle-for-Mac; Thorium --live if Thorium.app; --sim all 4/4; update STAGING_MANIFEST; lane_watch --bg · windows = turn 126: pytest triage 15 reds to GREEN; rx-surfaces; fresh kobo kepub; stage build/reader-sim; --sim all
+
+**Watch-outs:**
+NO full ci.py/matrix on Mac HDD until WIN pytest GREEN; apple tablet blocks --sim all; June-15 kobo cache invalid on WIN
+
+### Mac turn 126 — laundry list (fresh session)
+
+**Canonical checklist:** `dev/MAC_WORK_QUEUE.md` §Turn 126 (checkboxes). **Staging truth:** `dev/reader_sim/STAGING_MANIFEST.md`.
+
+**Mac turn 125 already shipped (`18c60033`):** kindle×6 m4b · kobo kepub · play everywhere navy staged; M4b 6/6 gate; `thorium_cdp --live` stub; kindle+play `--sim` PASS. **Gaps entering turn 126:** apple tablet artifact · STK/Thorium live (apps not on Mac box) · kobo epubcheck slow on Mac HDD.
+
+**WIN state Mac must ACK (do not duplicate WIN work):**
+
+| Item | Status |
+|------|--------|
+| `ci.py` | RED — 15 pytest reds + 1 error / 8544 passed |
+| First failure | `test_build_cache` — `book_codes` + `vnote_separators` not in cache guard |
+| Symbols cluster | 7 tests (`hierarchical_symbols*`, `build_my_bible_*`, `edition_stats`, `matter_pages`, `omega0`) |
+| Schema | 3 tests (`validate_schemas`, `TestOmega36AuditCleanup`) |
+| `build_smoke` | `test_spilled_chapter_note_injects` |
+| SamKings | `test_every_referenced_image_exists[kings]` — **WIN only** (81 missing `GAPS/`); Mac 6/6 |
+| Kobo sim | Stale `2026-06-15` kepub — **371 RSC-012**; WIN must rebuild |
+
+**Mac priority order:**
+
+1. Bootstrap + ACK (`pytest` kindle_m4b+reader_sim only — not full tree)
+2. **Apple tablet build** → `build/reader-sim/apple/` (wait for WIN ci GREEN unless user OKs one build)
+3. STK live poll if Kindle-for-Mac installed (`stk_channel.sh --wait 3600`)
+4. Thorium `--live` if Thorium.app (`YHWH_THORIUM_LIVE=1`)
+5. `reader_sim.py --sim all` → target 4/4 PASS
+6. Optional Play emulator · M4b re-gate if WIN touches `kindle_post.py`
+7. `save_mac.sh` each slice → both remotes
+
+**Do NOT:** full `ci.py` / format-matrix on Mac HDD · Kindle Previewer as STK oracle · YHWH Native Reader (deferred).
+
+---
+
 <!-- archived: 1 sections, 2026-06-17..2026-06-17 (rotate_truth_records.py) -->
 
 ## ▶ windows → mac (turn 125, 2026-06-17T23:49:09Z) — mode=parallel
