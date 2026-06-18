@@ -6,6 +6,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
 
+## ◦ windows assign (turn 127, 2026-06-18T01:50:23Z) — mode=parallel
+
+**Assignments:** mac = turn 126: apple tablet; STK/Thorium live; SKIP kobo (WIN HDD); --sim all when apple staged; lane_watch --bg · windows = turn 126: Kobo WIN-owned — build ethiopian eink kepub, stage build/reader-sim/kobo, --sim kobo; pytest triage; rx-surfaces
+
+User directive: Mac HDD cannot handle kobo — WIN owns build+gate+epubcheck+sim+staging for kobo.
+
+---
+
+<!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
+
 ## ▶ windows → mac (turn 126, 2026-06-18T01:43:48Z) — mode=parallel
 
 **Done (turn 125, windows):**

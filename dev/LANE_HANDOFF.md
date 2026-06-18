@@ -33,14 +33,6 @@ SESSION END — read SESSION_STATE fresh-session pointers; Mac SKIP kobo; ci.py 
 
 ---
 
-## ◦ windows assign (turn 127, 2026-06-18T01:50:23Z) — mode=parallel
-
-**Assignments:** mac = turn 126: apple tablet; STK/Thorium live; SKIP kobo (WIN HDD); --sim all when apple staged; lane_watch --bg · windows = turn 126: Kobo WIN-owned — build ethiopian eink kepub, stage build/reader-sim/kobo, --sim kobo; pytest triage; rx-surfaces
-
-User directive: Mac HDD cannot handle kobo — WIN owns build+gate+epubcheck+sim+staging for kobo.
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
