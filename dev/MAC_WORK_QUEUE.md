@@ -79,13 +79,17 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
+## ★ Turn 126 — Mac fresh-session laundry list (START HERE)
+
+> **Pull `ebbc2597`+** then work this section only. WIN `ci.py` RED (15 pytest reds). **SKIP Kobo** (WIN lane). **Apple tablet** blocks `--sim all`.
+
 ## Turn 126 queue (WIN assign @ post-ci.py triage) — **Mac fresh session**
 
 > **Laundry list for Mac.** WIN `ci.py` still RED (15 pytest reds); do **not** run full pytest/`ci.py` on Mac HDD. **Apple tablet artifact** is the main blocker for agent `--sim all`.
 
 ### 0 — Bootstrap (first 5 min)
 
-- [ ] `git pull --rebase origin main` — expect turn 126 handoff @ `18c60033`+
+- [ ] `git pull --rebase origin main` — expect session wrap @ `ebbc2597`+ (turn 128 handoff)
 - [ ] `bash dev/lane_watch_mac.sh --once` then `bash dev/lane_watch_mac.sh --bg`
 - [ ] `export PYTHONUTF8=1`
 - [ ] Read: `dev/SESSION_STATE.md` (Mac pointer) · `dev/reader_sim/STAGING_MANIFEST.md` · `dev/LANE_HANDOFF.md` §Turn 126

@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-> **▶ 🔄 2026-06-18 (turn 126).** **★ Kobo = WIN only** (Mac HDD cannot run 40 MB epubcheck/gates). **WIN:** fresh kobo kepub build · `build/reader-sim/kobo/` · `--sim kobo` · pytest triage · rx-surfaces. **Mac:** apple tablet · STK/Thorium live · **skip kobo**. `ci.py` RED (15 pytest reds). Baton **mac**; mode=parallel.
+> **▶ ✅ SESSION WRAP 2026-06-18 (WIN turn 127).** Truth records + Mac laundry list committed (`debce7a9` · `ebbc2597`). **Mac fresh session:** `MAC_WORK_QUEUE.md` §Turn 126. **WIN fresh session:** pytest triage · kobo `--sim` finish · rx-surfaces. **Kobo = WIN only.** Baton **mac**; mode=parallel.
 
 ## Standalone status (unchanged)
 

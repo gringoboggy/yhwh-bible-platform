@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session wrap (turn 127) — fresh-session prep for Mac
+
+**Shipped:** Mac laundry list (`MAC_WORK_QUEUE` §126 · `LANE_HANDOFF` §126) · session wrap truth records · Kobo WIN-owned (`ebbc2597`). Fresh kobo kepub `2026-06-18T015027Z` built on WIN · K-R2 GREEN · staged `build/reader-sim/kobo/` (epubcheck/`--sim` finish next WIN session). **Mac:** pull `ebbc2597`+ · §Turn 126 · skip kobo.
+
 ## 2026-06-18 — Windows session (turn 126 prep) — handoff to Mac + pytest triage map
 
 **Observed:** `ci.py` RED — 17 failed + 1 error / 8544 passed (~4h52m pytest). `--lf` confirms **15 persistent reds** (cache guard `book_codes`+`vnote_separators`; symbols/resolver cluster ×7; schema strict ×3; `build_smoke` ×1; samkings GAPS on WIN). Kobo `--sim` + epubcheck fail on stale `2026-06-15` kepub (371 RSC-012). **Pulled** Mac `b154f8eb`+`18c60033` (staging manifest · sim subdir fix · M4b 6/6). **Handoff turn 126 → Mac** with laundry list in `MAC_WORK_QUEUE.md` §Turn 126.

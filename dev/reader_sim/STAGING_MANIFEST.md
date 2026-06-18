@@ -1,11 +1,11 @@
-# Reader-sim artifact staging (turn 125, Mac)
+# Reader-sim artifact staging (updated turn 127, WIN session wrap)
 
 Local paths under `build/reader-sim/` (gitignored). WIN pulls this manifest + copies from Mac disk or uses own caches.
 
 | Reader | Status | Path / source |
 |---|---|---|
 | **kindle** | 6 m4b epubs staged | `build/reader-sim/kindle/*.epub` ← `~/Desktop/YHWH-kindle-m4b-qa/` |
-| **kobo** | **WIN lane only** (Mac HDD cannot run epubcheck/gates on 40 MB kepub) | WIN builds → `build/reader-sim/kobo/*.kepub.epub` ← `build/kobo-marker-ab/` or `build/round9-kobo-tap/` |
+| **kobo** | **WIN lane** — fresh build 2026-06-18 | `build/reader-sim/kobo/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-18T015027Z.kepub.epub` · `verify_kr2` **GREEN** · `--sim kobo` running |
 | **play** | everywhere navy staged | `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` ← stk-qa |
 | **apple** | **GAP** — no `tablet` build on Mac | Needs `build_edition --target-reader tablet` post ci.py GREEN |
 

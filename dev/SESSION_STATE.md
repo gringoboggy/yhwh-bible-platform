@@ -1,11 +1,17 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 126).** **Pull** turn 126 handoff · `MAC_WORK_QUEUE.md` §Turn 126. **Priority:** apple `tablet` · STK live · Thorium `--live`. **★ SKIP Kobo** — WIN owns build/gates/epubcheck/`--sim kobo`/staging (Mac HDD). **NO** full `ci.py`/matrix until WIN pytest GREEN. `lane_watch --bg`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull --rebase origin main` → expect **`ebbc2597`+**. Read **`dev/MAC_WORK_QUEUE.md` §Turn 126** (full laundry list) · **`dev/LANE_HANDOFF.md` §Mac turn 126** · **`dev/reader_sim/STAGING_MANIFEST.md`**. Bootstrap: `lane_watch_mac.sh --once` + `--bg` · `export PYTHONUTF8=1`. **Your job:** apple `tablet` build (blocks `--sim all`) · STK live if Kindle-for-Mac · Thorium `--live` if Thorium.app · optional Play emulator. **★ SKIP Kobo entirely** — WIN owns it (Mac HDD cannot run 40 MB epubcheck). **NO** full `ci.py`/pytest tree on Mac HDD until WIN pytest GREEN. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 126).** **★ Kobo = WIN lane** (Mac HDD cannot run 40 MB epubcheck/gates). **NOW:** fresh kobo kepub build · stage `build/reader-sim/kobo/` · `--sim kobo` · pytest triage → `ci.py` GREEN · rx-surfaces. June-15 kepub invalid (371× RSC-012). ACK Mac `debce7a9`. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ebbc2597`+**. **Job 1:** pytest triage → `ci.py` GREEN (15 reds mapped in `LANE_HANDOFF` §126 table). **Job 2:** finish Kobo — fresh kepub `2026-06-18T015027Z` staged · `verify_kr2` GREEN · complete `--sim kobo` + update `STAGING_MANIFEST.md`. **Job 3:** rx-surfaces close. **Do not** ask Mac to run kobo gates. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
 >
-> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
+> **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118 (WIN red = incomplete `GAPS/` only).
 >
+
+## Session wrap (WIN turn 127, 2026-06-18)
+
+**Shipped this session:** turn 126 handoff to Mac (`debce7a9`) · Mac laundry list in `MAC_WORK_QUEUE` §126 + `LANE_HANDOFF` §126 · Kobo lane split (`ebbc2597`) · fresh WIN kobo kepub build started (`2026-06-18T015027Z` · K-R2 GREEN · staged under `build/reader-sim/kobo/`).
+
+**Observed blockers:** `ci.py` RED — 15 pytest reds + 1 error. Reader Sim Lab gate: no `--sim all` until apple tablet artifact exists (Mac) + kobo `--sim` completes (WIN).
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 
@@ -16,7 +22,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 8 remediation COMPLETE** · **Round 9 Mac COMPLETE** @ turn 120. **WIN remainder:** rx-surfaces + full ci.py + merge; **user:** Kobo tap + Play QA. **M3:** 45/45 attached · **M4:** catalog live · website `efb7386`. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 8 remediation COMPLETE** · **Round 9 Mac COMPLETE** @ turn 120. **WIN remainder:** pytest triage · rx-surfaces · reader-sim kobo sim. **Mac:** apple tablet + STK/Thorium live. **M3:** 45/45 attached · **M4:** catalog live · website `efb7386`. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 
