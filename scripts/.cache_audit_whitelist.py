@@ -34,6 +34,17 @@ _._cached_publisher_data
 _._cached_covers
 _._cached_preflight
 
+# ---- Read-once singletons in scripts/core/sources_commentary.py ----
+# Commentary JSON corpora (PD ingest); immutable within a process like
+# the lexicon singletons below. Tests call cache_clear() for isolation
+# but production never needs invalidation mid-process.
+_.ethiopian_commentaries
+_.protestant_commentaries
+_.catholic_commentaries
+_.reformation_commentaries
+_.rabbinic_commentaries
+_.patristic_commentaries
+
 # ---- Read-once singletons in scripts/core/sources.py (post-split: sources_lexicon.py) ----
 # Lazy-loaded PD source data; values don't change during a single
 # process. Reloading from disk on demand would just be wasted I/O.

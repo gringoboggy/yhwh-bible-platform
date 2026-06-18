@@ -77,15 +77,16 @@ def _build(ed_id: str, out_dir: Path, *, monkeypatch, extra_fields: dict | None 
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    real_eds = config.editions_by_id()
+    patched_ed = copy.deepcopy(real_eds[ed_id])
+    # Default builds use marker_style=badge, which collapses per-note asides and
+    # drops id="note-…" oracles. Force numbers so ρ.3 family-off assertions
+    # can see individual xref asides in the built EPUB.
+    patched_ed.setdefault("marker_style", "numbers")
     if extra_fields is not None:
-        real_eds = config.editions_by_id()
-        patched_ed = copy.deepcopy(real_eds[ed_id])
         patched_ed.update(extra_fields)
-        patched_eds = {**real_eds, ed_id: patched_ed}
-        monkeypatch.setattr(config, "editions_by_id", lambda: patched_eds)
-    else:
-        # No patch — build the unmodified edition (baseline scenario).
-        pass
+    patched_eds = {**real_eds, ed_id: patched_ed}
+    monkeypatch.setattr(config, "editions_by_id", lambda: patched_eds)
 
     be.build_one(ed_id, out_dir, "v28a-t", config.load_kinds(), dry_run=False, force=True)
 
