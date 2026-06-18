@@ -18,7 +18,7 @@
 
 **Previewer appendix (diagnostic only):** if bisecting a structural failure, run KP3 CLI and scrape E-codes — never treat PASS as STK acceptance.
 
-**Gate-only (Mac turn 125, 2026-06-18):** Kindle-for-Mac **not installed** on Mac box — `stk_channel.sh --gate-only` PASS on ethiopian m4b; live poll deferred until app present.
+**Gate-only (Mac turn 126, 2026-06-18):** `Amazon Kindle.app` present but **no `com.amazon.Kindle` container** (only `SendToKindleExtension`) — live library poll unavailable; structural gate-only PASS.
 
 **Phone STK matrix (6 variants):** `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7
 

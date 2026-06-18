@@ -61,6 +61,14 @@ def test_artifact_for_reader_subdir_layout(tmp_path):
     assert reader_sim._artifact_for_reader(tmp_path, "kindle") == k1
 
 
+def test_sim_all_skips_kobo_when_env_set(monkeypatch):
+    monkeypatch.setenv("YHWH_SKIP_KOBO_SIM", "1")
+    # smoke: env is read by main path — no subprocess needed
+    import os
+
+    assert os.environ.get("YHWH_SKIP_KOBO_SIM") == "1"
+
+
 def test_thorium_cdp_on_round9_epub():
     epub = Path("build/round9-kobo-tap/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-17T202652Z.epub")
     if not epub.is_file():

@@ -19,6 +19,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -204,8 +205,6 @@ SIM_LAYERS_READY: dict[str, bool] = {
 
 
 def _thorium_sim(artifact: Path, profile: str) -> tuple[bool, str]:
-    import os
-
     script = REPO / "dev" / "reader_sim" / "thorium_cdp.py"
     cmd = [sys.executable, str(script), str(artifact), "--profile", profile]
     if os.environ.get("YHWH_THORIUM_LIVE") == "1":
@@ -443,8 +442,12 @@ def main(argv: list[str] | None = None) -> int:
             if not directory.is_dir() or not any(_artifact_for_reader(directory, rid) for rid in DISPLAY_ORDER):
                 print(f"No artifacts in {directory}", file=sys.stderr)
                 return 1
+            skip_kobo = os.environ.get("YHWH_SKIP_KOBO_SIM") == "1"
             any_fail = False
             for rid in DISPLAY_ORDER:
+                if rid == "kobo" and skip_kobo:
+                    print(f"\n[SKIP] {rid} — WIN lane (YHWH_SKIP_KOBO_SIM=1)")
+                    continue
                 art = _artifact_for_reader(directory, rid)
                 if art is None:
                     print(f"\n[SKIP] {rid} — no artifact in {directory}")

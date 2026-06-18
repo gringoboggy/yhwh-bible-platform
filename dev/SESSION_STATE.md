@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull --rebase origin main` → expect **`ebbc2597`+**. Read **`dev/MAC_WORK_QUEUE.md` §Turn 126** (full laundry list) · **`dev/LANE_HANDOFF.md` §Mac turn 126** · **`dev/reader_sim/STAGING_MANIFEST.md`**. Bootstrap: `lane_watch_mac.sh --once` + `--bg` · `export PYTHONUTF8=1`. **Your job:** apple `tablet` build (blocks `--sim all`) · STK live if Kindle-for-Mac · Thorium `--live` if Thorium.app · optional Play emulator. **★ SKIP Kobo entirely** — WIN owns it (Mac HDD cannot run 40 MB epubcheck). **NO** full `ci.py`/pytest tree on Mac HDD until WIN pytest GREEN. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 126 DONE).** **Shipped:** apple tablet (27.46 MB · epubcheck 0/0/0/0) · `--sim all` 3/3 with `YHWH_SKIP_KOBO_SIM=1` · toc probe RX P4a fix. **WIN owns:** kobo `--sim` + full `--sim all` 4/4. **Deferred:** STK live (no library container) · Thorium live. `STAGING_MANIFEST.md`. Baton **windows**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ebbc2597`+**. **Job 1:** pytest triage → `ci.py` GREEN (15 reds mapped in `LANE_HANDOFF` §126 table). **Job 2:** finish Kobo — fresh kepub `2026-06-18T015027Z` staged · `verify_kr2` GREEN · complete `--sim kobo` + update `STAGING_MANIFEST.md`. **Job 3:** rx-surfaces close. **Do not** ask Mac to run kobo gates. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
 >

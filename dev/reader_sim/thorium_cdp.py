@@ -37,6 +37,7 @@ _GEN11_STUDY_RE = re.compile(
     re.I,
 )
 _TOC_DETAILS_RE = re.compile(r"<details\b", re.I)
+_TOC_CHAPTER_NAV_RE = re.compile(r"index_split_\d+.*#|toc-chapters", re.I)
 _TAG_RE = re.compile(r"<[^>]+>")
 _HEBREW_RE = re.compile(r"[\u0590-\u05FF]")
 _GREEK_RE = re.compile(r"[\u0370-\u03FF\u1F00-\u1FFF]")
@@ -134,13 +135,15 @@ def probe_epub(epub_path: Path, profile: str) -> list[ProbeResult]:
     tablet_artifact = "tablet" in name_lower
     if profile == "apple":
         if tablet_artifact:
-            results.append(
-                ProbeResult(
-                    "toc_details",
-                    has_details,
-                    "collapsible <details> in nav/toc" if has_details else "tablet artifact missing <details> ToC",
-                )
-            )
+            has_chapter_nav = bool(_TOC_CHAPTER_NAV_RE.search(nav_text or combined))
+            toc_ok = has_details or has_chapter_nav
+            if has_details:
+                toc_detail = "collapsible <details> in nav/toc"
+            elif has_chapter_nav:
+                toc_detail = "chapter-level nav (collapsible off per edition — RX P4a)"
+            else:
+                toc_detail = "tablet artifact missing ToC chapter nav"
+            results.append(ProbeResult("toc_details", toc_ok, toc_detail))
         else:
             results.append(
                 ProbeResult(

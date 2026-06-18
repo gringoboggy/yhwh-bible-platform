@@ -12,6 +12,10 @@
 
 **Observed:** `ci.py` RED — 17 failed + 1 error / 8544 passed (~4h52m pytest). `--lf` confirms **15 persistent reds** (cache guard `book_codes`+`vnote_separators`; symbols/resolver cluster ×7; schema strict ×3; `build_smoke` ×1; samkings GAPS on WIN). Kobo `--sim` + epubcheck fail on stale `2026-06-15` kepub (371 RSC-012). **Pulled** Mac `b154f8eb`+`18c60033` (staging manifest · sim subdir fix · M4b 6/6). **Handoff turn 126 → Mac** with laundry list in `MAC_WORK_QUEUE.md` §Turn 126.
 
+## 2026-06-18 — Mac session (turn 126) — apple tablet + `--sim all` 3/3
+
+**Shipped:** ethiopian `tablet` build (27.46 MB · epubcheck 0/0/0/0) → `build/reader-sim/apple/`; `thorium_cdp` toc probe accepts RX P4a chapter nav; `YHWH_SKIP_KOBO_SIM=1` for `--sim all` on Mac. **`--sim all`:** play+kindle+apple PASS (kobo SKIP → WIN). STK gate-only (Kindle.app but no library container).
+
 ## 2026-06-18 — Mac session (turn 125) — reader-sim staging + M4b gate sweep
 
 **Shipped:** `build/reader-sim/` staged (kindle 6×m4b · kobo kepub · play everywhere navy); M4b gate sweep **6/6 PASS**; `thorium_cdp.py --live`; `_artifact_for_reader` for `--sim all` subdirs; `STAGING_MANIFEST.md`. Sim dry-run: kindle+play PASS; apple tablet gap; kobo epubcheck deferred (40 MB kepub slow on Mac HDD).
