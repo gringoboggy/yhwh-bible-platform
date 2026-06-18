@@ -28,14 +28,6 @@ turn 130b dual-radar bootstrap STANDING
 
 ---
 
-## ◦ windows assign (turn 129, 2026-06-18T02:50:34Z) — mode=parallel
-
-**Assignments:** mac = FRESH SESSION: MAC_WORK_QUEUE §Turn 127 — Thorium live + STK live + catholic-study tablet + Play emulator + EREADERS + release prep; SKIP kobo; lane_watch --bg · windows = pytest triage 15 reds → ci GREEN; finish kobo --sim; rx-surfaces
-
-Mac turn 126 DONE @ 04b4b518. Expanded Turn 127 laundry list (12 sections).
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
