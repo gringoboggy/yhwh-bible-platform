@@ -11,3 +11,5 @@ Full protocol: `dev/EREADERS.md` §Google Play Books (upload steps + minimum tap
 Staged release URL: v0.1.0 `YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub`
 
 **Proxy only (not phone truth):** Thorium desktop · `audit_epub_structure` green
+
+**Mac turn 127 (2026-06-18):** Thorium 3.4.0 installed. `YHWH_THORIUM_LIVE=1 scripts/reader_sim.py --sim play` on staged navy EPUB — **PASS** (structural gen11 + script probes). Android Studio / AVD **not installed** — emulator spike deferred; phone upload remains M5 gate.

@@ -102,6 +102,30 @@ git remote -v
 
 ---
 
+## §Reader Simulation Lab
+
+Orchestrator: `scripts/reader_sim.py` · per-reader shells under `dev/reader_sim/<reader>/` · staging manifest `dev/reader_sim/STAGING_MANIFEST.md`.
+
+| Reader | Sim layer | Mac / Win |
+|---|---|---|
+| **apple** (`tablet`) | `dev/reader_sim/thorium_cdp.py` — Thorium opens EPUB; structural vn-link/badge/ToC probes | Mac |
+| **play** (`everywhere`) | Same Thorium tool, `--profile play` | Mac |
+| **kindle** | `dev/reader_sim/kindle/stk_channel.sh` — gate + optional library poll | Mac |
+| **kobo** (`eink`) | `dev/kobo_tap_calibration.py` in `--sim kobo` | Win |
+
+**Commands:**
+```bash
+export PYTHONUTF8=1
+.venv/bin/python scripts/reader_sim.py --list
+.venv/bin/python scripts/reader_sim.py --sim all --artifact-dir build/reader-sim   # needs staged artifacts
+YHWH_SKIP_KOBO_SIM=1   # Mac: skip kobo (WIN lane)
+YHWH_THORIUM_LIVE=1    # open EPUB in Thorium when installed (CDP taps still MCP/manual)
+```
+
+**Ceiling:** Thorium sim ≠ Apple Books / Play Books on device. Kindle sim gate-only when `com.amazon.Kindle` library container absent. Previewer 3 = diagnostic bisect only, not STK oracle.
+
+---
+
 ## Environment gotchas (carry — both lanes hit these)
 
 - **`$env:PYTHONUTF8="1"`** on Windows test runs or ~72 tests fail with cp1252 errors.

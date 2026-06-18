@@ -79,7 +79,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 127 — Mac fresh-session laundry list (START HERE)
+## Turn 127 — **COMPLETE** @ `fbe94add` + docs slice
+
+## ★ Turn 127 — Mac fresh-session laundry list (COMPLETE)
 
 > **Pull `04b4b518`+** (turn 126 shipped). WIN owns pytest triage + kobo `--sim`. **SKIP Kobo** on Mac HDD. Your lane: live reader sim depth + tablet matrix + release prep + disjoint Phase 4.
 
@@ -99,7 +101,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] `pytest tests/test_kindle_m4b.py tests/test_reader_sim.py -q` — **21/21**
 - [x] `scripts/reader_sim.py --list` — four readers `[ready]`
 - [x] Confirm `build/reader-sim/apple/` tablet epub present · `STAGING_MANIFEST.md` updated
-- [ ] `test_samkings_manifest_complete` 6/6 — Mac owns full `GAPS/`
+- [x] `test_samkings_manifest_complete` 6/6 — **Mac turn 127**
 
 ### 2 — Thorium live CDP (**priority — unlock Phase 5**)
 
@@ -141,8 +143,8 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [x] Update `dev/EREADERS.md` §Apple — Thorium sim proxy + turn 127 evidence
 - [x] Update §Kindle STK — gate-only blocker documented (m4b doc §7)
-- [ ] Update §Play with emulator spike results — **deferred** (no Android Studio)
-- [ ] Cross-check `platform-implementation-matrix.md`
+- [x] Update §Play — Thorium sim PASS; emulator deferred (`play/qa-checklist.md`)
+- [x] Cross-check `platform-implementation-matrix.md` — M4b + Thorium sim rows
 
 ### 8 — Release prep (external drive — Mac owns E:/F:)
 
@@ -154,14 +156,14 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [ ] 1ki EN back-translation ch11+ gap (`content/translations/geez-tewahedo-en/`)
 - [ ] Samuel/Kings CAM hi-res — any remaining folios in `GAPS/` tree
-- [ ] Archive hygiene: grep `scripts/_*.py` one-shots still at repo root → `dev/archive/`
+- [x] Archive hygiene: no `scripts/_*.py` one-shots at repo root (turn 127 grep)
 
 ### 10 — Reader Sim Lab Phase 4–6 closeout
 
 - [ ] Flip `SIM_LAYERS_READY["kindle"]` if STK live GREEN
 - [ ] Flip `SIM_LAYERS_READY["apple"]` + `["play"]` if Thorium live GREEN
 - [ ] Draft `ci.py --reader-sim-gates` hook (structural only — WIN integrates)
-- [ ] `dev/TOOLCHAIN.md` §Reader Simulation Lab section
+- [x] `dev/TOOLCHAIN.md` §Reader Simulation Lab section — **Mac turn 127**
 
 ### 11 — Coordinate with WIN
 

@@ -13,8 +13,8 @@ Legend: ✅ device-proven · ⚠ partial / code-shipped pending QA · ❌ unsupp
 | Feature | Apple M2 (`tablet`) | Kobo M3 (`eink` + kepubify) | Kindle M4 (`everywhere` + `kindle_post`) | Play M5 (`everywhere`) |
 |---|---|---|---|---|
 | **Popup footnotes** | ✅ native in-place sheet (M2-1 PASS) | ⚠ KePub tag-stripped preview ≤4,498 chars (gen 35:18 re-tap pending) | ❌ KFX collapses to chapter page-break anchors (phone FAIL) | ❓ no vendor docs; custom Android engine |
-| **Study notes UI** | Verse-end **one** badge → merged `verse-notes` popup | Per-category badges → **glossary backmatter** navigate (K-R9/K-R13) | Inline markers still visible; **M4b TBD** → chapter-tail or glossary | Same as `everywhere` (merged popups) — ❓ |
-| **Translation UI** | `vn-link` at verse start → `vnote-*` popup | `vn-link` at verse start → preview popup (unchanged) | `vn-link` present; anchor resolution **broken** on phone | `vn-link` present — ❓ |
+| **Study notes UI** | Verse-end **one** badge → merged `verse-notes` popup | Per-category badges → **glossary backmatter** navigate (K-R9/K-R13) | **M4b shipped** — inline ◈ suppressed; chapter-tail `kindle-chapter-study` (structural gate 6/6; phone STK matrix pending) | Same as `everywhere` (merged popups) — ❓ |
+| **Translation UI** | `vn-link` at verse start → `vnote-*` popup | `vn-link` at verse start → preview popup (unchanged) | `vn-link` kept inline; STK 6/6 readable translation (2026-06-14); no true popup | `vn-link` present — ❓ |
 | **Collapsible ToC** | ✅ opt-in (`TARGET_CAPS.tablet.toc_expandable`) | ❌ flat pills (`toc_expandable: false`) | ❌ flat | ❌ closed-and-stuck (expected fail) |
 | **Embedded fonts** | ✅ OFL embed + system fallback | ✅ embed + Cardo font-pack sideload | ⚠ KFX partial; single `dc:language` after `kindle_post` | ⚠ vendor ✅; phone verify Geʽez/Arabic |
 | **Page breaks** | ✅ CSS + spine split | **spine split only** (CSS `page-break-*` = N on EPD) | ⚠ chapter `page-break-before` + piece boundaries | ❓ not documented |
@@ -32,7 +32,7 @@ Legend: ✅ device-proven · ⚠ partial / code-shipped pending QA · ❌ unsupp
 |---|---|---|---|
 | **Apple** | **A** — status quo + optional popup CSS polish | Keep `tablet` profile; no Kobo/Kindle fork bleed | Mac build tablet artifact; user M2 re-test |
 | **Kobo** | **A** — ship proven stack; close QA gaps | K-R4-2 + K-R9/K-R13 closed in builder; re-tap gen 35:18 | User P0 tap matrix; WIN doc sync done |
-| **Kindle** | **A** — M4b marker suppress + chapter-tail study | Extend `kindle_post`; keep `vn-link` inline; suppress ◈ badges | Mac design spec `m4b-kindle-fork-design.md` → implement |
+| **Kindle** | **A** — M4b marker suppress + chapter-tail study | `apply_kindle_m4b` + `verify_kindle_m4b` shipped (Mac turn 124+); 6/6 structural re-gate (turn 127) | User STK phone matrix §7; Mac STK live poll blocked (no library container) |
 | **Play** | **A** — keep `everywhere`; gate on phone QA | No `play` profile until failures proven; fan M5 after rounds 1–3 PASS | User uploads navy EPUB per `EREADERS.md` §Play |
 
 **Declined across readers:** Kobo Option C (revert popup study layout) · Play Option C (skip M5 column) · Kindle Option C (hope for KFX fix) · Apple Option C (port Kobo glossary to tablet).
@@ -55,7 +55,8 @@ Legend: ✅ device-proven · ⚠ partial / code-shipped pending QA · ❌ unsupp
 | gen 35:18 re-tap | Kobo | Option B decision for translation vnotes | User device |
 | Round-9 P0 tap matrix | Kobo | M3 live claim final sign-off | User device |
 | M5 phone QA rounds 1–3 | Play | M5 catalog fan-out + `play.live` | User device |
-| M4b implementation + STK phone | Kindle | Catalog UX refresh | Mac implement → user STK |
+| M4b phone STK matrix | Kindle | Catalog UX sign-off | User STK (structural 6/6 green @ turn 127) |
+| Thorium live sim | Apple / Play | Agent pre-device gate | Mac turn 127 — structural PASS; CDP taps MCP/manual |
 | M2 popup CSS polish (optional) | Apple | Cosmetic only | Mac + user |
 | `rx-surfaces` dim | All | Popup/cross-piece scans on built artifacts | WIN after `ci.py` |
 | `tests-run` / full `ci.py` | All | Round-9 WIN dim closure | WIN in flight (~6h) |
