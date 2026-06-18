@@ -124,17 +124,15 @@ class TestApplyKindleM4bHtml:
         assert 'href="#v-jub-2-1"' not in out
         assert "<strong>2:1</strong>" in out
 
-    def test_exposes_vnote_in_chapter_tail_block(self):
+    def test_leaves_vnote_in_hidden_tail(self):
         out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert stats["vnotes_exposed"] == 1
-        assert "verse-refs-section" not in out
+        assert "vnotes_exposed" not in stats
+        assert 'id="vnote-gen-1-1"' in out
         assert "Hebrew witness" in out
-        assert 'class="kindle-chapter-translations"' in out
-        vnote_pos = out.index('id="vnote-gen-1-1"')
+        assert 'class="kindle-chapter-translations"' not in out
         study_pos = out.index("kindle-chapter-study")
-        assert vnote_pos < study_pos
-        verse_end = out.index("</p>", out.index("In the beginning"))
-        assert vnote_pos > verse_end
+        vnote_pos = out.index('id="vnote-gen-1-1"')
+        assert study_pos < vnote_pos
 
     def test_study_block_not_inside_verse_p_opening(self):
         out, _stats = kindle_post.apply_kindle_m4b_html(_ANCHOR_IN_VERSE_P_HTML)
@@ -167,7 +165,6 @@ class TestApplyKindleM4bHtml:
         )
         out, stats = kindle_post.apply_kindle_m4b_html(html)
         assert stats["chapters_emitted"] == 2
-        assert stats["vnotes_exposed"] == 2
         assert kindle_post.verify_kindle_m4b_html(out) == []
         assert "Study ch2" in out
         assert "Ch2 translation" in out
@@ -236,16 +233,12 @@ class TestVerifyKindleM4b:
         out, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
         assert kindle_post.verify_kindle_m4b_html(out) == []
 
-    def test_hidden_vnote_tail_fails_m4b_4(self):
-        fails = kindle_post.verify_kindle_m4b_html(_CHAPTER_HTML)
-        assert any("m4b-4" in f for f in fails)
-
-    def test_inline_vnote_in_prose_fails_m4b_5(self):
+    def test_raw_chapter_html_fails_m4b_5_when_inline(self):
         inline = _CHAPTER_HTML.replace(
-            "</section>\n</body></html>",
-            '</section>\n<p class="verse-p-flush">Verse</p>\n'
-            '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">'
-            "<p>Inline popup</p></aside>\n</body></html>",
+            '<sup class="marker-badge">3</sup></a></p>',
+            '<sup class="marker-badge">3</sup></a></p>\n'
+            '<aside class="vnote" id="vnote-gen-1-2" epub:type="footnote">'
+            "<p>Inline popup</p></aside>",
         )
         fails = kindle_post.verify_kindle_m4b_html(inline)
         assert any("m4b-5" in f for f in fails)

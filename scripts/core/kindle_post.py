@@ -312,9 +312,16 @@ def _orphan_vnotes_in_prose(html: str) -> list[str]:
 
 
 def _inline_vnotes_in_prose(html: str) -> list[str]:
-    """Translation ``vnote-*`` asides inlined in scripture (KFX load failure mode)."""
+    """Translation ``vnote-*`` asides spliced directly after a verse paragraph.
+
+    Hidden tail popups (the proven STK-deliverable shape) are not matched."""
     prose = _strip_kindle_vnote_blocks(_strip_kindle_study_blocks(html))
-    return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnote-[^"]+)"', prose, re.I)))
+    pat = re.compile(
+        r'<p[^>]*\bclass="[^"]*\bverse-p[^"]*"[^>]*>.*?</p>\s*'
+        r'<aside\b[^>]*\bid="(vnote-[^"]+)"',
+        re.DOTALL | re.I,
+    )
+    return sorted(set(m.group(1) for m in pat.finditer(prose)))
 
 
 _VN_BACK_RE = re.compile(r'<p class="vn-back">.*?</p>\s*', re.DOTALL | re.I)
@@ -558,25 +565,21 @@ def _m4b_already_applied(html: str, badges: list[tuple[int, int]]) -> bool:
         and _KINDLE_STUDY_START in html
         and not _orphan_vnotes_in_prose(html)
         and not _orphan_vbadge_back_links(html)
-        and not _hidden_vnotes_in_tail(html)
+        and not _inline_vnotes_in_prose(html)
     )
 
 
-def _extract_m4b_asides(html: str) -> tuple[str, dict[str, str], dict[str, str]]:
+def _extract_m4b_asides(html: str) -> tuple[str, dict[str, str]]:
+    """Extract study ``vnotes-*`` asides only. Translation ``vnote-*`` popups stay in
+    the proven hidden tail (STK-deliverable shape — do not relocate or unhide)."""
     asides: dict[str, str] = {}
-    vnotes: dict[str, str] = {}
 
     def _take_vnotes(m: re.Match) -> str:
         asides[m.group(1)] = m.group(0)
         return ""
 
-    def _take_vnote(m: re.Match) -> str:
-        vnotes[m.group(1)] = m.group(0)
-        return ""
-
     html = _VNOTES_ASIDE_RE.sub(_take_vnotes, html)
-    html = _VNOTE_ASIDE_RE.sub(_take_vnote, html)
-    return html, asides, vnotes
+    return html, asides
 
 
 def _group_vnotes_by_chapter(asides: dict[str, str]) -> dict[tuple[str, str], list[str]]:
@@ -646,13 +649,13 @@ def _inject_study_blocks(
 
 def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
     """Remove inline ``verse-notes-badge`` markers; relocate ``vnotes-*`` asides into
-    per-chapter ``kindle-chapter-study`` sections (visible, same file). Hoist
-    translation ``vnote-*`` popups inline after their verse for KFX. Idempotent."""
+    per-chapter ``kindle-chapter-study`` sections (visible, same file). Translation
+    ``vn-link`` / ``vnote-*`` popups stay in hidden tail sections (STK-deliverable).
+    Idempotent."""
     stats: dict = {
         "badges_removed": 0,
         "asides_relocated": 0,
         "chapters_emitted": 0,
-        "vnotes_exposed": 0,
         "vn_links": len(_VN_LINK_RE.findall(html)),
     }
 
@@ -666,13 +669,8 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
     for start, end in reversed(badges):
         html = html[:start] + html[end:]
 
-    html, asides, vnotes = _extract_m4b_asides(html)
+    html, asides = _extract_m4b_asides(html)
     stats["asides_relocated"] = len(asides)
-
-    if vnotes:
-        by_vnote_chapter = _group_vnote_by_chapter(vnotes)
-        html, n_exposed = _inject_vnote_blocks(html, by_vnote_chapter, vnotes)
-        stats["vnotes_exposed"] = n_exposed
 
     html = _EMPTY_VERSE_REFS_RE.sub("", html)
 
@@ -748,8 +746,6 @@ def verify_kindle_m4b_html(html: str) -> list[str]:
         vb_id = m.group(1)
         if f'id="{vb_id}"' not in html and f"id='{vb_id}'" not in html:
             fails.append(f"m4b-3: vbadge back-link {vb_id!r} has no fragment target")
-    for vid in _hidden_vnotes_in_tail(html):
-        fails.append(f"m4b-4: translation vnote {vid!r} still in hidden verse-refs-section")
     for vid in _inline_vnotes_in_prose(html):
         fails.append(f"m4b-5: translation vnote {vid!r} inlined in scripture prose")
     return fails
