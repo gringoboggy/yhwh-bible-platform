@@ -4,6 +4,17 @@
 > one task, pick the next item here or run `py -3 scripts/agent_idle_radar.py --next`.
 > User will ask when they have something for you. Ping heartbeat after each slice:
 > `py -3 scripts/agent_idle_radar.py --ping --note "what you just did"`.
+>
+> **Strategic replan (STANDING):** Periodically step back and re-read PLAN + release
+> gate + queues — reorder for optimal efficiency when derailed or scope shifts.
+> Radar auto-pings when due (15+ commits · 24h · PLAN changed). Checklist:
+> `dev/STRATEGIC_REPLAN_CHECKLIST.md` · `py -3 scripts/agent_idle_radar.py --replan`.
+
+## P3 — strategic replan (when radar pings — then resume execution)
+
+- [ ] BOTH: Run `agent_idle_radar.py --replan` — read PLAN + release-plan §8 + SESSION_STATE + both queues
+- [ ] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale
+- [ ] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item
 
 ## P5 — release gate (WIN primary)
 

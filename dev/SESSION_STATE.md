@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128).** `git pull` → **`c74c8c15`+**. **`MAC_WORK_QUEUE.md` §Turn 128**. **Bootstrap auto-starts BOTH radars** (`start_session_radars_mac.sh`). **STANDING:** never ask · never idle · `--replan` when radar pings · `--next` when blocked. **Shipped:** STK Lassen · `--sim all` 3/3 · reader-sim-gates hook. **Pending:** STK arrival poll · Play emulator · Esther transcription · WIN `ci.py` GREEN. **SKIP kobo.** Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128).** `git pull` → **`c74c8c15`+**. **`MAC_WORK_QUEUE.md` §Turn 128**. **Bootstrap auto-starts BOTH radars** (`start_session_radars_mac.sh`). **STANDING:** never ask · never idle · `--replan` when radar pings (15+ commits/24h) · `--next` when blocked. **Shipped:** STK Lassen · `--sim all` 3/3 · reader-sim-gates hook. **Pending:** STK arrival poll · Play emulator · Esther transcription · WIN `ci.py` GREEN. **SKIP kobo.** Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`c74c8c15`+**. **Bootstrap auto-starts BOTH radars** (`start_session_radars.ps1`). **Job 1:** pytest → `ci.py` GREEN. **Job 2:** kobo `--sim`. **Job 3:** rx-surfaces. **Never idle** · **replan periodically** (`STRATEGIC_REPLAN_CHECKLIST.md`). Baton **mac**; mode=parallel.
 >

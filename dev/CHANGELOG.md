@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 130c) — strategic replan ping
+
+**Shipped:** `agent_idle_radar.py --replan` / `--replan-done` · `dev/STRATEGIC_REPLAN_CHECKLIST.md` · P03 replan section in `AGENT_WORK_BACKLOG.md` · STANDING in LANE_HANDOFF/RULES/PLAYBOOK/bootstrap (15+ commits · 24h · PLAN-changed triggers).
+
 ## 2026-06-18 — Windows session (turn 130b) — dual-radar bootstrap + anti-idle
 
 **Shipped:** `scripts/agent_idle_radar.py` + `dev/AGENT_WORK_BACKLOG.md` · `start_session_radars.{ps1,mac.sh}` · bootstrap-triad auto-starts **lane_watch 60s** + **agent_idle_radar 120s** every session (STANDING both lanes) · Mac §128 transcription side lane · pytest WIP (build_smoke · matter_pages · samkings skip · symbols note-id oracle).

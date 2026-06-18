@@ -15,7 +15,12 @@ Wrappers:
 
 State: ``dev/.agent_activity.json`` (gitignored). Log: ``dev/.agent_idle_radar.log``.
 
+Also runs **strategic replan pings** (``--replan`` / ``--replan-done``): periodic big
+step-back to re-read PLAN + backlog + release gate and reorder work for optimal
+efficiency — without ever going idle afterward.
+
 Exit codes (--check): 0 active/recent · 10 IDLE (no ping in ``--stale-sec``) · 20 work queued.
+  · 30 REPLAN DUE (--replan when triggers fire).
 """
 
 from __future__ import annotations
@@ -31,10 +36,14 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 BACKLOG = REPO / "dev" / "AGENT_WORK_BACKLOG.md"
-MAC_QUEUE = REPO / "dev" / "MAC_WORK_QUEUE.md"
+REPLAN_CHECKLIST = REPO / "dev" / "STRATEGIC_REPLAN_CHECKLIST.md"
+PLAN_PATH = REPO / "dev" / "PLAN_2026-05-29-roadmap.md"
+RELEASE_PLAN = REPO / "docs" / "superpowers" / "plans" / "2026-06-14-v1.0.0-release-plan.md"
 STATE_PATH = REPO / "dev" / ".agent_activity.json"
 LOG_PATH = REPO / "dev" / ".agent_idle_radar.log"
 DEFAULT_STALE_SEC = 180
+REPLAN_COMMIT_THRESHOLD = 15
+REPLAN_HOURS_THRESHOLD = 24
 
 
 def _now() -> str:
@@ -56,7 +65,14 @@ def _load_state() -> dict:
             return json.loads(STATE_PATH.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             pass
-    return {"last_ping": "", "pings": 0, "last_task": ""}
+    return {
+        "last_ping": "",
+        "pings": 0,
+        "last_task": "",
+        "last_replan": "",
+        "last_replan_commit": "",
+        "last_replan_note": "",
+    }
 
 
 def _save_state(state: dict) -> None:
@@ -110,10 +126,68 @@ def _parse_backlog_items() -> list[tuple[int, str, str]]:
     return items
 
 
+def _parse_iso(ts: str) -> datetime | None:
+    if not ts:
+        return None
+    try:
+        return datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+def _replan_triggers(state: dict) -> list[str]:
+    """Return human-readable reasons strategic replan is due."""
+    reasons: list[str] = []
+    last_replan = _parse_iso(state.get("last_replan", ""))
+    if last_replan is None:
+        reasons.append("never replanned since radar installed")
+    else:
+        hours = (datetime.now(timezone.utc) - last_replan).total_seconds() / 3600
+        if hours >= REPLAN_HOURS_THRESHOLD:
+            reasons.append(f"{int(hours)}h since last replan (threshold {REPLAN_HOURS_THRESHOLD}h)")
+
+    anchor = state.get("last_replan_commit", "")
+    if not anchor:
+        code, head = _git("rev-parse", "HEAD")
+        if code == 0:
+            code2, n = _git("rev-list", "--count", head)
+            if code2 == 0 and n.isdigit() and int(n) >= REPLAN_COMMIT_THRESHOLD:
+                reasons.append(f"{n} total commits (no replan anchor yet)")
+    else:
+        code, count = _git("rev-list", "--count", f"{anchor}..HEAD")
+        if code == 0 and count.isdigit() and int(count) >= REPLAN_COMMIT_THRESHOLD:
+            reasons.append(f"{count} commits since last replan (threshold {REPLAN_COMMIT_THRESHOLD})")
+
+    replan_ts = last_replan.timestamp() if last_replan else 0.0
+    for label, path in (("PLAN", PLAN_PATH), ("release-plan", RELEASE_PLAN)):
+        if path.is_file() and path.stat().st_mtime > replan_ts:
+            reasons.append(f"{label} changed since last replan ({path.name})")
+
+    changelog = REPO / "dev" / "CHANGELOG.md"
+    if changelog.is_file() and changelog.stat().st_mtime > replan_ts and len(reasons) < 2:
+        # Nudge when changelog moved but no other trigger yet — scope drift signal.
+        code, n = _git("log", "-5", "--oneline")
+        if code == 0 and n.count("\n") >= 4:
+            reasons.append("5 recent ships — verify backlog ordering still optimal")
+
+    return reasons
+
+
+def _replan_due(state: dict | None = None) -> tuple[bool, list[str]]:
+    state = state if state is not None else _load_state()
+    reasons = _replan_triggers(state)
+    return bool(reasons), reasons
+
+
 def _auto_signals() -> list[tuple[int, str, str]]:
     """Repo-derived work items. Lower priority number = higher urgency."""
     lane = _lane()
     out: list[tuple[int, str, str]] = []
+    state = _load_state()
+    due, replan_reasons = _replan_due(state)
+    if due:
+        summary = "; ".join(replan_reasons[:2])
+        out.append((3, "both", f"STRATEGIC REPLAN due ({summary}) — run --replan then --replan-done"))
 
     code, status = _git("status", "-b", "--porcelain")
     if code == 0 and status:
@@ -178,6 +252,40 @@ def _merged_tasks(lane: str) -> list[tuple[int, str, str]]:
     return deduped
 
 
+def cmd_replan() -> int:
+    state = _load_state()
+    due, reasons = _replan_due(state)
+    _log("STRATEGIC REPLAN ping" + (" — DUE" if due else " — not due yet"))
+    if due:
+        for r in reasons:
+            print(f"  ! {r}")
+    else:
+        print("  (no triggers — continue execution; replan again when --next shows P03 replan)")
+    print("")
+    print("  Checklist: dev/STRATEGIC_REPLAN_CHECKLIST.md")
+    if REPLAN_CHECKLIST.is_file():
+        for line in REPLAN_CHECKLIST.read_text(encoding="utf-8").splitlines():
+            if line.startswith("- [ ]") or line.startswith("## "):
+                print(f"  {line}")
+    print("")
+    print('  After replan: py -3 scripts/agent_idle_radar.py --replan-done --note "…"')
+    print("  Then immediately: py -3 scripts/agent_idle_radar.py --next")
+    return 30 if due else 0
+
+
+def cmd_replan_done(note: str = "") -> int:
+    state = _load_state()
+    state["last_replan"] = _now()
+    code, head = _git("rev-parse", "HEAD")
+    if code == 0:
+        state["last_replan_commit"] = head
+    if note:
+        state["last_replan_note"] = note
+    _save_state(state)
+    _log(f"STRATEGIC REPLAN marked done{f': {note}' if note else ''}")
+    return 0
+
+
 def cmd_ping(note: str = "") -> int:
     state = _load_state()
     state["last_ping"] = _now()
@@ -222,6 +330,10 @@ def cmd_loop(interval: int) -> int:
     _log(f"IDLE-RADAR: loop every {interval}s (Ctrl+C to stop)")
     try:
         while True:
+            due, reasons = _replan_due()
+            if due:
+                _log("STRATEGIC REPLAN DUE: " + "; ".join(reasons[:2]))
+                cmd_replan()
             if cmd_check(DEFAULT_STALE_SEC) == 10:
                 pass
             time.sleep(interval)
@@ -239,8 +351,14 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--stale-sec", type=int, default=DEFAULT_STALE_SEC)
     p.add_argument("--loop", type=int, metavar="SEC", help="background stale checker")
     p.add_argument("--lane", choices=("windows", "mac"), help="override lane detection")
+    p.add_argument("--replan", action="store_true", help="strategic step-back replan ping")
+    p.add_argument("--replan-done", action="store_true", help="mark replan complete")
     args = p.parse_args(argv)
 
+    if args.replan_done:
+        return cmd_replan_done(args.note)
+    if args.replan:
+        return cmd_replan()
     if args.ping:
         return cmd_ping(args.note)
     if args.next:

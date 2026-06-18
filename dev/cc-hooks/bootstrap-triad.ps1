@@ -64,6 +64,8 @@ DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
   2. agent_idle_radar  -- never wait for user input; surface next work (120s)
   If either is not running: pwsh -File dev/start_session_radars.ps1
   Backlog: dev/AGENT_WORK_BACKLOG.md · py -3 scripts/agent_idle_radar.py --next
+  Strategic replan ping (periodic big step-back): --replan when due (15+ commits / 24h /
+  PLAN changed). Checklist: dev/STRATEGIC_REPLAN_CHECKLIST.md. Replan then resume work.
 ========================================================================
 '@
 

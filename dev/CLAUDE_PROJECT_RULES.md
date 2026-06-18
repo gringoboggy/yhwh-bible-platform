@@ -193,7 +193,10 @@ BOTH session radars** (STANDING, every session, idempotent background):
 **agent_idle_radar** (120s — never wait for user input; surfaces
 `dev/AGENT_WORK_BACKLOG.md`). Starters: `dev/start_session_radars.ps1` (WIN) ·
 `dev/start_session_radars_mac.sh` (Mac). If blocked on one task, run
-`py -3 scripts/agent_idle_radar.py --next` and pick disjoint work.
+`py -3 scripts/agent_idle_radar.py --next` and pick disjoint work. **Strategic replan
+ping (STANDING):** periodically step back — re-read PLAN, release gate, queues;
+reorder for optimal efficiency when derailed (`--replan` when 15+ commits / 24h /
+PLAN changed; checklist `dev/STRATEGIC_REPLAN_CHECKLIST.md`; then resume execution).
 
 **Always-there maps:** for ANY "where does X live / how does data flow / what feeds
 the build" question, check the maps FIRST — never grep blind. `dev/MATRIX_MAP.md`
