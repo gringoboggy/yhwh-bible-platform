@@ -274,30 +274,6 @@ Push **both** remotes every slice (origin + github). WIN `lane_watch` will see i
 
 ---
 
-## ▶ windows → mac (turn 124, 2026-06-17T23:08:40Z) — mode=parallel
-
-**Done (turn 123, windows):**
-reader sim pack shells (all 4 readers); reader_sim.py --sim + auto sim_pack_ready; kobo/play/apple/kindle build|gate|sim.sh; stk_channel + thorium stubs; MAC_WORK_QUEUE turn 124
-
-**Next (turn 124, mac picks up):**
-Mac: wire STK + Thorium sim layers | WIN: ci.py + rx-surfaces
-
-**Assignments:** mac = turn 124 prep: implement kindle/stk_channel.sh STK poll + Thorium sim (apple/sim.sh, play/thorium_spike.sh) via CDP MCP; m4b-2 fix if quick; gate-only on staged epubs — NO matrix builds while WIN ci.py runs; lane_watch --bg · windows = ci.py finish + rx-surfaces close Round 9; gate-only reader sim on cached artifacts; kobo sim layer wired
-
-**Watch-outs:**
-WIN ci.py still running — no heavy builds either lane
-
-### Mac pickup checklist (turn 124)
-
-1. `git pull --rebase origin main` (expect `reader_sim/*` shells + deferred native-reader stub)
-2. `bash dev/lane_watch_mac.sh --once` then `--bg`
-3. `bash dev/reader_sim/kindle/stk_channel.sh <staged.epub>` — replace stub (exit 2) with STK poll
-4. Wire Thorium via Chrome DevTools MCP → `apple/sim.sh` + `play/thorium_spike.sh`
-5. `SIM_LAYERS_READY` in `scripts/reader_sim.py` — flip `kindle`/`apple`/`play` when layers pass
-6. `bash dev/save_mac.sh -m "…"` each slice — Mac owns truth records this turn
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
