@@ -315,20 +315,53 @@ def apply_kindle_m4b_css(css: str) -> str:
     return css.rstrip() + "\n" + _KINDLE_M4B_CSS
 
 
-def _study_back_link(book: str, ch: str, verse: str) -> str:
-    return (
-        f'<p class="vn-back"><a href="#v-{book}-{ch}-{verse}" class="note-back">↩</a> <strong>{ch}:{verse}</strong></p>'
-    )
+_VN_LINK_ID_RE = re.compile(r'<a\s+class="vn-link"\s+id="(v-[^"]+)"', re.I)
+_CH_ID_BY_NUM_RE = re.compile(r'\bid="(ch-b\d+-c(\d+))"', re.I)
 
 
-def _prepare_relocated_aside(aside_html: str, aid: str) -> str:
-    """Unhide study aside; replace suppressed ``vbadge`` back-link with ``#v-`` anchor."""
+def _vn_link_anchor_ids(html: str) -> set[str]:
+    return set(_VN_LINK_ID_RE.findall(html))
+
+
+def _chapter_anchor_by_num(html: str) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for ch_id, ch_num in _CH_ID_BY_NUM_RE.findall(html):
+        out.setdefault(ch_num, ch_id)
+    return out
+
+
+def _study_back_link(
+    book: str,
+    ch: str,
+    verse: str,
+    *,
+    v_anchors: set[str],
+    ch_anchors: dict[str, str],
+) -> str:
+    v_id = f"v-{book}-{ch}-{verse}"
+    if v_id in v_anchors:
+        href = f"#{v_id}"
+    elif ch in ch_anchors:
+        href = f"#{ch_anchors[ch]}"
+    else:
+        return f'<p class="vn-back"><strong>{ch}:{verse}</strong></p>'
+    return f'<p class="vn-back"><a href="{href}" class="note-back">↩</a> <strong>{ch}:{verse}</strong></p>'
+
+
+def _prepare_relocated_aside(
+    aside_html: str,
+    aid: str,
+    *,
+    v_anchors: set[str],
+    ch_anchors: dict[str, str],
+) -> str:
+    """Unhide study aside; replace suppressed ``vbadge`` back-link with a resolvable anchor."""
     aside_html = _HIDDEN_ATTR_RE.sub("", aside_html, count=1)
     aside_html = _VN_BACK_VBADGE_RE.sub("", aside_html)
     cm = _VNOTES_COORD_RE.match(aid)
     if not cm:
         return aside_html
-    back = _study_back_link(cm.group(1), cm.group(2), cm.group(3))
+    back = _study_back_link(cm.group(1), cm.group(2), cm.group(3), v_anchors=v_anchors, ch_anchors=ch_anchors)
     open_aside = re.match(r"(<aside\b[^>]*>)", aside_html, re.I)
     if open_aside:
         return aside_html[: open_aside.end()] + back + aside_html[open_aside.end() :]
@@ -364,6 +397,24 @@ def _strip_vn_back_in_study_blocks(html: str) -> tuple[str, int]:
     return _KINDLE_STUDY_BLOCK_RE.sub(_repl, html), stripped
 
 
+def _snap_after_open_paragraph(html: str, pos: int) -> int:
+    """If ``pos`` sits inside an unclosed ``<p>``, move to after its ``</p>``."""
+    before = html[:pos]
+    open_count = len(re.findall(r"<p\b", before, re.I)) - len(re.findall(r"</p>", before, re.I))
+    if open_count <= 0:
+        return pos
+    close = html.find("</p>", pos)
+    return (close + len("</p>")) if close != -1 else pos
+
+
+def _snap_study_injection_pos(html: str, pos: int) -> int:
+    """Block-level study HTML must not splice inside ``<p class="verse-p*">``."""
+    p_start = html.rfind("<p ", 0, pos)
+    if p_start != -1 and re.match(r'<p\s+class="verse-p', html[p_start : p_start + 48], re.I):
+        return p_start
+    return _snap_after_open_paragraph(html, pos)
+
+
 def _chapter_injection_points(html: str) -> dict[int, int]:
     """Map chapter number → byte offset where that chapter's study block belongs."""
     boundaries = [(m.start(), int(m.group(1))) for m in _CH_BOUNDARY_RE.finditer(html)]
@@ -375,7 +426,7 @@ def _chapter_injection_points(html: str) -> dict[int, int]:
         body_end = len(html)
     for idx, (pos, ch_num) in enumerate(boundaries):
         if idx + 1 < len(boundaries):
-            points[ch_num] = boundaries[idx + 1][0]
+            points[ch_num] = _snap_study_injection_pos(html, boundaries[idx + 1][0])
             continue
         region = html[pos:body_end]
         tail_candidates = [
@@ -383,12 +434,23 @@ def _chapter_injection_points(html: str) -> dict[int, int]:
             for needle in ('<aside class="notes-section"', '<section class="verse-refs-section"')
             if region.find(needle) != -1
         ]
-        points[ch_num] = min(tail_candidates) if tail_candidates else body_end
+        raw = min(tail_candidates) if tail_candidates else body_end
+        points[ch_num] = _snap_study_injection_pos(html, raw)
     return points
 
 
-def _build_study_block(book: str, ch: str, aids: list[str], asides: dict[str, str]) -> str:
-    inner = "\n".join(_prepare_relocated_aside(asides[aid], aid) for aid in aids)
+def _build_study_block(
+    book: str,
+    ch: str,
+    aids: list[str],
+    asides: dict[str, str],
+    *,
+    v_anchors: set[str],
+    ch_anchors: dict[str, str],
+) -> str:
+    inner = "\n".join(
+        _prepare_relocated_aside(asides[aid], aid, v_anchors=v_anchors, ch_anchors=ch_anchors) for aid in aids
+    )
     return (
         f"{_KINDLE_STUDY_START}\n"
         f'<div class="kindle-chapter-study" epub:type="footnotes">\n'
@@ -472,12 +534,15 @@ def _inject_study_blocks_at_tail(
     html: str,
     by_chapter: dict[tuple[str, str], list[str]],
     asides: dict[str, str],
+    *,
+    v_anchors: set[str],
+    ch_anchors: dict[str, str],
 ) -> tuple[str, int]:
     """Fallback when a file piece has study asides but no matching ``ch-anchor``."""
     blocks: list[str] = []
     for book, ch in sorted(by_chapter):
         aids = sorted(by_chapter[(book, ch)])
-        blocks.append(_build_study_block(book, ch, aids, asides))
+        blocks.append(_build_study_block(book, ch, aids, asides, v_anchors=v_anchors, ch_anchors=ch_anchors))
     injection = "\n".join(blocks) + "\n"
     ns = html.find('<aside class="notes-section"')
     if ns != -1:
@@ -492,11 +557,14 @@ def _inject_study_blocks(
     html: str,
     by_chapter: dict[tuple[str, str], list[str]],
     asides: dict[str, str],
+    *,
+    v_anchors: set[str],
+    ch_anchors: dict[str, str],
 ) -> tuple[str, int]:
     emitted = 0
     injection_points = _chapter_injection_points(html)
     if not injection_points:
-        return _inject_study_blocks_at_tail(html, by_chapter, asides)
+        return _inject_study_blocks_at_tail(html, by_chapter, asides, v_anchors=v_anchors, ch_anchors=ch_anchors)
 
     pending: dict[tuple[str, str], list[str]] = dict(by_chapter)
     for book, ch in sorted(by_chapter, key=lambda k: int(k[1]), reverse=True):
@@ -504,14 +572,16 @@ def _inject_study_blocks(
         if ch_num not in injection_points:
             continue
         aids = sorted(by_chapter[(book, ch)])
-        block = _build_study_block(book, ch, aids, asides) + "\n"
-        pos = injection_points[ch_num]
+        block = _build_study_block(book, ch, aids, asides, v_anchors=v_anchors, ch_anchors=ch_anchors) + "\n"
+        pos = _snap_study_injection_pos(html, injection_points[ch_num])
         html = html[:pos] + block + html[pos:]
         emitted += 1
         del pending[(book, ch)]
 
     if pending:
-        html, tail_emitted = _inject_study_blocks_at_tail(html, pending, asides)
+        html, tail_emitted = _inject_study_blocks_at_tail(
+            html, pending, asides, v_anchors=v_anchors, ch_anchors=ch_anchors
+        )
         emitted += tail_emitted
     return html, emitted
 
@@ -551,7 +621,13 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
         return html, stats
 
     by_chapter = _group_vnotes_by_chapter(asides)
-    html, emitted = _inject_study_blocks(html, by_chapter, asides)
+    html, emitted = _inject_study_blocks(
+        html,
+        by_chapter,
+        asides,
+        v_anchors=_vn_link_anchor_ids(html),
+        ch_anchors=_chapter_anchor_by_num(html),
+    )
     stats["chapters_emitted"] = emitted
 
     html = _EMPTY_NOTES_SECTION_RE.sub("", html)

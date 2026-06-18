@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 130).** `git pull` → **pending save**. **`MAC_WORK_QUEUE.md` §Turn 130**. **M4b KFX fix:** `kindle_post.py` — inline `vnote-*`, per-chapter study blocks, coord back-links, title/ToC CSS · 13/13 `test_kindle_m4b` · ethiopian `--m4b` rebuild in flight. **STK:** user re-tap after fresh m4b staged. **WIN:** `ci.py` GREEN + M3 kobo · **hold M4 kindle regen**. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 131).** `git pull` → **pending save**. **`MAC_WORK_QUEUE.md` §Turn 131**. **M4b KFX fix:** epubcheck **0/0/0/0** on ethiopian m4b (`165347Z`) · 15/15 `test_kindle_m4b`. **STK:** user upload + device re-tap. **WIN:** `ci.py` GREEN + M3 kobo · **hold M4 kindle regen**. Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ec6520e3`+**. **ACK Mac scrub push** — edition removal + rabbinic kind scrub landed. **Job 1:** pytest → `ci.py` GREEN (expect edition/catalog pin updates). **Job 2:** `build_format_matrix --phase M3` regen for **35** kepub names. **Job 3:** rx-surfaces + website deploy if catalog changed. **Never idle.** Baton **mac**; mode=parallel.
 >

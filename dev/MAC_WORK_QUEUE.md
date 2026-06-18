@@ -87,7 +87,29 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 130 — M4b Kindle KFX fix arc (START HERE)
+## ★ Turn 131 — STK re-tap + M4b 6-variant re-gate (START HERE)
+
+> **Pull `c6e8c2de`+** then latest save. **M4b KFX fix shipped** @ `c6e8c2de` + epubcheck follow-up.
+
+### 1 — STK device re-tap (user upload · agent poll)
+
+- [ ] User uploads `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-18T165347Z-kindle-m4b.epub` via Chrome
+- [ ] `bash dev/reader_sim/kindle/stk_poll_watch.sh --epub ~/Desktop/YHWH-reader-sim/kindle/…165347Z-kindle-m4b.epub`
+- [ ] User Kindle QA: Gen 1:1 vn-link · study coord/back-link · title page · ToC spacing
+- [ ] Log result in `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`
+
+### 2 — M4b 6-variant re-gate (overflow @ turn 128)
+
+- [ ] Rebuild + gate 6 variants → `~/Desktop/YHWH-kindle-m4b-qa/` after STK PASS
+
+### 3 — Standing
+
+- [ ] WIN: hold M4 kindle catalog regen until Mac STK re-PASS
+- [ ] `save_mac.sh` each slice
+
+## Turn 130 — **COMPLETE** (M4b KFX fix)
+
+## ★ Turn 130 — M4b Kindle KFX fix arc (COMPLETE)
 
 > **STK 2026-06-18:** delivery PASS · device QA **FAIL** (both m4b builds, Mac + phone). Findings: `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`. **WIN:** hold M4 kindle catalog regen; continue `ci.py` + M3 kobo.
 

@@ -27,7 +27,9 @@
 | Title page 3-page split | `apply_kindle_m4b_css`: drop forced `page-break-after` on `.book-title-page`; relax frame `break-inside` |
 | ToC pills crowded | `toc-chapter-row a { margin: 0 0.35em; display: inline-block; }` |
 
-**Gates:** `tests/test_kindle_m4b.py` 13/13 · `verify_kindle_m4b` on spot ethiopian build PASS (`vnotes_inlined` 36,329).
+**Gates:** `tests/test_kindle_m4b.py` 15/15 · ethiopian m4b `165347Z` — `verify_kindle_m4b` PASS · **epubcheck 0/0/0/0** · `M4B=1 gate.sh` PASS.
+
+**Follow-up fixes (same arc):** injection snap outside `verse-p` · Strategy-B back-links → `#ch-b*-c*` when no `#v-*` anchor.
 
 ## Implication
 
