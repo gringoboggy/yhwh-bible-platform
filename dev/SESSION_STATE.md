@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 127 DONE @ `fbe94add`).** **Shipped:** catholic-study tablet (23 MB · epubcheck 0/0/0/0) · Thorium 3.4.0 live · `--sim all` 3/3 (`YHWH_THORIUM_LIVE=1`) · m4b 6/6 re-gate · samkings 6/6 · platform matrix + TOOLCHAIN §Reader Sim updated. **Blocked:** STK live poll (no `com.amazon.Kindle` container) · Play emulator (no AVD). **WIN owns:** kobo `--sim` + `ci.py` GREEN. `STAGING_MANIFEST.md`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128 @ `f73cda6f`).** **Shipped:** STK `com.amazon.Lassen` fix · `--sim all` 3/3 live (kindle inventory + Thorium) · `ci.py --reader-sim-gates` hook. **Prior:** turn 127 catholic-study tablet · m4b 6/6. **Pending:** STK arrival poll (manual send) · Play emulator · 1ki ch11+ EN · WIN `ci.py` GREEN. Baton **mac**; mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ebbc2597`+**. **Job 1:** pytest triage → `ci.py` GREEN (15 reds mapped in `LANE_HANDOFF` §126 table). **Job 2:** finish Kobo — fresh kepub `2026-06-18T015027Z` staged · `verify_kr2` GREEN · complete `--sim kobo` + update `STAGING_MANIFEST.md`. **Job 3:** rx-surfaces close. **Do not** ask Mac to run kobo gates. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
 >

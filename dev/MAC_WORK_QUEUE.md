@@ -114,10 +114,10 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 3 — STK live poll (Kindle-for-Mac real channel)
 
-- [x] Diagnose: `Amazon Kindle.app` yes; **no `com.amazon.Kindle` container** (SendToKindleExtension only)
-- [ ] Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600` — blocked on library container
-- [ ] Log arrival in `stk-last-arrival.txt` — blocked
-- [x] Gate-only documented in `STAGING_MANIFEST.md` + qa-checklist
+- [x] Diagnose: **`com.amazon.Lassen`** container (turn 128) — signed-in, 2 library files
+- [ ] Send-to-Kindle one m4b epub → `stk_channel.sh "$EPUB" --wait 3600` — needs UI send step
+- [x] Baseline logged in `build/reader-sim/kindle/stk-last-arrival.txt`
+- [x] `stk_channel.sh` + `reader_sim.py` live inventory — **Mac turn 128** (`f73cda6f`)
 
 ### 4 — Tablet artifact matrix (apple sim depth)
 
@@ -137,7 +137,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [x] Re-run 6-variant gate sweep on `~/Desktop/YHWH-kindle-m4b-qa/` — **6/6 PASS**
 - [x] Update `m4b-kindle-fork-design.md` §7 footer
-- [ ] If STK live succeeds: re-run `--sim kindle` without gate-only fallback
+- [x] `--sim kindle` uses live Lassen inventory (no forced gate-only) — turn 128
 
 ### 7 — EREADERS + platform truth records
 
@@ -162,7 +162,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 - [ ] Flip `SIM_LAYERS_READY["kindle"]` if STK live GREEN
 - [ ] Flip `SIM_LAYERS_READY["apple"]` + `["play"]` if Thorium live GREEN
-- [ ] Draft `ci.py --reader-sim-gates` hook (structural only — WIN integrates)
+- [x] Draft `ci.py --reader-sim-gates` hook (non-blocking; WIN integrates) — turn 128
 - [x] `dev/TOOLCHAIN.md` §Reader Simulation Lab section — **Mac turn 127**
 
 ### 11 — Coordinate with WIN
@@ -174,7 +174,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 ### 12 — Done when
 
 - [x] Thorium live — installed + `--sim` PASS (CDP taps MCP/manual)
-- [x] STK live — dated blocker (no library container)
+- [x] STK live — Lassen library inventory (`f73cda6f`); arrival poll awaits send
 - [x] catholic-study tablet staged
 - [x] EREADERS.md + STAGING_MANIFEST.md current
 - [ ] Play emulator spike recorded — deferred (no AVD)

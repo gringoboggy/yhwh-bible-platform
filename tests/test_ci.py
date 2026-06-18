@@ -100,3 +100,41 @@ class TestCIGate:
         assert audit["status"] == "warn" and audit["blocking"] is False
         assert dead["status"] == "warn" and dead["blocking"] is False
         assert r["summary"]["clean"] is True
+
+    def test_reader_sim_gates_non_blocking_pass(self):
+        from scripts import ci
+
+        r = ci.run_all(
+            runner=_all_ok,
+            coverage_installed=False,
+            reader_sim_gates=True,
+            reader_sim_runner=lambda: (0, "3/3 PASS"),
+        )
+        sim = next(c for c in r["checks"] if c["id"] == "reader_sim")
+        assert sim["status"] == "pass" and sim["blocking"] is False
+        assert r["summary"]["clean"] is True
+
+    def test_reader_sim_gates_warn_on_fail_without_blocking(self):
+        from scripts import ci
+
+        r = ci.run_all(
+            runner=_all_ok,
+            coverage_installed=False,
+            reader_sim_gates=True,
+            reader_sim_runner=lambda: (1, "apple FAIL"),
+        )
+        sim = next(c for c in r["checks"] if c["id"] == "reader_sim")
+        assert sim["status"] == "warn" and sim["blocking"] is False
+        assert r["summary"]["clean"] is True
+
+    def test_reader_sim_gates_skip_when_no_artifacts(self):
+        from scripts import ci
+
+        r = ci.run_all(
+            runner=_all_ok,
+            coverage_installed=False,
+            reader_sim_gates=True,
+            reader_sim_runner=lambda: (0, "skipped — no build/reader-sim/"),
+        )
+        sim = next(c for c in r["checks"] if c["id"] == "reader_sim")
+        assert sim["status"] == "warn" and sim["skipped"] is True

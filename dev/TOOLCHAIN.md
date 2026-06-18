@@ -120,9 +120,10 @@ export PYTHONUTF8=1
 .venv/bin/python scripts/reader_sim.py --sim all --artifact-dir build/reader-sim   # needs staged artifacts
 YHWH_SKIP_KOBO_SIM=1   # Mac: skip kobo (WIN lane)
 YHWH_THORIUM_LIVE=1    # open EPUB in Thorium when installed (CDP taps still MCP/manual)
+.venv/bin/python scripts/ci.py --no-tests --reader-sim-gates   # non-blocking CI hook (turn 128)
 ```
 
-**Ceiling:** Thorium sim ≠ Apple Books / Play Books on device. Kindle sim gate-only when `com.amazon.Kindle` library container absent. Previewer 3 = diagnostic bisect only, not STK oracle.
+**Ceiling:** Thorium sim ≠ Apple Books / Play Books on device. Kindle sim uses `com.amazon.Lassen` library inventory when signed in. Previewer 3 = diagnostic bisect only, not STK oracle.
 
 ---
 

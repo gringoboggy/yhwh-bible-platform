@@ -43,6 +43,7 @@ _PY = sys.executable
 
 # A runner maps a command (argv list) -> (returncode, combined_output).
 Runner = Callable[[list[str]], "tuple[int, str]"]
+ReaderSimRunner = Callable[[], "tuple[int, str]"]
 
 
 def _subprocess_runner(cmd: list[str]) -> tuple[int, str]:
@@ -60,6 +61,31 @@ def _coverage_available() -> bool:
     return importlib.util.find_spec("coverage") is not None
 
 
+def _default_reader_sim_runner(artifact_dir: Path | None = None) -> tuple[int, str]:
+    """Run ``reader_sim.py --sim all`` on staged artifacts (kobo skipped)."""
+    directory = artifact_dir or (_REPO / "build" / "reader-sim")
+    if not directory.is_dir():
+        return 0, "skipped — no build/reader-sim/ (stage artifacts first)"
+    env = {**os.environ, "YHWH_SKIP_KOBO_SIM": "1", "PYTHONUTF8": "1"}
+    proc = subprocess.run(
+        [
+            _PY,
+            str(_REPO / "scripts" / "reader_sim.py"),
+            "--sim",
+            "all",
+            "--artifact-dir",
+            str(directory),
+        ],
+        cwd=str(_REPO),
+        stdin=subprocess.DEVNULL,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    out = (proc.stdout or "") + (proc.stderr or "")
+    return proc.returncode, out.strip()[-500:] or ("ok" if proc.returncode == 0 else "reader_sim FAIL")
+
+
 def run_all(
     *,
     runner: Runner | None = None,
@@ -68,6 +94,8 @@ def run_all(
     coverage_installed: bool | None = None,
     audit_installed: bool | None = None,
     deadcode_installed: bool | None = None,
+    reader_sim_gates: bool = False,
+    reader_sim_runner: ReaderSimRunner | None = None,
 ) -> dict:
     """Run the gates and return ``{"checks": [...], "summary": {...}}``.
 
@@ -93,7 +121,9 @@ def run_all(
 
     def add(cid: str, name: str, ok: bool, *, blocking: bool, message: str, skipped: bool = False) -> None:
         status = "warn" if skipped or (not ok and not blocking) else ("pass" if ok else "fail")
-        checks.append({"id": cid, "name": name, "status": status, "blocking": blocking, "message": message})
+        checks.append(
+            {"id": cid, "name": name, "status": status, "blocking": blocking, "message": message, "skipped": skipped}
+        )
 
     rc, out = run([_PY, "-m", "ruff", "format", "--check", "."])
     add(
@@ -226,6 +256,19 @@ def run_all(
                 message="coverage not installed — pip install -r requirements-dev.txt",
             )
 
+    if reader_sim_gates:
+        sim_run = reader_sim_runner or _default_reader_sim_runner
+        rc, out = sim_run()
+        skipped = out.startswith("skipped —")
+        add(
+            "reader_sim",
+            "reader-sim structural gates (--sim all)",
+            rc == 0,
+            blocking=False,
+            skipped=skipped,
+            message=out.strip().splitlines()[-1][-200:] if out.strip() else ("ok" if rc == 0 else "FAIL"),
+        )
+
     blocking_fail = any(c["status"] == "fail" and c["blocking"] for c in checks)
     summary = {
         "total": len(checks),
@@ -246,9 +289,14 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="skip the test + coverage steps (fast gate: format · lint · rules · mypy)",
     )
+    ap.add_argument(
+        "--reader-sim-gates",
+        action="store_true",
+        help="append non-blocking reader_sim --sim all on build/reader-sim/ (kobo skipped)",
+    )
     args = ap.parse_args(argv)
 
-    result = run_all(run_tests=not args.no_tests)
+    result = run_all(run_tests=not args.no_tests, reader_sim_gates=args.reader_sim_gates)
     marks = {"pass": "✓", "warn": "!", "fail": "✗"}
     for c in result["checks"]:
         print(f"  {marks[c['status']]} {c['name']:28} {c['message'][:90]}")

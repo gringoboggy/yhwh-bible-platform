@@ -13,8 +13,10 @@ Local paths under `build/reader-sim/` (gitignored). WIN pulls this manifest + co
 
 **Thorium live:** Thorium 3.4.0 installed (`brew install --cask thorium`). `YHWH_THORIUM_LIVE=1` opens EPUB in Thorium; CDP tap asserts remain MCP/manual. Thorium = **agent sim proxy** for Apple (`tablet`) + Play (`everywhere`) — not a substitute for Apple Books device QA.
 
-**`--sim all` (2026-06-18, Mac `YHWH_SKIP_KOBO_SIM=1` + `YHWH_THORIUM_LIVE=1`):**
+**`--sim all` (2026-06-18 turn 128, `YHWH_SKIP_KOBO_SIM=1` + `YHWH_THORIUM_LIVE=1`):**
 - **kobo** SKIP — WIN lane
 - **play** PASS (thorium+cdp)
-- **kindle** PASS (stk gate-only)
+- **kindle** PASS (Lassen library snapshot, 2 files)
 - **apple** PASS (catholic-study tablet · thorium+cdp)
+
+**`ci.py --reader-sim-gates`:** non-blocking hook wired (turn 128); runs `--sim all` when `build/reader-sim/` staged.
