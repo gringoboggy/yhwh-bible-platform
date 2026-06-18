@@ -87,7 +87,46 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 128 — Mac fresh-session laundry list (START HERE)
+## ★ Turn 129 — Mac fresh-session laundry list (START HERE)
+
+> **Pull `ec6520e3`+** (Christian-scope scrub pushed @ `cbf939b8`). **7 tradition SKUs · 68 kinds · M3/M4 35 assets.** WIN owns `ci.py` GREEN + M3 matrix rebuild. **SKIP Kobo** on Mac HDD. Release-count sweep (README/profile/website hero) **deferred to v0.1.1/v1.0.0 tag** — do not hand-edit counts until then.
+
+### 0 — Bootstrap
+
+- [ ] `git pull --rebase origin main` — expect `ec6520e3`+
+- [ ] Dual radars ON (`bash dev/start_session_radars_mac.sh`)
+- [ ] `bash dev/lane_watch_mac.sh --once` · `export PYTHONUTF8=1`
+- [ ] Read `dev/SESSION_STATE.md` · `dev/LANE_HANDOFF.md` §Turn 131
+
+### 1 — ACK scrub milestone
+
+- [ ] `pytest tests/test_prune_orphan_base_notes.py tests/test_validate_schemas.py tests/test_covers.py -q`
+- [ ] `ebible verify` — errors=0 (paired markers/asides)
+- [ ] Grep guard: no `note-comm-rabbinic` in `epub_working/`
+
+### 2 — Help WIN close ci.py (disjoint files only)
+
+- [ ] Fix any scrub-related pytest reds WIN surfaces (edition counts · catalog · matrix)
+- [ ] **Do not** run full `ci.py` on Mac HDD unless WIN blocked
+
+### 3 — Reader sim / STK (if STK poll timed out)
+
+- [ ] Check `build/reader-sim/kindle/stk-poll-watch.log` · re-stage fresh ethiopian-tewahedo m4b if needed
+- [ ] `stk_channel.sh` live round only if user wants device QA
+
+### 4 — Scrub tail (optional, same arc)
+
+- [ ] Scan `word`/`comm` bodies for stray rabbinic/Islamic framing (keep `lang-hebrew` + `comm-ethiopian`)
+- [ ] `build_format_matrix --phase M4` spot-check one edition after WIN matrix green
+
+### 5 — Coordinate
+
+- [ ] **SKIP kobo** — WIN owns
+- [ ] `save_mac.sh` each slice — never end unpushed
+
+- [ ] **lane_watch:** keep `--bg` running — **standing**
+
+## Turn 128 — **SUPERSEDED** (pull scrub milestone instead)
 
 > **Pull `f73cda6f`+** (STK Lassen container fix shipped). WIN owns `ci.py` GREEN + kobo `--sim`. **SKIP Kobo** on Mac HDD. When this queue clears, WIN will assign Turn 129 overflow — keep `lane_watch --bg` running.
 

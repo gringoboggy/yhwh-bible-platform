@@ -1,18 +1,20 @@
 ---
 mode: parallel
-turn: 130
-from: windows
-updated: 2026-06-18T04:18:35Z
+turn: 131
+from: mac
+updated: 2026-06-18T06:30:39Z
 status: working
-mac: MAC_WORK_QUEUE §128: STK Lassen; Esther transcription; dual radars ON; SKIP kobo
-windows: pytest ci GREEN; kobo sim; rx-surfaces; dual radars ON
+mac: MAC_WORK_QUEUE §129: ACK scrub push; help WIN ci GREEN; STK live if needed; SKIP kobo
+windows: git pull ec6520e3+; pytest ci GREEN; M3 35-asset matrix; rx-surfaces; dual radars ON
 truth_owner: mac
 holder: mac
 ---
 
-## ◦ windows assign (turn 130, 2026-06-18T04:18:35Z) — mode=parallel
+## ◦ mac assign (turn 131, 2026-06-18T06:30:39Z) — mode=parallel
 
-**Assignments:** mac = MAC_WORK_QUEUE §128: STK Lassen; Esther transcription; dual radars ON; SKIP kobo · windows = pytest ci GREEN; kobo sim; rx-surfaces; dual radars ON
+**Assignments:** mac = MAC_WORK_QUEUE §129: ACK scrub (`cbf939b8`); help WIN `ci.py` GREEN; STK live poll if timed out; disjoint reader-sim/Esther · windows = **pull `ec6520e3`+** · pytest → `ci.py` GREEN · `build_format_matrix --phase M3` for **35** kepubs · rx-surfaces · website deploy if needed
+
+**Milestone pushed:** Christian-scope scrub — 7 tradition SKUs · 68 kinds · jewish/scholarly removed · rabbinic kinds scrubbed · catalog 35 assets.
 
 turn 130b dual-radar bootstrap STANDING
 

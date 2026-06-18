@@ -1,17 +1,19 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 128).** `git pull` → **`c74c8c15`+**. **`MAC_WORK_QUEUE.md` §Turn 128**. **Bootstrap auto-starts BOTH radars** (`start_session_radars_mac.sh`). **STANDING:** never ask · never idle · `--replan` when radar pings (15+ commits/24h) · `--next` when blocked. **Shipped:** STK Lassen · `--sim all` 3/3 · reader-sim-gates hook. **Pending:** STK arrival poll · Play emulator · Esther transcription · WIN `ci.py` GREEN. **SKIP kobo.** Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 129).** `git pull` → **`ec6520e3`+**. **`MAC_WORK_QUEUE.md` §Turn 129**. **Bootstrap auto-starts BOTH radars.** **ACK scrub milestone:** `cbf939b8` — 7 tradition SKUs · 68 kinds · ~91,597 notes · M3/M4 **35** assets · base HTML prune (122 orphans). **Next:** help WIN `ci.py` GREEN · STK live if poll timed out · release-count sweep deferred to v0.1.1/v1.0.0 tag. **SKIP kobo.** Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`c74c8c15`+**. **Bootstrap auto-starts BOTH radars** (`start_session_radars.ps1`). **Job 1:** pytest → `ci.py` GREEN. **Job 2:** kobo `--sim`. **Job 3:** rx-surfaces. **Never idle** · **replan periodically** (`STRATEGIC_REPLAN_CHECKLIST.md`). Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ec6520e3`+**. **ACK Mac scrub push** — edition removal + rabbinic kind scrub landed. **Job 1:** pytest → `ci.py` GREEN (expect edition/catalog pin updates). **Job 2:** `build_format_matrix --phase M3` regen for **35** kepub names. **Job 3:** rx-surfaces + website deploy if catalog changed. **Never idle.** Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
 
-## Session wrap (Mac, 2026-06-18) — Christian-scope scrub
+## Session wrap (Mac, 2026-06-18) — Christian-scope scrub PUSHED
 
-**Shipped:** edition SKU removal (`jewish-study`, `scholarly-academic`) · non-Christian note-kind scrub · base HTML orphan prune (122 ids) · M3/M4 35-asset lists · catalog regen · detector/test cleanup.
+**Shipped @ `cbf939b8` + `ec6520e3`:** edition SKU removal (`jewish-study`, `scholarly-academic`) · non-Christian note kinds dropped · ~123 corpus notes removed · base HTML prune (122 ids) · M3/M4 **35** assets · catalog regen · `prune_orphan_base_notes.py` · detector/test cleanup.
 
-**In-flight:** full `ci.py` GREEN on both lanes · release-count sweep deferred to v0.1.1/v1.0.0 tag · STK poll independent of scrub (ethiopian-tewahedo pre-scrub EPUB).
+**Deferred to release tag (v0.1.1 or v1.0.0):** public note/edition counts (README · GitHub/GitLab profile · website hero · RELEASE_NOTES · social card).
+
+**In-flight:** WIN `ci.py` GREEN · format-matrix rebuild for 35-column catalog · optional word-note editorial pass (Rashi citations in linguistics).
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 
