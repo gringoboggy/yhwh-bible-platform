@@ -90,7 +90,9 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
 6. **Mac Send-to-Kindle — split ownership on the 8 GB iMac (user-directed 2026-06-18,
    STANDING, Mac lane only).** This box can barely run Chrome — **do not fight browser
    automation** (no Playwright relaunch of the default Chrome profile, no AppleScript
-   upload loops, no repeated Chrome quit/reopen during sign-in). **User owns:** the
+   upload loops, no repeated Chrome quit/reopen during sign-in). **Do not invoke
+   `chrome-devtools` or `playwright` MCP while VS Code / Cursor is open** — together they
+   exhaust RAM; use headless poll scripts + native Kindle.app only. **User owns:** the
    `amazon.com` / `amazon.ca` **Send-to-Kindle web upload** (one GUI app at a time).
    **Agent owns:** stage the `.epub` to `~/Desktop/YHWH-reader-sim/kindle/` · run
    `stk_poll_watch.sh` headless · **end-task Chrome** when asked · **open Kindle.app**
@@ -247,8 +249,10 @@ found under-specified + half-skipped; detail: `dev/SESSION_PLAYBOOK.md` §1):
    npm-global `agnix` CLI). (Earlier "16 official" wording was an arithmetic slip — the
    pre-expansion 15 = 14 official + gitkraken; live `claude plugin list` 2026-06-10 = 30.) Still **NO telemetry / external-scanner / login-required
    plugins** (the env-trim removals stay out — memory `no-external-hooks-minimal-plugins`);
-   MCP = `chrome-devtools` + `playwright` available (a failed server = a missing
-   LOCAL runtime, never a login gate). Run `/reload-plugins` after any plugin change.
+   MCP = `chrome-devtools` + `playwright` available on paper (a failed server = a missing
+   LOCAL runtime, never a login gate). **Mac 8 GB + VS Code open:** treat browser MCP as
+   **OFF** — too heavy; never spawn for STK/Thorium QA on this box (guard #6). Run
+   `/reload-plugins` after any plugin change.
 4. **Version FRESHNESS — best-effort, NOT a hard gate.** Report the installed Claude Code
    version; flag a CC/plugin update ONLY if the harness surfaces one. **"Is it the latest"
    is NOT fully verifiable offline — do not block on it.** Apply any update ONLY on explicit

@@ -35,7 +35,7 @@ bash dev/reader_sim/end_gui_apps.sh   # quit Thorium, Chrome, Kindle
 
 The background poll script needs no GUI — keep it running while everything else stays quit.
 
-**Agent browser MCP:** `chrome-devtools-mcp` + `playwright-mcp` (`.grok/config.toml`). Playwright uses `~/.yhwh-browser-profile` for Amazon session. Run `grok mcp doctor` after install.
+**Browser MCP (WIN / roomy boxes only):** `chrome-devtools-mcp` + `playwright-mcp`. **Mac 8 GB + VS Code:** skip — too heavy with GUI apps; user uploads in Chrome, agent uses headless poll + Kindle.app.
 
 **Phone STK matrix (6 variants):** `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7
 

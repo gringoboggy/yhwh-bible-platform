@@ -51,9 +51,10 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
 6. **Never unilaterally remove** a feature, content, or platform. Propose how to keep it and
    let the maintainer decide. A real defect you spot in passing is in-scope — fix it now.
 7. **Mac STK — user uploads, agent polls + Kindle checks (8 GB box).** User handles
-   Send-to-Kindle in Chrome (machine can barely run it). Agent stages epubs, runs
-   `stk_poll_watch.sh`, end-tasks Chrome/Kindle on request, opens Kindle for arrival QA.
-   Guard #6 in `dev/CLAUDE_PROJECT_RULES.md`; runbook in `dev/reader_sim/kindle/qa-checklist.md`.
+   Send-to-Kindle in Chrome (machine can barely run it). **No `chrome-devtools` / `playwright`
+   MCP with VS Code open** — RAM exhaustion. Agent stages epubs, runs `stk_poll_watch.sh`,
+   end-tasks Chrome/Kindle on request, opens Kindle for arrival QA. Guard #6 in
+   `dev/CLAUDE_PROJECT_RULES.md`; runbook in `dev/reader_sim/kindle/qa-checklist.md`.
 8. **Sources are never “missing.”** Look in `content/sources/`, `content/translations/sources/`,
    `_acquire/` (one level above the repo, gitignored), the top-level PDFs (arbitrary
    filenames — don’t grep by book title), and `GAPS/` before ever concluding “blocked on

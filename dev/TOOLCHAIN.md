@@ -125,7 +125,7 @@ YHWH_THORIUM_LIVE=1    # open EPUB in Thorium when installed (CDP taps still MCP
 
 **STK upload (Mac):** logged-in Chrome → `amazon.com/sendtokindle` + `stk_poll_watch.sh` (background library poll). Quit Chrome/Kindle/Thorium when idle.
 
-**MCP (Grok agent browser tools):** `grok mcp doctor` — expect **chrome-devtools** + **playwright** healthy.
+**MCP (Grok agent browser tools):** `grok mcp doctor` — expect **chrome-devtools** + **playwright** healthy on paper. **Mac 8 GB iMac + VS Code/Cursor open:** do **not** use browser MCP (RAM exhaustion with Chrome/Kindle GUI work) — user STK upload + agent `stk_poll_watch.sh` + native Kindle.app only (`CLAUDE_PROJECT_RULES.md` guard #6).
 
 | Server | Install | Config |
 |---|---|---|
