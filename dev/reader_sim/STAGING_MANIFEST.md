@@ -9,7 +9,7 @@ Local paths under `build/reader-sim/` (gitignored). WIN pulls this manifest + co
 | **play** | everywhere navy staged | `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` |
 | **apple** | 2× tablet staged | `ethiopian-tewahedo` `2026-06-18T021121Z` · `catholic-study` `2026-06-18T031711Z` (23.00 MB, epubcheck 0/0/0/0) |
 
-**STK live poll:** gate-only PASS (`Amazon Kindle.app` present; no `com.amazon.Kindle` library container, 2026-06-18). M4b 6/6 structural re-gate PASS (turn 127).
+**STK live poll:** **library live** — `com.amazon.Lassen` container, 2 files inventoried (turn 128). Prior gate-only was a wrong container id (`com.amazon.Kindle`). M4b 6/6 structural re-gate PASS (turn 127).
 
 **Thorium live:** Thorium 3.4.0 installed (`brew install --cask thorium`). `YHWH_THORIUM_LIVE=1` opens EPUB in Thorium; CDP tap asserts remain MCP/manual. Thorium = **agent sim proxy** for Apple (`tablet`) + Play (`everywhere`) — not a substitute for Apple Books device QA.
 

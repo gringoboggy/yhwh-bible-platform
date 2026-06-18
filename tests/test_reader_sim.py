@@ -69,6 +69,25 @@ def test_sim_all_skips_kobo_when_env_set(monkeypatch):
     assert os.environ.get("YHWH_SKIP_KOBO_SIM") == "1"
 
 
+def test_stk_channel_live_when_lassen_present():
+    from dev.reader_sim.kindle_library import kindle_data_root
+
+    if kindle_data_root() is None:
+        return
+    epub = Path("build/reader-sim/kindle/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-17T220354Z-kindle-m4b.epub")
+    if not epub.is_file():
+        epub = (
+            Path.home()
+            / "Desktop/YHWH-kindle-m4b-qa/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-17T220354Z-kindle-m4b.epub"
+        )
+    if not epub.is_file():
+        return
+    rep = reader_sim.sim_reader("kindle", epub, m4b=True)
+    stk = next(c for c in rep["sim_checks"] if c["name"] == "stk_channel_sim")
+    assert stk["pass"] is True
+    assert "gate-only" not in stk["detail"].lower() or "container=com.amazon.lassen" in stk["detail"].lower()
+
+
 def test_thorium_cdp_on_round9_epub():
     epub = Path("build/round9-kobo-tap/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-17T202652Z.epub")
     if not epub.is_file():

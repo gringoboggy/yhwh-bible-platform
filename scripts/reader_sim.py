@@ -199,7 +199,7 @@ def agent_sim_ready() -> tuple[bool, str]:
 SIM_LAYERS_READY: dict[str, bool] = {
     "kobo": True,  # kobo_tap_calibration + audit_popup_formula
     "play": True,  # thorium_cdp structural proxy (gate-only until Thorium/CDP)
-    "kindle": True,  # stk_channel.sh gate-only + poll when Kindle-for-Mac present
+    "kindle": True,  # stk_channel.sh — Lassen library poll when signed in
     "apple": True,  # thorium_cdp structural proxy (tablet popup/ToC taps)
 }
 
@@ -217,7 +217,10 @@ def _thorium_sim(artifact: Path, profile: str) -> tuple[bool, str]:
 
 def _stk_channel_sim(artifact: Path) -> tuple[bool, str]:
     script = REPO / "dev" / "reader_sim" / "kindle" / "stk_channel.sh"
-    code, out = _run(["bash", str(script), str(artifact), "--gate-only"])
+    cmd = ["bash", str(script), str(artifact)]
+    if os.environ.get("YHWH_STK_GATE_ONLY") == "1":
+        cmd.append("--gate-only")
+    code, out = _run(cmd)
     return code == 0, out.strip()[:500] or ("OK" if code == 0 else "stk_channel FAIL")
 
 

@@ -18,7 +18,7 @@
 
 **Previewer appendix (diagnostic only):** if bisecting a structural failure, run KP3 CLI and scrape E-codes — never treat PASS as STK acceptance.
 
-**Gate-only (Mac turn 126, 2026-06-18):** `Amazon Kindle.app` present but **no `com.amazon.Kindle` container** (only `SendToKindleExtension`) — live library poll unavailable; structural gate-only PASS.
+**Live library (Mac turn 128, 2026-06-18):** Kindle.app bundle id is **`com.amazon.Lassen`** (not legacy `com.amazon.Kindle`). Signed-in library detected — inventory snapshot **2 files** (1× kfx + 1× epub in Documents). `stk_channel.sh` fixed to probe Lassen first. Full arrival poll: send staged EPUB via Send-to-Kindle → `stk_channel.sh "$EPUB" --wait 3600`.
 
 **Phone STK matrix (6 variants):** `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7
 

@@ -31,10 +31,18 @@ mkdir -p "$STAGE"
 cp -f "$ARTIFACT" "$STAGE/"
 BASENAME="$(basename "$ARTIFACT")"
 
-KINDLE_ROOT="${HOME}/Library/Containers/com.amazon.Kindle/Data"
-# Subpaths vary by Kindle version — scan common library locations.
+# Modern Kindle.app = com.amazon.Lassen; legacy = com.amazon.Kindle (see kindle_library.py).
+KINDLE_ROOT=""
+KINDLE_CID=""
+for CID in com.amazon.Lassen com.amazon.Kindle; do
+  if [[ -d "${HOME}/Library/Containers/${CID}/Data" ]]; then
+    KINDLE_ROOT="${HOME}/Library/Containers/${CID}/Data"
+    KINDLE_CID="$CID"
+    break
+  fi
+done
 LIBRARY_DIRS=()
-if [[ -d "$KINDLE_ROOT" ]]; then
+if [[ -n "$KINDLE_ROOT" ]]; then
   while IFS= read -r -d '' d; do
     LIBRARY_DIRS+=("$d")
   done < <(find "$KINDLE_ROOT" -type d \( -name Library -o -name Documents \) -print0 2>/dev/null || true)
@@ -45,7 +53,7 @@ if [[ ${#LIBRARY_DIRS[@]} -eq 0 ]]; then
 fi
 
 if [[ "$GATE_ONLY" -eq 1 ]]; then
-  echo "STK channel sim: gate-only (Kindle-for-Mac not installed or --gate-only)"
+  echo "STK channel sim: gate-only (Kindle-for-Mac library not found or --gate-only)"
   echo "  staged: $STAGE/$BASENAME"
   if [[ "$BASENAME" == *m4b* ]]; then
     M4B=1 bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"
@@ -57,11 +65,11 @@ if [[ "$GATE_ONLY" -eq 1 ]]; then
 fi
 
 SNAP="$(mktemp)"
-find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' \) -print 2>/dev/null \
+find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' -o -name '*.epub' \) -print 2>/dev/null \
   | sort >"$SNAP" || true
 BEFORE=$(wc -l <"$SNAP" | tr -d ' ')
 
-echo "STK channel sim: Kindle library snapshot ($BEFORE files)"
+echo "STK channel sim: Kindle library snapshot ($BEFORE files, container=$KINDLE_CID)"
 echo "  staged EPUB: $STAGE/$BASENAME"
 echo "  Send via Kindle for Mac, then this script polls for a new library file."
 echo "  (Automated STK send is not available — manual/agent UI step required.)"
@@ -75,7 +83,7 @@ fi
 DEADLINE=$(( $(date +%s) + WAIT_SECS ))
 while [[ $(date +%s) -lt $DEADLINE ]]; do
   AFTER_LIST="$(mktemp)"
-  find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' \) -print 2>/dev/null \
+  find "${LIBRARY_DIRS[@]}" -type f \( -name '*.azw' -o -name '*.kfx' -o -name '*.mbp' -o -name '*.epub' \) -print 2>/dev/null \
     | sort >"$AFTER_LIST" || true
   NEW=$(comm -13 "$SNAP" "$AFTER_LIST" | head -1 || true)
   rm -f "$AFTER_LIST"

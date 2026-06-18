@@ -119,8 +119,9 @@ stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) an
 ## Kindle (`kindle`, Send-to-Kindle)
 
 - **Delivery:** Send-to-Kindle (email/app/web) — Amazon CONVERTS the EPUB (KFX);
-  no direct EPUB sideload on modern Kindles. ⚠ The Mac Kindle app has NO local
-  import — it silently MOVES a "sent" file into its container.
+  no direct EPUB sideload on modern Kindles. Kindle for Mac (bundle id
+  `com.amazon.Lassen`) stores library under `~/Library/Containers/com.amazon.Lassen/Data/`.
+  STK channel sim polls `Library/eBooks` + `Documents` for new arrivals.
 - **★ The PROVEN recipe (turn-84, 2026-06-14, USER-CONFIRMED on the REAL
   Send-to-Kindle channel).** A *minimal* post-process over a STANDARD everywhere
   build DELIVERS where the elaborate `--target-reader kindle` variant FAILED:
