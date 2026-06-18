@@ -6,6 +6,23 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
 
+## ▶ windows → mac (turn 128, 2026-06-18T02:15:31Z) — mode=parallel
+
+**Done (turn 127, windows):**
+Session wrap: Mac laundry list + handoff debce7a9; Kobo WIN-owned ebbc2597; fresh kepub 2026-06-18T015027Z K-R2 GREEN staged
+
+**Next (turn 128, mac picks up):**
+Mac §126 laundry list | WIN pytest + kobo sim + rx-surfaces
+
+**Assignments:** mac = FRESH SESSION: MAC_WORK_QUEUE §Turn 126 — apple tablet; STK/Thorium live; SKIP kobo; lane_watch --bg · windows = FRESH SESSION: pytest triage 15 reds; finish kobo --sim; rx-surfaces
+
+**Watch-outs:**
+SESSION END — read SESSION_STATE fresh-session pointers; Mac SKIP kobo; ci.py still RED
+
+---
+
+<!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
+
 ## ◦ windows assign (turn 127, 2026-06-18T01:50:23Z) — mode=parallel
 
 **Assignments:** mac = turn 126: apple tablet; STK/Thorium live; SKIP kobo (WIN HDD); --sim all when apple staged; lane_watch --bg · windows = turn 126: Kobo WIN-owned — build ethiopian eink kepub, stage build/reader-sim/kobo, --sim kobo; pytest triage; rx-surfaces

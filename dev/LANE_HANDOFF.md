@@ -26,21 +26,6 @@ Mac turn 126 DONE @ 04b4b518. Expanded Turn 127 laundry list (12 sections).
 
 ---
 
-## ▶ windows → mac (turn 128, 2026-06-18T02:15:31Z) — mode=parallel
-
-**Done (turn 127, windows):**
-Session wrap: Mac laundry list + handoff debce7a9; Kobo WIN-owned ebbc2597; fresh kepub 2026-06-18T015027Z K-R2 GREEN staged
-
-**Next (turn 128, mac picks up):**
-Mac §126 laundry list | WIN pytest + kobo sim + rx-surfaces
-
-**Assignments:** mac = FRESH SESSION: MAC_WORK_QUEUE §Turn 126 — apple tablet; STK/Thorium live; SKIP kobo; lane_watch --bg · windows = FRESH SESSION: pytest triage 15 reds; finish kobo --sim; rx-surfaces
-
-**Watch-outs:**
-SESSION END — read SESSION_STATE fresh-session pointers; Mac SKIP kobo; ci.py still RED
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
