@@ -50,13 +50,17 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
    a build-pipeline branch), never one hardcoded choice.
 6. **Never unilaterally remove** a feature, content, or platform. Propose how to keep it and
    let the maintainer decide. A real defect you spot in passing is in-scope — fix it now.
-7. **Sources are never “missing.”** Look in `content/sources/`, `content/translations/sources/`,
+7. **Mac STK — user uploads, agent polls + Kindle checks (8 GB box).** User handles
+   Send-to-Kindle in Chrome (machine can barely run it). Agent stages epubs, runs
+   `stk_poll_watch.sh`, end-tasks Chrome/Kindle on request, opens Kindle for arrival QA.
+   Guard #6 in `dev/CLAUDE_PROJECT_RULES.md`; runbook in `dev/reader_sim/kindle/qa-checklist.md`.
+8. **Sources are never “missing.”** Look in `content/sources/`, `content/translations/sources/`,
    `_acquire/` (one level above the repo, gitignored), the top-level PDFs (arbitrary
    filenames — don’t grep by book title), and `GAPS/` before ever concluding “blocked on
    sources.” The whole canon is already sourced.
-8. **Use TDD.** Write the failing test (RED) first, then the fix (GREEN). A feature isn’t
+9. **Use TDD.** Write the failing test (RED) first, then the fix (GREEN). A feature isn’t
    done until it has a test that would catch the demo breaking.
-9. **Public-facing copy is plain and factual** — no grandiosity, false modesty, or
+10. **Public-facing copy is plain and factual** — no grandiosity, false modesty, or
    charity/favor framing (free is neutral, not a gift). Never call the system “idiot-proof.”
 
 ## Tech stack

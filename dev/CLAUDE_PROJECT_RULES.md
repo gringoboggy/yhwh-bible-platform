@@ -8,7 +8,7 @@ user wins for that turn — but the rule stays as written.
 **Finished-arc history, frozen stats, and per-instance tallies extracted from this
 file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved.
 
-**Operational guards (durable behavioral defaults — keep all five):**
+**Operational guards (durable behavioral defaults — keep all seven):**
 1. **Package installs — PRE-AUTHORIZED (user 2026-06-11, standing, both lanes):
    "you can always install whatever is needed for the project."** No per-install
    ask. Protocol: DECLARE the package in a committed manifest FIRST
@@ -87,7 +87,20 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
    box's memory is per-box — each lane mirrors it into its own memory; memory:
    `session-operating-doctrine`.)
-6. **Cross-lane problem hand-off — ALWAYS pass a problem you find OUTSIDE your own
+6. **Mac Send-to-Kindle — split ownership on the 8 GB iMac (user-directed 2026-06-18,
+   STANDING, Mac lane only).** This box can barely run Chrome — **do not fight browser
+   automation** (no Playwright relaunch of the default Chrome profile, no AppleScript
+   upload loops, no repeated Chrome quit/reopen during sign-in). **User owns:** the
+   `amazon.com` / `amazon.ca` **Send-to-Kindle web upload** (one GUI app at a time).
+   **Agent owns:** stage the `.epub` to `~/Desktop/YHWH-reader-sim/kindle/` · run
+   `stk_poll_watch.sh` headless · **end-task Chrome** when asked · **open Kindle.app**
+   for arrival/tap checks · end-task Kindle after · structural gates (`reader_sim.py
+   --gate kindle`, `stk_channel.sh`, epubcheck). **RAM cycle (one app at a time):**
+   user loads in Chrome → end-task Chrome → open Kindle only → check → end-task Kindle.
+   Poll script needs no GUI — keep it running while GUI apps stay quit between slices.
+   Runbook: `dev/reader_sim/kindle/qa-checklist.md`. (Out-of-repo half: mirror into Mac
+   per-box memory on next session.)
+7. **Cross-lane problem hand-off — ALWAYS pass a problem you find OUTSIDE your own
    touched work to the other lane (user-directed 2026-06-08).** Each lane owns
    different surfaces. If you discover a defect, risk, stale artifact, or TODO in
    code / an area you did NOT touch — especially one in the OTHER lane's domain — you

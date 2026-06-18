@@ -76,7 +76,7 @@ BEFORE=$(wc -l <"$SNAP" | tr -d ' ')
 echo "STK channel sim: Kindle library snapshot ($BEFORE files, container=$KINDLE_CID)"
 echo "  staged EPUB: $STAGE/$BASENAME"
 echo "  Send via Kindle for Mac, then this script polls for a new library file."
-echo "  (Automated STK send is not available — manual/agent UI step required.)"
+echo "  (Upload: agent runs Send-to-Kindle via Chrome/Playwright MCP — RULES guard #6; then re-run with --wait.)"
 
 if [[ "$WAIT_SECS" -le 0 ]]; then
   echo "PASS: inventory snapshot OK (use --wait SECS to poll after send)"

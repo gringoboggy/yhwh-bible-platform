@@ -112,7 +112,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 ### 3 — Reader sim / STK (if STK poll timed out)
 
 - [ ] Check `build/reader-sim/kindle/stk-poll-watch.log` · re-stage fresh ethiopian-tewahedo m4b if needed
-- [ ] `stk_channel.sh` live round only if user wants device QA
+- [ ] **STK:** user uploads in Chrome (8 GB box) · agent `stk_poll_watch.sh` + end-task Chrome/Kindle on request (RULES guard #6)
 
 ### 4 — Scrub tail (optional, same arc)
 
