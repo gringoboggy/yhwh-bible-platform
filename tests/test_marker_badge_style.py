@@ -338,6 +338,19 @@ class TestReaderEinkStudyLayout:
         assert 'class="note-back study-return">1:1</a>' in glossary
         assert "Return to" not in glossary
 
+    def test_study_return_strategy_b_uses_chapter_anchor(self):
+        from scripts.build_edition import _study_verse_return_link
+
+        link = _study_verse_return_link("jub", 5, 18)
+        assert 'href="#ch-b15-c5"' in link
+        assert ">5:18</a>" in link
+
+    def test_study_return_strategy_a_uses_verse_anchor(self):
+        from scripts.build_edition import _study_verse_return_link
+
+        link = _study_verse_return_link("gen", 1, 1)
+        assert 'href="#v-gen-1-1"' in link
+
     def test_study_inline_drops_anchor_hide_class(self, tmp_path):
         from scripts.build_edition import apply_badge_markers
 

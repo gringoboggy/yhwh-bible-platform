@@ -1,20 +1,20 @@
 ---
 mode: parallel
-turn: 134
-from: mac
-updated: 2026-06-18T18:00:00Z
-status: wrapped
+turn: 135
+from: windows
+updated: 2026-06-18T19:00:00Z
+status: working
 mac: Mac restart pending — Turn 131 STK poll PAUSED; resume post-reboot (`…165347Z-kindle-m4b.epub` staged on Desktop)
-windows: pull `98e33eff`+; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
-truth_owner: mac
-holder: mac
+windows: study-return RSC-012 fix (Strategy-B `ch-{bxx}-cN`); marker_style backmatter oracle; re-run ci.py + M3 fan-out
+truth_owner: windows
+holder: windows
 ---
 
-## ◦ windows assign (turn 131b, 2026-06-18T16:00:00Z) — mode=parallel
+## ◦ windows assign (turn 135, 2026-06-18T19:00:00Z) — mode=parallel
 
-**Assignments:** windows = scrub pytest fixes **pushed** (`audit_caches` · `symbols_build` · 7-SKU pins) · **gate shard** → `ci.py` GREEN · `build_format_matrix --phase M3` **35** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK device re-PASS (see cross-lane findings below)
+**Assignments:** windows = **study-return RSC-012** (`_study_verse_return_link` Strategy-B → `ch-{bxx}-cN`) · **marker_style** backmatter oracle · `ci.py` GREEN (re-run post-fix) · `build_format_matrix --phase M3` **35** kepubs (restart fan-out) · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
 
-**Milestone pushed:** WIN turn 131 scrub pytest triage (pulled Mac `25a6f4bf`).
+**Milestone pushed:** WIN turn 135 study-return + marker_style oracle.
 
 ---
 

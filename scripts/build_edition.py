@@ -3563,10 +3563,18 @@ def _unique_cats_sorted(rows: list[dict]) -> list[str]:
 
 
 def _study_verse_return_link(code: str, ch: int, v: int) -> str:
-    """Compact verse-tag jump back to scripture (K-R10 — no long 'Return to …' prose)."""
-    verse_id = f"v-{code}-{ch}-{v}"
+    """Compact verse-tag jump back to scripture (K-R10 — no long 'Return to …' prose).
+
+    Strategy-B books (plain ``<span class="vn">`` — Jubilees, 2 Enoch, …) have no
+    per-verse ``id="v-…"`` anchors; fall back to the chapter opener ``ch-{bxx}-cN``
+    so epubcheck RSC-012 and Kobo navigate resolve after file-split remapping."""
     label = f"{ch}:{v}"
-    return f'<a href="#{verse_id}" class="note-back study-return">{html.escape(label, quote=False)}</a>'
+    book = config.get_book(code)
+    if book and book.get("strategy") == "B" and book.get("bxx"):
+        target_id = f"ch-{book['bxx']}-c{ch}"
+    else:
+        target_id = f"v-{code}-{ch}-{v}"
+    return f'<a href="#{target_id}" class="note-back study-return">{html.escape(label, quote=False)}</a>'
 
 
 def _study_glossary_category_body(cat_rows: list[dict], cat: str, cat_meta: dict, *, s2_group: bool) -> str:

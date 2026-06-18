@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-18 (WIN turn 131).** Scrub pytest fixes shipped: `audit_caches` whitelist · `symbols_build` marker_style oracle · 7-SKU pins · `gen:1:1b:word` fixture. **Gate shard running** (build_smoke retry @ 4800s). Next: full `ci.py` GREEN → M3 35-asset matrix → rx-surfaces. **Kobo = WIN only.** Baton **mac**; mode=parallel.
+> **▶ ACTIVE 2026-06-18 (WIN turn 135).** Shipped: Strategy-B study-return → `ch-{bxx}-cN` (fixes 371× RSC-012 on M3 ethiopian kepub) · `test_marker_style` backmatter badge oracle (cross-file `study-glossary-jump`). **Verifying:** marker_style integration · restart M3 fan-out post-save. **ci.py** still on pre-fix tree — re-run after save. Baton **mac**; mode=parallel.
 
 ## Standalone status (unchanged)
 

@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 135) — study-return RSC-012 + marker_style oracle
+
+**Shipped:** `_study_verse_return_link` Strategy-B fallback to `ch-{bxx}-cN` (Jubilees et al. lack `v-` anchors — was 371× epubcheck RSC-012 on M3 ethiopian kepub) · `test_marker_style` backmatter oracle (`study-glossary-jump` + EPUB-wide id resolution) · unit tests in `test_marker_badge_style`.
+
 ## 2026-06-18 — Windows session (turn 131) — scrub pytest triage
 
 **Shipped:** `audit_caches` whitelist for commentary singletons (`rabbinic_commentaries` et al.) · `test_hierarchical_symbols_build` forces `marker_style=numbers` (badge mode drops `note-` oracles) · edition count pins 9→7 · `gen:1:1b:word` fixture for `test_build_my_bible_c2_5`. Pulled Mac `25a6f4bf` (STK 8GB guard + post-scrub m4b sim PASS).

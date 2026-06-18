@@ -770,21 +770,32 @@ class TestBadgeBuildIntegration:
                     out.append((n, zf.read(n).decode("utf-8")))
         return out
 
+    def _all_ids_in_epub(self, epub):
+        ids: set[str] = set()
+        with zipfile.ZipFile(epub) as zf:
+            for n in zf.namelist():
+                if n.endswith(".html"):
+                    ids.update(re.findall(r'\bid="([^"]+)"', zf.read(n).decode("utf-8")))
+        return ids
+
     def test_badge_build_has_badges_no_per_note_markers(self, tmp_path, monkeypatch):
         epub = self._build(tmp_path, monkeypatch, "badge")
         files = self._bodymatter_xhtml(epub)
+        all_ids = self._all_ids_in_epub(epub)
         assert files, "no bodymatter in the badge EPUB"
         any_badge = False
-        for name, text in files:
+        # K-R9 backmatter: study footnotes live in index_split_900*, not prose files.
+        prose_files = [(n, t) for n, t in files if "900" not in n]
+        for name, text in prose_files:
             # (a) ZERO per-note markers remain in the bodymatter
             assert 'class="note-ref' not in text, f"{name}: per-note markers leaked in badge mode"
             assert 'class="note note-' not in text, f"{name}: per-note asides leaked in badge mode"
-            if 'class="verse-notes-badge"' in text:
+            if 'class="verse-notes-badge"' in text or 'class="study-glossary-jump' in text:
                 any_badge = True
-                # (c) every badge resolves to its merged aside
+                # (c) every study badge resolves to a glossary footnote (may be cross-file)
                 for vid in re.findall(r'href="#(vnotes-[a-z0-9-]+)"', text):
-                    assert f'id="{vid}"' in text, f"{name}: badge href #{vid} unresolved"
-        assert any_badge, "badge build produced no verse-notes badges at all"
+                    assert vid in all_ids, f"{name}: badge href #{vid} unresolved across EPUB"
+        assert any_badge, "badge build produced no study badges at all"
 
     def test_numbers_build_unchanged_regression(self, tmp_path, monkeypatch):
         epub = self._build(tmp_path, monkeypatch, "numbers")
