@@ -18,6 +18,38 @@ _CHAPTER_HTML = (
     '<p class="vn-back"><a href="#vbadge-gen-1-1-s1" class="note-back">↩</a> <strong>1:1</strong></p>'
     "<p>Study body</p></aside>"
     "</aside>"
+    '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
+    '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
+    '<p class="vnote-text">Hebrew witness</p></aside>'
+    "</section>"
+    "</body></html>"
+)
+
+_MULTI_CHAPTER_HTML = (
+    "<html><body>"
+    '<a id="ch-b00-c1" class="ch-anchor"></a>'
+    '<p class="verse-p-flush">'
+    '<a class="vn-link" id="v-gen-1-1" href="#vnote-gen-1-1" epub:type="noteref" title="Genesis 1:1">'
+    '<span class="vn">1</span></a> Verse one.'
+    '<a class="verse-notes-badge" id="vbadge-gen-1-1-s1" href="#vnotes-gen-1-1-s1" '
+    'epub:type="noteref"><sup class="marker-badge">2</sup></a>'
+    "</p>"
+    '<a id="ch-b00-c2" class="ch-anchor"></a>'
+    '<p class="verse-p-flush">'
+    '<a class="vn-link" id="v-gen-2-1" href="#vnote-gen-2-1" epub:type="noteref" title="Genesis 2:1">'
+    '<span class="vn">1</span></a> Verse two.'
+    "</p>"
+    '<aside class="notes-section" epub:type="footnotes" hidden="">'
+    '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote" hidden="">'
+    '<p class="vn-back"><a href="#vbadge-gen-1-1-s1" class="note-back">↩</a> <strong>1:1</strong></p>'
+    "<p>Study ch1</p></aside>"
+    "</aside>"
+    '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
+    '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
+    '<p class="vnote-text">Ch1 translation</p></aside>'
+    '<aside class="vnote" id="vnote-gen-2-1" epub:type="footnote" hidden="">'
+    '<p class="vnote-text">Ch2 translation</p></aside>'
+    "</section>"
     "</body></html>"
 )
 
@@ -46,10 +78,29 @@ class TestApplyKindleM4bHtml:
         assert 'id="vnotes-gen-1-1-s1"' in study
         assert "hidden" not in study
 
-    def test_strips_vn_back_to_suppressed_vbadge(self):
+    def test_study_aside_has_coord_backlink_to_v_anchor(self):
         out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert 'href="#v-gen-1-1"' in out
+        assert "<strong>1:1</strong>" in out
         assert "vbadge-gen-1-1-s1" not in out
         assert kindle_post.verify_kindle_m4b_html(out) == []
+
+    def test_inlines_vnote_popup_after_verse_paragraph(self):
+        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert stats["vnotes_inlined"] == 1
+        assert "verse-refs-section" not in out
+        assert "Hebrew witness" in out
+        vnote_pos = out.index('id="vnote-gen-1-1"')
+        study_pos = out.index("kindle-chapter-study")
+        assert vnote_pos < study_pos
+
+    def test_per_chapter_study_block_before_next_chapter(self):
+        out, stats = kindle_post.apply_kindle_m4b_html(_MULTI_CHAPTER_HTML)
+        assert stats["chapters_emitted"] == 1
+        study_pos = out.index("kindle-chapter-study")
+        ch2_pos = out.index('id="ch-b00-c2"')
+        assert study_pos < ch2_pos
+        assert "Study ch1" in out
 
     def test_nested_vn_group_inside_study_aside_passes_verify(self):
         nested = _CHAPTER_HTML.replace(
@@ -94,6 +145,15 @@ class TestMakeKindleM4b:
         assert kindle_post.verify_kindle_m4b(dst) == []
 
 
+class TestKindleM4bCss:
+    def test_appends_kindle_title_and_toc_rules(self):
+        css = ".book-title-page { page-break-before: always; }\n"
+        out = kindle_post.apply_kindle_m4b_css(css)
+        assert "yhwh:kindle-m4b" in out
+        assert "page-break-after: auto" in out
+        assert "toc-chapter-row" in out
+
+
 class TestVerifyKindleM4b:
     def test_raw_chapter_html_fails_m4b_1(self):
         fails = kindle_post.verify_kindle_m4b_html(_CHAPTER_HTML)
@@ -102,3 +162,7 @@ class TestVerifyKindleM4b:
     def test_m4b_output_passes(self):
         out, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
         assert kindle_post.verify_kindle_m4b_html(out) == []
+
+    def test_hidden_vnote_tail_fails_m4b_4(self):
+        fails = kindle_post.verify_kindle_m4b_html(_CHAPTER_HTML)
+        assert any("m4b-4" in f for f in fails)

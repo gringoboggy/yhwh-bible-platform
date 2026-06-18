@@ -1,6 +1,6 @@
 # Kindle STK device QA — post-scrub ethiopian-tewahedo m4b (2026-06-18)
 
-**Status:** FAIL — major formatting / navigation on KFX after Send-to-Kindle.  
+**Status:** FAIL (2026-06-18) — fix shipped Mac turn 130 (`kindle_post.py`); **awaiting STK re-tap**.  
 **Devices:** Kindle for Mac (`com.amazon.Lassen`) + user phone — **same behaviour**.  
 **Artifacts:** Both uploaded builds (incl. `…2026-06-18T143407Z-kindle-m4b.epub` and the prior m4b variant).  
 **STK delivery:** PASS (titles arrived; poll `stk_poll_watch` PASS @ 16:23 UTC).  
@@ -17,9 +17,21 @@
    - Pattern: Gen **1:1** → page before **ch4** notes; markers track forward to notes before **ch8**, **ch11**, etc.
 4. **In-EPUB TOC** (not reader-native): chapter number links **too crowded**.
 
+## Fix (Mac turn 130)
+
+| Failure | Fix |
+|---|---|
+| `vn-link` teleports to study notes | Hoist `vnote-*` translation asides inline after verse paragraph (visible, same-file); strip hidden `verse-refs-section` tail |
+| Study notes lack coord/back-link | `vn-back` → `#v-{book}-{ch}-{v}` + `<strong>{ch}:{v}</strong>` on each relocated `vnotes-*` aside |
+| All study blocks at file tail | Inject `kindle-chapter-study` at end of each chapter (before next `ch-anchor`) |
+| Title page 3-page split | `apply_kindle_m4b_css`: drop forced `page-break-after` on `.book-title-page`; relax frame `break-inside` |
+| ToC pills crowded | `toc-chapter-row a { margin: 0 0.35em; display: inline-block; }` |
+
+**Gates:** `tests/test_kindle_m4b.py` 13/13 · `verify_kindle_m4b` on spot ethiopian build PASS (`vnotes_inlined` 36,329).
+
 ## Implication
 
-M4b chapter-tail + `vn-link` anchor model is **not KFX-safe** on the consumer STK channel (regresses turn-84 `kindle_safe`-only UX). Fix belongs in `scripts/core/kindle_post.py` (`apply_kindle_m4b`) and/or a Kindle-specific notes presentation branch — **Mac lane**. Do **not** regen catalog kindle column on WIN until Mac re-proves STK taps.
+Do **not** regen catalog kindle column on WIN until Mac STK device **re-PASS** on fresh ethiopian m4b upload.
 
 ## References
 

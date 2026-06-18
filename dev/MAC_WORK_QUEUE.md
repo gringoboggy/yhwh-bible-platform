@@ -93,11 +93,11 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 1 — M4b KFX fixes (Mac owns `kindle_post.py`)
 
-- [ ] TDD: `vn-link` must surface translation on KFX, not teleport to `notes-section`
-- [ ] Study notes between chapters: add chapter:verse label + back-link to source verse
-- [ ] Title page split (Genesis BOOK I → 3 pages) — kindle-specific CSS/page-break pass
-- [ ] In-EPUB TOC chapter-link spacing (kindle reader profile)
-- [ ] Rebuild ethiopian-tewahedo m4b → user STK spot → phone/Mac re-tap
+- [x] TDD: `vn-link` must surface translation on KFX, not teleport to `notes-section` — inline `vnote-*` after verse (`vnotes_inlined` stat) — **Mac turn 130**
+- [x] Study notes between chapters: add chapter:verse label + back-link to source verse — per-chapter `kindle-chapter-study` + `#v-` vn-back — **Mac turn 130**
+- [x] Title page split (Genesis BOOK I → 3 pages) — `apply_kindle_m4b_css` page-break pass — **Mac turn 130**
+- [x] In-EPUB TOC chapter-link spacing — `toc-chapter-row a` margin rule — **Mac turn 130**
+- [x] Rebuild ethiopian-tewahedo m4b → user STK spot → phone/Mac re-tap — staged `build/kindle-m4b-fix/` + `~/Desktop/YHWH-reader-sim/kindle/` — **Mac turn 130** (await user upload)
 
 ### 2 — WIN coordinate (disjoint)
 

@@ -1,11 +1,11 @@
 ---
 mode: parallel
-turn: 132
+turn: 133
 from: mac
-updated: 2026-06-18T16:45:00Z
+updated: 2026-06-18T17:15:00Z
 status: working
-mac: MAC_WORK_QUEUE §130: M4b Kindle KFX fix (vn-link teleport, notes coords, title/TOC)
-windows: pull 184cf829+; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
+mac: STK re-tap ethiopian m4b KFX fix (`build/kindle-m4b-fix/`); poll after user upload
+windows: pull pending save; ci GREEN; M3 35-kepub; HOLD M4 kindle regen until Mac STK re-PASS
 truth_owner: mac
 holder: mac
 ---
