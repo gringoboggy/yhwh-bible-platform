@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 135b) — marker_style gen 1:31 oracle
+
+**Shipped:** `test_chapter_last_verse_badge_stays_in_its_chapter` row floor 6→5 (current base: 7 pre-dedup xref/topic notes, RX-beta2 byte-dedup → 5 rows; placement/conservation checks unchanged).
+
 ## 2026-06-18 — Windows session (turn 135) — study-return RSC-012 + marker_style oracle
 
 **Shipped:** `_study_verse_return_link` Strategy-B fallback to `ch-{bxx}-cN` (Jubilees et al. lack `v-` anchors — was 371× epubcheck RSC-012 on M3 ethiopian kepub) · `test_marker_style` backmatter oracle (`study-glossary-jump` + EPUB-wide id resolution) · unit tests in `test_marker_badge_style`.

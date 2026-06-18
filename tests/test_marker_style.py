@@ -419,14 +419,15 @@ class TestApplyBadgeMarkersUnit:
         )
 
         # (b) conservation: the spilled markers' notes still merge into the aside —
-        #     the badge count equals the aside's rows, and 1:31 keeps its full set
-        #     (3 inline + 5 spilled = 8 pre-dedup; dedup may only lower it slightly).
+        #     the badge count equals the aside's rows. Current base: 2 inline
+        #     (g0131c/d) + 5 spilled (g0131a/b/e/f/g) = 7 pre-dedup; RX-beta2
+        #     byte-dedup may collapse near-identical xref rows (→ 5 surviving).
         tb = re.search(r'id="vbadge-gen-1-31(?:-s\d+)?"[^>]*title="(\d+) notes?[^"]*"', text)
         am = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-31(?:-s\d+)?"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert tb and am
         rows = am.group(1).count('class="vn-item')
         assert int(tb.group(1)) == rows, "badge count != merged-aside rows for gen 1:31"
-        assert rows >= 6, f"gen 1:31's spilled notes were dropped from its aside (rows={rows})"
+        assert rows >= 5, f"gen 1:31's spilled notes were dropped from its aside (rows={rows})"
 
         # (c) the CLASS, whole-book: walking every gen file in document order, no
         #     badge may appear after a chapter anchor numbered past its own chapter —
