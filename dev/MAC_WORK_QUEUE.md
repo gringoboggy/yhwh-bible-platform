@@ -120,7 +120,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 ### 5 — Agent sim suite
 
 - [ ] `scripts/reader_sim.py --sim all --artifact-dir build/reader-sim` — target **4/4 PASS** after apple staged
-- [ ] **Kobo:** defer heavy epubcheck to WIN (40 MB kepub >20 min on Mac HDD); keep Mac staged copy for gates only
+- [x] **Kobo:** **SKIP on Mac** — user directive: Mac HDD cannot handle kobo; **WIN owns** build · gates · epubcheck · `--sim kobo` · `build/reader-sim/kobo/` staging
 - [ ] Record per-reader pass/fail in `STAGING_MANIFEST.md`
 
 ### 6 — M4b pack maintenance
@@ -135,8 +135,8 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 8 — Coordinate with WIN (parallel, no file fights)
 
-- [ ] WIN owns: pytest triage · `book_codes`/`vnote_separators` cache guard · symbols cluster · fresh kobo kepub
-- [ ] Mac owns: apple build · STK/Thorium live · staging manifest truth
+- [ ] WIN owns: pytest triage · cache guard · symbols cluster · **all Kobo** (build+gate+sim+staging)
+- [ ] Mac owns: apple build · STK/Thorium live · staging manifest truth — **not kobo**
 - [ ] `save_mac.sh` each slice — push **both** remotes
 
 ### 9 — Done when

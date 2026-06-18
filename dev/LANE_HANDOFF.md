@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 126
+turn: 127
 from: windows
-updated: 2026-06-18T01:43:48Z
-status: handing-off
-mac: turn 126: apple tablet build post-ci GREEN; STK live if Kindle-for-Mac; Thorium --live if Thorium.app; --sim all 4/4; update STAGING_MANIFEST; lane_watch --bg
-windows: turn 126: pytest triage 15 reds to GREEN; rx-surfaces; fresh kobo kepub; stage build/reader-sim; --sim all
+updated: 2026-06-18T01:50:23Z
+status: working
+mac: turn 126: apple tablet; STK/Thorium live; SKIP kobo (WIN HDD); --sim all when apple staged; lane_watch --bg
+windows: turn 126: Kobo WIN-owned — build ethiopian eink kepub, stage build/reader-sim/kobo, --sim kobo; pytest triage; rx-surfaces
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 127, 2026-06-18T01:50:23Z) — mode=parallel
+
+**Assignments:** mac = turn 126: apple tablet; STK/Thorium live; SKIP kobo (WIN HDD); --sim all when apple staged; lane_watch --bg · windows = turn 126: Kobo WIN-owned — build ethiopian eink kepub, stage build/reader-sim/kobo, --sim kobo; pytest triage; rx-surfaces
+
+User directive: Mac HDD cannot handle kobo — WIN owns build+gate+epubcheck+sim+staging for kobo.
+
 ---
 
 ## ▶ windows → mac (turn 126, 2026-06-18T01:43:48Z) — mode=parallel

@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 126).** **Pull** turn 126 handoff · read `dev/MAC_WORK_QUEUE.md` §Turn 126 (laundry list) · `dev/reader_sim/STAGING_MANIFEST.md`. **Priority:** apple `tablet` artifact (blocks `--sim all`) · STK live if Kindle-for-Mac · Thorium `--live` if Thorium.app · optional Play emulator. **NO** full `ci.py`/matrix until WIN pytest GREEN. `lane_watch --bg`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 126).** **Pull** turn 126 handoff · `MAC_WORK_QUEUE.md` §Turn 126. **Priority:** apple `tablet` · STK live · Thorium `--live`. **★ SKIP Kobo** — WIN owns build/gates/epubcheck/`--sim kobo`/staging (Mac HDD). **NO** full `ci.py`/matrix until WIN pytest GREEN. `lane_watch --bg`. Baton **mac**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 126).** **NOW:** pytest triage → `ci.py` GREEN (15 reds: cache guard · symbols cluster · schema · build_smoke; samkings GAPS = WIN env). Then rx-surfaces · fresh kobo kepub (June-15 cache is 371× RSC-012) · stage `build/reader-sim/` · `--sim all`. ACK Mac `18c60033`. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 126).** **★ Kobo = WIN lane** (Mac HDD cannot run 40 MB epubcheck/gates). **NOW:** fresh kobo kepub build · stage `build/reader-sim/kobo/` · `--sim kobo` · pytest triage → `ci.py` GREEN · rx-surfaces. June-15 kepub invalid (371× RSC-012). ACK Mac `debce7a9`. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **mac**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >
