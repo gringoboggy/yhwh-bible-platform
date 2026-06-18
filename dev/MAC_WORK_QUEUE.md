@@ -95,8 +95,8 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 > **2026-06-18 wrap:** STK poll **PAUSED** — user restarting Mac (8 GB RAM). Resume after reboot.
 
-- [ ] User uploads `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-18T221232Z-kindle-m4b.epub` via Chrome (**165347Z failed STK load — do not use**)
-- [ ] `bash dev/reader_sim/kindle/stk_poll_watch.sh --epub ~/Desktop/YHWH-reader-sim/kindle/…221232Z-kindle-m4b.epub` (start poll only after user says upload done)
+- [ ] User uploads `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-18T232708Z-kindle-m4b.epub` via Chrome (**165347Z/221232Z STK load FAIL — do not use**)
+- [ ] `bash dev/reader_sim/kindle/stk_poll_watch.sh --epub ~/Desktop/YHWH-reader-sim/kindle/…232708Z-kindle-m4b.epub` (start poll only after user says upload done)
 - [ ] User Kindle QA: Gen 1:1 vn-link · study coord/back-link · title page · ToC spacing
 - [ ] Log result in `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`
 
