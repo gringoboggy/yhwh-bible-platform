@@ -265,8 +265,14 @@ _HIDDEN_ATTR_RE = re.compile(r'\s+hidden(?:="[^"]*")?')
 _CH_BOUNDARY_RE = re.compile(r'<a\s+id="ch-b\d+-c(\d+)"\s+class="ch-anchor"></a>', re.I)
 _KINDLE_STUDY_START = "<!-- yhwh:kindle-study-start -->"
 _KINDLE_STUDY_END = "<!-- yhwh:kindle-study-end -->"
+_VNOTE_BLOCK_START = "<!-- yhwh:kindle-vnote-start -->"
+_VNOTE_BLOCK_END = "<!-- yhwh:kindle-vnote-end -->"
 _KINDLE_STUDY_BLOCK_RE = re.compile(
     re.escape(_KINDLE_STUDY_START) + r".*?" + re.escape(_KINDLE_STUDY_END),
+    re.DOTALL,
+)
+_VNOTE_BLOCK_RE = re.compile(
+    re.escape(_VNOTE_BLOCK_START) + r".*?" + re.escape(_VNOTE_BLOCK_END),
     re.DOTALL,
 )
 _KINDLE_M4B_CSS_MARKER = "/* yhwh:kindle-m4b */"
@@ -295,9 +301,20 @@ def _strip_kindle_study_blocks(html: str) -> str:
     return _KINDLE_STUDY_BLOCK_RE.sub("", html)
 
 
+def _strip_kindle_vnote_blocks(html: str) -> str:
+    """Remove M4b translation tail blocks (comment-delimited)."""
+    return _VNOTE_BLOCK_RE.sub("", html)
+
+
 def _orphan_vnotes_in_prose(html: str) -> list[str]:
     prose = _strip_kindle_study_blocks(html)
     return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', prose, re.I)))
+
+
+def _inline_vnotes_in_prose(html: str) -> list[str]:
+    """Translation ``vnote-*`` asides inlined in scripture (KFX load failure mode)."""
+    prose = _strip_kindle_vnote_blocks(_strip_kindle_study_blocks(html))
+    return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnote-[^"]+)"', prose, re.I)))
 
 
 _VN_BACK_RE = re.compile(r'<p class="vn-back">.*?</p>\s*', re.DOTALL | re.I)
@@ -459,31 +476,72 @@ def _build_study_block(
     )
 
 
-def _inline_vnote_popups(html: str, vnotes: dict[str, str]) -> tuple[str, int]:
-    """Hoist translation ``vnote-*`` asides out of hidden tail sections — inline after verse."""
-    inlined = 0
-    jobs: list[tuple[int, str]] = []
-    for vid, aside in vnotes.items():
+def _group_vnote_by_chapter(vnotes: dict[str, str]) -> dict[tuple[str, str], list[str]]:
+    by_chapter: dict[tuple[str, str], list[str]] = defaultdict(list)
+    for vid in vnotes:
         cm = _VNOTE_COORD_RE.match(vid)
-        if not cm:
+        if cm:
+            by_chapter[(cm.group(1), cm.group(2))].append(vid)
+    return by_chapter
+
+
+def _build_vnote_block(book: str, ch: str, vids: list[str], vnotes: dict[str, str]) -> str:
+    inner = "\n".join(_prepare_vnote_aside(vnotes[vid]) for vid in sorted(vids))
+    return (
+        f"{_VNOTE_BLOCK_START}\n"
+        f'<div class="kindle-chapter-translations" epub:type="footnotes">\n'
+        f"<h3>Translations — {book} {ch}</h3>\n{inner}\n</div>\n"
+        f"{_VNOTE_BLOCK_END}"
+    )
+
+
+def _inject_vnote_blocks_at_tail(
+    html: str,
+    by_chapter: dict[tuple[str, str], list[str]],
+    vnotes: dict[str, str],
+) -> tuple[str, int]:
+    """Fallback when a file piece has translation vnotes but no ``ch-anchor``."""
+    blocks: list[str] = []
+    for book, ch in sorted(by_chapter):
+        vids = sorted(by_chapter[(book, ch)])
+        blocks.append(_build_vnote_block(book, ch, vids, vnotes))
+    injection = "\n".join(blocks) + "\n"
+    ns = html.find('<aside class="notes-section"')
+    if ns != -1:
+        html = html[:ns] + injection + html[ns:]
+    else:
+        bc = html.rfind("</body>")
+        html = html[:bc] + injection + html[bc:] if bc != -1 else html + injection
+    return html, len(blocks)
+
+
+def _inject_vnote_blocks(
+    html: str,
+    by_chapter: dict[tuple[str, str], list[str]],
+    vnotes: dict[str, str],
+) -> tuple[str, int]:
+    """Expose translation ``vnote-*`` targets in visible per-chapter tail blocks."""
+    emitted = 0
+    if not _chapter_injection_points(html):
+        return _inject_vnote_blocks_at_tail(html, by_chapter, vnotes)
+
+    pending: dict[tuple[str, str], list[str]] = dict(by_chapter)
+    for book, ch in sorted(by_chapter, key=lambda k: int(k[1]), reverse=True):
+        ch_num = int(ch)
+        injection_points = _chapter_injection_points(html)
+        if ch_num not in injection_points:
             continue
-        book, ch, verse = cm.group(1), cm.group(2), cm.group(3)
-        v_id = f"v-{book}-{ch}-{verse}"
-        link_pat = re.compile(
-            rf'<a\s+class="vn-link"\s+id="{re.escape(v_id)}"\s+href="#{re.escape(vid)}"',
-            re.I,
-        )
-        m = link_pat.search(html)
-        if not m:
-            continue
-        para_end = html.find("</p>", m.end())
-        if para_end == -1:
-            continue
-        jobs.append((para_end + len("</p>"), _prepare_vnote_aside(aside)))
-    for insert_at, aside in sorted(jobs, key=lambda t: t[0], reverse=True):
-        html = html[:insert_at] + "\n" + aside + html[insert_at:]
-        inlined += 1
-    return html, inlined
+        vids = sorted(by_chapter[(book, ch)])
+        block = _build_vnote_block(book, ch, vids, vnotes) + "\n"
+        pos = _snap_study_injection_pos(html, injection_points[ch_num])
+        html = html[:pos] + block + html[pos:]
+        emitted += 1
+        del pending[(book, ch)]
+
+    if pending:
+        html, tail_emitted = _inject_vnote_blocks_at_tail(html, pending, vnotes)
+        emitted += tail_emitted
+    return html, emitted
 
 
 def _hidden_vnotes_in_tail(html: str) -> list[str]:
@@ -562,13 +620,13 @@ def _inject_study_blocks(
     ch_anchors: dict[str, str],
 ) -> tuple[str, int]:
     emitted = 0
-    injection_points = _chapter_injection_points(html)
-    if not injection_points:
+    if not _chapter_injection_points(html):
         return _inject_study_blocks_at_tail(html, by_chapter, asides, v_anchors=v_anchors, ch_anchors=ch_anchors)
 
     pending: dict[tuple[str, str], list[str]] = dict(by_chapter)
     for book, ch in sorted(by_chapter, key=lambda k: int(k[1]), reverse=True):
         ch_num = int(ch)
+        injection_points = _chapter_injection_points(html)
         if ch_num not in injection_points:
             continue
         aids = sorted(by_chapter[(book, ch)])
@@ -594,7 +652,7 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
         "badges_removed": 0,
         "asides_relocated": 0,
         "chapters_emitted": 0,
-        "vnotes_inlined": 0,
+        "vnotes_exposed": 0,
         "vn_links": len(_VN_LINK_RE.findall(html)),
     }
 
@@ -612,8 +670,9 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
     stats["asides_relocated"] = len(asides)
 
     if vnotes:
-        html, n_inlined = _inline_vnote_popups(html, vnotes)
-        stats["vnotes_inlined"] = n_inlined
+        by_vnote_chapter = _group_vnote_by_chapter(vnotes)
+        html, n_exposed = _inject_vnote_blocks(html, by_vnote_chapter, vnotes)
+        stats["vnotes_exposed"] = n_exposed
 
     html = _EMPTY_VERSE_REFS_RE.sub("", html)
 
@@ -691,6 +750,8 @@ def verify_kindle_m4b_html(html: str) -> list[str]:
             fails.append(f"m4b-3: vbadge back-link {vb_id!r} has no fragment target")
     for vid in _hidden_vnotes_in_tail(html):
         fails.append(f"m4b-4: translation vnote {vid!r} still in hidden verse-refs-section")
+    for vid in _inline_vnotes_in_prose(html):
+        fails.append(f"m4b-5: translation vnote {vid!r} inlined in scripture prose")
     return fails
 
 

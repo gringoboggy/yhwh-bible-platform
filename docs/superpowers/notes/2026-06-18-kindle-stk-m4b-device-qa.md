@@ -1,6 +1,6 @@
 # Kindle STK device QA — post-scrub ethiopian-tewahedo m4b (2026-06-18)
 
-**Status:** FAIL (2026-06-18) — fix shipped Mac turn 130 (`kindle_post.py`); **awaiting STK re-tap**.  
+**Status:** FAIL (2026-06-18) — **165347Z STK load FAIL**; **221232Z staged awaiting re-tap**.
 **Devices:** Kindle for Mac (`com.amazon.Lassen`) + user phone — **same behaviour**.  
 **Artifacts:** Both uploaded builds (incl. `…2026-06-18T143407Z-kindle-m4b.epub` and the prior m4b variant).  
 **STK delivery:** PASS (titles arrived; poll `stk_poll_watch` PASS @ 16:23 UTC).  
@@ -17,19 +17,29 @@
    - Pattern: Gen **1:1** → page before **ch4** notes; markers track forward to notes before **ch8**, **ch11**, etc.
 4. **In-EPUB TOC** (not reader-native): chapter number links **too crowded**.
 
-## Fix (Mac turn 130)
+## STK load failure — 165347Z (2026-06-18)
+
+**Symptom:** Send-to-Kindle upload of `…165347Z-kindle-m4b.epub` **failed to load** on Kindle for Mac + phone. Prior builds `…220354Z` and `…143407Z` **delivered** (tap QA failed only).
+
+**Root cause:** Turn-130 fix inlined **1,781** `vnote-*` translation asides directly into scripture paragraphs (+2.7 MB HTML). Structural gates green; KFX conversion rejected the package.
+
+## Fix (Mac turn 131 — revised)
 
 | Failure | Fix |
 |---|---|
-| `vn-link` teleports to study notes | Hoist `vnote-*` translation asides inline after verse paragraph (visible, same-file); strip hidden `verse-refs-section` tail |
+| `vn-link` teleports to study notes | Expose `vnote-*` in visible per-chapter `kindle-chapter-translations` tail blocks (same file); strip hidden `verse-refs-section` — **no inline hoisting** (`m4b-5` gate) |
 | Study notes lack coord/back-link | `vn-back` → `#v-{book}-{ch}-{v}` + `<strong>{ch}:{v}</strong>` on each relocated `vnotes-*` aside |
 | All study blocks at file tail | Inject `kindle-chapter-study` at end of each chapter (before next `ch-anchor`) |
 | Title page 3-page split | `apply_kindle_m4b_css`: drop forced `page-break-after` on `.book-title-page`; relax frame `break-inside` |
 | ToC pills crowded | `toc-chapter-row a { margin: 0 0.35em; display: inline-block; }` |
 
-**Gates:** `tests/test_kindle_m4b.py` 15/15 · ethiopian m4b `165347Z` — `verify_kindle_m4b` PASS · **epubcheck 0/0/0/0** · `M4B=1 gate.sh` PASS.
+**Gates (221232Z):** `tests/test_kindle_m4b.py` 17/17 · `verify_kindle_m4b` PASS · **epubcheck 0/0/0/0** · `M4B=1 gate.sh` PASS · 0 inline vnotes in prose · 1600 `kindle-chapter-translations` blocks.
 
-**Follow-up fixes (same arc):** injection snap outside `verse-p` · Strategy-B back-links → `#ch-b*-c*` when no `#v-*` anchor.
+**Also fixed:** multi-chapter study/vnote injection recomputes anchor positions each pass (prevents `vnotes-1en-13-8-s1` orphan on Strategy-B spill files).
+
+**Staged for STK:** `~/Desktop/YHWH-reader-sim/kindle/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-18T221232Z-kindle-m4b.epub`
+
+**Follow-up fixes (prior arc):** injection snap outside `verse-p` · Strategy-B back-links → `#ch-b*-c*` when no `#v-*` anchor.
 
 ## Implication
 

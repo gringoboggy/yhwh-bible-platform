@@ -124,14 +124,17 @@ class TestApplyKindleM4bHtml:
         assert 'href="#v-jub-2-1"' not in out
         assert "<strong>2:1</strong>" in out
 
-    def test_inlines_vnote_popup_after_verse_paragraph(self):
+    def test_exposes_vnote_in_chapter_tail_block(self):
         out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert stats["vnotes_inlined"] == 1
+        assert stats["vnotes_exposed"] == 1
         assert "verse-refs-section" not in out
         assert "Hebrew witness" in out
+        assert 'class="kindle-chapter-translations"' in out
         vnote_pos = out.index('id="vnote-gen-1-1"')
         study_pos = out.index("kindle-chapter-study")
         assert vnote_pos < study_pos
+        verse_end = out.index("</p>", out.index("In the beginning"))
+        assert vnote_pos > verse_end
 
     def test_study_block_not_inside_verse_p_opening(self):
         out, _stats = kindle_post.apply_kindle_m4b_html(_ANCHOR_IN_VERSE_P_HTML)
@@ -145,6 +148,32 @@ class TestApplyKindleM4bHtml:
         ch2_pos = out.index('id="ch-b00-c2"')
         assert study_pos < ch2_pos
         assert "Study ch1" in out
+
+    def test_multi_chapter_injection_recomputes_anchor_positions(self):
+        html = _MULTI_CHAPTER_HTML.replace(
+            '<a id="ch-b00-c2" class="ch-anchor"></a>',
+            '<a id="ch-b00-c2" class="ch-anchor"></a>'
+            '<p class="verse-p-flush">'
+            '<a class="vn-link" id="v-gen-2-2" href="#vnote-gen-2-2" epub:type="noteref">'
+            '<span class="vn">2</span></a> Verse two.'
+            '<a class="verse-notes-badge" id="vbadge-gen-2-2-s1" href="#vnotes-gen-2-2-s1" '
+            'epub:type="noteref"><sup class="marker-badge">1</sup></a></p>'
+            '<aside class="notes-section" hidden="">'
+            '<aside class="verse-notes" id="vnotes-gen-2-2-s1" epub:type="footnote" hidden="">'
+            "<p>Study ch2</p></aside></aside>"
+            '<section class="verse-refs-section" hidden="">'
+            '<aside class="vnote" id="vnote-gen-2-2" epub:type="footnote" hidden="">'
+            '<p class="vnote-text">Ch2 translation</p></aside></section>',
+        )
+        out, stats = kindle_post.apply_kindle_m4b_html(html)
+        assert stats["chapters_emitted"] == 2
+        assert stats["vnotes_exposed"] == 2
+        assert kindle_post.verify_kindle_m4b_html(out) == []
+        assert "Study ch2" in out
+        assert "Ch2 translation" in out
+        ch1_study = out.index("Study Notes — gen 1")
+        ch2_anchor = out.index('id="ch-b00-c2"')
+        assert ch1_study < ch2_anchor
 
     def test_nested_vn_group_inside_study_aside_passes_verify(self):
         nested = _CHAPTER_HTML.replace(
@@ -210,3 +239,13 @@ class TestVerifyKindleM4b:
     def test_hidden_vnote_tail_fails_m4b_4(self):
         fails = kindle_post.verify_kindle_m4b_html(_CHAPTER_HTML)
         assert any("m4b-4" in f for f in fails)
+
+    def test_inline_vnote_in_prose_fails_m4b_5(self):
+        inline = _CHAPTER_HTML.replace(
+            "</section>\n</body></html>",
+            '</section>\n<p class="verse-p-flush">Verse</p>\n'
+            '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote">'
+            "<p>Inline popup</p></aside>\n</body></html>",
+        )
+        fails = kindle_post.verify_kindle_m4b_html(inline)
+        assert any("m4b-5" in f for f in fails)
