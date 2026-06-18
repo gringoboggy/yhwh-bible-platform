@@ -24,11 +24,7 @@ STANDARD_EDITIONS = (
     "ethiopian-tewahedo",
     "catholic-study",
     "evangelical-reformed",
-    "ethiopian-tewahedo",
     "eastern-orthodox",
-    "anglican-bcp",
-    "lutheran-confessional",
-    "coptic-orthodox",
 )
 
 

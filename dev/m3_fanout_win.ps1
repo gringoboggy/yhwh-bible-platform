@@ -1,4 +1,4 @@
-# WIN M3 fan-out: 7 tradition editions × M3 phase (35 kepub assets).
+# WIN M3 fan-out: 4 canon-differentiated tradition editions × M3 phase (20 kepub assets).
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot/..
 $env:PYTHONUTF8 = "1"

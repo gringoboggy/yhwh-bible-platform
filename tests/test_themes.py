@@ -1,7 +1,9 @@
-"""Per-edition theme assignment — every edition declares a theme so its built
-EPUB carries a distinct house style (build_edition appends
-content/themes/<theme>.css at build time). See
-docs/superpowers/specs/2026-05-22-themes-and-multitranslation-popups-design.md."""
+"""Theme CSS — builder-time choice via /customize, not per-edition SKUs.
+
+Editions no longer declare ``theme:`` in editions.yaml; the build pipeline
+defaults to ``classic``. Visual themes (devotional, modern, scholarly) are
+picked in the customize wizard at build time.
+"""
 
 from __future__ import annotations
 
@@ -10,47 +12,48 @@ from pathlib import Path
 
 from scripts.core import config
 
-EXPECTED_THEMES = {
-    "ethiopian-tewahedo": "classic",
-    "anglican-bcp": "classic",
-    "standalone-geez": "classic",
-    "standalone-amharic": "classic",
-    "lutheran-confessional": "scholarly",
-    "catholic-study": "devotional",
-    "eastern-orthodox": "devotional",
-    "coptic-orthodox": "devotional",
-    "evangelical-reformed": "modern",
-}
+CANON_EDITIONS = (
+    "ethiopian-tewahedo",
+    "catholic-study",
+    "evangelical-reformed",
+    "eastern-orthodox",
+)
 
 
-class TestPerEditionThemes:
-    def test_every_edition_declares_expected_theme(self):
+class TestEditionThemeDefaults:
+    def test_editions_do_not_pin_theme_skus(self):
         eds = config.editions_by_id()
-        for ed_id, theme in EXPECTED_THEMES.items():
+        for ed_id in CANON_EDITIONS:
             assert ed_id in eds, f"edition {ed_id!r} missing from editions.yaml"
-            assert eds[ed_id].get("theme") == theme, (
-                f"{ed_id}: expected theme {theme!r}, got {eds[ed_id].get('theme')!r}"
-            )
+            assert eds[ed_id].get("theme") is None, f"{ed_id}: per-edition theme SKU removed — pick theme in /customize"
 
-    def test_theme_css_files_exist(self):
+    def test_classic_theme_css_exists(self):
         repo = Path(config.__file__).resolve().parents[2]
-        for theme in set(EXPECTED_THEMES.values()):
-            assert (repo / "content" / "themes" / f"{theme}.css").is_file(), f"content/themes/{theme}.css missing"
+        assert (repo / "content" / "themes" / "classic.css").is_file()
 
 
 class TestThemeReachesEpub:
-    """The config change must actually reach the built EPUB: a `modern`-themed
-    edition's stylesheet should carry the appended modern theme block."""
+    """A builder-chosen theme override must reach the built EPUB."""
 
-    def test_modern_themed_build_appends_modern_css(self, tmp_path, monkeypatch):
+    def test_theme_override_appends_css_block(self, tmp_path, monkeypatch):
         import scripts.build_edition as be
         from scripts.core import build_cache
 
-        # Hermetic: bypass the persistent build cache.
         monkeypatch.setattr(build_cache, "cache_lookup", lambda *a, **k: None)
         monkeypatch.setattr(build_cache, "cache_store", lambda *a, **k: None)
 
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
         all_kinds = config.load_kinds()
+        _orig = config.editions_by_id
+
+        def _with_modern_theme():
+            d = dict(_orig())
+            d["evangelical-reformed"] = {**d["evangelical-reformed"], "theme": "modern"}
+            return d
+
+        monkeypatch.setattr(config, "editions_by_id", _with_modern_theme)
+
         stats = be.build_one("evangelical-reformed", tmp_path, "theme-test", all_kinds, force=True)
         epub = Path(stats["output_path"])
         assert epub.is_file()

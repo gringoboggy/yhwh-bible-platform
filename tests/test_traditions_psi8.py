@@ -828,7 +828,7 @@ class TestTraditionsModule:
 
     def test_edition_lookup_unknown_falls_back_to_default(self):
         m = {"catholic-study": "catholic"}
-        assert self.t.edition_to_tradition("anglican-bcp", m) == "cross"
+        assert self.t.edition_to_tradition("no-such-edition", m) == "cross"
 
     def test_edition_lookup_loads_yaml_when_no_mapping(self):
         # No-arg form should load the on-disk traditions.yaml. The

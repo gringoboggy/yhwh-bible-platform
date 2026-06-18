@@ -363,9 +363,6 @@ EDITION_COVER_TEMPLATES = {
     "catholic-study": "02_classical_corner_navy",
     "evangelical-reformed": "03_beadline_black",
     "eastern-orthodox": "01_ornate_leafy_red",
-    "anglican-bcp": "03_beadline_navy",
-    "lutheran-confessional": "02_classical_corner_black",
-    "coptic-orthodox": "01_ornate_leafy_brown",
 }
 DEFAULT_COVER_TEMPLATE = "03_beadline_navy"
 

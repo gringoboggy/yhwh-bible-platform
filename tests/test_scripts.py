@@ -1068,19 +1068,12 @@ class TestMatrix:
 
     def test_compute_matrix_returns_matrix_object(self):
         m = self.mod.compute_matrix()
-        # Must include the 5 original editions plus the 4 ψ.7-A
-        # additions (eastern-orthodox, anglican-bcp,
-        # lutheran-confessional, coptic-orthodox) plus the 2
-        # τ.G.constitution.a standalone Bibles (standalone-geez,
-        # standalone-amharic, 2026-05-20).
+        # Canon-differentiated tradition SKUs plus the 2 τ.G standalone Bibles.
         expected = {
             "ethiopian-tewahedo",
             "catholic-study",
             "evangelical-reformed",
             "eastern-orthodox",
-            "anglican-bcp",
-            "lutheran-confessional",
-            "coptic-orthodox",
             "standalone-geez",
             "standalone-amharic",
         }
@@ -14728,9 +14721,6 @@ class TestOmega38EditionCovers:
         "catholic-study",
         "evangelical-reformed",
         "eastern-orthodox",
-        "anglican-bcp",
-        "lutheran-confessional",
-        "coptic-orthodox",
     ]
 
     @classmethod

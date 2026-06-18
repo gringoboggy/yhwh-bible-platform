@@ -22,12 +22,12 @@ CATALOG_DIR = REPO_ROOT / "content" / "covers" / "catalog"
 
 
 class TestColourVariantPlan:
-    def test_plan_is_nine_editions_by_their_own_design_in_all_colours(self):
+    def test_plan_is_four_editions_by_their_own_design_in_all_colours(self):
         from scripts.build_edition import COVER_COLOURS, edition_cover_signature
         from scripts.generate_edition_covers import STANDARD_EDITION_IDS, catalog_colour_variant_plan
 
         plan = catalog_colour_variant_plan()
-        assert len(plan) == len(STANDARD_EDITION_IDS) * len(COVER_COLOURS) == 35
+        assert len(plan) == len(STANDARD_EDITION_IDS) * len(COVER_COLOURS) == 20
         for e, d, c in plan:
             assert d == edition_cover_signature(e)[0], f"{e}: variant design must be the edition's own"
             assert c in COVER_COLOURS

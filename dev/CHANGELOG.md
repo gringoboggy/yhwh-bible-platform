@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Windows session (turn 136) — canon-SKU scrub (user-directed)
+
+**Shipped:** removed notes-only tradition twins `anglican-bcp`, `lutheran-confessional`, `coptic-orthodox` from `editions.yaml` (same canon as catholic/protestant/ethiopian — note presets belong in `/customize`, not separate SKUs); stripped per-edition `theme:` pins (builder picks theme at build time; default `classic`); **4 canon-differentiated tradition SKUs** + 2 standalones = **6 editions**; M3/M4 asset lists **35→20**; catalog regen; test pins updated (`test_build_format_matrix` 7→4, `test_themes` builder-override model).
+
 ## 2026-06-18 — Windows session (turn 135b) — marker_style gen 1:31 oracle
 
 **Shipped:** `test_chapter_last_verse_badge_stays_in_its_chapter` row floor 6→5 (current base: 7 pre-dedup xref/topic notes, RX-beta2 byte-dedup → 5 rows; placement/conservation checks unchanged).

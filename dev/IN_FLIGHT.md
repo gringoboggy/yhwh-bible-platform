@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-18 (WIN turn 135).** Shipped: Strategy-B study-return → `ch-{bxx}-cN` (fixes 371× RSC-012 on M3 ethiopian kepub) · `test_marker_style` backmatter badge oracle (cross-file `study-glossary-jump`). **Verifying:** marker_style integration · restart M3 fan-out post-save. **ci.py** still on pre-fix tree — re-run after save. Baton **mac**; mode=parallel.
+> **▶ ACTIVE 2026-06-18 (WIN turn 135c, resumed).** Shipped `e19affd4`. **Verified:** `test_marker_style.py` 43/43 · ethiopian red kepub epubcheck **0/0/0/0** (RSC-012 fix). **Resuming:** M3 fan-out (7×5 kepubs) + fresh `ci.py` on `e19affd4` (prior run killed). Baton **mac**; mode=parallel.
 
 ## Standalone status (unchanged)
 

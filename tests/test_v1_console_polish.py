@@ -9,8 +9,7 @@ status-dashboard polish, wizard branding, design-system
 consolidation:
 
 - ψ.15   editor-console header nav + buyer-arc polish CSS
-- ψ.7-A  four built-in editions (eastern-orthodox, anglican-bcp,
-         lutheran-confessional, coptic-orthodox)
+- ψ.7-A  eastern-orthodox (orthodox canon); notes-only twins scrubbed
 - ψ.7-B  edition template starter packs + wizard "from template"
          button
 - ψ.16   status-dashboard substitution + polish CSS + index
@@ -165,25 +164,17 @@ class TestPsi15EditorConsoleBuyerArcPolishCSS:
 
 
 class TestPsi7ANewBuiltInEditions:
-    """ψ.7-A — four new built-in editions added to content/editions.yaml:
-    eastern-orthodox, anglican-bcp, lutheran-confessional, coptic-orthodox.
-    Per CLAUDE_PROJECT_RULES §9 'Add a new edition feature' the additions
-    are schema-additive; existing 5 editions remain unchanged.
+    """ψ.7-A — eastern-orthodox edition (orthodox canon consumer).
+    Notes-only tradition twins (anglican-bcp, lutheran-confessional,
+    coptic-orthodox) were removed — canon/book-set differentiation
+    drives SKUs; note presets live in /customize.
 
     Spec: dev/SCOPE_2026-05-09-addendum-edition-templates.md §1."""
 
-    NEW_EDITIONS = (
-        "eastern-orthodox",
-        "anglican-bcp",
-        "lutheran-confessional",
-        "coptic-orthodox",
-    )
+    NEW_EDITIONS = ("eastern-orthodox",)
 
     EXPECTED_CANON = {
         "eastern-orthodox": "orthodox",
-        "anglican-bcp": "catholic",
-        "lutheran-confessional": "protestant",
-        "coptic-orthodox": "ethiopian",
     }
 
     EXISTING_EDITIONS = (
@@ -212,9 +203,9 @@ class TestPsi7ANewBuiltInEditions:
         cls.canons = canons_data.get("canons", {}) or {}
         cls.matrix = matrix_mod.compute_matrix()
 
-    def test_total_edition_count_is_eight_plus_standalone(self):
-        # 8 tradition SKUs + 2 in-progress standalone Bibles (τ.G).
-        assert len(self.editions) >= 10, f"expected >= 10 editions, found {len(self.editions)}"
+    def test_total_edition_count_is_four_tradition_plus_standalone(self):
+        # 4 canon-differentiated tradition SKUs + 2 standalone Bibles (τ.G).
+        assert len(self.editions) == 6, f"expected 6 editions, found {len(self.editions)}"
 
     def test_existing_editions_still_present(self):
         for ed_id in self.EXISTING_EDITIONS:
@@ -278,16 +269,8 @@ class TestPsi7ANewBuiltInEditions:
         assert orthodox_users == ["eastern-orthodox"], f"expected exactly [eastern-orthodox], got {orthodox_users}"
 
     def test_each_new_edition_disables_conflicting_kinds(self):
-        # Each new edition has explicit disabled_kinds — verify the
-        # tradition-conflict invariant. eastern-orthodox should
-        # disable comm-reformation; anglican-bcp should disable
-        # dist-mariological per 39 Articles posture; lutheran should
-        # disable comm-orthodox; coptic should disable comm-reformation.
         cases = {
             "eastern-orthodox": "comm-reformation",
-            "anglican-bcp": "dist-mariological",
-            "lutheran-confessional": "comm-orthodox",
-            "coptic-orthodox": "comm-reformation",
         }
         for ed_id, expected_disabled in cases.items():
             ed = self.editions_by_id[ed_id]
@@ -297,17 +280,8 @@ class TestPsi7ANewBuiltInEditions:
             )
 
     def test_canon_book_counts_match_expectation(self):
-        # v0.0.3 folded the empty "Additions to Esther" (aes) out of every
-        # canon → the catholic/orthodox/ethiopian-derived editions each −1.
-        # eastern-orthodox: orthodox canon (77 books)
-        # anglican-bcp: catholic canon (75 books)
-        # lutheran-confessional: protestant canon (66 books — no aes)
-        # coptic-orthodox: ethiopian canon (86 books)
         expected = {
             "eastern-orthodox": 77,
-            "anglican-bcp": 75,
-            "lutheran-confessional": 66,
-            "coptic-orthodox": 86,
         }
         for ed_id, expected_count in expected.items():
             book_set = self.matrix.edition_canon_books.get(ed_id, set())
@@ -323,8 +297,8 @@ class TestPsi7ANewBuiltInEditions:
             assert "isbn" not in ed, f"{ed_id}: still has isbn field post-pivot"
 
     def test_new_editions_appear_in_api_matrix_response(self):
-        # End-to-end: api_matrix() should surface all 10 editions
-        # (8 multi-tradition + 2 standalone Bibles, per τ.G).
+        # End-to-end: api_matrix() should surface all 6 editions
+        # (4 canon-differentiated + 2 standalone Bibles, per τ.G).
         from scripts.core import matrix as matrix_mod
         from scripts.core import config
 
@@ -338,7 +312,7 @@ class TestPsi7ANewBuiltInEditions:
         ed_ids = {e["id"] for e in api["editions"]}
         for ed_id in self.NEW_EDITIONS:
             assert ed_id in ed_ids, f"{ed_id} missing from api_matrix() response"
-        assert len(api["editions"]) >= 10
+        assert len(api["editions"]) == 6
 
 
 class TestPsi7BEditionTemplates:

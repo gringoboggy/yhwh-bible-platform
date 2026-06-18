@@ -1,9 +1,9 @@
-# M3 Kobo v0.1.0 - Exact 35 asset filenames for the catalog column
+# M3 Kobo v0.1.0 - Exact 20 asset filenames for the catalog column
 #
-# 7 tradition editions × 5 colours = 35 assets.
+# 4 canon-differentiated tradition editions × 5 colours = 20 assets.
 #
 # Editions (non-standalone from content/editions.yaml):
-#   ethiopian-tewahedo, catholic-study, evangelical-reformed, eastern-orthodox, anglican-bcp, lutheran-confessional, coptic-orthodox
+#   ethiopian-tewahedo, catholic-study, evangelical-reformed, eastern-orthodox
 
 YHWH-ethiopian-tewahedo-v0.1.0-kobo-black.kepub.epub
 YHWH-ethiopian-tewahedo-v0.1.0-kobo-brown.kepub.epub
@@ -25,18 +25,3 @@ YHWH-eastern-orthodox-v0.1.0-kobo-brown.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-forest.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-navy.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-red.kepub.epub
-YHWH-anglican-bcp-v0.1.0-kobo-black.kepub.epub
-YHWH-anglican-bcp-v0.1.0-kobo-brown.kepub.epub
-YHWH-anglican-bcp-v0.1.0-kobo-forest.kepub.epub
-YHWH-anglican-bcp-v0.1.0-kobo-navy.kepub.epub
-YHWH-anglican-bcp-v0.1.0-kobo-red.kepub.epub
-YHWH-lutheran-confessional-v0.1.0-kobo-black.kepub.epub
-YHWH-lutheran-confessional-v0.1.0-kobo-brown.kepub.epub
-YHWH-lutheran-confessional-v0.1.0-kobo-forest.kepub.epub
-YHWH-lutheran-confessional-v0.1.0-kobo-navy.kepub.epub
-YHWH-lutheran-confessional-v0.1.0-kobo-red.kepub.epub
-YHWH-coptic-orthodox-v0.1.0-kobo-black.kepub.epub
-YHWH-coptic-orthodox-v0.1.0-kobo-brown.kepub.epub
-YHWH-coptic-orthodox-v0.1.0-kobo-forest.kepub.epub
-YHWH-coptic-orthodox-v0.1.0-kobo-navy.kepub.epub
-YHWH-coptic-orthodox-v0.1.0-kobo-red.kepub.epub

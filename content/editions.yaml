@@ -47,7 +47,6 @@ editions:
     note_group_by_category: true
     note_topic_dedup: true
     canon: ethiopian
-    theme: classic
     title: "The Ethiopian Tewahedo Study Bible"
     display_name: "Ethiopian Tewahedo Bible"
     short_title: "Ethiopian Tewahedo SB"
@@ -188,7 +187,6 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: catholic
-    theme: devotional
     time_filter_ceiling: null
     verse_popups: true
     verse_marker_glyph: ¶
@@ -240,7 +238,6 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: protestant
-    theme: modern
     title: "The Reformed Study Bible — Expanded Canon"
     display_name: "Reformed Study Bible"
     short_title: "Reformed SB"
@@ -285,7 +282,6 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: orthodox
-    theme: devotional
     title: "The Eastern Orthodox Study Bible"
     display_name: "Eastern Orthodox Bible"
     short_title: "Orthodox SB"
@@ -312,153 +308,6 @@ editions:
     max_phase: phase2
     cover_image: "covers/eastern-orthodox.jpg"
     notes: "Foregrounds comm-orthodox, comm-patristic, dist-typological, dist-mystical, liturgy-christian-year. LXX-leaning OT (text-lxx prominent). Excludes comm-reformation (rejects sola-scriptura), dist-mariological (Orthodox Marian theology differs structurally from Catholic), comm-modern-critical (post-Enlightenment hermeneutic conflicts with Patristic synthesis)."
-    popup_languages_default:
-      - "wlc"
-      - "lxx-greek"
-      - "greek-nt"
-      - "vulgate"
-      - "arabic"
-    popup_translation: ""
-
-  # ──────────────────────────────────────────────────────────────────
-  # ψ.7-A — Anglican Book of Common Prayer edition. Uses catholic
-  # canon (76 books — Apocrypha as deuterocanonical). BCP-style
-  # apparatus; broad-church inclusive of evangelical + catholic
-  # streams; explicitly non-Marian per 39 Articles.
-  # ──────────────────────────────────────────────────────────────────
-  - id: anglican-bcp
-    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
-    reader_toc_collapsible: false
-    reader_toc_books_only: true
-    canon: catholic
-    theme: classic
-    title: "The Anglican Study Bible — BCP Edition"
-    display_name: "Anglican Study Bible"
-    short_title: "Anglican BCP"
-    target_audience: "Anglican / Episcopal readers; BCP-tradition parishes; broad-church audience"
-    enabled_categories:
-      - lang
-      - text
-      - xref
-      - hist
-      - lit
-      - comm
-      - compare
-      - liturgy
-      - dev
-      - dist
-    enabled_kinds:
-      - dist-typological
-    disabled_kinds:
-      - comm-orthodox
-      - comm-ethiopian
-      - dist-mariological
-      - dist-allegorical
-      - liturgy-ethiopian
-
-    max_phase: phase2
-    cover_image: "covers/anglican-bcp.jpg"
-    notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Apocrypha included as deuterocanonical (read but not doctrinally normative per Article VI). Excludes dist-mariological (Article XXII / 39 Articles posture) and dist-allegorical (Reformation-era Anglican preference for plain sense)."
-    popup_languages_default:
-      - "wlc"
-      - "lxx-greek"
-      - "greek-nt"
-      - "vulgate"
-      - "arabic"
-    popup_translation: ""
-
-  # ──────────────────────────────────────────────────────────────────
-  # ψ.7-A — Lutheran Confessional edition. Uses protestant canon
-  # (66 books, with Apocrypha as a separate "useful but not normative"
-  # section per Luther's prefaces). Reformation-era commentary
-  # foregrounded; confessional theology emphasized.
-  # ──────────────────────────────────────────────────────────────────
-  - id: lutheran-confessional
-    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
-    reader_toc_collapsible: false
-    reader_toc_books_only: true
-    canon: protestant
-    theme: scholarly
-    title: "The Lutheran Confessional Study Bible"
-    display_name: "Lutheran Study Bible"
-    short_title: "Lutheran Confessional"
-    target_audience: "Confessional Lutheran readers (LCMS, WELS, ELS, ILC); seminary students"
-    enabled_categories:
-      - lang
-      - text
-      - xref
-      - hist
-      - lit
-      - comm
-      - dev
-      - apol
-      - dist
-    enabled_kinds:
-      - dist-typological
-    disabled_kinds:
-      - comm-orthodox
-      - comm-catholic
-      - comm-ethiopian
-
-      - dist-mariological
-      - dist-allegorical
-      - dist-mystical
-      - liturgy-ethiopian
-
-    max_phase: phase2
-    cover_image: "covers/lutheran-confessional.jpg"
-    notes: "Foregrounds comm-reformation, comm-patristic (Augustine + Cappadocian Fathers prized in Luther's tradition), dev-application, apol-harmonization, dist-typological. Apocrypha included via canon=protestant (which doesn't contain it; Lutheran practice typically appends as separate 'useful' section — handled via per-book toggling at build time). Excludes Catholic / Orthodox / Rabbinic commentary kinds (different magisterial postures)."
-    popup_languages_default:
-      - "wlc"
-      - "lxx-greek"
-      - "greek-nt"
-      - "vulgate"
-      - "arabic"
-    popup_translation: ""
-
-  # ──────────────────────────────────────────────────────────────────
-  # ψ.7-A — Coptic Orthodox edition. Uses ethiopian canon (87 books;
-  # Coptic shares ~78 of these with Ethiopian Tewahedo). Coptic
-  # patristic + ascetic-monastic emphasis; Alexandrian theological
-  # heritage. Distinct from Greek Orthodox in liturgical detail
-  # but shares broader Eastern hermeneutic.
-  # ──────────────────────────────────────────────────────────────────
-  - id: coptic-orthodox
-    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
-    reader_toc_collapsible: false
-    reader_toc_books_only: true
-    canon: ethiopian
-    theme: devotional
-    title: "The Coptic Orthodox Study Bible"
-    display_name: "Coptic Orthodox Bible"
-    short_title: "Coptic SB"
-    target_audience: "Coptic Orthodox readers; Alexandrian theology; ascetic-monastic tradition; diaspora communities"
-    enabled_categories:
-      - lang
-      - text
-      - xref
-      - hist
-      - lit
-      - comm
-      - compare
-      - liturgy
-      - dist
-    enabled_kinds:
-      - dist-typological
-      - dist-mystical
-      - dist-allegorical
-    disabled_kinds:
-      - comm-reformation
-      - comm-modern-critical
-
-      - dist-mariological
-
-    max_phase: phase2
-    cover_image: "covers/coptic-orthodox.jpg"
-    notes: "Foregrounds comm-orthodox, comm-patristic, comm-ethiopian (shared monastic + ascetic heritage), dist-allegorical (Alexandrian school exegesis), dist-typological, dist-mystical, liturgy-ethiopian (shared liturgical roots). Excludes comm-reformation, comm-modern-critical, dist-mariological (Coptic Mariology has its own structure, distinct from Catholic). Pairs naturally with the existing ethiopian-tewahedo edition for a 'broader Egyptian church' demo."
     popup_languages_default:
       - "wlc"
       - "lxx-greek"
@@ -506,7 +355,6 @@ editions:
     reader_toc_books_only: true
     language_code: gez
     canon: ethiopian
-    theme: classic
     title: "The Ge'ez Bible — Standalone Tewahedo Edition"
     display_name: "Ge'ez Tewahedo Bible"
     short_title: "Ge'ez Bible"
@@ -558,7 +406,6 @@ editions:
     reader_toc_books_only: true
     language_code: amh
     canon: ethiopian
-    theme: classic
     title: "The Amharic Bible — Standalone Tewahedo Edition"
     display_name: "Amharic Tewahedo Bible"
     short_title: "Amharic Bible"

@@ -105,9 +105,6 @@ class TestOmega34EditionKindSetPins:
             "ethiopian-tewahedo": "comm-ethiopian",
             "evangelical-reformed": "comm-reformation",
             "eastern-orthodox": "comm-orthodox",
-            "coptic-orthodox": "comm-orthodox",
-            "lutheran-confessional": "comm-reformation",
-            "anglican-bcp": "comm-catholic",
         }
         missing = []
         for ed_id, must_have in signatures.items():

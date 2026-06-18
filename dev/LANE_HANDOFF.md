@@ -1,20 +1,22 @@
 ---
 mode: parallel
-turn: 135
+turn: 136
 from: windows
-updated: 2026-06-18T19:00:00Z
+updated: 2026-06-18T22:15:00Z
 status: working
 mac: Mac restart pending — Turn 131 STK poll PAUSED; resume post-reboot (`…165347Z-kindle-m4b.epub` staged on Desktop)
-windows: study-return RSC-012 fix (Strategy-B `ch-{bxx}-cN`); marker_style backmatter oracle; re-run ci.py + M3 fan-out
+windows: canon-SKU scrub shipped (4 tradition + 2 standalone); M3 fan-out **20** kepubs; ci.py GREEN; HOLD M4 kindle catalog regen until Mac STK re-PASS
 truth_owner: windows
 holder: windows
 ---
 
-## ◦ windows assign (turn 135, 2026-06-18T19:00:00Z) — mode=parallel
+## ◦ windows assign (turn 136, 2026-06-18T22:15:00Z) — mode=parallel
 
-**Assignments:** windows = **study-return RSC-012** (`_study_verse_return_link` Strategy-B → `ch-{bxx}-cN`) · **marker_style** backmatter oracle · `ci.py` GREEN (re-run post-fix) · `build_format_matrix --phase M3` **35** kepubs (restart fan-out) · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
+**Assignments:** windows = **canon-SKU scrub** (remove anglican-bcp / lutheran-confessional / coptic-orthodox; strip per-edition `theme:`) · `ci.py` GREEN · `build_format_matrix --phase M3` **20** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
 
-**Milestone pushed:** WIN turn 135 study-return + marker_style oracle.
+**Catalog policy (user-directed):** keep editions where **canon or body text differs** (Ethiopian 87 vs Catholic 76 vs Orthodox 78 vs Protestant 66; Geʿez/Amharic standalones); scrub notes-only / thematic SKU twins — note-kind toggles live in `/customize`.
+
+**Milestone pushed:** WIN turn 136 canon-SKU scrub.
 
 ---
 

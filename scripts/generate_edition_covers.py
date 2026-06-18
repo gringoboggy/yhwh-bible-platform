@@ -26,10 +26,6 @@ Mapping rationale:
 - catholic-study      → 02_classical_corner_navy (traditional Catholic)
 - evangelical-reformed→ 03_beadline_black        (Reformed restraint)
 - eastern-orthodox    → 01_ornate_leafy_red      (Byzantine red/gold)
-- anglican-bcp        → 03_beadline_navy         (Anglican BCP blue)
-- lutheran-confessional→02_classical_corner_black(Lutheran black)
-- coptic-orthodox     → 01_ornate_leafy_brown    (Coptic earth tones)
-
 The colour-to-tradition mapping is editorially defensible; publishers can
 swap to a bespoke cover via `api_save_edition_meta` (the `cover_image`
 field accepts any path under `content/covers/`).
@@ -550,7 +546,7 @@ def generate_catalog_composite(edition_id: str, design: str, colour: str, out_di
 
 
 def generate_catalog_colour_variants() -> list[Path]:
-    """Generate the full committed M2 variant set (35 = 7 editions × their
+    """Generate the full committed M2 variant set (20 = 4 editions × their
     own design in all 5 colours)."""
     return [generate_catalog_composite(e, d, c) for (e, d, c) in catalog_colour_variant_plan()]
 

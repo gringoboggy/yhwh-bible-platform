@@ -90,11 +90,11 @@ class TestComposeCover:
     fitter. The hard-coded per-edition title strings were dropped; the
     EDITION_TEMPLATES map keeps each edition's factory template."""
 
-    def test_edition_templates_cover_all_seven_traditions(self):
+    def test_edition_templates_cover_all_canon_tradition_skus(self):
         from scripts.generate_edition_covers import EDITION_TEMPLATES, STANDARD_EDITION_IDS
 
-        # Each wizard SKU maps to a factory template stem (7 traditions).
-        assert len(EDITION_TEMPLATES) == 7
+        # Each canon-differentiated tradition SKU maps to a factory template stem.
+        assert len(EDITION_TEMPLATES) == 4
         assert list(EDITION_TEMPLATES.keys()) == STANDARD_EDITION_IDS
         assert all(isinstance(stem, str) and stem for stem in EDITION_TEMPLATES.values())
 
