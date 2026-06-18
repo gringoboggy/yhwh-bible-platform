@@ -123,6 +123,8 @@ YHWH_THORIUM_LIVE=1    # open EPUB in Thorium when installed (CDP taps still MCP
 .venv/bin/python scripts/ci.py --no-tests --reader-sim-gates   # non-blocking CI hook (turn 128)
 ```
 
+**STK upload (Mac):** logged-in Chrome → `amazon.com/sendtokindle` + `stk_poll_watch.sh` (background library poll). Quit Chrome/Kindle/Thorium when idle.
+
 **Ceiling:** Thorium sim ≠ Apple Books / Play Books on device. Kindle sim uses `com.amazon.Lassen` library inventory when signed in. Previewer 3 = diagnostic bisect only, not STK oracle.
 
 ---

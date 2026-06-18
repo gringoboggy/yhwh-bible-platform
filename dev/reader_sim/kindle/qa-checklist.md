@@ -18,7 +18,14 @@
 
 **Previewer appendix (diagnostic only):** if bisecting a structural failure, run KP3 CLI and scrape E-codes — never treat PASS as STK acceptance.
 
-**Live library (Mac turn 128, 2026-06-18):** Kindle.app bundle id is **`com.amazon.Lassen`** (not legacy `com.amazon.Kindle`). Signed-in library detected — inventory snapshot **2 files** (1× kfx + 1× epub in Documents). `stk_channel.sh` fixed to probe Lassen first. Full arrival poll: send staged EPUB via Send-to-Kindle → `stk_channel.sh "$EPUB" --wait 3600`.
+**Live library (Mac turn 128+):** Bundle id **`com.amazon.Lassen`**. Inventory snapshot works; arrival poll via:
+
+1. Stage EPUB → `~/Desktop/YHWH-reader-sim/kindle/`
+2. Open **your logged-in Chrome** → `https://www.amazon.com/sendtokindle` (upload the staged file)
+3. Background watch: `bash dev/reader_sim/kindle/stk_poll_watch.sh --interval 180 --timeout 7200 --epub <path>` (polls library every 3 min; logs `build/reader-sim/kindle/stk-poll-watch.log`)
+4. Optionally open **Kindle.app** to confirm the title appeared (quit app when done — RAM)
+
+**RAM rule:** quit Chrome tabs / Kindle / Thorium when not actively checking; the poll script needs no GUI.
 
 **Phone STK matrix (6 variants):** `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7
 
