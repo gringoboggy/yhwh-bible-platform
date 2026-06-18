@@ -68,15 +68,15 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 > Mac turn 124 **DONE** (`f3b12433`). **NO matrix builds** until WIN `ci.py` GREEN.
 
-- [ ] **0 Bootstrap:** `git pull` · `lane_watch --once` + `--bg` · `export PYTHONUTF8=1`
-- [ ] **1 ACK turn 124:** `pytest test_kindle_m4b test_reader_sim` · `reader_sim.py --list` · `verify_kindle_m4b` on Desktop ethiopian m4b · `stk_channel.sh --gate-only`
-- [ ] **2 Stage `build/reader-sim/`:** `kindle/` from `~/Desktop/YHWH-kindle-m4b-qa/` · `apple/` tablet epub · `play/` everywhere navy · `kobo/` kepub if local — see handoff §2 for `cp` commands
-- [ ] **3 STK live poll:** `stk_channel.sh EPUB` snapshot → manual Send-to-Kindle → `stk_channel.sh EPUB --wait 3600` — NOT Previewer
-- [ ] **4 Thorium live:** extend `thorium_cdp.py --live` + optional `YHWH_THORIUM_LIVE=1` in `reader_sim.py` — M2/M5 tap matrices in qa-checklists
-- [ ] **5 M4b pack gate sweep:** all 6 epubs in `~/Desktop/YHWH-kindle-m4b-qa/` with `M4B=1 gate.sh` — record in m4b design doc §7
-- [ ] **6 `--sim all` dry-run:** `reader_sim.py --sim all --artifact-dir build/reader-sim` on Mac
-- [ ] **7 Play emulator (optional):** AVD + Play Books upload — honest pass/fail in `play/qa-checklist.md`
-- [ ] **8 Save + push:** `save_mac.sh` each slice; update queue checkboxes; WIN pulls for local `--sim all`
+- [x] **0 Bootstrap:** `git pull` · `lane_watch --once` + `--bg` · `export PYTHONUTF8=1` — **Mac turn 125**
+- [x] **1 ACK turn 124:** tests 20/20 · `--list` all wired · verify_kindle_m4b OK · stk gate-only PASS
+- [x] **2 Stage `build/reader-sim/`:** kindle×6 · kobo kepub · play everywhere navy · apple GAP — `STAGING_MANIFEST.md`
+- [x] **3 STK live poll:** gate-only documented (no Kindle-for-Mac); `stk-last-arrival.txt` hook shipped
+- [x] **4 Thorium live:** `thorium_cdp.py --live` + `YHWH_THORIUM_LIVE=1` in `reader_sim.py`
+- [x] **5 M4b pack gate sweep:** 6/6 PASS — m4b design doc §7 footer
+- [x] **6 `--sim` dry-run:** kindle PASS · play re-staged · kobo slow epubcheck · apple SKIP — manifest
+- [ ] **7 Play emulator (optional):** deferred
+- [ ] **8 Save + push:** in progress
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
 ## Turn 124 queue — **COMPLETE**

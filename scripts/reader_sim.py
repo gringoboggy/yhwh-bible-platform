@@ -25,6 +25,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+if __package__ is None:
+    sys.path.insert(0, str(REPO))
 DEFAULT_OUT = REPO / "build" / "reader-sim"
 DEFAULT_EDITION = "ethiopian-tewahedo"
 DEFAULT_VERSION = "0.1.0"
@@ -202,10 +204,15 @@ SIM_LAYERS_READY: dict[str, bool] = {
 
 
 def _thorium_sim(artifact: Path, profile: str) -> tuple[bool, str]:
+    import os
+
     script = REPO / "dev" / "reader_sim" / "thorium_cdp.py"
-    code, out = _run(
-        [sys.executable, str(script), str(artifact), "--profile", profile, "--gate-only"],
-    )
+    cmd = [sys.executable, str(script), str(artifact), "--profile", profile]
+    if os.environ.get("YHWH_THORIUM_LIVE") == "1":
+        cmd.append("--live")
+    else:
+        cmd.append("--gate-only")
+    code, out = _run(cmd)
     return code == 0, out.strip()[:500] or ("OK" if code == 0 else "thorium_cdp FAIL")
 
 
@@ -359,9 +366,25 @@ def _find_artifacts(directory: Path) -> list[Path]:
     if not directory.is_dir():
         return []
     out: list[Path] = []
-    for pat in ("*.kepub.epub", "*.epub"):
+    for pat in ("*.kepub.epub", "*.epub", "*/*.kepub.epub", "*/*.epub"):
         out.extend(directory.glob(pat))
-    return sorted(out, key=lambda p: p.stat().st_mtime, reverse=True)
+    seen: set[Path] = set()
+    unique = [p for p in out if p not in seen and not seen.add(p)]  # type: ignore[func-returns-value]
+    return sorted(unique, key=lambda p: p.stat().st_mtime, reverse=True)
+
+
+def _artifact_for_reader(directory: Path, reader_id: str) -> Path | None:
+    """Pick one artifact for a reader — prefers ``<dir>/<reader_id>/`` (turn 125 layout)."""
+    sub = directory / reader_id
+    if sub.is_dir():
+        candidates = _find_artifacts(sub)
+        if reader_id == "kindle":
+            eth = sorted(a for a in candidates if "ethiopian-tewahedo" in a.name.lower())
+            if eth:
+                return eth[0]
+        if candidates:
+            return candidates[0]
+    return next((a for a in _find_artifacts(directory) if _guess_reader(a) == reader_id), None)
 
 
 def _guess_reader(artifact: Path) -> str | None:
@@ -417,13 +440,12 @@ def main(argv: list[str] | None = None) -> int:
                 print(suite_msg, file=sys.stderr)
                 return 2
             directory = args.artifact_dir or (REPO / "build" / "reader-sim")
-            artifacts = _find_artifacts(directory)
-            if not artifacts:
+            if not directory.is_dir() or not any(_artifact_for_reader(directory, rid) for rid in DISPLAY_ORDER):
                 print(f"No artifacts in {directory}", file=sys.stderr)
                 return 1
             any_fail = False
             for rid in DISPLAY_ORDER:
-                art = next((a for a in artifacts if _guess_reader(a) == rid), None)
+                art = _artifact_for_reader(directory, rid)
                 if art is None:
                     print(f"\n[SKIP] {rid} — no artifact in {directory}")
                     any_fail = True

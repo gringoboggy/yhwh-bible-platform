@@ -81,6 +81,13 @@ while [[ $(date +%s) -lt $DEADLINE ]]; do
   rm -f "$AFTER_LIST"
   if [[ -n "$NEW" ]]; then
     echo "PASS: new Kindle library file: $NEW"
+    ARRIVAL_LOG="$REPO/build/reader-sim/kindle/stk-last-arrival.txt"
+    mkdir -p "$(dirname "$ARRIVAL_LOG")"
+    {
+      echo "arrived_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      echo "source_epub=$STAGE/$BASENAME"
+      echo "library_file=$NEW"
+    } >"$ARRIVAL_LOG"
     rm -f "$SNAP"
     if [[ "$BASENAME" == *m4b* ]]; then
       M4B=1 bash "$SCRIPT_DIR/gate.sh" "$STAGE/$BASENAME"

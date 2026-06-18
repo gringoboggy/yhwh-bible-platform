@@ -132,6 +132,21 @@ Minimum phone taps after implementation (6-variant fan-out like turn 87):
 | 5 | Any | Chapter nav from ToC | Lands on chapter start |
 | 6 | Any | Study Notes chapter block | Visible endnotes, not blank |
 
+### Gate sweep (Mac turn 125, 2026-06-18 — structural only, no STK upload)
+
+`M4B=1 bash dev/reader_sim/kindle/gate.sh` on `~/Desktop/YHWH-kindle-m4b-qa/` — all **PASS** (epubcheck 0/0/0/0 · verify_kindle_safe · verify_kindle_m4b):
+
+| Edition | Gate |
+|---|---|
+| catholic-study | PASS |
+| eastern-orthodox | PASS |
+| ethiopian-tewahedo | PASS |
+| evangelical-reformed | PASS |
+| jewish-study | PASS |
+| scholarly-academic | PASS |
+
+STK phone matrix (§7 table) still pending user Send-to-Kindle.
+
 ---
 
 ## 8. Implementation plan

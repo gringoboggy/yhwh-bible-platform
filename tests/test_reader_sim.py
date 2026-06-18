@@ -51,6 +51,16 @@ def test_sim_reader_kindle_has_stk_layer():
     assert any(c["name"] == "stk_channel_sim" for c in rep["sim_checks"])
 
 
+def test_artifact_for_reader_subdir_layout(tmp_path):
+    (tmp_path / "kindle").mkdir()
+    (tmp_path / "kobo").mkdir()
+    k1 = tmp_path / "kindle" / "Ethiopian_Bible_ethiopian-tewahedo_0.1.0-kindle-m4b.epub"
+    k2 = tmp_path / "kindle" / "Ethiopian_Bible_catholic-study_0.1.0-kindle-m4b.epub"
+    k1.write_bytes(b"x")
+    k2.write_bytes(b"y")
+    assert reader_sim._artifact_for_reader(tmp_path, "kindle") == k1
+
+
 def test_thorium_cdp_on_round9_epub():
     epub = Path("build/round9-kobo-tap/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_eink_2026-06-17T202652Z.epub")
     if not epub.is_file():

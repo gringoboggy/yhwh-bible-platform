@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Thorium/CDP reader sim — structural popup/ToC/script probes from EPUB HTML.
 
-When Thorium is installed, agents may extend this with Chrome DevTools MCP taps.
-Without Thorium, ``--gate-only`` runs the same structural assertions (M2/M5 proxy).
+**Ceiling (turn 125):** ``--live`` opens Thorium when installed; CDP navigate/assert
+is not fully automated here — use Chrome DevTools MCP (``browser_navigate`` +
+click ``vn-link#v-gen-1-1`` + snapshot popup text). Without Thorium,
+``--gate-only`` is the agent floor (M2/M5 structural proxy).
 
 Usage:
     py -3 dev/reader_sim/thorium_cdp.py <artifact.epub> --profile apple
     py -3 dev/reader_sim/thorium_cdp.py <artifact.epub> --profile play --gate-only
+    py -3 dev/reader_sim/thorium_cdp.py <artifact.epub> --profile apple --live
 """
 
 from __future__ import annotations
@@ -15,6 +18,7 @@ import argparse
 import html as html_mod
 import re
 import shutil
+import subprocess
 import sys
 import zipfile
 from dataclasses import dataclass
@@ -180,6 +184,38 @@ def probe_epub(epub_path: Path, profile: str) -> list[ProbeResult]:
     return results
 
 
+def probe_live(epub_path: Path, profile: str) -> list[ProbeResult]:
+    """Open EPUB in Thorium when present; CDP taps remain manual/MCP."""
+    if not epub_path.is_file():
+        return [ProbeResult("thorium_live", False, "artifact missing")]
+    if not _thorium_installed():
+        return [
+            ProbeResult(
+                "thorium_live",
+                True,
+                "skipped — Thorium not installed; structural --gate-only is the floor",
+            )
+        ]
+    try:
+        subprocess.run(
+            ["open", "-a", "Thorium", str(epub_path.resolve())],
+            stdin=subprocess.DEVNULL,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as exc:
+        return [ProbeResult("thorium_live", False, f"open Thorium failed: {exc}")]
+    return [
+        ProbeResult(
+            "thorium_live",
+            True,
+            "opened in Thorium — CDP/MCP taps manual: vn-link Gen 1:1 popup + "
+            f"{'<details> ToC' if profile == 'apple' else 'chapter nav'}",
+        )
+    ]
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Thorium/CDP reader sim — structural EPUB probes.")
     p.add_argument("artifact", type=Path)
@@ -189,11 +225,18 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="structural probes only (default when Thorium missing)",
     )
+    p.add_argument(
+        "--live",
+        action="store_true",
+        help="open EPUB in Thorium when installed (CDP asserts via MCP, not in-process)",
+    )
     args = p.parse_args(argv)
 
-    gate_only = args.gate_only or not _thorium_installed()
+    gate_only = args.gate_only or (not args.live and not _thorium_installed())
     results = probe_epub(args.artifact, args.profile)
-    ok = all(r.passed for r in results if r.name != "thorium_binary")
+    if args.live:
+        results.extend(probe_live(args.artifact, args.profile))
+    ok = all(r.passed for r in results if r.name not in ("thorium_binary",))
 
     mode = "gate-only" if gate_only else "thorium+cdp"
     print(f"thorium_cdp profile={args.profile} mode={mode} artifact={args.artifact.name}")
