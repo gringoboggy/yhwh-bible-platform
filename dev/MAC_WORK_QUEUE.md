@@ -160,7 +160,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 ## Turn 128 overflow (if primary queue clears before WIN pulls again)
 
 - [ ] M4b 6-variant re-gate after any `kindle_post.py` touch
-- [ ] `scholarly-academic` or `evangelical-reformed` tablet spot-build (one edition · epubcheck strict)
+- [ ] `evangelical-reformed` tablet spot-build (one edition · epubcheck strict)
 - [ ] `docs/superpowers/notes/2026-06-18-platform-implementation-matrix.md` — close remaining M5/M3 rows
 - [ ] Archive sweep: `scripts/_*.py` one-shots · stale `dev/archive/` index
 - [ ] Esther vision lane resume (Phase D) — disjoint from WIN pytest files

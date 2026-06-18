@@ -36,7 +36,7 @@ disabled_kinds:
   - dist-mariological
   - dist-allegorical
   - liturgy-ethiopian
-  - liturgy-torah-portion
+
 max_phase: phase2
 cover_image: ""
 notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Cloners typically retitle for their build."

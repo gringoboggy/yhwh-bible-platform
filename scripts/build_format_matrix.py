@@ -125,7 +125,7 @@ def variant_composite_path(edition_id: str, colour: str) -> Path:
 
 def standard_edition_ids() -> list[str]:
     """The catalog's edition rows: every non-standalone edition, in
-    editions.yaml declaration order (the 9 canon/notes editions; the two
+    editions.yaml declaration order (the 8 tradition editions; the two
     standalone Bibles stay in LANE P until P2 constitutes them)."""
     from scripts.core import config
 

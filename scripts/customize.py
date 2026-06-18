@@ -31,7 +31,7 @@ Usage:
     python3 scripts/customize.py --apply              # write changes
     python3 scripts/customize.py --book gen --image FILE
     python3 scripts/customize.py --book gen --html FILE
-    python3 scripts/customize.py --edition jewish-study --cover FILE
+    python3 scripts/customize.py --edition catholic-study --cover FILE
     python3 scripts/customize.py --revert
     python3 scripts/customize.py --measure            # count pages for spine calc
 """

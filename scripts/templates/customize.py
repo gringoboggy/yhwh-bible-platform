@@ -439,6 +439,7 @@ function renderEditions() {
               <select class="label-input w-full" data-field="note_popup_style" title="how a study note renders inside its popup">
                 <option value="chip"  ${(e.note_popup_style||'chip') === 'chip' ? 'selected' : ''}>chip · category label as a tinted chip</option>
                 <option value="pills" ${e.note_popup_style === 'pills' ? 'selected' : ''}>pills · cross-references as tappable pills</option>
+                <option value="category-color" ${e.note_popup_style === 'category-color' ? 'selected' : ''}>category-color · hue + outline box (Apple/tablet default)</option>
               </select>
             </label>
             <label class="text-xs">

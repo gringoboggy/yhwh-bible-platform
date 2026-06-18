@@ -130,8 +130,7 @@ class TestValidation:
             "ethiopian-tewahedo",
             "catholic-study",
             "evangelical-reformed",
-            "jewish-study",
-            "scholarly-academic",
+            "ethiopian-tewahedo",
         ):
             assert self.v.validate_edition_id(eid) == eid
 

@@ -646,7 +646,7 @@ const PROFILE_TO_TRADITIONS = {
   'evangelical-reformed': ['protestant', 'cross'],
   'orthodox-study':       ['orthodox', 'cross'],
   'orthodox':             ['orthodox', 'cross'],
-  'jewish-study':         ['jewish', 'cross'],
+
   'jewish':               ['jewish', 'cross'],
   'ethiopian-tewahedo':   ['tewahedo', 'cross'],
   'tewahedo':             ['tewahedo', 'cross'],

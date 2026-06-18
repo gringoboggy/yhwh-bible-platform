@@ -98,10 +98,10 @@ class TestApplyVersePopupStyle:
 
 
 class TestNotePopupStyleConst:
-    def test_enum_exposes_chip_and_pills(self):
+    def test_enum_exposes_chip_pills_and_category_color(self):
         from scripts.build_edition import NOTE_POPUP_STYLES
 
-        assert set(NOTE_POPUP_STYLES) == {"chip", "pills"}
+        assert set(NOTE_POPUP_STYLES) == {"chip", "pills", "category-color"}
 
 
 class TestNotePopupStyleValidator:
@@ -131,7 +131,7 @@ class TestNotePopupStyleLoader:
         from scripts.web import api_customize_data
 
         eds = {e["id"]: e for e in api_customize_data()["editions"]}
-        assert eds["catholic-study"].get("note_popup_style") == "chip"
+        assert eds["evangelical-reformed"].get("note_popup_style") == "chip"
 
 
 class TestNotePopupStyleUI:
@@ -167,3 +167,28 @@ class TestApplyNotePopupStyle:
         out = apply_note_popup_style("BASE_CSS", "")
         assert out != "BASE_CSS"
         assert ".note-label" in out  # chip targets the label
+
+    def test_category_color_appends_per_category_hues_no_backgrounds(self):
+        from scripts.build_edition import apply_note_popup_style
+
+        out = apply_note_popup_style("BASE_CSS", "category-color")
+        assert out.startswith("BASE_CSS")
+        assert "note_popup_style=category-color" in out
+        assert '[class*="note-lang-"]' in out and "#8B6508" in out
+        assert '[class*="note-comm-"]' in out and "#0B3D91" in out
+        assert ".note-sym" in out and ".note-label" in out
+        assert "border-left-width: 4px" in out
+        block = out.split("category-color")[-1].split(".vn-sep")[0]
+        assert "rgba(" not in block
+        assert "background: #" not in block
+
+    def test_tablet_target_defaults_to_category_color(self):
+        from scripts.build_edition import apply_target_override, resolve_note_popup_style
+
+        ed = apply_target_override({"id": "catholic-study"}, "tablet")
+        assert resolve_note_popup_style(ed) == "category-color"
+
+    def test_everywhere_target_defaults_to_chip(self):
+        from scripts.build_edition import resolve_note_popup_style
+
+        assert resolve_note_popup_style({"id": "catholic-study"}) == "chip"

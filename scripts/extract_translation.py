@@ -244,7 +244,7 @@ TRANSLATIONS: dict[str, dict] = {
             "English translation of the Hebrew Bible. Closes the "
             "Hebrew column for the 6 of 9 editions that declare "
             "`hebrew` in popup_languages_default (ethiopian-tewahedo, "
-            "catholic-study, jewish-study, scholarly-academic, "
+            "catholic-study, "
             "anglican-bcp, lutheran-confessional). Pairs with "
             "the `wlc` (Westminster Leningrad Codex) consonantal "
             "Hebrew text — JPS provides the English-language "

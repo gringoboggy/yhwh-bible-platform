@@ -33,12 +33,12 @@ disabled_kinds:
   - comm-orthodox
   - comm-catholic
   - comm-ethiopian
-  - comm-rabbinic
+
   - dist-mariological
   - dist-allegorical
   - dist-mystical
   - liturgy-ethiopian
-  - liturgy-torah-portion
+
 max_phase: phase2
 cover_image: ""
 notes: "Foregrounds comm-reformation, comm-patristic (Augustine + Cappadocian Fathers prized in Luther's tradition), dev-application, apol-harmonization, dist-typological."

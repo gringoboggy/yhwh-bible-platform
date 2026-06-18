@@ -893,8 +893,6 @@ class TestTraditionsYaml:
         assert m["ethiopian-tewahedo"] == "tewahedo"
         assert m["catholic-study"] == "catholic"
         assert m["evangelical-reformed"] == "protestant"
-        assert m["jewish-study"] == "jewish"
-        assert m["scholarly-academic"] == "cross"
 
     def test_missing_file_returns_empty_dict(self, tmp_path):
         nope = tmp_path / "nonexistent.yaml"

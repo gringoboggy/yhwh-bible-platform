@@ -367,7 +367,7 @@ def sample_note_tuple():
         15,
         "",
         "bruise",
-        "comm-rabbinic",
+        "comm-patristic",
         "Curse on the serpent",
         "Note.",
         "<strong>Curse on the serpent.</strong> The serpent receives the only "

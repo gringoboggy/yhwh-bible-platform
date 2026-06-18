@@ -9,7 +9,7 @@ mode, and a REPL pre-loaded with project helpers.
 Usage:
     ebible status                          # health dashboard
     ebible doctor                          # what should I do next?
-    ebible add gen 3 15 --kind comm-rabbinic --anchor "serpent"
+    ebible add gen 3 15 --kind comm-patristic --anchor "serpent"
     ebible inject [--book gen]             # source → master HTML
     ebible build [edition_id]              # inject + manifest + editions
     ebible ship [--epubcheck]              # full integrity gate
@@ -488,7 +488,7 @@ HELP_EXAMPLES: dict[str, list[str]] = {
     "status": ["ebible status"],
     "doctor": ["ebible doctor"],
     "add": [
-        "ebible add gen 3 15 --kind comm-rabbinic --anchor 'serpent'",
+        "ebible add gen 3 15 --kind comm-patristic --anchor 'serpent'",
         "ebible add 1en 6 1 --kind comm-ethiopian --suffix a",
     ],
     "inject": ["ebible inject --all-books", "ebible inject --book gen --dry-run"],
@@ -504,7 +504,7 @@ HELP_EXAMPLES: dict[str, list[str]] = {
         "ebible web --host 0.0.0.0           # LAN access (be careful)",
     ],
     "manifest": ["ebible manifest --status", "ebible manifest --build"],
-    "search": ["ebible search 'serpent' --kind comm-rabbinic", "ebible search --book gen --chapter 3"],
+    "search": ["ebible search 'serpent' --kind comm-patristic", "ebible search --book gen --chapter 3"],
     "quality": ["ebible quality", "ebible quality --book gen --no-per-kind"],
     "epubcheck": ["ebible epubcheck --editions-dir <tempdir>/editions_v28a25"],
 }

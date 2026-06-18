@@ -125,6 +125,15 @@ YHWH_THORIUM_LIVE=1    # open EPUB in Thorium when installed (CDP taps still MCP
 
 **STK upload (Mac):** logged-in Chrome → `amazon.com/sendtokindle` + `stk_poll_watch.sh` (background library poll). Quit Chrome/Kindle/Thorium when idle.
 
+**MCP (Grok agent browser tools):** `grok mcp doctor` — expect **chrome-devtools** + **playwright** healthy.
+
+| Server | Install | Config |
+|---|---|---|
+| **chrome-devtools-mcp** | `npm install -g chrome-devtools-mcp@1.2.0` (binary in `~/.local/opt/node-…/bin/`) | `.grok/config.toml` — use **direct binary**, not `npx` (avoids 10s timeout) |
+| **playwright-mcp** | bundled with node install | `--browser chrome --user-data-dir ~/.yhwh-browser-profile` (Amazon login persists) |
+
+Verify: `cd <repo> && grok mcp doctor` → 29 chrome-devtools tools + 23 playwright tools.
+
 **Ceiling:** Thorium sim ≠ Apple Books / Play Books on device. Kindle sim uses `com.amazon.Lassen` library inventory when signed in. Previewer 3 = diagnostic bisect only, not STK oracle.
 
 ---

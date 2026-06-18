@@ -6,7 +6,7 @@ Walks each book's notes file, examines every note whose kind is the
 legacy ``comm``, and infers a specific sub-kind from the body text:
 
     comm-ethiopian       Andemta, Synaxarium, Fetha Nagast, Tewahedo
-    comm-rabbinic        Rashi, Maimonides, Targum, Talmud, Midrash, Philo
+
     comm-catholic        Aquinas, Catechism, Trent, Magisterium, Marian
     comm-orthodox        Palamas, John of Damascus, Hesychasm, Cabasilas
     comm-reformation     Luther, Calvin, Zwingli, Tyndale
@@ -88,7 +88,6 @@ SUBKIND_PRIORITY: list[tuple[str, list[str]]] = [
         ],
     ),
     (
-        "comm-rabbinic",
         [
             r"\bRashi\b",
             r"\bMaimonides\b",

@@ -28,9 +28,3 @@ edition_to_tradition:
   ethiopian-tewahedo: tewahedo
   catholic-study: catholic
   evangelical-reformed: protestant
-  jewish-study: jewish
-  # Scholarly / academic edition is intentionally neutral — its notes
-  # are typically Westermann / Brueggemann / Wenham (modern critical),
-  # which the apparatus categorises as cross-tradition rather than
-  # tied to any single denominational reading.
-  scholarly-academic: cross

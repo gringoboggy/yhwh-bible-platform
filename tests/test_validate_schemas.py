@@ -185,10 +185,8 @@ class TestOmega19SchemaValidator:
 
         result = validate_editions()
         assert result["status"] == "ok", f"editions.yaml unexpected violations: {result['errors']}"
-        # 9 multi-tradition editions + 2 standalone Bibles
-        # (standalone-geez + standalone-amharic, τ.G.constitution.a
-        # 2026-05-20) = 11.
-        assert result["record_count"] == 11
+        # 7 tradition wizard SKUs + 2 standalone Bibles (hidden from wizard).
+        assert result["record_count"] == 9
 
     def test_validate_kinds_passes_on_real_file(self):
         from scripts.validate_schemas import validate_kinds
@@ -209,7 +207,7 @@ class TestOmega19SchemaValidator:
         # 71 → 72 with Track C Torrey (2026-05-25): added `topic-torrey`
         # (category `topic`, ✦ glyph — Torrey's New Topical Textbook, net-new
         # vs Nave's).
-        assert result["record_count"] == 72
+        assert result["record_count"] == 68
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

@@ -1406,99 +1406,6 @@ class ReformationCommentaryDetector:
         )
 
 
-class RabbinicCommentaryDetector:
-    """Emit `comm-rabbinic` candidates from the rabbinic-tradition corpus
-    (`content/sources/rabbinic_commentaries.json`).
-
-    Structurally parallel to γ.3 / γ.4 / χ.2 / χ.4 / χ.3 — a direct-
-    lookup detector keyed on (book, chapter, verse) emitting one
-    Candidate per matching entry. The semantic distinction from the
-    Christian comm-* siblings is *tradition*: the kind comm-rabbinic
-    surfaces voices from the Jewish medieval-classical exegetical
-    chain (Rashi, Maimonides, Ibn Ezra, Ramban, Targumim, etc.).
-
-    Body rendering uses **plain year display** (mirrors χ.2 / χ.3) —
-    Rashi died 1105 AD; all rabbinic-tradition voices in the χ.5 seed
-    are post-AD, no BC/AD branching needed.
-
-    Build-pipeline considerations: comm-rabbinic notes participate in
-    the existing tradition filter (ψ.8) when an edition's
-    `traditions_default` includes `jewish`. The jewish-study edition
-    consumes them directly per traditions.yaml.
-
-    χ.5 ships a ~12-entry Rashi-only seed weighted toward Pentateuch;
-    χ.5.x will expand from primary Hebrew sources (Rashi medieval
-    Hebrew is PD) + add Maimonides / Ibn Ezra / Ramban / Targum entries.
-    """
-
-    name = "RabbinicCommentaryDetector"
-    kind = "comm-rabbinic"
-
-    def __init__(self) -> None:
-        self.corpus = sources.rabbinic_commentaries()
-
-    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
-        # verse_text is unused — direct lookup by (book, chapter, verse).
-        entries = self.corpus.for_verse(book, chapter, verse)
-        if not entries:
-            return []
-        out: list[Candidate] = []
-        for entry in entries:
-            body = self._format_body(entry)
-            out.append(
-                Candidate(
-                    book=book,
-                    chapter=chapter,
-                    verse=verse,
-                    kind=self.kind,
-                    anchor="",  # whole-verse anchor
-                    confidence=0.95,
-                    source_name=f"{entry.commentator} / {entry.work}",
-                    source_attribution=entry.attribution,
-                    draft_title=f"Rabbinic — {entry.commentator}",
-                    draft_label=f"{entry.commentator} ({entry.year}).",
-                    draft_body=body,
-                    detector=self.name,
-                    reviewer_notes=(
-                        "Curated PD interpretive summary representing the "
-                        f"Jewish medieval-classical exegetical tradition's "
-                        f"reading via {entry.commentator}, {entry.work}. "
-                        "The medieval Hebrew text is PD by age; verify the "
-                        "summary still reflects the exegete's argument "
-                        "before promoting; for direct quotation, use a "
-                        "confirmed-PD English edition (most modern Rashi "
-                        "translations are still in copyright)."
-                    ),
-                )
-            )
-        return out
-
-    @staticmethod
-    def _format_body(entry: sources.RabbinicCommentary) -> str:
-        """Render the entry's HTML body. Mirrors χ.2 / χ.3 (plain year
-        display, no BC/AD branching — all χ.5 seed voices are
-        post-AD).
-
-        The summary text is escape-safe by construction (no user-
-        controlled content) but escape defensively to keep the
-        XSS-by-design contract honest.
-        """
-        import html as _html
-
-        commentator = _html.escape(entry.commentator)
-        work = _html.escape(entry.work)
-        summary = _html.escape(entry.summary)
-        year = int(entry.year)
-        return (
-            f'<aside class="note-comm-rabbinic">'
-            f"<strong>{commentator}</strong> "
-            f"<em>{work}</em> "
-            f"<small>({year})</small>"
-            f"<p>{summary}</p>"
-            f"</aside>"
-        )
-
-
 # ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
@@ -1518,6 +1425,5 @@ ALL_DETECTORS = [
     ProtestantCommentaryDetector,  # χ.2 — Matthew Henry seed
     CatholicCommentaryDetector,  # χ.4 — Catena Aurea seed
     ReformationCommentaryDetector,  # χ.3 — Calvin seed
-    RabbinicCommentaryDetector,  # χ.5 — Rashi seed (CLOSES χ.2-5 cluster)
     TorreyTopicalDetector,  # Track C — Torrey's New Topical Textbook (sibling of NaveTopicalDetector)
 ]

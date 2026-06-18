@@ -13,8 +13,8 @@ Usage:
     python3 scripts/new_note.py 1en 1 1 --kind comm-ethiopian --suffix a
 
 Pipe to clipboard / append to file:
-    python3 scripts/new_note.py gen 3 15 --kind comm-rabbinic | pbcopy   (macOS)
-    python3 scripts/new_note.py gen 3 15 --kind comm-rabbinic >> content/notes/gen.py
+    python3 scripts/new_note.py gen 3 15 --kind comm-patristic | pbcopy   (macOS)
+    python3 scripts/new_note.py gen 3 15 --kind comm-patristic >> content/notes/gen.py
 
 Per Rule P6 — this script complements rather than duplicates `add_note.py`
 (which performs an interactive append). new_note.py is non-interactive,
@@ -86,24 +86,6 @@ SOURCE_TEMPLATE = (
 )
 
 COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
-    "comm-rabbinic": (
-        "Rabbinic reading.",
-        "<strong>TODO_TOPIC.</strong> Rashi (TODO_PASSAGE) reads this as "
-        "TODO_INTERPRETATION. The Talmud (TODO_TRACTATE TODO_PAGE) elaborates: "
-        "TODO_ELABORATION. The midrashic tradition (TODO_MIDRASH) preserves "
-        "TODO_AGGADAH.",
-        {
-            "sources": [
-                {
-                    "author": "Rashi (Shlomo Yitzhaki)",
-                    "title": "Commentary on the Torah",
-                    "year": 1090,
-                    "license": "PD",
-                },
-            ],
-            "voice": "rabbinic",
-        },
-    ),
     "comm-patristic": (
         "Patristic reading.",
         "<strong>TODO_TOPIC.</strong> TODO_FATHER (TODO_WORK, TODO_BOOK_CH) "
@@ -310,7 +292,7 @@ def main() -> None:
     p.add_argument("chapter", type=int)
     p.add_argument("verse", type=int)
     p.add_argument("--suffix", default="", help="single lowercase letter for multiple notes on same verse")
-    p.add_argument("--kind", required=True, help="note kind (e.g. lang-hebrew, comm-rabbinic, parallel)")
+    p.add_argument("--kind", required=True, help="note kind (e.g. lang-hebrew, comm-patristic, parallel)")
     p.add_argument("--anchor", default="", help="anchor text within verse (where marker attaches)")
     p.add_argument("--title", default="", help="popover title (often the same as label or empty)")
     args = p.parse_args()

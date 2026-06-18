@@ -102,14 +102,12 @@ class TestOmega34EditionKindSetPins:
 
         signatures = {
             "catholic-study": "comm-catholic",
-            "jewish-study": "comm-rabbinic",
             "ethiopian-tewahedo": "comm-ethiopian",
             "evangelical-reformed": "comm-reformation",
             "eastern-orthodox": "comm-orthodox",
             "coptic-orthodox": "comm-orthodox",
             "lutheran-confessional": "comm-reformation",
             "anglican-bcp": "comm-catholic",
-            "scholarly-academic": "comm-modern-critical",
         }
         missing = []
         for ed_id, must_have in signatures.items():
@@ -164,8 +162,8 @@ class TestOmega34EpubEndToEnd:
     This test does the minimum to assert the EPUB writer's
     contract: build one edition end-to-end, open the resulting
     .epub as a zipfile, and assert the structural invariants.
-    Limited to ONE edition (the smallest, jewish-study) to keep
-    test wall-time manageable; full 9-edition coverage is covered
+    Limited to ONE edition (evangelical-reformed) to keep
+    test wall-time manageable; full edition coverage is covered
     by `TestApiBuildAll` (mocked) plus this real-build smoke.
     """
 
@@ -194,12 +192,11 @@ class TestOmega34EpubEndToEnd:
         out_dir = tmp_path / "out"
         out_dir.mkdir()
 
-        # jewish-study is the smallest canon (Tanakh, 39 books) and
-        # therefore the fastest real build. We're not asserting
-        # speed; we're asserting the writer's contract.
+        # evangelical-reformed is a mid-size Protestant canon (66 books).
+        # We're not asserting speed; we're asserting the writer's contract.
         all_kinds = config.load_kinds()
         result = build_one(
-            "jewish-study",
+            "evangelical-reformed",
             output_dir=out_dir,
             version="omega34_smoke",
             all_kinds=all_kinds,

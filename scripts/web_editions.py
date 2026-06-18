@@ -297,7 +297,8 @@ def api_customize_data() -> dict:
     """Return the full categories+kinds+editions+themes dataset for the customize UI."""
     cats = config.load_categories()
     kinds = config.load_kinds()
-    editions = config.load_editions()
+    # Standalone Ge'ez/Amharic Bibles are in-progress (τ.G) — hide from wizard until complete.
+    editions = [e for e in config.load_editions() if not e.get("standalone")]
     themes = _load_themes()
     # Phase τ.1.5 — expose the on-disk translation list so the UI can
     # render a per-edition picker. Includes a small meta blob for each
@@ -329,6 +330,7 @@ def api_customize_data() -> dict:
         decode_per_chapter_languages,
         decode_per_verse_languages,
         resolve_marker_badge_style,
+        resolve_note_popup_style,
         resolve_popup_language_cap,
         resolve_popup_language_pick,
         resolve_target_reader,
@@ -444,8 +446,8 @@ def api_customize_data() -> dict:
                 "cover_template": e.get("cover_template", ""),
                 # §4.2 — original-language verse-popup layout (cards default / stack).
                 "verse_popup_style": e.get("verse_popup_style", "cards"),
-                # §4.4 — note/aside popup layout (chip default / pills).
-                "note_popup_style": e.get("note_popup_style", "chip"),
+                # §4.4 — note/aside popup layout (chip default; tablet → category-color).
+                "note_popup_style": resolve_note_popup_style(e),
                 # §4.1 — inline marker style. "badge" (one count badge per verse
                 # → tap → note list) is the default; "numbers" (per-note
                 # superscripts) stays selectable.

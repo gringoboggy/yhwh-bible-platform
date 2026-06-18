@@ -1,48 +1,9 @@
-# M3 Kobo v0.1.0 - Exact 45 asset filenames for the catalog column
+# M3 Kobo v0.1.0 - Exact 35 asset filenames for the catalog column
 #
-# These are the precise filenames that must be present in the v0.1.0 GitHub
-# release (and SHA256SUMS.txt) for the "kobo" column to go live via the
-# full-count gating logic in gen_release_catalog.py + FORMAT_MATRIX.
+# 7 tradition editions × 5 colours = 35 assets.
 #
-# 9 main editions × 5 colours = 45 assets.
-#
-# Editions (first 9 from content/editions.yaml):
-#   ethiopian-tewahedo, catholic-study, evangelical-reformed, jewish-study,
-#   scholarly-academic, eastern-orthodox, anglican-bcp,
-#   lutheran-confessional, coptic-orthodox
-#
-# Packaging: .kepub.epub via kepubify v4.0.4 on the eink (--target-reader eink) base.
-# Pipeline: build_format_matrix --phase M3 (post_process: kepubify; variant covers swap post-kepubify).
-#
-# Naming: YHWH-{edition}-v0.1.0-kobo-{colour}.kepub.epub
-#
-# To (re)generate at any time (run from repo root with PYTHONUTF8=1):
-#   Mac (bash/zsh + project .venv):
-#     export PYTHONUTF8=1
-#     .venv/bin/python -c '
-#     import yaml
-#     from pathlib import Path
-#     from scripts.build_edition import catalog_asset_name, COVER_COLOURS
-#     eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
-#     for e in [x["id"] for x in eds["editions"]][:9]:
-#         for c in COVER_COLOURS:
-#             print(catalog_asset_name(e, "0.1.0", "kobo", c))
-#     '
-#   Windows (PowerShell):
-#     $env:PYTHONUTF8="1"
-#     py -3 -c '
-#     import yaml
-#     from pathlib import Path
-#     from scripts.build_edition import catalog_asset_name, COVER_COLOURS
-#     eds = yaml.safe_load((Path("content") / "editions.yaml").read_text())
-#     for e in [x["id"] for x in eds["editions"]][:9]:
-#         for c in COVER_COLOURS:
-#             print(catalog_asset_name(e, "0.1.0", "kobo", c))
-#     '
-#
-# Build one edition: .venv/bin/python scripts/build_format_matrix.py --edition <id> --version 0.1.0 --phase M3 --output-dir build/matrix-m3
-#
-# See dev/LANE_HANDOFF.md for attach/deploy checklist (mirror M4 handoff pattern).
+# Editions (non-standalone from content/editions.yaml):
+#   ethiopian-tewahedo, catholic-study, evangelical-reformed, eastern-orthodox, anglican-bcp, lutheran-confessional, coptic-orthodox
 
 YHWH-ethiopian-tewahedo-v0.1.0-kobo-black.kepub.epub
 YHWH-ethiopian-tewahedo-v0.1.0-kobo-brown.kepub.epub
@@ -59,16 +20,6 @@ YHWH-evangelical-reformed-v0.1.0-kobo-brown.kepub.epub
 YHWH-evangelical-reformed-v0.1.0-kobo-forest.kepub.epub
 YHWH-evangelical-reformed-v0.1.0-kobo-navy.kepub.epub
 YHWH-evangelical-reformed-v0.1.0-kobo-red.kepub.epub
-YHWH-jewish-study-v0.1.0-kobo-black.kepub.epub
-YHWH-jewish-study-v0.1.0-kobo-brown.kepub.epub
-YHWH-jewish-study-v0.1.0-kobo-forest.kepub.epub
-YHWH-jewish-study-v0.1.0-kobo-navy.kepub.epub
-YHWH-jewish-study-v0.1.0-kobo-red.kepub.epub
-YHWH-scholarly-academic-v0.1.0-kobo-black.kepub.epub
-YHWH-scholarly-academic-v0.1.0-kobo-brown.kepub.epub
-YHWH-scholarly-academic-v0.1.0-kobo-forest.kepub.epub
-YHWH-scholarly-academic-v0.1.0-kobo-navy.kepub.epub
-YHWH-scholarly-academic-v0.1.0-kobo-red.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-black.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-brown.kepub.epub
 YHWH-eastern-orthodox-v0.1.0-kobo-forest.kepub.epub

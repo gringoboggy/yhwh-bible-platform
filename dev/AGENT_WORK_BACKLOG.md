@@ -52,7 +52,7 @@
 ## P20 — overflow (when primary queue clears)
 
 - [ ] MAC: M4b 6-variant re-gate after kindle_post.py touch
-- [ ] MAC: scholarly-academic or evangelical-reformed tablet spot-build
+- [ ] MAC: evangelical-reformed tablet spot-build (category-color popups)
 - [ ] WIN: Phase 4 disjoint notes in `content/notes/aes.py`
 - [ ] BOTH: Archive sweep `scripts/_*.py` one-shots → `dev/archive/`
 - [ ] MAC: Platform matrix close remaining M5/M3 rows in implementation matrix doc

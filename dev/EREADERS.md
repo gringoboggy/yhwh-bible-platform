@@ -152,10 +152,10 @@ stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) an
   unstamped, so the dormant variant's gate-5 correctly skips).
 - **Acceptance:** **M4 column LIVE on device (2026-06-14).** User Send-to-Kindle
   spot-check **6/6 PASS** on Mac M4 fan-out artifacts (`~/Desktop/YHWH-kindle-stk-qa/`):
-  ethiopian-tewahedo superset (largest), jewish-study (smallest), catholic-study brown
-  cover-swap, evangelical-reformed, scholarly-academic, eastern-orthodox forest — plus
-  the turn-85/86 catholic-study oracle. Same `kindle_post` pipeline on all 45 catalog files.
-  WIN: attach external-drive 45 → v0.1.0 release + catalog + deploy (no further STK gate).
+  ethiopian-tewahedo superset (largest), catholic-study brown
+  cover-swap, evangelical-reformed, eastern-orthodox forest — plus the turn-85/86
+  catholic-study oracle. Same `kindle_post` pipeline on all 40 catalog files.
+  WIN: attach external-drive 40 → v0.1.0 release + catalog + deploy (no further STK gate).
 - **Variant retirement (turn 86):** the old `--target-reader kindle` in-pipeline FAIL
   implementation (apply_kindle_* fns etc.) was fully excised. Only the productized
   `kindle_post` path remains. Catalog baseline prepared (pre-45 assets); see LANE_HANDOFF.

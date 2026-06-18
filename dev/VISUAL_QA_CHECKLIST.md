@@ -30,8 +30,8 @@ Thorium), or unzip it and open an `index_split_*.html` in a browser.
 | Edition | Why this one |
 |---|---|
 | `ethiopian-tewahedo` | flagship — 87-book canon, all kinds |
-| `scholarly-academic` | broadest — every kind incl. 26k+ topical notes, all 15 glyphs |
-| `jewish-study` | most aggressive canon splice — 39 Tanakh books, **no NT** |
+| `lutheran-confessional` | Protestant canon + confessional commentary kinds |
+| `lutheran-confessional` | Protestant 66 + confessional Reformation commentary |
 | `catholic-study` | deuterocanon + the BISAC OPF metadata that was repaired |
 | `evangelical-reformed` | 66-book Protestant splice |
 
@@ -55,9 +55,8 @@ For each edition above, confirm:
 - [ ] **TOC / navigation** — the table of contents lists books in **canonical
   reading order** (Genesis → … → Revelation, then deuteros), chapters
   ascending; tapping a TOC entry jumps correctly.
-- [ ] **Canon correctness** — the right books are present: jewish-study = 39
-  (no NT), evangelical-reformed = 66, catholic = +deuteros, ethiopian /
-  scholarly = 87.
+- [ ] **Canon correctness** — the right books are present: evangelical-reformed
+  = 66, catholic = +deuteros, ethiopian-tewahedo = 87 (full superset).
 
 ---
 
@@ -96,7 +95,7 @@ diffed the package assets. This covers every markup / render / canon / glyph /
 TOC check; only the device-only items (see "Remaining") still need a human.
 
 **PASS — verified by rendering + DOM inspection:**
-- **Canon splice correct, all 5 shapes** — ethiopian + scholarly = full 87-book
+- **Canon splice correct, all 5 shapes** — ethiopian-tewahedo = full 87-book
   Tewahedo (Jubilees / Enoch / 2 Enoch / Meqabyan I–III / 4 Baruch / 1 Clement
   interleaved in canonical slots); catholic = full NT + Catholic deuteros
   (Tobit / Judith / Wisdom / Sirach / Baruch / Greek additions) and **no**
@@ -107,7 +106,7 @@ TOC check; only the device-only items (see "Remaining") still need a human.
   John 3:16 / Psalm 1:1 = KJV floor. ~109 popups/chapter; 1,413 on the Luke→John
   split file.
 - **Note glyphs render** (no tofu boxes): ⌘ ‖ ◇ ⌂ ✧ across editions; scholarly
-  adds **✦** topical (×80 on Genesis) + ⚖ ⊛, while the flagship has **no ✦**
+  topical notes where enabled + ⚖ ⊛, while the flagship has **no ✦**
   (it excludes the `topic` category) — per-edition kind filtering is visibly
   correct.
 - **EPUB footnote mechanism correct** — note/verse asides are `display:none`
@@ -128,7 +127,7 @@ in **canon + note density**, not theme or cover):
    `edition.get("theme", "classic")`) always lands on the no-op `classic`
    theme. The 4 real themes (`content/themes/{scholarly,devotional,modern,
    school}.css`) ship with the repo but reach **no** edition — notably
-   scholarly-academic does not use `scholarly.css`. Fix: assign a `theme:` per
+   lutheran-confessional does not use `scholarly.css`. Fix: assign a `theme:` per
    demo edition (and/or give the themes real overrides) + a test pinning that
    two differently-themed editions produce different stylesheets.
 2. **Per-edition COVER not applied — ✅ FIXED 2026-05-23.** Built `cover.jpeg` was

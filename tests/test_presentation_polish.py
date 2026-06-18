@@ -168,8 +168,8 @@ class TestLegendCategories:
     def test_edition_aware_only_present(self):
         from scripts.build_edition import _legend_categories_for_edition
 
-        cats = _legend_categories_for_edition("jewish-study")
-        assert cats, "jewish-study should have at least one category with notes"
+        cats = _legend_categories_for_edition("evangelical-reformed")
+        assert cats, "evangelical-reformed should have at least one category with notes"
         assert all(c["count"] > 0 for c in cats), "only categories with notes (>0) should appear"
         # sorted by categories.yaml sort_order (non-decreasing) — verify order is stable
         from scripts.core import config

@@ -36,7 +36,7 @@ disabled_kinds:
   - text-dss
   - text-conjecture
   - text-witness
-  - comm-rabbinic
+
   - comm-reformation
   - comm-modern-critical
   - dist-allegorical

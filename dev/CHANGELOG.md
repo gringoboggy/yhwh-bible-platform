@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-18 — Mac session — Christian-scope scrub + edition SKU removal
+
+**Shipped:** removed `jewish-study` + `scholarly-academic` edition SKUs (7 tradition wizard SKUs remain + 2 standalones); dropped non-Christian note kinds (`comm-rabbinic`, `compare-quran`, `compare-nag-hammadi`, `liturgy-torah-portion`) and ~123 corpus notes; kinds **72→68**; M3/M4 asset lists **45→35**; catalog regenerated; `scripts/prune_orphan_base_notes.py` + 122-marker base HTML re-bake; `RabbinicCommentaryDetector` removed; `test_rabbinic_chi5.py` deleted. JPS/WLC/`lang-hebrew` retained in superset.
+
 ## 2026-06-18 — Windows session (turn 130c) — strategic replan ping
 
 **Shipped:** `agent_idle_radar.py --replan` / `--replan-done` · `dev/STRATEGIC_REPLAN_CHECKLIST.md` · P03 replan section in `AGENT_WORK_BACKLOG.md` · STANDING in LANE_HANDOFF/RULES/PLAYBOOK/bootstrap (15+ commits · 24h · PLAN-changed triggers).

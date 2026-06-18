@@ -846,15 +846,13 @@ class TestDelta4IndexComputeMatrix:
         eth_canon = m.edition_canon_books.get("ethiopian-tewahedo", set())
         assert len(eth_canon) >= 80, f"ethiopian canon has {len(eth_canon)} books"
 
-    def test_indexed_matrix_jewish_excludes_nt(self):
-        from scripts.core import corpus_index
+    def test_tanakh_canon_excludes_nt(self):
+        from scripts.core.matrix import _load_canons
 
-        corpus_index.rebuild()
-        m = corpus_index.compute_matrix_indexed()
-        jewish_canon = m.edition_canon_books.get("jewish-study", set())
+        tanakh = set(_load_canons()["tanakh"]["books"])
         nt_books = {"mat", "mrk", "luk", "jhn", "act", "rom", "rev"}
-        leaks = nt_books & jewish_canon
-        assert leaks == set(), f"NT books leaked into jewish-study canon: {leaks}"
+        leaks = nt_books & tanakh
+        assert leaks == set(), f"NT books leaked into tanakh canon: {leaks}"
 
 
 # ---------- Phase Δ.0 : cross-platform rebuild lock --------------------
@@ -1771,15 +1769,15 @@ class TestDelta21SearchWireFlip:
         from scripts import web
 
         unfiltered = web.api_search_notes("covenant", limit=200)
-        # jewish-study has a smaller enabled-kinds set than the
+        # evangelical-reformed has a smaller enabled-kinds set than the
         # full corpus, so its filtered total must be ≤ unfiltered.
-        filtered = web.api_search_notes("covenant", edition_id="jewish-study", limit=200)
+        filtered = web.api_search_notes("covenant", edition_id="evangelical-reformed", limit=200)
         assert filtered["status"] == "ok"
         assert filtered["total"] <= unfiltered["total"], (
             f"edition filter should not increase hit count; "
-            f"unfiltered={unfiltered['total']} jewish-study={filtered['total']}"
+            f"unfiltered={unfiltered['total']} evangelical-reformed={filtered['total']}"
         )
-        assert filtered["filters"]["edition_id"] == "jewish-study"
+        assert filtered["filters"]["edition_id"] == "evangelical-reformed"
 
     def test_api_search_notes_kind_filter_still_works(self):
         from scripts import web

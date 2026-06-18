@@ -17,7 +17,7 @@ from scripts.core import config
 # Synthetic kinds spanning every phase + the AI-drafted kind.
 KINDS = [
     {"code": "word", "category": "lang", "phase": "legacy"},
-    {"code": "comm-rabbinic", "category": "comm", "phase": "mvp"},
+    {"code": "comm-patristic", "category": "comm", "phase": "mvp"},
     {"code": "comm-modern-critical", "category": "comm", "phase": "phase2"},
     {"code": "modern-science", "category": "modern", "phase": "phase3"},
     {"code": "comm-ai", "category": "comm", "phase": "mvp"},
@@ -33,7 +33,7 @@ class TestEnabledKindCodes:
         }
         out = config.enabled_kind_codes(ed, KINDS)
         assert "word" in out  # legacy always passes
-        assert "comm-rabbinic" in out  # mvp <= mvp
+        assert "comm-patristic" in out  # mvp <= mvp
         assert "comm-modern-critical" not in out  # phase2 > mvp
         assert "modern-science" not in out  # phase3 > mvp
 
@@ -45,7 +45,7 @@ class TestEnabledKindCodes:
             "enable_ai_notes": True,
         }
         out = config.enabled_kind_codes(ed, KINDS)
-        assert {"word", "comm-rabbinic", "comm-modern-critical", "modern-science"} <= out
+        assert {"word", "comm-patristic", "comm-modern-critical", "modern-science"} <= out
 
     def test_ai_kind_excluded_unless_opted_in(self):
         ed = {"id": "e", "enabled_categories": ["comm"], "max_phase": "phase3"}
@@ -70,10 +70,10 @@ class TestEnabledKindCodes:
         ed = {
             "id": "e",
             "enabled_categories": ["comm"],
-            "disabled_kinds": ["comm-rabbinic"],
+            "disabled_kinds": ["comm-patristic"],
             "max_phase": "phase3",
         }
-        assert "comm-rabbinic" not in config.enabled_kind_codes(ed, KINDS)
+        assert "comm-patristic" not in config.enabled_kind_codes(ed, KINDS)
 
     def test_explicit_enable_adds_outside_category(self):
         ed = {
@@ -84,7 +84,7 @@ class TestEnabledKindCodes:
         }
         out = config.enabled_kind_codes(ed, KINDS)
         assert "word" in out
-        assert "comm-rabbinic" not in out  # category off + not explicitly enabled
+        assert "comm-patristic" not in out  # category off + not explicitly enabled
 
     def test_unknown_max_phase_raises(self):
         ed = {"id": "e", "enabled_categories": ["lang"], "max_phase": "bogus"}
@@ -115,8 +115,7 @@ class TestMatrixMaximization:
     """2026-05-22 matrix-maximization fixes (audit finding).
 
     Pins the intended end-state that vestigial gates had suppressed:
-    - scholarly-academic ('includes everything') must surface topic-nave,
-      which had been orphaned in zero editions (no edition enabled `topic`).
+    - ethiopian-tewahedo (superset) must surface topic-nave.
     - the flagship ethiopian-tewahedo must actually ship its declared
       dist-typological / dist-mariological distinctives and dict-easton,
       which the vestigial `max_phase: mvp` gate silently dropped.
@@ -129,8 +128,8 @@ class TestMatrixMaximization:
     def _edition(self, eid):
         return next(e for e in self.editions if e["id"] == eid)
 
-    def test_scholarly_surfaces_topic_nave(self):
-        codes = config.enabled_kind_codes(self._edition("scholarly-academic"), self.kinds)
+    def test_flagship_surfaces_topic_nave(self):
+        codes = config.enabled_kind_codes(self._edition("ethiopian-tewahedo"), self.kinds)
         assert "topic-nave" in codes
 
     def test_flagship_ships_declared_distinctives(self):

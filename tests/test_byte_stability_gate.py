@@ -30,7 +30,7 @@ import pytest
 pytestmark = pytest.mark.slow
 
 # Representative spread of canons: Ethiopian (87) ⊃ Catholic (73) ⊃ Tanakh (39).
-_EDITIONS = ["ethiopian-tewahedo", "catholic-study", "jewish-study"]
+_EDITIONS = ["ethiopian-tewahedo", "catholic-study", "evangelical-reformed"]
 # Volatile, per-build OPF fields excluded from the content digest.
 _URN_RE = re.compile(r"urn:yhwh:edition:[^<\"']+")
 _MODIFIED_RE = re.compile(r"<meta[^>]*dcterms:modified[^>]*>[^<]*</meta>")

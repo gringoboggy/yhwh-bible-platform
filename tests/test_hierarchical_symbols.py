@@ -42,7 +42,7 @@ import scripts.core.config as config
 KINDS = [
     {"code": "xref-citation", "category": "xref", "phase": "legacy"},
     {"code": "comm-patristic", "category": "comm", "phase": "legacy"},
-    {"code": "comm-rabbinic", "category": "comm", "phase": "legacy"},
+    {"code": "comm-patristic", "category": "comm", "phase": "legacy"},
     {"code": "future-kind", "category": "comm", "phase": "phase3"},
     {"code": "comm-ai", "category": "comm", "phase": "legacy"},
 ]
@@ -86,7 +86,7 @@ class TestResolverPrecedence:
         )
         got = config.enabled_kind_codes_for(ed, KINDS, "psa", 1)
         assert "comm-patristic" in got  # kind ON wins over category OFF
-        assert "comm-rabbinic" not in got  # category OFF still applies to the rest
+        assert "comm-patristic" not in got  # category OFF still applies to the rest
 
     def test_off_beats_on_at_equal_specificity(self):
         ed = _ed(
@@ -148,14 +148,14 @@ class TestSymbolCompute:
         ed = _ed(
             note_families_off_per_book=["psa=comm"],  # category → all comm kinds
             note_families_on_per_chapter=["gen:1=xref-citation"],  # one kind
-            enabled_note_ids=["exo:3:2:comm-rabbinic"],  # one kind
+            enabled_note_ids=["exo:3:2:comm-patristic"],  # one kind
         )
         ak = config.load_kinds()
         ov = be._symbol_overridden_kinds(ed, ak)
         comm_kinds = {k["code"] for k in ak if k.get("category") == "comm"}
         assert comm_kinds <= ov  # category token expanded
         assert "xref-citation" in ov  # kind token
-        assert "comm-rabbinic" in ov  # force-on kind
+        assert "comm-patristic" in ov  # force-on kind
 
     def test_compute_short_circuits_empty(self):
         ed = _ed(enabled_categories=["xref"])  # no per-book/chapter token, no enabled_note_ids

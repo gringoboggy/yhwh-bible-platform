@@ -21,7 +21,7 @@ anywhere the binary does. CI-wireable (point `--exe` at the build artifact).
 
 Examples:
     python dev/smoke_desktop.py --exe dist/YHWH.exe
-    python dev/smoke_desktop.py --exe dist/YHWH.exe --build-edition jewish-study
+    python dev/smoke_desktop.py --exe dist/YHWH.exe --build-edition evangelical-reformed
 """
 
 from __future__ import annotations

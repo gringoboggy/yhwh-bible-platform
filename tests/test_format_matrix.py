@@ -239,8 +239,8 @@ class TestCatalogAssetName:
         # interchangeably; both must yield the same asset name (never "vv").
         from scripts.build_edition import catalog_asset_name
 
-        assert catalog_asset_name("jewish-study", "v0.1.0", "apple", "brown") == catalog_asset_name(
-            "jewish-study", "0.1.0", "apple", "brown"
+        assert catalog_asset_name("catholic-study", "v0.1.0", "apple", "brown") == catalog_asset_name(
+            "catholic-study", "0.1.0", "apple", "brown"
         )
 
     def test_unknown_format_raises(self):

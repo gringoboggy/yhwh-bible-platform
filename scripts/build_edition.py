@@ -11,8 +11,8 @@ The same source corpus can therefore produce N market-tuned outputs:
     Ethiopian_Bible_ethiopian-tewahedo_v27_<ts>.epub
     Ethiopian_Bible_catholic-study_v27_<ts>.epub
     Ethiopian_Bible_evangelical-reformed_v27_<ts>.epub
-    Ethiopian_Bible_jewish-study_v27_<ts>.epub
-    Ethiopian_Bible_scholarly-academic_v27_<ts>.epub
+    Ethiopian_Bible_catholic-study_v27_<ts>.epub
+    Ethiopian_Bible_ethiopian-tewahedo_v27_<ts>.epub
 
 Filter resolution per kind, in priority order:
 
@@ -1940,7 +1940,7 @@ def apply_verse_popup_style(stylesheet_css: str, style: str) -> str:
 # and in-note `a:not(.note-back)`), so no base re-bake. (The §4.4 symbol-into-
 # note relocation + stray-‖ removal are base-HTML changes tracked under the
 # separate symbols-into-notes Wave-3 task — not this layout setting.)
-NOTE_POPUP_STYLES = {"chip", "pills"}
+NOTE_POPUP_STYLES = {"chip", "pills", "category-color"}
 
 # §4.1 marker_style — how inline note markers render.
 #
@@ -1985,7 +1985,7 @@ def resolve_target_reader(edition: dict) -> str:
 def apply_target_override(edition: dict, target_reader: str | None) -> dict:
     """Fold a build-time reader-target override into a COPY of the edition
     record (matrix M1 blocker #1; format-matrix spec §2 one-resolver
-    invariant). The matrix builds the 9 canon editions under different
+    invariant). The matrix builds the 8 tradition editions under different
     ``target_reader`` values WITHOUT mutating editions.yaml — the override
     lives only in the in-memory record, so every downstream consumer
     (``resolve_target_reader`` / ``is_kindle_target`` / the OPF stamp / the
@@ -2020,7 +2020,7 @@ def is_kindle_target(edition: dict) -> bool:
 # home (format-matrix spec §5, review MED: the format↔profile mapping is
 # consumed by the CI matrix workflow, scripts/gen_release_catalog.py, and the
 # site build — never re-typed per consumer, the MATRIX_MAP-#3 drift class).
-# Rows are in catalog-tab order (spec §2). Each format is the 9 canon editions
+# Rows are in catalog-tab order (spec §2). Each format is the 8 tradition editions
 # built under the row's ``target_reader`` profile via ``--target-reader`` (no
 # second control path; editions.yaml stays byte-stable). Covers are the
 # EDITION's, not the format's (spec addendum 2026-06-11, user-directed: each
@@ -2152,17 +2152,107 @@ _NOTE_POPUP_PILLS_CSS = """
 .note a:not(.note-back):not(.note-sym) { display: inline-block; padding: 0.02em 0.55em; margin: 0.08em 0.12em; border: 1px solid #B8860B; border-radius: 0.9em; text-decoration: none; }
 """
 
+# Per-category hues — mirror epub_working/stylesheet.css category-default block.
+# Color-only popup hierarchy (no background fills); survives Kindle + Apple reader.
+_CATEGORY_POPUP_HUES: tuple[tuple[tuple[str, ...], str], ...] = (
+    (("lang",), "#8B6508"),
+    (("text",), "#A0202C"),
+    (("xref",), "#5C2E91"),
+    (("hist",), "#8B5A2B"),
+    (("lit",), "#4A5568"),
+    (("comm",), "#0B3D91"),
+    (("compare",), "#1F5E5E"),
+    (("dev",), "#8C3F5F"),
+    (("liturgy",), "#B8860B"),
+    (("apol",), "#2E5E3E"),
+    (("modern",), "#4A6FA5"),
+    (("ped",), "#6B5B4A"),
+    (("vis",), "#525E2C"),
+    (("dist",), "#4A2E5C"),
+    (("topic",), "#5C6B7A"),
+)
+
+# Legacy aside classes (pre-kinds-v2) that omit the category hyphen suffix.
+_LEGACY_NOTE_POPUP_HUES: tuple[tuple[str, str], ...] = (
+    ("note-word", "#8B6508"),
+    ("note-source", "#A0202C"),
+    ("note-parallel", "#5C2E91"),
+    ("note-comm", "#0B3D91"),
+)
+
+
+def _note_popup_category_color_css() -> str:
+    """Build §4.4 category-color CSS: symbol + label hue + outline box per family."""
+    lines = [
+        "/* === §4.4 note_popup_style=category-color — Apple/tablet note popups === */",
+        "/* Color + outline boxes only — no background fills (Kindle/Kobo-safe). */",
+    ]
+    for cats, hue in _CATEGORY_POPUP_HUES:
+        cat = cats[0]
+        sel = f'[class*="note-{cat}-"]'
+        lines.append(
+            f"{sel}, .verse-notes .vn-item{sel} {{\n"
+            f"  border: 1px solid {hue};\n"
+            f"  border-left-width: 4px;\n"
+            f"  border-radius: 0.35em;\n"
+            f"  padding: 0.45em 0.65em;\n"
+            f"  background: transparent;\n"
+            f"}}\n"
+            f"{sel} .note-sym, {sel} .note-label,\n"
+            f".verse-notes .vn-item{sel} .note-sym, .verse-notes .vn-item{sel} .note-label "
+            f"{{ color: {hue}; font-variant-caps: small-caps; }}\n"
+            f"{sel} .note-sym, .verse-notes .vn-item{sel} .note-sym "
+            f"{{ font-weight: 700; font-variant-caps: normal; }}"
+        )
+    for legacy_cls, hue in _LEGACY_NOTE_POPUP_HUES:
+        lines.append(
+            f".{legacy_cls}, .verse-notes .vn-item.{legacy_cls} {{\n"
+            f"  border: 1px solid {hue};\n"
+            f"  border-left-width: 4px;\n"
+            f"  border-radius: 0.35em;\n"
+            f"  padding: 0.45em 0.65em;\n"
+            f"  background: transparent;\n"
+            f"}}\n"
+            f".{legacy_cls} .note-sym, .{legacy_cls} .note-label,\n"
+            f".verse-notes .vn-item.{legacy_cls} .note-sym, .verse-notes .vn-item.{legacy_cls} .note-label "
+            f"{{ color: {hue}; font-variant-caps: small-caps; }}\n"
+            f".{legacy_cls} .note-sym, .verse-notes .vn-item.{legacy_cls} .note-sym "
+            f"{{ font-weight: 700; font-variant-caps: normal; }}"
+        )
+    lines.append(
+        "/* Neutralize base tinted vn-item cards when category-color is active. */\n"
+        ".verse-notes .vn-item { background: transparent !important; }"
+    )
+    return "\n".join(lines) + "\n"
+
+
+_NOTE_POPUP_CATEGORY_COLOR_CSS = _note_popup_category_color_css()
+
+
+def resolve_note_popup_style(edition: dict) -> str:
+    """Resolved §4.4 layout: explicit edition field wins; Apple/tablet builds
+    default to category-color (hue + outline boxes, no fills)."""
+    explicit = (edition.get("note_popup_style") or "").strip()
+    if explicit in NOTE_POPUP_STYLES:
+        return explicit
+    if resolve_target_reader(edition) == "tablet":
+        return "category-color"
+    return "chip"
+
 
 def apply_note_popup_style(stylesheet_css: str, style: str) -> str:
     """Append the note_popup_style variant CSS to an edition stylesheet.
 
     "chip" (default) appends a tinted label-chip rule; "pills" appends a pill
-    rule for in-note cross-references. Both are CSS-only against the existing
-    baked classes (the popup HTML is unchanged), so neither needs a base
+    rule for in-note cross-references; "category-color" tints the symbol and
+    label per note family (no background fills). All CSS-only against the
+    existing baked classes (the popup HTML is unchanged), so none needs a base
     re-bake. Mirrors apply_verse_popup_style / the theme-override append."""
     style = (style or "chip").strip() or "chip"
     if style == "pills":
         return stylesheet_css + _NOTE_POPUP_PILLS_CSS + _VN_SEP_HIDE_CSS
+    if style == "category-color":
+        return stylesheet_css + _NOTE_POPUP_CATEGORY_COLOR_CSS + _VN_SEP_HIDE_CSS
     return stylesheet_css + _NOTE_POPUP_CHIP_CSS + _VN_SEP_HIDE_CSS
 
 
@@ -7095,7 +7185,7 @@ def build_one(
         # default tinted label-chip; pills = bordered cross-reference pills).
         # Same append-to-stylesheet mechanism; the note HTML is unchanged.
         if css_path.is_file():
-            nps = (edition.get("note_popup_style") or "chip").strip() or "chip"
+            nps = resolve_note_popup_style(edition)
             css_path.write_text(
                 apply_note_popup_style(css_path.read_text(encoding="utf-8"), nps),
                 encoding="utf-8",

@@ -510,7 +510,7 @@ class TestKoboPreviewSeparators:
     def test_vn_sep_hidden_by_css_in_both_popup_styles(self):
         from scripts.build_edition import apply_note_popup_style
 
-        for style in ("chip", "pills"):
+        for style in ("chip", "pills", "category-color"):
             css = apply_note_popup_style("", style)
             m = re.search(r"\.vn-sep\s*\{[^}]*display:\s*none", css)
             assert m, f"note_popup_style={style} does not hide .vn-sep"

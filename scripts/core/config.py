@@ -362,8 +362,6 @@ EDITION_COVER_TEMPLATES = {
     "ethiopian-tewahedo": "05_missal_central_red",
     "catholic-study": "02_classical_corner_navy",
     "evangelical-reformed": "03_beadline_black",
-    "jewish-study": "02_classical_corner_brown",
-    "scholarly-academic": "03_beadline_forest",
     "eastern-orthodox": "01_ornate_leafy_red",
     "anglican-bcp": "03_beadline_navy",
     "lutheran-confessional": "02_classical_corner_black",
@@ -389,7 +387,7 @@ def books_by_code():
 
 
 def kinds_by_code():
-    """Return a dict mapping kind code → kind dict (e.g. ``{"comm-rabbinic": {...}}``)."""
+    """Return a dict mapping kind code → kind dict (e.g. ``{"comm-patristic": {...}}``)."""
     return {k["code"]: k for k in load_kinds()}
 
 

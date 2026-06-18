@@ -25,20 +25,6 @@
       "title": "Reformed Study Bible"
     },
     {
-      "id": "jewish-study",
-      "signature_design": "02_classical_corner",
-      "signature_colour": "brown",
-      "cover": "covers/jewish-study.jpg",
-      "title": "Jewish Study Tanakh"
-    },
-    {
-      "id": "scholarly-academic",
-      "signature_design": "03_beadline",
-      "signature_colour": "forest",
-      "cover": "covers/scholarly-academic.jpg",
-      "title": "Annotated Scholar's Bible"
-    },
-    {
       "id": "eastern-orthodox",
       "signature_design": "01_ornate_leafy",
       "signature_colour": "red",
@@ -154,60 +140,6 @@
             "name": "YHWH-evangelical-reformed-v0.1.0-everywhere-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-everywhere-red.epub",
             "sha256": "636c816812481d50edb5b7e0832feff04b62170584124cd9927dbed16e1d2697"
-          }
-        },
-        "jewish-study": {
-          "brown": {
-            "name": "YHWH-jewish-study-v0.1.0-everywhere-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-brown.epub",
-            "sha256": "dbc11e476383e58a82e719fdef61d072aa8d4e857f4707e6c7d8ecd1e58997d6"
-          },
-          "black": {
-            "name": "YHWH-jewish-study-v0.1.0-everywhere-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-black.epub",
-            "sha256": "7a8fbbd1563d04f14115f6f82455fd5bf7888c5768ccaf6604205bf5cdfc61a6"
-          },
-          "forest": {
-            "name": "YHWH-jewish-study-v0.1.0-everywhere-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-forest.epub",
-            "sha256": "c2b376f77084cbc4428f873703954509ad488c1fc425c27198421a116f357f64"
-          },
-          "navy": {
-            "name": "YHWH-jewish-study-v0.1.0-everywhere-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-navy.epub",
-            "sha256": "03fc7a023336a127becb57614eb90730eb2cb8ec14a2cb7e538fde5f14edcd34"
-          },
-          "red": {
-            "name": "YHWH-jewish-study-v0.1.0-everywhere-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-everywhere-red.epub",
-            "sha256": "5ec1e433bd0ed517d0437ddee1834a1c5b9fd075cf7c5a4de226ef286da481b2"
-          }
-        },
-        "scholarly-academic": {
-          "forest": {
-            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-forest.epub",
-            "sha256": "54a77ad3b4b43c54e5c26d7e94f24a554fb29cf19c5aa675f6bcd24bf6fee8eb"
-          },
-          "black": {
-            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-black.epub",
-            "sha256": "c44ae6374d79e9b0b84245d355cb8b2241b5eca75a94983703fa6a8e122565dd"
-          },
-          "brown": {
-            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-brown.epub",
-            "sha256": "658b5473428bfe6a3df78cd8b58f1be2a8a20b72ab80d21c3134a926595db6ec"
-          },
-          "navy": {
-            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-navy.epub",
-            "sha256": "998b07367d537cf788b1df038d1e7af0b9d367b1e526f4b0ec3af6ed70bef5f5"
-          },
-          "red": {
-            "name": "YHWH-scholarly-academic-v0.1.0-everywhere-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-everywhere-red.epub",
-            "sha256": "dde32fa5017d3193a5498ab8ea02dba16276ef4fc492072e904791840f3641fc"
           }
         },
         "eastern-orthodox": {
@@ -408,60 +340,6 @@
             "sha256": "d0a74e4f17f4f876888a208bd71edd789854c726cdf43164053b854c8bbce76f"
           }
         },
-        "jewish-study": {
-          "brown": {
-            "name": "YHWH-jewish-study-v0.1.0-apple-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-brown.epub",
-            "sha256": "46cf7738ea301c76c7e60515d4ff7c6b82996c8fc77bdb45af984376184ce7ae"
-          },
-          "black": {
-            "name": "YHWH-jewish-study-v0.1.0-apple-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-black.epub",
-            "sha256": "68fd4b6dec72946b90f1b719f2017d189af7c0e329a66306fdb1e0b4ed0ed601"
-          },
-          "forest": {
-            "name": "YHWH-jewish-study-v0.1.0-apple-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-forest.epub",
-            "sha256": "790de6a42444809a1b237e0c09528997bace304c194b5ebdb831fa5c8a6cec75"
-          },
-          "navy": {
-            "name": "YHWH-jewish-study-v0.1.0-apple-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-navy.epub",
-            "sha256": "de8f5d16b41d22d12f5f695b49c7990ccddf9161f43103ce6b08e0653f96b5a4"
-          },
-          "red": {
-            "name": "YHWH-jewish-study-v0.1.0-apple-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-apple-red.epub",
-            "sha256": "897f9a3e6551bb1c41dfa4dc3c1f256e3881676d117d30feddf4ac489e2a3975"
-          }
-        },
-        "scholarly-academic": {
-          "forest": {
-            "name": "YHWH-scholarly-academic-v0.1.0-apple-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-forest.epub",
-            "sha256": "e3da0f5ed35297fa64948503d33487a82b7050201a1077da0588fc97bc1b75b6"
-          },
-          "black": {
-            "name": "YHWH-scholarly-academic-v0.1.0-apple-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-black.epub",
-            "sha256": "043df011f3164f4554a598e7af4d9ed0a298c0e566a1aa415edcc7add16d2aa2"
-          },
-          "brown": {
-            "name": "YHWH-scholarly-academic-v0.1.0-apple-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-brown.epub",
-            "sha256": "cb95cc36658d0cef127295e7ed67b05611f3e16a8c270926405d343439e1a2bb"
-          },
-          "navy": {
-            "name": "YHWH-scholarly-academic-v0.1.0-apple-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-navy.epub",
-            "sha256": "0befa2991e29f52890ec99e2ce1291ce0f750bd424ec4212bd0ca2c963f92f1b"
-          },
-          "red": {
-            "name": "YHWH-scholarly-academic-v0.1.0-apple-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-apple-red.epub",
-            "sha256": "e3e3e0445630f8aa03c7f2d36a29b4b438079aba2b4f60760683c24d239376ef"
-          }
-        },
         "eastern-orthodox": {
           "red": {
             "name": "YHWH-eastern-orthodox-v0.1.0-apple-red.epub",
@@ -660,60 +538,6 @@
             "sha256": "71e513cf92bd407e48ece9d2a11e377439c4162d76efff6d26622fdbcd5f132b"
           }
         },
-        "jewish-study": {
-          "brown": {
-            "name": "YHWH-jewish-study-v0.1.0-kobo-brown.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kobo-brown.kepub.epub",
-            "sha256": "46a58eb37e90d9c5343aaca5b4c0e25d39ae9c33601bb814f4c1a8fe67f8d98f"
-          },
-          "black": {
-            "name": "YHWH-jewish-study-v0.1.0-kobo-black.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kobo-black.kepub.epub",
-            "sha256": "7ff672cf6f8ce8f8666335e118b09d05cdc6514e42dd72b9a3e7acdab8456683"
-          },
-          "forest": {
-            "name": "YHWH-jewish-study-v0.1.0-kobo-forest.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kobo-forest.kepub.epub",
-            "sha256": "b3b56cffa22ea731b4a8ed6fd611b5da2c5e6d36b6c64d6aca042bd830e3d90e"
-          },
-          "navy": {
-            "name": "YHWH-jewish-study-v0.1.0-kobo-navy.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kobo-navy.kepub.epub",
-            "sha256": "33529a18472ab17d3f12dd14cbc693e06b1bdd11b93f635b6beaf3b5b914b1a7"
-          },
-          "red": {
-            "name": "YHWH-jewish-study-v0.1.0-kobo-red.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kobo-red.kepub.epub",
-            "sha256": "65f02198f2b9fb72dc7c09da49fa984857b2c4955ac942b698868f3012bb31fb"
-          }
-        },
-        "scholarly-academic": {
-          "forest": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kobo-forest.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kobo-forest.kepub.epub",
-            "sha256": "134e1a28194332bafe6c4a10940995fd2039a8b40a3eb305d8dbac25527067af"
-          },
-          "black": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kobo-black.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kobo-black.kepub.epub",
-            "sha256": "c807393e3f83e04081ad71cf324902cefff6b61bb4f613c9a9785fa78f6d495e"
-          },
-          "brown": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kobo-brown.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kobo-brown.kepub.epub",
-            "sha256": "8b533c009deab538461dc1a42a2438452e2376bb5dac144b335bad978e9d8b7b"
-          },
-          "navy": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kobo-navy.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kobo-navy.kepub.epub",
-            "sha256": "e648868eac627ab73116618e9f91b75c3c43fbf75dee0773bc2b0b6647e21fcb"
-          },
-          "red": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kobo-red.kepub.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kobo-red.kepub.epub",
-            "sha256": "2a3221d673cbd7139e1b20bfad6f76d74b5271908a9dc1eb115e9c4c4b4f99c7"
-          }
-        },
         "eastern-orthodox": {
           "red": {
             "name": "YHWH-eastern-orthodox-v0.1.0-kobo-red.kepub.epub",
@@ -910,60 +734,6 @@
             "name": "YHWH-evangelical-reformed-v0.1.0-kindle-red.epub",
             "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-evangelical-reformed-v0.1.0-kindle-red.epub",
             "sha256": "d3c42b5ed33b61425d70c0ae8c55402436cd82aa2709b3fefd8d5cd139f02d50"
-          }
-        },
-        "jewish-study": {
-          "brown": {
-            "name": "YHWH-jewish-study-v0.1.0-kindle-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-brown.epub",
-            "sha256": "a85eb3e1ba26b6bd37cb2b8b34e5bba986613c1b5d58522f744b08a8ba89085c"
-          },
-          "black": {
-            "name": "YHWH-jewish-study-v0.1.0-kindle-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-black.epub",
-            "sha256": "29682765afd72bc8a56e7e9b2b12287a7f0b366d2d8e1dc50a5622dc2cd70162"
-          },
-          "forest": {
-            "name": "YHWH-jewish-study-v0.1.0-kindle-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-forest.epub",
-            "sha256": "d8f4b90322fe1b44f575471a5df7f2990521a62d2b9078036590631b7109111c"
-          },
-          "navy": {
-            "name": "YHWH-jewish-study-v0.1.0-kindle-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-navy.epub",
-            "sha256": "bd91e8a9d7473c9d4e417e27d6ef60046f6b37f5fa95aebf69fe796d32fc89f7"
-          },
-          "red": {
-            "name": "YHWH-jewish-study-v0.1.0-kindle-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-jewish-study-v0.1.0-kindle-red.epub",
-            "sha256": "a3e2b7ae5adc66732588848dbf87312433cacf0ab00a5a16c95782c825cb21de"
-          }
-        },
-        "scholarly-academic": {
-          "forest": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kindle-forest.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-forest.epub",
-            "sha256": "a1ccc5186e37104cca78a767bfab2181f73b571e2eb01e12606ba29e9b756de9"
-          },
-          "black": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kindle-black.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-black.epub",
-            "sha256": "02158b49bb15b97abf067b5abcddd72e42292c86ee35968e41631444860d5634"
-          },
-          "brown": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kindle-brown.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-brown.epub",
-            "sha256": "66456a3f9d507c5566c93b2afd726219d0685ddb68ebc8da54592d517e31eef9"
-          },
-          "navy": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kindle-navy.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-navy.epub",
-            "sha256": "c3674fed567dcdfc39a8cb2babfa701deddd1cb67f2cd1a08f0fa7e149b7173f"
-          },
-          "red": {
-            "name": "YHWH-scholarly-academic-v0.1.0-kindle-red.epub",
-            "url": "https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/YHWH-scholarly-academic-v0.1.0-kindle-red.epub",
-            "sha256": "2924b5bab39c8c07ca62f8c369fbd5e5f1e54b1c76c1c31ab848c2c6fbd12fe3"
           }
         },
         "eastern-orthodox": {

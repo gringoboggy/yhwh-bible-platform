@@ -1,0 +1,14 @@
+# Project MCP — YHWH reader-sim / STK / Thorium automation (Mac lane).
+# Refresh in Grok: /mcps → r. Doctor: grok mcp doctor
+
+[mcp_servers.chrome-devtools]
+command = "/Users/gringoboggy/.local/opt/node-v24.16.0-darwin-x64/bin/chrome-devtools-mcp"
+args = []
+startup_timeout_sec = 45
+enabled = true
+
+[mcp_servers.playwright]
+command = "/Users/gringoboggy/.local/opt/node-v24.16.0-darwin-x64/bin/playwright-mcp"
+args = ["--browser", "chrome", "--user-data-dir", "/Users/gringoboggy/.yhwh-browser-profile"]
+startup_timeout_sec = 30
+enabled = true

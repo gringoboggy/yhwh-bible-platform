@@ -7,11 +7,11 @@
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
 
-## Session wrap (WIN turn 130, 2026-06-18)
+## Session wrap (Mac, 2026-06-18) — Christian-scope scrub
 
-**Shipped this session:** dual-radar bootstrap + strategic replan ping (`--replan` / `STRATEGIC_REPLAN_CHECKLIST`) · pytest fixes WIP · Mac §128 + Esther transcription · STANDING: never idle · both radars auto-start every session.
+**Shipped:** edition SKU removal (`jewish-study`, `scholarly-academic`) · non-Christian note-kind scrub · base HTML orphan prune (122 ids) · M3/M4 35-asset lists · catalog regen · detector/test cleanup.
 
-**Observed blockers:** `ci.py` not yet GREEN — hierarchical_symbols_build slow tests + rx-surfaces remain. Kobo `--sim` epubcheck slow on WIN (K-R2 GREEN).
+**In-flight:** full `ci.py` GREEN on both lanes · release-count sweep deferred to v0.1.1/v1.0.0 tag · STK poll independent of scrub (ethiopian-tewahedo pre-scrub EPUB).
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 

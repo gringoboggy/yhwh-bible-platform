@@ -276,7 +276,7 @@ class TestCliTargetReaderFlag:
         assert exc.value.code == 2
 
     def test_all_with_override_skips_standalone_editions(self, tmp_path, monkeypatch):
-        # The format matrix covers the 9 canon editions (spec §7: the
+        # The format matrix covers the 8 canon editions (spec §7: the
         # standalone Ge'ez/Amharic stay in LANE P) — `--all --target-reader X`
         # must skip standalones with a note rather than fail per edition.
         import pytest

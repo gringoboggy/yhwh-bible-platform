@@ -13,7 +13,6 @@ See content/kinds.yaml for legal `kind` values; content/books.yaml for id_prefix
 """
 
 NOTES = [
-    # ---- ch 1 ----
     (
         1,
         1,
@@ -413,17 +412,6 @@ NOTES = [
     (
         1,
         16,
-        "",
-        "Your people will be my people, and your God my God",
-        "comm",
-        "Note",
-        "Note",
-        "<strong>Ruth’s declaration.</strong> One of the most-quoted lines in scripture, often used in Christian wedding liturgies though originally addressed by a daughter-in-law to a mother-in-law. The Moabite woman’s commitment is total: people, place, God, even burial ground. In rabbinic tradition Ruth’s declaration is taken as the paradigmatic conversion formula — an outsider who joins Israel by binding her fate to a particular family and to YHWH. Hesed (covenant loyalty) is the book’s central virtue, and Ruth embodies it: the foreigner outdoes the natives in covenantal fidelity.",
-        "User original",
-    ),
-    (
-        1,
-        16,
         "a",
         "",
         "xref-citation",
@@ -475,6 +463,17 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: Decision, Love to Man, Proselytes, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+    ),
+    (
+        1,
+        16,
+        "m",
+        "",
+        "comm-ethiopian",
+        "Note",
+        "Note",
+        '<strong>Ruth’s vow.</strong> One of the great speeches in scripture. A Moabite woman binds herself to her widowed Israelite mother-in-law in language that echoes covenant formulas: "your people will be my people; your God, my God." The verse has become foundational in conversion liturgies in many Jewish traditions — Ruth as the model proselyte. The Ethiopian Tewahedo and Eastern traditions read her as a paradigm of faithfulness across ethnic boundaries.',
+        "User original",
     ),
     (
         1,
@@ -662,6 +661,17 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: Industry, Poor, The, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+    ),
+    (
+        2,
+        3,
+        "",
+        "she happened to come to the portion of the field belonging to Boaz",
+        "word",
+        "Hebrew",
+        "Hebrew",
+        "<strong>Vayiqer miqreha (<em>וַיִּקֶר</em> <em>מִקְרֶהָ</em>).</strong> A doubled root: literally “her chance chanced upon her.” The narrator’s tongue is in his cheek — what looks like coincidence in the field is, by the book’s end, the providential arc that will produce King David. The Hebrew flagrantly highlights the chance-language at exactly the moment the reader is meant to see through it. Rabbinic and Christian commentary both seize on this verse as a programmatic statement of hidden providence.",
+        "User original",
     ),
     (
         2,
@@ -905,7 +915,6 @@ NOTES = [
         "<strong>Topics.</strong> This verse appears under: Proselytes, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
-    # ---- ch 2 ----
     (
         2,
         12,
@@ -971,6 +980,17 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: RUTH.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        2,
+        12,
+        "m",
+        "",
+        "comm",
+        "Note",
+        "Note",
+        '<strong>Wings of refuge.</strong> Boaz blesses Ruth using the image of God’s wings (<em>k’nafav</em>) — the metaphor that runs from Pss 17:8, 36:7, 57:1, 91:4 to Jesus’s lament over Jerusalem ("how often I would have gathered your children, as a hen gathers her chicks under her wings," Matt 23:37). The cherubim’s wings cover the ark; God’s presence is wing-shaped.',
+        "User original",
     ),
     (
         2,
@@ -1092,6 +1112,17 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: THANKFULNESS.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        2,
+        20,
+        "",
+        "one of our near kinsmen",
+        "word",
+        "Hebrew",
+        "Hebrew",
+        "<strong>Go’el (<em>גֹּאֵל</em>) — “redeemer, near kinsman.”</strong> The technical legal term first introduced here. The <em>go’el</em> is the male relative responsible for redeeming alienated property (Lev 25:25), avenging shed blood (Num 35:19), and — by extension — perpetuating a brother’s line (Deut 25:5–10). Naomi’s announcement that Boaz is <em>go’el</em> reframes the entire next two chapters as a legal drama. The same word becomes the dominant metaphor for God in Isaiah 40–55 — Yahweh as the kinsman-redeemer of exiled Israel.",
+        "User original",
     ),
     (
         2,
@@ -1368,7 +1399,6 @@ NOTES = [
         "<strong>Topics.</strong> This verse appears under: CHASTITY, CONTINENCE, RUTH, THRESHING.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
-    # ---- ch 3 ----
     (
         3,
         9,
@@ -1489,6 +1519,17 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: Chastity, Widows, Woman, Works, Good, Works, Good.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
+    ),
+    (
+        3,
+        12,
+        "",
+        "there is a  kinsman nearer than I",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The nearer kinsman.</strong> A narrative complication that exposes the legal stakes — Boaz cannot simply act on his own desire; the law has an order of precedence, and a closer relative has first refusal. The chapter ends in suspense; chapter 4 opens with the resolution. The careful legal procedure that follows is part of the book’s argument: hesed and law are not opposed, they reinforce each other. Boaz embodies covenantal kindness within the discipline of legal form.",
+        "User original",
     ),
     (
         3,
@@ -1643,6 +1684,17 @@ NOTES = [
         "Hebrew.",
         "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.).",
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        4,
+        1,
+        "",
+        "the gate",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The city gate as courtroom.</strong> The gate of an Israelite town was the standard place for legal transactions — its bench seats, public visibility, and ten-elder quorum (4:2) made it the equivalent of a court of record. Modern excavations at Iron Age sites (Beersheba, Dan, Gezer) have uncovered the multi-chambered gate complexes assumed by texts like this. Amos 5:15 (“establish justice in the gate”) takes the institution as so basic that it can stand for the entire judicial order.",
+        "User original",
     ),
     (
         4,
@@ -1809,7 +1861,6 @@ NOTES = [
         "<strong>Topics.</strong> This verse appears under: CONTRACTS, DOWRY, LAND, LAND, MARRIAGE.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
-    # ---- ch 4 ----
     (
         4,
         7,
@@ -2032,6 +2083,17 @@ NOTES = [
     ),
     (
         4,
+        13,
+        "m",
+        "",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The line of David.</strong> The closing genealogy (4:18–22) ties Ruth into the Davidic line and, through Matthew 1:5, into the line of Christ. Ruth is one of four women named in Matthew’s genealogy (with Tamar, Rahab, Bathsheba) — each carries a story of irregular sexuality or ethnic outsider status that yet becomes part of Israel’s salvation history. The book makes a quiet but radical theological claim: a Moabite great-grandmother sits in the Davidic line, and through her in the messianic line.",
+        "User original",
+    ),
+    (
+        4,
         14,
         "",
         "LORD",
@@ -2083,84 +2145,6 @@ NOTES = [
         "Note",
         "Note",
         "<strong>The David connection.</strong> The book’s most surprising move comes in its final five verses. The whole pastoral domestic narrative is revealed to have been about David’s great-grandmother — a Moabite woman whose people, by the strict reading of Deut 23:3, were excluded from the assembly of Yahweh. Yet she stands at the head of the Davidic line, and so (Matt 1:5) of Jesus’ genealogy. The book is making a quiet but radical theological argument: covenantal belonging is determined by <em>hesed</em>, not ancestry. The book’s placement at the threshold of the monarchy reframes everything that follows.",
-        "User original",
-    ),
-    # ---- expansion (May 2026) ----
-    (
-        2,
-        3,
-        "",
-        "she happened to come to the portion of the field belonging to Boaz",
-        "word",
-        "Hebrew",
-        "Hebrew",
-        "<strong>Vayiqer miqreha (<em>וַיִּקֶר</em> <em>מִקְרֶהָ</em>).</strong> A doubled root: literally “her chance chanced upon her.” The narrator’s tongue is in his cheek — what looks like coincidence in the field is, by the book’s end, the providential arc that will produce King David. The Hebrew flagrantly highlights the chance-language at exactly the moment the reader is meant to see through it. Rabbinic and Christian commentary both seize on this verse as a programmatic statement of hidden providence.",
-        "User original",
-    ),
-    (
-        2,
-        20,
-        "",
-        "one of our near kinsmen",
-        "word",
-        "Hebrew",
-        "Hebrew",
-        "<strong>Go’el (<em>גֹּאֵל</em>) — “redeemer, near kinsman.”</strong> The technical legal term first introduced here. The <em>go’el</em> is the male relative responsible for redeeming alienated property (Lev 25:25), avenging shed blood (Num 35:19), and — by extension — perpetuating a brother’s line (Deut 25:5–10). Naomi’s announcement that Boaz is <em>go’el</em> reframes the entire next two chapters as a legal drama. The same word becomes the dominant metaphor for God in Isaiah 40–55 — Yahweh as the kinsman-redeemer of exiled Israel.",
-        "User original",
-    ),
-    (
-        3,
-        12,
-        "",
-        "there is a  kinsman nearer than I",
-        "comm",
-        "Note",
-        "Note",
-        "<strong>The nearer kinsman.</strong> A narrative complication that exposes the legal stakes — Boaz cannot simply act on his own desire; the law has an order of precedence, and a closer relative has first refusal. The chapter ends in suspense; chapter 4 opens with the resolution. The careful legal procedure that follows is part of the book’s argument: hesed and law are not opposed, they reinforce each other. Boaz embodies covenantal kindness within the discipline of legal form.",
-        "User original",
-    ),
-    (
-        4,
-        1,
-        "",
-        "the gate",
-        "comm",
-        "Note",
-        "Note",
-        "<strong>The city gate as courtroom.</strong> The gate of an Israelite town was the standard place for legal transactions — its bench seats, public visibility, and ten-elder quorum (4:2) made it the equivalent of a court of record. Modern excavations at Iron Age sites (Beersheba, Dan, Gezer) have uncovered the multi-chambered gate complexes assumed by texts like this. Amos 5:15 (“establish justice in the gate”) takes the institution as so basic that it can stand for the entire judicial order.",
-        "User original",
-    ),
-    (
-        1,
-        16,
-        "m",
-        "",
-        "comm-ethiopian",
-        "Note",
-        "Note",
-        '<strong>Ruth’s vow.</strong> One of the great speeches in scripture. A Moabite woman binds herself to her widowed Israelite mother-in-law in language that echoes covenant formulas: "your people will be my people; your God, my God." The verse has become foundational in conversion liturgies in many Jewish traditions — Ruth as the model proselyte. The Ethiopian Tewahedo and Eastern traditions read her as a paradigm of faithfulness across ethnic boundaries.',
-        "User original",
-    ),
-    (
-        2,
-        12,
-        "m",
-        "",
-        "comm",
-        "Note",
-        "Note",
-        """<strong>Wings of refuge.</strong> Boaz blesses Ruth using the image of God’s wings (<em>k’nafav</em>) — the metaphor that runs from Pss 17:8, 36:7, 57:1, 91:4 to Jesus’s lament over Jerusalem ("how often I would have gathered your children, as a hen gathers her chicks under her wings," Matt 23:37). The cherubim’s wings cover the ark; God’s presence is wing-shaped.""",
-        "User original",
-    ),
-    (
-        4,
-        13,
-        "m",
-        "",
-        "comm",
-        "Note",
-        "Note",
-        """<strong>The line of David.</strong> The closing genealogy (4:18–22) ties Ruth into the Davidic line and, through Matthew 1:5, into the line of Christ. Ruth is one of four women named in Matthew’s genealogy (with Tamar, Rahab, Bathsheba) — each carries a story of irregular sexuality or ethnic outsider status that yet becomes part of Israel’s salvation history. The book makes a quiet but radical theological claim: a Moabite great-grandmother sits in the Davidic line, and through her in the messianic line.""",
         "User original",
     ),
     (
@@ -2296,5 +2280,3 @@ NOTES = [
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
 ]
-
-NOTES_RUT = NOTES  # backward-compat alias

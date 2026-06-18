@@ -2,8 +2,7 @@
 Notes for The Book of Ezra (ezr).
 
 No notes yet — add tuples to the NOTES list below or use:
-    python3 scripts/add_note.py --book ezr --ch <N> --v <V> --anchor "…" \
-        --kind comm --title "…" --body "…"
+    python3 scripts/add_note.py --book ezr --ch <N> --v <V> --anchor "…"         --kind comm --title "…" --body "…"
 
 Format (each tuple): (chapter, verse, suffix, anchor, kind, title, label, body_html [, attribution])
 The 9th field (attribution) is optional during the v28a-* migration; identifies
@@ -860,17 +859,6 @@ NOTES = [
         "Topic.",
         "<strong>Topics.</strong> This verse appears under: HADID, LOD, LYDDA.",
         "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
-    ),
-    (
-        2,
-        33,
-        "a",
-        "",
-        "dict-easton",
-        "Dictionary",
-        "Easton.",
-        "<strong>Dictionary (Easton's).</strong> <strong>HADID</strong> pointed, a place in the tribe of Benjamin near Lydda, or Lod, and Ono (Ezra 2:33; Nehemiah 7:37). It is identified with the modern el-Haditheh, 3 miles east of Lydda.",
-        "Easton's Illustrated Bible Dictionary, M. G. Easton (1897). Public domain.",
     ),
     (
         2,
@@ -7604,7 +7592,4 @@ NOTES = [
         "<strong>Topics.</strong> This verse appears under: Alliance and Society With the Enemies of God.",
         "Torrey's New Topical Textbook, R.A. Torrey (1897). Public domain.",
     ),
-    # (ch, v, suf, anchor, kind, title, label, body_html),
 ]
-
-NOTES_EZR = NOTES  # backward-compat alias

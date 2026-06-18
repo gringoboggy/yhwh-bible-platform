@@ -274,88 +274,6 @@ editions:
       - "arabic"
 
   # ──────────────────────────────────────────────────────────────────
-  # Sophisticated, less competition. Foregrounds rabbinic, Hebrew,
-  # parashot. Excludes NT and Christian-distinctive content.
-  # ──────────────────────────────────────────────────────────────────
-  - id: jewish-study
-    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
-    reader_toc_collapsible: false
-    reader_toc_books_only: true
-    canon: tanakh
-    theme: scholarly
-    title: "The Jewish Study Tanakh — Expanded"
-    display_name: "Jewish Study Tanakh"
-    short_title: "Jewish Tanakh"
-    target_audience: "Jewish readers, academic scholars of Hebrew Bible"
-    enabled_categories:
-      - lang
-      - text
-      - xref
-      - hist
-      - lit
-      - comm
-      - compare
-      - liturgy
-    disabled_kinds:
-      - comm-patristic
-      - comm-orthodox
-      - comm-catholic
-      - comm-reformation
-      - comm-ethiopian
-      - dist-typological
-      - dist-mariological
-      - liturgy-christian-year
-      - liturgy-ethiopian
-    max_phase: phase2
-    cover_image: "covers/jewish-study.jpg"
-    notes: "Foregrounds comm-rabbinic, lang-hebrew, liturgy-torah-portion. Does not include NT books in build manifest (handled at book level, not kind level)."
-
-    popup_languages_default:
-      - "wlc"
-      - "lxx-greek"
-      - "greek-nt"
-      - "vulgate"
-      - "arabic"
-
-  # ──────────────────────────────────────────────────────────────────
-  # Smallest market, highest prestige. Includes everything; no
-  # tradition-leveling. The 'Oxford Annotated' position.
-  # ──────────────────────────────────────────────────────────────────
-  - id: scholarly-academic
-    # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
-    reader_toc_collapsible: false
-    reader_toc_books_only: true
-    canon: ethiopian
-    theme: scholarly
-    title: "The Annotated Ethiopian Bible — Scholar's Edition"
-    display_name: "Annotated Scholar's Bible"
-    short_title: "Scholar's Edition"
-    target_audience: "Academic scholars, libraries, seminaries"
-    enabled_categories:
-      - lang
-      - text
-      - xref
-      - hist
-      - lit
-      - comm
-      - compare
-      - apol
-      - modern
-      - dist
-      - topic
-    max_phase: phase3
-    cover_image: "covers/scholarly-academic.jpg"
-    notes: "Includes everything available. The current project state is closest to this edition."
-    popup_languages_default:
-      - "wlc"
-      - "lxx-greek"
-      - "greek-nt"
-      - "vulgate"
-      - "arabic"
-
-  # ──────────────────────────────────────────────────────────────────
   # ψ.7-A — Eastern Orthodox edition. Uses the orthodox canon
   # (78 books, LXX-leaning OT) which was previously defined but
   # unused. Foregrounds Patristic + Byzantine commentary; rejects
@@ -438,7 +356,7 @@ editions:
       - dist-mariological
       - dist-allegorical
       - liturgy-ethiopian
-      - liturgy-torah-portion
+
     max_phase: phase2
     cover_image: "covers/anglican-bcp.jpg"
     notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Apocrypha included as deuterocanonical (read but not doctrinally normative per Article VI). Excludes dist-mariological (Article XXII / 39 Articles posture) and dist-allegorical (Reformation-era Anglican preference for plain sense)."
@@ -483,12 +401,12 @@ editions:
       - comm-orthodox
       - comm-catholic
       - comm-ethiopian
-      - comm-rabbinic
+
       - dist-mariological
       - dist-allegorical
       - dist-mystical
       - liturgy-ethiopian
-      - liturgy-torah-portion
+
     max_phase: phase2
     cover_image: "covers/lutheran-confessional.jpg"
     notes: "Foregrounds comm-reformation, comm-patristic (Augustine + Cappadocian Fathers prized in Luther's tradition), dev-application, apol-harmonization, dist-typological. Apocrypha included via canon=protestant (which doesn't contain it; Lutheran practice typically appends as separate 'useful' section — handled via per-book toggling at build time). Excludes Catholic / Orthodox / Rabbinic commentary kinds (different magisterial postures)."
@@ -535,9 +453,9 @@ editions:
     disabled_kinds:
       - comm-reformation
       - comm-modern-critical
-      - comm-rabbinic
+
       - dist-mariological
-      - liturgy-torah-portion
+
     max_phase: phase2
     cover_image: "covers/coptic-orthodox.jpg"
     notes: "Foregrounds comm-orthodox, comm-patristic, comm-ethiopian (shared monastic + ascetic heritage), dist-allegorical (Alexandrian school exegesis), dist-typological, dist-mystical, liturgy-ethiopian (shared liturgical roots). Excludes comm-reformation, comm-modern-critical, dist-mariological (Coptic Mariology has its own structure, distinct from Catholic). Pairs naturally with the existing ethiopian-tewahedo edition for a 'broader Egyptian church' demo."

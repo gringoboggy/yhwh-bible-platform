@@ -444,10 +444,10 @@ class TestPsi35B2InternalConsumerMigrations:
         from scripts.core import matrix as matrix_mod
         from scripts.web import api_edition_diff
 
-        diff = api_edition_diff("catholic-study", "jewish-study")
+        diff = api_edition_diff("catholic-study", "evangelical-reformed")
         m = matrix_mod.compute_matrix()
         a_dict = m.enabled_kinds_dict("catholic-study")
-        b_dict = m.enabled_kinds_dict("jewish-study")
+        b_dict = m.enabled_kinds_dict("evangelical-reformed")
         # `shared` rows have both a_count and b_count present
         for row in diff["kinds"]["shared"]:
             code = row["code"]

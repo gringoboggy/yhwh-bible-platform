@@ -7,7 +7,7 @@ onto the existing `content/covers/templates/` family.
 The audit (`AUDIT_2026-05-12-C`) flagged C6: `editions.yaml` declares
 `cover_image: "covers/<edition-id>.jpg"` for every edition, but those
 files did not exist — the wizard's BUILD step emitted EPUBs whose cover
-slot resolved to a missing path. This script generates the 9 main covers
+slot resolved to a missing path. This script generates the 8 main covers
 from the 25-template library (5 design families × 5 colors) by compositing
 each edition's cover text onto a tradition-appropriate template.
 
@@ -25,8 +25,6 @@ Mapping rationale:
 - ethiopian-tewahedo  → 05_missal_central_red    (Tewahedo red/gold)
 - catholic-study      → 02_classical_corner_navy (traditional Catholic)
 - evangelical-reformed→ 03_beadline_black        (Reformed restraint)
-- jewish-study        → 02_classical_corner_brown(parchment / Tanakh)
-- scholarly-academic  → 03_beadline_forest       (academic dignity)
 - eastern-orthodox    → 01_ornate_leafy_red      (Byzantine red/gold)
 - anglican-bcp        → 03_beadline_navy         (Anglican BCP blue)
 - lutheran-confessional→02_classical_corner_black(Lutheran black)
@@ -552,7 +550,7 @@ def generate_catalog_composite(edition_id: str, design: str, colour: str, out_di
 
 
 def generate_catalog_colour_variants() -> list[Path]:
-    """Generate the full committed M2 variant set (45 = 9 editions × their
+    """Generate the full committed M2 variant set (35 = 7 editions × their
     own design in all 5 colours)."""
     return [generate_catalog_composite(e, d, c) for (e, d, c) in catalog_colour_variant_plan()]
 

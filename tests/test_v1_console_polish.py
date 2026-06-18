@@ -190,8 +190,6 @@ class TestPsi7ANewBuiltInEditions:
         "ethiopian-tewahedo",
         "catholic-study",
         "evangelical-reformed",
-        "jewish-study",
-        "scholarly-academic",
     )
 
     @classmethod
@@ -214,11 +212,9 @@ class TestPsi7ANewBuiltInEditions:
         cls.canons = canons_data.get("canons", {}) or {}
         cls.matrix = matrix_mod.compute_matrix()
 
-    def test_total_edition_count_is_nine(self):
-        # 5 original + 4 ψ.7-A additions = 9.
-        # τ.G.constitution.a (2026-05-20) added 2 standalone Bibles
-        # (standalone-geez, standalone-amharic) → 11.
-        assert len(self.editions) >= 11, f"expected >= 11 editions, found {len(self.editions)}"
+    def test_total_edition_count_is_eight_plus_standalone(self):
+        # 8 tradition SKUs + 2 in-progress standalone Bibles (τ.G).
+        assert len(self.editions) >= 10, f"expected >= 10 editions, found {len(self.editions)}"
 
     def test_existing_editions_still_present(self):
         for ed_id in self.EXISTING_EDITIONS:
@@ -286,12 +282,12 @@ class TestPsi7ANewBuiltInEditions:
         # tradition-conflict invariant. eastern-orthodox should
         # disable comm-reformation; anglican-bcp should disable
         # dist-mariological per 39 Articles posture; lutheran should
-        # disable comm-orthodox; coptic should disable comm-rabbinic.
+        # disable comm-orthodox; coptic should disable comm-reformation.
         cases = {
             "eastern-orthodox": "comm-reformation",
             "anglican-bcp": "dist-mariological",
             "lutheran-confessional": "comm-orthodox",
-            "coptic-orthodox": "comm-rabbinic",
+            "coptic-orthodox": "comm-reformation",
         }
         for ed_id, expected_disabled in cases.items():
             ed = self.editions_by_id[ed_id]
@@ -327,9 +323,8 @@ class TestPsi7ANewBuiltInEditions:
             assert "isbn" not in ed, f"{ed_id}: still has isbn field post-pivot"
 
     def test_new_editions_appear_in_api_matrix_response(self):
-        # End-to-end: api_matrix() should surface all 11 editions
-        # (9 multi-tradition + 2 standalone Bibles, per
-        # τ.G.constitution.a 2026-05-20).
+        # End-to-end: api_matrix() should surface all 10 editions
+        # (8 multi-tradition + 2 standalone Bibles, per τ.G).
         from scripts.core import matrix as matrix_mod
         from scripts.core import config
 
@@ -343,7 +338,7 @@ class TestPsi7ANewBuiltInEditions:
         ed_ids = {e["id"] for e in api["editions"]}
         for ed_id in self.NEW_EDITIONS:
             assert ed_id in ed_ids, f"{ed_id} missing from api_matrix() response"
-        assert len(api["editions"]) >= 11
+        assert len(api["editions"]) >= 10
 
 
 class TestPsi7BEditionTemplates:
@@ -363,7 +358,6 @@ class TestPsi7BEditionTemplates:
         "family-devotional",
         "lutheran-confessional",
         "monastic-daily-office",
-        "scholarly-academic-with-apparatus",
         "school-friendly-nrsv",
     )
 

@@ -234,7 +234,7 @@ function editNote(index) {
 async function newNote() {
   const ch = parseInt(prompt('Chapter:', '1') || '1');
   const v = parseInt(prompt('Verse:', '1') || '1');
-  const kind = prompt('Kind (e.g. comm-rabbinic, lang-hebrew):', 'comm') || 'comm';
+  const kind = prompt('Kind (e.g. comm-patristic, lang-hebrew):', 'comm') || 'comm';
   let template = {label: 'Note.', body: '', attribution: {}};
   try {
     template = await api('/api/template/' + encodeURIComponent(kind));

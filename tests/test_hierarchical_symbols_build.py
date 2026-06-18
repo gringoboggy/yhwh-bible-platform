@@ -5,7 +5,7 @@ Proves that the machinery wired in Tasks 1-5 propagates all the way through
 a real EPUB build:
 
   Scenario 1 (per-book OFF):
-    jewish-study + ``note_families_off_per_book=["exo=xref"]``
+    evangelical-reformed + ``note_families_off_per_book=["exo=xref"]``
     → gen xref notes PRESENT, exo xref notes ABSENT in the built EPUB.
 
   Scenario 2 (force-on override):
@@ -14,8 +14,8 @@ a real EPUB build:
     off for all of exo (force-on subtracted last in build_one).
 
 Both scenarios do a REAL build so the test is tagged ``slow`` and excluded
-by ``-m "not slow"``.  A single build of jewish-study (the smallest canon:
-39 Tanakh books) takes ~2 minutes on the N95 dev box.
+by ``-m "not slow"``.  A single build of evangelical-reformed (66-book
+Protestant canon) takes ~2 minutes on the N95 dev box.
 
 Corpus binding (confirmed against live corpus 2026-06-04):
   gen xref-citation notes: ref-g0101 … (164 total)
@@ -38,7 +38,7 @@ pytestmark = pytest.mark.slow
 # Build helper (mirrors tests/test_byte_stability_gate.py)
 # ---------------------------------------------------------------------------
 
-_ED_ID = "jewish-study"
+_ED_ID = "evangelical-reformed"
 
 # These ref-ids are bound to real corpus entries (verified 2026-06-04).
 # gen ch 1 v 1: at least one xref-citation note survives in gen when xref is

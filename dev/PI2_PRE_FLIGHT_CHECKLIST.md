@@ -42,9 +42,9 @@ Pin tests (proposed `TestPi2EthiopianTewahedoPopups`):
    `"geez"` and `"amharic"` after Π.2.
 2. Sample verses (e.g. mq1 11:1 + gen 1:1) emit popups with all
    five languages.
-3. All 8 OTHER editions (catholic-study, evangelical-reformed,
-   jewish-study, scholarly-academic, eastern-orthodox,
-   anglican-bcp, lutheran-confessional, coptic-orthodox) preserve
+3. All 6 OTHER tradition editions (catholic-study, evangelical-reformed,
+   eastern-orthodox, anglican-bcp, lutheran-confessional, coptic-orthodox)
+   preserve
    their existing popup_languages_default.
 
 ---

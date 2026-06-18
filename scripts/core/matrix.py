@@ -6,11 +6,11 @@ the symbol-toggle UI needs to display in every cell.
 
 Inputs (all read via cached config loaders):
     content/books.yaml      — 87 books
-    content/kinds.yaml      — 72 kinds with category mapping
+    content/kinds.yaml      — 68 kinds with category mapping
     content/categories.yaml — 15 categories
-    content/editions.yaml   — 11 edition profiles (kind filters + canon)
+    content/editions.yaml   — 9 edition profiles (kind filters + canon)
     content/canons.yaml     — canon → book-codes
-    content/notes/*.py      — actual notes (91,720 as of 2026-06-17; snapshot, re-verify via trace_matrix.py — not a pin)
+    content/notes/*.py      — actual notes (re-verify live count via trace_matrix.py — not a pin)
 
 Output shape (the "matrix"):
 

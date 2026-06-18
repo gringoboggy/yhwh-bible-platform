@@ -2,7 +2,7 @@
 cover (epub_working/cover.jpeg) for the edition's declared cover_image so each
 built EPUB ships its own curated cover. Fixes visual-QA finding (b): the
 editions declare distinct covers the build previously ignored. As of σ.5 all
-11 editions declare a cover (9 curated + the 2 standalone Bibles' Ethiopic-
+10 editions declare a cover (8 curated + the 2 standalone Bibles' Ethiopic-
 script covers); any edition that declares none keeps the master."""
 
 from __future__ import annotations
@@ -90,11 +90,11 @@ class TestComposeCover:
     fitter. The hard-coded per-edition title strings were dropped; the
     EDITION_TEMPLATES map keeps each edition's factory template."""
 
-    def test_edition_templates_cover_all_nine(self):
+    def test_edition_templates_cover_all_seven_traditions(self):
         from scripts.generate_edition_covers import EDITION_TEMPLATES, STANDARD_EDITION_IDS
 
-        # Each standard edition maps to a factory template stem.
-        assert len(EDITION_TEMPLATES) == 9
+        # Each wizard SKU maps to a factory template stem (7 traditions).
+        assert len(EDITION_TEMPLATES) == 7
         assert list(EDITION_TEMPLATES.keys()) == STANDARD_EDITION_IDS
         assert all(isinstance(stem, str) and stem for stem in EDITION_TEMPLATES.values())
 

@@ -233,8 +233,6 @@ class TestConfig:
             "ethiopian-tewahedo",
             "catholic-study",
             "evangelical-reformed",
-            "jewish-study",
-            "scholarly-academic",
         }
         assert expected.issubset(ids)
 

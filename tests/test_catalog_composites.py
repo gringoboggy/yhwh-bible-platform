@@ -27,7 +27,7 @@ class TestColourVariantPlan:
         from scripts.generate_edition_covers import STANDARD_EDITION_IDS, catalog_colour_variant_plan
 
         plan = catalog_colour_variant_plan()
-        assert len(plan) == len(STANDARD_EDITION_IDS) * len(COVER_COLOURS) == 45
+        assert len(plan) == len(STANDARD_EDITION_IDS) * len(COVER_COLOURS) == 35
         for e, d, c in plan:
             assert d == edition_cover_signature(e)[0], f"{e}: variant design must be the edition's own"
             assert c in COVER_COLOURS

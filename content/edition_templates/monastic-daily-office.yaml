@@ -32,7 +32,7 @@ disabled_kinds:
   - comm-evangelical
   - comm-reformation
   - comm-modern-critical
-  - comm-rabbinic
+
   - dist-allegorical
   - dist-mariological
   - dist-mystical

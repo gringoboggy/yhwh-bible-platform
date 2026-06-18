@@ -25,7 +25,17 @@
 3. Background watch: `bash dev/reader_sim/kindle/stk_poll_watch.sh --interval 180 --timeout 7200 --epub <path>` (polls library every 3 min; logs `build/reader-sim/kindle/stk-poll-watch.log`)
 4. Optionally open **Kindle.app** to confirm the title appeared (quit app when done — RAM)
 
-**RAM rule:** quit Chrome tabs / Kindle / Thorium when not actively checking; the poll script needs no GUI.
+**RAM rule (8 GB Mac — one app at a time):** Never run Thorium + Chrome + Kindle together. Before opening any GUI app, end-task the others:
+
+```bash
+bash dev/reader_sim/end_gui_apps.sh   # quit Thorium, Chrome, Kindle
+```
+
+**STK cycle:** (1) `end_gui_apps` → (2) open Chrome only → upload at `amazon.com/sendtokindle` → (3) `end_gui_apps` (quit Chrome) → (4) `stk_poll_watch.sh` runs headless (no GUI) → (5) on poll tick, if visual confirm needed: `end_gui_apps` → open Kindle only → check → `end_gui_apps`. Repeat open/close per check; do not leave apps running between slices.
+
+The background poll script needs no GUI — keep it running while everything else stays quit.
+
+**Agent browser MCP:** `chrome-devtools-mcp` + `playwright-mcp` (`.grok/config.toml`). Playwright uses `~/.yhwh-browser-profile` for Amazon session. Run `grok mcp doctor` after install.
 
 **Phone STK matrix (6 variants):** `docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md` §7
 

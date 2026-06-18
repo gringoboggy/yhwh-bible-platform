@@ -15,8 +15,6 @@ EXPECTED_THEMES = {
     "anglican-bcp": "classic",
     "standalone-geez": "classic",
     "standalone-amharic": "classic",
-    "scholarly-academic": "scholarly",
-    "jewish-study": "scholarly",
     "lutheran-confessional": "scholarly",
     "catholic-study": "devotional",
     "eastern-orthodox": "devotional",

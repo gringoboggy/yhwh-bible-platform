@@ -6,7 +6,7 @@ a real EPUB build, changing exactly the targeted verse's popup aside while
 leaving sibling verses intact.
 
 Scenario (single build):
-  jewish-study + ``popup_languages_default=["wlc","lxx-greek"]``
+  evangelical-reformed + ``popup_languages_default=["wlc","lxx-greek"]``
                 + ``popup_languages_per_verse=["gen:1:1=wlc"]``
 
   Gen 1:1 aside  → contains vnote-hebrew, NOT vnote-greek   (per-verse override)
@@ -38,7 +38,7 @@ pytestmark = pytest.mark.slow
 # Build helper — reuses the exact same pattern as test_hierarchical_symbols_build
 # ---------------------------------------------------------------------------
 
-_ED_ID = "jewish-study"
+_ED_ID = "evangelical-reformed"
 
 
 def _build(ed_id: str, out_dir: Path, *, monkeypatch, extra_fields: dict | None = None) -> Path:
@@ -138,12 +138,12 @@ def test_per_verse_popup_override_changes_one_verse(tmp_path, monkeypatch):
 
     assert aside_1_1, (
         f"Expected to find vnote aside id={_ASIDE_GEN_1_1!r} in the EPUB — "
-        f"check that gen 1:1 is present in jewish-study and that the aside id "
+        f"check that gen 1:1 is present in evangelical-reformed and that the aside id "
         f"format is correct (book code 'gen' → vnote-gen-1-1)"
     )
     assert aside_1_2, (
         f"Expected to find vnote aside id={_ASIDE_GEN_1_2!r} in the EPUB — "
-        f"check that gen 1:2 is present in jewish-study"
+        f"check that gen 1:2 is present in evangelical-reformed"
     )
 
     # gen 1:1 — per-verse override → Hebrew only, Greek stripped

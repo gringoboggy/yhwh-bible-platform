@@ -361,8 +361,8 @@ to be fleshed out by hand afterwards.
 
 The single master corpus emits N market-tuned EPUBs. Foundation: hierarchical
 kind taxonomy in `content/kinds.yaml` (59 kinds across 14 categories) and
-edition profiles in `content/editions.yaml` (5 editions: ethiopian-tewahedo,
-catholic-study, evangelical-reformed, jewish-study, scholarly-academic).
+edition profiles in `content/editions.yaml` (8 tradition editions plus 2
+standalone language Bibles).
 Legacy kinds (`word`, `comm`, `source`, `parallel`) remain unchanged so all
 existing 1,371 notes keep working.
 

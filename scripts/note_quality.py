@@ -183,7 +183,6 @@ KIND_BUDGETS: dict[str, tuple[int, int]] = {
     # Commentary family — substantive
     "comm": (20, 500),
     "comm-ethiopian": (30, 600),
-    "comm-rabbinic": (30, 600),
     "comm-catholic": (30, 600),
     "comm-orthodox": (30, 600),
     "comm-reformation": (30, 600),

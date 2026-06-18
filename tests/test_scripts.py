@@ -612,7 +612,7 @@ class TestNoteQuality:
         assert (lo, hi) == (99, 999)
 
     def test_run_checks_flags_too_short(self, sample_note_tuple):
-        # Make a note that's clearly too short for comm-rabbinic (min 30)
+        # Make a note that's clearly too short for comm-patristic (min 30)
         short = list(sample_note_tuple)
         short[7] = "<strong>x.</strong> y."  # 2 words
         findings = list(self.mod.run_checks("gen", [tuple(short)], 50, 200))
@@ -1077,8 +1077,6 @@ class TestMatrix:
             "ethiopian-tewahedo",
             "catholic-study",
             "evangelical-reformed",
-            "jewish-study",
-            "scholarly-academic",
             "eastern-orthodox",
             "anglican-bcp",
             "lutheran-confessional",
@@ -1089,32 +1087,23 @@ class TestMatrix:
         assert set(m.enabled.keys()) == expected
         assert set(m.potential.keys()) == set(m.enabled.keys())
 
-    def test_scholarly_edition_counts_full_corpus(self):
-        """scholarly-academic has canon=ethiopian (87 books) and the
+    def test_flagship_edition_counts_full_corpus(self):
+        """ethiopian-tewahedo has canon=ethiopian (87 books) and the
         broadest kind enable list, so it should equal the full corpus."""
         m = self.mod.compute_matrix()
-        # Potential = full corpus reachable by canon
-        scholarly_potential = sum(m.potential["scholarly-academic"].values())
-        assert scholarly_potential >= 1381, (
-            f"scholarly potential should be 1381 (full corpus); got {scholarly_potential}"
-        )
+        eth_potential = sum(m.potential["ethiopian-tewahedo"].values())
+        assert eth_potential >= 1381, f"ethiopian potential should be 1381 (full corpus); got {eth_potential}"
 
-    def test_jewish_edition_canon_drops_books(self):
-        """jewish-study has canon=tanakh — books like NT and Ethiopian
+    def test_protestant_edition_canon_drops_ethiopian_books(self):
+        """evangelical-reformed has canon=protestant — Ethiopian
         distinctives must NOT contribute to its potential count."""
         m = self.mod.compute_matrix()
-        jewish_canon = m.edition_canon_books["jewish-study"]
-        # Tanakh has 39 books in our split numbering
-        assert len(jewish_canon) == 39
-        # NT books must not be in canon
-        assert "mat" not in jewish_canon
-        assert "rev" not in jewish_canon
-        # Ethiopian distinctives must not be in canon
-        assert "1en" not in jewish_canon
-        assert "mq1" not in jewish_canon
-        # OT books must be
-        assert "gen" in jewish_canon
-        assert "psa" in jewish_canon
+        protestant_canon = m.edition_canon_books["evangelical-reformed"]
+        assert len(protestant_canon) == 66
+        assert "1en" not in protestant_canon
+        assert "mq1" not in protestant_canon
+        assert "gen" in protestant_canon
+        assert "rev" in protestant_canon
 
     def test_potential_minus_enabled_equals_kind_filter_blocked(self):
         """For every edition, potential - enabled = notes filtered out
@@ -1138,8 +1127,6 @@ class TestMatrix:
             "ethiopian-tewahedo",
             "catholic-study",
             "evangelical-reformed",
-            "jewish-study",
-            "scholarly-academic",
         ):
             breakdown = self.mod.breakdown_by_category(ed_id)
             total = self.mod.total_for_edition(ed_id)
@@ -1164,13 +1151,13 @@ class TestMatrix:
         """A kind that's filtered OUT of an edition should:
            enabled[ed][kind] == 0 (or absent — same thing)
            but potential[ed][kind] may be nonzero
-        jewish-study (Tanakh) filters out comm-reformation — it has potential
+        evangelical-reformed filters out comm-catholic — it has potential
         (the kind exists in the corpus) but enabled == 0. (ethiopian-tewahedo no
         longer exercises this: the v0.0.3 full-notes edition ENABLES every
-        category incl. comm-reformation, so the invariant is vacuous there.)"""
+        category incl. comm-catholic, so the invariant is vacuous there.)"""
         m = self.mod.compute_matrix()
-        ed_id = "jewish-study"
-        kind = "comm-reformation"
+        ed_id = "evangelical-reformed"
+        kind = "comm-catholic"
         # precondition (else the test goes vacuous): the kind must have potential here
         assert m.potential[ed_id].get(kind, 0) > 0, f"{kind} has no potential in {ed_id}"
         assert m.enabled[ed_id].get(kind, 0) == 0, f"{kind} should be filtered out of {ed_id}"
@@ -1973,13 +1960,10 @@ class TestEditionMeta:
         cb = d["edition_canon_books"]
         # Spot-check known canon sizes
         assert len(cb["ethiopian-tewahedo"]) == 86
-        assert len(cb["jewish-study"]) == 39
         assert len(cb["evangelical-reformed"]) == 66
         # gen + rev are universal across editions that include them
         assert "gen" in cb["catholic-study"]
         assert "rev" in cb["evangelical-reformed"]
-        # Tanakh excludes NT
-        assert "rev" not in cb["jewish-study"]
 
     def test_customize_html_has_per_book_popup_language_matrix(self):
         """The /customize page must render the new per-book matrix
@@ -2161,20 +2145,14 @@ class TestEditionMeta:
         assert "image extension" in r["error"]
 
     def test_api_covers_filters_by_canon(self):
-        """Tanakh shows 39 slots (no NT), Reformed 66, Catholic 75,
-        Ethiopian 86 — same constraint that powered the popup-language
-        UI now applies to covers (catholic/ethiopian each −1 after the
-        v0.0.3 aes fold)."""
+        """Reformed 66, Catholic 75, Ethiopian 86 — same constraint that
+        powered the popup-language UI now applies to covers (catholic/ethiopian
+        each −1 after the v0.0.3 aes fold)."""
         d = self.web.api_covers()
         by_id = {r["edition_id"]: r for r in d["editions"]}
-        assert len(by_id["jewish-study"]["book_covers"]) == 39
         assert len(by_id["evangelical-reformed"]["book_covers"]) == 66
         assert len(by_id["catholic-study"]["book_covers"]) == 75
         assert len(by_id["ethiopian-tewahedo"]["book_covers"]) == 86
-        # Tanakh must NOT include NT books
-        tanakh_codes = {s["book_code"] for s in by_id["jewish-study"]["book_covers"]}
-        assert "rev" not in tanakh_codes
-        assert "mat" not in tanakh_codes
 
     def test_api_covers_returns_books_in_canonical_order(self):
         """Per Rule §6.1 — the slot list must follow books.yaml order,
@@ -3703,7 +3681,7 @@ class TestEditionMeta:
         out_of_canon code."""
         from scripts.web import api_sample_html
 
-        r = api_sample_html("jewish-study", "mat", 1, 1)
+        r = api_sample_html("evangelical-reformed", "mat", 1, 1)
         assert r["status"] == "error"
         assert r["code"] == "out_of_canon"
         assert r["http"] == 404
@@ -3799,7 +3777,7 @@ class TestEditionMeta:
             # 404 path: out of canon
             try:
                 urllib.request.urlopen(
-                    f"http://127.0.0.1:{port}/api/sample/jewish-study?book=mat&from=1&to=1",
+                    f"http://127.0.0.1:{port}/api/sample/evangelical-reformed?book=mat&from=1&to=1",
                     timeout=5,
                 )
                 raise AssertionError("should have raised HTTPError")
@@ -5438,7 +5416,7 @@ class TestPerNoteDisable:
         p = self.web.parse_note_id("gen:1:1a:word")
         assert p == {"book": "gen", "chapter": 1, "verse": 1, "suffix": "a", "kind": "word"}
         # Suffix can be empty
-        p2 = self.web.parse_note_id("mat:5:3:comm-rabbinic")
+        p2 = self.web.parse_note_id("mat:5:3:comm-patristic")
         assert p2["suffix"] == ""
         # Bad inputs
         assert self.web.parse_note_id("malformed") is None
@@ -5448,7 +5426,7 @@ class TestPerNoteDisable:
     def test_html_ref_id_translation(self):
         ref = self.web.html_ref_id_from_note_id("gen:1:1a:word")
         assert ref == "ref-g0101a"
-        ref2 = self.web.html_ref_id_from_note_id("gen:5:23:comm-rabbinic")
+        ref2 = self.web.html_ref_id_from_note_id("gen:5:23:comm-patristic")
         assert ref2 == "ref-g0523"  # no suffix
 
     def test_save_note_toggle_round_trip(self, tmp_path):
@@ -5878,7 +5856,7 @@ class TestWizardRoute:
         assert "DATA.customize.traditions" in html
         # Profile-to-defaults map covers the 5 seed editions
         assert "PROFILE_TO_TRADITIONS" in html
-        for profile in ("catholic-study", "reformed", "orthodox-study", "jewish-study", "ethiopian-tewahedo"):
+        for profile in ("catholic-study", "reformed", "orthodox-study", "ethiopian-tewahedo"):
             assert profile in html
         # Wiring functions exist
         assert "function renderStep5" in html
@@ -8892,26 +8870,23 @@ class TestPsi1LiveEpubPreview:
         assert 'class="note ' in r["html"]
 
     def test_kind_filter_respects_edition(self):
-        # jewish-study disables comm-patristic / comm-orthodox /
-        # dist-mariological / etc. Compare it to scholarly-academic
-        # (everything enabled) on the same chapter — scholarly
-        # should yield ≥ jewish in note count.
-        r_jewish = self.preview.render_chapter_preview(
-            "jewish-study",
+        # evangelical-reformed disables comm-catholic / comm-orthodox /
+        # dist-mariological / etc. Compare it to ethiopian-tewahedo
+        # (superset) on the same chapter — ethiopian should yield ≥ reformed.
+        r_reformed = self.preview.render_chapter_preview(
+            "evangelical-reformed",
             "gen",
             1,
         )
-        r_scholarly = self.preview.render_chapter_preview(
-            "scholarly-academic",
+        r_eth = self.preview.render_chapter_preview(
+            "ethiopian-tewahedo",
             "gen",
             1,
         )
-        assert r_jewish["status"] == "ok"
-        assert r_scholarly["status"] == "ok"
-        # scholarly-academic has the broadest kind filter; should
-        # show >= jewish-study's count.
-        assert r_scholarly["notes_shown"] >= r_jewish["notes_shown"], (
-            f"scholarly={r_scholarly['notes_shown']} but jewish={r_jewish['notes_shown']}"
+        assert r_reformed["status"] == "ok"
+        assert r_eth["status"] == "ok"
+        assert r_eth["notes_shown"] >= r_reformed["notes_shown"], (
+            f"ethiopian={r_eth['notes_shown']} but reformed={r_reformed['notes_shown']}"
         )
 
     def test_rejects_unknown_edition(self):
@@ -10469,7 +10444,7 @@ class TestPsi26MatrixBulkOps:
     def test_apply_non_bool_enable_rejected(self):
         from scripts.web import api_apply_kind_to_all_editions
 
-        r = api_apply_kind_to_all_editions("comm-rabbinic", enable="yes")  # type: ignore[arg-type]
+        r = api_apply_kind_to_all_editions("comm-patristic", enable="yes")  # type: ignore[arg-type]
         assert r["status"] == "error"
         assert r["http"] == 400
 
@@ -10488,7 +10463,7 @@ class TestPsi26MatrixBulkOps:
 
         web.api_save_edition = fake_save
         try:
-            r = web.api_apply_kind_to_all_editions("comm-rabbinic", enable=True)
+            r = web.api_apply_kind_to_all_editions("comm-patristic", enable=True)
         finally:
             web.api_save_edition = real_save
         assert r["status"] == "ok"
@@ -10512,8 +10487,8 @@ class TestPsi26MatrixBulkOps:
         real_save = web.api_save_edition
         web.api_save_edition = lambda eid, payload: {"ok": True}
         try:
-            r_en = web.api_apply_kind_to_all_editions("comm-rabbinic", enable=True)
-            r_dis = web.api_apply_kind_to_all_editions("comm-rabbinic", enable=False)
+            r_en = web.api_apply_kind_to_all_editions("comm-patristic", enable=True)
+            r_dis = web.api_apply_kind_to_all_editions("comm-patristic", enable=False)
         finally:
             web.api_save_edition = real_save
         # Sanity: enable and disable cover the same total.
@@ -10555,7 +10530,7 @@ class TestPsi26MatrixBulkOps:
 
         web.api_save_edition = flaky_save
         try:
-            r = web.api_apply_kind_to_all_editions("comm-rabbinic", enable=True)
+            r = web.api_apply_kind_to_all_editions("comm-patristic", enable=True)
         finally:
             web.api_save_edition = real_save
         # The overall call still returns status=ok so partial progress
@@ -14752,8 +14727,6 @@ class TestOmega38EditionCovers:
         "ethiopian-tewahedo",
         "catholic-study",
         "evangelical-reformed",
-        "jewish-study",
-        "scholarly-academic",
         "eastern-orthodox",
         "anglican-bcp",
         "lutheran-confessional",
