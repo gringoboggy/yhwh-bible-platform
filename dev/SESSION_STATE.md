@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN, turn 125).** **NOW:** `ci.py` finish · `rx-surfaces` · ACK Mac `f3b12433` · stage `build/reader-sim/` from cached epubs · run `--sim all`. **No matrix builds** until `ci.py` GREEN. Plan: `plans/2026-06-18-reader-simulation-lab.md`. Baton **windows**; mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 125).** **READ FIRST:** `dev/LANE_HANDOFF.md` §**Mac turn 125 — full runbook** (10 sections: bootstrap · ACK · stage `build/reader-sim/` · STK live poll · Thorium `--live` · M4b 6-pack gate · `--sim all` · optional Play AVD · save cadence · done criteria). Queue: `MAC_WORK_QUEUE.md` §Turn 125. **NO** `build_edition` / matrix / `ci.py` until WIN `ci.py` GREEN. `lane_watch --bg`. Baton **mac** (truth_owner); mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 125 DONE @ `b154f8eb`).** **Shipped:** `build/reader-sim/` staged · M4b **6/6 PASS** · kindle+play `--sim` PASS · `thorium_cdp --live` · `_artifact_for_reader` subdirs. **Gaps:** apple tablet artifact · kobo sim slow epubcheck · STK/Thorium live (apps not installed). **Next:** WIN pulls + `--sim all`. See `dev/reader_sim/STAGING_MANIFEST.md`. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings manuscript images:** CAM acquire scripts idempotent; GAPS tree gitignored — `test_samkings_manifest_complete` **6/6 green** @ Mac turn 118.
 >

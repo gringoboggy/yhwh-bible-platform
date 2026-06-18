@@ -76,7 +76,7 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **5 M4b pack gate sweep:** 6/6 PASS — m4b design doc §7 footer
 - [x] **6 `--sim` dry-run:** kindle PASS · play re-staged · kobo slow epubcheck · apple SKIP — manifest
 - [ ] **7 Play emulator (optional):** deferred
-- [ ] **8 Save + push:** in progress
+- [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
 ## Turn 124 queue — **COMPLETE**
