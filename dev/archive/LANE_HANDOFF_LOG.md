@@ -4,6 +4,64 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 5 sections, 2026-06-18..2026-06-19 (rotate_truth_records.py) -->
+
+## ◦ mac assign (turn 140, 2026-06-19T18:40:25Z) — mode=parallel
+
+**Assignments:** mac = STK 144600Z FAIL logged; Apple/Play sim depth; pre-work for WIN Kindle bisect · windows = ci.py IN FLIGHT → rx-surfaces → Kobo sim → Kindle STK bisect (glossary spine vs 143407Z control)
+
+**Mac turn 139b:** 144600Z upload FAIL — gates 0/0/0/0 but Lassen library unchanged. Hypothesis: 155 glossary spine pieces break STK (143407Z delivered with 0 glossary). WIN owns bisect.
+
+---
+
+## ▶ windows → mac (turn 139, 2026-06-19T15:42:07Z) — mode=parallel
+
+**Done (turn 138, windows):**
+git pull up to date @ 1943a33d; ci.py started; user day-plan for autonomous test/sim arc
+
+**Next (turn 139, mac picks up):**
+WIN: finish ci.py then rx-surfaces then Kobo then Kindle takeover then sim audit; Mac: Apple+Play sim + pre-work for WIN
+
+**Assignments:** mac = Turn 139 day plan: Apple Books + Play Books sim depth (Thorium/Books.app); STK poll 144600Z automated-only; pre-work commits for WIN (STAGING_MANIFEST + M2/M5 sim-oracle rows + Kindle handoff notes) · windows = ci.py IN FLIGHT (~6h) then rx-surfaces, Kobo sim, Kindle lane takeover, sim-pipeline fidelity audit, ci.py --reader-sim-gates
+
+**Watch-outs:**
+ci.py ~6h; no parallel heavy jobs on WIN; HOLD M4 catalog; no human device taps unless STK lands
+
+---
+
+## ◦ mac assign (turn 138, 2026-06-19T15:16:12Z) — mode=parallel
+
+**Assignments:** mac = STK upload in flight (144600Z); poll + device tap QA on arrival; standby for user instructions · windows = pull 1943a33d+; ci.py GREEN; rx-surfaces; HOLD M4 kindle catalog until Mac STK re-PASS
+
+**Mac → WIN (turn 138):** STK load fix @ 1943a33d — 44× RSC-012 bare #v-* in glossary (000000Z fail) fixed; 144600Z strict 0/0/0/0. User uploading now. Mac polls + tap QA when landed. Catalog regen still blocked.
+
+---
+
+## ▶ windows → windows (turn 137, 2026-06-19T13:52:36Z) — mode=parallel
+
+**Done (turn 136, windows):**
+turn 136 canon-SKU scrub; M3 20/20 kepubs gated green; m3_e2e_summary
+
+**Next (turn 137, windows picks up):**
+pull rebase; ci.py GREEN; rx-surfaces
+
+**Assignments:** mac = STK poll resume post-reboot; M4b Option B @ 84b3400c — device QA on 165347Z artifact · windows = ci.py GREEN (1=1; ~6h); rx-surfaces after green; HOLD M4 kindle catalog regen
+
+**Watch-outs:**
+ci.py pytest duration; edition-pin failures from 4-SKU scrub; Mac STK reboot
+
+---
+
+## ◦ windows assign (turn 136, 2026-06-18T22:15:00Z) — mode=parallel
+
+**Assignments:** windows = **canon-SKU scrub** (retire notes-only tradition twins; strip per-edition `theme:`) · `ci.py` GREEN · `build_format_matrix --phase M3` **20** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
+
+**Catalog policy (user-directed):** keep editions where **canon or body text differs** (Ethiopian 87 vs Catholic 76 vs Orthodox 78 vs Protestant 66; Geʿez/Amharic standalones); scrub notes-only / thematic SKU twins — note-kind toggles live in `/customize`.
+
+**Milestone pushed:** WIN turn 136 canon-SKU scrub.
+
+---
+
 <!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
 
 ## ◦ mac assign (turn 132, 2026-06-18T16:45:00Z) — mode=parallel
