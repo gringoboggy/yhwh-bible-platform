@@ -351,6 +351,7 @@ _BADGE_HREF_RE = re.compile(
     re.I,
 )
 _VN_LINK_ID_ANY_RE = re.compile(r'\bid="(v-[^"]+)"', re.I)
+_V_HREF_BARE_RE = re.compile(r'href="#(v-[a-z0-9]+-\d+-\d+[a-z]?)"', re.I)
 
 
 def apply_kindle_m4b_css(css: str) -> str:
@@ -358,6 +359,19 @@ def apply_kindle_m4b_css(css: str) -> str:
     if _KINDLE_M4B_CSS_MARKER in css:
         return css
     return css.rstrip() + "\n" + _KINDLE_M4B_CSS
+
+
+def _retarget_glossary_xrefs(html: str, v_anchor_files: dict[str, str]) -> str:
+    """Rewrite same-document ``#v-…`` xrefs to cross-file scripture anchors."""
+
+    def _repl(m: re.Match) -> str:
+        vid = m.group(1)
+        spine = v_anchor_files.get(vid)
+        if spine:
+            return f'href="{spine}#{vid}"'
+        return m.group(0)
+
+    return _V_HREF_BARE_RE.sub(_repl, html)
 
 
 def _glossary_back_link(book: str, ch: str, verse: str, v_anchor_files: dict[str, str]) -> str:
@@ -379,6 +393,7 @@ def _prepare_glossary_aside(
     """Unhide a relocated study aside and wire a cross-file scripture back-link."""
     aside_html = _HIDDEN_ATTR_RE.sub("", aside_html)
     aside_html = _VN_BACK_VBADGE_RE.sub("", aside_html)
+    aside_html = _retarget_glossary_xrefs(aside_html, v_anchor_files)
     cm = _VNOTES_COORD_RE.match(aid)
     if not cm:
         return aside_html
@@ -509,9 +524,10 @@ def _apply_kindle_m4b_members(data: dict[str, bytes], order: list[str]) -> dict:
         text = data[name].decode("utf-8")
         vn_links_before += len(_VN_LINK_RE.findall(text))
         badges_before += len(_VERSE_NOTES_BADGE_RE.findall(text))
+        spine = Path(name).name
         for v_id in _VN_LINK_ID_ANY_RE.findall(text):
             if v_id.startswith("v-"):
-                v_anchor_files[v_id] = Path(name).name
+                v_anchor_files[v_id] = spine
         cleaned, asides = _clean_scripture_html(text)
         collected.update(asides)
         data[name] = cleaned.encode("utf-8")
@@ -578,8 +594,12 @@ def _apply_kindle_m4b_members(data: dict[str, bytes], order: list[str]) -> dict:
     nav_name = next((n for n in order if Path(n).name == "nav.xhtml"), None)
     if nav_name and first_piece not in data[nav_name].decode("utf-8"):
         nav = data[nav_name].decode("utf-8")
-        study_li = f'\n      <li><a href="{first_piece}">Study Notes</a></li>'
-        nav = nav.replace("</ol>", study_li + "\n    </ol>", 1)
+        study_li = f'      <li><a href="{first_piece}">Study Notes</a></li>\n'
+        sources_m = re.search(r"<li>\s*<a\s+href=\"sources\.xhtml\"", nav, re.I)
+        if sources_m:
+            nav = nav[: sources_m.start()] + study_li + nav[sources_m.start() :]
+        else:
+            nav = nav.replace("</ol>", "\n" + study_li + "    </ol>", 1)
         data[nav_name] = nav.encode("utf-8")
 
     ncx_name = next((n for n in order if Path(n).name == "toc.ncx"), None)
@@ -659,12 +679,20 @@ def verify_kindle_m4b_scripture_html(html: str) -> list[str]:
     return fails
 
 
+def verify_kindle_m4b_glossary_html(html: str) -> list[str]:
+    """Glossary backmatter must not keep same-document scripture verse xrefs."""
+    fails: list[str] = []
+    for m in _V_HREF_BARE_RE.finditer(html):
+        fails.append(f"m4b-4: bare scripture verse href #{m.group(1)} in glossary")
+    return fails
+
+
 def verify_kindle_m4b_html(html: str, *, filename: str = "") -> list[str]:
     """Dispatch per-document M4b checks (scripture vs glossary)."""
     if filename and _is_glossary_html(filename):
-        return []
+        return verify_kindle_m4b_glossary_html(html)
     if "study-notes-index" in html:
-        return []
+        return verify_kindle_m4b_glossary_html(html)
     return verify_kindle_m4b_scripture_html(html)
 
 
@@ -681,6 +709,8 @@ def verify_kindle_m4b(epub_path: Path | str) -> list[str]:
             if not name.endswith(_DOC_SUFFIXES):
                 continue
             if _is_glossary_html(name):
+                text = z.read(name).decode("utf-8", "replace")
+                fails.extend(f"{name}: {msg}" for msg in verify_kindle_m4b_glossary_html(text))
                 continue
             if _is_scripture_html(name):
                 text = z.read(name).decode("utf-8", "replace")

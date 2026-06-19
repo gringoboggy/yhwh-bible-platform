@@ -10,12 +10,15 @@ _CHAPTER_HTML = (
     '<p class="verse-p-flush">'
     '<a class="vn-link" id="v-gen-1-1" href="#vnote-gen-1-1" epub:type="noteref" title="Genesis 1:1">'
     '<span class="vn">1</span></a> In the beginning.'
+    '<a class="vn-link" id="v-gen-1-18" href="#vnote-gen-1-18" epub:type="noteref" title="Genesis 1:18">'
+    '<span class="vn">18</span></a> And there was evening.'
     '<a class="verse-notes-badge" id="vbadge-gen-1-1-s1" href="#vnotes-gen-1-1-s1" '
     'epub:type="noteref" title="3 notes"><sup class="marker-badge">3</sup></a>'
     "</p>"
     '<aside class="notes-section" epub:type="footnotes" hidden="">'
     '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote" hidden="">'
     '<p class="vn-back"><a href="#vbadge-gen-1-1-s1" class="note-back">↩</a> <strong>1:1</strong></p>'
+    '<p>See also <a href="#v-gen-1-18">Gen 1:18</a>.</p>'
     "<p>Study body</p></aside>"
     "</aside>"
     '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
@@ -82,7 +85,12 @@ def _m4b_fixture_epub(*, chapter_html: str = _CHAPTER_HTML, multi: bool = False)
         z.writestr("OEBPS/stylesheet.css", ".notes-section { display: block; }\n")
         z.writestr("OEBPS/index_split_000_00.html", body)
         z.writestr("OEBPS/sources.xhtml", "<html><body>Sources</body></html>")
-        z.writestr("OEBPS/nav.xhtml", "<html><body><nav><ol></ol></nav></body></html>")
+        z.writestr(
+            "OEBPS/nav.xhtml",
+            '<html><body><nav epub:type="toc"><ol>'
+            '<li><a href="sources.xhtml">Sources</a></li>'
+            "</ol></nav></body></html>",
+        )
         z.writestr("OEBPS/toc.ncx", '<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/"><navMap></navMap></ncx>')
     return buf.getvalue()
 
@@ -93,7 +101,7 @@ class TestApplyKindleM4bHtml:
         assert 'class="verse-notes-badge"' in out
         assert 'class="vn-link"' in out
         assert stats["badges_kept"] == 1
-        assert stats["vn_links"] == 1
+        assert stats["vn_links"] == 2
 
     def test_extracts_vnotes_from_scripture(self):
         out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
@@ -131,6 +139,12 @@ class TestApplyKindleM4bEpub:
             assert 'id="vnotes-gen-1-1-s1"' in glossary
             assert "Study body" in glossary
             assert 'href="index_split_000_00.html#v-gen-1-1"' in glossary
+            assert 'href="#v-gen-1-18"' not in glossary
+            assert 'href="index_split_000_00.html#v-gen-1-18"' in glossary
+            nav = z.read("OEBPS/nav.xhtml").decode()
+            assert "Study Notes" in nav
+            if "sources.xhtml" in nav:
+                assert nav.index("Study Notes") < nav.index("sources.xhtml")
 
     def test_multi_chapter_collects_both_asides(self, tmp_path):
         src = tmp_path / "src.epub"
