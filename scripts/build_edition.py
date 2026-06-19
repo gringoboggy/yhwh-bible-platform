@@ -2683,6 +2683,28 @@ def apply_empty_verse_prose_repair(tmp: Path) -> int:
     return repaired
 
 
+_VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>\s*')
+
+
+def apply_tablet_popup_strip_separators(tmp: Path, edition: dict) -> int:
+    """Physically remove Kobo-only ``.vn-sep`` spans from tablet popups.
+
+    Tablet targets apply author CSS inconsistently inside footnote sheets — the
+    spans are meant to be ``display: none`` but can leak as stray • / ◦ / ¶
+    bullets with no visible label text. E-ink keeps the spans for the CSS-blind
+    Kobo preview; tablet strips them after every injector has finished."""
+    if resolve_target_reader(edition) != "tablet":
+        return 0
+    touched = 0
+    for fpath in sorted(tmp.glob("index_split_*.html")):
+        text = fpath.read_text(encoding="utf-8")
+        new_text = _VN_SEP_SPAN_RE.sub("", text)
+        if new_text != text:
+            fpath.write_text(new_text, encoding="utf-8")
+            touched += 1
+    return touched
+
+
 def apply_vnote_preview_separators(tmp: Path, edition: dict | None = None) -> int:
     """Run the K-R4-1 vnote separator pass over the per-edition temp tree.
 
@@ -3174,10 +3196,14 @@ def _stripped_len(html_text: str) -> int:
 def resolve_note_popup_split_cap(edition: dict) -> int:
     """The edition's popup-unit cap in stripped chars; 0 disables splitting.
 
-    Unset/None/"" -> DEFAULT_NOTE_POPUP_SPLIT_CAP. Anything non-integer or
-    negative raises ValueError (the API validator enforces the same rule)."""
+    Unset/None/"" -> 0 on ``target_reader=tablet`` (Apple M2: one merged badge
+    per verse); otherwise DEFAULT_NOTE_POPUP_SPLIT_CAP (Kobo e-ink safety).
+    Anything non-integer or negative raises ValueError (the API validator
+    enforces the same rule)."""
     v = edition.get("note_popup_split_cap")
     if v is None or v == "":
+        if resolve_target_reader(edition) == "tablet":
+            return 0
         return DEFAULT_NOTE_POPUP_SPLIT_CAP
     try:
         n = int(v)
@@ -4373,6 +4399,33 @@ FILE_SPLIT_TARGET_DEFAULT = 400_000  # soft byte cap per piece; a single chapter
 FILE_SPLIT_TARGET_KINDLE = 2_000_000
 
 
+def resolve_reader_file_split(edition: dict) -> bool:
+    """Whether the Kobo e-ink shard pass runs — the single resolver.
+
+    Tablet/Apple handles multi-MB XHTML natively; sharding mints hundreds of
+    spine fragments that scramble the intro → ToC → Book → Chapter flow in
+    Apple/tablet readers. Explicit ``reader_file_split`` in the edition record wins;
+    otherwise tablet defaults OFF and every other target defaults ON."""
+    explicit = edition.get("reader_file_split")
+    if explicit is not None:
+        return bool(explicit)
+    if resolve_target_reader(edition) == "tablet":
+        return False
+    return DEFAULT_READER_FILE_SPLIT
+
+
+def resolve_reader_toc_collapsible(edition: dict) -> bool:
+    """Whether the in-content ToC keeps expandable ``<details>`` book rows.
+
+    Tablet/Apple (M2 north star): one book label at a time; chapter pills live
+    inside the disclosure the reader opens. Flat always-visible pills are the
+    e-ink-safe default on every other target (``reader_toc_collapsible: true``
+    in editions.yaml is still honored when set on non-tablet builds)."""
+    if resolve_target_reader(edition) == "tablet":
+        return True
+    return edition.get("reader_toc_collapsible") is True
+
+
 def resolve_file_split_target(edition: dict) -> int:
     """Per-piece soft byte cap for apply_file_split — the single resolver
     (explicit per-edition override > the reader-target default)."""
@@ -4996,7 +5049,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     nav.xhtml + toc.ncx. No-op (byte-identical) unless ``edition['reader_file_split']``.
     Returns ``{files_split, pieces_created, hrefs_rewritten, largest_piece_kb}``."""
     stats = {"files_split": 0, "pieces_created": 0, "hrefs_rewritten": 0, "largest_piece_kb": 0}
-    if not edition.get("reader_file_split", DEFAULT_READER_FILE_SPLIT):
+    if not resolve_reader_file_split(edition):
         return stats
     target = resolve_file_split_target(edition)
 
@@ -5392,7 +5445,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     # and stays schema-accepted for back-compat. (K-R2 / user-directed 2026-06-09;
     # this also makes the /customize checkbox actually effective — the old
     # books_only coupling silently overrode it on every edition.)
-    collapsible = edition.get("reader_toc_collapsible") is True
+    collapsible = resolve_reader_toc_collapsible(edition)
     default_open = bool(edition.get("reader_toc_default_open", False))
     ornament_code = (edition.get("book_toc_ornament") or "").strip()
     ornament_glyph = ""
@@ -7453,6 +7506,8 @@ def build_one(
         # editions and the separator spans are CSS-hidden everywhere CSS
         # applies, so only the CSS-blind eInk preview ever shows them.
         stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp, edition)
+
+        stats["tablet_popup_sep_stripped"] = apply_tablet_popup_strip_separators(tmp, edition)
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts

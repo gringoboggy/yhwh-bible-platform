@@ -125,6 +125,15 @@ class TestSplitCapResolver:
         assert resolve_note_popup_split_cap({"id": "x", "note_popup_split_cap": None}) == 4_400
         assert resolve_note_popup_split_cap({"id": "x", "note_popup_split_cap": ""}) == 4_400
 
+    def test_unset_tablet_defaults_to_zero(self):
+        """Apple M2 — one merged study badge per verse; no -s1/-s2/-s3 cascade."""
+        from scripts.build_edition import resolve_note_popup_split_cap
+
+        tablet = {"id": "x", "target_reader": "tablet"}
+        assert resolve_note_popup_split_cap(tablet) == 0
+        assert resolve_note_popup_split_cap({**tablet, "note_popup_split_cap": None}) == 0
+        assert resolve_note_popup_split_cap({**tablet, "note_popup_split_cap": ""}) == 0
+
     def test_zero_disables(self):
         from scripts.build_edition import resolve_note_popup_split_cap
 

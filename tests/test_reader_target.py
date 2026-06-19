@@ -134,6 +134,28 @@ class TestTargetReaderField:
         assert 'data-field="reader_native_toc_chapters"' in CUSTOMIZE_HTML
 
 
+class TestTabletReaderProfile:
+    """Apple/tablet builds fold a distinct reading-order profile at build time."""
+
+    def test_tablet_defaults_collapsible_toc_even_when_yaml_false(self, tmp_path):
+        from scripts.build_edition import apply_reader_toc_transforms, resolve_reader_toc_collapsible
+
+        assert resolve_reader_toc_collapsible({"reader_toc_collapsible": False, "target_reader": "tablet"}) is True
+        (tmp_path / "index_split_000.html").write_text(_TOC_PAGE, encoding="utf-8")
+        apply_reader_toc_transforms(
+            tmp_path,
+            {"reader_toc_collapsible": False, "target_reader": "tablet"},
+        )
+        out = (tmp_path / "index_split_000.html").read_text(encoding="utf-8")
+        assert "<details" in out, "tablet keeps expandable book rows"
+        assert 'class="toc-chapters"' in out, "chapter pills stay inside each book row"
+
+    def test_eink_honors_explicit_flat_toc(self):
+        from scripts.build_edition import resolve_reader_toc_collapsible
+
+        assert resolve_reader_toc_collapsible({"reader_toc_collapsible": False, "target_reader": "eink"}) is False
+
+
 class TestExpandableTocStrictOptIn:
     """reader_toc_collapsible is a strict opt-in: only `true` keeps <details>."""
 

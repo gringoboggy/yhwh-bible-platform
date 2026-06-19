@@ -33,18 +33,19 @@
 | # | Work | Status |
 |---|---|---|
 | 0 | **Operating model:** scope next slice · verify WIN's last push · report PASS/FAIL in `LANE_HANDOFF` | **STANDING** |
-| 1 | Mirror turn 141 scrub on Mac disk | queued |
-| 2 | Apple + Play sim depth (M2/M5 rows) — **parallel** while WIN runs `ci.py` | queued |
+| 1 | Mirror turn 141 scrub on Mac disk | **done** — retired SKU Desktop purge · catalog regen 187 · `retired_edition_skus` PASS |
+| 2 | Apple + Play sim depth (M2/M5 rows) | **partial** — `195709Z` thorium gate PASS · `verify_kr2` K-R5-3 FAIL (262×) · Play gate PASS · **user device FAIL** → WIN audit |
 | 3 | After each WIN milestone: targeted verify (no dual Kindle fixes) | queued |
+| — | Tablet-profile WIP (`build_edition.py`) | **pending save** (post-pull @ `330eb29e`) |
 | — | Kindle code / STK uploads / catalog / overflow | **HOLD** until WIN bisect ships |
 
 ### Post-`ci.py` sequence (WIN builds · Mac verifies)
 
 | Step | WIN (builder) | Mac (verify + scope) |
 |------|---------------|----------------------|
-| A | `ci.py` finishes → `pytest --lf` → fix reds → re-run `ci.py` until GREEN | Mirror scrub + sim; on WIN push: rerun touched tests + `lint_rules` |
+| A | `ci.py` finishes → `pytest --lf` → fix reds → re-run `ci.py` until GREEN | Mirror scrub + sim **done**; on WIN push: rerun touched tests + `lint_rules` |
 | B | Kindle bisect in `kindle_post.py` → one m4b candidate → push with artifact path | `test_kindle_m4b` · spine/glossary counts vs `143407Z` · gate `--sim kindle` |
-| C | If Mac verify PASS: user STK upload (Mac polls only) | Log STK arrival; scope rx-surfaces + Kobo sim for WIN |
+| C | M2 Apple audit — fix K-R5-3 + justify + Easton redundancy per handoff §user-fail | Verify rebuilt tablet artifact + user device re-test |
 | D | rx-surfaces · Kobo `--sim` · sim audit | Verify sim oracle rows; scope v1 gate remainder |
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)

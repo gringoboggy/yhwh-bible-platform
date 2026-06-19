@@ -145,14 +145,15 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 ### 1 — Mirror turn 141 scrub (finish before sim)
 
-- [ ] `git pull` → `lint_rules --check retired_edition_skus` **PASS**
-- [ ] Purge stale QA packs naming retired SKUs (`~/Desktop/YHWH-*`, `build/reader-sim/`, `~/Desktop/YHWH-kindle-m4b-qa/`)
-- [ ] `gen_release_catalog` + `node website/build.mjs` → **187** assets · **4** editions; deploy `yhwh-website` if skew
+- [x] `git pull` → `lint_rules --check retired_edition_skus` **PASS**
+- [x] Purge stale QA packs naming retired SKUs (`~/Desktop/YHWH-*`, `build/reader-sim/`, `~/Desktop/YHWH-kindle-m4b-qa/`)
+- [x] `gen_release_catalog` + `node website/build.mjs` → **187** assets · **4** editions; deploy `yhwh-website` if skew (dist regen local; deploy **HOLD**)
 
 ### 2 — Apple + Play sim ONLY (turn 139 §1–2)
 
-- [ ] Thorium CDP + Books.app on tablet artifacts (M2 rows → `platform-apple.md`)
-- [ ] Thorium everywhere on play artifact (M5 rows → `platform-play.md`)
+- [x] Thorium CDP gate-only on `195709Z` tablet (**PASS**); Books.app user tap **FAIL** (device)
+- [x] `reader_sim --gate play` on everywhere-navy (**PASS**)
+- [ ] **WIN:** M2 deep audit — `verify_kr2` K-R5-3 (262×) + user issues (justify · Easton redundancy · backwards pages)
 
 ### HOLD (until WIN STK bisect + ci green)
 

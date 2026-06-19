@@ -1,13 +1,13 @@
 ---
 mode: parallel
 turn: 143
-from: windows
-updated: 2026-06-19T22:55:43Z
+from: mac
+updated: 2026-06-19T23:15:00Z
 status: working
-mac: Verifier+planner: MAC_WORK_QUEUE operating model — verify WIN slices, scope next 3, parallel mirror+sim
-windows: Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect; list Mac verify cmds each save
+mac: Verifier+planner: mirror scrub+sim done; tablet-profile WIP pending save; M2 audit for WIN (K-R5-3)
+windows: Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect + M2 Apple audit (handoff §user-fail)
 truth_owner: mac
-holder: mac
+holder: windows
 ---
 
 ## ◦ windows assign (turn 143, 2026-06-19T22:55:43Z) — mode=parallel
@@ -23,6 +23,99 @@ User 2026-06-19: WIN builds, Mac scopes+verifies. See MAC_WORK_QUEUE §Operating
 **Assignments:** mac = Turn 142 FOCUS: mirror 141 scrub then Apple+Play sim only — HOLD Kindle/STK/catalog/overflow · windows = Turn 142 FOCUS: ci.py GREEN (running) then Kindle STK glossary bisect vs 143407Z — HOLD rx/sim until green
 
 **User-directed focus reset (2026-06-19):** one vertical slice. Mac stops Kindle circles; WIN owns ci + STK bisect. See SESSION_STATE top + MAC_WORK_QUEUE §142.
+
+---
+
+## ▶ mac → windows (turn 142, 2026-06-19T20:45:00Z) — **USER FAIL / M2 APPLE AUDIT REQUEST** (carry-forward)
+
+**User verdict (2026-06-19, Apple Books on device):** staged `ethiopian-tewahedo` tablet builds are **still not good**. User is handing this to **Windows for a deep audit** — Mac lanes have been mixing Kobo/Kindle/Apple concerns and fixes are not landing cleanly on device.
+
+**Artifacts Mac staged (Desktop, NOT milestone-pushed):**
+- `~/Desktop/YHWH-reader-sim/applebooks/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_tablet_2026-06-19T193703Z.epub` (structure restore; vn-sep still present)
+- `~/Desktop/YHWH-reader-sim/applebooks/Ethiopian_Bible_ethiopian-tewahedo_0.1.0_tablet_2026-06-19T195709Z.epub` (vn-sep stripped; user still FAIL)
+
+**Mac local patch (WIP — `build_edition.py` + 4 tests; pending Mac save after pull @ `330eb29e`):**
+- `resolve_reader_file_split()` — tablet defaults **OFF** (stop Kobo 390-shard bleed)
+- `resolve_reader_toc_collapsible()` — tablet defaults **TRUE** (keep `<details>` book rows)
+- `resolve_note_popup_split_cap()` — tablet defaults **0** (one merged badge unit)
+- `apply_tablet_popup_strip_separators()` — physical strip of Kobo `.vn-sep` spans
+- Tests: `test_popup_split`, `test_marker_style`, `test_reader_target`, `test_file_split`
+
+---
+
+### Issue 1 — Reading order / “pages read backwards” (USER REPORT)
+
+**User:** Bible content feels like it reads **backwards page-to-page** — “weird” navigation.
+
+**Mac forensics on `195709Z` (may not match user perception — WIN must re-verify on device):**
+- Spine = **69** items (not 390-shard Kobo layout) ✓
+- Scripture spine walks `index_split_000.html` → `index_split_060.html` in order (manifest ids descend id161→id11 but **href order is 000→060**) ✓
+- `index_split_000.html` in-file order: `toc-wrap` (pos 459) → `bp-00` → `ch-b00-c1` → `v-gen-1-1` ✓
+- Native nav book list: Genesis → Exodus → … in canonical order ✓
+
+**Hypotheses for WIN audit:**
+1. User device still has an **older scrambled upload** cached (390-shard / flat-TOC build) — confirm UUID / file timestamp in Books.app.
+2. Build ran **without** `--target-reader tablet` → `DEFAULT_READER_FILE_SPLIT=True` still shards (lane-mixing).
+3. Apple-specific page-turn / footnote-sheet behavior not covered by spine-order checks.
+4. Need an **automated Apple reading-order gate** (spine monotonicity + first-book anchor order + nav↔spine consistency) — none exists today for M2.
+
+---
+
+### Issue 2 — Justification scope (USER REPORT)
+
+**User:** Notes and translation popups should **NOT** be justified. Only chapter scripture (and other logical prose surfaces) should be.
+
+**Current base CSS (`epub_working/stylesheet.css`) — baked into every build:**
+- `p.verse-p` → `text-align: justify` ✓ (user wants this)
+- `.verse-notes` → `text-align: justify` ✗ (user does NOT want)
+- `.vn-item > p` → `text-align: justify` ✗
+- `.vnote` / `.vnote-hebrew` → mixed (`right` + `justify` rules)
+
+**Conflict:** `tests/test_presentation_polish.py::TestLeftAlign` **pins** justify on `.note` prose as “finding-1b default”. User request requires a **scoped tablet/popup exception** + test update — not a silent CSS tweak.
+
+**WIN audit action:** Define target contract: justify on `.verse-p` (+ maybe `.note` inline mode?) only; popups/asides left-aligned. Gate it.
+
+---
+
+### Issue 3 — Easton (and similar) attribution triple-redundancy (USER REPORT)
+
+**User:** Starting a note, **Easton appears ~3 times** before any actual dictionary text.
+
+**Repro (`vnotes-gen-1-1-s1` in `195709Z`):**
+1. S2 `vn-source-byline`: “Easton's Illustrated Bible Dictionary, M. G. Easton (1897)”
+2. Leaf `note-label`: “Easton.” (S1 **does not** suppress — `kinds.yaml` default for `dict-easton` is **“Dictionary”**, not “Easton.”)
+3. Baked body prefix: `<strong>Dictionary (Easton's).</strong>` from `content/notes/gen.py` tuple label+body
+
+**Root cause class:** S1 dedup + S2 cascade byline + corpus body boilerplate **stack** for dictionary kinds. Not Apple-specific — but very visible in footnote sheets.
+
+**WIN audit action:** Extend S1/suppress rules for `dict-*` kinds (strip body boilerplate when byline present?) or widen label matching. Must stay lossless + byte-stable when flags off.
+
+---
+
+### Issue 4 — Prior issues (carry-forward)
+
+| Symptom | Status on Mac patch | Notes |
+|---|---|---|
+| Scrambled intro→ToC→book flow | Patch targets root cause (file_split off) | User still FAIL — verify device artifact |
+| Flat ToC (all chapter pills visible) | Patch forces collapsible on tablet | `editions.yaml` still has `reader_toc_collapsible: false` for superset |
+| Random empty bullets in popups | `195709Z` has vn-sep=0 | User may have tested `193703Z` or pre-strip build |
+| Badge/popup formatting from “scrambled but pretty” upload | Popup HTML/CSS **unchanged** between scrambled vs restored byte-compare | User wanted that formatting **in** correct Apple structure — CSS `category-color` already on tablet |
+
+---
+
+### Issue 5 — Lane-mixing (PROCESS — user-directed)
+
+Mac has been applying Kobo e-ink defaults (`reader_file_split`, flat ToC, popup byte-cap splitting, `.vn-sep` preview spans) to **tablet** builds because resolvers read raw `editions.yaml` + global defaults. Tablet needs an isolated **M2 reader profile** — explicit `--target-reader tablet` branch, not edition-YAML Kobo fields.
+
+**WIN owns next:** Pull Mac uncommitted patch OR re-implement cleanly; run deep audit round; add gates so Kobo/Kindle paths cannot bleed into `target_reader=tablet` again.
+
+**Mac STOP:** No more Mac `build_edition` runs until WIN audit reconciles. User explicitly requested Windows investigation.
+
+**Mac turn 142 progress (2026-06-19, no new builds):**
+- Mirror scrub: purged retired built-in SKUs from Desktop kindle QA folders (`YHWH-kindle-m4b-qa` + `YHWH-kindle-stk-qa`); `gen_release_catalog` + `website/build.mjs` → **187** assets; `retired_edition_skus` **PASS**
+- Apple sim (`195709Z`): `thorium_cdp --gate-only` **PASS** (gen11 vn-link, translation popup, study badge, 86×`<details>`, Hebrew/Greek)
+- Apple sim (`reader_sim --gate apple`): **FAIL** — `verify_kr2_build` **K-R5-3** mass fail: book-title pieces (`bp-*`) carry verse badges + `verse-notes` asides on `index_split_053`–`060` (likely pagination/backwards-page root cause when file_split OFF)
+- Play sim (`everywhere-navy.epub`): `reader_sim --gate play` **PASS** (verify_kr2 WARN only)
 
 ---
 

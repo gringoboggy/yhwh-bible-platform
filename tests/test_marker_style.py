@@ -175,6 +175,45 @@ class TestApplyBadgeMarkersUnit:
             total += cnt
         assert 0 < total <= 225, f"gen 1 badge counts sum {total} should be in (0, 225]"
 
+    def test_tablet_one_badge_per_verse_gen_1_1(self, tmp_path):
+        """Apple M2 — Gen 1:1 carries ONE study badge with the full note count."""
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+
+        edition = {
+            "id": "ethiopian-tewahedo",
+            "marker_style": "badge",
+            "target_reader": "tablet",
+            "note_attribution_dedup": True,
+            "note_group_by_category": True,
+            "note_topic_dedup": True,
+        }
+        apply_badge_markers(tmp, edition)
+        fname = next(f for f in book["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text(encoding="utf-8"))
+        text = (tmp / fname).read_text(encoding="utf-8")
+
+        assert text.count('id="vbadge-gen-1-1-s1"') == 1, "gen 1:1 must have exactly one study badge unit"
+        assert 'id="vbadge-gen-1-1-s2"' not in text, "tablet must not emit multi-unit badge splits"
+        bm = re.search(r'id="vbadge-gen-1-1-s1"[^>]*title="(\d+) notes?"', text)
+        assert bm, "gen 1:1 badge must carry a note count"
+        assert "part " not in bm.group(0), "tablet badge must not show continuation parts"
+        am = re.search(
+            r'<aside class="verse-notes" id="vnotes-gen-1-1-s1"[^>]*>(.*?)</aside>',
+            text,
+            re.DOTALL,
+        )
+        assert am, "gen 1:1 must have one merged study aside"
+        assert 'id="vnotes-gen-1-1-s2"' not in text, "tablet must not emit multi-unit aside splits"
+        rows = am.group(1).count('class="vn-item')
+        assert int(bm.group(1)) == rows, f"badge count {bm.group(1)} != {rows} vn-item rows"
+
     def test_badge_sits_at_verse_end_not_mid_verse(self, tmp_path):
         """device-QA (Kobo, 2026-06-09): the note badge must TRAIL the verse, not sit
         at the last annotated word. A verse whose only note is on an early word would
@@ -668,6 +707,40 @@ class TestEinkVnotePreviewBreaks:
         f.write_text(html, encoding="utf-8")
         apply_vnote_preview_separators(tmp_path, {"target_reader": "kindle"})
         assert "kobo-vnote-br" not in f.read_text(encoding="utf-8")
+
+
+class TestTabletPopupStripSeparators:
+    """Apple M2 — Kobo preview separators must not leak as stray bullets."""
+
+    SAMPLE = (
+        '<aside class="vnote" id="vnote-gen-1-1">'
+        '<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>Hebrew (WLC)</p>'
+        "</aside>"
+        '<aside class="verse-notes" id="vnotes-gen-1-1-s1">'
+        '<section class="vn-group note-cat-hist">'
+        '<p class="vn-cat-head"><span class="vn-sep">\u2028¶ </span>Historical</p>'
+        '<div class="vn-item note-dict-easton"><span class="vn-sep">\u2028• </span><p>Body</p></div>'
+        "</section></aside>"
+    )
+
+    def test_tablet_strips_vn_sep_spans(self, tmp_path):
+        from scripts.build_edition import apply_tablet_popup_strip_separators
+
+        f = tmp_path / "index_split_000.html"
+        f.write_text(self.SAMPLE, encoding="utf-8")
+        n = apply_tablet_popup_strip_separators(tmp_path, {"target_reader": "tablet"})
+        out = f.read_text(encoding="utf-8")
+        assert n == 1
+        assert "vn-sep" not in out
+        assert "Hebrew (WLC)" in out and "Body" in out
+
+    def test_eink_leaves_vn_sep_spans(self, tmp_path):
+        from scripts.build_edition import apply_tablet_popup_strip_separators
+
+        f = tmp_path / "index_split_000.html"
+        f.write_text(self.SAMPLE, encoding="utf-8")
+        assert apply_tablet_popup_strip_separators(tmp_path, {"target_reader": "eink"}) == 0
+        assert "vn-sep" in f.read_text(encoding="utf-8")
 
 
 class TestEmptyVerseProseRepair:

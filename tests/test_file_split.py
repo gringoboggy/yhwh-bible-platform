@@ -945,6 +945,16 @@ class TestKindleSplitTarget:
         assert resolve_file_split_target({"reader_file_split_target": 123_456}) == 123_456
         assert resolve_file_split_target({"reader_file_split_target": 123_456, "target_reader": "kindle"}) == 123_456
 
+    def test_tablet_defaults_file_split_off(self):
+        from scripts.build_edition import DEFAULT_READER_FILE_SPLIT, resolve_reader_file_split
+
+        assert DEFAULT_READER_FILE_SPLIT is True
+        assert resolve_reader_file_split({"target_reader": "tablet"}) is False
+        assert resolve_reader_file_split({"reader_toc_collapsible": False, "target_reader": "tablet"}) is False
+        assert resolve_reader_file_split({"target_reader": "eink"}) is True
+        assert resolve_reader_file_split({"reader_file_split": False, "target_reader": "tablet"}) is False
+        assert resolve_reader_file_split({"reader_file_split": True, "target_reader": "tablet"}) is True
+
     def test_apply_file_split_consumes_the_resolver(self, tmp_path):
         # A ~25 KB no-title file splits under a tiny default-target edition but
         # stays whole under the kindle target (25 KB << the kindle cap).

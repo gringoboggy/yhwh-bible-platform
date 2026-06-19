@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Mac session (turn 142) — mirror scrub + Apple/Play sim + tablet profile WIP
+
+**Shipped:** Mac mirror of turn 141 scrub (retired-SKU Desktop QA purge · `gen_release_catalog` 187 assets · `retired_edition_skus` PASS) · Apple `thorium_cdp` gate PASS on `195709Z` · Play `reader_sim --gate` PASS · tablet reader-profile resolvers in `build_edition.py` (file_split off · collapsible ToC · split_cap 0 · vn-sep strip) + 11 targeted tests green · `LANE_HANDOFF` M2 audit brief for WIN. **Blocked:** user Apple device FAIL · `verify_kr2_build` K-R5-3 (262× book-title pieces carry badges/asides on tablet artifact) — WIN owns deep audit; no further Mac builds until reconciled.
+
 ## 2026-06-19 — Windows session (turn 143) — WIN builds / Mac verifies operating model (user-directed)
 
 **Shipped:** lane split documented — WIN implements (`ci.py` · pytest fixes · Kindle bisect · matrix builds); Mac scopes next 1–3 items + verifies each WIN milestone (targeted pytest/sim/STK poll only, no dual Kindle fixes). Runbook: `MAC_WORK_QUEUE.md` §Operating model · `SESSION_STATE` post-ci table · `LANE_HANDOFF` STANDING.
