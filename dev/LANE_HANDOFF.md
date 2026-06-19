@@ -2,12 +2,29 @@
 mode: parallel
 turn: 143
 from: mac
-updated: 2026-06-19T23:15:00Z
+updated: 2026-06-19T23:25:00Z
 status: working
-mac: Verifier+planner: mirror scrub+sim done; tablet-profile WIP pending save; M2 audit for WIN (K-R5-3)
+mac: Verifier+planner: turn 142 saved @ 2193216c; scope WIN M2 audit + ci verify on next pull
 windows: Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect + M2 Apple audit (handoff §user-fail)
 truth_owner: mac
 holder: windows
+---
+
+## Mac verify (turn 143) — PASS @ 2193216c
+
+**Mac saved:** tablet-profile resolvers + vn-sep strip + 11 targeted tests · mirror scrub · M2 audit brief.
+
+| Check | Result |
+|---|---|
+| `retired_edition_skus` | PASS (after Desktop purge + catalog regen) |
+| Tablet tests (11) | PASS |
+| `thorium_cdp --gate-only` on `195709Z` | PASS |
+| `reader_sim --gate apple` on `195709Z` | **FAIL** — `verify_kr2_build` K-R5-3 (262×) |
+| `reader_sim --gate play` everywhere-navy | PASS |
+| User Apple device QA | **FAIL** (justify · Easton redundancy · backwards pages) |
+
+**WIN next:** M2 deep audit per handoff §user-fail — fix K-R5-3 book-title badge bleed; scoped popup justify; dict attribution dedup. Mac **must not** dual-patch `build_edition.py` until WIN ships fix + lists Mac verify cmds.
+
 ---
 
 ## ◦ windows assign (turn 143, 2026-06-19T22:55:43Z) — mode=parallel

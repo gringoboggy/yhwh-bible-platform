@@ -8,9 +8,13 @@
 >
 > **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog **187** assets on v0.1.0. Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 
+## Session wrap (Mac, 2026-06-19) — turn 142 save @ `2193216c`
+
+**Shipped:** tablet Apple reader-profile resolvers (file_split off · collapsible ToC · split_cap 0 · vn-sep strip) + 11 tests · mirror turn 141 scrub · Apple/Play sim gates · M2 audit brief for WIN (K-R5-3 · user device FAIL). **Next session:** pull `2193216c`+ · read `MAC_WORK_QUEUE` §Operating model · verify WIN slices only — no dual `build_edition` fixes until WIN ships M2 audit.
+
 ## Session wrap (WIN, 2026-06-19) — focus reset + agent bootstrap
 
-**Shipped this session:** `AGENTS.md` fresh-session read order · `README.md` project map entry · user-directed lane focus reset (turn 142) · truth-record scrub (35→20 assets, ci status honest).
+**Shipped:** `AGENTS.md` fresh-session read order · `README.md` project map entry · user-directed lane focus reset (turn 142) · truth-record scrub (35→20 assets, ci status honest) · turn 143 WIN-builds/Mac-verifies operating model.
 
 **Prior ships (turn 141):** retired edition SKU deep scrub · `retired_edition_skus` lint gate · public surfaces 4+2 · website catalog regen.
 
@@ -36,7 +40,7 @@
 | 1 | Mirror turn 141 scrub on Mac disk | **done** — retired SKU Desktop purge · catalog regen 187 · `retired_edition_skus` PASS |
 | 2 | Apple + Play sim depth (M2/M5 rows) | **partial** — `195709Z` thorium gate PASS · `verify_kr2` K-R5-3 FAIL (262×) · Play gate PASS · **user device FAIL** → WIN audit |
 | 3 | After each WIN milestone: targeted verify (no dual Kindle fixes) | queued |
-| — | Tablet-profile WIP (`build_edition.py`) | **pending save** (post-pull @ `330eb29e`) |
+| — | Tablet-profile WIP (`build_edition.py`) | **saved** @ `2193216c` — device QA still FAIL; WIN owns M2 audit fix |
 | — | Kindle code / STK uploads / catalog / overflow | **HOLD** until WIN bisect ships |
 
 ### Post-`ci.py` sequence (WIN builds · Mac verifies)

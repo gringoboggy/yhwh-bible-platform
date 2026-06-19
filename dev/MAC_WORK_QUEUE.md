@@ -71,9 +71,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 > Mac maintains this block. WIN implements top item after current slice ships.
 
-1. **After WIN `ci.py` GREEN:** verify on Mac — `pytest` files WIN touched + fast `lint_rules.py`; confirm red count 0 in WIN handoff note.
-2. **After WIN Kindle bisect push:** verify m4b artifact — spine/glossary counts · `test_kindle_m4b` · gate-only `--sim kindle`; scope whether user STK upload is warranted.
-3. **After STK PASS:** scope rx-surfaces + Kobo `--sim` (WIN builds); Mac verifies sim oracle rows only.
+1. **WIN M2 Apple audit** (user FAIL): fix K-R5-3 · popup justify scope · Easton/dict attribution stack — rebuild `ethiopian-tewahedo --target-reader tablet`; list Mac verify cmds in save message.
+2. **After WIN `ci.py` GREEN:** Mac verify — `pytest` files WIN touched + `lint_rules.py`; confirm 0 fail in WIN handoff.
+3. **After WIN Kindle bisect push:** Mac verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
 
 ### WIN builder loop (for Mac to expect)
 
