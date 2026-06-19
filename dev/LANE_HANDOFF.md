@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 141
+turn: 142
 from: windows
-updated: 2026-06-19T19:48:23Z
+updated: 2026-06-19T20:56:33Z
 status: working
-mac: Turn 141: mirror retired-SKU scrub — pull; lint retired_edition_skus PASS; purge Desktop QA packs; regen+deploy website/dist; resume Apple/Play sim
-windows: ci.py when free; rx-surfaces; Kindle STK bisect
+mac: Turn 142 FOCUS: mirror 141 scrub then Apple+Play sim only — HOLD Kindle/STK/catalog/overflow
+windows: Turn 142 FOCUS: ci.py GREEN (running) then Kindle STK glossary bisect vs 143407Z — HOLD rx/sim until green
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 142, 2026-06-19T20:56:33Z) — mode=parallel
+
+**Assignments:** mac = Turn 142 FOCUS: mirror 141 scrub then Apple+Play sim only — HOLD Kindle/STK/catalog/overflow · windows = Turn 142 FOCUS: ci.py GREEN (running) then Kindle STK glossary bisect vs 143407Z — HOLD rx/sim until green
+
+**User-directed focus reset (2026-06-19):** one vertical slice. Mac stops Kindle circles; WIN owns ci + STK bisect. See SESSION_STATE top + MAC_WORK_QUEUE §142.
+
 ---
 
 ## ◦ windows assign (turn 141, 2026-06-19T19:48:23Z) — mode=parallel

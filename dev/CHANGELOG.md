@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Windows session (turn 142) — focus reset + agent bootstrap (user-directed)
+
+**Shipped:** `AGENTS.md` fresh-session read order (AGENTS → triad → SESSION_STATE top) · `README.md` project map entry · turn 142 lane focus reset in `SESSION_STATE` / `LANE_HANDOFF` / `AGENT_WORK_BACKLOG` / `MAC_WORK_QUEUE` — Mac mirror+sim only; WIN owns `ci.py` + Kindle STK glossary bisect; overflow HOLD. **ci.py:** left running (started ~14:07); last completed full gate = 17 failed + 1 error / 8544 passed.
+
 ## 2026-06-19 — Windows session (turn 141) — retired edition SKU deep scrub (user-directed)
 
 **Shipped:** deleted notes-only edition templates (`anglican-bcp`, `lutheran-confessional`) + orphan cover JPGs; scrubbed active code/tests/docs/translations `_meta.yaml`; added `lint_rules` **`retired_edition_skus`** gate (FAIL on reintroduction); regen `website/src/data/catalog.json` + `website/dist/` (187 assets, 4 editions). **Mac queue:** mirror scrub on Mac disk (staged reader-sim artifacts, `~/Desktop` QA packs, deploy `website/dist` if skew).

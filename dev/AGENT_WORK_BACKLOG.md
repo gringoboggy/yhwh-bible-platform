@@ -16,18 +16,16 @@
 - [ ] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale
 - [ ] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item
 
-## P4 — autonomous day (2026-06-19, user-directed)
+## P4 — release gate slice (turn 142, user-directed FOCUS RESET)
 
-- [ ] WIN: `ci.py` GREEN (IN FLIGHT ~6h; no parallel heavy jobs)
-- [ ] WIN: rx-surfaces fresh builds (eth + catholic-study) after ci green
-- [ ] WIN: Kobo `--gate` then `--sim` on staged kepub
-- [ ] WIN: **Kindle lane takeover** — `--gate kindle --m4b`, STK-failure bisect, structural fixes Mac deferred
-- [ ] WIN: **Sim-pipeline fidelity audit** — map each `--gate`/`--sim` check → EREADERS claim → platform-matrix → device oracle → gap
-- [ ] WIN: `ci.py --reader-sim-gates` + hand Mac rx-surfaces + kindle findings
-- [ ] MAC: Apple Books — Thorium CDP + Books.app on tablet artifacts (M2 matrix)
-- [ ] MAC: Play Books — Thorium everywhere proxy + emulator spike (M5 matrix)
-- [ ] MAC: Pre-work for WIN — stage artifacts, update `STAGING_MANIFEST.md`, M2/M5 assertion rows, Kindle handoff notes
-- [ ] MAC: STK poll `144600Z` if upload lands — automated only (no user tap matrix)
+> **One vertical slice.** Finish `#1` before touching overflow. Mac: **no Kindle code / STK / catalog** until WIN bisect lands.
+
+- [ ] WIN: `ci.py` GREEN — **RUNNING** (started 2026-06-19 ~14:07); do not start second full run; triage reds when done
+- [ ] WIN: Kindle STK glossary bisect vs `143407Z` (390 spine / 0 glossary) — one candidate m4b
+- [ ] MAC: Mirror turn 141 scrub (lint · Desktop QA purge · website deploy if skew)
+- [ ] MAC: Apple + Play sim depth only (M2/M5 matrix rows in platform notes)
+- [ ] **HOLD until ci green + STK bisect:** rx-surfaces · Kobo `--sim` · sim-pipeline audit · `ci.py --reader-sim-gates`
+- [ ] **HOLD Mac:** STK uploads · Kindle code · M4 catalog · Esther/CAM/1ki overflow
 
 ## P5 — release gate (WIN primary)
 

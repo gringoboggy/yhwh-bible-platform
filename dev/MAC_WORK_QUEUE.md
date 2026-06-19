@@ -87,7 +87,34 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 141 — retired SKU scrub mirror (START HERE, 2026-06-19)
+## ★ Turn 142 — FOCUS RESET (START HERE, 2026-06-19, user-directed)
+
+> **One job list. No overflow until `#1` done or blocked (`file:line`).** Pull `turn 142`+ · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
+
+### 1 — Mirror turn 141 scrub (finish before sim)
+
+- [ ] `git pull` → `lint_rules --check retired_edition_skus` **PASS**
+- [ ] Purge stale QA packs naming retired SKUs (`~/Desktop/YHWH-*`, `build/reader-sim/`, `~/Desktop/YHWH-kindle-m4b-qa/`)
+- [ ] `gen_release_catalog` + `node website/build.mjs` → **187** assets · **4** editions; deploy `yhwh-website` if skew
+
+### 2 — Apple + Play sim ONLY (turn 139 §1–2)
+
+- [ ] Thorium CDP + Books.app on tablet artifacts (M2 rows → `platform-apple.md`)
+- [ ] Thorium everywhere on play artifact (M5 rows → `platform-play.md`)
+
+### HOLD (until WIN STK bisect + ci green)
+
+- [ ] ~~Kindle code / M4b / STK uploads~~ — **WIN owns**
+- [ ] ~~M4 catalog regen~~
+- [ ] ~~Esther / CAM / 1ki overflow~~
+
+### Standing
+
+- [ ] `save_mac.sh` each slice — WIN cannot see unpushed work
+
+## Turn 141 — retired SKU scrub mirror (superseded by turn 142)
+
+> **Pull WIN turn 141+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
 
 > **Pull WIN turn 141+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
 

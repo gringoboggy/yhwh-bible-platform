@@ -1,19 +1,40 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`ab33f543`+** · `bash dev/start_session_radars_mac.sh`. **STK `144600Z` UPLOAD FAIL (user-confirmed 2026-06-19):** strict gate **0/0/0/0** but **no new library file** (`com.amazon.Lassen` still 3 files). Bisect signal: **545 spine / 155 glossary pieces** vs proven-deliverable `143407Z` (**390 spine / 0 glossary**). **WIN:** Kindle lane takeover + STK bisect per turn 139. **Mac:** Apple/Play sim + pre-work; HOLD catalog. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`turn 142`+** · `bash dev/start_session_radars_mac.sh`. **FOCUS RESET (user 2026-06-19):** finish **one** job list — no overflow until `#1` is done or blocked with `file:line`. **Your queue:** `MAC_WORK_QUEUE.md` §Turn 142. **(1)** Mirror WIN turn 141 scrub (lint `retired_edition_skus` · purge Desktop QA junk · deploy website if skew). **(2)** Apple + Play sim only (turn 139 §1–2). **HOLD:** Kindle code · STK uploads · M4 catalog · Esther/CAM/1ki overflow until WIN STK bisect lands. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 139`+** (rebase if behind). **Day plan (2026-06-19, user-directed):** autonomous test-only arc — **no human device taps** unless an STK upload lands unprompted. **WIN:** `ci.py` IN FLIGHT (~6h) → rx-surfaces → Kobo `--sim` → **Kindle lane takeover** (structural/M4b gates + STK-failure bisect; Mac hands off) → **sim-pipeline fidelity audit** (map `--gate`/`--sim` → `EREADERS`/`platform-matrix` → device oracle → gaps). **Mac:** Apple Books + Play Books sim depth (Thorium CDP + Books.app proxy); STK poll only if `144600Z` arrives; **pre-work commits** for WIN (artifacts + tap matrices + Kindle notes). Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 142`+**. **FOCUS RESET (user 2026-06-19):** release gate = **one vertical slice** — `ci.py` GREEN → Kindle STK glossary bisect vs proven `143407Z` (390 spine / 0 glossary) → then rx-surfaces/sim. **`ci.py` RUNNING** (started 2026-06-19 ~14:07 local; do not start a second full run). Last completed full gate: **17 failed + 1 error** / 8544 passed (~4h52m, pre–turn-141 scrub). **`pytest --lf`** (2026-06-18): **5 persistent reds** on WIN (build_smoke inject · hierarchical_symbols ×2 · matter_pages · samkings GAPS images). **STK blocker:** `144600Z` failed upload — 545 spine + 155 glossary pieces vs `143407Z`. **Mac:** mirror + sim only; baton **windows**; mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
+> **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog **187** assets on v0.1.0. Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 
-## Session wrap (Mac, 2026-06-18) — Christian-scope scrub PUSHED
+## Session wrap (WIN, 2026-06-19) — focus reset + agent bootstrap
 
-**Shipped @ `cbf939b8` + `ec6520e3`:** retired notes-only / non-Christian edition SKUs · non-Christian note kinds dropped · ~123 corpus notes removed · base HTML prune (122 ids) · M3/M4 **35** assets · catalog regen · `prune_orphan_base_notes.py` · detector/test cleanup.
+**Shipped this session:** `AGENTS.md` fresh-session read order · `README.md` project map entry · user-directed lane focus reset (turn 142) · truth-record scrub (35→20 assets, ci status honest).
 
-**Deferred to release tag (v0.1.1 or v1.0.0):** public note/edition counts (README · GitHub/GitLab profile · website hero · RELEASE_NOTES · social card).
+**Prior ships (turn 141):** retired edition SKU deep scrub · `retired_edition_skus` lint gate · public surfaces 4+2 · website catalog regen.
 
-**In-flight:** WIN `ci.py` GREEN · format-matrix rebuild for 35-column catalog · optional word-note editorial pass (Rashi citations in linguistics).
+**Blocked:** M4 catalog regen · STK deliverability · v1.0.0 tag — until `ci.py` GREEN + one STK-deliverable m4b epub.
+
+## Next — release gate slice (turn 142, user-directed)
+
+> **Rule:** No new laundry-list items until the current `#1` is checked off or explicitly blocked. Overflow (Esther, CAM, 1ki, extra website passes) = **HOLD**.
+
+### WIN (owns the open loop)
+
+| # | Work | Status |
+|---|---|---|
+| 1 | `ci.py` GREEN — let in-flight run finish; triage reds if still failing | **RUNNING** |
+| 2 | Kindle STK bisect — glossary spine off vs `143407Z` control; one candidate m4b | queued |
+| 3 | rx-surfaces · Kobo `--sim` · sim-pipeline audit | **HOLD** until 1–2 |
+
+### Mac (mirror + sim only)
+
+| # | Work | Status |
+|---|---|---|
+| 1 | Mirror turn 141 scrub on Mac disk | queued |
+| 2 | Apple Books + Play Books sim depth (M2/M5 matrix rows) | queued |
+| — | Kindle / STK / catalog / overflow | **HOLD** |
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 
@@ -21,30 +42,6 @@
 - Standalone Ge'ez Bible — Phases A-C shipped (`scripts/build_standalone.py`; 4 books; epubcheck 0/0/0/0; catalog study editions byte-stable).
 - English back-translation of the Ge'ez — collated Kings/Samuel (324 v) + all 151 Psalms (`content/translations/geez-tewahedo-en/`).
 - Phase D own-versification re-ingest — Patrologia vision-transcription lane; PO Esther paused ~p35 (see the top journal entries).
-
-## Next — autonomous day plan (2026-06-19)
-
-> **v1.0.0 RELEASE GATE** + **Reader Sim Lab** (`plans/2026-06-18-reader-simulation-lab.md`). User: plan ~24h parallel work; **tests/sim only** (skip scheduled human tap rounds); Mac sends pre-work; WIN takes Kindle after Kobo.
-
-### WIN schedule
-
-| Block | Work |
-|---|---|
-| **0–6h** | `ci.py` GREEN (`PYTHONUTF8=1`; no parallel pytest/builds) |
-| **While CI** | Kobo `--gate` (gate-only epubcheck) · sim-fidelity audit scaffold · `--ping` |
-| **Post-green** | rx-surfaces (eth + catholic-study) · Kobo `--sim` · Kindle `--gate --m4b` + STK-failure bisect · `ci.py --reader-sim-gates` · sim fidelity report · dishonest/stub audit if RAM free |
-| **Hand Mac** | rx-surfaces summary · kindle gate findings · sim-oracle gap table |
-
-### Mac schedule
-
-| Block | Work |
-|---|---|
-| **Primary** | Apple: Thorium CDP + Books.app on tablet artifacts · Play: Thorium everywhere + emulator spike |
-| **STK** | Poll `144600Z` if upload lands — **automated only**; document ingest, skip user tap matrix |
-| **Pre-work WIN** | Stage `build/reader-sim/` updates · `STAGING_MANIFEST.md` · M2/M5 tap assertion rows · Kindle handoff notes (`file:line` + what Mac tried) |
-| **Overflow** | Esther Patrologia · CAM pre-pull · 1ki EN ch11+ |
-
-**HOLD:** M4 catalog regen until sim audit + Kindle structural re-gate green on WIN.
 
 ## Inventory pointers
 

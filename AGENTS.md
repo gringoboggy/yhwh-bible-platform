@@ -1,5 +1,13 @@
 # AGENTS.md — YHWH (“Ya’ Way”) Bible-publishing platform
 
+> **Fresh session — read in this order before any other work:**
+>
+> 1. **This file** (`AGENTS.md`) — cross-tool orientation + historical-doc guardrails (you are here)
+> 2. **Bootstrap triad** — [`dev/CLAUDE_PROJECT_RULES.md`](dev/CLAUDE_PROJECT_RULES.md) → [`dev/SESSION_STATE.md`](dev/SESSION_STATE.md) → [`dev/PLAN_2026-05-29-roadmap.md`](dev/PLAN_2026-05-29-roadmap.md)
+> 3. **`dev/SESSION_STATE.md` top block** — lane-specific **FRESH SESSION START HERE** (Mac vs WIN)
+>
+> Claude Code with hooks installed: the SessionStart hook enforces step 2 automatically (`dev/install_cc_hooks.ps1`).
+
 Portable instructions for **any** coding agent (Grok Build, Codex, Cursor, Copilot, …)
 working in this repo. This file is a **digest** — the full, authoritative rules live in
 [`dev/CLAUDE_PROJECT_RULES.md`](dev/CLAUDE_PROJECT_RULES.md) (§-numbered) with the

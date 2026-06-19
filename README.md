@@ -107,7 +107,8 @@ test a frozen build end-to-end with `python dev/smoke_desktop.py`.
 
 | Doc | Purpose |
 |---|---|
-| [`dev/CLAUDE_PROJECT_RULES.md`](dev/CLAUDE_PROJECT_RULES.md) | rules + conventions (read first) |
+| [`AGENTS.md`](AGENTS.md) | cross-tool agent entry — start here, then bootstrap triad |
+| [`dev/CLAUDE_PROJECT_RULES.md`](dev/CLAUDE_PROJECT_RULES.md) | rules + conventions (bootstrap triad §0) |
 | [`dev/SESSION_STATE.md`](dev/SESSION_STATE.md) | current state — what shipped, what's next |
 | [`dev/REPO_MAP.md`](dev/REPO_MAP.md) | file / folder index |
 | [`dev/MATRIX_MAP.md`](dev/MATRIX_MAP.md) | data flow: config → loaders → matrix → build |
