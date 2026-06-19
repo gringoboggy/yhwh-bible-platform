@@ -6,6 +6,20 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
 
+## ◦ mac assign (turn 132, 2026-06-18T16:45:00Z) — mode=parallel
+
+**Assignments:** mac = **M4b Kindle KFX fix arc** (`kindle_post.py` / `apply_kindle_m4b`) — see `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md` · windows = **pull `a0af0118`+** · pytest → `ci.py` GREEN · `build_format_matrix --phase M3` (35 kepubs) · **do NOT regen M4 kindle catalog** until Mac STK device re-PASS · rx-surfaces
+
+**Cross-lane findings (Mac → WIN):** Post-scrub ethiopian m4b STK **arrives** but KFX taps **FAIL** (Mac + phone): `vn-link` teleports to chapter-tail study notes; no translation popups; notes lack chapter:verse + back-link; title pages 3-wide split; in-EPUB TOC crowded. Structural gates green — problem is KFX link resolution only.
+
+**Milestone pushed:** STK rules (user upload / 8 GB RAM) + device QA logged.
+
+turn 130b dual-radar bootstrap STANDING
+
+---
+
+<!-- archived: 1 sections, 2026-06-18..2026-06-18 (rotate_truth_records.py) -->
+
 ## ◦ windows assign (turn 129, 2026-06-18T02:50:34Z) — mode=parallel
 
 **Assignments:** mac = FRESH SESSION: MAC_WORK_QUEUE §Turn 127 — Thorium live + STK live + catholic-study tablet + Play emulator + EREADERS + release prep; SKIP kobo; lane_watch --bg · windows = pytest triage 15 reds → ci GREEN; finish kobo --sim; rx-surfaces
