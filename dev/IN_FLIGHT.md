@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-18 (WIN turn 135c, resumed).** Shipped `e19affd4`. **Verified:** `test_marker_style.py` 43/43 · ethiopian red kepub epubcheck **0/0/0/0** (RSC-012 fix). **Resuming:** M3 fan-out (7×5 kepubs) + fresh `ci.py` on `e19affd4` (prior run killed). Baton **mac**; mode=parallel.
+> **▶ ACTIVE 2026-06-19 (WIN turn 136).** Shipped `96e3e86d`. **M3 E2E VERIFIED:** 20/20 kepubs in `build/matrix-m3/` — all gated epubcheck 0/0/0/0 + K-R2 GREEN (`dev/m3_e2e_summary.md`). **Next:** `ci.py` GREEN.
 
 ## Standalone status (unchanged)
 

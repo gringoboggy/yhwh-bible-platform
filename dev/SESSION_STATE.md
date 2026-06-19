@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → latest · `bash dev/start_session_radars_mac.sh`. **M4b Option B SHIPPED** — study glossary backmatter + badge navigate (`kindle_post.py`); **retired Option A** (`kindle-chapter-study` — 232708Z layout FAIL IMG_0469/0472/0473). **STK candidate:** `~/Desktop/YHWH-reader-sim/kindle/…2026-06-19T000000Z-kindle-m4b.epub` (30,344 badges → 156 glossary pieces · Gen 1 opens scripture). **Awaiting user STK upload** → device QA. **WIN:** hold M4 kindle catalog regen until device re-PASS. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ec6520e3`+**. **ACK Mac scrub push** — edition removal + rabbinic kind scrub landed. **Job 1:** pytest → `ci.py` GREEN (expect edition/catalog pin updates). **Job 2:** `build_format_matrix --phase M3` regen for **35** kepub names. **Job 3:** rx-surfaces + website deploy if catalog changed. **Never idle.** Baton **mac**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`84b3400c`+** (rebase if behind). **Done:** turn 136 canon-SKU scrub @ `96e3e86d` · M3 **20/20** kepubs gated green (`dev/m3_e2e_summary.md`, artifacts in `build/matrix-m3/`). **Job 1:** `py -3 scripts/ci.py` GREEN (`$env:PYTHONUTF8="1"`; expect **~6h** pytest+coverage). **Job 2:** rx-surfaces on fresh builds if ci green. **HOLD:** M4 kindle catalog regen until Mac STK re-PASS. **Do NOT** launch new long builds at session wrap. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >

@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 136
+turn: 137
 from: windows
-updated: 2026-06-18T22:15:00Z
-status: working
-mac: Mac restart pending — Turn 131 STK poll PAUSED; resume post-reboot (`…165347Z-kindle-m4b.epub` staged on Desktop)
-windows: canon-SKU scrub shipped (4 tradition + 2 standalone); M3 fan-out **20** kepubs; ci.py GREEN; HOLD M4 kindle catalog regen until Mac STK re-PASS
+updated: 2026-06-19T13:52:36Z
+status: handing-off
+mac: STK poll resume post-reboot; M4b Option B @ 84b3400c — device QA on 165347Z artifact
+windows: ci.py GREEN (1=1; ~6h); rx-surfaces after green; HOLD M4 kindle catalog regen
 truth_owner: windows
 holder: windows
+---
+
+## ▶ windows → windows (turn 137, 2026-06-19T13:52:36Z) — mode=parallel
+
+**Done (turn 136, windows):**
+turn 136 canon-SKU scrub; M3 20/20 kepubs gated green; m3_e2e_summary
+
+**Next (turn 137, windows picks up):**
+pull rebase; ci.py GREEN; rx-surfaces
+
+**Assignments:** mac = STK poll resume post-reboot; M4b Option B @ 84b3400c — device QA on 165347Z artifact · windows = ci.py GREEN (1=1; ~6h); rx-surfaces after green; HOLD M4 kindle catalog regen
+
+**Watch-outs:**
+ci.py pytest duration; edition-pin failures from 4-SKU scrub; Mac STK reboot
+
 ---
 
 ## ◦ windows assign (turn 136, 2026-06-18T22:15:00Z) — mode=parallel

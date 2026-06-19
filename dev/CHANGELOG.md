@@ -8,6 +8,10 @@
 
 **Shipped:** pivoted `kindle_post.apply_kindle_m4b` from retired Option A (per-chapter `kindle-chapter-study` injection — caused notes-at-chapter-start on KFX per IMG_0469/0472/0473) to **Option B** (Kobo K-R9 mirror): extract `vnotes-*` into `kindle_study_glossary_*.html` backmatter (156 pieces on ethiopian) · **keep** `verse-notes-badge` markers retargeted to glossary fragments · hidden-tail `vnote-*` unchanged (STK-deliverable). `tests/test_kindle_m4b.py` 13/13 · device QA doc updated · staged `…2026-06-19T000000Z-kindle-m4b.epub`.
 
+## 2026-06-19 — Windows session (turn 136b) — M3 E2E verified (20 kepubs)
+
+**Verified:** `build_format_matrix --phase M3` on 4 canon-differentiated editions — **20/20** kepubs in `build/matrix-m3/`; each asset gated epubcheck **0/0/0/0** + K-R2 GREEN. Fan-out interrupted at 10h cap (15/20); `eastern-orthodox` resumed to completion. Summary: `dev/m3_e2e_summary.md` · helper `dev/verify_m3_e2e.ps1`. **Next session:** `ci.py` GREEN.
+
 ## 2026-06-18 — Windows session (turn 136) — canon-SKU scrub (user-directed)
 
 **Shipped:** removed notes-only tradition twins `anglican-bcp`, `lutheran-confessional`, `coptic-orthodox` from `editions.yaml` (same canon as catholic/protestant/ethiopian — note presets belong in `/customize`, not separate SKUs); stripped per-edition `theme:` pins (builder picks theme at build time; default `classic`); **4 canon-differentiated tradition SKUs** + 2 standalones = **6 editions**; M3/M4 asset lists **35→20**; catalog regen; test pins updated (`test_build_format_matrix` 7→4, `test_themes` builder-override model).
