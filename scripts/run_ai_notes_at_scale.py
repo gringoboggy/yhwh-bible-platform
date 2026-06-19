@@ -116,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
                     "default": None,
                     "help": (
                         "optional edition tradition tag (e.g. eastern-orthodox, "
-                        "lutheran-confessional) — passed to the model so drafts "
+                        "evangelical-reformed) — passed to the model so drafts "
                         "are written in that tradition's idiom and concerns. "
                         "Default: no tradition tag (general)."
                     ),

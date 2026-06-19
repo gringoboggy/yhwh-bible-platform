@@ -1,6 +1,6 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
 > **▶ ACTIVE 2026-06-19 (turn 140).** **STK FAIL:** `144600Z` upload failed (strict 0/0/0/0; Lassen library unchanged). Bisect → 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **WIN:** ci.py IN FLIGHT → Kindle STK bisect takeover. **Mac:** Apple/Play sim + pre-work. **HOLD** M4 catalog.
 

@@ -165,9 +165,8 @@ class TestPsi15EditorConsoleBuyerArcPolishCSS:
 
 class TestPsi7ANewBuiltInEditions:
     """ψ.7-A — eastern-orthodox edition (orthodox canon consumer).
-    Notes-only tradition twins (anglican-bcp, lutheran-confessional,
-    coptic-orthodox) were removed — canon/book-set differentiation
-    drives SKUs; note presets live in /customize.
+    Retired notes-only tradition twins were removed — canon/book-set
+    differentiation drives SKUs; note presets live in /customize.
 
     Spec: dev/SCOPE_2026-05-09-addendum-edition-templates.md §1."""
 
@@ -327,10 +326,8 @@ class TestPsi7BEditionTemplates:
     Spec: dev/SCOPE_2026-05-09-addendum-edition-templates.md §2."""
 
     EXPECTED_TEMPLATES = (
-        "anglican-bcp",
         "children",
         "family-devotional",
-        "lutheran-confessional",
         "monastic-daily-office",
         "school-friendly-nrsv",
     )
@@ -346,8 +343,8 @@ class TestPsi7BEditionTemplates:
         cls.templates_by_id = {t["template_id"]: t for t in cls.templates}
 
     def test_template_count(self):
-        # All 7 expected templates load
-        assert len(self.templates) == 7, f"expected 7 templates, found {len(self.templates)}"
+        # Retired notes-only SKU mirror templates removed (canon-SKU scrub).
+        assert len(self.templates) == 4, f"expected 4 templates, found {len(self.templates)}"
 
     def test_all_expected_templates_present(self):
         for tid in self.EXPECTED_TEMPLATES:
@@ -402,7 +399,7 @@ class TestPsi7BEditionTemplates:
         out = api_edition_templates_list()
         assert "templates" in out
         assert isinstance(out["templates"], list)
-        assert len(out["templates"]) == 7
+        assert len(out["templates"]) == 4
         for t in out["templates"]:
             assert set(t.keys()) >= {
                 "template_id",

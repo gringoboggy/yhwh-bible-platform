@@ -20,12 +20,12 @@ specced below as M1/M2 work items.
 Interpretation (defaults set per the presentation-doctrine; every mapping below
 is Boggy-overridable):
 
-- **"All the full-version canon Bibles" = the 9 canon/notes editions**
-  (ethiopian-tewahedo · catholic-study · evangelical-reformed · jewish-study ·
-  scholarly-academic · eastern-orthodox · anglican-bcp · lutheran-confessional ·
-  coptic-orthodox), built with their full note + translation complement. The two
-  standalone Ge'ez/Amharic editions stay in LANE P (they can join the catalog as
-  rows 10–11 once P2 constitutes them).
+- **"All the full-version canon Bibles" = the 4 canon-differentiated study
+  editions** (ethiopian-tewahedo · catholic-study · evangelical-reformed ·
+  eastern-orthodox), each with a distinct book set + note profile. Notes-only /
+  themed SKU twins were retired 2026-06-18 — presets live in `/customize`. The two
+  standalone Ge'ez/Amharic editions stay in LANE P (catalog rows once P2
+  constitutes them).
 - **"Each format" = 5 device-target builds** (the fifth = **standard EPUB,
   "computer & everywhere else"** — Calibre, Thorium, ADE, Nook).
 - **"On the website" = the Downloads page becomes a catalog** (edition ×

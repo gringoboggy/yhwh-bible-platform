@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Windows session (turn 141) — retired edition SKU deep scrub (user-directed)
+
+**Shipped:** deleted notes-only edition templates (`anglican-bcp`, `lutheran-confessional`) + orphan cover JPGs; scrubbed active code/tests/docs/translations `_meta.yaml`; added `lint_rules` **`retired_edition_skus`** gate (FAIL on reintroduction); regen `website/src/data/catalog.json` + `website/dist/` (187 assets, 4 editions). **Mac queue:** mirror scrub on Mac disk (staged reader-sim artifacts, `~/Desktop` QA packs, deploy `website/dist` if skew).
+
 ## 2026-06-19 — Mac session (turn 139) — STK `144600Z` upload FAIL (post-fix)
 
 **User-confirmed:** Send-to-Kindle upload failed again on `…2026-06-19T144600Z-kindle-m4b.epub` despite strict epubcheck **0/0/0/0** + `verify_kindle_safe` / `verify_kindle_m4b` PASS. Kindle library unchanged (no arrival). **Bisect signal:** 545 spine items + 155 `kindle_study_glossary_*` pieces vs last STK-deliverable `143407Z` (390 spine, 0 glossary). **Next:** WIN Kindle lane STK bisect (turn 139 day plan); catalog regen still blocked.

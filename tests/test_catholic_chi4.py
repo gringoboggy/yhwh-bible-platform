@@ -29,7 +29,7 @@ Coverage:
   Greek balance).
 
 Pinning rationale: χ.4 opens the Catena Aurea commentary track for
-Catholic / Anglican-BCP editions. Drift in the attribution format
+catholic-tradition editions. Drift in the attribution format
 (every entry must mention "Catena Aurea"), the detector confidence,
 the four-Gospel coverage, the "Tu es Petrus" papal-primacy pin, or
 the kind registration would break the χ.4.x expansion pipeline

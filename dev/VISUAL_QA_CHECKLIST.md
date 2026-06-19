@@ -1,9 +1,9 @@
 # Visual QA checklist — builder-demo EPUBs
 
 **Status: the LAST demo-readiness item (Track A `[USER]`).** Everything
-mechanically verifiable is done — all **11 editions build + validate
-epubcheck-clean (0 fatals / 0 errors / 0 warnings / 0 infos)** as of
-2026-05-22 (`dev/CHANGELOG.md`). This pass is the human spot-check that the
+mechanically verifiable is done — all **6 configured editions** (4 canon-
+differentiated study Bibles + 2 standalones) build + validate epubcheck-clean
+as of the canon-SKU scrub (`dev/CHANGELOG.md` 2026-06-18). This pass is the human spot-check that the
 EPUBs *look right* in a real reader — the one thing Claude can't self-verify.
 
 ---
@@ -25,15 +25,14 @@ Thorium), or unzip it and open an `index_split_*.html` in a browser.
 
 ---
 
-## 1. Representative editions (open these 5 — they cover all 5 canon shapes + the extremes)
+## 1. Representative editions (open these 4 — they cover all 4 canon shapes)
 
 | Edition | Why this one |
 |---|---|
 | `ethiopian-tewahedo` | flagship — 87-book canon, all kinds |
-| `lutheran-confessional` | Protestant canon + confessional commentary kinds |
-| `lutheran-confessional` | Protestant 66 + confessional Reformation commentary |
 | `catholic-study` | deuterocanon + the BISAC OPF metadata that was repaired |
-| `evangelical-reformed` | 66-book Protestant splice |
+| `evangelical-reformed` | 66-book Protestant splice + Reformation commentary |
+| `eastern-orthodox` | 78-book Orthodox canon + patristic emphasis |
 
 ---
 
@@ -62,7 +61,7 @@ For each edition above, confirm:
 
 ## 3. Cross-edition sanity
 
-- [ ] The 5 editions visibly DIFFER (note density, books, themes) — confirms
+- [ ] The 4 editions visibly DIFFER (note density, books, themes) — confirms
   the per-canon filter is doing its job.
 
 ---
@@ -127,7 +126,7 @@ in **canon + note density**, not theme or cover):
    `edition.get("theme", "classic")`) always lands on the no-op `classic`
    theme. The 4 real themes (`content/themes/{scholarly,devotional,modern,
    school}.css`) ship with the repo but reach **no** edition — notably
-   lutheran-confessional does not use `scholarly.css`. Fix: assign a `theme:` per
+   no edition used a non-classic theme. Fix: assign a `theme:` per
    demo edition (and/or give the themes real overrides) + a test pinning that
    two differently-themed editions produce different stylesheets.
 2. **Per-edition COVER not applied — ✅ FIXED 2026-05-23.** Built `cover.jpeg` was

@@ -87,7 +87,32 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 139 — autonomous day (START HERE, 2026-06-19)
+## ★ Turn 141 — retired SKU scrub mirror (START HERE, 2026-06-19)
+
+> **Pull WIN turn 141+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
+
+### 1 — Verify WIN scrub landed
+
+- [ ] `git pull` → `lint_rules --check retired_edition_skus` **PASS**
+- [ ] `content/edition_templates/` = 4 files (no retired notes-only mirror templates)
+- [ ] `website/dist/releases.html` lists **4** catalog editions only
+
+### 2 — Mac disk cleanup (file-disjoint)
+
+- [ ] Delete stale QA/staging artifacts naming retired SKUs under `~/Desktop/YHWH-*`, `build/reader-sim/`, `~/Desktop/YHWH-kindle-m4b-qa/` if present
+- [ ] Remove any local cover composites for retired SKUs in `content/covers/templates/` (if Mac has untracked copies)
+- [ ] `gen_release_catalog` + `node website/build.mjs` → confirm dist matches WIN (187 assets)
+
+### 3 — Deploy + resume day plan
+
+- [ ] Deploy `website/dist` to `yhwh-website` if column count changed
+- [ ] Resume turn 139 Apple/Play sim + Kindle pre-work for WIN
+
+### Standing
+
+- [ ] `save_mac.sh` each slice
+
+## Turn 139 — autonomous day (2026-06-19)
 
 > **Pull `turn 139`+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`. **User:** ~24h test/sim only — **no scheduled human device taps**. Kindle structural work **hands to WIN** after Kobo; Mac owns **Apple + Play**.
 

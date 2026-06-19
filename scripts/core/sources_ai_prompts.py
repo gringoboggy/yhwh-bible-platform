@@ -735,7 +735,7 @@ drafts:
    one. Cut everything that does not earn its place.
 
 10. **Tradition partisanship.** When the edition has a tradition
-    tag (e.g. eastern-orthodox, lutheran-confessional, ethiopian),
+    tag (e.g. eastern-orthodox, evangelical-reformed, ethiopian),
     write the note in that tradition's idiom and concerns; do not
     polemicize against other traditions or import contested
     distinctives. Stay descriptive.

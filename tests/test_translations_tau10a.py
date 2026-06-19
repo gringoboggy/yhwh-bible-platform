@@ -1,7 +1,7 @@
 """τ.10-A — Arabic Van-Dyck 1865 seed (2026-05-12).
 
-Closes the last popup-language gap (coptic-orthodox edition's
-arabic declaration). After this ship every language declared in
+Closes the Arabic popup-language column for editions declaring
+`arabic`. After this ship every language declared in
 any edition's popup_languages_default has at least seed-level
 coverage in content/translations/.
 

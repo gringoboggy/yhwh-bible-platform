@@ -1,13 +1,19 @@
 ---
 mode: parallel
-turn: 140
-from: mac
-updated: 2026-06-19T18:40:25Z
+turn: 141
+from: windows
+updated: 2026-06-19T19:48:23Z
 status: working
-mac: STK 144600Z FAIL logged; Apple/Play sim depth; pre-work for WIN Kindle bisect
-windows: ci.py IN FLIGHT → rx-surfaces → Kobo sim → Kindle STK bisect (glossary spine vs 143407Z control)
+mac: Turn 141: mirror retired-SKU scrub — pull; lint retired_edition_skus PASS; purge Desktop QA packs; regen+deploy website/dist; resume Apple/Play sim
+windows: ci.py when free; rx-surfaces; Kindle STK bisect
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 141, 2026-06-19T19:48:23Z) — mode=parallel
+
+**Assignments:** mac = Turn 141: mirror retired-SKU scrub — pull; lint retired_edition_skus PASS; purge Desktop QA packs; regen+deploy website/dist; resume Apple/Play sim · windows = ci.py when free; rx-surfaces; Kindle STK bisect
+
 ---
 
 ## ◦ mac assign (turn 140, 2026-06-19T18:40:25Z) — mode=parallel
@@ -58,7 +64,7 @@ ci.py pytest duration; edition-pin failures from 4-SKU scrub; Mac STK reboot
 
 ## ◦ windows assign (turn 136, 2026-06-18T22:15:00Z) — mode=parallel
 
-**Assignments:** windows = **canon-SKU scrub** (remove anglican-bcp / lutheran-confessional / coptic-orthodox; strip per-edition `theme:`) · `ci.py` GREEN · `build_format_matrix --phase M3` **20** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
+**Assignments:** windows = **canon-SKU scrub** (retire notes-only tradition twins; strip per-edition `theme:`) · `ci.py` GREEN · `build_format_matrix --phase M3` **20** kepubs · rx-surfaces · **HOLD M4 kindle catalog regen** until Mac STK re-PASS
 
 **Catalog policy (user-directed):** keep editions where **canon or body text differs** (Ethiopian 87 vs Catholic 76 vs Orthodox 78 vs Protestant 66; Geʿez/Amharic standalones); scrub notes-only / thematic SKU twins — note-kind toggles live in `/customize`.
 

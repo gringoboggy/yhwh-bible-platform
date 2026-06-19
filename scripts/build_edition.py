@@ -971,7 +971,7 @@ POPUP_LANGUAGES: dict[str, dict] = {
 # popups. The legacy language ids above (english/hebrew/greek) alias to the
 # version ids (kjv/wlc/lxx-greek) in _resolve_popup_languages; the parallel-bible
 # / future-language slots above (latin/geez/amharic/aramaic/coptic/syriac) are
-# preserved untouched, so anglican-bcp + the standalone bibles don't regress.
+# preserved untouched, so the standalone bibles don't regress.
 from scripts.core import popup_versions as _pv  # noqa: E402
 
 POPUP_LANGUAGES.update(

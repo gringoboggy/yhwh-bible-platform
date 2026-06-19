@@ -218,6 +218,11 @@ class TestRetiredTerms:
     def test_registered(self):
         assert "retired_terms" in lint_rules.ALL_CHECKS
 
+    def test_retired_edition_skus_registered(self):
+        assert "retired_edition_skus" in lint_rules.ALL_CHECKS
+        r = lint_rules.check_retired_edition_skus()
+        assert r["status"] == "pass"
+
 
 class TestTriadPlanConsistency:
     def _scaffold(self, root, *, plan_in_rules, plan_in_playbook, plan_live):

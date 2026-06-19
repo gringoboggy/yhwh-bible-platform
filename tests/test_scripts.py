@@ -14056,9 +14056,9 @@ class TestAINoteDetector:
                 captured["tradition"] = tradition
                 return None
 
-        detector = self.det.AINoteDetector(client=_Stub(), tradition="lutheran-confessional")
+        detector = self.det.AINoteDetector(client=_Stub(), tradition="evangelical-reformed")
         detector.detect("rom", 3, 28, "x")
-        assert captured["tradition"] == "lutheran-confessional"
+        assert captured["tradition"] == "evangelical-reformed"
 
     def test_attribution_mentions_claude_ai_and_human_review(self):
         # Construct a real AnthropicNoteClient with a stub completion_fn

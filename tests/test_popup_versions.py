@@ -197,7 +197,7 @@ class TestBuildSideRegistry:
     def test_resolve_maps_legacy_ids_and_keeps_legacy_slots(self):
         import scripts.build_edition as be
 
-        # english/hebrew/greek alias to version ids; latin (used by anglican-bcp)
-        # is a legacy slot that resolves to itself.
+        # english/hebrew/greek alias to version ids; latin is a legacy slot
+        # that resolves to itself.
         got = be._resolve_popup_languages({"popup_languages_default": ["english", "hebrew", "latin"]}, "gen")
         assert got == {"kjv", "wlc", "latin"}, got

@@ -2012,6 +2012,72 @@ def check_retired_terms() -> dict:
     }
 
 
+_RETIRED_EDITION_SKUS = (
+    "jewish-study",
+    "scholarly-academic",
+    "anglican-bcp",
+    "lutheran-confessional",
+    "coptic-orthodox",
+)
+_RETIRED_EDITION_SKU_SCAN_ROOTS = (
+    REPO / "scripts",
+    REPO / "tests",
+    REPO / "content",
+    REPO / "website",
+    REPO / "dev",
+)
+_RETIRED_EDITION_SKU_EXCLUDE_PARTS = (
+    "dev/archive/",
+    "dev/CHANGELOG.md",
+    "dev/SESSION_STATE_archive",
+    "HANDOFF_README_v7.md",
+    "docs/superpowers/",
+)
+
+
+def check_retired_edition_skus() -> dict:
+    """Retired notes-only / themed edition SKUs must not appear in active code,
+    config, tests, or live process docs. Canon-differentiated SKUs only (4 study
+    Bibles + 2 standalones). Historical archives and CHANGELOG are excluded."""
+    violations: list = []
+    for root in _RETIRED_EDITION_SKU_SCAN_ROOTS:
+        if not root.is_dir():
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            rel = str(path.relative_to(REPO)).replace("\\", "/")
+            if rel == "scripts/lint_rules.py":
+                continue
+            if any(part in rel for part in _RETIRED_EDITION_SKU_EXCLUDE_PARTS):
+                continue
+            if path.suffix.lower() not in {".py", ".yaml", ".yml", ".md", ".json", ".html", ".mjs", ".js"}:
+                continue
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            for i, line in enumerate(text.splitlines(), 1):
+                if _TERM_WAIVER in line:
+                    continue
+                low = line.lower()
+                for sku in _RETIRED_EDITION_SKUS:
+                    if sku in low:
+                        violations.append({"path": rel, "line": i, "sku": sku})
+    status = "pass" if not violations else "fail"
+    return {
+        "id": "retired_edition_skus",
+        "name": "No retired edition SKUs in active tree",
+        "status": status,
+        "message": (
+            "no retired edition SKU references in active tree"
+            if not violations
+            else f"{len(violations)} retired edition SKU reference(s) remain"
+        ),
+        "violations": violations[:40],
+    }
+
+
 _PLAN_FILE_RE = re.compile(r"PLAN_\d{4}-\d{2}-\d{2}[A-Za-z0-9_\-]*\.md")
 
 
@@ -2844,6 +2910,7 @@ ALL_CHECKS = {
     "commercial_orphans": check_commercial_orphans,
     "commercial_terms": check_commercial_terms,
     "retired_terms": check_retired_terms,
+    "retired_edition_skus": check_retired_edition_skus,
     "triad_plan_consistency": check_triad_plan_consistency,
     "stray_artifacts": check_no_stray_artifacts,
     "changelog_size": check_changelog_size,

@@ -9,7 +9,7 @@
 
 ## Session wrap (Mac, 2026-06-18) — Christian-scope scrub PUSHED
 
-**Shipped @ `cbf939b8` + `ec6520e3`:** edition SKU removal (`jewish-study`, `scholarly-academic`) · non-Christian note kinds dropped · ~123 corpus notes removed · base HTML prune (122 ids) · M3/M4 **35** assets · catalog regen · `prune_orphan_base_notes.py` · detector/test cleanup.
+**Shipped @ `cbf939b8` + `ec6520e3`:** retired notes-only / non-Christian edition SKUs · non-Christian note kinds dropped · ~123 corpus notes removed · base HTML prune (122 ids) · M3/M4 **35** assets · catalog regen · `prune_orphan_base_notes.py` · detector/test cleanup.
 
 **Deferred to release tag (v0.1.1 or v1.0.0):** public note/edition counts (README · GitHub/GitLab profile · website hero · RELEASE_NOTES · social card).
 

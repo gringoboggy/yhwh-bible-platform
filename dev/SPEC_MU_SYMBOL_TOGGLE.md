@@ -73,7 +73,7 @@ built yet.
 - **U3.** I click a kind to toggle just that one. Counts update.
 
 - **U4.** I switch the active edition (catholic-study,
-  jewish-study, …) from a dropdown. The toggles reflect that
+  evangelical-reformed, …) from a dropdown. The toggles reflect that
   edition's current settings.
 
 - **U5.** I save my changes. The tool updates editions.yaml in place

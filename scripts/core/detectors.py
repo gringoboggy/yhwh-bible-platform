@@ -1235,8 +1235,8 @@ class CatholicCommentaryDetector:
 
     Build-pipeline considerations: comm-catholic notes participate in
     the existing tradition filter (ψ.8) when an edition's
-    `traditions_default` includes `catholic`. The catholic-study and
-    anglican-bcp editions consume them directly.
+    `traditions_default` includes `catholic`. The catholic-study
+    edition consumes them directly.
 
     χ.4 ships a ~12-entry seed across all four Gospels to prove the
     pipeline; χ.4.x will expand from the Newman/Pusey 1841-1845
@@ -1328,9 +1328,9 @@ class ReformationCommentaryDetector:
     magisterial Reformers are post-1500, no BC/AD branching needed.
 
     Build-pipeline considerations: comm-reformation notes participate
-    in the existing tradition filter (ψ.8). The lutheran-confessional
-    edition's `traditions_default` declares `protestant`, which
-    surfaces both comm-protestant (broader) AND comm-reformation
+    in the existing tradition filter (ψ.8). Editions whose
+    `traditions_default` declares `protestant` (e.g. evangelical-reformed)
+    surface both comm-protestant (broader) AND comm-reformation
     (narrower 16th c.) — the edition itself doesn't need to know the
     period distinction; downstream UIs can chip them differently.
 
