@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Mac session — M4b Option B (study glossary backmatter)
+
+**Shipped:** pivoted `kindle_post.apply_kindle_m4b` from retired Option A (per-chapter `kindle-chapter-study` injection — caused notes-at-chapter-start on KFX per IMG_0469/0472/0473) to **Option B** (Kobo K-R9 mirror): extract `vnotes-*` into `kindle_study_glossary_*.html` backmatter (156 pieces on ethiopian) · **keep** `verse-notes-badge` markers retargeted to glossary fragments · hidden-tail `vnote-*` unchanged (STK-deliverable). `tests/test_kindle_m4b.py` 13/13 · device QA doc updated · staged `…2026-06-19T000000Z-kindle-m4b.epub`.
+
 ## 2026-06-18 — Windows session (turn 136) — canon-SKU scrub (user-directed)
 
 **Shipped:** removed notes-only tradition twins `anglican-bcp`, `lutheran-confessional`, `coptic-orthodox` from `editions.yaml` (same canon as catholic/protestant/ethiopian — note presets belong in `/customize`, not separate SKUs); stripped per-edition `theme:` pins (builder picks theme at build time; default `classic`); **4 canon-differentiated tradition SKUs** + 2 standalones = **6 editions**; M3/M4 asset lists **35→20**; catalog regen; test pins updated (`test_build_format_matrix` 7→4, `test_themes` builder-override model).

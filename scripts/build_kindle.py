@@ -79,7 +79,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--m4b",
         action="store_true",
-        help="apply M4b fork (suppress study badges + chapter-tail study blocks)",
+        help="apply M4b fork (study glossary backmatter + badge navigate)",
     )
     args = p.parse_args(argv)
 

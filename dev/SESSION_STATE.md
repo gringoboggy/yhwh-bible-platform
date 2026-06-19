@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac, turn 131).** `git pull` → **`0271ed54`+** · `bash dev/start_session_radars_mac.sh`. **`MAC_WORK_QUEUE.md` §Turn 131**. **M4b vnote fix SHIPPED** @ `0271ed54` (17/17 `test_kindle_m4b` · `m4b-5` no-inline guard · artifact `~/Desktop/YHWH-reader-sim/kindle/…221232Z-kindle-m4b.epub`). **165347Z STK load FAIL** (inline hoisting). **Awaiting user STK upload** of `221232Z` → `stk_poll_watch.sh` → device QA. **6-variant re-gate:** 2/6 (ethiopian + catholic). **WIN:** hold M4 kindle catalog regen. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → latest · `bash dev/start_session_radars_mac.sh`. **M4b Option B SHIPPED** — study glossary backmatter + badge navigate (`kindle_post.py`); **retired Option A** (`kindle-chapter-study` — 232708Z layout FAIL IMG_0469/0472/0473). **STK candidate:** `~/Desktop/YHWH-reader-sim/kindle/…2026-06-19T000000Z-kindle-m4b.epub` (30,344 badges → 156 glossary pieces · Gen 1 opens scripture). **Awaiting user STK upload** → device QA. **WIN:** hold M4 kindle catalog regen until device re-PASS. mode=parallel.
 >
 > **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`ec6520e3`+**. **ACK Mac scrub push** — edition removal + rabbinic kind scrub landed. **Job 1:** pytest → `ci.py` GREEN (expect edition/catalog pin updates). **Job 2:** `build_format_matrix --phase M3` regen for **35** kepub names. **Job 3:** rx-surfaces + website deploy if catalog changed. **Never idle.** Baton **mac**; mode=parallel.
 >

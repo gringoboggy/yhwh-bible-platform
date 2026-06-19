@@ -1,4 +1,4 @@
-"""M4b Kindle fork — marker suppress + chapter-tail study blocks (structural gates)."""
+"""M4b Kindle fork — study glossary backmatter + badge navigate (Option B)."""
 
 import io
 import zipfile
@@ -25,29 +25,6 @@ _CHAPTER_HTML = (
     "</body></html>"
 )
 
-_ANCHOR_IN_VERSE_P_HTML = (
-    "<html><body>"
-    '<a id="ch-b00-c1" class="ch-anchor"></a>'
-    '<p class="verse-p-flush">'
-    '<a class="vn-link" id="v-gen-1-1" href="#vnote-gen-1-1" epub:type="noteref">'
-    '<span class="vn">1</span></a> Chapter one end.'
-    '<a class="verse-notes-badge" id="vbadge-gen-1-1-s1" href="#vnotes-gen-1-1-s1" '
-    'epub:type="noteref"><sup class="marker-badge">1</sup></a>'
-    "</p>"
-    '<p class="verse-p"><a id="ch-b00-c2" class="ch-anchor"></a>'
-    '<a class="vn-link" id="v-gen-2-1" href="#vnote-gen-2-1" epub:type="noteref">'
-    '<span class="vn">1</span></a> Chapter two.</p>'
-    '<aside class="notes-section" epub:type="footnotes" hidden="">'
-    '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote" hidden="">'
-    "<p>Study body</p></aside>"
-    "</aside>"
-    '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
-    '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
-    '<p class="vnote-text">Translation</p></aside>'
-    "</section>"
-    "</body></html>"
-)
-
 _MULTI_CHAPTER_HTML = (
     "<html><body>"
     '<a id="ch-b00-c1" class="ch-anchor"></a>'
@@ -61,11 +38,14 @@ _MULTI_CHAPTER_HTML = (
     '<p class="verse-p-flush">'
     '<a class="vn-link" id="v-gen-2-1" href="#vnote-gen-2-1" epub:type="noteref" title="Genesis 2:1">'
     '<span class="vn">1</span></a> Verse two.'
+    '<a class="verse-notes-badge" id="vbadge-gen-2-1-s1" href="#vnotes-gen-2-1-s1" '
+    'epub:type="noteref"><sup class="marker-badge">1</sup></a>'
     "</p>"
     '<aside class="notes-section" epub:type="footnotes" hidden="">'
     '<aside class="verse-notes" id="vnotes-gen-1-1-s1" epub:type="footnote" hidden="">'
-    '<p class="vn-back"><a href="#vbadge-gen-1-1-s1" class="note-back">↩</a> <strong>1:1</strong></p>'
     "<p>Study ch1</p></aside>"
+    '<aside class="verse-notes" id="vnotes-gen-2-1-s1" epub:type="footnote" hidden="">'
+    "<p>Study ch2</p></aside>"
     "</aside>"
     '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
     '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
@@ -77,131 +57,97 @@ _MULTI_CHAPTER_HTML = (
 )
 
 
-class TestApplyKindleM4bHtml:
-    def test_removes_study_badge_keeps_vn_link(self):
-        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert "verse-notes-badge" not in out
-        assert 'class="vn-link"' in out
-        assert stats["badges_removed"] == 1
-        assert stats["vn_links"] == 1
-
-    def test_relocates_vnotes_into_kindle_chapter_study(self):
-        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert 'class="kindle-chapter-study"' in out
-        assert 'id="vnotes-gen-1-1-s1"' in out
-        assert "Study body" in out
-        assert stats["asides_relocated"] == 1
-        assert stats["chapters_emitted"] == 1
-        # aside must not remain inside the emptied notes-section wrapper
-        assert out.count('id="vnotes-gen-1-1-s1"') == 1
-
-    def test_study_aside_not_hidden_after_relocate(self):
-        out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        study = out[out.index("kindle-chapter-study") : out.index("</div>", out.index("kindle-chapter-study")) + 6]
-        assert 'id="vnotes-gen-1-1-s1"' in study
-        assert "hidden" not in study
-
-    def test_study_aside_has_coord_backlink_to_v_anchor(self):
-        out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert 'href="#v-gen-1-1"' in out
-        assert "<strong>1:1</strong>" in out
-        assert "vbadge-gen-1-1-s1" not in out
-        assert kindle_post.verify_kindle_m4b_html(out) == []
-
-    def test_strategy_b_backlink_uses_chapter_anchor(self):
-        html = (
-            "<html><body>"
-            '<p id="ch-b15-c2" class="ch-heading"><span class="bold-num">2</span></p>'
-            '<p class="verse-p"><span class="vn">1</span> Jubilees text.'
-            '<a class="verse-notes-badge" href="#vnotes-jub-2-1-s1" epub:type="noteref">'
-            '<sup class="marker-badge">1</sup></a></p>'
-            '<aside class="notes-section" hidden="">'
-            '<aside class="verse-notes" id="vnotes-jub-2-1-s1" epub:type="footnote" hidden="">'
-            "<p>Study</p></aside></aside></body></html>"
-        )
-        out, _ = kindle_post.apply_kindle_m4b_html(html)
-        assert 'href="#ch-b15-c2"' in out
-        assert 'href="#v-jub-2-1"' not in out
-        assert "<strong>2:1</strong>" in out
-
-    def test_leaves_vnote_in_hidden_tail(self):
-        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert "vnotes_exposed" not in stats
-        assert 'id="vnote-gen-1-1"' in out
-        assert "Hebrew witness" in out
-        assert 'class="kindle-chapter-translations"' not in out
-        study_pos = out.index("kindle-chapter-study")
-        vnote_pos = out.index('id="vnote-gen-1-1"')
-        assert study_pos < vnote_pos
-
-    def test_study_block_not_inside_verse_p_opening(self):
-        out, _stats = kindle_post.apply_kindle_m4b_html(_ANCHOR_IN_VERSE_P_HTML)
-        assert '<p class="verse-p"><!-- yhwh:kindle-study-start -->' not in out
-        assert out.index("kindle-chapter-study") < out.index('<p class="verse-p"><a id="ch-b00-c2"')
-
-    def test_per_chapter_study_block_before_next_chapter(self):
-        out, stats = kindle_post.apply_kindle_m4b_html(_MULTI_CHAPTER_HTML)
-        assert stats["chapters_emitted"] == 1
-        study_pos = out.index("kindle-chapter-study")
-        ch2_pos = out.index('id="ch-b00-c2"')
-        assert study_pos < ch2_pos
-        assert "Study ch1" in out
-
-    def test_multi_chapter_injection_recomputes_anchor_positions(self):
-        html = _MULTI_CHAPTER_HTML.replace(
-            '<a id="ch-b00-c2" class="ch-anchor"></a>',
-            '<a id="ch-b00-c2" class="ch-anchor"></a>'
-            '<p class="verse-p-flush">'
-            '<a class="vn-link" id="v-gen-2-2" href="#vnote-gen-2-2" epub:type="noteref">'
-            '<span class="vn">2</span></a> Verse two.'
-            '<a class="verse-notes-badge" id="vbadge-gen-2-2-s1" href="#vnotes-gen-2-2-s1" '
-            'epub:type="noteref"><sup class="marker-badge">1</sup></a></p>'
-            '<aside class="notes-section" hidden="">'
-            '<aside class="verse-notes" id="vnotes-gen-2-2-s1" epub:type="footnote" hidden="">'
-            "<p>Study ch2</p></aside></aside>"
-            '<section class="verse-refs-section" hidden="">'
-            '<aside class="vnote" id="vnote-gen-2-2" epub:type="footnote" hidden="">'
-            '<p class="vnote-text">Ch2 translation</p></aside></section>',
-        )
-        out, stats = kindle_post.apply_kindle_m4b_html(html)
-        assert stats["chapters_emitted"] == 2
-        assert kindle_post.verify_kindle_m4b_html(out) == []
-        assert "Study ch2" in out
-        assert "Ch2 translation" in out
-        ch1_study = out.index("Study Notes — gen 1")
-        ch2_anchor = out.index('id="ch-b00-c2"')
-        assert ch1_study < ch2_anchor
-
-    def test_nested_vn_group_inside_study_aside_passes_verify(self):
-        nested = _CHAPTER_HTML.replace(
-            "<p>Study body</p>",
-            '<section class="vn-group note-cat-comm"><p class="vn-cat-head">Comm</p>'
-            '<aside class="vn-item"><p>Nested study</p></aside></section>',
-        )
-        out, _stats = kindle_post.apply_kindle_m4b_html(nested)
-        assert kindle_post.verify_kindle_m4b_html(out) == []
-        assert "Nested study" in out
-
-    def test_idempotent(self):
-        once, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        twice, stats2 = kindle_post.apply_kindle_m4b_html(once)
-        assert twice == once
-        assert stats2["badges_removed"] == 0
-
-
-def _m4b_fixture_epub() -> bytes:
+def _m4b_fixture_epub(*, chapter_html: str = _CHAPTER_HTML, multi: bool = False) -> bytes:
+    body = _MULTI_CHAPTER_HTML if multi else chapter_html
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("mimetype", "application/epub+zip")
         z.writestr(
             "OEBPS/content.opf",
-            "<?xml version='1.0'?><package><metadata "
-            'xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            "<dc:title>X</dc:title><dc:language>en-US</dc:language></metadata></package>",
+            """<?xml version='1.0'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uid" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>X</dc:title><dc:language>en-US</dc:language>
+  </metadata>
+  <manifest>
+    <item id="chap" href="index_split_000_00.html" media-type="application/xhtml+xml"/>
+    <item id="backsources" href="sources.xhtml" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine>
+    <itemref idref="chap"/>
+    <itemref idref="backsources"/>
+  </spine>
+</package>""",
         )
         z.writestr("OEBPS/stylesheet.css", ".notes-section { display: block; }\n")
-        z.writestr("OEBPS/chapter.xhtml", _CHAPTER_HTML)
+        z.writestr("OEBPS/index_split_000_00.html", body)
+        z.writestr("OEBPS/sources.xhtml", "<html><body>Sources</body></html>")
+        z.writestr("OEBPS/nav.xhtml", "<html><body><nav><ol></ol></nav></body></html>")
+        z.writestr("OEBPS/toc.ncx", '<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/"><navMap></navMap></ncx>')
     return buf.getvalue()
+
+
+class TestApplyKindleM4bHtml:
+    def test_keeps_study_badge_and_vn_link(self):
+        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert 'class="verse-notes-badge"' in out
+        assert 'class="vn-link"' in out
+        assert stats["badges_kept"] == 1
+        assert stats["vn_links"] == 1
+
+    def test_extracts_vnotes_from_scripture(self):
+        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert 'id="vnotes-gen-1-1-s1"' not in out
+        assert stats["asides_relocated"] == 1
+
+    def test_leaves_vnote_in_hidden_tail(self):
+        out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert 'id="vnote-gen-1-1"' in out
+        assert "Hebrew witness" in out
+        assert "kindle-chapter-study" not in out
+
+    def test_idempotent_clean(self):
+        once, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        twice, stats2 = kindle_post.apply_kindle_m4b_html(once)
+        assert twice == once
+        assert stats2["asides_relocated"] == 0
+
+
+class TestApplyKindleM4bEpub:
+    def test_builds_glossary_and_retargets_badges(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub())
+        stats = kindle_post.apply_kindle_m4b(src)
+        assert stats["asides_relocated"] == 1
+        assert stats["badges_retargeted"] == 1
+        assert stats["glossary_pieces"] >= 1
+        with zipfile.ZipFile(src) as z:
+            names = z.namelist()
+            assert any("kindle_study_glossary" in n for n in names)
+            chap = z.read("OEBPS/index_split_000_00.html").decode()
+            assert 'href="kindle_study_glossary' in chap
+            assert 'href="#vnotes-gen-1-1-s1"' not in chap
+            glossary = next(z.read(n).decode() for n in names if "kindle_study_glossary" in n)
+            assert 'id="vnotes-gen-1-1-s1"' in glossary
+            assert "Study body" in glossary
+            assert 'href="index_split_000_00.html#v-gen-1-1"' in glossary
+
+    def test_multi_chapter_collects_both_asides(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub(multi=True))
+        stats = kindle_post.apply_kindle_m4b(src)
+        assert stats["asides_relocated"] == 2
+        assert stats["badges_retargeted"] == 2
+        with zipfile.ZipFile(src) as z:
+            chap = z.read("OEBPS/index_split_000_00.html").decode()
+            assert "kindle-chapter-study" not in chap
+            assert chap.index("ch-b00-c1") < chap.index("ch-b00-c2")
+
+    def test_verify_passes(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub())
+        kindle_post.apply_kindle_m4b(src)
+        assert kindle_post.verify_kindle_m4b(src) == []
 
 
 class TestMakeKindleM4b:
@@ -210,7 +156,7 @@ class TestMakeKindleM4b:
         dst = tmp_path / "out.epub"
         src.write_bytes(_m4b_fixture_epub())
         stats = kindle_post.make_kindle_m4b(src, dst)
-        assert stats["badges_removed"] == 1
+        assert stats["asides_relocated"] == 1
         assert kindle_post.verify_kindle_safe(dst) == []
         assert kindle_post.verify_kindle_m4b(dst) == []
 
@@ -225,13 +171,19 @@ class TestKindleM4bCss:
 
 
 class TestVerifyKindleM4b:
-    def test_raw_chapter_html_fails_m4b_1(self):
-        fails = kindle_post.verify_kindle_m4b_html(_CHAPTER_HTML)
+    def test_raw_chapter_html_fails_m4b_2(self):
+        fails = kindle_post.verify_kindle_m4b_scripture_html(_CHAPTER_HTML)
+        assert any("m4b-2" in f for f in fails)
+
+    def test_same_file_badge_href_fails_m4b_1(self):
+        fails = kindle_post.verify_kindle_m4b_scripture_html(_CHAPTER_HTML)
         assert any("m4b-1" in f for f in fails)
 
-    def test_m4b_output_passes(self):
-        out, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert kindle_post.verify_kindle_m4b_html(out) == []
+    def test_m4b_output_passes(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub())
+        kindle_post.apply_kindle_m4b(src)
+        assert kindle_post.verify_kindle_m4b(src) == []
 
     def test_raw_chapter_html_fails_m4b_5_when_inline(self):
         inline = _CHAPTER_HTML.replace(
@@ -240,5 +192,5 @@ class TestVerifyKindleM4b:
             '<aside class="vnote" id="vnote-gen-1-2" epub:type="footnote">'
             "<p>Inline popup</p></aside>",
         )
-        fails = kindle_post.verify_kindle_m4b_html(inline)
+        fails = kindle_post.verify_kindle_m4b_scripture_html(inline)
         assert any("m4b-5" in f for f in fails)
