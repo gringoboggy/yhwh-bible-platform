@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`turn 142`+** · `bash dev/start_session_radars_mac.sh`. **FOCUS RESET (user 2026-06-19):** finish **one** job list — no overflow until `#1` is done or blocked with `file:line`. **Your queue:** `MAC_WORK_QUEUE.md` §Turn 142. **(1)** Mirror WIN turn 141 scrub (lint `retired_edition_skus` · purge Desktop QA junk · deploy website if skew). **(2)** Apple + Play sim only (turn 139 §1–2). **HOLD:** Kindle code · STK uploads · M4 catalog · Esther/CAM/1ki overflow until WIN STK bisect lands. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`turn 143`+** · `bash dev/start_session_radars_mac.sh`. **Role: verifier + planner** (user 2026-06-19) — read `MAC_WORK_QUEUE.md` §**Operating model** first. On each WIN push: verify their slice (targeted pytest/sim) · write `## Mac verify` in `LANE_HANDOFF` · update `### Next scope (Mac)` (max 3). **Do not** patch `kindle_post.py` while WIN owns bisect. Parallel: mirror 141 scrub + Apple/Play sim. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 142`+**. **FOCUS RESET (user 2026-06-19):** release gate = **one vertical slice** — `ci.py` GREEN → Kindle STK glossary bisect vs proven `143407Z` (390 spine / 0 glossary) → then rx-surfaces/sim. **`ci.py` RUNNING** (started 2026-06-19 ~14:07 local; do not start a second full run). Last completed full gate: **17 failed + 1 error** / 8544 passed (~4h52m, pre–turn-141 scrub). **`pytest --lf`** (2026-06-18): **5 persistent reds** on WIN (build_smoke inject · hierarchical_symbols ×2 · matter_pages · samkings GAPS images). **STK blocker:** `144600Z` failed upload — 545 spine + 155 glossary pieces vs `143407Z`. **Mac:** mirror + sim only; baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 143`+**. **Role: builder** (user 2026-06-19) — implement; list **Mac verify commands** in each `save-all` message. **Next:** `ci.py` finish → `--lf` triage → GREEN → Kindle bisect → push. Read Mac `### Next scope` on pull. **`ci.py` RUNNING** (~14:07; no second full run). Last full gate: **17 failed + 1 error** / 8544 passed. **`pytest --lf`:** 5 persistent reds (build_smoke · hierarchical_symbols ×2 · matter_pages · samkings GAPS). mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -28,13 +28,24 @@
 | 2 | Kindle STK bisect — glossary spine off vs `143407Z` control; one candidate m4b | queued |
 | 3 | rx-surfaces · Kobo `--sim` · sim-pipeline audit | **HOLD** until 1–2 |
 
-### Mac (mirror + sim only)
+### Mac (verifier + planner — see `MAC_WORK_QUEUE.md` operating model)
 
 | # | Work | Status |
 |---|---|---|
+| 0 | **Operating model:** scope next slice · verify WIN's last push · report PASS/FAIL in `LANE_HANDOFF` | **STANDING** |
 | 1 | Mirror turn 141 scrub on Mac disk | queued |
-| 2 | Apple Books + Play Books sim depth (M2/M5 matrix rows) | queued |
-| — | Kindle / STK / catalog / overflow | **HOLD** |
+| 2 | Apple + Play sim depth (M2/M5 rows) — **parallel** while WIN runs `ci.py` | queued |
+| 3 | After each WIN milestone: targeted verify (no dual Kindle fixes) | queued |
+| — | Kindle code / STK uploads / catalog / overflow | **HOLD** until WIN bisect ships |
+
+### Post-`ci.py` sequence (WIN builds · Mac verifies)
+
+| Step | WIN (builder) | Mac (verify + scope) |
+|------|---------------|----------------------|
+| A | `ci.py` finishes → `pytest --lf` → fix reds → re-run `ci.py` until GREEN | Mirror scrub + sim; on WIN push: rerun touched tests + `lint_rules` |
+| B | Kindle bisect in `kindle_post.py` → one m4b candidate → push with artifact path | `test_kindle_m4b` · spine/glossary counts vs `143407Z` · gate `--sim kindle` |
+| C | If Mac verify PASS: user STK upload (Mac polls only) | Log STK arrival; scope rx-surfaces + Kobo sim for WIN |
+| D | rx-surfaces · Kobo `--sim` · sim audit | Verify sim oracle rows; scope v1 gate remainder |
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 

@@ -29,6 +29,58 @@ If the lane is on, keep working. **WIN assigns Mac a fresh laundry list whenever
 WIN polls with `--assign-mac`. On each Mac push it pulls, surfaces incoming, then
 assigns the first unchecked line below via `lane_handoff.py assign`.
 
+## ★ Operating model — WIN builds · Mac scopes + verifies (user 2026-06-19, STANDING)
+
+> **Why:** Mac was circling on Kindle fixes while WIN had RAM for `ci.py`. New split:
+> **WIN implements** · **Mac plans the next slice and verifies the last one** — no dual
+> implementation of the same fix.
+
+| Lane | Role | Owns |
+|------|------|------|
+| **WIN** | **Builder** | `scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect code · pytest triage |
+| **Mac** | **Verifier + planner** | Pull WIN pushes · targeted gate reruns · device/sim oracles · scope next 1–3 items · truth-record verify notes |
+
+### Mac session loop (every pull after a WIN milestone)
+
+1. **`git pull`** → read `CHANGELOG` top + `LANE_HANDOFF` WIN shipped block.
+2. **Verify WIN's last slice** — run only the commands WIN listed (or this table):
+
+   | WIN shipped | Mac verify (no code edits unless FAIL) |
+   |-------------|----------------------------------------|
+   | pytest / ci fix | `pytest` the touched test files + `lint_rules.py` |
+   | Kindle m4b candidate | `pytest tests/test_kindle_m4b.py` · `verify_kindle_m4b` on artifact path WIN named · count spine/glossary pieces vs `143407Z` |
+   | STK candidate | User uploads (Mac); agent **poll only** · log arrival in `kindle-stk-m4b-device-qa.md` · **do not** patch `kindle_post.py` |
+   | sim / reader-sim | `--sim kindle\|apple\|play` gate-only on staged artifact · append M2/M5 rows |
+
+3. **Write verify report** — prepend to `LANE_HANDOFF` (or `lane_handoff.py assign --note`):
+
+   `## Mac verify (turn N) — PASS|FAIL @ <sha>` · commands run · counts · `file:line` if FAIL.
+
+4. **Scope next slice** — edit **only** the `### Next scope (Mac)` block below (max **3** items, ordered). WIN reads this on pull; WIN does **not** wait for Mac to implement.
+
+5. **`save_mac.sh`** — Mac never ends with unpushed verify/scope notes.
+
+### Mac must NOT (breaks the model)
+
+- Edit `kindle_post.py` / `build_edition.py` while WIN owns an open bisect (verify + report only).
+- Run full `ci.py` on Mac HDD while WIN `ci.py` is in flight (targeted `pytest` on changed tests is OK).
+- Start a new STK upload with a different epub than WIN's named candidate.
+- Add overflow (Esther, CAM, 1ki, extra catalog passes) until current release-gate `#1` is PASS on Mac verify.
+
+### Next scope (Mac) — WIN reads on pull
+
+> Mac maintains this block. WIN implements top item after current slice ships.
+
+1. **After WIN `ci.py` GREEN:** verify on Mac — `pytest` files WIN touched + fast `lint_rules.py`; confirm red count 0 in WIN handoff note.
+2. **After WIN Kindle bisect push:** verify m4b artifact — spine/glossary counts · `test_kindle_m4b` · gate-only `--sim kindle`; scope whether user STK upload is warranted.
+3. **After STK PASS:** scope rx-surfaces + Kobo `--sim` (WIN builds); Mac verifies sim oracle rows only.
+
+### WIN builder loop (for Mac to expect)
+
+1. Finish in-flight work · `save-all.ps1` with **verify commands for Mac** in commit/CHANGELOG.
+2. Do **not** pick new scope until Mac verify PASS or FAIL-with-`file:line` on last slice (FAIL → WIN fixes, no new threads).
+3. One vertical slice per milestone — see `SESSION_STATE` release-gate table.
+
 ## Active queue
 
 - [x] **★ Lane watch v3 (REQUIRED whole arc):** `git pull` turn 117+ → `bash dev/lane_watch_mac.sh --once` → `bash dev/lane_watch_mac.sh --bg` — **keep running** through remediation + Round 9 — **Mac turn 118** (`--once` CLEAR post-rebase; `--bg` started)
@@ -113,8 +165,6 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [ ] `save_mac.sh` each slice — WIN cannot see unpushed work
 
 ## Turn 141 — retired SKU scrub mirror (superseded by turn 142)
-
-> **Pull WIN turn 141+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
 
 > **Pull WIN turn 141+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`.
 

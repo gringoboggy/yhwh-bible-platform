@@ -16,16 +16,17 @@
 - [ ] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale
 - [ ] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item
 
-## P4 — release gate slice (turn 142, user-directed FOCUS RESET)
+## P4 — release gate slice (turn 142–143, WIN builds · Mac verifies)
 
-> **One vertical slice.** Finish `#1` before touching overflow. Mac: **no Kindle code / STK / catalog** until WIN bisect lands.
+> **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. One slice per milestone.
 
-- [ ] WIN: `ci.py` GREEN — **RUNNING** (started 2026-06-19 ~14:07); do not start second full run; triage reds when done
-- [ ] WIN: Kindle STK glossary bisect vs `143407Z` (390 spine / 0 glossary) — one candidate m4b
-- [ ] MAC: Mirror turn 141 scrub (lint · Desktop QA purge · website deploy if skew)
-- [ ] MAC: Apple + Play sim depth only (M2/M5 matrix rows in platform notes)
-- [ ] **HOLD until ci green + STK bisect:** rx-surfaces · Kobo `--sim` · sim-pipeline audit · `ci.py --reader-sim-gates`
-- [ ] **HOLD Mac:** STK uploads · Kindle code · M4 catalog · Esther/CAM/1ki overflow
+- [ ] WIN: `ci.py` GREEN — **RUNNING** (started 2026-06-19 ~14:07); then `pytest --lf` triage → fix → re-run
+- [ ] MAC: Verify WIN ci slice on pull (touched tests + `lint_rules`; no full `ci.py` on Mac HDD)
+- [ ] WIN: Kindle STK glossary bisect vs `143407Z` — one candidate m4b; push with verify commands for Mac
+- [ ] MAC: Verify bisect artifact (spine/glossary counts · `test_kindle_m4b` · `--sim kindle` gate); scope STK or next WIN item
+- [ ] MAC: Mirror 141 scrub + Apple/Play sim (parallel, file-disjoint)
+- [ ] MAC: Maintain `### Next scope (Mac)` in `MAC_WORK_QUEUE.md` (max 3 items)
+- [ ] **HOLD:** rx-surfaces · Kobo `--sim` · sim audit · catalog · Mac Kindle code · overflow
 
 ## P5 — release gate (WIN primary)
 

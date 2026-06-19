@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Windows session (turn 143) — WIN builds / Mac verifies operating model (user-directed)
+
+**Shipped:** lane split documented — WIN implements (`ci.py` · pytest fixes · Kindle bisect · matrix builds); Mac scopes next 1–3 items + verifies each WIN milestone (targeted pytest/sim/STK poll only, no dual Kindle fixes). Runbook: `MAC_WORK_QUEUE.md` §Operating model · `SESSION_STATE` post-ci table · `LANE_HANDOFF` STANDING.
+
 ## 2026-06-19 — Windows session (turn 142) — focus reset + agent bootstrap (user-directed)
 
 **Shipped:** `AGENTS.md` fresh-session read order (AGENTS → triad → SESSION_STATE top) · `README.md` project map entry · turn 142 lane focus reset in `SESSION_STATE` / `LANE_HANDOFF` / `AGENT_WORK_BACKLOG` / `MAC_WORK_QUEUE` — Mac mirror+sim only; WIN owns `ci.py` + Kindle STK glossary bisect; overflow HOLD. **ci.py:** left running (started ~14:07); last completed full gate = 17 failed + 1 error / 8544 passed.

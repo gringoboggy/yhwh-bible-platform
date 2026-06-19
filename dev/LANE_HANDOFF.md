@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 142
+turn: 143
 from: windows
-updated: 2026-06-19T20:56:33Z
+updated: 2026-06-19T22:55:43Z
 status: working
-mac: Turn 142 FOCUS: mirror 141 scrub then Apple+Play sim only — HOLD Kindle/STK/catalog/overflow
-windows: Turn 142 FOCUS: ci.py GREEN (running) then Kindle STK glossary bisect vs 143407Z — HOLD rx/sim until green
+mac: Verifier+planner: MAC_WORK_QUEUE operating model — verify WIN slices, scope next 3, parallel mirror+sim
+windows: Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect; list Mac verify cmds each save
 truth_owner: mac
 holder: mac
+---
+
+## ◦ windows assign (turn 143, 2026-06-19T22:55:43Z) — mode=parallel
+
+**Assignments:** mac = Verifier+planner: MAC_WORK_QUEUE operating model — verify WIN slices, scope next 3, parallel mirror+sim · windows = Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect; list Mac verify cmds each save
+
+User 2026-06-19: WIN builds, Mac scopes+verifies. See MAC_WORK_QUEUE §Operating model.
+
 ---
 
 ## ◦ windows assign (turn 142, 2026-06-19T20:56:33Z) — mode=parallel
@@ -49,6 +57,8 @@ holder: mac
 **Dual radars ON at bootstrap (2026-06-18, STANDING — both lanes).** Every session start, the bootstrap hook (`bootstrap-triad.{ps1,sh}`) **auto-starts both radars** idempotently: (1) **lane_watch** 60s — `dev/start_session_radars.{ps1,mac.sh}`; (2) **agent_idle_radar** 120s. Manual restart if either died: WIN `pwsh -File dev/start_session_radars.ps1` · Mac `bash dev/start_session_radars_mac.sh`. Mac must wire `bootstrap-triad.sh` in per-box SessionStart settings (see `dev/cc-hooks/README.md`).
 
 **Strategic replan ping (2026-06-18, STANDING — both lanes).** Periodically **step back** and re-read PLAN + release gate + SESSION_STATE + both work queues — reorder priorities when derailed or scope shifts. Radar auto-surfaces P03 replan when **15+ commits** · **24h** · **PLAN/release-plan changed**. Checklist: `dev/STRATEGIC_REPLAN_CHECKLIST.md`. Commands: `py -3 scripts/agent_idle_radar.py --replan` · `--replan-done`. **Replan is work, not a pause** — mark done then immediately `--next` and execute.
+
+**WIN builds · Mac verifies (2026-06-19, user-directed — STANDING, both lanes).** **WIN** owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect). **Mac** owns **verify + scope** on each WIN milestone: pull → run WIN-listed verify commands → `## Mac verify (turn N)` PASS/FAIL in this file → update `MAC_WORK_QUEUE.md` `### Next scope (Mac)` (max 3 items). Mac **must not** dual-implement the same Kindle/pytest fix WIN is shipping. Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac **must not** run full `ci.py` on HDD while WIN `ci.py` is in flight. Full runbook: `dev/MAC_WORK_QUEUE.md` §Operating model.
 
 **Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first. (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 
