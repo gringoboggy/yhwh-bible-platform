@@ -4,6 +4,14 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-19..2026-06-19 (rotate_truth_records.py) -->
+
+## ◦ windows assign (turn 141, 2026-06-19T19:48:23Z) — mode=parallel
+
+**Assignments:** mac = Turn 141: mirror retired-SKU scrub — pull; lint retired_edition_skus PASS; purge Desktop QA packs; regen+deploy website/dist; resume Apple/Play sim · windows = ci.py when free; rx-surfaces; Kindle STK bisect
+
+---
+
 <!-- archived: 5 sections, 2026-06-18..2026-06-19 (rotate_truth_records.py) -->
 
 ## ◦ mac assign (turn 140, 2026-06-19T18:40:25Z) — mode=parallel
