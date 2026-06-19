@@ -322,7 +322,7 @@ editions:
   # The first of the TWO standalone Bibles per CLAUDE_PROJECT_RULES §1
   # "Parallel-Bible end-state — two standalone Bibles" (codified
   # 2026-05-16). This is NOT a tradition/notes-filter variant of the
-  # other 9 editions — it is a full-text scripture edition in its own
+  # four catalog study editions — it is a full-text scripture edition in its own
   # right whose base text is the Ge'ez Tewahedo Bible
   # (content/translations/geez-tewahedo/) and whose verse popups carry
   # a FAITHFUL ENGLISH BACK-TRANSLATION of that Ge'ez wording (from

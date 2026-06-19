@@ -1660,7 +1660,7 @@ notes: |
   chapters — carrying a faithful English back-translation of its
   ACTUAL Amharic wording in ITS OWN verse popups. This slot is
   NOT a popup-language slot for the other editions. Policy: the
-  other 9 editions get NO `amharic` popups; the existing English
+  the four catalog study editions get NO `amharic` popups; the existing English
   `ethiopian-tewahedo` edition only conditionally (permitted ONLY
   on full per-verse-count parity across all books/chapters — a
   maybe, not a commitment). Do NOT wire `amharic` into any

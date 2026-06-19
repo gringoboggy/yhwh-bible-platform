@@ -15,9 +15,12 @@ machine. No account, no server, no cloud.
 - **Two standalone Geʽez &amp; Amharic Bibles** *(in progress)* — transcribed
   directly from the manuscripts, each with a faithful English back-translation.
   The project's distinctive heart.
-- **9 built-in study editions across 5 canon shapes** — Ethiopian Tewahedo,
-  Catholic, Eastern &amp; Coptic Orthodox, Anglican, Lutheran, Reformed, and
-  Jewish/Tanakh — each a filtered view of the one 83-book superset.
+- **Four canon-shaped study editions** in the download catalog — Ethiopian
+  Tewahedo (83 books), Catholic (76), Eastern Orthodox (78), and
+  Reformed/Evangelical (66) — each a filtered view of the one 83-book superset.
+- **Full customization** — the builder's customize console can shape any
+  tradition (Tanakh, Anglican, Lutheran, dense scholarly apparatus, and more)
+  without needing a separate pre-built SKU.
 - **91,553 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
