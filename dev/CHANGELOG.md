@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Mac session (turn 139) — STK `144600Z` upload FAIL (post-fix)
+
+**User-confirmed:** Send-to-Kindle upload failed again on `…2026-06-19T144600Z-kindle-m4b.epub` despite strict epubcheck **0/0/0/0** + `verify_kindle_safe` / `verify_kindle_m4b` PASS. Kindle library unchanged (no arrival). **Bisect signal:** 545 spine items + 155 `kindle_study_glossary_*` pieces vs last STK-deliverable `143407Z` (390 spine, 0 glossary). **Next:** WIN Kindle lane STK bisect (turn 139 day plan); catalog regen still blocked.
+
 ## 2026-06-19 — Mac session (turn 138) — M4b STK load fix (glossary xrefs + nav)
 
 **Shipped @ `1943a33d`:** retarget bare `#v-*` cross-refs inside relocated study glossary to `index_split_*.html#v-*` (44× epubcheck RSC-012 on `000000Z` — root cause of STK upload/load fail) · insert Study Notes nav entry before Sources (NAV-011 spine-order) · `m4b-4` verify gate · tests 13/13. Rebuilt + gated `…2026-06-19T144600Z-kindle-m4b.epub` (strict **0/0/0/0**). User STK upload in flight.

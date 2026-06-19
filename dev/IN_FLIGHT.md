@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-19 (turn 139 — autonomous day plan).** User: ~24h parallel test/sim work; no human device taps unless STK upload lands unprompted. **WIN:** `ci.py` IN FLIGHT (~6h) → rx-surfaces → Kobo sim → **Kindle takeover** → sim-pipeline fidelity audit. **Mac:** Apple Books + Play Books sim depth; pre-work commits for WIN; STK poll automated-only if `144600Z` arrives. **HOLD** M4 catalog until WIN kindle re-gate + sim audit.
+> **▶ ACTIVE 2026-06-19 (turn 140).** **STK FAIL:** `144600Z` upload failed (strict 0/0/0/0; Lassen library unchanged). Bisect → 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **WIN:** ci.py IN FLIGHT → Kindle STK bisect takeover. **Mac:** Apple/Play sim + pre-work. **HOLD** M4 catalog.
 
 ## Standalone status (unchanged)
 

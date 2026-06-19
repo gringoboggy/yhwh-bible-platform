@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 139
-from: windows
-updated: 2026-06-19T15:42:07Z
-status: handing-off
-mac: Turn 139 day plan: Apple Books + Play Books sim depth (Thorium/Books.app); STK poll 144600Z automated-only; pre-work commits for WIN (STAGING_MANIFEST + M2/M5 sim-oracle rows + Kindle handoff notes)
-windows: ci.py IN FLIGHT (~6h) then rx-surfaces, Kobo sim, Kindle lane takeover, sim-pipeline fidelity audit, ci.py --reader-sim-gates
+turn: 140
+from: mac
+updated: 2026-06-19T18:40:25Z
+status: working
+mac: STK 144600Z FAIL logged; Apple/Play sim depth; pre-work for WIN Kindle bisect
+windows: ci.py IN FLIGHT → rx-surfaces → Kobo sim → Kindle STK bisect (glossary spine vs 143407Z control)
 truth_owner: mac
 holder: mac
+---
+
+## ◦ mac assign (turn 140, 2026-06-19T18:40:25Z) — mode=parallel
+
+**Assignments:** mac = STK 144600Z FAIL logged; Apple/Play sim depth; pre-work for WIN Kindle bisect · windows = ci.py IN FLIGHT → rx-surfaces → Kobo sim → Kindle STK bisect (glossary spine vs 143407Z control)
+
+**Mac turn 139b:** 144600Z upload FAIL — gates 0/0/0/0 but Lassen library unchanged. Hypothesis: 155 glossary spine pieces break STK (143407Z delivered with 0 glossary). WIN owns bisect.
+
 ---
 
 ## ▶ windows → mac (turn 139, 2026-06-19T15:42:07Z) — mode=parallel
