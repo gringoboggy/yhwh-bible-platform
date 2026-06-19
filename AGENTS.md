@@ -9,6 +9,15 @@ lifecycle/gates in [`dev/SESSION_PLAYBOOK.md`](dev/SESSION_PLAYBOOK.md).
 written rule stays). Otherwise `dev/CLAUDE_PROJECT_RULES.md` wins over this digest.
 **When in doubt, read the full rules** — do not guess from this page alone.
 
+**Edition counts in old docs are often historical.** `docs/superpowers/`, `dev/archive/`,
+`HANDOFF_README_v7.md` (body), and older `CHANGELOG` entries may still say "9 editions" or
+name retired SKUs — that is **archive**, not current product truth. **Authoritative now:**
+`content/editions.yaml` · root `README.md` · `brand/BIOS.md` · live website copy.
+**Current catalog:** 4 canon-shaped study editions + customize for other traditions + 2
+standalone Geʽez/Amharic (in progress). **Retired built-in SKUs (must not return):**
+`jewish-study`, `scholarly-academic`, `anglican-bcp`, `lutheran-confessional`,
+`coptic-orthodox` — enforced by `lint_rules.check_retired_edition_skus`.
+
 ---
 
 ## What this project is
