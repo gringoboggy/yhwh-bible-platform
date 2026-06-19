@@ -220,7 +220,7 @@ edition's signature-colour asset is published; per-cell M2 variant colours;
 legacy flagship epub + kepub cells while their columns are dark) →
 `website/build.mjs` inlines at `{{release_catalog}}` on releases.html (one cover
 card per edition — `website/covers/<id>.jpg`). M2 composites:
-`generate_catalog_composite`/`catalog_colour_variant_plan` (9 editions × own
+`generate_catalog_composite`/`catalog_colour_variant_plan` (4 catalog editions × own
 design × 5 colours, generate_edition_covers.py), committed when M2 ships —
 `scripts/swap_epub_cover.py` is the M2 swap leg; CI never composites in-runner.
 

@@ -336,7 +336,7 @@ the text says — NOT the KJV, NOT the English editorial baseline).
 
 The per-book rendering already shipped is the FOUNDATION for this, not popup-language
 data. Verse-popup policy:
-- **The other 9 editions:** NO Ge'ez/Amharic popups. Do not wire them into any
+- **The four catalog study editions:** NO Ge'ez/Amharic popups. Do not wire them into any
   edition's `popup_languages_default` / `popup_translation`.
 - **The existing English `ethiopian-tewahedo` edition:** only *conditionally* —
   permitted ONLY if every verse count matches across all books and chapters (full

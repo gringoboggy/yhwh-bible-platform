@@ -242,7 +242,7 @@ TRANSLATIONS: dict[str, dict] = {
         "notes": (
             "Jewish Publication Society 1917 Tanakh — Public-Domain "
             "English translation of the Hebrew Bible. Closes the "
-            "Hebrew column for the 6 of 9 editions that declare "
+            "Hebrew column for the catalog study editions that declare "
             "`hebrew` in popup_languages_default (ethiopian-tewahedo, "
             "catholic-study, evangelical-reformed, eastern-orthodox). "
             "Pairs with "
@@ -297,7 +297,7 @@ TRANSLATIONS: dict[str, dict] = {
             "jurisdiction. This is the English-side companion "
             "translation called for by SESSION_END_2026-05-12 §4 "
             "N+2. Closes the Greek-translation-content column for "
-            "the 8 of 9 editions declaring `greek` in "
+            "the catalog study editions declaring `greek` in "
             "popup_languages_default (Orthodox primary; useful for "
             "any edition exploring LXX vs MT divergences). τ.4 "
             "ships infrastructure + Gen 1:1-3 seed; τ.4.x is "

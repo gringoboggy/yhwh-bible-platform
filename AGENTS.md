@@ -18,17 +18,20 @@ study **EPUB 3** Bibles from one **Ethiopian Tewahedo superset** corpus. The use
 canon/tradition, toggles note *kinds* and verse-popup languages, themes it, and exports a
 standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
 
-**M4 catalog prep mirroring (for Grok/Claude/etc. on pull):** See committed `dev/M4_Kindle_Assets_v0.1.0.txt` (exact 45 Kindle asset names for v0.1.0 "kindle" column). Re-generate with the Python snippet in the file header (Win $env or Mac `export PYTHONUTF8=1; .venv/bin/python -c '...'` — cross-platform, no shell mangling). Commit the list as first-class artifact. Reference in LANE_HANDOFF for attach/deploy. Use for `gen_release_catalog --tag v0.1.0` once 45 attached. (WinGrok M4 prep; Mac mirrors + adapts on pull for viability + future agents.)
+**M4 catalog prep mirroring (for Grok/Claude/etc. on pull):** See committed `dev/M4_Kindle_Assets_v0.1.0.txt` (exact 20 Kindle asset names for v0.1.0 — 4 catalog editions × 5 colours). Re-generate with the Python snippet in the file header (Win `$env:PYTHONUTF8=1` or Mac `export PYTHONUTF8=1; .venv/bin/python -c '...'`). Commit the list as first-class artifact. Reference in LANE_HANDOFF for attach/deploy. Use for `gen_release_catalog --tag v0.1.0` once attached.
 
-**M3 catalog prep mirroring:** See `dev/M3_Kobo_Assets_v0.1.0.txt` (exact 45 `.kepub.epub` names for v0.1.0 "kobo" column). Build via `build_format_matrix --phase M3` (kepubify v4.0.4 post-process wired in `scripts/build_format_matrix.py`). Handoff path: `YHWH-v2.4-releases/m3-kobo-v0.1.0/` (mirror M4). User Kobo tap round gates catalog column live — artifacts are a gated baseline until then.
+**M3 catalog prep mirroring:** See `dev/M3_Kobo_Assets_v0.1.0.txt` (exact 20 `.kepub.epub` names for v0.1.0 — 4 catalog editions × 5 colours). Build via `build_format_matrix --phase M3` (kepubify v4.0.4 post-process wired in `scripts/build_format_matrix.py`). Handoff path: `YHWH-v2.4-releases/m3-kobo-v0.1.0/` (mirror M4). User Kobo tap round gates catalog column live — artifacts are a gated baseline until then.
 
 - **The demo is the north star:** open `/wizard` → pick a starting edition → 7 cards →
   **BUILD** → an EPUB downloads with the chosen theme, only the picked notes, and verse
   popups in the configured languages. Every change should make that demo better, simpler,
   deeper, or more impressive — otherwise defer it.
 - **One superset, many filtered views:** the `ethiopian-tewahedo` edition is the SUPERSET;
-  every other edition is a **canon + kind filtered subset**. Note counts fall out of
-  filtering automatically — never hand-set them, never fork a per-canon corpus.
+  every other study edition is a **canon + kind filtered subset**. The download catalog
+  ships **4 canon-shaped SKUs** (Ethiopian, Catholic, Eastern Orthodox, Reformed/Evangelical);
+  Tanakh, Anglican, Lutheran, and other shapes live in **customize**, not as separate catalog
+  SKUs. Note counts fall out of filtering automatically — never hand-set them, never fork a
+  per-canon corpus.
 - **Maintainer:** Bogdan (“Boggy”), a first-time programmer building this as a
   faith-driven free service. Explain accessibly; never dumb down the work; honor the faith
   respectfully.

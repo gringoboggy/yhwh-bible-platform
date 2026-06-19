@@ -1,4 +1,4 @@
-"""Generate the 9 edition main cover JPGs by compositing the cover text
+"""Generate the catalog edition main cover JPGs by compositing the cover text
 onto the existing `content/covers/templates/` family.
 
 ω.38 (C6 closure — 2026-05-13); title-only recenter (Wave 2 — 2026-05-25);

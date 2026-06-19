@@ -1985,7 +1985,7 @@ def resolve_target_reader(edition: dict) -> str:
 def apply_target_override(edition: dict, target_reader: str | None) -> dict:
     """Fold a build-time reader-target override into a COPY of the edition
     record (matrix M1 blocker #1; format-matrix spec §2 one-resolver
-    invariant). The matrix builds the 8 tradition editions under different
+    invariant). The matrix builds the 4 catalog study editions under different
     ``target_reader`` values WITHOUT mutating editions.yaml — the override
     lives only in the in-memory record, so every downstream consumer
     (``resolve_target_reader`` / ``is_kindle_target`` / the OPF stamp / the
@@ -2020,7 +2020,7 @@ def is_kindle_target(edition: dict) -> bool:
 # home (format-matrix spec §5, review MED: the format↔profile mapping is
 # consumed by the CI matrix workflow, scripts/gen_release_catalog.py, and the
 # site build — never re-typed per consumer, the MATRIX_MAP-#3 drift class).
-# Rows are in catalog-tab order (spec §2). Each format is the 8 tradition editions
+# Rows are in catalog-tab order (spec §2). Each format is the 4 catalog study editions
 # built under the row's ``target_reader`` profile via ``--target-reader`` (no
 # second control path; editions.yaml stays byte-stable). Covers are the
 # EDITION's, not the format's (spec addendum 2026-06-11, user-directed: each
@@ -5404,7 +5404,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
         # a no-op.
 
     # Default-settings short-circuit. Saves the file scan for the
-    # 4 of 5 editions that ship with default reader experience.
+    # Most catalog editions ship with default reader experience.
     if collapsible and not default_open and not ornament_glyph:
         return {
             "files_touched": 0,

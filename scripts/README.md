@@ -361,8 +361,8 @@ to be fleshed out by hand afterwards.
 
 The single master corpus emits N market-tuned EPUBs. Foundation: hierarchical
 kind taxonomy in `content/kinds.yaml` (59 kinds across 14 categories) and
-edition profiles in `content/editions.yaml` (8 tradition editions plus 2
-standalone language Bibles).
+edition profiles in `content/editions.yaml` (4 canon-shaped catalog study
+editions plus 2 standalone language Bibles; other traditions via customize).
 Legacy kinds (`word`, `comm`, `source`, `parallel`) remain unchanged so all
 existing 1,371 notes keep working.
 
@@ -372,8 +372,8 @@ existing 1,371 notes keep working.
 python3 scripts/build_edition.py --list           # editions and kind counts
 python3 scripts/build_edition.py ethiopian-tewahedo
 python3 scripts/build_edition.py catholic-study --output-dir releases/
-python3 scripts/build_edition.py --all --version v27   # build all 5 editions
-python3 scripts/build_edition.py reformed --dry-run    # report filter only
+python3 scripts/build_edition.py --all --version v27   # build every edition
+python3 scripts/build_edition.py evangelical-reformed --dry-run  # filter report
 ```
 
 Filter resolution per kind (priority order): explicit `disabled_kinds` →
@@ -406,8 +406,8 @@ python3 scripts/add_note.py gen 3 15 \
     --label "Marian." \
     --body "<strong>Protevangelium and the Marian reading.</strong> ..."
 
-# Then rebuild — Reformed and Jewish editions will strip this note;
-# Catholic, Tewahedo, and Scholarly editions will keep it.
+# Then rebuild — Reformed/Evangelical editions will strip this note;
+# Catholic and Ethiopian Tewahedo editions will keep it.
 python3 scripts/build_edition.py --all
 ```
 

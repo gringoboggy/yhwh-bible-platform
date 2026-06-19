@@ -63,11 +63,11 @@ These templates can be used as:
 | Ethiopian Tewahedo | `05_missal_central` (Coptic/Ethiopian liturgical) | `red` or `brown` |
 | Catholic Study | `01_ornate_leafy` | `brown` |
 | Eastern Orthodox | `05_missal_central` | `navy` or `black` |
-| Anglican BCP | `02_classical_corner` | `forest` |
-| Lutheran Confessional | `04_minimal_lines` | `black` |
-| Reformed | `04_minimal_lines` | `forest` (Geneva green) |
-| Coptic Orthodox | `01_ornate_leafy` | `red` |
-| Scholarly / Academic | `04_minimal_lines` | `black` |
+| Reformed / Evangelical | `04_minimal_lines` | `forest` (Geneva green) or `black` |
+
+Retired catalog SKUs (Anglican, Lutheran, Jewish, Coptic, Scholarly) were removed
+turn 141 — those traditions are shaped in the customize console, not as separate
+cover SKUs. The 25-template library still supports any style/colour a builder picks.
 
 These are starting suggestions, not rules. The publisher picks
 per-edition via `/covers` console (existing) or the future

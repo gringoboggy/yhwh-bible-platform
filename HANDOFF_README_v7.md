@@ -7,6 +7,12 @@
 > ONIX / store-distribution / KDP sections are OBSOLETE. The project is FREE and
 > non-commercial (no sale, no ISBN, no store); see `LICENSE`, `COPYRIGHT.md`, and
 > `dev/CLAUDE_PROJECT_RULES.md` §10. Treat anything commercial below as history.
+> **⚠ Edition tables below are HISTORICAL (turn 141, 2026-06-19):** the live catalog
+> ships **4 canon-shaped study editions** (Ethiopian Tewahedo, Catholic, Eastern Orthodox,
+> Reformed/Evangelical) plus **2 standalone** Geʽez/Amharic Bibles in progress. Retired
+> built-in SKUs (`jewish-study`, `scholarly-academic`, `anglican-bcp`, `lutheran-confessional`,
+> `coptic-orthodox`) must not return; other traditions belong in **customize**. See
+> `content/editions.yaml`, `README.md`, and `brand/BIOS.md` for current public truth.
 > The new bootstrap path is **3 short docs in `dev/`**:
 >
 > ```

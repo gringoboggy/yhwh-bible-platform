@@ -149,7 +149,7 @@ EXPORT_HTML = r"""<!DOCTYPE html>
         <p class="text-xs text-slate-500">runs every edition through the build pipeline · packages outputs into a single zip · partial failures don't abort the batch</p>
       </div>
       <button id="build-all-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded">
-        Build all 5 editions
+        Build all editions
       </button>
     </div>
     <div id="build-all-status" class="mt-3 text-sm"></div>
@@ -293,7 +293,7 @@ async function buildAllEditions() {
 
   lockBuildButtons(true);
   btn.textContent = 'Building…';
-  const restore = () => { lockBuildButtons(false); btn.textContent = 'Build all 5 editions'; };
+  const restore = () => { lockBuildButtons(false); btn.textContent = 'Build all editions'; };
   setBuildStatus(status, 'building all editions; this can take 1–3 minutes total…', 'text-slate-500');
   results.classList.add('hidden');
 
