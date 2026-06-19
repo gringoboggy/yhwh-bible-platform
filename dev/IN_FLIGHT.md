@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-19 (Mac turn 138).** Shipped `1943a33d` — M4b glossary xref retarget + nav spine-order (STK load fix). **STK:** user uploading `…144600Z-kindle-m4b.epub` → Mac polls `com.amazon.Lassen` + device tap QA on arrival. **WIN (parallel):** `ci.py` GREEN · rx-surfaces · HOLD M4 catalog until Mac STK re-PASS.
+> **▶ ACTIVE 2026-06-19 (turn 139 — autonomous day plan).** User: ~24h parallel test/sim work; no human device taps unless STK upload lands unprompted. **WIN:** `ci.py` IN FLIGHT (~6h) → rx-surfaces → Kobo sim → **Kindle takeover** → sim-pipeline fidelity audit. **Mac:** Apple Books + Play Books sim depth; pre-work commits for WIN; STK poll automated-only if `144600Z` arrives. **HOLD** M4 catalog until WIN kindle re-gate + sim audit.
 
 ## Standalone status (unchanged)
 

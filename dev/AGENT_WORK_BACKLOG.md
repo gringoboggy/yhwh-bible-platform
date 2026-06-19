@@ -16,18 +16,29 @@
 - [ ] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale
 - [ ] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item
 
+## P4 — autonomous day (2026-06-19, user-directed)
+
+- [ ] WIN: `ci.py` GREEN (IN FLIGHT ~6h; no parallel heavy jobs)
+- [ ] WIN: rx-surfaces fresh builds (eth + catholic-study) after ci green
+- [ ] WIN: Kobo `--gate` then `--sim` on staged kepub
+- [ ] WIN: **Kindle lane takeover** — `--gate kindle --m4b`, STK-failure bisect, structural fixes Mac deferred
+- [ ] WIN: **Sim-pipeline fidelity audit** — map each `--gate`/`--sim` check → EREADERS claim → platform-matrix → device oracle → gap
+- [ ] WIN: `ci.py --reader-sim-gates` + hand Mac rx-surfaces + kindle findings
+- [ ] MAC: Apple Books — Thorium CDP + Books.app on tablet artifacts (M2 matrix)
+- [ ] MAC: Play Books — Thorium everywhere proxy + emulator spike (M5 matrix)
+- [ ] MAC: Pre-work for WIN — stage artifacts, update `STAGING_MANIFEST.md`, M2/M5 assertion rows, Kindle handoff notes
+- [ ] MAC: STK poll `144600Z` if upload lands — automated only (no user tap matrix)
+
 ## P5 — release gate (WIN primary)
 
 - [ ] WIN: pytest `--lf` → fix reds → `py -3 scripts/ci.py` GREEN
-- [ ] WIN: Kobo `--sim` gate-only path (verify_kr2 GREEN; timeout-bounded epubcheck)
-- [ ] WIN: rx-surfaces + popup-integrity tail after pytest green
 - [ ] WIN: Update `dev/reader_sim/STAGING_MANIFEST.md` SIM_LAYERS after sim passes
+- [ ] BOTH: dishonest-code-audit + stub-audit before v1 tag (when RAM free)
 
-## P8 — reader sim depth
+## P8 — reader sim depth (folded into P4 day plan)
 
-- [ ] WIN: Build fresh ethiopian-tewahedo eink kepub + `dev/verify_kr2_build.py`
-- [ ] MAC: STK live poll (`kindle_library` Lassen + `stk_channel.sh`)
-- [ ] MAC: Thorium 3.4 CDP tap calibration on catholic-study tablet build
+- [ ] WIN: Build fresh ethiopian-tewahedo eink kepub if staged artifact stale
+- [ ] MAC: Thorium CDP tap calibration on catholic-study tablet build
 - [ ] MAC: Play Books emulator spot-check one edition
 
 ## P10 — transcription side lanes (parallel, file-disjoint)

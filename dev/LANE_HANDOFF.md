@@ -1,13 +1,28 @@
 ---
 mode: parallel
-turn: 138
-from: mac
-updated: 2026-06-19T15:16:12Z
-status: working
-mac: STK upload in flight (144600Z); poll + device tap QA on arrival; standby for user instructions
-windows: pull 1943a33d+; ci.py GREEN; rx-surfaces; HOLD M4 kindle catalog until Mac STK re-PASS
-truth_owner: windows
-holder: windows
+turn: 139
+from: windows
+updated: 2026-06-19T15:42:07Z
+status: handing-off
+mac: Turn 139 day plan: Apple Books + Play Books sim depth (Thorium/Books.app); STK poll 144600Z automated-only; pre-work commits for WIN (STAGING_MANIFEST + M2/M5 sim-oracle rows + Kindle handoff notes)
+windows: ci.py IN FLIGHT (~6h) then rx-surfaces, Kobo sim, Kindle lane takeover, sim-pipeline fidelity audit, ci.py --reader-sim-gates
+truth_owner: mac
+holder: mac
+---
+
+## ▶ windows → mac (turn 139, 2026-06-19T15:42:07Z) — mode=parallel
+
+**Done (turn 138, windows):**
+git pull up to date @ 1943a33d; ci.py started; user day-plan for autonomous test/sim arc
+
+**Next (turn 139, mac picks up):**
+WIN: finish ci.py then rx-surfaces then Kobo then Kindle takeover then sim audit; Mac: Apple+Play sim + pre-work for WIN
+
+**Assignments:** mac = Turn 139 day plan: Apple Books + Play Books sim depth (Thorium/Books.app); STK poll 144600Z automated-only; pre-work commits for WIN (STAGING_MANIFEST + M2/M5 sim-oracle rows + Kindle handoff notes) · windows = ci.py IN FLIGHT (~6h) then rx-surfaces, Kobo sim, Kindle lane takeover, sim-pipeline fidelity audit, ci.py --reader-sim-gates
+
+**Watch-outs:**
+ci.py ~6h; no parallel heavy jobs on WIN; HOLD M4 catalog; no human device taps unless STK lands
+
 ---
 
 ## ◦ mac assign (turn 138, 2026-06-19T15:16:12Z) — mode=parallel

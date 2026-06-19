@@ -2,7 +2,7 @@
 
 > **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`1943a33d`+** · `bash dev/start_session_radars_mac.sh`. **M4b Option B + STK fix @ `1943a33d`:** glossary `#v-*` xrefs retargeted cross-file (was 44× RSC-012 on `000000Z` → STK load fail) · Study Notes nav spine-order fixed (NAV-011). **STK candidate:** `~/Desktop/YHWH-reader-sim/kindle/…2026-06-19T144600Z-kindle-m4b.epub` — strict gate **0/0/0/0** · user **uploading now** → poll + device tap QA on arrival. **WIN:** HOLD M4 kindle catalog regen until Mac STK re-PASS. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`1943a33d`+** (rebase if behind). **Mac status (turn 138):** STK fix shipped · `144600Z` m4b gated green · user uploading → Mac device QA when it lands. **Your queue:** `py -3 scripts/ci.py` GREEN (`$env:PYTHONUTF8="1"`; ~6h) · rx-surfaces after green · **HOLD** M4 kindle catalog regen until Mac STK re-PASS. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 139`+** (rebase if behind). **Day plan (2026-06-19, user-directed):** autonomous test-only arc — **no human device taps** unless an STK upload lands unprompted. **WIN:** `ci.py` IN FLIGHT (~6h) → rx-surfaces → Kobo `--sim` → **Kindle lane takeover** (structural/M4b gates + STK-failure bisect; Mac hands off) → **sim-pipeline fidelity audit** (map `--gate`/`--sim` → `EREADERS`/`platform-matrix` → device oracle → gaps). **Mac:** Apple Books + Play Books sim depth (Thorium CDP + Books.app proxy); STK poll only if `144600Z` arrives; **pre-work commits** for WIN (artifacts + tap matrices + Kindle notes). Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -22,9 +22,29 @@
 - English back-translation of the Ge'ez — collated Kings/Samuel (324 v) + all 151 Psalms (`content/translations/geez-tewahedo-en/`).
 - Phase D own-versification re-ingest — Patrologia vision-transcription lane; PO Esther paused ~p35 (see the top journal entries).
 
-## Next
+## Next — autonomous day plan (2026-06-19)
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Mac:** STK `144600Z` upload in flight → delivery poll + tap QA (vn-link + study-badge matrix). **WIN:** `ci.py` GREEN · rx-surfaces. **HOLD:** M4 catalog until Mac STK re-PASS. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE** + **Reader Sim Lab** (`plans/2026-06-18-reader-simulation-lab.md`). User: plan ~24h parallel work; **tests/sim only** (skip scheduled human tap rounds); Mac sends pre-work; WIN takes Kindle after Kobo.
+
+### WIN schedule
+
+| Block | Work |
+|---|---|
+| **0–6h** | `ci.py` GREEN (`PYTHONUTF8=1`; no parallel pytest/builds) |
+| **While CI** | Kobo `--gate` (gate-only epubcheck) · sim-fidelity audit scaffold · `--ping` |
+| **Post-green** | rx-surfaces (eth + catholic-study) · Kobo `--sim` · Kindle `--gate --m4b` + STK-failure bisect · `ci.py --reader-sim-gates` · sim fidelity report · dishonest/stub audit if RAM free |
+| **Hand Mac** | rx-surfaces summary · kindle gate findings · sim-oracle gap table |
+
+### Mac schedule
+
+| Block | Work |
+|---|---|
+| **Primary** | Apple: Thorium CDP + Books.app on tablet artifacts · Play: Thorium everywhere + emulator spike |
+| **STK** | Poll `144600Z` if upload lands — **automated only**; document ingest, skip user tap matrix |
+| **Pre-work WIN** | Stage `build/reader-sim/` updates · `STAGING_MANIFEST.md` · M2/M5 tap assertion rows · Kindle handoff notes (`file:line` + what Mac tried) |
+| **Overflow** | Esther Patrologia · CAM pre-pull · 1ki EN ch11+ |
+
+**HOLD:** M4 catalog regen until sim audit + Kindle structural re-gate green on WIN.
 
 ## Inventory pointers
 

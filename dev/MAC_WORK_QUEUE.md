@@ -87,27 +87,50 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 - [x] **8 Save + push:** `b154f8eb` — **Mac turn 125**
 - [x] **lane_watch:** keep `--bg` running — **standing**
 
-## ★ Turn 131 — STK re-tap + M4b 6-variant re-gate (START HERE)
+## ★ Turn 139 — autonomous day (START HERE, 2026-06-19)
 
-> **Pull `c6e8c2de`+** then latest save. **M4b KFX fix shipped** @ `c6e8c2de` + epubcheck follow-up.
+> **Pull `turn 139`+** · `export PYTHONUTF8=1` · `lane_watch --once` + `--bg`. **User:** ~24h test/sim only — **no scheduled human device taps**. Kindle structural work **hands to WIN** after Kobo; Mac owns **Apple + Play**.
 
-### 1 — STK device re-tap (user upload · agent poll)
+### 1 — Apple Books sim (primary)
 
-> **2026-06-18 wrap:** STK poll **PAUSED** — user restarting Mac (8 GB RAM). Resume after reboot.
+- [ ] Thorium CDP on `build/reader-sim/apple/` tablet artifacts (`YHWH_THORIUM_LIVE=1`)
+- [ ] macOS Books.app open pass on catholic-study + ethiopian-tewahedo tablet builds
+- [ ] Record M2 matrix rows: vn-link popup · verse-end badge · ToC `<details>` · embedded fonts
+- [ ] Append results to `docs/superpowers/notes/2026-06-18-platform-apple.md` §sim-fidelity
 
-- [ ] User uploads `Ethiopian_Bible_ethiopian-tewahedo_0.1.0_2026-06-18T232708Z-kindle-m4b.epub` via Chrome (**165347Z/221232Z STK load FAIL — do not use**)
-- [ ] `bash dev/reader_sim/kindle/stk_poll_watch.sh --epub ~/Desktop/YHWH-reader-sim/kindle/…232708Z-kindle-m4b.epub` (start poll only after user says upload done)
-- [ ] User Kindle QA: Gen 1:1 vn-link · study coord/back-link · title page · ToC spacing
-- [ ] Log result in `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md`
+### 2 — Play Books sim (primary)
 
-### 2 — M4b 6-variant re-gate (overflow @ turn 128)
+- [ ] Thorium everywhere proxy on `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub`
+- [ ] Optional Android emulator sideload spike (turn 125 item 7 — document honest proxy limits)
+- [ ] Record M5 matrix rows: popup · fonts · chapter nav · `<details>` stuck (expected fail)
+- [ ] Append results to `docs/superpowers/notes/2026-06-18-platform-play.md` §sim-fidelity
 
-- [ ] Rebuild + gate 6 variants → `~/Desktop/YHWH-kindle-m4b-qa/` (4/6 gated @ turn 131: ethiopian + catholic + evangelical + eastern; standalones deferred — build wiring τ.G.x.*)
+### 3 — STK (automated only — if `144600Z` upload lands)
 
-### 3 — Standing
+- [ ] `stk_poll_watch.sh` on `…144600Z-kindle-m4b.epub` — ingest OK / library arrival only
+- [ ] **Skip user tap matrix** unless user initiates; log automated findings for WIN kindle takeover
+- [ ] Update `docs/superpowers/notes/2026-06-18-kindle-stk-m4b-device-qa.md` with poll-only data
 
-- [ ] WIN: hold M4 kindle catalog regen until Mac STK re-PASS
-- [ ] `save_mac.sh` each slice
+### 4 — Pre-work for WIN (milestone-push each slice)
+
+- [ ] Refresh `build/reader-sim/` + `STAGING_MANIFEST.md` if artifacts rebuilt
+- [ ] **Kindle handoff note** in `LANE_HANDOFF`: what Mac tried, STK failures, `file:line` suspects
+- [ ] **M2/M5 sim-oracle table** — Thorium assertion vs device claim vs gap (for WIN sim audit merge)
+
+### 5 — Overflow (when primary idle)
+
+- [ ] Esther Patrologia `extract_patrologia_pdf --book est` (~p35+)
+- [ ] CAM hi-res folio pre-pull (manifest gaps)
+- [ ] 1ki EN back-translation ch11+
+
+### Standing
+
+- [ ] `save_mac.sh` each coherent slice — WIN cannot see unpushed work
+- [ ] HOLD M4 catalog until WIN kindle re-gate + sim audit
+
+## Turn 131 — STK re-tap (superseded by turn 139 — automated poll only)
+
+> Device tap matrix deferred per user 2026-06-19. Keep `144600Z` as canonical STK candidate.
 
 ## Turn 130 — **COMPLETE** (M4b KFX fix)
 
