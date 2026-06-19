@@ -1,8 +1,8 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → latest · `bash dev/start_session_radars_mac.sh`. **M4b Option B SHIPPED** — study glossary backmatter + badge navigate (`kindle_post.py`); **retired Option A** (`kindle-chapter-study` — 232708Z layout FAIL IMG_0469/0472/0473). **STK candidate:** `~/Desktop/YHWH-reader-sim/kindle/…2026-06-19T000000Z-kindle-m4b.epub` (30,344 badges → 156 glossary pieces · Gen 1 opens scripture). **Awaiting user STK upload** → device QA. **WIN:** hold M4 kindle catalog regen until device re-PASS. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`1943a33d`+** · `bash dev/start_session_radars_mac.sh`. **M4b Option B + STK fix @ `1943a33d`:** glossary `#v-*` xrefs retargeted cross-file (was 44× RSC-012 on `000000Z` → STK load fail) · Study Notes nav spine-order fixed (NAV-011). **STK candidate:** `~/Desktop/YHWH-reader-sim/kindle/…2026-06-19T144600Z-kindle-m4b.epub` — strict gate **0/0/0/0** · user **uploading now** → poll + device tap QA on arrival. **WIN:** HOLD M4 kindle catalog regen until Mac STK re-PASS. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`84b3400c`+** (rebase if behind). **Done:** turn 136 canon-SKU scrub @ `96e3e86d` · M3 **20/20** kepubs gated green (`dev/m3_e2e_summary.md`, artifacts in `build/matrix-m3/`). **Job 1:** `py -3 scripts/ci.py` GREEN (`$env:PYTHONUTF8="1"`; expect **~6h** pytest+coverage). **Job 2:** rx-surfaces on fresh builds if ci green. **HOLD:** M4 kindle catalog regen until Mac STK re-PASS. **Do NOT** launch new long builds at session wrap. Baton **windows**; mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`1943a33d`+** (rebase if behind). **Mac status (turn 138):** STK fix shipped · `144600Z` m4b gated green · user uploading → Mac device QA when it lands. **Your queue:** `py -3 scripts/ci.py` GREEN (`$env:PYTHONUTF8="1"`; ~6h) · rx-surfaces after green · **HOLD** M4 kindle catalog regen until Mac STK re-PASS. Baton **windows**; mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -24,7 +24,7 @@
 
 ## Next
 
-> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Round 9 Mac COMPLETE.** **WIN:** pytest → `ci.py` GREEN · kobo `--sim` · rx-surfaces. **Mac:** §Turn 128 STK live + reader-sim help. **No tag until plan §8 complete.**
+> **v1.0.0 RELEASE GATE (plan: `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`).** **Mac:** STK `144600Z` upload in flight → delivery poll + tap QA (vn-link + study-badge matrix). **WIN:** `ci.py` GREEN · rx-surfaces. **HOLD:** M4 catalog until Mac STK re-PASS. **No tag until plan §8 complete.**
 
 ## Inventory pointers
 

@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-19 — Mac session (turn 138) — M4b STK load fix (glossary xrefs + nav)
+
+**Shipped @ `1943a33d`:** retarget bare `#v-*` cross-refs inside relocated study glossary to `index_split_*.html#v-*` (44× epubcheck RSC-012 on `000000Z` — root cause of STK upload/load fail) · insert Study Notes nav entry before Sources (NAV-011 spine-order) · `m4b-4` verify gate · tests 13/13. Rebuilt + gated `…2026-06-19T144600Z-kindle-m4b.epub` (strict **0/0/0/0**). User STK upload in flight.
+
 ## 2026-06-19 — Mac session — M4b Option B (study glossary backmatter)
 
 **Shipped:** pivoted `kindle_post.apply_kindle_m4b` from retired Option A (per-chapter `kindle-chapter-study` injection — caused notes-at-chapter-start on KFX per IMG_0469/0472/0473) to **Option B** (Kobo K-R9 mirror): extract `vnotes-*` into `kindle_study_glossary_*.html` backmatter (156 pieces on ethiopian) · **keep** `verse-notes-badge` markers retargeted to glossary fragments · hidden-tail `vnote-*` unchanged (STK-deliverable). `tests/test_kindle_m4b.py` 13/13 · device QA doc updated · staged `…2026-06-19T000000Z-kindle-m4b.epub`.

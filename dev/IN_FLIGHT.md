@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-19 (WIN turn 136).** Shipped `96e3e86d`. **M3 E2E VERIFIED:** 20/20 kepubs in `build/matrix-m3/` — all gated epubcheck 0/0/0/0 + K-R2 GREEN (`dev/m3_e2e_summary.md`). **Next:** `ci.py` GREEN.
+> **▶ ACTIVE 2026-06-19 (Mac turn 138).** Shipped `1943a33d` — M4b glossary xref retarget + nav spine-order (STK load fix). **STK:** user uploading `…144600Z-kindle-m4b.epub` → Mac polls `com.amazon.Lassen` + device tap QA on arrival. **WIN (parallel):** `ci.py` GREEN · rx-surfaces · HOLD M4 catalog until Mac STK re-PASS.
 
 ## Standalone status (unchanged)
 

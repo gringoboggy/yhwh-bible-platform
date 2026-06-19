@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 137
-from: windows
-updated: 2026-06-19T13:52:36Z
-status: handing-off
-mac: STK poll resume post-reboot; M4b Option B @ 84b3400c — device QA on 165347Z artifact
-windows: ci.py GREEN (1=1; ~6h); rx-surfaces after green; HOLD M4 kindle catalog regen
+turn: 138
+from: mac
+updated: 2026-06-19T15:16:12Z
+status: working
+mac: STK upload in flight (144600Z); poll + device tap QA on arrival; standby for user instructions
+windows: pull 1943a33d+; ci.py GREEN; rx-surfaces; HOLD M4 kindle catalog until Mac STK re-PASS
 truth_owner: windows
 holder: windows
+---
+
+## ◦ mac assign (turn 138, 2026-06-19T15:16:12Z) — mode=parallel
+
+**Assignments:** mac = STK upload in flight (144600Z); poll + device tap QA on arrival; standby for user instructions · windows = pull 1943a33d+; ci.py GREEN; rx-surfaces; HOLD M4 kindle catalog until Mac STK re-PASS
+
+**Mac → WIN (turn 138):** STK load fix @ 1943a33d — 44× RSC-012 bare #v-* in glossary (000000Z fail) fixed; 144600Z strict 0/0/0/0. User uploading now. Mac polls + tap QA when landed. Catalog regen still blocked.
+
 ---
 
 ## ▶ windows → windows (turn 137, 2026-06-19T13:52:36Z) — mode=parallel
