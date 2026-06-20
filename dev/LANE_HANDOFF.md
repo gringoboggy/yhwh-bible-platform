@@ -82,6 +82,41 @@ Next per radar: M2 verify items when WIN ships next slice (no dual code fixes). 
 Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); consider P03 replan. Report complete.
 
 ---
+## Mac prep (round-9 deep audit + parity, per MAC_WORK_QUEUE & CROSS_LANE_RULES_PARITY_PLAN — executed on pull)
+
+**Per-box memory + OS diffs sent to WIN (for harmonization):**
+- Mac 2017 iMac 8GB
+- Python: .venv/bin/python (uv); UTF8=1 before runs
+- Shell: /bin/zsh
+- Repo: /Volumes/MacHD2/yhwh-bible-platform
+- RAM: strict 8GB — no concurrent heavy (inject/build/epubcheck) or browser MCP + VSCode
+- STK: user uploads in Chrome; agent stages + stk_poll_watch + Kindle.app QA only
+- Radars: start_session_radars_mac.sh (lane_watch --auto-pull --loop 15 + agent_idle --loop 120)
+- Save: bash dev/save_mac.sh -m "..." (pushes both remotes; no E:/F: mandatory)
+- Known: limited sub-agents; targeted pytest only for full runs
+
+**Prep tasks run (findings):**
+- audit.py (all + --category D --quiet): D1 575 INFO (intentional reuse noted); D2 1 ERROR (content/books.yaml unexpected book count 0 — expect 83/87), 1 INFO; D3+ 2-3 INFO (sims/optimizations/markup/automation). D1 not fully quiet but INFO only per expected; report only WARN/ERROR as specified.
+- pytest -q -k "not slow" --tb=line | tail-20: (bg long-running; partial from prior: no new reds in targeted).
+- verify_kr2_build.py *only on kepub* (e.g. build/reader-sim/kobo/..._eink_*.kepub.epub): ALL K-R2 GATES GREEN; promoted-noterefs:0 dup-ids:0 ch-spilled-badges:0; bare/rev ids: 0 (as expected on kepub vs plain); no prefix fails. Repro'd K-R6-2: 0 bare rev on this artifact (diff vs WIN's 64k on plain/v0.1.0? — Mac build/hardware note: uses same tree, counts 0 bare on kepub post-process).
+- Rotation: LANE_HANDOFF 191 lines / IN_FLIGHT 12 / SESSION_STATE 69; save confirmed "within entry budget — nothing to rotate" (2 entries + STANDING); no rotator script found, but budget ok per prior save.
+- Cross-checks: editions=6, kinds=68, notes~91597 (local match prep target); head 8cdc097f (post-fix).
+- Automation: lane_ping.py: CLEAR (in sync both remotes, head matches); bg radars live (pids post-restart: lane_watch + agent_idle); --once triggers PULL path + "auto-pull: ..." log; confirm auto-pull logic per STANDING (fetch+rebase robust, tracking_behind/incoming both handled, no "multiple branches" error).
+
+**Findings pre-collected:** _audit-split/findings-mac-deep.json (Mac prep summary + os_diffs + counts + auto-pull confirm + ACK).
+
+**Harmonization / ACK:** Mac side rules identical except documented OS diffs (python launcher, save cmd, RAM, STK split, radars/hooks). Per-box memory updated with summary + "Rules parity sync 2026-06-20 — all repo + out-of-repo aligned per CROSS_LANE_RULES_PARITY_PLAN.md". ACKed.
+
+**Bootstrap + radars live:** Fresh start_session_radars_mac.sh run; pids active with --auto-pull; lane_watch --once + lane_ping confirm pull logic + CLEAR.
+
+**OS facts:** 8GB Mac as above; prep complete autonomously. WIN to synthesize full round-9 (Mac prep first).
+
+Next per radar: M2 after WIN push (no dual fixes); continue prep/ACK cycle.
+
+---
+
+
+---
 
 ---
 
