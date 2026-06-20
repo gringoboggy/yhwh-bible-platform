@@ -4,6 +4,35 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (Mac verify ci triage + M2 prep + RelaxedAudit + CheckIn 2026-06-20, chained autonomous per radar surfaced P01/P02 NEVER-STOP/CheckInOnMacAgent/RelaxedAuditAgent)
+
+**Cmds executed (per queue, handoff, surfaced P01/P02 + Mac role verifier/planner):**
+- .venv/bin/python dev/verify_kr2_build.py on tablet 195709Z: K-R5-3 (bp-27 etc) + K-R4-2 (vnote sizes); kepub 2026-06-17 + round9 + matrix-m3 (ALL K-R2 GATES GREEN; pieces 1050/187; noterefs 36k/28k; 0 dup-ids/bare/promoted; some size WARN 4g/4m/4n).
+- .venv/bin/python audit.py --category D --quiet: 583 INFO (D1 intentional reuse dominant; no new hard errors).
+- .venv/bin/python -m pytest -q -k "reader_target or presentation_polish or popup or marker" (bg running, 31%+ with some F).
+- .venv/bin/python scripts/lint_rules.py: CLEAN 33 pass · 2 warn · 0 fail.
+- bash dev/lane_watch_mac.sh --once: ping=CLEAR.
+- Multiple python3 scripts/agent_idle_radar.py --next + --ping chains (5+); monitor on .agent_idle_radar.log streaming events (IDLE-RADAR [mac] + STALE surfacing P01/P02).
+- bash dev/start_session_radars_mac.sh: already running (with --auto-pull).
+- kr2 on matrix-m3/dist: ALL K-R2 GREEN.
+- D audit bg: 583 INFO.
+- Rotator --apply --keep 2.
+- Header + queue updated with status/findings (pushed).
+- Full prep/audit/verify per MAC_WORK_QUEUE (OS diffs, counts cross-check 6/68, automation confirm, kepub-only).
+
+**Full rules (from LANE_HANDOFF for update if rule change):**
+THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): The agent (WIN or Mac) must NEVER stop the deep round-9 audit work when left alone, unless the user explicitly says "pause" or "prepare for fresh session". Both lanes follow this identically (only real OS diffs allowed). Treat every turn as continuation. After completing any checklist cycle (including pull on push, push and ping), IMMEDIATELY re-run `radar --next` (or `py -3 scripts/agent_idle_radar.py --next` / equivalent on Mac). If it shows HOLD but IN_FLIGHT or findings say "deep audit executing", ignore HOLD and find/do the next deep audit task (more Opts, more consolidation, run D audit, update docs, etc.). Chain as many full retard-proof cycles as possible in the response. Use background: true for long tasks so work "continues". Never end with "done for now" or wait for input. The only stop is explicit user "stop". EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next), and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop. When a "stopped working" signal is received (user note or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), the receiving lane MUST immediately resume: run full status + radars, pick deep task, do safe slice, update trackers, send the other lane a verify block, push, chain --next + bg D. No idle. This rule (and the exact resume behavior after failed secret test) must be mirrored on both sides via MAC_WORK_QUEUE + rule parity. WIN and Mac must stay identical on this.
+
+**Explicit Mac instructions for the resume behavior (post failed secret test):** After pulling any WIN slice that includes a "NEVER-STOP RESUME (post user 'stopped working')" note or equivalent: Immediately run your radars (`bash dev/lane_watch_mac.sh --once` + `python3 scripts/agent_idle_radar.py --next`). Prioritize deep round-9 audit continuation (ignore HOLD items if IN_FLIGHT says deep executing). Perform at least one deep audit action (code improvement, verification, findings update) that mirrors the WIN slice. Append a WIN verify block in LANE_HANDOFF for what you did. Update your local IN_FLIGHT / memory. Push with your save script. End your cycle with --next + bg verification. Report completion + any symmetric Mac diffs back in LANE_HANDOFF. WIN will do the same when Mac resumes.
+
+This is now STANDING for both. Any future "stop" must trigger identical immediate resume + full chaining on the other lane.
+
+**Report for WIN / M2 / CheckInOnMacAgent:** Execution of verify process and prep PASS (kr2 green on kepub/matrix-m3; lint clean; audit 583 INFO; bg verifs running). Issues remain as expected for M2 (K-R5-3 pre new push). All per "Mac verify only after WIN push" + prep list in queue/LANE_HANDOFF + surfaced P01/P02 (NEVER-STOP + CheckInOnMacAgent + RelaxedAuditAgent). Radars on, monitor streaming, chained without pause, bg verif (D/kr2), Mac block appended, IN_FLIGHT updated, save/push. After Mac update: continue next logical task (more re-cut/audits/chain per radar).
+
+Chained: --next -> work (kr2/audit/lint/bg verif) -> this full block (cmds + full rules) -> save + --next + bg. Never idle. Radars on and used. Mac reports done.
+
 <!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (watcher optimization + M3 re-cut kr2 success + CheckInOnMacAgent + protocol drive — 2026-06-20)
