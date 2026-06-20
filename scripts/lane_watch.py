@@ -8,6 +8,10 @@ logic with a single cycle that answers three questions each poll:
   2. Is the **remote board** ahead of our local copy?  (``origin/main:LANE_HANDOFF``)
   3. Is there **incoming work** for this box?  (``lane_handoff incoming``)
 
+--auto-pull also keeps the local branch in sync when it is behind the tracking
+ref (the case `git status` reports "behind"). This is required by the STANDING
+auto-pull-on-BEHIND rule so you never have to manually `pull`.
+
 Handoffs travel **only via git push** — a local board edit the other lane cannot
 see is flagged as ``unpushed_handoff`` so the authoring lane knows to milestone-push.
 
@@ -249,7 +253,9 @@ def _assign_mac(task: str, note: str = "") -> int:
 
 
 def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
-    """One poll cycle. Mutates repo on auto_pull when behind or remote board ahead."""
+    """One poll cycle. Mutates repo on auto_pull when BEHIND, remote board ahead,
+    or local branch lags the origin/main tracking ref (so --auto-pull actually
+    keeps you in sync when `git status` shows behind)."""
     from scripts import lane_handoff as lh
     from scripts import lane_ping as lp
 
@@ -280,7 +286,20 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     pulled = False
     pull_msg = ""
     dirty_tree = _working_tree_dirty()
-    should_pull = auto_pull and fetch_ok and not dirty_tree and (status == "BEHIND" or remote_ahead)
+
+    # Track whether our checked-out main is behind the (just-fetched) origin/main.
+    # This is the practical "git status says behind" signal. We pull on this so
+    # --auto-pull actually keeps the branch in sync (the whole point of the checker).
+    tracking_behind = False
+    if fetch_ok:
+        rc, out, _ = _git("rev-list", "--count", "HEAD..origin/main", timeout=15)
+        if rc == 0:
+            try:
+                tracking_behind = int((out or "").strip()) > 0
+            except (ValueError, TypeError):
+                tracking_behind = False
+
+    should_pull = auto_pull and fetch_ok and not dirty_tree and (status == "BEHIND" or remote_ahead or tracking_behind)
     if should_pull:
         pulled, pull_msg = _auto_pull()
         if pulled:
@@ -308,6 +327,7 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
         "lane": lane,
         "ping_status": status,
         "behind": status == "BEHIND",
+        "tracking_behind": tracking_behind,
         "offline": status == "OFFLINE",
         "unpushed_commits": unpushed,
         "unpushed_handoff": unpushed_handoff,
@@ -391,8 +411,8 @@ def _emit_cycle_log(info: dict, state: dict, tip: str) -> None:
         if info["remote_mac"]:
             _log(f"  mac (remote): {info['remote_mac'][:140]}")
 
-    if info["behind"] and not info["auto_pulled"]:
-        _log("BEHIND — other lane pushed; run with --auto-pull or git pull --rebase origin main")
+    if (info["behind"] or info.get("tracking_behind")) and not info["auto_pulled"]:
+        _log("BEHIND — local branch lags origin/main; auto-pull or `git pull --rebase origin main` needed")
 
     if info["incoming"] and not info["auto_pulled"] and info["incoming_banner"]:
         for ln in info["incoming_banner"].splitlines():
@@ -400,6 +420,7 @@ def _emit_cycle_log(info: dict, state: dict, tip: str) -> None:
 
     if (
         not info["behind"]
+        and not info.get("tracking_behind")
         and not info["remote_ahead"]
         and not info["incoming"]
         and not info["unpushed_handoff"]
@@ -429,7 +450,7 @@ def post_pull_actions(info: dict, *, assign_mac: bool) -> None:
 def _exit_code(info: dict) -> int:
     if info["offline"] and not info["fetch_ok"]:
         return 2
-    behind = info["behind"] or info["remote_ahead"]
+    behind = info["behind"] or info.get("tracking_behind", False) or info["remote_ahead"]
     incoming = info["incoming"]
     if behind and incoming:
         return 30
@@ -472,9 +493,11 @@ def _print_human(info: dict) -> None:
         )
     if info["behind"]:
         print("  BEHIND — other lane pushed", flush=True)
+    if info.get("tracking_behind"):
+        print("  TRACKING BEHIND — local main is behind origin/main (git status behind)", flush=True)
     if info["incoming"] and info["incoming_banner"]:
         print(info["incoming_banner"], flush=True)
-    if not info["behind"] and not info["remote_ahead"] and not info["incoming"]:
+    if not info["behind"] and not info.get("tracking_behind") and not info["remote_ahead"] and not info["incoming"]:
         print("  no new pushes or incoming handoffs", flush=True)
 
 
@@ -483,7 +506,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--interval", type=float, default=120.0, help="seconds between polls in --loop mode")
     ap.add_argument("--loop", type=float, nargs="?", const=120.0, help="poll loop (default 120s)")
     ap.add_argument("--once", action="store_true", help="single check then exit")
-    ap.add_argument("--auto-pull", action="store_true", help="pull --rebase when BEHIND or remote board ahead")
+    ap.add_argument(
+        "--auto-pull",
+        action="store_true",
+        help="pull --rebase when BEHIND, remote board ahead, or local branch behind tracking ref",
+    )
     ap.add_argument(
         "--assign-mac",
         action="store_true",
