@@ -383,6 +383,10 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     if pulled:
         state["last_pull_at"] = datetime.now(timezone.utc).isoformat()
         state["last_seen_turn"] = local_turn
+        # Auto-consume handoff turn after pull so incoming banner/actionable does not
+        # repeat every poll. The radar pulls the board (rebase) then marks seen, matching
+        # the "pull then mark-seen" flow. Newer turns will trigger again.
+        _py(str(REPO / "scripts" / "lane_handoff.py"), "mark-seen")
         if tracking_behind:
             # Explicit tie to the standing rule so future agents see it enforced.
             _log(
