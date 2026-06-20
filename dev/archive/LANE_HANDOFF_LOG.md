@@ -4,6 +4,25 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN slice: Opt#4 continued - more list_* walkers for index_split + html — 2026-06-20)
+
+**Checklist followed:** status, ruff format + commit (pre-commit gates passed), this block, will IN_FLIGHT (already), save-all, ping. 
+
+**Exact commands for Mac after pull:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Check: list_html_files and list_split_html_files used in source for the new sites (eyebrow, ch inventory, ref, surfaces); build produces identical bytes to pre-Opt4; K-R2 and D counts stable; no new findings.
+
+Report PASS/FAIL + key numbers to LANE_HANDOFF after this block + to round9 findings.
+
+---
+
 <!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
