@@ -162,21 +162,4 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - Never end with "done for now" or wait for input. The only stop is explicit user "stop".
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
-## Mac verify (WIN slice: Opt#4 ALL tmp globs through list helpers - 2026-06-20)
-
-**Per retard-proof + NEVER-STOP checklist:** converted remaining tmp .html globs (present, before/after sets in canon filter) to list_html_files. Chained after previous. Gates (ruff/lint) clean. IN_FLIGHT updated. This block. Will push, ping, then immediately radar --next and chain next cycle (no stop, no input).
-
-**Commands:**
-- `git pull`
-- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
-- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
-- `py -3 scripts/lint_rules.py`
-- `py -3 audit.py --category D --quiet`
-- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
-- Confirm all tmp globs use the helpers; no behavior change; D clean.
-
-Report PASS/FAIL + counts here.
-
-**Chain action:** after push + ping, radar --next (deep audit), start next slice (e.g. Opt#5 or more).
-
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).

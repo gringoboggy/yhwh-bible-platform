@@ -6,6 +6,25 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: Opt#4 ALL tmp globs through list helpers - 2026-06-20)
+
+**Per retard-proof + NEVER-STOP checklist:** converted remaining tmp .html globs (present, before/after sets in canon filter) to list_html_files. Chained after previous. Gates (ruff/lint) clean. IN_FLIGHT updated. This block. Will push, ping, then immediately radar --next and chain next cycle (no stop, no input).
+
+**Commands:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Confirm all tmp globs use the helpers; no behavior change; D clean.
+
+Report PASS/FAIL + counts here.
+
+**Chain action:** after push + ping, radar --next (deep audit), start next slice (e.g. Opt#5 or more).
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: Opt#4 generalize list helpers to _list_temp_files — 2026-06-20)
 
 **Per new NEVER-STOP rule + retard-proof checklist:** generalized the html/split walkers to internal _list_temp_files for easier extension. Committed locally (ahead 1). Gates clean. IN_FLIGHT updated with never-stop rule. This block. Will save-all push, ping, then immediately chain radar --next and next slice (no stop).
