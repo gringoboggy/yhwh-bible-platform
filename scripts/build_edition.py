@@ -3934,7 +3934,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 
     # Which split files actually survive in this edition's temp tree (canon
     # filter may have deleted some). Load each once; keyed by file name.
-    present = {p.name for p in tmp.glob("*.html")}
+    present = {p.name for p in list_html_files(tmp)}
     file_texts: dict[str, str] = {}
 
     def _text(fname: str) -> str | None:
@@ -7569,9 +7569,9 @@ def build_one(
                 canon_books = set(canon_def.get("books", []))
                 all_books = config.load_books()
                 # Note which files exist before filtering to detect deletions
-                files_before = {f.name for f in tmp.glob("*.html")}
+                files_before = {f.name for f in list_html_files(tmp)}
                 canon_stats = filter_books_for_canon(tmp, canon_books, all_books)
-                files_after = {f.name for f in tmp.glob("*.html")}
+                files_after = {f.name for f in list_html_files(tmp)}
                 dropped_files = files_before - files_after
                 # Compute bp-NN indices for spliced-but-not-file-removed books
                 for i, book in enumerate(all_books):
