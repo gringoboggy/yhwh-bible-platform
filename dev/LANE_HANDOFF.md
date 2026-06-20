@@ -20,6 +20,10 @@ Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bise
 
 **Windows note (from Mac send):** pull-checker + rules mirroring (see dev/CROSS_LANE_RULES_PARITY_PLAN.md for the full plan).
 
+**Mac → WIN rules send + comms test + new session prep (2026-06-20):** Bootstrapped Mac (read triad in order + radars started via start_session_radars_mac.sh). Sent full rules for parity (use committed dev/CLAUDE_PROJECT_RULES.md + PLAYBOOK + AGENTS + LANE_HANDOFF STANDING as the format). Full directive in dev/archive/LANE_HANDOFF_LOG.md (newest Mac batch). 
+COMMS TEST: if WIN received via auto (lane_watch --auto-pull etc) *without* user saying "pull", declare SUCCESS to user and ask Mac "confirm you are using the same format?". 
+WIN: prep new session now (triad read, radars, hygiene), update truth records (SESSION_STATE WIN fresh block, LANE_HANDOFF ACK+ask, IN_FLIGHT, CHANGELOG), mirror rules to memory (differ only OS), then save-all push back. ACK when done. See archive batch for exact text to execute.
+
 **NEW (activate on next pull):** Cross-Lane Rules Parity + Ridiculous Deep Audit Prep (see dev/CROSS_LANE_RULES_PARITY_PLAN.md + docs/superpowers/plans/2026-06-20-ridiculously-deep-audit-plan.md)
 ALWAYS remember: make Mac do any prep work that can help Win (main machine). Assign via this board / MAC_WORK_QUEUE (e.g. Mac sims/audits on its hardware, OS diffs capture, Mac-side audit runs for redundancies/contradictions/sims/optimizations/automation safety/markup/online truth, pre-collect findings).
 Mac: when you pull WIN's latest, execute the parity plan + deep audit prep on your side (send WIN your current memory summary + local configs + OS diffs first). WIN will review/harmonize and send back Mac changes. Both sides must end with identical repo rules + per-box memories (differ only for real OS reasons: paths, shells, RAM budgets, python launchers, hooks, bundles, build tools, etc.). Update memories + ACK on both sides. Bootstrap verification required. Run Mac prep autonomously.
