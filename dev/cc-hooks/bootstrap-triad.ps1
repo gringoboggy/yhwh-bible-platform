@@ -145,6 +145,9 @@ try {
 # --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
 # Both MUST run on every session; bootstrap starts them idempotently in background.
 # WIN: lane_watch 60s -AssignMac · idle-radar 120s. See dev/start_session_radars.ps1.
+# lane_watch is always launched with --auto-pull to enforce the STANDING rule
+# (user never has to say "pull" when behind + clean). Guard #8 + doc-update
+# discipline also apply on this side.
 try {
     $radarStarter = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'dev\start_session_radars.ps1'
     if (-not (Test-Path $radarStarter)) {

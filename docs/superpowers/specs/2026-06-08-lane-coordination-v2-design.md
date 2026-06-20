@@ -7,7 +7,7 @@
 
 The v1 baton modeled coordination as a single exclusive token: "exactly one lane **holds the baton** = the active worker AND the sole pusher AND the truth-record owner." Two things broke that model:
 
-1. **The bandwidth-first cadence (2026-06-08, RULES §4 + `session-operating-doctrine`).** Each lane now commits locally and pushes only at its own milestones, with `scripts/lane_ping.py` keeping the protected-`main` push a clean fast-forward. So "only the holder pushes" is obsolete — **both** lanes push, at different times, coordinated by the radar, not by an exclusive token.
+1. **The bandwidth-first cadence (2026-06-08, RULES §4 + `session-operating-doctrine`).** Each lane now commits locally and pushes only at its own milestones, with the full pull checker (`lane_ping.py` + `lane_watch.py --auto-pull`, always running) keeping the protected-`main` push a clean fast-forward. The checker pulls on ping-BEHIND, handoff turn ahead, *or* plain tracking behind (`git status` behind + clean tree). So "only the holder pushes" is obsolete — **both** lanes push, at different times, coordinated by the radar. The STANDING rule is "user never says 'pull'".
 2. **`holder` was overloaded and actively hid work.** It meant "active worker" *and* "sole pusher" *and* "who the SessionStart `incoming` banner fires for." In practice the lanes have run **file-disjoint in parallel** for most of the project (website vs build pipeline; audit dims; research), with the baton pinned to one lane while the other worked "regardless." The concrete failure: turn 23 was a *Mac-directed* handoff (Mac TODOs) written with `holder: windows` (Windows kept push/merge ownership) → `do_incoming` only fired when `holder == lane` → **the handoff never surfaced to Mac**, and `/resume` told Mac to STOP. The system hid Mac's own assignment from Mac.
 
 Two more papercuts: the engine **clobbered** the handoff body on each `handoff` while humans **appended** turn sections (history mismatch); and stale done-TODOs accreted at the top and misled (the v0.0.3 `.dmg` "MAC TODO" was still listed after it had shipped).
@@ -46,7 +46,7 @@ Back-compat: old-format boards (only `holder/from/turn/updated/status`) parse an
 
 ## Slash commands (`.claude/commands/`)
 
-- **`/handoff <to-mac|to-windows>`** — reconcile truth-records → `handoff --to … --mode … --mac … --windows …` → (optional `prune`) → commit → **radar-gated milestone push** (`lane_ping --before-push` → `git pull --rebase` if BEHIND → push both remotes; Mac may use `dev/save_mac.sh`).
+- **`/handoff <to-mac|to-windows>`** — reconcile truth-records → `handoff --to … --mode … --mac … --windows …` → (optional `prune`) → commit → **radar-gated milestone push** (full pull checker ensures clean sync first — `git pull --rebase` on BEHIND / tracking lag → push both remotes; Mac uses `dev/save_mac.sh` + bg radar). The automation exists so the user never has to say the word.
 - **`/resume`** — fetch → radar/rebase → read the board → **parallel: pick up YOUR task (do NOT stop when `truth_owner` ≠ self)**; exclusive: if the other lane holds, do disjoint side-work or wait → `mark-seen` → begin.
 - **`/sync`** — radar-gated milestone push for **either** lane, no ownership transfer.
 

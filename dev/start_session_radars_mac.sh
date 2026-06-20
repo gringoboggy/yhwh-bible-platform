@@ -22,11 +22,16 @@ running() { pgrep -f "$1" >/dev/null 2>&1; }
 
 say "----- SESSION RADARS (bootstrap) -----"
 
+# lane_watch is **always** started with --auto-pull to enforce the STANDING
+# "Auto-pull on BEHIND" rule (LANE_HANDOFF + RULES guard #8):
+#   clean tree + (git status behind origin/main or tracking ref lag) ⇒ immediate pull.
+# The user never has to say the word "pull". This is a literal "always just do the
+# logical thing" directive.
 if running "scripts/lane_watch.py"; then
-  say "  lane_watch: already running"
+  say "  lane_watch: already running (with --auto-pull)"
 else
   bash "$REPO/dev/lane_watch_mac.sh" --bg
-  say "  lane_watch: started (60s loop)"
+  say "  lane_watch: started (60s loop, --auto-pull enforcing standing rule)"
 fi
 
 if running "scripts/agent_idle_radar.py"; then

@@ -27,12 +27,16 @@ function Test-RadarProcess([string]$Needle) {
 
 Write-Radar "----- SESSION RADARS (bootstrap) -----"
 
+# lane_watch is always started with -Background + the --auto-pull flag (wired inside
+# lane_watch_win.ps1) to enforce the STANDING auto-pull-on-BEHIND rule. User never
+# says "pull". New guard #8 + doc hygiene rule also apply: after changes like this,
+# update AGENTS.md / RULES / bootstrap files proactively.
 $lw = Test-RadarProcess "lane_watch.py"
 if ($lw) {
     Write-Radar "  lane_watch: already running (pid $($lw.ProcessId))"
 } else {
     & "$Repo\dev\lane_watch_win.ps1" -LoopSec 60 -AssignMac -Background
-    Write-Radar "  lane_watch: started (60s loop, -AssignMac)"
+    Write-Radar "  lane_watch: started (60s loop, -AssignMac, --auto-pull)"
 }
 
 $idle = Test-RadarProcess "agent_idle_radar.py"

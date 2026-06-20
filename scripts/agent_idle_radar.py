@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Anti-idle radar — never wait for user input; always surface the next work item.
 
-The agent (WIN or Mac) must NEVER end a turn idle. If blocked on user input,
-pick a disjoint backlog item instead. This script:
+"YOU ALREADY HAVE ALL THE ANSWERS" — dig deep into the project's folders, rules,
+backlogs, plans, REPO_MAP, SESSION_PLAYBOOK, STANDING sections, and specs before
+ever considering asking the user. The project is built to be self-contained so
+work can continue autonomously even while the maintainer is away.
+
+The agent (WIN or Mac) must NEVER end a turn idle. If blocked on user input
+(or tempted to ask a question), pick a disjoint backlog item instead. This script:
 
   1. Records activity heartbeats (``--ping``).
   2. Scores repo signals (pytest reds, unpushed commits, stale audit, sim gaps).

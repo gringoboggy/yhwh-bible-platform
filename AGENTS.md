@@ -7,6 +7,11 @@
 > 3. **`dev/SESSION_STATE.md` top block** — lane-specific **FRESH SESSION START HERE** (Mac vs WIN)
 >
 > Claude Code with hooks installed: the SessionStart hook enforces step 2 automatically (`dev/install_cc_hooks.ps1`).
+>
+> After any real change to automation or standing rules, the high-level documents
+> (starting with this file, RULES, PLAYBOOK, LANE_HANDOFF, and the bootstrap scripts)
+> are updated as part of the work. This does not wait for permission when it is the
+> obvious right thing.
 
 Portable instructions for **any** coding agent (Grok Build, Codex, Cursor, Copilot, …)
 working in this repo. This file is a **digest** — the full, authoritative rules live in
@@ -84,6 +89,43 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
 10. **Public-facing copy is plain and factual** — no grandiosity, false modesty, or
    charity/favor framing (free is neutral, not a gift). Never call the system “idiot-proof.”
 
+11. **Update the important documents as part of the change (standing).** After any
+    meaningful change to behavior, automation, rules, or standing directives (especially
+    things like "the pull checker must just work", auto-save cadence, radars, etc.), you
+    **must** step back and update the high-level docs without waiting for confirmation:
+    `AGENTS.md`, `dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_PLAYBOOK.md`, `dev/LANE_HANDOFF.md`,
+    bootstrap / cc-hooks files, and relevant specs. If it is obvious these need updating, do it.
+    Only ask when genuinely doubtful. This is now a durable expectation.
+
+**YOU ALREADY HAVE ALL THE ANSWERS (core operating principle — dig first, always).** The project
+is built to be self-sufficient. Every rule, expectation, backlog item, plan, source location,
+decision framework, and "what to do next" lives in the folders and docs. 
+
+When you feel any urge to ask the user a question ("is this blocked?", "should I update X?",
+"what next?", "is the tree good?", "how do I finish this?"), **stop and dig**:
+- Re-read the bootstrap triad in order (`AGENTS.md` → `dev/CLAUDE_PROJECT_RULES.md` → `dev/SESSION_STATE.md` → `dev/PLAN_*.md`).
+- Run `py -3 scripts/agent_idle_radar.py --next` (or directly read `dev/AGENT_WORK_BACKLOG.md` / your lane's queue).
+- Consult `dev/REPO_MAP.md`, `dev/MATRIX_MAP.md`, `dev/SESSION_PLAYBOOK.md`, STANDING sections in `LANE_HANDOFF.md`.
+- Search the tree for the pattern (e.g. "update website", "when to push", "non-blocked task", "deferred", "user-directed", "STANDING", "deploy means").
+- Assume the answer already exists in the project unless the item is *explicitly* marked as requiring fresh human input or deferred.
+
+The agent is expected to keep working autonomously for long periods (even while the user is away).
+Tasks that are not blocked by explicit "human need" or marked deferred/HOLD have their path
+documented. Finish one → immediately surface the next via radar or backlog. Update *every*
+affected surface (docs, website, gitlab/github, READMEs, metadata, truth records, social cards)
+as part of the change. Commit/push/deploy on the documented cadence (coherent slice / milestone
+/ never end unpushed). The project folders + rules are sufficient to continue without stopping.
+
+**Self-upgrading and auditing the program + project is also autonomous (in the rules).**
+At logical points (after any behavior/automation/rule change, on every --replan, at session
+boundaries, when radar/backlog surfaces staleness, or when "last done" is old per the replan
+checklist), initiate self-audit/upgrade/optimization without waiting for the user:
+- Audit: lint_rules, ci.py (targeted), trace_repo, trace_matrix, doc-coherence, REPO_MAP complete, repo cleanliness.
+- Self-upgrade: improve rules, radars, bootstrap, backlogs, automation, and add recurring items.
+- Optimize everything: cleanup, dedup, better UX, completeness; update all surfaces when the program offers something new.
+Track "last done" (replan notes, .agent_activity.json, CHANGELOG) so you can decide if it's time again.
+All steps, triggers, and tracking are documented in CLAUDE_PROJECT_RULES (self-upgrading section), STRATEGIC_REPLAN_CHECKLIST, SESSION_PLAYBOOK, and the radars. Dig there — you already have the answers.
+
 ## Tech stack
 
 - **Backend:** Python **3.14+**, **standard library only** — `http.server` web console in
@@ -102,6 +144,12 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
 - **Validation tooling:** **epubcheck** (EPUB 3.3), **ruff** (format + lint, line-length
   120), **mypy** (typed surface only), **pytest**. Kobo artifact via **kepubify (pinned
   v4.0.4)**. The only Node step is the public site: `website/build.mjs`.
+
+- **Lane automation (standing):** The cross-lane radars (`scripts/lane_watch.py --auto-pull`,
+  started automatically by bootstrap) are expected to just do the right thing on BEHIND.
+  When the local branch is behind `origin/main` + tree is clean, they perform
+  `git pull --rebase origin main` without the user having to say "pull". This is a
+  non-negotiable standing rule (see LANE_HANDOFF + RULES guard on literal automation).
 
 ## v1.0.0 release gate (ACTIVE — both lanes)
 

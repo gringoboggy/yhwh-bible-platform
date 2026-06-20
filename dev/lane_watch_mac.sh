@@ -25,6 +25,10 @@ for arg in "$@"; do
   esac
 done
 
+# Always pass --auto-pull. This is required by the STANDING "Auto-pull on BEHIND"
+# rule (never make the user say "pull" when the branch is behind + tree clean).
+# See LANE_HANDOFF STANDING + CLAUDE_PROJECT_RULES.md guard #8 ("always just do
+# the logical automation").
 ARGS=("$PY" "$REPO/scripts/lane_watch.py" "--auto-pull")
 if [ "$ONCE" = 1 ]; then
   ARGS+=("--once")

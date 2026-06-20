@@ -288,8 +288,13 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     dirty_tree = _working_tree_dirty()
 
     # Track whether our checked-out main is behind the (just-fetched) origin/main.
-    # This is the practical "git status says behind" signal. We pull on this so
-    # --auto-pull actually keeps the branch in sync (the whole point of the checker).
+    # This is the practical "git status says behind" signal.
+    #
+    # This implements the STANDING "Auto-pull on BEHIND" rule (LANE_HANDOFF) and
+    # RULES guard #8 ("literal 'always just do the logical automation' directives").
+    # When the user says the pull checker "must always just pull when behind + clean",
+    # we do exactly that. No second-guessing. The radar is *always* started with
+    # --auto-pull precisely so the user never has to say the word "pull".
     tracking_behind = False
     if fetch_ok:
         rc, out, _ = _git("rev-list", "--count", "HEAD..origin/main", timeout=15)
@@ -358,6 +363,11 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     if pulled:
         state["last_pull_at"] = datetime.now(timezone.utc).isoformat()
         state["last_seen_turn"] = local_turn
+        if tracking_behind:
+            # Explicit tie to the standing rule so future agents see it enforced.
+            _log(
+                "STANDING RULE: auto-pull performed for tracking_behind (git status behind + clean tree) — user did not say 'pull'"
+            )
     if tip:
         state["last_remote_tip"] = tip
     _save_state(state)

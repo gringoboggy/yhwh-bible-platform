@@ -8,7 +8,7 @@ user wins for that turn — but the rule stays as written.
 **Finished-arc history, frozen stats, and per-instance tallies extracted from this
 file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved.
 
-**Operational guards (durable behavioral defaults — keep all seven):**
+**Operational guards (durable behavioral defaults — keep all eight):**
 1. **Package installs — PRE-AUTHORIZED (user 2026-06-11, standing, both lanes):
    "you can always install whatever is needed for the project."** No per-install
    ask. Protocol: DECLARE the package in a committed manifest FIRST
@@ -70,10 +70,17 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    (a) **Never stop to ask the user questions.** The whole project plan exists and
    absolutely every source exists — proceed on best judgment from these rules + the
    code + files + memory. The user raises concerns/questions himself ("if I have a
-   question or concern I WILL BRING IT UP MYSELF"). Stronger than guard-adjacent
-   self-answerable-⇒-don't-ask: even a decided judgment call ⇒ proceed; these RULES
-   are the guardrails that stop/redirect you, so don't seek confirmation they already
-   give. (b) **Full standing authority — no permission-asking** for commit, push,
+   question or concern I WILL BRING IT UP MYSELF"). 
+
+   **If you ever feel the urge to ask a question, first dig deeper.** Re-read the
+   bootstrap triad, run `agent_idle_radar.py --next`, consult REPO_MAP / MATRIX_MAP /
+   SESSION_PLAYBOOK / LANE_HANDOFF STANDING sections / backlogs / specs. Search the
+   project tree for the exact pattern. "If you dig deep enough in the project's folders
+   and scope and rules... you will find every answer." Only items *explicitly* marked
+   as requiring fresh human input or deferred/HOLD are allowed to block autonomous
+   progress. Even a decided judgment call ⇒ proceed; these RULES are the guardrails.
+
+   (b) **Full standing authority — no permission-asking** for commit, push,
    pull, build/run, deploy, launch the website, or update GitHub/GitLab; all
    pre-authorized. (The auto-mode package-install soft-deny safety net STAYS — guard #1
    governs undeclared installs; "permissions for everything" governs ME asking, not
@@ -83,7 +90,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    announcements. Read the minimum (SESSION_STATE/IN_FLIGHT top + git), then act. This
    supersedes any "comms comprehensive" default — completeness applies to the WORK, not
    to chat verbosity. (d) **Save cadence: local-commit during micro-edits; push often
-   without asking** — see §4 (crash-safe cadence, 2026-06-17).
+   without asking** — see §4 (crash-safe cadence, 2026-06-17). Exception: for critical cross-lane rule/behavior updates (new STANDING, enforcement changes like auto-pull, Guard #8, self-upgrading/auditing doctrine, "you already have all the answers") that the other lane needs immediately to avoid non-compliant work, commit then full-push promptly via the save script right after the edit.
    (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
    box's memory is per-box — each lane mirrors it into its own memory; memory:
    `session-operating-doctrine`.)
@@ -118,6 +125,16 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    surfaced website + dist/release-pipeline defects (the WIN lane's domain) → Mac
    passed all 30 survivors to Windows via `findings-mac.json` + the board, spotlighting
    the win-domain ones, instead of dropping them.
+
+8. **Literal "always just do the logical automation" standing directives (user-directed, 2026-06-20 emphasis).** When the user establishes a durable, repeated directive of the form "the X system must **always just do** Y logical thing on condition Z (e.g. the pull checker must auto `git pull --rebase` the instant the branch is behind + tree clean; never make the user say the word again; never second-guess; never require re-instruction)", agents **must**:
+   - Implement it completely, reliably, and permanently in the in-repo code (radar, hooks, startup scripts, conditions).
+   - Wire it so it is active by default on every fresh session (bootstrap + radars always carry the flag/behavior).
+   - Update all truth records (LANE_HANDOFF STANDING, RULES, PLAYBOOK, specs, AGENTS.md) in the same change.
+   - Never weaken, condition, or "improve" the automation later without explicit user reversal.
+   - On future sessions, reading the triad + rules must result in the behavior being live and correct.
+   This applies especially to bandwidth-saving / crash-safety / coordination automations. "Grok/Claude doesn't listen when told 'always just do this very logical thing'" is forbidden. Violation is treated like any other guard failure.
+
+   **Doc & rule hygiene after behavioral changes is mandatory (no confirmation needed).** After any significant change to automation, rules, or standing behavior, you **must** step back and ask: "Should the greater documents (AGENTS.md, CLAUDE_PROJECT_RULES.md, SESSION_PLAYBOOK.md, LANE_HANDOFF.md, bootstrap/cc-hooks files, relevant specs) be updated because of this?" If the update is obvious and logical, do it immediately. Never wait for the user to say "also update the docs." Only ask when the need is genuinely doubtful. This is now part of the standing expectation for every substantial change.
 
 **Terminology — what "deploy" means (user-directed 2026-06-07, EMPHATIC):**
 When the user says **"deploy"**, they mean **BUILD THE PROGRAM *AND* DEPLOY IT** —
@@ -212,6 +229,46 @@ BOTH session radars** (STANDING, every session, idempotent background):
 ping (STANDING):** periodically step back — re-read PLAN, release gate, queues;
 reorder for optimal efficiency when derailed (`--replan` when 15+ commits / 24h /
 PLAN changed; checklist `dev/STRATEGIC_REPLAN_CHECKLIST.md`; then resume execution).
+
+**Self-upgrading, self-auditing & optimization of everything in the program and project (STANDING, fully autonomous — "you already have all the answers").**
+The agent must proactively self-upgrade, self-audit, and optimize *everything* in the program (rules, code, automation, radars, bootstrap, backlogs) and the project (docs, completeness, hygiene, surfaces) — and do it at logical points without the user ever having to bring it up. If you are ever thinking of doing something that might require asking a question, stop and dig: the rules, backlogs, replan checklist, radars, and folders already contain the steps, triggers, and tracking.
+
+**"You already have all the answers"** (dig deep in folders/scope/rules/backlogs/PLANs/specs). When you are thinking of doing something that might require asking a question (including "is a self-audit/upgrade due?"), first stop and dig: re-read the triad + relevant STANDING sections + run `--next` or `--replan`. All mechanisms, logical points, steps, and tracking live in the project itself. Self-upgrading, self-auditing, and optimization of everything in the program and project is explicitly a standing autonomous behavior the rules tell the agent to initiate without prompting.
+
+**Logical points to self-audit / self-upgrade / optimize (initiate on your own):**
+- On every strategic replan (`agent_idle_radar.py --replan` — 15+ commits, 24h, PLAN/release-plan changed, scope drift, after big change).
+- After any behavioral, rule, or automation change (as part of the change — see doc-hygiene rule below).
+- At fresh session start (quick pass) and before wrap (full if overdue).
+- When radar/backlog surfaces stale items, or when "last done" is old.
+- Periodically as part of anti-idle: never leave the project in a worse or un-audited state.
+
+**Keep track of "last done" autonomously:**
+- Use `dev/.agent_activity.json`, replan state, STRATEGIC_REPLAN_CHECKLIST notes, or explicit entries in CHANGELOG / backlogs.
+- Track major ones: last full lint+ci+trace audit, last doc hygiene pass, last backlog/REPO_MAP sweep, last rules self-upgrade, last optimization pass.
+- If >7–14 days or >50 commits since last, or on replan trigger, do it.
+
+**What "self-upgrading / auditing / optimizing everything" includes:**
+- **Audit the program/project:** `py -3 scripts/lint_rules.py`, `py -3 scripts/ci.py` (fast path first), `dev/trace_repo.py`, `dev/trace_matrix.py`, doc-coherence, REPO_MAP complete, repo cleanliness, sources present, no missing files.
+- **Self-upgrade rules & automation:** Improve CLAUDE_PROJECT_RULES, AGENTS, SESSION_PLAYBOOK, LANE_HANDOFF STANDING, radars (agent_idle, lane_watch), bootstrap, backlogs, checklists. Add guards, better surfacing, stronger "never ask / you have the answers" language.
+- **Optimization:** Cleanup, dedup, better UX in tools, completeness gates, performance, clarity. Update *all* surfaces when the program offers something new/different (website, gitlab/github descriptions/READMEs/metadata/social cards, truth records, catalog, etc.).
+- **Doc & truth hygiene:** Proactively update AGENTS.md, RULES, PLAYBOOK, LANE_HANDOFF, specs, bootstrap scripts, CHANGELOG/STATE after any change (no confirmation needed when obvious).
+- **Backlog & scope hygiene:** Re-read AGENT_WORK_BACKLOG + lane queues; surface non-blocked/deferred tasks; keep them current.
+- Ensure the entire project remains runnable autonomously (all sources, rules, files in place so work continues if user is away for long periods).
+
+**Steps (documented in STRATEGIC_REPLAN_CHECKLIST + PLAYBOOK):**
+1. Trigger replan or manual `--replan`.
+2. Orient: re-read PLAN, release gate, SESSION_STATE, backlogs.
+3. Inventory + audit: run the tools above.
+4. Self-upgrade: edit rules, add items to checklists/backlogs, improve code/automation.
+5. Optimize surfaces: website, repos, docs, metadata.
+6. Track "last done" + `--replan-done`.
+7. Resume with `--next`.
+
+This is non-negotiable standing behavior. The radars, replan mechanism, and "dig deep" principle exist precisely so the agent self-maintains and self-improves the entire system without external prompting. Add any new recurring audit/upgrade items to the backlogs and replan checklist so they surface automatically.
+
+After behavioral or automation changes, also proactively update the higher governing
+documents (AGENTS.md, CLAUDE_PROJECT_RULES, SESSION_PLAYBOOK, LANE_HANDOFF, bootstrap
+files) as part of the work — do not wait for confirmation when the need is obvious.
 
 **Always-there maps:** for ANY "where does X live / how does data flow / what feeds
 the build" question, check the maps FIRST — never grep blind. `dev/MATRIX_MAP.md`
@@ -527,21 +584,16 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   lane by its TASK, not by `holder` (the v1 bug). The E:/F: bundle legs stay Windows-only.
   See `docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md` (memory:
   `reference_lane_coordination`).
-- **Lane sync radar (the "ping") — AUTOMATIC; check-the-other-lane before pull/push.**
-  Because each lane commits locally and only pushes at a milestone, before pulling or
-  pushing a lane must know whether the OTHER lane already pushed (else a milestone push
-  to protected `main` is rejected, or the lanes drift). `scripts/lane_ping.py` does a
-  CHEAP `git ls-remote` (refs only — no object download, bandwidth-trivial) and compares
-  the remote `main` tip to the locally-cached `<remote>/main`: equal ⇒ CLEAR; differ ⇒
-  BEHIND (the other lane pushed). It is wired AUTOMATICALLY in two places: (1) the
-  **SessionStart hook** runs `lane_ping.py --quiet` so a fresh session learns on boot if
-  the other lane moved; (2) **`save-all.ps1` runs `lane_ping.py --before-push`** and, if
-  BEHIND, auto-runs `git pull --rebase origin main` (lanes are file-disjoint ⇒ the rebase
-  of your unpushed local commits is conflict-free + keeps `main` fast-forwardable) BEFORE
-  the push legs. On-demand: `py -3 scripts/lane_ping.py` (human) / `--json`. Read-only +
-  non-fatal — a network blip never blocks work. The script is in-repo (shared by both
-  lanes); the SessionStart-hook + the Mac save path are per-box and each lane wires its
-  own (memory: `reference_lane_ping`).
+- **Lane sync radar (the "ping" + full pull checker) — AUTOMATIC.**
+  `scripts/lane_ping.py` does the cheap "did the other lane push?" detection.
+  `scripts/lane_watch.py --auto-pull` (always started by the session radars on both lanes)
+  is the full enforcer of the STANDING auto-pull-on-BEHIND rule. It pulls on lane_ping
+  BEHIND, remote handoff turn ahead, *or* when the local branch simply lags the tracking
+  ref after fetch (`tracking_behind` when `HEAD..origin/main` > 0 and tree clean).
+  Wired at bootstrap (SessionStart + `start_session_radars_*`), before-push in savers,
+  and continuous 60s background. The rule is "the user never has to say pull". See
+  LANE_HANDOFF STANDING and the dedicated guard #8 above. Read-only + non-fatal for
+  network issues.
 - **⚠ BEFORE saving:** `python -m ruff format` files you generated / regenerated (esp.
   `content/translations/<id>/` stores) or the pre-commit hook blocks the commit (§7).
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped · next · test count ·
@@ -551,9 +603,15 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   important, Claude's autonomous trigger (above) still fires.
 - **"pull" (bare, or "pull again") is a COMMAND WORD (user-directed 2026-06-11):** run
   the lane-sync pull immediately — `lane_ping` → `git pull --rebase origin main` →
-  report what came in from the other lane — no interpretation, no questions. (And the
-  STANDING auto-pull-on-BEHIND rule on the board means Claude should usually have
-  pulled before the user ever needs the word.)
+  report what came in from the other lane — no interpretation, no questions.
+
+  The **STANDING auto-pull-on-BEHIND rule** (LANE_HANDOFF) is stronger: the system
+  **must** have already pulled (via `lane_watch --auto-pull`, which is always wired
+  on the background radar and checks `git status` behind / `HEAD..origin/main` count
+  + clean tree). Agents must implement the automation so the user literally never has
+  to utter the word when the condition is met. Partial or "sometimes" implementations
+  violate the rule. "Grok / Claude doesn't listen when told 'always just do the logical
+  thing'" is exactly what this guard prevents.
 - **Zip flow is DORMANT** — never build a zip or ask slim/full on a save. Only if the
   user *explicitly* says "zip".
 

@@ -18,10 +18,46 @@ turn 145 truth records @ 091a3f14: SESSION_STATE/IN_FLIGHT/CHANGELOG/backlog ref
 **Next (turn 146, mac picks up):**
 Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bisect #2
 
+(See new "Windows note" section below for pull-checker + rules mirroring.)
+
 **Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 
 **Watch-outs:**
 turn 144 Mac verify still pending; M2 user-fail open; STK 144600Z vs 143407Z bisect open
+
+---
+
+## Windows note (Mac → WIN, 2026-06-20) — critical cross-lane rule/behavior update — pull immediately
+
+**This is important information WIN must know right away to stay compliant.** Pull latest, review, and mirror **before** doing more work.
+
+Key updates (full details in the STANDING sections and Guard #8):
+
+1. **Pull checker is now live and must actually work** (STANDING Auto-pull on BEHIND, updated in this file + implemented in lane_watch.py + Mac scripts). 
+   - On clean tree + behind `origin/main` (or tracking ref lag), the radar **must** auto `git pull --rebase origin main` immediately.
+   - User never has to say "pull".
+   - WIN: confirm `lane_watch_win.ps1` + `start_session_radars.ps1` + `bootstrap-triad.ps1` always pass/use `--auto-pull` (or equivalent) and have explanatory comments. Test on a behind + clean tree.
+
+2. **New Guard #8 + "you already have all the answers" / dig-first doctrine** (CLAUDE_PROJECT_RULES.md):
+   - Never stop to ask the user questions. The whole plan, sources, rules, backlogs, and steps are in the folders. Dig first (triad, --next, REPO_MAP, backlogs, STANDING, etc.).
+   - When in doubt about next step (or tempted to ask), re-read the rules instead.
+
+3. **Self-upgrading, self-auditing & optimization of the program and project is now a STANDING autonomous behavior** (CLAUDE_PROJECT_RULES.md + STRATEGIC_REPLAN_CHECKLIST + AGENTS.md):
+   - At logical points (on every --replan, after any behavior/rule/automation change, when "last done" is old per checklist, when radar surfaces staleness, session boundaries), the agent must proactively self-audit (lint_rules, ci.py targeted, trace_repo, trace_matrix, doc-coherence, REPO_MAP complete, etc.), self-upgrade rules/automation/radars/bootstrap/backlogs, and optimize everything.
+   - Track "last done" (replan notes, .agent_activity.json, checklist, CHANGELOG) so you decide autonomously if it's time again.
+   - Update *all* surfaces when the program offers something different (website, gitlab/github descriptions, READMEs, metadata, truth records, catalog, social cards, etc.).
+   - WIN: treat this as recurring work the radars/backlogs will surface. Do not wait for user to prompt.
+
+4. **Doc & higher-surface hygiene is mandatory after changes** (no confirmation wait when obvious):
+   - AGENTS.md, CLAUDE_PROJECT_RULES.md, SESSION_PLAYBOOK.md, LANE_HANDOFF.md, bootstrap/cc-hooks files, relevant specs, etc. must be updated as part of the work.
+
+5. **Save/push relaxation for critical cross-lane rule updates** (updated in this file's crash-safe cadence + RULES §4):
+   - Normal cadence still applies for most work.
+   - **For important information the other lane must know to avoid non-compliant work** (new standing rules, enforcement changes like auto-pull, Guard #8, self-upgrading doctrine, "you have all the answers", etc.): commit locally then **full-save (push both remotes) promptly** right after the edit using the save script. Do not wait for a larger coherent slice. The other lane seeing updated rules takes priority.
+
+Pull now, mirror in your WIN scripts/radars/bootstrap, re-read the updated STANDING blocks and Guard #8, and confirm in next handoff ("WIN side mirrored + compliant"). This is durable.
+
+Do not let stale rules cause non-compliant work on the WIN side.
 
 ---
 
@@ -64,7 +100,20 @@ Mac: after next WIN tablet push, run the expanded prep commands above, report pe
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
 
-**Auto-pull on BEHIND (2026-06-11, user-directed "should just be a claude rule" — STANDING, both lanes).** Whenever the lane radar (`scripts/lane_ping.py` or any fetch) shows BEHIND, `git pull --rebase origin main` IMMEDIATELY and automatically — at session start, before any commit/save/build on shared files, before truth-record edits, and whenever the other lane is known mid-arc. The user never has to say "pull". Dirty tree ⇒ commit or stash-pull-pop, never skip. **Out-of-repo mirror status:** winclaude ✓ · macclaude ✓ (turn 24 SessionStart + `dev/save_mac.sh`).
+**Auto-pull on BEHIND (2026-06-11, user-directed "should just be a claude rule" — STANDING, both lanes).** The automation **must just do the logical thing without the user ever having to say "pull"**. 
+
+Whenever `git status -b` reports the branch behind `origin/main` (or `rev-list --count HEAD..origin/main > 0`), **and** the tree is clean (`git status --porcelain` empty), `git pull --rebase origin main` happens **IMMEDIATELY and automatically**. This is wired through the always-on Mac radar (`dev/lane_watch_mac.sh --bg` → `scripts/lane_watch.py --auto-pull --loop 60`) and equivalent on WIN.
+
+Triggers (any of):
+- `lane_ping` reports BEHIND (other lane pushed unseen commits).
+- Remote LANE_HANDOFF turn > committed (remote_ahead).
+- Local branch lags tracking ref after fetch (`tracking_behind` in lane_watch).
+
+Happens at: session start (bootstrap + radars), before commit/save/build on shared files, before truth edits, mid-arc when other lane advances, etc.
+
+Dirty tree (uncommitted changes) → block + nag; committed unpushed local work is rebased on top (correct and safe).
+
+The implementation in `lane_watch.py` (the `tracking_behind` check + `should_pull`) exists precisely to satisfy this rule literally. Agents must never weaken the condition, remove `--auto-pull` wiring, or wait for the user to type the word. **Out-of-repo mirror status:** winclaude ✓ · macclaude ✓ (turn 24 + later enforcement fixes).
 
 **Git-clone / work-dir deletion gate (2026-06-11, user-directed "that should always be a thing" — STANDING, both lanes).** Before deleting ANY repo clone or work dir, PROVE it holds nothing unique: clean `status --porcelain` + HEAD is `merge-base --is-ancestor` of the surviving copy + no local-only branches/stashes. Any miss ⇒ surface to the user instead. Codified `dev/SESSION_PLAYBOOK.md` §6.5 (syncs on pull). **Out-of-repo mirror status:** winclaude ✓ (`verify-before-delete-clones` memory) · **macclaude ✓ (turn 74** — `feedback_verify_before_delete_clones` memory + MEMORY.md pointer; ACK).
 
@@ -72,9 +121,15 @@ Mac: after next WIN tablet push, run the expanded prep commands above, report pe
 
 **Session operating doctrine (2026-06-08, user-directed — EVERY session, both lanes, forever).** `dev/CLAUDE_PROJECT_RULES.md` **Guard #5** + §4: (a) never stop to ask the user questions — act on best judgment; (b) full standing authority (commit/push/pull/build/deploy/launch-site/update-GitHub-GitLab; package-install soft-deny still stands); (c) bandwidth is the hard cap (~98% weekly) → zero unnecessary context, bare-minimum announcements; (d) save = local-commit micro-edits + **push often without asking** (see crash-safe cadence below). **Out-of-repo mirror status:** winclaude ✓ (Windows memory) · **macclaude ✓ (turn 24** — `feedback_session_operating_doctrine` + `reference_save` rewrite + `reference_lane_ping` + MEMORY.md pointers; Mac SessionStart hook + `dev/save_mac.sh`).
 
-**Crash-safe commit+save cadence (2026-06-17, user-directed — STANDING, both lanes).** **Both lanes commit AND save (full push) autonomously — never ask the user, never wait on input, never pause for confirmation.** Local-commit micro-edits as you go; then **save** (push both remotes) at every coherent stop so a crash cannot lose work. **Save when:** tests/gate green on a shipped slice · handoff/assign/truth-record edit · before risky/long jobs · before session wrap · `lane_watch` shows `UNPUSHED HANDOFF` · **never end with unpushed commits** (`git status -b` must show ahead/behind = 0 before "safe to stop"). **WIN:** `pwsh -File save-all.ps1 -Message "…"` (radar-gated; E:/F: optional while Mac-side). **Mac:** `bash dev/save_mac.sh -m "…"` (commit if dirty + push origin + github). **Do not hoard** local-only commits — the other lane cannot see unpushed work. **macclaude:** mirror this block into per-box memory on next session (ACK).
+**Crash-safe commit+save cadence (2026-06-17, user-directed — STANDING, both lanes).** **Both lanes commit AND save (full push) autonomously — never ask the user, never wait on input, never pause for confirmation.** Local-commit micro-edits as you go; then **save** (push both remotes) at every coherent stop so a crash cannot lose work. 
 
-**Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` ✓ (turn 24).** BEHIND ⇒ always `git pull --rebase origin main`.
+**Save when (normal):** tests/gate green on a shipped slice · handoff/assign/truth-record edit · before risky/long jobs · before session wrap · `lane_watch` shows `UNPUSHED HANDOFF` · **never end with unpushed commits** (`git status -b` must show ahead/behind = 0 before "safe to stop").
+
+**Exception for critical cross-lane rule/behavior updates:** For important information the other lane must know immediately (new standing rules, enforcement changes like the auto-pull on BEHIND, Guard #8 literal-automation + doc-hygiene doctrine, self-upgrading/auditing rules, "you already have all the answers" / dig-first principle, or anything that would cause the other lane to do non-compliant work on stale rules), **commit locally then full-save (push both remotes) promptly using the save script right after the edit**. Do not wait for a larger "coherent slice" or other trigger. The other lane seeing updated rules takes precedence.
+
+**WIN:** `pwsh -File save-all.ps1 -Message "…"` (radar-gated; E:/F: optional while Mac-side). **Mac:** `bash dev/save_mac.sh -m "…"` (commit if dirty + push origin + github). **Do not hoard** local-only commits — the other lane cannot see unpushed work. **macclaude:** mirror this block into per-box memory on next session (ACK).
+
+**Lane sync radar (the "ping").** `scripts/lane_ping.py` (shared) — cheap `git ls-remote` before pull/push so milestone pushes to protected `main` never reject. The full pull checker is the combo of `lane_ping` + `lane_watch.py --auto-pull` (always started for the Mac bg radar). It covers both the "other lane pushed" signal and the plain git-tracking behind case. Wired per-box: Win = `save-all.ps1 --before-push` + SessionStart `--quiet`; **Mac = `dev/save_mac.sh` (`--before-push` → auto `git pull --rebase` if BEHIND) + SessionStart `--quiet` + `dev/lane_watch_mac.sh --bg` (always --auto-pull).** The STANDING rule means the system does the pull; the user never has to say the word.
 
 **Lane watch v3 (2026-06-17, STANDING — REQUIRED during pre-human + Round 9 arc, both lanes).** User-directed: keep **lane_watch running** for the whole remediation → Round 9 audit → fix phase — not opt-in during this arc. `scripts/lane_watch.py` unifies push radar + remote `LANE_HANDOFF` turn compare + `lane_handoff incoming` + unpushed-handoff nag. **Mac:** `bash dev/lane_watch_mac.sh --bg` after `--once` at session start; leave up until arc completes. **WIN:** `pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac -Background` (tightened 2026-06-18). Handoff/assign edits MUST be milestone-pushed or the other box never sees them. Outside this arc, watcher may stay stopped unless needed. **Hooks:** SessionStart = `dev/cc-hooks/bootstrap-triad.{ps1,sh}` installed to repo-parent `.claude/hooks/` (turn-24 wiring **shipped**; in-repo `.claude/settings.json` stays `{}` by design).
 
@@ -88,7 +143,9 @@ Mac: after next WIN tablet push, run the expanded prep commands above, report pe
 
 **WIN builds · Mac verifies (2026-06-19, user-directed — STANDING, both lanes).** **WIN** owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect). **Mac** owns **verify + scope** on each WIN milestone: pull → run WIN-listed verify commands → `## Mac verify (turn N)` PASS/FAIL in this file → update `MAC_WORK_QUEUE.md` `### Next scope (Mac)` (max 3 items). Mac **must not** dual-implement the same Kindle/pytest fix WIN is shipping. Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac **must not** run full `ci.py` on HDD while WIN `ci.py` is in flight. Full runbook: `dev/MAC_WORK_QUEUE.md` §Operating model.
 
-**Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first. (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
+**Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first (STANDING auto-pull rule). (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
+
+The STANDING auto-pull rule also requires the watcher to catch the plain "local branch is behind origin/main tracking ref" case (implemented via `tracking_behind` + `should_pull` in lane_watch.py). The radar is started with `--auto-pull` unconditionally on Mac to enforce "never make the user say pull".
 
 **Cross-lane tool/environment parity (2026-06-05, Guard #4).** Verify the other box has the tools/agents/deps/paths before handing it a task or running a shared `.claude/workflows/*.js`. (Round-6 auditor now BAKES the parity in: flipping `const LANE` auto-selects REPO + agent types — no more 3-edit Mac trap.) Each lane mirrors cross-lane rules into its own per-box memory.
 

@@ -93,6 +93,8 @@ fi
 
 # --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
 # Both MUST run on every session; bootstrap starts them idempotently in background.
+# lane_watch is started with --auto-pull to literally enforce the STANDING
+# auto-pull rule (user never says "pull" when behind + clean). See guard #8 in RULES.
 if [ -f "$REPO/dev/start_session_radars_mac.sh" ]; then
     bash "$REPO/dev/start_session_radars_mac.sh" 2>/dev/null
 fi

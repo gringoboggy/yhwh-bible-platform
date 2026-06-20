@@ -11,14 +11,17 @@
 - [ ] `docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md` §8 — release gate blockers
 - [ ] `dev/SESSION_STATE.md` + `dev/IN_FLIGHT.md` — tracker matches reality?
 - [ ] `dev/AGENT_WORK_BACKLOG.md` + `dev/MAC_WORK_QUEUE.md` — priorities still optimal?
+- [ ] Last self-audit/upgrade dates (from previous replan notes or .agent_activity.json) — is a full program/project audit/optimization due now (e.g., >14 days or >50 commits since last, or after major behavior change)? If yes, treat as high priority.
 
 ## 2 — Inventory what's left (gigantic project sanity pass)
 
+- [ ] **Self-audit & upgrade due?** Check last recorded self-audit/upgrade dates (from prior replan notes, .agent_activity.json, or CHANGELOG). Logical triggers (initiate autonomously): after any behavior/automation/rule change, >14 days or >50 commits since last, on this replan ping, or when radar/backlog surfaces "stale". If due, run full program/project audit + optimization of everything (rules, automation, docs, surfaces, completeness) as a top-priority item. Record the new "last done" timestamp.
 - [ ] **Release gate:** ci.py GREEN · reader-sim layers · rx-surfaces · audits · tag blockers
 - [ ] **Phase D:** Esther/Patrologia transcription lanes · remaining OT books
 - [ ] **Samuel/Kings:** manifest gaps · CAM folios · collation at-scale
 - [ ] **Website/dist:** catalog columns · deploy drift
 - [ ] **Tech debt:** open lint warns · stale plans · archive hygiene
+- [ ] Record this session's self-audit/upgrade activities + new "last done" timestamps for future triggers.
 
 ## 3 — Replan for optimal efficiency
 
