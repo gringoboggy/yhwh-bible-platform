@@ -36,6 +36,7 @@ Update all truth records + online (website/GH/GL/releases/metadata/social) to cu
 - counts cross-check: editions=6 kinds=68 notes~91597 (parsed from content/notes/*.py); matches target
 - kepub-only verify_kr2 (Ethiopian eink .kepub 2026-06-17T...): ALL K-R2 GATES GREEN; pieces:1050 titles:83 noterefs:36350 dup-ids:0 promoted:0; size WARNs 4g/4m/4n only; K-R6-2 bare count (grep): 0; bare/rev data-id matches in splits: 0 (confirmed via direct run + bg task)
 - not-slow pytest bg (notified completion, 875s): exit 0; tail capture showed only progress dots + '--- end pytest tail ---' (no FAIL/ERROR lines in captured tail)
+- lint_rules: passed during the post-pytest save pre-commit (ruff + lint_rules + mypy ok before the rotate commit)
 - rotation: rotator --apply --keep 2 → "already within entry budget"; IN_FLIGHT 1 entry, LANE_HANDOFF entries=2 per rotator; sizes post 208/12 lines
 - automation confirm: lane_watch_mac.sh always passes --auto-pull; --once observed PULL log ("Current branch main is up to date") + INCOMING handoff processing + lane=mac ping=CLEAR; tracking_behind computed via rev-list HEAD..origin/main; should_pull includes tracking_behind + incoming + remote_ahead; _auto_pull: fetch origin + rebase origin/main (+abort); on tracking pull emits "STANDING RULE: auto-pull performed for tracking_behind ... user did not say 'pull'"
 - radars: start_session confirms "already running (with --auto-pull)"; pids active; bootstrap idempotent
