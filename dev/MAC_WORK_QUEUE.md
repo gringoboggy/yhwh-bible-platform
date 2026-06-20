@@ -104,6 +104,82 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 Use `reader_sim/apple/` or direct unzip + grep for prep checks. Record exact artifact UUID/timestamp in report.
 
+### M2 Apple Prep Runbook (lots of copy-paste prep for Mac)
+After WIN pushes the next tablet artifact (look for `_tablet_` in name), Mac runs this exact sequence and reports per issue.
+
+**Prep env (once):**
+```powershell
+# or bash
+$env:PYTHONUTF8="1"   # pwsh
+# ARTIFACT=.../Ethiopian_Bible_ethiopian-tewahedo_*_tablet_*.epub
+mkdir -p /tmp/m2-apple-prep; cd /tmp/m2-apple-prep
+unzip -o $ARTIFACT -d ex > /dev/null 2>&1 || true
+```
+
+**K-R5-3 badge bleed:**
+```bash
+python3 ../../dev/verify_kr2_build.py "$ARTIFACT" 2>&1 | grep -i 'k-r5-3\|book-title piece' || echo 'K-R5-3: 0 reported (good)'
+python3 -c '
+import re,zipfile,sys
+z=zipfile.ZipFile(sys.argv[1]); 
+for n in [x for x in z.namelist() if "index_split_" in x and x.endswith(".html")]:
+  t=z.read(n).decode("utf-8","replace")
+  for m in re.finditer(r"<div class=\"book-title-page\"[^>]*>(.*?)(?=</div>\s*<div class=|<aside| </body>)",t,re.DOTALL):
+    blk=m.group(1)
+    if "verse-notes-badge" in blk or "vnotes-" in blk:
+      print(n, "BLEED inside bp frame")
+' "$ARTIFACT"
+```
+Pass if zero "BLEED" and verify reports 0 for K-R5-3 on title pieces.
+
+**Left-align / justify (M2 #2):**
+```bash
+grep -o 'M2 Apple: left-align.*' ex/OEBPS/stylesheet.css || echo "MISSING left override"
+grep -E 'text-align: (left|justify)' ex/OEBPS/stylesheet.css | head -6
+```
+Pass: left !important present for .note / .verse-notes; justify only on prose.
+
+**Easton triple dedup (M2 #3) — example 1co or any dict-easton:**
+```bash
+python3 -c '
+import re,zipfile,sys
+z=zipfile.ZipFile(sys.argv[1])
+for n in z.namelist():
+  if "1co" in n or "gen" in n and n.endswith(".html"):
+    t=z.read(n).decode("utf-8","replace")
+    if "dict-easton" in t or "Easton" in t:
+      hits = re.findall(r"Easton\.|Dictionary \(Easton|vn-source-byline[^<]*", t)
+      print(n, hits[:3])
+' "$ARTIFACT" | cat
+```
+Pass: no "Easton." leaf label repeating the byline + boiler (my S1 change strips label for dict-*).
+
+**Nav / backwards pages (M2 #1):**
+```bash
+ls ex/OEBPS/index_split_*.html | wc -l   # expect <<300 for tablet (no heavy shard)
+python3 -c '
+import re,zipfile,sys
+with zipfile.ZipFile(sys.argv[1]) as z:
+  opf=[n for n in z.namelist() if ".opf" in n][0]
+  t=z.read(opf).decode()
+  refs=re.findall(r"href=\"(index_split[^\"]+)\"",t)
+  print("spine count:", len(refs))
+  print("first/last:", refs[0], refs[-1])
+' "$ARTIFACT"
+```
+Pass: reasonable count, order 000->060, no scrambled feeling. toc has <details> (collapsible true for tablet).
+
+**Full gate + device:**
+```bash
+python3 ../../dev/verify_kr2_build.py "$ARTIFACT"
+# then stage for user Apple Books re-test of the exact artifact
+```
+
+**WIN tablet build command (for reference):**
+`py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --force`
+
+Report results with "Mac M2 verify (tablet) — PASS/FAIL @ sha" in LANE_HANDOFF, one bullet per issue. Then save_mac.
+
 ### WIN builder loop (for Mac to expect)
 
 1. Finish in-flight work · `save-all.ps1` with **verify commands for Mac** in commit/CHANGELOG.
