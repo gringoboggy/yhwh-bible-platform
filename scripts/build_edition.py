@@ -2718,7 +2718,7 @@ def apply_tablet_popup_strip_separators(tmp: Path, edition: dict, preloaded: dic
                 preloaded[name] = new_text
                 touched += 1
         return touched
-    for fpath in sorted(tmp.glob("index_split_*.html")):
+    for fpath in list_split_html_files(tmp):
         text = fpath.read_text(encoding="utf-8")
         new_text = _VN_SEP_SPAN_RE.sub("", text)
         if new_text != text:
@@ -4501,6 +4501,15 @@ def list_html_files(tmp: Path) -> list[Path]:
     or filter here for per-verse work skips.
     """
     return sorted(tmp.glob("*.html"))
+
+
+def list_split_html_files(tmp: Path) -> list[Path]:
+    """Opt#4: consolidated walker for the sharded index_split_*.html files.
+
+    Used in file_split, kepub, and TOC paths. Central for future early-outs
+    and in-mem sharing.
+    """
+    return sorted(tmp.glob("index_split_*.html"))
 
 
 # HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
@@ -6515,7 +6524,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
                 return ""
             return block
 
-        for f in sorted(tmp.glob("*.html")):
+        for f in list_html_files(tmp):
             text = f.read_text(encoding="utf-8")
             new_text, n = toc_book_re.subn(_maybe_drop_toc_block, text)
             if n > 0 and new_text != text:
@@ -6542,7 +6551,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         # gets stripped. This is bulletproof: covers vnote-*, bp-NN,
         # ch-bXX-cN, page_NNN, ref-*, and any other anchor scheme.
         id_inventory: dict[str, set[str]] = {}
-        for f in sorted(tmp.glob("*.html")):
+        for f in list_html_files(tmp):
             text = f.read_text(encoding="utf-8")
             id_inventory[f.name] = set(re.findall(r'\bid="([^"]+)"', text))
 
@@ -6551,7 +6560,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
         # Also handle file-only refs (no #fragment) to dropped files.
         file_only_re = re.compile(r'<a\s+href="([^"#]+)"[^>]*>([^<]+)</a>')
 
-        for f in sorted(tmp.glob("*.html")):
+        for f in list_html_files(tmp):
             text = f.read_text(encoding="utf-8")
 
             # mint-9 #21/#22: count only links we actually STRIP, not every match.
@@ -7631,7 +7640,7 @@ def build_one(
 
         # Opt#2: single in-mem load for pre-badge html transforms (supersc, chapter, toc, bilingual)
         # to eliminate repeated I/O. Load once, apply in mem, write once.
-        pre_badge_texts = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("*.html"))}
+        pre_badge_texts = {p.name: p.read_text(encoding="utf-8") for p in list_html_files(tmp)}
 
         # beta-3 (g) — wrap Psalm/incipit superscriptions in .superscription so they
         # read as headings, not scripture body.
@@ -7700,7 +7709,7 @@ def build_one(
         # Round-9 Opt #2: single in-memory load for the post-badge repair passes
         # (eink breaks, empty prose, vnote sep, tablet strip). Mutate dict in place,
         # one write-back at end. Eliminates 4 full glob/read/write cycles.
-        repair_texts: dict[str, str] = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("*.html"))}
+        repair_texts: dict[str, str] = {p.name: p.read_text(encoding="utf-8") for p in list_html_files(tmp)}
 
         stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition, preloaded=repair_texts)
 
