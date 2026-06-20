@@ -73,6 +73,8 @@ const DEFERRED_BY_DESIGN = args?.deferred ?? [
   // round-9 execution findings (to not re-litigate in next):
   'Doc drift cluster (editions "11/9 curated" vs live 6; kinds 72 vs 68; source notes "91,720" vs live ~91,597): surfaced in REPO_MAP/MATRIX_MAP/SESSION_PLAYBOOK/build_edition comments during round-9; fix in dev/ prose only (no engine change). Add to next round only if regresses post-fix.',
   'K-R6-2 gate failures on dist v0.1.0 epub (bare -sN ids + prefix swallows in rev splits): observed on verify run; triage (artifact age vs gate vs real regression) before re-flagging as new.',
+  'K-R6-2 real defect in kepub too (792 bare rev ids + 36k+ prefixes confirmed on v0.1.0.kepub): rev sections not emitting proper -sN family ids post all transforms. Mac prep delegated for repro + count.',
+  'Automation-safety round-9 fixes SHIPPED: rebase --abort on auto-pull fail in lane_watch.py; save-all drive absence no longer $failures (optional bundles); rotation parity added to save_mac.sh. Do not re-surface these.',
 ]
 const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
 
