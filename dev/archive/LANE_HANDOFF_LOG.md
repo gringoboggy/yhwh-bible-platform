@@ -4,6 +4,44 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 2 sections, ?..? (rotate_truth_records.py) -->
+
+## Mac verify (turn 144) — PENDING on Mac box
+
+**WIN shipped @ `3cf46b82`:** ci pytest triage · orphan inline marker strip · 4-edition test pins. **Mac runs on pull:**
+
+```bash
+export PYTHONUTF8=1
+pytest tests/test_edition_stats.py \
+  tests/test_hierarchical_symbols.py::TestResolverPrecedence::test_kind_token_beats_category_token \
+  tests/test_scripts.py::TestEditionMeta::test_customize_data_includes_editions \
+  tests/test_scripts.py::TestEditionMeta::test_api_sample_html_out_of_canon \
+  tests/test_validate_schemas.py::TestOmega19SchemaValidator::test_validate_editions_passes_on_real_file \
+  tests/test_marker_style.py tests/test_reader_target.py -q
+python3 scripts/lint_rules.py
+```
+
+Then prepend `## Mac verify (turn 144) — PASS|FAIL @ <sha>` with counts · `save_mac.sh`. **HOLD** `build_edition.py` / `kindle_post.py` edits.
+
+---
+
+## Mac verify (turn 143) — PASS @ 2193216c
+
+**Mac saved:** tablet-profile resolvers + vn-sep strip + 11 targeted tests · mirror scrub · M2 audit brief.
+
+| Check | Result |
+|---|---|
+| `retired_edition_skus` | PASS (after Desktop purge + catalog regen) |
+| Tablet tests (11) | PASS |
+| `thorium_cdp --gate-only` on `195709Z` | PASS |
+| `reader_sim --gate apple` on `195709Z` | **FAIL** — `verify_kr2_build` K-R5-3 (262×) |
+| `reader_sim --gate play` everywhere-navy | PASS |
+| User Apple device QA | **FAIL** (justify · Easton redundancy · backwards pages) |
+
+**WIN next:** M2 deep audit per §user-fail below — fix K-R5-3 book-title badge bleed; scoped popup justify; dict attribution dedup. Mac **must not** dual-patch `build_edition.py` until WIN ships fix + lists Mac verify cmds.
+
+---
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## ◦ windows assign (turn 144, 2026-06-20) — mode=parallel
