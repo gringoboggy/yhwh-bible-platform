@@ -4,8 +4,8 @@ turn: 146
 from: windows
 updated: 2026-06-20T02:09:18Z
 status: handing-off
-mac: FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes
-windows: FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+mac: FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes
+windows: FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 truth_owner: mac
 holder: mac
 ---
@@ -18,7 +18,7 @@ turn 145 truth records @ 091a3f14: SESSION_STATE/IN_FLIGHT/CHANGELOG/backlog ref
 **Next (turn 146, mac picks up):**
 Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bisect #2
 
-**Assignments:** mac = FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+**Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 
 **Watch-outs:**
 turn 144 Mac verify still pending; M2 user-fail open; STK 144600Z vs 143407Z bisect open
@@ -27,7 +27,7 @@ turn 144 Mac verify still pending; M2 user-fail open; STK 144600Z vs 143407Z bis
 
 ## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
 
-**Assignments:** mac = FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+**Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 
 Session handoff @ `091a3f14`. ci triage DONE turn 144. Read `AGENTS.md` → triad → `SESSION_STATE` top first.
 

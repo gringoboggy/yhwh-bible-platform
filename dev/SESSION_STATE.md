@@ -1,14 +1,14 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`091a3f14`+** · `bash dev/start_session_radars_mac.sh`. **Role: verifier + planner** — read `AGENTS.md` → triad → this block · then `MAC_WORK_QUEUE.md` §Operating model. **First job:** verify WIN turn 144 ci triage (`LANE_HANDOFF` §Mac verify turn 144) → `## Mac verify (turn 144)` → `save_mac.sh`. **HOLD:** `kindle_post.py` · `build_edition.py` M2 fixes · STK uploads · catalog · overflow until WIN ships next slice. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`27bc6cdc`+** · `bash dev/start_session_radars_mac.sh`. **Role: verifier + planner** — read `AGENTS.md` → triad → this block · then `MAC_WORK_QUEUE.md` §Next scope item 1. **First job:** verify WIN turn 144 ci triage (pytest cmds there) → `## Mac verify (turn 144)` → `save_mac.sh`. **HOLD:** `kindle_post.py` · `build_edition.py` M2 fixes · STK uploads · catalog · overflow until WIN ships next slice. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`091a3f14`+** · read `AGENTS.md` → triad → this block. **Role: builder.** **ci triage DONE** (turn 144): `pytest --lf` 9/9 · edition_stats cross-check PASS · orphan marker strip shipped. **Pick up #1:** M2 Apple audit (K-R5-3 book-title badge bleed · popup justify · Easton dedup — `LANE_HANDOFF` §user-fail) **or** #2 Kindle STK bisect vs `143407Z` (390 spine / 0 glossary). List **Mac verify commands** in each save. Full `ci.py` re-run optional. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`27bc6cdc`+** · read `AGENTS.md` → triad → this block. **Role: builder.** **ci triage DONE** (turn 144): `pytest --lf` 9/9 · edition_stats cross-check PASS · orphan marker strip shipped. **Pick up #1:** M2 Apple audit (K-R5-3 book-title badge bleed · popup justify · Easton dedup — `LANE_HANDOFF` §user-fail) **or** #2 Kindle STK bisect vs `143407Z` (390 spine / 0 glossary). List **Mac verify commands** in each save. Full `ci.py` re-run optional. mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
 > **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog **187** assets on v0.1.0. Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 
-## Session wrap (WIN, 2026-06-20) — turn 145 fresh-session handoff @ `091a3f14`
+## Session wrap (WIN, 2026-06-20) — turn 146 fresh-session handoff @ `27bc6cdc`
 
 **Shipped:** ci pytest triage (turn 144: 8 reds → 0 on `--lf`) · orphan inline marker strip · 4-edition test pins · focus-reset + WIN-builds/Mac-verifies docs (turns 142–143) · truth records refreshed for next session (turn 145). **Not started:** M2 Apple audit · Kindle STK bisect.
 
