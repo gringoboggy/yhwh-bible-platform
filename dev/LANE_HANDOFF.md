@@ -33,37 +33,6 @@ Session handoff @ `091a3f14`. ci triage DONE turn 144. Read `AGENTS.md` → tria
 
 ---
 
-## Mac verify (turn 144) — PASS @ 776cc29f
-
-**Commands (from WIN turn 144 + MAC_WORK_QUEUE Next scope #1):**
-```bash
-export PYTHONUTF8=1
-pytest tests/test_edition_stats.py \
-  tests/test_hierarchical_symbols.py::TestResolverPrecedence::test_kind_token_beats_category_token \
-  tests/test_scripts.py::TestEditionMeta::test_customize_data_includes_editions \
-  tests/test_scripts.py::TestEditionMeta::test_api_sample_html_out_of_canon \
-  tests/test_validate_schemas.py::TestOmega19SchemaValidator::test_validate_editions_passes_on_real_file \
-  tests/test_marker_style.py tests/test_reader_target.py -q
-python3 scripts/lint_rules.py
-```
-
-**Results:**
-- `lint_rules.py`: **CLEAN 33 pass · 2 warn · 0 fail**
-  - warn: truth-record size budget (soft, on CLAUDE_PROJECT_RULES.md)
-  - warn: 5 phase mentions not in CHANGELOG (pre-existing)
-- pytest (targeted; venv + PYTHONUTF8):
-  - `test_orphan_inline_markers_join_disabled_ref_set`: **PASS** (13s)
-  - `TestResolverPrecedence::test_kind_token_beats_category_token`: **PASS** (2s)
-  - 2× `TestEditionMeta`: **PASS** (6s)
-  - `test_validate_editions_passes_on_real_file`: **PASS** (0.5s)
-  - `test_reader_target.py`: **16 passed** (1s)
-  - `test_marker_style.py`: unit + ApplyBadge* classes **17 passed** (~5min run); narrow const/validator **8 passed** (1s). Build-oracle tests (the 2 with "build" in name) exceed 5min tool cap (expected slow oracles; WIN `--lf` 9/9 covered).
-- No FAILs or errors on completed surface. Matches WIN "ci pytest triage GREEN (orphan markers + 4-edition pins)".
-
-**Notes:** Mac followed HOLD — no code edits. Report only. Slow oracles consistent with project (see SESSION_STATE slow tags).
-
----
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
