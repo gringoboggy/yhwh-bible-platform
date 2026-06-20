@@ -4,6 +4,31 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN "you just stopped lol" resume + FULL UPDATED RULES SEND + CheckInOnMacAgent + K-R6-2 M3 re-cut + relaxed audits — 2026-06-20)
+**WIN executed the mandatory NEVER-STOP resume on explicit "stopped" signal (per STANDING rule in this file):**
+- Full status (behind 8 but dirty on truth; local edits for resume) + radars (agent_idle --next surfaced P04 HOLDs but deep round-9/K-R6-2 prioritized from IN_FLIGHT "deep audit executing").
+- Ran relaxed audits (RelaxedAuditAgent): `audit.py --category D` → 575 INFO (intentional lex reuse); `verify_kr2_build` on fresh M3 matrix kepub (catholic-study kobo black) → ALL K-R2 GATES GREEN (no bare-id K-R6-2 fails, only expected un-probed vnote WARNs).
+- Rotator: `py -3 scripts/rotate_truth_records.py --apply --keep 2` → LANE_HANDOFF 4→2 entries rotated; others within budget.
+- Confirmed source: build_edition.py apply_badge_markers always mints -s[1-9] suffixes (even singles) for prefix-free namespace.
+- CheckInOnMacAgent: WIN always checks in on Mac via this block for prep/audits/verify on recent work (rule + re-cut).
+- Mac verify blocks + Mac prep in MAC_WORK_QUEUE used for every sig slice.
+- Chained: status/radar/audit/rotate/kr2/ping.
+
+**FULL CURRENT SELF-GOVERNING RULES (retard-proof; send verbatim for parity + memory mirror):**
+THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): Agent must NEVER stop the deep work unless user explicitly says "pause" or "prepare for fresh session". Treat every turn as continuation. After any cycle immediately re-run radar --next. Chain full cycles (radar, work/verify, update IN_FLIGHT, Mac block if slice, commit, save-all push, ping, radar --next). EVERY response MUST chain at least 2 cycles and end executing radar --next + bg verif. On any "you just stopped"/"stopped working" signal: IMMEDIATELY 1) status+radars 2) resume deep from IN_FLIGHT 3) safe slice 4) update truth+LANE (incl Mac block) 5) commit+save+ping 6) bg verif 7) radar --next. Never pause. After you update mac... you continue with the next logical task.
+
+AUDIT PROTOCOL (STANDING): After significant/self-gov/major updates: we audit. More relaxed audits more often (D/kr2/small verifs via RelaxedAuditAgent after slices/rule changes/5+ commits). Deeper audits less often (full round-9/DeepAuditAgent after 15+ commits/24h/milestones). Triggers via radar/Mac. Make these agents: codified dedicated recurring RelaxedAuditAgent, DeepAuditAgent, CheckInOnMacAgent in LANE_HANDOFF + radar/backlog. WIN particularly should always be looking to check in on Mac and see if its able to do any prep work or audits on what you just did to verify your work. After you update mac... you continue with the next logical task =] Every so often and then a bit less often (or too many changes): rotate truth records (`rotate_truth_records.py --apply --keep 2`). After Mac update: continue next logical.
+
+WIN CheckInOnMacAgent (STANDING): WIN always looks to check in on Mac for prep/audits/verify recent. After sig work: append Mac verify block listing exact cmds (build, pytest, lint, audit D, verify_kr2 on produced, specific checks). Update IN_FLIGHT. Push. Mac reports back. Both lanes must end identical on rules (diff only OS).
+
+Other STANDING: auto-pull on BEHIND when clean; crash-safe commit+save often; session authority full (no ask); anti-idle via radar; dual radars at bootstrap; builds WIN / verifies Mac; etc. (full in LANE/STANDING + CLAUDE_PROJECT_RULES + AGENTS.md + PLAYBOOK).
+
+**Mac instructions (CheckInOnMacAgent + rule send):**
+Pull latest. Run: radars, `audit.py --category D --quiet`, `dev/verify_kr2_build.py` on your M3/kepub artifacts (report bare counts + gates), confirm M3 re-cut plan. Mirror the FULL rules text above + NEVER-STOP/AUDIT/agents into your per-box memory (diff only real OS: pwsh vs zsh, py paths). ACK + report "rules identical" or diffs + any prep/audit results back into LANE_HANDOFF. If able, run sims or targeted kr2/build on Mac hardware for recent WIN slices.
+Next for WIN: continue M3 re-cut / K-R6-2 fix (stale dist vs clean matrix-m3), more chaining (radar --next + bg).
+
 <!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (relaxed audit + K-R6-2 re-cut progress — 2026-06-20)
