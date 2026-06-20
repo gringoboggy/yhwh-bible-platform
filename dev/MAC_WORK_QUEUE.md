@@ -70,10 +70,39 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 ### Next scope (Mac) — WIN reads on pull
 
 > Mac maintains this block. WIN implements top item after current slice ships.
+> **Lots of M2 Apple prep work sent (WIN local commits + detailed commands below).**
+> After WIN push of next M2 slice, Mac: pull, run the listed commands on the named tablet artifact, report PASS/FAIL per issue with file:line or counts, update this + LANE_HANDOFF. HOLD code changes to build_edition.py.
 
-1. **After WIN M2 Apple audit push:** verify tablet artifact · K-R5-3 gate · user device re-test scope (no Mac `build_edition.py` edits). (turn 144 ci triage verified PASS @ 776cc29f; see LANE_HANDOFF)
+1. **After WIN M2 Apple audit push (K-R5-3 + justify + Easton + nav isolation):** 
+   - Build / acquire the tablet artifact (WIN will name path or use latest `Ethiopian_Bible_ethiopian-tewahedo_*_tablet_*.epub` in dist or staged).
+   - Run:
+     ```bash
+     export PYTHONUTF8=1
+     python dev/verify_kr2_build.py <path-to-tablet-epub>
+     python -m pytest tests/test_presentation_polish.py tests/test_popup_split.py::TestBookBoundaryClamp tests/test_reader_target.py tests/test_marker_style.py -q
+     python3 scripts/lint_rules.py
+     ```
+   - Specific M2 verifs (report counts / first failures):
+     - K-R5-3: `title_piece_badge_checks` zero fails; grep inside bp- divs for verse-notes-badge or vnotes- (should be 0).
+     - Justify / left-align: unzip css from artifact, confirm `.note, .note p, .verse-notes, .vnote { text-align: left !important; }` present for tablet; no justify on those in final (base ok).
+     - Easton dedup: extract a sample vnotes-... for gen-1-1 or known Easton note; confirm no triple (no "Easton." label + byline + "Dictionary (Easton's)" boiler; byline only + body content).
+     - Nav / backwards: confirm spine order monotonic (000->060), first bp-00 early, no shard-like 300+ pieces for tablet (69ish expected); toc collapsible details present; canonical book order in nav.
+   - Apple device re-test scope (user uploads or Mac stages): confirm reading order forward, popups/notes left-aligned, Easton notes clean single attribution, no badge bleed into titles.
+   - (turn 144 ci already PASS; this is the M2 user-fail closeout)
+
 2. **After WIN Kindle bisect push:** verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
-3. Scope v1 gate remainder (M3/M5 user taps, full P4 ci once WIN green) only after current release items.
+
+3. Scope v1 gate remainder only after M2 green + one clean STK m4b on device.
+
+**WIN prep shipped in this slice (local commits):**
+- K-R5-3 gate hardened: checks *inside* book-title-page frame (catches real bleed) + legacy singleton only when no scripture.
+- _BADGE_CH_BOUNDARY_RE made robust to attr order.
+- Tablet left-align CSS appended for .note/.verse-notes (M2 justify fix).
+- Easton S1: dict-* kinds now strip redundant leaf label (addresses triple with byline).
+- All gated by resolve_target_reader("tablet").
+- Tests for clamp/presentation still green post-edit.
+
+Use `reader_sim/apple/` or direct unzip + grep for prep checks. Record exact artifact UUID/timestamp in report.
 
 ### WIN builder loop (for Mac to expect)
 

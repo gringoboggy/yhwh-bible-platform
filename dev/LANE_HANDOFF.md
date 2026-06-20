@@ -77,6 +77,18 @@ python3 scripts/lint_rules.py
 
 Full forensics: `dev/archive/LANE_HANDOFF_LOG.md` turn 142 §user-fail. Tablet artifact: `…195709Z.epub` (vn-sep stripped). Mac patch @ `2193216c` saved — device QA still FAIL.
 
+**WIN M2 prep progress (local commits 873ee8bb + follow-ups):**
+- K-R5-3: gate updated to inner `<div class=book-title-page>` bleed detection (prevents 262 false on non-split tablet) + regex now matches class regardless of id order.
+- Justify #2: tablet build appends left-align override for .note / .verse-notes / .vnote (base prose justify preserved).
+- Easton #3: S1 _strip_redundant_note_label now suppresses label for all `dict-*` (incl. dict-easton) — eliminates "Easton." label + byline + body boiler triple (byline + body remain; lossless).
+- Nav #1 prep: confirmed resolve_reader_file_split/tablet already returns False (no Kobo sharding bleed); spine/nav code uses the resolver; prep commands + gates listed for Mac.
+- More prep sent to Mac via expanded MAC_WORK_QUEUE §Next (detailed build/verify/grep/device retest per issue).
+- Related tests (popup_split clamp, presentation_polish, reader_target, marker) exercised green.
+- ruff + lint_rules path clean on changes.
+- Most logical: M2 #1 complete before STK #2 or other.
+
+Mac: after next WIN tablet push, run the expanded prep commands above, report per-issue. No dual edits to build_edition.
+
 ---
 
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)

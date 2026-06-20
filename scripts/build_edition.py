@@ -2846,6 +2846,12 @@ def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -
     default = kind_defaults.get(kind, "")
     if default and _normalize_label_text(m.group(1)) == default:
         return _strip_note_label_span(row_html)
+    # M2 Apple / Easton (dict-*) triple attribution: label "Easton." + byline + body
+    # boiler "<strong>Dictionary (Easton's).</strong>". Strip leaf label for all dict-*
+    # kinds (S2 byline carries the source attribution; body boilerplate stays in
+    # source or is acceptable). Lossless when label stripped (info in byline).
+    if kind.startswith("dict-"):
+        return _strip_note_label_span(row_html)
     return row_html, False
 
 
