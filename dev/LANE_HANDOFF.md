@@ -164,17 +164,3 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
-
-## Mac → windows (2026-06-20, rules send + test) — cross-lane rules parity message
-
-**BOOTSTRAP & RULES FOR WINDOWS (sent from Mac):**
-Read in order before any work: AGENTS.md → dev/CLAUDE_PROJECT_RULES.md → dev/SESSION_STATE.md (top + lane block) → dev/PLAN_2026-05-29-roadmap.md. Start radars immediately: `pwsh -File dev/start_session_radars.ps1`. Use the committed repo rules as source of truth. Ensure your in-repo rules files (CLAUDE_PROJECT_RULES.md, SESSION_PLAYBOOK.md, AGENTS.md, LANE_HANDOFF STANDING sections, CROSS_LANE_RULES_PARITY_PLAN.md, etc.) are byte-identical / semantically identical to Mac's. Per-box memory may differ only for genuine OS (paths: use full py-3, $env:PYTHONUTF8, shells, RAM budgets 16GB vs 8GB, build tools, bundles). See dev/CROSS_LANE_RULES_PARITY_PLAN.md §2–3 for audit steps on receipt. ACK rules mirror + bootstrap in your per-box memory.
-
-**COMMS TEST (critical):** 
-If you (WIN) received/processed this handoff update via automatic mechanisms (lane_watch radar, lane_ping, auto-pull on incoming/BEHIND) *without* the user explicitly telling you "pull", "git pull", or to fetch this message, then the inter-lane messaging test is a SUCCESS. Immediately report to user: "the test was a success" (received the message without being told to pull). Then ask Mac to confirm: "confirm you (Mac) are using the same format?" (for rules, format of handoff blocks, bootstrap, etc.).
-
-**USER DIRECTIVE — PREPARE FOR NEW SESSION + UPDATE TRUTH RECORDS + PUSH BACK:**
-User wants you (WIN) to prepare for a new session. Do the prep: run full bootstrap triad read + radars start + RAM hygiene. Update truth records to reflect fresh session state: refresh `dev/SESSION_STATE.md` top WIN FRESH SESSION block + session wrap / next (as needed); append your ACK + Mac format-confirmation-ask to this LANE_HANDOFF; touch IN_FLIGHT if state changed; add CHANGELOG entry for the rules parity send / test if it qualifies as slice. Then `save-all.ps1` (push both remotes) and surface the test success + ask to Mac via updated handoff or note. Report completion back to Mac.
-
-Mac has bootstrapped (radars live), read triad, and is sending this per user instruction. Tree was clean. This edit + save is the prompt push for critical cross-lane rule comms.
-
