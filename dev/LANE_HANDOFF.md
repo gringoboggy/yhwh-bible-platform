@@ -119,6 +119,26 @@ Full forensics: `dev/archive/LANE_HANDOFF_LOG.md` turn 142 §user-fail. Tablet a
 
 Mac: after next WIN tablet push, run the expanded prep commands above, report per-issue. No dual edits to build_edition.
 
+## Mac verify (WIN slice: round-9 Opt #3 early-out for per-verse split work — 2026-06-20)
+
+**Mac:** pull; build tablet to exercise (no split for non-eink tablet):
+
+```bash
+export PYTHONUTF8=1
+py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --version r9-opt3 --output-dir dist --force
+python -m pytest tests/test_presentation_polish.py tests/test_reader_target.py -q --tb=line
+py -3 scripts/lint_rules.py
+python audit.py --category D --quiet 2>&1 | head -20
+python dev/verify_kr2_build.py dist/Ethiopian_Bible_ethiopian-tewahedo_r9-opt3_*_tablet_*.epub
+```
+
+**Checks:**
+- Confirm no regression in tablet output (repairs, left-align, etc. still good).
+- Audit D: no new findings from early-out.
+- Counts match (editions=6 etc.).
+- After save: rotation, report to LANE_HANDOFF.
+Report PASS/FAIL. No code changes.
+
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.
