@@ -66,6 +66,28 @@ Report PASS/FAIL. No code changes.
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: round-9 Opt #3 early-out for per-verse split work — 2026-06-20)
+
+**Mac:** pull; build tablet to exercise (no split for non-eink tablet):
+
+```bash
+export PYTHONUTF8=1
+py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --version r9-opt3 --output-dir dist --force
+python -m pytest tests/test_presentation_polish.py tests/test_reader_target.py -q --tb=line
+py -3 scripts/lint_rules.py
+python audit.py --category D --quiet 2>&1 | head -20
+python dev/verify_kr2_build.py dist/Ethiopian_Bible_ethiopian-tewahedo_r9-opt3_*_tablet_*.epub
+```
+
+**Checks:**
+- Confirm no regression in tablet output (repairs, left-align, etc. still good).
+- Audit D: no new findings from early-out.
+- Counts match (editions=6 etc.).
+- After save: rotation, report to LANE_HANDOFF.
+Report PASS/FAIL. No code changes.
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)
 
 **Mac:** pull; run the following (tablet target exercises the new in-mem repair paths + CSS consolidation; keep the artifact for any device spot-check):

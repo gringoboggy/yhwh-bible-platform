@@ -164,15 +164,34 @@ The implementation in `lane_watch.py` (the `tracking_behind` check + `should_pul
 
 **WIN builds · Mac verifies (2026-06-19, user-directed — STANDING, both lanes).** **WIN** owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect). **Mac** owns **verify + scope** on each WIN milestone: pull → run WIN-listed verify commands → `## Mac verify (turn N)` PASS/FAIL in this file → update `MAC_WORK_QUEUE.md` `### Next scope (Mac)` (max 3 items). Mac **must not** dual-implement the same Kindle/pytest fix WIN is shipping. Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac **must not** run full `ci.py` on HDD while WIN `ci.py` is in flight. Full runbook: `dev/MAC_WORK_QUEUE.md` §Operating model.
 
-**Autonomous Mac-instructions rule (STANDING, both lanes, codified 2026-06-20):** Whenever WIN finishes any coherent slice that touches build/core paths (optimizations, I/O transforms, filter data, badge/repair passes, etc.), **immediately** append a fresh `## Mac verify (WIN slice: <one-line desc> — <date>)` block in this file. The block must contain:
-- the exact build command(s) (prefer tablet or the target that exercises the changed code)
-- targeted pytest + `lint_rules.py` + `audit.py --category D` (or --quiet)
-- `dev/verify_kr2_build.py` on the produced artifact(s)
-- any slice-specific checks (e.g. confirm in-mem repair path produced byte-identical output where expected, no new D findings, etc.)
-- instruction for Mac to report PASS/FAIL + counts + first failures back into LANE_HANDOFF and the relevant findings file.
-This is the mechanism that keeps cross-OS parity during the round-9 audit. Use `--ping` after appending. Never end a WIN slice without sending the Mac list.
+**Autonomous Mac-instructions rule (STANDING, both lanes, codified 2026-06-20):** Whenever WIN finishes any coherent slice that touches build/core paths (optimizations, I/O transforms, filter data, badge/repair passes, etc.), **immediately** (no input, no questions) do:
+- commit the change
+- append a fresh `## Mac verify (WIN slice: <one-line desc> — <date>)` block in this file with:
+  - the exact build command(s) (prefer tablet or the target that exercises the changed code)
+  - targeted pytest + `lint_rules.py` + `audit.py --category D` (or --quiet)
+  - `dev/verify_kr2_build.py` on the produced artifact(s)
+  - any slice-specific checks (e.g. confirm in-mem repair path produced byte-identical output where expected, no new D findings, etc.)
+  - instruction for Mac to report PASS/FAIL + counts + first failures back into LANE_HANDOFF and the relevant findings file.
+- update IN_FLIGHT with the progress
+- push with save-all.ps1
+- ping radar
+- for rule change, add task to MAC_WORK_QUEUE for Mac to mirror the exact text to per-box memory, confirm identical (diff only real OS), ACK, run bootstrap, report.
+This is the mechanism that keeps cross-OS parity during the round-9 audit. Use `--next` / radar to continue without input. Never end a WIN slice without sending the Mac list. Dirty tree blocks auto-pull; clean first.
 
 **Rule change parity (STANDING, both lanes):** Any edit to shared in-repo rules (LANE_HANDOFF, SESSION_STATE, CLAUDE_PROJECT_RULES, etc.) must be accompanied by an explicit task in MAC_WORK_QUEUE for Mac to: pull the change, update their per-box memory with the exact new text (diff only real OS reasons), confirm rules are identical, ACK in local memory, run bootstrap to wire, report confirmation + any diff to LANE_HANDOFF. WIN reviews Mac report and confirms both sides on same page before considering the rule change complete. This delegation is automatic in the queue/handoff system. (See deep audit prep section for full cross-lane rule mirroring protocol during this arc.)
+
+**Retard-Proof Autonomous WIN Slice Completion Checklist for Deep Audit (STANDING, codified to prevent circles and forgetfulness):**
+1. Run git status. If dirty, commit with message. If behind and clean, git pull --rebase origin main (trackers should do this, but verify).
+2. Use py -3 scripts/agent_idle_radar.py --next or --ping to decide next (prioritize deep audit over HOLD/M2 per IN_FLIGHT).
+3. Implement next logical from round9 findings (e.g. extend I/O reduction, early-outs, etc.). No human input.
+4. Run gates: py -3 -m ruff format scripts/build_edition.py; py -3 scripts/lint_rules.py.
+5. Update IN_FLIGHT.md with progress (re-read first).
+6. Append or update ## Mac verify (WIN slice: <desc> — date) in this file with exact commands (tablet build, targeted pytest, verify_kr2, audit D).
+7. If rule change, add task to MAC_WORK_QUEUE for Mac to: mirror exact text to per-box memory, confirm identical (OS diffs only), ACK, run bootstrap, report to LANE_HANDOFF.
+8. pwsh -File save-all.ps1 -Message "..." to push (both remotes + bundles).
+9. py -3 scripts/agent_idle_radar.py --ping --note "slice done, Mac instructions sent, rules mirrored if changed."
+10. Repeat from 1. Never wait for input. Never end unpushed. This is triple-checked against rules to achieve audit completion autonomously.
+This checklist is now in the rules so every future session (even "retarded" ones) follows it without reminders. WIN sends, Mac mirrors/confirms, WIN confirms same page.
 
 **Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first (STANDING auto-pull rule). (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 

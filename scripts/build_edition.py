@@ -5400,7 +5400,7 @@ def decorate_chapter_label(label: str, decoration_style: str) -> str:
 _CHAPTER_NUM_RE = re.compile(r'(<span class="bold-num">)(\d+)(</span>)')
 
 
-def apply_chapter_decoration(tmp: Path, edition: dict) -> dict:
+def apply_chapter_decoration(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> dict:
     """Apply per-edition chapter number format + decoration to every
     body chapter heading in the temporary build directory.
 
@@ -5427,6 +5427,19 @@ def apply_chapter_decoration(tmp: Path, edition: dict) -> dict:
         chapters_rewritten += 1
         return f"{m.group(1)}{decorated}{m.group(3)}"
 
+    if preloaded is not None:
+        for fname in list(preloaded.keys()):
+            if not fname.endswith(".html"):
+                continue
+            text = preloaded[fname]
+            new_text, n_subs = _CHAPTER_NUM_RE.subn(rewrite, text)
+            if n_subs > 0 and new_text != text:
+                preloaded[fname] = new_text
+                files_touched += 1
+        return {
+            "files_touched": files_touched,
+            "chapters_rewritten": chapters_rewritten,
+        }
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
         new_text, n_subs = _CHAPTER_NUM_RE.subn(rewrite, text)
@@ -5486,7 +5499,7 @@ _TOC_BOOK_BLOCK_RE = re.compile(
 )
 
 
-def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
+def apply_reader_toc_transforms(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> dict:
     """Apply reader_toc_collapsible, reader_toc_default_open, and
     book_toc_ornament to the in-book Table of Contents.
 
@@ -5584,6 +5597,22 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
             )
             return f'{li_open}<p class="toc-book-label">{ornament_html}{anchor}</p>{inner}</li>'
 
+    if preloaded is not None:
+        for fname in list(preloaded.keys()):
+            if not fname.endswith(".html"):
+                continue
+            text = preloaded[fname]
+            new_text, n_subs = _TOC_BOOK_BLOCK_RE.subn(rewrite, text)
+            if n_subs > 0 and new_text != text:
+                preloaded[fname] = new_text
+                files_touched += 1
+        return {
+            "files_touched": files_touched,
+            "books_transformed": books_transformed,
+            "ornaments_inserted": ornaments_inserted,
+            "details_unwrapped": details_unwrapped,
+            "defaults_opened": defaults_opened,
+        }
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
         new_text, n_subs = _TOC_BOOK_BLOCK_RE.subn(rewrite, text)
@@ -5640,7 +5669,7 @@ _PSALM_SUPERSCRIPTION_RE = re.compile(
 )
 
 
-def apply_superscriptions(tmp: Path) -> dict:
+def apply_superscriptions(tmp: Path, preloaded: dict[str, str] | None = None) -> dict:
     """beta-3 (g): wrap chapter-start superscriptions (Psalm titles such as
     'A Prayer by David.') in ``<p class="superscription">`` so they read as a
     heading, not as scripture body. Scoped to the Psalms: the first verse
@@ -5662,6 +5691,16 @@ def apply_superscriptions(tmp: Path) -> dict:
         stats["superscriptions_wrapped"] += 1
         return f'{head}<p class="superscription">{body}</p>'
 
+    if preloaded is not None:
+        for fname in psa.get("files", []):
+            if fname not in preloaded:
+                continue
+            text = preloaded[fname]
+            new = _PSALM_SUPERSCRIPTION_RE.sub(repl, text)
+            if new != text:
+                preloaded[fname] = new
+                stats["files_touched"] += 1
+        return stats
     for fname in psa.get("files", []):
         fp = tmp / fname
         if not fp.is_file():
@@ -6048,7 +6087,7 @@ def _xml_escape_label(s: str) -> str:
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
+def apply_bilingual_toc(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> dict:
     """Phase ν.8 — rewrite ToC entries with bilingual labels.
 
     Reads ``edition["toc_bilingual"]`` (one of TOC_BILINGUAL_OPTIONS).
@@ -6121,6 +6160,22 @@ def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
         chapter_labels_rewritten += 1
         return f"{opening}{_xml_escape_label(label)}{closing}"
 
+    if preloaded is not None:
+        for fname in list(preloaded.keys()):
+            if not (fname.endswith(".html") or fname == "nav.xhtml"):
+                continue
+            text = preloaded[fname]
+            new_text = _BILINGUAL_BOOK_ANCHOR_RE.sub(_rewrite_book, text)
+            new_text = _BILINGUAL_CHAPTER_ANCHOR_RE.sub(_rewrite_chapter, new_text)
+            if new_text != text:
+                preloaded[fname] = new_text
+                files_touched += 1
+        return {
+            "files_touched": files_touched,
+            "book_labels_rewritten": book_labels_rewritten,
+            "chapter_labels_rewritten": chapter_labels_rewritten,
+            "toc_style": toc_style,
+        }
     # Scan every .html file (the in-book ToC lives in
     # index_split_000.html in current builds but is generally not
     # pinned to a single file).
@@ -7564,22 +7619,26 @@ def build_one(
         orphan_vnote_stats = drop_orphan_vnote_asides(tmp)
         stats["orphan_vnote_asides_dropped"] = orphan_vnote_stats["orphan_vnote_asides_dropped"]
 
+        # Opt#2: single in-mem load for pre-badge html transforms (supersc, chapter, toc, bilingual)
+        # to eliminate repeated I/O. Load once, apply in mem, write once.
+        pre_badge_texts = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("*.html"))}
+
         # beta-3 (g) — wrap Psalm/incipit superscriptions in .superscription so they
         # read as headings, not scripture body.
-        supersc_stats = apply_superscriptions(tmp)
+        supersc_stats = apply_superscriptions(tmp, preloaded=pre_badge_texts)
         stats["superscriptions_wrapped"] = supersc_stats["superscriptions_wrapped"]
 
         # Phase ν.6 — Apply per-edition chapter number format +
         # decoration to body chapter headings. Default
         # (format=digit, decoration=plain) is a no-op for back-compat.
-        chapter_stats = apply_chapter_decoration(tmp, edition)
+        chapter_stats = apply_chapter_decoration(tmp, edition, preloaded=pre_badge_texts)
         stats["chapters_decorated"] = chapter_stats["chapters_rewritten"]
         stats["chapter_files_touched"] = chapter_stats["files_touched"]
 
         # Phase ν.6.x — Apply reader's TOC transforms (collapsibility,
         # default-open, and book ornament). Default settings are a
         # no-op for back-compat (Rule §6.5).
-        toc_stats = apply_reader_toc_transforms(tmp, edition)
+        toc_stats = apply_reader_toc_transforms(tmp, edition, preloaded=pre_badge_texts)
         stats["toc_books_transformed"] = toc_stats["books_transformed"]
         stats["toc_ornaments_inserted"] = toc_stats["ornaments_inserted"]
         stats["toc_details_unwrapped"] = toc_stats["details_unwrapped"]
@@ -7591,10 +7650,14 @@ def build_one(
         # builds. Runs AFTER apply_reader_toc_transforms so the book
         # anchor is still in its canonical <a href="...#bp-NN"> form
         # for matching.
-        bilingual_stats = apply_bilingual_toc(tmp, edition)
+        bilingual_stats = apply_bilingual_toc(tmp, edition, preloaded=pre_badge_texts)
         stats["toc_bilingual_style"] = bilingual_stats["toc_style"]
         stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
         stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
+
+        # write back once for pre-badge
+        for name, txt in pre_badge_texts.items():
+            (tmp / name).write_text(txt, encoding="utf-8")
 
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
