@@ -2686,7 +2686,7 @@ def apply_empty_verse_prose_repair(tmp: Path, preloaded: dict[str, str] | None =
                 preloaded[name] = out
                 repaired += n
         return repaired
-    for path in sorted(tmp.glob("*.html")):
+    for path in list_html_files(tmp):
         text = path.read_text(encoding="utf-8")
         out, n = repair_empty_verse_prose(text)
         if n:
@@ -2748,7 +2748,7 @@ def apply_vnote_preview_separators(
                 preloaded[name] = out
                 touched += 1
         return touched
-    for fpath in sorted(tmp.glob("*.html")):
+    for fpath in list_html_files(tmp):
         text = fpath.read_text(encoding="utf-8")
         out = add_vnote_preview_separators(text)
         if eink:
@@ -3835,7 +3835,7 @@ def apply_eink_verse_line_breaks(tmp: Path, edition: dict, preloaded: dict[str, 
                 text = text[:start] + repl + text[end:]
             preloaded[name] = text
         return breaks
-    for path in sorted(tmp.glob("*.html")):
+    for path in list_html_files(tmp):
         text = path.read_text(encoding="utf-8")
         splices: list[tuple[int, int, str]] = []
         for m in re.finditer(r'<a class="vn-link"', text):
@@ -4491,6 +4491,16 @@ def resolve_file_split_target(edition: dict) -> int:
     if explicit:
         return int(explicit)
     return FILE_SPLIT_TARGET_KINDLE if is_kindle_target(edition) else FILE_SPLIT_TARGET_DEFAULT
+
+
+def list_html_files(tmp: Path) -> list[Path]:
+    """Opt#4 consolidated walker (deep audit): single helper for temp tree *.html.
+
+    Replaces repeated sorted(tmp.glob("*.html")) to reduce duplication/god-module
+    surface. Preserves exact order/semantics. Future: can add early-out, cache,
+    or filter here for per-verse work skips.
+    """
+    return sorted(tmp.glob("*.html"))
 
 
 # HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
@@ -5440,7 +5450,7 @@ def apply_chapter_decoration(tmp: Path, edition: dict, preloaded: dict[str, str]
             "files_touched": files_touched,
             "chapters_rewritten": chapters_rewritten,
         }
-    for fpath in sorted(tmp.glob("*.html")):
+    for fpath in list_html_files(tmp):
         text = fpath.read_text(encoding="utf-8")
         new_text, n_subs = _CHAPTER_NUM_RE.subn(rewrite, text)
         if n_subs > 0 and new_text != text:
@@ -5613,7 +5623,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict, preloaded: dict[str, s
             "details_unwrapped": details_unwrapped,
             "defaults_opened": defaults_opened,
         }
-    for fpath in sorted(tmp.glob("*.html")):
+    for fpath in list_html_files(tmp):
         text = fpath.read_text(encoding="utf-8")
         new_text, n_subs = _TOC_BOOK_BLOCK_RE.subn(rewrite, text)
         if n_subs > 0 and new_text != text:
