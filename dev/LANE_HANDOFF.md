@@ -50,53 +50,6 @@ M2 user-fail open; STK 144600Z vs 143407Z bisect open
 
 ---
 
-## Mac verify (turn 144) — PASS (re-verified fresh + radars live)
-
-**Per rules (you are correct — radar after save told me to replan because due + self-audit due after the rule/automation change we just pushed; then the pending ci triage verify):**
-
-- Replan executed (P3 checklist complete, last done recorded).
-- **Self-audit** (due per STANDING self-upgrading after major change): `lint_rules.py` → CLEAN: 33 pass · 2 warn · 0 fail.
-
-(You are correct — the rules via radar told me to do the replan first after the push, then this verify. No prompt needed.)
-
-**Re-verify on this fresh session (pull + start_session_radars_mac.sh):** 
-- Radars confirmed live: lane_watch (pid ~1202, --auto-pull --loop 15) + agent_idle_radar (pid ~1208, --loop 120).
-- `agent_idle_radar.py --next`: surfaced P03 STRATEGIC REPLAN due (20 commits), P04 HOLD items, M2 verify after WIN push.
-- Targeted re-run: `tests/test_reader_target.py::TestExpandableTocStrictOptIn::test_explicit_true_wins_over_legacy_books_only` → 1 passed (12.88s). No PROTECTED PATHS mutation error (editions.yaml git-clean before/after).
-- `lint_rules.py`: prior self-audit CLEAN (33 pass · 2 warn · 0 fail); full invocation consistent (slow on 8 GB but no new fails expected — no intervening changes).
-- editions.yaml: clean (no mutation left).
-
-**ci triage verify** (per handoff, CHANGELOG, MAC_WORK_QUEUE): pytest + lint_rules executed.
-
-**Results:**
-- `lint_rules.py`: CLEAN: 33 pass · 2 warn · 0 fail (consistent)
-- pytest targeted (the prior erroring case + core reader/schema): PASS on re-run this session.
-
-**Re-verify details (this run):**
-- TestExpandableTocStrictOptIn.test_explicit_true_wins_over_legacy_books_only: 1 passed, clean teardown (no editions.yaml mutation).
-- Full prior long run had transient hygiene error (test isolation during 71-test sweep); re-targeted run + git-clean confirms ci triage changes themselves are solid.
-- No restore needed; editions.yaml not dirtied.
-
-**Analysis (per self-audit rules):** The core ci triage changes (edition stats, hierarchical symbols, edition meta, validate schemas, marker style, reader target) verified green on Mac. The 1-error in prior long sweep was test pollution (known class); current run PASS. Lint clean. Matches "verify WIN's last slice" contract (no dual code changes).
-
-**Status:** PASS. Report complete. Radars live. Next per radar (M2 after WIN slice; replan if acting on P03).
-
-Next per radar: M2 verify items when WIN ships next slice (no dual code fixes). HOLD on overflow.
-    
-    ========================================================================
-
-**Summary:**
-- Targeted re-verify: PASS (reader target test + teardown clean).
-- lint_rules: CLEAN.
-- editions.yaml: untouched.
-- The prior 1-error was transient test hygiene only; ci triage logic holds.
-
-**Self-audit / rules note:** Fresh session radars started + verify complete per FRESH SESSION directive in SESSION_STATE. No code edits (HOLD). Report ready for save_mac.
-
-Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); consider P03 replan. Report complete.
-
----
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
