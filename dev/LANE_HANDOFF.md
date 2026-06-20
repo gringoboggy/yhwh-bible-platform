@@ -20,8 +20,11 @@ Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bise
 
 **Windows note (from Mac send):** pull-checker + rules mirroring (see dev/CROSS_LANE_RULES_PARITY_PLAN.md for the full plan).
 
-**NEW (activate on next pull):** Cross-Lane Rules Parity (see dev/CROSS_LANE_RULES_PARITY_PLAN.md)
-Mac: when you pull WIN's latest, execute the parity plan on your side (send WIN your current memory summary + local configs first). WIN will review/ harmonize and send back Mac changes. Both sides must end with identical repo rules + per-box memories (differ only for real OS reasons: paths, shells, RAM budgets, python launchers, etc.). Update memories + ACK on both sides. Bootstrap verification required.
+**NEW (activate on next pull):** Cross-Lane Rules Parity + Ridiculous Deep Audit Prep (see dev/CROSS_LANE_RULES_PARITY_PLAN.md + docs/superpowers/plans/2026-06-20-ridiculously-deep-audit-plan.md)
+ALWAYS remember: make Mac do any prep work that can help Win (main machine). Assign via this board / MAC_WORK_QUEUE (e.g. Mac sims/audits on its hardware, OS diffs capture, Mac-side audit runs for redundancies/contradictions/sims/optimizations/automation safety/markup/online truth, pre-collect findings).
+Mac: when you pull WIN's latest, execute the parity plan + deep audit prep on your side (send WIN your current memory summary + local configs + OS diffs first). WIN will review/harmonize and send back Mac changes. Both sides must end with identical repo rules + per-box memories (differ only for real OS reasons: paths, shells, RAM budgets, python launchers, hooks, bundles, build tools, etc.). Update memories + ACK on both sides. Bootstrap verification required. Run Mac prep autonomously.
+When send arrives (hopefully auto via improved pull checker), WIN executes full ridiculous deep audit (adversarial, both machines, full scope as in plan: redundancies everywhere incl. bibles/books/popups, zero contradictions, sims thorough + improvements, optimizations everywhere, no broken markup in any artifact, two-machine automation safety + guards, online truth sync for website/GH/GL, cross-OS parity, small/big work integrity, step back audits rule).
+Update all truth records + online (website/GH/GL/releases/metadata/social) to current truth for big changes.
 
 **Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 

@@ -73,13 +73,15 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 > **Lots of M2 Apple prep work sent (WIN local commits + detailed commands below).**
 > After WIN push of next M2 slice, Mac: pull, run the listed commands on the named tablet artifact, report PASS/FAIL per issue with file:line or counts, update this + LANE_HANDOFF. HOLD code changes to build_edition.py.
 
-**PRIORITY NEW ITEM (activate on pull of WIN's parity plan): Cross-Lane Rules Parity**
-See `dev/CROSS_LANE_RULES_PARITY_PLAN.md` + the new task in LANE_HANDOFF.
-1. On pull, send WIN a summary of your current per-box memory + key local configs (env, hooks, machine facts).
-2. Review the plan and apply all harmonization steps on Mac side.
-3. Both lanes must reach: identical in-repo rules + out-of-repo memories (differ only where macOS vs Windows forces it: shells, paths, python, RAM, build tools, etc.).
-4. Run fresh bootstrap on Mac after changes; confirm radars + triad.
-5. Report back completion + any Mac-only findings. WIN will do symmetric review.
+**PRIORITY NEW ITEM (activate on pull of WIN's parity plan + deep audit prep): Cross-Lane Rules Parity + Ridiculous Deep Audit Prep**
+See `dev/CROSS_LANE_RULES_PARITY_PLAN.md`, `docs/superpowers/plans/2026-06-20-ridiculously-deep-audit-plan.md` + LANE_HANDOFF.
+ALWAYS: make Mac do any prep work that helps Win (e.g. run Mac sims/audits on 8GB hardware, capture OS execution diffs (paths, py invocation, RAM behavior, hooks, bundles), pre-collect Mac-side findings for redundancies/contradictions/sims/optimizations/automation safety, verify markup on Mac artifacts, run local deep-audit.js slice for Mac dims).
+1. On pull, send WIN summary of current per-box memory + local configs + OS diffs captured.
+2. Run Mac prep tasks (sims, audits, parity checks) and report structured findings.
+3. Apply harmonization on Mac side (identical rules except OS diffs).
+4. Run fresh bootstrap + confirm.
+5. Report completion. WIN synthesizes full ridiculous deep audit (both machines, adversarial, full scope: redundancies everywhere, zero contradictions, sims, optimizations, markup zero broken, automation safety, online truth sync).
+WIN leads synthesis; Mac does prep. Update all truth records + online (website/GH/GL) for big changes.
 
 1. **After WIN M2 Apple audit push (K-R5-3 + justify + Easton + nav isolation):** 
    - Build / acquire the tablet artifact (WIN will name path or use latest `Ethiopian_Bible_ethiopian-tewahedo_*_tablet_*.epub` in dist or staged).

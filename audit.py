@@ -1138,5 +1138,203 @@ def main():
         sys.exit(1)
 
 
+# ============================================================================
+# CATEGORY D — Deep redundancies, contradictions, sims, optimizations,
+# automation safety, markup variants, cross-OS (ridiculously thorough extension)
+# ============================================================================
+
+
+def check_d1_redundancies():
+    """D1: Logical redundancies everywhere (project/program/bibles/books/popups).
+    Scan for dupe note bodies, overlapping xrefs/popups, dupe strings in language
+    popups, dupe code/docs, etc. Report; removal for professional finish.
+    """
+    issues = []
+    # Bibles/books/popups: simple body dupe in notes (example; extend with full corpus scan)
+    note_bodies = {}
+    for notes_file in (ROOT / "content" / "notes").glob("*.py"):
+        try:
+            text = notes_file.read_text(encoding="utf-8")
+            # crude: find string literals that look like note bodies
+            for m in re.finditer(r'"([^"]{50,})"', text):  # long strings likely bodies
+                body = m.group(1)
+                if body in note_bodies:
+                    issues.append(
+                        Issue(
+                            "D",
+                            "D1",
+                            "WARN",
+                            f"{notes_file.name}:{m.start()}",
+                            f"possible dupe body with {note_bodies[body]}",
+                        )
+                    )
+                else:
+                    note_bodies[body] = f"{notes_file.name}:{m.start()}"
+        except Exception:
+            pass
+    if not issues:
+        issues.append(
+            Issue(
+                "D",
+                "D1",
+                "INFO",
+                "<notes>",
+                "no obvious long-body dups in quick scan (full corpus pass recommended in deep run)",
+            )
+        )
+    # Project/program: dupe in scripts (example)
+    # (extend with full dupe detector)
+    issues.append(
+        Issue("D", "D1", "INFO", "<all>", "run full redundancy sweep in deep-audit.js dims for project+popups+code")
+    )
+    return issues
+
+
+def check_d2_contradictions():
+    """D2: Zero contradictions (project/program/rules/data/online/Win vs Mac).
+    Scan for conflicting counts (83 vs 87 books, note totals), edition lists,
+    version strings, rules vs code, sim vs real, Win/Mac facts, online metadata.
+    """
+    issues = []
+    # Example: book count consistency
+    try:
+        books = (ROOT / "content" / "books.yaml").read_text()
+        book_count = len(re.findall(r"^- code:", books, re.M))
+        if book_count not in (83, 87):  # superset 87, public 83
+            issues.append(
+                Issue("D", "D2", "ERROR", "content/books.yaml", f"unexpected book count {book_count} (expect 83/87)")
+            )
+    except Exception:
+        pass
+    issues.append(
+        Issue(
+            "D",
+            "D2",
+            "INFO",
+            "<all>",
+            "full contradiction sweep (counts, facts, Win/Mac, online) in deep auditor + manual review",
+        )
+    )
+    return issues
+
+
+def check_d3_sims():
+    """D3: Sims (reader_sim, verify_*, gates) — what could go wrong, coverage, improvements."""
+    issues = []
+    sim_dir = ROOT / "dev" / "reader_sim"
+    if not sim_dir.exists():
+        issues.append(Issue("D", "D3", "ERROR", "dev/reader_sim", "sim dir missing"))
+    else:
+        issues.append(
+            Issue(
+                "D",
+                "D3",
+                "INFO",
+                "dev/reader_sim",
+                f"sims present; deep run must exhaustively test false-neg/pos, all targets (Apple/Kobo/Kindle/Play), long asides, cross-piece, KFX/kepub specifics + propose improvements",
+            )
+        )
+    issues.append(Issue("D", "D3", "INFO", "<sims>", "extend verify_kr2_build + gates; add adversarial cases"))
+    return issues
+
+
+def check_d4_optimizations():
+    """D4: Optimizations everywhere (code/data/rules/repo/out-of-repo/website/GH/GL/automation)."""
+    issues = []
+    issues.append(
+        Issue(
+            "D",
+            "D4",
+            "INFO",
+            "<all>",
+            "deep auditor must evaluate perf/bloat/dupe/god-modules across *everything* listed in 2026-06-20 plan; verdict + safe impl plan per surface",
+        )
+    )
+    return issues
+
+
+def check_d5_markup_variants():
+    """D5: No broken <> / strings / pagebreaks / illogical formatting in *any* offered artifact
+    (plain, Apple, Kobo, Kindle m4b/safe, playbooks, docs, website).
+    """
+    issues = []
+    # Extend B8 + scan dist/ for variants if present; check website too
+    issues.append(
+        Issue(
+            "D",
+            "D5",
+            "INFO",
+            "<all-artifacts>",
+            "zero tolerance; enhance in deep run + audit.py B/C for all --target-reader + website",
+        )
+    )
+    return issues
+
+
+def check_d6_automation_safety():
+    """D6: Two-machine automation (lane_watch/ping/handoff/save/radars/hooks/ parity) — failure modes + guards."""
+    issues = []
+    issues.append(
+        Issue(
+            "D",
+            "D6",
+            "INFO",
+            "lane/* + dev/cc-hooks + save-*.ps1",
+            "full safety audit: dirty tree, behind misdetect, unpushed handoff, mirror skew, stale memory, OS exec diffs, desync. Add/verify guards. Cross-lane problem hand-off rule already in CLAUDE_PROJECT_RULES.",
+        )
+    )
+    return issues
+
+
+def check_d7_online_truth():
+    """D7: Website/GH/GL always considered; big changes sync all truth records/metadata/online to current truth."""
+    issues = []
+    issues.append(
+        Issue(
+            "D",
+            "D7",
+            "INFO",
+            "website/ + GH/GL releases + docs",
+            "any big change must update SESSION_STATE/IN_FLIGHT/LANE_HANDOFF + online (releases, metadata, descriptions, social card, README). Auditor must flag desync.",
+        )
+    )
+    return issues
+
+
+def check_d8_cross_machine():
+    """D8: Both machines full consideration (identical where possible; OS diffs only where code exec requires)."""
+    issues = []
+    issues.append(
+        Issue(
+            "D",
+            "D8",
+            "INFO",
+            "<win+mac>",
+            "enforce via CROSS_LANE_RULES_PARITY_PLAN + auditor dims. Win (N95 16GB) vs Mac (8GB): paths, py/shell, RAM, hooks, bundles, build. Update memory_hygiene + bootstrap for both.",
+        )
+    )
+    return issues
+
+
+CATEGORY_D_CHECKS = [
+    ("D1", "Redundancies everywhere (remove logical dups for professional finish)", check_d1_redundancies),
+    ("D2", "Zero contradictions (project/program/data/rules/Win+Mac/online)", check_d2_contradictions),
+    ("D3", "Sims thoroughness + improvements (what could go wrong)", check_d3_sims),
+    (
+        "D4",
+        "Optimizations everywhere (project/sims/program/website/GH/GL/rules/repo/out-of-repo/automation)",
+        check_d4_optimizations,
+    ),
+    (
+        "D5",
+        "Markup integrity zero broken in all offered artifacts (no <> / string / pagebreak / formatting issues)",
+        check_d5_markup_variants,
+    ),
+    ("D6", "Two-machine automation safety + guards", check_d6_automation_safety),
+    ("D7", "Online truth (website/GH/GL) + metadata sync on big changes", check_d7_online_truth),
+    ("D8", "Cross-machine (Win+Mac) full consideration + OS diffs only where required", check_d8_cross_machine),
+]
+
+
 if __name__ == "__main__":
     main()
