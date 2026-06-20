@@ -6,6 +6,25 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: Opt#4 COMPLETE - all tmp globs through list helpers — 2026-06-20)
+
+**Per retard-proof + NEVER-STOP checklist:** Opt#4 walker consolidation COMPLETE. All direct tmp .html globs and sets now use the consolidated helpers (list_html_files, list_split). No more duplication. Gates clean. IN_FLIGHT marked complete. This block. Will push, ping, then IMMEDIATELY radar --next and continue deep audit (no inactivity, chain to Opt#5 or verification).
+
+**Commands:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Confirm no direct globs left in tmp processing paths; helpers used everywhere; D clean; byte stable.
+
+Report PASS/FAIL + any remaining direct globs here.
+
+**Chain action (NEVER-STOP):** push, ping, radar --next, start next deep (Opt#5 kepub cache or D run).
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: Opt#4 ALL tmp globs through list helpers - 2026-06-20)
 
 **Per retard-proof + NEVER-STOP checklist:** converted remaining tmp .html globs (present, before/after sets in canon filter) to list_html_files. Chained after previous. Gates (ruff/lint) clean. IN_FLIGHT updated. This block. Will push, ping, then immediately radar --next and chain next cycle (no stop, no input).
