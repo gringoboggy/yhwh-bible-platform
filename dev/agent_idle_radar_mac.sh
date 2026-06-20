@@ -3,7 +3,8 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
-PY="${PYTHON:-python3}"
+PY="$REPO/.venv/bin/python"
+[ -x "$PY" ] || PY="python3"
 
 run_next() { "$PY" scripts/agent_idle_radar.py --next "$@"; }
 run_ping() { "$PY" scripts/agent_idle_radar.py --ping "$@"; }
