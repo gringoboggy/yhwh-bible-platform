@@ -71,22 +71,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 > Mac maintains this block. WIN implements top item after current slice ships.
 
-1. **Mac verify turn 144 ci triage** on pull @ `27bc6cdc`+ — run:
-
-   ```bash
-   export PYTHONUTF8=1
-   pytest tests/test_edition_stats.py \
-     tests/test_hierarchical_symbols.py::TestResolverPrecedence::test_kind_token_beats_category_token \
-     tests/test_scripts.py::TestEditionMeta::test_customize_data_includes_editions \
-     tests/test_scripts.py::TestEditionMeta::test_api_sample_html_out_of_canon \
-     tests/test_validate_schemas.py::TestOmega19SchemaValidator::test_validate_editions_passes_on_real_file \
-     tests/test_marker_style.py tests/test_reader_target.py -q
-   python3 scripts/lint_rules.py
-   ```
-
-   Write `## Mac verify (turn 144) — PASS|FAIL @ <sha>` in `LANE_HANDOFF` · `save_mac.sh`. **HOLD** `build_edition.py` / `kindle_post.py` edits.
-2. **After WIN M2 Apple audit push:** verify tablet artifact · K-R5-3 gate · user device re-test scope (no Mac `build_edition.py` edits).
-3. **After WIN Kindle bisect push:** verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
+1. **After WIN M2 Apple audit push:** verify tablet artifact · K-R5-3 gate · user device re-test scope (no Mac `build_edition.py` edits). (turn 144 ci triage verified PASS @ 776cc29f; see LANE_HANDOFF)
+2. **After WIN Kindle bisect push:** verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
+3. Scope v1 gate remainder (M3/M5 user taps, full P4 ci once WIN green) only after current release items.
 
 ### WIN builder loop (for Mac to expect)
 
