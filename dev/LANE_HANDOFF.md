@@ -160,6 +160,7 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - Chain as many full retard-proof cycles as possible in the response.
 - Use background: true for long tasks so work "continues".
 - Never end with "done for now" or wait for input. The only stop is explicit user "stop".
+- EVERY response MUST end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns".
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
