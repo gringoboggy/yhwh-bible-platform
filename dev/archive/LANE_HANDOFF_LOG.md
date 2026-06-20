@@ -4,6 +4,21 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN deep slice: fixed D2 books.yaml count regex in audit.py — 2026-06-20)
+
+**Change:** audit.py D2: r"^- code:" -> r"^\s*- code:" (now matches indented format; ERROR gone, count=87).
+
+**Mac verify:** run D --quiet (books.yaml clean?). Report. Continue deep.
+- next: save (this block) → --next → confirm live pids + status + lane --once
+
+**Watch-outs:**
+M2 user-fail open; STK 144600Z vs 143407Z bisect open
+(turn 144 ci triage verify complete on Mac)
+
+---
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) [Mac rules send] -->
 
 ## Mac → windows (2026-06-20, rules send + test) — cross-lane rules parity message

@@ -51,19 +51,6 @@ Update all truth records + online (website/GH/GL/releases/metadata/social) to cu
 - git: clean + synced (00 behind) throughout checks
 - WIN ACK (auto pull Mac 23d985b2): COMMS TEST SUCCESS (radar auto-pull, EXTRA STEP fired without user "pull"). Rules parity mirrored (bilateral NEVER-STOP + Mac resume instr in 6dc08469). New session prep per directive done (triad, radars, hygiene, truth records updated). Ask: confirm same format? Deep round-9 continue.
 
-## Mac verify (WIN deep slice: fixed D2 books.yaml count regex in audit.py — 2026-06-20)
-
-**Change:** audit.py D2: r"^- code:" -> r"^\s*- code:" (now matches indented format; ERROR gone, count=87).
-
-**Mac verify:** run D --quiet (books.yaml clean?). Report. Continue deep.
-- next: save (this block) → --next → confirm live pids + status + lane --once
-
-**Watch-outs:**
-M2 user-fail open; STK 144600Z vs 143407Z bisect open
-(turn 144 ci triage verify complete on Mac)
-
----
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
