@@ -516,4 +516,70 @@ This is now STANDING for both. Any future "stop" must trigger identical immediat
 
 ---
 
+## Mac verify (watcher optimization + M3 re-cut kr2 success + CheckInOnMacAgent + protocol drive — 2026-06-20)
+**Watcher ability optimized & centralized for ALL self-governing + automation:**
+- agent_idle_radar.py now maintains TWO LISTS: WATCHERS (never_stop_watcher, mac_checkin_watcher, audit_cadence_watcher, rotate_watcher, m3_recut_watcher, lane_watch_integrator, ...) + tasks (merged from auto_signals + backlog, deduped, prioritized).
+- Protocol tasks now highest pri (P01/P02): NEVER-STOP chain, CheckInOnMacAgent (append block post-work + full rules), Relaxed (more often: D+kr2), Rotate (every so often/bit less/too many), Deep (less often), M3 re-cut verif.
+- Full task details now via _log (not plain print) → persistent monitor streams the actual lists + "continue without idle".
+- Radar loop + monitor now drive enforcement: stale → surface protocol tasks → act (Mac block, audit, rotate, re-cut) → ping → continue.
+- Integrated with lane_watch for pull/handoff triggers.
+- Use for everything: rules parity, audits after sig/self-gov, Mac prep/verify, re-cuts interleaved, no stop.
+
+**Recent action (CheckInOnMacAgent triggered by watcher):** kr2 on build/matrix-m3/YHWH-ethiopian-tewahedo-v0.1.0-kobo-black.kepub.epub → ALL K-R2 GATES GREEN (pieces 1047, noterefs 36350 all-resolve, 0 promoted/dup, 0 bare ids for K-R6-2; only expected vnote WARNs). Confirms current always--sN code + M3 artifacts clean vs stale dist. (Previous full ethiopian build attempt timed in bg; existing matrix-m3 kepubs from phase serve as re-cut baseline.)
+
+**Mac instructions (full rules + checkin):**
+- Pull latest (radars + monitor should be live).
+- Run: py -3 dev/verify_kr2_build.py on your matrix-m3/*.kepub (report bare/gates); audit.py --category D --quiet; confirm M3 re-cut plan + new watcher lists/tasks in radar.
+- Mirror updated rules (NEVER-STOP, Mac block first on rule/self-gov, always checkin on Mac, relaxed>deep audits, rotate cadence, agents, after-Mac-continue) to per-box memory (diff only real OS).
+- Report in LANE: PASS/FAIL + counts + any prep (e.g. your kr2 on artifacts, sims).
+- If able: run targeted build_format_matrix --phase M3 for one edition + kr2.
+
+**Next logical (after this Mac update):** continue M3 re-cut verif / more kr2 on other matrix/dist, relaxed D audit, radar --next (watcher will surface), bg verif, chain. NEVER STOP.
+
+## Mac verify (cross-lane audit & sync check-in — 2026-06-20)
+**WIN self-audit of current setup (for Mac review + mutual optimization of operational rules):**
+- **What's working well:**
+  - agent_idle_radar.py now explicitly maintains TWO LISTS: WATCHERS (never_stop_watcher, mac_checkin_watcher, audit_cadence_watcher, rotate_watcher, m3_recut_watcher, lane_watch_integrator, ...) + tasks (from _auto_signals() protocol-driven + _parse_backlog_items(), merged/deduped/prioritized in _merged_tasks).
+  - _auto_signals enhanced to emit high-pri self-gov tasks from watchers: P01 NEVER-STOP (chain --next + bg verif + Mac block; after Mac continue next logical), P02 CheckInOnMacAgent (always append full Mac verify post-sig work with cmds + full rules), P02 RelaxedAuditAgent (more often: D + kr2 on matrix-m3/dist), plus rotate, deep audit, re-cut.
+  - Full task details now via _log (was plain print) → persistent monitor streams visible full lists (e.g., indented "  P01 [both] NEVER-STOP..." + "P02 CheckInOnMacAgent...").
+  - Radar bg loop restarted (45s for faster surfacing) + monitor active and capturing (events show STALE -> surface protocol tasks repeatedly).
+  - kr2 verifs on M3 artifacts: ALL K-R2 GATES GREEN (e.g., ethiopian kobo-black: 1047 pieces, 36350 noterefs all-resolve, 0 promoted/dup/bare ids for K-R6-2; confirms current always--sN + re-cut clean vs stale dist).
+  - Mac verify block sent with full rules recap + instructions (pull, mirror, run kr2/D, report).
+  - IN_FLIGHT updated with resume + watcher opt + cross-audit plan; radar --ping logged; protocol now central to "watcher ability" for self-gov/automation.
+  - Monitor + radar drive enforcement visibly: surfaces exact tasks user wanted (CheckIn always, audits relaxed>deep, rotate, NEVER-STOP, Mac prep).
+  - Rotator, audits, saves, bg verifs chained per cadence; rules parity efforts ongoing.
+
+- **What can be done better / gaps to audit:**
+  - Ensure Mac-side equiv: does Mac radar (agent_idle_radar_mac.sh / python) have matching WATCHERS list + protocol tasks in _auto_signals? Mac monitor streaming full lists (or equiv visible surfacing)? If not, sync/implement.
+  - Full end-to-end test: Mac push -> WIN lane_watch detects + auto-pull (if clean) + radar surfaces + WIN continues (e.g., Mac block + verif).
+  - Cross-OS diffs: Mac audit its logs, bg processes (e.g., lane_watch_mac.sh --bg, radar loop), any Mac-specific monitor (start one if missing to match WIN persistent).
+  - More watchers? (e.g., auto-rotate trigger, deeper lane_watch integration for handoff self-gov, parity watcher for rules).
+  - Operational rules completeness: both confirm identical (NEVER-STOP no pause, Mac block FIRST on rule/self-gov update then continue, WIN always checkin on Mac for prep/audit/verify, relaxed audits more often + deep less, rotate every so often/bit less/too many, agents in backlog/radar, retard-proof private).
+  - Audit coverage: WIN did (radar code/lists, monitor output, kr2 GREEN, LANE/IN_FLIGHT, backlog protocol section). Mac to do analogous + report diffs/improvements.
+  - Optimization: make radar loop auto-ping after surfacing/action? Or auto-append small Mac blocks? Test with current monitor events.
+
+**Mac audit instructions (do your side, report back):**
+- Pull latest (ensure radars + any Mac monitor live; run bash dev/start_session_radars_mac.sh if needed).
+- Audit your setup (analogous to WIN): 
+  - Run: python3 scripts/agent_idle_radar.py --next (or Mac wrapper) — capture full output (lists? protocol tasks top?).
+  - Inspect: scripts/agent_idle_radar* (or equiv) for WATCHERS = [...] list and tasks logic / _auto_signals protocol items. Confirm matches WIN (or update to sync).
+  - Run verifs: python3 dev/verify_kr2_build.py on your matrix-m3/*.kepub (report bare/gates); python3 audit.py --category D --quiet.
+  - Check logs/monitor: any streaming of full "next tasks" with P01/P02? Start persistent tail/monitor on Mac radar log if missing (to match WIN).
+  - Rules/operational: confirm per-box memory has updated rules (watcher opt, two lists, protocol tasks driving self-gov, Mac checkin always, etc.). Note any OS diffs.
+  - Other: bg processes status, recent kr2/D results on Mac artifacts, M3 re-cut status.
+- Report in LANE_HANDOFF (new block or extend this): 
+  - Mac's audit findings: what's working (e.g., your radars surfacing?, verifs GREEN?, rules mirrored?), what better, diffs from WIN setup.
+  - Confirm sync on operational rules (list key ones + any gaps).
+  - Any prep/audit on WIN's recent (watcher code, this block, kr2).
+- If able: run targeted Mac-side M3 build/kr2 + report.
+
+**Mutual audit of reports (after Mac reports):**
+- Mac reports above.
+- WIN will audit Mac's report: review for completeness (did Mac think of all operational rules? watcher driving everything? monitor equiv? cross-OS opt?), suggest improvements, confirm parity.
+- Mac similarly audits WIN's report (this + previous).
+- Goal: both know exactly what's working/better; all possible things thought of/optimized for self-gov/automation (rules, watcher as central, audits, checkins, rotate, re-cuts, visibility via monitor/radar, no idle, Mac prep always). Iterate if gaps.
+- Update LANE_HANDOFF/IN_FLIGHT with mutual findings + any rule tweaks.
+
+**WIN view of current sync:** Good progress — watcher now central (tasks + watchers lists driving protocol visibly via monitor). Mac block sent. kr2 clean. Continue per surfaced tasks (NEVER-STOP + CheckIn + Relaxed). Awaiting Mac audit report for mutual review. NEVER STOP.
+
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).

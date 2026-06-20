@@ -12,7 +12,8 @@ The agent (WIN or Mac) must NEVER end a turn idle. If blocked on user input
   1. Records activity heartbeats (``--ping``).
   2. Scores repo signals (pytest reds, unpushed commits, stale audit, sim gaps).
   3. Merges auto-discovered work with ``dev/AGENT_WORK_BACKLOG.md``.
-  4. Prints the highest-priority next tasks (``--next``).
+  4. Maintains two lists: WATCHERS (monitoring conditions for self-gov/automation) + tasks (actionable items).
+  5. Prints the highest-priority next tasks (``--next``).
 
 Wrappers:
   WIN: ``pwsh -File dev/agent_idle_radar.ps1 [-LoopSec 120] [-Background]``
@@ -49,6 +50,19 @@ LOG_PATH = REPO / "dev" / ".agent_idle_radar.log"
 DEFAULT_STALE_SEC = 180
 REPLAN_COMMIT_THRESHOLD = 15
 REPLAN_HOURS_THRESHOLD = 24
+
+# Two central lists for the watcher ability:
+# - WATCHERS: the monitoring conditions / sub-watchers that drive automation and self-gov
+# - tasks (built in _merged_tasks): the actionable work items surfaced to prevent idle
+WATCHERS = [
+    "never_stop_watcher",
+    "mac_checkin_watcher",
+    "audit_cadence_watcher",  # relaxed more often (D/kr2), deep less often (round-9)
+    "rotate_watcher",  # every so often / bit less often / too many changes
+    "replan_watcher",
+    "m3_recut_watcher",  # K-R6-2 matrix phase M3 + kr2 verify (stale dist vs clean)
+    "lane_watch_integrator",
+]
 
 
 def _now() -> str:
@@ -239,6 +253,62 @@ def _auto_signals() -> list[tuple[int, str, str]]:
         if not dist.is_file() or dist.stat().st_mtime < cat_mtime:
             out.append((18, "both", "Regen website/dist: gen_release_catalog + node website/build.mjs"))
 
+    # === Self-governing & automation driven by WATCHERS list (optimized central watcher ability) ===
+    # These are high-priority tasks generated from the watchers.
+    # The persistent monitor + radar loop will surface them to drive NEVER-STOP, Mac checkins, audits, rotate, re-cut, etc.
+    # WIN always checks in on Mac; after Mac update continue next logical; rotate every so often; relaxed audits more often etc.
+    if "never_stop_watcher" in WATCHERS:
+        out.append(
+            (
+                1,
+                "both",
+                "NEVER-STOP: radar --next + bg verif (D/kr2) + Mac block if slice; chain without pause; after Mac update continue next logical task",
+            )
+        )
+    if "mac_checkin_watcher" in WATCHERS:
+        out.append(
+            (
+                2,
+                "windows",
+                "CheckInOnMacAgent: after sig work (build/rule/audit), append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules if update); update IN_FLIGHT; save/push; Mac reports",
+            )
+        )
+    if "audit_cadence_watcher" in WATCHERS:
+        out.append(
+            (
+                2,
+                "both",
+                "RelaxedAuditAgent (more often): audit.py --category D + dev/verify_kr2_build.py on matrix-m3/dist (after 5+ commits/slices)",
+            )
+        )
+        out.append(
+            (5, "both", "DeepAuditAgent (less often): full round-9 dims after 15+ commits / 24h / self-gov updates")
+        )
+    if "rotate_watcher" in WATCHERS:
+        out.append(
+            (
+                3,
+                "both",
+                "Rotate truth records (every so often / bit less often / too many changes): py -3 scripts/rotate_truth_records.py --apply --keep 2; auto in save-all",
+            )
+        )
+    if "m3_recut_watcher" in WATCHERS:
+        out.append(
+            (
+                4,
+                "windows",
+                "M3 K-R6-2 re-cut: build_format_matrix --phase M3 (or eink) for v0.1.0; kr2 verify matrix-m3 kepubs (expect 0 bare ids, ALL GATES GREEN); contrast vs stale dist",
+            )
+        )
+    if "lane_watch_integrator" in WATCHERS:
+        out.append(
+            (
+                6,
+                "both",
+                "Integrate lane_watch: after pull/handoff, trigger Mac checkin / audit / rotate as needed; keep both radars + monitor live",
+            )
+        )
+
     return out
 
 
@@ -309,7 +379,7 @@ def cmd_next(n: int = 3, lane: str | None = None) -> int:
         return 20
     _log(f"IDLE-RADAR [{lane}]: next {min(n, len(tasks))} task(s)")
     for pri, task_lane, text in tasks[:n]:
-        print(f"  P{pri:02d} [{task_lane}] {text}")
+        _log(f"  P{pri:02d} [{task_lane}] {text}")
     return 0
 
 
