@@ -5130,7 +5130,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         return stats
     target = resolve_file_split_target(edition)
 
-    src_files = sorted(tmp.glob("index_split_*.html"))
+    src_files = list_split_html_files(tmp)
     if not src_files:
         return stats
 
@@ -7019,7 +7019,7 @@ def apply_title_pages(tmp: Path, edition: dict, canon_books: set[str] | None) ->
             '  <div class="book-title-frame">'
         )
 
-    for html_path in sorted(tmp.glob("*.html")):
+    for html_path in list_html_files(tmp):
         text = html_path.read_text(encoding="utf-8")
         new = _BOOK_TITLE_PAGE_RE.sub(_inject, text)
         if new != text:
@@ -7490,7 +7490,7 @@ def build_one(
         # byte-identical to a pre-renumber build.
         from scripts.resync_marker_glyphs import renumber_markers
 
-        for html_path in sorted(tmp.glob("*.html")):
+        for html_path in list_html_files(tmp):
             text = html_path.read_text(encoding="utf-8")
             new_text, counts = filter_html(
                 text,
@@ -7612,7 +7612,7 @@ def build_one(
         if ncx.is_file() and (dropped_files or dropped_bp_indices):
             # Rebuild id_inventory from the post-splice state
             ncx_id_inventory: dict[str, set[str]] = {}
-            for f in sorted(tmp.glob("*.html")):
+            for f in list_html_files(tmp):
                 ftext = f.read_text(encoding="utf-8")
                 ncx_id_inventory[f.name] = set(re.findall(r'\bid="([^"]+)"', ftext))
             ncx.write_text(
