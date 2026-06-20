@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE (turn 146 handoff @ `27bc6cdc`, 2026-06-20).** **ci triage DONE** (turn 144). **Deep round-9 audit EXECUTING** (good time post auto-pull/ parity; Mac prep assigned first via MAC_WORK_QUEUE + LANE_HANDOFF; save done; clean tree; new dims + CATEGORY D live). WIN: in-repo + subagent hunts (redund/contradict/sims/markup); findings logged _audit-split/round9-win-initial-findings.md (doc drifts 11/6 eds, 72/68 kinds, 91720/91597 notes; acquire dup; K-R6-2 verify fails on dist). **WIN next:** (1) complete audit synth + truth/online update (2) M2 Apple K-R5-3. **Mac next:** pull + execute full Mac deep prep list (OS diffs, audits, sims, pre-sweeps) + report. **HOLD:** M4 catalog · overflow lanes.
+> **▶ ACTIVE (turn 146 handoff @ `27bc6cdc`, 2026-06-20).** **ci triage DONE** (turn 144). **Deep round-9 audit EXECUTING** (good time post auto-pull/ parity; Mac prep assigned first via MAC_WORK_QUEUE + LANE_HANDOFF; saves done; new dims + CATEGORY D live). WIN: in-repo + subagent hunts (redund/contradict/sims/automation-safety); fixes: rebase abort in lane_watch, save-all drives optional, rotation added to save_mac; findings in _audit-split/round9-win-initial-findings.md (doc drifts fixed, kepub K-R6-2 real ~792 bare rev, acquire dup, automation 4 issues). **WIN next:** complete synth + more fixes (Mac prep refined). **Mac next:** pull + full prep (incl rotation verify + kepub K-R6-2 repro on your kepub). **HOLD:** M4 catalog · overflow lanes.
 
 ## Standalone status (unchanged)
 
