@@ -1,0 +1,49 @@
+# MAC DESKTOP BUILD + NOTARIZE INSTRUCTIONS
+# Run these EXACTLY on the Mac machine (2017 iMac or whatever has the certs + keychain).
+
+# 1. Go to the repo root on Mac
+cd /Volumes/MacHD2/yhwh-bible-platform/YHWH\ v2.4   # adjust if your path is different
+# or
+cd ~/yhwh/YHWH-v2.4/YHWH\ v2.4
+
+pwd
+
+# 2. Make sure deps are installed (run once or if it complains)
+python3 -m pip install -r requirements-dev.txt
+# or if using the project's venv:
+# .venv/bin/python -m pip install -r requirements-dev.txt
+
+# 3. Set the signing/notarization env vars (use YOUR actual values)
+export CODESIGN_IDENTITY="Developer ID Application: Bogdan Zorlescu (XXXXXXXXXX)"
+export NOTARIZE_KEYCHAIN_PROFILE="yhwh-notary"
+
+# (Optional) double-check they are set
+echo "CODESIGN_IDENTITY=$CODESIGN_IDENTITY"
+echo "NOTARIZE_KEYCHAIN_PROFILE=$NOTARIZE_KEYCHAIN_PROFILE"
+
+# 4. Run the full Mac build + sign + DMG + notarize
+./dev/build_dmg.sh
+
+# It will:
+# - Clean build/dist
+# - Run PyInstaller to produce dist/YHWH.app (macOS bundle)
+# - Code-sign the .app with hardened runtime + entitlements
+# - Create dist/YHWH-0.1.0.dmg
+# - Submit to Apple notary service (notarytool --wait)
+# - Staple the ticket
+
+# 5. After it finishes successfully, verify
+spctl -a -vvv --type install dist/YHWH-0.1.0.dmg
+xcrun stapler validate dist/YHWH-0.1.0.dmg
+ls -lh dist/YHWH-0.1.0.dmg
+
+# 6. The notarized DMG is now ready. Copy it back to the Windows machine (or wherever)
+#    and update dev/NOTARIZATION_STATUS.md with the new submission ID.
+
+# If anything fails:
+# - Make sure the Apple Developer ID cert is in the login keychain
+# - The notarization profile was created with: xcrun notarytool store-credentials --keychain-profile "yhwh-notary"
+# - You have internet + the profile has the right API key.
+
+# This is the ONLY way to produce a distributable, notarized macOS .dmg.
+# Do not run on Windows/Linux.

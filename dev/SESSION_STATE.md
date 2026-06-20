@@ -13,7 +13,7 @@
 
 **Shipped:** ci pytest triage (turn 144: 8 reds → 0 on `--lf`) · orphan inline marker strip · 4-edition test pins · focus-reset + WIN-builds/Mac-verifies docs (turns 142–143) · truth records refreshed for next session (turn 145). **Not started:** M2 Apple audit · Kindle STK bisect.
 
-**Mac status @ handoff:** turn 142 saved @ `2193216c` (tablet profile + sim findings) · turn 144 verify **pending** on Mac box (commands in `LANE_HANDOFF`).
+**Mac status @ handoff:** turn 142 saved @ `2193216c` (tablet profile + sim findings) · turn 144 verify **pending** on Mac box (commands in `LANE_HANDOFF`). Mac turn 146: full round-9 prep executed + reports (kepub gates GREEN 0 bare; D/lint/pytest bg; rotator; radars/automation confirm); entered meta "loop check" on P01 NEVER-STOP radar chaining (detailed in LANE_HANDOFF). Truth updated by Mac.
 
 **Blocked:** M4 catalog · STK deliverability · v1.0.0 tag — until M2 audit + one STK-deliverable m4b.
 
@@ -25,8 +25,8 @@
 
 | # | Work | Status |
 |---|---|---|
-| 1 | M2 Apple audit — K-R5-3 · justify scope · Easton/dict dedup (`LANE_HANDOFF` §user-fail) | **NEXT** |
-| 2 | Kindle STK bisect — glossary spine off vs `143407Z`; one candidate m4b | queued |
+| 1 | M2 Apple audit — K-R5-3 · justify scope · Easton/dict dedup (`LANE_HANDOFF` §user-fail) | **JUSTIFIED** (gate scoped + fixes landed; sim OK; device symptoms separate; see LANE + backlog) |
+| 2 | Kindle STK bisect — glossary spine off vs `143407Z`; one candidate m4b | **NEXT** |
 | 3 | rx-surfaces · Kobo `--sim` · sim audit | **HOLD** until 1–2 |
 | — | `ci.py` full re-run | optional (triage done @ turn 144) |
 

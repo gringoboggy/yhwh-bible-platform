@@ -1,6 +1,6 @@
 # Notarization status — single source of truth
 
-**STATE: DONE** — v0.1.0 notarized + stapled manually (Mac, 2026-06-10 ~06:05Z; M3)
+**STATE: PENDING** — Mac build + notarize in progress (instructions pushed 2026-06-20). Run dev/MAC_DESKTOP_BUILD_AND_NOTARIZE.txt on the Mac with your key.
 
 - Accepted submission: `27aedc8a`
 - Artifact: dist/YHWH-0.1.0.dmg (SHA-256 `916d882036d91562f135b7818eb6f69591de2e22e49071bb8c8d50aabe6c4e1b`, 339,959,633 bytes)
