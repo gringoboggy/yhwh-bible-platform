@@ -143,6 +143,10 @@ def _auto_pull() -> tuple[bool, str]:
         return False, "DIRTY TREE — commit or stash before auto-pull"
     rc, out, err = _git("pull", "--rebase", "origin", "main", timeout=300)
     msg = out or err or ("ok" if rc == 0 else "pull failed")
+    if rc != 0:
+        # Safety: abort rebase so subsequent git ops / saves / agents do not break
+        _git("rebase", "--abort", timeout=30)
+        msg = "PULL/REBASE FAILED — auto-aborted: " + msg
     return rc == 0, msg
 
 
