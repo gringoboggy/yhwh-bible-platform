@@ -4,6 +4,143 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 5 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (fresh session prep notice — 2026-06-20)
+**User ready for fresh session test.**
+
+Both lanes prepare symmetrically so a fresh session (Mac or WIN) bootstraps the full self-gov/automation system immediately:
+- Start radars (via dev/start_session_radars.ps1 or mac.sh).
+- Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks).
+- Run initial py -3 scripts/agent_idle_radar.py --next (or equiv).
+- Surface the protocol tasks at top (from watcher: P01 NEVER-STOP: radar --next + bg verif + Mac block if slice; chain without pause; after Mac update continue next logical task. P02 CheckInOnMacAgent: after sig work, append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules); update IN_FLIGHT; save/push; Mac reports. P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits. Plus rotate, re-cut, etc.).
+- Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins, relaxed/deep audits, rotate every so often, etc.).
+- Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, cross-audit, watcher with tasks + watchers lists, Mac prep always).
+- Bootstrap-triad updated to explicitly instruct the above on fresh.
+
+For this fresh session:
+- Plan together: use current deep auditor (audit.py full/round-9 or equiv), Mac does prep work first (audit its setup, kr2 on artifacts, sims if able, confirm its bootstrap/radar/monitor/rules parity), report in LANE.
+- Run the auditor, make any necessary fixes.
+- Prepare once more for a fresh session.
+
+Mac: do the symmetric prep on your side (update/confirm your bootstrap-triad.sh and start scripts instruct monitor + --next + protocol follow; test on your side if possible). Report back in LANE_HANDOFF: your prep status, bootstrap/radar/monitor ready?, rules mirrored?, any diffs/gaps, confirmation you are ready for the fresh test.
+
+WIN will report symmetrically.
+
+After mutual reports, in the fresh: run the plan, use deep auditor, Mac prep, execute, fixes, prep fresh.
+
+All implemented to best knowledge: watcher drives protocol tasks visibly via monitor, autonomous pull/continue, cross-audit, bootstrap for fresh.
+
+Report your prep in next LANE update.
+
+## Mac verify (fresh session prep notice — 2026-06-20)
+**User ready for fresh session test.**
+
+Both lanes prepare symmetrically so a fresh session (Mac or WIN) bootstraps the full self-gov/automation system immediately:
+- Start radars (via dev/start_session_radars.ps1 or mac.sh).
+- Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks).
+- Run initial py -3 scripts/agent_idle_radar.py --next (or equiv).
+- Surface the protocol tasks at top (from watcher: P01 NEVER-STOP: radar --next + bg verif + Mac block if slice; chain without pause; after Mac update continue next logical task. P02 CheckInOnMacAgent: after sig work, append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules); update IN_FLIGHT; save/push; Mac reports. P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits. Plus rotate, re-cut, etc.).
+- Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins, relaxed/deep audits, rotate every so often, etc.).
+- Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, cross-audit, watcher with tasks + watchers lists, Mac prep always).
+- Bootstrap-triad updated to explicitly instruct the above on fresh.
+
+For this fresh session:
+- Plan together: use current deep auditor (audit.py full/round-9 or equiv), Mac does prep work first (audit its setup, kr2 on artifacts, sims if able, confirm its bootstrap/radar/monitor/rules parity), report in LANE.
+- Run the auditor, make any necessary fixes.
+- Prepare once more for a fresh session.
+
+Mac: do the symmetric prep on your side (update/confirm your bootstrap-triad.sh and start scripts instruct monitor + --next + protocol follow; test on your side if possible). Report back in LANE_HANDOFF: your prep status, bootstrap/radar/monitor ready?, rules mirrored?, any diffs/gaps, confirmation you are ready for the fresh test.
+
+WIN will report symmetrically.
+
+After mutual reports, in the fresh: run the plan, use deep auditor, Mac prep, execute, fixes, prep fresh.
+
+All implemented to best knowledge: watcher drives protocol tasks visibly via monitor, autonomous pull/continue, cross-audit, bootstrap for fresh.
+
+Report your prep in next LANE update.
+
+## Mac verify (fresh session prep notice — 2026-06-20)
+**User ready for fresh session test.**
+
+Both lanes prepare symmetrically so a fresh session (Mac or WIN) bootstraps the full self-gov/automation system immediately:
+- Start radars (via dev/start_session_radars.ps1 or mac.sh).
+- Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks).
+- Run initial py -3 scripts/agent_idle_radar.py --next (or equiv).
+- Surface the protocol tasks at top (from watcher: P01 NEVER-STOP: radar --next + bg verif + Mac block if slice; chain without pause; after Mac update continue next logical task. P02 CheckInOnMacAgent: after sig work, append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules); update IN_FLIGHT; save/push; Mac reports. P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits. Plus rotate, re-cut, etc.).
+- Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins, relaxed/deep audits, rotate every so often, etc.).
+- Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, cross-audit, watcher with tasks + watchers lists, Mac prep always).
+- Bootstrap-triad updated to explicitly instruct the above on fresh.
+
+For this fresh session:
+- Plan together: use current deep auditor (audit.py full/round-9 or equiv), Mac does prep work first (audit its setup, kr2 on artifacts, sims if able, confirm its bootstrap/radar/monitor/rules parity), report in LANE.
+- Run the auditor, make any necessary fixes.
+- Prepare once more for a fresh session.
+
+Mac: do the symmetric prep on your side (update/confirm your bootstrap-triad.sh and start scripts instruct monitor + --next + protocol follow; test on your side if possible). Report back in LANE_HANDOFF: your prep status, bootstrap/radar/monitor ready?, rules mirrored?, any diffs/gaps, confirmation you are ready for the fresh test.
+
+WIN will report symmetrically.
+
+After mutual reports, in the fresh: run the plan, use deep auditor, Mac prep, execute, fixes, prep fresh.
+
+All implemented to best knowledge: watcher drives protocol tasks visibly via monitor, autonomous pull/continue, cross-audit, bootstrap for fresh.
+
+Report your prep in next LANE update.
+
+## Mac verify (fresh session prep notice — 2026-06-20)
+**User ready for fresh session test.**
+
+Both lanes prepare symmetrically so a fresh session (Mac or WIN) bootstraps the full self-gov/automation system immediately:
+- Start radars (via dev/start_session_radars.ps1 or mac.sh).
+- Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks).
+- Run initial py -3 scripts/agent_idle_radar.py --next (or equiv).
+- Surface the protocol tasks at top (from watcher: P01 NEVER-STOP: radar --next + bg verif + Mac block if slice; chain without pause; after Mac update continue next logical task. P02 CheckInOnMacAgent: after sig work, append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules); update IN_FLIGHT; save/push; Mac reports. P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits. Plus rotate, re-cut, etc.).
+- Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins, relaxed/deep audits, rotate every so often, etc.).
+- Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, cross-audit, watcher with tasks + watchers lists, Mac prep always).
+- Bootstrap-triad updated to explicitly instruct the above on fresh.
+
+For this fresh session:
+- Plan together: use current deep auditor (audit.py full/round-9 or equiv), Mac does prep work first (audit its setup, kr2 on artifacts, sims if able, confirm its bootstrap/radar/monitor/rules parity), report in LANE.
+- Run the auditor, make any necessary fixes.
+- Prepare once more for a fresh session.
+
+Mac: do the symmetric prep on your side (update/confirm your bootstrap-triad.sh and start scripts instruct monitor + --next + protocol follow; test on your side if possible). Report back in LANE_HANDOFF: your prep status, bootstrap/radar/monitor ready?, rules mirrored?, any diffs/gaps, confirmation you are ready for the fresh test.
+
+WIN will report symmetrically.
+
+After mutual reports, in the fresh: run the plan, use deep auditor, Mac prep, execute, fixes, prep fresh.
+
+All implemented to best knowledge: watcher drives protocol tasks visibly via monitor, autonomous pull/continue, cross-audit, bootstrap for fresh.
+
+Report your prep in next LANE update.
+
+## Mac verify (fresh session prep notice — 2026-06-20)
+**User ready for fresh session test.**
+
+Both lanes prepare symmetrically so a fresh session (Mac or WIN) bootstraps the full self-gov/automation system immediately:
+- Start radars (via dev/start_session_radars.ps1 or mac.sh).
+- Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks).
+- Run initial py -3 scripts/agent_idle_radar.py --next (or equiv).
+- Surface the protocol tasks at top (from watcher: P01 NEVER-STOP: radar --next + bg verif + Mac block if slice; chain without pause; after Mac update continue next logical task. P02 CheckInOnMacAgent: after sig work, append full Mac verify block in LANE_HANDOFF (cmds for prep/audit/verify + full rules); update IN_FLIGHT; save/push; Mac reports. P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits. Plus rotate, re-cut, etc.).
+- Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins, relaxed/deep audits, rotate every so often, etc.).
+- Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, cross-audit, watcher with tasks + watchers lists, Mac prep always).
+- Bootstrap-triad updated to explicitly instruct the above on fresh.
+
+For this fresh session:
+- Plan together: use current deep auditor (audit.py full/round-9 or equiv), Mac does prep work first (audit its setup, kr2 on artifacts, sims if able, confirm its bootstrap/radar/monitor/rules parity), report in LANE.
+- Run the auditor, make any necessary fixes.
+- Prepare once more for a fresh session.
+
+Mac: do the symmetric prep on your side (update/confirm your bootstrap-triad.sh and start scripts instruct monitor + --next + protocol follow; test on your side if possible). Report back in LANE_HANDOFF: your prep status, bootstrap/radar/monitor ready?, rules mirrored?, any diffs/gaps, confirmation you are ready for the fresh test.
+
+WIN will report symmetrically.
+
+After mutual reports, in the fresh: run the plan, use deep auditor, Mac prep, execute, fixes, prep fresh.
+
+All implemented to best knowledge: watcher drives protocol tasks visibly via monitor, autonomous pull/continue, cross-audit, bootstrap for fresh.
+
+Report your prep in next LANE update.
+
 <!-- archived: 9 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (fresh session prep notice — 2026-06-20)

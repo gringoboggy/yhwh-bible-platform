@@ -98,3 +98,15 @@ fi
 if [ -f "$REPO/dev/start_session_radars_mac.sh" ]; then
     bash "$REPO/dev/start_session_radars_mac.sh" 2>/dev/null
 fi
+
+# --- Self-gov watcher bootstrap for fresh sessions (STANDING, non-fatal):
+# Ensures fresh session (Mac or WIN) auto-starts the full self-gov/automation system.
+# Radars started above.
+echo ""
+echo "=== FRESH SESSION SELF-GOV WATCHER BOOTSTRAP (STANDING) ==="
+echo "  - Start persistent monitor tool on dev/.agent_idle_radar.log (for visibility of surfaced tasks)."
+echo "  - Run initial python3 scripts/agent_idle_radar.py --next (or equiv) to surface top self-gov protocol tasks from watcher (P01 NEVER-STOP: chain --next + bg verif + Mac block; after Mac update continue next logical. P02 CheckInOnMacAgent: append full Mac verify post-sig; update IN_FLIGHT. P02 RelaxedAuditAgent more often: D + kr2 after 5+ commits. Plus rotate, re-cut, etc.)."
+echo "  - Follow the surfaced tasks to drive self-gov without idle (NEVER-STOP, Mac check-ins via blocks, relaxed/deep audits, rotate, etc.)."
+echo "  - Read LANE_HANDOFF for full current operational rules (STANDING, AUDIT PROTOCOL, watcher with tasks+watchers lists, cross-audit, Mac prep always)."
+echo "  - Bootstrap-triad updated to explicitly instruct the above on fresh."
+echo "============================================================"
