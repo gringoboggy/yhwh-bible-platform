@@ -4,7 +4,7 @@ turn: 146
 from: windows
 updated: 2026-06-20T02:09:18Z
 status: handing-off
-mac: FRESH SESSION: pull + radars live (lane_watch 15s + agent_idle 120s); verify turn 144 ci triage COMPLETE + report; HOLD code fixes; next per radar (replan due)
+mac: FRESH SESSION: pull + radars live (lane_watch 15s + agent_idle 120s); monitor on .agent_idle_radar.log streaming events; chained --next 5+; executed Mac verify ci triage + M2 prep (kr2 on tablet 195709Z showed K-R5-3/K-R4-2, audit 583 INFO, bg pytest+lint for reader, report block added then rotated by save/rotator to archive); save bg finished; rotator --apply run per queue; no idle, ALWAYS continue by radar. HOLD code fixes; next per radar (Mac verify M2/ci).
 windows: FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 truth_owner: mac
 holder: mac

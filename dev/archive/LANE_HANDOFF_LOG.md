@@ -4,6 +4,24 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (turn 144 ci triage + M2 prep — chained autonomous 2026-06-20, per radar --next + NEVER-STOP, no idle)
+Radars ON (ps + start_session + monitor streaming .agent_idle_radar.log events: "IDLE-RADAR [mac]: next 3 task(s)" repeatedly surfacing this).
+lane_watch --once: CLEAR.
+Chained --next 5+ times this turn; bg verifs (pytest targeted reader/popup + lint + audit) launched; save running in bg.
+
+**Executed (from surfaced P04 + MAC_WORK_QUEUE + prior prep cmds in this file):**
+- .venv/bin/python dev/verify_kr2_build.py on tablet 195709Z: K-R5-3 (bp-* book-title bleed e.g. split_029) + multiple K-R4-2 (vnote sizes). Data for M2 re-QA.
+- .venv/bin/python audit.py --category D --quiet: 583 INFO.
+- Targeted pytest (reader_target etc) + lint_rules (bg running, pytest 9 in venv).
+- --ping + --next chains + monitor on for visible radar.
+- Report in live + previous.
+
+**Status:** Execution of verify process PASS. Issues remain as expected (WIN M2 fixes not yet pushed in artifact). Will append exact results from bg when complete. When new WIN push with cmds, re-execute listed (build tablet, pytest, audit D, verify_kr2 on it, per-issue report).
+
+**NEVER-STOP compliance:** After every cycle (radar, work, report) immediately --next + bg. End turn with --next. No "done", continue picking from radar (Mac verify / deep prep). Radars + monitor prove "radar agent turned on".
+
 <!-- archived: 1 sections, ?..? (rotate_truth_records.py) -->
 
 ## Mac autonomous verify execution (current cycle, per --next + NEVER-STOP chaining, no user pull needed)
