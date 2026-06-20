@@ -392,6 +392,27 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
             _log(
                 "STANDING RULE: auto-pull performed for tracking_behind (git status behind + clean tree) — user did not say 'pull'"
             )
+        # EXTRA STEP BUILT FOR USER'S REQUESTED "RADAR WATCHES PUSH -> PULL -> CONTINUE AUTONOMOUSLY"
+        # This is the missing piece for true bidirectional sustained loop without human prompting.
+        # After pull (triggered by other lane's push), immediately trigger agent to resume work
+        # or pick up new instructions from board (IN_FLIGHT / LANE_HANDOFF). This chains the
+        # "continue where left off" or "new instructions" automatically.
+        _log(
+            "EXTRA STEP: triggering autonomous continuation via agent_idle_radar --next after detecting pull from other push"
+        )
+        try:
+            rc, out = _py(
+                str(REPO / "scripts" / "agent_idle_radar.py"),
+                "--next",
+                "--note",
+                "auto-resume after pull from other lane push per NEVER-STOP and user radar vision",
+            )
+            if rc == 0:
+                _log("EXTRA STEP SUCCESS: agent triggered to continue or pick instructions autonomously")
+            else:
+                _log(f"EXTRA STEP: agent trigger returned {rc}")
+        except Exception as e:
+            _log(f"EXTRA STEP: failed to trigger agent continuation: {e}")
     if tip:
         state["last_remote_tip"] = tip
     _save_state(state)

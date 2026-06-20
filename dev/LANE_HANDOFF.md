@@ -163,4 +163,21 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next) , and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop.
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
+## Mac verify (WIN slice: built EXTRA STEP for radar auto-continue after pull - 2026-06-20)
+
+**Per retard-proof + NEVER-STOP checklist:** Built the extra step in lane_watch.py: after _auto_pull on push detection, now auto-triggers agent_idle_radar --next to continue work or new instructions autonomously. This is the "radar watches for push, pulls, continues" the user described. IN_FLIGHT updated. This block. Will push, ping, radar, bg D. Chaining to prove.
+
+**Commands:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Inspect lane_watch.py around _auto_pull for the EXTRA STEP code; verify it calls --next on pull; D clean; autonomous continuation active.
+
+Report PASS/FAIL + confirmation the extra step works.
+
+**Chain (NEVER-STOP):** push, ping, radar --next, bg D, repeat.
+
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
