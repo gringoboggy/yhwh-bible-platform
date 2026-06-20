@@ -6201,7 +6201,7 @@ def apply_bilingual_toc(tmp: Path, edition: dict, preloaded: dict[str, str] | No
     # Scan every .html file (the in-book ToC lives in
     # index_split_000.html in current builds but is generally not
     # pinned to a single file).
-    scan_paths = list(tmp.glob("*.html"))
+    scan_paths = list_html_files(tmp)
     # Plus nav.xhtml (e-reader ToC).
     nav_path = tmp / "nav.xhtml"
     if nav_path.is_file():
