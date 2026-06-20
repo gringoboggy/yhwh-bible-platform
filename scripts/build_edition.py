@@ -6672,7 +6672,7 @@ def drop_orphan_vnote_asides(tmp: Path) -> dict:
     anchor-present asides always survive (a later pass may still bind them).
     No-op (byte-identical) on any build whose books all kept their bodies.
     """
-    files = list_html_files(tmp) + sorted(tmp.glob("*.xhtml"))
+    files = list_html_files(tmp) + _list_temp_files(tmp, "*.xhtml")
     texts = {f: f.read_text(encoding="utf-8") for f in files}
     all_ids: set[str] = set()
     href_targets: set[str] = set()

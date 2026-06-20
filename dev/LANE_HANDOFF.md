@@ -163,4 +163,28 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next) , and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop.
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
+## Mac verify (WIN slice: Opt#4 continuation — use _list_temp_files for *.xhtml in drop_orphan_vnote_asides — 2026-06-20)
+
+**Exact change:** build_edition.py:6675 `files = list_html_files(tmp) + _list_temp_files(tmp, "*.xhtml")` (was direct sorted(glob) for consistency with Opt#4 consolidated walkers).
+
+**WIN build commands to reproduce slice:**
+- py -3 -m ruff format --check scripts/build_edition.py
+- py -3 scripts/lint_rules.py scripts/build_edition.py
+- (targeted) python -c "
+from pathlib import Path
+import scripts.build_edition as be
+tmp = Path('build/tmp-test')
+# smoke: call drop if possible or import
+print('import + helper ok')
+"
+- For full: any kepub build exercising drop_orphan (tablet/kepub target) + dev/verify_kr2_build.py on the .kepub
+
+**Mac verify (no code edits):**
+- Run above lint + format + smoke on your python.
+- If you build tablet/kepub artifact: dev/verify_kr2_build.py --kepub on it; check K-R6-2 bare counts same as before (no regression).
+- python audit.py --category D --quiet (expect no new from this walker refactor).
+- Report in LANE_HANDOFF: PASS/FAIL + any count diff on bare/rev in kepub splits.
+
+Update IN_FLIGHT + continue deep (Opt#5 kepub hoisting or per-verse early-outs for K-R6-2 scale).
+
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
