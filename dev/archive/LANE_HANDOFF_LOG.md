@@ -6,6 +6,17 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN: turn off watcher before fresh + no-dupe system for watchers/tasks — 2026-06-20)
+- WIN: killed 3 persistent monitor bg tasks (2x lane_watch.log + .agent_idle_radar.log). Monitors now OFF on this side. Added full STANDING in LANE_HANDOFF: "Persistent monitors + no duplicate watcher instances on same machine" covering (a) idempotent radar starters (no multi on same box), (b) **turn off the (persistent) watchers before a fresh session, before next session** (explicit kill after save/rotate), (c) holder separation (holder drives protocol tasks like P01/P02 agents; non-holder = sync/verify/checkin only; bootstrap conditions instructions on frontmatter holder).
+- Bootstrap-triad.ps1/.sh enhanced: print turn-off-before-fresh rule, idempotency note, "start at most one", "if holder: full monitor+drive else support".
+- IN_FLIGHT updated with monitors-off + system entry.
+- No duplicate instances possible now on same machine (checks + explicit off) and no same-task dupes across you+Mac (holder model).
+- Next on WIN (and Mac): save-all / save_mac; rotate --apply --keep 2; radar --ping + --next (surface protocol); confirm no stray monitors/radar dups (pgrep / tasklist). Read LANE_HANDOFF + bootstrap for the new rule. Mirror any bootstrap sh diff to Mac side + memory.
+- Both prepare symmetrically for fresh session test: watchers off before declaring ready; bootstrap will auto start clean radars + (holder) monitor + --next protocol. Mac: report your monitor/radar count + ACK of no-dupes + holder logic.
+- WIN status: monitors off, rules+bootstraps codified, ready. Chained.
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (fresh session prep notice — 2026-06-20)
 **User ready for fresh session test.**
 
