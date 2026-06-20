@@ -18,7 +18,7 @@
 
 ## P4 — release gate slice (turn 145, WIN builds · Mac verifies)
 
-> **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. Handoff @ `3cf46b82`.
+> **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. Handoff @ `091a3f14`.
 
 - [x] WIN: ci pytest triage — turn 144 (`pytest --lf` 9/9 · edition_stats cross-check PASS)
 - [ ] MAC: Verify turn 144 ci triage on pull (pytest + `lint_rules` per CHANGELOG) → `LANE_HANDOFF` verify block

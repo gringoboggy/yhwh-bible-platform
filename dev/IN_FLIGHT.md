@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE (turn 145 handoff @ `3cf46b82`, 2026-06-20).** **ci triage DONE** (turn 144). **WIN next:** (1) M2 Apple audit — K-R5-3 book-title badge bleed on tablet builds + popup justify + Easton dedup (`LANE_HANDOFF` §user-fail) · (2) Kindle STK bisect — 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **Mac next:** verify turn 144 ci triage on pull · then verify WIN slices only (no dual `build_edition`/`kindle_post` fixes). **HOLD:** M4 catalog · overflow lanes.
+> **▶ ACTIVE (turn 145 handoff @ `091a3f14`, 2026-06-20).** **ci triage DONE** (turn 144). **WIN next:** (1) M2 Apple audit — K-R5-3 book-title badge bleed on tablet builds + popup justify + Easton dedup (`LANE_HANDOFF` §user-fail) · (2) Kindle STK bisect — 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **Mac next:** verify turn 144 ci triage on pull (`LANE_HANDOFF` §Mac verify turn 144) · then verify WIN slices only (no dual `build_edition`/`kindle_post` fixes). **HOLD:** M4 catalog · overflow lanes.
 
 ## Standalone status (unchanged)
 

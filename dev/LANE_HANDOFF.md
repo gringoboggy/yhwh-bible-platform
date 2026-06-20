@@ -1,20 +1,54 @@
 ---
 mode: parallel
-turn: 145
+turn: 146
 from: windows
-updated: 2026-06-20T02:03:00Z
-status: working
-mac: FRESH SESSION: pull 3cf46b82+; verify turn 144 ci triage (CHANGELOG cmds); save verify report; HOLD code fixes
-windows: FRESH SESSION: pull 3cf46b82+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+updated: 2026-06-20T02:09:18Z
+status: handing-off
+mac: FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes
+windows: FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 truth_owner: mac
-holder: windows
+holder: mac
+---
+
+## ▶ windows → mac (turn 146, 2026-06-20T02:09:18Z) — mode=parallel
+
+**Done (turn 145, windows):**
+turn 145 truth records @ 091a3f14: SESSION_STATE/IN_FLIGHT/CHANGELOG/backlog refreshed; LANE_HANDOFF §user-fail STANDING + §Mac verify turn 144 cmds
+
+**Next (turn 146, mac picks up):**
+Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bisect #2
+
+**Assignments:** mac = FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+
+**Watch-outs:**
+turn 144 Mac verify still pending; M2 user-fail open; STK 144600Z vs 143407Z bisect open
+
 ---
 
 ## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
 
-**Assignments:** mac = FRESH SESSION: pull 3cf46b82+; verify turn 144 ci triage (CHANGELOG cmds); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 3cf46b82+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+**Assignments:** mac = FRESH SESSION: pull 091a3f14+; verify turn 144 ci triage (LANE_HANDOFF §Mac verify turn 144); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 091a3f14+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 
-Session handoff @ 3cf46b82. ci triage DONE turn 144. Read SESSION_STATE top + AGENTS.md first.
+Session handoff @ `091a3f14`. ci triage DONE turn 144. Read `AGENTS.md` → triad → `SESSION_STATE` top first.
+
+---
+
+## Mac verify (turn 144) — PENDING on Mac box
+
+**WIN shipped @ `3cf46b82`:** ci pytest triage · orphan inline marker strip · 4-edition test pins. **Mac runs on pull:**
+
+```bash
+export PYTHONUTF8=1
+pytest tests/test_edition_stats.py \
+  tests/test_hierarchical_symbols.py::TestResolverPrecedence::test_kind_token_beats_category_token \
+  tests/test_scripts.py::TestEditionMeta::test_customize_data_includes_editions \
+  tests/test_scripts.py::TestEditionMeta::test_api_sample_html_out_of_canon \
+  tests/test_validate_schemas.py::TestOmega19SchemaValidator::test_validate_editions_passes_on_real_file \
+  tests/test_marker_style.py tests/test_reader_target.py -q
+python3 scripts/lint_rules.py
+```
+
+Then prepend `## Mac verify (turn 144) — PASS|FAIL @ <sha>` with counts · `save_mac.sh`. **HOLD** `build_edition.py` / `kindle_post.py` edits.
 
 ---
 
@@ -31,7 +65,22 @@ Session handoff @ 3cf46b82. ci triage DONE turn 144. Read SESSION_STATE top + AG
 | `reader_sim --gate play` everywhere-navy | PASS |
 | User Apple device QA | **FAIL** (justify · Easton redundancy · backwards pages) |
 
-**WIN next:** M2 deep audit per handoff §user-fail — fix K-R5-3 book-title badge bleed; scoped popup justify; dict attribution dedup. Mac **must not** dual-patch `build_edition.py` until WIN ships fix + lists Mac verify cmds.
+**WIN next:** M2 deep audit per §user-fail below — fix K-R5-3 book-title badge bleed; scoped popup justify; dict attribution dedup. Mac **must not** dual-patch `build_edition.py` until WIN ships fix + lists Mac verify cmds.
+
+---
+
+## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
+
+**User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
+
+| # | Issue | WIN action |
+|---|---|---|
+| 1 | Pages read backwards / scrambled nav | Confirm device artifact UUID; spine monotonicity gate; tablet profile isolation (`file_split` off) |
+| 2 | Popup/notes justified (user wants left-align) | Scoped tablet exception; update `TestLeftAlign` contract |
+| 3 | Easton triple attribution (byline + label + body boilerplate) | S1/suppress rules for `dict-*` kinds; lossless when flags off |
+| 4 | K-R5-3 book-title badge bleed (`bp-*` carry verse badges) | Clamp at book/piece boundary in `build_edition.py` |
+
+Full forensics: `dev/archive/LANE_HANDOFF_LOG.md` turn 142 §user-fail. Tablet artifact: `…195709Z.epub` (vn-sep stripped). Mac patch @ `2193216c` saved — device QA still FAIL.
 
 ---
 
