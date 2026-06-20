@@ -18,6 +18,13 @@ turn 145 truth records @ 091a3f14: SESSION_STATE/IN_FLIGHT/CHANGELOG/backlog ref
 **Next (turn 146, mac picks up):**
 Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bisect #2
 
+**NEW — Mac desktop build handoff via external drive (2026-06-20):** User plugged external drive. Full Mac desktop build kit placed on it:
+- KoolJam: YHWH-v2.4-releases/mac-desktop-build-handoff-2026-06-20/
+- NO NAME mirror.
+On Windows: E:\ or F:\YHWH-v2.4-releases\mac-desktop-build-handoff-2026-06-20\
+Contains the notarized v0.1.0 .dmg + .app (tar), all build scripts (build_dmg.sh, launcher.spec, etc.), entitlements, icns, recipe, README with exact steps.
+**Windows must copy this folder locally and read the README.** This retires the Mac lane for producing the Mac version of the program. Windows now owns Mac desktop binaries (using darwin target for actual build when needed).
+
 **Windows note (from Mac send):** pull-checker + rules mirroring (see dev/CROSS_LANE_RULES_PARITY_PLAN.md for the full plan).
 
 **Mac → WIN rules send + comms test + new session prep (2026-06-20):** Bootstrapped Mac (read triad in order + radars started via start_session_radars_mac.sh). Sent full rules for parity (use committed dev/CLAUDE_PROJECT_RULES.md + PLAYBOOK + AGENTS + LANE_HANDOFF STANDING as the format). Full directive in dev/archive/LANE_HANDOFF_LOG.md (newest Mac batch). 
