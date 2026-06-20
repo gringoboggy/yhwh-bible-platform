@@ -20,3 +20,5 @@ Treated as explicit "stopped working" per strengthened LANE. Ran full status + r
 ## Background backlog (HOLD until release-gate #1–2)
 
 > Overflow frozen per focus reset: Esther Patrologia · CAM pre-pull · website/dist regen · full `ci.py` re-run. Resume via `AGENT_WORK_BACKLOG.md` P4 only after M2 + Kindle bisect land.
+> **▶ 2026-06-20 (🪟 Windows, operational rules audit/cross-audit focus):** Saved; WIN audit of watcher+self-gov (lists in radar, protocol tasks top P01/P02, monitor full, bootstrap radars, LANE cross block, kr2 M3 green). Appended Mac verify with findings + Mac audit task + mutual report audit. Enhanced bootstrap-triad.ps1 (and noted for Mac sh) to instruct fresh: start radars, start monitor on log, run --next, surface protocol tasks (NEVER-STOP etc.), act (Mac block etc.), read LANE for rules. IN_FLIGHT/ LANE updated. Radar --next/--ping logged. Monitor streaming. Prep for fresh: next session plan/use deep auditor (current one), Mac prep (sims/kr2/audit on its side), run, fixes, prepare fresh again. All op rules audited/cross-audited; implemented for bootstrap; everything on both sides via blocks. NEVER STOP.
+

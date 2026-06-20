@@ -6,6 +6,48 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (operational rules audit & cross-audit — 2026-06-20)
+**WIN audit of operational rules implementation (watcher for self-gov/automation):**
+- **What's working:**
+  - agent_idle_radar.py has explicit WATCHERS list (never_stop_watcher, mac_checkin_watcher, audit_cadence_watcher [relaxed D/kr2 more often, deep less], rotate_watcher, m3_recut_watcher, lane_watch_integrator) + tasks list (from _auto_signals protocol + backlog, merged/prioritized/deduped).
+  - _auto_signals now emits high-pri self-gov tasks at top (P01 NEVER-STOP: radar --next + bg verif + Mac block; chain; after Mac continue next; P02 CheckInOnMacAgent: append full Mac verify post-sig work with cmds + full rules; update IN_FLIGHT; P02 RelaxedAuditAgent more often: D + kr2 on matrix-m3/dist after 5+ commits).
+  - Persistent bg loop (started via start_session_radars / ps1 -Background --loop) + monitor tool on .agent_idle_radar.log streams full visible lists (P01/P02 indented in log).
+  - Bootstrap-triad.ps1 auto-starts dual radars (lane_watch + agent_idle_radar) idempotently every session.
+  - LANE_HANDOFF has the full protocol (NEVER-STOP, Mac checkin always via block, relaxed>deep audits, rotate cadence, agents in backlog/radar, cross-audit block already).
+  - kr2 on M3 artifacts (e.g. ethiopian kobo-black): ALL K-R2 GATES GREEN (no bare ids, confirms re-cut; pieces ~1047, noterefs all-resolve).
+  - Monitor/radar driving: repeatedly surfaces exactly the self-gov tasks; --next/--ping log it; cross checkin via blocks.
+  - Rules parity efforts (CROSS_LANE_RULES_PARITY_PLAN) noted in audits.
+
+- **What can be better / gaps found:**
+  - Bootstrap-triad echoes radar start but should explicitly instruct agent on fresh: "start persistent monitor tool on dev/.agent_idle_radar.log for visibility; run initial --next to surface protocol tasks; act on top (NEVER-STOP chain, CheckIn Mac block, audits); read LANE_HANDOFF for full rules."
+  - Mac side: confirm symmetric (Mac radar script has same WATCHERS + protocol in _auto_signals? Mac bootstrap starts its radars + instruct monitor? Mac logs show full P01/P02? Mac memory has rules?).
+  - Fresh session bootstrap: must auto surface protocol tasks immediately (radars + monitor + --next); docs (AGENTS, CLAUDE_PROJECT_RULES, bootstrap) to tell new Grok to do this on start.
+  - More integration? (e.g. auto Mac block on certain tasks; deeper lane_watch tie-in).
+  - Full end-to-end on fresh: radars hot, monitor streaming protocol, initial checkin block if needed, no idle, Mac prep delegated.
+
+**Mac instructions (audit your side + report):**
+- Pull latest.
+- Audit Mac side symmetrically:
+  - Run equivalent: python3 scripts/agent_idle_radar.py --next (or mac wrapper) — capture full output (lists? protocol tasks top?).
+  - Inspect: scripts/agent_idle_radar* (Mac version) for WATCHERS list and _auto_signals protocol items. Confirm matches WIN.
+  - Bootstrap: check dev/cc-hooks/bootstrap-triad.sh (or equiv) starts radars; does it echo monitor + initial --next for protocol?
+  - Start/confirm persistent monitor on your radar log (if no equiv tool, note logs or start tail).
+  - Run: kr2 on your matrix-m3 (report bare/gates); audit.py --category D --quiet.
+  - Logs/memory: do your radar logs show full "next 3 task(s)" with P01/P02? Confirm rules (NEVER-STOP, checkin, audits, rotate, watcher lists, Mac prep) in per-box memory.
+  - Other: bg processes, M3 re-cut status on Mac.
+- Report in LANE_HANDOFF (new block or here): Mac audit findings (working/better, diffs from WIN, confirm rules parity, any prep on WIN recent).
+- If able: run Mac-side M3/kr2 or sim + report.
+
+**Mutual audit of reports:**
+- Mac reports its audit.
+- WIN audits Mac's report (completeness on op rules? watcher driving? bootstrap for fresh? monitor visibility?).
+- Mac audits WIN's report (this + previous).
+- Goal: both sides implemented; fresh bootstraps full (radars + monitor + surface protocol tasks + checkin + audits + rotate + NEVER-STOP); all op rules thought of/optimized (self-gov, automation, cross, no idle, Mac prep). Fix gaps, update docs/code.
+
+**WIN view:** Watcher now central for self-gov (lists drive visible protocol tasks via monitor); cross block in; kr2 clean; bootstrap starts radars. Awaiting Mac audit report for mutual. Continue per surfaced (NEVER-STOP + CheckIn + Relaxed). NEVER STOP.
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (Mac verify ci triage + M2 prep + RelaxedAudit + CheckIn 2026-06-20, chained autonomous per radar surfaced P01/P02 NEVER-STOP/CheckInOnMacAgent/RelaxedAuditAgent)
 
 **Cmds executed (per queue, handoff, surfaced P01/P02 + Mac role verifier/planner):**

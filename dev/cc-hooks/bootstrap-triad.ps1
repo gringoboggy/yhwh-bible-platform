@@ -157,3 +157,11 @@ try {
         & $radarStarter
     }
 } catch { }
+
+# --- Self-gov watcher bootstrap for fresh sessions (STANDING, non-fatal):
+# Radars already started above.
+# Start persistent monitor tool on dev/.agent_idle_radar.log for visibility of protocol tasks.
+# Run initial py -3 scripts/agent_idle_radar.py --next to surface top self-gov tasks (P01 NEVER-STOP, P02 CheckInOnMacAgent, P02 RelaxedAuditAgent, etc.).
+# Act on them: append Mac verify block for checkin/audit, run D/kr2/rotate as needed per LANE_HANDOFF protocol.
+# Read LANE_HANDOFF for full operational rules, cross-audit, watcher lists (WATCHERS + tasks).
+# This ensures fresh session (Mac or WIN) auto-starts the full self-gov/automation system.
