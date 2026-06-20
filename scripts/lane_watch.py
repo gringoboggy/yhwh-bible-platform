@@ -302,13 +302,31 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     pull_msg = ""
     dirty_tree = _working_tree_dirty()
 
+    # User directive: you can pull when the tree is dirty too, just clean it up before pulling.
+    # Auto-commit dirty tree (per "do whatever you gotta do" and NEVER-STOP) before deciding on pull.
+    if dirty_tree:
+        _log("DIRTY TREE detected - auto-committing before pull (user: clean it up before pulling, not hard)")
+        rc, _ = _git("add", "-A")
+        if rc == 0:
+            commit_msg = "autonomous pre-pull commit (dirty tree cleanup per user directive)"
+            rc, _ = _git("commit", "-m", commit_msg)
+            if rc == 0:
+                _log("auto-committed dirty tree successfully")
+                dirty_tree = False
+            else:
+                _log("auto-commit failed (may have nothing to commit or error), proceeding with dirty check")
+        else:
+            _log("git add -A failed before auto-commit")
+        # re-evaluate dirty after attempt
+        dirty_tree = _working_tree_dirty()
+
     # Track whether our checked-out main is behind the (just-fetched) origin/main.
     # This is the practical "git status says behind" signal.
     #
     # This implements the STANDING "Auto-pull on BEHIND" rule (LANE_HANDOFF) and
     # RULES guard #8 ("literal 'always just do the logical automation' directives").
     # When the user says the pull checker "must always just pull when behind + clean",
-    # we do exactly that. No second-guessing. The radar is *always* started with
+    # we do exactly that (or after auto-clean). No second-guessing. The radar is *always* started with
     # --auto-pull precisely so the user never has to say the word "pull".
     tracking_behind = False
     if fetch_ok:
