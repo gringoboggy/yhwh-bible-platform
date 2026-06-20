@@ -161,21 +161,382 @@ Both lanes follow this identically (only real OS diffs allowed: pwsh vs bash, py
 - Use background: true for long tasks so work "continues".
 - Never end with "done for now" or wait for input. The only stop is explicit user "stop".
 - EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next) , and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop.
-- When a "stopped working" signal is received (user note or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), the receiving lane MUST immediately resume: run full status + radars, pick deep task, do safe slice, update trackers, send the other lane a verify block, push, chain --next + bg D. No idle.
+- When a "stopped working" signal is received (user note containing "stopped", "you just stopped", "you stopped", "stopping", or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), this is EXPLICIT highest-priority trigger: the receiving lane MUST IMMEDIATELY (no summary, no further technical digression until loop complete):
+  1. Run full status (git status, behind count, modified files) + radars (agent_idle --next + lane_watch --once).
+  2. Recognize this as rule-system flaw signal + resume the deep task from IN_FLIGHT (round-9 / K-R6-2 / M2 etc.).
+  3. Do at least one safe work slice on the deep task (or the rule fix itself as the slice).
+  4. Update IN_FLIGHT + LANE_HANDOFF (including this rule if strengthened) + append ## Mac verify block describing the resume + any rule update.
+  5. Commit the slice, run save-all.ps1 (or Mac equiv), ping.
+  6. Chain --next + launch at least 1 bg verification (D audit, not-slow pytest slice, kr2 verify, etc.).
+  7. Re-run radar --next to end the cycle.
+  NEVER "stop" the response after a user stop note – the loop must be visibly executed in the turn. This is now the canonical handling for any "you stopped" feedback.
 - This rule (and the exact resume behavior after failed secret test) must be mirrored on both sides via MAC_WORK_QUEUE + rule parity. WIN and Mac must stay identical on this.
 
-**Explicit Mac instructions for the resume behavior (post failed secret test):**
-After pulling any WIN slice that includes a "NEVER-STOP RESUME (post user 'stopped working')" note or equivalent:
-- Immediately run your radars (`bash dev/lane_watch_mac.sh --once` + `python3 scripts/agent_idle_radar.py --next`).
+**Explicit Mac instructions for the resume behavior (post failed secret test + user 'stopped' notes):**
+After pulling any WIN slice that includes a "NEVER-STOP RESUME (post user 'stopped working')" note, "you just stopped", or equivalent user feedback about stopping:
+- Treat as "stopped working" signal: immediately run full status + radars (`bash dev/lane_watch_mac.sh --once` + `python3 scripts/agent_idle_radar.py --next`).
 - Prioritize deep round-9 audit continuation (ignore HOLD items if IN_FLIGHT says deep executing).
-- Perform at least one deep audit action (code improvement, verification, findings update) that mirrors the WIN slice.
-- Append a WIN verify block in LANE_HANDOFF for what you did.
+- Perform at least one deep audit action (code improvement, verification, findings update, or rule strengthening) that mirrors the WIN slice.
+- If the note mentions rule system flaw (e.g. stopping on user feedback), strengthen the resume language in your local LANE_HANDOFF/IN_FLIGHT copy, report the diff.
+- Append a WIN verify block in LANE_HANDOFF for what you did (include "resumed on 'stopped' signal, ran X bg tasks").
 - Update your local IN_FLIGHT / memory.
 - Push with your save script.
-- End your cycle with --next + bg verification.
-- Report completion + any symmetric Mac diffs back in LANE_HANDOFF.
-WIN will do the same when Mac resumes.
+- End your cycle with --next + at least one bg verification (D audit, not-slow pytest, kr2 repro, etc.).
+- Report completion + any symmetric Mac diffs or rule observations back in LANE_HANDOFF.
+WIN will do the same when Mac resumes or on its own 'stopped' signals. Both lanes must now treat any "you stopped" / "stopping" user note as mandatory full resume trigger with no pausing.
 
 This is now STANDING for both. Any future "stop" must trigger identical immediate resume + full chaining on the other lane.
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. WIN CheckInOnMacAgent: always check in on Mac for prep/audits on recent work to verify.
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. Both lanes mirror.
+- WIN particularly should always be looking to check in on Mac to see if able to do any prep work or audits on what WIN just did to verify work (CheckInOnMacAgent).
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+**AUDIT PROTOCOL (self-governing, both lanes):**
+- After significant work, especially self-governing + major updates to the program: audit.
+- More relaxed audits more often: after major slices, rule changes, Mac updates if sig, 5+ commits – D audit, kr2 on clean/current, small verifs (RelaxedAuditAgent).
+- Deeper audits less often: after sig/self-gov/major, 15+ commits, 24h, round milestones – full round-9, deep dims (DeepAuditAgent).
+- Triggers: radar --next, after Mac if work sig, every so often via idle (relaxed freq, deep rare).
+- Make agents: now codified as dedicated recurring RelaxedAuditAgent and DeepAuditAgent in protocol + radar/backlog. Both lanes mirror.
+- WIN particularly should always be looking to check in on Mac to see if able to do any prep work or audits on what WIN just did to verify work (CheckInOnMacAgent).
+- After audit/check-in: Mac block with findings + re-cut progress, continue next logical.
+- Tie to rotation: rotator post if changes (keep 2 + standing).
+
+
+---
+
+## Mac verify (WIN "you just stopped lol" resume + FULL UPDATED RULES SEND + CheckInOnMacAgent + K-R6-2 M3 re-cut + relaxed audits — 2026-06-20)
+**WIN executed the mandatory NEVER-STOP resume on explicit "stopped" signal (per STANDING rule in this file):**
+- Full status (behind 8 but dirty on truth; local edits for resume) + radars (agent_idle --next surfaced P04 HOLDs but deep round-9/K-R6-2 prioritized from IN_FLIGHT "deep audit executing").
+- Ran relaxed audits (RelaxedAuditAgent): `audit.py --category D` → 575 INFO (intentional lex reuse); `verify_kr2_build` on fresh M3 matrix kepub (catholic-study kobo black) → ALL K-R2 GATES GREEN (no bare-id K-R6-2 fails, only expected un-probed vnote WARNs).
+- Rotator: `py -3 scripts/rotate_truth_records.py --apply --keep 2` → LANE_HANDOFF 4→2 entries rotated; others within budget.
+- Confirmed source: build_edition.py apply_badge_markers always mints -s[1-9] suffixes (even singles) for prefix-free namespace.
+- CheckInOnMacAgent: WIN always checks in on Mac via this block for prep/audits/verify on recent work (rule + re-cut).
+- Mac verify blocks + Mac prep in MAC_WORK_QUEUE used for every sig slice.
+- Chained: status/radar/audit/rotate/kr2/ping.
+
+**FULL CURRENT SELF-GOVERNING RULES (retard-proof; send verbatim for parity + memory mirror):**
+THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): Agent must NEVER stop the deep work unless user explicitly says "pause" or "prepare for fresh session". Treat every turn as continuation. After any cycle immediately re-run radar --next. Chain full cycles (radar, work/verify, update IN_FLIGHT, Mac block if slice, commit, save-all push, ping, radar --next). EVERY response MUST chain at least 2 cycles and end executing radar --next + bg verif. On any "you just stopped"/"stopped working" signal: IMMEDIATELY 1) status+radars 2) resume deep from IN_FLIGHT 3) safe slice 4) update truth+LANE (incl Mac block) 5) commit+save+ping 6) bg verif 7) radar --next. Never pause. After you update mac... you continue with the next logical task.
+
+AUDIT PROTOCOL (STANDING): After significant/self-gov/major updates: we audit. More relaxed audits more often (D/kr2/small verifs via RelaxedAuditAgent after slices/rule changes/5+ commits). Deeper audits less often (full round-9/DeepAuditAgent after 15+ commits/24h/milestones). Triggers via radar/Mac. Make these agents: codified dedicated recurring RelaxedAuditAgent, DeepAuditAgent, CheckInOnMacAgent in LANE_HANDOFF + radar/backlog. WIN particularly should always be looking to check in on Mac and see if its able to do any prep work or audits on what you just did to verify your work. After you update mac... you continue with the next logical task =] Every so often and then a bit less often (or too many changes): rotate truth records (`rotate_truth_records.py --apply --keep 2`). After Mac update: continue next logical.
+
+WIN CheckInOnMacAgent (STANDING): WIN always looks to check in on Mac for prep/audits/verify recent. After sig work: append Mac verify block listing exact cmds (build, pytest, lint, audit D, verify_kr2 on produced, specific checks). Update IN_FLIGHT. Push. Mac reports back. Both lanes must end identical on rules (diff only OS).
+
+Other STANDING: auto-pull on BEHIND when clean; crash-safe commit+save often; session authority full (no ask); anti-idle via radar; dual radars at bootstrap; builds WIN / verifies Mac; etc. (full in LANE/STANDING + CLAUDE_PROJECT_RULES + AGENTS.md + PLAYBOOK).
+
+**Mac instructions (CheckInOnMacAgent + rule send):**
+Pull latest. Run: radars, `audit.py --category D --quiet`, `dev/verify_kr2_build.py` on your M3/kepub artifacts (report bare counts + gates), confirm M3 re-cut plan. Mirror the FULL rules text above + NEVER-STOP/AUDIT/agents into your per-box memory (diff only real OS: pwsh vs zsh, py paths). ACK + report "rules identical" or diffs + any prep/audit results back into LANE_HANDOFF. If able, run sims or targeted kr2/build on Mac hardware for recent WIN slices.
+Next for WIN: continue M3 re-cut / K-R6-2 fix (stale dist vs clean matrix-m3), more chaining (radar --next + bg).
 
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).

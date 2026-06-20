@@ -4,6 +4,162 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (relaxed audit + K-R6-2 re-cut progress — 2026-06-20)
+Relaxed audit done: D (583 INFO), kr2 clean=0 bare (good), dist=60k bare (stale, confirms re-cut needed).
+Audit protocol + agents codified in LANE (relaxed more often, deeper less often).
+Mac: confirm protocol/agents, run relaxed on your side if sig, report.
+Next logical: re-cut M3 (plan: rebuild stale dist v0.1.0 kepubs with current code via matrix --phase M3 or eink builds, then kr2 verify 0 bare).
+WIN continues re-cut as deep.
+
+## Mac verify (check-in on WIN work + relaxed audit + K-R6-2 re-cut progress — 2026-06-20)
+WIN always looks to check in on Mac for prep/audits on recent work to verify (CheckInOnMacAgent).
+Recent: rule updates (NEVER-STOP/resume), relaxed audits (D 583 INFO, kr2 clean=0 bare good, dist=60k bare stale), K-R6-2 source fix (always -sN), re-cut plan for M3.
+Audit protocol + agents codified (relaxed more often, deeper less often; WIN always check in).
+Mac: confirm protocol/agents, run relaxed on your side if sig or able to prep/audit recent (re-cut plan, rule), report.
+Next logical: re-cut M3 (plan: rebuild stale dist v0.1.0 kepubs with current code via matrix --phase M3 or eink builds, then kr2 verify 0 bare).
+WIN continues re-cut as deep + check-in loop.
+
+<!-- archived: 4 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## ⚠ OBSERVED: Mac did not auto-pull or continue working (user note 2026-06-20 on WIN)
+
+**User report:** "mac hasnt made the right changes. it didnt auto pull or conitnue working"
+
+After WIN's last deep round-9 slices (Opt#4 complete, automation fixes, Mac prep delegation, IN_FLIGHT/LANE updates, rotate) + handoff updates, Mac side did not advance the verify/prep work or truth records as expected (no new Mac verify blocks, no report on ci triage or round-9 Kepub/Opt slices, state still reflects older prep in places).
+
+WIN side is clean + up-to-date on origin. This note + instructions is the sync signal.
+
+**Mac: when you see this (or after user tells you to pull), treat this as the resume trigger.**
+
+### Mac troubleshooting + resume steps (execute exactly, in order; report output):
+
+1. **Force fresh sync (even if you think you're current):**
+   ```
+   git fetch origin
+   git status -b --porcelain
+   echo "behind count: $(git rev-list --count HEAD..origin/main)"
+   ```
+   If behind > 0 and tree clean: `git pull --rebase origin main`
+
+2. **Restart radars explicitly (idempotent but force):**
+   ```
+   bash dev/start_session_radars_mac.sh
+   # then in bg if not: bash dev/lane_watch_mac.sh --bg &
+   ps aux | grep -E "(lane_watch|agent_idle)" | head -5
+   ```
+
+3. **Force lane watcher tick + handoff processing:**
+   ```
+   bash dev/lane_watch_mac.sh --once
+   ```
+
+4. **Re-bootstrap read (full triad first):**
+   - AGENTS.md
+   - dev/CLAUDE_PROJECT_RULES.md → dev/SESSION_STATE.md (your Mac block + WIN block) → dev/PLAN_2026-05-29-roadmap.md
+   - Then fresh top of this LANE_HANDOFF + IN_FLIGHT.md active section + _audit-split/round9-win-initial-findings.md
+
+5. **Execute pending verifies for latest WIN slices (do not edit code unless a gate FAILs):**
+   - For ci triage / pytest round: `pytest -q --tb=line -k "build or matrix or edition or kr2" | tail -20` (or the specific touched from CHANGELOG)
+   - `python3 -m scripts.lint_rules`
+   - For deep audit / Opt slices in build_edition.py: run targeted `python3 -c "from scripts.build_edition import *; print('imports ok')"` + any WIN-listed `verify_kr2_build` on recent artifacts
+   - Repro K-R6-2 count on current kepub if artifact present: grep for bare rev/data-id patterns per prior Mac report format.
+   - Tablet re-QA prep (post any new push): use the commands in the §user-fail M2 section + reader_sim/apple if available.
+
+6. **Report immediately (append to this file before any other work):**
+   ```
+   ## Mac verify (post user "mac didnt auto pull" note — turn 146+) — <PASS|FAIL partial> @ $(git rev-parse --short HEAD)
+   - Commands run: ...
+   - Counts / first fails: ...
+   - K-R6-2 repro: ...
+   - Radars / pids status: ...
+   - OS/memory summary update if changed.
+   - ACK: pulled, radars restarted, prep re-executed, ready for next WIN slice.
+   ```
+
+7. **Resume autonomous deep / assigned work (NEVER-STOP):**
+   - `python3 scripts/agent_idle_radar.py --next`
+   - If IN_FLIGHT says deep round-9 executing: pick next (more Opt#5 kepub hoisting analysis/impl safe slice, D audit bg, findings synth, automation guard, contradiction scan).
+   - Chain: work slice → gates → update IN_FLIGHT + LANE (your verify) → commit → `bash dev/save_mac.sh -m "Mac resume post missed auto-pull + verify round-9 + ..." ` → ping.
+
+8. **If still no movement after pull:** run the explicit resume instructions in the NEVER-STOP section above verbatim.
+
+**WIN will continue its builder tasks (M2 Apple or STK bisect per radar + deep audit continuation) in parallel and send verify blocks for you.**
+
+User will also prompt you directly to pull if the radar still does not trigger.
+
+**Bilateral note:** This must not recur. The STANDING auto-pull + NEVER-STOP + resume chaining rules exist precisely for this. Both sides re-confirm on next parity check.
+
+**Explicit bg tasks required right now (per round-9, IN_FLIGHT, Mac reports):** D audit (bg), agent_idle_radar (--next calls), kr2 verif/repros on kepub artifacts (clean vs dist), lane_watch (if --bg active), not-slow pytest bg slices when deep work is long. Launch/verify at least 1-2 per cycle end. After any rule fix (e.g. this "stopped" handling), immediately resume full chain: radar, deep slice (K-R6-2/M3 freshness), updates, Mac block, bg, radar. No summary pauses.
+
+## Mac verify (post rule update for self-governing NEVER-STOP / resume on "stopped" signals — 2026-06-20)
+
+**WIN just updated self-governing rules in LANE_HANDOFF (and mirrored in IN_FLIGHT):**
+
+- Strengthened "stopped working" signal handling: any user note with "stopped", "you just stopped", "stopping" is highest-priority explicit trigger. Receiving lane MUST immediately (no pause/summary/digression): full status + radars, pick deep task from IN_FLIGHT, safe slice, update trackers, append Mac block, bg verif, push if needed, chain --next + bg. 
+
+- Explicit "after fixing rules: MUST resume full autonomous loop on deep task, chain 2+ cycles, update + Mac block with resume report, launch bg (D + kr2 etc.), radar --next, no idle ever."
+
+- Explicit bg tasks list (D audit, agent_idle_radar, kr2 verif/repros on artifacts, lane_watch).
+
+- "After fix resume full chain" language.
+
+**Mac: FIRST ACTION on this (or after pull):**
+- git fetch + pull --rebase if behind + clean.
+- Read fresh the updated sections in this LANE_HANDOFF (the strengthened NEVER-STOP, "stopped working" protocol, bilateral note, explicit bg tasks, "after fix" language).
+- Mirror exactly into your local per-box memory / instructions (only real OS diffs allowed).
+- Update your local IN_FLIGHT / LANE copy if needed for parity.
+- Append your ACK block here: "## Mac ACK + mirror of WIN rule update (NEVER-STOP resume on stopped) — date" with what you read, confirmed mirrored, any diff notes.
+- Then immediately resume your side: radar --next, verify WIN's latest (K-R6-2 status, rule adherence), deep action, bg tasks, push, chain.
+
+This is the canonical way: after rule edits (esp self-governing), send to Mac first via this block, then WIN continues working.
+
+WIN is now continuing the loop (radar + deep K-R6-2 + bg). 
+
+---
+
+## Mac verify (WIN slice: rule system 'stopped working' fix + K-R6-2 deep continuation — 2026-06-20)
+
+**User signal received:** "except you just stopped lol" + "you understand that you stopping means thats a flaw in the rule system..." + "and that you have to fix it... and after you fix it what do you hav to do? also what are you supposed to be running in the background right now and why are you not doing any of these things"
+
+**Actions taken on WIN (full resume per updated rules — no idle):**
+- git fetch + status + radar --next (multiple chains).
+- Launched bg D audit (root audit.py, 583 INFO, verified running).
+- Fixed rule flaw: strengthened LANE_HANDOFF NEVER-STOP section + explicit Mac resume instructions for any user note with "stopped", "you just stopped", "stopping". Added "treat as highest-priority trigger, no summary pause, full status+radars+deep slice+Mac block+bg+radar chain mandatory".
+- Deep task slice: kr2 repro on clean build/ artifact = bare=0/61552 (pass, koboSpan=True). Confirmed in current build_edition.py apply_badge_markers: normal path ALWAYS does suffix = f"-s{u_idx}"; vid/bid with -s even for k_units=1; explicit "EVERY unit (singles included)" comment for K-R6-2. Dist artifacts are stale pre-fix (60k bare).
+- Updated IN_FLIGHT with rule fix + "after fix: resume full loop on deep + chain cycles + bg + no stop".
+- Ran kr2 repro on good artifact as deep work + bg verif.
+
+**Background right now (per LANE/IN_FLIGHT/NEVER-STOP + prior Mac reports):** 
+- D audit (bg, running).
+- agent_idle_radar (polled via --next calls).
+- lane_watch (should be bg via start_session_radars).
+- kr2 verif / repro on artifacts (just executed).
+- not-slow pytest bg or other long slices when blocked.
+Why not before: this turn explicitly launched/verified them as part of resume on your "stopped" signal. Will keep bg running across turns.
+
+**After fixing the rule system:** Resume the full autonomous deep round-9 loop immediately (no stopping): pick next deep task (K-R6-2 re-cut plan for M3 catalog or Opt#5), do safe work slice, gates, update IN_FLIGHT/LANE with Mac block, launch/verify bg (D + kr2), radar --next, push when coherent, repeat. Never end turn without radar + bg.
+
+**Mac required:**
+- Repro bare counts on your dist vs build kepubs.
+- Confirm source has the always -sN logic.
+- Verify you treat this "stopped" note as resume trigger (run your radars immediately, do a deep slice, append your Mac verify block here, launch your bg D/kr2, push).
+- Report: your repro results, rule adherence (did you pause or chain?), bg tasks running, next deep action.
+- Then push + chain your own --next + bg.
+
+WIN: chaining radar + bg D (active) + kr2 work done. Next will be more deep (re-cut note or code) + radar + another bg. No stop. (See IN_FLIGHT.)
+
+---
+
+## WIN continues (post note) — 2026-06-20
+
+Radar surfaces: M2 Apple audit (K-R5-3 scope/justify/Easton) + Kindle STK bisect as active WIN lanes. Deep round-9 Opt#4 complete per IN_FLIGHT; next candidate Opt#5 (kepubify hoisting / per-verse early outs already partially) or K-R6-2 root cause (widespread bare ids surfaced in deep findings) or M2 re-verify slice.
+
+Mac prep delegation + verify list remains in prior blocks. Awaiting Mac report on this note + pull. WIN will run a targeted gate slice or M2 inspection next (no dual Mac work).
+
+(See IN_FLIGHT for exact last Opt status + retard-proof checklist.)
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (turn 144 ci triage + M2 prep — chained autonomous 2026-06-20, per radar --next + NEVER-STOP, no idle)
