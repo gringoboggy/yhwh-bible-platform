@@ -4,7 +4,7 @@ turn: 146
 from: windows
 updated: 2026-06-20T02:09:18Z
 status: handing-off
-mac: FRESH SESSION: pull + radars live (lane_watch 15s + agent_idle 120s); monitor on .agent_idle_radar.log streaming events (latest IDLE-RADAR Mac verify task); chained --next 5+; executed Mac verify ci triage + M2 prep (kr2 on tablet 195709Z K-R5-3/K-R4-2 + kepub 2026-06-17 ALL K-R2 GREEN 0 bare/dup, audit 583 INFO, bg not-slow progressing 3%+ with F, lint run, D audit done, report block + header updated); save pushed; rotator run; no idle, ALWAYS continue by radar. HOLD code fixes; next per radar (Mac verify M2/ci).
+mac: FRESH SESSION: pull + radars live (lane_watch 15s + agent_idle 120s); monitor on .agent_idle_radar.log streaming events (latest IDLE-RADAR Mac verify task at 16:33:37Z); chained --next 5+; executed Mac verify ci triage + M2 prep (kr2 on tablet 195709Z K-R5-3/K-R4-2 + kepub 2026-06-17 and round9 ALL K-R2 GREEN 0 bare/dup, audit 583 INFO, bg not-slow progressing 3%+ with F, lint run bg, D audit done 583 INFO, report block + header updated); save pushed; rotator run; no idle, ALWAYS continue by radar. HOLD code fixes; next per radar (Mac verify M2/ci).
 windows: FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 truth_owner: mac
 holder: mac
