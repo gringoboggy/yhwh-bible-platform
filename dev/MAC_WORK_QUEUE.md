@@ -291,6 +291,7 @@ Report results with "Mac M2 verify (tablet) — PASS/FAIL @ sha" in LANE_HANDOFF
 ### 2 — Apple + Play sim ONLY (turn 139 §1–2)
 
 - [x] Thorium CDP gate-only on `195709Z` tablet (**PASS**); Books.app user tap **FAIL** (device)
+- [autonomous Mac verify 2026-06-20, per radar --next + NEVER-STOP]: .venv/bin/python dev/verify_kr2_build.py on 195709Z tablet: K-R5-3 (e.g. index_split_029.html bp-27 book-title carries badge/aside; other ~25 instances) + K-R4-2 (multiple vnote strip > pop floor). Matches pre-fix state. Audit D 583 INFO. bg pytest (reader/popup) + lint running. Report in LANE_HANDOFF header + archive. Awaiting WIN new tablet push for re-QA per standing. Chained --next, monitor on radar log, no idle.
 - [x] `reader_sim --gate play` on everywhere-navy (**PASS**)
 - [ ] **WIN:** M2 deep audit — `verify_kr2` K-R5-3 (262×) + user issues (justify · Easton redundancy · backwards pages)
 
