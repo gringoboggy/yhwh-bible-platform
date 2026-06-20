@@ -47,6 +47,18 @@ if [ -n "$MSG" ]; then
   fi
 fi
 
+# Post-commit: truth-record rotation (mirror save-all.ps1 so Mac saves also trim)
+# STANDING: the save script is the rotation ACTOR.
+echo "=== Post-commit: truth-record rotation ==="
+"$PY" scripts/rotate_truth_records.py --apply || echo "  rotator exited non-zero (non-fatal for this leg)"
+rotPaths=(dev/SESSION_STATE.md dev/IN_FLIGHT.md dev/LANE_HANDOFF.md dev/archive)
+if git status --porcelain -- "${rotPaths[@]}" | grep -q . ; then
+  git add -- "${rotPaths[@]}"
+  git commit -m "chore: rotate truth records (save_mac auto; keep 2 + standing sections)" || true
+else
+  echo "  truth records already within entry budget"
+fi
+
 # Radar — is the other lane ahead? (exit 10 = BEHIND)
 git fetch origin -q || true
 set +e; "$PY" scripts/lane_ping.py --before-push; PING=$?; set -e
