@@ -7330,9 +7330,9 @@ def build_one(
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
-        # declared cover_image when it resolves to a real file. All 11 editions
-        # now declare a cover (9 curated + the 2 standalone Bibles' Ethiopic-
-        # script covers, σ.5); any edition that declares none keeps the master
+        # declared cover_image when it resolves to a real file. All 6 editions
+        # now declare a cover (4 catalog + the 2 standalone Bibles' Ethiopic-
+        # script covers); any edition that declares none keeps the master
         # (§7.2 back-compat). The OPF already marks cover.jpeg
         # as the cover-image; this replaces the BYTES it points at.
         cover_applied = apply_edition_cover(edition, tmp)
