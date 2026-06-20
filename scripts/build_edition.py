@@ -4500,7 +4500,7 @@ def list_html_files(tmp: Path) -> list[Path]:
     surface. Preserves exact order/semantics. Future: can add early-out, cache,
     or filter here for per-verse work skips.
     """
-    return sorted(tmp.glob("*.html"))
+    return _list_temp_files(tmp, "*.html")
 
 
 def list_split_html_files(tmp: Path) -> list[Path]:
@@ -4509,7 +4509,12 @@ def list_split_html_files(tmp: Path) -> list[Path]:
     Used in file_split, kepub, and TOC paths. Central for future early-outs
     and in-mem sharing.
     """
-    return sorted(tmp.glob("index_split_*.html"))
+    return _list_temp_files(tmp, "index_split_*.html")
+
+
+def _list_temp_files(tmp: Path, pattern: str) -> list[Path]:
+    """Internal: single point for sorted glob over temp tree. Opt#4 centralization."""
+    return sorted(tmp.glob(pattern))
 
 
 # HARD unit boundaries — top-level siblings safe to cut at: a book-title-page (id="bp-NN")
