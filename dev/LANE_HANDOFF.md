@@ -50,6 +50,12 @@ Update all truth records + online (website/GH/GL/releases/metadata/social) to cu
 - OS diffs noted: 8 GB budget affects long pytest (not-slow bg had 0 output @ ~2h, killed); no full ci.py sweep here; use targeted; paths use .venv/bin/python + /usr/local python3; git via /bin/zsh
 - git: clean + synced (00 behind) throughout checks
 - WIN ACK (auto pull Mac 23d985b2): COMMS TEST SUCCESS (radar auto-pull, EXTRA STEP fired without user "pull"). Rules parity mirrored (bilateral NEVER-STOP + Mac resume instr in 6dc08469). New session prep per directive done (triad, radars, hygiene, truth records updated). Ask: confirm same format? Deep round-9 continue.
+
+## Mac verify (WIN deep slice: fixed D2 books.yaml count regex in audit.py — 2026-06-20)
+
+**Change:** audit.py D2: r"^- code:" -> r"^\s*- code:" (now matches indented format; ERROR gone, count=87).
+
+**Mac verify:** run D --quiet (books.yaml clean?). Report. Continue deep.
 - next: save (this block) → --next → confirm live pids + status + lane --once
 
 **Watch-outs:**

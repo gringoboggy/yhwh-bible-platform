@@ -1232,7 +1232,7 @@ def check_d2_contradictions():
     # Example: book count consistency
     try:
         books = (ROOT / "content" / "books.yaml").read_text()
-        book_count = len(re.findall(r"^- code:", books, re.M))
+        book_count = len(re.findall(r"^\s*- code:", books, re.M))
         if book_count not in (83, 87):  # superset 87, public 83
             issues.append(
                 Issue("D", "D2", "ERROR", "content/books.yaml", f"unexpected book count {book_count} (expect 83/87)")
