@@ -3,7 +3,7 @@
 # Called by bootstrap-triad.sh SessionStart hook every session.
 #
 # Radars (both REQUIRED, both stay on until session ends):
-#   1. lane_watch  — cross-lane push/handoff poll (60s)
+#   1. lane_watch  — cross-lane push/handoff poll (15s faster for critical rule sync)
 #   2. agent_idle_radar — anti-idle work surfacing (120s)
 #
 # Usage:
@@ -27,11 +27,12 @@ say "----- SESSION RADARS (bootstrap) -----"
 #   clean tree + (git status behind origin/main or tracking ref lag) ⇒ immediate pull.
 # The user never has to say the word "pull". This is a literal "always just do the
 # logical thing" directive.
+# Polled every 15s (faster for critical rule/behavior propagation to the other lane).
 if running "scripts/lane_watch.py"; then
   say "  lane_watch: already running (with --auto-pull)"
 else
   bash "$REPO/dev/lane_watch_mac.sh" --bg
-  say "  lane_watch: started (60s loop, --auto-pull enforcing standing rule)"
+  say "  lane_watch: started (15s loop, --auto-pull enforcing standing rule)"
 fi
 
 if running "scripts/agent_idle_radar.py"; then

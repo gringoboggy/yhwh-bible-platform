@@ -60,7 +60,7 @@ the env-health check (Claude Code + plugin updates -- apply only on user OK; MCP
 servers connected). Report freed RAM in the one-line confirmation.
 
 DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
-  1. lane_watch        -- cross-lane push/handoff (60s; WIN uses -AssignMac)
+  1. lane_watch        -- cross-lane push/handoff (15s; WIN uses -AssignMac)
   2. agent_idle_radar  -- never wait for user input; surface next work (120s)
   If either is not running: pwsh -File dev/start_session_radars.ps1
   Backlog: dev/AGENT_WORK_BACKLOG.md · py -3 scripts/agent_idle_radar.py --next
@@ -144,7 +144,7 @@ try {
 
 # --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
 # Both MUST run on every session; bootstrap starts them idempotently in background.
-# WIN: lane_watch 60s -AssignMac · idle-radar 120s. See dev/start_session_radars.ps1.
+# WIN: lane_watch 15s -AssignMac · idle-radar 120s. See dev/start_session_radars.ps1. (Faster polling for critical rule sync.)
 # lane_watch is always launched with --auto-pull to enforce the STANDING rule
 # (user never has to say "pull" when behind + clean). Guard #8 + doc-update
 # discipline also apply on this side.

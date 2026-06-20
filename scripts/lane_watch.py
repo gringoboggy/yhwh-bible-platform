@@ -18,12 +18,12 @@ see is flagged as ``unpushed_handoff`` so the authoring lane knows to milestone-
 Usage::
 
     py -3 scripts/lane_watch.py --once --auto-pull
-    py -3 scripts/lane_watch.py --loop 120 --auto-pull
-    py -3 scripts/lane_watch.py --loop 120 --auto-pull --assign-mac   # WIN only
+    py -3 scripts/lane_watch.py --loop 15 --auto-pull
+    py -3 scripts/lane_watch.py --loop 15 --auto-pull --assign-mac   # WIN only
     py -3 scripts/lane_watch.py --json
 
 Mac wrapper: ``bash dev/lane_watch_mac.sh [--bg|--once]``
-WIN wrapper: ``pwsh -File dev/lane_watch_win.ps1 [-LoopSec 120] [-AssignMac]``
+WIN wrapper: ``pwsh -File dev/lane_watch_win.ps1 [-LoopSec 15] [-AssignMac]``
 
 Log: ``dev/.lane_watch.log`` (append). State: ``dev/.lane_watch_state.json``.
 

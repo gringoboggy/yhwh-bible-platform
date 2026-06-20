@@ -57,7 +57,7 @@ CHANGELOG this turn. Use /resume to pick up an incoming baton, /handoff to pass
 it, /sync for mid-turn durability.
 
 DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
-  1. lane_watch        -- cross-lane push/handoff (60s)
+  1. lane_watch        -- cross-lane push/handoff (15s — faster for critical cross-lane rule propagation)
   2. agent_idle_radar  -- never wait for user input; surface next work (120s)
   If either is not running: bash dev/start_session_radars_mac.sh
   Backlog: dev/AGENT_WORK_BACKLOG.md · python3 scripts/agent_idle_radar.py --next

@@ -18,12 +18,12 @@ change any repo/website surface. **Never ask the user** whether to continue, sav
 or finish logical next steps. **Never idle** — if blocked, `python3 scripts/agent_idle_radar.py --next`.
 If the lane is on, keep working. **WIN assigns Mac a fresh laundry list whenever Mac queue clears**
 (primary + overflow). **Bootstrap auto-starts BOTH radars every session:**
-`bash dev/start_session_radars_mac.sh` (lane_watch 60s + agent_idle_radar 120s).
+`bash dev/start_session_radars_mac.sh` (lane_watch 15s + agent_idle_radar 120s).
 
 | Box | Start (foreground) | Background |
 |-----|-------------------|------------|
 | **Mac** | `bash dev/lane_watch_mac.sh` | `bash dev/lane_watch_mac.sh --bg` |
-| **WIN** | `pwsh -File dev/lane_watch_win.ps1 -LoopSec 60 -AssignMac` | `... -Background` |
+| **WIN** | `pwsh -File dev/lane_watch_win.ps1 -LoopSec 15 -AssignMac` | `... -Background` |
 | **WIN + queue** | `-AssignMac` auto-assigns from this file after each Mac push |
 
 WIN polls with `--assign-mac`. On each Mac push it pulls, surfaces incoming, then
@@ -414,7 +414,7 @@ Report results with "Mac M2 verify (tablet) — PASS/FAIL @ sha" in LANE_HANDOFF
 ### 0 — Bootstrap
 
 - [ ] `git pull --rebase origin main` — expect `f73cda6f`+ (kindle_library Lassen)
-- [ ] **Dual radars ON** — bootstrap hook runs `bash dev/start_session_radars_mac.sh` (lane_watch 60s + agent_idle_radar 120s); verify both in `dev/.lane_watch.log` + `dev/.agent_idle_radar.log`
+- [ ] **Dual radars ON** — bootstrap hook runs `bash dev/start_session_radars_mac.sh` (lane_watch 15s + agent_idle_radar 120s); verify both in `dev/.lane_watch.log` + `dev/.agent_idle_radar.log`
 - [ ] `bash dev/lane_watch_mac.sh --once` (one-shot pull/handoff check)
 - [ ] `export PYTHONUTF8=1`
 - [ ] Read `dev/SESSION_STATE.md` · `dev/AGENT_WORK_BACKLOG.md` · `dev/LANE_HANDOFF.md` §Turn 128

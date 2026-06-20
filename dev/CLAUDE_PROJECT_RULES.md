@@ -221,7 +221,7 @@ orientation; a `git log` or SESSION_STATE-only peek is NOT a substitute. A proje
 intentionally `{}` — hook wiring lives in the parent workspace settings.
 Injected at every session start as a forcing function. **The hook auto-starts
 BOTH session radars** (STANDING, every session, idempotent background):
-**lane_watch** (60s cross-lane push/handoff; WIN adds `-AssignMac`) +
+**lane_watch** (15s cross-lane push/handoff; WIN adds `-AssignMac`) +
 **agent_idle_radar** (120s — never wait for user input; surfaces
 `dev/AGENT_WORK_BACKLOG.md`). Starters: `dev/start_session_radars.ps1` (WIN) ·
 `dev/start_session_radars_mac.sh` (Mac). If blocked on one task, run
