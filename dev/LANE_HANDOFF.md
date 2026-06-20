@@ -35,14 +35,6 @@ Session handoff @ 3cf46b82. ci triage DONE turn 144. Read SESSION_STATE top + AG
 
 ---
 
-## ◦ windows assign (turn 144, 2026-06-20) — mode=parallel
-
-**Assignments:** mac = Verify WIN turn 144 ci triage (pytest + `lint_rules` per CHANGELOG) · windows = Kindle STK bisect vs `143407Z` + M2 Apple audit
-
-**WIN shipped:** ci pytest triage — 8 reds fixed · orphan inline marker strip · `pytest --lf` 9/9 PASS · slow edition_stats cross-check PASS.
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.

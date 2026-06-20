@@ -4,6 +4,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## ◦ windows assign (turn 144, 2026-06-20) — mode=parallel
+
+**Assignments:** mac = Verify WIN turn 144 ci triage (pytest + `lint_rules` per CHANGELOG) · windows = Kindle STK bisect vs `143407Z` + M2 Apple audit
+
+**WIN shipped:** ci pytest triage — 8 reds fixed · orphan inline marker strip · `pytest --lf` 9/9 PASS · slow edition_stats cross-check PASS.
+
+---
+
 <!-- archived: 1 sections, 2026-06-19..2026-06-19 (rotate_truth_records.py) -->
 
 ## ◦ windows assign (turn 143, 2026-06-19T22:55:43Z) — mode=parallel
