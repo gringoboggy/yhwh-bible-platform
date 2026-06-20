@@ -1133,7 +1133,12 @@ def main():
         total_fixes += cf
 
     if args.category in ("D", "all"):
-        di, df = run_category("D — Deep (redundancies/contradictions/sims/optimizations/markup/automation/online/cross-os)", CATEGORY_D_CHECKS, fix=args.fix, quiet=args.quiet)
+        di, df = run_category(
+            "D — Deep (redundancies/contradictions/sims/optimizations/markup/automation/online/cross-os)",
+            CATEGORY_D_CHECKS,
+            fix=args.fix,
+            quiet=args.quiet,
+        )
         all_issues.extend(di)
         total_fixes += df
 
@@ -1203,7 +1208,13 @@ def check_d1_redundancies():
         )
 
     issues.append(
-        Issue("D", "D1", "INFO", "<all>", "full redundancy sweep (incl. popups, code, project structure) via deep-audit.js redundancies-everywhere dim")
+        Issue(
+            "D",
+            "D1",
+            "INFO",
+            "<all>",
+            "full redundancy sweep (incl. popups, code, project structure) via deep-audit.js redundancies-everywhere dim",
+        )
     )
     return issues
 

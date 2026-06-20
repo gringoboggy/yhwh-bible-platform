@@ -10,6 +10,7 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-20 | Plan | Ridiculously Deep Project Audit — Plan (post next big phase) | `plans/2026-06-20-ridiculously-deep-audit-plan.md` | DRAFT 2026-06-20 — post current arc; for round-9+ deep + self-upgrade; execute on trigger (after major phase or explicit). |
 | 2026-06-18 | Plan | Reader Simulation Lab — post-audit local QA harness (Apple · Kobo · Kindle · Play) | `plans/2026-06-18-reader-simulation-lab.md` | PLANNED 2026-06-18 — starts after Round 9 audit gate (`ci.py` + rx-surfaces); `dev/reader_sim/` packs + `scripts/reader_sim.py`; Mac=Apple+Kindle, WIN=Kobo+Play. |
 | 2026-06-18 | Plan | YHWH Native Reader — deferred (post current-reader arc) | `plans/2026-06-18-yhwh-native-reader-deferred.md` | DEFERRED 2026-06-18 — first-party reader exceeding market EPUB engines; after sim lab + M2–M5 honest; stub only. |
 | 2026-06-17 | Plan | Round-9 parallel audit + platform EPUB research | `plans/2026-06-17-round9-parallel-audit-and-platform-research.md` | PLANNED 2026-06-17 — starts after round-8 remediation gate; win=11 dims / mac=22 dims (+ platform research); FINDINGS-ONLY then fix phase F0–F6. |

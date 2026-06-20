@@ -1,5 +1,7 @@
 # Ridiculously Deep Project Audit — Plan (post next big phase)
 
+**Status:** DRAFT 2026-06-20 — post current arc (M2/M3/M4 + parity); for round-9+ deep + self-upgrade; execute on trigger (after major phase or explicit).
+
 **Trigger:** Execute after completion of the next major phase (e.g., current M2/M3/M4 device or parity work, or Ge'ez standalone milestone).
 
 **Auditor to use/update:** Primary reusable engine is `.claude/workflows/deep-audit.js` (parallel sub-agent, adversarial skeptic panel, find-verify-synth). In-repo complement: `audit.py` (code/EPUB), `dev/cc-hooks/memory_hygiene.py` (out-of-repo), `scripts/audit_*.py`, `dev/trace_*.py`, `scripts/ci.py`, `lint_rules.py`, `ebible verify`, `validate_*`, reader sim gates (`verify_kr2_build.py`, `reader_sim/`), `dev/REPO_MAP.md` / `MATRIX_MAP.md` integrity.
