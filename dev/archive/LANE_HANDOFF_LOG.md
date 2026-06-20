@@ -4,6 +4,27 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
+
+**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
+
+**WIN commands for Mac to execute on pull:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py tests/test_presentation_polish.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub` (or latest tablet kepub in dir)
+- Confirm: bilingual TOC rewrites (book/chapter anchors) applied identically via preloaded path; no new D findings; K-R counts stable vs prior; byte-identical output for non-badge paths exercised.
+
+**Report:** append PASS/FAIL + key counts (e.g. files_touched in bilingual, any D1/D items, first failures) + link to findings update back into this LANE_HANDOFF (after this block) + round9 findings. Also ACK if in-mem path exercised cleanly.
+
+Next per radar (after save): use --next to continue deep audit (Opt#4 walker consolidation from findings); send Mac verify for every build/core slice.
+
+---
+
 <!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac prep (round-9 deep audit + parity, per MAC_WORK_QUEUE & CROSS_LANE_RULES_PARITY_PLAN — executed on pull)
