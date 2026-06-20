@@ -76,12 +76,20 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 **PRIORITY NEW ITEM (activate on pull of WIN's parity plan + deep audit prep): Cross-Lane Rules Parity + Ridiculous Deep Audit Prep**
 See `dev/CROSS_LANE_RULES_PARITY_PLAN.md`, `docs/superpowers/plans/2026-06-20-ridiculously-deep-audit-plan.md` + LANE_HANDOFF.
 ALWAYS: make Mac do any prep work that helps Win (e.g. run Mac sims/audits on 8GB hardware, capture OS execution diffs (paths, py invocation, RAM behavior, hooks, bundles), pre-collect Mac-side findings for redundancies/contradictions/sims/optimizations/automation safety, verify markup on Mac artifacts, run local deep-audit.js slice for Mac dims).
-1. On pull, send WIN summary of current per-box memory + local configs + OS diffs captured.
-2. Run Mac prep tasks (sims, audits, parity checks) and report structured findings.
-3. Apply harmonization on Mac side (identical rules except OS diffs).
-4. Run fresh bootstrap + confirm.
-5. Report completion. WIN synthesizes full ridiculous deep audit (both machines, adversarial, full scope: redundancies everywhere, zero contradictions, sims, optimizations, markup zero broken, automation safety, online truth sync).
-WIN leads synthesis; Mac does prep. Update all truth records + online (website/GH/GL) for big changes.
+1. On pull, send WIN summary of current per-box memory + local configs + OS diffs captured (python path/invocation, shells, RAM limits, hooks, bundle notes).
+2. Run Mac prep tasks (sims, audits, parity checks) and report structured findings:
+   - python audit.py (all categories; capture any new D candidates for redundancies/contradictions/markup)
+   - python -m pytest -q -k "not slow" --tb=line 2>&1 | tail -20 (or targeted reader/popup)
+   - dev/verify_kr2_build.py on latest dist or staged epub (apple tablet, kobo, kindle if available)
+   - For redundancies: search notes/popups/strings for dupes (e.g. repeated phrases, overlapping xrefs); for contradictions: cross-check note counts (91,553 shipped), 83 books, v0.1.0, edition lists vs website/dist/READMEs
+   - Markup: unzip -l or python scan for empty <p>, broken tags, pagebreak issues in epub_working or dist artifacts
+   - Sim deep: run reader_sim gates if set up; note coverage gaps, OS-specific behavior, long aside handling
+   - Automation: run lane_ping.py or equivalent; confirm auto-pull logic; list local start radars
+3. Pre-collect Mac findings into _audit-split/findings-mac-deep.json or LANE_HANDOFF section (use skeptic lens: refute weak ones).
+4. Apply harmonization on Mac side (identical rules except OS diffs). ACK in local memory.
+5. Run fresh bootstrap + confirm radars live.
+6. Report completion + OS facts. WIN synthesizes full ridiculous deep audit (both machines, adversarial via skeptic, full scope: redundancies everywhere incl bibles/books/popups, zero contradictions, sims-deep + improvements, optimizations everywhere, markup zero broken in ALL artifacts, automation safety + guards, online truth sync for website/GH/GL, cross-OS parity, small/big integrity, step back rule).
+WIN leads synthesis + heavy dims; Mac does prep. Update all truth records + online (website/GH/GL/releases/metadata/social) for big changes. Mirror to per-box memory.
 
 1. **After WIN M2 Apple audit push (K-R5-3 + justify + Easton + nav isolation):** 
    - Build / acquire the tablet artifact (WIN will name path or use latest `Ethiopian_Bible_ethiopian-tewahedo_*_tablet_*.epub` in dist or staged).
