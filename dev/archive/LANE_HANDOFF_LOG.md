@@ -8,6 +8,40 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 ## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
 
+**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path), pulled Mac rotate, gates CLEAN, IN_FLIGHT updated, Mac block, save-all, ping. 
+
+**Commands:**
+- git pull
+- py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/
+- py -3 -m pytest tests/test_reader_target.py -q --tb=line
+- py -3 scripts/lint_rules.py
+- py -3 audit.py --category D --quiet
+- py -3 dev/verify_kr2_build.py ...kepub...
+Report in LANE_HANDOFF + findings.
+
+---
+
+## Mac verify (WIN slice: Opt#4 list_html_files + list_split + more sites — 2026-06-20)
+
+**Per retard-proof checklist:** helpers added (list_html_files, list_split_html_files); many glob sites + pre/repair loads updated to use them (Opt#4). Code committed, pre-commit gates CLEAN. IN_FLIGHT + this block. Next save-all + ping.
+
+**Commands for Mac after pull:**
+- git pull
+- py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/
+- py -3 -m pytest tests/test_reader_target.py -q
+- py -3 scripts/lint_rules.py
+- py -3 audit.py --category D --quiet
+- py -3 dev/verify_kr2_build.py (latest kepub)
+- Confirm walkers in source, identical outputs, no new D fails.
+
+Report PASS/FAIL + details here.
+
+---
+
+<!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
+
 **Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
 
 **WIN commands for Mac to execute on pull:**
