@@ -83,23 +83,6 @@ Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); 
 
 ---
 
-## Mac verify (WIN slice: Opt#4 continued - more pure glob sites to walkers — 2026-06-20)
-
-**Per retard-proof checklist:** Converted remaining pure sites (src_files split, book title page, filter_html, ncx inventory). Commit + pre-commit gates. IN_FLIGHT + this block. Push + ping.
-
-**Commands:**
-- `git pull`
-- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
-- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
-- `py -3 scripts/lint_rules.py`
-- `py -3 audit.py --category D --quiet`
-- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
-- Confirm walkers used; byte-identical; D/K-R stable.
-
-Report PASS/FAIL + counts to LANE_HANDOFF after this block.
-
----
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.

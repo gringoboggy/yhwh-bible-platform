@@ -6,6 +6,25 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: Opt#4 continued - more pure glob sites to walkers — 2026-06-20)
+
+**Per retard-proof checklist:** Converted remaining pure sites (src_files split, book title page, filter_html, ncx inventory). Commit + pre-commit gates. IN_FLIGHT + this block. Push + ping.
+
+**Commands:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Confirm walkers used; byte-identical; D/K-R stable.
+
+Report PASS/FAIL + counts to LANE_HANDOFF after this block.
+
+---
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: Opt#4 continued - more list_* walkers for index_split + html — 2026-06-20)
 
 **Checklist followed:** status, ruff format + commit (pre-commit gates passed), this block, will IN_FLIGHT (already), save-all, ping. 
