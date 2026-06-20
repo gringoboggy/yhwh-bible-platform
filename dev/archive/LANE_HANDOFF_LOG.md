@@ -6,6 +6,31 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: Opt#5 start — @lru_cache on _estimate_kepub_aside_bytes for kepub budget hoisting in per-verse splits (K-R6-2 paths) — 2026-06-20)
+
+**Change:** build_edition.py: @lru_cache(maxsize=8192) on _estimate_kepub_aside_bytes (pure fn) to hoist repeated post-kepubify byte estimates during popup/vn splitting and chunking for byte-cap budgets. Directly reduces per-verse work in high-fanout K-R6-2 cases. No behavior change.
+
+**WIN commands:**
+- py -3 -m ruff format --check scripts/build_edition.py
+- py -3 scripts/lint_rules.py
+- python -c "
+from functools import lru_cache
+import scripts.build_edition as be
+be._estimate_kepub_aside_bytes.cache_clear()
+print('cache ok', be._estimate_kepub_aside_bytes('<p>test</p>'))
+"
+- For exercising: kepub/tablet build + dev/verify_kr2_build.py on the kepub (confirm K-R6-2 counts unchanged).
+
+**Mac verify:**
+- Same lint/format/smoke.
+- If building kepub artifact: verify_kr2 + check that bare/rev counts and unit splits match previous (byte stable).
+- audit.py --category D --quiet.
+- Report: PASS/FAIL + any diff in split counts or times if measured.
+
+Continue to more hoisting / early-outs per round9 plan.
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: Opt#4 continuation — use _list_temp_files for *.xhtml in drop_orphan_vnote_asides — 2026-06-20)
 
 **Exact change:** build_edition.py:6675 `files = list_html_files(tmp) + _list_temp_files(tmp, "*.xhtml")` (was direct sorted(glob) for consistency with Opt#4 consolidated walkers).
