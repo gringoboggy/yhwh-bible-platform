@@ -163,4 +163,27 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next) , and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop.
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
+## Mac verify (WIN slice: Opt#5 start — @lru_cache on _estimate_kepub_aside_bytes for kepub budget hoisting in per-verse splits (K-R6-2 paths) — 2026-06-20)
+
+**Change:** build_edition.py: @lru_cache(maxsize=8192) on _estimate_kepub_aside_bytes (pure fn) to hoist repeated post-kepubify byte estimates during popup/vn splitting and chunking for byte-cap budgets. Directly reduces per-verse work in high-fanout K-R6-2 cases. No behavior change.
+
+**WIN commands:**
+- py -3 -m ruff format --check scripts/build_edition.py
+- py -3 scripts/lint_rules.py
+- python -c "
+from functools import lru_cache
+import scripts.build_edition as be
+be._estimate_kepub_aside_bytes.cache_clear()
+print('cache ok', be._estimate_kepub_aside_bytes('<p>test</p>'))
+"
+- For exercising: kepub/tablet build + dev/verify_kr2_build.py on the kepub (confirm K-R6-2 counts unchanged).
+
+**Mac verify:**
+- Same lint/format/smoke.
+- If building kepub artifact: verify_kr2 + check that bare/rev counts and unit splits match previous (byte stable).
+- audit.py --category D --quiet.
+- Report: PASS/FAIL + any diff in split counts or times if measured.
+
+Continue to more hoisting / early-outs per round9 plan.
+
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).

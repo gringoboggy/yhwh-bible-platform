@@ -3298,6 +3298,7 @@ _POPUP_FAMILY_MAX_UNITS = 9
 _KEPUB_SENTENCE_RE = re.compile(r"[.!?][\s ]")
 
 
+@lru_cache(maxsize=8192)
 def _estimate_kepub_aside_bytes(html_text: str) -> int:
     """Conservative post-kepubify size of ``html_text`` in bytes.
 
