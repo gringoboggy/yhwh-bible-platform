@@ -7606,7 +7606,18 @@ def build_one(
         marker_style = (edition.get("marker_style") or DEFAULT_MARKER_STYLE).strip() or DEFAULT_MARKER_STYLE
         stats["marker_style"] = marker_style
         if marker_style == "badge":
-            badge_stats = apply_badge_markers(tmp, edition)
+            # Opt#3 early-out per round-9: skip per-verse split work when no caps/split/eink needed for target.
+            # The heavy splitting (s1-s9) is only forced for targets that use split or eink.
+            if resolve_reader_file_split(edition) or resolve_target_reader(edition) == "eink":
+                badge_stats = apply_badge_markers(tmp, edition)
+            else:
+                badge_stats = {
+                    "badges_inserted": 0,
+                    "notes_collapsed": 0,
+                    "badges_skipped": 0,
+                    "reader_eink_study_layout": "popup",
+                    "study_backmatter_entries": [],
+                }
             stats["badges_inserted"] = badge_stats["badges_inserted"]
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
             stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
