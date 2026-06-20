@@ -5794,7 +5794,7 @@ def apply_appendix_demotion_and_renumber(tmp: Path, canon_books: set[str] | None
             f'<span class="eyebrow-num">\u00a0{roman}</span>{m.group(2)}'
         )
 
-    for fp in sorted(tmp.glob("index_split_*.html")):
+    for fp in list_split_html_files(tmp):
         text = fp.read_text(encoding="utf-8")
         new, n = _EYEBROW_RENUMBER_RE.subn(renum, text)
         if n and new != text:
@@ -5851,9 +5851,7 @@ def retarget_demoted_toc_anchors(tmp: Path, canon_books: set[str] | None) -> dic
         return stats
 
     surfaces = [tmp / "nav.xhtml", tmp / "toc.ncx"]
-    surfaces += [
-        p for p in sorted(tmp.glob("index_split_*.html")) if 'class="toc-book"' in p.read_text(encoding="utf-8")
-    ]
+    surfaces += [p for p in list_split_html_files(tmp) if 'class="toc-book"' in p.read_text(encoding="utf-8")]
     for fp in surfaces:
         if not fp.is_file():
             continue
@@ -5925,7 +5923,7 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     # ch-bNN-cMM → the index_split file currently holding it; grouped per book, sorted.
     by_book: dict[int, list[tuple[int, str, str]]] = {}
     seen: set[str] = set()
-    for p in sorted(tmp.glob("index_split_*.html")):
+    for p in list_split_html_files(tmp):
         for m in re.finditer(r'\bid="ch-b(\d+)-c(\d+)"', p.read_text(encoding="utf-8")):
             chid = f"ch-b{m.group(1)}-c{m.group(2)}"
             if chid in seen:
@@ -6617,7 +6615,7 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             r'<aside class="note [^"]*" id="note-([^"]+)"[^>]*>.*?</aside>\s*',
             re.DOTALL,
         )
-        for f in sorted(tmp.glob("*.html")):
+        for f in list_html_files(tmp):
             text = f.read_text(encoding="utf-8")
             ref_ids = set(re.findall(r'\bid="ref-([^"]+)"', text))
 
