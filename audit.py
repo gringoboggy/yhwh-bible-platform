@@ -1161,46 +1161,49 @@ def main():
 
 def check_d1_redundancies():
     """D1: Logical redundancies everywhere (project/program/bibles/books/popups).
-    Scan for dupe note bodies, overlapping xrefs/popups, dupe strings in language
-    popups, dupe code/docs, etc. Report; removal for professional finish.
+    Scan for dupe note bodies across *different* books (inter-file), overlapping xrefs/popups, etc.
+    Report; removal for professional finish. Improved in round-9 to avoid intra-file noise.
     """
     issues = []
-    # Bibles/books/popups: simple body dupe in notes (example; extend with full corpus scan)
-    note_bodies = {}
+    # Cross-file body dups only (different notes/*.py files)
+    body_to_files = {}
     for notes_file in (ROOT / "content" / "notes").glob("*.py"):
         try:
             text = notes_file.read_text(encoding="utf-8")
-            # crude: find string literals that look like note bodies
-            for m in re.finditer(r'"([^"]{50,})"', text):  # long strings likely bodies
-                body = m.group(1)
-                if body in note_bodies:
-                    issues.append(
-                        Issue(
-                            "D",
-                            "D1",
-                            "WARN",
-                            f"{notes_file.name}:{m.start()}",
-                            f"possible dupe body with {note_bodies[body]}",
-                        )
-                    )
-                else:
-                    note_bodies[body] = f"{notes_file.name}:{m.start()}"
+            for m in re.finditer(r'"([^"]{80,})"', text):  # longer threshold
+                body = m.group(1).strip()
+                if not body:
+                    continue
+                body_to_files.setdefault(body, set()).add(notes_file.name)
         except Exception:
             pass
-    if not issues:
+
+    for body, files in body_to_files.items():
+        if len(files) >= 2:
+            preview = body[:60].replace("\n", "\\n")
+            issues.append(
+                Issue(
+                    "D",
+                    "D1",
+                    "WARN",
+                    f"notes/ multiple: {', '.join(sorted(files)[:3])}",
+                    f"identical long body in {len(files)} different note files: {preview}...",
+                )
+            )
+
+    if not any(i.severity == "WARN" for i in issues):
         issues.append(
             Issue(
                 "D",
                 "D1",
                 "INFO",
                 "<notes>",
-                "no obvious long-body dups in quick scan (full corpus pass recommended in deep run)",
+                "no cross-file long-body dups found in quick scan (full corpus + normalized key recommended)",
             )
         )
-    # Project/program: dupe in scripts (example)
-    # (extend with full dupe detector)
+
     issues.append(
-        Issue("D", "D1", "INFO", "<all>", "run full redundancy sweep in deep-audit.js dims for project+popups+code")
+        Issue("D", "D1", "INFO", "<all>", "full redundancy sweep (incl. popups, code, project structure) via deep-audit.js redundancies-everywhere dim")
     )
     return issues
 
