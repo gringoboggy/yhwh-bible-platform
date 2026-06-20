@@ -139,8 +139,8 @@ def _mirror_skew(ping: dict) -> tuple[bool, str, str]:
 
 
 def _auto_pull() -> tuple[bool, str]:
-    if _working_tree_dirty():
-        return False, "DIRTY TREE — commit or stash before auto-pull"
+    # Caller ensures tree is clean (auto-commits dirty when pull_needed).
+    # Policy: clean before pulling (per user). Rebase will fail safely + abort if somehow dirty.
     # Robust auto-pull for this multi-remote setup (origin + github).
     # "git pull --rebase origin main" can fail with "Cannot rebase onto multiple branches."
     # Separate fetch + rebase using the remote-tracking ref "origin/main" is reliable
@@ -302,24 +302,6 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     pull_msg = ""
     dirty_tree = _working_tree_dirty()
 
-    # User directive: you can pull when the tree is dirty too, just clean it up before pulling.
-    # Auto-commit dirty tree (per "do whatever you gotta do" and NEVER-STOP) before deciding on pull.
-    if dirty_tree:
-        _log("DIRTY TREE detected - auto-committing before pull (user: clean it up before pulling, not hard)")
-        rc, _ = _git("add", "-A")
-        if rc == 0:
-            commit_msg = "autonomous pre-pull commit (dirty tree cleanup per user directive)"
-            rc, _ = _git("commit", "-m", commit_msg)
-            if rc == 0:
-                _log("auto-committed dirty tree successfully")
-                dirty_tree = False
-            else:
-                _log("auto-commit failed (may have nothing to commit or error), proceeding with dirty check")
-        else:
-            _log("git add -A failed before auto-commit")
-        # re-evaluate dirty after attempt
-        dirty_tree = _working_tree_dirty()
-
     # Track whether our checked-out main is behind the (just-fetched) origin/main.
     # This is the practical "git status says behind" signal.
     #
@@ -338,24 +320,38 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
                 tracking_behind = False
 
     # Also pull on fresh incoming (user request for full self-automation).
-    should_pull = (
-        auto_pull
-        and fetch_ok
-        and not dirty_tree
-        and (status == "BEHIND" or remote_ahead or tracking_behind or incoming)
-    )
-    if should_pull:
-        pulled, pull_msg = _auto_pull()
-        if pulled:
-            ping = lp.gather()
-            status = ping["status"]
-            local_h = _local_handoff_header()
-            local_turn = _int_turn(local_h)
-            remote_h = _remote_handoff_header()
-            remote_turn = _int_turn(remote_h)
-            remote_ahead = remote_turn > local_turn
-            incoming_rc, incoming_out = _incoming_check()
-            incoming = incoming_rc == 0
+    # User: "you can pull when the tree is dirty too just clean it up before pulling"
+    pull_needed = status == "BEHIND" or remote_ahead or tracking_behind or incoming
+    if auto_pull and fetch_ok and pull_needed:
+        if dirty_tree:
+            _log("DIRTY TREE + PULL NEEDED — auto-committing before pull (user directive: clean before pulling)")
+            rc, _ = _git("add", "-A")
+            if rc == 0:
+                commit_msg = "autonomous pre-pull commit (dirty tree cleanup per user directive)"
+                rc2, _ = _git("commit", "-m", commit_msg)
+                if rc2 == 0:
+                    _log("auto-committed dirty tree successfully before pull")
+                    dirty_tree = False
+                else:
+                    _log("auto-commit had no effect or failed, rechecking dirty")
+            else:
+                _log("git add -A failed before auto-commit for pull")
+            dirty_tree = _working_tree_dirty()
+
+        if not dirty_tree:
+            pulled, pull_msg = _auto_pull()
+            if pulled:
+                ping = lp.gather()
+                status = ping["status"]
+                local_h = _local_handoff_header()
+                local_turn = _int_turn(local_h)
+                remote_h = _remote_handoff_header()
+                remote_turn = _int_turn(remote_h)
+                remote_ahead = remote_turn > local_turn
+                incoming_rc, incoming_out = _incoming_check()
+                incoming = incoming_rc == 0
+        else:
+            _log("DIRTY TREE persisted after auto-commit attempt — skipping pull this cycle")
 
     lane = lh.detect_lane(REPO)
     tip = ""
@@ -410,25 +406,35 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
             _log(
                 "STANDING RULE: auto-pull performed for tracking_behind (git status behind + clean tree) — user did not say 'pull'"
             )
-        # EXTRA STEP BUILT FOR USER'S REQUESTED "RADAR WATCHES PUSH -> PULL -> CONTINUE AUTONOMOUSLY"
-        # This is the missing piece for true bidirectional sustained loop without human prompting.
-        # After pull (triggered by other lane's push), immediately trigger agent to resume work
-        # or pick up new instructions from board (IN_FLIGHT / LANE_HANDOFF). This chains the
-        # "continue where left off" or "new instructions" automatically.
-        _log(
-            "EXTRA STEP: triggering autonomous continuation via agent_idle_radar --next after detecting pull from other push"
-        )
+        # EXTRA STEP — the core piece the user has been demanding for sustained autonomous loop:
+        # RADAR DETECTS PUSH -> AUTO-PULL (even after cleaning dirty) -> IMMEDIATELY TRIGGER CONTINUATION.
+        # Calls into agent_idle_radar so the idle/work surfacing picks up "continue where left off"
+        # or new Mac instructions / IN_FLIGHT / LANE_HANDOFF tasks with zero human input.
+        # This + bg radars + NEVER-STOP chaining + end-of-turn --next closes the "stops after ~1h" gap.
+        # Also --ping to record the autonomous resume as activity heartbeat.
+        _log("EXTRA STEP: post-pull autonomous continuation (ping + --next) for NEVER-STOP cross-lane sustain")
         try:
-            rc, out = _py(
+            # Record heartbeat tied to the pull event
+            _py(
+                str(REPO / "scripts" / "agent_idle_radar.py"),
+                "--ping",
+                "--note",
+                "auto-resume after pull from other lane push per NEVER-STOP",
+            )
+            # Surface the actual next work items into the idle radar log (AI sees via log or explicit --next)
+            rc, out, err = _py(
                 str(REPO / "scripts" / "agent_idle_radar.py"),
                 "--next",
-                "--note",
-                "auto-resume after pull from other lane push per NEVER-STOP and user radar vision",
             )
             if rc == 0:
-                _log("EXTRA STEP SUCCESS: agent triggered to continue or pick instructions autonomously")
+                if out:
+                    for line in out.splitlines():
+                        _log(f"  EXTRA NEXT: {line}")
+                _log(
+                    "EXTRA STEP SUCCESS: pinged + agent_idle_radar --next triggered after pull. Work continuation active."
+                )
             else:
-                _log(f"EXTRA STEP: agent trigger returned {rc}")
+                _log(f"EXTRA STEP: --next returned {rc} (stderr: {err[:200] if err else ''})")
         except Exception as e:
             _log(f"EXTRA STEP: failed to trigger agent continuation: {e}")
     if tip:
