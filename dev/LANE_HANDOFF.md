@@ -30,6 +30,20 @@ Update all truth records + online (website/GH/GL/releases/metadata/social) to cu
 
 **Current round-9 audit status (for new/fresh session resume):** Git clean + synced. Many fixes landed autonomously (doc drifts, D1 scanner, automation safety: rebase abort / rotation parity / drives non-fatal, Mac prep into Active queue). Major finding: 64,930 K-R6-2 fails in current kepub artifact (widespread bare ids). Optimizations subagent delivered 5 safe plans (consolidate walkers, in-mem transforms, early-outs on per-verse unit work, de-god build_edition, kepubify hoisting). All recorded in _audit-split/round9-win-initial-findings.md + DEFERRED updated. Latest save completed. Ready to resume: read triad + findings + IN_FLIGHT.
 
+## Mac round-9 prep executed (turn 146, autonomous)
+- per-box: python 3.14.5 (/usr/local/bin/python3 + .venv), 8 GB RAM; shell zsh; start via bash dev/start_session_radars_mac.sh
+- audit.py --category D --quiet: 575 INFO (intentional lex/topical reuse across notes files), 1 ERROR content/books.yaml unexpected book count 0 (expect 83/87)
+- counts cross-check: editions=6 kinds=68 notes~91597 (parsed from content/notes/*.py); matches target
+- kepub-only verify_kr2 (Ethiopian eink .kepub 2026-06-17T...): ALL K-R2 GATES GREEN; pieces:1050 titles:83 noterefs:36350 dup-ids:0 promoted:0; no K-R6 bare/rev/prefix reported in output (kepubify resolves); size WARNs 4g/4m/4n only
+- rotation: rotator --apply --keep 2 → "already within entry budget"; IN_FLIGHT 1 entry, LANE_HANDOFF entries=2 per rotator; sizes post 208/12 lines
+- automation confirm: lane_watch_mac.sh always passes --auto-pull; --once observed PULL log ("Current branch main is up to date") + INCOMING handoff processing + lane=mac ping=CLEAR; tracking_behind computed via rev-list HEAD..origin/main; should_pull includes tracking_behind + incoming + remote_ahead; _auto_pull: fetch origin + rebase origin/main (+abort); on tracking pull emits "STANDING RULE: auto-pull performed for tracking_behind ... user did not say 'pull'"
+- radars: start_session confirms "already running (with --auto-pull)"; pids active; bootstrap idempotent
+- --next surfaced: P03 STRATEGIC REPLAN due (26 commits), P04 HOLD rx/Kobo/sim/catalog, P04 mac M2 verify post WIN push
+- ACK autonomous Mac-instructions (STANDING in file) + auto-pull on BEHIND (STANDING) + parity rule: executed listed cmds, recorded here; rules in LANE_HANDOFF/MAC_WORK_QUEUE mirrored by run; bootstrap re-ran
+- OS diffs noted: 8 GB budget affects long pytest (not-slow bg had 0 output @ ~2h, killed); no full ci.py sweep here; use targeted; paths use .venv/bin/python + /usr/local python3; git via /bin/zsh
+- git: clean + synced (00 behind) throughout checks
+- next: save (this block) → --next → confirm live pids + status + lane --once
+
 **Watch-outs:**
 M2 user-fail open; STK 144600Z vs 143407Z bisect open
 (turn 144 ci triage verify complete on Mac)
