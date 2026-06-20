@@ -6,6 +6,32 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: Opt#4 continuation — use _list_temp_files for *.xhtml in drop_orphan_vnote_asides — 2026-06-20)
+
+**Exact change:** build_edition.py:6675 `files = list_html_files(tmp) + _list_temp_files(tmp, "*.xhtml")` (was direct sorted(glob) for consistency with Opt#4 consolidated walkers).
+
+**WIN build commands to reproduce slice:**
+- py -3 -m ruff format --check scripts/build_edition.py
+- py -3 scripts/lint_rules.py scripts/build_edition.py
+- (targeted) python -c "
+from pathlib import Path
+import scripts.build_edition as be
+tmp = Path('build/tmp-test')
+# smoke: call drop if possible or import
+print('import + helper ok')
+"
+- For full: any kepub build exercising drop_orphan (tablet/kepub target) + dev/verify_kr2_build.py on the .kepub
+
+**Mac verify (no code edits):**
+- Run above lint + format + smoke on your python.
+- If you build tablet/kepub artifact: dev/verify_kr2_build.py --kepub on it; check K-R6-2 bare counts same as before (no regression).
+- python audit.py --category D --quiet (expect no new from this walker refactor).
+- Report in LANE_HANDOFF: PASS/FAIL + any count diff on bare/rev in kepub splits.
+
+Update IN_FLIGHT + continue deep (Opt#5 kepub hoisting or per-verse early-outs for K-R6-2 scale).
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN slice: robust EXTRA STEP + dirty-clean + post-pull auto-continue in lane_watch.py — 2026-06-20)
 
 **WIN change:** Fixed and hardened the EXTRA STEP the user has demanded repeatedly for "radar sees push -> auto-pull (dirty ok, just clean first) -> immediately continue autonomously without input".
