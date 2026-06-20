@@ -90,6 +90,15 @@ ALWAYS: make Mac do any prep work that helps Win (e.g. run Mac sims/audits on 8G
    - New: after your save, verify rotation happened (check if LANE_HANDOFF/IN_FLIGHT etc trimmed to ~2 entries + STANDING; run rotator if not). Reproduce kepub K-R6-2 (expect ~792 bare rev ids + prefixes in rev splits); report exact counts + if Mac build/hardware differs.
    - WIN I/O slice (2026-06-20 Opt #2): see the dedicated Mac verify block in LANE_HANDOFF.md (`## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)`). Execute the listed tablet build + pytest + audit D + verify_kr2. WIN now sends these instructions on every finished build/core slice (codified as autonomous STANDING rule).
    - Mirror new standing rule: the "Autonomous Mac-instructions rule (STANDING)" added to LANE_HANDOFF §WIN builds · Mac verifies. Update your per-box memory with the exact text. Confirm rules are identical (only OS diffs allowed). ACK in memory. Report confirmation + any diff to LANE_HANDOFF. Run bootstrap to wire the rule into your radars/hooks.
+- **CRITICAL (post failed secret test 2026-06-20):** Mirror the updated NEVER-STOP / SUSTAINED AUTONOMY RULE exactly (now bilateral STANDING for both lanes). See the full text + "Explicit Mac instructions for the resume behavior" in LANE_HANDOFF.md (the section added after WIN's resume chaining after user noted "stopped working"). 
+  - Pull latest.
+  - Immediately on next session or after this pull: run full status + radars + --next.
+  - Chain the exact same 10-step retard-proof cycles: radar, deep audit work (mirror the Opt#5 lru_cache hoist or equivalent per-verse/kepub improvement on Mac side if possible, or your own safe slice), gates, update IN_FLIGHT, append WIN verify block, push, ping, end with --next + bg D.
+  - When you see a "NEVER-STOP RESUME (post user 'stopped working')" note, treat it as trigger: do not idle — immediately resume deep work chaining the full checklist.
+  - Update your per-box memory with the exact new NEVER-STOP text (OS diffs only: e.g. commands, shells).
+  - ACK in LANE_HANDOFF + report any Mac-side diffs or confirmations.
+  - Run bootstrap to wire the rule.
+  WIN will verify your report and confirm both sides on same page before considering rule change complete. This is mandatory for the autonomy test to pass.
 3. Pre-collect Mac findings into _audit-split/findings-mac-deep.json or LANE_HANDOFF section (use skeptic lens: refute weak ones).
 4. Apply harmonization on Mac side (identical rules except OS diffs). ACK in local memory.
 5. Run fresh bootstrap + confirm radars live.

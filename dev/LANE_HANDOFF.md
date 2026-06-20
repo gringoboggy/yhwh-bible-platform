@@ -154,17 +154,34 @@ This is the mechanism that keeps cross-OS parity during the round-9 audit. Use `
 
 **Rule change parity (STANDING, both lanes):** Any edit to shared in-repo rules (LANE_HANDOFF, SESSION_STATE, CLAUDE_PROJECT_RULES, etc.) must be accompanied by an explicit task in MAC_WORK_QUEUE for Mac to: pull the change, update their per-box memory with the exact new text (diff only real OS reasons), confirm rules are identical, ACK in local memory, run bootstrap to wire, report confirmation + any diff to LANE_HANDOFF. WIN reviews Mac report and confirms both sides on same page before considering the rule change complete. This delegation is automatic in the queue/handoff system. (See deep audit prep section for full cross-lane rule mirroring protocol during this arc.)
 
-**THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, WIN lane, added to fix the "only works 1hr after sleep" problem):**
+**THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES — WIN + Mac symmetric, codified after failed secret test resume 2026-06-20):**
 
-The agent must NEVER stop the deep round-9 audit work when left alone. 
+The agent (WIN or Mac) must NEVER stop the deep round-9 audit work when left alone, unless the user explicitly says "pause" or "prepare for fresh session".
+
+Both lanes follow this identically (only real OS diffs allowed: pwsh vs bash, py vs python3, paths, RAM budgets, etc.).
 
 - Treat every turn as continuation of the previous.
-- After completing any checklist cycle (including push and ping), IMMEDIATELY re-run radar --next.
+- After completing any checklist cycle (including pull on push, push and ping), IMMEDIATELY re-run `radar --next` (or `py -3 scripts/agent_idle_radar.py --next` / equivalent on Mac).
 - If it shows HOLD but IN_FLIGHT or findings say "deep audit executing", ignore HOLD and find/do the next deep audit task (more Opts, more consolidation, run D audit, update docs, etc.).
 - Chain as many full retard-proof cycles as possible in the response.
 - Use background: true for long tasks so work "continues".
 - Never end with "done for now" or wait for input. The only stop is explicit user "stop".
 - EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next) , and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop.
-- This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
+- When a "stopped working" signal is received (user note or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), the receiving lane MUST immediately resume: run full status + radars, pick deep task, do safe slice, update trackers, send the other lane a verify block, push, chain --next + bg D. No idle.
+- This rule (and the exact resume behavior after failed secret test) must be mirrored on both sides via MAC_WORK_QUEUE + rule parity. WIN and Mac must stay identical on this.
+
+**Explicit Mac instructions for the resume behavior (post failed secret test):**
+After pulling any WIN slice that includes a "NEVER-STOP RESUME (post user 'stopped working')" note or equivalent:
+- Immediately run your radars (`bash dev/lane_watch_mac.sh --once` + `python3 scripts/agent_idle_radar.py --next`).
+- Prioritize deep round-9 audit continuation (ignore HOLD items if IN_FLIGHT says deep executing).
+- Perform at least one deep audit action (code improvement, verification, findings update) that mirrors the WIN slice.
+- Append a WIN verify block in LANE_HANDOFF for what you did.
+- Update your local IN_FLIGHT / memory.
+- Push with your save script.
+- End your cycle with --next + bg verification.
+- Report completion + any symmetric Mac diffs back in LANE_HANDOFF.
+WIN will do the same when Mac resumes.
+
+This is now STANDING for both. Any future "stop" must trigger identical immediate resume + full chaining on the other lane.
 
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
