@@ -141,12 +141,17 @@ def _mirror_skew(ping: dict) -> tuple[bool, str, str]:
 def _auto_pull() -> tuple[bool, str]:
     if _working_tree_dirty():
         return False, "DIRTY TREE — commit or stash before auto-pull"
-    rc, out, err = _git("pull", "--rebase", "origin", "main", timeout=300)
-    msg = out or err or ("ok" if rc == 0 else "pull failed")
+    # Robust auto-pull for this multi-remote setup (origin + github).
+    # "git pull --rebase origin main" can fail with "Cannot rebase onto multiple branches."
+    # Separate fetch + rebase using the remote-tracking ref "origin/main" is reliable
+    # and satisfies the STANDING "auto-pull on BEHIND + clean" rule literally.
+    _git("fetch", "origin", "--quiet", "--prune")
+    rc, out, err = _git("rebase", "origin/main", timeout=300)
+    msg = out or err or ("ok" if rc == 0 else "rebase failed")
     if rc != 0:
         # Safety: abort rebase so subsequent git ops / saves / agents do not break
         _git("rebase", "--abort", timeout=30)
-        msg = "PULL/REBASE FAILED — auto-aborted: " + msg
+        msg = "REBASE FAILED — auto-aborted: " + msg
     return rc == 0, msg
 
 
