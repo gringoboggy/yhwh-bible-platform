@@ -40,6 +40,16 @@ def test_resolved_counts_match_no_override_edition():
         assert sum(pbc.get(bk, {}).values()) == n, f"per_book_chapter[{bk}] sum != per_book"
 
 
+def test_orphan_inline_markers_join_disabled_ref_set():
+    from scripts.build_edition import _orphan_inline_marker_ref_ids, compute_edition_filter_sets
+    from scripts.core import config
+
+    orphans = _orphan_inline_marker_ref_ids()
+    assert "ref-b180233a" in orphans
+    _disabled_kinds, disabled_refs = compute_edition_filter_sets(config.editions_by_id()["catholic-study"])
+    assert "ref-b180233a" in disabled_refs
+
+
 def test_resolved_counts_honor_per_book_off(tmp_path):
     import shutil
 

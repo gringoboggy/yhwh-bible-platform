@@ -181,6 +181,9 @@ def cache_clear() -> None:
     base-HTML ref-id set (call after an ``epub_working/`` inject/bake)."""
     _resolved_note_counts_cached.cache_clear()
     _base_html_ref_ids.cache_clear()
+    from scripts.build_edition import clear_orphan_marker_cache
+
+    clear_orphan_marker_cache()
 
 
 resolved_note_counts.cache_clear = cache_clear  # type: ignore[attr-defined]

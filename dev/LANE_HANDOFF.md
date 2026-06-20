@@ -1,11 +1,11 @@
 ---
 mode: parallel
-turn: 143
-from: mac
-updated: 2026-06-19T23:25:00Z
+turn: 144
+from: windows
+updated: 2026-06-20T00:55:00Z
 status: working
-mac: Verifier+planner: turn 142 saved @ 2193216c; scope WIN M2 audit + ci verify on next pull
-windows: Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect + M2 Apple audit (handoff §user-fail)
+mac: Verify WIN turn 144 ci triage (pytest + lint_rules per CHANGELOG); then scope next slice
+windows: Kindle STK bisect vs 143407Z + M2 Apple audit per handoff §user-fail
 truth_owner: mac
 holder: windows
 ---
@@ -24,6 +24,14 @@ holder: windows
 | User Apple device QA | **FAIL** (justify · Easton redundancy · backwards pages) |
 
 **WIN next:** M2 deep audit per handoff §user-fail — fix K-R5-3 book-title badge bleed; scoped popup justify; dict attribution dedup. Mac **must not** dual-patch `build_edition.py` until WIN ships fix + lists Mac verify cmds.
+
+---
+
+## ◦ windows assign (turn 144, 2026-06-20) — mode=parallel
+
+**Assignments:** mac = Verify WIN turn 144 ci triage (pytest + `lint_rules` per CHANGELOG) · windows = Kindle STK bisect vs `143407Z` + M2 Apple audit
+
+**WIN shipped:** ci pytest triage — 8 reds fixed · orphan inline marker strip · `pytest --lf` 9/9 PASS · slow edition_stats cross-check PASS.
 
 ---
 

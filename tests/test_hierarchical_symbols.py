@@ -42,7 +42,6 @@ import scripts.core.config as config
 KINDS = [
     {"code": "xref-citation", "category": "xref", "phase": "legacy"},
     {"code": "comm-patristic", "category": "comm", "phase": "legacy"},
-    {"code": "comm-patristic", "category": "comm", "phase": "legacy"},
     {"code": "future-kind", "category": "comm", "phase": "phase3"},
     {"code": "comm-ai", "category": "comm", "phase": "legacy"},
 ]
@@ -86,7 +85,7 @@ class TestResolverPrecedence:
         )
         got = config.enabled_kind_codes_for(ed, KINDS, "psa", 1)
         assert "comm-patristic" in got  # kind ON wins over category OFF
-        assert "comm-patristic" not in got  # category OFF still applies to the rest
+        assert "comm-ai" not in got  # category OFF still applies to other comm kinds
 
     def test_off_beats_on_at_equal_specificity(self):
         ed = _ed(

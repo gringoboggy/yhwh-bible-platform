@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-20 — Windows session (turn 144) — ci.py pytest triage GREEN (user-directed)
+
+**Shipped:** edition-scrub test pins (4 editions · protestant out-of-canon · hierarchical_symbols oracle) · orphan inline marker strip in `compute_edition_filter_sets` (fixes `resolved` vs built EPUB off-by-1: `ref-b180233a` et al.) · `test_orphan_inline_markers_join_disabled_ref_set`. **ci.py result (prior run):** 8 failed → triage complete; slow cross-check **PASS**. **Mac verify:** targeted pytest list in commit message + `lint_rules.py`.
+
 ## 2026-06-19 — Mac session (turn 142) — mirror scrub + Apple/Play sim + tablet profile WIP
 
 **Shipped:** Mac mirror of turn 141 scrub (retired-SKU Desktop QA purge · `gen_release_catalog` 187 assets · `retired_edition_skus` PASS) · Apple `thorium_cdp` gate PASS on `195709Z` · Play `reader_sim --gate` PASS · tablet reader-profile resolvers in `build_edition.py` (file_split off · collapsible ToC · split_cap 0 · vn-sep strip) + 11 targeted tests green · `LANE_HANDOFF` M2 audit brief for WIN. **Blocked:** user Apple device FAIL · `verify_kr2_build` K-R5-3 (262× book-title pieces carry badges/asides on tablet artifact) — WIN owns deep audit; no further Mac builds until reconciled.

@@ -1598,10 +1598,8 @@ class TestEditionMeta:
     def test_customize_data_includes_editions(self):
         d = self.web.api_customize_data()
         assert "editions" in d
-        # 5 original + 4 ψ.7-A additions = 9.
-        # τ.G.constitution.a (2026-05-20) added 2 standalone Bibles
-        # (standalone-geez + standalone-amharic) → 11 (floor; editions may grow).
-        assert len(d["editions"]) >= 11
+        # 4 canon-shaped catalog study editions (2026-06-18 scrub); standalones hidden.
+        assert len(d["editions"]) >= 4
         for e in d["editions"]:
             for f in ("id", "title", "verse_popups", "verse_marker_glyph"):
                 assert f in e
@@ -3670,15 +3668,15 @@ class TestEditionMeta:
 
     def test_api_sample_html_out_of_canon(self):
         """Asking for a book that exists but isn't in the edition's
-        canon (Matthew in a Tanakh-only edition) returns 404 with
+        canon (Tobit in a Protestant edition) returns 404 with
         out_of_canon code."""
         from scripts.web import api_sample_html
 
-        r = api_sample_html("evangelical-reformed", "mat", 1, 1)
+        r = api_sample_html("evangelical-reformed", "tob", 1, 1)
         assert r["status"] == "error"
         assert r["code"] == "out_of_canon"
         assert r["http"] == 404
-        assert "tanakh" in r["message"].lower()
+        assert "protestant" in r["message"].lower()
 
     def test_api_sample_html_unknown_book(self):
         """Unknown book code → 404 + unknown_book code."""
@@ -3770,7 +3768,7 @@ class TestEditionMeta:
             # 404 path: out of canon
             try:
                 urllib.request.urlopen(
-                    f"http://127.0.0.1:{port}/api/sample/evangelical-reformed?book=mat&from=1&to=1",
+                    f"http://127.0.0.1:{port}/api/sample/evangelical-reformed?book=tob&from=1&to=1",
                     timeout=5,
                 )
                 raise AssertionError("should have raised HTTPError")

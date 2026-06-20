@@ -6940,6 +6940,31 @@ def apply_edition_cover(edition: dict, build_dir: Path) -> str | None:
     return str(edition.get("cover_image") or "")
 
 
+_ORPHAN_INLINE_MARKER_RE = re.compile(r'<a class="note-ref [^"]*" id="(ref-[^"]+)"')
+
+
+@lru_cache(maxsize=1)
+def _orphan_inline_marker_ref_ids() -> frozenset[str]:
+    """``epub_working/`` inline markers with no matching on-disk corpus note.
+
+    Baked ids can outlive a corpus delete (Strategy-B ``bxx`` books are outside
+    ``prune_orphan_base_notes``'s ``id_prefix`` sync). They inflate the built
+    EPUB marker count without changing ``resolved_note_counts`` — fold them into
+    the per-edition disabled-ref set so ``filter_html`` strips them.
+    """
+    corpus_refs = {ref for ref, *_ in _iter_note_ref_symbols()}
+    baked: set[str] = set()
+    base_dir = REPO_ROOT / "epub_working"
+    for html in base_dir.glob("*.html"):
+        text = html.read_text(encoding="utf-8", errors="replace")
+        baked.update(_ORPHAN_INLINE_MARKER_RE.findall(text))
+    return frozenset(baked - corpus_refs)
+
+
+def clear_orphan_marker_cache() -> None:
+    _orphan_inline_marker_ref_ids.cache_clear()
+
+
 def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
     """Return (disabled_kinds_for_filter, disabled_html_ref_ids) — exactly the
     two sets ``build_one`` uses to strip notes (via ``filter_html``). Single
@@ -7000,6 +7025,7 @@ def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
     # enabled_note_ids force-on (absolute finest — subtracted last).
     overridden_kinds = _symbol_overridden_kinds(edition, all_kinds)
     disabled_html_ref_ids |= compute_symbol_disabled_html_ref_ids(edition, all_kinds, overridden_kinds)
+    disabled_html_ref_ids |= _orphan_inline_marker_ref_ids()
 
     force_on_ref_ids: set[str] = set()
     _enabled_nids = list(edition.get("enabled_note_ids") or [])

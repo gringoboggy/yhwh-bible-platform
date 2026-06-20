@@ -28,7 +28,7 @@
 
 | # | Work | Status |
 |---|---|---|
-| 1 | `ci.py` GREEN — let in-flight run finish; triage reds if still failing | **RUNNING** |
+| 1 | `ci.py` GREEN — triage shipped @ turn 144 (`pytest --lf` 9/9); full `ci.py` re-run optional | **DONE (triage)** |
 | 2 | Kindle STK bisect — glossary spine off vs `143407Z` control; one candidate m4b | queued |
 | 3 | rx-surfaces · Kobo `--sim` · sim-pipeline audit | **HOLD** until 1–2 |
 
