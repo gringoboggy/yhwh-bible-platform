@@ -2671,9 +2671,21 @@ def repair_empty_verse_prose(text: str) -> tuple[str, int]:
     return out, len(splices)
 
 
-def apply_empty_verse_prose_repair(tmp: Path) -> int:
-    """Run K-R15a across the per-edition temp tree. Returns verses repaired."""
+def apply_empty_verse_prose_repair(tmp: Path, preloaded: dict[str, str] | None = None) -> int:
+    """Run K-R15a across the per-edition temp tree. Returns verses repaired.
+
+    If preloaded dict is passed (Opt #2), mutates it in-place and skips disk I/O.
+    Caller is responsible for final writes.
+    """
     repaired = 0
+    if preloaded is not None:
+        for name in list(preloaded):
+            text = preloaded[name]
+            out, n = repair_empty_verse_prose(text)
+            if n:
+                preloaded[name] = out
+                repaired += n
+        return repaired
     for path in sorted(tmp.glob("*.html")):
         text = path.read_text(encoding="utf-8")
         out, n = repair_empty_verse_prose(text)
@@ -2686,7 +2698,7 @@ def apply_empty_verse_prose_repair(tmp: Path) -> int:
 _VN_SEP_SPAN_RE = re.compile(r'<span class="vn-sep">[^<]*</span>\s*')
 
 
-def apply_tablet_popup_strip_separators(tmp: Path, edition: dict) -> int:
+def apply_tablet_popup_strip_separators(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> int:
     """Physically remove Kobo-only ``.vn-sep`` spans from tablet popups.
 
     Tablet targets apply author CSS inconsistently inside footnote sheets — the
@@ -2696,6 +2708,16 @@ def apply_tablet_popup_strip_separators(tmp: Path, edition: dict) -> int:
     if resolve_target_reader(edition) != "tablet":
         return 0
     touched = 0
+    if preloaded is not None:
+        for name in list(preloaded):
+            if not name.startswith("index_split_"):
+                continue
+            text = preloaded[name]
+            new_text = _VN_SEP_SPAN_RE.sub("", text)
+            if new_text != text:
+                preloaded[name] = new_text
+                touched += 1
+        return touched
     for fpath in sorted(tmp.glob("index_split_*.html")):
         text = fpath.read_text(encoding="utf-8")
         new_text = _VN_SEP_SPAN_RE.sub("", text)
@@ -2705,7 +2727,9 @@ def apply_tablet_popup_strip_separators(tmp: Path, edition: dict) -> int:
     return touched
 
 
-def apply_vnote_preview_separators(tmp: Path, edition: dict | None = None) -> int:
+def apply_vnote_preview_separators(
+    tmp: Path, edition: dict | None = None, preloaded: dict[str, str] | None = None
+) -> int:
     """Run the K-R4-1 vnote separator pass over the per-edition temp tree.
 
     Mutates ONLY the temp tree (epub_working/ untouched). K-R4-1 separators
@@ -2714,6 +2738,16 @@ def apply_vnote_preview_separators(tmp: Path, edition: dict | None = None) -> in
     """
     eink = edition is not None and resolve_target_reader(edition) == "eink"
     touched = 0
+    if preloaded is not None:
+        for name in list(preloaded):
+            text = preloaded[name]
+            out = add_vnote_preview_separators(text)
+            if eink:
+                out = add_eink_vnote_preview_breaks(out)
+            if out != text:
+                preloaded[name] = out
+                touched += 1
+        return touched
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
         out = add_vnote_preview_separators(text)
@@ -3776,7 +3810,7 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
 _VN_LINK_AT_PARA_START_RE = re.compile(r"(?:<p class=\"verse-p\">|</p>\s*<p class=\"verse-p\">)\s*$")
 
 
-def apply_eink_verse_line_breaks(tmp: Path, edition: dict) -> int:
+def apply_eink_verse_line_breaks(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> int:
     """Eink-only: one verse per line by closing the paragraph before each vn-link.
 
     Gated on ``reader_eink_verse_lines`` (opt-in via /customize). When off, prose
@@ -3785,6 +3819,22 @@ def apply_eink_verse_line_breaks(tmp: Path, edition: dict) -> int:
         return 0
     breaks = 0
     seam = '</p>\n<p class="verse-p">'
+    if preloaded is not None:
+        for name in list(preloaded):
+            text = preloaded[name]
+            splices_pre: list[tuple[int, int, str]] = []
+            for m in re.finditer(r'<a class="vn-link"', text):
+                before = text[max(0, m.start() - 120) : m.start()]
+                if _VN_LINK_AT_PARA_START_RE.search(before):
+                    continue
+                splices_pre.append((m.start(), m.start(), seam))
+                breaks += 1
+            if not splices_pre:
+                continue
+            for start, end, repl in sorted(splices_pre, key=lambda s: s[0], reverse=True):
+                text = text[:start] + repl + text[end:]
+            preloaded[name] = text
+        return breaks
     for path in sorted(tmp.glob("*.html")):
         text = path.read_text(encoding="utf-8")
         splices: list[tuple[int, int, str]] = []
@@ -6973,7 +7023,9 @@ def clear_orphan_marker_cache() -> None:
     _orphan_inline_marker_ref_ids.cache_clear()
 
 
-def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
+def compute_edition_filter_sets(
+    edition: dict, *, _enabled: set | None = None, _disabled: set | None = None
+) -> tuple[set[str], set[str]]:
     """Return (disabled_kinds_for_filter, disabled_html_ref_ids) — exactly the
     two sets ``build_one`` uses to strip notes (via ``filter_html``). Single
     source of truth for "what ships" so ``edition_stats.resolved_note_counts``
@@ -6984,12 +7036,15 @@ def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
     per-book/per-chapter symbol OFF overrides, minus the ``enabled_note_ids``
     force-on (applied last).
 
-    ``all_kinds`` is recomputed from ``config.load_kinds()`` — the same cached
-    list every ``build_one`` caller passes — so the result is identical to the
-    block this was extracted from.
+    When _enabled/_disabled are passed (from the round-9 aggregator), re-use
+    them to avoid redundant corpus walk. This is internal; public callers
+    continue to get the same result.
     """
     all_kinds = config.load_kinds()
-    enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+    if _enabled is None or _disabled is None:
+        enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+    else:
+        enabled, disabled = _enabled, _disabled
 
     # Phase ρ.1: per-edition disabled note IDs. Translate our note IDs
     # (book:ch:vs[suffix]:kind) into the HTML ref-id format the build sees
@@ -7061,6 +7116,42 @@ def compute_edition_filter_sets(edition: dict) -> tuple[set[str], set[str]]:
     return disabled_kinds_for_filter, disabled_html_ref_ids
 
 
+def compute_edition_filter_data(edition: dict, all_kinds: list[dict] | None = None) -> dict:
+    """Round-9 optimization (Opt #1): single call that produces all the
+    per-edition derived filter + map data that build_one (and stats) need.
+
+    Previously these were independent walks:
+      - compute_enabled_kinds
+      - compute_edition_filter_sets (which itself recomputed enabled/disabled + more)
+      - build_ref_id_to_tradition_map
+
+    This aggregator makes the derivation explicit and once-per-build_one.
+    The individual helpers remain for matrix/stats compatibility and for
+    other callers that only need a subset.
+
+    Returned keys are the exact values previously computed separately so the
+    call site change is a pure consolidation (no behaviour change).
+    """
+    if all_kinds is None:
+        all_kinds = config.load_kinds()
+
+    # All the heavy derivation in one logical pass.
+    # (Future refinement can push even more of the _iter_* walks in here.)
+    enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+    disabled_kinds_for_filter, disabled_html_ref_ids = compute_edition_filter_sets(
+        edition, _enabled=enabled, _disabled=disabled
+    )
+    ref_id_to_tradition = build_ref_id_to_tradition_map(edition)
+
+    return {
+        "enabled_kinds": enabled,
+        "disabled_kinds": disabled,
+        "disabled_kinds_for_filter": disabled_kinds_for_filter,
+        "disabled_html_ref_ids": disabled_html_ref_ids,
+        "ref_id_to_tradition": ref_id_to_tradition,
+    }
+
+
 def build_one(
     edition_id: str,
     output_dir: Path,
@@ -7099,27 +7190,21 @@ def build_one(
 
     assert_notes_corpus_parseable()
 
-    enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+    # Round-9 deep audit optimization: single derivation of all filter + map
+    # data (was previously three separate corpus walks + internal recomputes).
+    data = compute_edition_filter_data(edition, all_kinds)
+    enabled = data["enabled_kinds"]
+    disabled = data["disabled_kinds"]
+    disabled_kinds_for_filter = data["disabled_kinds_for_filter"]
+    disabled_html_ref_ids = data["disabled_html_ref_ids"]
+    ref_id_to_tradition = data["ref_id_to_tradition"]
 
-    # Phases ρ.1 / ψ.8.2-A / ψ.37-B / ρ.3: the two filter sets that decide
-    # which notes ship are assembled by ``compute_edition_filter_sets`` (the
-    # single source of truth shared with ``edition_stats.resolved_note_counts``
-    # so the printed counts match the built EPUB by construction). ``enabled`` /
-    # ``disabled`` are kept above because the stats sidecar below still consumes
-    # them (the σ.6.2 matter-page counts now come from resolved_note_counts).
-    disabled_kinds_for_filter, disabled_html_ref_ids = compute_edition_filter_sets(edition)
     # Pre-compile the kind-filter regexes ONCE per edition — they're identical for
     # every split file, so build them here instead of (re)compiling per kind per
     # file inside filter_html. One marker alternation + one aside alternation over
     # all disabled kinds; filter_html falls back to building them itself for
     # callers that don't pass them.
     _kind_marker_re, _kind_aside_re = _build_disabled_kind_res(disabled_kinds_for_filter)
-
-    # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
-    # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
-    # `traditions_default` is unset/empty — the label-injection pass is
-    # then skipped entirely so pre-ψ.8 builds stay byte-identical (§7.2).
-    ref_id_to_tradition = build_ref_id_to_tradition_map(edition)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     # Matrix M1: override builds carry the target token in the filename so
@@ -7259,74 +7344,60 @@ def build_one(
         theme_id = edition.get("theme", "classic")
         theme_css = REPO_ROOT / "content" / "themes" / f"{theme_id}.css"
         css_path = tmp / "stylesheet.css"
-        if theme_css.is_file() and css_path.is_file():
-            with css_path.open("a", encoding="utf-8") as theme_handle:
-                theme_handle.write(f"\n\n/* === theme: {theme_id} === */\n")
-                theme_handle.write(theme_css.read_text(encoding="utf-8"))
+        # Round-9 Opt #2: single in-memory load + chained appends + single write
+        # for all stylesheet transforms. Eliminates repeated full-file I/O on
+        # the same css_path across theme + popup styles + badge + eink + tablet + cascade.
+        css_text = ""
+        if css_path.is_file():
+            css_text = css_path.read_text(encoding="utf-8")
+
+        if theme_css.is_file() and css_text is not None:
+            css_text += f"\n\n/* === theme: {theme_id} === */\n"
+            css_text += theme_css.read_text(encoding="utf-8")
             stats["theme_applied"] = theme_id
 
         # §4.2 verse_popup_style — append the cards/stack variant CSS (cards =
         # default tinted-card chrome; stack = flat base). Same append-to-stylesheet
         # mechanism as the theme override above; the popup HTML is unchanged.
-        if css_path.is_file():
-            vps = (edition.get("verse_popup_style") or "cards").strip() or "cards"
-            css_path.write_text(
-                apply_verse_popup_style(css_path.read_text(encoding="utf-8"), vps),
-                encoding="utf-8",
-            )
-            stats["verse_popup_style"] = vps
+        vps = (edition.get("verse_popup_style") or "cards").strip() or "cards"
+        css_text = apply_verse_popup_style(css_text, vps)
+        stats["verse_popup_style"] = vps
 
         # §4.4 note_popup_style — append the chip/pills variant CSS (chip =
         # default tinted label-chip; pills = bordered cross-reference pills).
         # Same append-to-stylesheet mechanism; the note HTML is unchanged.
-        if css_path.is_file():
-            nps = resolve_note_popup_style(edition)
-            css_path.write_text(
-                apply_note_popup_style(css_path.read_text(encoding="utf-8"), nps),
-                encoding="utf-8",
-            )
-            stats["note_popup_style"] = nps
+        nps = resolve_note_popup_style(edition)
+        css_text = apply_note_popup_style(css_text, nps)
+        stats["note_popup_style"] = nps
 
         # K-R6-6 marker_badge_style — append the count-chip rule when the
         # resolver says "chip" (eink default; ◈ never renders on Kobo). The
         # emitter dropped the ◈ from the badge text in apply_badge_markers
         # under the same resolver, so chip artifacts carry count-only chips
         # and glyph+count artifacts are byte-identical to before.
-        if css_path.is_file():
-            mbs = resolve_marker_badge_style(edition)
-            css_path.write_text(
-                apply_marker_badge_style(css_path.read_text(encoding="utf-8"), mbs),
-                encoding="utf-8",
-            )
-            stats["marker_badge_style"] = mbs
+        mbs = resolve_marker_badge_style(edition)
+        css_text = apply_marker_badge_style(css_text, mbs)
+        stats["marker_badge_style"] = mbs
 
-        if css_path.is_file():
-            css_path.write_text(
-                apply_eink_reader_css(css_path.read_text(encoding="utf-8"), edition),
-                encoding="utf-8",
-            )
+        css_text = apply_eink_reader_css(css_text, edition)
 
         # M2 Apple tablet profile: user-requested left-align for notes/popups
         # (base stylesheet uses justify; tablet prefers left for device reading).
-        if css_path.is_file() and resolve_target_reader(edition) == "tablet":
-            css_path.write_text(
-                css_path.read_text(encoding="utf-8")
-                + "\n\n/* M2 Apple: left-align notes & popups per user (K-R5 tablet) */\n"
-                ".note, .note p, .verse-notes, .vnote { text-align: left !important; }\n",
-                encoding="utf-8",
-            )
+        if resolve_target_reader(edition) == "tablet":
+            css_text += "\n\n/* M2 Apple: left-align notes & popups per user (K-R5 tablet) */\n"
+            css_text += ".note, .note p, .verse-notes, .vnote { text-align: left !important; }\n"
             stats["tablet_left_align_notes"] = True
             stats["reader_eink_study_layout"] = resolve_reader_eink_study_layout(edition)
 
         # S2 note cascade — append the robust-layer CSS (15 per-category group
         # spines + header/source/byline/indent rules) when note_group_by_category
         # is on. Same append-to-stylesheet mechanism; absent ⇒ byte-identical.
-        if css_path.is_file() and bool(edition.get("note_group_by_category", False)):
-            css_path.write_text(
-                apply_note_cascade_css(css_path.read_text(encoding="utf-8")),
-                encoding="utf-8",
-            )
+        if bool(edition.get("note_group_by_category", False)):
+            css_text = apply_note_cascade_css(css_text)
             stats["note_cascade_css"] = True
+
+        if css_path.is_file():
+            css_path.write_text(css_text, encoding="utf-8")
 
         # Per-edition cover (fixes visual-QA finding b): the base
         # epub_working/cover.jpeg is the master cover; swap in the edition's
@@ -7542,17 +7613,26 @@ def build_one(
             stats["reader_eink_study_layout"] = badge_stats.get("reader_eink_study_layout", "popup")
             stats["_study_backmatter_entries"] = badge_stats.get("study_backmatter_entries", [])
 
-        stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition)
+        # Round-9 Opt #2: single in-memory load for the post-badge repair passes
+        # (eink breaks, empty prose, vnote sep, tablet strip). Mutate dict in place,
+        # one write-back at end. Eliminates 4 full glob/read/write cycles.
+        repair_texts: dict[str, str] = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("*.html"))}
 
-        stats["empty_verse_prose_repaired"] = apply_empty_verse_prose_repair(tmp)
+        stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition, preloaded=repair_texts)
+
+        stats["empty_verse_prose_repaired"] = apply_empty_verse_prose_repair(tmp, preloaded=repair_texts)
 
         # K-R4-1 — vnote (translation) popup preview separators. Unconditional
         # (every edition, every marker_style): translation popups exist in all
         # editions and the separator spans are CSS-hidden everywhere CSS
         # applies, so only the CSS-blind eInk preview ever shows them.
-        stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp, edition)
+        stats["vnote_sep_files"] = apply_vnote_preview_separators(tmp, edition, preloaded=repair_texts)
 
-        stats["tablet_popup_sep_stripped"] = apply_tablet_popup_strip_separators(tmp, edition)
+        stats["tablet_popup_sep_stripped"] = apply_tablet_popup_strip_separators(tmp, edition, preloaded=repair_texts)
+
+        # single write-back for any changed repair texts
+        for name, txt in repair_texts.items():
+            (tmp / name).write_text(txt, encoding="utf-8")
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts

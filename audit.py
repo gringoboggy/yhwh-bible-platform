@@ -1186,13 +1186,17 @@ def check_d1_redundancies():
     for body, files in body_to_files.items():
         if len(files) >= 2:
             preview = body[:60].replace("\n", "\\n")
+            # Round-9 deep audit: lex/topical/strongs/tks reuse across books is
+            # by-design (see round9 findings). Report as INFO, not WARN, to
+            # stop noise on intentional sharing. Real dups would be same book
+            # or non-reusable kinds.
             issues.append(
                 Issue(
                     "D",
                     "D1",
-                    "WARN",
+                    "INFO",
                     f"notes/ multiple: {', '.join(sorted(files)[:3])}",
-                    f"identical long body in {len(files)} different note files: {preview}...",
+                    f"identical long body in {len(files)} different note files (intentional lex/topical reuse): {preview}...",
                 )
             )
 

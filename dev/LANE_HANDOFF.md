@@ -108,7 +108,45 @@ Full forensics: `dev/archive/LANE_HANDOFF_LOG.md` turn 142 §user-fail. Tablet a
 - ruff + lint_rules path clean on changes.
 - Most logical: M2 #1 complete before STK #2 or other.
 
+**WIN 2026-06-20 fresh session inspection (post-sync 39d2c0fa + replan):**
+- Left-align override for tablet confirmed present and active (build_edition.py:7311 `if ... == "tablet":` appends `.note, .note p, .verse-notes, .vnote { text-align: left !important; }` + stats flag; base prose justify untouched).
+- Easton / dict-* label suppression confirmed (2853: `if kind.startswith("dict-"):` strip; eliminates triple).
+- Tablet defaults to category-color popup (resolve_note_popup_style 2238) + apply_note_popup_style path exercised.
+- Target reader machinery (resolve_target_reader + apply_target_override) is the single chokepoint; tablet profile isolation confirmed in nav/spine paths.
+- presentation_polish + reader_target tests cover justify + target invariants (in flight).
+- K-R5-3 piece/bp- bleed gate logic lives in verify_kr2_build.py (bp-NN leads piece, badge clamp comments).
+- No additional code edits required from this pass; fixes from prior prep appear landed and correct. Awaiting Mac device re-QA on next tablet artifact push.
+
 Mac: after next WIN tablet push, run the expanded prep commands above, report per-issue. No dual edits to build_edition.
+
+## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)
+
+**Mac:** pull; run the following (tablet target exercises the new in-mem repair paths + CSS consolidation; keep the artifact for any device spot-check):
+
+```bash
+export PYTHONUTF8=1
+# Build tablet to exercise the changed post-badge repair passes (eink/empty/vnote/tablet) and CSS path
+py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --version r9-io2 --output-dir dist --force
+
+# Targeted functional gates (build + presentation/reader paths)
+python -m pytest tests/test_presentation_polish.py tests/test_reader_target.py -q --tb=line
+py -3 scripts/lint_rules.py
+
+# Deep audit D sweep (capture any new redundancy/contradiction from the I/O change)
+python audit.py --category D --quiet 2>&1 | head -30
+
+# Artifact gate on the just-built tablet epub (use the exact name from the build above)
+python dev/verify_kr2_build.py dist/Ethiopian_Bible_ethiopian-tewahedo_r9-io2_*_tablet_*.epub
+```
+
+**Specific checks for this slice:**
+- Confirm no regression in tablet output (left-align, repairs, no new badge bleed or vnote issues).
+- Run `audit.py --category D` on Mac side; report any new D1/D2/etc. findings vs the WIN run (use skeptic lens).
+- If measurable, note any build-time difference (single in-mem vs previous repeated reads/writes).
+- Cross-check editions/kinds/note counts still match live truth (6/68/91597).
+- After your save: confirm rotation in LANE_HANDOFF/IN_FLIGHT (trim to ~2 + STANDING).
+
+Report results (PASS/FAIL + first failures or new D lines) back into this file and the round-9 findings. No code changes on Mac side.
 
 ---
 
@@ -158,6 +196,14 @@ The implementation in `lane_watch.py` (the `tracking_behind` check + `should_pul
 **Strategic replan ping (2026-06-18, STANDING — both lanes).** Periodically **step back** and re-read PLAN + release gate + SESSION_STATE + both work queues — reorder priorities when derailed or scope shifts. Radar auto-surfaces P03 replan when **15+ commits** · **24h** · **PLAN/release-plan changed**. Checklist: `dev/STRATEGIC_REPLAN_CHECKLIST.md`. Commands: `py -3 scripts/agent_idle_radar.py --replan` · `--replan-done`. **Replan is work, not a pause** — mark done then immediately `--next` and execute.
 
 **WIN builds · Mac verifies (2026-06-19, user-directed — STANDING, both lanes).** **WIN** owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect). **Mac** owns **verify + scope** on each WIN milestone: pull → run WIN-listed verify commands → `## Mac verify (turn N)` PASS/FAIL in this file → update `MAC_WORK_QUEUE.md` `### Next scope (Mac)` (max 3 items). Mac **must not** dual-implement the same Kindle/pytest fix WIN is shipping. Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac **must not** run full `ci.py` on HDD while WIN `ci.py` is in flight. Full runbook: `dev/MAC_WORK_QUEUE.md` §Operating model.
+
+**Autonomous Mac-instructions rule (STANDING, both lanes, codified 2026-06-20):** Whenever WIN finishes any coherent slice that touches build/core paths (optimizations, I/O transforms, filter data, badge/repair passes, etc.), **immediately** append a fresh `## Mac verify (WIN slice: <one-line desc> — <date>)` block in this file. The block must contain:
+- the exact build command(s) (prefer tablet or the target that exercises the changed code)
+- targeted pytest + `lint_rules.py` + `audit.py --category D` (or --quiet)
+- `dev/verify_kr2_build.py` on the produced artifact(s)
+- any slice-specific checks (e.g. confirm in-mem repair path produced byte-identical output where expected, no new D findings, etc.)
+- instruction for Mac to report PASS/FAIL + counts + first failures back into LANE_HANDOFF and the relevant findings file.
+This is the mechanism that keeps cross-OS parity during the round-9 audit. Use `--ping` after appending. Never end a WIN slice without sending the Mac list.
 
 **Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first (STANDING auto-pull rule). (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 

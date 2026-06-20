@@ -87,6 +87,7 @@ ALWAYS: make Mac do any prep work that helps Win (e.g. run Mac sims/audits on 8G
    - Automation: run lane_ping.py or equivalent; confirm auto-pull logic; list local start radars
    - Specific from Win round-9: run dev/verify_kr2_build.py *only on kepub artifacts* (plain epub will show expected bare -s ids); confirm 0 prefix fails + 0 bare rev ids on kepub. Run python audit.py --category D --quiet and report only the WARN/ERROR lines (D1 should now be quiet after Win improvement). Cross-check website/dist vs live (editions=6, kinds=68, notes~91597 source).
    - New: after your save, verify rotation happened (check if LANE_HANDOFF/IN_FLIGHT etc trimmed to ~2 entries + STANDING; run rotator if not). Reproduce kepub K-R6-2 (expect ~792 bare rev ids + prefixes in rev splits); report exact counts + if Mac build/hardware differs.
+   - WIN I/O slice (2026-06-20 Opt #2): see the dedicated Mac verify block in LANE_HANDOFF.md (`## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)`). Execute the listed tablet build + pytest + audit D + verify_kr2. WIN now sends these instructions on every finished build/core slice (codified as autonomous STANDING rule).
 3. Pre-collect Mac findings into _audit-split/findings-mac-deep.json or LANE_HANDOFF section (use skeptic lens: refute weak ones).
 4. Apply harmonization on Mac side (identical rules except OS diffs). ACK in local memory.
 5. Run fresh bootstrap + confirm radars live.
