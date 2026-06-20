@@ -4,6 +4,50 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN slice: built EXTRA STEP for radar auto-continue after pull - 2026-06-20)
+
+**Per retard-proof + NEVER-STOP checklist:** Built the extra step in lane_watch.py: after _auto_pull on push detection, now auto-triggers agent_idle_radar --next to continue work or new instructions autonomously. This is the "radar watches for push, pulls, continues" the user described. IN_FLIGHT updated. This block. Will push, ping, radar, bg D. Chaining to prove.
+
+**Commands:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
+- Inspect lane_watch.py around _auto_pull for the EXTRA STEP code; verify it calls --next on pull; D clean; autonomous continuation active.
+
+Report PASS/FAIL + confirmation the extra step works.
+
+**Chain (NEVER-STOP):** push, ping, radar --next, bg D, repeat.
+
+## Mac verify (WIN slice: request Mac autonomy rules for auto-pull and continue - 2026-06-20)
+
+**Per retard-proof + NEVER-STOP + cross-lane parity checklist:** Mac: extract and report your CURRENT rules for autopulling (e.g. lane_watch_mac.sh --auto-pull, when to pull on push detection, clean tree check, rebase logic) and continuing work (agent_idle_radar --next, idle to continue or ask other for work, post-pull resume). Include from your scripts, memory, any .claude or local rules. Format symmetrically with WIN's (see below). Send by updating LANE_HANDOFF or this board. WIN will format identical for both, mirror, and confirm parity.
+
+WIN's current (for reference, Mac mirror this):
+- lane_watch always --auto-pull (enforces STANDING: pull if behind origin/main or tracking_behind or remote_ahead on LANE or incoming, AND clean tree).
+- _auto_pull: fetch origin + rebase origin/main (abort on fail).
+- NEVER-STOP: after any cycle (push/ping), IMMEDIATELY radar --next; if HOLD but IN_FLIGHT deep, ignore and do next (more opts, D verify, etc.); chain 2+ full cycles per response; end with radar --next + bg verify (D audit); use bg for long; never wait for input; treat every turn continuation; pull only on clean+behind.
+- Checklist: 1. status/pull if behind clean; 2. radar --next (deep prio); 3. impl; 4. gates; 5. IN_FLIGHT; 6. Mac verify block; 7. if rule MAC_QUEUE; 8. save-all; 9. ping; 10. repeat/chain.
+- Post-pull: trigger agent --next to continue autonomously.
+- Radars: start on bootstrap, keep --bg with --auto-pull.
+- If no work: wait via radar poll for push or handoff.
+
+Report your equivalent, any diffs (OS only), ACK, run bootstrap. WIN will synthesize symmetric version in LANE and confirm.
+
+**Commands for Mac:**
+- `git pull`
+- Report rules as above.
+- Run your local lane_watch --once --auto-pull; agent --next; report output.
+- python3 scripts/lint_rules.py etc if changes.
+
+Report PASS/FAIL + your rules text here.
+
+**Chain (NEVER-STOP):** push, ping, radar --next, bg D, repeat.
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain #5 - 2026-06-20)
