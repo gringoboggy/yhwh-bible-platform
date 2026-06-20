@@ -163,21 +163,4 @@ The agent must NEVER stop the deep round-9 audit work when left alone.
 - EVERY response MUST end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns".
 - This rule is to deliver the promised long autonomous runs (hours, 50 sessions).
 
-## Mac verify (WIN slice: sustained NEVER-STOP D verification chain #2 — 2026-06-20)
-
-**Per retard-proof + NEVER-STOP checklist:** Chained cycle #2: D audit bg verification launched to sustain. Radar chained. IN_FLIGHT updated. This block. Push, ping, radar, bg D. No inactivity.
-
-**Commands:**
-- `git pull`
-- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
-- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
-- `py -3 scripts/lint_rules.py`
-- `py -3 audit.py --category D --quiet`
-- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub`
-- Confirm D runs (sustained); chain active.
-
-Report here.
-
-**Chain (NEVER-STOP):** push, ping, radar --next, bg D, repeat.
-
 > **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).
