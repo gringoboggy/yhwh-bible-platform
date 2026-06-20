@@ -70,6 +70,9 @@ const DEFERRED_BY_DESIGN = args?.deferred ?? [
   'Auto-pull reliability (lane_ping BEHIND detection via tracking_behind + ancestor, lane_watch pull on incoming + BEHIND + remote_ahead + tracking_behind, clearer dirty+ incoming logging): SHIPPED in 2026-06-20 commits. Pull checker now triggers on new pushes from Mac (including for parity send). Do NOT re-flag as defect unless it regresses.',
   'Cross-lane rules parity (Win/Mac identical rules except genuine OS diffs for code execution: paths, py/shell invocation, RAM, hooks, bundles, build tools): plan in dev/CROSS_LANE_RULES_PARITY_PLAN.md, assignments in LANE_HANDOFF/MAC_WORK_QUEUE. Always make Mac do prep work that helps Win (e.g. Mac sims, audits, OS diffs capture). Mirror to per-box memory. This is standing directive.',
   'Two-machine automation safety: always consider both machines in all work/audits (repo + out-of-repo + website + GH/GL + online metadata). Step back for sanity checks/audits when needed (small frequent, deep after phases). Update all truth records and online (website, releases, descriptions, social) for big changes. No broken markup in any artifact.',
+  // round-9 execution findings (to not re-litigate in next):
+  'Doc drift cluster (editions "11/9 curated" vs live 6; kinds 72 vs 68; source notes "91,720" vs live ~91,597): surfaced in REPO_MAP/MATRIX_MAP/SESSION_PLAYBOOK/build_edition comments during round-9; fix in dev/ prose only (no engine change). Add to next round only if regresses post-fix.',
+  'K-R6-2 gate failures on dist v0.1.0 epub (bare -sN ids + prefix swallows in rev splits): observed on verify run; triage (artifact age vs gate vs real regression) before re-flagging as new.',
 ]
 const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
 

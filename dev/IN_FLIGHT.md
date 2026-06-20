@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE (turn 146 handoff @ `27bc6cdc`, 2026-06-20).** **ci triage DONE** (turn 144). **WIN next:** (1) M2 Apple audit — K-R5-3 book-title badge bleed on tablet builds + popup justify + Easton dedup (`LANE_HANDOFF` §user-fail) · (2) Kindle STK bisect — 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **Mac next:** verify turn 144 ci triage on pull (`MAC_WORK_QUEUE` §Next scope item 1) · then verify WIN slices only (no dual `build_edition`/`kindle_post` fixes). **HOLD:** M4 catalog · overflow lanes.
+> **▶ ACTIVE (turn 146 handoff @ `27bc6cdc`, 2026-06-20).** **ci triage DONE** (turn 144). **Deep round-9 audit EXECUTING** (good time post auto-pull/ parity; Mac prep assigned first via MAC_WORK_QUEUE + LANE_HANDOFF; save done; clean tree; new dims + CATEGORY D live). WIN: in-repo + subagent hunts (redund/contradict/sims/markup); findings logged _audit-split/round9-win-initial-findings.md (doc drifts 11/6 eds, 72/68 kinds, 91720/91597 notes; acquire dup; K-R6-2 verify fails on dist). **WIN next:** (1) complete audit synth + truth/online update (2) M2 Apple K-R5-3. **Mac next:** pull + execute full Mac deep prep list (OS diffs, audits, sims, pre-sweeps) + report. **HOLD:** M4 catalog · overflow lanes.
 
 ## Standalone status (unchanged)
 
