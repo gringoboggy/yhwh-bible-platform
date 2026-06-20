@@ -4,6 +4,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-19..2026-06-19 (rotate_truth_records.py) -->
+
+## ◦ windows assign (turn 143, 2026-06-19T22:55:43Z) — mode=parallel
+
+**Assignments:** mac = Verifier+planner: MAC_WORK_QUEUE operating model — verify WIN slices, scope next 3, parallel mirror+sim · windows = Builder: ci.py finish -> lf triage -> GREEN -> Kindle bisect; list Mac verify cmds each save
+
+User 2026-06-19: WIN builds, Mac scopes+verifies. See MAC_WORK_QUEUE §Operating model.
+
+---
+
 <!-- archived: 2 sections, 2026-06-19..2026-06-19 (rotate_truth_records.py) -->
 
 ## ◦ windows assign (turn 142, 2026-06-19T20:56:33Z) — mode=parallel
