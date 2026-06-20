@@ -119,37 +119,6 @@ Full forensics: `dev/archive/LANE_HANDOFF_LOG.md` turn 142 §user-fail. Tablet a
 
 Mac: after next WIN tablet push, run the expanded prep commands above, report per-issue. No dual edits to build_edition.
 
-## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)
-
-**Mac:** pull; run the following (tablet target exercises the new in-mem repair paths + CSS consolidation; keep the artifact for any device spot-check):
-
-```bash
-export PYTHONUTF8=1
-# Build tablet to exercise the changed post-badge repair passes (eink/empty/vnote/tablet) and CSS path
-py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --version r9-io2 --output-dir dist --force
-
-# Targeted functional gates (build + presentation/reader paths)
-python -m pytest tests/test_presentation_polish.py tests/test_reader_target.py -q --tb=line
-py -3 scripts/lint_rules.py
-
-# Deep audit D sweep (capture any new redundancy/contradiction from the I/O change)
-python audit.py --category D --quiet 2>&1 | head -30
-
-# Artifact gate on the just-built tablet epub (use the exact name from the build above)
-python dev/verify_kr2_build.py dist/Ethiopian_Bible_ethiopian-tewahedo_r9-io2_*_tablet_*.epub
-```
-
-**Specific checks for this slice:**
-- Confirm no regression in tablet output (left-align, repairs, no new badge bleed or vnote issues).
-- Run `audit.py --category D` on Mac side; report any new D1/D2/etc. findings vs the WIN run (use skeptic lens).
-- If measurable, note any build-time difference (single in-mem vs previous repeated reads/writes).
-- Cross-check editions/kinds/note counts still match live truth (6/68/91597).
-- After your save: confirm rotation in LANE_HANDOFF/IN_FLIGHT (trim to ~2 + STANDING).
-
-Report results (PASS/FAIL + first failures or new D lines) back into this file and the round-9 findings. No code changes on Mac side.
-
----
-
 ## ⚠ STANDING — both lanes (do NOT rotate this section out of the file)
 
 **External drives E:/F: with Mac (2026-06-16, user-directed — STANDING, both lanes).** Portable **E:** and **F:** volumes (release bundles, `YHWH-v2.4-releases/`, M3/M4 handoff packs, etc.) stay **with the Mac box for now**. **Windows:** do **not** wait on a plugged E:/F: drive — **`git pull` / push to both remotes is the primary cross-lane sync**; use **`D:`** only if a local WIN backup is needed before a big operation. **Mac:** owns rsync/copy to `/Volumes/NO NAME/YHWH-v2.4-releases/` (or E:/F: when mounted there). WIN `save-all.ps1` E:/F: bundle legs are **optional / deferred** while drives are Mac-side.

@@ -6,6 +6,39 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac verify (WIN slice: round-9 Opt #2 I/O consolidation — post-badge repairs + CSS single-pass — 2026-06-20)
+
+**Mac:** pull; run the following (tablet target exercises the new in-mem repair paths + CSS consolidation; keep the artifact for any device spot-check):
+
+```bash
+export PYTHONUTF8=1
+# Build tablet to exercise the changed post-badge repair passes (eink/empty/vnote/tablet) and CSS path
+py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --version r9-io2 --output-dir dist --force
+
+# Targeted functional gates (build + presentation/reader paths)
+python -m pytest tests/test_presentation_polish.py tests/test_reader_target.py -q --tb=line
+py -3 scripts/lint_rules.py
+
+# Deep audit D sweep (capture any new redundancy/contradiction from the I/O change)
+python audit.py --category D --quiet 2>&1 | head -30
+
+# Artifact gate on the just-built tablet epub (use the exact name from the build above)
+python dev/verify_kr2_build.py dist/Ethiopian_Bible_ethiopian-tewahedo_r9-io2_*_tablet_*.epub
+```
+
+**Specific checks for this slice:**
+- Confirm no regression in tablet output (left-align, repairs, no new badge bleed or vnote issues).
+- Run `audit.py --category D` on Mac side; report any new D1/D2/etc. findings vs the WIN run (use skeptic lens).
+- If measurable, note any build-time difference (single in-mem vs previous repeated reads/writes).
+- Cross-check editions/kinds/note counts still match live truth (6/68/91597).
+- After your save: confirm rotation in LANE_HANDOFF/IN_FLIGHT (trim to ~2 + STANDING).
+
+Report results (PASS/FAIL + first failures or new D lines) back into this file and the round-9 findings. No code changes on Mac side.
+
+---
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Windows note (Mac → WIN, 2026-06-20) — critical cross-lane rule/behavior update — pull immediately
 
 **This is important information WIN must know right away to stay compliant.** Pull latest, review, and mirror **before** doing more work.
