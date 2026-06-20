@@ -5285,7 +5285,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     stats["files_split"] = len(split_origs)
     stats["pieces_created"] = sum(len(plan[o]) for o in split_origs)
     largest = 0
-    for fp in tmp.glob("index_split_*.html"):
+    for fp in list_split_html_files(tmp):
         largest = max(largest, fp.stat().st_size)
     stats["largest_piece_kb"] = round(largest / 1024)
     return stats
