@@ -253,9 +253,10 @@ def _assign_mac(task: str, note: str = "") -> int:
 
 
 def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
-    """One poll cycle. Mutates repo on auto_pull when BEHIND, remote board ahead,
-    or local branch lags the origin/main tracking ref (so --auto-pull actually
-    keeps you in sync when `git status` shows behind)."""
+    """One poll cycle. Mutates repo on auto_pull when BEHIND (including when the
+    local branch lags the fetched origin/main so `git status` shows behind),
+    remote board ahead, or fresh incoming handoff (for self-automation when
+    the other lane assigns work)."""
     from scripts import lane_handoff as lh
     from scripts import lane_ping as lp
 
@@ -283,6 +284,11 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
     )
     mirror_skew, origin_tip, github_tip = _mirror_skew(ping)
 
+    # Compute incoming early so we can also auto-pull when fresh handoff work
+    # is assigned to us (user-requested for self-automation, even if ping CLEAR).
+    incoming_rc, incoming_out = _incoming_check()
+    incoming = incoming_rc == 0
+
     pulled = False
     pull_msg = ""
     dirty_tree = _working_tree_dirty()
@@ -304,7 +310,13 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
             except (ValueError, TypeError):
                 tracking_behind = False
 
-    should_pull = auto_pull and fetch_ok and not dirty_tree and (status == "BEHIND" or remote_ahead or tracking_behind)
+    # Also pull on fresh incoming (user request for full self-automation).
+    should_pull = (
+        auto_pull
+        and fetch_ok
+        and not dirty_tree
+        and (status == "BEHIND" or remote_ahead or tracking_behind or incoming)
+    )
     if should_pull:
         pulled, pull_msg = _auto_pull()
         if pulled:
@@ -315,9 +327,8 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
             remote_h = _remote_handoff_header()
             remote_turn = _int_turn(remote_h)
             remote_ahead = remote_turn > local_turn
-
-    incoming_rc, incoming_out = _incoming_check()
-    incoming = incoming_rc == 0
+            incoming_rc, incoming_out = _incoming_check()
+            incoming = incoming_rc == 0
 
     lane = lh.detect_lane(REPO)
     tip = ""
@@ -388,8 +399,11 @@ def _emit_cycle_log(info: dict, state: dict, tip: str) -> None:
                 _log(ln)
         return
 
-    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"]):
-        _log("DIRTY TREE — commit or stash before auto-pull (standing: never rebase over uncommitted work)")
+    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"] or info["incoming"]):
+        reason = "INCOMING handoff" if info["incoming"] else "BEHIND"
+        _log(
+            f"DIRTY TREE + {reason} — commit or stash before auto-pull (standing: never rebase over uncommitted work). The other lane sent updates; clean the tree so the next cycle can pull them automatically."
+        )
 
     if info["unpushed_handoff"]:
         if info["uncommitted_handoff"] and not info["unpushed_commits"]:
@@ -486,8 +500,12 @@ def _print_human(info: dict) -> None:
                 f"  UNPUSHED HANDOFF: local turn {info['local_turn']} not on remote — push to reach other lane",
                 flush=True,
             )
-    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"]):
-        print("  DIRTY TREE — commit or stash before auto-pull", flush=True)
+    if info["dirty_tree"] and (info["behind"] or info["remote_ahead"] or info["incoming"]):
+        reason = "INCOMING handoff" if info["incoming"] else "BEHIND"
+        print(
+            f"  DIRTY TREE + {reason} — commit or stash before auto-pull. Other lane sent updates; clean tree for next auto-pull.",
+            flush=True,
+        )
     if info["mirror_skew"]:
         print(
             f"  MIRROR SKEW: origin {_short_tip(info['origin_tip'])} != github {_short_tip(info['github_tip'])}",
@@ -519,7 +537,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--auto-pull",
         action="store_true",
-        help="pull --rebase when BEHIND, remote board ahead, or local branch behind tracking ref",
+        help="pull --rebase when BEHIND (or tracking ref ahead), remote board ahead, or fresh incoming handoff",
     )
     ap.add_argument(
         "--assign-mac",

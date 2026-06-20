@@ -106,13 +106,12 @@ def gather() -> dict:
         cached = _rev(f"{r}/main")
         online = remote_tip is not None
         any_online = any_online or online
-        # BEHIND only if the remote tip is NOT already reachable from HEAD. A bare
-        # `remote_tip != cached` cried wolf on every purely-ahead push (we'd committed
-        # locally / rebased the tip onto HEAD), benignly triggering an auto-rebase but
-        # masking a real BEHIND. `merge-base --is-ancestor` on local objects is still
-        # cheap (no fetch): exit 0 = ancestor → CLEAR; 1 = diverged; 128 = the tip's
-        # object isn't local yet → the other lane genuinely pushed new work → BEHIND.
-        if online and remote_tip != cached:
+        # Detect BEHIND if the latest remote tip is not an ancestor of our HEAD.
+        # This catches the case where we are simply behind the tracking branch
+        # (need to pull the other lane's push), even if remote_tip == cached.
+        # (Previous != cached check could miss when tracking ref had advanced but
+        # HEAD had not yet been pulled.)
+        if online:
             rc, _ = _git("merge-base", "--is-ancestor", remote_tip, "HEAD")
             behind = rc != 0
         else:

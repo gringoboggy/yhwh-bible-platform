@@ -18,7 +18,10 @@ turn 145 truth records @ 091a3f14: SESSION_STATE/IN_FLIGHT/CHANGELOG/backlog ref
 **Next (turn 146, mac picks up):**
 Mac: verify turn 144 ci triage first | WIN: M2 Apple audit #1 or Kindle STK bisect #2
 
-(See new "Windows note" section below for pull-checker + rules mirroring.)
+**Windows note (from Mac send):** pull-checker + rules mirroring (see dev/CROSS_LANE_RULES_PARITY_PLAN.md for the full plan).
+
+**NEW (activate on next pull):** Cross-Lane Rules Parity (see dev/CROSS_LANE_RULES_PARITY_PLAN.md)
+Mac: when you pull WIN's latest, execute the parity plan on your side (send WIN your current memory summary + local configs first). WIN will review/ harmonize and send back Mac changes. Both sides must end with identical repo rules + per-box memories (differ only for real OS reasons: paths, shells, RAM budgets, python launchers, etc.). Update memories + ACK on both sides. Bootstrap verification required.
 
 **Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 

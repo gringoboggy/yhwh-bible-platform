@@ -73,6 +73,14 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 > **Lots of M2 Apple prep work sent (WIN local commits + detailed commands below).**
 > After WIN push of next M2 slice, Mac: pull, run the listed commands on the named tablet artifact, report PASS/FAIL per issue with file:line or counts, update this + LANE_HANDOFF. HOLD code changes to build_edition.py.
 
+**PRIORITY NEW ITEM (activate on pull of WIN's parity plan): Cross-Lane Rules Parity**
+See `dev/CROSS_LANE_RULES_PARITY_PLAN.md` + the new task in LANE_HANDOFF.
+1. On pull, send WIN a summary of your current per-box memory + key local configs (env, hooks, machine facts).
+2. Review the plan and apply all harmonization steps on Mac side.
+3. Both lanes must reach: identical in-repo rules + out-of-repo memories (differ only where macOS vs Windows forces it: shells, paths, python, RAM, build tools, etc.).
+4. Run fresh bootstrap on Mac after changes; confirm radars + triad.
+5. Report back completion + any Mac-only findings. WIN will do symmetric review.
+
 1. **After WIN M2 Apple audit push (K-R5-3 + justify + Easton + nav isolation):** 
    - Build / acquire the tablet artifact (WIN will name path or use latest `Ethiopian_Bible_ethiopian-tewahedo_*_tablet_*.epub` in dist or staged).
    - Run:
