@@ -4263,7 +4263,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 # BEFORE any chapter boundary — without it in the regex the badge's `</p>`
 # back-scan landed INSIDE the title block, and after the file split all 38
 # book-title singleton pieces carried the previous book's last-verse badge.
-_BADGE_CH_BOUNDARY_RE = re.compile(r'<a id="ch-b\d+-c\d+"|<p [^>]*class="ch-heading"|<div class="book-title-page"')
+_BADGE_CH_BOUNDARY_RE = re.compile(
+    r'<a id="ch-b\d+-c\d+"|<p [^>]*class="ch-heading"|<div[^>]*class="[^"]*book-title-page[^"]*"'
+)
 
 
 def _badge_chapter_content_end(text: str, after: int) -> int:
@@ -7297,6 +7299,17 @@ def build_one(
                 apply_eink_reader_css(css_path.read_text(encoding="utf-8"), edition),
                 encoding="utf-8",
             )
+
+        # M2 Apple tablet profile: user-requested left-align for notes/popups
+        # (base stylesheet uses justify; tablet prefers left for device reading).
+        if css_path.is_file() and resolve_target_reader(edition) == "tablet":
+            css_path.write_text(
+                css_path.read_text(encoding="utf-8")
+                + "\n\n/* M2 Apple: left-align notes & popups per user (K-R5 tablet) */\n"
+                ".note, .note p, .verse-notes, .vnote { text-align: left !important; }\n",
+                encoding="utf-8",
+            )
+            stats["tablet_left_align_notes"] = True
             stats["reader_eink_study_layout"] = resolve_reader_eink_study_layout(edition)
 
         # S2 note cascade — append the robust-layer CSS (15 per-category group

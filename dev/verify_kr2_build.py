@@ -449,21 +449,45 @@ def title_piece_badge_checks(zf: zipfile.ZipFile, names: list[str]) -> list[str]
     last-verse badge (the K-R5-3 clamp escape). Keyed on the REAL
     book-title-page class, not the bare bp id: a DEMOTED appendix-section
     frame keeps its bp-NN id but deliberately flows mid-content among
-    badges/asides (the K-KIN husk fix; gate 4k owns that class)."""
+    badges/asides (the K-KIN husk fix; gate 4k owns that class).
+
+    For non-split targets (tablet), files legitimately contain multiple
+    books, so the check only fails on badges *inside* a book-title-page
+    div itself (true bleed) or on singleton title-only pieces that carry
+    foreign badges."""
     fails: list[str] = []
+    _BP_BLOCK_RE = re.compile(
+        r'(<div class="book-title-page"[^>]*>)(.*?)(?=</div>\s*(?:<div class="book-title-page"|<aside class="notes-section"|<section class="verse-refs-section"|</body>|\Z))',
+        re.DOTALL | re.IGNORECASE,
+    )
     for n in names:
         if not re.search(r"index_split_\d+(?:_\d+)?\.html$", n):
             continue
         t = zf.read(n).decode("utf-8", "replace")
         if 'class="book-title-page"' not in t:
             continue
-        for needle, what in (
-            ('class="verse-notes-badge"', "verse badge"),
-            ('id="vnotes-', "verse-notes aside"),
-        ):
-            if needle in t:
-                bp = re.search(r'id="(bp-\d+)"', t)
-                fails.append(f"{n}: book-title piece ({bp.group(1) if bp else '?'}) carries a {what} (K-R5-3)")
+        # True bleed: badge markup inside any real book-title-page frame
+        for m in _BP_BLOCK_RE.finditer(t):
+            block = m.group(2) or ""
+            if 'class="verse-notes-badge"' in block or 'id="vnotes-' in block:
+                bp = re.search(r'id="(bp-\d+)"', m.group(1) or t)
+                fails.append(
+                    f"{n}: book-title page ({bp.group(1) if bp else '?'}) contains badge/aside inside frame (K-R5-3)"
+                )
+        # Legacy singleton-piece check: only for pieces that look like pure title singletons
+        bps = re.findall(r'<div class="book-title-page"[^>]*>', t)
+        has_scripture = 'class="vn-link' in t
+        if bps and not has_scripture:
+            # This piece is mostly/only title(s); any badge anywhere is foreign
+            for needle, what in (
+                ('class="verse-notes-badge"', "verse badge"),
+                ('id="vnotes-', "verse-notes aside"),
+            ):
+                if needle in t:
+                    bp = re.search(r'id="(bp-\d+)"', t)
+                    fails.append(
+                        f"{n}: book-title singleton piece ({bp.group(1) if bp else '?'}) carries a {what} (K-R5-3)"
+                    )
     return fails
 
 
