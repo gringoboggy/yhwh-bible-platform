@@ -83,6 +83,38 @@ Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); 
 
 ---
 
+## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
+
+**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path), pulled Mac rotate, gates CLEAN, IN_FLIGHT updated, Mac block, save-all, ping. 
+
+**Commands:**
+- git pull
+- py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/
+- py -3 -m pytest tests/test_reader_target.py -q --tb=line
+- py -3 scripts/lint_rules.py
+- py -3 audit.py --category D --quiet
+- py -3 dev/verify_kr2_build.py ...kepub...
+Report in LANE_HANDOFF + findings.
+
+---
+
+## Mac verify (WIN slice: Opt#4 list_html_files + list_split + more sites — 2026-06-20)
+
+**Per retard-proof checklist:** helpers added (list_html_files, list_split_html_files); many glob sites + pre/repair loads updated to use them (Opt#4). Code committed, pre-commit gates CLEAN. IN_FLIGHT + this block. Next save-all + ping.
+
+**Commands for Mac after pull:**
+- git pull
+- py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/
+- py -3 -m pytest tests/test_reader_target.py -q
+- py -3 scripts/lint_rules.py
+- py -3 audit.py --category D --quiet
+- py -3 dev/verify_kr2_build.py (latest kepub)
+- Confirm walkers in source, identical outputs, no new D fails.
+
+Report PASS/FAIL + details here.
+
+---
+
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
