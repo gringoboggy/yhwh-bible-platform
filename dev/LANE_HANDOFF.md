@@ -83,6 +83,42 @@ Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); 
 
 ---
 
+## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
+
+**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
+
+**WIN commands for Mac to execute on pull:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py tests/test_presentation_polish.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/Ethiopian_Bible_ethiopian-tewahedo_kr2*.kepub.epub` (or latest tablet kepub in dir)
+- Confirm: bilingual TOC rewrites (book/chapter anchors) applied identically via preloaded path; no new D findings; K-R counts stable vs prior; byte-identical output for non-badge paths exercised.
+
+**Report:** append PASS/FAIL + key counts (e.g. files_touched in bilingual, any D1/D items, first failures) + link to findings update back into this LANE_HANDOFF (after this block) + round9 findings. Also ACK if in-mem path exercised cleanly.
+
+Next per radar (after save): use --next to continue deep audit (Opt#4 walker consolidation from findings); send Mac verify for every build/core slice.
+
+---
+
+## Mac verify (WIN slice: Opt#4 start consolidated list_html_files walker — 2026-06-20)
+
+**Per retard-proof checklist:** Opt#4 progress slice committed (list_html_files helper + 4 call site swaps in apply_* and toc/chapter passes; no behavior change). Gates CLEAN (ruff + lint 33p). IN_FLIGHT updated. This block. Will push + ping. Prioritized deep audit over radar HOLD list.
+
+**WIN commands for Mac:**
+- `git pull`
+- `py -3 scripts/build_edition.py ethiopian-tewahedo --target-reader tablet --output-dir build/reader-sim/`
+- `py -3 -m pytest tests/test_reader_target.py -q --tb=line`
+- `py -3 scripts/lint_rules.py`
+- `py -3 audit.py --category D --quiet`
+- `py -3 dev/verify_kr2_build.py build/reader-sim/...kepub.epub`
+- Spot check: no regression in chapter numbers, superscriptions, vnotes, badges, eink breaks, toc; list_html_files used (grep source); identical counts / K-R.
+
+Report PASS/FAIL + any D findings + sample counts into LANE_HANDOFF after this block.
+
+---
+
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
