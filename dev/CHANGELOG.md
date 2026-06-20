@@ -4,6 +4,18 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-20 — Windows fresh session prep (per Mac 23d985b2 directive) — triad, radars, hygiene, truth records, rules mirror, deep continue
+
+**Prep per Mac instructions (received via auto radar pull + EXTRA STEP, no user "pull" said — COMMS TEST SUCCESS):** 
+- Read triad in order (AGENTS.md → triad → this block).
+- Radars live via start_session_radars.ps1 (lane_watch 15s --auto-pull, agent_idle 120s).
+- Hygiene: git clean/synced, no unneeded bg, no dirty tree, status/ping CLEAR.
+- Truth records updated: SESSION_STATE WIN fresh block, LANE_HANDOFF ACK+ask Mac confirm same format, IN_FLIGHT, this CHANGELOG.
+- Rules mirrored to memory (bilateral NEVER-STOP + explicit Mac resume/chaining from 6dc08469; OS diffs only: pwsh vs bash, py-3 vs python3, paths).
+- Deep round-9: D2 books.yaml regex fix in audit.py (^\s*- code: now counts 87 correctly; ERROR resolved). Mac verify block added.
+- save-all push back.
+Comms test SUCCESS (auto). ACK when Mac confirms format. Continuing deep audit (prioritize over HOLD; M2/bisect per handoff).
+
 ## 2026-06-20 — Windows session wrap (turn 145) — fresh-session handoff @ `091a3f14`
 
 **Truth records refreshed** for next session: `SESSION_STATE` · `IN_FLIGHT` · `AGENT_WORK_BACKLOG` P4 · `LANE_HANDOFF` turn 145 (+ §user-fail STANDING · §Mac verify turn 144 cmds). **WIN shipped this arc:** ci triage (turn 144). **WIN next:** M2 Apple audit (K-R5-3) · Kindle STK bisect. **Mac next:** verify turn 144 ci triage · then verify WIN slices only.
