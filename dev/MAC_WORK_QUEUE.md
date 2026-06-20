@@ -231,6 +231,8 @@ Report results with "Mac M2 verify (tablet) — PASS/FAIL @ sha" in LANE_HANDOFF
 - [x] Round-8 rx-surfaces + popup-integrity tail (deferred LOW/S2 documented) — **Mac turn 114**
 - [x] `load_notes_checked` API/pipeline sweep — **Mac turn 114**
 
+- [ ] **Round-9 Mac deep audit prep (PRIORITY, auto-delegated):** pull latest; run rotation verify after save (trim to ~2 entries + STANDING); run dev/verify_kr2_build.py on kepub only and report exact K-R6-2 bare/ prefix counts for rev (expect hundreds); run python audit.py --category D and report D WARN/ERROR; cross-check counts (editions=6 etc); capture OS diffs + per-box memory; report to LANE_HANDOFF or findings. See PRIORITY section and updated IN_FLIGHT.
+
 ## Post-Round-9 queue (WIN assign @ turn 121)
 
 - [x] **Kobo tap-prep (USER round 9):** build `ethiopian-tewahedo` eink kepub → `dev/kobo_tap_calibration.py` → stage gen-35:18 + bracket probes; update `EREADERS.md` §Kobo with tap list path — **Mac turn 121**
