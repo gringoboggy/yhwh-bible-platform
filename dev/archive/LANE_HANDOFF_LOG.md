@@ -4,6 +4,26 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, ?..? (rotate_truth_records.py) -->
+
+## Mac autonomous verify execution (current cycle, per --next + NEVER-STOP chaining, no user pull needed)
+
+Radars confirmed running (ps: lane_watch --auto-pull --loop 15 + agent_idle --loop 120; start_session says already running). lane_watch --once: ping=CLEAR.
+
+**Executed (chained from --next surfaced P04 Mac verify + queue prep):**
+- bash dev/lane_watch_mac.sh --once + agent_idle --ping + --next (multiple).
+- .venv/bin/python dev/verify_kr2_build.py on latest tablet `...195709Z.epub`: Multiple K-R4-2 (vnotes strip > pop floor) and K-R5-3 (book-title singleton bp-* carries badge/aside, e.g. index_split_029.html bp-27). Matches known M2 user-fail. (Full list in tool output; 20+ instances shown.)
+- .venv/bin/python audit.py --category D --quiet: 583 INFO (no new hard errors; intentional reuse dominant).
+- .venv/bin/python -m pytest -q -k "reader_target|presentation_polish|popup|marker" (bg launched for verification).
+- lint_rules via venv: ran (clean tail).
+- bg verification tasks launched (audit/pytest) per "end every cycle with bg D/verify".
+
+**Report for WIN / M2:** Current tablet artifact still exhibits K-R5-3 book-title bleed (as expected pre new build push). No code changes by Mac. Ready for re-QA on next WIN tablet push per handoff. All per "Mac verify only after WIN push" + prep list in queue/LANE_HANDOFF.
+
+Chained: --next -> work (verify/audit) -> this block -> will save + --next + bg. Never idle. Radars on and used.
+
+(If WIN pushed new slice with verify cmds, would execute exact listed tablet build + pytest + audit + verify_kr2 immediately.)
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac autonomy + parity prep report (2026-06-20, executed per --next + replan + MAC_WORK_QUEUE)
