@@ -35,6 +35,25 @@ turn 144 Mac verify still pending; M2 user-fail open; STK 144600Z vs 143407Z bis
 
 ---
 
+## Mac verify (turn 144) — self-audit complete, ci triage verify in progress
+
+**Per rules (you are correct — radar after save told me to replan because due + self-audit due after the rule/automation change we just pushed; then the pending ci triage verify):**
+
+- Replan executed (P3 checklist complete, last done recorded).
+- **Self-audit** (due per STANDING self-upgrading after major change): `lint_rules.py` → CLEAN: 33 pass · 2 warn · 0 fail.
+
+(You are correct — the rules via radar told me to do the replan first after the push, then this verify. No prompt needed.)
+
+**ci triage verify** (per handoff, CHANGELOG, MAC_WORK_QUEUE): the exact pytest list is running in background (long tests, no output yet).
+
+Will append full results + report when complete, then save_mac.
+
+Next per radar: the M2 verify items when WIN ships next slice (no dual code fixes).
+
+---
+
+---
+
 ## Windows note (Mac → WIN, 2026-06-20) — critical cross-lane rule/behavior update — pull immediately
 
 **This is important information WIN must know right away to stay compliant.** Pull latest, review, and mirror **before** doing more work.
