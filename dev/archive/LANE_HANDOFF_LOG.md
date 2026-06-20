@@ -6,6 +6,42 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Windows note (Mac → WIN, 2026-06-20) — critical cross-lane rule/behavior update — pull immediately
+
+**This is important information WIN must know right away to stay compliant.** Pull latest, review, and mirror **before** doing more work.
+
+Key updates (full details in the STANDING sections and Guard #8):
+
+1. **Pull checker is now live and must actually work** (STANDING Auto-pull on BEHIND, updated in this file + implemented in lane_watch.py + Mac scripts). 
+   - On clean tree + behind `origin/main` (or tracking ref lag), the radar **must** auto `git pull --rebase origin main` immediately.
+   - User never has to say "pull".
+   - WIN: confirm `lane_watch_win.ps1` + `start_session_radars.ps1` + `bootstrap-triad.ps1` always pass/use `--auto-pull` (or equivalent) and have explanatory comments. Test on a behind + clean tree.
+
+2. **New Guard #8 + "you already have all the answers" / dig-first doctrine** (CLAUDE_PROJECT_RULES.md):
+   - Never stop to ask the user questions. The whole plan, sources, rules, backlogs, and steps are in the folders. Dig first (triad, --next, REPO_MAP, backlogs, STANDING, etc.).
+   - When in doubt about next step (or tempted to ask), re-read the rules instead.
+
+3. **Self-upgrading, self-auditing & optimization of the program and project is now a STANDING autonomous behavior** (CLAUDE_PROJECT_RULES.md + STRATEGIC_REPLAN_CHECKLIST + AGENTS.md):
+   - At logical points (on every --replan, after any behavior/rule/automation change, when "last done" is old per checklist, when radar surfaces staleness, session boundaries), the agent must proactively self-audit (lint_rules, ci.py targeted, trace_repo, trace_matrix, doc-coherence, REPO_MAP complete, etc.), self-upgrade rules/automation/radars/bootstrap/backlogs, and optimize everything.
+   - Track "last done" (replan notes, .agent_activity.json, checklist, CHANGELOG) so you decide autonomously if it's time again.
+   - Update *all* surfaces when the program offers something different (website, gitlab/github descriptions, READMEs, metadata, truth records, catalog, social cards, etc.).
+   - WIN: treat this as recurring work the radars/backlogs will surface. Do not wait for user to prompt.
+
+4. **Doc & higher-surface hygiene is mandatory after changes** (no confirmation wait when obvious):
+   - AGENTS.md, CLAUDE_PROJECT_RULES.md, SESSION_PLAYBOOK.md, LANE_HANDOFF.md, bootstrap/cc-hooks files, relevant specs, etc. must be updated as part of the work.
+
+5. **Save/push relaxation for critical cross-lane rule updates** (updated in this file's crash-safe cadence + RULES §4):
+   - Normal cadence still applies for most work.
+   - **For important information the other lane must know to avoid non-compliant work** (new standing rules, enforcement changes like auto-pull, Guard #8, self-upgrading doctrine, "you have all the answers", etc.): commit locally then **full-save (push both remotes) promptly** right after the edit using the save script. Do not wait for a larger coherent slice. The other lane seeing updated rules takes priority.
+
+Pull now, mirror in your WIN scripts/radars/bootstrap, re-read the updated STANDING blocks and Guard #8, and confirm in next handoff ("WIN side mirrored + compliant"). This is durable.
+
+Do not let stale rules cause non-compliant work on the WIN side.
+
+---
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
 
 **Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
