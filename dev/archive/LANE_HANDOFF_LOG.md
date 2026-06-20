@@ -6,6 +6,35 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
+## Mac autonomy + parity prep report (2026-06-20, executed per --next + replan + MAC_WORK_QUEUE)
+
+**Mac current rules for autopulling + continue when idle (symmetric report to WIN):**
+- Always launch via `bash dev/start_session_radars_mac.sh` (idempotent): starts `dev/lane_watch_mac.sh --bg` (which does `.../lane_watch.py --auto-pull --loop 15`) + `dev/agent_idle_radar_mac.sh --bg 120` (launches `scripts/agent_idle_radar.py --loop 120`).
+- lane_watch_mac.sh: forces --auto-pull; on --once or loop: delegates to shared py. Auto-pull logic (in lane_watch.py): if behind origin/main or tracking_behind + clean tree → git pull --rebase; on pull fires "STANDING RULE: auto-pull ... user did not say 'pull'".
+- EXTRA STEP (shared in lane_watch.py:409+): after successful pull (including tracking_behind), does --ping + --next on agent_idle_radar.py. Logs "EXTRA STEP SUCCESS...", "EXTRA NEXT: ..." lines. This + bg radars = post-push auto-resume.
+- agent_idle_radar_mac.sh (fixed 2026-06-20 for venv parity): prefers $REPO/.venv/bin/python (else python3); supports --bg, --next, --ping, --once. Surfaces "IDLE-RADAR [mac]: next N task(s)".
+- Agent (interactive) rule (enforced by Mac too per NEVER-STOP STANDING): after any cycle or user slice, **immediately** run `python3 scripts/agent_idle_radar.py --next` (or wrapper), pick top (P03 replan, Mac verify/prep, etc.), execute, update records, save, end by --next + bg verify. Never end waiting for input. Chain >=2 cycles per turn.
+- Pull guard: save_mac.sh also does lane_ping + rebase if BEHIND before push. lane_watch --once can be called explicitly.
+- Current run: radars (re)started post-fix; --once = CLEAR (synced); past logs show multiple auto-pulls with STANDING message; idle surfaces replan due + Mac verify tasks.
+- OS diffs (for parity): macOS 13.7.8 x86_64; python 3.14.5 (wrappers now force .venv when present); shell zsh; ~8 GB RAM class (heavy work sequential); no psutil in base; git via /bin/zsh. (Contrast WIN: py -3 full path, powershell, 16 GB, E:/F: bundles.)
+
+**Prep actions executed this cycle (Mac deep audit prep + M2 verify scope):**
+- Bootstrap triad re-read + radars (re)start.
+- Strategic replan (P03 due 49 commits): executed --replan + --replan-done. Backlog still optimal (release gate + Mac verify/prep focus; no reorder).
+- audit.py --category D --quiet: 583 INFO (575 intentional lex reuse in notes for D1 redundancies; other D cats INFO only — no new hard contradictions or D errors post WIN improvements). Matches target editions=6 kinds=68.
+- lane_watch --once: ping=CLEAR, no incoming.
+- Artifact location: tablet epubs in build/reader-sim/apple/ (e.g. 195709Z tablet); no current kepub staged (will use for K-R6-2 bare when WIN stages). Ran spot checks.
+- Chained: --next (surfaced replan/verify), replan-done, audit, report, will --next + save.
+- Fix applied: agent_idle_radar_mac.sh now uses same venv-prefer logic as lane_watch_mac.sh for env parity.
+- Radars relaunched clean after fix.
+- Confirm: auto-pull + EXTRA + --next chaining now exercised on Mac; matches documented NEVER-STOP for both lanes. If behind + clean in future, radar will pull without user command and trigger EXTRA --next for continue.
+
+**Next for Mac (per current --next + queue):** Continue deep audit prep (more D slices if artifacts, OS diffs full report to WIN, kepub verify when available, M2 tablet re-QA when WIN pushes new, update MAC_WORK_QUEUE scope block). Use --next to chain. HOLD overflow.
+
+This demonstrates correct Mac agent behavior (no idle wait; pull via radar; continue via --next chaining). WIN: confirm same format + rules now? (parity prep done on Mac side).
+
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
 ## Mac verify (WIN deep slice: fixed D2 books.yaml count regex in audit.py — 2026-06-20)
 
 **Change:** audit.py D2: r"^- code:" -> r"^\s*- code:" (now matches indented format; ERROR gone, count=87).
