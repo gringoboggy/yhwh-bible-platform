@@ -67,14 +67,6 @@ Do not let stale rules cause non-compliant work on the WIN side.
 
 ---
 
-## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
-
-**Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
-
-Session handoff @ `091a3f14`. ci triage DONE turn 144. Read `AGENTS.md` → triad → `SESSION_STATE` top first.
-
----
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.

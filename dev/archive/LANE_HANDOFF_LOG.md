@@ -4,6 +4,16 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
+
+**Assignments:** mac = FRESH SESSION: pull 27bc6cdc+; verify turn 144 ci triage (MAC_WORK_QUEUE Next scope #1); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 27bc6cdc+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+
+Session handoff @ `091a3f14`. ci triage DONE turn 144. Read `AGENTS.md` → triad → `SESSION_STATE` top first.
+
+---
+
 <!-- archived: 1 sections, ?..? (rotate_truth_records.py) -->
 
 ## Mac verify (turn 144) — PASS @ 776cc29f

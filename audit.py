@@ -37,11 +37,21 @@ C. EPUB content/typography uniformity
    C5. Double-space audit (informational — many are intentional WEB artifacts)
    C6. Chapter heading style uniformity (all use same tag class)
 
+D. Deep audit (round-9 ridiculously thorough; complements deep-audit.js)
+   D1. Redundancies everywhere (project structure, code, bibles/books/verses/notes/popups/strings/xrefs/language)
+   D2. Zero contradictions (counts, facts, rules vs code, Win/Mac, online vs local, sims vs reality)
+   D3. Sims deep (reader_sim, verify_*, gates — coverage, false results, improvements, OS diffs)
+   D4. Optimizations everywhere (code/data/rules/repo/website/GH/GL/automation)
+   D5. Markup integrity (no broken <> / strings / pagebreaks / illogical in any artifact: plain/Apple/Kobo/Kindle/playbooks/docs/website)
+   D6. Two-machine automation safety (lane/radar/handoff/save/hooks/parity — failure modes + guards)
+   D7. Online truth (website/GH/GL/releases/metadata sync on big changes)
+   D8. Cross-OS / cross-machine (parity plan, only genuine execution diffs)
+
 USAGE
 =====
     python3 audit.py                  # full report (no fixes)
     python3 audit.py --fix            # apply safe auto-fixes
-    python3 audit.py --category A     # run only one category (A, B, or C)
+    python3 audit.py --category A     # run only one category (A, B, C, or D)
     python3 audit.py --quiet          # only show issues, hide passes
 
 DESIGN
@@ -1100,7 +1110,7 @@ def main():
     ap = argparse.ArgumentParser(description="Ethiopian Bible EPUB audit & cleanup")
     ap.add_argument("--fix", action="store_true", help="apply safe auto-fixes")
     ap.add_argument(
-        "--category", choices=["A", "B", "C", "all"], default="all", help="run a specific category (default: all)"
+        "--category", choices=["A", "B", "C", "D", "all"], default="all", help="run a specific category (default: all)"
     )
     ap.add_argument("--quiet", action="store_true", help="hide passing checks")
     args = ap.parse_args()
@@ -1121,6 +1131,11 @@ def main():
         ci, cf = run_category("C — Content/Typography Uniformity", CATEGORY_C_CHECKS, fix=args.fix, quiet=args.quiet)
         all_issues.extend(ci)
         total_fixes += cf
+
+    if args.category in ("D", "all"):
+        di, df = run_category("D — Deep (redundancies/contradictions/sims/optimizations/markup/automation/online/cross-os)", CATEGORY_D_CHECKS, fix=args.fix, quiet=args.quiet)
+        all_issues.extend(di)
+        total_fixes += df
 
     print(f"\n{'=' * 72}")
     print("SUMMARY")
