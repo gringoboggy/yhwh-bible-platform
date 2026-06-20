@@ -1,13 +1,13 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-> **▶ ACTIVE 2026-06-19 (turn 140).** **STK FAIL:** `144600Z` upload failed (strict 0/0/0/0; Lassen library unchanged). Bisect → 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **WIN:** ci.py IN FLIGHT → Kindle STK bisect takeover. **Mac:** Apple/Play sim + pre-work. **HOLD** M4 catalog.
+> **▶ ACTIVE (turn 145 handoff @ `3cf46b82`, 2026-06-20).** **ci triage DONE** (turn 144). **WIN next:** (1) M2 Apple audit — K-R5-3 book-title badge bleed on tablet builds + popup justify + Easton dedup (`LANE_HANDOFF` §user-fail) · (2) Kindle STK bisect — 155 glossary spine pieces vs `143407Z` deliverable (0 glossary). **Mac next:** verify turn 144 ci triage on pull · then verify WIN slices only (no dual `build_edition`/`kindle_post` fixes). **HOLD:** M4 catalog · overflow lanes.
 
 ## Standalone status (unchanged)
 
 > Phases A-C shipped (`build_standalone.py`, 4 books, epubcheck 0/0/0/0); EN back-translation done for collated Kings/Samuel + all 151 Psalms; Phase D (own-vers re-ingest) in progress via the Esther vision lane.
 
-## Background backlog (never single-thread — RULES §2.5)
+## Background backlog (HOLD until release-gate #1–2)
 
-> When a lane frees, auto-pick the next: `scripts/agent_idle_radar.py --next` · `dev/AGENT_WORK_BACKLOG.md` · mint-7 plan phases · Esther Patrologia transcription (Mac) · CAM hi-res pre-pull · website/dist regen · reader-sim sims · DEEP audit cadence · Phase-D source acquisition. **Never wait for user input.**
+> Overflow frozen per focus reset: Esther Patrologia · CAM pre-pull · website/dist regen · full `ci.py` re-run. Resume via `AGENT_WORK_BACKLOG.md` P4 only after M2 + Kindle bisect land.

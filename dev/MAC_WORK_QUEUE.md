@@ -71,9 +71,9 @@ assigns the first unchecked line below via `lane_handoff.py assign`.
 
 > Mac maintains this block. WIN implements top item after current slice ships.
 
-1. **WIN M2 Apple audit** (user FAIL): fix K-R5-3 · popup justify scope · Easton/dict attribution stack — rebuild `ethiopian-tewahedo --target-reader tablet`; list Mac verify cmds in save message.
-2. **After WIN `ci.py` GREEN:** Mac verify — `pytest` files WIN touched + `lint_rules.py`; confirm 0 fail in WIN handoff.
-3. **After WIN Kindle bisect push:** Mac verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
+1. **Mac verify turn 144 ci triage** on pull @ `3cf46b82`+ — pytest + `lint_rules` per CHANGELOG turn 144; write `## Mac verify (turn 144)`; `save_mac.sh`.
+2. **After WIN M2 Apple audit push:** verify tablet artifact · K-R5-3 gate · user device re-test scope (no Mac `build_edition.py` edits).
+3. **After WIN Kindle bisect push:** verify m4b — spine/glossary vs `143407Z` · `test_kindle_m4b` · `--gate kindle` (no Mac `kindle_post.py` edits).
 
 ### WIN builder loop (for Mac to expect)
 

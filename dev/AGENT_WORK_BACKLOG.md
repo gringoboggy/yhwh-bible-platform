@@ -16,17 +16,16 @@
 - [ ] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale
 - [ ] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item
 
-## P4 — release gate slice (turn 142–143, WIN builds · Mac verifies)
+## P4 — release gate slice (turn 145, WIN builds · Mac verifies)
 
-> **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. One slice per milestone.
+> **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. Handoff @ `3cf46b82`.
 
-- [ ] WIN: `ci.py` GREEN — **RUNNING** (started 2026-06-19 ~14:07); then `pytest --lf` triage → fix → re-run
-- [ ] MAC: Verify WIN ci slice on pull (touched tests + `lint_rules`; no full `ci.py` on Mac HDD)
-- [ ] WIN: Kindle STK glossary bisect vs `143407Z` — one candidate m4b; push with verify commands for Mac
-- [ ] MAC: Verify bisect artifact (spine/glossary counts · `test_kindle_m4b` · `--sim kindle` gate); scope STK or next WIN item
-- [ ] MAC: Mirror 141 scrub + Apple/Play sim (parallel, file-disjoint)
-- [ ] MAC: Maintain `### Next scope (Mac)` in `MAC_WORK_QUEUE.md` (max 3 items)
-- [ ] **HOLD:** rx-surfaces · Kobo `--sim` · sim audit · catalog · Mac Kindle code · overflow
+- [x] WIN: ci pytest triage — turn 144 (`pytest --lf` 9/9 · edition_stats cross-check PASS)
+- [ ] MAC: Verify turn 144 ci triage on pull (pytest + `lint_rules` per CHANGELOG) → `LANE_HANDOFF` verify block
+- [ ] WIN: M2 Apple audit — K-R5-3 · justify · Easton dedup (`LANE_HANDOFF` §user-fail)
+- [ ] WIN: Kindle STK glossary bisect vs `143407Z` — one candidate m4b
+- [ ] MAC: Verify M2 tablet artifact + Kindle m4b after WIN pushes (no dual code fixes)
+- [ ] **HOLD:** rx-surfaces · Kobo `--sim` · sim audit · catalog · overflow
 
 ## P5 — release gate (WIN primary)
 

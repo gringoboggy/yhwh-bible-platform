@@ -4,6 +4,10 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-20 — Windows session wrap (turn 145) — fresh-session handoff @ `3cf46b82`
+
+**Truth records refreshed** for next session: `SESSION_STATE` · `IN_FLIGHT` · `AGENT_WORK_BACKLOG` P4 · `LANE_HANDOFF` turn 145. **WIN shipped this arc:** ci triage (turn 144). **WIN next:** M2 Apple audit (K-R5-3) · Kindle STK bisect. **Mac next:** verify turn 144 ci triage · then verify WIN slices only.
+
 ## 2026-06-20 — Windows session (turn 144) — ci.py pytest triage GREEN (user-directed)
 
 **Shipped:** edition-scrub test pins (4 editions · protestant out-of-canon · hierarchical_symbols oracle) · orphan inline marker strip in `compute_edition_filter_sets` (fixes `resolved` vs built EPUB off-by-1: `ref-b180233a` et al.) · `test_orphan_inline_markers_join_disabled_ref_set`. **ci.py result (prior run):** 8 failed → triage complete; slow cross-check **PASS**. **Mac verify:** targeted pytest list in commit message + `lint_rules.py`.

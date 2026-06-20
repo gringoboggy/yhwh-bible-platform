@@ -1,26 +1,22 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`turn 143`+** · `bash dev/start_session_radars_mac.sh`. **Role: verifier + planner** (user 2026-06-19) — read `MAC_WORK_QUEUE.md` §**Operating model** first. On each WIN push: verify their slice (targeted pytest/sim) · write `## Mac verify` in `LANE_HANDOFF` · update `### Next scope (Mac)` (max 3). **Do not** patch `kindle_post.py` while WIN owns bisect. Parallel: mirror 141 scrub + Apple/Play sim. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → **`3cf46b82`+** · `bash dev/start_session_radars_mac.sh`. **Role: verifier + planner** — read `AGENTS.md` → triad → this block · then `MAC_WORK_QUEUE.md` §Operating model. **First job:** verify WIN turn 144 ci triage (commands in `CHANGELOG` turn 144 / `LANE_HANDOFF` turn 144) → `## Mac verify (turn 144)` → `save_mac.sh`. **HOLD:** `kindle_post.py` · `build_edition.py` M2 fixes · STK uploads · catalog · overflow until WIN ships next slice. mode=parallel.
 >
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`turn 143`+**. **Role: builder** (user 2026-06-19) — implement; list **Mac verify commands** in each `save-all` message. **Next:** `ci.py` finish → `--lf` triage → GREEN → Kindle bisect → push. Read Mac `### Next scope` on pull. **`ci.py` RUNNING** (~14:07; no second full run). Last full gate: **17 failed + 1 error** / 8544 passed. **`pytest --lf`:** 5 persistent reds (build_smoke · hierarchical_symbols ×2 · matter_pages · samkings GAPS). mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` → **`3cf46b82`+** · read `AGENTS.md` → triad → this block. **Role: builder.** **ci triage DONE** (turn 144): `pytest --lf` 9/9 · edition_stats cross-check PASS · orphan marker strip shipped. **Pick up #1:** M2 Apple audit (K-R5-3 book-title badge bleed · popup justify · Easton dedup — see `LANE_HANDOFF` §user-fail) **or** #2 Kindle STK bisect vs `143407Z` (390 spine / 0 glossary). List **Mac verify commands** in each save. Full `ci.py` re-run optional. mode=parallel.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
 > **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog **187** assets on v0.1.0. Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 
-## Session wrap (Mac, 2026-06-19) — turn 142 save @ `2193216c`
+## Session wrap (WIN, 2026-06-20) — turn 144 ci triage + session handoff @ `3cf46b82`
 
-**Shipped:** tablet Apple reader-profile resolvers (file_split off · collapsible ToC · split_cap 0 · vn-sep strip) + 11 tests · mirror turn 141 scrub · Apple/Play sim gates · M2 audit brief for WIN (K-R5-3 · user device FAIL). **Next session:** pull `2193216c`+ · read `MAC_WORK_QUEUE` §Operating model · verify WIN slices only — no dual `build_edition` fixes until WIN ships M2 audit.
+**Shipped:** ci pytest triage (8 reds → 0 on `--lf`) · orphan inline marker strip in `compute_edition_filter_sets` · 4-edition test pins · focus-reset + WIN-builds/Mac-verifies docs (turns 142–143). **Not started this session:** M2 Apple audit · Kindle STK bisect.
 
-## Session wrap (WIN, 2026-06-19) — focus reset + agent bootstrap
+**Mac status @ handoff:** turn 142 saved @ `2193216c` (tablet profile + sim findings) · turn 144 verify **pending** on Mac box.
 
-**Shipped:** `AGENTS.md` fresh-session read order · `README.md` project map entry · user-directed lane focus reset (turn 142) · truth-record scrub (35→20 assets, ci status honest) · turn 143 WIN-builds/Mac-verifies operating model.
+**Blocked:** M4 catalog · STK deliverability · v1.0.0 tag — until M2 audit + one STK-deliverable m4b.
 
-**Prior ships (turn 141):** retired edition SKU deep scrub · `retired_edition_skus` lint gate · public surfaces 4+2 · website catalog regen.
-
-**Blocked:** M4 catalog regen · STK deliverability · v1.0.0 tag — until `ci.py` GREEN + one STK-deliverable m4b epub.
-
-## Next — release gate slice (turn 142, user-directed)
+## Next — release gate slice (turn 145, fresh session)
 
 > **Rule:** No new laundry-list items until the current `#1` is checked off or explicitly blocked. Overflow (Esther, CAM, 1ki, extra website passes) = **HOLD**.
 
@@ -28,9 +24,10 @@
 
 | # | Work | Status |
 |---|---|---|
-| 1 | `ci.py` GREEN — triage shipped @ turn 144 (`pytest --lf` 9/9); full `ci.py` re-run optional | **DONE (triage)** |
-| 2 | Kindle STK bisect — glossary spine off vs `143407Z` control; one candidate m4b | queued |
-| 3 | rx-surfaces · Kobo `--sim` · sim-pipeline audit | **HOLD** until 1–2 |
+| 1 | M2 Apple audit — K-R5-3 · justify scope · Easton/dict dedup (`LANE_HANDOFF` §user-fail) | **NEXT** |
+| 2 | Kindle STK bisect — glossary spine off vs `143407Z`; one candidate m4b | queued |
+| 3 | rx-surfaces · Kobo `--sim` · sim audit | **HOLD** until 1–2 |
+| — | `ci.py` full re-run | optional (triage done @ turn 144) |
 
 ### Mac (verifier + planner — see `MAC_WORK_QUEUE.md` operating model)
 
@@ -39,7 +36,8 @@
 | 0 | **Operating model:** scope next slice · verify WIN's last push · report PASS/FAIL in `LANE_HANDOFF` | **STANDING** |
 | 1 | Mirror turn 141 scrub on Mac disk | **done** — retired SKU Desktop purge · catalog regen 187 · `retired_edition_skus` PASS |
 | 2 | Apple + Play sim depth (M2/M5 rows) | **partial** — `195709Z` thorium gate PASS · `verify_kr2` K-R5-3 FAIL (262×) · Play gate PASS · **user device FAIL** → WIN audit |
-| 3 | After each WIN milestone: targeted verify (no dual Kindle fixes) | queued |
+| 3 | **Verify turn 144 ci triage** (pytest + `lint_rules` per CHANGELOG) | **NEXT on Mac** |
+| 4 | After each WIN milestone: targeted verify (no dual Kindle/M2 fixes) | standing |
 | — | Tablet-profile WIP (`build_edition.py`) | **saved** @ `2193216c` — device QA still FAIL; WIN owns M2 audit fix |
 | — | Kindle code / STK uploads / catalog / overflow | **HOLD** until WIN bisect ships |
 

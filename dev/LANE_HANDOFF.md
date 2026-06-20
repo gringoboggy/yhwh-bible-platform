@@ -1,13 +1,21 @@
 ---
 mode: parallel
-turn: 144
+turn: 145
 from: windows
-updated: 2026-06-20T00:55:00Z
+updated: 2026-06-20T02:03:00Z
 status: working
-mac: Verify WIN turn 144 ci triage (pytest + lint_rules per CHANGELOG); then scope next slice
-windows: Kindle STK bisect vs 143407Z + M2 Apple audit per handoff §user-fail
+mac: FRESH SESSION: pull 3cf46b82+; verify turn 144 ci triage (CHANGELOG cmds); save verify report; HOLD code fixes
+windows: FRESH SESSION: pull 3cf46b82+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
 truth_owner: mac
 holder: windows
+---
+
+## ◦ windows assign (turn 145, 2026-06-20T02:03:00Z) — mode=parallel
+
+**Assignments:** mac = FRESH SESSION: pull 3cf46b82+; verify turn 144 ci triage (CHANGELOG cmds); save verify report; HOLD code fixes · windows = FRESH SESSION: pull 3cf46b82+; M2 Apple audit K-R5-3 OR Kindle STK bisect vs 143407Z; Mac verify cmds each save
+
+Session handoff @ 3cf46b82. ci triage DONE turn 144. Read SESSION_STATE top + AGENTS.md first.
+
 ---
 
 ## Mac verify (turn 143) — PASS @ 2193216c
