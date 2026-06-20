@@ -4,6 +4,32 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
+
+## Mac verify (WIN slice: robust EXTRA STEP + dirty-clean + post-pull auto-continue in lane_watch.py — 2026-06-20)
+
+**WIN change:** Fixed and hardened the EXTRA STEP the user has demanded repeatedly for "radar sees push -> auto-pull (dirty ok, just clean first) -> immediately continue autonomously without input".
+
+Exact changes in scripts/lane_watch.py:
+- Dirty auto-commit now ONLY when pull_needed (BEHIND or tracking_behind or remote_ahead or incoming), not on every poll.
+- Removed legacy dirty guard inside _auto_pull() (caller now guarantees clean per user rule).
+- Fixed crash in EXTRA: was `rc, out = _py(...)` but _py returns 3-tuple → always excepted. Now `rc, out, err =`.
+- Enhanced EXTRA: on successful pull, does --ping (with note) + --next on agent_idle_radar; also logs the surfaced "next tasks" lines into .lane_watch.log for visibility.
+- This makes bidirectional test work: Mac push → WIN lane_watch (15s) detects → clean+rebase origin/main → mark-seen + EXTRA triggers idle radar → AI chains via --next + deep audit.
+
+**Mac verify commands (run after pull of this):**
+- bash dev/lane_watch_mac.sh --once   (or check that bg is using --auto-pull)
+- python3 scripts/lane_watch.py --once --auto-pull   (simulate; should be CLEAR)
+- python3 scripts/agent_idle_radar.py --next   (confirm surfaces deep audit items, replan, etc.)
+- python3 scripts/agent_idle_radar.py --ping --note "post-pull EXTRA STEP test"
+- tail -30 dev/.lane_watch.log | cat   (look for "EXTRA STEP SUCCESS", "PULL", surfaced "EXTRA NEXT:" lines, STANDING RULE note)
+- python audit.py --category D --quiet   (expect only INFOs, no new ERRORs from this infra change)
+- python -m pytest -q -k "not slow" --tb=no 2>&1 | tail -5   (or targeted if any lane tests)
+- Confirm no change to build paths; this is pure automation sustain infra.
+- Report: PASS/FAIL + whether .lane_watch.log shows the post-pull continuation path firing + any OS diff in startup/radars. Update LANE_HANDOFF + MAC_WORK_QUEUE if rules need mirror.
+
+WIN will review report, confirm, keep chaining NEVER-STOP (radar --next, more deep audit).
+
 <!-- archived: 2 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (WIN slice: built EXTRA STEP for radar auto-continue after pull - 2026-06-20)
