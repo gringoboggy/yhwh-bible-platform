@@ -27,7 +27,8 @@
    shipped numbers) → WIN owns the catalog count-cascade reconciliation (page/meta/og/social-card/
    GH-GL descriptions/EPUB metadata/trackers). **Do NOT dual-edit the catalog** — just post the numbers
    in `dev/LANE_HANDOFF.md`.
-3. **Mirror parity into Mac per-box memory + ACK** — the seam-based no-background-radar model AND the
+3. ✅ **DONE (2026-06-21) — Mirrored parity into Mac per-box memory + ACK** (`feedback_autonomous_work_ladder`;
+   rules identical, no OS diff) — the seam-based no-background-radar model AND the
    NEW autonomy doctrine: autonomy is **user-triggered** (never auto-start work/radars on session
    startup) + the work-ladder (memory `feedback_autonomous_work_ladder`: advance program/EPUBs + stage
    device tests → defer human calls to `dev/HUMAN_DECISIONS.md` → else any program/epub/website/repo/

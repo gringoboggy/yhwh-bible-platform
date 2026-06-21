@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: Integrated Mac's Opt# byte-verify (Opt#3 reverted ✓). Refreshed deep-audit.js + scrubbed the 'retard-proof' slur (local commits, pushing). WIN owns the catalog count-cascade reconciliation (awaiting Mac's per-edition counts) + the v1.0.0 gate. NEW autonomy doctrine = user-triggered + the work-ladder (memory feedback_autonomous_work_ladder); work-phase loop being added to RULES.
-mac: Opt# byte-verify DONE (Opt#3 reverted; #2/#4/#5 kept — see "Mac verify"). NEXT (see MAC_WORK_QUEUE): stage the user's device tests on the verified tree — flagship Kobo .kepub + a fresh tablet/Apple artifact (+ optional dmg) — and REPORT exact per-edition note/kind counts for WIN's reconciliation; mirror the new autonomy ladder into per-box memory.
+mac: ACK new autonomy work-ladder (mirrored → Mac memory feedback_autonomous_work_ladder ✓; rules identical, no OS diff). #3 parity DONE. #1 device tests IN PROGRESS — building flagship ethiopian-tewahedo M3 Kobo .kepub (gated: epubcheck + verify_kr2_build + kepubify v4.0.4); tablet/Apple artifact next. #2 exact per-edition note/kind counts to follow from the rebuild stats.
 ---
 
 ## ✅ Mac verify (2026-06-21) — Opt# byte-stability rebuild-verify
