@@ -3,7 +3,7 @@
 #   dev/.lane = authoritative per-machine marker (gitignored); OS cross-check.
 # This file is the WINDOWS bootstrap, so the expected lane is "windows"; warn
 # on any mismatch so a misconfigured machine is caught before it pushes/hands
-# off. Non-fatal (try/catch). Mirror of the Mac bootstrap-triad.sh banner.
+# off. Non-fatal (try/catch). Kept in lane-v2 parity with the Mac bootstrap-triad.sh banner.
 # ---------------------------------------------------------------------------
 try {
     $scriptLane = 'windows'
@@ -116,19 +116,18 @@ try {
     }
 } catch { }
 
-# --- Lane sync radar (the "ping"; local, non-fatal): cheap `git ls-remote` check
+# --- Lane sync PING (seam check; local, non-fatal): cheap `git ls-remote` check
 # so a fresh session learns immediately if the OTHER lane (win<->mac) pushed while
 # it was away. Prints ONLY when you're BEHIND (pull --rebase before starting / any
-# milestone push). Read-only + bandwidth-cheap. See scripts/lane_ping.py + RULES s4.
-# (Backported round-7 8.2: this block was hot-patched into the INSTALLED hook on
-# 2026-06-08 and never committed here — the install script would have deleted it.) ---
+# milestone push). Read-only + bandwidth-cheap; run at the session-start SEAM, NOT a
+# persistent background radar. See scripts/lane_ping.py + RULES s4. ---
 try {
     $repo = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'scripts\lane_ping.py'
     if (Test-Path $repo) {
         $radar = & py -3 $repo --quiet 2>$null
         if ($radar) {
             Write-Output ''
-            Write-Output '----- LANE SYNC RADAR -----'
+            Write-Output '----- LANE SYNC PING (seam check) -----'
             Write-Output $radar
         }
     }

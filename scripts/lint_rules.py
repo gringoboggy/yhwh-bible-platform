@@ -2898,12 +2898,44 @@ def check_candidate_extent() -> dict:
     }
 
 
+def check_hook_parity() -> dict:
+    """The two SessionStart bootstrap hooks (Windows .ps1 + Mac .sh) must carry the
+    same lane-coordination-v2 model, not the superseded single-baton wording. Both
+    must mention the v2 markers so the banners can't silently drift apart again (the
+    Mac .sh once lagged on "only the HOLDER pushes" while .ps1 had moved to v2).
+    """
+    hooks = REPO / "dev" / "cc-hooks"
+    required = ("v2", "BOTH lanes", "TRUTH_OWNER")
+    violations: list[dict] = []
+    for name in ("bootstrap-triad.ps1", "bootstrap-triad.sh"):
+        p = hooks / name
+        if not p.is_file():
+            violations.append({"hook": name, "missing": "file not found"})
+            continue
+        low = p.read_text(encoding="utf-8").lower()
+        for marker in required:
+            if marker.lower() not in low:
+                violations.append({"hook": name, "missing": marker})
+    return {
+        "id": "hook_parity",
+        "name": "Bootstrap hook lane-v2 parity",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            "both bootstrap hooks carry the lane-v2 model (v2 · BOTH lanes · TRUTH_OWNER)"
+            if not violations
+            else f"{len(violations)} bootstrap-hook parity gap(s) — a hook lacks the v2 lane markers"
+        ),
+        "violations": violations,
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
     "encode_decode": check_encode_decode_round_trip,
     "docs": check_doc_cross_references,
     "repo_map_complete": check_repo_map_complete,
+    "hook_parity": check_hook_parity,
     "superpowers_coherence": check_superpowers_coherence,
     "freshness": check_session_state_freshness,
     "truth_record_budget": check_truth_record_budget,

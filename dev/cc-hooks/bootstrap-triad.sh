@@ -41,7 +41,8 @@ elif [ "$LANE" != "$SCRIPT_LANE" ]; then
 fi
 [ -n "$OS" ] && [ "$OS" != "Darwin" ] && \
   echo "  !! NOTE: uname='${OS}' (expected 'Darwin' for the Mac lane)."
-echo "  Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/CHANGELOG."
+echo "  Lane rule (v2): mode=parallel -> file-disjoint, BOTH lanes push their own milestones;"
+echo "  only the TRUTH_OWNER edits SESSION_STATE/IN_FLIGHT/CHANGELOG (see LANE_HANDOFF frontmatter)."
 echo "==================================================================="
 
 cat <<'EOF'
@@ -51,10 +52,11 @@ Read the triad in order:
   2. dev/SESSION_STATE.md          (latest snapshot: shipped / next / test count)
   3. dev/PLAN_2026-05-29-roadmap.md (master forward sequence)
 
-This is the 2nd lane (Mac). Keep files DISJOINT from the Windows lane's active
-work. Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/
-CHANGELOG this turn. Use /resume to pick up an incoming baton, /handoff to pass
-it, /sync for mid-turn durability.
+This is the 2nd lane (Mac). mode=parallel (default): keep files DISJOINT from the
+Windows lane's active work; BOTH lanes commit + push their own milestones; only the
+TRUTH_OWNER edits SESSION_STATE/IN_FLIGHT/CHANGELOG (see LANE_HANDOFF frontmatter).
+Use /resume to pick up THIS lane's task (parallel: do NOT stop when truth_owner !=
+self), /handoff to transfer truth-ownership, /sync for a milestone push.
 ==================================================================================
 EOF
 
@@ -81,5 +83,20 @@ if [ -f "$REPO/scripts/lane_handoff.py" ]; then
         echo ""
         echo "$banner"
         echo "Run /resume to pull + combine the incoming work."
+    fi
+fi
+
+# --- Lane sync PING (seam check; local, non-fatal): cheap `git ls-remote` so a fresh
+# session learns immediately if the OTHER lane (mac<->win) pushed while it was away.
+# Prints ONLY when BEHIND (pull --rebase before starting / any milestone push). Read-only
+# + bandwidth-cheap; run at the session-start SEAM, NOT a persistent background radar.
+# See scripts/lane_ping.py + RULES s4. ---
+PY="$REPO/.venv/bin/python"; [ -x "$PY" ] || PY="python3"
+if [ -f "$REPO/scripts/lane_ping.py" ]; then
+    ping_out="$("$PY" "$REPO/scripts/lane_ping.py" --quiet 2>/dev/null)"
+    if [ -n "$ping_out" ]; then
+        echo ""
+        echo "----- LANE SYNC PING (seam check) -----"
+        echo "$ping_out"
     fi
 fi

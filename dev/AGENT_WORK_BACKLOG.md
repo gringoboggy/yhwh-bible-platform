@@ -17,12 +17,12 @@
 - [ ] MAC: Verify M2 tablet artifact + Kindle m4b after WIN pushes (no dual code fixes)
 - [ ] **HOLD:** rx-surfaces · Kobo `--sim` · sim audit · catalog · overflow
 
-## Dedicated recurring agents (codified per user directive — Relaxed more often, Deep less often, CheckIn always)
-- [ ] RelaxedAuditAgent (more often): run `audit.py --category D`, `dev/verify_kr2_build.py` on current/clean artifacts, small verifs after slices/rule/Mac updates/5+ commits. Trigger via radar or post-work.
-- [ ] DeepAuditAgent (less often): full round-9 dims (redund/contradict/optim/automation-safety), after 15+ commits/24h/milestones/self-gov. Use findings in _audit-split/.
-- [ ] CheckInOnMacAgent (WIN always): after every sig WIN slice (build/core/rule), append ## Mac verify block in LANE_HANDOFF with exact cmds for Mac (build, pytest, D/kr2, re-cut progress), update IN_FLIGHT, save-all push, Mac does prep/audit/verify + reports. "Windows particularly should always be looking to check in on mac".
-- [ ] Rotate cadence (every so often / bit less often / too many changes): `py -3 scripts/rotate_truth_records.py --apply --keep 2` (tied to audits/saves). Never batch without.
-- [ ] Post Mac update: continue next logical task immediately (no stop). After rule/self-gov update: Mac block FIRST with full rules then continue.
+## Recurring CHECKS (agent-run at seams, not daemonized)
+- [ ] Relaxed audit (more often): run `audit.py --category D`, `dev/verify_kr2_build.py` on current/clean artifacts; small verifs after slices / rule / Mac updates / 5+ commits. Run post-work at a seam.
+- [ ] Deep audit (less often): the deep-audit dims (redundancy / contradiction / optimization / automation-safety), after 15+ commits / 24h / milestones. Use findings in `_audit-split/`.
+- [ ] Check in on Mac (WIN, on Mac-handoff): after a significant WIN slice (build/core/rule), append a `## Mac verify` block in LANE_HANDOFF with exact cmds for Mac (build, pytest, D/kr2, re-cut progress), update IN_FLIGHT, save-all push; Mac does prep/audit/verify + reports.
+- [ ] Rotate cadence (every so often): `py -3 scripts/rotate_truth_records.py --apply --keep 2` (tied to audits/saves). Never batch without.
+- [ ] After a Mac rule/parity update lands: advance to the next §3-sequenced item, or stop clean if the session's real work is done (no auto-continue). After a rule-change: send the Mac block FIRST with the full rules, then continue.
 
 ## P5 — release gate (WIN primary)
 
