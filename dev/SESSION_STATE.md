@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Grok-revert cleanup DONE + pushed** (2026-06-21; memory `project_grok_cleanup`). **Mac's Opt# byte-verify DONE** — Opt#3 (`33b79387`) changed build output → **REVERTED** (it dropped tablet badges); Opt#2/#4/#5 byte-neutral → kept. **★ NEXT SESSION = execute `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`** (PREPARED 2026-06-21, not yet implemented): it folds the rules-system deep-audit (**47 confirmed**) + the website offer-accuracy audit (**9 confirmed**) + the **work-phase loop §2.6 + `dev/HUMAN_DECISIONS.md`** + the catalog count reconciliation (its Phase F — still awaiting Mac's per-edition counts) + the v1.0.0 gate carry-overs. Verbatim edits: `docs/superpowers/notes/2026-06-21-rules-audit-findings.md`.
+> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Grok-revert cleanup DONE + pushed** (2026-06-21; memory `project_grok_cleanup`). **Mac's Opt# byte-verify DONE** — Opt#3 (`33b79387`) changed build output → **REVERTED** (it dropped tablet badges); Opt#2/#4/#5 byte-neutral → kept. **★ Rules+accuracy consolidation EXECUTED (2026-06-21, Phases A–E,G,H — 9 commits; lint 35/0, all gates green).** The radar/contradiction fixes, count+redundancy+bloat consolidations, hook lane-v2 parity, **RULES §2.6 work-phase loop + `dev/HUMAN_DECISIONS.md`**, and 8 website accuracy fixes all landed (folding the 47-confirmed rules audit + 9-confirmed website audit). **Remaining = Phase F** (catalog count cascade + the website Pages deploy — still awaiting Mac's per-edition rebuild counts) **+ the v1.0.0 device-QA gate** (queued in `dev/HUMAN_DECISIONS.md`). See `dev/IN_FLIGHT.md`.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -12,7 +12,7 @@
 
 **Shipped (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live · the full Ethiopian Bible EPUB + Kobo kepub. ci pytest triage green · orphan inline-marker strip · 4-edition test pins.
 
-**Blocks the v1.0.0 tag:** rules+accuracy consolidation plan (2026-06-21) · catalog count reconciliation (post-rebuild) · M2 Apple audit (K-R5-3 device re-test of the rebuilt tablet artifact) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag. *(MacClaude Opt# byte-verify — DONE 2026-06-21: Opt#3 reverted.)*
+**Blocks the v1.0.0 tag:** catalog count reconciliation + the website deploy (post-Mac-rebuild) · M2 Apple audit (K-R5-3 device re-test of the rebuilt tablet artifact) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag. *(Rules+accuracy consolidation — DONE 2026-06-21, Phases A–E,G,H. MacClaude Opt# byte-verify — DONE: Opt#3 reverted.)*
 
 ## Next — after the cleanup commits (WIN builds · Mac verifies)
 

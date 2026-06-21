@@ -4,6 +4,19 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-21 — Rules + accuracy consolidation (Windows)
+
+Executed the prepared consolidation plan (`docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`), folding the rules-system deep-audit (47 confirmed) + the website offer-accuracy audit (9 confirmed) into one clean arc — 9 commits, Phases A–E + G + H.
+
+- **A — radar/contradiction seed.** Merged the two §4 auto-pull blocks into one and removed the "always wired on the background radar" leftover that contradicted the seam-based rule + the §0/§4 "no background radar (removed 2026-06-20)" statements.
+- **B — contradictions · redundancy · bloat.** Fixed the AGENTS save-cadence contradiction (crash-safe push-after-every-slice, not "commit-locally-only") and the E:/F: "partial-save" framing (a Mac-side drive is an expected skip, not partial). Consolidated the rotted corpus counts — **91,597→91,712 notes, 68→72 kinds** (verified live) — to `dev/SESSION_STATE.md` as the ONE canonical home, with PLAYBOOK/MATRIX_MAP/REPO_MAP pointing there; fixed the PLAYBOOK "§12 4-point→5-point" mislabel and dropped the rot-prone "≥7,667"; added the missing "GitHub release body" surface to the RULES Corollary; moved the test-narrative + plugin-roster bloat to `dev/archive/RULES_HISTORY.md`; deleted the RULES mini file-index (REPO_MAP is canonical).
+- **C — cross-lane parity.** Mac `bootstrap-triad.sh` baton model → lane-v2 (mode=parallel · both-lanes-push · TRUTH_OWNER) mirroring the `.ps1`; added the session-start lane-PING block (PENDING Mac re-install); renamed RADAR→"LANE SYNC PING (seam check)"; new `lint_rules` `hook_parity` check pins both hooks to the v2 markers; reconciled the AGENT_WORK_BACKLOG + the v2 design-spec radar echoes to seam wording.
+- **D — the work-phase loop.** Added `RULES §2.6 "Session work-phase loop"` (pointer-only, 8 steps, with a bold SAFEGUARD: runs ONCE per session to a clean quiescent stop — no watcher/poll/auto-continue, never re-add the Grok radar scripts) + created `dev/HUMAN_DECISIONS.md` (the append-only human-gated decision queue) + a `no_background_radar` regression lint.
+- **E — website offer-accuracy (8 fixes).** Kindle "Not yet" → the live Send-to-Kindle path (notes as endnotes); the false "1 & 2 Samuel — complete" → the real partial coverage (1sa 1,3,17; 2sa 11); dropped Google Play Books from the verified-reader list + the Anglican/Lutheran non-canons; Catholic "76"/Orthodox "78" → the `canons.yaml` figures; scoped the manuscript-transcription claim to the Geʽez. `node website/build.mjs`: 165 pages, 0 dead links.
+- **G+H.** AGENTS public-copy guard now forbids "retard-proof" alongside "idiot-proof"; filed the 7 Mac rule-change-parity tasks in `dev/LANE_HANDOFF.md`.
+
+Closed with a 4-dimension adversarial review (completeness clean; 2 valid coherence fixes applied; the "83→87" flag rejected — 83 is the public superset count). **Gates:** `lint_rules` 35 pass/0 fail · `trace_matrix` 0 unresolved · `trace_repo` complete · `ebible verify` errors=0 (all paired) · website 0 dead links. **Deferred = Phase F** (the catalog count cascade across page bodies/BIOS/README/COPYRIGHT/social-card/descriptions/EPUB-metadata/release-body + the single website deploy) — blocked on Mac's per-edition rebuild counts.
+
 ## 2026-06-21 — Grok local footprint removed (Mac lane)
 
 Completed the Grok decommission on the macOS lane (Windows did the repo-side revert earlier the

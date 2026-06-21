@@ -13,38 +13,25 @@
 > loop logs, and the tracked `.vscode/extensions.json` + `TOOLCHAIN.md §Grok` (now a decommission
 > note). Cover-art Grok-image feature preserved. Claude is the sole coding agent.
 
-## ▶ Fresh session — continue "the rest" (priority order)
+## ▶ Rules + accuracy consolidation — EXECUTED (2026-06-21)
 
-> **★ NEXT SESSION = execute `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`** —
-> PREPARED 2026-06-21, not yet implemented (user: "prepare for a new session where we will implement them").
-> Two deep audits landed: rules-system (**47 confirmed**, run `wav5b34sh`) + website offer-accuracy
-> (**9 confirmed**, run `wnb2ijwmj`). The plan sequences ALL of it: Phase A radar-contradiction seed fix →
-> B redundancy/bloat consolidation → C cross-lane/hook parity → **D the work-phase loop §2.6 +
-> `dev/HUMAN_DECISIONS.md`** → E website accuracy fixes → **F = the count reconciliation (item 2 below)** →
-> G small items → H Mac parity tasks. Verbatim edits: `docs/superpowers/notes/2026-06-21-rules-audit-findings.md`.
-> One residual confirm for the user: include the optional "background radar" regression lint? (recommended yes).
+> **The consolidation plan `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md` is DONE** — Phases **A–E, G, H** (9 local commits on `main`). Radar/contradiction seed fixed (§4 auto-pull merged; no "background radar") · save-cadence + E:/F: contradictions resolved · rotted counts (91,597→**91,712** · 68→**72 kinds**, verified live) consolidated to `dev/SESSION_STATE.md` as the ONE live-figures home · bloat → RULES_HISTORY/invariants · Mac hook baton→lane-v2 + session-start PING + a `hook_parity` lint · radar echoes → seam wording · **RULES §2.6 work-phase loop + `dev/HUMAN_DECISIONS.md`** + a `no_background_radar` regression lint (the residual confirm — INCLUDED) · 8 website offer-accuracy fixes (built, 0 dead links) · the 7 Mac rule-change-parity tasks filed in `dev/LANE_HANDOFF.md`. **Adversarial 4-dim review:** completeness clean; 2 valid coherence fixes applied; the "83→87" flag rejected (83 = the public superset). **Gates green:** lint 35 pass/0 fail · trace_matrix 0 · trace_repo complete · ebible verify errors=0 (all paired) · website 0 dead links.
 
-1. **MacClaude byte-stability verify — DONE (2026-06-21).** **Opt#3 (`33b79387`) changed build output**
-   → **REVERTED.** It skipped `apply_badge_markers` for tablet / any `reader_file_split:false` edition,
-   so raw per-note `note-ref` markers leaked and badges were dropped; the *existing*
-   `TestBadgeBuildIntegration::test_badge_build_has_badges_no_per_note_markers` went **red** on the Opt#3
-   tree (real build). Added an explicit `test_tablet_badge_build_applies_badges` pin. **Opt#2 / #4 / #5
-   byte-neutral → kept** (in-mem preload equivalence · `_list_temp_files`=`sorted(glob)` · pure-fn
-   `@lru_cache`). Full verdict + evidence: `dev/LANE_HANDOFF.md` "Mac verify (2026-06-21)". Green
-   re-verify PASS (2/2: the formerly-red badge integration test + the new tablet pin; 62 unit tests green).
-2. **Reconcile the catalog counts** once Mac's rebuild gives exact per-edition figures — the **+72
-   restored `comm`/`word` notes** shift the shipped numbers. Sweep the full count cascade (page
-   bodies · `<meta>`/og/twitter · social-card image · GitHub/GitLab descriptions · EPUB metadata ·
-   in-app trackers) per memory `feedback_deploy_means_build_and_deploy`.
-3. ✅ **DONE (2026-06-21) — refreshed `.claude/workflows/deep-audit.js`:** dropped the Grok "round 9
-   ridiculously deep" 9-dim block + every `CROSS_LANE_RULES_PARITY_PLAN` ref (file deleted in cleanup)
-   + the "always make Mac do prep" directive; reset the deferred-list to genuine product residuals;
-   bumped ROUND 9→10 / NOW 2026-06-21; added a `SCOPE='product'` default that ENFORCES the user
-   "round 8+ = product-only" directive in code (round-7 sweep dims gated behind `scope='all'`).
-   24 product dims; lane-coverage + wrapped-parse verified. The next audit run can launch once the
-   tree is stable (after tasks 1–2).
-4. **Resume the v1.0.0 release gate** (`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`):
-   WIN = M2 Apple audit (K-R5-3) · Kindle STK device bisect; Mac verifies. See `dev/SESSION_STATE.md`.
+### Remaining (priority order)
+
+1. **Phase F — catalog count reconciliation + the website Pages DEPLOY (BLOCKED on Mac).** When Mac's
+   rebuild reports exact per-edition note/kind counts (the **+72 restored `comm`/`word` notes** shifted
+   the shipped numbers), sweep the full count cascade — page bodies · `brand/BIOS.md` · root `README.md` ·
+   `COPYRIGHT.md` · `<meta>`/og/twitter · the social-card image · GitHub/GitLab descriptions · EPUB
+   metadata · in-app trackers · the **GitHub release body** — per memory
+   `feedback_deploy_means_build_and_deploy`; reconcile the website note-count (91,553 → the new shipped
+   figure) consistent with the Phase-E E7 canon-count framing; then **deploy the website ONCE** (the
+   Phase-E accuracy fixes are already built + committed, awaiting this single deploy). Mac per-edition
+   figures land in `dev/LANE_HANDOFF.md` `mac:`.
+2. **Resume the v1.0.0 release gate** (`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`). The
+   human-gated device QA is now queued in **`dev/HUMAN_DECISIONS.md`** (Kobo taps · Apple device re-QA ·
+   Kindle STK device check · Play Books phone QA · the `v1.0.0` tag command). WIN = M2 Apple audit
+   (K-R5-3) · Kindle STK device bisect; Mac verifies.
 
 ## Standalone status (unchanged)
 
