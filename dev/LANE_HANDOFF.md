@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: Executed the rules+accuracy consolidation (plan 2026-06-21) — Phases A–E DONE (radar/contradiction fixes · count+redundancy+bloat consolidations · hook lane-v2 parity + Mac session-start PING + a hook_parity lint · §2.6 work-phase loop + dev/HUMAN_DECISIONS.md · D3 no_background_radar lint · 8 website offer-accuracy fixes built, 0 dead links). lint 35 pass/0 fail. WIN still owns Phase F (catalog count cascade + the website Pages deploy) — AWAITS Mac's per-edition rebuild counts. 7 rule-change-parity tasks for Mac below.
-mac: ACK new autonomy work-ladder (mirrored → Mac memory feedback_autonomous_work_ladder ✓; rules identical, no OS diff). #3 parity DONE. #1 device tests IN PROGRESS — building flagship ethiopian-tewahedo M3 Kobo .kepub (gated: epubcheck + verify_kr2_build + kepubify v4.0.4); tablet/Apple artifact next. #2 exact per-edition note/kind counts to follow from the rebuild stats.
+mac: WRAP 2026-06-21 (machine quiescent for fresh session). #1 flagship Kobo DONE — 5× ethiopian-tewahedo .kepub built + GATED (epubcheck 0/0/0/0, ALL K-R2 GREEN, noterefs 36,350 all-resolve; badges restored = Opt#3-revert validated end-to-end) + STAGED to YHWH-v2.4-releases/m3-kobo-v0.1.0/. #2 per-edition counts posted below (unblocks WIN Phase F). #3 parity DONE. NEXT SESSION (not started — wrap rule): MIRROR the 7 rule-consolidation parity tasks + RULES §2.6 (below) · tablet/Apple rebuild · the other 3 catalog editions' Kobo refresh · retire-SKU staging-dir cleanup.
 ---
 
 ## ▶ Rule-consolidation parity → Mac (2026-06-21, rule-change parity — mirror + ACK each)
@@ -19,6 +19,37 @@ WIN landed the rules+accuracy consolidation (plan `docs/superpowers/plans/2026-0
 5. **§2.6 loop + HUMAN_DECISIONS.md + SAFEGUARD.** Mirror the unified work-phase loop (RULES §2.6) + its SAFEGUARD into per-box memory (consolidating the `feedback_autonomous_work_ladder` mirror); re-point memory at the now-existing `dev/HUMAN_DECISIONS.md`; ACK.
 6. **Stale-literal sweep.** Confirm no Mac-side doc/memory carries the stale 91,597 / 91,553 corpus literals (live source = 91,712 · 72 kinds — the canonical home is now SESSION_STATE).
 7. **Mac RAM-hygiene at session start (parity gap).** The WIN bootstrap prints a RAM-clear block the Mac `.sh` lacks (the Mac is the more constrained 8 GB box). Add a Mac-tuned RAM-hygiene line to the `.sh` triad heredoc (browser MCP OFF with VS Code open per guard #6; end-task Chrome/Kindle between slices; one GUI app at a time) — do NOT copy the Windows PROTECT/KILL list; record as a local OS-specific mechanism override.
+## ✅ Mac wrap (2026-06-21) — Kobo staged + per-edition counts (for WIN Phase F)
+
+**Flagship Kobo device test — DONE + STAGED.** Rebuilt `ethiopian-tewahedo` M3 Kobo on the Opt#3-reverted
+tree: 5 cover variants (red/black/brown/forest/navy, ~40 MB each), each **epubcheck 0/0/0/0** + **ALL
+K-R2 GATES GREEN** (verify_kr2_build; noterefs 36,350 all-resolve=True; only benign 4g/4m/4n large-vnote
+size WARNs). Badges present → confirms the Opt#3 revert in a real Kobo artifact. **Staged** →
+`/Volumes/MacHD2/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (overwrote the stale Jun-14 35 MB set;
+`SHA256SUMS-ethiopian-refresh-2026-06-21.txt`). Ready for the user's color-Kobo tap round.
+
+**Per-edition note + kind counts (#2 — WIN owns the Phase-F cascade; Mac does NOT dual-edit the catalog).**
+Superset base = **91,555 note-refs** (the website "91,553" → new shipped figure **91,555**; cross-check:
+ethiopian kepub = 43,017 inline vn-items + ~48,538 backmatter-glossary entries = 91,555). Per-edition
+shipped notes = base − dry-run-filtered:
+
+| edition | kinds | shipped notes |
+|---|---|---|
+| ethiopian-tewahedo | 71/72 | **91,555** (filters 0 — the superset) |
+| catholic-study | 50/72 | **43,370** (91,555 − 48,185) |
+| evangelical-reformed | 44/72 | **41,847** (91,555 − 49,708) |
+| eastern-orthodox | 46/72 | **41,819** (91,555 − 49,736) |
+| standalone-geez | 28/72 | scripture edition — no study notes (EN back-translation popups) |
+| standalone-amharic | 28/72 | scripture edition — no study notes (EN back-translation popups) |
+
+Counts from `--list` (kinds) + `build_edition.py <ed> --dry-run` (filtered asides) + base note-ref count.
+Inline-vs-glossary split is mode-dependent; the headline reconciliation number is **91,555**.
+
+> ⚠ **Phase-E note (found during the count):** `gen_website_progress.py` is NOT read-only — it regenerates
+> website artifacts. It surfaced that Ge'ez **1 Kings ch 7–10** reader pages exist in source
+> (`content/translations/geez-tewahedo/1ki.py`) but were never generated into `website/src/read/geez/1ki/`
+> (only ch 6 present). Reverted here (wrap = no partial uncoordinated website regen); fold into Phase E's
+> rebuild + redeploy.
 
 ## ✅ Mac verify (2026-06-21) — Opt# byte-stability rebuild-verify
 

@@ -10,22 +10,18 @@
 
 > ✅ #1 (Opt# byte-verify) DONE 2026-06-21 — Opt#3 reverted, #2/#4/#5 kept. New scope below.
 
-1. **Stage the user's DEVICE TESTS on the now-verified tree** (Opt#3 reverted → tablet badge path is
-   correct again; the +72 restored `comm`/`word` notes are baked into the base). Build → gate → stage
-   so the user can side-load to HIS devices (user-directed: "load me up new tests on the kobo and on
-   my desktop"; memory `feedback_autonomous_work_ladder`):
-   - **Kobo (priority):** the flagship `ethiopian-tewahedo` `.kepub.epub` first (his COLOR Kobo needs
-     the kepub for popups — memory `kobo_color_ereader_end_stage_qa`), then the rest of the M3 set as
-     bandwidth allows. Gate each: `epubcheck 0/0/0/0` · `verify_kr2_build` · kepubify v4.0.4. Stage to
-     the external-drive handoff path (`YHWH-v2.4-releases/m3-kobo-…/`); name the files in LANE_HANDOFF.
-   - **Apple/tablet:** rebuild a fresh `ethiopian-tewahedo --target-reader tablet` artifact (badges are
-     restored now that Opt#3 is reverted) for the user's Apple Books device re-QA (STANDING M2
-     §user-fail). Stage it; name the file.
-   - **macOS desktop (optional, only if HDD/RAM allow):** re-cut the `.dmg` for a fresh desktop test.
-2. **Report exact per-edition note + kind counts** from the rebuild (the +72 restored notes shifted the
-   shipped numbers) → WIN owns the catalog count-cascade reconciliation (page/meta/og/social-card/
-   GH-GL descriptions/EPUB metadata/trackers). **Do NOT dual-edit the catalog** — just post the numbers
-   in `dev/LANE_HANDOFF.md`.
+1. **Stage the user's DEVICE TESTS on the now-verified tree** (Opt#3 reverted; +72 notes baked in):
+   - **Kobo (priority): ✅ DONE + STAGED (2026-06-21).** Flagship `ethiopian-tewahedo` — 5 colour
+     `.kepub.epub` built, each epubcheck 0/0/0/0 + ALL K-R2 GREEN (noterefs 36,350 all-resolve), staged
+     to `/Volumes/MacHD2/YHWH-v2.4-releases/m3-kobo-v0.1.0/` (`SHA256SUMS-ethiopian-refresh-2026-06-21.txt`).
+     Ready for the user's COLOR-Kobo tap round (memory `kobo_color_ereader_end_stage_qa`).
+   - **⏭ NEXT SESSION (not started — no new long jobs at wrap):** the other 3 catalog editions' Kobo
+     refresh (catholic-study · evangelical-reformed · eastern-orthodox; the staged set is stale Jun-14 +
+     includes RETIRED SKUs to purge) · **Apple/tablet** `ethiopian-tewahedo --target-reader tablet`
+     rebuild for M2 §user-fail re-QA · optional `.dmg` re-cut.
+2. ✅ **DONE (2026-06-21) — per-edition note + kind counts POSTED** in `dev/LANE_HANDOFF.md` "Mac wrap"
+   (superset 91,555 note-refs; per-edition shipped = base − filtered). Unblocks WIN's Phase-F cascade.
+   Did NOT dual-edit the catalog.
 3. ✅ **DONE (2026-06-21) — Mirrored parity into Mac per-box memory + ACK** (`feedback_autonomous_work_ladder`;
    rules identical, no OS diff) — the seam-based no-background-radar model AND the NEW autonomy
    doctrine: autonomy is **user-triggered** (never auto-start work/radars on session startup) + the
