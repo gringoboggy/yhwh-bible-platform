@@ -343,12 +343,18 @@ content/notes/*.py ──inject──▶ epub_working/index_split_*.html ──b
 
 ## Saving & git
 
-- **During active work: commit LOCALLY only.** Don’t push per-commit.
+- **Crash-safe cadence (RULES §4).** Local-commit micro-edits freely; then **after every
+  coherent slice — gate green · truth-record/handoff edit · before a risky/long job · before
+  wrap — SAVE = push both remotes autonomously** (never ask, never wait on input). **Never end
+  with commits ahead of `origin/main`** (unpushed work is crash-loss risk and invisible to the
+  other lane).
 - **On an explicit “save” / “commit” / “push” / “backup” / “sync”** (or at a major
-  milestone): commit, then **push both remotes** — `origin` = GitLab (code home), `github` =
-  GitHub mirror — and **verify each leg landed** (`git status -b` ahead/behind = 0). The main
-  Windows box additionally bundles `git bundle --all` to external **E:** and **F:** (never
-  C:). “continue” / “proceed” / “go ahead” mean *advance*, **not** save.
+  milestone): force the full sync immediately — commit, then **push both remotes** (`origin` =
+  GitLab code home, `github` = GitHub mirror) and **verify each leg landed** (`git status -b`
+  ahead/behind = 0). The Windows box additionally bundles `git bundle --all` to external **E:** /
+  **F:** (never C:) **when those drives are mounted — they are Mac-side by default, so their
+  absence is an expected skip, not a partial save** (see `dev/LANE_HANDOFF.md`). “continue” /
+  “proceed” / “go ahead” mean *advance*, **not** save.
 - **`ruff format`** every file you generated/regenerated **before** committing, or the
   pre-commit hook (`ruff format --check .` + `lint_rules.py` + mypy) blocks it. The hook does
   **not** run the test suite — run the relevant tests yourself first.

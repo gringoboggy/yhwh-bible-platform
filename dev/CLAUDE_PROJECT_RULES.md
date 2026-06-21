@@ -165,7 +165,7 @@ persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)
 | **1** | North star — the builder demo; corpus depth; patristic-voice invariant; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles. |
 | **3** | Sequencing rules (how to order work). |
-| **4** | Save semantics — crash-safe cadence (2026-06-17): local-commit micro-edits during work; **autonomous full sync** (local + GitLab + GitHub + E: + F:) after every coherent slice — never ask, never wait, never end with unpushed commits; "continue"/"proceed"/"go ahead" ≠ save. |
+| **4** | Save semantics — crash-safe cadence (2026-06-17): local-commit micro-edits during work; **autonomous full sync** (local + GitLab + GitHub + E:/F: when mounted — Mac-side by default, see LANE_HANDOFF) after every coherent slice — never ask, never wait, never end with unpushed commits; "continue"/"proceed"/"go ahead" ≠ save. |
 | **5** | Phase / commit tracking. |
 | **6** | UI conventions — canonical book/chapter order, cross-linking, styling, reactivity, additive-feature defaults. |
 | **7** | Code conventions — backend, schema migrations, project structure, one-shot ship scripts. |
@@ -471,7 +471,9 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
       `UNPUSHED HANDOFF` nag);
     - **rule of thumb:** if `git status` shows commits ahead of `origin/main`, push
       at the next natural stop — never end a session with unpushed work.
-  - **Full sync legs** (WIN five-leg · Mac three-leg push-only), in order:
+  - **Full sync legs** (WIN five-leg — the E:/F: bundle legs are STANDING-optional while the
+  drives are Mac-side, so their absence is an expected skip, **not** a partial save (see
+  LANE_HANDOFF) · Mac three-leg push-only), in order:
     1. **Local commit** (`save.ps1`, invoked by `save-all.ps1`) — **PowerShell ONLY**,
        never the Bash tool (spaced repo path + `>`/arrow glyphs break cmd and sweep
        stray files via `git add -A`). Pre-commit hook runs `ruff format --check .` +
@@ -503,10 +505,13 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   auto-commits the rotation diff before pushing; the lint's `truth_record_budget`
   (hard-enforced) stays as the tripwire.
 - **VERIFY every leg landed** before reporting "saved" (`git status -b` ahead/behind = 0
-  after push; `git bundle verify`) — §12/§14 truth-gate. Never claim a save that didn't
-  reach all five. A save is partial ONLY when a drive is unmounted or a push genuinely
-  fails — say so explicitly, complete the legs that can run, and re-run when fixed; a
-  partial save is never a deliberate choice.
+  after push; `git bundle verify` when bundling) — §12/§14 truth-gate. Never claim a save that
+  didn't reach the legs that CAN run. **The E:/F: bundle legs are STANDING-deferred while the
+  drives are Mac-side** (LANE_HANDOFF) — their absence is an expected skip, so "pushed to both
+  remotes; E:/F: deferred (drives Mac-side)" is a COMPLETE save for the current state, not a
+  partial one. A save is genuinely *partial* only when a push fails or a drive that SHOULD be
+  present is unmounted — then say so explicitly, complete the legs that can run, and re-run when
+  fixed; a partial save is never a deliberate choice.
 - **GitLab `main` is PROTECTED** — never amend / rebase / force-push a pushed commit;
   fix FORWARD. (The GitHub mirror is force-alignable if the two ever diverge.)
 - **Two-lane (Windows + Mac) coordination — `mode` + task-board, NOT a single work-mutex**
@@ -1409,7 +1414,8 @@ the drift class the user previously had to catch manually:
 5. **Commit/backup truth** — run `git log -1 --oneline` + `git status --short`. Any
    "done / committed / backed up / safe to /clear" claim MUST match git reality: HEAD
    shows this session's work, and (for a backup claim) the `git bundle --all` file
-   exists on E:/F:. Uncommitted verified work → warn loudly ("NOT committed/backed up —
+   exists on E:/F: **when those drives are mounted** (Mac-side by default → that leg is
+   deferred; remotes-in-sync satisfies the backup claim). Uncommitted verified work → warn loudly ("NOT committed/backed up —
    say 'save'"), never reassure. NEVER defer a commit across a /clear. This is the gate
    the other four don't cover — they verify work is *recorded*, not that a commit/backup
    *happened*.
