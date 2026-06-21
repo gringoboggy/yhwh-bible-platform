@@ -183,7 +183,6 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: catholic-study
     # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
-    dedication: "DEDICATION_SENTINEL_42."
     # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
     reader_toc_books_only: true

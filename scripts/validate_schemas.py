@@ -187,6 +187,8 @@ EDITIONS_SPEC = RecordSpec(
         # K-R2-8 (2026-06-10): per-edition e-reader LIBRARY-CARD synopsis —
         # patch_opf writes it into the OPF <dc:description> (eth declares one).
         FieldSpec("description", type=str, required=False),
+        # dedication: optional matter-page text (matter_pages.inject_dedication_page).
+        FieldSpec("dedication", type=str, required=False),
         FieldSpec(
             "max_phase",
             type=str,

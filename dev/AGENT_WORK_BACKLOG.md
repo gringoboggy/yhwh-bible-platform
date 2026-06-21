@@ -6,12 +6,6 @@
 > and re-read PLAN + release gate + queues and reorder when priorities shift; that judgment
 > is the agent's, not a radar's.
 
-## P3 — strategic replan (when radar pings — then resume execution)
-
-- [x] BOTH: Run `agent_idle_radar.py --replan` — read PLAN + release-plan §8 + SESSION_STATE + both queues (done @ 2026-06-20, due 37h/51 commits + post-rule-change self-audit)
-- [x] BOTH: Reorder P5–P20 items if priorities shifted; refresh Mac laundry list if stale (priorities: Mac ci verify + M2 prep next; no reorder needed)
-- [x] BOTH: `--replan-done --note "…"` then immediately `--next` and execute top item (done; next = Mac ci triage verify per handoff)
-
 ## P4 — release gate slice (turn 145, WIN builds · Mac verifies)
 
 > **Operating model:** `MAC_WORK_QUEUE.md` §WIN builds · Mac scopes + verifies. Handoff @ `091a3f14`.
