@@ -406,37 +406,6 @@ def check(*, auto_pull: bool = False, quiet_log: bool = False) -> dict:
             _log(
                 "STANDING RULE: auto-pull performed for tracking_behind (git status behind + clean tree) — user did not say 'pull'"
             )
-        # EXTRA STEP — the core piece the user has been demanding for sustained autonomous loop:
-        # RADAR DETECTS PUSH -> AUTO-PULL (even after cleaning dirty) -> IMMEDIATELY TRIGGER CONTINUATION.
-        # Calls into agent_idle_radar so the idle/work surfacing picks up "continue where left off"
-        # or new Mac instructions / IN_FLIGHT / LANE_HANDOFF tasks with zero human input.
-        # This + bg radars + NEVER-STOP chaining + end-of-turn --next closes the "stops after ~1h" gap.
-        # Also --ping to record the autonomous resume as activity heartbeat.
-        _log("EXTRA STEP: post-pull autonomous continuation (ping + --next) for NEVER-STOP cross-lane sustain")
-        try:
-            # Record heartbeat tied to the pull event
-            _py(
-                str(REPO / "scripts" / "agent_idle_radar.py"),
-                "--ping",
-                "--note",
-                "auto-resume after pull from other lane push per NEVER-STOP",
-            )
-            # Surface the actual next work items into the idle radar log (AI sees via log or explicit --next)
-            rc, out, err = _py(
-                str(REPO / "scripts" / "agent_idle_radar.py"),
-                "--next",
-            )
-            if rc == 0:
-                if out:
-                    for line in out.splitlines():
-                        _log(f"  EXTRA NEXT: {line}")
-                _log(
-                    "EXTRA STEP SUCCESS: pinged + agent_idle_radar --next triggered after pull. Work continuation active."
-                )
-            else:
-                _log(f"EXTRA STEP: --next returned {rc} (stderr: {err[:200] if err else ''})")
-        except Exception as e:
-            _log(f"EXTRA STEP: failed to trigger agent continuation: {e}")
     if tip:
         state["last_remote_tip"] = tip
     _save_state(state)

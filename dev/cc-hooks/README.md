@@ -7,8 +7,8 @@ Tracked source-of-truth for the per-project Claude Code hook + installer.
 
 | File | Role |
 |---|---|
-| `bootstrap-triad.ps1` | SessionStart hook (WIN) — triad read reminder + memory hygiene + lane ping + **auto-starts both session radars** (lane_watch with --auto-pull to enforce standing auto-pull-on-BEHIND rule + agent_idle_radar). |
-| `bootstrap-triad.sh` | SessionStart hook (Mac) — triad read reminder + incoming handoff + **auto-starts both session radars** (`dev/start_session_radars_mac.sh`, always with --auto-pull). Wire in per-box `~/.claude/settings.json`. |
+| `bootstrap-triad.ps1` | SessionStart hook (WIN) — triad read reminder + memory hygiene + a one-shot lane ping (auto-pull-on-BEHIND at the session seam). No persistent background radars (the runaway-radar machinery was removed 2026-06-20). |
+| `bootstrap-triad.sh` | SessionStart hook (Mac) — triad read reminder + incoming handoff + a one-shot lane ping (auto-pull-on-BEHIND at the session seam). No persistent background radars. Wire in per-box `~/.claude/settings.json`. |
 | `install_cc_hooks.ps1` | Idempotent installer — copies the hook into the cwd-parent `.claude/hooks/` and patches `.claude/settings.json` to register it. |
 | `memory_hygiene.py` | Memory self-maintenance tool (see below). |
 | `README.md` | This file. |

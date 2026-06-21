@@ -1,14 +1,10 @@
-# Agent work backlog — always-on queue (never idle)
+# Agent work backlog — pending-work queue
 
-> **STANDING (2026-06-18):** The agent must NEVER wait for user input. If blocked on
-> one task, pick the next item here or run `py -3 scripts/agent_idle_radar.py --next`.
-> User will ask when they have something for you. Ping heartbeat after each slice:
-> `py -3 scripts/agent_idle_radar.py --ping --note "what you just did"`.
->
-> **Strategic replan (STANDING):** Periodically step back and re-read PLAN + release
-> gate + queues — reorder for optimal efficiency when derailed or scope shifts.
-> Radar auto-pings when due (15+ commits · 24h · PLAN changed). Checklist:
-> `dev/STRATEGIC_REPLAN_CHECKLIST.md` · `py -3 scripts/agent_idle_radar.py --replan`.
+> A plain list of non-blocked next-work items (pick the next when a lane frees). The
+> anti-idle / auto-replan **radar was removed 2026-06-20** (runaway-loop cleanup) — this is
+> now a manual backlog, not an "always-on / never-idle" engine. **Periodically step back**
+> and re-read PLAN + release gate + queues and reorder when priorities shift; that judgment
+> is the agent's, not a radar's.
 
 ## P3 — strategic replan (when radar pings — then resume execution)
 
@@ -22,7 +18,7 @@
 
 - [x] WIN: ci pytest triage — turn 144 (`pytest --lf` 9/9 · edition_stats cross-check PASS)
 - [ ] MAC: Verify turn 144 ci triage on pull (pytest + `lint_rules` per CHANGELOG) → `LANE_HANDOFF` verify block
-- [ ] WIN: M2 Apple audit — K-R5-3 · justify · Easton dedup (`LANE_HANDOFF` §user-fail)
+- [x] WIN: M2 Apple audit — K-R5-3 · justify · Easton dedup (`LANE_HANDOFF` §user-fail) — gate scoped to real bleed + pure singletons; fixes (left-align, dict-* strip, boundary clamp) landed+confirmed; sim scope satisfied; device nav/justify separate from this gate. Mac loop root noted in LANE.
 - [ ] WIN: Kindle STK glossary bisect vs `143407Z` — one candidate m4b
 - [ ] MAC: Verify M2 tablet artifact + Kindle m4b after WIN pushes (no dual code fixes)
 - [ ] **HOLD:** rx-surfaces · Kobo `--sim` · sim audit · catalog · overflow

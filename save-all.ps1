@@ -59,24 +59,9 @@ else {
     Ok "commit leg done (committed, or nothing to commit)"
 }
 
-# ------------------------------- Post-commit: truth-record rotation (mint 3.1/3.3)
-# The save script is the rotation ACTOR; the lint's truth_record_budget check is
-# the tripwire. Keeps SESSION_STATE/IN_FLIGHT (newest 2 entries) + LANE_HANDOFF
-# (frontmatter + newest 2 turns + STANDING) lean on every full save.
-Write-Host "`n=== Post-commit: truth-record rotation ===" -ForegroundColor Cyan
-if ($DryRun) { Write-Host "  would: py -3 scripts/rotate_truth_records.py --apply (+ commit if it rotated)" }
-else {
-    & py -3 "$PSScriptRoot\scripts\rotate_truth_records.py" --apply
-    if ($LASTEXITCODE -ne 0) { Bad "rotator exited $LASTEXITCODE"; $failures += 'truth-record rotation' }
-    $rotPaths = @('dev/SESSION_STATE.md', 'dev/IN_FLIGHT.md', 'dev/LANE_HANDOFF.md', 'dev/archive')
-    $rotDirty = git status --porcelain -- @rotPaths
-    if ($rotDirty) {
-        git add -- @rotPaths
-        git commit -m "chore: rotate truth records (save-all auto; keep 2 + standing sections)"
-        if ($LASTEXITCODE -eq 0) { Ok "rotation committed" } else { Bad "rotation commit"; $failures += 'rotation commit' }
-    }
-    else { Ok "truth records already within entry budget" }
-}
+# Truth-record rotation is now a MANUAL tool only (run `py -3 scripts/rotate_truth_records.py --apply`
+# when the truth_record_budget lint actually trips). The old per-save auto-commit was removed
+# 2026-06-20 — it produced 66 "chore: rotate truth records" churn commits during the runaway loop.
 
 # Resolve bundle name from the (possibly new) HEAD.
 $short = (git rev-parse --short HEAD 2>$null)

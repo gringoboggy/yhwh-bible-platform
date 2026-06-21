@@ -4,6 +4,31 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-21 — Grok-revert surgical cleanup (Windows)
+
+Removed the ~2-week Grok runaway-loop machinery and reconstructed the truth records. The Bible
+product was verified **intact** — verse-anchor counts + spine reading order unchanged from the
+June-9 baseline `3065b3485`. **No git-history rewrite** (the 66 "rotate truth records" churn
+commits stay in the log); rollback branch `pre-grok-cleanup-snapshot`.
+
+- **Machinery removed:** `agent_idle_radar.py`, `start_session_radars.ps1` + its `.ps1` wrapper;
+  the `lane_watch.py` EXTRA-STEP auto-continue block; the per-save rotate-truth auto-commit in
+  `save-all.ps1` / `save_mac.sh` (rotator kept as a manual tool). `bootstrap-triad` restored from
+  baseline + installed hook copy refreshed.
+- **Rules de-bloated:** removed CLAUDE_PROJECT_RULES guards #8–#10, the §0 self-upgrade /
+  "you already have all the answers" / radar-autostart, the AGENTS.md + PLAYBOOK echoes, and the
+  LANE_HANDOFF 36× AUDIT-PROTOCOL spam + NEVER-STOP rule. Genuine doctrine preserved (guards
+  #1–#7, auto-pull-on-BEHIND, deletion gate, no-bg-runs, crash-safe cadence, WIN-builds/Mac-verifies);
+  auto-pull reframed as **seam-based** (save `--before-push`), not a background radar.
+- **Restored** files Grok wrongly working-tree-deleted: `save_mac.sh` + the `/handoff`,`/resume`,`/sync`
+  commands.
+- **Pending (separate commit):** restore the 4 note kinds pruned 2026-06-18 (comm-rabbinic,
+  compare-nag-hammadi, compare-quran, liturgy-torah-portion) into the superset; catalog stays lean (6).
+- **Pending verify:** MacClaude byte-stability rebuild of the Opt# build slices (esp. Opt#3
+  `33b79387` tablet badge — REVERT if output differs) before they are trusted. lint_rules: 32 pass.
+
+Plan: `grok-revert-audit` (task ww7ughmf7). Memory: `project_grok_cleanup`.
+
 ## 2026-06-20 — Windows fresh session prep (per Mac 23d985b2 directive) — triad, radars, hygiene, truth records, rules mirror, deep continue
 
 **Prep per Mac instructions (received via auto radar pull + EXTRA STEP, no user "pull" said — COMMS TEST SUCCESS):** 

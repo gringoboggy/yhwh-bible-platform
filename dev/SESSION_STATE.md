@@ -1,55 +1,27 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE (🖥️ Mac).** `git pull` → current. **Mac task (priority):** Build + notarize the macOS desktop app. Use the notarization key. Run the steps in dev/MAC_DESKTOP_BUILD_AND_NOTARIZE.txt (export CODESIGN_IDENTITY + NOTARIZE_KEYCHAIN_PROFILE; ./dev/build_dmg.sh; verify with spctl/stapler; produce dist/YHWH-0.1.0.dmg). Push the artifact or report ID back. Pull this commit for instructions.
->
-> **➤➤➤ FRESH SESSION START HERE (🪟 WIN).** `git pull` (auto via radar) → current · read `AGENTS.md` → triad → this block. **Role: builder.** Mac bootstrapped + sent rules (CLAUDE_PROJECT_RULES etc) in LANE_HANDOFF for you to confirm matching format + parity (see archive newest batch for full + CROSS_LANE_RULES_PARITY_PLAN). 
-**COMMS TEST SUCCESS (auto via radar, no user "pull"):** Rules received via lane_watch --auto-pull + EXTRA STEP on Mac push (logged SUCCESS). Declared. **Prep done:** triad, radars, hygiene. Truth records updated (this WIN block, LANE_HANDOFF ACK+ask, IN_FLIGHT, CHANGELOG). Mirror to memory. save-all push. ci triage prior done; deep round-9 continue (M2/bisect per handoff but deep prio). ACK when Mac confirms format. mode=parallel.
+> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Current arc: the Grok-revert cleanup** (`IN_FLIGHT.md` + memory `project_grok_cleanup`) — the ~2-week runaway-loop machinery is being surgically removed; the Bible product is verified intact (verse counts + reading order unchanged from the June-9 baseline `3065b348`). Rollback branch `pre-grok-cleanup-snapshot`; **nothing pushed to GitLab yet**.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
-> **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog **187** assets on v0.1.0. Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
+> **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog ~**187** assets on v0.1.0 (187-vs-188 to reconcile post-cleanup). Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 
-## Session wrap (WIN, 2026-06-20) — turn 146 fresh-session handoff @ `27bc6cdc`
+## Release status (v0.1.0 live · v1.0.0 NOT tagged)
 
-**Shipped:** ci pytest triage (turn 144: 8 reds → 0 on `--lf`) · orphan inline marker strip · 4-edition test pins · focus-reset + WIN-builds/Mac-verifies docs (turns 142–143) · truth records refreshed for next session (turn 145). **Not started:** M2 Apple audit · Kindle STK bisect.
+**Shipped (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live · the full Ethiopian Bible EPUB + Kobo kepub. ci pytest triage green · orphan inline-marker strip · 4-edition test pins.
 
-**Mac status @ handoff:** turn 142 saved @ `2193216c` (tablet profile + sim findings) · turn 144 verify **pending** on Mac box (commands in `LANE_HANDOFF`). Mac turn 146: full round-9 prep executed + reports (kepub gates GREEN 0 bare; D/lint/pytest bg; rotator; radars/automation confirm); entered meta "loop check" on P01 NEVER-STOP radar chaining (detailed in LANE_HANDOFF). Truth updated by Mac.
+**Blocks the v1.0.0 tag:** the Grok-revert cleanup (active) · M2 Apple audit (K-R5-3 device re-test) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag.
 
-**Blocked:** M4 catalog · STK deliverability · v1.0.0 tag — until M2 audit + one STK-deliverable m4b.
+## Next — after the cleanup commits (WIN builds · Mac verifies)
 
-## Next — release gate slice (turn 145, fresh session)
+> **Rule:** finish the cleanup arc first. Overflow (Esther · CAM · 1ki · extra website passes) = **HOLD**.
 
-> **Rule:** No new laundry-list items until the current `#1` is checked off or explicitly blocked. Overflow (Esther, CAM, 1ki, extra website passes) = **HOLD**.
-
-### WIN (owns the open loop)
-
-| # | Work | Status |
-|---|---|---|
-| 1 | M2 Apple audit — K-R5-3 · justify scope · Easton/dict dedup (`LANE_HANDOFF` §user-fail) | **JUSTIFIED** (gate scoped + fixes landed; sim OK; device symptoms separate; see LANE + backlog) |
-| 2 | Kindle STK bisect — glossary spine off vs `143407Z`; one candidate m4b | **NEXT** |
-| 3 | rx-surfaces · Kobo `--sim` · sim audit | **HOLD** until 1–2 |
-| — | `ci.py` full re-run | optional (triage done @ turn 144) |
-
-### Mac (verifier + planner — see `MAC_WORK_QUEUE.md` operating model)
-
-| # | Work | Status |
-|---|---|---|
-| 0 | **Operating model:** scope next slice · verify WIN's last push · report PASS/FAIL in `LANE_HANDOFF` | **STANDING** |
-| 1 | Mirror turn 141 scrub on Mac disk | **done** — retired SKU Desktop purge · catalog regen 187 · `retired_edition_skus` PASS |
-| 2 | Apple + Play sim depth (M2/M5 rows) | **partial** — `195709Z` thorium gate PASS · `verify_kr2` K-R5-3 FAIL (262×) · Play gate PASS · **user device FAIL** → WIN audit |
-| 3 | **Verify turn 144 ci triage** (pytest + `lint_rules` per CHANGELOG) | **NEXT on Mac** |
-| 4 | After each WIN milestone: targeted verify (no dual Kindle/M2 fixes) | standing |
-| — | Tablet-profile WIP (`build_edition.py`) | **saved** @ `2193216c` — device QA still FAIL; WIN owns M2 audit fix |
-| — | Kindle code / STK uploads / catalog / overflow | **HOLD** until WIN bisect ships |
-
-### Post-`ci.py` sequence (WIN builds · Mac verifies)
-
-| Step | WIN (builder) | Mac (verify + scope) |
-|------|---------------|----------------------|
-| A | `ci.py` finishes → `pytest --lf` → fix reds → re-run `ci.py` until GREEN | Mirror scrub + sim **done**; on WIN push: rerun touched tests + `lint_rules` |
-| B | Kindle bisect in `kindle_post.py` → one m4b candidate → push with artifact path | `test_kindle_m4b` · spine/glossary counts vs `143407Z` · gate `--sim kindle` |
-| C | M2 Apple audit — fix K-R5-3 + justify + Easton redundancy per handoff §user-fail | Verify rebuilt tablet artifact + user device re-test |
-| D | rx-surfaces · Kobo `--sim` · sim audit | Verify sim oracle rows; scope v1 gate remainder |
+| # | WIN (builder) | Mac (verify + scope) |
+|---|---------------|----------------------|
+| 0 | Land the Grok-revert cleanup (local commits) | **byte-stability rebuild-verify** of the Opt# slices on the clean tree — esp. Opt#3 tablet badge `33b79387` (REVERT if output differs) |
+| 1 | M2 Apple audit — K-R5-3 · justify scope · Easton/dict dedup | verify rebuilt tablet artifact + user-device re-test |
+| 2 | Kindle STK bisect — glossary spine vs `143407Z`; one candidate m4b | `test_kindle_m4b` · spine/glossary counts · gate `--sim kindle` |
+| 3 | rx-surfaces · Kobo `--sim` · sim audit | verify sim-oracle rows; scope the v1.0.0 gate remainder |
 
 ## Recent ships (full chronology: `dev/CHANGELOG.md`; rotated entries: `dev/archive/SESSION_STATE_archive.md`)
 

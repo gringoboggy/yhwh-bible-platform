@@ -8,7 +8,7 @@ user wins for that turn — but the rule stays as written.
 **Finished-arc history, frozen stats, and per-instance tallies extracted from this
 file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved.
 
-**Operational guards (durable behavioral defaults — keep all eight):**
+**Operational guards (durable behavioral defaults — keep all seven):**
 1. **Package installs — PRE-AUTHORIZED (user 2026-06-11, standing, both lanes):
    "you can always install whatever is needed for the project."** No per-install
    ask. Protocol: DECLARE the package in a committed manifest FIRST
@@ -73,7 +73,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    question or concern I WILL BRING IT UP MYSELF"). 
 
    **If you ever feel the urge to ask a question, first dig deeper.** Re-read the
-   bootstrap triad, run `agent_idle_radar.py --next`, consult REPO_MAP / MATRIX_MAP /
+   bootstrap triad, consult REPO_MAP / MATRIX_MAP /
    SESSION_PLAYBOOK / LANE_HANDOFF STANDING sections / backlogs / specs. Search the
    project tree for the exact pattern. "If you dig deep enough in the project's folders
    and scope and rules... you will find every answer." Only items *explicitly* marked
@@ -90,7 +90,7 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    announcements. Read the minimum (SESSION_STATE/IN_FLIGHT top + git), then act. This
    supersedes any "comms comprehensive" default — completeness applies to the WORK, not
    to chat verbosity. (d) **Save cadence: local-commit during micro-edits; push often
-   without asking** — see §4 (crash-safe cadence, 2026-06-17). Exception: for critical cross-lane rule/behavior updates (new STANDING, enforcement changes like auto-pull, Guard #8, self-upgrading/auditing doctrine, "you already have all the answers") that the other lane needs immediately to avoid non-compliant work, commit then full-push promptly via the save script right after the edit.
+   without asking** — see §4 (crash-safe cadence, 2026-06-17). Exception: for critical cross-lane rule/behavior updates (new STANDING, enforcement changes like auto-pull) that the other lane needs immediately to avoid non-compliant work, commit then full-push promptly via the save script right after the edit.
    (Out-of-repo half: this in-repo rule reaches both lanes on `git pull`, but each
    box's memory is per-box — each lane mirrors it into its own memory; memory:
    `session-operating-doctrine`.)
@@ -125,30 +125,6 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    surfaced website + dist/release-pipeline defects (the WIN lane's domain) → Mac
    passed all 30 survivors to Windows via `findings-mac.json` + the board, spotlighting
    the win-domain ones, instead of dropping them.
-
-8. **Literal "always just do the logical automation" standing directives (user-directed, 2026-06-20 emphasis).** When the user establishes a durable, repeated directive of the form "the X system must **always just do** Y logical thing on condition Z (e.g. the pull checker must auto `git pull --rebase` the instant the branch is behind + tree clean; never make the user say the word again; never second-guess; never require re-instruction)", agents **must**:
-   - Implement it completely, reliably, and permanently in the in-repo code (radar, hooks, startup scripts, conditions).
-   - Wire it so it is active by default on every fresh session (bootstrap + radars always carry the flag/behavior).
-   - Update all truth records (LANE_HANDOFF STANDING, RULES, PLAYBOOK, specs, AGENTS.md) in the same change.
-   - Never weaken, condition, or "improve" the automation later without explicit user reversal.
-   - On future sessions, reading the triad + rules must result in the behavior being live and correct.
-   This applies especially to bandwidth-saving / crash-safety / coordination automations. "Grok/Claude doesn't listen when told 'always just do this very logical thing'" is forbidden. Violation is treated like any other guard failure.
-
-   **Doc & rule hygiene after behavioral changes is mandatory (no confirmation needed).** After any significant change to automation, rules, or standing behavior, you **must** step back and ask: "Should the greater documents (AGENTS.md, CLAUDE_PROJECT_RULES.md, SESSION_PLAYBOOK.md, LANE_HANDOFF.md, bootstrap/cc-hooks files, relevant specs) be updated because of this?" If the update is obvious and logical, do it immediately. Never wait for the user to say "also update the docs." Only ask when the need is genuinely doubtful. This is now part of the standing expectation for every substantial change.
-
-9. **Leverage the other lane for prep work (user-directed 2026-06-20).** Always make the other lane (especially Mac) do any prep work that can help the current lane's tasks. This includes pre-running audits/sims/builds on the other machine's hardware/OS, capturing OS-specific diffs, running local checks, preparing artifacts, memory states, or any preparatory steps that would speed up or improve the work on the active lane. Use LANE_HANDOFF / MAC_WORK_QUEUE / handoff assign to delegate. Windows (main) should proactively assign Mac prep. Update truth records with assignments. This is standing; do not wait for user to say "make Mac do X". Mirror to per-box memory.
-
-10. **Deep Audit, Redundancy/Contradiction Removal, Optimizations, Sims, Markup Integrity, Cross-Machine Parity & Two-Machine Automation Safety (user-directed 2026-06-20).** The project runs continuous self-auditing (lint_rules, trace_*, audit.py, verify, ci.py, memory_hygiene, deep-audit workflows, etc.). On top of that standing system:
-   - **Stepping back for sanity checks/audits is mandatory when needed.** Windows (main machine) and both lanes must periodically step back (especially after small changes that might touch bigger, or before/after big phases) and run targeted sanity/audit passes on any touched surface (code, data, rules, sims, builds, website, online metadata, automation). Smaller/focused audits frequently; ridiculously deep full-project audits less often but when a big phase completes or on explicit trigger.
-   - **Update and optimize the Project Auditor.** The reusable deep-audit engine (`.claude/workflows/deep-audit.js` + in-repo `audit.py`, `memory_hygiene.py`, trace scripts, etc.) must be kept current with truth (editions, note counts, lane state, OS diffs). It must take BOTH machines in full consideration: enforce identical rules/behavior where possible; explicitly implement and document only the necessary OS differences (paths, Python/shell invocation, RAM budgets, process killing, hook wiring, bundle locations, build tools). Cross-lane parity audits are part of every deep run.
-   - **Ridiculously deep audit when next big phase completes:** Run an adversarially-checked (skeptic panels, re-verify every finding vs live), revised, full-scope audit. Scope: redundancies (project structure, program code, bibles/books/popups/verses/notes/xrefs/language strings — remove all logical duplicates); contradictions (zero anywhere in project/program/data/rules — zero conflicting counts, facts, behaviors); sims (reader_sim, verify_*, gates — exhaustive "what could go wrong", coverage, improvements, false-negatives); optimizations (EVERYTHING: code, data, rules, repo, out-of-repo memory, website, GH/GL releases/metadata/descriptions, CI, build matrix, automation — identify and implement where safe); markup integrity (no broken <>, strings, pagebreaks, illogical formatting in ANY offered artifact: plain, Apple, Kobo, Kindle, playbooks); two-machine automation (what can go wrong with lane_watch/ping/handoff/save/radars/hooks, add/verify all necessary safety guards, never lose work, always sync truth); online truth (GH, GL, website, releases, social — any big change must update all records/metadata to current truth in same change or immediately).
-   - **Small vs big work integrity:** Any change (small or big) must verify it didn't introduce breakage to the other scale (use auditor passes). "If you touch X you must audit the Y it might have touched."
-   - **No broken anything in shipped artifacts.** Zero tolerance for broken markup/strings/formatting in any reader target or doc.
-   - **Auditor must be optimized for current truth + cross-OS.** Before any deep audit, bump facts (current editions, counts, consoles, lane state, OS diffs), add dims for new surfaces (e.g. website, GH/GL, full sims, popups, bibles themselves for internal redundancy).
-   - **Everything always considered.** All work (Win or Mac) must consider the full system: repo + out-of-repo + website + online + both OSes + automation + data integrity + user-facing truth. Update the auditor engine + this rule + all truth records when the surface changes.
-   - Execution: smaller audits ad-hoc or on radar triggers; full ridiculous deep one after each major phase close (adversarial, parallel dims, findings merged, fixes verify-first, no assumption). Both lanes participate (split dims or parity checks).
-
-   Update all relevant (RULES, PLAYBOOK, AGENTS, specs, auditor engine, parity plan, LANE_HANDOFF, etc.) in the same change when this is implemented.
 
 **Terminology — what "deploy" means (user-directed 2026-06-07, EMPHATIC):**
 When the user says **"deploy"**, they mean **BUILD THE PROGRAM *AND* DEPLOY IT** —
@@ -230,59 +206,10 @@ work*, never *skip to the task*. The triad (~700-900 lines) IS the minimum
 orientation; a `git log` or SESSION_STATE-only peek is NOT a substitute. A project
 **SessionStart hook** — per-box, not git-synced: Windows runs
 `dev/cc-hooks/bootstrap-triad.ps1` (installed to the repo-parent
-`YHWH-v2.4-full/.claude/hooks/` via `dev/install_cc_hooks.ps1`; Mac:
+`YHWH-v2.4-full/.claude/hooks/` via `dev/cc-hooks/install_cc_hooks.ps1`; Mac:
 `dev/cc-hooks/bootstrap-triad.sh`). The in-repo `.claude/settings.json` is
 intentionally `{}` — hook wiring lives in the parent workspace settings.
-Injected at every session start as a forcing function. **The hook auto-starts
-BOTH session radars** (STANDING, every session, idempotent background):
-**lane_watch** (15s cross-lane push/handoff; WIN adds `-AssignMac`) +
-**agent_idle_radar** (120s — never wait for user input; surfaces
-`dev/AGENT_WORK_BACKLOG.md`). Starters: `dev/start_session_radars.ps1` (WIN) ·
-`dev/start_session_radars_mac.sh` (Mac). If blocked on one task, run
-`py -3 scripts/agent_idle_radar.py --next` and pick disjoint work. **Strategic replan
-ping (STANDING):** periodically step back — re-read PLAN, release gate, queues;
-reorder for optimal efficiency when derailed (`--replan` when 15+ commits / 24h /
-PLAN changed; checklist `dev/STRATEGIC_REPLAN_CHECKLIST.md`; then resume execution).
-
-**Self-upgrading, self-auditing & optimization of everything in the program and project (STANDING, fully autonomous — "you already have all the answers").**
-The agent must proactively self-upgrade, self-audit, and optimize *everything* in the program (rules, code, automation, radars, bootstrap, backlogs) and the project (docs, completeness, hygiene, surfaces) — and do it at logical points without the user ever having to bring it up. If you are ever thinking of doing something that might require asking a question, stop and dig: the rules, backlogs, replan checklist, radars, and folders already contain the steps, triggers, and tracking.
-
-**"You already have all the answers"** (dig deep in folders/scope/rules/backlogs/PLANs/specs). When you are thinking of doing something that might require asking a question (including "is a self-audit/upgrade due?"), first stop and dig: re-read the triad + relevant STANDING sections + run `--next` or `--replan`. All mechanisms, logical points, steps, and tracking live in the project itself. Self-upgrading, self-auditing, and optimization of everything in the program and project is explicitly a standing autonomous behavior the rules tell the agent to initiate without prompting.
-
-**Logical points to self-audit / self-upgrade / optimize (initiate on your own):**
-- On every strategic replan (`agent_idle_radar.py --replan` — 15+ commits, 24h, PLAN/release-plan changed, scope drift, after big change).
-- After any behavioral, rule, or automation change (as part of the change — see doc-hygiene rule below).
-- At fresh session start (quick pass) and before wrap (full if overdue).
-- When radar/backlog surfaces stale items, or when "last done" is old.
-- Periodically as part of anti-idle: never leave the project in a worse or un-audited state.
-
-**Keep track of "last done" autonomously:**
-- Use `dev/.agent_activity.json`, replan state, STRATEGIC_REPLAN_CHECKLIST notes, or explicit entries in CHANGELOG / backlogs.
-- Track major ones: last full lint+ci+trace audit, last doc hygiene pass, last backlog/REPO_MAP sweep, last rules self-upgrade, last optimization pass.
-- If >7–14 days or >50 commits since last, or on replan trigger, do it.
-
-**What "self-upgrading / auditing / optimizing everything" includes:**
-- **Audit the program/project:** `py -3 scripts/lint_rules.py`, `py -3 scripts/ci.py` (fast path first), `dev/trace_repo.py`, `dev/trace_matrix.py`, doc-coherence, REPO_MAP complete, repo cleanliness, sources present, no missing files.
-- **Self-upgrade rules & automation:** Improve CLAUDE_PROJECT_RULES, AGENTS, SESSION_PLAYBOOK, LANE_HANDOFF STANDING, radars (agent_idle, lane_watch), bootstrap, backlogs, checklists. Add guards, better surfacing, stronger "never ask / you have the answers" language.
-- **Optimization:** Cleanup, dedup, better UX in tools, completeness gates, performance, clarity. Update *all* surfaces when the program offers something new/different (website, gitlab/github descriptions/READMEs/metadata/social cards, truth records, catalog, etc.).
-- **Doc & truth hygiene:** Proactively update AGENTS.md, RULES, PLAYBOOK, LANE_HANDOFF, specs, bootstrap scripts, CHANGELOG/STATE after any change (no confirmation needed when obvious).
-- **Backlog & scope hygiene:** Re-read AGENT_WORK_BACKLOG + lane queues; surface non-blocked/deferred tasks; keep them current.
-- Ensure the entire project remains runnable autonomously (all sources, rules, files in place so work continues if user is away for long periods).
-
-**Steps (documented in STRATEGIC_REPLAN_CHECKLIST + PLAYBOOK):**
-1. Trigger replan or manual `--replan`.
-2. Orient: re-read PLAN, release gate, SESSION_STATE, backlogs.
-3. Inventory + audit: run the tools above.
-4. Self-upgrade: edit rules, add items to checklists/backlogs, improve code/automation.
-5. Optimize surfaces: website, repos, docs, metadata.
-6. Track "last done" + `--replan-done`.
-7. Resume with `--next`.
-
-This is non-negotiable standing behavior. The radars, replan mechanism, and "dig deep" principle exist precisely so the agent self-maintains and self-improves the entire system without external prompting. Add any new recurring audit/upgrade items to the backlogs and replan checklist so they surface automatically.
-
-After behavioral or automation changes, also proactively update the higher governing
-documents (AGENTS.md, CLAUDE_PROJECT_RULES, SESSION_PLAYBOOK, LANE_HANDOFF, bootstrap
-files) as part of the work — do not wait for confirmation when the need is obvious.
+Injected at every session start as a forcing function. **Cross-lane sync happens at SEAMS, not via a background loop** (cleaned up 2026-06-20 after the runaway-radar incident): the save scripts run `lane_ping --before-push` and auto-pull-rebase when the branch is behind + clean (the genuine auto-pull-on-BEHIND rule, RULES §4); a fresh session reads the triad and may run `py -3 scripts/lane_ping.py` once to check whether the other lane pushed. No persistent background radar processes are auto-started.
 
 **Always-there maps:** for ANY "where does X live / how does data flow / what feeds
 the build" question, check the maps FIRST — never grep blind. `dev/MATRIX_MAP.md`
@@ -598,16 +525,16 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   lane by its TASK, not by `holder` (the v1 bug). The E:/F: bundle legs stay Windows-only.
   See `docs/superpowers/specs/2026-06-08-lane-coordination-v2-design.md` (memory:
   `reference_lane_coordination`).
-- **Lane sync radar (the "ping" + full pull checker) — AUTOMATIC.**
-  `scripts/lane_ping.py` does the cheap "did the other lane push?" detection.
-  `scripts/lane_watch.py --auto-pull` (always started by the session radars on both lanes)
-  is the full enforcer of the STANDING auto-pull-on-BEHIND rule. It pulls on lane_ping
+- **Lane sync — the "ping" + auto-pull-on-BEHIND, at SEAMS (not a background loop).**
+  `scripts/lane_ping.py` does the cheap "did the other lane push?" detection;
+  `scripts/lane_watch.py --auto-pull` is the fuller checker — it pulls on lane_ping
   BEHIND, remote handoff turn ahead, *or* when the local branch simply lags the tracking
   ref after fetch (`tracking_behind` when `HEAD..origin/main` > 0 and tree clean).
-  Wired at bootstrap (SessionStart + `start_session_radars_*`), before-push in savers,
-  and continuous 60s background. The rule is "the user never has to say pull". See
-  LANE_HANDOFF STANDING and the dedicated guard #8 above. Read-only + non-fatal for
-  network issues.
+  These run at SEAMS: the save scripts call `lane_ping --before-push` and pull-rebase
+  before pushing, and a fresh session may run `lane_ping` once. The rule is still "the
+  user never has to say pull" — enforced at the push/session seams, NOT by a persistent
+  background radar (the runaway-radar machinery was removed 2026-06-20). Read-only +
+  non-fatal for network issues.
 - **⚠ BEFORE saving:** `python -m ruff format` files you generated / regenerated (esp.
   `content/translations/<id>/` stores) or the pre-commit hook blocks the commit (§7).
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped · next · test count ·
