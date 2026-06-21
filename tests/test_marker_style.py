@@ -818,7 +818,7 @@ class TestEmptyVerseProseRepair:
 class TestBadgeBuildIntegration:
     EDITION = "ethiopian-tewahedo"
 
-    def _build(self, tmp_path, monkeypatch, marker_style):
+    def _build(self, tmp_path, monkeypatch, marker_style, target_reader=None):
         import scripts.build_edition as be
         from scripts.core import build_cache
 
@@ -828,12 +828,23 @@ class TestBadgeBuildIntegration:
         eds = dict(config.editions_by_id())
         ed = dict(eds[self.EDITION])
         ed["marker_style"] = marker_style
-        ed["reader_file_split"] = False  # keep this badge-focused build fast; splitting is tested in test_file_split
+        # Keep this badge-focused build fast (splitting is tested in test_file_split).
+        # For a tablet target the resolver already forces file_split OFF, so leave the
+        # edition record alone there — the build must exercise the real tablet path.
+        if target_reader is None:
+            ed["reader_file_split"] = False
         eds[self.EDITION] = ed
         monkeypatch.setattr(config, "editions_by_id", lambda: eds)
 
         all_kinds = config.load_kinds()
-        stats = be.build_one(self.EDITION, tmp_path, f"badge-test-{marker_style}", all_kinds, force=True)
+        stats = be.build_one(
+            self.EDITION,
+            tmp_path,
+            f"badge-test-{marker_style}",
+            all_kinds,
+            force=True,
+            target_reader=target_reader,
+        )
         return Path(stats["output_path"])
 
     def _bodymatter_xhtml(self, epub):
@@ -879,6 +890,32 @@ class TestBadgeBuildIntegration:
         saw_badge = any('class="verse-notes-badge"' in t for _, t in files)
         assert saw_marker, "numbers mode lost its per-note markers"
         assert not saw_badge, "numbers mode must NOT emit verse badges"
+
+    def test_tablet_badge_build_applies_badges(self, tmp_path, monkeypatch):
+        """Regression pin (2026-06-21): ``build_one`` MUST run ``apply_badge_markers``
+        for a TABLET badge edition.
+
+        Grok's Opt#3 "early-out" (``33b79387``) wrapped the badge pass in
+        ``if resolve_reader_file_split(edition) or target == "eink"`` and skipped it
+        otherwise — which is EVERY tablet build (tablet forces file_split OFF) and any
+        ``reader_file_split: false`` edition. The result: raw per-note markers leaked
+        into the bodymatter instead of one collapsed study badge per verse, and the
+        Apple/tablet artifact lost every badge. The existing
+        ``test_badge_build_has_badges_no_per_note_markers`` already caught it for the
+        everywhere+file_split-off path; this pins the tablet path explicitly so the
+        make-or-break case can never silently regress."""
+        epub = self._build(tmp_path, monkeypatch, "badge", target_reader="tablet")
+        prose = [(n, t) for n, t in self._bodymatter_xhtml(epub) if "900" not in n]
+        assert prose, "no bodymatter in the tablet badge EPUB"
+        saw_badge = False
+        for name, text in prose:
+            assert 'class="note-ref' not in text, (
+                f"{name}: per-note markers leaked on tablet — apply_badge_markers was "
+                "skipped (Opt#3 early-out regression)"
+            )
+            if 'class="verse-notes-badge"' in text or 'class="study-glossary-jump' in text:
+                saw_badge = True
+        assert saw_badge, "tablet badge build produced no study badges (apply_badge_markers skipped)"
 
 
 class TestKoboTapGapCss:

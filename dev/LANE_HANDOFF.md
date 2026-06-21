@@ -5,8 +5,40 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: Grok-revert cleanup DONE + pushed (HEAD b45a9ff1, GitLab+GitHub+E:+F:). Resuming v1.0.0 release gate. See dev/IN_FLIGHT.md + memory project_grok_cleanup.
-mac: On pull after WIN commits the cleanup — run the byte-stability rebuild-verify of the Opt# build slices (esp. Opt#3 tablet badge 33b79387). See the board below.
+mac: Opt# byte-verify DONE — Opt#3 (33b79387) FAILED (tablet/file_split-off badge builds dropped ALL badges; existing integration test went red on the Opt#3 tree) → REVERTED + explicit tablet regression pin added; Opt#2/#4/#5 byte-neutral → kept. See "Mac verify" section.
 ---
+
+## ✅ Mac verify (2026-06-21) — Opt# byte-stability rebuild-verify
+
+Mac pulled the cleanup (HEAD `8c029aa1`, after the Mac Grok-footprint removal) and byte-verified the
+four Grok-era "deep-audit" build slices. **Verdict: Opt#3 FAILS → reverted; Opt#2 / #4 / #5 byte-neutral → kept.**
+
+- **Opt#3 `33b79387` (tablet/Apple badge "early-out") — FAIL → REVERTED.** It wrapped the badge pass in
+  `if resolve_reader_file_split(edition) or resolve_target_reader(edition) == "eink"` and *skipped*
+  `apply_badge_markers` otherwise. `resolve_reader_file_split` is **False for tablet always** (and for
+  any `reader_file_split: false` edition), so those badge builds took the else-branch → raw per-note
+  `note-ref` markers leaked into the bodymatter instead of one collapsed study badge per verse, and the
+  Apple/tablet artifact lost every badge. **Real-data proof:** the *existing*
+  `tests/test_marker_style.py::TestBadgeBuildIntegration::test_badge_build_has_badges_no_per_note_markers`
+  (a file_split-off badge build) **FAILED** on the Opt#3 tree — `index_split_000.html: per-note markers
+  leaked in badge mode` (308 s ethiopian build); the Grok loop's "green suite" never ran it. `git revert
+  33b79387` (clean) restores the unconditional `badge_stats = apply_badge_markers(tmp, edition)`
+  (`scripts/build_edition.py:7695`). Added explicit tablet pin
+  `TestBadgeBuildIntegration::test_tablet_badge_build_applies_badges`. **Green re-verify: PASS** — after
+  the revert, that formerly-red test AND the new tablet pin both pass (2/2 integration builds), plus 62
+  badge/marker/reader-target unit tests green.
+- **Opt#2 `8e34215f` (in-mem `preloaded` for chapter-decoration / reader-TOC / bilingual-TOC) — PASS
+  (byte-neutral).** The new `preloaded` branch joins the pre-existing preload-buffer pattern; per-file
+  logic is identical to the file branch (same regex/rewrite/condition) and per-file transforms are
+  order-independent → identical output. Kept.
+- **Opt#4 glob→walker chain (`44708e41` …) — PASS.** `list_html_files` / `list_split_html_files` →
+  `_list_temp_files(tmp, pat)` = `sorted(tmp.glob(pat))`, the exact expression they replaced. Identical
+  by construction ("preserves exact order/semantics"). Kept.
+- **Opt#5 `af573333` (`@lru_cache` on `_estimate_kepub_aside_bytes(str) -> int`) — PASS.** Memoization of
+  a pure str→int function. Kept.
+
+WIN's proper K-R5-3 badge-bleed clamp (book/piece boundary) remains the correct fix for the M2 tablet
+badge complaint — Opt#3 was Grok's wrong "fix" (drop ALL tablet badges). Revert + WIN's clamp = correct.
 
 ## ▶ Current arc — Grok-revert cleanup (windows → mac, 2026-06-21, mode=parallel)
 
