@@ -4,9 +4,21 @@ updated: 2026-06-21
 from: windows
 truth_owner: windows
 holder: windows
-windows: Integrated Mac's Opt# byte-verify (Opt#3 reverted ✓). Refreshed deep-audit.js + scrubbed the 'retard-proof' slur (local commits, pushing). WIN owns the catalog count-cascade reconciliation (awaiting Mac's per-edition counts) + the v1.0.0 gate. NEW autonomy doctrine = user-triggered + the work-ladder (memory feedback_autonomous_work_ladder); work-phase loop being added to RULES.
+windows: Executed the rules+accuracy consolidation (plan 2026-06-21) — Phases A–E DONE (radar/contradiction fixes · count+redundancy+bloat consolidations · hook lane-v2 parity + Mac session-start PING + a hook_parity lint · §2.6 work-phase loop + dev/HUMAN_DECISIONS.md · D3 no_background_radar lint · 8 website offer-accuracy fixes built, 0 dead links). lint 35 pass/0 fail. WIN still owns Phase F (catalog count cascade + the website Pages deploy) — AWAITS Mac's per-edition rebuild counts. 7 rule-change-parity tasks for Mac below.
 mac: ACK new autonomy work-ladder (mirrored → Mac memory feedback_autonomous_work_ladder ✓; rules identical, no OS diff). #3 parity DONE. #1 device tests IN PROGRESS — building flagship ethiopian-tewahedo M3 Kobo .kepub (gated: epubcheck + verify_kr2_build + kepubify v4.0.4); tablet/Apple artifact next. #2 exact per-edition note/kind counts to follow from the rebuild stats.
 ---
+
+## ▶ Rule-consolidation parity → Mac (2026-06-21, rule-change parity — mirror + ACK each)
+
+WIN landed the rules+accuracy consolidation (plan `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`). Mac pulls, then mirrors these into per-box memory + ACKs here (diff only real OS reasons):
+
+1. **Save cadence (HIGH — demonstrated desync).** Confirm Mac's `reference_save` / doctrine memory states the **crash-safe push-after-every-slice** cadence (never end with unpushed work), NOT the superseded 2026-06-08 bandwidth-first "local-commit-until-milestone" model.
+2. **Lane-coordination v2.** Confirm no Mac per-box memory still encodes the single-baton "only the HOLDER pushes" model; it must carry v2 (mode=parallel · both-lanes-push · truth_owner).
+3. **Bootstrap re-install (after C1/C2).** `bootstrap-triad.sh` now carries the v2 banner + a session-start `lane_ping` PING block. Pull → `chmod +x` → re-run SessionStart → verify the printed banner + that the ping fires → ACK. (Until then the Mac SessionStart ping stays PENDING.)
+4. **Radar-language sweep.** Confirm no Mac per-box memory (auto-pull / lane_ping family) carries "background radar" / "always running" phrasing; align to seam-based.
+5. **§2.6 loop + HUMAN_DECISIONS.md + SAFEGUARD.** Mirror the unified work-phase loop (RULES §2.6) + its SAFEGUARD into per-box memory (consolidating the `feedback_autonomous_work_ladder` mirror); re-point memory at the now-existing `dev/HUMAN_DECISIONS.md`; ACK.
+6. **Stale-literal sweep.** Confirm no Mac-side doc/memory carries the stale 91,597 / 91,553 corpus literals (live source = 91,712 · 72 kinds — the canonical home is now SESSION_STATE).
+7. **Mac RAM-hygiene at session start (parity gap).** The WIN bootstrap prints a RAM-clear block the Mac `.sh` lacks (the Mac is the more constrained 8 GB box). Add a Mac-tuned RAM-hygiene line to the `.sh` triad heredoc (browser MCP OFF with VS Code open per guard #6; end-task Chrome/Kindle between slices; one GUI app at a time) — do NOT copy the Windows PROTECT/KILL list; record as a local OS-specific mechanism override.
 
 ## ✅ Mac verify (2026-06-21) — Opt# byte-stability rebuild-verify
 
