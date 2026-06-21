@@ -19,9 +19,9 @@ machine. No account, no server, no cloud.
   Tewahedo (83 books), Catholic (76), Eastern Orthodox (78), and
   Reformed/Evangelical (66) — each a filtered view of the one 83-book superset.
 - **Full customization** — the builder's customize console can shape any
-  tradition (Tanakh, Anglican, Lutheran, dense scholarly apparatus, and more)
+  tradition (a Tanakh-only Bible, a denser scholarly apparatus, and more)
   without needing a separate pre-built SKU.
-- **91,553 study notes** (cross-references, Strong's Hebrew/Greek, patristic
+- **91,555 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
 - **Original-language verse popups** — Hebrew (WLC), Greek (LXX + Byzantine NT),

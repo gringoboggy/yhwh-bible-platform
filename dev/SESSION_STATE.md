@@ -6,7 +6,7 @@
 >
 > **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog ~**187** assets on v0.1.0 (187-vs-188 to reconcile post-cleanup). Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.
 >
-> **Corpus truth (current — the canonical live figures; RULES §1 · MATRIX_MAP · SESSION_PLAYBOOK · REPO_MAP all point HERE rather than hard-code):** **91,712** source notes in `content/notes/` · **72** kinds · **15** categories · **87** books · **6** editions (registry). The per-edition SHIPPED counts (website ~91,553) are being reconciled post-restore — the +115 restored notes shifted them (see `dev/IN_FLIGHT.md` Phase F; awaiting Mac per-edition rebuild figures).
+> **Corpus truth (current — the canonical live figures; RULES §1 · MATRIX_MAP · SESSION_PLAYBOOK · REPO_MAP all point HERE rather than hard-code):** **91,712** source notes in `content/notes/` · **72** kinds · **15** categories · **87** books · **6** editions (registry). The shipped superset is **91,555** note-refs (was 91,553; Mac rebuild 2026-06-21 — ethiopian 91,555 · catholic-study 43,370 · evangelical-reformed 41,847 · eastern-orthodox 41,819); the website + brand surfaces (index/roadmap/README/BIOS/COPYRIGHT/social-card) are reconciled to it (Phase F).
 
 ## Release status (v0.1.0 live · v1.0.0 NOT tagged)
 

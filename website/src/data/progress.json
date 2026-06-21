@@ -195,19 +195,19 @@
       },
       {
         "code": "ecc",
-        "name": "The Preacher",
+        "name": "Ecclesiastes",
         "stage": "source",
         "en": false
       },
       {
         "code": "sng",
-        "name": "or Song of Solomon",
+        "name": "The Song of Songs",
         "stage": "source",
         "en": false
       },
       {
         "code": "sir",
-        "name": "or Ecclesiasticus",
+        "name": "The Wisdom of Jesus the Son of Sirach",
         "stage": "source",
         "en": false
       },
@@ -243,7 +243,7 @@
       },
       {
         "code": "4ba",
-        "name": "or Paralipomena of Jeremiah",
+        "name": "4 Baruch",
         "stage": "source",
         "en": false
       },
@@ -709,19 +709,19 @@
       },
       {
         "code": "ecc",
-        "name": "The Preacher",
+        "name": "Ecclesiastes",
         "stage": "source",
         "en": false
       },
       {
         "code": "sng",
-        "name": "or Song of Solomon",
+        "name": "The Song of Songs",
         "stage": "source",
         "en": false
       },
       {
         "code": "sir",
-        "name": "or Ecclesiasticus",
+        "name": "The Wisdom of Jesus the Son of Sirach",
         "stage": "source",
         "en": false
       },
@@ -757,7 +757,7 @@
       },
       {
         "code": "4ba",
-        "name": "or Paralipomena of Jeremiah",
+        "name": "4 Baruch",
         "stage": "source",
         "en": false
       },
