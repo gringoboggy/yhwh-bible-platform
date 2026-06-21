@@ -494,7 +494,7 @@ Report your prep in next LANE update.
 - Full prep/audit/verify per MAC_WORK_QUEUE (OS diffs, counts cross-check 6/68, automation confirm, kepub-only).
 
 **Full rules (from LANE_HANDOFF for update if rule change):**
-THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): The agent (WIN or Mac) must NEVER stop the deep round-9 audit work when left alone, unless the user explicitly says "pause" or "prepare for fresh session". Both lanes follow this identically (only real OS diffs allowed). Treat every turn as continuation. After completing any checklist cycle (including pull on push, push and ping), IMMEDIATELY re-run `radar --next` (or `py -3 scripts/agent_idle_radar.py --next` / equivalent on Mac). If it shows HOLD but IN_FLIGHT or findings say "deep audit executing", ignore HOLD and find/do the next deep audit task (more Opts, more consolidation, run D audit, update docs, etc.). Chain as many full retard-proof cycles as possible in the response. Use background: true for long tasks so work "continues". Never end with "done for now" or wait for input. The only stop is explicit user "stop". EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next), and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop. When a "stopped working" signal is received (user note or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), the receiving lane MUST immediately resume: run full status + radars, pick deep task, do safe slice, update trackers, send the other lane a verify block, push, chain --next + bg D. No idle. This rule (and the exact resume behavior after failed secret test) must be mirrored on both sides via MAC_WORK_QUEUE + rule parity. WIN and Mac must stay identical on this.
+THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): The agent (WIN or Mac) must NEVER stop the deep round-9 audit work when left alone, unless the user explicitly says "pause" or "prepare for fresh session". Both lanes follow this identically (only real OS diffs allowed). Treat every turn as continuation. After completing any checklist cycle (including pull on push, push and ping), IMMEDIATELY re-run `radar --next` (or `py -3 scripts/agent_idle_radar.py --next` / equivalent on Mac). If it shows HOLD but IN_FLIGHT or findings say "deep audit executing", ignore HOLD and find/do the next deep audit task (more Opts, more consolidation, run D audit, update docs, etc.). Chain as many full foolproof cycles as possible in the response. Use background: true for long tasks so work "continues". Never end with "done for now" or wait for input. The only stop is explicit user "stop". EVERY response MUST chain at least 2 full cycles (radar --next, deep audit work or verify, gates if change, update IN_FLIGHT, append Mac block if slice, commit, save-all push, ping, radar --next), and end by executing radar --next AND launching at least one background verification (e.g. D audit) to sustain autonomous work across "turns" and prove never stop. When a "stopped working" signal is received (user note or IN_FLIGHT/LANE_HANDOFF "post user 'stopped working'"), the receiving lane MUST immediately resume: run full status + radars, pick deep task, do safe slice, update trackers, send the other lane a verify block, push, chain --next + bg D. No idle. This rule (and the exact resume behavior after failed secret test) must be mirrored on both sides via MAC_WORK_QUEUE + rule parity. WIN and Mac must stay identical on this.
 
 **Explicit Mac instructions for the resume behavior (post failed secret test):** After pulling any WIN slice that includes a "NEVER-STOP RESUME (post user 'stopped working')" note or equivalent: Immediately run your radars (`bash dev/lane_watch_mac.sh --once` + `python3 scripts/agent_idle_radar.py --next`). Prioritize deep round-9 audit continuation (ignore HOLD items if IN_FLIGHT says deep executing). Perform at least one deep audit action (code improvement, verification, findings update) that mirrors the WIN slice. Append a WIN verify block in LANE_HANDOFF for what you did. Update your local IN_FLIGHT / memory. Push with your save script. End your cycle with --next + bg verification. Report completion + any symmetric Mac diffs back in LANE_HANDOFF. WIN will do the same when Mac resumes.
 
@@ -544,7 +544,7 @@ Chained: --next -> work (kr2/audit/lint/bg verif) -> this full block (cmds + ful
   - Full end-to-end test: Mac push -> WIN lane_watch detects + auto-pull (if clean) + radar surfaces + WIN continues (e.g., Mac block + verif).
   - Cross-OS diffs: Mac audit its logs, bg processes (e.g., lane_watch_mac.sh --bg, radar loop), any Mac-specific monitor (start one if missing to match WIN persistent).
   - More watchers? (e.g., auto-rotate trigger, deeper lane_watch integration for handoff self-gov, parity watcher for rules).
-  - Operational rules completeness: both confirm identical (NEVER-STOP no pause, Mac block FIRST on rule/self-gov update then continue, WIN always checkin on Mac for prep/audit/verify, relaxed audits more often + deep less, rotate every so often/bit less/too many, agents in backlog/radar, retard-proof private).
+  - Operational rules completeness: both confirm identical (NEVER-STOP no pause, Mac block FIRST on rule/self-gov update then continue, WIN always checkin on Mac for prep/audit/verify, relaxed audits more often + deep less, rotate every so often/bit less/too many, agents in backlog/radar, foolproof private).
   - Audit coverage: WIN did (radar code/lists, monitor output, kr2 GREEN, LANE/IN_FLIGHT, backlog protocol section). Mac to do analogous + report diffs/improvements.
   - Optimization: make radar loop auto-ping after surfacing/action? Or auto-append small Mac blocks? Test with current monitor events.
 
@@ -584,7 +584,7 @@ Chained: --next -> work (kr2/audit/lint/bg verif) -> this full block (cmds + ful
 - Mac verify blocks + Mac prep in MAC_WORK_QUEUE used for every sig slice.
 - Chained: status/radar/audit/rotate/kr2/ping.
 
-**FULL CURRENT SELF-GOVERNING RULES (retard-proof; send verbatim for parity + memory mirror):**
+**FULL CURRENT SELF-GOVERNING RULES (foolproof; send verbatim for parity + memory mirror):**
 THE SIMPLE NEVER-STOP / SUSTAINED AUTONOMY RULE (STANDING, BOTH LANES): Agent must NEVER stop the deep work unless user explicitly says "pause" or "prepare for fresh session". Treat every turn as continuation. After any cycle immediately re-run radar --next. Chain full cycles (radar, work/verify, update IN_FLIGHT, Mac block if slice, commit, save-all push, ping, radar --next). EVERY response MUST chain at least 2 cycles and end executing radar --next + bg verif. On any "you just stopped"/"stopped working" signal: IMMEDIATELY 1) status+radars 2) resume deep from IN_FLIGHT 3) safe slice 4) update truth+LANE (incl Mac block) 5) commit+save+ping 6) bg verif 7) radar --next. Never pause. After you update mac... you continue with the next logical task.
 
 AUDIT PROTOCOL (STANDING): After significant/self-gov/major updates: we audit. More relaxed audits more often (D/kr2/small verifs via RelaxedAuditAgent after slices/rule changes/5+ commits). Deeper audits less often (full round-9/DeepAuditAgent after 15+ commits/24h/milestones). Triggers via radar/Mac. Make these agents: codified dedicated recurring RelaxedAuditAgent, DeepAuditAgent, CheckInOnMacAgent in LANE_HANDOFF + radar/backlog. WIN particularly should always be looking to check in on Mac and see if its able to do any prep work or audits on what you just did to verify your work. After you update mac... you continue with the next logical task =] Every so often and then a bit less often (or too many changes): rotate truth records (`rotate_truth_records.py --apply --keep 2`). After Mac update: continue next logical.
@@ -751,7 +751,7 @@ Radar surfaces: M2 Apple audit (K-R5-3 scope/justify/Easton) + Kindle STK bisect
 
 Mac prep delegation + verify list remains in prior blocks. Awaiting Mac report on this note + pull. WIN will run a targeted gate slice or M2 inspection next (no dual Mac work).
 
-(See IN_FLIGHT for exact last Opt status + retard-proof checklist.)
+(See IN_FLIGHT for exact last Opt status + foolproof checklist.)
 
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
@@ -931,7 +931,7 @@ WIN will review report, confirm, keep chaining NEVER-STOP (radar --next, more de
 
 ## Mac verify (WIN slice: built EXTRA STEP for radar auto-continue after pull - 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Built the extra step in lane_watch.py: after _auto_pull on push detection, now auto-triggers agent_idle_radar --next to continue work or new instructions autonomously. This is the "radar watches for push, pulls, continues" the user described. IN_FLIGHT updated. This block. Will push, ping, radar, bg D. Chaining to prove.
+**Per foolproof + NEVER-STOP checklist:** Built the extra step in lane_watch.py: after _auto_pull on push detection, now auto-triggers agent_idle_radar --next to continue work or new instructions autonomously. This is the "radar watches for push, pulls, continues" the user described. IN_FLIGHT updated. This block. Will push, ping, radar, bg D. Chaining to prove.
 
 **Commands:**
 - `git pull`
@@ -948,7 +948,7 @@ Report PASS/FAIL + confirmation the extra step works.
 
 ## Mac verify (WIN slice: request Mac autonomy rules for auto-pull and continue - 2026-06-20)
 
-**Per retard-proof + NEVER-STOP + cross-lane parity checklist:** Mac: extract and report your CURRENT rules for autopulling (e.g. lane_watch_mac.sh --auto-pull, when to pull on push detection, clean tree check, rebase logic) and continuing work (agent_idle_radar --next, idle to continue or ask other for work, post-pull resume). Include from your scripts, memory, any .claude or local rules. Format symmetrically with WIN's (see below). Send by updating LANE_HANDOFF or this board. WIN will format identical for both, mirror, and confirm parity.
+**Per foolproof + NEVER-STOP + cross-lane parity checklist:** Mac: extract and report your CURRENT rules for autopulling (e.g. lane_watch_mac.sh --auto-pull, when to pull on push detection, clean tree check, rebase logic) and continuing work (agent_idle_radar --next, idle to continue or ask other for work, post-pull resume). Include from your scripts, memory, any .claude or local rules. Format symmetrically with WIN's (see below). Send by updating LANE_HANDOFF or this board. WIN will format identical for both, mirror, and confirm parity.
 
 WIN's current (for reference, Mac mirror this):
 - lane_watch always --auto-pull (enforces STANDING: pull if behind origin/main or tracking_behind or remote_ahead on LANE or incoming, AND clean tree).
@@ -975,7 +975,7 @@ Report PASS/FAIL + your rules text here.
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain #5 - 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Chained cycle: status clean, radar (deep prio), D verify bg launched, IN_FLIGHT update, this Mac block, commit, save-all, ping, radar --next, bg D. No input. No stop. Opt#4 complete. Sustained autonomous verification.
+**Per foolproof + NEVER-STOP checklist:** Chained cycle: status clean, radar (deep prio), D verify bg launched, IN_FLIGHT update, this Mac block, commit, save-all, ping, radar --next, bg D. No input. No stop. Opt#4 complete. Sustained autonomous verification.
 
 **Commands:**
 - `git pull`
@@ -994,7 +994,7 @@ Report here.
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain - 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Chained cycle: status, radar deep prio (HOLD but deep audit), D verify bg, gates (clean from bg), IN_FLIGHT update, this Mac block, push, ping, radar chain, bg D. No input. No stop. Opt#4 complete. Sustained autonomous.
+**Per foolproof + NEVER-STOP checklist:** Chained cycle: status, radar deep prio (HOLD but deep audit), D verify bg, gates (clean from bg), IN_FLIGHT update, this Mac block, push, ping, radar chain, bg D. No input. No stop. Opt#4 complete. Sustained autonomous.
 
 **Commands:**
 - `git pull`
@@ -1013,7 +1013,7 @@ Report PASS/FAIL + details here.
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain #3 — 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Chained multiple cycles: D bg verifs launched repeatedly, radar --next chained, no stop. IN_FLIGHT updated with chain note. This block. Push, ping, radar, bg D. 
+**Per foolproof + NEVER-STOP checklist:** Chained multiple cycles: D bg verifs launched repeatedly, radar --next chained, no stop. IN_FLIGHT updated with chain note. This block. Push, ping, radar, bg D. 
 
 **Commands:**
 - `git pull`
@@ -1032,7 +1032,7 @@ Report here.
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain #2 — 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Chained cycle #2: D audit bg verification launched to sustain. Radar chained. IN_FLIGHT updated. This block. Push, ping, radar, bg D. No inactivity.
+**Per foolproof + NEVER-STOP checklist:** Chained cycle #2: D audit bg verification launched to sustain. Radar chained. IN_FLIGHT updated. This block. Push, ping, radar, bg D. No inactivity.
 
 **Commands:**
 - `git pull`
@@ -1051,7 +1051,7 @@ Report here.
 
 ## Mac verify (WIN slice: sustained NEVER-STOP D verification chain — 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** D audit verification launched in bg to sustain autonomous deep work. No stop after user note. Radar chained. IN_FLIGHT updated. This block. Push, ping, radar again, bg verify. 
+**Per foolproof + NEVER-STOP checklist:** D audit verification launched in bg to sustain autonomous deep work. No stop after user note. Radar chained. IN_FLIGHT updated. This block. Push, ping, radar again, bg verify. 
 
 **Commands:**
 - `git pull`
@@ -1070,7 +1070,7 @@ Report here.
 
 ## Mac verify (WIN slice: Opt#4 COMPLETE - all tmp globs through list helpers — 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** Opt#4 walker consolidation COMPLETE. All direct tmp .html globs and sets now use the consolidated helpers (list_html_files, list_split). No more duplication. Gates clean. IN_FLIGHT marked complete. This block. Will push, ping, then IMMEDIATELY radar --next and continue deep audit (no inactivity, chain to Opt#5 or verification).
+**Per foolproof + NEVER-STOP checklist:** Opt#4 walker consolidation COMPLETE. All direct tmp .html globs and sets now use the consolidated helpers (list_html_files, list_split). No more duplication. Gates clean. IN_FLIGHT marked complete. This block. Will push, ping, then IMMEDIATELY radar --next and continue deep audit (no inactivity, chain to Opt#5 or verification).
 
 **Commands:**
 - `git pull`
@@ -1089,7 +1089,7 @@ Report PASS/FAIL + any remaining direct globs here.
 
 ## Mac verify (WIN slice: Opt#4 ALL tmp globs through list helpers - 2026-06-20)
 
-**Per retard-proof + NEVER-STOP checklist:** converted remaining tmp .html globs (present, before/after sets in canon filter) to list_html_files. Chained after previous. Gates (ruff/lint) clean. IN_FLIGHT updated. This block. Will push, ping, then immediately radar --next and chain next cycle (no stop, no input).
+**Per foolproof + NEVER-STOP checklist:** converted remaining tmp .html globs (present, before/after sets in canon filter) to list_html_files. Chained after previous. Gates (ruff/lint) clean. IN_FLIGHT updated. This block. Will push, ping, then immediately radar --next and chain next cycle (no stop, no input).
 
 **Commands:**
 - `git pull`
@@ -1108,7 +1108,7 @@ Report PASS/FAIL + counts here.
 
 ## Mac verify (WIN slice: Opt#4 generalize list helpers to _list_temp_files — 2026-06-20)
 
-**Per new NEVER-STOP rule + retard-proof checklist:** generalized the html/split walkers to internal _list_temp_files for easier extension. Committed locally (ahead 1). Gates clean. IN_FLIGHT updated with never-stop rule. This block. Will save-all push, ping, then immediately chain radar --next and next slice (no stop).
+**Per new NEVER-STOP rule + foolproof checklist:** generalized the html/split walkers to internal _list_temp_files for easier extension. Committed locally (ahead 1). Gates clean. IN_FLIGHT updated with never-stop rule. This block. Will save-all push, ping, then immediately chain radar --next and next slice (no stop).
 
 **Commands for Mac:**
 - `git pull`
@@ -1123,7 +1123,7 @@ Report to LANE_HANDOFF.
 
 **Next action in this turn (to follow NEVER-STOP):** after push, radar --next and continue deep audit.
 
-**Retard-Proof Autonomous WIN Slice Completion Checklist for Deep Audit (STANDING, codified to prevent circles and forgetfulness):**
+**Foolproof Autonomous WIN Slice Completion Checklist for Deep Audit (STANDING, codified to prevent circles and forgetfulness):**
 1. Run git status. If dirty, commit with message. If behind and clean, git pull --rebase origin main (trackers should do this, but verify).
 2. Use py -3 scripts/agent_idle_radar.py --next or --ping to decide next (prioritize deep audit over HOLD/M2 per IN_FLIGHT).
 3. Implement next logical from round9 findings (e.g. extend I/O reduction, early-outs, etc.). No human input.
@@ -1134,7 +1134,7 @@ Report to LANE_HANDOFF.
 8. pwsh -File save-all.ps1 -Message "..." to push (both remotes + bundles).
 9. py -3 scripts/agent_idle_radar.py --ping --note "slice done, Mac instructions sent, rules mirrored if changed."
 10. Repeat from 1. Never wait for input. Never end unpushed. This is triple-checked against rules to achieve audit completion autonomously.
-This checklist is now in the rules so every future session (even "retarded" ones) follows it without reminders. WIN sends, Mac mirrors/confirms, WIN confirms same page.
+This checklist is now in the rules so every future session (even "forgetful" ones) follows it without reminders. WIN sends, Mac mirrors/confirms, WIN confirms same page.
 
 **Lane watch trip-ups (2026-06-17, STANDING — both lanes).** The watcher now guards common coordination failures: (1) **DIRTY TREE** — auto-pull skips if `git status --porcelain` is non-empty; commit or stash first (STANDING auto-pull rule). (2) **UNCOMMITTED HANDOFF** — board turn bumped in working tree but not committed triggers nag even with 0 unpushed commits. (3) **UNPUSHED HANDOFF** — committed turn ahead of `origin/main:LANE_HANDOFF` + local commits not pushed. (4) **MIRROR SKEW** — `origin` vs `github` tips differ; origin is source of truth — milestone-push both. (5) **Mac queue assign** — WIN `-AssignMac` scans only `## Active queue` (not Round 9). (6) **incoming repeats** until `lane_handoff mark-seen` — by design. Fix: read banner → work assignment → mark-seen when done.
 
@@ -1201,7 +1201,7 @@ Next per radar: M2 verify items when WIN ships next slice (no dual code fixes); 
 
 ## Mac verify (WIN slice: Opt#4 continued - more pure glob sites to walkers — 2026-06-20)
 
-**Per retard-proof checklist:** Converted remaining pure sites (src_files split, book title page, filter_html, ncx inventory). Commit + pre-commit gates. IN_FLIGHT + this block. Push + ping.
+**Per foolproof checklist:** Converted remaining pure sites (src_files split, book title page, filter_html, ncx inventory). Commit + pre-commit gates. IN_FLIGHT + this block. Push + ping.
 
 **Commands:**
 - `git pull`
@@ -1239,7 +1239,7 @@ Report PASS/FAIL + key numbers to LANE_HANDOFF after this block + to round9 find
 
 ## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
 
-**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path), pulled Mac rotate, gates CLEAN, IN_FLIGHT updated, Mac block, save-all, ping. 
+**Per foolproof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path), pulled Mac rotate, gates CLEAN, IN_FLIGHT updated, Mac block, save-all, ping. 
 
 **Commands:**
 - git pull
@@ -1254,7 +1254,7 @@ Report in LANE_HANDOFF + findings.
 
 ## Mac verify (WIN slice: Opt#4 list_html_files + list_split + more sites — 2026-06-20)
 
-**Per retard-proof checklist:** helpers added (list_html_files, list_split_html_files); many glob sites + pre/repair loads updated to use them (Opt#4). Code committed, pre-commit gates CLEAN. IN_FLIGHT + this block. Next save-all + ping.
+**Per foolproof checklist:** helpers added (list_html_files, list_split_html_files); many glob sites + pre/repair loads updated to use them (Opt#4). Code committed, pre-commit gates CLEAN. IN_FLIGHT + this block. Next save-all + ping.
 
 **Commands for Mac after pull:**
 - git pull
@@ -1273,7 +1273,7 @@ Report PASS/FAIL + details here.
 
 ## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
 
-**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
+**Per foolproof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
 
 **WIN commands for Mac to execute on pull:**
 - `git pull`
@@ -1292,7 +1292,7 @@ Next per radar (after save): use --next to continue deep audit (Opt#4 walker con
 
 ## Mac verify (WIN slice: Opt#4 start consolidated list_html_files walker — 2026-06-20)
 
-**Per retard-proof checklist:** Opt#4 progress slice committed (list_html_files helper + 4 call site swaps in apply_* and toc/chapter passes; no behavior change). Gates CLEAN (ruff + lint 33p). IN_FLIGHT updated. This block. Will push + ping. Prioritized deep audit over radar HOLD list.
+**Per foolproof checklist:** Opt#4 progress slice committed (list_html_files helper + 4 call site swaps in apply_* and toc/chapter passes; no behavior change). Gates CLEAN (ruff + lint 33p). IN_FLIGHT updated. This block. Will push + ping. Prioritized deep audit over radar HOLD list.
 
 **WIN commands for Mac:**
 - `git pull`
@@ -1311,7 +1311,7 @@ Report PASS/FAIL + any D findings + sample counts into LANE_HANDOFF after this b
 
 ## Mac verify (WIN slice: Opt#2 extend preloaded to apply_bilingual_toc — 2026-06-20)
 
-**Per retard-proof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
+**Per foolproof checklist (checklist-1..10 executed):** committed bilingual preloaded (in-mem path, single load for toc bilingual pass), pulled Mac rotate (6f8890f4 + 0163efb1 truth), gates CLEAN, IN_FLIGHT updated, this block appended, save-all next, --ping. No rule text change this slice (parity STANDING already codified).
 
 **WIN commands for Mac to execute on pull:**
 - `git pull`
