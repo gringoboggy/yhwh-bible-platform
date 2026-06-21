@@ -1,42 +1,31 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-> **▶ ACTIVE (2026-06-21, 🪟 Windows) — Grok-revert surgical cleanup (finishing).** For ~2 weeks
-> (June 10–20) a different agent ("Grok") degenerated into a self-perpetuating "NEVER-STOP" loop —
-> the auto-continue loop was architecturally impossible (an external poll can't drive an agent), so
-> it kept "fixing" a ghost. The **Bible product is intact** (verse counts + reading order verified
-> unchanged from the June-9 baseline `3065b348`). Surgical revert — **NO git-history rewrite**;
-> rollback branch `pre-grok-cleanup-snapshot`. **3 local commits, nothing pushed.**
->
-> **Done (committed):** killed the loop machinery (radars, EXTRA-STEP, rotate-churn) + restored
-> bootstrap + refreshed the installed hook; de-bloated RULES/AGENTS/PLAYBOOK/LANE_HANDOFF (guards
-> #8–#10, the §0 self-upgrade/"you already have all the answers", NEVER-STOP, 36× AUDIT-PROTOCOL
-> spam — genuine doctrine kept, auto-pull now seam-based); reconstructed IN_FLIGHT/SESSION_STATE/
-> LANE_HANDOFF/CHANGELOG; restored the **115 notes + 4 kinds** the June-18 scrub pruned (corpus
-> **91,712**, 72 kinds; baked into base HTML, `ebible verify` errors=0); fixed editions.yaml
-> `DEDICATION_SENTINEL_42` junk + registered the real `dedication` field. lint_rules green; all 6
-> configs strict-clean.
->
-> **Doing:** final residue sweep — deleted the orphaned `STRATEGIC_REPLAN_CHECKLIST` + trimmed the
-> backlog P3 (the removed `--replan` mechanism).
->
-> **Next:** present the full diff for the **user-gated GitLab push**. On push, MacClaude pulls its
-> tasks (LANE_HANDOFF + MAC_WORK_QUEUE): **byte-stability rebuild-verify** of Grok's Opt# build
-> slices (esp. Opt#3 `33b79387` tablet/Apple badge → REVERT if output differs) + rebuild the
-> catalog for the new shipped counts (the +72 comm/word notes shift them) → reconcile the count
-> cascade. **Deferred:** refresh `.claude/workflows/deep-audit.js` Grok-era dims when next run;
-> tidy the mislabeled notarization commit-split. Plan: task `ww7ughmf7`; memory `project_grok_cleanup`.
+> **Last arc CLOSED (2026-06-21): the Grok-revert cleanup — DONE + pushed** (4 commits →
+> GitLab + GitHub + E: + F:, HEAD `b45a9ff1`). Loop machinery removed, rules/docs de-bloated,
+> truth records reconstructed, **115 notes + 4 kinds restored** (corpus 91,712), editions junk
+> fixed. Bible verified intact. Rollback branch `pre-grok-cleanup-snapshot`. Details:
+> `dev/CHANGELOG.md` (2026-06-21) + memory `project_grok_cleanup` (task `ww7ughmf7`).
+
+## ▶ Fresh session — continue "the rest" (priority order)
+
+1. **Integrate MacClaude's byte-stability verify.** Read `dev/LANE_HANDOFF.md` for Mac's PASS/FAIL
+   report on Grok's `Opt#` build slices. If Mac flags **`Opt#3` (`33b79387`, tablet/Apple
+   badge-collapse early-out)** as changing build output → `git revert 33b79387` (or surgical) +
+   add a regression test pinning tablet badge-collapse; if byte-identical → keep. Same call for
+   `Opt#2` nav.xhtml bilingual leg + the repair batch. (Mac gets this task from its `MAC_WORK_QUEUE`
+   on pull.)
+2. **Reconcile the catalog counts** once Mac's rebuild gives exact per-edition figures — the **+72
+   restored `comm`/`word` notes** shift the shipped numbers. Sweep the full count cascade (page
+   bodies · `<meta>`/og/twitter · social-card image · GitHub/GitLab descriptions · EPUB metadata ·
+   in-app trackers) per memory `feedback_deploy_means_build_and_deploy`.
+3. **Refresh `.claude/workflows/deep-audit.js`** Grok-era dims (the `CROSS_LANE_RULES_PARITY_PLAN` /
+   round-9 / "always make Mac do prep" references are stale) — before the next deep-audit run.
+4. **Resume the v1.0.0 release gate** (`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`):
+   WIN = M2 Apple audit (K-R5-3) · Kindle STK device bisect; Mac verifies. See `dev/SESSION_STATE.md`.
 
 ## Standalone status (unchanged)
 
-> Phases A-C shipped (`build_standalone.py`, 4 books, epubcheck 0/0/0/0); EN back-translation
-> done for collated Kings/Samuel + all 151 Psalms; Phase D (own-vers re-ingest) in progress via
-> the Esther vision lane.
-
-## Background backlog (resumes after the cleanup)
-
-> Real release-gate work resumes once the cleanup lands: **M2 Apple audit** (K-R5-3) · **Kindle
-> STK device bisect** · **M3 Kobo** (kepub + user taps) · then `dev/PLAN_2026-05-29-roadmap.md`
-> LANE D/M/P/T. Overflow (Esther Patrologia · CAM pre-pull · website/dist regen) stays HOLD
-> until the release gate.
+> Phases A-C shipped (`build_standalone.py`, 4 books, epubcheck 0/0/0/0); EN back-translation done
+> for collated Kings/Samuel + all 151 Psalms; Phase D (own-vers re-ingest) via the Esther vision lane.

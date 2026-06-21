@@ -4,17 +4,17 @@ updated: 2026-06-21
 from: windows
 truth_owner: windows
 holder: windows
-windows: Grok-revert surgical cleanup in progress (LOCAL only). See dev/IN_FLIGHT.md + memory project_grok_cleanup.
+windows: Grok-revert cleanup DONE + pushed (HEAD b45a9ff1, GitLab+GitHub+E:+F:). Resuming v1.0.0 release gate. See dev/IN_FLIGHT.md + memory project_grok_cleanup.
 mac: On pull after WIN commits the cleanup — run the byte-stability rebuild-verify of the Opt# build slices (esp. Opt#3 tablet badge 33b79387). See the board below.
 ---
 
 ## ▶ Current arc — Grok-revert cleanup (windows → mac, 2026-06-21, mode=parallel)
 
-WIN is surgically removing the ~2-week Grok runaway-loop machinery (radar scripts, the lane_watch EXTRA-STEP, the rotate-churn auto-commit, rule-bloat guards #8-#10, the NEVER-STOP/AUDIT-PROTOCOL spam) and reconstructing the truth records. The **Bible product is verified intact** — verse-anchor counts + spine reading order unchanged from baseline `3065b348`. **NO git-history rewrite**; rollback branch `pre-grok-cleanup-snapshot`. Nothing pushed to GitLab yet.
+WIN removed the ~2-week Grok runaway-loop machinery (radar scripts, the lane_watch EXTRA-STEP, the rotate-churn auto-commit, rule-bloat guards #8-#10, the NEVER-STOP/AUDIT-PROTOCOL spam), reconstructed the truth records, and restored the pruned notes. **DONE + pushed** — 4 commits → GitLab+GitHub+E:+F:, HEAD `b45a9ff1`. The **Bible product is verified intact** — verse-anchor counts + spine reading order unchanged from baseline `3065b348`. **NO git-history rewrite**; rollback branch `pre-grok-cleanup-snapshot`.
 
 **Mac role (parallel verifier, on the cleanup commit):** pull, then **byte-stability rebuild-verify** the build-code slices WIN kept pending — build the 4 catalog editions at BASE `3065b348` vs the cleanup HEAD across targets and byte-diff. Make-or-break = Opt#3 (`33b79387`) tablet/Apple badge-collapse early-out: if the tablet artifact differs, the slice REVERTS. Also Opt#2 nav.xhtml bilingual leg + the repair batch. Report PASS/FAIL + file:line here. Do NOT run the full pytest suite (8 GB box). Full plan: `grok-revert-audit` (task ww7ughmf7).
 
-**Also restoring (separate commit):** the 4 note kinds pruned June 18 (comm-rabbinic, compare-nag-hammadi, compare-quran, liturgy-torah-portion) come back into the superset; catalog stays lean (6 editions). Mirror the de-bloated rules into Mac per-box memory + ACK (rule-change parity).
+**Restored (committed `b28867a5`):** the 115 notes + 4 kinds the June-18 scrub pruned are back in the superset (corpus 91,712); catalog stays lean (6 editions). **Mac:** mirror the de-bloated rules into per-box memory + ACK (rule-change parity).
 
 **After the cleanup:** resume the v1.0.0 release gate — WIN builds (M2 Apple audit · Kindle STK bisect) · Mac verifies. See `dev/SESSION_STATE.md`.
 

@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Current arc: the Grok-revert cleanup** (`IN_FLIGHT.md` + memory `project_grok_cleanup`) — the ~2-week runaway-loop machinery is being surgically removed; the Bible product is verified intact (verse counts + reading order unchanged from the June-9 baseline `3065b348`). Rollback branch `pre-grok-cleanup-snapshot`; **nothing pushed to GitLab yet**.
+> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **The Grok-revert cleanup is DONE + pushed** (2026-06-21, HEAD `b45a9ff1` on GitLab+GitHub+E:+F:; memory `project_grok_cleanup`) — loop machinery removed, rules/docs de-bloated, truth records reconstructed, 115 notes + 4 kinds restored (corpus 91,712), Bible verified intact. Rollback branch `pre-grok-cleanup-snapshot`. **Continue "the rest" per `dev/IN_FLIGHT.md`:** integrate MacClaude's byte-stability verify → reconcile catalog counts (the +72 restored notes shift them) → resume the v1.0.0 release gate.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -10,7 +10,7 @@
 
 **Shipped (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live · the full Ethiopian Bible EPUB + Kobo kepub. ci pytest triage green · orphan inline-marker strip · 4-edition test pins.
 
-**Blocks the v1.0.0 tag:** the Grok-revert cleanup (active) · M2 Apple audit (K-R5-3 device re-test) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag.
+**Blocks the v1.0.0 tag:** MacClaude byte-stability verify of Grok's `Opt#` build slices · catalog count reconciliation (post-rebuild) · M2 Apple audit (K-R5-3 device re-test) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag.
 
 ## Next — after the cleanup commits (WIN builds · Mac verifies)
 

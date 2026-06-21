@@ -27,6 +27,8 @@ commits stay in the log); rollback branch `pre-grok-cleanup-snapshot`.
 - **Pending verify:** MacClaude byte-stability rebuild of the Opt# build slices (esp. Opt#3
   `33b79387` tablet badge — REVERT if output differs) before they are trusted. lint_rules: 32 pass.
 
+**Completed + pushed (2026-06-21, HEAD `b45a9ff1`):** the kind restore (`b28867a5` — 115 notes + 4 kinds, corpus 91,712) and the editions junk fix (`b45a9ff1` — dropped Grok's `DEDICATION_SENTINEL_42`, registered the real `dedication` field, deleted the orphaned replan checklist) followed; all 4 commits pushed to GitLab + GitHub + E: + F:. Remaining: MacClaude byte-stability rebuild-verify of the `Opt#` slices + catalog-count reconciliation.
+
 Plan: `grok-revert-audit` (task ww7ughmf7). Memory: `project_grok_cleanup`.
 
 ## 2026-06-20 — Windows fresh session prep (per Mac 23d985b2 directive) — triad, radars, hygiene, truth records, rules mirror, deep continue
