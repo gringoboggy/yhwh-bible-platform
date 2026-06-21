@@ -2929,6 +2929,44 @@ def check_hook_parity() -> dict:
     }
 
 
+_BG_RADAR_RE = re.compile(r"(?i)background\s+radar")
+_BG_RADAR_NEGATION_RE = re.compile(r"(?i)\b(no|not|never|none|without|removed|n't)\b")
+
+
+def check_no_background_radar() -> dict:
+    """Regression guard for the removed "background radar" runaway-loop pattern (the
+    Grok cleanup 2026-06-20). The literal "background radar" may appear in the curated
+    process docs ONLY inside a negation ("no / not / never / removed background radar")
+    — i.e. naming it to FORBID it. A bare, non-negated mention means the always-on
+    watcher idea is creeping back (exactly the §4 seed that this consolidation removed).
+    The append-only CHANGELOG + dev/archive/ legitimately keep the history and are NOT
+    scanned (not in the curated set); a line-level `term-ref-ok` waiver is respected.
+    """
+    violations: list = []
+    for p in _curated_dev_docs():
+        rel = str(p.relative_to(REPO)).replace("\\", "/")
+        try:
+            for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+                if _TERM_WAIVER in line:
+                    continue
+                if _BG_RADAR_RE.search(line) and not _BG_RADAR_NEGATION_RE.search(line):
+                    violations.append({"path": rel, "line": i})
+        except (OSError, UnicodeDecodeError):
+            continue
+    return {
+        "id": "no_background_radar",
+        "name": "No re-introduced background radar",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            'no non-negated "background radar" in the process docs (the removed runaway pattern)'
+            if not violations
+            else f'{len(violations)} non-negated "background radar" mention(s) — that always-on '
+            "watcher pattern was removed 2026-06-20 and may only be named to FORBID it"
+        ),
+        "violations": violations[:40],
+    }
+
+
 ALL_CHECKS = {
     "6.1": check_encoder_canonical_order,
     "6.2": check_cross_link_invariant,
@@ -2936,6 +2974,7 @@ ALL_CHECKS = {
     "docs": check_doc_cross_references,
     "repo_map_complete": check_repo_map_complete,
     "hook_parity": check_hook_parity,
+    "no_background_radar": check_no_background_radar,
     "superpowers_coherence": check_superpowers_coherence,
     "freshness": check_session_state_freshness,
     "truth_record_budget": check_truth_record_budget,

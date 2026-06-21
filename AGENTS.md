@@ -83,6 +83,10 @@ standards-clean EPUB — **no account, no server, no cloud, nothing for sale**.
    done until it has a test that would catch the demo breaking.
 10. **Public-facing copy is plain and factual** — no grandiosity, false modesty, or
    charity/favor framing (free is neutral, not a gift). Never call the system “idiot-proof.”
+11. **Session work-phase loop.** An autonomous session follows the once-per-session work order in
+   **RULES §2.6** — sync → advance (§3 + IN_FLIGHT) → delegate cross-lane (WIN builds · Mac
+   verifies) → defer human-needs to `dev/HUMAN_DECISIONS.md` → save (crash-safe) → stop clean. It
+   is **user-triggered and NOT a daemon** — never start a background watcher/radar.
 
 ## Tech stack
 

@@ -27,11 +27,9 @@
    GH-GL descriptions/EPUB metadata/trackers). **Do NOT dual-edit the catalog** — just post the numbers
    in `dev/LANE_HANDOFF.md`.
 3. ✅ **DONE (2026-06-21) — Mirrored parity into Mac per-box memory + ACK** (`feedback_autonomous_work_ladder`;
-   rules identical, no OS diff) — the seam-based no-background-radar model AND the
-   NEW autonomy doctrine: autonomy is **user-triggered** (never auto-start work/radars on session
-   startup) + the work-ladder (memory `feedback_autonomous_work_ladder`: advance program/EPUBs + stage
-   device tests → defer human calls to `dev/HUMAN_DECISIONS.md` → else any program/epub/website/repo/
-   metadata work → else transcribe Ge'ez/Amharic + publish to the site). The work-phase loop is being
-   added to RULES; mirror it when it lands. Diff only real OS reasons.
+   rules identical, no OS diff) — the seam-based no-background-radar model AND the NEW autonomy
+   doctrine: autonomy is **user-triggered** (never auto-start work/radars on session startup) + the
+   work-ladder. The unified work-phase loop has now LANDED as **RULES §2.6** (the canonical home; see
+   also `dev/HUMAN_DECISIONS.md`) — **mirror §2.6 into Mac memory (Phase H).** Diff only real OS reasons.
 
 > No full `ci.py` / full pytest on the 8 GB HDD box — targeted gates only; build one edition at a time, respect RAM.

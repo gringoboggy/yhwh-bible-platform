@@ -66,6 +66,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together** and `IN_FLIGHT
 - **`editions.yaml` shows git-modified mid-test** from a benign CRLF flip — trust `git diff`, not `git status`.
 - **Book codes** — canonical 3-letter stems: `phi` jam `joe` eze `nah` jhn. Legacy aliases (`php`/`jas`/`jol`/`ezk`/`nam`/`joh`/`mar`) are normalized by `_normalize_book_code` in *some* paths but compared **raw** in others (the ★BUGCLUSTER). When adding book-code logic, **use canonical or normalize first**, and add a regression test that asserts on the canonical code.
 - **Agent concurrency cap** (memory): heavy (>100k tok) ≤1 · medium (30–100k) ≤2 · light ≤4; drain before re-dispatch.
+- **Session work-phase loop** — the once-per-session autonomous work order is **RULES §2.6** (pointer-only; user-triggered, not a daemon; genuine human-needs → `dev/HUMAN_DECISIONS.md`).
 
 ---
 

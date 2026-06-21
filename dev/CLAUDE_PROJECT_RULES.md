@@ -78,7 +78,9 @@ file live in `dev/archive/RULES_HISTORY.md`** — pointers below name what moved
    project tree for the exact pattern. "If you dig deep enough in the project's folders
    and scope and rules... you will find every answer." Only items *explicitly* marked
    as requiring fresh human input or deferred/HOLD are allowed to block autonomous
-   progress. Even a decided judgment call ⇒ proceed; these RULES are the guardrails.
+   progress. When something genuinely needs the user, do NOT stop — **log it in
+   `dev/HUMAN_DECISIONS.md`** (the human-gated decision queue) and continue with other work.
+   Even a decided judgment call ⇒ proceed; these RULES are the guardrails.
 
    (b) **Full standing authority — no permission-asking** for commit, push,
    pull, build/run, deploy, launch the website, or update GitHub/GitLab; all
@@ -165,6 +167,7 @@ persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)
 | **0** | Bootstrap protocol — read-order triad + the always-there maps (MATRIX_MAP, REPO_MAP) + the post-triad env-health & RAM-clear step. |
 | **1** | North star — the builder demo; corpus depth; patristic-voice invariant; the two standalone parallel Bibles; the self-upgrading matrix. |
 | **2** | Universal principles. |
+| **2.6** | **Session work-phase loop** — the once-per-session autonomous work order (pointer-only; SAFEGUARD: runs once, never a daemon). |
 | **3** | Sequencing rules (how to order work). |
 | **4** | Save semantics — crash-safe cadence (2026-06-17): local-commit micro-edits during work; **autonomous full sync** (local + GitLab + GitHub + E:/F: when mounted — Mac-side by default, see LANE_HANDOFF) after every coherent slice — never ask, never wait, never end with unpushed commits; "continue"/"proceed"/"go ahead" ≠ save. |
 | **5** | Phase / commit tracking. |
@@ -419,6 +422,38 @@ upgraded matrix, not re-discovering yesterday's lesson.
    tail (`dev/archive/AUDIT_2026-05-26-FINDINGS.md`) · doc-coherence (MATRIX_MAP / REPO_MAP /
    CHANGELOG currency) · test-coverage growth · Phase-D own-versification source
    acquisition.
+
+### 2.6 Session work-phase loop
+
+The standing shape of an autonomous work session (user-directed autonomy doctrine; memory
+`feedback_autonomous_work_ladder`). **Pointer-only** — each step ends in the section that owns
+the detail; this is the orchestration ORDER, not a second copy of those rules. Autonomy is
+**user-triggered**: a fresh session does NOT auto-start work or any radar (guard #5 + §0). Once
+triggered, walk these in order, then stop clean:
+
+1. **Sync** — auto-pull-on-BEHIND at the seam (§4).
+2. **Pick the next advance** — §3 sequencing + the live `dev/IN_FLIGHT.md` tracker.
+3. **Delegate cross-lane** — WIN builds · Mac verifies (`dev/LANE_HANDOFF.md` STANDING) + §2
+   principle 5 (never single-thread; ≥2 lanes).
+4. **Defer human-needs** — anything that genuinely needs the user → append it to
+   `dev/HUMAN_DECISIONS.md` (guard #5(a)); never block the session on it.
+5. **Advance autonomously** (guard #5) — including proactively **staging Kobo `.kepub` +
+   desktop/Apple device-test artifacts** on a verified tree (the v1.0.0-gating QA path; keep
+   `dev/EREADERS.md` current).
+6. **Marathon fallback** — if higher-priority work is blocked, advance the Phase-D own-vers
+   vision lane (Esther) + the Kings/Samuel manuscript marathon (§1 Phase-D · PLAYBOOK §7 ·
+   memory `feedback_marathon_pacing`); raw transcription is the LAST-resort fallback.
+7. **Save** — crash-safe cadence: local-commit micro-edits, push both remotes after every
+   coherent slice (§4).
+8. **Stop CLEAN** — a quiescent stop; leave no background runs at wrap (memory
+   `no-background-runs-at-wrap`).
+
+> **SAFEGUARD (mandatory).** This loop runs **ONCE per session and terminates at a clean
+> quiescent stop** — it is **NOT** continuous, self-restarting, watcher-driven, externally
+> polled, or auto-continuing. **Do NOT re-add** `agent_idle_radar.py` /
+> `start_session_radars.ps1` / any always-on watcher: that was the removed Grok runaway-loop
+> pattern (cleaned up 2026-06-20). The loop is a checklist a human-triggered session walks once,
+> never a daemon.
 
 ## 3. Sequencing rules
 
