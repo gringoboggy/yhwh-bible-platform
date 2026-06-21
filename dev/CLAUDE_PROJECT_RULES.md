@@ -441,8 +441,9 @@ triggered, walk these in order, then stop clean:
    desktop/Apple device-test artifacts** on a verified tree (the v1.0.0-gating QA path; keep
    `dev/EREADERS.md` current).
 6. **Marathon fallback** — if higher-priority work is blocked, advance the Phase-D own-vers
-   vision lane (Esther) + the Kings/Samuel manuscript marathon (§1 Phase-D · PLAYBOOK §7 ·
-   memory `feedback_marathon_pacing`); raw transcription is the LAST-resort fallback.
+   vision lane (Esther) + the Kings/Samuel manuscript marathon (see §1's "two standalone Bibles"
+   north star · PLAYBOOK §7 · memory `feedback_marathon_pacing`); raw transcription is the
+   LAST-resort fallback.
 7. **Save** — crash-safe cadence: local-commit micro-edits, push both remotes after every
    coherent slice (§4).
 8. **Stop CLEAN** — a quiescent stop; leave no background runs at wrap (memory
