@@ -440,3 +440,32 @@ was enough; the other four pre-summary points are preventive layers. Point (5),
 commit/backup truth, was added after the 2026-05-26 Torrey near-miss (21,762
 verified notes left uncommitted on disk across a /clear despite a "committed +
 backed up" claim — the resume audit's other four steps don't look at git).
+
+---
+
+## SESSION_PLAYBOOK §4 — `tests/test_scripts.py` runnability history (extracted 2026-06-21 rules-consolidation Phase B / B10)
+
+> **Durable line retained in PLAYBOOK §4:** the genuinely-slow lane is real edition builds
+> (`test_byte_stability_gate.py`); `test_matrix_psi35.py` + `test_web_filesplit.py` are the
+> slowest non-build files, all `slow`-tagged → `pytest -m "not slow"` skips them; run one file
+> at a time under RAM pressure. Exact second-counts deliberately NOT pinned — they rot (memory
+> `feedback_slow_test_files`: re-measure before quoting).
+
+`tests/test_scripts.py` became runnable again 2026-05-24 (was ~976 tests, ~2.9 min green). Both
+blockers fixed: **D.hang** (9 socket tests → `ThreadingHTTPServer` + `test_ops` mocks
+`api_preflight`) and **D.slow** (a session-autouse conftest fixture, `_stub_exports_epubcheck`,
+stubs the real epubcheck/Java run over the populated `exports/` dir — minutes per call — while
+leaving `TestEpubcheckWrapper`'s tmp-dir calls real). The old "NEVER run the full
+test_scripts.py" rule was retired then. `test_web_filesplit.py` (~88 tests) and
+`test_matrix_psi35.py` (~39) — the same fixture removed the worst cost (the
+`api_preflight()`→epubcheck-over-`exports/` path; test_web_filesplit alone made 15 such calls) —
+later grew into the 2 slowest non-build files (re-measured 2026-05-31; the earlier "~11 s/~12 s"
+and the "23 min" myth were both stale). Both `slow`-tagged (mint-7 E2).
+
+## §0 env-health — plugin-roster "16-official" arithmetic slip (extracted 2026-06-21 Phase B / B11)
+
+The §0 plugin/MCP sanity step once listed "16 official" plugins. That was an arithmetic slip: the
+pre-expansion 15 = 14 official + `gitkraken-hooks@gitkraken`; the 2026-06-10 user-approved
+expansion brought the live `claude plugin list` to **30** across 3 marketplaces. The live RULES §0
+now states the durable invariant ("trust the SessionStart ENV-HEALTH hook's live
+`claude plugin list`") rather than a hard-coded 30-name roster.

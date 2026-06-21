@@ -27,7 +27,7 @@
 | `build/` `dist/` | ⚠ generated (gitignored) | **Desktop-app build output** — `build/` = PyInstaller intermediate work dir; `dist/` = the packaged app + installer (`YHWH.app`, `YHWH-*.dmg`, `SHA256SUMS.txt`). Produced by `dev/build_desktop.sh` / `dev/build_dmg.sh`; not committed (present only on a machine that has built the desktop app). |
 | `website/` | ✅ live | **Public website** (www.yhwhyaway.com) — built by **`website/build.mjs`** (Node: stitches `src/*.html` + `partials/` → `dist/`, emits `CNAME` / `.nojekyll` / `robots.txt` / `sitemap.xml`; the releases card auto-upgrades client-side via `releases.js`). Also `style.css`, `covers/`, the on-site chapter reader under `src/read/`, `social-card.png`. Deploys to **GitHub Pages** (`gringoboggy/yhwh-website`). Plan: `docs/superpowers/plans/2026-06-03-website-plan.md`. |
 | `brand/` | 🆕 Mac lane | **Brand assets** — social card, avatar, favicons (rendered from EB-Garamond / Noto-Serif-Ethiopic via `sources/`), `BIOS.md` (per-surface bios + support links: paypal.me / ko-fi / domain email). Wired into `website/` (OG card + favicons). |
-| **root files** | mixed | `save.cmd` / `save.ps1` / `save.sh` (local-commit), `pyproject.toml` (ruff/pytest config), `.gitignore` / `.gitattributes` / `.env.example` / `.audit-waivers.yaml`, `README.md`, plus scratch `*.log` (e.g. `.ingest_1en.log` — ⚠ scratch, candidates for gitignore). |
+| **root files** | mixed | `save.cmd` / `save.ps1` / `save.sh` (local-commit), `pyproject.toml` (ruff/pytest config), `.gitignore` / `.gitattributes` / `.env.example` / `.audit-waivers.yaml`, `README.md`, `HANDOFF_README_v7.md` (deep-architecture handoff), plus scratch `*.log` (e.g. `.ingest_1en.log` — ⚠ scratch, candidates for gitignore). |
 | `.claude/` `.githooks/` `.remember/` `.ruff_cache/` | ⚠ tooling | IDE / pre-commit / memory-hook / lint-cache scaffolding — NOT project content. |
 
 ## content/  — data + config (the heart)
@@ -50,7 +50,7 @@
 
 ## dev/  — docs + state
 
-- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `LANE_HANDOFF.md` (the two-lane board: mode/truth_owner frontmatter + per-lane assignments), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this), `SESSION_PLAYBOOK.md` (session lifecycle + verification-gate commands).
+- **Bootstrap + state:** `CLAUDE_PROJECT_RULES.md` (rules), `SESSION_STATE.md` (live snapshot), `PLAN_2026-05-29-roadmap.md` (master plan), `IN_FLIGHT.md` (live tracker), `LANE_HANDOFF.md` (the two-lane board: mode/truth_owner frontmatter + per-lane assignments), `CHANGELOG.md`, `MATRIX_MAP.md` (data-flow), `REPO_MAP.md` (this), `SESSION_PLAYBOOK.md` (session lifecycle + verification-gate commands), `ROADMAP_FUTURE.md` (deferred / future ideas), `HUMAN_DECISIONS.md` (the human-gated decision queue — what the project needs from the user).
 - **`AUDIT_*.md`** — dated audit reports. **`SCOPE_*.md`** — scope decisions/addenda.
 - **`*.py`** — `trace_matrix.py` (matrix integrity tracer), `trace_repo.py` (this map's structural tracer / anti-rot check).
 - **`archive/`** — superseded plans (`PLAN_2026-05-07/08/09`, `PLAN_2026-05-21`, `PLAN_2026-05-24-end-scope`) + `ship_scripts/` (21 one-shot ship scripts) + old handoffs.

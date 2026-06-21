@@ -232,26 +232,20 @@ found under-specified + half-skipped; detail: `dev/SESSION_PLAYBOOK.md` §1):
    item 4). Report reclaimed RAM.
 2. **Git / remote state** — clean working tree; HEAD matches the last SESSION_STATE's
    described state; both remotes wired (`origin` = GitLab, `github` = GitHub mirror).
-3. **Plugin / MCP sanity (baseline must hold)** — **30 plugins / 3 marketplaces**
-   (user-approved expansion 2026-06-10): **15 @`claude-plugins-official`** (the original
-   14 + `pr-review-toolkit`): chrome-devtools-mcp · claude-code-setup ·
-   claude-md-management · code-review · code-simplifier · commit-commands · feature-dev ·
-   frontend-design · playwright · plugin-dev · pr-review-toolkit · remember ·
-   session-report · skill-creator · superpowers (Mac runs 14 of these — `playwright`
-   plugin deliberately skipped there; its manual persistent-profile playwright MCP is the
-   documented equivalent) + `gitkraken-hooks@gitkraken` (WANTED — do NOT flag it; the one
-   sanctioned external hook) + **14 @`claude-community`** (the Anthropic-screened community
-   marketplace; all 14 verified hook-free / account-free / fully-local, invocation-gated:
-   agnix · anti-ai-writing · c4m · clarity · claude-perfectionist · diataxis ·
-   dishonest-code-audit · forge · lazyline · humanizer · neko-harness-doctor ·
-   open-source-launch · public-repo-readiness · repo-doctor; `agnix` also needs the
-   npm-global `agnix` CLI). (Earlier "16 official" wording was an arithmetic slip — the
-   pre-expansion 15 = 14 official + gitkraken; live `claude plugin list` 2026-06-10 = 30.) Still **NO telemetry / external-scanner / login-required
-   plugins** (the env-trim removals stay out — memory `no-external-hooks-minimal-plugins`);
-   MCP = `chrome-devtools` + `playwright` available on paper (a failed server = a missing
-   LOCAL runtime, never a login gate). **Mac 8 GB + VS Code open:** treat browser MCP as
-   **OFF** — too heavy; never spawn for STK/Thorium QA on this box (guard #6). Run
-   `/reload-plugins` after any plugin change.
+3. **Plugin / MCP sanity (baseline must hold)** — **30 plugins across 3 marketplaces**
+   (user-approved expansion 2026-06-10). **Trust the SessionStart ENV-HEALTH hook's live
+   `claude plugin list`** over any hard-coded roster here — the marketplaces are
+   `claude-plugins-official` (incl. `pr-review-toolkit`) + `gitkraken-hooks@gitkraken` (WANTED —
+   the one sanctioned external hook, do NOT flag it) + the Anthropic-screened `claude-community`
+   set (all verified hook-free / account-free / fully-local, invocation-gated; `agnix` also needs
+   the npm-global `agnix` CLI). **Mac runs 14** (the `playwright` plugin is deliberately skipped
+   there — its manual persistent-profile playwright MCP is the documented equivalent). **HARD
+   BAR: still NO telemetry / external-scanner / login-required plugins** (the env-trim removals
+   stay out — memory `no-external-hooks-minimal-plugins`). MCP = `chrome-devtools` + `playwright`
+   on paper (a failed server = a missing LOCAL runtime, never a login gate). **Mac 8 GB + VS Code
+   open:** treat browser MCP as **OFF** — too heavy; never spawn for STK/Thorium QA on this box
+   (guard #6). Run `/reload-plugins` after any plugin change. (The earlier "16 official"
+   arithmetic-slip note → `dev/archive/RULES_HISTORY.md`.)
 4. **Version FRESHNESS — best-effort, NOT a hard gate.** Report the installed Claude Code
    version; flag a CC/plugin update ONLY if the harness surfaces one. **"Is it the latest"
    is NOT fully verifiable offline — do not block on it.** Apply any update ONLY on explicit
@@ -1567,15 +1561,5 @@ four tiers (ω.0.4) → see `dev/archive/RULES_HISTORY.md`.*
 
 Four levels, one task: keep drift visible.
 
----
-
-```
-dev/PLAN_<date>.md                          master sequence doc
-dev/SCOPE_<date>.md                         original scope statement
-dev/SCOPE_<date>-addendum-<topic>.md        major feature specs
-dev/ROADMAP_FUTURE.md                       deferred ideas
-dev/SPEC_MU_SYMBOL_TOGGLE.md                symbol toggle (μ phase)
-content/translations/<id>/_meta.yaml        per-translation metadata
-HANDOFF_README_v7.md                        deep architecture handoff
-dev/archive/RULES_HISTORY.md                extracted finished-arc history (this file's source)
-```
+*(For the file/folder index — every dev/ doc, root file, and content path — see
+`dev/REPO_MAP.md`, the single canonical map.)*
