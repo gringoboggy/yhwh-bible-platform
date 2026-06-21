@@ -52,16 +52,6 @@ four Grok-era "deep-audit" build slices. **Verdict: Opt#3 FAILS → reverted; Op
 WIN's proper K-R5-3 badge-bleed clamp (book/piece boundary) remains the correct fix for the M2 tablet
 badge complaint — Opt#3 was Grok's wrong "fix" (drop ALL tablet badges). Revert + WIN's clamp = correct.
 
-## ▶ Current arc — Grok-revert cleanup (windows → mac, 2026-06-21, mode=parallel)
-
-WIN removed the ~2-week Grok runaway-loop machinery (radar scripts, the lane_watch EXTRA-STEP, the rotate-churn auto-commit, rule-bloat guards #8-#10, the NEVER-STOP/AUDIT-PROTOCOL spam), reconstructed the truth records, and restored the pruned notes. **DONE + pushed** — 4 commits → GitLab+GitHub+E:+F:, HEAD `b45a9ff1`. The **Bible product is verified intact** — verse-anchor counts + spine reading order unchanged from baseline `3065b348`. **NO git-history rewrite**; rollback branch `pre-grok-cleanup-snapshot`.
-
-**Mac role (parallel verifier, on the cleanup commit):** pull, then **byte-stability rebuild-verify** the build-code slices WIN kept pending — build the 4 catalog editions at BASE `3065b348` vs the cleanup HEAD across targets and byte-diff. Make-or-break = Opt#3 (`33b79387`) tablet/Apple badge-collapse early-out: if the tablet artifact differs, the slice REVERTS. Also Opt#2 nav.xhtml bilingual leg + the repair batch. Report PASS/FAIL + file:line here. Do NOT run the full pytest suite (8 GB box). Full plan: `grok-revert-audit` (task ww7ughmf7).
-
-**Restored (committed `b28867a5`):** the 115 notes + 4 kinds the June-18 scrub pruned are back in the superset (corpus 91,712); catalog stays lean (6 editions). **Mac:** mirror the de-bloated rules into per-box memory + ACK (rule-change parity).
-
-**After the cleanup:** resume the v1.0.0 release gate — WIN builds (M2 Apple audit · Kindle STK bisect) · Mac verifies. See `dev/SESSION_STATE.md`.
-
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
@@ -134,3 +124,5 @@ The `lane_watch.py` `tracking_behind` check + the savers' `--before-push` pull r
 **WIN builds · Mac verifies (2026-06-19, user-directed — STANDING, both lanes).** **WIN** owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle bisect). **Mac** owns **verify + scope** on each WIN milestone: pull → run WIN-listed verify commands → `## Mac verify (turn N)` PASS/FAIL in this file → post the next Mac scope (max 3 items) in this file. Mac **must not** dual-implement the same Kindle/pytest fix WIN is shipping. Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac **must not** run full `ci.py` on HDD while WIN `ci.py` is in flight.
 
 **Rule change parity (STANDING, both lanes):** Any edit to shared in-repo rules (LANE_HANDOFF, SESSION_STATE, CLAUDE_PROJECT_RULES, etc.) must be accompanied by a task for Mac (in this file) to: pull the change, update their per-box memory with the exact new text (diff only real OS reasons), confirm rules are identical, ACK in local memory, run bootstrap to wire, report confirmation + any diff to LANE_HANDOFF. WIN reviews Mac report and confirms both sides on same page before considering the rule change complete. This delegation is automatic in the queue/handoff system.
+
+> **Older turns archived to `dev/archive/LANE_HANDOFF_LOG.md`** (rotated by `scripts/rotate_truth_records.py`; newest batch first).

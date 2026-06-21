@@ -4,6 +4,18 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-21..2026-06-21 (rotate_truth_records.py) -->
+
+## ▶ Current arc — Grok-revert cleanup (windows → mac, 2026-06-21, mode=parallel)
+
+WIN removed the ~2-week Grok runaway-loop machinery (radar scripts, the lane_watch EXTRA-STEP, the rotate-churn auto-commit, rule-bloat guards #8-#10, the NEVER-STOP/AUDIT-PROTOCOL spam), reconstructed the truth records, and restored the pruned notes. **DONE + pushed** — 4 commits → GitLab+GitHub+E:+F:, HEAD `b45a9ff1`. The **Bible product is verified intact** — verse-anchor counts + spine reading order unchanged from baseline `3065b348`. **NO git-history rewrite**; rollback branch `pre-grok-cleanup-snapshot`.
+
+**Mac role (parallel verifier, on the cleanup commit):** pull, then **byte-stability rebuild-verify** the build-code slices WIN kept pending — build the 4 catalog editions at BASE `3065b348` vs the cleanup HEAD across targets and byte-diff. Make-or-break = Opt#3 (`33b79387`) tablet/Apple badge-collapse early-out: if the tablet artifact differs, the slice REVERTS. Also Opt#2 nav.xhtml bilingual leg + the repair batch. Report PASS/FAIL + file:line here. Do NOT run the full pytest suite (8 GB box). Full plan: `grok-revert-audit` (task ww7ughmf7).
+
+**Restored (committed `b28867a5`):** the 115 notes + 4 kinds the June-18 scrub pruned are back in the superset (corpus 91,712); catalog stays lean (6 editions). **Mac:** mirror the de-bloated rules into per-box memory + ACK (rule-change parity).
+
+**After the cleanup:** resume the v1.0.0 release gate — WIN builds (M2 Apple audit · Kindle STK bisect) · Mac verifies. See `dev/SESSION_STATE.md`.
+
 <!-- archived: 1 sections, 2026-06-20..2026-06-20 (rotate_truth_records.py) -->
 
 ## Mac verify (WIN: turn off watcher before fresh + no-dupe system for watchers/tasks — 2026-06-20)
