@@ -7,6 +7,11 @@
 > truth records reconstructed, **115 notes + 4 kinds restored** (corpus 91,712), editions junk
 > fixed. Bible verified intact. Rollback branch `pre-grok-cleanup-snapshot`. Details:
 > `dev/CHANGELOG.md` (2026-06-21) + memory `project_grok_cleanup` (task `ww7ughmf7`).
+>
+> **Mac follow-up DONE (2026-06-21):** the Mac-local Grok footprint is also removed — `~/.grok`
+> CLI (1.2 GB → Trash), `~/.config/kilo/`, the `~/.zshrc` PATH block, repo `.grok/` + orphaned
+> loop logs, and the tracked `.vscode/extensions.json` + `TOOLCHAIN.md §Grok` (now a decommission
+> note). Cover-art Grok-image feature preserved. Claude is the sole coding agent.
 
 ## ▶ Fresh session — continue "the rest" (priority order)
 

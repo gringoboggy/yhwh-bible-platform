@@ -4,6 +4,27 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-21 — Grok local footprint removed (Mac lane)
+
+Completed the Grok decommission on the macOS lane (Windows did the repo-side revert earlier the
+same day). Removed the Mac-local Grok/Kilo footprint that never lived in git:
+
+- **Global CLI** — moved `~/.grok` (1.2 GB: the xAI Grok Build CLI v0.2.59 + OAuth `auth.json` +
+  sessions/worktrees) to Trash; removed the `# >>> grok installer >>>` block from `~/.zshrc`
+  (backup `~/.zshrc.pre-grok-cleanup-2026-06-21`); `grok` is no longer on PATH.
+- **Kilo Code** — moved `~/.config/kilo/` (kilo.json MCP + kilo.jsonc model + node_modules) to Trash.
+- **Repo-local** — removed the gitignored `.grok/` project-MCP config; deleted orphaned loop-machinery
+  runtime logs (`dev/.agent_idle_radar.log` 2.2 MB, `dev/.lane_watch*.{log,json}`, `.lane_watcher*`,
+  `.agent_activity.json`). **Kept** `dev/.lane` + `dev/.lane_seen` (used by the surviving
+  `lane_handoff.py`).
+- **Tracked** — `git rm .vscode/extensions.json` (it only recommended Kilo/Grok) + its `.gitignore`
+  negation; retired the `dev/TOOLCHAIN.md` §Grok section to a decommission note; dropped "Grok Build"
+  from the `AGENTS.md` portable-agent example list.
+
+**Deliberately preserved:** the cover-art pipeline's Grok-image functions (`_apply_grok_style_grade`,
+`grok_first` compose mode, `_scenes/` art in `scripts/generate_book_title_covers.py`) — a shipped,
+tested feature, unrelated to the runaway-loop agent. No Bible/content change.
+
 ## 2026-06-21 — Grok-revert surgical cleanup (Windows)
 
 Removed the ~2-week Grok runaway-loop machinery and reconstructed the truth records. The Bible

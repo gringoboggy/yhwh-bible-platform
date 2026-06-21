@@ -8,7 +8,7 @@
 >
 > Claude Code with hooks installed: the SessionStart hook enforces step 2 automatically (`dev/cc-hooks/install_cc_hooks.ps1`).
 
-Portable instructions for **any** coding agent (Grok Build, Codex, Cursor, Copilot, …)
+Portable instructions for **any** coding agent (Codex, Cursor, Copilot, …)
 working in this repo. This file is a **digest** — the full, authoritative rules live in
 [`dev/CLAUDE_PROJECT_RULES.md`](dev/CLAUDE_PROJECT_RULES.md) (§-numbered) with the
 lifecycle/gates in [`dev/SESSION_PLAYBOOK.md`](dev/SESSION_PLAYBOOK.md).

@@ -37,10 +37,8 @@ node_modules/
 .DS_Store
 Thumbs.db
 .idea/
-# Ignore .vscode/ contents but track the shared workspace extension recommendations
-# (Grok / Kilo Code — see dev/TOOLCHAIN.md §Grok).
+# Ignore .vscode/ contents (local editor settings are not shared).
 .vscode/*
-!/.vscode/extensions.json
 
 # --- Claude Code local state (per-machine permissions, runtime locks) ---
 # Ignore .claude/ contents (not the dir itself) so a negation can re-include
