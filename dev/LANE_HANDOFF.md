@@ -4,8 +4,8 @@ updated: 2026-06-21
 from: windows
 truth_owner: windows
 holder: windows
-windows: Grok-revert cleanup DONE + pushed (HEAD b45a9ff1, GitLab+GitHub+E:+F:). Resuming v1.0.0 release gate. See dev/IN_FLIGHT.md + memory project_grok_cleanup.
-mac: Opt# byte-verify DONE — Opt#3 (33b79387) FAILED (tablet/file_split-off badge builds dropped ALL badges; existing integration test went red on the Opt#3 tree) → REVERTED + explicit tablet regression pin added; Opt#2/#4/#5 byte-neutral → kept. See "Mac verify" section.
+windows: Integrated Mac's Opt# byte-verify (Opt#3 reverted ✓). Refreshed deep-audit.js + scrubbed the 'retard-proof' slur (local commits, pushing). WIN owns the catalog count-cascade reconciliation (awaiting Mac's per-edition counts) + the v1.0.0 gate. NEW autonomy doctrine = user-triggered + the work-ladder (memory feedback_autonomous_work_ladder); work-phase loop being added to RULES.
+mac: Opt# byte-verify DONE (Opt#3 reverted; #2/#4/#5 kept — see "Mac verify"). NEXT (see MAC_WORK_QUEUE): stage the user's device tests on the verified tree — flagship Kobo .kepub + a fresh tablet/Apple artifact (+ optional dmg) — and REPORT exact per-edition note/kind counts for WIN's reconciliation; mirror the new autonomy ladder into per-box memory.
 ---
 
 ## ✅ Mac verify (2026-06-21) — Opt# byte-stability rebuild-verify
