@@ -527,14 +527,19 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   `reference_lane_coordination`).
 - **Lane sync — the "ping" + auto-pull-on-BEHIND, at SEAMS (not a background loop).**
   `scripts/lane_ping.py` does the cheap "did the other lane push?" detection;
-  `scripts/lane_watch.py --auto-pull` is the fuller checker — it pulls on lane_ping
+  `scripts/lane_watch.py --auto-pull` is the manual checker — it pulls on lane_ping
   BEHIND, remote handoff turn ahead, *or* when the local branch simply lags the tracking
   ref after fetch (`tracking_behind` when `HEAD..origin/main` > 0 and tree clean).
   These run at SEAMS: the save scripts call `lane_ping --before-push` and pull-rebase
-  before pushing, and a fresh session may run `lane_ping` once. The rule is still "the
-  user never has to say pull" — enforced at the push/session seams, NOT by a persistent
-  background radar (the runaway-radar machinery was removed 2026-06-20). Read-only +
-  non-fatal for network issues.
+  before pushing, and a fresh session may run `lane_ping` once. This is the **STANDING
+  auto-pull-on-BEHIND rule** (LANE_HANDOFF is the rule-of-record), and it is stronger
+  than the reactive "pull" command word below: the system **must** have already pulled at
+  the seam, so the user literally never has to say "pull" when the condition is met —
+  **partial or "sometimes" implementations violate the rule** ("Grok / Claude doesn't
+  listen when told 'always just do the logical thing'" is exactly what this guard prevents).
+  Enforced at the push/session seams, **NOT** by a persistent background radar (there is
+  none — the runaway-radar machinery was removed 2026-06-20). Read-only + non-fatal for
+  network issues.
 - **⚠ BEFORE saving:** `python -m ruff format` files you generated / regenerated (esp.
   `content/translations/<id>/` stores) or the pre-commit hook blocks the commit (§7).
 - **Every save updates `dev/SESSION_STATE.md`** (last shipped · next · test count ·
@@ -544,15 +549,9 @@ applies to a casual ask's *timing*, never to a hard constraint or correctness re
   important, Claude's autonomous trigger (above) still fires.
 - **"pull" (bare, or "pull again") is a COMMAND WORD (user-directed 2026-06-11):** run
   the lane-sync pull immediately — `lane_ping` → `git pull --rebase origin main` →
-  report what came in from the other lane — no interpretation, no questions.
-
-  The **STANDING auto-pull-on-BEHIND rule** (LANE_HANDOFF) is stronger: the system
-  **must** have already pulled (via `lane_watch --auto-pull`, which is always wired
-  on the background radar and checks `git status` behind / `HEAD..origin/main` count
-  + clean tree). Agents must implement the automation so the user literally never has
-  to utter the word when the condition is met. Partial or "sometimes" implementations
-  violate the rule. "Grok / Claude doesn't listen when told 'always just do the logical
-  thing'" is exactly what this guard prevents.
+  report what came in from the other lane — no interpretation, no questions. (The
+  proactive STANDING auto-pull rule above means this command word should rarely be
+  needed — the pull has usually already happened at the seam.)
 - **Zip flow is DORMANT** — never build a zip or ask slim/full on a save. Only if the
   user *explicitly* says "zip".
 
