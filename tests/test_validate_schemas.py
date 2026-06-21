@@ -207,7 +207,11 @@ class TestOmega19SchemaValidator:
         # 71 → 72 with Track C Torrey (2026-05-25): added `topic-torrey`
         # (category `topic`, ✦ glyph — Torrey's New Topical Textbook, net-new
         # vs Nave's).
-        assert result["record_count"] == 68
+        # 72 → 68 with the 2026-06-18 Christian-scope scrub (dropped comm-rabbinic,
+        # compare-quran, compare-nag-hammadi, liturgy-torah-portion). 68 → 72 restored
+        # 2026-06-21 (Grok-revert: the scrub's note-prune was collateral; the 4 kinds +
+        # their notes were brought back into the superset; catalog stays lean).
+        assert result["record_count"] == 72
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

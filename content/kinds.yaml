@@ -424,6 +424,16 @@ kinds:
     description: "Augustine, Origen, Chrysostom, Basil, Jerome, etc."
     phase: mvp
 
+  - code: comm-rabbinic
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-rabbinic"
+    marker_class: "marker-comm-rabbinic"
+    label: "Rabbinic"
+    title_attr: "Rabbinic interpretation"
+    description: "Talmud, Midrash Rabbah, Rashi, Maimonides, Targumim."
+    phase: mvp
+
   - code: comm-orthodox
     category: comm
     symbol: "◇"
@@ -518,6 +528,26 @@ kinds:
     description: "1 Enoch, Jubilees, 4 Ezra, 2 Baruch, Apoc. of Abraham. Critical for Ethiopian Tewahedo edition."
     phase: mvp
 
+  - code: compare-quran
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-quran"
+    marker_class: "marker-compare-quran"
+    label: "Qur'an"
+    title_attr: "Qur'anic parallel"
+    description: "Where the Qur'an narrates / interprets the same person or event."
+    phase: phase2
+
+  - code: compare-nag-hammadi
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-nag-hammadi"
+    marker_class: "marker-compare-nag-hammadi"
+    label: "Gnostic"
+    title_attr: "Gnostic / Nag Hammadi parallel"
+    description: "Gospel of Thomas, Apocryphon of John, etc."
+    phase: phase3
+
   - code: compare-divergence-geez
     category: compare
     symbol: "☩"
@@ -574,6 +604,16 @@ kinds:
     label: "Lit.yr."
     title_attr: "Christian liturgical year"
     description: "Western lectionary placements (RCL, Catholic, Orthodox)."
+    phase: phase2
+
+  - code: liturgy-torah-portion
+    category: liturgy
+    symbol: "☧"
+    note_class: "note-liturgy-torah-portion"
+    marker_class: "marker-liturgy-torah-portion"
+    label: "Parashah"
+    title_attr: "Torah portion / Haftarah"
+    description: "Jewish parashot weekly cycle, Haftarah pairings."
     phase: phase2
 
   # ──────────────────────────────────────────────────────────────────
