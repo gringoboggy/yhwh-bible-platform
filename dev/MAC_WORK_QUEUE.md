@@ -1,11 +1,10 @@
 # Mac work queue — operating model + current Mac scope
 
-> **Lane-coordination-v2: WIN builds · Mac verifies + scopes** (RULES §4 + `dev/LANE_HANDOFF.md`
-> STANDING). WIN owns implementation (`scripts/` · `tests/` · `ci.py` · matrix builds · Kindle
-> bisect). On each WIN milestone, Mac: pull → run the WIN-listed verify commands → post PASS/FAIL
-> in `dev/LANE_HANDOFF.md` → keep ≤3 next-scope items here. Mac must **not** dual-implement a fix
-> WIN is shipping; Mac **may** run targeted `pytest` + sim gates + STK poll (user uploads); Mac
-> must **not** run a full `ci.py` on the HDD while WIN's `ci.py` is in flight.
+> **Operating model ("WIN builds · Mac verifies + scopes") — canonical statement = the
+> `dev/LANE_HANDOFF.md` STANDING section (RULES §4).** Mac, on each WIN milestone: pull → run the
+> WIN-listed verify commands → post PASS/FAIL in LANE_HANDOFF → keep only its current ≤3-item
+> scope below. No dual-implementing a fix WIN is shipping; no full `ci.py` on the HDD while WIN's
+> is in flight.
 
 ## Current scope (Mac) — max 3
 

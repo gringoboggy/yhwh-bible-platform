@@ -152,7 +152,8 @@ say 87), you must update ALL of: (a) the page body; (b) the `<meta name="descrip
 `<dc:description>` (the e-reader LIBRARY-CARD synopsis; per-edition override =
 the edition's `description` via `patch_opf`) and `epub_working/introduction.xhtml`
 (K-R2-8: the Kobo library card still said "88 scriptures" after every other surface
-was swept 2026-06-09).
+was swept 2026-06-09); (g) the **GitHub release notes / release body**
+(`RELEASE_NOTES_*.md` + the published GitHub release description, which quotes the count).
 Link previews on X/iMessage/Slack use `og:image` (the baked card) and are **cached
 hard** — after fixing it, re-scrape via the platform's card validator or the old card
 persists for days. (Why the user re-flagged "still says 87 books" 2026-06-07.)

@@ -281,8 +281,8 @@ built → **epubcheck 0/0/0/0**.
   canonical one click away.
 - **Book count = 83** in all public/user-facing copy (the shipped superset). The raw registry
   is 87 but four additions fold into Daniel/Esther — **never say 87 publicly**. A count change
-  cascades across page bodies, `<meta>`/og/twitter tags, the social-card image,
-  GitHub/GitLab descriptions, release notes, in-app trackers, and EPUB metadata.
+  cascades across many surfaces — **full list + file paths: see the RULES “Corollary”** in
+  `dev/CLAUDE_PROJECT_RULES.md`.
 - **Canonical 3-letter book codes** (`joe/jhn/phi/jam/eze/nah/mrk/psa`) — normalize at
   ingest. Legacy aliases target non-existent files → notes silently drop. The
   `bookcode_canonical` lint fails the commit; add any new map to it.

@@ -8,7 +8,7 @@
 
 Every session that touched code/content/docs ends with **all of these green** and the tree **consistent** (source ↔ build agree):
 
-`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 / 32,263 paired · `validate_taxonomy` 100% (91,597 source-corpus; the public SHIPPED count is 91,553) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
+`lint_rules` 0 warn / 0 fail (all checks pass) · `ruff format --check` clean · `ebible verify` errors=0 (all asides paired) · `validate_taxonomy` 100% (live source-corpus count in `dev/SESSION_STATE.md`; shipped = per-edition filter) · `trace_matrix` 0 unresolved · `validate_schemas` 6/6 · targeted tests for every touched module green · (if you touched the build/corpus) one+ edition built → `epubcheck` 0/0/0/0.
 
 Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together** and `IN_FLIGHT.md` reflects reality. **Save cadence (RULES §4, 2026-06-17 crash-safe):** **local-commit** micro-edits freely; **save** (push both remotes) autonomously after every coherent slice — **without asking, without waiting on input** (Windows: `save-all.ps1`; Mac: `save_mac.sh` — §6.6). **Never pause for confirmation. Never end with unpushed commits.** **And never tell the user a session is "done / safe to stop / safe to /clear" — or that work is "committed" or "backed up" — without first running `git log -1` + `git status -b` and reporting the TRUE state (§6.7).** Unpushed commits = other lane cannot see work; uncommitted work = crash-loss risk.
 
@@ -50,7 +50,7 @@ Then `SESSION_STATE.md` + `CHANGELOG.md` are updated **together** and `IN_FLIGHT
   - **✅ SURGICAL method (lossless, isolated) — use this to remove orphaned notes:** from HEAD's `epub_working`, regex-remove the orphaned markers (`<a class="note-ref note-<kind>" …>…</a>`) AND asides (`<aside class="note note-<kind>" …>…</aside>`) from the affected book's split file(s) (find via `config.books_by_code()[code]['files']`), then `inject --book <code>` to add the replacement notes. No `generate_verse_popups` needed (notes don't affect verse-popups). Verify CONTENT-level by **aside-by-id diff** (HEAD vs working), never raw line-diff; only the changed book's split file(s) should differ. ⚠ split files are **shared** between books, so confirm the removed `<kind>` only belongs to the target book before a blanket regex (e.g. only phi/jam carry `lang-hebrew` among NT books).
 - **`ebible verify` checks marker↔aside *pairing*, NOT source-correspondence** — so a source/build mismatch (e.g. orphaned asides) passes verify **silently**. Keep source ↔ build consistent yourself.
 - **Matrix (editions × kinds):** every per-edition control flows through **one resolver** that `matrix == build == config` (`tests/test_enabled_kinds_unified.py`).
-- **Corpus scale:** 91,597 source notes (public shipped count = 91,553) · 68 kinds · 15 categories · 87 books · 6 editions.
+- **Corpus scale:** live figures (source notes · kinds · categories) in `dev/SESSION_STATE.md` (do not hard-code here — they rot) · 87 books · 6 editions.
 
 ---
 
@@ -79,9 +79,9 @@ Prelude: `$env:PYTHONUTF8="1"; $py="C:\Users\bogda\AppData\Local\Python\pythonco
 | Format | `& $py -m ruff format --check .` | all files formatted |
 | Matrix integrity | `& $py dev\trace_matrix.py` | 0 unresolved refs (6 editions) |
 | Repo-map complete | `& $py dev\trace_repo.py` | complete |
-| Taxonomy | `& $py scripts\validate_taxonomy.py` | 91,597/91,597 (100%) |
+| Taxonomy | `& $py scripts\validate_taxonomy.py` | 100% (every source-note coord valid; live total in SESSION_STATE) |
 | Schemas | `& $py scripts\validate_schemas.py` | 6/6 ok |
-| Pairing | `& $py -m scripts.ebible verify` | errors=0 / 32,263 paired |
+| Pairing | `& $py -m scripts.ebible verify` | errors=0 (all asides paired) |
 | Matrix==build==config | `& $py -m pytest tests\test_enabled_kinds_unified.py -q` | pass |
 | Touched modules | `& $py -m pytest tests\<file>.py -q` (per module) | pass |
 | Build cert (build/corpus touched) | build edition(s) + epubcheck (PATH `java` + `--jar`, one JVM) | epubcheck **0/0/0/0** |
@@ -96,7 +96,7 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
 
 ## 6. SESSION END — finish clean, in this order (RULES §11/§12)
 
-1. **§12 4-point pre-summary audit:** (a) test-count reconcile (≥ baseline **7,667** collected; itemize any intentional removals); (b) phase-mention scan (any new Greek-letter phase tag in code must appear in `CHANGELOG.md`); (c) `IN_FLIGHT.md` `TRACKER-STATE` marker correct; (d) linter ack (`lint_rules` 0 warn / 0 fail).
+1. **§12 pre-summary audit — the RULES §12 5-point checklist:** test-count reconcile (the count matches what the summary will claim — do NOT hard-code a baseline; it rots) · phase-mention scan (any new Greek-letter phase tag in code appears in `CHANGELOG.md`) · `IN_FLIGHT.md` `TRACKER-STATE` marker correct · linter ack (`lint_rules` 0 warn / 0 fail) · **commit/backup git-truth** (`git log -1` + `git status -b`; see §6.7).
 2. **Update `SESSION_STATE.md` AND `CHANGELOG.md` together** — their mtimes must be within ~6h or the freshness check warns. Update the `IN_FLIGHT.md` banner + marker. (Don't pin durable phase tags onto SESSION_STATE/IN_FLIGHT — they roll.)
 3. **ruff-format** every generated/regenerated file.
 4. **Run the §5 gates** — confirm green. Prove byte-compat for any regen.
@@ -104,7 +104,7 @@ Build one edition fast: `& $py scripts\build_edition.py <edition> --force --outp
    **⚠ GIT-CLONE / WORK-DIR DELETION GATE (user-directed 2026-06-11, "that should always be a thing" — STANDING, both lanes):** before deleting ANY repo clone or work directory, PROVE it holds nothing unique: (a) `git -C <dir> status --porcelain` → must be empty (no dirty/untracked work); (b) its HEAD must be contained in the surviving copy's history — `git -C <live> merge-base --is-ancestor <stale-HEAD> HEAD` exits 0; (c) check for local-only branches/stashes (`git -C <dir> branch -vv`, `git -C <dir> stash list`) if the clone ever did real work. Only an all-clear on every check licenses the delete; any miss ⇒ surface to the user instead. (First applied: the 3 stale `yhwh-website` publish clones, 2026-06-11.)
 6. **Save (RULES §4 crash-safe cadence):**
    - **During work:** local-commit micro-edits — Windows: `& ".\save.ps1" -Message "…"` (PowerShell only; does **NOT** push). Mac: `git add -A` + `git commit -m "…"`. Commit freely; do not wait for permission.
-   - **After each coherent slice (autonomous — no asking):** Windows: `& ".\save-all.ps1" -Message "…"` (`-Label`, `-Yes`, `-DryRun` as needed) — five legs when E:/F: mounted. Mac: `bash dev/save_mac.sh -m "…"` (commit if dirty + `lane_ping --before-push` + push both remotes). Triggers: tests/gate green · handoff/truth-record edit · before risky/long jobs · before wrap · `git status -b` shows ahead of origin. **Auto-rebase if BEHIND.**
+   - **After each coherent slice (autonomous — no asking):** Windows: `& ".\save-all.ps1" -Message "…"` (`-Label`, `-Yes`, `-DryRun` as needed) — five legs when E:/F: mounted. Mac: `bash dev/save_mac.sh -m "…"` (commit if dirty + `lane_ping --before-push` + push both remotes). Triggers: per the **RULES §4 list** (gate green · truth-record edit · before risky/long jobs · before wrap · ahead of origin). **Auto-rebase if BEHIND.**
    - **`save.ps1` alone is not a complete save** — never report "backed up" until push legs landed (`git status -b` ahead/behind = 0).
 7. **⚠ SAVE TRUTH GATE — before ANY "done / safe to stop / safe to /clear / saved / backed up" statement (RULES §12 audit point 5).** Run `git log -1 --oneline` + `git status -b`. Report the ACTUAL state. Uncommitted = **WARNING**. Committed but unpushed = **WARNING** — other lane cannot see work. Full save = remotes in sync; Windows bundle on E:/F: when mounted.
 
