@@ -19,15 +19,16 @@
 
 ### Remaining (priority order)
 
-1. **Phase F — catalog count reconciliation + the website Pages DEPLOY (BLOCKED on Mac).** When Mac's
-   rebuild reports exact per-edition note/kind counts (the **+72 restored `comm`/`word` notes** shifted
-   the shipped numbers), sweep the full count cascade — page bodies · `brand/BIOS.md` · root `README.md` ·
-   `COPYRIGHT.md` · `<meta>`/og/twitter · the social-card image · GitHub/GitLab descriptions · EPUB
-   metadata · in-app trackers · the **GitHub release body** — per memory
-   `feedback_deploy_means_build_and_deploy`; reconcile the website note-count (91,553 → the new shipped
-   figure) consistent with the Phase-E E7 canon-count framing; then **deploy the website ONCE** (the
-   Phase-E accuracy fixes are already built + committed, awaiting this single deploy). Mac per-edition
-   figures land in `dev/LANE_HANDOFF.md` `mac:`.
+1. **Phase F — count cascade DONE in source; the live website PUBLISH → Mac.** Mac's rebuild gave the
+   authoritative shipped figure **91,555** note-refs (was 91,553; per-edition: ethiopian 91,555 ·
+   catholic-study 43,370 · evangelical-reformed 41,847 · eastern-orthodox 41,819). WIN swept the source
+   cascade (index/roadmap/README/BIOS/COPYRIGHT/`card.html` · SESSION_STATE) + the README Anglican/Lutheran
+   fix + added the Ge'ez 1 Kings 7–10 reader pages (commit `5d156842`, pushed). EPUB metadata needs no edit
+   (matter pages compute counts live); the GitHub repo description uses "91k" (no change). **The live
+   publish is Mac's** (WIN has no `yhwh-website` Pages clone) — rebuild `dist/` + re-render the social-card
+   PNG to 91,555 + deploy to `yhwh-website` + refresh the GitHub/GitLab v0.1.0 release body (91,555 + fix
+   the stale "nine starting editions" → 4 canon SKUs) + re-scrape the og card. Checklist:
+   `dev/LANE_HANDOFF.md` "▶ Phase F website publish → Mac".
 2. **Resume the v1.0.0 release gate** (`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`). The
    human-gated device QA is now queued in **`dev/HUMAN_DECISIONS.md`** (Kobo taps · Apple device re-QA ·
    Kindle STK device check · Play Books phone QA · the `v1.0.0` tag command). WIN = M2 Apple audit

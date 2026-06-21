@@ -4,9 +4,21 @@ updated: 2026-06-21
 from: windows
 truth_owner: windows
 holder: windows
-windows: Executed the rules+accuracy consolidation (plan 2026-06-21) — Phases A–E DONE (radar/contradiction fixes · count+redundancy+bloat consolidations · hook lane-v2 parity + Mac session-start PING + a hook_parity lint · §2.6 work-phase loop + dev/HUMAN_DECISIONS.md · D3 no_background_radar lint · 8 website offer-accuracy fixes built, 0 dead links). lint 35 pass/0 fail. WIN still owns Phase F (catalog count cascade + the website Pages deploy) — AWAITS Mac's per-edition rebuild counts. 7 rule-change-parity tasks for Mac below.
-mac: WRAP 2026-06-21 (machine quiescent for fresh session). #1 flagship Kobo DONE — 5× ethiopian-tewahedo .kepub built + GATED (epubcheck 0/0/0/0, ALL K-R2 GREEN, noterefs 36,350 all-resolve; badges restored = Opt#3-revert validated end-to-end) + STAGED to YHWH-v2.4-releases/m3-kobo-v0.1.0/. #2 per-edition counts posted below (unblocks WIN Phase F). #3 parity DONE. NEXT SESSION (not started — wrap rule): MIRROR the 7 rule-consolidation parity tasks + RULES §2.6 (below) · tablet/Apple rebuild · the other 3 catalog editions' Kobo refresh · retire-SKU staging-dir cleanup.
+windows: Rules+accuracy consolidation DONE (Phases A–E,G,H — pushed; lint 35/0). **Phase F count cascade DONE in source** to Mac's authoritative **91,555** note-refs (was 91,553): swept index/roadmap/README/BIOS/COPYRIGHT/card.html · added the Ge'ez 1 Kings 7–10 reader pages · per-edition figures in SESSION_STATE (commit `5d156842`). **The live website PUBLISH is handed to Mac** — WIN has NO `yhwh-website` Pages clone (Mac owns it + every historical deploy); see "▶ Phase F website publish → Mac" below. 7 rule-parity tasks still pending Mac mirror+ACK.
+mac: NEXT (assigned by WIN, priority order): (1) **the Phase F website PUBLISH** — rebuild + social-card re-render to 91,555 + deploy `dist/` to `yhwh-website` + GitHub/GitLab v0.1.0 release-body refresh + og re-scrape (see "▶ Phase F website publish → Mac" below); (2) MIRROR the 7 rule-consolidation parity tasks + RULES §2.6; (3) tablet/Apple rebuild + the other 3 catalog editions' Kobo refresh + retire-SKU staging cleanup. (Prior wrap: flagship Kobo DONE + GATED + STAGED; per-edition counts posted below — unblocked WIN's Phase F source cascade.)
 ---
+
+## ▶ Phase F website publish → Mac (2026-06-21 — WIN built the source; Mac owns the Pages clone)
+
+WIN reconciled the count cascade **in source** (commit `5d156842`, pushed) to Mac's authoritative **91,555** note-refs (was 91,553) + added the Ge'ez 1 Kings 7–10 reader pages. The live publish is Mac's (no `yhwh-website` Pages clone on WIN). Mac: pull, then —
+
+1. **Rebuild:** `node website/build.mjs` (picks up 91,555 + the new 1 Kings 7–10 reader pages; expect 0 dead links).
+2. **Re-render the social card:** `brand/sources/card.html` now reads **91,555** — re-render `website/social-card.png` + `brand/social-card.png` at 1280×630 (local `http.server` + Playwright), rebuild so `dist/` picks it up, commit the PNGs.
+3. **Deploy:** `website/dist/` → the `yhwh-website` Pages repo (as in the prior Mac deploys).
+4. **Release-body refresh (GitHub + GitLab v0.1.0):** "**91,553** study notes" → **91,555**; AND fix the stale "**nine starting editions**" → "four canon-shaped study editions (+ full customize)" (pre-pivot count). The GitHub repo description already uses "91k" — no change.
+5. **Re-scrape** the og:image via the card validators (X/iMessage/Slack cache the old card hard).
+
+Per-edition shipped figures (any catalog surface): **ethiopian 91,555 · catholic-study 43,370 · evangelical-reformed 41,847 · eastern-orthodox 41,819** (kinds 71/50/44/46 of 72).
 
 ## ▶ Rule-consolidation parity → Mac (2026-06-21, rule-change parity — mirror + ACK each)
 
