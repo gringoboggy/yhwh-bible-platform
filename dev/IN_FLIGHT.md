@@ -27,8 +27,13 @@
    restored `comm`/`word` notes** shift the shipped numbers. Sweep the full count cascade (page
    bodies · `<meta>`/og/twitter · social-card image · GitHub/GitLab descriptions · EPUB metadata ·
    in-app trackers) per memory `feedback_deploy_means_build_and_deploy`.
-3. **Refresh `.claude/workflows/deep-audit.js`** Grok-era dims (the `CROSS_LANE_RULES_PARITY_PLAN` /
-   round-9 / "always make Mac do prep" references are stale) — before the next deep-audit run.
+3. ✅ **DONE (2026-06-21) — refreshed `.claude/workflows/deep-audit.js`:** dropped the Grok "round 9
+   ridiculously deep" 9-dim block + every `CROSS_LANE_RULES_PARITY_PLAN` ref (file deleted in cleanup)
+   + the "always make Mac do prep" directive; reset the deferred-list to genuine product residuals;
+   bumped ROUND 9→10 / NOW 2026-06-21; added a `SCOPE='product'` default that ENFORCES the user
+   "round 8+ = product-only" directive in code (round-7 sweep dims gated behind `scope='all'`).
+   24 product dims; lane-coverage + wrapped-parse verified. The next audit run can launch once the
+   tree is stable (after tasks 1–2).
 4. **Resume the v1.0.0 release gate** (`docs/superpowers/plans/2026-06-14-v1.0.0-release-plan.md`):
    WIN = M2 Apple audit (K-R5-3) · Kindle STK device bisect; Mac verifies. See `dev/SESSION_STATE.md`.
 

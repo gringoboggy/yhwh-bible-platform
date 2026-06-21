@@ -32,8 +32,14 @@ const AGENTS_BY_LANE = {
 const _AG = AGENTS_BY_LANE[LANE === 'mac' ? 'mac' : 'win']
 const REPO = args?.repo ?? (REPO_BY_LANE[LANE] ?? REPO_BY_LANE.win)  // ABSOLUTE — cwd-independent
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-const ROUND = args?.round ?? 9              // round 9 = post-automation/parity deep audit (ridiculously thorough: redundancies everywhere, no contradictions, sims, optimizations, cross-OS, automation safety, online truth); bump only after major phase (e.g. M2/M parity stabilization). args don't reliably propagate
-const NOW = args?.now ?? '2026-06-20'             // Date.now() is unavailable in scripts; stamp via args
+// round 10 = the first CLEAN product audit after the 2026-06-21 Grok-revert cleanup (the Grok-era
+// "round 9" everything-sweep was discarded with that cleanup). Bump only after a major phase.
+const ROUND = args?.round ?? 10            // args don't reliably propagate — bump in-file
+const NOW = args?.now ?? '2026-06-21'             // Date.now() is unavailable in scripts; stamp via args
+// SCOPE (user directive 2026-06-10, memory reference_deep_audit_tool): 'product' (default) = project
+// code/product dims only; 'all' = the round-7 one-time everything-sweep (also runs claude-setup /
+// lane-system / github-gitlab / stack-review / decommission). args don't reliably propagate — set in-file.
+const SCOPE = args?.scope ?? 'product'
 
 const rank = { critical: 4, high: 3, medium: 2, low: 1, info: 0, none: -1 }
 
@@ -66,15 +72,11 @@ const DEFERRED_BY_DESIGN = args?.deferred ?? [
   'Adjacent vnote prefix pair vnote-1en-100-1 < vnote-1en-100-11 on eth: corpus-wide translation-surface WARN, not FAIL.',
   'PLAYBOOK/RULES save doctrine + save-all.ps1 path: FIXED @ WIN turn 115 — re-flag only if drift returns.',
   'Book-code web/API normalization via config.resolve_book_code: SHIPPED @ WIN turn 115.',
-  // 2026-06-20 post auto-pull / parity stabilization (new round 9 deep audit prep):
-  'Auto-pull reliability (lane_ping BEHIND detection via tracking_behind + ancestor, lane_watch pull on incoming + BEHIND + remote_ahead + tracking_behind, clearer dirty+ incoming logging): SHIPPED in 2026-06-20 commits. Pull checker now triggers on new pushes from Mac (including for parity send). Do NOT re-flag as defect unless it regresses.',
-  'Cross-lane rules parity (Win/Mac identical rules except genuine OS diffs for code execution: paths, py/shell invocation, RAM, hooks, bundles, build tools): plan in dev/CROSS_LANE_RULES_PARITY_PLAN.md, assignments in LANE_HANDOFF/MAC_WORK_QUEUE. Always make Mac do prep work that helps Win (e.g. Mac sims, audits, OS diffs capture). Mirror to per-box memory. This is standing directive.',
-  'Two-machine automation safety: always consider both machines in all work/audits (repo + out-of-repo + website + GH/GL + online metadata). Step back for sanity checks/audits when needed (small frequent, deep after phases). Update all truth records and online (website, releases, descriptions, social) for big changes. No broken markup in any artifact.',
-  // round-9 execution findings (to not re-litigate in next):
-  'Doc drift cluster (editions "11/9 curated" vs live 6; kinds 72 vs 68; source notes "91,720" vs live ~91,597): surfaced in REPO_MAP/MATRIX_MAP/SESSION_PLAYBOOK/build_edition comments during round-9; fix in dev/ prose only (no engine change). Add to next round only if regresses post-fix.',
-  'K-R6-2 gate failures on dist v0.1.0 epub (bare -sN ids + prefix swallows in rev splits): observed on verify run; triage (artifact age vs gate vs real regression) before re-flagging as new.',
-  'K-R6-2 real defect in kepub too (792 bare rev ids + 36k+ prefixes confirmed on v0.1.0.kepub): rev sections not emitting proper -sN family ids post all transforms. Mac prep delegated for repro + count.',
-  'Automation-safety round-9 fixes SHIPPED: rebase --abort on auto-pull fail in lane_watch.py; save-all drive absence no longer $failures (optional bundles); rotation parity added to save_mac.sh. Do not re-surface these.',
+  // Post-cleanup product residuals (the Grok-era "round 9" everything-sweep was discarded with the
+  // 2026-06-21 cleanup; the meta/automation "deferrals" it added are gone — but these GENUINE PRODUCT
+  // items it surfaced must not be re-litigated):
+  'Catalog/doc count drift: the per-edition shipped numbers in REPO_MAP/MATRIX_MAP/SESSION_PLAYBOOK/build_edition comments lag the +72 restored comm/word notes (corpus now 91,712 in the superset). RECONCILIATION IS IN FLIGHT after the Mac rebuild (dev/IN_FLIGHT.md task 2 — the full count cascade: page/meta/og/social-card/repo-descriptions/EPUB-metadata/trackers). Fix is dev/ prose + metadata only (no engine change); do NOT re-flag as a new finding.',
+  'K-R6-2 (rev-split id family): bare -sN ids + prefix swallows in rev sections were observed on the v0.1.0 epub AND kepub (792 bare rev ids + 36k+ prefixes on the .kepub) — rev sections not emitting proper -sN family ids post all transforms. A real defect class; triage artifact-age vs gate vs real regression before re-flagging, and do not re-derive the counts.',
 ]
 const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
 
@@ -333,43 +335,6 @@ Also check the build code for emitters added later that would silently miss the 
     prompt: `DIMENSION: PLATFORM RESEARCH — Google Play Books (M5 / provisional everywhere). READ-ONLY research. Authoritative: ${REPO}/dev/EREADERS.md §Play + staged artifact YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub on v0.1.0 release. Tasks: (1) Play Books personal-upload EPUB requirements (version, size, encryption). (2) Popup footnote behavior Android vs iOS Play app. (3) Font embedding + RTL scripts. (4) Stuck details ToC — accept or flat-ToC fork? (5) Does everywhere suffice or need target_reader: play? Output findings + brief notes/2026-06-18-platform-play.md + device QA checklist refinements.`,
     angles: ['Emphasize official Play upload constraints + popup/font support reports.', 'Emphasize everywhere vs play profile decision tree.'],
   },
-  // ---- ROUND 9 RIDICULOUSLY DEEP AUDIT ADDITIONS (post 2026-06-20 auto-pull/parity stabilization) ----
-  {
-    key: 'redundancies-everywhere', kind: 'find', finders: 3,
-    prompt: `DIMENSION: REDUNDANCIES EVERYWHERE (project, program, bibles themselves, books, language/note popups, etc.). Adversarially find logical duplicates: dupe code/docs, overlapping notes/xrefs/popups/verses/strings across bibles/books/popups, redundant project structure, rules duplication (Win/Mac identical except OS), etc. For each, evidence + removal plan for professional finish. Sweep content/notes/*.py, popups, scripts, docs, bibles content, website, etc. Cross-check with both machines.`,
-  },
-  {
-    key: 'contradictions-zero', kind: 'find', finders: 2,
-    prompt: `DIMENSION: ZERO CONTRADICTIONS (no single contradiction in project/program/data/rules/Win+Mac/online). Find conflicting facts (counts, book nums, version strings, rules vs code, sim expectations vs reality, Win vs Mac behaviors, online metadata vs local). Must be zero. Cite exact contradictions + resolution. Include markup, popups, bibles internal consistency.`,
-  },
-  {
-    key: 'sims-deep', kind: 'find', finders: 2,
-    prompt: `DIMENSION: SIMS DEEP (reader_sim, verify_*, all gates — what could go wrong + improvements). Exhaustive: coverage gaps, false pos/neg, OS diffs (Win vs Mac sim behavior), Kobo/Apple/Kindle/Play specifics, long asides, cross-piece, broken markup in sims. Propose optimizations. Run/analyze on both machines. No broken <> or illogical in sim artifacts.`,
-  },
-  {
-    key: 'optimizations-everywhere', kind: 'optimization', finders: 3,
-    prompt: `DIMENSION: OPTIMIZATIONS EVERYWHERE (project/sims/program/website/GH/GL/rules/repo/out-of-repo/automation/EVERYTHING). Find any possible optimizations. For each, evidence, impact, safe impl plan. Consider both OSes, two-machine automation, online. Prioritize redundancies removal.`,
-  },
-  {
-    key: 'automation-safety', kind: 'find', finders: 2,
-    prompt: `DIMENSION: TWO-MACHINE AUTOMATION SAFETY (lane_watch/ping/handoff/save/radars/hooks/parity — what can go wrong + guards). Find failure modes (dirty tree blocking, behind misdetect, unpushed, desync, OS exec diffs, stale memory). Add/verify all safety guards. Ensure auto-pull works, truth syncs, Mac does prep work. Cross-check with current LANE_HANDOFF/MAC_WORK_QUEUE.`,
-  },
-  {
-    key: 'online-truth', kind: 'find', finders: 1,
-    prompt: `DIMENSION: ONLINE TRUTH (website/GH/GL always considered; big changes sync all truth records/metadata/online to current truth). Check releases, descriptions, counts (91,553 notes, 83 books), social, READMEs on both GH/GL vs local. Flag any desync. Verify for any big change (e.g. this audit).`,
-  },
-  {
-    key: 'markup-integrity', kind: 'find', finders: 2,
-    prompt: `DIMENSION: MARKUP INTEGRITY (no single broken <> / string / pagebreak / illogical formatting in ANY version: playbooks, Apple, Kobo, Kindle, plain, website, docs). Sweep all offered artifacts. Zero tolerance. Include sim outputs.`,
-  },
-  {
-    key: 'cross-os-execution', kind: 'find', finders: 1,
-    prompt: `DIMENSION: CROSS-OS CODE EXECUTION DIFFS (make identical where possible, implement only real OS diffs). Audit paths, Python invocation (py-3 vs python3), shells, subprocess, RAM behavior, build tools, hooks between Win/Mac. Enforce parity per CROSS_LANE_RULES_PARITY_PLAN. Document diffs.`,
-  },
-  {
-    key: 'mac-prep-sims-audits', kind: 'find', finders: 1,
-    prompt: `MAC PREP for deep audit (assigned to Mac lane): Run Mac-specific sims/audits (on 8GB iMac hardware), capture OS diffs (execution, paths, RAM), verify parity with Win, pre-collect findings for redundancies/contradictions/sims on Mac side. Help Win by doing prep work. Output structured prep report.`,
-  },
 ]
 
 // SPLIT-RUN across the two machines (2026-06-05 — see docs/superpowers/plans/2026-06-05-split-audit-plan.md).
@@ -391,25 +356,25 @@ Also check the build code for emitters added later that would silently miss the 
 // claude-setup + popup-integrity + github-gitlab are WIN-bound (the C:/Users/bogda
 // paths, the dist/ artifacts, and the authed gh CLI live on the N95; a Mac
 // claude-setup run would need ITS OWN box's paths — re-prompt locally, never commit).
+// The round-7 one-time everything-sweep meta dims: DEFINED above but excluded from the default
+// (SCOPE='product'); they run only on explicit SCOPE='all' (memory reference_deep_audit_tool).
+const EVERYTHING_SWEEP_DIMS = new Set(['claude-setup', 'lane-system', 'github-gitlab', 'stack-review', 'decommission'])
 const LANE_DIMS = {
-  // round 9 ridiculously deep audit (2026-06-20): post auto-pull/parity stabilization.
-  // WIN (main machine) leads heavy + synthesis. Mac does prep work that helps Win (sims/audits on Mac hardware, OS diffs capture, Mac-side parity verification, pre-collect redundancies etc.).
-  // ALWAYS make Mac do any prep work that can help you (Win). Assign via LANE_HANDOFF/MAC_WORK_QUEUE/handoff.
-  // Cross-OS: make identical where possible; only OS execution diffs (paths, invocation, RAM, shells, hooks, bundles).
-  win: ['tests-run', 'opt-build', 'byte-stability', 'rx-surfaces',
-        'claude-setup', 'popup-integrity', 'github-gitlab',
-        'platform-kobo', 'platform-play',
-        'redundancies-everywhere', 'contradictions-zero', 'sims-deep', 'optimizations-everywhere',
-        'automation-safety', 'online-truth', 'markup-integrity', 'cross-os-execution'],
+  // win = LOCAL-COMPUTE-heavy (runs pytest + local builds on the N95's SSD) + the WIN-only surfaces
+  //       (C:/Users/bogda paths, dist/ artifacts, the authed gh CLI). The sweep dims here run only at SCOPE='all'.
+  win: ['tests-run', 'opt-build', 'byte-stability', 'rx-surfaces', 'popup-integrity', 'platform-kobo',
+        'claude-setup', 'github-gitlab'],
+  // mac = read-only, model-call-bound code review (disk-light -> fine on the HDD-bound iMac).
   mac: ['correctness', 'security', 'code-debt', 'tests', 'docs', 'data-validity',
         'concurrency-caching', 'cross-module', 'marathon-boundary', 'dist-packaging',
-        'website-deploy', 'lane-system', 'decommission', 'stack-review', 'future-work',
-        'opt-vision', 'opt-ingest', 'opt-render',
-        'platform-apple', 'platform-kindle',
-        'mac-prep-sims-audits'],
+        'website-deploy', 'future-work', 'opt-vision', 'opt-ingest', 'opt-render',
+        'platform-apple', 'platform-kindle', 'platform-play',
+        'lane-system', 'decommission', 'stack-review'],
 }
+// SCOPE filter (product default) -> optional LANE filter -> args.dimensions overrides everything.
+const _scoped = SCOPE === 'all' ? DEFAULT_DIMENSIONS : DEFAULT_DIMENSIONS.filter((d) => !EVERYTHING_SWEEP_DIMS.has(d.key))
 const _laneSet = LANE === 'all' ? null : new Set(LANE_DIMS[LANE] || [])
-const DIMENSIONS = args?.dimensions ?? (_laneSet ? DEFAULT_DIMENSIONS.filter((d) => _laneSet.has(d.key)) : DEFAULT_DIMENSIONS)
+const DIMENSIONS = args?.dimensions ?? (_laneSet ? _scoped.filter((d) => _laneSet.has(d.key)) : _scoped)
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -487,7 +452,7 @@ Read the cited file/region. Check: (a) does the code actually do what the eviden
 // Startup param echo — makes it visible whether args propagated (the known
 // papercut: a named Workflow({name}) invocation may not pass args, so the
 // in-file defaults are what actually run; check this line to confirm).
-log(`deep-audit round ${ROUND} | depth=${DEPTH} | ${DIMENSIONS.length} dimensions | repo=${REPO} | argsRound=${args?.round ?? '(default)'} | deferred=${DEFERRED_BY_DESIGN.length}`)
+log(`deep-audit round ${ROUND} | scope=${SCOPE} | depth=${DEPTH} | ${DIMENSIONS.length} dimensions | repo=${REPO} | argsRound=${args?.round ?? '(default)'} | deferred=${DEFERRED_BY_DESIGN.length}`)
 
 async function findDim(dim) {
   const n = finderCount(dim)
