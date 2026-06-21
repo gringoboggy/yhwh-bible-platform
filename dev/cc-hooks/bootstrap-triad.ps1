@@ -58,14 +58,6 @@ OneDrive sync, vendor updaters, M365Copilot/Widgets/AppActions/Cross-Device, the
 respawning shell hosts. See RULES section 0 "Session-start RAM clear". Then (b)
 the env-health check (Claude Code + plugin updates -- apply only on user OK; MCP
 servers connected). Report freed RAM in the one-line confirmation.
-
-DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
-  1. lane_watch        -- cross-lane push/handoff (15s; WIN uses -AssignMac)
-  2. agent_idle_radar  -- never wait for user input; surface next work (120s)
-  If either is not running: pwsh -File dev/start_session_radars.ps1
-  Backlog: dev/AGENT_WORK_BACKLOG.md · py -3 scripts/agent_idle_radar.py --next
-  Strategic replan ping (periodic big step-back): --replan when due (15+ commits / 24h /
-  PLAN changed). Checklist: dev/STRATEGIC_REPLAN_CHECKLIST.md. Replan then resume work.
 ========================================================================
 '@
 
@@ -140,47 +132,4 @@ try {
             Write-Output $radar
         }
     }
-} catch { }
-
-# --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
-# Both MUST run on every session; bootstrap starts them idempotently in background.
-# WIN: lane_watch 15s -AssignMac · idle-radar 120s. See dev/start_session_radars.ps1. (Faster polling for critical rule sync.)
-# lane_watch is always launched with --auto-pull to enforce the STANDING rule
-# (user never has to say "pull" when behind + clean). Guard #8 + doc-update
-# discipline also apply on this side.
-try {
-    $radarStarter = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'dev\start_session_radars.ps1'
-    if (-not (Test-Path $radarStarter)) {
-        $radarStarter = Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'dev\start_session_radars.ps1'
-    }
-    if (Test-Path $radarStarter) {
-        & $radarStarter
-    }
-} catch { }
-
-# --- Self-gov watcher bootstrap for fresh sessions (STANDING, non-fatal):
-# Radars already started above.
-# TURN OFF WATCHERS BEFORE FRESH / NEXT SESSION: kill any prior persistent monitors
-# (log tails on .agent_idle_radar.log / .lane_watch.log) after save/rotate. Do not
-# leave monitors running across fresh boundary. User "stop"/"ready for fresh" => off.
-# Start (at most one) persistent monitor per log only on the active fresh session.
-# Run initial --next to surface protocol tasks from radar.
-# Idempotency: start_session_radars.* already prevents duplicate radar instances
-# on this machine (cim/pgrep check). Same for persistent monitors (agent kills first).
-# Holder separation: non-holder lane = sync + verify/checkin only; full drive + monitors
-# on the holder lane per LANE_HANDOFF frontmatter.
-# Read LANE_HANDOFF STANDING for the no-dupe + turn-off-before-fresh rule.
-# This + holder check ensures no multiple instances of same watcher/task on same machine
-# and WIN/Mac don't duplicate the same protocol task.
-try {
-    Write-Output ''
-    Write-Output '=== FRESH SESSION SELF-GOV WATCHER BOOTSTRAP (STANDING) ==='
-    Write-Output '  - Radars: started idempotently by start_session_radars.ps1 above (no dups on this box).'
-    Write-Output '  - TURN OFF any prior persistent monitors now (before fresh): kill bg log tails if any.'
-    Write-Output '  - Then: start ONE persistent monitor on dev/.agent_idle_radar.log (and lane_watch.log if desired) for visibility.'
-    Write-Output '  - Run: py -3 scripts/agent_idle_radar.py --next  (surfaces P01 NEVER-STOP, P02 CheckInOnMacAgent, P02 RelaxedAuditAgent etc.)'
-    Write-Output '  - Follow radar surfaced tasks; append Mac verify blocks; drive protocol without idle.'
-    Write-Output '  - Holder check (LANE_HANDOFF frontmatter): if this lane is holder => full monitor + protocol drive; else support (verify/checkin only, radars for sync).'
-    Write-Output '  - Read LANE_HANDOFF for full rules (no-dupe instances, turn off before fresh, lane roles).'
-    Write-Output '==========================================================='
 } catch { }

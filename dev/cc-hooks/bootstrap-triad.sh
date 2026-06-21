@@ -55,13 +55,6 @@ This is the 2nd lane (Mac). Keep files DISJOINT from the Windows lane's active
 work. Baton rule: only the HOLDER pushes + edits SESSION_STATE/IN_FLIGHT/
 CHANGELOG this turn. Use /resume to pick up an incoming baton, /handoff to pass
 it, /sync for mid-turn durability.
-
-DUAL RADARS (STANDING -- both ON every session, bootstrap auto-starts them):
-  1. lane_watch        -- cross-lane push/handoff (15s — faster for critical cross-lane rule propagation)
-  2. agent_idle_radar  -- never wait for user input; surface next work (120s)
-  If either is not running: bash dev/start_session_radars_mac.sh
-  Backlog: dev/AGENT_WORK_BACKLOG.md · python3 scripts/agent_idle_radar.py --next
-  Strategic replan ping: --replan when due. Checklist: dev/STRATEGIC_REPLAN_CHECKLIST.md
 ==================================================================================
 EOF
 
@@ -90,25 +83,3 @@ if [ -f "$REPO/scripts/lane_handoff.py" ]; then
         echo "Run /resume to pull + combine the incoming work."
     fi
 fi
-
-# --- Dual session radars (STANDING, non-fatal): lane_watch + agent_idle_radar.
-# Both MUST run on every session; bootstrap starts them idempotently in background.
-# lane_watch is started with --auto-pull to literally enforce the STANDING
-# auto-pull rule (user never says "pull" when behind + clean). See guard #8 in RULES.
-if [ -f "$REPO/dev/start_session_radars_mac.sh" ]; then
-    bash "$REPO/dev/start_session_radars_mac.sh" 2>/dev/null
-fi
-
-# --- Self-gov watcher bootstrap for fresh sessions (STANDING, non-fatal):
-# Ensures fresh session (Mac or WIN) auto-starts the full self-gov/automation system.
-# Radars started above.
-echo ""
-echo "=== FRESH SESSION SELF-GOV WATCHER BOOTSTRAP (STANDING) ==="
-echo "  - Radars started idempotently above via start_session_radars_mac.sh (pgrep check prevents duplicate instances on this Mac machine)."
-echo "  - TURN OFF THE WATCHER before fresh / next session: kill any running persistent monitors (log tails) first (after save/rotate). Never carry monitors across fresh boundary."
-echo "  - Start at most ONE persistent monitor on dev/.agent_idle_radar.log (visibility of P01/P02 protocol tasks)."
-echo "  - Run: python3 scripts/agent_idle_radar.py --next to surface top self-gov (P01 NEVER-STOP chain + bg verif + Mac block; P02 CheckInOnMacAgent / RelaxedAuditAgent; rotate etc.). Follow and continue next logical."
-echo "  - Holder separation: parse LANE_HANDOFF frontmatter; if this lane == holder: full monitors + drive protocol. Else: support role (sync/auto-pull + verify/checkin blocks only). No same task dupes across lanes or multi instances on machine."
-echo "  - Read LANE_HANDOFF (new STANDING for no-dupe + turn-off-before-fresh rule) + cross-audit + Mac prep."
-echo "  - Bootstrap updated with turn-off-before-fresh + idempotent + holder logic."
-echo "============================================================"
