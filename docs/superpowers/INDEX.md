@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**87 documents** — 58 plans · 29 specs.
+**88 documents** — 59 plans · 29 specs.
 
-## In progress (39)
+## In progress (40)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-21 | Plan | ★ Rules + Accuracy Consolidation — rules-audit (47) + offer-audit (9) + work-phase loop §2.6 + `HUMAN_DECISIONS.md` + count reconciliation | `plans/2026-06-21-rules-and-accuracy-consolidation.md` | READY 2026-06-21 — staged for the NEXT session (prep artifact; not yet implemented). Phases A→H, consolidate-by-reference, the loop lands last. Verbatim findings: `notes/2026-06-21-rules-audit-findings.md`. |
 | 2026-06-20 | Plan | Ridiculously Deep Project Audit — Plan (post next big phase) | `plans/2026-06-20-ridiculously-deep-audit-plan.md` | DRAFT 2026-06-20 — post current arc; for round-9+ deep + self-upgrade; execute on trigger (after major phase or explicit). |
 | 2026-06-18 | Plan | Reader Simulation Lab — post-audit local QA harness (Apple · Kobo · Kindle · Play) | `plans/2026-06-18-reader-simulation-lab.md` | PLANNED 2026-06-18 — starts after Round 9 audit gate (`ci.py` + rx-surfaces); `dev/reader_sim/` packs + `scripts/reader_sim.py`; Mac=Apple+Kindle, WIN=Kobo+Play. |
 | 2026-06-18 | Plan | YHWH Native Reader — deferred (post current-reader arc) | `plans/2026-06-18-yhwh-native-reader-deferred.md` | DEFERRED 2026-06-18 — first-party reader exceeding market EPUB engines; after sim lab + M2–M5 honest; stub only. |

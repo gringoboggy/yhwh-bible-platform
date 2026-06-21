@@ -15,6 +15,15 @@
 
 ## ▶ Fresh session — continue "the rest" (priority order)
 
+> **★ NEXT SESSION = execute `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`** —
+> PREPARED 2026-06-21, not yet implemented (user: "prepare for a new session where we will implement them").
+> Two deep audits landed: rules-system (**47 confirmed**, run `wav5b34sh`) + website offer-accuracy
+> (**9 confirmed**, run `wnb2ijwmj`). The plan sequences ALL of it: Phase A radar-contradiction seed fix →
+> B redundancy/bloat consolidation → C cross-lane/hook parity → **D the work-phase loop §2.6 +
+> `dev/HUMAN_DECISIONS.md`** → E website accuracy fixes → **F = the count reconciliation (item 2 below)** →
+> G small items → H Mac parity tasks. Verbatim edits: `docs/superpowers/notes/2026-06-21-rules-audit-findings.md`.
+> One residual confirm for the user: include the optional "background radar" regression lint? (recommended yes).
+
 1. **MacClaude byte-stability verify — DONE (2026-06-21).** **Opt#3 (`33b79387`) changed build output**
    → **REVERTED.** It skipped `apply_badge_markers` for tablet / any `reader_file_split:false` edition,
    so raw per-note `note-ref` markers leaked and badges were dropped; the *existing*

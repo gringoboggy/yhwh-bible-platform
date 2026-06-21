@@ -1,6 +1,6 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **The Grok-revert cleanup is DONE + pushed** (2026-06-21, HEAD `b45a9ff1` on GitLab+GitHub+E:+F:; memory `project_grok_cleanup`) — loop machinery removed, rules/docs de-bloated, truth records reconstructed, 115 notes + 4 kinds restored (corpus 91,712), Bible verified intact. Rollback branch `pre-grok-cleanup-snapshot`. **Continue "the rest" per `dev/IN_FLIGHT.md`:** integrate MacClaude's byte-stability verify → reconcile catalog counts (the +72 restored notes shift them) → resume the v1.0.0 release gate.
+> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Grok-revert cleanup DONE + pushed** (2026-06-21; memory `project_grok_cleanup`). **Mac's Opt# byte-verify DONE** — Opt#3 (`33b79387`) changed build output → **REVERTED** (it dropped tablet badges); Opt#2/#4/#5 byte-neutral → kept. **★ NEXT SESSION = execute `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`** (PREPARED 2026-06-21, not yet implemented): it folds the rules-system deep-audit (**47 confirmed**) + the website offer-accuracy audit (**9 confirmed**) + the **work-phase loop §2.6 + `dev/HUMAN_DECISIONS.md`** + the catalog count reconciliation (its Phase F — still awaiting Mac's per-edition counts) + the v1.0.0 gate carry-overs. Verbatim edits: `docs/superpowers/notes/2026-06-21-rules-audit-findings.md`.
 >
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/` · WIN skips `test_every_referenced_image_exists` when `GAPS/` incomplete (env-only).
 >
@@ -10,7 +10,7 @@
 
 **Shipped (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live · the full Ethiopian Bible EPUB + Kobo kepub. ci pytest triage green · orphan inline-marker strip · 4-edition test pins.
 
-**Blocks the v1.0.0 tag:** MacClaude byte-stability verify of Grok's `Opt#` build slices · catalog count reconciliation (post-rebuild) · M2 Apple audit (K-R5-3 device re-test) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag.
+**Blocks the v1.0.0 tag:** rules+accuracy consolidation plan (2026-06-21) · catalog count reconciliation (post-rebuild) · M2 Apple audit (K-R5-3 device re-test of the rebuilt tablet artifact) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · desktop binaries re-cut at tag. *(MacClaude Opt# byte-verify — DONE 2026-06-21: Opt#3 reverted.)*
 
 ## Next — after the cleanup commits (WIN builds · Mac verifies)
 
