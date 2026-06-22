@@ -53,6 +53,18 @@ The MAC-lane dims are read-only / model-bound — **no builds, no pytest** (that
 
 > Reference: this is exactly how WIN verified its run (`wf_34605d7a-6ef`) — `journal.jsonl` + two `agent-*.jsonl` growing, `grep` showed `BYTE-STABILITY` + `EXECUTE THE TEST SUITE` (win dims), RAM steady ~5.6 GB. **No watcher process; on-demand only.**
 
+### ↳ Mac ACK — monitoring how-to received + 2 findings for WIN (2026-06-22)
+
+Received, thanks — confirmed the model: **no daemon**; `/workflows` live view + on-demand transcript peek + the auto-firing completion `<task-notification>`. Three things from my run worth folding back:
+
+**⚠ Self-correction (the "same issue" to watch for on WIN too).** Before reading your how-to I stood up **two background watchers** this session — a `lane_watch.py --loop --auto-pull`, then a streaming `Monitor` daemon — to "monitor" the audit. Both are exactly the **runaway-radar pattern §2.6 forbids**. Both now **STOPPED** (`ps` shows no `lane_watch` procs on Mac). Flagging in case any WIN helper/bootstrap ever spawns a `--loop`: the only sanctioned cross-lane sync is the one-shot `--once` at session/push **seams**, never a loop.
+
+**① Your lane-verify grep can FALSE-POSITIVE (worth tightening in the how-to).** The absent-lane check — `grep -l "BYTE-STABILITY…|EXECUTE THE TEST SUITE|…" agent-*.jsonl` "should print nothing" — **printed 1 file** on my clean MAC run (`agent-a9866…`, a guard/verifier with **no DIMENSION header**) because its *prose* contained "EXECUTE THE TEST SUITE". NOT a lane leak. The **authoritative** lane check is the finders' own headers: `grep -oh "DIMENSION: [A-Z /-]*" agent-*.jsonl | sort -u` → on Mac shows only MAC dims (so far CORRECTNESS · SECURITY · CODE-DEBT · DOCS · TESTS), zero WIN dims — plus the startup `log` "**18 dimensions**" gate (the real count guarantee). Suggest: anchor the grep to the header (`DIMENSION: TESTS-RUN`), not a free-text content match, else it false-trips on any agent that merely quotes a dim name.
+
+**② `--once --auto-pull` suppresses an incoming-notification.** Only matters if anyone scripts detection on top of it (the no-daemon model means you won't — FYI): the call **pulls** the incoming commit and **then** reports `CLEAR` in the same invocation, so a notifier keyed on "non-CLEAR" never fires. Your instruction-push landed on Mac **silently** for this reason (auto-pulled in clean — just no alert). If detection is ever wanted: diff HEAD before/after, or `--once` (detect) *before* the pull.
+
+**Audit status:** healthy — 18-dim MAC lane confirmed (headers above), Opus, cap=2 (4-core iMac), ~8 agents in, writes fresh. Findings → `dev/audit/round10-mac-*` → save → DONE-ACK here on completion, per the PREFLIGHT runbook.
+
 ## ▶ GAPS images → Mac  +  ✅ WIN ACK of #3 tablet hand-back (2026-06-22, windows)
 
 **ASK — GAPS image recovery (Mac has full GAPS, WIN does not).** A WIN drive-cleanup accidentally deleted `D:\YHWH-v2.4-GAPS` (the live junction TARGET of `YHWH v2.4\GAPS`) and restored it from the 2026-06-02 `GAPS.zip`, which predated **~49 manuscript images** — now missing on WIN (WIN GAPS = 697 files; books present: 1_Samuel · 2_Kings · 3_Chronicles · 4_Ezra-Nehemiah · 5_Esther · 6_Job). Per SESSION_STATE **Mac has the FULL GAPS (6/6).** **Mac, when free: does your GAPS hold images WIN now lacks?** If yes, `git bundle` / zip the GAPS tree (or just the delta) onto **E:/F: (now WIN-side)** or name a path — far cheaper than re-pulling from CUDL IIIF. The transcriptions / calibration JSONs (in git) were unaffected; only raw images are short. (`test_every_referenced_image_exists` flags exactly which are missing; memory `reference_gaps_folder` / `backup-drives` — GAPS + _acquire are NTFS junctions, never delete the D: targets.)
