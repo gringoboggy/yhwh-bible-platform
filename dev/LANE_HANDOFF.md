@@ -8,6 +8,20 @@ windows: Rules+accuracy consolidation DONE (Phases A–E,G,H — pushed; lint 35
 mac: NEXT (assigned by WIN, priority order): (1) **the Phase F website PUBLISH** — rebuild + social-card re-render to 91,555 + deploy `dist/` to `yhwh-website` + GitHub/GitLab v0.1.0 release-body refresh + og re-scrape (see "▶ Phase F website publish → Mac" below); (2) MIRROR the 7 rule-consolidation parity tasks + RULES §2.6; (3) tablet/Apple rebuild + the other 3 catalog editions' Kobo refresh + retire-SKU staging cleanup. (Prior wrap: flagship Kobo DONE + GATED + STAGED; per-edition counts posted below — unblocked WIN's Phase F source cascade.)
 ---
 
+## ⚠ Mac #3 device-artifact staging (2026-06-22) — Kobo DONE · TABLET FAILS verify → WIN
+
+Mac task #3 (tablet/Apple rebuild + 3-edition Kobo refresh + retire-SKU staging cleanup). Two of three DONE; the tablet rebuild surfaced a **real WIN-owned regression**.
+
+**✅ Retire-SKU staging cleanup — DONE.** `m3-kobo-v0.1.0/` held a stale 45-asset (9-edition) set. Archived the 25 retired-SKU kepubs (the 5 pre-pivot SKUs the `check_retired_edition_skus` lint guards — none in the current registry) → `_retired-skus/`; cleared AppleDouble/.DS_Store cruft; archived the stale full SHA256SUMS. Active staging now = the 4 current study editions only.
+
+**✅ 3-edition Kobo refresh — DONE + verify_kr2 GREEN.** Rebuilt catholic-study · evangelical-reformed · eastern-orthodox via `build_format_matrix --phase M3` (kepubify v4.0.4; 15 kepubs). **`verify_kr2_build`: ALL K-R2 GATES GREEN on all 15** (+ the flagship 5 = 20/20: noterefs all-resolve, 0 promoted-noterefs / 0 dup-ids / 0 ch-spilled-badges). Staged into `m3-kobo-v0.1.0/` (overwrote the stale Jun-15 set; flagship Jun-21 kept) + regenerated SHA256SUMS.txt (20) + MANIFEST.txt (20) + HANDOFF_README.txt. epubcheck on the 3 signatures running 2026-06-22 (result to be appended; verify_kr2 is the device-relevant gate). **Gated on the user's Kobo device-QA pass before attach.**
+
+**⚠ Tablet/Apple rebuild — FAILS verify_kr2 → NOT staged (WIN to fix; no Mac dual-edit).** Built `ethiopian-tewahedo` `apple`/`--target-reader tablet` (5 colours, 26.5 MB) on the current tree (Opt#3 revert `13d2259b` confirmed present; K-R5-3 clamp present at `build_edition.py:4319-4348`). `dev/verify_kr2_build.py` on the signature = **FAIL**:
+  - **K-R5-3 × 2 (the user's Apple bug, still present):** `index_split_029.html` book-title singleton **bp-27 = "The Book of Meqabyan II"** carries a verse badge AND a verse-notes aside — the previous book's last-verse badge/aside bled onto the title page. WIN's gate fix correctly reduced 262 false-positives → this **1 real** bleed; the clamp misses the 3 consecutive short Meqabyan books (bp-26/27/28).
+  - **K-R4-2 × 90 (oversized popups):** 90 merged verse-notes units strip past the 4,498-char pop floor (gen 31 · exo 8 · act 6 · mat 5 · …; max jhn-1-1 = 11,671, act-23-6 = 19,389). NB these were benign WARNs on the kepub path but hard FAILs on the tablet path — WIN to confirm whether the 4,498 floor gates the tablet target or is Kobo-proven only.
+
+  **Mac did NOT edit build_edition.py** (WIN owns the M2 clamp per the standing §user-fail division). The repro is the detail above (bp-27 Meqabyan II · the 90 K-R4-2 units); failed artifacts kept Mac-local in `build/tablet/` for Mac re-verify after WIN's fix (WIN can't see Mac's build dir — rebuild from the same tree to reproduce). The Apple device-QA (HUMAN_DECISIONS) stays BLOCKED until WIN's clamp lands a clean tablet artifact + Mac re-verifies.
+
 ## ▶ Phase F website publish → Mac (2026-06-21 — WIN built the source; Mac owns the Pages clone)
 
 WIN reconciled the count cascade **in source** (commit `5d156842`, pushed) to Mac's authoritative **91,555** note-refs (was 91,553) + added the Ge'ez 1 Kings 7–10 reader pages. The live publish is Mac's (no `yhwh-website` Pages clone on WIN). Mac: pull, then —
