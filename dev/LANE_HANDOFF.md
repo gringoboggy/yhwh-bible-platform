@@ -31,6 +31,23 @@ WIN landed the rules+accuracy consolidation (plan `docs/superpowers/plans/2026-0
 5. **§2.6 loop + HUMAN_DECISIONS.md + SAFEGUARD.** Mirror the unified work-phase loop (RULES §2.6) + its SAFEGUARD into per-box memory (consolidating the `feedback_autonomous_work_ladder` mirror); re-point memory at the now-existing `dev/HUMAN_DECISIONS.md`; ACK.
 6. **Stale-literal sweep.** Confirm no Mac-side doc/memory carries the stale 91,597 / 91,553 corpus literals (live source = 91,712 · 72 kinds — the canonical home is now SESSION_STATE).
 7. **Mac RAM-hygiene at session start (parity gap).** The WIN bootstrap prints a RAM-clear block the Mac `.sh` lacks (the Mac is the more constrained 8 GB box). Add a Mac-tuned RAM-hygiene line to the `.sh` triad heredoc (browser MCP OFF with VS Code open per guard #6; end-task Chrome/Kindle between slices; one GUI app at a time) — do NOT copy the Windows PROTECT/KILL list; record as a local OS-specific mechanism override.
+
+## ✅ Mac rule-parity ACK (2026-06-22) — all 7 mirrored + bootstrap re-installed
+
+MacClaude pulled (`77000904`), mirrored the rule consolidation into per-box memory (out-of-repo `~/.claude/.../memory/`), and re-installed the SessionStart bootstrap. **All 7 tasks ACK'd:**
+
+1. **Save cadence (HIGH) — DONE.** `reference_save.md` + `feedback_session_operating_doctrine.md` (d) **rewritten** crash-safe push-after-every-slice (supersedes the 2026-06-08 "local-commit-until-milestone"); slug renamed `…crash-safe-push-after-every-slice`; "never end with unpushed work" + the immediate-push exception for cross-lane rule updates both carried. MEMORY.md pointer updated.
+2. **Lane-coordination v2 — CLEAN (ACK).** `reference_lane_coordination.md` already fully encodes mode=parallel · both-lanes-push · truth_owner; the single-baton model appears only as "superseded." No edit needed.
+3. **Bootstrap re-install — DONE + VERIFIED.** Mac SessionStart hook (`.claude/settings.local.json`, **gitignored = local-only**, correct per the per-box-config parity rule) was running `lane_ping`/`lane_handoff` inline and **never called `bootstrap-triad.sh`** → the v2 banner never printed. Re-pointed the hook at `bash dev/cc-hooks/bootstrap-triad.sh`; `chmod +x`'d the script; re-ran it: v2 LANE-IDENTITY banner + triad + ENV-HEALTH all print; PING fires (CLEAR now — already pulled); exit 0.
+4. **Radar-language sweep — CLEAN (ACK) + 1 soften.** The `lane_ping`/auto-pull family (`reference_lane_ping`, `reference_lane_coordination`, `feedback_autonomous_work_ladder`) is seam-based throughout — no "background radar"/"always running." Softened one loose "(continuous…)" in `automate_claude_operating_doctrine.md` → explicit "seam check, not a background watcher."
+5. **§2.6 loop + HUMAN_DECISIONS + SAFEGUARD — DONE.** `feedback_autonomous_work_ladder.md` updated: §2.6 marked **LANDED** (was "being added"), mirrors the 8-step order, **SAFEGUARD added verbatim** (once-per-session, never a daemon; do-not-re-add `agent_idle_radar.py`/`start_session_radars.ps1`), re-pointed at the now-existing `dev/HUMAN_DECISIONS.md`.
+6. **Stale-literal sweep — CLEAN.** The named literals **91,597 / 91,553 are ABSENT** from all Mac memory (grep-verified). One asserted "current = 91,733 notes" in `reference_matrix_map.md` softened → defers to SESSION_STATE (91,712 · 72 kinds); `project_overview.md` already self-guards ("don't hard-code the live count — read SESSION_STATE"). Genuinely-historical figures (incident log, dated bundles, ingest snapshots) left intact.
+7. **Mac RAM-hygiene — DONE.** Mac-tuned RAM block added to the `.sh` triad heredoc (one GUI app at a time · end-task Chrome/Kindle between slices · browser MCP off with VS Code open per guard #6 · free leaked python/java) — **NOT** the WIN PROTECT/KILL list; recorded as a local OS-specific override.
+
+**Parity bonus (made a memory claim true):** the Mac `.sh` also lacked the **memory-hygiene `audit --quiet` block** the `.ps1` carries → added it (seam check, prints only on drift). It immediately surfaced 1 real dead wikilink (`feedback_cross_lane_tool_parity` → `[[reference_no_external_hooks]]`); **fixed** → audit now **0 warn / 87 memories**.
+
+**In-repo diff to push:** `dev/cc-hooks/bootstrap-triad.sh` (RAM block + memory-audit block) + this ACK. Memory mirrors + the gitignored hook wiring are Mac-local (not pushed — correct).
+
 ## ✅ Mac wrap (2026-06-21) — Kobo staged + per-edition counts (for WIN Phase F)
 
 **Flagship Kobo device test — DONE + STAGED.** Rebuilt `ethiopian-tewahedo` M3 Kobo on the Opt#3-reverted
