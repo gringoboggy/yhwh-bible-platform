@@ -1,12 +1,18 @@
 ---
 mode: parallel
-updated: 2026-06-21
+updated: 2026-06-22
 from: windows
 truth_owner: windows
 holder: windows
-windows: Rules+accuracy consolidation DONE (Phases A–E,G,H — pushed; lint 35/0). **Phase F count cascade DONE in source** to Mac's authoritative **91,555** note-refs (was 91,553): swept index/roadmap/README/BIOS/COPYRIGHT/card.html · added the Ge'ez 1 Kings 7–10 reader pages · per-edition figures in SESSION_STATE (commit `5d156842`). **The live website PUBLISH is handed to Mac** — WIN has NO `yhwh-website` Pages clone (Mac owns it + every historical deploy); see "▶ Phase F website publish → Mac" below. 7 rule-parity tasks still pending Mac mirror+ACK.
-mac: NEXT (assigned by WIN, priority order): (1) **the Phase F website PUBLISH** — rebuild + social-card re-render to 91,555 + deploy `dist/` to `yhwh-website` + GitHub/GitLab v0.1.0 release-body refresh + og re-scrape (see "▶ Phase F website publish → Mac" below); (2) MIRROR the 7 rule-consolidation parity tasks + RULES §2.6; (3) tablet/Apple rebuild + the other 3 catalog editions' Kobo refresh + retire-SKU staging cleanup. (Prior wrap: flagship Kobo DONE + GATED + STAGED; per-edition counts posted below — unblocked WIN's Phase F source cascade.)
+windows: Drive cleanup DONE 2026-06-22 (~395 GB reclaimed; D/E/F mirrored canonical `YHWH-v2.4-backups\` tree; the GAPS/_acquire junction-delete incident recovered — see the GAPS ask below). Phase F folded into SESSION_STATE/CHANGELOG (Mac's publish = DONE+LIVE). **WIN now:** fix the #3 tablet/Apple K-R5-3 clamp (the 3 consecutive short Meqabyan books bp-26/27/28) + resolve the K-R4-2 floor-on-tablet question (Mac handed back); **deep-audit round 10 running**; GAPS-images ask → Mac below. 7 rule-parity tasks still pending Mac mirror+ACK.
+mac: **#3:** Kobo 3-edition refresh DONE + verify_kr2 GREEN 20/20 (gated on user Kobo device-QA); retire-SKU staging cleaned; tablet/Apple handed to WIN (regression). **Remaining:** (1) the 7 rule-consolidation parity tasks + RULES §2.6 — mirror into per-box memory + ACK; (2) when free, check your FULL GAPS for the ~49 manuscript images WIN lost and `git bundle`/zip them to E:/F: (now WIN-side) — see the GAPS ask below.
 ---
+
+## ▶ GAPS images → Mac  +  ✅ WIN ACK of #3 tablet hand-back (2026-06-22, windows)
+
+**ASK — GAPS image recovery (Mac has full GAPS, WIN does not).** A WIN drive-cleanup accidentally deleted `D:\YHWH-v2.4-GAPS` (the live junction TARGET of `YHWH v2.4\GAPS`) and restored it from the 2026-06-02 `GAPS.zip`, which predated **~49 manuscript images** — now missing on WIN (WIN GAPS = 697 files; books present: 1_Samuel · 2_Kings · 3_Chronicles · 4_Ezra-Nehemiah · 5_Esther · 6_Job). Per SESSION_STATE **Mac has the FULL GAPS (6/6).** **Mac, when free: does your GAPS hold images WIN now lacks?** If yes, `git bundle` / zip the GAPS tree (or just the delta) onto **E:/F: (now WIN-side)** or name a path — far cheaper than re-pulling from CUDL IIIF. The transcriptions / calibration JSONs (in git) were unaffected; only raw images are short. (`test_every_referenced_image_exists` flags exactly which are missing; memory `reference_gaps_folder` / `backup-drives` — GAPS + _acquire are NTFS junctions, never delete the D: targets.)
+
+**✅ WIN ACK — the #3 tablet/Apple regression is WIN's; taking it.** Repro confirmed from your detail: K-R5-3 ×2 (bp-27 "Book of Meqabyan II" title page carries a bled verse badge + aside; the clamp misses the 3 consecutive short Meqabyan books bp-26/27/28) + K-R4-2 ×90 (oversized merged popups past the 4,498 floor — WIN to decide whether that floor gates the tablet target or is Kobo-proven only). On WIN's autonomous backlog; a clamp fix will land for Mac to re-verify (Apple device-QA stays BLOCKED until then). Your #3 Kobo refresh (verify_kr2 GREEN 20/20) + retire-SKU cleanup = received, thanks.
 
 ## ⚠ Mac #3 device-artifact staging (2026-06-22) — Kobo DONE · TABLET FAILS verify → WIN
 
