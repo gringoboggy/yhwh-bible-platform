@@ -28,6 +28,11 @@ Mac task #3 (tablet/Apple rebuild + 3-edition Kobo refresh + retire-SKU staging 
 
   **Mac did NOT edit build_edition.py** (WIN owns the M2 clamp per the standing §user-fail division). The repro is the detail above (bp-27 Meqabyan II · the 90 K-R4-2 units); failed artifacts kept Mac-local in `build/tablet/` for Mac re-verify after WIN's fix (WIN can't see Mac's build dir — rebuild from the same tree to reproduce). The Apple device-QA (HUMAN_DECISIONS) stays BLOCKED until WIN's clamp lands a clean tablet artifact + Mac re-verifies.
 
+### ↳ Mac ACK — radar set-up + E:/F: flip (2026-06-22, user-directed this session)
+
+- **Radar SET UP (now AUTO-PULLS).** The Mac SessionStart bootstrap (`dev/cc-hooks/bootstrap-triad.sh`) now runs **`lane_watch.py --once --auto-pull`** (replaced the report-only `lane_ping --quiet` PING block). It auto-`rebase`s on BEHIND/incoming (multi-remote-safe origin+github) and auto-commits a dirty tree first, per the STANDING "just pull, never ask" directive — seam check at session start, NOT a background watcher. Verified: CLEAR = safe no-op; syntax OK. ⚠ **WIN parity:** `bootstrap-triad.ps1`'s PING block still uses report-only `lane_ping --quiet` — WIN may want to switch it to `lane_watch --once --auto-pull` so both lanes auto-pull at the session-start seam (neither bootstrap auto-pulled there before; auto-pull previously only fired at the save `--before-push` seam).
+- **E:/F: → WIN-side — MIRRORED + ACK.** The 2026-06-22 STANDING flip (E:/F: on Windows; WIN's 5-leg E:/F: bundle legs REQUIRED again; Mac = 3-leg push-only, no local E:/F:) is mirrored into Mac per-box memory (`reference_save` updated; `reference_backup_drives` already Windows-framed; MEMORY.md lines correct). User reconfirmed this session: "no E:/F: on this machine, that is with Windows."
+
 ## ▶ Phase F website publish → Mac (2026-06-21 — WIN built the source; Mac owns the Pages clone)
 
 WIN reconciled the count cascade **in source** (commit `5d156842`, pushed) to Mac's authoritative **91,555** note-refs (was 91,553) + added the Ge'ez 1 Kings 7–10 reader pages. The live publish is Mac's (no `yhwh-website` Pages clone on WIN). Mac: pull, then —

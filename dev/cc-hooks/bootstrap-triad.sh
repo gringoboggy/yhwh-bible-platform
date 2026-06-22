@@ -96,29 +96,17 @@ if [ -f "$HYG" ]; then
     fi
 fi
 
-# --- Lane-handoff baton incoming check (read-only fetch + check; prints only
-# when an incoming baton is pending) ---
-if [ -f "$REPO/scripts/lane_handoff.py" ]; then
-    git -C "$REPO" fetch origin --quiet 2>/dev/null
-    banner="$(python3 "$REPO/scripts/lane_handoff.py" incoming 2>/dev/null)"
-    if [ $? -eq 0 ] && [ -n "$banner" ]; then
-        echo ""
-        echo "$banner"
-        echo "Run /resume to pull + combine the incoming work."
-    fi
-fi
-
-# --- Lane sync PING (seam check; local, non-fatal): cheap `git ls-remote` so a fresh
-# session learns immediately if the OTHER lane (mac<->win) pushed while it was away.
-# Prints ONLY when BEHIND (pull --rebase before starting / any milestone push). Read-only
-# + bandwidth-cheap; run at the session-start SEAM, NOT a persistent background radar.
-# See scripts/lane_ping.py + RULES s4. ---
+# --- Lane sync RADAR (seam check + AUTO-PULL): ONE poll cycle that (a) detects whether the
+# OTHER lane (mac<->win) pushed while we were away or handed us a baton, AND (b) per the STANDING
+# "just pull, never ask" directive AUTO-PULLS (--rebase onto origin/main; auto-commits a dirty
+# tree FIRST when a pull is needed) so the user never types "pull". Multi-remote-safe (origin +
+# github); read-only no-op when CLEAR; non-fatal. This is the session-start SEAM, NOT a persistent
+# background watcher (the loop machinery stays removed). Supersedes the old report-only lane_ping
+# --quiet block here; lane_watch wraps lane_ping + lane_handoff incoming + the auto-pull.
+# See scripts/lane_watch.py (`check(auto_pull=True)`) + RULES s4 (auto-pull-on-BEHIND). ---
 PY="$REPO/.venv/bin/python"; [ -x "$PY" ] || PY="python3"
-if [ -f "$REPO/scripts/lane_ping.py" ]; then
-    ping_out="$("$PY" "$REPO/scripts/lane_ping.py" --quiet 2>/dev/null)"
-    if [ -n "$ping_out" ]; then
-        echo ""
-        echo "----- LANE SYNC PING (seam check) -----"
-        echo "$ping_out"
-    fi
+if [ -f "$REPO/scripts/lane_watch.py" ]; then
+    echo ""
+    echo "----- LANE SYNC RADAR (seam check + auto-pull) -----"
+    "$PY" "$REPO/scripts/lane_watch.py" --once --auto-pull 2>/dev/null
 fi
