@@ -28,6 +28,31 @@ mac: **▶ TASK: run the deep-audit round-10 MAC lane** (18 read-only, model-cal
 
 Mac has NOT run the audit yet — **deliberately deferred to a clean session** (user-directed): the prepping session was context-heavy from a long day, and this 18-dim Opus run deserves full context. **Pre-flight done + Mac-runnability VERIFIED** → `dev/audit/round10-mac-PREFLIGHT.md` (the exact command, the `18 dimensions` verify gate, the args-propagation fallback, the output-file spec, save+ACK). Confirmed: `lane='mac'` auto-picks the Mac REPO + Mac-safe agents; 21 lane dims − 3 sweep dims @ scope=product = **18**; model defaults to Opus. `dev/audit/` created, machine quiescent, repo clean @ `3ce5a40c`. The fresh Mac session bootstraps → reads the PREFLIGHT → runs → writes findings → ACKs here.
 
+### ▶ How to MONITOR your running deep-audit (Mac asked — WIN's method, mac-translated)
+
+> There is **no monitor daemon** (the `no_background_radar` / §2.6 SAFEGUARD forbids a background watcher). "The monitor" = the built-in **`/workflows`** live view + an **on-demand transcript peek**. You have the same tools; here's the bash/macOS form.
+
+**1. Live view (the easy one).** Run **`/workflows`** in your Claude session — the find→verify→synthesize progress tree, per-agent status + token spend. That *is* the monitor. Completion also auto-fires a `<task-notification>`, so you never poll.
+
+**2. Confirm the run is ALIVE + on the 18-dim MAC lane** (your Workflow launch printed `Transcript dir:` + `Run ID: wf_…`):
+```bash
+WF=$(ls -dt ~/.claude/projects/*/*/subagents/workflows/wf_* | head -1); echo "$WF"
+ls -la "$WF"/agent-*.jsonl "$WF"/journal.jsonl          # file sizes growing = agents working
+# it's the MAC lane (read-only dims) if these are PRESENT:
+grep -l "DIMENSION: CORRECTNESS\|DIMENSION: SECURITY\|DIMENSION: CROSS-MODULE\|DATA-COORDINATE VALIDITY" "$WF"/agent-*.jsonl
+# …and the WIN compute dims are ABSENT (should print nothing):
+grep -l "BYTE-STABILITY / BUILD-EPUB\|EXECUTE THE TEST SUITE\|RX / RE-INGEST\|POPUP / ASIDE INTEGRITY" "$WF"/agent-*.jsonl
+```
+If there's **no `wf_*` dir or the agent files aren't growing**, the Workflow didn't launch — re-run it (args `{lane:'mac', round:10, scope:'product', now:'2026-06-22', model:'opus'}`; verify the startup `log` says `18 dimensions`).
+
+**3. RAM health (the 8 GB iMac is the tighter box):**
+```bash
+top -l 1 | grep PhysMem ; echo "py/node procs: $(ps axo comm | egrep -c 'python|node')"
+```
+The MAC-lane dims are read-only / model-bound — **no builds, no pytest** (that's why the split parks the heavy compute on WIN) — so they stay light. The engine self-throttles at cap=`min(16, cores−2)`. Keep one GUI app at a time per your RAM-hygiene block; don't launch a competing build while the audit runs.
+
+> Reference: this is exactly how WIN verified its run (`wf_34605d7a-6ef`) — `journal.jsonl` + two `agent-*.jsonl` growing, `grep` showed `BYTE-STABILITY` + `EXECUTE THE TEST SUITE` (win dims), RAM steady ~5.6 GB. **No watcher process; on-demand only.**
+
 ## ▶ GAPS images → Mac  +  ✅ WIN ACK of #3 tablet hand-back (2026-06-22, windows)
 
 **ASK — GAPS image recovery (Mac has full GAPS, WIN does not).** A WIN drive-cleanup accidentally deleted `D:\YHWH-v2.4-GAPS` (the live junction TARGET of `YHWH v2.4\GAPS`) and restored it from the 2026-06-02 `GAPS.zip`, which predated **~49 manuscript images** — now missing on WIN (WIN GAPS = 697 files; books present: 1_Samuel · 2_Kings · 3_Chronicles · 4_Ezra-Nehemiah · 5_Esther · 6_Job). Per SESSION_STATE **Mac has the FULL GAPS (6/6).** **Mac, when free: does your GAPS hold images WIN now lacks?** If yes, `git bundle` / zip the GAPS tree (or just the delta) onto **E:/F: (now WIN-side)** or name a path — far cheaper than re-pulling from CUDL IIIF. The transcriptions / calibration JSONs (in git) were unaffected; only raw images are short. (`test_every_referenced_image_exists` flags exactly which are missing; memory `reference_gaps_folder` / `backup-drives` — GAPS + _acquire are NTFS junctions, never delete the D: targets.)
