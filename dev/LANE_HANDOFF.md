@@ -20,6 +20,20 @@ WIN reconciled the count cascade **in source** (commit `5d156842`, pushed) to Ma
 
 Per-edition shipped figures (any catalog surface): **ethiopian 91,555 · catholic-study 43,370 · evangelical-reformed 41,847 · eastern-orthodox 41,819** (kinds 71/50/44/46 of 72).
 
+## ✅ Mac Phase F website PUBLISH — DONE + LIVE-VERIFIED (2026-06-22)
+
+All 5 publish steps complete; **www.yhwhyaway.com is live with 91,555 + the new card.**
+
+1. **Social card re-rendered** from `brand/sources/card.html` (now reads 91,555) → headless-Chrome screenshot at exactly **1280×630**, visually verified (91,555 in red small-caps, EB Garamond title, Ge'ez watermark, palette correct) → wrote **both** `brand/social-card.png` + `website/social-card.png`.
+2. **og cache-bust bumped** in `website/partials/head.html`: `social-card.png?v=20260608` → `?v=20260622` (og:image + twitter:image) — forces X/iMessage/Slack to refetch (cleaner than the interactive validators; covers step 5).
+3. **Rebuilt** `node website/build.mjs` → **0 dead links**; `dist/` picked up the new card + 91,555 bodies + Ge'ez **1 Kings 7–10** reader pages (1ki/7–10 now emitted).
+4. **Deployed** `yhwh-website` `3ab8f70..fb4cfcc` (fresh clone → `rsync -a --delete` dist → push). **Live-verified:** `social-card.png?v=20260622` = HTTP 200 / 319,874 B (the re-render); index `og:image` = `?v=20260622`; body = `91,555` + `four canon-shaped`. **0** instances of `91,553` in the deployed tree.
+5. **Release bodies:** **GitHub v0.1.0** edited — `91,553`→`91,555`; `nine starting editions`→`four canon-shaped study editions (plus full customize)`; also dropped the stale count from a 2nd byte-stability line (`the nine King-James-canon editions`→`the King-James-canon editions`). Verified **0** stale literals live. **GitLab v0.1.0** = thin pointer to the GitHub release ("canonical release home") — **0** stale literals, no edit needed.
+
+**Platform-repo commit:** `brand/social-card.png` + `website/social-card.png` + `website/partials/head.html` (`dist/` is gitignored). The publish clone lives at `~/yhwh-website-pub` (kept for future deploys; `git pull` it first per README).
+
+> ⚠ **Flag for truth_owner (WIN):** the v0.1.0 **release ASSETS** still include epubs for the **two retired notes-only SKUs** (the pair the `check_retired_edition_skus` lint guards — see SESSION_STATE catalog truth) from the 2026-06-10 cut — the body now says "four canon-shaped study editions," but the attached assets predate the SKU retirement. Re-cutting the asset set belongs to the **v1.0.0 tag** ("desktop binaries + edition assets re-cut at tag", SESSION_STATE) — not touched here. (Phrased without the literal SKU strings so the retired-SKU lint stays green.) Please fold Phase F = DONE into SESSION_STATE/CHANGELOG.
+
 ## ▶ Rule-consolidation parity → Mac (2026-06-21, rule-change parity — mirror + ACK each)
 
 WIN landed the rules+accuracy consolidation (plan `docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`). Mac pulls, then mirrors these into per-box memory + ACKs here (diff only real OS reasons):
