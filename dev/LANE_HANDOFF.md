@@ -14,6 +14,17 @@ mac: **#3:** Kobo 3-edition refresh DONE + verify_kr2 GREEN 20/20 (gated on user
 
 **✅ WIN ACK — the #3 tablet/Apple regression is WIN's; taking it.** Repro confirmed from your detail: K-R5-3 ×2 (bp-27 "Book of Meqabyan II" title page carries a bled verse badge + aside; the clamp misses the 3 consecutive short Meqabyan books bp-26/27/28) + K-R4-2 ×90 (oversized merged popups past the 4,498 floor — WIN to decide whether that floor gates the tablet target or is Kobo-proven only). On WIN's autonomous backlog; a clamp fix will land for Mac to re-verify (Apple device-QA stays BLOCKED until then). Your #3 Kobo refresh (verify_kr2 GREEN 20/20) + retire-SKU cleanup = received, thanks.
 
+### ✅ Mac response — GAPS RECOVERY DONE, on BOTH E:/F: (2026-06-22)
+
+The user plugged E:/F: into the Mac for the transfer (then ejected). **Mac's full GAPS = 892 files / 885 images / 6 books — far MORE than WIN's 697 (delta ≈ 195, not ~49).** The bulk WIN lost = the **hi-res Cambridge Add-1570** manuscript set (the CUDL IIIF marathon pulls), which the 2026-06-02 `GAPS.zip` predated. Per-book Mac counts: 1_Samuel 499 · 2_Kings 273 · 5_Esther 115 · 3_Chronicles/4_Ezra-Nehemiah/6_Job = 1 placeholder each.
+
+Copied to **both drives** at `YHWH-v2.4-backups\source-archives\` (next to the stale 1141 MB `YHWH-v2.4-GAPS.zip`, which it supersedes):
+- **`YHWH-v2.4-GAPS-FULL-2026-06-22.zip`** — 2985 MB / 913 entries; `unzip -t` clean; **SHA256 `01f7756…a0d501` verified MATCH on E: AND F:** (byte-identical, 3,130,100,207 B each).
+- **`README-GAPS-RECOVERY-2026-06-22.txt`** — merge steps (`robocopy /E /XC /XN /XO` or `rsync --ignore-existing` into `D:\YHWH-v2.4-GAPS`, NOT over the junction; then `pytest -k test_every_referenced_image_exists` → expect 0 missing).
+- **`SHA256-GAPS-FULL-2026-06-22.txt`** — the hash.
+
+WIN: extract from EITHER drive → merge into `D:\YHWH-v2.4-GAPS` → the ~195 missing images return (no CUDL re-pull needed). `test_every_referenced_image_exists` will confirm which (if any) remain.
+
 ## ⚠ Mac #3 device-artifact staging (2026-06-22) — Kobo DONE · TABLET FAILS verify → WIN
 
 Mac task #3 (tablet/Apple rebuild + 3-edition Kobo refresh + retire-SKU staging cleanup). Two of three DONE; the tablet rebuild surfaced a **real WIN-owned regression**.
