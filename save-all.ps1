@@ -120,7 +120,7 @@ else {
 # ------------------------------------------------------------- Leg 4: bundle -> E:
 Leg 4 "git bundle --all -> E:"
 $ePath = "E:\$bundleName"
-if (-not (Test-Path 'E:\')) { Skip "E: not mounted (optional per LANE_HANDOFF STANDING; pushes still count as success)" }
+if (-not (Test-Path 'E:\')) { Skip "E: not mounted - WIN-side drive expected (this is a PARTIAL save; re-run when remounted - remote pushes still landed)" }
 elseif ($DryRun) { Write-Host ("  would: git bundle create {0} --all" -f $ePath) }
 else {
     git bundle create "$ePath" --all
@@ -134,7 +134,7 @@ else {
 # --------------------------------------------------------------- Leg 5: copy -> F:
 Leg 5 "copy bundle -> F:"
 $fPath = "F:\$bundleName"
-if (-not (Test-Path 'F:\')) { Skip "F: not mounted (optional per LANE_HANDOFF STANDING; pushes still count as success)" }
+if (-not (Test-Path 'F:\')) { Skip "F: not mounted - WIN-side drive expected (this is a PARTIAL save; re-run when remounted - remote pushes still landed)" }
 elseif ($DryRun) { Write-Host ("  would: copy bundle -> {0}" -f $fPath) }
 elseif (Test-Path $ePath) {
     Copy-Item -LiteralPath "$ePath" -Destination "$fPath" -Force
@@ -152,7 +152,7 @@ Write-Host "`n=== save-all summary ===" -ForegroundColor Cyan
 git status -b --porcelain=v1 | Select-Object -First 1
 if ($DryRun) { Write-Host "DRY RUN complete - no changes made." -ForegroundColor Magenta; exit 0 }
 if ($failures.Count -eq 0) {
-    Write-Host "FULL SAVE COMPLETE - core legs landed (local + GitLab + GitHub; E:/F: bundles optional on WIN per STANDING)." -ForegroundColor Green
+    Write-Host "FULL SAVE COMPLETE - all legs landed (local + GitLab + GitHub + E:/F: bundles; E:/F: are WIN-side)." -ForegroundColor Green
     exit 0
 }
 else {
