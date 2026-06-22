@@ -4,6 +4,18 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-22 — Phase F website publish DONE + LIVE (Mac lane; folded by WIN truth_owner)
+
+Mac completed all five Phase F publish steps; **www.yhwhyaway.com is live at 91,555 note-refs** with the re-rendered social card. WIN (truth_owner) folds it into the truth records per Mac's `LANE_HANDOFF` request (Mac is parallel-mode, does not edit SESSION_STATE/CHANGELOG).
+
+- **Social card** re-rendered from `brand/sources/card.html` (now 91,555) → 1280×630, visually verified → both `brand/social-card.png` + `website/social-card.png` (319,874 B).
+- **og cache-bust** in `website/partials/head.html`: `?v=20260608 → ?v=20260622` (og:image + twitter:image) — forces X/iMessage/Slack to refetch the card.
+- **Rebuilt** `node website/build.mjs` → 0 dead links; `dist/` picked up 91,555 + the Geʽez 1 Kings 7–10 reader pages.
+- **Deployed** `yhwh-website` `3ab8f70..fb4cfcc`. Live-verified: `social-card.png?v=20260622` = HTTP 200 / 319,874 B; index `og:image` = `?v=20260622`; body = 91,555 + "four canon-shaped"; **0** instances of `91,553` in the live tree.
+- **Release bodies:** GitHub v0.1.0 edited (`91,553→91,555`; "nine starting editions"→"four canon-shaped study editions (plus full customize)"). GitLab v0.1.0 = thin pointer to GitHub; no stale literals.
+
+**Carry-forward to the v1.0.0 tag:** the live v0.1.0 release *assets* still attach epubs for the two retired notes-only SKUs (2026-06-10 cut) — the body copy is now correct, but re-cutting the attached asset set belongs to the v1.0.0 tag, not Phase F. (Phrased without the literal SKU strings to keep `check_retired_edition_skus` green.)
+
 ## 2026-06-21 — Rules + accuracy consolidation (Windows)
 
 Executed the prepared consolidation plan (`docs/superpowers/plans/2026-06-21-rules-and-accuracy-consolidation.md`), folding the rules-system deep-audit (47 confirmed) + the website offer-accuracy audit (9 confirmed) into one clean arc — 9 commits, Phases A–E + G + H.
