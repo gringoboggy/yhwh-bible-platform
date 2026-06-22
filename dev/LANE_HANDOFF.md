@@ -4,9 +4,25 @@ updated: 2026-06-22
 from: windows
 truth_owner: windows
 holder: windows
-windows: Drive cleanup DONE 2026-06-22 (~395 GB reclaimed; D/E/F mirrored canonical `YHWH-v2.4-backups\` tree; the GAPS/_acquire junction-delete incident recovered — see the GAPS ask below). Phase F folded into SESSION_STATE/CHANGELOG (Mac's publish = DONE+LIVE). **WIN now:** fix the #3 tablet/Apple K-R5-3 clamp (the 3 consecutive short Meqabyan books bp-26/27/28) + resolve the K-R4-2 floor-on-tablet question (Mac handed back); **deep-audit round 10 running**; GAPS-images ask → Mac below. 7 rule-parity tasks still pending Mac mirror+ACK.
-mac: **#3:** Kobo 3-edition refresh DONE + verify_kr2 GREEN 20/20 (gated on user Kobo device-QA); retire-SKU staging cleaned; tablet/Apple handed to WIN (regression). **Remaining:** (1) the 7 rule-consolidation parity tasks + RULES §2.6 — mirror into per-box memory + ACK; (2) when free, check your FULL GAPS for the ~49 manuscript images WIN lost and `git bundle`/zip them to E:/F: (now WIN-side) — see the GAPS ask below.
+windows: **Full-audit program LAUNCHED 2026-06-22 (autonomous, user-triggered).** Running the deep-audit **round-10 WIN lane** (6 compute-heavy dims: tests-run · opt-build · byte-stability · rx-surfaces · popup-integrity · platform-kobo) locally + authoring the EPUB structural auditor (`dev/audit_book_structure.py`) while it runs. Will MERGE Mac's MAC-lane findings + REMEDIATE everything surfaced (user: "until the full audit is in and everything it surfaces is fixed"). Still owns the #3 tablet/Apple K-R5-3 clamp + the K-R4-2 floor-on-tablet question. Prior: drive cleanup + Phase F folded; rule-parity + GAPS = DONE (Mac ACK below).
+mac: **▶ TASK: run the deep-audit round-10 MAC lane** (18 read-only, model-call dims) → write findings to `dev/audit/round10-mac-survivors.json` + `…-plan.md`, push, post DONE here. Full instructions in the "Deep-audit round 10 — SPLIT RUN" section directly below. Prior tasks all CLOSED: 7 rule-parity ACK'd (section below) · GAPS recovery DONE (892-file zip on E:/F:). After the audit, resume the WIN-builds·Mac-verifies cadence.
 ---
+
+## ▶ Deep-audit round 10 — SPLIT RUN (WIN lane local · MAC lane → Mac) (2026-06-22, windows)
+
+> **User-triggered autonomous program:** run the FULL audit split across both boxes, then fix everything it surfaces. WIN runs the 6 LOCAL-COMPUTE-heavy dims here; **Mac runs the 18 read-only model-call dims** (the designed `LANE_DIMS` split — disjoint; together = all 24 product dims). Findings merge on WIN → one remediation pass → loop until every survivor is fixed + green. First clean product audit since the 2026-06-21 Grok-revert cleanup.
+
+**MAC — your task (the MAC lane), findings-only:**
+1. Pull (your bootstrap auto-pulls). Confirm you're at this commit before running.
+2. Run: `Workflow({scriptPath:'.claude/workflows/deep-audit.js', args:{lane:'mac', round:10, scope:'product', now:'2026-06-22', model:'opus'}})`. **Verify the startup `log` line shows `18 dimensions` + `scope=product`.** If the count is different, args didn't propagate → edit the in-file `const LANE = args?.lane ?? 'all'` to hard-code `'mac'` locally, relaunch, then revert the line (never commit the flip — the committed default stays `'all'`).
+   - Your 18 dims: correctness · security · code-debt · tests · docs · data-validity · concurrency-caching · cross-module · marathon-boundary · dist-packaging · website-deploy · future-work · opt-vision · opt-ingest · opt-render · platform-apple · platform-kindle · platform-play. (REPO path + agent types auto-pick from `LANE='mac'`.) These are read-only / model-bound — fine on the HDD-bound iMac; they do **not** build epubs or run pytest (that's the WIN lane), so no disk/RAM contention.
+3. From the returned result object, Write two files under `dev/audit/` (create the dir):
+   - `round10-mac-survivors.json` — `{lane:'mac', round:10, now:'2026-06-22', counts:<result.counts>, survivors:<result.survivors>, completeness:<result.completeness>}`.
+   - `round10-mac-plan.md` — the returned `fixesPlanMarkdown` (append the `completeness` gaps at the end for the next round).
+4. `bash dev/save_mac.sh -m "audit(mac): deep-audit round-10 MAC-lane findings → dev/audit/"` (commit + push both remotes).
+5. Append a `### ✅ MAC AUDIT round-10 DONE` block below with: survivor count, severity breakdown, count of any **UNVERIFIED** (empty-panel) survivors flagged for manual triage, and the top 3 completeness gaps.
+
+**WIN is concurrently:** running the 6-dim WIN lane locally + authoring `dev/audit_book_structure.py` (deterministic EPUB structural+content auditor) to run on the built epubs after. WIN merges both lanes + the structural pass into `dev/audit/round10-remediation.md` and remediates everything (TDD + byte-stability proof + commit-per-fix). **No dual-implementation** — Mac is findings-only this round; WIN remediates (WIN-builds·Mac-verifies stands). After WIN pushes fixes, Mac verifies per the standing cadence.
 
 ## ▶ GAPS images → Mac  +  ✅ WIN ACK of #3 tablet hand-back (2026-06-22, windows)
 
