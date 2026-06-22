@@ -116,19 +116,19 @@ try {
     }
 } catch { }
 
-# --- Lane sync PING (seam check; local, non-fatal): cheap `git ls-remote` check
-# so a fresh session learns immediately if the OTHER lane (win<->mac) pushed while
-# it was away. Prints ONLY when you're BEHIND (pull --rebase before starting / any
-# milestone push). Read-only + bandwidth-cheap; run at the session-start SEAM, NOT a
-# persistent background radar. See scripts/lane_ping.py + RULES s4. ---
+# --- Lane sync RADAR (seam check + AUTO-PULL; local, non-fatal): the STANDING
+# "just pull, never ask" directive AUTO-PULLS (--rebase onto origin/main; auto-commits a
+# dirty tree FIRST when a pull is needed) so the user never types "pull". Multi-remote-safe
+# (origin + github); read-only no-op when CLEAR; non-fatal. Session-start SEAM, NOT a
+# persistent background watcher (the loop machinery stays removed). Supersedes the old
+# report-only lane_ping --quiet block here; lane_watch wraps lane_ping + lane_handoff
+# incoming + the auto-pull. Mirrors bootstrap-triad.sh (Mac parity, 2026-06-22).
+# See scripts/lane_watch.py (check(auto_pull=True)) + RULES s4 (auto-pull-on-BEHIND). ---
 try {
-    $repo = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'scripts\lane_ping.py'
-    if (Test-Path $repo) {
-        $radar = & py -3 $repo --quiet 2>$null
-        if ($radar) {
-            Write-Output ''
-            Write-Output '----- LANE SYNC PING (seam check) -----'
-            Write-Output $radar
-        }
+    $lw = Join-Path (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'YHWH v2.4') 'scripts\lane_watch.py'
+    if (Test-Path $lw) {
+        Write-Output ''
+        Write-Output '----- LANE SYNC RADAR (seam check + auto-pull) -----'
+        & py -3 $lw --once --auto-pull 2>$null
     }
 } catch { }

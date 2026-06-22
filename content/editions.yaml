@@ -187,6 +187,11 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: catholic
+    # Note-presentation rehaul (matches the flagship — collapses per-kind heading
+    # redundancy to ONE heading per category on eink/Kobo; merges Nave's+Torrey → Topics).
+    note_attribution_dedup: true
+    note_group_by_category: true
+    note_topic_dedup: true
     time_filter_ceiling: null
     verse_popups: true
     verse_marker_glyph: ¶
@@ -231,6 +236,7 @@ editions:
       - REL006490
     note_families_off_per_book:
       - "gen=xref"
+    popup_languages_per_verse: []
 
   - id: evangelical-reformed
     # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
@@ -238,6 +244,10 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: protestant
+    # Note-presentation rehaul (matches the flagship — see catholic-study).
+    note_attribution_dedup: true
+    note_group_by_category: true
+    note_topic_dedup: true
     title: "The Reformed Study Bible — Expanded Canon"
     display_name: "Reformed Study Bible"
     short_title: "Reformed SB"
@@ -282,6 +292,10 @@ editions:
     reader_toc_collapsible: false
     reader_toc_books_only: true
     canon: orthodox
+    # Note-presentation rehaul (matches the flagship — see catholic-study).
+    note_attribution_dedup: true
+    note_group_by_category: true
+    note_topic_dedup: true
     title: "The Eastern Orthodox Study Bible"
     display_name: "Eastern Orthodox Bible"
     short_title: "Orthodox SB"

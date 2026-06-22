@@ -465,9 +465,11 @@ async function findDim(dim) {
         phase: 'Find',
         schema: FINDINGS_SCHEMA,
         agentType: atype,
-        // round-7 (2026-06-10): model pin DROPPED — inherit the session model (Fable 5,
-        // the strongest available; quality-over-cost doctrine). args.model still overrides.
-        ...(args?.model ? { model: args.model } : {}),
+        // 2026-06-22 (user): default to OPUS — audits MUST run on the strongest model, never
+        // Sonnet. The feature-dev:code-reviewer agentType forces Sonnet (defeating the old
+        // "inherit session model" intent) and Sonnet skips the forced StructuredOutput → false
+        // negatives. Thoroughness over runtime ("I don't care how long it takes"). args.model overrides.
+        model: args?.model ?? 'opus',
       })
     })
   )
@@ -491,9 +493,9 @@ async function runSkepticPanel(f, dim, size, atype) {
       phase: 'Verify',
       schema: VERDICT_SCHEMA,
       agentType: atype,
-      // round-7 (2026-06-10): model pin DROPPED — inherit the session model (Fable 5).
+      // 2026-06-22 (user): default to OPUS (see find-stage note). args.model overrides.
       // The StructuredOutput-skip top-up retry below stays as the safety net.
-      ...(args?.model ? { model: args.model } : {}),
+      model: args?.model ?? 'opus',
     })
   let panel = (await parallel(Array.from({ length: size }, (_, i) => () => spawn(i, '')))).filter(Boolean)
   if (panel.length < size) {
@@ -580,7 +582,7 @@ Produce Markdown with these sections:
 3. "## Optimization decisions" — a table: Area | Verdict (confirmed-optimal / change) | Recommendation. Keep the marathon-core off-limits and the no-paid-API + byte-stability constraints explicit.
 4. "## Constraints carried" — never touch the marathon core; 9 KJV editions byte-stable; additive schema; atomic writes; **bandwidth-first save cadence (RULES §4): LOCAL-COMMIT per fix, full 5-leg sync only at a milestone**; and this audit is FINDINGS-ONLY — produce the plan, STOP before applying any fix (user marching order 2026-06-08).
 Return ONLY the Markdown.`,
-    { label: 'synth:fixes-plan', phase: 'Synthesize' }
+    { label: 'synth:fixes-plan', phase: 'Synthesize', model: args?.model ?? 'opus' }
   )
 }
 
@@ -593,7 +595,7 @@ ${DIMENSIONS.map((d) => { const v = verified.filter((f) => f.dimension === d.key
 Surviving finding titles: ${survivors.map((f) => f.title).join(' | ') || '(none)'}
 
 As a COMPLETENESS CRITIC, identify what this round likely MISSED — a subtree/module/data-set not searched, an invariant not checked, a failure mode a single-pass finder would skip, or a dimension that returned suspiciously little. Return concrete gaps + a finder lens for each (these seed the next convergence round). Be specific to THIS codebase, not generic.`,
-  { label: 'synth:completeness-critic', phase: 'Synthesize', schema: COMPLETENESS_SCHEMA, agentType: _AG.review }
+  { label: 'synth:completeness-critic', phase: 'Synthesize', schema: COMPLETENESS_SCHEMA, agentType: _AG.review, model: args?.model ?? 'opus' }
 )
 
 return {

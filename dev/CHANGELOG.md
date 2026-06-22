@@ -4,6 +4,17 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-22 — Drive cleanup, GAPS junction recovery, Kobo device-QA fixes, Opus-audit prep (Windows)
+
+User-directed drive cleanup + a Kobo device-QA pass + a session wrap prepping the audit re-run on Opus 4.8.
+
+- **Drives:** reclaimed **~395 GB** of runaway-loop bundle-spam; built a canonical `YHWH-v2.4-backups\` tree (repo-bundles · releases · source-archives · handoff-packs · memory) **mirrored byte-identical on D:/E:/F:** (drives confirmed WIN-side; the E:/F: STANDING flipped + `save-all.ps1` "optional" wording fixed). C: project parent decluttered (caches/dead-tools/temp deleted; scratch+screenshots → `D:\yhwh-c-archive`; source PDFs → canonical).
+- **GAPS/_acquire junction incident + recovery:** the cleanup deleted `D:\YHWH-v2.4-GAPS` / `D:\YHWH-v2.4-acquire` — the **live junction targets**, not backups. `_acquire` restored from the in-cleanup copy (521/521); GAPS restored to **892 files** from Mac's `GAPS-FULL-2026-06-22.zip` (Mac fulfilled the cross-lane ask). Memory updated so it can't recur (`backup-drives`/`gaps-folder`).
+- **Kobo device-QA (user, on-device):** popups load reliably. Three issues in flight (batch-verify next session): (a) **endnote redundancy** — per-*kind* grouping repeats headings across every multi-kind category on the 3 non-flagship study editions → **fixed** by enabling the 3 note-rehaul flags (`note_attribution_dedup`/`note_group_by_category`/`note_topic_dedup`) on catholic-study/evangelical-reformed/eastern-orthodox (was flagship-only); pending rebuild-verify; (b) **Gen 10:6→7 Kobo page break** (kepub-build artifact — diagnose on the built kepub); (c) **translation-popup formatting**.
+- **New program — EPUB structural+content audit** (final-product testing per platform): spec `docs/superpowers/specs/2026-06-22-epub-structural-content-audit.md`; deterministic tool `dev/audit_book_structure.py` (TBD; extends `verify_kr2_build.py`); walks verse(+2 markers)→chapter→book→out-of-book × edition × format.
+- **Opus-audit prep:** deep-audit round 10 ran on **Sonnet/Haiku** (the `feature-dev:code-reviewer` agentType forced its own model, defeating session-model inheritance — exactly the "never audit on Sonnet" rule) → **abandoned**; `deep-audit.js` now **defaults all agents to Opus** (`model: args?.model ?? 'opus'`). Re-run on Opus 4.8 next session.
+- **Cross-lane:** WIN bootstrap auto-pull parity (`bootstrap-triad.ps1` → `lane_watch --once --auto-pull`, mirroring Mac); WIN took the #3 tablet/Apple K-R5-3 clamp regression (Meqabyan bp-26/27/28 + K-R4-2 floor).
+
 ## 2026-06-22 — Phase F website publish DONE + LIVE (Mac lane; folded by WIN truth_owner)
 
 Mac completed all five Phase F publish steps; **www.yhwhyaway.com is live at 91,555 note-refs** with the re-rendered social card. WIN (truth_owner) folds it into the truth records per Mac's `LANE_HANDOFF` request (Mac is parallel-mode, does not edit SESSION_STATE/CHANGELOG).

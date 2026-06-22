@@ -4,12 +4,13 @@ Status-grouped inventory of every strategic plan and design spec under `docs/sup
 
 > **Authoritative ship-ledger:** `dev/CHANGELOG.md`. The statuses here are a navigation aid, not a precise build record.
 
-**88 documents** — 59 plans · 29 specs.
+**89 documents** — 59 plans · 30 specs.
 
-## In progress (40)
+## In progress (41)
 
 | Date | Type | Title | Path | Status |
 |------|------|-------|------|--------|
+| 2026-06-22 | Spec | EPUB structural + content audit — verse(+2 markers)→chapter→book→out-of-book × edition × format (final-product testing per platform) | `specs/2026-06-22-epub-structural-content-audit.md` | DRAFT 2026-06-22 — build + run on Opus 4.8 next session (the round-10 deep-audit ran on Sonnet/Haiku, abandoned); deterministic auditor `dev/audit_book_structure.py` extending `verify_kr2_build.py`. |
 | 2026-06-21 | Plan | ★ Rules + Accuracy Consolidation — rules-audit (47) + offer-audit (9) + work-phase loop §2.6 + `HUMAN_DECISIONS.md` + count reconciliation | `plans/2026-06-21-rules-and-accuracy-consolidation.md` | READY 2026-06-21 — staged for the NEXT session (prep artifact; not yet implemented). Phases A→H, consolidate-by-reference, the loop lands last. Verbatim findings: `notes/2026-06-21-rules-audit-findings.md`. |
 | 2026-06-20 | Plan | Ridiculously Deep Project Audit — Plan (post next big phase) | `plans/2026-06-20-ridiculously-deep-audit-plan.md` | DRAFT 2026-06-20 — post current arc; for round-9+ deep + self-upgrade; execute on trigger (after major phase or explicit). |
 | 2026-06-18 | Plan | Reader Simulation Lab — post-audit local QA harness (Apple · Kobo · Kindle · Play) | `plans/2026-06-18-reader-simulation-lab.md` | PLANNED 2026-06-18 — starts after Round 9 audit gate (`ci.py` + rx-surfaces); `dev/reader_sim/` packs + `scripts/reader_sim.py`; Mac=Apple+Kindle, WIN=Kobo+Play. |
