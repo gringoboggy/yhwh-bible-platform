@@ -4,8 +4,8 @@ updated: 2026-06-22
 from: windows
 truth_owner: windows
 holder: windows
-windows: **Round-10 REMEDIATION UNDERWAY 2026-06-22** — both lanes merged (WIN 8 + Mac 30 mac-dim survivors; Mac's 14 win-dim = corroboration, deduped). ✅ HIGH red gate closed (W1 / cache whitelist; `audit_caches` ok=True, `test_audit_caches` 17/17). Proceeding through merged phases (lint/test/doc → byte-stability → behavior → the frozen-app HIGH last). WIN implements, no Mac dual-edit. Still owns #3 tablet/Apple K-R5-3 clamp + the K-R4-2 floor (user Kobo bug — NOT closed).
-mac: **✅ round-11 completeness-gap class sweep DONE + PUSHED 2026-06-22** → `dev/audit/round11-mac-{survivors.json,plan.md}`. The 8 round-10 §Completeness-gap classes = **69 confirmed sites** (30 high · 24 med · 12 low · 3 info), 0 false-positives, 17 found by the independent critic pass. Standout: gap-4 (round-10 concurrency-caching was 0/0) is really an **18-site SQLite use-after-close race**. ⚠ gap-1: WIN's `2e2d6ede` fixed 1 of 3 sites (api_compare) — **2 remain** (`web_helpers.py:264`, `api/editions.py:649-680`). Detail in the DONE block below. **Now flipping to the standing WIN-builds·Mac-verifies cadence** — verify WIN's round-10 remediation pushes as they land.
+windows: **Round-10 REMEDIATION UNDERWAY + round-11 69 sites folded in 2026-06-22.** ✅ DONE (6 commits, all green+pushed): Phase-0 hygiene (W1 HIGH cache gate · ruff F402/F841 · ALL_CHECKS 34→37 · bare-python · note_rehaul ×2 · lane_watch real-git hazard); Phase-4 byte-neutral (api_compare book-code = gap-1 site 1/3 · _version_key SemVer prerelease · promote.py q-quit · navigator has_notes coord-resolver); **W2/W5 byte-stability** (Kindle OCF re-zip reproducible, determinism guard). NEXT: gap-4 **18-site SQLite use-after-close race** (`_read_cursor()` ctx-mgr) · gap-2 own-vers labels (api_compare max/range) · gap-1 remaining 2 sites · theme-CSS cache key · frozen-app HIGH last. WIN implements; no Mac dual-edit.
+mac: **▶ NEXT (2 things, parallel): (A) VERIFY WIN's 6 pushed remediation commits** on the Mac env (cmds in the WIN block below — esp. the Kindle determinism = cross-OS reproducibility check + tau6x1 = confirm it's the macOS-OCR quirk I diagnosed). **(B) OWN the Phase-1 doc-accuracy batch** (file-disjoint from WIN's code; roadmap.html is yours — needs rebuild+redeploy on your Pages clone). List below. Round-11 sweep = ✅ DONE (69 sites; gap-1 2 sites remain for WIN: `web_helpers.py:264` + `api/editions.py:649-680`).
 ---
 
 ## ▶ WIN: Mac round-10 ACK (your 24-dim run was right) + remediation underway + Mac round-11 task (2026-06-22, windows)
@@ -27,6 +27,34 @@ mac: **✅ round-11 completeness-gap class sweep DONE + PUSHED 2026-06-22** → 
 8. **`standalone_store` ↔ `geez_kjv_xref` apparatus** str/int key-shape split.
 
 Write `dev/audit/round11-mac-survivors.json` + `round11-mac-plan.md` (same shape as round-10); `bash dev/save_mac.sh -m "audit(mac): round-11 completeness-gap class sweep → dev/audit/"`; ACK here. **Do NOT edit code** — WIN remediates. When WIN pushes round-10 fixes, switch to the standing verify cadence (pull → run WIN-listed verify → PASS/FAIL here).
+
+---
+
+## ▶ WIN: round-11 received (69 sites, excellent) + Mac next batch — verify + Phase-1 docs (2026-06-22, windows)
+
+**Round-11 = exactly what was needed.** 8 single-findings → 69 enumerated sites with one canonical fix-pattern per class. The 18-site gap-4 SQLite use-after-close race (round-10's concurrency-caching dim returned 0/0 — this is the real bug) + the gap-2 own-vers HIGHs in `api_compare` (the same fn I just touched) are now my top targets. gap-1: confirmed my `2e2d6ede` closed site 1/3 (api_compare); I'll take the remaining 2 (`web_helpers.py:264`, `api/editions.py:649-680`). All folded into `round10-remediation.md`.
+
+**▶ (A) VERIFY my 6 remediation commits** (pull first; run on the Mac env, report PASS/FAIL per line here). All byte-neutral except W2/W5 (Kindle byte-stability):
+```bash
+export PYTHONUTF8=1
+.venv/bin/python -m pytest tests/test_audit_caches.py tests/test_omega4x_hygiene.py \
+  tests/test_lint_rules.py tests/test_note_rehaul.py tests/test_lane_watch.py \
+  tests/test_api_book_code_normalize.py tests/test_desktop_theta.py \
+  tests/test_kindle_post.py -q          # expect all green
+.venv/bin/python scripts/audit_caches.py            # ok=True (44 caches)
+.venv/bin/python -m ruff check scripts/build_edition.py   # All checks passed
+```
+- **Cross-OS reproducibility (the one that needs a real second box):** confirm `test_kindle_post.py::TestRezipReproducibility` passes on macOS — two `make_kindle_safe` runs byte-identical + every member `date_time == (1980,1,1,0,0,0)`. (WIN proved it on Windows; your PASS proves it's OS-independent.)
+- **tau6x1 cross-check:** run `tests/test_parallel_bible_tau6x1.py -k amharic_column_yields` — I diagnosed your round-10 "yields 0" as a **macOS tesseract-noise quirk** (it's green on WIN). Confirm whether it's red on your box (→ a deterministic-OCR-fixture refactor is the durable fix) or now green.
+
+**▶ (B) OWN the Phase-1 doc-accuracy batch** (pure prose / website — file-disjoint from my code work; `round10-mac-plan.md` Phase 1). These are yours because roadmap.html needs a rebuild+redeploy on your `~/yhwh-website-pub` Pages clone, which WIN can't do:
+1. **roadmap.html** — Geʽez "1 and 2 Samuel are complete" over-claim (actual 3/31 · 1/24) → match the generated reader descs (Psalms complete; Samuel/1 Kings partway), then `node website/build.mjs` + redeploy `dist/` to the `yhwh-website` Pages repo (your prior deploy flow).
+2. **`dev/MATRIX_MAP.md:26`** "68 kinds" → 72 (leave line 136's archived snapshot); **`:255`** dead pointer → repoint to `dev/archive/AUDIT_2026-05-21-inject-tail-residual.md` (also fix `docs/superpowers/plans/2026-05-21-inject-tail-completion.md:466`).
+3. **m4b spec** (`docs/superpowers/notes/2026-06-18-m4b-kindle-fork-design.md:108-118`) — add a "SUPERSEDED by Option B" banner; replace the §6 gate table with the labels `kindle_post.py`/`test_kindle_m4b.py` actually ship.
+4. **platform-play** (`docs/superpowers/notes/2026-06-18-platform-play.md:43` + `platform-implementation-matrix.md:22`) — Personal-upload ceiling **100 MB / ≤1,000 books** (not Partner 2 GB); add a Limits bullet to `EREADERS.md` §Google Play Books; fix the wrong EREADERS line refs (use section anchors).
+5. **`dev/REPO_MAP.md`** top-level counts — refresh OR (preferred) replace the literals with the file's own "regenerate via `py dev/trace_repo.py`" deferral so they stop rotting.
+
+Commit each logical group; `bash dev/save_mac.sh -m "…"`; ACK here. **Do NOT touch `scripts/`/`tests/`/`content/`** — those are WIN's remediation surface this round (avoid rebase churn). When done, resume verifying my subsequent pushes.
 
 ---
 

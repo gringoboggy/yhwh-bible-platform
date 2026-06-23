@@ -40,6 +40,41 @@ is fixed" — overrides the engine's findings-only default).
   edition's built CSS → needs a regen + `git diff` proof, not a Phase-0 quick edit. Grouped with the
   theme-CSS cache-key fix (same neighborhood).
 
+### ✅ Done this session (Phase 4 — byte-neutral behavior + W2/W5 byte-stability)
+- **api_compare book-code** (gap-1 site 1/3) — `web_content.py` now `config.resolve_book_code` (joh→jhn);
+  was returning empty verses. Guard in `test_api_book_code_normalize.py`. Commit `2e2d6ede`.
+- **`_version_key` SemVer prerelease** — `updates.py`: keyed `(core, pre_marker)` so `1.0.0 > 1.0.0-rc1`,
+  `rc1 < rc2`; tightened `test_desktop_theta`. `2e2d6ede`.
+- **W2/W5 Kindle byte-stability** — shared `_ocf_rezip` pins 1980 epoch + 0o644 on every member at both
+  `make_kindle_safe` + `apply_kindle_m4b`; determinism guard (byte-identical ×2 + epoch). KJV editions
+  don't run the Kindle post-process → byte-stable. Commit `07b5208d`.
+- **promote.py** `q`-at-`[v]iew` now quits (was silently skip-mutating the queue). `2b4711fd`.
+- **navigator has_notes** (`web_editions.py`) gates through `enabled_kind_codes_for` coord resolver
+  (matches the symbols cell; closes the count-vs-build divergence class). **Re-verified no-op on current
+  data** (no catholic-study Genesis chapter is xref-only) → defensive correctness-of-construction. `2b4711fd`.
+
+## Round-11 (Mac) — 69 enumerated sites of the 8 completeness classes (FOLDED IN; WIN remediates)
+
+Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-findings → **69 sites**
+(30 high · 24 med · 12 low · 3 info), 0 FP, 17 critic-found. One canonical fix-pattern per class.
+
+| gap | class | sites | top sev | WIN status |
+|---|---|---|---|---|
+| 1 | web_*.py user book-param not `resolve_book_code`'d | 3 | med | site 1/3 done (api_compare); **2 left** (`web_helpers.py:264`, `api/editions.py:649-680`) |
+| 2 | own-vers STRING verse labels hit int `max/range/int()` | 4 | **high** | `api_compare:128/131` (same fn as gap-1) + `verse_of_day:200` + `preview:371/382` — NEXT |
+| 3 | unauth public emitters interpolate corpus → HTML/XML | 6 | med | `verse_of_day` RSS CDATA chokepoint + `_render_sample_html` + preview |
+| 4 | shared `_CACHED_CONN` read outside `_CONN_LOCK` (race) | **18** | **high** | `_read_cursor()` ctx-mgr over all readers in `corpus_index.py` — **highest priority** |
+| 5 | cache key from UNRESOLVED id vs resolved mtime/payload | 1 | med | `translations._book_index_cached` |
+| 6 | user-editable scripture refs → built output, no resolve | 9 | **high** | `reading_plans` parse/emit + co-members |
+| 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | `scripts/migrations/` runner + 0001/0002 |
+| 8 | paired producer/consumer with hardcoded edition/key-shape | 15 | **high** | `standalone_store`↔`geez_kjv_xref` apparatus + class |
+
+**Remediation order (next):** gap-4 (18 HIGH, real concurrency bug, one file) → gap-2 (finish `api_compare`
+own-vers, same fn) → gap-1 remaining 2 → gap-3 (CDATA chokepoint) → gap-5 → gap-6/7/8 (larger, model-bound
+classes — read each `round11-mac-plan.md` block + apply the canonical pattern at every listed site) → then
+the round-10 leftovers (theme-CSS cache key, char-vs-byte split, Kobo byte gate, frozen-app HIGH last) +
+fix/run the structural auditor. **Phase-1 docs delegated to Mac** (file-disjoint; see `LANE_HANDOFF.md`).
+
 Full fix text + evidence: `round10-win-survivors.json` (slim) · `round10-win-result.json` (raw, +logs/panels)
 · `round10-win-plan.md` (synthesized phased plan) · Mac's → `round10-mac-*` (pending).
 
