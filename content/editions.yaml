@@ -183,6 +183,7 @@ editions:
   # ──────────────────────────────────────────────────────────────────
   - id: catholic-study
     # RX P4a — Kobo-safe in-content ToC: book-list-only (Kobo can't render <details>;
+    theme: "modern"
     # chapter nav lives in the reader's NATIVE ToC, enriched to chapter level at build)
     reader_toc_collapsible: false
     reader_toc_books_only: true
@@ -228,9 +229,7 @@ editions:
     traditions_default:
       - catholic
       - cross
-    authors:
-      - Dr. Jane Editor (editor)
-      - Bishop John Smith (foreword)
+    authors: []
     bisac_codes:
       - REL006150
       - REL006490

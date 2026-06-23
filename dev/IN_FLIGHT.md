@@ -13,7 +13,7 @@
 > loop logs, and the tracked `.vscode/extensions.json` + `TOOLCHAIN.md §Grok` (now a decommission
 > note). Cover-art Grok-image feature preserved. Claude is the sole coding agent.
 
-## ▶ Full-audit program — RUNNING (2026-06-22, autonomous, user-triggered)
+## ▶ Full-audit program — WIN audit DONE · Mac running · REMEDIATION NEXT (2026-06-22, autonomous)
 
 > **Goal (user):** "run autonomously with Mac helping until the full audit is in and everything it surfaces is fixed." Two complementary audits, split across both boxes, then remediate everything:
 >
@@ -22,7 +22,7 @@
 >
 > **Findings land in `dev/audit/`** (`round10-win/mac-survivors.json` + `-plan.md`); WIN merges → `round10-remediation.md` → fixes everything (TDD, byte-stability proof on any build-path touch, commit-per-fix, push at coherent stops). **This run OVERRIDES the engine's "findings-only" marching order** — the user wants remediation through to green. Loop until: all survivors fixed + structural audit all-green + suite green.
 >
-> **Resume key:** the WIN-lane Workflow runId + `dev/audit/` contents are the durable state; check `dev/LANE_HANDOFF.md` for Mac's `MAC AUDIT round-10 DONE` line.
+> **WRAP STATE (2026-06-22):** WIN lane **DONE** — 8 survivors (1 high · 1 med · 5 low · 1 info), 3 refuted, persisted to `dev/audit/round10-win-{survivors.json,plan.md,result.json}`; master tracker + next-session order = **`dev/audit/round10-remediation.md`**. **NO fixes applied yet** (user wrapped the session for a fresh start). **Mac lane STILL RUNNING** (~45/96 find · 12/62 verify at wrap) → will push `round10-mac-*` + post DONE in `LANE_HANDOFF.md`. Structural auditor `dev/audit_book_structure.py` **authored but UNRUN** (a completeness critic flagged its badge regex matches only 1 of 2 emitters). **Next session:** read `round10-remediation.md` → W1 first (1-line cache whitelist, unblocks the red gate) → W2–W8 in order → fix+run the structural auditor → `git fetch` + merge Mac's findings → remediate all to green. ⚠ The user's **K-R4-2 vnote Kobo bug** surfaced + was refuted-as-known-deferred — it stays on the **M2 / K-R4-2** backlog, not closed.
 
 ## ▶ Rules + accuracy consolidation — EXECUTED (2026-06-21)
 

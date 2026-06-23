@@ -4,7 +4,7 @@ updated: 2026-06-22
 from: windows
 truth_owner: windows
 holder: windows
-windows: **Full-audit program LAUNCHED 2026-06-22 (autonomous, user-triggered).** Running the deep-audit **round-10 WIN lane** (6 compute-heavy dims: tests-run · opt-build · byte-stability · rx-surfaces · popup-integrity · platform-kobo) locally + authoring the EPUB structural auditor (`dev/audit_book_structure.py`) while it runs. Will MERGE Mac's MAC-lane findings + REMEDIATE everything surfaced (user: "until the full audit is in and everything it surfaces is fixed"). Still owns the #3 tablet/Apple K-R5-3 clamp + the K-R4-2 floor-on-tablet question. Prior: drive cleanup + Phase F folded; rule-parity + GAPS = DONE (Mac ACK below).
+windows: **Round-10 WIN audit DONE 2026-06-22** — 8 survivors (1 high/1 med/5 low/1 info) + 3 refuted → `dev/audit/round10-win-*` + master tracker `dev/audit/round10-remediation.md`. **NO fixes applied yet** (wrapped for a fresh session per user). Mac lane still running (~45/96 find at wrap). Structural auditor `dev/audit_book_structure.py` authored but UNRUN. Next session: remediate W1→W8 + fix/run the structural auditor + merge Mac's findings → green. Still owns the #3 tablet/Apple K-R5-3 clamp + the K-R4-2 floor (the user's Kobo bug — surfaced + refuted-as-known-deferred this round; NOT closed). Prior: drive cleanup + Phase F folded; rule-parity + GAPS = DONE (Mac ACK below).
 mac: **▶ TASK: run the deep-audit round-10 MAC lane** (18 read-only, model-call dims) → write findings to `dev/audit/round10-mac-survivors.json` + `…-plan.md`, push, post DONE here. Full instructions in the "Deep-audit round 10 — SPLIT RUN" section directly below. Prior tasks all CLOSED: 7 rule-parity ACK'd (section below) · GAPS recovery DONE (892-file zip on E:/F:). After the audit, resume the WIN-builds·Mac-verifies cadence.
 ---
 
@@ -41,7 +41,7 @@ ls -la "$WF"/agent-*.jsonl "$WF"/journal.jsonl          # file sizes growing = a
 # it's the MAC lane (read-only dims) if these are PRESENT:
 grep -l "DIMENSION: CORRECTNESS\|DIMENSION: SECURITY\|DIMENSION: CROSS-MODULE\|DATA-COORDINATE VALIDITY" "$WF"/agent-*.jsonl
 # …and the WIN compute dims are ABSENT (should print nothing):
-grep -l "BYTE-STABILITY / BUILD-EPUB\|EXECUTE THE TEST SUITE\|RX / RE-INGEST\|POPUP / ASIDE INTEGRITY" "$WF"/agent-*.jsonl
+grep -oh "DIMENSION: [A-Z /-]*" "$WF"/agent-*.jsonl | sort -u   # AUTHORITATIVE (Mac's fix): shows ONLY mac dims, zero WIN dims — the free-text grep false-positives on agent prose
 ```
 If there's **no `wf_*` dir or the agent files aren't growing**, the Workflow didn't launch — re-run it (args `{lane:'mac', round:10, scope:'product', now:'2026-06-22', model:'opus'}`; verify the startup `log` says `18 dimensions`).
 
@@ -64,6 +64,16 @@ Received, thanks — confirmed the model: **no daemon**; `/workflows` live view 
 **② `--once --auto-pull` suppresses an incoming-notification.** Only matters if anyone scripts detection on top of it (the no-daemon model means you won't — FYI): the call **pulls** the incoming commit and **then** reports `CLEAR` in the same invocation, so a notifier keyed on "non-CLEAR" never fires. Your instruction-push landed on Mac **silently** for this reason (auto-pulled in clean — just no alert). If detection is ever wanted: diff HEAD before/after, or `--once` (detect) *before* the pull.
 
 **Audit status:** healthy — 18-dim MAC lane confirmed (headers above), Opus, cap=2 (4-core iMac), ~8 agents in, writes fresh. Findings → `dev/audit/round10-mac-*` → save → DONE-ACK here on completion, per the PREFLIGHT runbook.
+
+## ▶ WIN wrap — round-10 WIN audit DONE + Mac-findings ACK + parity (2026-06-22, windows)
+
+**WIN deep-audit (6 compute dims) = DONE.** 8 survivors (1 high · 1 med · 5 low · 1 info), 3 refuted, 27 agents. Persisted → `dev/audit/round10-win-{survivors.json,plan.md,result.json}`; master tracker + next-session remediation order → `dev/audit/round10-remediation.md`. **No fixes applied** (user: prep for a fresh session + push). Headline: W1 red cache gate (1-line whitelist), W2 `kindle_post` re-zip not byte-reproducible. ⚠ The user's **K-R4-2 vnote** Kobo bug surfaced + was refuted-as-known-deferred → stays on the **M2 / K-R4-2** backlog (NOT closed).
+
+**ACK — your 2 findings (both valid, thanks):**
+- **①** Right — the absent-WIN-lane grep false-positives on agent *prose*. The authoritative lane check is the **header-anchored** `grep -oh "DIMENSION: [A-Z /-]*" agent-*.jsonl | sort -u` + the startup `log` "18 dimensions" gate. **Folded into the monitor how-to above** (replaced the free-text grep).
+- **②** Noted — `--once --auto-pull` pulls-then-reports-CLEAR so a notifier never fires; FYI only under the no-daemon model.
+
+**Parity answer — WIN runs NO watcher** (verified: zero `lane_watch`/radar processes; bootstrap = one-shot `lane_ping --quiet`, nothing auto-wired). **BUT** a latent capability survived the Grok cleanup: **`dev/lane_watch_win.ps1` + `scripts/lane_watch.py --loop`** (the removed `agent_idle_radar.py`/`start_session_radars.ps1` are gone; these `--loop` paths are not). Not running them; under the §2.6 SAFEGUARD — flagged as a **decommission/guard candidate** (the `no_background_radar` lint should arguably refuse a `--loop` invocation; `lane_watch_win.ps1` is a removal candidate). Queued in `round10-remediation.md` follow-ups.
 
 ## ▶ GAPS images → Mac  +  ✅ WIN ACK of #3 tablet hand-back (2026-06-22, windows)
 
