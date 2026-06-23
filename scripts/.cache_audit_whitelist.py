@@ -82,3 +82,9 @@ _._web_anchors  # scripts/_fix_chapter_verse_boundaries.py — round-7 WEB groun
 # cache IS the compiled pattern; clearing it would only force an
 # identical recompile. No write path can invalidate them.
 _._aside_existing_re  # scripts/inject.py — per-prefix existing-aside-id pattern (mint-8 hot-regex hoist; lru_cache(256))
+
+# ---- Pure-function value caches ----
+# Pure functions of their argument(s) over immutable module constants — no
+# external/runtime state, no write path can invalidate them. The cache IS the
+# computed value; clearing it would only force an identical recompute.
+_._estimate_kepub_aside_bytes  # scripts/build_edition.py — pure post-kepubify byte estimate keyed only on html_text (round-9 Opt#5); depends solely on the arg + immutable constants _KEPUB_SENTENCE_RE / _KEPUB_SPAN_OVERHEAD; no write path can invalidate it

@@ -1,9 +1,17 @@
 # Round-10 audit — remediation tracker
 
-**Status (2026-06-22 wrap):** WIN lane DONE (8 survivors). MAC lane STILL RUNNING (~45/96 find · 12/62
-verify at wrap). Structural auditor AUTHORED but UNRUN. **Next session: run structural auditor → merge
-Mac's findings → remediate everything to green** (user directive: "until the full audit is in and
-everything it surfaces is fixed" — this overrides the engine's findings-only default).
+**Status (2026-06-22, REMEDIATION UNDERWAY):** Both lanes IN + merged. WIN lane = 8 survivors. MAC lane
+= 44 survivors (30 mac-dim NET + 14 win-dim corroboration, deduped against WIN's authoritative compute
+run). Combined unique set = WIN's 8 (authoritative on the 6 compute dims) + Mac's 30 mac-dim findings.
+**Two HIGHs:** W1 (cache red-gate — ✅ FIXED) and the Mac frozen-app `content_root()` silent-data-loss
+(`paths.py:132-169` — do last, most invasive). Structural auditor AUTHORED but UNRUN. **In progress:
+remediate everything to green** (user directive: "until the full audit is in and everything it surfaces
+is fixed" — overrides the engine's findings-only default).
+
+### ✅ Done this session
+- **W1 (HIGH, cache red-gate)** — whitelisted `_estimate_kepub_aside_bytes` (pure fn) in
+  `scripts/.cache_audit_whitelist.py` (new "Pure-function value caches" section). `audit_caches` ok=True
+  (44 caches: 23 clear-path / 21 whitelisted); `test_audit_caches` 17/17. Byte-neutral (audit metadata only).
 
 Full fix text + evidence: `round10-win-survivors.json` (slim) · `round10-win-result.json` (raw, +logs/panels)
 · `round10-win-plan.md` (synthesized phased plan) · Mac's → `round10-mac-*` (pending).
@@ -35,11 +43,24 @@ critic READ it and flagged: **its badge regex matches only ONE of two emitters**
 RUN it on a real built `catholic-study` epub + kepub and confirm it actually exercises badge/aside paths.
 (mypy/ruff/compile clean; never executed against an artifact.)
 
-## MAC lane — PENDING (still running at wrap)
+## MAC lane — DONE + MERGED (44 survivors; ran full 24-dim `all`, args didn't propagate but findings valid)
 
-18 read-only dims, Opus, on the iMac. At wrap: ~45/96 find · 12/62 verify. Will write
-`dev/audit/round10-mac-survivors.json` + `-plan.md` and post `✅ MAC AUDIT round-10 DONE` in
-`LANE_HANDOFF.md`. **Next session: `git fetch`, merge Mac's survivors into this tracker, remediate.**
+Full detail: `dev/audit/round10-mac-survivors.json` + `round10-mac-plan.md` (30 KB phased plan + 8
+completeness gaps). 64 deduped → 44 survived (1 high · 12 med · 23 low · 8 info), 20 refuted, **0
+UNVERIFIED**. **30 mac-dim survivors = the NET deliverable** (1 high · 5 med · 17 low · 7 info); the 14
+win-dim survivors corroborate WIN's authoritative 6-dim run (dedup, don't double-fix).
+
+**Mac-lane remediation order** (per `round10-mac-plan.md` phases; WIN executes):
+- **Phase 0 — lint/test hygiene** (no engine, no output change): ruff F402/F841 `build_edition.py:7094,7123-7125` · audit_caches whitelist (= W1, ✅ done) · stale `test_note_rehaul` pins (= W4) · registry-size pin `test_lint_rules.py:43` (34→37) · bare-`python` `test_lint_rules.py:1032` · `test_lane_watch.py:107-111` (⚠ leaves `_git` UNMOCKED → real `git fetch` in-suite) · `test_parallel_bible_tau6x1.py:1344` OCR floor.
+- **Phase 1 — doc accuracy** (prose only): roadmap.html Geʽez over-claim (Mac owns rebuild+redeploy) · MATRIX_MAP 68→72 + dead pointer · m4b spec banner · platform-play 100 MB ceiling · REPO_MAP counts.
+- **Phase 2 — additive guards:** Kobo oversized-piece byte gate (= W7) · whole-corpus `check_notes_extent` lint.
+- **Phase 3 — byte-stability** (proof obligation): theme-CSS unhashed cache key · kindle re-zip wall-clock (= W2/W5) · char-vs-byte split measure · `build_epub.should_skip` dotfile exclusion.
+- **Phase 4 — behavior** (scoped, byte-neutral): SSRF redirect re-check · version-compare prerelease · `api_compare` book-code normalize · matrix count-grid override gating · `promote.py` `q`-at-view.
+- **Phase 5 — the HIGH** (most invasive, last): frozen-app `content_root()` → route content read/write sites through `paths.content_root()` + frozen guard.
+- **Phase 6 — code-debt** (optional): comm-* detector base class · dead `_EMPTY_VERSE_REFS_RE`.
+
+> **Mac round-11 (queued, findings-only, parallel):** completeness-gap class sweep on the 8 gaps →
+> `round11-mac-*` (so WIN fixes each recurring class completely, not the first site). See `LANE_HANDOFF.md`.
 
 ## Completeness gaps (next-round seeds)
 
